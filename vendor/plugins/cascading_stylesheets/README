@@ -1,0 +1,41 @@
+= Cascading Stylesheets
+
+Cascading Stylesheets is a plugin that enhances the behaviour of the built-in
++stylesheet_link_tag+ macro to support a <code>:defaults</code> parameter. If <code>:defaults</code> is
+passed as a parameter, the +stylesheet_link_tag+ macro will load the following
+stylesheets (if present) in order:
+
+1. <code>application.css</code>;
+2. <code>#{RAILS_ENV}.css</code> (ie. <code>development.css</code>, <code>production.css</code>, <code>uat.css</code>, etc.);
+3. <code>layouts/#{layout_name}.css</code> (eg. <code>layouts/print.css</code>); and
+4. <code>#{controller_name/action_name}.css</code> (eg. <code>home/index.css</code>, <code>customers/new.css</code>, etc.).
+
+This allows you to define application-wide, environment-specific (such as
+different backgrounds for UAT and production) and page-specific styles without
+needing to manually link each one.
+
+To use, simply call +stylesheet_link_tag+ from <code>application.rhtml</code> (in much the same way
+as you would use +javascript_include_tag+) passing <code>:defaults</code> as a (or the only)
+parameter:
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+      ...
+      <%= stylesheet_link_tag :defaults %>
+      <%= javascript_include_tag :defaults %>
+    </head>
+    <body>
+      ...
+    </body>
+  </html>
+
+=== See Also
+
+* Cascading Javascripts (cascading_javascripts).
+
+=== License
+
+This plugin is copyright 2006 by RedHill Consulting, Pty. Ltd. and is released
+under the MIT license.
