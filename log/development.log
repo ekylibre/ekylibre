@@ -6755,3 +6755,649 @@ SGFzaHsABjoKQHVzZWR7AA==--d445883d32fad2d92e99508f670156a38aaa468b
 Rendering template within layouts/application
 Rendering authentication/login
 Completed in 0.16431 (6 reqs/sec) | Rendering: 0.00297 (1%) | DB: 0.00000 (0%) | 200 OK [http://localhost/authentication/login]
+  [4;36;1mSQL (0.020957)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000382)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.241500)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [4;35;1mSQL (0.096789)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON schema_migrations ("version")[0m
+  [4;36;1mSQL (0.001322)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.000713)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000736)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to Beginning (20080808080808)
+  [4;35;1mSQL (0.000709)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000259)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.310011)[0m   [0mCREATE TABLE "sessions" ("id" serial primary key, "session_id" character varying(255) DEFAULT NULL NULL, "data" text DEFAULT NULL NULL, "updated_at" timestamp DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.076169)[0m   [0;1mCREATE INDEX "index_sessions_on_session_id" ON sessions ("session_id")[0m
+  [4;35;1mSQL (0.007252)[0m   [0mCREATE INDEX "index_sessions_on_updated_at" ON sessions ("updated_at")[0m
+  [4;36;1mSQL (0.099192)[0m   [0;1mCREATE TABLE "languages" ("id" serial primary key, "name" character varying(255) NOT NULL, "native_name" character varying(255) DEFAULT NULL NULL, "iso2" character varying(2) NOT NULL, "iso3" character varying(3) NOT NULL) [0m
+  [4;35;1mSQL (0.006747)[0m   [0mCREATE INDEX "index_languages_on_name" ON languages ("name")[0m
+  [4;36;1mSQL (0.008525)[0m   [0;1mCREATE INDEX "index_languages_on_iso2" ON languages ("iso2")[0m
+  [4;35;1mSQL (0.181862)[0m   [0mCREATE INDEX "index_languages_on_iso3" ON languages ("iso3")[0m
+  [4;36;1mSQL (0.050006)[0m   [0;1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(32) NOT NULL, "first_name" character varying(255) NOT NULL, "last_name" character varying(255) NOT NULL, "salt" character varying(64) NOT NULL, "hashed_password" character varying(64) NOT NULL, "locked" boolean DEFAULT 'f' NOT NULL, "deleted" boolean DEFAULT 'f' NOT NULL, "connected_at" integer DEFAULT 0 NOT NULL, "email" character varying(255) DEFAULT NULL NULL, "company_id" integer NOT NULL, "language_id" integer NOT NULL, "role_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.013288)[0m   [0mCREATE INDEX "index_users_on_created_at" ON users ("created_at")[0m
+  [4;36;1mSQL (0.006274)[0m   [0;1mCREATE INDEX "index_users_on_updated_at" ON users ("updated_at")[0m
+  [4;35;1mSQL (0.006226)[0m   [0mCREATE INDEX "index_users_on_created_by" ON users ("created_by")[0m
+  [4;36;1mSQL (0.012018)[0m   [0;1mCREATE INDEX "index_users_on_updated_by" ON users ("updated_by")[0m
+  [4;35;1mSQL (0.006253)[0m   [0mCREATE UNIQUE INDEX "index_users_on_name" ON users ("name")[0m
+  [4;36;1mSQL (0.009507)[0m   [0;1mCREATE INDEX "index_users_on_email" ON users ("email")[0m
+  [4;35;1mSQL (0.040006)[0m   [0mCREATE INDEX "index_users_on_company_id" ON users ("company_id")[0m
+  [4;36;1mSQL (0.183537)[0m   [0;1mCREATE TABLE "companies" ("id" serial primary key, "name" character varying(255) NOT NULL, "code" character varying(8) NOT NULL, "siren" character varying(9) DEFAULT E'000000000' NOT NULL, "locked" boolean DEFAULT 'f' NOT NULL, "deleted" boolean DEFAULT 'f' NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.075632)[0m   [0mCREATE INDEX "index_companies_on_created_at" ON companies ("created_at")[0m
+  [4;36;1mSQL (0.006609)[0m   [0;1mCREATE INDEX "index_companies_on_updated_at" ON companies ("updated_at")[0m
+  [4;35;1mSQL (0.010064)[0m   [0mCREATE INDEX "index_companies_on_created_by" ON companies ("created_by")[0m
+  [4;36;1mSQL (0.014412)[0m   [0;1mCREATE INDEX "index_companies_on_updated_by" ON companies ("updated_by")[0m
+  [4;35;1mSQL (0.006439)[0m   [0mCREATE UNIQUE INDEX "index_companies_on_name" ON companies ("name")[0m
+  [4;36;1mSQL (0.009683)[0m   [0;1mCREATE UNIQUE INDEX "index_companies_on_code" ON companies ("code")[0m
+  [4;35;1mSQL (0.170554)[0m   [0mCREATE TABLE "parameters" ("id" serial primary key, "name" character varying(255) NOT NULL, "nature" character varying(1) NOT NULL, "string_value" text DEFAULT NULL NULL, "boolean_value" boolean DEFAULT NULL NULL, "integer_value" integer DEFAULT NULL NULL, "decimal_value" decimal DEFAULT NULL NULL, "element_type" character varying(255) DEFAULT NULL NULL, "element_id" integer DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (user_id) REFERENCES users (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (company_id) REFERENCES companies (id), FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.021517)[0m   [0;1mCREATE INDEX "index_parameters_on_created_at" ON parameters ("created_at")[0m
+  [4;35;1mSQL (0.006307)[0m   [0mCREATE INDEX "index_parameters_on_updated_at" ON parameters ("updated_at")[0m
+  [4;36;1mSQL (0.006232)[0m   [0;1mCREATE INDEX "index_parameters_on_created_by" ON parameters ("created_by")[0m
+  [4;35;1mSQL (0.010444)[0m   [0mCREATE INDEX "index_parameters_on_updated_by" ON parameters ("updated_by")[0m
+  [4;36;1mSQL (0.006369)[0m   [0;1mCREATE INDEX "index_parameters_on_company_id" ON parameters ("company_id")[0m
+  [4;35;1mSQL (0.121920)[0m   [0mCREATE UNIQUE INDEX "index_parameters_on_company_id_and_name" ON parameters ("company_id", "name")[0m
+  [4;36;1mSQL (0.040245)[0m   [0;1mCREATE TABLE "roles" ("id" serial primary key, "name" character varying(255) NOT NULL, "default" boolean NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (company_id) REFERENCES companies (id), FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.015312)[0m   [0mCREATE INDEX "index_roles_on_created_at" ON roles ("created_at")[0m
+  [4;36;1mSQL (0.006975)[0m   [0;1mCREATE INDEX "index_roles_on_updated_at" ON roles ("updated_at")[0m
+  [4;35;1mSQL (0.008588)[0m   [0mCREATE INDEX "index_roles_on_created_by" ON roles ("created_by")[0m
+  [4;36;1mSQL (0.006594)[0m   [0;1mCREATE INDEX "index_roles_on_updated_by" ON roles ("updated_by")[0m
+  [4;35;1mSQL (0.007407)[0m   [0mCREATE INDEX "index_roles_on_company_id" ON roles ("company_id")[0m
+  [4;36;1mSQL (0.006505)[0m   [0;1mCREATE UNIQUE INDEX "index_roles_on_company_id_and_name" ON roles ("company_id", "name")[0m
+  [4;35;1mSQL (0.058432)[0m   [0mCREATE TABLE "actions" ("id" serial primary key, "name" character varying(255) NOT NULL, "desc" text DEFAULT NULL NULL, "parent_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (parent_id) REFERENCES actions (id), FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.014014)[0m   [0;1mCREATE INDEX "index_actions_on_created_at" ON actions ("created_at")[0m
+  [4;35;1mSQL (0.014142)[0m   [0mCREATE INDEX "index_actions_on_updated_at" ON actions ("updated_at")[0m
+  [4;36;1mSQL (0.006180)[0m   [0;1mCREATE INDEX "index_actions_on_created_by" ON actions ("created_by")[0m
+  [4;35;1mSQL (0.006793)[0m   [0mCREATE INDEX "index_actions_on_updated_by" ON actions ("updated_by")[0m
+  [4;36;1mSQL (0.006900)[0m   [0;1mCREATE UNIQUE INDEX "index_actions_on_name" ON actions ("name")[0m
+  [4;35;1mSQL (0.061360)[0m   [0mCREATE TABLE "actions_roles" ("id" serial primary key, "action_id" integer NOT NULL, "role_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (action_id) REFERENCES actions (id), FOREIGN KEY (role_id) REFERENCES roles (id), FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.021454)[0m   [0;1mCREATE INDEX "index_actions_roles_on_created_at" ON actions_roles ("created_at")[0m
+  [4;35;1mSQL (0.006422)[0m   [0mCREATE INDEX "index_actions_roles_on_updated_at" ON actions_roles ("updated_at")[0m
+  [4;36;1mSQL (0.006863)[0m   [0;1mCREATE INDEX "index_actions_roles_on_created_by" ON actions_roles ("created_by")[0m
+  [4;35;1mSQL (0.006590)[0m   [0mCREATE INDEX "index_actions_roles_on_updated_by" ON actions_roles ("updated_by")[0m
+  [4;36;1mSQL (0.061478)[0m   [0;1mCREATE TABLE "templates" ("id" serial primary key, "name" character varying(255) NOT NULL, "content" text NOT NULL, "cache" text DEFAULT NULL NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (company_id) REFERENCES companies (id), FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.007517)[0m   [0mCREATE INDEX "index_templates_on_created_at" ON templates ("created_at")[0m
+  [4;36;1mSQL (0.034969)[0m   [0;1mCREATE INDEX "index_templates_on_updated_at" ON templates ("updated_at")[0m
+  [4;35;1mSQL (0.057532)[0m   [0mCREATE INDEX "index_templates_on_created_by" ON templates ("created_by")[0m
+  [4;36;1mSQL (0.007205)[0m   [0;1mCREATE INDEX "index_templates_on_updated_by" ON templates ("updated_by")[0m
+  [4;35;1mSQL (0.006499)[0m   [0mCREATE INDEX "index_templates_on_company_id" ON templates ("company_id")[0m
+  [4;36;1mSQL (0.007091)[0m   [0;1mCREATE UNIQUE INDEX "index_templates_on_company_id_and_name" ON templates ("company_id", "name")[0m
+  [4;35;1mSQL (0.004824)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.007744)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080808080808')[0m
+Migrating to Populating (20080818181818)
+  [4;35;1mSQL (0.000846)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000252)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.103517)[0m   [0mCREATE TABLE "establishments" ("id" serial primary key, "name" character varying(255) NOT NULL, "nic" character varying(5) NOT NULL, "siret" character varying(255) NOT NULL, "note" text DEFAULT NULL NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE RESTRICT ON DELETE RESTRICT, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.009232)[0m   [0;1mCREATE INDEX "index_establishments_on_created_at" ON establishments ("created_at")[0m
+  [4;35;1mSQL (0.201561)[0m   [0mCREATE INDEX "index_establishments_on_updated_at" ON establishments ("updated_at")[0m
+  [4;36;1mSQL (0.006397)[0m   [0;1mCREATE INDEX "index_establishments_on_created_by" ON establishments ("created_by")[0m
+  [4;35;1mSQL (0.011551)[0m   [0mCREATE INDEX "index_establishments_on_updated_by" ON establishments ("updated_by")[0m
+  [4;36;1mSQL (0.007196)[0m   [0;1mCREATE UNIQUE INDEX "index_establishments_on_name_and_company_id" ON establishments ("name", "company_id")[0m
+  [4;35;1mSQL (0.012583)[0m   [0mCREATE UNIQUE INDEX "index_establishments_on_siret_and_company_id" ON establishments ("siret", "company_id")[0m
+  [4;36;1mSQL (0.075600)[0m   [0;1mCREATE TABLE "departments" ("id" serial primary key, "name" character varying(255) NOT NULL, "desc" text DEFAULT NULL NULL, "parent_id" integer DEFAULT NULL NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (parent_id) REFERENCES departments (id) ON UPDATE RESTRICT ON DELETE RESTRICT, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE RESTRICT ON DELETE RESTRICT, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.010090)[0m   [0mCREATE INDEX "index_departments_on_created_at" ON departments ("created_at")[0m
+  [4;36;1mSQL (0.006195)[0m   [0;1mCREATE INDEX "index_departments_on_updated_at" ON departments ("updated_at")[0m
+  [4;35;1mSQL (0.010283)[0m   [0mCREATE INDEX "index_departments_on_created_by" ON departments ("created_by")[0m
+  [4;36;1mSQL (0.006172)[0m   [0;1mCREATE INDEX "index_departments_on_updated_by" ON departments ("updated_by")[0m
+  [4;35;1mSQL (0.016914)[0m   [0mCREATE UNIQUE INDEX "index_departments_on_name_and_company_id" ON departments ("name", "company_id")[0m
+  [4;36;1mSQL (0.006236)[0m   [0;1mCREATE INDEX "index_departments_on_parent_id" ON departments ("parent_id")[0m
+  [4;35;1mSQL (0.317801)[0m   [0mCREATE TABLE "employees" ("id" serial primary key, "department_id" integer NOT NULL, "establishment_id" integer NOT NULL, "user_id" integer DEFAULT NULL NULL, "title" character varying(32) NOT NULL, "last_name" character varying(255) NOT NULL, "first_name" character varying(255) NOT NULL, "arrived_on" date NOT NULL, "departed_on" date NOT NULL, "role" character varying(255) DEFAULT NULL NULL, "office" character varying(32) DEFAULT NULL NULL, "note" text DEFAULT NULL NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (department_id) REFERENCES departments (id) ON UPDATE RESTRICT ON DELETE RESTRICT, FOREIGN KEY (establishment_id) REFERENCES establishments (id) ON UPDATE RESTRICT ON DELETE RESTRICT, FOREIGN KEY (user_id) REFERENCES users (id) ON UPDATE RESTRICT ON DELETE RESTRICT, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE RESTRICT ON DELETE RESTRICT, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.018467)[0m   [0;1mCREATE INDEX "index_employees_on_created_at" ON employees ("created_at")[0m
+  [4;35;1mSQL (0.035550)[0m   [0mCREATE INDEX "index_employees_on_updated_at" ON employees ("updated_at")[0m
+  [4;36;1mSQL (0.014795)[0m   [0;1mCREATE INDEX "index_employees_on_created_by" ON employees ("created_by")[0m
+  [4;35;1mSQL (0.006428)[0m   [0mCREATE INDEX "index_employees_on_updated_by" ON employees ("updated_by")[0m
+  [4;36;1mSQL (0.008877)[0m   [0;1mCREATE UNIQUE INDEX "index_employees_on_company_id_and_user_id" ON employees ("company_id", "user_id")[0m
+  [4;35;1mSQL (0.068908)[0m   [0mCREATE TABLE "entity_natures" ("id" serial primary key, "name" character varying(255) NOT NULL, "abbreviation" character varying(255) NOT NULL, "active" boolean DEFAULT 't' NOT NULL, "physical" boolean DEFAULT 'f' NOT NULL, "in_name" boolean DEFAULT 't' NOT NULL, "title" character varying(255) DEFAULT NULL NULL, "description" text DEFAULT NULL NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.028978)[0m   [0;1mCREATE INDEX "index_entity_natures_on_created_at" ON entity_natures ("created_at")[0m
+  [4;35;1mSQL (0.007526)[0m   [0mCREATE INDEX "index_entity_natures_on_updated_at" ON entity_natures ("updated_at")[0m
+  [4;36;1mSQL (0.007488)[0m   [0;1mCREATE INDEX "index_entity_natures_on_created_by" ON entity_natures ("created_by")[0m
+  [4;35;1mSQL (0.010122)[0m   [0mCREATE INDEX "index_entity_natures_on_updated_by" ON entity_natures ("updated_by")[0m
+  [4;36;1mSQL (0.025201)[0m   [0;1mCREATE INDEX "index_entity_natures_on_company_id" ON entity_natures ("company_id")[0m
+  [4;35;1mSQL (0.031378)[0m   [0mCREATE UNIQUE INDEX "index_entity_natures_on_name_and_company_id" ON entity_natures ("name", "company_id")[0m
+  [4;36;1mSQL (0.073296)[0m   [0;1mCREATE TABLE "entities" ("id" serial primary key, "nature_id" integer NOT NULL, "language_id" integer NOT NULL, "code" character varying(255) NOT NULL, "name" character varying(255) NOT NULL, "first_name" character varying(255) DEFAULT NULL NULL, "full_name" character varying(255) NOT NULL, "active" boolean DEFAULT 't' NOT NULL, "born_on" date DEFAULT NULL NULL, "dead_on" date DEFAULT NULL NULL, "ean13" character varying(13) DEFAULT NULL NULL, "soundex" character varying(4) DEFAULT NULL NULL, "website" character varying(255) DEFAULT NULL NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (nature_id) REFERENCES entity_natures (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (language_id) REFERENCES languages (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.019500)[0m   [0mCREATE INDEX "index_entities_on_created_at" ON entities ("created_at")[0m
+  [4;36;1mSQL (0.007192)[0m   [0;1mCREATE INDEX "index_entities_on_updated_at" ON entities ("updated_at")[0m
+  [4;35;1mSQL (0.029539)[0m   [0mCREATE INDEX "index_entities_on_created_by" ON entities ("created_by")[0m
+  [4;36;1mSQL (0.006253)[0m   [0;1mCREATE INDEX "index_entities_on_updated_by" ON entities ("updated_by")[0m
+  [4;35;1mSQL (0.009811)[0m   [0mCREATE INDEX "index_entities_on_company_id" ON entities ("company_id")[0m
+  [4;36;1mSQL (0.007889)[0m   [0;1mCREATE UNIQUE INDEX "index_entities_on_code_and_company_id" ON entities ("code", "company_id")[0m
+  [4;35;1mSQL (0.008081)[0m   [0mCREATE INDEX "index_entities_on_name_and_company_id" ON entities ("name", "company_id")[0m
+  [4;36;1mSQL (0.058916)[0m   [0;1mCREATE INDEX "index_entities_on_full_name_and_company_id" ON entities ("full_name", "company_id")[0m
+  [4;35;1mSQL (0.006656)[0m   [0mCREATE INDEX "index_entities_on_soundex_and_company_id" ON entities ("soundex", "company_id")[0m
+  [4;36;1mSQL (0.063690)[0m   [0;1mCREATE TABLE "address_norms" ("id" serial primary key, "name" character varying(255) NOT NULL, "reference" character varying(255) DEFAULT NULL NULL, "default" boolean DEFAULT 'f' NOT NULL, "rtl" boolean DEFAULT 'f' NOT NULL, "align" character varying(8) DEFAULT E'left' NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.008968)[0m   [0mCREATE INDEX "index_address_norms_on_created_at" ON address_norms ("created_at")[0m
+  [4;36;1mSQL (0.008561)[0m   [0;1mCREATE INDEX "index_address_norms_on_updated_at" ON address_norms ("updated_at")[0m
+  [4;35;1mSQL (0.008233)[0m   [0mCREATE INDEX "index_address_norms_on_created_by" ON address_norms ("created_by")[0m
+  [4;36;1mSQL (0.006308)[0m   [0;1mCREATE INDEX "index_address_norms_on_updated_by" ON address_norms ("updated_by")[0m
+  [4;35;1mSQL (0.006233)[0m   [0mCREATE INDEX "index_address_norms_on_company_id" ON address_norms ("company_id")[0m
+  [4;36;1mSQL (0.006730)[0m   [0;1mCREATE UNIQUE INDEX "index_address_norms_on_name_and_company_id" ON address_norms ("name", "company_id")[0m
+  [4;35;1mSQL (0.226018)[0m   [0mCREATE TABLE "address_norm_items" ("id" serial primary key, "contact_norm_id" integer NOT NULL, "name" character varying(255) NOT NULL, "nature" character varying(15) DEFAULT E'content' NOT NULL, "maxlength" integer DEFAULT 38 NOT NULL, "content" character varying(255) DEFAULT NULL NULL, "left_nature" character varying(15) DEFAULT NULL NULL, "left_value" character varying(63) DEFAULT NULL NULL, "right_nature" character varying(15) DEFAULT E'space' NULL, "right_value" character varying(63) DEFAULT NULL NULL, "position" integer DEFAULT NULL NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (contact_norm_id) REFERENCES address_norms (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.011991)[0m   [0;1mCREATE INDEX "index_address_norm_items_on_created_at" ON address_norm_items ("created_at")[0m
+  [4;35;1mSQL (0.008977)[0m   [0mCREATE INDEX "index_address_norm_items_on_updated_at" ON address_norm_items ("updated_at")[0m
+  [4;36;1mSQL (0.010181)[0m   [0;1mCREATE INDEX "index_address_norm_items_on_created_by" ON address_norm_items ("created_by")[0m
+  [4;35;1mSQL (0.006591)[0m   [0mCREATE INDEX "index_address_norm_items_on_updated_by" ON address_norm_items ("updated_by")[0m
+  [4;36;1mSQL (0.006623)[0m   [0;1mCREATE INDEX "index_address_norm_items_on_company_id" ON address_norm_items ("company_id")[0m
+  [4;35;1mSQL (0.008702)[0m   [0mCREATE UNIQUE INDEX "index_address_norm_items_on_nature_and_contact_norm_id_and_company_id" ON address_norm_items ("nature", "contact_norm_id", "company_id")[0m
+  [4;36;1mSQL (0.009112)[0m   [0;1mCREATE UNIQUE INDEX "index_address_norm_items_on_name_and_contact_norm_id_and_company_id" ON address_norm_items ("name", "contact_norm_id", "company_id")[0m
+  [4;35;1mSQL (0.229521)[0m   [0mCREATE TABLE "contacts" ("id" serial primary key, "element_id" integer NOT NULL, "element_type" character varying(255) DEFAULT NULL NULL, "norm_id" integer NOT NULL, "active" boolean DEFAULT 't' NOT NULL, "default" boolean DEFAULT 't' NOT NULL, "closed_on" date DEFAULT NULL NULL, "line_2" character varying(38) DEFAULT NULL NULL, "line_3" character varying(38) DEFAULT NULL NULL, "line_4_number" character varying(38) DEFAULT NULL NULL, "line_4_street" character varying(38) DEFAULT NULL NULL, "line_5" character varying(38) DEFAULT NULL NULL, "line_6_code" character varying(38) DEFAULT NULL NULL, "line_6_city" character varying(38) DEFAULT NULL NULL, "phone" character varying(32) DEFAULT NULL NULL, "fax" character varying(32) DEFAULT NULL NULL, "mobile" character varying(32) DEFAULT NULL NULL, "email" character varying(255) DEFAULT NULL NULL, "website" character varying(255) DEFAULT NULL NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (norm_id) REFERENCES address_norms (id), FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.018368)[0m   [0;1mCREATE INDEX "index_contacts_on_created_at" ON contacts ("created_at")[0m
+  [4;35;1mSQL (0.006427)[0m   [0mCREATE INDEX "index_contacts_on_updated_at" ON contacts ("updated_at")[0m
+  [4;36;1mSQL (0.006583)[0m   [0;1mCREATE INDEX "index_contacts_on_created_by" ON contacts ("created_by")[0m
+  [4;35;1mSQL (0.008676)[0m   [0mCREATE INDEX "index_contacts_on_updated_by" ON contacts ("updated_by")[0m
+  [4;36;1mSQL (0.016915)[0m   [0;1mCREATE INDEX "index_contacts_on_company_id" ON contacts ("company_id")[0m
+  [4;35;1mSQL (0.008336)[0m   [0mCREATE INDEX "index_contacts_on_element_id" ON contacts ("element_id")[0m
+  [4;36;1mSQL (0.007041)[0m   [0;1mCREATE INDEX "index_contacts_on_element_type" ON contacts ("element_type")[0m
+  [4;35;1mSQL (0.007302)[0m   [0mCREATE INDEX "index_contacts_on_active" ON contacts ("active")[0m
+  [4;36;1mSQL (0.006402)[0m   [0;1mCREATE INDEX "index_contacts_on_default" ON contacts ("default")[0m
+  [4;35;1mSQL (0.008457)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.032112)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080818181818')[0m
+Migrating to Accounting (20080819191919)
+  [4;35;1mSQL (0.000807)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000245)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.109767)[0m   [0mCREATE TABLE "currencies" ("id" serial primary key, "name" character varying(255) NOT NULL, "code" character varying(255) NOT NULL, "format" character varying(16) NOT NULL, "rate" decimal(16,6) DEFAULT 1 NOT NULL, "active" boolean DEFAULT 't' NOT NULL, "comment" text DEFAULT NULL NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.013724)[0m   [0;1mCREATE INDEX "index_currencies_on_created_at" ON currencies ("created_at")[0m
+  [4;35;1mSQL (0.006568)[0m   [0mCREATE INDEX "index_currencies_on_updated_at" ON currencies ("updated_at")[0m
+  [4;36;1mSQL (0.008474)[0m   [0;1mCREATE INDEX "index_currencies_on_created_by" ON currencies ("created_by")[0m
+  [4;35;1mSQL (0.007005)[0m   [0mCREATE INDEX "index_currencies_on_updated_by" ON currencies ("updated_by")[0m
+  [4;36;1mSQL (0.008061)[0m   [0;1mCREATE INDEX "index_currencies_on_company_id" ON currencies ("company_id")[0m
+  [4;35;1mSQL (0.007052)[0m   [0mCREATE INDEX "index_currencies_on_active" ON currencies ("active")[0m
+  [4;36;1mSQL (0.007529)[0m   [0;1mCREATE UNIQUE INDEX "index_currencies_on_code_and_company_id" ON currencies ("code", "company_id")[0m
+  [4;35;1mSQL (0.009369)[0m   [0mCREATE INDEX "index_currencies_on_name" ON currencies ("name")[0m
+  [4;36;1mSQL (0.084025)[0m   [0;1mCREATE TABLE "delays" ("id" serial primary key, "name" character varying(255) NOT NULL, "active" boolean DEFAULT 'f' NOT NULL, "expression" character varying(255) DEFAULT E'0' NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.009862)[0m   [0mCREATE INDEX "index_delays_on_created_at" ON delays ("created_at")[0m
+  [4;36;1mSQL (0.008164)[0m   [0;1mCREATE INDEX "index_delays_on_updated_at" ON delays ("updated_at")[0m
+  [4;35;1mSQL (0.007001)[0m   [0mCREATE INDEX "index_delays_on_created_by" ON delays ("created_by")[0m
+  [4;36;1mSQL (0.006912)[0m   [0;1mCREATE INDEX "index_delays_on_updated_by" ON delays ("updated_by")[0m
+  [4;35;1mSQL (0.007982)[0m   [0mCREATE UNIQUE INDEX "index_delays_on_name_and_company_id" ON delays ("name", "company_id")[0m
+  [4;36;1mSQL (0.227834)[0m   [0;1mCREATE TABLE "accounts" ("id" serial primary key, "number" character varying(16) NOT NULL, "alpha" character varying(16) DEFAULT NULL NULL, "name" character varying(208) NOT NULL, "label" character varying(255) NOT NULL, "usable" boolean DEFAULT 'f' NOT NULL, "groupable" boolean DEFAULT 'f' NOT NULL, "keep_entries" boolean DEFAULT 'f' NOT NULL, "transferable" boolean DEFAULT 'f' NOT NULL, "letterable" boolean DEFAULT 'f' NOT NULL, "pointable" boolean DEFAULT 'f' NOT NULL, "is_debit" boolean DEFAULT 'f' NOT NULL, "last_letter" character varying(8) DEFAULT NULL NULL, "comment" text DEFAULT NULL NULL, "delay_id" integer DEFAULT NULL NULL, "entity_id" integer DEFAULT NULL NULL, "parent_id" integer NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (delay_id) REFERENCES delays (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (entity_id) REFERENCES entities (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.027304)[0m   [0mCREATE INDEX "index_accounts_on_created_at" ON accounts ("created_at")[0m
+  [4;36;1mSQL (0.006322)[0m   [0;1mCREATE INDEX "index_accounts_on_updated_at" ON accounts ("updated_at")[0m
+  [4;35;1mSQL (0.006301)[0m   [0mCREATE INDEX "index_accounts_on_created_by" ON accounts ("created_by")[0m
+  [4;36;1mSQL (0.011374)[0m   [0;1mCREATE INDEX "index_accounts_on_updated_by" ON accounts ("updated_by")[0m
+  [4;35;1mSQL (0.008573)[0m   [0mCREATE UNIQUE INDEX "index_accounts_on_number_and_company_id" ON accounts ("number", "company_id")[0m
+  [4;36;1mSQL (0.006772)[0m   [0;1mCREATE UNIQUE INDEX "index_accounts_on_label_and_company_id" ON accounts ("label", "company_id")[0m
+  [4;35;1mSQL (0.006778)[0m   [0mCREATE UNIQUE INDEX "index_accounts_on_alpha_and_company_id" ON accounts ("alpha", "company_id")[0m
+  [4;36;1mSQL (0.006768)[0m   [0;1mCREATE INDEX "index_accounts_on_name_and_company_id" ON accounts ("name", "company_id")[0m
+  [4;35;1mSQL (0.007013)[0m   [0mCREATE INDEX "index_accounts_on_entity_id_and_company_id" ON accounts ("entity_id", "company_id")[0m
+  [4;36;1mSQL (0.042081)[0m   [0;1mCREATE INDEX "index_accounts_on_delay_id" ON accounts ("delay_id")[0m
+  [4;35;1mSQL (0.007186)[0m   [0mCREATE INDEX "index_accounts_on_entity_id" ON accounts ("entity_id")[0m
+  [4;36;1mSQL (0.176495)[0m   [0;1mCREATE INDEX "index_accounts_on_parent_id" ON accounts ("parent_id")[0m
+  [4;35;1mSQL (0.006453)[0m   [0mCREATE INDEX "index_accounts_on_company_id" ON accounts ("company_id")[0m
+  [4;36;1mSQL (0.055157)[0m   [0;1mCREATE TABLE "financialyear_natures" ("id" serial primary key, "name" character varying(255) NOT NULL, "code" character varying(2) NOT NULL, "fiscal" boolean DEFAULT 'f' NOT NULL, "month_number" integer DEFAULT 12 NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.021275)[0m   [0mCREATE INDEX "index_financialyear_natures_on_created_at" ON financialyear_natures ("created_at")[0m
+  [4;36;1mSQL (0.012735)[0m   [0;1mCREATE INDEX "index_financialyear_natures_on_updated_at" ON financialyear_natures ("updated_at")[0m
+  [4;35;1mSQL (0.008232)[0m   [0mCREATE INDEX "index_financialyear_natures_on_created_by" ON financialyear_natures ("created_by")[0m
+  [4;36;1mSQL (0.006292)[0m   [0;1mCREATE INDEX "index_financialyear_natures_on_updated_by" ON financialyear_natures ("updated_by")[0m
+  [4;35;1mSQL (0.007315)[0m   [0mCREATE UNIQUE INDEX "index_financialyear_natures_on_name_and_company_id" ON financialyear_natures ("name", "company_id")[0m
+  [4;36;1mSQL (0.006664)[0m   [0;1mCREATE UNIQUE INDEX "index_financialyear_natures_on_code_and_company_id" ON financialyear_natures ("code", "company_id")[0m
+  [4;35;1mSQL (0.008104)[0m   [0mCREATE INDEX "index_financialyear_natures_on_fiscal_and_company_id" ON financialyear_natures ("fiscal", "company_id")[0m
+  [4;36;1mSQL (0.008363)[0m   [0;1mCREATE INDEX "index_financialyear_natures_on_company_id" ON financialyear_natures ("company_id")[0m
+  [4;35;1mSQL (0.349750)[0m   [0mCREATE TABLE "financialyears" ("id" serial primary key, "code" character varying(12) NOT NULL, "nature_id" integer NOT NULL, "closed" boolean DEFAULT 'f' NOT NULL, "started_on" date NOT NULL, "stopped_on" date NOT NULL, "written_on" date NOT NULL, "debit" decimal(16,2) DEFAULT 0 NOT NULL, "credit" decimal(16,2) DEFAULT 0 NOT NULL, "position" integer NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (nature_id) REFERENCES financialyear_natures (id), FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.018117)[0m   [0;1mCREATE INDEX "index_financialyears_on_created_at" ON financialyears ("created_at")[0m
+  [4;35;1mSQL (0.007706)[0m   [0mCREATE INDEX "index_financialyears_on_updated_at" ON financialyears ("updated_at")[0m
+  [4;36;1mSQL (0.011976)[0m   [0;1mCREATE INDEX "index_financialyears_on_created_by" ON financialyears ("created_by")[0m
+  [4;35;1mSQL (0.006688)[0m   [0mCREATE INDEX "index_financialyears_on_updated_by" ON financialyears ("updated_by")[0m
+  [4;36;1mSQL (0.008414)[0m   [0;1mCREATE UNIQUE INDEX "index_financialyears_on_code_and_company_id" ON financialyears ("code", "company_id")[0m
+  [4;35;1mSQL (0.006671)[0m   [0mCREATE INDEX "index_financialyears_on_nature_id_and_company_id" ON financialyears ("nature_id", "company_id")[0m
+  [4;36;1mSQL (0.006348)[0m   [0;1mCREATE INDEX "index_financialyears_on_company_id" ON financialyears ("company_id")[0m
+  [4;35;1mSQL (0.099933)[0m   [0mCREATE TABLE "account_balances" ("id" serial primary key, "account_id" integer NOT NULL, "financialyear_id" integer NOT NULL, "global_debit" decimal(16,2) DEFAULT 0 NOT NULL, "global_credit" decimal(16,2) DEFAULT 0 NOT NULL, "global_balance" decimal(16,2) DEFAULT 0 NOT NULL, "global_count" integer DEFAULT 0 NOT NULL, "local_debit" decimal(16,2) DEFAULT 0 NOT NULL, "local_credit" decimal(16,2) DEFAULT 0 NOT NULL, "local_balance" decimal(16,2) DEFAULT 0 NOT NULL, "local_count" integer DEFAULT 0 NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (account_id) REFERENCES accounts (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (financialyear_id) REFERENCES financialyears (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.010834)[0m   [0;1mCREATE INDEX "index_account_balances_on_created_at" ON account_balances ("created_at")[0m
+  [4;35;1mSQL (0.010925)[0m   [0mCREATE INDEX "index_account_balances_on_updated_at" ON account_balances ("updated_at")[0m
+  [4;36;1mSQL (0.011021)[0m   [0;1mCREATE INDEX "index_account_balances_on_created_by" ON account_balances ("created_by")[0m
+  [4;35;1mSQL (0.006459)[0m   [0mCREATE INDEX "index_account_balances_on_updated_by" ON account_balances ("updated_by")[0m
+  [4;36;1mSQL (0.006471)[0m   [0;1mCREATE INDEX "index_account_balances_on_company_id" ON account_balances ("company_id")[0m
+  [4;35;1mSQL (0.008742)[0m   [0mCREATE INDEX "index_account_balances_on_financialyear_id" ON account_balances ("financialyear_id")[0m
+  [4;36;1mSQL (0.020220)[0m   [0;1mCREATE UNIQUE INDEX "index_account_balances_on_account_id_and_financialyear_id_and_company_id" ON account_balances ("account_id", "financialyear_id", "company_id")[0m
+  [4;35;1mSQL (0.067415)[0m   [0mCREATE TABLE "journal_natures" ("id" serial primary key, "name" character varying(255) NOT NULL, "comment" text DEFAULT NULL NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.011076)[0m   [0;1mCREATE INDEX "index_journal_natures_on_created_at" ON journal_natures ("created_at")[0m
+  [4;35;1mSQL (0.008100)[0m   [0mCREATE INDEX "index_journal_natures_on_updated_at" ON journal_natures ("updated_at")[0m
+  [4;36;1mSQL (0.053427)[0m   [0;1mCREATE INDEX "index_journal_natures_on_created_by" ON journal_natures ("created_by")[0m
+  [4;35;1mSQL (0.006530)[0m   [0mCREATE INDEX "index_journal_natures_on_updated_by" ON journal_natures ("updated_by")[0m
+  [4;36;1mSQL (0.010438)[0m   [0;1mCREATE INDEX "index_journal_natures_on_company_id" ON journal_natures ("company_id")[0m
+  [4;35;1mSQL (0.006894)[0m   [0mCREATE UNIQUE INDEX "index_journal_natures_on_name_and_company_id" ON journal_natures ("name", "company_id")[0m
+  [4;36;1mSQL (0.246790)[0m   [0;1mCREATE TABLE "journals" ("id" serial primary key, "nature_id" integer NOT NULL, "name" character varying(255) NOT NULL, "code" character varying(4) NOT NULL, "counterpart_id" integer DEFAULT NULL NULL, "closed_on" date DEFAULT '1494-12-31' NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (nature_id) REFERENCES journal_natures (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (counterpart_id) REFERENCES accounts (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.017810)[0m   [0mCREATE INDEX "index_journals_on_created_at" ON journals ("created_at")[0m
+  [4;36;1mSQL (0.006688)[0m   [0;1mCREATE INDEX "index_journals_on_updated_at" ON journals ("updated_at")[0m
+  [4;35;1mSQL (0.014388)[0m   [0mCREATE INDEX "index_journals_on_created_by" ON journals ("created_by")[0m
+  [4;36;1mSQL (0.007483)[0m   [0;1mCREATE INDEX "index_journals_on_updated_by" ON journals ("updated_by")[0m
+  [4;35;1mSQL (0.008947)[0m   [0mCREATE INDEX "index_journals_on_company_id" ON journals ("company_id")[0m
+  [4;36;1mSQL (0.007011)[0m   [0;1mCREATE INDEX "index_journals_on_nature_id" ON journals ("nature_id")[0m
+  [4;35;1mSQL (0.006962)[0m   [0mCREATE UNIQUE INDEX "index_journals_on_name_and_company_id" ON journals ("name", "company_id")[0m
+  [4;36;1mSQL (0.007083)[0m   [0;1mCREATE UNIQUE INDEX "index_journals_on_code_and_company_id" ON journals ("code", "company_id")[0m
+  [4;35;1mSQL (0.096179)[0m   [0mCREATE TABLE "journal_periods" ("id" serial primary key, "journal_id" integer NOT NULL, "financialyear_id" integer NOT NULL, "started_on" date NOT NULL, "stopped_on" date NOT NULL, "closed" boolean DEFAULT 'f' NULL, "debit" decimal(16,2) DEFAULT 0 NOT NULL, "credit" decimal(16,2) DEFAULT 0 NOT NULL, "balance" decimal(16,2) DEFAULT 0 NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (journal_id) REFERENCES journals (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (financialyear_id) REFERENCES financialyears (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.010166)[0m   [0;1mCREATE INDEX "index_journal_periods_on_created_at" ON journal_periods ("created_at")[0m
+  [4;35;1mSQL (0.007749)[0m   [0mCREATE INDEX "index_journal_periods_on_updated_at" ON journal_periods ("updated_at")[0m
+  [4;36;1mSQL (0.006735)[0m   [0;1mCREATE INDEX "index_journal_periods_on_created_by" ON journal_periods ("created_by")[0m
+  [4;35;1mSQL (0.007263)[0m   [0mCREATE INDEX "index_journal_periods_on_updated_by" ON journal_periods ("updated_by")[0m
+  [4;36;1mSQL (0.006778)[0m   [0;1mCREATE INDEX "index_journal_periods_on_company_id" ON journal_periods ("company_id")[0m
+  [4;35;1mSQL (0.015697)[0m   [0mCREATE INDEX "index_journal_periods_on_journal_id" ON journal_periods ("journal_id")[0m
+  [4;36;1mSQL (0.009272)[0m   [0;1mCREATE INDEX "index_journal_periods_on_financialyear_id" ON journal_periods ("financialyear_id")[0m
+  [4;35;1mSQL (0.008054)[0m   [0mCREATE INDEX "index_journal_periods_on_started_on" ON journal_periods ("started_on")[0m
+  [4;36;1mSQL (0.007190)[0m   [0;1mCREATE INDEX "index_journal_periods_on_stopped_on" ON journal_periods ("stopped_on")[0m
+  [4;35;1mSQL (0.039665)[0m   [0mCREATE UNIQUE INDEX "index_journal_periods_on_started_on_and_journal_id" ON journal_periods ("started_on", "journal_id")[0m
+  [4;36;1mSQL (0.008796)[0m   [0;1mCREATE UNIQUE INDEX "index_journal_periods_on_stopped_on_and_journal_id" ON journal_periods ("stopped_on", "journal_id")[0m
+  [4;35;1mSQL (0.145541)[0m   [0mCREATE TABLE "journal_records" ("id" serial primary key, "resource_id" integer NOT NULL, "resource_type" character varying(255) DEFAULT NULL NULL, "created_on" date NOT NULL, "printed_on" date NOT NULL, "number" character varying(255) NOT NULL, "status" character varying(1) DEFAULT E'A' NOT NULL, "debit" decimal(16,2) DEFAULT 0 NOT NULL, "credit" decimal(16,2) DEFAULT 0 NOT NULL, "balance" decimal(16,2) DEFAULT 0 NOT NULL, "position" integer NOT NULL, "period_id" integer NOT NULL, "journal_id" integer NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (period_id) REFERENCES journal_periods (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (journal_id) REFERENCES journals (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.012330)[0m   [0;1mCREATE INDEX "index_journal_records_on_created_at" ON journal_records ("created_at")[0m
+  [4;35;1mSQL (0.008752)[0m   [0mCREATE INDEX "index_journal_records_on_updated_at" ON journal_records ("updated_at")[0m
+  [4;36;1mSQL (0.019902)[0m   [0;1mCREATE INDEX "index_journal_records_on_created_by" ON journal_records ("created_by")[0m
+  [4;35;1mSQL (0.006635)[0m   [0mCREATE INDEX "index_journal_records_on_updated_by" ON journal_records ("updated_by")[0m
+  [4;36;1mSQL (0.012545)[0m   [0;1mCREATE INDEX "index_journal_records_on_status_and_company_id" ON journal_records ("status", "company_id")[0m
+  [4;35;1mSQL (0.007489)[0m   [0mCREATE INDEX "index_journal_records_on_created_on_and_company_id" ON journal_records ("created_on", "company_id")[0m
+  [4;36;1mSQL (0.007599)[0m   [0;1mCREATE INDEX "index_journal_records_on_printed_on_and_company_id" ON journal_records ("printed_on", "company_id")[0m
+  [4;35;1mSQL (0.006617)[0m   [0mCREATE INDEX "index_journal_records_on_journal_id" ON journal_records ("journal_id")[0m
+  [4;36;1mSQL (0.256843)[0m   [0;1mCREATE INDEX "index_journal_records_on_period_id" ON journal_records ("period_id")[0m
+  [4;35;1mSQL (0.124415)[0m   [0mCREATE INDEX "index_journal_records_on_company_id" ON journal_records ("company_id")[0m
+  [4;36;1mSQL (0.068177)[0m   [0;1mCREATE TABLE "banks" ("id" serial primary key, "name" character varying(255) NOT NULL, "code" character varying(16) NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.021039)[0m   [0mCREATE INDEX "index_banks_on_created_at" ON banks ("created_at")[0m
+  [4;36;1mSQL (0.012666)[0m   [0;1mCREATE INDEX "index_banks_on_updated_at" ON banks ("updated_at")[0m
+  [4;35;1mSQL (0.006998)[0m   [0mCREATE INDEX "index_banks_on_created_by" ON banks ("created_by")[0m
+  [4;36;1mSQL (0.006340)[0m   [0;1mCREATE INDEX "index_banks_on_updated_by" ON banks ("updated_by")[0m
+  [4;35;1mSQL (0.006803)[0m   [0mCREATE UNIQUE INDEX "index_banks_on_name_and_company_id" ON banks ("name", "company_id")[0m
+  [4;36;1mSQL (0.006682)[0m   [0;1mCREATE UNIQUE INDEX "index_banks_on_code_and_company_id" ON banks ("code", "company_id")[0m
+  [4;35;1mSQL (0.006369)[0m   [0mCREATE INDEX "index_banks_on_company_id" ON banks ("company_id")[0m
+  [4;36;1mSQL (0.137840)[0m   [0;1mCREATE TABLE "bank_accounts" ("id" serial primary key, "name" character varying(255) NOT NULL, "agency" character varying(255) DEFAULT NULL NULL, "counter" character varying(16) DEFAULT NULL NULL, "number" character varying(32) DEFAULT NULL NULL, "key" character varying(4) DEFAULT NULL NULL, "iban" character varying(34) NOT NULL, "iban_text" character varying(48) NOT NULL, "bic" character varying(16) DEFAULT NULL NULL, "bank_id" integer NOT NULL, "journal_id" integer NOT NULL, "currency_id" integer NOT NULL, "account_id" integer NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (bank_id) REFERENCES banks (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (journal_id) REFERENCES journals (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (currency_id) REFERENCES currencies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (account_id) REFERENCES accounts (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.289599)[0m   [0mCREATE INDEX "index_bank_accounts_on_created_at" ON bank_accounts ("created_at")[0m
+  [4;36;1mSQL (0.007585)[0m   [0;1mCREATE INDEX "index_bank_accounts_on_updated_at" ON bank_accounts ("updated_at")[0m
+  [4;35;1mSQL (0.010698)[0m   [0mCREATE INDEX "index_bank_accounts_on_created_by" ON bank_accounts ("created_by")[0m
+  [4;36;1mSQL (0.089502)[0m   [0;1mCREATE INDEX "index_bank_accounts_on_updated_by" ON bank_accounts ("updated_by")[0m
+  [4;35;1mSQL (0.031990)[0m   [0mCREATE UNIQUE INDEX "index_bank_accounts_on_name_and_bank_id_and_account_id" ON bank_accounts ("name", "bank_id", "account_id")[0m
+  [4;36;1mSQL (0.015975)[0m   [0;1mCREATE INDEX "index_bank_accounts_on_bank_id" ON bank_accounts ("bank_id")[0m
+  [4;35;1mSQL (0.007712)[0m   [0mCREATE INDEX "index_bank_accounts_on_journal_id" ON bank_accounts ("journal_id")[0m
+  [4;36;1mSQL (0.013865)[0m   [0;1mCREATE INDEX "index_bank_accounts_on_currency_id" ON bank_accounts ("currency_id")[0m
+  [4;35;1mSQL (0.006577)[0m   [0mCREATE INDEX "index_bank_accounts_on_account_id" ON bank_accounts ("account_id")[0m
+  [4;36;1mSQL (0.030719)[0m   [0;1mCREATE INDEX "index_bank_accounts_on_company_id" ON bank_accounts ("company_id")[0m
+  [4;35;1mSQL (0.072641)[0m   [0mCREATE UNIQUE INDEX "index_bank_accounts_on_bank_id_and_account_id" ON bank_accounts ("bank_id", "account_id")[0m
+  [4;36;1mSQL (0.182831)[0m   [0;1mCREATE TABLE "bank_account_statements" ("id" serial primary key, "bank_account_id" integer NOT NULL, "started_on" date NOT NULL, "stopped_on" date NOT NULL, "printed_on" date NOT NULL, "intermediate" boolean DEFAULT 'f' NOT NULL, "number" character varying(255) NOT NULL, "debit" decimal(16,2) DEFAULT 0 NOT NULL, "credit" decimal(16,2) DEFAULT 0 NOT NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (bank_account_id) REFERENCES bank_accounts (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;35;1mSQL (0.030024)[0m   [0mCREATE INDEX "index_bank_account_statements_on_created_at" ON bank_account_statements ("created_at")[0m
+  [4;36;1mSQL (0.008080)[0m   [0;1mCREATE INDEX "index_bank_account_statements_on_updated_at" ON bank_account_statements ("updated_at")[0m
+  [4;35;1mSQL (0.006702)[0m   [0mCREATE INDEX "index_bank_account_statements_on_created_by" ON bank_account_statements ("created_by")[0m
+  [4;36;1mSQL (0.027698)[0m   [0;1mCREATE INDEX "index_bank_account_statements_on_updated_by" ON bank_account_statements ("updated_by")[0m
+  [4;35;1mSQL (0.008707)[0m   [0mCREATE INDEX "index_bank_account_statements_on_bank_account_id" ON bank_account_statements ("bank_account_id")[0m
+  [4;36;1mSQL (0.101036)[0m   [0;1mCREATE INDEX "index_bank_account_statements_on_company_id" ON bank_account_statements ("company_id")[0m
+  [4;35;1mSQL (0.386994)[0m   [0mCREATE TABLE "entries" ("id" serial primary key, "record_id" integer NOT NULL, "account_id" integer NOT NULL, "name" character varying(255) NOT NULL, "currency_id" integer NOT NULL, "currency_rate" decimal(16,6) DEFAULT 1 NOT NULL, "currency_debit" decimal(16,2) DEFAULT 0 NOT NULL, "currency_credit" decimal(16,2) DEFAULT 0 NOT NULL, "debit" decimal(16,2) DEFAULT 0 NOT NULL, "credit" decimal(16,2) DEFAULT 0 NOT NULL, "intermediate_id" integer DEFAULT NULL NULL, "statement_id" integer DEFAULT NULL NULL, "letter" character varying(8) DEFAULT NULL NULL, "expired_on" date DEFAULT NULL NULL, "position" integer DEFAULT NULL NULL, "comment" text DEFAULT NULL NULL, "company_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "created_by" integer DEFAULT NULL NULL, "updated_by" integer DEFAULT NULL NULL, "lock_version" integer DEFAULT 0 NOT NULL, FOREIGN KEY (record_id) REFERENCES journal_records (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (account_id) REFERENCES accounts (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (currency_id) REFERENCES currencies (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (intermediate_id) REFERENCES bank_account_statements (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (statement_id) REFERENCES bank_account_statements (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (company_id) REFERENCES companies (id) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (created_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (updated_by) REFERENCES users (id) ON UPDATE CASCADE ON DELETE RESTRICT) [0m
+  [4;36;1mSQL (0.025182)[0m   [0;1mCREATE INDEX "index_entries_on_created_at" ON entries ("created_at")[0m
+  [4;35;1mSQL (0.010805)[0m   [0mCREATE INDEX "index_entries_on_updated_at" ON entries ("updated_at")[0m
+  [4;36;1mSQL (0.006997)[0m   [0;1mCREATE INDEX "index_entries_on_created_by" ON entries ("created_by")[0m
+  [4;35;1mSQL (0.006824)[0m   [0mCREATE INDEX "index_entries_on_updated_by" ON entries ("updated_by")[0m
+  [4;36;1mSQL (0.010946)[0m   [0;1mCREATE INDEX "index_entries_on_company_id" ON entries ("company_id")[0m
+  [4;35;1mSQL (0.007512)[0m   [0mCREATE INDEX "index_entries_on_record_id" ON entries ("record_id")[0m
+  [4;36;1mSQL (0.007806)[0m   [0;1mCREATE INDEX "index_entries_on_account_id" ON entries ("account_id")[0m
+  [4;35;1mSQL (0.012832)[0m   [0mCREATE INDEX "index_entries_on_statement_id" ON entries ("statement_id")[0m
+  [4;36;1mSQL (0.007802)[0m   [0;1mCREATE INDEX "index_entries_on_intermediate_id" ON entries ("intermediate_id")[0m
+  [4;35;1mSQL (0.020970)[0m   [0mCREATE INDEX "index_entries_on_name" ON entries ("name")[0m
+  [4;36;1mSQL (0.014327)[0m   [0;1mCREATE INDEX "index_entries_on_letter" ON entries ("letter")[0m
+  [4;35;1mSQL (0.011135)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.040527)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080819191919')[0m
+  [4;35;1mSQL (0.001465)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000483)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000371)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.000200)[0m   [0;1mBEGIN[0m
+  [4;35;1mLanguage Create (0.003127)[0m   [0mINSERT INTO "languages" ("name", "native_name", "iso2", "iso3") VALUES(E'English', E'English', E'en', E'eng')[0m
+  [4;36;1mSQL (0.027890)[0m   [0;1mSELECT currval('languages_id_seq')[0m
+  [4;35;1mLanguage Create (0.000982)[0m   [0mINSERT INTO "languages" ("name", "native_name", "iso2", "iso3") VALUES(E'French', E'Français', E'fr', E'fra')[0m
+  [4;36;1mSQL (0.000493)[0m   [0;1mSELECT currval('languages_id_seq')[0m
+  [4;35;1mLanguage Create (0.000843)[0m   [0mINSERT INTO "languages" ("name", "native_name", "iso2", "iso3") VALUES(E'Spanish', E'Español', E'es', E'spa')[0m
+  [4;36;1mSQL (0.000463)[0m   [0;1mSELECT currval('languages_id_seq')[0m
+  [4;35;1mSQL (0.034578)[0m   [0mSELECT "name" FROM "companies" WHERE ("companies".name = E'NaC') [0m
+  [4;36;1mSQL (0.001372)[0m   [0;1mSELECT "code" FROM "companies" WHERE ("companies".code = E'NAC') [0m
+  [4;35;1mCompany Create (0.044619)[0m   [0mINSERT INTO "companies" ("name", "updated_at", "code", "created_by", "lock_version", "updated_by", "deleted", "siren", "locked", "created_at") VALUES(E'NaC', '2008-09-08 08:35:12.863574', E'NAC', NULL, 0, NULL, 'f', E'000000000', 'f', '2008-09-08 08:35:12.863574')[0m
+  [4;36;1mSQL (0.000720)[0m   [0;1mSELECT currval('companies_id_seq')[0m
+  [4;35;1mSQL (0.003060)[0m   [0mSELECT "name" FROM "roles" WHERE ("roles".name = E'Default' AND "roles".company_id = 1) [0m
+  [4;36;1mCompany Load (0.001113)[0m   [0;1mSELECT * FROM "companies" WHERE ("companies"."id" = 1) [0m
+  [4;35;1mRole Create (0.004366)[0m   [0mINSERT INTO "roles" ("name", "default", "updated_at", "created_by", "lock_version", "updated_by", "company_id", "created_at") VALUES(E'Default', 't', '2008-09-08 08:35:12.949392', NULL, 0, NULL, 1, '2008-09-08 08:35:12.949392')[0m
+  [4;36;1mSQL (0.000646)[0m   [0;1mSELECT currval('roles_id_seq')[0m
+  [4;35;1mSQL (0.003496)[0m   [0mSELECT "name" FROM "users" WHERE ("users".name = E'admin') [0m
+  [4;36;1mUser Create (0.004861)[0m   [0;1mINSERT INTO "users" ("name", "salt", "updated_at", "hashed_password", "connected_at", "created_by", "role_id", "lock_version", "updated_by", "language_id", "deleted", "company_id", "first_name", "last_name", "locked", "email", "created_at") VALUES(E'admin', E'kj:qcaanuY_dZzn0xI?HY_M.owD_3jnSC8Wpfs]w>O;G].fwW,QH7D?a<SzJnUPR', '2008-09-08 08:35:13.247498', E'78b3e734867fd1dafe4e1013dfbd45782a24b7d49582f3a7643ab1ff3812a0b4', 0, NULL, 1, 0, NULL, 2, 'f', 1, E'Toto', E'ADMIN', 'f', NULL, '2008-09-08 08:35:13.247498')[0m
+  [4;35;1mSQL (0.000667)[0m   [0mSELECT currval('users_id_seq')[0m
+  [4;36;1mSQL (0.003045)[0m   [0;1mSELECT "name" FROM "templates" WHERE ("templates".name = E'test' AND "templates".company_id = 1) [0m
+  [4;35;1mCompany Load (0.001147)[0m   [0mSELECT * FROM "companies" WHERE ("companies"."id" = 1) [0m
+  [4;36;1mTemplate Create (0.023256)[0m   [0;1mINSERT INTO "templates" ("name", "updated_at", "cache", "created_by", "lock_version", "updated_by", "content", "company_id", "created_at") VALUES(E'test', '2008-09-08 08:35:13.538377', NULL, NULL, 0, NULL, E'<?xml version="1.0"?>
+
+<template title="Example" orientation="portrait" format="240x320" unit="mm" query-standard="sql" size="10">
+	<infos>
+		<info type="created-on">04/09/2008</info>
+	</infos>
+	<loop>
+		<block type="header" mode="even">
+			<text x="2" y="2" width="206" height="5" align="L">Facture EVEN {ID}</text>
+			<image x="160" y="10" width="50" height="50" src="/usr/share/gnome/help/gnomine/fr/figures/easy-hints-1.png"/>
+		</block>
+		<block type="header" mode="odd">
+			<text x="2" y="2" width="206" height="5" align="R">Facture ODD</text>
+			<image x="2" y="10" width="50" height="50" src="/usr/share/gnome/help/gnomine/fr/figures/easy-hints-1.png"/>
+		</block>
+		<block type="footer">
+			<rule x="2" y="0" width="206" height="1"/>
+			<text x="2" y="2" width="206" height="5" align="C">Facture FOOTER {PAGENO}/{PAGENB}</text>
+			<image x="2" y="10" width="50" height="50" src="/usr/share/gnome/help/gnomine/fr/figures/easy-hints-2.png"/>
+		</block>
+		<loop query="SELECT usename, usesuper, usesysid, current_date FROM pg_user">
+			<block type="header">
+				<text x="2" y="2" width="206" height="5" align="C">Utilisateur #{usename}</text>
+			</block>
+			<block name="ligne de facture" if="#{usename}!=''postgres''">
+				<text x="2" y="2" width="100" height="5" align="C">Blabla, ceci est son ID système : #{usesysid}</text>
+				<text x="2" y="20" width="100" height="5" align="L" if="#{usesuper}" decoration="underline">C''est un superutilisateur</text>
+				<text x="2" y="40" width="100" height="5" align="C">Blabla il est #{current_date}</text>
+				<text x="2" y="60" width="100" height="5" align="R" style="italic">Blabla</text>
+				<rule x="2" y="80" width="206" height="1"/>
+			</block>
+			<loop query="SELECT #{usesysid},schemaname,tablename FROM pg_table WHERE tableowner=#{usename}" if="#{usename}!=''postgres''">
+				<block name="details">
+					<text x="2" y="2" width="100" height="5" align="C">#{schemaname}.#{tablename}</text>
+				</block>
+			</loop>
+		</loop>
+		<page-break/>
+		<block name="recap">
+			<text x="2" y="2" width="100" height="5" align="C" color="#F40" weight="bold" decoration="underline" style="italic" size="18">Un bon exemple</text>
+			<text x="2" y="20" width="100" height="5" align="C">Blabla</text>
+			<rule x="2" y="40" width="206" height="1" color="#1245EF"/>
+			<rectangle x="20" y="60" width="170" height="50" border-width="2" border-color="#04F" background-color="#FFD" radius="15"/>
+			<rule x="2" y="0" width="206" height="1"/>
+		</block>
+	</loop>
+</template>
+ 
+', 1, '2008-09-08 08:35:13.538377')[0m
+  [4;35;1mSQL (0.000674)[0m   [0mSELECT currval('templates_id_seq')[0m
+  [4;36;1mSQL (1.109135)[0m   [0;1mCOMMIT[0m
+
+
+Processing InfoController#properties (for 127.0.0.1 at 2008-09-08 10:40:26) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo
+SGFzaHsABjoKQHVzZWR7AA==--29342a29a4b42ff37d478e948256682f6135373d
+  Parameters: {"action"=>"properties", "controller"=>"rails/info"}
+
+
+CGI::Session::CookieStore::TamperedWithCookie (CGI::Session::CookieStore::TamperedWithCookie):
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/session/cookie_store.rb:144:in `unmarshal'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/session/cookie_store.rb:101:in `restore'
+    /usr/lib/ruby/1.8/cgi/session.rb:304:in `[]'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/cgi_process.rb:136:in `session'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/cgi_process.rb:168:in `stale_session_check!'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/cgi_process.rb:116:in `session'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/base.rb:1135:in `assign_shortcuts_without_flash'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/flash.rb:166:in `assign_shortcuts'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/base.rb:523:in `process_without_filters'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/filters.rb:569:in `process_without_session_management_support'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/session_management.rb:130:in `process'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/base.rb:389:in `process'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/dispatcher.rb:149:in `handle_request'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/dispatcher.rb:107:in `dispatch'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/dispatcher.rb:104:in `synchronize'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/dispatcher.rb:104:in `dispatch'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/dispatcher.rb:120:in `dispatch_cgi'
+    /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/dispatcher.rb:35:in `dispatch'
+    /usr/lib/ruby/gems/1.8/gems/rails-2.1.0/lib/webrick_server.rb:112:in `handle_dispatch'
+    /usr/lib/ruby/gems/1.8/gems/rails-2.1.0/lib/webrick_server.rb:78:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /usr/lib/ruby/gems/1.8/gems/rails-2.1.0/lib/webrick_server.rb:62:in `dispatch'
+    /usr/lib/ruby/gems/1.8/gems/rails-2.1.0/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/site_ruby/1.8/rubygems/custom_require.rb:27:in `gem_original_require'
+    /usr/local/lib/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /usr/lib/ruby/gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:509:in `require'
+    /usr/lib/ruby/gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+    /usr/lib/ruby/gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:509:in `require'
+    /usr/lib/ruby/gems/1.8/gems/rails-2.1.0/lib/commands/server.rb:39
+    /usr/local/lib/site_ruby/1.8/rubygems/custom_require.rb:27:in `gem_original_require'
+    /usr/local/lib/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    script/server:3
+
+Rendering /usr/lib/ruby/gems/1.8/gems/actionpack-2.1.0/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+  [4;36;1mSQL (0.000471)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000376)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003407)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;35;1mTemplate Load (0.001485)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000491)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000361)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003568)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;35;1mTemplate Load (0.001391)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000463)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000352)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003391)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000455)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000343)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003654)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;35;1mTemplate Load (0.001388)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000488)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000547)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003688)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;35;1mTemplate Load (0.002068)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mTemplate Load (0.001416)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;35;1mTemplate Load (0.001372)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mTemplate Load (0.001373)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;35;1mTemplate Load (0.001369)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000459)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000408)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003456)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000605)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000430)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003489)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000502)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000348)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003417)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000479)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000431)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003447)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000466)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000381)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003473)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000460)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000406)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003434)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000452)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.004423)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.008207)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000484)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000358)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003444)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000476)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000367)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003443)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_'#{template.id}'pdf = FPDF.new (\"#{rac_template.attributes['orientation']}\",\" 		    	      #{rac_template.attributes['unit']}\", \"#{rac_template.attributes['format']}\")pdf.SetSubject(rac_template.attributes['title'])pdf.Close(); pdf.Output(); end
+  [4;36;1mSQL (0.000488)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000384)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003472)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_'#{template.id}'pdf = FPDF.new (\"#{rac_template.attributes['orientation']}\",\" 		    	      #{rac_template.attributes['unit']}\", \"#{rac_template.attributes['format']}\")pdf.SetSubject(rac_template.attributes['title'])pdf.Close(); pdf.Output(); end
+  [4;36;1mSQL (0.000464)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000626)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.016806)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_'#{template.id}'pdf = FPDF.new (\"#{rac_template.attributes['orientation']}\",\" 		    	      #{rac_template.attributes['unit']}\", \"#{rac_template.attributes['format']}\")pdf.SetSubject(rac_template.attributes['title'])
+  [4;36;1mSQL (0.000501)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000352)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.007133)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_'#{template.id}'pdf = FPDF.new (\"#{rac_template.attributes['orientation']}\",\" 		    	      #{rac_template.attributes['unit']}\", \"#{rac_template.attributes['format']}\")pdf.SetSubject(rac_template.attributes['title'])
+  [4;36;1mSQL (0.000455)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000422)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003465)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_'#{template.id}'pdf = FPDF.new (\"#{document_root.attributes['orientation']}\",\" 		    	      #{rac_template.attributes['unit']}\", \"#{document_root.attributes['format']}\")pdf.SetSubject(document_root.attributes['title'])
+  [4;36;1mSQL (0.000456)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000355)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.011745)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_'#{template.id}'pdf = FPDF.new (\"#{document_root.attributes['orientation']}\",\" 		    	      #{document_root.attributes['unit']}\", \"#{document_root.attributes['format']}\")pdf.SetSubject(document_root.attributes['title'])
+  [4;36;1mSQL (0.000470)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000366)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003442)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_'#{template.id}';pdf = FPDF.new (\"#{document_root.attributes['orientation']}\",\" 		    	      #{document_root.attributes['unit']}\", \"#{document_root.attributes['format']}\");pdf.SetSubject(document_root.attributes['title']);
+  [4;36;1mSQL (0.000540)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000374)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003520)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_'#{template.id}';pdf = FPDF.new (\"#{document_root.attributes['orientation']}\",\" 		    	      #{document_root.attributes['unit']}\", \"#{document_root.attributes['format']}\");pdf.SetSubject(document_root.attributes['title']);pdf.Close(); pdf.Output(); end
+  [4;36;1mSQL (0.000470)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000365)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003627)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_'#{template.id}';pdf = FPDF.new (\"#{document_root.attributes['orientation']}\",\" 		    	      #{document_root.attributes['unit']}\", \"#{document_root.attributes['format']}\");pdf.SetSubject(document_root.attributes['title']);pdf.Close(); pdf.Output(); end
+  [4;36;1mSQL (0.000491)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000612)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003469)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_'#{template.id}';end;
+  [4;36;1mSQL (0.000499)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000365)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.008215)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_'#{template.id}'\nend \n
+  [4;36;1mSQL (0.000477)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000356)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003439)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id}end \n
+  [4;36;1mSQL (0.000677)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000728)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.014078)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id}end
+  [4;36;1mSQL (0.000537)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000367)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003441)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} ;end
+  [4;36;1mSQL (0.000479)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000366)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.015439)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id}\nend
+  [4;36;1mSQL (0.000545)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000366)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003471)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+  [4;36;1mSQL (0.000472)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000370)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.015156)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_'#{template.id}'; end
+  [4;36;1mSQL (0.000779)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000499)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003450)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id}; end
+  [4;36;1mSQL (0.000636)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000364)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003424)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id}; end;
+  [4;36;1mSQL (0.000447)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000484)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003481)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} end;
+  [4;35;1mTemplate Load (0.001388)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} end;
+  [4;36;1mSQL (0.000471)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000372)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.008766)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} end
+  [4;36;1mSQL (0.000465)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000425)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003169)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} end
+  [4;36;1mSQL (0.000493)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000354)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003240)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} end
+  [4;36;1mSQL (0.000463)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000415)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003428)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_"#{template.id}" end
+  [4;35;1mTemplate Load (0.001383)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_"#{template.id}" end
+  [4;36;1mSQL (0.000480)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000350)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003822)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} end
+  [4;36;1mSQL (0.008564)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000693)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003403)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} ';'  end
+  [4;35;1mTemplate Load (0.002116)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} ';'  end
+  [4;36;1mTemplate Load (0.001369)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} ';'  end
+  [4;35;1mTemplate Load (0.001370)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} ';'  end
+  [4;36;1mSQL (0.009025)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000366)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.013807)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} end
+  [4;36;1mSQL (0.000465)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000351)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.015381)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_template.id end
+  [4;36;1mSQL (0.000471)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000353)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.005628)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_#{template.id} end
+  [4;36;1mSQL (0.000482)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000359)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003439)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mSQL (0.000470)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000374)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003223)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mSQL (0.000480)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000360)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.015995)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mSQL (0.000541)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000347)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.245124)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;35;1mTemplate Load (0.001386)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mTemplate Load (0.001388)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;35;1mTemplate Load (0.001401)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mSQL (0.000422)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000329)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.390026)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mSQL (0.000461)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000351)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003436)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mSQL (0.000446)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000419)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003462)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mSQL (0.000474)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000354)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.005801)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mSQL (0.000478)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000624)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.009447)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mSQL (0.000461)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.011543)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.016295)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mSQL (0.000493)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000335)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.014253)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mSQL (0.000462)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000365)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003393)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;35;1mTemplate Load (0.001390)[0m   [0mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ end
+  [4;36;1mSQL (0.000466)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.000367)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mTemplate Load (0.003527)[0m   [0;1mSELECT * FROM "templates" WHERE ("templates"."id" = 1) [0m
+def render_report_1
+ 56 
+ end

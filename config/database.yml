@@ -11,7 +11,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: aquitan_development
+  database: ekylibre_development
   username: rails
   password: R4|L5
 
@@ -36,13 +36,13 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: aquitan_test
-  username: aquitan
+  database: ekylibre_test
+  username: rails
   password:
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: aquitan_production
-  username: aquitan
+  database: ekylibre_production
+  username: rails
   password:
