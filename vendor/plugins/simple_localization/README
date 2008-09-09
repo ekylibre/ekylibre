@@ -1,0 +1,121 @@
+= SimpleLocalization Plugin
+
+This plugin supports a simple localization for Ruby on Rails and was born in the first half of 2006 by searching
+a simple way to localize model and attribute names of ActiveRecord models. Time after time more and more features became
+necessary and the plugin grew. It supports multiple language localization for Ruby on Rails based on language files,
+localizes the Date and Time classes, many helpers, some methods of ActiveSupport, the ActiveRecord error messages and
+provides two ways to localize models and their attributes. You can also use the language file to easily localize your own
+application. You'll find an overview just below.
+
+If you have some questions, want to report a bug or just want to talk about the plugin feel free to visit us
+at http://simple-localization.arkanis.de/.
+
+
+== Overview and key concepts
+
+* Easy installation and integration.
+* Can be easily customized to your needs by turning specific features on and off.
+* Easy to read and write language files using YAML and if needed Ruby, too.
+* Can handle multiple languages at runtime.
+* Localizes:
+  * ActiveRecord model and attribute names (using source code or the language files)
+  * ActiveRecord error messages (can contain placeholders for model and attribute names)
+  * ActiveRecord helpers
+  * Number helpers
+  * Date and Time classes and date helpers
+  * Array extensions (<code>Array#to_sentence</code>)
+  * Country names (just need to be inserted into the language file)
+  * Templates (eg. <code>index.de.rhtml</code>)
+  * Model attributes (formats and parses numbers and dates as strings e.g. used in form fields)
+  * Your application (add your custom entries to the language file)
+* A more CSS friendly ActionView +field_error_proc+.
+
+To make the plugin more felxible and extendable most of the functionality is split into small "features". These "features" are source
+files located in the <code>lib/features</code> directory of the plugin and each one localizes a small part of Ruby on Rails. When
+initializing the plugin you can choose the featurs you want to use. This avoids conflicts in case you have already localized some
+parts of your application by other means.
+
+To easily support new languages all language specific strings are extracted into language files. These language files can be found
+in the +languages+ directory of the plugin (or <code>app/languages</code> for your own language files) and are written in the YAML
+format. They also contain meta data about the author of the language file and can be extended with Ruby code (eg. configuring the
+Rails Inflector). More detailed information or instructions for creating a new language file can be found in the plugin documenation
+at http://simple-localization.arkanis.de/docs/index.
+
+
+== Installation
+
+You can install the newest version of the plugin (for Rails 1.1 and 1.2) directly from the SubVersion repository:
+
+  ./script/plugin install http://svn.arkanis-development.de/projects/rails_plugins/current/simple_localization
+
+The next and already last thing is to call the +simple_localization+ method at the end of your <code>environment.rb</code> file:
+
+  simple_localization :language => :de
+
+With this you're done. The <code>:language</code> parameter lets you define the language you want to use. Just specify
+the name of the language file without the <code>.yml</code> extension as a symbol or string. To load multiple languages
+just specify them in an array:
+
+  simple_localization :languages => [:de, :en, :nl, :fr]
+
+The <code>:languages</code> and <code>:language</code> options are doing exactly the same. Use whatever sounds best for you. This one
+call of the +simple_localization+ method gives you quite more control over the plugin but this is described in the next chapter.
+
+<b>Things get a bit complicated when using Rails model observers. Features which are accessed when the models are loaded are preloaded
+by the plugin. To disable a preloaded feature set the <code>ArkanisDevelopment::SimpleLocalization::SUPPRESS_FEATURES</code> constant to
+the name (symbol) of the feature. This have to be done before the <code>Rails::Initializer.run</code> call in the <code>environment.rb</code>.</b>
+This is necessary because an observer (and with it the corresponding model) is loaded before the plugin is initialized in
+the <code>environment.rb</code>. Thanks to MK for reporting this problem.
+
+
+== More information, help, ect.
+
+Visit the plugin documentation at http://simple-localization.arkanis.de/docs/index. There is a lot of cool stuff waiting for you there (e.g. multipart
+language files, detailed feature descriptions, ect.). You'll also find a forum there so if you have a question don't hesitate to ask it.
+
+
+== Contributors
+
+These guys helped to make this plugin what it is today:
+
+[Mark Kocera]
+  Dutch language file (nl.yml), idea to solve the Rails observer problem.
+[Sylvain Obegi]
+  French language file (fr.yml), bug hunting, several other good ideas.
+[The Globalize Rails team]
+  Actually the entire localized templates feature is based on their source. Thanks for releasing the their source under the MIT-license.
+[David Saitta]
+  Solving a bug in the localized models by lang file feature.
+[Roman Gonzalez]
+  The idea to automatically generate missing keys and a rake task to do this.
+[Jonas Gauffin]
+  Localized default formats of the localized data and time feature.
+[Michael Kessler]
+  Contributing a part of the key auto generation code.
+[And…]
+  many other guys helping out hunting bugs and having good ideas to improve the plugin.
+
+
+== License
+
+Copyright (c) 2007 Stephan Soller <stephan.soller@helionweb.de> and contributors
+
+The MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.

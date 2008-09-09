@@ -1,0 +1,9 @@
+about:
+  language: English
+  author: Stephan Soller
+  comment:  The English language file for the LangFile class test case.
+  website: http://www.arkanis-development.de/
+  email: stephan.soller@helionweb.de
+  date: 2007-07-28
+
+base: This is an entry in the base file

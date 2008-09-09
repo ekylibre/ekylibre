@@ -1,0 +1,119 @@
+about:
+  language: Русский язык
+  author: Denis Pankratov
+  comment:  Russian language translation
+  website: http://www.crime-research.org/
+  email: denis@crime-research.org
+  date: 2007-12-24
+
+active_record_messages:
+  inclusion: не входит в список допустимых значений
+  exclusion: недопустимое значение
+  invalid: неверное значение
+  confirmation: не совпадает с подтверждением
+  accepted: необходимо принять
+  empty: не может быть пустым
+  blank: обязательное поле
+ 
+  too_long: длиннее, чем нужно (максимум %d символов)
+  too_short:  короче, чем нужно (минимум %d символов)
+  wrong_length: неверной длины (нужно %d символов)
+  taken: уже используется
+  not_a_number: не является числом
+
+  greater_than: должно быть больше чем %d
+  greater_than_or_equal_to: должно быть больше или равно %d
+  equal_to: должно быть равно %d
+  less_than: должно быть меньше %d
+  less_than_or_equal_to: должно быть меньше или равно %d
+  odd: должно быть четным
+  even: должно быть нечетным
+  
+
+dates:
+  monthnames: [январь, февраль, март, апрель, май, июнь, июль, август, сентябрь, октябрь, ноябрь, декабрь]
+  daynames: [воскресенье, понедельник, вторник, среда, четверг, пятница, суббота]
+  abbr_monthnames: [янв, фев, мар, апр, май, июн, июл, авг, сен, окт, ноя, дек]
+  abbr_daynames: [ВС, ПН, ВТ, СР, ЧТ, ПТ, СБ]
+  date_formats:
+    attributes: '%d/%m/%y'
+    short: '%e %b'
+    long: '%B %e, %Y'
+  time_formats:
+    attributes: '%d/%m/%y %H:%M'
+    short: '%d %b %H:%M'
+    long: '%B %d, %Y %H:%M'
+  strftime_overwrites:
+    c: '%a %b %e %H:%M:%S %Y'
+    x: '%m/%d/%y'
+    X: '%H:%M:%S'
+
+numbers:
+  separator: '.'
+  delimiter: ','
+  precision: 3
+
+arrays:
+  to_sentence:
+    connector: и
+    skip_last_comma: true
+
+countries:
+  Russia: Россия
+
+helpers:
+  error_messages_for:
+    heading:
+      1: '%2$s: при сохранении произошла ошибка'
+      2: '%2$s: при сохранении произошло %1$d ошибки'
+      3: '%2$s: при сохранении произошло %1$d ошибки'
+      4: '%2$s: при сохранении произошло %1$d ошибки'
+      n: '%2$s: при сохранении произошло %1$d ошибок'
+        
+    description: 'Проблемы касаются следующих полей:'
+        
+  number_to_currency:
+    precision: 2
+    unit: 'руб'
+    order: [ main, separator, fraction, unit]
+  number_to_phone:
+    area_code: false
+    delimiter: '-'
+    extension: 
+    country_code: 
+  date_select:
+    order: [:year, :month, :day]
+  distance_of_time_in_words:
+    less than 5 seconds: меньше 5 секунд
+    less than 10 seconds: меньше 10 секунд
+    less than 20 seconds: меньше 20 секунд
+    less than a minute: меньше минуты
+    1 minute: 1 минуты
+    half a minute: пол минуты
+    n minutes: %i минут
+    about 1 hour: около часа
+    about n hours: около %i часов
+    1 day: 1 день
+    n days: %i дней
+    about 1 month: около месяца
+    n months: %i месяцев
+    about 1 year: около года
+    over n years: больше %i лет
+
+# Add your the model translations as descriped in the
+# localized_models_by_lang_file feature to the model section.
+# 
+# Example:
+# 
+# models:
+#   my_model:
+#     name: Localized model name
+#     attributes:
+#       name: Localized name
+#       description: Localized description
+models:
+
+# You can use the app section freely to localize you application with the
+# localized_application feature. The entries defined here are accesable by the
+# global method "l". See the RDoc for details.
+app:

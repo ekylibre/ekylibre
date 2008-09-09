@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: localized_application.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>localized_application.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>lib/features/localized_application.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Wed Oct 31 00:50:25 +0100 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Localized application</h1>
+<p>
+This feature allows you to use the language file to localize your
+application. You can add your own translation strings to the <tt>app</tt>
+section of the language file and read them with the <tt>l</tt> global
+method. You can use this method in your controllers, views, mail templates,
+simply everywhere. To make the access more convenient you can use the
+<tt>lc</tt> method in controllers, views, partials, models and observers.
+</p>
+<pre>
+  app:
+    title: Simple Localization Rails plugin
+    subtitle: The plugin should make it much easier to localize Ruby on Rails
+    headings:
+      wellcome: Wellcome to the RDoc Documentation of this plugin
+
+  l(:title) # =&gt; &quot;Simple Localization Rails plugin&quot;
+  l(:headings, :wellcome) # =&gt; &quot;Wellcome to the RDoc Documentation of this plugin&quot;
+</pre>
+<p>
+The <tt>l</tt> method is just like the
+ArkanisDevelopment::SimpleLocalization::Language#entry method but is
+limited to the <tt>app</tt> section of the language file.
+</p>
+<p>
+To save some work you can narrow down the scope of the <tt>l</tt> method
+even further by using the <tt>l_scope</tt> method:
+</p>
+<pre>
+  app:
+    layout:
+      nav:
+        main:
+          home: Homepage
+          contact: Contact
+          login: Login
+
+  l :layout, :nav, :main, :home     # =&gt; &quot;Homepage&quot;
+  l :layout, :nav, :main, :contact  # =&gt; &quot;Contact&quot;
+</pre>
+<p>
+Same as
+</p>
+<pre>
+  l_scope :layout, :nav, :main do
+    l :home     # =&gt; &quot;Homepage&quot;
+    l :contact  # =&gt; &quot;Contact&quot;
+  end
+</pre>
+<p>
+Please also take a look at the <tt>ContextSensetiveHelpers::lc</tt> method.
+It can make life much more easier.
+</p>
+<h2>Used sections of the language file</h2>
+<p>
+This feature uses the <tt>app</tt> section of the language file. This
+section is reserved for localizing your application and you can create
+entries in this section just as you need it.
+</p>
+<pre>
+  app:
+    index:
+      title: Wellcome to XYZ
+      subtitle: Have a nice day...
+    projects:
+      title: My Projects
+      subtitle: This is a list of projects I'm currently working on
+
+  l(:index, :title) # =&gt; &quot;Wellcome to XYZ&quot;
+  l(:projects, :subtitle) # =&gt; &quot;This is a list of projects I'm currently working on&quot;
+</pre>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

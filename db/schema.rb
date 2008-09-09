@@ -615,17 +615,17 @@ ActiveRecord::Schema.define(:version => 20080819191919) do
   add_index "journal_records", ["updated_by"], :name => "index_journal_records_on_updated_by"
 
   create_table "journals", :force => true do |t|
-    t.integer  "nature_id",                                             :null => false
-    t.string   "name",                                                  :null => false
-    t.string   "code",           :limit => 4,                           :null => false
+    t.integer  "nature_id",                                  :null => false
+    t.string   "name",                                       :null => false
+    t.string   "code",           :limit => 4,                :null => false
     t.integer  "counterpart_id"
-    t.date     "closed_on",                   :default => '1494-12-31', :null => false
-    t.integer  "company_id",                                            :null => false
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.date     "closed_on",                                  :null => false
+    t.integer  "company_id",                                 :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.integer  "created_by"
     t.integer  "updated_by"
-    t.integer  "lock_version",                :default => 0,            :null => false
+    t.integer  "lock_version",                :default => 0, :null => false
   end
 
   add_index "journals", ["code", "company_id"], :name => "index_journals_on_code_and_company_id", :unique => true

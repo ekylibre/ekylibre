@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ArkanisDevelopment::SimpleLocalization::LocalizedModelsByLangFile</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ArkanisDevelopment::SimpleLocalization::LocalizedModelsByLangFile</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/features/localized_models_by_lang_file_rb.html">
+                lib/features/localized_models_by_lang_file.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000039">included</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000039" class="method-detail">
+        <a name="M000039"></a>
+
+        <div class="method-heading">
+          <a href="#M000039" class="method-signature">
+          <span class="method-name">included</span><span class="method-args">(base)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method adds the <tt>localized_model_name</tt> and the
+<tt>human_attribute_name</tt> to the <a
+href="../../ActiveRecord/Base.html">ActiveRecord::Base</a> class. The
+original <tt>human_attribute_name</tt> is still available as
+<tt>human_attribute_name_without_localization</tt>.
+</p>
+<p>
+<tt>localized_model_name</tt> returns the localized model name from the
+language file. If no localized name is available <tt>nil</tt> is returned.
+</p>
+<p>
+The new <tt>human_attribute_name</tt> looks for the localized name of the
+attribute. If the language file does not contain a matching entry the
+requrest will be redirected to the original <tt>human_attribute_name</tt>
+method.
+</p>
+<p>
+Note: since we are extending <a
+href="../../ActiveRecord/Base.html">ActiveRecord::Base</a> it&#8216;s
+possible to call both methods directly on the base class (the
+<tt>scaffold</tt> method does this indirectly on the
+<tt>human_attribute_name</tt> method using Column#human_name). In this case
+we simply don&#8216;t know which table or model we belong to and therefore
+we can&#8216;t access the localized data. To prevent error messages in this
+situation (&quot;undefined method `abstract_class?&#8217; for
+Object:Class&quot; because Base#table_name doesn&#8216;t work here)
+<tt>localized_model_name</tt> returns <tt>nil</tt> and
+<tt>human_attribute_name</tt> delegates the request to it&#8216;s former
+non localized version (which doesn&#8216;t need to know the table name
+because it simply asks the Inflector).
+</p>
+<p>
+This drawback of the scaffold method is fixed by the
+localized_column_human_name extension.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000039-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000039-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/features/localized_models_by_lang_file.rb, line 65</span>
+65:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
+66:       <span class="ruby-keyword kw">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">base</span>
+67:         
+68:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">localized_model_name</span>
+69:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">==</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>
+70:           <span class="ruby-constant">Language</span>.<span class="ruby-identifier">entry</span> <span class="ruby-identifier">:models</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-identifier">:name</span>
+71:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">EntryNotFound</span>
+72:           <span class="ruby-keyword kw">nil</span>
+73:         <span class="ruby-keyword kw">end</span>
+74:         
+75:         <span class="ruby-identifier">alias_method</span> <span class="ruby-identifier">:human_attribute_name_without_localization</span>, <span class="ruby-identifier">:human_attribute_name</span>
+76:         
+77:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">human_attribute_name</span>(<span class="ruby-identifier">attribute_key_name</span>)
+78:           <span class="ruby-identifier">attribute_key_name</span> = <span class="ruby-identifier">attribute_key_name</span>.<span class="ruby-identifier">to_s</span>
+79:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">human_attribute_name_without_localization</span>(<span class="ruby-identifier">attribute_key_name</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">==</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>
+80:           <span class="ruby-constant">Language</span>.<span class="ruby-identifier">entry!</span>(<span class="ruby-identifier">:models</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-identifier">:attributes</span>, <span class="ruby-identifier">attribute_key_name</span>)
+81:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">EntryNotFound</span>
+82:           <span class="ruby-identifier">human_attribute_name_without_localization</span>(<span class="ruby-identifier">attribute_key_name</span>)
+83:         <span class="ruby-keyword kw">end</span>
+84:         
+85:       <span class="ruby-keyword kw">end</span>
+86:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: localized_date_helpers.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>localized_date_helpers.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>lib/features/localized_date_helpers.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Mon Jun 25 20:25:44 +0200 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Localized date helpers</h1>
+<p>
+Localizes the <tt>date_select</tt> helper by loading the default options
+from the language file. The <tt>distance_of_time_in_words</tt> however can
+only be localized by reimplementing it here. Every result is based on a
+string from the language file.
+</p>
+<p>
+Many other helpers are based on these two so the localization of these
+helpers should localize many other.
+</p>
+<h2>Used sections of the language file</h2>
+<p>
+This feature uses the <tt>date_select</tt> and
+<tt>distance_of_time_in_words</tt> section within the <tt>helpers</tt>
+section:
+</p>
+<pre>
+  helpers:
+    date_select:
+      order: [:year, :month, :day]
+    distance_of_time_in_words:
+      less than 5 seconds: less than 5 seconds
+      less than 10 seconds: less than 10 seconds
+      less than 20 seconds: less than 20 seconds
+      less than a minute: less than a minute
+      1 minute: 1 minute
+      half a minute: half a minute
+      n minutes: %i minutes
+      about 1 hour: about 1 hour
+      about n hours: about %i hours
+      1 day: 1 day
+      n days: %i days
+      about 1 month: about 1 month
+      n months: %i months
+      about 1 year: about 1 year
+      over n years: over %i years
+</pre>
+<p>
+The <tt>date_select</tt> section contains new default options for the
+<tt>date_select</tt> helper so you can overwrite all options this helper
+accepts. The <tt>distance_of_time_in_words</tt> section contains a map of
+translated strings used to build the output of this helper.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

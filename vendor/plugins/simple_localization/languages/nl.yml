@@ -1,0 +1,105 @@
+about:
+  language: Nederlands
+  author: Mark Kocera
+  comment: Nederlands taal bestand.
+  website:
+  email: mark.kocera@kennislink.nl
+  date: 2007-10-17
+
+active_record_messages:
+  inclusion: zit niet binnen de lijst van geldige opties.
+  exclusion: is gereserveerd.
+  invalid: is niet geldig.
+  confirmation: komt niet overeen met bevestiging.
+  accepted: moet geaccepteerd worden.
+  empty: mag niet leeg zijn.
+  blank: mag niet blanco zijn.
+  too_long: is te lang (maximum is %d karakters).
+  too_short: is te kort (minimum is %d karakters).
+  wrong_length: is de verkeerde lengte (moet zijn %d karakters).
+  taken: is al in gebruik.
+  not_a_number: is geen getal.
+
+dates:
+  monthnames: [januari, februari, maart, april, mei, juni, juli, augustus, september, oktober, november, december]
+  daynames: [zondag, maandag, dinsdag, woensdag, donderdag, vrijdag, zaterdag]
+  abbr_monthnames: [jan, feb, maa, apr, mei, jun, jul, aug, sep, okt, nov, dec]
+  abbr_daynames: [zo, ma, di, wo, do, vr, za]
+  date_formats:
+    attributes: '%d-%m-%Y'
+    short: '%e %b'
+    long: '%e %B %Y'
+  time_formats:
+    attributes: '%d-%m-%Y %H:%M'
+    short: '%d %b %H:%M'
+    long: '%d %B %Y %H:%M'
+  strftime_overwrites:
+    c: '%A %e %B %Y %H:%M:%S'
+    x: '%m-%d-%y'
+    X: '%H:%M:%S'
+
+numbers:
+  separator: ','
+  delimiter: '.'
+  precision: 2
+
+arrays:
+  to_sentence:
+    connector: en
+    skip_last_comma: true
+
+countries:
+  'Netherlands': Nederland
+
+helpers:
+  error_messages_for:
+    heading:
+      1: 'Er was %d fout waardoor het %s niet opgeslagen kon worden:'
+      n: 'Er waren %d fouten waardoor het %s niet opgeslagen kon worden:'
+    description: 'De volgende velden hadden problemen:'
+  number_to_currency:
+    precision: 2
+    unit: '€'
+    order: [unit, main, separator, fraction]
+  number_to_phone:
+    area_code: false
+    delimiter: ' '
+    extension:
+    country_code:
+  date_select:
+    order: [:year, :month, :day]
+  distance_of_time_in_words:
+    less than 5 seconds: minder dan 5 seconden
+    less than 10 seconds: minder dan 10 seconden
+    less than 20 seconds: minder dan 20 seconden
+    less than a minute: minder dan een minuut
+    1 minute: 1 minuut
+    half a minute: een halve minuut
+    n minutes: %i minuten
+    about 1 hour: ongeveer 1 uur
+    about n hours: ongeveer %i uur
+    1 day: 1 dag
+    n days: %i dagen
+    about 1 month: ongeveer 1 maand
+    n months: %i maanden
+    about 1 year: ongerveer 1 jaar
+    over n years: meer dan %i jaar
+
+# Add your the model translations as descriped in the
+# localized_models_by_lang_file feature to the model section.
+#
+# Example:
+#
+# models:
+#   my_model:
+#     name: Localized model name
+#     attributes:
+#       name: Localized name
+#       description: Localized description
+models:
+
+# You can use the app section freely to localize you application with the
+# localized_application feature. The entries defined here are accesable by the
+# global method "l". See the RDoc for details.
+app:
+

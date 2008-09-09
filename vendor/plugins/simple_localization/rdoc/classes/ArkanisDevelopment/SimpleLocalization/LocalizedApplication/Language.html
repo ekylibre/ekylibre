@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ArkanisDevelopment::SimpleLocalization::LocalizedApplication::Language</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ArkanisDevelopment::SimpleLocalization::LocalizedApplication::Language</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/lib/features/localized_application_rb.html">
+                lib/features/localized_application.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This module will extend the <a
+href="../Language.html">ArkanisDevelopment::SimpleLocalization::Language</a>
+class with all necessary class methods.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000013">app</a>&nbsp;&nbsp;
+      <a href="#M000011">app_not_scoped</a>&nbsp;&nbsp;
+      <a href="#M000015">app_proxy</a>&nbsp;&nbsp;
+      <a href="#M000010">app_scoped</a>&nbsp;&nbsp;
+      <a href="#M000014">app_with_scope</a>&nbsp;&nbsp;
+      <a href="#M000012">with_app_scope</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <span class="method-name">app</span><span class="method-args">(*keys)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Language.html#M000010">app_scoped</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
+
+        <div class="method-heading">
+          <a href="#M000011" class="method-signature">
+          <span class="method-name">app_not_scoped</span><span class="method-args">(*keys)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This class method is used to access entries used by the localized
+application feature. Since the <tt><a
+href="Language.html#M000013">app</a></tt> section of the language file is
+reserved for this feature this method restricts the scope of the entries
+available to the <tt><a href="Language.html#M000013">app</a></tt> section.
+The method should only be used for application localization and therefor
+there is no need to access other sections of the language file with this
+method.
+</p>
+<pre>
+  app_default_value: No translation available
+  app:
+    index:
+      title: Welcome to XYZ
+      subtitle: Have a nice day...
+
+  Language.app_not_scoped(:index, :subtitle) # =&gt; &quot;Have a nice day...&quot;
+</pre>
+<p>
+If the specified entry does not exists a default value is returned. If the
+last argument specified is a string this string is returned as default
+value. Assume the same language file data as above:
+</p>
+<pre>
+  Language.app_not_scoped(:index, &quot;Welcome to my app&quot;) # =&gt; &quot;Welcome to my app&quot;
+</pre>
+<p>
+The <tt>&quot;Welcome to my <a
+href="Language.html#M000013">app</a>&quot;</tt> entry doesn&#8216;t exists
+in the language file. Because the last argument is a string it will
+returned as a default value. If the last argument isn&#8216;t a string the
+method will return the <tt>app_default_value</tt> entry of the language
+file. Again, same language file data as above:
+</p>
+<pre>
+  Language.app_not_scoped(:index, :welcome) # =&gt; &quot;No translation available&quot;
+</pre>
+<p>
+The <tt>:welcome</tt> entry does not exists. The last argument isn&#8216;t
+a string and therefore the value of the <tt>app_default_value</tt> entry is
+returned. If this fall back entry does not exists <tt>nil</tt> is returned.
+</p>
+<p>
+This method does not respect the scope set by the <tt><a
+href="Language.html#M000012">with_app_scope</a></tt> method. This is done
+by the <tt><a href="Language.html#M000010">app_scoped</a></tt> method.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/features/localized_application.rb, line 136</span>
+136:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">app_not_scoped</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">keys</span>)
+137:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">entry</span>(<span class="ruby-identifier">:app</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">keys</span>) <span class="ruby-operator">||</span> <span class="ruby-keyword kw">begin</span>
+138:           <span class="ruby-identifier">substitution_args</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Array</span>)
+139:             <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">pop</span>
+140:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Hash</span>)
+141:             [<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">pop</span>]
+142:           <span class="ruby-keyword kw">else</span>
+143:             []
+144:           <span class="ruby-keyword kw">end</span>
+145:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">String</span>)
+146:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">substitute_entry</span> <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">last</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">substitution_args</span>
+147:           <span class="ruby-keyword kw">else</span>
+148:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">entry</span>(<span class="ruby-identifier">:app_default_value</span>)
+149:           <span class="ruby-keyword kw">end</span>
+150:         <span class="ruby-keyword kw">end</span>
+151:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+          <a href="#M000015" class="method-signature">
+          <span class="method-name">app_proxy</span><span class="method-args">(*keys)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A shortcut for creating a <a
+href="../CachedLangSectionProxy.html">CachedLangSectionProxy</a> object.
+Such a proxy is a object which redirects almost all messages to a specific
+entry of the currently selected language.
+</p>
+<p>
+Assume German and English language files like this:
+</p>
+<p>
+de.yml
+</p>
+<pre>
+  app:
+    title: Deutscher Test
+    options: [dies, das, jenes]
+</pre>
+<p>
+en.yml
+</p>
+<pre>
+  app:
+    title: English test
+    options: [this, that, other stuff]
+</pre>
+<p>
+Now we can create a proxy object for these entries and switch between
+languages:
+</p>
+<pre>
+  @title = Language.app_proxy :title
+  @options = Language.app_proxy :options, :orginal_receiver =&gt; []
+
+  # no language file loaded (this is what the &lt;code&gt;orginal_receiver&lt;/code&gt; option is for, defaults to &quot;&quot;)
+  @title.inspect  # =&gt; &quot;&quot;
+  @options.inspect  # =&gt; []
+
+  # now with switching
+  Language.use :de
+  @title.inspect  # =&gt; &quot;Deutscher Test&quot;
+  @options.inspect  # =&gt; [&quot;dies&quot;, &quot;das&quot;, &quot;jenes&quot;]
+
+  Language.use :en
+  @title.inspect  # =&gt; &quot;English test&quot;
+  @options.inspect  # =&gt; [&quot;this&quot;, &quot;that&quot;, &quot;other stuff&quot;]
+</pre>
+<p>
+This all happens without changing the actual <tt>@title</tt> or
+<tt>@options</tt> variable. So to speek a proxy fakes a simple variable but
+it&#8216;s value is exchanged dependend on the current language.
+</p>
+<p>
+This is actually very useful if a method expects just one variable at the
+application startup and thus doesn&#8216;t support language switching, e.g.
+the message parameter of the <tt>validates_presence_of</tt> method (here
+the global <tt>l_proxy</tt> shortcut for <tt><a
+href="Language.html#M000015">Language.app_proxy</a></tt> is used):
+</p>
+<pre>
+  class Something &lt; ActiveRecord::Base
+
+    validates_presence_of :name, :message =&gt; l_proxy(:messages, :name_required)
+
+  end
+</pre>
+<p>
+Now the error message added by <tt>validates_presence_of</tt> will also be
+switched if the language is switched. This is a very efficient way to
+inject language switching code into methods not made for language switching
+and is used by many other features of this plugin.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000015-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/features/localized_application.rb, line 251</span>
+251:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">app_proxy</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">keys</span>)
+252:         <span class="ruby-identifier">options</span> = {<span class="ruby-identifier">:orginal_receiver</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">''</span>}
+253:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">pop</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Hash</span>)
+254:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:sections</span>] = [<span class="ruby-identifier">:app</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">keys</span>
+255:         <span class="ruby-constant">CachedLangSectionProxy</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">options</span>
+256:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="#M000010" class="method-signature">
+          <span class="method-name">app_scoped</span><span class="method-args">(*keys)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Basically the same as the <tt><a
+href="Language.html#M000011">app_not_scoped</a></tt> method but <tt><a
+href="Language.html#M000010">app_scoped</a></tt> does respect the scope set
+by the <tt><a href="Language.html#M000014">app_with_scope</a></tt> method.
+</p>
+<p>
+Assuming the following language file data:
+</p>
+<pre>
+  app_default_value: No translation available
+  app:
+    index:
+      title: Welcome to XYZ
+      subtitle: Have a nice day...
+</pre>
+<p>
+The following code would output:
+</p>
+<pre>
+  Language.app_with_scope :index do
+    Language.app_scoped :title            # =&gt; &quot;Welcome to XYZ&quot;
+    Language.app_scoped :subtitle         # =&gt; &quot;Have a nice day...&quot;
+    Language.app_scoped &quot;I don't exist&quot;   # =&gt; &quot;I don't exist&quot;
+  end
+
+  Language.app_scoped :index, :title    # =&gt; &quot;Welcome to XYZ&quot;
+  Language.app_scoped :not_existing_key # =&gt; &quot;No translation available&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/features/localized_application.rb, line 97</span>
+97:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">app_scoped</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">keys</span>)
+98:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">app_not_scoped</span>(<span class="ruby-operator">*</span>(<span class="ruby-ivar">@@app_scope_stack</span>.<span class="ruby-identifier">flatten</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">keys</span>))
+99:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <span class="method-name">app_with_scope</span><span class="method-args">(*scope_sections, &amp;block)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Language.html#M000012">with_app_scope</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="#M000012" class="method-signature">
+          <span class="method-name">with_app_scope</span><span class="method-args">(*scope_sections) {|| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Narrows down the scope of the <tt><a
+href="Language.html#M000010">app_scoped</a></tt> method. Useful if you have
+a very nested language file and don&#8216;t want to use the <tt>lc</tt>
+helpers:
+</p>
+<pre>
+  app:
+    layout:
+      nav:
+        main:
+          home: Homepage
+          contact: Contact
+          about: About
+</pre>
+<p>
+Usually the calls to the <tt><a
+href="Language.html#M000010">app_scoped</a></tt> method would look like
+this:
+</p>
+<pre>
+  Language.app_scoped :layout, :nav, :main, :home     # =&gt; &quot;Homepage&quot;
+  Language.app_scoped :layout, :nav, :main, :contact  # =&gt; &quot;Contact&quot;
+  Language.app_scoped :layout, :nav, :main, :about    # =&gt; &quot;About&quot;
+</pre>
+<p>
+In this situation you can use <tt><a
+href="Language.html#M000012">with_app_scope</a></tt> to save some work:
+</p>
+<pre>
+  Language.with_app_scope :layout, :nav, :main do
+    Language.app_scoped :home     # =&gt; &quot;Homepage&quot;
+    Language.app_scoped :contact  # =&gt; &quot;Contact&quot;
+    Language.app_scoped :about    # =&gt; &quot;About&quot;
+  end
+</pre>
+<p>
+Every call to the <tt><a href="Language.html#M000010">app_scoped</a></tt>
+method inside the block will automatically be prefixed with the sections
+you specified to the <tt><a
+href="Language.html#M000012">with_app_scope</a></tt> method.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/features/localized_application.rb, line 181</span>
+181:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with_app_scope</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">scope_sections</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+182:         <span class="ruby-ivar">@@app_scope_stack</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">scope_sections</span>
+183:         <span class="ruby-keyword kw">begin</span>
+184:           <span class="ruby-keyword kw">yield</span>
+185:         <span class="ruby-keyword kw">ensure</span>
+186:           <span class="ruby-ivar">@@app_scope_stack</span>.<span class="ruby-identifier">pop</span>
+187:         <span class="ruby-keyword kw">end</span>
+188:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

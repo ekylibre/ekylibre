@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ArkanisDevelopment::SimpleLocalization::Language</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ArkanisDevelopment::SimpleLocalization::Language</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/language_rb.html">
+                lib/language.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This module loads and manages access to the used language files.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000038">about</a>&nbsp;&nbsp;
+      <a href="#M000027">current_language</a>&nbsp;&nbsp;
+      <a href="#M000028">current_language=</a>&nbsp;&nbsp;
+      <a href="#M000035">entry</a>&nbsp;&nbsp;
+      <a href="#M000036">entry!</a>&nbsp;&nbsp;
+      <a href="#M000034">find</a>&nbsp;&nbsp;
+      <a href="#M000030">lang_files</a>&nbsp;&nbsp;
+      <a href="#M000032">load</a>&nbsp;&nbsp;
+      <a href="#M000029">loaded?</a>&nbsp;&nbsp;
+      <a href="#M000031">loaded_languages</a>&nbsp;&nbsp;
+      <a href="#M000033">reload</a>&nbsp;&nbsp;
+      <a href="#M000037">substitute_entry</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+    <div id="aliases-list">
+      <h3 class="section-bar">External Aliases</h3>
+
+      <div class="name-list">
+                        <table summary="aliases">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">current_language</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">used</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">current_language=</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">use</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">entry</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">[]</td>
+        </tr>
+                        </table>
+      </div>
+    </div>
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000038" class="method-detail">
+        <a name="M000038"></a>
+
+        <div class="method-heading">
+          <a href="#M000038" class="method-signature">
+          <span class="method-name">about</span><span class="method-args">(lang = self.current_language)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a hash with the meta data of the specified language (defaults to
+the currently used language). Entries not present in the language file will
+default to <tt>nil</tt>. If the specified language file is not loaded an
+<tt><a href="LangFileNotLoaded.html">LangFileNotLoaded</a></tt> exception
+is raised.
+</p>
+<pre>
+  Language.about :de
+  # =&gt; {
+         :language =&gt; 'Deutsch',
+         :author =&gt; 'Stephan Soller',
+         :comment =&gt; 'Deutsche Sprachdatei. Kann als Basis für neue Sprachdatein dienen.',
+         :website =&gt; 'http://www.arkanis-development.de/',
+         :email =&gt; nil, # happens if no email is specified in the language file.
+         :date =&gt; '2007-01-20'
+       }
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000038-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000038-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/language.rb, line 260</span>
+260:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">about</span>(<span class="ruby-identifier">lang</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_language</span>)
+261:           <span class="ruby-identifier">lang</span> = <span class="ruby-identifier">lang</span>.<span class="ruby-identifier">to_sym</span>
+262:           
+263:           <span class="ruby-identifier">defaults</span> = {
+264:             <span class="ruby-identifier">:language</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>,
+265:             <span class="ruby-identifier">:author</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>,
+266:             <span class="ruby-identifier">:comment</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>,
+267:             <span class="ruby-identifier">:website</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>,
+268:             <span class="ruby-identifier">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>,
+269:             <span class="ruby-identifier">:date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>
+270:           }
+271:           
+272:           <span class="ruby-identifier">defaults</span>.<span class="ruby-identifier">update</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">lang</span>, <span class="ruby-identifier">:about</span>).<span class="ruby-identifier">symbolize_keys</span>
+273:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000027" class="method-detail">
+        <a name="M000027"></a>
+
+        <div class="method-heading">
+          <a href="#M000027" class="method-signature">
+          <span class="method-name">current_language</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the name of the currently used language as a symbol.
+</p>
+<pre>
+  Language.current_language = :de
+  Language.current_language # =&gt; :de
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000027-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000027-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/language.rb, line 37</span>
+37:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_language</span>
+38:           <span class="ruby-ivar">@@current_language</span>
+39:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000028" class="method-detail">
+        <a name="M000028"></a>
+
+        <div class="method-heading">
+          <a href="#M000028" class="method-signature">
+          <span class="method-name">current_language=</span><span class="method-args">(new_lang)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets the currently used language. If the specified language file is not
+loaded a <tt><a href="LangFileNotLoaded.html">LangFileNotLoaded</a></tt>
+exception will be raised.
+</p>
+<pre>
+  simple_localization :languages =&gt; [:de, :en]
+  Language.current_language # =&gt; :de
+  Language.current_language = :en
+  Language.current_language # =&gt; :en
+</pre>
+<p>
+There are also aliases for the <tt><a
+href="Language.html#M000027">current_language</a></tt> attribute accessor:
+</p>
+<pre>
+  simple_localization :languages =&gt; [:de, :en]
+  Language.used # =&gt; :de
+  Language.use :en
+  Language.used # =&gt; :en
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000028-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000028-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/language.rb, line 58</span>
+58:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_language=</span>(<span class="ruby-identifier">new_lang</span>)
+59:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">loaded_languages</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">new_lang</span>.<span class="ruby-identifier">to_sym</span>
+60:             <span class="ruby-ivar">@@current_language</span> = <span class="ruby-identifier">new_lang</span>.<span class="ruby-identifier">to_sym</span>
+61:           <span class="ruby-keyword kw">else</span>
+62:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">LangFileNotLoaded</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">new_lang</span>, <span class="ruby-identifier">loaded_languages</span>)
+63:           <span class="ruby-keyword kw">end</span>
+64:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000035" class="method-detail">
+        <a name="M000035"></a>
+
+        <div class="method-heading">
+          <a href="#M000035" class="method-signature">
+          <span class="method-name">entry</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the specified <a href="Language.html#M000035">entry</a> from the
+currently used language file. It&#8216;s possible to specify nested entries
+by using more than one parameter.
+</p>
+<pre>
+  Language.entry :active_record_messages, :too_short  # =&gt; &quot;ist zu kurz (mindestens %d Zeichen).&quot;
+</pre>
+<p>
+This will return the <tt>too_short</tt> <a
+href="Language.html#M000035">entry</a> within the
+<tt>active_record_messages</tt> <a href="Language.html#M000035">entry</a>.
+The YAML code in the language file looks like this:
+</p>
+<pre>
+  active_record_messages:
+    too_short: ist zu kurz (mindestens %d Zeichen).
+</pre>
+<p>
+If the <a href="Language.html#M000035">entry</a> is not found <tt>nil</tt>
+is returned.
+</p>
+<p>
+This method also allows you to substitute values inside the found <a
+href="Language.html#M000035">entry</a>. The <tt><a
+href="Language.html#M000037">substitute_entry</a></tt> method is used for
+this and there are two ways to do this:
+</p>
+<p>
+With <tt>format</tt>:
+</p>
+<p>
+Just specify an array with the format values as last key:
+</p>
+<pre>
+  Language.entry :active_record_messages, :too_short, [5] # =&gt; &quot;ist zu kurz (mindestens 5 Zeichen).&quot;
+</pre>
+<p>
+If <tt>format</tt> fails the reaction depends on the <tt>debug</tt> option
+of the <a href="Language.html">Language</a> module. If <tt>debug</tt> is
+set to <tt>false</tt> the unformatted <a
+href="Language.html#M000035">entry</a> is returned. If <tt>debug</tt> is
+<tt>true</tt> an <tt><a
+href="EntryFormatError.html">EntryFormatError</a></tt> is raised detailing
+what went wrong.
+</p>
+<p>
+With &quot;hash notation&quot; like used by the ActiveRecord conditions:
+</p>
+<p>
+It&#8216;s also possible to use a hash to specify the values to substitute.
+This works like the conditions of ActiveRecord:
+</p>
+<pre>
+  app:
+    welcome: Welcome :name, you have :number new messages.
+
+  Language.entry :app, :welcome, :name =&gt; 'Mr. X', :number =&gt; 5  # =&gt; &quot;Welcome Mr. X, you have 5 new messages.&quot;
+</pre>
+<p>
+Both approaches allow you to use the \ character to escape colons (:) and
+percent sings (%).
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000035-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000035-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/language.rb, line 187</span>
+187:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">entry</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+188:           <span class="ruby-keyword kw">begin</span>
+189:             <span class="ruby-identifier">entry!</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+190:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">EntryNotFound</span>
+191:             <span class="ruby-keyword kw">nil</span>
+192:           <span class="ruby-keyword kw">end</span>
+193:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000036" class="method-detail">
+        <a name="M000036"></a>
+
+        <div class="method-heading">
+          <a href="#M000036" class="method-signature">
+          <span class="method-name">entry!</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Same as the +<a href="Language.html#M000035">Language#entry</a>+ method but
+it raises an <tt><a href="EntryNotFound.html">EntryNotFound</a></tt>
+exception if the specified <a href="Language.html#M000035">entry</a> does
+not exists.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000036-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000036-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/language.rb, line 199</span>
+199:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">entry!</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+200:           <span class="ruby-identifier">substitute_values</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Hash</span>)
+201:             [<span class="ruby-identifier">args</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-value">-1</span>)]
+202:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Array</span>)
+203:             <span class="ruby-identifier">args</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-value">-1</span>)
+204:           <span class="ruby-keyword kw">else</span>
+205:             []
+206:           <span class="ruby-keyword kw">end</span>
+207:           
+208:           <span class="ruby-identifier">entry</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_language</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+209:           <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">substitute_entry</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">substitute_values</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">entry</span>
+210:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">EntryFormatError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+211:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">EntryFormatError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">language</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">entry_content</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">format_values</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">original_exception</span>) <span class="ruby-comment cmt"># reraise with more details</span>
+212:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000034" class="method-detail">
+        <a name="M000034"></a>
+
+        <div class="method-heading">
+          <a href="#M000034" class="method-signature">
+          <span class="method-name">find</span><span class="method-args">(language, *keys)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Searches the date of the specified language file for the <a
+href="Language.html#M000035">entry</a> addressed by <tt>keys</tt>.
+</p>
+<p>
+If the specified language file is not loaded an <tt><a
+href="LangFileNotLoaded.html">LangFileNotLoaded</a></tt> exception is
+raised. If the <a href="Language.html#M000035">entry</a> is not found an
+<tt><a href="EntryNotFound.html">EntryNotFound</a></tt> exception is
+raised.
+</p>
+<pre>
+  Language.find :de, :active_record_messages, :not_a_number  # =&gt; &quot;ist keine Zahl.&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000034-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000034-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/language.rb, line 132</span>
+132:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find</span>(<span class="ruby-identifier">language</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">keys</span>)
+133:           <span class="ruby-identifier">language</span> = <span class="ruby-identifier">language</span>.<span class="ruby-identifier">to_sym</span>
+134:           <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@@languages</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@@languages</span>[<span class="ruby-identifier">language</span>]
+135:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">LangFileNotLoaded</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">language</span>, <span class="ruby-identifier">loaded_languages</span>)
+136:           <span class="ruby-keyword kw">end</span>
+137:           
+138:           <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">collect!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Numeric</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>}
+139:           <span class="ruby-keyword kw">begin</span>
+140:             <span class="ruby-ivar">@@languages</span>[<span class="ruby-identifier">language</span>].<span class="ruby-identifier">data</span>[<span class="ruby-operator">*</span><span class="ruby-identifier">keys</span>]
+141:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">EntryNotFound</span>
+142:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">EntryNotFound</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">keys</span>, <span class="ruby-identifier">language</span>) <span class="ruby-comment cmt"># reraise with more details</span>
+143:           <span class="ruby-keyword kw">end</span>
+144:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000030" class="method-detail">
+        <a name="M000030"></a>
+
+        <div class="method-heading">
+          <a href="#M000030" class="method-signature">
+          <span class="method-name">lang_files</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a hash with all loaded <a href="LangFile.html">LangFile</a>
+objects.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000030-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000030-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/language.rb, line 80</span>
+80:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">lang_files</span>
+81:           <span class="ruby-ivar">@@languages</span>
+82:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
+
+        <div class="method-heading">
+          <a href="#M000032" class="method-signature">
+          <span class="method-name">load</span><span class="method-args">(*languages)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Loads the specified language files. If currently no language is selected
+the first one of the specified files will be selected.
+</p>
+<p>
+The path to the language files can be specified in the
+<tt>lang_file_dirs</tt> option.
+</p>
+<pre>
+  Language.load :de, :en
+</pre>
+<p>
+This will <a href="Language.html#M000032">load</a> the files
+<tt>de.yml</tt> and <tt>en.yml</tt> and all of it&#8216;s parts in the
+language file directory. If existing the files <tt>de.rb</tt> and
+<tt>en.rb</tt> will be executed. It also selects <tt>:de</tt> as the active
+language because it was specified first.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000032-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/language.rb, line 105</span>
+105:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">languages</span>)
+106:           <span class="ruby-identifier">languages</span>.<span class="ruby-identifier">flatten!</span>
+107:           <span class="ruby-identifier">languages</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">lang_code</span><span class="ruby-operator">|</span>
+108:             <span class="ruby-identifier">lang_file</span> = <span class="ruby-constant">LangFile</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">lang_code</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lang_file_dirs</span>
+109:             <span class="ruby-ivar">@@languages</span>[<span class="ruby-identifier">lang_code</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">lang_file</span>
+110:             <span class="ruby-identifier">lang_file</span>.<span class="ruby-identifier">load</span>
+111:           <span class="ruby-keyword kw">end</span>
+112:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">use</span> <span class="ruby-identifier">languages</span>.<span class="ruby-identifier">first</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_language</span>.<span class="ruby-identifier">nil?</span>
+113:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000029" class="method-detail">
+        <a name="M000029"></a>
+
+        <div class="method-heading">
+          <a href="#M000029" class="method-signature">
+          <span class="method-name">loaded?</span><span class="method-args">(language_name = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks if the specified language is loaded or when called without an
+argument if at least one language is loaded. Handy to check if the plugin
+is initialized.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000029-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000029-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/language.rb, line 71</span>
+71:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">loaded?</span>(<span class="ruby-identifier">language_name</span> = <span class="ruby-keyword kw">nil</span>)
+72:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">language_name</span>
+73:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">loaded_languages</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">language_name</span>
+74:           <span class="ruby-keyword kw">else</span>
+75:             <span class="ruby-keyword kw">not</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">loaded_languages</span>.<span class="ruby-identifier">blank?</span>
+76:           <span class="ruby-keyword kw">end</span>
+77:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000031" class="method-detail">
+        <a name="M000031"></a>
+
+        <div class="method-heading">
+          <a href="#M000031" class="method-signature">
+          <span class="method-name">loaded_languages</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the language codes of currently loaded languages.
+</p>
+<pre>
+  Language.loaded_languages  # =&gt; [:de, :en]
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000031-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000031-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/language.rb, line 88</span>
+88:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">loaded_languages</span>
+89:           <span class="ruby-ivar">@@languages</span>.<span class="ruby-identifier">keys</span>
+90:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000033" class="method-detail">
+        <a name="M000033"></a>
+
+        <div class="method-heading">
+          <a href="#M000033" class="method-signature">
+          <span class="method-name">reload</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Reload the data of all loaded language files by calling the <a
+href="LangFile.html#M000080">LangFile#reload</a> method on each language
+file.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000033-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000033-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/language.rb, line 117</span>
+117:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reload</span>
+118:           <span class="ruby-ivar">@@languages</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">lang_code</span>, <span class="ruby-identifier">lang_file</span><span class="ruby-operator">|</span>
+119:             <span class="ruby-identifier">lang_file</span>.<span class="ruby-identifier">reload</span>
+120:           <span class="ruby-keyword kw">end</span>
+121:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000037" class="method-detail">
+        <a name="M000037"></a>
+
+        <div class="method-heading">
+          <a href="#M000037" class="method-signature">
+          <span class="method-name">substitute_entry</span><span class="method-args">(string, *values)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Substitutes a string with values by using <tt>format</tt> or a hash like
+known from the ActiveRecord conditions.
+</p>
+<pre>
+  substitute_entry 'substitute %s and %i', 'this', 10               # =&gt; &quot;substitute this and 10&quot;
+  substitute_entry 'escape %%s but not %s', 'this'                  # =&gt; &quot;escape %s but not this&quot;
+  substitute_entry 'substitute :a and :b', :a =&gt; 'this', :b =&gt; 10   # =&gt; &quot;substitute this and 10&quot;
+  substitute_entry 'escape \:a but not :b', :b =&gt; 'this'            # =&gt; &quot;escape :a but not this&quot;
+</pre>
+<p>
+If the format style is used and an error occurs an <tt><a
+href="EntryFormatError.html">EntryFormatError</a></tt> will be raised. It
+contains some extra information as well as the original exception.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000037-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000037-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/language.rb, line 225</span>
+225:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">substitute_entry</span>(<span class="ruby-identifier">string</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">values</span>)
+226:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">string</span>
+227:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">values</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Hash</span>)
+228:             <span class="ruby-identifier">string</span> = <span class="ruby-value str">' '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">string</span>
+229:             <span class="ruby-identifier">values</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+230:               <span class="ruby-identifier">string</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-node">/([^\\]):#{key}/</span>, <span class="ruby-node">&quot;\\1#{value}&quot;</span>)
+231:             <span class="ruby-keyword kw">end</span>
+232:             <span class="ruby-identifier">string</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/([^\\])\\:/</span>, <span class="ruby-value str">'\\1:'</span>)
+233:             <span class="ruby-identifier">string</span>[<span class="ruby-value">1</span>, <span class="ruby-identifier">string</span>.<span class="ruby-identifier">length</span>]
+234:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">values</span>.<span class="ruby-identifier">empty?</span>
+235:             <span class="ruby-keyword kw">begin</span>
+236:               <span class="ruby-identifier">format</span>(<span class="ruby-identifier">string</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">values</span>)
+237:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">StandardError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+238:               <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value">? </span><span class="ruby-identifier">raise</span>(<span class="ruby-constant">EntryFormatError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_language</span>, [], <span class="ruby-identifier">string</span>, <span class="ruby-identifier">values</span>, <span class="ruby-identifier">e</span>)) <span class="ruby-operator">:</span> <span class="ruby-identifier">string</span>
+239:             <span class="ruby-keyword kw">end</span>
+240:           <span class="ruby-keyword kw">else</span>
+241:             <span class="ruby-identifier">string</span>
+242:           <span class="ruby-keyword kw">end</span>
+243:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: localized_models_by_lang_file.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>localized_models_by_lang_file.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>lib/features/localized_models_by_lang_file.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Wed Sep 12 14:46:23 +0200 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Localized models by using the language file</h1>
+<p>
+This feature provides a way to localize ActiveRecord models based on
+translated model and attribute names in the language file. Where the
+<tt>localized_models</tt> feature depends on translated names written in
+the source code of the models this feature reads all necessary strings from
+the loaded language file.
+</p>
+<p>
+This feature is the right choice if your application should support
+multiple languages. If your application is strictly developed for just one
+language <tt>localized_models</tt> is the better choice.
+</p>
+<p>
+To localize a model with this feature just add the necessary section to the
+languge file. How to do this is descriped in the next chapter.
+</p>
+<h2>Used sections of the language file</h2>
+<p>
+The localized model and attribute names for this feature are located in the
+<tt>models</tt> section of the language file. The following example
+localizes the <tt>Computer</tt> model and it&#8216;s attributes
+<tt>name</tt>, <tt>description</tt>, <tt>ip_address</tt> and <tt>user</tt>.
+</p>
+<pre>
+  models:
+    computer:
+      name: Der Computer
+      attributes:
+        name: Der Name
+        description: Die Beschreibung
+        ip_address: Die IP-Adresse
+        user: Der Besitzer
+</pre>
+<p>
+This feature will convert the name of the model class (<tt>Compuer</tt>)
+using String#underscore (results in <tt>computer</tt>) and will look in the
+corresponding subsection of the <tt>models</tt> section. Each model section
+in turn contains the name of the model (&quot;Der Computer&quot;) and a map
+translating the model attributes.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+title: The language file entries used by the localized_application feature.
+description: |
+  This language file represents the files in the RAILS_ROOT/app/languages
+  directory. This is an easy place to edit language files.
+

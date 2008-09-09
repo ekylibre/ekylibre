@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Wed Oct 10 22:09:10 +0200 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>SimpleLocalization Plugin</h1>
+<p>
+This plugin supports a simple localization for Ruby on Rails and was born
+in the first half of 2006 by searching a simple way to localize model and
+attribute names of ActiveRecord models. Time after time more and more
+features became necessary and the plugin grew. It supports multiple
+language localization for Ruby on Rails based on language files, localizes
+the <a href="../classes/Date.html">Date</a> and Time classes, many helpers,
+some methods of ActiveSupport, the ActiveRecord error messages and provides
+two ways to localize models and their attributes. You can also use the
+language file to easily localize your own application. You&#8216;ll find an
+overview just below.
+</p>
+<p>
+If you have some questions, want to report a bug or just want to talk about
+the plugin feel free to visit us at <a
+href="http://simple-localization.arkanis.de">simple-localization.arkanis.de</a>/.
+</p>
+<h2>Overview and key concepts</h2>
+<ul>
+<li>Easy installation and integration.
+
+</li>
+<li>Can be easily customized to your needs by turning specific features on and
+off.
+
+</li>
+<li>Easy to read and write language files using YAML and if needed Ruby, too.
+
+</li>
+<li>Can handle multiple languages at runtime.
+
+</li>
+<li>Localizes:
+
+<ul>
+<li>ActiveRecord model and attribute names (using source code or the language
+files)
+
+</li>
+<li>ActiveRecord error messages (can contain placeholders for model and
+attribute names)
+
+</li>
+<li>ActiveRecord helpers
+
+</li>
+<li>Number helpers
+
+</li>
+<li><a href="../classes/Date.html">Date</a> and Time classes and date helpers
+
+</li>
+<li>Array extensions (<tt>Array#to_sentence</tt>)
+
+</li>
+<li>Country names (just need to be inserted into the language file)
+
+</li>
+<li>Templates (eg. <tt>index.de.rhtml</tt>)
+
+</li>
+<li>Model attributes (formats and parses numbers and dates as strings e.g. used
+in form fields)
+
+</li>
+<li>Your application (add your custom entries to the language file)
+
+</li>
+</ul>
+</li>
+<li>A more CSS friendly ActionView <tt>field_error_proc</tt>.
+
+</li>
+</ul>
+<p>
+To make the plugin more felxible and extendable most of the functionality
+is split into small &quot;features&quot;. These &quot;features&quot; are
+source files located in the <tt>lib/features</tt> directory of the plugin
+and each one localizes a small part of Ruby on Rails. When initializing the
+plugin you can choose the featurs you want to use. This avoids conflicts in
+case you have already localized some parts of your application by other
+means.
+</p>
+<p>
+To easily support new languages all language specific strings are extracted
+into language files. These language files can be found in the
+<tt>languages</tt> directory of the plugin (or <tt>app/languages</tt> for
+your own language files) and are written in the YAML format. They also
+contain meta data about the author of the language file and can be extended
+with Ruby code (eg. configuring the Rails Inflector). More detailed
+information or instructions for creating a new language file can be found
+in the plugin documenation at <a
+href="http://simple-localization.arkanis.de/docs/index">simple-localization.arkanis.de/docs/index</a>.
+</p>
+<h2>Installation</h2>
+<p>
+You can install the newest version of the plugin (for Rails 1.1 and 1.2)
+directly from the SubVersion repository:
+</p>
+<pre>
+  ./script/plugin install http://svn.arkanis-development.de/projects/rails_plugins/current/simple_localization
+</pre>
+<p>
+The next and already last thing is to call the <tt>simple_localization</tt>
+method at the end of your <tt>environment.rb</tt> file:
+</p>
+<pre>
+  simple_localization :language =&gt; :de
+</pre>
+<p>
+With this you&#8216;re done. The <tt>:language</tt> parameter lets you
+define the language you want to use. Just specify the name of the language
+file without the <tt>.yml</tt> extension as a symbol or string. To load
+multiple languages just specify them in an array:
+</p>
+<pre>
+  simple_localization :languages =&gt; [:de, :en, :nl, :fr]
+</pre>
+<p>
+The <tt>:languages</tt> and <tt>:language</tt> options are doing exactly
+the same. Use whatever sounds best for you. This one call of the
+<tt>simple_localization</tt> method gives you quite more control over the
+plugin but this is described in the next chapter.
+</p>
+<p>
+<b>Things get a bit complicated when using Rails model observers. Features
+which are accessed when the models are loaded are preloaded by the plugin.
+To disable a preloaded feature set the
+<tt>ArkanisDevelopment::SimpleLocalization::SUPPRESS_FEATURES</tt> constant
+to the name (symbol) of the feature. This have to be done before the
+<tt>Rails::Initializer.run</tt> call in the <tt>environment.rb</tt>.</b>
+This is necessary because an observer (and with it the corresponding model)
+is loaded before the plugin is initialized in the <tt>environment.rb</tt>.
+Thanks to MK for reporting this problem.
+</p>
+<h2>More information, help, ect.</h2>
+<p>
+Visit the plugin documentation at <a
+href="http://simple-localization.arkanis.de/docs/index">simple-localization.arkanis.de/docs/index</a>.
+There is a lot of cool stuff waiting for you there (e.g. multipart language
+files, detailed feature descriptions, ect.). You&#8216;ll also find a forum
+there so if you have a question don&#8216;t hesitate to ask it.
+</p>
+<h2>Contributors</h2>
+<p>
+These guys helped to make this plugin what it is today:
+</p>
+<dl>
+<dt>Mark Kocera</dt><dd>Dutch language file (nl.yml), idea to solve the Rails observer problem.
+
+</dd>
+<dt>Sylvain Obegi</dt><dd>French language file (fr.yml), bug hunting, several other good ideas.
+
+</dd>
+<dt>The Globalize Rails team</dt><dd>Actually the entire localized templates feature is based on their source.
+Thanks for releasing the their source under the MIT-license.
+
+</dd>
+<dt>David Saitta</dt><dd>Solving a bug in the localized models by lang file feature.
+
+</dd>
+<dt>Roman Gonzalez</dt><dd>The idea to automatically generate missing keys and a rake task to do this.
+
+</dd>
+<dt>Jonas Gauffin</dt><dd>Localized default formats of the localized data and time feature.
+
+</dd>
+<dt>Michael Kessler</dt><dd>Contributing a part of the key auto generation code.
+
+</dd>
+<dt>And…</dt><dd>many other guys helping out hunting bugs and having good ideas to improve
+the plugin.
+
+</dd>
+</dl>
+<h2>License</h2>
+<p>
+Copyright (c) 2007 Stephan Soller &lt;stephan.soller@helionweb.de&gt; and
+contributors
+</p>
+<p>
+The MIT License
+</p>
+<p>
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+&quot;Software&quot;), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to the
+following conditions:
+</p>
+<p>
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+</p>
+<p>
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

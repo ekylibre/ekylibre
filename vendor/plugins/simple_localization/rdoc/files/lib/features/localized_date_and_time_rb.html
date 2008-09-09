@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: localized_date_and_time.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>localized_date_and_time.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>lib/features/localized_date_and_time.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Mon Oct 15 19:43:41 +0200 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Localized <a href="../../../classes/Date.html">Date</a> and Time classes</h1>
+<p>
+This feature will overwrite the month and day name constants of the <a
+href="../../../classes/Date.html">Date</a> class with the proper names from
+the language file. Here <tt>silence_warnings</tt> gets used to prevent
+const reassignment warnings. We know we&#8216;re doing something bad&#8230;
+</p>
+<p>
+Also updates the date formates of the <a
+href="../../../classes/Date.html">Date</a> class with the ones from the
+language file.
+</p>
+<p>
+Next on the Time class is localized. More specifically it&#8216;s
+<tt>strftime</tt> method. This is based on the quick&#8216;n dirty
+localization from Patrick Lenz: <a
+href="http://poocs.net/articles/2005/10/04/localization-for-rubys-time-strftime">poocs.net/articles/2005/10/04/localization-for-rubys-time-strftime</a>.
+It&#8216;s a bit modified to respect the &#8217;%%&#8217; escape sequence.
+</p>
+<p>
+As done with the date formats of the <a
+href="../../../classes/Date.html">Date</a> class the time formats of the
+Time class will be updated, too. Again with ones from the language file.
+</p>
+<h2>Used sections of the language file</h2>
+<p>
+The necessary localized strings are read from the <tt>dates</tt> section of
+the language file:
+</p>
+<pre>
+  dates:
+    monthnames: [January, February, March, April, May, June, July, August, September, October, November, December]
+    daynames: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    abbr_monthnames: [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    abbr_daynames: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+    date_formats:
+      short: '%e %b'
+      long: '%B %e, %Y'
+    time_formats:
+      short: '%d %b %H:%M'
+      long: '%B %d, %Y %H:%M'
+</pre>
+<p>
+The <tt>monthnames</tt>, <tt>daynames</tt>, <tt>abbr_monthnames</tt> and
+<tt>abbr_daynames</tt> entries will overwrite the corresponding constants
+of the <a href="../../../classes/Date.html">Date</a> class. The
+<tt>date_formats</tt> and <tt>time_formats</tt> entries are used to update
+the formats available to the <tt>to_formatted_s</tt> method of the <a
+href="../../../classes/Date.html">Date</a> and Time classes.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ABBR_DAYNAMES</td>
+          <td>=</td>
+          <td class="context-item-value">ArkanisDevelopment::SimpleLocalization::CachedLangSectionProxy.new :sections =&gt; [:dates, :abbr_daynames]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">MONTHS</td>
+          <td>=</td>
+          <td class="context-item-value">ArkanisDevelopment::SimpleLocalization::CachedLangSectionProxy.new :sections =&gt; [:dates, :monthnames] do |localized_data|       ArkanisDevelopment::SimpleLocalization::LocalizedDateAndTime.convert_to_name_indexed_hash localized_data, 1</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

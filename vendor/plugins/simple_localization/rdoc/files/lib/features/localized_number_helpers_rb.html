@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: localized_number_helpers.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>localized_number_helpers.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>lib/features/localized_number_helpers.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Mon Jun 25 20:25:44 +0200 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Localized number helpers</h1>
+<p>
+Localizes the number helpers of Rails by loading the default options from
+the language file.
+</p>
+<p>
+The only exception here is the <tt>number_to_currency</tt> helper which is
+reimplemented. This is neccessary in order to overwrite the required
+strings with proper localized ones from the language file.
+</p>
+<h2>Used sections of the language file</h2>
+<pre>
+  numbers:
+    separator: '.'
+    delimiter: ','
+    precision: 3
+</pre>
+<p>
+The <tt>numbers</tt> section contains the default options common to most
+number helpers (<tt>number_to_currency</tt>, <tt>number_to_percentage</tt>,
+<tt>number_with_delimiter</tt> and <tt>number_with_precision</tt>).
+</p>
+<pre>
+  helpers:
+    number_to_currency:
+      precision: 2
+      unit: '$'
+      order: [unit, main, separator, fraction]
+    number_to_phone:
+      area_code: false
+      delimiter: '-'
+      extension:
+      country_code:
+</pre>
+<p>
+The <tt>number_to_currency</tt> section contains new default options for
+the <tt>number_to_currency</tt> helper. In case of a conflict the options
+you specify here will overwrite the options specified in the
+<tt>numbers</tt> section.
+</p>
+<p>
+The <tt>number_to_phone</tt> section contains the default options for the
+<tt>number_to_phone</tt> helper. You can use all options this helper
+accepts.
+</p>
+<h2>Notes</h2>
+<p>
+This feature contains code for Rails 1.1.x and 1.2.x in different modules
+(<tt>Rails11</tt> and <tt>Rails12</tt>). Code common to all version is
+located in the <tt>RailsCommon</tt> module. Depending on the running Rails
+version the matching module will be included (see end of file). The
+<tt>RailsCommon</tt> module will be included afterwards because it uses the
+version depended <tt>number_with_delimiter</tt> helper.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

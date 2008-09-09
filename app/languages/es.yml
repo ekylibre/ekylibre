@@ -1,0 +1,105 @@
+about:
+  language: Español
+  author: Johann Chaves
+  comment:  Archivo en idioma Espa?ol.
+  website: 
+  email: johann04@gmail.com
+  date: 2007-08-26
+
+active_record_messages:
+  inclusion: no está incluido en la lista
+  exclusion: está reservado(a)
+  invalid: es inválido(a)
+  confirmation: no concuerda con su confirmación
+  accepted: debe ser aceptado(a)
+  empty: no puede estar vacío(a)
+  blank: no puede estar en blanco
+  too_long: es muy largo(a) (el máximo es %d caracteres)
+  too_short: es muy corto(a) (el mínimo es %d caracteres)
+  wrong_length: es de tamaño incorrecto (debería ser %d caracteres)
+  taken: ya ha sido tomado(a)
+  not_a_number: no es un número
+
+dates:
+  monthnames: [Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Setiembre, Octubre, Noviembre, Diciembre]
+  daynames: [Domingo, Lunes, Martes, Miércoles, Jueves, Sábado]
+  abbr_monthnames: [Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic]
+  abbr_daynames: [Dom, Lun, Mar, Mie, Jue, Vie, Sab]
+  date_formats:
+    attributes: '%d-%m-%y'
+    short: '%e %b'
+    long: '%B %e, %Y'
+  time_formats:
+    attributes: '%d/%m/%y %H:%M'
+    short: '%d %b %H:%M'
+    long: '%B %d, %Y %H:%M'
+  strftime_overwrites:
+    c: '%B %d, %Y %H:%M'
+    x: '%d-%m-%y'
+    X: '%H:%M:%S'
+
+numbers:
+  separator: '.'
+  delimiter: ','
+  precision: 3
+
+arrays:
+  to_sentence:
+    connector: y
+    skip_last_comma: false
+
+countries:
+  Germany: Alemania
+
+helpers:
+  error_messages_for:
+    heading:
+      1: '1 error evitó que este %2$s fuera guardado'
+      n: '%d errores evitaron que este %s fuera guardado'
+    description: 'Hubo problemas con los siguientes campos:'
+  number_to_currency:
+    precision: 2
+    unit: '$'
+    order: [unit, main, separator, fraction]
+  number_to_phone:
+    area_code: false
+    delimiter: '-'
+    extension: 
+    country_code: 
+  date_select:
+    order: [:year, :month, :day]
+  distance_of_time_in_words:
+    less than 5 seconds: menos de 5 segundos
+    less than 10 seconds: menos de 10 segundos
+    less than 20 seconds: menos de 20 segundos
+    less than a minute: menos de un minuto
+    1 minute: 1 minuto
+    half a minute: medio minuto
+    n minutes: %i minutos
+    about 1 hour: aproximadamente 1 hora
+    about n hours: aproximadamente %i horas
+    1 day: 1 día
+    n days: %i días
+    about 1 month: aproximadamente 1 mes
+    n months: %i meses
+    about 1 year: aproximadamente 1 año
+    over n years: hasta %i años
+
+# Add your the model translations as descriped in the
+# localized_models_by_lang_file feature to the model section.
+# 
+# Example:
+# 
+# models:
+#   my_model:
+#     name: Localized model name
+#     attributes:
+#       name: Localized name
+#       description: Localized description
+models:
+
+# You can use the app section freely to localize you application with the
+# localized_application feature. The entries defined here are accesable by the
+# global method "l". See the RDoc for details.
+app:
+

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: localized_column_human_name.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>localized_column_human_name.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>lib/features/localized_column_human_name.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Mon Sep 03 14:49:26 +0200 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Localized human name method of the Column class</h1>
+<p>
+This file contains code which extends ActiveRecords Column class. The aim
+is to localize the Column#human_name method which is heavily used by
+scaffold.
+</p>
+<p>
+So, wheres the problem? By default the <tt>human_name</tt> method calls the
+ActiveRecord::Base#human_attribute_name method. The localized_models and
+localized_models_by_lang_file features are overwriting this method to
+provide localized data. However for these overwritten methods to work they
+need to be called on the model class itself (eg. Comment) and not on the
+Base class.
+</p>
+<p>
+Why? Because the localized_models feature only overwrites the
+<tt>human_attribute_name</tt> method in the model class not in the Base
+class itself. The localized_models_by_lang_file feature overwrites the
+<tt>human_attribute_name</tt> in the Base class but still needs the name of
+the model class to find the proper section of the language file. When
+called on the Base class the overwritten method has no idea to which model
+class it belongs.
+</p>
+<p>
+To solve this we extend the Column class to hold a reference to the model
+class it belongs to. Next on we overwrite the <tt>human_name</tt> method to
+call the <tt>human_attribute_name</tt> method on the model class if one is
+available. The last step is to update the Base#columns method which builds
+the column array belonging to a model class. After these columns are
+defined we just have to set their newly added <tt>model_class</tt> property
+to the current class.
+</p>
+<p>
+This way the two features work like usual and we should get the localized
+data. Even when using scaffold.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+about:
+  language: Português (Brasil)
+  author: José Valim
+  comment:  Portughese language file. You can use this file as a template to build a new one.
+  website: 
+  email: jose.valim@gmail.com
+  date: 2007-10-03
+
+active_record_messages:
+  inclusion: não está incluso na lista
+  exclusion: está reservado
+  invalid: é inválido
+  confirmation: não é igual à sua confirmação
+  accepted: deve ser aceito
+  empty: não pode estar vazio
+  blank: não pode estar em branco
+  too_long: é muito longo (máximo é %d caracteres)
+  too_short: é muito curto (mínimo é %d caracteres)
+  wrong_length: possui comprimento errado (deve ser %d caracteres)
+  taken: já está em uso
+  not_a_number: não é um número
+
+dates:
+  monthnames: [Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
+  daynames: [Domingo, Segunda, Terça, Quarta, Quinta, Sexta, Sábado]
+  abbr_monthnames: [Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez]
+  abbr_daynames: [Dom, Seg, Ter, Qua, Qui, Sex, Sáb]
+  date_formats:
+    attributes: '%d/%m/%Y'
+    short: '%d/%b'
+    long: '%d de %B de %Y'
+  time_formats:
+    attributes: '%d/%m/%Y %H:%M'
+    short: '%d/%b %H:%M'
+    long: '%d/%B/%Y %H:%M'
+  strftime_overwrites:
+    c: '%m/%d/%y %H:%M:%S'
+    x: '%m/%d/%y'
+    X: '%H:%M:%S'
+
+numbers:
+  separator: '.'
+  delimiter: ','
+  precision: 2
+
+arrays:
+  to_sentence:
+    connector: e
+    skip_last_comma: true
+
+countries:
+  Brazil: Brasil
+
+helpers:
+  error_messages_for:
+    heading:
+      1: '1 erro impediu que %2$s fosse salvo'
+      n: '%d erros impediram que %s fosse salvo'
+    description: 'Houve problema nos seguintes campos:'
+  number_to_currency:
+    precision: 2
+    unit: 'R$'
+    order: [unit, main, separator, fraction]
+  number_to_phone:
+    area_code: true
+    delimiter: '-'
+    extension: 
+    country_code: +59
+  date_select:
+    order: [:day, :month, :year]
+  distance_of_time_in_words:
+    less than 5 seconds: menos que 5 segundos
+    less than 10 seconds: menos que 10 segundos
+    less than 20 seconds: menos que 20 segundos
+    less than a minute: menos que 1 minuto
+    1 minute: 1 minuto
+    half a minute: 1 minuto e meio
+    n minutes: %i minutos
+    about 1 hour: aproximadamente 1 hora
+    about n hours: aproximadamente %i horas
+    1 day: 1 dia
+    n days: %i dias
+    about 1 month: aproximadamente 1 mês
+    n months: %i meses
+    about 1 year: aproximadamente 1 ano
+    over n years: mais que %i anos
+
+# Add your the model translations as descriped in the
+# localized_models_by_lang_file feature to the model section.
+# 
+# Example:
+# 
+# models:
+#   my_model:
+#     name: Localized model name
+#     attributes:
+#       name: Localized name
+#       description: Localized description
+models:
+
+# You can use the app section freely to localize you application with the
+# localized_application feature. The entries defined here are accesable by the
+# global method "l". See the RDoc for details.
+app:

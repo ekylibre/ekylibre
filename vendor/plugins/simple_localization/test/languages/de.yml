@@ -1,0 +1,165 @@
+about:
+  language: Deutsch
+  author: Stephan Soller
+  comment:  Deutsche Sprachdatei. Kann als Basis für neue Sprachdatein dienen.
+  website: http://www.arkanis-development.de/
+  email: stephan.soller@addcom.de
+  date: 2007-01-20
+
+active_record_messages:
+  inclusion: ist nicht in Liste gültiger Optionen enthalten.
+  exclusion: ist reserviert.
+  invalid: ist ungültig.
+  confirmation: simmt mit der Bestätigung nicht überein.
+  accepted: muss akzeptiert werden.
+  empty: darf nicht leer sein.
+  blank: darf nicht leer sein.
+  too_long: ist zu lang (maximal %d Zeichen).
+  too_short: ist zu kurz (mindestens %d Zeichen).
+  wrong_length: hat die falsche Länge (es sollten %d Zeichen sein).
+  taken: ist bereits vergeben.
+  not_a_number: ist keine Zahl.
+  greater_than: muss größer als %d sein.
+  greater_than_or_equal_to: muss größer oder gleich %d sein.
+  equal_to: muss gleich %d sein.
+  less_than: muss kleiner als %d sein.
+  less_than_or_equal_to: muss kleiner oder gleich %d sein.
+  odd: muss ungerade sein.
+  even: muss gerade sein.
+
+dates:
+  monthnames: [Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
+  daynames: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
+  abbr_monthnames: [Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Oct, Nov, Dez]
+  abbr_daynames: [Son, Mon, Din, Mit, Don, Fri, Sam]
+  date_formats:
+    attributes: '%d.%m.%Y'
+    short: '%e. %b'
+    long: '%e. %B %Y'
+  time_formats:
+    attributes: '%d.%m.%Y %H:%M'
+    short: '%d %b %H:%M'
+    long: '%d %B %Y %H:%M'
+  strftime_overwrites:
+    c: '%A %e. %B %Y %H:%M:%S'
+    x: '%d.%m.%y'
+    X: '%H:%M:%S'
+
+numbers:
+  separator: ','
+  delimiter: '.'
+  precision: 2
+
+arrays:
+  to_sentence:
+    connector: und
+    skip_last_comma: true
+
+helpers:
+  error_messages_for:
+    heading:
+      1: '%2$s konnte wegen einem Fehler nicht gespeichert werden.'
+      n: '%2$s konnte wegen %1$d Fehlern nicht gespeichert werden.'
+    description: 'Folgende Probleme sind aufgetreten:'
+  number_to_currency:
+    precision: 2
+    unit: ' €'
+    order: [main, separator, fraction, unit]
+  number_to_phone:
+    area_code: false
+    delimiter: ' '
+    extension: 
+    country_code: 
+  date_select:
+    order: [:year, :month, :day]
+  distance_of_time_in_words:
+    less than 5 seconds: weniger als 5 Sekunden
+    less than 10 seconds: weniger als 10 Sekunden
+    less than 20 seconds: weniger als 20 Sekunden
+    less than a minute: weniger als eine Minute
+    1 minute: 1 Minute
+    half a minute: eine halbe Minute
+    n minutes: %i Minuten
+    about 1 hour: ungefähr 1 Stunde
+    about n hours: ungefähr %i Stunden
+    1 day: ein Tag
+    n days: %i Tage
+    about 1 month: ungefähr ein Monat
+    n months: %i Monate
+    about 1 year: ungefähr 1 Jahr
+    over 2 years: über 2 Jährchen
+    over 3 years: über 3 Jährchen
+    over 4 years: über 4 Jährchen
+    over n years: über %i Jahre
+
+# The country list is added by another part of the german language file.
+#countries:
+
+
+# Add your the model translations as descriped in the
+# localized_models_by_lang_file feature to the model section.
+# 
+# Example:
+# 
+# models:
+#   my_model:
+#     name: Localized model name
+#     attributes:
+#       name: Localized name
+#       description: Localized description
+models:
+# Test section for the localized_model_by_lang_file feature.
+# The city and state attributes are commented out to test attributes with no
+# language information.
+  address:
+    name: Der Kontakt
+    attributes:
+      name: Der Name
+#     city: Die Stadt
+#     state: Der Staat
+      phone: Die Telefon-Nummer
+      email_address: Die eMail-Adresse
+      'no': Nichts
+  special_address:
+    name: Der Sonderkontakt
+    attributes:
+      name: Der Name
+#     city: Die Stadt
+#     state: Der Staat
+      phone: Die Telefon-Nummer
+      email_address: Die eMail-Adresse
+      'no': Nichts
+      purpose: Die Verwendung
+
+# You can use the app section freely to localize you application with the
+# localized_application feature. The entries defined here are accesable by the
+# global method "l". See the RDoc for details.
+app_default_value: ToDo
+app:
+  entry:
+    test: hello model
+  about:
+    test: hello controller
+    index:
+      test: hello view
+      symbol: Symbol
+      a string: Zeichenkette
+      'with substitution %s': Mit Variable %s
+  shared:
+    source:
+      test: hello partial
+  test:
+    section: Test Zeichenkette
+    nested:
+      another test: Noch ein Test
+  pages:
+    in_controller: Im Controller
+
+tests:
+  substitution:
+    format: substitute %s and %i
+    format_escape: escape %%s but not %s
+    hash: substitute :a and :b
+    hash_escape: escape \:a but not :b
+  empty:
+

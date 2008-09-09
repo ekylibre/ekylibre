@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: localized_active_record_helpers.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>localized_active_record_helpers.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>lib/features/localized_active_record_helpers.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Mon Jun 25 20:25:44 +0200 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Localized ActiveRecord helpers</h1>
+<p>
+Overwrites the default <tt>error_messages_for</tt> helper with an localized
+version which reads the header and description paragraph from the language
+file. The error messages itself are localized by the
+<tt>localized_models</tt> and <tt>localized_error_messages</tt> features.
+</p>
+<p>
+It also gives you the possibility to define your own way of generating the
+HTML output by specifying a block:
+</p>
+<pre>
+  error_messages_for :record do |objects, header_message, description, error_messages, localized_object_name, count|
+    content_tag(:p, header_message) +
+    content_tag(:ul, error_messages.collect{|msg| content_tag :li, msg}.join(&quot;\n&quot;))
+  end
+</pre>
+<h2>Used sections of the language file</h2>
+<p>
+This feature uses the <tt>error_messages_for</tt> section inside the
+<tt>helpers</tt> section of the language file:
+</p>
+<pre>
+  helpers:
+    error_messages_for:
+      heading:
+        1: '1 error prohibited this %s from being saved'
+        n: '%d errors prohibited this %s from being saved'
+      description: 'There were problems with the following fields:'
+</pre>
+<p>
+To make the pluralization of the heading easier you can specify an entry
+for every number of errors. If there is no matching entry for the current
+error count the <tt>n</tt> entry will be used. The description paragraph is
+just a simple sentence.
+</p>
+<h2>Notes</h2>
+<p>
+This feature contains code for Rails 1.1.x and 1.2.x in different modules
+(<tt>Rails11</tt> and <tt>Rails12</tt>). Depending on the running Rails
+version the matching module will be included (see end of file).
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

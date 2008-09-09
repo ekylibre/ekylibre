@@ -1,0 +1,5 @@
+title: Language file used by another plugin
+description: |
+  Another plugin added it's language file directory (this directory here) to the
+  language file directory list. Therefore this file here is loaded to.
+

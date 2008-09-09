@@ -1,0 +1,349 @@
+﻿about:
+  language: Italiano
+  author: Sigfrid Dusci
+  comment:  traduzione in italiano per simple_localization
+  website: http://www.swelement.com
+  email: sigfrid.dusci@swelement.com
+  date: 2007-11-02
+
+active_record_messages:
+  inclusion: non e incluso nella lista
+  exclusion: è riservato
+  invalid: non è valido
+  confirmation: non è confermato in maniera corretta
+  accepted: deve essere accettato
+  empty: non può esseere vuoto
+  blank: non può essere vuoto
+  too_long: è troppo lungo (il massimo sono %d caratteri)
+  too_short: è troppo corto (il minimo sono %d caratteri)
+  wrong_length: è di lunghezza sbagliata (deve essere %d caratteri)
+  taken: è già utilizzato
+  not_a_number: non è un numero
+
+dates:
+  monthnames: [Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]
+  daynames: [Domenica, Lunedi, Martedi, Mercoledi, Giovedi, Venerdi, Sabato]
+  abbr_monthnames: [Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic]
+  abbr_daynames: [Dom, Lun, Mar, Mer, Gio, Ven, Sab]
+  date_formats:
+    attributes: '%d/%m/%Y'
+    short: '%e %b'
+    long: '%e %B, %Y'
+  time_formats:
+    attributes: '%d/%m/%Y %H:%M'
+    short: '%e %b %H:%M'
+    long: '%e %B, %Y %H:%M'
+  strftime_overwrites:
+    c: '%d %B %Y %H:%M'
+    x: '%d/%m/%Y'
+    X: '%H:%M:%S'
+
+numbers:
+  separator: '.'
+  delimiter: ','
+  precision: 3
+
+arrays:
+  to_sentence:
+    connector: e
+    skip_last_comma: true
+
+countries:
+    'Afghanistan': Afghanistan
+    'Albania': Albania
+    'Algeria': Algeria
+    'American Samoa': Samoa Americana
+    'Andorra': Andorra
+    'Angola': Angola
+    'Anguilla': Anguilla
+    'Antarctica': Antartica
+    'Antigua And Barbuda': Antigua und Barbuda
+    'Argentina': Argentina
+    'Armenia': Armenia
+    'Aruba': Aruba
+    'Australia': Australia
+    'Austria': Austria
+    'Azerbaijan': Azerbaijan
+    'Bahamas': Bahamas
+    'Bahrain': Bahrain
+    'Bangladesh': Bangladesch
+    'Barbados': Barbados
+    'Belarus': Bielorussia
+    'Belgium': Belgio
+    'Belize': Belize
+    'Benin': Benin
+    'Bermuda': Bermuda
+    'Bhutan': Bhutan
+    'Bolivia': Bolivia
+    'Bosnia and Herzegowina': Bosnia ed Erzegovina
+    'Botswana': Botzwana
+    'Bouvet Island': Isola da Bouvet
+    'Brazil': Brasile
+    'British Indian Ocean Territory': Territorio Britannico dell''Oceano Indiano
+    'Brunei Darussalam': Brunei
+    'Bulgaria': Bulgaria
+    'Burkina Faso': Burkina Faso
+    'Burma': Myanmar
+    'Burundi': Burundi
+    'Cambodia': Cambigia
+    'Cameroon': Camerun
+    'Canada': Canada
+    'Cape Verde': Capo verde
+    'Cayman Islands': Isole Cayman
+    'Central African Republic': Repubblica Centrafricana
+    'Chad': Ciad
+    'Chile': Cile
+    'China': Cina
+    'Christmas Island': isola di Natale
+    'Cocos (Keeling) Islands': Isola del Cocco
+    'Colombia': Colombia
+    'Comoros': Unione delle Comore
+    'Congo': Congo
+    'Congo, the Democratic Republic of the': Repubblica Democratica del Congo
+    'Cook Islands': Isola di Cook
+    'Costa Rica': Costa Rica
+    'Cote d''Ivoire': Costa d''Avorio
+    'Croatia': Croazia
+    'Cuba': Cuba
+    'Cyprus': Cipro
+    'Czech Republic': Repubblica Ceca
+    'Denmark': Danimarca
+    'Djibouti': Gibuti
+    'Dominica': Dominica
+    'Dominican Republic': Repubblica Dominicana
+    'East Timor': Timor Est
+    'Ecuador': Ecuador
+    'Egypt': Egitto
+    'El Salvador': El Salvador
+    'England': Inghilterra
+    'Equatorial Guinea': Guinea Equatoriale
+    'Eritrea': Eritrea
+    'Espana': Spagna
+    'Estonia': Estonia
+    'Ethiopia': Etiopia
+    'Falkland Islands': Isole Falkland
+    'Faroe Islands': Isole Faroe
+    'Fiji': Fiji
+    'Finland': Finlandia
+    'France': Francia
+    'French Guiana': Guiana Francese
+    'French Polynesia': Polinesia Francese
+    'French Southern Territories': Territori francesi meridionali
+    'Gabon': Gabon
+    'Gambia': Gambia
+    'Georgia': Georgia
+    'Germany': Germania
+    'Ghana': Ghana
+    'Gibraltar': Gibilterra
+    'Great Britain': Gran Bretagna
+    'Greece': Grecia
+    'Greenland': Groenlandia
+    'Grenada': Grenada
+    'Guadeloupe': Guadalupa
+    'Guam': Guam
+    'Guatemala': Guatemala
+    'Guinea': Guinea
+    'Guinea-Bissau': Guinea-Bissau
+    'Guyana': Guiana
+    'Haiti': Haiti
+    'Heard and Mc Donald Islands': Isole Heard e McDonald
+    'Honduras': Honduras
+    'Hong Kong': Hong kong
+    'Hungary': Ungheria
+    'Iceland': Islanda
+    'India': India
+    'Indonesia': Indonesia
+    'Ireland': Irlanda
+    'Israel': Israele
+    'Italy': Italia
+    'Iran': Iran
+    'Iraq': Iraq
+    'Jamaica': Giamaica
+    'Japan': Giappone
+    'Jordan': Giordania
+    'Kazakhstan': Kazakistan
+    'Kenya': Kenia
+    'Kiribati': Kiribati
+    'Korea, Republic of': Repubblica Democratica Popolare di Corea
+    'Korea (South)': Corea del Sud
+    'Kuwait': Kuwait
+    'Kyrgyzstan': Kirghizistan
+    'Lao People''s Democratic Republic': Laos
+    'Latvia': Lettonia
+    'Lebanon': Libano
+    'Lesotho': Lesotho
+    'Liberia': Liberia
+    'Liechtenstein': Liechtenstein
+    'Lithuania': Lituania
+    'Luxembourg': Lussemburgo
+    'Macau': Macao
+    'Macedonia': Macedonia
+    'Madagascar': Madagascar
+    'Malawi': Malawi
+    'Malaysia': Malesia
+    'Maldives': Maldive
+    'Mali': Mali
+    'Malta': Malta
+    'Marshall Islands': Isole Marshall
+    'Martinique': Martinica
+    'Mauritania': Mauritania
+    'Mauritius': Mauritius
+    'Mayotte': Mayotte
+    'Mexico': Messico
+    'Micronesia, Federated States of': Micronesia
+    'Moldova, Republic of': Maldavia
+    'Monaco': Monaco
+    'Mongolia': Mongolia
+    'Montenegro': Montenegro
+    'Montserrat': Montserrat 
+    'Morocco': Marocco
+    'Mozambique': Mozambico
+    'Myanmar': Myanmar
+    'Namibia': Namibia
+    'Nauru': Nauru
+    'Nepal': Nepal
+    'Netherlands': Paesi bassi
+    'Netherlands Antilles': Antille Olandesi
+    'New Caledonia': Nuova Caledonia
+    'New Zealand': Nuova Zelanda
+    'Nicaragua': Nicaragua
+    'Niger': Niger
+    'Nigeria': Nigeria
+    'Niue': Niue
+    'Norfolk Island': Territorio dell''Isola Norfolk
+    'Northern Ireland': Irlanda del Nord
+    'Northern Mariana Islands': Isole Marianne Settentrionali
+    'Norway': Norvegia
+    'Oman': Oman
+    'Pakistan': Pakistan
+    'Palau': Palau
+    'Panama': Panama
+    'Papua New Guinea': Papua-Nuova Guinea
+    'Paraguay': Paraguay
+    'Peru': Perù
+    'Philippines': Filippine
+    'Pitcairn': Isole Pitcairn
+    'Poland': Polonia
+    'Portugal': Portogallo
+    'Puerto Rico': Porto Rico
+    'Qatar': Qatar
+    'Reunion': Réunion
+    'Romania': Romania
+    'Russia': Federazione Russa
+    'Rwanda': Ruanda
+    'Saint Kitts and Nevis': Saint Kitts e Nevis
+    'Saint Lucia': Santa Lucia
+    'Saint Vincent and the Grenadines': Saint Vincent e Grenadine
+    'Samoa (Independent)': Samoa
+    'San Marino': San Marino
+    'Sao Tome and Principe': São Tomé e Príncipe
+    'Saudi Arabia': Arabia Saudita
+    'Scotland': Scozia
+    'Senegal': Senegal
+    'Serbia': Serbia
+    'Seychelles': Seychellen
+    'Sierra Leone': Sierra Leone
+    'Singapore': Singapore
+    'Slovakia': Slovacchia
+    'Slovenia': Slovenia
+    'Solomon Islands': Isole Salomone
+    'Somalia': Somalia
+    'South Africa': Sud Africa
+    'South Georgia and the South Sandwich Islands': Georgia del Sud e Isole Sandwich Meridionali
+    'South Korea': Corea del Sud
+    'Spain': Spania
+    'Sri Lanka': Sri Lanka
+    'St. Helena': Isola di Sant''Elena
+    'St. Pierre and Miquelon': Saint-Pierre et Miquelon 
+    'Suriname': Suriname
+    'Svalbard and Jan Mayen Islands': Isole Svalbard e Jan Mayen
+    'Swaziland': Swaziland
+    'Sweden': Svezia
+    'Switzerland': Svizzera
+    'Taiwan': Taiwan
+    'Tajikistan': Repubblica del Tagikistan
+    'Tanzania': Tanzania
+    'Thailand': Tailandia
+    'Togo': Togo
+    'Tokelau': Tokelau
+    'Tonga': Tonga
+    'Trinidad': Trinidad
+    'Trinidad and Tobago': Trinidad e Tobago
+    'Tunisia': Tuisia
+    'Turkey': Turchia
+    'Turkmenistan': Turkmenistan
+    'Turks and Caicos Islands': Turks e Caicos
+    'Tuvalu': Tuvalu
+    'Uganda': Uganda
+    'Ukraine': Ucraina
+    'United Arab Emirates': Emirati Arabi uniti
+    'United Kingdom': Regno Unito
+    'United States': Stati Uniti D''America
+    'United States Minor Outlying Islands': Territori non incorporati degli Stati Uniti d''America
+    'Uruguay': Uruguay
+    'Uzbekistan': Uzbekistan
+    'Vanuatu': Vanuatu
+    'Vatican City State (Holy See)': Città del Vaticano
+    'Venezuela': Venezuela
+    'Viet Nam': Vietnam
+    'Virgin Islands (British)': Isole Vergini Britanniche
+    'Virgin Islands (U.S.)': Isole Vergini Americane
+    'Wales': Galles
+    'Wallis and Futuna Islands': Wallis e Futuna
+    'Western Sahara': Repubblica democratica araba Sahrawi
+    'Yemen': Yemen
+    'Zambia': Zambia
+    'Zimbabwe': Zimbabwe
+
+
+helpers:
+  error_messages_for:
+    heading:
+      1: 'il salvataggio di %2$s non può avvenire a causa di 1 errore'  
+      n: 'il salvataggio di %2$s non può avvenire a causa di %1$d errori'
+      description: 'I seguenti campi hanno generato un errore:'
+  number_to_currency:
+    precision: 2
+    unit: '€'
+    order: [main, separator, fraction, unit]
+  number_to_phone:
+    area_code: false
+    delimiter: ' '
+    extension: 
+    country_code: '39'
+  date_select:
+    order: [:day, :month, :year]
+  distance_of_time_in_words:
+    less than 5 seconds: meno di 5 secondi
+    less than 10 seconds: meno di 10 secondi
+    less than 20 seconds: meno di 20 secondi
+    less than a minute: meno di un minuto
+    1 minute: 1 minuto
+    half a minute: mezzo minuto
+    n minutes: %i minutei
+    about 1 hour: circa una ora
+    about n hours: circa %i ore
+    1 day: 1 giorno
+    n days: %i giorni
+    about 1 month: circa 1 mese
+    n months: %i mesi
+    about 1 year: circa 1 anno
+    over n years: più di %i anni
+
+# Add your the model translations as descriped in the
+# localized_models_by_lang_file feature to the model section.
+# 
+# Example:
+# 
+# models:
+#   my_model:
+#     name: Localized model name
+#     attributes:
+#       name: Localized name
+#       description: Localized description
+models:
+
+# You can use the app section freely to localize you application with the
+# localized_application feature. The entries defined here are accesable by the
+# global method "l". See the RDoc for details.
+app:

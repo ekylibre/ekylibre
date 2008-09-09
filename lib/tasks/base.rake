@@ -1,4 +1,4 @@
-namespace :zzz do
+namespace :eky do
 
   task :migration => :environment do
     class Default < ActiveRecord::Migration
@@ -17,11 +17,11 @@ namespace :zzz do
       def self.down
       end
     end
-	end
+  end
 	
   desc "Load default data Group/User"
   task :up => :migration do
     Default.up
   end
-	
+  
 end

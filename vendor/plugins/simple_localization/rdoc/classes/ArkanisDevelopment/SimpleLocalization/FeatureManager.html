@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: ArkanisDevelopment::SimpleLocalization::FeatureManager</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">ArkanisDevelopment::SimpleLocalization::FeatureManager</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/feature_manager_rb.html">
+                lib/feature_manager.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A singleton to manage which features should be loaded at what time.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000070">all_features</a>&nbsp;&nbsp;
+      <a href="#M000074">all_loaded_features</a>&nbsp;&nbsp;
+      <a href="#M000068">disable</a>&nbsp;&nbsp;
+      <a href="#M000075">disabled_features</a>&nbsp;&nbsp;
+      <a href="#M000076">freeze_plugin_init_features!</a>&nbsp;&nbsp;
+      <a href="#M000069">load</a>&nbsp;&nbsp;
+      <a href="#M000072">localization_init_features</a>&nbsp;&nbsp;
+      <a href="#M000066">new</a>&nbsp;&nbsp;
+      <a href="#M000071">plugin_init_features</a>&nbsp;&nbsp;
+      <a href="#M000067">preload</a>&nbsp;&nbsp;
+      <a href="#M000073">unwanted_features</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name">Singleton</span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000066" class="method-detail">
+        <a name="M000066"></a>
+
+        <div class="method-heading">
+          <a href="#M000066" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000066-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000066-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/feature_manager.rb, line 10</span>
+10:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+11:         <span class="ruby-ivar">@all_features</span> = <span class="ruby-identifier">read_available_features</span>
+12:         <span class="ruby-ivar">@plugin_init_features</span> = []
+13:         <span class="ruby-ivar">@frozen_plugin_init_features</span> = <span class="ruby-keyword kw">nil</span>
+14:         <span class="ruby-ivar">@localization_init_features</span> = []
+15:         <span class="ruby-ivar">@disabled_features</span> = []
+16:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000070" class="method-detail">
+        <a name="M000070"></a>
+
+        <div class="method-heading">
+          <a href="#M000070" class="method-signature">
+          <span class="method-name">all_features</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns all available features.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000070-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000070-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/feature_manager.rb, line 37</span>
+37:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">all_features</span>
+38:         <span class="ruby-ivar">@all_features</span>
+39:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000074" class="method-detail">
+        <a name="M000074"></a>
+
+        <div class="method-heading">
+          <a href="#M000074" class="method-signature">
+          <span class="method-name">all_loaded_features</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a list of all features marked for <a
+href="FeatureManager.html#M000067">preload</a> or loading.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000074-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000074-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/feature_manager.rb, line 58</span>
+58:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">all_loaded_features</span>
+59:         <span class="ruby-identifier">plugin_init_features</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">localization_init_features</span>
+60:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000068" class="method-detail">
+        <a name="M000068"></a>
+
+        <div class="method-heading">
+          <a href="#M000068" class="method-signature">
+          <span class="method-name">disable</span><span class="method-args">(*features)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Disable the specified features. This removes the these features from the
+list of available features and from the list of features to <a
+href="FeatureManager.html#M000067">preload</a>.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000068-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000068-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/feature_manager.rb, line 26</span>
+26:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">disable</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">features</span>)
+27:         <span class="ruby-ivar">@disabled_features</span>.<span class="ruby-identifier">concat</span> <span class="ruby-identifier">features</span>.<span class="ruby-identifier">flatten</span>
+28:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000075" class="method-detail">
+        <a name="M000075"></a>
+
+        <div class="method-heading">
+          <a href="#M000075" class="method-signature">
+          <span class="method-name">disabled_features</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the list of disabled features.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000075-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000075-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/feature_manager.rb, line 63</span>
+63:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">disabled_features</span>
+64:         <span class="ruby-ivar">@disabled_features</span>
+65:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000076" class="method-detail">
+        <a name="M000076"></a>
+
+        <div class="method-heading">
+          <a href="#M000076" class="method-signature">
+          <span class="method-name">freeze_plugin_init_features!</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Freezes the list of features loaded at plugin initialization. After this
+call no more features can be marked for <a
+href="FeatureManager.html#M000067">preload</a>.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000076-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000076-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/feature_manager.rb, line 69</span>
+69:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">freeze_plugin_init_features!</span>
+70:         <span class="ruby-ivar">@frozen_plugin_init_features</span> = <span class="ruby-identifier">plugin_init_features</span>
+71:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000069" class="method-detail">
+        <a name="M000069"></a>
+
+        <div class="method-heading">
+          <a href="#M000069" class="method-signature">
+          <span class="method-name">load</span><span class="method-args">(*features)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Mark the specified features for usual loading when initializing the
+localization.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000069-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000069-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/feature_manager.rb, line 32</span>
+32:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">features</span>)
+33:         <span class="ruby-ivar">@localization_init_features</span>.<span class="ruby-identifier">concat</span> <span class="ruby-identifier">features</span>.<span class="ruby-identifier">flatten</span>
+34:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000072" class="method-detail">
+        <a name="M000072"></a>
+
+        <div class="method-heading">
+          <a href="#M000072" class="method-signature">
+          <span class="method-name">localization_init_features</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the features that can be loaded .
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000072-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000072-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/feature_manager.rb, line 48</span>
+48:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">localization_init_features</span>
+49:         <span class="ruby-ivar">@all_features</span> <span class="ruby-operator">&amp;</span> (<span class="ruby-ivar">@localization_init_features</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@plugin_init_features</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@disabled_features</span>)
+50:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000071" class="method-detail">
+        <a name="M000071"></a>
+
+        <div class="method-heading">
+          <a href="#M000071" class="method-signature">
+          <span class="method-name">plugin_init_features</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the features that are requested to be loaded during plugin
+initialization.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000071-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000071-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/feature_manager.rb, line 43</span>
+43:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">plugin_init_features</span>
+44:         <span class="ruby-ivar">@frozen_plugin_init_features</span> <span class="ruby-operator">||</span> (<span class="ruby-ivar">@all_features</span> <span class="ruby-operator">&amp;</span> (<span class="ruby-ivar">@plugin_init_features</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@disabled_features</span>))
+45:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000067" class="method-detail">
+        <a name="M000067"></a>
+
+        <div class="method-heading">
+          <a href="#M000067" class="method-signature">
+          <span class="method-name">preload</span><span class="method-args">(*features)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Mark the specified features for <a
+href="FeatureManager.html#M000067">preload</a>, meaning it&#8216;s
+necessary to <a href="FeatureManager.html#M000069">load</a> them during
+plugin initialization.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000067-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000067-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/feature_manager.rb, line 20</span>
+20:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">preload</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">features</span>)
+21:         <span class="ruby-ivar">@plugin_init_features</span>.<span class="ruby-identifier">concat</span> <span class="ruby-identifier">features</span>.<span class="ruby-identifier">flatten</span>
+22:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000073" class="method-detail">
+        <a name="M000073"></a>
+
+        <div class="method-heading">
+          <a href="#M000073" class="method-signature">
+          <span class="method-name">unwanted_features</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a list of preloaded features the user doesn&#8216;t want to be
+loaded.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000073-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000073-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/feature_manager.rb, line 53</span>
+53:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unwanted_features</span>
+54:         <span class="ruby-identifier">plugin_init_features</span> <span class="ruby-operator">-</span> (<span class="ruby-ivar">@all_features</span> <span class="ruby-operator">&amp;</span> <span class="ruby-ivar">@localization_init_features</span>)
+55:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
