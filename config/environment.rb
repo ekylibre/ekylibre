@@ -69,7 +69,7 @@ end
 
 #require '../lib/safe_string'
 
-simple_localization :languages => [:fr,:en]
+simple_localization :languages => :fr
 
 #schemulator :column=>:company_id, :filter=>"1"
 #schemulator :column=>:company_id, :filter=>"SELECT company_id FROM all_users WHERE pid=pg_backend_pid()"
