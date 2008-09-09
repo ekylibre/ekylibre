@@ -14,46 +14,71 @@ module PdfReport
     require 'rexml/document'
     include REXML
     require 'digest/md5'
-    
+    require 'rfpdf'
       
 
     # this function begins to analyse the template extracting the main characteristics of
     # the Pdf document as the title, the orientation, the format, the unit ... 
     def analyze_template(template, name, id)
-      document = Document.new(template)#File.new(template))
+      document = Document.new(template)
       document_root = document.root
-      raise Exception.new "Only SQL" unless document_root.attributes['query-standard']||'sql' == 'sql'
+      va_r = 'mm'
+      raise Exception.new "Only SQL" unless document_root.attributes['query-standard']||'sql' == 'sql'   
       code = 'def render_report_'+name+'(id)'+"\n"
+       
+      raise Exception.new "Bad orientation in the template" unless document_root.attributes['orientation'] || 'portrait' == 'portrait'
       
-      code += 'pdf = FPDF.new("#{document_root.attributes[\'orientation\']}","#{document_root.attributes[\'unit\']}","#{document_root.attributes[\'format\']}", "#{document_root.attributes[\'size\']}")' + "\n end"
-   
-     # code += analyze_infos(template,document_root.elements['infos']) if document_root.elements['infos']
+      pdf='pdf'
       
-      #code += analyze_loop(template, root.elements['loop']) if root.elements['loop']
-      # code += ' end;'
-      #code += 'pdf.Close(); pdf.Output(); end'
-      
-      # ActionView::Base.logger.error(code)
-      module_eval(code)
-      # render_report_1
+      code += pdf+"=FPDF.new('P','"+ document_root.attributes['unit']+"','" + document_root.attributes['format']+ "')\n"
+     
+      code += analyze_infos(template, document_root.elements['infos']) if document_root.elements['infos']
+     
+      code += analyze_loop(template, document_root.elements['loop']) if document_root.elements['loop']
+     
+      #code += "pdf.Output()"
+     # code += "send_data pdf.output, :filename => hello_advance.pdf, :type => 'application/pdf'"
+     
+      code += "end" 
+     # send_data module_eval(code), :filename => voila.pdf, :type => 'application/pdf' "
+     module_eval(code)
     end
     
     # this function test if the balise info exists in the template and add it in the code	
     def analyze_infos(template, infos)
-      infos.each_element('info') do |info|
+      # puts infos.is_a? String
+      code = ''
+      infos.each_element("info") do |info|
         case info.attributes['type']
-        #when "created-on"
-         # code += 'pdf.Set(\"#{info.text}\")'
+     #   when "created-on"
+      #    code += 'pdf.Set(\"#{info.text}\")'
         when "written-by"
-          code += 'pdf.SetAuthor(\"#{info.text}\")'
+          code += "pdf.SetAuthor('#{info.text}')\n"
         when "created-by"
-          code += 'pdf.SetCreator(\"#{info.text}\")'
+          code += "pdf.SetCreator('#{info.text}')\n"
         end
-        code
+       
       end
-      
+      code.to_s
     end
 
+     # this function test if the balise info exists in the template and add it in the code	
+    def analyze_infos(template, infos)
+      # puts infos.is_a? String
+      code = ''
+      infos.each_element("info") do |info|
+        case info.attributes['type']
+     #   when "created-on"
+      #    code += 'pdf.Set(\"#{info.text}\")'
+        when "written-by"
+          code += "pdf.SetAuthor('#{info.text}')\n"
+        when "created-by"
+          code += "pdf.SetCreator('#{info.text}')\n"
+        end
+       
+      end
+      code.to_s
+    end
     
 
   end
