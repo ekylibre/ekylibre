@@ -34,7 +34,7 @@ module PdfReport
      
       code += analyze_infos(template, document_root.elements['infos']) if document_root.elements['infos']
      
-      code += analyze_loop(template, document_root.elements['loop']) if document_root.elements['loop']
+      code += analyze_loop_without_query(template, document_root.elements['loop']) unless document_root.elements['loop'].has_attributes?
      
       #code += "pdf.Output()"
      # code += "send_data pdf.output, :filename => hello_advance.pdf, :type => 'application/pdf'"
@@ -62,24 +62,26 @@ module PdfReport
       code.to_s
     end
 
-     # this function test if the balise info exists in the template and add it in the code	
-    def analyze_infos(template, infos)
-      # puts infos.is_a? String
+     # this function 	
+    def analyze_loop_without_query(template, loop)
       code = ''
-      infos.each_element("info") do |info|
-        case info.attributes['type']
-     #   when "created-on"
-      #    code += 'pdf.Set(\"#{info.text}\")'
-        when "written-by"
-          code += "pdf.SetAuthor('#{info.text}')\n"
-        when "created-by"
-          code += "pdf.SetCreator('#{info.text}')\n"
-        end
-       
+      loop.each_element['block'] do |block|
+        code += analyse_block(template, block)
       end
-      code.to_s
+     code.to_s
     end
+   
     
+   def analyze_block(template, block)
+     code = ''
+     _element['block'] do |block|
+       code += analyse_block(template, block)
+     end
+     code.to_s
+   end
+   
+   
+
 
   end
 
