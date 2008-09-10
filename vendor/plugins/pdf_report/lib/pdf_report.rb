@@ -2,9 +2,6 @@
 
 module PdfReport
 
-
-
-  
   def self.included (base)
     base.extend(ClassMethods)
   end
@@ -34,7 +31,7 @@ module PdfReport
      
       code += analyze_infos(template, document_root.elements['infos']) if document_root.elements['infos']
      
-      code += analyze_loop_without_query(template, document_root.elements['loop']) unless document_root.elements['loop'].has_attributes?
+      code += analyze_loop(template, document_root.elements['loop']) unless document_root.elements['loop']
      
       #code += "pdf.Output()"
      # code += "send_data pdf.output, :filename => hello_advance.pdf, :type => 'application/pdf'"
@@ -53,32 +50,38 @@ module PdfReport
      #   when "created-on"
       #    code += 'pdf.Set(\"#{info.text}\")'
         when "written-by"
-          code += "pdf.SetAuthor('#{info.text}')\n"
+          code += "pdf.set_author('#{info.text}')\n"
         when "created-by"
-          code += "pdf.SetCreator('#{info.text}')\n"
+          code += "pdf.set_creator('#{info.text}')\n"
         end
-       
       end
       code.to_s
     end
 
      # this function 	
-    def analyze_loop_without_query(template, loop)
+    def analyze_loop(template, loop)
       code = ''
-      loop.each_element['block'] do |block|
-        code += analyse_block(template, block)
+      if loop.attributes['query']
+        code = "result = [] \n ActiveRecord::Base.connection.execute('"+ loop.attributes['query'] + "').each do |res| result << res end \n"  
+      loop.each_recursive('block' || 'loop') do |element|
+          code += analyse_#{element}(template, element)
+ 
       end
      code.to_s
     end
    
     
-   def analyze_block(template, block)
-     code = ''
-     _element['block'] do |block|
-       code += analyse_block(template, block)
-     end
-     code.to_s
-   end
+   #def analyze_block(template, block)
+    # code = ''
+    # if block.attributes['type'] == 'header'
+      #   code = "mode = "+ (block.attributes['mode'] ? block.attributes['mode']         # .to_s:'all') 
+     #block.each_element do |element|
+      #   code += analyse_#{element}(template, )
+       #code += analyse_text(template, )
+       #code += analyse_image(template,)
+       #code += analyse_rule(template,)
+       #  end
+   #end
    
    
 
