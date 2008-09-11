@@ -22,11 +22,11 @@ class ApplicationController < ActionController::Base
       redirect_to :controller=>:authentication, :action=>:login
     else
       User.current_user = User.find(session[:user_id])
-      if User.current_user.connected_at+3600<Time.now.to_i
-        flash[:error] = lc :expired_session #'Session expirée. Veuillez vous reconnecter.'
+      if session[:last_query]+3600<Time.now.to_i
+        flash[:error] = lc :expired_session
         redirect_to :controller=>:authentication, :action=>:login
       else
-        User.current_user.clock
+        session[:last_query] = Time.now.to_i
       end
       #    Company.current_company = User.current_user.nil? ? nil : User.current_user.company
     end

@@ -133,6 +133,8 @@ app:
       title: Écritures
     journals:
       title: Journaux
+  application:
+    expired_session: 'Session expirée. Veuillez vous reconnecter.'
   authentication:
     no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
     login:

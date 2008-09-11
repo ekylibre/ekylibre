@@ -29,7 +29,6 @@ class Beginning < ActiveRecord::Migration
       t.column :hashed_password,        :string,   :null=>false, :limit=>64
       t.column :locked,                 :boolean,  :null=>false, :default=>false
       t.column :deleted,                :boolean,  :null=>false, :default=>false
-   	  t.column :connected_at,           :integer,  :null=>false, :default=>0
       t.column :email,                  :string
       t.column :company_id,             :integer,  :null=>false, :references=>nil
       t.column :language_id,            :integer,  :null=>false, :references=>nil
