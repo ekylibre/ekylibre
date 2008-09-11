@@ -1,1 +1,10 @@
-<h1>Login</h1>
+<div id="login">
+<h1><%=lc :Login-%></h1>
+<%form_tag do-%>
+<table>
+<tr><td class="label"><%=lc :username-%></td><td class="input"><%=text_field :user, :name-%></td></tr>
+<tr><td class="label"><%=lc :password-%></td><td class="input"><%=password_field :user, :password-%></td></tr>
+<tr><td class="button" colspan="2"><%=submit_tag lc(:connect) -%></td></tr>
+</table>
+<%end-%>
+</div>

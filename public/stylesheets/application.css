@@ -1,4 +1,19 @@
-* {margin:0; padding:0; font-family: Helvetica, Arial, sans-serif;}
+* {margin:0; padding:0; font-family: Arial, sans-serif;}
+td, a, p { font-size:13px;}
 html {background: #FFF;}
-#main{margin:0 auto;}
-
+a:link, a:visited, a:hover { color:#00C; }
+#ibody {margin:0 auto;}
+#logoban{ height:84px; background: #F0F7FF url(/images/ekylibre.png) no-repeat center; }
+/*#menu{ background: #E8ECFF url(/images/template/menu.png) repeat-x center bottom; padding:4px 4px 16px;}*/
+/*#menu {padding-top:1px;}*/
+#menu { border-bottom: 1px solid #DDF; padding:2px 2px 3px;}
+#menu > table { width:100%; }
+#menu a, #menu strong { padding: 4px 5px; }
+#modules a.current { border: 1px solid #DDF; border-bottom-color: white; position:relative; top:1px; }
+#menu #user { text-align:right;}
+/*#menu #user {  border-bottom: 1px solid #CCF; text-align:right; position:absolute; top: 0px;}*/
+#main { padding: 2px;}
+#main h1 { letter-spacing: 5px; font-variant: small-caps; }
+a.guide:link, a.guide:visited, a.guide:hover{ color: white; font-size:18px; }
+a.guide { float: left; }
+a.guide > div { width: 220px; height:58px; background: url(/images/template/guide.png) no-repeat top left; text-align:center; padding: 180px 18px 18px; }

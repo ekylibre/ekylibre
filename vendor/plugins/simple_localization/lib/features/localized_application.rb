@@ -145,7 +145,7 @@ module ArkanisDevelopment::SimpleLocalization #:nodoc:
           if keys.last.kind_of?(String)
             self.substitute_entry keys.last, *substitution_args
           else
-            self.entry(:app_default_value)
+            self.entry(:app_default_value)+' ['+keys.join(':')+']'
           end
         end
       end
@@ -349,6 +349,7 @@ module ArkanisDevelopment::SimpleLocalization #:nodoc:
           scope.last.gsub! /_helper$/, ''
         when 'views'
           scope.last.gsub! /^_/, ''
+          scope.last.gsub! /\..*$/, '' # for .html.erb and other long extensions
         when 'models'
           scope.last.gsub! /_observer$/, ''
         end

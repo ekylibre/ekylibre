@@ -1,10 +1,12 @@
 about:
   language: Français
-  author: Sylvain OBEGI, corrections par Bruno MICHEL
+  author: Sylvain OBEGI, corrections par Bruno MICHEL, Brice TEXIER
   comment:  Fichier de traduction en Français pour simple_localization.
   website: 
   email: katios@nolabel.net
   date: 2007-06-24
+
+app_default_value: '?'
 
 active_record_messages:
   inclusion: n'est pas inclus dans la liste
@@ -49,7 +51,10 @@ arrays:
     skip_last_comma: true
 
 countries:
-  Germany: Allemagne
+  'France': France
+  'Germany': Allemagne
+  'United States of America': 'États Unis d''Amérique'
+
 
 helpers:
   error_messages_for:
@@ -97,8 +102,55 @@ helpers:
 #       name: Localized name
 #       description: Localized description
 models:
+  user:
+    name: Utilisateur
+    attributes:
+      name: 'Nom d''utilisateur'
+      first_name: 'Prénom'
+      last_name: 'Nom de famille'
 
+# Expression used to determine plural form.
+# The 'c' variable represent the number
+# Example for Slovenian:
+# plural: 'c % 10 == 1 && c % 100 != 11 ? 1 : c % 10 >= 2 && c % 10 <= 4 && (c % 100 < 10 || c % 100 >= 20) ? 2 : 3'
+# After you can use like this
+# app:
+#   '%d file':
+#     1: '%d plik'
+#     2: '%d pliki'
+#     3: '%d plików'
+#     0: '%d plikòw'
+plural: 'c<=1 ? 1 : 2'
+				
 # You can use the app section freely to localize you application with the
 # localized_application feature. The entries defined here are accesable by the
 # global method "l". See the RDoc for details.
 app:
+  accountancy:
+    accounts:
+      title: Comptes
+    entries:
+      title: Écritures
+    journals:
+      title: Journaux
+  authentication:
+    no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
+    login:
+      Login: 'Entrer dans Ekylibre'
+      username: 'Nom d''utilisateur'
+      password: 'Mot de passe'
+      connect: 'Entrer'
+  guide:
+    index:
+      title: 'Accueil'
+    accountancy:
+      title: 'Comptabilité'
+    sales:
+      title: 'Ventes'
+    purchases:
+      title: 'Achats'
+    stocks:
+      title: 'Stocks'
+  layouts:
+    application:
+      exit: 'Quitter Ekylibre'

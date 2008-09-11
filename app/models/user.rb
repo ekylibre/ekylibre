@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   def self.authenticate(name, password)
     user = self.find_by_name(name.downcase)
     if user
-      user = nil if user.is_locked or user.is_deleted or !user.is_authenticated?(password)
+      user = nil if user.locked or user.deleted or !user.authenticated?(password)
     end
     user
   end
@@ -35,11 +35,15 @@ class User < ActiveRecord::Base
     end
   end
 
-  private
-
-  def is_authenticated?(password)
-    self.hashed_password == self.encrypted_password(password, self.salt)
+  def authenticated?(password)
+    self.hashed_password == User.encrypted_password(password, self.salt)
   end
+
+  def clock
+    self.update_attribute(:connected_at,Time.now.to_i)
+  end
+
+  private
 
   def self.encrypted_password(password, salt)
     string_to_hash = "<"+password+":"+salt+"/>"

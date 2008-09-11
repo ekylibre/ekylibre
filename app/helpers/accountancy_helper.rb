@@ -1,0 +1,2 @@
+module AccountancyHelper
+end

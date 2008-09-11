@@ -5,13 +5,14 @@ class AuthenticationController < ApplicationController
   end
   
   def login
-    if request.post? and session[:user_id].blank?
+    if request.post?
       user = User.authenticate(params[:user][:name], params[:user][:password])
       if user
         session[:user_id] = user.id
-        # redirect_to :controller=>:guide, :action=>:index unless session[:user_id].blank?
+        user.clock
+        redirect_to :controller=>:guide, :action=>:index unless session[:user_id].blank?
       else
-        flash[:warning] = 'User can not be authenticated. Please retry.'
+        flash[:error] = lc :no_authenticated # 'User can not be authenticated. Please retry.'
       end
     end
   end

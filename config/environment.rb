@@ -48,7 +48,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_aquitan_session',
+    :session_key => '_ekylibre_session',
     :secret      => '0a364cdaf74b7083e9fad841c8ce5926ca10f9d5ea90fa6ff43167a712483a0781424cf74f7141f2deec1eee02d078c100a8d9d1cd70e9226e2c11a64f42b327'
   }
 
@@ -68,8 +68,6 @@ Rails::Initializer.run do |config|
 end
 
 #require '../lib/safe_string'
-
-simple_localization :languages => :fr
 
 #schemulator :column=>:company_id, :filter=>"1"
 #schemulator :column=>:company_id, :filter=>"SELECT company_id FROM all_users WHERE pid=pg_backend_pid()"

@@ -2,15 +2,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
-  <title>Ekylibre</title>
-  <%= stylesheet_link_tag :defaults-%>
-  <%= javascript_include_tag :defaults-%>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+<title>Ekylibre</title>
+<%= stylesheet_link_tag :defaults%>
+<%= javascript_include_tag :defaults%>
 </head>
 <body>
-<div id="main">
-<div><%= flash[:error]-%></div>
-<%=yield-%>
+<div id="ibody">
+<div id="menu">
+<table><tr><td id="modules">
+<%=menu_modules-%>
+</td><td id="user">
+<%=link_to lc(:exit), :controller=>:authentication, :action=>:logout-%>
+</td></tr></table>
+ </div>
+<div class="flash-error"><%= flash[:error]-%></div>
+<div id="main"><%=yield-%></div>
 </div>
 </body>
 </html>

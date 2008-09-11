@@ -20,13 +20,7 @@ class Delay < ActiveRecord::Base
 end
 class Action < ActiveRecord::Base
 end
-class Establishment < ActiveRecord::Base
-end
 class EntityNature < ActiveRecord::Base
-end
-class Employee < ActiveRecord::Base
-end
-class Department < ActiveRecord::Base
 end
 class AddressNorm < ActiveRecord::Base
 end
