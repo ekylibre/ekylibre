@@ -9,7 +9,7 @@ class AuthenticationController < ApplicationController
       user = User.authenticate(params[:user][:name], params[:user][:password])
       if user
         session[:user_id] = user.id
-        user.clock
+        session[:last_query] = Time.now.to_i        
         redirect_to :controller=>:guide, :action=>:index unless session[:user_id].blank?
       else
         flash[:error] = lc :no_authenticated # 'User can not be authenticated. Please retry.'

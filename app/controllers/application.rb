@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       redirect_to :controller=>:authentication, :action=>:login
     else
       User.current_user = User.find(session[:user_id])
-      if session[:last_query]+3600<Time.now.to_i
+      if session[:last_query].to_i+3600<Time.now.to_i
         flash[:error] = lc :expired_session
         redirect_to :controller=>:authentication, :action=>:login
       else

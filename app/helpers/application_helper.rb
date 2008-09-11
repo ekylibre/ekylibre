@@ -3,9 +3,11 @@ module ApplicationHelper
   def menu_modules
     modules = [:index, :accountancy, :sales, :purchases, :stocks]
     code = ''
-    action = action_name.to_sym 
+    a = []
+    a << action_name.to_sym 
+    a << self.controller.controller_name.to_sym
     for m in modules
-      if m==action
+      if a.include? m
         code += content_tag 'strong', l(:guide,m,:title)
       else
         code += link_to(l(:guide,m,:title), :controller=>:guide, :action=>m)+' '
