@@ -1,3 +1,26 @@
+# == Schema Information
+# Schema version: 20080819191919
+#
+# Table name: parameters
+#
+#  id            :integer       not null, primary key
+#  name          :string(255)   not null
+#  nature        :string(1)     not null
+#  string_value  :text          
+#  boolean_value :boolean       
+#  integer_value :integer       
+#  decimal_value :decimal(, )   
+#  element_type  :string(255)   
+#  element_id    :integer       
+#  user_id       :integer       
+#  company_id    :integer       not null
+#  created_at    :datetime      not null
+#  updated_at    :datetime      not null
+#  created_by    :integer       
+#  updated_by    :integer       
+#  lock_version  :integer       default(0), not null
+#
+
 class Parameter < ActiveRecord::Base
 
   def value

@@ -1,3 +1,27 @@
+# == Schema Information
+# Schema version: 20080819191919
+#
+# Table name: users
+#
+#  id              :integer       not null, primary key
+#  name            :string(32)    not null
+#  first_name      :string(255)   not null
+#  last_name       :string(255)   not null
+#  salt            :string(64)    not null
+#  hashed_password :string(64)    not null
+#  locked          :boolean       not null
+#  deleted         :boolean       not null
+#  email           :string(255)   
+#  company_id      :integer       not null
+#  language_id     :integer       not null
+#  role_id         :integer       not null
+#  created_at      :datetime      not null
+#  updated_at      :datetime      not null
+#  created_by      :integer       
+#  updated_by      :integer       
+#  lock_version    :integer       default(0), not null
+#
+
 require "digest/sha2"
 
 class User < ActiveRecord::Base
