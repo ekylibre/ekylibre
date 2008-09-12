@@ -66,10 +66,6 @@ class User < ActiveRecord::Base
     self.hashed_password == User.encrypted_password(password, self.salt)
   end
 
-  def clock
-    self.update_attribute(:connected_at,Time.now.to_i)
-  end
-
   private
 
   def self.encrypted_password(password, salt)
@@ -80,6 +76,7 @@ class User < ActiveRecord::Base
   def self.generate_password(password_length=8, mode=:complex)
     return '' if password_length.blank? or password_length<1
     case mode
+      when :dummy  : letters = %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
       when :simple : letters = %w(a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9)
       when :normal : letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9)
       else           letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § µ % / & < >)

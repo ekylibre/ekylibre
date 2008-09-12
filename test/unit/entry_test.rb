@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EntriesTest < ActiveSupport::TestCase
+class EntryTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   def test_truth
     assert true
