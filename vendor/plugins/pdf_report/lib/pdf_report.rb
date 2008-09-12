@@ -14,7 +14,7 @@ module PdfReport
     require 'digest/md5'
     require 'rfpdf'
     
-    #XRL_template = 'template'
+    #List of constants for identify the balises
     XRL_LOOP = 'loop'
     XRL_INFOS = 'infos'
     XRL_INFO = 'info'
@@ -22,7 +22,7 @@ module PdfReport
     XRL_TEXT = 'text'
     XRL_IMAGE = 'image'
     XRL_RULE = 'rule'
-
+    
     # this function begins to analyse the template extracting the main characteristics of
     # the Pdf document as the title, the orientation, the format, the unit ... 
     def analyze_template(template, name, id)
@@ -40,7 +40,7 @@ module PdfReport
       
       code += analyze_infos(document_root.elements[XRL_INFOS]) if document_root.elements[XRL_INFOS]
       
-      code += analyze_loop(document_root.elements[XRL_LOOP], 0) if document_root.elements[XRL_LOOP]
+      code += "c= ActiveRecord::Base.connection \n"+analyze_loop(document_root.elements[XRL_LOOP], 0) if document_root.elements[XRL_LOOP]
       
       #code += "pdf.Output()"
       # code += "send_data pdf.output, :filename => hello_advance.pdf, :type => 'application/pdf'"
@@ -48,6 +48,7 @@ module PdfReport
       code += "end" 
       # send_data module_eval(code), :filename => voila.pdf, :type => 'application/pdf' "
       module_eval(code)
+      code
     end
     
     # this function test if the balise info exists in the template and add it in the code	
@@ -68,34 +69,49 @@ module PdfReport
     end
 
     # this function 	
-    def analyze_loop(loop, depth)
-      code = "c= ActiveRecord::Base.connection \n"
-      if loop.attributes['query']
-        code += "result = [] \n c.execute('"+ loop.attributes['query'] + "').each do |res| result << res end \n" 
+    def analyze_loop(loop, depth, fields=nil)
+      code = "puts "+depth.to_s+ "\n"
+      result = "r"+depth.to_s
+      #fields = ''
+      query = loop.attributes['query']
+      fields.each{|f| query.gsub!("#{"+f+"}","\'+"+result+"[:"+f+"]+\'")} unless fields.nil?
+      if query
+        unless (query=~/^SELECT.*.FROM/).nil?
+          fields = query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').collect{|s| s.downcase.strip}
+          code += "for "+ result+" in c.select_all('"+query+"')\n" 
+          
+        end
+      else
+        code +=result+"=[]\n"
       end  
       loop.each_element do |element|
-        
-        code += self.send('analyze_'+ element.name,element,depth+1) if [XRL_BLOCK, XRL_LOOP].include? element.name 
-      end
+            code += self.send('analyze_'+ element.name,element,depth+1,fields) if [XRL_BLOCK, XRL_LOOP].include? element.name 
+          end
+      #(result.empty? ? 1:(result.length)).times do
+        #loop.each_element do |element|
+          #code += self.send('analyze_'+ element.name,element,depth+1) if [XRL_BLOCK, XRL_LOOP].include? element.name 
+        #end
+      #end
+      code += "end \n" if query
       code.to_s
       
     end
     
     #     
-    def analyze_block(block, depth)
-      code = ''
+    def analyze_block(block, depth,fields=nil)
+      code=''
+      #code = "puts "+depth.to_s+ "\n"
       if block.attributes['type'] == 'header'
        code += "mode = :"+ (block.attributes['mode'] ? block.attributes['mode'] : 'all') + "\n" 
       end  
       block.each_element do |element|
-        code += self.send('analyze_'+ element.name,element) if [XRL_TEXT].include? element.name 
+        code += self.send('analyze_'+ element.name,element, depth).to_s if [XRL_TEXT].include? element.name 
       end
       code.to_s
     end 
     
     # 
-    #def analyze_rule(rule)
-     #code = ''
+    #def analyze_rule(rule)     #code = ''
      #if block.attributes['type'] == 'header'
       # code += "mode = "+ (block.attributes['mode'] ? block.attributes['mode'] : 'all') 
        #block.each_element do |element|
@@ -105,15 +121,19 @@ module PdfReport
    #end 
     
     #  
-    def analyze_text(text)
-     code = ''
-     #if block.attributes['type'] == 'header'
+    def analyze_text(text, depth)
+      #width_block_depth = 0 unless defined? width_block_depth
+      #width_block_depth += element.attributes['width'] 
+      #code += "width_block_"+depth.to_s+" = "+ width_block_depth + "\n"
+
+
+      #if block.attributes['type'] == 'header'
       # code += "mode = "+ (block.attributes['mode'] ? block.attributes['mode'].to_s : 'all') 
        #block.each_element do |element|
         #  code += self.send('analyze_'+element.name,element)
        #end
     #end
-      code.to_s
+#      code.to_s
    end 
     
     # 
@@ -143,12 +163,12 @@ module ActionView
     def render_report(template, id)
       raise Exception.new "Your argument template must be a string" unless template.is_a? String
       digest = Digest::MD5.hexdigest(template)
-      self.class.analyze_template(template, digest, id) unless self.methods.include? 'render_report_#{digest}'
+      code = self.class.analyze_template(template, digest, id) unless self.methods.include? 'render_report_#{digest}'
 
-      pdf = self.send('render_report_'+digest,id)
+     # pdf = self.send('render_report_'+digest,id)
       
       
-      
+      code
     end
   end
 end
