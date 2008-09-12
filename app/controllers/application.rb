@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
 
 
+
   private
   
   def authorize
@@ -22,13 +23,13 @@ class ApplicationController < ActionController::Base
       redirect_to :controller=>:authentication, :action=>:login
     else
       User.current_user = User.find(session[:user_id])
+      @current_company = User.current_user.company
       if session[:last_query].to_i+3600<Time.now.to_i
         flash[:error] = lc :expired_session
         redirect_to :controller=>:authentication, :action=>:login
       else
         session[:last_query] = Time.now.to_i
       end
-      #    Company.current_company = User.current_user.nil? ? nil : User.current_user.company
     end
   end
 

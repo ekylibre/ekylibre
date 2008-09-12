@@ -1,6 +1,7 @@
 class AccountancyController < ApplicationController
 
   def accounts
+    @accounts = @current_company.accounts
   end
   
   def entries

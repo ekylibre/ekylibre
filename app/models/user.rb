@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   cattr_accessor :current_user
   attr_accessor :password_confirmation
   validates_confirmation_of :password
+  belongs_to :company
+  belongs_to :role
+  belongs_to :language
   
   def before_validation
     self.name = self.name.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')

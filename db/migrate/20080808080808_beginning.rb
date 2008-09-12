@@ -101,7 +101,7 @@ class Beginning < ActiveRecord::Migration
   end
 
   def self.down
-  	drop_table :templates
+    drop_table :templates
     drop_table :actions_roles
     drop_table :actions
     drop_table :roles

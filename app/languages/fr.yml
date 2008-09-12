@@ -138,7 +138,7 @@ app:
   authentication:
     no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
     login:
-      Login: 'Entrer dans Ekylibre'
+      title: 'Entrer dans Ekylibre'
       username: 'Nom d''utilisateur'
       password: 'Mot de passe'
       connect: 'Entrer'
