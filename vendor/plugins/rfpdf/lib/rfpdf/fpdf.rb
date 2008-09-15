@@ -700,37 +700,37 @@ class FPDF
             end
         end
         if txt!=''
-            if align=~/R/i
-                dx=w-@cMargin-self.GetStringWidth(txt)
-            elsif align=~/C/i
-                dx=(w-self.GetStringWidth(txt))/2
-            else
-                dx=@cMargin
+          if align=~/R/i
+            dx=w-@cMargin-self.GetStringWidth(txt)
+          elsif align=~/C/i
+            dx=(w-self.GetStringWidth(txt))/2
+          else
+            dx=@cMargin
+          end
+          dy = @h-0.3*@FontSize	    
+          if align=~/B/i
+            dy-= h - @cMargin
+          elsif align=~/T/i
+            dy-= 2.5*@cMargin
+          else
+            dy-= 0.5*h
+          end	
+          txt = txt.gsub(')', '\\)')
+          txt.gsub!('(', '\\(')
+          txt.gsub!('\\', '\\\\')
+          if @ColorFlag
+            s=s+'q '+@TextColor+' '
             end
-		dy = @h -0.3*@FontSize	    
-		if align=~/B/i
-                dy-= h - @cMargin
-            elsif align=~/T/i
-                dy-= 2.5*@cMargin
-            else
-                dy-= 0.5*h
-            end	
-            txt = txt.gsub(')', '\\)')
-            txt.gsub!('(', '\\(')
-            txt.gsub!('\\', '\\\\')
-            if @ColorFlag
-                s=s+'q '+@TextColor+' '
-            end
-            #s=s+sprintf('BT %.2f %.2f Td (%s) Tj ET',
+          #s=s+sprintf('BT %.2f %.2f Td (%s) Tj ET',
              #   (@x+dx)*@k,(@h-(@y+0.1*h+0.3*@FontSize))*@k,txt)
-            #s=s+' '+dounderline(@x+dx,@y+0.5*h+0.3*@FontSize,txt) if @underline
-		s=s+sprintf('BT %.2f %.2f Td (%s) Tj ET',
-                (@x+dx)*@k,(-@y+dy)*@k,txt)
-            s=s+' '+dounderline(@x+dx,@y+0.5*h+0.3*@FontSize,txt) if @underline            
-	s=s+' Q' if @ColorFlag
-            if link and link != ''
-                Link(@x+dx,@y+0.5*h-0.5*@FontSize,GetStringWidth(txt),@FontSize,link)
-            end
+          #s=s+' '+dounderline(@x+dx,@y+0.5*h+0.3*@FontSize,txt) if @underline
+          s=s+sprintf('BT %.2f %.2f Td (%s) Tj ET',
+                      (@x+dx)*@k,(-@y+dy)*@k,txt)
+          s=s+' '+dounderline(@x+dx,@y+0.5*h+0.3*@FontSize,txt) if @underline            
+          s=s+' Q' if @ColorFlag
+          if link and link != ''
+            Link(@x+dx,@y+0.5*h-0.5*@FontSize,GetStringWidth(txt),@FontSize,link)
+          end
         end
         out(s) if s
         @lasth=h
@@ -1044,7 +1044,7 @@ class FPDF
                 annots='/Annots ['
                 @PageLinks[n].each do |pl|
                     rect=sprintf('%.2f %.2f %.2f %.2f',
-                        pl[0],pl[1],pl[0]+pl[2],pl[1]-pl[3])
+                                 pl[0],pl[1],pl[0]+pl[2],pl[1]-pl[3])
                     annots=annots+'<</Type /Annot /Subtype /Link /Rect ['+rect+
                         '] /Border [0 0 0] '
                     if pl[4].kind_of?(String)

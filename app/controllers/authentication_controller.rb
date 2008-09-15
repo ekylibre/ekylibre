@@ -4,7 +4,11 @@ class AuthenticationController < ApplicationController
     redirect_to :action=>:login
   end
   
+  def test
+  end
+
   def login
+    send_data render_report(Template.find(1).content, 1), :filename=>'enfin2.pdf'
     if request.post?
       user = User.authenticate(params[:user][:name], params[:user][:password])
       if user

@@ -29,7 +29,7 @@
         <text x="2" y="60" width="100" height="5" align="R" style="italic">Blabla</text>
         <rule x="2" y="80" width="206" height="1"/>
       </block>
-      <loop query="SELECT #{usesysid},schemaname,tablename FROM pg_table WHERE tableowner=#{usename}" if="#{usename}!='postgres'">
+      <loop query="SELECT #{usesysid},schemaname,tablename FROM pg_tables WHERE tableowner=#{usename}" if="#{usename}!='postgres'">
         <block name="details">
           <text x="2" y="2" width="100" height="5" align="C">#{schemaname}.#{tablename}</text>
         </block>
