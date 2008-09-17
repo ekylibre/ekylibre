@@ -83,7 +83,7 @@ class FPDF
         format=[612,1008]
       elsif format.match(/^[0-9]+(\.[0-9]+)?x[0-9]+(\.[0-9]+)?$/)
         f=format.split('x')
-        format=[f[0]*k,f[1]*k]
+        format=[(f[0].to_f)*k,(f[1].to_f)*k]
       else
         raise 'Unknown page format: '+format
       end
@@ -1655,7 +1655,7 @@ class FPDF
   alias_method :set_left_margin     , :SetLeftMargin
   alias_method :set_top_margin      , :SetTopMargin
   alias_method :set_right_margin    , :SetRightMargin
-  alias_method :set_auto_pagebreak  , :SetAutoPageBreak
+  alias_method :set_auto_page_break  , :SetAutoPageBreak
   alias_method :set_display_mode    , :SetDisplayMode
   alias_method :set_compression     , :SetCompression
   alias_method :set_title           , :SetTitle
