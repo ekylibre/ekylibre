@@ -130,10 +130,12 @@ module PdfReport
      
       unless block.attributes['if'].nil?
         condition = block.attributes['if'] 
+        puts "#{condition}"
         fields.each do |f| condition.gsub!("\#{"+f[0]+"}","\'+"+f[1]+"+\'") end unless fields.nil?
-        execute=false unless (condition)
+        execute=false unless (eval(condition))==true
       end
-
+      puts "#{execute}"
+      
       if block.attributes['type']=='header'
         code+="mode=:"+(block.attributes['mode'] ? block.attributes['mode'] : 'all') + "\n" 
    
@@ -147,6 +149,7 @@ module PdfReport
         end
         code+="block_y+="+block_height(block).to_s+"\n"
         code+="page_height-="+block_height(block).to_s+"\n"
+        
       end
       code.to_s
     end 
@@ -249,12 +252,8 @@ module ActionController
       raise Exception.new("Your argument template must be a string") unless template.is_a? String
       digest = Digest::MD5.hexdigest(template)
       code = self.class.analyze_template(template, digest, id) unless self.methods.include? 'render_report_#{digest}'
-#      puts code
-
-    pdf = self.send('render_report_'+digest,id)
+     pdf = self.send('render_report_'+digest,id)
       
- #     code
-
     end
   end
 end
