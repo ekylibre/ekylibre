@@ -499,6 +499,62 @@ class FPDF
     out(sprintf('%.2f %.2f %.2f %.2f re %s', x*@k,(@h-y)*@k,w*@k,-h*@k,op))
   end
 
+
+  def Rectangle(x, y, w, h, r=0, style='', angle='1234')
+    return Rect(x,y,w,h,style) if r==0
+
+    if(style=='F')
+      op='f'
+    elsif(style=='FD' or style=='DF')
+      op='B'
+    else
+      op='S'
+    end  
+    my_arc=(4.0/3.0*(Math.sqrt(2).to_f-1).to_f).to_f
+    out(sprintf('%.2f %.2f m',(x+r+@LineWidth)*@k,(@h-y)*@k ))
+    xc = x+w-r
+    yc = y+r
+    out(sprintf('%.2f %.2f l', xc*@k,(@h-y)*@k ))
+    unless angle.match /2/
+      out(sprintf('%.2f %.2f l', (x+w)*@k,(@h-y)*@k ))
+    else
+      Arc(xc + r*my_arc, yc - r, xc + r, yc - r*my_arc, xc + r, yc)
+    end
+    xc=x+w-r
+    yc=y+h-r
+    out(sprintf('%.2f %.2f l',(x+w)*@k,(@h-yc)*@k))
+    unless angle.match /3/
+      out(sprintf('%.2f %.2f l',(x+w)*@k,(@h-(y+h))*@k))
+    else
+      Arc(xc + r, yc + r*my_arc, xc + r*my_arc, yc + r, xc, yc + r)
+    end  
+    xc = x+r
+    yc = y+h-r
+    out(sprintf('%.2f %.2f l',xc*@k,(@h-(y+h))*@k))
+    unless angle.match /4/
+      out(sprintf('%.2f %.2f l',(x)*@k,(@h-(y+h))*@k))
+    else
+      Arc(xc - r*my_arc, yc + r, xc - r, yc + r*my_arc, xc - r, yc)
+    end  
+    xc = x+r
+    yc = y+r
+    out(sprintf('%.2f %.2f l',(x)*@k,(@h-yc)*@k ))
+    unless angle.match /1/
+      out(sprintf('%.2f %.2f l',(x)*@k,(@h-y)*@k ))
+      out(sprintf('%.2f %.2f l',(x+r)*@k,(@h-y)*@k ))
+    else
+      Arc(xc - r, yc - r*my_arc, xc - r*my_arc, yc - r, xc, yc - r)
+    end
+    out(op)
+  end
+  
+  def Arc(x1, y1, x2, y2, x3,y3)
+    out(sprintf('%.2f %.2f %.2f %.2f %.2f %.2f c ', x1*@k, (@h-y1)*@k,
+                x2*@k, (@h-y2)*@k, x3*@k, (@h-y3)*@k))
+  end
+
+
+
   def AddFont(family, style='', file='')
     # Add a TrueType or Type1 font
     family = family.downcase
@@ -517,8 +573,7 @@ class FPDF
 
     if self.class.const_defined? 'FPDF_FONTPATH'
       if FPDF_FONTPATH[-1,1] == '/'
-        file = FPDF_FONTPATH + file
-      else
+        file = FPDF_FONTPATH + file     else
         file = FPDF_FONTPATH + '/' + file
       end
     end
@@ -1694,6 +1749,7 @@ class FPDF
   alias_method :output              , :Output
   alias_method :page_no             , :PageNo
   alias_method :rect                , :Rect
+  alias_method :rectangle           , :Rectangle
   alias_method :text                , :Text
   alias_method :write               , :Write
   alias_method :get_height_page     , :GetHeightPage

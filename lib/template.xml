@@ -18,26 +18,26 @@
       <text x="2" y="2" width="206" height="5" align="C">Facture FOOTER {PAGENO}/{PAGENB}</text>
       <image x="2" y="10" width="50" height="50" src="/usr/share/gnome/help/gnomine/fr/figures/easy-hints-2.png"/>
     </block>
-    <loop query="SELECT usename, usesuper, usesysid, current_date FROM pg_user">
+    <loop name="loop1" query="SELECT usename, usesuper, usesysid FROM pg_user">
       <block type="header">
-        <text x="2" y="2" width="206" height="5" align="C">Utilisateur #{usename}</text>
+        <text x="2" y="2" width="206" height="5" align="C">Utilisateur #{loop1.usename}</text>
       </block>
-      <block name="ligne de facture" if="#{usename}!='postgres'">
-        <text x="2" y="2" width="100" height="5" align="C">Blabla, ceci est son ID système : #{usesysid}</text>
-        <text x="2" y="20" width="100" height="5" align="L" if="#{usesuper}" decoration="underline">C'est un superutilisateur</text>
-        <text x="2" y="40" width="100" height="5" align="C">Blabla il est #{current_date}</text>
+      <block name="ligne de facture" if="#{loop1.usename}!='postgres'">
+        <text x="2" y="2" width="100" height="5" align="C">Blabla, ceci est son ID système : #{loop1.usesysid}</text>
+        <text x="2" y="20" width="100" height="5" align="L" if="#{loop1.usesuper}" decoration="underline">C'est un superutilisateur</text>
+        <text x="2" y="40" width="100" height="5" align="C">Blabla on est le {CURRENT_DATE} et plus précisément le {CURRENT_TIMESTAMP}</text>
         <text x="2" y="60" width="100" height="5" align="R" style="italic">Blabla</text>
         <rule x="2" y="80" width="206" height="1"/>
       </block>
-      <loop query="SELECT #{usesysid},schemaname,tablename FROM pg_tables WHERE tableowner=#{usename}" if="#{usename}!='postgres'">
+      <loop name="loop2" query="SELECT schemaname,tablename FROM pg_tables WHERE tableowner=#{loop1.usename}" if="#{loop1.usename}!='postgres'">
         <block name="details">
-          <text x="2" y="2" width="100" height="5" align="C">#{schemaname}.#{tablename}</text>
+          <text x="2" y="2" width="100" height="5" align="C">#{loop2.schemaname}.#{loop2.tablename}.#{loop1.usesysid}</text>
         </block>
       </loop>
-      <block name="ligne de facture2" if="#{usename}!='postgres'">
-        <text x="2" y="2" width="100" height="5" align="C">Blabla, ceci est son ID système : #{usesysid}</text>
-        <text x="50" y="20" width="100" height="5" align="L" if="#{usesuper}" decoration="underline">C'est un superutilisateur</text>
-        <text x="150" y="40" width="100" height="5" align="C">Blabla il est #{current_date}</text>
+      <block name="ligne de facture2" if="#{loop1.usename}!='postgres'">
+        <text x="2" y="2" width="100" height="5" align="C">Blabla, ceci est son ID système : #{loop1.usesysid}</text>
+        <text x="50" y="20" width="100" height="5" align="L" if="#{loop1.usesuper}" decoration="underline">C'est un superutilisateur</text>
+        <text x="150" y="40" width="100" height="5" align="C">Blabla on est le {CURRENT_DATE:%e %B %Y} et plus précisément le {CURRENT_TIMESTAMP:%e %B %Y à %H:%M}</text>
         <rule x="2" y="80" width="206" height="3"/>
       </block>
     </loop>

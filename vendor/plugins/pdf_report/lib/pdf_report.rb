@@ -43,10 +43,11 @@ module PdfReport
       code+=pdf+"=FPDF.new('P','"+ document_root.attributes['unit']+"','" + document_root.attributes['format']+ "')\n"
       code+=page_height(document_root)
       code+="page_height_origin=page_height\n"
+      code+=pdf+".alias_nb_pages()\n"
       code+=pdf+".set_auto_page_break(false)\n"
       code+=pdf+".set_font('Arial','B',14)\n"
       code+=pdf+".add_page()\n"
-      
+      #code+=pdf+".text(5,5,nb)\n"
       code+="block_y=15\n"
       code+="page_height-=block_y\n"
       code+=analyze_infos(document_root.elements[XRL_INFOS],pdf) if document_root.elements[XRL_INFOS]
@@ -93,7 +94,7 @@ module PdfReport
     #def analyze_loop(loop, *params)
     def analyze_loop(loop,pdf, depth, fields=nil, result=nil)
       code=''
-      result="r"+depth.to_s
+      result=loop["name"]#"r"+depth.to_s
             
       query=loop.attributes['query']
       
@@ -102,11 +103,12 @@ module PdfReport
       if query
         unless (query=~/^SELECT.*.FROM/).nil?
           fields={}
-          query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each{|s| fields[s.downcase.strip]=result+"[\""+s.downcase.strip+"\"].to_s"}
+          query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each{|s| fields[result+'.'+s.downcase.strip]=result+"[\""+s.downcase.strip+"\"].to_s.length.to_s"}
           code+="for "+ result+" in c.select_all('"+query+"')\n" 
+#          code+=result+"="+result+".collect{|r| r.gsub(\"/\",\"\\\\/\")}\n"
         end
       else
-        code+="result=[]\n"
+        code+=result+"=[]\n"
       end  
       loop.each_element do |element|
         code+=self.send('analyze_'+ element.name,element,pdf,depth+1,fields, result) unless [XRL_PAGEBREAK].include? element.name 
@@ -124,33 +126,37 @@ module PdfReport
       code=''
       width_block_depth=0 
       heigth_block_depth=0
-      execute=true
+
+
+      unless block.attributes['if'].nil?
+        condition = block.attributes['if']                
+        condition.gsub!("'","\\\\'")
+        fields.each do |f| condition.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless fields.nil?
+        code+="if c.select_all(\'select ("+condition+")::boolean AS x\')[0][\"x\"]==\"t\"\n"
+      end
       
       code+="if(page_height<"+block_height(block).to_s+")\n "+pdf+".add_page()\n block_y=15\n page_height=page_height_origin-block_y\n end\n"
      
-      unless block.attributes['if'].nil?
-        condition = block.attributes['if'] 
-        puts "#{condition}"
-        fields.each do |f| condition.gsub!("\#{"+f[0]+"}","\'+"+f[1]+"+\'") end unless fields.nil?
-        execute=false unless (eval(condition))==true
-      end
-      puts "#{execute}"
+     
       
       if block.attributes['type']=='header'
         code+="mode=:"+(block.attributes['mode'] ? block.attributes['mode'] : 'all') + "\n" 
    
       end 
 
-      if (execute)
-        block.each_element do |element|
-          attr_element=element.attributes
-          code+=pdf+".set_xy("+attr_element['x']+",block_y+"+attr_element['y']+")\n"
-          code+=self.send('analyze_'+ element.name,element,pdf, depth, fields, result).to_s if [XRL_TEXT,XRL_IMAGE,XRL_RULE,XRL_RECTANGLE].include? element.name       
-        end
-        code+="block_y+="+block_height(block).to_s+"\n"
-        code+="page_height-="+block_height(block).to_s+"\n"
-        
+      
+      block.each_element do |element|
+        attr_element=element.attributes
+        code+=pdf+".set_xy("+attr_element['x']+",block_y+"+attr_element['y']+")\n"
+        code+=self.send('analyze_'+ element.name,element,pdf, depth, fields, result).to_s if [XRL_TEXT,XRL_IMAGE,XRL_RULE,XRL_RECTANGLE].include? element.name       
       end
+      code+="block_y+="+block_height(block).to_s+"\n"
+      code+="page_height-="+block_height(block).to_s+"\n"
+        
+      
+
+      code+="end\n" unless block.attributes['if'].nil?
+
       code.to_s
     end 
     
@@ -203,6 +209,13 @@ module PdfReport
       
       code+=pdf+".set_text_color("+color_element(text,'color')+")\n" unless text['color'].nil?
       
+      style=''
+      style+=text['style'].first.upcase unless text['style'].nil?
+      style+=text['decoration'].first.upcase unless text['decoration'].nil?
+      style+=text['weight'].first.upcase unless text['weight'].nil?
+
+      code+=pdf+".set_font('','"+style+"')\n" 
+
       code+=pdf+".cell("+text['width']+","+text['height']+",'"+data+"',0,0,'"+text['align']+"')\n"
       
       code.to_s
@@ -226,7 +239,9 @@ module PdfReport
       code+=pdf+".set_line_width("+rectangle['border-width']+")\n" unless rectangle['border-width'].nil?    
       code+=pdf+".set_draw_color("+color_element(rectangle,'border-color')+")\n";draw='D' unless rectangle['border-color'].nil?
       code+="fill='F'\n"+pdf+".set_fill_color("+color_element(rectangle,'background-color')+")\n";fill='F' unless rectangle['background-color'].nil?
-      code+=pdf+".rect("+rectangle['x']+","+rectangle['y']+","+rectangle['width']+","+rectangle['height']+",'"+fill+draw+"')\n"
+#      code+=pdf+".rect("+rectangle['x']+","+rectangle['y']+","+rectangle['width']+","+rectangle['height']+",'"+fill+draw+"')\n"
+
+      code+=pdf+".rectangle("+rectangle['x']+","+rectangle['y']+","+rectangle['width']+","+rectangle['height']+",10,'"+fill+draw+"')\n"
       code.to_s
     end
     
@@ -251,9 +266,9 @@ module ActionController
     def render_report(template, id)
       raise Exception.new("Your argument template must be a string") unless template.is_a? String
       digest = Digest::MD5.hexdigest(template)
-      code = self.class.analyze_template(template, digest, id) unless self.methods.include? 'render_report_#{digest}'
-     pdf = self.send('render_report_'+digest,id)
-      
+      code = self.class.analyze_template(template, digest, id) #unless self.methods.include? 'render_report_#{digest}'
+      puts code
+      pdf = self.send('render_report_'+digest,id)
     end
   end
 end
