@@ -9,6 +9,7 @@
 #  last_name       :string(255)   not null
 #  salt            :string(64)    not null
 #  hashed_password :string(64)    not null
+#  admin           :boolean       not null
 #  locked          :boolean       not null
 #  deleted         :boolean       not null
 #  email           :string(255)   

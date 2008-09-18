@@ -147,9 +147,9 @@ app:
       register: 'Créer une nouvelle société'
     register:
       title: 'Enregistrer sa société'
-      step1: 'Etape 1/3'
-      step2: 'Etape 2/3'
-      step3: 'Etape 3/3'
+      company_name: Nom de votre société
+      my_company: Saisissez les informations sur votre société
+      my_self: Saisissez les informations vous concernant
   guide:
     index:
       title: 'Accueil'

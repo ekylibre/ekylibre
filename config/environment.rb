@@ -67,7 +67,7 @@ Rails::Initializer.run do |config|
   
 end
 
-#require '../lib/safe_string'
+require "#{RAILS_ROOT}/lib/safe_string"
 
 #schemulator :column=>:company_id, :filter=>"1"
 #schemulator :column=>:company_id, :filter=>"SELECT company_id FROM all_users WHERE pid=pg_backend_pid()"

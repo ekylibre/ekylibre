@@ -23,9 +23,14 @@ class AuthenticationController < ApplicationController
   end
 
   def register
-    @step = (params[:step]||1).to_i
-    @step = 1 if @step<1
+    step = (params[:step]||1).to_i
+    step = 1 if step<1
     @last = 3
+    case step
+    when 1:
+    else
+    end
+    @step = step
   end
   
   def logout

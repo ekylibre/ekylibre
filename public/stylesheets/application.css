@@ -2,7 +2,7 @@
 td, a, p { font-size:13px;}
 html {background: #FFF;}
 a:link, a:visited, a:hover { color:#00C; }
-input[type="text"], input[type="password"] { border:1px solid #00A; background: #FFE;}
+input[type="text"], input[type="password"] { border:1px solid #003; background: #FFF;}
 #ibody {margin:0 auto;}
 /*#menu{ background: #E8ECFF url(/images/template/menu.png) repeat-x center bottom; padding:4px 4px 16px;}*/
 /*#menu {padding-top:1px;}*/
@@ -17,3 +17,18 @@ input[type="text"], input[type="password"] { border:1px solid #00A; background: 
 a.guide:link, a.guide:visited, a.guide:hover{ color: white; font-size:18px; }
 a.guide { float: left; }
 a.guide > div { width: 220px; height:58px; background: url(/images/template/guide.png) no-repeat top left; text-align:center; padding: 180px 18px 18px; }
+
+.formalize .fields table { border-collapse: collapse; width:100%;}
+.formalize .fields table .label { text-align:right; padding:1px 4px; color: #008;}
+.formalize .fields table .hint { text-align:left; padding:1px 4px; color: #99B; font-size: 11px;}
+.formalize .fields table .input { padding:2px 1px; }
+.formalize .fields table input.notnull { border: 1px solid #99D; background: #F7F7FF }
+.formalize .fields table th { padding: 16px 16px 2px; border-bottom: 1px dotted #002; color: #002; font-size:15px; }
+.formalize .actions { margin: 10px; }
+/*
+.formalize .actions * { margin: 0px 8px; }
+*/
+.actions {text-align:center; padding:6px !important; background: #CEC;}
+.actions * { margin: 0px 8px; }
+.actions a:link, .actions a:visited, .actions a:hover { color:#080;}
+

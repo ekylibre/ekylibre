@@ -275,7 +275,7 @@ module ArkanisDevelopment::SimpleLocalization #:nodoc:
       def l_proxy(*sections)
         ArkanisDevelopment::SimpleLocalization::Language.app_proxy(*sections)
       end
-      
+
     end
     
     module ContextSensetiveHelpers

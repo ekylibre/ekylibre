@@ -1,5 +1,5 @@
 html { background: #F0F7FF; }
-body { background: #FFFFFF; }
+body { background: #FFF; }
 #logoban{ height:100px; background: #F0F7FF url(/images/ekylibre.png) no-repeat center; }
 #login {  width:512px; border:0px solid #00A; margin:10px auto 56px; background:#F0F7FF;}
 #login h2 { background: url(/images/template/gradient.png) repeat-x top; color:white; padding: 2px; text-align:center; font-size:18px;}
@@ -8,15 +8,13 @@ body { background: #FFFFFF; }
 #login table tr td.label { text-align:right;}
 #login table tr td.input, #login table tr td.input input { text-align:left; width:128px;}
 #login table tr td.button {text-align:center; padding:6px 6px 16px;}
-#login table tr td.info {text-align:center; padding:6px; background: #DDF;}
 #login .end {height:4px; background: url(/images/template/gradient.png) repeat-x top;}
 div.flash-error {text-align:center; color:red; font-style:italic;height:20px;padding: 16px;}
 
-.frame { width: 640px; border:1px solid #AAA; margin:10px; margin-left:auto; margin-right:auto; }
-.frame .title { background: #DDD; border-bottom: 2px groove #DDD; padding:4px}
-.frame #register-body { background: #FFF; height: 320px; }
-.frame .nav { background: #DDD; border-top: 2px groove #DDD; text-align:right; padding:16px 16px;}
+.frame { width: 640px; margin:10px; margin-left:auto; margin-right:auto; }
+.frame .title { padding:4px 0px; color:#007; }
+.frame .nav { text-align:center; padding:16px 16px;}
 .frame .nav a { margin-left:10px; }
-.frame .nav a:link, .frame .nav a:visited { background: #E4E4E4; border:1px solid #AAA; border-top:1px solid #EEE; border-left:1px solid white;  padding:6px; -moz-border-radius: 8px; text-decoration: none;}
-.frame .nav a:hover { background: #EEE; border:1px solid #BBB; border-top:1px solid #FFF; border-left:1px solid white; text-decoration: none; color: #00D; }
+.frame .nav a:link, .frame .nav a:visited { background: #DDF; border:1px solid #AAC; border-top:1px solid #EEF; border-left:1px solid white;  padding:6px; -moz-border-radius: 8px; text-decoration: none;}
+.frame .nav a:hover { background: #EEF; border:1px solid #BBD; border-top:1px solid #FFF; border-left:1px solid white; text-decoration: none; color: #00D; }
 

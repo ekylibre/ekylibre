@@ -1,68 +1,69 @@
 class ::String
-	Majuscules = ['À','Â','Ä','É','È','Ê','Ë','Ì','Ï','Î','Ò','Ô','Ö','Û','Ü','Ù','Ç']
-	Minuscules = ['à','â','ä','é','è','ê','ë','ì','ï','î','ò','ô','ö','û','ü','ù','ç']
-	Moluscules = ['a','a','a','é','é','é','é','i','i','i','o','o','o','u','u','u','ss'] # Phonétique
-	Meruscules = ['a','a','a','e','e','e','e','i','i','i','o','o','o','u','u','u','c']  # Simplification "lisible"
+  MAJUSCULES = ['À','Â','Ä','É','È','Ê','Ë','Ì','Ï','Î','Ò','Ô','Ö','Û','Ü','Ù','Ç']
+  MINUSCULES = ['à','â','ä','é','è','ê','ë','ì','ï','î','ò','ô','ö','û','ü','ù','ç']
+  MOLUSCULES = ['a','a','a','é','é','é','é','i','i','i','o','o','o','u','u','u','ss'] # Phonétique
+  MEJUSCULES = ['A','A','A','E','E','E','E','I','I','I','O','O','O','U','U','U','C']  # Simplification "lisible"
+  MENUSCULES = ['a','a','a','e','e','e','e','i','i','i','o','o','o','u','u','u','c']  # Simplification "lisible"
+  
+
+  def translate(from, to)
+    ss = self.dup.to_s
+    ss.translate!(from, to)
+    ss
+  end
+
+  def translate!(from, to)
+    from.length.times{|x| self.gsub!(from[x], to[x])}
+  end
 
   def lower
-		ss = self.dup.to_s
-		m = Majuscules.length-1
-		for x in 0..m
-			ss.gsub!(Majuscules[x],Minuscules[x])
-		end
-    return ss.downcase
+    return self.translate(MAJUSCULES,MINUSCULES).downcase
   end
-
+  
   def upper
-		ss = self.dup.to_s
-		m = Majuscules.length-1
-		for x in 0..m
-			ss.gsub!(Minuscules[x],Majuscules[x])
-		end
-    return ss.upcase
+    return self.translate(MINUSCULES,MAJUSCULES).upcase
+  end
+  
+  def ascii
+    return self.translate(MINUSCULES,MENUSCULES).translate(MAJUSCULES,MEJUSCULES)
   end
 
-  def up_ss
-		ss = self.dup.to_s
-		m = Majuscules.length-1
-		for x in 0..m
-			ss.gsub!(Minuscules[x],Meruscules[x])
-			ss.gsub!(Majuscules[x],Meruscules[x])
-		end
-    return ss.upcase
+  def upper_ascii
+    return self.ascii.upcase
   end
 
-	def to_ss
-		ss = self.dup.to_s
-		ss.downcase!
-		ss.strip!
-		ss.gsub!('@',' arobase ')
-		ss.gsub!('€',' euro ')
-		ss.gsub!('$',' dollar ')
-		ss.gsub!('£',' livre ')
-		ss.gsub!('%',' pourcent ')
-		ss.gsub!('★',' étoile ')
-		ss.gsub!(/(–|-)/,' tiret ')
-
-		m = Majuscules.length-1
-		for x in 0..m
-			ss.gsub!(Majuscules[x],Moluscules[x])
-			ss.gsub!(Minuscules[x],Moluscules[x])
-		end
-		ss += ' '
-		ss.gsub!('.',' . ')
-		ss.gsub!(/\'/,' ')
+  def lower_ascii
+    return self.ascii.downcase
+  end
+    
+  
+  def to_ss
+    ss = self.dup.to_s
+    ss.downcase!
+    ss.strip!
+    ss.gsub!('@',' arobase ')
+    ss.gsub!('€',' euro ')
+    ss.gsub!('$',' dollar ')
+    ss.gsub!('£',' livre ')
+    ss.gsub!('%',' pourcent ')
+    ss.gsub!('★',' étoile ')
+    ss.gsub!(/(–|-)/,' tiret ')
+    
+    ss = ss.translate(MAJUSCULES,MOLUSCULES).translate(MINUSCULES,MOLUSCULES)
+    ss += ' '
+    ss.gsub!('.',' . ')
+    ss.gsub!(/\'/,' ')
     ss.gsub!(/(\\|\/|\-|\_|\&|\||\,|\.|\!|\?|\*|\+|\=|\(|\)|\[|\]|\{|\}|\$|\#)/, " ")
-
-
-		# Analyse phonétique
+    
+    
+    # Analyse phonétique
     ss.gsub!("y", "i")
     ss.gsub!(/(a|e|é|i|o|u)s(a|e|é|i|o|u)/, '\1z\2')
     ss.gsub!(/oi/, 'oa')
     ss.gsub!(/ii/,  "ie")
     ss.gsub!(/ess/, 'és')
 
-		ss.squeeze! "a-z"
+    ss.squeeze! "a-z"
     ss.gsub!(/(^| )ou(a|e|i|o|u)/, '\1w\2')
     ss.gsub!(/ph/, 'f')
     ss.gsub!(/ou/, 'u')
@@ -99,10 +100,10 @@ class ::String
     ss.gsub!("h", "")
     ss.gsub!("@", "sh")
     ss.gsub!(/[^a-z0-9]/,' ')
-		ss.squeeze! " "
-		ss.strip!
-		return ss
-	end
+    ss.squeeze! " "
+    ss.strip!
+    return ss
+  end
 
   def soundex2
     word = self.dup
@@ -155,14 +156,14 @@ class ::String
 
   begin
     require_library_or_gem "redcloth" unless Object.const_defined?(:RedCloth)
-
+    
     def textilize(*rules)
       self.blank? ? "" : RedCloth.new(self, rules).to_html
     end
-
+    
   rescue LoadError
-      # We can't really help what's not there
+    # We can't really help what's not there
   end
-
+  
   
 end
