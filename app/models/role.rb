@@ -15,4 +15,11 @@
 #
 
 class Role < ActiveRecord::Base
+
+  def can_do?(action)
+    raise Exception.new 'Can\'t evaluate action: nil' if action.nil?
+    action = Action.find_by_name(action.to_s) unless action.is_a? Action
+    self.action_ids.include? action.id
+  end
+
 end

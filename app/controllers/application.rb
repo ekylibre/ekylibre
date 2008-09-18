@@ -3,8 +3,10 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  before_filter :authorize, :except=>:login
-
+  before_filter :authorize, :except=>[:login, :register, :test]
+  attr_accessor :current_user
+  attr_accessor :current_company
+  
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '232b3ccf31f8f5fefcbb9d2ac3a00415'
@@ -27,6 +29,8 @@ class ApplicationController < ActionController::Base
       @current_company = @current_user.company
       if session[:last_query].to_i+3600<Time.now.to_i
         flash[:error] = lc :expired_session
+        session[:last_controller] = self.controller_name
+        session[:last_action] = action_name
         redirect_to :controller=>:authentication, :action=>:login
       else
         session[:last_query] = Time.now.to_i

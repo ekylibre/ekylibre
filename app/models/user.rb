@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   cattr_accessor :current_user
   attr_accessor :password_confirmation
   validates_confirmation_of :password
+  attr_protected :admin, :hashed_password, :salt, :locked, :deleted, :role_id
+  attr_readonly :company_id
   belongs_to :company
   belongs_to :role
   belongs_to :language
@@ -64,6 +66,10 @@ class User < ActiveRecord::Base
 
   def authenticated?(password)
     self.hashed_password == User.encrypted_password(password, self.salt)
+  end
+
+  def can_do?(action)
+    self.role.can_do?(action)
   end
 
   private

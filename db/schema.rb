@@ -725,6 +725,7 @@ ActiveRecord::Schema.define(:version => 20080819191919) do
     t.string   "last_name",                                        :null => false
     t.string   "salt",            :limit => 64,                    :null => false
     t.string   "hashed_password", :limit => 64,                    :null => false
+    t.boolean  "admin",                         :default => false, :null => false
     t.boolean  "locked",                        :default => false, :null => false
     t.boolean  "deleted",                       :default => false, :null => false
     t.string   "email"

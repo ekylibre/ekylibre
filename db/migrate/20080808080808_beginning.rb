@@ -27,6 +27,7 @@ class Beginning < ActiveRecord::Migration
       t.column :last_name,              :string,   :null=>false
       t.column :salt,                   :string,   :null=>false, :limit=>64
       t.column :hashed_password,        :string,   :null=>false, :limit=>64
+      t.column :admin,                  :boolean,  :null=>false, :default=>false
       t.column :locked,                 :boolean,  :null=>false, :default=>false
       t.column :deleted,                :boolean,  :null=>false, :default=>false
       t.column :email,                  :string

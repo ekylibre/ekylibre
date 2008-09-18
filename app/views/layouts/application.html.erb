@@ -14,6 +14,7 @@
 <%=menu_modules-%>
 </td><td id="user">
 <%if @current_user-%>
+<strong><%=@current_company.name-%></strong>
 <%=link_to(lc(:admin), :controller=>:admin, :action=>:index) if @current_user.admin-%>
 <%end-%>
 <%=link_to lc(:exit), :controller=>:authentication, :action=>:logout-%>
