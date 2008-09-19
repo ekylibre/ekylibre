@@ -876,10 +876,10 @@ ActiveRecord::Schema.define(:version => 20080819191919) do
   add_foreign_key "journals", ["counterpart_id"], "accounts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "journals_counterpart_id_fkey"
   add_foreign_key "journals", ["nature_id"], "journal_natures", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "journals_nature_id_fkey"
 
-  add_foreign_key "parameters", ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "parameters_user_id_fkey"
-  add_foreign_key "parameters", ["company_id"], "companies", ["id"], :name => "parameters_company_id_fkey"
-  add_foreign_key "parameters", ["created_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "parameters_created_by_fkey"
   add_foreign_key "parameters", ["updated_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "parameters_updated_by_fkey"
+  add_foreign_key "parameters", ["created_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "parameters_created_by_fkey"
+  add_foreign_key "parameters", ["company_id"], "companies", ["id"], :name => "parameters_company_id_fkey"
+  add_foreign_key "parameters", ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "parameters_user_id_fkey"
 
   add_foreign_key "roles", ["updated_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "roles_updated_by_fkey"
   add_foreign_key "roles", ["created_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "roles_created_by_fkey"

@@ -1,4 +1,5 @@
 
+
 # This module groups the different methods allowing to obtain a PDF document.
 
 module PdfReport
@@ -14,6 +15,7 @@ module PdfReport
     require 'digest/md5'
     require 'rfpdf'
     
+
     #List of constants for identify the balises
     XRL_LOOP='loop'
     XRL_INFOS='infos'
@@ -25,6 +27,9 @@ module PdfReport
     XRL_PAGEBREAK='page-break'
     XRL_RECTANGLE='rectangle'
     
+   # $array_constants={"{ID}"=>"","{CURRENT_DATE}"=> Date.today,"{CURRENT_TIMESTAMP}"=> Time.now, "{PAGENO}"=>"", "{PAGENB}"=>""}
+
+
     # this function begins to analyse the template extracting the main characteristics of
     # the Pdf document as the title, the orientation, the format, the unit ... 
     def analyze_template(template, name, id)
@@ -37,7 +42,7 @@ module PdfReport
       code='def render_report_'+name+'(id)'+"\n"
       
       raise Exception.new("Bad orientation in the template") unless document_root.attributes['orientation'] || 'portrait' == 'portrait'
-      
+     
       pdf='pdf'
       
       code+=pdf+"=FPDF.new('P','"+ document_root.attributes['unit']+"','" + document_root.attributes['format']+ "')\n"
@@ -94,16 +99,21 @@ module PdfReport
     #def analyze_loop(loop, *params)
     def analyze_loop(loop,pdf, depth, fields=nil, result=nil)
       code=''
-      result=loop["name"]#"r"+depth.to_s
+      
+      raise Exception.new("You must specify a name for the element loop beginning by a character.") unless loop.attributes['name'] and loop.attributes['name']=~/^[a-z][a-z0-9]*$/
+      
+
+      result=loop.attributes["name"]
             
-      query=loop.attributes['query']
+      query=loop.attributes['query'] unless loop.attributes['query'].nil?
       
       fields.each do |f| query.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless fields.nil?
+      
      
       if query
         unless (query=~/^SELECT.*.FROM/).nil?
           fields={}
-          query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each{|s| fields[result+'.'+s.downcase.strip]=result+"[\""+s.downcase.strip+"\"].to_s.length.to_s"}
+          query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each{|s| fields[result+'.'+s.downcase.strip]=result+"[\""+s.downcase.strip+"\"].to_s"}
           code+="for "+ result+" in c.select_all('"+query+"')\n" 
 #          code+=result+"="+result+".collect{|r| r.gsub(\"/\",\"\\\\/\")}\n"
         end
@@ -132,7 +142,7 @@ module PdfReport
         condition = block.attributes['if']                
         condition.gsub!("'","\\\\'")
         fields.each do |f| condition.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless fields.nil?
-        code+="if c.select_all(\'select ("+condition+")::boolean AS x\')[0][\"x\"]==\"t\"\n"
+        code+="if c.select_one(\'select ("+condition+")::boolean AS x\')[0][\"x\"]==\"t\"\n"
       end
       
       code+="if(page_height<"+block_height(block).to_s+")\n "+pdf+".add_page()\n block_y=15\n page_height=page_height_origin-block_y\n end\n"
@@ -203,9 +213,15 @@ module PdfReport
       raise Exception.new("Your text is out of the block") unless text.attributes['y'].to_i < text.attributes['width'].to_i
       
       data = text.text.gsub("'","\\\\'")
+      
+    
       text=text.attributes
       
       fields .each do |f| data.gsub!("\#{"+f[0]+"}","\'+"+f[1]+"+\'")end unless fields.nil?
+      
+      unless (data=~/\{*\}/).nil?    
+        analyze_constant(data,data.split('{')[1].split('}')[0])
+      end
       
       code+=pdf+".set_text_color("+color_element(text,'color')+")\n" unless text['color'].nil?
       
@@ -251,8 +267,29 @@ module PdfReport
       return(color_table[0].hex*16).to_s+","+(color_table[1].hex*16).to_s+","+(color_table[2].hex*16).to_s  
     end
     
+    #
+    def analyze_constant(data,str)
+      puts "oui:#{str}"
+      code=''
+      if str=="CURRENT_DATE" or str=="CURRENT_TIMESTAMP"
+        code+="now=Time.now\n"
+
+        format="%Y-%m-%d"
+        format+="à %H:%M" if str=="CURRENT_TIMESTAMP"
+        constant=str
+        unless (str.match ':').nil?
+          puts str
+          constant=str.split(':')[0]
+          format=str.split(':')[1]
+          puts format
+        end
+        data.gsub!("{"+str+"}","now.strftime("+format+").to_s")
+        
+      end
+      code.to_s
+    end 
+    
   end
-  
   
 end
 
