@@ -24,7 +24,6 @@
       </block>
       <block name="ligne de facture" if="#{loop1.usename}!='postgres'">
         <text x="2" y="2" width="100" height="5" align="C">Blabla, ceci est son ID système : #{loop1.usesysid}</text>
-
         <text x="2" y="20" width="100" height="5" align="L" if="#{loop1.usesuper}" decoration="underline">C'est un superutilisateur</text>
         <text x="2" y="40" width="100" height="5" align="C">Blabla on est le {CURRENT_DATE} et plus précisément le {CURRENT_TIMESTAMP}</text>
         <text x="2" y="60" width="100" height="5" align="R" style="italic">Blabla</text>
