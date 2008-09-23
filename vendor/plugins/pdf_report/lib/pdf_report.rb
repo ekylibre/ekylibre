@@ -47,16 +47,17 @@ module PdfReport
       code+=pdf+"=FPDF.new('P','"+ document_root.attributes['unit']+"','" + document_root.attributes['format']+ "')\n"
       code+=page_height(document_root)
       code+="page_height_origin=page_height\n"
-      code+=pdf+".alias_nb_pages()\n"
+      code+="page_number=1\n"
+      code+="page_number_total="+pdf+".alias_nb_pages()\n"
       code+=pdf+".set_auto_page_break(false)\n"
       code+=pdf+".set_font('Arial','B',14)\n"
       code+=pdf+".set_margins(0,15)\n"
-      code+=pdf+".add_page()\n"
+     code+=pdf+".add_page()\n"
       code+="block_y=15\n"
       code+="page_height-=block_y\n"
       code+=analyze_infos(document_root.elements[XRL_INFOS],pdf) if document_root.elements[XRL_INFOS]
       
-     code+="c= ActiveRecord::Base.connection \n"+analyze_loop(document_root.elements[XRL_LOOP],pdf,depth,[]) if document_root.elements[XRL_LOOP]     
+     code+="c=ActiveRecord::Base.connection \n"+analyze_loop(document_root.elements[XRL_LOOP],pdf,depth,[],document_root.attributes['format']) if document_root.elements[XRL_LOOP]     
       code+=pdf+".Output()\n"
 
       code+="end" 
@@ -94,12 +95,12 @@ module PdfReport
     
     # this function 	
     #def analyze_loop(loop, *params)
-    def analyze_loop(loop,pdf, depth, header,fields=nil, result=nil)
+    def analyze_loop(loop,pdf, depth, header, format,fields=nil, result=nil)
       code=''
       
       raise Exception.new("You must specify a name for the element loop beginning by a character.") unless loop.attributes['name'] and loop.attributes['name'].to_s=~/^[a-z][a-z0-9]*$/
       
-
+      
       result=loop.attributes["name"]
             
       query=loop.attributes['query'] unless loop.attributes['query'].nil?
@@ -115,10 +116,24 @@ module PdfReport
         end
       else
         code+=result+"='[]'\n"
-      end  
+      end
+  
       loop.each_element do |element|
-        code+=self.send('analyze_'+ element.name,element,pdf,depth+1, header,fields, result) unless [XRL_PAGEBREAK].include? element.name 
-       code+=self.send('analyze_page_break',pdf) if [XRL_PAGEBREAK].include? element.name 
+        if element.attributes['type'] and element.attributes['type']=='header'
+          header=Hash.new unless defined? header
+          header[depth+1]=Hash.new
+          header[depth+1][element.attributes['type']]=analyze_block(element,pdf,depth+1,header,format,fields,result)
+          next
+        end
+        
+        code+="if(page_height<"+block_height(element).to_s+")\n "+analyze_page_break(pdf,depth+1,header,fields,result)+"end\n"
+        code+=self.send('analyze_'+ element.name,element,pdf,depth+1,header,format,fields, result) unless [XRL_PAGEBREAK].include? element.name 
+
+        if element.name=='block'
+          code+="block_y+="+block_height(element).to_s+"\n"
+          code+="page_height-="+block_height(element).to_s+"\n"
+        end
+        code+=self.send('analyze_page_break',pdf,depth,header) if [XRL_PAGEBREAK].include? element.name 
       end
       
       code+="end \n" if query
@@ -128,11 +143,17 @@ module PdfReport
     
     #     
     # def analyze_block(block, *params)
-    def analyze_block(block,pdf, depth, header,fields=nil, result=nil)
+    def analyze_block(block,pdf, depth,header,format,fields=nil, result=nil)
       code=''
       width_block_depth=0 
       heigth_block_depth=0
-
+            
+      # ca fonctionne
+      #unless format.split('x')[1].to_i >= block_height(block) and format.split('x')[0].to_i >= block_width(block) 
+      # raise Exception.new("Sorry, You have a block which bounds are incompatible with the format specified.")
+      # puts block_width(block).to_s+"x"+block_height(block).to_s+":"+format
+      #end
+                 
       unless block.attributes['if'].nil?
         condition=block.attributes['if']                
         condition.gsub!("'","\\\\'")
@@ -140,31 +161,21 @@ module PdfReport
         code+="if c.select_one(\'select ("+condition+")::boolean AS x\')[\"x\"]==\"t\"\n"
       end
       
-      code+="if(page_height<"+block_height(block).to_s+")\n "+analyze_page_break(pdf,depth,header)+"end\n"
-     
-      if block.attributes['type']=='header'
-        header[depth]= Hash.new unless defined? header[depth]
-        header[depth]={ 
-          (block.attributes['mode'] ? block.attributes['mode'] : 'all') => { 
-            "height" => block_height(block), "width"=> block_width(block), } 
-        }
-        #code+="mode=:"+(block.attributes['mode'] ? block.attributes['mode'] : 'all') + "\n" 
-        #code+="\n"
-      end 
-
+      #code+="if(page_height<"+block_height(block).to_s+")\n "+analyze_page_break(pdf,depth,header,fields,result)+"end\n"
+      
       block.each_element do |element|
         attr_element=element.attributes
         code+=pdf+".set_xy("+attr_element['x']+",block_y+"+attr_element['y']+")\n"
         code+=self.send('analyze_'+ element.name,element,pdf, depth, fields, result).to_s if [XRL_TEXT,XRL_IMAGE,XRL_RULE,XRL_RECTANGLE].include? element.name       
-      end
-      code+="block_y+="+block_height(block).to_s+"\n"
-      code+="page_height-="+block_height(block).to_s+"\n"
-        
+        end
       
-
+      #code+="block_y+="+block_height(block).to_s+"\n"
+      #code+="page_height-="+block_height(block).to_s+"\n"
+      
       code+="end\n" unless block.attributes['if'].nil?
-
+      
       code.to_s
+     
     end 
     
     #
@@ -198,21 +209,22 @@ module PdfReport
     end 
 
     #
-    def analyze_page_break(pdf,depth,header)
+    def analyze_page_break(pdf,depth,header,fields=nil,result=nil)
       code=''
-      code+=pdf+".add_page()\n block_y=15\n page_height=page_height_origin-block_y \n"
-      code+=analyze_header(pdf,depth,header)
+      code+=pdf+".add_page()\n page_number+=1\n block_y=15\n page_height=page_height_origin-block_y \n"
+      code+=analyze_header(pdf,depth,header) unless header.empty?
       code.to_s
     end
     
     #
-    def analyze_header(pdf,depth,header)
+    def analyze_header(pdf,depth,header,fields=nil,result=nil)
       code=''
-      if header.has_key?(depth)
-        header=header.fetch(depth)
-      else
-        
-      end
+      puts "#{header}"
+      #while header.key?(depth)==false do
+       # depth-=1
+      #end
+      #code+="if page_number.even?\n"+header[depth]['even']+"\n"+"else\n"+header[depth]['odd']+"\n end\n"
+      
       code.to_s
     end
     
@@ -243,7 +255,7 @@ module PdfReport
       
       
       while data=~/[^\#]\{[A-Z\_].*.\}/ 
-          analyze_constant(data,str=data.split('{')[1].split('}')[0])
+          analyze_constant(data,pdf,str=data.split('{')[1].split('}')[0])
       end
 
       code+=pdf+".set_text_color("+color_element(text,'color')+")\n" unless text['color'].nil?
@@ -290,7 +302,7 @@ module PdfReport
     end
     
     #
-    def analyze_constant(data,str)
+    def analyze_constant(data,pdf,str)
       code=''
       if str=~/CURRENT_DATE.*/ or str=~/CURRENT_TIMESTAMP.*/
         #code+="now2=Time.now\n"
@@ -302,9 +314,9 @@ module PdfReport
       elsif str=~/ID/
         data.gsub!("{"+str+"}",'\'+id.to_s+\'')
       elsif str=~/PAGENO/
-        data.gsub!("{"+str+"}",'pageno.to_s')
+        data.gsub!("{"+str+"}",'\'+page_number.to_s+\'')
       elsif str=~/PAGENB/
-        data.gsub!("{"+str+"}",'pagenb.to_s')
+        data.gsub!("{"+str+"}",'\'+page_number_total.to_s+\'')
       end
       code.to_s
     end 
@@ -328,7 +340,7 @@ module ActionController
       f.write(code)
       f.close
       #puts code 
-      pdf = self.send('render_report_'+digest,id)
+     # pdf = self.send('render_report_'+digest,id)
     end
   end
 end
