@@ -1,0 +1,55 @@
+<%=content_tag :h1, @company.name -%>
+<table id="company" class="flex"><tr>
+<td valign="top"><div class="side">
+<%= link_to l(:edit),{:action=>:company_edit}, {:class=>:button}-%>
+<%=content_tag :h2, lc(:identity) -%>
+<div class="tr">
+<div class="td logo">[PHOTO]</div>
+<div class="td">
+<%=evalue @company, :name-%>
+<%=evalue @company, :siren-%>
+<%=evalue @company, :code-%>
+</div></div>
+
+<%=content_tag :h3, lc(:establishments) -%>
+<%= ajax_table :establishments do |t|
+  t.column :name
+  t.column :siret
+  t.column :note
+  t.procedure :new_establishment, {:action=>:new}
+end -%>
+<%=content_tag :h3, lc(:departments) -%>
+<%= ajax_table :departments do |t|
+  t.column :name
+  t.column :siret
+  t.column :note
+  t.procedure :new_department, {:action=>:new}
+end -%>
+<%=content_tag :h3, lc(:employees) -%>
+<%= ajax_table :employees do |t|
+  t.column :name
+  t.column :siret
+  t.column :note
+  t.procedure :new_employee, {:action=>:new}
+end -%>
+<%=content_tag :h3, lc(:bank_accounts) -%>
+<%= ajax_table :bank_accounts do |t|
+  t.column :name
+  t.column :siret
+  t.column :note
+  t.procedure :new_bank_account, {:action=>:new}
+end -%>
+
+</div></td><td valign="top"><div class="side">
+<%=content_tag :h2, lc(:statistics) -%>
+<%=content_tag :h3, lc(:evolution) -%>
+<div align="center"><div style="width:512px; height:256px; border:1px solid red; background: #FFF;">[GRAPHIQUE]</div></div>
+<%=content_tag :h3, lc(:values) -%>
+<%= ajax_table :establishments do |t|
+  t.column :name
+  t.column :siret
+  t.column :note
+  t.procedure :new_establishment, {:action=>:new}
+end -%>
+</div></td>
+</tr></table>

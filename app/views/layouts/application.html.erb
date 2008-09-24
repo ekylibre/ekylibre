@@ -13,9 +13,10 @@
 <table><tr><td id="modules">
 <%=menu_modules-%>
 </td><td id="user">
+<strong><%=Date.today.to_formatted_s :attributes -%></strong>
 <%if @current_user-%>
-<strong><%=@current_company.name-%></strong>
-<%=link_to(lc(:admin), :controller=>:admin, :action=>:index) if @current_user.admin-%>
+<%= elink(can_access?,@current_user.label, {:controller=>:config, :action=>:user})-%>
+<%= elink(can_access?,@current_company.name, {:controller=>:config,:action=>:company})-%>
 <%end-%>
 <%=link_to lc(:exit), :controller=>:authentication, :action=>:logout-%>
 </td></tr></table>

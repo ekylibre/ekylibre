@@ -25,9 +25,8 @@ class Beginning < ActiveRecord::Migration
       t.column :name,                   :string,   :null=>false, :limit=>32
       t.column :first_name,             :string,   :null=>false
       t.column :last_name,              :string,   :null=>false
-      t.column :salt,                   :string,   :null=>false, :limit=>64
-      t.column :hashed_password,        :string,   :null=>false, :limit=>64
-      t.column :admin,                  :boolean,  :null=>false, :default=>false
+      t.column :salt,                   :string,   :limit=>64
+      t.column :hashed_password,        :string,   :limit=>64
       t.column :locked,                 :boolean,  :null=>false, :default=>false
       t.column :deleted,                :boolean,  :null=>false, :default=>false
       t.column :email,                  :string
@@ -43,7 +42,8 @@ class Beginning < ActiveRecord::Migration
     create_table :companies do |t|
       t.column :name,                   :string,   :null=>false
       t.column :code,                   :string,   :null=>false, :limit=>8
-      t.column :siren,                  :string,   :null=>false, :default=>"000000000", :limit=>9
+      t.column :siren,                  :string,   :limit=>9
+      t.column :born_on,                :date
       t.column :locked,                 :boolean,  :null=>false, :default=>false
       t.column :deleted,                :boolean,  :null=>false, :default=>false
     end
@@ -53,7 +53,7 @@ class Beginning < ActiveRecord::Migration
     # Parameter
     create_table :parameters do |t|
       t.column :name,                   :string,   :null=>false
-      t.column :nature,                 :string,   :null=>false, :limit=>1 # String Boolean Integer Decimal ForeignElement
+      t.column :nature,                 :string,   :null=>false, :default=>'u', :limit=>1 # String Boolean Integer Decimal ForeignElement
       t.column :string_value,           :text
       t.column :boolean_value,          :boolean
       t.column :integer_value,          :integer
@@ -69,26 +69,12 @@ class Beginning < ActiveRecord::Migration
     # Role
     create_table :roles do |t|
       t.column :name,                   :string,   :null=>false
-      t.column :default,                :boolean,  :null=>false
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
+      t.column :actions,                :text,     :null=>false, :default=>'  '
     end
     add_index :roles, :company_id
     add_index :roles, [:company_id, :name], :unique=>true
 
-    # Action
-    create_table :actions do |t|
-      t.column :name,                   :string,   :null=>false
-      t.column :desc,                   :text
-      t.column :parent_id,              :integer,  :null=>false, :references=>:actions
-    end
-    add_index :actions, :name, :unique=>true
-
-    # Action <---> Role
-    create_table :actions_roles do |t|
-      t.column :action_id,              :integer,  :null=>false, :references=>:actions
-      t.column :role_id,                :integer,  :null=>false, :references=>:roles      
-    end
-    
     # Template
     create_table :templates do |t|
       t.column :name,                   :string,   :null=>false
@@ -103,8 +89,6 @@ class Beginning < ActiveRecord::Migration
 
   def self.down
     drop_table :templates
-    drop_table :actions_roles
-    drop_table :actions
     drop_table :roles
     drop_table :parameters
     drop_table :companies

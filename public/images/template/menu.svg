@@ -20,6 +20,28 @@
   <defs
      id="defs2417">
     <linearGradient
+       id="linearGradient3185">
+      <stop
+         id="stop3187"
+         offset="0"
+         style="stop-color:#dddddd;stop-opacity:1;" />
+      <stop
+         id="stop3189"
+         offset="1"
+         style="stop-color:#ffffff;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3173">
+      <stop
+         style="stop-color:#cccccc;stop-opacity:1;"
+         offset="0"
+         id="stop3175" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="1"
+         id="stop3177" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3854">
       <stop
          style="stop-color:#080c9f;stop-opacity:1;"
@@ -70,6 +92,37 @@
        y2="53.642853"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(114.28571,83.790756)" />
+    <filter
+       inkscape:collect="always"
+       id="filter3193"
+       x="-0.32533333"
+       width="1.6506667"
+       y="-0.19012987"
+       height="1.3802597">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="6.1"
+         id="feGaussianBlur3195" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3173"
+       id="linearGradient3179"
+       x1="116.28571"
+       y1="320.93359"
+       x2="116.28571"
+       y2="300.93359"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3185"
+       id="linearGradient3183"
+       gradientUnits="userSpaceOnUse"
+       x1="122.03571"
+       y1="315.93359"
+       x2="122.03571"
+       y2="295.93359"
+       gradientTransform="translate(-3.7500032,5.000015)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -96,7 +149,7 @@
        id="guide3297" />
     <sodipodi:guide
        orientation="0,1"
-       position="59,110"
+       position="178,110"
        id="guide3299" />
     <sodipodi:guide
        orientation="1,0"
@@ -106,6 +159,18 @@
        orientation="1,0"
        position="56,84.5"
        id="guide3303" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="30.75,119.5"
+       id="guide2395" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="130,-109"
+       id="guide3181" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="174,76"
+       id="guide3183" />
   </sodipodi:namedview>
   <metadata
      id="metadata2420">
@@ -145,6 +210,31 @@
        height="80"
        x="214.28571"
        y="140.93361"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0.37160121;fill:#277ad9;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3193)"
+       id="rect2397"
+       width="45"
+       height="77"
+       x="230.28571"
+       y="237.93361" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient3179);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="button"
+       width="2"
+       height="20"
+       x="114.28571"
+       y="300.93359"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient3183);fill-opacity:1.0;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="button_hover"
+       width="2"
+       height="20"
+       x="116.28571"
+       y="300.93359"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
   </g>

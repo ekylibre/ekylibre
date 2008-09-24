@@ -5,8 +5,8 @@
 #
 #  id           :integer       not null, primary key
 #  name         :string(255)   not null
-#  default      :boolean       not null
 #  company_id   :integer       not null
+#  actions      :text          default("  "), not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
 #  created_by   :integer       
@@ -16,10 +16,38 @@
 
 class Role < ActiveRecord::Base
 
-  def can_do?(action)
-    raise Exception.new 'Can\'t evaluate action: nil' if action.nil?
-    action = Action.find_by_name(action.to_s) unless action.is_a? Action
-    self.action_ids.include? action.id
+  ACTIONS = [ :all,                     # All
+              :accountancy,             # Accountant
+              :sales                    # Saler
+            ]
+
+  set_column :actions, ACTIONS
+
+  def before_validation
+    self.actions_array = self.actions_array # Refresh actions array
   end
+
+#  def can_do?(action=:all)
+#    return self.actions_include?(:all) ? true : self.actions_include?(action)
+#  end
+
+  def can_do(action)
+    self.actions_set(action)
+    self.save!
+  end
+
+  def cannot_do(action)
+    self.actions_set(action, false)
+    self.save!
+  end
+
+  def action_name(action)
+    lc(action.to_sym)
+  end
+
+#    raise Exception.new('Can\'t evaluate action: nil') if action.nil?
+#    action = Action.find_by_name(action.to_s) unless action.is_a? Action
+#    self.action_ids.include? action.id
+#  end
 
 end

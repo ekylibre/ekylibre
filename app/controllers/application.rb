@@ -27,15 +27,24 @@ class ApplicationController < ActionController::Base
       User.current_user = User.find(session[:user_id])
       @current_user = User.current_user
       @current_company = @current_user.company
+      session[:actions] = @current_user.role.actions_array
       if session[:last_query].to_i+3600<Time.now.to_i
         flash[:error] = lc :expired_session
-        session[:last_controller] = self.controller_name
-        session[:last_action] = action_name
+        if controller_name.to_s!='authentication'
+          session[:last_controller] = controller_name 
+          session[:last_action]     = action_name
+        end
         redirect_to :controller=>:authentication, :action=>:login
       else
         session[:last_query] = Time.now.to_i
       end
     end
   end
-
+  
+  
+  def can_access?(action=:all)
+  	return false unless @current_user
+    return session[:actions].include?(:all) ? true : session[:actions].include?(action)
+  end
+  
 end

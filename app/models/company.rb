@@ -6,7 +6,8 @@
 #  id           :integer       not null, primary key
 #  name         :string(255)   not null
 #  code         :string(8)     not null
-#  siren        :string(9)     default("000000000"), not null
+#  siren        :string(9)     
+#  born_on      :date          
 #  locked       :boolean       not null
 #  deleted      :boolean       not null
 #  created_at   :datetime      not null
@@ -17,5 +18,39 @@
 #
 
 class Company < ActiveRecord::Base
+
+  def before_validation
+    self.code = name[0..7].simpleize if code.blank?
+    self.code = rand.to_s[2..100].to_i.to_s(36)[0..7] if code.blank?
+    self.code.upper!
+    while Company.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
+      self.code.succ!
+    end
+    self.siren = '123456789' if self.siren.blank?
+  end
+
+  def after_create
+    role = Role.create!(:name=>lc(:administrator), :company_id=>self.id)
+    role.can_do :all
+    role = Role.create!(:name=>lc(:public), :company_id=>self.id)
+    self.parameter('general.language').value=Language.find_by_iso2('fr')
+    self.load_template("#{RAILS_ROOT}/lib/template.xml")
+  end
+
+  def parameter(name)
+    parameter = Parameter.find_by_name_and_company_id(name,self.id)
+    parameter = Parameter.new(:name=>name, :nature=>:u, :company_id=>self.id)
+    parameter
+  end
+
+  def load_template(filename)
+    f = File.open(filename,'rb')
+    Template.create!(:name=>filename.simpleize,:company_id=>self.id, :content=>f.read)
+    f.close
+  end
+
+  def admin_role
+    self.roles.find(:first, :conditions=>"actions=' all '")
+  end
 
 end

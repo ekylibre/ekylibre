@@ -1,0 +1,22 @@
+<div class="frame">
+  <div class="title">
+    <h1><%=lc :title-%></h1>
+  </div>
+  <%=error_messages_for 'company', 'user' -%>
+  <div id="register-body">
+    <%= # To indent with Emacs, I put >
+    formalize(:multipart=>false) do |f|
+    f.title :my_company
+    f.line :name, :company, {:example=>lc(:company_name_example)}
+    f.line :siren, :company, :example=>lc(:company_siren_example)
+    f.line :code, :company, :example=>lc(:company_siren_example)
+    f.title :my_self
+    f.line :last_name, :user, :example=>lc(:user_last_name_example)
+    f.line :first_name, :user, :example=>lc(:user_first_name_example)
+    f.line :name, :user, :example=>lc(:user_name_example), :info=>lc(:user_name_info)
+    f.line :password, :user, :null=>false, :hint=>lc(:user_password_hint)
+    f.line :password_confirmation, :user, :null=>false, :info=>lc(:user_password_confirmation_info)
+    end
+    -%>
+  </div>
+</div>

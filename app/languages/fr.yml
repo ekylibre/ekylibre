@@ -30,7 +30,7 @@ dates:
   date_formats:
     attributes: '%d/%m/%y'
     short: '%e %b'
-    long: '%e %B %Y'
+    long: '%A %e %B %Y'
   time_formats:
     attributes: '%d/%m/%y %H:%M'
     short: '%e %b %H:%M'
@@ -59,9 +59,9 @@ countries:
 helpers:
   error_messages_for:
     heading:
-      1: '1 erreur a empêché ce %2$s d''être enregistré'
-      n: '%d erreurs ont empêché ce %s d''être enregistré'
-    description: 'Il y a eu des problèmes avec les champs suivants:'
+      1: 'Une erreur a empêché l''enregistrement'
+      n: 'Des erreurs ont empêché l''enregistrement'
+    description: 'Il y a eu des problèmes avec les champs suivants :'
   number_to_currency:
     precision: 2
     unit: '€'
@@ -102,12 +102,20 @@ helpers:
 #       name: Localized name
 #       description: Localized description
 models:
+  company:
+    name: Société
+    attributes:
+      name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)'
+      siren: Numéro SIREN
+      born_on: Créée le
   user:
     name: Utilisateur
     attributes:
       name: 'Nom d''utilisateur'
       first_name: 'Prénom'
       last_name: 'Nom de famille'
+      password: 'Mot de passe'
+      password_confirmation: 'Confirmation du mot&nbsp;de&nbsp;passe'
 
 # Expression used to determine plural form.
 # The 'c' variable represent the number
@@ -146,10 +154,34 @@ app:
       lost_password: 'Mot de passe oublié ?'
       register: 'Créer une nouvelle société'
     register:
+      administrator: Administrateur
       title: 'Enregistrer sa société'
       company_name: Nom de votre société
       my_company: Saisissez les informations sur votre société
       my_self: Saisissez les informations vous concernant
+      company_name_example: SARL Martin et Fils
+      company_siren_example: 012345678
+      user_last_name_example: MARTIN
+      user_first_name_example: Jean
+      user_name_example: martinj
+      user_name_info: 'C''est le nom que vous utiliserez pour rentrer dans Ekylibre'
+      user_password_hint: 'Pour avoir mot de passe "solide", il faut utiliser au minimum des majuscules, des minuscules et des chiffres'
+      user_password_confirmation_info: 'Vous devez ressaisir votre mot de passe pour éviter qu''un mot de passe érroné soit enregistré'
+  config:
+    company:
+      identity: Carte d'identité
+      statistics: Chiffres
+      establishments: Établissements
+      departments: Services
+      employees: Employés
+      bank_accounts: Comptes bancaires
+      evolution: Historique
+      values: Valeurs diverses
+    company_edit:
+      title: 'Modification de la société %s'
+      general: Vous pouvez modifier les différentes informations concernant votre société
+      company_code_info: Ce code sert d'abréviation pour certaines impressions
+      
   guide:
     index:
       title: 'Accueil'
@@ -165,6 +197,13 @@ app:
     application:
       admin: 'Administration'
       exit: 'Quitter Ekylibre'
-  'next': Suivant
-  'previous': Précédent
-  'finish': Terminer      
+  cancel: 'Annuler'
+  edit: 'Modifier'
+  example: 'Exemple(s).&nbsp;: %s'
+  finish: Terminer
+  hint: 'Astuce&nbsp;: %s'
+  info: 'Information&nbsp;: %s'
+  next: Suivant
+  no_records: 'Pas d''enregistrements'
+  previous: Précédent
+  submit: Envoyer

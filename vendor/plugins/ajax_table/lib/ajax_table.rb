@@ -21,7 +21,7 @@ module AjaxTable
     if definition.procedures.size>0
       for proc in 0..(definition.procedures.size-1)
         process += ' &nbsp;&bull;&nbsp; ' if proc>0
-        process += link_to(definition.procedures[proc][0], definition.procedures[proc][1]) 
+        process += link_to(lc(definition.procedures[proc][0]), definition.procedures[proc][1]) 
       end
       process = content_tag('div',process,:class=>"menu")
     end
@@ -72,7 +72,7 @@ module AjaxTable
         code += content_tag('tr',line, :class=>cycle('odd','even'))
       end
     else
-      code += content_tag(:tr,content_tag(:td, "No records", :colspan=>definition.columns.size, :class=>"norecord"))
+      code += content_tag(:tr,content_tag(:td, l(:no_records), :colspan=>definition.columns.size, :class=>"empty"))
     end
     line = ''
     if record_pages

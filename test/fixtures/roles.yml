@@ -5,8 +5,8 @@
 #
 #  id           :integer       not null, primary key
 #  name         :string(255)   not null
-#  default      :boolean       not null
 #  company_id   :integer       not null
+#  actions      :text          default("  "), not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
 #  created_by   :integer       

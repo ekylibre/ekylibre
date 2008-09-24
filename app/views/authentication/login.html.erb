@@ -1,13 +1,14 @@
 <div class="flash-error"><%= flash[:error]-%></div>
 <div id="login">
   <h2><%=lc :title-%></h1>
-<%form_tag do-%>
+<%form_tag({},{:name=>'login_form'}) do-%>
 <table>
-  <tr><td class="label"><%=lc :username-%></td><td class="input"><%=text_field :user, :name, :tabindex=>1-%></td><td class="help"><%= link_to lc(:lost_login), :action=>:lost_login-%></td></tr>
+  <tr><td class="label"><%=lc :username-%></td><td class="input"><%=text_field :user, :name, {:value=>session[:user_name], :tabindex=>1}-%></td><td class="help"><%= link_to lc(:lost_login), :action=>:lost_login-%></td></tr>
   <tr><td class="label"><%=lc :password-%></td><td class="input"><%=password_field :user, :password, :tabindex=>2%></td><td class="help"><%= link_to lc(:lost_password), :action=>:lost_password-%></td></tr>
   <tr><td class="button" colspan="3"><%=submit_tag lc(:connect), :tabindex=>3 -%></td></tr>
   <tr><td class="actions" colspan="3"><%=link_to lc(:register), {:action=>:register}, {:class=>:show}-%></td></tr>
 </table>
+<%=hidden_field_tag 'screen_width' -%>
 <%end-%>
 <div class="end" colspan="3"></div>
 </div>

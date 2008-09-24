@@ -1,5 +1,9 @@
 class GuideController < ApplicationController
   
+  def welcome
+    redirect_to :action=>:index
+  end
+
   def index
   end
 

@@ -5,7 +5,7 @@
 #
 #  id            :integer       not null, primary key
 #  name          :string(255)   not null
-#  nature        :string(1)     not null
+#  nature        :string(1)     default("u"), not null
 #  string_value  :text          
 #  boolean_value :boolean       
 #  integer_value :integer       

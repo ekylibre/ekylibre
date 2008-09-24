@@ -10,34 +10,56 @@ class AuthenticationController < ApplicationController
 
   def login
     if request.post?
+#      raise Exception.new params[:screen_width].to_s+'/'+params[:screen_width].class.to_s
+      session[:body_width] = params[:screen_width].to_i-50 if params[:screen_width]
       user = User.authenticate(params[:user][:name], params[:user][:password])
       if user
-        session[:user_id] = user.id
-        session[:last_query] = Time.now.to_i
-        session[:expiration] = 3600
+        init_session(user)
         redirect_to :controller=>session[:last_controller]||:guide, :action=>session[:last_action]||:index unless session[:user_id].blank?
       else
         flash[:error] = lc :no_authenticated # 'User can not be authenticated. Please retry.'
       end
+      session[:user_name] = params[:user][:name]
     end
   end
 
   def register
-    step = (params[:step]||1).to_i
-    step = 1 if step<1
-    @last = 3
-    case step
-    when 1:
+    if request.post?
+      if session[:company_id].nil?
+        @company = Company.new(params[:company])
+      else
+        @company = Company.find(session[:company_id])
+        @company.attributes = params[:company]
+      end
+      if @company.save
+        session[:company_id] = @company.id
+        params[:user][:company_id] = @company.id
+        @user = User.new(params[:user])
+        @user.role_id = @company.admin_role.id
+        if @user.save
+          init_session(@user)
+          redirect_to :controller=>:guide, :action=>:welcome
+        end
+      end
     else
+      session[:company_id] = nil
     end
-    @step = step
   end
   
   def logout
     session[:user_id] = nil    
     session[:last_controller] = nil
     session[:last_action] = nil
+    reset_session
     redirect_to :action=>:login
+  end
+
+  protected
+
+  def init_session(user)
+    session[:user_id] = user.id
+    session[:last_query] = Time.now.to_i
+    session[:expiration] = 3600
   end
   
 end

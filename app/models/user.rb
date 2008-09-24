@@ -7,9 +7,8 @@
 #  name            :string(32)    not null
 #  first_name      :string(255)   not null
 #  last_name       :string(255)   not null
-#  salt            :string(64)    not null
-#  hashed_password :string(64)    not null
-#  admin           :boolean       not null
+#  salt            :string(64)    
+#  hashed_password :string(64)    
 #  locked          :boolean       not null
 #  deleted         :boolean       not null
 #  email           :string(255)   
@@ -28,8 +27,9 @@ require "digest/sha2"
 class User < ActiveRecord::Base
   cattr_accessor :current_user
   attr_accessor :password_confirmation
+  validates_presence_of :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
   validates_confirmation_of :password
-  attr_protected :admin, :hashed_password, :salt, :locked, :deleted, :role_id
+  attr_protected :hashed_password, :salt, :locked, :deleted, :role_id
   attr_readonly :company_id
   belongs_to :company
   belongs_to :role
@@ -37,6 +37,14 @@ class User < ActiveRecord::Base
   
   def before_validation
     self.name = self.name.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
+    if company
+      self.language = self.company.parameter('general.language').value if self.language.nil?
+    end
+    self.language = Language.find(:first, :order=>:name) if self.language.nil?
+  end
+
+  def label
+    self.first_name+' '+self.last_name
   end
 
   def password
@@ -67,6 +75,10 @@ class User < ActiveRecord::Base
 
   def authenticated?(password)
     self.hashed_password == User.encrypted_password(password, self.salt)
+  end
+
+  def admin?
+    self.role.can_do? :all
   end
 
   def can_do?(action)

@@ -14,21 +14,60 @@ input[type="text"], input[type="password"] { border:1px solid #003; background: 
 /*#menu #user {  border-bottom: 1px solid #CCF; text-align:right; position:absolute; top: 0px;}*/
 #main { padding: 2px;}
 #main h1 { letter-spacing: 4px; font-variant: small-caps; font-size:24px;}
+#main h2 { height:20px; }
+#main h3 { height:16px; }
+
 a.guide:link, a.guide:visited, a.guide:hover{ color: white; font-size:18px; }
 a.guide { float: left; }
 a.guide > div { width: 220px; height:58px; background: url(/images/template/guide.png) no-repeat top left; text-align:center; padding: 180px 18px 18px; }
 
-.formalize .fields table { border-collapse: collapse; width:100%;}
-.formalize .fields table .label { text-align:right; padding:1px 4px; color: #008;}
-.formalize .fields table .hint { text-align:left; padding:1px 4px; color: #99B; font-size: 11px;}
-.formalize .fields table .input { padding:2px 1px; }
+table.invex, table.invisible { border-collapse: collapse; }
+table.invex, table.flex { width: 100% }
+
+.evalue { display:table; border-collapse: collapse;}
+.evalue > div { display:table-row; }
+.evalue .label, .evalue .value { display:table-cell; }
+
+div.tr { display: table-row; }
+div.td { display: table-cell; }
+
+.logo { width: 160px; padding:4px; background: white; border:1px solid #EEE; text-align:center; vertical-align:center; }
+
+#company { border-spacing:6px; }
+#company div.side { border:1px solid #EEE; padding: 2px; background: #f9f9f9;}
+#company div.side h2{ margin: 2px 0px 4px;}
+#company div.side h3{ border-bottom :1px solid #DDD; margin: 6px 6px 2px; color:#555;}
+#company div.side .label {color:#777; width: 160px; text-align:right; padding: 2px;}
+#company div.side .value {color:#227;  padding: 2px;}
+
+.formalize { width: 774px; margin-left: auto; margin-right: auto; }
+.formalize .fields table { border-collapse: collapse; width:100%; }
+.formalize .fields table td.label { text-align:right; padding:1px 4px; color: #008;}
+.formalize .fields table td.input { padding:2px 6px 2px 2px; }
 .formalize .fields table input.notnull { border: 1px solid #99D; background: #F7F7FF }
-.formalize .fields table th { padding: 16px 16px 2px; border-bottom: 1px dotted #002; color: #002; font-size:15px; }
-.formalize .actions { margin: 10px; }
-/*
-.formalize .actions * { margin: 0px 8px; }
-*/
+.formalize .fields table td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: 11px; border-left:1px dashed #CCC;}
+.formalize .fields table td .info         { color: #007;  background:#CDF; padding:2px; }
+.formalize .fields table td .info span    { color: #55C; }
+.formalize .fields table td .example      { color: #040;  background:#CFC; padding:2px; }
+.formalize .fields table td .example span { color: #4A5; }
+.formalize .fields table td .hint         { color: #600;  background:#FDE; padding:2px;}
+.formalize .fields table td .hint span    { color: #B54; }
+.formalize .fields table tr.title th { padding: 2px 8px; border-bottom: 0px dotted #002; color: #002; font-size:15px; background: #F0F8FF url(/images/template/form_subtitle.png) repeat-x top;}
+/*.formalize .fields table th.title { padding: 2px 8px ; color: #002; font-size:15px; background: url(/images/template/form_subtitle.png) repeat-x top;}*/
+.formalize .fields table tr.before-title th { height:16px; }
+.formalize .fields table tr.after-title  th { height:6px; background: #F0F8FF;}
+.formalize .fields table tr.odd  td { background: #F0F8FF;}
+.formalize .fields table tr.even td { background: #DFEFFF;}
+.formalize .actions { margin: 10px 0px; }
+
 .actions {text-align:center; padding:6px !important; background: #CEC;}
 .actions * { margin: 0px 8px; }
 .actions a:link, .actions a:visited, .actions a:hover { color:#080;}
 
+.invalid { border: 1px solid red !important; background: #FDD !important; }
+
+.futo .list { width:100%; }
+.futo .empty { text-align:center; color: #777;}
+
+a.button:link, a.button:visited {  float:right; text-decoration:none; border:1px solid #BBB; padding: 2px 8px; color:#555; background: #CCC url(/images/template/button_hover.png) repeat-x top; }
+a.button:hover { border:1px solid #BBB; color: #225; text-decoration:none; background: #DDD url(/images/template/button.png) repeat-x top; }

@@ -6,7 +6,8 @@
 #  id           :integer       not null, primary key
 #  name         :string(255)   not null
 #  code         :string(8)     not null
-#  siren        :string(9)     default("000000000"), not null
+#  siren        :string(9)     
+#  born_on      :date          
 #  locked       :boolean       not null
 #  deleted      :boolean       not null
 #  created_at   :datetime      not null
