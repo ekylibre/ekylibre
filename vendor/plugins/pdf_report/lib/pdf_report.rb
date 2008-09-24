@@ -30,15 +30,17 @@ module PdfReport
    
     # this function begins to analyse the template extracting the main characteristics of
     # the Pdf document as the title, the orientation, the format, the unit ... 
-    def analyze_template(template, name, id)
+    def analyze_template(template, options={})
+    #def analyze_template(template, name, id)
       document=Document.new(template)
       document_root=document.root
       va_r='mm'
       depth=0
+      
       raise Exception.new("Only SQL") unless document_root.attributes['query-standard']||'sql' == 'sql'   
       code=''
-      code='def render_report_'+name+'(id)'+"\n"
-      code+="id="+id.to_s+"\n"
+      code='def render_report_'+options[:name]+'(id)'+"\n"
+      code+="id="+options[:id].to_s+"\n"
       code+="now=Time.now\n"
       raise Exception.new("Bad orientation in the template") unless document_root.attributes['orientation'] || 'portrait' == 'portrait'
      
@@ -49,15 +51,17 @@ module PdfReport
       code+="page_height_origin=page_height\n"
       code+="page_number=1\n"
       code+="page_number_total="+pdf+".alias_nb_pages()\n"
+     
       code+=pdf+".set_auto_page_break(false)\n"
       code+=pdf+".set_font('Arial','B',14)\n"
       code+=pdf+".set_margins(0,15)\n"
-     code+=pdf+".add_page()\n"
+      code+=pdf+".add_page()\n"
       code+="block_y=15\n"
       code+="page_height-=block_y\n"
-      code+=analyze_infos(document_root.elements[XRL_INFOS],pdf) if document_root.elements[XRL_INFOS]
+      code+=analyze_infos(document_root.elements[XRL_INFOS],:pdf=>pdf) if document_root.elements[XRL_INFOS]
       
-     code+="c=ActiveRecord::Base.connection \n"+analyze_loop(document_root.elements[XRL_LOOP],pdf,depth,[],document_root.attributes['format']) if document_root.elements[XRL_LOOP]     
+     code+="c=ActiveRecord::Base.connection \n"+analyze_loop(document_root.elements[XRL_LOOP],:pdf=>pdf,:depth=>depth,:format=>document_root.attributes['format']) if document_root.elements[XRL_LOOP]     
+
       code+=pdf+".Output()\n"
 
       code+="end" 
@@ -76,64 +80,76 @@ module PdfReport
      end
 
     # this function test if the balise info exists in the template and add it in the code	
-    def analyze_infos(infos,pdf)
+     def analyze_infos(infos,options={})
+    
       code=''
       infos.each_element(XRL_INFO) do |info|
         case info.attributes['type']
           #   when "created-on"
           #    code += 'pdf.Set(\"#{info.text}\")'
         when "subject-on"
-          code+=pdf+".set_subject('#{info.text}')\n"
+          code+=options[:pdf]+".set_subject('#{info.text}')\n"
         when "written-by"
-          code+=pdf+".set_author('#{info.text}')\n"
+          code+=options[:pdf]+".set_author('#{info.text}')\n"
         when "created-by"
-          code+=pdf+".set_creator('#{info.text}')\n"
+          code+=options[:pdf]+".set_creator('#{info.text}')\n"
         end
       end
       code.to_s
     end
     
     # this function 	
-    #def analyze_loop(loop, *params)
-    def analyze_loop(loop,pdf, depth, header, format,fields=nil, result=nil)
+     def analyze_loop(loop, options={})
+    
       code=''
       
       raise Exception.new("You must specify a name for the element loop beginning by a character.") unless loop.attributes['name'] and loop.attributes['name'].to_s=~/^[a-z][a-z0-9]*$/
       
       
-      result=loop.attributes["name"]
+      options[:result]=loop.attributes["name"]
             
       query=loop.attributes['query'] unless loop.attributes['query'].nil?
       
-      fields.each do |f| query.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless fields.nil?
+      options[:fields].each do |f| query.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless options[:fields].nil?
       
      
       if query
         unless (query=~/^SELECT.*.FROM/).nil?
-          fields={}
-          query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each{|s| fields[result+'.'+s.downcase.strip]=result+"[\""+s.downcase.strip+"\"].to_s"}
-          code+="for "+ result+" in c.select_all('"+query+"')\n" 
+          options[:fields]={}
+          query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each{|s| options[:fields][options[:result]+'.'+s.downcase.strip]=options[:result]+"[\""+s.downcase.strip+"\"].to_s"}
+          code+="for "+ options[:result]+" in c.select_all('"+query+"')\n" 
         end
       else
-        code+=result+"='[]'\n"
+        code+=options[:result]+"='[]'\n"
       end
-  
+
       loop.each_element do |element|
         if element.attributes['type'] and element.attributes['type']=='header'
-          header=Hash.new unless defined? header
-          header[depth+1]=Hash.new
-          header[depth+1][element.attributes['type']]=analyze_block(element,pdf,depth+1,header,format,fields,result)
-          next
-        end
+          options[:header]=Hash.new unless options[:header].is_a? Hash
+          options[:header][options[:depth]+1]=Hash.new unless options[:header][options[:depth]+1].is_a? Hash
+         
+          options[:header][options[:depth]+1][element.attributes['mode'] ? element.attributes['mode']:'all']=analyze_block(element,:pdf=>options[:pdf],:depth=>options[:depth]+1,:format=>options[:format],:fields=>options[:fields],:result=>options[:result])
         
-        code+="if(page_height<"+block_height(element).to_s+")\n "+analyze_page_break(pdf,depth+1,header,fields,result)+"end\n"
-        code+=self.send('analyze_'+ element.name,element,pdf,depth+1,header,format,fields, result) unless [XRL_PAGEBREAK].include? element.name 
-
-        if element.name=='block'
-          code+="block_y+="+block_height(element).to_s+"\n"
-          code+="page_height-="+block_height(element).to_s+"\n"
         end
-        code+=self.send('analyze_page_break',pdf,depth,header) if [XRL_PAGEBREAK].include? element.name 
+       
+         unless element.attributes['if'].nil?
+           condition=element.attributes['if']                
+           condition.gsub!("'","\\\\'")
+           options[:fields].each do |f| condition.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless options[:fields].nil?
+           code+="if c.select_one(\'select ("+condition+")::boolean AS x\')[\"x\"]==\"t\"\n"
+         end
+      
+       # code+="if block_y==15\n"+analyze_header(:depth=>options[:depth],:header=>options[:header])+"\n" unless element.attributes['type'].nil?
+         puts "#{element.name}: #{block_height(element)}"
+       
+         code+="if(page_height<"+block_height(element).to_s+")\n "+analyze_page_break(element,:pdf=>options[:pdf],:depth=>options[:depth]+1,:header=>options[:header])+"end\n"
+        
+       
+           code+=self.send('analyze_'+ element.name,element,:pdf=>options[:pdf],:depth=>options[:depth]+1,:format=>options[:format],:fields=>options[:fields],:result=>options[:result]) unless [XRL_PAGEBREAK].include? element.name 
+         
+          code+="end\n" unless element.attributes['if'].nil?
+         
+        code+=self.send('analyze_page_break',element,:pdf=>options[:pdf],:depth=>options[:depth],:header=>options[:header]) if [XRL_PAGEBREAK].include? element.name 
       end
       
       code+="end \n" if query
@@ -142,37 +158,38 @@ module PdfReport
     end
     
     #     
-    # def analyze_block(block, *params)
-    def analyze_block(block,pdf, depth,header,format,fields=nil, result=nil)
+     def analyze_block(block, options={})
+   
       code=''
       width_block_depth=0 
       heigth_block_depth=0
             
       # ca fonctionne
-      #unless format.split('x')[1].to_i >= block_height(block) and format.split('x')[0].to_i >= block_width(block) 
+      #unless options[:format].split('x')[1].to_i >= block_height(block) and options[:format].split('x')[0].to_i >= block_width(block) 
       # raise Exception.new("Sorry, You have a block which bounds are incompatible with the format specified.")
-      # puts block_width(block).to_s+"x"+block_height(block).to_s+":"+format
+      # puts block_width(block).to_s+"x"+block_height(block).to_s+":"+options[:format]
       #end
                  
-      unless block.attributes['if'].nil?
-        condition=block.attributes['if']                
-        condition.gsub!("'","\\\\'")
-        fields.each do |f| condition.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless fields.nil?
-        code+="if c.select_one(\'select ("+condition+")::boolean AS x\')[\"x\"]==\"t\"\n"
-      end
+      #unless block.attributes['if'].nil?
+       # condition=block.attributes['if']                
+        #condition.gsub!("'","\\\\'")
+        #options[:fields].each do |f| condition.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless options[:fields].nil?
+        #code+="if c.select_one(\'select ("+condition+")::boolean AS x\')[\"x\"]==\"t\"\n"
+      #end
       
       #code+="if(page_height<"+block_height(block).to_s+")\n "+analyze_page_break(pdf,depth,header,fields,result)+"end\n"
       
+
       block.each_element do |element|
         attr_element=element.attributes
-        code+=pdf+".set_xy("+attr_element['x']+",block_y+"+attr_element['y']+")\n"
-        code+=self.send('analyze_'+ element.name,element,pdf, depth, fields, result).to_s if [XRL_TEXT,XRL_IMAGE,XRL_RULE,XRL_RECTANGLE].include? element.name       
+        code+=options[:pdf]+".set_xy("+attr_element['x']+",block_y+"+attr_element['y']+")\n"
+        code+=self.send('analyze_'+ element.name,element,:pdf=>options[:pdf], :depth=>options[:depth], :fields=>options[:fields], :result=>options[:result]).to_s if [XRL_TEXT,XRL_IMAGE,XRL_RULE,XRL_RECTANGLE].include? element.name       
         end
       
-      #code+="block_y+="+block_height(block).to_s+"\n"
-      #code+="page_height-="+block_height(block).to_s+"\n"
+      code+="block_y+="+block_height(block).to_s+"\n"
+      code+="page_height-="+block_height(block).to_s+"\n"
       
-      code+="end\n" unless block.attributes['if'].nil?
+     # code+="end\n" unless block.attributes['if'].nil?
       
       code.to_s
      
@@ -208,42 +225,44 @@ module PdfReport
       end
     end 
 
-    #
-    def analyze_page_break(pdf,depth,header,fields=nil,result=nil)
+    def analyze_page_break(page_break,options={})
       code=''
-      code+=pdf+".add_page()\n page_number+=1\n block_y=15\n page_height=page_height_origin-block_y \n"
-      code+=analyze_header(pdf,depth,header) unless header.empty?
+      puts page_break
+#puts options[:header][options[:depth]].inspect
+      #puts "\n" 
+     
+      code+=options[:pdf]+".add_page()\n page_number+=1\n block_y=15\n page_height=page_height_origin-block_y \n"
+      #code+=analyze_header(:depth=>options[:depth],:header=>options[:header]) unless options[:header].empty?
       code.to_s
     end
     
-    #
-    def analyze_header(pdf,depth,header,fields=nil,result=nil)
+    def analyze_header(options={})
       code=''
-      puts "#{header}"
-      #while header.key?(depth)==false do
-       # depth-=1
+      #puts options[:header]
+      #while options[:header].key?(options[:depth])==false do
+       # options[:depth]-=1
       #end
-      #code+="if page_number.even?\n"+header[depth]['even']+"\n"+"else\n"+header[depth]['odd']+"\n end\n"
+      #code+="if page_number.even?\n"+options[:header][options[:depth]]['even']+"\n"+"else\n"+options[:header][options[:depth]]['odd']+"\n end\n"
       
       code.to_s
     end
     
     # 
-    #def analyze_rule(rule,*params)   
-    def analyze_rule(rule,pdf,depth,fields=nil,result=nil)   
+    def analyze_rule(rule,options={})   
+   
      code=''
      rule=rule.attributes
      right_border=rule['x'].to_i+ rule['width'].to_i
-     code+=pdf+".set_line_width("+rule['height']+")\n"
-     code+=pdf+".line("+rule['x']+",block_y+"+rule['y']+","+right_border.to_s+",block_y+"+rule['y']+") \n"
+     code+=options[:pdf]+".set_line_width("+rule['height']+")\n"
+     code+=options[:pdf]+".line("+rule['x']+",block_y+"+rule['y']+","+right_border.to_s+",block_y+"+rule['y']+") \n"
      
      code.to_s
       
     end 
     
     #  
-    #def analyze_text(text, *params)
-    def analyze_text(text,pdf, depth,fields=nil, result=nil)
+    def analyze_text(text, options={})
+   
       code=''
       raise Exception.new("Your text is out of the block") unless text.attributes['y'].to_i < text.attributes['width'].to_i
       
@@ -251,47 +270,47 @@ module PdfReport
       
       text=text.attributes
       
-      fields.each do |f| data.gsub!("\#{"+f[0]+"}","\'+"+f[1]+"+\'")end unless fields.nil?
+      options[:fields].each do |f| data.gsub!("\#{"+f[0]+"}","\'+"+f[1]+"+\'")end unless options[:fields].nil?
       
       
       while data=~/[^\#]\{[A-Z\_].*.\}/ 
-          analyze_constant(data,pdf,str=data.split('{')[1].split('}')[0])
+          analyze_constant(data,options[:pdf],str=data.split('{')[1].split('}')[0])
       end
 
-      code+=pdf+".set_text_color("+color_element(text,'color')+")\n" unless text['color'].nil?
+      code+=options[:pdf]+".set_text_color("+color_element(text,'color')+")\n" unless text['color'].nil?
       
       style=''
       style+=text['style'].first.upcase unless text['style'].nil?
       style+=text['decoration'].first.upcase unless text['decoration'].nil?
       style+=text['weight'].first.upcase unless text['weight'].nil?
 
-      code+=pdf+".set_font('','"+style+"')\n" 
+      code+=options[:pdf]+".set_font('','"+style+"')\n" 
 
-      code+=pdf+".cell("+text['width']+","+text['height']+",'"+Iconv.new('ISO-8859-15','UTF-8').iconv(data)+"',0,0,'"+text['align']+"')\n"
+      code+=options[:pdf]+".cell("+text['width']+","+text['height']+",'"+Iconv.new('ISO-8859-15','UTF-8').iconv(data)+"',0,0,'"+text['align']+"')\n"
       
       code.to_s
       
     end 
     
     # 
-    #def analyze_image(image,*params)
-    def analyze_image(image,pdf,depth, fields=nil, result=nil)
+    def analyze_image(image,options={})
+   
       code=''
       image=image.attributes
-      code+=pdf+".image('"+image['src']+"',"+image['x']+", block_y+"+image['y']+","+image['width']+","+image['height']+")\n"   
+      code+=options[:pdf]+".image('"+image['src']+"',"+image['x']+", block_y+"+image['y']+","+image['width']+","+image['height']+")\n"   
       code.to_s
     end
     
-    #
-    def analyze_rectangle(rectangle,pdf,depth,fields=nil,result=nil)
+    def analyze_rectangle(rectangle,options={})
+   
       code=''
       rectangle=rectangle.attributes
       code+="draw=fill=''\n"
-      code+=pdf+".set_line_width("+rectangle['border-width']+")\n" unless rectangle['border-width'].nil?    
-      code+=pdf+".set_draw_color("+color_element(rectangle,'border-color')+")\n";draw='D' unless rectangle['border-color'].nil?
-      code+="fill='F'\n"+pdf+".set_fill_color("+color_element(rectangle,'background-color')+")\n";fill='F' unless rectangle['background-color'].nil?
+      code+=options[:pdf]+".set_line_width("+rectangle['border-width']+")\n" unless rectangle['border-width'].nil?    
+      code+=options[:pdf]+".set_draw_color("+color_element(rectangle,'border-color')+")\n";draw='D' unless rectangle['border-color'].nil?
+      code+="fill='F'\n"+options[:pdf]+".set_fill_color("+color_element(rectangle,'background-color')+")\n";fill='F' unless rectangle['background-color'].nil?
 
-      code+=pdf+".rectangle("+rectangle['x']+","+rectangle['y']+","+rectangle['width']+","+rectangle['height']+",10,'"+fill+draw+"')\n"
+      code+=options[:pdf]+".rectangle("+rectangle['x']+","+rectangle['y']+","+rectangle['width']+","+rectangle['height']+",10,'"+fill+draw+"')\n"
       code.to_s
     end
     
@@ -334,13 +353,15 @@ module ActionController
     # this function looks for a method render_report_template and calls analyse_template if not.
     def render_report(template, id)
       raise Exception.new("Your argument template must be a string") unless template.is_a? String
-      digest = Digest::MD5.hexdigest(template)
-      code = self.class.analyze_template(template, digest, id) unless self.methods.include? "render_report_#{digest}"
-      f = File.open("/tmp/render_report_#{digest}.rb",'wb')
+      digest=Digest::MD5.hexdigest(template)
+      #code=self.class.analyze_template(template, digest, id) unless self.methods.include? "render_report_#{digest}"
+      code=self.class.analyze_template(template, :name=>digest, :id=>id) unless self.methods.include? "render_report_#{digest}"
+      f=File.open("/tmp/render_report_#{digest}.rb",'wb')
       f.write(code)
       f.close
-      #puts code 
-     # pdf = self.send('render_report_'+digest,id)
+      puts code 
+      pdf=self.send('render_report_'+digest,id)
+
     end
   end
 end
