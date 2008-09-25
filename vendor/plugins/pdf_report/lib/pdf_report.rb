@@ -62,7 +62,7 @@ module PdfReport
       code+=pdf+"=FPDF.new('"+ORIENTATION[orientation]+"','"+unit+"','" +format+ "')\n"
 #      code+="page_number_total="+pdf+".alias_nb_pages()\n"      
       code+=pdf+".alias_nb_pages('{PAGENB}')\n"
-      code+="page_height_origin="+(page_height(unit,format)-margin_top-margin-bottom).to_s+"\n"
+      code+="page_height_origin="+(page_height(unit,format)-margin_top-margin_bottom).to_s+"\n"
       code+="page_number=1\n"
       code+=pdf+".set_auto_page_break(false)\n"
       code+=pdf+".set_font('Arial','B',14)\n"
@@ -144,7 +144,7 @@ module PdfReport
            code+="if c.select_one(\'select ("+condition+")::boolean AS x\')[\"x\"]==\"t\"\n"
          end
       
-       # code+="if block_y=="+margin_top.to_s+"\n"+analyze_header(:depth=>options[:depth],:header=>options[:header])+"\n" unless element.attributes['type'].nil?
+       # code+="if block_y=="+options[:margin_top].to_s+"\n"+analyze_header(:depth=>options[:depth],:header=>options[:header])+"\n" unless element.attributes['type'].nil?
           puts "#{element.name}: #{block_height(element)}"
           
           code+="if(page_height<"+block_height(element).to_s+")\n "+analyze_page_break(element,:pdf=>options[:pdf],:depth=>options[:depth]+1,:header=>options[:header])+"end\n"
@@ -236,7 +236,7 @@ module PdfReport
         #puts options[:header][options[:depth]].inspect
         #puts "\n" 
         
-        code+=options[:pdf]+".add_page()\n page_number+=1\n block_y="+margin_top.to_s+"\n page_height=page_height_origin-block_y \n"
+        code+=options[:pdf]+".add_page()\n page_number+=1\n block_y="+options[:margin_top].to_s+"\n page_height=page_height_origin-block_y \n"
         #code+=analyze_header(:depth=>options[:depth],:header=>options[:header]) unless options[:header].empty?
         code.to_s
       end
