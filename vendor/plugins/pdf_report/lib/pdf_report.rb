@@ -69,7 +69,7 @@ module PdfReport
       code+="page_height=page_height_origin\n"
       code+="c=ActiveRecord::Base.connection\n"
       code+=analyze_infos(document_root.elements[XRL_INFOS],:pdf=>pdf) if document_root.elements[XRL_INFOS]
-      code+=analyze_loop(document_root.elements[XRL_LOOP],:pdf=>pdf,:depth=>depth,:format=>format, :margin_top=>margin_top, :margin_bottom=>margin_bottom, :header=>[]) if document_root.elements[XRL_LOOP]
+      code+=analyze_loop(document_root.elements[XRL_LOOP],:pdf=>pdf,:depth=>depth,:format=>format, :margin_top=>margin_top, :margin_bottom=>margin_bottom, :header=>[{}]) if document_root.elements[XRL_LOOP]
       code+=pdf+".Output()\n"
       code+="end" 
 
@@ -104,70 +104,86 @@ module PdfReport
     def analyze_loop(loop, options={})
      
       code=''
-      child_options=options
-      child_options[:depth]+=1 #unless #child_options[:depth]==0
-
-      unless child_options[:depth]==1 
-        child_options[:header][options[:depth]]=child_options[:header][options[:depth]-1]
+      # puts options[:header]
+      #  if child_options[:depth]==3
+      #       child_options[:header][3]=child_options[:header][options[:depth]]
+      #    end
+      
+      if options[:depth]>=1 
+        options[:header][options[:depth]]=options[:header][options[:depth]-1].dup
       end
       
+      puts options[:depth].to_s+" => "+options[:header].inspect
 
       raise Exception.new("You must specify a name beginning by a character for the element loop.") unless loop.attributes['name'] and loop.attributes['name'].to_s=~/^[a-z][a-z0-9]*$/      
-      child_options[:result]=loop.attributes["name"]
+      result=loop.attributes["name"]
       
       query=loop.attributes['query'] unless loop.attributes['query'].nil?
       
-      child_options[:fields].each do |f| query.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless child_options[:fields].nil?
+      options[:fields].each do |f| query.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless options[:fields].nil?
       
       
       if query
         unless (query=~/^SELECT.*.FROM/).nil?
-          child_options[:fields]={}
-          query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each{|s| child_options[:fields][child_options[:result]+'.'+s.downcase.strip]=child_options[:result]+"[\""+s.downcase.strip+"\"].to_s"}
-          code+="for "+ child_options[:result]+" in c.select_all('"+query+"')\n" 
+          options[:fields]={} unless options[:fields]
+          query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each{|s| options[:fields][result+'.'+s.downcase.strip]=result+"[\""+s.downcase.strip+"\"].to_s"}
+          code+="for "+result+" in c.select_all('"+query+"')\n" 
         end
       else
-        code+=child_options[:result]+"='[]'\n"
+        code+=result+"=[]\n"
       end
-      
+
+
+ #    puts child_options[:fields]
       loop.each_element do |element|
+        puts result+':'+element.name
         if element.attributes['type']=='header'
-          child_options[:header]=Hash.new unless child_options[:header].is_a? Hash
-          child_options[:header][child_options[:depth]]=Hash.new unless child_options[:header][child_options[:depth]].is_a? Hash
+          options[:header]=[] unless options[:header].is_a? Array
+          options[:header][options[:depth]]={:odd=>'', :even=>''} unless options[:header][options[:depth]].is_a? Hash
           case element.attributes['mode'] 
           when 'even'
             symbol=:even
           when 'odd'
             symbol=:odd
           else 
-            symbol=:all
+           symbol=:all
           end  
           
-      
-          child_options[:header][child_options[:depth]][symbol]=analyze_block(element,child_options)
-          #child_options[:header][child_options[:depth]][element.attributes['mode'] ? element.attributes['mode']:'all']=analyze_block(element,child_options)
+          if symbol==:all
+            options[:header][options[:depth]][:even]=analyze_block(element,options)
+            options[:header][options[:depth]][:odd]=options[:header][options[:depth]][:even]
+          else
+            options[:header][options[:depth]][symbol]=analyze_block(element,options)
+          end  
+
+        elsif element.attributes['type']!='footer' # If it's a printable block or a loop
+
+          unless element.attributes['if'].nil?
+            condition=element.attributes['if']
+            condition.gsub!("'","\\\\'")
+            options[:fields].each do |f| condition.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless options[:fields].nil?
+            code+="if c.select_one(\'select ("+condition+")::boolean AS x\')[\"x\"]==\"t\"\n"
+          end
           
+          
+          # code+="if block_y=="+options[:margin_top].to_s+"\n"+analyze_header(options)+"\n" unless element.attributes['type'].nil?
+          
+          #        puts "#{options[:depth]} : #{element.name}: #{block_height(element)} : #{options[:header][options[:depth]].size}"
+          
+          code+="if(page_height<"+block_height(element).to_s+")\n"+analyze_page_break(element,options)+"end\n"
+          
+          child_options=options.dup
+          child_options[:depth] += 1
+          child_options[:header] = options[:header]
+          code+=self.send('analyze_'+ element.name.gsub("-","_"),element,child_options) if [XRL_LOOP, XRL_BLOCK, XRL_PAGEBREAK].include? element.name and not ['header','footer'].include?(element.attributes["type"])
+          
+          code+="end\n" unless element.attributes['if'].nil?
+          
+          #        code+=self.send('analyze_page_break',element,:pdf=>options[:pdf],:depth=>options[:depth],:header=>options[:header]) if [XRL_PAGEBREAK].include? element.name 
         end
         
-        unless element.attributes['if'].nil?
-          condition=element.attributes['if']
-          condition.gsub!("'","\\\\'")
-          child_options[:fields].each do |f| condition.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless child_options[:fields].nil?
-          code+="if c.select_one(\'select ("+condition+")::boolean AS x\')[\"x\"]==\"t\"\n"
-        end
-        
-        # code+="if block_y=="+child_options[:margin_top].to_s+"\n"+analyze_header(child_options)+"\n" unless element.attributes['type'].nil?
-        
-        puts "#{child_options[:depth]} : #{element.name}: #{block_height(element)}"
-        
-        code+="if(page_height<"+block_height(element).to_s+")\n"+analyze_page_break(element,child_options)+"end\n"
-        
-        code+=self.send('analyze_'+ element.name.gsub("-","_"),element,child_options) if [XRL_LOOP, XRL_BLOCK, XRL_PAGEBREAK].include? element.name and not ['header','footer'].include?(element.attributes["type"])
-        
-        code+="end\n" unless element.attributes['if'].nil?
-        
-        #        code+=self.send('analyze_page_break',element,:pdf=>options[:pdf],:depth=>options[:depth],:header=>options[:header]) if [XRL_PAGEBREAK].include? element.name 
       end
+        
       
       code+="end \n" if query
       code.to_s
@@ -180,7 +196,6 @@ module PdfReport
         code=''
         width_block_depth=0 
         heigth_block_depth=0
-        child_options=options
         
         # ca fonctionne
         #unless options[:format].split('x')[1].to_i >= block_height(block) and options[:format].split('x')[0].to_i >= block_width(block) 
@@ -190,8 +205,8 @@ module PdfReport
         
         block.each_element do |element|
           attr_element=element.attributes
-          code+=child_options[:pdf]+".set_xy("+attr_element['x']+",block_y+"+attr_element['y']+")\n"
-          code+=self.send('analyze_'+ element.name,element,child_options).to_s if [XRL_TEXT,XRL_IMAGE,XRL_RULE,XRL_RECTANGLE].include? element.name       
+          code+=options[:pdf]+".set_xy("+attr_element['x']+",block_y+"+attr_element['y']+")\n"
+          code+=self.send('analyze_'+ element.name,element,options).to_s if [XRL_TEXT,XRL_IMAGE,XRL_RULE,XRL_RECTANGLE].include? element.name       
 
         end
         
@@ -236,6 +251,7 @@ module PdfReport
   
         code=''
        
+     
         code+=options[:pdf]+".add_page()\n page_number+=1\n block_y="+options[:margin_top].to_s+"\n page_height=page_height_origin\n"
         code+=analyze_header(options) unless options[:header].empty?
         code.to_s
@@ -243,9 +259,10 @@ module PdfReport
       
       def analyze_header(options={})
         code=''
-        #puts options[:header][options[:depth]][:even]
-        code+="if page_number.even?\n #{options[:header][options[:depth]][:even]} else #{options[:header][options[:depth]][:odd]} end\n"
-        
+        puts 'd='+options[:depth].to_s
+        puts 'h='+options[:header].inspect
+        puts 'f='+options[:fields].inspect
+        code+="if page_number.even?\n"+options[:header][options[:depth]][:even].to_s+"\nelse\n"+options[:header][options[:depth]][:odd].to_s+"\nend\n"
         code.to_s
       end
       
@@ -343,8 +360,8 @@ module PdfReport
         f=File.open("/tmp/render_report_#{digest}.rb",'wb')
         f.write(code)
         f.close
-#       puts code 
-       pdf=self.send('render_report_'+digest,id)
+       puts code 
+      pdf=self.send('render_report_'+digest,id)
 
       end
     end
