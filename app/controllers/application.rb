@@ -18,33 +18,70 @@ class ApplicationController < ActionController::Base
 
 
 
+	protected  
+
+  def render_form(options={})
+    a = action_name.split '_'
+    mode    = a[a.size-1].to_sym
+    partial = a[0..a.size-2].join('_')+'_form'
+    @options = {:partial=>partial, :submit=>mode, :title=>:title}.merge(options)
+    begin
+      render :template=>'shared/formalize'
+#      render :text=>ApplicationHelper::formalize(options), :layout=>true
+    rescue ActionController::DoubleRenderError
+    end
+  end  
+
   private
   
   def authorize
-    if session[:user_id].blank?
-      redirect_to :controller=>:authentication, :action=>:login
-    else
-      User.current_user = User.find(session[:user_id])
+    begin
+      User.current_user = User.find_by_id(session[:user_id])
       @current_user = User.current_user
       @current_company = @current_user.company
       session[:actions] = @current_user.role.actions_array
-      if session[:last_query].to_i+3600<Time.now.to_i
+      if session[:last_query].to_i<Time.now.to_i-3600
         flash[:error] = lc :expired_session
         if controller_name.to_s!='authentication'
           session[:last_controller] = controller_name 
           session[:last_action]     = action_name
         end
-        redirect_to :controller=>:authentication, :action=>:login
+        redirect_to_login
       else
         session[:last_query] = Time.now.to_i
+        if request.get?
+          session[:url] = [] if session[:url].nil?
+          if session[:url][0] != request.url
+            session[:url][1] = session[:url_0]
+            session[:url][0] = request.url
+          end
+        end
       end
+    rescue
+      reset_session
+      redirect_to_login
     end
+  end
+  
+  def redirect_to_login
+    redirect_to :controller=>:authentication, :action=>:login
   end
   
   
   def can_access?(action=:all)
-  	return false unless @current_user
+    return false unless @current_user
     return session[:actions].include?(:all) ? true : session[:actions].include?(action)
+  end
+  
+  def access(action=:all)
+    if @current_user
+      unless can_access?(action)
+        flash[:error]=lc :access_denied
+        redirect_to :back
+      end
+    else
+      redirect_to_login unless @current_user
+    end
   end
   
 end

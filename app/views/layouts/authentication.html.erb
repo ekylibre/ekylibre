@@ -7,7 +7,7 @@
 <%= stylesheet_link_tag :defaults%>
 <%= javascript_include_tag :defaults%>
 </head>
-<body onload="document.login_form.user_name.focus(); document.login_form.screen_width.value=screen.width">
+<body<%=' onload="document.'+@login+'.user_name.focus(); document.'+@login+'.screen_width.value=screen.width"' if @login-%>>
 <div id="main">
 <div id="logoban"></div>
 <%=yield-%>

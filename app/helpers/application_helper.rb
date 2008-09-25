@@ -35,10 +35,12 @@ module ApplicationHelper
     code
   end
 
+  def link_to_submit(form_name, label=:submit, options={})
+    link_to_function(l(label), "document."+form_name+".submit()", options.merge({:class=>:button}))
+  end
+
   def formalize(options={})
-    title = ''
-    title = content_tag(:h1, l(@controller.controller_name, @controller.action_name,options[:title]), :class=>"title") unless options[:title].nil?
-    code  = form_tag({},:multipart=>options[:multipart]||false)
+    form_name = 'f'+Time.now.to_i.to_s(36)+rand.to_s[2..10]
     form_code = '[No Form Description]'
     if block_given?
       form = FormDefinition.new()
@@ -47,17 +49,22 @@ module ApplicationHelper
     elsif options[:model] or options[:partial]
       form_code = render_partial(options[:partial]||options[:model].to_s.tableize+'_form')
     end
-    code += content_tag(:div, form_code, :class=>'fields')
-    code += content_tag(:div,submit_tag(l(options[:submit]||:submit))+ link_to(l(options[:cancel]||:cancel), :back), :class=>'actions')
-    code += '</form>'
-    code = title + content_tag(:div,code)
-#    raise Exception.new params[:body_width].to_s+'/'+params[:body_width].class.to_s
-    html_options = {:class=>'formalize'}
-#    html_options[:style] = "width:"+session[:body_width].to_s+"px" if session[:body_width]
-    html_options[:style] = "width:"+770.to_s+"px"
-    content_tag(:div,code, html_options)
+    if options[:inner_form]
+      code = form_code
+    else
+      title = ''
+      title = content_tag(:h1, l(@controller.controller_name, @controller.action_name,options[:title]), :class=>"title") unless options[:title].nil?
+      code  = form_tag({},{:multipart=>options[:multipart]||false, :name=>form_name})
+      code += content_tag(:div, form_code, :class=>'fields')
+      code += content_tag(:div,submit_tag(l(options[:submit]||:submit))+link_to(l(options[:cancel]||:cancel),:back,:class=>:button),:class=>'actions')
+      code += '</form>'
+      code = title + content_tag(:div,code)
+      html_options = {:class=>'formalize'}
+      html_options[:style] = "width:"+770.to_s+"px"
+      code = content_tag(:div,code, html_options)
+    end
+    return code
   end
-
 
   def formalize_lines(form)
     code = ''
@@ -96,6 +103,7 @@ module ApplicationHelper
           attribute = line[:params][c*3]
           field     = line[:params][c*3+1]
           options   = line[:params][c*3+2]||{}
+          options[:controller]=controller
           if field.is_a? Symbol
             model  = field.to_s.classify.constantize
             label  = model.human_attribute_name attribute.to_s
@@ -116,22 +124,36 @@ module ApplicationHelper
                 html_options[:size] = column.limit if column.limit<html_options[:size]
                 html_options[:maxlength] = column.limit
               end
+              if column.type==:boolean
+                options[:field] = :checkbox
+              end
             end
             case options[:field]
             when :password
               input = password_field field, attribute, html_options
+            when :checkbox
+              input = check_box field, attribute, html_options
             else
               input = text_field field, attribute, html_options
             end
+            input_id = field.to_s+'_'+attribute.to_s
           else
             label = l(controller.controller_name, controller.action_name, attribute)
             input = field
+            input_id = label
           end
           options[:example] = [options[:example]] if options[:example].is_a? String
           help  = ''
-          help += content_tag(:div,l(:info, [content_tag(:span,options[:info].to_s)]), :class=>:info) if options[:info]
+          
+          options[:info]    = translate_help(options, :info, input_id)
+          options[:example] = translate_help(options, :example, input_id)
+          options[:hint]    = translate_help(options, :hint, input_id)
+          
+          help += content_tag(:div,l(:info, [content_tag(:span,options[:info].to_s)]), :class=>:info) if options[:info]          
           help += content_tag(:div,l(:example, [content_tag(:span,options[:example])]), :class=>:example) if options[:example]
           help += content_tag(:div,l(:hint,[content_tag(:span,options[:hint].to_s)]), :class=>:hint) if options[:hint]
+          
+          label = content_tag(:label,label, :for=>input_id) if field.is_a? Symbol
           label = content_tag(:acronym,label, :title=>options[:info]) if options[:info]
 
           help_options = {:class=>"help", :id=>options[:help_id]}
@@ -153,6 +175,26 @@ module ApplicationHelper
     end
     code = content_tag(:table, code, :class=>'formalize')
   end
+  
+  def translate_help(options,nature,id)
+    t = nil
+    if options[nature].nil? and id
+      nf="&rarr;"+rand.to_s+"&bull;"
+      t = lc((id+'_'+nature.to_s).to_sym,nf)
+      t = nil if t == nf
+      t = lc((id+'_'+nature.to_s).to_sym,nf)
+      begin
+        t = l(controller.controller_name.to_sym, controller.action_name.to_sym, (id+'_'+nature.to_s).to_sym)
+      rescue
+        t = controller.controller_name+'-'+controller.action_name+'-'+(id+'_'+nature.to_s).to_sym.to_s
+      end
+    elsif options[nature]
+      t = lc(options[nature])
+    end
+    return t
+  end
+  
+  
   
   class FormDefinition
     attr_reader :lines

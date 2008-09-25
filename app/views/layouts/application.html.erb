@@ -13,7 +13,7 @@
 <table><tr><td id="modules">
 <%=menu_modules-%>
 </td><td id="user">
-<strong><%=Date.today.to_formatted_s :attributes -%></strong>
+<!--<strong><%=Date.today.to_formatted_s :attributes -%></strong>-->
 <%if @current_user-%>
 <%= elink(can_access?,@current_user.label, {:controller=>:config, :action=>:user})-%>
 <%= elink(can_access?,@current_company.name, {:controller=>:config,:action=>:company})-%>
@@ -21,7 +21,7 @@
 <%=link_to lc(:exit), :controller=>:authentication, :action=>:logout-%>
 </td></tr></table>
  </div>
-<div class="flash-error"><%= flash[:error]-%></div>
+<%if flash[:error]-%><div class="flash-error"><%= flash[:error]-%></div><%end-%>
 <div id="main"><%=yield-%></div>
 </div>
 </body>

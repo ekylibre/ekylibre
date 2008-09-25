@@ -17,4 +17,7 @@
 #
 
 class Establishment < ActiveRecord::Base
+  def before_validation
+    self.siret = self.company.siren.to_s+self.nic.to_s if self.company
+  end
 end

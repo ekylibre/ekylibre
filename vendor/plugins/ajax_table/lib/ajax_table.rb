@@ -7,6 +7,7 @@ module AjaxTable
     model  = table.to_s.singularize.camelize.constantize
     definition = OutputTableDefinition.new(model)
     yield definition
+    colnb = definition.columns.size
     # Procedures    
     search = ''
     unless options[:search].nil?
@@ -19,19 +20,23 @@ module AjaxTable
     end
     process = ''
     if definition.procedures.size>0
-      for proc in 0..(definition.procedures.size-1)
-        process += ' &nbsp;&bull;&nbsp; ' if proc>0
-        process += link_to(lc(definition.procedures[proc][0]), definition.procedures[proc][1]) 
-      end
-      process = content_tag('div',process,:class=>"menu")
+      definition.procedures.size.times do |proc|
+#      for proc in 0..(definition.procedures.size-1)
+#        process += ' &nbsp;&bull;&nbsp; ' if proc>0
+        process += ' ' if proc>0
+        process += link_to(lc(definition.procedures[proc][0]).gsub(/\ /,"&nbsp;"), definition.procedures[proc][1], :class=>"button")
+      end      
+      process = content_tag 'tr', content_tag('td',process,:class=>"menu", :colspan=>colnb)
     end
     code = ''
+    reset_cycle('fparity')
+
     if records and records.size>0
       line = ''
       for column in definition.columns
         case column.nature
-          when :datum  : line += content_tag('th', h(column.header))
-          when :action : line += content_tag('th', column.header, :class=>"act")
+        when :datum  : line += content_tag('th', h(column.header))
+        when :action : line += content_tag('th', column.header, :class=>"act")
         end
       end
       code  = content_tag('tr',line)
@@ -69,7 +74,7 @@ module AjaxTable
             else line += content_tag('td','&nbsp;&empty;&nbsp;')
           end
         end
-        code += content_tag('tr',line, :class=>cycle('odd','even'))
+        code += content_tag('tr',line, :class=>'data '+cycle('odd','even', :name=>'fparity'))
       end
     else
       code += content_tag(:tr,content_tag(:td, l(:no_records), :colspan=>definition.columns.size, :class=>"empty"))
@@ -83,7 +88,8 @@ module AjaxTable
       end
     end
     code += content_tag('tr',content_tag('td',line, :colspan=>definition.columns.size, :class=>"navigation")) if line.size>0
-    code = search+process+content_tag('table', code, :class=>"list")
+    code = process+code
+    code = search+content_tag('table', code, :class=>"list")
     code = content_tag('div', code)
     code = content_tag('h3',  h(options[:label])) + code unless options[:label].nil?
     code = content_tag('div', code)
@@ -92,7 +98,41 @@ module AjaxTable
     code
   end
 
+  # Action columns
+  def operation(object, operation, controller_path=self.controller.controller_path)
+    return "" if not operation[:condition].nil? and operation[:condition]==false
+    code = ""
+    operation[:action] = operation[:actions][object.send(operation[:use]).to_s] if operation[:use]
+    parameters = {}
+    parameters[:confirm] = l(operation[:confirm]) unless operation[:confirm].nil?
+    parameters[:method]  = operation[:method]    unless operation[:method].nil?
+    parameters[:id]      = operation[:action].to_s+"-"+(object.nil? ? 0 : object.id).to_s
+    
+    image_title = operation[:title].nil? ? operation[:action].to_s.humanize : operation[:title]
+    dir = "#{RAILS_ROOT}/public/images/"
+    image_file = "buttons/"+(operation[:image].nil? ? operation[:action].to_s.gsub(operation[:prefix].to_s||"","") : operation[:image].to_s)+".png"
+    image_file = "buttons/unknown.png" unless File.file? dir+image_file
+    code += link_to image_tag(image_file, :border => 0, :alt=>image_title, :title=>image_title), {:action => operation[:action].to_s, :id => object.id}, parameters
+    code
+  end
+
+  def value_image(value)
+    unless value.nil?
+      image = nil
+      case value.to_s
+        when "true" : image = "true"
+        when "false" : image = nil
+        else image =  value.to_s
+      end
+#      "<div align=\"center\">"+image_tag("buttons/"+image+".png", :border => 0, :alt=>image.t, :title=>image.t)+"</div>" unless image.nil?
+      image_tag("buttons/"+image+".png", :border => 0, :alt=>l(image), :title=>l(image)) unless image.nil?
+    end
+  end
   
+
+
+
+
 end  
   
 

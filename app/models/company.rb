@@ -18,6 +18,7 @@
 #
 
 class Company < ActiveRecord::Base
+  has_many :users
 
   def before_validation
     self.code = name[0..7].simpleize if code.blank?
@@ -35,6 +36,8 @@ class Company < ActiveRecord::Base
     role = Role.create!(:name=>lc(:public), :company_id=>self.id)
     self.parameter('general.language').value=Language.find_by_iso2('fr')
     self.load_template("#{RAILS_ROOT}/lib/template.xml")
+    self.departments.create(:name=>lc(:default_department_name))
+    self.establishments.create(:name=>lc(:default_establishment_name), :nic=>"00000")
   end
 
   def parameter(name)

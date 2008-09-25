@@ -84,6 +84,8 @@ class Beginning < ActiveRecord::Migration
     end
     add_index :templates, :company_id
     add_index :templates, [:company_id, :name], :unique=>true
+    
+		Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
 
   end
 
