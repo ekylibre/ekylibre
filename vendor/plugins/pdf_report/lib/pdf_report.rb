@@ -30,14 +30,6 @@ module PdfReport
 
     ORIENTATION = {:portrait=>'P', :landscape=>'L'}
     
-    def attribute(element, attribute, default=nil)
-      if default.nil?
-        element.attributes[attribute.to_s]
-      else
-        element.attributes[attribute.to_s]||default 
-      end
-    end
-    
     # this function begins to analyse the template extracting the main characteristics of
     # the Pdf document as the title, the orientation, the format, the unit ... 
     def analyze_template(template, options={})
@@ -61,6 +53,7 @@ module PdfReport
       code+=pdf+".alias_nb_pages('{PAGENB}')\n"
       code+="page_height_origin="+(page_height(unit,format)-margin_top-margin_bottom).to_s+"\n"
       code+="page_number=1\n"
+      code+="count=0\n"
       code+=pdf+".set_auto_page_break(false)\n"
       code+=pdf+".set_font('Arial','B',14)\n"
       code+=pdf+".set_margins(0,"+margin_top.to_s+")\n"
@@ -69,7 +62,7 @@ module PdfReport
       code+="page_height=page_height_origin\n"
       code+="c=ActiveRecord::Base.connection\n"
       code+=analyze_infos(document_root.elements[XRL_INFOS],:pdf=>pdf) if document_root.elements[XRL_INFOS]
-      code+=analyze_loop(document_root.elements[XRL_LOOP],:pdf=>pdf,:depth=>depth,:format=>format, :margin_top=>margin_top, :margin_bottom=>margin_bottom, :header=>[{}]) if document_root.elements[XRL_LOOP]
+      code+=analyze_loop(document_root.elements[XRL_LOOP],:pdf=>pdf,:depth=>depth,:format=>format, :margin_top=>margin_top, :margin_bottom=>margin_bottom, :specials=>[{}]) if document_root.elements[XRL_LOOP]
       code+=pdf+".Output()\n"
       code+="end" 
 
@@ -77,6 +70,15 @@ module PdfReport
       code
     end
     
+    #
+    def attribute(element, attribute, default=nil)
+      if default.nil?
+        element.attributes[attribute.to_s]
+      else
+        element.attributes[attribute.to_s]||default 
+      end
+    end
+
     #
     def page_height(unit,format)
       coefficient = FPDF.scale_factor(unit)
@@ -105,16 +107,12 @@ module PdfReport
       options[:depth] += 1
      
       code=''
-      # puts options[:header]
-      #  if child_options[:depth]==3
-      #       child_options[:header][3]=child_options[:header][options[:depth]]
-      #    end
-      
+     
       if options[:depth]>=1 
-        options[:header][options[:depth]]=options[:header][options[:depth]-1].dup
+        options[:specials][options[:depth]]=options[:specials][options[:depth]-1].dup
       end
       
-      puts options[:depth].to_s+" => "+options[:header].inspect
+      puts options[:depth].to_s+" => "+options[:specials].inspect
 
       raise Exception.new("You must specify a name beginning by a character for the element loop.") unless loop.attributes['name'] and loop.attributes['name'].to_s=~/^[a-z][a-z0-9]*$/      
       result=loop.attributes["name"]
@@ -134,48 +132,68 @@ module PdfReport
         code+=result+"=[]\n"
       end
 
-
- #    puts child_options[:fields]
       loop.each_element do |element|
         puts result+':'+element.name
-        if element.attributes['type']=='header'
-          depth = options[:depth]
-          options[:header]=[] unless options[:header].is_a? Array
-          options[:header][depth]={} unless options[:header][depth].is_a? Hash
-          mode = attribute(element, :mode, 'all').to_sym
+        #  if element.attributes['type']=='specials'
+        #           depth = options[:depth]
+        #           options[:specials]=[] unless options[:specials].is_a? Array
+        #           options[:specials][depth]={} unless options[:specials][depth].is_a? Hash
+        #           mode = attribute(element, :mode, 'all').to_sym
+        #           if mode==:all
+        #             options[:specials][depth][:even] = analyze_block(element,options)
+        #             options[:specials][depth][:odd]  = options[:specials][depth][:even]
+        #           else
+        #             options[:specials][depth][mode]=analyze_block(element,options)
+        #           end  
+        
+        depth=options[:depth]
+        if (element.attributes['type']=='header' or element.attributes['type']=='footer')
+          mode=attribute(element, :mode, 'all').to_sym
+          type=attribute(element, :type, 'header').to_sym
+          puts type
+          options[:specials]=[] unless options[:specials].is_a? Array
+          options[:specials][depth]={} unless options[:specials][depth].is_a? Hash
+          options[:specials][depth][type]={} unless options[:specials][depth][type].is_a? Hash
           if mode==:all
-            options[:header][depth][:even] = analyze_block(element,options)
-            options[:header][depth][:odd]  = options[:header][depth][:even]
+#            options[:specials][depth][type][:even] = analyze_block(element,options)
+            options[:specials][depth][type][:even] = element.dup
+            options[:specials][depth][type][:odd]  = options[:specials][depth][type][:even]
           else
-            options[:header][depth][mode]=analyze_block(element,options)
-          end  
-
-        elsif element.attributes['type']!='footer' # If it's a printable block or a loop
-
+            options[:specials][depth][type][mode] = element.dup
+          end
+          
+          #elsif element.attributes['type']!='footer' # If it's a printable block or a loop
+        else          
           unless element.attributes['if'].nil?
             condition=element.attributes['if']
             condition.gsub!("'","\\\\'")
             options[:fields].each do |f| condition.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'") end unless options[:fields].nil?
             code+="if c.select_one(\'select ("+condition+")::boolean AS x\')[\"x\"]==\"t\"\n"
           end
+          #  puts options[:specials][depth][:footer].inspect
+          
+          #    code+="page_height_without_footer=page_height-"+block_height(options[:specials][depth][:footer][+"page_number.even? ? :even : :odd"]).to_s+"\n" unless options[:specials][depth][:footer].empty?
           
           
-          # code+="if block_y=="+options[:margin_top].to_s+"\n"+analyze_header(options)+"\n" unless element.attributes['type'].nil?
+          #   code+="if (block_y"+block_height(element).to_s+">page_height_without_footer)\n"+options[:specials][depth][:footer][+"page_number.even? ? :even : :odd"]+analyze_page_header(element,options)+"\nend\n" unless options[:specials][depth][:footer].empty? 
           
-          #        puts "#{options[:depth]} : #{element.name}: #{block_height(element)} : #{options[:header][options[:depth]].size}"
-          
-          code+="if(page_height<"+block_height(element).to_s+")\n"+analyze_page_break(element,options)+"end\n"
+          if element.name==XRL_BLOCK
+            block_height = block_height(element)
+            code+="if (block_y=="+options[:margin_top].to_s+")\n"+analyze_header(options)+"\nend\n" unless options[:specials].empty?
+            code+="if(count==0 and page_height<"+block_height.to_s+"+"+block_height(options[:specials][depth][:footer][:even]).to_s+" and page_height<"+block_height.to_s+"+"+block_height(options[:specials][depth][:footer][:odd]).to_s+")\nraise Exception.new 'Pied de page trop grand'\n"
+            code+="elsif(page_height<"+(block_height(element)).to_s+"+(page_number.even? "+block_height(options[:specials][depth][:footer][:even]).to_s+":"+block_height(options[:specials][depth][:footer][:odd]).to_s+")\n"+analyze_page_break(element,options)+"\n"
+            code+="end\n"
+            code+="count+=1\n"
+          end
           
           code+=self.send('analyze_'+ element.name.gsub("-","_"),element, options.dup) if [XRL_LOOP, XRL_BLOCK, XRL_PAGEBREAK].include? element.name and not ['header','footer'].include?(element.attributes["type"])
           
           code+="end\n" unless element.attributes['if'].nil?
-          
-          #        code+=self.send('analyze_page_break',element,:pdf=>options[:pdf],:depth=>options[:depth],:header=>options[:header]) if [XRL_PAGEBREAK].include? element.name 
+                
         end
         
       end
         
-      
       code+="end \n" if query
       code.to_s
       
@@ -233,15 +251,36 @@ module PdfReport
         end
       end 
 
+      #
       def analyze_page_break(page_break,options={})
         code  = ""
-        code += options[:pdf]+".add_page()\n page_number+=1\n block_y="+options[:margin_top].to_s+"\n page_height=page_height_origin\n"
-        unless options[:header].empty?
-          code += "if page_number.even?\n"+options[:header][options[:depth]][:even].to_s
-          code += "\nelse\n"+options[:header][options[:depth]][:odd].to_s+"\nend\n" 
+        code += options[:pdf]+".add_page()\ncount=0\npage_number+=1\nblock_y="+options[:margin_top].to_s+"\n page_height=page_height_origin\n"
+        code += analyze_header(options)
+        code.to_s
+      end
+     
+      #
+      def analyze_header(options={})
+        code  = ""
+        
+        unless options[:specials].empty?
+          code += "if page_number.even?\n"+analyze_block(options[:specials][options[:depth]][:header][:even],options)
+          code += "\nelse\n"+analyze_block(options[:specials][options[:depth]][:header][:odd],options)+"\nend\n" 
         end
         code.to_s
       end
+      
+      #
+      # def analyze_footer(options={})
+#         code  = ""
+#         block_height(options[:specials][options[:depth]][:footer][+"page_number.even? ? :even : :odd"]).to_s+"\n" unless options[:specials].empty?
+#         unless options[:specials].empty?
+#           code += "if page_number.even?\n"+options[:specials][options[:depth]][:header][:even].to_s
+#           code += "\nelse\n"+options[:specials][options[:depth]][:header][:odd].to_s+"\nend\n" 
+#         end
+#         code.to_s
+#       end
+ 
       
       # 
       def analyze_rule(rule,options={})   
@@ -281,14 +320,15 @@ module PdfReport
         code.to_s
       end
       
-      def analyze_rectangle(rectangle,options={})
+      #
+def analyze_rectangle(rectangle,options={})
         code=''
         rectangle=rectangle.attributes
         code+="draw=fill=''\n"
         code+=options[:pdf]+".set_line_width("+rectangle['border-width']+")\n" unless rectangle['border-width'].nil?    
         code+=options[:pdf]+".set_draw_color("+color_element(rectangle,'border-color')+")\n";draw='D' unless rectangle['border-color'].nil?
         code+="fill='F'\n"+options[:pdf]+".set_fill_color("+color_element(rectangle,'background-color')+")\n";fill='F' unless rectangle['background-color'].nil?
-        code+=options[:pdf]+".rectangle("+rectangle['x']+","+rectangle['y']+","+rectangle['width']+","+rectangle['height']+",10,'"+fill+draw+"')\n"
+        code+=options[:pdf]+".rectangle("+rectangle['x']+",block_y+"+rectangle['y']+","+rectangle['width']+","+rectangle['height']+",10,'"+fill+draw+"')\n"
         code.to_s
       end
       
@@ -311,8 +351,6 @@ module PdfReport
           data.gsub!("{"+str+"}",'\'+id.to_s+\'')
         elsif str=~/PAGENO/
           data.gsub!("{"+str+"}",'\'+page_number.to_s+\'')
-#        elsif str=~/PAGENB/
-#          data.gsub!("{"+str+"}",'\'+page_number_total.to_s+\'')
         end
         code.to_s
       end 
@@ -335,9 +373,9 @@ module PdfReport
         f=File.open("/tmp/render_report_#{digest}.rb",'wb')
         f.write(code)
         f.close
-       puts code 
-      pdf=self.send('render_report_'+digest,id)
-
+        puts code 
+  #      pdf=self.send('render_report_'+digest,id)
+        
       end
     end
   end
