@@ -1,4 +1,4 @@
-
+d
 
 # This module groups the different methods allowing to obtain a PDF document.
 
@@ -166,7 +166,7 @@ module PdfReport
             code+="end\n"
             code+="count+=1\n"
             code+="number_block+=1\n"               
-            code+="if number_block.eql?"+options[:total_block].to_s+"\n"+analyze_footer(options)+"end\n"     
+            #code+="if number_block.eql?"+options[:total_block].to_s+"\n"+analyze_footer(options)+"end\n"     
           end
 
           
