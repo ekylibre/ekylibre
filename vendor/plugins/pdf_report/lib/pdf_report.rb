@@ -166,9 +166,10 @@ module PdfReport
             code+="end\n"
             code+="count+=1\n"
             code+="number_block+=1\n"               
+            code+="if number_block.eql?"+options[:total_block].to_s+"\n"+analyze_footer(options)+"end\n"     
           end
 
-          #code+="if number_block.eql?"+options[:total_block].to_s+"\n"+analyze_footer(options)+"end\n"     
+          
           code+=self.send('analyze_'+ element.name.gsub("-","_"),element, options.dup) if [XRL_LOOP, XRL_BLOCK, XRL_PAGEBREAK].include? element.name and not ['header','footer'].include?(element.attributes["type"])
           
           code+="end\n" unless element.attributes['if'].nil?
