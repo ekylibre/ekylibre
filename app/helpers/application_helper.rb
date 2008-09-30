@@ -174,7 +174,7 @@ module ApplicationHelper
 
     end
     code = content_tag(:table, code, :class=>'formalize')
-    code += 'error_messages_for ' ?
+#    code += 'error_messages_for ' ?
   end
   
   def translate_help(options,nature,id)

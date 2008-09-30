@@ -77,38 +77,6 @@ ActiveRecord::Schema.define(:version => 20080819191919) do
   add_index "accounts", ["updated_at"], :name => "index_accounts_on_updated_at"
   add_index "accounts", ["updated_by"], :name => "index_accounts_on_updated_by"
 
-  create_table "actions", :force => true do |t|
-    t.string   "name",                        :null => false
-    t.text     "desc"
-    t.integer  "parent_id",                   :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-    t.integer  "created_by"
-    t.integer  "updated_by"
-    t.integer  "lock_version", :default => 0, :null => false
-  end
-
-  add_index "actions", ["created_at"], :name => "index_actions_on_created_at"
-  add_index "actions", ["created_by"], :name => "index_actions_on_created_by"
-  add_index "actions", ["name"], :name => "index_actions_on_name", :unique => true
-  add_index "actions", ["updated_at"], :name => "index_actions_on_updated_at"
-  add_index "actions", ["updated_by"], :name => "index_actions_on_updated_by"
-
-  create_table "actions_roles", :force => true do |t|
-    t.integer  "action_id",                   :null => false
-    t.integer  "role_id",                     :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-    t.integer  "created_by"
-    t.integer  "updated_by"
-    t.integer  "lock_version", :default => 0, :null => false
-  end
-
-  add_index "actions_roles", ["created_at"], :name => "index_actions_roles_on_created_at"
-  add_index "actions_roles", ["created_by"], :name => "index_actions_roles_on_created_by"
-  add_index "actions_roles", ["updated_at"], :name => "index_actions_roles_on_updated_at"
-  add_index "actions_roles", ["updated_by"], :name => "index_actions_roles_on_updated_by"
-
   create_table "address_norm_items", :force => true do |t|
     t.integer  "contact_norm_id",                                      :null => false
     t.string   "name",                                                 :null => false
@@ -616,17 +584,17 @@ ActiveRecord::Schema.define(:version => 20080819191919) do
   add_index "journal_records", ["updated_by"], :name => "index_journal_records_on_updated_by"
 
   create_table "journals", :force => true do |t|
-    t.integer  "nature_id",                                             :null => false
-    t.string   "name",                                                  :null => false
-    t.string   "code",           :limit => 4,                           :null => false
+    t.integer  "nature_id",                                  :null => false
+    t.string   "name",                                       :null => false
+    t.string   "code",           :limit => 4,                :null => false
     t.integer  "counterpart_id"
-    t.date     "closed_on",                   :default => '1494-12-31', :null => false
-    t.integer  "company_id",                                            :null => false
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.date     "closed_on",                                  :null => false
+    t.integer  "company_id",                                 :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.integer  "created_by"
     t.integer  "updated_by"
-    t.integer  "lock_version",                :default => 0,            :null => false
+    t.integer  "lock_version",                :default => 0, :null => false
   end
 
   add_index "journals", ["code", "company_id"], :name => "index_journals_on_code_and_company_id", :unique => true
@@ -758,10 +726,6 @@ ActiveRecord::Schema.define(:version => 20080819191919) do
   add_foreign_key "accounts", ["company_id"], "companies", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "accounts_company_id_fkey"
   add_foreign_key "accounts", ["created_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "accounts_created_by_fkey"
   add_foreign_key "accounts", ["updated_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "accounts_updated_by_fkey"
-
-  add_foreign_key "actions", ["parent_id"], "actions", ["id"], :name => "actions_parent_id_fkey"
-
-  add_foreign_key "actions_roles", ["action_id"], "actions", ["id"], :name => "actions_roles_action_id_fkey"
 
   add_foreign_key "address_norm_items", ["contact_norm_id"], "address_norms", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "address_norm_items_contact_norm_id_fkey"
   add_foreign_key "address_norm_items", ["company_id"], "companies", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "address_norm_items_company_id_fkey"
