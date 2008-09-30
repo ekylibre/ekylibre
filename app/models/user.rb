@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   belongs_to :language
   
   def before_validation
-    self.name = self.name.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
+    self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
     if company
       self.language = self.company.parameter('general.language').value if self.language.nil?
     end

@@ -58,7 +58,7 @@ module ApplicationHelper
       code += content_tag(:div, form_code, :class=>'fields')
       code += content_tag(:div,submit_tag(l(options[:submit]||:submit))+link_to(l(options[:cancel]||:cancel),:back,:class=>:button),:class=>'actions')
       code += '</form>'
-      code = title + content_tag(:div,code)
+      code = title+content_tag(:div,code)
       html_options = {:class=>'formalize'}
       html_options[:style] = "width:"+770.to_s+"px"
       code = content_tag(:div,code, html_options)
@@ -174,20 +174,13 @@ module ApplicationHelper
 
     end
     code = content_tag(:table, code, :class=>'formalize')
+    code += 'error_messages_for ' ?
   end
   
   def translate_help(options,nature,id)
     t = nil
     if options[nature].nil? and id
-      nf="&rarr;"+rand.to_s+"&bull;"
-      t = lc((id+'_'+nature.to_s).to_sym,nf)
-      t = nil if t == nf
-      t = lc((id+'_'+nature.to_s).to_sym,nf)
-      begin
-        t = l(controller.controller_name.to_sym, controller.action_name.to_sym, (id+'_'+nature.to_s).to_sym)
-      rescue
-        t = controller.controller_name+'-'+controller.action_name+'-'+(id+'_'+nature.to_s).to_sym.to_s
-      end
+      t = lh(controller.controller_name.to_sym, controller.action_name.to_sym, (id+'_'+nature.to_s).to_sym)
     elsif options[nature]
       t = lc(options[nature])
     end

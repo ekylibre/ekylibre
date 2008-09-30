@@ -150,6 +150,10 @@ module ArkanisDevelopment::SimpleLocalization #:nodoc:
         end
       end
       
+      def app_entry(*keys)
+        self.entry(:app, *keys)
+      end
+      
       # Narrows down the scope of the +app_scoped+ method. Useful if you have a
       # very nested language file and don't want to use the +lc+ helpers:
       # 
@@ -264,6 +268,11 @@ module ArkanisDevelopment::SimpleLocalization #:nodoc:
       # Defines a global shortcut for the Language#app_scoped method.
       def l(*sections)
         ArkanisDevelopment::SimpleLocalization::Language.app_scoped(*sections)
+      end
+
+      # Defines a global shortcut for the Language#app_scoped method.
+      def lh(*sections)
+        ArkanisDevelopment::SimpleLocalization::Language.app_entry(*sections)
       end
       
       # The global shortcut for the Language#with_app_scope method.
