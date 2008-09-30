@@ -1,4 +1,4 @@
-d
+
 
 # This module groups the different methods allowing to obtain a PDF document.
 
@@ -45,26 +45,28 @@ module PdfReport
       raise Exception.new("Bad orientation in the template") unless ORIENTATION.include? orientation
       unit=attribute(document_root, :unit, 'mm')
       format=attribute(document_root, :format, 'A4')
-      margin_top=attribute(document_root, 'margin-top', 15)
-      margin_bottom=attribute(document_root, 'margin-bottom', 15)
-      total_block=document_root.elements['//block[@name]'].size.size.to_s+"\n"
-
+      margin_top=attribute(document_root, 'margin-top', 5)
+      margin_bottom=attribute(document_root, 'margin-bottom', 5)
       pdf='pdf'      
       code+=pdf+"=FPDF.new('"+ORIENTATION[orientation]+"','"+unit+"','" +format+ "')\n"
       code+=pdf+".alias_nb_pages('{PAGENB}')\n"
       code+="page_height_origin="+(page_height(unit,format)-margin_top-margin_bottom).to_s+"\n"
       code+="page_number=1\n"
       code+="count=0\n"
-      code+="number_block=0\n"
       code+=pdf+".set_auto_page_break(false)\n"
-      code+=pdf+".set_font('Arial','B',14)\n"
+
+
+      styles_origin={"size"=>14,"family"=>'Arial',"decoration"=>'none', "weight"=>'none', "color"=>'#000', "border_color"=>'#000', "border_width"=>0.2, "border_text"=>0 ,"background_color"=>'#DDD', "radius"=>"none","vertices"=>"1234","style"=>'none'}
+
+      code+=pdf+".set_font('"+styles_origin['family']+"','',"+styles_origin['size'].to_s+")\n"
       code+=pdf+".set_margins(0,"+margin_top.to_s+")\n"
+      code+=pdf+".set_text_color("+color_element(styles_origin['color'])+")\n"
       code+=pdf+".add_page()\n"
       code+="block_y="+margin_top.to_s+"\n"
       code+="page_height=page_height_origin\n"
       code+="c=ActiveRecord::Base.connection\n"
       code+=analyze_infos(document_root.elements[XRL_INFOS],:pdf=>pdf) if document_root.elements[XRL_INFOS]
-      code+=analyze_loop(document_root.elements[XRL_LOOP],:pdf=>pdf,:depth=>depth,:format=>format, :margin_top=>margin_top, :margin_bottom=>margin_bottom, :specials=>[{}], :total_block=>total_block) if document_root.elements[XRL_LOOP]
+      code+=analyze_loop(document_root.elements[XRL_LOOP],:pdf=>pdf,:depth=>depth,:format=>format, :margin_top=>margin_top, :margin_bottom=>margin_bottom, :specials=>[{}], :styles_origin=>styles_origin) if document_root.elements[XRL_LOOP]
       code+=pdf+".Output()\n"
       code+="end" 
 
@@ -165,22 +167,18 @@ module PdfReport
             code+=analyze_page_break(element,options)+"\n"
             code+="end\n"
             code+="count+=1\n"
-            code+="number_block+=1\n"               
-            #code+="if number_block.eql?"+options[:total_block].to_s+"\n"+analyze_footer(options)+"end\n"     
           end
-
-          
           code+=self.send('analyze_'+ element.name.gsub("-","_"),element, options.dup) if [XRL_LOOP, XRL_BLOCK, XRL_PAGEBREAK].include? element.name and not ['header','footer'].include?(element.attributes["type"])
-          
           code+="end\n" unless element.attributes['if'].nil?
-          
         end
          
       end
-        
+
+      if options[:depth]==0 
+        code+=analyze_footer(options)
+      end
       code+="end \n" if query
       code.to_s
-      #return options[:specials]
     end
       
       #     
@@ -260,8 +258,8 @@ module PdfReport
       #
       def analyze_footer(options={})
         code=""
-        code+="if page_number.even?\n"+analyze_block(options[:specials][options[:depth]][:footer][:even],options)
-        code+="\nelse\n"+analyze_block(options[:specials][options[:depth]][:footer][:odd],options)+"\n end\n"
+        code+="if page_number.even?\n block_y+=page_height-"+block_height(options[:specials][options[:depth]][:footer][:even]).to_s+"\n"+analyze_block(options[:specials][options[:depth]][:footer][:even],options)
+        code+="\nelse\n block_y+=page_height-"+block_height(options[:specials][options[:depth]][:footer][:odd]).to_s+"\n"+analyze_block(options[:specials][options[:depth]][:footer][:odd],options)+"\n end\n"
         code.to_s
       end
  
@@ -279,9 +277,9 @@ module PdfReport
       #  
       def analyze_text(text, options={})
         code=''
-        raise Exception.new("Your text is out of the block") unless text.attributes['y'].to_i < text.attributes['width'].to_i
+        text_att=text.attributes
+        raise Exception.new("Your text is out of the block") unless text_att['y'].to_i < text_att['width'].to_i
         data=text.text.gsub("'","\\\\'")
-        text=text.attributes
         options[:fields].each do |f| data.gsub!("\#{"+f[0]+"}","\'+"+f[1]+"+\'")end unless options[:fields].nil?
         
         while data=~/[^\#]\{[A-Z\_].*.\}/ 
@@ -290,13 +288,23 @@ module PdfReport
           analyze_constant(data,options[:pdf],str) 
         end
         
-        code+=options[:pdf]+".set_text_color("+color_element(text,'color')+")\n" unless text['color'].nil?
-        style=''
-        style+=text['style'].first.upcase unless text['style'].nil?
-        style+=text['decoration'].first.upcase unless text['decoration'].nil?
-        style+=text['weight'].first.upcase unless text['weight'].nil?
-        code+=options[:pdf]+".set_font('','"+style+"')\n" 
-        code+=options[:pdf]+".cell("+text['width']+","+text['height']+",'"+Iconv.new('ISO-8859-15','UTF-8').iconv(data)+"',0,0,'"+text['align']+"')\n"
+        border_text=text_att['border-text']||options[:styles_origin]['border_text']
+        color=text_att['color']||options[:styles_origin]['color']
+        style=text_att['style']||options[:styles_origin]['style']
+        size=text_att['size']||options[:styles_origin]['size']
+        weight=text_att['weight']||options[:styles_origin]['weight']
+        decoration=text_att['decoration']||options[:styles_origin]['decoration']
+        family=text_att['family']||options[:styles_origin]['family']
+       
+        code+=options[:pdf]+".set_text_color("+color_element(color)+")\n" unless text_att['color'].nil?
+        code+=options[:pdf]+".set_font('"+family.to_s+"','"+(weight.first.upcase.to_s unless weight.include? 'none').to_s+(decoration.first.upcase.to_s unless decoration.include? 'none').to_s+(style.first.upcase.to_s unless style.include? 'none').to_s+"',"+size.to_s+")\n" 
+    
+        
+        code+=analyze_rectangle(text,options) unless text_att['radius'].nil?
+
+        code+=options[:pdf]+".cell("+text_att['width']+","+text_att['height']+",'"+Iconv.new('ISO-8859-15','UTF-8').iconv(data)+"',"+border_text.to_s+",0,'"+text_att['align']+"')\n"
+        code+=options[:pdf]+".set_font('"+options[:styles_origin]['family']+"','',"+options[:styles_origin]['size'].to_s+")\n"
+        code+=options[:pdf]+".set_text_color("+color_element(options[:styles_origin]['color'])+")\n" unless text_att['color'].nil?
         code.to_s
       end 
       
@@ -309,38 +317,53 @@ module PdfReport
       end
       
       #
-def analyze_rectangle(rectangle,options={})
+      def analyze_rectangle(rectangle,options={})
         code=''
-        rectangle=rectangle.attributes
+        
+        rectangle=rectangle.attributes 
+        radius=rectangle['radius']||options[:styles_origin]['radius']
+        vertices=rectangle['vertices']||options[:styles_origin]['vertices']
+        border_color=rectangle['border-color']||options[:styles_origin]['border_color']
+        background_color=rectangle['background-color']||options[:styles_origin]['background_color']
+        border_width=rectangle['border-width']||options[:styles_origin]['border_width']
+        
         code+="draw=fill=''\n"
-        code+=options[:pdf]+".set_line_width("+rectangle['border-width']+")\n" unless rectangle['border-width'].nil?    
-        code+=options[:pdf]+".set_draw_color("+color_element(rectangle,'border-color')+")\n";draw='D' unless rectangle['border-color'].nil?
-        code+="fill='F'\n"+options[:pdf]+".set_fill_color("+color_element(rectangle,'background-color')+")\n";fill='F' unless rectangle['background-color'].nil?
-        code+=options[:pdf]+".rectangle("+rectangle['x']+",block_y+"+rectangle['y']+","+rectangle['width']+","+rectangle['height']+",10,'"+fill+draw+"')\n"
+        code+=options[:pdf]+".set_line_width("+border_width.to_s+")\n" 
+        code+=options[:pdf]+".set_draw_color("+color_element(border_color)+")\n";draw='D' 
+        code+="fill='F'\n"+options[:pdf]+".set_fill_color("+color_element(background_color)+")\n";fill='F' 
+        code+=options[:pdf]+".rectangle("+rectangle['x']+",block_y+"+rectangle['y']+","+rectangle['width']+","+rectangle['height']+","+(radius.to_s unless radius.include? 'none')+",'"+fill+draw+"')\n"
+        code+=options[:pdf]+".set_line_width("+options[:styles_origin]['border_width'].to_s+")\n" 
+        code+=options[:pdf]+".set_draw_color("+color_element(options[:styles_origin]['border_color'])+")\n";draw='D' 
         code.to_s
       end
       
-      #
-      def color_element(element, attribute)
-        color_table=(element[attribute]).split('#')[1].split('')
-        return(color_table[0].hex*16).to_s+","+(color_table[1].hex*16).to_s+","+(color_table[2].hex*16).to_s  
-      end
-      
-      #
-      def analyze_constant(data,pdf,str)
-        code=''
-        if str=~/CURRENT_DATE.*/ or str=~/CURRENT_TIMESTAMP.*/
-          format="%Y-%m-%d"
-          format+=" %H:%M" if str=="CURRENT_TIMESTAMP"
-          format=str.split(':')[1] unless (str.match ':').nil?
-          
-          data.gsub!("{"+str+"}",' \'+now.strftime(\''+format+'\')+\' ')
-        elsif str=~/ID/
-          data.gsub!("{"+str+"}",'\'+id.to_s+\'')
-        elsif str=~/PAGENO/
-          data.gsub!("{"+str+"}",'\'+page_number.to_s+\'')
+#
+      def color_element(color)
+        if color=~/^\#[a-f0-9]{3}$/i
+          color="#"+color[1..1]*2+color[2..2]*2+color[3..3]*2
         end
-        code.to_s
+        if color=~/^\#[a-f0-9]{6}$/i
+          color[1..2].to_i(16).to_s+","+color[3..4].to_i(16).to_s+","+color[5..6].to_i(16).to_s  
+        else
+          return "0,255,0"  
+        end
+      end
+      
+      #
+        def analyze_constant(data,pdf,str)
+          code=''
+          if str=~/CURRENT_DATE.*/ or str=~/CURRENT_TIMESTAMP.*/
+            format="%Y-%m-%d"
+            format+=" %H:%M" if str=="CURRENT_TIMESTAMP"
+            format=str.split(':')[1] unless (str.match ':').nil?
+            
+            data.gsub!("{"+str+"}",' \'+now.strftime(\''+format+'\')+\' ')
+          elsif str=~/ID/
+            data.gsub!("{"+str+"}",'\'+id.to_s+\'')
+          elsif str=~/PAGENO/
+            data.gsub!("{"+str+"}",'\'+page_number.to_s+\'')
+          end
+          code.to_s
       end 
       
     end
@@ -361,7 +384,6 @@ def analyze_rectangle(rectangle,options={})
         f=File.open("/tmp/render_report_#{digest}.rb",'wb')
         f.write(code)
         f.close
-      #  puts code 
         pdf=self.send('render_report_'+digest,id)
         
       end

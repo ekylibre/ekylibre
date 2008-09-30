@@ -10,7 +10,8 @@
       <image x="160" y="10" width="50" height="50" src="/usr/share/gnome/help/gnomine/fr/figures/easy-hints-1.png"/>
     </block>
     <block type="header" mode="odd">
-      <text x="2" y="2" width="206" height="5" align="R">Facture ODD</text>
+      <image x="160" y="1" width="20" height="25" src="/usr/share/gnome/help/gnomine/fr/figures/easy-hints-2.png"/>
+      <text x="2" y="2" width="206" height="15" radius="2" align="R">Facture ODD</text>
       <image x="2" y="10" width="50" height="50" src="/usr/share/gnome/help/gnomine/fr/figures/easy-hints-1.png"/>
     </block>
     <block type="footer">
