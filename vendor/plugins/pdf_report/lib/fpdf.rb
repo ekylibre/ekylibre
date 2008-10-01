@@ -22,6 +22,7 @@
 
 require 'date'
 require 'zlib'
+require 'digest/sha2'
 
 class FPDF
     FPDF_VERSION = '1.53d'
@@ -93,50 +94,61 @@ class FPDF
     end
     return format[0], format[1]
   end
-
-    def initialize(orientation='P', unit='mm', format='A4')
-        # Initialization of properties
-        @page=0
-        @n=2
-        @buffer=''
-        @pages=[]
-        @OrientationChanges=[]
-        @state=0
-        @fonts={}
-        @FontFiles={}
-        @diffs=[]
-        @images={}
-        @links=[]
-        @PageLinks={}
-        @InFooter=false
-        @FontFamily=''
-        @FontStyle=''
-        @FontSizePt=12
-        @underline= false
-        @DrawColor='0 G'
-        @FillColor='0 g'
-        @TextColor='0 g'
-        @ColorFlag=false
-        @ws=0
-        @offsets=[]
-
-        # Standard fonts
-        @CoreFonts={}
-        @CoreFonts['courier']='Courier'
-        @CoreFonts['courierB']='Courier-Bold'
-        @CoreFonts['courierI']='Courier-Oblique'
-        @CoreFonts['courierBI']='Courier-BoldOblique'
-        @CoreFonts['helvetica']='Helvetica'
-        @CoreFonts['helveticaB']='Helvetica-Bold'
-        @CoreFonts['helveticaI']='Helvetica-Oblique'
-        @CoreFonts['helveticaBI']='Helvetica-BoldOblique'
-        @CoreFonts['times']='Times-Roman'
-        @CoreFonts['timesB']='Times-Bold'
-        @CoreFonts['timesI']='Times-Italic'
-        @CoreFonts['timesBI']='Times-BoldItalic'
-        @CoreFonts['symbol']='Symbol'
-        @CoreFonts['zapfdingbats']='ZapfDingbats'
-
+  
+  def initialize(orientation='P', unit='mm', format='A4')
+      # Initialization of properties
+    @page=0
+    @n =2
+    @buffer=''
+    @pages=[]
+    @OrientationChanges=[]
+    @state=0
+    @fonts={}
+    @FontFiles={}
+    @diffs=[]
+    @images={}
+    @links=[]
+      @PageLinks={}
+    @InFooter=false
+    @FontFamily=''
+    @FontStyle=''
+    @FontSizePt=12
+    @underline= false
+    @DrawColor='0 G'
+    @FillColor='0 g'
+    @TextColor='0 g'
+    @ColorFlag=false
+    @ws=0
+    @offsets=[]
+      
+    # variables for encryption processus
+    @encryption_key
+    @encrypted=''          #whether document is protected
+    
+    @Uvalue=''             #U entry in pdf document
+    @Ovalue=''             #O entry in pdf document
+    @Pvalue=''             #P entry in pdf document
+    @enc_obj_id=''         #encryption object id
+    @last_rc4_key=''       #last RC4 key encrypted (cached for optimisation)
+    @last_rc4_key_c=''     #last RC4 computed key
+                                                     
+    # Standard fonts
+    @CoreFonts={}
+    @CoreFonts['courier']='Courier'
+    @CoreFonts['courierB']='Courier-Bold'
+    @CoreFonts['courierI']='Courier-Oblique'
+    @CoreFonts['courierBI']='Courier-BoldOblique'
+    @CoreFonts['helvetica']='Helvetica'
+    @CoreFonts['helveticaB']='Helvetica-Bold'
+    @CoreFonts['helveticaI']='Helvetica-Oblique'
+    @CoreFonts['helveticaBI']='Helvetica-BoldOblique'
+    @CoreFonts['times']='Times-Roman'
+    @CoreFonts['timesB']='Times-Bold'
+    @CoreFonts['timesI']='Times-Italic'
+    @CoreFonts['timesBI']='Times-BoldItalic'
+    @CoreFonts['symbol']='Symbol'
+    @CoreFonts['zapfdingbats']='ZapfDingbats'
+    
         # Scale factor
       @k = FPDF.scale_factor(unit)
       @fwPt, @fhPt = FPDF.format(format,@k)
@@ -145,8 +157,8 @@ class FPDF
 
         # Page orientation
         orientation.downcase!
-        if orientation=='p' or orientation=='portrait'
-            @DefOrientation='P'
+    if orientation=='p' or orientation=='portrait'
+      @DefOrientation='P'
             @wPt=@fwPt
             @hPt=@fhPt
         elsif orientation=='l' or orientation=='landscape'
@@ -175,8 +187,46 @@ class FPDF
         SetCompression(true)
         # Set default PDF version number
         @PDFVersion='1.3'
-    end
+    
+    
+    @encrypted=false
+    @last_rc4_key=''
+    @padding="\x28\xBF\x4E\x5E\x4E\x75\x8A\x41\x64\x00\x4E\x56\xFF\xFA\x01\x08"
+    @padding+="\x2E\x2E\x00\xB6\xD0\x68\x3E\x80\x2F\x0C\xA9\xFE\x64\x53\x69\x7A"
+  
+  end
 
+  
+    # Function to set permissions as well as user and owner passwords
+    #
+    # - permissions is an array with values taken from the following list:
+    #   copy, print, modify, annot-forms
+    #   If a value is present it means that the permission is granted
+    # - If a user password is set, user will be prompted before document is opened
+    # - If an owner password is set, document can be opened in privilege mode with no
+    #   restriction if that password is entered
+    
+  def SetProtection(permissions=[],user_pass='',owner_pass=nil)
+    
+    options ={'print' => 4, 'modify' => 8, 'copy' => 16, 'annot-forms' => 32}
+    protection = 192
+    permissions.each do |permission|
+      self.Error("Incorrect permission: #{permission}") unless defined? options[permission]
+      protection += options[permission]
+    end
+    
+    #        owner_pass = uniqid(rand()) if owner_pass.nil?
+    owner_pass = Digest::SHA256.hexdigest(rand.to_s+Time.now.to_s) if owner_pass.nil?
+    @encrypted = true
+    GenerateEncryptionKey(user_pass, owner_pass, protection)
+  end
+  
+    
+ 
+
+    
+   
+  
     def GetHeightPage()
       return @fhPt
     end
@@ -1135,7 +1185,7 @@ class FPDF
       p=(@compress) ? Zlib::Deflate.deflate(@pages[n]) : @pages[n]
       newobj
       out('<<'+filter+'/Length '+p.length.to_s+'>>')
-      putstream(p)
+      putstream (p)
       out('endobj')
     end
     # Pages root
@@ -1325,6 +1375,17 @@ class FPDF
     out('>>')
   end
 
+   
+    # Compute key depending on object number where the encrypted data is stored
+  def objectKey(n)
+    return (Md5_16(@encryption_key+(n.pack('VXxx'))))[0..10]
+    end
+
+ 
+  
+
+
+
   def putresources
     putfonts
     putimages
@@ -1335,8 +1396,29 @@ class FPDF
     putresourcedict
     out('>>')
     out('endobj')
-  end
+ 
+    if @encrypted
+            newobj()
+            @enc_obj_id = @n
+            out('<<')
+            putencryption()
+            out('>>')
+            out('endobj')
+        end
+
+ end
   
+  def putencryption()
+    
+        out('/Filter /Standard')
+        out('/V 1')
+        out('/R 2')
+        out('/O ('+escape(@O<value)+')')
+        out('/U ('+escape(@Uvalue)+')')
+        out('/P '+@Pvalue)
+  end
+
+
   def putinfo
     out('/Producer '+textstring('Ruby FPDF '+FPDF_VERSION));
     unless @title.nil?
@@ -1387,6 +1469,10 @@ class FPDF
     out('/Size '+(@n+1).to_s)
     out('/Root '+@n.to_s+' 0 R')
     out('/Info '+(@n-1).to_s+' 0 R')
+       if @encrypted 
+           out('/Encrypt '+@enc_obj_id+' 0 R')
+           out('/ID [()()]')
+       end
   end
 
   def enddoc
@@ -1599,17 +1685,32 @@ class FPDF
     return a[0]
   end
 
+
   def textstring(s)
+    if @encrypted
+      s = RC4(objectKey(@n), s)
+    end
+    
     # Format a text string
-    '('+escape(s)+')'
+    '('+escape (s)+')'
   end
 
-  def escape(s)
+
+  def escape_old(s)
     # Add \ before \, ( and )
     s.gsub('\\','\\\\').gsub('(','\\(').gsub(')','\\)')
   end
 
+    # Escape special characters
+  def escape(s)
+    s.gsub('\\','\\\\').gsub('(','\\(').gsub(')','\\)').gsub!("\r",'\\r')
+  end
+
   def putstream(s)
+    if @encrypted 
+      s=RC4(objectkey(n), s)
+    end
+       
     out('stream')
     out(s)
     out('endstream')
@@ -1623,6 +1724,100 @@ class FPDF
       @buffer=@buffer+s.to_s+"\n"
     end
   end
+
+
+# RC4 is the standard encryption algorithm used in PDF format
+  def RC4(key, text)
+    
+    if (@last_rc4_key != key) 
+     
+      k=''
+      k=key*((256/(key.length)+1).to_i)
+      rc4 = []
+      256.times { |x| rc4<<x } 
+      
+      j = 0
+
+      256.times do |i|
+        t = rc4[i]
+        
+        j = (j + t + k[i]).to_i % 256
+        rc4[i] = rc4[j]
+        rc4[j] = t
+      end
+      @last_rc4_key = key
+      @last_rc4_key_c = rc4
+    else 
+      rc4 = @last_rc4_key_c
+    end
+    puts "Text:"+text.to_s
+    len = text.length
+    a = 0
+    b = 0
+    out = ''
+    len.times do |i|
+      a = (a+1)%256
+      t= rc4[a]
+      b = (b+t)%256
+      rc4[a] = rc4[b]
+      rc4[b] = t
+      k = rc4[(rc4[a]+rc4[b])%256]
+      puts "k:"+k.to_s
+     puts "Text[i]:"+text[i].to_s
+     # out+=(text[i].power! k).chr
+    end
+    
+    return out
+  end
+
+
+ #Get MD5 as binary string
+ def Md5_16(string)
+   #puts string
+   return (Digest::MD5.hexdigest(string)).to_a.pack('H*')
+ end
+
+
+ 
+#
+# Compute O value
+#
+ def Ovalue(user_pass, owner_pass)
+   
+   tmp = Md5_16(owner_pass)
+  #puts "tmp:"+tmp.to_s
+   owner_RC4_key = tmp[0..5]
+   #puts "owner:"+owner_RC4_key.to_s
+   return RC4(owner_RC4_key, user_pass)
+    end
+
+    
+    # Compute U value
+    #
+    def Uvalue()
+    
+        return RC4(@encryption_key, @padding)
+    end
+
+
+#
+#Compute encryption key
+#
+def GenerateEncryptionKey(user_pass, owner_pass, protection)
+ #Pad passwords
+  user_pass = user_pass+@padding[0..32]
+  owner_pass = owner_pass+@padding[0..32]
+  # Compute O value
+   @Ovalue = Ovalue(user_pass,owner_pass)
+  # Compute encryption key
+   tmp = Md5_16(user_pass+@Ovalue+(protection.chr)+"\xFF\xFF\xFF")
+        @encryption_key = tmp[0..5]
+        #Compute U value
+        @Uvalue = Uvalue()
+        #Compute P value
+        @Pvalue = -((protection^255)+1)
+end
+
 
   # jpeg marker codes
 
@@ -1704,7 +1899,7 @@ class FPDF
     end
   end
 
-
+  alias_method :set_protection      , :SetProtection
   alias_method :set_margins         , :SetMargins
   alias_method :get_margins         , :GetMargins
   alias_method :set_left_margin     , :SetLeftMargin
