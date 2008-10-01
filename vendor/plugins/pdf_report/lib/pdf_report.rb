@@ -11,9 +11,10 @@ module PdfReport
   module ClassMethods
     
     require 'rexml/document'
-    include REXML
     require 'digest/md5'
-    require 'rfpdf'
+    require 'fpdf'
+
+    include REXML
     
 
     #List of constants for identify the balises
