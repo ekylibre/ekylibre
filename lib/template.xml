@@ -15,7 +15,8 @@
       <image x="2" y="10" width="50" height="50" src="/usr/share/gnome/help/gnomine/fr/figures/easy-hints-1.png"/>
     </block>
     <block type="footer">
-      <rule x="2" y="0" width="206" height="1"/>
+      <line x1="2" y1="0" x2="208" y2="55" border-color="#F00" />
+      <line x1="2" y1="55" x2="208" y2="0"/>
       <text x="2" y="2" width="206" height="5" align="C">Facture FOOTER {PAGENO}/{PAGENB}</text>
       <image x="2" y="10" width="50" height="50" src="/usr/share/gnome/help/gnomine/fr/figures/easy-hints-2.png"/>
     </block>
@@ -28,7 +29,7 @@
         <text x="2" y="20" width="100" height="5" align="L" if="#{loop1.usesuper}" decoration="underline">C'est un superutilisateur</text>
         <text x="2" y="40" width="100" height="5" align="C">Blabla on est le {CURRENT_DATE} et plus précisément le {CURRENT_TIMESTAMP}</text>
         <text x="2" y="60" width="100" height="5" align="R" style="italic">Blabla</text>
-        <rule x="2" y="80" width="206" height="1"/>
+        <line x1="2" y1="80" x2="208" y2="81" height="1"/>
       </block>
       <loop name="loop2" query="SELECT schemaname,tablename FROM pg_tables WHERE tableowner=#{loop1.usename}" if="#{loop1.usename}!='postgres'">
         <block name="details">
@@ -39,16 +40,16 @@
         <text x="2" y="2" width="100" height="5" align="C">Blabla, ceci est son ID système : #{loop1.usesysid}</text>
         <text x="50" y="20" width="100" height="5" align="L" if="#{loop1.usesuper}" decoration="underline">C'est un superutilisateur</text>
         <text x="150" y="40" width="100" height="5" align="C">Blabla on est le {CURRENT_DATE:%e %B %Y} et plus précisément le {CURRENT_TIMESTAMP:%e %B %Y à %H:%M}</text>
-        <rule x="2" y="80" width="206" height="3"/>
+        <line x1="2" y1="80" x2="208" y2="81" height="1"/>
       </block>
     </loop>
     <page-break/>
     <block name="recap">
       <text x="2" y="2" width="100" height="5" align="C" color="#F40" weight="bold" decoration="underline" style="italic" size="18">Un bon exemple</text>
       <text x="2" y="20" width="100" height="5" align="C">Blabla</text>
-      <rule x="2" y="40" width="206" height="1" color="#1245EF"/>
+      <line x1="2" y1="40" x2="208" y2="41" height="1" color="#1245EF"/>
       <rectangle x="20" y="60" width="170" height="50" border-width="2" border-color="#04F" background-color="#FFD" radius="15"/>
-      <rule x="2" y="0" width="206" height="1"/>
+      <line x1="2" y1="0" x2="208" y2="1"/>
     </block>
   </loop>
 </template>

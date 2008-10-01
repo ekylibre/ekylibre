@@ -353,7 +353,7 @@ module PdfReport
       border_color=attrs['border-color']||options[:defaults]['border-color']
       border_width=attrs['border-width']||options[:defaults]['border-width']
       code+=options[:pdf]+".set_draw_color("+color_to_rvb(border_color)+")\n"
-      code+=options[:pdf]+".set_line_width("+attrs['height']+")\n"
+      code+=options[:pdf]+".set_line_width("+border_width.to_s+")\n"
       code+=options[:pdf]+".line("+attrs['x1']+","+options[:block_y]+"+"+attrs['y1']+","+
         attrs['x2']+","+options[:block_y]+"+"+attrs['y2']+")\n"
       code.to_s
