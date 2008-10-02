@@ -121,10 +121,10 @@ class FPDF
     @ws=0
     @offsets=[]
       
-    # variables for encryption processus
+    ##
+ # variables for encryption processus
     @encryption_key
     @encrypted=''          #whether document is protected
-    
     @Uvalue=''             #U entry in pdf document
     @Ovalue=''             #O entry in pdf document
     @Pvalue=''             #P entry in pdf document
@@ -197,6 +197,7 @@ class FPDF
   end
 
   
+  ##
     # Function to set permissions as well as user and owner passwords
     #
     # - permissions is an array with values taken from the following list:
@@ -216,18 +217,15 @@ class FPDF
     end
     
     #        owner_pass = uniqid(rand()) if owner_pass.nil?
-    owner_pass = Digest::SHA256.hexdigest(rand.to_s+Time.now.to_s) if owner_pass.nil?
+    #owner_pass = Digest::SHA256.hexdigest(rand.to_s+Time.now.to_s) if owner_pass.nil?
     @encrypted = true
-    GenerateEncryptionKey(user_pass, owner_pass, protection)
+        GenerateEncryptionKey(protection)
+ #    GenerateEncryptionKey(user_pass, owner_pass, protection)
   end
   
     
- 
-
-    
-   
   
-    def GetHeightPage()
+      def GetHeightPage()
       return @fhPt
     end
 
@@ -1377,15 +1375,12 @@ class FPDF
 
    
     # Compute key depending on object number where the encrypted data is stored
-  def objectKey(n)
-    return (Md5_16(@encryption_key+(n.pack('VXxx'))))[0..10]
+  def objectkey(n)
+    #puts n
+    return (Md5_16(@encryption_key+([n].pack('VXxx'))))[0..10]
     end
 
- 
-  
-
-
-
+##
   def putresources
     putfonts
     putimages
@@ -1397,25 +1392,27 @@ class FPDF
     out('>>')
     out('endobj')
  
-    if @encrypted
-            newobj()
-            @enc_obj_id = @n
-            out('<<')
-            putencryption()
-            out('>>')
-            out('endobj')
+     if @encrypted
+             newobj()
+             @enc_obj_id = @n
+             out('<<')
+            
+       putencryption()
+             out('>>')
+             out('endobj')
         end
 
  end
   
+  ##
   def putencryption()
-    
+
         out('/Filter /Standard')
         out('/V 1')
         out('/R 2')
-        out('/O ('+escape(@O<value)+')')
-        out('/U ('+escape(@Uvalue)+')')
-        out('/P '+@Pvalue)
+       # out('/O ('+escape(@Ovalue).to_s+')')
+       # out('/U ('+escape(@Uvalue).to_s+')')
+        out('/P '+@Pvalue.to_s)
   end
 
 
@@ -1465,14 +1462,15 @@ class FPDF
     out('%PDF-'+@PDFVersion)
   end
 
+  ##
   def puttrailer
     out('/Size '+(@n+1).to_s)
     out('/Root '+@n.to_s+' 0 R')
     out('/Info '+(@n-1).to_s+' 0 R')
-       if @encrypted 
-           out('/Encrypt '+@enc_obj_id+' 0 R')
-           out('/ID [()()]')
-       end
+       #if @encrypted 
+        #   out('/Encrypt '+@enc_obj_id.to_s+' 0 R')
+         #  out('/ID [()()]')
+       #end
   end
 
   def enddoc
@@ -1550,6 +1548,7 @@ class FPDF
     @state=1
   end
   
+##
   def newobj
     # Begin a new object
     @n=@n+1
@@ -1687,12 +1686,12 @@ class FPDF
 
 
   def textstring(s)
-    if @encrypted
-      s = RC4(objectKey(@n), s)
-    end
+    #if @encrypted
+     # s = RC4(objectkey(@n), s)
+    #end
     
     # Format a text string
-    '('+escape (s)+')'
+    out('('+escape(s).to_s+')')
   end
 
 
@@ -1707,9 +1706,9 @@ class FPDF
   end
 
   def putstream(s)
-    if @encrypted 
-      s=RC4(objectkey(n), s)
-    end
+   # if @encrypted 
+    #  s=RC4(objectkey(@n), s)
+    #end
        
     out('stream')
     out(s)
@@ -1725,14 +1724,16 @@ class FPDF
     end
   end
 
-
+##
 # RC4 is the standard encryption algorithm used in PDF format
   def RC4(key, text)
     
     if (@last_rc4_key != key) 
      
       k=''
-      k=key*((256/(key.length)+1).to_i)
+     
+      k=key*(256/key.length+1)
+      #puts k
       rc4 = []
       256.times { |x| rc4<<x } 
       
@@ -1740,8 +1741,7 @@ class FPDF
 
       256.times do |i|
         t = rc4[i]
-        
-        j = (j + t + k[i]).to_i % 256
+        j = (j + t + k[i]) % 256
         rc4[i] = rc4[j]
         rc4[j] = t
       end
@@ -1750,7 +1750,7 @@ class FPDF
     else 
       rc4 = @last_rc4_key_c
     end
-    puts "Text:"+text.to_s
+    
     len = text.length
     a = 0
     b = 0
@@ -1762,15 +1762,13 @@ class FPDF
       rc4[a] = rc4[b]
       rc4[b] = t
       k = rc4[(rc4[a]+rc4[b])%256]
-      puts "k:"+k.to_s
-     puts "Text[i]:"+text[i].to_s
-     # out+=(text[i].power! k).chr
+      out+=(text[i]^k).chr
     end
     
     return out
   end
 
-
+##
  #Get MD5 as binary string
  def Md5_16(string)
    #puts string
@@ -1778,7 +1776,7 @@ class FPDF
  end
 
 
- 
+## 
 #
 # Compute O value
 #
@@ -1791,7 +1789,7 @@ class FPDF
    return RC4(owner_RC4_key, user_pass)
     end
 
-    
+    ##
     # Compute U value
     #
     def Uvalue()
@@ -1799,21 +1797,23 @@ class FPDF
         return RC4(@encryption_key, @padding)
     end
 
-
-#
+##
+    #
 #Compute encryption key
 #
-def GenerateEncryptionKey(user_pass, owner_pass, protection)
+def GenerateEncryptionKey(protection)
+#def GenerateEncryptionKey(user_pass, owner_pass, protection)
  #Pad passwords
-  user_pass = user_pass+@padding[0..32]
-  owner_pass = owner_pass+@padding[0..32]
+  #user_pass = user_pass+@padding[0..32]
+  #owner_pass = owner_pass+@padding[0..32]
   # Compute O value
-   @Ovalue = Ovalue(user_pass,owner_pass)
+  # @Ovalue = Ovalue(user_pass,owner_pass)
   # Compute encryption key
-   tmp = Md5_16(user_pass+@Ovalue+(protection.chr)+"\xFF\xFF\xFF")
+ tmp = Md5_16(protection.chr+"\xFF\xFF\xFF")
+#   tmp = Md5_16(user_pass+@Ovalue+(protection.chr)+"\xFF\xFF\xFF")
         @encryption_key = tmp[0..5]
         #Compute U value
-        @Uvalue = Uvalue()
+       # @Uvalue = Uvalue()
         #Compute P value
         @Pvalue = -((protection^255)+1)
 end

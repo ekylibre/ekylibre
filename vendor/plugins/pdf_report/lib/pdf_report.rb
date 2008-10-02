@@ -56,7 +56,7 @@ module PdfReport
       code ='def render_report_'+options[:name]+"("+options[:id]+")\n"
       code+=options[:now]+"=Time.now\n"
       code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
-      code+=options[:pdf]+".set_protection(['print'])\n"
+      code+=options[:pdf]+".set_protection(['modify'])\n"
       code+=options[:pdf]+".alias_nb_pages('[PAGENB]')\n"
       code+=options[:available_height]+"="+(format_height(options[:format],options[:unit])-options['margin_top']-options['margin_bottom']).to_s+"\n"
       code+=options[:page_number]+"=1\n"

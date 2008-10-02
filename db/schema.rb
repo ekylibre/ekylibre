@@ -827,14 +827,14 @@ ActiveRecord::Schema.define(:version => 20080819191919) do
   add_foreign_key "entity_natures", ["created_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "entity_natures_created_by_fkey"
   add_foreign_key "entity_natures", ["updated_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "entity_natures_updated_by_fkey"
 
+  add_foreign_key "entries", ["record_id"], "journal_records", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "entries_record_id_fkey"
+  add_foreign_key "entries", ["account_id"], "accounts", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "entries_account_id_fkey"
+  add_foreign_key "entries", ["currency_id"], "currencies", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "entries_currency_id_fkey"
   add_foreign_key "entries", ["intermediate_id"], "bank_account_statements", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "entries_intermediate_id_fkey"
   add_foreign_key "entries", ["statement_id"], "bank_account_statements", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "entries_statement_id_fkey"
   add_foreign_key "entries", ["company_id"], "companies", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "entries_company_id_fkey"
   add_foreign_key "entries", ["created_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "entries_created_by_fkey"
   add_foreign_key "entries", ["updated_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "entries_updated_by_fkey"
-  add_foreign_key "entries", ["record_id"], "journal_records", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "entries_record_id_fkey"
-  add_foreign_key "entries", ["account_id"], "accounts", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "entries_account_id_fkey"
-  add_foreign_key "entries", ["currency_id"], "currencies", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "entries_currency_id_fkey"
 
   add_foreign_key "establishments", ["company_id"], "companies", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "establishments_company_id_fkey"
   add_foreign_key "establishments", ["created_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "establishments_created_by_fkey"
@@ -859,11 +859,11 @@ ActiveRecord::Schema.define(:version => 20080819191919) do
   add_foreign_key "journal_periods", ["created_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "journal_periods_created_by_fkey"
   add_foreign_key "journal_periods", ["updated_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "journal_periods_updated_by_fkey"
 
+  add_foreign_key "journal_records", ["created_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "journal_records_created_by_fkey"
+  add_foreign_key "journal_records", ["updated_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "journal_records_updated_by_fkey"
   add_foreign_key "journal_records", ["period_id"], "journal_periods", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "journal_records_period_id_fkey"
   add_foreign_key "journal_records", ["journal_id"], "journals", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "journal_records_journal_id_fkey"
   add_foreign_key "journal_records", ["company_id"], "companies", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "journal_records_company_id_fkey"
-  add_foreign_key "journal_records", ["created_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "journal_records_created_by_fkey"
-  add_foreign_key "journal_records", ["updated_by"], "users", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "journal_records_updated_by_fkey"
 
   add_foreign_key "journals", ["nature_id"], "journal_natures", ["id"], :on_update => :cascade, :on_delete => :restrict, :name => "journals_nature_id_fkey"
   add_foreign_key "journals", ["counterpart_id"], "accounts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "journals_counterpart_id_fkey"
