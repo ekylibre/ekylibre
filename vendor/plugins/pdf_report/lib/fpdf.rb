@@ -208,22 +208,18 @@ class FPDF
   #   restriction if that password is entered
   
   #def SetProtection(permissions=[]) 
-  def SetProtection(permissions={} ,user_pass='',owner_pass=nil) 
-    options ={'print' => 4, 'modify' => 8, 'copy' => 16, 'annot-forms' => 32}
+  def SetProtection(permissions=[] ,user_pass='',owner_pass=nil) 
+    options ={:print => 4, :modify => 8, :copy => 16, :annot_forms => 32}
     protection = 192
     puts user_pass
-    permissions.each_value do |permission|
+    permissions.each do |permission|
       self.Error("Incorrect permission: #{permission}") unless defined? options[permission]
       protection += options[permission]
     end
-    
-    puts protection
-    #owner_pass = uniqid(rand()) if owner_pass.nil?
     owner_pass = Digest::SHA256.hexdigest(rand.to_s+Time.now.to_s) if owner_pass.nil?
     @encrypted = true
     
     GenerateEncryptionKey(user_pass, owner_pass, protection)
-    #GenerateEncryptionKey(protection)
   end
   
   

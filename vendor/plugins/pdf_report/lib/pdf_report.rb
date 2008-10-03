@@ -52,14 +52,14 @@ module PdfReport
       options[:now]            = 't' # timestamp NOW
       options[:id]             = 'i' # ID
       options[:depth]          = -1
+      options[:permissions] = [:copy,:print]
+
       code ='def render_report_'+options[:name]+"("+options[:id]+")\n"
       code+=options[:now]+"=Time.now\n"
       code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
-      options[:permissions]="'copy'=>'copy','print'=>'print'"
-
-      code+=options[:pdf]+".set_protection({:copy=>'copy',:print=>'print'},'123')\n"
+      code+=options[:pdf]+".set_protection(["+options[:permissions].collect{|x| ':'+x.to_s}.join(",")+"],'')\n"
       code+=options[:pdf]+".alias_nb_pages('[PAGENB]')\n"
-      code+=options[:available_height]+"="+(format_height(options[:format],options[:unit])-options['margin_top']-options['margin_bottom']).to_s+"\n"
+      code+=options[:available_height]+"="+(format_height(options[:format],options[:unit])-options['margin_top']-options['margin_bottom']).to_s+"\n"3
       code+=options[:page_number]+"=1\n"
       code+=options[:count]+"=0\n"
       code+=options[:pdf]+".set_auto_page_break(false)\n"
@@ -69,8 +69,6 @@ module PdfReport
 
       code+=options[:pdf]+".set_font('"+options[:defaults]['family']+"','',"+options[:defaults]['size'].to_s+")\n"
       code+=options[:pdf]+".set_margins(0,0)\n"
-#      code+=options[:pdf]+".set_margins(0,"+options['margin_top'].to_s+")\n"
-#      code+=options[:pdf]+".set_text_color("+color_to_rvb(styles_origin['color'])+")\n"
       code+=options[:pdf]+".add_page()\n"
       code+=options[:block_y]+"="+options['margin_top'].to_s+"\n"
       code+=options[:remaining]+"="+options[:available_height]+"\n"
@@ -442,7 +440,7 @@ module ActionController
       f=File.open("/tmp/render_report_#{digest}.rb",'wb')
       f.write(code)
       f.close
-     pdf=self.send('render_report_'+digest,id)
+      pdf=self.send('render_report_'+digest,id)
       
     end
   end
