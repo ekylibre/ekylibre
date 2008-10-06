@@ -85,11 +85,24 @@ class Beginning < ActiveRecord::Migration
     add_index :templates, :company_id
     add_index :templates, [:company_id, :name], :unique=>true
     
-		Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
+    # Report
+    create_table :reports do |t|
+      t.column :filename,               :string, :null=>false
+      t.column :template_md5,           :string, :null=>false 
+      t.column :key,                    :integer, 
+      t.column :sha256,                 :string, :null=>false
+      t.column :printed_at,             :datetime
+    end
+   
+    add_index :reports, [:filename], :unique=>true
+    
+
+    Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
 
   end
 
   def self.down
+    drop_table :reports
     drop_table :templates
     drop_table :roles
     drop_table :parameters

@@ -59,7 +59,7 @@ module PdfReport
       code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
       code+=options[:pdf]+".set_protection(["+options[:permissions].collect{|x| ':'+x.to_s}.join(",")+"],'')\n"
       code+=options[:pdf]+".alias_nb_pages('[PAGENB]')\n"
-      code+=options[:available_height]+"="+(format_height(options[:format],options[:unit])-options['margin_top']-options['margin_bottom']).to_s+"\n"3
+      code+=options[:available_height]+"="+(format_height(options[:format],options[:unit])-options['margin_top']-options['margin_bottom']).to_s+"\n"
       code+=options[:page_number]+"=1\n"
       code+=options[:count]+"=0\n"
       code+=options[:pdf]+".set_auto_page_break(false)\n"
@@ -437,11 +437,9 @@ module ActionController
       raise Exception.new("Your argument template must be a string") unless template.is_a? String
       digest=Digest::MD5.hexdigest(template)
       code=self.class.analyze_template(template, :name=>digest) unless self.methods.include? "render_report_#{digest}"
-      f=File.open("/tmp/render_report_#{digest}.rb",'wb')
-      f.write(code)
-      f.close
       pdf=self.send('render_report_'+digest,id)
-      
+      Report.register(digest,id,pdf)
+      pdf
     end
   end
 end

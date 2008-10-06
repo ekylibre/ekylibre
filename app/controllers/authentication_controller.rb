@@ -5,7 +5,7 @@ class AuthenticationController < ApplicationController
   end
   
   def test
-    send_data render_report(Template.find(params[:id]).content, 1), :filename=>'enfin'+params[:id].to_s+'.pdf'
+    send_data render_report(Template.find(params[:id]).content, 1), :filename=>'private/r_'+params[:id].to_s+'.pdf'
   end
 
   def login
