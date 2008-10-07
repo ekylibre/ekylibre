@@ -4,8 +4,13 @@ class AuthenticationController < ApplicationController
     redirect_to :action=>:login
   end
   
-  def test
-    send_data render_report(Template.find(params[:id]).content, 1), :filename=>'private/r_'+params[:id].to_s+'.pdf'
+  def retrieve
+    retrieve_report(params[:id])
+  end
+
+  def render
+    render_report(params[:id])
+    
   end
 
   def login

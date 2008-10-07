@@ -16,9 +16,7 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
 
-
-
-	protected  
+  protected  
 
   def render_form(options={})
     a = action_name.split '_'
@@ -31,6 +29,13 @@ class ApplicationController < ActionController::Base
     rescue ActionController::DoubleRenderError
     end
   end  
+  
+  # this function tries to find the file matching to the ID passing in parameter and launch a download of it. 
+  def retrieve_report(id)
+   report=Report.find(:all, :condition=>['id = ?', id])||false
+   report.original_name||false 
+  end
+  
 
   private
   

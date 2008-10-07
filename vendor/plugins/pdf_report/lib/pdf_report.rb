@@ -79,7 +79,7 @@ module PdfReport
       code+="end" 
 
       module_eval(code)
-      code
+      return code,document_root.attributes['title']||false
     end
     
     #
@@ -97,7 +97,7 @@ module PdfReport
       FPDF.format(format,coefficient)[1].to_f/coefficient
     end
     
-    # this function test if the balise info exists in the template and add it in the code	
+    # this function test if the balise info exists in the template and adds it in the code	
     def analyze_infos(infos,options={})
       code=''
       infos.each_element(XRL_INFO) do |info|
@@ -163,9 +163,6 @@ module PdfReport
           unless element.attributes['if'].nil?
             condition=element.attributes['if']
             query = 'SELECT ('+condition+')::BOOLEAN AS x'
-#            query = 
-#            condition.gsub!("'","\\\\'")
-#            options[:fields].each{ |f| condition.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'")}
             code+="if c.select_one(\'"+clean_string(query, options,true)+"\')[\"x\"]==\"t\"\n"
           end
           
@@ -432,14 +429,20 @@ ActionController::Base.send :include, PdfReport
 
 module ActionController
   class Base
+    
+    EXTENSION='pdf'
+
     # this function looks for a method render_report_template and calls analyse_template if not.
-    def render_report(template, id)
+    #def render_report(template, id)
+    def render_report(id) 
+      template=Template.find(id).content
+      puts template
       raise Exception.new("Your argument template must be a string") unless template.is_a? String
       digest=Digest::MD5.hexdigest(template)
-      code=self.class.analyze_template(template, :name=>digest) unless self.methods.include? "render_report_#{digest}"
+      result=self.class.analyze_template(template, :name=>digest) unless self.methods.include? "render_report_#{digest}"
       pdf=self.send('render_report_'+digest,id)
-      Report.register(digest,id,pdf)
-      pdf
+      Report.register(digest,id,pdf,result[1],EXTENSION)
+      
     end
   end
 end

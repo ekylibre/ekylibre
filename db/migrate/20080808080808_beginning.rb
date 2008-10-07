@@ -88,13 +88,14 @@ class Beginning < ActiveRecord::Migration
     # Report
     create_table :reports do |t|
       t.column :filename,               :string, :null=>false
+      t.column :original_name,          :string, :null=>false
       t.column :template_md5,           :string, :null=>false 
-      t.column :key,                    :integer, 
+      t.column :key,                    :integer 
       t.column :sha256,                 :string, :null=>false
       t.column :printed_at,             :datetime
     end
    
-    add_index :reports, [:filename], :unique=>true
+    add_index :reports, [:filename, :original_name], :unique=>true
     
 
     Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
