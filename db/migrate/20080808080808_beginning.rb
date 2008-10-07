@@ -87,7 +87,7 @@ class Beginning < ActiveRecord::Migration
     
     # Report
     create_table :reports do |t|
-      t.column :filename,               :string, :null=>false
+      t.column :filename,               :string 
       t.column :original_name,          :string, :null=>false
       t.column :template_md5,           :string, :null=>false 
       t.column :key,                    :integer 
