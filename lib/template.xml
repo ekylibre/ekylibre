@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 
 <template title="Example" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="10">
+  <title query="select usename from pg_user where usename='vincent' ">#{title.usename}</title>
   <infos>
     <info type="created-on">04/09/2008</info>
   </infos>
   <loop name="loop0">
     <block type="header" mode="even">
-      <text x="2" y="2" width="206" height="5" align="L">Facture EVEN {ID}</text>
+      <text x="2" y="2" width="206" height="5" align="L">Facture EVEN {KEY}</text>
       <image x="160" y="10" width="50" height="50" src="/usr/share/gnome/help/gnomine/fr/figures/easy-hints-1.png"/>
     </block>
     <block type="header" mode="odd">

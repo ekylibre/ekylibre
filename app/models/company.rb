@@ -20,6 +20,9 @@
 class Company < ActiveRecord::Base
   has_many :users
 
+  PRIVATE='private/'
+  REPORTS='reports/'
+  
   def before_validation
     self.code = name[0..7].simpleize if code.blank?
     self.code = rand.to_s[2..100].to_i.to_s(36)[0..7] if code.blank?
@@ -39,6 +42,22 @@ class Company < ActiveRecord::Base
     self.departments.create(:name=>lc(:default_department_name))
     self.establishments.create(:name=>lc(:default_establishment_name), :nic=>"00000")
   end
+
+  # this function saves the pdf document genererated by the function render_report in the table reports in the database
+  def register_report(template_md5,key,binary,title)
+    Dir.mkdir(PRIVATE+REPORTS) unless File.directory? PRIVATE+REPORTS 
+    
+    binary_digest=Digest::SHA256.hexdigest(binary)
+    
+    unless Report.exists?(["template_md5 = ? AND key = ?", template_md5, key])
+      report=Report.create!(:key=>key,:template_md5=>template_md5,:sha256=>binary_digest, :original_name=>title, :printed_at=>Time.now,:company_id=>self.id)
+      report.filename=PRIVATE+REPORTS+report.id.to_s
+      report.save!
+      
+    end
+    
+  end
+
 
   def parameter(name)
     parameter = Parameter.find_by_name_and_company_id(name,self.id)

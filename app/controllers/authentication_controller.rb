@@ -5,12 +5,11 @@ class AuthenticationController < ApplicationController
   end
   
   def retrieve
-    retrieve_report(params[:id])
+     retrieve_report(params[:id])
   end
 
   def render
     render_report(params[:id])
-    
   end
 
   def login

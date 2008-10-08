@@ -18,6 +18,7 @@ module PdfReport
 
     #List of constants for identify the balises
     XRL_TEMPLATE='template'
+    XRL_TITLE='title'
     XRL_LOOP='loop'
     XRL_INFOS='infos'
     XRL_INFO='info'
@@ -51,11 +52,13 @@ module PdfReport
       options[:pdf]            = 'p' # FPDF object
       options[:now]            = 't' # timestamp NOW
       options[:id]             = 'i' # ID
+      options[:title]          = 'title'  # title of the document
       options[:depth]          = -1
       options[:permissions] = [:copy,:print]
-
+      
       code ='def render_report_'+options[:name]+"("+options[:id]+")\n"
       code+=options[:now]+"=Time.now\n"
+      
       code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
       code+=options[:pdf]+".set_protection(["+options[:permissions].collect{|x| ':'+x.to_s}.join(",")+"],'')\n"
       code+=options[:pdf]+".alias_nb_pages('[PAGENB]')\n"
@@ -75,11 +78,13 @@ module PdfReport
       code+="c=ActiveRecord::Base.connection\n"
       code+=analyze_infos(document_root.elements[XRL_INFOS],options) if document_root.elements[XRL_INFOS]
       code+=analyze_loop(document_root.elements[XRL_LOOP],options) if document_root.elements[XRL_LOOP]
-      code+=options[:pdf]+".Output()\n"
+      code+=analyze_title(document_root.elements[XRL_TITLE], options)
+      code+="return '"+options[:title]+"',"+options[:pdf]+".Output() \n"
+      code+=options[:pdf]+".Output() \n"
       code+="end" 
 
       module_eval(code)
-      return code,document_root.attributes['title']||false
+      return code#||Exception.new('An error was occured during the generation of the function render_report.')
     end
     
     #
@@ -113,6 +118,29 @@ module PdfReport
       code.to_s
     end
     
+
+    # this function test if the balise title exists in the template and adds it in the code	
+    def analyze_title(title,options={})
+      code=''
+      query = title.attributes['query']
+      result=[]
+      options[:fields]={} if options[:fields].nil?
+      
+      if query=~/^SELECT\ [^;]*$/i
+        query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each do |s|
+          options[:fields]['title'+'.'+s.downcase.strip] = 'title'+"[\""+s.downcase.strip+"\"].to_s" 
+        end
+        
+        code+=result+"=c.select_one(\\'"+clean_string(query, options,true)+"\\')\n"
+        code+=options[:title]+"="+(title.text).gsub!("'","\\\\'")+'\n'
+        code+=options[:title]+"="+options[:fields].each{|f| options[:title].gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'")}+'\n'
+        
+      end  
+      
+        code.to_s
+    end
+    
+
     # this function 	
     def analyze_loop(loop, options={})
       options[:depth] += 1
@@ -138,7 +166,7 @@ module PdfReport
           end
           code+="for "+result+" in c.select_all('"+clean_string(query,options,true)+"')\n" 
         else
-          raise Exception.new("Invalid SQL query. May be there is an SQL injection.")
+          raise Exception.new("Invalid SQL query. Maybe there is an SQL injection.")
         end
       else
         code+=result+"=[]\n"
@@ -408,12 +436,13 @@ module PdfReport
             format=str.split(':')[1]
           end
           string.gsub!("{"+str+"}",'\'+'+options[:now]+'.strftime(\''+format+'\')+\' ')
-        elsif str=~/ID/
+        elsif str=~/KEY/
           string.gsub!("{"+str+"}",'\'+'+options[:id]+'.to_s+\'')
         elsif str=~/PAGENO/
           string.gsub!("{"+str+"}",'\'+'+options[:page_number]+'.to_s+\'')
         elsif str=~/PAGENB/
           string.gsub!("{"+str+"}",'[PAGENB]')
+        
         end
       end
       Iconv.iconv('ISO-8859-15','UTF-8',string).to_s
@@ -430,18 +459,23 @@ ActionController::Base.send :include, PdfReport
 module ActionController
   class Base
     
-    EXTENSION='pdf'
+    PRIVATE='private/'
+    REPORTS='reports/'
+
 
     # this function looks for a method render_report_template and calls analyse_template if not.
-    #def render_report(template, id)
+
     def render_report(id) 
       template=Template.find(id).content
-      puts template
       raise Exception.new("Your argument template must be a string") unless template.is_a? String
       digest=Digest::MD5.hexdigest(template)
       result=self.class.analyze_template(template, :name=>digest) unless self.methods.include? "render_report_#{digest}"
-      pdf=self.send('render_report_'+digest,id)
-      Report.register(digest,id,pdf,result[1],EXTENSION)
+      title,pdf=self.send('render_report_'+digest,id)
+      puts title
+      # @current_company.register_report(digest,id,pdf,title)
+      Report.register(digest,id,1,pdf,title)      
+
+      #send_data pdf, :filename=>PRIVATE+REPORTS+report_id.to_s+EXTENSION 
       
     end
   end

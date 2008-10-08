@@ -69,8 +69,8 @@ class Beginning < ActiveRecord::Migration
     # Role
     create_table :roles do |t|
       t.column :name,                   :string,   :null=>false
-      t.column :company_id,             :integer,  :null=>false, :references=>:companies
       t.column :actions,                :text,     :null=>false, :default=>'  '
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
     add_index :roles, :company_id
     add_index :roles, [:company_id, :name], :unique=>true
@@ -93,9 +93,10 @@ class Beginning < ActiveRecord::Migration
       t.column :key,                    :integer 
       t.column :sha256,                 :string, :null=>false
       t.column :printed_at,             :datetime
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
    
-    add_index :reports, [:filename, :original_name], :unique=>true
+    add_index :reports, [:sha256], :unique=>true
     
 
     Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')

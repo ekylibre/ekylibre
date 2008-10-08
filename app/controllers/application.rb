@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  before_filter :authorize, :except=>[:login, :register, :test]
+  before_filter :authorize, :except=>[:login, :register, :render, :retrieve]
   attr_accessor :current_user
   attr_accessor :current_company
   
@@ -47,6 +47,7 @@ class ApplicationController < ActionController::Base
       session[:actions] = @current_user.role.actions_array
       if session[:last_query].to_i<Time.now.to_i-3600
         flash[:error] = lc :expired_session
+
         if controller_name.to_s!='authentication'
           session[:last_controller] = controller_name 
           session[:last_action]     = action_name
