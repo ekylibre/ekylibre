@@ -51,12 +51,13 @@ module PdfReport
       options[:count]          = 'm' # block_number in the current page
       options[:pdf]            = 'p' # FPDF object
       options[:now]            = 't' # timestamp NOW
-      options[:id]             = 'i' # ID
-      options[:title]          = 'title'  # title of the document
+      options[:key]            = 'k' # ID
+      options[:title]          = 'l' # title of the document
+      options[:temp]           = 'r' # temporary variable
       options[:depth]          = -1
       options[:permissions] = [:copy,:print]
       
-      code ='def render_report_'+options[:name]+"("+options[:id]+")\n"
+      code ='def render_report_'+options[:name]+"("+options[:key]+")\n"
       code+=options[:now]+"=Time.now\n"
       
       code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
@@ -76,15 +77,20 @@ module PdfReport
       code+=options[:block_y]+"="+options['margin_top'].to_s+"\n"
       code+=options[:remaining]+"="+options[:available_height]+"\n"
       code+="c=ActiveRecord::Base.connection\n"
+      code+=analyze_title(document_root.elements[XRL_TITLE], options) if document_root.elements[XRL_TITLE]
       code+=analyze_infos(document_root.elements[XRL_INFOS],options) if document_root.elements[XRL_INFOS]
       code+=analyze_loop(document_root.elements[XRL_LOOP],options) if document_root.elements[XRL_LOOP]
-      code+=analyze_title(document_root.elements[XRL_TITLE], options)
+     
+      
+      #code+=options[:pdf]+".Output() \n"
       code+="return '"+options[:title]+"',"+options[:pdf]+".Output() \n"
-      code+=options[:pdf]+".Output() \n"
-      code+="end" 
-
+ 
+      code+="end\n" 
+ 
       module_eval(code)
-      return code#||Exception.new('An error was occured during the generation of the function render_report.')
+ 
+      code
+    
     end
     
     #
@@ -123,21 +129,22 @@ module PdfReport
     def analyze_title(title,options={})
       code=''
       query = title.attributes['query']
-      result=[]
-      options[:fields]={} if options[:fields].nil?
-      
+     
       if query=~/^SELECT\ [^;]*$/i
+        result=options[:temp]
+        options[:fields]={} if options[:fields].nil?
         query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each do |s|
-          options[:fields]['title'+'.'+s.downcase.strip] = 'title'+"[\""+s.downcase.strip+"\"].to_s" 
+          options[:fields][result+'.'+s.downcase.strip] = result+"[\""+s.downcase.strip+"\"].to_s" 
         end
+       
+        code+=result+"=c.select_one(\'"+clean_string(query, options,true)+"\')\n"
         
-        code+=result+"=c.select_one(\\'"+clean_string(query, options,true)+"\\')\n"
-        code+=options[:title]+"="+(title.text).gsub!("'","\\\\'")+'\n'
-        code+=options[:title]+"="+options[:fields].each{|f| options[:title].gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'")}+'\n'
-        
-      end  
-      
+      end
+              
+        code+=options[:title]+"='"+clean_string(title.text,options)+"'\n"
+               
         code.to_s
+    
     end
     
 
@@ -437,7 +444,9 @@ module PdfReport
           end
           string.gsub!("{"+str+"}",'\'+'+options[:now]+'.strftime(\''+format+'\')+\' ')
         elsif str=~/KEY/
-          string.gsub!("{"+str+"}",'\'+'+options[:id]+'.to_s+\'')
+          string.gsub!("{"+str+"}",'\'+'+options[:key]+'.to_s+\'')
+        elsif str=~/TITLE/
+          string.gsub!("{"+str+"}",'\'+'+options[:title]+'.to_s+\'')
         elsif str=~/PAGENO/
           string.gsub!("{"+str+"}",'\'+'+options[:page_number]+'.to_s+\'')
         elsif str=~/PAGENB/
@@ -459,10 +468,7 @@ ActionController::Base.send :include, PdfReport
 module ActionController
   class Base
     
-    PRIVATE='private/'
-    REPORTS='reports/'
-
-
+   
     # this function looks for a method render_report_template and calls analyse_template if not.
 
     def render_report(id) 
@@ -471,11 +477,15 @@ module ActionController
       digest=Digest::MD5.hexdigest(template)
       result=self.class.analyze_template(template, :name=>digest) unless self.methods.include? "render_report_#{digest}"
       title,pdf=self.send('render_report_'+digest,id)
+      f=File.open('/tmp/filepdf','wb')
+      f.write(result)
+      f.close()
       puts title
       # @current_company.register_report(digest,id,pdf,title)
-      Report.register(digest,id,1,pdf,title)      
-
-      #send_data pdf, :filename=>PRIVATE+REPORTS+report_id.to_s+EXTENSION 
+      Report.register(digest,id,pdf,title)      
+      
+      send_data pdf, :filename=>title
+ 
       
     end
   end

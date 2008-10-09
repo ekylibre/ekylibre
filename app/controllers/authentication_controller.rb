@@ -8,8 +8,9 @@ class AuthenticationController < ApplicationController
      retrieve_report(params[:id])
   end
 
-  def render
+  def render_f
     render_report(params[:id])
+    
   end
 
   def login

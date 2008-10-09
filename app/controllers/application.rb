@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  before_filter :authorize, :except=>[:login, :register, :render, :retrieve]
+  before_filter :authorize, :except=>[:login, :register, :render_f, :retrieve]
   attr_accessor :current_user
   attr_accessor :current_company
   
