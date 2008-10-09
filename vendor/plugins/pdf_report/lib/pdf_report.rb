@@ -28,9 +28,12 @@ module PdfReport
     XRL_LINE='line'
     XRL_PAGEBREAK='page-break'
     XRL_RECTANGLE='rectangle'
-
-    ORIENTATION = {:portrait=>'P', :landscape=>'L'}
     
+    ORIENTATION={:portrait=>'P', :landscape=>'L'}
+       
+    PRIVATE='private/'
+    REPORTS='reports/'
+
     # this function begins to analyse the template extracting the main characteristics of
     # the Pdf document as the title, the orientation, the format, the unit ... 
     def analyze_template(template, options={})
@@ -38,8 +41,11 @@ module PdfReport
       document_root=document.root
       
       raise Exception.new("Only SQL") unless document_root.attributes['query-standard']||'sql' == 'sql'
+     
       options[:orientation] = (document_root.attributes['orientation'] || ORIENTATION.to_a[0][0]).to_sym
+      
       raise Exception.new("Bad orientation in the template") unless ORIENTATION.include? options[:orientation]
+      
       options[:unit]           = attribute(document_root, :unit, 'mm')
       options[:format]         = attribute(document_root, :format, 'A4')
       options['margin_top']    = attribute(document_root, 'margin-top', 5).to_f
@@ -53,10 +59,11 @@ module PdfReport
       options[:now]            = 't' # timestamp NOW
       options[:key]            = 'k' # ID
       options[:title]          = 'l' # title of the document
-      options[:temp]           = 'r' # temporary variable
+      options[:temp]           = XRL_TITLE # temporary variable
       options[:depth]          = -1
-      options[:permissions] = [:copy,:print]
-      
+      options[:permissions]    = [:copy,:print]
+      options[:file]           = 'f'
+
       code ='def render_report_'+options[:name]+"("+options[:key]+")\n"
       code+=options[:now]+"=Time.now\n"
       
@@ -81,16 +88,22 @@ module PdfReport
       code+=analyze_infos(document_root.elements[XRL_INFOS],options) if document_root.elements[XRL_INFOS]
       code+=analyze_loop(document_root.elements[XRL_LOOP],options) if document_root.elements[XRL_LOOP]
      
-      
-      #code+=options[:pdf]+".Output() \n"
-      code+="return '"+options[:title]+"',"+options[:pdf]+".Output() \n"
- 
-      code+="end\n" 
- 
-      module_eval(code)
- 
-      code
+      code+=options[:pdf]+"="+options[:pdf]+".Output() \n"
     
+      code+="Dir.mkdir('"+PRIVATE+REPORTS+"') unless File.directory? '"+PRIVATE+REPORTS+"'\n" 
+      code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
+      code+="unless Report.exists?(['template_md5 = ? AND key = ?','"+options[:name]+"',"+options[:key]+"])\n"
+      code+="report=Report.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>1)\n"
+      code+="report.filename='"+PRIVATE+REPORTS+"'+report.id.to_s\n"
+      code+="report.save!\n"
+      code+="end\n"
+      code+="send_data "+options[:pdf]+", :filename=>"+options[:title]+"\n"
+      code+="end\n" 
+    
+      module_eval(code)
+   
+      code
+   
     end
     
     #
@@ -471,22 +484,18 @@ module ActionController
    
     # this function looks for a method render_report_template and calls analyse_template if not.
 
-    def render_report(id) 
+    def render_report(id,key=nil) 
       template=Template.find(id).content
       raise Exception.new("Your argument template must be a string") unless template.is_a? String
       digest=Digest::MD5.hexdigest(template)
       result=self.class.analyze_template(template, :name=>digest) unless self.methods.include? "render_report_#{digest}"
-      title,pdf=self.send('render_report_'+digest,id)
-      f=File.open('/tmp/filepdf','wb')
+      
+      f=File.open('/tmp/test', 'wb')
       f.write(result)
       f.close()
-      puts title
-      # @current_company.register_report(digest,id,pdf,title)
-      Report.register(digest,id,pdf,title)      
-      
-      send_data pdf, :filename=>title
- 
-      
+
+      #id =retrieve_report(key,digest)
+      self.send('render_report_'+digest,key)
     end
   end
 end

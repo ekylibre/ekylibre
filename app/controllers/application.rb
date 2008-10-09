@@ -31,9 +31,9 @@ class ApplicationController < ActionController::Base
   end  
   
   # this function tries to find the file matching to the ID passing in parameter and launch a download of it. 
-  def retrieve_report(id)
-   report=Report.find(:all, :condition=>['id = ?', id])||false
-   report.original_name||false 
+  def retrieve_report(key,template_md5)
+   report=Report.find(:all, :condition=>['key = ? AND template_md5 = ? ', key, template_md5])||false
+   report.id 
   end
   
 
