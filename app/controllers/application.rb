@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  before_filter :authorize, :except=>[:login, :register, :render_f, :retrieve]
+  before_filter :authorize, :except=>[:login, :register]
   attr_accessor :current_user
   attr_accessor :current_company
   
@@ -32,11 +32,9 @@ class ApplicationController < ActionController::Base
   
   # this function tries to find the file matching to the ID passing in parameter and launch a download of it. 
   def retrieve_report(key,template_md5)
-   report=Report.find(:all, :condition=>['key = ? AND template_md5 = ? ', key, template_md5])||false
-   report.id 
+   Report.find(:all, :condition=>['key = ? AND template_md5 = ? ', key, template_md5]).id||false 
   end
   
-
   private
   
   def authorize

@@ -62,9 +62,10 @@ module PdfReport
       options[:temp]           = XRL_TITLE # temporary variable
       options[:depth]          = -1
       options[:permissions]    = [:copy,:print]
-      options[:file]           = 'f'
-
-      code ='def render_report_'+options[:name]+"("+options[:key]+")\n"
+      #options[:file]           = 'f'
+      
+      #code ='def render_report_'+options[:name]+"("+options[:key]+")\n"
+      code ='def render_report_'+options[:template_id]+"("+options[:key]+")\n"
       code+=options[:now]+"=Time.now\n"
       
       code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
@@ -89,11 +90,11 @@ module PdfReport
       code+=analyze_loop(document_root.elements[XRL_LOOP],options) if document_root.elements[XRL_LOOP]
      
       code+=options[:pdf]+"="+options[:pdf]+".Output() \n"
-    
+      puts options[:current_company]
       code+="Dir.mkdir('"+PRIVATE+REPORTS+"') unless File.directory? '"+PRIVATE+REPORTS+"'\n" 
       code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
       code+="unless Report.exists?(['template_md5 = ? AND key = ?','"+options[:name]+"',"+options[:key]+"])\n"
-      code+="report=Report.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>1)\n"
+      code+="report=Report.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+")\n"
       code+="report.filename='"+PRIVATE+REPORTS+"'+report.id.to_s\n"
       code+="report.save!\n"
       code+="end\n"
@@ -488,14 +489,17 @@ module ActionController
       template=Template.find(id).content
       raise Exception.new("Your argument template must be a string") unless template.is_a? String
       digest=Digest::MD5.hexdigest(template)
-      result=self.class.analyze_template(template, :name=>digest) unless self.methods.include? "render_report_#{digest}"
       
+      unless not defined? @current_company 
+        result=self.class.analyze_template(template, :template_id=>id, :name=>digest, :current_company=>@current_company) unless self.methods.include? "render_report_#{id}" 
+      end
+
       f=File.open('/tmp/test', 'wb')
       f.write(result)
       f.close()
 
       #id =retrieve_report(key,digest)
-      self.send('render_report_'+digest,key)
+      self.send('render_report_'+id.to_s,key)
     end
   end
 end
