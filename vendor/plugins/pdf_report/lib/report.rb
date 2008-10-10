@@ -1,7 +1,7 @@
 
 # This module groups the different methods allowing to obtain a PDF document.
 
-module PdfReport
+module Report
 
   def self.included (base)
     base.extend(ClassMethods)
@@ -476,7 +476,7 @@ module PdfReport
 end
 
 # insertion of the module in the Actioncontroller
-ActionController::Base.send :include, PdfReport
+ActionController::Base.send :include, Report
 
 
 module ActionController

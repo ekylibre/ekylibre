@@ -1,4 +1,4 @@
-class PdfReportGenerator < Rails::Generator::NamedBase
+class ReportGenerator < Rails::Generator::NamedBase
   def manifest
     record do |m|
       # m.directory "lib"

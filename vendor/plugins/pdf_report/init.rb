@@ -1,2 +1,2 @@
 # Include hook code here
-require 'pdf_report'
+require 'report'
