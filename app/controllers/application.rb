@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   attr_accessor :current_user
   attr_accessor :current_company
   
+  
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '232b3ccf31f8f5fefcbb9d2ac3a00415'

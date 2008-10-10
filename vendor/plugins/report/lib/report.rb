@@ -9,9 +9,19 @@ module Ekylibre
     end
 
     module ClassMethods
-      
-      require 'rexml/document'
-      require 'digest/md5'
+      def self.extended(base)
+         class << base
+           alias_method_chains :render, :report
+         end
+       end
+       
+       # this method is called while a report process is implied.
+       def render_with_report(options={})
+         
+       end
+       
+       require 'rexml/document'
+       require 'digest/md5'
       require 'fpdf'
 
       include REXML
