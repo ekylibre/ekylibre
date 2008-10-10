@@ -98,3 +98,6 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 /* END */
 
+.journal { margin:8px; float:left; background: #DDF; width:160px; height:200px;}
+.journal > div {  background: url(/images/template/journal.png); width:115px; height:120px; padding: 40px 27px 40px 18px; text-align:center; color: white;}
+#new-journal { background: yellow; }

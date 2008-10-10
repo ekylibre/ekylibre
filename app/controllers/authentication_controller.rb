@@ -9,12 +9,11 @@ class AuthenticationController < ApplicationController
   end
 
   def render_f
-    render_report(params[:id])
-    
+    render_report(params[:id])    
   end
 
   def login
-    @login = 'lzf'
+    @login = 'lf'
     if request.post?
 #      raise Exception.new params[:screen_width].to_s+'/'+params[:screen_width].class.to_s
       session[:body_width] = params[:screen_width].to_i-50 if params[:screen_width]
