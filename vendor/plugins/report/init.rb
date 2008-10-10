@@ -1,2 +1,1 @@
-# Include hook code here
-require 'report'
+require "#{File.dirname(__FILE__)}/lib/report"
