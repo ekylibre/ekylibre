@@ -1,7 +1,7 @@
 
 # This module groups the different methods allowing to obtain a PDF document.
 
-module Report
+module Ekylibre::Report
 
   def self.included (base)
     base.extend(ClassMethods)
@@ -476,7 +476,7 @@ module Report
 end
 
 # insertion of the module in the Actioncontroller
-ActionController::Base.send :include, Report
+ActionController::Base.send :include, Ekylibre::Report
 
 
 module ActionController
