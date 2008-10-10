@@ -2,7 +2,7 @@ Description:
     Explain the generator
 
 Example:
-    ./script/generate pdf_report Thing
+    ./script/generate report Thing
 
     This will create:
         what/will/it/create
