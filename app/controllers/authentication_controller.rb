@@ -9,7 +9,8 @@ class AuthenticationController < ApplicationController
   end
 
   def render_f
-    render_report(params[:id])    
+    render :report=>params[:id], :key=>1, :output=>pdf
+    #render_report(params[:id])    
   end
 
   def login

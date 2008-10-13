@@ -6,27 +6,18 @@ module Ekylibre
 
     def self.included (base)
       base.extend(ClassMethods)
+      
     end
 
     module ClassMethods
-      def self.extended(base)
-         class << base
-           alias_method_chains :render, :report
-         end
-       end
-       
-       # this method is called while a report process is implied.
-       def render_with_report(options={})
-         
-       end
-       
-       require 'rexml/document'
-       require 'digest/md5'
+      
+      require 'rexml/document'
+      require 'digest/md5'
       require 'fpdf'
-
+      
       include REXML
       
-
+      
       #List of constants for identify the balises
       XRL_TEMPLATE='template'
       XRL_TITLE='title'
@@ -76,7 +67,7 @@ module Ekylibre
         #options[:file]           = 'f'
         
         #code ='def render_report_'+options[:name]+"("+options[:key]+")\n"
-        code ='def render_report_'+options[:template_id]+"("+options[:key]+")\n"
+        code ='def render_report_'+options[:template_id]+"_"+options[:output]+"("+options[:key]+")\n"
         code+=options[:now]+"=Time.now\n"
         
         code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
@@ -494,16 +485,28 @@ ActionController::Base.send :include, Ekylibre::Report
 module ActionController
   class Base
     
-   
-    # this function looks for a method render_report_template and calls analyse_template if not.
+    #  def self.extended(base)  
+    #         class << self 
+    
+    #protected
+    
+    def render_with_report(options={})
+      render_report(options)
+    end
+    alias_method_chain :render, :report      
+    
+    #         end
+    #      end  
 
-    def render_report(id,key=nil) 
-      template=Template.find(id).content
+    # this function looks for a method render_report_template and calls analyse_template if not.
+    def render_report(options={}) 
+      #def render_report(id,key=nil) 
+      template=Template.find(options[:report]).content
       raise Exception.new("Your argument template must be a string") unless template.is_a? String
       digest=Digest::MD5.hexdigest(template)
       
       unless not defined? @current_company 
-        result=self.class.analyze_template(template, :template_id=>id, :name=>digest, :current_company=>@current_company) unless self.methods.include? "render_report_#{id}" 
+        result=self.class.analyze_template(template, :template_id=>options[:report], :output=>options[:output], :name=>digest, :current_company=>@current_company) unless self.methods.include? "render_report_#{id}" 
       end
 
       f=File.open('/tmp/test', 'wb')
@@ -511,10 +514,11 @@ module ActionController
       f.close()
 
       #id =retrieve_report(key,digest)
-      self.send('render_report_'+id.to_s,key)
+      self.send('render_report_'+id.to_s+'_'+options[:output],options[:key])
     end
   end
 end
+
 
 
 
