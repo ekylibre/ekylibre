@@ -99,5 +99,6 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 /* END */
 
 .journal { margin:8px; float:left; background: #DDF; width:160px; height:200px;}
-.journal > div {  background: url(/images/template/journal.png); width:115px; height:120px; padding: 40px 27px 40px 18px; text-align:center; color: white;}
+.journal > div { background: url(/images/template/journal.png); width:115px; height:120px; padding: 40px 27px 40px 18px; text-align:center; vertical-align: middle; color: white;}
 #new-journal { background: yellow; }
+#new-journal > div { background: url(/images/template/new_journal.png);}
