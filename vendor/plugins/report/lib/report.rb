@@ -59,15 +59,13 @@ module Ekylibre
         options[:count]          = 'm' # block_number in the current page
         options[:pdf]            = 'p' # FPDF object
         options[:now]            = 't' # timestamp NOW
-        options[:key]            = 'k' # ID
         options[:title]          = 'l' # title of the document
         options[:temp]           = XRL_TITLE # temporary variable
+        options[:key]          = 'k'
         options[:depth]          = -1
         options[:permissions]    = [:copy,:print]
-        #options[:file]           = 'f'
-        
-        #code ='def render_report_'+options[:name]+"("+options[:key]+")\n"
-        code ='def render_report_'+options[:template_id]+"_"+options[:output]+"("+options[:key]+")\n"
+       
+        code ='def render_report_'+options[:template_id].to_s+"_"+options[:output]+"("+options[:key]+")\n"
         code+=options[:now]+"=Time.now\n"
         
         code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
@@ -95,8 +93,9 @@ module Ekylibre
         puts options[:current_company]
         code+="Dir.mkdir('"+PRIVATE+REPORTS+"') unless File.directory? '"+PRIVATE+REPORTS+"'\n" 
         code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
-        code+="unless Report.exists?(['template_md5 = ? AND key = ?','"+options[:name]+"',"+options[:key]+"])\n"
-        code+="report=Report.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+")\n"
+        puts options[:name].to_s+":"+options[:key].to_s
+        code+="unless ::Report.exists?(['template_md5 = ? AND key = ?','"+options[:name]+"',"+options[:key]+"])\n"
+        code+="report=::Report.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+")\n"
         code+="report.filename='"+PRIVATE+REPORTS+"'+report.id.to_s\n"
         code+="report.save!\n"
         code+="end\n"
@@ -485,36 +484,21 @@ ActionController::Base.send :include, Ekylibre::Report
 module ActionController
   class Base
     
-    #  def self.extended(base)  
-    #         class << self 
-    
-    #protected
-    
-    def render_with_report(options={})
-      render_report(options)
-    end
-    alias_method_chain :render, :report      
-    
-    #         end
-    #      end  
-
     # this function looks for a method render_report_template and calls analyse_template if not.
     def render_report(options={}) 
-      #def render_report(id,key=nil) 
       template=Template.find(options[:report]).content
       raise Exception.new("Your argument template must be a string") unless template.is_a? String
       digest=Digest::MD5.hexdigest(template)
       
       unless not defined? @current_company 
-        result=self.class.analyze_template(template, :template_id=>options[:report], :output=>options[:output], :name=>digest, :current_company=>@current_company) unless self.methods.include? "render_report_#{id}" 
+        result=self.class.analyze_template(template, :template_id=>options[:report], :name=>digest, :output=>options[:output], :current_company=>@current_company) unless self.methods.include? "render_report_#{id}" 
       end
 
       f=File.open('/tmp/test', 'wb')
       f.write(result)
       f.close()
 
-      #id =retrieve_report(key,digest)
-      self.send('render_report_'+id.to_s+'_'+options[:output],options[:key])
+      self.send('render_report_'+options[:report].to_s+'_'+options[:output],options[:key])
     end
   end
 end
