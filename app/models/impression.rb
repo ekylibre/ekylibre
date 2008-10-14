@@ -1,7 +1,7 @@
 # == Schema Information
 # Schema version: 20080819191919
 #
-# Table name: reports
+# Table name: impressions
 #
 #  id            :integer       not null, primary key
 #  filename      :string(255)   not null
@@ -11,7 +11,7 @@
 #  company_id    :integer
 
 
-class Report < ActiveRecord::Base
+class Impression < ActiveRecord::Base
 
 
 end
