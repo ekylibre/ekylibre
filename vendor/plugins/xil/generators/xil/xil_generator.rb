@@ -1,4 +1,4 @@
-class ReportGenerator < Rails::Generator::NamedBase
+class XilGenerator < Rails::Generator::NamedBase
   def manifest
     record do |m|
       # m.directory "lib"

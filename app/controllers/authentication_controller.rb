@@ -5,18 +5,18 @@ class AuthenticationController < ApplicationController
   end
   
   def retrieve
-     retrieve_report(params[:id])
+    retrieve_xil(params[:id],:key=>params[:id])
+   
   end
-
+  
   def render_f
-    render :report=>params[:id], :key=>1, :output=>pdf
-    #render_report(params[:id])    
+    render_xil(params[:id], :key=>1, :output=>'pdf')    
   end
-
+  
   def login
     @login = 'lf'
     if request.post?
-#      raise Exception.new params[:screen_width].to_s+'/'+params[:screen_width].class.to_s
+      #      raise Exception.new params[:screen_width].to_s+'/'+params[:screen_width].class.to_s
       session[:body_width] = params[:screen_width].to_i-50 if params[:screen_width]
       user = User.authenticate(params[:user][:name], params[:user][:password])
       if user
@@ -28,7 +28,7 @@ class AuthenticationController < ApplicationController
       session[:user_name] = params[:user][:name]
     end
   end
-
+  
   def register
     if request.post?
       if session[:company_id].nil?
@@ -52,16 +52,16 @@ class AuthenticationController < ApplicationController
     end
   end
   
-  def logout
+   def logout
     session[:user_id] = nil    
     session[:last_controller] = nil
     session[:last_action] = nil
     reset_session
     redirect_to :action=>:login
   end
-
+  
   protected
-
+  
   def init_session(user)
     session[:user_id] = user.id
     session[:last_query] = Time.now.to_i

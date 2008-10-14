@@ -1,8 +1,8 @@
-
-# This module groups the different methods allowing to obtain a PDF document.
+# plugin XIL : XML-based Impression-template Language
+# This module groups the different methods allowing to obtain a PDF document by the analyse of a template.
 
 module Ekylibre
-  module Report
+  module Xil
 
     def self.included (base)
       base.extend(ClassMethods)
@@ -19,17 +19,17 @@ module Ekylibre
       
       
       #List of constants for identify the balises
-      XRL_TEMPLATE='template'
-      XRL_TITLE='title'
-      XRL_LOOP='loop'
-      XRL_INFOS='infos'
-      XRL_INFO='info'
-      XRL_BLOCK='block'
-      XRL_TEXT='text'
-      XRL_IMAGE='image'
-      XRL_LINE='line'
-      XRL_PAGEBREAK='page-break'
-      XRL_RECTANGLE='rectangle'
+      XIL_TEMPLATE='template'
+      XIL_TITLE='title'
+      XIL_LOOP='loop'
+      XIL_INFOS='infos'
+      XIL_INFO='info'
+      XIL_BLOCK='block'
+      XIL_TEXT='text'
+      XIL_IMAGE='image'
+      XIL_LINE='line'
+      XIL_PAGEBREAK='page-break'
+      XIL_RECTANGLE='rectangle'
       
       ORIENTATION={:portrait=>'P', :landscape=>'L'}
       
@@ -60,12 +60,12 @@ module Ekylibre
         options[:pdf]            = 'p' # FPDF object
         options[:now]            = 't' # timestamp NOW
         options[:title]          = 'l' # title of the document
-        options[:temp]           = XRL_TITLE # temporary variable
+        options[:temp]           = XIL_TITLE # temporary variable
         options[:key]          = 'k'
         options[:depth]          = -1
         options[:permissions]    = [:copy,:print]
        
-        code ='def render_report_'+options[:template_id].to_s+"_"+options[:output]+"("+options[:key]+")\n"
+        code ='def render_xil_'+options[:template_id].to_s+"_"+options[:output]+"("+options[:key]+")\n"
         code+=options[:now]+"=Time.now\n"
         
         code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
@@ -85,17 +85,17 @@ module Ekylibre
         code+=options[:block_y]+"="+options['margin_top'].to_s+"\n"
         code+=options[:remaining]+"="+options[:available_height]+"\n"
         code+="c=ActiveRecord::Base.connection\n"
-        code+=analyze_title(document_root.elements[XRL_TITLE], options) if document_root.elements[XRL_TITLE]
-        code+=analyze_infos(document_root.elements[XRL_INFOS],options) if document_root.elements[XRL_INFOS]
-        code+=analyze_loop(document_root.elements[XRL_LOOP],options) if document_root.elements[XRL_LOOP]
+        code+=analyze_title(document_root.elements[XIL_TITLE], options) if document_root.elements[XIL_TITLE]
+        code+=analyze_infos(document_root.elements[XIL_INFOS],options) if document_root.elements[XIL_INFOS]
+        code+=analyze_loop(document_root.elements[XIL_LOOP],options) if document_root.elements[XIL_LOOP]
         
         code+=options[:pdf]+"="+options[:pdf]+".Output() \n"
         puts options[:current_company]
         code+="Dir.mkdir('"+PRIVATE+REPORTS+"') unless File.directory? '"+PRIVATE+REPORTS+"'\n" 
         code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
         puts options[:name].to_s+":"+options[:key].to_s
-        code+="unless ::Report.exists?(['template_md5 = ? AND key = ?','"+options[:name]+"',"+options[:key]+"])\n"
-        code+="report=::Report.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+")\n"
+        code+="unless ::Impression.exists?(['template_md5 = ? AND key = ?','"+options[:name]+"',"+options[:key]+"])\n"
+        code+="report=::Impression.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+")\n"
         code+="report.filename='"+PRIVATE+REPORTS+"'+report.id.to_s\n"
         code+="report.save!\n"
         code+="end\n"
@@ -126,7 +126,7 @@ module Ekylibre
       # this function test if the balise info exists in the template and adds it in the code	
       def analyze_infos(infos,options={})
         code=''
-        infos.each_element(XRL_INFO) do |info|
+        infos.each_element(XIL_INFO) do |info|
           case info.attributes['type']
           when "subject-on"
             code+=options[:pdf]+".set_subject('#{info.text}')\n"
@@ -216,7 +216,7 @@ module Ekylibre
               code+="if c.select_one(\'"+clean_string(query, options,true)+"\')[\"x\"]==\"t\"\n"
             end
             
-            if element.name==XRL_BLOCK
+            if element.name==XIL_BLOCK
               block_height = block_height(element)
               bhfe = block_height(options[:specials][depth][:footer][:even])
               bhfo = block_height(options[:specials][depth][:footer][:odd])
@@ -234,7 +234,7 @@ module Ekylibre
               code+="end\n"
               code+=options[:count]+"+=1\n"
             end
-            code+=self.send('analyze_'+ element.name.gsub("-","_"),element, options.dup) if [XRL_LOOP, XRL_BLOCK, XRL_PAGEBREAK].include?(element.name)
+            code+=self.send('analyze_'+ element.name.gsub("-","_"),element, options.dup) if [XIL_LOOP, XIL_BLOCK, XIL_PAGEBREAK].include?(element.name)
             code+="end\n" unless element.attributes['if'].nil?
           end
           
@@ -263,7 +263,7 @@ module Ekylibre
           else
             code+=options[:pdf]+".set_xy("+attrs['x']+","+options[:block_y]+"+"+attrs['y']+")\n"
           end
-          code+=self.send('analyze_'+ element.name,element,options).to_s if [XRL_TEXT,XRL_IMAGE,XRL_LINE,XRL_RECTANGLE].include? element.name
+          code+=self.send('analyze_'+ element.name,element,options).to_s if [XIL_TEXT,XIL_IMAGE,XIL_LINE,XIL_RECTANGLE].include? element.name
         end
         code+=options[:block_y]+"+="+block_height.to_s+"\n"
         code+=options[:remaining]+"-="+block_height.to_s+"\n"
@@ -478,27 +478,67 @@ module Ekylibre
 end
 
 # insertion of the module in the Actioncontroller
-ActionController::Base.send :include, Ekylibre::Report
+ActionController::Base.send :include, Ekylibre::Xil
 
 
 module ActionController
   class Base
     
     # this function looks for a method render_report_template and calls analyse_template if not.
-    def render_report(options={}) 
-      template=Template.find(options[:report]).content
-      raise Exception.new("Your argument template must be a string") unless template.is_a? String
+    def render_xil(xil, options={}) 
+      
+      if xil.is_a? Integer
+        template= Template.exists?(xil) ? Template.find(xil).content : 'nil'
+        if not template.nil?
+          template_id=xil  
+        else
+          raise Exception.new('This ID has not been found in the database.') 
+        end
+      
+      elsif xil.is_a? String
+        if File.file? xil and (File.extname xil) == '.xml'
+          f=File.open(xil,'rb')
+          f.read(template)
+          f.close()
+        elsif xil.start_with? '<?xml version=1.0 ?> '
+          template=xil
+        else
+          raise Exception.new("Error")
+        end
+        template_id=Template.exists?(['content =? ', template]) ? Template.find(template).id : nil
+        raise Exception.new("No record matching to the string has been found in the database.") if template_id.nil?
+          
+      elsif xil.is_a? Template
+        xil_temp=xil.split('id=')[1][0..0]
+        #template_id=Template.find(:all, :conditions=>options[:xil]).i
+        template=Template.exists?(xil_temp) ? Template.find(xil_temp).content : 'nil'
+        if not template.nil?
+          template_id=xil_temp
+        else
+          raise Exception.new('This ID has not been found in the database.') 
+        end
+        
+      else
+        raise Exception.new("Error of parameter : xil.")
+        
+      end  
+      
+      #template=Template.find(options[:xil]).content
+      #raise Exception.new("Your argument template must be a string") unless template.is_a? String
+      
       digest=Digest::MD5.hexdigest(template)
       
+#      report_id = Impression.find(:all, 
+
       unless not defined? @current_company 
-        result=self.class.analyze_template(template, :template_id=>options[:report], :name=>digest, :output=>options[:output], :current_company=>@current_company) unless self.methods.include? "render_report_#{id}" 
+        result=self.class.analyze_template(template, :template_id=>template_id, :name=>digest, :output=>options[:output], :archive=>options[:archive] || true, :current_company=>@current_company) unless self.methods.include? "render_xil_#{template_id}" 
       end
 
       f=File.open('/tmp/test', 'wb')
       f.write(result)
       f.close()
-
-      self.send('render_report_'+options[:report].to_s+'_'+options[:output],options[:key])
+      
+      self.send('render_xil_'+template_id+'_'+options[:output],options[:key])
     end
   end
 end

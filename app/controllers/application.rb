@@ -32,10 +32,17 @@ class ApplicationController < ActionController::Base
   end  
   
   # this function tries to find the file matching to the ID passing in parameter and launch a download of it. 
-  def retrieve_report(key,template_md5)
-   Report.find(:all, :condition=>['key = ? AND template_md5 = ? ', key, template_md5]).id||false 
+ # def retrieve_report(key,template_md5)
+  def retrieve_xil(xil,options={})
+    # the document is archived except the archive option is unmentioned
+    unless options[:archive].false?
+      template = Template.find(xil).content
+      digest=Digest::MD5.hexdigest(template)
+      Report.find(:all, :conditions=>['key = ? AND template_md5 = ? ', options[:key], digest])||false 
+    end
   end
   
+
   private
   
   def authorize
