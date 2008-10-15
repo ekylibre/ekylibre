@@ -90,15 +90,16 @@ module Ekylibre
         code+=analyze_loop(document_root.elements[XIL_LOOP],options) if document_root.elements[XIL_LOOP]
         
         code+=options[:pdf]+"="+options[:pdf]+".Output() \n"
-        puts options[:current_company]
+        #code+="unless not "+options[:archive].to_s+"\n"
         code+="Dir.mkdir('"+PRIVATE+REPORTS+"') unless File.directory? '"+PRIVATE+REPORTS+"'\n" 
         code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
-        puts options[:name].to_s+":"+options[:key].to_s
         code+="unless ::Impression.exists?(['template_md5 = ? AND key = ?','"+options[:name]+"',"+options[:key]+"])\n"
         code+="report=::Impression.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+")\n"
         code+="report.filename='"+PRIVATE+REPORTS+"'+report.id.to_s\n"
         code+="report.save!\n"
         code+="end\n"
+       # code+="end\n"
+        
         code+="send_data "+options[:pdf]+", :filename=>"+options[:title]+"\n"
         code+="end\n" 
         
@@ -484,11 +485,12 @@ ActionController::Base.send :include, Ekylibre::Xil
 module ActionController
   class Base
     
-    # this function looks for a method render_report_template and calls analyse_template if not.
+    # this function looks for a method render_xil_'template.id' _'output' and calls analyse_template if not.
     def render_xil(xil, options={}) 
       
       if xil.is_a? Integer
-        template= Template.exists?(xil) ? Template.find(xil).content : 'nil'
+        #puts 'i'+xil.to_s
+        template= Template.exists?(xil) ? Template.find(xil).content : nil
         if not template.nil?
           template_id=xil  
         else
@@ -496,49 +498,49 @@ module ActionController
         end
       
       elsif xil.is_a? String
+         #puts 's'+xil.to_s
         if File.file? xil and (File.extname xil) == '.xml'
           f=File.open(xil,'rb')
-          f.read(template)
+          temp=String.new
+          template=(f.readlines(temp)).to_s
+          #puts 'ch'+template.to_s
           f.close()
-        elsif xil.start_with? '<?xml version=1.0 ?> '
+        elsif xil.start_with? '<?xml version=1.0 ?>'
+          #puts 'string'
           template=xil
         else
-          raise Exception.new("Error")
+          raise Exception.new("Error. The string has not correct.")
         end
-        template_id=Template.exists?(['content =? ', template]) ? Template.find(template).id : nil
+        
+        template_id=Template.exists?(['content =? ', template]) ? Template.find(:first, :conditions => [ "content = ?", template]).id : nil
         raise Exception.new("No record matching to the string has been found in the database.") if template_id.nil?
           
       elsif xil.is_a? Template
         xil_temp=xil.split('id=')[1][0..0]
-        #template_id=Template.find(:all, :conditions=>options[:xil]).i
-        template=Template.exists?(xil_temp) ? Template.find(xil_temp).content : 'nil'
+       
+        template=Template.exists?(xil_temp) ? Template.find(xil_temp).content : nil
         if not template.nil?
           template_id=xil_temp
         else
-          raise Exception.new('This ID has not been found in the database.') 
+          raise Exception.new('This record has not been found in the database.') 
         end
         
       else
         raise Exception.new("Error of parameter : xil.")
         
       end  
-      
-      #template=Template.find(options[:xil]).content
-      #raise Exception.new("Your argument template must be a string") unless template.is_a? String
-      
+     
       digest=Digest::MD5.hexdigest(template)
-      
-#      report_id = Impression.find(:all, 
-
+      #puts options[:archive]
       unless not defined? @current_company 
-        result=self.class.analyze_template(template, :template_id=>template_id, :name=>digest, :output=>options[:output], :archive=>options[:archive] || true, :current_company=>@current_company) unless self.methods.include? "render_xil_#{template_id}" 
+        result=self.class.analyze_template(template, :template_id=>template_id, :name=>digest, :output=>options[:output], :archive=>options[:archive] || true, :current_company=>@current_company) unless self.methods.include? "render_xil_"+template_id.to_s+"_"+options[:output] 
       end
-
+      
       f=File.open('/tmp/test', 'wb')
       f.write(result)
       f.close()
       
-      self.send('render_xil_'+template_id+'_'+options[:output],options[:key])
+      self.send('render_xil_'+template_id.to_s+'_'+options[:output].to_s,options[:key])
     end
   end
 end
