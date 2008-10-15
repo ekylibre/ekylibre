@@ -90,15 +90,15 @@ module Ekylibre
         code+=analyze_loop(document_root.elements[XIL_LOOP],options) if document_root.elements[XIL_LOOP]
         
         code+=options[:pdf]+"="+options[:pdf]+".Output() \n"
-        #code+="unless not "+options[:archive].to_s+"\n"
-        code+="Dir.mkdir('"+PRIVATE+REPORTS+"') unless File.directory? '"+PRIVATE+REPORTS+"'\n" 
+        code+="unless not "+options[:archive].to_s+"\n"
+        code+="Dir.mkdir('"+PRIVATE+REPORTS+"') unless File.directory?('"+PRIVATE+REPORTS+"')\n" 
         code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
         code+="unless ::Impression.exists?(['template_md5 = ? AND key = ?','"+options[:name]+"',"+options[:key]+"])\n"
         code+="report=::Impression.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+")\n"
         code+="report.filename='"+PRIVATE+REPORTS+"'+report.id.to_s\n"
         code+="report.save!\n"
         code+="end\n"
-       # code+="end\n"
+        code+="end\n"
         
         code+="send_data "+options[:pdf]+", :filename=>"+options[:title]+"\n"
         code+="end\n" 
@@ -489,7 +489,7 @@ module ActionController
     def render_xil(xil, options={}) 
       
       if xil.is_a? Integer
-        #puts 'i'+xil.to_s
+
         template= Template.exists?(xil) ? Template.find(xil).content : nil
         if not template.nil?
           template_id=xil  
@@ -498,15 +498,15 @@ module ActionController
         end
       
       elsif xil.is_a? String
-         #puts 's'+xil.to_s
+
         if File.file? xil and (File.extname xil) == '.xml'
           f=File.open(xil,'rb')
           temp=String.new
           template=(f.readlines(temp)).to_s
-          #puts 'ch'+template.to_s
+
           f.close()
         elsif xil.start_with? '<?xml version=1.0 ?>'
-          #puts 'string'
+
           template=xil
         else
           raise Exception.new("Error. The string has not correct.")
@@ -531,9 +531,9 @@ module ActionController
       end  
      
       digest=Digest::MD5.hexdigest(template)
-      #puts options[:archive]
+
       unless not defined? @current_company 
-        result=self.class.analyze_template(template, :template_id=>template_id, :name=>digest, :output=>options[:output], :archive=>options[:archive] || true, :current_company=>@current_company) unless self.methods.include? "render_xil_"+template_id.to_s+"_"+options[:output] 
+        result=self.class.analyze_template(template, :template_id=>template_id, :name=>digest, :output=>options[:output], :archive=>(options[:archive] || false), :current_company=>@current_company) unless self.methods.include? "render_xil_"+template_id.to_s+"_"+options[:output] 
       end
       
       f=File.open('/tmp/test', 'wb')
@@ -544,6 +544,47 @@ module ActionController
     end
   end
 end
+
+# Array listing all the default parameters catacteristing the default environment
+OPTIONS={:impressions=>false, :impressions_path=>'private/impressions', :subdir_size=>4096,
+  :impression_model_name=>Impression, :impressions=>'impressions', 
+  :template_model_name=>Template, :templates=>'templates', :template=>true}
+
+# this function initializes the whole necessary environment for Xil. 
+def Xil_init(options={})
+  new_options=Hash.new
+  new_options=OPTIONS.merge(options)
+  
+  if new_options[:impressions]
+    if not new_options[:impression_model_name].is_a? Integer
+       new_options[:impressions]=new_options[:impression_model_name].downcase.pluralize || new_options[:impressions]
+     else
+       raise Exception.new("The name of impression does not a string.")
+     end
+
+     Dir.mkdir(new_options[:impressions_path]) unless File.directory?(new_options[:impressions_path])
+
+  end  
+    
+   if new_options[:template]
+     
+     if not new_options[:template_model_name].is_a? Integer
+       new_options[:templates]=new_options[:template_model_name].downcase.pluralize || new_options[:templates]
+     else
+       raise Exception.new("The name of the template does not a string.")
+     end
+       
+     
+     
+
+
+   end  
+
+
+end
+
+
+
 
 
 

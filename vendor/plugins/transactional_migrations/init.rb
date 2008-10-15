@@ -1,1 +1,3 @@
-require 'transactional_migrations' unless defined?(RedHillConsulting::TransactionalMigrations)
+
+
+require 'transactional_migrations' unless defined?(RedHillConsulting::Transaction)
