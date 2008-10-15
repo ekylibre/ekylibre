@@ -10,7 +10,7 @@ class AuthenticationController < ApplicationController
   end
   
   def render_f
-    render_xil(params[:id], :key=>1, :output=>'pdf')    
+    render_xil(params[:id].to_i, :key=>1, :output=>'pdf', :archive=>false)    
   end
   
   def login
