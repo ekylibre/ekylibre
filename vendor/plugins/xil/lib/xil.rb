@@ -17,6 +17,11 @@ module Ekylibre
       
       include REXML
       
+      # Array listing the main options used by Xil plugin and specified here as a global variable.
+      @@xil={:impression=>false, :impressions_path=>"#{RAILS_ROOT}/private/impressions", :subdir_size=>4096,
+  :impression_model_name=>:impressions, :template_model_name=>:templates, :template=>false}
+
+      mattr_accessor :xil
       
       #List of constants for identify the balises
       XIL_TEMPLATE='template'
@@ -33,15 +38,12 @@ module Ekylibre
       
       ORIENTATION={:portrait=>'P', :landscape=>'L'}
       
-      PRIVATE='private/'
-      REPORTS='reports/'
-
       # this function begins to analyse the template extracting the main characteristics of
       # the Pdf document as the title, the orientation, the format, the unit ... 
       def analyze_template(template, options={})
         document=Document.new(template)
-        document_root=document.root
-        
+        document_root=document.root || (raise Exception.new("The template has not root."))
+      
         raise Exception.new("Only SQL") unless document_root.attributes['query-standard']||'sql' == 'sql'
         
         options[:orientation] = (document_root.attributes['orientation'] || ORIENTATION.to_a[0][0]).to_sym
@@ -60,12 +62,21 @@ module Ekylibre
         options[:pdf]            = 'p' # FPDF object
         options[:now]            = 't' # timestamp NOW
         options[:title]          = 'l' # title of the document
+        options[:storage]        = 's' # path of the document storage
         options[:temp]           = XIL_TITLE # temporary variable
-        options[:key]          = 'k'
+        options[:key]            = 'k'
         options[:depth]          = -1
         options[:permissions]    = [:copy,:print]
        
-        code ='def render_xil_'+options[:template_id].to_s+"_"+options[:output]+"("+options[:key]+")\n"
+        #puts @@xil[:template]
+        if @@xil[:template]
+          code ="def render_xil_"+options[:template_id].to_s 
+        else
+          code ="def render_xil_"+options[:name].to_s 
+        end
+        
+        code+="_"+options[:output].to_s+"("+options[:key]+")\n"
+        
         code+=options[:now]+"=Time.now\n"
         
         code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
@@ -90,12 +101,22 @@ module Ekylibre
         code+=analyze_loop(document_root.elements[XIL_LOOP],options) if document_root.elements[XIL_LOOP]
         
         code+=options[:pdf]+"="+options[:pdf]+".Output() \n"
-        code+="unless not "+options[:archive].to_s+"\n"
-        code+="Dir.mkdir('"+PRIVATE+REPORTS+"') unless File.directory?('"+PRIVATE+REPORTS+"')\n" 
+
+        code+="if "+options[:archive].to_s+"\n"
         code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
         code+="unless ::Impression.exists?(['template_md5 = ? AND key = ?','"+options[:name]+"',"+options[:key]+"])\n"
         code+="report=::Impression.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+")\n"
-        code+="report.filename='"+PRIVATE+REPORTS+"'+report.id.to_s\n"
+        
+        code+=options[:storage]+"="+@@xil[:impression_path]+"/(report.id/"+@@xil[:subdir_size ].to_s+").to_s/"
+        
+        code+="Dir.mkdir('"+options[:storage]+"') unless File.directory?('"+options[:storage]+"')\n"
+        
+        # creation of file and storage of code in. 
+        code+="File.open('"+options[:storage]+"report.id."+options[:output].to_s+"','wb')\n"
+        code+="File.write("+options[:pdf]+")\n"
+        code+="File.close()\n"
+        
+        code+="report.filename='"+options[:storage]+"report.id."+options[:output].to_s+"'\n"
         code+="report.save!\n"
         code+="end\n"
         code+="end\n"
@@ -487,9 +508,12 @@ module ActionController
     
     # this function looks for a method render_xil_'template.id' _'output' and calls analyse_template if not.
     def render_xil(xil, options={}) 
+     
+      options[:archive]=Ekylibre::Xil::ClassMethods::xil[:impression] unless options[:archive]
       
       if xil.is_a? Integer
-
+        
+        raise Exception.new("No table Template exists.") unless Ekylibre::Xil::ClassMethods::xil[:template]
         template= Template.exists?(xil) ? Template.find(xil).content : nil
         if not template.nil?
           template_id=xil  
@@ -501,89 +525,105 @@ module ActionController
 
         if File.file? xil and (File.extname xil) == '.xml'
           f=File.open(xil,'rb')
-          temp=String.new
-          template=(f.readlines(temp)).to_s
-
+          template=f.read.to_s
           f.close()
-        elsif xil.start_with? '<?xml version=1.0 ?>'
-
+        elsif xil.start_with? '<?xml'
           template=xil
         else
-          raise Exception.new("Error. The string has not correct.")
+          raise Exception.new("Error. The string is not correct.")
         end
         
-        template_id=Template.exists?(['content =? ', template]) ? Template.find(:first, :conditions => [ "content = ?", template]).id : nil
-        raise Exception.new("No record matching to the string has been found in the database.") if template_id.nil?
+        if Ekylibre::Xil::ClassMethods::xil[:template]
           
-      elsif xil.is_a? Template
-        xil_temp=xil.split('id=')[1][0..0]
-       
-        template=Template.exists?(xil_temp) ? Template.find(xil_temp).content : nil
-        if not template.nil?
-          template_id=xil_temp
-        else
-          raise Exception.new('This record has not been found in the database.') 
+          template_id=Template.exists?(['content =? ', template]) ? Template.find(:first, :conditions => [ "content = ?", template]).id : nil
+          raise Exception.new("No record matching to the string has been found in the database.") if template_id.nil?
         end
         
+      elsif xil.is_a? Template
+        if Ekylibre::Xil::ClassMethods::xil[:template] 
+          xil_temp=xil.split('id=')[1][0..0]
+          template=Template.exists?(xil_temp) ? Template.find(xil_temp).content : nil
+          if not template.nil?
+            template_id=xil_temp
+          else
+            raise Exception.new('This record has not been found in the database.') 
+          end
+        else
+          raise Exception.new("No table Template exists.")
+        end  
+      
       else
         raise Exception.new("Error of parameter : xil.")
-        
       end  
-     
-      digest=Digest::MD5.hexdigest(template)
 
+      digest=Digest::MD5.hexdigest(template)
+     #puts template_id
       unless not defined? @current_company 
-        result=self.class.analyze_template(template, :template_id=>template_id, :name=>digest, :output=>options[:output], :archive=>(options[:archive] || false), :current_company=>@current_company) unless self.methods.include? "render_xil_"+template_id.to_s+"_"+options[:output] 
+        if Ekylibre::Xil::ClassMethods::xil[:template] 
+          result=self.class.analyze_template(template, :template_id=>template_id, :name=>digest, :output=>options[:output], :archive=>options[:archive], :current_company=>@current_company) unless self.methods.include? "render_xil_"+template_id.to_s+"_"+options[:output].to_s  
+        else
+          puts template_id
+          result=self.class.analyze_template(template, :name=>digest, :output=>options[:output], :archive=>options[:archive], :current_company=>@current_company) unless self.methods.include? "render_xil_"+digest+"_"+options[:output].to_s  
+        end
       end
       
       f=File.open('/tmp/test', 'wb')
       f.write(result)
       f.close()
       
-      self.send('render_xil_'+template_id.to_s+'_'+options[:output].to_s,options[:key])
+      if Ekylibre::Xil::ClassMethods::xil[:template] 
+        self.send('render_xil_'+template_id.to_s+'_'+options[:output].to_s,options[:key])
+      else
+        self.send('render_xil_'+digest+'_'+options[:output].to_s,options[:key])
+      end
+
     end
-  end
-end
+
+#  end
+#end
 
 # Array listing all the default parameters catacteristing the default environment
-OPTIONS={:impressions=>false, :impressions_path=>'private/impressions', :subdir_size=>4096,
-  :impression_model_name=>Impression, :impressions=>'impressions', 
-  :template_model_name=>Template, :templates=>'templates', :template=>true}
+#OPTIONS={:impression=>false, :impressions_path=>"#{RAILS_ROOT}/private/impressions", :subdir_size=>4096,
+ # :impression_model_name=>:impressions, :template_model_name=>:templates, :template=>false}
 
 # this function initializes the whole necessary environment for Xil. 
-def Xil_init(options={})
-  new_options=Hash.new
-  new_options=OPTIONS.merge(options)
-  
-  if new_options[:impressions]
+
+ def xil_init(options={})
+   new_options=Ekylibre::Xil::ClassMethods::xil.merge(options)
+   #new_options=OPTIONS.merge(options) 
+  # if a store of datas is implied by the user.
+  if new_options[:impression]
     if not new_options[:impression_model_name].is_a? Integer
-       new_options[:impressions]=new_options[:impression_model_name].downcase.pluralize || new_options[:impressions]
-     else
-       raise Exception.new("The name of impression does not a string.")
-     end
-
-     Dir.mkdir(new_options[:impressions_path]) unless File.directory?(new_options[:impressions_path])
-
-  end  
+      impression_model=new_options[:impression_model_name].to_s.singularize.classify 
+    else
+      raise Exception.new("The name of impression does not a string.")
+    end
     
+    Dir.mkdir(new_options[:impressions_path]) unless File.directory?(new_options[:impressions_path])
+   
+    # creation of the list of folders necessaries to store documents impressions.
+    array_id=eval(impression_model).find(:all) || (raise Exception.new("An error was occured during the loading of the #{impression_model} model."))
+    
+    (array_id.length).times do |id|
+       Dir.mkdir(new_options[:impressions_path]+'/'+(id/new_options[:subdir_size]).to_s) unless File.directory?(new_options[:impressions_path]+'/'+(id/new_options[:subdir_size]).to_s)
+     end
+  end  
+   
+   # if the user wishes to load a model to make the impression (facture). 
    if new_options[:template]
-     
      if not new_options[:template_model_name].is_a? Integer
-       new_options[:templates]=new_options[:template_model_name].downcase.pluralize || new_options[:templates]
+       template_model=new_options[:template_model_name].to_s.singularize.classify 
      else
        raise Exception.new("The name of the template does not a string.")
      end
-       
-     
-     
-
-
    end  
 
-
+    Ekylibre::Xil::ClassMethods::xil=new_options
+    
+ end
+ 
 end
-
-
+end
 
 
 

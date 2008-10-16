@@ -69,10 +69,12 @@ end
 
 require "#{RAILS_ROOT}/lib/safe_string"
 
+#xil_init
+
 #schemulator :column=>:company_id, :filter=>"1"
 #schemulator :column=>:company_id, :filter=>"SELECT company_id FROM all_users WHERE pid=pg_backend_pid()"
 
 # Call of the method of Xil-initialization 
-ActionController::Base.send('xil_init', :impression=>false, :impressions_path=>'private/impressions',
-                            :subdir_size=>4096, :impression_model_name=>Impression, :impressions=>'impressions', 
-                            :template_model_name=>Template, :templates=>'templates', :template=>true)
+#ctionController::Base.send('xil_init', :impression=>false, :impressions_path=>"#{RAILS_ROOT}/private/impressions',
+#                             :subdir_size=>4096, :impression_model_name=>:impressions,:template_model_name=>:templates,
+#                             template=>true)
