@@ -18,10 +18,12 @@ module Ekylibre
       include REXML
       
       # Array listing the main options used by Xil plugin and specified here as a global variable.
-      @@xil={:impression=>false, :impressions_path=>"#{RAILS_ROOT}/private/impressions", :subdir_size=>4096,
+      @@xil_options={:impression=>false, :impressions_path=>"#{RAILS_ROOT}/private/impressions", :subdir_size=>4096,
   :impression_model_name=>:impressions, :template_model_name=>:templates, :template=>false}
-
-      mattr_accessor :xil
+ #     @@xil_options={:features=>[:impression, :template], :impressions_path=>"#{RAILS_ROOT}/private/impressions", :subdir_size=>4096,
+#  :impression_model_name=>:impressions, :template_model_name=>:templates}
+   
+      mattr_accessor :xil_options
       
       #List of constants for identify the balises
       XIL_TEMPLATE='template'
@@ -63,13 +65,14 @@ module Ekylibre
         options[:now]            = 't' # timestamp NOW
         options[:title]          = 'l' # title of the document
         options[:storage]        = 's' # path of the document storage
+        options[:file]           = 'f' # file of the document sterage
         options[:temp]           = XIL_TITLE # temporary variable
         options[:key]            = 'k'
         options[:depth]          = -1
         options[:permissions]    = [:copy,:print]
        
         #puts @@xil[:template]
-        if @@xil[:template]
+        if @@xil_options[:template]
           code ="def render_xil_"+options[:template_id].to_s 
         else
           code ="def render_xil_"+options[:name].to_s 
@@ -101,31 +104,31 @@ module Ekylibre
         code+=analyze_loop(document_root.elements[XIL_LOOP],options) if document_root.elements[XIL_LOOP]
         
         code+=options[:pdf]+"="+options[:pdf]+".Output() \n"
-
-        code+="if "+options[:archive].to_s+"\n"
-        code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
-        code+="unless ::Impression.exists?(['template_md5 = ? AND key = ?','"+options[:name]+"',"+options[:key]+"])\n"
-        code+="report=::Impression.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+")\n"
-        
-        code+=options[:storage]+"="+@@xil[:impression_path]+"/(report.id/"+@@xil[:subdir_size ].to_s+").to_s/"
-        
-        code+="Dir.mkdir('"+options[:storage]+"') unless File.directory?('"+options[:storage]+"')\n"
-        
-        # creation of file and storage of code in. 
-        code+="File.open('"+options[:storage]+"report.id."+options[:output].to_s+"','wb')\n"
-        code+="File.write("+options[:pdf]+")\n"
-        code+="File.close()\n"
-        
-        code+="report.filename='"+options[:storage]+"report.id."+options[:output].to_s+"'\n"
-        code+="report.save!\n"
-        code+="end\n"
-        code+="end\n"
-        
+       
+        if options[:archive]
+          code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
+          code+="unless ::"+@@xil_options[:impression_model]+".exists?(['template_md5 = ? AND key = ? AND sha256 = ?','"+options[:name]+"',"+options[:key]+",'+binary_digest+'])\n"
+          
+          code+="impression=::"+@@xil_options[:impression_model]+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+",
+:filename=>'t')\n"
+         puts @@xil_options[:subdir_size]
+          code+=options[:storage]+"='"+@@xil_options[:impressions_path]+"/'+(impression.id/"+@@xil_options[:subdir_size].to_s+").to_i.to_s+'/'\n"
+          code+="Dir.mkdir("+options[:storage]+") unless File.directory?("+options[:storage]+")\n"
+          
+          # creation of file and storage of code in. 
+          code+=options[:file]+"=File.open("+options[:storage].to_s+"+impression.id.to_s,'wb')\n"
+          code+=options[:file]+".write("+options[:pdf]+")\n"
+          code+=options[:file]+".close()\n"
+          
+          code+="impression.filename="+options[:storage]+"+impression.id.to_s\n"
+          code+="impression.save!\n"
+          code+="end\n"
+        end
+                
         code+="send_data "+options[:pdf]+", :filename=>"+options[:title]+"\n"
         code+="end\n" 
         
         module_eval(code)
-        
         code
         
       end
@@ -508,19 +511,20 @@ module ActionController
     
     # this function looks for a method render_xil_'template.id' _'output' and calls analyse_template if not.
     def render_xil(xil, options={}) 
-     
-      options[:archive]=Ekylibre::Xil::ClassMethods::xil[:impression] unless options[:archive]
       
+      options[:archive]=Ekylibre::Xil::ClassMethods::xil_options[:impression] if options[:archive].nil?
+
       if xil.is_a? Integer
         
-        raise Exception.new("No table Template exists.") unless Ekylibre::Xil::ClassMethods::xil[:template]
-        template= Template.exists?(xil) ? Template.find(xil).content : nil
+        raise Exception.new("No table Template exists.") if Ekylibre::Xil::ClassMethods::xil_options[:template]==false
+        template= eval(Ekylibre::Xil::ClassMethods::xil_options[:template_model]).exists?(xil) ? eval(Ekylibre::Xil::ClassMethods::xil_options[:template_model]).find(xil).content : nil
         if not template.nil?
           template_id=xil  
+          puts "Integer1:"+template_id.to_s
         else
           raise Exception.new('This ID has not been found in the database.') 
         end
-      
+        
       elsif xil.is_a? String
 
         if File.file? xil and (File.extname xil) == '.xml'
@@ -533,16 +537,17 @@ module ActionController
           raise Exception.new("Error. The string is not correct.")
         end
         
-        if Ekylibre::Xil::ClassMethods::xil[:template]
+        if Ekylibre::Xil::ClassMethods::xil_options[:template]
           
-          template_id=Template.exists?(['content =? ', template]) ? Template.find(:first, :conditions => [ "content = ?", template]).id : nil
+          template_id=eval(Ekylibre::Xil::ClassMethods::xil_options[:template_model]).exists?(['content =? ', template]) ? eval(Ekylibre::Xil::ClassMethods::xil_options[:template_model]).find(:first, :conditions => [ "content = ?", template]).id : nil
+          puts "String1:"+template_id.to_s
           raise Exception.new("No record matching to the string has been found in the database.") if template_id.nil?
         end
         
       elsif xil.is_a? Template
-        if Ekylibre::Xil::ClassMethods::xil[:template] 
+        if Ekylibre::Xil::ClassMethods::xil_options[:template] 
           xil_temp=xil.split('id=')[1][0..0]
-          template=Template.exists?(xil_temp) ? Template.find(xil_temp).content : nil
+          template=Ekylibre::Xil::ClassMethods::xil_options[:template_model].exists?(xil_temp) ? Ekylibre::Xil::ClassMethods::xil_options[:template_model].find(xil_temp).content : nil
           if not template.nil?
             template_id=xil_temp
           else
@@ -551,27 +556,26 @@ module ActionController
         else
           raise Exception.new("No table Template exists.")
         end  
-      
+        
       else
         raise Exception.new("Error of parameter : xil.")
       end  
 
       digest=Digest::MD5.hexdigest(template)
-     #puts template_id
+   
       unless not defined? @current_company 
-        if Ekylibre::Xil::ClassMethods::xil[:template] 
+        if Ekylibre::Xil::ClassMethods::xil_options[:template] 
           result=self.class.analyze_template(template, :template_id=>template_id, :name=>digest, :output=>options[:output], :archive=>options[:archive], :current_company=>@current_company) unless self.methods.include? "render_xil_"+template_id.to_s+"_"+options[:output].to_s  
         else
-          puts template_id
           result=self.class.analyze_template(template, :name=>digest, :output=>options[:output], :archive=>options[:archive], :current_company=>@current_company) unless self.methods.include? "render_xil_"+digest+"_"+options[:output].to_s  
         end
       end
       
-      f=File.open('/tmp/test', 'wb')
+      f=File.open('/tmp/test.rb', 'wb')
       f.write(result)
       f.close()
       
-      if Ekylibre::Xil::ClassMethods::xil[:template] 
+      if Ekylibre::Xil::ClassMethods::xil_options[:template] 
         self.send('render_xil_'+template_id.to_s+'_'+options[:output].to_s,options[:key])
       else
         self.send('render_xil_'+digest+'_'+options[:output].to_s,options[:key])
@@ -579,50 +583,45 @@ module ActionController
 
     end
 
-#  end
-#end
 
-# Array listing all the default parameters catacteristing the default environment
-#OPTIONS={:impression=>false, :impressions_path=>"#{RAILS_ROOT}/private/impressions", :subdir_size=>4096,
- # :impression_model_name=>:impressions, :template_model_name=>:templates, :template=>false}
+    # this function initializes the whole necessary environment for Xil. 
+    def self.xil(options={})
+      Ekylibre::Xil::ClassMethods::xil_options = Ekylibre::Xil::ClassMethods::xil_options.merge(options)
+      new_options=Ekylibre::Xil::ClassMethods::xil_options
+    
+      # if a store of datas is implied by the user.
+      if new_options[:impression]
+        if new_options[:impression_model_name].is_a? Symbol
+          new_options[:impression_model]=new_options[:impression_model_name].to_s.singularize.classify 
+          
+        else
+          raise Exception.new("The name of impression is not a symbol.")
+        end
+        
+        Dir.mkdir(new_options[:impressions_path]) unless File.directory?(new_options[:impressions_path])
+        
+        # creation of the list of folders necessaries to store documents impressions.
+        array_id=eval(new_options[:impression_model]).find(:all) || (raise Exception.new("An error was occured during the loading of the #{new_options[:impression_model]} model."))
+        
+        (array_id.length).times do |id|
+          Dir.mkdir(new_options[:impressions_path]+'/'+(id/new_options[:subdir_size]).to_s) unless File.directory?(new_options[:impressions_path]+'/'+(id/new_options[:subdir_size]).to_s)
+        end
+      end  
+      
+      # if the user wishes to load a model to make the impression (facture). 
+      if new_options[:template]
+        if new_options[:template_model_name].is_a? Symbol
+          new_options[:template_model]=new_options[:template_model_name].to_s.singularize.classify 
+        else
+          raise Exception.new("The name of the template does not a string.")
+        end
+      end  
 
-# this function initializes the whole necessary environment for Xil. 
-
- def xil_init(options={})
-   new_options=Ekylibre::Xil::ClassMethods::xil.merge(options)
-   #new_options=OPTIONS.merge(options) 
-  # if a store of datas is implied by the user.
-  if new_options[:impression]
-    if not new_options[:impression_model_name].is_a? Integer
-      impression_model=new_options[:impression_model_name].to_s.singularize.classify 
-    else
-      raise Exception.new("The name of impression does not a string.")
+      Ekylibre::Xil::ClassMethods::xil_options=new_options
+      
     end
     
-    Dir.mkdir(new_options[:impressions_path]) unless File.directory?(new_options[:impressions_path])
-   
-    # creation of the list of folders necessaries to store documents impressions.
-    array_id=eval(impression_model).find(:all) || (raise Exception.new("An error was occured during the loading of the #{impression_model} model."))
-    
-    (array_id.length).times do |id|
-       Dir.mkdir(new_options[:impressions_path]+'/'+(id/new_options[:subdir_size]).to_s) unless File.directory?(new_options[:impressions_path]+'/'+(id/new_options[:subdir_size]).to_s)
-     end
-  end  
-   
-   # if the user wishes to load a model to make the impression (facture). 
-   if new_options[:template]
-     if not new_options[:template_model_name].is_a? Integer
-       template_model=new_options[:template_model_name].to_s.singularize.classify 
-     else
-       raise Exception.new("The name of the template does not a string.")
-     end
-   end  
-
-    Ekylibre::Xil::ClassMethods::xil=new_options
-    
- end
- 
-end
+  end
 end
 
 

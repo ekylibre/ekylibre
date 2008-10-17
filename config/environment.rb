@@ -64,8 +64,14 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
+
+
+#  config.action_controller.xil :impression=>true, :template=>true, :subdir_size=>4
+  
   
 end
+
+ActionController::Base.xil(:impression=>true, :template=>true, :subdir_size=>4)
 
 require "#{RAILS_ROOT}/lib/safe_string"
 

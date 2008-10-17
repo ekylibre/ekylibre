@@ -10,8 +10,8 @@ class AuthenticationController < ApplicationController
   end
   
   def render_f
-  #  render_xil(params[:id].to_i, :key=>1, :output=>'pdf', :archive=>true)    
-      render_xil("<?xml?><template title='Example' orientation='portrait' format='210x297' unit='mm' query-standard='sql' size='10' />", :key=>1, :output=>:pdf, :archive=>true)    
+   render_xil(params[:id].to_i, :key=>1, :output=>:pdf, :archive=>true)    
+      #render_xil("<?xml?><template title='Example' orientation='portrait' format='210x297' unit='mm' query-standard='sql' size='10' />", :key=>1, :output=>:pdf, :archive=>true)    
   end
   
   def login
