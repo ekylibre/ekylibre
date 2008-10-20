@@ -72,7 +72,7 @@ Rails::Initializer.run do |config|
 end
 
 #ActionController::Base.xil(:impression=>true, :template=>true, :subdir_size=>4)
-ActionController::Base.xil(:features=>[:impression, :template], :subdir_size=>4)
+ActionController::Base.xil(:features=>[:template], :subdir_size=>4)
 
 require "#{RAILS_ROOT}/lib/safe_string"
 
