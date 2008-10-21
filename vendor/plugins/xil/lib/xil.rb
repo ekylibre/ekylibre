@@ -38,14 +38,14 @@ module Ekylibre
       ORIENTATION={:portrait=>'P', :landscape=>'L'}
       
       # this function begins to analyze the template extracting the main characteristics of
-7      # the PDF document as the title, the orientation, the format, the unit ... 
+      # the PDF document as the title, the orientation, the format, the unit ... 
       def analyze_template(template, options={})
         document=Document.new(template)
         document_root=document.root || (raise Exception.new("The template has not root."))
       
         raise Exception.new("Only SQL") unless document_root.attributes['query-standard']||'sql' == 'sql'
         
-        options[:orientation] = (document_root.attributes['orientation'] || ORIENTATION.to_a[0][0]).to_sym
+        options[:orientation]=(document_root.attributes['orientation'] || ORIENTATION.to_a[0][0]).to_sym
         
         raise Exception.new("Bad orientation in the template") unless ORIENTATION.include? options[:orientation]
         
@@ -60,25 +60,21 @@ module Ekylibre
         options[:count]            = 'm' # block_number in the current page
         options[:pdf]              = 'p' # FPDF object
         options[:now]              = 't' # timestamp NOW
-        options[:title]            = 'l' # title of the document
+        options[:title]            = 'g' # title of the document
         options[:storage]          = 's' # path of the document storage
         options[:file]             = 'f' # file of the document sterage
         options[:temp]             = XIL_TITLE # temporary variable
         options[:key]              = 'k'
         options[:depth]            = -1
         options[:permissions]      = [:copy,:print]
+        options[:file_name]        = 'o'  # file with the extension
 
-        # prototype of the generated function according to if a template is used or not.
-        if @@xil_options[:features].include? :template
-          code ="def render_xil_"+options[:template_id].to_s 
-        else
-          code ="def render_xil_"+options[:name].to_s 
-        end
-        
-        code+="_"+options[:output].to_s+"("+options[:key]+")\n"
+        # prototype of the generated function.
+        code ="def render_xil_"+options[:name].to_s+"_"+options[:output].to_s+"("+options[:key]+")\n"
         
         code+=options[:now]+"=Time.now\n"
-        
+        code+=options[:title]+"='file'\n"
+
         # declaration of the PDF document and first options.
         code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
         code+=options[:pdf]+".set_protection(["+options[:permissions].collect{|x| ':'+x.to_s}.join(",")+"],'')\n"
@@ -88,13 +84,13 @@ module Ekylibre
         code+=options[:count]+"=0\n"
         code+=options[:pdf]+".set_auto_page_break(false)\n"
 
-        options[:specials]      = [{}]
-        options[:defaults]      = {"size"=>10, "family"=>'Arial', "color"=>'#000', "border-color"=>'#000', "border-width"=>0.2, "radius"=>0, "vertices"=>'1234'}.merge(document_root.attributes)
+        options[:specials]=[{}]
+        options[:defaults]={"size"=>10, "family"=>'Arial', "color"=>'#000', "border-color"=>'#000', "border-width"=>0.2, "radius"=>0, "vertices"=>'1234'}.merge(document_root.attributes)
 
         code+=options[:pdf]+".set_font('"+options[:defaults]['family']+"','',"+options[:defaults]['size'].to_s+")\n"
         code+=options[:pdf]+".set_margins(0,0)\n"
 
-        # add of the first page.
+        # add the first page.
         code+=options[:pdf]+".add_page()\n"
         code+=options[:block_y]+"="+options['margin_top'].to_s+"\n"
         code+=options[:remaining]+"="+options[:available_height]+"\n"
@@ -103,14 +99,14 @@ module Ekylibre
         code+=analyze_infos(document_root.elements[XIL_INFOS],options) if document_root.elements[XIL_INFOS]
         code+=analyze_loop(document_root.elements[XIL_LOOP],options) if document_root.elements[XIL_LOOP]
         
-        code+=options[:pdf]+"="+options[:pdf]+".Output() \n"
-       
+        code+=options[:pdf]+"="+options[:pdf]+".Output()\n"
+        code+=options[:file_name]+"="+options[:title]+".simpleize+'."+options[:output].to_s+"'\n"
+
         # if a storage of the PDF document is implied by the user.
         if @@xil_options[:features].include? :impression
           code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
           code+="unless ::"+@@xil_options[:impression_model].to_s+".exists?(['template_md5 = ? AND key = ? AND sha256 = ?','"+options[:name]+"',"+options[:key]+",'+binary_digest+'])\n"
-          code+="impression=::"+@@xil_options[:impression_model].to_s+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+",
-:filename=>'t')\n"
+          code+="impression=::"+@@xil_options[:impression_model].to_s+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:md5]+"', :sha256=>binary_digest, :original_name=>"+options[:file_name]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+",:filename=>'t')\n"
           code+=options[:storage]+"='"+@@xil_options[:impressions_path]+"/'+(impression.id/"+@@xil_options[:subdir_size].to_s+").to_i.to_s+'/'\n"
           code+="Dir.mkdir("+options[:storage]+") unless File.directory?("+options[:storage]+")\n"
           
@@ -125,7 +121,7 @@ module Ekylibre
         end
                 
         # displaying of the PDF document.
-        code+="send_data "+options[:pdf]+", :filename=>"+options[:title]+"\n"
+        code+="send_data "+options[:pdf]+", :filename=>"+options[:file_name]+"\n"
         code+="end\n" 
         
         module_eval(code)
@@ -169,7 +165,7 @@ module Ekylibre
       # this function test if the balise title exists in the template and adds it in the code.	
       def analyze_title(title,options={})
         code=''
-        query = title.attributes['query']
+        query=title.attributes['query']
         # if the title is created as from a query.
         if query=~/^SELECT\ [^;]*$/i
           result=options[:temp]
@@ -179,13 +175,9 @@ module Ekylibre
           end
           
           code+=result+"=c.select_one(\'"+clean_string(query, options,true)+"\')\n"
-          
         end
-        
         code+=options[:title]+"='"+clean_string(title.text,options)+"'\n"
-        
         code.to_s
-        
       end
       
 
@@ -209,6 +201,7 @@ module Ekylibre
         options[:fields]={} if options[:fields].nil?
         query=attrs['query']
         
+        # if a query is present as an attribute in the balise loop then, the query is executed and the results saved.
         if query
           if query=~/^SELECT\ [^;]*$/i
             query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each do |s| 
@@ -274,6 +267,7 @@ module Ekylibre
           end
           
         end
+        # the footer block is settled in the last page of PDF document.
         code+=analyze_footer(options) if options[:depth]==0
         code+="end\n" if query
         code.to_s
@@ -282,9 +276,9 @@ module Ekylibre
       # runs each blocks and analyzes them.    
       def analyze_block(block, options={})
         code=''
-        block_height = block_height(block)
+        block_height=block_height(block)
         
-        # ca fonctionne
+        # it runs
         #unless options[:format].split('x')[1].to_i >= block_height(block) and options[:format].split('x')[0].to_i >= block_width(block) 
         # raise Exception.new("Sorry, You have a block which bounds are incompatible with the format specified.")
         # puts block_width(block).to_s+"x"+block_height(block).to_s+":"+options[:format]
@@ -310,7 +304,7 @@ module Ekylibre
       def block_height(block)
         height=0
         block.each_element do |element|
-          attrs = element.attributes
+          attrs=element.attributes
           case element.name
           when 'line'
             h=attrs['y1'].to_f>attrs['y2'].to_f ? attrs['y1'].to_f : attrs['y2'].to_f
@@ -319,7 +313,7 @@ module Ekylibre
           end
           height=h if h>height
         end
-        h = block.attributes['height']||0
+        h=block.attributes['height']||0
         return height>h ? height : h
       end 
       
@@ -327,7 +321,7 @@ module Ekylibre
       def block_width(block)
         width=0
         block.each_element do |element|
-          attrs = element.attributes
+          attrs=element.attributes
           case element.name
           when 'line'
             w=attrs['x1'].to_f>attrs['x2'].to_f ? attrs['x1'].to_f : attrs['x2'].to_f
@@ -336,7 +330,7 @@ module Ekylibre
           end
           width=w if w>width
         end
-        w = block.attributes['width']||0
+        w=block.attributes['width']||0
         return width>h ? width : w
       end 
 
@@ -359,8 +353,8 @@ module Ekylibre
         unless options[:specials].empty?
           unless options[:specials][options[:depth]].nil?
             unless options[:specials][options[:depth]][:header].nil?
-              so = analyze_block(options[:specials][options[:depth]][:header][:odd],options)
-              se = analyze_block(options[:specials][options[:depth]][:header][:even],options)
+              so=analyze_block(options[:specials][options[:depth]][:header][:odd],options)
+              se=analyze_block(options[:specials][options[:depth]][:header][:even],options)
               if so!=se
                 code+="if "+options[:page_number]+".even?\n"+se+"else\n"+so+"end\n"
               else
@@ -378,8 +372,8 @@ module Ekylibre
         unless options[:specials].empty?
           unless options[:specials][options[:depth]].nil?
             unless options[:specials][options[:depth]][:footer].nil?
-              so = analyze_block(options[:specials][options[:depth]][:footer][:odd],options)
-              se = analyze_block(options[:specials][options[:depth]][:footer][:even],options)
+              so=analyze_block(options[:specials][options[:depth]][:footer][:odd],options)
+              se=analyze_block(options[:specials][options[:depth]][:footer][:even],options)
               if so!=se
                 code+="if "+options[:page_number]+".even?\n"
                 code+=options[:block_y]+"+="+options[:remaining]+"-"+block_height(options[:specials][options[:depth]][:footer][:even]).to_s+"\n"
@@ -392,7 +386,6 @@ module Ekylibre
                 code+=options[:block_y]+"+="+options[:remaining]+"-"+block_height(options[:specials][options[:depth]][:footer][:odd]).to_s+"\n"
                 code+=se
               end
-
             end
           end
         end
@@ -400,21 +393,21 @@ module Ekylibre
       end
       
       
-      # runs and analyzes each text element in the template. 
+      # runs and analyzes each text element in the template with specific attributes as color, font, family...
       def analyze_text(text, options={})
         code=''
         attrs=text.attributes
-        #      raise Exception.new("Your text is out of the block") unless attrs['y'].to_i < attrs['width'].to_i
+        #raise Exception.new("Your text is out of the block") unless attrs['y'].to_i < attrs['width'].to_i
         color=attrs['color']||options[:defaults]['color']
         family=attrs['family']||options[:defaults]['family']
         size=attrs['size']||options[:defaults]['size']
         if attrs['border-color'] or attrs['border-width'] or attrs['background-color']
           code+=analyze_rectangle(text,options)
         end
-        style = ''
-        style += 'B' if attrs['weight']=='bold'
-        style += 'U' if attrs['decoration']=='underline'
-        style += 'I' if attrs['style']=='italic'
+        style=''
+        style+='B' if attrs['weight']=='bold'
+        style+='U' if attrs['decoration']=='underline'
+        style+='I' if attrs['style']=='italic'
         code+=options[:pdf]+".set_text_color("+color_to_rvb(color)+")\n"
         code+=options[:pdf]+".set_font('"+family+"','"+style+"',"+size.to_s+")\n" 
         code+=options[:pdf]+".cell("+attrs['width']+","+attrs['height']+",'"+
@@ -422,7 +415,7 @@ module Ekylibre
         code.to_s
       end 
       
-      # runs and analyzes each image element in the template.
+      # runs and analyzes each image element in the template with specific attributes as width, height.
       def analyze_image(image,options={})
         code=''
         attrs=image.attributes
@@ -447,19 +440,19 @@ module Ekylibre
       def analyze_rectangle(rectangle,options={})
         code=''
         attrs=rectangle.attributes 
-        radius = attribute(rectangle,'radius',options[:defaults]['radius'])
-        vertices = attribute(rectangle,'vertices',options[:defaults]['vertices'])
-        style = ''
+        radius=attribute(rectangle,'radius',options[:defaults]['radius'])
+        vertices=attribute(rectangle,'vertices',options[:defaults]['vertices'])
+        style=''
         if attrs['background-color']
           code+=options[:pdf]+".set_fill_color("+color_to_rvb(attrs['background-color'])+")\n"
-          style += 'F'
+          style+='F'
         end
         if attrs['background-color'].nil? or attrs['border-color'] or attrs['border-width']
           border_color=attrs['border-color']||options[:defaults]['border-color']
           border_width=attrs['border-width']||options[:defaults]['border-width']
           code+=options[:pdf]+".set_line_width("+border_width.to_s+")\n" 
           code+=options[:pdf]+".set_draw_color("+color_to_rvb(border_color)+")\n"
-          style += 'D'
+          style+='D'
         end
         code+=options[:pdf]+".rectangle("+attrs['x']+","+options[:block_y]+"+"+attrs['y']+
           ","+attrs['width']+","+attrs['height']+","+radius.to_s+",'"+style+"','"+vertices+"')\n"
@@ -476,16 +469,17 @@ module Ekylibre
         end
       end
       
-      # cleans the string removing superfluous characters.
+      # cleans the string removing superfluous characters and replacing certains constants.
       def clean_string(string,options,query=false)
         string.gsub!("'","\\\\'")
+        options[:fields] = {} if options[:fields].nil?
         if query
           options[:fields].each{|f| string.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'")}
         else
           options[:fields].each{|f| string.gsub!("\#{"+f[0]+"}","\'+"+f[1]+"+\'")}
         end
         while (string=~/[^\#]\{[A-Z\_].*.\}/)
-          str = string.split('{')[1].split('}')[0]
+          str=string.split('{')[1].split('}')[0]
           if str=~/CURRENT_DATE.*/ or str=~/CURRENT_TIMESTAMP.*/
             if (str.match ':').nil?
               format="%Y-%m-%d"
@@ -505,40 +499,37 @@ module Ekylibre
             
           end
         end
+        # the string is converted to the format ISO, which is more efficient for the PDF softwares to read the 
+        # superfluous characters.
         Iconv.iconv('ISO-8859-15','UTF-8',string).to_s
       end 
-      
     end
-    
   end
 end
 
 # insertion of the module in the Actioncontroller
 ActionController::Base.send :include, Ekylibre::Xil
 
-
 module ActionController
   class Base
     
-    # this function looks for a method render_xil_'template.id' _'output' and calls analyse_template if not.
+    # this function looks for a method render_xil_name _'output' and calls analyse_template if not.
     def render_xil(xil, options={}) 
-      raise Exception.new("Any template has been specified. You need a template to continue.") unless (Ekylibre::Xil::ClassMethods::xil_options[:features].grep :template)[0]
-
+      xil_options=Ekylibre::Xil::ClassMethods::xil_options
       
       # if the parameter is an integer.
       if xil.is_a? Integer
-        template= Ekylibre::Xil::ClassMethods::xil_options[:template_model].exists?(xil) ? Ekylibre::Xil::ClassMethods::xil_options[:template_model].find(xil).content : nil
-        if not template.nil?
-          template_id=xil  
-        else
-          raise Exception.new('This ID has not been found in the database.') 
-        end
-        
-       # if the parameter is a string.
+        template=xil_options[:template_model].find_by_id(xil)
+        raise Exception.new('This ID has not been found in the database.') if template.nil?
+        name=template.id.to_s  
+        md5=template.md5
+        template=template.content
+       
+        # if the parameter is a string.
       elsif xil.is_a? String
         # it is a file with the XML extension. Else, an error is generated. 
         if File.file? xil 
-          if (File.extname xil) == '.xml'
+          if (File.extname xil)=='.xml'
             f=File.open(xil,'rb')
             template=f.read.to_s
             f.close()
@@ -551,67 +542,81 @@ module ActionController
         else
           raise Exception.new("Error. The string is not correct.")
         end
-        template_id=Ekylibre::Xil::ClassMethods::xil_options[:template_model].exists?(['content =? ', template]) ? Ekylibre::Xil::ClassMethods::xil_options[:template_model].find(:first, :conditions => [ "content = ?", template]).id : nil
-        raise Exception.new("No record matching to the string has been found in the database.") if template_id.nil?
-        
+        # encodage of string into a crypt MD5 format to easier the authentification of template by the XIL-plugin.
+        md5=Digest::MD5.hexdigest(xil)
+        name=md5
+
         # the parameter is a template.  
-      elsif xil.is_a? Ekylibre::Xil::ClassMethods::xil_options[:template_model]
-        raise Exception.new("No ID has been found in the database.") if xil.nil?
-        template=xil.send :content 
-        template_id=xil.send :id
-        
+      elsif xil.is_a? xil_options[:template_model]
+        template=xil.content 
+        md5=xil.md5
+        name=xil.id.to_s        
+      
       else
-        raise Exception.new("Error of parameter : xil.")
+        raise Exception.new("Type error on the parameter xil: "+xil.class.to_s)
       end  
       
-      # encodage of the template into the MD5 crypt format to easier the identification of the PDF document.
-      digest=Digest::MD5.hexdigest(template)
-   
       unless not defined? @current_company 
-        if Ekylibre::Xil::ClassMethods::xil_options[:features].include? :template 
-          result=self.class.analyze_template(template, :template_id=>template_id, :name=>digest, :output=>options[:output],:current_company=>@current_company) unless self.methods.include? "render_xil_"+template_id.to_s+"_"+options[:output].to_s  
-        else
-          result=self.class.analyze_template(template, :name=>digest, :output=>options[:output], :current_company=>@current_company) unless self.methods.include? "render_xil_"+digest+"_"+options[:output].to_s  
-        end
+        # the function which creates the PDF function is executed here.
+        result=self.class.analyze_template(template, :name=>name, :md5=>md5, :output=>options[:output],:current_company=>@current_company) unless self.methods.include? "render_xil_"+name+"_"+options[:output].to_s  
       end
 
-      # if a template is required by the user, the appropriate function is executed.
-      if Ekylibre::Xil::ClassMethods::xil_options[:features].include? :template 
-        self.send('render_xil_'+template_id.to_s+'_'+options[:output].to_s,options[:key])
-      else
-        self.send('render_xil_'+digest+'_'+options[:output].to_s,options[:key])
-      end
+      f=File.open('/tmp/test.rb','wb')
+      f.write(result)
+      f.close()
+      # Finally, the generated function is executed.
+      self.send('render_xil_'+name+'_'+options[:output].to_s,options[:key])
     end
+
 
     # this function initializes the whole necessary environment for Xil. 
     def self.xil(options={})
-      Ekylibre::Xil::ClassMethods::xil_options = Ekylibre::Xil::ClassMethods::xil_options.merge(options)
-      new_options=Ekylibre::Xil::ClassMethods::xil_options
+      xil_options=Ekylibre::Xil::ClassMethods::xil_options.merge(options)
+      new_options=xil_options
       
+      # some verifications about the different arguments passed to the init function during the XIL-plugin initialisation. 
+      raise Exception.new("Parameter subdir_size must be an integer.") unless new_options[:subdir_size].is_a? Integer
+      raise Exception.new("Parameter impressions_path must be a string.") unless new_options[:impressions_path].is_a? String
+      raise Exception.new("Parameter features must be an array with maximaly two symbols.") unless new_options[:features].is_a? Array and new_options[:features].length<=2
+
+      new_options[:features].detect do |element|
+        unless element.is_a? Symbol
+          raise Exception.new("The parameter features must be an array fulled with symbols.")
+        end
+      end
+
       # if a store of datas is implied by the user.
       if new_options[:features].include? :impression
         if new_options[:impression_model_name].is_a? Symbol
           new_options[:impression_model]=new_options[:impression_model_name].to_s.singularize.classify.constantize 
+          
           # the model of impression specified by the user must contain particular fields.
-          ["id", "filename","original_name","template_md5","sha256","company_id"].detect do |field|
-            raise Exception.new("The table of impression #{new_options[:impression_model]} must contain at least the following field: "+field) unless new_options[:impression_model].column_names.include? field
-          end   
+         if ActiveRecord::Base.connection.tables.include? new_options[:impression_model].table_name 
+           ["id", "filename","original_name","template_md5","sha256","company_id"].detect do |field|
+              raise Exception.new("The table of impression #{new_options[:impression_model]} must contain at least the following field: "+field) unless new_options[:impression_model].column_names.include? field
+            end   
+         end
         else
           raise Exception.new("The name of impression #{new_options[:impression_model_name]} is not a symbol.")
         end
         
-        Dir.mkdir(new_options[:impressions_path]) unless File.directory?(new_options[:impressions_path])
-     
+        # if the folder does not exist, an error is generated.
+        unless File.directory?(new_options[:impressions_path])
+         raise Exception.new("Your impression folder does not exist.")
+       end
       end  
       
       # if the user wishes to load a model to make the impression (facture). 
       if new_options[:features].include? :template
         if new_options[:template_model_name].is_a? Symbol
           new_options[:template_model]=new_options[:template_model_name].to_s.singularize.classify.constantize 
+         
           # the model of template specified by the user must contain particular fields.
-          ["id", "content","cache","company_id"].detect do |field|
-            raise Exception.new("The table of template #{new_options[:template_model]} must contain at least the following field: "+field) unless new_options[:template_model].column_names.include? field
-          end      
+          if ActiveRecord::Base.connection.tables.include? new_options[:template_model].table_name
+            ["id", "content","cache","company_id"].detect do |field|
+              raise Exception.new("The table of template #{new_options[:template_model]} must contain at least the following field: "+field) unless new_options[:template_model].column_names.include? field
+              end
+          end
         else
           raise Exception.new("The name of template #{new_options[:template_model_name]} does not a symbol.")
         end

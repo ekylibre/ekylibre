@@ -79,6 +79,7 @@ class Beginning < ActiveRecord::Migration
     create_table :templates do |t|
       t.column :name,                   :string,   :null=>false
       t.column :content,                :text,     :null=>false
+      t.column :md5,                    :string,   :null=>true
       t.column :cache,                  :text    
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
