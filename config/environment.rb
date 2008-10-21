@@ -65,23 +65,13 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
 
-
-#  config.action_controller.xil :impression=>true, :template=>true, :subdir_size=>4
-  
-  
 end
 
-#ActionController::Base.xil(:impression=>true, :template=>true, :subdir_size=>4)
-ActionController::Base.xil(:features=>[:template], :subdir_size=>4)
+ActionController::Base.xil(:features=>[:template,:impression], :subdir_size=>4)
 
 require "#{RAILS_ROOT}/lib/safe_string"
-
-#xil_init
 
 #schemulator :column=>:company_id, :filter=>"1"
 #schemulator :column=>:company_id, :filter=>"SELECT company_id FROM all_users WHERE pid=pg_backend_pid()"
 
-# Call of the method of Xil-initialization 
-#ctionController::Base.send('xil_init', :impression=>false, :impressions_path=>"#{RAILS_ROOT}/private/impressions',
-#                             :subdir_size=>4096, :impression_model_name=>:impressions,:template_model_name=>:templates,
-#                             template=>true)
+

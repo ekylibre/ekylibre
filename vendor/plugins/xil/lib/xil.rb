@@ -106,10 +106,10 @@ module Ekylibre
         code+=options[:pdf]+"="+options[:pdf]+".Output() \n"
        
         # if a storage of the PDF document is implied by the user.
-        if options[:archive].eql? :impression
+        if @@xil_options[:features].include? :impression
           code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
-          code+="unless ::"+@@xil_options[:impression_model]+".exists?(['template_md5 = ? AND key = ? AND sha256 = ?','"+options[:name]+"',"+options[:key]+",'+binary_digest+'])\n"
-          code+="impression=::"+@@xil_options[:impression_model]+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+",
+          code+="unless ::"+@@xil_options[:impression_model].to_s+".exists?(['template_md5 = ? AND key = ? AND sha256 = ?','"+options[:name]+"',"+options[:key]+",'+binary_digest+'])\n"
+          code+="impression=::"+@@xil_options[:impression_model].to_s+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:name]+"', :sha256=>binary_digest, :original_name=>"+options[:title]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+",
 :filename=>'t')\n"
           code+=options[:storage]+"='"+@@xil_options[:impressions_path]+"/'+(impression.id/"+@@xil_options[:subdir_size].to_s+").to_i.to_s+'/'\n"
           code+="Dir.mkdir("+options[:storage]+") unless File.directory?("+options[:storage]+")\n"
@@ -522,14 +522,12 @@ module ActionController
     
     # this function looks for a method render_xil_'template.id' _'output' and calls analyse_template if not.
     def render_xil(xil, options={}) 
-      
-      raise Exception.new("Error of similarity between the impression parameters.") unless options[:archive]==(Ekylibre::Xil::ClassMethods::xil_options[:features].grep :impression)[0]
+      raise Exception.new("Any template has been specified. You need a template to continue.") unless (Ekylibre::Xil::ClassMethods::xil_options[:features].grep :template)[0]
 
+      
       # if the parameter is an integer.
       if xil.is_a? Integer
-        
-        raise Exception.new("No table Template exists.") unless (Ekylibre::Xil::ClassMethods::xil_options[:features].include? :template)
-        template= eval(Ekylibre::Xil::ClassMethods::xil_options[:template_model]).exists?(xil) ? eval(Ekylibre::Xil::ClassMethods::xil_options[:template_model]).find(xil).content : nil
+        template= Ekylibre::Xil::ClassMethods::xil_options[:template_model].exists?(xil) ? Ekylibre::Xil::ClassMethods::xil_options[:template_model].find(xil).content : nil
         if not template.nil?
           template_id=xil  
         else
@@ -547,40 +545,33 @@ module ActionController
           else
             raise Exception.new("File specified is not a XML file.")
           end
-        # the string begins by the XML standard format.
+          # the string begins by the XML standard format.
         elsif xil.start_with? '<?xml'
           template=xil
         else
           raise Exception.new("Error. The string is not correct.")
         end
+        template_id=Ekylibre::Xil::ClassMethods::xil_options[:template_model].exists?(['content =? ', template]) ? Ekylibre::Xil::ClassMethods::xil_options[:template_model].find(:first, :conditions => [ "content = ?", template]).id : nil
+        raise Exception.new("No record matching to the string has been found in the database.") if template_id.nil?
         
-        if Ekylibre::Xil::ClassMethods::xil_options[:features].include? :template
-          
-          template_id=eval(Ekylibre::Xil::ClassMethods::xil_options[:template_model]).exists?(['content =? ', template]) ? eval(Ekylibre::Xil::ClassMethods::xil_options[:template_model]).find(:first, :conditions => [ "content = ?", template]).id : nil
-          raise Exception.new("No record matching to the string has been found in the database.") if template_id.nil?
-        end
         # the parameter is a template.  
-      elsif xil.is_a? eval(Ekylibre::Xil::ClassMethods::xil_options[:template_model])
-        if Ekylibre::Xil::ClassMethods::xil_options[:features].include? :template
-          template=eval(Ekylibre::Xil::ClassMethods::xil_options[:features]).send :content
-          template_id=eval(Ekylibre::Xil::ClassMethods::xil_options[:template_model]).send :id
-        
-        else
-          raise Exception.new("No table Template exists.")
-        end  
+      elsif xil.is_a? Ekylibre::Xil::ClassMethods::xil_options[:template_model]
+        raise Exception.new("No ID has been found in the database.") if xil.nil?
+        template=xil.send :content 
+        template_id=xil.send :id
         
       else
         raise Exception.new("Error of parameter : xil.")
       end  
-
+      
       # encodage of the template into the MD5 crypt format to easier the identification of the PDF document.
       digest=Digest::MD5.hexdigest(template)
    
       unless not defined? @current_company 
         if Ekylibre::Xil::ClassMethods::xil_options[:features].include? :template 
-          result=self.class.analyze_template(template, :template_id=>template_id, :name=>digest, :output=>options[:output], :archive=>options[:archive], :current_company=>@current_company) unless self.methods.include? "render_xil_"+template_id.to_s+"_"+options[:output].to_s  
+          result=self.class.analyze_template(template, :template_id=>template_id, :name=>digest, :output=>options[:output],:current_company=>@current_company) unless self.methods.include? "render_xil_"+template_id.to_s+"_"+options[:output].to_s  
         else
-          result=self.class.analyze_template(template, :name=>digest, :output=>options[:output], :archive=>options[:archive], :current_company=>@current_company) unless self.methods.include? "render_xil_"+digest+"_"+options[:output].to_s  
+          result=self.class.analyze_template(template, :name=>digest, :output=>options[:output], :current_company=>@current_company) unless self.methods.include? "render_xil_"+digest+"_"+options[:output].to_s  
         end
       end
 
@@ -590,9 +581,7 @@ module ActionController
       else
         self.send('render_xil_'+digest+'_'+options[:output].to_s,options[:key])
       end
-
     end
-
 
     # this function initializes the whole necessary environment for Xil. 
     def self.xil(options={})
@@ -602,27 +591,26 @@ module ActionController
       # if a store of datas is implied by the user.
       if new_options[:features].include? :impression
         if new_options[:impression_model_name].is_a? Symbol
-          new_options[:impression_model]=new_options[:impression_model_name].to_s.singularize.classify 
+          new_options[:impression_model]=new_options[:impression_model_name].to_s.singularize.classify.constantize 
           # the model of impression specified by the user must contain particular fields.
-          ["id", "filename","original_name","template_md5","sha256","company_d"].detect do |field|
-            raise Exception.new("The table of impression #{new_options[:impression_model]} must contain at least the following field: "+field) unless eval(new_options[:impression_model]).column_names.include? field
+          ["id", "filename","original_name","template_md5","sha256","company_id"].detect do |field|
+            raise Exception.new("The table of impression #{new_options[:impression_model]} must contain at least the following field: "+field) unless new_options[:impression_model].column_names.include? field
           end   
         else
           raise Exception.new("The name of impression #{new_options[:impression_model_name]} is not a symbol.")
         end
         
         Dir.mkdir(new_options[:impressions_path]) unless File.directory?(new_options[:impressions_path])
-        
- 
+     
       end  
       
       # if the user wishes to load a model to make the impression (facture). 
       if new_options[:features].include? :template
         if new_options[:template_model_name].is_a? Symbol
-          new_options[:template_model]=new_options[:template_model_name].to_s.singularize.classify 
+          new_options[:template_model]=new_options[:template_model_name].to_s.singularize.classify.constantize 
           # the model of template specified by the user must contain particular fields.
           ["id", "content","cache","company_id"].detect do |field|
-            raise Exception.new("The table of template #{new_options[:template_model]} must contain at least the following field: "+field) unless eval(new_options[:template_model]).column_names.include? field
+            raise Exception.new("The table of template #{new_options[:template_model]} must contain at least the following field: "+field) unless new_options[:template_model].column_names.include? field
           end      
         else
           raise Exception.new("The name of template #{new_options[:template_model_name]} does not a symbol.")
