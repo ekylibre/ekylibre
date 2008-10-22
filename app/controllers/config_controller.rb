@@ -23,13 +23,13 @@ class ConfigController < ApplicationController
   def users_create
     access :users
     if request.post?
-      @user = User.new(params[:article])
+      @user = User.new(params[:user])
       @user.company_id = session[:company_id]
       redirect_to session[:url][1] if @user.save
     else
       @user = User.new
     end
     render_form
- 	end
-
+  end
+  
 end

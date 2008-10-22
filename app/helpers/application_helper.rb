@@ -45,7 +45,7 @@ module ApplicationHelper
     if block_given?
       form = FormDefinition.new()
       yield form
-      form_code = formalize_lines(form)
+      form_code = formalize_lines(form, options)
     elsif options[:model] or options[:partial]
       form_code = render_partial(options[:partial]||options[:model].to_s.tableize+'_form')
     end
@@ -60,23 +60,22 @@ module ApplicationHelper
       code += '</form>'
       code = title+content_tag(:div,code)
       html_options = {:class=>'formalize'}
-      html_options[:style] = "width:"+770.to_s+"px"
+      #      html_options[:style] = "width:"+770.to_s+"px"
       code = content_tag(:div,code, html_options)
     end
     return code
   end
 
-  def formalize_lines(form)
+  def formalize_lines(form, form_options)
     code = ''
     controller = self.controller
     # compute column number
     column_number = 0
     for line in form.lines
-      case line[:nature]
-      when :title 
+      if line[:nature]==:line
+        col = (line[:params].size.to_f/3).ceil
+      else
         col = 1
-      when :line
-        col = (line[:params].size.to_f/3).round 
       end
       column_number = col if col>column_number
     end
@@ -92,18 +91,21 @@ module ApplicationHelper
       # line
       line_code = ''
       case line[:nature]
+      when :error
+        line_code += content_tag(:td,error_messages_for(line[:params]),:class=>"error", :colspan=>column_number)
       when :title
         reset_cycle "parity"
         line[:value] = l(controller.controller_name, controller.action_name,line[:value]) if line[:value].is_a? Symbol
         line_code += content_tag(:th,line[:value].to_s,:class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>column_number)
       when :line
         klass += ' '+cycle('odd','even', :name=>"parity")
-        col = (line[:params].size.to_f/3).round
+        col = (line[:params].size.to_f/3).ceil
         col.times do |c|
           attribute = line[:params][c*3]
           field     = line[:params][c*3+1]
           options   = line[:params][c*3+2]||{}
           options[:controller]=controller
+          field = form_options[:model] if field.blank?
           if field.is_a? Symbol
             model  = field.to_s.classify.constantize
             label  = model.human_attribute_name attribute.to_s
@@ -137,10 +139,12 @@ module ApplicationHelper
               input = text_field field, attribute, html_options
             end
             input_id = field.to_s+'_'+attribute.to_s
-          else
+          elsif field.is_a? String
             label = l(controller.controller_name, controller.action_name, attribute)
             input = field
             input_id = label
+          else
+            raise Exception.new("Unknown field type: "+field.class.to_s)
           end
           options[:example] = [options[:example]] if options[:example].is_a? String
           help  = ''
@@ -159,22 +163,22 @@ module ApplicationHelper
           help_options = {:class=>"help", :id=>options[:help_id]}
           help_options[:colspan] = 1+column_number-3*col if c==col-1 and 3*col<column_number
 
-
           label = content_tag(:td, label, :class=>"label", :id=>options[:label_id])
           input = content_tag(:td, input, :class=>"input", :id=>options[:input_id])
           help  = content_tag(:td, help,  help_options)
           line_code += label+input+help
+          # line_code += '<strong>'+field.to_s+'</strong>'
         end
         (column_number-3*col).times{ line_code += content_tag(:td) }
       end
       code += content_tag(:tr, line_code, :class=>klass) unless line_code.blank?
-
+      
       # after line
       code += content_tag(:tr, content_tag(:th,'', :colspan=>column_number), :class=>"after-title") if line[:nature]==:title
-
+      
     end
     code = content_tag(:table, code, :class=>'formalize')
-#    code += 'error_messages_for ' ?
+    # code += 'error_messages_for ' ?
   end
   
   def translate_help(options,nature,id)
@@ -202,6 +206,10 @@ module ApplicationHelper
 
     def line(*params)
       @lines << {:nature=>:line, :params=>params}
+    end
+
+    def error(*params)
+      @lines << {:nature=>:error, :params=>params}
     end
   end
 

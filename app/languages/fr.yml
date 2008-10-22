@@ -140,7 +140,7 @@ models:
 #     3: '%d plików'
 #     0: '%d plikòw'
 plural: 'c<=1 ? 1 : 2'
-				
+
 # You can use the app section freely to localize you application with the
 # localized_application feature. The entries defined here are accesable by the
 # global method "l". See the RDoc for details.
@@ -152,6 +152,7 @@ app:
       title: Écritures
     journals:
       title: Journaux
+      new_journal: Créer un nouveau journal
   application:
     expired_session: 'Session expirée. Veuillez vous reconnecter.'
     access_denied: 'Vous n''avez pas le droit d''accéder à cette fonctionnalité'
@@ -180,8 +181,12 @@ app:
       user_password_hint: 'Pour avoir mot de passe "solide", il faut utiliser au minimum des majuscules, des minuscules et des chiffres'
       user_password_confirmation_info: 'Vous devez ressaisir votre mot de passe pour éviter qu''un mot de passe érroné soit enregistré'
   company:
+    default_bank_journal_nature_name: Banque
     default_department_name: Gestion/Production
     default_establishment_name: Établissement principal
+    default_operation_journal_nature_name: Opérations Diverses
+    default_purchases_journal_nature_name: Achats
+    default_sales_journal_nature_name: Ventes
   config:
     company:
       identity: Carte d'identité

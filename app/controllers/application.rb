@@ -79,6 +79,14 @@ class ApplicationController < ActionController::Base
     redirect_to :controller=>:authentication, :action=>:login
   end
   
+  def redirect_to_back
+    if session[:url][1]
+      redirect_to session[:url][1]
+    else
+      redirect_to :back
+    end
+  end
+  
   
   def can_access?(action=:all)
     return false unless @current_user
