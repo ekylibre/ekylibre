@@ -10,16 +10,16 @@ class AuthenticationController < ApplicationController
   end
   
   def render_f
-   # render_xil(params[:id].to_i, :key=>1, :output=>:pdf)    
-    render_xil("<?xml?><template title='Example' orientation='portrait' format='210x297' unit='mm' query-standard='sql' size='10' ><title>ToTo</title></template>", :key=>1, :output=>:pdf)    
-     #render_xil("lib/template.xml", :key=>1, :output=>:pdf)    
+    render_xil(params[:id].to_i, :key=>1, :output=>:pdf)    
+    #render_xil("<?xml?><template title='Example' orientation='portrait' format='210x297' unit='mm' query-standard='sql' size='10' ><title>ToTo</title></template>", :key=>1, :output=>:pdf)    
+   #  render_xil("lib/template.xsd", :key=>1, :output=>:pdf)    
    #render_xil(Template.find(2), :key=>1, :output=>:pdf)    
   end
   
   def login
     @login = 'lf'
     if request.post?
-      #      raise Exception.new params[:screen_width].to_s+'/'+params[:screen_width].class.to_s
+      #raise Exception.new params[:screen_width].to_s+'/'+params[:screen_width].class.to_s
       session[:body_width] = params[:screen_width].to_i-50 if params[:screen_width]
       user = User.authenticate(params[:user][:name], params[:user][:password])
       if user

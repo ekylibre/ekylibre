@@ -18,7 +18,7 @@ module Ekylibre
       include REXML
       
       # Array listing the main options used by XIL-plugin and specified here as a global variable.
-      @@xil_options={:features=>[], :impressions_path=>"#{RAILS_ROOT}/private/impressions", :subdir_size=>4096, :impression_model_name=>:impressions, :template_model_name=>:templates}
+      @@xil_options={:features=>[], :impressions_path=>"#{RAILS_ROOT}/private/impressions", :subdir_size=>4096, :impression_model_name=>:impressions, :template_model_name=>:templates, :company_variable=>:current_company}
    
       mattr_accessor :xil_options
       
@@ -53,27 +53,28 @@ module Ekylibre
         options[:format]           = attribute(document_root, :format, 'A4')
         options['margin_top']      = attribute(document_root, 'margin-top', 5).to_f
         options['margin_bottom']   = attribute(document_root, 'margin-bottom', 5).to_f
-        options[:block_y]          = 'b' # before_y
-        options[:remaining]        = 'a' # after_y
-        options[:available_height] = 'h' # height of the page available in the time
-        options[:page_number]      = 'n' # page_number
-        options[:count]            = 'm' # block_number in the current page
-        options[:pdf]              = 'p' # FPDF object
-        options[:now]              = 't' # timestamp NOW
-        options[:title]            = 'g' # title of the document
-        options[:storage]          = 's' # path of the document storage
-        options[:file]             = 'f' # file of the document sterage
-        options[:temp]             = XIL_TITLE # temporary variable
+        options[:block_y]          = 'b' # before_y.
+        options[:remaining]        = 'a' # after_y.
+        options[:available_height] = 'h' # height of the page available in the time.
+        options[:page_number]      = 'n' # page_number.
+        options[:count]            = 'm' # block_number in the current page.
+        options[:pdf]              = 'p' # FPDF object.
+        options[:now]              = 't' # timestamp NOW.
+        options[:title]            = 'g' # title of the document.
+        options[:storage]          = 's' # path of the document storage.
+        options[:file]             = 'f' # file of the document sterage.
+        options[:temp]             = XIL_TITLE # temporary variable.
         options[:key]              = 'k'
         options[:depth]            = -1
         options[:permissions]      = [:copy,:print]
-        options[:file_name]        = 'o'  # file with the extension
-
+        options[:file_name]        = 'o'  # file with the extension.
+             
         # prototype of the generated function.
         code ="def render_xil_"+options[:name].to_s+"_"+options[:output].to_s+"("+options[:key]+")\n"
         
         code+=options[:now]+"=Time.now\n"
         code+=options[:title]+"='file'\n"
+        
 
         # declaration of the PDF document and first options.
         code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
@@ -100,13 +101,13 @@ module Ekylibre
         code+=analyze_loop(document_root.elements[XIL_LOOP],options) if document_root.elements[XIL_LOOP]
         
         code+=options[:pdf]+"="+options[:pdf]+".Output()\n"
-        code+=options[:file_name]+"="+options[:title]+".simpleize+'."+options[:output].to_s+"'\n"
+        code+=options[:file_name]+"="+options[:title]+".gsub(/[^a-z0-9\_]/i,'_')+'."+options[:output].to_s+"'\n"
 
         # if a storage of the PDF document is implied by the user.
         if @@xil_options[:features].include? :impression
           code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
           code+="unless ::"+@@xil_options[:impression_model].to_s+".exists?(['template_md5 = ? AND key = ? AND sha256 = ?','"+options[:name]+"',"+options[:key]+",'+binary_digest+'])\n"
-          code+="impression=::"+@@xil_options[:impression_model].to_s+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:md5]+"', :sha256=>binary_digest, :original_name=>"+options[:file_name]+", :printed_at=>Time.now,:company_id=>"+options[:current_company].id.to_s+",:filename=>'t')\n"
+          code+="impression=::"+@@xil_options[:impression_model].to_s+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:md5]+"', :sha256=>binary_digest, :original_name=>"+options[:file_name]+", :printed_at=>(Time.now), :company_id=>@"+options[:current_company].to_s+".id,:filename=>'t')\n"
           code+=options[:storage]+"='"+@@xil_options[:impressions_path]+"/'+(impression.id/"+@@xil_options[:subdir_size].to_s+").to_i.to_s+'/'\n"
           code+="Dir.mkdir("+options[:storage]+") unless File.directory?("+options[:storage]+")\n"
           
@@ -516,61 +517,84 @@ module ActionController
     # this function looks for a method render_xil_name _'output' and calls analyse_template if not.
     def render_xil(xil, options={}) 
       xil_options=Ekylibre::Xil::ClassMethods::xil_options
-      
+      options = {:output=>:pdf}.merge(options)
+
+      template_options={:output=>options[:output]}
+      template = nil
       # if the parameter is an integer.
       if xil.is_a? Integer
         template=xil_options[:template_model].find_by_id(xil)
         raise Exception.new('This ID has not been found in the database.') if template.nil?
         name=template.id.to_s  
         md5=template.md5
-        template=template.content
-       
+        template=template.content        
         # if the parameter is a string.
       elsif xil.is_a? String
         # it is a file with the XML extension. Else, an error is generated. 
         if File.file? xil 
-          if (File.extname xil)=='.xml'
-            f=File.open(xil,'rb')
-            template=f.read.to_s
-            f.close()
-          else
-            raise Exception.new("File specified is not a XML file.")
-          end
-          # the string begins by the XML standard format.
-        elsif xil.start_with? '<?xml'
+          f=File.open(xil,'rb')
+          xil=f.read.to_s
+          f.close()
+        end
+        # the string begins by the XML standard format.
+        if xil.start_with? '<?xml'
           template=xil
         else
-          raise Exception.new("Error. The string is not correct.")
+          raise Exception.new("It is not an XML data.")
         end
         # encodage of string into a crypt MD5 format to easier the authentification of template by the XIL-plugin.
         md5=Digest::MD5.hexdigest(xil)
-        name=md5
-
+        name=md5      
         # the parameter is a template.  
-      elsif xil.is_a? xil_options[:template_model]
-        template=xil.content 
-        md5=xil.md5
-        name=xil.id.to_s        
-      
-      else
-        raise Exception.new("Type error on the parameter xil: "+xil.class.to_s)
+      elsif xil_options[:features].include? :template
+        if xil.is_a? xil_options[:template_model]
+          template=xil.content 
+          md5=xil.md5
+          name=xil.id.to_s        
+        end
       end  
+
+      raise Exception.new("Type error on the parameter xil: "+xil.class.to_s) if template.nil?
+
+      template_options[:md5]=md5
+      template_options[:name]=name
       
-      unless not defined? @current_company 
-        # the function which creates the PDF function is executed here.
-        result=self.class.analyze_template(template, :name=>name, :md5=>md5, :output=>options[:output],:current_company=>@current_company) unless self.methods.include? "render_xil_"+name+"_"+options[:output].to_s  
+      # tests if the variable current_company is available.
+      if xil_options[:features].include? :template  or xil_options[:features].include? :impression
+        current_company = instance_variable_get("@"+xil_options[:company_variable].to_s)
+        raise Exception.new("No current_company.") if current_company.nil? 
+        template_options[:current_company]=xil_options[:company_variable]
       end
 
-      f=File.open('/tmp/test.rb','wb')
-      f.write(result)
-      f.close()
+      method_name="render_xil_"+name+"_"+options[:output].to_s
+
+      #the function which creates the PDF function is executed here.
+      result=self.class.analyze_template(template, template_options) unless self.methods.include? method_name 
+
+      if RAILS_ENV=="development"
+        f=File.open('/tmp/test.rb','wb')
+        f.write(result)
+        f.close()
+      end
+
       # Finally, the generated function is executed.
-      self.send('render_xil_'+name+'_'+options[:output].to_s,options[:key])
+      self.send(method_name,options[:key])
     end
+
 
 
     # this function initializes the whole necessary environment for Xil. 
     def self.xil(options={})
+      # runs all the name parameters passed to initialization and generate an error if it is undefined.
+      options.each_key do |parameter|
+        raise Exception.new("Unknown parameter : #{parameter}") unless Ekylibre::Xil::ClassMethods::xil_options.include? parameter
+      end
+
+      # Generate an exception if company_variable is  intialised and with another value of current_company.
+      unless options[:company_variable].nil?
+        raise Exception.new("Company_variable must be equal to current_company.") unless options[:company_variable].to_s.eql? "current_company"
+      end
+      
       xil_options=Ekylibre::Xil::ClassMethods::xil_options.merge(options)
       new_options=xil_options
       
@@ -578,7 +602,7 @@ module ActionController
       raise Exception.new("Parameter subdir_size must be an integer.") unless new_options[:subdir_size].is_a? Integer
       raise Exception.new("Parameter impressions_path must be a string.") unless new_options[:impressions_path].is_a? String
       raise Exception.new("Parameter features must be an array with maximaly two symbols.") unless new_options[:features].is_a? Array and new_options[:features].length<=2
-
+      
       new_options[:features].detect do |element|
         unless element.is_a? Symbol
           raise Exception.new("The parameter features must be an array fulled with symbols.")
@@ -588,7 +612,7 @@ module ActionController
       # if a store of datas is implied by the user.
       if new_options[:features].include? :impression
         if new_options[:impression_model_name].is_a? Symbol
-          new_options[:impression_model]=new_options[:impression_model_name].to_s.singularize.classify.constantize 
+          new_options[:impression_model]=new_options[:impression_model_name].to_s.classify.constantize 
           
           # the model of impression specified by the user must contain particular fields.
          if ActiveRecord::Base.connection.tables.include? new_options[:impression_model].table_name 
@@ -602,14 +626,14 @@ module ActionController
         
         # if the folder does not exist, an error is generated.
         unless File.directory?(new_options[:impressions_path])
-         raise Exception.new("Your impression folder does not exist.")
+         raise Exception.new("Folder impressions does not exist.")
        end
       end  
       
       # if the user wishes to load a model to make the impression (facture). 
       if new_options[:features].include? :template
         if new_options[:template_model_name].is_a? Symbol
-          new_options[:template_model]=new_options[:template_model_name].to_s.singularize.classify.constantize 
+          new_options[:template_model]=new_options[:template_model_name].to_s.classify.constantize 
          
           # the model of template specified by the user must contain particular fields.
           if ActiveRecord::Base.connection.tables.include? new_options[:template_model].table_name
