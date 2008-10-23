@@ -65,7 +65,7 @@ module Ekylibre
         options[:file]             = 'f' # file of the document sterage.
         options[:temp]             = XIL_TITLE # temporary variable.
         options[:key]              = 'k'
-        options[:depth]            = -1
+        options[:depth]            = -1 # depth of the different balises loop imbricated.
         options[:permissions]      = [:copy,:print]
         options[:file_name]        = 'o'  # file with the extension.
              
@@ -78,7 +78,7 @@ module Ekylibre
 
         # declaration of the PDF document and first options.
         code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
-        code+=options[:pdf]+".set_protection(["+options[:permissions].collect{|x| ':'+x.to_s}.join(",")+"],'')\n"
+        #code+=options[:pdf]+".set_protection(["+options[:permissions].collect{|x| ':'+x.to_s}.join(",")+"],'')\n"
         code+=options[:pdf]+".alias_nb_pages('[PAGENB]')\n"
         code+=options[:available_height]+"="+(format_height(options[:format],options[:unit])-options['margin_top']-options['margin_bottom']).to_s+"\n"
         code+=options[:page_number]+"=1\n"
@@ -124,10 +124,14 @@ module Ekylibre
         # displaying of the PDF document.
         code+="send_data "+options[:pdf]+", :filename=>"+options[:file_name]+"\n"
         code+="end\n" 
-        
+                       
+        if RAILS_ENV=="development"
+          f=File.open('/tmp/test.rb','wb')
+          f.write(code)
+          f.close()
+        end
+
         module_eval(code)
-        code
-        
       end
       
       # if the attribute of an element has a value. Otherwise, a default value is used.
@@ -555,7 +559,6 @@ module ActionController
       end  
 
       raise Exception.new("Type error on the parameter xil: "+xil.class.to_s) if template.nil?
-
       template_options[:md5]=md5
       template_options[:name]=name
       
@@ -569,13 +572,7 @@ module ActionController
       method_name="render_xil_"+name+"_"+options[:output].to_s
 
       #the function which creates the PDF function is executed here.
-      result=self.class.analyze_template(template, template_options) unless self.methods.include? method_name 
-
-      if RAILS_ENV=="development"
-        f=File.open('/tmp/test.rb','wb')
-        f.write(result)
-        f.close()
-      end
+      self.class.analyze_template(template, template_options) unless self.methods.include? method_name 
 
       # Finally, the generated function is executed.
       self.send(method_name,options[:key])
@@ -616,9 +613,21 @@ module ActionController
           
           # the model of impression specified by the user must contain particular fields.
          if ActiveRecord::Base.connection.tables.include? new_options[:impression_model].table_name 
-           ["id", "filename","original_name","template_md5","sha256","company_id"].detect do |field|
+           ["id", "filename","original_name","template_md5","sha256","rijndael","company_id"].detect do |field|
               raise Exception.new("The table of impression #{new_options[:impression_model]} must contain at least the following field: "+field) unless new_options[:impression_model].column_names.include? field
             end   
+           # if the impression of the PDF documents is required, the function of saving impression is generated.
+           # it allows to encode the PDF document with a specific key randomly created, so the crypted file will be
+           # stored in the hard-drive. The algorithm used is Rijndael.
+           code+="require 'crypt/rijndael\n"
+           code+="def save_impression()\n"
+           code+="lenght_key=32\n"
+           code+="key=Array.new\n"
+           code+="length_key.times do |character|\n"
+           code+="key[character]=rand(256) end\n"
+           code+="key+=key.to_s\n"
+           
+           code+="end\n"
          end
         else
           raise Exception.new("The name of impression #{new_options[:impression_model_name]} is not a symbol.")
@@ -648,7 +657,11 @@ module ActionController
 
       Ekylibre::Xil::ClassMethods::xil_options=new_options
     end
-  end
+ 
+
+   
+
+ end
 end
 
 

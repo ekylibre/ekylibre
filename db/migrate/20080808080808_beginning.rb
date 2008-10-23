@@ -92,6 +92,7 @@ class Beginning < ActiveRecord::Migration
       t.column :original_name,          :string, :null=>false
       t.column :template_md5,           :string, :null=>false 
       t.column :key,                    :integer 
+      t.column :rijndael,               :string 
       t.column :sha256,                 :string, :null=>false
       t.column :printed_at,             :datetime
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
