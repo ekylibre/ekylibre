@@ -61,8 +61,8 @@ module Ekylibre
         options[:pdf]              = 'p' # FPDF object.
         options[:now]              = 't' # timestamp NOW.
         options[:title]            = 'g' # title of the document.
-        options[:storage]          = 's' # path of the document storage.
-        options[:file]             = 'f' # file of the document sterage.
+        #options[:storage]          = 's' # path of the document storage.
+        #options[:file]             = 'f' # file of the document storage.
         options[:temp]             = XIL_TITLE # temporary variable.
         options[:key]              = 'k'
         options[:depth]            = -1 # depth of the different balises loop imbricated.
@@ -105,19 +105,7 @@ module Ekylibre
 
         # if a storage of the PDF document is implied by the user.
         if @@xil_options[:features].include? :document
-#          code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
-#          code+="unless ::"+@@xil_options[:document_model].to_s+".exists?(['template_md5 = ? AND key = ? AND sha256 = ?','"+options[:name]+"',"+options[:key]+",'+binary_digest+'])\n"
-#          code+="document=::"+@@xil_options[:document_model].to_s+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:md5]+"', :sha256=>binary_digest, :original_name=>"+options[:file_name]+", :printed_at=>(Time.now), :company_id=>@"+options[:current_company].to_s+".id,:filename=>'t')\n"
-         # code+="save_document(md5,key,"+options[:pdf]+")\n"
-          
-          #code+=options[:storage]+"='"+@@xil_options[:documents_path]+"/'+(document.id/"+@@xil_options[:subdir_size].to_s+").to_i.to_s+'/'\n"
-          #code+="Dir.mkdir("+options[:storage]+") unless File.directory?("+options[:storage]+")\n"
-          
-          # creation of file and storage of code in. 
-          
-          #code+="document.filename="+options[:storage]+"+document.id.to_s\n"
-          #code+="document.save!\n"
-#          code+="end\n"
+         # code+="save_document("+options[:key]+","+options[:file_name]+","+options[:pdf]+")\n"
         end
                 
         # displaying of the PDF document.
@@ -619,25 +607,25 @@ module ActionController
            # which is returned. The encryption algorithm used is Rijndael.
            code=''
            code+="require 'vendor/plugins/xil/lib/crypt/rijndael'\n"
-           code+="def self.save_document(binary,options={})\n"
+           code+="def self.save_document(key,filename,binary)\n"
            code+="key='-'*32\n"
            code+="key=32.times do |index|\n"
            code+="key[index]=rand(256) end\n"
            code+="rijndael = Crypt::Rijndael.new(key)\n"
            code+="encrypted_block = rijndael.encrypt_block(binary)\n"
-             #   code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
-#          code+="unless ::"+@@xil_options[:document_model].to_s+".exists?(['template_md5 = ? AND key = ? AND sha256 = ?','"+options[:name]+"',"+options[:key]+",'+binary_digest+'])\n"
-#          code+="document=::"+@@xil_options[:document_model].to_s+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:md5]+"', :sha256=>binary_digest, :original_name=>"+options[:file_name]+", :printed_at=>(Time.now), :company_id=>@"+options[:current_company].to_s+".id,:filename=>'t')\n"
+           code+="binary_digest=Digest::SHA256.hexdigest(binary)\n"
+           code+="unless ::"+new_options[:document_model].to_s+".exists?(['key = ? AND sha256 = ?', 'key','binary_digest'])\n"
+           code+="document=::"+new_options[:document_model].to_s+".create!(:key=>key,:sha256=>binary_digest, :original_name=>'filename', :printed_at=>(Time.now), :company_id=>@"+options[:current_company].to_s+".id,:filename=>'t')\n"
       
-           code+="document=::"+new_options[:document_model].to_s+".find(:all,:conditions=>['template_md5 = ? AND key = ? AND sha256 = ?',options[:name],options[:key],options[:binary_digest] ])\n"
+           code+="document=::"+new_options[:document_model].to_s+".find(:all,:conditions=>[key = ? AND sha256 = ?',key,binary_digest ])\n"
            code+="document.rijndael='key'\n"
-           code+="options[:storage]='"+new_options[:documents_path]+"/(+document.id+/"+new_options[:subdir_size].to_s+").to_i.to_s/'\n"
-           code+="Dir.mkdir(options[:storage]) unless File.directory?(options[:storage])\n"
-           code+="options[:file]=File.open(options[:storage].to_s+encrypted_block.to_s,'wb')\n"
-           code+="options[:file].write(options[:pdf])\n"
-           code+="options[:file].close()\n"
+           code+="s='"+new_options[:documents_path]+"/(+document.id+/"+new_options[:subdir_size].to_s+").to_i.to_s/'\n"
+           code+="Dir.mkdir(s) unless File.directory?(s)\n"
+           code+="f=File.open(s.to_s+encrypted_block.to_s,'wb')\n"
+           code+="f.write(options[:pdf])\n"
+           code+="f.close()\n"
            
-           code+="document.filename=options[:storage]+encrypted_block.to_s\n"
+           code+="document.filename=s+encrypted_block.to_s\n"
            code+="document.save!\n"
            code+="end\n"
            
@@ -676,9 +664,6 @@ module ActionController
 
       Ekylibre::Xil::ClassMethods::xil_options=new_options
     end
- 
-
-   
 
  end
 end
