@@ -587,7 +587,7 @@ module ActionController
         raise Exception.new("Unknown parameter : #{parameter}") unless Ekylibre::Xil::ClassMethods::xil_options.include? parameter
       end
 
-      # Generate an exception if company_variable is  intialised and with another value of current_company.
+      # Generate an exception if company_variable is  initialized and with another value of current_company.
       unless options[:company_variable].nil?
         raise Exception.new("Company_variable must be equal to current_company.") unless options[:company_variable].to_s.eql? "current_company"
       end
@@ -616,17 +616,22 @@ module ActionController
            ["id", "filename","original_name","template_md5","sha256","rijndael","company_id"].detect do |field|
               raise Exception.new("The table of impression #{new_options[:impression_model]} must contain at least the following field: "+field) unless new_options[:impression_model].column_names.include? field
             end   
+           
            # if the impression of the PDF documents is required, the function of saving impression is generated.
            # it allows to encode the PDF document with a specific key randomly created, so the crypted file will be
-           # stored in the hard-drive. The algorithm used is Rijndael.
+           # stored in the hard-drive and the key in the database. The encryption algorithm used is Rijndael.
            code+="require 'crypt/rijndael\n"
-           code+="def save_impression()\n"
+           code+="def save_impression(block,options={})\n"
            code+="lenght_key=32\n"
            code+="key=Array.new\n"
            code+="length_key.times do |character|\n"
            code+="key[character]=rand(256) end\n"
            code+="key+=key.to_s\n"
-           
+           code+="rijndael = Crypt::Rijndael.new('key')\n"
+           code+="encryptedBlock = rijndael.encrypt_block(block)\n"
+           #code+="decryptedBlock = rijndael.decrypt_block(block)\n"
+           code+="::options[:impression_model].to_s.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:md5]+"', :sha256=>binary_digest, :original_name=>"+options[:file_name]+", :printed_at=>(Time.now), :company_id=>@"+options[:current_company].to_s+".id,:filename=>'t')\n"
+           code+="key\n"
            code+="end\n"
          end
         else

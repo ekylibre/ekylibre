@@ -31,8 +31,7 @@ class ApplicationController < ActionController::Base
     end
   end  
   
-  # this function tries to find the file matching to the ID passing in parameter and launch a download of it. 
- # def retrieve_report(key,template_md5)
+  # this function tries to find the file matching to the ID passing in parameter and launches a download of it. 
   def retrieve_xil(xil,options={})
     # the document is archived except the archive option is unmentioned
     unless options[:archive].false?
