@@ -16,9 +16,6 @@
 #
 
 class Template < ActiveRecord::Base
-  # the column md5 is fulled with the MD5 of the content template.
-  def before_save
-    self.md5=Digest::MD5.hexdigest(self.content)
-   
-  end
+ 
+ 
 end
