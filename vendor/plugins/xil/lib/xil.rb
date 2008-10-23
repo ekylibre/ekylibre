@@ -105,7 +105,7 @@ module Ekylibre
 
         # if a storage of the PDF document is implied by the user.
         if @@xil_options[:features].include? :document
-         # code+="save_document("+options[:key]+","+options[:file_name]+","+options[:pdf]+")\n"
+         # code+="save_document("+options[:key]+","+options[:file_name]+","+options[:pdf]+options[:current_company]+")\n"
         end
                 
         # displaying of the PDF document.
@@ -607,7 +607,7 @@ module ActionController
            # which is returned. The encryption algorithm used is Rijndael.
            code=''
            code+="require 'vendor/plugins/xil/lib/crypt/rijndael'\n"
-           code+="def self.save_document(key,filename,binary)\n"
+           code+="def self.save_document(key,filename,binary,current_company)\n"
            code+="key='-'*32\n"
            code+="key=32.times do |index|\n"
            code+="key[index]=rand(256) end\n"
@@ -615,7 +615,7 @@ module ActionController
            code+="encrypted_block = rijndael.encrypt_block(binary)\n"
            code+="binary_digest=Digest::SHA256.hexdigest(binary)\n"
            code+="unless ::"+new_options[:document_model].to_s+".exists?(['key = ? AND sha256 = ?', 'key','binary_digest'])\n"
-           code+="document=::"+new_options[:document_model].to_s+".create!(:key=>key,:sha256=>binary_digest, :original_name=>'filename', :printed_at=>(Time.now), :company_id=>@"+options[:current_company].to_s+".id,:filename=>'t')\n"
+           code+="document=::"+new_options[:document_model].to_s+".create!(:key=>key,:sha256=>binary_digest, :original_name=>'filename', :printed_at=>(Time.now), :company_id=>@+current_company+.to_s.id,:filename=>'t')\n"
       
            code+="document=::"+new_options[:document_model].to_s+".find(:all,:conditions=>[key = ? AND sha256 = ?',key,binary_digest ])\n"
            code+="document.rijndael='key'\n"
