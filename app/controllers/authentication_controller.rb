@@ -52,6 +52,8 @@ class AuthenticationController < ApplicationController
       end
     else
       session[:company_id] = nil
+      @company = Company.new
+      @user = User.new
     end
   end
   

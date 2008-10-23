@@ -21,7 +21,7 @@ class Company < ActiveRecord::Base
   has_many :users
   
   def before_validation
-    self.code = name[0..7].simpleize if code.blank?
+    self.code = name.to_s[0..7].simpleize if code.blank?
     self.code = rand.to_s[2..100].to_i.to_s(36)[0..7] if code.blank?
     self.code.upper!
     while Company.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do

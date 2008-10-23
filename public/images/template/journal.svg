@@ -17,7 +17,7 @@
    version="1.0"
    sodipodi:docname="journal.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/template/journal.png"
+   inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/template/new_journal.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -156,22 +156,6 @@
        y1="-1.6585824"
        x2="44.792797"
        y2="92.003021" />
-    <filter
-       inkscape:collect="always"
-       id="filter3457">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="3.0520485"
-         id="feGaussianBlur3459" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter3461">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="4.5611737"
-         id="feGaussianBlur3463" />
-    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -181,10 +165,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2"
-     inkscape:cx="36.927982"
+     inkscape:cx="-10.987635"
      inkscape:cy="109.35298"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="false"
      inkscape:window-width="1280"
      inkscape:window-height="979"
@@ -241,10 +225,10 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="New"
-     style="display:none">
+     style="display:inline">
     <path
        sodipodi:type="star"
-       style="opacity:1;fill:url(#linearGradient3246);fill-opacity:1;fill-rule:evenodd;stroke:#fd6900;stroke-width:3.74856067;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:inline"
+       style="opacity:1;fill:url(#linearGradient3246);fill-opacity:1;fill-rule:evenodd;stroke:#fd6900;stroke-width:3.74856066999999982;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.25981873;display:inline"
        id="path3218"
        sodipodi:sides="5"
        sodipodi:cx="11"
@@ -252,11 +236,14 @@
        sodipodi:r1="97.137505"
        sodipodi:r2="38.430241"
        sodipodi:arg1="1.5330552"
-       sodipodi:arg2="2.1822134"
+       sodipodi:arg2="2.1613737"
        inkscape:flatsided="false"
        inkscape:rounded="0"
        inkscape:randomized="0"
-       d="M 14.665209,143.06833 L -11.060049,77.468041 L -80.184858,79.481585 L -25.744816,34.743806 L -49.02055,-30.375574 L 10.350504,7.5752482 L 65.090118,-34.684286 L 47.343405,33.508391 L 104.45008,72.509944 L 34.110956,76.704513 L 14.665209,143.06833 z"
-       transform="matrix(0.2544701,7.953023e-2,-7.9626085e-2,0.2547768,112.28691,14.571544)" />
+       d="M 14.665209,143.06833 L -10.399522,77.9209 L -80.184858,79.481585 L -25.971396,35.511946 L -49.02055,-30.375574 L 9.5499425,7.597126 L 65.090118,-34.684286 L 47.075211,32.753773 L 104.45008,72.509944 L 34.745764,76.216255 L 14.665209,143.06833 z"
+       transform="matrix(0.2544701,7.953023e-2,-7.9626085e-2,0.2547768,112.28691,14.571544)"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/template/new_journal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

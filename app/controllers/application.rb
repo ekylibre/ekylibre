@@ -60,10 +60,10 @@ class ApplicationController < ActionController::Base
       else
         session[:last_query] = Time.now.to_i
         if request.get?
-          session[:url] = [] if session[:url].nil?
-          if session[:url][0] != request.url
-            session[:url][1] = session[:url_0]
-            session[:url][0] = request.url
+          session[:history] = [] if session[:history].nil?
+          if session[:history][0] != request.url
+            10.times{|i| session[:history][i+1] = session[:history][i]}
+            session[:history][0] = request.url
           end
         end
       end
@@ -78,8 +78,8 @@ class ApplicationController < ActionController::Base
   end
   
   def redirect_to_back
-    if session[:url][1]
-      redirect_to session[:url][1]
+    if session[:history][1]
+      redirect_to session[:history][1]
     else
       redirect_to :back
     end

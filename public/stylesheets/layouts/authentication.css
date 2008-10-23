@@ -11,7 +11,7 @@ body { background: #FFF; }
 #login .end {height:4px; background: url(/images/template/gradient.png) repeat-x top;}
 div.flash-error {text-align:center; color:red; font-style:italic;height:20px;padding: 16px;}
 
-.frame { width: 640px; margin:10px; margin-left:auto; margin-right:auto; }
+.frame { margin:10px; margin-left:auto; margin-right:auto; }
 .frame .title { padding:4px 0px; color:#007; }
 .frame .nav { text-align:center; padding:16px 16px;}
 .frame .nav a { margin-left:10px; }
