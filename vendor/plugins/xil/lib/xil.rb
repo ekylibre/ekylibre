@@ -108,16 +108,18 @@ module Ekylibre
           code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
           code+="unless ::"+@@xil_options[:impression_model].to_s+".exists?(['template_md5 = ? AND key = ? AND sha256 = ?','"+options[:name]+"',"+options[:key]+",'+binary_digest+'])\n"
           code+="impression=::"+@@xil_options[:impression_model].to_s+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:md5]+"', :sha256=>binary_digest, :original_name=>"+options[:file_name]+", :printed_at=>(Time.now), :company_id=>@"+options[:current_company].to_s+".id,:filename=>'t')\n"
-          code+=options[:storage]+"='"+@@xil_options[:impressions_path]+"/'+(impression.id/"+@@xil_options[:subdir_size].to_s+").to_i.to_s+'/'\n"
-          code+="Dir.mkdir("+options[:storage]+") unless File.directory?("+options[:storage]+")\n"
+          code+="save_impression("+options[:pdf]+")\n"
+ 
+         #code+=options[:storage]+"='"+@@xil_options[:impressions_path]+"/'+(impression.id/"+@@xil_options[:subdir_size].to_s+").to_i.to_s+'/'\n"
+          #code+="Dir.mkdir("+options[:storage]+") unless File.directory?("+options[:storage]+")\n"
           
           # creation of file and storage of code in. 
-          code+=options[:file]+"=File.open("+options[:storage].to_s+"+impression.id.to_s,'wb')\n"
-          code+=options[:file]+".write("+options[:pdf]+")\n"
-          code+=options[:file]+".close()\n"
+         # code+=options[:file]+"=File.open("+options[:storage].to_s+"+impression.id.to_s,'wb')\n"
+         # code+=options[:file]+".write("+options[:pdf]+")\n"
+         # code+=options[:file]+".close()\n"
           
-          code+="impression.filename="+options[:storage]+"+impression.id.to_s\n"
-          code+="impression.save!\n"
+         # code+="impression.filename="+options[:storage]+"+impression.id.to_s\n"
+         # code+="impression.save!\n"
           code+="end\n"
         end
                 
@@ -618,21 +620,28 @@ module ActionController
             end   
            
            # if the impression of the PDF documents is required, the function of saving impression is generated.
-           # it allows to encode the PDF document with a specific key randomly created, so the crypted file will be
-           # stored in the hard-drive and the key in the database. The encryption algorithm used is Rijndael.
-           code+="require 'crypt/rijndael\n"
+           # it allows to encode the PDF document (considered as a data block) with a specific key randomly created and 
+           # which is returned. The encryption algorithm used is Rijndael.
+           code+="require 'crypt/rijndael'\n"
            code+="def save_impression(block,options={})\n"
-           code+="lenght_key=32\n"
-           code+="key=Array.new\n"
-           code+="length_key.times do |character|\n"
-           code+="key[character]=rand(256) end\n"
-           code+="key+=key.to_s\n"
+           code+="key='-'*32\n"
+           code+="key=32.times do |index|\n"
+           code+="key[index]=rand(256) end\n"
            code+="rijndael = Crypt::Rijndael.new('key')\n"
-           code+="encryptedBlock = rijndael.encrypt_block(block)\n"
-           #code+="decryptedBlock = rijndael.decrypt_block(block)\n"
-           code+="::options[:impression_model].to_s.create!(:key=>"+options[:key]+",:template_md5=>'"+options[:md5]+"', :sha256=>binary_digest, :original_name=>"+options[:file_name]+", :printed_at=>(Time.now), :company_id=>@"+options[:current_company].to_s+".id,:filename=>'t')\n"
-           code+="key\n"
+           code+="encrypted_block = rijndael.encrypt_block(block)\n"
+           code+="impression=::options[:impression_model].to_s.find(:all,:conditions=>['template_md5 = ? AND key = ? AND sha256 = ?','options[:name]',options[:key],'binary_digest'])\n"
+           code+="impression.rijndael='key'\n"
+           code+="options[:storage]='options[:impressions_path]/(+impression.id+/options[:subdir_size].to_s).to_i.to_s/'\n"
+           code+="Dir.mkdir(options[:storage]) unless File.directory?(options[:storage])\n"
+           code+="options[:file]=File.open(options[:storage].to_s+encrypted_block.to_s,'wb')\n"
+           code+="options[:file].write(options[:pdf])\n"
+           code+="options[:file].close()\n"
+           
+           code+="impression.filename=options[:storage]+encrypted_block.to_s\n"
+           code+="impression.save!\n"
+          
            code+="end\n"
+           
          end
         else
           raise Exception.new("The name of impression #{new_options[:impression_model_name]} is not a symbol.")
