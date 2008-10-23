@@ -108,18 +108,18 @@ module Ekylibre
           code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
           code+="unless ::"+@@xil_options[:impression_model].to_s+".exists?(['template_md5 = ? AND key = ? AND sha256 = ?','"+options[:name]+"',"+options[:key]+",'+binary_digest+'])\n"
           code+="impression=::"+@@xil_options[:impression_model].to_s+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:md5]+"', :sha256=>binary_digest, :original_name=>"+options[:file_name]+", :printed_at=>(Time.now), :company_id=>@"+options[:current_company].to_s+".id,:filename=>'t')\n"
-          code+="save_impression("+options[:pdf]+")\n"
- 
-         #code+=options[:storage]+"='"+@@xil_options[:impressions_path]+"/'+(impression.id/"+@@xil_options[:subdir_size].to_s+").to_i.to_s+'/'\n"
-          #code+="Dir.mkdir("+options[:storage]+") unless File.directory?("+options[:storage]+")\n"
+          #code+="save_impression("+options[:pdf]+","+options+")\n"
+          
+          code+=options[:storage]+"='"+@@xil_options[:impressions_path]+"/'+(impression.id/"+@@xil_options[:subdir_size].to_s+").to_i.to_s+'/'\n"
+          code+="Dir.mkdir("+options[:storage]+") unless File.directory?("+options[:storage]+")\n"
           
           # creation of file and storage of code in. 
-         # code+=options[:file]+"=File.open("+options[:storage].to_s+"+impression.id.to_s,'wb')\n"
-         # code+=options[:file]+".write("+options[:pdf]+")\n"
-         # code+=options[:file]+".close()\n"
+          code+=options[:file]+"=File.open("+options[:storage].to_s+"+impression.id.to_s,'wb')\n"
+          code+=options[:file]+".write("+options[:pdf]+")\n"
+          code+=options[:file]+".close()\n"
           
-         # code+="impression.filename="+options[:storage]+"+impression.id.to_s\n"
-         # code+="impression.save!\n"
+          code+="impression.filename="+options[:storage]+"+impression.id.to_s\n"
+          code+="impression.save!\n"
           code+="end\n"
         end
                 
@@ -589,7 +589,7 @@ module ActionController
         raise Exception.new("Unknown parameter : #{parameter}") unless Ekylibre::Xil::ClassMethods::xil_options.include? parameter
       end
 
-      # Generate an exception if company_variable is  initialized and with another value of current_company.
+      # Generate an exception if company_variable is nitialized and with another value of current_company.
       unless options[:company_variable].nil?
         raise Exception.new("Company_variable must be equal to current_company.") unless options[:company_variable].to_s.eql? "current_company"
       end
@@ -597,7 +597,7 @@ module ActionController
       xil_options=Ekylibre::Xil::ClassMethods::xil_options.merge(options)
       new_options=xil_options
       
-      # some verifications about the different arguments passed to the init function during the XIL-plugin initialisation. 
+      # some verifications about the different arguments passed to the init function during the XIL-plugin initialization. 
       raise Exception.new("Parameter subdir_size must be an integer.") unless new_options[:subdir_size].is_a? Integer
       raise Exception.new("Parameter impressions_path must be a string.") unless new_options[:impressions_path].is_a? String
       raise Exception.new("Parameter features must be an array with maximaly two symbols.") unless new_options[:features].is_a? Array and new_options[:features].length<=2
@@ -613,7 +613,7 @@ module ActionController
         if new_options[:impression_model_name].is_a? Symbol
           new_options[:impression_model]=new_options[:impression_model_name].to_s.classify.constantize 
           
-          # the model of impression specified by the user must contain particular fields.
+          # the model of impression specified by the user must contains particular fields.
          if ActiveRecord::Base.connection.tables.include? new_options[:impression_model].table_name 
            ["id", "filename","original_name","template_md5","sha256","rijndael","company_id"].detect do |field|
               raise Exception.new("The table of impression #{new_options[:impression_model]} must contain at least the following field: "+field) unless new_options[:impression_model].column_names.include? field
@@ -622,16 +622,17 @@ module ActionController
            # if the impression of the PDF documents is required, the function of saving impression is generated.
            # it allows to encode the PDF document (considered as a data block) with a specific key randomly created and 
            # which is returned. The encryption algorithm used is Rijndael.
+           code=''
            code+="require 'crypt/rijndael'\n"
            code+="def save_impression(block,options={})\n"
            code+="key='-'*32\n"
            code+="key=32.times do |index|\n"
            code+="key[index]=rand(256) end\n"
-           code+="rijndael = Crypt::Rijndael.new('key')\n"
+           code+="rijndael = Crypt::Rijndael.new(key)\n"
            code+="encrypted_block = rijndael.encrypt_block(block)\n"
-           code+="impression=::options[:impression_model].to_s.find(:all,:conditions=>['template_md5 = ? AND key = ? AND sha256 = ?','options[:name]',options[:key],'binary_digest'])\n"
+           code+="impression=::"+new_options[:impression_model].to_s+".find(:all,:conditions=>['template_md5 = ? AND key = ? AND sha256 = ?',options[:name],options[:key],options[:binary_digest] ])\n"
            code+="impression.rijndael='key'\n"
-           code+="options[:storage]='options[:impressions_path]/(+impression.id+/options[:subdir_size].to_s).to_i.to_s/'\n"
+           code+="options[:storage]='"+new_options[:impressions_path]+"/(+impression.id+/"+new_options[:subdir_size].to_s+").to_i.to_s/'\n"
            code+="Dir.mkdir(options[:storage]) unless File.directory?(options[:storage])\n"
            code+="options[:file]=File.open(options[:storage].to_s+encrypted_block.to_s,'wb')\n"
            code+="options[:file].write(options[:pdf])\n"
@@ -641,7 +642,10 @@ module ActionController
            code+="impression.save!\n"
           
            code+="end\n"
-           
+           f=File.open('test_save.rb','wb')
+           f.write(code)
+           f.close
+  #         module_eval(code)
          end
         else
           raise Exception.new("The name of impression #{new_options[:impression_model_name]} is not a symbol.")
