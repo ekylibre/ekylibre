@@ -529,7 +529,7 @@ module ActionController
         template=xil_options[:template_model].find_by_id(xil)
         raise Exception.new('This ID has not been found in the database.') if template.nil?
         name=template.id.to_s  
-        md5=template.md5
+        
         template=template.content        
         # if the parameter is a string.
       elsif xil.is_a? String
@@ -546,19 +546,17 @@ module ActionController
           raise Exception.new("It is not an XML data.")
         end
         # encodage of string into a crypt MD5 format to easier the authentification of template by the XIL-plugin.
-        md5=Digest::MD5.hexdigest(xil)
-        name=md5      
+        name=Digest::MD5.hexdigest(xil)
         # the parameter is a template.  
       elsif xil_options[:features].include? :template
         if xil.is_a? xil_options[:template_model]
           template=xil.content 
-          md5=xil.md5
           name=xil.id.to_s        
         end
       end  
 
       raise Exception.new("Type error on the parameter xil: "+xil.class.to_s) if template.nil?
-      template_options[:md5]=md5
+      
       template_options[:name]=name
       
       # tests if the variable current_company is available.

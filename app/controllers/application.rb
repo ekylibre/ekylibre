@@ -36,8 +36,7 @@ class ApplicationController < ActionController::Base
     # the document is archived except the archive option is unmentioned
     unless options[:archive].false?
       template = Template.find(xil).content
-      digest=Digest::MD5.hexdigest(template)
-      Report.find(:all, :conditions=>['key = ? AND template_md5 = ? ', options[:key], digest])||false 
+      Report.find(:all, :conditions=>['key = ?', options[:key]])||false 
     end
   end
   
