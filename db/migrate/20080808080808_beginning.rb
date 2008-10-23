@@ -79,7 +79,6 @@ class Beginning < ActiveRecord::Migration
     create_table :templates do |t|
       t.column :name,                   :string,   :null=>false
       t.column :content,                :text,     :null=>false
-      t.column :md5,                    :string,   :null=>true
       t.column :cache,                  :text    
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
@@ -87,10 +86,9 @@ class Beginning < ActiveRecord::Migration
     add_index :templates, [:company_id, :name], :unique=>true
     
     # Report
-    create_table :impressions do |t|
+    create_table :documents do |t|
       t.column :filename,               :string 
       t.column :original_name,          :string, :null=>false
-      t.column :template_md5,           :string, :null=>false 
       t.column :key,                    :integer 
       t.column :rijndael,               :string 
       t.column :sha256,                 :string, :null=>false
@@ -98,7 +96,7 @@ class Beginning < ActiveRecord::Migration
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
    
-    add_index :impressions, [:sha256], :unique=>true
+    add_index :documents, [:sha256], :unique=>true
     
 
     Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
@@ -106,7 +104,7 @@ class Beginning < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :impressions
+    drop_table :documents
     drop_table :templates
     drop_table :roles
     drop_table :parameters

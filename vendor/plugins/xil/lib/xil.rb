@@ -18,7 +18,7 @@ module Ekylibre
       include REXML
       
       # Array listing the main options used by XIL-plugin and specified here as a global variable.
-      @@xil_options={:features=>[], :impressions_path=>"#{RAILS_ROOT}/private/impressions", :subdir_size=>4096, :impression_model_name=>:impressions, :template_model_name=>:templates, :company_variable=>:current_company}
+      @@xil_options={:features=>[], :documents_path=>"#{RAILS_ROOT}/private/documents", :subdir_size=>4096, :document_model_name=>:documents, :template_model_name=>:templates, :company_variable=>:current_company}
    
       mattr_accessor :xil_options
       
@@ -104,23 +104,20 @@ module Ekylibre
         code+=options[:file_name]+"="+options[:title]+".gsub(/[^a-z0-9\_]/i,'_')+'."+options[:output].to_s+"'\n"
 
         # if a storage of the PDF document is implied by the user.
-        if @@xil_options[:features].include? :impression
-          code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
-          code+="unless ::"+@@xil_options[:impression_model].to_s+".exists?(['template_md5 = ? AND key = ? AND sha256 = ?','"+options[:name]+"',"+options[:key]+",'+binary_digest+'])\n"
-          code+="impression=::"+@@xil_options[:impression_model].to_s+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:md5]+"', :sha256=>binary_digest, :original_name=>"+options[:file_name]+", :printed_at=>(Time.now), :company_id=>@"+options[:current_company].to_s+".id,:filename=>'t')\n"
-          #code+="save_impression("+options[:pdf]+","+options+")\n"
+        if @@xil_options[:features].include? :document
+#          code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
+#          code+="unless ::"+@@xil_options[:document_model].to_s+".exists?(['template_md5 = ? AND key = ? AND sha256 = ?','"+options[:name]+"',"+options[:key]+",'+binary_digest+'])\n"
+#          code+="document=::"+@@xil_options[:document_model].to_s+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:md5]+"', :sha256=>binary_digest, :original_name=>"+options[:file_name]+", :printed_at=>(Time.now), :company_id=>@"+options[:current_company].to_s+".id,:filename=>'t')\n"
+         # code+="save_document(md5,key,"+options[:pdf]+")\n"
           
-          code+=options[:storage]+"='"+@@xil_options[:impressions_path]+"/'+(impression.id/"+@@xil_options[:subdir_size].to_s+").to_i.to_s+'/'\n"
-          code+="Dir.mkdir("+options[:storage]+") unless File.directory?("+options[:storage]+")\n"
+          #code+=options[:storage]+"='"+@@xil_options[:documents_path]+"/'+(document.id/"+@@xil_options[:subdir_size].to_s+").to_i.to_s+'/'\n"
+          #code+="Dir.mkdir("+options[:storage]+") unless File.directory?("+options[:storage]+")\n"
           
           # creation of file and storage of code in. 
-          code+=options[:file]+"=File.open("+options[:storage].to_s+"+impression.id.to_s,'wb')\n"
-          code+=options[:file]+".write("+options[:pdf]+")\n"
-          code+=options[:file]+".close()\n"
           
-          code+="impression.filename="+options[:storage]+"+impression.id.to_s\n"
-          code+="impression.save!\n"
-          code+="end\n"
+          #code+="document.filename="+options[:storage]+"+document.id.to_s\n"
+          #code+="document.save!\n"
+#          code+="end\n"
         end
                 
         # displaying of the PDF document.
@@ -565,7 +562,7 @@ module ActionController
       template_options[:name]=name
       
       # tests if the variable current_company is available.
-      if xil_options[:features].include? :template  or xil_options[:features].include? :impression
+      if xil_options[:features].include? :template  or xil_options[:features].include? :document
         current_company = instance_variable_get("@"+xil_options[:company_variable].to_s)
         raise Exception.new("No current_company.") if current_company.nil? 
         template_options[:current_company]=xil_options[:company_variable]
@@ -599,7 +596,7 @@ module ActionController
       
       # some verifications about the different arguments passed to the init function during the XIL-plugin initialization. 
       raise Exception.new("Parameter subdir_size must be an integer.") unless new_options[:subdir_size].is_a? Integer
-      raise Exception.new("Parameter impressions_path must be a string.") unless new_options[:impressions_path].is_a? String
+      raise Exception.new("Parameter impressions_path must be a string.") unless new_options[:documents_path].is_a? String
       raise Exception.new("Parameter features must be an array with maximaly two symbols.") unless new_options[:features].is_a? Array and new_options[:features].length<=2
       
       new_options[:features].detect do |element|
@@ -609,55 +606,61 @@ module ActionController
       end
 
       # if a store of datas is implied by the user.
-      if new_options[:features].include? :impression
-        if new_options[:impression_model_name].is_a? Symbol
-          new_options[:impression_model]=new_options[:impression_model_name].to_s.classify.constantize 
+      if new_options[:features].include? :document
+        if new_options[:document_model_name].is_a? Symbol
+          new_options[:document_model]=new_options[:document_model_name].to_s.classify.constantize 
           
-          # the model of impression specified by the user must contains particular fields.
-         if ActiveRecord::Base.connection.tables.include? new_options[:impression_model].table_name 
-           ["id", "filename","original_name","template_md5","sha256","rijndael","company_id"].detect do |field|
-              raise Exception.new("The table of impression #{new_options[:impression_model]} must contain at least the following field: "+field) unless new_options[:impression_model].column_names.include? field
+          # the model of document specified by the user must contains particular fields.
+         if ActiveRecord::Base.connection.tables.include? new_options[:document_model].table_name 
+           ["id", "filename","original_name","sha256","rijndael","company_id"].detect do |field|
+              raise Exception.new("The table of document #{new_options[:document_model]} must contain at least the following field: "+field) unless new_options[:document_model].column_names.include? field
             end   
            
-           # if the impression of the PDF documents is required, the function of saving impression is generated.
+           # if the impression of the PDF documents is required, the function of saving document is generated.
            # it allows to encode the PDF document (considered as a data block) with a specific key randomly created and 
            # which is returned. The encryption algorithm used is Rijndael.
            code=''
-           code+="require 'crypt/rijndael'\n"
-           code+="def save_impression(block,options={})\n"
+           code+="require 'vendor/plugins/xil/lib/crypt/rijndael'\n"
+           code+="def self.save_document(binary,options={})\n"
            code+="key='-'*32\n"
            code+="key=32.times do |index|\n"
            code+="key[index]=rand(256) end\n"
            code+="rijndael = Crypt::Rijndael.new(key)\n"
-           code+="encrypted_block = rijndael.encrypt_block(block)\n"
-           code+="impression=::"+new_options[:impression_model].to_s+".find(:all,:conditions=>['template_md5 = ? AND key = ? AND sha256 = ?',options[:name],options[:key],options[:binary_digest] ])\n"
-           code+="impression.rijndael='key'\n"
-           code+="options[:storage]='"+new_options[:impressions_path]+"/(+impression.id+/"+new_options[:subdir_size].to_s+").to_i.to_s/'\n"
+           code+="encrypted_block = rijndael.encrypt_block(binary)\n"
+             #   code+="binary_digest=Digest::SHA256.hexdigest("+options[:pdf]+")\n"
+#          code+="unless ::"+@@xil_options[:document_model].to_s+".exists?(['template_md5 = ? AND key = ? AND sha256 = ?','"+options[:name]+"',"+options[:key]+",'+binary_digest+'])\n"
+#          code+="document=::"+@@xil_options[:document_model].to_s+".create!(:key=>"+options[:key]+",:template_md5=>'"+options[:md5]+"', :sha256=>binary_digest, :original_name=>"+options[:file_name]+", :printed_at=>(Time.now), :company_id=>@"+options[:current_company].to_s+".id,:filename=>'t')\n"
+      
+           code+="document=::"+new_options[:document_model].to_s+".find(:all,:conditions=>['template_md5 = ? AND key = ? AND sha256 = ?',options[:name],options[:key],options[:binary_digest] ])\n"
+           code+="document.rijndael='key'\n"
+           code+="options[:storage]='"+new_options[:documents_path]+"/(+document.id+/"+new_options[:subdir_size].to_s+").to_i.to_s/'\n"
            code+="Dir.mkdir(options[:storage]) unless File.directory?(options[:storage])\n"
            code+="options[:file]=File.open(options[:storage].to_s+encrypted_block.to_s,'wb')\n"
            code+="options[:file].write(options[:pdf])\n"
            code+="options[:file].close()\n"
            
-           code+="impression.filename=options[:storage]+encrypted_block.to_s\n"
-           code+="impression.save!\n"
-          
+           code+="document.filename=options[:storage]+encrypted_block.to_s\n"
+           code+="document.save!\n"
            code+="end\n"
+           
            f=File.open('test_save.rb','wb')
            f.write(code)
            f.close
-  #         module_eval(code)
+
+          # module_eval(code)
          end
-        else
-          raise Exception.new("The name of impression #{new_options[:impression_model_name]} is not a symbol.")
+       
+       else
+          raise Exception.new("The name of document #{new_options[:document_model_name]} is not a symbol.")
         end
         
         # if the folder does not exist, an error is generated.
-        unless File.directory?(new_options[:impressions_path])
-         raise Exception.new("Folder impressions does not exist.")
+        unless File.directory?(new_options[:documents_path])
+         raise Exception.new("Folder documents does not exist.")
        end
       end  
       
-      # if the user wishes to load a model to make the impression (facture). 
+      # if the user wishes to load a model to make the document (facture). 
       if new_options[:features].include? :template
         if new_options[:template_model_name].is_a? Symbol
           new_options[:template_model]=new_options[:template_model_name].to_s.classify.constantize 
