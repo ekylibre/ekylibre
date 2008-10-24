@@ -61,8 +61,6 @@ module Ekylibre
         options[:pdf]              = 'p' # FPDF object.
         options[:now]              = 't' # timestamp NOW.
         options[:title]            = 'g' # title of the document.
-        #options[:storage]          = 's' # path of the document storage.
-        #options[:file]             = 'f' # file of the document storage.
         options[:temp]             = XIL_TITLE # temporary variable.
         options[:key]              = 'k'
         options[:depth]            = -1 # depth of the different balises loop imbricated.
@@ -75,7 +73,6 @@ module Ekylibre
         code+=options[:now]+"=Time.now\n"
         code+=options[:title]+"='file'\n"
         
-
         # declaration of the PDF document and first options.
         code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
         #code+=options[:pdf]+".set_protection(["+options[:permissions].collect{|x| ':'+x.to_s}.join(",")+"],'')\n"
@@ -105,7 +102,7 @@ module Ekylibre
 
         # if a storage of the PDF document is implied by the user.
         if @@xil_options[:features].include? :document
-         # code+="save_document("+options[:key]+","+options[:file_name]+","+options[:pdf]+options[:current_company]+")\n"
+          code+="ActionController::Base.save_document("+options[:key]+","+options[:file_name]+","+options[:pdf]+","+options[:current_company].to_s+")\n"
         end
                 
         # displaying of the PDF document.
@@ -552,6 +549,7 @@ module ActionController
         current_company = instance_variable_get("@"+xil_options[:company_variable].to_s)
         raise Exception.new("No current_company.") if current_company.nil? 
         template_options[:current_company]=xil_options[:company_variable]
+       
       end
 
       method_name="render_xil_"+name+"_"+options[:output].to_s
@@ -608,32 +606,55 @@ module ActionController
            code=''
            code+="require 'vendor/plugins/xil/lib/crypt/rijndael'\n"
            code+="def self.save_document(key,filename,binary,current_company)\n"
-           code+="key='-'*32\n"
-           code+="key=32.times do |index|\n"
-           code+="key[index]=rand(256) end\n"
-           code+="rijndael = Crypt::Rijndael.new(key)\n"
-           code+="encrypted_block = rijndael.encrypt_block(binary)\n"
+           code+="k='-'*32\n"
+           code+="32.times do |index|\n"
+           code+="k[index]=rand(256) end\n"
+           code+="b=binary.length\n"
+           code+="rest_string=b.modulo 16\n"
            code+="binary_digest=Digest::SHA256.hexdigest(binary)\n"
-           code+="unless ::"+new_options[:document_model].to_s+".exists?(['key = ? AND sha256 = ?', 'key','binary_digest'])\n"
-           code+="document=::"+new_options[:document_model].to_s+".create!(:key=>key,:sha256=>binary_digest, :original_name=>'filename', :printed_at=>(Time.now), :company_id=>@+current_company+.to_s.id,:filename=>'t')\n"
-      
-           code+="document=::"+new_options[:document_model].to_s+".find(:all,:conditions=>[key = ? AND sha256 = ?',key,binary_digest ])\n"
-           code+="document.rijndael='key'\n"
-           code+="s='"+new_options[:documents_path]+"/(+document.id+/"+new_options[:subdir_size].to_s+").to_i.to_s/'\n"
-           code+="Dir.mkdir(s) unless File.directory?(s)\n"
-           code+="f=File.open(s.to_s+encrypted_block.to_s,'wb')\n"
-           code+="f.write(options[:pdf])\n"
-           code+="f.close()\n"
+           code+="binary+='0'*(16-rest_string) unless rest_string==0\n"
+           code+="rijndael = Crypt::Rijndael.new(k)\n"
+           #code+="encrypted_block = rijndael.encrypt_block(binary)\n"
+           code+="encrypted_block = rijndael.encrypt_block(binary[0..15])\n"
+           code+="puts binary[0..15]\n"
+           code+="puts encrypted_block\n"
+           code+="puts key\n"
+           code+="puts filename\n"
            
-           code+="document.filename=s+encrypted_block.to_s\n"
+           code+="puts current_company\n"
+           
+          # code+="decrypted_block = (rijndael.decrypt_block(encrypted_block))[0..b-1]\n"
+            code+="decrypted_block = rijndael.decrypt_block(encrypted_block)\n"
+           code+="puts decrypted_block\n"
+           
+           code+="unless ::"+new_options[:document_model].to_s+".exists?(['key = ? AND sha256 = ?', key,binary_digest])\n"
+           
+           code+="document=::"+new_options[:document_model].to_s+".create!(:key=>key,:size_file=>b,:sha256=>binary_digest, :original_name=>filename, :printed_at=>(Time.now), :company_id=>current_company.to_s,:filename=>'t')\n"
+           
+           code+="document=::"+new_options[:document_model].to_s+".find(:first,:conditions=>['key = ? AND sha256 = ?',key,binary_digest])\n"
+            #code+="puts 'i'+document.to_s\n"
+           code+="document.rijndael=Iconv.iconv('UTF-8','ISO-8859-15',k).to_s\n"
+           code+="s='"+new_options[:documents_path]+"/'+(document.id/"+new_options[:subdir_size].to_s+").to_s+'/'\n"
+           code+="puts s\n"
+           code+="Dir.mkdir(s) unless File.directory?(s)\n"
+           
+           code+="f=File.open(s+encrypted_block,'wb')\n"
+           
+           code+="f.write(binary[0..b-1])\n"
+           code+="f.close()\n"
+
+           code+="document.filename=s+Iconv.iconv('UTF-8','ISO-8859-15',encrypted_block).to_s\n"
            code+="document.save!\n"
            code+="end\n"
            
+          
+           code+="end\n"
+
            f=File.open('test_save.rb','wb')
            f.write(code)
            f.close
 
-          # module_eval(code)
+           module_eval(code)
          end
        
        else
@@ -654,7 +675,7 @@ module ActionController
           # the model of template specified by the user must contain particular fields.
           if ActiveRecord::Base.connection.tables.include? new_options[:template_model].table_name
             ["id", "content","cache","company_id"].detect do |field|
-              raise Exception.new("The table of template #{new_options[:template_model]} must contain at least the following field: "+field) unless new_options[:template_model].column_names.include? field
+              raise Exception.new("The table of template #{new_options[:template_model]} must contains at least the following field: "+field) unless new_options[:template_model].column_names.include? field
               end
           end
         else
