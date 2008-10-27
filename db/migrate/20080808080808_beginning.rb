@@ -90,7 +90,7 @@ class Beginning < ActiveRecord::Migration
       t.column :filename,               :string 
       t.column :original_name,          :string, :null=>false
       t.column :key,                    :integer 
-      t.column :size_file,              :integer 
+      t.column :filesize,               :integer 
       t.column :rijndael,               :string 
       t.column :sha256,                 :string, :null=>false
       t.column :printed_at,             :datetime

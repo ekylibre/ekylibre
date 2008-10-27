@@ -604,50 +604,33 @@ module ActionController
            # it allows to encode the PDF document (considered as a data block) with a specific key randomly created and 
            # which is returned. The encryption algorithm used is Rijndael.
            code=''
-           code+="require 'vendor/plugins/xil/lib/crypt/rijndael'\n"
            code+="def self.save_document(key,filename,binary,current_company)\n"
-           code+="k='-'*32\n"
+           code+="dico=%w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § µ % / & < )\n"
+           code+="k='+'*32\n"
            code+="32.times do |index|\n"
-           code+="k[index]=rand(256) end\n"
-           code+="b=binary.length\n"
-           code+="rest_string=b.modulo 16\n"
+           code+="k[index]=dico[rand(dico.length)] end\n"
+           code+="filesize=binary.length\n"
            code+="binary_digest=Digest::SHA256.hexdigest(binary)\n"
-           code+="binary+='0'*(16-rest_string) unless rest_string==0\n"
-           code+="rijndael = Crypt::Rijndael.new(k)\n"
-           #code+="encrypted_block = rijndael.encrypt_block(binary)\n"
-           code+="encrypted_block = rijndael.encrypt_block(binary[0..15])\n"
-           code+="puts binary[0..15]\n"
-           code+="puts encrypted_block\n"
-           code+="puts key\n"
-           code+="puts filename\n"
-           
-           code+="puts current_company\n"
-           
-          # code+="decrypted_block = (rijndael.decrypt_block(encrypted_block))[0..b-1]\n"
-            code+="decrypted_block = rijndael.decrypt_block(encrypted_block)\n"
-           code+="puts decrypted_block\n"
-           
-           code+="unless ::"+new_options[:document_model].to_s+".exists?(['key = ? AND sha256 = ?', key,binary_digest])\n"
-           
-           code+="document=::"+new_options[:document_model].to_s+".create!(:key=>key,:size_file=>b,:sha256=>binary_digest, :original_name=>filename, :printed_at=>(Time.now), :company_id=>current_company.to_s,:filename=>'t')\n"
-           
-           code+="document=::"+new_options[:document_model].to_s+".find(:first,:conditions=>['key = ? AND sha256 = ?',key,binary_digest])\n"
-            #code+="puts 'i'+document.to_s\n"
-           code+="document.rijndael=Iconv.iconv('UTF-8','ISO-8859-15',k).to_s\n"
-           code+="s='"+new_options[:documents_path]+"/'+(document.id/"+new_options[:subdir_size].to_s+").to_s+'/'\n"
-           code+="puts s\n"
-           code+="Dir.mkdir(s) unless File.directory?(s)\n"
-           
-           code+="f=File.open(s+encrypted_block,'wb')\n"
-           
-           code+="f.write(binary[0..b-1])\n"
-           code+="f.close()\n"
 
-           code+="document.filename=s+Iconv.iconv('UTF-8','ISO-8859-15',encrypted_block).to_s\n"
-           code+="document.save!\n"
-           code+="end\n"
-           
+           code+="unless ::"+new_options[:document_model].to_s+".exists?(['key = ? AND sha256 = ?', key,binary_digest])\n"
+           code+="document=::"+new_options[:document_model].to_s+".create!(:key=>key,:filesize=>filesize,:sha256=>binary_digest, :original_name=>filename, :printed_at=>(Time.now), :company_id=>current_company.to_s,:filename=>'t')\n"
+           code+="document=::"+new_options[:document_model].to_s+".find(:first,:conditions=>['key = ? AND sha256 = ?',key,binary_digest])\n"
           
+           code+="s='"+new_options[:documents_path]+"/'+(document.id/"+new_options[:subdir_size].to_s+").to_s+'/'\n"
+         
+           code+="Dir.mkdir(s) unless File.directory?(s)\n"
+
+           code+="Ekylibre::Storage.encrypt_file(s+document.id.to_s,k,binary)\n"
+           
+           code+="document.rijndael=k\n"
+           code+="document.filename=s+document.id.to_s\n"
+           
+           code+="document.save!\n"
+           
+           #code+="Ekylibre::Storage.decrypt_file(s+document.id.to_s,k)\n"
+           
+           code+="end\n"
+                     
            code+="end\n"
 
            f=File.open('test_save.rb','wb')
