@@ -76,7 +76,7 @@ module Ekylibre
         # declaration of the PDF document and first options.
         code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
         #code+=options[:pdf]+".set_protection(["+options[:permissions].collect{|x| ':'+x.to_s}.join(",")+"],'')\n"
-        code+=options[:pdf]+".alias_nb_pages('[PAGENB]')\n"
+        code+=options[:pdf]+".alias_nb_pages('[[PAGENB]]')\n"
         code+=options[:available_height]+"="+(format_height(options[:format],options[:unit])-options['margin_top']-options['margin_bottom']).to_s+"\n"
         code+=options[:page_number]+"=1\n"
         code+=options[:count]+"=0\n"
@@ -173,9 +173,13 @@ module Ekylibre
 
       # this function runs the different elements loop in the template and analyzes each of it. 	
       def analyze_loop(loop, options={})
-        options[:depth] += 1
+        options[:depth]+=1
+        # if no blocks header and footer has been still encountered, the heights of these blocks are
+        # stored 
+
+
         code=''
-        attrs = loop.attributes
+        attrs=loop.attributes
         
         # in the case where many elements loop are imbricated, a variable of depth is precised
         # to better save the results of query returned by each them.
@@ -234,20 +238,23 @@ module Ekylibre
             # if the block considered is not a header or footer's block.
             if element.name==XIL_BLOCK
               block_height = block_height(element)
-              bhfe = block_height(options[:specials][depth][:footer][:even])
-              bhfo = block_height(options[:specials][depth][:footer][:odd])
-              
+             
+              bhfe = block_height(options[:specials][depth][:footer][:even]) #if defined?(options[:specials][depth][:footer][:even]) 
+              bhfo = block_height(options[:specials][depth][:footer][:odd]) #if defined?(options[:specials][depth][:footer][:odd])
               # if the height of the block is bigger than the remaining height of the page, a new
               # page is created and the appropriate header sets in.
               code+="if("+options[:block_y]+"=="+options['margin_top'].to_s+")\n"+analyze_header(options)+"end\n" unless options[:specials].empty?
               
-              if bhfe==bhfo
-                code+="if("+options[:count]+"==0 and "+options[:remaining]+"<"+(block_height+bhfe).to_s+")\nraise Exception.new('Footer too big')\n"
-                code+="elsif("+options[:remaining]+"<"+(block_height+bhfe).to_s+")\n"
-              else
-                code+="if("+options[:count]+"==0 and "+options[:remaining]+"<"+block_height.to_s+"+"+bhfe.to_s+" and "+options[:remaining]+"<"+bhfo.to_s+")\nraise Exception.new('Footer too big')\n"
-                code+="elsif("+options[:remaining]+"<"+block_height.to_s+"+("+options[:page_number]+".even? ? "+bhfe.to_s+":"+bhfo.to_s+"))\n"
-              end
+              #unless bhfe.nil? and bhfo.nil?
+                if bhfe==bhfo
+                  code+="if("+options[:count]+"==0 and "+options[:remaining]+"<"+(block_height+bhfe).to_s+")\nraise Exception.new('Footer too big.')\n"
+                  code+="elsif("+options[:remaining]+"<"+(block_height+bhfe).to_s+")\n"
+                else
+                  code+="if("+options[:count]+"==0 and "+options[:remaining]+"<"+block_height.to_s+"+"+bhfe.to_s+" and "+options[:remaining]+"<"+bhfo.to_s+")\nraise Exception.new('Footer too big.')\n"
+                  code+="elsif("+options[:remaining]+"<"+block_height.to_s+"+("+options[:page_number]+".even? ? "+bhfe.to_s+":"+bhfo.to_s+"))\n"
+                end
+              #end
+              
               code+=analyze_page_break(element,options)+"\n"
               code+="end\n"
               code+=options[:count]+"+=1\n"
@@ -268,7 +275,7 @@ module Ekylibre
         code=''
         block_height=block_height(block)
         
-        # it runs
+        # it runs.
         #unless options[:format].split('x')[1].to_i >= block_height(block) and options[:format].split('x')[0].to_i >= block_width(block) 
         # raise Exception.new("Sorry, You have a block which bounds are incompatible with the format specified.")
         # puts block_width(block).to_s+"x"+block_height(block).to_s+":"+options[:format]
@@ -485,7 +492,7 @@ module Ekylibre
           elsif str=~/PAGENO/
             string.gsub!("{"+str+"}",'\'+'+options[:page_number]+'.to_s+\'')
           elsif str=~/PAGENB/
-            string.gsub!("{"+str+"}",'[PAGENB]')
+            string.gsub!("{"+str+"}",'[[PAGENB]]')
             
           end
         end
