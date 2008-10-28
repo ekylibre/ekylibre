@@ -91,15 +91,16 @@ class Beginning < ActiveRecord::Migration
       t.column :original_name,          :string, :null=>false
       t.column :key,                    :integer 
       t.column :filesize,               :integer 
-      t.column :rijndael,               :string 
+      t.column :crypt_key,              :binary
+      t.column :crypt_mode,             :string, :null=>false
       t.column :sha256,                 :string, :null=>false
       t.column :printed_at,             :datetime
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
    
-    add_index :documents, [:sha256], :unique=>true
-    
-
+    add_index :documents, :sha256
+    add_index :documents, :company_id
+ 
     Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
 
   end

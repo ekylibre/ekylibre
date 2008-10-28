@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   
   # this function tries to find the file matching to the ID passing in parameter and launches a download of it. 
   def retrieve_xil(xil,options={})
-    # the document is archived except the archive option is unmentioned
+    # the document is archived except the archive option is unmentioned.
     unless options[:archive].false?
       template = Template.find(xil).content
       Report.find(:all, :conditions=>['key = ?', options[:key]])||false 

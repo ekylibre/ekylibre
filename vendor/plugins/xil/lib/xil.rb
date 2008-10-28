@@ -18,7 +18,7 @@ module Ekylibre
       include REXML
       
       # Array listing the main options used by XIL-plugin and specified here as a global variable.
-      @@xil_options={:features=>[], :documents_path=>"#{RAILS_ROOT}/private/documents", :subdir_size=>4096, :document_model_name=>:documents, :template_model_name=>:templates, :company_variable=>:current_company}
+      @@xil_options={:features=>[], :documents_path=>"#{RAILS_ROOT}/private/documents", :subdir_size=>4096, :document_model_name=>:documents, :template_model_name=>:templates, :company_variable=>:current_company, :crypt=>:rijndael}
    
       mattr_accessor :xil_options
       
@@ -68,7 +68,7 @@ module Ekylibre
         options[:file_name]        = 'o'  # file with the extension.
              
         # prototype of the generated function.
-        code ="def render_xil_"+options[:name].to_s+"_"+options[:output].to_s+"("+options[:key]+")\n"
+        code ="def render_xil_"+options[:name].to_s+"_"+options[:output].to_s+"("+options[:key]+",_mode=nil)\n"
         
         code+=options[:now]+"=Time.now\n"
         code+=options[:title]+"='file'\n"
@@ -99,10 +99,11 @@ module Ekylibre
         
         code+=options[:pdf]+"="+options[:pdf]+".Output()\n"
         code+=options[:file_name]+"="+options[:title]+".gsub(/[^a-z0-9\_]/i,'_')+'."+options[:output].to_s+"'\n"
-
+      
         # if a storage of the PDF document is implied by the user.
         if @@xil_options[:features].include? :document
-          code+="ActionController::Base.save_document("+options[:key]+","+options[:file_name]+","+options[:pdf]+","+options[:current_company].to_s+")\n"
+          code+="ActionController::Base.save_document(_mode,"+options[:key]+","+options[:file_name]+","+options[:pdf]+",@"+options[:current_company].to_s+")\n"
+      
         end
                 
         # displaying of the PDF document.
@@ -513,9 +514,9 @@ module ActionController
       if xil.is_a? Integer
         template=xil_options[:template_model].find_by_id(xil)
         raise Exception.new('This ID has not been found in the database.') if template.nil?
-        name=template.id.to_s  
-        
+        name=xil.to_s  
         template=template.content        
+        
         # if the parameter is a string.
       elsif xil.is_a? String
         # it is a file with the XML extension. Else, an error is generated. 
@@ -543,7 +544,7 @@ module ActionController
       raise Exception.new("Type error on the parameter xil: "+xil.class.to_s) if template.nil?
       
       template_options[:name]=name
-      
+          
       # tests if the variable current_company is available.
       if xil_options[:features].include? :template  or xil_options[:features].include? :document
         current_company = instance_variable_get("@"+xil_options[:company_variable].to_s)
@@ -553,12 +554,12 @@ module ActionController
       end
 
       method_name="render_xil_"+name+"_"+options[:output].to_s
-
+      
       #the function which creates the PDF function is executed here.
       self.class.analyze_template(template, template_options) unless self.methods.include? method_name 
 
       # Finally, the generated function is executed.
-      self.send(method_name,options[:key])
+      self.send(method_name,options[:key],options[:crypt]||xil_options[:crypt])
     end
 
 
@@ -578,7 +579,8 @@ module ActionController
       xil_options=Ekylibre::Xil::ClassMethods::xil_options.merge(options)
       new_options=xil_options
       
-      # some verifications about the different arguments passed to the init function during the XIL-plugin initialization. 
+      # some verifications about the different arguments passed to the init function during the XIL-plugin initialization.
+      raise Exception.new("Parameter crypt must be a symbol.") unless new_options[:crypt].is_a? Symbol
       raise Exception.new("Parameter subdir_size must be an integer.") unless new_options[:subdir_size].is_a? Integer
       raise Exception.new("Parameter impressions_path must be a string.") unless new_options[:documents_path].is_a? String
       raise Exception.new("Parameter features must be an array with maximaly two symbols.") unless new_options[:features].is_a? Array and new_options[:features].length<=2
@@ -596,44 +598,45 @@ module ActionController
           
           # the model of document specified by the user must contains particular fields.
          if ActiveRecord::Base.connection.tables.include? new_options[:document_model].table_name 
-           ["id", "filename","original_name","sha256","rijndael","company_id"].detect do |field|
+           ["id", "filename","original_name","sha256","crypt_key","crypt_mode","company_id"].detect do |field|
               raise Exception.new("The table of document #{new_options[:document_model]} must contain at least the following field: "+field) unless new_options[:document_model].column_names.include? field
             end   
            
-           # if the impression of the PDF documents is required, the function of saving document is generated.
-           # it allows to encode the PDF document (considered as a data block) with a specific key randomly created and 
+           # if the impression of the PDF document is required, the function of saving document is generated.
+           # it allows to encode the PDF document (considered as a data block) blocks by blocks with a specific key randomly created and 
            # which is returned. The encryption algorithm used is Rijndael.
            code=''
-           code+="def self.save_document(key,filename,binary,current_company)\n"
-           code+="dico=%w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § µ % / & < )\n"
+           code+="def self.save_document(mode,key,filename,binary,company_id)\n"
+           code+="k=nil\n"
+           code+="puts mode\n"
+           code+="if mode==:rijndael\n"
            code+="k='+'*32\n"
-           code+="32.times do |index|\n"
-           code+="k[index]=dico[rand(dico.length)] end\n"
+           code+="32.times { |index| k[index]=rand(256) }\n"
+           code+="end\n"
+           
            code+="filesize=binary.length\n"
            code+="binary_digest=Digest::SHA256.hexdigest(binary)\n"
-
-           code+="unless ::"+new_options[:document_model].to_s+".exists?(['key = ? AND sha256 = ?', key,binary_digest])\n"
-           code+="document=::"+new_options[:document_model].to_s+".create!(:key=>key,:filesize=>filesize,:sha256=>binary_digest, :original_name=>filename, :printed_at=>(Time.now), :company_id=>current_company.to_s,:filename=>'t')\n"
-           code+="document=::"+new_options[:document_model].to_s+".find(:first,:conditions=>['key = ? AND sha256 = ?',key,binary_digest])\n"
-          
+           code+="document=::"+new_options[:document_model].to_s+".create!(:key=>key,:filesize=>filesize,:sha256=>binary_digest, :original_name=>filename, :printed_at=>(Time.now), :crypt_key=>k, :crypt_mode=>mode.to_s,:company_id=>company_id,:filename=>'t')\n"
            code+="s='"+new_options[:documents_path]+"/'+(document.id/"+new_options[:subdir_size].to_s+").to_s+'/'\n"
-         
+           
            code+="Dir.mkdir(s) unless File.directory?(s)\n"
-
-           code+="Ekylibre::Storage.encrypt_file(s+document.id.to_s,k,binary)\n"
+           code+="Ekylibre::Storage.encrypt_file(mode,s+document.id.to_s,k,binary)\n"
            
-           code+="document.rijndael=k\n"
-           code+="document.filename=s+document.id.to_s\n"
-           
-           code+="document.save!\n"
-           
-           #code+="Ekylibre::Storage.decrypt_file(s+document.id.to_s,k)\n"
+           code+="document.update_attribute(:filename,s+document.id.to_s)\n"
            
            code+="end\n"
-                     
+           
+           # concerning the function retrieve_document, it allows to decrypt a PDF document after retrieve it in
+           # the database.
+           code+="def self.retrieve_document(id)\n"
+           code+="document=::"+new_options[:document_model].to_s+".find_by_id(id)\n"
+           code+="raise Exception.new('Document has not been found in the database.') if document.nil?\n"
+           
+           code+="Ekylibre::Storage.decrypt_file(mode,document.filename,document.crypt_key)\n"
+           
            code+="end\n"
 
-           f=File.open('test_save.rb','wb')
+           f=File.open('test_save_and_retrieve.rb','wb')
            f.write(code)
            f.close
 
@@ -667,6 +670,7 @@ module ActionController
       end  
 
       Ekylibre::Xil::ClassMethods::xil_options=new_options
+    
     end
 
  end
