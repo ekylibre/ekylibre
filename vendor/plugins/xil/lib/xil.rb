@@ -40,7 +40,7 @@ module Ekylibre
       # this function begins to analyze the template extracting the main characteristics of
       # the PDF document as the title, the orientation, the format, the unit ... 
       def analyze_template(template, options={})
-        document=Document.new(template)
+        document=REXML::Document.new(template)
         document_root=document.root || (raise Exception.new("The template has not root."))
       
         raise Exception.new("Only SQL") unless document_root.attributes['query-standard']||'sql' == 'sql'
@@ -175,7 +175,14 @@ module Ekylibre
       def analyze_loop(loop, options={})
         options[:depth]+=1
         # if no blocks header and footer has been still encountered, the heights of these blocks are
-        # stored 
+        # valuated to the empty block.
+        options[:specials][options[:depth]]={}
+        options[:specials][options[:depth]][:header]={}
+        options[:specials][options[:depth]][:footer]={}
+        options[:specials][options[:depth]][:header][:even]=Element.new("block")
+        options[:specials][options[:depth]][:header][:odd]=Element.new("block")
+        options[:specials][options[:depth]][:footer][:odd]=Element.new("block")
+        options[:specials][options[:depth]][:footer][:even]=Element.new("block")
 
 
         code=''
@@ -292,8 +299,10 @@ module Ekylibre
           end
           code+=self.send('analyze_'+ element.name,element,options).to_s if [XIL_TEXT,XIL_IMAGE,XIL_LINE,XIL_RECTANGLE].include? element.name
         end
-        code+=options[:block_y]+"+="+block_height.to_s+"\n"
-        code+=options[:remaining]+"-="+block_height.to_s+"\n"
+        if block_height > 0
+          code+=options[:block_y]+"+="+block_height.to_s+"\n"
+          code+=options[:remaining]+"-="+block_height.to_s+"\n"
+        end
         code.to_s
       end 
       
@@ -310,7 +319,7 @@ module Ekylibre
           end
           height=h if h>height
         end
-        h=block.attributes['height']||0
+        h=block.attributes['height'].to_f||0
         return height>h ? height : h
       end 
       
