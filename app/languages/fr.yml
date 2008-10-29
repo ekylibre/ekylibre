@@ -152,7 +152,7 @@ app:
       title: Écritures
     journals:
       title: Journaux
-      new_journal: Créer un nouveau journal
+      create: Créer un nouveau journal
     journals_create:
       title: Créer un nouveau journal
   application:
@@ -186,7 +186,7 @@ app:
     default_bank_journal_nature_name: Banque
     default_department_name: Gestion/Production
     default_establishment_name: Établissement principal
-    default_operation_journal_nature_name: Opérations Diverses
+    default_operations_journal_nature_name: Opérations Diverses
     default_purchases_journal_nature_name: Achats
     default_sales_journal_nature_name: Ventes
   config:

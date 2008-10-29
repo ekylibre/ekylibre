@@ -117,7 +117,7 @@ class Accounting < ActiveRecord::Migration
       t.column :name,             :string,  :null=>false
       t.column :code,             :string,  :null=>false, :limit=>4
       t.column :counterpart_id,   :integer, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :closed_on,        :date,    :null=>false, :default=>Date.civil(1494,1,1)
+      t.column :closed_on,        :date,    :null=>false, :default=>Date.civil(1494,12,31)
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :journals, :company_id

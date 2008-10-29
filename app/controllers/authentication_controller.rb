@@ -10,7 +10,7 @@ class AuthenticationController < ApplicationController
   end
   
   def render_f
-    render_xil(params[:id].to_i, :key=>1, :output=>:pdf, :crypt=>:none)    
+    render_xil(params[:id].to_i, :key=>1, :output=>:pdf, :crypt=>:none)
     #render_xil("<?xml?><template title='Example' orientation='portrait' format='210x297' unit='mm' query-standard='sql' size='10' ><title>ToTo</title></template>", :key=>1, :output=>:pdf)    
    #  render_xil("lib/template.xsd", :key=>1, :output=>:pdf)    
    #render_xil(Template.find(2), :key=>1, :output=>:pdf)    
