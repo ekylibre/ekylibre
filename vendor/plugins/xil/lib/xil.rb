@@ -630,7 +630,6 @@ module ActionController
            code=''
            code+="def self.save_document(mode,key,filename,binary,company_id)\n"
            code+="k=nil\n"
-           code+="puts mode\n"
            code+="if mode==:rijndael\n"
            code+="k='+'*32\n"
            code+="32.times { |index| k[index]=rand(256) }\n"

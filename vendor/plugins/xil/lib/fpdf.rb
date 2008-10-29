@@ -1134,7 +1134,6 @@ class FPDF
       1.upto(nb) do |n|
         @pages[n].gsub!(@AliasNbPages,nb.to_s)
         @labels.each do |ref, number|
-          puts 'ref>>>>>'+ref.to_s
           @pages[n].gsub!(ref.to_s, number.to_s)
         end
       end
