@@ -100,6 +100,8 @@ class FPDF
     @page=0
     @n =2
     @buffer=''
+    # Array of the different labels encountered in the PDF document.
+    @labels={}
     @pages=[]
     @OrientationChanges=[]
     @state=0
@@ -120,18 +122,7 @@ class FPDF
     @ColorFlag=false
     @ws=0
     @offsets=[]
-    
-    ##
-    # variables for encryption processus
-#    @encryption_key = ''
-#    @encrypted=''          #whether document is protected
-#    @Uvalue=''             #U entry in pdf document
-#    @Ovalue=''             #O entry in pdf document
-#    @Pvalue=''             #P entry in pdf document
-#    @enc_obj_id=''         #encryption object id
-#    @last_rc4_key=''       #last RC4 key encrypted (cached for optimisation)
-#    @last_rc4_key_c=''     #last RC4 computed key
-    
+   
     # Standard fonts
     @CoreFonts={}
     @CoreFonts['courier']='Courier'
@@ -202,7 +193,7 @@ class FPDF
   #
   # - permissions is an array with values taken from the following list:
   #   copy, print, modify, annot-forms
-  #   If a value is present it means that the permission is granted
+  #   If a value is present, it means that the permission is granted
   # - If a user password is set, user will be prompted before document is opened
   # - If an owner password is set, document can be opened in privilege mode with no
   #   restriction if that password is entered
@@ -755,6 +746,12 @@ class FPDF
     out(s)
   end
 
+  # this function saves in an array, the label specified in parameter with the current page number.
+  def AddLabel(label)
+    @labels[label.to_s] = @page.to_i
+    ''
+  end
+  
   def AcceptPageBreak
     # Accept automatic page break or not
     @AutoPageBreak
@@ -1136,6 +1133,10 @@ class FPDF
       # Replace number of pages
       1.upto(nb) do |n|
         @pages[n].gsub!(@AliasNbPages,nb.to_s)
+        @labels.each do |ref, number|
+          puts 'ref>>>>>'+ref.to_s
+          @pages[n].gsub!(ref.to_s, number.to_s)
+        end
       end
     end
     if @DefOrientation=='P'
@@ -1929,6 +1930,7 @@ class FPDF
   alias_method :add_font            , :AddFont
   alias_method :add_link            , :AddLink
   alias_method :add_page            , :AddPage
+  alias_method :add_label           , :AddLabel
   alias_method :alias_nb_pages      , :AliasNbPages
   alias_method :cell                , :Cell
   alias_method :close               , :Close

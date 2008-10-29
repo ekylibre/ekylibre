@@ -31,7 +31,7 @@
     <loop name="toc" query="SELECT usename, usesuper, usesysid FROM pg_user">
       <block height="7">
         <text x="10"  y="1" width="100" height="5" align="L">#{toc.usename}</text>
-        <text x="110" y="1" width="80" height="5"  align="R">p.[[sect#{usesysid}]]</text>
+        <text x="110" y="1" width="80" height="5"  align="R">p.[[sect#{toc.usesysid}]]</text>
       </block>
     </loop>
     <page-break/>
@@ -40,7 +40,7 @@
         <text x="2" y="2" width="206" height="5" align="C">Utilisateur #{loop1.usename}</text>
       </block>
       <block name="ligne de facture" if="#{loop1.usename}!='postgres'">
-        <text x="2" y="2" width="100" height="5" align="C">@@sect#{usesysid}@@Blabla, ceci est son ID système : #{loop1.usesysid}</text>
+        <text x="2" y="2" width="100" height="5" align="C">@@sect#{loop1.usesysid}@@Blabla, ceci est son ID système : #{loop1.usesysid}</text>
         <text x="2" y="20" width="100" height="5" align="L" if="#{loop1.usesuper}" decoration="underline">C'est un superutilisateur</text>
         <text x="2" y="40" width="100" height="5" align="C">Blabla on est le {CURRENT_DATE} et plus précisément le {CURRENT_TIMESTAMP}</text>
         <text x="2" y="60" width="100" height="5" align="R" style="italic">Dernier bloc page [[last_block]]</text>

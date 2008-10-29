@@ -502,9 +502,15 @@ module Ekylibre
             string.gsub!("{"+str+"}",'\'+'+options[:page_number]+'.to_s+\'')
           elsif str=~/PAGENB/
             string.gsub!("{"+str+"}",'[[PAGENB]]')
-            
           end
         end
+        
+        while (string=~/\@\@.+\@\@/)
+          str=string.split('@@')[1]
+          string.gsub!('@@'+str+'@@', "'+"+options[:pdf]+".add_label('[["+str+"]]')+'")
+        end
+
+
         # the string is converted to the format ISO, which is more efficient for the PDF softwares to read the 
         # superfluous characters.
         Iconv.iconv('ISO-8859-15','UTF-8',string).to_s
