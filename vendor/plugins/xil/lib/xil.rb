@@ -1,4 +1,4 @@
-# plugin XIL : XML-based Impression-template Language
+# plugin XIL : XML-based Impression-template Language.
 # This module groups the different methods allowing to obtain a PDF document by the analyze of a template.
 
 module Ekylibre
@@ -110,11 +110,11 @@ module Ekylibre
         code+="send_data "+options[:pdf]+", :filename=>"+options[:file_name]+"\n"
         code+="end\n" 
                        
-        if RAILS_ENV=="development"
-          f=File.open('/tmp/test.rb','wb')
-          f.write(code)
-          f.close()
-        end
+       # if RAILS_ENV=="development"
+        #  f=File.open('/tmp/test.rb','wb')
+         # f.write(code)
+          #f.close()
+       # end
 
         module_eval(code)
       end
@@ -184,7 +184,6 @@ module Ekylibre
         options[:specials][options[:depth]][:footer][:odd]=Element.new("block")
         options[:specials][options[:depth]][:footer][:even]=Element.new("block")
 
-
         code=''
         attrs=loop.attributes
         
@@ -246,22 +245,21 @@ module Ekylibre
             if element.name==XIL_BLOCK
               block_height = block_height(element)
              
-              bhfe = block_height(options[:specials][depth][:footer][:even]) #if defined?(options[:specials][depth][:footer][:even]) 
-              bhfo = block_height(options[:specials][depth][:footer][:odd]) #if defined?(options[:specials][depth][:footer][:odd])
+              bhfe = block_height(options[:specials][depth][:footer][:even]) 
+              bhfo = block_height(options[:specials][depth][:footer][:odd]) 
+
               # if the height of the block is bigger than the remaining height of the page, a new
               # page is created and the appropriate header sets in.
               code+="if("+options[:block_y]+"=="+options['margin_top'].to_s+")\n"+analyze_header(options)+"end\n" unless options[:specials].empty?
               
-              #unless bhfe.nil? and bhfo.nil?
-                if bhfe==bhfo
+              if bhfe==bhfo
                   code+="if("+options[:count]+"==0 and "+options[:remaining]+"<"+(block_height+bhfe).to_s+")\nraise Exception.new('Footer too big.')\n"
                   code+="elsif("+options[:remaining]+"<"+(block_height+bhfe).to_s+")\n"
                 else
                   code+="if("+options[:count]+"==0 and "+options[:remaining]+"<"+block_height.to_s+"+"+bhfe.to_s+" and "+options[:remaining]+"<"+bhfo.to_s+")\nraise Exception.new('Footer too big.')\n"
                   code+="elsif("+options[:remaining]+"<"+block_height.to_s+"+("+options[:page_number]+".even? ? "+bhfe.to_s+":"+bhfo.to_s+"))\n"
                 end
-              #end
-              
+                            
               code+=analyze_page_break(element,options)+"\n"
               code+="end\n"
               code+=options[:count]+"+=1\n"
@@ -271,7 +269,7 @@ module Ekylibre
           end
           
         end
-        # the footer block is settled in the last page of PDF document.
+        # the footer block is settled in the last page of the PDF document.
         code+=analyze_footer(options) if options[:depth]==0
         code+="end\n" if query
         code.to_s
@@ -353,7 +351,7 @@ module Ekylibre
         code.to_s
       end
       
-      # runs and analyzes each header block in the template.
+      # runs and analyzes each header blocks in the template.
       def analyze_header(options={})
         code=""
         unless options[:specials].empty?
@@ -372,7 +370,7 @@ module Ekylibre
         code.to_s
       end
       
-      # runs and analyzes each footer block in the template.
+      # runs and analyzes each footer blocks in the template.
       def analyze_footer(options={})
         code=""
         unless options[:specials].empty?
@@ -399,7 +397,7 @@ module Ekylibre
       end
       
       
-      # runs and analyzes each text element in the template with specific attributes as color, font, family...
+      # runs and analyzes each text elements in the template with specific attributes as color, font, family...
       def analyze_text(text, options={})
         code=''
         attrs=text.attributes
@@ -421,7 +419,7 @@ module Ekylibre
         code.to_s
       end 
       
-      # runs and analyzes each image element in the template with specific attributes as width, height.
+      # runs and analyzes each image elements in the template with specific attributes as width, height.
       def analyze_image(image,options={})
         code=''
         attrs=image.attributes
@@ -429,7 +427,7 @@ module Ekylibre
         code.to_s
       end
 
-      # runs and analyzes each line element in the template.
+      # runs and analyzes each line elements in the template.
       def analyze_line(line,options={})   
         code=''
         attrs=line.attributes
@@ -465,7 +463,7 @@ module Ekylibre
         code.to_s
       end
       
-      # converts the color attribute of an element in a better easier format to understand by the plugin.
+      # converts the color attribute of an element in a better format easier to understand by the plugin.
       def color_to_rvb(color)
         color="#"+color[1..1]*2+color[2..2]*2+color[3..3]*2 if color=~/^\#[a-f0-9]{3}$/i
         if color=~/^\#[a-f0-9]{6}$/i
@@ -475,7 +473,7 @@ module Ekylibre
         end
       end
       
-      # cleans the string removing superfluous characters and replacing certains constants.
+      # cleans the string removing superfluous characters and replacing some constants.
       def clean_string(string,options,query=false)
         string.gsub!("'","\\\\'")
         options[:fields] = {} if options[:fields].nil?
@@ -541,7 +539,7 @@ module ActionController
         
         # if the parameter is a string.
       elsif xil.is_a? String
-        # it is a file with the XML extension. Else, an error is generated. 
+        # if it is a file. Else, an error is generated. 
         if File.file? xil 
           f=File.open(xil,'rb')
           xil=f.read.to_s
@@ -593,7 +591,7 @@ module ActionController
         raise Exception.new("Unknown parameter : #{parameter}") unless Ekylibre::Xil::ClassMethods::xil_options.include? parameter
       end
 
-      # Generate an exception if company_variable is nitialized and with another value of current_company.
+      # Generate an exception if company_variable is initialized and with another value of current_company.
       unless options[:company_variable].nil?
         raise Exception.new("Company_variable must be equal to current_company.") unless options[:company_variable].to_s.eql? "current_company"
       end
@@ -625,8 +623,8 @@ module ActionController
             end   
            
            # if the impression of the PDF document is required, the function of saving document is generated.
-           # it allows to encode the PDF document (considered as a data block) blocks by blocks with a specific key randomly created and 
-           # which is returned. The encryption algorithm used is Rijndael.
+           # it allows to encode the PDF document (considered as a data block) blocks by blocks with a specific 
+           # key randomly created and which is returned. The encryption algorithm used here is Rijndael.
            code=''
            code+="def self.save_document(mode,key,filename,binary,company_id)\n"
            code+="k=nil\n"
@@ -657,9 +655,10 @@ module ActionController
            
            code+="end\n"
 
-           f=File.open('test_save_and_retrieve.rb','wb')
-           f.write(code)
-           f.close
+           # in commentary, test the generate code putting it in a file.
+           #f=File.open('test_save_and_retrieve.rb','wb')
+           #f.write(code)
+           #f.close
 
            module_eval(code)
          end
@@ -679,7 +678,7 @@ module ActionController
         if new_options[:template_model_name].is_a? Symbol
           new_options[:template_model]=new_options[:template_model_name].to_s.classify.constantize 
          
-          # the model of template specified by the user must contain particular fields.
+          # the model of template specified by the user must contains particular fields.
           if ActiveRecord::Base.connection.tables.include? new_options[:template_model].table_name
             ["id", "content","cache","company_id"].detect do |field|
               raise Exception.new("The table of template #{new_options[:template_model]} must contains at least the following field: "+field) unless new_options[:template_model].column_names.include? field
