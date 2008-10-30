@@ -1,5 +1,14 @@
 class AccountancyController < ApplicationController
 
+  define_dyta(:journals, :conditions=>{:company_id=>'{@current_company.id}'}) do |t|
+    t.column :name
+    t.column :code
+    t.column :name, :through=>:nature
+    t.action :journals_edit, :image=>:edit
+    t.procedure :create, :action=>:journals_create
+  end
+
+
   def accounts
     @accounts = @current_company.accounts
   end
@@ -21,6 +30,10 @@ class AccountancyController < ApplicationController
       @journal = Journal.new
     end
     render_form
+  end
+
+  def toto
+    render :text=>"C'est OK, ça marche !"
   end
 
 end
