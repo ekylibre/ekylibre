@@ -1,6 +1,7 @@
 class AccountancyController < ApplicationController
 
-  define_dyta(:journals, :conditions=>{:company_id=>'{@current_company.id}'}) do |t|
+  dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+#  dyta(:journals, :conditions=>["company_id=? and ?",['@current_company.id'], 'toto"tot']) do |t|
     t.column :name
     t.column :code
     t.column :name, :through=>:nature
@@ -17,7 +18,8 @@ class AccountancyController < ApplicationController
   end
 
   def journals
-    @journals = @current_company.journals
+    journals_list params
+#    @journals = @current_company.journals
   end
 
   def journals_create

@@ -17,22 +17,44 @@ module Dyta
 
 
       # Add methods to display a dynamic table
-      def define_dyta(name, options={}, &block)
+      def dyta(name, options={}, &block)
         model = (options[:model]||name).to_s.classify.constantize
         definition = Dyta.new(name, model, options)
         yield definition
 
         # List method
-        condition = ''
+        conditions = ''
         if options[:conditions]
-          
+          conditions = ':conditions=>'
+          case options[:conditions]
+          when Array
+            conditions += '["'+options[:conditions][0].to_s+'"'
+            if options[:conditions].size>1
+              for x in 1..options[:conditions].size-1
+                conditions += ','+sanitize_conditions(options[:conditions][x])
+              end
+            end
+            conditions += ']'
+          when Hash
+            conditions += '{'+options[:conditions].collect{|key, value| ':'+key.to_s+'=>'+sanitize_conditions(value)}.join(',')+'}'
+          else
+            raise Exception.new("Only Array and Hash are accepted as conditions")
+          end
         end
 
 
-        code  = "def "+name.to_s+"_list\n"
-        code += "  @"+name.to_s+"="+model.to_s+".find(:all)\n"
+        code  = "def "+name.to_s+"_list(options={})\n"
+        code += "  order = nil\n"
+        code += "  unless options['sort'].blank?\n"
+        code += "    order  = options['sort']\n"
+        code += "    order += options['dir']=='desc' ? ' DESC' : ' ASC'\n"
+        code += "  end\n"
+        code += "  @"+name.to_s+"="+model.to_s+".find(:all"
+        code += ", "+conditions unless conditions.blank?
+        code += ", :order=>order)\n"
         code += "  if request.xhr?\n"
-        code += "    render :text=>"+name.to_s+"_build\n"
+#        code += "    options[:ta] = true?\n"        
+        code += "    render :text=>"+name.to_s+"_build(options)\n"
         code += "  end\n"
         code += "end\n"
         code += "protected\n"
@@ -53,22 +75,28 @@ module Dyta
         header = ''
         body = ''
         for column in definition.columns
-          header += content_tag(:th, h(column.header), :class=>(column.action? ? 'act' : 'col'))
-          body += body.blank? ? "      line  = " : "      line += "
+          header += "+\n      " unless header.blank?
+          header += "content_tag(:th, '"+h(column.header)+" '"
+          unless column.action? or column.options[:through]
+            header += "+link_to_remote("+value_image(:down)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"'})"
+            header += "+link_to_remote("+value_image(:up)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"', :dir=>'desc'})"
+          end
+          header += ", :class=>'"+(column.action? ? 'act' : 'col')+"')"
+          body   += "+\n        " unless body.blank?
           case column.nature
           when :column
             style = options[:style]||''
             css_class = ''
             datum = column.data(record)
             if column.datatype==:boolean
-              datum = 'value_image('+datum+')'
+              datum = value_image(datum)
               style = 'text-align:center;'
             end
             if column.options[:url]              
               datum = 'link_to('+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id})'
               css_class += ' url'
             elsif column.options[:mode]==:download# and !datum.nil?
-              datum = 'link_to(value_image("download"), url_for_file_column('+column.data(record)+",'"+column.name+"'))"
+              datum = 'link_to('+value_image(:download)+', url_for_file_column('+column.data(record)+",'"+column.name+"'))"
               style = 'text-align:center;'
               css_class += ' act'
             end
@@ -79,46 +107,73 @@ module Dyta
             body += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"
             body += ", :style=>'"+style+"'" unless style.blank?
             body += ")"
-          when :action 
+          when :action
             body += "content_tag(:td, "+column.operation(record)+", :class=>'act')"
           else 
             body += "content_tag(:td, '&nbsp;&empty;&nbsp;')"
           end
-          body += "\n"
         end
 
-        header = content_tag(:tr, header)
+        header = 'content_tag(:tr, ('+header+'), :class=>"header")'
 
-        code += "def "+name.to_s+"_build\n"
+        code += "def "+name.to_s+"_build(options={})\n"
         code += "  if @"+name.to_s+".size>0 \n"
-        code += "    header = '"+header+"'\n"
+        code += "    header = "+header+"\n"
         code += "    reset_cycle('dyta')\n"
         code += "    body = ''\n"
         code += "    for "+record+" in @"+name.to_s+"\n"
-        code += body
-        code += "      body += content_tag(:tr, line, :class=>'data '+cycle('odd','even', :name=>'dyta'))\n"
+        code += "      body += content_tag(:tr, ("+body+"), :class=>'data '+cycle('odd','even', :name=>'dyta'))\n"
         code += "    end\n"
         code += "    text = header+body\n"
         code += "  else\n"
         code += "    text = '"+content_tag(:tr,content_tag(:td,l(:no_records).gsub(/\'/,'&apos;')))+"'\n"
         code += "  end\n"
         code += "  text = "+process+"+text\n" unless process.nil?
-        code += "  text = content_tag(:table, text, :id=>'"+name.to_s+"', :class=>:list)\n"
+        code += "  text = content_tag(:table, text, :class=>:list)\n"
         code += "  text = content_tag(:div, text)\n"
         code += "  text = content_tag(:h3,  "+h(options[:label])+")+text\n" unless options[:label].nil?
-        code += "  text = content_tag(:div, text, :class=>'futo')\n"
-        code += "  text = content_tag(:h2,  "+options[:title]+", :class=>'futo')+text\n" unless options[:title].nil?
+        code += "  text = content_tag(:div, text, :class=>'futo', :id=>'"+name.to_s+"')\n"
+#        code += "  text = content_tag(:h2,  "+options[:title]+", :class=>'futo')+text\n" unless options[:title].nil?
         code += "  text\n"
         code += "end\n"
 
         # Finish
-        puts code
+#        puts code
         module_eval(code)
       end
 
-    end
 
     def value_image(value)
+      if value.is_a? Symbol
+        "image_tag('buttons/"+value.to_s+".png', :border=>0, :alt=>l('"+value.to_s+"'))"
+      elsif value.is_a? String
+        image = "image_tag('buttons/'+"+value.to_s+"+'.png', :border=>0, :alt=>l("+value.to_s+"))"
+        "("+value+".nil? ? '' : "+image+")"
+      else
+        ''
+      end
+    end
+
+
+    def sanitize_conditions(value)
+      if value.is_a? Array
+        value[0].to_s
+      elsif value.is_a? String
+        '"'+value.gsub('"','\"')+'"'
+      elsif [Date, DateTime].include? value.class
+        '"'+value.to_formatted_s(:db)+'"'
+      else
+        value.to_s
+      end
+    end
+
+
+
+    end
+
+    protected
+
+    def value_image2(value)
       unless value.nil?
         image = nil
         case value.to_s
