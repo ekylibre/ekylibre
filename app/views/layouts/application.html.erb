@@ -22,7 +22,10 @@
 </td></tr></table>
  </div>
 <%if flash[:error]-%><div class="flash-error"><%= flash[:error]-%></div><%end-%>
+<div id="wrapper">
+<%=local_menu-%>
 <div id="main"><%=yield-%></div>
+</div>
 </div>
 </body>
 </html>

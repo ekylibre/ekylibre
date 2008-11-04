@@ -35,6 +35,10 @@ module ApplicationHelper
     code
   end
 
+  def local_menu
+    content_tag(:div, '[LOCAL MENU]',:width=>149)
+  end
+
   def link_to_submit(form_name, label=:submit, options={})
     link_to_function(l(label), "document."+form_name+".submit()", options.merge({:class=>:button}))
   end

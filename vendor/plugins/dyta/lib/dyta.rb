@@ -22,6 +22,8 @@ module Dyta
         definition = Dyta.new(name, model, options)
         yield definition
 
+        code  = ""
+
         # List method
         conditions = ''
         if options[:conditions]
@@ -42,8 +44,8 @@ module Dyta
           end
         end
 
-
-        code  = "def "+name.to_s+"_list(options={})\n"
+        code += "hide_action :"+name.to_s+"_list\n"
+        code += "def "+name.to_s+"_list(options={})\n"
         code += "  order = nil\n"
         code += "  unless options['sort'].blank?\n"
         code += "    order  = options['sort']\n"
@@ -57,7 +59,6 @@ module Dyta
         code += "    render :text=>"+name.to_s+"_build(options)\n"
         code += "  end\n"
         code += "end\n"
-        code += "protected\n"
 
         # Build method
         if definition.procedures.size>0
@@ -116,6 +117,7 @@ module Dyta
 
         header = 'content_tag(:tr, ('+header+'), :class=>"header")'
 
+        code += "hide_action :"+name.to_s+"_build\n"
         code += "def "+name.to_s+"_build(options={})\n"
         code += "  if @"+name.to_s+".size>0 \n"
         code += "    header = "+header+"\n"
@@ -133,59 +135,40 @@ module Dyta
         code += "  text = content_tag(:div, text)\n"
         code += "  text = content_tag(:h3,  "+h(options[:label])+")+text\n" unless options[:label].nil?
         code += "  text = content_tag(:div, text, :class=>'futo', :id=>'"+name.to_s+"')\n"
-#        code += "  text = content_tag(:h2,  "+options[:title]+", :class=>'futo')+text\n" unless options[:title].nil?
+        # code += "  text = content_tag(:h2,  "+options[:title]+", :class=>'futo')+text\n" unless options[:title].nil?
         code += "  text\n"
         code += "end\n"
 
         # Finish
-#        puts code
+        # puts code
         module_eval(code)
       end
 
-
-    def value_image(value)
-      if value.is_a? Symbol
-        "image_tag('buttons/"+value.to_s+".png', :border=>0, :alt=>l('"+value.to_s+"'))"
-      elsif value.is_a? String
-        image = "image_tag('buttons/'+"+value.to_s+"+'.png', :border=>0, :alt=>l("+value.to_s+"))"
-        "("+value+".nil? ? '' : "+image+")"
-      else
-        ''
-      end
-    end
-
-
-    def sanitize_conditions(value)
-      if value.is_a? Array
-        value[0].to_s
-      elsif value.is_a? String
-        '"'+value.gsub('"','\"')+'"'
-      elsif [Date, DateTime].include? value.class
-        '"'+value.to_formatted_s(:db)+'"'
-      else
-        value.to_s
-      end
-    end
-
-
-
-    end
-
-    protected
-
-    def value_image2(value)
-      unless value.nil?
-        image = nil
-        case value.to_s
-        when "true" : image = "true"
-        when "false" : image = nil
-        else image =  value.to_s
+      def value_image(value)
+        if value.is_a? Symbol
+          "image_tag('buttons/"+value.to_s+".png', :border=>0, :alt=>l('"+value.to_s+"'))"
+        elsif value.is_a? String
+          image = "image_tag('buttons/'+"+value.to_s+"+'.png', :border=>0, :alt=>l("+value.to_s+"))"
+          "("+value+".nil? ? '' : "+image+")"
+        else
+          ''
         end
-        #      "<div align=\"center\">"+image_tag("buttons/"+image+".png", :border => 0, :alt=>image.t, :title=>image.t)+"</div>" unless image.nil?
-        image_tag("buttons/"+image+".png", :border => 0, :alt=>l(image), :title=>l(image)) unless image.nil?
       end
-    end
-  
+      
+      
+      def sanitize_conditions(value)
+        if value.is_a? Array
+          value[0].to_s
+        elsif value.is_a? String
+          '"'+value.gsub('"','\"')+'"'
+        elsif [Date, DateTime].include? value.class
+          '"'+value.to_formatted_s(:db)+'"'
+        else
+          value.to_s
+        end
+      end
+
+    end  
 
 
 
