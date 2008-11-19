@@ -110,7 +110,8 @@ module Ekylibre
         code+="send_data "+options[:pdf]+", :filename=>"+options[:file_name]+"\n"
         code+="end\n" 
                        
-       # if RAILS_ENV=="development"
+        # in commentary, test the generate code putting it in a code.
+        # if RAILS_ENV=="development"
         #  f=File.open('/tmp/test.rb','wb')
          # f.write(code)
           #f.close()

@@ -39,8 +39,7 @@ class ApplicationController < ActionController::Base
       Report.find(:all, :conditions=>['key = ?', options[:key]])||false 
     end
   end
-  
-
+ 
   private
   
   def authorize
