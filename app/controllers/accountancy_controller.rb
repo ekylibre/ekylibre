@@ -15,6 +15,7 @@ class AccountancyController < ApplicationController
   end
   
   def entries
+    
   end
 
   def journals

@@ -1,6 +1,42 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+
+  WINDOW_OPTIONS = {:encoding=>'utf-8'}
+
+  def window2(options={})
+    options=WINDOW_OPTIONS.merge(options)
   
+    w = Ekylibre::Xulite::Window.new
+    yield w
+    '<?xml version="1.0" encoding="'+options[:encoding]+'"?>'+"\n"+
+      '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+'+
+      '<html xmlns="http://www.w3.org/1999/xhtml">'+
+      '<head>'+
+      content_tag(:title, options[:title])+
+      stylesheet_link_tag(:defaults)+
+      javascript_include_tag(:defaults)+
+      '</head>'+
+      w.to_html+
+      '</html>'
+  end
+  
+
+  def vbox1
+    'vbox'
+  end
+
+  def hbox1
+    'vbox'
+  end
+
+  def splitter1(options={})
+    'vbox'
+  end
+
+
+
+
   def can_access?(action=:all)
     return false unless @current_user
     return session[:actions].include?(:all) ? true : session[:actions].include?(action)
@@ -35,8 +71,26 @@ module ApplicationHelper
     code
   end
 
-  def local_menu
-    content_tag(:div, '[LOCAL MENU]',:width=>149)
+  def title_tag
+    content_tag(:title, 'Ekylibre &bull; '+l(controller.controller_name.to_sym, :title))
+  end
+
+  def location_tag(location)
+    content = ''
+    unless [:guide,:user].include? location
+      content += image_tag('ekylibre.png')
+      content += image_tag('ekylibre.png')+'<br/>'
+    end
+    content += '['+location.to_s.upper+']'
+    content = content_tag(:div, content, :align=>"center")
+    content_tag(:div, content, :id=>location.to_s, :class=>:location)
+  end
+
+  def flash_tag(mode)
+    content_tag(:div, flash[mode], :class=>'flash-'+mode.to_s) if flash[mode]
+  end
+
+  def menu_user
   end
 
   def link_to_submit(form_name, label=:submit, options={})

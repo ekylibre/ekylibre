@@ -146,6 +146,7 @@ plural: 'c<=1 ? 1 : 2'
 # global method "l". See the RDoc for details.
 app:
   accountancy:
+    title: Comptabilité
     accounts:
       title: Comptes
     entries:
@@ -191,7 +192,7 @@ app:
     default_sales_journal_nature_name: Ventes
   config:
     company:
-      identity: Carte d'identité
+      identity: 'Carte d''identité'
       statistics: Chiffres
       establishments: Établissements
       departments: Services
@@ -208,11 +209,12 @@ app:
     company_edit:
       title: 'Modification de la société %s'
       general: Vous pouvez modifier les différentes informations concernant votre société
-      company_code_info: Ce code sert d'abréviation pour certaines impressions
+      company_code_info: 'Ce code sert d''abréviation pour certaines impressions'
     users_create:
       title: 'Création d''un compte utilisateur'
       user_locked_info: 'Si le compte est verrouillé, l''utilisateur ne pourra plus utiliser le logiciel'
   guide:
+    title: Accueil
     index:
       title: 'Accueil'
     accountancy:

@@ -1,32 +1,29 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
-<title>Ekylibre</title>
-<%= stylesheet_link_tag :defaults%>
-<%= javascript_include_tag :defaults%>
+<%=title_tag%>
+<%=stylesheet_link_tag(:defaults)%>
+<%=javascript_include_tag(:defaults)%>
 </head>
-<body>
-<div id="ibody">
-<div id="menu">
-<table><tr><td id="modules">
-<%=menu_modules-%>
-</td><td id="user">
-<!--<strong><%=Date.today.to_formatted_s :attributes -%></strong>-->
-<%if @current_user-%>
-<%= elink(can_access?,@current_user.label, {:controller=>:config, :action=>:user})-%>
-<%= elink(can_access?,@current_company.name, {:controller=>:config,:action=>:company})-%>
-<%end-%>
-<%=link_to lc(:exit), :controller=>:authentication, :action=>:logout-%>
-</td></tr></table>
- </div>
-<%if flash[:error]-%><div class="flash-error"><%= flash[:error]-%></div><%end-%>
-<div id="wrapper">
-<%=local_menu-%>
-<div id="main"><%=yield-%></div>
-</div>
-</div>
-</body>
+<%=
+window(:orient=>:vertical) do |w|
+  w.hbox do |h|
+    h.vbox({:align=>:start}, location_tag(:guide))
+    h.vbox({:align=>:end}, location_tag(:user))
+  end
+  w.hbox do |h|
+    h.vbox({:flex=>1}, location_tag(:user))
+    h.splitter :collapse=>:before
+    h.vbox({:flex=>1}) do |v|
+      v.add flash_tag(:error)
+      v.add flash_tag(:warning)
+      v.add flash_tag(:notice)
+      v.add yield
+    end
+    h.splitter :collapse=>:after
+    h.vbox({:flex=>1}, location_tag(:user))
+  end
+end
+-%>
 </html>
-
