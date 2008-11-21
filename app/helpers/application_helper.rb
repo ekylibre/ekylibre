@@ -1,41 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-  WINDOW_OPTIONS = {:encoding=>'utf-8'}
-
-  def window2(options={})
-    options=WINDOW_OPTIONS.merge(options)
-  
-    w = Ekylibre::Xulite::Window.new
-    yield w
-    '<?xml version="1.0" encoding="'+options[:encoding]+'"?>'+"\n"+
-      '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-'+
-      '<html xmlns="http://www.w3.org/1999/xhtml">'+
-      '<head>'+
-      content_tag(:title, options[:title])+
-      stylesheet_link_tag(:defaults)+
-      javascript_include_tag(:defaults)+
-      '</head>'+
-      w.to_html+
-      '</html>'
-  end
-  
-
-  def vbox1
-    'vbox'
-  end
-
-  def hbox1
-    'vbox'
-  end
-
-  def splitter1(options={})
-    'vbox'
-  end
-
-
-
 
   def can_access?(action=:all)
     return false unless @current_user
@@ -65,8 +30,9 @@ module ApplicationHelper
       if a.include? m
         code += content_tag :strong, l(:guide,m,:title)
       else
-        code += link_to(l(:guide,m,:title), :controller=>:guide, :action=>m)+' '
+        code += link_to(l(:guide,m,:title), :controller=>:guide, :action=>m)
       end
+      code += ' '
     end
     code
   end
@@ -75,15 +41,29 @@ module ApplicationHelper
     content_tag(:title, 'Ekylibre &bull; '+l(controller.controller_name.to_sym, :title))
   end
 
-  def location_tag(location)
+  def location_tag(location, options={})
     content = ''
     unless [:guide,:user].include? location
       content += image_tag('ekylibre.png')
-      content += image_tag('ekylibre.png')+'<br/>'
+      #      content += image_tag('ekylibre.png')+'<br/>'
+    else
+      content += menu_modules
     end
-    content += '['+location.to_s.upper+']'
-    content = content_tag(:div, content, :align=>"center")
-    content_tag(:div, content, :id=>location.to_s, :class=>:location)
+#    content += '['+location.to_s.upper+']'
+    if location==:side
+      content += content_tag(:div,content_tag(:h3,'Demo')+content_tag(:div,'Blabla'))
+      content += content_tag(:div,content_tag(:h3,'Demo')+content_tag(:div,'Blabla'))
+      content += content_tag(:div,content_tag(:h3,'Demo')+content_tag(:div,'Blabla'))
+      content += content_tag(:div,content_tag(:h3,'Demo')+content_tag(:div,'Blabla'))
+    end
+    content_tag(:div, content, options.merge({:id=>location.to_s, :class=>:location, :align=>"center"}))
+  end
+
+  def splitter_tag
+    content_tag(:div, '', :class=>:splitter, :style=>'width:4px; height:4px;', 
+                :onmousedown=>'this.setAttribute("down","true");', 
+                :onmouseup=>'this.setAttribute("down","false");',
+                :onmousemove=>'followTheMouse(this,event);')
   end
 
   def flash_tag(mode)

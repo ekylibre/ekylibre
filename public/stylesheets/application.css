@@ -13,23 +13,27 @@ div[xul="vbox"] { background: #FDC; }
 div[xul="box"] { background: #ADA; }
 */
 
-#top { border-bottom: 1px solid #C9D7F1; margin-bottom:2px;}
+#top { border-bottom: 1px solid #C9D7F1; }
 #guide { float:left; height:20px;}
 #user { float:right; height:20px;}
 #columns { }
-#columns > div { float:left; }
-#side { width: 150px; }
-#main { background:#DEF; overflow: auto; }
-#help { width: 150px; }
+#side { width: 150px; border-right: 1px solid #C9D7F1;}
+#main { overflow: auto; padding: 4px; }
+#help { width: 150px; border-left: 1px solid #C9D7F1;}
 
 .clearfix:after { content: "."; display:block; height:0; clear: both; visibility: hidden; }
 /* backslash hack hides from IE mac \*/
 * html .clearfix { height: 1%; }
 .clearfix { display: block; }
 /* end backslash hack*/
-
-.location {background: #AE5;}
-
+/*
+.location { background: #AE5; }
+.splitter { background: red; }
+.splitter:hover { cursor: pointer; }
+*/
+#side > div { background: #AEA; margin: 8px 2px 0px; border:2px solid #AEA; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; }
+#side > div > div { background: #FFF }
+#side > div * { font-size: 11px; font-weight: normal; }
 
 a.guide:link, a.guide:visited, a.guide:hover{ color: white; font-size:18px; }
 a.guide { float: left; }

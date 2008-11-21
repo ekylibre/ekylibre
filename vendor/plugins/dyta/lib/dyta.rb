@@ -126,7 +126,7 @@ module Dyta
         code += "    for "+record+" in @"+name.to_s+"\n"
         code += "      body += content_tag(:tr, ("+body+"), :class=>'data '+cycle('odd','even', :name=>'dyta'))\n"
         code += "    end\n"
-        code += "    text = header+body\n"
+        code += "    text = header+content_tag(:tbody,body)\n"
         code += "  else\n"
         code += "    text = '"+content_tag(:tr,content_tag(:td,l(:no_records).gsub(/\'/,'&apos;')))+"'\n"
         code += "  end\n"
