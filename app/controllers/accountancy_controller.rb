@@ -1,14 +1,12 @@
 class AccountancyController < ApplicationController
 
-  # groups all the accounts corresponding to a transaction of sale.
-  ACCOUNTS_OF_SALES={:sale=>70, :tva_collected=>4457, :customer=>[411, 413, 4191], :bank=>[511, 512], :cash=>53 , 
-    :others=>[654, 661, 665] }
+ #  # groups all the accounts corresponding to a transaction of sale.
+#   ACCOUNTS_OF_SALES={:sale=>70, :tva_collected=>4457, :customer=>[411, 413, 4191], :bank=>[511, 512], :cash=>53 , 
+#     :others=>[654, 661, 665] }
   
-  # groups all the accounts corresponding to a transaction of purchase.
-  ACCOUNTS_OF_PURCHASES={:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
-    :bank=>512, :others=>765 }
-
-  
+#   # groups all the accounts corresponding to a transaction of purchase.
+#   ACCOUNTS_OF_PURCHASES={:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
+#     :bank=>512, :others=>765 }
 
 
   dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -22,99 +20,52 @@ class AccountancyController < ApplicationController
 
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
-    
   end
-  
-  
   
   def entries
     entries = Entrie.find(:all)
     entries.each do |entrie|
-      
-    end
-
-    # lists all the transactions established on the accounts, sorted by date.
-    def journals
-      
-      begin
-        journal_nature = Journal.find(:first, :conditions=>["id = ? AND nature_id = ?", params[:id], params[:type_journal]])
-      rescue
-        raise Exception.new("No records matching has been found in the database.")
-      end
-      
-      name_nature_journal = JournalNature.find(journal_nature.id).name
-      
-      # if the type of journal (purchase, sale, bank, cash ...) is precised. Otherwise, it deals with a standard journal. 
-      case params[:type_journal]
-      when "purchases"
-        ACCOUNTS_OF_PURCHASES.each_value do |account|
-          accounts +=  Account.find(:first, :conditions=>["number LIKE '?%'", account]).number
-        end
-      
-      when "sales"
-        ACCOUNTS_OF_SALES.each_value do |account|
-          accounts +=  Account.find(:first, :conditions=>["number LIKE '?%'", account]).number
-        end
-      
-      else
-        accounts +=  Account.find(:all).number
-      end
-
- C'est une méthode ici ?
-
-  @results = Hash.new
-
-  periods = JournalPeriod.find(:all,:conditions=>["journal_id = ?", params[id]])
-  periods.each do |period| 
-    @results[period.started_on.to_sym] = Hash.new
-    result=@results[period.started_on.to_sym]
+    end    
+  end
     
-    records = JournalRecord.find(:all,:conditions=>["period_id = ?", period.id])
-    records.each do |record|
-      created_on = record.created_on.to_sym
-      result[created_on] = Hash.new
-      result2 = result[created_on]
-      entries = Entry.find(:all,:conditions=>["record_id = ?", record.id])
-      entries.each do |entrie|
-        account = Account.find(entrie.account_id)
-        if accounts.include? account.number
-          result2[account.number.to_sym] = Hash.new
-          result2[account.number.to_sym][:debit] = entrie.debit
-          result2[account.number.to_sym][:credit] = entrie.credit
-          result2[account.number.to_sym][:solde] = entrie.solde
-          result2[account.number.to_sym][:name] = account.name
-        end
-      end
-
-      if result2.empty?
-        result.delete record.created_on.to_sym 
-      else
-        result[record.created_on.to_sym] = result2 
-      end
+  
+  # lists all the transactions established on the accounts, sorted by date.
+  def journals
+    
+    begin
+      journals = JournalPeriod.find(:all, :conditions=>["started_on = ?", params[:period] ])
       
+      journals.each do |j|
+        journal = Journal.find(:first, :conditions=>["id = ? AND nature_id = ?", j.id, params[:type_journal] ])
+        journal_id = j.id
+        end
+      
+    rescue
+      raise Exception.new("No records matching has been found in the database.")
     end
-    @results[period.started_on.to_sym] = result
+    
+    Journal.journal(journal_id, params[:type_journal], params[:period])
+
   end
   #    journals_list params
   #    @journals = @current_company.journals
 
-end
 
 
-def journals_create
-  access :journals
-  if request.post?
-    @journal = Journal.new(params[:journal])
-    @journal.company_id = session[:company_id]
-    redirect_to_back if @journal.save
-  else
-    @journal = Journal.new
+  def journals_create
+    access :journals
+    if request.post?
+      @journal = Journal.new(params[:journal])
+      @journal.company_id = session[:company_id]
+      redirect_to_back if @journal.save
+    else
+      @journal = Journal.new
+    end
+    render_form
   end
-  render_form
-end
-
-def toto
-  render :text=>"C'est OK, ça marche !"
-end
-
+  
+  def toto
+    render :text=>"C'est OK, ça marche !"
+  end
+  
 end

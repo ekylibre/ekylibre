@@ -23,4 +23,10 @@
 
 class Financialyear < ActiveRecord::Base
 
+
+def close(date)
+  self.update_attribute(stopped_on,date)
+  self.update_attribute(closed, true)
+end
+
 end
