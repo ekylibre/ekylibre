@@ -22,23 +22,7 @@ class AccountancyController < ApplicationController
 
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
-    accounts = Account.find(:all)
-    @results = Hash.new
     
-    accounts.each do |account|
-      entries = Entry.find_by_id(account.id)
-      @results[account.name.to_sym] = Hash.new
-      @results[account.name.to_sym][:number] = account.number
-      result = @results[account.name.to_sym]
-      entries.each do |entrie|
-        result[:debit] += entrie.debit
-        result[:credit] += entrie.credit
-      end
-      result[:solde] = result[:debit] - result[:credit]
-      @results[account.name.to_sym] = result
-    end
-    
-    @accounts = @current_company.accounts
   end
   
   
@@ -66,18 +50,17 @@ class AccountancyController < ApplicationController
         ACCOUNTS_OF_PURCHASES.each_value do |account|
           accounts +=  Account.find(:first, :conditions=>["number LIKE '?%'", account]).number
         end
-      end
       
-    when "sales"
-      ACCOUNTS_OF_SALES.each_value do |account|
-        accounts +=  Account.find(:first, :conditions=>["number LIKE '?%'", account]).number
+      when "sales"
+        ACCOUNTS_OF_SALES.each_value do |account|
+          accounts +=  Account.find(:first, :conditions=>["number LIKE '?%'", account]).number
+        end
+      
+      else
+        accounts +=  Account.find(:all).number
       end
-    end
-  else
-    accounts +=  Account.find(:all).number
-  end
 
-? C'est une méthode ici ?
+ C'est une méthode ici ?
 
   @results = Hash.new
 
@@ -114,6 +97,7 @@ class AccountancyController < ApplicationController
   end
   #    journals_list params
   #    @journals = @current_company.journals
+
 end
 
 
