@@ -28,4 +28,30 @@
 #
 
 class Entry < ActiveRecord::Base
+  
+
+before_create :search_currency
+after_create  :account_is_debit
+
+
+  def search_currency()
+    currency = Currency.find(:conditions=>["rate = ?", self.currency_rate])
+    raise "No currency defined with this rate." unless currency.id 
+  end
+
+  # Test if the matching account is debit
+  def account_is_debit()
+    entries = Entry.find(:all,:conditions=>["account_id = ?", self.account_id])
+    entries.each do |entrie|
+      debit += entrie.debit
+      credit += entrie.credit
+    end
+    
+    account = Account.find(self.account_id)
+    account.is_debit = true if (debit > credit)
+   
+  end
+
+
+
 end

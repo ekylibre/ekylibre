@@ -33,18 +33,16 @@ class AccountancyController < ApplicationController
   def journals
     
     begin
-      journals = JournalPeriod.find(:all, :conditions=>["started_on = ?", params[:period] ])
+      journal = JournalPeriod.find(:first, :conditions=>["started_on = ? AND stopped_on = ?", params[:period][0], params[:period][1] ])
       
-      journals.each do |j|
-        journal = Journal.find(:first, :conditions=>["id = ? AND nature_id = ?", j.id, params[:type_journal] ])
-        journal_id = j.id
-        end
+      j = Journal.find(journal.journal_id)
+    end
       
     rescue
       raise Exception.new("No records matching has been found in the database.")
     end
     
-    Journal.journal(journal_id, params[:type_journal], params[:period])
+    j.journal(journal.id)
 
   end
   #    journals_list params
