@@ -18,8 +18,8 @@
 #
 
 class Journal < ActiveRecord::Base
- #  validates_uniqueness_of :name 
-  
+#  validates_uniqueness_of :name 
+#   before_validate :validate_date  
 #   before_create :journal_nature
 #   before_destroy :journal_empty
 
@@ -33,6 +33,12 @@ class Journal < ActiveRecord::Base
 #   ACCOUNTS_OF_PURCHASES={:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
 #     :bank=>512, :others=>765 }
 
+    # Befire validate a journal.
+#   def validate_date
+#      period = JournalPeriod.find(:first, :conditions=>["journal_id = ?", self.id])
+#      financialyear = Financialyear.find(period.financialyear_id)
+#      raise "" unless self.created_at.to_date < financialyear.written_on.to_date 
+#   end
 
 #   # Before create a journal.
 #   def journal_nature()

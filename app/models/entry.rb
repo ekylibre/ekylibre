@@ -31,27 +31,76 @@ class Entry < ActiveRecord::Base
   
 
 before_create :search_currency
-after_create  :account_is_debit
+after_create  :account_is_debit, :up_record
 
 
+  # the rate precised must be mentioned in the database.
   def search_currency()
     currency = Currency.find(:conditions=>["rate = ?", self.currency_rate])
     raise "No currency defined with this rate." unless currency.id 
   end
 
-  # Test if the matching account is debit
+  # tests if the matching account is debit.
   def account_is_debit()
-    entries = Entry.find(:all,:conditions=>["account_id = ?", self.account_id])
+    list_entries_record(:field=>:account_id, :value=>self.account_id)
+    account = Account.find(self.account_id)
+    account.is_debit = true if (debit > credit)
+  end
+  
+
+  # updates the amounts to the debit and the credit 
+  # for the matching record.
+  def up_record()
+    list_entries_record(:field=>:record_id, :value=>self.record_id)
+    record = JournalRecord.find(self.record_id)
+    up_attributes(:instance=>record,
+                  :fields=>[:debit, :credit], 
+                  :values=>[debit, credit])
+#     record.update_attribute(debit, debit)
+#     record.update_attribute(credit, credit)
+
+  end
+  
+  # updates the amounts to the debit and the credit
+  # in the balance for the considered account.
+  def up_balance()
+    list_entries_record(:field=>:account_id, :value=>self.account_id)
+    account = AccountBalance.find(account_id)
+    up_attributes(:instance=>account
+                  :fields=>[:global_debit,:global_credit,:global_balance, :local_debit, :local_credit, :local_balance],
+                  :values=>[debit, credit])
+#     account.update_attribute(global_debit, account.global_debit + debit)
+#     account.update_attribute(global_credit, account.global_credit + credit)
+#     account.update_attribute(global_balance, account.global_balance + (debit - credit))
+#     account.update_attribute(local_debit, debit)
+#     account.update_attribute(local_credit, credit)
+#     account.update_attribute(local_balance, debit - credit)
+    
+  end
+  
+
+  private
+  
+  # 
+  def up_attributes(options={})
+    unless options[:instance].blank?
+      options[:fields].detect do |field|
+      options[:instance].update_attribute(field
+                                       
+                                     end
+    end
+
+  end
+
+
+  # lists all the entries matching to a record.
+  def list_entries_record(options={})
+    entries = Entry.find(:all,:conditions=>["#{options[:field]} = ?", options[:value] ])
     entries.each do |entrie|
       debit += entrie.debit
       credit += entrie.credit
     end
     
-    account = Account.find(self.account_id)
-    account.is_debit = true if (debit > credit)
-   
   end
-
-
-
+  
 end

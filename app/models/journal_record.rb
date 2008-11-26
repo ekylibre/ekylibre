@@ -31,6 +31,9 @@ before_create :valide_date
   def valide_date
     journal = Journal.find(self.journal_id)
     raise "This operation can not be realized because the journal is already closed." if self.created_on > journal.closed_on 
+    period = JournalPeriod.find(self.period_id)
+    financialyear = Financialyear.find(period.financialyear_id) 
+    raise "Incompatible period." unless financialyear.started_on < self.created_on and self.created_on < financialyear.stopped_on    
   end
 
 end

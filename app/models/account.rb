@@ -29,4 +29,5 @@
 #
 
 class Account < ActiveRecord::Base
+  validates_uniqueness_of :number, :name, :label 
 end

@@ -21,4 +21,12 @@
 #
 
 class BankAccountStatement < ActiveRecord::Base
+
+before_validation :validate_date
+
+  def validate_date
+    raise "" unless self.started_on < self.stopped_on
+  end
+
+
 end

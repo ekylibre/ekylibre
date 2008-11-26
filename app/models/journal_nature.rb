@@ -15,7 +15,9 @@
 #
 
 class JournalNature < ActiveRecord::Base
-  validates_inclusion_of :name, :in=> %w( general purchase sale ), :message=>"name of journal is not valide."
+  validates_inclusion_of :name,
+                         :in=> %w( general purchase sale ), 
+                         :message=>"name of journal is not valide."
   
 
   def before_create()

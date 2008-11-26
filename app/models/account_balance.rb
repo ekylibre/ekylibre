@@ -23,7 +23,7 @@
 #
 
 class AccountBalance < ActiveRecord::Base
-
+   validates_uniqueness_of :account, :name, :label 
 
 
 
