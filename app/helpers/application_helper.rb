@@ -41,6 +41,15 @@ module ApplicationHelper
     content_tag(:title, 'Ekylibre &bull; '+l(controller.controller_name.to_sym, :title))
   end
 
+
+  def help_tag
+    options = {:class=>"help-link"}
+    content = content_tag(:div, '&nbsp;')
+    code  = content_tag(:div, link_to_remote(content, :update=>:columns, :position=>:bottom, :url=>{:controller=>:help, :action=>:search, :id=>controller.controller_name+':'+action_name}, :complete=>"toggleHelp();"), {:id=>"help-open"}.merge(options))
+    code += content_tag(:div, link_to_function(content, "toggleHelp();"), {:id=>"help-close"}.merge(options))
+    code+javascript_tag("toggleHelp();")
+  end
+
   def location_tag(location, options={})
     content = ''
     unless [:guide,:user].include? location

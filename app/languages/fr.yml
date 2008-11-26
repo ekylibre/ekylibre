@@ -156,6 +156,15 @@ app:
       create: Créer un nouveau journal
     journals_create:
       title: Créer un nouveau journal
+  accounting_system:
+    1: 'Comptes de capitaux'
+    2: 'Comptes d''immobilisations'
+    3: 'Comptes de stocks et en-cours'
+    4: 'Comptes de tiers'
+    5: 'Comptes financiers'
+    6: 'Comptes de charges'
+    7: 'Comptes de produits'
+    8: 'Comptes spéciaux'
   application:
     expired_session: 'Session expirée. Veuillez vous reconnecter.'
     access_denied: 'Vous n''avez pas le droit d''accéder à cette fonctionnalité'

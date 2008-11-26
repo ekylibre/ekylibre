@@ -42,12 +42,19 @@ class Company < ActiveRecord::Base
     self.journal_natures.create(:name=>lc(:default_purchases_journal_nature_name))
     self.journal_natures.create(:name=>lc(:default_bank_journal_nature_name))
     self.journal_natures.create(:name=>lc(:default_operations_journal_nature_name))
+    self.load_accounting_system
   end
 
   def parameter(name)
     parameter = Parameter.find_by_name_and_company_id(name,self.id)
     parameter = Parameter.new(:name=>name, :nature=>:u, :company_id=>self.id)
     parameter
+  end
+
+  def load_accounting_system
+    for a in 1..8
+      self.accounts.create!(:number=>a.to_s, :name=>l(:accounting_system, a.to_sym))
+    end
   end
 
   def load_template(filename)

@@ -15,8 +15,10 @@
     #columns.clearfix{:orient=>:horizontal}
       = location_tag (:side, :orient=>:vertical)
       #main{:flex=>3}
+        = help_tag
         = flash_tag :error
         = flash_tag :warning
         = flash_tag :notice
-        = yield
-      = location_tag(:help, :flex=>1, :collapse=>:after) if params[:help]
+        #yield
+          = yield
+      = #location_tag(:help, :flex=>1, :collapse=>:after) if params[:help]

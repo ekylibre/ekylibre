@@ -18,8 +18,14 @@ class AccountancyController < ApplicationController
     t.procedure :create, :action=>:journals_create
   end
 
+  dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :number
+    t.column :name
+  end
+
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
+    accounts_list
   end
   
   def entries

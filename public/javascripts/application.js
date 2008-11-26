@@ -235,6 +235,19 @@ function resize() {
   /*  _resize();*/
 }
 
+function toggleHelp() {
+  var close =  $('help-close').getStyle('display');
+  if (close === 'none') {
+    $('help-open').setStyle({display: 'none'});
+    $('help-close').setStyle({display: 'block'});
+  } else {
+    $('help-open').setStyle({display: 'block'});
+    $('help-close').setStyle({display: 'none'});
+    Element.remove($('help'));
+  }
+  resize();
+}
+
 
 function windowResize() {
   var dims   = document.viewport.getDimensions();
