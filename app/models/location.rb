@@ -1,15 +1,10 @@
 # == Schema Information
 # Schema version: 20080819191919
 #
-# Table name: widgets
+# Table name: locations
 #
 #  id           :integer       not null, primary key
 #  name         :string(255)   not null
-#  nature       :string(255)   not null
-#  options      :text          
-#  position     :integer       
-#  location_id  :integer       not null
-#  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
 #  created_by   :integer       
@@ -17,10 +12,13 @@
 #  lock_version :integer       default(0), not null
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
-#
-# two:
-#   column: value
+class Location < ActiveRecord::Base
+  def render(user)
+    widgets = Widget.find(:all, :conditions=>{:location_id=>self.id}, :order=>:position)
+    code = ''
+    for widget in widgets
+      code += widget.render(user)
+    end
+    code
+  end
+end

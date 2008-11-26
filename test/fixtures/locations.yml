@@ -1,15 +1,10 @@
 # == Schema Information
 # Schema version: 20080819191919
 #
-# Table name: widgets
+# Table name: locations
 #
 #  id           :integer       not null, primary key
 #  name         :string(255)   not null
-#  nature       :string(255)   not null
-#  options      :text          
-#  position     :integer       
-#  location_id  :integer       not null
-#  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
 #  created_by   :integer       

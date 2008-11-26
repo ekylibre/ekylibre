@@ -108,20 +108,31 @@ class Beginning < ActiveRecord::Migration
     add_index :documents, :sha256
     add_index :documents, :company_id
 
+    # Location
+    create_table :locations do |t|
+      t.column :name,                   :string,   :null=>false
+    end
+    add_index :locations, :name, :unique=>true
+
+    Location.create!(:name=>'guide')
+    Location.create!(:name=>'user')
+    Location.create!(:name=>'side')
+
     # Widget
     create_table :widgets do |t|
-      t.column :name,                   :string,  :null=>false
-      t.column :location,               :string,  :null=>false
-      t.column :nature,                 :string,  :null=>false
+      t.column :name,                   :string,   :null=>false
+      t.column :nature,                 :string,   :null=>false
       t.column :options,                :text
       t.column :position,               :integer
+      t.column :location_id,            :integer,  :null=>false, :references=>:locations
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
     add_index :widgets, :name
-    add_index :widgets, :location
+    add_index :widgets, :location_id
     add_index :widgets, :nature
     add_index :widgets, :position
     add_index :widgets, :company_id
+
 
  
     Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')

@@ -45,7 +45,6 @@ class Accounting < ActiveRecord::Migration
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :accounts, [:number, :company_id], :unique=>true
-    add_index :accounts, [:label, :company_id], :unique=>true
     add_index :accounts, [:alpha, :company_id], :unique=>true
     add_index :accounts, [:name, :company_id]
     add_index :accounts, [:entity_id, :company_id]

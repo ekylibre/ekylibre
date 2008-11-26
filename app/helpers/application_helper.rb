@@ -55,21 +55,21 @@ module ApplicationHelper
   end
 
   def location_tag(location, options={})
+    location = Location.find_by_name(location.to_s) unless location.is_a? Location
+    return '' if location.nil?
     content = ''
-    case location
+    case location.name.to_sym
     when :guide
       content += menu_modules
     when :user
       content += menu_modules
     when :side
       content += image_tag('ekylibre.png')
-      content += content_tag(:div,content_tag(:h3,'Demo')+content_tag(:div,'Blabla'))
-      content += content_tag(:div,content_tag(:h3,'Demo')+content_tag(:div,'Blabla'))
-      content += content_tag(:div,content_tag(:h3,'Demo')+content_tag(:div,'Blabla'))
-      content += content_tag(:div,content_tag(:h3,'Demo')+content_tag(:div,'Blabla'))
-    else
     end
-    content_tag(:div, content, options.merge({:id=>location.to_s, :class=>:location, :align=>"center"}))
+
+    content += location.render(@current_user)
+
+    content_tag(:div, content, options.merge({:id=>location.name.to_s, :class=>:location, :align=>"center"}))
   end
 
   def splitter_tag

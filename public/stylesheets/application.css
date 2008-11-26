@@ -35,9 +35,10 @@ div[xul="box"] { background: #ADA; }
 /* end backslash hack*/
 
 
-#side > div { background: #AEA; margin: 8px 2px 0px; border:2px solid #AEA; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; }
+#side > div { background: #BFB; margin: 8px 2px 0px; border:2px solid #BFB; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; }
 #side > div > div { background: #FFF }
-#side > div * { font-size: 11px; font-weight: normal; color: #444; }
+#side > div > h2 { font-weight:normal; padding: 0px 0px 2px; }
+#side > div * { font-size: 11px; color: #111; }
 
 #guide > * { padding: 2px; margin-top:1px; }
 
