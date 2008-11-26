@@ -85,7 +85,7 @@ class Beginning < ActiveRecord::Migration
     add_index :templates, :company_id
     add_index :templates, [:company_id, :name], :unique=>true
     
-    # Report
+    # Document
     create_table :documents do |t|
       t.column :filename,               :string 
       t.column :original_name,          :string, :null=>false
@@ -100,12 +100,30 @@ class Beginning < ActiveRecord::Migration
    
     add_index :documents, :sha256
     add_index :documents, :company_id
+
+    # Widget
+    create_table :widgets do |t|
+      t.column :name,                   :string,  :null=>false
+      t.column :location,               :string,  :null=>false
+      t.column :nature,                 :string,  :null=>false
+      t.column :show_name,              :boolean, :null=>false, :default=>false
+      t.column :published,              :boolean, :null=>false, :default=>false
+      t.column :system,                 :boolean, :null=>false, :default=>false
+      t.column :position,               :integer
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies
+    end
+   
+    add_index :widgets, :name
+    add_index :widgets, :published
+    add_index :widgets, :company_id
+
  
     Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
 
   end
 
   def self.down
+    drop_table :widgets
     drop_table :documents
     drop_table :templates
     drop_table :roles

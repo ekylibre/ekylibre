@@ -30,7 +30,7 @@ module ApplicationHelper
       if a.include? m
         code += content_tag :strong, l(:guide,m,:title)
       else
-        code += link_to(l(:guide,m,:title), :controller=>:guide, :action=>m)
+        code += link_to(l(:guide,m,:title), {:controller=>:guide, :action=>m})
       end
       code += ' '
     end
@@ -52,18 +52,18 @@ module ApplicationHelper
 
   def location_tag(location, options={})
     content = ''
-    unless [:guide,:user].include? location
-      content += image_tag('ekylibre.png')
-      #      content += image_tag('ekylibre.png')+'<br/>'
-    else
+    case location
+    when :guide
       content += menu_modules
-    end
-#    content += '['+location.to_s.upper+']'
-    if location==:side
+    when :user
+      content += menu_modules
+    when :side
+      content += image_tag('ekylibre.png')
       content += content_tag(:div,content_tag(:h3,'Demo')+content_tag(:div,'Blabla'))
       content += content_tag(:div,content_tag(:h3,'Demo')+content_tag(:div,'Blabla'))
       content += content_tag(:div,content_tag(:h3,'Demo')+content_tag(:div,'Blabla'))
       content += content_tag(:div,content_tag(:h3,'Demo')+content_tag(:div,'Blabla'))
+    else
     end
     content_tag(:div, content, options.merge({:id=>location.to_s, :class=>:location, :align=>"center"}))
   end
