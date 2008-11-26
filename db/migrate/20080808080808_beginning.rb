@@ -36,6 +36,8 @@ class Beginning < ActiveRecord::Migration
     end
     add_index :users, :name, :unique=>true
     add_index :users, :email
+    add_index :users, :role_id
+    add_index :users, :language_id
     add_index :users, :company_id
 
     # Company
@@ -63,8 +65,12 @@ class Beginning < ActiveRecord::Migration
       t.column :user_id,                :integer,  :references=>:users, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
+    add_index :parameters, :name
+    add_index :parameters, :nature
     add_index :parameters, :company_id
-    add_index :parameters, [:company_id, :name], :unique=>true
+    add_index :parameters, :user_id
+    add_index :parameters, :element_id
+    add_index :parameters, [:company_id, :user_id, :name], :unique=>true
 
     # Role
     create_table :roles do |t|
@@ -72,6 +78,8 @@ class Beginning < ActiveRecord::Migration
       t.column :actions,                :text,     :null=>false, :default=>'  '
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
+    add_index :roles, :name
+    add_index :roles, :actions
     add_index :roles, :company_id
     add_index :roles, [:company_id, :name], :unique=>true
 
@@ -97,7 +105,6 @@ class Beginning < ActiveRecord::Migration
       t.column :printed_at,             :datetime
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
-   
     add_index :documents, :sha256
     add_index :documents, :company_id
 
@@ -106,15 +113,14 @@ class Beginning < ActiveRecord::Migration
       t.column :name,                   :string,  :null=>false
       t.column :location,               :string,  :null=>false
       t.column :nature,                 :string,  :null=>false
-      t.column :show_name,              :boolean, :null=>false, :default=>false
-      t.column :published,              :boolean, :null=>false, :default=>false
-      t.column :system,                 :boolean, :null=>false, :default=>false
+      t.column :options,                :text
       t.column :position,               :integer
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
-   
     add_index :widgets, :name
-    add_index :widgets, :published
+    add_index :widgets, :location
+    add_index :widgets, :nature
+    add_index :widgets, :position
     add_index :widgets, :company_id
 
  

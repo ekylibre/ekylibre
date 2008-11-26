@@ -65,7 +65,7 @@ div.td { display: table-cell; }
 #company div.side .value {color:#227;  padding: 2px;}
 #company .futo { padding: 2px 0px 10px; }
 
-.flash-error { padding: 10px; background: #FDD; color: red; text-align:center; }
+.flash-error { padding: 10px; color: red; text-align:center; }
 
 .formalize { width: 774px; margin-left: auto; margin-right: auto; }
 .formalize .fields table { border-collapse: collapse; width:100%; }
