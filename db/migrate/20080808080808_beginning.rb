@@ -114,10 +114,6 @@ class Beginning < ActiveRecord::Migration
     end
     add_index :locations, :name, :unique=>true
 
-    Location.create!(:name=>'guide')
-    Location.create!(:name=>'user')
-    Location.create!(:name=>'side')
-
     # Widget
     create_table :widgets do |t|
       t.column :name,                   :string,   :null=>false
@@ -134,8 +130,16 @@ class Beginning < ActiveRecord::Migration
     add_index :widgets, :company_id
 
 
+    # Menu
+    create_table :menus do |t|
+    end
+
  
     Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
+
+    Location.create!(:name=>'guide')
+    Location.create!(:name=>'user')
+    Location.create!(:name=>'side')
 
   end
 

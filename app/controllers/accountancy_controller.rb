@@ -1,12 +1,12 @@
 class AccountancyController < ApplicationController
 
- #  # groups all the accounts corresponding to a transaction of sale.
-#   ACCOUNTS_OF_SALES={:sale=>70, :tva_collected=>4457, :customer=>[411, 413, 4191], :bank=>[511, 512], :cash=>53 , 
-#     :others=>[654, 661, 665] }
+  #  # groups all the accounts corresponding to a transaction of sale.
+  #   ACCOUNTS_OF_SALES={:sale=>70, :tva_collected=>4457, :customer=>[411, 413, 4191], :bank=>[511, 512], :cash=>53 , 
+  #     :others=>[654, 661, 665] }
   
-#   # groups all the accounts corresponding to a transaction of purchase.
-#   ACCOUNTS_OF_PURCHASES={:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
-#     :bank=>512, :others=>765 }
+  #   # groups all the accounts corresponding to a transaction of purchase.
+  #   ACCOUNTS_OF_PURCHASES={:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
+  #     :bank=>512, :others=>765 }
 
 
   dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -33,27 +33,22 @@ class AccountancyController < ApplicationController
     entries.each do |entrie|
     end    
   end
-    
+  
   
   # lists all the transactions established on the accounts, sorted by date.
   def journals
-    
-    begin
-      journal = JournalPeriod.find(:first, :conditions=>["started_on = ? AND stopped_on = ?", params[:period][0], params[:period][1] ])
-      
-      j = Journal.find(journal.journal_id)
-    end
-      
-    rescue
-      raise Exception.new("No records matching has been found in the database.")
-    end
-    
-    j.journal(journal.id)
-
+    #    begin
+    #      journal = JournalPeriod.find(:first, :conditions=>["started_on = ? AND stopped_on = ?", params[:period][0], params[:period][1] ])
+    #      j = Journal.find(journal.journal_id)
+    #    rescue
+    #      raise Exception.new("No records matching has been found in the database.")
+    #    end    
+    #    j.journal(journal.id)
+    journals_list params
   end
   #    journals_list params
   #    @journals = @current_company.journals
-
+  
 
 
   def journals_create
@@ -67,9 +62,5 @@ class AccountancyController < ApplicationController
     end
     render_form
   end
-  
-  def toto
-    render :text=>"C'est OK, ça marche !"
-  end
-  
+
 end

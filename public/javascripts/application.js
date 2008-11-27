@@ -224,7 +224,7 @@ Element.addMethods(xulElementMethods);
 
 function _resize() {
   var dims   = document.viewport.getDimensions();
-  var height = dims.height-21;
+  var height = dims.height-25;
   var width  = dims.width;
   $('columns').resize(width,height);
 }

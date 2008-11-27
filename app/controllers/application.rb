@@ -6,8 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :authorize, :except=>[:login, :register]
   attr_accessor :current_user
   attr_accessor :current_company
-  
-  
+    
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '232b3ccf31f8f5fefcbb9d2ac3a00415'
@@ -31,15 +30,6 @@ class ApplicationController < ActionController::Base
     end
   end  
   
-  # this function tries to find the file matching to the ID passing in parameter and launches a download of it. 
-  def retrieve_xil(xil,options={})
-    # the document is archived except the archive option is unmentioned.
-    unless options[:archive].false?
-      template = Template.find(xil).content
-      Report.find(:all, :conditions=>['key = ?', options[:key]])||false 
-    end
-  end
- 
   private
   
   def authorize
@@ -50,7 +40,6 @@ class ApplicationController < ActionController::Base
       session[:actions] = @current_user.role.actions_array
       if session[:last_query].to_i<Time.now.to_i-3600
         flash[:error] = lc :expired_session
-
         if controller_name.to_s!='authentication'
           session[:last_controller] = controller_name 
           session[:last_action]     = action_name
@@ -83,8 +72,7 @@ class ApplicationController < ActionController::Base
       redirect_to :back
     end
   end
-  
-  
+
   def can_access?(action=:all)
     return false unless @current_user
     return session[:actions].include?(:all) ? true : session[:actions].include?(action)

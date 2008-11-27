@@ -1,0 +1,19 @@
+.flash-error= flash[:error]
+#login
+  .line
+  #logoban
+  - form_tag({},:name=>@login) do
+    %table
+      %tr
+        %td.label=lc :username
+        %td.input=text_field :user, :name, {:value=>session[:user_name], :tabindex=>1}
+        %td.help= link_to lc(:lost_login), :action=>:lost_login
+      %tr
+        %td.label=lc :password
+        %td.input=password_field :user, :password, :tabindex=>2, :onchange=>"document."+@login+".submit()"
+        %td.help= link_to lc(:lost_password), :action=>:lost_password
+      %tr
+        %td.button{:colspan=>3}=submit_tag(lc(:connect), :tabindex=>3)
+      %tr
+        %td.actions{:colspan=>3}=link_to lc(:register), {:action=>:register}, {:class=>:show}
+  .line

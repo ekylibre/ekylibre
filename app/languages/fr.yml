@@ -168,7 +168,10 @@ app:
   application:
     expired_session: 'Session expirée. Veuillez vous reconnecter.'
     access_denied: 'Vous n''avez pas le droit d''accéder à cette fonctionnalité'
+    admin: 'Administration'
+    exit: 'Quitter Ekylibre'
   authentication:
+    title: 'Bienvenue'
     no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
     login:
       title: 'Bienvenue sur Ekylibre'
@@ -236,8 +239,6 @@ app:
       title: 'Stocks'
   layouts:
     application:
-      admin: 'Administration'
-      exit: 'Quitter Ekylibre'
   cancel: 'Annuler'
   create: 'Créer'
   edit: 'Modifier'

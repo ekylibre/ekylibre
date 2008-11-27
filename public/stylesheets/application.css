@@ -14,8 +14,8 @@ div[xul="box"] { background: #ADA; }
 */
 
 #top { border-bottom: 1px solid #C9D7F1; }
-#guide { float:left; height:18px; padding:1px 4px;}
-#user { float:right; height:20px;}
+#guide { float:left; }
+#user { float:right; }
 #columns { }
 #side { width: 150px; border-right: 1px dotted #C9D7F1;}
 #main { overflow: auto; }
@@ -40,7 +40,10 @@ div[xul="box"] { background: #ADA; }
 #side > div > h2 { font-weight:normal; padding: 0px 0px 2px; }
 #side > div * { font-size: 11px; color: #111; }
 
-#guide > * { padding: 2px; margin-top:1px; }
+
+.hm { height:18px; padding:3px 4px; }
+.hm > * { padding: 2px 4px; }
+
 
 a.guide:link, a.guide:visited, a.guide:hover{ color: white; font-size:18px; }
 a.guide { float: left; }

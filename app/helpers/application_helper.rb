@@ -1,7 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-
   def can_access?(action=:all)
     return false unless @current_user
     return session[:actions].include?(:all) ? true : session[:actions].include?(action)
@@ -37,10 +36,42 @@ module ApplicationHelper
     code
   end
 
+
+  def top_tag
+    code = ''
+    # Guide Tag
+    modules = [:index, :accountancy, :sales, :purchases, :stocks]
+    tag = ''
+    a = [action_name.to_sym, self.controller.controller_name.to_sym]
+    for m in modules
+      if a.include? m
+        tag += content_tag :strong, l(:guide,m,:title)
+      else
+        tag += link_to(l(:guide,m,:title), {:controller=>:guide, :action=>m})
+      end
+      tag += ' '
+    end
+    code += content_tag(:div, tag, :id=>:guide, :class=>:hm)
+
+    # Fix
+    code += content_tag(:div, '', :style=>'left:0pt;')
+
+    # User Tag
+    tag = ''
+    tag += link_to(@current_user.label, {:controller=>:config, :action=>:user})
+    tag += ' '+link_to(@current_company.name, {:controller=>:config, :action=>:company})
+    tag += ' '+link_to(lc(:exit), {:controller=>:authentication, :action=>:logout})
+    code += content_tag(:div, tag, :id=>:user, :class=>:hm)
+
+    # Fix
+    code += content_tag(:div, '', :style=>'clear:both;')
+    
+    return content_tag(:div, code, :id=>:top)
+  end
+
   def title_tag
     content_tag(:title, 'Ekylibre &bull; '+l(controller.controller_name.to_sym, :title))
   end
-
 
   def help_tag
     options = {:class=>"help-link"}
@@ -49,41 +80,21 @@ module ApplicationHelper
 
    # cible  = content_tag(:a, link_to_remote(content, :update=>:columns, :position=>:bottom, :url=>{:controller=>:help, :action=>:search, :id=>controller.controller_name+'-'+action_name}, :complete=>"toggleHelp();"), {:id=>"help-open"}.merge(options))
 
-
     code += content_tag(:div, link_to_function(content, "toggleHelp();"), {:id=>"help-close"}.merge(options))
     code+javascript_tag("toggleHelp();")
   end
+
 
   def location_tag(location, options={})
     location = Location.find_by_name(location.to_s) unless location.is_a? Location
     return '' if location.nil?
     content = ''
-    case location.name.to_sym
-    when :guide
-      content += menu_modules
-    when :user
-      content += menu_modules
-    when :side
-      content += image_tag('ekylibre.png')
-    end
-
     content += location.render(@current_user)
-
     content_tag(:div, content, options.merge({:id=>location.name.to_s, :class=>:location, :align=>"center"}))
-  end
-
-  def splitter_tag
-    content_tag(:div, '', :class=>:splitter, :style=>'width:4px; height:4px;', 
-                :onmousedown=>'this.setAttribute("down","true");', 
-                :onmouseup=>'this.setAttribute("down","false");',
-                :onmousemove=>'followTheMouse(this,event);')
   end
 
   def flash_tag(mode)
     content_tag(:div, flash[mode], :class=>'flash-'+mode.to_s) if flash[mode]
-  end
-
-  def menu_user
   end
 
   def link_to_submit(form_name, label=:submit, options={})

@@ -7,12 +7,8 @@
     = stylesheet_link_tag :defaults
     = javascript_include_tag :defaults
   %body{:onload=>'resize();',:onresize=>'resize();'}
-    #top
-      = location_tag :guide
-      %div{:style=>'left:0pt;'}
-      = location_tag :user
-      %div{:style=>'clear:both;'}
-    #columns.clearfix{:orient=>:horizontal}
+    = top_tag
+    #columns{:orient=>:horizontal}
       = location_tag(:side, :orient=>:vertical)
       #main{:flex=>3}
         = help_tag
@@ -21,4 +17,3 @@
         = flash_tag :notice
         #yield
           = yield
-      = #location_tag(:help, :flex=>1, :collapse=>:after) if params[:help]
