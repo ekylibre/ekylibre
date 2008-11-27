@@ -42,13 +42,13 @@ module ApplicationHelper
     # Guide Tag
     modules = [:index, :accountancy, :sales, :purchases, :stocks]
     tag = ''
-    a = [action_name.to_sym, self.controller.controller_name.to_sym]
+#    a = [action_name.to_sym, self.controller.controller_name.to_sym]
     for m in modules
-      if a.include? m
-        tag += content_tag :strong, l(:guide,m,:title)
-      else
+#      if a.include? m
+#        tag += content_tag :strong, l(:guide,m,:title)
+#      else
         tag += link_to(l(:guide,m,:title), {:controller=>:guide, :action=>m})
-      end
+#      end
       tag += ' '
     end
     code += content_tag(:div, tag, :id=>:guide, :class=>:hm)
