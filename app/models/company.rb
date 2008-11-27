@@ -43,7 +43,7 @@ class Company < ActiveRecord::Base
     self.journal_natures.create(:name=>lc(:default_bank_journal_nature_name))
     self.journal_natures.create(:name=>lc(:default_operations_journal_nature_name))
     self.widgets.create(:name=>'test', :location=>Location.find_by_name('side'), :nature=>'content')
-    self.load_accounting_system
+#    self.load_accounting_system
   end
 
   def parameter(name)

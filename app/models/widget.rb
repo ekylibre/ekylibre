@@ -19,6 +19,7 @@
 
 class Widget < ActiveRecord::Base
   acts_as_list :scope=>:location
+  #hash_column :options
 
   def render(user)
     if self.methods.include?('render_'+self.nature.to_s)
@@ -29,13 +30,13 @@ class Widget < ActiveRecord::Base
   end
 
   def options
-    @options_hash = self[:options].to_hash
+    @options_hash = self[:options].to_s.to_hash if @options_hash.nil?
+    self[:options] = @options_hash.to_string
+    @options_hash
   end
 
   def options=(hash)
-#    self[:options]={:a=>'ok'}
-#    self.options
-    @options_hash = hash
+    @options_hash = hash||{}
     self[:options] = @options_hash.to_string
   end
 
