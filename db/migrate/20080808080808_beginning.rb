@@ -129,11 +129,6 @@ class Beginning < ActiveRecord::Migration
     add_index :widgets, :position
     add_index :widgets, :company_id
 
-
-    # Menu
-    create_table :menus do |t|
-    end
-
  
     Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
 

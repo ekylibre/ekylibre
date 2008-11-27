@@ -20,6 +20,7 @@ div[xul="box"] { background: #ADA; }
 #side { width: 150px; border-right: 1px dotted #C9D7F1;}
 #main { overflow: auto; }
 #yield { padding: 4px; }
+#yield > h1 { font-variant: small-caps; letter-spacing:4px; }
 #help { width: 150px; /*border-left: 1px dotted #C9D7F1;*/ background: #E3F4FF;}
 #help > h2 { background: #C9D7F1; font-size: 20px; text-align:center; height:24px; padding:4px; vertical-align: center; }
 #help > div { padding: 2px 4px; }
@@ -35,7 +36,7 @@ div[xul="box"] { background: #ADA; }
 /* end backslash hack*/
 
 
-#side > div { background: #BFB; margin: 8px 2px 0px; border:2px solid #BFB; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; }
+#side > div { background: #BFB; margin: 2px 2px 8px; border:2px solid #BFB; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; }
 #side > div > div { background: #FFF }
 #side > div > h2 { font-weight:normal; padding: 0px 0px 2px; }
 #side > div * { font-size: 11px; color: #111; }

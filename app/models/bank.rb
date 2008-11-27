@@ -1,4 +1,4 @@
-°# == Schema Information
+# == Schema Information
 # Schema version: 20080819191919
 #
 # Table name: banks

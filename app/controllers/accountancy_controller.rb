@@ -23,15 +23,17 @@ class AccountancyController < ApplicationController
     t.column :name
   end
 
+  dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+  end
+
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
-    accounts_list
+    accounts_list params
   end
   
   def entries
-    entries = Entrie.find(:all)
-    entries.each do |entrie|
-    end    
+    entries_list params
   end
   
   
