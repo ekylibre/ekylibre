@@ -26,14 +26,23 @@
 
 class JournalRecord < ActiveRecord::Base
   
-before_create :valide_date
 
-  def valide_date
+
+  def validate
+    errors.add lc() if self.printed_on < self.created_on
     journal = Journal.find(self.journal_id)
-    raise "This operation can not be realized because the journal is already closed." if self.created_on > journal.closed_on 
+    errors.add lc(:error_closed_journal) if self.created_on > journal.closed_on 
     period = JournalPeriod.find(self.period_id)
+    errors.add lc(:error_limited_period) if self.created_on < period.started_on or self.created_on > period.stopped_on 
     financialyear = Financialyear.find(period.financialyear_id) 
-    raise "Incompatible period." unless financialyear.started_on < self.created_on and self.created_on < financialyear.stopped_on    
+    errors.add lc(:error_limited_financialyear) unless financialyear.started_on < self.created_on and self.created_on < financialyear.stopped_on    
   end
 
+  def totalize
+    self.debit += debit
+    self.credit += credit 
+    self.update_attributes(:debit=>self.debit, :credit=>self.credit)
+  end
+
+  
 end

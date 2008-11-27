@@ -237,6 +237,24 @@ app:
       title: 'Achats'
     stocks:
       title: 'Stocks'
+  journal:
+    error_limited_period: '.'
+    error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
+  journal_period:
+    error_period: 'L''intervalle de temps est incorrecte pour la période.'	
+    error_closed_journal: 'Le journal sera déjà clôturée à la fin de la période.'
+    error_limited_financialyear: 'L''année financière sera déjà terminée à la fin de la période.'
+  journal_record:
+    error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus ajouter de pièces.' 
+    error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
+    error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
+  bank_account_statement:	  	 
+    error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
+    error_period_statement: 'L''intervalle de temps est incorrecte pour le relevé bancaire.'  				   
+    error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'			           
+  financialyear:
+    error_period_financialyear: 'L''intervalle de temps est incorrecte pour l''année financière.'
+    error_financialyear: 'La date de début de l''année financière est incorrecte.'
   layouts:
     application:
   cancel: 'Annuler'

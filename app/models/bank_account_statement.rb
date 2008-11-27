@@ -22,10 +22,14 @@
 
 class BankAccountStatement < ActiveRecord::Base
 
-before_validation :validate_date
 
-  def validate_date
-    raise "" unless self.started_on < self.stopped_on
+  # A bank account statement has to contain all the planned records.
+  def validate
+    errors.add lc(:error_print_statement) if self.printed_on < self.stopped_on
+    errors.add lc(:error_period_statement) if self.started_on > self.stopped_on
+    bankaccount = BankAccount.find(self.bank_account_id)
+    journal = Journal.find(bankaccount.journal_id)
+    errors.add lc(:error_journal_statement) if self.stopped_on > journal.closed_on
   end
 
 

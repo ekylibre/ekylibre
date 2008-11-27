@@ -29,7 +29,7 @@ class AccountBalance < ActiveRecord::Base
 
    #lists the accounts used in a given period with the credit and the debit.
    def self.balance(period)
-     accounts = self.find(:all, :conditions=>["financialyear_id = ?", period])
+     accounts = self.find(:all, :conditions=>{:financialyear_id=>period})
      
      unless accounts.empty?
        results = Hash.new
@@ -51,25 +51,5 @@ class AccountBalance < ActiveRecord::Base
      
    end
 
-
-
-# accounts = Account.find(:all)
-#     @results = Hash.new
-    
-#     accounts.each do |account|
-#       entries = Entry.find_by_id(account.id)
-#       @results[account.name.to_sym] = Hash.new
-#       @results[account.name.to_sym][:number] = account.number
-#       result = @results[account.name.to_sym]
-#       entries.each do |entrie|
-#         result[:debit] += entrie.debit
-#         result[:credit] += entrie.credit
-#       end
-#       result[:solde] = result[:debit] - result[:credit]
-#       @results[account.name.to_sym] = result
-#     end
-    
-#     @accounts = @current_company.accounts
-
-
+   
 end
