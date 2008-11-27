@@ -14,26 +14,27 @@ class HelpController < ApplicationController
     # return HTML
     code += content_tag(:b , 'app/languages/fr/help/'+file_name+'.txt' )
     code += content_tag(:br, '')
-    code += content_tag(:a ,  '/app/languages/fr/help/exemple.txt')
 
     file_text  = "app/languages/fr/help/"+file_name+".txt"
     file_cache = "app/languages/fr/help/cache/"+file_name+".html"
        
-    if File.exists?(file_cache)  # the file exists in the cache
-      then 
+    if File.exists?(file_cache)  # the file exists in the cache 
       code  += content_tag(:h1 , 'TestOKdans le cache') 
+      file = File.open('app/languages/fr/help/cache/'+file_name+'.html' , 'r') # file in cache
+      code  += content_tag(:h4, file.read)
+      #code  +=content_tag(:h4, textilize(file_cache))
+        
 
-      i = 1
-      file = File.open('app/languages/fr/help/cache/'+file_name+'.html' , 'r')
-     # file = File.open('app/languages/fr/help/'+file_name+'.txt', 'r') # text file, not cache file
-      file.each_line { |lign|
-          line = "#{i} - #{lign}"        
-          code  += content_tag(:h2, line)
-          i += 1
-      }
+    else
+      file = File.open('app/languages/fr/help/'+file_name+'.txt' , 'r') # text file 
 
-      else
-      code += content_tag(:h1 ,'TestNOk')
+      #gsub(/^<<[a-z]|[A-Z]|[0-9][|][a-z]|[A-Z]|[0-9]>>$/ , "&bull;") 
+      content = file.read
+      #code  += content_tag(:h4, content.gsub(/[A-Z]/ , 'e'))
+      code  += content_tag(:h4, content.gsub(/^</ , '&bull;'))
+      
+      code += content_tag(:h1 ,'TestOk hors cache')
+
     end
    
     #file.close 
