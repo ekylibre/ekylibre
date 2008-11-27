@@ -27,7 +27,8 @@
 class BankAccount < ActiveRecord::Base
   validates_uniqueness_of :number, :iban, :iban_text, :key
   #validates_each :name, :number do |Account, attr, value|
-  before_create, before_update :account_exist
+  before_create :account_exist 
+  before_update :account_exist
 
   # tests if the bank account already exists in the database. 
   def account_exist()

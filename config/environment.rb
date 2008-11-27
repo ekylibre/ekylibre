@@ -69,7 +69,7 @@ end
 
 ActionController::Base.xil(:features=>[:template,:document], :subdir_size=>4)
 
-require "#{RAILS_ROOT}/lib/safe_string"
+require "#{RAILS_ROOT}/lib/init"
 
 #schemulator :column=>:company_id, :filter=>"1"
 #schemulator :column=>:company_id, :filter=>"SELECT company_id FROM all_users WHERE pid=pg_backend_pid()"

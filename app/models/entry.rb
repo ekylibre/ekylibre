@@ -66,7 +66,7 @@ after_create  :account_is_debit, :up_record
   def up_balance()
     list_entries_record(:field=>:account_id, :value=>self.account_id)
     account = AccountBalance.find(account_id)
-    up_attributes(:instance=>account
+    up_attributes(:instance=>account,
                   :fields=>[:global_debit,:global_credit,:global_balance, :local_debit, :local_credit, :local_balance],
                   :values=>[debit, credit])
 #     account.update_attribute(global_debit, account.global_debit + debit)
@@ -85,11 +85,9 @@ after_create  :account_is_debit, :up_record
   def up_attributes(options={})
     unless options[:instance].blank?
       options[:fields].detect do |field|
-      options[:instance].update_attribute(field
-                                       
-                                     end
+        options[:instance].update_attribute(field)
+      end
     end
-
   end
 
 
