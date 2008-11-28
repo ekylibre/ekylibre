@@ -78,9 +78,8 @@ module ApplicationHelper
     content = content_tag(:div, '&nbsp;')
     code  = content_tag(:div, link_to_remote(content, :update=>:columns, :position=>:bottom, :url=>{:controller=>:help, :action=>:search, :id=>controller.controller_name+'-'+action_name}, :complete=>"toggleHelp();"), {:id=>"help-open"}.merge(options))
 
-   # cible  = content_tag(:a, link_to_remote(content, :update=>:columns, :position=>:bottom, :url=>{:controller=>:help, :action=>:search, :id=>controller.controller_name+'-'+action_name}, :complete=>"toggleHelp();"), {:id=>"help-open"}.merge(options))
-
     code += content_tag(:div, link_to_function(content, "toggleHelp();"), {:id=>"help-close"}.merge(options))
+    #help close à revoir
     code+javascript_tag("toggleHelp();")
   end
 
@@ -163,7 +162,7 @@ module ApplicationHelper
         line[:value] = l(controller.controller_name, controller.action_name,line[:value]) if line[:value].is_a? Symbol
         line_code += content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>column_number)
       when :field
-        css_class += ' '+cycle('odd', 'even', :name=>"parity")
+        css_class += ' '+cycle('odd', 'even', :name=>"parity") 
         col = (line[:params].size.to_f/xcn).ceil
         col.times do |c|
           object_name = line[:params][c*xcn]
