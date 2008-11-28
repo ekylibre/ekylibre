@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
       @current_user = User.current_user
       @current_company = @current_user.company
       session[:actions] = @current_user.role.actions_array
-      if session[:last_query].to_i<Time.now.to_i-3600
+      if session[:last_query].to_i<Time.now.to_i-session[:expiration]
         flash[:error] = lc :expired_session
         if controller_name.to_s!='authentication'
           session[:last_controller] = controller_name 
