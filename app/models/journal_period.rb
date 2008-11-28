@@ -26,10 +26,14 @@ class JournalPeriod < ActiveRecord::Base
 
   def validate
     errors.add lc(:error_period) if self.started_on > self.stopped_on
-    journal = Journal.find(self.journal_id)
-    errors.add lc(:error_closed_journal) if self.stopped_on > journal.closed_on
-    financialyear = Financialyear.find(self.financialyear_id)
-    errors.add lc(:error_limited_financialyear) if financialyear.started_on > self.started_on and self.stopped_on > financialyear.stopped_on    
-  end
+    errors.add lc(:error_closed_journal) if self.stopped_on > self.journal.closed_on
 
+   self.started_on.upto(self.stopped_on) do |date|
+      if [self.financialyear.started_on, self.financialyear.stopped_on].include? date
+        errors.add lc(:error_limited_financialyear) 
+      end
+    end
+  
+    end
+  end
 end

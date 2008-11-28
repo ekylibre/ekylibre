@@ -29,20 +29,22 @@ class JournalRecord < ActiveRecord::Base
 
 
   def validate
-    errors.add lc() if self.printed_on < self.created_on
-    journal = Journal.find(self.journal_id)
-    errors.add lc(:error_closed_journal) if self.created_on > journal.closed_on 
-    period = JournalPeriod.find(self.period_id)
-    errors.add lc(:error_limited_period) if self.created_on < period.started_on or self.created_on > period.stopped_on 
-    financialyear = Financialyear.find(period.financialyear_id) 
-    errors.add lc(:error_limited_financialyear) unless financialyear.started_on < self.created_on and self.created_on < financialyear.stopped_on    
+    errors.add lc(:error_printed_date) if self.printed_on < self.created_on
+    errors.add lc(:error_closed_journal) if self.created_on > self.journal_period.journal.closed_on 
+    errors.add lc(:error_limited_period) if self.created_on < self.period.started_on or self.created_on > self.period.stopped_on 
+   
+    self.started_on.upto(self.stopped_on) do |date|
+      if [self.financialyear.started_on, self.financialyear.stopped_on].include? date
+        errors.add lc(:error_limited_financialyear) 
+      end
+    end
+    
   end
+  
 
   def totalize
-    self.debit += debit
-    self.credit += credit 
-    self.update_attributes(:debit=>self.debit, :credit=>self.credit)
+    debit = Entry.sum(:debit, :conditions => {:record_id => self.record_id})
+    credit = Entry.sum(:credit, :conditions => {:record_id => self.record_id})
+    self.update_attributes(:debit => debit, :credit => credit)
   end
-
-  
 end

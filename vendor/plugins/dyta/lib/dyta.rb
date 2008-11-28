@@ -55,7 +55,7 @@ module Dyta
         code += ", "+conditions unless conditions.blank?
         code += ", :order=>order)\n"
         code += "  if request.xhr?\n"
-#        code += "    options[:ta] = true?\n"        
+#       code += "    options[:ta] = true?\n"        
         code += "    render :text=>"+name.to_s+"_build(options)\n"
         code += "  end\n"
         code += "end\n"

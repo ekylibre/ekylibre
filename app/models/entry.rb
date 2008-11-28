@@ -14,7 +14,6 @@
 #  debit           :decimal(16, 2 default(0.0), not null
 #  credit          :decimal(16, 2 default(0.0), not null
 #  intermediate_id :integer       
-
 #  letter          :string(8)     
 #  expired_on      :date          
 #  position        :integer       
@@ -28,33 +27,35 @@
 #
 
 class Entry < ActiveRecord::Base
-  
-  before_validation :currency_rate, :debit, :credit
-  #before_destroy :
-  before_destroy :update_record
+ 
+   
+  after_destroy :update_record
   after_create  :update_record
   
-
-  # updates the amounts to the debit and the credit 
-  # for the matching record and for the bankaccountstatement.
-  def update_record()
-    self.journalrecord.totalize
-    bank_account = BankAccountStatement.find(self.entry_id)
-    bank_account.debit =
-    bank_account.credit = 
-    bank_account.update_attributes(:debit=>self.debit, :credit=>self.credit) if bank_account.exists? 
-  end
-  
-  private
-  
-  # lists all the entries matching to a record.
-  def list_entries_record(options={})
-    entries = Entry.find(:all,:conditions=>{options[:field].to_sym => options[:value]})
-    entries.each do |entrie|
-      debit += entrie.debit
-      credit += entrie.credit
+  def before_validation 
+    errors.add lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
+    errors.add lc(:error_amount_balance2) unless self.debit + self.credit > 0    
+    
+    # computes the values dependings on currency rate
+    # for debit and credit.
+    if self.currency.rate.eql?  self.currency_rate
+      self.update_attributes(:currency_debit => self.debit * self.currency_rate,
+                             :currency_credit => self.credit * self.currency_rate
+                             )
+    else
+      errors.add lc(:error_amount_rate) 
     end
     
+  
   end
+  
+   
+  # updates the amounts to the debit and the credit 
+  # for the matching record.
+  def update_record()
+    self.journal_record.totalize
+  end
+  
+  
   
 end

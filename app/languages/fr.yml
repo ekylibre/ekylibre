@@ -244,6 +244,10 @@ app:
     error_period: 'L''interval de temps est incorrect pour la période.'	
     error_closed_journal: 'Le journal sera déjà clôturée à la fin de la période.'
     error_limited_financialyear: 'L''année financière sera déjà terminée à la fin de la période.'
+  entry:
+    error_amount_balance1: 'Une écriture fournit une entrée soit au débit, soit au crédit d''un compte.' 
+    error_amount_balance2: 'Une écriture ne fournit pas d''entrée négative à un compte.'
+    error_amount_rate: 'Le taux de conversion n''existe pas.'	
   journal_record:
     error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus ajouter de pièces.' 
     error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'

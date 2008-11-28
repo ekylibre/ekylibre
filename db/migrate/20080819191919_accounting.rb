@@ -229,7 +229,7 @@ class Accounting < ActiveRecord::Migration
       t.column :debit,                  :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0
       t.column :credit,                 :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0
       t.column :intermediate_id,        :integer,  :references=>:bank_account_statements, :on_delete=>:restrict, :on_update=>:cascade
-    
+      t.column :statement_id,           :integer,  :references=>:bank_account_statements, :on_delete=>:restrict, :on_update=>:cascade
       t.column :letter,                 :string,   :limit=>8
       t.column :expired_on,             :date
       t.column :position,               :integer

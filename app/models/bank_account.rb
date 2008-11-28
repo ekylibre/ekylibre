@@ -25,7 +25,7 @@
 #
 
 class BankAccount < ActiveRecord::Base
-  validates_uniqueness_of :number, :iban, :iban_text, :key
+  
   
 
 
