@@ -1,6 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+
   def can_access?(action=:all)
     return false unless @current_user
     return session[:actions].include?(:all) ? true : session[:actions].include?(action)
@@ -74,14 +75,22 @@ module ApplicationHelper
   end
 
   def help_tag
-    options = {:class=>"help-link"}
+    options = {:class=>"help-link"}   
+    url = {:controller=>:help, :action=>:search, :id=>controller.controller_name+'-'+action_name}
     content = content_tag(:div, '&nbsp;')
-    code  = content_tag(:div, link_to_remote(content, :update=>:columns, :position=>:bottom, :url=>{:controller=>:help, :action=>:search, :id=>controller.controller_name+'-'+action_name}, :complete=>"toggleHelp();"), {:id=>"help-open"}.merge(options))
+    code  = content_tag(:div, link_to_remote(content, :update=>:columns, :position=>:bottom, :url=>url, :complete=>"toggleHelp();"), {:id=>"help-open"}.merge(options))
 
-    code += content_tag(:div, link_to_function(content, "toggleHelp();"), {:id=>"help-close"}.merge(options))
-    #help close à revoir
-    code+javascript_tag("toggleHelp();")
-  end
+    code += content_tag(:div, link_to_remote(content,:url=>{:controller=>:help , :action=>:close},:complete => "toggleHelp();"), {:id=>"help-close"}.merge(options))
+    js = ''
+    if session[:help]
+      js += remote_function( :update=>:columns, :position=>:bottom ,:complete=>"toggleHelp();",  :url=>url ) + ';'
+    else 
+      js += remote_function(:url=>{:controller=>:help , :action=>:close})
+    end
+    js +="toggleHelp();" 
+    code+javascript_tag(js)
+
+ end
 
 
   def location_tag(location, options={})

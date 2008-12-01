@@ -1,8 +1,3 @@
-Bienvenue
+h5. bla **tst** bla 
 
-
-Blabla blabla **blabla** //blabla// blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla blabla. [[http://www.ekylibre.org|Ekylibre.org]] pour plus d'infos.
-Premier exemple faux <<exemple|Exemple
-deuxieme faux <ddjk|d>>
-Pour la suite voici un <<exemple|EXEMPLE>>.
-  exemple => <a onclick...></a> # tiré du link_to_remote('EXEMPLE', :update=>'help', :url=>{:controller=>:help, :action=>:search, :id=>'exemple'})
+h2. jerjj ff --trr--

@@ -262,11 +262,3 @@ function windowResize() {
 function getBody() {
   return document.getElementsByTagName("BODY")[0];
 }
-
-
-
-function followTheMouse(element, event) {
-  element = $(element);
-  //  alert(event.clientX);
-  element.setStyle({left: event.clientX});
-}
