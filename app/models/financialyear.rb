@@ -23,22 +23,22 @@
 
 class Financialyear < ActiveRecord::Base
   validates_uniqueness_of [:started_on, :stopped_on]
-
-
-def validate
-  errors.add lc(:error_period_financialyear) if self.started_on > self.stopped_on
-  period = JournalPeriod.find_by_stopped_on(:first, :order=>"DESC")  
-  errors.add lc(:error_financialyear) if self.started_on < period.stopped_on 
-end
-
+  
+  
+  def validate
+    errors.add lc(:error_period_financialyear) if self.started_on > self.stopped_on
+    period = JournalPeriod.find_by_stopped_on(:first, :order=>"DESC")  
+    errors.add lc(:error_financialyear) if self.started_on < period.stopped_on 
+  end
+  
 # When a financial year is closed, all the matching journals are closed too. 
-def close(date)
-  self.update_attributes(:stopped_on => date, :closed => true)
-  periods = JournalPeriod.find(:all, :conditions=>{:financialyear_id => self.id})
-  periods.each do |period|
-    period.journal.close(date)
+  def close(date)
+    self.update_attributes(:stopped_on => date, :closed => true)
+    periods = JournalPeriod.find(:all, :conditions=>{:financialyear_id => self.id})
+    periods.each do |period|
+      period.journal.close(date)
     end
-end
+  end
 
-
+  
 end

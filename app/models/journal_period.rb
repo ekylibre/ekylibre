@@ -27,12 +27,34 @@ class JournalPeriod < ActiveRecord::Base
   def validate
     errors.add lc(:error_period) if self.started_on > self.stopped_on
     errors.add lc(:error_closed_journal) if self.stopped_on > self.journal.closed_on
+<<<<<<< .mine
+    errors.add lc(:error_closed_financialyear) if self.financialyear.closed
+   
+   self.started_on.upto(self.stopped_on) do |date|
+=======
     
     self.started_on.upto(self.stopped_on) do |date|
+>>>>>>> .r148
       if [self.financialyear.started_on, self.financialyear.stopped_on].include? date
         errors.add lc(:error_limited_financialyear) 
       end
-    end    
+<<<<<<< .mine
+    end
   end
 
+  
+  def close(date)
+    self.update_attributes(:stopped_on => date, :closed => true)
+    self.journal_records.each do |record|
+      record.close(date)
+    end
+=======
+    end    
+>>>>>>> .r148
+  end
+<<<<<<< .mine
+  
+=======
+
+>>>>>>> .r148
 end

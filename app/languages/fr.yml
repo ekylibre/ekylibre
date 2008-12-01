@@ -243,6 +243,7 @@ app:
   journal_period:
     error_period: 'L''interval de temps est incorrect pour la période.'	
     error_closed_journal: 'Le journal sera déjà clôturée à la fin de la période.'
+    error_closed_financialyear: 'L''année financière est déjà terminée.'
     error_limited_financialyear: 'L''année financière sera déjà terminée à la fin de la période.'
   entry:
     error_amount_balance1: 'Une écriture fournit une entrée soit au débit, soit au crédit d''un compte.' 

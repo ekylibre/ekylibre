@@ -27,7 +27,6 @@
 class JournalRecord < ActiveRecord::Base
   
 
-
   def validate
     errors.add lc(:error_printed_date) if self.printed_on < self.created_on
     errors.add lc(:error_closed_journal) if self.created_on > self.journal_period.journal.closed_on 
@@ -41,10 +40,19 @@ class JournalRecord < ActiveRecord::Base
     
   end
   
-
+  # this method computes the debit and the credit of the record.
   def totalize
     debit = Entry.sum(:debit, :conditions => {:record_id => self.record_id})
     credit = Entry.sum(:credit, :conditions => {:record_id => self.record_id})
     self.update_attributes(:debit => debit, :credit => credit)
   end
+
+  # this method allows to lock the record.
+  def close(date)
+    self.entries.each do |entrie|
+      entrie.close(date)
+    end
+  end
+
+
 end

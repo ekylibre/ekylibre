@@ -223,7 +223,8 @@ class Accounting < ActiveRecord::Migration
       t.column :account_id,             :integer,  :null=>false, :references=>:accounts, :on_delete=>:restrict, :on_update=>:cascade
       t.column :name,                   :string,   :null=>false
       t.column :currency_id,            :integer,  :null=>false, :references=>:currencies, :on_delete=>:restrict, :on_update=>:cascade
-      t.column :currency_rate,          :decimal,  :null=>false, :precision=>16, :scale=>6, :default=>1
+      t.column :currency_rate,          :decimal,  :null=>false, :precision=>16, :scale=>6
+      t.column :editable,               :boolean,  :default=>true
       t.column :currency_debit,         :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0
       t.column :currency_credit,        :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0
       t.column :debit,                  :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0

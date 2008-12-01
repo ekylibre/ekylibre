@@ -21,7 +21,7 @@ class Journal < ActiveRecord::Base
 
 
 #   before_create :journal_nature
-   before_destroy :is_empty?
+   before_destroy :empty?
 
 
   # groups all the accounts corresponding to a transaction of sale.
@@ -51,12 +51,18 @@ class Journal < ActiveRecord::Base
 #     end 
 #   end
 
-   def is_empty?
-     self.closed_on.split('-')[0] < Time.now.year and JournalPeriod.count(self.id).nil?
+
+   def empty?
+     return self.periods.size <= 0
    end
 
    def close(date)
      self.update_attribute(:closed_on => date)
+     
+     self.periods.each do |period|
+       period.close(date)
+     end
+     
    end
   
 

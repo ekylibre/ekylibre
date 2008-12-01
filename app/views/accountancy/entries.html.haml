@@ -1,2 +1,9 @@
 %h1=lc(:title)
+-form_tag '/journal_entries' do
+  =select_tag "journal", @journal
+  =submit_tag "ok"   
+end  
+
 =dyta(:entries)
+   
+

@@ -24,7 +24,12 @@ class AccountancyController < ApplicationController
   end
 
   dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :id
+    t.column :created_at
     t.column :name
+    t.column :account_id
+    t.column :debit
+    t.column :credit
   end
 
   # lists all the accounts with the credit, the debit and the balance for each of them.
@@ -32,7 +37,14 @@ class AccountancyController < ApplicationController
     accounts_list params
   end
   
+  # this action has not specific view.
+  def journal_entries
+    
+    redirect_to :action => "entries" 
+  end
+
   def entries
+    journals_list params
     entries_list params
   end
   
@@ -40,17 +52,16 @@ class AccountancyController < ApplicationController
   # lists all the transactions established on the accounts, sorted by date.
   def journals
     #    begin
-    #      journal = JournalPeriod.find(:first, :conditions=>["started_on = ? AND stopped_on = ?", params[:period][0], params[:period][1] ])
-    #      j = Journal.find(journal.journal_id)
+    #      period = JournalPeriod.find(:first, :conditions=>["started_on = ? AND stopped_on = ?", params[:period][0], params[:period][1] ])
     #    rescue
     #      raise Exception.new("No records matching has been found in the database.")
     #    end    
-    #    j.journal(journal.id)
+    #    period.journal.journal(period)
     journals_list params
-  end
+  
   #    journals_list params
   #    @journals = @current_company.journals
-  
+  end
 
 
   def journals_create
