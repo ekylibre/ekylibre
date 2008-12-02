@@ -262,5 +262,6 @@ class Managing < ActiveRecord::Migration
     drop_table :shelves_products
     drop_table :shelves
     drop_table :products
+    drop_table :units
   end
 end
