@@ -162,10 +162,10 @@ class Managing < ActiveRecord::Migration
       t.column :has_downpayment,        :boolean,  :null=>false, :default=>false
       t.column :downpayment_price,      :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :client_id,              :integer,  :null=>false, :references=>:entities
-      t.column :contact_id,             :integer,  :null=>false, :references=>:entity_contacts
-      t.column :contact_version_id,     :integer,  :null=>false, :references=>:entity_contact_versions
-      t.column :invoice_contact_id,     :integer,  :null=>false, :references=>:entity_contacts
-      t.column :delivery_contact_id,    :integer,  :null=>false, :references=>:entity_contacts
+      t.column :contact_id,             :integer,  :null=>false, :references=>:contacts
+#      t.column :contact_version_id,     :integer,  :null=>false, :references=>:entity_contact_versions
+      t.column :invoice_contact_id,     :integer,  :null=>false, :references=>:contacts
+      t.column :delivery_contact_id,    :integer,  :null=>false, :references=>:contacts
       t.column :object,                 :string
       t.column :function_title,         :string
       t.column :introduction,           :text
@@ -180,7 +180,7 @@ class Managing < ActiveRecord::Migration
       t.column :product_id,             :integer, :null=>false, :references=>:products
       t.column :pricelist_id,           :integer, :null=>false, :references=>:pricelists
       t.column :price_id,               :integer, :null=>false, :references=>:pricelist_items
-      t.column :price_version_id,       :integer, :null=>false, :references=>:pricelist_item_versions
+#      t.column :price_version_id,       :integer, :null=>false, :references=>:pricelist_item_versions
       t.column :number,                 :integer, :null=>false
       t.column :quantity,               :decimal, :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
       t.column :price,                  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
@@ -206,10 +206,10 @@ class Managing < ActiveRecord::Migration
       t.column :has_downpayment,        :boolean, :null=>false, :default=>false
       t.column :downpayment_price,      :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :client_id,              :integer, :null=>false, :references=>:entities
-      t.column :contact_id,             :integer, :null=>false, :references=>:entity_contacts
-      t.column :contact_version_id,     :integer, :null=>false, :references=>:entity_contact_versions
-      t.column :delivery_contact_id,    :integer, :null=>false, :references=>:entity_contacts
-      t.column :delivery_contact_version_id, :integer, :null=>false, :references=>:entity_contact_versions
+      t.column :contact_id,             :integer, :null=>false, :references=>:contacts
+#      t.column :contact_version_id,     :integer, :null=>false, :references=>:entity_contact_versions
+      t.column :delivery_contact_id,    :integer, :null=>false, :references=>:contacts
+#      t.column :delivery_contact_version_id, :integer, :null=>false, :references=>:entity_contact_versions
       t.column :object,                 :string
       t.column :function_title,         :string
       t.column :introduction,           :text
@@ -235,7 +235,7 @@ class Managing < ActiveRecord::Migration
       t.column :product_id,             :integer, :null=>false, :references=>:products
       t.column :pricelist_id,           :integer, :null=>false, :references=>:pricelists
       t.column :price_id,               :integer, :null=>false, :references=>:pricelist_items
-      t.column :price_version_id,       :integer, :null=>false, :references=>:pricelist_item_versions
+#      t.column :price_version_id,       :integer, :null=>false, :references=>:pricelist_item_versions
       t.column :quantity,               :decimal, :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
       t.column :price,                  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :taxed_price,            :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
