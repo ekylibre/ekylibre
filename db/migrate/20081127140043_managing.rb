@@ -112,20 +112,20 @@ class Managing < ActiveRecord::Migration
       t.column :z,                      :string
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
-    add_index :stock_locations, :company_id
+#    add_index :stock_locations, :company_id
 
     # Stock
     create_table :stocks do |t|
       t.column :name,                   :string,  :null=>false
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
-    add_index :stock_warehouses, :company_id
+#    add_index :stock_warehouses, :company_id
 
     # StockMove
     create_table :stock_moves do |t|
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
-    add_index :stock_warehouses, :company_id
+#    add_index :stock_warehouses, :company_id
 
 
 
