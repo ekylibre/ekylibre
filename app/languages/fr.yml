@@ -151,6 +151,14 @@ app:
       title: Comptes
     entries:
       title: Écritures
+      select: 'Sélectionnez le journal'
+      number: 'Numéro'
+      created: 'Crée le'
+      printed: 'Saisie le'
+      label: 'Libellé'
+      debit: 'Débit'
+      credit: 'Crédit'
+      validate: 'Valider'      
     journals:
       title: Journaux
       create: Créer un nouveau journal
@@ -215,7 +223,7 @@ app:
       users: Utilisateurs
       new_establishment: Ajouter un nouvel établissement
       new_department: Ajouter un nouveau service
-#      new_employee: Ajouter un nouvel employé
+#     new_employee: Ajouter un nouvel employé
       new_bank_account: Ajouter un nouveau compte bancaire
       new_user: Ajouter un nouvel utilisateur
     company_edit:

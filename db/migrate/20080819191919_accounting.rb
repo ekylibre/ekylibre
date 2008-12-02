@@ -204,7 +204,6 @@ class Accounting < ActiveRecord::Migration
     # BankAccountStatement : Relevé de compte
     create_table :bank_account_statements do |t|
       t.column :bank_account_id,        :integer, :null=>false, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :entry_id,               :integer, :null=>false, :references=>:entries, :on_delete=>:cascade, :on_update=>:cascade
       t.column :started_on,             :date,    :null=>false
       t.column :stopped_on,             :date,    :null=>false
       t.column :printed_on,             :date,    :null=>false

@@ -140,6 +140,7 @@ class Beginning < ActiveRecord::Migration
 
   def self.down
     drop_table :widgets
+    drop_table :locations
     drop_table :documents
     drop_table :templates
     drop_table :roles

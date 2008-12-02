@@ -35,10 +35,12 @@ class Journal < ActiveRecord::Base
 
    def validate
      period = JournalPeriod.find(:first, :conditions=>{:journal_id => self.id})
+     unless period.nil?
      errors.add lc(:error_limited_period) if self.closed_on < period.stopped_on 
      errors.add lc(:error_limited_financialyear) if self.created_at.to_date > period.financialyear.written_on.to_date 
      errors.add lc(:error_limited_financialyear) if self.created_at.to_date > period.financialyear.stopped_on.to_date 
      errors.add lc(:error_limited_financialyear) if self.created_at.to_date < period.financialyear.started_on.to_date 
+     end
    end
 
 

@@ -1,10 +1,26 @@
 %h1=lc(:title)
-%table
-  -form_tag '/journal_entries' do
-    =select_tag "journal", @journal
-    =submit_tag "ok"   
-  end  
-
+- form_tag '/journal_entries' do
+  %table
+    %tr
+      %td.label=lc :select
+      %td.select=select_tag "journal", @journal
+      %td.button=submit_tag "ok"   
 =dyta(:entries)
-   
-
+- form_tag({}, :name=>@entry) do 
+  %table
+    %tr
+      %td.label=lc :number
+      %td.label=lc :created
+      %td.label=lc :printed
+      %td.label=lc :label
+      %td.label=lc :debit
+      %td.label=lc :credit
+    %tr
+      %td.input=text_field :entry, :last, {:tabindex=>1, :disabled=>true,  :size=>2}
+      %td.input=text_field :entry, :last, {:tabindex=>2, :disabled=>true, :size=>2} 
+      %td.input=text_field :entry, :last, {:tabindex=>3, :size=>2} 
+      %td.input=text_field :entry, :last, {:tabindex=>4, :size=>2}
+      %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>2} 
+      %td.input=text_field :entry, :last, {:tabindex=>6, :size=>2, :value=>0}
+      %td.button=submit_tag(lc :validate)
+    

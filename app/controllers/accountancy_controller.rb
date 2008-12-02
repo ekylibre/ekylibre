@@ -24,10 +24,11 @@ class AccountancyController < ApplicationController
   end
 
   dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :id
-    t.column :created_at
-    t.column :name
-    t.column :account_id
+    t.column :number, :through=>:record
+    t.column :created_at, :through=>:record
+    t.column :date, :through=>:record
+    t.column :name, :through=>:account
+    t.column :number, :through=>:account
     t.column :debit
     t.column :credit
   end
@@ -46,6 +47,8 @@ class AccountancyController < ApplicationController
   def entries
     journals_list params
     entries_list params
+ 
+
   end
   
   
@@ -68,7 +71,7 @@ class AccountancyController < ApplicationController
     access :journals
     if request.post?
       @journal = Journal.new(params[:journal])
-      @journal.company_id = session[:company_id]
+      @journal.company_id = @current_company.id
       redirect_to_back if @journal.save
     else
       @journal = Journal.new
