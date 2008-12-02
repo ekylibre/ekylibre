@@ -255,6 +255,11 @@ class Managing < ActiveRecord::Migration
     drop_table :estimates
     drop_table :estimate_natures
 
+    drop_table :stock_locations
+    drop_table :stocks
+    drop_table :stock_moves
+
+
     drop_table :product_taxes
     drop_table :taxes
     drop_table :pricelist_items
