@@ -75,17 +75,20 @@ module ApplicationHelper
   end
 
   def help_tag
-    options = {:class=>"help-link"}   
+    options = {:class=>"help-link"} 
     url = {:controller=>:help, :action=>:search, :id=>controller.controller_name+'-'+action_name}
     content = content_tag(:div, '&nbsp;')
-    code  = content_tag(:div, link_to_remote(content, :update=>:columns, :position=>:bottom, :url=>url, :complete=>"toggleHelp();"), {:id=>"help-open"}.merge(options))
 
-    code += content_tag(:div, link_to_remote(content,:url=>{:controller=>:help , :action=>:close},:complete => "toggleHelp();"), {:id=>"help-close"}.merge(options))
+    code  = content_tag(:div, link_to_remote(content, :update=>:columns, :position=>:bottom, :url=>url, :complete=>"toggleHelp();"), {:id=>"help-open"}.merge(options))
+    #if session[:help]
+    code += content_tag(:div, link_to_remote(content,:url=>{:controller=>:help , :action=>:close},:complete => "toggleHelp();"),{:id=>"help-close"}.merge(options))
+    #end
+    
     js = ''
     if session[:help]
       js += remote_function( :update=>:columns, :position=>:bottom ,:complete=>"toggleHelp();",  :url=>url ) + ';'
     else 
-      js += remote_function(:url=>{:controller=>:help , :action=>:close})
+      js += remote_function(:url=>{:controller=>:help , :action=>:close}) + ';'
     end
     js +="toggleHelp();" 
     code+javascript_tag(js)

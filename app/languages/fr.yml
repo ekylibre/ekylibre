@@ -247,6 +247,8 @@ app:
       title: 'Achats'
     stocks:
       title: 'Stocks'
+  help:
+    error_no_file:'Aucun fichier d''aide disponible'
   journal:
     error_limited_period: '.'
     error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
