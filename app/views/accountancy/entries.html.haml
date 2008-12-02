@@ -3,24 +3,26 @@
   %table
     %tr
       %td.label=lc :select
-      %td.select=select_tag "journal", @journal
+      %td.select=select "journal", "id",  @journals.collect{|j| [j.name, j.id]}
       %td.button=submit_tag "ok"   
 =dyta(:entries)
-- form_tag({}, :name=>@entry) do 
+- form_remote_tag({}, :update=> :entries.to_s, :url_for=>{ :action=>} , :name=>@entry) do 
   %table
     %tr
-      %td.label=lc :number
+      %td.label=lc :record_number
       %td.label=lc :created
       %td.label=lc :printed
       %td.label=lc :label
+      %td.label=lc :account_number
       %td.label=lc :debit
       %td.label=lc :credit
     %tr
-      %td.input=text_field :entry, :last, {:tabindex=>1, :disabled=>true,  :size=>2}
-      %td.input=text_field :entry, :last, {:tabindex=>2, :disabled=>true, :size=>2} 
-      %td.input=text_field :entry, :last, {:tabindex=>3, :size=>2} 
-      %td.input=text_field :entry, :last, {:tabindex=>4, :size=>2}
-      %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>2} 
-      %td.input=text_field :entry, :last, {:tabindex=>6, :size=>2, :value=>0}
-      %td.button=submit_tag(lc :validate)
+      %td.input=text_field :journal_record, :number, {:disabled=>true, :size=>2}
+      %td.input=text_field :journal_record, :created_on, {:disabled=>true, :size=>2} 
+      %td.input=text_field :journal_record, :printed_on, {:tabindex=>1, :size=>2} 
+      %td.input=text_field :account, :name, {:tabindex=>2, :size=>2}
+      %td.input=text_field :account, :number, {:tabindex=>3, :size=>2} 
+      %td.input=text_field :entry, :debit, {:tabindex=>4, :size=>2, :value=>0}
+      %td.input=text_field :entry, :credit, {:tabindex=>4, :size=>2, :value=>0}
+      %td.button=submit_tag(lc :entry_validate), :confirm=>(lc :confirmation)
     

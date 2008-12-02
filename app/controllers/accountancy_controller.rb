@@ -26,7 +26,7 @@ class AccountancyController < ApplicationController
   dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number, :through=>:record
     t.column :created_at, :through=>:record
-    t.column :date, :through=>:record
+    t.column :printed_on, :through=>:record
     t.column :name, :through=>:account
     t.column :number, :through=>:account
     t.column :debit
@@ -40,18 +40,17 @@ class AccountancyController < ApplicationController
   
   # this action has not specific view.
   def journal_entries
-    
+    session[:journal] = params[:journal][:id]
     redirect_to :action => "entries" 
   end
 
   def entries
     journals_list params
-    entries_list params
- 
+    #entries_list params
+    @entries = Entry.find(:all)
 
   end
-  
-  
+    
   # lists all the transactions established on the accounts, sorted by date.
   def journals
     #    begin
@@ -65,7 +64,6 @@ class AccountancyController < ApplicationController
   #    journals_list params
   #    @journals = @current_company.journals
   end
-
 
   def journals_create
     access :journals

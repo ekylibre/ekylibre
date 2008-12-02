@@ -152,13 +152,15 @@ app:
     entries:
       title: Écritures
       select: 'Sélectionnez le journal'
-      number: 'Numéro'
+      record_number: 'Pièce n°'
       created: 'Crée le'
       printed: 'Saisie le'
       label: 'Libellé'
+      account_number: 'Compte n°'
       debit: 'Débit'
       credit: 'Crédit'
-      validate: 'Valider'      
+      entry_validate: 'Valider l''écriture'
+      confirmation: 'Êtes-vous sûr de votre saisie ?'      
     journals:
       title: Journaux
       create: Créer un nouveau journal
