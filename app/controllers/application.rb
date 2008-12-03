@@ -33,6 +33,8 @@ class ApplicationController < ActionController::Base
   private
   
   def authorize
+    @id = self.controller_name+'-'+action_name
+    @previous = nil
     begin
       User.current_user = User.find_by_id(session[:user_id])
       @current_user = User.current_user

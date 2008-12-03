@@ -28,6 +28,8 @@ div[xul="box"] { background: #ADA; }
 .help-link > a > div { width: 32px; height:32px; }
 #help-open { background: url(/images/template/help-open.png); }
 #help-close { background: url(/images/template/help-close.png); }
+#button-p {width: 300px; height:50px;}
+
 
 .clearfix:after { content: "."; display:block; height:0; clear: both; visibility: hidden; }
 /* backslash hack hides from IE mac \*/

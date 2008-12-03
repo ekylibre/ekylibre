@@ -235,18 +235,16 @@ function resize() {
   /*  _resize();*/
 }
 
-function toggleHelp() {
-  var open =  $('help-open').getStyle('display');
-  if (open !== 'none') {
-    $('help-open').setStyle({display: 'none'});
-    //$('help-close').setStyle({display: 'block'});
-    $('help').setStyle({display:'block'});
-  } else {
-    $('help-open').setStyle({display: 'block'});
-    //$('help-close').setStyle({display: 'none'});
-    $('help').setStyle({display:'none'});
-    //    Element.remove($('help'));
-  }
+function openHelp() {
+  $('help-open').setStyle({display: 'none'});
+  $('help').setStyle({display:'block'});
+  resize();
+}
+
+
+function closeHelp() {
+  $('help-open').setStyle({display: 'block'});
+  $('help').setStyle({display:'none'});
   resize();
 }
 
