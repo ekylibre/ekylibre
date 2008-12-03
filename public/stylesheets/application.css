@@ -23,7 +23,7 @@ div[xul="box"] { background: #ADA; }
 #yield > h1 { font-variant: small-caps; letter-spacing:4px; }
 #help { width: 150px; /*border-left: 1px dotted #C9D7F1;*/ background: #E3F4FF;}
 #help > h2 { background: #C9D7F1; font-size: 20px; text-align:center; height:24px; padding:4px; vertical-align: center; }
-#help > div { padding: 2px 4px; }
+/*#help > div { padding: 2px 4px; }*/
 .help-link { float:right; }
 .help-link > a > div { width: 32px; height:32px; }
 #help-open { background: url(/images/template/help-open.png); }
