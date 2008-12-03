@@ -1,0 +1,5 @@
+.nav
+  - unless @previous.nil?
+    #help-previous=link_to_remote(content_tag(:div , "&nbsp;"),:url=>{:controller=>:help , :action=>:search, :id=>@previous})
+  #help-close.help-link=link_to_remote(content_tag(:div , "&nbsp;"),:url=>{:controller=>:help , :action=>:close},:complete => "toggleHelp();")
+%div=retrieve(@id,'start-help')
