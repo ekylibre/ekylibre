@@ -6,7 +6,7 @@
       %td.select=select "journal", "id",  @journals.collect{|j| [j.name, j.id]}
       %td.button=submit_tag "ok"   
 =dyta(:entries)
-- form_remote_tag({}, :update=> :entries.to_s, :url_for=>{ :action=>} , :name=>@entry) do 
+- form_remote_tag({}, :update=> :entries.to_s, :url=>( :action=>) , :name=>@entry) do 
   %table
     %tr
       %td.label=lc :record_number

@@ -1,5 +1,4 @@
 class AccountancyController < ApplicationController
-
   #  # groups all the accounts corresponding to a transaction of sale.
   #   ACCOUNTS_OF_SALES={:sale=>70, :tva_collected=>4457, :customer=>[411, 413, 4191], :bank=>[511, 512], :cash=>53 , 
   #     :others=>[654, 661, 665] }
@@ -25,7 +24,7 @@ class AccountancyController < ApplicationController
 
   dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number, :through=>:record
-    t.column :created_at, :through=>:record
+    t.column :created_on, :through=>:record
     t.column :printed_on, :through=>:record
     t.column :name, :through=>:account
     t.column :number, :through=>:account
