@@ -1,6 +1,11 @@
 .nav
-  - unless @previous.nil?
-    #help-previous=link_to_remote(content_tag(:div , "&nbsp;"),:url=>{:controller=>:help , :action=>:search, :id=>@previous})
   #help-close.help-link=link_to_remote(content_tag(:div , "&nbsp;"),:url=>{:controller=>:help , :action=>:close},:complete => "closeHelp();")
   %div=retrieve(@id,'start-help')
-  %button
+  - unless @previous.nil?
+    #help-previous=link_to_remote(content_tag(:div ,"precedent"),:url=>{:controller=>:help , :action=>:search, :id=>@previous } )
+
+
+  <!--#help-previous=link_to_remote(content_tag(:div , "precedent"),:url=>{:controller=>:help , :action=>:search, :id=>@previous}, :update=>"search")-->
+  <!--%p=@previous.to_s-->
+ 
+  
