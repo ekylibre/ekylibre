@@ -167,20 +167,21 @@ var xulElementMethods = {
 
       // Preprocessing dimensions values
       var child, index, border;
-      var flexsum = 0;
-      var fixedsum = 0;
+      var flexsum = 0, fixedsum = 0;
       var lengths = [], flexes = [], borders = [];
       for (index=0;index<children_length;index++) {
         child = children[index];
-        borders[index] = child.getBorderDimensions();
-        flexes[index] = child.flex();
-        lengths[index] = 0;
-        if (flexes[index] !== 0) {
-          flexsum += flexes[index];
-        } else {
-          dims = child.getDimensions();
-          lengths[index] = (horizontal ? dims.width : dims.height);
-          fixedsum += lengths[index];
+        if (child.getStyle('display') !== 'none') {
+          borders[index] = child.getBorderDimensions();
+          flexes[index] = child.flex();
+          lengths[index] = 0;
+          if (flexes[index] !== 0) {
+            flexsum += flexes[index];
+          } else {
+            dims = child.getDimensions();
+            lengths[index] = (horizontal ? dims.width : dims.height);
+            fixedsum += lengths[index];
+          }
         }
       }
 
@@ -189,26 +190,25 @@ var xulElementMethods = {
       var k = (length-fixedsum)/flexsum;
       for (index=0;index<children_length;index++) {
         child = children[index];
-        w = width-borders[index].horizontal;
-        h = height-borders[index].vertical;
-        if (flexes[index]>0) {
-          l = k*flexes[index];
-        } else {
-          l = lengths[index];
+        if (child.getStyle('display') !== 'none') {
+          w = width-borders[index].horizontal;
+          h = height-borders[index].vertical;
+          if (flexes[index]>0) {
+            l = k*flexes[index];
+          } else {
+            l = lengths[index];
+          }
+          if (horizontal) {
+            child.setStyle({width: (l-borders[index].horizontal)+'px', height: h+'px', overflow: 'auto', position: 'absolute', top: '0px', left: x+'px'});
+          } else {
+            child.setStyle({width: w+'px', height: (l-borders[index].vertical)+'px', overflow: 'auto', position: 'absolute', top: x+'px', left: '0px'});
+          }
+          x += l;
+          // child.resizeTo(w,h);
         }
-        if (horizontal) {
-          child.setStyle({width: (l-borders[index].horizontal)+'px', height: h+'px', overflow: 'auto', position: 'absolute', top: '0px', left: x+'px'});
-        } else {
-          child.setStyle({width: w+'px', height: (l-borders[index].vertical)+'px', overflow: 'auto', position: 'absolute', top: x+'px', left: '0px'});
-        }
-        x += l;
-        //        trace('> ('+x+', '+l+') ');
-        // child.resizeTo(w,h);
       }
-      //      trace(' = '+length+' !<br/>');
     }
     element.setStyle({height: height+'px', width: width+'px'});
-    //    element.innerHTML += '<br/>'+width+' x '+height;
     return element;
   }
 
@@ -240,10 +240,12 @@ function toggleHelp() {
   if (close === 'none') {
     $('help-open').setStyle({display: 'none'});
     $('help-close').setStyle({display: 'block'});
+    $('help').setStyle({display:'block'});
   } else {
     $('help-open').setStyle({display: 'block'});
     $('help-close').setStyle({display: 'none'});
-    Element.remove($('help'));
+    $('help').setStyle({display:'none'});
+    //    Element.remove($('help'));
   }
   resize();
 }
