@@ -58,6 +58,7 @@ class Journal < ActiveRecord::Base
      return self.periods.size <= 0
    end
 
+   # this method closes a journal.
    def close(date)
      self.update_attribute(:closed_on => date)
      
@@ -67,7 +68,21 @@ class Journal < ActiveRecord::Base
      
    end
   
+   # this method creates a period with a record.
+   def create_record(company, values = {})
+    # FinancialYear.find(:first, :conditions=>{:journal})
 
+     period = JournalPeriod.find(:first, :conditions=>['started_on <= ? AND stopped_on >= ?',values[:created_on],values[:created_on] ])
+     
+     if period.nil?
+       period = JournalPeriod.create!(:journal_id=>self.id, :company_id=>company.id, :started_on=>values[:created_on], :stopped_on=>values[:creed_on])
+     end
+
+     record = JournalRecord.create!(values, :period_id=>period, :company_id=>company.id, :journal_id=>self.id)
+     return record
+   end
+
+   
    def journal(period)
    
    # if the type of journal (purchase, sale, bank, cash ...) is precised. Otherwise, it deals with a standard journal. 

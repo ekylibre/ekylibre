@@ -39,17 +39,36 @@ class AccountancyController < ApplicationController
   
   # this action has not specific view.
   def journal_entries
+    
     session[:journal] = params[:journal][:id]
     redirect_to :action => "entries" 
   end
 
   def entries
     journals_list params
+    
     #entries_list params
     @entries = Entry.find(:all)
 
   end
-    
+  
+  
+  def entries_create
+     if request.post?
+       record = Journal.find(session[:journal]).create_record(@current_company,params[:record])
+       account = Account.find_by_number(params[:account][:number])
+       @entrie = Entry.create!({:account_id => account.id, :record_id => record.id, 
+                                :company_id => @current_company.id}, params[:entry])
+       redirect_to :action => "entries"
+     else
+       @entrie = Entry.new
+     end
+   
+  end
+
+
+
+
   # lists all the transactions established on the accounts, sorted by date.
   def journals
     #    begin

@@ -25,19 +25,15 @@
 #
 
 class JournalRecord < ActiveRecord::Base
-  
+  acts_as_list :scope=>:period
 
   def validate
     errors.add lc(:error_printed_date) if self.printed_on < self.created_on
-    errors.add lc(:error_closed_journal) if self.created_on > self.journal_period.journal.closed_on 
-    errors.add lc(:error_limited_period) if self.created_on < self.period.started_on or self.created_on > self.period.stopped_on 
-   
-    self.started_on.upto(self.stopped_on) do |date|
-      if [self.financialyear.started_on, self.financialyear.stopped_on].include? date
-        errors.add lc(:error_limited_financialyear) 
-      end
+    if self.period
+      errors.add lc(:error_closed_journal) if self.created_on <= self.period.journal.closed_on 
+      errors.add lc(:error_limited_period) if self.created_on < self.period.started_on or self.created_on > self.period.stopped_on 
+      errors.add lc(:error_limited_financialyear) if self.period.financialyear.started_on > self.started_on or self.financialyear.stopped_on < self.stopped_on
     end
-    
   end
   
   # this method computes the debit and the credit of the record.

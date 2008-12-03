@@ -22,8 +22,8 @@
 #
 
 class Financialyear < ActiveRecord::Base
+  acts_as_list :scope=>:nature
   validates_uniqueness_of [:started_on, :stopped_on]
-  
   
   def validate
     errors.add lc(:error_period_financialyear) if self.started_on > self.stopped_on

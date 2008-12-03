@@ -24,17 +24,27 @@ class JournalPeriod < ActiveRecord::Base
   validates_uniqueness_of [:started_on, :stopped_on], 
                           :scope=> :journal_id
 
+  def before_validation
+    if self.financialyear and self.started_on
+      self.started_on = self.financialyear.started_on if self.started_on.month == self.financialyear.started_on.month 
+      self.started_on = self.started_on.beginning_of_month if self.started_on.month != self.financialyear.started_on.month and self.started_on!=self.started_on.beginning_of_month
+      self.stopped_on = self.started_on.end_of_month
+    end
+  end
+
+
+
   def validate
     errors.add lc(:error_period) if self.started_on > self.stopped_on
-    errors.add lc(:error_closed_journal) if self.stopped_on > self.journal.closed_on
-    errors.add lc(:error_closed_financialyear) if self.financialyear.closed
+    errors.add lc(:error_period) if self.started_on != self.financialyear.started_on and self.started_on!=self.started_on.beginning_of_month
     
-    self.started_on.upto(self.stopped_on) do |date|
-      
-      if [self.financialyear.started_on, self.financialyear.stopped_on].include? date
-        errors.add lc(:error_limited_financialyear) 
-      end
-      
+    if self.journal 
+      errors.add lc(:error_closed_journal) if self.started_on <= self.journal.closed_on
+    end
+    
+    if self.financial_year
+      errors.add lc(:error_closed_financialyear) if self.financialyear.closed
+      errors.add lc(:error_limited_financialyear) if self.financialyear.started_on > self.started_on or self.financialyear.stopped_on < self.stopped_on
     end
   end
   
