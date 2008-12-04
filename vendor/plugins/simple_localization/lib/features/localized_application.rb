@@ -145,7 +145,7 @@ module ArkanisDevelopment::SimpleLocalization #:nodoc:
           if keys.last.kind_of?(String)
             self.substitute_entry keys.last, *substitution_args
           else
-            self.entry(:app_default_value)+' ['+keys.join(':')+']'
+            self.entry(:app_default_value).to_s+' ['+keys.join(':').to_s+']'
           end
         end
       end

@@ -28,7 +28,7 @@ class Financialyear < ActiveRecord::Base
     #self.code = name.to_s[0..7].simpleize if code.blank?
     #self.code = rand.to_s[2..100].to_i.to_s(36)[0..7] if code.blank?
     self.code.upper!
-    while Financialyear.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
+    while Financialyear.count(:conditions=>["code=? AND id!=?",self.code, self.id]) > 0 do
       self.code.succ!
     end
     
@@ -38,8 +38,10 @@ class Financialyear < ActiveRecord::Base
   def validate
     errors.add lc(:error_period_financialyear) if self.started_on > self.stopped_on
     if JournalPeriod.count > 0
-      period = JournalPeriod.find(:first, :order=>"stopped_on DESC")  
-      errors.add lc(:error_financialyear) if self.started_on < period.stopped_on 
+      periods = JournalPeriod.find(:all, :order=>"stopped_on DESC")  
+      periods.each do |period|
+        errors.add lc(:error_financialyear) if self.started_on < period.stopped_on 
+      end
     end
   end
   

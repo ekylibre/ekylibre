@@ -55,24 +55,35 @@ class AccountancyController < ApplicationController
   
   def load_data
    # creation of a financial year.
+    @current_company.accounts.create!(:number=>'6', :name=>'charge', :label=>'charge', :parent_id=>1)
+    @current_company.accounts.create!(:number=>'7', :name=>'produit', :label=>'produit', :parent_id=>2)
     @current_company.financialyears.create!(:code=>'1A2',
                                             :started_on=>Date.civil(2008,01,01), 
                                             :stopped_on=>Date.civil(2008,12,31), 
                                             :written_on=>Date.civil(2008,12,12) )
-    
+    @current_company.currencies.create!(:name=>'europeenne', :code=>'Eur', :format=>'euros')
+
     redirect_to :action => "entries"
   end
-  
+ 
  
   def entries_create
     if request.post?
       record = Journal.find(session[:journal]).create_record(params[:record])
       account = Account.find_by_number(params[:account][:number])
-      @entrie = Entry.create!({:account_id => account.id, :record_id => record.id, 
-                                :company_id => @current_company.id}, params[:entry])
-      redirect_to :action => "entries"
+      currency = Currency.find(:first, :conditions=>["company_id = ?", @current_company.id])
+      
+      @entry = Entry.create!(params[:entry].merge({:account_id => account.id, :record_id => record.id, 
+                                :currency_id => currency.id, :company_id => @current_company.id}))
+      @entries = Entry.find(:all)
+
+      if request.xhr?
+        render :partial => "entries"
+      else
+        render :action => "entries"
+      end
     else
-      @entrie = Entry.new
+      @entry = Entry.new
     end
     
   end

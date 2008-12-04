@@ -5,10 +5,10 @@
       %td.label=lc :select
       %td.select=select "journal", "id",  @journals.collect{|j| [j.name, j.id]}
       %td.button=submit_tag "ok"   
-=button_to 'financial', :action => "load_data"
-#entries
-=dyta(:entries)
-- form_remote_tag(:update=> :entries, :url=> {:action=> :entries_create}, :name=>@entry) do 
+=button_to 'financial+account', :action => "load_data"
+#lines
+  =render :partial=>'entries'
+- form_remote_tag(:update=> :lines, :url=> {:action=> :entries_create}, :name=>'toto') do 
   %table
     %tr
       %td.label=lc :record_number
@@ -19,13 +19,13 @@
       %td.label=lc :debit
       %td.label=lc :credit
     %tr
-      %td.input=text_field :record, :number, {:size=>5, :focus => true, :tabindex=>1}
-      %td.input=text_field :record, :created_on, {:value=>Date.today, :size=>14}
-      %td.input=text_field :record, :printed_on, {:tabindex=>2, :size=>14} 
+      %td.input=text_field :record, :number, {:size=>9, :focus => true, :tabindex=>1}
+      %td.input=text_field :record, :created_on, {:value=>Date.today, :size=>10}
+      %td.input=text_field :record, :printed_on, {:tabindex=>2, :size=>10} 
       %td.input=text_field :entry, :name, {:tabindex=>3, :size=>14}
       %td.input=text_field :account, :number, {:tabindex=>4, :size=>14} 
-      %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>3, :value=>0}
-      %td.input=text_field :entry, :credit, {:tabindex=>6, :size=>3, :value=>0}
+      %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>9, :value=>0}
+      %td.input=text_field :entry, :credit, {:tabindex=>6, :size=>9, :value=>0}
       %td.button=submit_tag(lc(:entry_validate))
 
 

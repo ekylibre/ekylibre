@@ -134,7 +134,7 @@ class Accounting < ActiveRecord::Migration
 
     # JournalRecord : Piece comptable
     create_table :journal_records do |t|
-      t.column :resource_id,      :integer, :null=>false, :references=>nil
+      t.column :resource_id,      :integer, :references=>nil
       t.column :resource_type,    :string
       t.column :created_on,       :date,    :null=>false
       t.column :printed_on,       :date,    :null=>false

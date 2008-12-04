@@ -37,11 +37,11 @@ class Entry < ActiveRecord::Base
     
     # computes the values depending on currency rate
     # for debit and credit.
-    self.update_attribute(:currency_rate, self.currency.rate) if self.currency_rate.blank?
+    self.currency_rate = self.currency.rate if self.currency_rate.blank?
   
    if self.editable
-     self.update_attributes(:currency_debit => self.debit * self.currency_rate,
-                            :currency_credit => self.credit * self.currency_rate)
+     self.currency_debit = self.debit * self.currency_rate
+     self.currency_credit = self.credit * self.currency_rate
    end
      
  end
@@ -55,7 +55,7 @@ class Entry < ActiveRecord::Base
  # updates the amounts to the debit and the credit 
  # for the matching record.
  def update_record()
-   self.journal_record.totalize
+   self.record.totalize
  end
  
  # this method allows to lock the entry. 
