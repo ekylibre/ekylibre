@@ -128,6 +128,29 @@ class Beginning < ActiveRecord::Migration
     add_index :widgets, :nature
     add_index :widgets, :position
     add_index :widgets, :company_id
+  
+
+    # Menu
+    create_table :menus do |t|
+      t.column :name,                   :string,    :null=>false, :limit=>32
+      t.column :label,                  :text
+    end
+    add_index :menu, :name, :unique=>true
+
+
+    # Menu_item
+    create_table :menu_items do |t|
+      t.column :name,                   :string,    :null=>false
+      t.column :menu_id,                :integer,   :null=>false, :references=>:menus, :on_delete=>:cascade
+      t.column :parent_id,              :integer,   :null=>false, :references=>:menu_items, :on_delete=>:cascade
+      t.column :position,               :integer
+      t.column :url,                    :string,    :null=>false
+    end
+    add_index :menu_items, :name, :unique=>true
+    add_index :menu_items, :menu_id
+    add_index :menu_items, :parent_id
+    add_index :menu_items, :url
+
 
  
     Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
@@ -139,6 +162,8 @@ class Beginning < ActiveRecord::Migration
   end
 
   def self.down
+    drop_table :menus
+    drop_table :menu_items
     drop_table :widgets
     drop_table :locations
     drop_table :documents

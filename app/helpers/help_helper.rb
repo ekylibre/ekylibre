@@ -16,9 +16,9 @@ module HelpHelper
       
       file = File.open('app/languages/fr/help/'+file_name+'.txt' , 'r')
       content = file.read
-      ltr = link_to_remote('\4', :url => { :action => "search", :id => '\1' }, :update => :help).gsub('%5C',"\\")
+      ltr = link_to_remote('\4', :url => { :controller=>:help , :action => "search", :id => '\1' }, :update => :help).gsub('%5C',"\\")
       content  =  content.gsub(/<<([\w\-]+)((\|)(.+))>>/ , ltr )
-      ltr = link_to_remote('\1', :url => { :action => "search", :id => '\1' }, :update => :help).gsub('%5C',"\\")
+      ltr = link_to_remote('\1', :url => {:controller=>:help ,  :action => "search", :id => '\1' }, :update => :help).gsub('%5C',"\\")
       content  =  content.gsub(/<<([\w\-]+)>>/ , ltr )
       content = textilize(content)
       file_new = File.new("app/languages/fr/help/cache/"+file_name+".html" , "a+") # create new cache file

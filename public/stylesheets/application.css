@@ -28,6 +28,7 @@ div[xul="box"] { background: #ADA; }
 .help-link > a > div { width: 32px; height:32px; }
 #help-open { background: url(/images/template/help-open.png); }
 #help-close { background: url(/images/template/help-close.png); }
+.help-t { float:right; margin:20px;}
 
 
 

@@ -30,11 +30,11 @@ class ApplicationController < ActionController::Base
     end
   end  
   
-  private
+  private  
   
   def authorize
-    @id = self.controller_name+'-'+action_name
-    @previous = nil
+    session[:help_history] = [] if session[:help_history].nil?
+    help_search(self.controller_name+'-'+self.action_name) if session[:help] and self.controller_name!='help'
     begin
       User.current_user = User.find_by_id(session[:user_id])
       @current_user = User.current_user
@@ -63,6 +63,12 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def help_search(id)
+    @id = id
+    session[:help_history] << @id if @id != session[:help_history].last
+    session[:help]=true
+  end
+
   def redirect_to_login
     redirect_to :controller=>:authentication, :action=>:login
   end

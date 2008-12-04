@@ -37,14 +37,17 @@ class Company < ActiveRecord::Base
     self.parameter('general.language').value=Language.find_by_iso2('fr')
     self.load_template("#{RAILS_ROOT}/lib/template.xml")
     self.departments.create!(:name=>lc(:default_department_name))
-    self.establishments.create!(:name=>lc(:default_establishment_name), :nic=>"00000")
-    
+    self.establishments.create!(:name=>lc(:default_establishment_name), :nic=>"00000")    
     self.journal_natures.create!(:name=>lc(:default_sales_journal_nature_name))
     self.journal_natures.create!(:name=>lc(:default_purchases_journal_nature_name))
     self.journal_natures.create!(:name=>lc(:default_bank_journal_nature_name))
     self.journal_natures.create!(:name=>lc(:default_operations_journal_nature_name))
     self.widgets.create!(:name=>'test', :location=>Location.find_by_name('side'), :nature=>'content')
-#    self.load_accounting_system
+    menu = self.menus.create!(:name=>lc(:menu_principal) , :label=>'test label')
+    menu_item  = self.menu_items.create!(:name=>lc(:accueuil), :url=>'http://localhost:3000/guide')
+    menu_item2 = self.menu_items.create!(:name=>lc(:compta), :url=>'http://localhost:3000/guide/accountancy')
+    menu_item2ss = self.menu_items.create!(:name=>lc(:comptaEcritures), :url=>'http://localhost:3000/accountancy/entries')
+    self.load_accounting_system
   end
 
   def parameter(name)
