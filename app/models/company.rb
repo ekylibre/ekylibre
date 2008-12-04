@@ -1,4 +1,4 @@
-# == Schema Information
+ # == Schema Information
 # Schema version: 20080819191919
 #
 # Table name: companies
@@ -38,6 +38,7 @@ class Company < ActiveRecord::Base
     self.load_template("#{RAILS_ROOT}/lib/template.xml")
     self.departments.create!(:name=>lc(:default_department_name))
     self.establishments.create!(:name=>lc(:default_establishment_name), :nic=>"00000")
+    
     self.journal_natures.create!(:name=>lc(:default_sales_journal_nature_name))
     self.journal_natures.create!(:name=>lc(:default_purchases_journal_nature_name))
     self.journal_natures.create!(:name=>lc(:default_bank_journal_nature_name))

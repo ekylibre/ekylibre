@@ -5,7 +5,6 @@
 #
 #  id           :integer       not null, primary key
 #  code         :string(12)    not null
-#  nature_id    :integer       not null
 #  closed       :boolean       not null
 #  started_on   :date          not null
 #  stopped_on   :date          not null
@@ -22,13 +21,26 @@
 #
 
 class Financialyear < ActiveRecord::Base
-  acts_as_list :scope=>:nature
-  validates_uniqueness_of [:started_on, :stopped_on]
+  #validates_uniqueness_of [:started_on, :stopped_on]
+
+
+  def before_validation
+    #self.code = name.to_s[0..7].simpleize if code.blank?
+    #self.code = rand.to_s[2..100].to_i.to_s(36)[0..7] if code.blank?
+    self.code.upper!
+    while Financialyear.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
+      self.code.succ!
+    end
+    
+  end
+
   
   def validate
     errors.add lc(:error_period_financialyear) if self.started_on > self.stopped_on
-    period = JournalPeriod.find_by_stopped_on(:first, :order=>"DESC")  
-    errors.add lc(:error_financialyear) if self.started_on < period.stopped_on 
+    if JournalPeriod.count > 0
+      period = JournalPeriod.find(:first, :order=>"stopped_on DESC")  
+      errors.add lc(:error_financialyear) if self.started_on < period.stopped_on 
+    end
   end
   
 # When a financial year is closed, all the matching journals are closed too. 

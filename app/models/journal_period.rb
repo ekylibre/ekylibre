@@ -42,7 +42,7 @@ class JournalPeriod < ActiveRecord::Base
       errors.add lc(:error_closed_journal) if self.started_on <= self.journal.closed_on
     end
     
-    if self.financial_year
+    if self.financialyear
       errors.add lc(:error_closed_financialyear) if self.financialyear.closed
       errors.add lc(:error_limited_financialyear) if self.financialyear.started_on > self.started_on or self.financialyear.stopped_on < self.stopped_on
     end

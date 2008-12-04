@@ -209,6 +209,7 @@ app:
     default_bank_journal_nature_name: Banque
     default_department_name: Gestion/Production
     default_establishment_name: Établissement principal
+    default_financialyear_code: 1A2
     default_operations_journal_nature_name: Opérations Diverses
     default_purchases_journal_nature_name: Achats
     default_sales_journal_nature_name: Ventes

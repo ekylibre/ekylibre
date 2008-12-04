@@ -57,7 +57,7 @@ class Accounting < ActiveRecord::Migration
     # Financialyear : Exercice comptable
     create_table :financialyears do |t|
       t.column :code,             :string,  :null=>false, :limit=>12
-      t.column :nature_id,        :integer, :null=>false, :references=>:financialyear_natures
+      #t.column :nature_id,        :integer, :null=>false, :references=>:financialyear_natures
       t.column :closed,           :boolean, :null=>false, :default=>false
       t.column :started_on,       :date,    :null=>false
       t.column :stopped_on,       :date,    :null=>false
@@ -68,7 +68,7 @@ class Accounting < ActiveRecord::Migration
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :financialyears, [:code, :company_id], :unique=>true
-    add_index :financialyears, [:nature_id, :company_id]
+    #add_index :financialyears, [:nature_id, :company_id]
     add_index :financialyears, :company_id
 
     # AccountBalance : Historique des soldes des comptes par exercice

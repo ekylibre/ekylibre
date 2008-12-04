@@ -1,11 +1,11 @@
 %h1=lc(:title)
-=puts session[:journal]
 - form_tag (:action => 'journal_entries') do
   %table
     %tr
       %td.label=lc :select
       %td.select=select "journal", "id",  @journals.collect{|j| [j.name, j.id]}
       %td.button=submit_tag "ok"   
+=button_to 'financial', :action => "load_data"
 #entries
 =dyta(:entries)
 - form_remote_tag(:update=> :entries, :url=> {:action=> :entries_create}, :name=>@entry) do 

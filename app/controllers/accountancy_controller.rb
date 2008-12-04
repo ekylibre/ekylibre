@@ -51,23 +51,34 @@ class AccountancyController < ApplicationController
     @entries = Entry.find(:all)
 
   end
+
   
+  def load_data
+   # creation of a financial year.
+    @current_company.financialyears.create!(:code=>'1A2',
+                                            :started_on=>Date.civil(2008,01,01), 
+                                            :stopped_on=>Date.civil(2008,12,31), 
+                                            :written_on=>Date.civil(2008,12,12) )
+    
+    redirect_to :action => "entries"
+  end
   
+ 
   def entries_create
-     if request.post?
-       record = Journal.find(session[:journal]).create_record(params[:record])
-       account = Account.find_by_number(params[:account][:number])
-       @entrie = Entry.create!({:account_id => account.id, :record_id => record.id, 
+    if request.post?
+      record = Journal.find(session[:journal]).create_record(params[:record])
+      account = Account.find_by_number(params[:account][:number])
+      @entrie = Entry.create!({:account_id => account.id, :record_id => record.id, 
                                 :company_id => @current_company.id}, params[:entry])
-       redirect_to :action => "entries"
-     else
-       @entrie = Entry.new
-     end
-   
+      redirect_to :action => "entries"
+    else
+      @entrie = Entry.new
+    end
+    
   end
 
 
-
+  
 
   # lists all the transactions established on the accounts, sorted by date.
   def journals
