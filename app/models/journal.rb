@@ -69,10 +69,10 @@ class Journal < ActiveRecord::Base
    end
   
    # this method creates a period with a record.
-   def create_record(company, values = {})
+   def create_record(values = {})
     # FinancialYear.find(:first, :conditions=>{:journal})
 
-     period = JournalPeriod.find(:first, :conditions=>['started_on <= ? AND stopped_on >= ?',values[:created_on],values[:created_on] ])
+     period = JournalPeriod.find(:first, :conditions=>['? BETWEEN started_on AND stopped_on ',values[:created_on] ])
      
      if period.nil?
        period = JournalPeriod.create!(:journal_id=>self.id, :company_id=>company.id, :started_on=>values[:created_on], :stopped_on=>values[:creed_on])

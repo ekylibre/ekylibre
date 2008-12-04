@@ -55,7 +55,7 @@ class AccountancyController < ApplicationController
   
   def entries_create
      if request.post?
-       record = Journal.find(session[:journal]).create_record(@current_company,params[:record])
+       record = Journal.find(session[:journal]).create_record(params[:record])
        account = Account.find_by_number(params[:account][:number])
        @entrie = Entry.create!({:account_id => account.id, :record_id => record.id, 
                                 :company_id => @current_company.id}, params[:entry])

@@ -53,18 +53,6 @@ class Accounting < ActiveRecord::Migration
     add_index :accounts, [:parent_id]
     add_index :accounts, [:company_id]
 
-    # FinancialyearNature : Type d'exercice comptable
-    create_table :financialyear_natures do |t|
-      t.column :name,             :string,  :null=>false
-      t.column :code,             :string,  :null=>false, :limit=>2
-      t.column :fiscal,           :boolean, :null=>false, :default=>false
-      t.column :month_number,     :integer, :null=>false, :default=>12
-      t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-    end
-    add_index :financialyear_natures, [:name, :company_id], :unique=>true
-    add_index :financialyear_natures, [:code, :company_id], :unique=>true
-    add_index :financialyear_natures, [:fiscal, :company_id]
-    add_index :financialyear_natures, :company_id
 
     # Financialyear : Exercice comptable
     create_table :financialyears do |t|
@@ -74,9 +62,9 @@ class Accounting < ActiveRecord::Migration
       t.column :started_on,       :date,    :null=>false
       t.column :stopped_on,       :date,    :null=>false
       t.column :written_on,       :date,    :null=>false # Date butoir de création des journaux
-      t.column :debit,            :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
-      t.column :credit,           :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
-      t.column :position,         :integer, :null=>false
+      #t.column :debit,            :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
+      #t.column :credit,           :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
+      #t.column :position,         :integer, :null=>false
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :financialyears, [:code, :company_id], :unique=>true
@@ -257,7 +245,6 @@ class Accounting < ActiveRecord::Migration
     drop_table :journal_natures
     drop_table :account_balances
     drop_table :financialyears
-    drop_table :financialyear_natures
     drop_table :accounts
     drop_table :delays
     drop_table :currencies
