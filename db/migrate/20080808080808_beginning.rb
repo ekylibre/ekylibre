@@ -135,7 +135,7 @@ class Beginning < ActiveRecord::Migration
       t.column :name,                   :string,    :null=>false, :limit=>32
       t.column :label,                  :text
     end
-    add_index :menu, :name, :unique=>true
+    add_index :menus, :name, :unique=>true
 
 
     # Menu_item
