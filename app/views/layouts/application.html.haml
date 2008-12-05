@@ -6,10 +6,10 @@
     = title_tag
     = stylesheet_link_tag :defaults
     = javascript_include_tag :defaults
-  %body{:onload=>'resize();',:onresize=>'resize();'}
+  %body{:onload=>'resize();', :onresize=>'resize();'}
     = top_tag
     #columns{:orient=>:horizontal}
-      = location_tag(:side, :orient=>:vertical)
+      = location_tag(:side, :orient=> :vertical)
       #main{:flex=>3}
         = help_tag
         = flash_tag :error

@@ -153,8 +153,8 @@ app:
       title: Écritures
       select: 'Sélectionnez le journal'
       record_number: 'Pièce n°'
-      created: 'Crée le'
-      printed: 'Saisie le'
+      created: 'Enregistrée le'
+      printed: 'Reçue le'
       label: 'Libellé'
       account_number: 'Compte n°'
       debit: 'Débit'

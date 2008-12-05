@@ -8,7 +8,7 @@
 =button_to 'financial+account', :action => "load_data"
 #lines
   =render :partial=>'entries'
-- form_remote_tag(:update=> :lines, :url=> {:action=> :entries_create}, :name=>'toto') do 
+- form_remote_tag(:update=> :lines, :url => {:action => :entries_create}, :name=> 'toto') do 
   %table
     %tr
       %td.label=lc :record_number
@@ -25,7 +25,8 @@
       %td.input=text_field :entry, :name, {:tabindex=>3, :size=>14}
       %td.input=text_field :account, :number, {:tabindex=>4, :size=>14} 
       %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>9, :value=>0}
-      %td.input=text_field :entry, :credit, {:tabindex=>6, :size=>9, :value=>0}
-      %td.button=submit_tag(lc(:entry_validate))
+      %td.input=text_field :entry, :credit, {:tabindex=>6, :size=>9, :value=>0, :onchange=>'submit();'}
+
+    
 
 

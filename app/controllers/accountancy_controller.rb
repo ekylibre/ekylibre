@@ -26,7 +26,7 @@ class AccountancyController < ApplicationController
     t.column :number, :through=>:record
     t.column :created_on, :through=>:record
     t.column :printed_on, :through=>:record
-    t.column :name, :through=>:account
+    t.column :name
     t.column :number, :through=>:account
     t.column :debit
     t.column :credit
@@ -46,10 +46,16 @@ class AccountancyController < ApplicationController
 
   def entries
     journals_list params
-    
+
     #entries_list params
     @entries = Entry.find(:all)
 
+   
+    #render :update do |page|
+    #page['record_number'].replace_html "record_number"
+    #end
+    
+    
   end
 
   
@@ -76,7 +82,8 @@ class AccountancyController < ApplicationController
       @entry = Entry.create!(params[:entry].merge({:account_id => account.id, :record_id => record.id, 
                                 :currency_id => currency.id, :company_id => @current_company.id}))
       @entries = Entry.find(:all)
-
+    
+  
       if request.xhr?
         render :partial => "entries"
       else
@@ -88,8 +95,6 @@ class AccountancyController < ApplicationController
     
   end
 
-
-  
 
   # lists all the transactions established on the accounts, sorted by date.
   def journals
