@@ -43,12 +43,13 @@ class Company < ActiveRecord::Base
     self.journal_natures.create!(:name=>lc(:default_bank_journal_nature_name))
     self.journal_natures.create!(:name=>lc(:default_operations_journal_nature_name))
     self.widgets.create!(:name=>'test', :location=>Location.find_by_name('side'), :nature=>'content')
-    menu = self.menus.create!(:name=>lc(:menu_principal) , :label=>'test label')
-    menu_item  = self.menu_items.create!(:name=>lc(:accueuil), :url=>'http://localhost:3000/guide')
-    menu_item2 = self.menu_items.create!(:name=>lc(:compta), :url=>'http://localhost:3000/guide/accountancy')
-    menu_item2ss = self.menu_items.create!(:name=>lc(:comptaEcritures), :url=>'http://localhost:3000/accountancy/entries')
-    sous_menu1 = menu_item.children.create!(:name=>lc(:compta_ss), :position => 1, url=>'http://localhost:3000/guide/accountancy')
-    self.load_accounting_system
+   # menu = self.menus.create!(:name=>lc(:menu_principal) , :label=>'test label')
+   # menu_item  = self.menu_items.create!(:name=>lc(:accueuil), :url=>'http://localhost:3000/guide')
+   # menu_item2 = self.menu_items.create!(:name=>lc(:compta), :url=>'http://localhost:3000/guide/accountancy')
+   # menu_item2ss = self.menu_items.create!(:name=>lc(:comptaEcritures), :url=>'http://localhost:3000/accountancy/entries')
+   # sous_menu1 = menu_item.children.create!(:name=>lc(:compta_ss), :position => 1, url=>'http://localhost:3000/guide/accountancy')
+   # sous_menu2 = menu_item.children.create!(:name=>lc(:ventes_ss), :position => 2, url=>'http://localhost:3000/guide/sales')
+   # self.load_accounting_system
   end
 
   def parameter(name)
