@@ -134,23 +134,25 @@ class Beginning < ActiveRecord::Migration
     create_table :menus do |t|
       t.column :name,                   :string,    :null=>false, :limit=>32
       t.column :label,                  :text
+      t.column :company_id,             :integer,   :null=>false, :references=>:companies
     end
     add_index :menus, :name, :unique=>true
-
+    add_index :menus, :company_id
 
     # Menu_item
     create_table :menu_items do |t|
       t.column :name,                   :string,    :null=>false
       t.column :menu_id,                :integer,   :null=>false, :references=>:menus, :on_delete=>:cascade
-      t.column :parent_id,              :integer,   :null=>false, :references=>:menu_items, :on_delete=>:cascade
+      t.column :parent_id,              :integer,   :references=>:menu_items, :on_delete=>:cascade
       t.column :position,               :integer
-      t.column :url,                    :string,    :null=>false
+      t.column :url,                    :string,    :null=>false 
+      t.column :company_id,             :integer,   :null=>false, :references=>:companies
     end
     add_index :menu_items, :name, :unique=>true
     add_index :menu_items, :menu_id
     add_index :menu_items, :parent_id
     add_index :menu_items, :url
-
+    add_index :menu_items, :company_id
 
  
     Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')

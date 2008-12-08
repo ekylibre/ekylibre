@@ -11,6 +11,7 @@ class GuideController < ApplicationController
   end
 
   def sales
+    @menu = 1 # .id ?
   end
 
   def purchases

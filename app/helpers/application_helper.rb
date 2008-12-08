@@ -42,7 +42,7 @@ module ApplicationHelper
     code = ''
     # Guide Tag
     modules = [:index, :accountancy, :sales, :purchases, :stocks]
-    tag = ''
+    tag = ''    
 #    a = [action_name.to_sym, self.controller.controller_name.to_sym]
     for m in modules
 #      if a.include? m
@@ -69,6 +69,32 @@ module ApplicationHelper
     
     return content_tag(:div, code, :id=>:top)
   end
+  
+
+  def css_menu_list(items)
+    code = ''
+    for item in items
+      tag   = link_to(item.name , item.url) +  css_sub_menu(item)
+      code += content_tag(:li , tag )
+    end
+    content_tag(:ul ,code)
+  end
+  
+  def css_sub_menu(item)
+    sub_menu = MenuItem.find(:all , :conditions=> { :parent_id => item.parent_id } )
+    css_menu_list(sub_menu)
+  end
+  
+  def css_menu_tag(menu , options={})
+    menu = Menu.find_by_id(menu) if menu_is_a? Integer
+    raise Exception.new("Wrong type") unless menu_is_a? Menu
+    menu_items = MenuItem.find(:all , :conditions=> { :parent_id => nil } )
+    code = css_menu_list(menu_items)
+    code = content_tag(:div,code , {:class=>:menu}.merge(options)) 
+    code
+  end
+  
+
 
   def title_tag
     content_tag(:title, 'Ekylibre &bull; '+l(controller.controller_name.to_sym, :title))
