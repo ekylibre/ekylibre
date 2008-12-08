@@ -49,9 +49,12 @@ class AccountancyController < ApplicationController
 
     #entries_list params
     @entries = Entry.find(:all)
+    
 
-   
-    #render :update do |page|
+    #render :update_page do |page|
+     # page.replace_html 'record_number', '12' 
+    #end
+      #render :update do |page|
     #page['record_number'].replace_html "record_number"
     #end
     
@@ -83,12 +86,19 @@ class AccountancyController < ApplicationController
                                 :currency_id => currency.id, :company_id => @current_company.id}))
       @entries = Entry.find(:all)
     
-  
+     
       if request.xhr?
-        render :partial => "entries"
+        #page.replace_html 'entry.record_number', '12' 
+        render :action=>"entries_create.rjs"
+        #update_page do |p| p.hide('record_number') end
+        #render update_page do |page|
+        #  page.replace_html 'record_number', '12' 
+        #end
       else
+        raise Exception.new "blabla"
         render :action => "entries"
       end
+    
     else
       @entry = Entry.new
     end

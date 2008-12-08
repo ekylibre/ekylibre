@@ -13,7 +13,7 @@ div[xul="vbox"] { background: #FDC; }
 div[xul="box"] { background: #ADA; }
 */
 
-#lines { height: 100px; overflow: auto; }
+#lines { height: 300px; overflow: auto; }
 #top { border-bottom: 1px solid #C9D7F1; }
 #guide { float:left; }
 #user { float:right; }

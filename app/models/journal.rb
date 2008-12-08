@@ -78,8 +78,11 @@ class Journal < ActiveRecord::Base
        period = JournalPeriod.create!(:journal_id=>self.id, :company_id=>self.company_id, 
                                       :financialyear_id=>financial_year.id, :started_on=>values[:created_on])
      end
-     
-     record = JournalRecord.create!(values.merge({:period_id=>period.id, :company_id=>self.company_id, :journal_id=>self.id}))
+      
+     record = JournalRecord.find(:first,:conditions=>['number = ?', values[:number] ]) 
+     if record.nil?
+       record = JournalRecord.create!(values.merge({:period_id=>period.id, :company_id=>self.company_id, :journal_id=>self.id}))
+     end
      return record
    end
 
