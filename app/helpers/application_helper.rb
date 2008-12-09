@@ -81,13 +81,17 @@ module ApplicationHelper
   end
   
   def css_sub_menu(item)
-    sub_menu = MenuItem.find(:all , :conditions=> { :parent_id => item.parent_id } )
-    css_menu_list(sub_menu)
+    sub_menu = MenuItem.find(:all , :conditions=> { :parent_id => item.id } )  # => item.parent_id
+    if sub_menu.size == 0 
+      return ''
+    else
+      css_menu_list(sub_menu)
+    end 
   end
   
   def css_menu_tag(menu , options={})
-    menu = Menu.find_by_id(menu) if menu_is_a? Integer
-    raise Exception.new("Wrong type") unless menu_is_a? Menu
+    menu = Menu.find_by_id(menu) if menu.is_a? Integer
+    raise Exception.new("Wrong type:"+menu.class.to_s) unless menu.is_a? Menu
     menu_items = MenuItem.find(:all , :conditions=> { :parent_id => nil } )
     code = css_menu_list(menu_items)
     code = content_tag(:div,code , {:class=>:menu}.merge(options)) 

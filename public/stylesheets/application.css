@@ -4,7 +4,7 @@ td, a, p { font-size:13px;}
 a:link, a:visited, a:hover { color:#00C; }
 input[type="text"], input[type="password"] { border:1px solid #003; background: #FFF;}
 /*
-body { background: #ADA; }
+body { background: #ADA; behaviour:url(css/csshover.htc);}
 [xul] { overflow: auto; }
 div[xul="hbox"] > div, [orient="horizontal"] > div { float:left; }
 div[xul="splitter"] { background:#777; border:none; padding:2px; }
@@ -32,6 +32,36 @@ div[xul="box"] { background: #ADA; }
 .help-t { float:right; margin:20px;}
 
 
+.menu {width:100%;  float:left; margin-top:20px; font-size:.8em;}
+
+.menu > a {display:block; text-decoration:none; background:#DDD;  padding:0 8px;}
+
+.menu > ul { margin:0 0 0 10px;}
+
+.menu > ul > li > a {text-decoration:underline; color:black;}
+
+.menu > ul > li > ul > li > a {width:100%;  text-decoration:none; color:black; }
+
+.menu > ul > li > ul > li:hover { background-color:#C9D7F1;}
+
+.menu > li {position:relative; list-style-type:none; float:left; text-decoration:none;}
+
+.menu > ul > li > ul {position:absolute;}
+
+.menu a:hover {text-decoration:none;}
+
+.menu > ul > li > ul {display:none;}
+
+.menu > ul > li:hover > ul, .menu > ul > li > ul:hover {display:block;}
+      
+.menu > ul > li { float:left; list-style-type:none; padding:0 8px; text-decoration:none;}
+
+.menu > ul > li > ul { margin:0; width:10em; position:absolute; list-style-type:none; border:1px solid black; padding:1px 8px 0 0;}
+
+.menu > ul > li > ul > li {width:100%;padding:4px 4px 4px 4px; float:left; text-decoration:none; } 
+
+
+
 
 .clearfix:after { content: "."; display:block; height:0; clear: both; visibility: hidden; }
 /* backslash hack hides from IE mac \*/
@@ -42,7 +72,7 @@ div[xul="box"] { background: #ADA; }
 
 #side > div { background: #BFB; margin: 2px 2px 8px; border:2px solid #BFB; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; }
 #side > div > div { background: #FFF }
-#side > div > h2 { font-weight:normal; padding: 0px 0px 2px; }
+#side > div > h2 { font-weight:normal; padding: 0px 0px 2px; } 
 #side > div * { font-size: 11px; color: #111; }
 
 

@@ -46,9 +46,16 @@ class Company < ActiveRecord::Base
    # menu = self.menus.create!(:name=>lc(:menu_principal) , :label=>'test label')
    # menu_item1 = menu.menu_items.create!(:name=>lc(:accueuil), :url=>'/guide' , :company_id => self.id)
    # menu_item2 = menu.menu_items.create!(:name=>lc(:compta), :url=>'/guide/accountancy', :company_id => self.id )
-   # sous_menu1 = menu_item1.children.create!(:name=>lc(:compta_ss), :url=>'/guide/accountancy' , :company_id => self.id)
-   # sous_menu2 = menu_item1.children.create!(:name=>lc(:ventes_ss), :url=>'/guide/sales' , :company_id => self.id)
-   # sous_ss_menu = sous_menu1.children.create!(:name=>lc(:compta_ss), :url=>'/guide/accountancy' , :company_id => self.id)
+   # sous_menu1 = menu_item1.children.create!(:name=>lc(:compta_ss), :url=>'/guide/accountancy' , :company_id => self.id , :menu_id => menu.id)
+   # sous_menu2 = menu_item1.children.create!(:name=>lc(:ventes_ss), :url=>'/guide/sales' , :company_id => self.id ,:menu_id => menu.id)
+    menu = self.menus.create!(:name=>'menu_principal' , :label=>'test label')
+    menu_item1 = menu.menu_items.create!(:name=>'Accueil', :url=>'/guide' , :company_id => self.id)
+    menu_item2 = menu.menu_items.create!(:name=>'Comptabilité', :url=>'/guide/accountancy', :company_id => self.id )
+    sous_menu1 = menu_item1.children.create!(:name=>'Quitter', :url=>'/authentication/logout' , :company_id => self.id , :menu_id => menu.id)
+    sous_menu2 = menu_item2.children.create!(:name=>'Comptes', :url=>'/accountancy/accounts' , :company_id => self.id ,:menu_id => menu.id)
+    sous_menu3 = menu_item2.children.create!(:name=>'Ecritures', :url=>'/accountancy/entries' , :company_id => self.id ,:menu_id => menu.id)
+    sous_menu4 = menu_item2.children.create!(:name=>'Journaux', :url=>'/accountancy/journals' , :company_id => self.id ,:menu_id => menu.id)
+    #sous_ss_menu = sous_menu1.children.create!(:name=>lc(:compta_sss), :url=>'/guide/accountancy' , :company_id => self.id , :menu_id => menu.id)
    # self.load_accounting_system
   end
 

@@ -1,5 +1,5 @@
 class GuideController < ApplicationController
-  
+ 
   def welcome
     redirect_to :action=>:index
   end
@@ -11,7 +11,7 @@ class GuideController < ApplicationController
   end
 
   def sales
-    @menu = 1 # .id ?
+    @menu = 1          # Menu.new
   end
 
   def purchases
