@@ -46,26 +46,20 @@ class AccountancyController < ApplicationController
 
   def entries
     journals_list params
-
-    #entries_list params
     @entries = Entry.find(:all)
-    
-
-    #render :update_page do |page|
-     # page.replace_html 'record_number', '12' 
-    #end
-      #render :update do |page|
-    #page['record_number'].replace_html "record_number"
-    #end
-    
-    
   end
 
-  
+
+  def find_accounts
+    @accounts = Account.find(:all, :conditions =>["number LIKE '?%'", params[:account].split('*')[0].to_i ])
+  end
+
+    
   def load_data
    # creation of a financial year.
     @current_company.accounts.create!(:number=>'6', :name=>'charge', :label=>'charge', :parent_id=>1)
     @current_company.accounts.create!(:number=>'7', :name=>'produit', :label=>'produit', :parent_id=>2)
+    @current_company.accounts.create!(:number=>'71', :name=>'produit', :label=>'produit1', :parent_id=>2)
     @current_company.financialyears.create!(:code=>'1A2',
                                             :started_on=>Date.civil(2008,01,01), 
                                             :stopped_on=>Date.civil(2008,12,31), 
@@ -89,7 +83,7 @@ class AccountancyController < ApplicationController
      
       if request.xhr?
         #page.replace_html 'entry.record_number', '12' 
-        render :action=>"entries_create.rjs"
+        render :action => "entries_create.rjs"
         #update_page do |p| p.hide('record_number') end
         #render update_page do |page|
         #  page.replace_html 'record_number', '12' 

@@ -1,0 +1,9 @@
+- if @accounts.size > 0
+  =link_to_function("fermer") do |p| 
+    - p.replace_html 'account', '' 
+  %table{ :border => "rules" }
+    %tr
+      %td.label=lc :select
+      %td.select=select "account", "id", @accounts.collect {|account| [account.name, account.number]}, :onChange=> "alert('s');"
+- else
+  %p=lc :erreur

@@ -115,7 +115,7 @@ module Dyta
           end
         end
 
-        header = 'content_tag(:tr, ('+header+'), :id=>\''+name.to_s+'_begin\', :class=>"header")'
+        header = 'content_tag(:tr, ('+header+'), :class=>"header")'
 
         code += "hide_action :"+name.to_s+"_build\n"
         code += "def "+name.to_s+"_build(options={})\n"
@@ -124,7 +124,7 @@ module Dyta
         code += "    reset_cycle('dyta')\n"
         code += "    body = ''\n"
         code += "    for "+record+" in @"+name.to_s+"\n"
-        code += "      body += content_tag(:tr, ("+body+"), :class=>'data '+cycle('odd','even', :name=>'dyta'))\n"
+        code += "      body += content_tag(:tr, ("+body+"), :class=>'data '+cycle('odd','even', :name=>'dyta')  )\n"
         code += "    end\n"
         code += "    text = header+content_tag(:tbody,body)\n"
         code += "  else\n"
@@ -132,7 +132,6 @@ module Dyta
         code += "  end\n"
         code += "  text = "+process+"+text\n" unless process.nil?
         code += "  text = content_tag(:table, text, :class=>:list)\n"
-        code += "  text += content_tag(:div, 'Fin de tableau', :id=>'"+name.to_s+"_end')\n"
         code += "  text = content_tag(:div, text)\n"
         code += "  text = content_tag(:h3,  "+h(options[:label])+")+text\n" unless options[:label].nil?
         code += "  text = content_tag(:div, text, :class=>'futo', :id=>'"+name.to_s+"')\n"

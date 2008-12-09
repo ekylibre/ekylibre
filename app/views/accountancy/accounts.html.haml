@@ -1,2 +1,10 @@
-%h1=lc(:title)
-=dyta(:accounts)
+- form_remote_tag do  
+  %table{ :border => "rules" }
+    %tr
+      %td=lc :account_id
+      %td=lc :account_number
+      - @accounts.each do |account|
+        %tr
+          %td=account.id
+          %td=account.number
+          

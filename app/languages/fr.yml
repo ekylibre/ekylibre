@@ -151,7 +151,7 @@ app:
       title: Comptes
     entries:
       title: Écritures
-      select: 'Sélectionnez le journal'
+      select: 'Sélectionnez le journal :'
       record_number: 'Pièce n°'
       created: 'Enregistrée le'
       printed: 'Reçue le'
@@ -166,6 +166,9 @@ app:
       create: Créer un nouveau journal
     journals_create:
       title: Créer un nouveau journal
+    find_accounts:
+      select: 'Choisissez votre compte :'
+      erreur: 'Il n''existe pas de compte commençant par ce numéro.'
   accounting_system:
     1: 'Comptes de capitaux'
     2: 'Comptes d''immobilisations'

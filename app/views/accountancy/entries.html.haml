@@ -27,3 +27,6 @@
       %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>9, :value=>0}
       %td.input=text_field :entry, :credit, {:tabindex=>6, :size=>9, :value=>0}
       %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => { :action => :entries_create}
+#account 
+=observe_field "account_number", :update => 'account', :url => { :action => 'find_accounts'}, :with => "'account=' + escape(value)"
+

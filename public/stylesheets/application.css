@@ -12,6 +12,7 @@ div[xul="hbox"] { background: #CDF; }
 div[xul="vbox"] { background: #FDC; }
 div[xul="box"] { background: #ADA; }
 */
+.account {  }
 
 #lines { height: 300px; overflow: auto; }
 #top { border-bottom: 1px solid #C9D7F1; }
@@ -25,6 +26,7 @@ div[xul="box"] { background: #ADA; }
 #help { width: 150px; /*border-left: 1px dotted #C9D7F1;*/ background: #E3F4FF;}
 #help > h2 { background: #C9D7F1; font-size: 20px; text-align:center; height:24px; padding:4px; vertical-align: center; }
 /*#help > div { padding: 2px 4px; }*/
+
 .help-link { float:right; }
 .help-link > a > div { width: 32px; height:32px; }
 #help-open { background: url(/images/template/help-open.png); }
@@ -133,6 +135,8 @@ div.td { display: table-cell; }
 .invalid { border: 1px solid red !important; background: #FDD !important; }
 
 .futo .list { width:100%; }
+#.futo .list .header {  position:fixed; width:100%; }
+
 .futo .empty { text-align:center; color: #777;}
 
 h2.futo {margin:0; padding:16px 4px 4px 4px;}
