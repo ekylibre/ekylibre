@@ -146,6 +146,7 @@ class Beginning < ActiveRecord::Migration
       t.column :parent_id,              :integer,   :references=>:menu_items, :on_delete=>:cascade
       t.column :position,               :integer
       t.column :url,                    :string,    :null=>false 
+      t.column :dynamic,                :boolean,   :null=>false, :default=>false
       t.column :company_id,             :integer,   :null=>false, :references=>:companies
     end
     add_index :menu_items, :name, :unique=>true

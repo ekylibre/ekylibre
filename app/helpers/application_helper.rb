@@ -52,8 +52,9 @@ module ApplicationHelper
 #      end
       tag += ' '
     end
-    code += content_tag(:div, tag, :id=>:guide, :class=>:hm)
-
+    code += css_menu_tag(1, :id=>:guide, :class=>:menu)
+   # code += content_tag(:div, tag, :id=>:guide, :class=>:hm)
+   
     # Fix
     code += content_tag(:div, '', :style=>'left:0pt;')
 
@@ -71,9 +72,21 @@ module ApplicationHelper
   end
   
 
+  def menu_item_title(item)
+    title = item.name
+    if item.dynamic
+      title.gsub!('$company_name' , @current_company.name)
+      title.gsub!('$user_name' , @current_user.name)
+      title.gsub!('$user_label' , @current_user.label)
+    end
+    title
+  end
+
+
   def css_menu_list(items)
     code = ''
     for item in items
+      menu_item_title(item)
       tag   = link_to(item.name , item.url) +  css_sub_menu(item)
       code += content_tag(:li , tag )
     end
@@ -81,7 +94,7 @@ module ApplicationHelper
   end
   
   def css_sub_menu(item)
-    sub_menu = MenuItem.find(:all , :conditions=> { :parent_id => item.id } )  # => item.parent_id
+    sub_menu = MenuItem.find(:all ,:order=>"position ASC",  :conditions=> { :parent_id => item.id } )
     if sub_menu.size == 0 
       return ''
     else
@@ -92,7 +105,7 @@ module ApplicationHelper
   def css_menu_tag(menu , options={})
     menu = Menu.find_by_id(menu) if menu.is_a? Integer
     raise Exception.new("Wrong type:"+menu.class.to_s) unless menu.is_a? Menu
-    menu_items = MenuItem.find(:all , :conditions=> { :parent_id => nil } )
+    menu_items = MenuItem.find(:all ,:order=>"position ASC", :conditions=> { :parent_id => nil } )
     code = css_menu_list(menu_items)
     code = content_tag(:div,code , {:class=>:menu}.merge(options)) 
     code

@@ -15,7 +15,7 @@ div[xul="box"] { background: #ADA; }
 .account {  }
 
 #lines { height: 300px; overflow: auto; }
-#top { border-bottom: 1px solid #C9D7F1; }
+#top { border-bottom: 1px  solid  #C9D7F1; }
 #guide { float:left; }
 #user { float:right; }
 #columns { }
@@ -34,36 +34,36 @@ div[xul="box"] { background: #ADA; }
 .help-t { float:right; margin:20px;}
 
 
-.menu {width:100%;  float:left; margin-top:20px; font-size:.8em;}
+.menu {/* float:left; margin-top:20px; font-size:.8em;*/}
 
 .menu > a {display:block; text-decoration:none; background:#DDD;  padding:0 8px;}
 
-.menu > ul { margin:0 0 0 10px;}
+.menu > ul { margin:0 0 0 10px; position:relative; z-index:30000;}
 
-.menu > ul > li > a {text-decoration:underline; color:black;}
+.menu > ul > li > a {text-decoration:underline; color:#00C;}
 
-.menu > ul > li > ul > li > a {width:100%;  text-decoration:none; color:black; }
+.menu > ul > li > ul > li > a {width:100%;  text-decoration:none; color:#00C; display:block; padding:0 0 0 3px;}
 
 .menu > ul > li > ul > li:hover { background-color:#C9D7F1;}
 
-.menu > li {position:relative; list-style-type:none; float:left; text-decoration:none;}
+.menu > li {position:relative; list-style-type:none; float:left;}  
 
-.menu > ul > li > ul {position:absolute;}
+.menu > ul > li > ul {position:absolute; background:white; z-index:20000;}
 
 .menu a:hover {text-decoration:none;}
 
 .menu > ul > li > ul {display:none;}
 
 .menu > ul > li:hover > ul, .menu > ul > li > ul:hover {display:block;}
+
+
+.menu > ul > li:hover { background:#E4EBF8; position:relative; z-index:32000;}
       
-.menu > ul > li { float:left; list-style-type:none; padding:0 8px; text-decoration:none;}
+.menu > ul > li { float:left; list-style-type:none; padding:2px 8px 3px; text-decoration:none; background:white; position:relative;}
 
-.menu > ul > li > ul { margin:0; width:10em; position:absolute; list-style-type:none; border:1px solid black; padding:1px 8px 0 0;}
+.menu > ul > li > ul { margin:3px; margin-left:-8px; width:10em; position:absolute; list-style-type:none; border:1px solid #C9D7F1 ; border-top:none;  padding:0 8px 0 0;}
 
-.menu > ul > li > ul > li {width:100%;padding:4px 4px 4px 4px; float:left; text-decoration:none; } 
-
-
-
+.menu > ul > li > ul > li {width:100%; padding:4px 4px 4px 4px; float:left; text-decoration:none; position:relative; } 
 
 .clearfix:after { content: "."; display:block; height:0; clear: both; visibility: hidden; }
 /* backslash hack hides from IE mac \*/
