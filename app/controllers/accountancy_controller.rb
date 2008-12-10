@@ -6,7 +6,7 @@ class AccountancyController < ApplicationController
   #   # groups all the accounts corresponding to a transaction of purchase.
   #   ACCOUNTS_OF_PURCHASES={:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
   #     :bank=>512, :others=>765 }
-
+  
 
   dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     #  dyta(:journals, :conditions=>["company_id=? and ?",['@current_company.id'], 'toto"tot']) do |t|
@@ -16,12 +16,14 @@ class AccountancyController < ApplicationController
     t.action :journals_edit, :image=>:edit
     t.procedure :create, :action=>:journals_create
   end
-
-  dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :number
-    t.column :name
-  end
-
+  
+  # this table is used for the display of all the accounts resulting of the research in the method find_accounts. 
+ # dyta(:find_accounts, :model=>:accounts, :conditions=>["company_id = ? AND number LIKE ?",['@current_company.id'], ['@search'] ]) do |t|
+  #  t.column :number
+   # t.column :name
+  #end
+  
+  
   dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number, :through=>:record
     t.column :created_on, :through=>:record
@@ -32,6 +34,7 @@ class AccountancyController < ApplicationController
     t.column :credit
   end
 
+ 
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
     accounts_list params
@@ -39,7 +42,6 @@ class AccountancyController < ApplicationController
   
   # this action has not specific view.
   def journal_entries
-    
     session[:journal] = params[:journal][:id]
     redirect_to :action => "entries" 
   end
@@ -47,13 +49,18 @@ class AccountancyController < ApplicationController
   def entries
     journals_list params
     @entries = Entry.find(:all)
+    @records = JournalRecord.find(:all, :conditions => {"credit = debit"})
+  
   end
 
 
   def find_accounts
-    @accounts = Account.find(:all, :conditions =>["number LIKE '?%'", params[:account].split('*')[0].to_i ])
+    @search=params[:account].gsub('*','%')
+    @find_accounts = Account.find(:all,:conditions=>["company_id = ? AND number LIKE ?", @current_company.id, @search])
+    render :partial => 'find_accounts'
+    
   end
-
+  
     
   def load_data
    # creation of a financial year.
@@ -82,12 +89,7 @@ class AccountancyController < ApplicationController
     
      
       if request.xhr?
-        #page.replace_html 'entry.record_number', '12' 
         render :action => "entries_create.rjs"
-        #update_page do |p| p.hide('record_number') end
-        #render update_page do |page|
-        #  page.replace_html 'record_number', '12' 
-        #end
       else
         raise Exception.new "blabla"
         render :action => "entries"

@@ -26,7 +26,9 @@
       %td.input=text_field :account, :number, {:tabindex=>4, :size=>14} 
       %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>9, :value=>0}
       %td.input=text_field :entry, :credit, {:tabindex=>6, :size=>9, :value=>0}
-      %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => { :action => :entries_create}
+      %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => { :action => :entries_create}, :html => {:tabindex=>7}
 #account 
-=observe_field "account_number", :update => 'account', :url => { :action => 'find_accounts'}, :with => "'account=' + escape(value)"
-
+=observe_field "account_number", :frequency => 0.25, :function =>"if ( (document.getElementById('account_number').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'account', :url => { :action => 'find_accounts'}, :with => "'account=' + escape(value)")+"}"
+= update_page_tag do |page|
+  - page['record_number'].value = records
+    

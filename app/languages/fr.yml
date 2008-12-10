@@ -167,8 +167,10 @@ app:
     journals_create:
       title: Créer un nouveau journal
     find_accounts:
-      select: 'Choisissez votre compte :'
+      account_number: 'Numéro de compte '
+      account_name: 'Nom du compte '
       erreur: 'Il n''existe pas de compte commençant par ce numéro.'
+      find_validate: 'Valider votre choix'
   accounting_system:
     1: 'Comptes de capitaux'
     2: 'Comptes d''immobilisations'
