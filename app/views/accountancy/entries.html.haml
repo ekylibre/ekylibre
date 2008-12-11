@@ -12,12 +12,12 @@
   %table
     %tr
       %td.label=lc :record_number
-      %td.label=lc :created
-      %td.label=lc :printed
+      %td.label=lc :record_created
+      %td.label=lc :record_printed
       %td.label=lc :label
       %td.label=lc :account_number
-      %td.label=lc :debit
-      %td.label=lc :credit
+      %td.label=lc :record_debit
+      %td.label=lc :record_credit
     %tr
       %td.input=text_field :record, :number, {:size=>9, :focus=>true, :tabindex=>1}
       %td.input=text_field :record, :created_on, {:value=>Date.today, :readonly=>true, :size=>10}
@@ -26,9 +26,9 @@
       %td.input=text_field :account, :number, {:tabindex=>4, :size=>14} 
       %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>9, :value=>0}
       %td.input=text_field :entry, :credit, {:tabindex=>6, :size=>9, :value=>0}
-      %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => { :action => :entries_create}, :html => {:tabindex=>7}
+      %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => { :action => :entries_create}, :html => {:tabindex => 7}
 #account 
 =observe_field "account_number", :frequency => 0.25, :function =>"if ( (document.getElementById('account_number').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'account', :url => { :action => 'find_accounts'}, :with => "'account=' + escape(value)")+"}"
-= update_page_tag do |page|
-  - page['record_number'].value = records
+
+
     

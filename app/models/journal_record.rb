@@ -26,21 +26,32 @@
 
 class JournalRecord < ActiveRecord::Base
   acts_as_list :scope=>:period
-
-   def validate
-     errors.add lc(:error_printed_date) if self.printed_on > self.created_on
+  
+  def before_validation
+    self.balanced = (self.debit == self.credit) 
+  end
+   
+   
+  def validate
+     errors.add_to_base lc(:error_printed_date) if self.printed_on > self.created_on
      if self.period
-       errors.add lc(:error_closed_journal) if self.created_on <= self.period.journal.closed_on 
-       errors.add lc(:error_limited_period) if self.created_on < self.period.started_on or self.created_on > self.period.stopped_on 
-       
+       errors.add_to_base lc(:error_closed_journal) if self.created_on <= self.period.journal.closed_on 
+       errors.add_to_base lc(:error_limited_period) if self.created_on < self.period.started_on or self.created_on > self.period.stopped_on 
      end
    end
   
   # this method computes the debit and the credit of the record.
   def totalize
-    debit = Entry.sum(:debit, :conditions => {:record_id => self.id})
-    credit = Entry.sum(:credit, :conditions => {:record_id => self.id})
-    self.update_attributes(:debit => debit, :credit => credit)
+    #self.update_attributes(:debit=>self.entries.sum(:debit),:credit=>self.entries.sum(:credit))
+    #self.debit= Entry.sum(:debit,:conditions=>["record_id = ?", self.id])
+    #self.credit= Entry.sum(:credit,:conditions=>["record_id = ?", self.id])
+    
+    self.debit = self.entries.sum(:debit)
+    self.credit = self.entries.sum(:credit)
+#    raise Exception.new self.inspect
+   # self.balanced = (self.debit == self.credit) 
+    self.save(false)
+    
   end
 
   # this method allows to lock the record.

@@ -16,24 +16,6 @@ class AccountancyController < ApplicationController
     t.action :journals_edit, :image=>:edit
     t.procedure :create, :action=>:journals_create
   end
-  
-  # this table is used for the display of all the accounts resulting of the research in the method find_accounts. 
- # dyta(:find_accounts, :model=>:accounts, :conditions=>["company_id = ? AND number LIKE ?",['@current_company.id'], ['@search'] ]) do |t|
-  #  t.column :number
-   # t.column :name
-  #end
-  
-  
-  dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :number, :through=>:record
-    t.column :created_on, :through=>:record
-    t.column :printed_on, :through=>:record
-    t.column :name
-    t.column :number, :through=>:account
-    t.column :debit
-    t.column :credit
-  end
-
  
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
@@ -49,8 +31,14 @@ class AccountancyController < ApplicationController
   def entries
     journals_list params
     @entries = Entry.find(:all)
-    @records = JournalRecord.find(:all, :conditions => {"credit = debit"})
-  
+    #record = JournalRecord.find(:last, :order => "number ASC")
+    
+    #if record
+    #  @number = record.number.succ
+    #else
+    #  @number = 1
+    #end
+    
   end
 
 
@@ -79,17 +67,18 @@ class AccountancyController < ApplicationController
  
   def entries_create
     if request.post?
-      record = Journal.find(session[:journal]).create_record(params[:record])
+      @record = Journal.find(session[:journal]).create_record(params[:record])
       account = Account.find_by_number(params[:account][:number])
       currency = Currency.find(:first, :conditions=>["company_id = ?", @current_company.id])
       
-      @entry = Entry.create!(params[:entry].merge({:account_id => account.id, :record_id => record.id, 
+      @entry = Entry.create!(params[:entry].merge({:account_id => account.id, :record_id => @record.id, 
                                 :currency_id => currency.id, :company_id => @current_company.id}))
-      @entries = Entry.find(:all)
-    
-     
+      @record.reload
+      
+      @entries = Entry.find(:all, :conditions =>["company_id = ?", @current_company.id])
+             
       if request.xhr?
-        render :action => "entries_create.rjs"
+        render :action => "entries_create"
       else
         raise Exception.new "blabla"
         render :action => "entries"

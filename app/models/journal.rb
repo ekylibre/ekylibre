@@ -34,13 +34,13 @@ class Journal < ActiveRecord::Base
    
 
    def validate
-     period = JournalPeriod.find(:first, :conditions=>{:journal_id => self.id})
-     unless period.nil?
-     errors.add lc(:error_limited_period) if self.closed_on < period.stopped_on 
-     errors.add lc(:error_limited_financialyear) if self.created_at.to_date > period.financialyear.written_on.to_date 
-     errors.add lc(:error_limited_financialyear) if self.created_at.to_date > period.financialyear.stopped_on.to_date 
-     errors.add lc(:error_limited_financialyear) if self.created_at.to_date < period.financialyear.started_on.to_date 
-     end
+#     period = JournalPeriod.find(:first, :conditions=>{:journal_id => self.id})
+#     unless period.nil?
+#       errors.add_to_base lc(:error_limited_period) if self.closed_on < period.stopped_on 
+#       errors.add_to_base lc(:error_limited_financialyear) if self.created_at.to_date > period.financialyear.written_on.to_date 
+#       errors.add_to_base lc(:error_limited_financialyear) if self.created_at.to_date > period.financialyear.stopped_on.to_date 
+#       errors.add_to_base lc(:error_limited_financialyear) if self.created_at.to_date < period.financialyear.started_on.to_date 
+#     end
    end
 
 
@@ -53,7 +53,7 @@ class Journal < ActiveRecord::Base
 #     end 
 #   end
 
-
+   # tests if the period contains records.
    def empty?
      return self.periods.size <= 0
    end
@@ -72,14 +72,12 @@ class Journal < ActiveRecord::Base
    # this method creates a period with a record.
    def create_record(values = {})
      period = JournalPeriod.find(:first, :conditions=>['? BETWEEN started_on AND stopped_on ',values[:created_on] ])
-     financial_year = Financialyear.find(:first, :conditions=>['? BETWEEN started_on AND stopped_on ',values[:created_on] ])
-
+     
      if period.nil?
-       period = JournalPeriod.create!(:journal_id=>self.id, :company_id=>self.company_id, 
-                                      :financialyear_id=>financial_year.id, :started_on=>values[:created_on])
+       period = self.periods.create!(:company_id=>self.company_id, :started_on=>values[:created_on])
      end
       
-     record = JournalRecord.find(:first,:conditions=>['number = ?', values[:number] ]) 
+     record = JournalRecord.find(:first,:conditions=>['period_id = ? AND number = ?', period.id, values[:number] ]) 
      if record.nil?
        record = JournalRecord.create!(values.merge({:period_id=>period.id, :company_id=>self.company_id, :journal_id=>self.id}))
      end

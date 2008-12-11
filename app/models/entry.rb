@@ -29,9 +29,9 @@
 
 class Entry < ActiveRecord::Base
  
-  after_destroy :update_record
-  after_create  :update_record
-  after_update  :update_record
+  #after_destroy :update_record
+  #after_create  :update_record
+  #after_update  :update_record
 
  def before_validation 
     
@@ -47,14 +47,14 @@ class Entry < ActiveRecord::Base
  end
   
  def validate
-   errors.add lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
-   errors.add lc(:error_amount_balance2) unless self.debit + self.credit > 0    
+   errors.add_to_base lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
+   errors.add_to_base lc(:error_amount_balance2) unless self.debit + self.credit > 0    
    
  end
  
  # updates the amounts to the debit and the credit 
  # for the matching record.
- def update_record()
+ def after_create
    self.record.totalize
  end
  
