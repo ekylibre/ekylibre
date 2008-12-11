@@ -10,6 +10,18 @@ class Managing < ActiveRecord::Migration
     add_index :units, [:name, :company_id], :unique=>true
     add_index :units, :company_id
     
+    # Shelf
+    create_table :shelves do |t|
+      t.column :name,                   :string,   :null=>false
+      t.column :catalog_name,           :string,   :null=>false
+      t.column :catalog_description,    :text
+      t.column :description,            :text
+      t.column :parent_id,              :integer,  :references=>:shelves, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+    end
+    add_index :shelves, [:name, :company_id], :unique=>true
+    add_index :shelves, :company_id
+    
     # Product
     create_table :products do |t| 
       t.column :to_purchase,            :boolean,  :null=>false
@@ -24,42 +36,27 @@ class Managing < ActiveRecord::Migration
       t.column :catalog_name,           :string,   :null=>false
       t.column :catalog_description,    :text
       t.column :description,            :text
+      t.column :comment,                :text
+      t.column :shelf_id,               :integer,  :null=>false, :references=>:shelves, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :unit_id,                :integer,  :null=>false, :references=>:units, :on_delete=>:cascade, :on_update=>:cascade
       t.column :account_id,             :integer,  :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :products, [:name, :company_id], :unique=>true
     add_index :products, [:code, :company_id], :unique=>true
+    add_index :products, :shelf_id
+    add_index :products, :unit_id
+    add_index :products, :account_id
     add_index :products, :company_id
 
-
-    # Shelf
-    create_table :shelves do |t|
-      t.column :name,                   :string,   :null=>false
-      t.column :catalog_name,           :string,   :null=>false
-      t.column :catalog_description,    :text
-      t.column :description,            :text
-      t.column :parent_id,              :integer,  :references=>:shelves, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-    end
-    add_index :shelves, [:name, :company_id], :unique=>true
-    add_index :shelves, :company_id
-    
-    # 
-    create_table :shelves_products do |t|
-      t.column :product_id,             :integer,  :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :shelf_id,               :integer,  :null=>false, :references=>:shelves, :on_delete=>:cascade, :on_update=>:cascade
-    end
-    add_index :shelves_products, [:product_id, :shelf_id], :unique=>true
-    
     # Pricelist
     create_table :pricelists do |t|
       t.column :name,                   :string,   :null=>false
-      t.column :code,                   :string,   :limit=>8, :null=>false
-      t.column :description,            :text
+      t.column :comment,                :text
+      t.column :currency_id,            :integer,  :null=>false, :references=>:currencies
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :pricelists, [:name, :company_id], :unique=>true
-    add_index :pricelists, [:code, :company_id], :unique=>true
     add_index :pricelists, :company_id
     
     # PricelistItem
@@ -72,87 +69,125 @@ class Managing < ActiveRecord::Migration
       t.column :quantity_max,           :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :product_id,             :integer,  :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
       t.column :pricelist_id,           :integer,  :null=>false, :references=>:pricelists, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :pricelist_version_id,   :integer,  :null=>false, :references=>:pricelist_versions, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :pricelist_items, :product_id
     add_index :pricelist_items, :pricelist_id
     add_index :pricelist_items, [:quantity_min, :product_id, :pricelist_id, :company_id], :unique=>true
     add_index :pricelist_items, :company_id
-    
 
+    # PricelistVersion
+    create_table :pricelist_versions do |t|
+      t.column :name,                   :string,   :null=>false
+      t.column :active,                 :boolean,  :null=>false, :default=>true
+      t.column :started_on,             :date,     :null=>false
+      t.column :stopped_on,             :date,     :null=>false
+      t.column :comment,                :text
+      t.column :currency_id,            :integer,  :null=>false, :references=>:currencies
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+    end
+    add_index :pricelists, [:name, :company_id], :unique=>true
+    add_index :pricelists, :currency_id
+    add_index :pricelists, :company_id
+    
     # Tax
     create_table :taxes do |t|
-      t.column :name,                   :string,  :null=>false
-      t.column :reductible,             :boolean, :null=>false, :default=>true # for the eco-particpation
-      t.column :amount,                 :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :rate,                   :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :name,                   :string,   :null=>false
+      t.column :included,               :boolean,  :null=>false, :default=>false # for the eco-participation
+      t.column :reductible,             :boolean,  :null=>false, :default=>true  # for the eco-participation
+      t.column :nature,                 :string,   :null=>false, :limit=>8
+      t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0.to_d
       t.column :description,            :text
-      t.column :account_id,             :integer, :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :account_collected_id,   :integer,  :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :account_paid_id,        :integer,  :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :taxes, [:name, :company_id], :unique=>true
+    add_index :taxes, [:nature, :company_id]
+    add_index :taxes, :account_collected_id
+    add_index :taxes, :account_paid_id
     add_index :taxes, :company_id
         
-    # ProductTax
-    create_table :product_taxes do |t|
-      t.column :amount,                 :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :product_id,             :integer, :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :tax_id,                 :integer, :null=>false, :references=>:taxes, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+    create_table :products_taxes do |t|
+      t.column :tax_id,                 :integer,  :null=>false, :references=>:taxes, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :product_id,             :integer,  :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :product_taxes, [:product_id, :tax_id], :unique=>true
-    add_index :product_taxes, :company_id
+    add_index :product_taxes, :tax_id
+    add_index :product_taxes, :product_id
+
+
+
+
 
 
     # StockLocation
     create_table :stock_locations do |t|
-      t.column :name,                   :string,  :null=>false
+      t.column :name,                   :string,   :null=>false
       t.column :x,                      :string
       t.column :y,                      :string
       t.column :z,                      :string
-      t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :comment,                :text
+      t.column :parent_id,              :integer,  :null=>false, :references=>:stock_locations, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :account_id,             :integer,  :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :establishment_id,       :integer,  :null=>false, :references=>:establishments, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :contact_id,             :integer,  :null=>false, :references=>:contacts, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
-#    add_index :stock_locations, :company_id
 
-    # Stock
-    create_table :stocks do |t|
-      t.column :name,                   :string,  :null=>false
-      t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+    # StockTracking
+    create_table :stock_trackings do |t|
+      t.column :name,                   :string,    :null=>false
+      t.column :serial,                 :string
+      t.column :active,                 :boolean,   :null=>false, :default=>true
+      t.column :begun_at,               :timestamp, :null=>false
+      t.column :comment,                :text
+      t.column :company_id,             :integer,   :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
-#    add_index :stock_warehouses, :company_id
 
     # StockMove
     create_table :stock_moves do |t|
-      t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :name,                   :string,   :null=>false
+      t.column :planned_on,             :date,     :null=>false
+      t.column :moved_on,               :date      
+      t.column :quantity,               :float,    :null=>false
+      t.column :comment,                :text
+      t.column :second_move_id,         :integer,  :references=>:stock_moves, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :second_location_id,     :integer,  :references=>:stock_locations, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :tracking_id,            :integer,  :references=>:stock_trackings, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :location_id,            :integer,  :null=>false, :references=>:stock_locations, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :unit_id,                :integer,  :null=>false, :references=>:units, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :product_id,             :integer,  :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
-#    add_index :stock_warehouses, :company_id
-
-
-
-
-    
 
 
 
 
 
 
-    # EstimateNature
-    create_table :estimate_natures do |t|
+
+
+
+
+    # SaleOrderNature
+    create_table :sale_order_natures do |t|
       t.column :code,                   :string,   :limit=>16, :null=>false
       t.column :name,                   :string,   :null=>false
       t.column :expiration_id,          :integer,  :null=>false, :references=>:delays
       t.column :active,                 :boolean,  :null=>false, :default=>true
       t.column :payment_delay_id,       :integer,  :null=>false, :references=>:delays
       t.column :downpayment_rate,       :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :note,                   :text
+      t.column :comment,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end    
   
-    # Estimate
-    create_table :estimates do |t|
+    # SaleOrder
+    create_table :sale_orders do |t|
       t.column :number,                 :string,   :limit=>64, :null=>false
-      t.column :nature_id,              :integer,  :null=>false, :references=>:estimate_natures
+      t.column :nature_id,              :integer,  :null=>false, :references=>:sale_order_natures
+      t.column :invoiced,               :boolean,  :null=>false, :default=>false
       t.column :price,                  :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :taxed_price,            :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :state,                  :string,   :limit=>1, :null=>false, :default=>'O'
@@ -170,18 +205,19 @@ class Managing < ActiveRecord::Migration
       t.column :function_title,         :string
       t.column :introduction,           :text
       t.column :conclusion,             :text
-      t.column :note,                   :text
+      t.column :comment,                :text
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
   
-    # EstimateLine
-    create_table :estimate_lines do |t|
-      t.column :estimate_id,            :integer, :null=>false, :references=>:estimates
+    # SaleOrderLine
+    create_table :sale_order_lines do |t|
+      t.column :sale_order_id,          :integer, :null=>false, :references=>:sale_orders
       t.column :product_id,             :integer, :null=>false, :references=>:products
       t.column :pricelist_id,           :integer, :null=>false, :references=>:pricelists
       t.column :price_id,               :integer, :null=>false, :references=>:pricelist_items
 #      t.column :price_version_id,       :integer, :null=>false, :references=>:pricelist_item_versions
       t.column :number,                 :integer, :null=>false
+      t.column :invoiced,               :boolean, :null=>false, :default=>false
       t.column :quantity,               :decimal, :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
       t.column :price,                  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :taxed_price,            :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
@@ -217,11 +253,14 @@ class Managing < ActiveRecord::Migration
       t.column :note,                   :text
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+
+
     
     # Delivery
     create_table :deliveries do |t|
-      t.column :estimate_id,            :integer, :null=>false, :references=>:estimates
+      t.column :sale_order_id,          :integer, :null=>false, :references=>:sale_orders
       t.column :invoice_id,             :integer, :null=>false, :references=>:invoices
+      t.column :shipped_on,             :date,    :null=>false
       t.column :delivered_on,           :date,    :null=>false
       t.column :price,                  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :taxed_price,            :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
@@ -231,7 +270,7 @@ class Managing < ActiveRecord::Migration
     # DeliveryLine
     create_table :delivery_lines do |t|
       t.column :delivery_id,            :integer, :null=>false, :references=>:deliveries
-      t.column :estimate_line_id,       :integer, :null=>false, :references=>:estimate_lines
+      t.column :sale_order_line_id,       :integer, :null=>false, :references=>:sale_order_lines
       t.column :product_id,             :integer, :null=>false, :references=>:products
       t.column :pricelist_id,           :integer, :null=>false, :references=>:pricelists
       t.column :price_id,               :integer, :null=>false, :references=>:pricelist_items
@@ -251,17 +290,17 @@ class Managing < ActiveRecord::Migration
     drop_table :delivery_lines
     drop_table :deliveries
     drop_table :invoices
-    drop_table :estimate_lines
-    drop_table :estimates
-    drop_table :estimate_natures
+    drop_table :sale_order_lines
+    drop_table :sale_orders
+    drop_table :sale_order_natures
 
-    drop_table :stock_locations
-    drop_table :stocks
     drop_table :stock_moves
-
+    drop_table :stock_trackings
+    drop_table :stock_locations
 
     drop_table :product_taxes
     drop_table :taxes
+    drop_table :pricelist_versions
     drop_table :pricelist_items
     drop_table :pricelists
     drop_table :shelves_products

@@ -124,6 +124,8 @@ class Populating < ActiveRecord::Migration
       t.column :mobile,                 :string,   :limit=>32
       t.column :email,                  :string
       t.column :website,                :string
+      t.column :latitude,               :float
+      t.column :longitude,              :float
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :contacts, :company_id
