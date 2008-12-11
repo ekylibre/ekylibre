@@ -48,13 +48,17 @@ class Company < ActiveRecord::Base
    # menu_item2 = menu.menu_items.create!(:name=>lc(:compta), :url=>'/guide/accountancy', :company_id => self.id )
    # sous_menu1 = menu_item1.children.create!(:name=>lc(:compta_ss), :url=>'/guide/accountancy' , :company_id => self.id , :menu_id => menu.id)
    # sous_menu2 = menu_item1.children.create!(:name=>lc(:ventes_ss), :url=>'/guide/sales' , :company_id => self.id ,:menu_id => menu.id)
-    menu = self.menus.create!(:name=>'menu_principal' , :label=>'test label')
+    menu = self.menus.create!(:name=>'guide' , :label=>'test label')
     menu_item1 = menu.menu_items.create!(:name=>'Accueil', :url=>'/guide' , :company_id => self.id)
     menu_item2 = menu.menu_items.create!(:name=>'Comptabilité', :url=>'/guide/accountancy', :company_id => self.id )
     menu_item3 = menu.menu_items.create!(:name=>'Ventes', :url=>'/guide/sales', :company_id => self.id )
     menu_item4 = menu.menu_items.create!(:name=>'Achats', :url=>'/guide/purchases', :company_id => self.id )
     menu_item5 = menu.menu_items.create!(:name=>'Stocks', :url=>'/guide/stocks', :company_id => self.id )
-    menu_test_dynamic = menu.menu_items.create!(:name=>'Test-dynamic' , :url=>'/config/company', :dynamic => true, :company_id => self.id)
+    menu2 = self.menus.create!(:name=>'user' , :label=>'test user label')
+    menu_test_dynamic = menu2.menu_items.create!(:name=>'$company_name' , :url=>'/config/company', :dynamic => true, :company_id => self.id)
+    menu_test_dynamic2 = menu2.menu_items.create!(:name=>'$user_label' , :url=>'/config/user', :dynamic => true, :company_id => self.id)
+    menu_test_dynamic3 = menu2.menu_items.create!(:name=>'Quitter' , :url=>'/authentication/logout', :company_id => self.id)
+    sous_menu11 = menu_item1.children.create!(:name=>'A propos', :url=>'/guide/about_us' , :company_id => self.id , :menu_id => menu.id)
     sous_menu1 = menu_item1.children.create!(:name=>'Quitter', :url=>'/authentication/logout' , :company_id => self.id , :menu_id => menu.id)
     sous_menu2 = menu_item2.children.create!(:name=>'Comptes', :url=>'/accountancy/accounts' , :company_id => self.id ,:menu_id => menu.id)
     sous_menu3 = menu_item2.children.create!(:name=>'Ecritures', :url=>'/accountancy/entries' , :company_id => self.id ,:menu_id => menu.id)
@@ -63,6 +67,10 @@ class Company < ActiveRecord::Base
    # self.load_accounting_system
   end
 
+  def menu(name)
+    Menu.find(:first, :conditions => { :company_id => self.id , :name => name})
+
+  end
   def parameter(name)
     parameter = Parameter.find_by_name_and_company_id(name,self.id)
     parameter = Parameter.new(:name=>name, :nature=>:u, :company_id=>self.id)

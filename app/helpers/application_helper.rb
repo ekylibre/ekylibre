@@ -41,29 +41,19 @@ module ApplicationHelper
   def top_tag
     code = ''
     # Guide Tag
-    modules = [:index, :accountancy, :sales, :purchases, :stocks]
-    tag = ''    
-#    a = [action_name.to_sym, self.controller.controller_name.to_sym]
-    for m in modules
-#      if a.include? m
-#        tag += content_tag :strong, l(:guide,m,:title)
-#      else
-        tag += link_to(l(:guide,m,:title), {:controller=>:guide, :action=>m})
-#      end
-      tag += ' '
-    end
-    code += css_menu_tag(1, :id=>:guide, :class=>:menu)
-   # code += content_tag(:div, tag, :id=>:guide, :class=>:hm)
-   
+    tag = ''
+    tag += css_menu_tag(session[:menu_guide])
+    code += content_tag(:div, tag, :id=>:guide, :class=>:menu)
     # Fix
     code += content_tag(:div, '', :style=>'left:0pt;')
 
     # User Tag
     tag = ''
-    tag += link_to(@current_user.label, {:controller=>:config, :action=>:user})
-    tag += ' '+link_to(@current_company.name, {:controller=>:config, :action=>:company})
-    tag += ' '+link_to(lc(:exit), {:controller=>:authentication, :action=>:logout})
-    code += content_tag(:div, tag, :id=>:user, :class=>:hm)
+   # tag += link_to(@current_user.label, {:controller=>:config, :action=>:user})
+   # tag += ' '+link_to(@current_company.name, {:controller=>:config, :action=>:company})
+   # tag += ' '+link_to(lc(:exit), {:controller=>:authentication, :action=>:logout})
+    tag  += css_menu_tag(session[:menu_user]) 
+    code += content_tag(:div, tag, :id=>:user, :class=>:menu)
 
     # Fix
     code += content_tag(:div, '', :style=>'clear:both;')
@@ -85,9 +75,21 @@ module ApplicationHelper
 
   def css_menu_list(items)
     code = ''
+    name_company =  @current_company.name 
+    name_user    =  @current_user.name
     for item in items
       menu_item_title(item)
-      tag   = link_to(item.name , item.url) +  css_sub_menu(item)
+      if item.dynamic
+        if item.name == @current_company.name
+          tag   = link_to(name_company , item.url) +  css_sub_menu(item)
+        elsif item.name == @current_user.label
+          tag   = link_to(name_user , item.url) +  css_sub_menu(item)
+        else 
+          tag   = link_to('Quitter' , item.url) +  css_sub_menu(item)
+        end
+      else
+        tag   = link_to(item.name , item.url) +  css_sub_menu(item)
+      end
       code += content_tag(:li , tag )
     end
     content_tag(:ul ,code)
@@ -105,7 +107,7 @@ module ApplicationHelper
   def css_menu_tag(menu , options={})
     menu = Menu.find_by_id(menu) if menu.is_a? Integer
     raise Exception.new("Wrong type:"+menu.class.to_s) unless menu.is_a? Menu
-    menu_items = MenuItem.find(:all ,:order=>"position ASC", :conditions=> { :parent_id => nil } )
+    menu_items = MenuItem.find(:all ,:order=>"position ASC", :conditions=> { :parent_id => nil , :menu_id => menu} )#. NULL AND menu_id = ?', menu ] )
     code = css_menu_list(menu_items)
     code = content_tag(:div,code , {:class=>:menu}.merge(options)) 
     code

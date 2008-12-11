@@ -136,7 +136,7 @@ class Beginning < ActiveRecord::Migration
       t.column :label,                  :text
       t.column :company_id,             :integer,   :null=>false, :references=>:companies
     end
-    add_index :menus, :name, :unique=>true
+    add_index :menus, [:company_id,:name], :unique=>true
     add_index :menus, :company_id
 
     # Menu_item
@@ -149,7 +149,7 @@ class Beginning < ActiveRecord::Migration
       t.column :dynamic,                :boolean,   :null=>false, :default=>false
       t.column :company_id,             :integer,   :null=>false, :references=>:companies
     end
-    add_index :menu_items, :name, :unique=>true
+    add_index :menu_items, :name
     add_index :menu_items, :menu_id
     add_index :menu_items, :parent_id
     add_index :menu_items, :url
