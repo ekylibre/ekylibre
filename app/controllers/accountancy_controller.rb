@@ -117,4 +117,19 @@ class AccountancyController < ApplicationController
     render_form
   end
 
+  def print
+    render :action => 'print'
+  end
+  
+  
+  def print_balance_sheet
+    render_xil('/home/thibaud/ekylibre/trunk/ekylibre/app/test.xml')
+    render :action => 'print_balance_sheet'
+    
+  end
+  
+
+
 end
+
+

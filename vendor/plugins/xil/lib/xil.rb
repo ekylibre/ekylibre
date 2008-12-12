@@ -550,7 +550,7 @@ module ActionController
         if xil.start_with? '<?xml'
           template=xil
         else
-          raise Exception.new("It is not an XML data.")
+          raise Exception.new("It is not an XML data: "+xil.to_s)
         end
         # encodage of string into a crypt MD5 format to easier the authentification of template by the XIL-plugin.
         name=Digest::MD5.hexdigest(xil)

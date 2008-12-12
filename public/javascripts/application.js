@@ -204,7 +204,7 @@ var xulElementMethods = {
             child.setStyle({width: w+'px', height: (l-borders[index].vertical)+'px', overflow: 'auto', position: 'absolute', top: x+'px', left: '0px'});
           }
           x += l;
-          // child.resizeTo(w,h);
+          // child.resizeTo(w,h); 
         }
       }
     }

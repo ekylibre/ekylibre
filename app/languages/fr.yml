@@ -160,7 +160,11 @@ app:
       record_debit: 'Débit'
       record_credit: 'Crédit'
       entry_validate: 'Valider l''écriture'
-      confirmation: 'Êtes-vous sûr de votre saisie ?'      
+      confirmation: 'Êtes-vous sûr de votre saisie ?'     
+    print:
+      title: Impression 
+    print_balance_sheet:
+      title: Impression du bilan 
     journals:
       title: Journaux
       create: Créer un nouveau journal
