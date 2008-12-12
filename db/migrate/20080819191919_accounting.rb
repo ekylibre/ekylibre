@@ -142,7 +142,6 @@ class Accounting < ActiveRecord::Migration
       t.column :status,           :string,  :null=>false, :default=>"A", :limit=>1
       t.column :debit,            :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :credit,           :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
-      t.column :balanced,         :boolean, :null=>false, :default=>false
       t.column :position,         :integer, :null=>false
       t.column :period_id,        :integer, :null=>false, :references=>:journal_periods, :on_delete=>:restrict, :on_update=>:cascade
       t.column :journal_id,       :integer, :null=>false, :references=>:journals,  :on_delete=>:restrict, :on_update=>:cascade

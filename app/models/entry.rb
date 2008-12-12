@@ -31,15 +31,15 @@
 
 class Entry < ActiveRecord::Base
  
-  #after_destroy :update_record
-  #after_create  :update_record
-  #after_update  :update_record
+  after_destroy :update_record
+  after_create  :update_record
+  after_update  :update_record
 
  def before_validation 
     
     # computes the values depending on currency rate
     # for debit and credit.
-    self.currency_rate = self.currency.rate if self.currency_rate.blank?
+   self.currency_rate = self.currency.rate if self.currency_rate.blank?
   
    if self.editable
      self.currency_debit = self.debit * self.currency_rate
@@ -56,8 +56,8 @@ class Entry < ActiveRecord::Base
  
  # updates the amounts to the debit and the credit 
  # for the matching record.
- def after_create
-   self.record.totalize
+ def update_record
+   self.record.refresh
  end
  
  # this method allows to lock the entry. 

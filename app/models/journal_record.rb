@@ -28,7 +28,6 @@ class JournalRecord < ActiveRecord::Base
   acts_as_list :scope=>:period
   
   def before_validation
-    self.balanced = (self.debit == self.credit) 
     self.debit = self.entries.sum(:debit)
     self.credit = self.entries.sum(:credit)
   end 
@@ -42,15 +41,14 @@ class JournalRecord < ActiveRecord::Base
   end
   
   # this method computes the debit and the credit of the record.
-  def totalize
-    #self.update_attributes(:debit=>self.entries.sum(:debit),:credit=>self.entries.sum(:credit))
-    #self.debit= Entry.sum(:debit,:conditions=>["record_id = ?", self.id])
-    #self.credit= Entry.sum(:credit,:conditions=>["record_id = ?", self.id])
-    #    raise Exception.new self.inspect
-    # self.balanced = (self.debit == self.credit) 
+  def refresh
     self.save    
   end
   
+  def balanced
+    self.debit == self.credit
+  end
+
   # this method allows to lock the record.
   def close(date)
     self.entries.each do |entrie|

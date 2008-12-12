@@ -13,6 +13,15 @@ div[xul="vbox"] { background: #FDC; }
 div[xul="box"] { background: #ADA; }
 */
 .account {  }
+table.entries tr.odd td{:background: #E3F4FF;}
+table.entries tr.even td{:background: #A3FCFF;}
+
+
+tr.balanced-even td{background:#00AA00;}
+tr.balanced-odd td{background:#00AA80;}
+tr.not_balanced-even td{background: #BB0000;}
+tr.not_balanced-odd td{background: #BB3040;}
+
 
 #lines { height: 300px; overflow: auto; }
 #top { border-bottom: 1px  solid  #C9D7F1; }
@@ -32,7 +41,6 @@ div[xul="box"] { background: #ADA; }
 #help-open { background: url(/images/template/help-open.png); }
 #help-close { background: url(/images/template/help-close.png); }
 .help-t { float:right; margin:20px;}
-
 
 .menu {/* float:left; margin-top:20px; font-size:.8em;*/}
 

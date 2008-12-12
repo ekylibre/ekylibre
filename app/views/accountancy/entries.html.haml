@@ -1,10 +1,13 @@
 %h1=lc(:title)
-- form_tag (:action => 'journal_entries') do
+- form_tag (:action => 'params_entries') do
   %table
     %tr
       %td.label=lc :select
       %td.select=select "journal", "id",  @journals.collect{|j| [j.name, j.id]}
-      %td.button=submit_tag "ok"   
+    %tr
+      %td.label=lc :number_records
+      %td.input=text_field_tag "number", session[:records_number], :tabindex => 1 
+      %td.button=submit_tag 'ok'     
 =button_to 'financial+account', :action => "load_data"
 #lines
   =render :partial=>'entries'
@@ -29,6 +32,8 @@
       %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => { :action => :entries_create}, :html => {:tabindex => 7}
 #account 
 =observe_field "account_number", :frequency => 0.25, :function =>"if ( (document.getElementById('account_number').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'account', :url => { :action => 'find_accounts'}, :with => "'account=' + escape(value)")+"}"
-
+=update_page_tag do |page|
+  - page['record_number'].value = @number
+  - page['number'].value = session[:records_number]
 
     

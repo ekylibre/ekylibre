@@ -151,6 +151,7 @@ app:
       title: Comptes
     entries:
       title: Écritures
+      number_records: 'Nombre de pièces à afficher dans le tableau : '
       select: 'Sélectionnez le journal :'
       record_number: 'Pièce n°'
       record_created: 'Enregistrée le'
@@ -281,7 +282,7 @@ app:
     error_period_statement: 'L''interval de temps est incorrect pour le relevé bancaire.'  				   
     error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'			           
   financialyear:
-    error_period_financialyear: 'L''interval de temps est incorrect pour l''exercice comptable.'
+    error_period_financialyear: 'L''intervalle de temps est incorrect pour l''exercice comptable.'
     error_financialyear: 'La date de début de l''exercice comptable est incorrecte.'
   layouts:
     application:
