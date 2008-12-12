@@ -1,13 +1,22 @@
 # == Schema Information
-# Schema version: 20080808080808
+# Schema version: 20081127140043
 #
 # Table name: menu_items
 #
 #  id           :integer       not null, primary key
 #  name         :string(255)   not null
 #  menu_id      :integer       not null
-#  parent_id    :integer       not null
-#  url          :string
+#  parent_id    :integer       
+#  position     :integer       
+#  url          :string(255)   not null
+#  dynamic      :boolean       not null
+#  company_id   :integer       not null
+#  created_at   :datetime      not null
+#  updated_at   :datetime      not null
+#  created_by   :integer       
+#  updated_by   :integer       
+#  lock_version :integer       default(0), not null
+#
 
 class MenuItem < ActiveRecord::Base
 

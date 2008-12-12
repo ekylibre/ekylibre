@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20080819191919
+# Schema version: 20081127140043
 #
 # Table name: journal_records
 #
 #  id            :integer       not null, primary key
-#  resource_id   :integer       not null
+#  resource_id   :integer       
 #  resource_type :string(255)   
 #  created_on    :date          not null
 #  printed_on    :date          not null
@@ -12,7 +12,7 @@
 #  status        :string(1)     default("A"), not null
 #  debit         :decimal(16, 2 default(0.0), not null
 #  credit        :decimal(16, 2 default(0.0), not null
-#  balance       :decimal(16, 2 default(0.0), not null
+#  balanced      :boolean       not null
 #  position      :integer       not null
 #  period_id     :integer       not null
 #  journal_id    :integer       not null

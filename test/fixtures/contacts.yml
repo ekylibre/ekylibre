@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080819191919
+# Schema version: 20081127140043
 #
 # Table name: contacts
 #
@@ -22,6 +22,8 @@
 #  mobile        :string(32)    
 #  email         :string(255)   
 #  website       :string(255)   
+#  latitude      :float         
+#  longitude     :float         
 #  company_id    :integer       not null
 #  created_at    :datetime      not null
 #  updated_at    :datetime      not null

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080819191919
+# Schema version: 20081127140043
 #
 # Table name: financialyears
 #
@@ -9,9 +9,6 @@
 #  started_on   :date          not null
 #  stopped_on   :date          not null
 #  written_on   :date          not null
-#  debit        :decimal(16, 2 default(0.0), not null
-#  credit       :decimal(16, 2 default(0.0), not null
-#  position     :integer       not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null

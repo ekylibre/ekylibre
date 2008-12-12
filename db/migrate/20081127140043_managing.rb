@@ -164,9 +164,15 @@ class Managing < ActiveRecord::Migration
 
 
 
-
-
-
+    # Sequences
+    create_table :sequences do |t|
+      t.column :name,                   :string,   :null=>false
+      t.column :increment,              :integer,  :null=>false, :default=>1
+      t.column :format,                 :string,   :null=>false
+      t.column :active,                 :boolean,  :null=>false
+      t.column :next_number,            :integer,  :null=>false, :default=>0
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+    end
 
 
 
@@ -321,6 +327,7 @@ class Managing < ActiveRecord::Migration
     drop_table :sale_order_lines
     drop_table :sale_orders
     drop_table :sale_order_natures
+    drop_table :sequences
     drop_table :stock_moves
     drop_table :stock_trackings
     drop_table :stock_locations
