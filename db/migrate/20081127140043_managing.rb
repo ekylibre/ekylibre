@@ -135,6 +135,7 @@ class Managing < ActiveRecord::Migration
       t.column :contact_id,             :integer,  :null=>false, :references=>:contacts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_index :stock_locations, :company_id
 
     # StockTracking
     create_table :stock_trackings do |t|
@@ -145,6 +146,7 @@ class Managing < ActiveRecord::Migration
       t.column :comment,                :text
       t.column :company_id,             :integer,   :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_index :stock_trackings, :company_id
 
     # StockMove
     create_table :stock_moves do |t|
@@ -161,6 +163,7 @@ class Managing < ActiveRecord::Migration
       t.column :product_id,             :integer,  :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_index :stock_moves, :company_id
 
 
 
@@ -173,6 +176,7 @@ class Managing < ActiveRecord::Migration
       t.column :next_number,            :integer,  :null=>false, :default=>0
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_index :sequences, :company_id
 
 
 
@@ -187,6 +191,7 @@ class Managing < ActiveRecord::Migration
       t.column :comment,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end    
+    add_index :sale_order_natures, :company_id
   
     # SaleOrder
     create_table :sale_orders do |t|
@@ -212,6 +217,7 @@ class Managing < ActiveRecord::Migration
       t.column :comment,                :text
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_index :sale_orders, :company_id
   
     # SaleOrderLine
     create_table :sale_order_lines do |t|
@@ -228,6 +234,7 @@ class Managing < ActiveRecord::Migration
       t.column :account_id,             :integer, :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_index :sale_order_lines, :company_id
 
     # Invoice
     create_table :invoices do |t|
@@ -245,6 +252,7 @@ class Managing < ActiveRecord::Migration
       t.column :contact_id,             :integer, :null=>false, :references=>:contacts
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_index :invoices, :company_id
 
     # InvoiceLine
     create_table :invoice_lines do |t|
@@ -259,6 +267,7 @@ class Managing < ActiveRecord::Migration
       t.column :position,               :integer
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_index :invoice_lines, :company_id
     
     # Delivery
     create_table :deliveries do |t|
@@ -271,6 +280,7 @@ class Managing < ActiveRecord::Migration
       t.column :comment,                :text
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_index :deliveries, :company_id
     
     # DeliveryLine
     create_table :delivery_lines do |t|
@@ -285,12 +295,13 @@ class Managing < ActiveRecord::Migration
       t.column :price_with_taxes,       :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_index :delivery_lines, :company_id
 
     # PurchaseOrder
     create_table :purchase_orders do |t|
       t.column :client_id,              :integer,  :null=>false, :references=>:entities
       t.column :number,                 :string,   :null=>false, :limit=>64
-      t.column :shipped,               :boolean,  :null=>false, :default=>false
+      t.column :shipped,                :boolean,  :null=>false, :default=>false
       t.column :invoiced,               :boolean,  :null=>false, :default=>false
       t.column :price,                  :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :price_with_taxes,       :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
@@ -298,6 +309,7 @@ class Managing < ActiveRecord::Migration
       t.column :comment,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_index :purchase_orders, :company_id
   
     # PurchaseOrderLine
     create_table :purchase_order_lines do |t|
@@ -311,6 +323,7 @@ class Managing < ActiveRecord::Migration
       t.column :account_id,             :integer,  :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_index :purchase_order_lines, :company_id
 
 
 
