@@ -151,7 +151,6 @@ app:
       title: Comptes
     entries:
       title: Écritures
-      number_records: 'Nombre de pièces à afficher dans le tableau : '
       select: 'Sélectionnez le journal :'
       record_number: 'Pièce n°'
       record_created: 'Enregistrée le'
@@ -164,8 +163,13 @@ app:
       confirmation: 'Êtes-vous sûr de votre saisie ?'     
     print:
       title: Impression 
+      print_balance_sheet: Impression du bilan Comptable
+      print_journal: Impression du Journal 
     print_balance_sheet:
       title: Impression du bilan 
+      period: Période
+    print_journal:
+      title: Impression du Journal
     journals:
       title: Journaux
       create: Créer un nouveau journal
@@ -250,21 +254,16 @@ app:
     title: Accueil
     index:
       title: 'Accueil'
-    about_us:
-      title: 'A propos du logiciel'
     accountancy:
       title: 'Comptabilité'
-    management:
-      title: 'Gestion commerciale'
-      consult_sales: 'Voir l''état des ventes'
-      consult_purchases: 'Voir l''état des achats'
-      consult_stocks: 'Voir l''état des stocks'
-      new_sale: 'Nouveau devis'
-      purchases: 'Achats'
-      sales: 'Ventes'
-      stocks: 'Stocks'
+    sales:
+      title: 'Ventes'
+    purchases:
+      title: 'Achats'
+    stocks:
+      title: 'Stocks'
   help:
-    error_no_file: 'Aucun fichier d''aide disponible'
+    error_no_file:'Aucun fichier d''aide disponible'
   journal:
     error_limited_period: '.'
     error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
@@ -287,16 +286,10 @@ app:
     error_period_statement: 'L''interval de temps est incorrect pour le relevé bancaire.'  				   
     error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'			           
   financialyear:
-    error_period_financialyear: 'L''intervalle de temps est incorrect pour l''exercice comptable.'
+    error_period_financialyear: 'L''interval de temps est incorrect pour l''exercice comptable.'
     error_financialyear: 'La date de début de l''exercice comptable est incorrecte.'
   layouts:
     application:
-  management:
-    title: 'Gestion commerciale'
-    sale:
-      title: 'Devis'
-      general: 'Général'
-      products: 'Produits'
   cancel: 'Annuler'
   create: 'Créer'
   edit: 'Modifier'

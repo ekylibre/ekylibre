@@ -9,6 +9,7 @@ class AccountancyController < ApplicationController
   
 
   dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    #  dyta(:journals, :conditions=>["company_id=? and ?",['@current_company.id'], 'toto"tot']) do |t|
     t.column :name
     t.column :code
     t.column :name, :through=>:nature
@@ -21,32 +22,26 @@ class AccountancyController < ApplicationController
     accounts_list params
   end
   
-  # this action has not specific views.
-  def params_entries
+  # this action has not specific view.
+  def journal_entries
     session[:journal] = params[:journal][:id]
-    session[:records_number] = params[:number].blank? ? 5 : params[:number] 
     redirect_to :action => "entries" 
   end
 
-  # 
   def entries
     journals_list params
-        
-    records = JournalRecord.find(:all, :order => "id DESC", :limit => session[:records_number].to_i)
-        
-    @entries = Entry.find(:all, :conditions => ["record_id IN (?)", records ], :order => "record_id ASC")
+    @entries = Entry.find(:all)
+    #record = JournalRecord.find(:last, :order => "number ASC")
     
-    record = JournalRecord.find(:last, :order => "number ASC")
-    
-    if record
-      @number = record.number.succ
-    else
-      @number = 1
-    end
+    #if record
+    #  @number = record.number.succ
+    #else
+    #  @number = 1
+    #end
     
   end
 
- 
+
   def find_accounts
     @search=params[:account].gsub('*','%')
     @find_accounts = Account.find(:all,:conditions=>["company_id = ? AND number LIKE ?", @current_company.id, @search])
@@ -80,9 +75,8 @@ class AccountancyController < ApplicationController
                                 :currency_id => currency.id, :company_id => @current_company.id}))
       @record.reload
       
-      @entries = Entry.find(:all, :conditions =>["company_id = ?", @current_company.id], :order=>"record_id ASC")
-
-      
+      @entries = Entry.find(:all, :conditions =>["company_id = ?", @current_company.id])
+             
       if request.xhr?
         render :action => "entries_create"
       else
@@ -129,13 +123,22 @@ class AccountancyController < ApplicationController
   
   
   def print_balance_sheet
-    render_xil('/home/thibaud/ekylibre/trunk/ekylibre/app/test.xml')
     render :action => 'print_balance_sheet'
-    
+    #date = params[:entry]#[:date]
+    #raise Exception.new date + " test"
+    if request.post?
+      render_xil('/home/thibaud/ekylibre/trunk/ekylibre/app/test.xml')
+    end  
   end
   
+  def print_journal
+    render :action => 'print_journal'
+    if request.post?
+      render_xil('/home/thibaud/ekylibre/trunk/ekylibre/app/journal.xml')
+    end
+  end
 
-
+  
 end
 
 
