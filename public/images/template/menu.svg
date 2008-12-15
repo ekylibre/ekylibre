@@ -20,6 +20,17 @@
   <defs
      id="defs2417">
     <linearGradient
+       id="linearGradient3184">
+      <stop
+         style="stop-color:#f0f4fb;stop-opacity:1;"
+         offset="0"
+         id="stop3186" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="1"
+         id="stop3188" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3185">
       <stop
          id="stop3187"
@@ -123,6 +134,16 @@
        x2="122.03571"
        y2="295.93359"
        gradientTransform="translate(-3.7500032,5.000015)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3184"
+       id="linearGradient3190"
+       x1="63"
+       y1="161.14285"
+       x2="63"
+       y2="246.89285"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.1111111,0,0,0.7463557,158.28571,136.66373)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -235,6 +256,15 @@
        height="20"
        x="116.28571"
        y="300.93359"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient3190);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.75;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="columns"
+       width="1"
+       height="64"
+       x="164.28571"
+       y="256.93359"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
   </g>

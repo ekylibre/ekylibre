@@ -27,7 +27,7 @@ tr.not_balanced-odd td{background: #BB3040;}
 #top { border-bottom: 1px  solid  #C9D7F1; }
 #guide { float:left; }
 #user { float:right; }
-#columns { }
+#columns { background: url(/images/template/columns.png) repeat-x top; }
 #side { width: 150px; border-right: 1px dotted #C9D7F1;}
 #main { overflow: auto; }
 #yield { padding: 4px; }
@@ -173,3 +173,7 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 /* END */
 
+.action-list { -moz-border-radius: 16px; background: #E4EBF8; padding:12px; margin:16px;}
+.action-list ul { padding: 8px 20px; }
+
+h2.form { font-size: 15px; margin: 8px 4px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }

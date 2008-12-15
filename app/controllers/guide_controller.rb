@@ -1,23 +1,19 @@
 class GuideController < ApplicationController
  
-  def welcome
-    redirect_to :action=>:index
+  def index
   end
 
-  def index
+  def welcome
+    redirect_to :action=>:index
   end
 
   def accountancy
   end
 
-  def sales
-    @menu = 1          # Menu.new
+  def management
   end
 
-  def purchases
+  def about_us
   end
 
-  def stocks
-  end
-	
 end

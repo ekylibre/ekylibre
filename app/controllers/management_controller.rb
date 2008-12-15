@@ -1,7 +1,10 @@
 class ManagementController < ApplicationController
 
-  def estimate
+  def new_sale
+    render :action=>:sale
   end
 
+  def sale
+  end
  
 end
