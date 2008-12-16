@@ -77,6 +77,13 @@ class Journal < ActiveRecord::Base
   end
 
   
+  # this method searches the last records according to a number.  
+  def last_records(number_record)
+    records = JournalRecord.find(:all, :conditions=>['journal_id = ? AND company_id = ?', self.id, self.company_id], :order => 'id DESC', :limit => number_record)
+    return records
+  end
+
+  #
   def journal(period)
     
     # if the type of journal (purchase, sale, bank, cash ...) is precised. Otherwise, it deals with a standard journal. 

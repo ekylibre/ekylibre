@@ -152,6 +152,7 @@ app:
     entries:
       title: Écritures
       select: 'Sélectionnez le journal :'
+      number_records: 'Nombre de pièces à afficher :'
       record_number: 'Pièce n°'
       record_created: 'Enregistrée le'
       record_printed: 'Reçue le'
@@ -161,6 +162,8 @@ app:
       record_credit: 'Crédit'
       entry_validate: 'Valider l''écriture'
       confirmation: 'Êtes-vous sûr de votre saisie ?'     
+      balanced_entries: 'Vert : pièce équilibrée'
+      unbalanced_entries: 'Rouge : pièce non équilibrée'
     print:
       title: Impression 
       print_balance_sheet: Impression du bilan Comptable

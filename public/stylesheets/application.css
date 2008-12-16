@@ -16,12 +16,10 @@ div[xul="box"] { background: #ADA; }
 table.entries tr.odd td{:background: #E3F4FF;}
 table.entries tr.even td{:background: #A3FCFF;}
 
-
-tr.balanced-even td{background:#00AA00;}
-tr.balanced-odd td{background:#00AA80;}
-tr.not_balanced-even td{background: #BB0000;}
-tr.not_balanced-odd td{background: #BB3040;}
-
+tr.balanced-even td{background:#CCF5CC;}
+tr.balanced-odd td{background:#99EB99;}
+tr.unbalanced-even td{background: #FFCCCC;}
+tr.unbalanced-odd td{background: #FF9999;}
 
 #lines { height: 300px; overflow: auto; }
 #top { border-bottom: 1px  solid  #C9D7F1; }

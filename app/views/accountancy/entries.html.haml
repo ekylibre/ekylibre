@@ -1,16 +1,13 @@
 %h1=lc(:title)
-- form_tag (:action => 'params_entries') do
-  %table
-    %tr
-      %td.label=lc :select
-      %td.select=select "journal", "id",  @journals.collect{|j| [j.name, j.id]}
-    %tr
-      %td.label=lc :number_records
-      %td.input=text_field_tag "number", session[:records_number], :tabindex => 1 
-      %td.button=submit_tag 'ok'     
-=button_to 'financial+account', :action => "load_data"
-#lines
-  =render :partial=>'entries'
+.action-list
+  - form_tag (:action => 'params_entries') do
+    %table
+      %tr
+        %td.label=lc :select
+        %td.select=select "journal", "id",  @journals.collect{|j| [j.name, j.id]}
+        %td.label=lc :number_records
+        %td.input=text_field_tag "number", session[:records_number], :tabindex => 1 
+        %td.button=submit_tag 'ok', :html => {:tabindex => 2}     
 - form_remote_tag() do 
   %table
     %tr
@@ -22,18 +19,28 @@
       %td.label=lc :record_debit
       %td.label=lc :record_credit
     %tr
-      %td.input=text_field :record, :number, {:size=>9, :focus=>true, :tabindex=>1}
+      %td.input=text_field :record, :number, {:size=>9, :tabindex=>1}
       %td.input=text_field :record, :created_on, {:value=>Date.today, :readonly=>true, :size=>10}
-      %td.input=text_field :record, :printed_on, {:tabindex=>2, :size=>10} 
+      %td.input=text_field :record, :printed_on, {:value=>Date.today, :tabindex=>2, :size=>10} 
       %td.input=text_field :entry, :name, {:tabindex=>3, :size=>14}
       %td.input=text_field :account, :number, {:tabindex=>4, :size=>14} 
       %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>9, :value=>0}
       %td.input=text_field :entry, :credit, {:tabindex=>6, :size=>9, :value=>0}
-      %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => { :action => :entries_create}, :html => {:tabindex => 7}
+      %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => {:action => :entries}, :html => {:tabindex => 7}
+#lines
+  =render :partial=>'entries'
+=button_to 'financial+account', :action => "load_data"
+%p
+  %cite= lc :balanced_entries
+%p
+  %cite= lc :unbalanced_entries
 #account 
 =observe_field "account_number", :frequency => 0.25, :function =>"if ( (document.getElementById('account_number').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'account', :url => { :action => 'find_accounts'}, :with => "'account=' + escape(value)")+"}"
 =update_page_tag do |page|
   - page['record_number'].value = @number
+  - page['record_number'].focus()
+  - page['record_created_on'].value = @created_on || Date.today
+  - page['record_printed_on'].value = @printed_on  || Date.today
   - page['number'].value = session[:records_number]
 
     
