@@ -68,7 +68,7 @@ module Ekylibre
         options[:file_name]        = 'o'  # file with the extension.
              
         # prototype of the generated function.
-        code ="def render_xil_"+options[:name].to_s+"_"+options[:output].to_s+"("+options[:key]+",_mode=nil)\n"
+        code ="def render_xil_"+options[:name].to_s+"_"+options[:output].to_s+"("+options[:key]+", _mode=nil, _locals={})\n"
         
         code+=options[:now]+"=Time.now\n"
         code+=options[:title]+"='file'\n"
@@ -111,11 +111,11 @@ module Ekylibre
         code+="end\n" 
                        
         # in commentary, test the generate code putting it in a code.
-        # if RAILS_ENV=="development"
-        #  f=File.open('/tmp/test.rb','wb')
-         # f.write(code)
-          #f.close()
-       # end
+        if RAILS_ENV=="development"
+          f=File.open('/tmp/test.rb','wb')
+          f.write(code)
+          f.close()
+        end
 
         module_eval(code)
       end
@@ -493,6 +493,8 @@ module Ekylibre
               format=str.split(':')[1]
             end
             string.gsub!("{"+str+"}",'\'+'+options[:now]+'.strftime(\''+format+'\')+\' ')
+          elsif str=~/LOCAL\:.*/
+            string.gsub!("{"+str+"}",'\'+_locals[:'+str.split(':')[1]+'].to_s+\'')
           elsif str=~/KEY/
             string.gsub!("{"+str+"}",'\'+'+options[:key]+'.to_s+\'')
           elsif str=~/TITLE/
@@ -501,6 +503,8 @@ module Ekylibre
             string.gsub!("{"+str+"}",'\'+'+options[:page_number]+'.to_s+\'')
           elsif str=~/PAGENB/
             string.gsub!("{"+str+"}",'[[PAGENB]]')
+          else
+            string.gsub!("{"+str+"}",'['+str+']')
           end
         end
         
@@ -571,7 +575,6 @@ module ActionController
         current_company = instance_variable_get("@"+xil_options[:company_variable].to_s)
         raise Exception.new("No current_company.") if current_company.nil? 
         template_options[:current_company]=xil_options[:company_variable]
-       
       end
 
       method_name="render_xil_"+name+"_"+options[:output].to_s
@@ -580,7 +583,7 @@ module ActionController
       self.class.analyze_template(template, template_options) unless self.methods.include? method_name 
 
       # Finally, the generated function is executed.
-      self.send(method_name,options[:key],options[:crypt]||xil_options[:crypt])
+      self.send(method_name,options[:key],options[:crypt]||xil_options[:crypt], options[:locals]||{})
     end
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <template title="Example" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="10">
-  <title query="select usename from pg_user where usename='vincent'">#{title.usename}</title>
+  <title query="select usename from pg_user where usename=CURRENT_USER">#{title.usename}</title>
   <infos>
     <info type="created-on">04/09/2008</info>
   </infos>
@@ -38,6 +38,7 @@
     <loop name="loop1" query="SELECT usename, usesuper, usesysid FROM pg_user">
       <block type="header">
         <text x="2" y="2" width="206" height="5" align="C">Utilisateur #{loop1.usename}</text>
+        <text x="2" y="2" width="206" height="5" align="L">Test {LOCAL:test} {LOCAL}</text>
       </block>
       <block name="ligne de facture" if="#{loop1.usename}!='postgres'">
         <text x="2" y="2" width="100" height="5" align="C">@@sect#{loop1.usesysid}@@Blabla, ceci est son ID système : #{loop1.usesysid}</text>
