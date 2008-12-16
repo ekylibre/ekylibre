@@ -19,26 +19,15 @@
       <text x="65" y="3" width="300" height="15" align="L" decoration="underline" size="25"> Balance de l'année  {LOCAL:date} </text>
     </block>
     <block name="menu">
-      <rectangle x="5" y="2" width="20" height="10" radius="0" border-color="#007" border-width="0.2"/>
-      <text x="5" y="2" width="100" height="10" align="L">Compte</text>
-      <rectangle x="25" y="2" width="140" height="10" radius="0" border-color="#007" border-width="0.2"/>
-      <text x="175" y="2" width="100" height="10" align="L">Solde</text>
-      <rectangle x="165" y="2" width="35" height="10" radius="0" border-color="#007" border-width="0.2"/>
-      <rectangle x="165" y="12" width="35" height="7" radius="0" border-color="#007" border-width="0.2"/>
-      <text x="5" y="10" width="100" height="10" align="L">Numero</text>
-      <rectangle x="5" y="12" width="20" height="7" radius="0" border-color="#007" border-width="0.2"/>
-      <rectangle x="25" y="12" width="140" height="7" radius="0" border-color="#007" border-width="0.2"/>
-      <text x="25" y="10" width="100" height="10" align="L">Intitule</text>
-      <text x="165" y="10" width="100" height="10" align="L">Debit</text>
-      <text x="185" y="10" width="100" height="10" align="L">Credit</text>
+      <text x="5" y="2" width="100" height="10" align="L" border-width="0.5" >Compte</text>
+      <text x="175" y="2" width="100" height="10" align="L" border-width="0.5" >Solde</text>
+      <text x="5" y="10" width="100" height="10" align="L" border-width="0.5" >Numero</text>
+      <text x="25" y="10" width="100" height="10" align="L" border-width="0.5" >Intitule</text>
+      <text x="165" y="10" width="100" height="10" align="L" border-width="0.5" >Debit</text>
+      <text x="185" y="10" width="100" height="10" align="L" border-width="0.5"  >Credit</text>
     </block>
     <loop name="balance" query="SELECT number, name,id FROM accounts where company_id = 4 ORDER BY number">
       <block name="test">
-	<rectangle x="4" y="0" width="1" height="7" radius="0" border-color="#001" border-width="0.0001"/>
-	<rectangle x="5" y="-1" width="20" height="7" radius="0" border-color="#007" border-width="0.2"/>
-	<rectangle x="25" y="-1" width="140" height="7" radius="0" border-color="#007" border-width="0.2"/>
-	<rectangle x="165" y="-1" width="17.5" height="7" radius="0" border-color="#007" border-width="0.2"/>
-	<rectangle x="182.5" y="-1" width="17.5" height="7" radius="0" border-color="#007" border-width="0.2"/>
 	<text x="5" y="0" width="100" height="5" align="L">#{balance.number}</text>
 	<text x="25" y="0" width="100" height="5" align="L">#{balance.name}</text>
       </block>
