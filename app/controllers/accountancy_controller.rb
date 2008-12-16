@@ -124,8 +124,6 @@ class AccountancyController < ApplicationController
   
   def print_balance_sheet
     render :action => 'print_balance_sheet'
-    #date = params[:entry]#[:date]
-    #raise Exception.new date + " test"
     if request.post?
       render_xil('/home/thibaud/ekylibre/trunk/ekylibre/app/test.xml')
     end  
@@ -137,8 +135,20 @@ class AccountancyController < ApplicationController
       render_xil('/home/thibaud/ekylibre/trunk/ekylibre/app/journal.xml')
     end
   end
-
   
+  def print_balance
+    #raise Exception.new  " test"
+    render :action => 'print_balance'
+    #raise Exception.new date + " test"
+    #raise Exception.new date + "test"
+    if request.post?
+      #date = params[:test][:date]
+      #raise Exception.new date + "test"
+      render_xil('/home/thibaud/ekylibre/trunk/ekylibre/app/balance.xml',:locals=>params[:test])
+    end
+  end
+
+
 end
 
 

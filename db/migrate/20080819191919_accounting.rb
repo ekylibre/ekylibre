@@ -87,7 +87,7 @@ class Accounting < ActiveRecord::Migration
     end
     add_index :account_balances, :company_id
     add_index :account_balances, :financialyear_id
-    add_index :account_balances, [:account_id, :financialyear_id, :company_id], :unique=>true
+   # add_index :account_balances, [:account_id, :financialyear_id, :company_id], :unique=>true
 
     # JournalNature : Type de journal
     create_table :journal_natures do |t|

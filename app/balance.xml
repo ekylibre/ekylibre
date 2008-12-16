@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<template title="Example" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="10">
+  <title query="select current_user">The Book of #{title.current_user}</title>
+  <infos>
+    <info type="created-on">04/09/2008</info>
+  </infos>
+  <loop name="loop0">
+    <block type="header" mode="even">
+      <text x="2" y="2" width="206" height="15" align="L">En-tête paire {KEY}</text>
+    </block>
+    <block type="header" mode="odd">
+      <text x="2" y="2" width="206" height="15" align="R" radius="2">En-tête impaire {KEY}</text>
+    </block>
+    <block type="footer">
+      <line x1="5" y1="0" x2="200" y2="0" border-color="#F00" />
+      <text x="5" y="2" width="200" height="5" align="C" decoration="underline">Page {PAGENO}/{PAGENB}</text>
+    </block>
+    <block name="titre">
+      <text x="65" y="3" width="300" height="15" align="L" decoration="underline" size="25"> Balance de l'année  {LOCAL:date} </text>
+    </block>
+    <block name="menu">
+      <text x="5" y="2" width="100" height="10" align="L">Compte</text>
+      <text x="175" y="2" width="100" height="10" align="L">Solde</text>
+      <text x="5" y="10" width="100" height="10" align="L">Numero</text>
+      <text x="25" y="10" width="100" height="10" align="L">Intitule</text>
+      <text x="165" y="10" width="100" height="10" align="L">Debit</text>
+      <text x="185" y="10" width="100" height="10" align="L">Credit</text>
+    </block>
+    <loop name="balance" query="SELECT number, name,id FROM accounts where company_id = 23 ORDER BY number">
+      <block name="test">
+	<text x="5" y="3" width="100" height="5" align="L">#{balance.number}</text>
+	<text x="25" y="3" width="100" height="5" align="L">#{balance.name}</text>
+      </block>
+     <!-- <loop name="account" query="SELECT local_credit, local_debit FROM account_balances WHERE account_id IN (#{balance.id}) AND {LOCAL:date} IN financialyear_id">-->
+    <!-- <loop name="menustest" query="SELECT name, id FROM menus">
+       <block name="menu">
+	 <text x="165" y="3" width="100" height="5" align="L">#{menustest.name}</text>
+	 <text x="185" y="3" width="100" height="5" align="L">#{menustest.id}</text>
+       </block>
+     </loop>-->
+    </loop>
+    <page-break/>
+    <block name="conclusion">
+      <text x="15" y="2" width="180" height="50" align="C" color="#F40" weight="bold" decoration="underline" style="italic" size="18">The End</text>
+    </block>
+  </loop>
+</template>
+
+<!--    <loop name="passif" query="SELECT number, alpha, name FROM accounts WHERE company_id = 12 AND number LIKE '1%' OR number LIKE '2%' OR number LIKE '3%' OR number LIKE '4%' OR number LIKE '5%' AND is_debit IS FALSE">
+      <block name="test2">
+	<rectangle x="5" y="5" width="200" height="40" radius="5" border-color="#007" border-width="0.2"/>
+	<text x="5" y="7" width="100" height="5" align="L"> numero de compte: #{passif.number}</text>
+	<text x="8" y="15" width="100" height="5" align="L"> nom de compte  : #{passif.name} </text>
+	<text x="11" y="23" width="100" height="5" align="L"> alpha              : #{passif.alpha}</text>
+      </block>-->

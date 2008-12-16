@@ -164,12 +164,15 @@ app:
     print:
       title: Impression 
       print_balance_sheet: Impression du bilan Comptable
-      print_journal: Impression du Journal 
+      print_journal: Impression du journal 
+      print_balance: Impression de la balance
     print_balance_sheet:
       title: Impression du bilan 
       period: Période
     print_journal:
       title: Impression du Journal
+    print_balance:
+      title: Impression de la balance
     journals:
       title: Journaux
       create: Créer un nouveau journal
