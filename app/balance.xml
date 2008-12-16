@@ -19,25 +19,36 @@
       <text x="65" y="3" width="300" height="15" align="L" decoration="underline" size="25"> Balance de l'année  {LOCAL:date} </text>
     </block>
     <block name="menu">
+      <rectangle x="5" y="2" width="20" height="10" radius="0" border-color="#007" border-width="0.2"/>
       <text x="5" y="2" width="100" height="10" align="L">Compte</text>
+      <rectangle x="25" y="2" width="140" height="10" radius="0" border-color="#007" border-width="0.2"/>
       <text x="175" y="2" width="100" height="10" align="L">Solde</text>
+      <rectangle x="165" y="2" width="35" height="10" radius="0" border-color="#007" border-width="0.2"/>
+      <rectangle x="165" y="12" width="35" height="7" radius="0" border-color="#007" border-width="0.2"/>
       <text x="5" y="10" width="100" height="10" align="L">Numero</text>
+      <rectangle x="5" y="12" width="20" height="7" radius="0" border-color="#007" border-width="0.2"/>
+      <rectangle x="25" y="12" width="140" height="7" radius="0" border-color="#007" border-width="0.2"/>
       <text x="25" y="10" width="100" height="10" align="L">Intitule</text>
       <text x="165" y="10" width="100" height="10" align="L">Debit</text>
       <text x="185" y="10" width="100" height="10" align="L">Credit</text>
     </block>
-    <loop name="balance" query="SELECT number, name,id FROM accounts where company_id = 23 ORDER BY number">
+    <loop name="balance" query="SELECT number, name,id FROM accounts where company_id = 4 ORDER BY number">
       <block name="test">
-	<text x="5" y="3" width="100" height="5" align="L">#{balance.number}</text>
-	<text x="25" y="3" width="100" height="5" align="L">#{balance.name}</text>
+	<rectangle x="4" y="0" width="1" height="7" radius="0" border-color="#001" border-width="0.0001"/>
+	<rectangle x="5" y="-1" width="20" height="7" radius="0" border-color="#007" border-width="0.2"/>
+	<rectangle x="25" y="-1" width="140" height="7" radius="0" border-color="#007" border-width="0.2"/>
+	<rectangle x="165" y="-1" width="17.5" height="7" radius="0" border-color="#007" border-width="0.2"/>
+	<rectangle x="182.5" y="-1" width="17.5" height="7" radius="0" border-color="#007" border-width="0.2"/>
+	<text x="5" y="0" width="100" height="5" align="L">#{balance.number}</text>
+	<text x="25" y="0" width="100" height="5" align="L">#{balance.name}</text>
       </block>
      <!-- <loop name="account" query="SELECT local_credit, local_debit FROM account_balances WHERE account_id IN (#{balance.id}) AND {LOCAL:date} IN financialyear_id">-->
-    <!-- <loop name="menustest" query="SELECT name, id FROM menus">
+     <loop name="menustest" query="SELECT name, id FROM menus WHERE company_id=4 AND name LIKE 'g%'">
        <block name="menu">
-	 <text x="165" y="3" width="100" height="5" align="L">#{menustest.name}</text>
-	 <text x="185" y="3" width="100" height="5" align="L">#{menustest.id}</text>
-       </block>
-     </loop>-->
+	 <text x="165" y="-5" width="100" height="1" align="L">#{menustest.name}</text>
+	 <text x="185" y="-5" width="100" height="1" align="L">#{menustest.id}</text>
+       </block> 
+     </loop>
     </loop>
     <page-break/>
     <block name="conclusion">
@@ -45,11 +56,3 @@
     </block>
   </loop>
 </template>
-
-<!--    <loop name="passif" query="SELECT number, alpha, name FROM accounts WHERE company_id = 12 AND number LIKE '1%' OR number LIKE '2%' OR number LIKE '3%' OR number LIKE '4%' OR number LIKE '5%' AND is_debit IS FALSE">
-      <block name="test2">
-	<rectangle x="5" y="5" width="200" height="40" radius="5" border-color="#007" border-width="0.2"/>
-	<text x="5" y="7" width="100" height="5" align="L"> numero de compte: #{passif.number}</text>
-	<text x="8" y="15" width="100" height="5" align="L"> nom de compte  : #{passif.name} </text>
-	<text x="11" y="23" width="100" height="5" align="L"> alpha              : #{passif.alpha}</text>
-      </block>-->

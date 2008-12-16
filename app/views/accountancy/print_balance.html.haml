@@ -1,0 +1,7 @@
+%h1=lc(:title)
+- form_tag() do
+  %table
+    %tr
+      %td.label Entrez l'année recherchée 
+    %tr
+      %td.input=text_field :test, :date 

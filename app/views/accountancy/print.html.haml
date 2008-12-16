@@ -1,0 +1,12 @@
+%h1=lc(:title)
+%br
+%h3 BILAN
+=link_to lc (:print_balance_sheet) , :controller => "accountancy", :action => "print_balance_sheet"
+%br 
+%br
+%h3 JOURNAL
+=link_to lc (:print_journal) , :controller =>"accountancy", :action => "print_journal"
+%br
+%br
+%h3 BALANCE
+=link_to lc (:print_balance) , :controller =>"accountancy", :action => "print_balance"
