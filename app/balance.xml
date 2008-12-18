@@ -5,40 +5,42 @@
     <info type="created-on">04/09/2008</info>
   </infos>
   <loop name="loop0">
-    <block type="header" mode="even">
-      <text x="2" y="2" width="206" height="15" align="L">En-tête paire {KEY}</text>
-    </block>
-    <block type="header" mode="odd">
-      <text x="2" y="2" width="206" height="15" align="R" radius="2">En-tête impaire {KEY}</text>
-    </block>
-    <block type="footer">
-      <line x1="5" y1="0" x2="200" y2="0" border-color="#F00" />
-      <text x="5" y="2" width="200" height="5" align="C" decoration="underline">Page {PAGENO}/{PAGENB}</text>
-    </block>
-    <block name="titre">
-      <text x="65" y="3" width="300" height="15" align="L" decoration="underline" size="25"> Balance de l'année  {LOCAL:date} </text>
-    </block>
-    <block name="menu">
-      <text x="5" y="2" width="100" height="10" align="L" border-width="0.5" >Compte</text>
-      <text x="175" y="2" width="100" height="10" align="L" border-width="0.5" >Solde</text>
-      <text x="5" y="10" width="100" height="10" align="L" border-width="0.5" >Numero</text>
-      <text x="25" y="10" width="100" height="10" align="L" border-width="0.5" >Intitule</text>
-      <text x="165" y="10" width="100" height="10" align="L" border-width="0.5" >Debit</text>
-      <text x="185" y="10" width="100" height="10" align="L" border-width="0.5"  >Credit</text>
-    </block>
-    <loop name="balance" query="SELECT number, name,id FROM accounts where company_id = 4 ORDER BY number">
-      <block name="test">
-	<text x="5" y="0" width="100" height="5" align="L">#{balance.number}</text>
-	<text x="25" y="0" width="100" height="5" align="L">#{balance.name}</text>
+    <!--<block name="accounttoaccount" if="#{LOCAL:account1}">-->
+      <block type="header" mode="even">
+	<text x="2" y="2" width="206" height="15" align="L">En-tête paire {LOCAL:current_company} {KEY}</text>
       </block>
-     <!-- <loop name="account" query="SELECT local_credit, local_debit FROM account_balances WHERE account_id IN (#{balance.id}) AND {LOCAL:date} IN financialyear_id">-->
-     <loop name="menustest" query="SELECT name, id FROM menus WHERE company_id=4 AND name LIKE 'g%'">
-       <block name="menu">
-	 <text x="165" y="-5" width="100" height="1" align="L">#{menustest.name}</text>
-	 <text x="185" y="-5" width="100" height="1" align="L">#{menustest.id}</text>
-       </block> 
-     </loop>
-    </loop>
+      <block type="header" mode="odd">
+	<text x="2" y="2" width="206" height="15" align="R" radius="2">En-tête impaire {KEY}</text>
+      </block>
+      <block type="footer">
+	<line x1="5" y1="0" x2="200" y2="0" border-color="#F00" />
+	<text x="5" y="2" width="200" height="5" align="C" decoration="underline">Page {PAGENO}/{PAGENB}</text>
+      </block>
+      <block name="titre">
+	<text x="65" y="3" width="300" height="15" align="L" decoration="underline" size="25"> Balance de l'année  {LOCAL:date} </text>
+      </block>
+      <block name="menu">
+	<text x="5" y="0" width="160" height="10" align="L" border-width="0.2" >Compte</text>
+	<text x="165" y="0" width="45" height="10" align="C" border-width="0.2" >Solde</text>
+	<text x="5" y="10" width="20" height="10" align="L" border-width="0.2" >Numero</text>
+	<text x="25" y="10" width="140" height="10" align="L" border-width="0.2" border-align="C" >Intitule</text>
+	<text x="165" y="10" width="22.5" height="10" align="C" border-width="0.2" >Debit</text>
+	<text x="187.5" y="10" width="22.5" height="10" align="C" border-width="0.2"  >Credit</text>
+      </block>
+      <loop name="balance" query="SELECT number, name, accounts.id, local_credit, local_debit FROM accounts INNER JOIN account_balances ON accounts.id = account_balances.account_id WHERE accounts.company_id = {LOCAL:current_company} ORDER BY number">
+	<block name="test">
+	  <text x="5" y="0" width="20" height="10" align="L" border-width="0.2">#{balance.number}</text>
+	  <text x="25" y="0" width="140" height="10" align="L" border-width="0.2">#{balance.name}</text>
+	</block>
+	<!-- ) AND {LOCAL:date} IN financialyear_id">-->
+	<block name="menu">
+	  <text x="165" y="-10" width="22.5" height="10" align="R" border-width="0.2" if="#{balance.local_debit}!=0">#{balance.local_debit}</text>
+	  <text x="165" y="-10" width="22.5" height="10" align="R" border-width="0.2" if="#{balance.local_debit} < 0.1"> fdfdDDD  </text>
+	  <text x="187.5" y="-10" width="22.5" height="10" align="R" border-width="0.2" if="#{balance.local_credit}!=0">#{balance.local_credit}</text>
+	  <text x="187.5" y="-10" width="22.5" height="10" align="R" border-width="0.2" if="#{balance.local_credit} < 0.1"> tttttttttttttt </text>
+	</block> 
+      </loop>
+   <!-- </block>-->
     <page-break/>
     <block name="conclusion">
       <text x="15" y="2" width="180" height="50" align="C" color="#F40" weight="bold" decoration="underline" style="italic" size="18">The End</text>

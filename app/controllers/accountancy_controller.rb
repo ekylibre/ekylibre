@@ -145,14 +145,14 @@ class AccountancyController < ApplicationController
     #raise Exception.new  " test"
     render :action => 'print_balance'
     #raise Exception.new date + " test"
-    #raise Exception.new date + "test"
+    #raise Exception.new @current_company.id
+    # raise Exception.new [:test][:current_company]
     if request.post?
-      #date = params[:test][:date]
-      #raise Exception.new date + "test"
+      params[:test][:current_company] = @current_company.id
       render_xil('/home/thibaud/ekylibre2/trunk/ekylibre/app/balance.xml',:locals=>params[:test])
     end
   end
-
+  
 
 end
 

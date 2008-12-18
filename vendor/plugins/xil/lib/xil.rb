@@ -299,6 +299,11 @@ module Ekylibre
         #end
         
         # runs the elements of a block as text, image, line and rectangle.
+        unless element.attributes['if'].nil?
+          condition=element.attributes['if']
+          query = 'SELECT ('+condition+')::BOOLEAN AS x'
+          code+="if c.select_one(\'"+clean_string(query, options,true)+"\')[\"x\"]==\"t\"\n"
+        end
         block.each_element do |element|
           attrs=element.attributes
           case element.name
