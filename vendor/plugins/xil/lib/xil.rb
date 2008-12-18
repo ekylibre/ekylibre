@@ -267,6 +267,7 @@ module Ekylibre
             end
             code+=self.send('analyze_'+ element.name.gsub("-","_"),element, options.dup) if [XIL_LOOP, XIL_BLOCK, XIL_PAGEBREAK].include?(element.name)
             code+="end\n" unless element.attributes['if'].nil?
+            code += conditionalize(proc, element.attributes['if'], options)
           end
           
         end
@@ -276,6 +277,16 @@ module Ekylibre
         code.to_s
       end
       
+      def conditionalize(proc, element, options={})
+        code = proc
+        unless element.attributes['if'].nil?
+          query = 'SELECT ('+element.attributes['if'].to_s+')::BOOLEAN AS x'
+          code = "if c.select_one(\'"+clean_string(query, options, true)+"\')[\"x\"]==\"t\"\n"+code+"end\n"
+        end
+        code
+      end
+
+
       # runs each blocks and analyzes them.    
       def analyze_block(block, options={})
         code=''
@@ -302,7 +313,7 @@ module Ekylibre
           code+=options[:block_y]+"+="+block_height.to_s+"\n"
           code+=options[:remaining]+"-="+block_height.to_s+"\n"
         end
-        code.to_s
+        conditionalize(code.to_s,block,options)
       end 
       
       # computes the height of the considered block.
@@ -349,7 +360,7 @@ module Ekylibre
         code+=options[:block_y]+"="+options['margin_top'].to_s+"\n"
         code+=options[:remaining]+"="+options[:available_height].to_s+"\n"
         code+=analyze_header(options)
-        code.to_s
+        conditionalize(code.to_s,page_break,options)
       end
       
       # runs and analyzes each header blocks in the template.
@@ -417,7 +428,7 @@ module Ekylibre
         code+=options[:pdf]+".set_font('"+family+"','"+style+"',"+size.to_s+")\n" 
         code+=options[:pdf]+".cell("+attrs['width']+","+attrs['height']+",'"+
           clean_string(text.text.to_s, options)+"',0,0,'"+attrs['align']+"',false)\n"
-        code.to_s
+        conditionalize(code.to_s, text, options)
       end 
       
       # runs and analyzes each image elements in the template with specific attributes as width, height.
@@ -425,7 +436,8 @@ module Ekylibre
         code=''
         attrs=image.attributes
         code+=options[:pdf]+".image('"+attrs['src']+"',"+attrs['x']+","+options[:block_y]+"+"+attrs['y']+","+attrs['width']+","+attrs['height']+")\n"   
-        code.to_s
+#        code.to_s
+        conditionalize(code.to_s, image, options)
       end
 
       # runs and analyzes each line elements in the template.
@@ -438,7 +450,8 @@ module Ekylibre
         code+=options[:pdf]+".set_line_width("+border_width.to_s+")\n"
         code+=options[:pdf]+".line("+attrs['x1']+","+options[:block_y]+"+"+attrs['y1']+","+
           attrs['x2']+","+options[:block_y]+"+"+attrs['y2']+")\n"
-        code.to_s
+#        code.to_s
+        conditionalize(code.to_s, line, options)
       end 
       
       # runs and analyzes each rectangle element in the template.
@@ -461,7 +474,8 @@ module Ekylibre
         end
         code+=options[:pdf]+".rectangle("+attrs['x']+","+options[:block_y]+"+"+attrs['y']+
           ","+attrs['width']+","+attrs['height']+","+radius.to_s+",'"+style+"','"+vertices+"')\n"
-        code.to_s
+#        code.to_s
+        conditionalize(code.to_s, rectangle, options)
       end
       
       # converts the color attribute of an element in a better format easier to understand by the plugin.
