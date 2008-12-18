@@ -267,7 +267,7 @@ module Ekylibre
             end
             code+=self.send('analyze_'+ element.name.gsub("-","_"),element, options.dup) if [XIL_LOOP, XIL_BLOCK, XIL_PAGEBREAK].include?(element.name)
             code+="end\n" unless element.attributes['if'].nil?
-            code += conditionalize(proc, element.attributes['if'], options)
+#            code += conditionalize(proc, element.attributes['if'], options)
           end
           
         end
@@ -299,11 +299,6 @@ module Ekylibre
         #end
         
         # runs the elements of a block as text, image, line and rectangle.
-        unless element.attributes['if'].nil?
-          condition=element.attributes['if']
-          query = 'SELECT ('+condition+')::BOOLEAN AS x'
-          code+="if c.select_one(\'"+clean_string(query, options,true)+"\')[\"x\"]==\"t\"\n"
-        end
         block.each_element do |element|
           attrs=element.attributes
           case element.name
