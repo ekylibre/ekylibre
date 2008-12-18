@@ -65,8 +65,9 @@ class AccountancyController < ApplicationController
         @record = Journal.find(session[:journal]).create_record(params[:record])
         account = Account.find(:first, :conditions=>{:number => params[:account][:number], :company_id => @current_company.id})
         currency = Currency.find(:first, :conditions=>["company_id = ?", @current_company.id])
-        @entry = Entry.create!(params[:entry].merge({:account_id => account.id, :record_id => @record.id, 
+        @entry = Entry.new(params[:entry].merge({:account_id => account.id, :record_id => @record.id, 
                                                      :currency_id => currency.id, :company_id => @current_company.id}))
+        @entry.save
         @record.reload        
       end
 
