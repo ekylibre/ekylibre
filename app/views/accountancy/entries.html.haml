@@ -20,8 +20,8 @@
       %td.label=lc :record_credit
     %tr
       %td.input=text_field :record, :number, {:size=>9, :tabindex=>1}
-      %td.input=text_field :record, :created_on, {:value=>Date.today, :readonly=>true, :size=>10}
-      %td.input=text_field :record, :printed_on, {:value=>Date.today, :tabindex=>2, :size=>10} 
+      %td.input=text_field :record, :created_on, { :readonly=>true, :size=>10}
+      %td.input=text_field :record, :printed_on, { :tabindex=>2, :size=>10} 
       %td.input=text_field :entry, :name, {:tabindex=>3, :size=>14}
       %td.input=text_field :account, :number, {:tabindex=>4, :size=>14} 
       %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>9, :value=>0}
@@ -37,10 +37,10 @@
 #account 
 =observe_field "account_number", :frequency => 0.25, :function =>"if ( (document.getElementById('account_number').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'account', :url => { :action => 'find_accounts'}, :with => "'account=' + escape(value)")+"}"
 =update_page_tag do |page|
-  - page['record_number'].value = @number
+  - page['record_number'].value = @record.number
   - page['record_number'].focus()
-  - page['record_created_on'].value = @created_on || Date.today
-  - page['record_printed_on'].value = @printed_on  || Date.today
+  - page['record_created_on'].value = @record.created_on
+  - page['record_printed_on'].value = @record.printed_on
   - page['number'].value = session[:records_number]
 
     

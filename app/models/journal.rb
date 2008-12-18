@@ -71,7 +71,7 @@ class Journal < ActiveRecord::Base
   def create_record(values = {})
     period = JournalPeriod.find(:first, :conditions=>['company_id = ? AND ? BETWEEN started_on AND stopped_on ',self.company_id, values[:created_on] ])
     period = self.periods.create!(:company_id=>self.company_id, :started_on=>values[:created_on]) if period.nil?
-    record = JournalRecord.find(:first,:conditions=>['period_id = ? AND number = ?', period.id, values[:number] ]) 
+    record = JournalRecord.find(:first,:conditions=>{:period_id => period.id, :number => values[:number] }) 
     record = JournalRecord.create!(values.merge({:period_id=>period.id, :company_id=>self.company_id, :journal_id=>self.id})) if record.nil?
     return record
   end
@@ -79,7 +79,7 @@ class Journal < ActiveRecord::Base
   
   # this method searches the last records according to a number.  
   def last_records(number_record)
-    records = JournalRecord.find(:all, :conditions=>['journal_id = ? AND company_id = ?', self.id, self.company_id], :order => 'id DESC', :limit => number_record)
+    records = JournalRecord.find(:all, :conditions=>['journal_id = ? AND company_id = ?', self.id, self.company_id], :order => "lpad(number,20,'0') DESC", :limit => number_record)
     return records
   end
 
