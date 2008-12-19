@@ -1,0 +1,23 @@
+-if @records
+  %table{:border=>1, :class => "entries"}
+    %tr
+      %td.label=lc :record_number
+      %td.label=lc :record_created
+      %td.label=lc :record_printed 
+      %td.label=lc :label
+      %td.label=lc :account_number
+      %td.label=lc :record_debit
+      %td.label=lc :record_credit
+    - @records.each do |record|
+      - attr = cycle("even","odd")  
+      - record.entries.reverse.each do |entry|
+        - debit = number_to_currency(entry.debit, :delimiter=>"", :precision => 2, :unit=>"")
+        - credit = number_to_currency(entry.credit, :delimiter=>"", :precision => 2, :unit=>"")
+        %tr{ :class=>(entry.record.balanced ? "balanced" : "unbalanced")+"-"+attr}
+          %td=entry.record.number
+          %td=entry.record.created_on.to_formatted_s :attributes
+          %td=entry.record.printed_on.to_formatted_s :attributes
+          %td=entry.name
+          %td=entry.account.number
+          %td{:align=>"right"}= debit
+          %td{:align=>"right"}= credit
