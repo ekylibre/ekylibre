@@ -30,10 +30,10 @@ tr.unbalanced-odd td{background: #FF9999;}
 #main { overflow: auto; }
 #yield { padding: 4px; }
 #yield > h1 { font-variant: small-caps; letter-spacing:4px; }
-#help { width: 150px; /*border-left: 1px dotted #C9D7F1;*/ background: #E3F4FF;}
+#help { width: 150px; /*border-left: 1px dotted #C9D7F1;*/ background: #fffee3 url(/images/template/help.png) repeat-x top;}
 #help > h2 { background: #C9D7F1; font-size: 20px; text-align:center; height:24px; padding:4px; vertical-align: center; }
 #help .nav { height: 32px; }
-#help .light { color: #bbe; text-transform: uppercase; font-weight:bold; overflow:hidden; padding: 6px 4px;}
+#help .light { color: #dd8; text-transform: uppercase; font-weight:bold; overflow:hidden; padding: 6px 4px;}
 #help .content { padding: 8px; overflow: auto; }
 
 .help-link { float:right; }

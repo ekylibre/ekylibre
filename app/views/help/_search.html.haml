@@ -3,5 +3,5 @@
   #help-previous.help-link=link_to_remote(content_tag(:div, "&nbsp;"), :url=>{:controller=>:help, :action=>:previous }, :update=>:help ) if session[:help_history].size>1
   #help-web.help-link=link_to(content_tag(:div, "&nbsp;"), "http://www.ekylibre.org")
   .light=@id
-.content=retrieve(@id,'start-help')
+.content{:flex=>1}=retrieve(@id,'start-help')
      

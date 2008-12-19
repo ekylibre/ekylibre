@@ -1,0 +1,12 @@
+%h1=lc :title
+= error_messages_for 'company', 'user'
+= formalize(:multipart=>false) do |f|
+  - f.title :my_company
+  - f.field :company, :name, {:example=>lc(:company_name_example)}
+  - f.field :company, :siren
+  - f.title :my_self
+  - f.field :user, :last_name
+  - f.field :user, :first_name, :example=>lc(:user_first_name_example)
+  - f.field :user, :name, :example=>lc(:user_name_example), :info=>lc(:user_name_info)
+  - f.field :user, :password, :null=>false, :hint=>lc(:user_password_hint)
+  - f.field :user, :password_confirmation, :null=>false, :info=>lc(:user_password_confirmation_info)
