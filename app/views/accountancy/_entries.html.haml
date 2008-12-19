@@ -10,7 +10,7 @@
       %td.label=lc :record_credit
     - @records.each do |record|
       - attr = cycle("even","odd")  
-      - record.entries.reverse.each do |entry|
+      - record.entries.each do |entry|
         - debit = number_to_currency(entry.debit, :delimiter=>"", :precision => 2, :unit=>"")
         - credit = number_to_currency(entry.credit, :delimiter=>"", :precision => 2, :unit=>"")
         %tr{ :class=>(entry.record.balanced ? "balanced" : "unbalanced")+"-"+attr}

@@ -35,8 +35,7 @@ class Entry < ActiveRecord::Base
   after_create  :update_record
   after_update  :update_record
 
- def before_validation 
-    
+  def before_validation 
     # computes the values depending on currency rate
     # for debit and credit.
    self.currency_rate = self.currency.rate if self.currency_rate.blank?
@@ -49,9 +48,13 @@ class Entry < ActiveRecord::Base
  end
   
  def validate
-   errors.add_to_base lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
-   errors.add_to_base lc(:error_amount_balance2) unless self.debit + self.credit > 0    
-   
+  errors.add_to_base lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
+  errors.add_to_base lc(:error_amount_balance2) unless self.debit + self.credit > 0    
+  
+  self.error = lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
+  self.error = lc(:error_amount_balance2) unless self.debit + self.credit > 0    
+  
+  #raise Exception.new "models:"+ self.errors.inspect.to_s  
  end
  
  # updates the amounts to the debit and the credit 

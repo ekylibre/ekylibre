@@ -67,6 +67,17 @@ class AccountancyController < ApplicationController
         currency = Currency.find(:first, :conditions=>["company_id = ?", @current_company.id])
         @entry = Entry.new(params[:entry].merge({:account_id => account.id, :record_id => @record.id, 
                                                      :currency_id => currency.id, :company_id => @current_company.id}))
+        # @aff = ''
+        #         unless @entry.errors.nil?
+        #           @entry.errors.each do |attr, msg|
+        #             @aff += msg
+        #           end
+        #         else
+        #           @aff += "enregistrement effectué !"
+        #         end
+
+
+        #raise Exception.new 'controller : ' +.errors.inspect.to_s
         @entry.save
         @record.reload        
       end
@@ -84,7 +95,7 @@ class AccountancyController < ApplicationController
 
     render :action => "entries.rjs" if request.xhr?    
   end
-  #jkj
+  
   # this method converts a date into a new date with a specific format or a string into a date.
   def convert_date(date)
     if date.is_a? Date
