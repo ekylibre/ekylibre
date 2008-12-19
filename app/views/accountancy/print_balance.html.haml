@@ -7,7 +7,7 @@
     %tr
       %td.label Entrez l'année recherchée 
     %tr
-      %td.input=text_field :test, :date 
+      %td.input=text_field :test, :date
       %td.button=submit_tag 'ok'
       %br
     %tr 
@@ -15,18 +15,18 @@
     %tr
       %td.label OU
     %tr
-    %tr
+    %tr 
     %tr
     %tr
       %td.label
         %h3 Recherche de date à date
     %tr
     %tr
-      %td.label Début
-      %td.label=date_select :test, :begin
+      %td.label Début 
+      %td.label=date_select :test, :begin_date
     %tr
       %td.label  Fin 
-      %td.label=date_select :test, :end
+      %td.label=date_select :test, :end_date
     %tr
     %tr
     %tr
@@ -38,7 +38,7 @@
         %h3  Recherche de compte à compte
     %tr
       %td.input=text_field :test, :account1
-      %td.label Compte 1
+      %td.label Compte 1 
     %tr
       %td.input=text_field :test, :account2
       %td.label Compte 2 
