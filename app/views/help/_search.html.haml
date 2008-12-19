@@ -1,12 +1,7 @@
 .nav
-  #help-close.help-link=link_to_remote(content_tag(:div , "&nbsp;"),:url=>{:controller=>:help , :action=>:close},:complete => "closeHelp();")
-  %div=retrieve(@id,'start-help')
-  %br
-  #help-previous.help-t=link_to_remote("precedent",:url=>{:controller=>:help , :action=>:previous }, :update=>:help ) if session[:help_history].size>1
-
-
-  <!--#help-previous=link_to_remote(content_tag(:div , "precedent"),:url=>{:controller=>:help , :action=>:search, :id=>@previous}, :update=>"search")-->
-  <!--%p=@previous.to_s-->
- 
-  
+  #help-close.help-link=link_to_remote(content_tag(:div, "&nbsp;"), :url=>{:controller=>:help, :action=>:close},:complete => "closeHelp();")
+  #help-previous.help-link=link_to_remote(content_tag(:div, "&nbsp;"), :url=>{:controller=>:help, :action=>:previous }, :update=>:help ) if session[:help_history].size>1
+  #help-web.help-link=link_to(content_tag(:div, "&nbsp;"), "http://www.ekylibre.org")
+  .light=@id
+.content=retrieve(@id,'start-help')
      

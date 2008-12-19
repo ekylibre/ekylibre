@@ -32,13 +32,18 @@ tr.unbalanced-odd td{background: #FF9999;}
 #yield > h1 { font-variant: small-caps; letter-spacing:4px; }
 #help { width: 150px; /*border-left: 1px dotted #C9D7F1;*/ background: #E3F4FF;}
 #help > h2 { background: #C9D7F1; font-size: 20px; text-align:center; height:24px; padding:4px; vertical-align: center; }
-/*#help > div { padding: 2px 4px; }*/
+#help .nav { height: 32px; }
+#help .light { color: #bbe; text-transform: uppercase; font-weight:bold; overflow:hidden; padding: 6px 4px;}
+#help .content { padding: 8px; overflow: auto; }
 
 .help-link { float:right; }
 .help-link > a > div { width: 32px; height:32px; }
+#help-begin { background: url(/images/template/help-begin.png); height:32px; width:16px;}
+#help-web { background: url(/images/template/help-web.png); }
 #help-open { background: url(/images/template/help-open.png); }
 #help-close { background: url(/images/template/help-close.png); }
-.help-t { float:right; margin:20px;}
+#help-previous { background: url(/images/template/help-previous.png); }
+/*.help-t { float:right; margin:20px;}*/
 
 .menu {/* float:left; margin-top:20px; font-size:.8em;*/}
 

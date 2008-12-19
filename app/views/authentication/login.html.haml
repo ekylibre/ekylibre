@@ -12,7 +12,8 @@
         %td.label=lc :password
         %td.input=password_field :user, :password, :tabindex=>2, :onchange=>"document."+@login+".submit()"
         %td.help= link_to lc(:lost_password), :action=>:lost_password
-      %tr        %td.button{:colspan=>3}=submit_tag(lc(:connect), :tabindex=>3)
+      %tr
+        %td.button{:colspan=>3}=submit_tag(lc(:connect), :tabindex=>3)
       %tr
         %td.actions{:colspan=>3}=link_to lc(:register), {:action=>:register}, {:class=>:show}
   .line

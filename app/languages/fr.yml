@@ -262,6 +262,15 @@ app:
       title: 'Accueil'
     accountancy:
       title: 'Comptabilité'
+    management:
+      title: 'Gestion commerciale'
+      consult_purchases: 'Consulter l''état des achats'
+      consult_sales: 'Consulter l''état des ventes'
+      consult_stocks: 'Consulter l''état des stocks'
+      new_sale: 'Nouveau devis'
+      purchases: 'Achats'
+      sales: 'Ventes'
+      stocks: 'Stocks'
     sales:
       title: 'Ventes'
     purchases:
@@ -269,7 +278,7 @@ app:
     stocks:
       title: 'Stocks'
   help:
-    error_no_file:'Aucun fichier d''aide disponible'
+    error_no_file: 'Aucun fichier d''aide disponible'
   journal:
     error_limited_period: '.'
     error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
@@ -296,6 +305,10 @@ app:
     error_financialyear: 'La date de début de l''exercice comptable est incorrecte.'
   layouts:
     application:
+  management:
+    sale:
+      general: Général
+      products: Produits
   cancel: 'Annuler'
   create: 'Créer'
   edit: 'Modifier'
