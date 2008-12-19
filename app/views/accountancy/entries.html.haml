@@ -8,7 +8,7 @@
         %td.label=lc :number_records
         %td.input=text_field_tag "number", session[:records_number], :tabindex => 1 
         %td.button=submit_tag 'ok', :html => {:tabindex => 2}     
-- form_remote_tag(:record) do 
+- form_remote_tag() do 
   %table
     %tr
       %td.label=lc :record_number
@@ -42,5 +42,5 @@
   - page['record_created_on'].value = @record.created_on
   - page['record_printed_on'].value = @record.printed_on
   - page['number'].value = session[:records_number]
-#flash_notice
+#div_id
     
