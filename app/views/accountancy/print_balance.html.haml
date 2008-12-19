@@ -3,11 +3,10 @@
   %table
     %tr
       %td.label 
-        %h3 Recherche par année
+        %h3 Sélectionner l'exercice comptable
     %tr
-      %td.label Entrez l'année recherchée 
-    %tr
-      %td.input=text_field :test, :date
+      %td.label Sélectionner l'exercice comptable
+      %td.label=select(:test, :code, Financialyear.find(:all).collect {|p| [ p.code ]} )
       %td.button=submit_tag 'ok'
       %br
     %tr 
@@ -44,3 +43,4 @@
       %td.label Compte 2 
       %td.button=submit_tag 'ok'
    
+     

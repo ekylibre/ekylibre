@@ -160,12 +160,17 @@ class AccountancyController < ApplicationController
     #raise Exception.new @current_company.id
     # raise Exception.new [:test][:current_company]
     if request.post?
-      params[:test][:current_company] = @current_company.id
+      date = params[:test][:date]
+      year = date.to_i
+      params[:test][:year_begin] = Date.new(year,01,01)
+      params[:test][:year_end] = Date.new(year,12,31)
+      params[:test][:current_company] = @current_company.id.to_s
+      #raise Exception.new params[:test][:financial_id].class.to_s
       render_xil('/home/thibaud/ekylibre2/trunk/ekylibre/app/balance.xml',:locals=>params[:test])
     end
   end
   
-
+  
 end
 
 

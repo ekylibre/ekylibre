@@ -305,6 +305,7 @@ module Ekylibre
           when 'line'
             code+=options[:pdf]+".set_xy("+attrs['x1']+","+options[:block_y]+"+"+attrs['y1']+")\n"
           else
+            raise  Exception.new("Unvalid markup tag "+element.name+" ("+element.inspect+")") if attrs['x'].blank? or attrs['y'].blank?
             code+=options[:pdf]+".set_xy("+attrs['x']+","+options[:block_y]+"+"+attrs['y']+")\n"
           end
           code+=self.send('analyze_'+ element.name,element,options).to_s if [XIL_TEXT,XIL_IMAGE,XIL_LINE,XIL_RECTANGLE].include? element.name
