@@ -260,6 +260,8 @@ app:
     title: Accueil
     index:
       title: 'Accueil'
+    about_us:
+      title: 'À propos d''Ekylibre'
     accountancy:
       title: 'Comptabilité'
     management:

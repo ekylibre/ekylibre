@@ -52,7 +52,6 @@ class AccountancyController < ApplicationController
     redirect_to :action => "entries"
   end
  
- 
   #
   def entries
     session[:records_number] = 5 if session[:records_number].nil?
