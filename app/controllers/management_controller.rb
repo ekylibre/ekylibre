@@ -7,4 +7,13 @@ class ManagementController < ApplicationController
   def sale
   end
  
+  def sales
+  end
+  
+  def purchases
+  end
+
+  def stocks
+  end
+
 end

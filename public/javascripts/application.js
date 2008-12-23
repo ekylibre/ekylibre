@@ -106,56 +106,6 @@ var xulElementMethods = {
     return h;
   },
   
-  resizeTo: function(element,width,height) {
-    var children = element.childElements();
-    trace(element.tagName);
-    if (children.length>0) {
-      // Preprocessing dimensions values
-      var child;
-      var flex,dims,d;
-      var totalFlex   = 0;
-      var totalWidth  = 0;
-      var totalHeight = 0;
-      
-      for (d=0;d<children.length;d++) {
-        child = children[d];
-        if (child.isXUL()) {
-          totalFlex += child.flex();
-        } else {
-          dims = child.getOuterDimensions();
-          totalWidth  += dims.width;
-          totalHeight += dims.height;
-        }
-      }
-      if (totalFlex>=1) {
-        trace('/'+totalFlex+'{');
-        // Redimensioning
-        var w,h;
-        var horizontal = element.isHorizontal();
-        var kh = (height-10-totalHeight)/totalFlex;
-        var kw = (width-10-totalWidth)/totalFlex;
-        for (d=0;d<children.length;d++) {
-          child = children[d];
-          if (child.isFlexible()) {
-            flex = child.flex();
-            if (horizontal) {
-              h = height;//element.getHeight();
-              w = kw*flex;
-            } else {
-              h = kh*flex;
-              w = width;//element.getWidth();
-            }
-            child.resizeTo(w,h);
-          }
-        }
-        trace('}');
-      }
-    }
-    element.setStyle({height: height+'px', width: width+'px'});
-    //    element.innerHTML += '<br/>'+width+' x '+height;
-    trace('! ');
-    return element;
-  },
 
   resize: function(element,width,height) {
     var children = element.childElements();
@@ -186,7 +136,7 @@ var xulElementMethods = {
       }
 
       // Redimensioning
-      var w,h,l,x=0;
+      var w,h,l=0,t=0,s=0,x=0,o;
       var k = (length-fixedsum)/flexsum;
       for (index=0;index<children_length;index++) {
         child = children[index];
@@ -194,17 +144,37 @@ var xulElementMethods = {
           w = width-borders[index].horizontal;
           h = height-borders[index].vertical;
           if (flexes[index]>0) {
-            l = k*flexes[index];
+            s = k*flexes[index];
           } else {
-            l = lengths[index];
+            s = lengths[index];
           }
           if (horizontal) {
-            child.setStyle({width: (l-borders[index].horizontal)+'px', height: h+'px', overflow: 'auto', position: 'absolute', top: '0px', left: x+'px'});
+            w = s-borders[index].horizontal*1;
+            t = 0; 
+            l = x;
           } else {
-            child.setStyle({width: w+'px', height: (l-borders[index].vertical)+'px', overflow: 'auto', position: 'absolute', top: x+'px', left: '0px'});
+            h = s-borders[index].vertical*1;
+            t = x; 
+            l = 0;
           }
-          x += l;
-          // child.resizeTo(w,h); 
+          /*
+          child.setStyle({width: w+'px', height: h+'px', overflow: 'auto', position: 'absolute', top: t+'px', left: l+'px'});
+          child.setAttribute('test',x+' '+s+' '+lengths[index]+' ');
+          */
+          
+          if (flexes[index]>0 || child.id === 'top') {
+            o=child.getStyle('overflow');
+            if (null === o) {
+              o = 'auto';
+            }
+            child.setStyle({width: w+'px', height: h+'px', overflow: o, position: 'absolute', top: t+'px', left: l+'px'});
+            child.resize(w,h);
+            /* child.setAttribute('resized', 'true'); */
+          } else {
+            /* child.setStyle({position: 'absolute', top: t+'px', left: l+'px'}); */
+          }
+          
+          x += s;
         }
       }
     }
@@ -224,13 +194,19 @@ Element.addMethods(xulElementMethods);
 
 function _resize() {
   var dims   = document.viewport.getDimensions();
-  var height = dims.height-25;
+  var height = dims.height; /*-25;*/
   var width  = dims.width;
-  $('columns').resize(width,height);
+  $('body').resize(width,height);
 }
 
 function resize() {
   window.setTimeout('_resize()',300);
+  _resize();
+  /*  _resize();*/
+}
+
+function resize2() {
+  window.setTimeout('_resize()',350);
   _resize();
   /*  _resize();*/
 }
@@ -261,4 +237,12 @@ function windowResize() {
 
 function getBody() {
   return document.getElementsByTagName("BODY")[0];
+}
+
+function onLoading() {
+  $('loading').setStyle({display: 'block'});
+}
+
+function onLoaded() {
+  $('loading').setStyle({display: 'none'});
 }

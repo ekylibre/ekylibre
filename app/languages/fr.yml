@@ -280,7 +280,9 @@ app:
     stocks:
       title: 'Stocks'
   help:
-    error_no_file: 'Aucun fichier d''aide disponible'
+    error_no_file: 'Aucun fichier d''aide disponible pour cette partie de l''application'
+    search:
+      title: 'Aide'
   journal:
     error_limited_period: '.'
     error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
@@ -308,7 +310,9 @@ app:
   layouts:
     application:
   management:
+    title: 'Gestion'
     sale:
+      title: Devis
       general: Général
       products: Produits
   cancel: 'Annuler'

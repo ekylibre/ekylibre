@@ -6,6 +6,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="32"
@@ -21,6 +22,28 @@
    inkscape:export-ydpi="90">
   <defs
      id="defs4">
+    <linearGradient
+       id="linearGradient3174">
+      <stop
+         style="stop-color:#ffad67;stop-opacity:1;"
+         offset="0"
+         id="stop3176" />
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="1"
+         id="stop3178" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3164">
+      <stop
+         style="stop-color:#c9d7f1;stop-opacity:1;"
+         offset="0"
+         id="stop3166" />
+      <stop
+         style="stop-color:#6990d9;stop-opacity:1;"
+         offset="1"
+         id="stop3168" />
+    </linearGradient>
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
        inkscape:vp_x="0 : 526.18109 : 1"
@@ -28,6 +51,26 @@
        inkscape:vp_z="744.09448 : 526.18109 : 1"
        inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
        id="perspective10" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3164"
+       id="linearGradient3170"
+       x1="-39.261051"
+       y1="23.876953"
+       x2="26.624998"
+       y2="6.4228525"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9239437,0,0,0.8737202,7.4,1.6382253)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3174"
+       id="linearGradient3180"
+       x1="3"
+       y1="68.25"
+       x2="3"
+       y2="36.125"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(7.4766355e-2,0,0,0.9961089,-0.2242991,-3.9844358)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -65,6 +108,16 @@
      inkscape:groupmode="layer"
      id="layer1"
      style="display:inline">
+    <rect
+       style="opacity:1;fill:url(#linearGradient3170);fill-opacity:1.0;fill-rule:nonzero;stroke:none;stroke-width:3.75000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2392"
+       width="82"
+       height="32"
+       x="-50"
+       y="4.4408921e-16"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/template/help-end.png"
+       inkscape:export-xdpi="54.880001"
+       inkscape:export-ydpi="54.880001" />
     <path
        transform="matrix(0.8231511,0,0,1.1636364,13.376205,26.763636)"
        style="fill:#c9d7f1;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1"
@@ -73,7 +126,7 @@
        sodipodi:nodetypes="csssc" />
     <path
        style="fill:#c9d7f1;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M -16,1.4839687e-07 L 0,1.4839687e-07 L 0,31.999965 C -15.871474,32.033478 -15.943208,8.2338914 -16,1.4839687e-07 z"
+       d="M 46.375,35.375 L 62.375,35.375 L 62.375,67.374965 C 46.503526,67.408478 46.431792,43.608891 46.375,35.375 z"
        id="help-begin"
        sodipodi:nodetypes="cccc"
        inkscape:export-xdpi="90"
@@ -104,6 +157,16 @@
        d="M 0.125,-57.814538 L 11.079042,-69.375 L 13.812027,-67.201373 L 7.7086966,-60.602689 L 21.875,-60.714531 L 21.875,-54.914545 L 7.7086966,-55.250071 L 13.356529,-48.315861 L 11.079042,-46 L 0.125,-57.814538 z"
        id="path3163"
        sodipodi:nodetypes="cccccccccc" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient3180);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.75;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="help-error"
+       width="1"
+       height="32"
+       x="0"
+       y="32"
+       inkscape:label="#rect3172"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -142,15 +205,15 @@
     <text
        xml:space="preserve"
        style="font-size:26.26066971px;font-style:normal;font-weight:normal;line-height:125%;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="7.4526782"
-       y="20.80405"
+       x="8.6669044"
+       y="20.418003"
        id="text3169"
        sodipodi:linespacing="125%"
        transform="scale(1.0294622,0.971381)"><tspan
          sodipodi:role="line"
          id="tspan3171"
-         x="7.4526782"
-         y="20.80405"
+         x="8.6669044"
+         y="20.418003"
          style="font-size:26.26066971px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;font-family:Qlassik Bold;-inkscape-font-specification:'Qlassik Bold, Bold'">@</tspan></text>
   </g>
 </svg>

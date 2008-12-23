@@ -1,7 +1,7 @@
-.nav
-  #help-close.help-link=link_to_remote(content_tag(:div, "&nbsp;"), :url=>{:controller=>:help, :action=>:close},:complete => "closeHelp();")
-  #help-previous.help-link=link_to_remote(content_tag(:div, "&nbsp;"), :url=>{:controller=>:help, :action=>:previous }, :update=>:help ) if session[:help_history].size>1
-  #help-web.help-link=link_to(content_tag(:div, "&nbsp;"), "http://www.ekylibre.org")
-  .light=@id
-.content{:flex=>1}=retrieve(@id,'start-help')
-     
+%div{:orient=>:vertical, :flex=>1}
+  .nav
+    #help-close.help-link=link_to_remote(content_tag(:div, "&nbsp;"), :url=>{:controller=>:help, :action=>:close},:complete => "closeHelp();", :loading=>"onLoading();", :loaded=>"onLoaded();")
+    #help-previous.help-link=link_to_remote(content_tag(:div, "&nbsp;"), :url=>{:controller=>:help, :action=>:previous }, :update=>:help, :complete=>"resize2();", :loading=>"onLoading();", :loaded=>"onLoaded();" ) if session[:help_history].size>1
+    #help-web.help-link=link_to(content_tag(:div, "&nbsp;"), "http://www.ekylibre.org")
+    .light=lc :title
+  .content{:flex=>1, :style=>'overflow:auto;'}=retrieve(@id,:default=>'guide-index')

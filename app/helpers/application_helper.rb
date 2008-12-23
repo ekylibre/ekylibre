@@ -43,22 +43,22 @@ module ApplicationHelper
     # Guide Tag
     tag = ''
     tag += css_menu_tag(session[:menu_guide])
-    code += content_tag(:div, tag, :id=>:guide, :class=>:menu)
+    code += content_tag(:div, tag, :id=>:guide, :class=>:menu, :flex=>1)
     # Fix
-    code += content_tag(:div, '', :style=>'left:0pt;')
-
+    tag = ''
+    tag += image_tag('template/ajax-loader-2.gif', :id=>:loading, :style=>'display:none;')
+    #    tag  = content_tag :div, tag
+    code += content_tag(:div, tag, :style=>'text-align:center;', :flex=>1)
+    #    code += content_tag(:div, tag, :style=>'left:0pt;')
+    
     # User Tag
     tag = ''
-   # tag += link_to(@current_user.label, {:controller=>:config, :action=>:user})
-   # tag += ' '+link_to(@current_company.name, {:controller=>:config, :action=>:company})
-   # tag += ' '+link_to(lc(:exit), {:controller=>:authentication, :action=>:logout})
-    tag  += css_menu_tag(session[:menu_user]) 
-    code += content_tag(:div, tag, :id=>:user, :class=>:menu)
+    tag += css_menu_tag(session[:menu_user]) 
+    code += content_tag(:div, tag, :id=>:user, :class=>:menu, :flex=>1)
 
     # Fix
-    code += content_tag(:div, '', :style=>'clear:both;')
-    
-    return content_tag(:div, code, :id=>:top)
+    #    code += content_tag(:div, '', :style=>'clear:both;')    
+    return content_tag(:div, code, :id=>:top, :orient=>:horizontal)
   end
   
 
@@ -124,7 +124,7 @@ module ApplicationHelper
     url = {:controller=>:help, :action=>:search, :id=>controller.controller_name+'-'+action_name}
     content = content_tag(:div, '&nbsp;')
     options[:style] = "display:none" if session[:help]
-    code  = content_tag(:div, link_to_remote(content, :update=>:help,  :url=>url, :complete=>"openHelp();"), {:id=>"help-open"}.merge(options))
+    code  = content_tag(:div, link_to_remote(content, :update=>:help,  :url=>url, :complete=>"openHelp();", :loading=>"onLoading();", :loaded=>"onLoaded();"), {:id=>"help-open"}.merge(options))
   end
 
 
