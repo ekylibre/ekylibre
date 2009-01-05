@@ -1,13 +1,13 @@
-class ConfigController < ApplicationController
+class CompanyController < ApplicationController
 
-  def company
+  def index
     @company = @current_company
     @establishments = @company.establishments
     @departments = @company.departments
     @users = @company.users
   end
 
-  def company_edit
+  def update
     @company = @current_company
     if request.post?
       if @company.update_attributes(params[:company])
