@@ -148,7 +148,9 @@ app:
   accountancy:
     title: Comptabilité
     accounts:
-      title: Comptes
+      title: Comptes comptables
+    bank_accounts: 
+      title: Comptes bancaires
     entries:
       title: Écritures
       select: 'Sélectionnez le journal :'
