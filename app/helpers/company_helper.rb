@@ -1,2 +1,2 @@
-module ConfigHelper
+module CompanyHelper
 end
