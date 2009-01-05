@@ -1,0 +1,26 @@
+%h1= lc :title
+
+.action-list
+  %h2= lc :sales
+  %ul
+    %li=link_to lc(:new_sale), {:action=>:sales_new}
+    %li=link_to lc(:consult_sales), {:action=>:sales}
+
+.action-list
+  %h2= lc :purchases
+  %ul
+    %li=link_to lc(:new_purchase), {:action=>:purchases_new}
+    %li=link_to lc(:consult_purchases), {:action=>:purchases}
+
+.action-list
+  %h2= lc :stocks
+  %ul
+    %li=link_to lc(:stocks_locations), {:action=>:stocks_locations}
+    %li=link_to lc(:consult_stocks), {:action=>:stocks}
+
+.action-list
+  %h2= lc :parameters
+  %ul
+    %li=link_to lc(:products), {:action=>:products}
+
+

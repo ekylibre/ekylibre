@@ -1,0 +1,17 @@
+%h1= lc :title
+
+.action-list
+  %h2= lc :sales
+  %ul
+    %li=link_to lc(:new_sale), {:controller=>:management, :action=>:new_sale}
+    %li=link_to lc(:consult_sales), {:controller=>:management, :action=>:sales}
+
+.action-list
+  %h2= lc :purchases
+  %ul
+    %li=link_to lc(:consult_purchases), {:controller=>:management, :action=>:purchases}
+
+.action-list
+  %h2= lc :stocks
+  %ul
+    %li=link_to lc(:consult_stocks), {:controller=>:management, :action=>:stocks}

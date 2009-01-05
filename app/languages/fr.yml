@@ -311,6 +311,21 @@ app:
     application:
   management:
     title: 'Gestion'
+    index:
+      title: 'Gestion commerciale'
+      consult_purchases: 'Consulter l''état des achats'
+      consult_sales: 'Consulter l''état des ventes'
+      consult_stocks: 'Consulter l''état des stocks'
+      new_purchase: 'Nouvel achat'
+      new_sale: 'Nouvelle vente'
+      parameters: 'Paramètres'
+      products: 'Gérer les produits de vente et d''achat'
+      purchases: 'Achats'
+      sales: 'Ventes'
+      stocks: 'Stocks'
+      stocks_locations: 'Gérer les stocks'
+    sales_new:
+      title: 'Nouvelle vente'
     sale:
       title: Devis
       general: Général
