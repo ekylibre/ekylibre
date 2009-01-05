@@ -77,7 +77,7 @@ module Dyta
         body = ''
         for column in definition.columns
           header += "+\n      " unless header.blank?
-          header += "content_tag(:th, '"+h(column.header)+" '"
+          header += "content_tag(:th, '"+h(column.header).gsub('\'','\\\\\'')+" '"
           unless column.action? or column.options[:through]
             header += "+link_to_remote("+value_image(:down)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"'})"
             header += "+link_to_remote("+value_image(:up)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"', :dir=>'desc'})"
