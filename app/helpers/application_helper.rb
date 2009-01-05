@@ -13,12 +13,20 @@ module ApplicationHelper
     end
   end
 
-  def evalue(object, attribute)
-    code  = content_tag :div, object.class.human_attribute_name(attribute.to_s), :class=>:label
-    value = object.send(attribute.to_s)
+  def evalue(object, attribute, options={})
+    if object.is_a? String
+      label = object
+      value = attribute
+    else
+      label = object.class.human_attribute_name(attribute.to_s)
+      value = object.send(attribute.to_s)
+    end
+    value = link_to(value.to_s, options[:url]) if options[:url]
+    code  = content_tag(:div, label.to_s, :class=>:label)
     code += content_tag(:div, value.to_s, :class=>:value)
     content_tag(:div, content_tag(:div,code), :class=>:evalue)
   end
+
 
   def menu_modules
     modules = [:index, :accountancy]#, :sales, :purchases, :stocks]

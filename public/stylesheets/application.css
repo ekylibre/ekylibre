@@ -52,6 +52,12 @@ tr.unbalanced-odd td{background: #FF9999;}
 #help-previous { background: url(/images/template/help-previous.png); }
 /*.help-t { float:right; margin:20px;}*/
 
+#test  { text-align:center;}
+#updatebutton { padding:0px 0 0 200px; margin-top:50px; }
+#changepwd { padding:20px 0 0 90px; }
+#userslist { text-align:center; }
+
+
 .menu {/* float:left; margin-top:20px; font-size:.8em;*/}
 .menu > a { display:block; text-decoration:none; background:#DDD;  padding:0 8px;}
 .menu a:hover { text-decoration:none;}
@@ -92,7 +98,8 @@ table.invex, table.flex { width: 100% }
 
 .evalue { display:table; border-collapse: collapse;}
 .evalue > div { display:table-row; }
-.evalue .label, .evalue .value { display:table-cell; }
+.evalue .label, .evalue .value { display:table-cell; padding:1px 4px;  }
+.evalue .label { width:256px; text-align:right; }
 
 div.tr { display: table-row; }
 div.td { display: table-cell; }

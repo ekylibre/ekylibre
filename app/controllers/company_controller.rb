@@ -17,9 +17,41 @@ class CompanyController < ApplicationController
   end
 
   def user
-    render :text=>@current_user.name, :layout=>true
+    @company = @current_company
+    @user = @current_user
+  end
+
+  dyta(:users, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :first_name
+    t.column :last_name
+    t.column :email
+  end
+
+  def users
+    users_list params
+  end
+
+  dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :nic
+    t.column :siret
+    t.column :note
+  end
+
+  def establishments
+    establishments_list params
   end
   
+  dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+    t.column :name
+    t.column :desc
+  end
+
+  def departments
+    departments_list params
+  end
+
   def users_create
     access :users
     if request.post?
@@ -31,5 +63,9 @@ class CompanyController < ApplicationController
     end
     render_form
   end
+
+  def users_update
+  end
   
 end
+

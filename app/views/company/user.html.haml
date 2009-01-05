@@ -1,0 +1,11 @@
+#user
+  %br
+  = evalue @user , :name
+  %br
+  = evalue @user, :first_name
+  %br
+  = evalue @user, :last_name
+  %br
+  = evalue @user, :email
+#changepwd
+  = button_to lc(:change_password) ,  {:controller=>:authentication , :action=>:change_password}

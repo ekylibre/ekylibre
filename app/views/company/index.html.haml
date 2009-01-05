@@ -1,0 +1,18 @@
+%div
+  #updatebutton
+    = button_to lc(:up) , {:action=>:update}
+%div
+  #test 
+    %h2=@company.name
+    %br
+    = evalue @company , :name 
+    %br
+    = evalue @company , :siren
+    %br
+    = evalue @company , :code
+    %br
+    = evalue lc(:establishments_number  ) , @company.establishments.size, :url=>{:action=>:establishments}
+    %br
+    = evalue lc(:departments_number ) , @company.departments.size, :url=>{:action=>:departments}
+    %br
+    = evalue lc(:users_number ) ,@company.users.size, :url=>{:action=>:users}
