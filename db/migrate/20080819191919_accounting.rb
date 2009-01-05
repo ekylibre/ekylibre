@@ -30,6 +30,7 @@ class Accounting < ActiveRecord::Migration
       t.column :alpha,            :string,  :limit=>16
       t.column :name,             :string,  :null=>false, :limit=>208
       t.column :label,            :string,  :null=>false
+      t.column :deleted,          :boolean, :null=>false, :default=>false
       t.column :usable,           :boolean, :null=>false, :default=>false
       t.column :groupable,        :boolean, :null=>false, :default=>false
       t.column :keep_entries,     :boolean, :null=>false, :default=>false
@@ -41,7 +42,7 @@ class Accounting < ActiveRecord::Migration
       t.column :comment,          :text
       t.column :delay_id,         :integer, :references=>:delays, :on_delete=>:restrict, :on_update=>:cascade
       t.column :entity_id,        :integer, :references=>:entities, :on_delete=>:restrict, :on_update=>:cascade
-      t.column :parent_id,        :integer, :null=>false, :references=>nil
+      t.column :parent_id,        :integer, :null=>false, :default=>0, :references=>nil
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :accounts, [:number, :company_id], :unique=>true
@@ -103,6 +104,7 @@ class Accounting < ActiveRecord::Migration
       t.column :nature_id,        :integer, :null=>false, :references=>:journal_natures, :on_delete=>:restrict, :on_update=>:cascade
       t.column :name,             :string,  :null=>false
       t.column :code,             :string,  :null=>false, :limit=>4
+      t.column :deleted,          :boolean, :null=>false, :default=>false
       t.column :counterpart_id,   :integer, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :closed_on,        :date,    :null=>false, :default=>Date.civil(1494,12,31)
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
@@ -172,6 +174,7 @@ class Accounting < ActiveRecord::Migration
       t.column :agency,           :string
       t.column :counter,          :string,  :limit=>16
       t.column :number,           :string,  :limit=>32
+      t.column :deleted,          :boolean, :null=>false, :default=>false
       t.column :key,              :string,  :limit=>4
       t.column :iban,             :string,  :null=>false, :limit=>34
       t.column :iban_text,        :string,  :null=>false, :limit=>48

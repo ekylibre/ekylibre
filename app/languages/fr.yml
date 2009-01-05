@@ -148,9 +148,7 @@ app:
   accountancy:
     title: Comptabilité
     accounts:
-      title: Comptes comptables
-    bank_accounts: 
-      title: Comptes bancaires
+      title: Comptes
     entries:
       title: Écritures
       select: 'Sélectionnez le journal :'
@@ -183,6 +181,24 @@ app:
       create: Créer un nouveau journal
     journals_create:
       title: Créer un nouveau journal
+    journals_update:
+      title: Modifier le journal
+    accounts:
+      title: Comptes
+      create: Créer un nouveau compte
+      update: Modifier un compte
+      delete: Supprimer un compte
+    accounts_create:
+      title: Créer un nouveau compte
+    accounts_update:
+      title: Modifier le compte
+    bank_accounts:
+      title: Comptes bancaires
+      create: Créer un nouveau compte bancaire
+    bank_accounts_create:
+      title: Créer un nouveau compte bancaire
+    bank_accounts_update:
+      title: Modofier le compte bancaire	
     find_accounts:
       account_number: 'Numéro de compte '
       account_name: 'Nom du compte '
@@ -313,27 +329,13 @@ app:
     application:
   management:
     title: 'Gestion'
-    index:
-      title: 'Gestion commerciale'
-      consult_purchases: 'Consulter l''état des achats'
-      consult_sales: 'Consulter l''état des ventes'
-      consult_stocks: 'Consulter l''état des stocks'
-      new_purchase: 'Nouvel achat'
-      new_sale: 'Nouvelle vente'
-      parameters: 'Paramètres'
-      products: 'Gérer les produits de vente et d''achat'
-      purchases: 'Achats'
-      sales: 'Ventes'
-      stocks: 'Stocks'
-      stocks_locations: 'Gérer les stocks'
-    sales_new:
-      title: 'Nouvelle vente'
     sale:
       title: Devis
       general: Général
       products: Produits
   cancel: 'Annuler'
   create: 'Créer'
+  update: 'Modifier'
   edit: 'Modifier'
   example: 'Exemple&nbsp;: %s'
   finish: Terminer

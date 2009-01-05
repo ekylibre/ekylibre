@@ -9,14 +9,65 @@ class AccountancyController < ApplicationController
   
 
   dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    #  dyta(:journals, :conditions=>["company_id=? and ?",['@current_company.id'], 'toto"tot']) do |t|
     t.column :name
     t.column :code
     t.column :name, :through=>:nature
     t.action :journals_edit, :image=>:edit
+    t.action :journals_update
+    t.action :journals_delete, :method=>:post
     t.procedure :create, :action=>:journals_create
   end
  
+  dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :number
+    t.column :name
+    t.column :label
+    t.action :accounts_edit, :image=>:edit
+    t.action :accounts_update
+    t.action :accounts_delete, :method=>:post
+    t.action :accounts_letter
+    t.procedure :create, :action=>:accounts_create
+  end
+ 
+  dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :name, :through=>:bank
+    t.column :iban
+    t.column :iban_text
+    t.action :bank_accounts_edit, :image=>:edit
+    t.action :bank_accounts_update
+    t.action :bank_accounts_delete, :method=>:post
+    t.procedure :create, :action=>:bank_accounts_create
+  end
+ 
+
+  # lists all the bank_accounts with the mainly characteristics. 
+  def bank_accounts
+    bank_accounts_list params
+  end
+
+  # this method creates a bank_account with a form.
+  def bank_accounts_create
+  end
+
+  # this method updates a bank_account with a form.
+  def bank_accounts_update
+  
+  end
+  
+  # this method deletes a bank_account.
+  def bank_accounts_delete
+    if request.post? or request.delete?
+      @bank_account = Bank_Account.find(:first, :conditions => ['id = ? AND company_id = ?', params[:id], @current_company.id])  
+      if @bank_account.account.entries.size > 0
+        @bank_account.update_attribute(:deleted, true)
+      else
+        Bank_Account.delete(params[:id])
+      end
+    end
+    redirect_to :action => "bank_accounts"
+  end
+
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
     accounts_list params
@@ -29,7 +80,56 @@ class AccountancyController < ApplicationController
     redirect_to :action => "entries" 
   end
 
+  # this action creates an account with a form.
+  def accounts_create
+    access :accounts
+    if request.post?
+      @account = Account.new(params[:account])
+      @account.company_id = @current_company.id
+      redirect_to :action => "accounts" if @account.save
+    else
+      @account = Account.new
+    end
+    render_form
+  end
+
+  # this action updates an existing account with a form.
+  def accounts_update
+    access :accounts
+    @account = Account.find(:first, :conditions => ['id = ? AND company_id = ?', params[:id], @current_company.id])  
+    if request.post? or request.put?
+      @account.update_attributes(params[:account])
+      redirect_to :action => "accounts"
+    end
+    render_form
+  end
+
+
+  # this action deletes or hides an existing account.
+  def accounts_delete
+    if request.post? or request.delete?
+      @account = Account.find(:first, :conditions => ['id = ? AND company_id = ?', params[:id], @current_company.id])  
+      if @account.usable
+        @account.update_attribute(:deleted, true)
+      else
+        Account.delete(params[:id])
+      end
+    end
+    redirect_to :action => "accounts"
+  end
  
+  #
+  def accounts_letter
+    
+
+  end
+
+  #
+  def print
+    render :action => 'print'
+  end
+  
+
   # this method finds the account with the matching number and the company_id.
   def find_accounts
     @search = params[:account].gsub('*','%')
@@ -122,23 +222,61 @@ class AccountancyController < ApplicationController
   #    @journals = @current_company.journals
   end
 
+  #this method creates a journal with a form. 
   def journals_create
     access :journals
     if request.post?
       @journal = Journal.new(params[:journal])
       @journal.company_id = @current_company.id
-      redirect_to_back if @journal.save
+      redirect_to :action => "journals" if @journal.save
     else
       @journal = Journal.new
     end
     render_form
   end
 
+ #this method updates a journal with a form. 
+  def journals_update
+    access :journals
+    @journal = Journal.find(:first, :conditions => ['id = ? AND company_id = ?', params[:id], @current_company.id])  
+    if request.post? or request.put?
+      @journal.update_attributes(params[:journal]) 
+      redirect_to :action => "journals" 
+    end
+    render_form
+  end
+
+  # this action deletes or hides an existing journal.
+  def journals_delete
+    if request.post? or request.delete?
+      @journal = Journal.find(:first, :conditions => ['id = ? AND company_id = ?', params[:id], @current_company.id])  
+      if @journal.periods.size > 0
+        @journal.update_attribute(:deleted, true)
+      else
+        Journal.delete(params[:id])
+      end
+    end
+    redirect_to :action => "journals"
+  end
+ 
+
+  # display the conditions for close the journal.
+  # def journals_close
+#     @journal = Journal.find(:first, :conditions => ['id = ? AND company_id = ?', params[:id], @current_company.id])  
+#     if request.get?
+      
+#     else
+#      @journal.close(params[:journal][:date])
+#      redirect_to :action => "journals"
+#     end
+  #end
+
+  #
   def print
     render :action => 'print'
   end
   
-  
+  #
   def print_balance_sheet
     render :action => 'print_balance_sheet'
     if request.post?
@@ -146,6 +284,7 @@ class AccountancyController < ApplicationController
     end  
   end
   
+  #
   def print_journal
     render :action => 'print_journal'
     if request.post?
@@ -153,6 +292,7 @@ class AccountancyController < ApplicationController
     end
   end
   
+  #
   def print_balance
     #raise Exception.new  " test"
     render :action => 'print_balance'
