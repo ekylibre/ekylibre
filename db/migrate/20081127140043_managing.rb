@@ -54,7 +54,7 @@ class Managing < ActiveRecord::Migration
       t.column :name,                   :string,   :null=>false
       t.column :included,               :boolean,  :null=>false, :default=>false # for the eco-participation
       t.column :reductible,             :boolean,  :null=>false, :default=>true  # for the eco-participation
-      t.column :nature,                 :string,   :null=>false, :limit=>8
+      t.column :nature,                 :string,   :null=>false, :limit=>8 # amount percent
       t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0.to_d
       t.column :description,            :text
       t.column :account_collected_id,   :integer,  :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade

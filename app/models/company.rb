@@ -52,6 +52,7 @@ class Company < ActiveRecord::Base
     self.units.create(:name=>'t',  :fullname=>'Tonnes')
     self.units.create(:name=>'l',  :fullname=>'Litres')
     self.units.create(:name=>'hl', :fullname=>'Hectolitres')
+#    self.taxes.create(:name=>'TVA 19.6', :nature=>'percent')
     self.widgets.create!(:name=>'test', :location=>Location.find_by_name('side'), :nature=>'content')
     self.currencies.create!(:name=>'euro', :code=>'E', :format=>'eu', :rate=>6.53)
     self.accounts.create!(:number=>7777777, :alpha=>5, :name=>'test compte account', :label=>'jejk', :usable=>true, :groupable=>true, :keep_entries=>true, :parent_id=>1 )
