@@ -410,8 +410,11 @@ app:
       products: 'Produits'
       purchases: 'Achats'
       sales: 'Ventes'
+      shelves: 'Catégories de produit'
+      units: 'Unités de mesure'
       stocks: 'Stocks'
       stocks_locations: 'Gérer les stocks'
+      taxes: 'Taxes'
     products:
       title: 'Produits'
     sales_new:

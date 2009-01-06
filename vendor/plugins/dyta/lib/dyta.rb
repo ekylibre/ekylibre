@@ -90,7 +90,7 @@ module Dyta
             css_class = ''
             datum = column.data(record)
             if column.datatype==:boolean
-              datum = value_image(datum)
+#              datum = value_image(datum)
               style = 'text-align:center;'
             end
             if column.options[:url]              
