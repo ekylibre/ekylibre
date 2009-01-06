@@ -159,39 +159,41 @@ class Accounting < ActiveRecord::Migration
     
 
     # Bank : Banques
-    create_table :banks do |t|
-      t.column :name,             :string,  :null=>false
-      t.column :code,             :string,  :null=>false, :limit=>16
-      t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-    end
-    add_index :banks, [:name, :company_id], :unique=>true
-    add_index :banks, [:code, :company_id], :unique=>true
-    add_index :banks, :company_id
+   #  create_table :banks do |t|
+#       t.column :name,             :string,  :null=>false
+#       t.column :code,             :string,  :null=>false, :limit=>16
+#       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+#     end
+#     add_index :banks, [:name, :company_id], :unique=>true
+#     add_index :banks, [:code, :company_id], :unique=>true
+#     add_index :banks, :company_id
     
     # BankAccount : Comptes bancaires
     create_table :bank_accounts do |t|
       t.column :name,             :string,  :null=>false
+      t.column :bank_name,        :string
+      t.column :bank_code,        :string,  :null=>false
       t.column :agency,           :string
-      t.column :counter,          :string,  :limit=>16
-      t.column :number,           :string,  :limit=>32
-      t.column :deleted,          :boolean, :null=>false, :default=>false
-      t.column :key,              :string,  :limit=>4
+      t.column :agency_code,      :string,  :null=>false, :limit=>16 
+      t.column :number,           :string,  :null=>false, :limit=>32
+      t.column :key,              :string,  :null=>false, :limit=>4
       t.column :iban,             :string,  :null=>false, :limit=>34
       t.column :iban_text,        :string,  :null=>false, :limit=>48
       t.column :bic,              :string,  :limit=>16
-      t.column :bank_id,          :integer, :null=>false, :references=>:banks,      :on_delete=>:cascade, :on_update=>:cascade
+      t.column :deleted,          :boolean, :null=>false, :default=>false
+      #t.column :bank_id,          :integer, :null=>false, :references=>:banks,      :on_delete=>:cascade, :on_update=>:cascade
       t.column :journal_id,       :integer, :null=>false, :references=>:journals,   :on_delete=>:restrict, :on_update=>:cascade
       t.column :currency_id,      :integer, :null=>false, :references=>:currencies, :on_delete=>:cascade, :on_update=>:cascade
       t.column :account_id,       :integer, :null=>false, :references=>:accounts,   :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,       :integer, :null=>false, :references=>:companies,  :on_delete=>:cascade, :on_update=>:cascade
     end
-    add_index :bank_accounts, [:name, :bank_id, :account_id], :unique=>true
-    add_index :bank_accounts, :bank_id
+    #add_index :bank_accounts, [:name, :bank_id, :account_id], :unique=>true
+    #add_index :bank_accounts, :bank_id
     add_index :bank_accounts, :journal_id
     add_index :bank_accounts, :currency_id
     add_index :bank_accounts, :account_id
     add_index :bank_accounts, :company_id
-    add_index :bank_accounts, [:bank_id, :account_id], :unique=>true
+   # add_index :bank_accounts, [:bank_id, :account_id], :unique=>true
 
     # BankAccountStatement : Relevé de compte
     create_table :bank_account_statements do |t|
@@ -243,7 +245,7 @@ class Accounting < ActiveRecord::Migration
     drop_table :entries
     drop_table :bank_account_statements
     drop_table :bank_accounts
-    drop_table :banks
+    #drop_table :banks
     drop_table :journal_records
     drop_table :journal_periods
     drop_table :journals

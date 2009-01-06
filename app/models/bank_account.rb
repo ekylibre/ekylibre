@@ -5,14 +5,15 @@
 #
 #  id           :integer       not null, primary key
 #  name         :string(255)   not null
+#  bank_name    :string(255)
+#  bank_code    :string(255)   not null
 #  agency       :string(255)   
-#  counter      :string(16)    
-#  number       :string(32)    
-#  key          :string(4)     
+#  agency_code  :string(16)    not null    
+#  number       :string(32)    not null
+#  key          :string(4)     not null
 #  iban         :string(34)    not null
 #  iban_text    :string(48)    not null
 #  bic          :string(16)    
-#  bank_id      :integer       not null
 #  journal_id   :integer       not null
 #  currency_id  :integer       not null
 #  account_id   :integer       not null

@@ -199,13 +199,21 @@ app:
       create: Créer un nouveau compte bancaire
     bank_accounts_create:
       title: Créer un nouveau compte bancaire
+      name:   Nom
     bank_accounts_update:
       title: Modofier le compte bancaire	
     find_accounts:
       account_number: 'Numéro de compte '
       account_name: 'Nom du compte '
       erreur: 'Il n''existe pas de compte commençant par ce numéro.'
-      find_validate: 'Valider votre choix'
+    find_currencies:
+      currency_id: Numéro de devise
+      currency_name: Nom de devise
+      currency_code: Code de devise
+      currency_rate: Taux de devise 
+    find_journals:
+      journal_id: Numéro de journal
+      journal_name: Nom du journal
   accounting_system:
     1: 'Comptes de capitaux'
     2: 'Comptes d''immobilisations'

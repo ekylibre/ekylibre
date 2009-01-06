@@ -7,7 +7,11 @@ class AccountancyController < ApplicationController
   #   ACCOUNTS_OF_PURCHASES={:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
   #     :bank=>512, :others=>765 }
   
+  
+
+  #
   def index
+  
   end
 
 
@@ -34,7 +38,9 @@ class AccountancyController < ApplicationController
  
   dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
-    t.column :name, :through=>:bank
+    t.column :bank_code
+    t.column :agency_code
+    t.column :number
     t.column :iban
     t.column :iban_text
     t.action :bank_accounts_edit, :image=>:edit
@@ -42,7 +48,7 @@ class AccountancyController < ApplicationController
     t.action :bank_accounts_delete, :method=>:post
     t.procedure :create, :action=>:bank_accounts_create
   end
- 
+
 
   # lists all the bank_accounts with the mainly characteristics. 
   def bank_accounts
@@ -51,21 +57,36 @@ class AccountancyController < ApplicationController
 
   # this method creates a bank_account with a form.
   def bank_accounts_create
+    access :bank_accounts
+    if request.post? 
+      @bank_account = BankAccount.new(params[:bank_account])
+      @bank_account.company_id = @current_company.id
+      redirect_to :action => "bank_accounts" if @bank_account.save
+    else
+      @bank_account = BankAccount.new
+    end
+    render_form
   end
 
   # this method updates a bank_account with a form.
   def bank_accounts_update
-  
+   access :bank_accounts
+    @bank_account = BankAccount.find(:first, :conditions => ['id = ? AND company_id = ?', params[:id], @current_company.id])  
+    if request.post? or request.put?
+      @bank_account.update_attributes(params[:bank_account])
+      redirect_to :action => "bank_accounts"
+    end
+    render_form
   end
   
   # this method deletes a bank_account.
   def bank_accounts_delete
     if request.post? or request.delete?
-      @bank_account = Bank_Account.find(:first, :conditions => ['id = ? AND company_id = ?', params[:id], @current_company.id])  
+      @bank_account = BankAccount.find(:first, :conditions => ['id = ? AND company_id = ?', params[:id], @current_company.id])  
       if @bank_account.account.entries.size > 0
         @bank_account.update_attribute(:deleted, true)
       else
-        Bank_Account.delete(params[:id])
+        BankAccount.delete(params[:id])
       end
     end
     redirect_to :action => "bank_accounts"
@@ -123,13 +144,26 @@ class AccountancyController < ApplicationController
  
   #
   def accounts_letter
+   # if request.get? 
+    #  Entry.find(:all, :conditions => ['company_id = ? AND a',])
     
-
   end
 
   #
   def print
     render :action => 'print'
+  end
+  
+  # this method finds the journal with the matching id and the company_id.
+  def find_journals
+    @find_journals = Journal.find(:all,:conditions=>["company_id = ?", @current_company.id])
+    render :partial => 'find_journals'
+  end
+  
+  # this method finds the currency with the matching id and the company_id.
+  def find_currencies
+    @find_currencies = Currency.find(:all,:conditions=>["company_id = ?", @current_company.id])
+    render :partial => 'find_currencies'
   end
   
 
@@ -147,9 +181,9 @@ class AccountancyController < ApplicationController
     @current_company.accounts.create!(:number=>'7', :name=>'produit', :label=>'produit', :parent_id=>2)
     @current_company.accounts.create!(:number=>'71', :name=>'produit', :label=>'produit1', :parent_id=>2)
     @current_company.financialyears.create!(:code=>'1A2',
-                                            :started_on=>Date.civil(2008,01,01), 
-                                            :stopped_on=>Date.civil(2008,12,31), 
-                                            :written_on=>Date.civil(2008,12,12) )
+                                            :started_on=>Date.civil(2009,01,01), 
+                                            :stopped_on=>Date.civil(2009,12,31), 
+                                            :written_on=>Date.civil(2009,12,12) )
     @current_company.currencies.create!(:name=>'europeenne', :code=>'Eur', :format=>'euros')
 
     redirect_to :action => "entries"

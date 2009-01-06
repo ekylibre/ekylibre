@@ -43,6 +43,7 @@ class Company < ActiveRecord::Base
     self.journal_natures.create!(:name=>lc(:default_bank_journal_nature_name))
     self.journal_natures.create!(:name=>lc(:default_operations_journal_nature_name))
     self.widgets.create!(:name=>'test', :location=>Location.find_by_name('side'), :nature=>'content')
+    self.currencies.create!(:name=>'euro', :code=>'E', :format=>'eu', :rate=>6.53)
     self.accounts.create!(:number=>7777777, :alpha=>5, :name=>'test compte account', :label=>'jejk', :usable=>true, :groupable=>true, :keep_entries=>true, :parent_id=>1 )
     t = self.accounts.create!(:number=>1212127, :alpha=>12, :name=>'test compte aczscount', :label=>'jk', :usable=>true, :groupable=>true, :keep_entries=>true, :parent_id=>1 )
     test = self.accounts.create!(:number=>425455, :alpha=>7, :name=>'testt', :label=>'jddk', :usable=>true, :groupable=>true, :keep_entries=>true, :parent_id=>1 )
