@@ -1,5 +1,19 @@
 %h1=lc :title
-=guide_link :accountancy, :accounts
-=guide_link :accountancy, :entries
-=guide_link :accountancy, :journals
-=guide_link :accountancy, :bank_accounts
+
+.action-list
+  %h2= lc :works
+  %ul
+    %li=link_to lc(:write_entries), {:action=>:entries}
+    %li=link_to lc(:operations), {:action=>:operations}
+
+.action-list
+  %h2= lc :documents
+  %ul
+    %li=link_to lc(:print_documents), {:action=>:document_prepare}
+
+.action-list
+  %h2= lc :parameters
+  %ul
+    %li=link_to lc(:accounts), {:action=>:entries}
+    %li=link_to lc(:journals), {:action=>:journals}
+    %li=link_to lc(:bank_accounts), {:action=>:bank_accounts}

@@ -149,6 +149,15 @@ app:
     title: Comptabilité
     index:
       title: Comptabilité générale
+      accounts: Gérer les comptes comptables
+      bank_accounts: Gérer les comptes bancaires (RIB)
+      documents: Documents comptables
+      journals: Gérer les journaux
+      operations: Opérations mensuelles et annuelles
+      parameters: Paramètres
+      print_documents: Imprimer des documents comptables
+      works: Travaux comptables
+      write_entries: Saisie des écritures
     accounts:
       title: Comptes
     entries:
