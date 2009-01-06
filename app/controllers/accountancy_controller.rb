@@ -22,6 +22,7 @@ class AccountancyController < ApplicationController
     t.action :journals_edit, :image=>:edit
     t.action :journals_update
     t.action :journals_delete, :method=>:post
+    t.action :journals_close
     t.procedure :create, :action=>:journals_create
   end
  
@@ -144,9 +145,12 @@ class AccountancyController < ApplicationController
  
   #
   def accounts_letter
-   # if request.get? 
-    #  Entry.find(:all, :conditions => ['company_id = ? AND a',])
+    if request.xhr?
     
+    else
+    @entries = Entry.find(:all, :conditions => ['company_id = ? AND account_id = ? AND letter is NULL', @current_company.id, params[:id] ])
+    end
+    render_form
   end
 
   #
@@ -234,15 +238,15 @@ class AccountancyController < ApplicationController
   end
   
   # this method converts a date into a new date with a specific format or a string into a date.
-  def convert_date(date)
-    if date.is_a? Date
-      return date.strftime("%e-%m-%Y") 
-    else 
-      d=date.split('-') 
-     # raise Exception.new d.inspect
-      return Date.civil(d[0].to_i,d[1].to_i,d[2].to_i) 
-    end
-  end
+  # def convert_date(date)
+#     if date.is_a? Date
+#       return date.strftime("%e-%m-%Y") 
+#     else 
+#       d=date.split('-') 
+#      # raise Exception.new d.inspect
+#       return Date.civil(d[0].to_i,d[1].to_i,d[2].to_i) 
+#     end
+#   end
   
   
   # lists all the transactions established on the accounts, sorted by date.
@@ -298,15 +302,15 @@ class AccountancyController < ApplicationController
  
 
   # display the conditions for close the journal.
-  # def journals_close
-#     @journal = Journal.find(:first, :conditions => ['id = ? AND company_id = ?', params[:id], @current_company.id])  
-#     if request.get?
-      
-#     else
-#      @journal.close(params[:journal][:date])
-#      redirect_to :action => "journals"
-#     end
-  #end
+   def journals_close
+     access :journals
+     @journal_closed = Journal.find(:first, :conditions => ['id = ? AND company_id = ?', params[:id], @current_company.id])  
+     if request.post?
+       @journal_closed.close(params[:journal][:closed_on])
+       redirect_to :action => "journals"
+     end
+     render_form
+   end
 
   #
   def print

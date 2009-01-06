@@ -8,6 +8,7 @@
       %td.label=lc :account_number
       %td.label=lc :record_debit
       %td.label=lc :record_credit
+      %td.label=lc :entry_letter
     - @records.each do |record|
       - attr = cycle("even","odd")  
       - record.entries.each do |entry|
@@ -21,3 +22,4 @@
           %td=entry.account.number
           %td{:align=>"right"}= debit
           %td{:align=>"right"}= credit
+          %td=entry.letter

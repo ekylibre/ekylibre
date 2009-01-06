@@ -18,6 +18,7 @@
       %td.label=lc :account_number
       %td.label=lc :record_debit
       %td.label=lc :record_credit
+      %td.label=lc :entry_letter
     %tr
       %td.input=text_field :record, :number, {:size=>9, :tabindex=>1}
       %td.input=text_field :record, :created_on, { :readonly=>true, :size=>10}
@@ -26,6 +27,7 @@
       %td.input=text_field :account, :number, {:tabindex=>4, :size=>14} 
       %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>9, :value=>0}
       %td.input=text_field :entry, :credit, {:tabindex=>6, :size=>9, :value=>0}
+      %td.input=text_field :entry, :letter, {:tabindex=>6, :size=>9, :value=>0} 
       %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => {:action => :entries}, :html => {:tabindex => 7}
 #lines
   =render :partial=>'entries'

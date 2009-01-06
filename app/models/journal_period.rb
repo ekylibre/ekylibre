@@ -36,7 +36,6 @@ class JournalPeriod < ActiveRecord::Base
   end
 
 
-
   def validate
     puts 'd:'+self.financialyear.inspect
     puts 'f:'+self.started_on.to_s

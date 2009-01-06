@@ -171,6 +171,7 @@ app:
       account_number: 'Compte n°'
       record_debit: 'Débit'
       record_credit: 'Crédit'
+      entry_letter: 'Lettrage'
       entry_validate: 'Valider l''écriture'
       confirmation: 'Êtes-vous sûr de votre saisie ?'     
       balanced_entries: 'Vert : pièce équilibrée'
@@ -194,6 +195,8 @@ app:
       title: Créer un nouveau journal
     journals_update:
       title: Modifier le journal
+    journals_close:
+      title: Clôture du journal
     accounts:
       title: Comptes
       create: Créer un nouveau compte
@@ -203,6 +206,10 @@ app:
       title: Créer un nouveau compte
     accounts_update:
       title: Modifier le compte
+    accounts_letter:
+      title: Liste des écritures non lettrées
+      entry_record: Numéro de pièce
+      entry_name: Nom de l''écriture		    
     bank_accounts:
       title: Comptes bancaires
       create: Créer un nouveau compte bancaire
@@ -264,7 +271,6 @@ app:
       user_password_confirmation_info: 'Vous devez ressaisir votre mot de passe pour éviter qu''un mot de passe érroné soit enregistré'
   company:
     title: Société
-    default_establishment_name: Établissement principal 
     index:
       companie: Informations sur la société
       title: ehezhjezjhzej
@@ -298,68 +304,42 @@ app:
       general: Vous pouvez modifier les différentes informations concernant votre société
       company_code_info: 'Ce code sert d''abréviation pour certaines impressions'
     user:
-       title: dez
-       change_password: Modifier le mot de passe
-       users_create: Ajouter un nouvel utilisateur
+      title: dez
+      change_password: Modifier le mot de passe
     users:
-       users_create: Ajouter un nouvel utilisateur
-       users_update: Modifier un utilisateur
-       users_listing: Liste des utilisateurs
-       getback: Retour à la fiche de société
+      users_listing: Liste des utilisateurs
+      getback: Retour à la fiche de société
     users_create:
        title: 'Création d''un nouvel utilisateur'
     users_update:
        title: 'Modification de l''utilisateur'
     users_form:
-       subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
+      subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
     establishments:
-       establishments_listing: Liste des établissements
-       establishments_create: Ajouter un nouvel établissement
-       getback: Retour à la fiche de société
+    establishments_listing: Liste des établissements
+    establishments_create: Ajouter un nouvel établissement
+    getback: Retour à la fiche de société
     establishments_create:
-       title: 'Ajout d''un nouvel etablissement'
+      title: 'Ajout d''un nouvel etablissement'
     establishments_update:
-       title: 'Modification de l''établissement'
+      title: 'Modification de l''établissement'
     establishments_form:
-       subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
+      subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
     departments:
-       departments_create: Ajouter un nouveau service
-       default_department_name: Gestion/Production
-       departments_listing: Liste des services	
-       getback: Retour à la fiche de société
+      departments_listing: Liste des services		
+      departments_create: Ajouter un nouveau service
+      default_department_name: Gestion/Production
+      departments_listing: Liste des services	
+      getback: Retour à la fiche de société
     departments_create:
-       title: 'Ajout d''un nouveau service'
+      title: 'Ajout d''un nouveau service'
     departments_update:
-       title: Modification du service
+      title: Modification du service
     departments_form:
-       subtitle: Renseignez les différentes caractéristiques du service
+      subtitle: Renseignez les différentes caractéristiques du service
     company_edit:
-       title: Modification de la société
-       general: Vous pouvez modifier les différentes informations concernant votre société
-
-  config:
-    company:
-      identity: 'Carte d''identité'
-      statistics: Chiffres
-      establishments: Établissements
-      departments: Services
-      employees: Employés
-      bank_accounts: Comptes bancaires
-      evolution: Historique
-      values: Valeurs diverses
-      users: Utilisateurs
-      new_establishment: Ajouter un nouvel établissement
-      new_department: Ajouter un nouveau service
-#     new_employee: Ajouter un nouvel employé
-      new_bank_account: Ajouter un nouveau compte bancaire
-      new_user: Ajouter un nouvel utilisateur
-    company_edit:
-      title: 'Modification de la société %s'
+      title: Modification de la société
       general: Vous pouvez modifier les différentes informations concernant votre société
-      company_code_info: 'Ce code sert d''abréviation pour certaines impressions'
-    users_create:
-      title: 'Création d''un compte utilisateur'
-      user_locked_info: 'Si le compte est verrouillé, l''utilisateur ne pourra plus utiliser le logiciel'
   guide:
     title: Accueil
     index:
