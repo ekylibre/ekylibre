@@ -119,7 +119,8 @@ module Dyta
 
         code += "hide_action :"+name.to_s+"_build\n"
         code += "def "+name.to_s+"_build(options={})\n"
-        code += "  if @"+name.to_s+".size>0 \n"
+        code += "  @"+name.to_s+"=@"+name.to_s+"||{}\n"
+        code += "  if @"+name.to_s+".size>0\n"
         code += "    header = "+header+"\n"
         code += "    reset_cycle('dyta')\n"
         code += "    body = ''\n"

@@ -1,26 +1,5 @@
 class Populating < ActiveRecord::Migration
   def self.up
-    # Establishment
-    create_table :establishments do |t|
-      t.column :name,                   :string, :null=>false
-      t.column :nic,                    :string, :null=>false, :limit=>5
-      t.column :siret,                  :string, :null=>false
-      t.column :note,                   :text
-      t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
-    end
-    add_index :establishments, [:name,  :company_id], :unique=>true
-    add_index :establishments, [:siret, :company_id], :unique=>true
-
-    # Department
-    create_table :departments do |t|
-      t.column :name,                   :string,   :null=>false
-      t.column :desc,                   :text
-      t.column :parent_id,              :integer,  :references=>:departments, :on_delete=>:restrict, :on_update=>:restrict
-      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
-    end
-    add_index :departments, [:name, :company_id], :unique=>true
-    add_index :departments, :parent_id
-
     # Employee
     create_table :employees do |t|
       t.column :department_id,          :integer,  :null=>false, :references=>:departments, :on_delete=>:restrict, :on_update=>:restrict
@@ -142,7 +121,5 @@ class Populating < ActiveRecord::Migration
     drop_table :entities
     drop_table :entity_natures
     drop_table :employees
-    drop_table :departments
-    drop_table :establishments
   end
 end

@@ -165,6 +165,18 @@
        y1="161.14285"
        x2="63"
        y2="246.89285" />
+    <filter
+       inkscape:collect="always"
+       id="filter3270"
+       x="-0.033432836"
+       width="1.0668657"
+       y="-0.20059701"
+       height="1.401194">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.0029851"
+         id="feGaussianBlur3272" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -213,6 +225,18 @@
        orientation="0,1"
        position="174,76"
        id="guide3183" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="149.5,70.75"
+       id="guide3274" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="151.75,30.5"
+       id="guide3276" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="115,49.5"
+       id="guide3278" />
   </sodipodi:namedview>
   <metadata
      id="metadata2420">
@@ -255,12 +279,12 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
-       style="opacity:0.37160121;fill:#277ad9;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3193)"
+       style="opacity:0.37160124000000000;fill:#498fdf;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3193)"
        id="rect2397"
        width="45"
        height="77"
-       x="230.28571"
-       y="237.93361" />
+       x="246.03571"
+       y="201.68361" />
     <rect
        style="opacity:1;fill:url(#linearGradient3179);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="button"
@@ -297,5 +321,12 @@
        y="-191.06639"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.75;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3270)"
+       id="rect2421"
+       width="72"
+       height="12"
+       x="233.28571"
+       y="263.43359" />
   </g>
 </svg>

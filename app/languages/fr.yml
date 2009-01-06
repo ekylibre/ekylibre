@@ -201,7 +201,7 @@ app:
       title: Créer un nouveau compte bancaire
       name:   Nom
     bank_accounts_update:
-      title: Modofier le compte bancaire	
+      title: Modifier le compte bancaire	
     find_accounts:
       account_number: 'Numéro de compte '
       account_name: 'Nom du compte '
@@ -297,34 +297,34 @@ app:
        users_listing: Liste des utilisateurs
        getback: Retour à la fiche de société
     users_create:
-       title: Création d'un nouvel utilisateur
+       title: 'Création d''un nouvel utilisateur'
     users_update:
-       title: Modification de l'utilisateur
+       title: 'Modification de l''utilisateur'
     users_form:
-       subtitle: Renseignez les différentes caractéristiques de l'utilisateur
+       subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
     establishments:
        establishments_listing: Liste des établissements
        establishments_create: Ajouter un nouvel établissement
        getback: Retour à la fiche de société
     establishments_create:
-       title: Ajout d'un nouvel etablissement
+       title: 'Ajout d''un nouvel etablissement'
     establishments_update:
-       title: Modification de l'établissement
+       title: 'Modification de l''établissement'
     establishments_form:
-       subtitle: Renseignez les différentes caractéristiques de l'établissement
+       subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
     departments:
        departments_create: Ajouter un nouveau service
        default_department_name: Gestion/Production
        departments_listing: Liste des services	
        getback: Retour à la fiche de société
     departments_create:
-       title: Ajout d'un nouveau service
+       title: 'Ajout d''un nouveau service'
     departments_update:
        title: Modification du service
     departments_form:
        subtitle: Renseignez les différentes caractéristiques du service
     company_edit:
-       title: Modification de la societe	
+       title: Modification de la société
        general: Vous pouvez modifier les différentes informations concernant votre société
 
   config:
@@ -403,8 +403,12 @@ app:
       sales: 'Ventes'
       stocks: 'Stocks'
       stocks_locations: 'Gérer les stocks'
+    products:
+      title: 'Produits'
     sales_new:
       title: 'Nouvelle vente'
+      nature: 'Type de vente'
+      client: 'Sélection du client'
     sales_step_1: 'Client'
     sales_step_2: 'Description'
     sales_step_3: 'Produits'

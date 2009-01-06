@@ -7,9 +7,6 @@ class GuideController < ApplicationController
     redirect_to :action=>:index
   end
 
-  def accountancy
-  end
-
   def about_us
   end
 

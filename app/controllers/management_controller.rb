@@ -3,12 +3,26 @@ class ManagementController < ApplicationController
   def index
   end
 
+
+  dyta(:products, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :number
+    t.column :name
+    t.column :active
+  end
+
+  def products
+    products_list params
+  end
+
+
+
   def sales
   end
 
   # Step 1
   def sales_new
     @step = 1
+    @sale = SaleOrder.new
     session[:sales] = {}
     session[:sales][:nature]    = params[:nature]
     session[:sales][:entity_id] = params[:client]
@@ -53,7 +67,6 @@ class ManagementController < ApplicationController
   def sales_print
     @step = 7
   end
-  
 
   
   def purchases

@@ -1,6 +1,9 @@
 %h1=lc :title
 =sales_steps
-- if session[:sales][:nature].nil?
-  %h2.form=lc :nature
-- if session[:sales][:entity_id].nil?
-  %h2.form=lc :client
+=formalize do |f|
+  - if session[:sales][:nature].nil?
+    - f.title :nature
+    - f.field :sale, :nature
+  - if session[:sales][:entity_id].nil?
+    - f.title :client
+    - f.field :sale, :entity

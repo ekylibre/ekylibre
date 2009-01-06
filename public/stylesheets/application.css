@@ -2,7 +2,7 @@
 html {background: #FFF;}
 td, a, p { font-size:13px;}
 a:link, a:visited, a:hover { color:#00C; }
-input[type="text"], input[type="password"] { border:1px solid #003; background: #FFF;}
+input[type="text"], input[type="password"] { border:1px solid #aaa; background: #fff;}
 /*
 body { background: #ADA; behaviour:url(css/csshover.htc);}
 [xul] { overflow: auto; }
@@ -29,7 +29,7 @@ tr.unbalanced-odd td{background: #FF9999;}
 #side { width: 150px; border-right: 1px dotted #C9D7F1;}
 #main { overflow: auto; }
 #yield { padding: 4px; }
-#yield > h1 { font-variant: small-caps; letter-spacing:4px; }
+#yield > h1 { /*font-variant: small-caps; letter-spacing:4px; */margin: 4px 8px 8px; font-size:20px;}
 #help { width: 150px; border-left: 1px dotted #dd8; background: #fffee3 url(/images/template/help.png) repeat-x top;}
 /*#help > h2 { background: #C9D7F1; font-size: 20px; text-align:center; height:24px; padding:4px; vertical-align: center; }*/
 #help .nav { height: 32px; }
@@ -69,12 +69,12 @@ tr.unbalanced-odd td{background: #FF9999;}
 .menu > ul { margin:0 0 0 4px; }
 .menu > ul > li { float:left; list-style-type:none; margin-top: 0px; padding:0px 7px 0px; text-decoration:none; background:white; position:relative; border: 1px solid transparent;}
 .menu > ul > li > a { text-decoration:underline; color:#00C;}
-.menu > ul > li > ul { position:absolute; z-index:4000; background:white; display:none; margin:2px 4px 4px -8px; width:8em; border:1px solid #C9D7F1 ; border-top:none; padding:0 8px 0 0;}
+.menu > ul > li > ul { position:absolute; z-index:4000; background:white; display:none; margin:5px 4px 4px -8px; width:8em; border:1px solid #C9D7F1 ; border-top:none; padding:0 8px 0 0;}
 .menu > ul > li > ul > li {width:100%; padding:4px; float:left; text-decoration:none; position:relative; list-style-type:none; } 
-.menu > ul > li > ul > li:hover { background-color:#C9D7F1; }
 .menu > ul > li > ul > li > a { width:100%; color:#00C; display:block; padding:0 0 0 3px; text-decoration:none;}
+.menu > ul > li > ul > li:hover { background-color:#C9D7F1; }
 .menu > ul > li:hover > ul, .menu > ul > li > ul:hover {display:block;}
-.menu > ul > li:hover { background:white; border: 1px solid #C9D7F1; border-bottom:none; height:40px;}
+.menu > ul > li:hover { background:white; border: 1px solid #C9D7F1; border-bottom:none; height:25px;}
 
 .clearfix:after { content: "."; display:block; height:0; clear: both; visibility: hidden; }
 /* backslash hack hides from IE mac \*/
@@ -116,11 +116,11 @@ div.td { display: table-cell; }
 
 .flash-error { padding: 10px; color: red; text-align:center; }
 
-.formalize { width: 774px; margin-left: auto; margin-right: auto; }
-.formalize .fields table { border-collapse: collapse; width:100%; }
-.formalize .fields table td.label { text-align:right; padding:1px 4px; color: #008;}
+.formalize { }
+.formalize .fields table { border-collapse: collapse; margin-left: auto; margin-right: auto; }
+.formalize .fields table td.label { text-align:right; padding:1px 4px; color: #008; width: 50%;}
 .formalize .fields table td.input { padding:2px 6px 2px 2px; }
-.formalize .fields table input.notnull { border: 1px solid #99D; background: #F7F7FF }
+.formalize .fields table input.notnull { border: 1px solid #33F; background: #eeF }
 .formalize .fields table td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: 11px; border-left:1px dashed #CCC;}
 .formalize .fields table td .info         { color: #007;  background:#CDF; padding:2px; }
 .formalize .fields table td .info span    { color: #55C; }
@@ -128,13 +128,17 @@ div.td { display: table-cell; }
 .formalize .fields table td .example span { color: #4A5; }
 .formalize .fields table td .hint         { color: #600;  background:#FDE; padding:2px;}
 .formalize .fields table td .hint span    { color: #B54; }
-.formalize .fields table tr.title th { padding: 2px 8px; border-bottom: 0px dotted #002; color: #002; font-size:15px; background: #F0F8FF url(/images/template/form_subtitle.png) repeat-x top;}
+.formalize .fields table tr.title th { padding: 16px 8px 2px; border-bottom: 0px dotted #002; color: #002; font-size:15px; border-bottom: 1px solid #CCC; /*background: #F0F8FF url(/images/template/form-subtitle.png) repeat-x top;*/}
 /*.formalize .fields table th.title { padding: 2px 8px ; color: #002; font-size:15px; background: url(/images/template/form_subtitle.png) repeat-x top;}*/
+/*
 .formalize .fields table tr.before-title th { height:16px; }
 .formalize .fields table tr.after-title  th { height:6px; background: #F0F8FF;}
-.formalize .fields table tr.odd  td { background: #F0F8FF;}
-.formalize .fields table tr.even td { background: #DFEFFF;}
-.formalize .actions { margin: 10px 0px; }
+*/
+/*
+.formalize .fields table tr.odd  td { background: #E5ECF6;}
+.formalize .fields table tr.even td { background: #F0F8FF;}
+*/
+.formalize .actions { margin: 10px 0px;}
 
 .actions {text-align:center; padding:6px !important; background: #CEC;}
 .actions * { margin: 0px 8px; }
@@ -143,7 +147,7 @@ div.td { display: table-cell; }
 .invalid { border: 1px solid red !important; background: #FDD !important; }
 
 .futo .list { width:100%; }
-#.futo .list .header {  position:fixed; width:100%; }
+/*.futo .list .header {  position:fixed; width:100%; }*/
 
 .futo .empty { text-align:center; color: #777;}
 
@@ -173,8 +177,9 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 /* END */
 
-.action-list { -moz-border-radius: 16px; background: #E4EBF8; padding:12px; margin:16px;}
+.action-list { -moz-border-radius: 12px; background: #E4EBF8; padding:9px; margin:12px;}
 .action-list ul { padding: 8px 20px; }
+.action-list h2 { font-size : 16px;}
 
 h2.form { font-size: 15px; margin: 8px 4px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }
 
