@@ -1,11 +1,13 @@
 %div
   #updatebutton
-    = button_to lc(:up) , {:action=>:update}
+    = link_to lc(:up) , {:action=>:update}
 %div
   #test 
-    %h2=@company.name
-    %br
-    = evalue @company , :name 
+    #tit
+      =@company.name
+      %br
+    #name
+      = evalue @company , :name 
     %br
     = evalue @company , :siren
     %br

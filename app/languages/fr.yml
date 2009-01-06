@@ -247,46 +247,77 @@ app:
       user_password_confirmation_info: 'Vous devez ressaisir votre mot de passe pour éviter qu''un mot de passe érroné soit enregistré'
   company:
     title: Société
+    default_establishment_name: Établissement principal 
     index:
-       title: ehezhjezjhzej
-       identity: 'Carte d''identité'
-       statistics: Chiffres
-       establishments: Établissements
-       departments: Services
-       employees: Employés
-       bank_accounts: Comptes bancaires
-       evolution: Historique
-       values: Valeurs diverses
-       users: Utilisateurs
-       new_establishment: Ajouter un nouvel établissement
-       new_department: Ajouter un nouveau service
-#      new_employee: Ajouter un nouvel employé
-       new_bank_account: Ajouter un nouveau compte bancaire
-       new_user: Ajouter un nouvel utilisateur
-       default_bank_journal_nature_name: Banque
-       default_department_name: Gestion/Production
-       default_establishment_name: Établissement principal
-       default_financialyear_code: 1A2
-       default_operations_journal_nature_name: Opérations Diverses
-       default_purchases_journal_nature_name: Achats
-       default_sales_journal_nature_name: Ventes
-       establishments_number: Nombre d'établissements
-       departments_number: Nombre de services
-       users_number: Nombre d'utilisateurs
-       up: modifier
-    edit:
+      title: ehezhjezjhzej
+      identity: 'Carte d''identité'
+      statistics: Chiffres
+      establishments: Établissements
+      departments: Services
+      employees: Employés
+      bank_accounts: Comptes bancaires
+      evolution: Historique
+      values: Valeurs diverses
+      users: Utilisateurs
+      new_establishment: Ajouter un nouvel établissement
+      new_department: Ajouter un nouveau service
+#     new_employee: Ajouter un nouvel employé
+      new_bank_account: Ajouter un nouveau compte bancaire
+      new_user: Ajouter un nouvel utilisateur
+      establishments_number: Nombre d'établissements
+      departments_number: Nombre de services
+      users_number: Nombre d'utilisateurs
+      up: modifier
+    default_bank_journal_nature_name: Banque
+    default_department_name: Gestion/Production
+    default_establishment_name: Établissement principal
+    default_financialyear_code: 1A2
+    default_operations_journal_nature_name: Opérations Diverses
+    default_purchases_journal_nature_name: Achats
+    default_sales_journal_nature_name: Ventes
+    update:
       title: 'Modification de la société %s'
       general: Vous pouvez modifier les différentes informations concernant votre société
       company_code_info: 'Ce code sert d''abréviation pour certaines impressions'
     user:
        title: dez
        change_password: Modifier le mot de passe
+       users_create: Ajouter un nouvel utilisateur
     users:
+       users_create: Ajouter un nouvel utilisateur
+       users_update: Modifier un utilisateur
        users_listing: Liste des utilisateurs
+       getback: Retour à la fiche de société
+    users_create:
+       title: Création d'un nouvel utilisateur
+    users_update:
+       title: Modification de l'utilisateur
+    users_form:
+       subtitle: Renseignez les différentes caractéristiques de l'utilisateur
     establishments:
        establishments_listing: Liste des établissements
+       establishments_create: Ajouter un nouvel établissement
+       getback: Retour à la fiche de société
+    establishments_create:
+       title: Ajout d'un nouvel etablissement
+    establishments_update:
+       title: Modification de l'établissement
+    establishments_form:
+       subtitle: Renseignez les différentes caractéristiques de l'établissement
     departments:
-       departments_listing: Liste des services		
+       departments_create: Ajouter un nouveau service
+       default_department_name: Gestion/Production
+       departments_listing: Liste des services	
+       getback: Retour à la fiche de société
+    departments_create:
+       title: Ajout d'un nouveau service
+    departments_update:
+       title: Modification du service
+    departments_form:
+       subtitle: Renseignez les différentes caractéristiques du service
+    company_edit:
+       title: Modification de la societe	
+       general: Vous pouvez modifier les différentes informations concernant votre société
 
   config:
     company:

@@ -52,10 +52,14 @@ tr.unbalanced-odd td{background: #FF9999;}
 #help-previous { background: url(/images/template/help-previous.png); }
 /*.help-t { float:right; margin:20px;}*/
 
-#test  { text-align:center;}
-#updatebutton { padding:0px 0 0 200px; margin-top:50px; }
+#test  { text-align:center; border: 0.5px solid;}
+#updatebutton { padding:0px 0 10px 200px; margin-top:50px; }
 #changepwd { padding:20px 0 0 90px; }
-#userslist { text-align:center; }
+#userslist { text-align:center; padding:5px 0 5px 0; font-weight:bold; }
+#getback { text-align: left; padding: 5px 0 8px 50px; }
+#dyta { }
+#tit { font-weight: bold; padding:8px 0 0 0; font-size:20px; }
+#name { border:0.3px solid; }
 
 
 .menu {/* float:left; margin-top:20px; font-size:.8em;*/}
