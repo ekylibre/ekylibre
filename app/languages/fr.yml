@@ -147,6 +147,8 @@ plural: 'c<=1 ? 1 : 2'
 app:
   accountancy:
     title: Comptabilité
+    index:
+      title: Comptabilité générale
     accounts:
       title: Comptes
     entries:

@@ -69,8 +69,8 @@ class Company < ActiveRecord::Base
     menu_item3.children.create!(:name=>'Stocks', :url=>'/management/stocks' , :company_id => self.id ,:menu_id => menu.id)
 #    menu_item3.children.create!(:name=>'Paie', :url=>'/management/pays' , :company_id => self.id ,:menu_id => menu.id)
     menu2 = self.menus.create!(:name=>'user' , :label=>'test user label')
-    menu2.menu_items.create!(:name=>'$company_name' , :url=>'/config/company', :dynamic => true, :company_id => self.id)
-    menu2.menu_items.create!(:name=>'$user_label' , :url=>'/config/user', :dynamic => true, :company_id => self.id)
+    menu2.menu_items.create!(:name=>'$company_name' , :url=>'/company', :dynamic => true, :company_id => self.id)
+    menu2.menu_items.create!(:name=>'$user_label' , :url=>'/company/user', :dynamic => true, :company_id => self.id)
     menu2.menu_items.create!(:name=>'Quitter' , :url=>'/authentication/logout', :company_id => self.id)
     # self.load_accounting_system
   end
