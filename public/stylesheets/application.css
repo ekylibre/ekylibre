@@ -63,12 +63,12 @@ tr.unbalanced-odd td{background: #FF9999;}
 .menu a:hover { text-decoration:none;}
 /*.menu > li { position:relative; list-style-type:none; float:left;}  */
 .menu > ul { margin:0 0 0 4px; }
-.menu > ul > li { float:left; list-style-type:none; padding:1px 7px 2px; text-decoration:none; background:white; position:relative; border: 1px solid transparent;}
+.menu > ul > li { float:left; list-style-type:none; margin-top: 0px; padding:0px 7px 0px; text-decoration:none; background:white; position:relative; border: 1px solid transparent;}
 .menu > ul > li > a { text-decoration:underline; color:#00C;}
-.menu > ul > li > ul > li {width:100%; padding:4px 4px 4px 4px; float:left; text-decoration:none; position:relative; list-style-type:none; } 
+.menu > ul > li > ul { position:absolute; z-index:4000; background:white; display:none; margin:2px 4px 4px -8px; width:8em; border:1px solid #C9D7F1 ; border-top:none; padding:0 8px 0 0;}
+.menu > ul > li > ul > li {width:100%; padding:4px; float:left; text-decoration:none; position:relative; list-style-type:none; } 
 .menu > ul > li > ul > li:hover { background-color:#C9D7F1; }
 .menu > ul > li > ul > li > a { width:100%; color:#00C; display:block; padding:0 0 0 3px; text-decoration:none;}
-.menu > ul > li > ul { position:absolute; z-index:4000; background:white; display:none; margin:4px; margin-left:-8px; width:8em; border:1px solid #C9D7F1 ; border-top:none; padding:0 8px 0 0;}
 .menu > ul > li:hover > ul, .menu > ul > li > ul:hover {display:block;}
 .menu > ul > li:hover { background:white; border: 1px solid #C9D7F1; border-bottom:none; height:40px;}
 
@@ -83,10 +83,6 @@ tr.unbalanced-odd td{background: #FF9999;}
 #side > div > div { background: #FFF }
 #side > div > h2 { font-weight:normal; padding: 0px 0px 2px; } 
 #side > div * { font-size: 11px; color: #111; }
-
-
-.hm { height:18px; padding:3px 4px; }
-.hm > * { padding: 2px 4px; }
 
 
 a.guide:link, a.guide:visited, a.guide:hover{ color: white; font-size:18px; }
@@ -178,3 +174,7 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 
 h2.form { font-size: 15px; margin: 8px 4px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }
 
+.stepper { border-collapse: collapse;}
+.stepper .standard { background: #FEB; border: 1px solid #EC7; padding: 4px; text-align:center; width: 80px}
+.stepper .master { background: #DA6; border: 1px solid #A82; color: white;}
+.stepper .right, .stepper .left  { background: #ED9; border: 1px solid #DB7;}

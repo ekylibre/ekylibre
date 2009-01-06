@@ -7,6 +7,9 @@ class AccountancyController < ApplicationController
   #   ACCOUNTS_OF_PURCHASES={:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
   #     :bank=>512, :others=>765 }
   
+  def index
+  end
+
 
   dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name

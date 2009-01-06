@@ -10,9 +10,6 @@ class GuideController < ApplicationController
   def accountancy
   end
 
-  def management
-  end
-
   def about_us
   end
 
