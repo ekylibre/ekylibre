@@ -52,14 +52,29 @@ tr.unbalanced-odd td{background: #FF9999;}
 #help-previous { background: url(/images/template/help-previous.png); }
 /*.help-t { float:right; margin:20px;}*/
 
-#test  { text-align:center; border: 0.5px solid;}
-#updatebutton { padding:0px 0 10px 200px; margin-top:50px; }
+#test  { text-align:center; border: 0.5px solid; margin-left:50px;}
+#updatebutton { padding:0px 0 10px 200px; margin-top:50px; font-weight: bold; font-size:20px; }
 #changepwd { padding:20px 0 0 90px; }
 #userslist { text-align:center; padding:5px 0 5px 0; font-weight:bold; }
 #getback { text-align: left; padding: 5px 0 8px 50px; }
 #dyta { }
+/*#tit { font-weight: bold; padding:8px 0 0 0; font-size:20px; }
+#name { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px;  margin-right:1200px; margin-left: 100px;}
+#siren {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-right:1200px; margin-left: 100px; }
+#code {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-right:1200px; margin-left: 100px; }
+#estab {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-right:1200px; margin-left: 100px; }
+#depart{  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px;  margin-right:1200px; margin-left: 100px;}
+#use { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-bottom:30px; margin-right:1200px; margin-left: 100px;  }*/
+
+#titlep { text-align: center; font-weight:bold; font-size:30px; }
 #tit { font-weight: bold; padding:8px 0 0 0; font-size:20px; }
-#name { border:0.3px solid; }
+#name { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
+#siren {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px;  border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
+#code {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
+#estab {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
+#depart{  border:0.3px solid; padding:5px 0 5px 0;  margin-top:10px; border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
+#use { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-bottom:15px;  border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
+
 
 
 .menu {/* float:left; margin-top:20px; font-size:.8em;*/}

@@ -266,6 +266,7 @@ app:
     title: Société
     default_establishment_name: Établissement principal 
     index:
+      companie: Informations sur la société
       title: ehezhjezjhzej
       identity: 'Carte d''identité'
       statistics: Chiffres

@@ -26,8 +26,10 @@ class CompanyController < ApplicationController
     t.column :first_name
     t.column :last_name
     t.column :email
-   # t.column :locked
+    t.column :locked
     t.procedure :users_create, :action=>:users_create
+    t.action :users_lock , :image=>:lock_access , :method=>:post , :confirm=>:sure
+    t.action :users_unlock , :image=>:unlock_access , :method=>:post , :confirm=>:sure
     t.action :users_update, :image=>:update 
     t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:sure
 
@@ -77,8 +79,8 @@ class CompanyController < ApplicationController
  
   def establishments_update
     access :establishments
-    @establishment = Establishment.find(params[:id])
-    if request.post?
+    @establishment = Establishment.find_by_id_and_company_id(params[:id], @current_company.id)
+    if request.post? and @establishment
       if @establishment.update_attributes(params[:establishment])
         redirect_to :action=>:establishments
       end
@@ -88,13 +90,16 @@ class CompanyController < ApplicationController
 
   def establishments_delete
     access :establishments
-    Establishment.delete(params[:id])
+    if request.post? or request.delete?
+      @establishment = Establishment.find_by_id_and_company_id(params[:id], @current_company.id)
+      Establishment.delete(params[:id]) if @establishment
+    end
     redirect_to :action=>:establishments
   end
 
   def departments_create
     access :departments
-    if request.post?
+    if request.post? 
       @department = Department.new(params[:department])
       @department.company_id = session[:company_id]
       redirect_to :action=>:departments if @department.save
@@ -106,8 +111,8 @@ class CompanyController < ApplicationController
 
   def departments_update
     access :departments
-    @department = Department.find(params[:id])
-    if request.post?
+    @department = Department.find_by_id_and_company_id(params[:id] , @current_company.id)
+    if request.post? and @department
       if @department.update_attributes(params[:department])
         redirect_to :action=>:departments
       end
@@ -117,7 +122,10 @@ class CompanyController < ApplicationController
 
   def departments_delete
     access :departments
-    Department.delete(params[:id])
+    if request.post? or request.delete?
+      @department= Department.find_by_id_and_company_id(params[:id] , @current_company.id)
+      Department.delete(params[:id]) if @department
+    end
     redirect_to :action=>:departments
   end
 
@@ -136,8 +144,8 @@ class CompanyController < ApplicationController
 
   def users_update
     access :users
-    @user= User.find(params[:id])
-    if request.post?
+    @user= User.find_by_id_and_company_id(params[:id], @current_company.id)
+    if request.post? and @user
       if @user.update_attributes(params[:user]) 
         redirect_to :action=>:users
       end
@@ -147,16 +155,32 @@ class CompanyController < ApplicationController
   
   def users_delete
     access :users
-    User.delete(params[:id])
+    if request.post? or request.delete?
+      @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
+      if @user
+        @user.deleted = true
+        @user.save 
+      end
+    end
     redirect_to :action=>:users
-   # @user.id = params[:id]
-   #  @user.deleted = true
   end
-
+  
   def users_lock
-    @user.id = param[:id]
-    @user.locked = true
+    @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
+    if @user
+      @user.locked = true
+      @user.save
+    end
+    redirect_to :action=>:users
   end
-
+  
+  def users_unlock
+    @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
+    if @user
+      @user.locked = false
+      @user.save
+    end
+    redirect_to :action=>:users
+  end
+  
 end
-

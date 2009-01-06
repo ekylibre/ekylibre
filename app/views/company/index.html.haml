@@ -1,20 +1,19 @@
-%div
-  #updatebutton
-    = link_to lc(:up) , {:action=>:update}
-%div
-  #test 
-    #tit
-      =@company.name
-      %br
-    #name
-      = evalue @company , :name 
-    %br
+#titlep
+  =lc(:companie)
+#updatebutton
+  = link_to lc(:up) , {:action=>:update}
+#test 
+  #tit
+    =@company.name
+  #name
+    = evalue @company , :name 
+  #siren
     = evalue @company , :siren
-    %br
+  #code
     = evalue @company , :code
-    %br
+  #estab
     = evalue lc(:establishments_number  ) , @company.establishments.size, :url=>{:action=>:establishments}
-    %br
+  #depart
     = evalue lc(:departments_number ) , @company.departments.size, :url=>{:action=>:departments}
-    %br
+  #use
     = evalue lc(:users_number ) ,@company.users.size, :url=>{:action=>:users}
