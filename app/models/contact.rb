@@ -33,4 +33,5 @@
 #
 
 class Contact < ActiveRecord::Base
+  belongs_to :elements, :polymorphic=> true
 end

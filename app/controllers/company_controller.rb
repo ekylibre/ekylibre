@@ -69,7 +69,7 @@ class CompanyController < ApplicationController
     access :establishments
     if request.post?
       @establishment = Establishment.new(params[:establishment])
-      @establishment.company_id = session[:company_id]
+      @establishment.company_id = @current_company.id
       redirect_to :action=>:establishments if @establishment.save
     else
       @establishment = Establishment.new
@@ -101,7 +101,7 @@ class CompanyController < ApplicationController
     access :departments
     if request.post? 
       @department = Department.new(params[:department])
-      @department.company_id = session[:company_id]
+      @department.company_id = @current_company.id
       redirect_to :action=>:departments if @department.save
     else
       @department = Department.new
@@ -133,7 +133,7 @@ class CompanyController < ApplicationController
     access :users
     if request.post?
       @user = User.new(params[:user])
-      @user.company_id = session[:company_id]
+      @user.company_id = @current_company.id
       @user.role_id = params[:user][:role_id]
       redirect_to :action=>:users if @user.save
     else

@@ -25,5 +25,5 @@
 #
 
 class Entity < ActiveRecord::Base
-
+  has_many :contacts, :as=>:element
 end

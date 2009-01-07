@@ -57,7 +57,7 @@ tr.unbalanced-odd td{background: #FF9999;}
 #changepwd { padding:20px 0 0 90px; }
 #userslist { text-align:center; padding:5px 0 5px 0; font-weight:bold; }
 #getback { text-align: left; padding: 5px 0 8px 50px; }
-#dyta { }
+
 /*#tit { font-weight: bold; padding:8px 0 0 0; font-size:20px; }
 #name { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px;  margin-right:1200px; margin-left: 100px;}
 #siren {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-right:1200px; margin-left: 100px; }
@@ -75,7 +75,8 @@ tr.unbalanced-odd td{background: #FF9999;}
 #depart{  border:0.3px solid; padding:5px 0 5px 0;  margin-top:10px; border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
 #use { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-bottom:15px;  border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
 
-
+#dytae { margin-top: 20px; }
+#entlist { margin-top: 20px; text-align:center; font-weight:bold; font-size:30px; }
 
 .menu {/* float:left; margin-top:20px; font-size:.8em;*/}
 .menu > a { display:block; text-decoration:none; background:#DDD;  padding:0 8px;}
