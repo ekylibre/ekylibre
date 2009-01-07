@@ -12,6 +12,7 @@ class RelationsController < ApplicationController
     t.column :active
     t.action :entities_display, :action=>:entities_display
     t.action :entities_update, :image=>:update
+    t.action :entities_delete, :image=>:delete, :method=>:post, :confirm=>:sure
   end
 
   def entities
@@ -26,9 +27,9 @@ class RelationsController < ApplicationController
   end
   
   def entities_display
-      @company = @current_company
-      @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
-      contacts_list params
+    @company = @current_company
+    @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
+    contacts_list params
   end
 
   def entities_create # pr langage_id prendre current_user.language_id ?
