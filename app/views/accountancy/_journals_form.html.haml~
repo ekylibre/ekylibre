@@ -1,0 +1,7 @@
+=formalize(:inner_form=>true) do |f|
+  - f.error :journal
+  - f.title :title
+  - f.field :journal, :name
+  - f.field :journal, :code
+  - f.field :journal, :closed_on
+  - f.field :journal, :nature_id

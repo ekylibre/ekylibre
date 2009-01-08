@@ -1,0 +1,9 @@
+=formalize(:inner_form=>true) do |f|
+    - f.error :statement
+    - f.title :title
+    - f.field :statement, :started_on
+    - f.field :statement, :stopped_on
+    - f.field :statement, :printed_on  
+    - f.field :statement, :number
+    - f.field :statement, :debit
+    - f.field :statement, :credit

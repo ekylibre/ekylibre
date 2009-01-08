@@ -1,0 +1,17 @@
+=formalize(:inner_form=>true) do |f|
+  - f.error :bank_account
+  - f.title :title
+  - f.field :bank_account, :name
+  - f.field :bank_account, :bank_code
+  - f.field :bank_account, :agency_code
+  - f.field :bank_account, :number    
+  - f.field :bank_account, :key  
+  - f.field :bank_account, :iban  
+  - f.field :bank_account, :iban_text  
+  - f.field :bank_account, :account_id
+  - f.field :bank_account, :currency_id
+  - f.field :bank_account, :journal_id
+#currency
+=observe_field "bank_account_currency_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_currency_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'currency', :url => { :action => 'find_currencies'}, :with => "'currency=' + escape(value)")+"}"
+#journal
+=observe_field "bank_account_journal_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_journal_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'journal', :url => { :action => 'find_journals'}, :with => "'journal=' + escape(value)")+"}"

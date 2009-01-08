@@ -1,0 +1,7 @@
+%h1=lc(:title)
+- form_tag() do
+  %table
+    %tr
+      %td.label=lc :financialyear_date
+      %td.input=text_field "financialyear", "stopped_on"
+      %td.button=submit_tag 'ok', :html => {:tabindex => 2}     

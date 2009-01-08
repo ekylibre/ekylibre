@@ -1,0 +1,34 @@
+%h1=lc(:title)
+%ul
+  %li
+    = lc :list_of_statements
+    - form_tag(:action => 'statements') do
+      %table
+        %tr
+          %td.label=lc :select_bank_account
+          %td.select=select "bank_account", "id",  @bank_accounts.collect{|j| [j.name, j.id]}
+          %td.button=submit_tag 'ok', :html => {:tabindex => 2}   
+  %li
+    = lc :close_financialyear   
+    - form_tag(:action => 'financialyears_close') do
+      %table
+        %tr
+          %td.label=lc :select_financialyear
+          %td.select=select "financialyear", "id",  @financialyears.collect{|j| [j.code, j.id]}
+          %td.button=submit_tag 'ok', :html => {:tabindex => 2}   
+  %li
+    = lc :list_of_entries  
+    - form_tag(:action => 'accounts_letter') do
+      %table
+        %tr
+          %td.label=lc :select_account
+          %td.select=select "account", "id",  @accounts.collect{|j| [j.name, j.id]}
+          %td.button=submit_tag 'ok', :html => {:tabindex => 2}   
+  %li
+    = lc :list_of_documents  
+    - form_tag(:action => 'print') do
+      %table
+        %tr
+          %td.label=lc :select_document
+          %td.select=select_tag "document","<option>"+(lc :book)+"</option><option>"+(lc :bilan)+"</option><option>"+(lc :balance)+"</option>"
+          %td.button=submit_tag 'ok', :html => {:tabindex => 2}   

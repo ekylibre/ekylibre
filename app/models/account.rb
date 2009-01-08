@@ -29,6 +29,35 @@
 #
 
 class Account < ActiveRecord::Base
+ validates_format_of :number, :with=>/[0-9]+/i
+ 
+after_create :parent
+before_destroy :sub
 
+
+  # This method allows to create the parent accounts if it is necessary.
+  #def before_validation
+  def parent
+    number=self.number.to_s
+    number=self.number.to_s[0..number.size-2] if number.size > 1
+    account=Account.find_by_number(number)
+    unless account
+      @new_account=Account.create!(:number=>number, :name=>"Account", :label=>"A", :company_id=>self.company_id) 
+      self.update_attribute(:parent_id, @new_account.id)
+    else
+      self.update_attribute(:parent_id,account.id)
+    end
+  end
+
+  # This method allows to delete all the sub-accounts.
+  def sub
+   puts 'yesyjkj'
+    accounts = Account.find(:all, :conditions => "number LIKE '"+self.number.to_s+"%'", :order=> "number DESC")
+
+    accounts.each do |account|
+      Account.delete account
+    end
+  end
 
 end
+

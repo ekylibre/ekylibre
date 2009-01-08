@@ -1,0 +1,18 @@
+%h1=lc(:title) 
+- form_remote_tag() do
+  %table
+    %tr
+      %td.label=lc :entry_name
+      %td.label=lc :entry_debit
+      %td.label=lc :entry_credit
+      %td.label=lc :entry_currency_rate
+    - @entries.each do |entry|
+      id=entry.id
+      =radio_button :entry, entry.id,
+      %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => {:action => :accounts_letter}, :html => {:tabindex => 7}
+      %tr
+        %td=entry.name
+        %td=entry.debit
+        %td=entry.credit
+        %td=entry.currency_rate
+      

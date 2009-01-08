@@ -60,7 +60,7 @@ class Journal < ActiveRecord::Base
 
   # this method closes a journal.
   def close(date)
-    self.update_attribute(:closed_on => date)
+    self.update_attribute(:closed_on, date)
     self.periods.each do |period|
       period.close(date)
     end

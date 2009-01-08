@@ -1,0 +1,8 @@
+%h1=lc(:title)
+- form_tag() do
+  %table
+    %tr
+      %td.label=lc :journal_date
+      %td.input=select "journal", "closed_on", @journal_periods
+      %td.button=submit_tag 'ok', :html => {:tabindex => 2}     
+

@@ -1,0 +1,20 @@
+
+page['record_number'].value =  @record.number 
+
+page['record_number'].focus()
+
+page['record_created_on'].value = @record.created_on
+
+page['record_printed_on'].value = @record.printed_on
+page['entry_name'].focus() unless @record.balanced
+
+page['entry_name'].value = '' if @record.balanced
+			 
+page['account_number'].value = ''
+ 
+page['entry_debit'].value = 0
+
+page['entry_credit'].value = 0
+
+page.replace_html 'lines', :partial => 'entries'
+
