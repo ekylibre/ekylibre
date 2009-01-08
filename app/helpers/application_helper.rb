@@ -167,7 +167,7 @@ module ApplicationHelper
     else
       title = ''
       title = content_tag(:h1, l(@controller.controller_name, @controller.action_name,options[:title]), :class=>"title") unless options[:title].nil?
-      code  = form_tag({},{:multipart=>options[:multipart]||false, :name=>form_name})
+      code  = form_tag(options[:url]||{},{:multipart=>options[:multipart]||false, :name=>form_name})
       code += content_tag(:div, form_code, :class=>'fields')
       code += content_tag(:div,submit_tag(l(options[:submit]||:submit))+link_to(l(options[:cancel]||:cancel),:back,:class=>:button),:class=>'actions')
       code += '</form>'
