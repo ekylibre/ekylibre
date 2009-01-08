@@ -53,6 +53,7 @@ class Company < ActiveRecord::Base
    # self.units.create(:name=>'l',  :fullname=>'Litres')
    # self.units.create(:name=>'hl', :fullname=>'Hectolitres')
 #    self.taxes.create(:name=>'TVA 19.6', :nature=>'percent')
+    self.address_norms.create!( :name=>'tste norme adresse', :company_id=> self.id)
     entit = self.entity_natures.create!( :name=>'enti_nature_t' , :abbreviation=>'abbr', :company_id=> self.id)
     self.entities.create!(:nature_id=> entit.id,  :language_id=> 1 , :code=>'codetest', :name=>'nom', :full_name=>'full_nameenjdj', :company_id=> self.id)
     self.widgets.create!(:name=>'test', :location=>Location.find_by_name('side'), :nature=>'content')

@@ -21,15 +21,15 @@ class CompanyController < ApplicationController
     @user = @current_user
   end
 
-  dyta(:users, :conditions=>{:company_id=>['@current_company.id'],:deleted=>false}) do |t|
+  dyta(:users, :conditions=>{:company_id=>['@current_company.id'],:deleted=>false}) do |t| 
     t.column :name
     t.column :first_name
     t.column :last_name
     t.column :email
     t.column :locked
     t.procedure :users_create, :action=>:users_create
-    t.action :users_lock , :image=>:lock_access , :method=>:post , :confirm=>:sure
-    t.action :users_unlock , :image=>:unlock_access , :method=>:post , :confirm=>:sure
+    t.action :users_lock , :image=>:unlock_access , :method=>:post , :confirm=>:sure
+    t.action :users_unlock , :image=>:lock_access , :method=>:post , :confirm=>:sure
     t.action :users_update, :image=>:update 
     t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:sure
 

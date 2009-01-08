@@ -162,7 +162,7 @@ app:
       title: Comptes
     entries:
       title: Écritures
-      select: 'Sélectionnez un journal :'
+      select: 'Sélectionnez le journal :'
       number_records: 'Nombre de pièces à afficher :'
       record_number: 'Pièce n°'
       record_created: 'Enregistrée le'
@@ -176,21 +176,6 @@ app:
       confirmation: 'Êtes-vous sûr de votre saisie ?'     
       balanced_entries: 'Vert : pièce équilibrée'
       unbalanced_entries: 'Rouge : pièce non équilibrée'
-    operations:
-      title: Opérations comptables
-      list_of_statements: Liste de relevés de comptes
-      select_bank_account: 'Sélectionnez un compte bancaire:'
-      close_financialyear: Clôture d''exercice
-      select_financialyear: 'Sélectionnez un exercice:'
-      list_of_entries: Lettrage d''écriture
-      select_account: 'Sélectionnez un compte comptable:'
-      list_of_journal_entries: Liste d''écriture
-      select_journal: 'Sélectionnez un journal:'
-      list_of_documents: Impression document comptable
-      select_document: 'Sélectionnez un document:'
-      book: Grand Livre
-      bilan: Bilan 
-      balance: Balance
     print:
       title: Impression 
       print_balance_sheet: Impression du bilan Comptable
@@ -207,37 +192,32 @@ app:
       title: Journaux
       create: Créer un nouveau journal
     journals_create:
-      title: Création d'un nouveau journal
+      title: Créer un nouveau journal
     journals_update:
-      title: Modification du journal
+      title: Modifier le journal
     journals_close:
       title: Clôture du journal
-      journal_date: 'Sélectionner un mois :'
-    financialyears_close:
-      title: Clôture de l'exercice
-      financialyear_date: 'Sélectionnez un mois :'
     accounts:
       title: Comptes
       create: Créer un nouveau compte
+      update: Modifier un compte
+      delete: Supprimer un compte
     accounts_create:
-      title: Création d'un nouveau compte
+      title: Créer un nouveau compte
     accounts_update:
-      title: Modification du compte
+      title: Modifier le compte
     accounts_letter:
       title: Liste des écritures non lettrées
-      entry_name: Intitulé	
-      entry_debit: Débit	
-      entry_credit: Crédit
-      entry_currency_rate: Taux utilisé
-      entry_validate: Valider l'écriture	
+      entry_record: Numéro de pièce
+      entry_name: Nom de l''écriture		    
     bank_accounts:
       title: Comptes bancaires
       create: Créer un nouveau compte bancaire
     bank_accounts_create:
-      title: Création d'un nouveau compte bancaire
+      title: Créer un nouveau compte bancaire
       name:   Nom
     bank_accounts_update:
-      title: Modification du compte bancaire	
+      title: Modifier le compte bancaire	
     find_accounts:
       account_number: 'Numéro de compte '
       account_name: 'Nom du compte '
@@ -250,19 +230,6 @@ app:
     find_journals:
       journal_id: Numéro de journal
       journal_name: Nom du journal
-    statements:
-      title: Liste des relevés de compte
-      create: Créer un relevé de compte
-    statements_new:
-      title:  Création d'un relevé de compte
-    statements_update:
-      title: Modification du relevé de compte
-    statements_point:
-      title: Pointage d'écriture
-      entry_name: Intitulé
-      entry_debit: Débit
-      entry_credit: Crédit
-      entry_currency_rate: Taux utilisé
   accounting_system:
     1: 'Comptes de capitaux'
     2: 'Comptes d''immobilisations'
@@ -309,6 +276,11 @@ app:
       title: Liste des entités
     entities_create: 
       title: Création d'une nouvelle entité
+    entities_contact_create:
+      title: Renseignez les caractéristiques du contact à ajouter
+    entities_display:
+      title: Renseignez les caractéristiques du contact à ajouter
+      new_contact: Entrer un nouveau contact
     entities_update:
       title: Modification de l'entité
     entities_form:
@@ -356,6 +328,7 @@ app:
     users:
       users_listing: Liste des utilisateurs
       getback: Retour à la fiche de société
+      users_create: Créer un nouvel utilisateur
     users_create:
       title: Création d''un nouvel utilisateur
     users_update:

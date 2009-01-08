@@ -85,8 +85,9 @@ class Populating < ActiveRecord::Migration
   
     # Contact
     create_table :contacts do |t|
-      t.column :element_id,             :integer,  :null=>false, :references=>nil
-      t.column :element_type,           :string
+    #  t.column :element_id,             :integer,  :null=>false, :references=>nil
+    #  t.column :element_type,           :string
+      t.column :entity_id,              :integer,  :null=>false, :references=>:entities, :on_delete=>:restrict, :on_update=>:cascade
       t.column :norm_id,                :integer,  :null=>false, :references=>:address_norms
       t.column :active,                 :boolean,  :null=>false, :default=>true 
       t.column :default,                :boolean,  :null=>false, :default=>true
@@ -108,8 +109,9 @@ class Populating < ActiveRecord::Migration
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :contacts, :company_id
-    add_index :contacts, :element_id
-    add_index :contacts, :element_type
+    add_index :contacts, :entity_id
+   # add_index :contacts, :element_id
+   # add_index :contacts, :element_type
     add_index :contacts, :active
     add_index :contacts, :default
   end
