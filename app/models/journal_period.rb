@@ -26,7 +26,6 @@ class JournalPeriod < ActiveRecord::Base
                           :scope=> :journal_id
 
   def before_validation
-    puts 'd1:'+self.financialyear.inspect
     self.financialyear = Financialyear.find(:first, :conditions=>['company_id = ? AND ? BETWEEN started_on AND stopped_on',self.company_id, self.started_on ]) if self.started_on and !self.financialyear
     if self.financialyear and self.started_on
       self.started_on = self.financialyear.started_on if self.started_on.month == self.financialyear.started_on.month 
@@ -37,8 +36,7 @@ class JournalPeriod < ActiveRecord::Base
 
 
   def validate
-    puts 'd:'+self.financialyear.inspect
-    puts 'f:'+self.started_on.to_s
+    
     errors.add lc(:error_period) if self.started_on > self.stopped_on
     errors.add lc(:error_period) if self.started_on != self.financialyear.started_on and self.started_on!=self.started_on.beginning_of_month
     

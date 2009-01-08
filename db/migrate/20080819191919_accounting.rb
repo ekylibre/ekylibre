@@ -106,7 +106,7 @@ class Accounting < ActiveRecord::Migration
       t.column :code,             :string,  :null=>false, :limit=>4
       t.column :deleted,          :boolean, :null=>false, :default=>false
       t.column :counterpart_id,   :integer, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :closed_on,        :date,    :null=>false, :default=>Date.civil(1494,12,31)
+      t.column :closed_on,        :date,    :null=>false, :default=>Date.civil(1970,12,31)
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :journals, :company_id
@@ -193,7 +193,7 @@ class Accounting < ActiveRecord::Migration
     add_index :bank_accounts, :currency_id
     add_index :bank_accounts, :account_id
     add_index :bank_accounts, :company_id
-   # add_index :bank_accounts, [:bank_id, :account_id], :unique=>true
+    #add_index :bank_accounts, [:bank_id, :account_id], :unique=>true
 
     # BankAccountStatement : Relevé de compte
     create_table :bank_account_statements do |t|
@@ -245,7 +245,6 @@ class Accounting < ActiveRecord::Migration
     drop_table :entries
     drop_table :bank_account_statements
     drop_table :bank_accounts
-    #drop_table :banks
     drop_table :journal_records
     drop_table :journal_periods
     drop_table :journals
