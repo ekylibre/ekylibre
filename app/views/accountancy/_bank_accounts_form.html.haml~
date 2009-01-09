@@ -1,8 +1,0 @@
-=formalize(:inner_form=>true) do |f|
-  - f.error :bank_account
-  - f.title :title
-  - f.field :bank_account, :name
-  - f.field :bank_account, :iban
-  - f.field :bank_account, :iban_text  
-  - f.field :bank_account, :parent_id  
- 

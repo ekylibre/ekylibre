@@ -287,10 +287,22 @@ module Dyta
       image_title = @options[:title]||@name.to_s.humanize
       image_file = "buttons/"+(@options[:image]||@name).to_s+".png"
       image_file = "buttons/unknown.png" unless File.file? "#{RAILS_ROOT}/public/images/"+image_file
-      code  = "link_to(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
-      code += ", {:action=>:"+@name.to_s+", :id=>"+record+".id}"
-      code += ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+"}"
-      code += ")"
+      if @options[:remote] 
+        remote_options = @options.dup
+        remote_options.delete :remote
+        remote_options.delete :image
+        remote_options = remote_options.inspect.to_s
+        remote_options = remote_options[1..remote_options.size-2]
+        code  = "link_to_remote(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
+        code += ", :url=>{:action=>:"+@name.to_s+", :id=>"+record+".id}"
+        code += ", "+remote_options
+        code += ")"
+      else
+        code  = "link_to(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
+        code += ", {:action=>:"+@name.to_s+", :id=>"+record+".id}"
+        code += ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+"}"
+        code += ")"
+      end
       code
     end
     
