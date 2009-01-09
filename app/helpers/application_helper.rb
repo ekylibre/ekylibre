@@ -248,7 +248,8 @@ module ApplicationHelper
       raise Exception.new('NilError on object: '+object.inspect) if object.nil?
       model = object.class
       raise Exception.new('ModelError on object (not an ActiveRecord): '+object.class.to_s) unless model.methods.include? "create"
-      object_name = model.name.underscore.to_sym
+
+#      object_name = model.name.underscore.to_sym
       column = model.columns_hash[method.to_s]
       
       options[:field] = :password if method.to_s.match /password/
