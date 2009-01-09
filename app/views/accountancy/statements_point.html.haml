@@ -1,18 +1,17 @@
 %h1=lc(:title) 
-/
-=dyta(:entries)
+.action-list
 - form_tag() do
   %table
     %tr
+      %td
       %td.label=lc :entry_name
       %td.label=lc :entry_debit
       %td.label=lc :entry_credit
-      %td.label=lc :entry_currency_rate
     - @entries.each do |entry|
-      id=entry.id
-      =radio_button :entry, entry.id,
+      - id=entry.id
       %tr
+        %td=check_box "entry", "checked"
         %td=entry.name
         %td=entry.debit
         %td=entry.credit
-        %td=entry.currency_rate
+  =submit_tag 'ok', :html => {:tabindex => 2}   

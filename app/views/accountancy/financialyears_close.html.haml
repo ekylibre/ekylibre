@@ -3,5 +3,5 @@
   %table
     %tr
       %td.label=lc :financialyear_date
-      %td.input=text_field "financialyear", "stopped_on"
+      %td.input=select "financialyear", "stopped_on", @financialyear_periods
       %td.button=submit_tag 'ok', :html => {:tabindex => 2}     

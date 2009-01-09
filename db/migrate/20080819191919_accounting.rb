@@ -200,7 +200,7 @@ class Accounting < ActiveRecord::Migration
       t.column :bank_account_id,        :integer, :null=>false, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :started_on,             :date,    :null=>false
       t.column :stopped_on,             :date,    :null=>false
-      t.column :printed_on,             :date,    :null=>false
+      #t.column :printed_on,             :date,    :null=>false
       t.column :intermediate,           :boolean, :null=>false, :default=>false
       t.column :number,                 :string,  :null=>false
       t.column :debit,                  :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2

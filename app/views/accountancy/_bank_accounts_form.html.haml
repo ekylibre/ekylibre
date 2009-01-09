@@ -15,3 +15,4 @@
 =observe_field "bank_account_currency_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_currency_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'currency', :url => { :action => 'find_currencies'}, :with => "'currency=' + escape(value)")+"}"
 #journal
 =observe_field "bank_account_journal_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_journal_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'journal', :url => { :action => 'find_journals'}, :with => "'journal=' + escape(value)")+"}"
+

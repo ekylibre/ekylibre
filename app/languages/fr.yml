@@ -158,6 +158,13 @@ app:
       print_documents: Imprimer des documents comptables
       works: Travaux comptables
       write_entries: Saisie des écritures
+    operations:
+      title: Opérations comptables
+      verificate: Opérations de vérification
+      list_of_statements: Pointage du compte
+      close_financialyear: Clôture d'exercice
+      closering: Clôture
+      list_of_entries: Lettrage d'écriture
     accounts:
       title: Comptes
     entries:
@@ -184,6 +191,14 @@ app:
     print_balance_sheet:
       title: Impression du bilan 
       period: Période
+    statements:
+      title: Pointage des relevés de comptes bancaires 
+      select_bank_account: "Sélectionnez un compte bancaire:"	  
+      create: Créer un relevé de compte
+    statements_new:
+      title: Créer un nouveau relevé
+    statements_update:
+      title: Modifier un relevé  
     print_journal:
       title: Impression du Journal
     print_balance:
@@ -206,6 +221,9 @@ app:
       title: Créer un nouveau compte
     accounts_update:
       title: Modifier le compte
+    accounts_letter_launch:
+      title: Lettrage de compte
+      select_account: "Sélectionnez un compte:"
     accounts_letter:
       title: Liste des écritures non lettrées
       entry_record: Numéro de pièce
@@ -230,6 +248,12 @@ app:
     find_journals:
       journal_id: Numéro de journal
       journal_name: Nom du journal
+    statements_point:
+      title: Pointage d'écritures
+      entry_name: Intitulé de l'écriture
+      entry_debit: Débit
+      entry_credit: Crédit
+      entry_currency_rate: Devise  
   accounting_system:
     1: 'Comptes de capitaux'
     2: 'Comptes d''immobilisations'
@@ -401,6 +425,8 @@ app:
   financialyear:
     error_period_financialyear: 'L''interval de temps est incorrect pour l''exercice comptable.'
     error_financialyear: 'La date de début de l''exercice comptable est incorrecte.'
+  account:
+    error_delete: Le compte ne peut être effacé car il contient des sous-comptes.	
   layouts:
     application:
   management:

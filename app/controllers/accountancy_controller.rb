@@ -43,10 +43,7 @@ class AccountancyController < ApplicationController
   dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :started_on
     t.column :stopped_on
-    t.column :printed_on
     t.column :number
-    t.column :debit
-    t.column :credit
     t.action :statements_update, :image=>:edit
     t.action :statements_delete, :method=>:post
     t.procedure :create, :action=>:statements_new
@@ -70,11 +67,8 @@ class AccountancyController < ApplicationController
 
   # displays the accoutancing operations.
   def operations
-    @bank_accounts = BankAccount.find(:all, :conditions => {:company_id => @current_company.id})
-    @financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
-    @accounts = Account.find(:all, :conditions => {:company_id => @current_company.id})
+    @bank_accounts = BankAccount.find(:all,:conditions=>"company_id = "+@current_company.id.to_s)  
     @journals = Journal.find(:all, :conditions => {:company_id => @current_company.id})
-
   end
 
 
@@ -165,12 +159,19 @@ class AccountancyController < ApplicationController
       #  @account.update_attribute(:deleted, true)
       #else
       
-      Account.delete @account unless @account.entries.size > 0 or @account.balances.size > 0
+      Account.destroy @account unless @account.entries.size > 0 or @account.balances.size > 0
       #end
     end
     redirect_to :action => "accounts"
   end
  
+
+  #
+  def accounts_letter_launch
+     @accounts = Account.find(:all, :conditions => {:company_id => @current_company.id})
+  end
+
+
   #
   def accounts_letter
     if request.xhr?
@@ -178,8 +179,8 @@ class AccountancyController < ApplicationController
     else
       @entries = Entry.find(:all, :conditions => ['company_id = ? AND account_id = ? AND letter is NULL', @current_company.id, params[:id] ])
     end
-    
   end
+
 
   #
   def print
@@ -209,9 +210,9 @@ class AccountancyController < ApplicationController
   # this method is used to load datas such as accounts, financialyears ... 
   def load_data
    # creation of a financial year.
-    @current_company.accounts.create!(:number=>'6', :name=>'charge', :label=>'charge', :parent_id=>1)
-    @current_company.accounts.create!(:number=>'7', :name=>'produit', :label=>'produit', :parent_id=>2)
-    @current_company.accounts.create!(:number=>'71', :name=>'produit', :label=>'produit1', :parent_id=>2)
+   # @current_company.accounts.create!(:number=>'6', :name=>'charge', :label=>'charge', :parent_id=>1)
+   # @current_company.accounts.create!(:number=>'7', :name=>'produit', :label=>'produit', :parent_id=>2)
+   # @current_company.accounts.create!(:number=>'71', :name=>'produit', :label=>'produit1', :parent_id=>2)
     @current_company.financialyears.create!(:code=>'1A2',
                                             :started_on=>Date.civil(2009,01,01), 
                                             :stopped_on=>Date.civil(2009,12,31), 
@@ -349,16 +350,22 @@ class AccountancyController < ApplicationController
   # This method allows to close the financialyear.
   def financialyears_close
     access :financialyears
-    @financialyear_closed = Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
-     if request.post?
-       if params[:financialyear][:stopped_on] > @financialyear_closed.started_on 
-         @financialyear_closed.close(params[:financialyear][:stopped_on])
-       end
-       redirect_to :action => "operations"
-     end
-    
-   end
+    #  @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
+   @financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
+    if request.post?
+      @financialyear.close(Date.today)
 
+    else
+      @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
+      @financialyear_periods = []
+      d = @financialyear.started_on
+      while (d+1).end_of_month < @financialyear.stopped_on
+        d=(d+1).end_of_month
+        @financialyear_periods << d
+      end
+    end
+  end
+  
   #
   def print
     render :action => 'print'
@@ -401,14 +408,15 @@ class AccountancyController < ApplicationController
 
   # lists all the statements in details for a precise account.
   def statements  
-    bank_account_statements_list params if request.post? or request.get?
-    session[:bank_account] = params[:bank_account][:id] 
+    bank_account_statements_list params if request.get?
+    session[:bank_account] = params[:id] 
   end
 
 
   # This method creates a statement.
   def statements_new
     access :statements
+    
     if request.post?
       @statement = BankAccountStatement.new(params[:statement])
       @statement.bank_account_id = session[:bank_account]
@@ -438,6 +446,7 @@ class AccountancyController < ApplicationController
     if request.post? or request.delete?
         @statement = BankAccountStatement.find_by_id_and_company_id(params[:id], @current_company.id)  
         BankAccountStatement.delete @statement
+        redirect_to :action=>"statements"
     end
   end
 
@@ -445,12 +454,15 @@ class AccountancyController < ApplicationController
   # This method displays the list of entries recording to the accountancing account associated to the bank account.
   def statements_point
    # if request.get?
-    @entries = Entry.find(:all, :conditions => {:account_id => @statement.bank_account.account_id})  
+    @bank_account = BankAccount.find(session[:bank_account])
+    #puts 'ba:'+@bank_account.account_id.to_s
+    @entries = Entry.find(:all, :conditions => {:account_id => @bank_account.account_id, :company_id => @current_company.id})  
+    puts 'e:'+@entries.inspect
     #entries_list params
    #else
     if request.post?
       params[:entry].each do |id| 
-        @statement.bank_account.account.entries << params[:entry][id]
+        @bank_account.account.entries << id
       end
     end
     #end
