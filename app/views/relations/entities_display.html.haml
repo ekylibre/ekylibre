@@ -1,0 +1,9 @@
+=evalue @entity, :name
+=evalue @entity, :code
+=evalue @entity, :full_name
+=evalue @entity, :active
+=link_to lc(:back) , :action=>:entities
+=dyta :contacts 
+=link_to_remote lc(:new_contact) , :url=>{:action=>"entities_contact_create"} 
+#rails
+

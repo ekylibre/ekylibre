@@ -1,0 +1,11 @@
+=formalize(:url=>{:action=>:entities_contact_create}) do |f|
+  -f.error :contact
+  -f.title lc(:title)
+  -f.field :contact, :active
+  -f.field :contact, :default
+  -f.field :contact, :closed_on
+  -f.field :contact, :line_2
+  -f.field :contact, :line_3
+  -f.field :contact, :line_4_number
+  -f.field :contact, :fax
+  -f.field :contact, :mobile

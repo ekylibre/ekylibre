@@ -278,8 +278,13 @@ app:
       title: Création d'une nouvelle entité
     entities_contact_create:
       title: Renseignez les caractéristiques du contact à ajouter
+    entities_contact_update:
+      title: Renseignez les champs à modifier
+    entities_contact_delete:
+      title: Caractéristiques du contact à supprimer
     entities_display:
       title: Renseignez les caractéristiques du contact à ajouter
+      back: Retour à la liste des entités
       new_contact: Entrer un nouveau contact
     entities_update:
       title: Modification de l'entité

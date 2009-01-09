@@ -26,4 +26,7 @@
 
 class Entity < ActiveRecord::Base
   #has_many :contact
+  def before_validation
+    self.soundex = self.name.soundex2
+  end
 end

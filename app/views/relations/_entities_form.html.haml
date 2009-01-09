@@ -1,0 +1,8 @@
+=formalize(:inner_form=>true) do |f|
+  -f.error :entity
+  -f.title lc(:title)
+  -f.field :entity, :name
+  -f.field :entity, :code
+  -f.field :entity, :full_name
+  -f.field :entity, :language_id
+  -f.field :entity, :nature_id
