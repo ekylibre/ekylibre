@@ -76,7 +76,7 @@ module Dyta
             process += "link_to(lc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+
                                procedure.options.inspect+", :class=>'button')"
           end      
-          process = "'"+content_tag(:tr, content_tag(:td, "'+"+process+"+'", :class=>"menu", 
+          process = "'"+content_tag(:tr, content_tag(:td, "'+"+process+"+'", :class=>:procedures, 
                                                      :colspan=>definition.columns.size))+"'"
         end
 
@@ -140,10 +140,10 @@ module Dyta
         code += "    text = '"+content_tag(:tr,content_tag(:td,l(:no_records).gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
         code += "  end\n"
         code += "  text = "+process+"+text\n" unless process.nil?
-        code += "  text = content_tag(:table, text, :class=>:list)\n"
-        code += "  text = content_tag(:div, text)\n"
-        code += "  text = content_tag(:h3,  "+h(options[:label])+")+text\n" unless options[:label].nil?
-        code += "  text = content_tag(:div, text, :class=>'futo', :id=>'"+name.to_s+"')\n"
+        code += "  text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"')\n"
+        # code += "  text = content_tag(:div, text)\n"
+        code += "  text = content_tag(:h3,  "+h(options[:label])+", :class=>:dyta)+text\n" unless options[:label].nil?
+        # code += "  text = content_tag(:div, text, :class=>'futo', )\n"
         # code += "  text = content_tag(:h2,  "+options[:title]+", :class=>'futo')+text\n" unless options[:title].nil?
         code += "  text\n"
         code += "end\n"
