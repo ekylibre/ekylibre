@@ -63,9 +63,7 @@ module Dyta
           end
         end
         code += ", :order=>order)\n"
-#        code += "puts @"+name.to_s+".inspect\n"
         code += "  if request.xhr?\n"
-#       code += "    options[:ta] = true?\n"        
         code += "    render :text=>"+name.to_s+"_build(options)\n"
         code += "  end\n"
         code += "end\n"
@@ -89,8 +87,8 @@ module Dyta
           header += "+\n      " unless header.blank?
           header += "content_tag(:th, '"+h(column.header).gsub('\'','\\\\\'')+" '"
           unless column.action? or column.options[:through]
-            header += "+link_to_remote("+value_image(:down)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"'})"
-            header += "+link_to_remote("+value_image(:up)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"', :dir=>'desc'})"
+            header += "+link_to_remote("+value_image(:down2)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"'})"
+            header += "+link_to_remote("+value_image(:up2)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"', :dir=>'desc'})"
           end
           header += ", :class=>'"+(column.action? ? 'act' : 'col')+"')"
           body   += "+\n        " unless body.blank?
@@ -139,7 +137,7 @@ module Dyta
         code += "    end\n"
         code += "    text = header+content_tag(:tbody,body)\n"
         code += "  else\n"
-        code += "    text = '"+content_tag(:tr,content_tag(:td,l(:no_records).gsub(/\'/,'&apos;')))+"'\n"
+        code += "    text = '"+content_tag(:tr,content_tag(:td,l(:no_records).gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
         code += "  end\n"
         code += "  text = "+process+"+text\n" unless process.nil?
         code += "  text = content_tag(:table, text, :class=>:list)\n"
@@ -151,7 +149,7 @@ module Dyta
         code += "end\n"
 
         # Finish
-        puts code
+        #puts code
         module_eval(code)
       end
 
@@ -208,6 +206,7 @@ module Dyta
     end
     
     def procedure(name, options={})
+      options[:action] = name if options[:action].nil?
       @procedures << DytaElement.new(model,:procedure,name,options)
     end
   end

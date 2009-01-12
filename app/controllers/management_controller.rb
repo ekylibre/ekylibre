@@ -11,6 +11,14 @@ class ManagementController < ApplicationController
     t.column :active
   end
 
+  dyta(:stock_locations, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :name, :through=>:establishment
+    t.column :name, :through=>:parent
+    t.procedure :stocks_locations_create
+  end
+  
+
 
   def products
     key = params[:key]
@@ -73,6 +81,7 @@ class ManagementController < ApplicationController
 
 
 
+
   def sales
   end
 
@@ -129,7 +138,8 @@ class ManagementController < ApplicationController
   def purchases
   end
 
-  def stocks
+  def stocks_locations
+    stock_locations_list params
   end
 
 end

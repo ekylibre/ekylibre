@@ -1,9 +1,12 @@
 %h1=lc :title
 =sales_steps
-=formalize do |f|
-  - if session[:sales][:nature].nil?
-    - f.title :nature
-    - f.field :sale, :nature
-  - if session[:sales][:client_id].nil?
-    - f.title :client
-    - f.field :sale, :client
+- form_tag :do
+  =formalize do |f|
+    - if session[:sales][:nature].nil?
+      - f.title :nature
+      - f.field :sale, :nature
+    - if session[:sales][:client_id].nil?
+      - f.title :client
+      - f.field :sale, :client
+  .actions
+    =submit_tag lc :next

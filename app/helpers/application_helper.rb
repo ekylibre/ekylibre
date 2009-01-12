@@ -221,7 +221,7 @@ module ApplicationHelper
         if line[:value].is_a? Symbol
           calls = caller
           file = calls[3].split(':')[0].split('/')[-1].split('.')[0]
-          file = file[1..-1] if file[1]=='_'
+          file = file[1..-1] if file[0..0]=='_'
           line[:value] = l(controller.controller_name, file.to_sym,line[:value]) 
         end
         line_code += content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>xcn)
@@ -238,7 +238,7 @@ module ApplicationHelper
       # code += content_tag(:tr, content_tag(:th,'', :colspan=>xcn), :class=>"after-title") if line[:nature]==:title
       
     end
-    code = content_tag(:table, code, :class=>'formalize-table')
+    code = content_tag(:table, code, :class=>'formalize')
     # code += 'error_messages_for ' ?
   end
 

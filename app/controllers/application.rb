@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     @partial = options[:partial]||a[0..-2].join('_')+'_form'
     @options = options
     begin
-      render :template=>'shared/form_'+mode.to_s
+      render :template=>options[:template]||'shared/form_'+mode.to_s
     rescue ActionController::DoubleRenderError
     end
   end

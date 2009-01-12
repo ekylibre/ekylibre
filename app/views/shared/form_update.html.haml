@@ -1,8 +1,7 @@
 %h1=l self.controller.controller_name.to_sym, action_name.to_sym, :title, [@options[:label]]
-.formalize
-  - form_tag do
-    .fields=render :partial=>@partial
-    .actions
-      =submit_tag(l(@options[:submit]||:update))
-      =link_to(l(@options[:cancel]||:cancel),:back)
+- form_tag do
+  =render :partial=>@partial
+  .actions
+    =submit_tag(l(@options[:submit]||:update))
+    =link_to(l(@options[:cancel]||:cancel),:back)
 

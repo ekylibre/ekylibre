@@ -93,7 +93,7 @@ td.result {  padding:15px 15px 15px 15px;  border-collapse: collapse; text-align
 
 
 .menu {/* float:left; margin-top:20px; font-size:.8em;*/}
-.menu > a { display:block; text-decoration:none; background:#DDD;  padding:0 8px;}
+/*.menu > a { display:block; text-decoration:none; background:#DDD;  padding:0 8px;}*/
 .menu a:hover { text-decoration:none;}
 /*.menu > li { position:relative; list-style-type:none; float:left;}  */
 .menu > ul { margin:0 0 0 4px; }
@@ -147,32 +147,25 @@ div.td { display: table-cell; }
 
 .flash-error { padding: 10px; color: red; text-align:center; }
 
-.formalize { }
-.formalize .fields table { border-collapse: collapse; margin-left: auto; margin-right: auto; }
-.formalize .fields table td.label { text-align:right; padding:1px 4px; color: #008; width: 50%; border-right: 1px dotted #CCC; }
-.formalize .fields table td.input { padding:2px 6px 2px 2px; }
-.formalize .fields table .notnull { border: 1px solid #33F; background: #eeF }
-.formalize .fields table td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: 11px; border-left:1px dashed #CCC;}
-.formalize .fields table td .info         { color: #007;  background:#CDF; padding:2px; }
-.formalize .fields table td .info span    { color: #55C; }
-.formalize .fields table td .example      { color: #040;  background:#CFC; padding:2px; }
-.formalize .fields table td .example span { color: #4A5; }
-.formalize .fields table td .hint         { color: #600;  background:#FDE; padding:2px;}
-.formalize .fields table td .hint span    { color: #B54; }
-.formalize .fields table tr.title th { padding: 16px 8px 2px; border-bottom: 0px dotted #002; color: #002; font-size:15px; border-bottom: 1px solid #CCC; /*background: #F0F8FF url(/images/template/form-subtitle.png) repeat-x top;*/}
-/*.formalize .fields table th.title { padding: 2px 8px ; color: #002; font-size:15px; background: url(/images/template/form_subtitle.png) repeat-x top;}*/
+table.formalize { border-collapse: collapse; margin-left: auto; margin-right: auto; }
+table.formalize td.label { text-align:right; padding:1px 4px; color: #008; width: 50%; border-right: 1px dotted #CCC; border-bottom:  1px dotted #CCC; }
+table.formalize td.input { padding:2px 6px 2px 2px;  border-bottom:  1px dotted #CCC; }
+table.formalize .notnull { border: 1px solid #33F; background: #eeF }
+table.formalize td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: 11px; border-left:1px dashed #CCC;}
+table.formalize td .info         { color: #007;  background:#CDF; padding:2px; }
+table.formalize td .info span    { color: #55C; }
+table.formalize td .example      { color: #040;  background:#CFC; padding:2px; }
+table.formalize td .example span { color: #4A5; }
+table.formalize td .hint         { color: #600;  background:#FDE; padding:2px;}
+table.formalize td .hint span    { color: #B54; }
+table.formalize tr.title th { padding: 16px 8px 2px; border-bottom: 0px dotted #002; color: #002; font-size:15px; border-bottom: 1px solid #CCC; /*background: #F0F8FF url(/images/template/form-subtitle.png) repeat-x top;*/}
 /*
-.formalize .fields table tr.before-title th { height:16px; }
-.formalize .fields table tr.after-title  th { height:6px; background: #F0F8FF;}
+table.formalize tr.odd  td { background: #E5ECF6;}
+table.formalize tr.even td { background: #F0F8FF;}
 */
-/*
-.formalize .fields table tr.odd  td { background: #E5ECF6;}
-.formalize .fields table tr.even td { background: #F0F8FF;}
-*/
-.formalize .actions { margin: 10px 0px;}
-.formalize .fastadd { margin: 0px 8px; }
+table.formalize a.fastadd { margin: 0px 8px; }
 
-.actions {text-align:center; padding:6px !important; background: #CEC;}
+.actions {text-align:center; padding:6px !important; background: #CEC; margin: 8px 0px;}
 .actions * { margin: 0px 8px; }
 .actions a:link, .actions a:visited, .actions a:hover { color:#080;}
 
@@ -181,14 +174,15 @@ div.td { display: table-cell; }
 .futo .list { width:100%; }
 /*.futo .list .header {  position:fixed; width:100%; }*/
 
-.futo .empty { text-align:center; color: #777;}
+.futo .empty { text-align:center; color: #777; padding:4px;}
 
 h2.futo {margin:0; padding:16px 4px 4px 4px;}
 div.futo {padding:4px 2px; }
 div.futo h3 {padding:4px;color: #139; }
 div.futo > div {padding:0px;}
-div.futo .menu {padding:0 0 2px;}
-div.futo .menu a.button:link, div.futo .menu a.button:visited, div.futo .menu a.button:hover { line-height: 27px;}
+div.futo .menu {padding:4px; background: #FEB; }
+div.futo .menu > a {padding: 4px;}
+/*div.futo .menu a.button:link, div.futo .menu a.button:visited, div.futo .menu a.button:hover { line-height: 27px;}*/
 /*div.futo .menu a, div.futo .menu a:link, div.futo .menu a:visited, div.futo .menu a:hover {color: white;}*/
 div.futo table.list {}
 div.futo table.list th, table.formu th { background: white url(/images/template/button.png) repeat-x bottom; padding:2px; color: #778;} /* border: 1px solid #55A;}*/
