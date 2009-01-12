@@ -18,4 +18,12 @@
 #
 
 class Shelf < ActiveRecord::Base
+  def before_validation
+    self.catalog_name = self.name if self.catalog_name.blank?
+  end
+
+  def to_s
+    self.name
+  end
+
 end

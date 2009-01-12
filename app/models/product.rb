@@ -41,6 +41,14 @@ class Product < ActiveRecord::Base
     self.catalog_name = self.name if self.catalog_name.blank?
   end
 
+  def to
+    to = []
+    to << :sale if self.to_sale
+    to << :purchase if self.to_purchase
+    to << :rent if self.to_rent
+    to
+  end
+
   def validate
     errors.add_to_base(lc(:unknown_use_of_product)) unless self.to_sale or self.to_purchase or self.to_rent
   end

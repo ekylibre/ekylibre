@@ -20,6 +20,17 @@
   <defs
      id="defs2417">
     <linearGradient
+       id="linearGradient3201">
+      <stop
+         style="stop-color:#bacfe6;stop-opacity:1;"
+         offset="0"
+         id="stop3203" />
+      <stop
+         style="stop-color:#e9f3fe;stop-opacity:1;"
+         offset="1"
+         id="stop3205" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3191">
       <stop
          id="stop3193"
@@ -177,6 +188,16 @@
          stdDeviation="1.0029851"
          id="feGaussianBlur3272" />
     </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3201"
+       id="linearGradient2429"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-1.7500128,5.00006)"
+       x1="122.03571"
+       y1="315.93359"
+       x2="122.03571"
+       y2="295.93359" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -328,5 +349,15 @@
        height="12"
        x="233.28571"
        y="263.43359" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient2429);fill-opacity:1.0;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="table_head"
+       width="2"
+       height="20"
+       x="118.28571"
+       y="300.93359"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:label="#rect2427" />
   </g>
 </svg>

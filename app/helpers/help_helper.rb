@@ -8,7 +8,8 @@ module HelpHelper
     file_text  = help_root+file_name+".txt"
     file_cache = help_root+"cache/"+file_name+".html"
     
-    if File.exists?(file_cache)    # the file exists in the cache 
+    if File.exists?(file_cache) and ENV["RAILS_ENV"]!="development"
+   # the file exists in the cache 
       file = File.open(file_cache , 'r')
       content =  file.read
     elsif File.exists?(file_text)  # the file doesn't exist in the cache, but exits as a text file
@@ -27,7 +28,7 @@ module HelpHelper
     end
     
     if content.blank?
-      error = content_tag(:div, lc(:error_no_file), :class=>'help-error')
+      error = content_tag(:div, lc(:error_no_file, [file_name]), :class=>'help-error')
       content = retrieve(default) unless default.blank?
     end
     

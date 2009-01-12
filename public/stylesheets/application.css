@@ -176,12 +176,13 @@ div.futo > div {padding:0px;}
 div.futo .menu {padding:0 0 2px;}
 div.futo .menu a.button:link, div.futo .menu a.button:visited, div.futo .menu a.button:hover { line-height: 27px;}
 /*div.futo .menu a, div.futo .menu a:link, div.futo .menu a:visited, div.futo .menu a:hover {color: white;}*/
-div.futo table.list {}
-div.futo table.list th, table.formu th { background: white url(/images/template/button.png) repeat-x bottom; padding:2px; color: #778;} /* border: 1px solid #55A;}*/
+div.futo table.list {border-collapse: collapse; border-top: 1px solid #CCF; border-bottom: 1px solid #CCF;}
+div.futo table.list th, table.formu th { background: #e9f3fe url(/images/template/table_head.png) repeat-x bottom; padding:2px; color: #778;}
 div.futo table.list tr.odd  td {background: #E1E6FF;}
 div.futo table.list tr.even td {background: #F0F2FF;}
 div.futo table.list tr.data td {padding: 1px 3px;color: #007;} /*border: 1px solid #8AE;} */
 div.futo table.list tr td.act {background: #FDD; width:16px; }/*border: 1px solid #DAA;}*/
+div.futo table.list td, div.futo table.list th { border-left: 1px solid #CCF; border-right: 1px solid #CCF; }
 
 a.right { float:right; }
 
@@ -201,9 +202,9 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 */
 /* END */
 
-.action-list, .errorExplanation { -moz-border-radius: 12px; background: #E4EBF8; padding:8px; margin:12px 0px;}
-.action-list, .errorExplanation ul { padding: 8px 20px; }
-.action-list, .errorExplanation h2 { font-size : 16px; color: black;}
+.action-list, .errorExplanation { -moz-border-radius: 8px; background: #E4EBF8; padding:8px; margin:12px 0px;}
+.action-list ul, .errorExplanation ul { padding: 8px 20px; }
+.action-list h2, .errorExplanation h2 { font-size : 16px; color: black;}
 
 a.back { -moz-border-radius: 8px; padding:6px; margin:16px 0px; }
 
@@ -229,5 +230,6 @@ h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1
 .errorExplanation { background: #ECA; color: #543; }
 
 
-input[type="text"], input[type="password"], textarea { margin:1px; border-width: 1px;}
-input[type="text"]:focus, input[type="password"]:focus, textarea:focus { border:2px solid #6ca !important; margin: 0px;}
+input[type="text"], input[type="password"], textarea, select { margin:1px; border-width: 1px;}
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border:2px solid #4af !important; margin: 0px;}
+input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea.invalid:focus, select.invalid:focus { border-color: red !important;}

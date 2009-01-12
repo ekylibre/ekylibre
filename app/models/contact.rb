@@ -4,8 +4,7 @@
 # Table name: contacts
 #
 #  id            :integer       not null, primary key
-#  element_id    :integer       not null
-#  element_type  :string(255)   
+#  entity_id     :integer       not null
 #  norm_id       :integer       not null
 #  active        :boolean       default(TRUE), not null
 #  default       :boolean       default(TRUE), not null

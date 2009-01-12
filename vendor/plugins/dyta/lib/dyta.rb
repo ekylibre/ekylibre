@@ -39,6 +39,8 @@ module Dyta
             conditions += ']'
           when Hash
             conditions += '{'+options[:conditions].collect{|key, value| ':'+key.to_s+'=>'+sanitize_conditions(value)}.join(',')+'}'
+          when Symbol
+            conditions = options[:conditions]
           else
             raise Exception.new("Only Array and Hash are accepted as conditions")
           end
@@ -52,8 +54,16 @@ module Dyta
         code += "    order += options['dir']=='desc' ? ' DESC' : ' ASC'\n"
         code += "  end\n"
         code += "  @"+name.to_s+"="+model.to_s+".find(:all"
-        code += ", "+conditions unless conditions.blank?
+        unless conditions.blank?
+          code += ", "
+          if conditions.is_a? Symbol
+            code += conditions.to_s+"(options)"
+          else
+            code += conditions
+          end
+        end
         code += ", :order=>order)\n"
+#        code += "puts @"+name.to_s+".inspect\n"
         code += "  if request.xhr?\n"
 #       code += "    options[:ta] = true?\n"        
         code += "    render :text=>"+name.to_s+"_build(options)\n"
@@ -141,7 +151,7 @@ module Dyta
         code += "end\n"
 
         # Finish
-        # puts code
+        puts code
         module_eval(code)
       end
 

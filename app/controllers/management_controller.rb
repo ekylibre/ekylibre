@@ -4,17 +4,21 @@ class ManagementController < ApplicationController
   end
 
 
-  dyta(:products, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:products, :conditions=>:search_conditions) do |t|
     t.column :number
     t.column :name
+    t.column :description
     t.column :active
   end
 
+
   def products
-#    products_list params
-
-
+    key = params[:key]
+    key = params[:search][:keyword] if params[:search]
+    #    raise Exception.new params.inspect if request.post?
+    products_list({:attributes=>[:name, :description, :catalog_name, :catalog_description, :comment], :key=>key}.merge(params))
   end
+
 
   def products_display
     @product = Product.find_by_id_and_company_id(params[:id], @current_company.id)
@@ -26,9 +30,6 @@ class ManagementController < ApplicationController
 
 
   def products_create
-    @units = @current_company.units.find(:all, :order=>:label)
-    @shelves = @current_company.shelves.find(:all, :order=>:name)
-    @accounts = @current_company.accounts.find(:all, :conditions=>{:deleted=>false}, :order=>:number)
     if request.post? 
       @product = Product.new(params[:product])
       @product.company_id = @current_company.id
@@ -40,16 +41,31 @@ class ManagementController < ApplicationController
   end
 
   def products_update
+    @product = Product.find_by_id_and_company_id(params[:id], @current_company.id)
+    if @product.blank?
+      flash[:error] = lc(:unavailable_product) 
+      redirect_to :products
+    end
+    if request.post?
+      if @product.update_attributes(params[:product])
+        redirect_to :action=>:products_display, :id=>@product.id
+      end
+    end
+    render_form(:label=>@product.name)
   end
 
   def products_delete
+    @product = Product.find_by_id_and_company_id(params[:id], @current_company.id)
+    if @product.blank?
+      flash[:error] = lc(:unavailable_product) 
+      redirect_to :products
+    end
+    
   end
 
 
   def products_search
     if request.post?
-      if request.xhr?
-      end
     else
       redirect_to :action=>:products
     end

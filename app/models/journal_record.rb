@@ -12,7 +12,6 @@
 #  status        :string(1)     default("A"), not null
 #  debit         :decimal(16, 2 default(0.0), not null
 #  credit        :decimal(16, 2 default(0.0), not null
-#  balanced      :boolean       not null
 #  position      :integer       not null
 #  period_id     :integer       not null
 #  journal_id    :integer       not null

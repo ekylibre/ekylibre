@@ -7,8 +7,9 @@ module ApplicationHelper
     return session[:actions].include?(:all) ? true : session[:actions].include?(action)
   end
 
-  def link_to_back
-    link_to l('back'), :back, :class=>:back
+  def link_to_back(options={})
+    {:url=>:back}.merge(options)
+    link_to l('back'), options[:url], :class=>:back
   end
 
   
@@ -21,10 +22,10 @@ module ApplicationHelper
   def evalue(object, attribute, options={})
     if object.is_a? String
       label = object
-      value = attribute
+      value = attribute.to_s
     else
       label = object.class.human_attribute_name(attribute.to_s)
-      value = object.send(attribute.to_s)
+      value = object.send(attribute.to_s).to_s
     end
     value = link_to(value.to_s, options[:url]) if options[:url]
     code  = content_tag(:div, label.to_s, :class=>:label)
@@ -157,7 +158,7 @@ module ApplicationHelper
     link_to_function(l(label), "document."+form_name+".submit()", options.merge({:class=>:button}))
   end
 
-  def formalize(options={})
+  def formalizess(options={})
     form_name = 'f'+Time.now.to_i.to_s(36)+rand.to_s[2..10]
     form_code = '[No Form Description]'
     if block_given?
@@ -165,7 +166,7 @@ module ApplicationHelper
       yield form
       form_code = formalize_lines(form, options)
     elsif options[:model] or options[:partial]
-      form_code = render_partial(options[:partial]||options[:model].to_s.tableize+'_form')
+      form_code = render_partial(options[:partial]||options[:model].to_s.tableize+'_form', :locals=>{:formalize_partial=>options[:partial]})
     end
     if options[:inner_form]
       code = form_code
@@ -178,6 +179,20 @@ module ApplicationHelper
       code += '</form>'
  #     code = title+content_tag(:div,code)
       code = content_tag(:div, code, :class=>'formalize')
+    end
+    return code
+  end
+
+
+  def formalize(options={})
+#    name = 'f'+Time.now.to_i.to_s(36)+rand.to_s[2..10]
+    code = '[NoFormDescriptionError]'
+    if block_given?
+      form = FormDefinition.new()
+      yield form
+      code = formalize_lines(form, options)
+#    elsif options[:model] or options[:partial]
+#      code = render_partial(options[:partial]||options[:model].to_s.tableize+'_form')
     end
     return code
   end
@@ -203,7 +218,11 @@ module ApplicationHelper
         line_code += content_tag(:td,error_messages_for(line[:params]),:class=>"error", :colspan=>xcn)
       when :title
         reset_cycle "parity"
-        line[:value] = l(controller.controller_name, controller.action_name,line[:value]) if line[:value].is_a? Symbol
+        if line[:value].is_a? Symbol
+          calls = caller
+          file = calls[3].split(':')[0].split('/')[-1].split('.')[0][1..-1]
+          line[:value] = l(controller.controller_name, file.to_sym,line[:value]) 
+        end
         line_code += content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>xcn)
       when :field
         css_class += ' '+cycle('odd', 'even', :name=>"parity")

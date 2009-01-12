@@ -133,7 +133,7 @@ models:
       catalog_description: Description pour le catalogue
       code: Code
       code2: Code secondaire
-      comment: Commentaires
+      comment: Commentaire
       description: Description
       ean13: Code EAN13
       name: Nom
@@ -350,6 +350,7 @@ app:
     default_operations_journal_nature_name: Opérations Diverses
     default_purchases_journal_nature_name: Achats
     default_sales_journal_nature_name: Ventes
+    default_shelf_name: Sans catégorie
     update:
       title: 'Modification de la société %s'
       general: Vous pouvez modifier les différentes informations concernant votre société
@@ -407,7 +408,7 @@ app:
     accountancy:
       title: 'Comptabilité'
   help:
-    error_no_file: 'Aucun fichier d''aide disponible pour cette partie de l''application'
+    error_no_file: 'Aucun fichier d''aide disponible pour cette partie de l''application (%s)'
     search:
       title: 'Aide'
   journal:
@@ -458,8 +459,17 @@ app:
       taxes: 'Taxes'
     products:
       title: 'Gérer les produits'
+      new_product: 'Ajout d''un nouveau produit'
     products_create:
       title: 'Ajouter un nouveau produit'
+      accountancy: Comptabilité
+      identification: Nom et codes du produit
+      description: Descriptions
+      nature: Type de produit
+    products_display:
+      title: 'Fiche du produit : %s'
+      update_product: 'Modifier la fiche du produit'
+    products_form:
       accountancy: Comptabilité
       identification: Nom et codes du produit
       description: Descriptions
@@ -467,6 +477,8 @@ app:
     products_search:
       title: 'Recherche'
       search: 'Rechercher un produit'
+    products_update:
+      title: 'Modification du produit : %s'
     sales_new:
       title: 'Nouvelle vente'
       nature: 'Type de vente'

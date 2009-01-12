@@ -20,16 +20,28 @@ class ApplicationController < ActionController::Base
 
   def render_form(options={})
     a = action_name.split '_'
-    mode    = a[a.size-1].to_sym
-    partial = a[0..a.size-2].join('_')+'_form'
-    @options = {:partial=>partial, :submit=>mode, :title=>:title}.merge(options)
+    mode    = a[-1].to_sym
+    @partial = a[0..-2].join('_')+'_form'
+    @options = options
     begin
-      render :template=>'shared/formalize'
-#      render :text=>ApplicationHelper::formalize(options), :layout=>true
+      render :template=>'shared/form_'+mode.to_s
     rescue ActionController::DoubleRenderError
     end
-  end  
-  
+  end
+
+  def search_conditions(options={})
+    #    attributes = [:email, :fax, :mobile]
+    conditions = ["false"]
+    keywords = options[:key].to_s.split(" ")
+    for attribute in options[:attributes]
+      for word in keywords
+        conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
+        conditions << word
+      end
+    end 
+    conditions
+  end
+
   private  
   
   def authorize

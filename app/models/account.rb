@@ -8,6 +8,7 @@
 #  alpha        :string(16)    
 #  name         :string(208)   not null
 #  label        :string(255)   not null
+#  deleted      :boolean       not null
 #  usable       :boolean       not null
 #  groupable    :boolean       not null
 #  keep_entries :boolean       not null
@@ -19,7 +20,7 @@
 #  comment      :text          
 #  delay_id     :integer       
 #  entity_id    :integer       
-#  parent_id    :integer       not null
+#  parent_id    :integer       default(0), not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null

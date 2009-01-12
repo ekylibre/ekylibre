@@ -7,6 +7,7 @@
 #  nature_id      :integer       not null
 #  name           :string(255)   not null
 #  code           :string(4)     not null
+#  deleted        :boolean       not null
 #  counterpart_id :integer       
 #  closed_on      :date          not null
 #  company_id     :integer       not null
