@@ -1,39 +1,60 @@
-%h4 Vous disposez de =@size entités
-- form_tag() do
-  %table
-    %tr
-      %td.label recherche par id
-      %td.input=text_field :formu, :numb
-      %td.button=submit_tag 'ok'
-    %tr
-      %td.label recherche par nom
-      %td.input=text_field :nament, :test
-      %td.button=submit_tag 'ok'
-    %tr
-      %td.label Recherche par nom de contact
-      %td.input=text_field :contact, :nam
-%table
+%h1=lc(:title)
+%h3 Vous disposez de
+=@size
+%h3 entités
+.search
+  - form_tag() do
+    %table
+      %tr
+        %td.label Recherche d'une entité
+      %tr
+        %td.label recherche par id
+        %td.input=text_field :formu, :numb
+      %tr
+        %td.label recherche par nom
+        %td.input=text_field :nament, :test
+        %td.button=submit_tag 'ok'
+      %tr
+      %tr
+        %td.label Recherche par contact
+      %tr
+        %td.label Recherche par id
+        %td.label=text_field :contact, :num
+      %tr
+        %td.label Recherche par nom 
+        %td.input=text_field :contact, :name
+        %td.button=submit_tag 'ok'
+%table.result
   %tr
-    %td.label 
--if @entities != nil
-  -x=0
-  -for entity in @entities
-    -if entity
-      =@entities[x].id
-      %tr
-      =@entities[x].name
-      %tr
-      =@entities[x].code
-      -x+=1
--if @contacts != nil
-  -x=0
-  -for contact in @contacts
-    -if contact
-      =@contacts[x].mobile
-      %tr
-      =@contacts[x].fax
-      %tr
-      =@contacts[x].email
-      -x+=1
+    %td.result ID
+    %td.result Nom
+    %td.result Code
+  -if @entities != nil
+    -x=0
+    -for entity in @entities
+      -if entity
+        %tr.result
+          %td.result=@entities[x].id
+          %td.result=@entities[x].name
+          %td.result=@entities[x].code
+        -x+=1
+%table.result
+  %tr
+    %td.result Portable
+    %td.result Fax
+    %td.result Email
+  -if @contacts != nil
+    -x=0
+    -for contact in @contacts
+      -if contact
+        %tr
+          %td.result=@contacts[x].mobile
+          %td.result=@contacts[x].fax
+          %td.result=@contacts[x].email
+        -x+=1
 #noid
-
+-if @person != nil
+  %p Pas d'entité correspondant à l'id
+  =params[:formu][:numb]
+-if @max
+  %h1 Veuillez affiner votre recherche, il y a plus de 80 resultats

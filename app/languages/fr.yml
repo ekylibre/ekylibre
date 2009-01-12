@@ -118,6 +118,17 @@ models:
       name: Nom
       code: Code
       full_name: Nom complet
+  contact:
+    name: Contact
+    attributes:
+      fax: Fax
+      mobile: Portable
+      website: Site web
+      latitude: Latitude
+      longitude: Longitude
+      active: Actif
+      default: Par défaut
+      closed_on: Cloturé en
   establishment:
     name: Établissement
     attributes:
@@ -507,6 +518,8 @@ app:
       title: Renseignez les caractéristiques du contact à ajouter
       back: Retour à la liste des entités
       new_contact: Entrer un nouveau contact
+    entities_search:
+      title: Recherche d'une entité
     entities_update:
       title: 'Modification de l''entité'
     entities_form:
