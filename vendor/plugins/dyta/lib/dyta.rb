@@ -27,7 +27,7 @@ module Dyta
         # List method
         conditions = ''
         if options[:conditions]
-          conditions = ':conditions=>'
+          conditions = ''
           case options[:conditions]
           when Array
             conditions += '["'+options[:conditions][0].to_s+'"'
@@ -55,7 +55,7 @@ module Dyta
         code += "  end\n"
         code += "  @"+name.to_s+"="+model.to_s+".find(:all"
         unless conditions.blank?
-          code += ", "
+          code += ", :conditions=>"
           if conditions.is_a? Symbol
             code += conditions.to_s+"(options)"
           else

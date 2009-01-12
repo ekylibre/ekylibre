@@ -39,6 +39,7 @@ class ApplicationController < ActionController::Base
         conditions << word
       end
     end 
+    puts conditions.inspect
     conditions
   end
 
