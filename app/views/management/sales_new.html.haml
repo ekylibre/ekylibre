@@ -4,6 +4,6 @@
   - if session[:sales][:nature].nil?
     - f.title :nature
     - f.field :sale, :nature
-  - if session[:sales][:entity_id].nil?
+  - if session[:sales][:client_id].nil?
     - f.title :client
-    - f.field :sale, :entity
+    - f.field :sale, :client

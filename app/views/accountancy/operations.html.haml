@@ -1,14 +1,16 @@
 %h1=lc(:title)
-%ul
 .action-list
-  %h2= lc :verificate
+  %h2= lc :checkings
   %ul
     - @bank_accounts.each do |bank_account|
       %li=link_to lc(:list_of_statements)+":"+bank_account.name.to_s, {:action=>:statements, :id=>bank_account.id}
     %li=link_to lc(:list_of_entries), {:action=>:accounts_letter_launch}
+
 .action-list
-  %h2= lc :closering
+  %h2= lc :closings
   %ul
+    %li=link_to lc(:close_journal), {:action=>:journals_close}
     %li=link_to lc(:close_financialyear), {:action=>:financials_close}
 
+=link_to_back
   

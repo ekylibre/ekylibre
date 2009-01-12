@@ -4,7 +4,7 @@ class Managing < ActiveRecord::Migration
     # Unit (of measure)
     create_table :units do |t|      
       t.column :name,                   :string,   :null=>false, :limit=>8
-      t.column :full_name,              :string,   :null=>false
+      t.column :label,                  :string,   :null=>false
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :units, [:name, :company_id], :unique=>true
@@ -20,6 +20,7 @@ class Managing < ActiveRecord::Migration
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :shelves, [:name, :company_id], :unique=>true
+    add_index :shelves, :parent_id
     add_index :shelves, :company_id
     
     # Product
@@ -30,8 +31,8 @@ class Managing < ActiveRecord::Migration
       t.column :name,                   :string,   :null=>false
       t.column :number,                 :integer,  :null=>false
       t.column :active,                 :boolean,  :null=>false, :default=>true
-      t.column :code,                   :string,   :limit=>64, :null=>false
-      t.column :code2,                  :string,   :limit=>64, :null=>false
+      t.column :code,                   :string,   :limit=>64
+      t.column :code2,                  :string,   :limit=>64
       t.column :ean13,                  :string,   :limit=>13
       t.column :catalog_name,           :string,   :null=>false
       t.column :catalog_description,    :text

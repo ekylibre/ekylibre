@@ -1,0 +1,23 @@
+=formalize(:inner_form=>true) do |f|
+  - f.error :product
+  - f.title :identification
+  - f.field :product, :name
+  - f.field :product, :code
+  - f.field :product, :code2
+  - f.field :product, :ean13
+  - f.title :nature
+  - f.field :product, :shelf_id, :choices=>@shelves.collect{|x| [x.name, x.id]}, :new=>{:action=>:shelves_create}
+  - f.field :product, :unit_id, :choices=>@units.collect{|x| [x.label, x.id]}
+  - f.field :product, :active
+  - f.field :product, :to_purchase
+  - f.field :product, :to_sale
+  - f.field :product, :to_rent
+  - f.title :description
+  - f.field :product, :catalog_name
+  - f.field :product, :catalog_description, :field=>:textarea
+  - f.field :product, :description
+  - f.field :product, :comment
+  - f.title :accountancy
+  - f.field :product, :account_id, :choices=>@accounts.collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}
+=observe_field("product_name", :frequency =>0.25, :function => "var cn = $('product_catalog_name'); cn.value = value;")
+

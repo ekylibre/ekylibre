@@ -6,6 +6,11 @@ module ApplicationHelper
     return false unless @current_user
     return session[:actions].include?(:all) ? true : session[:actions].include?(action)
   end
+
+  def link_to_back
+    link_to l('back'), :back, :class=>:back
+  end
+
   
   def elink(condition,label,url)
     link_to_if(condition,label,url) do |name| 
@@ -124,7 +129,7 @@ module ApplicationHelper
 
 
   def title_tag
-    content_tag(:title, 'Ekylibre &bull; '+l(controller.controller_name.to_sym, :title))
+    content_tag(:title, 'Ekylibre - '+l(controller.controller_name.to_sym, :title))
   end
 
   def help_tag
@@ -165,16 +170,14 @@ module ApplicationHelper
     if options[:inner_form]
       code = form_code
     else
-      title = ''
-      title = content_tag(:h1, l(@controller.controller_name, @controller.action_name,options[:title]), :class=>"title") unless options[:title].nil?
+#      title = ''
+#      title = content_tag(:h1, l(@controller.controller_name, @controller.action_name,options[:title]), :class=>"title") unless options[:title].nil?
       code  = form_tag(options[:url]||{},{:multipart=>options[:multipart]||false, :name=>form_name})
       code += content_tag(:div, form_code, :class=>'fields')
       code += content_tag(:div,submit_tag(l(options[:submit]||:submit))+link_to(l(options[:cancel]||:cancel),:back,:class=>:button),:class=>'actions')
       code += '</form>'
-      code = title+content_tag(:div,code)
-      html_options = {:class=>'formalize'}
-      #      html_options[:style] = "width:"+770.to_s+"px"
-      code = content_tag(:div,code, html_options)
+ #     code = title+content_tag(:div,code)
+      code = content_tag(:div, code, :class=>'formalize')
     end
     return code
   end
@@ -239,17 +242,17 @@ module ApplicationHelper
     #help  = content_tag(:td, help,  :class=>"help",  :id=>options[:help_id])
 
     if line[:model] and line[:attribute]
-      object_name = line[:model]
+      record = line[:model]
       method      = line[:attribute]
       options     = line
 
-      object_name.to_sym if object_name.is_a?(String)
-      object = object_name.is_a?(Symbol) ? instance_variable_get('@'+object_name.to_s) : object_name
+      record.to_sym if record.is_a?(String)
+      object = record.is_a?(Symbol) ? instance_variable_get('@'+record.to_s) : record
       raise Exception.new('NilError on object: '+object.inspect) if object.nil?
       model = object.class
       raise Exception.new('ModelError on object (not an ActiveRecord): '+object.class.to_s) unless model.methods.include? "create"
 
-#      object_name = model.name.underscore.to_sym
+#      record = model.name.underscore.to_sym
       column = model.columns_hash[method.to_s]
       
       options[:field] = :password if method.to_s.match /password/
@@ -275,23 +278,43 @@ module ApplicationHelper
           options[:field] = :checkbox
         end
       end
+
+      
+      if options[:choices].is_a? Array
+        options[:field] = :select 
+        html_options.delete :size
+        html_options.delete :maxlength
+      end
+      
       input = case options[:field]
               when :password
-                password_field object_name, method, html_options
+                password_field record, method, html_options
               when :checkbox
-                check_box object_name, method, html_options
+                check_box record, method, html_options
+              when :select
+                select record, method, options[:choices], {}, html_options
+              when :textarea
+                text_area record, method, :cols => 30, :rows => 3
               else
-                text_field object_name, method, html_options
+                text_field record, method, html_options
               end
+      if options[:field] = :select and options[:new].is_a? Hash
+        label = lc(options[:new][:label]||:new)
+        options[:new].delete :label
+        input += link_to(label, options[:new], :class=>:fastadd)
+      end
+
+
+#      input += content_tag(:h6,options[:field].to_s+' '+options[:choices].class.to_s+' '+options.inspect)
       
       label = if object.class.methods.include? "human_attribute_name"
                 object.class.human_attribute_name(method.to_s)
-              elsif object_name.is_a? Symbol
-                le(:models, object_name.to_sym, :attributes, method.to_sym)
+              elsif record.is_a? Symbol
+                le(:models, record.to_sym, :attributes, method.to_sym)
               else
-                l(controller.controller_name, controller.action_name, object_name)                      
+                l(controller.controller_name, controller.action_name, record)                      
               end          
-      label = content_tag(:label, label, :for=>input_id) if object!=object_name
+      label = content_tag(:label, label, :for=>input_id) if object!=record
     elsif line[:field]
       label = line[:label]||'[NoLabel]'
       input = line[:field]
@@ -331,7 +354,9 @@ module ApplicationHelper
 
     def field(*params)
 #      @lines << {:nature=>:field, :params=>params}
-      line = {:nature=>:field, :help=>params[2]}
+      line = params[2]||{}
+#      line[:help] = 
+#      line.merge({:nature=>:field, :help=>params[2]})
       if params[1].is_a? Symbol
         line[:model] = params[0]
         line[:attribute] = params[1]
@@ -339,6 +364,7 @@ module ApplicationHelper
         line[:label] = params[0]
         line[:field] = params[1]
       end
+      line[:nature] = :field
       @lines << line
     end
 

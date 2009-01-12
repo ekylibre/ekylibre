@@ -1,6 +1,7 @@
 class RelationsController < ApplicationController
 
   def index
+    @entity = Entity.new
     @company = @current_company
     @entities = @company.entities
   end

@@ -11,7 +11,48 @@ class ManagementController < ApplicationController
   end
 
   def products
-    products_list params
+#    products_list params
+
+
+  end
+
+  def products_display
+    @product = Product.find_by_id_and_company_id(params[:id], @current_company.id)
+    if @product.blank?
+      flash[:error] = lc(:unavailable_product) 
+      redirect_to :products
+    end
+  end
+
+
+  def products_create
+    @units = @current_company.units.find(:all, :order=>:label)
+    @shelves = @current_company.shelves.find(:all, :order=>:name)
+    @accounts = @current_company.accounts.find(:all, :conditions=>{:deleted=>false}, :order=>:number)
+    if request.post? 
+      @product = Product.new(params[:product])
+      @product.company_id = @current_company.id
+      redirect_to :action =>:products_display, :id=>@product.id if @product.save
+    else
+      @product = Product.new
+    end
+    render_form
+  end
+
+  def products_update
+  end
+
+  def products_delete
+  end
+
+
+  def products_search
+    if request.post?
+      if request.xhr?
+      end
+    else
+      redirect_to :action=>:products
+    end
   end
 
 
@@ -25,14 +66,14 @@ class ManagementController < ApplicationController
     @sale = SaleOrder.new
     session[:sales] = {}
     session[:sales][:nature]    = params[:nature]
-    session[:sales][:entity_id] = params[:client]
+    session[:sales][:client_id] = params[:client]
     session[:sales] = params[:sales] if params[:sales].is_a? Hash
-    if session[:sales][:entity_id]
-      entity = Entity.find_by_company_id_and_id(session[:sales][:entity_id], @current_company.id)
-      session[:sales].delete(:entity_id) if entity.nil?
+    if session[:sales][:client_id]
+      client = Entity.find_by_company_id_and_id(session[:sales][:client_id], @current_company.id)
+      session[:sales].delete(:client_id) if client.nil?
     end
     if request.get?
-      unless session[:sales][:nature].nil? or session[:sales][:entity_id].nil?
+      unless session[:sales][:nature].nil? or session[:sales][:client_id].nil?
         redirect_to :action=>:sales_general
       end
     end

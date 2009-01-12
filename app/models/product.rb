@@ -29,4 +29,21 @@
 #
 
 class Product < ActiveRecord::Base
+
+  def before_validation
+    if self.company_id
+      if self.number.blank?
+        last = Product.find(:first, :conditions=>{:company_id=>self.company_id}, :order=>'number DESC')
+        self.number = last.nil? ? 1 : last.number+1 
+      end
+    end
+
+    self.catalog_name = self.name if self.catalog_name.blank?
+  end
+
+  def validate
+    errors.add_to_base(lc(:unknown_use_of_product)) unless self.to_sale or self.to_purchase or self.to_rent
+  end
+
+
 end

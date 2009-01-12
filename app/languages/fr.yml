@@ -118,6 +118,25 @@ models:
       name: Nom
       siret: N° SIRET
       note: Commentaire
+  product:
+    name: Produit
+    attributes:
+      account_id: Compte comptable
+      active: Utilisable
+      catalog_name: Nom pour le catalogue
+      catalog_description: Description pour le catalogue
+      code: Code
+      code2: Code secondaire
+      comment: Commentaires
+      description: Description
+      ean13: Code EAN13
+      name: Nom
+      number: Numéro
+      shelf_id: Catégorie
+      to_sale: Produit destiné à la vente
+      to_purchase: 'Produit destiné à l''achat'
+      to_rent: Produit destiné à la location
+      unit_id: Unité de mesure      
   user:
     name: Utilisateur
     attributes:
@@ -153,18 +172,19 @@ app:
       bank_accounts: Gérer les comptes bancaires (RIB)
       documents: Documents comptables
       journals: Gérer les journaux
-      operations: Opérations mensuelles et annuelles
+      operations: Opérations de vérification et de clôture
       parameters: Paramètres
       print_documents: Imprimer des documents comptables
       works: Travaux comptables
       write_entries: Saisie des écritures
     operations:
       title: Opérations comptables
-      verificate: Opérations de vérification
-      list_of_statements: Pointage du compte
+      checkings: Opérations de vérification
       close_financialyear: Clôture d'exercice
-      closering: Clôture
+      close_journal: Clôture de journal
+      closings: Clôtures
       list_of_entries: Lettrage d'écriture
+      list_of_statements: Pointage du compte
     accounts:
       title: Comptes
     entries:
@@ -268,6 +288,7 @@ app:
     access_denied: 'Vous n''avez pas le droit d''accéder à cette fonctionnalité'
     admin: 'Administration'
     exit: 'Quitter Ekylibre'
+    new: Nouveau...
   authentication:
     title: 'Bienvenue'
     no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
@@ -293,30 +314,6 @@ app:
       user_name_info: 'C''est le nom que vous utiliserez pour rentrer dans Ekylibre'
       user_password_hint: 'Pour avoir mot de passe "solide", il faut utiliser au minimum des majuscules, des minuscules et des chiffres'
       user_password_confirmation_info: 'Vous devez ressaisir votre mot de passe pour éviter qu''un mot de passe érroné soit enregistré'
-
-  relations: 
-    title: Gestion des relations
-    entities:
-      title: Liste des entités
-    entities_create: 
-      title: Création d'une nouvelle entité
-    entities_contact_create:
-      title: Renseignez les caractéristiques du contact à ajouter
-    entities_contact_update:
-      title: Renseignez les champs à modifier
-    entities_contact_delete:
-      title: Caractéristiques du contact à supprimer
-    entities_display:
-      title: Renseignez les caractéristiques du contact à ajouter
-      back: Retour à la liste des entités
-      new_contact: Entrer un nouveau contact
-    entities_update:
-      title: Modification de l'entité
-    entities_form:
-      title: Renseignez les différentes caractéristiques de l'entité
-    index:
-      entities: Liste des entités
-      entities_create: Créer une nouvelle entité
   company:
     title: Société
     index:
@@ -336,9 +333,9 @@ app:
 #     new_employee: Ajouter un nouvel employé
       new_bank_account: Ajouter un nouveau compte bancaire
       new_user: Ajouter un nouvel utilisateur
-      establishments_number: Nombre d'établissements
+      establishments_number: 'Nombre d''établissements'
       departments_number: Nombre de services
-      users_number: Nombre d'utilisateurs
+      users_number: 'Nombre d''utilisateurs'
       up: modifier
     default_bank_journal_nature_name: Banque
     default_department_name: Gestion/Production
@@ -392,7 +389,13 @@ app:
   guide:
     title: Accueil
     index:
-      title: 'Accueil'
+      title: 'Bienvenue dans Ekylibre, %s'
+      about_us: 'À propos d''Ekylibre'
+      accountancy: 'Comptabilité générale'
+      informations: 'Informations'
+      management: 'Gestion commerciale (ventes, achats et stocks)'
+      modules: 'Modules'
+      relations: 'Gestion des relations clients/fournisseurs'
     about_us:
       title: 'À propos d''Ekylibre'
     accountancy:
@@ -439,16 +442,25 @@ app:
       new_purchase: 'Nouvel achat'
       new_sale: 'Nouvelle vente'
       parameters: 'Paramètres'
-      products: 'Produits'
+      products: 'Gérer les produits de vente et d''achat'
       purchases: 'Achats'
       sales: 'Ventes'
-      shelves: 'Catégories de produit'
+      shelves: 'Gérer les catégories de produit'
       units: 'Unités de mesure'
       stocks: 'Stocks'
       stocks_locations: 'Gérer les stocks'
       taxes: 'Taxes'
     products:
-      title: 'Produits'
+      title: 'Gérer les produits'
+    products_create:
+      title: 'Ajouter un nouveau produit'
+      accountancy: Comptabilité
+      identification: Nom et codes du produit
+      description: Descriptions
+      nature: Type de produit
+    products_search:
+      title: 'Recherche'
+      search: 'Rechercher un produit'
     sales_new:
       title: 'Nouvelle vente'
       nature: 'Type de vente'
@@ -460,6 +472,34 @@ app:
     sales_step_5: 'Factures'
     sales_step_6: 'Règlements'
     sales_step_7: 'Impression'
+  relations: 
+    title: Gestion des relations
+    entities:
+      title: Liste des entités
+    entities_create: 
+      title: 'Création d''une nouvelle entité'
+    entities_contact_create:
+      title: Renseignez les caractéristiques du contact à ajouter
+    entities_contact_update:
+      title: Renseignez les champs à modifier
+    entities_contact_delete:
+      title: Caractéristiques du contact à supprimer
+    entities_display:
+      title: Renseignez les caractéristiques du contact à ajouter
+      back: Retour à la liste des entités
+      new_contact: Entrer un nouveau contact
+    entities_update:
+      title: 'Modification de l''entité'
+    entities_form:
+      title: 'Renseignez les différentes caractéristiques de l''entité'
+    index:
+      title: Gestion des relations clients et fournisseurs
+      create_entity: Créer une nouvelle fiche
+      entities: Fiches clients/fournisseurs
+      search_entities: Rechercher des fiches clients/fournisseurs
+  product:
+    unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
+  back: 'Revenir à la page précendente'
   cancel: 'Annuler'
   create: 'Créer'
   update: 'Modifier'
@@ -471,4 +511,6 @@ app:
   next: Suivant
   no_records: 'Pas d''enregistrements'
   previous: Précédent
+  search: Rechercher
+  search_go: Lancer la recherche
   submit: Envoyer

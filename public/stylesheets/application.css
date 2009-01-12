@@ -1,8 +1,8 @@
 * {margin:0; padding:0; font-family: Arial, sans-serif;}
 html {background: #FFF;}
-td, a, p { font-size:13px;}
+td, a, p, input, textarea { font-size:13px;}
 a:link, a:visited, a:hover { color:#00C; }
-input[type="text"], input[type="password"] { border:1px solid #aaa; background: #fff;}
+input[type="text"], input[type="password"], textarea { border:1px solid #aaa; background: #fff;}
 /*
 body { background: #ADA; behaviour:url(css/csshover.htc);}
 [xul] { overflow: auto; }
@@ -28,8 +28,8 @@ tr.unbalanced-odd td{background: #FF9999;}
 #columns { background: url(/images/template/columns.png) repeat-x top; }
 #side { width: 150px; border-right: 1px dotted #C9D7F1;}
 #main { overflow: auto; }
-#yield { padding: 4px; }
-#yield > h1 { /*font-variant: small-caps; letter-spacing:4px; */margin: 4px 8px 8px; font-size:20px;}
+#yield { padding: 8px; }
+#yield > h1 { margin: 0px 0px 8px; font-size:24px; color: #047;}
 #help { width: 150px; border-left: 1px dotted #dd8; background: #fffee3 url(/images/template/help.png) repeat-x top;}
 /*#help > h2 { background: #C9D7F1; font-size: 20px; text-align:center; height:24px; padding:4px; vertical-align: center; }*/
 #help .nav { height: 32px; }
@@ -99,6 +99,7 @@ tr.unbalanced-odd td{background: #FF9999;}
 /* end backslash hack*/
 
 
+
 #side > div { background: #BFB; margin: 2px 2px 8px; border:2px solid #BFB; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; }
 #side > div > div { background: #FFF }
 #side > div > h2 { font-weight:normal; padding: 0px 0px 2px; } 
@@ -134,9 +135,9 @@ div.td { display: table-cell; }
 
 .formalize { }
 .formalize .fields table { border-collapse: collapse; margin-left: auto; margin-right: auto; }
-.formalize .fields table td.label { text-align:right; padding:1px 4px; color: #008; width: 50%;}
+.formalize .fields table td.label { text-align:right; padding:1px 4px; color: #008; width: 50%; border-right: 1px dotted #CCC; }
 .formalize .fields table td.input { padding:2px 6px 2px 2px; }
-.formalize .fields table input.notnull { border: 1px solid #33F; background: #eeF }
+.formalize .fields table .notnull { border: 1px solid #33F; background: #eeF }
 .formalize .fields table td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: 11px; border-left:1px dashed #CCC;}
 .formalize .fields table td .info         { color: #007;  background:#CDF; padding:2px; }
 .formalize .fields table td .info span    { color: #55C; }
@@ -155,6 +156,7 @@ div.td { display: table-cell; }
 .formalize .fields table tr.even td { background: #F0F8FF;}
 */
 .formalize .actions { margin: 10px 0px;}
+.formalize .fastadd { margin: 0px 8px; }
 
 .actions {text-align:center; padding:6px !important; background: #CEC;}
 .actions * { margin: 0px 8px; }
@@ -184,6 +186,11 @@ div.futo table.list tr td.act {background: #FDD; width:16px; }/*border: 1px soli
 a.right { float:right; }
 
 /* BEGIN BUTTON STYLES */
+input[type="submit"] { text-decoration:none; border:1px solid #BBB; color:#444; background: #CCC url(/images/template/button.png) repeat-x top; -moz-border-radius: 4px; padding:1px 5px 2px; }
+input[type="submit"]:hover { border:2px solid #DA4; color: #555; text-decoration:none; background: #DDD url(/images/template/button_hover.png) repeat-x top; }
+input[type="submit"]:active, input[type="submit"]:focus { border:2px solid #68C; color: #555; text-decoration:none; background: #CCC url(/images/template/button_hover.png) repeat-x top; }
+input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus { padding:0px 4px 1px; }
+/*
 input[type="submit"], a.button:link, a.button:visited { text-decoration:none; border:1px solid #BBB; color:#444; background: #CCC url(/images/template/button.png) repeat-x top; -moz-border-radius: 4px;}
 input[type="submit"] { padding:1px 5px 2px; }
 a.button:link, a.button:visited { padding: 3px 8px;}
@@ -191,15 +198,36 @@ input[type="submit"]:hover, a.button:hover { border:2px solid #DA4; color: #555;
 input[type="submit"]:active, a.button:active, input[type="submit"]:focus, a.button:focus { border:2px solid #68C; color: #555; text-decoration:none; background: #CCC url(/images/template/button_hover.png) repeat-x top; }
 input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus { padding:0px 4px 1px; }
 a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
+*/
 /* END */
 
-.action-list { -moz-border-radius: 12px; background: #E4EBF8; padding:9px; margin:12px;}
-.action-list ul { padding: 8px 20px; }
-.action-list h2 { font-size : 16px;}
+.action-list, .errorExplanation { -moz-border-radius: 12px; background: #E4EBF8; padding:8px; margin:12px 0px;}
+.action-list, .errorExplanation ul { padding: 8px 20px; }
+.action-list, .errorExplanation h2 { font-size : 16px; color: black;}
 
-h2.form { font-size: 15px; margin: 8px 4px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }
+a.back { -moz-border-radius: 8px; padding:6px; margin:16px 0px; }
+
+a.back, .action-list.special { background: #FE9; }
+a.back, .action-list.special a { color: #A60; }
+
+h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }
 
 .stepper { border-collapse: collapse;}
 .stepper .standard { background: #FEB; border: 1px solid #EC7; padding: 4px; text-align:center; width: 80px}
 .stepper .master { background: #DA6; border: 1px solid #A82; color: white;}
 .stepper .right, .stepper .left  { background: #ED9; border: 1px solid #DB7;}
+
+.search { background: #CEA; color: #580; }
+.search table { margin: 0px auto; }
+/*
+.search { display:table-row; }
+.search  div { display: table-cell; }
+*/
+.search .label { padding: 1px 4px; }
+.search .submit { padding: 0px 4px; }
+
+.errorExplanation { background: #ECA; color: #543; }
+
+
+input[type="text"], input[type="password"], textarea { margin:1px; border-width: 1px;}
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus { border:2px solid #6ca !important; margin: 0px;}

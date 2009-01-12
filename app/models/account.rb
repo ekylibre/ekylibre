@@ -29,29 +29,37 @@
 #
 
 class Account < ActiveRecord::Base
- validates_format_of :number, :with=>/[0-9]+/i
- 
+  validates_format_of :number, :with=>/[0-9]+/i
+  acts_as_tree
 
   # This method allows to create the parent accounts if it is necessary.
-  #def before_validation
-  def after_create
-    number=self.number.to_s
-    number=self.number.to_s[0..number.size-2] if number.size > 1
-    account=Account.find_by_number(number)
-    unless account
-      @new_account=Account.create!(:number=>number, :name=>"Account", :label=>"A", :company_id=>self.company_id) 
-      self.update_attribute(:parent_id, @new_account.id)
-    else
-      self.update_attribute(:parent_id,account.id)
+  def before_validation
+    self.label = self.number.to_s+' - '+self.name.to_s
+    self.parent_id = 0 if self.parent_id.blank?
+  end
+
+  def after_save
+    if self.number.size>1
+      old_parent_id = self.parent_id
+      account = Account.find_by_company_id_and_number(self.company_id, self.number.to_s[0..-2])
+      unless account
+        account = Account.create!(:number=>self.number.to_s[0..-2], :name=>lc(:default_account_name,[number]), :company_id=>self.company_id)
+      end
+      self.update_attribute(:parent_id, account.id) if account.id!=old_parent_id
     end
   end
 
   # This method allows to delete an account only if it has any sub-accounts.
   def before_destroy
-    accounts = Account.find(:all, :conditions => "number LIKE '#{self.number}%'")    
-   
-    raise Exception.new("") if accounts.size > 1
-    
+    raise Exception.new(lc(:error_account_children)) if accounts.children.size>0
+  end
+
+  def parent
+    Account.find_by_id(self.parent_id)
+  end
+  
+  def children
+    Account.find_all_by_parent_id(self.id)||{}
   end
 
 end
