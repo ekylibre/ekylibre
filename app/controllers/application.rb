@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   def render_form(options={})
     a = action_name.split '_'
     mode    = a[-1].to_sym
-    @partial = a[0..-2].join('_')+'_form'
+    @partial = options[:partial]||a[0..-2].join('_')+'_form'
     @options = options
     begin
       render :template=>'shared/form_'+mode.to_s
