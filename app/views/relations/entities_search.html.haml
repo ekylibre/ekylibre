@@ -1,0 +1,39 @@
+%h4 Vous disposez de =@size entités
+- form_tag() do
+  %table
+    %tr
+      %td.label recherche par id
+      %td.input=text_field :formu, :numb
+      %td.button=submit_tag 'ok'
+    %tr
+      %td.label recherche par nom
+      %td.input=text_field :nament, :test
+      %td.button=submit_tag 'ok'
+    %tr
+      %td.label Recherche par nom de contact
+      %td.input=text_field :contact, :nam
+%table
+  %tr
+    %td.label 
+-if @entities != nil
+  -x=0
+  -for entity in @entities
+    -if entity
+      =@entities[x].id
+      %tr
+      =@entities[x].name
+      %tr
+      =@entities[x].code
+      -x+=1
+-if @contacts != nil
+  -x=0
+  -for contact in @contacts
+    -if contact
+      =@contacts[x].mobile
+      %tr
+      =@contacts[x].fax
+      %tr
+      =@contacts[x].email
+      -x+=1
+#noid
+
