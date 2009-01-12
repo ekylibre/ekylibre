@@ -4,7 +4,7 @@
   %ul
     - @bank_accounts.each do |bank_account|
       %li=link_to lc(:list_of_statements)+":"+bank_account.name.to_s, {:action=>:statements, :id=>bank_account.id}
-    %li=link_to lc(:list_of_entries), {:action=>:accounts_letter_launch}
+      %li=link_to lc(:list_of_entries), {:action=>:accounts_letter_launch}
 
 .action-list
   %h2= lc :closings

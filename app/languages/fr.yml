@@ -276,6 +276,7 @@ app:
       journal_name: Nom du journal
     statements_point:
       title: Pointage d'écritures
+      validate: Valider 
       entry_name: Intitulé de l'écriture
       entry_debit: Débit
       entry_credit: Crédit

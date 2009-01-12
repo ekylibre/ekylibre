@@ -1,1 +1,5 @@
-=@journal_closed.inspect
+=formalize(:inner_form=>true) do |f|
+  - f.error :journal
+  - f.title :title
+  - f.field :journal, :id, :choices => @journal.collect{|j| [j.name, j.id]} 
+

@@ -213,11 +213,11 @@ class AccountancyController < ApplicationController
    # @current_company.accounts.create!(:number=>'6', :name=>'charge', :label=>'charge', :parent_id=>1)
    # @current_company.accounts.create!(:number=>'7', :name=>'produit', :label=>'produit', :parent_id=>2)
    # @current_company.accounts.create!(:number=>'71', :name=>'produit', :label=>'produit1', :parent_id=>2)
-    @current_company.financialyears.create!(:code=>'1A2',
-                                            :started_on=>Date.civil(2009,01,01), 
-                                            :stopped_on=>Date.civil(2009,12,31), 
-                                            :written_on=>Date.civil(2009,12,12) )
-    @current_company.currencies.create!(:name=>'europeenne', :code=>'Eur', :format=>'euros')
+    #  @current_company.financialyears.create!(:code=>'1A2',
+      #                                     :started_on=>Date.civil(2009,01,01), 
+      #                                     :stopped_on=>Date.civil(2009,12,31), 
+      #                                     :written_on=>Date.civil(2009,12,12) )
+   #  @current_company.currencies.create!(:name=>'europeenne', :code=>'Eur', :format=>'euros')
 
     redirect_to :action => "entries"
   end
@@ -330,22 +330,56 @@ class AccountancyController < ApplicationController
   end
  
 
-  # This method allows to close the journal.
-   def journals_close
-     access :journals
-     @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id)  
-     if request.post?
-       @journal.close(params[:journal][:closed_on])
-       redirect_to :action => "journals"
-     end
-     @journal_periods = []
+   # This method allows to close the journal.
+  def journals_close
+    access :journals
+    # @journals={}
+    if request.get?
+      @journals = @current_company.journals 
+       @journal_periods = []
+      if params[:id]  
+        @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id) 
+      end
+      # @journal=Journal.find :first
+      if @journal.nil?
+        flash[:warning] = lc(:no_journals)
+        redirect_to :action=>:operations
+      end
+      d = @journal.closed_on
+      while (d+1).end_of_month < Date.today
+        d=(d+1).end_of_month
+        @journal_periods << d
+      end
+
+    elsif request.post?
+      @journal = Journal.find_by_id_and_company_id(params[:journal][:id], @current_company.id)
+      if @journal.nil?
+        flash[:error] = lc(:unavailable_journal)
+        redirect_to :back
+      end
+      
+      if @journal.close(params[:journal][:closed_on])
+        redirect_to :action => "journals"
+      end
+    
+   # elsif request.xhr?
+    #  redirect_to :action=>""
+    end
+  end 
+  
+  #
+  def journals_periods
+    @journal_periods=[]
+    @journal = Journal.find(params[:journal])
      d = @journal.closed_on
-     while (d+1).end_of_month < Date.today
-       d=(d+1).end_of_month
-       @journal_periods << d
-     end
-   end
-     
+    while (d+1).end_of_month < Date.today
+      d=(d+1).end_of_month
+      @journal_periods << [d.to_s,d.to_s]
+    end
+#    puts 'period:'+@journal_periods.inspect
+    render :text => options_for_select (@journal_periods) 
+  end
+
 
   # This method allows to close the financialyear.
   def financialyears_close
@@ -421,7 +455,7 @@ class AccountancyController < ApplicationController
       @statement = BankAccountStatement.new(params[:statement])
       @statement.bank_account_id = session[:bank_account]
       @statement.company_id = @current_company.id
-      redirect_to :action => "statements_point" if @statement.save
+      redirect_to :action => "statements_point", :id => @statement.id if @statement.save
     else
       @statement = BankAccountStatement.new
     end
@@ -453,24 +487,30 @@ class AccountancyController < ApplicationController
   
   # This method displays the list of entries recording to the accountancing account associated to the bank account.
   def statements_point
-   # if request.get?
-    @bank_account = BankAccount.find(session[:bank_account])
-    #puts 'ba:'+@bank_account.account_id.to_s
-    @entries = Entry.find(:all, :conditions => {:account_id => @bank_account.account_id, :company_id => @current_company.id})  
-    puts 'e:'+@entries.inspect
-    #entries_list params
-   #else
-    if request.post?
-      params[:entry].each do |id| 
-        @bank_account.account.entries << id
-      end
-    end
-    #end
-  end
- 
+    session[:statement] = params[:id]  if request.get? 
+  
+    @bank_account=BankAccount.find(session[:bank_account])
+    @entries=Entry.find(:all, :conditions => {:account_id => @bank_account.account_id, :company_id => @current_company.id}, :order => "id ASC")   
+     @bank_account_statement=BankAccountStatement.find(session[:statement])
 
-  
-  
+    
+    if request.xhr?
+      entry=Entry.find(params[:id]) 
+      unless  entry.statement_id
+        entry.update_attribute("statement_id", session[:statement])
+        @bank_account_statement.credit += entry.debit
+        @bank_account_statement.debit  += entry.credit
+        @bank_account_statement.save
+      end
+      render :action => "statements.rjs" 
+    end
+
+
+  end
+   
+    
+
+
 end
 
 

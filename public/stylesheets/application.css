@@ -21,6 +21,16 @@ tr.balanced-odd td{background:#99EB99;}
 tr.unbalanced-even td{background: #FFCCCC;}
 tr.unbalanced-odd td{background: #FF9999;}
 
+
+table.list_entries tr.even td{:background: #E3F4FF;}
+table.list_entries tr.odd td{:background: #E3F4FF;}
+
+tr.pointable.even td{background:#CCF5CC;}
+tr.pointable.odd td{background:#99EB99;}
+tr.unpointable.even td{background: #FFCCCC;}
+tr.unpointable.odd td{background: #FF9999;}
+
+
 #lines { height: 300px; overflow: auto; }
 #top { border-bottom: 1px  solid  #C9D7F1; height: 21px; }
 #guide { float:left; }

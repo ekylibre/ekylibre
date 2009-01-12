@@ -90,6 +90,8 @@ class Company < ActiveRecord::Base
     menu2.menu_items.create!(:name=>'$user_label' , :url=>'/company/user', :dynamic => true, :company_id => self.id)
     menu2.menu_items.create!(:name=>'$company_name' , :url=>'/company', :dynamic => true, :company_id => self.id)
     menu2.menu_items.create!(:name=>'Quitter' , :url=>'/authentication/logout', :company_id => self.id)
+    
+    self.currencies.create!(:name=>'europeenne', :code=>'Eur', :format=>'euros')
     # self.load_accounting_system
   end
 

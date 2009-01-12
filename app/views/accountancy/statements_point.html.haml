@@ -1,17 +1,15 @@
 %h1=lc(:title) 
 .action-list
-- form_tag() do
-  %table
+  %table{:class => "list_entries"}
     %tr
-      %td
-      %td.label=lc :entry_name
-      %td.label=lc :entry_debit
-      %td.label=lc :entry_credit
+      %td.label
+      %td.label=lc (:entry_debit)
+      %td.label=lc (:entry_credit)
     - @entries.each do |entry|
-      - id=entry.id
-      %tr
-        %td=check_box "entry", "checked"
-        %td=entry.name
+      %tr{ :class => (entry.statement_id ? "pointable" : "unpointable")+" "+cycle("even", "odd") , :id=> 'e'+entry.id.to_s}
+        %td=link_to_remote entry.name, :url => {:action=>:statements_point, :id=>entry.id}, :loaded => "var element=$('e"+entry.id.to_s+"'); element.removeClassName('unpointable'); element.addClassName('pointable'); return false;"
         %td=entry.debit
         %td=entry.credit
-  =submit_tag 'ok', :html => {:tabindex => 2}   
+  =link_to lc (:validate), :action => :statements, :id => @bank_account.id
+#total
+  =render :partial=>'statements'
