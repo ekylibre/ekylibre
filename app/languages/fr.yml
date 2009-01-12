@@ -112,6 +112,12 @@ models:
     name: Service
     attributes:
       name: Nom
+  entity:
+    name: Entité
+    attributes:
+      name: Nom
+      code: Code
+      full_name: Nom complet
   establishment:
     name: Établissement
     attributes:

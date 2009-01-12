@@ -90,29 +90,56 @@ class RelationsController < ApplicationController
     end
   end
   
-  def entities_export
+  def entities_search
    # @entity = Entity.find(session[:current_entity])
     if request.post?
-      id = params[:formu][:test].to_i
+      id = params[:formu][:numb].to_i
       @person = Entity.find_by_id(id)
       if @person
-        # raise Exception.new "erherhj"
-       # redirect_to :action => :entities_display, :id=>@person.id
+        redirect_to :action => :entities_display, :id=>@person.id
       else
-        if params[:nament][:test]
-          #raise Exception.new params[:nament][:test].to_s
-          nom_test =  params[:nament][:test].to_s
-          #raise Exception.new nom_test.class.to_s
-          @entities = Entity.find_by_sql ["SELECT *  FROM entities WHERE name = ? " ,nom_test]
-          #raise Exception.new @entit.class.to_s
-          render :action => :entities                     
+        if params[:nament][:test] != ""
+          attributes = [:name, :code]
+          conditions = ["false"]
+          key_words = params[:nament][:test].to_s.split(" ")
+          for attribute in attributes
+            for word in key_words
+              conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
+              conditions << word
+            end
+          end
+          #raise Exception.new conditions.inspect
+          @entities = Entity.find(:all, :conditions=>conditions)
+          size = 0
+          for x in  @entities
+            size += 1
+          end
+          if size > 1 
+            raise Exception.new 'ok'
+          end
+          #raise Exception.new size.to_i
+          #raise Exception.new @entities.inspect
+          render :action => 'entities_search'        
+        else
+          if params[:contact][:nam] != ""
+            attributes = [:email, :fax, :mobile]
+            conditions = ["false"]
+            key_words = params[:contact][:nam]
+            for attribute in attributes
+              for word in key_words
+                conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
+                conditions << word
+              end
+            end
+            @contacts = Contact.find(:all, :conditions=>conditions)
+            #raise Exception.new @contacts.inspect
+            render :action => 'entities_search'
+          end
         end
       end
-      # @entit = nil
-      @person = false
     end
   end
-
+  
   def entities_create # pr langage_id prendre current_user.language_id ? puis sortir du _form
     access :entities                      #ou params[:user][:language_id]  // pareil pr nature_id
     if request.post?
