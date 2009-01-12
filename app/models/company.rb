@@ -37,7 +37,8 @@ class Company < ActiveRecord::Base
     self.parameter('general.language').value=Language.find_by_iso2('fr')
     self.load_template("#{RAILS_ROOT}/lib/template.xml")
     self.departments.create!(:name=>lc(:default_department_name))
-    self.establishments.create!(:name=>lc(:default_establishment_name), :nic=>"00000")    
+    self.establishments.create!(:name=>lc(:default_establishment_name), :nic=>"00000")
+    self.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
     self.journal_natures.create!(:name=>lc(:default_sales_journal_nature_name))
     self.journal_natures.create!(:name=>lc(:default_purchases_journal_nature_name))
     self.journal_natures.create!(:name=>lc(:default_bank_journal_nature_name))
@@ -90,8 +91,6 @@ class Company < ActiveRecord::Base
     menu2.menu_items.create!(:name=>'$user_label' , :url=>'/company/user', :dynamic => true, :company_id => self.id)
     menu2.menu_items.create!(:name=>'$company_name' , :url=>'/company', :dynamic => true, :company_id => self.id)
     menu2.menu_items.create!(:name=>'Quitter' , :url=>'/authentication/logout', :company_id => self.id)
-    
-    self.currencies.create!(:name=>'europeenne', :code=>'Eur', :format=>'euros')
     # self.load_accounting_system
   end
 

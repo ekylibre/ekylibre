@@ -1,6 +1,6 @@
 * {margin:0; padding:0; font-family: Arial, sans-serif;}
 html {background: #FFF;}
-td, th, a, p, input, textarea, select { font-size:13px;}
+td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:hover { color:#00C; }
 input[type="text"], input[type="password"], textarea { border:1px solid #aaa; background: #fff;}
 /*
@@ -144,7 +144,11 @@ div.td { display: table-cell; }
 #company div.side .label {color:#777; width: 160px; text-align:right; padding: 2px;}
 #company div.side .value {color:#227;  padding: 2px;}
 
-.flash-error { padding: 10px; color: red; text-align:center; }
+.flash { padding: 6px; text-align:center; border-bottom: 2px solid black; background: white; }
+.flash.error { color: red; border-color: red; background: #FDD;}
+.flash.warning { color: #FA0; border-color: #FA0; background: #FEC; }
+.flash.notice { color: #7c3; border-color: #7c3; background: #EFC; }
+
 
 table.formalize { border-collapse: collapse; margin-left: auto; margin-right: auto; }
 table.formalize tr.field td { border-bottom:  1px dotted #CCC; }
@@ -171,23 +175,21 @@ table.formalize a.fastadd { margin: 0px 8px; }
 
 .invalid { border: 1px solid red !important; background: #FDD !important; }
 
-.futo .list { width:100%; }
-/*.futo .list .header {  position:fixed; width:100%; }*/
-
-.futo .empty { text-align:center; color: #777; padding:4px;}
 
 h3.dyta {padding:4px;color: #139; font-size: 16px; }
 table.dyta { border-collapse: collapse; width: 100%; border-bottom: 1px solid #BACFE6;}
-table.dyta td.procedures { padding:4px; background: #FEB; }
-table.dyta td.procedures > a {padding: 4px;}
-table.dyta th { border-top: 1px solid #BACFE6; background: #e9f3fe url(/images/template/table_head.png) repeat-x bottom; padding:2px; color: #336; font-weight: bold; }
+table.dyta th { background: #e9f3fe url(/images/template/table_head.png) repeat-x bottom; padding:2px; color: #336; font-weight: bold; font-size:15px;}
 table.dyta tr.odd  td {background: #E1E6FF;}
 table.dyta tr.even td {background: #F0F2FF;}
 table.dyta tr.data td {padding: 1px 3px;color: #007;}
-table.dyta tr.data td, table.dyta th { border-left: 1px solid #BACFE6; border-right: 1px solid #BACFE6; }
 table.dyta tr      td.act { width:16px; }
 table.dyta tr.odd  td.act { background: #FDD; }
 table.dyta tr.even td.act { background: #FED; }
+table.dyta td.procedures { padding:4px; background: #FEB; }
+table.dyta td.procedures > a {padding: 4px;}
+table.dyta td.empty { text-align:center; color: #777; padding:4px; background: #EEF; }
+table.dyta th, table.dyta td.empty, table.dyta td.procedures { border-top: 1px solid #BACFE6; }
+table.dyta th, table.dyta td { border-left: 1px solid #BACFE6; border-right: 1px solid #BACFE6; }
 
 a.right { float:right; }
 
@@ -207,7 +209,7 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 */
 /* END */
 
-.action-list, .errorExplanation { -moz-border-radius: 12px; background: #E4EBF8; padding:8px; margin:12px 0px;}
+.action-list, .errorExplanation { -moz-border-radius: 8px; background: #E4EBF8; padding:8px; margin:12px 0px;}
 .action-list ul, .errorExplanation ul { padding: 8px 20px; }
 .action-list h2, .errorExplanation h2 { font-size : 16px; color: black;}
 

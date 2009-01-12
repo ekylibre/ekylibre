@@ -153,7 +153,19 @@ models:
       to_sale: Produit destiné à la vente
       to_purchase: 'Produit destiné à l''achat'
       to_rent: Produit destiné à la location
-      unit_id: Unité de mesure      
+      unit_id: Unité de mesure
+  stock_location:
+    name: Lieu de stockage
+    attributes:
+      account_id: Compte comptable
+      comment: Commentaire
+      contact_id: Adresse
+      establishment_id: Établissement
+      name: Nom
+      parent_id: Lieu de stockage maître
+      x: Position X
+      y: Position Y
+      z: Position Z
   user:
     name: Utilisateur
     attributes:
@@ -502,6 +514,15 @@ app:
     sales_step_5: 'Factures'
     sales_step_6: 'Règlements'
     sales_step_7: 'Impression'
+    stocks_locations:
+      title: Gérer les stocks
+      stocks_locations_create: Ajouter un nouveau lieu de stockage
+    stocks_locations_create:
+      title: 'Ajout  d''un lieu de stockage'
+    stocks_locations_form:
+      description: Description générale
+      localization: Localisation géographique
+      accountancy: Comptabilité
   relations: 
     title: Gestion des relations
     entities:
@@ -531,6 +552,8 @@ app:
       search_entities: Rechercher des fiches clients/fournisseurs
   product:
     unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
+  unavailable:
+    product: Le produit demandé est indisponible
   back: 'Revenir à la page précendente'
   cancel: 'Annuler'
   create: 'Créer'

@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 
   def search_conditions(options={})
     #    attributes = [:email, :fax, :mobile]
-    conditions = ["false"]
+    conditions = ["company_id = ? AND (false", @current_company.id]
     keywords = options[:key].to_s.split(" ")
     for attribute in options[:attributes]
       for word in keywords
@@ -39,11 +39,21 @@ class ApplicationController < ActionController::Base
         conditions << word
       end
     end 
-    puts conditions.inspect
+    conditions[0] += ")"
     conditions
   end
 
-  private  
+  def find_and_check(model, id, options={})
+    model = model.to_s
+    record = model.classify.constantize.find_by_id_and_company_id(id, @current_company.id)
+    if record.blank?
+      flash[:error] = l(:unavailable, model.to_sym)
+      redirect_to :action=>options[:url]||model.pluralize
+    end
+    record
+  end
+
+  private
   
   def authorize
     session[:help_history] = [] if session[:help_history].nil?

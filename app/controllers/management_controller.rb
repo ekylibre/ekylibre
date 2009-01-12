@@ -9,6 +9,7 @@ class ManagementController < ApplicationController
     t.column :name
     t.column :description
     t.column :active
+    t.procedure :new_product, :action=>:products_create
   end
 
   dyta(:stock_locations, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -19,7 +20,6 @@ class ManagementController < ApplicationController
   end
   
 
-
   def products
     key = params[:key]
     key = params[:search][:keyword] if params[:search]
@@ -29,13 +29,8 @@ class ManagementController < ApplicationController
 
 
   def products_display
-    @product = Product.find_by_id_and_company_id(params[:id], @current_company.id)
-    if @product.blank?
-      flash[:error] = lc(:unavailable_product) 
-      redirect_to :products
-    end
+    @product = find_and_check(:product, params[:id])
   end
-
 
   def products_create
     if request.post? 
@@ -49,11 +44,7 @@ class ManagementController < ApplicationController
   end
 
   def products_update
-    @product = Product.find_by_id_and_company_id(params[:id], @current_company.id)
-    if @product.blank?
-      flash[:error] = lc(:unavailable_product) 
-      redirect_to :products
-    end
+    @product = find_and_check(:product, params[:id])
     if request.post?
       if @product.update_attributes(params[:product])
         redirect_to :action=>:products_display, :id=>@product.id
@@ -63,12 +54,10 @@ class ManagementController < ApplicationController
   end
 
   def products_delete
-    @product = Product.find_by_id_and_company_id(params[:id], @current_company.id)
-    if @product.blank?
-      flash[:error] = lc(:unavailable_product) 
-      redirect_to :products
+    @product = find_and_check(:product, params[:id])
+    if request.post? or request.delete?
+      redirect_to :back if @product.delete
     end
-    
   end
 
 
@@ -140,6 +129,34 @@ class ManagementController < ApplicationController
 
   def stocks_locations
     stock_locations_list params
+  end
+
+  def stocks_locations_create
+    if request.post? 
+      @stock_location = StockLocation.new(params[:stock_location])
+      @stock_location.company_id = @current_company.id
+      redirect_to :action =>:stocks_locations, :id=>@stock_location.id if @stock_location.save
+    else
+      @stock_location = StockLocation.new
+    end
+    render_form
+  end
+
+  def stocks_locations_update
+    @stock_location = find_and_check(:stock_location, params[:id])
+    if request.post?
+      if @stock_location.update_attributes(params[:stock_location])
+        redirect_to :action=>:stock_locations_display, :id=>@stock_location.id
+      end
+    end
+    render_form(:label=>@stock_location.name)
+  end
+
+  def stocks_locations_delete
+    @stock_location = find_and_check(:stock_location, params[:id])
+    if request.post? or request.delete?
+      redirect_to :back if @stock_location.delete
+    end
   end
 
 end

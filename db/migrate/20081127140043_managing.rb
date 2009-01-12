@@ -130,10 +130,10 @@ class Managing < ActiveRecord::Migration
       t.column :y,                      :string
       t.column :z,                      :string
       t.column :comment,                :text
-      t.column :parent_id,              :integer,  :null=>false, :references=>:stock_locations, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :parent_id,              :integer,  :references=>:stock_locations, :on_delete=>:cascade, :on_update=>:cascade
       t.column :account_id,             :integer,  :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :establishment_id,       :integer,  :null=>false, :references=>:establishments, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :contact_id,             :integer,  :null=>false, :references=>:contacts, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :establishment_id,       :integer,  :references=>:establishments, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :contact_id,             :integer,  :references=>:contacts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :stock_locations, :company_id

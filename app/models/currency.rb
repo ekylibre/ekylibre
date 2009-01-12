@@ -19,6 +19,4 @@
 #
 
 class Currency < ActiveRecord::Base
-   validates_uniqueness_of :name, :code, :format, :rate 
-
 end

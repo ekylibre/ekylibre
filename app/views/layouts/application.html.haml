@@ -11,11 +11,12 @@
     #columns{:orient=>:horizontal, :flex=>1}
       =# location_tag(:side, :orient=> :vertical)
       #main{:flex=>3, :orient=>:vertical}
-        = help_tag
         = flash_tag :error
         = flash_tag :warning
         = flash_tag :notice
-        #yield=yield
+        .all{:flex=>3, :orient=>:vertical}
+          = help_tag
+          #yield=yield
       #help{:flex=>1, :style=>''+(session[:help] ? "" : "display:none")}
         = render :partial=>'help/search' if session[:help]
  

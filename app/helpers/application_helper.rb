@@ -151,14 +151,15 @@ module ApplicationHelper
   end
 
   def flash_tag(mode)
-    content_tag(:div, flash[mode], :class=>'flash-'+mode.to_s) if flash[mode]
+#    content_tag(:div, 'Blabla', :class=>'flash '+mode.to_s)
+    content_tag(:div, flash[mode], :class=>'flash '+mode.to_s) if flash[mode]
   end
 
   def link_to_submit(form_name, label=:submit, options={})
     link_to_function(l(label), "document."+form_name+".submit()", options.merge({:class=>:button}))
   end
 
-  def formalizess(options={})
+  def old_formalizess(options={})
     form_name = 'f'+Time.now.to_i.to_s(36)+rand.to_s[2..10]
     form_code = '[No Form Description]'
     if block_given?
@@ -312,7 +313,7 @@ module ApplicationHelper
               when :checkbox
                 check_box record, method, html_options
               when :select
-                select record, method, options[:choices], {}, html_options
+                select record, method, options[:choices], options[:options]||{}, html_options
               when :textarea
                 text_area record, method, :cols => 30, :rows => 3
               else
