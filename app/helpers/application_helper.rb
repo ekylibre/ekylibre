@@ -220,7 +220,8 @@ module ApplicationHelper
         reset_cycle "parity"
         if line[:value].is_a? Symbol
           calls = caller
-          file = calls[3].split(':')[0].split('/')[-1].split('.')[0][1..-1]
+          file = calls[3].split(':')[0].split('/')[-1].split('.')[0]
+          file = file[1..-1] if file[1]=='_'
           line[:value] = l(controller.controller_name, file.to_sym,line[:value]) 
         end
         line_code += content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>xcn)
