@@ -1,0 +1,9 @@
+%h1=le :app, self.controller.controller_name.to_sym, action_name.to_sym, :title
+%h2=l(:toto)
+.formalize
+  - form do
+    .fields=render :partial=>@partial
+    .actions
+       =submit_tag(l(options[:submit]||:create)
+       =link_to(l(options[:cancel]||:cancel),:back)
+
