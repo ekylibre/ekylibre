@@ -305,7 +305,7 @@ module ApplicationHelper
       end
       
       if options[:choices].is_a? Array
-        options[:field] = :select 
+        options[:field] = :select if options[:field]!=:radio
         html_options.delete :size
         html_options.delete :maxlength
       end
@@ -317,6 +317,8 @@ module ApplicationHelper
                 check_box record, method, html_options
               when :select
                 select record, method, options[:choices], options[:options]||{}, html_options
+              when :radio
+                options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label,x[0],:for=>input_id+'_'+x[1])}.join " "
               when :textarea
                 text_area record, method, :cols => 30, :rows => 3
               else

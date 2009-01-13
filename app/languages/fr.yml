@@ -505,6 +505,9 @@ app:
       identification: Nom et codes du produit
       description: Descriptions
       nature: Type de produit
+      natures:
+        product: Produit
+        service: Service
     products_search:
       title: 'Recherche'
       search: 'Rechercher un produit'

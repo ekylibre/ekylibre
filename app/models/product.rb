@@ -59,5 +59,9 @@ class Product < ActiveRecord::Base
     errors.add_to_base(lc(:unknown_use_of_product)) unless self.to_sale or self.to_purchase or self.to_rent
   end
 
+  def self.natures
+    [:product, :service]
+  end
+
 
 end
