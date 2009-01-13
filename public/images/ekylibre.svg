@@ -346,9 +346,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="285.61717"
-     inkscape:cy="-153.6536"
+     inkscape:zoom="8"
+     inkscape:cx="-30.12575"
+     inkscape:cy="16.3464"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -382,6 +382,10 @@
        orientation="1,0"
        position="640,-487"
        id="guide3265" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="-32,-7.875"
+       id="guide2465" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -513,5 +517,17 @@
        height="260"
        x="-32.766418"
        y="700.63757" />
+    <rect
+       style="opacity:1;fill:#3061bb;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.75000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2461"
+       width="32"
+       height="32"
+       x="-64.766418"
+       y="588.63757" />
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.75000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M -31 289 L -31 295 L -31 301 L -31 307 L -31 313 L -31 319 L -1 319 L -1 313 L -25 313 L -25 307 L -1 307 L -1 301 L -25 301 L -25 295 L -1 295 L -1 289 L -25 289 L -31 289 z "
+       transform="translate(-32.76642,300.63758)"
+       id="rect2467" />
   </g>
 </svg>

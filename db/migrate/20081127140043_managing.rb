@@ -25,9 +25,11 @@ class Managing < ActiveRecord::Migration
     
     # Product
     create_table :products do |t| 
-      t.column :to_purchase,            :boolean,  :null=>false
-      t.column :to_sale,                :boolean,  :null=>false
-      t.column :to_rent,                :boolean,  :null=>false
+      t.column :to_purchase,            :boolean,  :null=>false, :default=>false
+      t.column :to_sale,                :boolean,  :null=>false, :default=>true
+      t.column :to_rent,                :boolean,  :null=>false, :default=>false
+      t.column :nature,                 :string,   :null=>false, :limit=>8  # service / product
+      t.column :supply_method,          :string,   :null=>false, :limit=>8  # buy / produce
       t.column :name,                   :string,   :null=>false
       t.column :number,                 :integer,  :null=>false
       t.column :active,                 :boolean,  :null=>false, :default=>true
@@ -38,6 +40,7 @@ class Managing < ActiveRecord::Migration
       t.column :catalog_description,    :text
       t.column :description,            :text
       t.column :comment,                :text
+      t.column :service_coeff,          :float     # used for price lists computing
       t.column :shelf_id,               :integer,  :null=>false, :references=>:shelves, :on_delete=>:cascade, :on_update=>:cascade
       t.column :unit_id,                :integer,  :null=>false, :references=>:units, :on_delete=>:cascade, :on_update=>:cascade
       t.column :account_id,             :integer,  :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
@@ -76,8 +79,8 @@ class Managing < ActiveRecord::Migration
     add_index :products_taxes, :tax_id
     add_index :products_taxes, :product_id
 
-    # Pricelist
-    create_table :pricelists do |t|
+    # PriceList
+    create_table :price_lists do |t|
       t.column :name,                   :string,   :null=>false
       t.column :started_on,             :date,     :null=>false
       t.column :stopped_on,             :date,     :null=>false
@@ -86,8 +89,8 @@ class Managing < ActiveRecord::Migration
       t.column :currency_id,            :integer,  :null=>false, :references=>:currencies
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
-    add_index :pricelists, [:name, :company_id], :unique=>true
-    add_index :pricelists, :company_id
+    add_index :price_lists, [:name, :company_id], :unique=>true
+    add_index :price_lists, :company_id
     
     # PricelistVersion
 #     create_table :pricelist_versions do |t|
@@ -103,23 +106,23 @@ class Managing < ActiveRecord::Migration
 #     add_index :pricelist_versions, :currency_id
 #     add_index :pricelist_versions, :company_id
     
-    # PricelistItem
-    create_table :pricelist_items do |t|
-      t.column :price,                  :decimal,  :null=>false, :precision=>16, :scale=>4
-      t.column :price_with_taxes,       :decimal,  :null=>false, :precision=>16, :scale=>4
+    # Prices
+    create_table :prices do |t|
+      t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>4
+      t.column :amount_with_taxes,      :decimal,  :null=>false, :precision=>16, :scale=>4
       t.column :active,                 :boolean,  :null=>false, :default=>true
       t.column :use_range,              :boolean,  :null=>false, :default=>false
       t.column :quantity_min,           :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :quantity_max,           :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :product_id,             :integer,  :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :pricelist_id,           :integer,  :null=>false, :references=>:pricelists, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :pricelist_version_id,   :integer,  :null=>false, :references=>:pricelist_versions, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :list_id,                :integer,  :null=>false, :references=>:price_lists, :on_delete=>:cascade, :on_update=>:cascade
+#      t.column :pricelist_version_id,   :integer,  :null=>false, :references=>:pricelist_versions, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
-    add_index :pricelist_items, :product_id
-    add_index :pricelist_items, :pricelist_id
-    add_index :pricelist_items, [:quantity_min, :product_id, :pricelist_id, :company_id], :unique=>true
-    add_index :pricelist_items, :company_id
+    add_index :prices, :product_id
+    add_index :prices, :active
+    add_index :prices, :list_id
+    add_index :prices, :company_id
 
 
 
@@ -349,8 +352,10 @@ class Managing < ActiveRecord::Migration
     drop_table :stock_trackings
     drop_table :stock_locations
 #    drop_table :pricelist_versions
-    drop_table :pricelist_items
-    drop_table :pricelists
+#    drop_table :pricelist_items
+#    drop_table :pricelists
+    drop_table :prices
+    drop_table :price_lists
     drop_table :products_taxes
     drop_table :taxes
     drop_table :products

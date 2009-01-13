@@ -53,6 +53,7 @@ module ApplicationHelper
 
 
   def top_tag
+    return '' if @current_user.blank?
     code = ''
     # Guide Tag
     tag = ''
@@ -69,10 +70,11 @@ module ApplicationHelper
     tag = ''
     tag += css_menu_tag(session[:menu_user]) 
     code += content_tag(:div, tag, :id=>:user, :class=>:menu, :flex=>1)
-
+    
     # Fix
     #    code += content_tag(:div, '', :style=>'clear:both;')    
-    return content_tag(:div, code, :id=>:top, :orient=>:horizontal)
+    code = content_tag(:div, code, :id=>:top, :orient=>:horizontal)
+    code
   end
   
 
@@ -134,6 +136,7 @@ module ApplicationHelper
   end
 
   def help_tag
+    return '' if @current_user.blank?
     options = {:class=>"help-link"} 
     url = {:controller=>:help, :action=>:search, :id=>controller.controller_name+'-'+action_name}
     content = content_tag(:div, '&nbsp;')

@@ -1,4 +1,5 @@
 class AuthenticationController < ApplicationController
+  layout 'application'
   
   def index
     redirect_to :action=>:login

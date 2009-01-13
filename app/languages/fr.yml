@@ -473,6 +473,7 @@ app:
       new_purchase: 'Nouvel achat'
       new_sale: 'Nouvelle vente'
       parameters: 'Paramètres'
+      prices: 'Gérer les tarifs des produits'
       products: 'Gérer les produits de vente et d''achat'
       purchases: 'Achats'
       sales: 'Ventes'
