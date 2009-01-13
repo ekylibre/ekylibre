@@ -12,14 +12,6 @@ class ManagementController < ApplicationController
     t.procedure :new_product, :action=>:products_create
   end
 
-  dyta(:stock_locations, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name
-    t.column :name, :through=>:establishment
-    t.column :name, :through=>:parent
-    t.procedure :stocks_locations_create
-  end
-  
-
   def products
     key = params[:key]
     key = params[:search][:keyword] if params[:search]
@@ -127,15 +119,44 @@ class ManagementController < ApplicationController
   def purchases
   end
 
+
+  dyta(:stock_locations, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :name, :through=>:establishment
+    t.column :name, :through=>:parent
+    t.action :stocks_locations_display, :image=>:show
+    t.action :stocks_locations_update, :image=>:update
+    t.action :stocks_locations_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :stocks_locations_create
+  end
+
+  dyta(:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :location_id=>['@stock_location.id']}) do |t|
+    t.column :name
+    t.column :planned_on
+    t.column :moved_on
+    t.column :quantity
+    t.column :name, :through=>:unit
+    t.column :name, :through=>:product
+    t.column :comment
+    t.action :stocks_locations_update, :image=>:update
+    t.action :stocks_locations_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :stocks_moves_create
+  end
+  
   def stocks_locations
     stock_locations_list params
+  end
+
+  def stocks_locations_display
+    @stock_location = find_and_check(:stock_location, params[:id])
+    stock_moves_list params
   end
 
   def stocks_locations_create
     if request.post? 
       @stock_location = StockLocation.new(params[:stock_location])
       @stock_location.company_id = @current_company.id
-      redirect_to :action =>:stocks_locations, :id=>@stock_location.id if @stock_location.save
+      redirect_to :action =>:stocks_locations_display, :id=>@stock_location.id if @stock_location.save
     else
       @stock_location = StockLocation.new
     end
@@ -146,7 +167,7 @@ class ManagementController < ApplicationController
     @stock_location = find_and_check(:stock_location, params[:id])
     if request.post?
       if @stock_location.update_attributes(params[:stock_location])
-        redirect_to :action=>:stock_locations_display, :id=>@stock_location.id
+        redirect_to :action=>:stocks_locations_display, :id=>@stock_location.id
       end
     end
     render_form(:label=>@stock_location.name)
@@ -155,7 +176,7 @@ class ManagementController < ApplicationController
   def stocks_locations_delete
     @stock_location = find_and_check(:stock_location, params[:id])
     if request.post? or request.delete?
-      redirect_to :back if @stock_location.delete
+      redirect_to :back if @stock_location.destroy
     end
   end
 

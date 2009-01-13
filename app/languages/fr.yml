@@ -518,11 +518,19 @@ app:
       title: Gérer les stocks
       stocks_locations_create: Ajouter un nouveau lieu de stockage
     stocks_locations_create:
-      title: 'Ajout  d''un lieu de stockage'
+      title: 'Ajout d''un lieu de stockage'
+    stocks_locations_display:
+      title: 'Détail du lieu de stockage : %s'
+      establishment: Établissement
+      moves: Mouvements de stocks
+      stocks_locations_update: Modifier le lieu de stockage
+      stocks_moves_create: Ajouter un mouvement de stock
     stocks_locations_form:
       description: Description générale
       localization: Localisation géographique
       accountancy: Comptabilité
+    stocks_locations_update:
+      title: 'Modification d''un lieu de stockage'
   relations: 
     title: Gestion des relations
     entities:
@@ -540,7 +548,7 @@ app:
       back: Retour à la liste des entités
       new_contact: Entrer un nouveau contact
     entities_search:
-      title: Recherche d'une entité
+      title: 'Recherche d''une entité'
     entities_update:
       title: 'Modification de l''entité'
     entities_form:
@@ -554,6 +562,7 @@ app:
     unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
   unavailable:
     product: Le produit demandé est indisponible
+  are_you_sure: 'Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?'
   back: 'Revenir à la page précendente'
   cancel: 'Annuler'
   create: 'Créer'

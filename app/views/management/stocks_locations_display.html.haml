@@ -1,0 +1,15 @@
+%h1=lc :title, [@stock_location.name]
+=link_to lc(:stocks_locations_update), :action=>:stocks_locations_update, :id=>@stock_location.id
+%table
+  %tr
+    %td
+      =evalue @stock_location, :name
+      =evalue @stock_location, :comment
+    %td
+      =evalue lc(:establishment), @stock_location.establishment.name
+      =evalue @stock_location, :x
+      =evalue @stock_location, :y
+      =evalue @stock_location, :z
+
+%h2=lc :moves
+=dyta :stock_moves

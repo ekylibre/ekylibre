@@ -2,7 +2,7 @@
 html {background: #FFF;}
 td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:hover { color:#00C; }
-input[type="text"], input[type="password"], textarea { border:1px solid #aaa; background: #fff;}
+input[type="text"], input[type="password"], textarea, select { border:1px solid #aaa; background: #fff;}
 /*
 body { background: #ADA; behaviour:url(css/csshover.htc);}
 [xul] { overflow: auto; }
@@ -40,6 +40,7 @@ tr.unpointable.odd td{background: #FF9999;}
 #main { overflow: auto; }
 #yield { padding: 8px; }
 #yield > h1 { margin: 0px 0px 8px; font-size:24px; color: #047;}
+#yield > h2 { margin: 0px 0px 8px; font-size:20px; color: #06A;}
 #help { width: 150px; border-left: 1px dotted #dd8; background: #fffee3 url(/images/template/help.png) repeat-x top;}
 /*#help > h2 { background: #C9D7F1; font-size: 20px; text-align:center; height:24px; padding:4px; vertical-align: center; }*/
 #help .nav { height: 32px; }
