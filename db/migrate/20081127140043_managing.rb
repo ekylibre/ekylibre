@@ -230,8 +230,8 @@ class Managing < ActiveRecord::Migration
     create_table :sale_order_lines do |t|
       t.column :order_id,               :integer, :null=>false, :references=>:sale_orders
       t.column :product_id,             :integer, :null=>false, :references=>:products
-      t.column :pricelist_id,           :integer, :null=>false, :references=>:pricelists
-      t.column :pricelist_item_id,      :integer, :null=>false, :references=>:pricelist_items
+      t.column :price_list_id,          :integer, :null=>false, :references=>:price_lists
+      t.column :price_id,               :integer, :null=>false, :references=>:prices
       t.column :invoiced,               :boolean, :null=>false, :default=>false
       t.column :quantity,               :decimal, :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
       t.column :unit_id,                :integer, :null=>false, :references=>:units
@@ -266,8 +266,8 @@ class Managing < ActiveRecord::Migration
       t.column :invoice_id,             :integer, :null=>false, :references=>:sale_orders
       t.column :order_line_id,          :integer, :null=>false, :references=>:sale_order_lines
       t.column :product_id,             :integer, :null=>false, :references=>:products
-      t.column :pricelist_id,           :integer, :null=>false, :references=>:pricelists
-      t.column :price_id,               :integer, :null=>false, :references=>:pricelist_items
+      t.column :price_list_id,          :integer, :null=>false, :references=>:price_lists
+      t.column :price_id,               :integer, :null=>false, :references=>:prices
       t.column :quantity,               :decimal, :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
       t.column :price,                  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :price_with_taxes,       :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
@@ -294,8 +294,8 @@ class Managing < ActiveRecord::Migration
       t.column :delivery_id,            :integer, :null=>false, :references=>:deliveries
       t.column :order_line_id,          :integer, :null=>false, :references=>:sale_order_lines
       t.column :product_id,             :integer, :null=>false, :references=>:products
-      t.column :pricelist_id,           :integer, :null=>false, :references=>:pricelists
-      t.column :price_id,               :integer, :null=>false, :references=>:pricelist_items
+      t.column :price_list_id,          :integer, :null=>false, :references=>:price_lists
+      t.column :price_id,               :integer, :null=>false, :references=>:prices
       t.column :quantity,               :decimal, :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
       t.column :unit_id,                :integer, :null=>false, :references=>:units
       t.column :price,                  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
