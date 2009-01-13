@@ -9,7 +9,7 @@
         %td.input=text_field :user, :name, {:value=>session[:user_name], :tabindex=>1}
       %tr
         %td.label=lc :password
-        %td.input=password_field :user, :password, :tabindex=>2, :onchange=>"document."+@login+".submit()"
+        %td.input=password_field :user, :password, :tabindex=>2
       %tr
         %td.button{:colspan=>2}=submit_tag(lc(:connect), :tabindex=>3)
       %tr

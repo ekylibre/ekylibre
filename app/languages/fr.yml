@@ -9,7 +9,7 @@ about:
 app_default_value: '?'
 
 active_record_messages:
-  inclusion: n'est pas inclus dans la liste
+  inclusion: 'n''est pas inclus dans la liste'
   exclusion: est réservé
   invalid: est invalide
   confirmation: ne correspond pas à la confirmation
@@ -18,9 +18,9 @@ active_record_messages:
   blank: ne peut être vide
   too_long: est trop long (le maximum est de %d caractères)
   too_short: est trop court (le minimum est de %d caractères)
-  wrong_length: n'est pas de la bonne taille (devrait être de %d caractères)
+  wrong_length: 'n''est pas de la bonne taille (devrait être de %d caractères)'
   taken: a déjà été utilisé
-  not_a_number: n'est pas un nombre
+  not_a_number: 'n''est pas un nombre'
 
 dates:
   monthnames: [Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
@@ -491,6 +491,7 @@ app:
       description: Descriptions
       nature: Type de produit
     products_display:
+      products_list: 'Retourner à la liste de produits'
       title: 'Fiche du produit : %s'
       update_product: 'Modifier la fiche du produit'
     products_form:
@@ -531,6 +532,16 @@ app:
       accountancy: Comptabilité
     stocks_locations_update:
       title: 'Modification d''un lieu de stockage'
+    stocks_locations_create:
+      title: 'Enregistrement d''un mouvement de stock'
+    stocks_moves_create: 
+      title: Ajouter un mouvement de stock
+    stocks_moves_form: 
+      description: Description
+      nature: Opération
+    stocks_moves_update: 
+      title: Modifier un mouvement de stock
+
   relations: 
     title: Gestion des relations
     entities:

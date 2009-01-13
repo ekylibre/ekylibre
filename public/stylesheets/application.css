@@ -128,10 +128,11 @@ a.guide > div { width: 220px; height:58px; background: url(/images/template/guid
 table.invex, table.invisible { border-collapse: collapse; }
 table.invex, table.flex { width: 100% }
 
-.evalue { display:table; border-collapse: collapse;}
+.evalue { display:table; border-collapse: collapse; border-bottom: 1px dotted #CCC; margin: 0px 4px;}
 .evalue > div { display:table-row; }
 .evalue .label, .evalue .value { display:table-cell; padding:1px 4px;  }
-.evalue .label { width:256px; text-align:right; }
+.evalue .label { width:176px; text-align:right; color: #777; }
+.evalue .value { width:164px; }
 
 div.tr { display: table-row; }
 div.td { display: table-cell; }
@@ -163,7 +164,7 @@ table.formalize td .example      { color: #040;  background:#CFC; padding:2px; }
 table.formalize td .example span { color: #4A5; }
 table.formalize td .hint         { color: #600;  background:#FDE; padding:2px;}
 table.formalize td .hint span    { color: #B54; }
-table.formalize tr.title th { padding: 16px 8px 2px; border-bottom: 0px dotted #002; color: #002; font-size:15px; border-bottom: 1px solid #CCC; /*background: #F0F8FF url(/images/template/form-subtitle.png) repeat-x top;*/}
+table.formalize tr.title th { padding: 16px 8px 2px; border-bottom: 0px dotted #002; color: #002; font-size:13px; border-bottom: 1px solid #CCC; font-weight:bold;}
 /*
 table.formalize tr.odd  td { background: #E5ECF6;}
 table.formalize tr.even td { background: #F0F8FF;}
@@ -179,7 +180,7 @@ table.formalize a.fastadd { margin: 0px 8px; }
 
 h3.dyta {padding:4px;color: #139; font-size: 16px; }
 table.dyta { border-collapse: collapse; width: 100%; border-bottom: 1px solid #BACFE6;}
-table.dyta th { background: #e9f3fe url(/images/template/table_head.png) repeat-x bottom; padding:2px; color: #336; font-weight: bold; font-size:15px;}
+table.dyta th { background: #e9f3fe url(/images/template/table_head.png) repeat-x bottom; padding:2px; color: #336; font-weight: bold; font-size:13px;}
 table.dyta tr.odd  td {background: #E1E6FF;}
 table.dyta tr.even td {background: #F0F2FF;}
 table.dyta tr.data td {padding: 1px 3px;color: #007;}
@@ -210,9 +211,9 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 */
 /* END */
 
-.action-list, .errorExplanation { -moz-border-radius: 8px; background: #E4EBF8; padding:8px; margin:12px 0px;}
-.action-list ul, .errorExplanation ul { padding: 8px 20px; }
-.action-list h2, .errorExplanation h2 { font-size : 16px; color: black;}
+.action-list, .errorExplanation { -moz-border-radius: 8px; background: #E4EBF8; padding:4px 6px; margin:12px 0px;}
+.action-list ul, .errorExplanation ul { padding: 4px 4px 4px 18px; }
+.action-list h2, .errorExplanation h2 { font-size : 16px; color: black; padding: 2px; }
 
 a.back { -moz-border-radius: 8px; padding:6px; margin:16px 0px; }
 

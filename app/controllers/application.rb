@@ -30,16 +30,20 @@ class ApplicationController < ActionController::Base
   end
 
   def search_conditions(options={})
-    #    attributes = [:email, :fax, :mobile]
-    conditions = ["company_id = ? AND (false", @current_company.id]
+    conditions = ["company_id = ?", @current_company.id]
     keywords = options[:key].to_s.split(" ")
-    for attribute in options[:attributes]
-      for word in keywords
-        conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
-        conditions << word
-      end
-    end 
-    conditions[0] += ")"
+    if keywords.size>0 and options[:attributes].size>0
+      conditions[0] += " AND ("
+      for attribute in options[:attributes]
+        for word in keywords
+          conditions[0] += attribute.to_s+"::text ILIKE ? OR "
+          conditions << '%'+word+'%'
+        end
+      end 
+      conditions[0] = conditions[0][0..-5]+")"
+    else
+      conditions[0] += "AND false"
+    end
     conditions
   end
 

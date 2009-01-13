@@ -298,8 +298,8 @@ module ApplicationHelper
         if column.type==:boolean
           options[:field] = :checkbox
         end
+        html_options[:size] = 10 if column.type==:date
       end
-
       
       if options[:choices].is_a? Array
         options[:field] = :select 

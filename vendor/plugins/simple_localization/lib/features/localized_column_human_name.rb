@@ -43,6 +43,39 @@ module ActiveRecord #:nodoc:
         self.model_class ? self.model_class.human_attribute_name(@name) : human_name_without_localization
       end
       
+
+      # Overwrites the +string_to_date+ method to use the localization file
+      # to use a parse model for the dates
+      def self.string_to_date(string)
+        return string unless string.is_a?(String)
+        date_array = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :attributes])
+        # treat 0000-00-00 as nil
+        Date.civil(date_array[:year], date_array[:mon], date_array[:mday]) rescue nil
+      end
+
+      def self.string_to_time(string)
+        return string unless string.is_a?(String)
+        time_hash = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :attributes])
+        return nil if time_hash.nil?
+        index = string.index(/\.\d\d\d\d\d\d/)
+        time_hash[:sec_fraction] = string[index+1, index+6] if index;
+        time_array = time_hash.values_at(:year, :mon, :mday, :hour, :min, :sec, :sec_fraction)
+        # treat 0000-00-00 00:00:00 as nil
+        Time.send(Base.default_timezone, *time_array) rescue DateTime.new(*time_array[0..5]) rescue nil
+      end
+
+      def self.string_to_dummy_time(string)
+        return string unless string.is_a?(String)
+        return nil if string.empty?
+        time_hash = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :db])
+        index = string.index(/\.\d\d\d\d\d\d/)
+        time_hash[:sec_fraction] = string[index+1, index+6] if index;
+        time_array = [2000, 1, 1]
+        time_array += time_hash.values_at(:hour, :min, :sec, :sec_fraction)
+        Time.send(Base.default_timezone, *time_array) rescue nil
+      end
+
+
     end
   end
   

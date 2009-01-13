@@ -1,5 +1,8 @@
 %h1=lc(:title, [@product.name])
-=link_to lc(:update_product), :action=>:products_update, :id=>@product.id
+.action-list
+  %ul
+    %li=link_to lc(:update_product), :action=>:products_update, :id=>@product.id
+    %li=link_to lc(:products_list), :action=>:products
 %table
   %tr
     %td
@@ -19,4 +22,3 @@
       =evalue @product, :comment
 
 
-=link_to_back(:url=>{:action=>:products})

@@ -6,17 +6,35 @@ class ManagementController < ApplicationController
 
   dyta(:products, :conditions=>:search_conditions) do |t|
     t.column :number
+    t.column :code
     t.column :name
     t.column :description
     t.column :active
+    t.action :products_display, :image=>:show
+    t.action :products_update, :image=>:update
+    t.action :products_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :new_product, :action=>:products_create
+  end
+
+  dyta(:products, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :number
+    t.column :code
+    t.column :name
+    t.column :description
+    t.column :active
+    t.action :products_display, :image=>:show
+    t.action :products_update, :image=>:update
+    t.action :products_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :new_product, :action=>:products_create
   end
 
   def products
-    key = params[:key]
-    key = params[:search][:keyword] if params[:search]
+#    raise Exception.new params[:key].to_s+' -- '+params["key"].to_s
+    @key = params[:key]||session[:product_key]
+    session[:product_key] = @key
+    #    key = params[:search][:keyword] if params[:search]
     #    raise Exception.new params.inspect if request.post?
-    products_list({:attributes=>[:name, :description, :catalog_name, :catalog_description, :comment], :key=>key}.merge(params))
+    products_list({:attributes=>[:id, :name, :description, :catalog_name, :catalog_description, :comment], :key=>@key}.merge(params))
   end
 
 
@@ -138,8 +156,8 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:unit
     t.column :name, :through=>:product
     t.column :comment
-    t.action :stocks_locations_update, :image=>:update
-    t.action :stocks_locations_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :stocks_moves_update, :image=>:update
+    t.action :stocks_moves_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :stocks_moves_create
   end
   
@@ -149,6 +167,7 @@ class ManagementController < ApplicationController
 
   def stocks_locations_display
     @stock_location = find_and_check(:stock_location, params[:id])
+    session[:current_stock_location_id] = @stock_location.id
     stock_moves_list params
   end
 
@@ -177,6 +196,36 @@ class ManagementController < ApplicationController
     @stock_location = find_and_check(:stock_location, params[:id])
     if request.post? or request.delete?
       redirect_to :back if @stock_location.destroy
+    end
+  end
+
+  def stocks_moves_create
+    @stock_location = StockLocation.find_by_id session[:current_stock_location_id]
+    if request.post? 
+      @stock_move = StockMove.new(params[:stock_move])
+      @stock_move.company_id = @current_company.id
+      redirect_to :action =>:stocks_locations_display, :id=>@stock_move.location_id if @stock_move.save
+    else
+      @stock_move = StockMove.new
+    end
+    render_form
+  end
+
+  def stocks_moves_update
+    @stock_move = find_and_check(:stock_move, params[:id])
+    if request.post?
+      params[:stock_move][:company_id] = @current_company.id
+      if @stock_move.update_attributes(params[:stock_move])
+        redirect_to :action=>:stocks_locations_display, :id=>@stock_move.location_id
+      end
+    end
+    render_form(:label=>@stock_move.name)
+  end
+
+  def stocks_moves_delete
+    @stock_move = find_and_check(:stock_move, params[:id])
+    if request.post? or request.delete?
+      redirect_to :back if @stock_move.destroy
     end
   end
 

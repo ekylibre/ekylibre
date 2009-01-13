@@ -1,7 +1,7 @@
 .search.action-list
-  - form_tag(:action=>:products) do
+  - form_tag(:action=>:products, :method=>:get) do
     %table
       %tr
         %td.label=lc(:search)
-        %td.field=text_field :search, :keyword
+        %td.field=text_field_tag :key, @key
         %td.submit=submit_tag l(:search_go)

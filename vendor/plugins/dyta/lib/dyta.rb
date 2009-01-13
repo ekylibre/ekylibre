@@ -266,14 +266,15 @@ module Dyta
     end
 
     def data(record='record')
-      if @options[:through]
-        through = [@options[:through]] unless @options[:through].is_a?(Array)
-        foreign_record = record
-        through.size.times { |x| foreign_record += '.'+through[x].to_s }
-        '('+foreign_record+'.nil? ? nil : '+foreign_record+'.'+@name.to_s+')'
-      else
-        record+'.'+@name.to_s
-      end
+      code = if @options[:through]
+               through = [@options[:through]] unless @options[:through].is_a?(Array)
+               foreign_record = record
+               through.size.times { |x| foreign_record += '.'+through[x].to_s }
+               '('+foreign_record+'.nil? ? nil : '+foreign_record+'.'+@name.to_s+')'
+             else
+               record+'.'+@name.to_s
+             end
+      code
     end
 
     def record(record='record')

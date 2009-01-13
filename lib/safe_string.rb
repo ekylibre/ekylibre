@@ -49,6 +49,10 @@ class ::String
   def simpleize
     return self.ascii.gsub(/[^a-zA-Z0-9\_]/,'_').squeeze('_')
   end
+
+  def codeize
+    return self.upper_ascii.gsub(/[^A-Z0-9]/,'')
+  end
     
   
   def to_ss
