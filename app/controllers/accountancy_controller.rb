@@ -181,7 +181,43 @@ class AccountancyController < ApplicationController
     end
   end
 
-
+  def document_prepare
+    @company = @current_company
+    if request.post?
+      case params[:mode] 
+      when  "balance_sheet"
+        session[:mode] = "balance_sheet"
+        session[:print] = params[:print_balance_sheet][:id]
+      when "balance"
+        session[:mode] = "balance"
+        session[:print]= params[:print_balance]
+      end
+      redirect_to :action=>:document_print
+    end
+  end
+  
+  def document_print
+    @company = @current_company
+    case session[:mode] 
+    when "balance_sheet"
+      @id = session[:print][:id]
+    when "balance"
+      @begin = session[:print][:from]
+      @end = session[:print][:to]
+      @code = session[:print][:code]
+      @year_from = session[:print][:from]
+      session[:print][:date] = true
+      # raise Exception.new @year_from.inspect
+      # params[:print][:year_begin] = Date.new(year,01,01)
+     # params[:test][:year_end] = Date.new(year,12,31)
+      session[:print][:current_company] = @current_company.id.to_s
+    end
+    if request.post?
+      render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/balance.xml',:locals=>session[:print])
+    end
+  end
+  
+  
   #
   def print
     render :action => 'print'

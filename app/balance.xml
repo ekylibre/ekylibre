@@ -5,10 +5,9 @@
     <info type="created-on">04/09/2008</info>
   </infos>
   <loop name="loop0">
-<!--    <block name="year"><!-- if="#{LOCAL:date IS NOT NULL}">-->
-      <block type="header" mode="even">
-	<text x="2" y="2" width="206" height="15" align="L">En-tête paire {LOCAL:current_company} {KEY}</text>
-      </block>
+    <block type="header" mode="even">
+      <text x="2" y="2" width="206" height="15" align="L">En-tête paire {LOCAL:current_company} {KEY}</text>
+    </block>
       <block type="header" mode="odd">
 	<text x="2" y="2" width="206" height="15" align="R" radius="2">En-tête impaire {KEY}</text>
       </block>
@@ -17,7 +16,7 @@
 	<text x="5" y="2" width="200" height="5" align="C" decoration="underline">Page {PAGENO}/{PAGENB}</text>
       </block>
       <block name="titre">
-	<text x="65" y="3" width="300" height="15" align="L" decoration="underline" size="25"> Balance de l'année  {LOCAL:date} </text>
+	<text x="65" y="3" width="300" height="15" align="L" decoration="underline" size="15"> Balance de la periode  {LOCAL:from::date} a {LOCAL:to::date} </text>
       </block>
       <block name="menu">
 	<text x="5" y="0" width="150" height="10" align="L" border-width="0.2" >Compte</text>
@@ -27,18 +26,16 @@
 	<text x="155" y="10" width="27.5" height="10" align="R" border-width="0.2" >Debit</text>
 	<text x="182.5" y="10" width="27.5" height="10" align="R" border-width="0.2"  >Credit</text>
       </block>
-      <loop name="balance" query="SELECT number, name, accounts.id, local_credit, local_debit FROM accounts INNER JOIN account_balances ON accounts.id = account_balances.account_id  WHERE (accounts.company_id = {LOCAL:current_company}) AND account_balances.financialyear_id IN (SELECT id FROM financialyears WHERE financialyears.code = '{LOCAL:code}') ORDER BY number">
+      <loop name="balance" query="SELECT number , name , local_credit , local_debit, solde FROM accounts LEFT JOIN (SELECT account_id, coalesce(sum(entries.credit),0) as local_credit, coalesce(sum(entries.debit),0) as local_debit, coalesce(sum(entries.credit),0) - coalesce(sum(entries.debit),0) as solde FROM entries INNER JOIN journal_records ON entries.record_id = journal_records.id  WHERE journal_records.created_on BETWEEN '{LOCAL:from}'::date AND '{LOCAL:to}'::date GROUP BY accounts.id) as balance ON accounts.id = balance.id ">
 	<block name="test">
-	  <text x="5" y="0" width="20" height="10" align="L" border-width="0.2">#{balance.number}</text>
-	  <text x="25" y="0" width="130" height="10" align="L" border-width="0.2">#{balance.name}</text>
-	  <text x="155" y="0" width="27.5" height="10" align="R" border-width="0.2" if="#{balance.local_debit}::numeric != 0">#{balance.local_debit}</text>
-	  <text x="155" y="0" width="27.5" height="10" align="R" border-width="0.2" if="#{balance.local_debit}::numeric < 0.1">   </text>
-	  <text x="182.5" y="0" width="27.5" height="10" align="R" border-width="0.2" if="#{balance.local_credit}::numeric!=0">#{balance.local_credit}</text>
-	  <text x="182.5" y="0" width="27.5" height="10" align="R" border-width="0.2" if="#{balance.local_credit}::numeric < 0.1">  </text>
+	  <text x="5" y="0" width="20" height="5" align="L" border-width="0.2">#{balance.number}</text>
+	  <text x="25" y="0" width="130" height="5" align="L" border-width="0.2">#{balance.name}</text>
+	  <text x="155" y="0" width="27.5" height="5" align="R" border-width="0.2">#{balance.local_debit}</text>
+	  <text x="155" y="0" width="27.5" height="5" align="R" border-width="0.2">   </text>
+	 <!-- <text x="182.5" y="0" width="27.5" height="10" align="R" border-width="0.2" if="#{balance.local_credit}::numeric!=0">#{balance.local_credit}</text>
+	  <text x="182.5" y="0" width="27.5" height="10" align="R" border-width="0.2" if="#{balance.local_credit}::numeric < 0.1">  </text>-->
 	</block>
-	<!--  FROM accounts , account_balances INNER JOIN financialyears ON account_balances.financialyear_id = financialyears.id WHERE {LOCAL:year_begin} >= financialyears.stated_on AND {LOCAL:year_end} =< financialyears.stopped_on"-->
       </loop>
-<!--    </block>-->
     <page-break/>
     <block name="conclusion">
       <text x="15" y="2" width="180" height="50" align="C" color="#F40" weight="bold" decoration="underline" style="italic" size="18">The End</text>

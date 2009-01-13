@@ -98,61 +98,65 @@ class RelationsController < ApplicationController
     if request.post?
       @max = false
       @size = Entity.count
-      id = params[:formu][:numb].to_i
+      id = params[:contact][:id].to_i
       @person = Entity.find_by_id(id)
-      if @person
-        redirect_to :action => :entities_display, :id=>@person.id
-      else
-        @person = true
-        if params[:nament][:test] != ""
-          @person = nil
-          attributes = [:name, :code]
-          conditions = ["false"]
-          key_words = params[:nament][:test].to_s.split(" ")
-          for attribute in attributes
-            for word in key_words
-              conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
-              conditions << word
-            end
+      @contact = Contact.find_by_id(id)
+      if params[:contact][:fax] != ""
+        @idfound = nil
+        attributes = [:name, :code]
+        conditions = ["false"]
+        key_words = params[:contact][:fax].to_s.split(" ")
+        for attribute in attributes
+          for word in key_words
+            conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
+            conditions << word
           end
+        end
+        if @person
+          @idfound = nil
           @entities = Entity.find(:all, :conditions=>conditions)
-          size = 0
-          for x in  @entities
-            size += 1
-          end
-          if size > 80
-            @max = true
-            redirect_to :action => :entities_search
-            #else
-            #render :partial => 'entities_search_entities.rjs'
+        else
+          @entities = Entity.find(:all, :conditions=>conditions)
+        end
+        size = 0
+        for x in  @entities
+          size += 1
+        end
+        if size > 80
+          @max = true
+          redirect_to :action => :entities_search
+        end
+      end
+      
+      if params[:contact][:fax] != ""
+        attributes = [:email, :fax, :mobile]
+        conditions = ["false"]
+        key_words = params[:contact][:fax].to_s.split(" ")
+        for attribute in attributes
+          for word in key_words
+            conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
+            conditions << word
           end
         end
-        if params[:contact][:name] != ""
-          @person = nil
-          attributes = [:email, :fax, :mobile]
-          conditions = ["false"]
-          key_words = params[:contact][:nam]
-          for attribute in attributes
-            for word in key_words
-              conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
-              conditions << word
-            end
-          end
-          @contacts = Contact.find(:all, :conditions=>conditions)
-          size = 0
-          for x in  @contacts
-            size += 1
-          end
-          if size > 80
-            @max = true
-            redirect_to :action => :entities_search
-          end 
+        if @contact
+          @idfound = nil
+          @contacts = Contact.find(:all, :conditions=>conditions) 
+        else
+          @contacts = Contact.find(:all, :conditions=>conditions) 
         end
+        size = 0
+        for x in  @contacts
+          size += 1
+        end
+        if size > 80
+          @max = true
+          redirect_to :action => :entities_search
+        end 
       end
     end
   end
-
-
+  
+  
   def entities_create # pr langage_id prendre current_user.language_id ? puis sortir du _form
     access :entities                      #ou params[:user][:language_id]  // pareil pr nature_id
     if request.post?

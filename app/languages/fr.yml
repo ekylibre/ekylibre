@@ -216,6 +216,11 @@ app:
       list_of_statements: Pointage du compte
     accounts:
       title: Comptes
+    document_prepare:
+      title: Choisissez le type de document à imprimer
+    document_print:
+      title: Impression du Document
+      print: Impression
     entries:
       title: Écritures
       select: 'Sélectionnez le journal :'
@@ -561,6 +566,7 @@ app:
       new_contact: Entrer un nouveau contact
     entities_search:
       title: 'Recherche d''une entité'
+      display: Afficher
     entities_update:
       title: 'Modification de l''entité'
     entities_form:

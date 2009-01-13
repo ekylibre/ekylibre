@@ -9,26 +9,24 @@
         %td.label Recherche d'une entité
       %tr
         %td.label recherche par id
-        %td.input=text_field :formu, :numb
+        %td.input=text_field :contact, :id
       %tr
         %td.label recherche par nom
-        %td.input=text_field :nament, :test
+        %td.input=text_field :contact, :fax
         %td.button=submit_tag 'ok'
       %tr
-      %tr
-        %td.label Recherche par contact
-      %tr
-        %td.label Recherche par id
-        %td.label=text_field :contact, :num
-      %tr
-        %td.label Recherche par nom 
-        %td.input=text_field :contact, :name
-        %td.button=submit_tag 'ok'
+%h4 Entités trouvées
 %table.result
   %tr
     %td.result ID
     %td.result Nom
     %td.result Code
+  -if @person
+    %tr
+      %td.result=@person.id
+      %td.result=@person.name
+      %td.result=@person.code  
+      %td.result=link_to lc(:display), :action=>:entities_display, :id=>@person.id
   -if @entities != nil
     -x=0
     -for entity in @entities
@@ -37,12 +35,20 @@
           %td.result=@entities[x].id
           %td.result=@entities[x].name
           %td.result=@entities[x].code
+          %td.result=link_to lc(:display), :action=>:entities_display, :id=>@entities[x].id
         -x+=1
+%h4 Contacts trouvés
 %table.result
   %tr
     %td.result Portable
     %td.result Fax
     %td.result Email
+  -if @contact
+    %tr
+      %td.result=@contact.mobile
+      %td.result=@contact.fax
+      %td.result=@contact.email
+      %td.result=link_to lc(:display), :action=>:entities_display, :id=>@contact.entity_id
   -if @contacts != nil
     -x=0
     -for contact in @contacts
@@ -51,10 +57,11 @@
           %td.result=@contacts[x].mobile
           %td.result=@contacts[x].fax
           %td.result=@contacts[x].email
+          %td.result=link_to lc(:display), :action=>:entities_display, :id=>@contacts[x].entity_id
         -x+=1
 #noid
--if @person != nil
+-if @idfound != nil
   %p Pas d'entité correspondant à l'id
-  =params[:formu][:numb]
+  =params[:contact][:id]
 -if @max
   %h1 Veuillez affiner votre recherche, il y a plus de 80 resultats

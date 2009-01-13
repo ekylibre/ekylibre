@@ -91,6 +91,8 @@ tr.unpointable.odd td{background: #FF9999;}
 #entlist { margin-top: 20px; text-align:center; font-weight:bold; font-size:30px; }
 .result { border:1px solid; margin-top:30px; margin-left:140px; margin-right:60px; margin-bottom:30px; padding:10px 5px 10px 5px; width:70% }
 td.result {  padding:15px 15px 15px 15px;  border-collapse: collapse; text-align:center;}
+table.document th { font-size:20px; padding:20px 0 20px 30px; text-align:left;  }
+table.document td { font-size:15px; }
 
 
 .menu {/* float:left; margin-top:20px; font-size:.8em;*/}
