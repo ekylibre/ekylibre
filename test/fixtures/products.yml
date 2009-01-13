@@ -5,18 +5,21 @@
 #
 #  id                  :integer       not null, primary key
 #  to_purchase         :boolean       not null
-#  to_sale             :boolean       not null
+#  to_sale             :boolean       default(TRUE), not null
 #  to_rent             :boolean       not null
+#  nature              :string(8)     not null
+#  supply_method       :string(8)     not null
 #  name                :string(255)   not null
 #  number              :integer       not null
 #  active              :boolean       default(TRUE), not null
-#  code                :string(64)    not null
-#  code2               :string(64)    not null
+#  code                :string(64)    
+#  code2               :string(64)    
 #  ean13               :string(13)    
 #  catalog_name        :string(255)   not null
 #  catalog_description :text          
 #  description         :text          
 #  comment             :text          
+#  service_coeff       :float         
 #  shelf_id            :integer       not null
 #  unit_id             :integer       not null
 #  account_id          :integer       not null

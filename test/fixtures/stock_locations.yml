@@ -9,10 +9,10 @@
 #  y                :string(255)   
 #  z                :string(255)   
 #  comment          :text          
-#  parent_id        :integer       not null
+#  parent_id        :integer       
 #  account_id       :integer       not null
-#  establishment_id :integer       not null
-#  contact_id       :integer       not null
+#  establishment_id :integer       
+#  contact_id       :integer       
 #  company_id       :integer       not null
 #  created_at       :datetime      not null
 #  updated_at       :datetime      not null

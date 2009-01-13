@@ -7,7 +7,6 @@
 #  bank_account_id :integer       not null
 #  started_on      :date          not null
 #  stopped_on      :date          not null
-#  printed_on      :date          not null
 #  intermediate    :boolean       not null
 #  number          :string(255)   not null
 #  debit           :decimal(16, 2 default(0.0), not null

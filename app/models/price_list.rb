@@ -1,11 +1,15 @@
 # == Schema Information
 # Schema version: 20081127140043
 #
-# Table name: units
+# Table name: price_lists
 #
 #  id           :integer       not null, primary key
-#  name         :string(8)     not null
-#  label        :string(255)   not null
+#  name         :string(255)   not null
+#  started_on   :date          not null
+#  stopped_on   :date          not null
+#  deleted      :boolean       not null
+#  comment      :text          
+#  currency_id  :integer       not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
@@ -14,10 +18,5 @@
 #  lock_version :integer       default(0), not null
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
-#
-# two:
-#   column: value
+class PriceList < ActiveRecord::Base
+end

@@ -7,7 +7,7 @@
 #  invoice_id       :integer       not null
 #  order_line_id    :integer       not null
 #  product_id       :integer       not null
-#  pricelist_id     :integer       not null
+#  price_list_id    :integer       not null
 #  price_id         :integer       not null
 #  quantity         :decimal(16, 2 default(1.0), not null
 #  price            :decimal(16, 2 default(0.0), not null
