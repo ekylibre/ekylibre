@@ -148,8 +148,10 @@ models:
       description: Description
       ean13: Code EAN13
       name: Nom
+      nature: Nature
       number: Numéro
       shelf_id: Catégorie
+      supply_method: 'Moyen d''approvisionnement'
       to_sale: Produit destiné à la vente
       to_purchase: 'Produit destiné à l''achat'
       to_rent: Produit destiné à la location
@@ -492,10 +494,6 @@ app:
       new_product: 'Ajout d''un nouveau produit'
     products_create:
       title: 'Ajouter un nouveau produit'
-      accountancy: Comptabilité
-      identification: Nom et codes du produit
-      description: Descriptions
-      nature: Type de produit
     products_display:
       products_list: 'Retourner à la liste de produits'
       title: 'Fiche du produit : %s'
@@ -508,6 +506,9 @@ app:
       natures:
         product: Produit
         service: Service
+      supply_methods:
+        buy: Achat
+        produce: Production
     products_search:
       title: 'Recherche'
       search: 'Rechercher un produit'
@@ -548,7 +549,7 @@ app:
     stocks_moves_form: 
       description: Description
       nature: Opération
-    stocks_moves_update: 
+    stocks_moves_update:
       title: Modifier un mouvement de stock
 
   relations: 

@@ -49,6 +49,8 @@ class ManagementController < ApplicationController
       redirect_to :action =>:products_display, :id=>@product.id if @product.save
     else
       @product = Product.new
+      @product.nature = Product.natures.first
+      @product.supply_method = Product.supply_methods.first
     end
     render_form
   end

@@ -63,5 +63,9 @@ class Product < ActiveRecord::Base
     [:product, :service]
   end
 
+  def self.supply_methods
+    [:buy, :produce]
+  end
+
 
 end
