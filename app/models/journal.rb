@@ -44,16 +44,6 @@ class Journal < ActiveRecord::Base
     #     end
   end
 
-
-  # Before create a journal.
-  #   def journal_nature()
-  #     begin
-  #       JournalNature.exists?(self.nature_id) 
-  #     rescue
-  #       raise Exception.new("The type of journal is invalide.") 
-  #     end 
-  #   end
-
   # tests if the period contains records.
   def empty?
     return self.periods.size <= 0
@@ -71,6 +61,7 @@ class Journal < ActiveRecord::Base
   # this method creates a period with a record.
   def create_record(values = {})
     period = JournalPeriod.find(:first, :conditions=>['company_id = ? AND ? BETWEEN started_on AND stopped_on ',self.company_id, values[:created_on] ])
+    puts period.inspect
     period = self.periods.create!(:company_id=>self.company_id, :started_on=>values[:created_on]) if period.nil?
     record = JournalRecord.find(:first,:conditions=>{:period_id => period.id, :number => values[:number] }) 
     record = JournalRecord.create!(values.merge({:period_id=>period.id, :company_id=>self.company_id, :journal_id=>self.id})) if record.nil?
@@ -120,6 +111,13 @@ class Journal < ActiveRecord::Base
     #    journals_list params
     #    @journals = @current_company.journals
   end
+
+  # ths method returns an array .
+  def self.natures
+    [:sale, :purchase, :bank, :various]
+  end
+
+
 
 end
 

@@ -15,7 +15,6 @@ include ActionView::Helpers::FormOptionsHelper
     t.column :name
     t.column :code
     t.column :closed_on
-    t.column :name, :through=>:nature
     t.action :journals_update, :image=>:edit
     t.action :journals_delete, :method=>:post
     t.action :journals_close
@@ -50,7 +49,7 @@ include ActionView::Helpers::FormOptionsHelper
     t.column :number
     t.action :statements_update, :image=>:edit
     t.action :statements_delete, :method=>:post
-    t.procedure :create, :action=>:statements_new
+    t.procedure :create, :action=>:statements_create
   end
 
    dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -67,7 +66,6 @@ include ActionView::Helpers::FormOptionsHelper
     t.column :closed
     t.column :started_on
     t.column :stopped_on
-    t.column :written_on
     t.action :financialyears_update, :image=>:edit
     t.action :financialyears_delete, :method=>:post
     t.procedure :create, :action=>:financialyears_create
@@ -226,8 +224,7 @@ include ActionView::Helpers::FormOptionsHelper
     end
   end
   
-  
-  #
+  # ths method allows to print.
   def print
     render :action => 'print'
   end
@@ -277,8 +274,7 @@ include ActionView::Helpers::FormOptionsHelper
     access :financialyears
     @financialyear = Financialyear.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
-      @financialyear.update_attributes(params[:financialyear])
-      redirect_to :action => "financialyears"
+      redirect_to :action => "financialyears"  if @financialyear.update_attributes(params[:financialyear])
     end
     render_form
   end
@@ -333,7 +329,7 @@ include ActionView::Helpers::FormOptionsHelper
       d=(d+1).end_of_month
     end
     
-    render :text =>options_for_select(@journal_periods)
+    render :text =>options_for_select(@financialyear_periods)
   end
 
 
@@ -350,10 +346,13 @@ include ActionView::Helpers::FormOptionsHelper
         redirect_to :action => "financialyears_create" unless @financialyear 
         # puts 'a:'+@current_company.inspect
         @record = Journal.find(session[:journal]).create_record(params[:record])
+        #puts 'record:'+@record.inspect
         account = Account.find(:first, :conditions=>{:number => params[:account][:number], :company_id => @current_company.id})
         currency = Currency.find(:first, :conditions=>["company_id = ?", @current_company.id])
         @entry = Entry.new(params[:entry].merge({:account_id => account.id, :record_id => @record.id, 
                                                      :currency_id => currency.id, :company_id => @current_company.id}))
+        
+         
         # @aff = ''
         #         unless @entry.errors.nil?
         #           @entry.errors.each do |attr, msg|
@@ -406,6 +405,7 @@ include ActionView::Helpers::FormOptionsHelper
   def journals_update
     access :journals
     @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id)  
+    
     if request.post? or request.put?
       @journal.update_attributes(params[:journal]) 
       redirect_to :action => "journals" 
@@ -434,7 +434,6 @@ include ActionView::Helpers::FormOptionsHelper
     @journal_periods = []
     if request.get?
      
-      
       if params[:id]  
         @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id) 
         @journals = @current_company.journals 
@@ -448,7 +447,7 @@ include ActionView::Helpers::FormOptionsHelper
         d = @journal.closed_on
         while (d+1).end_of_month < Date.today
           d=(d+1).end_of_month
-          @journal_periods << d.to_s( :attributes)
+          @journal_periods << d.to_s(:attributes)
         end
       end
       
@@ -480,7 +479,7 @@ include ActionView::Helpers::FormOptionsHelper
     d = @journal.closed_on
     while (d+1).end_of_month < Date.today
       d=(d+1).end_of_month
-      @journal_periods << d.to_s (:attributes)
+      @journal_periods << d.to_s(:attributes)
     end
     render :text =>options_for_select(@journal_periods)
   end
@@ -533,7 +532,7 @@ include ActionView::Helpers::FormOptionsHelper
 
 
   # This method creates a statement.
-  def statements_new
+  def statements_create
     access :statements
     
     if request.post?

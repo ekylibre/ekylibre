@@ -8,7 +8,7 @@
 #  closed       :boolean       not null
 #  started_on   :date          not null
 #  stopped_on   :date          not null
-#  written_on   :date          not null
+#  written_on   :date          
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
@@ -33,13 +33,16 @@ class Financialyear < ActiveRecord::Base
 
   
   def validate
-    errors.add_to_base lc(:error_period_financialyear) if self.started_on > self.stopped_on
-    if JournalPeriod.count > 0
-      periods = JournalPeriod.find_all_by_company_id(self.company_id, :order=>"stopped_on DESC")  
-      periods.each do |period|
-        errors.add_to_base lc(:error_financialyear) if self.started_on < period.stopped_on 
-      end
-    end
+#    puts 'd'+self.stopped_on.to_s
+    errors.add_to_base lc(:error_period_financialyear)  if self.started_on >= self.stopped_on
+    errors.add_to_base lc(:error_stopped_financialyear) unless self.stopped_on == self.stopped_on.end_of_month
+   
+    # if JournalPeriod.count > 0
+#       periods = JournalPeriod.find_all_by_company_id(self.company_id, :order=>"stopped_on DESC")  
+#       periods.each do |period|
+#         errors.add_to_base lc(:error_financialyear) if self.started_on < period.stopped_on 
+#       end
+    #end
   end
   
   # When a financial year is closed, all the matching journals are closed too. 

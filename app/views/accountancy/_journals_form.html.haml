@@ -1,6 +1,5 @@
 =formalize(:inner_form=>true) do |f|
   - f.error :journal
-  - f.title :title
   - f.field :journal, :name
   - f.field :journal, :code
-  - f.field :journal, :nature_id
+  - f.field :journal, :nature, :field=>:radio, :choices=>Journal.natures.collect{|x| [lc(:natures, x),x.to_s]}

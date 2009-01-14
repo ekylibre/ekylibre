@@ -102,6 +102,24 @@ helpers:
 #       name: Localized name
 #       description: Localized description
 models:
+  account:
+    name: Compte
+    attributes:
+      number: Numéro
+      name: Intitulé
+      label: Label
+  bank_account:
+    name: Compte bancaire
+    attributes:
+      name: Intitulé
+      bank_code: Code banque
+      agency_code: Code guichet 
+      number: Numéro de compte bancaire
+      key: Clé RIB
+      iban_text: Iban(texte)
+      account_id: Compte comptable référencé
+      currency_id: Devise utilisée
+      journal_id: Journal utilisé
   company:
     name: Société
     attributes:
@@ -128,13 +146,25 @@ models:
       longitude: Longitude
       active: Actif
       default: Par défaut
-      closed_on: Cloturé en
+      closed_on: Clôturé en
   establishment:
     name: Établissement
     attributes:
       name: Nom
       siret: N° SIRET
       note: Commentaire
+  journal:
+    name: Journal
+    attributes:
+      name: Nom
+      closed_on: Clôturé le
+  financialyear:
+    name: Exercice
+    attributes:
+      closed: Clôturé	
+      started_on: Commencé le
+      stopped_on: Terminé le
+      written_on: Clôturé le	 
   product:
     name: Produit
     attributes:
@@ -157,6 +187,12 @@ models:
       to_purchase: 'Produit destiné à l''achat'
       to_rent: Produit destiné à la location
       unit_id: Unité de mesure
+  bank_account_statement:
+    name: Relevé de compte bancaire
+    attributes:
+      started_on: De
+      stopped_on: A
+      number: Numéro du relevé de compte	
   stock_location:
     name: Lieu de stockage
     attributes:
@@ -224,8 +260,6 @@ app:
       print_documents: Imprimer des documents comptables
       works: Travaux comptables
       write_entries: Saisie des écritures
-    accounts:
-      title: Comptes
     document_prepare:
       title: Choisissez le type de document à imprimer
     document_print:
@@ -259,7 +293,7 @@ app:
       title: Pointage des relevés de comptes bancaires 
       select_bank_account: "Sélectionnez un compte bancaire:"	  
       create: Créer un relevé de compte
-    statements_new:
+    statements_create:
       title: Créer un nouveau relevé
     statements_update:
       title: Modifier un relevé  
@@ -270,6 +304,12 @@ app:
     journals:
       title: Journaux
       create: Créer un nouveau journal
+    journals_form:
+      natures:
+        purchase: achats
+        sale: ventes   
+        bank: banque
+        various: operations diverses
     journals_create:
       title: Créer un nouveau journal
     journals_update:
@@ -304,9 +344,11 @@ app:
     bank_accounts:
       title: Comptes bancaires
       create: Créer un nouveau compte bancaire
+    bank_accounts_form:
+      rib: Relevé d'identité bancaire
+      accountancy: Comptabilité
     bank_accounts_create:
       title: Créer un nouveau compte bancaire
-      name:   Nom
     bank_accounts_update:
       title: Modifier le compte bancaire	
     find_accounts:
@@ -459,6 +501,8 @@ app:
     error_no_file: 'Aucun fichier d''aide disponible pour cette partie de l''application (%s)'
     search:
       title: 'Aide'
+  account:
+    default_account_name: Account  
   journal:
     error_limited_period: '.'
     error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
@@ -481,8 +525,8 @@ app:
     error_period_statement: 'L''interval de temps est incorrect pour le relevé bancaire.'  				   
     error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'			           
   financialyear:
-    error_period_financialyear: 'L''interval de temps est incorrect pour l''exercice comptable.'
-    error_financialyear: 'La date de début de l''exercice comptable est incorrecte.'
+    error_stopped_financialyear: 'La date de fin d''exercice doit être une fin de mois.'
+    error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'
   account:
     error_delete: Le compte ne peut être effacé car il contient des sous-comptes.	
   layouts:
@@ -568,7 +612,6 @@ app:
       nature: Opération
     stocks_moves_update:
       title: Modifier un mouvement de stock
-
   relations: 
     title: Gestion des relations
     entities:

@@ -10,5 +10,5 @@
     .actions
       =submit_tag(l(:close))
       =link_to(l(:cancel),:back)
-=observe_field "financialyear_id", :frequency => 0.25, :url=>{:action=>:financialyears_periods}, :update=>:financialyear_closed_on, :with => "'financialyear_select=' + escape(value)"
+=observe_field "financialyear_id", :frequency => 0.25, :url=>{:action=>:financialyears_periods}, :update=>:financialyear_stopped_on, :with => "'financialyear_select=' + escape(value)"
 

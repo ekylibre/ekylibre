@@ -62,7 +62,7 @@ class Accounting < ActiveRecord::Migration
       t.column :closed,           :boolean, :null=>false, :default=>false
       t.column :started_on,       :date,    :null=>false
       t.column :stopped_on,       :date,    :null=>false
-      t.column :written_on,       :date,    :null=>false # Date butoir de création des journaux
+      t.column :written_on,       :date  # Date butoir de création des journaux
       #t.column :debit,            :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       #t.column :credit,           :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       #t.column :position,         :integer, :null=>false
@@ -101,7 +101,8 @@ class Accounting < ActiveRecord::Migration
 
     # Journal : Journal
     create_table :journals do |t|
-      t.column :nature_id,        :integer, :null=>false, :references=>:journal_natures, :on_delete=>:restrict, :on_update=>:cascade
+      #t.column :nature_id,        :integer, :null=>false, :references=>:journal_natures, :on_delete=>:restrict, :on_update=>:cascade
+      t.column :nature,           :string,  :null=>false, :limit=>16
       t.column :name,             :string,  :null=>false
       t.column :code,             :string,  :null=>false, :limit=>4
       t.column :deleted,          :boolean, :null=>false, :default=>false
@@ -110,7 +111,7 @@ class Accounting < ActiveRecord::Migration
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :journals, :company_id
-    add_index :journals, :nature_id
+    #add_index :journals, :nature_id
     add_index :journals, [:name, :company_id], :unique=>true
     add_index :journals, [:code, :company_id], :unique=>true
 

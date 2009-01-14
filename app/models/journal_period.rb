@@ -24,7 +24,8 @@
 class JournalPeriod < ActiveRecord::Base
   validates_uniqueness_of [:started_on, :stopped_on], 
                           :scope=> :journal_id
-
+  
+  #
   def before_validation
     self.financialyear = Financialyear.find(:first, :conditions=>['company_id = ? AND ? BETWEEN started_on AND stopped_on',self.company_id, self.started_on ]) if self.started_on and !self.financialyear
     if self.financialyear and self.started_on
@@ -34,7 +35,8 @@ class JournalPeriod < ActiveRecord::Base
     end
   end
 
-
+  
+  #
   def validate
     
    # errors.add lc(:error_period) if self.started_on > self.stopped_on
@@ -51,11 +53,12 @@ class JournalPeriod < ActiveRecord::Base
   end
   
   
+  #
   def close(date)
     self.update_attributes(:stopped_on => date, :closed => true)
-    self.journal_records.each do |record|
-      record.close
-    end
+    #self.records.each do |record|
+    #  record.close
+    #end
     
   end    
   
