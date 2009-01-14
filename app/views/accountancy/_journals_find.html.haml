@@ -1,0 +1,15 @@
+= link_to_function "fermer" do |p| 
+  - p.replace_html 'journal', '' 
+  - p['bank_account_journal_id'].focus()
+- if @find_journals.size > 0
+  %table{:border=>1} 
+    %tr
+      %td.label=lc :journal_name
+    - @find_journals.each do |journal|
+      %tr
+        %td 
+          = link_to_function(journal.name) do |p| 
+            - p['bank_account_journal_id'].value =  journal.id  
+            - p.replace_html 'journal', ''
+- else
+  %p=lc :erreur

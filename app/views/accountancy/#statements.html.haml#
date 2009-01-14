@@ -1,0 +1,12 @@
+%h1=lc(:title) 
+- if @bank_account_statements
+  =dyta(:bank_account_statements)
+- else
+  =lc :list_of_statements
+  - form_tag(:action => 'statements') do
+    %table
+      %tr
+        %td.label=lc :select_bank_account
+        %td.select=select "bank_account", "id",  @bank_accounts.collect{|j| [j.name, j.id]}
+        %td.button=submit_tag 'ok', :html => {:tabindex => 2}   
+

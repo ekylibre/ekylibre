@@ -1,0 +1,7 @@
+%h1= lc(:title)
+- form_tag(:action => 'accounts_letter') do
+  %table 
+    %tr 
+      %td.label=lc :select_account 
+      %td.select=select "account", "id",  @accounts.collect{|j| [j.name, j.id]}
+     
