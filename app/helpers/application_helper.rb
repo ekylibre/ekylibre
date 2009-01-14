@@ -1,5 +1,112 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  
+  MENUSOLD=
+    [
+     # GuideController
+     [:guide, 
+      [:modules, [:relations, {:url=>{:controller=>:relations}}], [:accountancy, {:url=>{:controller=>:accountancy}}], [:management, {:url=>{:controller=>:management}}] ],
+      [:informations, [:about_us], {:class=>:special} ]
+     ],
+     # RelationsController
+     [:relations, 
+      [:entities, [:entities_search], [:entities_create] ]
+     ],
+     # AccountancyController
+     [:accountancy, 
+      [:works, [:entries], [:statements], [:lettering], [:journals_close], [:financialyears_close] ],
+      [:documents, [:document_prepare] ],
+      [:parameters, [:accounts], [:journals], [:bank_accounts], [:financialyears] ]
+     ],
+     # ManagementController
+     [:management, 
+      [:sales, [:sales_new], [:sales]],
+      [:purchases, [:purchases_new], [:purchases]],
+      [:stocks, [:stocks_locations], [:stocks]],
+      [:parameters, [:products], [:price_lists], [:shelves] ],
+     ]
+    ]
+  
+  # [:guide, :relations, :accountancy, :management]
+  
+  #  [ {:name=>:guide,
+  #      :lists=>
+  #      [ {:name=>:module,
+  #          :actions=>
+  #          [ {:name=>:relations, :url=>{:controller}
+  
+  MENUS=
+    [ 
+     # GuideController
+     {:name=>:guide, :list=>
+       [ {:name=>:modules, :list=>
+           [ {:name=>:relations, :url=>{:controller=>:relations}},
+             {:name=>:accountancy, :url=>{:controller=>:accountancy}},
+             {:name=>:management, :url=>{:controller=>:management}} ] },
+         {:name=>:informations, :class=>:special, :list=>
+           [ {:name=>:about_us} ] }
+       ] },
+     # RelationsController
+     {:name=>:relations, :list=>
+       [ {:name=>:entities, :list=>
+           [ {:name=>:entities_search}, 
+             {:name=>:entities_create} ] }
+       ] },
+     # AccountancyController
+     {:name=>:accountancy, :list=>
+       [ {:name=>:works, :list=>
+           [ {:name=>:entries},
+             {:name=>:statements},
+             {:name=>:lettering},
+             {:name=>:journals_close},
+             {:name=>:financialyears_close} ] },
+         {:name=>:documents, :list=>
+           [ {:name=>:document_prepare} ] },
+         {:name=>:parameters, :list=>
+           [ {:name=>:accounts},
+             {:name=>:journals},
+             {:name=>:bank_accounts},
+             {:name=>:financialyears} ] }
+       ] },
+     # ManagementController
+     {:name=>:management, :list=>
+       [ {:name=>:sales, :list=>
+           [ {:name=>:sales_new},
+             {:name=>:sales_consult, :url=>{:action=>:sales}} ] },
+         {:name=>:purchases, :list=>
+           [ {:name=>:purchases_new},
+             {:name=>:purchases_consult, :url=>{:action=>:purchases}} ] },
+         {:name=>:stocks, :list=>
+           [ {:name=>:stocks_locations},
+             {:name=>:stocks_consult, :url=>{:action=>:stocks}} ] },
+         {:name=>:parameters, :list=>
+           [ {:name=>:products},
+             {:name=>:price_lists},
+             {:name=>:shelves} ] }
+       ] }
+    ]
+
+
+
+            
+            
+  def menus
+    MENUS
+  end
+  
+  def menu_index(controller=self.controller.controller_name.to_sym)
+    for m in MENUS
+      return render(:partial=>'shared/menu_index', :locals=>{:menu=>m}) if m[:name]==controller
+    end
+    ''
+  end
+    
+  def menu_side
+    for m in MENUS
+      return render(:partial=>'shared/menu_index', :locals=>{:menu=>m}) if m[:name]==controller
+    end
+    ''    
+  end
 
 
   def can_access?(action=:all)
@@ -49,6 +156,11 @@ module ApplicationHelper
       code += ' '
     end
     code
+  end
+
+  def left_tag
+    return '' if [:authentication, :guide, :help, :company].include? self.controller.controller_name.to_sym or action_name=="index"
+    content_tag(:div, menu_index, :id=>:side, :flex=>2, :orient=> :vertical)
   end
 
 
@@ -189,14 +301,11 @@ module ApplicationHelper
 
 
   def formalize(options={})
-#    name = 'f'+Time.now.to_i.to_s(36)+rand.to_s[2..10]
     code = '[NoFormDescriptionError]'
     if block_given?
       form = FormDefinition.new()
       yield form
       code = formalize_lines(form, options)
-#    elsif options[:model] or options[:partial]
-#      code = render_partial(options[:partial]||options[:model].to_s.tableize+'_form')
     end
     return code
   end
@@ -221,7 +330,7 @@ module ApplicationHelper
       when :error
         line_code += content_tag(:td,error_messages_for(line[:params]),:class=>"error", :colspan=>xcn)
       when :title
-        reset_cycle "parity"
+#        reset_cycle "parity"
         if line[:value].is_a? Symbol
           calls = caller
           file = calls[3].split(':')[0].split('/')[-1].split('.')[0]
@@ -230,13 +339,17 @@ module ApplicationHelper
         end
         line_code += content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>xcn)
       when :field
-        css_class += ' '+cycle('odd', 'even', :name=>"parity")
+#        css_class += ' '+cycle('odd', 'even', :name=>"parity")
         fragments = line_fragments(line)
         line_code += content_tag(:td, fragments[:label], :class=>"label")
         line_code += content_tag(:td, fragments[:input], :class=>"input")
         # line_code += content_tag(:td, fragments[:help],  :class=>"help")
       end
-      code += content_tag(:tr, line_code, :class=>css_class) unless line_code.blank?
+      unless line_code.blank?
+        html_options = line[:html_options]||{}
+        html_options[:class] = css_class
+        code += content_tag(:tr, line_code, html_options)
+      end
     
       # after line
       # code += content_tag(:tr, content_tag(:th,'', :colspan=>xcn), :class=>"after-title") if line[:nature]==:title
@@ -282,7 +395,7 @@ module ApplicationHelper
       options[:field] = :password if method.to_s.match /password/
       
       input_id = object.class.name.tableize.singularize+'_'+method.to_s
-      
+
       html_options = {}
       html_options[:size] = 24
       html_options[:class] = ''

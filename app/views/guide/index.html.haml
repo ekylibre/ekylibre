@@ -1,14 +1,3 @@
 %h1= lc(:title,[@current_user.label])
 
-.action-list
-  %h2= lc :modules
-  %ul
-    %li=link_to lc(:relations), {:controller=>:relations}
-    %li=link_to lc(:accountancy), {:controller=>:accountancy}
-    %li=link_to lc(:management), {:controller=>:management}
-
-.action-list.special
-  %h2= lc :informations
-  %ul
-    %li=link_to lc(:about_us), {:action=>:about_us}
-
+=menu_index

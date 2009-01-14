@@ -1,6 +1,6 @@
 %h1=lc :title
 =sales_steps
-- form_tag :do
+- form_tag do
   =formalize do |f|
     - if session[:sales][:nature].nil?
       - f.title :nature

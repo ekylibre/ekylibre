@@ -136,6 +136,13 @@ class ManagementController < ApplicationController
   end
 
   
+
+
+  def price_lists
+  end
+
+
+
   def purchases
   end
 

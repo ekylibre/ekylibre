@@ -150,6 +150,7 @@ models:
       name: Nom
       nature: Nature
       number: Numéro
+      service_coeff: Coefficient (de quantité) de service
       shelf_id: Catégorie
       supply_method: 'Moyen d''approvisionnement'
       to_sale: Produit destiné à la vente
@@ -283,7 +284,7 @@ app:
     financialyears_update:
       title: Modifier un nouvel exercice
     financialyears_close:
-      title: Clôture d'exercice
+      title: 'Clôture d''exercice'
     accounts:
       title: Comptes
       create: Créer un nouveau compte
@@ -490,19 +491,19 @@ app:
     title: 'Gestion'
     index:      
       title: 'Gestion commerciale'
-      consult_purchases: 'Consulter l''état des achats'
-      consult_sales: 'Consulter l''état des ventes'
-      consult_stocks: 'Consulter l''état des stocks'
-      new_purchase: 'Nouvel achat'
-      new_sale: 'Nouvelle vente'
       parameters: 'Paramètres'
-      prices: 'Gérer les tarifs des produits'
+      price_lists: 'Gérer les tarifs des produits'
       products: 'Gérer les produits de vente et d''achat'
       purchases: 'Achats'
+      purchases_consult: 'Consulter l''état des achats'
+      purchases_new: 'Nouvel achat'
       sales: 'Ventes'
+      sales_consult: 'Consulter l''état des ventes'
+      sales_new: 'Nouvelle vente'
       shelves: 'Gérer les catégories de produit'
       units: 'Unités de mesure'
       stocks: 'Stocks'
+      stocks_consult: 'Consulter l''état des stocks'
       stocks_locations: 'Gérer les stocks'
       taxes: 'Taxes'
     products:

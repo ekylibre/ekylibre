@@ -1,0 +1,6 @@
+- for list in menu[:list]
+  %div{:class=>'action-list '+list[:class].to_s}
+    %h2=l(self.controller.controller_name.to_sym, :index, list[:name])
+    %ul
+      - for action in list[:list]
+        %li=link_to l(self.controller.controller_name.to_sym, :index, action[:name]), action[:url]||{:action=>action[:name]}

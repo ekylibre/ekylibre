@@ -10,14 +10,14 @@
   %body{:id=>:body, :orient=>:vertical, :onload=>'resize();', :onresize=>'resize();'}
     = top_tag
     #columns{:orient=>:horizontal, :flex=>1}
-      =# location_tag(:side, :orient=> :vertical)
-      #main{:flex=>3, :orient=>:vertical}
+      =left_tag
+      #main{:flex=>9, :orient=>:vertical}
         = flash_tag :error
         = flash_tag :warning
         = flash_tag :notice
         .all{:flex=>3, :orient=>:vertical}
           = help_tag
           #yield=yield
-      #help{:flex=>1, :style=>''+(session[:help] ? "" : "display:none")}
+      #help{:flex=>3, :style=>''+(session[:help] ? "" : "display:none")}
         = render :partial=>'help/search' if session[:help]
  

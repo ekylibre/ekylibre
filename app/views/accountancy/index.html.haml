@@ -1,26 +1,3 @@
 %h1=lc :title
 
-.action-list
-  %h2= lc :works
-  %ul
-    %li=link_to lc(:write_entries), {:action=>:entries}
-    - @bank_accounts.each do |bank_account|
-      %li=link_to lc(:list_of_statements)+":"+bank_account.name.to_s, {:action=>:statements, :id=>bank_account.id}
-      %li=link_to lc(:list_of_entries), {:action=>:accounts_letter_launch}
-    %li=link_to lc(:close_journal), {:action=>:journals_close}
-    - unless @financialyears.empty?
-      %li=link_to lc(:close_financialyear), {:action=>:financialyears_close}
-
-
-.action-list
-  %h2= lc :documents
-  %ul
-    %li=link_to lc(:print_documents), {:action=>:document_prepare}
-
-.action-list
-  %h2= lc :parameters
-  %ul
-    %li=link_to lc(:accounts), {:action=>:accounts}
-    %li=link_to lc(:journals), {:action=>:journals}
-    %li=link_to lc(:bank_accounts), {:action=>:bank_accounts}
-    %li=link_to lc(:financialyears), {:action=>:financialyears}
+=menu_index

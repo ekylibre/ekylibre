@@ -1,3 +1,4 @@
+
 * {margin:0; padding:0; font-family: Arial, sans-serif;}
 html {background: #FFF;}
 td, th, a, p, input, textarea, select, div { font-size:13px;}
@@ -36,7 +37,7 @@ tr.unpointable.odd td{background: #FF9999;}
 #guide { float:left; }
 #user .menu { float:right; }
 #columns { background: url(/images/template/columns.png) repeat-x top; }
-#side { width: 150px; border-right: 1px dotted #C9D7F1;}
+#side { width: 150px; padding: 4px;} /* border-right: 1px dotted #C9D7F1;}*/
 #main { overflow: auto; }
 #yield { padding: 8px; }
 #yield > h1 { margin: 0px 0px 8px; font-size:24px; color: #047;}
@@ -116,12 +117,12 @@ table.document td { font-size:15px; }
 /* end backslash hack*/
 
 
-
+/*
 #side > div { background: #BFB; margin: 2px 2px 8px; border:2px solid #BFB; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; }
 #side > div > div { background: #FFF }
 #side > div > h2 { font-weight:normal; padding: 0px 0px 2px; } 
 #side > div * { font-size: 11px; color: #111; }
-
+*/
 
 a.guide:link, a.guide:visited, a.guide:hover{ color: white; font-size:18px; }
 a.guide { float: left; }
@@ -213,14 +214,28 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 */
 /* END */
 
-.action-list, .errorExplanation { -moz-border-radius: 8px; background: #E4EBF8; padding:4px 6px; margin:12px 0px;}
-.action-list ul, .errorExplanation ul { padding: 4px 4px 4px 18px; }
-.action-list h2, .errorExplanation h2 { font-size : 16px; color: black; padding: 2px; }
+#yield .action-list, .errorExplanation { -moz-border-radius: 8px; background: #E4EBF8; padding:4px 6px; margin:12px 0px;}
+#yield .action-list ul, .errorExplanation ul { padding: 4px 4px 4px 18px; }
+#yield .action-list h2, .errorExplanation h2 { font-size : 16px; color: black; padding: 2px; }
+#yield .action-list.special { background: #FE9; }
+#yield .action-list.special a { color: #A60; }
 
-a.back { -moz-border-radius: 8px; padding:6px; margin:16px 0px; }
+#side { background: #c9d7f1; }
+#side .action-list { background: #E4EBF8; padding:0px; margin:2px 0px 8px; border: 1px solid #46A; }
+/*#side .action-list h2 { font-size : 13px; color: black; padding: 4px; background: #BDF; text-align: center; }*/
+#side .action-list h2 { font-size : 13px; color: white; padding: 4px; background: #46A; text-align: center; }
+#side .action-list ul { padding: 0px; }
+#side .action-list li { padding: 4px; list-style-type: none; }
+#side .action-list li a { font-size: 11px; }
+#side .action-list li:hover { background: #ACF; }
 
-a.back, .action-list.special { background: #FE9; }
-a.back, .action-list.special a { color: #A60; }
+
+
+.errorExplanation { background: #ECA; color: #543; }
+
+
+a.back { -moz-border-radius: 8px; padding:6px; margin:16px 0px; background: #FE9; color: #A60; }
+
 
 h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }
 
@@ -229,7 +244,7 @@ h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1
 .stepper .master { background: #DA6; border: 1px solid #A82; color: white;}
 .stepper .right, .stepper .left  { background: #ED9; border: 1px solid #DB7;}
 
-.search { background: #CEA; color: #580; }
+.search { background: #CEA !important; color: #580; }
 .search table { margin: 0px auto; }
 /*
 .search { display:table-row; }
@@ -238,7 +253,6 @@ h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1
 .search .label { padding: 1px 4px; }
 .search .submit { padding: 0px 4px; }
 
-.errorExplanation { background: #ECA; color: #543; }
 
 
 input[type="text"], input[type="password"], textarea, select { margin:1px; border-width: 1px; }
