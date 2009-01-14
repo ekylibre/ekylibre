@@ -636,9 +636,9 @@ app:
       title: 'Renseignez les différentes caractéristiques de l''entité'
     index:
       title: Gestion des relations clients et fournisseurs
-      create_entity: Créer une nouvelle fiche
-      entities: Fiches clients/fournisseurs
-      search_entities: Rechercher des fiches clients/fournisseurs
+      entities_create: Créer une nouvelle fiche
+      entities: Clients et fournisseurs
+      entities_search: Gérer les fiches clients et fournisseurs
   product:
     unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
   unavailable:
