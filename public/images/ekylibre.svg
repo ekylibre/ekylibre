@@ -347,7 +347,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="8"
-     inkscape:cx="-30.12575"
+     inkscape:cx="-34.421336"
      inkscape:cy="16.3464"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -518,16 +518,19 @@
        x="-32.766418"
        y="700.63757" />
     <rect
-       style="opacity:1;fill:#3061bb;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.75000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#3061bb;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="logo"
-       width="32"
-       height="32"
-       x="-64.766418"
-       y="588.63757"
-       inkscape:label="#rect2461" />
+       width="30"
+       height="30"
+       x="-63.766418"
+       y="589.63757"
+       inkscape:label="#rect2461"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/favicon.png" />
     <path
-       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.75;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="M -60.76642,592.63755 L -60.76642,597.43755 L -60.76642,602.23755 L -60.76642,607.03755 L -60.76642,611.83755 L -60.76642,616.63755 L -36.76642,616.63755 L -36.76642,611.83755 L -55.96642,611.83755 L -55.96642,607.03755 L -36.76642,607.03755 L -36.76642,602.23755 L -55.96642,602.23755 L -55.96642,597.43755 L -36.76642,597.43755 L -36.76642,592.63755 L -55.96642,592.63755 L -60.76642,592.63755 z"
+       style="opacity:1;fill:#3061bb;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.75000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M -58.76642,594.63755 L -58.76642,598.63755 L -58.76642,602.63755 L -58.76642,606.63755 L -58.76642,610.63755 L -58.76642,614.63755 L -38.76642,614.63755 L -38.76642,610.63755 L -54.76642,610.63755 L -54.76642,606.63755 L -38.76642,606.63755 L -38.76642,602.63755 L -54.76642,602.63755 L -54.76642,598.63755 L -38.76642,598.63755 L -38.76642,594.63755 L -54.76642,594.63755 L -58.76642,594.63755 z"
        id="rect2467" />
   </g>
 </svg>

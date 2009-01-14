@@ -168,6 +168,16 @@ models:
       x: Position X
       y: Position Y
       z: Position Z
+  stock_move:
+    name: Mouvement de stock
+    attributes:
+      name: Nom
+      planned_on: Prévu le
+      moved_on: Fait le
+      quantity: Quantité
+      unit_id: Unité
+      product_id: Produit
+      comment: Commentaire
   user:
     name: Utilisateur
     attributes:

@@ -155,7 +155,7 @@ class ManagementController < ApplicationController
     t.column :planned_on
     t.column :moved_on
     t.column :quantity
-    t.column :name, :through=>:unit
+    t.column :label, :through=>:unit
     t.column :name, :through=>:product
     t.column :comment
     t.action :stocks_moves_update, :image=>:update
