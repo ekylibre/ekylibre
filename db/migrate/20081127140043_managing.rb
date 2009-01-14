@@ -83,7 +83,7 @@ class Managing < ActiveRecord::Migration
     create_table :price_lists do |t|
       t.column :name,                   :string,   :null=>false
       t.column :started_on,             :date,     :null=>false
-      t.column :stopped_on,             :date,     :null=>false
+      t.column :stopped_on,             :date
       t.column :deleted,                :boolean,  :null=>false, :default=>false
       t.column :comment,                :text
       t.column :currency_id,            :integer,  :null=>false, :references=>:currencies
@@ -110,7 +110,9 @@ class Managing < ActiveRecord::Migration
     create_table :prices do |t|
       t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>4
       t.column :amount_with_taxes,      :decimal,  :null=>false, :precision=>16, :scale=>4
-      t.column :active,                 :boolean,  :null=>false, :default=>true
+      t.column :started_on,             :date,     :null=>false
+      t.column :stopped_on,             :date
+      t.column :deleted,                :boolean,  :null=>false, :default=>false
       t.column :use_range,              :boolean,  :null=>false, :default=>false
       t.column :quantity_min,           :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :quantity_max,           :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
@@ -120,7 +122,7 @@ class Managing < ActiveRecord::Migration
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :prices, :product_id
-    add_index :prices, :active
+    add_index :prices, :deleted
     add_index :prices, :list_id
     add_index :prices, :company_id
 
@@ -206,8 +208,8 @@ class Managing < ActiveRecord::Migration
       t.column :nature_id,              :integer,  :null=>false, :references=>:sale_order_natures
       t.column :number,                 :string,   :limit=>64, :null=>false
       t.column :invoiced,               :boolean,  :null=>false, :default=>false
-      t.column :price,                  :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :price_with_taxes,       :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount_with_taxes,      :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :state,                  :string,   :limit=>1, :null=>false, :default=>'O'
       t.column :expiration_id,          :integer,  :null=>false, :references=>:delays
       t.column :expired_on,             :date,     :null=>false
@@ -235,8 +237,8 @@ class Managing < ActiveRecord::Migration
       t.column :invoiced,               :boolean, :null=>false, :default=>false
       t.column :quantity,               :decimal, :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
       t.column :unit_id,                :integer, :null=>false, :references=>:units
-      t.column :price,                  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :price_with_taxes,       :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount,                 :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount_with_taxes,      :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :position,               :integer
       t.column :account_id,             :integer, :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
@@ -248,8 +250,8 @@ class Managing < ActiveRecord::Migration
       t.column :client_id,              :integer, :null=>false, :references=>:entities
       t.column :nature,                 :string,  :null=>false, :limit=>1  # S Standard R Replacement C Credit(Avoir) P Purchase
       t.column :number,                 :string,  :null=>false, :limit=>64
-      t.column :price,                  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :price_with_taxes,       :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount,                 :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount_with_taxes,      :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :payment_delay_id,       :integer, :null=>false, :references=>:delays
       t.column :payment_on,             :date,    :null=>false
       t.column :paid,                   :boolean, :null=>false, :default=>false
@@ -269,8 +271,8 @@ class Managing < ActiveRecord::Migration
       t.column :price_list_id,          :integer, :null=>false, :references=>:price_lists
       t.column :price_id,               :integer, :null=>false, :references=>:prices
       t.column :quantity,               :decimal, :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
-      t.column :price,                  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :price_with_taxes,       :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount,                 :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount_with_taxes,      :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :position,               :integer
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
@@ -282,8 +284,8 @@ class Managing < ActiveRecord::Migration
       t.column :invoice_id,             :integer, :references=>:invoices
       t.column :shipped_on,             :date,    :null=>false
       t.column :delivered_on,           :date,    :null=>false
-      t.column :price,                  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :price_with_taxes,       :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount,                 :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount_with_taxes,      :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :comment,                :text
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
@@ -298,8 +300,8 @@ class Managing < ActiveRecord::Migration
       t.column :price_id,               :integer, :null=>false, :references=>:prices
       t.column :quantity,               :decimal, :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
       t.column :unit_id,                :integer, :null=>false, :references=>:units
-      t.column :price,                  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :price_with_taxes,       :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount,                 :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount_with_taxes,      :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :delivery_lines, :company_id
@@ -310,8 +312,8 @@ class Managing < ActiveRecord::Migration
       t.column :number,                 :string,   :null=>false, :limit=>64
       t.column :shipped,                :boolean,  :null=>false, :default=>false
       t.column :invoiced,               :boolean,  :null=>false, :default=>false
-      t.column :price,                  :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :price_with_taxes,       :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount_with_taxes,      :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :dest_contact_id,        :integer,  :null=>false, :references=>:contacts
       t.column :comment,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
@@ -324,8 +326,8 @@ class Managing < ActiveRecord::Migration
       t.column :product_id,             :integer, :null=>false, :references=>:products
       t.column :unit_id,                :integer, :null=>false, :references=>:units
       t.column :quantity,               :decimal, :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
-      t.column :price,                  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :price_with_taxes,       :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount,                 :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :amount_with_taxes,      :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :position,               :integer
       t.column :account_id,             :integer,  :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade

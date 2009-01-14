@@ -6,7 +6,7 @@
 #  id           :integer       not null, primary key
 #  name         :string(255)   not null
 #  started_on   :date          not null
-#  stopped_on   :date          not null
+#  stopped_on   :date          
 #  deleted      :boolean       not null
 #  comment      :text          
 #  currency_id  :integer       not null

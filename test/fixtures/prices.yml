@@ -6,7 +6,9 @@
 #  id                :integer       not null, primary key
 #  amount            :decimal(16, 4 not null
 #  amount_with_taxes :decimal(16, 4 not null
-#  active            :boolean       default(TRUE), not null
+#  started_on        :date          not null
+#  stopped_on        :date          
+#  deleted           :boolean       not null
 #  use_range         :boolean       not null
 #  quantity_min      :decimal(16, 2 default(0.0), not null
 #  quantity_max      :decimal(16, 2 default(0.0), not null

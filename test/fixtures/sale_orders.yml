@@ -8,8 +8,8 @@
 #  nature_id           :integer       not null
 #  number              :string(64)    not null
 #  invoiced            :boolean       not null
-#  price               :decimal(16, 2 default(0.0), not null
-#  price_with_taxes    :decimal(16, 2 default(0.0), not null
+#  amount              :decimal(16, 2 default(0.0), not null
+#  amount_with_taxes   :decimal(16, 2 default(0.0), not null
 #  state               :string(1)     default("O"), not null
 #  expiration_id       :integer       not null
 #  expired_on          :date          not null

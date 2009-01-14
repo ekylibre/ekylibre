@@ -7,8 +7,8 @@
 #  client_id         :integer       not null
 #  nature            :string(1)     not null
 #  number            :string(64)    not null
-#  price             :decimal(16, 2 default(0.0), not null
-#  price_with_taxes  :decimal(16, 2 default(0.0), not null
+#  amount            :decimal(16, 2 default(0.0), not null
+#  amount_with_taxes :decimal(16, 2 default(0.0), not null
 #  payment_delay_id  :integer       not null
 #  payment_on        :date          not null
 #  paid              :boolean       not null
