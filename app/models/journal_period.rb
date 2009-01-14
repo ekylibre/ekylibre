@@ -37,24 +37,24 @@ class JournalPeriod < ActiveRecord::Base
 
   def validate
     
-    errors.add lc(:error_period) if self.started_on > self.stopped_on
-    errors.add lc(:error_period) if self.started_on != self.financialyear.started_on and self.started_on!=self.started_on.beginning_of_month
+   # errors.add lc(:error_period) if self.started_on > self.stopped_on
+   # errors.add lc(:error_period) if self.started_on != self.financialyear.started_on and self.started_on!=self.started_on.beginning_of_month
     
-    if self.journal 
-      errors.add lc(:error_closed_journal) if self.started_on <= self.journal.closed_on
-    end
+    #if self.journal 
+     # errors.add lc(:error_closed_journal) if self.started_on <= self.journal.closed_on
+    #end
     
-    if self.financialyear
-      errors.add lc(:error_closed_financialyear) if self.financialyear.closed
-      errors.add lc(:error_limited_financialyear) if self.financialyear.started_on > self.started_on or self.financialyear.stopped_on < self.stopped_on
-    end
+    # if self.financialyear
+#       errors.add lc(:error_closed_financialyear) if self.financialyear.closed
+#       errors.add lc(:error_limited_financialyear) if self.financialyear.started_on > self.started_on or self.financialyear.stopped_on < self.stopped_on
+   # end
   end
   
   
   def close(date)
     self.update_attributes(:stopped_on => date, :closed => true)
     self.journal_records.each do |record|
-      record.close(date)
+      record.close
     end
     
   end    

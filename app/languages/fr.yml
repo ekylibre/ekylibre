@@ -211,21 +211,18 @@ app:
       title: Comptabilité générale
       accounts: Gérer les comptes comptables
       bank_accounts: Gérer les comptes bancaires (RIB)
+      close_journal: Clôture de journal
+      close_financialyear: Clôture d'exercice
+      financialyears: Gérer les exercices comptables
       documents: Documents comptables
       journals: Gérer les journaux
+      list_of_entries: Lettrage d'écriture
+      list_of_statements: Pointage du compte	
       operations: Opérations de vérification et de clôture
       parameters: Paramètres
       print_documents: Imprimer des documents comptables
       works: Travaux comptables
       write_entries: Saisie des écritures
-    operations:
-      title: Opérations comptables
-      checkings: Opérations de vérification
-      close_financialyear: Clôture d'exercice
-      close_journal: Clôture de journal
-      closings: Clôtures
-      list_of_entries: Lettrage d'écriture
-      list_of_statements: Pointage du compte
     accounts:
       title: Comptes
     document_prepare:
@@ -278,6 +275,15 @@ app:
       title: Modifier le journal
     journals_close:
       title: Clôture du journal
+    financialyears:
+      title: Exercices comptables
+      create: Créer un nouvel exercice comptable
+    financialyears_create:
+      title: Créer un nouvel exercice
+    financialyears_update:
+      title: Modifier un nouvel exercice
+    financialyears_close:
+      title: Clôture d'exercice
     accounts:
       title: Comptes
       create: Créer un nouveau compte

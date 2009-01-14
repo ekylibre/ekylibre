@@ -49,10 +49,12 @@ class JournalRecord < ActiveRecord::Base
   end
 
   # this method allows to lock the record.
-  def close(date)
-    self.entries.each do |entrie|
-      entrie.close(date)
+  def close
+    if self.entries.size > 0
+      self.entries.each do |entrie|
+        entrie.close
+      end
     end
   end
-  
+
 end

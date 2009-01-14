@@ -12,7 +12,7 @@
   - f.field :bank_account, :currency_id
   - f.field :bank_account, :journal_id
 #currency
-=observe_field "bank_account_currency_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_currency_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'currency', :url => { :action => 'find_currencies'}, :with => "'currency=' + escape(value)")+"}"
+=observe_field "bank_account_currency_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_currency_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'currency', :url => { :action => 'currencies_find'}, :with => "'currency=' + escape(value)")+"}"
 #journal
-=observe_field "bank_account_journal_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_journal_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'journal', :url => { :action => 'find_journals'}, :with => "'journal=' + escape(value)")+"}"
+=observe_field "bank_account_journal_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_journal_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'journal', :url => { :action => 'journals_find'}, :with => "'journal=' + escape(value)")+"}"
 

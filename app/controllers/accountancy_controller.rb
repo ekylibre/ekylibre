@@ -6,6 +6,10 @@ class AccountancyController < ApplicationController
   #   # groups all the accounts corresponding to a transaction of purchase.
   #   ACCOUNTS_OF_PURCHASES={:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
   #     :bank=>512, :others=>765 }
+
+
+include ActionView::Helpers::FormOptionsHelper
+
   
   dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
@@ -58,19 +62,24 @@ class AccountancyController < ApplicationController
     t.action :statements_point, :method=>:post
   end
 
+   dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :code
+    t.column :closed
+    t.column :started_on
+    t.column :stopped_on
+    t.column :written_on
+    t.action :financialyears_update, :image=>:edit
+    t.action :financialyears_delete, :method=>:post
+    t.procedure :create, :action=>:financialyears_create
+  end
 
-  #
+
+  # displays all the traitments concerning accountancy.
   def index
-  
+    @bank_accounts = @current_company.bank_accounts 
+    @journals = @current_company.journals  
+    @financialyears = @current_company.financialyears
   end
-
-
-  # displays the accoutancing operations.
-  def operations
-    @bank_accounts = BankAccount.find(:all,:conditions=>"company_id = "+@current_company.id.to_s)  
-    @journals = Journal.find(:all, :conditions => {:company_id => @current_company.id})
-  end
-
 
   # lists all the bank_accounts with the mainly characteristics. 
   def bank_accounts
@@ -224,50 +233,122 @@ class AccountancyController < ApplicationController
   end
   
   # this method finds the journal with the matching id and the company_id.
-  def find_journals
-    @find_journals = Journal.find(:all,:conditions=>["company_id = ?", @current_company.id])
-    render :partial => 'find_journals'
+  def journals_find
+    @find_journals = @current_company.journals
+    render :partial => 'journals_find'
   end
   
   # this method finds the currency with the matching id and the company_id.
-  def find_currencies
-    @find_currencies = Currency.find(:all,:conditions=>["company_id = ?", @current_company.id])
-    render :partial => 'find_currencies'
+  def currencies_find
+    @find_currencies = @current_company.currencies
+    render :partial => 'currencies_find'
   end
   
 
   # this method finds the account with the matching number and the company_id.
-  def find_accounts
+  def accounts_find
     @search = params[:account].gsub('*','%')
     @find_accounts = Account.find(:all,:conditions=>["company_id = ? AND number LIKE ?", @current_company.id, @search])
-    render :partial => 'find_accounts'
+    render :partial => 'accounts_find'
+  end
+
+  # lists all the financialyears.
+  def financialyears
+    financialyears_list params
+  end
+
+
+  # this action creates a financialyear with a form.
+  def financialyears_create
+    access :financialyears
+    if request.post?
+      @financialyear = Financialyear.new(params[:financialyear])
+      @financialyear.company_id = @current_company.id
+      redirect_to session[:history][2] if @financialyear.save
+    else
+      @financialyear = Financialyear.new
+    end
+    render_form
+  end
+
+  
+  # this action updates a financialyear with a form.
+  def financialyears_update
+    access :financialyears
+    @financialyear = Financialyear.find_by_id_and_company_id(params[:id], @current_company.id)  
+    if request.post? or request.put?
+      @financialyear.update_attributes(params[:financialyear])
+      redirect_to :action => "financialyears"
+    end
+    render_form
   end
   
-  # this method is used to load datas such as accounts, financialyears ... 
-  def load_data
-   # creation of a financial year.
-   # @current_company.accounts.create!(:number=>'6', :name=>'charge', :label=>'charge', :parent_id=>1)
-   # @current_company.accounts.create!(:number=>'7', :name=>'produit', :label=>'produit', :parent_id=>2)
-   # @current_company.accounts.create!(:number=>'71', :name=>'produit', :label=>'produit1', :parent_id=>2)
-    #  @current_company.financialyears.create!(:code=>'1A2',
-      #                                     :started_on=>Date.civil(2009,01,01), 
-      #                                     :stopped_on=>Date.civil(2009,12,31), 
-      #                                     :written_on=>Date.civil(2009,12,12) )
-   #  @current_company.currencies.create!(:name=>'europeenne', :code=>'Eur', :format=>'euros')
-
-    redirect_to :action => "entries"
+  
+  # this action deletes a financialyear.
+  def financialyears_delete
+    if request.post? or request.delete?
+      @financialyear = Financialyear.find_by_id_and_company_id(params[:id], @current_company.id)  
+      Financialyear.destroy @financialyear unless @financialyear.journal_periods.size > 0 
+    end
+    redirect_to :action => "financialyears"
   end
- 
- 
+  
+
+  # This method allows to close the financialyear.
+  def financialyears_close
+    access :financialyears
+    @financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
+    redirect_to :action => "index" if @financialyears.empty?
+   
+    @financialyear = Financialyear.find :first
+    
+    @financialyear_periods = []
+
+    d = @financialyear.started_on
+    e = @financialyear.stopped_on
+    while d.end_of_month < e
+      @financialyear_periods << d.to_s(:attributes)
+      d=(d+1).end_of_month
+    end
+      
+
+    if request.post?
+      @financialyear = Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)
+      @financialyear.close(Date.today)
+      redirect_to :action => "index"
+    end 
+  end
+
+  
   #
+  def financialyears_periods
+    @financialyear_periods=[]
+    
+    @financialyear = Financialyear.find(params[:financialyear_select])
+    
+    d = @financialyear.started_on
+    e = @financialyear.stopped_on
+    while d.end_of_month < e
+      @financialyear_periods << d.to_s(:attributes)
+      d=(d+1).end_of_month
+    end
+    
+    render :text =>options_for_select(@journal_periods)
+  end
+
+
+  # This method allows to enter the accountancy records with a form.
   def entries
     session[:records_number] = 5 if session[:records_number].nil?
     journals_list(params) if request.get?
     @records = []
-    @record = JournalRecord.new
-    @entry = Entry.new
+    @record  = JournalRecord.new
+    @entry   = Entry.new
     unless session[:journal].nil?
       if request.post?
+        @financialyear = Financialyear.find_by_company_id(@current_company.id)
+        redirect_to :action => "financialyears_create" unless @financialyear 
+        # puts 'a:'+@current_company.inspect
         @record = Journal.find(session[:journal]).create_record(params[:record])
         account = Account.find(:first, :conditions=>{:number => params[:account][:number], :company_id => @current_company.id})
         currency = Currency.find(:first, :conditions=>["company_id = ?", @current_company.id])
@@ -302,30 +383,10 @@ class AccountancyController < ApplicationController
     render :action => "entries.rjs" if request.xhr?    
   end
   
-  # this method converts a date into a new date with a specific format or a string into a date.
-  # def convert_date(date)
-#     if date.is_a? Date
-#       return date.strftime("%e-%m-%Y") 
-#     else 
-#       d=date.split('-') 
-#      # raise Exception.new d.inspect
-#       return Date.civil(d[0].to_i,d[1].to_i,d[2].to_i) 
-#     end
-#   end
-  
-  
+
   # lists all the transactions established on the accounts, sorted by date.
   def journals
-    #    begin
-    #      period = JournalPeriod.find(:first, :conditions=>["started_on = ? AND stopped_on = ?", params[:period][0], params[:period][1] ])
-    #    rescue
-    #      raise Exception.new("No records matching has been found in the database.")
-    #    end    
-    #    period.journal.journal(period)
     journals_list params
-  
-  #    journals_list params
-  #    @journals = @current_company.journals
   end
 
   #this method creates a journal with a form. 
@@ -369,73 +430,61 @@ class AccountancyController < ApplicationController
    # This method allows to close the journal.
   def journals_close
     access :journals
-    # @journals={}
+   
+    @journal_periods = []
     if request.get?
-      @journals = @current_company.journals 
-       @journal_periods = []
+     
+      
       if params[:id]  
         @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id) 
+        @journals = @current_company.journals 
+      else
+        @journals = @current_company.journals 
+        redirect_to :action => "index" if @journals.empty?
+        @journal=Journal.find :first
       end
-      # @journal=Journal.find :first
-      if @journal.nil?
-        flash[:warning] = lc(:no_journals)
-        redirect_to :action=>:operations
-      end
-      d = @journal.closed_on
-      while (d+1).end_of_month < Date.today
-        d=(d+1).end_of_month
-        @journal_periods << d
-      end
-
-    elsif request.post?
-      @journal = Journal.find_by_id_and_company_id(params[:journal][:id], @current_company.id)
-      if @journal.nil?
-        flash[:error] = lc(:unavailable_journal)
-        redirect_to :back
+     
+      if @journal
+        d = @journal.closed_on
+        while (d+1).end_of_month < Date.today
+          d=(d+1).end_of_month
+          @journal_periods << d.to_s( :attributes)
+        end
       end
       
-      if @journal.close(params[:journal][:closed_on])
-        redirect_to :action => "journals"
-      end
-    
-   # elsif request.xhr?
-    #  redirect_to :action=>""
+    elsif request.post?
+        
+      @journal = Journal.find_by_id_and_company_id(params[:journal][:id], @current_company.id) # if params[:journal][:id]
+     
+      #if @journal.nil?
+       # flash[:error] = lc(:unavailable_journal)
+       # redirect_to :back
+      #end
+      
+       @journal.close(params[:journal][:closed_on])
+         # redirect_to :action => "journals"
+      redirect_to session[:history][2]
+      #render :inline => "modifie"
+      #end
+       
     end
-  end 
+   
+  end
   
   #
   def journals_periods
     @journal_periods=[]
-    @journal = Journal.find(params[:journal])
-     d = @journal.closed_on
+    
+    @journal = Journal.find(params[:journal_select])
+   
+    d = @journal.closed_on
     while (d+1).end_of_month < Date.today
       d=(d+1).end_of_month
-      @journal_periods << [d.to_s,d.to_s]
+      @journal_periods << d.to_s (:attributes)
     end
-#    puts 'period:'+@journal_periods.inspect
-    render :text => options_for_select (@journal_periods) 
+    render :text =>options_for_select(@journal_periods)
   end
 
-
-  # This method allows to close the financialyear.
-  def financialyears_close
-    access :financialyears
-    #  @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
-   @financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
-    if request.post?
-      @financialyear.close(Date.today)
-
-    else
-      @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
-      @financialyear_periods = []
-      d = @financialyear.started_on
-      while (d+1).end_of_month < @financialyear.stopped_on
-        d=(d+1).end_of_month
-        @financialyear_periods << d
-      end
-    end
-  end
-  
   #
   def print
     render :action => 'print'

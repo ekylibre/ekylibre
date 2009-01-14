@@ -10,7 +10,7 @@
   %h2= lc :closings
   %ul
     %li=link_to lc(:close_journal), {:action=>:journals_close}
-    %li=link_to lc(:close_financialyear), {:action=>:financials_close}
-
+    - unless @financialyears.empty?
+      %li=link_to lc(:close_financialyear), {:action=>:financialyears_close}
 =link_to_back
   

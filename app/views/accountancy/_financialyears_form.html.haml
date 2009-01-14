@@ -1,7 +1,6 @@
-%h1=lc(:title)
-- form_tag() do
-  %table
-    %tr
-      %td.label=lc :financialyear_date
-      %td.input=select "financialyear", "stopped_on", @financialyear_closed
-      %td.button=submit_tag 'ok', :html => {:tabindex => 2}     
+=formalize(:inner_form=>true) do |f|
+  - f.error :financialyear
+  - f.field :financialyear, :code
+  - f.field :financialyear, :started_on
+  - f.field :financialyear, :stopped_on
+  - f.field :financialyear, :written_on

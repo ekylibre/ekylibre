@@ -21,28 +21,26 @@
       %td.label=lc :entry_letter
     %tr
       %td.input=text_field :record, :number, {:size=>9, :tabindex=>1}
-      %td.input=text_field :record, :created_on, { :readonly=>true, :size=>10}
-      %td.input=text_field :record, :printed_on, { :tabindex=>2, :size=>10} 
+      %td.input=text_field :record, :created_on, {:readonly=>true, :size=>10}
+      %td.input=text_field :record, :printed_on, {:tabindex=>2, :size=>10} 
       %td.input=text_field :entry, :name, {:tabindex=>3, :size=>14}
       %td.input=text_field :account, :number, {:tabindex=>4, :size=>14} 
       %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>9, :value=>0}
       %td.input=text_field :entry, :credit, {:tabindex=>6, :size=>9, :value=>0}
-      %td.input=text_field :entry, :letter, {:tabindex=>6, :size=>9, :value=>0} 
       %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => {:action => :entries}, :html => {:tabindex => 7}
 #lines
   =render :partial=>'entries'
-=button_to 'financial+account', :action => "load_data"
 %p
   %cite= lc :balanced_entries
 %p
   %cite= lc :unbalanced_entries
 #account 
-=observe_field "account_number", :frequency => 0.25, :function =>"if ( (document.getElementById('account_number').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'account', :url => { :action => 'find_accounts'}, :with => "'account=' + escape(value)")+"}"
+=observe_field "account_number", :frequency => 0.25, :function =>"if ( ($('account_number').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'account', :url => { :action => 'accounts_find'}, :with => "'account=' + escape(value)")+"}"
 =update_page_tag do |page|
-- page['record_number'].value = @record.number
+  - page['record_number'].value = @record.number
   - page['record_number'].focus()
-  - page['record_created_on'].value = @record.created_on
-  - page['record_printed_on'].value = @record.printed_on
+  - page['record_created_on'].value = @record.created_on.to_s :attributes
+  - page['record_printed_on'].value = @record.printed_on.to_s :attributes
   - page['number'].value = session[:records_number]
 #err
     
