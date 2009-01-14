@@ -1,40 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   
-  MENUSOLD=
-    [
-     # GuideController
-     [:guide, 
-      [:modules, [:relations, {:url=>{:controller=>:relations}}], [:accountancy, {:url=>{:controller=>:accountancy}}], [:management, {:url=>{:controller=>:management}}] ],
-      [:informations, [:about_us], {:class=>:special} ]
-     ],
-     # RelationsController
-     [:relations, 
-      [:entities, [:entities_search], [:entities_create] ]
-     ],
-     # AccountancyController
-     [:accountancy, 
-      [:works, [:entries], [:statements], [:lettering], [:journals_close], [:financialyears_close] ],
-      [:documents, [:document_prepare] ],
-      [:parameters, [:accounts], [:journals], [:bank_accounts], [:financialyears] ]
-     ],
-     # ManagementController
-     [:management, 
-      [:sales, [:sales_new], [:sales]],
-      [:purchases, [:purchases_new], [:purchases]],
-      [:stocks, [:stocks_locations], [:stocks]],
-      [:parameters, [:products], [:price_lists], [:shelves] ],
-     ]
-    ]
-  
-  # [:guide, :relations, :accountancy, :management]
-  
-  #  [ {:name=>:guide,
-  #      :lists=>
-  #      [ {:name=>:module,
-  #          :actions=>
-  #          [ {:name=>:relations, :url=>{:controller}
-  
   MENUS=
     [ 
      # GuideController
@@ -101,13 +67,6 @@ module ApplicationHelper
     ''
   end
     
-  def menu_side
-    for m in MENUS
-      return render(:partial=>'shared/menu_index', :locals=>{:menu=>m}) if m[:name]==controller
-    end
-    ''    
-  end
-
 
   def can_access?(action=:all)
     return false unless @current_user
@@ -169,26 +128,33 @@ module ApplicationHelper
     code = ''
     # Guide Tag
     tag = ''
-    tag += css_menu_tag(session[:menu_guide])
-    code += content_tag(:div, tag, :id=>:guide, :class=>:menu, :flex=>1)
+    for m in MENUS
+      tag += elink(self.controller.controller_name!=m[:name].to_s,l(m[:name], :title),{:controller=>m[:name]})+" "
+    end
+    tag = content_tag(:nobr, tag);
+  #  tag += css_menu_tag(session[:menu_guide])
+    code += content_tag(:div, tag, :id=>:guide, :class=>:menu)
     # Fix
     tag = ''
     tag += image_tag('template/ajax-loader-2.gif', :id=>:loading, :style=>'display:none;')
     #    tag  = content_tag :div, tag
-    code += content_tag(:div, tag, :style=>'text-align:center;', :flex=>1)
+    code += content_tag(:div, tag, :style=>'text-align:center;', :align=>:center, :flex=>1)
     #    code += content_tag(:div, tag, :style=>'left:0pt;')
     
     # User Tag
     tag = ''
-    tag += css_menu_tag(session[:menu_user]) 
-    code += content_tag(:div, tag, :id=>:user, :class=>:menu, :flex=>1)
+    tag += link_to(@current_user.label, {:controller=>:company, :action=>:user})+" "
+    tag += link_to(@current_company.name, {:controller=>:company})+" "
+    tag += link_to(lc(:exit), {:controller=>:authentication, :action=>:logout})+" "
+    tag = content_tag(:nobr, tag);
+#    tag += css_menu_tag(session[:menu_user]) 
+    code += content_tag(:div, tag, :id=>:user, :class=>:menu, :align=>:right)
     
     # Fix
     #    code += content_tag(:div, '', :style=>'clear:both;')    
     code = content_tag(:div, code, :id=>:top, :orient=>:horizontal)
     code
   end
-  
 
   def menu_item_title(item)
     title = item.name

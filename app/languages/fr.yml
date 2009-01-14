@@ -242,24 +242,27 @@ plural: 'c<=1 ? 1 : 2'
 # localized_application feature. The entries defined here are accesable by the
 # global method "l". See the RDoc for details.
 app:
+  account:
+    error_delete: Le compte ne peut être effacé car il contient des sous-comptes.	
+    default_account_name: 'Compte comptable %s'
   accountancy:
     title: Comptabilité
     index:
       title: Comptabilité générale
       accounts: Gérer les comptes comptables
       bank_accounts: Gérer les comptes bancaires (RIB)
-      close_journal: Clôture de journal
-      close_financialyear: Clôture d'exercice
+      journals_close: Clôture de journal
+      financialyears_close: 'Clôture d''exercice'
       financialyears: Gérer les exercices comptables
       documents: Documents comptables
       journals: Gérer les journaux
-      list_of_entries: Lettrage d'écriture
-      list_of_statements: Pointage du compte	
+      lettering: 'Lettrer des comptes de tiers'
+      statements: Pointer un relevé de compte bancaire
       operations: Opérations de vérification et de clôture
       parameters: Paramètres
-      print_documents: Imprimer des documents comptables
+      document_prepare: Imprimer des documents comptables
       works: Travaux comptables
-      write_entries: Saisie des écritures
+      entries: Saisir des écritures
     document_prepare:
       title: Choisissez le type de document à imprimer
     document_print:
@@ -306,10 +309,10 @@ app:
       create: Créer un nouveau journal
     journals_form:
       natures:
-        purchase: achats
-        sale: ventes   
-        bank: banque
-        various: operations diverses
+        purchase: Achats
+        sale: Ventes
+        bank: Banque
+        various: Opérations Diverses
     journals_create:
       title: Créer un nouveau journal
     journals_update:
@@ -333,7 +336,7 @@ app:
     accounts_create:
       title: Créer un nouveau compte
     accounts_update:
-      title: Modifier le compte
+      title: 'Modifier le compte : %s'
     accounts_letter_launch:
       title: Lettrage de compte
       select_account: "Sélectionnez un compte:"
@@ -345,7 +348,7 @@ app:
       title: Comptes bancaires
       create: Créer un nouveau compte bancaire
     bank_accounts_form:
-      rib: Relevé d'identité bancaire
+      rib: 'Relevé d''identité bancaire'
       accountancy: Comptabilité
     bank_accounts_create:
       title: Créer un nouveau compte bancaire
@@ -413,8 +416,8 @@ app:
   company:
     title: Société
     index:
-      companie: Informations sur la société
-      title: ehezhjezjhzej
+      companie: 
+      title: 'Informations sur la société %s'
       identity: 'Carte d''identité'
       statistics: Chiffres
       establishments: Établissements
@@ -432,7 +435,7 @@ app:
       establishments_number: 'Nombre d''établissements'
       departments_number: Nombre de services
       users_number: 'Nombre d''utilisateurs'
-      up: modifier
+      update: Modifier le détail de la société
     default_bank_journal_nature_name: Banque
     default_department_name: Gestion/Production
     default_establishment_name: Établissement principal
@@ -446,21 +449,21 @@ app:
       general: Vous pouvez modifier les différentes informations concernant votre société
       company_code_info: 'Ce code sert d''abréviation pour certaines impressions'
     user:
-      title: dez
+      title: 'Informations sur l''utilisateur : %s'
       change_password: Modifier le mot de passe
     users:
-      users_listing: Liste des utilisateurs
+      title: Liste des utilisateurs
       getback: Retour à la fiche de société
       users_create: Créer un nouvel utilisateur
     users_create:
-      title: Création d''un nouvel utilisateur
+      title: 'Création d''un nouvel utilisateur'
     users_update:
        title: 'Modification de l''utilisateur'
     users_form:
       subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
     establishments:
       getback: Retour à la fiche de société
-      establishments_listing: Liste des établissements
+      title: Liste des établissements
       establishments_create: Ajouter un nouvel établissement
     establishments_create:
       title: 'Ajout d''un nouvel etablissement'
@@ -469,7 +472,7 @@ app:
     establishments_form:
       subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
     departments:
-      departments_listing: Liste des services		
+      title: Liste des services	de la société
       departments_create: Ajouter un nouveau service
       default_department_name: Gestion/Production
       departments_listing: Liste des services	
@@ -501,8 +504,6 @@ app:
     error_no_file: 'Aucun fichier d''aide disponible pour cette partie de l''application (%s)'
     search:
       title: 'Aide'
-  account:
-    default_account_name: Account  
   journal:
     error_limited_period: '.'
     error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
@@ -527,12 +528,10 @@ app:
   financialyear:
     error_stopped_financialyear: 'La date de fin d''exercice doit être une fin de mois.'
     error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'
-  account:
-    error_delete: Le compte ne peut être effacé car il contient des sous-comptes.	
   layouts:
     application:
   management:
-    title: 'Gestion'
+    title: 'Commerce'
     index:      
       title: 'Gestion commerciale'
       parameters: 'Paramètres'
@@ -613,7 +612,7 @@ app:
     stocks_moves_update:
       title: Modifier un mouvement de stock
   relations: 
-    title: Gestion des relations
+    title: Relations
     entities:
       title: Liste des entités
     entities_create: 

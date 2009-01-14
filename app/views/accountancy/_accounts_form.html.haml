@@ -1,8 +1,8 @@
 -if @account
-  =formalize(:inner_form=>true) do |f|
+  =formalize do |f|
     - f.error :account
     - f.field :account, :name
-    - f.field :account, :label
-    - f.field :account, :number  
+    -# f.field :account, :label
+    - f.field :account, :number if @account.new_record?
         
      

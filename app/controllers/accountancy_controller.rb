@@ -24,10 +24,10 @@ include ActionView::Helpers::FormOptionsHelper
   dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number
     t.column :name
-    t.column :label
-    t.action :accounts_update, :image=>:edit
-    t.action :accounts_delete, :method=>:post
-    t.action :accounts_letter
+#    t.column :label
+    t.action :accounts_update, :image=>:update
+    t.action :accounts_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :accounts_letter, :image=>:letter
     t.procedure :create, :action=>:accounts_create
   end
  
@@ -123,6 +123,10 @@ include ActionView::Helpers::FormOptionsHelper
 
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
+    if params[:sort].blank?
+      params[:sort]="number"
+      params[:dir] ="asc"
+    end
     accounts_list params
   end
   
@@ -151,10 +155,11 @@ include ActionView::Helpers::FormOptionsHelper
     access :accounts
     @account = Account.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
+      params[:account].delete :number
       @account.update_attributes(params[:account])
       redirect_to :action => "accounts"
     end
-    render_form
+    render_form :label=>@account.label
   end
 
 

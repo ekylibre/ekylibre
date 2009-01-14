@@ -1,11 +1,7 @@
-#user
-  %br
-  = evalue @user , :name
-  %br
+%h1=lc(:title, [@user.label])
+= link_to lc(:change_password) ,  {:controller=>:authentication , :action=>:change_password}
+.detail
+  = evalue @user, :name
   = evalue @user, :first_name
-  %br
   = evalue @user, :last_name
-  %br
   = evalue @user, :email
-#changepwd
-  = button_to lc(:change_password) ,  {:controller=>:authentication , :action=>:change_password}

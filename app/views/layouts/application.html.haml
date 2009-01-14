@@ -15,7 +15,7 @@
         = flash_tag :error
         = flash_tag :warning
         = flash_tag :notice
-        .all{:flex=>3, :orient=>:vertical}
+        #content{:flex=>3, :orient=>:vertical}
           = help_tag
           #yield=yield
       #help{:flex=>3, :style=>''+(session[:help] ? "" : "display:none")}
