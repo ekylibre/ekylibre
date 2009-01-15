@@ -137,7 +137,11 @@ module Dyta
         code += "    end\n"
         code += "    text = header+content_tag(:tbody,body)\n"
         code += "  else\n"
-        code += "    text = '"+content_tag(:tr,content_tag(:td,l(:no_records).gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
+        if options[:empty]
+          code += "    text = ''\n"
+        else
+          code += "    text = '"+content_tag(:tr,content_tag(:td,l(:no_records).gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
+        end
         code += "  end\n"
         code += "  text = "+process+"+text\n" unless process.nil?
         code += "  text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"')\n"

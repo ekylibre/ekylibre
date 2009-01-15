@@ -1,0 +1,6 @@
+=formalize do |f|
+  - f.title :general
+  - f.field :price_list, :name
+  - f.field :price_list, :currency_id, :choices=>@current_company.choices.find(:all, :order=>:name).collect{|x| [x.name, x.id]}
+  - f.field :price_list, :activen :field=>:textarea
+  - f.field :price_list, :comment

@@ -200,7 +200,7 @@ models:
   shelf:
     name: Catégorie de produit
     attributes:
-      catalog_name: Nom (catalogue)
+      catalog_name: Nom pour le catalogue
       catalog_description: Description
       comment: Commentaire
       name: Nom
@@ -621,8 +621,10 @@ app:
     shelves_create:
       title: 'Ajout d''une nouvelle catégorie de produits'
     shelves_form:
-      general: Dénomination
+      general: Informations générales
       catalog: Description pour catalogue
+    shelves_update:
+      title: 'Ajout d''une nouvelle catégorie de produits'
 
     stocks_locations:
       title: Gérer les stocks
@@ -641,15 +643,13 @@ app:
       accountancy: Comptabilité
     stocks_locations_update:
       title: 'Modification d''un lieu de stockage'
-    stocks_locations_create:
+    stocks_moves_create:
       title: 'Enregistrement d''un mouvement de stock'
-    stocks_moves_create: 
-      title: Ajouter un mouvement de stock
     stocks_moves_form: 
       description: Description
       nature: Opération
     stocks_moves_update:
-      title: Modifier un mouvement de stock
+      title: 'Modifier le mouvement de stock : %s'
 
   relations: 
     title: Relations

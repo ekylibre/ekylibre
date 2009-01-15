@@ -3,8 +3,22 @@ class ManagementController < ApplicationController
   def index
   end
 
+  dyta(:price_lists, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :active
+    t.column :name, :through=>:currency
+    t.column :comment
+    t.action :price_lists_update, :image=>:update
+    t.action :price_lists_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :new_product, :action=>:price_lists_create
+  end
 
-  dyta(:products, :conditions=>:search_conditions) do |t|
+  def price_lists
+    price_lists_list params
+  end
+
+
+  dyta(:products, :conditions=>:search_conditions, :empty=>true) do |t|
     t.column :number
     t.column :code
     t.column :name
@@ -16,28 +30,11 @@ class ManagementController < ApplicationController
     t.procedure :new_product, :action=>:products_create
   end
 
-#   dyta(:products, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-#     t.column :number
-#     t.column :code
-#     t.column :name
-#     t.column :description
-#     t.column :active
-#     t.action :products_display, :image=>:show
-#     t.action :products_update, :image=>:update
-#     t.action :products_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-#     t.procedure :new_product, :action=>:products_create
-#   end
-
   def products
-    #raise Exception.new params[:key].to_s+' -- '+params["key"].to_s
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key
-    #    flash[:notice] = @key.inspect
-    #    key = params[:search][:keyword] if params[:search]
-    #    raise Exception.new params.inspect if request.post?
     products_list({:attributes=>[:id, :name, :description, :catalog_name, :catalog_description, :comment], :key=>@key}.merge(params))
   end
-
 
   def products_display
     @product = find_and_check(:product, params[:id])
@@ -80,6 +77,13 @@ class ManagementController < ApplicationController
       redirect_to :action=>:products
     end
   end
+
+
+
+
+  def purchases
+  end
+
 
 
 
@@ -138,14 +142,6 @@ class ManagementController < ApplicationController
 
   
 
-
-  def price_lists
-  end
-
-
-
-  def purchases
-  end
 
 
 

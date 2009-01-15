@@ -7,7 +7,7 @@
 #  name                :string(255)   not null
 #  catalog_name        :string(255)   not null
 #  catalog_description :text          
-#  description         :text          
+#  comment             :text          
 #  parent_id           :integer       
 #  company_id          :integer       not null
 #  created_at          :datetime      not null

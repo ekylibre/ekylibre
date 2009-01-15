@@ -7,6 +7,7 @@
 #  name         :string(255)   not null
 #  started_on   :date          not null
 #  stopped_on   :date          
+#  active       :boolean       default(TRUE), not null
 #  deleted      :boolean       not null
 #  comment      :text          
 #  currency_id  :integer       not null

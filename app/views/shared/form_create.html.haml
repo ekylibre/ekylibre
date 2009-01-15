@@ -1,4 +1,6 @@
 %h1=l self.controller.controller_name.to_sym, action_name.to_sym, :title
+- unless flash[:message].blank?
+  .message=flash[:message]
 - form_tag do
   =render :partial=>@partial
   .actions
