@@ -1,13 +1,12 @@
 %h1=lc(:title)
 .action-list
   - form_tag(:action => 'params_entries') do
-    %table
-      %tr
-        %td.label=lc :select
-        %td.select=select "journal", "id",  @journals.collect{|j| [j.name, j.id]}
-        %td.label=lc :number_records
-        %td.input=text_field_tag "number", session[:records_number], :tabindex => 1 
-        %td.button=submit_tag 'ok', :html => {:tabindex => 2}     
+    =formalize do |f|
+      - f.field lc(:select), select("journal", "id",  @journals.collect{|j| [j.name, j.id]})
+      - f.field lc(:number_records), text_field_tag("number", session[:records_number], :size=>2, :tabindex => 1)
+    .actions
+      =submit_tag lc 'ok'
+      =link_to(l(:cancel),:back)
 - form_remote_tag() do 
   %table
     %tr
@@ -21,26 +20,27 @@
       %td.label=#lc :entry_letter
     %tr
       %td.input=text_field :record, :number, {:size=>5, :tabindex=>1}
-      %td.input=text_field :record, :created_on, {:readonly=>true, :size=>10}
+      %td.input=text_field :record, :created_on, {:size=>10}
       %td.input=text_field :record, :printed_on, {:tabindex=>2, :size=>10} 
       %td.input=text_field :entry, :name, {:tabindex=>3, :size=>14}
       %td.input=text_field :account, :number, {:tabindex=>4, :size=>14} 
       %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>9, :value=>0}
       %td.input=text_field :entry, :credit, {:tabindex=>6, :size=>9, :value=>0}
       %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => {:action => :entries}, :html => {:tabindex => 7}
-#lines
-  =render :partial=>'entries'
+#errors=render :partial=>'errors'
+#lines{:flex=>1}=render :partial=>'entries'
 %p
   %cite= lc :balanced_entries
 %p
   %cite= lc :unbalanced_entries
-#account 
+#account
+
+ 
 =observe_field "account_number", :frequency => 0.25, :function =>"if ( ($('account_number').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'account', :url => { :action => 'accounts_find'}, :with => "'account=' + escape(value)")+"}"
 =update_page_tag do |page|
   - page['record_number'].value = @record.number
   - page['record_number'].focus()
-  - page['record_created_on'].value = @record.created_on.to_s :attributes
-  - page['record_printed_on'].value = @record.printed_on.to_s :attributes
+  - page['record_created_on'].value = @record.created_on.to_s(:attributes)
+  - page['record_printed_on'].value = @record.printed_on.to_s(:attributes)
   - page['number'].value = session[:records_number]
-#err
-    
+

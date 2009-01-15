@@ -552,9 +552,9 @@ app:
     error_period_statement: 'L''interval de temps est incorrect pour le relevé bancaire.'  				   
     error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'			           
   financialyear:
-    error_stopped1_financialyear: 'La date de fin d''exercice doit être une fin de mois.'
     error_stopped2_financialyear: 'La date de fin d''exercice doit être une fin de mois.'
     error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'
+    error_overlap_financialyear: La période de l'exercice se chevauche.
   layouts:
     application:
   management:

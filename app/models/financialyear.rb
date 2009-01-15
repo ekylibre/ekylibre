@@ -32,14 +32,18 @@ class Financialyear < ActiveRecord::Base
     
   end
 
-  
+  #
   def validate
    # errors.add_to_base lc(:error_stopped1_financialyear)  f self.stopped_on.nil?
     unless self.stopped_on.blank? 
       errors.add_to_base lc(:error_stopped2_financialyear) unless self.stopped_on == self.stopped_on.end_of_month
       errors.add_to_base lc(:error_period_financialyear)  if self.started_on >= self.stopped_on
     end
-   
+ #   puts "p"+self.started_on.to_s+self.stopped_on.to_s+self.company_id.to_s
+    financial_start = Financialyear.find(:all, :conditions => "company_id = #{self.company_id} AND '#{self.started_on}' BETWEEN started_on AND stopped_on")
+    financial_stop = Financialyear.find(:all, :conditions => "company_id = #{self.company_id} AND '#{self.stopped_on}' BETWEEN started_on AND stopped_on")
+    puts 'financial:'+financial_start.inspect+financial_stop.inspect
+    errors.add_to_base lc(:error_overlap_financialyear) if financial_start.size > 0 or financial_stop.size > 0
   end
   
   # When a financial year is closed, all the matching journals are closed too. 

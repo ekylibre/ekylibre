@@ -60,6 +60,7 @@ class Journal < ActiveRecord::Base
   
   # this method creates a period with a record.
   def create_record(values = {})
+    #errors.add_to_base "erreur1" if values[:created_on] > self.closed_on
     period = JournalPeriod.find(:first, :conditions=>['company_id = ? AND ? BETWEEN started_on AND stopped_on ',self.company_id, values[:created_on] ])
     puts period.inspect
     period = self.periods.create!(:company_id=>self.company_id, :started_on=>values[:created_on]) if period.nil?
