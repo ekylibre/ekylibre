@@ -18,9 +18,9 @@
       %td.label=lc :account_number
       %td.label=lc :record_debit
       %td.label=lc :record_credit
-      %td.label=lc :entry_letter
+      %td.label=#lc :entry_letter
     %tr
-      %td.input=text_field :record, :number, {:size=>9, :tabindex=>1}
+      %td.input=text_field :record, :number, {:size=>5, :tabindex=>1}
       %td.input=text_field :record, :created_on, {:readonly=>true, :size=>10}
       %td.input=text_field :record, :printed_on, {:tabindex=>2, :size=>10} 
       %td.input=text_field :entry, :name, {:tabindex=>3, :size=>14}

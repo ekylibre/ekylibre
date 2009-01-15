@@ -12,6 +12,8 @@ div[xul="hbox"] { background: #CDF; }
 div[xul="vbox"] { background: #FDC; }
 div[xul="box"] { background: #ADA; }
 */
+/*table.entries { border-collapse: collapse; }*/
+table.entries tr * { border: 1px solid #AAA; padding: 1px 2px; }
 table.entries tr.odd td{:background: #E3F4FF;}
 table.entries tr.even td{:background: #A3FCFF;}
 

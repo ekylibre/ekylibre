@@ -1,14 +1,13 @@
 -if @records
   %table{:border=>1, :class => "entries"}
     %tr
-      %td.label=lc :record_number
-      %td.label=lc :record_created
-      %td.label=lc :record_printed 
-      %td.label=lc :label
-      %td.label=lc :account_number
-      %td.label=lc :record_debit
-      %td.label=lc :record_credit
-      %td.label=lc :entry_letter
+      %th=lc :record_number
+      %th=lc :record_created
+      %th=lc :record_printed 
+      %th=lc :label
+      %th=lc :account_number
+      %th=lc :record_debit
+      %th=lc :record_credit
     - @records.each do |record|
       - attr = cycle("even","odd")  
       - record.entries.each do |entry|
@@ -22,4 +21,3 @@
           %td=entry.account.number
           %td{:align=>"right"}= debit
           %td{:align=>"right"}= credit
-          %td=entry.letter
