@@ -1,0 +1,6 @@
+%h1=lc(:title,[l(:accountancy,:document_prepare,@print[0])])
+-form_tag do
+  =render :partial=>@partial
+  .actions
+    =link_to l(:previous) , :action=>:document_prepare
+    =submit_tag l(:print)

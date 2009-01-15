@@ -1,0 +1,10 @@
+%h1=lc(:title)
+
+-form_tag do
+  -for print in @prints
+    .print
+      =radio_button(:print , :mode , print[0])
+      %label{:for=>'print_mode_'+print[0].to_s}=lc(print[0].to_sym)
+  .actions
+    =submit_tag l(:next)
+
