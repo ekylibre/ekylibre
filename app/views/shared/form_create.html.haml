@@ -1,5 +1,8 @@
 %h1=l self.controller.controller_name.to_sym, action_name.to_sym, :title
 - form_tag do
+  %h2=@partial
+  =render :partial=>@partial
+  =render :partial=>@partial
   =render :partial=>@partial
   .actions
     =submit_tag(l(@options[:submit]||:create))

@@ -77,7 +77,7 @@ helpers:
     less than 5 seconds: moins de 5 secondes
     less than 10 seconds: moins de 10 secondes
     less than 20 seconds: moins de 20 secondes
-    less than a minute: moins d'une minute
+    less than a minute: 'moins d''une minute'
     1 minute: 1 minute
     half a minute: 30 seconds
     n minutes: %i minutes
@@ -120,10 +120,16 @@ models:
       account_id: Compte comptable référencé
       currency_id: Devise utilisée
       journal_id: Journal utilisé
+  bank_account_statement:
+    name: Relevé de compte bancaire
+    attributes:
+      started_on: De
+      stopped_on: À
+      number: Numéro du relevé de compte	
   company:
     name: Société
     attributes:
-      name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)'
+      name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)
       siren: Numéro SIREN
       born_on: Créée le
   contact:
@@ -189,12 +195,15 @@ models:
       to_purchase: 'Produit destiné à l''achat'
       to_rent: Produit destiné à la location
       unit_id: Unité de mesure
-  bank_account_statement:
-    name: Relevé de compte bancaire
+  shelf:
+    name: Catégorie de produit
     attributes:
-      started_on: De
-      stopped_on: A
-      number: Numéro du relevé de compte	
+      catalog_name: Nom (catalogue)
+      catalog_description: Description
+      comment: Commentaire
+      name: Nom
+      parent: Sur-catégorie
+      parent_id: Sur-catégorie
   stock_location:
     name: Lieu de stockage
     attributes:
@@ -551,6 +560,7 @@ app:
       stocks_consult: 'Consulter l''état des stocks'
       stocks_locations: 'Gérer les stocks'
       taxes: 'Taxes'
+
     products:
       title: 'Gérer les produits'
       new_product: 'Ajout d''un nouveau produit'
@@ -576,6 +586,7 @@ app:
       search: 'Rechercher un produit'
     products_update:
       title: 'Modification du produit : %s'
+
     sales_new:
       title: 'Nouvelle vente'
       nature: 'Type de vente'
@@ -587,6 +598,13 @@ app:
     sales_step_5: 'Factures'
     sales_step_6: 'Règlements'
     sales_step_7: 'Impression'
+
+    shelves:
+      title: Gérer les catégories de produits
+      shelves_create: Ajouter une nouvelle catégorie de produits
+    shelves_create:
+      title: 'Ajout d''une nouvelle catégorie de produits'
+
     stocks_locations:
       title: Gérer les stocks
       stocks_locations_create: Ajouter un nouveau lieu de stockage
@@ -613,6 +631,7 @@ app:
       nature: Opération
     stocks_moves_update:
       title: Modifier un mouvement de stock
+
   relations: 
     title: Relations
     entities:

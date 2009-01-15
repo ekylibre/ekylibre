@@ -15,7 +15,7 @@ class Managing < ActiveRecord::Migration
       t.column :name,                   :string,   :null=>false
       t.column :catalog_name,           :string,   :null=>false
       t.column :catalog_description,    :text
-      t.column :description,            :text
+      t.column :comment,                :text
       t.column :parent_id,              :integer,  :references=>:shelves, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end

@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
       end 
       conditions[0] = conditions[0][0..-5]+")"
     else
-      conditions[0] += "AND false"
+      conditions[0] += " AND false"
     end
     conditions
   end

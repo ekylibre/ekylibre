@@ -16,22 +16,23 @@ class ManagementController < ApplicationController
     t.procedure :new_product, :action=>:products_create
   end
 
-  dyta(:products, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :number
-    t.column :code
-    t.column :name
-    t.column :description
-    t.column :active
-    t.action :products_display, :image=>:show
-    t.action :products_update, :image=>:update
-    t.action :products_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :new_product, :action=>:products_create
-  end
+#   dyta(:products, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+#     t.column :number
+#     t.column :code
+#     t.column :name
+#     t.column :description
+#     t.column :active
+#     t.action :products_display, :image=>:show
+#     t.action :products_update, :image=>:update
+#     t.action :products_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+#     t.procedure :new_product, :action=>:products_create
+#   end
 
   def products
-#    raise Exception.new params[:key].to_s+' -- '+params["key"].to_s
+    #raise Exception.new params[:key].to_s+' -- '+params["key"].to_s
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key
+    #    flash[:notice] = @key.inspect
     #    key = params[:search][:keyword] if params[:search]
     #    raise Exception.new params.inspect if request.post?
     products_list({:attributes=>[:id, :name, :description, :catalog_name, :catalog_description, :comment], :key=>@key}.merge(params))
@@ -144,6 +145,53 @@ class ManagementController < ApplicationController
 
 
   def purchases
+  end
+
+
+
+
+  dyta(:shelves, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :comment
+    t.column :catalog_name
+    t.column :catalog_description
+    t.column :name, :through=>:parent
+    t.action :shelves_update, :image=>:update
+    t.action :shelves_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :shelves_create
+  end
+
+  def shelves
+    shelves_list params
+  end
+
+  def shelves_create
+    if request.post? 
+      @shelf = Shelf.new(params[:shelf])
+      @shelf.company_id = @current_company.id
+      redirect_to :action=>:shelves if @shelf.save
+    else
+      @shelf = Shelf.new
+    end
+    render_form
+  end
+
+  def shelves_update
+    @shelf = find_and_check(:shelf, params[:id])
+    if request.post?
+      params[:shelf][:company_id] = @current_company.id
+      if @shelf.update_attributes(params[:shelf])
+        redirect_to :action=>:shelves
+      end
+    end
+    render_form(:label=>@shelf.name)
+  end
+
+  def shelves_delete
+    @shelf = find_and_check(:shelf, params[:id])
+    if request.post? or request.delete?
+      redirect_to :back if @shelf.destroy
+    end
   end
 
 
