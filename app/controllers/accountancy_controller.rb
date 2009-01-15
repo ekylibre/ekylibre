@@ -193,71 +193,69 @@ class AccountancyController < ApplicationController
     end
   end
 
+  PRINTS=[[:balance,{:partial=>"date_to_date",:ex=>"ex"}],
+          [:general_ledger,{:partial=>"date_to_date"}],
+          [:journal_by_id,{:partial=>"by_id"}],
+          [:journal,{:partial=>"date_to_date"}]]
+          
   def document_prepare
     @company = @current_company
-    #    print = Hash.new
-    #   print[:balance] = "date_to_date"
-    #  print[:journal_by_id] = "by_id"
-    raise Exception.new print.inspect
+    @prints = PRINTS
     if request.post?
-      case params[:mode] 
-      when  "balance_sheet"
-        session[:mode] = "balance_sheet"
-        session[:print] = params[:print_balance_sheet][:id]
-      when "balance"
-        session[:mode] = "balance"
-        session[:print]= params[:print_balance]
-      when "general_ledger"
-        session[:mode] = "general_ledger"
-        session[:print] = params[:print_general_ledger]
-      when "journal"
-        session[:mode] = "journal"
-        session[:print] = params[:print_journal]
-      when "journal_by_id"
-        session[:mode] = "journal_by_id"
-        session[:print] = params[:print_journal_by_id]
-      end
+      session[:mode] = params[:print][:mode]
       redirect_to :action=>:document_print
     end
   end
   
   def document_print
     @company = @current_company
-    case session[:mode] 
-    when "balance_sheet"
-      @id = session[:print][:id]
-    when "balance"
-      @partial = "print_journal"
-      @begin = session[:print][:from]
-      @end = session[:print][:to]
-      @code = session[:print][:code]
-      @year_from = session[:print][:from]
-      session[:print][:date] = true
-      session[:print][:current_company] = @current_company.id
-      if request.post?
-        render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/balance.xml',:locals=>session[:print])
-      end
-    when "general_ledger"
-      @begin = session[:print][:from]
-      @end = session[:print][:to]
-      session[:print][:current_company] = @current_company.id
-      if request.post?
-        render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/general_ledger.xml',:locals=>session[:print])
-      end
-    when "journal"
-      @begin = session[:print][:from]
-      @end = session[:print][:to]
-      session[:print][:current_company] = @current_company.id
-      if request.post?
-        render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/journal.xml',:locals=>session[:print])
-      end
-    when "journal_by_id"
-      @id = session[:print][:name]
-      session[:print][:current_company] = @current_company.id
-      if request.post?
-        render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/journal_by_id.xml',:locals=>session[:print])
-      end
+    for print in PRINTS
+      @print = print if print[0].to_s == session[:mode]
     end
+    @partial = @print[1][:partial]
+    if request.post?
+      params[:printed][:current_company] = @company.id
+      params[:printed][:siren] = @company.siren.to_s
+      params[:printed][:company_name] = @company.name.to_s
+      render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/'+@print[0].to_s+'.xml',:locals=>params[:printed])
+    end
+#     @company = @current_company
+#     case session[:mode] 
+#     when "balance_sheet"
+#       @id = session[:print][:id]
+#     when "balance"
+#       @partial = "print_journal"
+#       @begin = session[:print][:from]
+#       @end = session[:print][:to]
+#       @code = session[:print][:code]
+#       @year_from = session[:print][:from]
+#       session[:print][:date] = true
+#       session[:print][:current_company] = @current_company.id
+#       if request.post?
+#         render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/balance.xml',:locals=>session[:print])
+#       end
+#     when "general_ledger"
+#       raise Exception.new "jkjkjk"
+#       @begin = session[:print][:from]
+#       @end = session[:print][:to]
+#       session[:print][:current_company] = @current_company.id
+#       if request.post?
+#         render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/general_ledger.xml',:locals=>session[:print])
+#       end
+#     when "journal"
+#       @begin = session[:print][:from]
+#       @end = session[:print][:to]
+#       session[:print][:current_company] = @current_company.id
+#       if request.post?
+#         render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/journal.xml',:locals=>session[:print])
+#       end
+#     when "journal_by_id"
+#       @id = session[:print][:name]
+#       session[:print][:current_company] = @current_company.id
+#       if request.post?
+#         render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/journal_by_id.xml',:locals=>session[:print])
+#       end
+#     end
   end
   
   # ths method allows to print.

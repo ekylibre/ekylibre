@@ -276,10 +276,23 @@ app:
       document_prepare: Imprimer des documents comptables
       works: Travaux comptables
       entries: Saisir des écritures
+    by_id:
+      dates: Sélectionnez les dates ainsi que l id
+      journal_name: Nom du journal
+      from: du
+      to: au
+    date_to_date:
+      dates: Sélectionnez les dates de début et de fin de la période
+      from: du
+      to: au
     document_prepare:
       title: Choisissez le type de document à imprimer
+      general_ledger: Grand livre
+      balance: Balance
+      journal: Journal général
+      journal_by_id: Journal
     document_print:
-      title: Impression du Document
+      title: 'Impression du document : %s'
       print: Impression
     entries:
       title: Écritures
@@ -671,7 +684,7 @@ app:
   unavailable:
     product: Le produit demandé est indisponible
   are_you_sure: 'Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?'
-  back: 'Revenir à la page précendente'
+  back: 'Revenir à la page précédente'
   cancel: 'Annuler'
   create: 'Créer'
   update: 'Modifier'
@@ -683,6 +696,7 @@ app:
   next: Suivant
   no_records: 'Pas d''enregistrements'
   previous: Précédent
+  print: Impression
   search: Rechercher
   search_go: Lancer la recherche
   submit: Envoyer
