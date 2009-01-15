@@ -123,9 +123,10 @@ models:
   bank_account_statement:
     name: Relevé de compte bancaire
     attributes:
-      started_on: De
-      stopped_on: À
-      number: Numéro du relevé de compte	
+      started_on: Du
+      stopped_on: Au
+      number: Numéro du relevé de compte
+      bank_account_id: Compte bancaire référencé	
   company:
     name: Société
     attributes:
@@ -169,10 +170,11 @@ models:
   financialyear:
     name: Exercice
     attributes:
+      id: Libellé
       closed: Clôturé	
       started_on: Commencé le
       stopped_on: Terminé le
-      written_on: Clôturé le	 
+      written_on: 'Possibilité d''écrire jusqu''au'	 
   product:
     name: Produit
     attributes:
@@ -365,16 +367,16 @@ app:
       title: Créer un nouveau compte bancaire
     bank_accounts_update:
       title: Modifier le compte bancaire	
-    find_accounts:
+    accounts_find:
       account_number: 'Numéro de compte '
       account_name: 'Nom du compte '
       erreur: 'Il n''existe pas de compte commençant par ce numéro.'
-    find_currencies:
+    currencies_find:
       currency_id: Numéro de devise
       currency_name: Nom de devise
       currency_code: Code de devise
       currency_rate: Taux de devise 
-    find_journals:
+    journals_find:
       journal_id: Numéro de journal
       journal_name: Nom du journal
     statements_point:
@@ -537,7 +539,8 @@ app:
     error_period_statement: 'L''interval de temps est incorrect pour le relevé bancaire.'  				   
     error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'			           
   financialyear:
-    error_stopped_financialyear: 'La date de fin d''exercice doit être une fin de mois.'
+    error_stopped1_financialyear: 'La date de fin d''exercice doit être une fin de mois.'
+    error_stopped2_financialyear: 'La date de fin d''exercice doit être une fin de mois.'
     error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'
   layouts:
     application:
