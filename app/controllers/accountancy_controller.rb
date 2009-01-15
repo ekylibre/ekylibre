@@ -6,10 +6,6 @@ class AccountancyController < ApplicationController
   #   # groups all the accounts corresponding to a transaction of purchase.
   #   ACCOUNTS_OF_PURCHASES={:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
   #     :bank=>512, :others=>765 }
-
-
-include ActionView::Helpers::FormOptionsHelper
-
   
   dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
@@ -20,17 +16,16 @@ include ActionView::Helpers::FormOptionsHelper
     t.action :journals_close
     t.procedure :create, :action=>:journals_create
   end
- 
+  
   dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number
     t.column :name
-#    t.column :label
     t.action :accounts_update, :image=>:update
     t.action :accounts_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.action :accounts_letter, :image=>:letter
     t.procedure :create, :action=>:accounts_create
   end
- 
+  
   dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :bank_code
@@ -52,7 +47,7 @@ include ActionView::Helpers::FormOptionsHelper
     t.procedure :create, :action=>:statements_create
   end
 
-   dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :debit
     t.column :credit
@@ -60,8 +55,8 @@ include ActionView::Helpers::FormOptionsHelper
     t.column :currency_rate
     t.action :statements_point, :method=>:post
   end
-
-   dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  
+  dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :code
     t.column :closed
     t.column :started_on
@@ -72,12 +67,15 @@ include ActionView::Helpers::FormOptionsHelper
   end
 
 
-  # displays all the traitments concerning accountancy.
   def index
-    @bank_accounts = @current_company.bank_accounts 
-    @journals = @current_company.journals  
-    @financialyears = @current_company.financialyears
   end
+
+  # displays the accoutancing operations.
+  def operations
+    @bank_accounts = BankAccount.find(:all,:conditions=>"company_id = "+@current_company.id.to_s)  
+    @journals = Journal.find(:all, :conditions => {:company_id => @current_company.id})
+  end
+
 
   # lists all the bank_accounts with the mainly characteristics. 
   def bank_accounts
@@ -99,7 +97,7 @@ include ActionView::Helpers::FormOptionsHelper
 
   # this method updates a bank_account with a form.
   def bank_accounts_update
-   access :bank_accounts
+    access :bank_accounts
     @bank_account = BankAccount.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
       @bank_account.update_attributes(params[:bank_account])
@@ -176,18 +174,18 @@ include ActionView::Helpers::FormOptionsHelper
     end
     redirect_to :action => "accounts"
   end
- 
+  
 
   #
   def accounts_letter_launch
-     @accounts = Account.find(:all, :conditions => {:company_id => @current_company.id})
+    @accounts = Account.find(:all, :conditions => {:company_id => @current_company.id})
   end
 
 
   #
   def accounts_letter
     if request.xhr?
-    
+      
     else
       @entries = Entry.find(:all, :conditions => ['company_id = ? AND account_id = ? AND letter is NULL', @current_company.id, params[:id] ])
     end
@@ -195,6 +193,10 @@ include ActionView::Helpers::FormOptionsHelper
 
   def document_prepare
     @company = @current_company
+    #    print = Hash.new
+    #   print[:balance] = "date_to_date"
+    #  print[:journal_by_id] = "by_id"
+    raise Exception.new print.inspect
     if request.post?
       case params[:mode] 
       when  "balance_sheet"
@@ -203,6 +205,15 @@ include ActionView::Helpers::FormOptionsHelper
       when "balance"
         session[:mode] = "balance"
         session[:print]= params[:print_balance]
+      when "general_ledger"
+        session[:mode] = "general_ledger"
+        session[:print] = params[:print_general_ledger]
+      when "journal"
+        session[:mode] = "journal"
+        session[:print] = params[:print_journal]
+      when "journal_by_id"
+        session[:mode] = "journal_by_id"
+        session[:print] = params[:print_journal_by_id]
       end
       redirect_to :action=>:document_print
     end
@@ -214,18 +225,36 @@ include ActionView::Helpers::FormOptionsHelper
     when "balance_sheet"
       @id = session[:print][:id]
     when "balance"
+      @partial = "print_journal"
       @begin = session[:print][:from]
       @end = session[:print][:to]
       @code = session[:print][:code]
       @year_from = session[:print][:from]
       session[:print][:date] = true
-      # raise Exception.new @year_from.inspect
-      # params[:print][:year_begin] = Date.new(year,01,01)
-     # params[:test][:year_end] = Date.new(year,12,31)
-      session[:print][:current_company] = @current_company.id.to_s
-    end
-    if request.post?
-      render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/balance.xml',:locals=>session[:print])
+      session[:print][:current_company] = @current_company.id
+      if request.post?
+        render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/balance.xml',:locals=>session[:print])
+      end
+    when "general_ledger"
+      @begin = session[:print][:from]
+      @end = session[:print][:to]
+      session[:print][:current_company] = @current_company.id
+      if request.post?
+        render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/general_ledger.xml',:locals=>session[:print])
+      end
+    when "journal"
+      @begin = session[:print][:from]
+      @end = session[:print][:to]
+      session[:print][:current_company] = @current_company.id
+      if request.post?
+        render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/journal.xml',:locals=>session[:print])
+      end
+    when "journal_by_id"
+      @id = session[:print][:name]
+      session[:print][:current_company] = @current_company.id
+      if request.post?
+        render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/journal_by_id.xml',:locals=>session[:print])
+      end
     end
   end
   
@@ -235,44 +264,24 @@ include ActionView::Helpers::FormOptionsHelper
   end
   
   # this method finds the journal with the matching id and the company_id.
-  def journals_find
-    @find_journals = @current_company.journals
-    render :partial => 'journals_find'
+  def find_journals
+    @find_journals = Journal.find(:all,:conditions=>["company_id = ?", @current_company.id])
+    render :partial => 'find_journals'
   end
   
   # this method finds the currency with the matching id and the company_id.
-  def currencies_find
-    @find_currencies = @current_company.currencies
-    render :partial => 'currencies_find'
+  def find_currencies
+    @find_currencies = Currency.find(:all,:conditions=>["company_id = ?", @current_company.id])
+    render :partial => 'find_currencies'
   end
   
 
   # this method finds the account with the matching number and the company_id.
-  def accounts_find
+  def find_accounts
     @search = params[:account].gsub('*','%')
     @find_accounts = Account.find(:all,:conditions=>["company_id = ? AND number LIKE ?", @current_company.id, @search])
-    render :partial => 'accounts_find'
+    render :partial => 'find_accounts'
   end
-
-  # lists all the financialyears.
-  def financialyears
-    financialyears_list params
-  end
-
-
-  # this action creates a financialyear with a form.
-  def financialyears_create
-    access :financialyears
-    if request.post?
-      @financialyear = Financialyear.new(params[:financialyear])
-      @financialyear.company_id = @current_company.id
-      redirect_to session[:history][2] if @financialyear.save
-    else
-      @financialyear = Financialyear.new
-    end
-    render_form
-  end
-
   
   # this action updates a financialyear with a form.
   def financialyears_update
@@ -294,34 +303,7 @@ include ActionView::Helpers::FormOptionsHelper
     redirect_to :action => "financialyears"
   end
   
-
-  # This method allows to close the financialyear.
-  def financialyears_close
-    access :financialyears
-    @financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
-    redirect_to :action => "index" if @financialyears.empty?
-   
-    @financialyear = Financialyear.find :first
-    
-    @financialyear_periods = []
-
-    d = @financialyear.started_on
-    e = @financialyear.stopped_on
-    while d.end_of_month < e
-      @financialyear_periods << d.to_s(:attributes)
-      d=(d+1).end_of_month
-    end
-      
-
-    if request.post?
-      @financialyear = Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)
-      @financialyear.close(Date.today)
-      redirect_to :action => "index"
-    end 
-  end
-
-  
-  #
+  # 
   def financialyears_periods
     @financialyear_periods=[]
     
@@ -343,21 +325,18 @@ include ActionView::Helpers::FormOptionsHelper
     session[:records_number] = 5 if session[:records_number].nil?
     journals_list(params) if request.get?
     @records = []
-    @record  = JournalRecord.new
-    @entry   = Entry.new
+    @record = JournalRecord.new
+    @entry = Entry.new
     unless session[:journal].nil?
       if request.post?
-        @financialyear = Financialyear.find_by_company_id(@current_company.id)
-        redirect_to :action => "financialyears_create" unless @financialyear 
-        # puts 'a:'+@current_company.inspect
         @record = Journal.find(session[:journal]).create_record(params[:record])
         #puts 'record:'+@record.inspect
         account = Account.find(:first, :conditions=>{:number => params[:account][:number], :company_id => @current_company.id})
         currency = Currency.find(:first, :conditions=>["company_id = ?", @current_company.id])
         @entry = Entry.new(params[:entry].merge({:account_id => account.id, :record_id => @record.id, 
-                                                     :currency_id => currency.id, :company_id => @current_company.id}))
+                                                  :currency_id => currency.id, :company_id => @current_company.id}))
         
-         
+        
         # @aff = ''
         #         unless @entry.errors.nil?
         #           @entry.errors.each do |attr, msg|
@@ -387,10 +366,30 @@ include ActionView::Helpers::FormOptionsHelper
     render :action => "entries.rjs" if request.xhr?    
   end
   
-
+  # this method converts a date into a new date with a specific format or a string into a date.
+  # def convert_date(date)
+  #     if date.is_a? Date
+  #       return date.strftime("%e-%m-%Y") 
+  #     else 
+  #       d=date.split('-') 
+  #      # raise Exception.new d.inspect
+  #       return Date.civil(d[0].to_i,d[1].to_i,d[2].to_i) 
+  #     end
+  #   end
+  
+  
   # lists all the transactions established on the accounts, sorted by date.
   def journals
+    #    begin
+    #      period = JournalPeriod.find(:first, :conditions=>["started_on = ? AND stopped_on = ?", params[:period][0], params[:period][1] ])
+    #    rescue
+    #      raise Exception.new("No records matching has been found in the database.")
+    #    end    
+    #    period.journal.journal(period)
     journals_list params
+    
+    #    journals_list params
+    #    @journals = @current_company.journals
   end
 
   #this method creates a journal with a form. 
@@ -406,7 +405,7 @@ include ActionView::Helpers::FormOptionsHelper
     render_form
   end
 
- #this method updates a journal with a form. 
+  #this method updates a journal with a form. 
   def journals_update
     access :journals
     @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id)  
@@ -430,24 +429,18 @@ include ActionView::Helpers::FormOptionsHelper
     end
     redirect_to :action => "journals"
   end
- 
+  
 
-   # This method allows to close the journal.
+  # This method allows to close the journal.
   def journals_close
     access :journals
-   
-    @journal_periods = []
+    # @journals={}
     if request.get?
-     
+      @journals = @current_company.journals 
+      @journal_periods = []
       if params[:id]  
         @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id) 
-        @journals = @current_company.journals 
-      else
-        @journals = @current_company.journals 
-        redirect_to :action => "index" if @journals.empty?
-        @journal=Journal.find :first
       end
-     
       if @journal
         d = @journal.closed_on
         while (d+1).end_of_month < Date.today
@@ -455,40 +448,61 @@ include ActionView::Helpers::FormOptionsHelper
           @journal_periods << d.to_s(:attributes)
         end
       end
-      
+      d = @journal.closed_on
+      while (d+1).end_of_month < Date.today
+        d=(d+1).end_of_month
+        @journal_periods << d
+      end
+
     elsif request.post?
-        
-      @journal = Journal.find_by_id_and_company_id(params[:journal][:id], @current_company.id) # if params[:journal][:id]
-     
-      #if @journal.nil?
-       # flash[:error] = lc(:unavailable_journal)
-       # redirect_to :back
-      #end
+      @journal = Journal.find_by_id_and_company_id(params[:journal][:id], @current_company.id)
+      if @journal.nil?
+        flash[:error] = lc(:unavailable_journal)
+        redirect_to :back
+      end
       
-       @journal.close(params[:journal][:closed_on])
-         # redirect_to :action => "journals"
-      redirect_to session[:history][2]
-      #render :inline => "modifie"
-      #end
-       
+      if @journal.close(params[:journal][:closed_on])
+        redirect_to :action => "journals"
+      end
+      
+      # elsif request.xhr?
+      #  redirect_to :action=>""
     end
-   
-  end
+  end 
   
   #
   def journals_periods
     @journal_periods=[]
-    
-    @journal = Journal.find(params[:journal_select])
-   
+    @journal = Journal.find(params[:journal])
     d = @journal.closed_on
     while (d+1).end_of_month < Date.today
       d=(d+1).end_of_month
       @journal_periods << d.to_s(:attributes)
     end
-    render :text =>options_for_select(@journal_periods)
+    #    puts 'period:'+@journal_periods.inspect
+    render :text => options_for_select (@journal_periods) 
   end
 
+
+  # This method allows to close the financialyear.
+  def financialyears_close
+    access :financialyears
+    #  @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
+    @financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
+    if request.post?
+      @financialyear.close(Date.today)
+
+    else
+      @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
+      @financialyear_periods = []
+      d = @financialyear.started_on
+      while (d+1).end_of_month < @financialyear.stopped_on
+        d=(d+1).end_of_month
+        @financialyear_periods << d
+      end
+    end
+  end
+  
   #
   def print
     render :action => 'print'
@@ -548,10 +562,10 @@ include ActionView::Helpers::FormOptionsHelper
     else
       @statement = BankAccountStatement.new
     end
-   render_form 
+    render_form 
   end
 
-    
+  
   # This method updates a statement.
   def statements_update
     access :statements
@@ -562,14 +576,14 @@ include ActionView::Helpers::FormOptionsHelper
     end
     render_form
   end
- 
+  
 
   # This method deletes a statement.
   def statements_delete
     if request.post? or request.delete?
-        @statement = BankAccountStatement.find_by_id_and_company_id(params[:id], @current_company.id)  
-        BankAccountStatement.delete @statement
-        redirect_to :action=>"statements"
+      @statement = BankAccountStatement.find_by_id_and_company_id(params[:id], @current_company.id)  
+      BankAccountStatement.delete @statement
+      redirect_to :action=>"statements"
     end
   end
 
@@ -577,11 +591,11 @@ include ActionView::Helpers::FormOptionsHelper
   # This method displays the list of entries recording to the accountancing account associated to the bank account.
   def statements_point
     session[:statement] = params[:id]  if request.get? 
-  
+    
     @bank_account=BankAccount.find(session[:bank_account])
     @entries=Entry.find(:all, :conditions => {:account_id => @bank_account.account_id, :company_id => @current_company.id}, :order => "id ASC")   
-     @bank_account_statement=BankAccountStatement.find(session[:statement])
-
+    @bank_account_statement=BankAccountStatement.find(session[:statement])
+    
     
     if request.xhr?
       entry=Entry.find(params[:id]) 
@@ -594,10 +608,9 @@ include ActionView::Helpers::FormOptionsHelper
       render :action => "statements.rjs" 
     end
 
-
   end
-   
-    
+  
+  
 
 
 end

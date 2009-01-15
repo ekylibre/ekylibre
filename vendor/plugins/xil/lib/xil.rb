@@ -478,10 +478,12 @@ module Ekylibre
 
       # converts the color attribute of an element in a better format easier to understand by the plugin.
       def rvb_to_num(color)
+        color = color.to_s
         color="#"+color[1..1]*2+color[2..2]*2+color[3..3]*2 if color=~/^\#[a-f0-9]{3}$/i
         if color=~/^\#[a-f0-9]{6}$/i
           color[1..2].to_i(16).to_s+","+color[3..4].to_i(16).to_s+","+color[5..6].to_i(16).to_s
         else
+          raise Exception.new color.to_s
           '255,0,255'
         end
       end
