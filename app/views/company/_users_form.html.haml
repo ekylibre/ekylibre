@@ -1,0 +1,10 @@
+=formalize(:inner_form=>true) do |f|
+  -f.error :user
+  -f.title lc(:subtitle)
+  -f.field :user, :name
+  -f.field :user, :first_name
+  -f.field :user, :last_name
+  -f.field :user, :email
+  -f.field :user, :password
+  -f.field :user, :password_confirmation
+  -f.field :user, :role_id
