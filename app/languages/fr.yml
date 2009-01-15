@@ -607,6 +607,9 @@ app:
       shelves_create: Ajouter une nouvelle catégorie de produits
     shelves_create:
       title: 'Ajout d''une nouvelle catégorie de produits'
+    shelves_form:
+      general: Dénomination
+      catalog: Description pour catalogue
 
     stocks_locations:
       title: Gérer les stocks
