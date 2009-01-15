@@ -23,6 +23,36 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient3276">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0.71111113;"
+         offset="0"
+         id="stop3279" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3281" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3265">
+      <stop
+         style="stop-color:#7097d8;stop-opacity:1;"
+         offset="0"
+         id="stop3267" />
+      <stop
+         id="stop3285"
+         offset="0.31429297"
+         style="stop-color:#224580;stop-opacity:1;" />
+      <stop
+         style="stop-color:#6085c3;stop-opacity:1;"
+         offset="0.68766028"
+         id="stop3287" />
+      <stop
+         style="stop-color:#1b3a6c;stop-opacity:1;"
+         offset="1"
+         id="stop3269" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3234">
       <stop
          style="stop-color:#3a29da;stop-opacity:1;"
@@ -338,6 +368,24 @@
        x2="-29.46137"
        y2="866.73059"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3265"
+       id="linearGradient3271"
+       x1="-99.875"
+       y1="287.99997"
+       x2="-68"
+       y2="320"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3276"
+       id="linearGradient3283"
+       x1="-83.6875"
+       y1="298.18747"
+       x2="-83.6875"
+       y2="309.9201"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -386,6 +434,46 @@
        orientation="1,0"
        position="-32,-7.875"
        id="guide2465" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="-100,29.75"
+       id="guide2472" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="-98,25.5"
+       id="guide2474" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="-95.375,32"
+       id="guide2476" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="-68,25.4375"
+       id="guide2478" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="-94,21.375"
+       id="guide2480" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="-74,18.1875"
+       id="guide2482" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="-73.75,0"
+       id="guide2484" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="-86.9375,30"
+       id="guide2486" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="-92.1875,2"
+       id="guide2488" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="-70,2.75"
+       id="guide2490" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -532,5 +620,22 @@
        style="opacity:1;fill:#3061bb;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.75000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M -58.76642,594.63755 L -58.76642,598.63755 L -58.76642,602.63755 L -58.76642,606.63755 L -58.76642,610.63755 L -58.76642,614.63755 L -38.76642,614.63755 L -38.76642,610.63755 L -54.76642,610.63755 L -54.76642,606.63755 L -38.76642,606.63755 L -38.76642,602.63755 L -54.76642,602.63755 L -54.76642,598.63755 L -38.76642,598.63755 L -38.76642,594.63755 L -54.76642,594.63755 L -58.76642,594.63755 z"
        id="rect2467" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2493"
+       width="32"
+       height="32"
+       x="-132.76642"
+       y="588.63757"
+       inkscape:export-xdpi="360"
+       inkscape:export-ydpi="360" />
+    <path
+       style="opacity:1;fill:url(#linearGradient3271);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M -100 288 L -100 320 L -68 320 L -68 288 L -100 288 z M -98 290 L -70 290 L -70 318 L -98 318 L -98 290 z M -94 294 L -94 298 L -94 302 L -94 306 L -94 310 L -94 314 L -74 314 L -74 310 L -90 310 L -90 306 L -74 306 L -74 302 L -90 302 L -90 298 L -74 298 L -74 294 L -90 294 L -94 294 z "
+       transform="translate(-32.76642,300.63758)"
+       id="logos"
+       inkscape:label="#rect2464"
+       inkscape:export-xdpi="360"
+       inkscape:export-ydpi="360" />
   </g>
 </svg>

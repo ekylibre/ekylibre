@@ -20,4 +20,11 @@
 #
 
 class PriceList < ActiveRecord::Base
+  attr_readonly :started_on
+
+  def before_validation
+    self.started_on = Date.today
+  end
+
+
 end

@@ -1,8 +1,9 @@
 %h1=lc(:title)
-%h3 Vous disposez de
-=@size
-%h3 entités
-.search
+%p=lc(:nb_entities,[@size])
+.action-list
+  %ul
+    %li=link_to lc :entities_create, :action=>:entities_create
+.search.action-list
   - form_tag() do
     %table
       %tr
@@ -15,34 +16,26 @@
         %td.input=text_field :contact, :fax
         %td.button=submit_tag 'ok'
       %tr
-%h4 Entités trouvées
-%table.result
-  %tr
-    %td.result ID
-    %td.result Nom
-    %td.result Code
-  -if @person
+-if @entities.size>0
+  %h4 Personnes trouvées
+  %table.dyta
     %tr
-      %td.result=@person.id
-      %td.result=@person.name
-      %td.result=@person.code  
-      %td.result=link_to lc(:display), :action=>:entities_display, :id=>@person.id
-  -if @entities != nil
-    -x=0
+      %th ID
+      %th Nom
+      %th Code
     -for entity in @entities
-      -if entity
-        %tr.result
-          %td.result=@entities[x].id
-          %td.result=@entities[x].name
-          %td.result=@entities[x].code
-          %td.result=link_to lc(:display), :action=>:entities_display, :id=>@entities[x].id
-        -x+=1
+      %tr
+        %td=entity.id
+        %td=entity.name
+        %td=entity.code
+        %td=link_to lc(:display), :action=>:entities_display, :id=>entity.id
+
 %h4 Contacts trouvés
-%table.result
+%table.dyta
   %tr
-    %td.result Portable
-    %td.result Fax
-    %td.result Email
+    %th Portable
+    %th Fax
+    %th Email
   -if @contact
     %tr
       %td.result=@contact.mobile
@@ -60,8 +53,7 @@
           %td.result=link_to lc(:display), :action=>:entities_display, :id=>@contacts[x].entity_id
         -x+=1
 #noid
--if @idfound != nil
+-if @person.blank?
   %p Pas d'entité correspondant à l'id
-  =params[:contact][:id]
 -if @max
   %h1 Veuillez affiner votre recherche, il y a plus de 80 resultats

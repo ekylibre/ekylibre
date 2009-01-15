@@ -10,12 +10,41 @@ class ManagementController < ApplicationController
     t.column :comment
     t.action :price_lists_update, :image=>:update
     t.action :price_lists_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :new_product, :action=>:price_lists_create
+    t.procedure :price_lists_create
   end
 
   def price_lists
     price_lists_list params
   end
+
+  def price_lists_create
+    if request.post? 
+      @price_list = PriceList.new(params[:price_list])
+      @price_list.company_id = @current_company.id
+      redirect_to :action =>:price_lists if @price_list.save
+    else
+      @price_list = PriceList.new
+    end
+    render_form
+  end
+
+  def price_lists_update
+    @price_list = find_and_check(:price_list, params[:id])
+    if request.post?
+      if @price_list.update_attributes(params[:price_list])
+        redirect_to :action=>:price_lists
+      end
+    end
+    render_form(:label=>@price_list.name)
+  end
+
+  def price_lists_delete
+    @price_list = find_and_check(:price_list, params[:id])
+    if request.post? or request.delete?
+      redirect_to :back if @price_list.delete
+    end
+  end
+
 
 
   dyta(:products, :conditions=>:search_conditions, :empty=>true) do |t|

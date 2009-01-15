@@ -1,4 +1,5 @@
 * {margin:0; padding:0; font-family: Arial, sans-serif;}
+/* BLUE EKYLIBRE : #3060FF */
 html {background: #FFF;}
 td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:hover { color:#00C; }
@@ -232,9 +233,9 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 #side .action-list ul { padding: 0px 0px; }
 #side .action-list li { padding: 2px 4px 4px; list-style-type: none; background: #e9f3fe url(/images/template/table_head.png) repeat-x bottom; }
 #side .action-list li a { font-size: 13px; }
-#side .action-list li:hover { background: #FFD; }
+#side .action-list li:hover { background: #FFC url(/images/template/action.png) repeat-x bottom; }
 
-
+/*e7f2fd bbcfe6*/
 
 .errorExplanation { background: #ECA; color: #543; }
 

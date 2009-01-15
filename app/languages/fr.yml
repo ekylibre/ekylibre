@@ -170,11 +170,18 @@ models:
   financialyear:
     name: Exercice
     attributes:
-      id: Libellé
+      id: Numéro
       closed: Clôturé	
       started_on: Commencé le
       stopped_on: Terminé le
       written_on: 'Possibilité d''écrire jusqu''au'	 
+  price_list:
+    name: Liste de prix
+    attributes:
+      name: Nom
+      currency_id: Devise
+      active: Active (utilisable)
+      comment: Commentaire
   product:
     name: Produit
     attributes:
@@ -462,14 +469,16 @@ app:
       departments_number: Nombre de services
       users_number: 'Nombre d''utilisateurs'
       update: Modifier le détail de la société
-    default_bank_journal_nature_name: Banque
-    default_department_name: Gestion/Production
-    default_establishment_name: Établissement principal
-    default_financialyear_code: 1A2
-    default_operations_journal_nature_name: Opérations Diverses
-    default_purchases_journal_nature_name: Achats
-    default_sales_journal_nature_name: Ventes
-    default_shelf_name: Sans catégorie
+    default:
+      bank_journal_nature_name: Banque
+      department_name: Gestion/Production
+      establishment_name: Établissement principal
+      financialyear_code: 1A2
+      operations_journal_nature_name: Opérations Diverses
+      price_list_name: Tarif normal (par défaut)
+      purchases_journal_nature_name: Achats
+      sales_journal_nature_name: Ventes
+      shelf_name: Sans catégorie
     update:
       title: 'Modification de la société %s'
       general: Vous pouvez modifier les différentes informations concernant votre société
@@ -552,9 +561,9 @@ app:
     error_period_statement: 'L''interval de temps est incorrect pour le relevé bancaire.'  				   
     error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'			           
   financialyear:
-    error_stopped2_financialyear: 'La date de fin d''exercice doit être une fin de mois.'
+    error_stopped2_financialyear: 'La date de fin d''exercice doit être une date de fin de mois.'
     error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'
-    error_overlap_financialyear: La période de l'exercice se chevauche.
+    error_overlap_financialyear: 'La période de l''exercice se chevauche.'
   layouts:
     application:
   management:
@@ -576,6 +585,14 @@ app:
       stocks_consult: 'Consulter l''état des stocks'
       stocks_locations: 'Gérer les stocks'
       taxes: 'Taxes'
+
+    price_lists:
+      title: Gérer les listes de prix
+      price_lists_create: Ajouter une nouvelle liste de prix
+    price_lists_create:
+      title: Ajouter une nouvelle liste de prix
+    price_lists_form:
+      general: Description générale
 
     products:
       title: 'Gérer les produits'
@@ -668,8 +685,10 @@ app:
       back: Retour à la liste des entités
       new_contact: Entrer un nouveau contact
     entities_search:
-      title: 'Recherche d''une entité'
+      title: 'Recherche d''une fiche'
       display: Afficher
+      entities_create: Créer une nouvelle fiche
+      nb_entities: '%s fiches enregistrées'
     entities_update:
       title: 'Modification de l''entité'
     entities_form:

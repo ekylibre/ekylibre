@@ -15,8 +15,9 @@ module ApplicationHelper
      # RelationsController
      {:name=>:relations, :list=>
        [ {:name=>:entities, :list=>
-           [ {:name=>:entities_search}, 
-             {:name=>:entities_create} ] }
+           [ {:name=>:entities_search}
+             #  ,{:name=>:entities_create} 
+           ] }
        ] },
      # AccountancyController
      {:name=>:accountancy, :list=>

@@ -1,9 +1,6 @@
 class RelationsController < ApplicationController
 
   def index
-    @entity = Entity.new
-    @company = @current_company
-    @entities = @company.entities
   end
 
   dyta(:entities, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -13,25 +10,13 @@ class RelationsController < ApplicationController
     t.column :active
     t.action :entities_display, :action=>:entities_display
     t.action :entities_update, :image=>:update
-    t.action :entities_delete, :image=>:delete, :method=>:post, :confirm=>:sure
+    t.action :entities_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def entities
     entities_list params
   end
 
-  def entities_search
-  end
-
-  dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
-    t.column :active
-    t.column :default
-    t.column :mobile
-    t.column :fax
-    t.action :entities_contact_update , :image=>:update ,:method=>:post, :remote=> true 
-    t.action :entities_contact_delete , :image=>:delete , :method=>:post, :remote=> true
-  end
-  
   def entities_display
     access :contacts
     @company = @current_company
@@ -39,6 +24,15 @@ class RelationsController < ApplicationController
     session[:current_entity] = @entity.id
     contacts_list params
     @contact = Contact.new
+  end
+  
+  dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+    t.column :active
+    t.column :default
+    t.column :mobile
+    t.column :fax
+    t.action :entities_contact_update , :image=>:update ,:method=>:post, :remote=> true 
+    t.action :entities_contact_delete , :image=>:delete , :method=>:post, :remote=> true, :confirm=>:are_you_sure
   end
   
   def entities_contact_create
@@ -91,13 +85,14 @@ class RelationsController < ApplicationController
   end
   
   def entities_search
+    @size = Entity.count
+    @entities = {}
+    @contacts = {}
     if request.get?
-      @size = Entity.count
       @max = false
     end
     if request.post?
       @max = false
-      @size = Entity.count
       id = params[:contact][:id].to_i
       @person = Entity.find_by_id(id)
       @contact = Contact.find_by_id(id)
@@ -112,17 +107,10 @@ class RelationsController < ApplicationController
             conditions << word
           end
         end
-        if @person
-          @idfound = nil
-          @entities = Entity.find(:all, :conditions=>conditions)
-        else
-          @entities = Entity.find(:all, :conditions=>conditions)
-        end
-        size = 0
-        for x in  @entities
-          size += 1
-        end
-        if size > 80
+        @entities = Entity.find(:all, :conditions=>conditions)||{}
+        @entities << @person unless @person.blank?
+
+        if @entities.size > 80
           @max = true
           redirect_to :action => :entities_search
         end

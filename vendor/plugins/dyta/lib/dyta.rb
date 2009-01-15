@@ -98,7 +98,7 @@ module Dyta
             css_class = ''
             datum = column.data(record)
             if column.datatype==:boolean
-#              datum = value_image(datum)
+              datum = value_image2(datum)
               style = 'text-align:center;'
             end
             if column.options[:url]              
@@ -166,6 +166,10 @@ module Dyta
         else
           ''
         end
+      end
+
+      def value_image2(value)
+        "image_tag('buttons/'+"+value.to_s+".to_s+'.png', :border=>0, :alt=>l("+value.to_s+".to_s))"
       end
       
       
