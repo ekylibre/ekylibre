@@ -11,8 +11,8 @@ class AccountancyController < ApplicationController
     t.column :name
     t.column :code
     t.column :closed_on
-    t.action :journals_update, :image=>:edit
-    t.action :journals_delete, :method=>:post
+    t.action :journals_update, :image=>:update
+    t.action :journals_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.action :journals_close
     t.procedure :create, :action=>:journals_create
   end
@@ -33,8 +33,8 @@ class AccountancyController < ApplicationController
     t.column :number
     t.column :iban
     t.column :iban_text
-    t.action :bank_accounts_update, :image=>:edit
-    t.action :bank_accounts_delete, :method=>:post
+    t.action :bank_accounts_update, :image=>:update
+    t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.procedure :create, :action=>:bank_accounts_create
   end
 
@@ -42,8 +42,8 @@ class AccountancyController < ApplicationController
     t.column :started_on
     t.column :stopped_on
     t.column :number
-    t.action :statements_update, :image=>:edit
-    t.action :statements_delete, :method=>:post
+    t.action :statements_update, :image=>:update
+    t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.procedure :create, :action=>:statements_create
   end
 
@@ -61,8 +61,8 @@ class AccountancyController < ApplicationController
     t.column :closed
     t.column :started_on
     t.column :stopped_on
-    t.action :financialyears_update, :image=>:edit
-    t.action :financialyears_delete, :method=>:post
+    t.action :financialyears_update, :image=>:update
+    t.action :financialyears_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.procedure :create, :action=>:financialyears_create
   end
 
@@ -401,6 +401,7 @@ class AccountancyController < ApplicationController
       redirect_to :action => "journals" if @journal.save
     else
       @journal = Journal.new
+      @journal.nature = Journal.natures[0]
     end
     render_form
   end
