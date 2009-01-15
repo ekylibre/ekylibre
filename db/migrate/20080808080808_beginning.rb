@@ -161,7 +161,7 @@ class Beginning < ActiveRecord::Migration
       t.column :name,                   :string, :null=>false
       t.column :nic,                    :string, :null=>false, :limit=>5
       t.column :siret,                  :string, :null=>false
-      t.column :note,                   :text
+      t.column :comment,                :text
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
     add_index :establishments, [:name,  :company_id], :unique=>true
@@ -170,7 +170,7 @@ class Beginning < ActiveRecord::Migration
     # Department
     create_table :departments do |t|
       t.column :name,                   :string,   :null=>false
-      t.column :desc,                   :text
+      t.column :comment,                :text
       t.column :parent_id,              :integer,  :references=>:departments, :on_delete=>:restrict, :on_update=>:restrict
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end

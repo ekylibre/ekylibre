@@ -12,7 +12,7 @@ class Populating < ActiveRecord::Migration
       t.column :departed_on,            :date,     :null=>false
       t.column :role,                   :string
       t.column :office,                 :string,   :limit=>32
-      t.column :note,                   :text
+      t.column :comment,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
     add_index :employees, [:company_id, :user_id], :unique=>true

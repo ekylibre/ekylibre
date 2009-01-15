@@ -7,7 +7,7 @@
 #  name         :string(255)   not null
 #  nic          :string(5)     not null
 #  siret        :string(255)   not null
-#  note         :text          
+#  comment      :text          
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null

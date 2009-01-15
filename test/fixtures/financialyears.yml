@@ -8,7 +8,7 @@
 #  closed       :boolean       not null
 #  started_on   :date          not null
 #  stopped_on   :date          not null
-#  written_on   :date          not null
+#  written_on   :date          
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null

@@ -126,16 +126,6 @@ models:
       name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)'
       siren: Numéro SIREN
       born_on: Créée le
-  department:
-    name: Service
-    attributes:
-      name: Nom
-  entity:
-    name: Entité
-    attributes:
-      name: Nom
-      code: Code
-      full_name: Nom complet
   contact:
     name: Contact
     attributes:
@@ -146,13 +136,25 @@ models:
       longitude: Longitude
       active: Actif
       default: Par défaut
-      closed_on: Clôturé en
+      closed_on: Annulé le
+  department:
+    name: Service
+    attributes:
+      name: Nom
+      comment: Commentaire
+  entity:
+    name: Entité
+    attributes:
+      name: Nom
+      code: Code
+      full_name: Nom complet
   establishment:
     name: Établissement
     attributes:
       name: Nom
+      nic: NIC (Numéro Interne de Classement)
       siret: N° SIRET
-      note: Commentaire
+      comment: Commentaire
   journal:
     name: Journal
     attributes:

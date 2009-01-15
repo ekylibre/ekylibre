@@ -43,7 +43,7 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :nic
     t.column :siret
-    t.column :note
+    t.column :comment
     t.procedure :establishments_create, :action=>:establishments_create
     t.action :establishments_update, :image=>:update
     t.action :establishments_delete, :image=>:delete , :method=>:post , :confirm=>:sure
@@ -55,7 +55,7 @@ class CompanyController < ApplicationController
   
   dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name
-    t.column :desc
+    t.column :comment
     t.procedure :departments_create, :action=>:departments_create
     t.action :departments_update, :image=>:update
     t.action :departments_delete, :image=>:delete , :method=>:post , :confirm=>:sure

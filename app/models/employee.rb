@@ -14,7 +14,7 @@
 #  departed_on      :date          not null
 #  role             :string(255)   
 #  office           :string(32)    
-#  note             :text          
+#  comment          :text          
 #  company_id       :integer       not null
 #  created_at       :datetime      not null
 #  updated_at       :datetime      not null

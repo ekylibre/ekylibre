@@ -4,7 +4,7 @@
 # Table name: journals
 #
 #  id             :integer       not null, primary key
-#  nature_id      :integer       not null
+#  nature         :string(16)    not null
 #  name           :string(255)   not null
 #  code           :string(4)     not null
 #  deleted        :boolean       not null
