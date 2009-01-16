@@ -5,7 +5,7 @@
     <info type="created-on">04/09/2008</info>
   </infos>
   <loop name="loop0">
-    <block type="footer">
+    <block type="footer" height="20">
       <line x1="10" y1="0" x2="200" y2="0" border-color="#000" />
       <text x="10" y="2" width="100" height="5" align="L" size="7"> {CURRENT_TIMESTAMP:%e %B %Y à %H %M } </text>
       <text x="10" y="5" width="100" height="5" align="L" size="7"> Journal général </text>
@@ -21,6 +21,7 @@
       <text x="65" y="35" width="70" height="15" align="C" size="15" weight="bold"> Période du {LOCAL:from} au {LOCAL:to} </text>
       <text x="65" y="50" width="200" height="10" align="C" >    </text>
     </block>
+    <block type="header" height="7"/>
     <block name="menu">
       <text x="10" y="0" width="15" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000" weight="bold">Piece</text>
       <text x="25" y="0" width="20" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000" weight="bold">Enreg le</text>
@@ -30,26 +31,28 @@
       <text x="156" y="0" width="22" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000" weight="bold">Débit</text>
       <text x="178" y="0" width="22" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000" weight="bold">Crédit</text>
     </block>
-    <loop name="journal" query="SELECT id , number ,  created_on , printed_on FROM journal_records WHERE company_id = {LOCAL:current_company} AND created_on BETWEEN '{LOCAL:from}' AND '{LOCAL:to}' ORDER BY created_on ,number">
-      <loop name="entries" query="SELECT debit ,credit , name , account_number , sum_debit , sum_credit , 1 FROM(SELECT debit , credit, sum(debit) as sum_debit, sum(credit) as sum_credit, entries.name as name  , accounts.number as account_number FROM entries INNER JOIN accounts ON entries.account_id = accounts.id WHERE entries.record_id = #{journal.id} GROUP BY entries.debit, entries.credit, entries.name, accounts.number ORDER BY accounts.number ASC) as entries">
+    <loop name="records" query="SELECT id , number ,  created_on , printed_on FROM journal_records WHERE company_id = {LOCAL:current_company} AND created_on BETWEEN '{LOCAL:from}' AND '{LOCAL:to}' ORDER BY created_on ,number">
+      <loop name="entries" query="SELECT debit ,credit , name , account_number , 1 FROM(SELECT debit , credit,  entries.name as name  , accounts.number as account_number FROM entries INNER JOIN accounts ON entries.account_id = accounts.id WHERE entries.record_id = #{records.id} ORDER BY accounts.number ASC) as entries">
 	<block name="numeric">
-	  <text x="10" y="0" width="15" height="5" align="L" border-width="0.2">#{journal.number}</text>
-	  <text x="25" y="0" width="20" height="5" align="L" border-width="0.2">#{journal.created_on}</text>
-	  <text x="45" y="0" width="20" height="5" align="L" border-width="0.2">#{journal.printed_on}</text>
+	  <text x="10" y="0" width="15" height="5" align="L" border-width="0.2">#{records.number}</text>
+	  <text x="25" y="0" width="20" height="5" align="L" border-width="0.2">#{records.created_on}</text>
+	  <text x="45" y="0" width="20" height="5" align="L" border-width="0.2">#{records.printed_on}</text>
 	  <text x="65" y="0" width="66" height="5" align="L" border-width="0.2">#{entries.name}</text>
 	  <text x="131" y="0" width="25" height="5" align="L" border-width="0.2">#{entries.account_number}</text>
-	  <text x="156" y="0" width="22" height="5" align="R" border-width="0.2">#{entries.debit}</text>
-	  <text x="178" y="0" width="22" height="5" align="R" border-width="0.2">#{entries.credit}</text>
+	  <text x="156" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.debit},''),'0')::numeric > 0">#{entries.debit}</text>
+	  <text x="156" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.debit},''),'0')::numeric = 0">   </text>
+	  <text x="178" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.credit},''),'0')::numeric = 0" >  </text>
+	  <text x="178" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.credit},''),'0')::numeric > 0" >#{entries.credit}</text>
 	</block>
       </loop>
-      <block name="ddj" >
+      <block name="line">
 	<rectangle x="9.8" y="0" width="190.4" height="0.4" background-color="#CC0000"/>
       </block>
     </loop>
     <loop name="sum" query="SELECT sum_debit , sum_credit , 1 FROM(SELECT sum(debit) as sum_debit , sum(credit) as sum_credit FROM entries WHERE entries.record_id  IN (SELECT id  FROM journal_records WHERE company_id = {LOCAL:current_company} AND created_on BETWEEN '{LOCAL:from}' AND '{LOCAL:to}')) as sum">
     </loop>
     <block name="solde">
-      <text x="131" y="0" width="25" height="5" align="C" border-width="0.2">Totaux</text>
+      <text x="131" y="0" width="25" height="5" align="C" border-width="0.2" weight="bold">Totaux</text>
       <text x="156" y="0" width="22" height="5" align="R" border-width="0.2">#{sum.sum_debit}</text>
       <text x="178" y="0" width="22" height="5" align="R" border-width="0.2">#{sum.sum_credit}</text>
     </block>

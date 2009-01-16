@@ -4,56 +4,9 @@
   %ul
     %li=link_to lc :entities_create, :action=>:entities_create
 .search.action-list
-  - form_tag() do
+  - form_tag(:action=>:entities_search) do
     %table
       %tr
-        %td.label Recherche d'une entité
-      %tr
-        %td.label recherche par id
-        %td.input=text_field :contact, :id
-      %tr
-        %td.label recherche par nom
-        %td.input=text_field :contact, :fax
-        %td.button=submit_tag 'ok'
-      %tr
--if @entities.size>0
-  %h4 Personnes trouvées
-  %table.dyta
-    %tr
-      %th ID
-      %th Nom
-      %th Code
-    -for entity in @entities
-      %tr
-        %td=entity.id
-        %td=entity.name
-        %td=entity.code
-        %td=link_to lc(:display), :action=>:entities_display, :id=>entity.id
-
-%h4 Contacts trouvés
-%table.dyta
-  %tr
-    %th Portable
-    %th Fax
-    %th Email
-  -if @contact
-    %tr
-      %td.result=@contact.mobile
-      %td.result=@contact.fax
-      %td.result=@contact.email
-      %td.result=link_to lc(:display), :action=>:entities_display, :id=>@contact.entity_id
-  -if @contacts != nil
-    -x=0
-    -for contact in @contacts
-      -if contact
-        %tr
-          %td.result=@contacts[x].mobile
-          %td.result=@contacts[x].fax
-          %td.result=@contacts[x].email
-          %td.result=link_to lc(:display), :action=>:entities_display, :id=>@contacts[x].entity_id
-        -x+=1
-#noid
--if @person.blank?
-  %p Pas d'entité correspondant à l'id
--if @max
-  %h1 Veuillez affiner votre recherche, il y a plus de 80 resultats
+        %td.label=lc(:search)
+        %td.field=text_field_tag :key ,@key
+        %td.submit=submit_tag l(:search_go)

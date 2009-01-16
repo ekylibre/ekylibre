@@ -5,7 +5,7 @@
     <info type="created-on">04/09/2008</info>
   </infos>
   <loop name="loop0">
-      <block type="footer">
+    <block type="footer">
       <line x1="10" y1="0" x2="200" y2="0" border-color="#000" />
       <text x="10" y="2" width="100" height="5" align="L" size="7"> {CURRENT_TIMESTAMP:%e %B %Y à %H %M } </text>
       <text x="10" y="5" width="100" height="5" align="L" size="7"> Journal {LOCAL:name} </text>
@@ -14,14 +14,15 @@
       <text x="90" y="2" width="20" height="5" align="C">   {LOCAL:company_name}  </text>
       <text x="90" y="6" width="20" height="5" align="C" size="7"> SIREN : {LOCAL:siren} </text>
     </block>
-      <block name="company">
-	<text x="10" y="10" width="100" height="15" align="L" size="15"> {LOCAL:company_name} </text>
-	<text x="10" y="15" width="50" height="15" align="L" size="10">  SIREN : {LOCAL:siren} </text>
+    <block name="company">
+      <text x="10" y="10" width="100" height="15" align="L" size="15"> {LOCAL:company_name} </text>
+      <text x="10" y="15" width="50" height="15" align="L" size="10">  SIREN : {LOCAL:siren} </text>
 	<text x="65" y="25" width="70" height="15" align="C" size="15"> Journal </text>
-	<text x="65" y="40" width="70" height="15" align="C" size="15" weight="bold"> {LOCAL:name} </text>
-	<text x="65" y="55" width="70" height="15" align="C" size="15" weight="bold"> Période du {LOCAL:from} au {LOCAL:to} </text>
-	<text x="16" y="70" width="200" height="10" align="C" >    </text>
-      </block>
+	<text x="65" y="35" width="70" height="15" align="C" size="15" weight="bold"> {LOCAL:name} </text>
+	<text x="65" y="45" width="70" height="15" align="C" size="15" weight="bold"> Période du {LOCAL:from} au {LOCAL:to} </text>
+	<text x="16" y="60" width="200" height="10" align="C" >    </text>
+    </block>
+    <block type="header" height="7"/>
       <block name="menu">
 	<text x="10" y="0" width="15" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000" weight="bold">Piece</text>
 	<text x="25" y="0" width="20" height="5" align="C" border-width="0.2"  background-color="#CCC" color="#000" weight="bold">Enreg le</text>
@@ -39,9 +40,11 @@
 	      <text x="25" y="0" width="20" height="5" align="L" border-width="0.2">#{record.created_on}</text>
 	      <text x="45" y="0" width="20" height="5" align="L" border-width="0.2">#{record.printed_on}</text>
 	      <text x="65" y="0" width="66" height="5" align="L" border-width="0.2">#{entries.name}</text>
-	      <text x="131" y="0" width="25" height="5" align="L" border-width="0.2">#{entries.account_number}</text>
-	      <text x="156" y="0" width="22" height="5" align="R" border-width="0.2">#{entries.debit}</text>
-	      <text x="178" y="0" width="22" height="5" align="R" border-width="0.2">#{entries.credit}</text>
+	      <text x="131" y="0" width="25" height="5" align="L" border-width="0.2" >#{entries.account_number}</text>
+	      <text x="156" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.debit},''),'0')::numeric > 0">#{entries.debit}</text>
+	      <text x="156" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.debit},''),'0')::numeric = 0">   </text>
+	      <text x="178" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.credit},''),'0')::numeric = 0" >  </text>
+	      <text x="178" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.credit},''),'0')::numeric > 0" >#{entries.credit}</text>
 	    </block>
           </loop>
 	  <block name="ddj" >
@@ -54,7 +57,7 @@
       <loop name="sum" query="SELECT sum_debit , sum_credit , 1 FROM(SELECT sum(debit) as sum_debit , sum(credit) as sum_credit FROM entries WHERE entries.record_id  IN (SELECT id  FROM journal_records WHERE company_id = {LOCAL:current_company} AND entries.record_id IN (SELECT id  FROM journal_records WHERE company_id = {LOCAL:current_company} AND journal_id = #{first.id}) AND created_on BETWEEN '{LOCAL:from}' AND '{LOCAL:to}')) as sum">
       </loop>
       <block name="solde">
-	<text x="131" y="0" width="25" height="5" align="C" border-width="0.2">Totaux</text>
+	<text x="131" y="0" width="25" height="5" align="C" border-width="0.2" weight="bold">Totaux</text>
 	<text x="156" y="0" width="22" height="5" align="R" border-width="0.2">#{sum.sum_debit}</text>
 	<text x="178" y="0" width="22" height="5" align="R" border-width="0.2">#{sum.sum_credit}</text>
       </block>
