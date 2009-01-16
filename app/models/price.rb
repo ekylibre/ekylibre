@@ -28,8 +28,10 @@ class Price < ActiveRecord::Base
 
   def before_validation
     self.amount_with_taxes = self.amount
-    for tax in self.taxes
-      self.amount_with_taxes += tax.compute(self.amount)
+    if self.product
+      for tax in self.taxes
+        self.amount_with_taxes += tax.compute(self.amount)
+      end
     end
     self.started_on = Date.today
     self.quantity_min ||= 0
