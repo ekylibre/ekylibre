@@ -1,16 +1,12 @@
 # == Schema Information
 # Schema version: 20081111111111
 #
-# Table name: menu_items
+# Table name: product_taxes
 #
 #  id           :integer       not null, primary key
-#  name         :string(255)   not null
-#  menu_id      :integer       not null
-#  parent_id    :integer       
-#  position     :integer       
-#  url          :string(255)   not null
-#  dynamic      :boolean       not null
-#  company_id   :integer       not null
+#  product_id   :integer       not null
+#  tax_id       :integer       not null
+#  amount       :decimal(16, 4 default(0.0), not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
 #  created_by   :integer       

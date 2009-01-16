@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081127140043
+# Schema version: 20081111111111
 #
 # Table name: menus
 #

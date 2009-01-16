@@ -41,7 +41,7 @@ tr.unpointable.odd td{background: #FF9999;}
 #content { overflow: auto; }
 #yield { padding: 8px; }
 #yield > h1 { margin: 0px 0px 8px; font-size:24px; color: #047;}
-#yield > h2 { margin: 0px 0px 8px; font-size:20px; color: #06A;}
+#yield > h2 { margin: 12px 0px 8px; font-size:20px; color: #06A;}
 #help { width: 150px; border-left: 1px dotted #dd8; background: #fffee3 url(/images/template/help.png) repeat-x top;}
 /*#help > h2 { background: #C9D7F1; font-size: 20px; text-align:center; height:24px; padding:4px; vertical-align: center; }*/
 #help .nav { height: 32px; }
@@ -70,6 +70,7 @@ tr.unpointable.odd td{background: #FF9999;}
 #user { float:right; height:24px; margin:4px 10px; text-align:right;}
 
 
+.message { padding: 8px 12px; background: #FFD; border: 1px solid #EDA; font-size: 15px; font-weight: bold; color: #530; }
 
 #test  { text-align:center; border: 0.5px solid; margin-left:50px;}
 #updatebutton { padding:0px 0 10px 200px; margin-top:50px; font-weight: bold; font-size:20px; }

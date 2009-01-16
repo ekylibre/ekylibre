@@ -1,15 +1,12 @@
 # == Schema Information
 # Schema version: 20081111111111
 #
-# Table name: address_norms
+# Table name: product_taxes
 #
 #  id           :integer       not null, primary key
-#  name         :string(255)   not null
-#  reference    :string(255)   
-#  default      :boolean       not null
-#  rtl          :boolean       not null
-#  align        :string(8)     default("left"), not null
-#  company_id   :integer       not null
+#  product_id   :integer       not null
+#  tax_id       :integer       not null
+#  amount       :decimal(16, 4 default(0.0), not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
 #  created_by   :integer       
@@ -17,5 +14,5 @@
 #  lock_version :integer       default(0), not null
 #
 
-class AddressNorm < ActiveRecord::Base
+class ProductTax < ActiveRecord::Base
 end

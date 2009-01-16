@@ -7,7 +7,9 @@ class ManagementController < ApplicationController
     t.column :name
     t.column :active
     t.column :name, :through=>:currency
+    t.column :count, :through=>:prices, :label=>'Nb Prix'
     t.column :comment
+    t.action :price_lists_display, :image=>:show
     t.action :price_lists_update, :image=>:update
     t.action :price_lists_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :price_lists_create
@@ -17,11 +19,15 @@ class ManagementController < ApplicationController
     price_lists_list params
   end
 
+  def price_lists_display
+    @price_list = find_and_check(:price_list, params[:id])    
+  end
+
   def price_lists_create
     if request.post? 
       @price_list = PriceList.new(params[:price_list])
       @price_list.company_id = @current_company.id
-      redirect_to :action =>:price_lists if @price_list.save
+      redirect_to_back if @price_list.save
     else
       @price_list = PriceList.new
     end
@@ -44,6 +50,31 @@ class ManagementController < ApplicationController
       redirect_to :back if @price_list.delete
     end
   end
+
+  dyta(:prices, :conditions=>{:company_id=>['@current_company.id'], :list_id=>['@price_list.id'], :deleted=>false}) do |t|
+    t.column :name, :through=>:product
+    t.column :amount
+    t.column :amount_with_taxes
+    t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :prices_create
+  end
+
+  def prices_create
+    if request.post? 
+      @price = Price.new(params[:price])
+      @price.company_id = @current_company.id
+      redirect_to :action =>:prices if @price.save
+    else
+      if @current_company.available_products.size<=0
+        flash[:message] = lc(:messages, :need_product_to_create_price)
+        redirect_to :action=> :products_create
+      end
+      @price = Price.new
+    end
+    render_form    
+  end
+
+
 
 
 
@@ -73,7 +104,7 @@ class ManagementController < ApplicationController
     if request.post? 
       @product = Product.new(params[:product])
       @product.company_id = @current_company.id
-      redirect_to :action =>:products_display, :id=>@product.id if @product.save
+      redirect_to_back if @product.save
     else
       @product = Product.new
       @product.nature = Product.natures.first

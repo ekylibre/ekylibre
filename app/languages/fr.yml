@@ -178,10 +178,10 @@ models:
   price_list:
     name: Liste de prix
     attributes:
-      name: Nom
-      currency_id: Devise
       active: Active (utilisable)
       comment: Commentaire
+      currency_id: Devise
+      name: Nom
   product:
     name: Produit
     attributes:
@@ -585,14 +585,23 @@ app:
       stocks_consult: 'Consulter l''état des stocks'
       stocks_locations: 'Gérer les stocks'
       taxes: 'Taxes'
+ 
+    messages:
+      need_product_to_create_price: 'Pour pouvoir ajouter un tarif à une liste de prix, il vous faut d''abord enregistrer un produit à tarifer. Une fois le produit enregistré vous pourrez enregistrer votre tarif.'
 
     price_lists:
       title: Gérer les listes de prix
       price_lists_create: Ajouter une nouvelle liste de prix
     price_lists_create:
       title: Ajouter une nouvelle liste de prix
+    price_lists_display:
+      title: 'Liste de prix : %s'
+      prices: 'Produits et prix de la liste'
+      prices_create: 'Ajouter un nouveau prix'
     price_lists_form:
       general: Description générale
+    price_lists_update:
+      title: 'Modifier la liste de prix : %s'
 
     products:
       title: 'Gérer les produits'

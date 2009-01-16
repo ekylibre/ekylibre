@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081127140043
+# Schema version: 20081111111111
 #
 # Table name: companies
 #
@@ -119,6 +119,16 @@ class Company < ActiveRecord::Base
 
   def admin_role
     self.roles.find(:first, :conditions=>"actions=' all '")
+  end
+
+  def available_products(options={})
+    options[:conditions]={:active=>true}
+    self.products.find(:all, options)
+  end
+
+  def available_price_lists(options={})
+    options[:conditions]={:deleted=>false}
+    self.products.find(:all, options)
   end
 
 end

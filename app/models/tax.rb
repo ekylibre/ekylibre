@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081127140043
+# Schema version: 20081111111111
 #
 # Table name: taxes
 #
@@ -21,4 +21,15 @@
 #
 
 class Tax < ActiveRecord::Base
+  
+  def compute(amount)
+    case self.nature.to_sym
+    when :percent
+      amount*self.amount
+    when :amount
+      self.amount
+    else
+      raise Exception.new("Unknown tax nature : "+self.nature.inspect.to_s)
+    end
+  end
 end

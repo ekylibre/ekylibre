@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081127140043
+# Schema version: 20081111111111
 #
 # Table name: prices
 #
@@ -23,4 +23,21 @@
 #
 
 class Price < ActiveRecord::Base
+  attr_readonly :started_on
+
+
+  def before_validation
+    self.amount_with_taxes = self.amount
+    for tax in self.taxes
+      self.amount_with_taxes += tax.compute(self.amount)
+    end
+    self.started_on = Date.today
+    self.quantity_min ||= 0
+    self.quantity_max ||= 0
+  end
+
+  def refresh
+    self.save
+  end
+
 end

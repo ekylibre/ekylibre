@@ -15,7 +15,6 @@ module Dyta
       include ActionView::Helpers::TagHelper
       include ActionView::Helpers::UrlHelper
 
-
       # Add methods to display a dynamic table
       def dyta(name, options={}, &block)
         model = (options[:model]||name).to_s.classify.constantize
@@ -239,7 +238,7 @@ module Dyta
     end
 
     def header
-      if @options[:title].nil?
+      if @options[:label].blank?
         case @nature
         when :column
           if @options[:through] and @options[:through].is_a?(Symbol)
@@ -261,7 +260,7 @@ module Dyta
           '-'
         end
       else
-        @options[:title].to_s
+        @options[:label].to_s
       end
     end
     
@@ -331,10 +330,6 @@ module Dyta
 
   module View
     def dyta(name)
-      # Asynchronous load
-#      code = content_tag :table, nil, :id=>name.to_s
-#      js = remote_function :update=>name.to_s, :url=>{:action=>name.to_s+'_list'}
-#      code+javascript_tag(js)
       self.controller.send(name.to_s+'_build')
     end
   end
