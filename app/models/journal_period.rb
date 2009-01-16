@@ -22,16 +22,19 @@
 
 
 class JournalPeriod < ActiveRecord::Base
-  validates_uniqueness_of [:started_on, :stopped_on], 
-                          :scope=> :journal_id
+  has_many :records, :class_name=>"JournalRecord", :foreign_key=>:period_id
+  
+#  validates_uniqueness_of [:started_on, :stopped_on], :scope=> [:journal_id, :financialyear_id]
   
   #
   def before_validation
-    self.financialyear = Financialyear.find(:first, :conditions=>['company_id = ? AND ? BETWEEN started_on AND stopped_on',self.company_id, self.started_on ]) if self.started_on and !self.financialyear
+    self.financialyear = Financialyear.find(:first, :conditions=>['company_id = ? AND ? BETWEEN started_on AND stopped_on',self.company_id, self.started_on ]) if self.started_on #and !self.financialyear
     if self.financialyear and self.started_on
       self.started_on = self.financialyear.started_on if self.started_on.month == self.financialyear.started_on.month 
       self.started_on = self.started_on.beginning_of_month if self.started_on.month != self.financialyear.started_on.month and self.started_on!=self.started_on.beginning_of_month
       self.stopped_on = self.started_on.end_of_month
+    else
+      
     end
   end
 
@@ -52,14 +55,23 @@ class JournalPeriod < ActiveRecord::Base
    # end
   end
   
+  #
+  def balanced
+    self.records.each do |record|
+      return false unless record.balanced
+    end
+    return true
+  end
   
   #
   def close(date)
-    self.update_attributes(:stopped_on => date, :closed => true)
+    self.update_attributes(:stopped_on => date, :closed => true) 
     #self.records.each do |record|
     #  record.close
     #end
     
   end    
+  
+ 
   
 end

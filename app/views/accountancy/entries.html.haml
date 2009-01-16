@@ -2,11 +2,11 @@
 .action-list
   - form_tag(:action => 'params_entries') do
     =formalize do |f|
-      - f.field lc(:select), select("journal", "id",  @journals.collect{|j| [j.name, j.id]})
+      - f.field lc(:select_financialyear), select_tag("financialyear_id", options_for_select(@financialyears.collect{|j| [j.code.to_s, j.id.to_s]}, session[:financialyear].to_s))
+      - f.field lc(:select_journal), select("journal", "id",  @journals.collect{|j| [j.name+"(clôturé le: "+j.closed_on.to_s+")", j.id]})
       - f.field lc(:number_records), text_field_tag("number", session[:records_number], :size=>2, :tabindex => 1)
     .actions
       =submit_tag lc 'ok'
-      =link_to(l(:cancel),:back)
 - form_remote_tag() do 
   %table
     %tr

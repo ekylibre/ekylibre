@@ -173,7 +173,7 @@ models:
       id: Numéro
       closed: Clôturé	
       started_on: Commencé le
-      stopped_on: Terminé le
+      stopped_on: Date de clôture
       written_on: 'Possibilité d''écrire jusqu''au'	 
   price_list:
     name: Liste de prix
@@ -303,7 +303,8 @@ app:
       print: Impression
     entries:
       title: Écritures
-      select: 'Sélectionnez le journal :'
+      select_journal: 'Sélectionnez le journal :'
+      select_financialyear: 'Sélectionnez l''exercice :'
       number_records: 'Nombre de pièces à afficher :'
       record_number: 'N°Pièce'
       record_created: 'Enregistrée le'
@@ -542,9 +543,10 @@ app:
   journal:
     error_limited_period: '.'
     error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
+    error_unbalanced_period_journal: 'Le journal contient des enregistrements non équilibrés.'
   journal_period:
     error_period: 'L''interval de temps est incorrect pour la période.'	
-    error_closed_journal: 'Le journal sera déjà clôturée à la fin de la période.'
+    error_closed_journal: 'Vous ne pouvez pas ajouter de pièces comptables à cette date  car le journal est clôturé au %s.'
     error_closed_financialyear: 'L''année financière est déjà terminée.'
     error_limited_financialyear: 'L''année financière sera déjà terminée à la fin de la période.'
   entry:
@@ -563,7 +565,9 @@ app:
   financialyear:
     error_stopped2_financialyear: 'La date de fin d''exercice doit être une date de fin de mois.'
     error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'
+    error_written_financialyear: 'La date butoir de création des journaux doit être inférieure à la date de clôture.'
     error_overlap_financialyear: 'La période de l''exercice se chevauche.'
+    error_unclosed_period_financialyear: 'Cet exercice contient des journaux qui n''ont pas encore été clôturé.'
   layouts:
     application:
   management:

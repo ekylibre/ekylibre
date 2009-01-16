@@ -18,7 +18,9 @@
 #
 
 class Financialyear < ActiveRecord::Base
-  #validates_uniqueness_of [:started_on, :stopped_on]
+   has_many :periods, :class_name=>"JournalPeriod", :foreign_key=>:financialyear_id
+
+ #validates_uniqueness_of [:started_on, :stopped_on]
 
 
   def before_validation
@@ -39,23 +41,30 @@ class Financialyear < ActiveRecord::Base
       errors.add_to_base lc(:error_stopped2_financialyear) unless self.stopped_on == self.stopped_on.end_of_month
       errors.add_to_base lc(:error_period_financialyear)  if self.started_on >= self.stopped_on
     end
- #   puts "p"+self.started_on.to_s+self.stopped_on.to_s+self.company_id.to_s
-    financial_start = Financialyear.find(:all, :conditions => "company_id = #{self.company_id} AND '#{self.started_on}' BETWEEN started_on AND stopped_on")
-    financial_stop = Financialyear.find(:all, :conditions => "company_id = #{self.company_id} AND '#{self.stopped_on}' BETWEEN started_on AND stopped_on")
-    puts 'financial:'+financial_start.inspect+financial_stop.inspect
-    errors.add_to_base lc(:error_overlap_financialyear) if financial_start.size > 0 or financial_stop.size > 0
+ 
+    errors.add_to_base lc(:error_written_financialyear) if self.written_on < self.stopped_on
+
+#   puts "p"+self.started_on.to_s+self.stopped_on.to_s+self.company_id.to_s
+    #financial_start = Financialyear.find(:all, :conditions => "company_id = #{self.company_id} AND '#{self.started_on}' BETWEEN started_on AND stopped_on")
+    #financial_stop = Financialyear.find(:all, :conditions => "company_id = #{self.company_id} AND '#{self.stopped_on}' BETWEEN started_on AND stopped_on")
+    #puts 'financial:'+financial_start.inspect+financial_stop.inspect
+    #errors.add_to_base lc(:error_overlap_financialyear) if financial_start.size > 0 or financial_stop.size > 0
   end
   
   # When a financial year is closed, all the matching journals are closed too. 
   def close(date)
-    self.update_attributes(:stopped_on => date, :closed => true)
-    periods = JournalPeriod.find_all_by_financialyear_id(self.id)
-   
+    periods = self.periods #JournalPeriod.find_all_by_financialyear_id(self.id)
+    
     if periods.size > 0
       periods.each do |period|
-        period.journal.close(date)
+         unless period.closed
+           errors.add_to_base lc(:error_unclosed_period_financialyear)
+           return false
+         end
       end
     end
+    self.update_attributes(:stopped_on => date, :closed => true)
+    return true
   end
   
 end

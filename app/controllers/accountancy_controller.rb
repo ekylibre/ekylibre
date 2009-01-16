@@ -259,13 +259,13 @@ class AccountancyController < ApplicationController
   
   # this method finds the journal with the matching id and the company_id.
   def journals_find
-    @find_journals = Journal.find(:all,:conditions=>["company_id = ?", @current_company.id])
+    @find_journals = @current_company.journals #Journal.find(:all,:conditions=>["company_id = ?", @current_company.id])
     render :partial => 'journals_find'
   end
   
   # this method finds the currency with the matching id and the company_id.
   def currencies_find
-    @find_currencies = Currency.find(:all,:conditions=>["company_id = ?", @current_company.id])
+    @find_currencies = @current_company.currencies #Currency.find(:all,:conditions=>["company_id = ?", @current_company.id])
     render :partial => 'currencies_find'
   end
   
@@ -321,13 +321,14 @@ class AccountancyController < ApplicationController
   def financialyears_close
     access :financialyears
     @financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
-    redirect_to :action => "index" if @financialyears.empty?
+    redirect_to :action => "financialyears_create" if @financialyears.empty?
     @financialyear = Financialyear.find :first
     if request.post?
       @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
       
-      @financialyear.close(params[:financialyear][:stopped_on])
-      redirect_to :action => "financialyears_close"
+      if @financialyear.close(params[:financialyear][:stopped_on])
+        redirect_to session[:history][1]
+      end
     else
       
       @financialyear_periods = []
@@ -357,6 +358,7 @@ class AccountancyController < ApplicationController
   # this action has not specific view.
   def params_entries
     session[:journal] = params[:journal][:id]
+    session[:financialyear] = params[:financialyear_id]
     session[:records_number] = params[:number]
     redirect_to :action => "entries" 
   end
@@ -364,13 +366,17 @@ class AccountancyController < ApplicationController
   # This method allows to enter the accountancy records with a form.
   def entries
     session[:records_number] = 5 if session[:records_number].nil?
-    journals_list(params) if request.get?
+    if request.get?
+      journals_list(params) 
+      @financialyears = @current_company.financialyears.find(:all, :conditions => {:closed => false})
+    end
     @records = []
     @record = JournalRecord.new
     @entry = Entry.new
     unless session[:journal].nil?
       if request.post?
-        @record = Journal.find(session[:journal]).create_record(params[:record])
+       
+        @record = Journal.find(session[:journal]).create_record(session[:financialyear], session[:journal], params[:record])
         
         account = Account.find(:first, :conditions=>{:number => params[:account][:number], :company_id => @current_company.id})
         currency = Currency.find(:first, :conditions=>["company_id = ?", @current_company.id])
@@ -445,10 +451,11 @@ class AccountancyController < ApplicationController
       @journal_periods = []
       if params[:id]  
         @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id) 
+        # @journals = Journal.find(:all,:conditions=>)
         @journals= @current_company.journals 
       else
         @journals = @current_company.journals 
-        redirect_to :action => "index" if @journals.empty?
+        redirect_to_back if @journals.empty?
         @journal = Journal.find :first
       end
       if @journal
@@ -460,12 +467,15 @@ class AccountancyController < ApplicationController
       end
     elsif request.post?
       @journal = Journal.find_by_id_and_company_id(params[:journal][:id], @current_company.id)
+      #puts 'j'+params[:journal][:closed_on].inspect
       if @journal.nil?
         flash[:error] = lc(:unavailable_journal)
-        redirect_to :back
+       #redirect_to :back
       end
+      
       if @journal.close(params[:journal][:closed_on])
-        redirect_to :action => "journals"
+        puts 'yes'
+        redirect_to_back
       end
     end
   end 
@@ -474,7 +484,7 @@ class AccountancyController < ApplicationController
   # This method allows to build the table of the periods.
   def journals_periods
     @journal_periods=[]
-    @journal = Journal.find(params[:journal])
+    @journal = Journal.find(params[:journal_select])
     d = @journal.closed_on
     while (d+1).end_of_month < Date.today
       d=(d+1).end_of_month

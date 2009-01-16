@@ -62,7 +62,7 @@ class Accounting < ActiveRecord::Migration
       t.column :closed,           :boolean, :null=>false, :default=>false
       t.column :started_on,       :date,    :null=>false
       t.column :stopped_on,       :date,    :null=>false
-      t.column :written_on,       :date  # Date butoir de création des journaux
+      t.column :written_on,       :date,    :null=>false  # Date butoir de création des journaux
       #t.column :debit,            :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       #t.column :credit,           :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       #t.column :position,         :integer, :null=>false
@@ -132,8 +132,7 @@ class Accounting < ActiveRecord::Migration
     add_index :journal_periods, :financialyear_id
     add_index :journal_periods, :started_on
     add_index :journal_periods, :stopped_on
-    add_index :journal_periods, [:started_on, :journal_id], :unique=>true
-    add_index :journal_periods, [:stopped_on, :journal_id], :unique=>true
+    add_index :journal_periods, [:started_on, :stopped_on, :journal_id, :financialyear_id, :company_id], :unique=>true
 
     # JournalRecord : Piece comptable
     create_table :journal_records do |t|

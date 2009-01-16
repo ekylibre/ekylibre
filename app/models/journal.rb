@@ -51,21 +51,30 @@ class Journal < ActiveRecord::Base
 
   # this method closes a journal.
   def close(date)
+    self.periods.each do |period|
+      unless period.balanced
+        errors.add_to_base lc(:error_unbalanced_period_journal)
+        return false 
+      end
+    end
     self.update_attribute(:closed_on, date)
     self.periods.each do |period|
       period.close(date)
     end
+    return true
   end
 
   
   # this method creates a period with a record.
-  def create_record(values = {})
+  def create_record(financialyear, journal, values = {})
     #errors.add_to_base "erreur1" if values[:created_on] > self.closed_on
-    period = JournalPeriod.find(:first, :conditions=>['company_id = ? AND ? BETWEEN started_on AND stopped_on ',self.company_id, values[:created_on] ])
-    puts period.inspect
-    period = self.periods.create!(:company_id=>self.company_id, :started_on=>values[:created_on]) if period.nil?
-    record = JournalRecord.find(:first,:conditions=>{:period_id => period.id, :number => values[:number] }) 
+    period = self.periods.find(:first, :conditions=>['company_id = ? AND financialyear_id = ? AND ?::date BETWEEN started_on AND stopped_on', self.company_id, financialyear, values[:created_on] ])
+  
+    period = self.periods.create!(:company_id=>self.company_id, :financialyear_id=> financialyear, :started_on=>values[:created_on]) if period.nil?
+    record = JournalRecord.find(:first,:conditions=>{:period_id => period.id, :number => values[:number]}) 
+  
     record = JournalRecord.create!(values.merge({:period_id=>period.id, :company_id=>self.company_id, :journal_id=>self.id})) if record.nil?
+    #puts 'record'+record.inspect
     return record
   end
 

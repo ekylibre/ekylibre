@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
         redirect_to_login
       else
         session[:last_query] = Time.now.to_i
-        if request.get?
+        if request.get? and not request.xhr?
           session[:history] = [] if session[:history].nil?
           if session[:history][0] != request.url
             10.times{|i| session[:history][i+1] = session[:history][i]}
