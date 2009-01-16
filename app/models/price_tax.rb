@@ -1,10 +1,10 @@
 # == Schema Information
 # Schema version: 20081111111111
 #
-# Table name: product_taxes
+# Table name: price_taxes
 #
 #  id           :integer       not null, primary key
-#  product_id   :integer       not null
+#  price_id     :integer       not null
 #  tax_id       :integer       not null
 #  amount       :decimal(16, 4 default(0.0), not null
 #  created_at   :datetime      not null
@@ -14,10 +14,5 @@
 #  lock_version :integer       default(0), not null
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
-#
-# two:
-#   column: value
+class PriceTax < ActiveRecord::Base
+end

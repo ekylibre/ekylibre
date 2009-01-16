@@ -72,15 +72,13 @@ class Managing < ActiveRecord::Migration
     add_index :products, :account_id
     add_index :products, :company_id
 
-    # ProductTax
-    create_table :product_taxes do |t|
+    create_table :products_taxes do |t|
       t.column :product_id,             :integer,  :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
       t.column :tax_id,                 :integer,  :null=>false, :references=>:taxes, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0.to_d
     end
-    add_index :product_taxes, [:product_id, :tax_id], :unique=>true
-    add_index :product_taxes, :tax_id
-    add_index :product_taxes, :product_id
+    add_index :products_taxes, [:product_id, :tax_id], :unique=>true
+    add_index :products_taxes, :tax_id
+    add_index :products_taxes, :product_id
 
     # PriceList
     create_table :price_lists do |t|
@@ -110,7 +108,7 @@ class Managing < ActiveRecord::Migration
     #     add_index :pricelist_versions, :currency_id
     #     add_index :pricelist_versions, :company_id
     
-    # Prices
+    # Price
     create_table :prices do |t|
       t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>4
       t.column :amount_with_taxes,      :decimal,  :null=>false, :precision=>16, :scale=>4
@@ -130,6 +128,15 @@ class Managing < ActiveRecord::Migration
     add_index :prices, :list_id
     add_index :prices, :company_id
 
+    # PriceTax
+    create_table :price_taxes do |t|
+      t.column :price_id,               :integer,  :null=>false, :references=>:prices, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :tax_id,                 :integer,  :null=>false, :references=>:taxes, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0.to_d
+    end
+    add_index :price_taxes, [:price_id, :tax_id], :unique=>true
+    add_index :price_taxes, :tax_id
+    add_index :price_taxes, :price_id
 
 
 
@@ -326,11 +333,11 @@ class Managing < ActiveRecord::Migration
   
     # PurchaseOrderLine
     create_table :purchase_order_lines do |t|
-      t.column :order_id,               :integer, :null=>false, :references=>:purchase_orders
-      t.column :product_id,             :integer, :null=>false, :references=>:products
-      t.column :unit_id,                :integer, :null=>false, :references=>:units
-      t.column :quantity,               :decimal, :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
-      t.column :amount,                 :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :order_id,               :integer,  :null=>false, :references=>:purchase_orders
+      t.column :product_id,             :integer,  :null=>false, :references=>:products
+      t.column :unit_id,                :integer,  :null=>false, :references=>:units
+      t.column :quantity,               :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
+      t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :amount_with_taxes,      :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :position,               :integer
       t.column :account_id,             :integer,  :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
@@ -357,12 +364,10 @@ class Managing < ActiveRecord::Migration
     drop_table :stock_moves
     drop_table :stock_trackings
     drop_table :stock_locations
-#    drop_table :pricelist_versions
-#    drop_table :pricelist_items
-#    drop_table :pricelists
+    drop_table :price_taxes
     drop_table :prices
     drop_table :price_lists
-    drop_table :product_taxes
+    drop_table :products_taxes
     drop_table :products
     drop_table :taxes
     drop_table :shelves
