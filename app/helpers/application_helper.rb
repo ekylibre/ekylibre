@@ -14,8 +14,8 @@ module ApplicationHelper
        ] },
      # RelationsController
      {:name=>:relations, :list=>
-       [ {:name=>:entities, :list=>
-           [ {:name=>:entities_search}
+       [ {:name=>:entities_managing, :list=>
+           [ {:name=>:entities}
              #  ,{:name=>:entities_create} 
            ] }
        ] },
@@ -54,7 +54,7 @@ module ApplicationHelper
     ]
 
 
-
+  MENUS_ARRAY = MENUS.collect{|x| x[:name]}
             
             
   def menus
@@ -101,25 +101,8 @@ module ApplicationHelper
   end
 
 
-  def menu_modules
-    modules = [:index, :accountancy]#, :sales, :purchases, :stocks]
-    code = ''
-    a = []
-    a << action_name.to_sym 
-    a << self.controller.controller_name.to_sym
-    for m in modules
-      if a.include? m
-        code += content_tag :strong, l(:guide,m,:title)
-      else
-        code += link_to(l(:guide,m,:title), {:controller=>:guide, :action=>m})
-      end
-      code += ' '
-    end
-    code
-  end
-
   def left_tag
-    return '' if [:authentication, :guide, :help, :company].include? self.controller.controller_name.to_sym or action_name=="index"
+    return '' if !MENUS_ARRAY.include? self.controller.controller_name.to_sym or action_name=="index"
     content_tag(:div, menu_index, :id=>:side, :flex=>2, :orient=> :vertical)
   end
 

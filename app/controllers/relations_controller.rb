@@ -3,18 +3,72 @@ class RelationsController < ApplicationController
   def index
   end
 
-  #dyta(:entities, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-   # t.column :name
-   # t.column :code
-   # t.column :full_name
-   # t.column :active
-   # t.action :entities_display, :action=>:entities_display
-   # t.action :entities_update, :image=>:update
-   # t.action :entities_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-  #end
+  dyta(:entities, :conditions=>:search_conditions) do |t|
+    t.column :name
+    t.column :code
+    t.column :full_name
+    t.column :active
+    t.action :entities_display, :action=>:entities_display
+    t.action :entities_update, :image=>:update
+    t.action :entities_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :entities_create
+  end
 
   def entities
-  #  entities_list params
+    @size = Entity.count
+    @key = params[:key]||session[:entity_key]
+    session[:entity_key] = @key
+    entities_list({:attributes=>[:id, :name, :code, :full_name, :website], :key=>@key}.merge(params))
+#     #    contacts_list({:attributes=>[:id, :name, :description, :catalog_name, :catalog_description, :comment], :key=>@key}.merge(params))
+#     #  entities_list params
+#     @entities = {}
+#     @contacts = {}
+#     #if request.post?
+# #      id = params[:contact][:id].to_i
+#     @key = params[:key]
+#     entities_list({:attributes=>[:id, :name], :key=>@key}.merge(params))
+# #       @person = Entity.find_by_id_and_company_id(id,@current_company.id)
+# #       @contact = Contact.find_by_id_and_company_id(id, @current_company.id)
+# #       if params[:contact][:fax] != ""
+# #         @idfound = nil
+# #         attributes = [:name, :code]
+# #         conditions = ["false"]
+# #         key_words = params[:contact][:fax].to_s.split(" ")
+# #         for attribute in attributes
+# #           for word in key_words
+# #             conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
+# #             conditions << word
+# #           end
+# #         end
+# #         @entities = Entity.find(:all, :conditions=>conditions)||{}
+# #         @entities << @person unless @person.blank?
+
+#     if @entities.size > 80
+#       flash[:warning]=lc(:too_much_result)
+#       redirect_to :action => :entities_search
+#     end
+#     #       end
+    
+#     #       if params[:contact][:fax] != ""
+#     #         name = params[:contact][:fax].to_s.split(" ")
+# #         @key = params[:contact][:fax]
+# #         entities_list({:attributes=>[ :name], :key=>@key}.merge(params))
+# #         attributes = [:email, :fax, :mobile]
+# #         conditions = ["false"]
+# #         key_words = params[:contact][:fax].to_s.split(" ")
+# #         for attribute in attributes
+# #           for word in key_words
+# #             conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
+# #             conditions << word
+# #          end
+#   #end
+#       #  @contacts = Contact.find(:all, :conditions=>conditions) 
+#     if @contacts.size > 80
+#       flash[:warning]=lc(:too_much_result)
+#       redirect_to :action => :entities_search
+#     end 
+#     #  end
+#     # end
   end
 
   def entities_display
@@ -84,64 +138,6 @@ class RelationsController < ApplicationController
     end
   end
 
-  dyta(:entities ,:conditions=>:search_conditions, :empty=>true) do |t|
-    t.column :name
-  end
-    
-  
-  def entities_search
-    @size = Entity.count
-    @entities = {}
-    @contacts = {}
-    #if request.post?
-#      id = params[:contact][:id].to_i
-    @key = params[:key]
-    entities_list({:attributes=>[:id, :name], :key=>@key}.merge(params))
-#       @person = Entity.find_by_id_and_company_id(id,@current_company.id)
-#       @contact = Contact.find_by_id_and_company_id(id, @current_company.id)
-#       if params[:contact][:fax] != ""
-#         @idfound = nil
-#         attributes = [:name, :code]
-#         conditions = ["false"]
-#         key_words = params[:contact][:fax].to_s.split(" ")
-#         for attribute in attributes
-#           for word in key_words
-#             conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
-#             conditions << word
-#           end
-#         end
-#         @entities = Entity.find(:all, :conditions=>conditions)||{}
-#         @entities << @person unless @person.blank?
-
-    if @entities.size > 80
-      flash[:warning]=lc(:too_much_result)
-      redirect_to :action => :entities_search
-    end
-    #       end
-    
-    #       if params[:contact][:fax] != ""
-    #         name = params[:contact][:fax].to_s.split(" ")
-#         @key = params[:contact][:fax]
-#         entities_list({:attributes=>[ :name], :key=>@key}.merge(params))
-#         attributes = [:email, :fax, :mobile]
-#         conditions = ["false"]
-#         key_words = params[:contact][:fax].to_s.split(" ")
-#         for attribute in attributes
-#           for word in key_words
-#             conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
-#             conditions << word
-#          end
-  #end
-      #  @contacts = Contact.find(:all, :conditions=>conditions) 
-    if @contacts.size > 80
-      flash[:warning]=lc(:too_much_result)
-      redirect_to :action => :entities_search
-    end 
-    #  end
-    # end
-  end
-  
-  
   def entities_create # pr langage_id prendre current_user.language_id ? puis sortir du _form
     access :entities                      #ou params[:user][:language_id]  // pareil pr nature_id
     if request.post?

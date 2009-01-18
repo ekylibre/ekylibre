@@ -74,8 +74,8 @@ class AuthenticationController < ApplicationController
     session[:user_id] = user.id
     session[:last_query] = Time.now.to_i
     session[:expiration] = 3600
-    session[:menu_guide] = user.company.menu("guide") 
-    session[:menu_user]  = user.company.menu("user")
+#    session[:menu_guide] = user.company.menu("guide") 
+#    session[:menu_user]  = user.company.menu("user")
     
   end
   

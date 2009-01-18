@@ -39,35 +39,37 @@ class Entry < ActiveRecord::Base
   def before_validation 
     # computes the values depending on currency rate
     # for debit and credit.
-   self.currency_rate = self.currency.rate if self.currency_rate.blank?
+    self.currency_debit  ||= 0
+    self.currency_credit ||= 0
+    unless self.currency.nil?
+      self.currency_rate = self.currency.rate
+      if self.editable 
+        self.debit  = self.currency_debit * self.currency_rate 
+        self.credit = self.currency_credit * self.currency_rate
+      end
+    end
+  end
   
-   if self.editable
-     self.currency_debit = self.debit * self.currency_rate
-     self.currency_credit = self.credit * self.currency_rate
-   end
-     
- end
+  def validate
+    errors.add_to_base lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
+    errors.add_to_base lc(:error_amount_balance2) unless self.debit + self.credit >= 0    
+    
+    self.error = lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
+    self.error = lc(:error_amount_balance2) unless self.debit + self.credit > 0    
+    
+    #raise Exception.new "models:"+ self.errors.inspect.to_s  
+  end
   
- def validate
-  errors.add_to_base lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
-  errors.add_to_base lc(:error_amount_balance2) unless self.debit + self.credit > 0    
+  # updates the amounts to the debit and the credit 
+  # for the matching record.
+  def update_record
+    self.record.refresh
+  end
   
-  self.error = lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
-  self.error = lc(:error_amount_balance2) unless self.debit + self.credit > 0    
+  # this method allows to lock the entry. 
+  def close
+    Entry.update_all("editable = false", {:record_id => self.record.id})
+  end
   
-  #raise Exception.new "models:"+ self.errors.inspect.to_s  
- end
- 
- # updates the amounts to the debit and the credit 
- # for the matching record.
- def update_record
-   self.record.refresh
- end
- 
- # this method allows to lock the entry. 
- def close
-   Entry.update_all("editable = false", {:record_id => self.record.id})
- end
- 
  
 end

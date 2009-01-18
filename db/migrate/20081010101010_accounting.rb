@@ -14,7 +14,7 @@ class Accounting < ActiveRecord::Migration
     add_index :currencies, :active
     add_index :currencies, [:code, :company_id], :unique=>true
     add_index :currencies, :name
-    
+
     # Delay
     create_table :delays do |t|
       t.column :name,             :string,  :null=>false
@@ -90,14 +90,14 @@ class Accounting < ActiveRecord::Migration
     add_index :account_balances, :financialyear_id
     add_index :account_balances, [:account_id, :financialyear_id, :company_id], :unique=>true
 
-    # JournalNature : Type de journal
-    create_table :journal_natures do |t|
-      t.column :name,             :string,  :null=>false
-      t.column :comment,          :text
-      t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-    end
-    add_index :journal_natures, :company_id
-    add_index :journal_natures, [:name, :company_id], :unique=>true
+#     # JournalNature : Type de journal
+#     create_table :journal_natures do |t|
+#       t.column :name,             :string,  :null=>false
+#       t.column :comment,          :text
+#       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+#     end
+#     add_index :journal_natures, :company_id
+#     add_index :journal_natures, [:name, :company_id], :unique=>true
 
     # Journal : Journal
     create_table :journals do |t|
@@ -106,12 +106,13 @@ class Accounting < ActiveRecord::Migration
       t.column :name,             :string,  :null=>false
       t.column :code,             :string,  :null=>false, :limit=>4
       t.column :deleted,          :boolean, :null=>false, :default=>false
+      t.column :currency_id,      :integer, :null=>false, :references=>:currencies, :on_delete=>:cascade, :on_update=>:cascade
       t.column :counterpart_id,   :integer, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :closed_on,        :date,    :null=>false, :default=>Date.civil(1970,12,31)
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :journals, :company_id
-    #add_index :journals, :nature_id
+    add_index :journals, :currency_id
     add_index :journals, [:name, :company_id], :unique=>true
     add_index :journals, [:code, :company_id], :unique=>true
 
@@ -248,7 +249,7 @@ class Accounting < ActiveRecord::Migration
     drop_table :journal_records
     drop_table :journal_periods
     drop_table :journals
-    drop_table :journal_natures
+#    drop_table :journal_natures
     drop_table :account_balances
     drop_table :financialyears
     drop_table :accounts

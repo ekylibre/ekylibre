@@ -8,6 +8,7 @@
 #  name           :string(255)   not null
 #  code           :string(4)     not null
 #  deleted        :boolean       not null
+#  currency_id    :integer       not null
 #  counterpart_id :integer       
 #  closed_on      :date          default(Jeu, 31 Déc 1970), not null
 #  company_id     :integer       not null
@@ -66,7 +67,7 @@ class Journal < ActiveRecord::Base
 
   
   # this method creates a period with a record.
-  def create_record(financialyear, journal, values = {})
+  def create_record(financialyear, values = {})
     #errors.add_to_base "erreur1" if values[:created_on] > self.closed_on
     period = self.periods.find(:first, :conditions=>['company_id = ? AND financialyear_id = ? AND ?::date BETWEEN started_on AND stopped_on', self.company_id, financialyear, values[:created_on] ])
   

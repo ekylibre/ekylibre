@@ -50,8 +50,8 @@ class ApplicationController < ActionController::Base
   def find_and_check(model, id, options={})
     model = model.to_s
     record = model.classify.constantize.find_by_id_and_company_id(id, @current_company.id)
-    if record.blank?
-      flash[:error] = l(:unavailable, model.to_sym)
+    if record.nil?
+      flash[:error] = l(:unavailable, model.to_sym, [id])
       redirect_to :action=>options[:url]||model.pluralize
     end
     record
@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   private
   
   def authorize
-    session[:help_history] = [] if session[:help_history].nil?
+    session[:help_history] ||= []
     help_search(self.controller_name+'-'+self.action_name) if session[:help] and self.controller_name!='help'
     begin
       User.current_user = User.find_by_id(session[:user_id])
@@ -77,10 +77,9 @@ class ApplicationController < ActionController::Base
       else
         session[:last_query] = Time.now.to_i
         if request.get? and not request.xhr?
-          session[:history] = [] if session[:history].nil?
+          session[:history] ||= []
           if session[:history][0] != request.url
-            10.times{|i| session[:history][i+1] = session[:history][i]}
-            session[:history][0] = request.url
+            session[:history] = session[:history].insert(0,request.url)[0..99]
           end
         end
       end
@@ -102,7 +101,8 @@ class ApplicationController < ActionController::Base
   
   def redirect_to_back
     if session[:history][1]
-      redirect_to session[:history][1]
+      session[:history].delete_at(0)
+      redirect_to session[:history][0]
     else
       redirect_to :back
     end

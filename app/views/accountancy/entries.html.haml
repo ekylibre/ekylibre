@@ -1,46 +1,22 @@
 %h1=lc(:title)
-.action-list
-  - form_tag(:action => 'params_entries') do
+- if @valid
+  %h2=lc(:subtitle, [@journal.name, @financialyear.code])
+- if @valid
+  #update_params.action-list
+    =link_to_function lc(:update_params), "$('params').show(); $('update_params').hide();"
+#params.action-list
+  - form_tag(:action => :params_entries) do
     =formalize do |f|
       - f.field lc(:select_financialyear), select_tag("financialyear_id", options_for_select(@financialyears.collect{|j| [j.code.to_s, j.id.to_s]}, session[:financialyear].to_s))
-      - f.field lc(:select_journal), select("journal", "id",  @journals.collect{|j| [j.name+"(clôturé le: "+j.closed_on.to_s+")", j.id]})
+      - f.field lc(:select_journal), select_tag("journal_id", options_for_select(@journals.collect{|j| [lc(:journal_x, [j.name,j.closed_on.to_s]), j.id]}, session[:journal].to_s))
       - f.field lc(:number_records), text_field_tag("number", session[:records_number], :size=>2, :tabindex => 1)
     .actions
-      =submit_tag lc 'ok'
-- form_remote_tag() do 
-  %table
-    %tr
-      %td.label=lc :record_number
-      %td.label=lc :record_created
-      %td.label=lc :record_printed
-      %td.label=lc :label
-      %td.label=lc :account_number
-      %td.label=lc :record_debit
-      %td.label=lc :record_credit
-      %td.label=#lc :entry_letter
-    %tr
-      %td.input=text_field :record, :number, {:size=>5, :tabindex=>1}
-      %td.input=text_field :record, :created_on, {:size=>10}
-      %td.input=text_field :record, :printed_on, {:tabindex=>2, :size=>10} 
-      %td.input=text_field :entry, :name, {:tabindex=>3, :size=>14}
-      %td.input=text_field :account, :number, {:tabindex=>4, :size=>14} 
-      %td.input=text_field :entry, :debit, {:tabindex=>5, :size=>9, :value=>0}
-      %td.input=text_field :entry, :credit, {:tabindex=>6, :size=>9, :value=>0}
-      %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => {:action => :entries}, :html => {:tabindex => 7}
-#errors=render :partial=>'errors'
-#lines{:flex=>1}=render :partial=>'entries'
-%p
-  %cite= lc :balanced_entries
-%p
-  %cite= lc :unbalanced_entries
-#account
+      =submit_tag l(:apply)
+      - if @valid
+        =link_to_function l(:cancel), "$('params').hide(); $('update_params').show();"
 
- 
-=observe_field "account_number", :frequency => 0.25, :function =>"if ( ($('account_number').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'account', :url => { :action => 'accounts_find'}, :with => "'account=' + escape(value)")+"}"
-=update_page_tag do |page|
-  - page['record_number'].value = @record.number
-  - page['record_number'].focus()
-  - page['record_created_on'].value = @record.created_on.to_s(:attributes)
-  - page['record_printed_on'].value = @record.printed_on.to_s(:attributes)
-  - page['number'].value = session[:records_number]
-
+- if @valid
+  #errors=render :partial=>'errors'
+  #lines{:flex=>1}=render :partial=>'entries'
+  =observe_field "account_number", :frequency => 0.25, :function =>"if ( ($('account_number').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'account', :url => { :action => 'accounts_find'}, :with => "'account=' + escape(value)")+"}"
+  =javascript_tag("$('params').hide(); $('record_number').focus();")

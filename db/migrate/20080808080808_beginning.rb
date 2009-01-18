@@ -108,52 +108,52 @@ class Beginning < ActiveRecord::Migration
     add_index :documents, :sha256
     add_index :documents, :company_id
 
-    # Location
-    create_table :locations do |t|
-      t.column :name,                   :string,   :null=>false
-    end
-    add_index :locations, :name, :unique=>true
+#     # Location
+#     create_table :locations do |t|
+#       t.column :name,                   :string,   :null=>false
+#     end
+#     add_index :locations, :name, :unique=>true
 
-    # Widget
-    create_table :widgets do |t|
-      t.column :name,                   :string,   :null=>false
-      t.column :nature,                 :string,   :null=>false
-      t.column :options,                :text
-      t.column :position,               :integer
-      t.column :location_id,            :integer,  :null=>false, :references=>:locations
-      t.column :company_id,             :integer,  :null=>false, :references=>:companies
-    end
-    add_index :widgets, :name
-    add_index :widgets, :location_id
-    add_index :widgets, :nature
-    add_index :widgets, :position
-    add_index :widgets, :company_id
+#     # Widget
+#     create_table :widgets do |t|
+#       t.column :name,                   :string,   :null=>false
+#       t.column :nature,                 :string,   :null=>false
+#       t.column :options,                :text
+#       t.column :position,               :integer
+#       t.column :location_id,            :integer,  :null=>false, :references=>:locations
+#       t.column :company_id,             :integer,  :null=>false, :references=>:companies
+#     end
+#     add_index :widgets, :name
+#     add_index :widgets, :location_id
+#     add_index :widgets, :nature
+#     add_index :widgets, :position
+#     add_index :widgets, :company_id
   
 
-    # Menu
-    create_table :menus do |t|
-      t.column :name,                   :string,    :null=>false, :limit=>32
-      t.column :label,                  :text
-      t.column :company_id,             :integer,   :null=>false, :references=>:companies
-    end
-    add_index :menus, [:company_id,:name], :unique=>true
-    add_index :menus, :company_id
+#     # Menu
+#     create_table :menus do |t|
+#       t.column :name,                   :string,    :null=>false, :limit=>32
+#       t.column :label,                  :text
+#       t.column :company_id,             :integer,   :null=>false, :references=>:companies
+#     end
+#     add_index :menus, [:company_id,:name], :unique=>true
+#     add_index :menus, :company_id
 
-    # Menu_item
-    create_table :menu_items do |t|
-      t.column :name,                   :string,    :null=>false
-      t.column :menu_id,                :integer,   :null=>false, :references=>:menus, :on_delete=>:cascade
-      t.column :parent_id,              :integer,   :references=>:menu_items, :on_delete=>:cascade
-      t.column :position,               :integer
-      t.column :url,                    :string,    :null=>false 
-      t.column :dynamic,                :boolean,   :null=>false, :default=>false
-      t.column :company_id,             :integer,   :null=>false, :references=>:companies
-    end
-    add_index :menu_items, :name
-    add_index :menu_items, :menu_id
-    add_index :menu_items, :parent_id
-    add_index :menu_items, :url
-    add_index :menu_items, :company_id
+#     # Menu_item
+#     create_table :menu_items do |t|
+#       t.column :name,                   :string,    :null=>false
+#       t.column :menu_id,                :integer,   :null=>false, :references=>:menus, :on_delete=>:cascade
+#       t.column :parent_id,              :integer,   :references=>:menu_items, :on_delete=>:cascade
+#       t.column :position,               :integer
+#       t.column :url,                    :string,    :null=>false 
+#       t.column :dynamic,                :boolean,   :null=>false, :default=>false
+#       t.column :company_id,             :integer,   :null=>false, :references=>:companies
+#     end
+#     add_index :menu_items, :name
+#     add_index :menu_items, :menu_id
+#     add_index :menu_items, :parent_id
+#     add_index :menu_items, :url
+#     add_index :menu_items, :company_id
 
 
     # Establishment
@@ -181,19 +181,15 @@ class Beginning < ActiveRecord::Migration
  
     Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
 
-    Location.create!(:name=>'guide')
-    Location.create!(:name=>'user')
-    Location.create!(:name=>'side')
-
   end
 
   def self.down
     drop_table :departments
     drop_table :establishments
-    drop_table :menus
-    drop_table :menu_items
-    drop_table :widgets
-    drop_table :locations
+#    drop_table :menus
+#    drop_table :menu_items
+#    drop_table :widgets
+#    drop_table :locations
     drop_table :documents
     drop_table :templates
     drop_table :roles

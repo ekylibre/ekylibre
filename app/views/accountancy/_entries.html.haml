@@ -1,23 +1,46 @@
--if @records
-  %table{:border=>1, :class => "entries"}
+- form_remote_tag() do 
+  %table.dyta
     %tr
       %th=lc :record_number
       %th=lc :record_created
-      %th=lc :record_printed 
+      %th=lc :record_printed
       %th=lc :label
       %th=lc :account_number
       %th=lc :record_debit
       %th=lc :record_credit
-    - @records.each do |record|
-      - attr = cycle("even","odd")  
-      - record.entries.each do |entry|
-        - debit = number_to_currency(entry.debit, :delimiter=>"", :precision => 2, :unit=>"")
-        - credit = number_to_currency(entry.credit, :delimiter=>"", :precision => 2, :unit=>"")
-        %tr{ :class=>(entry.record.balanced ? "balanced" : "unbalanced")+"-"+attr}
-          %td=entry.record.number
-          %td=entry.record.created_on.to_formatted_s :attributes
-          %td=entry.record.printed_on.to_formatted_s :attributes
-          %td=entry.name
-          %td=entry.account.number
-          %td{:align=>"right"}= debit
-          %td{:align=>"right"}= credit
+    %tr
+      %td=text_field :record, :number, {:size=>5, :tabindex=>1}
+      %td=text_field :record, :created_on, {:size=>10}
+      %td=text_field :record, :printed_on, {:tabindex=>2, :size=>10} 
+      %td=text_field :entry, :name, {:tabindex=>3}
+      %td=text_field :account, :number, {:tabindex=>4, :size=>14} 
+      %td=text_field :entry, :currency_debit, {:tabindex=>5, :size=>9}
+      %td=text_field :entry, :currency_credit, {:tabindex=>6, :size=>9}
+    %tr
+      %td#account{:colspan=>7}
+    -if @records.size>0
+      %tr
+        %th=lc :record_number
+        %th=lc :record_created
+        %th=lc :record_printed 
+        %th=lc :label
+        %th=lc :account_number
+        %th=lc :record_debit
+        %th=lc :record_credit
+      - @records.each do |record|
+        - attr = cycle("even","odd")  
+        - record.entries.each do |entry|
+          %tr{ :class=>(entry.record.balanced ? "balanced" : "unbalanced")+"-"+attr}
+            %td=entry.record.number
+            %td=entry.record.created_on.to_formatted_s :attributes
+            %td=entry.record.printed_on.to_formatted_s :attributes
+            %td=entry.name
+            %td=entry.account.number
+            %td{:align=>"right"}=number_to_currency(entry.currency_debit, :delimiter=>"", :precision => 2, :unit=>"")
+            %td{:align=>"right"}=number_to_currency(entry.currency_credit, :delimiter=>"", :precision => 2, :unit=>"")
+  =#submit_tag # 'entry_validate', lc(:entry_validate), :url => {:action => :entries}, :html => {:tabindex => 7, :style=>'display:none;'}
+  =submit_tag 'test', {:tabindex => 7, :style=>'display:none;'}
+
+%ul
+  %li=lc :balanced_entries
+  %li=lc :unbalanced_entries

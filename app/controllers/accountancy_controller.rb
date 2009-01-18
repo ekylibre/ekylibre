@@ -137,7 +137,7 @@ class AccountancyController < ApplicationController
     if request.post?
       @account = Account.new(params[:account])
       @account.company_id = @current_company.id
-      redirect_to :action => "accounts" if @account.save
+      redirect_to_back if @account.save
     else
       @account = Account.new
     end
@@ -150,8 +150,7 @@ class AccountancyController < ApplicationController
     @account = Account.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
       params[:account].delete :number
-      @account.update_attributes(params[:account])
-      redirect_to :action => "accounts"
+      redirect_to_back if @account.update_attributes(params[:account])
     end
     render_form :label=>@account.label
   end
@@ -164,11 +163,10 @@ class AccountancyController < ApplicationController
       #if @account.usable
       #  @account.update_attribute(:deleted, true)
       #else
-      
       Account.destroy @account unless @account.entries.size > 0 or @account.balances.size > 0
       #end
     end
-    redirect_to :action => "accounts"
+    redirect_to_back
   end
   
 
@@ -189,11 +187,10 @@ class AccountancyController < ApplicationController
 
   PRINTS=[[:balance,{:partial=>"date_to_date",:ex=>"ex"}],
           [:general_ledger,{:partial=>"date_to_date"}],
-          [:journal_by_id,{:partial=>"by_id"}],
+          [:journal_by_id,{:partial=>"by_journal"}],
           [:journal,{:partial=>"date_to_date"}]]
           
   def document_prepare
-    @company = @current_company
     @prints = PRINTS
     if request.post?
       session[:mode] = params[:print][:mode]
@@ -202,61 +199,18 @@ class AccountancyController < ApplicationController
   end
   
   def document_print
-    @company = @current_company
     for print in PRINTS
       @print = print if print[0].to_s == session[:mode]
     end
-    @partial = @print[1][:partial]
+    @partial = 'print_'+@print[1][:partial]
     if request.post?
-      params[:printed][:current_company] = @company.id
-      params[:printed][:siren] = @company.siren.to_s
-      params[:printed][:company_name] = @company.name.to_s
-      render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/'+@print[0].to_s+'.xml',:locals=>params[:printed])
+      params[:printed][:current_company] = @current_company.id
+      params[:printed][:siren] = @current_company.siren.to_s
+      params[:printed][:company_name] = @current_company.name.to_s
+      render(:xil=>"#{RAILS_ROOT}/app/views/prints/#{@print[0].to_s}.xml",:locals=>params[:printed])
     end
-#     @company = @current_company
-#     case session[:mode] 
-#     when "balance_sheet"
-#       @id = session[:print][:id]
-#     when "balance"
-#       @partial = "print_journal"
-#       @begin = session[:print][:from]
-#       @end = session[:print][:to]
-#       @code = session[:print][:code]
-#       @year_from = session[:print][:from]
-#       session[:print][:date] = true
-#       session[:print][:current_company] = @current_company.id
-#       if request.post?
-#         render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/balance.xml',:locals=>session[:print])
-#       end
-#     when "general_ledger"
-#       raise Exception.new "jkjkjk"
-#       @begin = session[:print][:from]
-#       @end = session[:print][:to]
-#       session[:print][:current_company] = @current_company.id
-#       if request.post?
-#         render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/general_ledger.xml',:locals=>session[:print])
-#       end
-#     when "journal"
-#       @begin = session[:print][:from]
-#       @end = session[:print][:to]
-#       session[:print][:current_company] = @current_company.id
-#       if request.post?
-#         render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/journal.xml',:locals=>session[:print])
-#       end
-#     when "journal_by_id"
-#       @id = session[:print][:name]
-#       session[:print][:current_company] = @current_company.id
-#       if request.post?
-#         render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/journal_by_id.xml',:locals=>session[:print])
-#       end
-#     end
   end
-  
-  # ths method allows to print.
-  def print
-    render :action => 'print'
-  end
-  
+    
   # this method finds the journal with the matching id and the company_id.
   def journals_find
     @find_journals = @current_company.journals #Journal.find(:all,:conditions=>["company_id = ?", @current_company.id])
@@ -272,9 +226,13 @@ class AccountancyController < ApplicationController
 
   # this method finds the account with the matching number and the company_id.
   def accounts_find
-    @search = params[:account].gsub('*','%')
-    @find_accounts = Account.find(:all,:conditions=>["company_id = ? AND number LIKE ?", @current_company.id, @search])
-    render :partial => 'accounts_find'
+    if request.xhr?
+      @search = params[:account].gsub('*','%')
+      @accounts = @current_company.accounts.find(:all,:conditions=>["number LIKE ?", @search])
+      render :partial => 'accounts_find'
+    else
+      redirect_to_back
+    end
   end
   
   # lists all the bank_accounts with the mainly characteristics. 
@@ -288,9 +246,16 @@ class AccountancyController < ApplicationController
     if request.post? 
       @financialyear = Financialyear.new(params[:financialyear])
       @financialyear.company_id = @current_company.id
-      redirect_to :action => "financialyears"  if @financialyear.save
+      redirect_to_back if @financialyear.save
     else
       @financialyear = Financialyear.new
+      f = @current_company.financialyears.find(:first, :order=>"stopped_on DESC")
+      @financialyear.started_on = f.stopped_on+1.day unless f.blank?
+      @financialyear.started_on ||= Date.today
+      @financialyear.stopped_on = (@financialyear.started_on+1.year-1.day).end_of_month
+      @financialyear.written_on = (@financialyear.stopped_on+6.months).end_of_month
+      @financialyear.code = @financialyear.started_on.year.to_s
+      @financialyear.code += '/'+@financialyear.stopped_on.year.to_s if @financialyear.started_on.year!=@financialyear.stopped_on.year
     end
     render_form
   end
@@ -357,45 +322,65 @@ class AccountancyController < ApplicationController
 
   # this action has not specific view.
   def params_entries
-    session[:journal] = params[:journal][:id]
-    session[:financialyear] = params[:financialyear_id]
-    session[:records_number] = params[:number]
-    redirect_to :action => "entries" 
+    if request.post?
+      session[:entries] ||= {}
+      session[:entries][:journal] = params[:journal_id]
+      session[:entries][:financialyear] = params[:financialyear_id]
+      session[:entries][:records_number] = params[:number]
+      redirect_to :action => :entries
+    end
   end
   
   # This method allows to enter the accountancy records with a form.
   def entries
-    session[:records_number] = 5 if session[:records_number].nil?
-    if request.get?
-      journals_list(params) 
-      @financialyears = @current_company.financialyears.find(:all, :conditions => {:closed => false})
+    session[:entries] ||= {}
+    session[:entries][:records_number] ||= 5
+    @journal = find_and_check(:journal, session[:entries][:journal]) if session[:entries][:journal]
+    @financialyear = find_and_check(:financialyear, session[:entries][:financialyear]) if session[:entries][:financialyear]
+
+    @valid = (not @journal.nil? and not @financialyear.nil?)
+
+    @journals = @current_company.journals.find(:all, :order=>:name)
+    @financialyears = @current_company.financialyears.find(:all, :conditions => {:closed => false}, :order=>:code)
+    
+    unless @journals.size>0
+      flash[:message] = lc(:messages, :need_journal_to_record_entries)
+      redirect_to :action=>:journals_create
+      return
     end
-    @records = []
-    @record = JournalRecord.new
-    @entry = Entry.new
-    unless session[:journal].nil?
+    
+    unless @financialyears.size>0
+      flash[:message] = lc(:messages, :need_financialyear_to_record_entries)
+      redirect_to :action=>:financialyears_create
+      return
+    end
+
+    
+    if @valid
+      @record = JournalRecord.new
       if request.post?
-       
-        @record = Journal.find(session[:journal]).create_record(session[:financialyear], session[:journal], params[:record])
-        
-        account = Account.find(:first, :conditions=>{:number => params[:account][:number], :company_id => @current_company.id})
-        currency = Currency.find(:first, :conditions=>["company_id = ?", @current_company.id])
-        @entry = Entry.new(params[:entry].merge({:account => account, :record_id => @record.id, :currency => currency, :company_id => @current_company.id}))
-        @record.reload if @entry.save
+        session[:entries][:account_number] = params[:account][:number]
+        @record = @journal.create_record(@financialyear.id, params[:record])
+        account = @current_company.accounts.find(:first, :conditions=>{:number => session[:entries][:account_number]})
+        @entry = @current_company.entries.build(params[:entry].merge({:account => account, :record_id => @record.id, :currency => @journal.currency}))
+        if @entry.save
+          @record.reload
+          @entry  = Entry.new
+          session[:entries][:account_number] = ''
+        end
       else
         @entry = Entry.new
       end
-      @records = Journal.find(session[:journal]).last_records(session[:records_number].to_i)
-      @record = JournalRecord.find(:first, :conditions => ["journal_id=? and debit!=credit",session[:journal]], :order=>:id) if @record.balanced
+      @records = @journal.last_records(session[:entries][:records_number].to_i)
+      @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
       @record = JournalRecord.new if @record.nil?
+      if @record.new_record?
+        @record.number = @records.size>0 ? @records.first.number.succ : 1
+        @record.created_on = @record.printed_on = Date.today
+      end
+      render :action => "entries.rjs" if request.xhr?
     end
     
-    if @record.new_record? 
-      @record.number = @records.size>0 ? @records.first.number.succ : 1
-      @record.created_on = @record.printed_on = Date.today
-    end
-    
-    render :action => "entries.rjs" if request.xhr?    
   end
   
   # lists all the transactions established on the accounts, sorted by date.
@@ -410,7 +395,7 @@ class AccountancyController < ApplicationController
     if request.post?
       @journal = Journal.new(params[:journal])
       @journal.company_id = @current_company.id
-      redirect_to :action => "journals" if @journal.save
+      redirect_to_back if @journal.save
     else
       @journal = Journal.new
       @journal.nature = Journal.natures[0]
@@ -493,53 +478,10 @@ class AccountancyController < ApplicationController
     render :text => options_for_select(@journal_periods) 
   end
   
-  #
-  def print
-    render :action => 'print'
-  end
-  
-  # This method prints the balance.
-  def print_balance_sheet
-    render :action => 'print_balance_sheet'
-    if request.post?
-      render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/test.xml')
-    end  
-  end
-  
-  #
-  def print_journal
-    render :action => 'print_journal'
-    if request.post?
-      render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/journal.xml')
-    end
-  end
-  
-  #
-  def print_balance
-    #raise Exception.new  " test"
-    render :action => 'print_balance'
-    #raise Exception.new date + " test"
-    #raise Exception.new @current_company.id
-    # raise Exception.new [:test][:current_company]
-    if request.post?
-      date = params[:test][:date]
-      year = date.to_i
-      params[:test][:year_begin] = Date.new(year,01,01)
-      params[:test][:year_end] = Date.new(year,12,31)
-      params[:test][:current_company] = @current_company.id.to_s
-      #raise Exception.new params[:test][:financial_id].class.to_s
-      render(:xil=>'/home/thibaud/ekylibre2/trunk/ekylibre/app/balance.xml',:locals=>params[:test])
-    end
-  end
-  
-
   # lists all the statements in details for a precise account.
   def statements  
-    bank_account_statements_list params if request.get?
-    
-    #session[:bank_account] = params[:id] 
+    bank_account_statements_list params
   end
-
 
   # This method creates a statement.
   def statements_create

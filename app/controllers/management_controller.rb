@@ -225,7 +225,7 @@ class ManagementController < ApplicationController
     if request.post? 
       @shelf = Shelf.new(params[:shelf])
       @shelf.company_id = @current_company.id
-      redirect_to :action=>:shelves if @shelf.save
+      redirect_to_back if @shelf.save
     else
       @shelf = Shelf.new
     end
@@ -236,9 +236,7 @@ class ManagementController < ApplicationController
     @shelf = find_and_check(:shelf, params[:id])
     if request.post?
       params[:shelf][:company_id] = @current_company.id
-      if @shelf.update_attributes(params[:shelf])
-        redirect_to :action=>:shelves
-      end
+      redirect_to_back if @shelf.update_attributes(params[:shelf])
     end
     render_form(:label=>@shelf.name)
   end

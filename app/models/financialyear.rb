@@ -8,7 +8,7 @@
 #  closed       :boolean       not null
 #  started_on   :date          not null
 #  stopped_on   :date          not null
-#  written_on   :date          
+#  written_on   :date          not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
@@ -39,10 +39,10 @@ class Financialyear < ActiveRecord::Base
    # errors.add_to_base lc(:error_stopped1_financialyear)  f self.stopped_on.nil?
     unless self.stopped_on.blank? 
       errors.add_to_base lc(:error_stopped2_financialyear) unless self.stopped_on == self.stopped_on.end_of_month
-      errors.add_to_base lc(:error_period_financialyear)  if self.started_on >= self.stopped_on
+      errors.add_to_base lc(:error_period_financialyear) unless self.started_on < self.stopped_on
     end
  
-    errors.add_to_base lc(:error_written_financialyear) if self.written_on < self.stopped_on
+    errors.add_to_base lc(:error_written_financialyear) unless self.written_on >= self.stopped_on
 
 #   puts "p"+self.started_on.to_s+self.stopped_on.to_s+self.company_id.to_s
     #financial_start = Financialyear.find(:all, :conditions => "company_id = #{self.company_id} AND '#{self.started_on}' BETWEEN started_on AND stopped_on")

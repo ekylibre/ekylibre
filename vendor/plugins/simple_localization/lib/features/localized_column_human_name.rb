@@ -47,27 +47,36 @@ module ActiveRecord #:nodoc:
       # Overwrites the +string_to_date+ method to use the localization file
       # to use a parse model for the dates
       def self.string_to_date(string)
+# #       raise Exception.new("string_to_date "+string.to_s)
         return string unless string.is_a?(String)
-        date_array = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :attributes])
+#        date_array = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :default])
+#        raise Exception.new("string_to_date "+string.to_s+' ; '+::Date.strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :default]).inspect)
         # treat 0000-00-00 as nil
-        Date.civil(date_array[:year], date_array[:mon], date_array[:mday]) rescue nil
+#        Date.civil(date_array[:year], date_array[:mon], date_array[:mday]) rescue nil
+        date = ::Date.strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :db]) rescue nil
+        if date.nil?
+          date = ::Date.strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :default]) rescue nil
+        end
+#        string.to_date
+        date
       end
 
       def self.string_to_time(string)
         return string unless string.is_a?(String)
-        time_hash = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :attributes])
+        time_hash = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :db])
         return nil if time_hash.nil?
         index = string.index(/\.\d\d\d\d\d\d/)
         time_hash[:sec_fraction] = string[index+1, index+6] if index;
         time_array = time_hash.values_at(:year, :mon, :mday, :hour, :min, :sec, :sec_fraction)
         # treat 0000-00-00 00:00:00 as nil
+        raise Exception.new("string_to_time "+string.to_s+" !!!! "+time_array.inspect)
         Time.send(Base.default_timezone, *time_array) rescue DateTime.new(*time_array[0..5]) rescue nil
       end
 
       def self.string_to_dummy_time(string)
         return string unless string.is_a?(String)
         return nil if string.empty?
-        time_hash = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :db])
+        time_hash = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :default])
         index = string.index(/\.\d\d\d\d\d\d/)
         time_hash[:sec_fraction] = string[index+1, index+6] if index;
         time_array = [2000, 1, 1]
@@ -105,3 +114,51 @@ module ActiveRecord #:nodoc:
   end
   
 end
+
+
+
+# module ActiveSupport #:nodoc:
+#   module CoreExtensions #:nodoc:
+#     module String #:nodoc:
+#       module Conversions
+
+#         def to_time(form = :utc)
+#           raise Exception.new(self.inspect)
+
+#           # _strptime retrns Hash
+#           date_hash = ::Date._strptime(self, ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :default])
+#           index = self.index(/\.\d\d\d\d\d\d/)
+#           date_hash[:sec_fraction] = string[index+1, index+6] if index;
+# #          raise Exception.new(date_hash.class.to_s+'  '+date_hash.inspect.to_s+' ? '+ ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :default])
+#           # #          ::Time.send(form, *ParseDate.parsedate(self))
+#           date_array = [date_hash[:year], date_hash[:mon], date_hash[:mday], date_hash[:hour], date_hash[:min], date_hash[:sec], date_hash[:sec_fractions]]
+#            ::Time.send(form, *date_array)
+#   #        date_hash = ::Date.strptime(self, ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :default])
+#    #       raise Exception.new(date_hash.class.to_s+'  '+date_hash.to_s+' ? '+ ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :default])
+#    #       ::Date.strptime(self, ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :default]) rescue nil
+#    #       ::Time
+#         end
+
+#         def to_date
+# #          raise Exception.new(self.inspect)
+# #          ::Date.new(*ParseDate.parsedate(self)[0..2])
+#           dday = ::Date.today
+#           date_hash = ::Date._strptime(self, ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :default])
+#           puts date_hash.inspect
+#           puts(self+' > '+date_hash.class.to_s+' ! '+date_hash.inspect+' ? '+dday.to_s+' § '+ ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :default])
+#           dday = ::Date.civil(date_hash[:year], date_hash[:mon], date_hash[:mday])
+#           puts(self+' > '+date_hash.class.to_s+' ! '+date_hash.inspect+' ? '+dday.to_s+' § '+ ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :default])
+#           # treat 0000-00-00 as nil
+# #          ::Date.civil(date_hash[:year],8,16)
+# #          Date.civil(date_hash[:year], date_hash[:mon], date_hash[:mday]) rescue nil
+# #          ::Date.civil(date_hash[:year], date_hash[:mon], date_hash[:mday])
+# #          dday
+#           return dday
+#         end
+
+#       end
+#     end
+#   end
+# end
+
+

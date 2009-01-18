@@ -28,13 +28,19 @@ dates:
   abbr_monthnames: [Jan, Fév, Mar, Avr, Mai, Juin, Juil, Aoû, Sep, Oct, Nov, Déc]
   abbr_daynames: [Dim, Lun, Mar, Mer, Jeu, Ven, Sam]
   date_formats:
+    db2: '%Y-%m-%d'
     attributes: '%d/%m/%Y'
     short: '%e %b'
     long: '%A %e %B %Y'
+    default: '%d/%m/%Y'
+# SET datestyle TO SQL, DMY ; permit to use the good format of date
+    db: '%d/%m/%Y'
   time_formats:
+    db: '%Y-%m-%d %H:%M:%S'
     attributes: '%d/%m/%y %H:%M'
     short: '%e %b %H:%M'
     long: '%e %B %Y à %H:%M'
+    default: '%d/%m/%Y %H:%M'
   strftime_overwrites:
     c: '%A %e %B %Y à %H:%M'
     x: '%d/%m/%y'
@@ -155,6 +161,11 @@ models:
       name: Nom
       code: Code
       full_name: Nom complet
+  entry:
+    name: Écriture
+    attributes:
+      name: Libellé
+      account_id: Compte
   establishment:
     name: Établissement
     attributes:
@@ -165,8 +176,11 @@ models:
   journal:
     name: Journal
     attributes:
-      name: Nom
       closed_on: Clôturé le
+      code: Code
+      currency_id: Devise
+      name: Nom
+      nature: Nature
   financialyear:
     name: Exercice
     attributes:
@@ -174,7 +188,7 @@ models:
       closed: Clôturé	
       started_on: Commencé le
       stopped_on: Date de clôture
-      written_on: 'Possibilité d''écrire jusqu''au'	 
+      written_on: 'Autoriser l''écriture jusqu''au'	 
   price_list:
     name: Liste de prix
     attributes:
@@ -283,15 +297,41 @@ app:
       document_prepare: Imprimer des documents comptables
       works: Travaux comptables
       entries: Saisir des écritures
-    by_id:
-      dates: Sélectionnez les dates ainsi que l id
-      journal_name: Nom du journal
-      from: du
-      to: au
-    date_to_date:
-      dates: Sélectionnez les dates de début et de fin de la période
-      from: du
-      to: au
+    accounts:
+      title: Comptes
+      create: Créer un nouveau compte
+      update: Modifier un compte
+      delete: Supprimer un compte
+    accounts_create:
+      title: Créer un nouveau compte
+    accounts_find:
+      account_number: 'Numéro de compte '
+      account_name: 'Nom du compte '
+      no_accounts: 'Il n''existe pas de compte commençant par ce numéro.'
+    accounts_letter_launch:
+      title: Lettrage de compte
+      select_account: "Sélectionnez un compte:"
+    accounts_letter:
+      title: Liste des écritures non lettrées
+      entry_record: Numéro de pièce
+      entry_name: Nom de l''écriture		    
+    accounts_update:
+      title: 'Modifier le compte : %s'
+    bank_accounts:
+      title: Comptes bancaires
+      create: Créer un nouveau compte bancaire
+    bank_accounts_form:
+      rib: 'Relevé d''identité bancaire'
+      accountancy: Comptabilité
+    bank_accounts_create:
+      title: Créer un nouveau compte bancaire
+    bank_accounts_update:
+      title: Modifier le compte bancaire	
+    currencies_find:
+      currency_id: Numéro de devise
+      currency_name: Nom de devise
+      currency_code: Code de devise
+      currency_rate: Taux de devise 
     document_prepare:
       title: Choisissez le type de document à imprimer
       general_ledger: Grand livre
@@ -302,10 +342,12 @@ app:
       title: 'Impression du document : %s'
       print: Impression
     entries:
-      title: Écritures
-      select_journal: 'Sélectionnez le journal :'
-      select_financialyear: 'Sélectionnez l''exercice :'
-      number_records: 'Nombre de pièces à afficher :'
+      title: Saisie des écritures
+      subtitle: 'Enregistrement dans le journal "%s" pour l''exercice "%s"'
+      journal_x: '%s (clotûré le %s)'
+      select_journal: 'Saisir les écritures dans le journal'
+      select_financialyear: 'Comptabiliser les écritures pour l''exercice comptable'
+      number_records: 'Nombre des dernières pièces à afficher'
       record_number: 'N°Pièce'
       record_created: 'Enregistrée le'
       record_printed: 'Datée au'
@@ -318,29 +360,22 @@ app:
       confirmation: 'Êtes-vous sûr de votre saisie ?'     
       balanced_entries: 'Vert : pièce équilibrée'
       unbalanced_entries: 'Rouge : pièce non équilibrée'
-    print:
-      title: Impression 
-      print_balance_sheet: Impression du bilan Comptable
-      print_journal: Impression du journal 
-      print_balance: Impression de la balance
-    print_balance_sheet:
-      title: Impression du bilan 
-      period: Période
-    statements:
-      title: Pointage des relevés de comptes bancaires 
-      select_bank_account: "Sélectionnez un compte bancaire:"	  
-      create: Créer un relevé de compte
-    statements_create:
-      title: Créer un nouveau relevé
-    statements_update:
-      title: Modifier un relevé  
-    print_journal:
-      title: Impression du Journal
-    print_balance:
-      title: Impression de la balance
+      update_params: 'Changer de journal et/ou d''exercice...'
+    financialyears:
+      title: Exercices comptables
+      create: Créer un nouvel exercice comptable
+    financialyears_create:
+      title: Créer un nouvel exercice
+    financialyears_update:
+      title: Modifier un nouvel exercice
+    financialyears_close:
+      title: 'Clôture d''exercice'
     journals:
       title: Journaux
       create: Créer un nouveau journal
+    journals_find:
+      journal_id: Numéro de journal
+      journal_name: Nom du journal
     journals_form:
       natures:
         purchase: Achats
@@ -353,53 +388,32 @@ app:
       title: Modifier le journal
     journals_close:
       title: Clôture du journal
-    financialyears:
-      title: Exercices comptables
-      create: Créer un nouvel exercice comptable
-    financialyears_create:
-      title: Créer un nouvel exercice
-    financialyears_update:
-      title: Modifier un nouvel exercice
-    financialyears_close:
-      title: 'Clôture d''exercice'
-    accounts:
-      title: Comptes
-      create: Créer un nouveau compte
-      update: Modifier un compte
-      delete: Supprimer un compte
-    accounts_create:
-      title: Créer un nouveau compte
-    accounts_update:
-      title: 'Modifier le compte : %s'
-    accounts_letter_launch:
-      title: Lettrage de compte
-      select_account: "Sélectionnez un compte:"
-    accounts_letter:
-      title: Liste des écritures non lettrées
-      entry_record: Numéro de pièce
-      entry_name: Nom de l''écriture		    
-    bank_accounts:
-      title: Comptes bancaires
-      create: Créer un nouveau compte bancaire
-    bank_accounts_form:
-      rib: 'Relevé d''identité bancaire'
-      accountancy: Comptabilité
-    bank_accounts_create:
-      title: Créer un nouveau compte bancaire
-    bank_accounts_update:
-      title: Modifier le compte bancaire	
-    accounts_find:
-      account_number: 'Numéro de compte '
-      account_name: 'Nom du compte '
-      erreur: 'Il n''existe pas de compte commençant par ce numéro.'
-    currencies_find:
-      currency_id: Numéro de devise
-      currency_name: Nom de devise
-      currency_code: Code de devise
-      currency_rate: Taux de devise 
-    journals_find:
-      journal_id: Numéro de journal
-      journal_name: Nom du journal
+
+    messages:
+      need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
+      need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
+      
+
+    print_by_journal:
+      dates: Saisissez les dates ainsi que le journal
+      journal: Journal
+      from: Période du
+      to: Au
+    print_date_to_date:
+      dates: Saisissez les dates de début et de fin de la période
+      from: Période du
+      to: Au
+    print_balance_sheet:
+      title: Impression du bilan 
+      period: Période
+    statements:
+      title: Pointage des relevés de comptes bancaires 
+      select_bank_account: "Sélectionnez un compte bancaire:"	  
+      create: Créer un relevé de compte
+    statements_create:
+      title: Créer un nouveau relevé
+    statements_update:
+      title: Modifier un relevé  
     statements_point:
       title: Pointage d'écritures
       validate: Valider 
@@ -550,8 +564,8 @@ app:
     error_closed_financialyear: 'L''année financière est déjà terminée.'
     error_limited_financialyear: 'L''année financière sera déjà terminée à la fin de la période.'
   entry:
-    error_amount_balance1: 'Une écriture fournit une entrée soit au débit, soit au crédit d''un compte.' 
-    error_amount_balance2: 'Une écriture ne fournit pas d''entrée négative à un compte.'
+    error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
+    error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'
     error_amount_rate: 'Le taux de conversion n''existe pas.'	
   journal_record:
     error_printed_date: 'La pièce comptabilisée n''existe pas.'
@@ -609,6 +623,7 @@ app:
 
     products:
       title: 'Gérer les produits'
+      nb_products: '%s produit(s) enregistré(s)'
       new_product: 'Ajout d''un nouveau produit'
     products_create:
       title: 'Ajouter un nouveau produit'
@@ -683,8 +698,6 @@ app:
 
   relations: 
     title: Relations
-    entities:
-      title: Liste des entités
     entities_create: 
       title: 'Création d''une nouvelle entité'
     entities_contact_create:
@@ -697,11 +710,12 @@ app:
       title: Renseignez les caractéristiques du contact à ajouter
       back: Retour à la liste des entités
       new_contact: Entrer un nouveau contact
-    entities_search:
-      title: 'Recherche d''une fiche'
-      display: Afficher
+    entities:
+      title: 'Fiches des relations'
       entities_create: Créer une nouvelle fiche
-      nb_entities: '%s fiches enregistrées'
+      nb_entities: '%s fiche(s) enregistrée(s)'
+    entities_search:
+      search: Rechercher une relation
     entities_update:
       title: 'Modification de l''entité'
     entities_form:
@@ -709,15 +723,21 @@ app:
     index:
       title: Gestion des relations clients et fournisseurs
       entities_create: Créer une nouvelle fiche
-      entities: Clients et fournisseurs
-      entities_search: Gérer les fiches clients et fournisseurs
+      entities_managing: Clients et fournisseurs
+      entities: Gérer les fiches clients et fournisseurs
+
   product:
     unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
+
   unavailable:
+    journal: 'Le journal demandé est indisponible (%s)'
     product: Le produit demandé est indisponible
+
+  apply: 'Appliquer'
   are_you_sure: 'Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?'
   back: 'Revenir à la page précédente'
   cancel: 'Annuler'
+  close: 'Fermer'
   create: 'Créer'
   update: 'Modifier'
   edit: 'Modifier'

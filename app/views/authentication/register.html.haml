@@ -7,7 +7,6 @@
         - f.error 'company', 'user'
         - f.title :my_company
         - f.field :company, :name, {:example=>lc(:company_name_example)}
-        - f.field :company, :siren
         - f.title :my_self
         - f.field :user, :last_name
         - f.field :user, :first_name, :example=>lc(:user_first_name_example)
@@ -16,4 +15,4 @@
         - f.field :user, :password_confirmation, :null=>false, :info=>lc(:user_password_confirmation_info)
       .actions
         =submit_tag(l(:create))
-        =link_to(l(:cancel),:back)
+        =link_to(l(:cancel), :action=>:login)

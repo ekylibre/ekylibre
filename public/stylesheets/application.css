@@ -33,7 +33,7 @@ tr.unpointable.even td{background: #FFCCCC;}
 tr.unpointable.odd td{background: #FF9999;}
 
 
-#lines { height: 300px; overflow: auto; }
+/*#lines { height: 300px; overflow: auto; }*/
 #top { border-bottom: 1px  solid  #C9D7F1; height: 24px; }
 #columns { background: url(/images/template/columns.png) repeat-x top; }
 #side { width: 150px; padding: 4px; } /* border-right: 1px dotted #C9D7F1;}*/
@@ -70,21 +70,24 @@ tr.unpointable.odd td{background: #FF9999;}
 #user { float:right; height:24px; margin:4px 10px; text-align:right;}
 
 
-.message { padding: 8px 12px; background: #FFD; border: 1px solid #EDA; font-size: 15px; font-weight: bold; color: #530; }
+.message { padding: 8px 12px; margin: 8px 0px; background: #FFD; border: 1px solid #EDA; font-size: 13px; font-weight: bold; color: #530; text-align: center; }
 
+
+
+/*
 #test  { text-align:center; border: 0.5px solid; margin-left:50px;}
 #updatebutton { padding:0px 0 10px 200px; margin-top:50px; font-weight: bold; font-size:20px; }
 #changepwd { padding:20px 0 0 90px; }
 #userslist { text-align:center; padding:5px 0 5px 0; font-weight:bold; }
 #getback { text-align: left; padding: 5px 0 8px 50px; }
 
-/*#tit { font-weight: bold; padding:8px 0 0 0; font-size:20px; }
+#tit { font-weight: bold; padding:8px 0 0 0; font-size:20px; }
 #name { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px;  margin-right:1200px; margin-left: 100px;}
 #siren {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-right:1200px; margin-left: 100px; }
 #code {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-right:1200px; margin-left: 100px; }
 #estab {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-right:1200px; margin-left: 100px; }
 #depart{  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px;  margin-right:1200px; margin-left: 100px;}
-#use { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-bottom:30px; margin-right:1200px; margin-left: 100px;  }*/
+#use { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-bottom:30px; margin-right:1200px; margin-left: 100px;  }
 
 #titlep { text-align: center; font-weight:bold; font-size:30px; }
 #titlesearch  { text-align: center; font-weight:bold; font-size:30px; }
@@ -95,14 +98,14 @@ tr.unpointable.odd td{background: #FF9999;}
 #estab {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
 #depart{  border:0.3px solid; padding:5px 0 5px 0;  margin-top:10px; border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
 #use { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-bottom:15px;  border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
-
 #dytae { margin-top: 20px; }
 #entlist { margin-top: 20px; text-align:center; font-weight:bold; font-size:30px; }
 .result { border:1px solid; margin-top:30px; margin-left:140px; margin-right:60px; margin-bottom:30px; padding:10px 5px 10px 5px; width:70% }
 td.result {  padding:15px 15px 15px 15px;  border-collapse: collapse; text-align:center;}
 table.document th { font-size:20px; padding:20px 0 20px 30px; text-align:left;  }
 table.document td { font-size:15px; }
-.print { padding:10px 0 0 620px; }
+
+*/
 
 /*
 .menu a:hover { text-decoration:none;}
@@ -192,8 +195,8 @@ table.dyta { border-collapse: collapse; width: 100%; border-bottom: 1px solid #B
 table.dyta th { background: #e9f3fe url(/images/template/table_head.png) repeat-x bottom; padding:2px; color: #336; font-weight: bold; font-size:13px;}
 table.dyta tr.odd  td {background: #E1E6FF;}
 table.dyta tr.even td {background: #F0F2FF;}
-table.dyta tr.data td {padding: 1px 3px;color: #007;}
-table.dyta tr      td.act { width:16px; }
+table.dyta tr      td {padding: 1px 3px;color: #007;}
+table.dyta tr      td.act { width:16px; padding: 0px;}
 table.dyta tr.odd  td.act { background: #FDD; }
 table.dyta tr.even td.act { background: #FED; }
 table.dyta td.procedures { padding:4px; background: #FEB; }
@@ -221,7 +224,7 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 /* END */
 
 #yield .action-list, .errorExplanation { -moz-border-radius: 8px; background: #E4EBF8; padding:4px 6px; margin:12px 0px;}
-#yield .action-list h2, .errorExplanation h2 { font-size : 16px; color: black; padding: 2px; }
+#yield .action-list h2, .errorExplanation h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
 #yield .action-list ul, .errorExplanation ul { padding: 4px 4px 4px 18px; }
 #yield .action-list li, .errorExplanation li { list-style-type: square; }
 #yield .action-list.special { background: #FE9; }
@@ -230,11 +233,11 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 #side { background: #c9d7f1; }
 #side .action-list { background: #E4EBF8; padding:0px; margin:0px 0px 8px; border: 1px solid #46A; }
 /*#side .action-list h2 { font-size : 13px; color: black; padding: 4px; background: #BDF; text-align: center; }*/
-#side .action-list h2 { font-size : 13px; color: white; padding: 4px; background: #46A; text-align: center; }
-#side .action-list ul { padding: 0px 0px; }
-#side .action-list li { padding: 2px 4px 4px; list-style-type: none; background: #e9f3fe url(/images/template/table_head.png) repeat-x bottom; }
+#side .action-list h2 { font-size : 13px; color: white; padding: 2px 4px; background: #46A; text-align: center; }
+#side .action-list ul { padding: 0px 2px; }
+#side .action-list li { padding: 2px 4px 4px 20px; list-style-type: none; background: url(/images/favicon.png) no-repeat center left; } /*background: #e9f3fe url(/images/template/table_head.png) repeat-x bottom; }*/
 #side .action-list li a { font-size: 13px; }
-#side .action-list li:hover { background: #FFC url(/images/template/action.png) repeat-x bottom; }
+/*#side .action-list li:hover { background: #FFC url(/images/template/action.png) repeat-x bottom; }*/
 
 /*e7f2fd bbcfe6*/
 
@@ -278,3 +281,5 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 #login .line {height:8px; background: url(/images/template/gradient.png) repeat-x top;}
 /*div.flash-error {text-align:center; color:red; font-style:italic;height:20px;padding: 16px; margin-top: 64px;}*/
 
+.window { padding:4px; background: #EEE; border: 1px solid #AAA; margin: 8px;}
+.window .dyta { background: white; }

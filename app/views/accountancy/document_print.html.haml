@@ -2,5 +2,5 @@
 -form_tag do
   =render :partial=>@partial
   .actions
-    =link_to l(:previous) , :action=>:document_prepare
+    =link_to l(:previous), session[:history][1]
     =submit_tag l(:print)

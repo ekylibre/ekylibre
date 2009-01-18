@@ -45,7 +45,7 @@ class JournalRecord < ActiveRecord::Base
   end
   
   def balanced
-    self.debit == self.credit
+    self.debit == self.credit and self.debit != 0
   end
 
   # this method allows to lock the record.

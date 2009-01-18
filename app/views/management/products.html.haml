@@ -1,5 +1,7 @@
 %h1=lc :title
 
+.count=lc(:nb_products, [@current_company.available_products.size])
+
 =render :partial=>'products_search'
 
 =dyta :products
