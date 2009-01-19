@@ -72,8 +72,14 @@ module Dyta
           process = ''
           for procedure in definition.procedures
             process += "+' '+" unless process.blank?
-            process += "link_to(lc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+
-                               procedure.options.inspect+", :class=>'button')"
+            if procedure.options[:remote]
+              procedure.options.delete :remote
+              process += "link_to_remote"
+            else
+              process += "link_to"
+            end
+            
+            process += " (lc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+procedure.options.inspect+")"
           end      
           process = "'"+content_tag(:tr, content_tag(:td, "'+"+process+"+'", :class=>:procedures, 
                                                      :colspan=>definition.columns.size))+"'"
