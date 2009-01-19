@@ -144,6 +144,7 @@ models:
     attributes:
       fax: Fax
       mobile: Portable
+      phone: Téléphone
       website: Site web
       latitude: Latitude
       longitude: Longitude
@@ -158,6 +159,8 @@ models:
   entity:
     name: Entité
     attributes:
+      first_name: Prénom
+      website: Site Web
       name: Nom
       code: Code
       full_name: Nom complet
@@ -710,17 +713,18 @@ app:
   relations: 
     title: Relations
     entities_create: 
-      title: 'Création d''une nouvelle entité'
-    entities_contact_create:
+      title: 'Création d''une nouvelle fiche client/fournisseur'
+    entities_contacts_create:
       title: Renseignez les caractéristiques du contact à ajouter
-    entities_contact_update:
+    entities_contacts_update:
       title: Renseignez les champs à modifier
     entities_contact_delete:
       title: Caractéristiques du contact à supprimer
     entities_display:
-      title: Renseignez les caractéristiques du contact à ajouter
-      back: Retour à la liste des entités
+      title: 'Informations de la fiche %s'
+      back: Retour 
       new_contact: Entrer un nouveau contact
+      entities_contacts_create: Création d'un nouveau contact
     entities:
       title: 'Fiches des relations'
       entities_create: Créer une nouvelle fiche
@@ -728,9 +732,9 @@ app:
     entities_search:
       search: Rechercher une relation
     entities_update:
-      title: 'Modification de l''entité'
+      title: 'Modification de la fiche'
     entities_form:
-      title: 'Renseignez les différentes caractéristiques de l''entité'
+      title: 'Renseignez les différentes caractéristiques de la fiche'
     index:
       title: Gestion des relations clients et fournisseurs
       entities_create: Créer une nouvelle fiche

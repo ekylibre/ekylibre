@@ -1,4 +1,4 @@
-=formalize(:url=>{:action=>:entities_contact_update}) do |f|
+=formalize(:url=>{:action=>:entities_contacts_update}) do |f|
   -f.error :contact
   -f.title lc(:title)
   -f.field :contact, :active
@@ -7,5 +7,6 @@
   -f.field :contact, :line_2
   -f.field :contact, :line_3
   -f.field :contact, :line_4_number
+  -f.field :contact, :phone
   -f.field :contact, :fax
   -f.field :contact, :mobile
