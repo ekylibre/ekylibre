@@ -16,4 +16,5 @@
               - p.replace_html 'account', ''
           %td=account.name
   - else
-    =lc :no_accounts
+    .error=lc :no_accounts
+    =link_to lc(:accounts_create), :action=>:accounts_create

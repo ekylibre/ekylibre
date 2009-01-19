@@ -13,9 +13,9 @@
       %td=text_field :record, :created_on, {:size=>10}
       %td=text_field :record, :printed_on, {:tabindex=>2, :size=>10} 
       %td=text_field :entry, :name, {:tabindex=>3}
-      %td=text_field :account, :number, {:tabindex=>4, :size=>14} 
-      %td=text_field :entry, :currency_debit, {:tabindex=>5, :size=>9}
-      %td=text_field :entry, :currency_credit, {:tabindex=>6, :size=>9}
+      %td=text_field :account, :number, {:tabindex=>4, :size=>10} 
+      %td=text_field :entry, :currency_debit, {:tabindex=>5, :size=>8}
+      %td=text_field :entry, :currency_credit, {:tabindex=>6, :size=>8}
     %tr
       %td#account{:colspan=>7}
     -if @records.size>0

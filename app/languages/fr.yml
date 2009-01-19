@@ -305,8 +305,9 @@ app:
     accounts_create:
       title: Créer un nouveau compte
     accounts_find:
-      account_number: 'Numéro de compte '
+      accounts_create: 'Créer un nouveau compte comptable'
       account_name: 'Nom du compte '
+      account_number: 'Numéro de compte '
       no_accounts: 'Il n''existe pas de compte commençant par ce numéro.'
     accounts_letter_launch:
       title: Lettrage de compte
