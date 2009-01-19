@@ -7,7 +7,6 @@
 #  record_id       :integer       not null
 #  account_id      :integer       not null
 #  name            :string(255)   not null
-#  error           :string(255)   
 #  currency_id     :integer       not null
 #  currency_rate   :decimal(16, 6 not null
 #  editable        :boolean       default(TRUE)
@@ -53,10 +52,7 @@ class Entry < ActiveRecord::Base
   def validate
     errors.add_to_base lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
     errors.add_to_base lc(:error_amount_balance2) unless self.debit + self.credit >= 0    
-    
-    self.error = lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
-    self.error = lc(:error_amount_balance2) unless self.debit + self.credit > 0    
-    
+         
     #raise Exception.new "models:"+ self.errors.inspect.to_s  
   end
   

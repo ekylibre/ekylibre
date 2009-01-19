@@ -20,12 +20,12 @@
 #
 
 class BankAccountStatement < ActiveRecord::Base
-
+  
 
   # A bank account statement has to contain all the planned records.
   def validate    
    errors.add_to_base lc(:error_period_statement) if self.started_on >= self.stopped_on
-    #puts self.stopped.to_s+"et"+self.bank_account.journal.to_s
+   #puts self.stopped.to_s+"et"+self.bank_account.journal.to_s
    #errors.add lc(:error_journal_statement) if self.stopped_on > self.bank_account.journal.closed_on
   end
 

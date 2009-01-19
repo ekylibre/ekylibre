@@ -122,7 +122,7 @@ models:
       agency_code: Code guichet 
       number: Numéro de compte bancaire
       key: Clé RIB
-      iban_text: Iban(texte)
+      iban: IBAN(texte)
       account_id: Compte comptable référencé
       currency_id: Devise utilisée
       journal_id: Journal utilisé
@@ -321,9 +321,13 @@ app:
     bank_accounts:
       title: Comptes bancaires
       create: Créer un nouveau compte bancaire
+
+     
     bank_accounts_form:
       rib: 'Relevé d''identité bancaire'
       accountancy: Comptabilité
+      create_journal: 'Vous devez d''abord créer un journal.'
+      create_account: 'Vous devez d''abord créer un compte comptable.' 
     bank_accounts_create:
       title: Créer un nouveau compte bancaire
     bank_accounts_update:
@@ -393,8 +397,7 @@ app:
     messages:
       need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
       need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
-      
-
+    need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être éffacé.'
     print_by_journal:
       dates: Saisissez les dates ainsi que le journal
       journal: Journal
@@ -411,17 +414,21 @@ app:
       title: Pointage des relevés de comptes bancaires 
       select_bank_account: "Sélectionnez un compte bancaire:"	  
       create: Créer un relevé de compte
+      create_bank_account: 'Vous devez d''abord créer un compte bancaire.'
+      debit: Total débit
+      credit: Total crédit
     statements_create:
       title: Créer un nouveau relevé
     statements_update:
       title: Modifier un relevé  
     statements_point:
-      title: Pointage d'écritures
+      title: 'Pointage d''écritures'
       validate: Valider 
-      entry_name: Intitulé de l'écriture
+      entry_name: 'Intitulé de l''écriture'
       entry_debit: Débit
       entry_credit: Crédit
       entry_currency_rate: Devise  
+      
   accounting_system:
     1: 'Comptes de capitaux'
     2: 'Comptes d''immobilisations'

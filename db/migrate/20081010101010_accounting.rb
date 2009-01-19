@@ -194,6 +194,7 @@ class Accounting < ActiveRecord::Migration
     add_index :bank_accounts, :currency_id
     add_index :bank_accounts, :account_id
     add_index :bank_accounts, :company_id
+    add_index :bank_accounts, [:number, :bank_account_id] :unique => true
     #add_index :bank_accounts, [:bank_id, :account_id], :unique=>true
 
     # BankAccountStatement : Relevé de compte
@@ -210,13 +211,14 @@ class Accounting < ActiveRecord::Migration
     end
     add_index :bank_account_statements, :bank_account_id
     add_index :bank_account_statements, :company_id
+    #add_index :bank_account_statements, [:started_on, :stopped_on, :bank_account_id, :company_id], :unique=>true
     
     # Entry : Écriture comptable
     create_table :entries do |t|
       t.column :record_id,              :integer,  :null=>false, :references=>:journal_records, :on_delete=>:restrict, :on_update=>:cascade
       t.column :account_id,             :integer,  :null=>false, :references=>:accounts, :on_delete=>:restrict, :on_update=>:cascade
       t.column :name,                   :string,   :null=>false
-      t.column :error,                  :string
+      #t.column :error,                  :string
       t.column :currency_id,            :integer,  :null=>false, :references=>:currencies, :on_delete=>:restrict, :on_update=>:cascade
       t.column :currency_rate,          :decimal,  :null=>false, :precision=>16, :scale=>6
       t.column :editable,               :boolean,  :default=>true

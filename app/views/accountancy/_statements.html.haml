@@ -1,4 +1,7 @@
-%p Débit
-=@bank_account_statement.debit
-%p Crédit
-=@bank_account_statement.credit
+%table.dyta
+  %tr
+    %th=lc(:debit)
+    %th=lc(:credit)
+  %tr
+    %td=@bank_account_statement.debit
+    %td=@bank_account_statement.credit

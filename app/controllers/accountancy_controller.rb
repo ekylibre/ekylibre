@@ -7,6 +7,11 @@ class AccountancyController < ApplicationController
   #   ACCOUNTS_OF_PURCHASES={:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
   #     :bank=>512, :others=>765 }
   
+  #verify :only =>:journals_close,
+  #:add_flash => {:error => "jlkjkl"},
+  #:redirect_to => :journals_create
+  
+  
   include ActionView::Helpers::FormOptionsHelper
   
   dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -34,7 +39,6 @@ class AccountancyController < ApplicationController
     t.column :agency_code
     t.column :number
     t.column :iban
-    t.column :iban_text
     t.action :bank_accounts_update, :image=>:update
     t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.procedure :create, :action=>:bank_accounts_create
@@ -74,8 +78,8 @@ class AccountancyController < ApplicationController
 
   # displays the accoutancing operations.
   def operations
-    @bank_accounts = BankAccount.find(:all,:conditions=>"company_id = "+@current_company.id.to_s)  
-    @journals = Journal.find(:all, :conditions => {:company_id => @current_company.id})
+    @bank_accounts = @current_company.bank_accounts  
+    @journals = @current_company.journals
   end
 
 
@@ -90,9 +94,11 @@ class AccountancyController < ApplicationController
     if request.post? 
       @bank_account = BankAccount.new(params[:bank_account])
       @bank_account.company_id = @current_company.id
-      redirect_to :action => "bank_accounts" if @bank_account.save
+      redirect_to_back if @bank_account.save
     else
       @bank_account = BankAccount.new
+      @valid_account = @current_company.accounts.empty?
+      @valid_journal = @current_company.journals.empty?  
     end
     render_form
   end
@@ -112,7 +118,7 @@ class AccountancyController < ApplicationController
   def bank_accounts_delete
     if request.post? or request.delete?
       @bank_account = BankAccount.find_by_id_and_company_id(params[:id], @current_company.id)  
-      if @bank_account.account.entries.size > 0
+      if @bank_account.statements.size > 0
         @bank_account.update_attribute(:deleted, true)
       else
         BankAccount.delete @bank_account
@@ -243,6 +249,7 @@ class AccountancyController < ApplicationController
   # this action creates a financialyear with a form.
   def financialyears_create
     access :financialyears
+   
     if request.post? 
       @financialyear = Financialyear.new(params[:financialyear])
       @financialyear.company_id = @current_company.id
@@ -250,6 +257,7 @@ class AccountancyController < ApplicationController
     else
       @financialyear = Financialyear.new
       f = @current_company.financialyears.find(:first, :order=>"stopped_on DESC")
+      
       @financialyear.started_on = f.stopped_on+1.day unless f.blank?
       @financialyear.started_on ||= Date.today
       @financialyear.stopped_on = (@financialyear.started_on+1.year-1.day).end_of_month
@@ -257,6 +265,7 @@ class AccountancyController < ApplicationController
       @financialyear.code = @financialyear.started_on.year.to_s
       @financialyear.code += '/'+@financialyear.stopped_on.year.to_s if @financialyear.started_on.year!=@financialyear.stopped_on.year
     end
+   
     render_form
   end
   
@@ -286,7 +295,10 @@ class AccountancyController < ApplicationController
   def financialyears_close
     access :financialyears
     @financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
-    redirect_to :action => "financialyears_create" if @financialyears.empty?
+    if @financialyears.empty? 
+      session[:error]="kljkj"
+      redirect_to :action => :financialyears_create
+    end
     @financialyear = Financialyear.find :first
     if request.post?
       @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
@@ -295,12 +307,13 @@ class AccountancyController < ApplicationController
         redirect_to session[:history][1]
       end
     else
-      
-      @financialyear_periods = []
-      d = @financialyear.started_on
-      while (d+1).end_of_month < @financialyear.stopped_on
-        d=(d+1).end_of_month
+      if @financialyear
+        @financialyear_periods = []
+        d = @financialyear.started_on
+        while (d+1).end_of_month < @financialyear.stopped_on
+          d=(d+1).end_of_month
         @financialyear_periods << d.to_s(:attributes)
+        end
       end
     end
   end
@@ -386,7 +399,6 @@ class AccountancyController < ApplicationController
   # lists all the transactions established on the accounts, sorted by date.
   def journals
     journals_list params
-    
   end
   
   #this method creates a journal with a form. 
@@ -397,9 +409,12 @@ class AccountancyController < ApplicationController
       @journal.company_id = @current_company.id
       redirect_to_back if @journal.save
     else
+    puts 'j:'+flash[:error].inspect
       @journal = Journal.new
       @journal.nature = Journal.natures[0]
     end
+    
+    
     render_form
   end
 
@@ -440,7 +455,11 @@ class AccountancyController < ApplicationController
         @journals= @current_company.journals 
       else
         @journals = @current_company.journals 
-        redirect_to_back if @journals.empty?
+        if @journals.empty?
+          flash[:error]= "kjklj"
+          puts 'la:'+flash[:error].inspect
+          redirect_to :action => "journals_create" 
+        end
         @journal = Journal.find :first
       end
       if @journal
@@ -459,7 +478,6 @@ class AccountancyController < ApplicationController
       end
       
       if @journal.close(params[:journal][:closed_on])
-        puts 'yes'
         redirect_to_back
       end
     end
@@ -481,12 +499,14 @@ class AccountancyController < ApplicationController
   # lists all the statements in details for a precise account.
   def statements  
     bank_account_statements_list params
+    @valid = @current_company.bank_accounts.empty?
   end
 
   # This method creates a statement.
   def statements_create
     access :statements
-    @bank_accounts = BankAccount.find(:all,:conditions=>"company_id = "+@current_company.id.to_s)  
+    # @bank_accounts = BankAccount.find(:all,:conditions=>"company_id = "+@current_company.id.to_s)  
+    @bank_accounts = @current_company.bank_accounts  
     if request.post?
       @statement = BankAccountStatement.new(params[:statement])
       @statement.bank_account_id = params[:statement][:bank_account_id]

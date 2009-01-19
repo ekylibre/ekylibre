@@ -1,15 +1,31 @@
 %h1=lc(:title) 
 .action-list
-  %table{:class => "list_entries"}
+  %table.dyta
     %tr
-      %td.label
-      %td.label=lc (:entry_debit)
-      %td.label=lc (:entry_credit)
+      %th=lc (:entry_name)
+      %th=lc (:entry_debit)
+      %th=lc (:entry_credit)
     - @entries.each do |entry|
-      %tr{ :class => (entry.statement_id ? "pointable" : "unpointable")+" "+cycle("even", "odd") , :id=> 'e'+entry.id.to_s}
-        %td=link_to_remote entry.name, :url => {:action=>:statements_point, :id=>entry.id}, :loaded => "var element=$('e"+entry.id.to_s+"'); element.removeClassName('unpointable'); element.addClassName('pointable'); return false;"
+      %tr{ :class => (entry.statement_id ? "pointable" : "unpointable")+"-"+cycle("even", "odd") , :id=> 'e'+entry.id.to_s}
+        - if entry.statement_id
+          %td=entry.name 
+        - else
+          %td=link_to_remote entry.name, :url => {:action=>:statements_point, :id=>entry.id}, :loaded => "var element=$('e"+entry.id.to_s+"'); element.removeClassName('unpointable'); element.addClassName('pointable'); return false;"
         %td=entry.debit
         %td=entry.credit
   =link_to lc (:validate), :action => :statements, :id => @bank_account.id
 #total
   =render :partial=>'statements'
+
+
+<!-- %th= -->
+<!--       %td.label=lc (:entry_debit) -->
+<!--       %td.label=lc (:entry_credit) -->
+<!--     - @entries.each do |entry| -->
+<!--       %tr{ :class => (entry.statement_id ? "pointable" : "unpointable")+" "+cycle("even", "odd") , :id=> 'e'+entry.id.to_s} -->
+<!--         %td=link_to_remote entry.name, :url => {:action=>:statements_point, :id=>entry.id}, :loaded => "var element=$('e"+entry.id.to_s+"'); element.removeClassName('unpointable'); element.addClassName('pointable'); return false;" -->
+<!--         %td=entry.debit -->
+<!--         %td=entry.credit -->
+<!--   =link_to lc (:validate), :action => :statements, :id => @bank_account.id -->
+<!-- #total -->
+<!--   =render :partial=>'statements' -->

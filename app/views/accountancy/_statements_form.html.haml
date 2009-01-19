@@ -3,4 +3,4 @@
     - f.field :statement, :started_on
     - f.field :statement, :stopped_on
     - f.field :statement, :number
-    - f.field :statement, :bank_account_id, :choices => @bank_accounts.collect{|b| [b.name, b.id]} 
+    - f.field :statement, :bank_account_id, :choices => @bank_accounts.collect{|b| [b.name, b.id]}, :new => {:action => :bank_accounts_create} 
