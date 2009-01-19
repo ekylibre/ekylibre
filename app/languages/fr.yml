@@ -387,6 +387,7 @@ app:
         sale: Ventes
         bank: Banque
         various: Opérations Diverses
+      
     journals_create:
       title: Créer un nouveau journal
     journals_update:
@@ -398,6 +399,8 @@ app:
       need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
       need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
     need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être éffacé.'
+    create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
+    create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
     print_by_journal:
       dates: Saisissez les dates ainsi que le journal
       journal: Journal

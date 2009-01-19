@@ -194,7 +194,7 @@ class Accounting < ActiveRecord::Migration
     add_index :bank_accounts, :currency_id
     add_index :bank_accounts, :account_id
     add_index :bank_accounts, :company_id
-    add_index :bank_accounts, [:number, :bank_account_id] :unique => true
+    add_index :bank_accounts, :number, :unique => true
     #add_index :bank_accounts, [:bank_id, :account_id], :unique=>true
 
     # BankAccountStatement : Relevé de compte

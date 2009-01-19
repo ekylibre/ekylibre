@@ -296,7 +296,7 @@ class AccountancyController < ApplicationController
     access :financialyears
     @financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
     if @financialyears.empty? 
-      session[:error]="kljkj"
+      flash[:message]=lc(:create_financialyear_before_close)
       redirect_to :action => :financialyears_create
     end
     @financialyear = Financialyear.find :first
@@ -409,12 +409,9 @@ class AccountancyController < ApplicationController
       @journal.company_id = @current_company.id
       redirect_to_back if @journal.save
     else
-    puts 'j:'+flash[:error].inspect
       @journal = Journal.new
       @journal.nature = Journal.natures[0]
     end
-    
-    
     render_form
   end
 
@@ -456,8 +453,7 @@ class AccountancyController < ApplicationController
       else
         @journals = @current_company.journals 
         if @journals.empty?
-          flash[:error]= "kjklj"
-          puts 'la:'+flash[:error].inspect
+          flash[:message]= lc(:create_journal_before_close)
           redirect_to :action => "journals_create" 
         end
         @journal = Journal.find :first
