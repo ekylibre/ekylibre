@@ -35,10 +35,7 @@ class AccountancyController < ApplicationController
   
   dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
-    t.column :bank_code
-    t.column :agency_code
-    t.column :number
-    t.column :iban
+    t.column :iban_label2
     t.action :bank_accounts_update, :image=>:update
     t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.procedure :create, :action=>:bank_accounts_create
@@ -72,8 +69,10 @@ class AccountancyController < ApplicationController
     t.procedure :create, :action=>:financialyears_create
   end
 
-
+  
+  #
   def index
+  
   end
 
   # displays the accoutancing operations.
@@ -432,6 +431,7 @@ class AccountancyController < ApplicationController
     if request.post? or request.delete?
       @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id)  
       if @journal.periods.size > 0
+        flash[:message]=lc(:messages, :need_empty_journal_to_delete)
         @journal.update_attribute(:deleted, true)
       else
         Journal.delete(@journal)
@@ -507,7 +507,13 @@ class AccountancyController < ApplicationController
       @statement = BankAccountStatement.new(params[:statement])
       @statement.bank_account_id = params[:statement][:bank_account_id]
       @statement.company_id = @current_company.id
-      redirect_to :action => "statements_point", :id => @statement.id if @statement.save
+      unless BankAccount.find_by_id_and_company_id(params[:statement][:bank_account_id], @current_company.id).account.entries.find(:all, :conditions => "statement_id is NULL").size > 0
+        flash[:message]=lc(:messages, :no_entries_pointable_for_bank_account)
+        #return
+      end
+
+        redirect_to :action => "statements_point", :id => @statement.id if @statement.save
+    
     else
       @statement = BankAccountStatement.new
     end
@@ -549,13 +555,16 @@ class AccountancyController < ApplicationController
     
     if request.xhr?
       entry=Entry.find(params[:id]) 
-      unless  entry.statement_id
+
+      unless  entry.statement_id.eql? session[:statement].to_i
         entry.update_attribute("statement_id", session[:statement])
         @bank_account_statement.credit += entry.debit
         @bank_account_statement.debit  += entry.credit
         @bank_account_statement.save
       end
       render :action => "statements.rjs" 
+     #render :partial => "statements_point"
+      
     end
 
   end

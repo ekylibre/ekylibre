@@ -1,7 +1,1 @@
-%table.dyta
-  %tr
-    %th=lc(:debit)
-    %th=lc(:credit)
-  %tr
-    %td=@bank_account_statement.debit
-    %td=@bank_account_statement.credit
+=javascript_tag("$('total_debit').innerHTML='"+@bank_account_statement.debit.to_s+"';$('total_credit').innerHTML='"+@bank_account_statement.credit.to_s+"';")

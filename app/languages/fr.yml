@@ -122,7 +122,7 @@ models:
       agency_code: Code guichet 
       number: Numéro de compte bancaire
       key: Clé RIB
-      iban: IBAN(texte)
+      iban: IBAN
       account_id: Compte comptable référencé
       currency_id: Devise utilisée
       journal_id: Journal utilisé
@@ -401,7 +401,8 @@ app:
     messages:
       need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
       need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
-    need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être éffacé.'
+      need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
+      no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
     create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
     create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
     print_by_journal:
@@ -434,7 +435,8 @@ app:
       entry_debit: Débit
       entry_credit: Crédit
       entry_currency_rate: Devise  
-      
+      total: 'Total pour le compte bancaire %s:'
+
   accounting_system:
     1: 'Comptes de capitaux'
     2: 'Comptes d''immobilisations'

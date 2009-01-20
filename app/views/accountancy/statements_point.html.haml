@@ -1,31 +1,41 @@
-%h1=lc(:title) 
-.action-list
-  %table.dyta
-    %tr
-      %th=lc (:entry_name)
-      %th=lc (:entry_debit)
-      %th=lc (:entry_credit)
-    - @entries.each do |entry|
-      %tr{ :class => (entry.statement_id ? "pointable" : "unpointable")+"-"+cycle("even", "odd") , :id=> 'e'+entry.id.to_s}
-        - if entry.statement_id
-          %td=entry.name 
-        - else
-          %td=link_to_remote entry.name, :url => {:action=>:statements_point, :id=>entry.id}, :loaded => "var element=$('e"+entry.id.to_s+"'); element.removeClassName('unpointable'); element.addClassName('pointable'); return false;"
-        %td=entry.debit
-        %td=entry.credit
-  =link_to lc (:validate), :action => :statements, :id => @bank_account.id
-#total
-  =render :partial=>'statements'
-
-
-<!-- %th= -->
-<!--       %td.label=lc (:entry_debit) -->
-<!--       %td.label=lc (:entry_credit) -->
-<!--     - @entries.each do |entry| -->
-<!--       %tr{ :class => (entry.statement_id ? "pointable" : "unpointable")+" "+cycle("even", "odd") , :id=> 'e'+entry.id.to_s} -->
-<!--         %td=link_to_remote entry.name, :url => {:action=>:statements_point, :id=>entry.id}, :loaded => "var element=$('e"+entry.id.to_s+"'); element.removeClassName('unpointable'); element.addClassName('pointable'); return false;" -->
-<!--         %td=entry.debit -->
-<!--         %td=entry.credit -->
-<!--   =link_to lc (:validate), :action => :statements, :id => @bank_account.id -->
+<!-- %h1=lc(:title)  -->
+<!-- %table.dyta -->
+<!--   %tr -->
+<!--     %th=lc (:entry_name) -->
+<!--     %th=lc (:entry_debit) -->
+<!--     %th=lc (:entry_credit) -->
+<!--   - @entries.each do |entry| -->
+<!--     - attr = cycle("even", "odd")+"-" -->
+<!--     %tr{ :class => attr+((entry.statement_id.eql? session[:statement].to_i) ? "pointable" : "unpointable"), :id=> 'e'+entry.id.to_s } -->
+<!--       %td=entry.name -->
+<!--       %td.fixnum=entry.debit -->
+<!--       %td.fixnum=entry.credit  -->
+<!--   %tr -->
+<!--     %td=lc(:total, [@bank_account.name]) -->
+<!--     %td#total_debit=0 -->
+<!--     %td#total_credit=0 -->
 <!-- #total -->
-<!--   =render :partial=>'statements' -->
+<!--   /=render :partial=>'statements' -->
+<!--   =link_to lc (:validate), :action => :statements, :id => @bank_account.id -->
+
+
+
+
+%h1=lc(:title)
+%table.dyta
+  %tr
+    %th=lc (:entry_name)
+    %th=lc (:entry_debit)
+    %th=lc (:entry_credit)
+  - @entries.each do |entry|
+    - attr = cycle("even", "odd")+"-"
+    %tr{ :class => attr+((entry.statement_id.eql? session[:statement].to_i) ? "pointable" : "unpointable"), :id=> 'e'+entry.id.to_s, :onclick => remote_function(:after => "var element=$('e"+entry.id.to_s+"'); element.removeClassName('"+attr+"unpointable'); element.addClassName('"+attr+"pointable');", :url => { :action => 'statements_point', :id=>entry.id} ) }
+      %td=entry.name
+      %td.fixnum=entry.debit
+      %td.fixnum=entry.credit
+  %tr
+    %td=lc(:total, [@bank_account.name])
+    %td#total_debit=0
+    %td#total_credit=0
+=link_to lc (:validate), :action => :statements, :id => @bank_account.id
+#total

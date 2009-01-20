@@ -172,14 +172,16 @@ class Accounting < ActiveRecord::Migration
     # BankAccount : Comptes bancaires
     create_table :bank_accounts do |t|
       t.column :name,             :string,  :null=>false
-      t.column :bank_name,        :string
-      t.column :bank_code,        :string,  :null=>false
-      t.column :agency,           :string
-      t.column :agency_code,      :string,  :null=>false, :limit=>16 
-      t.column :number,           :string,  :null=>false, :limit=>32
-      t.column :key,              :string,  :null=>false, :limit=>4
+#      t.column :french,           :boolean, :null=>false
+    #   t.column :bank_name,        :string
+#       t.column :bank_code,        :string
+#       t.column :agency,           :string
+#       t.column :agency_code,      :string,  :limit=>16 
+#       t.column :number,           :string,  :limit=>32
+#       t.column :key,              :string,  :limit=>4
       t.column :iban,             :string,  :null=>false, :limit=>34
-      t.column :iban_text,        :string,  :null=>false, :limit=>48
+      t.column :iban_label,       :string,  :null=>false, :limit=>48
+      t.column :iban_label2,      :string,  :null=>false, :limit=>48
       t.column :bic,              :string,  :limit=>16
       t.column :deleted,          :boolean, :null=>false, :default=>false
       #t.column :bank_id,          :integer, :null=>false, :references=>:banks,      :on_delete=>:cascade, :on_update=>:cascade
@@ -194,7 +196,7 @@ class Accounting < ActiveRecord::Migration
     add_index :bank_accounts, :currency_id
     add_index :bank_accounts, :account_id
     add_index :bank_accounts, :company_id
-    add_index :bank_accounts, :number, :unique => true
+    #add_index :bank_accounts, :number, :unique => true
     #add_index :bank_accounts, [:bank_id, :account_id], :unique=>true
 
     # BankAccountStatement : Relevé de compte

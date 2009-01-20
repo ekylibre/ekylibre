@@ -27,12 +27,14 @@
 #
 
 class BankAccount < ActiveRecord::Base
-
+ 
+# :on => :create
 
  # before create a bank account, this computes automatically code iban.
  def before_validation
-   self.iban = self.key + self.agency_code
-   self.iban_text = self.iban
+   #self.iban = self.key + self.agency_code
+   self.iban_label = self.iban
+   self.iban_label2 = self.iban
  end  
   
 
