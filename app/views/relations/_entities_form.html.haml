@@ -5,7 +5,7 @@
   -f.field :entity, :name
   -f.field :entity, :first_name
   -f.field :entity, :code
-  -f.field :entity, :language_id, :choices=>Language.find(:all, :order=>:native_name).collect {|x| [x.native_name, x.id]}
   -f.field :entity, :born_on
   -f.field :entity, :dead_on
+  -f.field :entity, :language_id, :choices=>Language.find(:all, :order=>:native_name).collect {|x| [x.native_name, x.id]}
   -f.field :entity, :website

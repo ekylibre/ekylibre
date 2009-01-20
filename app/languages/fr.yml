@@ -151,6 +151,8 @@ models:
       active: Actif
       default: Par défaut
       closed_on: Annulé le
+      email: Email
+      nature: Type
   department:
     name: Service
     attributes:
@@ -164,6 +166,10 @@ models:
       name: Nom
       code: Code
       full_name: Nom complet
+      nature_id: Type
+      language: Langage
+      born_on: Né le
+      dead_on: Décédé le
   entry:
     name: Écriture
     attributes:
@@ -346,9 +352,14 @@ app:
       balance: Balance
       journal: Journal général
       journal_by_id: Journal
+      balance_sheet: Bilan
+      income_statements: Compte de résultat
     document_print:
       title: 'Impression du document : %s'
       print: Impression
+    print_by_financial_year:
+      financial_year_select: Sélectionnez l'exercice comptable
+      financial_id: Exercice comptable
     entries:
       title: Saisie des écritures
       subtitle: 'Enregistrement dans le journal "%s" pour l''exercice "%s"'
@@ -727,6 +738,8 @@ app:
       back: Retour 
       new_contact: Entrer un nouveau contact
       entities_contacts_create: Création d'un nouveau contact
+    entities_contacts_form:
+      title: 'Renseignez les caractéristiques du contact'
     entities:
       title: 'Fiches des relations'
       entities_create: Créer une nouvelle fiche

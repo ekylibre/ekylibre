@@ -6,8 +6,10 @@ class RelationsController < ApplicationController
   dyta(:entities, :conditions=>:search_conditions) do |t|
     t.column :first_name
     t.column :name
-    t.column :code
     t.column :full_name
+    t.column :code
+    t.column :born_on
+    t.column :dead_on
     t.column :website
     t.column :active
     t.action :entities_display, :image=>:show
@@ -83,30 +85,42 @@ class RelationsController < ApplicationController
     t.column :mobile
     t.column :fax
     t.column :phone
+    t.column :email 
+    t.column :latitude
+    t.column :longitude
+    t.column :line_2
+    t.column :line_3
+    t.column :line_4_number
+    t.column :line_5
     t.action :entities_contacts_update , :image=>:update 
     t.action :entities_contacts_delete , :image=>:delete , :method=>:post, :confirm=>'are_you_sure'
-    t.procedure :entities_contacts_create
+   # t.procedure :entities_contacts_create 
   end
 
   def entities_display
-    access :contacts
-    @company = @current_company
-    @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
-    session[:current_entity] = @entity.id
-    #raise Exception.new session[:current_entity].inspect
-    @name = @entity.first_name.to_s+" "+@entity.name.to_s
-    contacts_list params
-    session[:my_entity] = params[:id]
-    @contact = Contact.new
+    if request.get?
+      @company = @current_company
+      @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
+      session[:current_entity] = @entity.id
+      #raise Exception.new session[:current_entity].inspect
+      @name = @entity.first_name.to_s+" "+@entity.name.to_s
+      contacts_list params
+      session[:my_entity] = params[:id]
+      @id = params[:id]
+      @contact = Contact.new
+      session[:current_entity] = params[:id]
+    end
+    session[:current_entity] = params[:id]
   end
   
   
   def entities_contacts_create
     @contact = Contact.new(params[:contact])
-    @id = session[:my_entity]
+    @id = params[:id] # @id = session[:my_entity]
+    #session[:current_entity] = params[:id]
     #raise Exception.new @id.inspect+ "ezze"
     if request.post?
-      @entity = Entity.find_by_id(@id)
+      @entity = Entity.find_by_id_and_company_id(@id, @current_company.id)
       #raise Exception.new @entity.inspect
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
@@ -118,7 +132,8 @@ class RelationsController < ApplicationController
 
   def entities_contacts_update
     access :contacts
-    @entity = find_and_check(:entity, session[:current_entity])
+    @entity = Entity.find_by_id_and_company_id(session[:current_entity], @current_company.id)
+    raise Exception.new @entity.inspect
     @contact = Contact.find_by_id_and_entity_id(params[:id], session[:current_entity])
     if request.post? and @contact
       redirect_to :action=>:entities_display, :id=>@entity.id  if @contact.update_attributes(params[:contact])
@@ -129,21 +144,20 @@ class RelationsController < ApplicationController
   def entities_contacts_delete
     access :contacts
     if request.post? or request.delete?
-      @entity = Entity.find_by_id(session[:current_entity])
+      @entity = Entity.find_by_id_and_company_id(session[:current_entity], @current_company.id)
       @contact = Contact.find_by_id_and_company_id(params[:id] , @current_company.id )
       Contact.delete(params[:id]) if @contact
       redirect_to :action => :entities_display, :id=>@entity.id
     end
   end
   
-  def entities_create # pr langage_id prendre current_user.language_id ? puis sortir du _form
-    access :entities                      #ou params[:user][:language_id]  // pareil pr nature_id
+  def entities_create
+    access :entities                      
     if request.post?
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
-      # @entity.language_id = @current_company.language.id
+      # @entity.dead_on = Date.new(params[:entity][:dead_on])
       if @entity.save
-        session[:current_entity] = @entity.id
         redirect_to :action=>:entities
       end
     else
@@ -156,9 +170,7 @@ class RelationsController < ApplicationController
    access :entities
    @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
    if request.post? and @entity
-     if @entity.update_attributes(params[:entity])
-       redirect_to :action=>:entities
-     end
+     redirect_to :action=>:entities if @entity.update_attributes(params[:entity])
    end
    render_form(:label=>@entity.name+" "+@entity.first_name)
  end
@@ -167,7 +179,8 @@ class RelationsController < ApplicationController
    access :entities
    if request.post? or request.delete?
      @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
-     Entity.delete(params[:id]) if @entity
+     @id = params[:id]
+     Entity.delete(@id) if @entity
    end
    redirect_to :action=>:entities
  end

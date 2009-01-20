@@ -193,7 +193,9 @@ class AccountancyController < ApplicationController
   PRINTS=[[:balance,{:partial=>"date_to_date",:ex=>"ex"}],
           [:general_ledger,{:partial=>"date_to_date"}],
           [:journal_by_id,{:partial=>"by_journal"}],
-          [:journal,{:partial=>"date_to_date"}]]
+          [:journal,{:partial=>"date_to_date"}],
+          [:balance_sheet,{:partial=>"by_financial_year"}],
+          [:income_statements,{:partial=>"by_financial_year"}]]
           
   def document_prepare
     @prints = PRINTS
@@ -209,6 +211,12 @@ class AccountancyController < ApplicationController
     end
     @partial = 'print_'+@print[1][:partial]
     if request.post?
+      if session[:mode] == "income_statements"
+        @financialyear = Financialyear.find_by_id_and_company_id(params[:printed][:id], @current_company.id)
+        params[:printed][:name] = @financialyear.code
+        params[:printed][:from] = @financialyear.started_on
+        params[:printed][:to] = @financialyear.stopped_on
+      end
       params[:printed][:current_company] = @current_company.id
       params[:printed][:siren] = @current_company.siren.to_s
       params[:printed][:company_name] = @current_company.name.to_s
