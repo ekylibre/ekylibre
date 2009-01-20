@@ -12,7 +12,7 @@ class Beginning < ActiveRecord::Migration
     # Language
     create_table :languages, :stamp=>false do |t|
       t.column :name,                   :string, :null=>false
-      t.column :native_name,            :string
+      t.column :native_name,            :string, :null=>false
       t.column :iso2,                   :string, :limit=>2, :null=>false
       t.column :iso3,                   :string, :limit=>3, :null=>false
     end

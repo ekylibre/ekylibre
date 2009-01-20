@@ -28,5 +28,8 @@ class Entity < ActiveRecord::Base
   #has_many :contact
   def before_validation
     self.soundex = self.name.soundex2
+    self.full_name = self.name.to_s+" "+self.first_name.to_s
+    self.active = false if self.dead_on <= Date.today
   end
+  
 end

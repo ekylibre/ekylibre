@@ -732,7 +732,7 @@ app:
     entities_search:
       search: Rechercher une relation
     entities_update:
-      title: 'Modification de la fiche'
+      title: 'Modification de la fiche : %s'
     entities_form:
       title: 'Renseignez les différentes caractéristiques de la fiche'
     index:

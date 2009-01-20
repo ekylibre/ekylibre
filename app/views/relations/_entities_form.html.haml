@@ -1,10 +1,11 @@
 =formalize do |f|
   -f.error :entity
   -f.title lc(:title)
-  -f.field :entity, :first_name
+  -f.field :entity, :nature_id, :choices=>@current_company.entity_natures.find(:all, :order=>:name).collect {|x| [x.name, x.id]}
   -f.field :entity, :name
+  -f.field :entity, :first_name
   -f.field :entity, :code
-  -f.field :entity, :full_name
-  -f.field :entity, :language_id
-  -f.field :entity, :nature_id
+  -f.field :entity, :language_id, :choices=>Language.find(:all, :order=>:native_name).collect {|x| [x.native_name, x.id]}
+  -f.field :entity, :born_on
+  -f.field :entity, :dead_on
   -f.field :entity, :website

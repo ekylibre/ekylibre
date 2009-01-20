@@ -10,7 +10,7 @@ class RelationsController < ApplicationController
     t.column :full_name
     t.column :website
     t.column :active
-    t.action :entities_display, :action=>:entities_display
+    t.action :entities_display, :image=>:show
     t.action :entities_update, :image=>:update
     t.action :entities_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :entities_create
@@ -104,7 +104,7 @@ class RelationsController < ApplicationController
   def entities_contacts_create
     @contact = Contact.new(params[:contact])
     @id = session[:my_entity]
-    raise Exception.new @id.inspect+ "ezze"
+    #raise Exception.new @id.inspect+ "ezze"
     if request.post?
       @entity = Entity.find_by_id(@id)
       #raise Exception.new @entity.inspect
@@ -160,7 +160,7 @@ class RelationsController < ApplicationController
        redirect_to :action=>:entities
      end
    end
-   render_form
+   render_form(:label=>@entity.name+" "+@entity.first_name)
  end
 
  def entities_delete
