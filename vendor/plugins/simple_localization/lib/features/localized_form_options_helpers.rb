@@ -13,9 +13,9 @@
 # This is a simple replace operation so you don't need to translate all
 # countries for this feature to work.
 
-silence_warnings do
-  ActionView::Helpers::FormOptionsHelper::COUNTRIES = ArkanisDevelopment::SimpleLocalization::CachedLangSectionProxy.new :sections => [:countries],
-  :orginal_receiver => ActionView::Helpers::FormOptionsHelper::COUNTRIES do |localized, orginal|
-    orginal.collect{|original_country| localized[original_country] || original_country}
-  end
-end
+#silence_warnings do
+#  ActionView::Helpers::FormOptionsHelper::COUNTRIES = ArkanisDevelopment::SimpleLocalization::CachedLangSectionProxy.new :sections => [:countries],
+#  :orginal_receiver => ActionView::Helpers::FormOptionsHelper::COUNTRIES do |localized, orginal|
+#    orginal.collect{|original_country| localized[original_country] || original_country}
+#  end
+#end

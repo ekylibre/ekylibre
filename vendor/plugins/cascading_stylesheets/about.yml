@@ -1,0 +1,5 @@
+author: haruki.zaemon@gmail.com
+summary: "Include controller and action specific stylesheet files in your Ruby on Rails templates."
+homepage: http://github.com/harukizaemon/cascading_stylesheets
+license: MIT
+rails_version: 2.2.2

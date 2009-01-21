@@ -1,0 +1,41 @@
+= Cascading Stylesheets
+
+Cascading Javascripts is a plugin that enhances the behaviour of the built-in stylesheet_link_tag macro to include
+controller and action specific stylesheet files.
+
+If :cascades is passed as a parameter, the stylesheet_link_tag macro will load the following stylesheet files (if
+present) in order:
+
+1. controller_name/action_name.css (e.g. home.css, customers.css, etc.); and
+2. controller_name/action_name.css (eg. home/index.css, customers/new.css, etc.).
+
+This allows you to define application-wide and page-specific stylesheet files without needing to manually include each
+one.
+
+To use, simply call stylesheet_include_tag from application.html.erb including :cascades as a (or the only) parameter:
+
+  <html>
+    <head>
+      ...
+      <%= stylesheet_link_tag :cascades %>
+    </head>
+    ...
+  </html>
+
+== Installation
+
+You have two choices for installation. The first uses a gem (recommended):
+
+  config.gem "harukizaemon-cascading_stylesheets", :lib => "cascading_stylesheets", :source => "http://gems.github.com"
+
+Or you can use the Rails plugin
+
+  $ ruby script/plugin install git://github.com/harukizaemon/cascading_stylesheets.git
+
+=== See Also
+
+* <b>Cascading Javascripts:</b> http://github.com/harukizaemon/cascading_stylesheets
+
+=== License
+
+This plugin is copyright 2009 Simon Harris and is released under the MIT license.
