@@ -4,7 +4,7 @@ module HelpHelper
     content = ''
     error = ''
     default = options[:default]
-    help_root = "app/languages/fr/"+"help/"
+    help_root = "#{RAILS_ROOT}/config/locale/"+I18n.locale.to_s+"/help/"
     file_text  = help_root+file_name+".txt"
     file_cache = help_root+"cache/"+file_name+".html"
     
