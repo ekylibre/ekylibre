@@ -1,13 +1,11 @@
 %h1=lc(:title)
 
-.formalize
-  - form_tag do
-    .fields
-      =formalize do |f|
-        - f.error :journal
-        - f.field :journal, :id, :choices => @journals.collect {|j| [j.name, j.id]}
-        - f.field :journal, :closed_on, :choices => @journal_periods
-    .actions
-      =submit_tag(l(:close))
-      =link_to(l(:cancel),:back)
+- form_tag do
+  =formalize do |f|
+    - f.error :journal
+    - f.field :journal, :id, :choices => @journals.collect {|j| [j.name, j.id]}
+    - f.field :journal, :closed_on, :choices => @journal_periods
+  .actions
+    =submit_tag(l(:close))
+    =link_to(l(:cancel),:back)
 =observe_field "journal_id", :frequency => 0.25, :url=>{:action=>:journals_periods}, :update=>:journal_closed_on, :with => "'journal_select=' + escape(value)"

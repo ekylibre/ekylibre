@@ -30,7 +30,8 @@
 
 
 class Entry < ActiveRecord::Base
- 
+  acts_as_list :scope=>:record
+
   after_destroy :update_record
   after_create  :update_record
   after_update  :update_record

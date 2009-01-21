@@ -340,8 +340,6 @@ app:
     bank_accounts:
       title: Comptes bancaires
       create: Créer un nouveau compte bancaire
-
-     
     bank_accounts_form:
       rib: 'Relevé d''identité bancaire'
       accountancy: Comptabilité
@@ -445,6 +443,7 @@ app:
       create_bank_account: 'Vous devez d''abord créer un compte bancaire.'
       debit: Total débit
       credit: Total crédit
+     
     statements_create:
       title: Créer un nouveau relevé
     statements_update:
@@ -452,6 +451,9 @@ app:
     statements_point:
       title: 'Pointage d''écritures'
       validate: Valider 
+      statement_number: N°relevé de compte bancaire
+      started_on: Du
+      stopped_on: Au
       entry_name: 'Intitulé de l''écriture'
       entry_debit: Débit
       entry_credit: Crédit

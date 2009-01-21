@@ -1,3 +1,4 @@
+
 class Accounting < ActiveRecord::Migration
   def self.up
     # Currency

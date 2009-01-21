@@ -47,6 +47,7 @@ class AccountancyController < ApplicationController
     t.column :number
     t.action :statements_update, :image=>:update
     t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :statements_display
     t.procedure :create, :action=>:statements_create
   end
   
@@ -448,44 +449,41 @@ class AccountancyController < ApplicationController
     redirect_to :action => "journals"
   end
   
-
+  
   # This method allows to close the journal.
   def journals_close
     access :journals
-    if request.get?
-      @journal_periods = []
-      if params[:id]  
-        @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id) 
-        # @journals = Journal.find(:all,:conditions=>)
-        @journals= @current_company.journals 
-      else
-        @journals = @current_company.journals 
-        if @journals.empty?
-          flash[:message]= lc(:create_journal_before_close)
-          redirect_to :action => "journals_create" 
-        end
-        @journal = Journal.find :first
+    @journal_periods = []
+    @journals= @current_company.journals 
+    if @journals.empty?
+      flash[:message]=lc(:create_journal_before_close)
+      redirect_to :action => :journals_create
+    end
+    if params[:id]  
+      @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id) 
+    else
+      @journal = Journal.find :first
+    end
+    if @journal
+      d = @journal.closed_on
+      while (d+1).end_of_month < Date.today
+        d=(d+1).end_of_month
+        @journal_periods << d.to_s(:attributes)
       end
-      if @journal
-        d = @journal.closed_on
-        while (d+1).end_of_month < Date.today
-          d=(d+1).end_of_month
-          @journal_periods << d.to_s(:attributes)
-        end
-      end
-    elsif request.post?
+    end
+    if request.post?
       @journal = Journal.find_by_id_and_company_id(params[:journal][:id], @current_company.id)
-      #puts 'j'+params[:journal][:closed_on].inspect
+      
       if @journal.nil?
         flash[:error] = lc(:unavailable_journal)
-       #redirect_to :back
-      end
+      end  
       
       if @journal.close(params[:journal][:closed_on])
         redirect_to_back
       end
     end
-  end 
+  end
+  
   
 
   # This method allows to build the table of the periods.
@@ -509,19 +507,16 @@ class AccountancyController < ApplicationController
   # This method creates a statement.
   def statements_create
     access :statements
-    # @bank_accounts = BankAccount.find(:all,:conditions=>"company_id = "+@current_company.id.to_s)  
     @bank_accounts = @current_company.bank_accounts  
     if request.post?
       @statement = BankAccountStatement.new(params[:statement])
       @statement.bank_account_id = params[:statement][:bank_account_id]
       @statement.company_id = @current_company.id
-      unless BankAccount.find_by_id_and_company_id(params[:statement][:bank_account_id], @current_company.id).account.entries.find(:all, :conditions => "statement_id is NULL").size > 0
+      if BankAccount.find_by_id_and_company_id(params[:statement][:bank_account_id], @current_company.id).account.entries.find(:all, :conditions => "statement_id is NULL").size.zero?
         flash[:message]=lc(:messages, :no_entries_pointable_for_bank_account)
-        #return
-      end
-
+      else  
         redirect_to :action => "statements_point", :id => @statement.id if @statement.save
-    
+      end
     else
       @statement = BankAccountStatement.new
     end
@@ -536,7 +531,7 @@ class AccountancyController < ApplicationController
     @statement = BankAccountStatement.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
       @statement.update_attributes(params[:statement]) 
-      redirect_to :action => "statements" 
+      redirect_to :action => "statements_point", :id => @statement.id if @statement.save 
     end
     render_form
   end
@@ -557,26 +552,40 @@ class AccountancyController < ApplicationController
     session[:statement] = params[:id]  if request.get? 
     @bank_account_statement=BankAccountStatement.find(session[:statement])
     @bank_account=BankAccount.find(@bank_account_statement.bank_account_id)
-    @entries=Entry.find(:all, :conditions => {:account_id => @bank_account.account_id, :company_id => @current_company.id}, :order => "id ASC")   
-    @bank_account_statement=BankAccountStatement.find(session[:statement])
     
-    
+#   @entries=@current_company.entries.find(:all, :conditions => {:account_id => @bank_account.account_id, :editable => true}, :joins => "INNER JOIN journal_records j ON j.id = entries.record_id WHERE j.created_on BETWEEN #{@bank_account_statement.started_on} AND #{@bank_account_statement.stopped_on}")
+
+    @entries=@current_company.entries.find(:all, :conditions => {:account_id => @bank_account.account_id, :editable => true}, :joins => "INNER JOIN journal_records j ON j.id = entries.record_id")
+
     if request.xhr?
       entry=Entry.find(params[:id]) 
 
-      unless  entry.statement_id.eql? session[:statement].to_i
+      if entry.statement_id.eql? session[:statement].to_i
+        
+        entry.update_attribute("statement_id", nil)
+        @bank_account_statement.credit -= entry.debit
+        @bank_account_statement.debit  -= entry.credit
+        @bank_account_statement.save
+        
+      else
         entry.update_attribute("statement_id", session[:statement])
         @bank_account_statement.credit += entry.debit
         @bank_account_statement.debit  += entry.credit
         @bank_account_statement.save
       end
+    
       render :action => "statements.rjs" 
-     #render :partial => "statements_point"
-      
+    
     end
-
   end
   
+  # displays all the statements sorted by started_on.
+  def statements_display
+  
+
+  end
+
+
 end
 
 

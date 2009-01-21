@@ -66,9 +66,9 @@ class JournalPeriod < ActiveRecord::Base
   #
   def close(date)
     self.update_attributes(:stopped_on => date, :closed => true) 
-    #self.records.each do |record|
-    #  record.close
-    #end
+    self.records.each do |record|
+      record.close
+    end
     
   end    
   

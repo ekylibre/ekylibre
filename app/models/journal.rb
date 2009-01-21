@@ -52,12 +52,15 @@ class Journal < ActiveRecord::Base
 
   # this method closes a journal.
   def close(date)
+   # puts 'y1'
     self.periods.each do |period|
       unless period.balanced
+       # puts 'y2'
         errors.add_to_base lc(:error_unbalanced_period_journal)
         return false 
       end
     end
+    
     self.update_attribute(:closed_on, date)
     self.periods.each do |period|
       period.close(date)
