@@ -32,5 +32,34 @@
 #
 
 class Contact < ActiveRecord::Base
- # belongs_to :element, :polymorphic=> true
+  # belongs_to :element, :polymorphic=> true
+
+  def before_validation
+    if self.default
+      contacts = Contact.find(:all,:conditions=>{:entity_id=>self.entity_id, :company_id=>self.company_id})
+      for contact in contacts
+        if contact.id != self.id
+          contact.default = false
+          contact.save
+        end
+      end
+      self.default = true
+    end
+
+
+    self.address= ""
+    lines = [self.line_2,self.line_3,self.line_4_number,self.line_4_street,self.line_5,self.line_6_code,self.line_6_city]
+
+    for x in (0..6) do
+      if x == 0 and lines[0] != ""
+        self.address += " "+lines[x]
+      else
+        unless lines[x].to_s.empty?
+          self.address += " , "+lines[x]
+        end
+      end
+    end
+
+  end
+  
 end

@@ -87,10 +87,9 @@ class Populating < ActiveRecord::Migration
     create_table :contacts do |t|
     #  t.column :element_id,             :integer,  :null=>false, :references=>nil
     #  t.column :element_type,           :string
-      t.column :entity_id,              :integer,  :null=>false, :references=>:entities, :on_delete=>:restrict, :on_update=>:cascade
+      t.column :entity_id,              :integer,  :null=>false, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
       t.column :norm_id,                :integer,  :null=>false, :references=>:address_norms
-      t.column :active,                 :boolean,  :null=>false, :default=>true 
-      t.column :default,                :boolean,  :null=>false, :default=>true
+      t.column :default,                :boolean,  :null=>false, :default=>false
       t.column :closed_on,              :date
       t.column :line_2,                 :string,   :limit=>38
       t.column :line_3,                 :string,   :limit=>38
@@ -99,11 +98,13 @@ class Populating < ActiveRecord::Migration
       t.column :line_5,                 :string,   :limit=>38
       t.column :line_6_code,            :string,   :limit=>38
       t.column :line_6_city,            :string,   :limit=>38
+      t.column :address,                :string,   :limit=>280
       t.column :phone,                  :string,   :limit=>32
       t.column :fax,                    :string,   :limit=>32
       t.column :mobile,                 :string,   :limit=>32
       t.column :email,                  :string
       t.column :website,                :string
+      t.column :deleted,                :boolean, :null=>false, :default=>false
       t.column :latitude,               :float
       t.column :longitude,              :float
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
@@ -112,7 +113,7 @@ class Populating < ActiveRecord::Migration
     add_index :contacts, :entity_id
    # add_index :contacts, :element_id
    # add_index :contacts, :element_type
-    add_index :contacts, :active
+   # add_index :contacts, :active
     add_index :contacts, :default
   end
 

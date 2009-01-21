@@ -9,7 +9,8 @@
 =evalue @entity, :website
 =link_to lc(:back) , :action=>:entities
 %br
-=link_to lc(:new_contact) , :action=>:entities_contacts_create , :id=>@id
+.contact
+  =link_to lc(:new_contact) , :action=>:entities_contacts_create , :id=>@id
 =dyta :contacts
 
    

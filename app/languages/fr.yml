@@ -21,6 +21,7 @@ active_record_messages:
   wrong_length: 'n''est pas de la bonne taille (devrait être de %d caractères)'
   taken: a déjà été utilisé
   not_a_number: 'n''est pas un nombre'
+  entities_delete_permission: Vous ne pouvez pas supprimer cette fiche
 
 dates:
   monthnames: [Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
@@ -155,11 +156,12 @@ models:
       nature: Type
       line_2: Identité - Service
       line_3: Batiment,Res,ZI
-      line_4_number: Numéro
+      line_4_number: Numéro de la voie
       line_4_street: Libelle de la voie
       line_5: Mention spéciale - Lieu dit
       line_6_code: Code postal
-      line_6_city: Localité de destination
+      line_6_city: Ville
+      address: Adresse
   department:
     name: Service
     attributes:
@@ -177,6 +179,7 @@ models:
       language: Langage
       born_on: Né le
       dead_on: Décédé le
+      active: Actif
   entry:
     name: Écriture
     attributes:

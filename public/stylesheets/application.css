@@ -72,7 +72,7 @@ tr.odd-unpointable  td{background: #FF9999;}
 
 .message { padding: 8px 12px; margin: 8px 0px; background: #FFD; border: 1px solid #EDA; font-size: 13px; font-weight: bold; color: #530; text-align: center; }
 
-
+.contact { padding: 5px 0 8px 4px; border:0.2px solid; border-color:#C9D7F1; background-color:#FEB;}
 
 /*
 #test  { text-align:center; border: 0.5px solid; margin-left:50px;}

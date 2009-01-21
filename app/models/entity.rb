@@ -29,7 +29,8 @@ class Entity < ActiveRecord::Base
   def before_validation
     self.soundex = self.name.soundex2
     self.full_name = self.name.to_s+" "+self.first_name.to_s
-    #self.active = false unless self.dead_on.blank?
+    #self.active = false  unless self.dead_on.nil?
   end
-  
-end
+
+
+end 

@@ -77,21 +77,13 @@ class RelationsController < ApplicationController
 #     # end
   end
 
-   dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['@entity.id']}) do |t|
-#   dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
-#   dyta(:contacts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :active
-    t.column :default
-    t.column :mobile
-    t.column :fax
+  dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['@entity.id'], :deleted=>false}) do |t|
+    t.column :address
     t.column :phone
+    t.column :fax
+    t.column :mobile
     t.column :email 
-    t.column :latitude
-    t.column :longitude
-    t.column :line_2
-    t.column :line_3
-    t.column :line_4_number
-    t.column :line_5
+    t.column :default
     t.action :entities_contacts_update , :image=>:update 
     t.action :entities_contacts_delete , :image=>:delete , :method=>:post, :confirm=>'are_you_sure'
    # t.procedure :entities_contacts_create 
@@ -102,7 +94,6 @@ class RelationsController < ApplicationController
       @company = @current_company
       @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
       session[:current_entity] = @entity.id
-      #raise Exception.new session[:current_entity].inspect
       @name = @entity.first_name.to_s+" "+@entity.name.to_s
       contacts_list params
       session[:my_entity] = params[:id]
@@ -116,12 +107,9 @@ class RelationsController < ApplicationController
   
   def entities_contacts_create
     @contact = Contact.new(params[:contact])
-    @id = params[:id] # @id = session[:my_entity]
-    #session[:current_entity] = params[:id]
-    #raise Exception.new @id.inspect+ "ezze"
+    @id = params[:id] 
     if request.post?
       @entity = Entity.find_by_id_and_company_id(@id, @current_company.id)
-      #raise Exception.new @entity.inspect
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
       @contact.entity_id = @entity.id  
@@ -133,12 +121,10 @@ class RelationsController < ApplicationController
   def entities_contacts_update
     access :contacts
     @entity = Entity.find_by_id_and_company_id(session[:current_entity], @current_company.id)
-    #raise Exception.new @entity.inspect
-    # @contact = Contact.find_by_id_and_entity_id(params[:id], session[:current_entity])
     @contact = Contact.find_by_id_and_company_id(params[:id], @current_company.id)
+    @id = @contact.entity_id
     if request.post? and @contact
-      redirect_to_back if @contact.update_attributes(params[:contact])
-     # redirect_to :action=>:entities_display, :id=>@entity.id  if @contact.update_attributes(params[:contact])
+      redirect_to :action=>:entities_display, :id=>@id  if @contact.update_attributes(params[:contact])
     end
     render_form
   end
@@ -146,12 +132,14 @@ class RelationsController < ApplicationController
   def entities_contacts_delete
     access :contacts
     if request.post? or request.delete?
-     # @entity = Entity.find_by_id_and_company_id(session[:current_entity], @current_company.id)
       @contact = Contact.find_by_id_and_company_id(params[:id] , @current_company.id )
-      Contact.delete(@contact) if @contact
-     # redirect_to :action => :entities_display, :id=>@entity.id
+      @id = @contact.entity_id
+      #Contact.delete(@contact) if @contact
+      @contact.deleted = true
+      @contact.default = false
+      @contact.save
+      redirect_to :action => :entities_display, :id=>@id
     end
-    redirect_to_back
   end
   
   def entities_create
@@ -159,9 +147,8 @@ class RelationsController < ApplicationController
     if request.post?
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
-      # @entity.dead_on = Date.new(params[:entity][:dead_on])
       if @entity.save
-        redirect_to :action=>:entities
+        redirect_to :action=>:entities_display, :id=>@entity.id
       end
     else
       @entity = Entity.new
@@ -183,9 +170,14 @@ class RelationsController < ApplicationController
    if request.post? or request.delete?
      @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
      @id = params[:id]
-     Entity.delete(@id) if @entity
+     unless @entity.invoices.size > 0
+       @id = params[:id]
+       Entity.delete(@id) if @entity
+     else
+       flash[:warning]=lc(:entities_delete_permission)
+     end
    end
    redirect_to :action=>:entities
  end
-
+ 
 end
