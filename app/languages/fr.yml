@@ -153,6 +153,13 @@ models:
       closed_on: Annulé le
       email: Email
       nature: Type
+      line_2: Identité - Service
+      line_3: Batiment,Res,ZI
+      line_4_number: Numéro
+      line_4_street: Libelle de la voie
+      line_5: Mention spéciale - Lieu dit
+      line_6_code: Code postal
+      line_6_city: Localité de destination
   department:
     name: Service
     attributes:

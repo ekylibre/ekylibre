@@ -133,10 +133,12 @@ class RelationsController < ApplicationController
   def entities_contacts_update
     access :contacts
     @entity = Entity.find_by_id_and_company_id(session[:current_entity], @current_company.id)
-    raise Exception.new @entity.inspect
-    @contact = Contact.find_by_id_and_entity_id(params[:id], session[:current_entity])
+    #raise Exception.new @entity.inspect
+    # @contact = Contact.find_by_id_and_entity_id(params[:id], session[:current_entity])
+    @contact = Contact.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @contact
-      redirect_to :action=>:entities_display, :id=>@entity.id  if @contact.update_attributes(params[:contact])
+      redirect_to_back if @contact.update_attributes(params[:contact])
+     # redirect_to :action=>:entities_display, :id=>@entity.id  if @contact.update_attributes(params[:contact])
     end
     render_form
   end
@@ -144,11 +146,12 @@ class RelationsController < ApplicationController
   def entities_contacts_delete
     access :contacts
     if request.post? or request.delete?
-      @entity = Entity.find_by_id_and_company_id(session[:current_entity], @current_company.id)
+     # @entity = Entity.find_by_id_and_company_id(session[:current_entity], @current_company.id)
       @contact = Contact.find_by_id_and_company_id(params[:id] , @current_company.id )
-      Contact.delete(params[:id]) if @contact
-      redirect_to :action => :entities_display, :id=>@entity.id
+      Contact.delete(@contact) if @contact
+     # redirect_to :action => :entities_display, :id=>@entity.id
     end
+    redirect_to_back
   end
   
   def entities_create
