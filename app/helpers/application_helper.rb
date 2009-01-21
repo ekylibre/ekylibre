@@ -194,7 +194,7 @@ module ApplicationHelper
 
 
   def title_tag
-    content_tag(:title, 'Ekylibre - '+l(controller.controller_name.to_sym, :title))
+    content_tag(:title, 'Ekylibre - '+t(controller.controller_name.to_sym, :title))
   end
 
   def help_tag
