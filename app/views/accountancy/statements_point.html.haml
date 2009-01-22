@@ -9,7 +9,7 @@
     %th=lc (:entry_credit)
   - @entries.each do |entry|
     - attr = cycle("even", "odd")+"-"
-    %tr{ :class => attr+(entry.statement_id ? "pointable" : "unpointable"), :id=> 'e'+entry.id.to_s, :onclick => remote_function(:after => "var element=$('e"+entry.id.to_s+"'); if (element.hasClassName('"+attr+"pointable')) { element.removeClassName('"+attr+"pointable'); element.addClassName('"+attr+"unpointable'); } else { element.removeClassName('"+attr+"unpointable'); element.addClassName('"+attr+"pointable'); }",:url => { :action => 'statements_point', :id => entry.id}) }
+    %tr{ :class => attr+(entry.statement_id ? "pointable" : "unpointable"), :id=> 'e'+entry.id.to_s, :onclick => remote_function(:after => "var element=$('e"+entry.id.to_s+"'); if (element.hasClassName('"+attr+"pointable')) { element.removeClassName('"+attr+"pointable'); element.addClassName('"+attr+"unpointable'); } else { element.removeClassName('"+attr+"unpointable'); element.addClassName('"+attr+"pointable'); }", :url => { :action => 'statements_point', :id => entry.id}) }
       - if entry.statement_id
         %td=entry.statement.number
       - else
@@ -26,5 +26,8 @@
     %td
     %td#total_debit=0
     %td#total_credit=0
+
+=link_to lc(:overview), :action => :statements_display, :id => @bank_account_statement.id, :session => session[:statement]
+%br
 =link_to lc(:validate), :action => :statements, :id => @bank_account.id
 #total

@@ -561,17 +561,22 @@ class AccountancyController < ApplicationController
       entry=Entry.find(params[:id]) 
 
       if entry.statement_id.eql? session[:statement].to_i
-        
         entry.update_attribute("statement_id", nil)
         @bank_account_statement.credit -= entry.debit
         @bank_account_statement.debit  -= entry.credit
         @bank_account_statement.save
         
-      else
+      elsif entry.statement_id.nil?
         entry.update_attribute("statement_id", session[:statement])
         @bank_account_statement.credit += entry.debit
         @bank_account_statement.debit  += entry.credit
         @bank_account_statement.save
+       
+      else
+        entry.statement.debit -= entry.debit
+        entry.statement.credit -= entry.credit
+        entry.statement.save
+        entry.update_attribute("statement_id", nil)
       end
     
       render :action => "statements.rjs" 
@@ -581,8 +586,8 @@ class AccountancyController < ApplicationController
   
   # displays in details the statement choosen with its mainly characteristics.
   def statements_display
-  @bank_account_statement = @current_company.BankAccountStatement.find(params[:id])
-    
+  @bank_account_statement = BankAccountStatement.find(params[:id])
+  session[:statement] = params[:session]  
   end
 
 
