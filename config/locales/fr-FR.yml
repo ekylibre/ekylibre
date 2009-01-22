@@ -293,6 +293,7 @@ fr-FR:
 
   time:
     formats:
+      db: "%d/%m/%Y %H:%M:%S.%z" 
       default: "%a, %d %b %Y %H:%M:%S %z" 
       short: "%d %b %H:%M" 
       long: "%B %d, %Y %H:%M" 

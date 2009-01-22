@@ -47,7 +47,7 @@ module ActiveRecord
 
       def self.string_to_time(string)
         return string unless string.is_a?(String)
-        time_hash = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :db])
+        time_hash = Date._strptime(string, I18n.t('time.formats.db'))
         return nil if time_hash.nil?
         index = string.index(/\.\d\d\d\d\d\d/)
         time_hash[:sec_fraction] = string[index+1, index+6] if index;
@@ -60,7 +60,7 @@ module ActiveRecord
       def self.string_to_dummy_time(string)
         return string unless string.is_a?(String)
         return nil if string.empty?
-        time_hash = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :time_formats, :default])
+        time_hash = Date._strptime(string, I18n.t('time.formats.db'))
         index = string.index(/\.\d\d\d\d\d\d/)
         time_hash[:sec_fraction] = string[index+1, index+6] if index;
         time_array = [2000, 1, 1]
@@ -153,7 +153,7 @@ module ApplicationHelper
             
 
   def lc(*args)
-    args.inspect
+    I18n.t('app.'+args.inspect)
   end
             
   def menus
