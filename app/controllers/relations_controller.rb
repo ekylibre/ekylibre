@@ -101,9 +101,7 @@ class RelationsController < ApplicationController
       @contact = Contact.new
       session[:current_entity] = params[:id]
     end
-    #session[:current_entity] = params[:id]
   end
-  
   
   def entities_contacts_create
     @contact = Contact.new(params[:contact])
