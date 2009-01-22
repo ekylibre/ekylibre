@@ -156,9 +156,9 @@ module Dyta
 
       def value_image(value)
         if value.is_a? Symbol
-          "image_tag('buttons/"+value.to_s+".png', :border=>0, :alt=>l('"+value.to_s+"'))"
+          "image_tag('buttons/"+value.to_s+".png', :border=>0, :alt=>t('"+value.to_s+"'))"
         elsif value.is_a? String
-          image = "image_tag('buttons/'+"+value.to_s+"+'.png', :border=>0, :alt=>l("+value.to_s+"))"
+          image = "image_tag('buttons/'+"+value.to_s+"+'.png', :border=>0, :alt=>t("+value.to_s+"))"
           "("+value+".nil? ? '' : "+image+")"
         else
           ''
@@ -166,7 +166,7 @@ module Dyta
       end
 
       def value_image2(value)
-        "image_tag('buttons/'+"+value.to_s+".to_s+'.png', :border=>0, :alt=>l("+value.to_s+".to_s))"
+        "image_tag('buttons/'+"+value.to_s+".to_s+'.png', :border=>0, :alt=>t("+value.to_s+".to_s))"
       end
       
       
