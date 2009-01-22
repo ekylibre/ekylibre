@@ -4,7 +4,7 @@ module ActionController
     def lc(*args)
 #      'lc('+args.inspect+')'
       args.delete_at(-1) if args.last.is_a? Array
-      "+"+I18n.t("app.#{self.controller.controller_name.to_s}.#{args.join('.')}")
+      "+"+I18n.t("app.#{self.controller_name.to_s}.#{args.join('.')}")
     end
   end
 end
