@@ -1,3 +1,8 @@
+#I18n.load_path += Dir[ File.join(RAILS_ROOT, 'config', 'locales', '*.{rb,yml}') ]
+
+puts I18n.load_path.inspect
+#I18n.load_path << "#{RAILS_ROOT}/config/locales/fr-FR.yml"
+
 
 I18n.default_locale = :'fr-FR'
 

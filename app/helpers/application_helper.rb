@@ -117,7 +117,7 @@ module ApplicationHelper
     # Guide Tag
     tag = ''
     for m in MENUS
-      tag += elink(self.controller.controller_name!=m[:name].to_s,l(m[:name], :title),{:controller=>m[:name]})+" "
+      tag += elink(self.controller.controller_name!=m[:name].to_s, t(m[:name], :title),{:controller=>m[:name]})+" "
     end
     tag = content_tag(:nobr, tag);
   #  tag += css_menu_tag(session[:menu_guide])
@@ -198,7 +198,8 @@ module ApplicationHelper
 
 
   def title_tag
-    content_tag(:title, 'Ekylibre - '+t(controller.controller_name.to_sym, :title))
+#    content_tag(:title, 'Ekylibre - '+t(controller.controller_name.to_sym, :title))
+    content_tag(:title, 'Ekylibre - '+t(controller.controller_name.to_sym))
   end
 
   def help_tag
