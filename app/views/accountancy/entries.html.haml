@@ -11,9 +11,9 @@
       - f.field lc(:select_journal), select_tag("journal_id", options_for_select(@journals.collect{|j| [lc(:journal_x, [j.name,j.closed_on.to_s]), j.id]}, session[:entries][:journal].to_s))
       - f.field lc(:number_records), text_field_tag("number", session[:entries][:records_number], :size=>2, :tabindex => 1)
     .actions
-      =submit_tag l(:apply)
+      =submit_tag t('apply')
       - if @valid
-        =link_to_function l(:cancel), "$('params').hide(); $('update_params').show();"
+        =link_to_function t('cancel'), "$('params').hide(); $('update_params').show();"
 
 - if @valid
   #errors=render :partial=>'errors'

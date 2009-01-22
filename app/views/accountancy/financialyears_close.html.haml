@@ -6,7 +6,7 @@
     - f.field :financialyear, :id, :choices => @financialyears.collect {|y| [y.code, y.id]}
     - f.field :financialyear, :stopped_on, :choices => @financialyear_periods
   .actions
-    =submit_tag(l(:close))
-    =link_to(l(:cancel),:back)
+    =submit_tag(t('close'))
+    =link_to(t(cancel),:back)
 =observe_field "financialyear_id", :frequency => 0.25, :url=>{:action=>:financialyears_periods}, :update=>:financialyear_stopped_on, :with => "'financialyear_select=' + escape(value)"
 

@@ -6,6 +6,6 @@
     - f.field :journal, :id, :choices => @journals.collect {|j| [j.name, j.id]}
     - f.field :journal, :closed_on, :choices => @journal_periods
   .actions
-    =submit_tag(l(:close))
-    =link_to(l(:cancel),:back)
+    =submit_tag(t('close'))
+    =link_to(t('cancel'),:back)
 =observe_field "journal_id", :frequency => 0.25, :url=>{:action=>:journals_periods}, :update=>:journal_closed_on, :with => "'journal_select=' + escape(value)"

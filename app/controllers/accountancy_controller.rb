@@ -266,7 +266,7 @@ class AccountancyController < ApplicationController
       @financialyear = Financialyear.new
       f = @current_company.financialyears.find(:first, :order=>"stopped_on DESC")
       
-      @financialyear.started_on = f.stopped_on+1.day unless f.blank?
+      @financialyear.started_on = f.stopped_on+1.day unless f.nil?
       @financialyear.started_on ||= Date.today
       @financialyear.stopped_on = (@financialyear.started_on+1.year-1.day).end_of_month
       @financialyear.written_on = (@financialyear.stopped_on+6.months).end_of_month
@@ -547,7 +547,7 @@ class AccountancyController < ApplicationController
   end
 
   
-  # This method displays the list of entries recording to the accountancing account associated to the bank account.
+  # This method displays the list of entries recording to the bank account for the given statement.
   def statements_point
     session[:statement] = params[:id]  if request.get? 
     @bank_account_statement=BankAccountStatement.find(session[:statement])
@@ -555,7 +555,7 @@ class AccountancyController < ApplicationController
     
 #   @entries=@current_company.entries.find(:all, :conditions => {:account_id => @bank_account.account_id, :editable => true}, :joins => "INNER JOIN journal_records j ON j.id = entries.record_id WHERE j.created_on BETWEEN #{@bank_account_statement.started_on} AND #{@bank_account_statement.stopped_on}")
 
-    @entries=@current_company.entries.find(:all, :conditions => {:account_id => @bank_account.account_id, :editable => true}, :joins => "INNER JOIN journal_records j ON j.id = entries.record_id")
+    @entries=@current_company.entries.find(:all, :conditions => {:account_id => @bank_account.account_id, :editable => true}, :joins => "INNER JOIN journal_records j ON j.id = entries.record_id", :order => "statement_id DESC")
 
     if request.xhr?
       entry=Entry.find(params[:id]) 
@@ -579,10 +579,10 @@ class AccountancyController < ApplicationController
     end
   end
   
-  # displays all the statements sorted by started_on.
+  # displays in details the statement choosen with its mainly characteristics.
   def statements_display
-  
-
+  @bank_account_statement = @current_company.BankAccountStatement.find(params[:id])
+    
   end
 
 

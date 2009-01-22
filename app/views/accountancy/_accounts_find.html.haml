@@ -1,5 +1,5 @@
 .window
-  = link_to_function l(:close) do |p| 
+  = link_to_function t 'close' do |p| 
     - p.replace_html 'account', '' 
     - p['account_number'].focus()
   - if @accounts.size > 0
