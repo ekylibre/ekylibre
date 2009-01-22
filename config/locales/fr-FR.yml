@@ -45,6 +45,41 @@ fr-FR:
         delimiter: "" 
         precision: 1
 
+#ActiveSupport
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      db: "%d/%m/%Y" 
+      default: "%d/%m/%Y" 
+      short: "%b %d" 
+      long: "%B %d, %Y" 
+
+    day_names: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
+    abbr_day_names: [Dim, Lun, Mar, Mer, Jeu, Ven, Sam]
+
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
+    abbr_month_names: [~, Janv, Févr, Mars, Avr, Mai, Juin, Juil, Août, Sept, Oct, Nov, Déc]
+    # Used in date_select and datime_select.
+    order: [ :year, :month, :day ]
+
+  time:
+    formats:
+      db: "%d/%m/%Y %H:%M:%S.%z" 
+      default: "%a, %d %b %Y %H:%M:%S %z" 
+      short: "%d %b %H:%M" 
+      long: "%B %d, %Y %H:%M" 
+    am: "am" 
+    pm: "pm" 
+
+# Used in array.to_sentence.
+  support:
+    array:
+      sentence_connector: "et" 
+
+
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
@@ -271,39 +306,6 @@ fr-FR:
           password: 'Mot de passe'
           password_confirmation: 'Confirmation du mot&nbsp;de&nbsp;passe'
 
-#ActiveSupport
-  date:
-    formats:
-      # Use the strftime parameters for formats.
-      # When no format has been given, it uses default.
-      # You can provide other formats here if you like!
-      db: "%d/%m/%Y" 
-      default: "%Y-%m-%d" 
-      short: "%b %d" 
-      long: "%B %d, %Y" 
-
-    day_names: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
-    abbr_day_names: [Dim, Lun, Mar, Mer, Jeu, Ven, Sam]
-
-    # Don't forget the nil at the beginning; there's no such thing as a 0th month
-    month_names: [~, Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
-    abbr_month_names: [~, Janv, Févr, Mars, Avr, Mai, Juin, Juil, Août, Sept, Oct, Nov, Déc]
-    # Used in date_select and datime_select.
-    order: [ :year, :month, :day ]
-
-  time:
-    formats:
-      db: "%d/%m/%Y %H:%M:%S.%z" 
-      default: "%a, %d %b %Y %H:%M:%S %z" 
-      short: "%d %b %H:%M" 
-      long: "%B %d, %Y %H:%M" 
-    am: "am" 
-    pm: "pm" 
-
-# Used in array.to_sentence.
-  support:
-    array:
-      sentence_connector: "et" 
   # You can use the app section freely to localize you application with the
   # localized_application feature. The entries defined here are accesable by the
   # global method "l". See the RDoc for details.
