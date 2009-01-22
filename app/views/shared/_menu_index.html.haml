@@ -1,6 +1,6 @@
 - for list in menu[:list]
   %div{:class=>'action-list '+list[:class].to_s}
-    %h2=t(self.controller.controller_name+'.index.'+list[:name].to_s)
+    %h2=t("app.#{self.controller.controller_name}.index.#{list[:name].to_s}")
     %ul
       - for action in list[:list]
-        %li=link_to t(self.controller.controller_name+'.index.'+action[:name].to_s), action[:url]||{:action=>action[:name]}
+        %li=link_to t("app.#{self.controller.controller_name}.index.#{action[:name].to_s}"), action[:url]||{:action=>action[:name]}

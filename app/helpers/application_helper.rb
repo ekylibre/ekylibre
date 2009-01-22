@@ -2,7 +2,18 @@
 module ActionController
   class Base
     def lc(*args)
-      'lc('+args.inspect+')'
+#      'lc('+args.inspect+')'
+      args.delete_at(-1) if args.last.is_a? Array
+      "+"+I18n.t("app.#{self.controller.controller_name.to_s}.#{args.join('.')}")
+    end
+  end
+end
+
+module ActionView
+  class Base
+    def lc(*args)
+      args.delete_at(-1) if args.last.is_a? Array
+      "+"+I18n.t("app.#{self.controller.controller_name.to_s}.#{args.join('.')}")
     end
   end
 end
@@ -14,9 +25,6 @@ module ActiveRecord
     end
   end
 end
-
-
-
 
 
 
@@ -94,10 +102,6 @@ module ApplicationHelper
   MENUS_ARRAY = MENUS.collect{|x| x[:name]}
             
 
-  def lc(*args)
-    I18n.t('app.'+args.inspect)
-  end
-            
   def menus
     MENUS
   end
@@ -154,7 +158,7 @@ module ApplicationHelper
     # Guide Tag
     tag = ''
     for m in MENUS
-      tag += elink(self.controller.controller_name!=m[:name].to_s, t(m[:name].to_s+'.title'),{:controller=>m[:name]})+" "
+      tag += elink(self.controller.controller_name!=m[:name].to_s, t("app.#{m[:name].to_s}.title"),{:controller=>m[:name]})+" "
     end
     tag = content_tag(:nobr, tag);
   #  tag += css_menu_tag(session[:menu_guide])

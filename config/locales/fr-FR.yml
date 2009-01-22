@@ -307,6 +307,40 @@ fr-FR:
   # You can use the app section freely to localize you application with the
   # localized_application feature. The entries defined here are accesable by the
   # global method "l". See the RDoc for details.
+
+  controllers:
+    accountancy:
+    application:
+    authentication:
+    company:
+    guide:
+    help:
+    management:
+    relations:
+  helpers:
+    accountancy:
+    application:
+    authentication:
+    company:
+    guide:
+    help:
+    management:
+    relations:
+  views:
+    accountancy:
+      entries:
+        title: Test
+    application:
+    authentication:
+    company:
+    guide:
+    help:
+    management:
+    relations:
+  models:
+    
+  
+
   app:
     account:
       error_delete: Le compte ne peut être effacé car il contient des sous-comptes.	
