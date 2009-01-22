@@ -3,7 +3,7 @@ module ActionController
   class Base
     def lc(*args)
 #      'lc('+args.inspect+')'
-      args.delete_at(-1) unless args.last.is_a? String
+      args.delete_at(-1) if [Array , Hash].include? args.class.last
       "+"+I18n.t("app.#{self.controller_name.to_s}.#{args.join('.')}")
     end
   end
@@ -12,7 +12,7 @@ end
 module ActionView
   class Base
     def lc(*args)
-      args.delete_at(-1) unless args.last.is_a? String
+      args.delete_at(-1) if [Array , Hash].include? args.class.last
       "+"+I18n.t("app.#{self.controller.controller_name.to_s}.#{args.join('.')}")
     end
   end
