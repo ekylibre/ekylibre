@@ -1,0 +1,1102 @@
+fr-FR:
+  number:
+    # Used in number_with_delimiter()
+    # These are also the defaults for 'currency', 'percentage', 'precision', and 'human'
+    format:
+      # Sets the separator between the units, for more precision (e.g. 1.0 / 2.0 == 0.5)
+      separator: "," 
+      # Delimets thousands (e.g. 1,000,000 is a million) (always in groups of three)
+      delimiter: " " 
+      # Number of decimals, behind the separator (1 with a precision of 2 gives: 1.00)
+      precision: 3
+
+    # Used in number_to_currency()
+    currency:
+      format:
+        # Where is the currency sign? %u is the currency unit, %n the number (default: $5.00)
+        format: "%u%n" 
+        unit: "$" 
+        # These three are to override number.format and are optional
+        separator: "." 
+        delimiter: "," 
+        precision: 2
+
+    # Used in number_to_percentage()
+    percentage:
+      format:
+        # These three are to override number.format and are optional
+        # separator: 
+        delimiter: "" 
+        # precision: 
+
+    # Used in number_to_precision()
+    precision:
+      format:
+        # These three are to override number.format and are optional
+        # separator:
+        delimiter: "" 
+        # precision:
+
+    # Used in number_to_human_size()
+    human:
+      format:
+        # These three are to override number.format and are optional
+        # separator: 
+        delimiter: "" 
+        precision: 1
+
+  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  datetime:
+    distance_in_words:
+      half_a_minute: "half a minute" 
+      less_than_x_seconds:
+        one:  "moins d'une seconde" 
+        many: "moins de {{count}} secondes" 
+      x_seconds:
+        one:  "1 seconde" 
+        many: "{{count}} secondes" 
+      less_than_x_minutes:
+        one:  "less than a minute" 
+        many: "less than {{count}} minutes" 
+      x_minutes:
+        one:  "1 minute" 
+        many: "{{count}} minutes" 
+      about_x_hours:
+        one:  "about 1 hour" 
+        many: "about {{count}} hours" 
+      x_days:
+        one:  "1 day" 
+        many: "{{count}} days" 
+      about_x_months:
+        one:  "about 1 month" 
+        many: "about {{count}} months" 
+      x_months:
+        one:  "1 month" 
+        many: "{{count}} months" 
+      about_x_years:
+        one:  "about 1 year" 
+        many: "about {{count}} years" 
+      over_x_years:
+        one:  "over 1 year" 
+        many: "over {{count}} years" 
+
+  activerecord:
+    errors:
+      template:
+        header:
+          one:   "1 erreur a empêcher l'enregistrement ({{model}})" 
+          other:  "{{count}} errors prohibited this {{model}} from being saved" 
+        # The variable :count is also available
+        body: "There were problems with the following fields:" 
+      # The values :model, :attribute and :value are always available for interpolation
+      # The value :count is available when applicable. Can be used for pluralization.
+      messages:
+        inclusion: "is not included in the list" 
+        exclusion: "is reserved" 
+        invalid: "is invalid" 
+        confirmation: "doesn't match confirmation" 
+        accepted: "must be accepted" 
+        empty: "can't be empty" 
+        blank: "can't be blank" 
+        too_long: "is too long (maximum is {{count}} characters)" 
+        too_short: "is too short (minimum is {{count}} characters)" 
+        wrong_length: "is the wrong length (should be {{count}} characters)" 
+        taken: "has already been taken" 
+        not_a_number: "is not a number" 
+        greater_than: "must be greater than {{count}}" 
+        greater_than_or_equal_to: "must be greater than or equal to {{count}}" 
+        equal_to: "must be equal to {{count}}" 
+        less_than: "must be less than {{count}}" 
+        less_than_or_equal_to: "must be less than or equal to {{count}}" 
+        odd: "must be odd" 
+        even: "must be even" 
+        # Append your own errors here or at the model/attributes scope.
+
+      models:
+        # Overrides default messages
+        account: Compte
+        bank_account: Compte bancaire
+        bank_account_statement: Relevé de compte bancaire
+        company: Société
+        contact: Contact
+        department: Service
+        entity: Entité
+        entry: Écriture
+        establishment: Établissement
+        journal: Journal
+        financialyear: Exercice
+        price_list: Liste de prix
+        product: Produit
+        shelf: Catégorie de produit
+        stock_location: Lieu de stockage
+        stock_move: Mouvement de stock
+        user: Utilisateur
+
+      attributes:
+        # Overrides model and default messages.
+        account:
+          number: Numéro
+          name: Intitulé
+          label: Label
+        bank_account:
+          name: Intitulé
+          bank_code: Code banque
+          agency_code: Code guichet 
+          number: Numéro de compte bancaire
+          key: Clé RIB
+          iban: IBAN
+          account_id: Compte comptable référencé
+          currency_id: Devise utilisée
+          journal_id: Journal utilisé
+        bank_account_statement:
+          started_on: Du
+          stopped_on: Au
+          number: Numéro du relevé de compte
+          bank_account_id: Compte bancaire référencé	
+        company:
+          name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)
+          siren: Numéro SIREN
+          born_on: Créée le
+        contact:
+          fax: Fax
+          mobile: Portable
+          phone: Téléphone
+          website: Site web
+          latitude: Latitude
+          longitude: Longitude
+          active: Actif
+          default: Par défaut
+          closed_on: Annulé le
+          email: Email
+          nature: Type
+          line_2: Identité - Service
+          line_3: Batiment,Res,ZI
+          line_4_number: Numéro de la voie
+          line_4_street: Libelle de la voie
+          line_5: Mention spéciale - Lieu dit
+          line_6_code: Code postal
+          line_6_city: Ville
+          address: Adresse
+        department:
+          name: Nom
+          comment: Commentaire
+        entity:
+          first_name: Prénom
+          website: Site Web
+          name: Nom
+          code: Code
+          full_name: Nom complet
+          nature_id: Type
+          language: Langage
+          born_on: Né le
+          dead_on: Décédé le
+          active: Actif
+        entry:
+          name: Libellé
+          account_id: Compte
+        establishment:
+          name: Nom
+          nic: NIC (Numéro Interne de Classement)
+          siret: N° SIRET
+          comment: Commentaire
+        journal:
+          closed_on: Clôturé le
+          code: Code
+          currency_id: Devise
+          name: Nom
+          nature: Nature
+        financialyear:
+          id: Numéro
+          closed: Clôturé	
+          started_on: Commencé le
+          stopped_on: Date de clôture
+          written_on: 'Autoriser l''écriture jusqu''au'	 
+        price_list:
+          active: Active (utilisable)
+          comment: Commentaire
+          currency_id: Devise
+          name: Nom
+        product:
+          account_id: Compte comptable
+          active: Utilisable
+          catalog_name: Nom pour le catalogue
+          catalog_description: Description pour le catalogue
+          code: Code
+          code2: Code secondaire
+          comment: Commentaire
+          description: Description
+          ean13: Code EAN13
+          name: Nom
+          nature: Nature
+          number: Numéro
+          service_coeff: Coefficient (de quantité) de service
+          shelf_id: Catégorie
+          supply_method: 'Moyen d''approvisionnement'
+          to_sale: Produit destiné à la vente
+          to_purchase: 'Produit destiné à l''achat'
+          to_rent: Produit destiné à la location
+          unit_id: Unité de mesure
+        shelf:
+          catalog_name: Nom pour le catalogue
+          catalog_description: Description
+          comment: Commentaire
+          name: Nom
+          parent: Sur-catégorie
+          parent_id: Sur-catégorie
+        stock_location:
+          account_id: Compte comptable
+          comment: Commentaire
+          contact_id: Adresse
+          establishment_id: Établissement
+          name: Nom
+          parent_id: Lieu de stockage maître
+          x: Position X
+          y: Position Y
+          z: Position Z
+        stock_move:
+          name: Nom
+          planned_on: Prévu le
+          moved_on: Fait le
+          quantity: Quantité
+          unit_id: Unité
+          product_id: Produit
+          comment: Commentaire
+        user:
+          name: 'Nom d''utilisateur'
+          first_name: 'Prénom'
+          last_name: 'Nom de famille'
+          locked: 'Compte verrouillé'
+          password: 'Mot de passe'
+          password_confirmation: 'Confirmation du mot&nbsp;de&nbsp;passe'
+
+#ActiveSupport
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%Y-%m-%d" 
+      short: "%b %d" 
+      long: "%B %d, %Y" 
+
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    # Used in date_select and datime_select.
+    order: [ :year, :month, :day ]
+
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z" 
+      short: "%d %b %H:%M" 
+      long: "%B %d, %Y %H:%M" 
+    am: "am" 
+    pm: "pm" 
+
+# Used in array.to_sentence.
+  support:
+    array:
+      sentence_connector: "and" 
+
+
+
+#   about:
+#     language: Français
+#     author: Sylvain OBEGI, corrections par Bruno MICHEL, Brice TEXIER
+#     comment:  Fichier de traduction en Français pour simple_localization.
+#     website: 
+#     email: katios@nolabel.net
+#     date: 2007-06-24
+  
+#   app_default_value: '?'
+  
+#   active_record_messages:
+#     inclusion: 'n''est pas inclus dans la liste'
+#     exclusion: est réservé
+#     invalid: est invalide
+#     confirmation: ne correspond pas à la confirmation
+#     accepted: doit être accepté
+#     empty: ne peut être vide
+#     blank: ne peut être vide
+#     too_long: est trop long (le maximum est de %d caractères)
+#     too_short: est trop court (le minimum est de %d caractères)
+#     wrong_length: 'n''est pas de la bonne taille (devrait être de %d caractères)'
+#     taken: a déjà été utilisé
+#     not_a_number: 'n''est pas un nombre'
+#     entities_delete_permission: Vous ne pouvez pas supprimer cette fiche
+  
+#   dates:
+#     monthnames: [Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
+#     daynames: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
+#     abbr_monthnames: [Jan, Fév, Mar, Avr, Mai, Juin, Juil, Aoû, Sep, Oct, Nov, Déc]
+#     abbr_daynames: [Dim, Lun, Mar, Mer, Jeu, Ven, Sam]
+#     date_formats:
+#       db2: '%Y-%m-%d'
+#       attributes: '%d/%m/%Y'
+#       short: '%e %b'
+#       long: '%A %e %B %Y'
+#       default: '%d/%m/%Y'
+#   # SET datestyle TO SQL, DMY ; permit to use the good format of date
+#       db: '%d/%m/%Y'
+#     time_formats:
+#       db: '%Y-%m-%d %H:%M:%S'
+#       attributes: '%d/%m/%y %H:%M'
+#       short: '%e %b %H:%M'
+#       long: '%e %B %Y à %H:%M'
+#       default: '%d/%m/%Y %H:%M'
+#     strftime_overwrites:
+#       c: '%A %e %B %Y à %H:%M'
+#       x: '%d/%m/%y'
+#       X: '%H:%M:%S'
+  
+#   numbers:
+#     separator: ','
+#     delimiter: ' '
+#     precision: 3
+  
+#   arrays:
+#     to_sentence:
+#       connector: et
+#       skip_last_comma: true
+  
+#   countries:
+#     'France': France
+#     'Germany': Allemagne
+#     'United States of America': 'États Unis d''Amérique'
+  
+  
+#   helpers:
+#     error_messages_for:
+#       heading:
+#         1: 'Une erreur a empêché l''enregistrement'
+#         n: 'Des erreurs ont empêché l''enregistrement'
+#       description: 'Il y a eu des problèmes avec les champs suivants :'
+#     number_to_currency:
+#       precision: 2
+#       unit: '€'
+#       order: [main, separator, fraction, unit]
+#     number_to_phone:
+#       area_code: false
+#       delimiter: '-'
+#       extension: 
+#       country_code: 
+#     date_select:
+#       order: [:day, :month, :year]
+#     distance_of_time_in_words:
+#       less than 5 seconds: moins de 5 secondes
+#       less than 10 seconds: moins de 10 secondes
+#       less than 20 seconds: moins de 20 secondes
+#       less than a minute: 'moins d''une minute'
+#       1 minute: 1 minute
+#       half a minute: 30 seconds
+#       n minutes: %i minutes
+#       about 1 hour: environ 1 heure
+#       about n hours: environ %i heures
+#       1 day: 1 jour
+#       n days: %i jours
+#       about 1 month: environ 1 mois
+#       n months: %i mois
+#       about 1 year: environ 1 an
+#       over n years: plus de %i ans
+  
+  # Add your the model translations as descriped in the
+  # localized_models_by_lang_file feature to the model section.
+  # 
+  # Example:
+  # 
+  # models:
+  #   my_model:
+  #     name: Localized model name
+  #     attributes:
+  #       name: Localized name
+  #       description: Localized description
+  models:
+    account:
+      name: Compte
+      attributes:
+        number: Numéro
+        name: Intitulé
+        label: Label
+    bank_account:
+      name: Compte bancaire
+      attributes:
+        name: Intitulé
+        bank_code: Code banque
+        agency_code: Code guichet 
+        number: Numéro de compte bancaire
+        key: Clé RIB
+        iban: IBAN
+        account_id: Compte comptable référencé
+        currency_id: Devise utilisée
+        journal_id: Journal utilisé
+    bank_account_statement:
+      name: Relevé de compte bancaire
+      attributes:
+        started_on: Du
+        stopped_on: Au
+        number: Numéro du relevé de compte
+        bank_account_id: Compte bancaire référencé	
+    company:
+      name: Société
+      attributes:
+        name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)
+        siren: Numéro SIREN
+        born_on: Créée le
+    contact:
+      name: Contact
+      attributes:
+        fax: Fax
+        mobile: Portable
+        phone: Téléphone
+        website: Site web
+        latitude: Latitude
+        longitude: Longitude
+        active: Actif
+        default: Par défaut
+        closed_on: Annulé le
+        email: Email
+        nature: Type
+        line_2: Identité - Service
+        line_3: Batiment,Res,ZI
+        line_4_number: Numéro de la voie
+        line_4_street: Libelle de la voie
+        line_5: Mention spéciale - Lieu dit
+        line_6_code: Code postal
+        line_6_city: Ville
+        address: Adresse
+    department:
+      name: Service
+      attributes:
+        name: Nom
+        comment: Commentaire
+    entity:
+      name: Entité
+      attributes:
+        first_name: Prénom
+        website: Site Web
+        name: Nom
+        code: Code
+        full_name: Nom complet
+        nature_id: Type
+        language: Langage
+        born_on: Né le
+        dead_on: Décédé le
+        active: Actif
+    entry:
+      name: Écriture
+      attributes:
+        name: Libellé
+        account_id: Compte
+    establishment:
+      name: Établissement
+      attributes:
+        name: Nom
+        nic: NIC (Numéro Interne de Classement)
+        siret: N° SIRET
+        comment: Commentaire
+    journal:
+      name: Journal
+      attributes:
+        closed_on: Clôturé le
+        code: Code
+        currency_id: Devise
+        name: Nom
+        nature: Nature
+    financialyear:
+      name: Exercice
+      attributes:
+        id: Numéro
+        closed: Clôturé	
+        started_on: Commencé le
+        stopped_on: Date de clôture
+        written_on: 'Autoriser l''écriture jusqu''au'	 
+    price_list:
+      name: Liste de prix
+      attributes:
+        active: Active (utilisable)
+        comment: Commentaire
+        currency_id: Devise
+        name: Nom
+    product:
+      name: Produit
+      attributes:
+        account_id: Compte comptable
+        active: Utilisable
+        catalog_name: Nom pour le catalogue
+        catalog_description: Description pour le catalogue
+        code: Code
+        code2: Code secondaire
+        comment: Commentaire
+        description: Description
+        ean13: Code EAN13
+        name: Nom
+        nature: Nature
+        number: Numéro
+        service_coeff: Coefficient (de quantité) de service
+        shelf_id: Catégorie
+        supply_method: 'Moyen d''approvisionnement'
+        to_sale: Produit destiné à la vente
+        to_purchase: 'Produit destiné à l''achat'
+        to_rent: Produit destiné à la location
+        unit_id: Unité de mesure
+    shelf:
+      name: Catégorie de produit
+      attributes:
+        catalog_name: Nom pour le catalogue
+        catalog_description: Description
+        comment: Commentaire
+        name: Nom
+        parent: Sur-catégorie
+        parent_id: Sur-catégorie
+    stock_location:
+      name: Lieu de stockage
+      attributes:
+        account_id: Compte comptable
+        comment: Commentaire
+        contact_id: Adresse
+        establishment_id: Établissement
+        name: Nom
+        parent_id: Lieu de stockage maître
+        x: Position X
+        y: Position Y
+        z: Position Z
+    stock_move:
+      name: Mouvement de stock
+      attributes:
+        name: Nom
+        planned_on: Prévu le
+        moved_on: Fait le
+        quantity: Quantité
+        unit_id: Unité
+        product_id: Produit
+        comment: Commentaire
+    user:
+      name: Utilisateur
+      attributes:
+        name: 'Nom d''utilisateur'
+        first_name: 'Prénom'
+        last_name: 'Nom de famille'
+        locked: 'Compte verrouillé'
+        password: 'Mot de passe'
+        password_confirmation: 'Confirmation du mot&nbsp;de&nbsp;passe'
+  
+  # Expression used to determine plural form.
+  # The 'c' variable represent the number
+  # Example for Slovenian:
+  # plural: 'c % 10 == 1 && c % 100 != 11 ? 1 : c % 10 >= 2 && c % 10 <= 4 && (c % 100 < 10 || c % 100 >= 20) ? 2 : 3'
+  # After you can use like this
+  # app:
+  #   '%d file':
+  #     1: '%d plik'
+  #     2: '%d pliki'
+  #     3: '%d plików'
+  #     0: '%d plikòw'
+  plural: 'c<=1 ? 1 : 2'
+  
+  # You can use the app section freely to localize you application with the
+  # localized_application feature. The entries defined here are accesable by the
+  # global method "l". See the RDoc for details.
+  app:
+    account:
+      error_delete: Le compte ne peut être effacé car il contient des sous-comptes.	
+      default_account_name: 'Compte comptable %s'
+    accountancy:
+      title: Comptabilité
+      index:
+        title: Comptabilité générale
+        accounts: Gérer les comptes comptables
+        bank_accounts: Gérer les comptes bancaires (RIB)
+        journals_close: Clôture de journal
+        financialyears_close: 'Clôture d''exercice'
+        financialyears: Gérer les exercices comptables
+        documents: Documents comptables
+        journals: Gérer les journaux
+        lettering: 'Lettrer des comptes de tiers'
+        statements: Pointer un relevé de compte bancaire
+        operations: Opérations de vérification et de clôture
+        parameters: Paramètres
+        document_prepare: Imprimer des documents comptables
+        works: Travaux comptables
+        entries: Saisir des écritures
+      accounts:
+        title: Comptes
+        create: Créer un nouveau compte
+        update: Modifier un compte
+        delete: Supprimer un compte
+      accounts_create:
+        title: Créer un nouveau compte
+      accounts_find:
+        accounts_create: 'Créer un nouveau compte comptable'
+        account_name: 'Nom du compte '
+        account_number: 'Numéro de compte '
+        no_accounts: 'Il n''existe pas de compte commençant par ce numéro.'
+      accounts_letter_launch:
+        title: Lettrage de compte
+        select_account: "Sélectionnez un compte:"
+      accounts_letter:
+        title: Liste des écritures non lettrées
+        entry_record: Numéro de pièce
+        entry_name: Nom de l''écriture		    
+      accounts_update:
+        title: 'Modifier le compte : %s'
+      bank_accounts:
+        title: Comptes bancaires
+        create: Créer un nouveau compte bancaire
+      bank_accounts_form:
+        rib: 'Relevé d''identité bancaire'
+        accountancy: Comptabilité
+        create_journal: 'Vous devez d''abord créer un journal.'
+        create_account: 'Vous devez d''abord créer un compte comptable.' 
+      bank_accounts_create:
+        title: Créer un nouveau compte bancaire
+      bank_accounts_update:
+        title: Modifier le compte bancaire	
+      currencies_find:
+        currency_id: Numéro de devise
+        currency_name: Nom de devise
+        currency_code: Code de devise
+        currency_rate: Taux de devise 
+      document_prepare:
+        title: Choisissez le type de document à imprimer
+        general_ledger: Grand livre
+        balance: Balance
+        journal: Journal général
+        journal_by_id: Journal
+        balance_sheet: Bilan
+        income_statements: Compte de résultat
+      document_print:
+        title: 'Impression du document : %s'
+        print: Impression
+      print_by_financial_year:
+        financial_year_select: Sélectionnez l'exercice comptable
+        financial_id: Exercice comptable
+      entries:
+        title: Saisie des écritures
+        subtitle: 'Enregistrement dans le journal "%s" pour l''exercice "%s"'
+        journal_x: '%s (clotûré le %s)'
+        select_journal: 'Saisir les écritures dans le journal'
+        select_financialyear: 'Comptabiliser les écritures pour l''exercice comptable'
+        number_records: 'Nombre des dernières pièces à afficher'
+        record_number: 'N°Pièce'
+        record_created: 'Enregistrée le'
+        record_printed: 'Datée au'
+        label: 'Libellé'
+        account_number: 'N°Compte'
+        record_debit: 'Débit'
+        record_credit: 'Crédit'
+        entry_letter: 'Lettrage'
+        entry_validate: 'Valider l''écriture'
+        confirmation: 'Êtes-vous sûr de votre saisie ?'     
+        balanced_entries: 'Vert : pièce équilibrée'
+        unbalanced_entries: 'Rouge : pièce non équilibrée'
+        update_params: 'Changer de journal et/ou d''exercice...'
+      financialyears:
+        title: Exercices comptables
+        create: Créer un nouvel exercice comptable
+      financialyears_create:
+        title: Créer un nouvel exercice
+      financialyears_update:
+        title: Modifier un nouvel exercice
+      financialyears_close:
+        title: 'Clôture d''exercice'
+      journals:
+        title: Journaux
+        create: Créer un nouveau journal
+      journals_find:
+        journal_id: Numéro de journal
+        journal_name: Nom du journal
+      journals_form:
+        natures:
+          purchase: Achats
+          sale: Ventes
+          bank: Banque
+          various: Opérations Diverses
+        
+      journals_create:
+        title: Créer un nouveau journal
+      journals_update:
+        title: Modifier le journal
+      journals_close:
+        title: Clôture du journal
+  
+      messages:
+        need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
+        need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
+        need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
+        no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
+      create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
+      create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
+      print_by_journal:
+        dates: Saisissez les dates ainsi que le journal
+        journal: Journal
+        from: Période du
+        to: Au
+      print_date_to_date:
+        dates: Saisissez les dates de début et de fin de la période
+        from: Période du
+        to: Au
+      print_balance_sheet:
+        title: Impression du bilan 
+        period: Période
+      statements:
+        title: Pointage des relevés de comptes bancaires 
+        select_bank_account: "Sélectionnez un compte bancaire:"	  
+        create: Créer un relevé de compte
+        create_bank_account: 'Vous devez d''abord créer un compte bancaire.'
+        debit: Total débit
+        credit: Total crédit
+       
+      statements_create:
+        title: Créer un nouveau relevé
+      statements_update:
+        title: Modifier un relevé  
+      statements_point:
+        title: 'Pointage d''écritures'
+        validate: Valider 
+        statement_number: N°relevé de compte bancaire
+        started_on: Du
+        stopped_on: Au
+        entry_name: 'Intitulé de l''écriture'
+        entry_debit: Débit
+        entry_credit: Crédit
+        entry_currency_rate: Devise  
+        total: 'Total pour le compte bancaire %s:'
+  
+    accounting_system:
+      1: 'Comptes de capitaux'
+      2: 'Comptes d''immobilisations'
+      3: 'Comptes de stocks et en-cours'
+      4: 'Comptes de tiers'
+      5: 'Comptes financiers'
+      6: 'Comptes de charges'
+      7: 'Comptes de produits'
+      8: 'Comptes spéciaux'
+    application:
+      expired_session: 'Session expirée. Veuillez vous reconnecter.'
+      access_denied: 'Vous n''avez pas le droit d''accéder à cette fonctionnalité'
+      admin: 'Administration'
+      exit: 'Quitter Ekylibre'
+      new: Nouveau...
+    authentication:
+      title: 'Bienvenue'
+      no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
+      login:
+        title: 'Bienvenue sur Ekylibre'
+        username: 'Nom d''utilisateur'
+        password: 'Mot de passe'
+        connect: 'Entrer'
+        lost_login: 'Nom d''utilisateur oublié ?'
+        lost_password: 'Mot de passe oublié ?'
+        register: 'Créer une nouvelle société'
+      register:
+        administrator: Administrateur
+        title: 'Enregistrer sa société'
+        company_name: Nom de votre société
+        my_company: Saisissez les informations sur votre société
+        my_self: Saisissez les informations vous concernant
+        company_name_example: SARL Martin et Fils
+        company_siren_example: 012345678
+        user_last_name_example: MARTIN
+        user_first_name_example: Jean
+        user_name_example: martinj
+        user_name_info: 'C''est le nom que vous utiliserez pour rentrer dans Ekylibre'
+        user_password_hint: 'Pour avoir mot de passe "solide", il faut utiliser au minimum des majuscules, des minuscules et des chiffres'
+        user_password_confirmation_info: 'Vous devez ressaisir votre mot de passe pour éviter qu''un mot de passe érroné soit enregistré'
+    company:
+      title: Société
+      index:
+        companie: 
+        title: 'Informations sur la société %s'
+        identity: 'Carte d''identité'
+        statistics: Chiffres
+        establishments: Établissements
+        departments: Services
+        employees: Employés
+        bank_accounts: Comptes bancaires
+        evolution: Historique
+        values: Valeurs diverses
+        users: Utilisateurs
+        new_establishment: Ajouter un nouvel établissement
+        new_department: Ajouter un nouveau service
+  #     new_employee: Ajouter un nouvel employé
+        new_bank_account: Ajouter un nouveau compte bancaire
+        new_user: Ajouter un nouvel utilisateur
+        establishments_number: 'Nombre d''établissements'
+        departments_number: Nombre de services
+        users_number: 'Nombre d''utilisateurs'
+        update: Modifier le détail de la société
+      default:
+        bank_journal_nature_name: Banque
+        department_name: Gestion/Production
+        establishment_name: Établissement principal
+        financialyear_code: 1A2
+        operations_journal_nature_name: Opérations Diverses
+        price_list_name: Tarif normal (par défaut)
+        purchases_journal_nature_name: Achats
+        sales_journal_nature_name: Ventes
+        shelf_name: Sans catégorie
+      update:
+        title: 'Modification de la société %s'
+        general: Vous pouvez modifier les différentes informations concernant votre société
+        company_code_info: 'Ce code sert d''abréviation pour certaines impressions'
+      user:
+        title: 'Informations sur l''utilisateur : %s'
+        change_password: Modifier le mot de passe
+      users:
+        title: Liste des utilisateurs
+        getback: Retour à la fiche de société
+        users_create: Créer un nouvel utilisateur
+      users_create:
+        title: 'Création d''un nouvel utilisateur'
+      users_update:
+         title: 'Modification de l''utilisateur'
+      users_form:
+        subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
+      establishments:
+        getback: Retour à la fiche de société
+        title: Liste des établissements
+        establishments_create: Ajouter un nouvel établissement
+      establishments_create:
+        title: 'Ajout d''un nouvel etablissement'
+      establishments_update:
+        title: 'Modification de l''établissement'
+      establishments_form:
+        subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
+      departments:
+        title: Liste des services	de la société
+        departments_create: Ajouter un nouveau service
+        default_department_name: Gestion/Production
+        departments_listing: Liste des services	
+        getback: Retour à la fiche de société
+      departments_create:
+        title: 'Ajout d''un nouveau service'
+      departments_update:
+        title: Modification du service
+      departments_form:
+        subtitle: Renseignez les différentes caractéristiques du service
+      company_edit:
+        title: Modification de la société
+        general: Vous pouvez modifier les différentes informations concernant votre société
+    guide:
+      title: Accueil
+      index:
+        title: 'Bienvenue dans Ekylibre, %s'
+        about_us: 'À propos d''Ekylibre'
+        accountancy: 'Comptabilité générale'
+        informations: 'Informations'
+        management: 'Gestion commerciale (ventes, achats et stocks)'
+        modules: 'Modules'
+        relations: 'Gestion des relations clients/fournisseurs'
+      about_us:
+        title: 'À propos d''Ekylibre'
+      accountancy:
+        title: 'Comptabilité'
+    help:
+      error_no_file: 'Aucun fichier d''aide disponible pour cette partie de l''application (%s)'
+      search:
+        title: 'Aide'
+    journal:
+      error_limited_period: '.'
+      error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
+      error_unbalanced_period_journal: 'Le journal contient des enregistrements non équilibrés.'
+    journal_period:
+      error_period: 'L''interval de temps est incorrect pour la période.'	
+      error_closed_journal: 'Vous ne pouvez pas ajouter de pièces comptables à cette date  car le journal est clôturé au %s.'
+      error_closed_financialyear: 'L''année financière est déjà terminée.'
+      error_limited_financialyear: 'L''année financière sera déjà terminée à la fin de la période.'
+    entry:
+      error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
+      error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'
+      error_amount_rate: 'Le taux de conversion n''existe pas.'	
+    journal_record:
+      error_printed_date: 'La pièce comptabilisée n''existe pas.'
+      error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus ajouter de pièces.' 
+      error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
+      error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
+    bank_account_statement:
+      error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
+      error_period_statement: 'L''interval de temps est incorrect pour le relevé bancaire.'  				   
+      error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'			           
+    financialyear:
+      error_stopped2_financialyear: 'La date de fin d''exercice doit être une date de fin de mois.'
+      error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'
+      error_written_financialyear: 'La date butoir de création des journaux doit être inférieure à la date de clôture.'
+      error_overlap_financialyear: 'La période de l''exercice se chevauche.'
+      error_unclosed_period_financialyear: 'Cet exercice contient des journaux qui n''ont pas encore été clôturé.'
+    layouts:
+      application:
+    management:
+      title: 'Commerce'
+      index:      
+        title: 'Gestion commerciale'
+        parameters: 'Paramètres'
+        price_lists: 'Gérer les tarifs des produits'
+        products: 'Gérer les produits de vente et d''achat'
+        purchases: 'Achats'
+        purchases_consult: 'Consulter l''état des achats'
+        purchases_new: 'Nouvel achat'
+        sales: 'Ventes'
+        sales_consult: 'Consulter l''état des ventes'
+        sales_new: 'Nouvelle vente'
+        shelves: 'Gérer les catégories de produit'
+        units: 'Unités de mesure'
+        stocks: 'Stocks'
+        stocks_consult: 'Consulter l''état des stocks'
+        stocks_locations: 'Gérer les stocks'
+        taxes: 'Taxes'
+   
+      messages:
+        need_product_to_create_price: 'Pour pouvoir ajouter un tarif à une liste de prix, il vous faut d''abord enregistrer un produit à tarifer. Une fois le produit enregistré vous pourrez enregistrer votre tarif.'
+  
+      price_lists:
+        title: Gérer les listes de prix
+        price_lists_create: Ajouter une nouvelle liste de prix
+      price_lists_create:
+        title: Ajouter une nouvelle liste de prix
+      price_lists_display:
+        title: 'Liste de prix : %s'
+        prices: 'Produits et prix de la liste'
+        prices_create: 'Ajouter un nouveau prix'
+      price_lists_form:
+        general: Description générale
+      price_lists_update:
+        title: 'Modifier la liste de prix : %s'
+  
+      products:
+        title: 'Gérer les produits'
+        nb_products: '%s produit(s) enregistré(s)'
+        new_product: 'Ajout d''un nouveau produit'
+      products_create:
+        title: 'Ajouter un nouveau produit'
+      products_display:
+        products_list: 'Retourner à la liste de produits'
+        title: 'Fiche du produit : %s'
+        update_product: 'Modifier la fiche du produit'
+      products_form:
+        accountancy: Comptabilité
+        identification: Nom et codes du produit
+        description: Descriptions
+        nature: Type de produit
+        natures:
+          product: Produit
+          service: Service
+        supply_methods:
+          buy: Achat
+          produce: Production
+      products_search:
+        title: 'Recherche'
+        search: 'Rechercher un produit'
+      products_update:
+        title: 'Modification du produit : %s'
+  
+      sales_new:
+        title: 'Nouvelle vente'
+        nature: 'Type de vente'
+        client: 'Sélection du client'
+      sales_step_1: 'Client'
+      sales_step_2: 'Description'
+      sales_step_3: 'Produits'
+      sales_step_4: 'Livraisons'
+      sales_step_5: 'Factures'
+      sales_step_6: 'Règlements'
+      sales_step_7: 'Impression'
+  
+      shelves:
+        title: Gérer les catégories de produits
+        shelves_create: Ajouter une nouvelle catégorie de produits
+      shelves_create:
+        title: 'Ajout d''une nouvelle catégorie de produits'
+      shelves_form:
+        general: Informations générales
+        catalog: Description pour catalogue
+      shelves_update:
+        title: 'Ajout d''une nouvelle catégorie de produits'
+  
+      stocks_locations:
+        title: Gérer les stocks
+        stocks_locations_create: Ajouter un nouveau lieu de stockage
+      stocks_locations_create:
+        title: 'Ajout d''un lieu de stockage'
+      stocks_locations_display:
+        title: 'Détail du lieu de stockage : %s'
+        establishment: Établissement
+        moves: Mouvements de stocks
+        stocks_locations_update: Modifier le lieu de stockage
+        stocks_moves_create: Ajouter un mouvement de stock
+      stocks_locations_form:
+        description: Description générale
+        localization: Localisation géographique
+        accountancy: Comptabilité
+      stocks_locations_update:
+        title: 'Modification d''un lieu de stockage'
+      stocks_moves_create:
+        title: 'Enregistrement d''un mouvement de stock'
+      stocks_moves_form: 
+        description: Description
+        nature: Opération
+      stocks_moves_update:
+        title: 'Modifier le mouvement de stock : %s'
+  
+    relations: 
+      title: Relations
+      entities_create: 
+        title: 'Création d''une nouvelle fiche client/fournisseur'
+      entities_contacts_create:
+        title: Renseignez les caractéristiques du contact à ajouter
+      entities_contacts_update:
+        title: Renseignez les champs à modifier
+      entities_contact_delete:
+        title: Caractéristiques du contact à supprimer
+      entities_display:
+        title: 'Informations de la fiche %s'
+        back: Retour 
+        new_contact: Entrer un nouveau contact
+        entities_contacts_create: Création d'un nouveau contact
+      entities_contacts_form:
+        title: 'Renseignez les caractéristiques du contact'
+      entities:
+        title: 'Fiches des relations'
+        entities_create: Créer une nouvelle fiche
+        nb_entities: '%s fiche(s) enregistrée(s)'
+      entities_search:
+        search: Rechercher une relation
+      entities_update:
+        title: 'Modification de la fiche : %s'
+      entities_form:
+        title: 'Renseignez les différentes caractéristiques de la fiche'
+      index:
+        title: Gestion des relations clients et fournisseurs
+        entities_create: Créer une nouvelle fiche
+        entities_managing: Clients et fournisseurs
+        entities: Gérer les fiches clients et fournisseurs
+  
+    product:
+      unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
+  
+    unavailable:
+      journal: 'Le journal demandé est indisponible (%s)'
+      product: Le produit demandé est indisponible
+  
+    apply: 'Appliquer'
+    are_you_sure: 'Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?'
+    back: 'Revenir à la page précédente'
+    cancel: 'Annuler'
+    close: 'Fermer'
+    create: 'Créer'
+    update: 'Modifier'
+    edit: 'Modifier'
+    example: 'Exemple&nbsp;: %s'
+    finish: Terminer
+    hint: 'Astuce&nbsp;: %s'
+    info: 'Information&nbsp;: %s'
+    next: Suivant
+    no_records: 'Pas d''enregistrements'
+    previous: Précédent
+    print: Impression
+    search: Rechercher
+    search_go: Lancer la recherche
+    submit: Envoyer
+  
