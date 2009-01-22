@@ -1,4 +1,12 @@
 # Methods added to this helper will be available to all templates in the application.
+module ActiveRecord
+  class Base
+    def lc(*args)
+      'lc('+args.inspect+')'
+    end
+  end
+end
+
 module ApplicationHelper
   
   MENUS=
@@ -290,7 +298,8 @@ module ApplicationHelper
           calls = caller
           file = calls[3].split(':')[0].split('/')[-1].split('.')[0]
           file = file[1..-1] if file[0..0]=='_'
-          line[:value] = l(controller.controller_name, file.to_sym,line[:value]) 
+#          line[:value] = l(controller.controller_name, file.to_sym,line[:value]) 
+          line[:value] = t(line[:value]) 
         end
         line_code += content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>xcn)
       when :field
@@ -323,7 +332,8 @@ module ApplicationHelper
     help = ''
     for hs in help_tags
       line[hs] = translate_help(line, hs)
-      help += content_tag(:div,l(hs, [content_tag(:span,line[hs].to_s)]), :class=>hs) if line[hs]
+#      help += content_tag(:div,l(hs, [content_tag(:span,line[hs].to_s)]), :class=>hs) if line[hs]
+      help += content_tag(:div,t(hs), :class=>hs) if line[hs]
     end
     fragments[:help] = help
 

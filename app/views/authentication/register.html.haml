@@ -14,5 +14,5 @@
         - f.field :user, :password, :null=>false, :hint=>lc(:user_password_hint)
         - f.field :user, :password_confirmation, :null=>false, :info=>lc(:user_password_confirmation_info)
       .actions
-        =submit_tag(l(:create))
-        =link_to(l(:cancel), :action=>:login)
+        =submit_tag(t(:create))
+        =link_to(t(:cancel), :action=>:login)
