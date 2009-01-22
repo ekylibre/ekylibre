@@ -56,6 +56,10 @@ module ApplicationHelper
 
   MENUS_ARRAY = MENUS.collect{|x| x[:name]}
             
+
+  def lc(*args)
+    args.inspect
+  end
             
   def menus
     MENUS
