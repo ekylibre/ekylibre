@@ -31,15 +31,15 @@ module ActiveRecord
       # Overwrites the +string_to_date+ method to use the localization file
       # to use a parse model for the dates
       def self.string_to_date(string)
-# #       raise Exception.new("string_to_date "+string.to_s)
+        #raise Exception.new("string_to_date "+string.to_s)
         return string unless string.is_a?(String)
 #        date_array = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :default])
 #        raise Exception.new("string_to_date "+string.to_s+' ; '+::Date.strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :default]).inspect)
         # treat 0000-00-00 as nil
 #        Date.civil(date_array[:year], date_array[:mon], date_array[:mday]) rescue nil
-        date = ::Date.strptime(string, I18n.t('date.formats.db')) rescue nil
+        date = ::Date.strptime(string, I18n.t('date.formats.db')) rescue Date.civil(1789,7,14)
         if date.nil?
-          date = ::Date.strptime(string, I18n.t('date.formats.default')) rescue nil
+          date = ::Date.strptime(string, I18n.t('date.formats.default')) rescue Date.civil(1789,7,14)
         end
 #        string.to_date
         date
