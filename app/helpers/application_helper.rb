@@ -3,8 +3,10 @@ module ActionController
   class Base
     def lc(*args)
 #      'lc('+args.inspect+')'
-      args.delete_at(-1) if [Array , Hash].include? args.last.class
-      "+"+I18n.t("app.#{self.controller_name.to_s}.#{args.join('.')}")
+#      args.delete_at(-1) if [Array , Hash].include? args.last.class
+      
+#      "+"+I18n.t("app.#{self.controller_name.to_s}.#{args.join('.')}")
+      args.inspect
     end
   end
 end
@@ -12,8 +14,9 @@ end
 module ActionView
   class Base
     def lc(*args)
-      args.delete_at(-1) if [Array , Hash].include? args.last.class
-      "+"+I18n.t("app.#{self.controller.controller_name.to_s}.#{args.join('.')}")
+#      args.delete_at(-1) if [Array , Hash].include? args.last.class
+#      "+"+I18n.t("app.#{self.controller.controller_name.to_s}.#{args.join('.')}")
+      args.inspect
     end
   end
 end
