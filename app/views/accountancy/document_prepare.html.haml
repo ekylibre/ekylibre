@@ -5,5 +5,5 @@
     -for print in @prints
       - f.field radio_button(:print , :mode , print[0]), content_tag(:label, lc(print[0].to_sym), {:for=>'print_mode_'+print[0].to_s})
   .actions
-    =submit_tag l(:next)
+    =submit_tag t"next"
 

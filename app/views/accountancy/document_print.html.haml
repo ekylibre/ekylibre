@@ -1,6 +1,6 @@
-%h1=lc(:title,[l(:accountancy,:document_prepare,@print[0])])
+%h1=lc(:title,[t"accountancy.document_prepare.@print[0]"])
 -form_tag do
   =render :partial=>@partial
   .actions
-    =link_to l(:previous), session[:history][1]
-    =submit_tag l(:print)
+    =link_to lc(:previous), session[:history][1]
+    =submit_tag t("print")

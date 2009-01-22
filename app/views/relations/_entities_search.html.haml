@@ -2,6 +2,6 @@
   - form_tag(:action=>:entities) do
     %table
       %tr
-        %td.label=lc(:search)
+        %td.label=t("search")
         %td.field=text_field_tag :key ,@key
-        %td.submit=submit_tag l(:search_go)
+        %td.submit=submit_tag t("search_go")

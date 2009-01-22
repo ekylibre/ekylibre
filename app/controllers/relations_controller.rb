@@ -134,7 +134,6 @@ class RelationsController < ApplicationController
     if request.post? or request.delete?
       @contact = Contact.find_by_id_and_company_id(params[:id] , @current_company.id )
       @id = @contact.entity_id
-      #Contact.delete(@contact) if @contact
       @contact.deleted = true
       @contact.default = false
       @contact.save

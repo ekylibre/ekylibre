@@ -51,14 +51,11 @@ class Contact < ActiveRecord::Base
     lines = [self.line_2,self.line_3,self.line_4_number,self.line_4_street,self.line_5,self.line_6_code,self.line_6_city]
 
     for x in (0..6) do
-      if x == 0 and lines[0] != ""
-        self.address += " "+lines[x]
-      else
-        unless lines[x].to_s.empty?
-          self.address += " , "+lines[x]
-        end
+      unless lines[x].to_s.empty?
+        self.address += " , "+lines[x]
       end
     end
+    self.address.gsub!(/^ ,/ , " ") if self.address=~/^ ,/
 
   end
   
