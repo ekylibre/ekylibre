@@ -37,9 +37,9 @@ module ActiveRecord
 #        raise Exception.new("string_to_date "+string.to_s+' ; '+::Date.strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :default]).inspect)
         # treat 0000-00-00 as nil
 #        Date.civil(date_array[:year], date_array[:mon], date_array[:mday]) rescue nil
-        date = ::Date.strptime(string, I18n.t('date.formats.db')) rescue Date.civil(1789,7,14)
+        date = ::Date.strptime(string, I18n.t('date.formats.db', :count=>'%d')) rescue Date.civil(1789,7,14)
         if date.nil?
-          date = ::Date.strptime(string, I18n.t('date.formats.default')) rescue Date.civil(1789,7,14)
+          date = ::Date.strptime(string, I18n.t('date.formats.default', :count=>'%d')) rescue Date.civil(1789,7,14)
         end
 #        string.to_date
         date
