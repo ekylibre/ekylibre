@@ -13,64 +13,6 @@ module ActiveRecord
       'lc('+args.inspect+')'
     end
   end
- module ConnectionAdapters #:nodoc:
-    class Column
-      
-      attr_accessor :model_class
-      
-      alias_method :human_name_without_localization, :human_name
-      
-      # Overwrites the +human_name+ method to call +human_attribute_name+ on
-      # the model_class if possible. Falls back to default behaviour if no
-      # model class is set (original method renamed to +human_name_without_localization+).
-      def human_name
-        self.model_class ? self.model_class.human_attribute_name(@name) : human_name_without_localization
-      end
-      
-
-      # Overwrites the +string_to_date+ method to use the localization file
-      # to use a parse model for the dates
-      def self.string_to_date(string)
-        #raise Exception.new("string_to_date "+string.to_s)
-        return string unless string.is_a?(String)
-#        date_array = Date._strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :default])
-#        raise Exception.new("string_to_date "+string.to_s+' ; '+::Date.strptime(string, ArkanisDevelopment::SimpleLocalization::Language[:dates, :date_formats, :default]).inspect)
-        # treat 0000-00-00 as nil
-#        Date.civil(date_array[:year], date_array[:mon], date_array[:mday]) rescue nil
-        date = ::Date.strptime(string, I18n.t('date.formats.db', :count=>'%d')) rescue Date.civil(1789,7,14)
-        if date.nil?
-          date = ::Date.strptime(string, I18n.t('date.formats.default', :count=>'%d')) rescue Date.civil(1789,7,14)
-        end
-#        string.to_date
-        date
-      end
-
-      def self.string_to_time(string)
-        return string unless string.is_a?(String)
-        time_hash = Date._strptime(string, I18n.t('time.formats.db'))
-        return nil if time_hash.nil?
-        index = string.index(/\.\d\d\d\d\d\d/)
-        time_hash[:sec_fraction] = string[index+1, index+6] if index;
-        time_array = time_hash.values_at(:year, :mon, :mday, :hour, :min, :sec, :sec_fraction)
-        # treat 0000-00-00 00:00:00 as nil
-        raise Exception.new("string_to_time "+string.to_s+" !!!! "+time_array.inspect)
-        Time.send(Base.default_timezone, *time_array) rescue DateTime.new(*time_array[0..5]) rescue nil
-      end
-
-      def self.string_to_dummy_time(string)
-        return string unless string.is_a?(String)
-        return nil if string.empty?
-        time_hash = Date._strptime(string, I18n.t('time.formats.db'))
-        index = string.index(/\.\d\d\d\d\d\d/)
-        time_hash[:sec_fraction] = string[index+1, index+6] if index;
-        time_array = [2000, 1, 1]
-        time_array += time_hash.values_at(:hour, :min, :sec, :sec_fraction)
-        Time.send(Base.default_timezone, *time_array) rescue nil
-      end
-
-
-    end
-  end
 end
 
 
