@@ -28,7 +28,7 @@ class RelationsController < ApplicationController
     # contacts_list({:attributes=>[:id, :fax, :mobile, :telephone], :key=>@key}.merge(params))
 #     #  entities_list params
 #     @entities = {}
-#     @contacts = {}
+#  @contacts = {}
 #     #if request.post?
 # #      id = params[:contact][:id].to_i
 #     @key = params[:key]
@@ -101,7 +101,7 @@ class RelationsController < ApplicationController
       @contact = Contact.new
       session[:current_entity] = params[:id]
     end
-    session[:current_entity] = params[:id]
+    #session[:current_entity] = params[:id]
   end
   
   
