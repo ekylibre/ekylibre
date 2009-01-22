@@ -3,7 +3,7 @@
 .formalize
   - form_tag do
     .fields
-      =formalize(:multipart=>false) do |f|
+      =formalize do |f|
         - f.error 'company', 'user'
         - f.title :my_company
         - f.field :company, :name, {:example=>lc(:company_name_example)}

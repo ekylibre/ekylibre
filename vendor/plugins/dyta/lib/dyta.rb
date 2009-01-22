@@ -137,7 +137,7 @@ module Dyta
         if options[:empty]
           code += "    text = ''\n"
         else
-          code += "    text = '"+content_tag(:tr,content_tag(:td,l(:no_records).gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
+          code += "    text = '"+content_tag(:tr,content_tag(:td,I18n.translate('no_records').gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
         end
         code += "  end\n"
         code += "  text = "+process+"+text\n" unless process.nil?
@@ -250,7 +250,7 @@ module Dyta
             reflection = @options[:through][@options[:through].size-1].to_sym
             model.columns_hash[model.reflections[reflection].primary_key_name].human_name
           else
-            @model.human_attribute_name(@name)
+            @model.human_attribute_name(@name.to_s)
           end;
         when :action
           'ƒ'
@@ -295,7 +295,7 @@ module Dyta
 
     def operation(record='record')
       link_options = {}
-      link_options[:confirm] = l(@options[:confirm]) unless @options[:confirm].nil?
+      link_options[:confirm] = I18n.translate(@options[:confirm].to_s) unless @options[:confirm].nil?
       link_options[:method]  = @options[:method]     unless @options[:method].nil?
       link_options = link_options.inspect.to_s
       link_options = link_options[1..link_options.size-2]

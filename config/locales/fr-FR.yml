@@ -80,6 +80,8 @@ fr-FR:
         one:  "over 1 year" 
         many: "over {{count}} years" 
 
+
+  # ActiveRecord
   activerecord:
     errors:
       template:

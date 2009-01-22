@@ -7,6 +7,14 @@ module ActiveRecord
   end
 end
 
+module ActionController
+  class Base
+    def lc(*args)
+      'lc('+args.inspect+')'
+    end
+  end
+end
+
 module ApplicationHelper
   
   MENUS=
@@ -125,7 +133,7 @@ module ApplicationHelper
     # Guide Tag
     tag = ''
     for m in MENUS
-      tag += elink(self.controller.controller_name!=m[:name].to_s, t(m[:name], :title),{:controller=>m[:name]})+" "
+      tag += elink(self.controller.controller_name!=m[:name].to_s, t(m[:name].to_s+'.title'),{:controller=>m[:name]})+" "
     end
     tag = content_tag(:nobr, tag);
   #  tag += css_menu_tag(session[:menu_guide])
