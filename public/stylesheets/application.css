@@ -14,23 +14,7 @@ div[xul="vbox"] { background: #FDC; }
 div[xul="box"] { background: #ADA; }
 */
 /*table.entries { border-collapse: collapse; }*/
-table.entries tr * { border: 1px solid #AAA; padding: 1px 2px; }
-table.entries tr.odd td{:background: #E3F4FF;}
-table.entries tr.even td{:background: #A3FCFF;}
 
-tr.balanced-even td{background:#CCF5CC;}
-tr.balanced-odd td{background:#99EB99;}
-tr.unbalanced-even td{background: #FFCCCC;}
-tr.unbalanced-odd td{background: #FF9999;}
-
-
-table.listentries tr.even td{:background: #E3F4FF;}
-table.listentries tr.odd td{:background: #E3F4FF;}
-
-tr.even-pointable td{background:#CCF5CC;}
-tr.odd-pointable  td{background:#99EB99;}
-tr.even-unpointable td{background: #FFCCCC;}
-tr.odd-unpointable  td{background: #FF9999;}
 
 
 /*#lines { height: 300px; overflow: auto; }*/
@@ -283,3 +267,19 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 
 .window { padding:4px; background: #EEE; border: 1px solid #AAA; margin: 8px;}
 .window .dyta { background: white; }
+
+#table.entries tr * { border: 1px solid #AAA; padding: 1px 2px; }
+#table.entries tr.odd td{:background: #E3F4FF;}
+#table.entries tr.even td{:background: #A3FCFF;}
+
+table.dyta tr.balanced.even td{background:#CCF5CC;}
+table.dyta tr.balanced.odd td{background:#99EB99;}
+table.dyta tr.unbalanced.even td{background: #FFCCCC;}
+table.dyta tr.unbalanced.odd td{background: #FF9999;}
+
+table.dyta tr.pointable.even td{background:#CCF5CC;}
+table.dyta tr.pointable.odd  td{background:#99EB99;}
+table.dyta tr.unpointable.even td{background: #FFCCCC;}
+table.dyta tr.unpointable.odd  td{background: #FF9999;}
+table.dyta tr.pointabled.even td{background:#0066FF;}
+table.dyta tr.pointabled.odd td{background:#0033FF;}

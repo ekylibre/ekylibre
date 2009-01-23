@@ -1,19 +1,18 @@
 %h1=lc(:title)
 %table.dyta
   %tr
-    %th=lc (:statement_number)
-    %th=lc (:started_on)
-    %th=lc (:stopped_on)
-    %th=lc (:entry_name)
-    %th=lc (:entry_debit)
-    %th=lc (:entry_credit)
+    %th="&nbsp"
+    %th=lc(:statement_number)
+    %th=lc(:started_on)
+    %th=lc(:stopped_on)
+    %th=lc(:entry_name)
+    %th=lc(:entry_debit)
+    %th=lc(:entry_credit)
   - @entries.each do |entry|
-    - attr = cycle("even", "odd")+"-"
-    %tr{ :class => attr+(entry.statement_id ? "pointable" : "unpointable"), :id=> 'e'+entry.id.to_s, :onclick => remote_function(:after => "var element=$('e"+entry.id.to_s+"'); if (element.hasClassName('"+attr+"pointable')) { element.removeClassName('"+attr+"pointable'); element.addClassName('"+attr+"unpointable'); } else { element.removeClassName('"+attr+"unpointable'); element.addClassName('"+attr+"pointable'); }", :url => { :action => 'statements_point', :id => entry.id}) }
-      - if entry.statement_id
-        %td=entry.statement.number
-      - else
-        %td=''
+    - attr = cycle("even", "odd")
+    %tr{ :class => (entry.statement_id ? ((entry.statement_id.eql? session[:statement]) ? "pointable" :"pointabled") : "unpointable")+" "+attr, :id=> 'e'+entry.id.to_s }
+      %td{:onclick => remote_function(:after => "var element=$('e"+entry.id.to_s+"'); if (element.hasClassName('pointable "+attr+"')) { element.removeClassName('pointable "+attr+"'); element.addClassName('unpointable "+attr+"'); } else if (element.hasClassName('unpointable "+attr+"')) { element.removeClassName('unpointable "+attr+"'); element.addClassName('pointable "+attr+"'); } else { element.removeClassName('pointabled "+attr+"'); element.addClassName('unpointable "+attr+"'); }", :url => { :action => 'statements_point', :id => entry.id})}
+      %td{:id => 'entry_number_'+entry.id.to_s}=entry.statement.nil? ? "&nbsp" : link_to(entry.statement.number, :action => :statements_display, :id => entry.statement.id)
       %td=@bank_account_statement.started_on
       %td=@bank_account_statement.stopped_on
       %td=entry.name
@@ -24,10 +23,13 @@
     %td
     %td
     %td
-    %td#total_debit=0
-    %td#total_credit=0
+    %td
+    %td#total_debit= @bank_account_statement.debit || 0
+    %td#total_credit=@bank_account_statement.credit || 0
+%ul
+  %li="Vert/Bleu : écriture pointée " 
+  %li="Rouge: écriture à pointer"
 
-=link_to lc(:overview), :action => :statements_display, :id => @bank_account_statement.id, :session => session[:statement]
 %br
 =link_to lc(:validate), :action => :statements, :id => @bank_account.id
 #total

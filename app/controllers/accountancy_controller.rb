@@ -558,25 +558,25 @@ class AccountancyController < ApplicationController
     @entries=@current_company.entries.find(:all, :conditions => {:account_id => @bank_account.account_id, :editable => true}, :joins => "INNER JOIN journal_records j ON j.id = entries.record_id", :order => "statement_id DESC")
 
     if request.xhr?
-      entry=Entry.find(params[:id]) 
+      @entry=Entry.find(params[:id]) 
 
-      if entry.statement_id.eql? session[:statement].to_i
-        entry.update_attribute("statement_id", nil)
+      if @entry.statement_id.eql? session[:statement].to_i
+        @entry.update_attribute("statement_id", nil)
         @bank_account_statement.credit -= entry.debit
         @bank_account_statement.debit  -= entry.credit
         @bank_account_statement.save
         
-      elsif entry.statement_id.nil?
-        entry.update_attribute("statement_id", session[:statement])
+      elsif @entry.statement_id.nil?
+        @entry.update_attribute("statement_id", session[:statement])
         @bank_account_statement.credit += entry.debit
         @bank_account_statement.debit  += entry.credit
         @bank_account_statement.save
        
       else
-        entry.statement.debit -= entry.debit
-        entry.statement.credit -= entry.credit
-        entry.statement.save
-        entry.update_attribute("statement_id", nil)
+        @entry.statement.debit  -= entry.credit
+        @entry.statement.credit -= entry.debit
+        @entry.statement.save
+        @entry.update_attribute("statement_id", nil)
       end
     
       render :action => "statements.rjs" 
@@ -586,8 +586,7 @@ class AccountancyController < ApplicationController
   
   # displays in details the statement choosen with its mainly characteristics.
   def statements_display
-  @bank_account_statement = BankAccountStatement.find(params[:id])
-  session[:statement] = params[:session]  
+    @bank_account_statement = BankAccountStatement.find(params[:id])
   end
 
 

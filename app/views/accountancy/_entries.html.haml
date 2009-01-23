@@ -30,7 +30,7 @@
       - @records.each do |record|
         - attr = cycle("even","odd")  
         - record.entries.each do |entry|
-          %tr{ :class=>(entry.record.balanced ? "balanced" : "unbalanced")+"-"+attr}
+          %tr{ :class=>(entry.record.balanced ? "balanced" : "unbalanced")+" "+attr}
             %td=entry.record.number
             %td=entry.record.created_on.to_formatted_s :attributes
             %td=entry.record.printed_on.to_formatted_s :attributes

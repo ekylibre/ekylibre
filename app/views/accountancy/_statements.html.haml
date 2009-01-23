@@ -1,1 +1,3 @@
-=javascript_tag("$('total_debit').innerHTML='"+@bank_account_statement.debit.to_s+"';$('total_credit').innerHTML='"+@bank_account_statement.credit.to_s+"';")
+=javascript_tag("$('entry_number_"+@entry.id+"').innerHTML="+@entry.statement.id+";$('total_debit').innerHTML='"+@bank_account_statement.debit.to_s+"';$('total_credit').innerHTML='"+@bank_account_statement.credit.to_s+"';")
+
+  
