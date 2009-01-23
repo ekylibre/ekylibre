@@ -22,11 +22,7 @@ class AuthenticationController < ApplicationController
       if user
         init_session(user)
         unless session[:user_id].blank?
-          if session[:last_controller].to_s == self.controller_name or session[:last_controller].blank?
-            redirect_to :controller=>:guide, :action=>:index 
-          else
-            redirect_to :controller=>session[:last_controller], :action=>session[:last_action]
-          end
+          redirect_to session[:last_url]||{:controller=>:guide, :action=>:index}
         end
       else
         flash[:error] = lc :no_authenticated

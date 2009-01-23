@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   
   # See ActionController::Base for details 
   # Uncomment this to filter the contents of submitted sensitive data parameters
-  # from your application log (in this case, all fields with names like "password"). 
+  # from your application log (in this case, all fields with names like "password").  
   # filter_parameter_logging :password
 
   protected  
@@ -61,6 +61,9 @@ class ApplicationController < ActionController::Base
   
   def authorize
     session[:help_history] ||= []
+    if request.get? and not request.xhr? and not [:authentication, :help].include?(controller_name.to_sym)
+      session[:last_url] = request.url
+    end
     help_search(self.controller_name+'-'+self.action_name) if session[:help] and self.controller_name!='help'
     begin
       User.current_user = User.find_by_id(session[:user_id])
@@ -69,10 +72,6 @@ class ApplicationController < ActionController::Base
       session[:actions] = @current_user.role.actions_array
       if session[:last_query].to_i<Time.now.to_i-session[:expiration]
         flash[:error] = lc :expired_session
-        if controller_name.to_s!='authentication'
-          session[:last_controller] = controller_name 
-          session[:last_action]     = action_name
-        end
         redirect_to_login
       else
         session[:last_query] = Time.now.to_i
