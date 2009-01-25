@@ -22,25 +22,8 @@ class Managing < ActiveRecord::Migration
     add_index :shelves, [:name, :company_id], :unique=>true
     add_index :shelves, :parent_id
     add_index :shelves, :company_id
-    
-    # Tax
-    create_table :taxes do |t|
-      t.column :name,                   :string,   :null=>false
-      t.column :included,               :boolean,  :null=>false, :default=>false # for the eco-participation
-      t.column :reductible,             :boolean,  :null=>false, :default=>true  # for the eco-participation
-      t.column :nature,                 :string,   :null=>false, :limit=>8 # amount percent
-      t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0.to_d
-      t.column :description,            :text
-      t.column :account_collected_id,   :integer,  :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :account_paid_id,        :integer,  :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-    end
-    add_index :taxes, [:name, :company_id], :unique=>true
-    add_index :taxes, [:nature, :company_id]
-    add_index :taxes, :account_collected_id
-    add_index :taxes, :account_paid_id
-    add_index :taxes, :company_id
-        
+
+
     # Product
     create_table :products do |t| 
       t.column :to_purchase,            :boolean,  :null=>false, :default=>false
@@ -72,14 +55,26 @@ class Managing < ActiveRecord::Migration
     add_index :products, :account_id
     add_index :products, :company_id
 
-    create_table :products_taxes do |t|
-      t.column :product_id,             :integer,  :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :tax_id,                 :integer,  :null=>false, :references=>:taxes, :on_delete=>:cascade, :on_update=>:cascade
+    # Tax
+    create_table :taxes do |t|
+      t.column :name,                   :string,   :null=>false
+      t.column :group_name,             :string,   :null=>false
+      t.column :included,               :boolean,  :null=>false, :default=>false # for the eco-participation
+      t.column :reductible,             :boolean,  :null=>false, :default=>true  # for the eco-participation
+      t.column :nature,                 :string,   :null=>false, :limit=>8 # amount percent
+      t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0.to_d
+      t.column :description,            :text
+      t.column :account_collected_id,   :integer,  :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :account_paid_id,        :integer,  :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
-    add_index :products_taxes, [:product_id, :tax_id], :unique=>true
-    add_index :products_taxes, :tax_id
-    add_index :products_taxes, :product_id
-
+    add_index :taxes, [:name, :company_id], :unique=>true
+    add_index :taxes, [:nature, :company_id]
+    add_index :taxes, [:group_name, :company_id]
+    add_index :taxes, :account_collected_id
+    add_index :taxes, :account_paid_id
+    add_index :taxes, :company_id
+        
     # PriceList
     create_table :price_lists do |t|
       t.column :name,                   :string,   :null=>false
@@ -120,13 +115,14 @@ class Managing < ActiveRecord::Migration
       t.column :quantity_max,           :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :product_id,             :integer,  :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
       t.column :list_id,                :integer,  :null=>false, :references=>:price_lists, :on_delete=>:cascade, :on_update=>:cascade
-      #      t.column :pricelist_version_id,   :integer,  :null=>false, :references=>:pricelist_versions, :on_delete=>:cascade, :on_update=>:cascade
+      # t.column :pricelist_version_id,   :integer,  :null=>false, :references=>:pricelist_versions, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :prices, :product_id
     add_index :prices, :deleted
     add_index :prices, :list_id
     add_index :prices, :company_id
+
 
     # PriceTax
     create_table :price_taxes do |t|
@@ -367,9 +363,8 @@ class Managing < ActiveRecord::Migration
     drop_table :price_taxes
     drop_table :prices
     drop_table :price_lists
-    drop_table :products_taxes
-    drop_table :products
     drop_table :taxes
+    drop_table :products
     drop_table :shelves
     drop_table :units
   end

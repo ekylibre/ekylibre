@@ -4,14 +4,14 @@
   - form_tag({},:name=>@login) do
     %table
       %tr
-        %td.label=lc :username
+        %td.label=tc :username
         %td.input=text_field :user, :name, {:value=>session[:user_name], :tabindex=>1}
       %tr
-        %td.label=lc :password
+        %td.label=tc :password
         %td.input=password_field :user, :password, :tabindex=>2
       %tr
-        %td.button{:colspan=>2}=submit_tag(lc(:connect), :tabindex=>3)
+        %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3)
       %tr
-        %td.actions{:colspan=>2}=link_to lc(:register), {:action=>:register}, {:class=>:show}
+        %td.actions{:colspan=>2}=link_to tc(:register), {:action=>:register}, {:class=>:show}
   .line
 =javascript_tag("$('user_name').focus();")

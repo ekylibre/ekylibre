@@ -44,7 +44,7 @@ class Account < ActiveRecord::Base
       old_parent_id = self.parent_id
       account = Account.find_by_company_id_and_number(self.company_id, self.number.to_s[0..-2])
       unless account
-        account = Account.create!(:number=>self.number.to_s[0..-2], :name=>I18n.t("account.default_account_name", :number=>self.number.to_s[0..-2]), :company_id=>self.company_id)
+        account = Account.create!(:number=>self.number.to_s[0..-2], :name=>tc("default_account_name", :number=>self.number.to_s[0..-2]), :company_id=>self.company_id)
       end
       self.update_attribute(:parent_id, account.id) if account.id!=old_parent_id
     end

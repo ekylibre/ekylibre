@@ -8,9 +8,9 @@
   - f.title :nature
   - f.field :product, :shelf_id, :choices=>@current_company.shelves.find(:all, :order=>:name).collect{|x| [x.name, x.id]}, :new=>{:action=>:shelves_create}
   - f.field :product, :unit_id, :choices=>@current_company.units.find(:all, :order=>:label).collect{|x| [x.label, x.id]}
-  - f.field :product, :nature, :field=>:radio, :choices=>Product.natures.collect{|x| [lc(:natures, x),x.to_s]}
+  - f.field :product, :nature, :field=>:radio, :choices=>Product.natures
   - f.field :product, :service_coeff, :html_options=>{ :id=>:service_coeff }
-  - f.field :product, :supply_method, :field=>:radio, :choices=>Product.supply_methods.collect{|x| [lc(:supply_methods, x),x.to_s]}
+  - f.field :product, :supply_method, :field=>:radio, :choices=>Product.supply_methods
   - f.field :product, :active
   - f.field :product, :to_purchase
   - f.field :product, :to_sale

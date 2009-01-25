@@ -1,14 +1,11 @@
-%h1=lc(:title,[@name])
 =evalue @entity, :first_name
 =evalue @entity, :name
-=evalue @entity, :full_name
 =evalue @entity, :code
 =evalue @entity, :born_on
 =evalue @entity, :dead_on unless @entity.dead_on.blank?
 =evalue @entity, :active
 =evalue @entity, :website
 =link_to lc(:back) , :action=>:entities
-%br
 .contact
   =link_to lc(:new_contact) , :action=>:entities_contacts_create , :id=>@id
 =dyta :contacts

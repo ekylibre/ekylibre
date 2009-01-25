@@ -7,7 +7,6 @@
 #  record_id       :integer       not null
 #  account_id      :integer       not null
 #  name            :string(255)   not null
-#  error           :string(255)   
 #  currency_id     :integer       not null
 #  currency_rate   :decimal(16, 6 not null
 #  editable        :boolean       default(TRUE)

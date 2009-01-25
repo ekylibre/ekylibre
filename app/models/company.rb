@@ -31,19 +31,19 @@ class Company < ActiveRecord::Base
   end
 
   def after_create
-    role = Role.create!(:name=>lc(:administrator), :company_id=>self.id)
+    role = Role.create!(:name=>tc(:administrator), :company_id=>self.id)
     role.can_do :all
-    role = Role.create!(:name=>lc(:public), :company_id=>self.id)
+    role = Role.create!(:name=>tc(:public), :company_id=>self.id)
     self.parameter('general.language').value=Language.find_by_iso2('fr')
     self.load_template("#{RAILS_ROOT}/lib/template.xml")
-    self.departments.create!(:name=>lc(:default, :department_name))
-    self.establishments.create!(:name=>lc(:default, :establishment_name), :nic=>"00000")
+    self.departments.create!(:name=>tc('default.department_name'))
+    self.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
     currency = self.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
-#    self.journal_natures.create!(:name=>lc(:default, :sales_journal_nature_name))
-#    self.journal_natures.create!(:name=>lc(:default, :purchases_journal_nature_name))
-#    self.journal_natures.create!(:name=>lc(:default, :bank_journal_nature_name))
-#    self.journal_natures.create!(:name=>lc(:default, :operations_journal_nature_name))
-    self.shelves.create(:name=>lc(:default, :shelf_name))
+#    self.journal_natures.create!(:name=>tc('default.sales_journal_nature_name'))
+#    self.journal_natures.create!(:name=>tc('default.purchases_journal_nature_name'))
+#    self.journal_natures.create!(:name=>tc('default.bank_journal_nature_name'))
+#    self.journal_natures.create!(:name=>tc('default.operations_journal_nature_name'))
+    self.shelves.create(:name=>tc('default.shelf_name'))
     self.units.create(:name=>'u',  :label=>'Unités')
     self.units.create(:name=>'g',  :label=>'Grammes')
     self.units.create(:name=>'kg', :label=>'Kilogrammes')
@@ -57,7 +57,10 @@ class Company < ActiveRecord::Base
     self.units.create(:name=>'hl', :label=>'Hectolitres')
     self.taxes.create(:name=>'TVA 19.6', :nature=>'percent')
     self.address_norms.create!(:name=>'Norme AFNOR ZX110', :company_id=> self.id)
-    self.price_lists.create!(:name=>lc(:default, :price_list_name), :currency=>currency)
+    self.taxes.create!(:name=>tc('default.tva210'), :group_name=>'TVA', :nature=>'percent', :amount=>0.021)
+    self.taxes.create!(:name=>tc('default.tva550'), :group_name=>'TVA', :nature=>'percent', :amount=>0.055)
+    self.taxes.create!(:name=>tc('default.tva1960'), :group_name=>'TVA', :nature=>'percent', :amount=>0.196)
+    self.price_lists.create!(:name=>tc('default.price_list_name'), :currency=>currency)
     entit = self.entity_natures.create!( :name=>'Monsieur' , :abbreviation=>'M', :company_id=> self.id)
 #    self.entities.create!(:nature_id=> entit.id,  :language_id=> 1 , :code=>'codetest', :name=>'nom', :full_name=>'full_nameenjdj', :company_id=> self.id)
     #    self.widgets.create!(:name=>'test', :location=>Location.find_by_name('side'), :nature=>'content')
@@ -124,7 +127,12 @@ class Company < ActiveRecord::Base
 
   def available_price_lists(options={})
     options[:conditions]={:deleted=>false}
-    self.products.find(:all, options)
+    self.price_lists.find(:all, options)
+  end
+
+  def available_taxes(options={})
+#    options[:conditions]={:deleted=>false}
+    self.taxes.find(:all, options)
   end
 
 end

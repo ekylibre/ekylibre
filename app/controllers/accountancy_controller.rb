@@ -223,6 +223,7 @@ class AccountancyController < ApplicationController
       params[:printed][:company_name] = @current_company.name.to_s
       render(:xil=>"#{RAILS_ROOT}/app/views/prints/#{@print[0].to_s}.xml",:locals=>params[:printed])
     end
+    @title = {:value=>t("views.#{self.controller_name}.document_prepare.#{@print[0].to_s}")}
   end
     
   # this method finds the journal with the matching id and the company_id.
@@ -364,18 +365,18 @@ class AccountancyController < ApplicationController
     @journals = @current_company.journals.find(:all, :order=>:name)
     @financialyears = @current_company.financialyears.find(:all, :conditions => {:closed => false}, :order=>:code)
     
-    unless @journals.size>0
-      flash[:message] = lc(:messages, :need_journal_to_record_entries)
-      redirect_to :action=>:journals_create
-      return
-    end
-    
     unless @financialyears.size>0
-      flash[:message] = lc(:messages, :need_financialyear_to_record_entries)
+      flash[:message] = tc('messages.need_financialyear_to_record_entries')
       redirect_to :action=>:financialyears_create
       return
     end
 
+    unless @journals.size>0
+      flash[:message] = tc('messages.need_journal_to_record_entries')
+      redirect_to :action=>:journals_create
+      return
+    end
+    
     
     if @valid
       @record = JournalRecord.new
@@ -418,7 +419,7 @@ class AccountancyController < ApplicationController
       redirect_to_back if @journal.save
     else
       @journal = Journal.new
-      @journal.nature = Journal.natures[0]
+      @journal.nature = Journal.natures[0][1]
     end
     render_form
   end

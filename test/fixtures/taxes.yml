@@ -5,6 +5,7 @@
 #
 #  id                   :integer       not null, primary key
 #  name                 :string(255)   not null
+#  group_name           :string(255)   not null
 #  included             :boolean       not null
 #  reductible           :boolean       default(TRUE), not null
 #  nature               :string(8)     not null

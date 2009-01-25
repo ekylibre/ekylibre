@@ -10,7 +10,7 @@
 #  deleted        :boolean       not null
 #  currency_id    :integer       not null
 #  counterpart_id :integer       
-#  closed_on      :date          default(Jeu, 31 Déc 1970), not null
+#  closed_on      :date          not null
 #  company_id     :integer       not null
 #  created_at     :datetime      not null
 #  updated_at     :datetime      not null
@@ -34,6 +34,16 @@ class Journal < ActiveRecord::Base
   ACCOUNTS_OF_PURCHASES = {:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
     :bank=>512, :others=>765 }
   
+  def before_validation
+    if self.closed_on.nil?
+      self.closed_on = Date.civil(1970,1,1) 
+      if self.company
+        f = self.company.financialyears.find(:first, :order=>:started_on)
+        self.closed_on = f.started_on-1.day unless f.nil?
+      end
+    end
+  end
+
 
   def validate
     #     period = JournalPeriod.find(:first, :conditions=>{:journal_id => self.id})
@@ -128,7 +138,7 @@ class Journal < ActiveRecord::Base
 
   # ths method returns an array .
   def self.natures
-    [:sale, :purchase, :bank, :various]
+    [:sale, :purchase, :bank, :various].collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
 

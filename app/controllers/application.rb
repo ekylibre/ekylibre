@@ -71,13 +71,15 @@ class ApplicationController < ActionController::Base
       @current_company = @current_user.company
       session[:actions] = @current_user.role.actions_array
       if session[:last_query].to_i<Time.now.to_i-session[:expiration]
-        flash[:error] = lc :expired_session
+        flash[:error] = tc :expired_session
         redirect_to_login
       else
         session[:last_query] = Time.now.to_i
         if request.get? and not request.xhr?
           session[:history] ||= []
-          if session[:history][0] != request.url
+          if request.url == session[:history][1]
+            session[:history].delete_at(0)
+          elsif session[:history][0] != request.url
             session[:history] = session[:history].insert(0,request.url)[0..99]
           end
         end
@@ -95,6 +97,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_login
+    session[:help] = false
     redirect_to :controller=>:authentication, :action=>:login
   end
   
@@ -115,7 +118,7 @@ class ApplicationController < ActionController::Base
   def access(action=:all)
     if @current_user
       unless can_access?(action)
-        flash[:error]=lc :access_denied
+        flash[:error]=tc :access_denied
         redirect_to :back
       end
     else

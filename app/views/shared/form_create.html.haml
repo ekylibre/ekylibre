@@ -1,9 +1,6 @@
-%h1=t "#{self.controller.controller_name.to_s}.#{action_name.to_s}.title"
-- unless flash[:message].blank?
-  .message=flash[:message]
 - form_tag do
   =render :partial=>@partial
   .actions
-    =submit_tag(t (@options[:submit]||:create).to_s)
-    =link_to(t((@options[:cancel]||:cancel).to_s), :back)
+    =submit_tag(tg(@options[:submit]||:create))
+    =link_to_back :label=>@options[:cancel]||:cancel
 

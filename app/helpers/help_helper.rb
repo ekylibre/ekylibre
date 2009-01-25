@@ -4,7 +4,7 @@ module HelpHelper
     content = ''
     error = ''
     default = options[:default]
-    help_root = "#{RAILS_ROOT}/config/locale/"+I18n.locale.to_s+"/help/"
+    help_root = "#{RAILS_ROOT}/config/locales/"+I18n.locale.to_s+"/help/"
     file_text  = help_root+file_name+".txt"
     file_cache = help_root+"cache/"+file_name+".html"
     
@@ -26,16 +26,17 @@ module HelpHelper
       file_new.close
       file.close
     end
+ 
+    content = retrieve(default) if content.blank? and not default.blank?
+#    if content.blank?
+#      error = content_tag(:div, tc(:error_no_file, :value=>file_name), :class=>'help-error')
+#      content = retrieve(default) unless default.blank?
+#    end
     
-    if content.blank?
-      error = content_tag(:div, lc(:error_no_file, [file_name]), :class=>'help-error')
-      content = retrieve(default) unless default.blank?
-    end
-    
-    content += content_tag(:div, '&nbsp;', :class=>'text-end')
+#    content += content_tag(:div, '&nbsp;', :class=>'text-end')
 
-    return error+content_tag(:div, content, :class=>:data)
-#    return content
+#    return error+content_tag(:div, content, :class=>:data)
+    return content
   end
 
 

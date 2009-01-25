@@ -24,6 +24,33 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient3718">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3720" />
+      <stop
+         id="stop3732"
+         offset="0.125"
+         style="stop-color:#000000;stop-opacity:1;" />
+      <stop
+         id="stop3730"
+         offset="0.25"
+         style="stop-color:#3787c3;stop-opacity:1;" />
+      <stop
+         id="stop3726"
+         offset="0.5"
+         style="stop-color:#006fc1;stop-opacity:1;" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0.52999997"
+         id="stop3728" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="1"
+         id="stop3722" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3741">
       <stop
          id="stop3743"
@@ -3618,6 +3645,17 @@
        fx="267.37488"
        fy="-23.781248"
        r="8.03125" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3718"
+       id="radialGradient3724"
+       cx="55.5625"
+       cy="-8.8122244"
+       fx="55.5625"
+       fy="-8.8122244"
+       r="8.3125"
+       gradientTransform="matrix(1.1040259,-2.027002e-7,1.980312e-7,1.1615141,-5.6280377,3.235823)"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -3849,7 +3887,8 @@
        id="search"
        sodipodi:nodetypes="czzccccz"
        inkscape:export-xdpi="90.00631"
-       inkscape:export-ydpi="90.00631" />
+       inkscape:export-ydpi="90.00631"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/show.png" />
     <path
        style="opacity:0.9;fill:url(#linearGradient3687);fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient3689);stroke-width:0.67749643;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 168.74098,-15.643443 L 160.34065,-7.9900387 L 168.74098,-0.33663466 L 168.74098,-4.1633357 L 175.66478,-3.3609637 L 175.66771,-12.845906 L 168.74098,-11.81674 L 168.74098,-15.643443 z "
@@ -4401,5 +4440,10 @@
        inkscape:label="#rect3730"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <path
+       style="fill:url(#radialGradient3724);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 48.562499,-7 C 48.562499,-7 50.384728,-11.479374 55.461233,-11.531843 C 60.537737,-11.584313 63.372625,-6.40889 63.372625,-6.40889 C 63.372625,-6.40889 60.162232,-1.8626387 55.651106,-1.9427256 C 51.13998,-2.0228126 48.562499,-7 48.562499,-7 z"
+       id="path2934"
+       sodipodi:nodetypes="czczc" />
   </g>
 </svg>

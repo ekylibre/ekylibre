@@ -25,7 +25,7 @@ class AuthenticationController < ApplicationController
           redirect_to session[:last_url]||{:controller=>:guide, :action=>:index}
         end
       else
-        flash[:error] = lc :no_authenticated
+        flash[:error] = tc(:no_authenticated)
       end
       session[:user_name] = params[:user][:name]
     end

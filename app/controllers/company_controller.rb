@@ -5,6 +5,7 @@ class CompanyController < ApplicationController
     @establishments = @company.establishments
     @departments = @company.departments
     @users = @company.users
+    @title = {:value=>@company.name}
   end
 
   def update
@@ -19,6 +20,7 @@ class CompanyController < ApplicationController
   def user
     @company = @current_company
     @user = @current_user
+    @title = {:value=>@user.label}
   end
 
   dyta(:users, :conditions=>{:company_id=>['@current_company.id'],:deleted=>false}) do |t| 

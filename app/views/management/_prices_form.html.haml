@@ -1,5 +1,6 @@
 =formalize do |f|
   - f.error 'price'
+  - f.error 'price_tax'
   - f.title :general
   - f.field :price, :list_id, :choices=>@current_company.available_price_lists(:order=>:name).collect{|x| [x.name, x.id]}, :new=>{:action=>:price_lists_create}
   - f.field :price, :product_id, :choices=>@current_company.available_products(:order=>:name).collect{|x| [x.name, x.id]}, :new=>{:action=>:products_create}
@@ -7,5 +8,10 @@
   - f.field :price, :use_range
   - f.field :price, :quantity_min, :html_options=>{:id=>:price_qmin}
   - f.field :price, :quantity_max, :html_options=>{:id=>:price_qmax}
+  - taxes = @price.all_taxes(@current_company, :order=>"taxes.amount")
+  - unless taxes.empty?
+    - f.title :taxes
+    - for tax in taxes
+      - f.field tax.name, check_box_tag("price_tax_#{tax.id.to_s}",1,@price[:used],:name=>"price_tax[#{tax.id.to_s}]")
 =javascript_tag("function display_quantities(element) { var qmin=$('price_qmin'); var qmax=$('price_qmax');  if (element.checked) { qmin.show(); qmax.show(); } else { qmin.hide(); qmax.hide(); }; return false; }\ndisplay_quantities($('price_use_range'));")
 =observe_field("price_use_range", :frequency =>0.25, :function => "display_quantities(element);")

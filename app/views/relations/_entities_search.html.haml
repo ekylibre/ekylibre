@@ -1,7 +1,7 @@
-.search.action-list
+.search.aclist
   - form_tag(:action=>:entities) do
     %table
       %tr
-        %td.label=t("search")
+        %td.label=tc("search")
         %td.field=text_field_tag :key ,@key
-        %td.submit=submit_tag t("search_go")
+        %td.submit=submit_tag tg("search_go")

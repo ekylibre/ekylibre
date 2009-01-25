@@ -6,8 +6,7 @@
 #  id            :integer       not null, primary key
 #  entity_id     :integer       not null
 #  norm_id       :integer       not null
-#  active        :boolean       default(TRUE), not null
-#  default       :boolean       default(TRUE), not null
+#  default       :boolean       not null
 #  closed_on     :date          
 #  line_2        :string(38)    
 #  line_3        :string(38)    
@@ -16,11 +15,13 @@
 #  line_5        :string(38)    
 #  line_6_code   :string(38)    
 #  line_6_city   :string(38)    
+#  address       :string(280)   
 #  phone         :string(32)    
 #  fax           :string(32)    
 #  mobile        :string(32)    
 #  email         :string(255)   
 #  website       :string(255)   
+#  deleted       :boolean       not null
 #  latitude      :float         
 #  longitude     :float         
 #  company_id    :integer       not null

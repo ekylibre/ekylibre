@@ -41,4 +41,5 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "guide"
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+  map.connect '*path', :controller=>"guide", :action=>"unknown_action"
 end

@@ -1,22 +1,21 @@
-%h1=lc(:title)
 - if @valid
-  %h2=lc(:subtitle, [@journal.name, @financialyear.code])
+  %h2=tc(:subtitle, :journal=>@journal.name, :financialyear=>@financialyear.code)
 - if @valid
-  #update_params.action-list
-    =link_to_function lc(:update_params), "$('params').show(); $('update_params').hide();"
-#params.action-list
+  #update_params.aclist
+    =link_to_function tc(:update_params), "$('params').show(); $('update_params').hide();"
+#params.aclist
   - form_tag(:action => :params_entries) do
     =formalize do |f|
-      - f.field lc(:select_financialyear), select_tag("financialyear_id", options_for_select(@financialyears.collect{|j| [j.code.to_s, j.id.to_s]}, session[:entries][:financialyear].to_s))
-      - f.field lc(:select_journal), select_tag("journal_id", options_for_select(@journals.collect{|j| [lc(:journal_x, [j.name,j.closed_on.to_s]), j.id]}, session[:entries][:journal].to_s))
-      - f.field lc(:number_records), text_field_tag("number", session[:entries][:records_number], :size=>2, :tabindex => 1)
+      - f.field tc(:select_financialyear), select_tag("financialyear_id", options_for_select(@financialyears.collect{|j| [j.code.to_s, j.id.to_s]}, session[:entries][:financialyear].to_s))
+      - f.field tc(:select_journal), select_tag("journal_id", options_for_select(@journals.collect{|j| [tc(:journal_x, :name=>j.name, :closed_on=>j.closed_on.to_s), j.id]}, session[:entries][:journal].to_s))
+      - f.field tc(:number_records), text_field_tag("number", session[:entries][:records_number], :size=>2, :tabindex => 1)
     .actions
-      =submit_tag t('apply')
+      =submit_tag tg('apply')
       - if @valid
-        =link_to_function t('cancel'), "$('params').hide(); $('update_params').show();"
+        =link_to_function tg('cancel'), "$('params').hide(); $('update_params').show();"
 
 - if @valid
   #errors=render :partial=>'errors'
-  #lines{:flex=>1}=render :partial=>'entries'
+  #lines=render :partial=>'entries'
   =observe_field "account_number", :frequency => 0.25, :function =>"if ( ($('account_number').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'account', :url => { :action => 'accounts_find'}, :with => "'account=' + escape(value)")+"}"
   =javascript_tag("$('params').hide(); $('record_number').focus();")

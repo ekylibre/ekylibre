@@ -15,4 +15,15 @@
 #
 
 class PriceTax < ActiveRecord::Base
+
+  def before_validation
+    unless self.tax.nil?
+      self.amount = self.tax.compute(self.price.amount)
+    end
+  end
+
+  def after_save
+    self.price.refresh
+  end
+
 end

@@ -72,7 +72,7 @@ module Dyta
           process = ''
           for procedure in definition.procedures
             process += "+' '+" unless process.blank?
-            process += "link_to(lc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+procedure.options.inspect+")"
+            process += "link_to(tc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+procedure.options.inspect+")"
           end      
           process = "'"+content_tag(:tr, content_tag(:td, "'+"+process+"+'", :class=>:procedures, :colspan=>definition.columns.size))+"'"
         end
@@ -99,7 +99,7 @@ module Dyta
               style = 'text-align:center;'
             end
             if column.options[:url]              
-              datum = 'link_to('+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id})'
+              datum = 'link_to('+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id})))'
               css_class += ' url'
             elsif column.options[:mode]==:download# and !datum.nil?
               datum = 'link_to('+value_image(:download)+', url_for_file_column('+column.data(record)+",'"+column.name+"'))"
@@ -137,7 +137,7 @@ module Dyta
         if options[:empty]
           code += "    text = ''\n"
         else
-          code += "    text = '"+content_tag(:tr,content_tag(:td,I18n.translate('no_records').gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
+          code += "    text = '"+content_tag(:tr,content_tag(:td,tg('no_records').gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
         end
         code += "  end\n"
         code += "  text = "+process+"+text\n" unless process.nil?
@@ -150,7 +150,7 @@ module Dyta
         code += "end\n"
 
         # Finish
-        # puts code
+        puts code
         module_eval(code)
       end
 

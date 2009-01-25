@@ -119,20 +119,20 @@ fr-FR:
     errors:
       template:
         header:
-          one:   "1 erreur a empêcher l'enregistrement ({{model}})" 
-          other:  "{{count}} errors prohibited this {{model}} from being saved" 
+          one:   "1 erreur a empêché l'enregistrement ({{model}})" 
+          other:  "{{count}} erreurs ont empéché l'enregistrement ({{model}})" 
         # The variable :count is also available
-        body: "There were problems with the following fields:" 
+        body: "Il y a eu des problèmes avec les champs suivants :" 
       # The values :model, :attribute and :value are always available for interpolation
       # The value :count is available when applicable. Can be used for pluralization.
       messages:
-        inclusion: "is not included in the list" 
-        exclusion: "is reserved" 
-        invalid: "is invalid" 
+        inclusion: "n'est pas inclus dans la liste" 
+        exclusion: "est reservé" 
+        invalid: "est invalide" 
         confirmation: "doesn't match confirmation" 
-        accepted: "must be accepted" 
-        empty: "can't be empty" 
-        blank: "can't be blank" 
+        accepted: "doit être accepté" 
+        empty: "ne peut pas être vide" 
+        blank: "ne peut pas être vide" 
         too_long: "is too long (maximum is {{count}} characters)" 
         too_short: "is too short (minimum is {{count}} characters)" 
         wrong_length: "is the wrong length (should be {{count}} characters)" 
@@ -147,162 +147,171 @@ fr-FR:
         even: "must be even" 
         # Append your own errors here or at the model/attributes scope.
 
-      models:
-        # Overrides default messages
-        account: Compte
-        bank_account: Compte bancaire
-        bank_account_statement: Relevé de compte bancaire
-        company: Société
-        contact: Contact
-        department: Service
-        entity: Entité
-        entry: Écriture
-        establishment: Établissement
-        journal: Journal
-        financialyear: Exercice
-        price_list: Liste de prix
-        product: Produit
-        shelf: Catégorie de produit
-        stock_location: Lieu de stockage
-        stock_move: Mouvement de stock
-        user: Utilisateur
+    models:
+      # Overrides default messages
+      account: Compte
+      bank_account: Compte bancaire
+      bank_account_statement: Relevé de compte bancaire
+      company: Société
+      contact: Contact
+      department: Service
+      entity: Entité
+      entry: Écriture
+      establishment: Établissement
+      journal: Journal
+      financialyear: Exercice
+      price_list: Liste de prix
+      product: Produit
+      shelf: Catégorie de produit
+      stock_location: Lieu de stockage
+      stock_move: Mouvement de stock
+      user: Utilisateur
 
-      attributes:
-        # Overrides model and default messages.
-        account:
-          number: Numéro
-          name: Intitulé
-          label: Label
-        bank_account:
-          name: Intitulé
-          bank_code: Code banque
-          agency_code: Code guichet 
-          number: Numéro de compte bancaire
-          key: Clé RIB
-          iban: IBAN
-          account_id: Compte comptable référencé
-          currency_id: Devise utilisée
-          journal_id: Journal utilisé
-        bank_account_statement:
-          started_on: Du
-          stopped_on: Au
-          number: Numéro du relevé de compte
-          bank_account_id: Compte bancaire référencé	
-        company:
-          name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)
-          siren: Numéro SIREN
-          born_on: Créée le
-        contact:
-          fax: Fax
-          mobile: Portable
-          phone: Téléphone
-          website: Site web
-          latitude: Latitude
-          longitude: Longitude
-          active: Actif
-          default: Par défaut
-          closed_on: Annulé le
-          email: Email
-          nature: Type
-          line_2: Identité - Service
-          line_3: Batiment,Res,ZI
-          line_4_number: Numéro de la voie
-          line_4_street: Libelle de la voie
-          line_5: Mention spéciale - Lieu dit
-          line_6_code: Code postal
-          line_6_city: Ville
-          address: Adresse
-        department:
-          name: Nom
-          comment: Commentaire
-        entity:
-          first_name: Prénom
-          website: Site Web
-          name: Nom
-          code: Code
-          full_name: Nom complet
-          nature_id: Type
-          language: Langage
-          born_on: Né le
-          dead_on: Décédé le
-          active: Actif
-        entry:
-          name: Libellé
-          account_id: Compte
-        establishment:
-          name: Nom
-          nic: NIC (Numéro Interne de Classement)
-          siret: N° SIRET
-          comment: Commentaire
-        journal:
-          closed_on: Clôturé le
-          code: Code
-          currency_id: Devise
-          name: Nom
-          nature: Nature
-        financialyear:
-          id: Numéro
-          closed: Clôturé	
-          started_on: Commencé le
-          stopped_on: Date de clôture
-          written_on: 'Autoriser l''écriture jusqu''au'	 
-        price_list:
-          active: Active (utilisable)
-          comment: Commentaire
-          currency_id: Devise
-          name: Nom
-        product:
-          account_id: Compte comptable
-          active: Utilisable
-          catalog_name: Nom pour le catalogue
-          catalog_description: Description pour le catalogue
-          code: Code
-          code2: Code secondaire
-          comment: Commentaire
-          description: Description
-          ean13: Code EAN13
-          name: Nom
-          nature: Nature
-          number: Numéro
-          service_coeff: Coefficient (de quantité) de service
-          shelf_id: Catégorie
-          supply_method: 'Moyen d''approvisionnement'
-          to_sale: Produit destiné à la vente
-          to_purchase: 'Produit destiné à l''achat'
-          to_rent: Produit destiné à la location
-          unit_id: Unité de mesure
-        shelf:
-          catalog_name: Nom pour le catalogue
-          catalog_description: Description
-          comment: Commentaire
-          name: Nom
-          parent: Sur-catégorie
-          parent_id: Sur-catégorie
-        stock_location:
-          account_id: Compte comptable
-          comment: Commentaire
-          contact_id: Adresse
-          establishment_id: Établissement
-          name: Nom
-          parent_id: Lieu de stockage maître
-          x: Position X
-          y: Position Y
-          z: Position Z
-        stock_move:
-          name: Nom
-          planned_on: Prévu le
-          moved_on: Fait le
-          quantity: Quantité
-          unit_id: Unité
-          product_id: Produit
-          comment: Commentaire
-        user:
-          name: 'Nom d''utilisateur'
-          first_name: 'Prénom'
-          last_name: 'Nom de famille'
-          locked: 'Compte verrouillé'
-          password: 'Mot de passe'
-          password_confirmation: 'Confirmation du mot&nbsp;de&nbsp;passe'
+    attributes:
+      # Overrides model and default messages.
+      account:
+        number: Numéro
+        name: Intitulé
+        label: Label
+      bank_account:
+        name: Intitulé
+        bank_code: Code banque
+        agency_code: Code guichet 
+        number: Numéro de compte bancaire
+        key: Clé RIB
+        iban: IBAN
+        account_id: Compte comptable référencé
+        currency_id: Devise utilisée
+        journal_id: Journal utilisé
+      bank_account_statement:
+        started_on: Du
+        stopped_on: Au
+        number: Numéro du relevé de compte
+        bank_account_id: Compte bancaire référencé	
+      company:
+        name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)
+        siren: Numéro SIREN
+        born_on: Créée le
+      contact:
+        fax: Fax
+        mobile: Portable
+        phone: Téléphone
+        website: Site web
+        latitude: Latitude
+        longitude: Longitude
+        active: Actif
+        default: Par défaut
+        closed_on: Annulé le
+        email: Email
+        nature: Type
+        line_2: Identité - Service
+        line_3: Batiment,Res,ZI
+        line_4_number: Numéro de la voie
+        line_4_street: Libelle de la voie
+        line_5: Mention spéciale - Lieu dit
+        line_6_code: Code postal
+        line_6_city: Ville
+        address: Adresse
+      department:
+        name: Nom
+        comment: Commentaire
+      entity:
+        first_name: Prénom
+        website: Site Web
+        name: Nom
+        code: Code
+        full_name: Nom complet
+        nature_id: Type
+        language: Langage
+        born_on: Né le
+        dead_on: Décédé le
+        active: Actif
+      entry:
+        name: Libellé
+        account_id: Compte
+      establishment:
+        name: Nom
+        nic: NIC (Numéro Interne de Classement)
+        siret: N° SIRET
+        comment: Commentaire
+      financialyear:
+        id: Numéro
+        code: Code
+        closed: Clôturé	
+        started_on: Commencé le
+        stopped_on: Date de clôture
+        written_on: 'Autoriser l''écriture jusqu''au'
+      journal:
+        closed_on: Clôturé le
+        code: Code
+        currency_id: Devise
+        name: Nom
+        nature: Nature
+      price:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        list_id: Liste de prix
+        product_id: Produit
+        use_range: Définir un intervalle de quantité pour le produit
+        quantity_min: 'Quantité minimale'
+        quantity_max: 'Quantité maximale'
+      price_list:
+        active: Active (utilisable)
+        comment: Commentaire
+        currency_id: Devise
+        name: Nom
+      product:
+        account_id: Compte comptable
+        active: Utilisable
+        catalog_name: Nom pour le catalogue
+        catalog_description: Description pour le catalogue
+        code: Code
+        code2: Code secondaire
+        comment: Commentaire
+        description: Description
+        ean13: Code EAN13
+        name: Nom
+        nature: Nature
+        number: Numéro
+        service_coeff: Coefficient (de quantité) de service
+        shelf_id: Catégorie
+        supply_method: 'Moyen d''approvisionnement'
+        to_sale: Produit destiné à la vente
+        to_purchase: 'Produit destiné à l''achat'
+        to_rent: Produit destiné à la location
+        unit_id: Unité de mesure
+      shelf:
+        catalog_name: Nom pour le catalogue
+        catalog_description: Description
+        comment: Commentaire
+        name: Nom
+        parent: Sur-catégorie
+        parent_id: Sur-catégorie
+      stock_location:
+        account_id: Compte comptable
+        comment: Commentaire
+        contact_id: Adresse
+        establishment_id: Établissement
+        name: Nom
+        parent_id: Lieu de stockage maître
+        x: Position X
+        y: Position Y
+        z: Position Z
+      stock_move:
+        name: Nom
+        planned_on: Prévu le
+        moved_on: Fait le
+        quantity: Quantité
+        unit_id: Unité
+        product_id: Produit
+        comment: Commentaire
+      user:
+        name: 'Nom d''utilisateur'
+        first_name: 'Prénom'
+        last_name: 'Nom de famille'
+        locked: 'Compte verrouillé'
+        password: 'Mot de passe'
+        password_confirmation: 'Confirmation du mot&nbsp;de&nbsp;passe'
 
   # You can use the app section freely to localize you application with the
   # localized_application feature. The entries defined here are accesable by the
@@ -310,43 +319,69 @@ fr-FR:
 
   controllers:
     accountancy:
+      title: Comptabilité
+      messages:
+        need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
+        need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
+        need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
+        no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
+      create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
+      create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
     application:
+      title: Application
+      expired_session: 'Session expirée. Veuillez vous reconnecter.'
+      access_denied: 'Vous n''avez pas le droit d''accéder à cette fonctionnalité'
     authentication:
+      title: Connexion
+      no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
     company:
+      title: Société
     guide:
+      title: Accueil
+      unknown_action: 'La page que vous demandez n''est pas disponible.'
     help:
+      title: Aide
     management:
+      title: Commerce
+      messages:
+        need_product_to_create_price: 'Pour pouvoir ajouter un tarif à une liste de prix, il vous faut d''abord enregistrer un produit à tarifer. Une fois le produit enregistré vous pourrez enregistrer votre tarif.'
+  
     relations:
+      title: Relations
+
+  # Used in the helpers
+  # Used in the helpers
+  # Used in the helpers
+  # Used in the helpers
   helpers:
     accountancy:
     application:
+      exit: Quitter
     authentication:
     company:
     guide:
     help:
     management:
+      sales_step_1: 'Client'
+      sales_step_2: 'Description'
+      sales_step_3: 'Produits'
+      sales_step_4: 'Livraisons'
+      sales_step_5: 'Factures'
+      sales_step_6: 'Règlements'
+      sales_step_7: 'Impression'
+  
     relations:
+
+
+  # Used in all the views
+  # Used in all the views
+  # Used in all the views
+  # Used in all the views
   views:
     accountancy:
       entries:
         title: Test
-    application:
-    authentication:
-    company:
-    guide:
-    help:
-    management:
-    relations:
-  models:
-    
-  
 
-  app:
-    account:
-      error_delete: Le compte ne peut être effacé car il contient des sous-comptes.	
-      default_account_name: 'Compte comptable %s'
-    accountancy:
-      title: Comptabilité
       index:
         title: Comptabilité générale
         accounts: Gérer les comptes comptables
@@ -383,11 +418,11 @@ fr-FR:
         entry_record: Numéro de pièce
         entry_name: Nom de l''écriture		    
       accounts_update:
-        title: 'Modifier le compte : %s'
+        title: 'Modifier le compte : {{value}}'
       bank_accounts:
         title: Comptes bancaires
         create: Créer un nouveau compte bancaire
-      bank_accounts_form:
+      _bank_accounts_form:
         rib: 'Relevé d''identité bancaire'
         accountancy: Comptabilité
         create_journal: 'Vous devez d''abord créer un journal.'
@@ -410,18 +445,12 @@ fr-FR:
         balance_sheet: Bilan
         income_statements: Compte de résultat
       document_print:
-        title: 'Impression du document : %s'
+        title: 'Impression du document : {{value}}'
         print: Impression
       print_by_financial_year:
-        financial_year_select: Sélectionnez l'exercice comptable
+        financial_year_select: Sélectionnez l''exercice comptable
         financial_id: Exercice comptable
-      entries:
-        title: Saisie des écritures
-        subtitle: 'Enregistrement dans le journal "%s" pour l''exercice "%s"'
-        journal_x: '%s (clotûré le %s)'
-        select_journal: 'Saisir les écritures dans le journal'
-        select_financialyear: 'Comptabiliser les écritures pour l''exercice comptable'
-        number_records: 'Nombre des dernières pièces à afficher'
+      _entries:
         record_number: 'N°Pièce'
         record_created: 'Enregistrée le'
         record_printed: 'Datée au'
@@ -434,6 +463,13 @@ fr-FR:
         confirmation: 'Êtes-vous sûr de votre saisie ?'     
         balanced_entries: 'Vert : pièce équilibrée'
         unbalanced_entries: 'Rouge : pièce non équilibrée'
+      entries:
+        title: Saisie des écritures
+        subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
+        journal_x: '{{name}} (clôturé le {{closed_on}})'
+        select_journal: 'Saisir les écritures dans le journal'
+        select_financialyear: 'Comptabiliser les écritures pour l''exercice comptable'
+        number_records: 'Nombre des dernières pièces à afficher'
         update_params: 'Changer de journal et/ou d''exercice...'
       financialyears:
         title: Exercices comptables
@@ -450,12 +486,7 @@ fr-FR:
       journals_find:
         journal_id: Numéro de journal
         journal_name: Nom du journal
-      journals_form:
-        natures:
-          purchase: Achats
-          sale: Ventes
-          bank: Banque
-          various: Opérations Diverses
+      _journals_form:
         
       journals_create:
         title: Créer un nouveau journal
@@ -464,13 +495,6 @@ fr-FR:
       journals_close:
         title: Clôture du journal
   
-      messages:
-        need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
-        need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
-        need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
-        no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
-      create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
-      create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
       print_by_journal:
         dates: Saisissez les dates ainsi que le journal
         journal: Journal
@@ -505,28 +529,16 @@ fr-FR:
         entry_debit: Débit
         entry_credit: Crédit
         entry_currency_rate: Devise  
-        total: 'Total pour le compte bancaire %s:'
-  
-    accounting_system:
-      1: 'Comptes de capitaux'
-      2: 'Comptes d''immobilisations'
-      3: 'Comptes de stocks et en-cours'
-      4: 'Comptes de tiers'
-      5: 'Comptes financiers'
-      6: 'Comptes de charges'
-      7: 'Comptes de produits'
-      8: 'Comptes spéciaux'
+        total: 'Total pour le compte bancaire {{value}}:'
+
+
     application:
-      expired_session: 'Session expirée. Veuillez vous reconnecter.'
-      access_denied: 'Vous n''avez pas le droit d''accéder à cette fonctionnalité'
-      admin: 'Administration'
-      exit: 'Quitter Ekylibre'
-      new: Nouveau...
+
+
+    # Authentication
     authentication:
-      title: 'Bienvenue'
-      no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
       login:
-        title: 'Bienvenue sur Ekylibre'
+        title: ''
         username: 'Nom d''utilisateur'
         password: 'Mot de passe'
         connect: 'Entrer'
@@ -547,11 +559,12 @@ fr-FR:
         user_name_info: 'C''est le nom que vous utiliserez pour rentrer dans Ekylibre'
         user_password_hint: 'Pour avoir mot de passe "solide", il faut utiliser au minimum des majuscules, des minuscules et des chiffres'
         user_password_confirmation_info: 'Vous devez ressaisir votre mot de passe pour éviter qu''un mot de passe érroné soit enregistré'
+
+    # Company
     company:
-      title: Société
       index:
         companie: 
-        title: 'Informations sur la société %s'
+        title: 'Informations sur la société {{value}}'
         identity: 'Carte d''identité'
         statistics: Chiffres
         establishments: Établissements
@@ -570,22 +583,12 @@ fr-FR:
         departments_number: Nombre de services
         users_number: 'Nombre d''utilisateurs'
         update: Modifier le détail de la société
-      default:
-        bank_journal_nature_name: Banque
-        department_name: Gestion/Production
-        establishment_name: Établissement principal
-        financialyear_code: 1A2
-        operations_journal_nature_name: Opérations Diverses
-        price_list_name: Tarif normal (par défaut)
-        purchases_journal_nature_name: Achats
-        sales_journal_nature_name: Ventes
-        shelf_name: Sans catégorie
       update:
-        title: 'Modification de la société %s'
+        title: 'Modification de la société {{value}}'
         general: Vous pouvez modifier les différentes informations concernant votre société
         company_code_info: 'Ce code sert d''abréviation pour certaines impressions'
       user:
-        title: 'Informations sur l''utilisateur : %s'
+        title: 'Informations sur l''utilisateur : {{value}}'
         change_password: Modifier le mot de passe
       users:
         title: Liste des utilisateurs
@@ -595,7 +598,7 @@ fr-FR:
         title: 'Création d''un nouvel utilisateur'
       users_update:
          title: 'Modification de l''utilisateur'
-      users_form:
+      _users_form:
         subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
       establishments:
         getback: Retour à la fiche de société
@@ -605,7 +608,7 @@ fr-FR:
         title: 'Ajout d''un nouvel etablissement'
       establishments_update:
         title: 'Modification de l''établissement'
-      establishments_form:
+      _establishments_form:
         subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
       departments:
         title: Liste des services	de la société
@@ -617,15 +620,17 @@ fr-FR:
         title: 'Ajout d''un nouveau service'
       departments_update:
         title: Modification du service
-      departments_form:
+      _departments_form:
         subtitle: Renseignez les différentes caractéristiques du service
       company_edit:
         title: Modification de la société
         general: Vous pouvez modifier les différentes informations concernant votre société
+
+
+    # Guide
     guide:
-      title: Accueil
       index:
-        title: 'Bienvenue dans Ekylibre, %s'
+        title: 'Bienvenue dans Ekylibre, {{user}}'
         about_us: 'À propos d''Ekylibre'
         accountancy: 'Comptabilité générale'
         informations: 'Informations'
@@ -634,124 +639,100 @@ fr-FR:
         relations: 'Gestion des relations clients/fournisseurs'
       about_us:
         title: 'À propos d''Ekylibre'
-      accountancy:
-        title: 'Comptabilité'
+
+    # Help
     help:
-      error_no_file: 'Aucun fichier d''aide disponible pour cette partie de l''application (%s)'
-      search:
+      _search:
+        error_no_file: 'Aucune aide disponible pour cette partie de l''application'
+        home: 'Retour à l''accueil de l''aide'
         title: 'Aide'
-    journal:
-      error_limited_period: '.'
-      error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
-      error_unbalanced_period_journal: 'Le journal contient des enregistrements non équilibrés.'
-    journal_period:
-      error_period: 'L''interval de temps est incorrect pour la période.'	
-      error_closed_journal: 'Vous ne pouvez pas ajouter de pièces comptables à cette date  car le journal est clôturé au %s.'
-      error_closed_financialyear: 'L''année financière est déjà terminée.'
-      error_limited_financialyear: 'L''année financière sera déjà terminée à la fin de la période.'
-    entry:
-      error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
-      error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'
-      error_amount_rate: 'Le taux de conversion n''existe pas.'	
-    journal_record:
-      error_printed_date: 'La pièce comptabilisée n''existe pas.'
-      error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus ajouter de pièces.' 
-      error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
-      error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
-    bank_account_statement:
-      error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
-      error_period_statement: 'L''interval de temps est incorrect pour le relevé bancaire.'  				   
-      error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'			           
-    financialyear:
-      error_stopped2_financialyear: 'La date de fin d''exercice doit être une date de fin de mois.'
-      error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'
-      error_written_financialyear: 'La date butoir de création des journaux doit être inférieure à la date de clôture.'
-      error_overlap_financialyear: 'La période de l''exercice se chevauche.'
-      error_unclosed_period_financialyear: 'Cet exercice contient des journaux qui n''ont pas encore été clôturé.'
+  
+
+    # Layout
     layouts:
       application:
+        admin: 'Administration'
+        exit: 'Quitter Ekylibre'
+        new: Nouveau...
+
+
+    # Management
     management:
-      title: 'Commerce'
       index:      
-        title: 'Gestion commerciale'
+        invoicing_parameters: 'Facturation'
         parameters: 'Paramètres'
-        price_lists: 'Gérer les tarifs des produits'
-        products: 'Gérer les produits de vente et d''achat'
+        price_lists: 'Tarifs des produits'
+        products: 'Produits de vente et d''achat'
         purchases: 'Achats'
         purchases_consult: 'Consulter l''état des achats'
         purchases_new: 'Nouvel achat'
         sales: 'Ventes'
         sales_consult: 'Consulter l''état des ventes'
         sales_new: 'Nouvelle vente'
-        shelves: 'Gérer les catégories de produit'
-        units: 'Unités de mesure'
+        shelves: 'Catégories de produit'
         stocks: 'Stocks'
         stocks_consult: 'Consulter l''état des stocks'
         stocks_locations: 'Gérer les stocks'
         taxes: 'Taxes'
+        title: 'Gestion commerciale'
+        units: 'Unités de mesure'
    
-      messages:
-        need_product_to_create_price: 'Pour pouvoir ajouter un tarif à une liste de prix, il vous faut d''abord enregistrer un produit à tarifer. Une fois le produit enregistré vous pourrez enregistrer votre tarif.'
-  
+      prices_create:
+        title: 'Ajout d''un nouveau prix'
+      _prices_form:
+        general: Général
+        taxes: Taxes
+
       price_lists:
         title: Gérer les listes de prix
         price_lists_create: Ajouter une nouvelle liste de prix
       price_lists_create:
         title: Ajouter une nouvelle liste de prix
       price_lists_display:
-        title: 'Liste de prix : %s'
+        title: 'Liste de prix : {{value}}'
         prices: 'Produits et prix de la liste'
         prices_create: 'Ajouter un nouveau prix'
-      price_lists_form:
+      _price_lists_form:
         general: Description générale
       price_lists_update:
-        title: 'Modifier la liste de prix : %s'
+        title: 'Modifier la liste de prix : {{value}}'
   
       products:
         title: 'Gérer les produits'
-        nb_products: '%s produit(s) enregistré(s)'
+        nb_products:
+          zero: 'Aucun produit enregistré'
+          one: '1 produit enregistré'
+          other: '{{count}} produits enregistrés'
         new_product: 'Ajout d''un nouveau produit'
       products_create:
         title: 'Ajouter un nouveau produit'
       products_display:
-        products_list: 'Retourner à la liste de produits'
-        title: 'Fiche du produit : %s'
-        update_product: 'Modifier la fiche du produit'
-      products_form:
+        prices: 'Prix du produit'
+        products: 'Retourner à la liste de produits'
+        products_update: 'Modifier la fiche du produit'
+        title: 'Fiche du produit : {{value}}'
+      _products_form:
         accountancy: Comptabilité
         identification: Nom et codes du produit
         description: Descriptions
         nature: Type de produit
-        natures:
-          product: Produit
-          service: Service
-        supply_methods:
-          buy: Achat
-          produce: Production
-      products_search:
+      _products_search:
         title: 'Recherche'
         search: 'Rechercher un produit'
       products_update:
-        title: 'Modification du produit : %s'
+        title: 'Modification du produit : {{value}}'
   
       sales_new:
         title: 'Nouvelle vente'
         nature: 'Type de vente'
         client: 'Sélection du client'
-      sales_step_1: 'Client'
-      sales_step_2: 'Description'
-      sales_step_3: 'Produits'
-      sales_step_4: 'Livraisons'
-      sales_step_5: 'Factures'
-      sales_step_6: 'Règlements'
-      sales_step_7: 'Impression'
-  
+
       shelves:
         title: Gérer les catégories de produits
         shelves_create: Ajouter une nouvelle catégorie de produits
       shelves_create:
         title: 'Ajout d''une nouvelle catégorie de produits'
-      shelves_form:
+      _shelves_form:
         general: Informations générales
         catalog: Description pour catalogue
       shelves_update:
@@ -763,12 +744,12 @@ fr-FR:
       stocks_locations_create:
         title: 'Ajout d''un lieu de stockage'
       stocks_locations_display:
-        title: 'Détail du lieu de stockage : %s'
+        title: 'Détail du lieu de stockage : {{value}}'
         establishment: Établissement
         moves: Mouvements de stocks
         stocks_locations_update: Modifier le lieu de stockage
         stocks_moves_create: Ajouter un mouvement de stock
-      stocks_locations_form:
+      _stocks_locations_form:
         description: Description générale
         localization: Localisation géographique
         accountancy: Comptabilité
@@ -776,14 +757,14 @@ fr-FR:
         title: 'Modification d''un lieu de stockage'
       stocks_moves_create:
         title: 'Enregistrement d''un mouvement de stock'
-      stocks_moves_form: 
+      _stocks_moves_form: 
         description: Description
         nature: Opération
       stocks_moves_update:
-        title: 'Modifier le mouvement de stock : %s'
-  
-    relations: 
-      title: Relations
+        title: 'Modifier le mouvement de stock : {{value}}'
+
+    # Relations
+    relations:
       entities_create: 
         title: 'Création d''une nouvelle fiche client/fournisseur'
       entities_contacts_create:
@@ -793,35 +774,106 @@ fr-FR:
       entities_contact_delete:
         title: Caractéristiques du contact à supprimer
       entities_display:
-        title: 'Informations de la fiche %s'
+        title: 'Fiche : {{value}}'
         back: Retour 
         new_contact: Entrer un nouveau contact
-        entities_contacts_create: Création d'un nouveau contact
-      entities_contacts_form:
+        entities_contacts_create: 'Création d''un nouveau contact'
+      _entities_contacts_form:
         title: 'Renseignez les caractéristiques du contact'
       entities:
         title: 'Fiches des relations'
         entities_create: Créer une nouvelle fiche
-        nb_entities: '%s fiche(s) enregistrée(s)'
-      entities_search:
-        search: Rechercher une relation
+        nb_entities: 
+          zero: 'Aucune fiche enregistrée'
+          one: '1 fiche enregistrée'
+          other: '{{count}} fiches enregistrées'
+      _entities_search:
+        search: Rechercher une fiche
       entities_update:
-        title: 'Modification de la fiche : %s'
-      entities_form:
+        title: 'Modification de la fiche : {{value}}'
+      _entities_form:
         title: 'Renseignez les différentes caractéristiques de la fiche'
       index:
         title: Gestion des relations clients et fournisseurs
         entities_create: Créer une nouvelle fiche
         entities_managing: Clients et fournisseurs
         entities: Gérer les fiches clients et fournisseurs
-  
+
+  # Used in the models
+  # Used in the models
+  # Used in the models
+  # Used in the models
+  # Used in the models
+  # Used in the models
+  models:
+    account:
+      error_delete: Le compte ne peut être effacé car il contient des sous-comptes.	
+      default_account_name: 'Compte comptable {{number}}'
+    bank_account_statement:
+      error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
+      error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'  				   
+      error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'			           
+    company:
+      default:
+        bank_journal_nature_name: Banque
+        department_name: Gestion/Production
+        establishment_name: Établissement principal
+        financialyear_code: 1A2
+        operations_journal_nature_name: Opérations Diverses
+        price_list_name: Tarif normal
+        purchases_journal_nature_name: Achats
+        sales_journal_nature_name: Ventes
+        sample_product_name: Produit Exemple
+        shelf_name: Sans catégorie
+        tva210: TVA 2,10%
+        tva550: TVA 5,50%
+        tva1960: TVA 19,60%
+    entry:
+      error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
+      error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'
+      error_amount_rate: 'Le taux de conversion n''existe pas.'	
+    financialyear:
+      error_stopped2_financialyear: 'La date de fin d''exercice doit être une date de fin de mois.'
+      error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'
+      error_written_financialyear: 'La date butoir de création des journaux doit être inférieure à la date de clôture.'
+      error_overlap_financialyear: 'La période de l''exercice se chevauche.'
+      error_unclosed_period_financialyear: 'Cet exercice contient des journaux qui n''ont pas encore été clôturé.'
+    journal:
+      error_limited_period: '.'
+      error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
+      error_unbalanced_period_journal: 'Le journal contient des enregistrements non équilibrés.'
+      natures:
+        purchase: Achats
+        sale: Ventes
+        bank: Banque
+        various: Opérations diverses
+    journal_period:
+      error_period: 'L''intervalle de temps est incorrect pour la période.'	
+      error_closed_journal: 'Vous ne pouvez pas ajouter de pièces comptables à cette date  car le journal est clôturé au {{value}}.'
+      error_closed_financialyear: 'L''année financière est déjà terminée.'
+      error_limited_financialyear: 'L''année financière sera déjà terminée à la fin de la période.'
+    journal_record:
+      error_printed_date: 'La pièce comptabilisée n''existe pas.'
+      error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus ajouter de pièces.' 
+      error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
+      error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
+    price:
+      error_range_overlap: 'L''intervalle de quantité en chevauche un autre (de {{min}} à {{max}})'
+      error_already_defined: 'Un prix a déjà été défini pour cette liste de prix et ce produit'
+      range: 'De {{min}} à {{max}}'
+      no_range: 'Pas d''intervalle'
     product:
       unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
+      natures:
+        product: Produit
+        service: Service
+      supply_methods:
+        buy: Achat
+        produce: Production
+    
   
-    unavailable:
-      journal: 'Le journal demandé est indisponible (%s)'
-      product: Le produit demandé est indisponible
-  
+  # Genral words and expression through the all app
+  general:
     apply: 'Appliquer'
     are_you_sure: 'Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?'
     back: 'Revenir à la page précédente'
@@ -830,15 +882,36 @@ fr-FR:
     create: 'Créer'
     update: 'Modifier'
     edit: 'Modifier'
-    example: 'Exemple&nbsp;: %s'
+    example: 'Exemple&nbsp;: {{value}}'
     finish: Terminer
-    hint: 'Astuce&nbsp;: %s'
-    info: 'Information&nbsp;: %s'
+    hint: 'Astuce&nbsp;: {{value}}'
+    info: 'Information&nbsp;: {{value}}'
     next: Suivant
+    new: Nouveau...
     no_records: 'Pas d''enregistrements'
     previous: Précédent
     print: Impression
     search: Rechercher
     search_go: Lancer la recherche
     submit: Envoyer
+
+
+      
+  # Other  TO DELETE
+  # NE RIEN AJOUTER : VA ETRE SUPPRIMÉ
+  app:
+    accounting_system:
+      1: 'Comptes de capitaux'
+      2: 'Comptes d''immobilisations'
+      3: 'Comptes de stocks et en-cours'
+      4: 'Comptes de tiers'
+      5: 'Comptes financiers'
+      6: 'Comptes de charges'
+      7: 'Comptes de produits'
+      8: 'Comptes spéciaux'
+    
+    unavailable:
+      journal: 'Le journal demandé est indisponible ({{value}})'
+      product: Le produit demandé est indisponible
+  
   

@@ -15,12 +15,24 @@ class ManagementController < ApplicationController
     t.procedure :price_lists_create
   end
 
+  dyta(:prices, :conditions=>{:company_id=>['@current_company.id'], :list_id=>['@price_list.id'], :deleted=>false}) do |t|
+    t.column :name, :through=>:product, :url=>{:action=>:products_display}
+    t.column :amount
+    t.column :amount_with_taxes
+    t.column :range
+    t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :prices_create
+  end
+
+
   def price_lists
     price_lists_list params
   end
 
   def price_lists_display
     @price_list = find_and_check(:price_list, params[:id])    
+    prices_list params
+    @title = {:value=>@price_list.name}
   end
 
   def price_lists_create
@@ -41,35 +53,51 @@ class ManagementController < ApplicationController
         redirect_to :action=>:price_lists
       end
     end
-    render_form(:label=>@price_list.name)
+    @title = {:value=>@price_list.name}
+    render_form
   end
 
   def price_lists_delete
     @price_list = find_and_check(:price_list, params[:id])
     if request.post? or request.delete?
-      redirect_to :back if @price_list.delete
+      redirect_to_back if @price_list.delete
     end
   end
 
-  dyta(:prices, :conditions=>{:company_id=>['@current_company.id'], :list_id=>['@price_list.id'], :deleted=>false}) do |t|
-    t.column :name, :through=>:product
-    t.column :amount
-    t.column :amount_with_taxes
-    t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :prices_create
-  end
+
 
   def prices_create
     if request.post? 
-      @price = Price.new(params[:price])
-      @price.company_id = @current_company.id
-      redirect_to :action =>:prices if @price.save
+      if session[:last_saved_price].nil?
+        @price = Price.new(params[:price])
+        @price.company_id = @current_company.id
+      else
+        @price = Price.find session[:last_saved_price]
+      end
+      if @price.save
+        session[:last_saved_price] = @price.id
+        all_safe = true
+        if params[:price_tax]
+          for tax in params[:price_tax]
+            tax = find_and_check(:tax, tax[0])
+            @price_tax = @price.taxes.create(:tax_id=>tax.id)
+#            raise Exception.new(@price_tax.inspect)
+            all_safe = false unless @price_tax.save
+          end
+        end
+        if all_safe
+          session[:last_saved_price] = nil
+          redirect_to_back
+        end
+      end
     else
       if @current_company.available_products.size<=0
-        flash[:message] = lc(:messages, :need_product_to_create_price)
+        flash[:message] = tc(:messages, :need_product_to_create_price)
         redirect_to :action=> :products_create
       end
+      session[:last_saved_price] = nil
       @price = Price.new
+      @price.list_id = params[:id]
     end
     render_form    
   end
@@ -90,6 +118,14 @@ class ManagementController < ApplicationController
     t.procedure :new_product, :action=>:products_create
   end
 
+  dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['@product.id'], :deleted=>false}, :model=>:prices, :empty=>true) do |t|
+    t.column :name, :through=>:list, :url=>{:action=>:price_lists_display}
+    t.column :amount
+    t.column :amount_with_taxes
+    t.column :range
+    t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+  end
+
   def products
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key
@@ -98,6 +134,8 @@ class ManagementController < ApplicationController
 
   def products_display
     @product = find_and_check(:product, params[:id])
+    product_prices_list params
+    @title = {:value=>@product.name}
   end
 
   def products_create
@@ -107,8 +145,8 @@ class ManagementController < ApplicationController
       redirect_to_back if @product.save
     else
       @product = Product.new
-      @product.nature = Product.natures.first
-      @product.supply_method = Product.supply_methods.first
+      @product.nature = Product.natures.first[1]
+      @product.supply_method = Product.supply_methods.first[1]
     end
     render_form
   end
@@ -120,7 +158,8 @@ class ManagementController < ApplicationController
         redirect_to :action=>:products_display, :id=>@product.id
       end
     end
-    render_form(:label=>@product.name)
+    @title = {:value=>@product.name}
+    render_form()
   end
 
   def products_delete
@@ -280,6 +319,7 @@ class ManagementController < ApplicationController
     @stock_location = find_and_check(:stock_location, params[:id])
     session[:current_stock_location_id] = @stock_location.id
     stock_moves_list params
+    @title = {:value=>@stock_location.name}
   end
 
   def stocks_locations_create

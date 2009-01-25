@@ -28,18 +28,45 @@ class Price < ActiveRecord::Base
 
   def before_validation
     self.amount_with_taxes = self.amount
-    if self.product
-      for tax in self.taxes
-        self.amount_with_taxes += tax.compute(self.amount)
-      end
+    for tax in self.taxes
+      self.amount_with_taxes += tax.amount
     end
     self.started_on = Date.today
     self.quantity_min ||= 0
     self.quantity_max ||= 0
   end
 
+  def validate
+    if self.use_range
+      price = self.company.prices.find(:first, :conditions=>["(? BETWEEN quantity_min AND quantity_max OR ? BETWEEN quantity_min AND quantity_max) AND product_id=? AND list_id=? AND id!=?", self.quantity_min, self.quantity_max, self.product_id, self.list_id, self.id])
+      errors.add_to_base tc(:error_range_overlap, :min=>price.quantity_min, :max=>price.quantity_max) unless price.nil?
+    else
+      errors.add_to_base tc(:error_already_defined) unless self.company.prices.find(:first, :conditions=>["NOT use_range AND product_id=? AND list_id=? AND id!=COALESCE(?,0)", self.product_id, self.list_id, self.id]).nil?
+    end
+  end
+  
   def refresh
     self.save
+  end
+
+  def all_taxes(company, options={})
+    if self.new_record?
+      options[:select] = "taxes.*, false AS used"      
+    else
+      options[:select] = "taxes.*, (pt.id IS NOT NULL)::boolean AS used"
+      options[:joins]  = " LEFT JOIN price_taxes AS pt ON (taxes.id=tax_id)"
+      options[:conditions]  = {:price_id=>self.id}
+    end
+    company.taxes.find(:all, options)
+  end
+
+
+  def range
+    if self.use_range
+      tc(:range, :min=>self.quantity_min, :max=>self.quantity_max)
+    else
+      tc(:no_range)
+    end
   end
 
 end

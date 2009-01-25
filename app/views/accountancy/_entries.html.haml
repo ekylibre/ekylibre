@@ -1,32 +1,32 @@
 - form_remote_tag() do 
   %table.dyta
     %tr
-      %th=lc :record_number
-      %th=lc :record_created
-      %th=lc :record_printed
-      %th=lc :label
-      %th=lc :account_number
-      %th=lc :record_debit
-      %th=lc :record_credit
+      %th=tc :record_number
+      %th=tc :record_created
+      %th=tc :record_printed
+      %th=tc :label
+      %th=tc :account_number
+      %th=tc :record_debit
+      %th=tc :record_credit
     %tr
-      %td=text_field :record, :number, {:size=>5, :tabindex=>1}
+      %td=text_field :record, :number, {:size=>5}
       %td=text_field :record, :created_on, {:size=>10}
-      %td=text_field :record, :printed_on, {:tabindex=>2, :size=>10} 
-      %td=text_field :entry, :name, {:tabindex=>3}
-      %td=text_field :account, :number, {:tabindex=>4, :size=>10} 
-      %td=text_field :entry, :currency_debit, {:tabindex=>5, :size=>8}
-      %td=text_field :entry, :currency_credit, {:tabindex=>6, :size=>8}
+      %td=text_field :record, :printed_on, {:size=>10} 
+      %td=text_field :entry, :name
+      %td=text_field :account, :number, {:size=>10} 
+      %td=text_field :entry, :currency_debit, {:size=>8}
+      %td=text_field :entry, :currency_credit, {:size=>8}
     %tr
       %td#account{:colspan=>7}
     -if @records.size>0
       %tr
-        %th=lc :record_number
-        %th=lc :record_created
-        %th=lc :record_printed 
-        %th=lc :label
-        %th=lc :account_number
-        %th=lc :record_debit
-        %th=lc :record_credit
+        %th=tc :record_number
+        %th=tc :record_created
+        %th=tc :record_printed 
+        %th=tc :label
+        %th=tc :account_number
+        %th=tc :record_debit
+        %th=tc :record_credit
       - @records.each do |record|
         - attr = cycle("even","odd")  
         - record.entries.each do |entry|
@@ -42,5 +42,5 @@
   =submit_tag 'test', {:tabindex => 7, :style=>'display:none;'}
 
 %ul
-  %li=lc :balanced_entries
-  %li=lc :unbalanced_entries
+  %li=tc :balanced_entries
+  %li=tc :unbalanced_entries

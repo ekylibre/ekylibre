@@ -1,14 +1,5 @@
-%h1=lc(:title)
-
-.count=lc(:nb_entities,[@current_company.entities.size])
+.count=tc('nb_entities', :count=>@current_company.entities.size)
 
 =render :partial=>'entities_search'
 
-
 =dyta :entities
-
-
-
-
-
-

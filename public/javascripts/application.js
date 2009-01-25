@@ -162,7 +162,7 @@ var xulElementMethods = {
           child.setAttribute('test',x+' '+s+' '+lengths[index]+' ');
           */
           
-          if (flexes[index]>0 || child.id === 'top') {
+          if (flexes[index]>0 || child.getAttribute('flexy') === 'true') {
             o=child.getStyle('overflow');
             if (null === o) {
               o = 'auto';

@@ -86,21 +86,20 @@ class RelationsController < ApplicationController
     t.column :default
     t.action :entities_contacts_update , :image=>:update 
     t.action :entities_contacts_delete , :image=>:delete , :method=>:post, :confirm=>'are_you_sure'
-   # t.procedure :entities_contacts_create 
+    t.procedure :entities_contacts_create 
   end
 
   def entities_display
-    if request.get?
-      @company = @current_company
-      @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
-      session[:current_entity] = @entity.id
-      @name = @entity.first_name.to_s+" "+@entity.name.to_s
-      contacts_list params
-      session[:my_entity] = params[:id]
-      @id = params[:id]
-      @contact = Contact.new
-      session[:current_entity] = params[:id]
-    end
+    @company = @current_company
+    @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
+    session[:current_entity] = @entity.id
+    @name = @entity.first_name.to_s+" "+@entity.name.to_s
+    contacts_list params
+    session[:my_entity] = params[:id]
+    @id = params[:id]
+    @contact = Contact.new
+    session[:current_entity] = params[:id]
+    @title = {:value=>@entity.full_name}
   end
   
   def entities_contacts_create

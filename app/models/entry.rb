@@ -51,8 +51,8 @@ class Entry < ActiveRecord::Base
   end
   
   def validate
-    errors.add_to_base lc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
-    errors.add_to_base lc(:error_amount_balance2) unless self.debit + self.credit >= 0    
+    errors.add_to_base tc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
+    errors.add_to_base tc(:error_amount_balance2) unless self.debit + self.credit >= 0    
          
     #raise Exception.new "models:"+ self.errors.inspect.to_s  
   end

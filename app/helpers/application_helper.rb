@@ -1,48 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
-module ActionController
-  class Base
-    def lc(*args)
-#      'lc('+args.inspect+')'
-#      args.delete_at(-1) if [Array , Hash].include? args.last.class
-      
-#      "+"+I18n.t("app.#{self.controller_name.to_s}.#{args.join('.')}")
-      args.inspect
-    end
-  end
-end
 
-module ActionView
-  class Base
-    def lc(*args)
-#      args.delete_at(-1) if [Array , Hash].include? args.last.class
-#      "+"+I18n.t("app.#{self.controller.controller_name.to_s}.#{args.join('.')}")
-      args.inspect
-    end
-  end
-end
-
-module ActiveRecord
-  class Base
-    def lc(*args)
-      'lc('+args.inspect+')'
-    end
-  end
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# To comment
+load File.dirname(__FILE__) + '/../../lib/i18n.rb'
 
 
 
@@ -97,7 +56,9 @@ module ApplicationHelper
          {:name=>:parameters, :list=>
            [ {:name=>:products},
              {:name=>:price_lists},
-             {:name=>:shelves} ] }
+             {:name=>:shelves},
+             {:name=>:invoicing_parameters}
+           ] }
        ] }
     ]
 
@@ -110,10 +71,24 @@ module ApplicationHelper
   end
   
   def menu_index(controller=self.controller.controller_name.to_sym)
-    for m in MENUS
-      return render(:partial=>'shared/menu_index', :locals=>{:menu=>m}) if m[:name]==controller
-    end
-    ''
+#     code = ''
+#     menu = MENUS.detect{|m| m[:name]==controller}
+#     if menu
+#       for list in menu[:list]
+#         code += aclist(:class=>list[:class], :title=>list[:name]) do |l|
+#           for action in list[:list]
+#             l.action action[:name], action[:url]||{:action=>action[:name]}
+#           end
+#         end
+#       end
+#     end
+#     code
+    render(:partial=>'shared/menu_index', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
+        
+#    for m in MENUS
+#      return render(:partial=>'shared/menu_index', :locals=>{:menu=>m}) if m[:name]==controller
+#    end
+#    ''
   end
     
 
@@ -123,8 +98,8 @@ module ApplicationHelper
   end
 
   def link_to_back(options={})
-    {:url=>:back}.merge(options)
-    link_to l('back'), options[:url], :class=>:back
+#    link_to tg(options[:label]||'back'), {:controller=>:guide, :action=>:back}, :class=>:back
+    link_to tg(options[:label]||'back'), :back
   end
 
   
@@ -151,7 +126,7 @@ module ApplicationHelper
 
   def left_tag
     return '' if !MENUS_ARRAY.include? self.controller.controller_name.to_sym or action_name=="index"
-    content_tag(:div, menu_index, :id=>:side, :flex=>2, :orient=> :vertical)
+    content_tag(:div, menu_index, :id=>:side, :flexy=>true, :orient=> :vertical)
   end
 
 
@@ -161,7 +136,7 @@ module ApplicationHelper
     # Guide Tag
     tag = ''
     for m in MENUS
-      tag += elink(self.controller.controller_name!=m[:name].to_s, t("app.#{m[:name].to_s}.title"),{:controller=>m[:name]})+" "
+      tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"),{:controller=>m[:name]})+" "
     end
     tag = content_tag(:nobr, tag);
   #  tag += css_menu_tag(session[:menu_guide])
@@ -177,14 +152,14 @@ module ApplicationHelper
     tag = ''
     tag += link_to(@current_user.label, {:controller=>:company, :action=>:user})+" "
     tag += link_to(@current_company.name, {:controller=>:company})+" "
-    tag += link_to(lc(:exit), {:controller=>:authentication, :action=>:logout})+" "
+    tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout})+" "
     tag = content_tag(:nobr, tag);
 #    tag += css_menu_tag(session[:menu_user]) 
     code += content_tag(:div, tag, :id=>:user, :class=>:menu, :align=>:right)
     
     # Fix
     #    code += content_tag(:div, '', :style=>'clear:both;')    
-    code = content_tag(:div, code, :id=>:top, :orient=>:horizontal)
+    code = content_tag(:div, code, :id=>:top, :orient=>:horizontal, :flexy=>true)
     code
   end
 
@@ -239,11 +214,13 @@ module ApplicationHelper
     code
   end
   
-
-
   def title_tag
 #    content_tag(:title, 'Ekylibre - '+t(controller.controller_name.to_sym, :title))
-    content_tag(:title, 'Ekylibre - '+t(controller.controller_name.to_sym))
+    content_tag(:title, 'Ekylibre - '+t("controllers.#{controller.controller_name.to_s}.title"))
+  end
+
+  def title
+    t("views."+controller.controller_name+'.'+action_name+'.title', @title||{})
   end
 
   def help_tag
@@ -252,7 +229,7 @@ module ApplicationHelper
     url = {:controller=>:help, :action=>:search, :id=>controller.controller_name+'-'+action_name}
     content = content_tag(:div, '&nbsp;')
     options[:style] = "display:none" if session[:help]
-    code  = content_tag(:div, link_to_remote(content, :update=>:help,  :url=>url, :complete=>"openHelp();", :loading=>"onLoading();", :loaded=>"onLoaded();"), {:id=>"help-open"}.merge(options))
+    code = content_tag(:div, link_to_remote(content, :update=>:help,  :url=>url, :complete=>"openHelp();", :loading=>"onLoading();", :loaded=>"onLoaded();"), {:id=>"help-open"}.merge(options))
   end
 
 
@@ -273,36 +250,57 @@ module ApplicationHelper
     link_to_function(l(label), "document."+form_name+".submit()", options.merge({:class=>:button}))
   end
 
-  def old_formalizess(options={})
-    form_name = 'f'+Time.now.to_i.to_s(36)+rand.to_s[2..10]
-    form_code = '[No Form Description]'
+
+  def aclist(options={})
+    code = '[EmptyAclistError]'
     if block_given?
-      form = FormDefinition.new()
-      yield form
-      form_code = formalize_lines(form, options)
-    elsif options[:model] or options[:partial]
-      form_code = render_partial(options[:partial]||options[:model].to_s.tableize+'_form', :locals=>{:formalize_partial=>options[:partial]})
-    end
-    if options[:inner_form]
-      code = form_code
-    else
-#      title = ''
-#      title = content_tag(:h1, l(@controller.controller_name, @controller.action_name,options[:title]), :class=>"title") unless options[:title].nil?
-      code  = form_tag(options[:url]||{},{:multipart=>options[:multipart]||false, :name=>form_name})
-      code += content_tag(:div, form_code, :class=>'fields')
-      code += content_tag(:div,submit_tag(l(options[:submit]||:submit))+link_to(l(options[:cancel]||:cancel),:back,:class=>:button),:class=>'actions')
-      code += '</form>'
- #     code = title+content_tag(:div,code)
-      code = content_tag(:div, code, :class=>'formalize')
+      list = Aclist.new()
+      yield list
+      code = aclist_actions(list, options)
     end
     return code
   end
 
+  def aclist_actions(list, options)
+    code = ''
+    call = 'views.'+caller.detect{|x| x.match(/\/app\/views\//)}.split(/(\/app\/views\/|\.)/)[2].gsub(/\//,'.')+'.'
+    for a in list.actions
+      url = a.dup
+      url[:action] ||= url[:name]
+      url.delete :name
+      code += content_tag(:li, link_to(t(call+a[:name].to_s), url))
+    end
+    code = content_tag(:ul, code)
+    if options[:title]
+      if options[:title].is_a? Array
+        title_options = options[:title][1]
+        options[:title] = options[:title][0]
+      else
+        title_options = {}
+      end
+      code = content_tag(:h2, t(call+options[:title].to_s, title_options))+code 
+    end
+    content_tag(:div, code, :class=>'aclist '+options[:class].to_s)
+  end
+
+  class Aclist
+    attr_reader :actions
+
+    def initialize()
+      @actions = []
+    end
+
+    def action(name, options={})
+      @actions << options.merge({:name=>name})
+    end
+  end
+
+
 
   def formalize(options={})
-    code = '[NoFormDescriptionError]'
+    code = '[EmptyFormalizeError]'
     if block_given?
-      form = FormDefinition.new()
+      form = Formalize.new()
       yield form
       code = formalize_lines(form, options)
     end
@@ -333,9 +331,9 @@ module ApplicationHelper
         if line[:value].is_a? Symbol
           calls = caller
           file = calls[3].split(':')[0].split('/')[-1].split('.')[0]
-          file = file[1..-1] if file[0..0]=='_'
-#          line[:value] = l(controller.controller_name, file.to_sym,line[:value]) 
-          line[:value] = t(line[:value]) 
+#          file = file[1..-1] if file[0..0]=='_'
+          line[:value] = t("views.#{controller.controller_name}.#{file}.#{line[:value]}") 
+#          line[:value] = t(line[:value]) 
         end
         line_code += content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>xcn)
       when :field
@@ -432,14 +430,14 @@ module ApplicationHelper
               when :select
                 select record, method, options[:choices], options[:options]||{}, html_options
               when :radio
-                options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label,x[0],:for=>input_id+'_'+x[1])}.join " "
+                options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label,x[0],:for=>input_id+'_'+x[1].to_s)}.join " "
               when :textarea
                 text_area record, method, :cols => 30, :rows => 3
               else
                 text_field record, method, html_options
               end
       if options[:field] = :select and options[:new].is_a? Hash
-        label = lc(options[:new][:label]||:new)
+        label = tg(options[:new][:label]||:new)
         options[:new].delete :label
         input += link_to(label, options[:new], :class=>:fastadd)
       end
@@ -447,13 +445,15 @@ module ApplicationHelper
 
 #      input += content_tag(:h6,options[:field].to_s+' '+options[:choices].class.to_s+' '+options.inspect)
       
-      label = if object.class.methods.include? "human_attribute_name"
-                object.class.human_attribute_name(method.to_s)
-              elsif record.is_a? Symbol
-                le(:models, record.to_sym, :attributes, method.to_sym)
-              else
-                l(controller.controller_name, controller.action_name, record)                      
-              end          
+      label = t("activerecord.attributes.#{object.class.name.underscore}.#{method.to_s}")
+      
+#      label = if object.class.methods.include? "human_attribute_name"
+#                object.class.human_attribute_name(method.to_s)
+#              elsif record.is_a? Symbol
+#                t("activerecord.attributes.#{object.class.name.underscore}.#{method.to_s}")
+#              else
+#                tg(method.to_s)
+#              end          
       label = content_tag(:label, label, :for=>input_id) if object!=record
     elsif line[:field]
       label = line[:label]||'[NoLabel]'
@@ -481,7 +481,7 @@ module ApplicationHelper
   
   
   
-  class FormDefinition
+  class Formalize
     attr_reader :lines
 
     def initialize()

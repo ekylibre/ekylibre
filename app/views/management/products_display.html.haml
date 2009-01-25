@@ -1,8 +1,7 @@
-%h1=lc(:title, [@product.name])
-.action-list
-  %ul
-    %li=link_to lc(:update_product), :action=>:products_update, :id=>@product.id
-    %li=link_to lc(:products_list), :action=>:products
+= aclist do |l|
+  - l.action :products_update, :id=>@product.id
+  - l.action :products
+
 %table
   %tr
     %td
@@ -21,4 +20,5 @@
       =evalue @product, :description
       =evalue @product, :comment
 
-
+%h2=tc :prices
+=dyta :product_prices
