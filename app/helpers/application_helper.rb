@@ -1,9 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
-
 # To comment
-load File.dirname(__FILE__) + '/../../lib/i18n.rb'
-
-
+# load File.dirname(__FILE__) + '/../../lib/i18n.rb'
 
 
 module ApplicationHelper
