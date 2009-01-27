@@ -4,7 +4,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:price_lists, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name
+    t.column :name, :url=>{:action=>:price_lists_display}
     t.column :active
     t.column :name, :through=>:currency
     t.column :count, :through=>:prices, :label=>'Nb Prix'
@@ -108,8 +108,9 @@ class ManagementController < ApplicationController
 
   dyta(:products, :conditions=>:search_conditions, :empty=>true) do |t|
     t.column :number
+    t.column :name, :through=>:shelf, :url=>{:action=>:shelves_display}
+    t.column :name, :url=>{:action=>:products_display}
     t.column :code
-    t.column :name
     t.column :description
     t.column :active
     t.action :products_display, :image=>:show
@@ -260,6 +261,11 @@ class ManagementController < ApplicationController
     shelves_list params
   end
 
+  def shelves_display
+    @shelf = find_and_check(:shelf, params[:id])
+    @title = {:value=>@shelf.name}
+  end
+
   def shelves_create
     if request.post? 
       @shelf = Shelf.new(params[:shelf])
@@ -313,6 +319,12 @@ class ManagementController < ApplicationController
   
   def stocks_locations
     stock_locations_list params
+  
+    unless @stock_locations.size>0
+      flash[:message] = tc('messages.need_stock_location_to_record_stock_moves')
+      redirect_to :action=>:stocks_locations_create
+      return
+    end
   end
 
   def stocks_locations_display

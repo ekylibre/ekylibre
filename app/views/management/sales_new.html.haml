@@ -3,9 +3,9 @@
   =formalize do |f|
     - if session[:sales][:nature].nil?
       - f.title :nature
-      - f.field :sale, :nature
+      - f.field :sale, :nature, :choices=>SaleOrder.natures, :field=>:radio
     - if session[:sales][:client_id].nil?
       - f.title :client
       - f.field :sale, :client
   .actions
-    =submit_tag lc :next
+    =submit_tag tg :next

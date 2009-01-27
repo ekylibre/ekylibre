@@ -34,6 +34,8 @@
 
 class SaleOrder < ActiveRecord::Base
 
-
+  def self.natures
+    [:estimate, :order, :invoice].collect{|x| [tc('natures.'+x.to_s), x] }
+  end
 
 end

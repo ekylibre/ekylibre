@@ -15,12 +15,12 @@ module ManagementHelper
         else
           'other'
         end
-      link = link_to(lc(('sales_step_'+x.to_s).to_sym), :action=>:sales)
+      link = link_to(tc(('sales_step_'+x.to_s).to_sym), :action=>:sales)
       code += content_tag(:td, link, attributes)
     end
     code += content_tag(:td, '', :class=>:last)
     code = content_tag(:tr, code)
-    code = content_tag(:table, code, :class=>:stepper, :flex=>1)
+    code = content_tag(:table, code, :class=>:stepper)
     code
   end
   

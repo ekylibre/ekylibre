@@ -111,9 +111,21 @@ module ApplicationHelper
       label = object
       value = attribute.to_s
     else
-      label = object.class.human_attribute_name(attribute.to_s)
-      value = object.send(attribute.to_s).to_s
+      #     label = object.class.human_attribute_name(attribute.to_s)
+      value = object.send(attribute)
+      if value.is_a? ActiveRecord::Base
+        record = value
+        value = record.send(options[:label]||:name)
+        options[:url][:id] ||= record.id if options[:url]
+        label = t "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}_id"
+      else
+        label = t "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}"
+      end
     end
+    if [TrueClass, FalseClass].include? value.class
+      value = image_tag('buttons/checkbox_'+value.to_s+'.png')
+    end
+
     value = link_to(value.to_s, options[:url]) if options[:url]
     code  = content_tag(:div, label.to_s, :class=>:label)
     code += content_tag(:div, value.to_s, :class=>:value)
@@ -253,6 +265,7 @@ module ApplicationHelper
     if block_given?
       list = Aclist.new()
       yield list
+      list.action :back unless options[:back]
       code = aclist_actions(list, options)
     end
     return code
@@ -262,10 +275,14 @@ module ApplicationHelper
     code = ''
     call = 'views.'+caller.detect{|x| x.match(/\/app\/views\//)}.split(/(\/app\/views\/|\.)/)[2].gsub(/\//,'.')+'.'
     for a in list.actions
-      url = a.dup
-      url[:action] ||= url[:name]
-      url.delete :name
-      code += content_tag(:li, link_to(t(call+a[:name].to_s), url))
+      if a[:name]==:back
+        code += content_tag(:li, link_to_back)
+      else
+        url = a.dup
+        url[:action] ||= url[:name]
+        url.delete :name
+        code += content_tag(:li, link_to(t(call+a[:name].to_s), url))
+      end
     end
     code = content_tag(:ul, code)
     if options[:title]

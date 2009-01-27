@@ -282,10 +282,14 @@ fr-FR:
         service_coeff: Coefficient (de quantité) de service
         shelf_id: Catégorie
         supply_method: 'Moyen d''approvisionnement'
+        to: Pour
         to_sale: Produit destiné à la vente
         to_purchase: 'Produit destiné à l''achat'
         to_rent: Produit destiné à la location
         unit_id: Unité de mesure
+      sale_order:
+        client: Client
+        nature: Nature
       shelf:
         catalog_name: Nom pour le catalogue
         catalog_description: Description
@@ -351,6 +355,7 @@ fr-FR:
       title: Commerce
       messages:
         need_product_to_create_price: 'Pour pouvoir ajouter un tarif à une liste de prix, il vous faut d''abord enregistrer un produit à tarifer. Une fois le produit enregistré vous pourrez enregistrer votre tarif.'
+        need_stock_location_to_record_stock_moves: 'Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage.'
   
     relations:
       title: Relations
@@ -703,6 +708,8 @@ fr-FR:
         title: 'Liste de prix : {{value}}'
         prices: 'Produits et prix de la liste'
         prices_create: 'Ajouter un nouveau prix'
+        price_lists: 'Voir les listes de prix'
+        price_lists_update: 'Modifier le détail de la liste de prix'
       _price_lists_form:
         general: Description générale
       price_lists_update:
@@ -719,7 +726,7 @@ fr-FR:
         title: 'Ajouter un nouveau produit'
       products_display:
         prices: 'Prix du produit'
-        products: 'Retourner à la liste de produits'
+        products: 'Voir la liste de produits'
         products_update: 'Modifier la fiche du produit'
         title: 'Fiche du produit : {{value}}'
       _products_form:
@@ -743,6 +750,10 @@ fr-FR:
         shelves_create: Ajouter une nouvelle catégorie de produits
       shelves_create:
         title: 'Ajout d''une nouvelle catégorie de produits'
+      shelves_display:
+        title: 'Détail de la catégorie : {{value}}'
+        shelves: 'Voir la liste des catégories de produit'
+        shelves_update: 'Modifier la catégorie'
       _shelves_form:
         general: Informations générales
         catalog: Description pour catalogue
@@ -758,6 +769,7 @@ fr-FR:
         title: 'Détail du lieu de stockage : {{value}}'
         establishment: Établissement
         moves: Mouvements de stocks
+        stocks_locations: Voir la liste des lieux de stockage
         stocks_locations_update: Modifier le lieu de stockage
         stocks_moves_create: Ajouter un mouvement de stock
       _stocks_locations_form:
@@ -880,13 +892,22 @@ fr-FR:
       range: 'De {{min}} à {{max}}'
       no_range: 'Pas d''intervalle'
     product:
-      unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
       natures:
         product: Produit
         service: Service
       supply_methods:
         buy: Achat
         produce: Production
+      to:
+        sale: Vente
+        purchase: Achat
+        rent: Location
+      unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
+    sale_order:
+      natures:
+        estimate: Devis
+        order: Commande
+        invoice: Facture
     
   
   # Genral words and expression through the all app

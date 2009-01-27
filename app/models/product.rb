@@ -53,7 +53,7 @@ class Product < ActiveRecord::Base
     to << :sale if self.to_sale
     to << :purchase if self.to_purchase
     to << :rent if self.to_rent
-    to
+    to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
 
   def validate

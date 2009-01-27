@@ -1,14 +1,17 @@
-=link_to lc(:stocks_locations_update), :action=>:stocks_locations_update, :id=>@stock_location.id
+= aclist do |l|
+  - l.action :stocks_locations_update, :id=>@stock_location.id
+  - l.action :stocks_locations
+
 %table
   %tr
     %td
       =evalue @stock_location, :name
       =evalue @stock_location, :comment
     %td
-      =evalue lc(:establishment), @stock_location.establishment.name
+      =evalue @stock_location, :establishment
       =evalue @stock_location, :x
       =evalue @stock_location, :y
       =evalue @stock_location, :z
 
-%h2=lc :moves
+%h2=tc :moves
 =dyta :stock_moves

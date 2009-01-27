@@ -2,7 +2,8 @@
 /* BLUE EKYLIBRE : #3060FF */
 html {background: #FFF;}
 td, th, a, p, input, textarea, select, div { font-size:13px;}
-a:link, a:visited, a:hover { color:#00C; }
+a:link, a:visited, a:focus { color:#00C; }
+a:hover { color: #000; }
 input[type="text"], input[type="password"], textarea, select { border:1px solid #aaa; background: #fff;}
 /*
 body { background: #ADA; behaviour:url(css/csshover.htc);}
@@ -16,16 +17,16 @@ div[xul="box"] { background: #ADA; }
 /*table.entries { border-collapse: collapse; }*/
 
 
-
 /*#lines { height: 300px; overflow: auto; }*/
 #top { /*border-bottom: 1px solid #C9D7F1;*/ height: 24px; }
 #columns {  }
-#main { overflow: auto; }
+#main { overflow: auto; border-top: 1px solid #95b0e4; }
 #content { overflow: auto; border-right:8px solid #C9D7F1; border-left:8px solid #C9D7F1; }
 #legals { margin:0; padding:4px 8px; background: #C9D7F1; font-size:13px; color: #047; text-align: center; }
 #yield { padding: 8px; overflow: auto; background: url(/images/template/columns.png) repeat-x top; border: 1px solid #95b0e4; }
 #yield > h1 { margin: 0px 0px 8px; font-size:20px; color: #047;}
 #yield > h2 { margin: 8px 0px 4px; font-size:16px; color: #06A;}
+#yield li { color:#047; padding: 1px; }
 
 .nav { height: 32px; }
 .nav .title { color: #750; font-size: 20px;  height: 24px; padding:4px 8px; font-weight: bold; overflow:hidden; margin:0; }
@@ -36,7 +37,7 @@ div[xul="box"] { background: #ADA; }
 #help .nav { background: #e9e9a8; }
 #help .title { color: #750; text-align: center; }
 
-#help { border-left: 1px solid #e9e9a8; background: #fefef9 url(/images/template/help.png) repeat-x top;}
+#help { border-left: 1px solid #BEBEBB; border-top: 1px solid #BEBEBB; background: #fefef9 url(/images/template/help.png) repeat-x top;}
 #help .content { text-align: justify; padding: 8px; }
 #help .content h1 { font-size: 17px; margin: 0px 0px 16px; color: #750;}
 #help .content h2 { font-size: 15px; margin: 8px 8px 4px;  border-bottom: 1px solid #dd8;}
@@ -46,7 +47,7 @@ div[xul="box"] { background: #ADA; }
 #help .content .text-end { height: 1px; }
 #help .content .help-error { color: red; text-align: center; padding: 8px; background:#F5EAD7; }
 
-#side { width: 164px; padding: 8px 0 8px 8px; background: #c9d7f1; overflow: auto; }
+#side { width: 164px; padding: 8px 0 8px 8px; background: #c9d7f1; overflow: auto;  border-top: 1px solid #95b0e4; }
 #side .aclist { background: #FFF; padding:0px; margin:0px 0px 8px; border: 2px solid #95b0e4; }
 /*#side .aclist h2 { font-size : 13px; color: black; padding: 4px; background: #BDF; text-align: center; }*/
 /*#side .aclist h2 { font-size : 13px; color: white; padding: 2px 4px; background: #46A; text-align: center; }*/
@@ -258,8 +259,8 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 
 h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }
 
-.stepper { border-collapse: collapse;}
-.stepper .standard { background: #FEB; border: 1px solid #EC7; padding: 4px; text-align:center; width: 80px}
+.stepper { border-collapse: collapse; width: 100%; }
+.stepper .standard { background: #FEB; border: 1px solid #EC7; padding: 4px; text-align:center; }
 .stepper .master { background: #DA6; border: 1px solid #A82; color: white;}
 .stepper .right, .stepper .left  { background: #ED9; border: 1px solid #DB7;}
 

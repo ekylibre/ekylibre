@@ -10,8 +10,8 @@
       =evalue @product, :code2
       =evalue @product, :ean13
     %td
-      =evalue @product, :shelf
-      =evalue @product, :unit
+      =evalue @product, :shelf, :url=>{:action=>:shelves_display}
+      =evalue @product, :unit, :label=>:label
       =evalue @product, :active
       =evalue @product, :to
     %td
