@@ -1,0 +1,1 @@
+../../../avis/app/controllers/ideabox_controller.rb

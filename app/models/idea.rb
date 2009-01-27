@@ -1,0 +1,1 @@
+../../../avis/app/models/idea.rb

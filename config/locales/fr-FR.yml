@@ -241,6 +241,12 @@ fr-FR:
         started_on: Commencé le
         stopped_on: Date de clôture
         written_on: 'Autoriser l''écriture jusqu''au'
+      idea:
+        status: Statut
+        user_id: Utilisateur
+        description: Description
+        name: Titre
+        comment: Commentaire
       journal:
         closed_on: Clôturé le
         code: Code
@@ -648,6 +654,11 @@ fr-FR:
         title: 'Aide'
   
 
+    #Ideabox
+    ideabox:
+      ideas:
+        ideas_create: 'Déposer une nouvelle idée'
+
     # Layout
     layouts:
       application:
@@ -838,6 +849,12 @@ fr-FR:
       error_written_financialyear: 'La date butoir de création des journaux doit être inférieure à la date de clôture.'
       error_overlap_financialyear: 'La période de l''exercice se chevauche.'
       error_unclosed_period_financialyear: 'Cet exercice contient des journaux qui n''ont pas encore été clôturé.'
+    idea:
+      status:
+        all: toutes
+        wait: en attente
+        stopped: abandonée
+        complete: traitée
     journal:
       error_limited_period: '.'
       error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
