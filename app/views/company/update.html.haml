@@ -1,0 +1,9 @@
+-form_tag do
+  =formalize do |f|
+    -f.title tc(:general)
+    -f.field :company, :name
+    -f.field :company, :code
+    -f.field :company, :siren
+  .actions
+    =submit_tag tg(:update)
+    =link_to tg(:cancel), :back

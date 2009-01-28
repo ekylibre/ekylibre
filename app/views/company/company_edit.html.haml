@@ -1,0 +1,5 @@
+=formalize(:title=>lc(:title,[@company.name])) do |f|
+  -f.title lc(:general)
+  -f.field :company, :name
+  -f.field :company, :code
+  -f.field :company, :siren

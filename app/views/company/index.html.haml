@@ -3,6 +3,6 @@
   = evalue @company , :name 
   = evalue @company , :siren
   = evalue @company , :code
-  = evalue lc(:establishments_number  ) , @company.establishments.size, :url=>{:action=>:establishments}
-  = evalue lc(:departments_number ) , @company.departments.size, :url=>{:action=>:departments}
-  = evalue lc(:users_number ) ,@company.users.size, :url=>{:action=>:users}
+  = evalue tc(:establishments_number  ) , @company.establishments.size, :url=>{:action=>:establishments}
+  = evalue tc(:departments_number ) , @company.departments.size, :url=>{:action=>:departments}
+  = evalue tc(:users_number ) ,@activeusers.size, :url=>{:action=>:users}

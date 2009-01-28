@@ -1,5 +1,5 @@
 =formalize do |f|
   -f.error :department
-  -f.title lc(:subtitle)
+  -f.title :subtitle
   -f.field :department, :name
-  -f.field :department, :comment
+  -f.field :department, :comment, :field=>:textarea
