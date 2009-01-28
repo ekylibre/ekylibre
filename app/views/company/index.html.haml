@@ -1,8 +1,10 @@
-=link_to tc(:update) , {:action=>:update}
+= aclist do |l|
+  -l.action :update
+
 .detail
   = evalue @company , :name 
   = evalue @company , :siren
   = evalue @company , :code
   = evalue tc(:establishments_number  ) , @company.establishments.size, :url=>{:action=>:establishments}
   = evalue tc(:departments_number ) , @company.departments.size, :url=>{:action=>:departments}
-  = evalue tc(:users_number ) ,@activeusers.size, :url=>{:action=>:users}
+  = evalue tc(:users_number ) ,@users.size, :url=>{:action=>:users}

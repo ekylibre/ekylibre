@@ -15,6 +15,7 @@ class CompanyController < ApplicationController
         redirect_to :action=>:index  
       end
     end
+    @title = {:value=>@company.name}
   end
 
   def user
