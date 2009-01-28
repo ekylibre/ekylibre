@@ -247,6 +247,8 @@ fr-FR:
         description: Description
         name: Titre
         comment: Commentaire
+        where_id: Module
+        what_id: Caractéristique
       journal:
         closed_on: Clôturé le
         code: Code
@@ -661,8 +663,12 @@ fr-FR:
 
     #Ideabox
     ideabox:
+      index:
+        title: 'Deposez vos idées'
       ideas:
-        ideas_create: 'Déposer une nouvelle idée'
+        title: 'Liste des idées'
+      ideas_create: 
+          title: 'Déposer une nouvelle idée'
 
     # Layout
     layouts:

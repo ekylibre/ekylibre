@@ -57,7 +57,8 @@ div[xul="box"] { background: #ADA; }
 #side .aclist li a { font-size: 11px; }
 /*#side .aclist li:hover { background: #FFC url(/images/template/action.png) repeat-x bottom; }*/
 
-
+.dyta tr.details td { padding: 10px;}
+.dyta tr.details td.comment { padding: 10px; font-size:25px;}
 /*
 #help { width: 150px; border-left: 1px dotted #dd8; background: #fffee3 url(/images/template/help.png) repeat-x top;}
 //#help > h2 { background: #C9D7F1; font-size: 20px; text-align:center; height:24px; padding:4px; vertical-align: center; }
@@ -87,6 +88,7 @@ div[xul="box"] { background: #ADA; }
 #user { float:right; height:24px; margin:4px 10px; text-align:right;}
 
 
+.avis { padding: 10px 10px 30px 10px; text-align:center; margin-top:40px; border:0.1px solid black; font-weight:bold; border-right:none; border-left:none; }
 
 /*
 #test  { text-align:center; border: 0.5px solid; margin-left:50px;}
