@@ -119,12 +119,13 @@ class ManagementController < ApplicationController
     t.procedure :new_product, :action=>:products_create
   end
 
-  dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['@product.id'], :deleted=>false}, :model=>:prices, :empty=>true) do |t|
+  dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['@product.id'], :deleted=>false}, :model=>:prices) do |t|
     t.column :name, :through=>:list, :url=>{:action=>:price_lists_display}
     t.column :amount
     t.column :amount_with_taxes
     t.column :range
     t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :prices_create
   end
 
   def products

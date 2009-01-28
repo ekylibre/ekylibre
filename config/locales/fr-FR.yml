@@ -726,6 +726,7 @@ fr-FR:
         title: 'Ajouter un nouveau produit'
       products_display:
         prices: 'Prix du produit'
+        prices_create: 'Ajouter un prix'
         products: 'Voir la liste de produits'
         products_update: 'Modifier la fiche du produit'
         title: 'Fiche du produit : {{value}}'
