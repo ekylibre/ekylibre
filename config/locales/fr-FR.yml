@@ -189,6 +189,7 @@ fr-FR:
         number: Numéro du relevé de compte
         bank_account_id: Compte bancaire référencé	
       company:
+        code: Code interne
         name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)
         siren: Numéro SIREN
         born_on: Créée le
@@ -199,19 +200,19 @@ fr-FR:
         website: Site web
         latitude: Latitude
         longitude: Longitude
+        address: Adresse
         active: Actif
         default: Par défaut
         closed_on: Annulé le
         email: Email
         nature: Type
-        line_2: Identité - Service
-        line_3: Batiment,Res,ZI
+        line_2: Destinataire - Service
+        line_3: Bât. - Rés. - ZI...
         line_4_number: Numéro de la voie
-        line_4_street: Libelle de la voie
+        line_4_street: Libellé de la voie
         line_5: Mention spéciale - Lieu dit
         line_6_code: Code postal
         line_6_city: Ville
-        address: Adresse
       department:
         name: Nom
         comment: Commentaire
@@ -222,10 +223,18 @@ fr-FR:
         code: Code
         full_name: Nom complet
         nature_id: Type
-        language: Langage
-        born_on: Né le
-        dead_on: Décédé le
+        language_id: Langue
+        born_on: Date de naissance
+        dead_on: Date de décès
         active: Actif
+      entity_nature:
+        abbreviation: Abrévation
+        active: Actif
+        description: Description
+        in_name: 'L''abréviation se trouve dans le nom'
+        name: Nom (interne)
+        physical: Personne physique
+        title: Titre
       entry:
         name: Libellé
         account_id: Compte
@@ -318,10 +327,12 @@ fr-FR:
         product_id: Produit
         comment: Commentaire
       user:
-        name: 'Nom d''utilisateur'
+        email: 'E-mail'
         first_name: 'Prénom'
-        last_name: 'Nom de famille'
+        full_name: 'Nom complet'
+        last_name: 'Nom'
         locked: 'Compte verrouillé'
+        name: 'Nom d''utilisateur'
         password: 'Mot de passe'
         password_confirmation: 'Confirmation du mot&nbsp;de&nbsp;passe'
 
@@ -361,6 +372,8 @@ fr-FR:
   
     relations:
       title: Relations
+      first_contact: Adresse principale
+      second_contact: Adresse secondaire
 
   # Used in the helpers
   # Used in the helpers
@@ -576,33 +589,34 @@ fr-FR:
     # Company
     company:
       index:
-        companie: 
-        title: 'Informations sur la société {{value}}'
-        identity: 'Carte d''identité'
-        statistics: Chiffres
-        establishments: Établissements
-        departments: Services
-        employees: Employés
-        bank_accounts: Comptes bancaires
-        evolution: Historique
-        values: Valeurs diverses
-        users: Utilisateurs
-        new_establishment: Ajouter un nouvel établissement
-        new_department: Ajouter un nouveau service
-  #     new_employee: Ajouter un nouvel employé
-        new_bank_account: Ajouter un nouveau compte bancaire
-        new_user: Ajouter un nouvel utilisateur
-        establishments_number: 'Nombre d''établissements'
+        departments:
+          zero: Aucun service
+          one: Un service
+          other: '{{count}} services'
+        departments_create: Ajouter un nouveau service
         departments_number: Nombre de services
-        users_number: 'Nombre d''utilisateurs'
+        establishments: 
+          zero: Aucun établissement
+          one: Un établissement
+          other: '{{count}} établissements'
+        establishments_create: Ajouter un nouvel établissement
+        establishments_number: 'Nombre d''établissements'
+        title: 'Informations sur la société : {{value}}'
         update: Modifier le détail de la société
+        users:
+          zero: Aucun utilisateur
+          one: Un utilisateur
+          other: '{{count}} utilisateurs'
+        users_create: Ajouter un nouvel utilisateur
+        users_number: 'Nombre d''utilisateurs'
+        values: Valeurs diverses
       update:
-        title: 'Modification de la société {{value}}'
+        title: 'Modification de la société : {{value}}'
         general: Vous pouvez modifier les différentes informations concernant votre société
         company_code_info: 'Ce code sert d''abréviation pour certaines impressions'
       user:
         title: 'Informations sur l''utilisateur : {{value}}'
-        change_password: Modifier le mot de passe
+        change_password: Changer de mot de passe
       users:
         title: Liste des utilisateurs
         getback: Retour à la fiche de société
@@ -798,18 +812,18 @@ fr-FR:
       entities_create: 
         title: 'Création d''une nouvelle fiche client/fournisseur'
       entities_contacts_create:
-        title: Renseignez les caractéristiques du contact à ajouter
+        title: 'Ajout d''un contact à la fiche de : {{value}}'
       entities_contacts_update:
         title: Renseignez les champs à modifier
       entities_contact_delete:
         title: Caractéristiques du contact à supprimer
-      entities_display:
-        title: 'Fiche : {{value}}'
-        back: Retour 
-        new_contact: Entrer un nouveau contact
-        entities_contacts_create: 'Création d''un nouveau contact'
       _entities_contacts_form:
-        title: 'Renseignez les caractéristiques du contact'
+        address: 'Adresse'
+        canals: 'Coordonnées'
+        title: 'Description générale'
+      entities_natures:
+        title: 'Liste des types de fiches'
+        entities_natures_create: 'Ajouter un nouveau type de fiche'
       entities:
         title: 'Fiches des relations'
         entities_create: Créer une nouvelle fiche
@@ -817,17 +831,27 @@ fr-FR:
           zero: 'Aucune fiche enregistrée'
           one: '1 fiche enregistrée'
           other: '{{count}} fiches enregistrées'
+      entities_display:
+        contacts:
+          zero: 'Aucun contact'
+          one: '1 contact'
+          other: '{{count}} contacts'
+        entities_contacts_create: 'Création d''un nouveau contact'
+        title: 'Fiche : {{value}}'
+      _entities_form:
+        title: 'Renseignez les différentes caractéristiques de la fiche'
+        details: 'Informations complémentaires'
       _entities_search:
         search: Rechercher une fiche
       entities_update:
         title: 'Modification de la fiche : {{value}}'
-      _entities_form:
-        title: 'Renseignez les différentes caractéristiques de la fiche'
       index:
         title: Gestion des relations clients et fournisseurs
         entities_create: Créer une nouvelle fiche
+        entities_natures: Types de fiches
         entities_managing: Clients et fournisseurs
         entities: Gérer les fiches clients et fournisseurs
+        parameters: Paramètres        
 
   # Used in the models
   # Used in the models
@@ -858,6 +882,17 @@ fr-FR:
         tva210: TVA 2,10%
         tva550: TVA 5,50%
         tva1960: TVA 19,60%
+        unit_u: Unité
+        unit_kg: Kilogramme
+        unit_t: Tonne
+        unit_m: Mètre
+        unit_km: Kilomètre
+        unit_ha: Hectare
+        unit_a: Are
+        unit_ca: Centiare (m²)
+        unit_l: Litre
+        unit_hl: Hectolitre
+        unit_m3: Mètre cube
     entry:
       error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
       error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'

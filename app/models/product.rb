@@ -41,7 +41,7 @@ class Product < ActiveRecord::Base
         last = Product.find(:first, :conditions=>{:company_id=>self.company_id}, :order=>'number DESC')
         self.number = last.nil? ? 1 : last.number+1 
       end
-      while Product.find_by_company_id_and_code(self.company_id, self.code)
+      while Product.find(:first, ["company_id=? AND code=? AND id!=?",self.company_id, self.code,self.id||0])
         self.code.succ!
       end
     end

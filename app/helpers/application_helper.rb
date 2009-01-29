@@ -21,6 +21,9 @@ module ApplicationHelper
        [ {:name=>:entities_managing, :list=>
            [ {:name=>:entities}
              #  ,{:name=>:entities_create} 
+           ] },
+         {:name=>:parameters, :list=>
+           [ {:name=>:entities_natures}
            ] }
        ] },
      # AccountancyController
@@ -96,7 +99,8 @@ module ApplicationHelper
 
   def link_to_back(options={})
 #    link_to tg(options[:label]||'back'), {:controller=>:guide, :action=>:back}, :class=>:back
-    link_to tg(options[:label]||'back'), :back
+#    link_to tg(options[:label]||'back'), :back
+    link_to tg(options[:label]||'back'), session[:history][1]
   end
 
   

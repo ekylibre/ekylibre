@@ -307,11 +307,22 @@ module Dyta
         remote_options.delete :remote
         remote_options.delete :image
         remote_options = remote_options.inspect.to_s
-        remote_options = remote_options[1..remote_options.size-2]
+        remote_options = remote_options[1..-2]
         code  = "link_to_remote(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
         code += ", :url=>{:action=>:"+@name.to_s+", :id=>"+record+".id}"
         code += ", "+remote_options
         code += ")"
+      elsif @options[:actions]
+        raise Exception.new("options[:actions] have to be a Hash.") unless @options[:actions].is_a? Hash
+        cases = []
+        for a in @options[:actions]
+          cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag('buttons/"+a[1][:action].to_s.split('_')[-1]+".png', :border=>0, :alt=>'"+a[0].to_s+"')"+
+            ", {:action=>'"+a[1][:action].to_s+"', :id=>"+record+".id}"+
+            ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+"}"+
+            ")\n"
+        end
+
+        code = "if "+cases.join("elsif ")+"end"
       else
         code  = "link_to(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
         code += ", {:action=>:"+@name.to_s+", :id=>"+record+".id}"

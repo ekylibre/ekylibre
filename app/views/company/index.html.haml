@@ -1,10 +1,17 @@
 = aclist do |l|
-  -l.action :update
+  - l.action :update
 
 .detail
   = evalue @company , :name 
   = evalue @company , :siren
   = evalue @company , :code
-  = evalue tc(:establishments_number  ) , @company.establishments.size, :url=>{:action=>:establishments}
-  = evalue tc(:departments_number ) , @company.departments.size, :url=>{:action=>:departments}
-  = evalue tc(:users_number ) ,@users.size, :url=>{:action=>:users}
+  =# evalue tc(:establishments_number  ) , @company.establishments.size, :url=>{:action=>:establishments}
+  =# evalue tc(:departments_number ) , @company.departments.size, :url=>{:action=>:departments}
+  =# evalue tc(:users_number ) ,@users.size, :url=>{:action=>:users}
+
+%h2= tc :users, :count=>@users.size
+=dyta :users
+%h2= tc :establishments, :count=>@establishments.size
+=dyta :establishments
+%h2= tc :departments, :count=>@departments.size
+=dyta :departments

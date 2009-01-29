@@ -1,21 +1,21 @@
 class Populating < ActiveRecord::Migration
   def self.up
     # Employee
-    create_table :employees do |t|
-      t.column :department_id,          :integer,  :null=>false, :references=>:departments, :on_delete=>:restrict, :on_update=>:restrict
-      t.column :establishment_id,       :integer,  :null=>false, :references=>:establishments, :on_delete=>:restrict, :on_update=>:restrict
-      t.column :user_id,                :integer,  :references=>:users, :on_delete=>:restrict, :on_update=>:restrict
-      t.column :title,                  :string,   :null=>false, :limit=>32
-      t.column :last_name,              :string,   :null=>false
-      t.column :first_name,             :string,   :null=>false
-      t.column :arrived_on,             :date,     :null=>false
-      t.column :departed_on,            :date,     :null=>false
-      t.column :role,                   :string
-      t.column :office,                 :string,   :limit=>32
-      t.column :comment,                :text
-      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
-    end
-    add_index :employees, [:company_id, :user_id], :unique=>true
+#     create_table :employees do |t|
+#       t.column :department_id,          :integer,  :null=>false, :references=>:departments, :on_delete=>:restrict, :on_update=>:restrict
+#       t.column :establishment_id,       :integer,  :null=>false, :references=>:establishments, :on_delete=>:restrict, :on_update=>:restrict
+#       t.column :user_id,                :integer,  :references=>:users, :on_delete=>:restrict, :on_update=>:restrict
+#       t.column :title,                  :string,   :null=>false, :limit=>32
+#       t.column :last_name,              :string,   :null=>false
+#       t.column :first_name,             :string,   :null=>false
+#       t.column :arrived_on,             :date,     :null=>false
+#       t.column :departed_on,            :date,     :null=>false
+#       t.column :role,                   :string
+#       t.column :office,                 :string,   :limit=>32
+#       t.column :comment,                :text
+#       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+#     end
+#     add_index :employees, [:company_id, :user_id], :unique=>true
 
     # EntityNature
     create_table :entity_natures do |t|
@@ -35,10 +35,10 @@ class Populating < ActiveRecord::Migration
     create_table :entities do |t|
       t.column :nature_id,              :integer,  :null=>false, :references=>:entity_natures, :on_delete=>:restrict, :on_update=>:cascade
       t.column :language_id,            :integer,  :null=>false, :references=>:languages, :on_delete=>:restrict, :on_update=>:cascade
-      t.column :code,                   :string,   :null=>false # HID Human ID
       t.column :name,                   :string,   :null=>false # name or last_name
       t.column :first_name,             :string
       t.column :full_name,              :string,   :null=>false
+      t.column :code,                   :string    # HID Human ID
       t.column :active,                 :boolean,  :null=>false, :default=>true
       t.column :born_on,                :date  
       t.column :dead_on,                :date
@@ -87,6 +87,7 @@ class Populating < ActiveRecord::Migration
     create_table :contacts do |t|
     #  t.column :element_id,             :integer,  :null=>false, :references=>nil
     #  t.column :element_type,           :string
+      t.column :name,                   :string
       t.column :entity_id,              :integer,  :null=>false, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
       t.column :norm_id,                :integer,  :null=>false, :references=>:address_norms
       t.column :default,                :boolean,  :null=>false, :default=>false
@@ -123,6 +124,6 @@ class Populating < ActiveRecord::Migration
     drop_table :address_norms
     drop_table :entities
     drop_table :entity_natures
-    drop_table :employees
+#    drop_table :employees
   end
 end

@@ -1,7 +1,9 @@
 =formalize do |f|
   -f.error :contact
-  -f.title lc(:title)
+  -f.title :title
+  -f.field :contact, :name
   -f.field :contact, :default
+  -f.title :address
   -f.field :contact, :line_2
   -f.field :contact, :line_3
   -f.field :contact, :line_4_number
@@ -9,10 +11,13 @@
   -f.field :contact, :line_5
   -f.field :contact, :line_6_code
   -f.field :contact, :line_6_city
+  -f.title :canals
   -f.field :contact, :phone
   -f.field :contact, :fax
   -f.field :contact, :mobile
   -f.field :contact, :email   
+  -f.field :contact, :website
+
  
 
 

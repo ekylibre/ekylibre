@@ -2,9 +2,9 @@ class CompanyController < ApplicationController
 
   def index
     @company = @current_company
-    @establishments = @company.establishments
-    @departments = @company.departments
-    @users = @company.users
+    users_list params
+    departments_list params
+    establishments_list params
     @title = {:value=>@company.name}
   end
 
@@ -12,7 +12,7 @@ class CompanyController < ApplicationController
     @company = @current_company
     if request.post?
       if @company.update_attributes(params[:company])
-        redirect_to :action=>:index  
+        redirect_to_back
       end
     end
     @title = {:value=>@company.name}
@@ -24,25 +24,25 @@ class CompanyController < ApplicationController
     @title = {:value=>@user.label}
   end
 
-  dyta(:users, :conditions=>{:company_id=>['@current_company.id'],:deleted=>false}) do |t| 
+  dyta(:users, :conditions=>{:company_id=>['@current_company.id'],:deleted=>false}, :empty=>true) do |t| 
     t.column :name
     t.column :first_name
     t.column :last_name
     t.column :email
-    t.column :locked
-    t.procedure :users_create, :action=>:users_create
-    t.action :users_lock , :image=>:unlock_access , :method=>:post , :confirm=>:sure
-    t.action :users_unlock , :image=>:lock_access , :method=>:post , :confirm=>:sure
+    t.action :locked, :actions=>{"true"=>{:action=>:users_unlock},"false"=>{:action=>:users_lock}}, :method=>:post
+#    t.column :locked
+#    t.action :users_lock , :image=>:unlock_access , :method=>:post , :confirm=>:sure
+#    t.action :users_unlock , :image=>:lock_access , :method=>:post , :confirm=>:sure
     t.action :users_update, :image=>:update 
     t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:sure
-
+    t.procedure :users_create, :action=>:users_create
   end
 
   def users
     users_list params
   end
 
-  dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t|
     t.column :name
     t.column :nic
     t.column :siret
@@ -56,7 +56,7 @@ class CompanyController < ApplicationController
     establishments_list params
   end
   
-  dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+  dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t| 
     t.column :name
     t.column :comment
     t.procedure :departments_create, :action=>:departments_create
@@ -73,7 +73,7 @@ class CompanyController < ApplicationController
     if request.post?
       @establishment = Establishment.new(params[:establishment])
       @establishment.company_id = @current_company.id
-      redirect_to :action=>:establishments if @establishment.save
+      redirect_to_back if @establishment.save
     else
       @establishment = Establishment.new
     end
@@ -85,7 +85,7 @@ class CompanyController < ApplicationController
     @establishment = Establishment.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @establishment
       if @establishment.update_attributes(params[:establishment])
-        redirect_to :action=>:establishments
+        redirect_to_back
       end
     end
     render_form
@@ -97,7 +97,7 @@ class CompanyController < ApplicationController
       @establishment = Establishment.find_by_id_and_company_id(params[:id], @current_company.id)
       Establishment.delete(params[:id]) if @establishment
     end
-    redirect_to :action=>:establishments
+    redirect_to_back
   end
 
   def departments_create
@@ -105,7 +105,7 @@ class CompanyController < ApplicationController
     if request.post? 
       @department = Department.new(params[:department])
       @department.company_id = @current_company.id
-      redirect_to :action=>:departments if @department.save
+      redirect_to_back if @department.save
     else
       @department = Department.new
     end
@@ -117,7 +117,7 @@ class CompanyController < ApplicationController
     @department = Department.find_by_id_and_company_id(params[:id] , @current_company.id)
     if request.post? and @department
       if @department.update_attributes(params[:department])
-        redirect_to :action=>:departments
+        redirect_to_back
       end
     end
     render_form
@@ -129,7 +129,7 @@ class CompanyController < ApplicationController
       @department= Department.find_by_id_and_company_id(params[:id] , @current_company.id)
       Department.delete(params[:id]) if @department
     end
-    redirect_to :action=>:departments
+    redirect_to_back
   end
 
   def users_create
@@ -138,7 +138,7 @@ class CompanyController < ApplicationController
       @user = User.new(params[:user])
       @user.company_id = @current_company.id
       @user.role_id = params[:user][:role_id]
-      redirect_to :action=>:users if @user.save
+      redirect_to_back if @user.save
     else
       @user = User.new
     end
@@ -150,7 +150,7 @@ class CompanyController < ApplicationController
     @user= User.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @user
       if @user.update_attributes(params[:user]) 
-        redirect_to :action=>:users
+        redirect_to_back
       end
     end
     render_form
@@ -165,7 +165,7 @@ class CompanyController < ApplicationController
         @user.save 
       end
     end
-    redirect_to :action=>:users
+    redirect_to_back
   end
   
   def users_lock
@@ -174,7 +174,7 @@ class CompanyController < ApplicationController
       @user.locked = true
       @user.save
     end
-    redirect_to :action=>:users
+    redirect_to_current
   end
   
   def users_unlock
@@ -183,7 +183,7 @@ class CompanyController < ApplicationController
       @user.locked = false
       @user.save
     end
-    redirect_to :action=>:users
+    redirect_to_current
   end
   
 end

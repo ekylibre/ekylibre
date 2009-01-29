@@ -25,7 +25,7 @@ div[xul="box"] { background: #ADA; }
 #legals { margin:0; padding:4px 8px; background: #C9D7F1; font-size:13px; color: #047; text-align: center; }
 #yield { padding: 8px; overflow: auto; background: url(/images/template/columns.png) repeat-x top; border: 1px solid #95b0e4; }
 #yield > h1 { margin: 0px 0px 8px; font-size:20px; color: #047;}
-#yield > h2 { margin: 8px 0px 4px; font-size:16px; color: #06A;}
+#yield > h2 { margin: 16px 0px 4px; font-size:16px; color: #06A;}
 #yield li { color:#047; padding: 1px; }
 
 .nav { height: 32px; }
@@ -177,7 +177,7 @@ div.td { display: table-cell; }
 .flash { padding: 4px 6px; text-align:center; margin-bottom: 8px; border: 1px solid black; background: white; font-weight:bold; }
 .flash.error { color: red; border-color: red; background: #FDD;}
 .flash.warning { color: #FA0; border-color: #FA0; background: #FEC; }
-.flash.notice { color: #7c3; border-color: #7c3; background: #EFC; }
+.flash.notice { color: #4a1; border-color: #7c3; background: #EFC; }
 
 .message { padding: 8px 12px; margin: 0; background: #FFD; border: 1px solid #EDA; font-size: 13px; font-weight: bold; color: #530; text-align: center; }
 .count { margin: 0 0 4px; color:#777; }

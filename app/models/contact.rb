@@ -36,28 +36,15 @@ class Contact < ActiveRecord::Base
   # belongs_to :element, :polymorphic=> true
 
   def before_validation
+    self.default = true if self.entity.contacts.size<=0
+    
     if self.default
-      contacts = Contact.find(:all,:conditions=>{:entity_id=>self.entity_id, :company_id=>self.company_id})
-      for contact in contacts
-        if contact.id != self.id
-          contact.default = false
-          contact.save
-        end
-      end
-      self.default = true
+      Contact.update_all('"default"=false', ["entity_id=? AND company_id=? AND id!=?", self.entity_id,self.company_id, self.id||0])
     end
-
-
-    self.address = ""
-    lines = [self.line_2,self.line_3,self.line_4_number,self.line_4_street,self.line_5,self.line_6_code,self.line_6_city]
-
-    for x in (0..6) do
-      unless lines[x].to_s.empty?
-        self.address += " , "+lines[x]
-      end
-    end 
-    self.address.gsub!(/^ ,/ , " ") if self.address=~/^ ,/
-
+    
+    lines = [self.line_2, self.line_3, (self.line_4_number+' '+self.line_4_street).strip, self.line_5, (self.line_6_code+" "+self.line_6_city).strip].compact
+    lines.delete ""
+    self.address = lines.join(", ")
   end
   
 end

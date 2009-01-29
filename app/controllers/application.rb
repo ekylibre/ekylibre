@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
     model = model.to_s
     record = model.classify.constantize.find_by_id_and_company_id(id, @current_company.id)
     if record.nil?
-      flash[:error] = l(:unavailable, model.to_sym, [id])
+      flash[:error] = tg(:unavailable, model.to_sym, [id])
       redirect_to :action=>options[:url]||model.pluralize
     end
     record
@@ -108,6 +108,10 @@ class ApplicationController < ActionController::Base
     else
       redirect_to :back
     end
+  end
+
+  def redirect_to_current
+    redirect_to session[:history][0]
   end
 
   def can_access?(action=:all)

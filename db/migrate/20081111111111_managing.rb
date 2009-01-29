@@ -5,6 +5,8 @@ class Managing < ActiveRecord::Migration
     create_table :units do |t|      
       t.column :name,                   :string,   :null=>false, :limit=>8
       t.column :label,                  :string,   :null=>false
+      t.column :base,                   :string,   :null=>false # u g m m2 m3
+      t.column :quantity,               :numeric,  :null=>false, :precision=>18, :scale=>9
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :units, [:name, :company_id], :unique=>true

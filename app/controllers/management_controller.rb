@@ -204,10 +204,9 @@ class ManagementController < ApplicationController
       client = Entity.find_by_company_id_and_id(session[:sales][:client_id], @current_company.id)
       session[:sales].delete(:client_id) if client.nil?
     end
-    if request.get?
-      unless session[:sales][:nature].nil? or session[:sales][:client_id].nil?
-        redirect_to :action=>:sales_general
-      end
+
+    unless session[:sales][:nature].nil? or session[:sales][:client_id].nil?
+      redirect_to :action=>:sales_general
     end
   end
 
