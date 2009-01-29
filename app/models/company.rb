@@ -48,9 +48,9 @@ class Company < ActiveRecord::Base
     self.taxes.create!(:name=>tc('default.tva550'), :group_name=>'TVA', :nature=>'percent', :amount=>0.055)
     self.taxes.create!(:name=>tc('default.tva1960'), :group_name=>'TVA', :nature=>'percent', :amount=>0.196)
     self.price_lists.create!(:name=>tc('default.price_list_name'), :currency=>currency)
-    self.entity_natures.create!( :name=>'Monsieur' , :abbreviation=>'M', :physical=>true)
-    self.entity_natures.create!( :name=>'Madame' , :abbreviation=>'Mme', :physical=>true)
-    self.entity_natures.create!( :name=>'Société Anonyme' , :abbreviation=>'SA', :physical=>false)
+    self.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
+    self.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
+    self.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
   end
 
   def parameter(name)

@@ -4,12 +4,12 @@ class RelationsController < ApplicationController
   end
 
   dyta(:entities, :conditions=>:search_conditions) do |t|
-    t.column :first_name
-    t.column :name
-    t.column :full_name
-    t.column :code
+    t.column :name, :url=>{:action=>:entities_display}
+    t.column :first_name, :url=>{:action=>:entities_display}
+    #    t.column :full_name
+    t.column :code, :url=>{:action=>:entities_display}
     t.column :born_on
-    t.column :dead_on
+    #    t.column :dead_on
     t.column :website
     t.column :active
     t.action :entities_display, :image=>:show
@@ -78,11 +78,13 @@ class RelationsController < ApplicationController
   end
 
   dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['@entity.id'], :deleted=>false}, :empty=>true) do |t|
+    t.column :name
     t.column :address
     t.column :phone
     t.column :fax
     t.column :mobile
-    t.column :email 
+    t.column :email
+    t.column :website
     t.column :default
     t.action :entities_contacts_update , :image=>:update 
     t.action :entities_contacts_delete , :image=>:delete , :method=>:post, :confirm=>'are_you_sure'
@@ -111,7 +113,7 @@ class RelationsController < ApplicationController
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
       @contact.entity_id = @entity.id  
-      redirect_to :action=>:entities_display, :id=>@entity.id if @contact.save
+      redirect_to_back if @contact.save
     else
       @contact = Contact.new
       @contact.name = (@entity.contacts.size>0 ? tc(:second_contact) : tc(:first_contact) )
@@ -126,8 +128,9 @@ class RelationsController < ApplicationController
     @contact = Contact.find_by_id_and_company_id(params[:id], @current_company.id)
     @id = @contact.entity_id
     if request.post? and @contact
-      redirect_to :action=>:entities_display, :id=>@id  if @contact.update_attributes(params[:contact])
+      redirect_to_back if @contact.update_attributes(params[:contact])
     end
+    @title = {:entity=>@entity.full_name, :contact=>@contact.name}
     render_form
   end
   
@@ -139,7 +142,7 @@ class RelationsController < ApplicationController
       @contact.deleted = true
       @contact.default = false
       @contact.save
-      redirect_to :action => :entities_display, :id=>@id
+      redirect_to_back
     end
   end
   
@@ -186,7 +189,6 @@ class RelationsController < ApplicationController
   dyta(:entity_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :abbreviation
-    t.column :title
     t.column :active
     t.column :physical
     t.column :in_name

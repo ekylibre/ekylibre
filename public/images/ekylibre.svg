@@ -23,6 +23,25 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient3303">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3305" />
+      <stop
+         id="stop3311"
+         offset="0.33826429"
+         style="stop-color:#141154;stop-opacity:1;" />
+      <stop
+         style="stop-color:#1a166e;stop-opacity:1;"
+         offset="0.62820512"
+         id="stop3313" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="1"
+         id="stop3307" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3347">
       <stop
          style="stop-color:#0f00af;stop-opacity:1;"
@@ -541,6 +560,15 @@
        x2="67.23358"
        y2="654.63755"
        gradientTransform="translate(192,25.99534)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3303"
+       id="linearGradient3309"
+       x1="-64"
+       y1="364"
+       x2="-64"
+       y2="343.9996"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -887,8 +915,8 @@
        inkscape:export-ydpi="180"
        inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/ekylong.png" />
     <path
-       style="font-size:30.63005829000000091px;font-style:normal;font-weight:normal;line-height:125%;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       d="M -64,344 L -64,364 L -59.8125,364 L -59.8125,356.46875 L -57.25,354.25 L -49.46875,364 L -44,364 L -54.15625,351.875 L -44,344 L -49.875,344 L -59.8125,351.90625 L -59.8125,344 L -64,344 z M -40,344 L -32,356 L -32,364 L -28,364 L -28,356 L -20,344 L -25,344 L -30,352.03125 L -35,344 L -40,344 z M -16,344 L -16,364 L 4,364 L 4,360 L -12,360 L -12,344 L -16,344 z M 8,344 L 8,347.96875 L 16,347.96875 L 16,360.03125 L 8,360.03125 L 8,364 L 28,364 L 28,360.03125 L 20,360.03125 L 20,347.96875 L 28,347.96875 L 28,344 L 8,344 z M 32,344 L 32,364 L 46,364 C 49.695675,363.90061 52,360.63086 52,358 C 52,355.43432 50.833836,354.78693 50.25,354 C 50.630409,353.46487 52.064223,352.64314 52,350 C 51.9375,347.42775 51.176898,343.99997 46,344 L 32,344 z M 56,344 L 56,364 L 60,364 L 60,356 L 66,356 L 71.21875,364 L 76,364 L 70.625,355.9375 C 72.954429,355.90573 76,353.45534 76,350.03125 C 76,346.79694 74.079372,343.96087 70,344 L 56,344 z M 80,344 L 80,348 L 80,352 L 80,356 L 80,360 L 80,364 L 100,364 L 100,360 L 84,360 L 84,356 L 100,356 L 100,352 L 84,352 L 84,348 L 100,348 L 100,344 L 84,344 L 80,344 z M 70,352 L 60,352 L 60,348 L 70,348 C 72.894227,348.12561 72.967868,352.07328 70,352 z M 36,348 L 46,348 C 48.683914,347.93747 48.886454,351.96066 46,352 L 36,352 L 36,348 z M 36,356 L 46,356 C 48.935179,355.9278 48.910071,359.89306 46,360 L 36,360 L 36,356 z"
+       style="font-size:30.63005829000000091px;font-style:normal;font-weight:normal;line-height:125%;fill:url(#linearGradient3309);fill-opacity:1.0;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M -64,344 L -64,364 L -59.8125,364 L -59.8125,356.96875 L -57.25,354.75 L -49.46875,364 L -44,364 L -53.90625,352.125 L -44,344 L -49.875,344 L -59.8125,351.90625 L -59.8125,344 L -64,344 z M -40,344 L -32,356 L -32,364 L -28,364 L -28,356 L -20,344 L -25,344 L -30,352.03125 L -35,344 L -40,344 z M -16,344 L -16,364 L 4,364 L 4,360 L -12,360 L -12,344 L -16,344 z M 8,344 L 8,347.96875 L 16,347.96875 L 16,360.03125 L 8,360.03125 L 8,364 L 28,364 L 28,360.03125 L 20,360.03125 L 20,347.96875 L 28,347.96875 L 28,344 L 8,344 z M 32,344 L 32,364 L 46,364 C 49.695675,363.90061 52,360.63086 52,358 C 52,355.43432 50.833836,354.78693 50.25,354 C 50.630409,353.46487 52.064223,352.64314 52,350 C 51.9375,347.42775 51.176898,343.99997 46,344 L 32,344 z M 56,344 L 56,364 L 60,364 L 60,356 L 66,356 L 71.21875,364 L 76,364 L 70.625,355.9375 C 72.954429,355.90573 76,353.45534 76,350.03125 C 76,346.79694 74.079372,343.96087 70,344 L 56,344 z M 80,344 L 80,348 L 80,352 L 80,356 L 80,360 L 80,364 L 100,364 L 100,360 L 84,360 L 84,356 L 100,356 L 100,352 L 84,352 L 84,348 L 100,348 L 100,344 L 84,344 L 80,344 z M 70,352 L 60,352 L 60,348 L 70,348 C 72.894227,348.12561 72.967868,352.07328 70,352 z M 36,348 L 46,348 C 48.683914,347.93747 48.886454,351.96066 46,352 L 36,352 L 36,348 z M 36,356 L 46,356 C 48.935179,355.9278 48.910071,359.89306 46,360 L 36,360 L 36,356 z"
        transform="translate(-32.76642,300.63758)"
        id="path2540"
        inkscape:export-xdpi="180"

@@ -20,13 +20,14 @@
 #
 
 class EntityNature < ActiveRecord::Base
+
   def before_validation
+    self.in_name = false if self.physical
     if self.physical
       self.title = self.abbreviation if self.title.blank?
     else
       self.title = ''
     end
-    self.in_name = false if self.physical
   end
 
 end

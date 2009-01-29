@@ -28,12 +28,18 @@ class Entity < ActiveRecord::Base
   #has_many :contact
   def before_validation
     self.soundex = self.name.soundex2
-    self.full_name = self.name.to_s+" "+self.first_name.to_s
+    self.first_name.to_s!.strip!
+    self.name.to_s!.strip!
+    unless self.nature.nil?
+      self.first_name = '' unless self.nature.physical
+    end
+    self.full_name = (self.name.to_s+" "+self.first_name.to_s).strip
 
     self.code = self.full_name.codeize if self.code.blank?
     while Entity.find(:first, ["company_id=? AND code=? AND id!=?",self.company_id, self.code,self.id||0])
       self.code.succ!
     end
+
 
     #self.active = false  unless self.dead_on.blank?
   end

@@ -101,10 +101,16 @@ module Dyta
             if column.options[:url]              
               datum = 'link_to('+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id})))'
               css_class += ' url'
-            elsif column.options[:mode]==:download# and !datum.nil?
+            elsif column.options[:mode] == :download# and !datum.nil?
               datum = 'link_to('+value_image(:download)+', url_for_file_column('+column.data(record)+",'"+column.name+"'))"
               style = 'text-align:center;'
               css_class += ' act'
+            elsif column.options[:mode]||column.name == :email
+              datum = 'link_to('+datum+', "mailto:#{'+datum+'}")'
+              css_class += ' web'
+            elsif column.options[:mode]||column.name == :website
+              datum = 'link_to('+datum+', '+datum+')'
+              css_class += ' web'
             end
             if column.options[:name]==:color
               css_class += ' color'

@@ -57,8 +57,6 @@ div[xul="box"] { background: #ADA; }
 #side .aclist li a { font-size: 11px; }
 /*#side .aclist li:hover { background: #FFC url(/images/template/action.png) repeat-x bottom; }*/
 
-.dyta tr.details td { padding: 10px;}
-.dyta tr.details td.comment { padding: 10px; font-size:25px;}
 /*
 #help { width: 150px; border-left: 1px dotted #dd8; background: #fffee3 url(/images/template/help.png) repeat-x top;}
 //#help > h2 { background: #C9D7F1; font-size: 20px; text-align:center; height:24px; padding:4px; vertical-align: center; }
@@ -225,8 +223,13 @@ table.dyta td.procedures > a {padding: 4px;}
 table.dyta td.empty { text-align:center; color: #777; padding:4px; background: #EEF; }
 table.dyta th, table.dyta td.empty, table.dyta td.procedures { border-top: 1px solid #BACFE6; }
 table.dyta th, table.dyta td { border-left: 1px solid #BACFE6; border-right: 1px solid #BACFE6; }
+
 table.dyta tr      td.decimal { text-align: right; }
 table.dyta tr      td.date { text-align: center; }
+table.dyta tr      td.web { text-align: center; }
+
+table.dyta tr.details td { padding: 10px;}
+table.dyta tr.details td.comment { padding: 10px; font-size:25px;}
 
 a.right { float:right; }
 

@@ -196,6 +196,7 @@ fr-FR:
       contact:
         fax: Fax
         mobile: Portable
+        name: Nom (interne)
         phone: Téléphone
         website: Site web
         latitude: Latitude
@@ -228,7 +229,7 @@ fr-FR:
         dead_on: Date de décès
         active: Actif
       entity_nature:
-        abbreviation: Abrévation
+        abbreviation: Abréviation
         active: Actif
         description: Description
         in_name: Abréviation incluse dans le nom de la fiche
@@ -299,7 +300,7 @@ fr-FR:
         to_rent: Produit destiné à la location
         unit_id: Unité de mesure
       sale_order:
-        client: Client
+        client_id: Client
         nature: Nature
       shelf:
         catalog_name: Nom pour le catalogue
@@ -814,7 +815,7 @@ fr-FR:
       entities_contacts_create:
         title: 'Ajout d''un contact à la fiche de : {{value}}'
       entities_contacts_update:
-        title: Renseignez les champs à modifier
+        title: 'Modification de "{{contact}}" de "{{entity}}"'
       entities_contact_delete:
         title: Caractéristiques du contact à supprimer
       _entities_contacts_form:
@@ -841,6 +842,7 @@ fr-FR:
           one: '1 contact'
           other: '{{count}} contacts'
         entities_contacts_create: 'Création d''un nouveau contact'
+        entities_update: Modifier la fiche
         title: 'Fiche : {{value}}'
       _entities_form:
         title: 'Renseignez les différentes caractéristiques de la fiche'
