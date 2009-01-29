@@ -43,13 +43,14 @@ class Company < ActiveRecord::Base
     for unit in Unit.default_units
       self.units.create(:name=>unit[0].to_s, :label=>tc('default.unit_'+unit[0].to_s), :base=>unit[1][:base], :quantity=>unit[1][:quantity])
     end
-    self.taxes.create(:name=>'TVA 19.6', :nature=>'percent')
     self.address_norms.create!(:name=>'Norme AFNOR ZX110', :company_id=> self.id)
     self.taxes.create!(:name=>tc('default.tva210'), :group_name=>'TVA', :nature=>'percent', :amount=>0.021)
     self.taxes.create!(:name=>tc('default.tva550'), :group_name=>'TVA', :nature=>'percent', :amount=>0.055)
     self.taxes.create!(:name=>tc('default.tva1960'), :group_name=>'TVA', :nature=>'percent', :amount=>0.196)
     self.price_lists.create!(:name=>tc('default.price_list_name'), :currency=>currency)
-    entit = self.entity_natures.create!( :name=>'Monsieur' , :abbreviation=>'M', :company_id=> self.id)
+    self.entity_natures.create!( :name=>'Monsieur' , :abbreviation=>'M', :physical=>true)
+    self.entity_natures.create!( :name=>'Madame' , :abbreviation=>'Mme', :physical=>true)
+    self.entity_natures.create!( :name=>'Société Anonyme' , :abbreviation=>'SA', :physical=>false)
   end
 
   def parameter(name)

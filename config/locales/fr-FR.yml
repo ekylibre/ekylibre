@@ -231,7 +231,7 @@ fr-FR:
         abbreviation: Abrévation
         active: Actif
         description: Description
-        in_name: 'L''abréviation se trouve dans le nom'
+        in_name: Abréviation incluse dans le nom de la fiche
         name: Nom (interne)
         physical: Personne physique
         title: Titre
@@ -824,6 +824,10 @@ fr-FR:
       entities_natures:
         title: 'Liste des types de fiches'
         entities_natures_create: 'Ajouter un nouveau type de fiche'
+      entities_natures_create:
+        title: 'Ajouter un nouveau type de fiche'
+      entities_natures_update:
+        title: 'Modifier le type de fiche : {{value}}'
       entities:
         title: 'Fiches des relations'
         entities_create: Créer une nouvelle fiche
