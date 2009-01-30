@@ -111,6 +111,7 @@ module ApplicationHelper
   end
 
   def evalue(object, attribute, options={})
+    value_class = 'value'
     if object.is_a? String
       label = object
       value = attribute.to_s
@@ -125,6 +126,7 @@ module ApplicationHelper
       else
         label = t "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}"
       end
+      value_class += ' code' if attribute.to_s == "code"
     end
     if [TrueClass, FalseClass].include? value.class
       value = image_tag('buttons/checkbox_'+value.to_s+'.png')
@@ -132,7 +134,7 @@ module ApplicationHelper
 
     value = link_to(value.to_s, options[:url]) if options[:url]
     code  = content_tag(:div, label.to_s, :class=>:label)
-    code += content_tag(:div, value.to_s, :class=>:value)
+    code += content_tag(:div, value.to_s, :class=>value_class)
     content_tag(:div, content_tag(:div,code), :class=>:evalue)
   end
 

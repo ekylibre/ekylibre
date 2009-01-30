@@ -65,6 +65,8 @@ class ApplicationController < ActionController::Base
       session[:last_url] = request.url
     end
     help_search(self.controller_name+'-'+self.action_name) if session[:help] and self.controller_name!='help'
+
+
     begin
       User.current_user = User.find_by_id(session[:user_id])
       @current_user = User.current_user
@@ -75,14 +77,17 @@ class ApplicationController < ActionController::Base
         redirect_to_login
       else
         session[:last_query] = Time.now.to_i
+
+        session[:history] ||= []
         if request.get? and not request.xhr?
-          session[:history] ||= []
           if request.url == session[:history][1]
             session[:history].delete_at(0)
-          elsif session[:history][0] != request.url
-            session[:history] = session[:history].insert(0,request.url)[0..99]
+          elsif request.url != session[:history][0]
+            session[:history].insert(0,request.url)
+            session[:history].delete_at(127)
           end
         end
+
       end
     rescue
       reset_session

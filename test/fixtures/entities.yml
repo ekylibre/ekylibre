@@ -1,15 +1,15 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090123112145
 #
 # Table name: entities
 #
 #  id           :integer       not null, primary key
 #  nature_id    :integer       not null
 #  language_id  :integer       not null
-#  code         :string(255)   not null
 #  name         :string(255)   not null
 #  first_name   :string(255)   
 #  full_name    :string(255)   not null
+#  code         :string(255)   
 #  active       :boolean       default(TRUE), not null
 #  born_on      :date          
 #  dead_on      :date          

@@ -1,9 +1,10 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090123112145
 #
 # Table name: contacts
 #
 #  id            :integer       not null, primary key
+#  name          :string(255)   
 #  entity_id     :integer       not null
 #  norm_id       :integer       not null
 #  default       :boolean       not null

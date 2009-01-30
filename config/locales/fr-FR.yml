@@ -214,6 +214,11 @@ fr-FR:
         line_5: Mention spéciale - Lieu dit
         line_6_code: Code postal
         line_6_city: Ville
+      delay:
+        active: Utilisable
+        comment: Commentaire
+        expression: Expression
+        name: Nom
       department:
         name: Nom
         comment: Commentaire
@@ -306,6 +311,20 @@ fr-FR:
       sale_order:
         client_id: Client
         nature: Nature
+        nature_id: Nature
+        payment_delay_id: Délai de paiement
+        contact_id: Adresse pour le devis
+        invoice_contact_id:  Adresse pour la facture
+        delivery_contact_id: Adresse pour la livraison
+        expiration_id: 'Délai d''expiration du devis'
+        expired_on: Expiré le
+        has_downpayment: 'Acompte à verser'
+        downpayment_amount: 'Montant de l''acompte'
+        comment: Commentaire
+        subject: Objet
+        function_title: Civilités
+        introduction: Introduction
+        conclusion: Conclusion
       shelf:
         catalog_name: Nom pour le catalogue
         catalog_description: Description
@@ -707,12 +726,24 @@ fr-FR:
 
     # Management
     management:
-      index:      
-        invoicing_parameters: 'Facturation'
-        parameters: 'Paramètres'
-        price_lists: 'Tarifs des produits'
-        products: 'Produits de vente et d''achat'
-        purchases: 'Achats'
+
+      delays:
+        title: 'Liste des délais'
+        delays_create: 'Ajouter un nouveau délai'
+      _delays_form:
+        general: Général
+      delays_create:
+        title: 'Ajout d''un nouveau délai'
+      delays_update:
+        title: 'Modification du délai : {{value}}'
+
+      index:
+        delays: Délais
+        invoicing_parameters: Facturation
+        parameters: Paramètres
+        price_lists: Tarifs
+        products: Produits
+        purchases: Achats
         purchases_consult: 'Consulter l''état des achats'
         purchases_new: 'Nouvel achat'
         sales: 'Ventes'
@@ -778,6 +809,10 @@ fr-FR:
         title: 'Nouvelle vente'
         nature: 'Type de vente'
         client: 'Sélection du client'
+      sales_general:
+        title: 'Description générale de la vente pour : {{client}}'
+        conditions: Conditions de vente
+        letter: Lettre
 
       shelves:
         title: Gérer les catégories de produits
@@ -887,6 +922,13 @@ fr-FR:
       error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'			           
     company:
       default:
+        delays:
+          name:
+            immediate: Immédiat
+            standard: Standard (30j FDM)
+          expression: 
+            immediate: 0 jour
+            standard: 30 jours, fin de mois
         bank_journal_nature_name: Banque
         department_name: Gestion/Production
         establishment_name: Établissement principal
@@ -911,6 +953,8 @@ fr-FR:
         unit_l: Litre
         unit_hl: Hectolitre
         unit_m3: Mètre cube
+    delay:
+      error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
     entry:
       error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
       error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'

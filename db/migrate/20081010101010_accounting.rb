@@ -1,4 +1,3 @@
-
 class Accounting < ActiveRecord::Migration
   def self.up
     # Currency
@@ -16,15 +15,6 @@ class Accounting < ActiveRecord::Migration
     add_index :currencies, [:code, :company_id], :unique=>true
     add_index :currencies, :name
 
-    # Delay
-    create_table :delays do |t|
-      t.column :name,             :string,  :null=>false
-      t.column :active,           :boolean, :null=>false, :default=>false
-      t.column :expression,       :string,  :null=>false, :default=>'0'
-      t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-    end
-    add_index :delays, [:name, :company_id], :unique=>true
-  
     # Account : Comptes comptables
     create_table :accounts do |t|
       t.column :number,           :string,  :null=>false, :limit=>16
@@ -41,7 +31,6 @@ class Accounting < ActiveRecord::Migration
       t.column :is_debit,         :boolean, :null=>false, :default=>false
       t.column :last_letter,      :string,  :limit=>8
       t.column :comment,          :text
-      t.column :delay_id,         :integer, :references=>:delays, :on_delete=>:restrict, :on_update=>:cascade
       t.column :entity_id,        :integer, :references=>:entities, :on_delete=>:restrict, :on_update=>:cascade
       t.column :parent_id,        :integer, :null=>false, :default=>0, :references=>nil
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
@@ -50,7 +39,6 @@ class Accounting < ActiveRecord::Migration
     add_index :accounts, [:alpha, :company_id], :unique=>true
     add_index :accounts, [:name, :company_id]
     add_index :accounts, [:entity_id, :company_id]
-    add_index :accounts, [:delay_id]
     add_index :accounts, [:entity_id]
     add_index :accounts, [:parent_id]
     add_index :accounts, [:company_id]
@@ -258,7 +246,6 @@ class Accounting < ActiveRecord::Migration
     drop_table :account_balances
     drop_table :financialyears
     drop_table :accounts
-    drop_table :delays
     drop_table :currencies
   end
 end

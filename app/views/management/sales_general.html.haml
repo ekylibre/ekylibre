@@ -1,0 +1,22 @@
+=sales_steps
+- form_tag do
+  =formalize do |f|
+    - f.title :conditions
+    - f.field :sale, :nature_id, :choices=>[]
+    - f.field :sale, :payment_delay_id, :choices=>@current_company.delays.collect{|x| [x.name, x.id]}, :new=>{:action=>:delays_create}
+    - f.field :sale, :contact_id, :choices=>@entity.contacts.collect{|x| [x.address, x.id]}, :new=>{:controller=>:relations, :action=>:entities_contacts_create, :id=>@entity.id}
+    - f.field :sale, :invoice_contact_id, :choices=>@entity.contacts.collect{|x| [x.address, x.id]}, :new=>{:controller=>:relations, :action=>:entities_contacts_create, :id=>@entity.id}
+    - f.field :sale, :delivery_contact_id, :choices=>@entity.contacts.collect{|x| [x.address, x.id]}, :new=>{:controller=>:relations, :action=>:entities_contacts_create, :id=>@entity.id}
+    - f.field :sale, :expiration_id, :choices=>[], :new=>{:action=>:delays_create}
+    - f.field :sale, :expired_on
+    - f.field :sale, :has_downpayment
+    - f.field :sale, :downpayment_amount
+    - f.field :sale, :comment, :field=>:textarea
+    - f.title :letter
+    - f.field :sale, :subject
+    - f.field :sale, :function_title
+    - f.field :sale, :introduction, :field=>:textarea
+    - f.field :sale, :conclusion, :field=>:textarea
+  .actions
+    =link_to_back
+    =submit_tag tg :next

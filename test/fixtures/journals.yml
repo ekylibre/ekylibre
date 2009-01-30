@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090123112145
 #
 # Table name: journals
 #
@@ -10,7 +10,7 @@
 #  deleted        :boolean       not null
 #  currency_id    :integer       not null
 #  counterpart_id :integer       
-#  closed_on      :date          not null
+#  closed_on      :date          default(Thu, 31 Dec 1970), not null
 #  company_id     :integer       not null
 #  created_at     :datetime      not null
 #  updated_at     :datetime      not null

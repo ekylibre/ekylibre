@@ -3,6 +3,66 @@ class ManagementController < ApplicationController
   def index
   end
 
+
+
+
+
+
+
+  dyta(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :active
+    t.column :expression
+    t.column :comment
+    t.action :delays_update, :image=>:update
+    t.action :delays_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :delays_create
+  end
+
+  def delays
+    delays_list params
+  end
+
+  def delays_display
+    @delay = find_and_check(:delay, params[:id])
+    @title = {:value=>@delay.name}
+  end
+
+  def delays_create
+    if request.post? 
+      @delay = Delay.new(params[:delay])
+      @delay.company_id = @current_company.id
+      redirect_to_back if @delay.save
+    else
+      @delay = Delay.new
+    end
+    render_form
+  end
+
+  def delays_update
+    @delay = find_and_check(:delay, params[:id])
+    if request.post?
+      params[:delay][:company_id] = @current_company.id
+      redirect_to_back if @delay.update_attributes(params[:delay])
+    end
+    @title = {:value=>@delay.name}
+    render_form
+  end
+
+  def delays_delete
+    @delay = find_and_check(:delay, params[:id])
+    if request.post? or request.delete?
+      redirect_to :back if @delay.destroy
+    end
+  end
+
+
+
+
+
+
+
+
   dyta(:price_lists, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name, :url=>{:action=>:price_lists_display}
     t.column :active
@@ -196,10 +256,15 @@ class ManagementController < ApplicationController
   def sales_new
     @step = 1
     @sale = SaleOrder.new
+
     session[:sales] = {}
-    session[:sales][:nature]    = params[:nature]
-    session[:sales][:client_id] = params[:client]
-    session[:sales] = params[:sales] if params[:sales].is_a? Hash
+    if request.get?
+      session[:sales][:nature]    = params[:nature]
+      session[:sales][:client_id] = params[:client_id]
+    else
+      session[:sales] = params[:sale] if params[:sale].is_a? Hash
+    end
+
     if session[:sales][:client_id]
       client = Entity.find_by_company_id_and_id(session[:sales][:client_id], @current_company.id)
       session[:sales].delete(:client_id) if client.nil?
@@ -213,6 +278,13 @@ class ManagementController < ApplicationController
   # Step 2
   def sales_general
     @step = 2
+    @entity = Entity.find(session[:sales][:client_id])
+    if request.post?
+      
+    else
+      @sale = SaleOrder.new
+    end
+    @title = {:client=>@entity.full_name}
   end
 
   # Step 3

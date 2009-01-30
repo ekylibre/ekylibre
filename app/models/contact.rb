@@ -1,9 +1,10 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090123112145
 #
 # Table name: contacts
 #
 #  id            :integer       not null, primary key
+#  name          :string(255)   
 #  entity_id     :integer       not null
 #  norm_id       :integer       not null
 #  default       :boolean       not null
@@ -46,7 +47,7 @@ class Contact < ActiveRecord::Base
     lines.delete ""
     self.address = lines.join(", ")
 
-    self.website = "http://"+self.website unless self.website.match /^.+p.*\/\//
+    self.website = "http://"+self.website unless self.website.blank? or self.website.match /^.+p.*\/\//
 
   end
   

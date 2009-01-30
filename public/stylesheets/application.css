@@ -19,6 +19,7 @@ div[xul="box"] { background: #ADA; }
 
 /*#lines { height: 300px; overflow: auto; }*/
 #top { /*border-bottom: 1px solid #C9D7F1;*/ height: 24px; }
+#loading { padding: 2px; text-align: center; }
 #columns {  }
 #main { overflow: auto; border-top: 1px solid #95b0e4; }
 #content { overflow: auto; border-right:8px solid #C9D7F1; border-left:8px solid #C9D7F1; }
@@ -38,10 +39,11 @@ div[xul="box"] { background: #ADA; }
 #help .title { color: #750; text-align: center; }
 
 #help { border-left: 1px solid #BEBEBB; border-top: 1px solid #BEBEBB; background: #fefef9 url(/images/template/help.png) repeat-x top;}
-#help .content { text-align: justify; padding: 8px; }
+#help .content { padding: 8px; }
 #help .content h1 { font-size: 17px; margin: 0px 0px 16px; color: #750;}
 #help .content h2 { font-size: 15px; margin: 8px 8px 4px;  border-bottom: 1px solid #dd8;}
 #help .content h3 { font-size: 13px; margin: 4px 16px 2px; color: #430; }
+#help .content pre { font-family: monospace; color: #777; background: #FFF; padding: 8px; margin: 8px 0; }
 #help .content ul { padding: 4px 20px; }
 #help .content ul li { list-style-type: square; }
 #help .content .text-end { height: 1px; }
@@ -159,6 +161,7 @@ table.invex, table.flex { width: 100% }
 .evalue .label, .evalue .value { display:table-cell; padding:1px 4px;  }
 .evalue .label { width:176px; text-align:right; color: #777; }
 .evalue .value { width:164px; }
+.evalue .code { font-family: monospace; }
 
 div.tr { display: table-row; }
 div.td { display: table-cell; }
@@ -256,7 +259,7 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 #yield .aclist ul, .errorExplanation ul { padding: 4px 4px 4px 18px; }
 #yield .aclist li, .errorExplanation li { list-style-type: square; }
 #yield .aclist.special { background: #FE9; }
-#yield .aclist.special a { color: #A60; }
+#yield .aclist.special a:link, #yield .aclist.special a:visited { color: #A60; }
 
 
 /*e7f2fd bbcfe6*/

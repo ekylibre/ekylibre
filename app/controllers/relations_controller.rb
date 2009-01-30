@@ -3,7 +3,7 @@ class RelationsController < ApplicationController
   def index
   end
 
-  dyta(:entities, :conditions=>:search_conditions) do |t|
+  dyta(:entities, :conditions=>:search_conditions, :empty=>true) do |t|
     t.column :name, :url=>{:action=>:entities_display}
     t.column :first_name, :url=>{:action=>:entities_display}
     #    t.column :full_name
@@ -78,8 +78,8 @@ class RelationsController < ApplicationController
   end
 
   dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['@entity.id'], :deleted=>false}, :empty=>true) do |t|
-    t.column :name
-    t.column :address
+    t.column :name, :url=>{:action=>:entities_contacts_update}
+    t.column :address, :url=>{:action=>:entities_contacts_update}
     t.column :phone
     t.column :fax
     t.column :mobile
@@ -104,10 +104,48 @@ class RelationsController < ApplicationController
     @title = {:value=>@entity.full_name}
   end
   
+  def entities_create
+    access :entities                      
+    if request.post?
+      @entity = Entity.new(params[:entity])
+      @entity.company_id = @current_company.id
+      if @entity.save
+        redirect_to :action=>:entities_display, :id=>@entity.id
+      end
+    else
+      @entity = Entity.new
+    end
+    render_form
+  end
+  
+  def entities_update
+    access :entities
+    @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
+    if request.post? and @entity
+      redirect_to :action=>:entities if @entity.update_attributes(params[:entity])
+    end
+    @title = {:value=>@entity.full_name}
+    render_form
+  end
+
+  def entities_delete
+    access :entities
+    if request.post? or request.delete?
+      @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
+      @id = params[:id]
+      unless @entity.invoices.size > 0
+        @id = params[:id]
+        Entity.delete(@id) if @entity
+      else
+        flash[:warning]=lc(:entities_delete_permission)
+      end
+    end
+    redirect_to :action=>:entities
+  end
+  
+
   def entities_contacts_create
-    #    @id = params[:id] 
-    @id = session[:current_entity]
-    @entity = Entity.find_by_id_and_company_id(@id, @current_company.id)
+    @entity = find_and_check(:entity, params[:id]||session[:current_entity])
     if request.post?
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
@@ -146,45 +184,6 @@ class RelationsController < ApplicationController
     end
   end
   
-  def entities_create
-    access :entities                      
-    if request.post?
-      @entity = Entity.new(params[:entity])
-      @entity.company_id = @current_company.id
-      if @entity.save
-        redirect_to :action=>:entities_display, :id=>@entity.id
-      end
-    else
-      @entity = Entity.new
-    end
-    render_form
-  end
-  
-  def entities_update
-    access :entities
-    @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
-    if request.post? and @entity
-      redirect_to :action=>:entities if @entity.update_attributes(params[:entity])
-    end
-    render_form(:label=>@entity.name+" "+@entity.first_name)
-  end
-
-  def entities_delete
-    access :entities
-    if request.post? or request.delete?
-      @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
-      @id = params[:id]
-      unless @entity.invoices.size > 0
-        @id = params[:id]
-        Entity.delete(@id) if @entity
-      else
-        flash[:warning]=lc(:entities_delete_permission)
-      end
-    end
-    redirect_to :action=>:entities
-  end
-  
-
 
   dyta(:entity_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name

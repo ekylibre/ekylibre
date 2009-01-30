@@ -38,7 +38,7 @@ class Populating < ActiveRecord::Migration
       t.column :name,                   :string,   :null=>false # name or last_name
       t.column :first_name,             :string
       t.column :full_name,              :string,   :null=>false
-      t.column :code,                   :string    # HID Human ID
+      t.column :code,                   :string,   :limit=>16    # HID Human ID
       t.column :active,                 :boolean,  :null=>false, :default=>true
       t.column :born_on,                :date  
       t.column :dead_on,                :date

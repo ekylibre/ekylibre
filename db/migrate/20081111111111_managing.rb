@@ -198,6 +198,16 @@ class Managing < ActiveRecord::Migration
 
 
 
+    # Delay
+    create_table :delays do |t|
+      t.column :name,             :string,  :null=>false
+      t.column :active,           :boolean, :null=>false, :default=>true
+      t.column :expression,       :string,  :null=>false
+      t.column :comment,          :text
+      t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+    end
+    add_index :delays, [:name, :company_id], :unique=>true
+
 
     # SaleOrderNature
     create_table :sale_order_natures do |t|
@@ -224,11 +234,11 @@ class Managing < ActiveRecord::Migration
       t.column :expired_on,             :date,     :null=>false
       t.column :payment_delay_id,       :integer,  :null=>false, :references=>:delays
       t.column :has_downpayment,        :boolean,  :null=>false, :default=>false
-      t.column :downpayment_price,      :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
+      t.column :downpayment_amount,     :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :contact_id,             :integer,  :null=>false, :references=>:contacts
       t.column :invoice_contact_id,     :integer,  :null=>false, :references=>:contacts
       t.column :delivery_contact_id,    :integer,  :null=>false, :references=>:contacts
-      t.column :object,                 :string
+      t.column :subject,                :string
       t.column :function_title,         :string
       t.column :introduction,           :text
       t.column :conclusion,             :text
@@ -358,6 +368,7 @@ class Managing < ActiveRecord::Migration
     drop_table :sale_order_lines
     drop_table :sale_orders
     drop_table :sale_order_natures
+    drop_table :delays
     drop_table :sequences
     drop_table :stock_moves
     drop_table :stock_trackings

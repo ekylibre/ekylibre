@@ -1,15 +1,15 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090123112145
 #
 # Table name: entities
 #
 #  id           :integer       not null, primary key
 #  nature_id    :integer       not null
 #  language_id  :integer       not null
-#  code         :string(255)   not null
 #  name         :string(255)   not null
 #  first_name   :string(255)   
 #  full_name    :string(255)   not null
+#  code         :string(255)   
 #  active       :boolean       default(TRUE), not null
 #  born_on      :date          
 #  dead_on      :date          
@@ -28,15 +28,16 @@ class Entity < ActiveRecord::Base
   #has_many :contact
   def before_validation
     self.soundex = self.name.soundex2
-    self.first_name.to_s!.strip!
-    self.name.to_s!.strip!
+    self.first_name = self.first_name.to_s.strip
+    self.name = self.name.to_s.strip
     unless self.nature.nil?
       self.first_name = '' unless self.nature.physical
     end
     self.full_name = (self.name.to_s+" "+self.first_name.to_s).strip
 
     self.code = self.full_name.codeize if self.code.blank?
-    while Entity.find(:first, ["company_id=? AND code=? AND id!=?",self.company_id, self.code,self.id||0])
+    self.code = self.code[0..15]
+    while Entity.find(:first, :conditions=>["company_id=? AND code=? AND id!=?",self.company_id, self.code, self.id||0])
       self.code.succ!
     end
 

@@ -1,11 +1,13 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090123112145
 #
 # Table name: units
 #
 #  id           :integer       not null, primary key
 #  name         :string(8)     not null
 #  label        :string(255)   not null
+#  base         :string(255)   not null
+#  quantity     :decimal(, )   not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null

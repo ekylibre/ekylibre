@@ -1,10 +1,10 @@
 =sales_steps
 - form_tag do
   =formalize do |f|
-    - if session[:sales][:nature].nil?
+    - if params[:nature].nil?
       - f.title :nature
       - f.field :sale, :nature, :choices=>SaleOrder.natures, :field=>:radio
-    - if session[:sales][:client_id].nil?
+    - if params[:client_id].nil?
       - f.title :client
       - f.field :sale, :client_id, :choices=>@current_company.available_entities(:order=>:name).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations, :action=>:entities_create}
   .actions

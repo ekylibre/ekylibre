@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090123112145
 #
 # Table name: companies
 #
@@ -51,6 +51,9 @@ class Company < ActiveRecord::Base
     self.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
     self.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
     self.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
+    ['standard', 'immediate'].each do |d|
+      self.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
+    end
   end
 
   def parameter(name)
