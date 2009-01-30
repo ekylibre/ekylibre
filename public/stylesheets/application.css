@@ -228,8 +228,10 @@ table.dyta tr      td.decimal { text-align: right; }
 table.dyta tr      td.date { text-align: center; }
 table.dyta tr      td.web { text-align: center; }
 
-table.dyta tr.details td { padding: 10px;}
-table.dyta tr.details td.comment { padding: 10px; font-size:25px;}
+table.dyta tr.details td { padding: 8px; text-align:center;}
+table.dyta tr.details td.comment { padding: 10px; font-size:15px; }
+.avindex {margin-top:30px;  padding: 10px 0 10px 0; }
+.update{ text-align:center; margin-top:8px; font-size:15px;}
 
 a.right { float:right; }
 

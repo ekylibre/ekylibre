@@ -299,6 +299,10 @@ fr-FR:
         to_purchase: 'Produit destiné à l''achat'
         to_rent: Produit destiné à la location
         unit_id: Unité de mesure
+      rubric:
+        name: Titre
+        nature: Where - What
+        description: Description
       sale_order:
         client_id: Client
         nature: Nature
@@ -336,6 +340,10 @@ fr-FR:
         name: 'Nom d''utilisateur'
         password: 'Mot de passe'
         password_confirmation: 'Confirmation du mot&nbsp;de&nbsp;passe'
+      version:
+        number: Numéro
+        last: Derniere version ?
+        description: Description  
 
   # You can use the app section freely to localize you application with the
   # localized_application feature. The entries defined here are accesable by the
@@ -365,6 +373,8 @@ fr-FR:
       unknown_action: 'La page que vous demandez n''est pas disponible.'
     help:
       title: Aide
+    ideabox:
+      title: Boite à idées
     management:
       title: Commerce
       messages:
@@ -683,7 +693,9 @@ fr-FR:
       ideas:
         title: 'Liste des idées'
       ideas_create: 
-          title: 'Déposer une nouvelle idée'
+        title: 'Déposer une nouvelle idée'
+      ideas_update: 
+        title: 'Modifier une idée'
 
     # Layout
     layouts:
@@ -911,10 +923,12 @@ fr-FR:
       error_unclosed_period_financialyear: 'Cet exercice contient des journaux qui n''ont pas encore été clôturé.'
     idea:
       status:
-        all: toutes
-        wait: en attente
-        stopped: abandonée
-        complete: traitée
+        all: TOUTES
+        waiting: en attente
+        aborted: abandonée
+        validated: validée
+        building: en construction
+        complete: terminée
     journal:
       error_limited_period: '.'
       error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
