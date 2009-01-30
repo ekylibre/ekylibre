@@ -156,7 +156,7 @@ module Dyta
         code += "end\n"
 
         # Finish
-        puts code
+        # puts code
         module_eval(code)
       end
 
