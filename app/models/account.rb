@@ -18,7 +18,6 @@
 #  is_debit     :boolean       not null
 #  last_letter  :string(8)     
 #  comment      :text          
-#  delay_id     :integer       
 #  entity_id    :integer       
 #  parent_id    :integer       default(0), not null
 #  company_id   :integer       not null

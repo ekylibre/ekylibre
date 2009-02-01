@@ -323,6 +323,8 @@ class ManagementController < ApplicationController
       session[:sales] = params[:sale] if params[:sale].is_a? Hash
     end
 
+    raise Exception.new 
+
     if session[:sales][:client_id]
       client = Entity.find_by_company_id_and_id(session[:sales][:client_id], @current_company.id)
       session[:sales].delete(:client_id) if client.nil?

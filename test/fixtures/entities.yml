@@ -9,7 +9,7 @@
 #  name         :string(255)   not null
 #  first_name   :string(255)   
 #  full_name    :string(255)   not null
-#  code         :string(255)   
+#  code         :string(16)    
 #  active       :boolean       default(TRUE), not null
 #  born_on      :date          
 #  dead_on      :date          

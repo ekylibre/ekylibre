@@ -15,11 +15,11 @@
 #  expired_on          :date          not null
 #  payment_delay_id    :integer       not null
 #  has_downpayment     :boolean       not null
-#  downpayment_price   :decimal(16, 2 default(0.0), not null
+#  downpayment_amount  :decimal(16, 2 default(0.0), not null
 #  contact_id          :integer       not null
 #  invoice_contact_id  :integer       not null
 #  delivery_contact_id :integer       not null
-#  object              :string(255)   
+#  subject             :string(255)   
 #  function_title      :string(255)   
 #  introduction        :text          
 #  conclusion          :text          

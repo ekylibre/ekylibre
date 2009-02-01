@@ -5,8 +5,9 @@
 #
 #  id           :integer       not null, primary key
 #  name         :string(255)   not null
-#  active       :boolean       not null
-#  expression   :string(255)   default("0"), not null
+#  active       :boolean       default(TRUE), not null
+#  expression   :string(255)   not null
+#  comment      :text          
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
@@ -36,13 +37,25 @@ class Delay < ActiveRecord::Base
     steps.each do |step|
       if step.match /^(eom|end of month|fdm|fin de mois)$/
         stopped_on = stopped_on.end_of_month
-      elsif step.match /^\d+\ (jour|day)s?(\ (avant|ago))?$/
+      elsif step.match /^\d+\ (mois|month|jour|day)s?(\ (avant|ago))?$/
         words = step.split " "
-        stopped_on += (words[2].nil? ? 1 : -1)*words[0].to_i
+        sign = words[2].nil? ? 1 : -1
+        case words[1].gsub('s','')
+        when "jour", "day"
+          stopped_on += sign*words[0].to_i
+        when "moi", "month"
+          if sign > 0
+            stopped_on = stopped_on >> words[0].to_i
+          else
+            stopped_on = stopped_on << words[0].to_i
+          end
+        end
       else
+        puts ">>>> "+step
         return nil
       end
     end
+    stopped_on
   end
 
 end

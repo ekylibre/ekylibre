@@ -928,9 +928,11 @@ fr-FR:
       default:
         delays:
           name:
+            expiration: Expiration (1 M)
             immediate: Immédiat
             standard: Standard (30j FDM)
           expression: 
+            expiration: 1 mois
             immediate: 0 jour
             standard: 30 jours, fin de mois
         bank_journal_nature_name: Banque
@@ -940,6 +942,7 @@ fr-FR:
         operations_journal_nature_name: Opérations Diverses
         price_list_name: Tarif normal
         purchases_journal_nature_name: Achats
+        sale_order_nature_name: Vente standard
         sales_journal_nature_name: Ventes
         sample_product_name: Produit Exemple
         shelf_name: Sans catégorie
