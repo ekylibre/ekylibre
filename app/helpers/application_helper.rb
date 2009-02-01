@@ -57,6 +57,8 @@ module ApplicationHelper
            [ {:name=>:products},
              {:name=>:price_lists},
              {:name=>:shelves},
+             {:name=>:delays},
+             {:name=>:sale_order_natures},
              {:name=>:invoicing_parameters}
            ] }
        ] }

@@ -215,6 +215,8 @@ class Managing < ActiveRecord::Migration
       t.column :expiration_id,          :integer,  :null=>false, :references=>:delays
       t.column :active,                 :boolean,  :null=>false, :default=>true
       t.column :payment_delay_id,       :integer,  :null=>false, :references=>:delays
+      t.column :downpayment,            :boolean,  :null=>false, :default=>false
+      t.column :downpayment_minimum,    :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :downpayment_rate,       :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :comment,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade

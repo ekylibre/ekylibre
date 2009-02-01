@@ -1,24 +1,39 @@
 module ManagementHelper
 
   def sales_steps
-    code = content_tag(:td, '', :class=>:first)
+    code = content_tag(:td, '', :class=>'side first')
     @step.to_s
+    tds = 7*2
     attributes = {:flex=>1}
-    for x in 1..7
-      attributes[:class] = 'standard '+
-        if x == @step
-          'master'
-        elsif x-@step == 1
-          'right'
-        elsif x-@step == -1
-          'left'
+    for x in 0..tds
+      if x % 2 == 0 # transit
+        if @step == x/2+1
+          code += content_tag(:td, '&nbsp;', :class=>'transit left')
+        elsif @step == x/2
+          code += content_tag(:td, '&nbsp;', :class=>'transit right')
         else
-          'other'
+          code += content_tag(:td, '&nbsp;', :class=>'transit')
         end
-      link = link_to(tc(('sales_step_'+x.to_s).to_sym), :action=>:sales)
-      code += content_tag(:td, link, attributes)
+      else # step
+        link = link_to(tc(('sales_step_'+((x+1)/2).to_s).to_sym), :action=>:sales)
+        code += content_tag(:td, link, :class=>((x+1)/2 == @step ? 'step active' : 'step' ))
+      end
     end
-    code += content_tag(:td, '', :class=>:last)
+
+#       attributes[:class] = 'standard '+
+#         if x == @step
+#           'master'
+#         elsif x-@step == 1
+#           'right'
+#         elsif x-@step == -1
+#           'left'
+#         else
+#           'other'
+#         end
+#       link = link_to(tc(('sales_step_'+x.to_s).to_sym), :action=>:sales)
+#       code += content_tag(:td, link, attributes)
+#     end
+    code += content_tag(:td, '', :class=>'side last')
     code = content_tag(:tr, code)
     code = content_tag(:table, code, :class=>:stepper)
     code

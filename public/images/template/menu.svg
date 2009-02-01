@@ -20,6 +20,28 @@
   <defs
      id="defs2417">
     <linearGradient
+       id="linearGradient3265">
+      <stop
+         id="stop3267"
+         offset="0"
+         style="stop-color:#f2f57a;stop-opacity:1;" />
+      <stop
+         id="stop3269"
+         offset="1"
+         style="stop-color:#f1ebc9;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3245">
+      <stop
+         style="stop-color:#8dabe2;stop-opacity:1;"
+         offset="0"
+         id="stop3247" />
+      <stop
+         style="stop-color:#c9d7f1;stop-opacity:1;"
+         offset="1"
+         id="stop3249" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3232">
       <stop
          style="stop-color:#f5f5d7;stop-opacity:1;"
@@ -336,6 +358,85 @@
        y1="161.14285"
        x2="63"
        y2="246.89285" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3245"
+       id="linearGradient3251"
+       x1="390.28571"
+       y1="320.93362"
+       x2="390.28571"
+       y2="288.93362"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3245"
+       id="linearGradient3255"
+       gradientUnits="userSpaceOnUse"
+       x1="390.28571"
+       y1="320.93362"
+       x2="390.28571"
+       y2="288.93362"
+       gradientTransform="translate(0,31.999999)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3245"
+       id="linearGradient3259"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,63.999998)"
+       x1="390.28571"
+       y1="320.93362"
+       x2="390.28571"
+       y2="288.93362" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3265"
+       id="linearGradient3263"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,95.999997)"
+       x1="390.28571"
+       y1="320.93362"
+       x2="390.28571"
+       y2="288.93362" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3265"
+       id="linearGradient3273"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,31.749996)"
+       x1="390.28571"
+       y1="320.93362"
+       x2="390.28571"
+       y2="288.93362" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3265"
+       id="linearGradient3277"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,64)"
+       x1="390.28571"
+       y1="320.93362"
+       x2="390.28571"
+       y2="288.93362" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3245"
+       id="linearGradient3285"
+       gradientUnits="userSpaceOnUse"
+       x1="390.28571"
+       y1="320.93362"
+       x2="390.28571"
+       y2="288.93362"
+       gradientTransform="translate(68,-2.4167969e-6)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3265"
+       id="linearGradient3289"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(78,-5.2167969e-6)"
+       x1="390.28571"
+       y1="320.93362"
+       x2="390.28571"
+       y2="288.93362" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -394,8 +495,16 @@
        id="guide3278" />
     <sodipodi:guide
        orientation="0,1"
-       position="98.25,32"
+       position="230.75,31.75"
        id="guide3246" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="240,-50.75"
+       id="guide3279" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="254,-46.75"
+       id="guide3281" />
   </sodipodi:namedview>
   <metadata
      id="metadata2420">
@@ -587,5 +696,51 @@
        d="M 247.24414,339.93803 C 246.41201,337.66894 248.18147,333.79505 250.59989,332.48353 C 253.59504,330.85926 256.51809,330.31761 259.89652,330.45371 C 263.48225,330.59815 266.95076,331.25746 269.42333,333.85443 C 271.40907,335.94007 271.78269,337.61094 269.27837,340.94272 C 267.7718,342.94708 263.56644,342.93143 262.26169,345.38731 C 260.98689,347.78683 253.68572,347.76299 256.34914,343.18939 C 258.59666,339.32997 271.87706,338.81885 262.28569,335.04482 C 260.08733,334.1798 256.1509,334.92966 254.39188,335.5464 C 251.5208,336.55306 252.78657,342.9404 247.24414,339.93803 z M 261.75482,350.18045 C 262.93061,351.23584 263.1636,352.23472 261.75482,353.55495 C 260.34603,354.87517 257.64051,354.56778 256.5538,353.55495 C 255.46709,352.54213 255.04184,351.59895 256.5538,350.18045 C 258.06576,348.76195 260.57903,349.12505 261.75482,350.18045 z"
        id="path2469"
        sodipodi:nodetypes="cssssssssccssss" />
+    <path
+       style="fill:url(#linearGradient3251);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 358.28571,288.93361 L 368.28571,304.93361 L 358.28571,320.93361 L 390.28571,320.93361 L 390.28571,288.93361 L 358.28571,288.93361 z M 326.28571,288.93361 L 326.28571,320.93361 L 354.28571,320.93361 L 364.28571,304.93361 L 354.28571,288.93361 L 326.28571,288.93361 z"
+       id="path2470"
+       sodipodi:nodetypes="cccccccccccc" />
+    <path
+       style="fill:url(#linearGradient3255);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 326.28571,320.93361 L 326.28571,352.93361 L 354.28571,352.93361 L 364.28571,336.93361 L 354.28571,320.93361 L 326.28571,320.93361 z"
+       id="path3253"
+       sodipodi:nodetypes="cccccc" />
+    <path
+       style="fill:url(#linearGradient3259);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 358.28571,352.93361 L 368.28571,368.93361 L 358.28571,384.93361 L 390.28571,384.93361 L 390.28571,352.93361 L 358.28571,352.93361 z"
+       id="path3257"
+       sodipodi:nodetypes="cccccc" />
+    <path
+       style="fill:url(#linearGradient3263);fill-opacity:1.0;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 358.28571,384.93361 L 368.28571,400.93361 L 358.28571,416.93361 L 390.28571,416.93361 L 390.28571,384.93361 L 358.28571,384.93361 z M 326.28571,384.93361 L 326.28571,416.93361 L 354.28571,416.93361 L 364.28571,400.93361 L 354.28571,384.93361 L 326.28571,384.93361 z"
+       id="path3261"
+       sodipodi:nodetypes="cccccccccccc" />
+    <path
+       style="fill:url(#linearGradient3273);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 358.28571,320.68361 L 368.28571,336.68361 L 358.28571,352.68361 L 390.28571,352.68361 L 390.28571,320.68361 L 358.28571,320.68361 z"
+       id="path3271"
+       sodipodi:nodetypes="cccccc" />
+    <path
+       style="fill:url(#linearGradient3277);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 326.28571,352.93361 L 326.28571,384.93361 L 354.28571,384.93361 L 364.28571,368.93361 L 354.28571,352.93361 L 326.28571,352.93361 z"
+       id="path3275"
+       sodipodi:nodetypes="cccccc" />
+    <path
+       style="fill:url(#linearGradient3285);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 394.28571,288.93361 L 394.28571,320.93361 L 398.28571,320.93361 L 398.28571,288.93361 L 394.28571,288.93361 z"
+       id="path3283"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/template/stepper_default.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:url(#linearGradient3289);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 404.28571,288.93361 L 404.28571,320.93361 L 408.28571,320.93361 L 408.28571,288.93361 L 404.28571,288.93361 z"
+       id="path3287"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/template/stepper_active.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

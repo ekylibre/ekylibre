@@ -270,9 +270,21 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }
 
 .stepper { border-collapse: collapse; width: 100%; }
+/*
 .stepper .standard { background: #FEB; border: 1px solid #EC7; padding: 4px; text-align:center; }
 .stepper .master { background: #DA6; border: 1px solid #A82; color: white;}
 .stepper .right, .stepper .left  { background: #ED9; border: 1px solid #DB7;}
+*/
+.stepper td { height: 32px;}
+.stepper td.step { text-align:center; background: url(/images/template/stepper_default.png) bottom; }
+.stepper td.step.active { background: url(/images/template/stepper_active.png) bottom; }
+.stepper td.transit { background: url(/images/template/stepper_transit.png) bottom; width:14px; }
+.stepper td.transit.left { background: url(/images/template/stepper_left.png) bottom; }
+.stepper td.transit.right { background: url(/images/template/stepper_right.png) bottom; }
+.stepper td.side { text-align:center; background: url(/images/template/stepper_default.png) bottom; width:32px; }
+.stepper td.side.first { -moz-border-radius-topleft: 16px; -moz-border-radius-bottomleft: 16px;}
+.stepper td.side.last { -moz-border-radius-topright: 16px; -moz-border-radius-bottomright: 16px;}
+
 
 .search { background: #CEA !important; color: #580; }
 .search table { margin: 0px auto; }

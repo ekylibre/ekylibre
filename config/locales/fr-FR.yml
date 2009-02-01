@@ -732,6 +732,9 @@ fr-FR:
         delays_create: 'Ajouter un nouveau délai'
       _delays_form:
         general: Général
+      delays_display:
+        title: 'Délai : {{value}}'
+        delays_update: Modifier le délai
       delays_create:
         title: 'Ajout d''un nouveau délai'
       delays_update:
@@ -749,6 +752,7 @@ fr-FR:
         sales: 'Ventes'
         sales_consult: 'Consulter l''état des ventes'
         sales_new: 'Nouvelle vente'
+        sale_order_natures: 'Types de vente'
         shelves: 'Catégories de produit'
         stocks: 'Stocks'
         stocks_consult: 'Consulter l''état des stocks'

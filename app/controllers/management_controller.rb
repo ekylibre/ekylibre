@@ -14,6 +14,7 @@ class ManagementController < ApplicationController
     t.column :active
     t.column :expression
     t.column :comment
+    t.action :delays_display, :image=>:show
     t.action :delays_update, :image=>:update
     t.action :delays_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :delays_create
@@ -252,6 +253,64 @@ class ManagementController < ApplicationController
   def sales
   end
 
+
+
+
+  dyta(:sale_order_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :active
+    t.column :name, :through=>:expiration, :url=>{:action=>:delays_display}
+    t.column :name, :through=>:payment_delay, :url=>{:action=>:delays_display}, :label=>:test
+    t.column :downpayment
+    t.column :downpayment_minimum
+    t.column :downpayment_rate
+    t.column :comment
+    t.action :sale_order_natures_update, :image=>:update
+    t.action :sale_order_natures_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :sale_order_natures_create
+  end
+
+  def sale_order_natures
+    sale_order_natures_list params
+  end
+
+  def sale_order_natures_display
+    @sale_order_nature = find_and_check(:sale_order_nature, params[:id])
+    @title = {:value=>@sale_order_nature.name}
+  end
+
+  def sale_order_natures_create
+    if request.post? 
+      @sale_order_nature = SaleOrderNature.new(params[:sale_order_nature])
+      @sale_order_nature.company_id = @current_company.id
+      redirect_to_back if @sale_order_nature.save
+    else
+      @sale_order_nature = SaleOrderNature.new
+    end
+    render_form
+  end
+
+  def sale_order_natures_update
+    @sale_order_nature = find_and_check(:sale_order_nature, params[:id])
+    if request.post?
+      params[:sale_order_nature][:company_id] = @current_company.id
+      redirect_to_back if @sale_order_nature.update_attributes(params[:sale_order_nature])
+    end
+    @title = {:value=>@sale_order_nature.name}
+    render_form
+  end
+
+  def sale_order_natures_delete
+    @sale_order_nature = find_and_check(:sale_order_nature, params[:id])
+    if request.post? or request.delete?
+      redirect_to :back if @sale_order_nature.destroy
+    end
+  end
+
+
+
+
+
   # Step 1
   def sales_new
     @step = 1
@@ -259,7 +318,6 @@ class ManagementController < ApplicationController
 
     session[:sales] = {}
     if request.get?
-      session[:sales][:nature]    = params[:nature]
       session[:sales][:client_id] = params[:client_id]
     else
       session[:sales] = params[:sale] if params[:sale].is_a? Hash
@@ -269,10 +327,8 @@ class ManagementController < ApplicationController
       client = Entity.find_by_company_id_and_id(session[:sales][:client_id], @current_company.id)
       session[:sales].delete(:client_id) if client.nil?
     end
-
-    unless session[:sales][:nature].nil? or session[:sales][:client_id].nil?
-      redirect_to :action=>:sales_general
-    end
+    
+    redirect_to :action=>:sales_general unless session[:sales][:client_id].nil?
   end
 
   # Step 2
