@@ -194,9 +194,9 @@ class AccountancyController < ApplicationController
   PRINTS=[[:balance,{:partial=>"date_to_date",:ex=>"ex"}],
           [:general_ledger,{:partial=>"date_to_date"}],
           [:journal_by_id,{:partial=>"by_journal"}],
-          [:journal,{:partial=>"date_to_date"}],
-          [:balance_sheet,{:partial=>"by_financial_year"}],
-          [:income_statements,{:partial=>"by_financial_year"}]]
+          [:journal,{:partial=>"date_to_date"}]]
+          #[:balance_sheet,{:partial=>"by_financial_year"}],
+          #[:income_statements,{:partial=>"by_financial_year"}]]
           
   def document_prepare
     @prints = PRINTS
@@ -211,21 +211,25 @@ class AccountancyController < ApplicationController
       @print = print if print[0].to_s == session[:mode]
     end
     @partial = 'print_'+@print[1][:partial]
-    if request.post?
+    @begin = Date.today.year.to_s+"-"+"01-01"
+    @end = Date.today.year.to_s+"-12-31"
+    if request.post? 
       if session[:mode] == "income_statements"
         @financialyear = Financialyear.find_by_id_and_company_id(params[:printed][:id], @current_company.id)
         params[:printed][:name] = @financialyear.code
         params[:printed][:from] = @financialyear.started_on
         params[:printed][:to] = @financialyear.stopped_on
       end
+      params[:printed][:name] = Journal.find_by_id_and_company_id(params[:printed][:name], @current_company.id).name if session[:mode] == "journal_by_id"
       params[:printed][:current_company] = @current_company.id
       params[:printed][:siren] = @current_company.siren.to_s
       params[:printed][:company_name] = @current_company.name.to_s
       render(:xil=>"#{RAILS_ROOT}/app/views/prints/#{@print[0].to_s}.xml",:locals=>params[:printed])
     end
+    #params[:printed][:from] = Date.today
     @title = {:value=>t("views.#{self.controller_name}.document_prepare.#{@print[0].to_s}")}
   end
-    
+  
   # this method finds the journal with the matching id and the company_id.
   def journals_find
     @find_journals = @current_company.journals #Journal.find(:all,:conditions=>["company_id = ?", @current_company.id])

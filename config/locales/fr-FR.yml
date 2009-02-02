@@ -551,12 +551,12 @@ fr-FR:
       journals_close:
         title: Clôture du journal
   
-      print_by_journal:
+      _print_by_journal:
         dates: Saisissez les dates ainsi que le journal
         journal: Journal
         from: Période du
         to: Au
-      print_date_to_date:
+      _print_date_to_date:
         dates: Saisissez les dates de début et de fin de la période
         from: Période du
         to: Au

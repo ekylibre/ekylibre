@@ -1,7 +1,7 @@
 -form_tag do
   =formalize do |f|
     -for print in @prints
-      - f.field radio_button(:print , :mode , print[0]), content_tag(:label, lc(print[0].to_sym), {:for=>'print_mode_'+print[0].to_s})
+      - f.field radio_button(:print , :mode , print[0]), content_tag(:label, tc(print[0].to_sym), {:for=>'print_mode_'+print[0].to_s})
   .actions
-    =submit_tag t"next"
+    =submit_tag tg"next"
 

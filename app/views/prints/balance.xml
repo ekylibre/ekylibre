@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<template title="Example" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="10">
-  <title query="select current_user">The Book of #{title.current_user}</title>
+<template title="Balance" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="10">
+  <title query="select current_user">Balance du {LOCAL:from} au {LOCAL:to} #{title.current_user}</title>
   <infos>
     <info type="created-on">04/09/2008</info>
   </infos>
