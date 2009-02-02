@@ -87,6 +87,10 @@ div[xul="box"] { background: #ADA; }
 
 #user { float:right; height:24px; margin:4px 10px; text-align:right;}
 
+#titleavis{ padding:20px 0 20px 0; text-align:center; color:#004477; border:0.1px solid blue; margin-top:20px; margin-bottom:10px; border-right:none; border-left:none;}
+#avis .main {padding:8px;  }
+#avis .logout { padding:3px 8px; text-align:right;  border-bottom:1px solid #C9D7F1; }
+#avis .title { padding:8px; text-align:center; color:#047 }
 
 .avis { padding: 10px 10px 30px 10px; text-align:center; margin-top:40px; border:0.1px solid black; font-weight:bold; border-right:none; border-left:none; }
 

@@ -710,11 +710,15 @@ fr-FR:
       index:
         title: 'Deposez vos idées'
       ideas:
-        title: 'Liste des idées'
+        title: 'Boîte à idées'
       ideas_create: 
         title: 'Déposer une nouvelle idée'
       ideas_update: 
         title: 'Modifier une idée'
+      rubrics_create: 
+        title: 'Créer une nouvelle rubrique'
+      versions_create:
+        title: 'Créer une nouvelle version'
 
     # Layout
     layouts:
