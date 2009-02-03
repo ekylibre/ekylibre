@@ -1,0 +1,21 @@
+=sales_steps
+
+= aclist do |l|
+  - l.action :print
+
+%h2=tc :lines
+=dyta :sale_order_lines
+
+.total
+  %table.dyta
+    %tr
+      %th=tc :amount
+      %td=@sale_order.amount
+    %tr.important
+      %th=tc :amount_with_taxes
+      %td=@sale_order.amount_with_taxes
+
+- form_tag do
+  .actions
+    =link_to tg(:previous), :action=>:sales_general
+    =submit_tag(tc('estimate_to_order'), :action=>:sales_deliveries) if @sale_order.lines.size>0
