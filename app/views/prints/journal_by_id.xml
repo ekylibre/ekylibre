@@ -33,7 +33,7 @@
 	<text x="178" y="0" width="22" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000" weight="bold">Crédit</text>
       </block>
       <loop name="idjournal" query="SELECT id  FROM journals WHERE company_id = {LOCAL:current_company} AND journals.name = '{LOCAL:name}'">
-	<loop name="record" query="SELECT id , number ,  created_on , printed_on FROM journal_records WHERE company_id = {LOCAL:current_company} AND journal_id = #{idjournal.id} AND created_on BETWEEN '{LOCAL:from}' AND '{LOCAL:to}' ORDER BY created_on , number">
+	<loop name="record" query="SELECT id , number ,  created_on , printed_on FROM journal_records WHERE company_id = {LOCAL:current_company} AND journal_id = #{idjournal.id} AND created_on BETWEEN CAST('{LOCAL:from}' AS date) AND CAST('{LOCAL:to}' AS date) ORDER BY created_on , number">
 	  <loop name="entries" query="SELECT debit ,credit , name , account_number , 1 FROM(SELECT debit , credit, entries.name as name  , accounts.number as account_number FROM entries INNER JOIN accounts ON entries.account_id = accounts.id WHERE entries.record_id = #{record.id}) as entries">
 	    <block name="numeric">
 	      <text x="10" y="0" width="15" height="5" align="L" border-width="0.2">#{record.number}</text>
@@ -41,10 +41,10 @@
 	      <text x="45" y="0" width="20" height="5" align="L" border-width="0.2">#{record.printed_on}</text>
 	      <text x="65" y="0" width="66" height="5" align="L" border-width="0.2">#{entries.name}</text>
 	      <text x="131" y="0" width="25" height="5" align="L" border-width="0.2" >#{entries.account_number}</text>
-	      <text x="156" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.debit},''),'0')::numeric > 0">#{entries.debit}</text>
-	      <text x="156" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.debit},''),'0')::numeric = 0">   </text>
-	      <text x="178" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.credit},''),'0')::numeric = 0" >  </text>
-	      <text x="178" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.credit},''),'0')::numeric > 0" >#{entries.credit}</text>
+	      <text x="156" y="0" width="22" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{entries.debit},''),'0') AS numeric) > 0">#{entries.debit}</text>
+	      <text x="156" y="0" width="22" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{entries.debit},''),'0') AS numeric) = 0">   </text>
+	      <text x="178" y="0" width="22" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{entries.credit},''),'0') AS numeric) = 0" >  </text>
+	      <text x="178" y="0" width="22" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{entries.credit},''),'0') AS numeric) > 0" >#{entries.credit}</text>
 	    </block>
           </loop>
 	  <block name="ddj" >
@@ -54,7 +54,7 @@
       </loop>
       <loop name="first" query="SELECT id  FROM journals WHERE company_id = {LOCAL:current_company} AND journals.name = '{LOCAL:name}'">
       </loop>
-      <loop name="sum" query="SELECT sum_debit , sum_credit , 1 FROM(SELECT sum(debit) as sum_debit , sum(credit) as sum_credit FROM entries WHERE entries.record_id  IN (SELECT id  FROM journal_records WHERE company_id = {LOCAL:current_company} AND entries.record_id IN (SELECT id  FROM journal_records WHERE company_id = {LOCAL:current_company} AND journal_id = #{first.id}) AND created_on BETWEEN '{LOCAL:from}' AND '{LOCAL:to}')) as sum">
+      <loop name="sum" query="SELECT sum_debit , sum_credit , 1 FROM(SELECT sum(debit) as sum_debit , sum(credit) as sum_credit FROM entries WHERE entries.record_id  IN (SELECT id  FROM journal_records WHERE company_id = {LOCAL:current_company} AND entries.record_id IN (SELECT id  FROM journal_records WHERE company_id = {LOCAL:current_company} AND journal_id = #{first.id}) AND created_on BETWEEN CAST('{LOCAL:from}' AS date) AND CAST('{LOCAL:to}' AS date))) as sum">
       </loop>
       <block name="solde">
 	<text x="131" y="0" width="25" height="5" align="C" border-width="0.2" weight="bold">Totaux</text>

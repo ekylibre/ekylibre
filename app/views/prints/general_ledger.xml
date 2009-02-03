@@ -35,14 +35,14 @@
 	<text x="145" y="0" width="27.5" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000"> Débit </text>
 	<text x="172.5" y="0" width="27.5" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000" > Crédit </text>
       </block>
-      <loop name="entries" query="SELECT name , debit , credit, created ,1 FROM(SELECT entries.name as name , entries.debit as debit , entries.credit as credit , journal_records.created_on as created FROM entries INNER JOIN journal_records ON entries.record_id = journal_records.id WHERE journal_records.created_on BETWEEN '{LOCAL:from}'::date AND '{LOCAL:to}'::date AND entries.account_id = #{ledger.id} ORDER BY journal_records.created_on) as entries ">
+      <loop name="entries" query="SELECT name , debit , credit, created ,1 FROM(SELECT entries.name as name , entries.debit as debit , entries.credit as credit , journal_records.created_on as created FROM entries INNER JOIN journal_records ON entries.record_id = journal_records.id WHERE journal_records.created_on BETWEEN CAST ('{LOCAL:from}' AS date) AND CAST ('{LOCAL:to}' AS date) AND entries.account_id = #{ledger.id} ORDER BY journal_records.created_on) as entries ">
 	<block name="numeric">
 	  <text x="10" y="0" width="23" height="5" align="L" border-width="0.2">#{entries.created}</text>
 	  <text x="33" y="0" width="112" height="5" align="L" border-width="0.2">#{entries.name}</text>
-	  <text x="145" y="0" width="27.5" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.debit},''),'0')::numeric > 0">#{entries.debit}</text>
-	  <text x="145" y="0" width="27.5" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.debit},''),'0')::numeric = 0">   </text>
-	  <text x="172.5" y="0" width="27.5" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.credit},''),'0')::numeric = 0" >  </text>
-	  <text x="172.5" y="0" width="27.5" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{entries.credit},''),'0')::numeric > 0" >#{entries.credit}</text>
+	  <text x="145" y="0" width="27.5" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{entries.debit},''),'0') AS numeric) > 0">#{entries.debit}</text>
+	  <text x="145" y="0" width="27.5" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{entries.debit},''),'0') AS numeric) = 0">   </text>
+	  <text x="172.5" y="0" width="27.5" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{entries.credit},''),'0') AS numeric) = 0" >  </text>
+	  <text x="172.5" y="0" width="27.5" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{entries.credit},''),'0') AS numeric) > 0" >#{entries.credit}</text>
         </block>
       </loop>
       <block name="space" if="#{subsum.count}>0" >

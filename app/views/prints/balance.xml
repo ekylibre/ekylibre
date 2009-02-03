@@ -30,18 +30,18 @@
       <text x="156" y="7" width="22" height="7" align="C" border-width="0.2" background-color="#CCC" color="#000" weight="bold">Debit</text>
       <text x="178" y="7" width="22" height="7" align="C" border-width="0.2" background-color="#CCC" color="#000" weight="bold" >Credit</text>
     </block>
-    <loop name="balance" query="SELECT number , name , local_credit , local_debit, solde FROM accounts LEFT JOIN (SELECT account_id, coalesce(sum(entries.credit),0) as local_credit, coalesce(sum(entries.debit),0) as local_debit, coalesce(sum(entries.credit),0) - coalesce(sum(entries.debit),0) as solde FROM entries INNER JOIN journal_records ON entries.record_id = journal_records.id  WHERE journal_records.created_on BETWEEN '{LOCAL:from}'::date AND '{LOCAL:to}'::date GROUP BY account_id) as balance ON accounts.id = account_id ORDER BY number">
+    <loop name="balance" query="SELECT number , name , local_credit , local_debit, solde FROM accounts LEFT JOIN (SELECT account_id, coalesce(sum(entries.credit),0) as local_credit, coalesce(sum(entries.debit),0) as local_debit, coalesce(sum(entries.credit),0) - coalesce(sum(entries.debit),0) as solde FROM entries INNER JOIN journal_records ON entries.record_id = journal_records.id  WHERE journal_records.created_on BETWEEN CAST('{LOCAL:from}' AS date) AND CAST('{LOCAL:to}' AS date) GROUP BY account_id) as balance ON accounts.id = account_id ORDER BY number">
       <block name="test">
 	<text x="10" y="0" width="25" height="5" align="L" border-width="0.2">#{balance.number}</text>
 	<text x="35" y="0" width="121" height="5" align="L" border-width="0.2">#{balance.name}</text>
-	<text x="156" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{balance.local_debit},''),'0')::numeric > 0">#{balance.local_debit}</text>
-	<text x="156" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{balance.local_debit},''),'0')::numeric = 0">   </text>
-	<text x="178" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{balance.local_credit},''),'0')::numeric = 0" >  </text>
-	<text x="178" y="0" width="22" height="5" align="R" border-width="0.2" if="COALESCE(NULLIF(#{balance.local_credit},''),'0')::numeric > 0" >#{balance.local_credit}</text>
+	<text x="156" y="0" width="22" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{balance.local_debit},''),'0') AS numeric) > 0">#{balance.local_debit}</text>
+	<text x="156" y="0" width="22" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{balance.local_debit},''),'0') AS numeric) = 0">   </text>
+	<text x="178" y="0" width="22" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{balance.local_credit},''),'0') AS numeric) = 0" >  </text>
+	<text x="178" y="0" width="22" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{balance.local_credit},''),'0') AS numeric) > 0" >#{balance.local_credit}</text>
 	<!--<text x="182.5" y="0" width="27.5" height="5" align="R" border-width="0.2" if="#{balance.local_debit}::numeric = 0">  </text>-->
       </block>
     </loop>
-    <loop name="sum" query="SELECT sum_credit , sum_debit, 1 FROM(SELECT sum(local_credit) as sum_credit , sum(local_debit) as sum_debit , 1 FROM accounts LEFT JOIN (SELECT account_id, coalesce(sum(entries.credit),0) as local_credit, coalesce(sum(entries.debit),0) as local_debit, coalesce(sum(entries.credit),0) - coalesce(sum(entries.debit),0) as solde FROM entries INNER JOIN journal_records ON entries.record_id = journal_records.id  WHERE journal_records.created_on BETWEEN '{LOCAL:from}'::date AND '{LOCAL:to}'::date GROUP BY account_id) as balance ON accounts.id = account_id) as sum">
+    <loop name="sum" query="SELECT sum_credit , sum_debit, 1 FROM(SELECT sum(local_credit) as sum_credit , sum(local_debit) as sum_debit , 1 FROM accounts LEFT JOIN (SELECT account_id, coalesce(sum(entries.credit),0) as local_credit, coalesce(sum(entries.debit),0) as local_debit, coalesce(sum(entries.credit),0) - coalesce(sum(entries.debit),0) as solde FROM entries INNER JOIN journal_records ON entries.record_id = journal_records.id  WHERE journal_records.created_on BETWEEN CAST('{LOCAL:from}' AS date) AND CAST('{LOCAL:to}' AS date) GROUP BY account_id) as balance ON accounts.id = account_id) as sum">
     </loop>
     <block name="solde">
       <text x="131" y="0" width="25" height="5" align="C" border-width="0.2" weight="bold">Totaux</text>

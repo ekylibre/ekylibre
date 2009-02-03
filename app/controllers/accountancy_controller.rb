@@ -229,6 +229,11 @@ class AccountancyController < ApplicationController
     #params[:printed][:from] = Date.today
     @title = {:value=>t("views.#{self.controller_name}.document_prepare.#{@print[0].to_s}")}
   end
+
+  def order_sale
+    #render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:locals=>params[:printed])
+    render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:key=>params[:id])
+  end
   
   # this method finds the journal with the matching id and the company_id.
   def journals_find
