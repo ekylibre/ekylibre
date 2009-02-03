@@ -6,6 +6,7 @@
 #  id                  :integer       not null, primary key
 #  client_id           :integer       not null
 #  nature_id           :integer       not null
+#  created_on          :date          not null
 #  number              :string(64)    not null
 #  invoiced            :boolean       not null
 #  amount              :decimal(16, 2 default(0.0), not null

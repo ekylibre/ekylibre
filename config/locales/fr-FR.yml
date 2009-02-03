@@ -325,6 +325,13 @@ fr-FR:
         function_title: Civilités
         introduction: Introduction
         conclusion: Conclusion
+      sale_order_line:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        product_id: Produit
+        price_id: Prix
+        price_list_id: Tarif
+        quantity: Quantité
       shelf:
         catalog_name: Nom pour le catalogue
         catalog_description: Description
@@ -418,14 +425,11 @@ fr-FR:
     guide:
     help:
     management:
-      sales_step_1: 'Client'
-      sales_step_2: 'Description'
-      sales_step_3: 'Produits'
-      sales_step_4: 'Livraisons'
-      sales_step_5: 'Factures'
-      sales_step_6: 'Règlements'
-      sales_step_7: 'Impression'
-  
+      sales_step_1: 'Description'
+      sales_step_2: 'Produits'
+      sales_step_3: 'Livraisons'
+      sales_step_4: 'Factures'
+      sales_step_5: 'Règlements'
     relations:
 
 
@@ -813,14 +817,28 @@ fr-FR:
       products_update:
         title: 'Modification du produit : {{value}}'
   
+
+      
+
+
       sales_new:
         title: 'Nouvelle vente'
         nature: 'Type de vente'
-        client: 'Sélection du client'
       sales_general:
-        title: 'Description générale de la vente pour : {{client}}'
+        client: 'Sélection du client'
+        title: 'Description générale de la vente'
         conditions: Conditions de vente
         letter: Lettre
+      sales_products:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        estimate_to_order: Passer le devis en commande
+        lines: Lignes du devis
+        sale_order_lines_create: Ajouter un produit au devis
+        title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
+        total: Total
+        
+      
 
       shelves:
         title: Gérer les catégories de produits
@@ -1008,6 +1026,8 @@ fr-FR:
       error_already_defined: 'Un prix a déjà été défini pour cette liste de prix et ce produit'
       range: 'De {{min}} à {{max}}'
       no_range: 'Pas d''intervalle'
+    price_list:
+      error_range_overlap_detected: 'Des plages de prix se chevauchent pour le même produit. Ceci est normalement impossible. Veuillez signaler l''incident à votre administrateur système.'
     product:
       natures:
         product: Produit
@@ -1025,11 +1045,14 @@ fr-FR:
         estimate: Devis
         order: Commande
         invoice: Facture
+    sale_order_line:
+      error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
     
   
   # Genral words and expression through the all app
   general:
-    apply: 'Appliquer'
+    add: Ajouter
+    apply: Appliquer
     are_you_sure: 'Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?'
     back: 'Revenir à la page précédente'
     cancel: 'Annuler'

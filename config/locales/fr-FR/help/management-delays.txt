@@ -1,0 +1,15 @@
+Les délais permettent de calculer automatiquement des dates d'échéances.
+
+h2. Comment exprimer un délai
+
+Un délai peut s'écrire sous la forme de petites expressions séparées par des virgules. Exemple : 
+* 1 jour, fin de mois, 10 jours
+
+L'expression **fin de mois** spécifie que l'on doit aller à la fin du mois. (L'expression **fin de mois** peut être remplacé par **fdm**, **end of month** ou **eom**).
+Il est possible de faire suivre autant d'expressions que voulu. Exemples :
+* 10 jours
+* 10 jours, fin de mois
+* 10 jours, fin de mois, 45 jours
+
+
+  

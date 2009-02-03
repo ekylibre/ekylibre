@@ -227,11 +227,13 @@ class Managing < ActiveRecord::Migration
     create_table :sale_orders do |t|
       t.column :client_id,              :integer,  :null=>false, :references=>:entities
       t.column :nature_id,              :integer,  :null=>false, :references=>:sale_order_natures
-      t.column :number,                 :string,   :limit=>64, :null=>false
+      t.column :created_on,             :date,     :null=>false
+      t.column :number,                 :string,   :null=>false, :limit=>64
+      t.column :sum_method,             :string,   :null=>false, :limit=>8, :default=>'wt'
       t.column :invoiced,               :boolean,  :null=>false, :default=>false
       t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :amount_with_taxes,      :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :state,                  :string,   :limit=>1, :null=>false, :default=>'O'
+      t.column :state,                  :string,   :null=>false, :limit=>1, :default=>'O'
       t.column :expiration_id,          :integer,  :null=>false, :references=>:delays
       t.column :expired_on,             :date,     :null=>false
       t.column :payment_delay_id,       :integer,  :null=>false, :references=>:delays

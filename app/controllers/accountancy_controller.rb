@@ -407,6 +407,8 @@ class AccountancyController < ApplicationController
       render :action => "entries.rjs" if request.xhr?
     end
     
+    @title = {:journal=>@journal.name, :financialyear=>@financialyear.code}
+
   end
   
   # lists all the transactions established on the accounts, sorted by date.

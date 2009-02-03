@@ -147,11 +147,13 @@ module Dyta
         end
         code += "  end\n"
         code += "  text = "+process+"+text\n" unless process.nil?
-        code += "  text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"')\n"
+        code += "  unless request.xhr?\n"
+        code += "    text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"')\n"
         # code += "  text = content_tag(:div, text)\n"
-        code += "  text = content_tag(:h3,  "+h(options[:label])+", :class=>:dyta)+text\n" unless options[:label].nil?
+        code += "    text = content_tag(:h3,  "+h(options[:label])+", :class=>:dyta)+text\n" unless options[:label].nil?
         # code += "  text = content_tag(:div, text, :class=>'futo', )\n"
         # code += "  text = content_tag(:h2,  "+options[:title]+", :class=>'futo')+text\n" unless options[:title].nil?
+        code += "  end\n"
         code += "  text\n"
         code += "end\n"
 

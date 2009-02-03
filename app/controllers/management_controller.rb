@@ -1,5 +1,7 @@
 class ManagementController < ApplicationController
 
+  include ActionView::Helpers::FormOptionsHelper
+
   def index
   end
 
@@ -249,8 +251,18 @@ class ManagementController < ApplicationController
 
 
 
+  dyta(:sale_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :number, :url=>{:action=>:sales_products}
+    t.column :name, :through=>:nature, :url=>{:action=>:sale_order_natures_display}
+    t.column :name, :through=>:client, :url=>{:controller=>:relations, :action=>:entities_display}
+    t.column :state
+    t.column :amount
+    t.column :amount_with_taxes
+  end
+
 
   def sales
+    sale_orders_list params
   end
 
 
@@ -311,64 +323,142 @@ class ManagementController < ApplicationController
 
 
 
-  # Step 1
+
+  def sales_contacts
+    client_id = params[:client_id]||(params[:sale_order]||{})[:client_id]||session[:current_entity]
+    client_id = 0 if client_id.blank?
+    session[:current_entity] = client_id
+    contacts = Contact.find_all_by_entity_id_and_company_id(client_id, @current_company.id)||[]
+    @contacts = contacts.collect{|x| [x.address, x.id]}
+    render :text=>options_for_select(@contacts) if request.xhr?
+  end
+
   def sales_new
-    @step = 1
-    @sale = SaleOrder.new
-
-    session[:sales] = {}
-    if request.get?
-      session[:sales][:client_id] = params[:client_id]
-    else
-      session[:sales] = params[:sale] if params[:sale].is_a? Hash
-    end
-
-    raise Exception.new 
-
-    if session[:sales][:client_id]
-      client = Entity.find_by_company_id_and_id(session[:sales][:client_id], @current_company.id)
-      session[:sales].delete(:client_id) if client.nil?
-    end
-    
-    redirect_to :action=>:sales_general unless session[:sales][:client_id].nil?
+    redirect_to :action=>:sales_general
   end
 
-  # Step 2
+
   def sales_general
-    @step = 2
-    @entity = Entity.find(session[:sales][:client_id])
+    sales_contacts
     if request.post?
-      
+      @sale_order = SaleOrder.new(params[:sale_order])
+      @sale_order.company_id = @current_company.id
+      @sale_order.number = ''
+      @sale_order.state = 'P'
+      if @sale_order.save
+        redirect_to :action=>:sales_products, :id=>@sale_order.id
+      end
     else
-      @sale = SaleOrder.new
+      @sale_order = SaleOrder.find_by_id_and_company_id(params[:id], @current_company.id)
+      if @sale_order.nil?
+        @sale_order = SaleOrder.new 
+      end
+      @sale_order.client_id = session[:current_entity]
     end
-    @title = {:client=>@entity.full_name}
+    #    @title = {:client=>@entity.full_name}
   end
 
-  # Step 3
+#     @sale_order = SaleOrder.new
+
+#     session[:sales] = {}
+#     if request.get?
+#       session[:sales][:client_id] = params[:client_id]
+#     else
+#       session[:sales] = params[:sale] if params[:sale].is_a? Hash
+#     end
+
+# #    raise Exception.new session.data.inspect
+
+#     if session[:sales][:client_id]
+#       client = Entity.find_by_company_id_and_id(session[:sales][:client_id], @current_company.id)
+#       session[:sales].delete(:client_id) if client.nil?
+#     end
+    
+#     redirect_to :action=>:sales_general unless session[:sales][:client_id].nil?
+#   end
+
+#   def sales_general
+#     @step = 2
+#     @entity = Entity.find(session[:sales][:client_id])
+#     if request.post?
+#       @sale_order = SaleOrder.new(params[:sale])
+#       @sale_order.company_id = @current_company.id
+#       @sale_order.client_id = @entity.id
+#       if @sale_order.save
+#         redirect_to :action=>:sales_products
+#       end
+#     else
+#       @sale_order = SaleOrder.new
+#     end
+#     @title = {:client=>@entity.full_name}
+#   end
+
+  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@sale_order.id']}, :empty=>true) do |t|
+    t.column :name, :through=>:product
+    t.column :name, :through=>:price_list
+    t.column :quantity
+    t.column :label, :through=>:unit
+    t.column :amount
+    t.column :amount_with_taxes
+    t.action :sale_order_lines_update, :image=>:update
+    t.action :sale_order_lines_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :sale_order_lines_create
+  end
+
   def sales_products
-    @step = 3
+    @sale_order = find_and_check(:sale_order, params[:id])
+    session[:current_sale_order] = @sale_order.id
+    @entity = @sale_order.client
+    sale_order_lines_list params
+    if request.post?
+      @sale_order.update_attribute(:state, 'D')
+      redirect_to :action=>:sales_deliveries
+    end
+    @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
   end
 
-  # Step 4
+
+  def sale_order_lines_create
+    if request.post? 
+      @sale_order_line = SaleOrderLine.new(params[:sale_order_line])
+      @sale_order_line.company_id = @current_company.id
+      @sale_order_line.order_id = session[:current_sale_order]
+      redirect_to_back if @sale_order_line.save
+    else
+      @sale_order_line = SaleOrderLine.new
+    end
+    render_form
+  end
+
+  def sale_order_lines_update
+    @sale_order_line = find_and_check(:sale_order_line, params[:id])
+    if request.post?
+      params[:sale_order_line].delete(:company_id)
+      params[:sale_order_line].delete(:order_id)
+      redirect_to_back if @sale_order_line.update_attributes(params[:sale_order_line])
+    end
+    @title = {:value=>@sale_order_line.product.name}
+    render_form
+  end
+
+  def sale_order_lines_delete
+    @sale_order_line = find_and_check(:sale_order_line, params[:id])
+    if request.post? or request.delete?
+      redirect_to :back if @sale_order_line.destroy
+    end
+  end
+
+
+
   def sales_deliveries
-    @step = 4
   end
 
-  # Step 5
   def sales_invoices
-    @step = 5
   end
 
-  # Step 6
   def sales_payments
-    @step = 6
   end
 
-  # Step 7
-  def sales_print
-    @step = 7
-  end
 
   
 

@@ -1,7 +1,23 @@
 =sales_steps
 - form_tag do
   =formalize do |f|
+    - f.error 'sale_order'
     - f.title :client
-    - f.field :sale, :client_id, :choices=>@current_company.available_entities(:order=>:name).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations, :action=>:entities_create}
+    - f.field :sale_order, :client_id, :choices=>@current_company.available_entities(:order=>:name).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations, :action=>:entities_create}, :options=>{:include_blank=>true}
+    - f.title :conditions
+    - f.field :sale_order, :nature_id, :choices=>@current_company.sale_order_natures.collect{|x| [x.name, x.id]}
+    - f.field :sale_order, :contact_id, :choices=>[], :new=>{:controller=>:relations, :action=>:entities_contacts_create}
+    - f.field :sale_order, :delivery_contact_id, :choices=>[], :new=>{:controller=>:relations, :action=>:entities_contacts_create}
+    - f.field :sale_order, :invoice_contact_id, :choices=>[], :new=>{:controller=>:relations, :action=>:entities_contacts_create}
+    - f.field :sale_order, :comment, :field=>:textarea
+    - f.title :letter
+    - f.field :sale_order, :subject
+    - f.field :sale_order, :function_title
+    - f.field :sale_order, :introduction, :field=>:textarea
+    - f.field :sale_order, :conclusion, :field=>:textarea
   .actions
     =submit_tag tg :next
+=observe_field "sale_order_client_id", :url=>{:action => :sales_contacts}, :frequency => 0.25, :function=>"new Ajax.Request('/management/sales_contacts', {asynchronous:true, evalScripts:true, parameters:'client_id=' + encodeURIComponent(value), onSuccess: function(resp) {$('sale_order_contact_id').update(resp.responseText); $('sale_order_delivery_contact_id').update(resp.responseText); $('sale_order_invoice_contact_id').update(resp.responseText);  }  })"
+=#observe_field "sale_order_client_id", :url=>{:action => :sales_contacts}, :frequency => 0.25, :update=>"sale_order_contact_id", :with => "client_id"
+=#observe_field "sale_order_client_id", :url=>{:action => :sales_contacts}, :frequency => 0.25, :update=>"sale_order_delivery_contact_id", :with => "client_id"
+=#observe_field "sale_order_client_id", :url=>{:action => :sales_contacts}, :frequency => 0.25, :update=>"sale_order_invoice_contact_id", :with => "client_id"

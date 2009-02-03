@@ -23,7 +23,7 @@
 #
 
 class Price < ActiveRecord::Base
-  attr_readonly :started_on
+  attr_readonly :company_id, :started_on
 
 
   def before_validation

@@ -110,7 +110,8 @@ class RelationsController < ApplicationController
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
       if @entity.save
-        redirect_to :action=>:entities_display, :id=>@entity.id
+        redirect_to_back
+#        redirect_to :action=>:entities_display, :id=>@entity.id
       end
     else
       @entity = Entity.new

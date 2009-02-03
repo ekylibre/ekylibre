@@ -20,11 +20,30 @@
 #
 
 class PriceList < ActiveRecord::Base
-  attr_readonly :started_on
+  attr_readonly :company_id, :started_on
 
   def before_validation
     self.started_on = Date.today
   end
 
+  def price(product_id, quantity=1)
+    price = nil
+    prices = self.prices.find(:all, :conditions=>["product_id=? AND use_range AND ? BETWEEN quantity_min AND quantity_max", product_id, quantity])
+    if prices.size == 1
+      price = prices[0]
+    elsif prices.empty?
+      prices = self.prices.find(:all, :conditions=>["product_id=? AND NOT use_range", product_id])
+      if prices.size == 1
+        price = prices[0]
+#      elsif prices.empty?
+#        price = nil
+#      else
+#        raise Exception.new(tc(:error_range_overlap_detected))
+      end
+#    else
+#      raise Exception.new(tc(:error_range_overlap_detected))
+    end
+    price
+  end
 
 end

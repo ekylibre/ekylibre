@@ -209,7 +209,8 @@ table.formalize tr.even td { background: #F0F8FF;}
 */
 table.formalize a.fastadd { margin: 0px 8px; }
 
-.actions {text-align:center; padding:6px !important; background: #CEC; margin: 8px 0 8px;}
+
+.actions { text-align:center; padding:4px !important; background: #CEC; margin: 8px 0 0; }
 .actions * { margin: 0px 8px; }
 .actions a:link, .actions a:visited, .actions a:hover { color:#080;}
 
@@ -240,6 +241,12 @@ table.dyta tr.details td.comment { padding: 10px; font-size:15px; }
 .avindex {margin-top:30px;  padding: 10px 0 10px 0; }
 .update{ text-align:center; margin-top:8px; font-size:15px;}
 
+.total { text-align: right; }
+.total table { border-collapse: collapse; width: 100%; }
+.total table.dyta td { font-weight: bold; border: 1px solid #BACFE6; padding: 4px 8px; font-size: 17px; }
+.total table.dyta tr.important td { font-weight: bold; padding: 4px 8px; font-size: 20px !important; }
+
+
 a.right { float:right; }
 
 /* BEGIN BUTTON STYLES */
@@ -258,6 +265,9 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 */
 /* END */
 
+.fore { border: 1px solid #C9D7F1; margin: 8px 0; background: #EFE; }
+.fore .formalize { margin:8px auto; }
+
 #yield .aclist, .errorExplanation { -moz-border-radius: 8px; background: #E4EBF8; padding:4px 6px; margin: 0 0 8px;}
 #yield .aclist h2, .errorExplanation h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
 #yield .aclist ul, .errorExplanation ul { padding: 4px 4px 4px 18px; }
@@ -268,7 +278,7 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 
 /*e7f2fd bbcfe6*/
 
-.errorExplanation { background: #ECA; color: #543; }
+.errorExplanation { background: #ECA; color: #543; margin: 8px; }
 
 
 h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }

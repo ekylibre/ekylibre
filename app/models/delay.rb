@@ -32,6 +32,7 @@ class Delay < ActiveRecord::Base
   def compute(started_on)    
     # dead_on =(born_on >> self.months) + self.days
     # dead_on = dead_on.end_of_month + self.additional_days if self.end_of_month
+    return nil if started_on.nil?
     steps = self.expression.to_s.split(DELAY_SEPARATOR)||[]
     stopped_on = started_on
     steps.each do |step|
