@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<template title="Order Sale" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="8">
+  <title query="select current_user">Devis #{title.current_user}</title>
+  <infos>
+    <info type="created-on">04/09/2008</info>
+  </infos>
+  <loop name="loop0">
+    <loop name="order" query="SELECT number FROM sale_orders WHERE id = {KEY}">
+    </loop>
+    <block type="footer" height="17">
+      <line x1="10" y1="0" x2="200" y2="0" border-color="#000" />
+      <text x="10" y="2" width="100" height="3" align="L" size="7"> Devis n° #{order.number} </text>
+      <text x="10" y="5" width="100" height="3" align="L" size="7"> Page {PAGENO}/{PAGENB} </text>
+      <text x="165" y="3" width="15" height="5" align="L" size="7"> Paraphe   </text>
+      <text x="180" y="2" width="17" height="7" align="L" border-width="0.2">  </text>
+      <text x="90" y="2" width="30" height="5" align="C" size="7"> {CURRENT_TIMESTAMP:%e %B %Y }   </text>
+      <text x="90" y="6" width="30" height="5" align="C" size="7">  infos company </text>
+    </block>
+    <loop name="company" query="SELECT name, code ,siren FROM companies INNER JOIN sale_orders ON sale_orders.company_id = companies.id WHERE sale_orders.id={KEY} ">
+      <loop name="client" query="SELECT id,  name , code , nature , 1 FROM(SELECT entities.id as id, entities.name as name ,code , entity_natures.name as nature FROM entities INNER JOIN entity_natures ON entities.nature_id = entity_natures.id WHERE entities.id IN (SELECT client_id FROM sale_orders WHERE id = {KEY}))as client">
+      </loop>
+      <loop name="address" query="SELECT address FROM contacts INNER JOIN entities ON contacts.entity_id = #{client.id} ">
+      </loop>
+      <block name="company">
+	<text x="10" y="20" width="90" height="10" align="L" weight="bold" size="12"> #{company.name} </text>
+	<text x="10" y="30" width="90" height="5" align="L" size="10"> #{company.siren} </text> 
+	<text x="100" y="40" width="90" height="5" align="L" size="10"> #{client.nature} #{client.name} </text>
+	<text x="100" y="45" width="90" height="5" align="L" size="10"> #{address.address} </text>
+	<text x="100" y="50" width="90" height="20" align="L">  </text>
+      </block>
+      <block name="infos">
+	<text x="15" y="0" width="90" height="5" align="L" weight="bold"> Devis n° #{order.number} </text>
+      </block>
+    </loop>
+    <block name="table">
+      <text x="10" y="0" width="20" height="10" align="C" border-width="0.2" color="#000" weight="bold"> Code </text> 
+      <text x="30" y="0" width="90" height="10" align="C" border-width="0.2" color="#000" weight="bold"> Désignation </text>
+      <text x="120" y="0" width="15" height="10" align="C" border-width="0.2" color="#000" weight="bold"> Qte </text>
+      <text x="135" y="0" width="20" height="10" align="C" border-width="0.2" color="#000" weight="bold"> PU HT </text>
+      <text x="155" y="0" width="20" height="10" align="C" border-width="0.2" color="#000" weight="bold"> HT </text>
+      <text x="175" y="0" width="25" height="5" align="C" border-width="0.2" color="#000" weight="bold">  T.V.A. </text>
+      <text x="175" y="5" width="15" height="5" align="C" border-width="0.2" color="#000" weight="bold"> Montant </text>
+      <text x="190" y="5" width="10" height="5" align="C" border-width="0.2" color="#000" weight="bold"> Taux </text>
+    </block>
+    <loop name="products" query="SELECT name , id , code, montant_ht,montant_tva , quantity, 1 FROM(SELECT products.id as id , products.name as name , products.code as code , products.unit_id, sale_order_lines.amount as montant_ht , (sale_order_lines.amount_with_taxes - sale_order_lines.amount) as montant_tva ,quantity FROM sale_order_lines INNER JOIN products ON products.id = sale_order_lines.product_id WHERE order_id = {KEY})as products">
+      <loop name="prices" query="SELECT amount,tax_id,1 FROM(SELECT round(prices.amount,2) as amount , tax_id FROM prices INNER JOIN products ON prices.product_id = #{products.id}) as prices">
+	<loop name="taxes" query="SELECT tax_amount,nature, 1 FROM(SELECT round((taxes.amount*100),2) as tax_amount, nature FROM taxes INNER JOIN prices ON taxes.id = #{prices.tax_id}) as taxes">
+	</loop>
+      </loop>
+      <block name="lines">
+	<text x="10" y="0" width="20" height="5" align="C" border-width="0.2" color="#000"> #{products.code} </text>
+	<text x="30" y="0" width="90" height="5" align="L" border-width="0.2" color="#000"> #{products.name} </text>
+	<text x="120" y="0" width="15" height="5" align="R" border-width="0.2" color="#000"> #{products.quantity} </text>
+	<text x="135" y="0" width="20" height="5" align="R" border-width="0.2" color="#000"> #{prices.amount} </text> 
+	<text x="155" y="0" width="20" height="5" align="R" border-width="0.2" color="#000"> #{products.montant_ht} </text>
+	<text x="175" y="0" width="15" height="5" align="R" border-width="0.2" color="#000"> #{products.montant_tva} </text>
+	<text x="190" y="0" width="10" height="5" align="C" border-width="0.2" color="#000" if="#{taxes.nature}='percent'"> #{taxes.tax_amount}% </text>
+      </block>
+	</loop> 
+    <block name="sums">
+      <text x="120" y="0" width="35" height="5" align="L" border-width="0.2" weight="bold"> Totaux  </text>
+      <text x="120" y="5" width="35" height="10" align="L" border-width="0.2" weight="bold"> Net à payer </text>
+      <text x="155" y="5" width="20" height="10" align="L" border-width="0.2">   </text>
+      <text x="155" y="0" width="50" height="5" align="L" border-width="0.2">   </text>
+      <text x="175" y="0" width="15" height="5" align="L" border-width="0.2">   </text>
+    </block>
+    <block type="header" height="7"/>
+  </loop>
+</template>
