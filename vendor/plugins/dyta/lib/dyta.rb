@@ -94,7 +94,7 @@ module Dyta
             style = options[:style]||''
             css_class = ''
             datum = column.data(record)
-            if column.datatype==:boolean
+            if column.datatype == :boolean
               datum = value_image2(datum)
               style = 'text-align:center;'
             end
@@ -272,7 +272,32 @@ module Dyta
     
     def datatype
       begin
-        @column.send(:type)
+        case @column.sql_type
+        when /int/i
+          :integer
+        when /float|double/i
+          :float
+        when /^(numeric|decimal|number)\((\d+)\)/i
+          :integer
+        when /^(numeric|decimal|number)\((\d+)(,(\d+))\)/i
+          :decimal
+        when /datetime/i
+          :datetime
+        when /timestamp/i
+          :timestamp
+        when /time/i
+          :time
+        when /date/i
+          :date
+        when /clob/i, /text/i
+          :text
+        when /blob/i, /binary/i
+          :binary
+        when /char/i, /string/i
+          :string
+        when /boolean/i
+          :boolean
+        end
       rescue
         nil
       end
@@ -303,7 +328,7 @@ module Dyta
 
     def operation(record='record')
       link_options = {}
-      link_options[:confirm] = I18n.translate(@options[:confirm].to_s) unless @options[:confirm].nil?
+      link_options[:confirm] = I18n.translate('general.'+@options[:confirm].to_s) unless @options[:confirm].nil?
       link_options[:method]  = @options[:method]     unless @options[:method].nil?
       link_options = link_options.inspect.to_s
       link_options = link_options[1..link_options.size-2]

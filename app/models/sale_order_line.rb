@@ -32,8 +32,8 @@ class SaleOrderLine < ActiveRecord::Base
       self.account_id = self.product.account_id
       self.unit_id = self.product.unit_id
       if self.price
-        self.amount = self.price.amount*self.quantity
-        self.amount_with_taxes = self.price.amount_with_taxes*self.quantity
+        self.amount = (self.price.amount*self.quantity).round(2)
+        self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2)
       end
     end
   end

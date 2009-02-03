@@ -37,7 +37,7 @@ class Managing < ActiveRecord::Migration
       t.column :number,                 :integer,  :null=>false
       t.column :active,                 :boolean,  :null=>false, :default=>true
       t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0.to_d
-      t.column :code,                   :string,   :limit=>64
+      t.column :code,                   :string,   :limit=>8
       t.column :code2,                  :string,   :limit=>64
       t.column :ean13,                  :string,   :limit=>13
       t.column :catalog_name,           :string,   :null=>false
@@ -117,6 +117,7 @@ class Managing < ActiveRecord::Migration
       t.column :quantity_max,           :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :product_id,             :integer,  :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
       t.column :list_id,                :integer,  :null=>false, :references=>:price_lists, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :tax_id,                 :integer,  :null=>false, :references=>:taxes, :on_delete=>:cascade, :on_update=>:cascade
       # t.column :pricelist_version_id,   :integer,  :null=>false, :references=>:pricelist_versions, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end

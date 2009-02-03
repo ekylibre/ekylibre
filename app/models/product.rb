@@ -36,12 +36,13 @@ class Product < ActiveRecord::Base
 
   def before_validation
     self.code = self.name.codeize.upper if self.code.blank?
+    self.code = self.code[0..7]
     if self.company_id
       if self.number.blank?
-        last = Product.find(:first, :conditions=>{:company_id=>self.company_id}, :order=>'number DESC')
+        last = self.company.products.find(:first, :order=>'number DESC')
         self.number = last.nil? ? 1 : last.number+1 
       end
-      while Product.find(:first, ["company_id=? AND code=? AND id!=?",self.company_id, self.code,self.id||0])
+      while self.company.products.find(:first, :conditions=>["code=? AND id!=?", self.code, self.id||0])
         self.code.succ!
       end
     end

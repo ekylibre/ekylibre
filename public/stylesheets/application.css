@@ -267,8 +267,8 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 
 .fore { border: 1px solid #C9D7F1; margin: 8px 0; background: #EFE; }
 .fore .formalize { margin:8px auto; }
-
-#yield .aclist, .errorExplanation { -moz-border-radius: 8px; background: #E4EBF8; padding:4px 6px; margin: 0 0 8px;}
+/*E4EBF8*/
+#yield .aclist, .errorExplanation { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px;}
 #yield .aclist h2, .errorExplanation h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
 #yield .aclist ul, .errorExplanation ul { padding: 4px 4px 4px 18px; }
 #yield .aclist li, .errorExplanation li { list-style-type: square; }
@@ -283,7 +283,7 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 
 h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }
 
-.stepper { border-collapse: collapse; width: 100%; }
+.stepper { border-collapse: collapse; width: 100%; margin-bottom:8px; }
 /*
 .stepper .standard { background: #FEB; border: 1px solid #EC7; padding: 4px; text-align:center; }
 .stepper .master { background: #DA6; border: 1px solid #A82; color: white;}

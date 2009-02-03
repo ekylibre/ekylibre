@@ -23,14 +23,18 @@
 #
 
 class Price < ActiveRecord::Base
-  attr_readonly :company_id, :started_on
+  attr_readonly :company_id, :started_on, :list_id, :amount, :amount_with_taxes
 
 
   def before_validation
+    self.amount = self.amount.round(2)
     self.amount_with_taxes = self.amount
+    self.amount_with_taxes += self.tax.compute(self.amount) if self.tax
     for tax in self.taxes
       self.amount_with_taxes += tax.amount
     end
+    self.amount_with_taxes = self.amount_with_taxes.round(2)
+
     self.started_on = Date.today
     self.quantity_min ||= 0
     self.quantity_max ||= 0

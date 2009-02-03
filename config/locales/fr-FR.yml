@@ -274,6 +274,7 @@ fr-FR:
         amount: Montant HT
         amount_with_taxes: Montant TTC
         list_id: Liste de prix
+        tax_id: TVA
         product_id: Produit
         use_range: Définir un intervalle de quantité pour le produit
         quantity_min: 'Quantité minimale'

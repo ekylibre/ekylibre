@@ -123,8 +123,9 @@ class ManagementController < ApplicationController
   def price_lists_delete
     @price_list = find_and_check(:price_list, params[:id])
     if request.post? or request.delete?
-      redirect_to_back if @price_list.delete
+      @price_list.delete
     end
+    redirect_to_back
   end
 
 
@@ -164,6 +165,16 @@ class ManagementController < ApplicationController
     end
     render_form    
   end
+
+  def prices_delete
+    @price = find_and_check(:price, params[:id])
+    if request.post? or request.delete?
+      @price.delete
+    end
+    redirect_to_back
+  end
+
+
 
 
 
@@ -254,7 +265,7 @@ class ManagementController < ApplicationController
   dyta(:sale_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number, :url=>{:action=>:sales_products}
     t.column :name, :through=>:nature, :url=>{:action=>:sale_order_natures_display}
-    t.column :name, :through=>:client, :url=>{:controller=>:relations, :action=>:entities_display}
+    t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entities_display}
     t.column :state
     t.column :amount
     t.column :amount_with_taxes
@@ -398,6 +409,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:price_list
     t.column :quantity
     t.column :label, :through=>:unit
+    t.column :amount, :through=>:price
     t.column :amount
     t.column :amount_with_taxes
     t.action :sale_order_lines_update, :image=>:update
@@ -420,9 +432,14 @@ class ManagementController < ApplicationController
 
   def sale_order_lines_create
     if request.post? 
-      @sale_order_line = SaleOrderLine.new(params[:sale_order_line])
-      @sale_order_line.company_id = @current_company.id
-      @sale_order_line.order_id = session[:current_sale_order]
+      @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:product_id=>params[:sale_order_line][:product_id], :order_id=>session[:current_sale_order]})
+      if @sale_order_line
+        @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
+      else
+        @sale_order_line = SaleOrderLine.new(params[:sale_order_line])
+        @sale_order_line.company_id = @current_company.id
+        @sale_order_line.order_id = session[:current_sale_order]
+      end
       redirect_to_back if @sale_order_line.save
     else
       @sale_order_line = SaleOrderLine.new
