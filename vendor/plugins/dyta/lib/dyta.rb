@@ -18,6 +18,11 @@ module Dyta
       # Add methods to display a dynamic table
       def dyta(name, options={}, &block)
         model = (options[:model]||name).to_s.classify.constantize
+        begin
+          model.columns_hash["id"]
+        rescue
+          return
+        end
         definition = Dyta.new(name, model, options)
         yield definition
 

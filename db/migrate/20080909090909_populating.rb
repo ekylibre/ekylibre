@@ -80,8 +80,8 @@ class Populating < ActiveRecord::Migration
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :address_norm_items, :company_id
-    add_index :address_norm_items, [:nature, :contact_norm_id, :company_id], :unique=>true
-    add_index :address_norm_items, [:name, :contact_norm_id, :company_id],  :unique=>true
+    add_index :address_norm_items, [:nature, :contact_norm_id, :company_id], :unique=>true, :name=>:address_norm_items_nature
+    add_index :address_norm_items, [:name, :contact_norm_id, :company_id],  :unique=>true, :name=>:address_norm_items_name
   
     # Contact
     create_table :contacts do |t|

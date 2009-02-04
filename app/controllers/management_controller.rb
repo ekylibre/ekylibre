@@ -423,8 +423,8 @@ class ManagementController < ApplicationController
     @entity = @sale_order.client
     sale_order_lines_list params
     if request.post?
-      @sale_order.update_attribute(:state, 'D')
-      redirect_to :action=>:sales_deliveries
+      @sale_order.update_attribute(:state, 'D') if @sale_order.state == 'P'
+      redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
     end
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
   end
@@ -466,9 +466,24 @@ class ManagementController < ApplicationController
   end
 
 
+  dyta(:deliveries, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@sale_order.id']}, :empty=>true) do |t|
+    t.column :amount
+    t.column :amount_with_taxes
+    t.column :shipped_on
+    t.column :delivered_on
+    t.column :comment
+    t.procedure :deliveries_create
+  end
 
   def sales_deliveries
+    @sale_order = find_and_check(:sale_order, params[:id])
+    session[:current_sale_order] = @sale_order.id
+    deliveries_list params
   end
+
+
+
+
 
   def sales_invoices
   end

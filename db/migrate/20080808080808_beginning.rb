@@ -75,11 +75,10 @@ class Beginning < ActiveRecord::Migration
     # Role
     create_table :roles do |t|
       t.column :name,                   :string,   :null=>false
-      t.column :actions,                :text,     :null=>false, :default=>'  '
+      t.column :actions,                :text,     :null=>false
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
     add_index :roles, :name
-    add_index :roles, :actions
     add_index :roles, :company_id
     add_index :roles, [:company_id, :name], :unique=>true
 
