@@ -1,1 +1,0 @@
-../../../avis/app/models/rubric.rb

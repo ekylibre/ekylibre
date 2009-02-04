@@ -1,1 +1,0 @@
-../../../avis/db/migrate/20090123112145_idea.rb
