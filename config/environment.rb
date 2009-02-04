@@ -10,6 +10,10 @@ RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+puts ">> LIB"
+require "#{RAILS_ROOT}/lib/init"
+puts ">> LIB"
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -76,7 +80,6 @@ end
 
 ActionController::Base.xil(:features=>[:template,:document], :subdir_size=>4)
 
-require "#{RAILS_ROOT}/lib/init"
 
 #schemulator :column=>:company_id, :filter=>"1"
 #schemulator :column=>:company_id, :filter=>"SELECT company_id FROM all_users WHERE pid=pg_backend_pid()"
