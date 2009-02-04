@@ -483,8 +483,6 @@ class ManagementController < ApplicationController
 
 
 
-
-
   def sales_invoices
   end
 
