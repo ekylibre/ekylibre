@@ -233,6 +233,7 @@ class AccountancyController < ApplicationController
   def order_sale
     #render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:locals=>params[:printed])
     render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:key=>params[:id])
+    ##
   end
   
   # this method finds the journal with the matching id and the company_id.
