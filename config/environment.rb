@@ -10,9 +10,6 @@ RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
-puts ">> LIB"
-require "#{RAILS_ROOT}/lib/init"
-puts ">> LIB"
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
@@ -77,6 +74,10 @@ Rails::Initializer.run do |config|
   # Please note that observers generated using script/generate observer need to have an _observer suffix
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 end
+
+puts ">> LIB"
+require "#{RAILS_ROOT}/lib/init"
+puts ">> LIB"
 
 ActionController::Base.xil(:features=>[:template,:document], :subdir_size=>4)
 
