@@ -30,7 +30,7 @@
       <loop name="subsum" query="SELECT debit , credit , count, 1 FROM (SELECT sum(entries.debit) as debit , sum(entries.credit) as credit, count(entries.id) AS count FROM entries JOIN journal_records ON (entries.record_id=journal_records.id) WHERE entries.company_id = {LOCAL:current_company} AND account_id = #{ledger.id}  AND created_on BETWEEN '{LOCAL:from}' AND '{LOCAL:to}') as subsum"/>
 
       <block name="titles" if="#{subsum.count}>0" >
-        <text x="10" y="0" width="23" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000">Créée le</text>
+	<text x="10" y="0" width="23" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000">Créée le</text>
 	<text x="33" y="0" width="112" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000">  Libellé  </text>
 	<text x="145" y="0" width="27.5" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000"> Débit </text>
 	<text x="172.5" y="0" width="27.5" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000" > Crédit </text>

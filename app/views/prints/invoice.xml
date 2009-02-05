@@ -1,24 +1,23 @@
 <?xml version="1.0"?>
-<template title="Order Sale" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="8">
-  <title query="select current_user">Devis #{title.current_user}</title>
+<template title="Facture" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="8">
+  <title query="select current_user">Facture #{title.current_user}</title>
   <infos>
     <info type="created-on">04/09/2008</info>
   </infos>
   <loop name="loop0">
-    <loop name="sale" query="SELECT number , state ,1  FROM sale_orders WHERE id = {KEY}">
+    <loop name="sale" query="SELECT number , state ,1  FROM invoices WHERE id = {KEY}">
     </loop>
     <block type="footer" height="17">
       <line x1="10" y1="0" x2="200" y2="0" border-color="#000" />
-      <text x="10" y="2" width="100" height="3" align="L" if="#{sale.state}='P' OR #{sale.state}='G'">Devis n° #{sale.number} </text>
-      <text x="10" y="2" width="100" height="3" align="L" if="#{sale.state}='D'">Commande n° #{sale.number} </text>
+      <text x="10" y="2" width="100" height="3" align="L"> Facture n° #{order.number} </text>
       <text x="10" y="5" width="100" height="3" align="L" size="7"> Page {PAGENO}/{PAGENB} </text>
       <text x="165" y="3" width="15" height="5" align="L" size="7"> Paraphe   </text>
       <text x="180" y="2" width="17" height="7" align="L" border-width="0.2">  </text>
       <text x="90" y="2" width="30" height="5" align="C" size="7"> {CURRENT_TIMESTAMP:%e %B %Y } </text>
       <text x="90" y="6" width="30" height="5" align="C" size="7"> infos company </text>
     </block>
-    <loop name="company" query="SELECT name, code ,siren FROM companies INNER JOIN sale_orders ON sale_orders.company_id = companies.id WHERE sale_orders.id={KEY} ">
-      <loop name="client" query="SELECT id,  full_name , code , nature , 1 FROM(SELECT entities.id as id, entities.full_name as full_name ,code , entity_natures.name as nature FROM entities INNER JOIN entity_natures ON entities.nature_id = entity_natures.id WHERE entities.id IN (SELECT client_id FROM sale_orders WHERE id = {KEY}))as client">
+    <loop name="company" query="SELECT name, code ,siren FROM companies INNER JOIN invoices ON invoices.company_id = companies.id WHERE invoices.id={KEY} ">
+      <loop name="client" query="SELECT id,  full_name , code , nature , 1 FROM(SELECT entities.id as id, entities.full_name as full_name ,code , entity_natures.name as nature FROM entities INNER JOIN entity_natures ON entities.nature_id = entity_natures.id WHERE entities.id IN (SELECT client_id FROM invoices WHERE id = {KEY}))as client">
       </loop>
       <loop name="address" query="SELECT line_2,line_3,line_4_number,line_4_street,line_5,line_6_code,line_6_city,1 FROM contacts INNER JOIN entities ON contacts.entity_id = #{client.id} ">
       </loop>
@@ -44,12 +43,10 @@
       </block>
     </loop>
     <block name="devis">
-      <text x="90" y="5" width="110" height="10" align="L" weight="bold" size="20" if="#{sale.state}='P' OR #{sale.state}='G'"> Devis </text>
-      <text x="90" y="5" width="110" height="10" align="L" weight="bold" size="20" if="#{sale.state}='D'"> Commande </text>
+      <text x="90" y="5" width="110" height="10" align="L" weight="bold" size="20" if="#{sale.state}='D'"> Facture </text>
     </block>
     <block name="infos">
-      <text x="10" y="10" width="90" height="10" align="L" weight="bold" if="#{sale.state}='P' OR #{sale.state}='G'">Devis n° #{sale.number} </text>
-      <text x="10" y="10" width="90" height="10" align="L" weight="bold" if="#{sale.state}='D'">Commande n° #{sale.number} </text>
+      <text x="10" y="10" width="90" height="10" align="L" weight="bold">Facture n° #{sale.number} </text>
     </block>
     <block name="table">
       <text x="10" y="0" width="18" height="10" align="C" border-width="0.2" color="#000" weight="bold" background-color="#DDD"> Code </text> 
@@ -62,7 +59,7 @@
       <text x="170" y="5" width="17" height="5" align="C" border-width="0.2" color="#000" weight="bold" background-color="#DDD"> Montant </text>
       <text x="187" y="5" width="13" height="5" align="C" border-width="0.2" color="#000" weight="bold" background-color="#DDD"> Taux </text>
     </block>
-    <loop name="products" query="SELECT name , id , code, montant_ht,montant_tva , quantity,unit_id, 1 FROM(SELECT products.id as id , products.name as name , products.code as code , products.unit_id as unit_id, sale_order_lines.amount as montant_ht , (sale_order_lines.amount_with_taxes - sale_order_lines.amount) as montant_tva ,quantity FROM sale_order_lines INNER JOIN products ON products.id = sale_order_lines.product_id WHERE order_id = {KEY})as products">
+    <loop name="products" query="SELECT name , id , code, montant_ht,montant_tva , quantity,unit_id, 1 FROM(SELECT products.id as id , products.name as name , products.code as code , products.unit_id as unit_id, invoice_lines.amount as montant_ht , (invoice_lines.amount_with_taxes - invoice_lines.amount) as montant_tva ,quantity FROM invoice_lines INNER JOIN products ON products.id = invoice_lines.product_id WHERE invoice_id = {KEY})as products">
       <loop name="prices" query="SELECT amount,tax_id,1 FROM(SELECT round(prices.amount,2) as amount , tax_id FROM prices INNER JOIN products ON prices.product_id = #{products.id}) as prices">
 	<loop name="taxes" query="SELECT tax_amount,nature, 1 FROM(SELECT round((taxes.amount*100),2) as tax_amount, nature FROM taxes INNER JOIN prices ON taxes.id = #{prices.tax_id}) as taxes">
 	</loop>
@@ -80,7 +77,7 @@
 	<text x="187" y="0" width="13" height="4" align="R" border-width="0.2" color="#000" if="#{taxes.nature}='percent'">#{taxes.tax_amount}%</text>
       </block>
     </loop> 
-    <loop name="sums" query="SELECT montant_ht, montant_ttc,montant_taxes,1 FROM(SELECT sum(amount) as montant_ht ,sum(amount_with_taxes) as montant_ttc ,(sum(amount_with_taxes) - sum(amount)) as montant_taxes FROM sale_order_lines WHERE order_id = {KEY}) as sums">
+    <loop name="sums" query="SELECT montant_ht, montant_ttc,montant_taxes,1 FROM(SELECT sum(amount) as montant_ht ,sum(amount_with_taxes) as montant_ttc ,(sum(amount_with_taxes) - sum(amount)) as montant_taxes FROM invoice_lines WHERE invoice_id = {KEY}) as sums">
     </loop>
     <block name="sum">
       <text x="118" y="0" width="35" height="5" align="L" border-width="0.2" weight="bold" background-color="#DDD"> Totaux  </text>
@@ -98,4 +95,5 @@
     </block>
     <block type="header" height="7"/>
   </loop>
-</template>1
+</template>
+ 
