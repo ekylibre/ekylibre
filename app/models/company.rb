@@ -31,9 +31,9 @@ class Company < ActiveRecord::Base
   end
 
   def after_create
-    role = Role.create!(:name=>tc(:administrator), :company_id=>self.id)
+    role = Role.create!(:name=>tc(:administrator), :company_id=>self.id,:actions=>'  ')
     role.can_do :all
-    role = Role.create!(:name=>tc(:public), :company_id=>self.id)
+    role = Role.create!(:name=>tc(:public), :company_id=>self.id,:actions=>'  ')
     self.parameter('general.language').value=Language.find_by_iso2('fr')
     self.load_template("#{RAILS_ROOT}/lib/template.xml")
     self.departments.create!(:name=>tc('default.department_name'))
