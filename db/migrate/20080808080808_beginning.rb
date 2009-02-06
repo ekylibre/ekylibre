@@ -75,7 +75,7 @@ class Beginning < ActiveRecord::Migration
     # Role
     create_table :roles do |t|
       t.column :name,                   :string,   :null=>false
-      t.column :actions,                :text,     :null=>false
+      t.column :actions,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
     add_index :roles, :name
