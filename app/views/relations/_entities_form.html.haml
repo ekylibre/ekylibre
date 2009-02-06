@@ -5,9 +5,13 @@
   -f.field :entity, :language_id, :choices=>Language.find(:all, :order=>:native_name).collect {|x| [x.native_name, x.id]}
   -f.field :entity, :name
   -f.field :entity, :first_name
+  -f.field :entity, :is_client
+  -f.field :entity, :is_supplier
   -f.title :details
   -f.field :entity, :code
   -f.field :entity, :born_on
   -#f.field :entity, :dead_on
   -f.field :entity, :website
-
+  -f.title :complements
+  -for complement in @current_company.complements.find(:all,:order=>:position)
+    -f.field complement.name, :id=>:complement_value[0][decimal_value]

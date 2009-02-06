@@ -105,7 +105,8 @@ class RelationsController < ApplicationController
   end
   
   def entities_create
-    access :entities                      
+    access :entities   
+    @complement_value = ComplementValue.new
     if request.post?
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
@@ -237,9 +238,30 @@ class RelationsController < ApplicationController
     end
     redirect_to_back
   end
+  
+  dyta(:complements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :nature
+    t.column :required
+    t.column :active
+    t.procedure :complements_create
+  end
+  
+  def complements
+    access :complements
+    complements_list
+  end
 
-
-
+  def complements_create
+    access :complements
+    @complement = Complement.new
+    if request.post?
+      @complement = Complement.new(params[:complement])
+      @complement.company_id = @current_company.id
+      redirect_to :action=>:complements if @complement.save
+    end
+    render_form
+  end
 
   
 end

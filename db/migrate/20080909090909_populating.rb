@@ -45,6 +45,8 @@ class Populating < ActiveRecord::Migration
       t.column :ean13,                  :string,   :limit=>13
       t.column :soundex,                :string,   :limit=>4
       t.column :website,                :string
+      t.column :is_client,              :boolean,  :null=>false, :default=>false
+      t.column :is_supplier,            :boolean,  :null=>false, :default=>false 
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :entities, :company_id
@@ -116,9 +118,58 @@ class Populating < ActiveRecord::Migration
    # add_index :contacts, :element_type
    # add_index :contacts, :active
     add_index :contacts, :default
+
+    #Complement
+    create_table :complements do |t|
+      #t.column :class_name,             :string,    :null=>false
+      t.column :nature,                 :string,    :null=>false,   :limit=>8 # {decimal string boolean choices date datetime} 
+      t.column :name,                   :string,    :null=>false
+      t.column :position,               :integer
+      t.column :active,                 :boolean,   :null=>false,   :default=>true
+      t.column :required,               :boolean,   :null=>false,   :default=>false
+      t.column :length_max,             :integer
+      t.column :decimal_min,            :decimal,   :precision=>16, :scale=>4
+      t.column :decimal_max,            :decimal,   :precision=>16, :scale=>4
+      t.column :company_id,             :integer,   :null=>false,   :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade 
+    end  
+    add_index  :complements,  :company_id
+    add_index  :complements,  :position
+    add_index  :complements,  :required
+
+    #ComplementChoice
+    create_table :complement_choices do |t|
+      t.column :complement_id,          :integer,   :null=>false,   :references=>:complements, :on_delete=>:cascade
+      t.column :name,                   :string,    :null=>false
+      t.column :value,                  :string,    :null=>false
+      t.column :company_id,             :integer,   :null=>false,   :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+    end
+    add_index  :complement_choices,  :company_id
+    add_index  :complement_choices,  :complement_id
+    
+    #ComplementValue
+    create_table :complement_values do |t|
+      t.column :complement_id,          :integer,   :null=>false,   :references=>:complements, :on_delete=>:cascade
+      t.column :decimal_value,          :decimal
+      t.column :string_value,           :text
+      t.column :boolean_value,          :boolean
+      t.column :date_value,             :date
+      t.column :datetime_value,         :datetime
+      t.column :entity_id,              :integer,   :null=>false,   :references=>:entities,           :on_delete=>:cascade, :on_update=>:cascade
+      t.column :choice_id,              :integer,   :null=>false,   :references=>:complement_choices, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :company_id,             :integer,   :null=>false,   :references=>:companies,          :on_delete=>:cascade, :on_update=>:cascade 
+    end
+    add_index  :complement_values,  :entity_id
+    add_index  :complement_values,  :company_id
+    add_index  :complement_values,  :choice_id
+    add_index  :complement_values,  :complement_id
+
   end
+ 
 
   def self.down
+    drop_table :complement_values
+    drop_table :complement_choices
+    drop_table :complements
     drop_table :contacts
     drop_table :address_norm_items
     drop_table :address_norms

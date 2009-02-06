@@ -193,6 +193,12 @@ fr-FR:
         name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)
         siren: Numéro SIREN
         born_on: Créée le
+      complement: 
+        nature: Type de données
+        name: Nom
+        position: Position
+        required: Obligatoire
+        active: Actif
       contact:
         fax: Fax
         mobile: Portable
@@ -233,6 +239,8 @@ fr-FR:
         born_on: Date de naissance
         dead_on: Date de décès
         active: Actif
+        is_client: est client
+        is_supplier: est fournisseur
       entity_nature:
         abbreviation: Abréviation
         active: Actif
@@ -884,6 +892,13 @@ fr-FR:
 
     # Relations
     relations:
+      complements:
+        title: 'Champs personnalisés'
+        complements_create: Créer un nouveau champ personnalisé
+      complements_create:
+        title: 'Création d''un champ personnalisé'
+      _complements_form:
+        title: 'Renseignez les caractéristiques du champs'
       entities_create: 
         title: 'Création d''une nouvelle fiche client/fournisseur'
       entities_contacts_create:
@@ -921,6 +936,7 @@ fr-FR:
       _entities_form:
         title: 'Renseignez les différentes caractéristiques de la fiche'
         details: 'Informations complémentaires'
+        complements: 'Champs personnalisés'
       _entities_search:
         search: Rechercher une fiche
       entities_update:
@@ -931,7 +947,8 @@ fr-FR:
         entities_natures: Types de fiches
         entities_managing: Clients et fournisseurs
         entities: Gérer les fiches clients et fournisseurs
-        parameters: Paramètres        
+        parameters: Paramètres
+        complements: Créer des champs personnalisables  
 
   # Used in the models
   # Used in the models
@@ -983,6 +1000,14 @@ fr-FR:
         unit_l: Litre
         unit_hl: Hectolitre
         unit_m3: Mètre cube
+    complement:
+      natures:
+        decimal: Décimal
+        string: Texte
+        boolean: Case à cocher
+        choices: Liste de choix
+        date: Date
+        datetime: Date et heure
     delay:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
     entry:

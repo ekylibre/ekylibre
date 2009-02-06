@@ -31,17 +31,20 @@ class Accounting < ActiveRecord::Migration
       t.column :is_debit,         :boolean, :null=>false, :default=>false
       t.column :last_letter,      :string,  :limit=>8
       t.column :comment,          :text
-      t.column :entity_id,        :integer, :references=>:entities, :on_delete=>:restrict, :on_update=>:cascade
+     # t.column :entity_id,        :integer, :references=>:entities, :on_delete=>:restrict, :on_update=>:cascade
       t.column :parent_id,        :integer, :null=>false, :default=>0, :references=>nil
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :accounts, [:number, :company_id], :unique=>true
     add_index :accounts, [:alpha, :company_id], :unique=>true
     add_index :accounts, [:name, :company_id]
-    add_index :accounts, [:entity_id, :company_id]
-    add_index :accounts, [:entity_id]
+   # add_index :accounts, [:entity_id, :company_id]
+   # add_index :accounts, [:entity_id]
     add_index :accounts, [:parent_id]
     add_index :accounts, [:company_id]
+
+    add_column :entities, :client_account_id,   :integer, :references=>:accounts
+    add_column :entities, :supplier_account_id, :integer, :references=>:accounts
 
 
     # Financialyear : Exercice comptable
@@ -245,6 +248,8 @@ class Accounting < ActiveRecord::Migration
 #    drop_table :journal_natures
     drop_table :account_balances
     drop_table :financialyears
+    drop_column :entities, :client_account_id,   :integer, :references=>:accounts
+    drop_column :entities, :supplier_account_id, :integer, :references=>:accounts
     drop_table :accounts
     drop_table :currencies
   end

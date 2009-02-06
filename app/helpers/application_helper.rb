@@ -23,7 +23,8 @@ module ApplicationHelper
              #  ,{:name=>:entities_create} 
            ] },
          {:name=>:parameters, :list=>
-           [ {:name=>:entities_natures}
+           [ {:name=>:entities_natures},
+             {:name=>:complements}
            ] }
        ] },
      # AccountancyController
