@@ -1,0 +1,9 @@
+=sales_steps
+
+%h2=tc :payments
+=dyta :payments
+
+- form_tag do
+  .actions
+    =link_to tg(:previous), :action=>:sales_products
+    =submit_tag(tc('close_sale'), :action=>:sales_close)
