@@ -1,21 +1,24 @@
 <?xml version="1.0"?>
 <template title="Order Sale" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="8">
-  <title query="SELECT number FROM sale_orders WHERE sale_orders.id={KEY}">Devis #{title.number}</title>
+  <title query="SELECT number , state FROM sale_orders WHERE sale_orders.id={KEY}" if="#{title.state}='P' OR #{title.state}='G'">Devis #{title.number} #{title.state} </title>
+  <title query="SELECT number , state FROM sale_orders WHERE sale_orders.id={KEY}" if="#{title.state}='D'">Commande #{title.number}</title>
   <infos>
     <info type="created-on">04/09/2008</info>
   </infos>
   <loop name="loop0">
     <loop name="sale" query="SELECT number , state ,1  FROM sale_orders WHERE id = {KEY}">
     </loop>
+    <loop name="siren" query="SELECT name, code ,siren FROM companies INNER JOIN sale_orders ON sale_orders.company_id = companies.id WHERE sale_orders.id={KEY}">
+    </loop>
     <block type="footer" height="17">
       <line x1="10" y1="0" x2="200" y2="0" border-color="#000" />
-      <text x="10" y="2" width="100" height="3" align="L" if="#{sale.state}='P' OR #{sale.state}='G'">Devis n° #{sale.number} </text>
-      <text x="10" y="2" width="100" height="3" align="L" if="#{sale.state}='D'">Commande n° #{sale.number} </text>
-      <text x="10" y="5" width="100" height="3" align="L" size="7"> Page {PAGENO}/{PAGENB} </text>
+      <text x="10" y="3" width="100" height="3" align="L" if="#{sale.state}='P' OR #{sale.state}='G'">Devis n° #{sale.number} </text>
+      <text x="10" y="3" width="100" height="3" align="L" if="#{sale.state}='D'">Commande n° #{sale.number} </text>
+      <text x="10" y="6" width="100" height="3" align="L" size="7">Page {PAGENO}/{PAGENB} </text>
       <text x="165" y="3" width="15" height="5" align="L" size="7"> Paraphe   </text>
       <text x="180" y="2" width="17" height="7" align="L" border-width="0.2">  </text>
       <text x="90" y="2" width="30" height="5" align="C" size="7"> {CURRENT_TIMESTAMP:%e %B %Y } </text>
-      <text x="90" y="6" width="30" height="5" align="C" size="7"> infos company </text>
+      <text x="90" y="6" width="30" height="5" align="C" size="5"> #{siren.name}, siren: #{siren.siren} </text>
     </block>
     <loop name="company" query="SELECT name, code ,siren FROM companies INNER JOIN sale_orders ON sale_orders.company_id = companies.id WHERE sale_orders.id={KEY} ">
       <loop name="client" query="SELECT id,  full_name , code , nature , 1 FROM(SELECT entities.id as id, entities.full_name as full_name ,code , entity_natures.name as nature FROM entities INNER JOIN entity_natures ON entities.nature_id = entity_natures.id WHERE entities.id IN (SELECT client_id FROM sale_orders WHERE id = {KEY}))as client">
