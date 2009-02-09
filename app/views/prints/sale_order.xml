@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <template title="Order Sale" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="8">
-  <title query="SELECT number , state FROM sale_orders WHERE sale_orders.id={KEY}" if="#{title.state}='P' OR #{title.state}='G'">Devis #{title.number} #{title.state} </title>
-  <title query="SELECT number , state FROM sale_orders WHERE sale_orders.id={KEY}" if="#{title.state}='D'">Commande #{title.number}</title>
+  <title query="SELECT name , number , 1 FROM(SELECT number , (CASE WHEN state='D' THEN 'Commande' as name WHEN state='P' OR state='G' THEN 'Devis' as name ) FROM sale_orders WHERE sale_orders.id={KEY}) as title"> #{title.name} #{title.number} </title>
   <infos>
-    <info type="created-on">04/09/2008</info>
+    <info type="created-on"> {CURRENT_TIMESTAMP:%e %B %Y } </info>
   </infos>
   <loop name="loop0">
     <loop name="sale" query="SELECT number , state ,1  FROM sale_orders WHERE id = {KEY}">
