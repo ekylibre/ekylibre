@@ -5,7 +5,7 @@
     <info type="created-on">04/09/2008</info>
   </infos>
   <loop name="loop0">
-    <loop name="sale" query="SELECT number , state ,1  FROM invoices WHERE id = {KEY}">
+    <loop name="sale" query="SELECT number , state ,1  FROM invoices WHERE id = {KEY}"> 
     </loop>
     <block type="footer" height="17">
       <line x1="10" y1="0" x2="200" y2="0" border-color="#000" />
