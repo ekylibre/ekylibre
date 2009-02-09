@@ -1,9 +1,12 @@
 =sales_steps
 
-%h2=tc :deliveries
-=dyta :deliveries
+= aclist do |l|
+  - l.action :sales_print, :id=>@sale_order.id
+
+%h2=#tc :deliveries
+=#dyta :deliveries
 
 - form_tag do
   .actions
     =link_to tg(:previous), :action=>:sales_products
-    =submit_tag(tc('invoice'), :action=>:sales_invoices)
+    =#submit_tag(tc('invoice'), :action=>:sales_invoices)

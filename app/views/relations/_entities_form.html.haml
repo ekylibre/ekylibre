@@ -1,17 +1,23 @@
 =formalize do |f|
   -f.error :entity
+  -f.error :datum
   -f.title :title
   -f.field :entity, :nature_id, :choices=>@current_company.entity_natures.find(:all, :order=>:name).collect {|x| [x.name, x.id]}, :new=>{:action=>:entities_natures_create}
   -f.field :entity, :language_id, :choices=>Language.find(:all, :order=>:native_name).collect {|x| [x.native_name, x.id]}
   -f.field :entity, :name
   -f.field :entity, :first_name
-  -f.field :entity, :is_client
-  -f.field :entity, :is_supplier
+  -f.field :entity, :client
+  -f.field :entity, :supplier
   -f.title :details
   -f.field :entity, :code
   -f.field :entity, :born_on
   -#f.field :entity, :dead_on
   -f.field :entity, :website
-  -f.title :complements
-  -for complement in @current_company.complements.find(:all,:order=>:position)
-    -f.field complement.name, :id=>:complement_value[0][decimal_value]
+  -#f.title :complements
+  -#for x in 0..@complements.size-1
+    -#f.field @complements[x].name, {:datatype=>@complements[x].nature.to_sym, :id=>"complement_datum_#{x}_#{@complements[x].nature}_value", :name=>"complement_datum[#{x}][#{@complements[x].nature}_value]"}
+  -#for complement in @complements
+    -#f.field complement.name, {:datatype=>complement.nature.to_sym, :id=>"complement_datum_#{complement.id}_#{complement.nature}_value", :name=>"complement_datum[#{complement.id}][#{complement.nature}_value]", :value=>complement.}
+  -for datum in @complement_data
+    -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_#{datum.complement.nature}_value", :name=>"complement_datum[#{datum.complement_id}][#{datum.complement.nature}_value]", :value=>datum.value, :size=>datum.complement.length_max}
+    

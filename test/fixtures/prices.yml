@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090123112145
+# Schema version: 20081111111111
 #
 # Table name: prices
 #
@@ -14,6 +14,7 @@
 #  quantity_max      :decimal(16, 2 default(0.0), not null
 #  product_id        :integer       not null
 #  list_id           :integer       not null
+#  tax_id            :integer       not null
 #  company_id        :integer       not null
 #  created_at        :datetime      not null
 #  updated_at        :datetime      not null

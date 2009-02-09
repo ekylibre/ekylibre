@@ -129,22 +129,22 @@ fr-FR:
         inclusion: "n'est pas inclus dans la liste" 
         exclusion: "est reservé" 
         invalid: "est invalide" 
-        confirmation: "doesn't match confirmation" 
+        confirmation: "est différent du champ de confirmation" 
         accepted: "doit être accepté" 
         empty: "ne peut pas être vide" 
         blank: "ne peut pas être vide" 
         too_long: "is too long (maximum is {{count}} characters)" 
         too_short: "is too short (minimum is {{count}} characters)" 
         wrong_length: "is the wrong length (should be {{count}} characters)" 
-        taken: "has already been taken" 
-        not_a_number: "is not a number" 
+        taken: "a déjà été pris"
+        not_a_number: "n'est pas un nombre" 
         greater_than: "must be greater than {{count}}" 
         greater_than_or_equal_to: "must be greater than or equal to {{count}}" 
         equal_to: "must be equal to {{count}}" 
         less_than: "must be less than {{count}}" 
         less_than_or_equal_to: "must be less than or equal to {{count}}" 
         odd: "must be odd" 
-        even: "must be even" 
+        even: "must be even"
         # Append your own errors here or at the model/attributes scope.
 
     models:
@@ -155,7 +155,7 @@ fr-FR:
       company: Société
       contact: Contact
       department: Service
-      entity: Entité
+      entity: Relation
       entry: Écriture
       establishment: Établissement
       journal: Journal
@@ -180,6 +180,8 @@ fr-FR:
         number: Numéro de compte bancaire
         key: Clé RIB
         iban: IBAN
+        iban_label: IBAN
+        iban_label2: IBAN
         account_id: Compte comptable référencé
         currency_id: Devise utilisée
         journal_id: Journal utilisé
@@ -194,11 +196,15 @@ fr-FR:
         siren: Numéro SIREN
         born_on: Créée le
       complement: 
-        nature: Type de données
+        nature: Type de donnée
+        nature_label: Type de donnée
         name: Nom
         position: Position
         required: Obligatoire
         active: Actif
+        length_max: Nombre de caractères maximum
+        decimal_min: Intervalle bas
+        decimal_max: Intervalle haut
       contact:
         fax: Fax
         mobile: Portable
@@ -239,8 +245,8 @@ fr-FR:
         born_on: Date de naissance
         dead_on: Date de décès
         active: Actif
-        is_client: est client
-        is_supplier: est fournisseur
+        client: Fiche client
+        supplier: Fiche fournisseur
       entity_nature:
         abbreviation: Abréviation
         active: Actif
@@ -273,9 +279,10 @@ fr-FR:
         where_id: Module
         what_id: Caractéristique
       journal:
-        closed_on: Clôturé le
+        closed_on: Date de clôture
         code: Code
         currency_id: Devise
+        id: Journal
         name: Nom
         nature: Nature
       price:
@@ -334,6 +341,16 @@ fr-FR:
         function_title: Civilités
         introduction: Introduction
         conclusion: Conclusion
+      sale_order_nature:
+        active: Actif
+        comment: Commentaire
+        downpayment: Avec acompte
+        downpayment_minimum: Somme minimale
+        downpayment_rate: Taux acompte
+        expiration_id: "Délai d'expiration du devis"
+        name: Nom
+        payment_delay_id: "Délai de paiement"
+ 
       sale_order_line:
         amount: Montant HT
         amount_with_taxes: Montant TTC
@@ -366,6 +383,7 @@ fr-FR:
         unit_id: Unité
         product_id: Produit
         comment: Commentaire
+        location_id: Lieu de stockage
       user:
         email: 'E-mail'
         first_name: 'Prénom'
@@ -375,6 +393,7 @@ fr-FR:
         name: 'Nom d''utilisateur'
         password: 'Mot de passe'
         password_confirmation: 'Confirmation du mot&nbsp;de&nbsp;passe'
+        role_id: Rôle
       version:
         number: Numéro
         last: Derniere version ?
@@ -474,7 +493,7 @@ fr-FR:
         delete: Supprimer un compte
       accounts_create:
         title: Créer un nouveau compte
-      accounts_find:
+      _accounts_find:
         accounts_create: 'Créer un nouveau compte comptable'
         account_name: 'Nom du compte '
         account_number: 'Numéro de compte '
@@ -500,7 +519,7 @@ fr-FR:
         title: Créer un nouveau compte bancaire
       bank_accounts_update:
         title: Modifier le compte bancaire	
-      currencies_find:
+      _currencies_find:
         currency_id: Numéro de devise
         currency_name: Nom de devise
         currency_code: Code de devise
@@ -549,10 +568,11 @@ fr-FR:
         title: Modifier un nouvel exercice
       financialyears_close:
         title: 'Clôture d''exercice'
+        close: "Clôturer l'exercice"
       journals:
         title: Journaux
         create: Créer un nouveau journal
-      journals_find:
+      _journals_find:
         journal_id: Numéro de journal
         journal_name: Nom du journal
       _journals_form:
@@ -563,6 +583,7 @@ fr-FR:
         title: Modifier le journal
       journals_close:
         title: Clôture du journal
+        close: "Clôturer le journal"
   
       _print_by_journal:
         dates: Saisissez les dates ainsi que le journal
@@ -585,13 +606,13 @@ fr-FR:
         credit: Total crédit
        
       statements_create:
-        title: Créer un nouveau relevé
+        title: Enregistrer un nouveau relevé de compte
       statements_update:
-        title: Modifier un relevé  
+        title: Modifier un relevé
       statements_point:
         title: 'Pointage d''écritures'
         validate: Valider 
-        statement_number: N°relevé de compte bancaire
+        statement_number: N°Relevé de compte bancaire
         started_on: Du
         stopped_on: Au
         entry_name: 'Intitulé de l''écriture'
@@ -764,10 +785,10 @@ fr-FR:
         price_lists: Tarifs
         products: Produits
         purchases: Achats
-        purchases_consult: 'Consulter l''état des achats'
+        purchases_consult: 'Consulter la liste des achats'
         purchases_new: 'Nouvel achat'
         sales: 'Ventes'
-        sales_consult: 'Consulter l''état des ventes'
+        sales_consult: 'Consulter la liste des ventes'
         sales_new: 'Nouvelle vente'
         sale_order_natures: 'Types de vente'
         shelves: 'Catégories de produit'
@@ -829,7 +850,8 @@ fr-FR:
 
       
 
-
+      sales:
+        title: Liste des ventes
       sales_new:
         title: 'Nouvelle vente'
         nature: 'Type de vente'
@@ -843,9 +865,27 @@ fr-FR:
         amount_with_taxes: Montant TTC
         estimate_to_order: Passer le devis en commande
         lines: Lignes du devis
+        sales_print: Imprimer le devis
         sale_order_lines_create: Ajouter un produit au devis
         title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
         total: Total
+      sales_deliveries:
+        title: "Livraisons (En travaux)"
+        sales_print: Imprimer la commande
+
+      sale_order_natures:
+        title: Types de ventes
+        sale_order_natures_create: Créer un nouveau type de vente
+      sale_order_lines_create:
+        title: "Ajout d'une ligne de produit"
+      sale_order_natures_create:
+        title: "Ajout d'un type de vente"
+      sale_order_natures_update:
+        title: "Modification d'un type de vente"
+      _sale_order_natures_form:
+        general: 'Général'
+        delays: 'Délais'
+        downpayment: "Options pour l'acompte"
         
       
 
@@ -887,18 +927,24 @@ fr-FR:
       _stocks_moves_form: 
         description: Description
         nature: Opération
+        product: "{{product}} ({{unit}})"
       stocks_moves_update:
         title: 'Modifier le mouvement de stock : {{value}}'
 
     # Relations
     relations:
       complements:
-        title: 'Champs personnalisés'
+        title: 'Champs complémentaires personnalisés'
         complements_create: Créer un nouveau champ personnalisé
       complements_create:
         title: 'Création d''un champ personnalisé'
       _complements_form:
-        title: 'Renseignez les caractéristiques du champs'
+        general: 'Général'
+        decimal_case: 'Options pour un décimal'
+        string_case: 'Options pour le texte'
+      complements_update:
+        title: 'Modification du champ personnalisé : {{value}}'
+
       entities_create: 
         title: 'Création d''une nouvelle fiche client/fournisseur'
       entities_contacts_create:
@@ -948,7 +994,7 @@ fr-FR:
         entities_managing: Clients et fournisseurs
         entities: Gérer les fiches clients et fournisseurs
         parameters: Paramètres
-        complements: Créer des champs personnalisables  
+        complements: Champs personnalisés
 
   # Used in the models
   # Used in the models
@@ -982,6 +1028,10 @@ fr-FR:
         operations_journal_nature_name: Opérations Diverses
         price_list_name: Tarif normal
         purchases_journal_nature_name: Achats
+        role:
+          name:
+            admin: Administrateur
+            public: Public
         sale_order_nature_name: Vente standard
         sales_journal_nature_name: Ventes
         sample_product_name: Produit Exemple
@@ -1002,12 +1052,17 @@ fr-FR:
         unit_m3: Mètre cube
     complement:
       natures:
-        decimal: Décimal
-        string: Texte
         boolean: Case à cocher
-        choices: Liste de choix
+        choice: Liste de choix
         date: Date
         datetime: Date et heure
+        decimal: Décimal
+        string: Texte
+    complement_datum:
+      error_field_required: "{{field}} doit être renseigné"
+      error_too_long: "{{field}} est trop long ({{length}} caractères)"
+      error_less_than: "{{field}} est trop petit ({{minimum}} minimum)"
+      error_greater_than: "{{field}} est trop grand ({{maximum}} maximum)"
     delay:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
     entry:
@@ -1104,15 +1159,6 @@ fr-FR:
   # Other  TO DELETE
   # NE RIEN AJOUTER : VA ETRE SUPPRIMÉ
   app:
-    accounting_system:
-      1: 'Comptes de capitaux'
-      2: 'Comptes d''immobilisations'
-      3: 'Comptes de stocks et en-cours'
-      4: 'Comptes de tiers'
-      5: 'Comptes financiers'
-      6: 'Comptes de charges'
-      7: 'Comptes de produits'
-      8: 'Comptes spéciaux'
     
     unavailable:
       journal: 'Le journal demandé est indisponible ({{value}})'

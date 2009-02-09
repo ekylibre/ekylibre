@@ -1,0 +1,15 @@
+=formalize do |f|
+  -f.error :complement
+  -f.title :general
+  -f.field :complement, :name
+  -if @complement.new_record?
+    -f.field :complement, :nature, :choices=>Complement.natures 
+  -else
+    -f.field t('activerecord.attributes.complement.nature'), t('models.complement.natures.'+@complement.nature)
+  -f.field :complement, :active
+  -f.field :complement, :required
+  -f.title :string_case
+  -f.field :complement, :length_max
+  -f.title :decimal_case
+  -f.field :complement, :decimal_min
+  -f.field :complement, :decimal_max

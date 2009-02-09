@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090123112145
+# Schema version: 20081111111111
 #
 # Table name: stock_moves
 #
@@ -24,4 +24,11 @@
 #
 
 class StockMove < ActiveRecord::Base
+  attr_readonly :company_id
+
+  def before_validation
+    self.unit_id = self.product.unit_id if self.product and self.unit.nil?
+  end
+  
+
 end

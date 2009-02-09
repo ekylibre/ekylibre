@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090123112145
+# Schema version: 20081111111111
 #
 # Table name: sale_orders
 #
@@ -8,6 +8,7 @@
 #  nature_id           :integer       not null
 #  created_on          :date          not null
 #  number              :string(64)    not null
+#  sum_method          :string(8)     default("wt"), not null
 #  invoiced            :boolean       not null
 #  amount              :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes   :decimal(16, 2 default(0.0), not null

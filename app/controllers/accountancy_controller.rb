@@ -29,13 +29,13 @@ class AccountancyController < ApplicationController
     t.column :name
     t.action :accounts_update, :image=>:update
     t.action :accounts_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.action :accounts_letter, :image=>:letter
+#    t.action :accounts_letter, :image=>:letter
     t.procedure :create, :action=>:accounts_create
   end
   
   dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
-    t.column :iban_label2
+    t.column :iban_label
     t.action :bank_accounts_update, :image=>:update
     t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.procedure :create, :action=>:bank_accounts_create
@@ -413,7 +413,7 @@ class AccountancyController < ApplicationController
       render :action => "entries.rjs" if request.xhr?
     end
     
-    @title = {:journal=>@journal.name, :financialyear=>@financialyear.code}
+    # @title = {:journal=>@journal.name, :financialyear=>@financialyear.code}
 
   end
   

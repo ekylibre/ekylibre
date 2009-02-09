@@ -45,8 +45,8 @@ class Populating < ActiveRecord::Migration
       t.column :ean13,                  :string,   :limit=>13
       t.column :soundex,                :string,   :limit=>4
       t.column :website,                :string
-      t.column :is_client,              :boolean,  :null=>false, :default=>false
-      t.column :is_supplier,            :boolean,  :null=>false, :default=>false 
+      t.column :client,                 :boolean,  :null=>false, :default=>false
+      t.column :supplier,               :boolean,  :null=>false, :default=>false 
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :entities, :company_id
@@ -114,16 +114,16 @@ class Populating < ActiveRecord::Migration
     end
     add_index :contacts, :company_id
     add_index :contacts, :entity_id
-   # add_index :contacts, :element_id
-   # add_index :contacts, :element_type
-   # add_index :contacts, :active
+    # add_index :contacts, :element_id
+    # add_index :contacts, :element_type
+    # add_index :contacts, :active
     add_index :contacts, :default
 
-    #Complement
+    # Complement
     create_table :complements do |t|
       #t.column :class_name,             :string,    :null=>false
-      t.column :nature,                 :string,    :null=>false,   :limit=>8 # {decimal string boolean choices date datetime} 
       t.column :name,                   :string,    :null=>false
+      t.column :nature,                 :string,    :null=>false,   :limit=>8 # {decimal string boolean choice date datetime} 
       t.column :position,               :integer
       t.column :active,                 :boolean,   :null=>false,   :default=>true
       t.column :required,               :boolean,   :null=>false,   :default=>false
@@ -132,42 +132,43 @@ class Populating < ActiveRecord::Migration
       t.column :decimal_max,            :decimal,   :precision=>16, :scale=>4
       t.column :company_id,             :integer,   :null=>false,   :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade 
     end  
-    add_index  :complements,  :company_id
-    add_index  :complements,  :position
-    add_index  :complements,  :required
+    add_index :complements, [:company_id, :position]
+    add_index :complements, :required
+    add_index :complements, :company_id
 
-    #ComplementChoice
+    # ComplementChoice
     create_table :complement_choices do |t|
       t.column :complement_id,          :integer,   :null=>false,   :references=>:complements, :on_delete=>:cascade
       t.column :name,                   :string,    :null=>false
       t.column :value,                  :string,    :null=>false
       t.column :company_id,             :integer,   :null=>false,   :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
-    add_index  :complement_choices,  :company_id
-    add_index  :complement_choices,  :complement_id
+    add_index :complement_choices, :complement_id
+    add_index :complement_choices, :company_id
     
-    #ComplementValue
-    create_table :complement_values do |t|
+    # ComplementDatum
+    create_table :complement_data do |t|
+      t.column :entity_id,              :integer,   :null=>false,   :references=>:entities,           :on_delete=>:cascade, :on_update=>:cascade
       t.column :complement_id,          :integer,   :null=>false,   :references=>:complements, :on_delete=>:cascade
       t.column :decimal_value,          :decimal
       t.column :string_value,           :text
       t.column :boolean_value,          :boolean
       t.column :date_value,             :date
       t.column :datetime_value,         :datetime
-      t.column :entity_id,              :integer,   :null=>false,   :references=>:entities,           :on_delete=>:cascade, :on_update=>:cascade
-      t.column :choice_id,              :integer,   :null=>false,   :references=>:complement_choices, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :choice_value,           :integer,   :references=>:complement_choices, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,   :null=>false,   :references=>:companies,          :on_delete=>:cascade, :on_update=>:cascade 
     end
-    add_index  :complement_values,  :entity_id
-    add_index  :complement_values,  :company_id
-    add_index  :complement_values,  :choice_id
-    add_index  :complement_values,  :complement_id
+    add_index :complement_data, :entity_id
+    add_index :complement_data, :choice_value
+    add_index :complement_data, :complement_id
+    add_index :complement_data, :company_id
+    add_index :complement_data, [:entity_id, :complement_id], :unique=>true
 
   end
  
 
   def self.down
-    drop_table :complement_values
+    drop_table :complement_data
     drop_table :complement_choices
     drop_table :complements
     drop_table :contacts

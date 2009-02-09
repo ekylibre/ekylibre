@@ -32,7 +32,7 @@ module ApplicationHelper
        [ {:name=>:works, :list=>
            [ {:name=>:entries},
              {:name=>:statements},
-             {:name=>:lettering},
+#             {:name=>:lettering},
              {:name=>:journals_close},
              {:name=>:financialyears_close} ] },
          {:name=>:documents, :list=>
@@ -48,19 +48,19 @@ module ApplicationHelper
        [ {:name=>:sales, :list=>
            [ {:name=>:sales_new},
              {:name=>:sales_consult, :url=>{:action=>:sales}} ] },
-         {:name=>:purchases, :list=>
-           [ {:name=>:purchases_new},
-             {:name=>:purchases_consult, :url=>{:action=>:purchases}} ] },
+#         {:name=>:purchases, :list=>
+#           [ {:name=>:purchases_new},
+#             {:name=>:purchases_consult, :url=>{:action=>:purchases}} ] },
          {:name=>:stocks, :list=>
            [ {:name=>:stocks_locations},
              {:name=>:stocks_consult, :url=>{:action=>:stocks}} ] },
          {:name=>:parameters, :list=>
            [ {:name=>:products},
+ #            {:name=>:invoicing_parameters},
              {:name=>:price_lists},
              {:name=>:shelves},
              {:name=>:delays},
-             {:name=>:sale_order_natures},
-             {:name=>:invoicing_parameters}
+             {:name=>:sale_order_natures}
            ] }
        ] }
     ]
@@ -117,7 +117,8 @@ module ApplicationHelper
     value_class = 'value'
     if object.is_a? String
       label = object
-      value = attribute.to_s
+      value = attribute
+      value = value.to_s unless [String, TrueClass, FalseClass].include? value.class
     else
       #     label = object.class.human_attribute_name(attribute.to_s)
       value = object.send(attribute)
@@ -480,7 +481,32 @@ module ApplicationHelper
       label = content_tag(:label, label, :for=>input_id) if object!=record
     elsif line[:field]
       label = line[:label]||'[NoLabel]'
-      input = line[:field]
+      if line[:field].is_a? Hash
+        options = line[:field].dup
+        datatype = options[:datatype]
+        options.delete :datatype
+        name = options[:name]
+        options.delete :name
+        value = options[:value]
+        options.delete :value
+        input = case datatype
+                when :boolean
+                  check_box_tag(name, "1", value, options)+hidden_field_tag(name, "0")
+                when :string
+                  size = (options[:size]||0).to_i
+                  if size>64
+                    text_area_tag(name, value, :id=>options[:id], :maxlength=>size)
+                  else
+                    text_field_tag(name, value, :id=>options[:id], :maxlength=>size, :size=>size, :cols => 30, :rows => 3)
+                  end
+                when :choice
+                  "Not implemented"
+                else
+                  text_field_tag(name, value, :id=>options[:id])
+                end
+      else
+        input = line[:field].to_s
+      end
     else
       raise Exception.new("Unable to build fragments without :model/:attribute or :field")
     end

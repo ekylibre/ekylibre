@@ -88,10 +88,10 @@ module Dyta
         for column in definition.columns
           header += "+\n      " unless header.blank?
           header += "content_tag(:th, '"+h(column.header).gsub('\'','\\\\\'')+" '"
-          unless column.action? or column.options[:through]
-            header += "+link_to_remote("+value_image(:down2)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"'})"
-            header += "+link_to_remote("+value_image(:up2)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"', :dir=>'desc'})"
-          end
+#          unless column.action? or column.options[:through]
+#            header += "+link_to_remote("+value_image(:down2)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"'})"
+#            header += "+link_to_remote("+value_image(:up2)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"', :dir=>'desc'})"
+#          end
           header += ", :class=>'"+(column.action? ? 'act' : 'col')+"')"
           body   += "+\n        " unless body.blank?
           case column.nature

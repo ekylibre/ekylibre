@@ -3,6 +3,50 @@ class RelationsController < ApplicationController
   def index
   end
 
+
+
+  dyta(:complements, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t|
+    t.column :name
+    t.column :nature_label
+    t.column :required
+    t.column :active
+    t.action :complements_update, :image=>:update
+    t.procedure :complements_create
+  end
+  
+  def complements
+    access :complements
+    complements_list
+  end
+  
+  def complements_create
+    access :complements
+    if request.post?
+      @complement = Complement.new(params[:complement])
+      @complement.company_id = @current_company.id
+      if @complement.save        
+        redirect_to_back 
+      end
+    else
+      @complement = Complement.new
+    end
+    render_form
+  end
+
+  def complements_update
+    access :complements
+    @complement = find_and_check(:complement, params[:id])
+    if request.post? and @complement
+      redirect_to_back if @complement.update_attributes(params[:complement])
+    end
+    @title = {:value=>@complement.name}
+    render_form
+  end
+
+
+
+
+
   dyta(:entities, :conditions=>:search_conditions, :empty=>true) do |t|
     t.column :name, :url=>{:action=>:entities_display}
     t.column :first_name, :url=>{:action=>:entities_display}
@@ -106,25 +150,93 @@ class RelationsController < ApplicationController
   
   def entities_create
     access :entities   
-    @complement_value = ComplementValue.new
+    @complements = @current_company.complements.find(:all,:order=>:position)
+    @complement_data = []
+
     if request.post?
+      # raise Exception.new params.inspect
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
-      if @entity.save
+      
+      for complement in @complements
+        attributes = params[:complement_datum][complement.id.to_s]||{}
+        attributes[:complement_id] = complement.id
+        attributes[:company_id] = @current_company.id
+        @complement_data << ComplementDatum.new(attributes)
+      end
+
+      ActiveRecord::Base.transaction do
+        saved = @entity.save
+        if saved
+          for datum in @complement_data
+            datum.entity_id = @entity.id
+            saved = false unless datum.save
+            #            @entity.errors
+            datum.errors.each_full do |msg|
+              @entity.errors.add_to_base(msg)
+            end
+            #            puts '>> Datum : '+datum.errors.inspect
+          end
+        end
+        raise ActiveRecord::Rollback unless saved
         redirect_to_back
-#        redirect_to :action=>:entities_display, :id=>@entity.id
       end
     else
       @entity = Entity.new
+      for complement in @complements
+        @complement_data << ComplementDatum.new(:complement_id=>complement.id)
+      end
     end
     render_form
   end
   
   def entities_update
     access :entities
-    @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
+    @entity = find_and_check(:entity,params[:id])
+    @complements = @current_company.complements.find(:all,:order=>:position)
+    @complement_data = []
+
     if request.post? and @entity
-      redirect_to :action=>:entities if @entity.update_attributes(params[:entity])
+      puts params[:complement_datum].inspect
+      for complement in @complements
+        attributes = params[:complement_datum][complement.id.to_s]||{}
+        attributes[:complement_id] = complement.id
+        attributes[:company_id] = @current_company.id
+        datum = ComplementDatum.find_by_entity_id_and_complement_id(@entity.id, complement.id)
+        if datum
+          datum.attributes = attributes 
+          @complement_data << datum
+        else
+          @complement_data << ComplementDatum.new(attributes)
+        end
+      end
+      puts @complement_data.inspect
+
+
+      
+      ActiveRecord::Base.transaction do
+        saved = @entity.save
+        if saved
+          for datum in @complement_data
+            datum.entity_id = @entity.id
+            saved = false unless datum.save
+            datum.errors.each_full do |msg|
+              @entity.errors.add_to_base(msg)
+            end
+          end
+        end
+        raise ActiveRecord::Rollback unless saved
+        redirect_to_back
+      end
+    else
+      for complement in @complements
+        datum  = ComplementDatum.find_by_complement_id_and_entity_id(complement.id, @entity.id)
+        if datum
+          @complement_data << datum
+        else
+          @complement_data << ComplementDatum.new(:complement_id=>complement.id)
+        end
+      end
     end
     @title = {:value=>@entity.full_name}
     render_form
@@ -239,29 +351,5 @@ class RelationsController < ApplicationController
     redirect_to_back
   end
   
-  dyta(:complements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name
-    t.column :nature
-    t.column :required
-    t.column :active
-    t.procedure :complements_create
-  end
-  
-  def complements
-    access :complements
-    complements_list
-  end
-
-  def complements_create
-    access :complements
-    @complement = Complement.new
-    if request.post?
-      @complement = Complement.new(params[:complement])
-      @complement.company_id = @current_company.id
-      redirect_to :action=>:complements if @complement.save
-    end
-    render_form
-  end
-
   
 end

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090123112145
+# Schema version: 20081111111111
 #
 # Table name: bank_accounts
 #
@@ -28,8 +28,11 @@ class BankAccount < ActiveRecord::Base
  # before create a bank account, this computes automatically code iban.
  def before_validation
    #self.iban = self.key + self.agency_code
-   self.iban_label = self.iban
+   self.iban.upper!
+   self.iban.gsub!(/[^A-Z0-9]/, '')
+   self.iban_label = self.iban.scan(/..../).join " "
    self.iban_label2 = self.iban
+
  end  
   
 

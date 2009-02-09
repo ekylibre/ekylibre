@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090123112145
+# Schema version: 20081111111111
 #
 # Table name: products
 #
@@ -13,7 +13,7 @@
 #  number              :integer       not null
 #  active              :boolean       default(TRUE), not null
 #  amount              :decimal(16, 4 default(0.0), not null
-#  code                :string(64)    
+#  code                :string(8)     
 #  code2               :string(64)    
 #  ean13               :string(13)    
 #  catalog_name        :string(255)   not null

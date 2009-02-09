@@ -75,10 +75,6 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 end
 
-puts ">> LIB"
-require "#{RAILS_ROOT}/lib/init"
-puts ">> LIB"
-
 ActionController::Base.xil(:features=>[:template,:document], :subdir_size=>4)
 
 

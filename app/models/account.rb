@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090123112145
+# Schema version: 20081111111111
 #
 # Table name: accounts
 #
@@ -18,7 +18,6 @@
 #  is_debit     :boolean       not null
 #  last_letter  :string(8)     
 #  comment      :text          
-#  entity_id    :integer       
 #  parent_id    :integer       default(0), not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null

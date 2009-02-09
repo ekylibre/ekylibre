@@ -282,8 +282,8 @@ class ManagementController < ApplicationController
   dyta(:sale_order_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :active
-    t.column :name, :through=>:expiration, :url=>{:action=>:delays_display}
-    t.column :name, :through=>:payment_delay, :url=>{:action=>:delays_display}, :label=>:test
+    t.column :name, :through=>:expiration, :url=>{:action=>:delays_display}, :label=>"Délai d'expiration"
+    t.column :name, :through=>:payment_delay, :url=>{:action=>:delays_display}, :label=>"Délai de paiement"
     t.column :downpayment
     t.column :downpayment_minimum
     t.column :downpayment_rate
@@ -489,6 +489,10 @@ class ManagementController < ApplicationController
   def sales_payments
   end
 
+  def sales_print
+    render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml", :key=>params[:id])
+  end
+
 
   
 
@@ -620,6 +624,7 @@ class ManagementController < ApplicationController
       redirect_to :action =>:stocks_locations_display, :id=>@stock_move.location_id if @stock_move.save
     else
       @stock_move = StockMove.new
+      @stock_move.planned_on = Date.today
     end
     render_form
   end

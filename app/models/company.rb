@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090123112145
+# Schema version: 20081111111111
 #
 # Table name: companies
 #
@@ -31,9 +31,9 @@ class Company < ActiveRecord::Base
   end
 
   def after_create
-    role = Role.create!(:name=>tc(:administrator), :company_id=>self.id,:actions=>'  ')
+    role = Role.create!(:name=>tc('default.role.name.admin'), :company_id=>self.id,:actions=>'  ')
     role.can_do :all
-    role = Role.create!(:name=>tc(:public), :company_id=>self.id,:actions=>'  ')
+    role = Role.create!(:name=>tc('default.role.name.public'), :company_id=>self.id,:actions=>'  ')
     self.parameter('general.language').value=Language.find_by_iso2('fr')
     self.load_template("#{RAILS_ROOT}/lib/template.xml")
     self.departments.create!(:name=>tc('default.department_name'))
@@ -56,6 +56,21 @@ class Company < ActiveRecord::Base
       delays << self.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
     end
     self.sale_order_natures.create(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
+#    puts tc('accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.collect{|a| a[0].to_s+'  ::  '+a[1].to_s}.join "\n"
+    tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
+      puts a.inspect
+      begin
+        account = self.accounts.find_by_number(a[0].to_s)
+        if account 
+          account.update_attributes!(:name=>a[1])
+        else
+          self.accounts.create!(:number=>a[0].to_s, :name=>a[1])
+        end
+      rescue Exception
+        
+      end
+
+    end
   end
 
   def parameter(name)
@@ -65,9 +80,12 @@ class Company < ActiveRecord::Base
   end
 
   def load_accounting_system
-    for a in 1..8
-      self.accounts.create!(:number=>a.to_s, :name=>l(:accounting_system, a.to_sym), :label=>l(:accounting_system, a.to_sym), :parent_id=>0)
+    t('models.company.accounting_system').each do |a|
+      self.accounts.create!(:number=>a[0], :name=>a[1])
     end
+#    for a in 1..8
+#      self.accounts.create!(:number=>a.to_s, :name=>l(:accounting_system, a.to_sym), :label=>l(:accounting_system, a.to_sym), :parent_id=>0)
+#    end
   end
 
   def load_template(filename)

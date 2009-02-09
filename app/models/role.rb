@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20090123112145
+# Schema version: 20081111111111
 #
 # Table name: roles
 #
 #  id           :integer       not null, primary key
 #  name         :string(255)   not null
-#  actions      :text          default("  "), not null
+#  actions      :text          
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
