@@ -48,4 +48,4 @@ production:
   database: ekylibre_production
   pool: 5
   username: rails
-  password:
+  password: R4|L5
