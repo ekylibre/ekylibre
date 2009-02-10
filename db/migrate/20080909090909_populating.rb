@@ -155,7 +155,7 @@ class Populating < ActiveRecord::Migration
       t.column :boolean_value,          :boolean
       t.column :date_value,             :date
       t.column :datetime_value,         :datetime
-      t.column :choice_value,           :integer,   :references=>:complement_choices, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :choice_value_id,        :integer,   :references=>:complement_choices, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,   :null=>false,   :references=>:companies,          :on_delete=>:cascade, :on_update=>:cascade 
     end
     add_index :complement_data, :entity_id

@@ -19,5 +19,5 @@
   -#for complement in @complements
     -#f.field complement.name, {:datatype=>complement.nature.to_sym, :id=>"complement_datum_#{complement.id}_#{complement.nature}_value", :name=>"complement_datum[#{complement.id}][#{complement.nature}_value]", :value=>complement.}
   -for datum in @complement_data
-    -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_#{datum.complement.nature}_value", :name=>"complement_datum[#{datum.complement_id}][#{datum.complement.nature}_value]", :value=>datum.value, :size=>datum.complement.length_max}
-    
+    -#f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_#{datum.complement.nature}_value", :name=>"complement_datum[#{datum.complement_id}][#{datum.complement.nature}_value]", :value=>datum.value, :size=>datum.complement.length_max, :choices=>datum.complement.choices.collect{|x| [x.name , x.id]}  }
+    -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_value", :name=>"complement_datum[#{datum.complement_id}][value]", :value=>datum.value, :size=>datum.complement.length_max, :choices=>datum.complement.choices.collect{|x| [x.name , x.id]}  }

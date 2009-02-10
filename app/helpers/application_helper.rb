@@ -495,12 +495,14 @@ module ApplicationHelper
                 when :string
                   size = (options[:size]||0).to_i
                   if size>64
-                    text_area_tag(name, value, :id=>options[:id], :maxlength=>size)
+                    text_area_tag(name, value, :id=>options[:id], :maxlength=>size, :cols => 30, :rows => 3)
                   else
-                    text_field_tag(name, value, :id=>options[:id], :maxlength=>size, :size=>size, :cols => 30, :rows => 3)
+                    text_field_tag(name, value, :id=>options[:id], :maxlength=>size, :size=>size)
                   end
                 when :choice
-                  "Not implemented"
+                  select_tag(name, options_for_select(options[:choices]), :id=>options[:id])
+                #when :date
+                 # date_select
                 else
                   text_field_tag(name, value, :id=>options[:id])
                 end

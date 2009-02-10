@@ -10,13 +10,58 @@ class RelationsController < ApplicationController
     t.column :nature_label
     t.column :required
     t.column :active
+    t.column :choices_count
     t.action :complements_update, :image=>:update
+    t.action :complement_choices, :image=>:list, :if=>'RECORD.nature == "choice" '
     t.procedure :complements_create
+  end
+
+  dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['@complement.id']}) do |t| 
+    t.column :name
+    t.column :value
+    t.action :complement_choices_update, :image=>:update
+    t.procedure :complement_choices_create
   end
   
   def complements
     access :complements
     complements_list
+  end
+
+  def complement_choices
+    access :complement_choices
+    @complement = find_and_check(:complement , params[:id])
+    session[:my_complement] = @complement.id
+    @title = {:value=>@complement.name}
+    complement_choices_list params
+  end
+
+  def complement_choices_create
+    access :complement_choices
+    @complement = find_and_check(:complement, session[:my_complement])
+    if request.post?
+      @complement_choice = ComplementChoice.new(params[:complement_choice])
+      @complement_choice.company_id = @current_company.id
+      @complement_choice.complement_id = @complement.id
+      if @complement_choice.save 
+        redirect_to_back
+      end
+    else
+      @complement_choice = ComplementChoice.new
+    end
+    @title = {:value=>@complement.name}
+    render_form
+  end
+
+  def complement_choices_update
+    access :complement_choices
+    @complement_choice = find_and_check(:complement_choice, params[:id])
+    if request.post? and @complement_choice
+      redirect_to_back if @complement_choice.update_attributes(params[:complement_choice])
+    end
+    @complement = find_and_check(:complement, @complement_choice.complement_id)
+    @title = {:choice=>@complement_choice.name, :complement=>@complement.name}
+    render_form
   end
   
   def complements_create
@@ -24,7 +69,7 @@ class RelationsController < ApplicationController
     if request.post?
       @complement = Complement.new(params[:complement])
       @complement.company_id = @current_company.id
-      if @complement.save        
+      if @complement.save 
         redirect_to_back 
       end
     else
@@ -32,11 +77,13 @@ class RelationsController < ApplicationController
     end
     render_form
   end
-
+  
   def complements_update
     access :complements
     @complement = find_and_check(:complement, params[:id])
-    if request.post? and @complement
+    if @complement.nature == 'choice'
+      redirect_to :action=>:complement_choices , :id=>@complement.id
+    elsif request.post? and @complement
       redirect_to_back if @complement.update_attributes(params[:complement])
     end
     @title = {:value=>@complement.name}

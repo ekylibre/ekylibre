@@ -24,9 +24,8 @@ class Complement < ActiveRecord::Base
   attr_readonly :company_id, :nature
   acts_as_list
 
-#  NATURES = ['string', 'decimal', 'boolean', 'date', 'datetime', 'choice']
-  NATURES = ['string', 'decimal', 'boolean'] # Temporary
-  
+  NATURES = ['string', 'decimal', 'boolean', 'date', 'datetime', 'choice']
+   
   def self.natures
     NATURES.collect{|x| [tc('natures.'+x), x] }
   end
@@ -34,5 +33,10 @@ class Complement < ActiveRecord::Base
   def nature_label   
     tc('natures.'+self.nature)
   end
+
+  def choices_count
+    self.choices.count
+  end
+    
 
 end

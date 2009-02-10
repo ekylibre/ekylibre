@@ -205,6 +205,9 @@ fr-FR:
         length_max: Nombre de caractères maximum
         decimal_min: Intervalle bas
         decimal_max: Intervalle haut
+      complement_choice:
+        name: Nom
+        value: Valeur
       contact:
         fax: Fax
         mobile: Portable
@@ -936,6 +939,15 @@ fr-FR:
       complements:
         title: 'Champs complémentaires personnalisés'
         complements_create: Créer un nouveau champ personnalisé
+      complement_choices:
+        title: ' Options pour la liste déroulante : {{value}}'
+        complement_choices_create: 'Créer une nouvelle option'
+      complement_choices_create: 
+        title: ' Création d''une option pour la liste déroulante : {{value}}'
+      complement_choices_update:
+        title:  'Modification de l''option "{{choice}}" du champ {{complement}} '
+      _complement_choices_form:
+        title: 'Renseignez les caractéristiques de l''option'
       complements_create:
         title: 'Création d''un champ personnalisé'
       _complements_form:

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <template title="Order Sale" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="8">
-  <title query="SELECT name , number , 1 FROM(SELECT number , (CASE WHEN state='D' THEN 'Commande' as name WHEN state='P' OR state='G' THEN 'Devis' as name ) FROM sale_orders WHERE sale_orders.id={KEY}) as title"> #{title.name} #{title.number} </title>
+  <title query="SELECT name , number , 1 FROM(SELECT number , (CASE WHEN state='D' THEN 'Commande' WHEN state='P' OR state='G' THEN 'Devis' END) as name  FROM sale_orders WHERE sale_orders.id={KEY}) as title">#{title.name} #{title.number} </title>
   <infos>
     <info type="created-on"> {CURRENT_TIMESTAMP:%e %B %Y } </info>
   </infos>
@@ -30,13 +30,13 @@
 	<text x="100" y="35" width="90" height="5" align="L" size="10"> #{client.nature} #{client.full_name} </text>
       </block>
       <block name="line2" if="length(#{address.line_2})>0">
-	<text x="100" y="5" width="90" height="5" align="L" size="10"> #{address.line_2} </text>
+	<text x="100" y="0" width="90" height="5" align="L" size="10"> #{address.line_2} </text>
       </block>
       <block name="line3" if="length(#{address.line_3})>0">
 	<text x="100" y="0" width="90" height="5" align="L" size="10"> #{address.line_3} </text>
       </block>
       <block name="line4" if="length(#{address.line_4_number})>0 OR length(#{address.line_4_street})>0">
-	<text x="100" y="0" width="90" height="5" align="L" size="10"> #{address.line_4_number}#{address.line_4_street} </text>
+	<text x="100" y="0" width="90" height="5" align="L" size="10"> #{address.line_4_number} #{address.line_4_street} </text>
       </block>
       <block name="line5" if="length(#{address.line_5})>0">
 	<text x="100" y="0" width="90" height="5" align="L" size="10"> #{address.line_5} </text>

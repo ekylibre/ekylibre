@@ -23,6 +23,14 @@
 class ComplementDatum < ActiveRecord::Base
   attr_readonly :company_id, :complement_id, :entity_id
 
+#  def after_initialize
+ #   if self.complement
+  #    if self.complement.nature == "choice"
+   #     self.
+    #  end
+   # end
+ # end
+
   def validate
     complement = self.complement
     errors.add_to_base(tc('error_field_required', :field=>complement.name)) if complement.required and self.value.blank?
@@ -41,9 +49,21 @@ class ComplementDatum < ActiveRecord::Base
       end
     end
   end
-
+  
   def value
     self.send self.complement.nature+'_value'
   end
-
+  
+  def value=(object)
+    if self.complement.nature == "choice"
+      begin
+        self.choice_value_id = object.to_i
+      rescue  
+        self.choice_value_id = nil
+      end
+    else
+      self.send(self.complement.nature+'_value=',object)
+    end
+  end
+  
 end
