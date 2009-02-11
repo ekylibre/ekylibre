@@ -501,8 +501,10 @@ module ApplicationHelper
                   end
                 when :choice
                   select_tag(name, options_for_select(options[:choices]), :id=>options[:id])
-                #when :date
-                 # date_select
+                when :date
+                  date_select(name, value, :start_year=>1980)
+                when :datetime
+                  datetime_select(name, value, :default=>Time.now, :start_year=>1980)
                 else
                   text_field_tag(name, value, :id=>options[:id])
                 end

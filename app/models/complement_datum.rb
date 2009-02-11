@@ -55,14 +55,20 @@ class ComplementDatum < ActiveRecord::Base
   end
   
   def value=(object)
-    if self.complement.nature == "choice"
+    #raise Exception.new object.inspect if self.complement.nature == "date"
+    nature = self.complement.nature
+    if nature == "choice"
       begin
         self.choice_value_id = object.to_i
       rescue  
         self.choice_value_id = nil
       end
+    elsif nature == "date" and object.is_a? Hash
+      self.date_value = Date.civil(object["(1i)"].to_i, object["(2i)"].to_i, object["(3i)"].to_i)
+    elsif nature == "datetime" and object.is_a? Hash
+       self.datetime_value = Time.utc(object["(1i)"].to_i, object["(2i)"].to_i, object["(3i)"].to_i, object["(4i)"].to_i, object["(5i)"].to_i, object["(6i)"].to_i )
     else
-      self.send(self.complement.nature+'_value=',object)
+      self.send(nature+'_value=',object)
     end
   end
   
