@@ -159,7 +159,7 @@ class Populating < ActiveRecord::Migration
       t.column :company_id,             :integer,   :null=>false,   :references=>:companies,          :on_delete=>:cascade, :on_update=>:cascade 
     end
     add_index :complement_data, :entity_id
-    add_index :complement_data, :choice_value
+    add_index :complement_data, :choice_value_id
     add_index :complement_data, :complement_id
     add_index :complement_data, :company_id
     add_index :complement_data, [:entity_id, :complement_id], :unique=>true
