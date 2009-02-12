@@ -349,7 +349,7 @@ class AccountancyController < ApplicationController
       d=(d+1).end_of_month
       @financialyear_periods << d.to_s(:attributes)
     end
-    render :text =>options_for_select(@financialyear_periods)
+    render :text => options_for_select(@financialyear_periods)
   end
 
   # this action has not specific view.

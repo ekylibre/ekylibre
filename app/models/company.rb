@@ -51,6 +51,7 @@ class Company < ActiveRecord::Base
     self.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
     self.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
     self.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
+    #self.entity.create!(:nature_id=>1, :language_id=>1, :name=>'vi', :fullname=>'vi ma')
     delays = []
     ['expiration', 'standard', 'immediate'].each do |d|
       delays << self.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
