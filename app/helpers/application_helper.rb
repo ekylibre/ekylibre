@@ -354,7 +354,7 @@ module ApplicationHelper
 #        reset_cycle "parity"
         if line[:value].is_a? Symbol
           calls = caller
-          file = calls[3].split(':')[0].split('/')[-1].split('.')[0]
+          file = calls[3].split(/\:\d+\:/)[0].split('/')[-1].split('.')[0]
 #          file = file[1..-1] if file[0..0]=='_'
           line[:value] = t("views.#{controller.controller_name}.#{file}.#{line[:value]}") 
 #          line[:value] = t(line[:value]) 
