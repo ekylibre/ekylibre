@@ -1,0 +1,20 @@
+= aclist do |l|
+  - l.action :purchases
+
+%h2=tc :lines 
+=dyta :purchase_order_lines
+
+
+.total
+  %table.dyta
+    %tr
+      %th=tc :amount
+      %td=@purchase_order.amount
+    %tr.important
+      %th=tc :amount_with_taxes
+      %td=@purchase_order.amount_with_taxes
+
+- form_tag do
+  .actions
+    =link_to tg(:previous), :action=>:purchases
+    =submit_tag(tc('order_print'), :action=>:purchase_print) if @purchase_order.lines.size>0

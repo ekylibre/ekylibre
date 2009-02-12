@@ -323,6 +323,19 @@ fr-FR:
         to_purchase: 'Produit destiné à l''achat'
         to_rent: Produit destiné à la location
         unit_id: Unité de mesure
+      purchase_order:
+        client_id: Fournisseur
+        supplier_id: Fournisseur
+        dest_contact_id: Adresse de livraison
+        shipped: Expédié
+        invoiced: Facturé
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        number: Numéro
+        comment: Commentaire
+      purchase_order_line: 
+        product_id: Produit
+        quantity: Quantité
       rubric:
         name: Titre
         nature: Where - What
@@ -849,10 +862,19 @@ fr-FR:
         search: 'Rechercher un produit'
       products_update:
         title: 'Modification du produit : {{value}}'
-  
-
-      
-
+      purchases_products: 
+        title: 'Selection des produits pour la commande : {{value}}'
+        lines: Lignes de la commande
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        purchase_order_lines_create: Ajouter un produit à la commande
+        order_print: Imprimer la commande
+      purchases:
+        title: Liste des achats
+      purchase_orders_create:
+        title: Nouvel achat
+      purchase_order_lines_create:
+        title: Ajouter un produit à la commande
       sales:
         title: Liste des ventes
       sales_new:

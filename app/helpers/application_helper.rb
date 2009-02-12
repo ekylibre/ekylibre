@@ -48,9 +48,9 @@ module ApplicationHelper
        [ {:name=>:sales, :list=>
            [ {:name=>:sales_new},
              {:name=>:sales_consult, :url=>{:action=>:sales}} ] },
-#         {:name=>:purchases, :list=>
-#           [ {:name=>:purchases_new},
-#             {:name=>:purchases_consult, :url=>{:action=>:purchases}} ] },
+         {:name=>:purchases, :list=>
+           [ {:name=>:purchases_new},
+             {:name=>:purchases_consult, :url=>{:action=>:purchases}} ] },
          {:name=>:stocks, :list=>
            [ {:name=>:stocks_locations},
              {:name=>:stocks_consult, :url=>{:action=>:stocks}} ] },

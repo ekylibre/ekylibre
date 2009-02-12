@@ -255,12 +255,86 @@ class ManagementController < ApplicationController
 
 
 
-
-  def purchases
+  dyta(:purchase_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :number
+    t.column :full_name, :through=>:client
+    t.column :shipped
+    t.column :invoiced
+    t.column :amount
+    t.column :amount_with_taxes
   end
 
+  def purchases
+    purchase_orders_list params
+  end
 
+  def purchases_new
+    redirect_to :action=>:purchase_orders_create
+  end
 
+  def purchase_orders_create
+    if request.post?
+      @purchase_order = PurchaseOrder.new(params[:purchase_order])
+      @purchase_order.company_id = @current_company.id
+      redirect_to :action=>:purchases_products, :id=>@purchase_order.id if @purchase_order.save
+    else
+      @purchase_order = PurchaseOrder.new
+      session[:current_entity] = @purchase_order.id
+    end
+    render_form
+  end
+
+  dyta (:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@purchase_order.id']}) do |t|
+    t.column :name, :through=>:product, :url=>{:action=>:products_display}
+    t.column :quantity
+    t.column :label, :through=>:unit
+    t.column :amount
+    t.column :amount_with_taxes
+    t.action :purchase_order_lines_update, :image=>:update
+    t.action :purchase_order_line_delete,  :image=>:delete
+    t.procedure :purchase_order_lines_create
+  end
+
+  def purchases_products
+    @purchase_order = find_and_check(:purchase_order, params[:id])
+    session[:current_purchase] = @purchase_order.id
+    purchase_order_lines_list params
+    @title = {:value=>@purchase_order.number}
+  end
+
+  def result
+    @product = find_and_check(:products,params[:purchase_order_line][:product_id])
+    @price = Price.find_by_product_id_and_company_id(@product.id, @current_company.id)
+    if !@price.nil?
+      @purchase_order_line.amount = (@price.amount*params[:purchase_order_line][:quantity].to_f)
+      #raise Exception.new @purchase_order_line.amount.to_s
+      @purchase_order_line.amount_with_taxes = (@price.amount_with_taxes*params[:purchase_order_line][:quantity].to_f)
+    end
+  end
+  
+  def purchase_order_lines_create
+    if request.post?
+      @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
+      @purchase_order_line.company_id = @current_company.id
+      @purchase_order_line.order_id = session[:current_purchase]
+      result
+      @purchase_order_line.unit_id = @product.unit.id
+      redirect_to :action=>:purchases_products, :id=>session[:current_purchase] if @purchase_order_line.save
+    else
+      @purchase_order_line = PurchaseOrderLine.new
+    end
+    render_form
+  end
+  
+  def purchase_order_lines_update
+    @purchase_order_line = find_and_check(:purchase_order_line, params[:id])
+    if request.post?
+      result
+      params[:purchase_order_line][:company_id] = @current_company.id
+      redirect_to :action=>:purchases_products, :id=>@purchase_order_line.order_id  if @purchase_order_line.update_attributes(params[:purchase_order_line])
+    end
+    render_form
+  end
 
   dyta(:sale_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number, :url=>{:action=>:sales_products}

@@ -21,4 +21,20 @@
 #
 
 class PurchaseOrder < ActiveRecord::Base
+  
+  def before_validation
+    #raise Exception.new self.inspect
+    self.amount = 0
+    self.amount_with_taxes = 0
+     for line in self.lines
+       self.amount += line.amount
+       self.amount_with_taxes += line.amount_with_taxes
+       #raise Exception.new self.inspect
+     end
+  end
+  
+  def up_order
+    self.save
+  end
+  
 end
