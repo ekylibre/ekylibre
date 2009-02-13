@@ -85,7 +85,9 @@ class Managing < ActiveRecord::Migration
       t.column :active,                 :boolean,  :null=>false, :default=>true
       t.column :deleted,                :boolean,  :null=>false, :default=>false
       t.column :comment,                :text
+      t.column :default,                :boolean,  :null=>false, :default=>true
       t.column :currency_id,            :integer,  :null=>false, :references=>:currencies
+      t.column :entity_id,              :integer,  :references=>:entities,  :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :price_lists, [:name, :company_id], :unique=>true
@@ -113,6 +115,7 @@ class Managing < ActiveRecord::Migration
       t.column :stopped_on,             :date
       t.column :deleted,                :boolean,  :null=>false, :default=>false
       t.column :use_range,              :boolean,  :null=>false, :default=>false
+      t.column :default,                :boolean,  :null=>false, :default=>true
       t.column :quantity_min,           :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :quantity_max,           :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :product_id,             :integer,  :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
@@ -332,7 +335,8 @@ class Managing < ActiveRecord::Migration
 
     # PurchaseOrder
     create_table :purchase_orders do |t|
-      t.column :client_id,              :integer,  :null=>false, :references=>:entities
+      t.column :supplier_id,            :integer,  :null=>false, :references=>:entities
+      t.column :list_id,                :integer,  :null=>false, :references=>:price_lists
       t.column :number,                 :string,   :null=>false, :limit=>64
       t.column :shipped,                :boolean,  :null=>false, :default=>false
       t.column :invoiced,               :boolean,  :null=>false, :default=>false

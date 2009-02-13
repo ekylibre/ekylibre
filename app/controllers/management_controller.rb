@@ -257,7 +257,7 @@ class ManagementController < ApplicationController
 
   dyta(:purchase_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number
-    t.column :full_name, :through=>:client
+    t.column :full_name, :through=>:supplier
     t.column :shipped
     t.column :invoiced
     t.column :amount
@@ -276,6 +276,15 @@ class ManagementController < ApplicationController
     if request.post?
       @purchase_order = PurchaseOrder.new(params[:purchase_order])
       @purchase_order.company_id = @current_company.id
+      list = PriceList.find(:first,:conditions=>{:entity_id=>params[:purchase_order][:supplier_id]})
+      if !list.blank?  ## Adapté ???
+        #raise Exception.new list.inspect
+        @purchase_order.list_id = list.id
+      else ## Currency_id ...
+        new_list = PriceList.create!(:name=>"test", :started_on=>Date.today, :currency_id=>1, :entity_id=>params[:purchase_order][:supplier_id], :company_id=>@current_company.id)
+        #raise Exception.new new_list.inspect
+        @purchase_order.list_id = new_list.id
+      end
       redirect_to :action=>:purchases_products, :id=>@purchase_order.id if @purchase_order.save
     else
       @purchase_order = PurchaseOrder.new
@@ -284,7 +293,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  dyta (:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@purchase_order.id']}) do |t|
+  dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@purchase_order.id']}) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:products_display}
     t.column :quantity
     t.column :label, :through=>:unit
@@ -302,22 +311,37 @@ class ManagementController < ApplicationController
     @title = {:value=>@purchase_order.number}
   end
 
-  def result
-    @product = find_and_check(:products,params[:purchase_order_line][:product_id])
-    @price = Price.find_by_product_id_and_company_id(@product.id, @current_company.id)
-    if !@price.nil?
-      @purchase_order_line.amount = (@price.amount*params[:purchase_order_line][:quantity].to_f)
-      #raise Exception.new @purchase_order_line.amount.to_s
-      @purchase_order_line.amount_with_taxes = (@price.amount_with_taxes*params[:purchase_order_line][:quantity].to_f)
-    end
+ #  def result
+#     @product = find_and_check(:products,params[:purchase_order_line][:product_id])
+#     @price = Price.find_by_product_id_and_company_id(@product.id, @current_company.id)
+#     if !@price.nil?
+#       @purchase_order_line.amount = (@price.amount*params[:purchase_order_line][:quantity].to_f)
+#       #raise Exception.new @purchase_order_line.amount.to_s
+#       @purchase_order_line.amount_with_taxes = (@price.amount_with_taxes*params[:purchase_order_line][:quantity].to_f)
+#     end
+#  end
+
+
+  def find_price
+    raise Exception.new "huhh"
+    product_id = params[:product_id]||(params[:purchase_order_line]||{})[:product_id]
+    session[:current_product] = product_id
+    prices = Price.find(:all, :conditions=>{:product_id=>product_id, :tax_id=>params[:purchase_order_line][:tax_id]}) ## +list_id
+    @prices_amount = prices.collect{|x| [x.amount, x.id]}
+    render :text=>options_for_select(@prices_amount) if request.xhr?
   end
   
   def purchase_order_lines_create
     if request.post?
       @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
       @purchase_order_line.company_id = @current_company.id
+      product = find_and_check(:products, params[:purchase_order_line][:product_id])
+      @purchase_order_line.account_id = product.account.id
       @purchase_order_line.order_id = session[:current_purchase]
-      result
+      #prices = Prices.find(:first,:conditions=>{:product_id=>product.id, :list_id=>@purchase_order_line.order.list_id, :tax_id=>params[:purchase_order_line][:tax_id]})
+      # @prices_amount = @prices.collect{|x| [x.amount, x.id]}
+     # result
+      @product = find_and_check(:products,params[:purchase_order_line][:product_id]) ## next ajax
       @purchase_order_line.unit_id = @product.unit.id
       redirect_to :action=>:purchases_products, :id=>session[:current_purchase] if @purchase_order_line.save
     else
@@ -329,7 +353,7 @@ class ManagementController < ApplicationController
   def purchase_order_lines_update
     @purchase_order_line = find_and_check(:purchase_order_line, params[:id])
     if request.post?
-      result
+     # result
       params[:purchase_order_line][:company_id] = @current_company.id
       redirect_to :action=>:purchases_products, :id=>@purchase_order_line.order_id  if @purchase_order_line.update_attributes(params[:purchase_order_line])
     end
