@@ -400,6 +400,14 @@ class AccountancyController < ApplicationController
           @entry  = Entry.new
           session[:entries][:account_number] = ''
         end
+      elsif request.delete?
+        @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
+        if @entry.close?
+          flash[:message]=lc(:messages, :need_unclosed_entry_to_delete)
+        else
+          Entry.delete(@entry)
+        end
+        @entry = Entry.new
       else
         @entry = Entry.new
       end
@@ -431,16 +439,16 @@ class AccountancyController < ApplicationController
 
   # this method deletes an entry with a form.
   def entries_delete
-    if request.post? or request.delete?
-      @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
-      if @entry.close?
-        flash[:message]=lc(:messages, :need_unclosed_entry_to_delete)
-      else
-        Entry.delete(@entry)
-      end
-      #render :part#:action => "entries.rjs" 
-      redirect_to :action => "entries" 
-    end
+   #  if request.post? or request.delete?
+#       @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
+#       if @entry.close?
+#         flash[:message]=lc(:messages, :need_unclosed_entry_to_delete)
+#       else
+#         Entry.delete(@entry)
+#       end
+#       #render :part#:action => "entries.rjs" 
+#       redirect_to :action => "entries" 
+   # end
     
   end
 

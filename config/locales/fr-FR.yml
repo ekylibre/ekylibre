@@ -567,6 +567,9 @@ fr-FR:
         confirmation: 'Êtes-vous sûr de votre saisie ?'     
         balanced_entries: 'Vert : pièce équilibrée'
         unbalanced_entries: 'Rouge : pièce non équilibrée'
+        update: 'Modifier'
+        delete: 'Supprimer'
+        confirm: 'Êtes-vous sûr de vouloir supprimer cette écriture ?'
       entries:
         title: Saisie des écritures
         subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
