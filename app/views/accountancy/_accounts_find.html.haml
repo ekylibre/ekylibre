@@ -11,7 +11,7 @@
         %tr{:class=>cycle('odd','even')}
           %td
             = link_to_function(account.number) do |p| 
-              - p['account_number'].value =  account.number  
+              - p['account_number'].value =  account.number 
               - p['entry_currency_debit'].focus()
               - p.replace_html 'account', ''
           %td=account.name

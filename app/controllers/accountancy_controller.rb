@@ -29,7 +29,6 @@ class AccountancyController < ApplicationController
     t.column :name
     t.action :accounts_update, :image=>:update
     t.action :accounts_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-#    t.action :accounts_letter, :image=>:letter
     t.procedure :create, :action=>:accounts_create
   end
   
@@ -367,6 +366,7 @@ class AccountancyController < ApplicationController
   def entries
     session[:entries] ||= {}
     session[:entries][:records_number] ||= 5
+    #puts "sf:"+session[:entries][:financialyear].to_s
     @journal = find_and_check(:journal, session[:entries][:journal]) if session[:entries][:journal]
     @financialyear = find_and_check(:financialyear, session[:entries][:financialyear]) if session[:entries][:financialyear]
 
@@ -417,6 +417,33 @@ class AccountancyController < ApplicationController
 
   end
   
+  # this method updates an entry with a form.
+  def entries_update
+    access :entries
+    @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
+    
+    if request.post? or request.put?
+      @entry.update_attributes(params[:entry]) 
+      redirect_to :action => "entries" 
+    end
+    render_form
+  end
+
+  # this method deletes an entry with a form.
+  def entries_delete
+    if request.post? or request.delete?
+      @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
+      if @entry.close?
+        flash[:message]=lc(:messages, :need_unclosed_entry_to_delete)
+      else
+        Entry.delete(@entry)
+      end
+      #render :part#:action => "entries.rjs" 
+      redirect_to :action => "entries" 
+    end
+    
+  end
+
   # lists all the transactions established on the accounts, sorted by date.
   def journals
     journals_list params

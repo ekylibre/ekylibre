@@ -8,6 +8,8 @@
       %th=tc :account_number
       %th=tc :record_debit
       %th=tc :record_credit
+      %th
+      %th
     %tr
       %td=text_field :record, :number, {:size=>5}
       %td=text_field :record, :created_on, {:size=>10}
@@ -16,6 +18,8 @@
       %td=text_field :account, :number, {:size=>10} 
       %td=text_field :entry, :currency_debit, {:size=>8}
       %td=text_field :entry, :currency_credit, {:size=>8}
+      %td
+      %td
     %tr
       %td#account{:colspan=>7}
     -if @records.size>0
@@ -27,6 +31,8 @@
         %th=tc :account_number
         %th=tc :record_debit
         %th=tc :record_credit
+        %th
+        %th
       - @records.each do |record|
         - attr = cycle("even","odd")  
         - record.entries.each do |entry|
@@ -38,6 +44,8 @@
             %td=entry.account.number
             %td{:align=>"right"}=number_to_currency(entry.currency_debit, :delimiter=>"", :precision => 2, :unit=>"")
             %td{:align=>"right"}=number_to_currency(entry.currency_credit, :delimiter=>"", :precision => 2, :unit=>"")
+            %td.act=link_to "M", :action => "entries_update", :id => entry.id
+            %td.act=link_to_remote "S", :url => {:action => "entries_delete", :id => entry.id}, :method=>:delete, :confirm=>"Are you sure ?" 
   =#submit_tag # 'entry_validate', lc(:entry_validate), :url => {:action => :entries}, :html => {:tabindex => 7, :style=>'display:none;'}
   =submit_tag 'test', {:tabindex => 7, :style=>'display:none;'}
 

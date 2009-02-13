@@ -32,9 +32,12 @@
 class Entry < ActiveRecord::Base
   acts_as_list :scope=>:record
 
+  attr_readonly :company_id, :record_id
+
   after_destroy :update_record
   after_create  :update_record
   after_update  :update_record
+  
 
   def before_validation 
     # computes the values depending on currency rate
@@ -57,6 +60,11 @@ class Entry < ActiveRecord::Base
     #raise Exception.new "models:"+ self.errors.inspect.to_s  
   end
   
+  def close?
+   return (not self.editable)
+  end
+
+
   # updates the amounts to the debit and the credit 
   # for the matching record.
   def update_record
