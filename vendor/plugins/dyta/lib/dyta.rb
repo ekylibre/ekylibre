@@ -46,7 +46,7 @@ module Dyta
           when Symbol
             conditions = options[:conditions]
           else
-            raise Exception.new("Only Array and Hash are accepted as conditions")
+            raise Exception.new("Only Array and Hash are accepted as conditions.")
           end
         end
 
