@@ -866,7 +866,7 @@ fr-FR:
       products_update:
         title: 'Modification du produit : {{value}}'
       purchases_products: 
-        title: 'Selection des produits pour la commande : {{value}}'
+        title: 'Selection des produits pour la commande {{value}} au fournisseur {{name}}'
         lines: Lignes de la commande
         amount: Montant HT
         amount_with_taxes: Montant TTC

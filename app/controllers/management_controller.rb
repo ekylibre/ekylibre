@@ -256,8 +256,8 @@ class ManagementController < ApplicationController
 
 
   dyta(:purchase_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :number
-    t.column :full_name, :through=>:supplier
+    t.column :number ,:url=>{:action=>:purchases_products}
+    t.column :full_name, :through=>:supplier, :url=>{:controller=>:relations, :action=>:entities_display}
     t.column :shipped
     t.column :invoiced
     t.column :amount
@@ -277,10 +277,11 @@ class ManagementController < ApplicationController
       @purchase_order = PurchaseOrder.new(params[:purchase_order])
       @purchase_order.company_id = @current_company.id
       list = PriceList.find(:first,:conditions=>{:entity_id=>params[:purchase_order][:supplier_id]})
-      if !list.blank?                      ## Adapté ???
+      if !list.blank?         
         @purchase_order.list_id = list.id
-      else                                           #name => nom supplier + ...          ## Currency_id ...
-        new_list = PriceList.create!(:name=>"blabla price list", :started_on=>Date.today, :currency_id=>1, :entity_id=>params[:purchase_order][:supplier_id], :company_id=>@current_company.id)
+      else                                                                               ## Currency_id ...
+        supplier = find_and_check(:entity, params[:purchase_order][:supplier_id])
+        new_list = PriceList.create!(:name=>supplier.full_name, :started_on=>Date.today, :currency_id=>1, :entity_id=>params[:purchase_order][:supplier_id], :company_id=>@current_company.id)
         @purchase_order.list_id = new_list.id
       end
       redirect_to :action=>:purchases_products, :id=>@purchase_order.id if @purchase_order.save
@@ -298,7 +299,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :purchase_order_lines_update, :image=>:update
-    t.action :purchase_order_line_delete,  :image=>:delete
+    t.action :purchase_order_lines_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :purchase_order_lines_create
   end
 
@@ -306,79 +307,67 @@ class ManagementController < ApplicationController
     @purchase_order = find_and_check(:purchase_order, params[:id])
     session[:current_purchase] = @purchase_order.id
     purchase_order_lines_list params
-    @title = {:value=>@purchase_order.number}
+    @title = {:value=>@purchase_order.number,:name=>@purchase_order.supplier.full_name}
   end
 
   def price_find
-    product_id = params[:product_id]||(params[:purchase_order_line]||{})[:product_id]||session[:current_product].to_i
-    product_id = 0 if product_id.blank?
-    #raise Exception.new product_id.inspect
-    session[:current_product] = product_id
-    prices = Price.find(:all, :conditions=>{:product_id=>product_id.to_i})||[] ## +list_id, tax_id
-    #raise Exception.new price.inspect
-    #if prices == []
-    #raise Exception.new "hjhjhj"
-    # @tax = 0
-    # @prices_amount = 0
-    #else
-    #raise Exception.new prices.inspect
-    #price = Price.find(:first,:conditions=>{:product_id=>product_id.to_i})
-    # raise Exception.new params[:purchase_order_line_product_id].inspect
-    if Price.exists?(:id=>params[:purchase_order_line_product_id])
-      @price_amount = Price.find_by_id(params[:purchase_order_line_product_id]).amount.to_i
+    price = Price.find(:first, :conditions=>["product_id=? AND company_id=? AND stopped_on IS NULL ",params[:purchase_order_line_product_id].to_i, @current_company.id])
+    if Price.exists?(:id=>price.id)
+      @price_amount = Price.find_by_id(price.id).amount
     else
       @price_amount = 0 
     end
-    # raise Exception.new @price_amount.inspect
+    @tax_id = price.tax_id
     taxes = Tax.find(:all,:conditions=>{:company_id=>@current_company.id})||[]
     @tax = taxes.collect{|x| [x.name, x.id]}
-   # @prices_amount = prices.collect{|x| [x.amount, x.id]} #price.amount.to_i
-    #raise Exception.new params[:purchase_order_line][:product_id].inspect
-    # @price_amount = Price.find_by_id()
-    # @amount = Price.find(:first, :conditions=>{:product_id=>product_id.to_i})||[]
-    #end
-    #render :text=>options_for_select(@prices_amount,@tax) if request.xhr?
   end
   
   def purchase_order_lines_create
     @price = Price.new
     if request.post?
-      @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
-      @purchase_order_line.company_id = @current_company.id
-      @product = find_and_check(:product, params[:purchase_order_line][:product_id])
-      @purchase_order_line.account_id = @product.account.id
-      @purchase_order_line.order_id = session[:current_purchase]
-      @purchase_order_line.unit_id = @product.unit.id
-      tax = find_and_check(:tax, params[:price][:tax_id])
-      # amount = find_and_check(:price, params[:price][:amount])
-      amount = params[:price][:amount].to_i
-      @purchase_order_line.amount = amount.to_i
-      #raise Exception.new params[:purchase_order_line].inspect+tax.to_s+"       ff"+amount.to_s
-      if !Price.exists?(:product_id=>@product, :list_id=>@purchase_order_line.order.list_id, :tax_id=>params[:price][:tax_id], :amount=>amount)
-        #raise Exception.new exist.inspect
-        amount_with_taxes = amount+(tax.amount*amount)
-        Price.create!(:amount=>amount, :amount_with_taxes=>amount_with_taxes, :started_on=>Date.today,:product_id=>@product, :tax_id=>params[:price][:tax_id], :list_id=>@purchase_order_line.order.list_id,:company_id=>@current_company.id)
+      @purchase_order_line = @current_company.purchase_order_lines.find(:first, :conditions=>{:product_id=>params[:purchase_order_line][:product_id], :order_id=>session[:current_purchase]})
+
+      if !@purchase_order_line
+        @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
+        @purchase_order_line.company_id = @current_company.id
+        @purchase_order_line.order_id = session[:current_purchase]
+        params[:price][:product_id] = params[:purchase_order_line][:product_id]
+        @price = @purchase_order_line.order.list.update_price(params[:price][:product_id],params[:price][:amount].to_d, params[:price][:tax_id])
+        @purchase_order_line.amount = @price.amount*params[:purchase_order_line][:quantity].to_d
+        @purchase_order_line.amount_with_taxes = @price.amount_with_taxes*params[:purchase_order_line][:quantity].to_d
+      else
+        @price = @purchase_order_line.order.list.update_price(params[:purchase_order_line][:product_id],params[:price][:amount].to_d, params[:price][:tax_id])
+        @purchase_order_line.quantity += params[:purchase_order_line][:quantity].to_d
+        @purchase_order_line.amount = @price.amount*@purchase_order_line.quantity
+        @purchase_order_line.amount_with_taxes = @price.amount_with_taxes*@purchase_order_line.quantity
       end
-      @purchase_order_line.amount_with_taxes = amount_with_taxes
+
       redirect_to :action=>:purchases_products, :id=>session[:current_purchase] if @purchase_order_line.save
     else
       @purchase_order_line = PurchaseOrderLine.new
-      product = Product.find(:first, :conditions=>{:company_id=>@current_company.id})
-      session[:current_product] = product.id.to_s
-      #raise Exception.new session[:current_product].inspect
     end
     render_form
   end
   
-  def purchase_order_lines_update
+  def purchase_order_lines_update ### mettre ?
     @purchase_order_line = find_and_check(:purchase_order_line, params[:id])
+    @price = Price.find(:first, :conditions=>["product_id=? AND company_id=? AND stopped_on IS NULL", @purchase_order_line.product_id,@current_company.id])
     if request.post?
       params[:purchase_order_line][:company_id] = @current_company.id
-      redirect_to :action=>:purchases_products, :id=>@purchase_order_line.order_id  if @purchase_order_line.update_attributes(params[:purchase_order_line])
+      params[:price][:product_id] = params[:purchase_order_line][:product_id]
+      redirect_to :action=>:purchases_products, :id=>@purchase_order_line.order_id  if  @purchase_order_line.update_attributes(params[:purchase_order_line]) and @price.update_attributes(params[:price]) 
     end
     render_form
   end
-
+  
+  def purchase_order_lines_delete
+    @purchase_order_line = find_and_check(:purchase_order_line, params[:id])
+    if request.post? or request.delete?
+      redirect_to :back if @purchase_order_line.delete
+    end
+  end
+  
+  
   dyta(:sale_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number, :url=>{:action=>:sales_products}
     t.column :name, :through=>:nature, :url=>{:action=>:sale_order_natures_display}

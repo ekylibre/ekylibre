@@ -35,15 +35,39 @@ class PriceList < ActiveRecord::Base
       prices = self.prices.find(:all, :conditions=>["product_id=? AND NOT use_range", product_id])
       if prices.size == 1
         price = prices[0]
-#      elsif prices.empty?
-#        price = nil
-#      else
-#        raise Exception.new(tc(:error_range_overlap_detected))
+        #      elsif prices.empty?
+        #        price = nil
+        #      else
+        #        raise Exception.new(tc(:error_range_overlap_detected))
       end
-#    else
-#      raise Exception.new(tc(:error_range_overlap_detected))
+      #    else
+      #      raise Exception.new(tc(:error_range_overlap_detected))
     end
     price
   end
-
+  
+  def update_price(product_id, amount, tax_id=nil) #,quantity_min=nil,quantity_max=nil)
+    prices = self.prices.find(:all, :conditions=>["product_id=?  AND stopped_on IS NULL AND company_id = ? AND NOT use_range",product_id,self.company.id])
+    if prices.empty?
+      price =  self.prices.create!(:amount=>amount, :product_id=>product_id, :tax_id=>tax_id,:company_id=>self.company.id)
+    elsif prices.size == 1
+      for p in prices
+        if p.amount == amount
+          p.tax_id = tax_id
+          price = p
+          price.save
+        else
+          p.stopped_on = Date.today
+          p.save
+        end
+      end
+      if price.blank?
+        price =  self.prices.create(:amount=>amount, :product_id=>product_id, :tax_id=>tax_id,:company_id=>self.company.id)
+      end
+    else
+      raise Exception.new "gros probleme"
+    end
+    price                     
+  end
+  
 end

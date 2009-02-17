@@ -24,11 +24,11 @@ class PurchaseOrderLine < ActiveRecord::Base
   attr_readonly :company_id, :order_id
   
   def before_validation
-    #self.amount = (self.amount*self.quantity).round(2)
-    #self.amount_with_taxes = (self.amount_with_taxes*self.quantity).round(2)
+    self.account_id = self.product.account_id
+    self.unit_id = self.product.unit_id
   end
-
-
+  
+  
   def after_save
     self.order.up_order
   end

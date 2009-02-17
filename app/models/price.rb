@@ -46,7 +46,7 @@ class Price < ActiveRecord::Base
       price = self.company.prices.find(:first, :conditions=>["(? BETWEEN quantity_min AND quantity_max OR ? BETWEEN quantity_min AND quantity_max) AND product_id=? AND list_id=? AND id!=?", self.quantity_min, self.quantity_max, self.product_id, self.list_id, self.id])
       errors.add_to_base tc(:error_range_overlap, :min=>price.quantity_min, :max=>price.quantity_max) unless price.nil?
     else
-      errors.add_to_base tc(:error_already_defined) unless self.company.prices.find(:first, :conditions=>["NOT use_range AND product_id=? AND list_id=? AND id!=COALESCE(?,0)", self.product_id, self.list_id, self.id]).nil?
+      errors.add_to_base tc(:error_already_defined) unless self.company.prices.find(:first, :conditions=>["NOT use_range AND product_id=? AND stopped_on IS NULL AND list_id=? AND id!=COALESCE(?,0)", self.product_id, self.list_id, self.id]).nil?
     end
   end
   

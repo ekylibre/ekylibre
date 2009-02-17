@@ -24,6 +24,16 @@ class PurchaseOrder < ActiveRecord::Base
   
   def before_validation
     #raise Exception.new self.inspect
+    if self.number.blank?
+      last = self.supplier.purchase_orders.find(:first, :order=>"number desc")
+      self.number = if last
+                      last.number.succ!
+                    else
+                      '00000001'
+                    end
+    end
+
+
     self.amount = 0
     self.amount_with_taxes = 0
      for line in self.lines
