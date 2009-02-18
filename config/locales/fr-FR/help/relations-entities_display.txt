@@ -1,0 +1,7 @@
+h1. L'affichage d'une fiche 
+Vous avez ici accès à toutes les informations relatives à votre client ou votre fournisseur:
+* les informations saisies lors de sa création, auxquelles s'ajoutent éventuellement les différents champs personnalisés
+* ses coordonnées, ses adresses. Un client ou fournisseur peut en posséder plusieurs.
+
+
+<<relations-index|Revenir à l'aide de gestion des relations >>

@@ -1,0 +1,6 @@
+h1. Comment modifier une fiche ?
+Il vous suffit de modifier les champs que vous désirez, vous pouvez le faire pour des champs déjà renseignés ou pour des champs qui ne le sont pas encore, ainsi que pour les champs personnalisés. 
+
+
+<<relations-index|Revenir à l'aide de gestion des relations >>
+
