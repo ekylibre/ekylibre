@@ -47,7 +47,7 @@
             %td.act=link_to tc(:update), :action => "entries_update", :id => entry.id
             %td.act=link_to_remote tc (:delete), :url => {:action => "entries", :id => entry.id}, :method=>:delete, :confirm=> tc(:confirm) 
   =#submit_tag # 'entry_validate', lc(:entry_validate), :url => {:action => :entries}, :html => {:tabindex => 7, :style=>'display:none;'}
-  =submit_tag 'test', {:tabindex => 7, :style=>'display:none;'}
+  =submit_tag tc(:entry_validate), {:tabindex => 7}
 
 %ul
   %li=tc :balanced_entries

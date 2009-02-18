@@ -75,13 +75,6 @@ class AccountancyController < ApplicationController
   
   end
 
-  # displays the accoutancing operations.
-  def operations
-    @bank_accounts = @current_company.bank_accounts  
-    @journals = @current_company.journals
-  end
-
-
   # lists all the bank_accounts with the mainly characteristics. 
   def bank_accounts
     bank_accounts_list params
