@@ -95,8 +95,8 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def help_search(id)
-    @article = id
+  def help_search(article)
+    @article = article
     session[:help_history] << @article if @article != session[:help_history].last
     session[:help]=true
   end

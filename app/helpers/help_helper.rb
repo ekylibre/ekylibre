@@ -2,6 +2,7 @@ module HelpHelper
   
 
   def retrieve(file_name,options={})
+    file_name||=''
     content = ''
     error = ''
     default = options[:default]
@@ -16,9 +17,9 @@ module HelpHelper
     elsif File.exists?(file_text)  # the file doesn't exist in the cache, but exits as a text file
       file = File.open(file_text, 'r')
       content = file.read
-      ltr = link_to_remote('\4', :url => { :controller=>:help , :action => "search", :id => '\1' }, :update => :help).gsub('%5C',"\\")
+      ltr = link_to_remote('\4', :url => {:controller=>:help , :action => "search", :article => '\1' }, :update => :help).gsub('%5C',"\\")
       content  =  content.gsub(/<<([\w\-]+)((\|)([^>]+))>>/ , ltr )
-      ltr = link_to_remote('\1', :url => {:controller=>:help ,  :action => "search", :id => '\1' }, :update => :help).gsub('%5C',"\\")
+      ltr = link_to_remote('\1', :url => {:controller=>:help ,  :action => "search", :article => '\1' }, :update => :help).gsub('%5C',"\\")
       content  =  content.gsub(/<<([\w\-]+)>>/ , ltr )
       content = textilize(content)
       file_new = File.new(file_cache, "a+") # create new cache file
@@ -37,7 +38,7 @@ module HelpHelper
 #    content += content_tag(:div, '&nbsp;', :class=>'text-end')
 
 #    return error+content_tag(:div, content, :class=>:data)
-    return content.to_s
+    return content
   end
 
 

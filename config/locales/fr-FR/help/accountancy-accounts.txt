@@ -1,1 +1,11 @@
 h1. Comptes comptables
+
+h2. Qu'est-ce qu'un compte comptable ?
+Il s'agit d'un compte (bancaire ou autres ...) dans lequel sont enregistrés les évènements économiques et 
+financiers de l'entreprise. Un compte comptable est défini par un numéro et un intitulé en conformité avec le plan comptable général.
+
+h2. Gestion d'un compte comptable ?
+Pour utiliser un compte comptable (durant la <<accountancy-entries|Gestion des écritures>> par-exemple), commencer par le <<accountancy-accounts_create|créer>>). Le compte crée apparaîtra dans le tableau des comptes. Par la suite, il vous sera possible de le <<accountancy-accounts_update|modifier>> ou même de le <<accountancy-accounts_delete|supprimer>>, sous condition qu'il n'existe aucune écriture relative à ce compte.
+
+
+

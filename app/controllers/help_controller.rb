@@ -15,7 +15,7 @@ class HelpController < ApplicationController
   def previous
     s = session[:help_history].size
     if s>1
-      @aticle = session[:help_history][s-2]
+      @article = session[:help_history][s-2]
       session[:help_history].delete_at(s-1)
     else
       @article = session[:help_history][0]
