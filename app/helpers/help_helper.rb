@@ -17,7 +17,7 @@ module HelpHelper
       file = File.open(file_text, 'r')
       content = file.read
       ltr = link_to_remote('\4', :url => { :controller=>:help , :action => "search", :id => '\1' }, :update => :help).gsub('%5C',"\\")
-      content  =  content.gsub(/<<([\w\-]+)((\|)(.+))>>/ , ltr )
+      content  =  content.gsub(/<<([\w\-]+)((\|)([^>]+))>>/ , ltr )
       ltr = link_to_remote('\1', :url => {:controller=>:help ,  :action => "search", :id => '\1' }, :update => :help).gsub('%5C',"\\")
       content  =  content.gsub(/<<([\w\-]+)>>/ , ltr )
       content = textilize(content)
