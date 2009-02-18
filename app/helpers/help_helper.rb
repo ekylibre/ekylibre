@@ -37,7 +37,7 @@ module HelpHelper
 #    content += content_tag(:div, '&nbsp;', :class=>'text-end')
 
 #    return error+content_tag(:div, content, :class=>:data)
-    return content
+    return content.to_s
   end
 
 
