@@ -46,5 +46,16 @@ class PurchaseOrder < ActiveRecord::Base
   def up_order
     self.save
   end
+
+  
+#   def deleted_line(id)
+#     for line in self.lines
+#       puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!       "+line.inspect
+#       self.amount += line.amount unless line.id==id
+#       self.amount_with_taxes += line.amount_with_taxes unless line.id==id
+#       #raise Exception.new self.inspect
+#     end 
+  #     self.save
+#   end
   
 end

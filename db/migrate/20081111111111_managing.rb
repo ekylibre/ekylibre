@@ -353,6 +353,7 @@ class Managing < ActiveRecord::Migration
       t.column :order_id,               :integer,  :null=>false, :references=>:purchase_orders
       t.column :product_id,             :integer,  :null=>false, :references=>:products
       t.column :unit_id,                :integer,  :null=>false, :references=>:units
+      t.column :price_id,               :integer,  :null=>false, :references=>:prices
       t.column :quantity,               :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>1.0.to_d
       t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :amount_with_taxes,      :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d

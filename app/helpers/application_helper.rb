@@ -245,7 +245,7 @@ module ApplicationHelper
   def help_tag
     return '' if @current_user.blank?
     options = {:class=>"help-link"} 
-    url = {:controller=>:help, :action=>:search, :id=>controller.controller_name+'-'+action_name}
+    url = {:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name}
     content = content_tag(:div, '&nbsp;')
     options[:style] = "display:none" if session[:help]
     code = content_tag(:div, link_to_remote(content, :update=>:help,  :url=>url, :complete=>"openHelp();", :loading=>"onLoading();", :loaded=>"onLoaded();"), {:id=>"help-open"}.merge(options))

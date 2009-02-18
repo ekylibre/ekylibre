@@ -878,6 +878,8 @@ fr-FR:
         title: Nouvel achat
       purchase_order_lines_create:
         title: Ajouter un produit à la commande
+      purchase_order_lines_update:
+        title: Modifier un produit de la commande
       sales:
         title: Liste des ventes
       sales_new:

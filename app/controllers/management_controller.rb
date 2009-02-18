@@ -296,6 +296,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:product, :url=>{:action=>:products_display}
     t.column :quantity
     t.column :label, :through=>:unit
+    t.column :amount, :through=>:price
     t.column :amount
     t.column :amount_with_taxes
     t.action :purchase_order_lines_update, :image=>:update
@@ -311,37 +312,45 @@ class ManagementController < ApplicationController
   end
 
   def price_find
-    price = Price.find(:first, :conditions=>["product_id=? AND company_id=? AND stopped_on IS NULL ",params[:purchase_order_line_product_id].to_i, @current_company.id])
-    if Price.exists?(:id=>price.id)
+    if price = Price.find(:first, :conditions=>["product_id=? AND company_id=? AND stopped_on IS NULL ",params[:purchase_order_line_product_id].to_i, @current_company.id])
       @price_amount = Price.find_by_id(price.id).amount
+      @tax_id = price.tax_id
+      puts price.tax.inspect+"_______________________________________________"+price.inspect
     else
+      puts "-------------------------------------"
       @price_amount = 0 
+      @tax_id = Tax.find_by_company_id_and_amount(@current_company.id, 0.1960).id
     end
-    @tax_id = price.tax_id
-    taxes = Tax.find(:all,:conditions=>{:company_id=>@current_company.id})||[]
-    @tax = taxes.collect{|x| [x.name, x.id]}
   end
   
+  def calculate_price(exist)
+    if exist
+      @purchase_order_line.quantity += params[:purchase_order_line][:quantity].to_d
+      @purchase_order_line.amount = @price.amount*@purchase_order_line.quantity
+      @purchase_order_line.amount_with_taxes = @price.amount_with_taxes*@purchase_order_line.quantity
+    else
+      @purchase_order_line.amount = @price.amount*params[:purchase_order_line][:quantity].to_d
+      @purchase_order_line.amount_with_taxes = @price.amount_with_taxes*params[:purchase_order_line][:quantity].to_d 
+    end
+  end
+
   def purchase_order_lines_create
     @price = Price.new
+    puts "---------------------------"+@update.inspect
     if request.post?
       @purchase_order_line = @current_company.purchase_order_lines.find(:first, :conditions=>{:product_id=>params[:purchase_order_line][:product_id], :order_id=>session[:current_purchase]})
-
       if !@purchase_order_line
         @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
         @purchase_order_line.company_id = @current_company.id
         @purchase_order_line.order_id = session[:current_purchase]
         params[:price][:product_id] = params[:purchase_order_line][:product_id]
         @price = @purchase_order_line.order.list.update_price(params[:price][:product_id],params[:price][:amount].to_d, params[:price][:tax_id])
-        @purchase_order_line.amount = @price.amount*params[:purchase_order_line][:quantity].to_d
-        @purchase_order_line.amount_with_taxes = @price.amount_with_taxes*params[:purchase_order_line][:quantity].to_d
+        calculate_price(false)
       else
         @price = @purchase_order_line.order.list.update_price(params[:purchase_order_line][:product_id],params[:price][:amount].to_d, params[:price][:tax_id])
-        @purchase_order_line.quantity += params[:purchase_order_line][:quantity].to_d
-        @purchase_order_line.amount = @price.amount*@purchase_order_line.quantity
-        @purchase_order_line.amount_with_taxes = @price.amount_with_taxes*@purchase_order_line.quantity
+        calculate_price(true)
       end
-
+      @purchase_order_line.price_id = @price.id
       redirect_to :action=>:purchases_products, :id=>session[:current_purchase] if @purchase_order_line.save
     else
       @purchase_order_line = PurchaseOrderLine.new
@@ -349,13 +358,18 @@ class ManagementController < ApplicationController
     render_form
   end
   
-  def purchase_order_lines_update ### mettre ?
+  def purchase_order_lines_update
+    @update = true
+    # puts "---------------------------"+@update.inspect
     @purchase_order_line = find_and_check(:purchase_order_line, params[:id])
-    @price = Price.find(:first, :conditions=>["product_id=? AND company_id=? AND stopped_on IS NULL", @purchase_order_line.product_id,@current_company.id])
+    @price = find_and_check(:price, @purchase_order_line.price_id)
     if request.post?
       params[:purchase_order_line][:company_id] = @current_company.id
-      params[:price][:product_id] = params[:purchase_order_line][:product_id]
-      redirect_to :action=>:purchases_products, :id=>@purchase_order_line.order_id  if  @purchase_order_line.update_attributes(params[:purchase_order_line]) and @price.update_attributes(params[:price]) 
+      calculate_price(false)
+      if @purchase_order_line.update_attributes(params[:purchase_order_line])  
+        @update = false
+        redirect_to :action=>:purchases_products, :id=>@purchase_order_line.order_id  
+      end
     end
     render_form
   end
@@ -363,7 +377,7 @@ class ManagementController < ApplicationController
   def purchase_order_lines_delete
     @purchase_order_line = find_and_check(:purchase_order_line, params[:id])
     if request.post? or request.delete?
-      redirect_to :back if @purchase_order_line.delete
+      redirect_to :back  if @purchase_order_line.destroy
     end
   end
   

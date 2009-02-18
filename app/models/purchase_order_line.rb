@@ -33,4 +33,8 @@ class PurchaseOrderLine < ActiveRecord::Base
     self.order.up_order
   end
   
+  def after_destroy
+    #raise Exception.new "yyy"
+    self.order.up_order
+  end
 end

@@ -1,10 +1,11 @@
 =formalize do |f|
   -f.error :purchase_order_line
-  -f.field :purchase_order_line, :product_id,:choices=>@current_company.available_products.collect{|x| [x.name, x.id]},:options=>{:include_blank=>true}, :new=>{:action=>:products_create}
+  -if @update != true
+    -f.field :purchase_order_line, :product_id,:choices=>@current_company.available_products.collect{|x| [x.name, x.id]},:options=>{:include_blank=>true}, :new=>{:action=>:products_create}
   -f.field :purchase_order_line, :quantity
-  -f.field :price, :amount 
-  -f.field :price, :tax_id ,:choices=>Tax.find(:all, :conditions=>{:company_id=>@current_company.id}).collect{|x| [x.name, x.id]}
+  -if @update != true
+    -f.field :price, :amount 
+    -f.field :price, :tax_id ,:choices=>Tax.find(:all, :conditions=>{:company_id=>@current_company.id},:order=>:id).collect{|x| [x.name, x.id]}
 =#javascript_tag("function update_price(value) {new Ajax.Request('/management/find_price', {asynchronous:true, evalScripts:true, parameters:'product_id=' + encodeURIComponent(value), onSuccess: function(resp) {$('purchase_order_line_amount').update(resp.responseText); $('infos_tax').update(resp.responseText); }  }); }; /*update_price($('purchase_order_line_product_id').value); */")
-=observe_field "purchase_order_line_product_id", :url=>{:action => :price_find}, :frequency => 0.25, :with=>"purchase_order_line_product_id"
-=@prices_amount
-%p=@tax
+-if @update != true
+  =observe_field "purchase_order_line_product_id", :url=>{:action => :price_find}, :frequency => 0.25, :with=>"purchase_order_line_product_id"
