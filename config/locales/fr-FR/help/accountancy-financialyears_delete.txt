@@ -1,0 +1,2 @@
+h1. Comment supprimer un exercice comptable
+Après avoir cliqué sur **la croix**, une boîte de dialogue apparaît vous permettant de confirmer la suppression de l'exercice comptable. Celle-ci sera rendu effective uniquement dans le cas où l'exercice à supprimer ne contient aucun journal relatif (ou période d'enregistrement).

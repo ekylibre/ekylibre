@@ -1,9 +1,9 @@
 %table.dyta
   %tr
-    %th=lc(:statement_number)
-    %th=lc(:statement_bank_account_name)
-    %th=lc(:statement_debit)
-    %th=lc(:statement_credit)
+    %th=tc(:statement_number)
+    %th=tc(:statement_bank_account_name)
+    %th=tc(:statement_debit)
+    %th=tc(:statement_credit)
   %tr
     %th=@bank_account_statement.number
     %th=@bank_account_statement.bank_account.name
@@ -12,13 +12,13 @@
 %br
 %table.dyta
   %tr
-    %th=lc(:entry_name)
-    %th=lc(:entry_debit)
-    %th=lc(:entry_credit)
+    %th=tc(:entry_name)
+    %th=tc(:entry_debit)
+    %th=tc(:entry_credit)
   - @bank_account_statement.entries.each do |entry|
     %tr
       %td=entry.name
       %td=entry.debit
       %td=entry.credit
-=link_to(lc(:cancel), session[:history][1])
+=link_to(tc(:cancel), session[:history][1])
   

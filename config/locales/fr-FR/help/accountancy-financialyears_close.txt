@@ -1,0 +1,3 @@
+h1. Comment clôturer un exercice comptable
+Pour clôturer un exercice comptable, passer par le menu **Clôture d'exercice** situé dans la colonne **Travaux comptables** à gauche. Un formulaire apparaît dans lequel vous pouvez sélectionner le code de l'exercice à clôturer ainsi que la date de clôture. Après validation, une encoche **Clôturé** à la ligne correspondante du <<accountancy-financialyears|tableau des exercices>> signalera le bon déroulement de l'opération de fermeture. 
+

@@ -1,0 +1,7 @@
+h1. Pointage des relevés de comptes bancaires
+
+h2. Qu'est ce qu'un relevé de compte bancaire ?
+Un relevé de compte bancaire est un registre des opérations portées à un compte, que la banque envoie habituellement une fois par mois au détenteur du compte. Il se caractérise par une période, un numéro et la référence à un compte bancaire.
+
+h2. Gestion d'un relevé de compte bancaire ?
+Pour utiliser un relevé de compte bancaire (nécéssaire pour toutes les opérations d'enregistrements d'écritures et d'élaboration des documents comptables), commencer par le <<accountancy-statements_create|créer>>. Le relevé de compte bancaire crée apparaîtra dans le tableau des relevés de comptes bancaires. Par la suite, il vous sera possible de le <<accountancy-statements_update|modifier>>, de le <<accountancy-statements_display|visualiser>> ou même de le <<accountancy-statements_delete|supprimer>>.

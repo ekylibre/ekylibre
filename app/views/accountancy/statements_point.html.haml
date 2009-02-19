@@ -1,12 +1,12 @@
 %table.dyta
   %tr
     %th="&nbsp"
-    %th=lc(:statement_number)
-    %th=lc(:started_on)
-    %th=lc(:stopped_on)
-    %th=lc(:entry_name)
-    %th=lc(:entry_debit)
-    %th=lc(:entry_credit)
+    %th=tc(:statement_number)
+    %th=tc(:started_on)
+    %th=tc(:stopped_on)
+    %th=tc(:entry_name)
+    %th=tc(:entry_debit)
+    %th=tc(:entry_credit)
   - @entries.each do |entry|
     - attr = cycle("even", "odd")
     %tr{ :class => (entry.statement_id ? ((entry.statement_id.eql? session[:statement]) ? "pointable" :"pointabled") : "unpointable")+" "+attr, :id=> 'e'+entry.id.to_s }
@@ -18,7 +18,7 @@
       %td.fixnum=entry.debit
       %td.fixnum=entry.credit
   %tr
-    %td=lc(:total, [@bank_account.name])
+    %td=tc(:total, @bank_account.name)
     %td
     %td
     %td
@@ -30,5 +30,5 @@
   %li="Rouge: écriture à pointer"
 
 %br
-=link_to lc(:validate), :action => :statements, :id => @bank_account.id
+=link_to tc(:validate), :action => :statements, :id => @bank_account.id
 #total

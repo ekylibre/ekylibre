@@ -1,0 +1,3 @@
+h1. Comment modifier un exercice comptable
+Après avoir cliqué sur **l'icône du crayon**, remplissez le formulaire de modification de l'exercice en renseignant bien tous les champs. Le champ **Autoriser l'écriture jusqu'au** détermine une date limite au-delà de laquelle les écritures afférentes à l'exercice considéré ne seront pas produits sur les documents comptables propres à cet exercice.
+

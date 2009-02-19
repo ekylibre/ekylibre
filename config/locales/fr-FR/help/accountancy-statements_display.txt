@@ -1,0 +1,2 @@
+h1. Comment afficher un relevé de compte bancaire
+Après avoir cliqué sur l'icône du **point d'interrogation**, un descriptif du relevé de compte bancaire correspondant est affiché avec les principales informations telles que son numéro, le nom du compte bancaire référencé, ses débits et crédits totaux. S'ensuit une liste des écritures correspondantes à la période du relevé de compte bancaire.

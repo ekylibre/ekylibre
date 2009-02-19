@@ -1,0 +1,5 @@
+h1. Comment modifier un relevé de compte
+Après avoir cliqué sur **l'icône du crayon**, remplissez le formulaire de modification du relevé de compte en renseignant bien tous les champs.  En outre, vous avez la possibilité de créer un <<accountancy-bank_accounts_create|nouveau compte bancaire>>, au moyen du lien **Nouveau...** situés en face de la zone de sélection.
+
+
+
