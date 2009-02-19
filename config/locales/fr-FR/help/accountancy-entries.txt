@@ -1,0 +1,6 @@
+h1. Comment saisir des écritures
+
+h2. Choisir son journal et son exercice
+
+h2. La liste des écritures
+Lorsqu'une pièce est équilibrée, l'ensemble des écritures de cette dernière apparaissent en vert sinon, elles apparaissent en rouge.

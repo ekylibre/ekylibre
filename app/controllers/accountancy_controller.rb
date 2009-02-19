@@ -150,7 +150,8 @@ class AccountancyController < ApplicationController
       params[:account].delete :number
       redirect_to_back if @account.update_attributes(params[:account])
     end
-    render_form :label=>@account.label
+    @title = {:value=>@account.label}
+    render_form
   end
 
 
