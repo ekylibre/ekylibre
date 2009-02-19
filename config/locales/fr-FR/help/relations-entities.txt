@@ -1,11 +1,13 @@
 h1. Comment gérer ces fiches de relations ?
 
 h2. La recherche d'une fiche
-La barre de recherche d'une fiche vous permet de rechercher une fiche client ou fournisseur. Cette recherche s'effectue sur tous les champs, c'est à dire sur toutes les informations concernant la fiche. Vous pouvez saisir dans le formulaire de recherche tout ou seulement une partie d'un mot.
+La barre de recherche d'une fiche vous permet de trouver des fiches client ou fournisseur. Cette recherche s'effectue sur tous les champs, c'est à dire sur toutes les informations concernant la fiche. 
+
+Vous pouvez saisir dans le champ de recherche tout ou seulement une partie d'un mot.
 
 h2. L'affichage des fiches
 Une fois votre recherche effectuée, vous avez accès à un tableau vous récapitulant toutes les informations concernant la ou les fiches trouvées.
-Les colonnes du tableau ne sont actuellement pas paramétrables.
 
+La liste des colonnes du tableau n'est actuellement pas paramétrable.
 
 <<relations-index|Revenir à l'aide de gestion des relations >>
