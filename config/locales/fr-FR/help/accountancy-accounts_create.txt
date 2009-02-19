@@ -1,0 +1,2 @@
+h1. Comment créer un compte comptable
+Après avoir validé le lien **Créer un nouveau compte**, valider le formulaire de création de compte en renseignant bien tous les champs.

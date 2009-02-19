@@ -1,0 +1,8 @@
+h1. Journaux comptables
+
+h2. Qu'est ce qu'un journal comptable ?
+Un journal comptable est une liste des opérations d'échanges spécialisées enregistrées par l'entreprise avec son environnement. Un journal doit contenir un nom, un code, une devise (euro ...) et un type (achat, vente ...).
+
+h2. Gestion d'un journal comptable ?
+Pour utiliser un journal comptable (durant la <<accountancy-entries|Gestion des écritures>>, la <<accountancy-bank_accounts|Gestion d'un compte bancaire>>), commencer par le <<accountancy-journals_create|créer>>. Le journal crée apparaîtra dans le tableau des journaux. Par la suite, il vous sera possible de le <<accountancy-journals_update|modifier>>, de le <<accountancy-journals_close|clôturer>> ou même de le <<accountancy-journals_delete|supprimer>>, sous condition qu'il n'existe aucune écriture relative à ce journal.
+

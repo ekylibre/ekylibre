@@ -1,0 +1,2 @@
+h1. Comment créer un compte bancaire
+Après avoir validé le lien **Créer un nouveau compte bancaire**, remplissez le formulaire de création du compte bancaire en renseignant bien tous les champs. En outre, vous avez la possibilité de créer un <<accountancy-accounts_create|nouveau compte comptable>> ou un <<accountancy-journals_create|nouveau journal>>, au moyen des liens **Nouveau...** situés en face de chaque zone de sélection.

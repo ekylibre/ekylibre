@@ -1,0 +1,2 @@
+h1. Comment modifier un journal comptable
+Après avoir cliqué sur **l'icône du crayon**, remplissez le formulaire de modification du journal en renseignant bien tous les champs.

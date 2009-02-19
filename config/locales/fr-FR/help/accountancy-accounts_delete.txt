@@ -1,0 +1,2 @@
+h1. Comment supprimer un compte comptable
+Après avoir cliqué sur **la croix**, une boîte de dialogue apparaît vous permettant de confirmer la suppression du compte comptable.

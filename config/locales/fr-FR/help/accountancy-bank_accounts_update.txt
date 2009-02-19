@@ -1,0 +1,2 @@
+h1. Comment modifier un compte bancaire
+Après avoir cliqué sur **l'icône du crayon**, remplissez le formulaire de modification du compte bancaire en renseignant bien tous les champs.  En outre, vous avez la possibilité de créer un <<accountancy-accounts_create|nouveau compte comptable>> ou un <<accountancy-journals_create|nouveau journal>>, au moyen des liens **Nouveau...** situés en face de chaque zone de sélection.

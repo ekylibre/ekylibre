@@ -1,0 +1,2 @@
+h1. Comment créer un journal comptable
+Après avoir validé le lien **Créer un nouveau journal**, remplissez le formulaire de création du journal en renseignant bien tous les champs.
