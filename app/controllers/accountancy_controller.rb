@@ -555,7 +555,7 @@ class AccountancyController < ApplicationController
       @statement.bank_account_id = params[:statement][:bank_account_id]
       @statement.company_id = @current_company.id
       if BankAccount.find_by_id_and_company_id(params[:statement][:bank_account_id], @current_company.id).account.entries.find(:all, :conditions => "statement_id is NULL").size.zero?
-        flash[:message]=lc(:messages, :no_entries_pointable_for_bank_account)
+        flash[:message]=tc(:messages, :no_entries_pointable_for_bank_account)
       else  
         redirect_to :action => "statements_point", :id => @statement.id if @statement.save
       end
@@ -604,21 +604,19 @@ class AccountancyController < ApplicationController
       @entry=Entry.find(params[:id]) 
 
       if @entry.statement_id.eql? session[:statement].to_i
-       # puts 'attaché'
-@entry.update_attribute("statement_id", nil)
+      
+        @entry.update_attribute("statement_id", nil)
         @bank_account_statement.credit -= @entry.debit
         @bank_account_statement.debit  -= @entry.credit
         @bank_account_statement.save
         
       elsif @entry.statement_id.nil?
-        #  puts 'non attaché'  
         @entry.update_attribute("statement_id", session[:statement])
         @bank_account_statement.credit += @entry.debit
         @bank_account_statement.debit  += @entry.credit
         @bank_account_statement.save
        
       else
-         # puts 'attaché à un autre'
         @entry.statement.debit  -= @entry.credit
         @entry.statement.credit -= @entry.debit
         @entry.statement.save

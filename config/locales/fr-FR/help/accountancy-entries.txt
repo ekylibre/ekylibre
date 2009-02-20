@@ -10,4 +10,4 @@ h2. Changer de journal et/ou d'exercice
 Dans le formulaire, sélectionner l'exercice et le journal en utilisant **les listes déroulantes**. La zone de texte restante permet de préciser à votre appréciation, le nombre de pièces comptables à afficher dans le tableau de écritures. 
 
 h2. La liste des écritures
-Pour chacune des écritures à enregistrer, remplisser **scrupuleusement** le formulaire de saisie situé au-dessus du tableau. Après chaque validation, l'écriture est **rajoutée au listing**. Lorsqu'une pièce est équilibrée, l'ensemble des écritures afférentes apparaissent en **vert** sinon, elles apparaissent en **rouge**.
+Pour chacune des écritures à enregistrer, remplisser **scrupuleusement** le formulaire de saisie situé au-dessus du tableau. Après chaque validation, l'écriture est **rajoutée au listing**. Lorsqu'une pièce est équilibrée, l'ensemble des écritures afférentes apparaissent en **vert** sinon, elles apparaissent en **rouge**. En outre, il est possible pour chaque écriture de la <<accountancy-entries_update|{{buttons/update.png|modifier}}>> ou même de la <<accountancy-entries_delete|{{buttons/delete.png|supprimer}}>>.
