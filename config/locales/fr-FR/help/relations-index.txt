@@ -6,7 +6,7 @@ h2. Comment gérer les fiches clients et fournisseurs ?
 * Vous avez également un système de recherche de fiches.
 
 h2. Les types de fiche :
-Vous pouvez également créer des types de fiche vous permettant d'attribuer un type (Monsieur, Madame, Société Anonyme, ...) à votre client ou fournisseur.
+Vous pouvez également créer des types de fiche vous permettant d'attribuer un type (Monsieur, Madame, Société Anonyme...) à votre client ou fournisseur.
 
 h2. Les champs personnalisés :
 * Les fiches clients/fournisseurs sont paramétrables grâce à un système de champs personnalisés vous donnant la possibilité de pouvoir saisir des informations complémentaires à celles initialement présentées par les formulaires de création/modification d'une fiche.

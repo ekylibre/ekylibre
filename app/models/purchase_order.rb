@@ -4,7 +4,8 @@
 # Table name: purchase_orders
 #
 #  id                :integer       not null, primary key
-#  client_id         :integer       not null
+#  supplier_id       :integer       not null
+#  list_id           :integer       not null
 #  number            :string(64)    not null
 #  shipped           :boolean       not null
 #  invoiced          :boolean       not null

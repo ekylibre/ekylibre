@@ -10,7 +10,9 @@
 #  active       :boolean       default(TRUE), not null
 #  deleted      :boolean       not null
 #  comment      :text          
+#  default      :boolean       default(TRUE), not null
 #  currency_id  :integer       not null
+#  entity_id    :integer       
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null

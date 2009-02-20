@@ -3,21 +3,21 @@
 #
 # Table name: complement_data
 #
-#  id             :integer       not null, primary key
-#  entity_id      :integer       not null
-#  complement_id  :integer       not null
-#  decimal_value  :decimal(, )   
-#  string_value   :text          
-#  boolean_value  :boolean       
-#  date_value     :date          
-#  datetime_value :datetime      
-#  choice_value   :integer       
-#  company_id     :integer       not null
-#  created_at     :datetime      not null
-#  updated_at     :datetime      not null
-#  created_by     :integer       
-#  updated_by     :integer       
-#  lock_version   :integer       default(0), not null
+#  id              :integer       not null, primary key
+#  entity_id       :integer       not null
+#  complement_id   :integer       not null
+#  decimal_value   :decimal(, )   
+#  string_value    :text          
+#  boolean_value   :boolean       
+#  date_value      :date          
+#  datetime_value  :datetime      
+#  choice_value_id :integer       
+#  company_id      :integer       not null
+#  created_at      :datetime      not null
+#  updated_at      :datetime      not null
+#  created_by      :integer       
+#  updated_by      :integer       
+#  lock_version    :integer       default(0), not null
 #
 
 class ComplementDatum < ActiveRecord::Base

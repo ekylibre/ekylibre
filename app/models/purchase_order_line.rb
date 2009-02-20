@@ -7,6 +7,7 @@
 #  order_id          :integer       not null
 #  product_id        :integer       not null
 #  unit_id           :integer       not null
+#  price_id          :integer       not null
 #  quantity          :decimal(16, 2 default(1.0), not null
 #  amount            :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes :decimal(16, 2 default(0.0), not null

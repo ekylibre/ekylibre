@@ -10,6 +10,7 @@
 #  stopped_on        :date          
 #  deleted           :boolean       not null
 #  use_range         :boolean       not null
+#  default           :boolean       default(TRUE), not null
 #  quantity_min      :decimal(16, 2 default(0.0), not null
 #  quantity_max      :decimal(16, 2 default(0.0), not null
 #  product_id        :integer       not null
