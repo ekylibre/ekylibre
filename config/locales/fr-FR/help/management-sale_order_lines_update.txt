@@ -1,0 +1,5 @@
+h1. Comment modifier une ligne du devis?
+
+Vous pouvez modifier les différentes informations qui vous sont proposées tout en prenant soin de rester cohérent. En effet, si vous modifier le produit et pas la liste de prix(champ tarif), il faut qu'il existe un prix défini pour ce produit et cette liste de prix. Si ce n'est pas le cas vous pouvez toujours créer ce prix dans la rubrique *Tarifs*.
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

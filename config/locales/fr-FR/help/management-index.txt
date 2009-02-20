@@ -1,1 +1,16 @@
 h1. Gestion commerciale
+
+h2. Pour commencer :
+Il est bon d'avoir au préalable enregistré ses clients et fournisseurs grâce au module *Relations*. De plus le *paramétrage* est la première étape de votre gestion commerciale.
+
+h2. Comment gérer ses achats et ses ventes ?
+* La gestion commerciale fait le lien avec les relations clients/fournisseurs en vous permettant de choisir, lors d'achats ou de ventes, les clients ou les fournisseurs que vous avez préalablement enregistrés par le biais des fiches.
+* Vous pouvez consulter l'ensemble des achats et ventes effectués à vos différents clients et fournisseurs.
+* Les achats et les ventes permettent la création de documents tels que des devis, commandes, factures, qu'il est possible de sauvegarder et d'imprimer.
+
+h2. Comment gérer ses stocks ?
+* La première étape consiste à enregistrer ses *lieux de stockage*. L'affichage d'un lieu de stockage permet d'enregistrer des *mouvements de stocks*.
+* Les mouvements de stocks permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks permettant de connaître de façon constante, en cours d'exercice, les *existants chiffrés* en quantités et en valeur.
+
+h2. Comment paramétrer sa gestion commerciale?
+Il faut enregistrer ses *produits*, aussi bien ceux destinés a la vente que ceux destinés à l'achat. Ensuite, définir les *tarifs* de ces produits. L'enregistrement de *liste de prix* et de tarifs est *automatisée* lors de la création d'un achat.Vous avez également la possibilité de paramétrer des informations telles que les types de *délais* et les *types de vente* ou les *catégories de produits*. Autant de paramètres qui vous permettent d'affiner et de *personnaliser* votre gestion commerciale.

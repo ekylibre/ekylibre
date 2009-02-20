@@ -1,0 +1,5 @@
+h1. Comment consulter l'état des stocks?
+
+Actuellement, cette partie de l'application n'est pas fonctionnelle.
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

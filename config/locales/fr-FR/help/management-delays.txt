@@ -12,6 +12,15 @@ Il est possible de faire suivre autant d'expressions que voulu. Exemples :
 * 10 jours, fin de mois
 * 10 jours, fin de mois, 45 jours
 
+Vous pouvez : 
+* *créer*
+* *afficher* : <<management-delays_update|{{buttons/show.png|modifier}}>>
+* *modifier* : <<management-delays_update|{{buttons/update.png|modifier}}>>
+* *supprimer* : {{buttons/delete.png|supprimer}}
+
+un délai.
+
+
 
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>
 

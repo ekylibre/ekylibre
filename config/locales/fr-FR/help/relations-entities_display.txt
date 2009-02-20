@@ -3,5 +3,13 @@ Vous avez ici accès à toutes les informations relatives à votre client ou vot
 * les informations saisies lors de sa création, auxquelles s'ajoutent éventuellement les différents champs personnalisés
 * ses coordonnées, ses adresses. Un client ou fournisseur peut en posséder plusieurs.
 
+Vous avez également la possibilité de :
+* créer un nouveau contact
+* le modifier : <<relations-entities_contacts_update|{{buttons/update.png|modifier}}>> 
+* le supprimer : {{buttons/delete.png|supprimer}}
+
+Vous ne pouvez pas supprimer une option de liste déroulante.
+
+
 
 <<relations-index|Revenir à l'aide de gestion des relations >>

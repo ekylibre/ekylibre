@@ -4,8 +4,8 @@ h2. Le produit
 Il faut sélectionner le produit à commander dans la liste déroulante correspondante. Si le produit n'a pas encore été créé, vous pouvez cliquer sur le lien "nouveau" qui vous redirigera vers le formulaire de création d'un nouveau produit.
 
 h2. Le montant et la TVA
-* Si le produit n'a pas de prix déjà enregistré, l'ajout du produit à la commande entrainera la création d'un nouveau prix dans la liste de prix correspondante.
-* Pour un produit dont le prix a déjà été enregistré, le montant HT et la TVA se mette à jour automatiquement.
+* Si le produit n'a pas de prix déjà enregistré, l'ajout du produit à la commande entrainera la création automatique d'un nouveau prix dans la liste de prix correspondante.Vous pouvez consulter vos listes de prix et leurs différents prix dans la rubrique *Tarifs*.
+* Pour un produit dont le prix a déjà été enregistré, le montant HT et la TVA se mettent à jour automatiquement.
 
 
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>
