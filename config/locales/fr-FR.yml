@@ -977,6 +977,7 @@ fr-FR:
       complement_choices:
         title: ' Options pour la liste déroulante : {{value}}'
         complement_choices_create: 'Créer une nouvelle option'
+        complements_update: 'Modifier le champ personnalisé'
       complement_choices_create: 
         title: ' Création d''une option pour la liste déroulante : {{value}}'
       complement_choices_update:
@@ -991,6 +992,7 @@ fr-FR:
         string_case: 'Options pour le texte'
       complements_update:
         title: 'Modification du champ personnalisé : {{value}}'
+  
 
       entities_create: 
         title: 'Création d''une nouvelle fiche client/fournisseur'

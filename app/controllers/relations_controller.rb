@@ -12,7 +12,7 @@ class RelationsController < ApplicationController
     t.column :active
     t.column :choices_count
     t.action :complements_update, :image=>:update
-    t.action :complement_choices, :image=>:list, :if=>'RECORD.nature == "choice" '
+    t.action :complement_choices, :image=>:menulist, :if=>'RECORD.nature == "choice"'
     t.procedure :complements_create
   end
 
@@ -70,7 +70,8 @@ class RelationsController < ApplicationController
       @complement = Complement.new(params[:complement])
       @complement.company_id = @current_company.id
       if @complement.save 
-        redirect_to_back 
+        redirect_to :action=>:complement_choices , :id=>@complement.id
+#        redirect_to_back 
       end
     else
       @complement = Complement.new
@@ -81,10 +82,13 @@ class RelationsController < ApplicationController
   def complements_update
     access :complements
     @complement = find_and_check(:complement, params[:id])
-    if @complement.nature == 'choice'
-      redirect_to :action=>:complement_choices , :id=>@complement.id
-    elsif request.post? and @complement
+    if request.post?
       redirect_to_back if @complement.update_attributes(params[:complement])
+#      if @complement.nature == 'choice'
+#        redirect_to :action=>:complement_choices , :id=>@complement.id
+#      elsif  @complement
+#        redirect_to_back if @complement.update_attributes(params[:complement])
+#      end
     end
     @title = {:value=>@complement.name}
     render_form

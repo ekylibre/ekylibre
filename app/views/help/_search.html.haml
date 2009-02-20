@@ -1,7 +1,7 @@
 %div{:orient=>:vertical, :flex=>1}
   .nav
-    #help-close.help-link=link_to_remote(content_tag(:div, "&nbsp;"), :url=>{:controller=>:help, :action=>:close}, :loading=>"closeHelp(); onLoading();", :loaded=>"onLoaded();")
-    #help-previous.help-link=link_to_remote(content_tag(:div, "&nbsp;"), :url=>{:controller=>:help, :action=>:previous }, :update=>:help, :complete=>"resize2();", :loading=>"onLoading();", :loaded=>"onLoaded();" ) if session[:help_history].size>1
+    #help-close.help-link=link_to_remote(tg(:close), :url=>{:controller=>:help, :action=>:close}, :loading=>"closeHelp(); onLoading();", :loaded=>"onLoaded();")
+    #help-previous.help-link=link_to_remote(tg(:previous), :url=>{:controller=>:help, :action=>:previous }, :update=>:help, :complete=>"resize2();", :loading=>"onLoading();", :loaded=>"onLoaded();" ) if session[:help_history].size>1
     %h1.title=tc :title
   .content{:flex=>1, :style=>'overflow:auto;'}
     - doc=retrieve(@article)

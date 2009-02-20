@@ -47,6 +47,7 @@ div[xul="box"] { background: #ADA; }
 #help .content ul { padding: 4px 20px; }
 #help .content ul li { list-style-type: square; }
 #help .content a img { border: 1px solid #00C; padding: 1px;}
+#help .content p { margin: 8px 0px;}
 #help .content .text-end { height: 1px; }
 #help .content .help-error { color: red; text-align: center; padding: 8px; background:#F5EAD7; }
 
@@ -79,10 +80,11 @@ div[xul="box"] { background: #ADA; }
 #help-begin { background: url(/images/template/help-begin.png); height:32px; width:16px;}
 #help-web { background: url(/images/template/help-web.png); }
 /*#help-open { background: url(/images/template/help-open.png); }*/
-#help-open { padding: 6px 4px;}
-#help-open a { padding: 3px 8px; font-size: 15px; color: red; background:white; border:1px solid #95b0e4; }
-#help-close { background: url(/images/template/help-close.png); }
-#help-previous { background: url(/images/template/help-previous.png); }
+.help-link { padding: 7px 8px;}
+.help-link a { padding: 4px; font-size: 13px; color: #750; background: #e9e9a8; }
+#help-open a { background: url(/images/buttons/help.png) no-repeat scroll left center; padding-left:20px; }
+#help-close a { background: url(/images/buttons/close.png) no-repeat scroll left center; padding-left:20px; }
+#help-previous a { background: url(/images/buttons/previous.png) no-repeat scroll left center; padding-left:20px; }
 /*.help-t { float:right; margin:20px;}*/
 
 #guide { float:left; height:24px; margin-top:4px; }
