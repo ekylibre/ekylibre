@@ -1,0 +1,8 @@
+h1. Les types de vente :
+
+* Les types de vente permettent de *définir des caractéristiques à une vente*, telles que: le délai d'expiration, le délai de paiement, les accomptes...
+
+* Vous pouvez créer, modifier ou supprimer des types de vente.
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+ 

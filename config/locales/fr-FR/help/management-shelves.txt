@@ -1,0 +1,8 @@
+h1. Comment gérer les catégories de produit ?
+
+* Vous pouvez créer, modifier ou supprimer *des catégories* qui seront *rattachées à tous vos différents produits*.
+
+* Les catégories peuvent être hierarchisées, c'est à dire que vous pouvez créer des sous-catégories et des sur-catégories.
+
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

@@ -1,0 +1,5 @@
+h1. L'affichage d'un délai : 
+
+L'affichage d'un délai récapitule les différentes informantions liées à ce délai.
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

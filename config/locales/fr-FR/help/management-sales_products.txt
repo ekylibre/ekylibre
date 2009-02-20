@@ -1,0 +1,10 @@
+h1. La sélection des produits :
+
+Vous avez ici accès à un récapitulatif de votre devis vous en détaillant chaque ligne et vous permettant de : 
+
+* Modifier ou supprimer une ligne du devis.
+* Ajouter un produit au devis.
+* Passer le devis en commande, ce qui vous redirigera vers la livraison.
+* Imprimer le devis. 
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

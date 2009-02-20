@@ -1,3 +1,0 @@
-h1. Gestion des relations clients fournisseurs
-
-Ce module vous permet de créer des fiches pour chacun de vos clients et fournisseurs. Ces fiches sont paramétrables grâce à un système de champs personnalisés vous donnant la possibilité de pouvoir saisir tous types d'informations complémentaires.

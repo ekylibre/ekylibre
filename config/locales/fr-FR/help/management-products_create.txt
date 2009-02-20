@@ -1,0 +1,11 @@
+h1. Comment ajouter un nouveau produit?
+
+* Pour créer un nouveau produit, il vous suffit de renseigner les différents paramètres qui vous sont demandés. Certains sont obligatoires (encadrés bleux) et d'autres sont facultatifs (encadrés gris). La création ne peut s'effectuer uniquement si tous les champs obligatoires ont été correctement renseignés.
+
+* Le nom du produit doit être différent pour chaque produit.
+
+
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+
+

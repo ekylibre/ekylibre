@@ -1,0 +1,9 @@
+h1. La sélection des produits :
+
+Vous avez ici accès à un récapitulatif de votre commande vous en détaillant chaque ligne et vous permettant de : 
+
+* Modifier ou supprimer une ligne de la commande.
+* Ajouter un produit à la commande.
+* Imprimer la commande ( à venir ) 
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

@@ -1,7 +1,8 @@
+h1. La liste des délais :
+
+h2. Comment exprimer un délai ?
+
 Les délais permettent de calculer automatiquement des dates d'échéances.
-
-h2. Comment exprimer un délai
-
 Un délai peut s'écrire sous la forme de petites expressions séparées par des virgules. Exemple : 
 * 1 jour, fin de mois, 10 jours
 
@@ -11,5 +12,7 @@ Il est possible de faire suivre autant d'expressions que voulu. Exemples :
 * 10 jours, fin de mois
 * 10 jours, fin de mois, 45 jours
 
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>
 
   

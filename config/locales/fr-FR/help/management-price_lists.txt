@@ -1,0 +1,16 @@
+h1. Comment gérer les listes de prix ?
+
+h2. Utilité des listes de prix :
+
+* Les listes de prix vous permettent de *regrouper vos tarifs en catégories*, c'est à dire, pour un produit, de créer un prix différent pour chaque liste. La colonne commentaire vous permet entre autres de décrire à qui est destiné cette liste.
+
+* Le tableau récapitulant vos différentes listes de prix vous informe sur le nombre de prix que contient cette liste, sur la monnaie de référence, ...
+
+* Vous avez également la possibilité de créer, modifier, supprimer ou afficher vos différentes listes de prix.
+
+h2. Création automatique :
+
+* Certaines listes de prix sont *créées automatiquement*, lors d'un nouvel achat ou d'une nouvelle vente. Par exemple, lors d'un nouvel achat, une liste de prix au nom du nom du fournisseur sera créée, à moins que celle-ci n'existe déjà.
+
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

@@ -1,0 +1,4 @@
+h1. Comment modifier un champ personnalisé ?
+Il vous suffit de modifier les champs que vous désirez, à l'exception du champ type de donnée qu'il n'est pas possible de modifier pour des raisons d'intégrité de l'information.
+
+<<relations-index|Revenir à l'aide de gestion des relations >>

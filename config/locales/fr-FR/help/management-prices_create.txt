@@ -1,0 +1,10 @@
+h1. Comment ajouter un nouveau prix ?
+
+*Pour un produit et une liste de prix*, on ne peut avoir qu'*un seul et unique prix*, à moins de définir des *intervalles* :
+
+
+* *L'intervalle de quantité* permet de définir différents prix pour un même produit et une même liste de prix. Il suffit de définir une quantité minimale à partir de laquelle le prix est appliquable et une quantité maximale au delà de laquelle le prix n'est plus valable. Par exemple, de 0 à 100 unités, un produit x vaudra 10 euros et de 101 à 200 unités, ce produit vaudra 9 euros.
+
+* Le montant TTC du produit est calculé grâce au montant HT et à la TVA.
+ 
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>
