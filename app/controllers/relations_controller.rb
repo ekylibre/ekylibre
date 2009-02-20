@@ -70,8 +70,12 @@ class RelationsController < ApplicationController
       @complement = Complement.new(params[:complement])
       @complement.company_id = @current_company.id
       if @complement.save 
-        redirect_to :action=>:complement_choices , :id=>@complement.id
-#        redirect_to_back 
+        if @complement.nature=='choice'
+          redirect_to :action=>:complement_choices , :id=>@complement.id
+        else
+          redirect_to_back
+        end
+        #        redirect_to_back 
       end
     else
       @complement = Complement.new
