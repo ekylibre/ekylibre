@@ -261,6 +261,8 @@ fr-FR:
       entry:
         name: Libellé
         account_id: Compte
+        currency_debit: Débit
+        currency_credit: Crédit
       establishment:
         name: Nom
         nic: NIC (Numéro Interne de Classement)
@@ -555,6 +557,7 @@ fr-FR:
         financial_year_select: Sélectionnez l''exercice comptable
         financial_id: Exercice comptable
       _entries:
+        title: 'Saisie des écritures'
         record_number: 'N°Pièce'
         record_created: 'Créée le'
         record_printed: 'Datée du'
