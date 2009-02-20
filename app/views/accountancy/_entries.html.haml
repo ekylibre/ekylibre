@@ -14,14 +14,14 @@
       %td=text_field :record, :created_on, {:size=>10}
       %td=text_field :record, :printed_on, {:size=>10} 
       %td=text_field :entry, :name, {:size=>16}
-      %td=text_field :account, :number, {:size=>10} 
-      %td=text_field :entry, :currency_debit, {:size=>8}
-      %td=text_field :entry, :currency_credit, {:size=>8}
+      %td=text_field :account, :number, {:size=>8} 
+      %td=text_field :entry, :currency_debit, {:size=>7}
+      %td=text_field :entry, :currency_credit, {:size=>7}
       %td{:colspan=>2}
-        =submit_tag tc(:entry_validate), {:tabindex => 7}
+        =submit_tag tc(:entry_validate)
         =#submit_tag # 'entry_validate', lc(:entry_validate), :url => {:action => :entries}, :html => {:tabindex => 7, :style=>'display:none;'}
     %tr
-      %td#account{:colspan=>7}
+      %td#account{:colspan=>8}
     -if @records.size>0
       %tr
         %th=tc :record_number
@@ -46,3 +46,5 @@
             %td{:align=>"right"}=number_to_currency(entry.currency_credit, :delimiter=>"", :precision => 2, :unit=>"")
             %td.act=link_to tc(:update), :action => "entries_update", :id => entry.id
             %td.act=link_to_remote tc (:delete), :url => {:action => "entries", :id => entry.id}, :method=>:delete, :confirm=> tc(:confirm) 
+=observe_field "account_number", :frequency => 0.25, :function =>"$('test').innerHTML = $('account_number').value; if ( $('account_number').value.indexOf('*', 0) > -1 ) { alert('ok'); "+remote_function(:update => 'account', :url => { :action => 'accounts_find'}, :with => "'account=' + escape(value)")+";}"
+#test

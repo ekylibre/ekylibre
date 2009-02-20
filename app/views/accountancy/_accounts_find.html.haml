@@ -13,6 +13,7 @@
             = link_to_function(account.number) do |p| 
               - p['account_number'].value =  account.number 
               - p['entry_currency_debit'].focus()
+              - p['entry_currency_debit'].select
               - p.replace_html 'account', ''
           %td=account.name
   - else

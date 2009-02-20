@@ -556,8 +556,8 @@ fr-FR:
         financial_id: Exercice comptable
       _entries:
         record_number: 'N°Pièce'
-        record_created: 'Enregistrée le'
-        record_printed: 'Datée au'
+        record_created: 'Créée le'
+        record_printed: 'Datée du'
         label: 'Libellé'
         account_number: 'N°Compte'
         record_debit: 'Débit'

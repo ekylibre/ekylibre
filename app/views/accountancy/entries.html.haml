@@ -18,5 +18,4 @@
 - if @valid
   #errors=render :partial=>'errors'
   #lines=render :partial=>'entries'
-  =observe_field "account_number", :frequency => 0.25, :function =>"if ( ($('account_number').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'account', :url => { :action => 'accounts_find'}, :with => "'account=' + escape(value)")+"}"
-  =javascript_tag("$('params').hide(); $('record_number').focus();")
+  =javascript_tag("$('params').hide(); $('record_number').focus(); $('record_number').select(); ")
