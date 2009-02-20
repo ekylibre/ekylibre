@@ -46,6 +46,7 @@ div[xul="box"] { background: #ADA; }
 #help .content pre { font-family: monospace; color: #777; background: #FFF; padding: 8px; margin: 8px 0; }
 #help .content ul { padding: 4px 20px; }
 #help .content ul li { list-style-type: square; }
+#help .content a img { border: 1px solid #00C; padding: 1px;}
 #help .content .text-end { height: 1px; }
 #help .content .help-error { color: red; text-align: center; padding: 8px; background:#F5EAD7; }
 

@@ -1,5 +1,5 @@
 h1. Bienvenue dans l'aide d'Ekylibre
 
-Pour l'instant l'aide n'a pas été renseignée.
+Pour l'instant l'aide n'a pas été renseignée. Vous pouvez cliquer sur <<accountancy-index|{{buttons/update.png|Label}}>>. {{buttons/update.png|Label}}.
 
 

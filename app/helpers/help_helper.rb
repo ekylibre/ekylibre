@@ -17,8 +17,13 @@ module HelpHelper
     elsif File.exists?(file_text)  # the file doesn't exist in the cache, but exits as a text file
       file = File.open(file_text, 'r')
       content = file.read
+      # {{buttons/update.png|Label}}
+      content  =  content.gsub(/\{\{([^\}]+)((\|)([^}]+))\}\}/ , '!/images/\1(\4)!' )
+      content  =  content.gsub(/\{\{([^\}]+)\}\}/ , '!/images/\1!' )
+      # <<controller-action|Label>>
       ltr = link_to_remote('\4', :url => {:controller=>:help , :action => "search", :article => '\1' }, :update => :help).gsub('%5C',"\\")
       content  =  content.gsub(/<<([\w\-]+)((\|)([^>]+))>>/ , ltr )
+      # <<controller-action>>
       ltr = link_to_remote('\1', :url => {:controller=>:help ,  :action => "search", :article => '\1' }, :update => :help).gsub('%5C',"\\")
       content  =  content.gsub(/<<([\w\-]+)>>/ , ltr )
       content = textilize(content)
