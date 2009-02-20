@@ -1,5 +1,17 @@
 h1. Bienvenue dans l'aide d'Ekylibre
 
-Pour l'instant l'aide n'a pas été renseignée. Vous pouvez cliquer sur <<accountancy-index|{{buttons/update.png|Label}}>>. {{buttons/update.png|Label}}.
+*Ekylibre* est un _logiciel de gestion intégré_. Il comprend différents modules qui permettent de traiter plusieurs aspects de la gestion d'une entreprise.
 
+h2. Présentation de la page
+Vous trouverez en haut le menu principal :
+* à gauche, se trouve le menu relatif aux différents modules du logiciel
+* à droite, se trouve le menu relatif à votre société et vous-même en tant qu'utilisateur.
 
+Juste en dessous, se trouve le titre de page qui vous permet de savoir en permanence ce que vous êtes en train de faire.
+Lorsque que vous irez un peu plus loin, vous pourrez voir apparaître sur la gauche le menu recapitulant des différentes actions relatives au module utilisé.
+
+h2. Les différents modules
+Depuis l'accueil vous pouvez accéder aux différents modules disponibles dans l'application
+* Gestion des relations Clients/Fournisseurs
+* Comptabilité générale
+* Gestion commerciale

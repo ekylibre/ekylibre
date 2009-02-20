@@ -1,4 +1,4 @@
-h1. Les options pour liste déroulante : 
+h1. Les options pour liste déroulante
 
 Les options de la liste déroulante correspondent aux différents choix que celle-ci proposera. Par exemple dans le cas d'une liste déroulante modélisant la distance entre votre société et votre client ou fournisseur, et intitulée "distance", les différentes options pourraient être :
 * 0 à 50 kms
