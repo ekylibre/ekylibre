@@ -629,7 +629,7 @@ fr-FR:
       statements_update:
         title: Modifier un relevé
       statements_point:
-        title: 'Pointage d''écritures'
+        title: 'Pointage du relevé bancaire {{value}}'
         validate: Valider 
         statement_number: N°Relevé de compte bancaire
         started_on: Du

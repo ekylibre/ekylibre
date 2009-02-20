@@ -624,6 +624,7 @@ class AccountancyController < ApplicationController
       render :action => "statements.rjs" 
     
     end
+    @title = {:value => @bank_account_statement.number}
   end
   
   # displays in details the statement choosen with its mainly characteristics.
