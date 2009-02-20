@@ -11,7 +11,7 @@ Vous pouvez également :
 * créer un nouveau champ personnalisé
 * le modifier : <<relations-complements_update|{{buttons/update.png|modifier}}>> 
 * le supprimer : {{buttons/delete.png|supprimer}}
-* ajouter une option à votre liste déroulante : <<relations-complement_choices|{{buttons/unknown.png|options}}>>
+* ajouter une option à votre liste déroulante : <<relations-complement_choices|{{buttons/menulist.png|options}}>>
 
 h2. Evolution 
 Le système de champs personnalisés est amené à être généralisé à toute l'application. En effet, pour l'instant, il est uniquement possible de créer des champs personnalisés applicables aux fiches clients / fournisseurs.

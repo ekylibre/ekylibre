@@ -53,4 +53,13 @@ class Entity < ActiveRecord::Base
   end
 
 
+  def validate
+    if self.nature
+      #raise Exception.new self.nature.in_name.inspect
+      if self.nature.in_name
+        errors.add(:name, tc(:error_missing_title,:title=>self.nature.abbreviation)) unless self.name.match(/( |^)#{self.nature.abbreviation}( |$)/i)
+      end
+    end
+  end
+  
 end 

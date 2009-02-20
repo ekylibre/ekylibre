@@ -342,7 +342,7 @@ class Managing < ActiveRecord::Migration
       t.column :invoiced,               :boolean,  :null=>false, :default=>false
       t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :amount_with_taxes,      :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
-      t.column :dest_contact_id,        :integer,  :null=>false, :references=>:contacts
+      t.column :dest_contact_id,        :integer,  :references=>:contacts
       t.column :comment,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end

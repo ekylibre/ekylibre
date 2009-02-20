@@ -162,10 +162,10 @@ class AccountancyController < ApplicationController
       #if @account.usable
       #  @account.update_attribute(:deleted, true)
       #else
-      Account.destroy @account unless @account.entries.size > 0 or @account.balances.size > 0
+      Account.destroy(@account.id) unless @account.entries.size > 0 or @account.balances.size > 0
       #end
     end
-    redirect_to_back
+    redirect_to_current
   end
   
 
@@ -555,7 +555,7 @@ class AccountancyController < ApplicationController
       @statement.bank_account_id = params[:statement][:bank_account_id]
       @statement.company_id = @current_company.id
       if BankAccount.find_by_id_and_company_id(params[:statement][:bank_account_id], @current_company.id).account.entries.find(:all, :conditions => "statement_id is NULL").size.zero?
-        flash[:message]=tc(:messages, :no_entries_pointable_for_bank_account)
+        flash[:message]=tc('messages.no_entries_pointable_for_bank_account')
       else  
         redirect_to :action => "statements_point", :id => @statement.id if @statement.save
       end

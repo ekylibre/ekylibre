@@ -890,7 +890,7 @@ fr-FR:
       purchase_order_lines_create:
         title: Ajouter un produit à la commande
       purchase_order_lines_update:
-        title: Modifier un produit de la commande
+        title: Modifier une ligne de la commande
       sales:
         title: Liste des ventes
       sales_new:
@@ -1061,7 +1061,8 @@ fr-FR:
     bank_account_statement:
       error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
       error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'  				   
-      error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'			           
+      error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
+      error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'			           
     company:
       default:
         delays:
@@ -1117,6 +1118,8 @@ fr-FR:
       error_greater_than: "{{field}} est trop grand ({{maximum}} maximum)"
     delay:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
+    entity:
+      error_missing_title: 'doit contenir la dénomination sociale "{{title}}"'
     entry:
       error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
       error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'

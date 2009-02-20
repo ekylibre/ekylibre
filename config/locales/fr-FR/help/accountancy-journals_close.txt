@@ -1,7 +1,5 @@
-h1. Comment clôturer un journal comptable
-Pour clôturer un journal comptable, vous avez 2 possibilités:
-depuis **l'icône point d'interrogation** situé dans le tableau des journaux comptables ou bien
-en passant par le menu **Clôture de journal** situé dans la colonne **Travaux comptables** à gauche.
-Dans tous les cas, un formulaire apparaît dans lequel vous pouvez sélectionner le nom du journal à clôturer ainsi que la date de clôture. Après validation, la mise à jour de la colonne **Date de clôture** à la ligne correspondante du <<accountancy-journals|tableau des journaux comptables>> signalera le bon déroulement de l'opération de fermeture. 
+h1. Comment clôturer un journal comptable ?
+
+Il vous suffit de sélectionner le journal à clôturer ainsi que la date de clôture.
 
   

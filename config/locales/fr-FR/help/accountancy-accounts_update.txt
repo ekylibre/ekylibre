@@ -1,2 +1,3 @@
 h1. Comment modifier un compte comptable
-Après avoir cliqué sur **l'iĉone du crayon**, valider le formulaire de modification du compte en renseignant bien tous les champs.
+
+Vous ne pouvez modifier que l'intitulé du compte.

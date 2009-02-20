@@ -3,6 +3,6 @@ h1. Comptes bancaires
 h2. Qu'est ce qu'un compte bancaire ?
 Il s'agit d'un compte ouvert par une banque au nom d'un particulier ou d'un commerce pour permettre à ce dernier de faire diverses opérations financières telles que déposer, retirer ou emprunter de l'argent, faire des chèques, etc. Un compte bancaire se caractérise par un intitulé, un IBAN pour les virements transfrontaliers, un compte comptable référencé ainsi que le journal contenant les enregistrements à considérer.   
 
-h2. Gestion d'un compte bancaire ?
-Pour utiliser un compte bancaire (création d'un <<accountancy-statements|relevé de comptes>>), commencer par le <<accountancy-bank_accounts_create|créer>>. Le compte bancaire crée apparaîtra dans le tableau des comptes bancaires. Par la suite, il vous sera possible de le <<accountancy-bank_accounts_update|modifier>> ou même de le <<accountancy-bank_accounts_delete|supprimer>>, sous réserve qu'il n'existe aucun relevé de compte relatif à ce compte bancaire.
+h2. Gestion d'un compte bancaire
+Pour utiliser un compte bancaire (création d'un <<accountancy-statements|relevé de comptes>>), commencer par le <<accountancy-bank_accounts_create|créer>>. Le compte bancaire créé apparaîtra dans le tableau des comptes bancaires. Par la suite, il vous sera possible de le <<accountancy-bank_accounts_update|modifier>> ou même de le <<accountancy-bank_accounts_delete|supprimer>>, sous réserve qu'il n'existe aucun relevé de compte relatif à ce compte bancaire.
 

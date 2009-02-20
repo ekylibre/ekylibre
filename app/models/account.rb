@@ -49,15 +49,16 @@ class Account < ActiveRecord::Base
   end
 
   # This method allows to delete an account only if it has any sub-accounts.
-  def before_destroy
-    raise Exception.new(lc(:error_account_children)) if accounts.children.size>0
+  def after_destroy
+    #raise Exception.new self.childrenz.inspect
+    raise Exception.new(tc('error_account_children')) if self.children.size>0
   end
 
   def parent
     Account.find_by_id(self.parent_id)
   end
   
-  def children
+  def childrenz
     Account.find_all_by_parent_id(self.id)||{}
   end
 
