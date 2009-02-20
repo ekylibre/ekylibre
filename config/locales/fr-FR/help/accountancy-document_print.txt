@@ -1,0 +1,2 @@
+h1. Impression du document 
+Dans le formulaire, choisissez les dates de début et de fin de période pour n'importe quel document à imprimer. En outre, en ce qui concerne les journaux auxiliaires, il vous est demandé de préciser le type de journal à imprimer (**zone de sélection**). Cela fait, lancer l'impression en cliquant sur le bouton approprié. Le lien **précèdent** permet de revenir en arrière si le choix de votre document ne vous satisfait pas.  

@@ -639,6 +639,7 @@ fr-FR:
         entry_credit: Crédit
         entry_currency_rate: Devise  
         total: 'Total pour le compte bancaire {{value}}:'
+       
       statements_display:
         statement_number: Numéro du relevé de compte
         statement_bank_account_name: Nom du compte bancaire
@@ -647,7 +648,7 @@ fr-FR:
         entry_name: Libellé
         entry_debit: Dédit
         entry_credit: Crédit
-        
+        cancel: 'Annuler'
     application:
 
 

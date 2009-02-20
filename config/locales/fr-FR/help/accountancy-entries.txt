@@ -1,6 +1,13 @@
-h1. Comment saisir des écritures
+h1. Saisir des écritures
+
+h2. Qu'est ce qu'une écriture comptable ?
+Une écriture comptable est une opération consistant à enregistrer un flux commercial, économique ou financier à l'intérieur de comptes. Une écriture est relative à une pièce justificative. Son montant est enregistré soit au débit ou au crédit d'un compte, cela à une date qui peut être postèrieure à la date d'émission ou de réception de la pièce.
 
 h2. Choisir son journal et son exercice
+Avant de vous lancer dans la saisie des écritures, il est nécessaire de choisir l'exercice et le journal pour lesquelles ces écritures vont être enregistrées grâce à un formulaire. Pour afficher le formulaire, cliquer sur le lien **Changer de journal et/ou d'exercice...**
+
+h2. Changer de journal et/ou d'exercice
+Dans le formulaire, sélectionner l'exercice et le journal en utilisant **les listes déroulantes**. La zone de texte restante permet de préciser à votre appréciation, le nombre de pièces comptables à afficher dans le tableau de écritures. 
 
 h2. La liste des écritures
-Lorsqu'une pièce est équilibrée, l'ensemble des écritures de cette dernière apparaissent en vert sinon, elles apparaissent en rouge.
+Pour chacune des écritures à enregistrer, remplisser **scrupuleusement** le formulaire de saisie situé au-dessus du tableau. Après chaque validation, l'écriture est **rajoutée au listing**. Lorsqu'une pièce est équilibrée, l'ensemble des écritures afférentes apparaissent en **vert** sinon, elles apparaissent en **rouge**.

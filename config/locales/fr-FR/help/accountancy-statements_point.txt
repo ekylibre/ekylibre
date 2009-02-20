@@ -1,7 +1,3 @@
-h1. Pointage des relevés de comptes bancaires
-
-h2. Qu'est ce qu'un relevé de compte bancaire ?
-Un relevé de compte bancaire est un registre des opérations portées à un compte, que la banque envoie habituellement une fois par mois au détenteur du compte. Il se caractérise par une période, un numéro et la référence à un compte bancaire.
-
-h2. Gestion d'un relevé de compte bancaire ?
-Pour utiliser un relevé de compte bancaire (nécéssaire pour toutes les opérations d'enregistrements d'écritures et d'élaboration des documents comptables), commencer par le <<accountancy-statements_create|créer>>. Le relevé de compte bancaire crée apparaîtra dans le tableau des relevés de comptes bancaires. Par la suite, il vous sera possible de le <<accountancy-statements_update|modifier>>, de le <<accountancy-statements_display|visualiser>> ou même de le <<accountancy-statements_delete|supprimer>>.
+h1. Comment pointer des écritures ?
+Le tableau représenté répertorie les différentes écritures, avec pour chacune d'elles les montants apportés au débit et au crédit. De plus, les gammes de couleurs Rouge ou Bleu/vert (annotées en bas du tableau) déterminent si l'écriture est respectivement attachée ou non à un relevé de compte bancaire, ce qui dans ce cas est précisé dans la colonne **N° Relevé de compte bancaire**. En cliquant sur une écriture non attachée (**rouge**), vous la rajouter au compte de relevé actuel (**verte**). En revanche, en cliquant sur une écriture ayant dejà fait l'objet d'un pointage pour un autre relevé (**bleu**), celle-ci revient sur la couleur rouge.
+Le bouton validation permet, quant à lui, de confirmer l'opération de pointage pour le relevé de compte.   
