@@ -5,3 +5,6 @@ Un document comptable est un document qui synthétise des informations permettan
 
 h2.  Comment imprimer un document comptable ?
 Une liste de documents comptables vous est proposée. Choisissez l'un d'eux et cliquez le bouton **Suivant**. 
+
+h2. Evolution
+La liste des documents comptables est amené à être étendu aux documents annuels que sont le compte de résultat et le bilan.
