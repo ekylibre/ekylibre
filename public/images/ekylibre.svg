@@ -573,18 +573,16 @@
        x2="-64"
        y2="343.9996"
        gradientUnits="userSpaceOnUse" />
-    <filter
+    <linearGradient
        inkscape:collect="always"
-       id="filter3353"
-       x="-0.013463444"
-       width="1.0269269"
-       y="-0.11039803"
-       height="1.2207961">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.920002"
-         id="feGaussianBlur3355" />
-    </filter>
+       xlink:href="#linearGradient3265"
+       id="linearGradient2565"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-209.5,118.24996)"
+       x1="-100"
+       y1="288.00003"
+       x2="-68"
+       y2="320" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -593,16 +591,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="8"
-     inkscape:cx="-34.421336"
-     inkscape:cy="16.3464"
+     inkscape:zoom="2"
+     inkscape:cx="-190.48156"
+     inkscape:cy="-113.6536"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="979"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-width="1440"
+     inkscape:window-height="874"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
      showguides="true"
      inkscape:guide-bbox="true">
     <sodipodi:guide
@@ -973,5 +971,23 @@
        style="opacity:1;fill:url(#linearGradient3393);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.75;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M 239.23358,670.63289 L 239.23358,674.63289 L 239.23358,678.63289 L 239.23358,682.63289 L 239.23358,686.63289 L 239.23358,690.63289 L 259.23358,690.63289 L 259.23358,686.63289 L 243.23358,686.63289 L 243.23358,682.63289 L 259.23358,682.63289 L 259.23358,678.63289 L 243.23358,678.63289 L 243.23358,674.63289 L 259.23358,674.63289 L 259.23358,670.63289 L 243.23358,670.63289 L 239.23358,670.63289 z"
        id="path3379" />
+    <path
+       style="fill:url(#linearGradient2565);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M -309.5,406.25 L -309.5,438.25 L -277.5,438.25 L -277.5,406.25 L -309.5,406.25 z M -307.5,408.25 L -279.5,408.25 L -279.5,436.25 L -307.5,436.25 L -307.5,408.25 z M -303.5,412.25 L -303.5,416.25 L -303.5,420.25 L -303.5,424.25 L -303.5,428.25 L -303.5,432.25 L -283.5,432.25 L -283.5,428.25 L -299.5,428.25 L -299.5,424.25 L -283.5,424.25 L -283.5,420.25 L -299.5,420.25 L -299.5,416.25 L -283.5,416.25 L -283.5,412.25 L -299.5,412.25 L -303.5,412.25 z"
+       transform="translate(-32.76642,300.63758)"
+       id="path2544"
+       sodipodi:nodetypes="cccccccccccccccccccccccccccc" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-307.51642"
+       y="733.63757"
+       id="text3341"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3343"
+         x="-307.51642"
+         y="733.63757"
+         style="font-size:32px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:blzee;-inkscape-font-specification:blzee">kylibre</tspan></text>
   </g>
 </svg>
