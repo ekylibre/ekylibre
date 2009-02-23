@@ -1,5 +1,4 @@
 h1. Comment clôturer un journal comptable ?
-
-Il vous suffit de sélectionner le journal à clôturer ainsi que la date de clôture.
+Sélectionner le journal à clôturer ainsi que la date de clôture puis confirmer l'opération à l'aide du bouton **Clôturer le journal**.
 
   

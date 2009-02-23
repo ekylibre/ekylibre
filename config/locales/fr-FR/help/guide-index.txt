@@ -8,10 +8,10 @@ Vous trouverez en haut le menu principal :
 * à droite, se trouve le menu relatif à votre société et vous-même en tant qu'utilisateur.
 
 Juste en dessous, se trouve le titre de page qui vous permet de savoir en permanence ce que vous êtes en train de faire.
-Lorsque que vous irez un peu plus loin, vous pourrez voir apparaître sur la gauche le menu recapitulant des différentes actions relatives au module utilisé.
+Lorsque que vous irez un peu plus loin, vous pourrez voir apparaître sur la gauche le menu récapitulant les différentes actions relatives au module utilisé.
 
 h2. Les différents modules
-Depuis l'accueil vous pouvez accéder aux différents modules disponibles dans l'application
+Depuis l'accueil, vous pouvez accéder aux différents modules disponibles dans l'application
 * Gestion des relations Clients/Fournisseurs
 * Comptabilité générale
 * Gestion commerciale

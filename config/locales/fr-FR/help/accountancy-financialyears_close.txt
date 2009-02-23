@@ -1,4 +1,2 @@
 h1. Comment clôturer un exercice comptable ?
-
-
-Il vous suffit de sélectionner le numéro de l'exercice comptable à clôturer ainsi que la date de clôture qui, par défaut, est à la date du jour.
+Remplisser le formulaire de clôture de l'exercice en sélectionnant le numéro de l'exercice comptable à clôturer ainsi que la date de clôture qui, par défaut, est à la date du jour puis confirmer l'opération à l'aide du bouton **Clôturer l'exercice**
