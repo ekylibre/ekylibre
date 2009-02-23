@@ -30,6 +30,12 @@ class Company < ActiveRecord::Base
     self.siren = '000000000' if self.siren.blank?
   end
 
+  def set_entity_id(id)
+    self.entity_id = id
+    self.save
+    #raise Exception.new self.entity_id.inspect
+  end
+
   def after_create
     role = Role.create!(:name=>tc('default.role.name.admin'), :company_id=>self.id,:actions=>'  ')
     role.can_do :all
@@ -51,7 +57,11 @@ class Company < ActiveRecord::Base
     self.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
     self.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
     self.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
-    #self.entity.create!(:nature_id=>1, :language_id=>1, :name=>'vi', :fullname=>'vi ma')
+    indefini = self.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'In', :in_name=>false)
+    firm = self.entities.create!(:nature_id=>indefini.id,:language_id=>1, :name=>self.name)
+    self.set_entity_id(firm.id)
+   # self.entity_id = firm.id
+    #raise Exception.new self.inspect
     delays = []
     ['expiration', 'standard', 'immediate'].each do |d|
       delays << self.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)

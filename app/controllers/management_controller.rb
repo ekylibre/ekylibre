@@ -315,9 +315,7 @@ class ManagementController < ApplicationController
     if price = Price.find(:first, :conditions=>["product_id=? AND company_id=? AND stopped_on IS NULL ",params[:purchase_order_line_product_id].to_i, @current_company.id])
       @price_amount = Price.find_by_id(price.id).amount
       @tax_id = price.tax_id
-      puts price.tax.inspect+"_______________________________________________"+price.inspect
     else
-      puts "-------------------------------------"
       @price_amount = 0 
       @tax_id = Tax.find_by_company_id_and_amount(@current_company.id, 0.1960).id
     end
@@ -334,9 +332,9 @@ class ManagementController < ApplicationController
     end
   end
 
+
   def purchase_order_lines_create
     @price = Price.new
-    puts "---------------------------"+@update.inspect
     if request.post?
       @purchase_order_line = @current_company.purchase_order_lines.find(:first, :conditions=>{:product_id=>params[:purchase_order_line][:product_id], :order_id=>session[:current_purchase]})
       if !@purchase_order_line
@@ -360,7 +358,6 @@ class ManagementController < ApplicationController
   
   def purchase_order_lines_update
     @update = true
-    # puts "---------------------------"+@update.inspect
     @purchase_order_line = find_and_check(:purchase_order_line, params[:id])
     @price = find_and_check(:price, @purchase_order_line.price_id)
     if request.post?
@@ -476,6 +473,15 @@ class ManagementController < ApplicationController
       @sale_order.company_id = @current_company.id
       @sale_order.number = ''
       @sale_order.state = 'P'
+
+      # list = PriceList.find(:first,:conditions=>{:entity_id=>@current_company.current_entity})
+      #list  = PriceList.find(:first,:conditions=>{:name=>"Mes tarifs standards"})
+      #if list.blank?                                                                            
+        # list = PriceList.create!(:name=>"Mes tarifs standards", :started_on=>Date.today, :currency_id=>1, :entity_id=>@current_company.current_entity, :company_id=>@current_company.id) 
+       # list = PriceList.create!(:name=>"Mes tarifs standards", :started_on=>Date.today, :currency_id=>1, :entity_id=>1, :company_id=>@current_company.id)
+      #end
+      # @sale_order.price_list_id = list.id
+
       if @sale_order.save
         redirect_to :action=>:sales_products, :id=>@sale_order.id
       end
@@ -540,6 +546,7 @@ class ManagementController < ApplicationController
   def sales_products
     @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
+    #session[:current_list_id] = @sale_order.list_id
     @entity = @sale_order.client
     sale_order_lines_list params
     if request.post?
@@ -548,6 +555,54 @@ class ManagementController < ApplicationController
     end
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
   end
+
+
+#   def price_match
+#     if price = Price.find(:first, :conditions=>["product_id=? AND list_id=? company_id=? AND stopped_on IS NULL ",params[:purchase_order_line_product_id].to_i, session[current_list_id],@current_company.id])
+#       @price_amount = Price.find_by_id(price.id).amount
+#       @tax_id = price.tax_id
+#     else
+#       @price_amount = 0 
+#       @tax_id = Tax.find_by_company_id_and_amount(@current_company.id, 0.1960).id
+#     end
+#   end
+
+
+  def calculate_price(exist)
+    if exist
+      @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
+      @sale_order_line.amount = @price.amount*@sale_order_line.quantity
+      @sale_order_line.amount_with_taxes = @price.amount_with_taxes*@sale_order_line.quantity
+    else
+      @sale_order_line.amount = @price.amount*params[:sale_order_line][:quantity].to_d
+      @sale_order_line.amount_with_taxes = @price.amount_with_taxes*params[:sale_order_line][:quantity].to_d 
+    end
+  end
+
+#   def sale_order_lines_create
+#     if request.post? 
+#       @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:product_id=>params[:sale_order_line][:product_id], :order_id=>session[:current_sale_order]})
+
+
+#     if !@sale_order_line
+#       @sale_order_line = SaleOrderLine.new(params[:sale_order_line])
+#       @sale_order_line.company_id = @current_company.id
+#       @sale_order_line.order_id = session[:current_sale_order]
+#       params[:price][:product_id] = params[:purchase_order_line][:product_id]
+#       @price = @purchase_order_line.order.list.update_price(params[:price][:product_id],params[:price][:amount].to_d, params[:price][:tax_id])
+#       calculate_price(false)
+#     else
+#       @price = @sale_order_line.order.list.update_price(params[:purchase_order_line][:product_id],params[:price][:amount].to_d, params[:price][:tax_id])
+#       calculate_price(true)
+#     end
+#       @sale_order_line.price_id = @price.id
+#       redirect_to_back if @sale_order_line.save
+#     else
+#       @sale_order_line = SaleOrderLine.new
+#     end
+#     render_form
+#   end
+
 
 
   def sale_order_lines_create

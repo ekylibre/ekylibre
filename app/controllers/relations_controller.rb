@@ -234,7 +234,12 @@ class RelationsController < ApplicationController
           end
         end
         raise ActiveRecord::Rollback unless saved
-        redirect_to_back
+        #raise Exception.new session.data.inspect
+        if session[:history][1].to_s.include? "relations"
+          redirect_to :action=>:entities_display, :id=>@entity.id
+        else
+          redirect_to_back
+        end
       end
     else
       @entity = Entity.new
