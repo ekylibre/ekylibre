@@ -287,6 +287,7 @@ class ManagementController < ApplicationController
       redirect_to :action=>:purchases_products, :id=>session[:current_purchase] if @purchase_order_line.save
     else
       @purchase_order_line = PurchaseOrderLine.new
+      @purchase_order_line.order_id = session[:current_purchase] 
     end
     render_form
   end
