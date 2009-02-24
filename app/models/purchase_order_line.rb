@@ -25,8 +25,8 @@ class PurchaseOrderLine < ActiveRecord::Base
   attr_readonly :company_id, :order_id
   
   def before_validation
-    self.account_id = self.product.account_id
-    self.unit_id = self.product.unit_id
+    self.account_id = self.price.product.account_id
+    self.unit_id = self.price.product.unit_id
   end
   
   

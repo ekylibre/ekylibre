@@ -317,6 +317,7 @@ fr-FR:
         name: Nom
         nature: Nature
         number: Numéro
+        price: Prix indicatif
         service_coeff: Coefficient (de quantité) de service
         shelf_id: Catégorie
         supply_method: 'Moyen d''approvisionnement'
@@ -812,7 +813,7 @@ fr-FR:
         delays: Délais
         invoicing_parameters: Facturation
         parameters: Paramètres
-        price_lists: Tarifs
+        prices: Prix
         products: Produits
         purchases: Achats
         purchases_consult: 'Consulter la liste des achats'
@@ -829,6 +830,9 @@ fr-FR:
         title: 'Gestion commerciale'
         units: 'Unités de mesure'
    
+      prices: 
+         prices_create: 'Créer un nouveau prix d''achat' 
+         prices_create: Créer un nouveau prix de vente 
       prices_create:
         title: 'Ajout d''un nouveau prix'
       _prices_form:

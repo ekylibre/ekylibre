@@ -57,7 +57,7 @@ module ApplicationHelper
          {:name=>:parameters, :list=>
            [ {:name=>:products},
  #            {:name=>:invoicing_parameters},
-             {:name=>:price_lists},
+             {:name=>:prices},
              {:name=>:shelves},
              {:name=>:delays},
              {:name=>:sale_order_natures}
