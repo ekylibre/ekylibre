@@ -277,6 +277,7 @@ class ManagementController < ApplicationController
         @purchase_order_line.order_id = session[:current_purchase]
         @price = find_and_check(:price, params[:purchase_order_line][:price_id])
         @purchase_order_line.product_id = find_and_check(:products, @price.product_id)
+        # @price.add_price(params[:purchase_order_lines][:price_id],params[:purchase_order_line][:amount])
         calculate_price(false)
       else
         @price = find_and_check(:price, params[:purchase_order_line][:price_id])                        
