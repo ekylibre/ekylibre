@@ -77,7 +77,7 @@ module Dyta
           process = ''
           for procedure in definition.procedures
             process += "+' '+" unless process.blank?
-            process += "link_to(tc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+procedure.options.inspect+")"
+            process += "link_to(tc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+procedure.options.inspect+", :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"')"
           end      
           process = "'"+content_tag(:tr, content_tag(:td, "'+"+process+"+'", :class=>:procedures, :colspan=>definition.columns.size))+"'"
         end

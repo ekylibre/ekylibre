@@ -233,6 +233,7 @@ table.dyta tr.odd  td.act { background: #FDD; }
 table.dyta tr.even td.act { background: #FED; }
 table.dyta td.procedures { padding:4px; background: #FEB; }
 table.dyta td.procedures > a {padding: 4px;}
+table.dyta td.procedures > a.procedure.create {padding-left: 20px; background: url(/images/buttons/create.png) no-repeat center left;}
 table.dyta td.empty { text-align:center; color: #777; padding:4px; background: #EEF; }
 table.dyta th, table.dyta td.empty, table.dyta td.procedures { border-top: 1px solid #BACFE6; }
 table.dyta th, table.dyta td { border-left: 1px solid #BACFE6; border-right: 1px solid #BACFE6; }
