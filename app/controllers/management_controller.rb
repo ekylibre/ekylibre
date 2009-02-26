@@ -645,28 +645,57 @@ class ManagementController < ApplicationController
   def sales_deliveries
     @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
+    @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]})
+    if @sale_order_lines == []
+      flash[:warning]=tc(:no_lines_found)
+      redirect_to :action=>:sales_products, :id=>session[:current_sale_order]
+    end
     deliveries_list params
   end
 
 
   def sum_calculate
-    puts params[:sum_quantity]
+    @total = 0
+    puts params.inspect+"     00000000000000000000000000"
     puts "bla"
+    puts  params[:delivery_line][0].inspect
+    @sale_order_lines = SaleOrderLine.find(:all, :conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]})
+    puts @sale_order_lines.size
+    #for quantity in params[:delivery_line]
+    x = 0
+    puts "test"+@sale_order_lines[0].inspect
+    puts "test"+@sale_order_lines[1].inspect
+    puts params[:delivery_line][0].inspect+"q0"
+    puts params[:delivery_line][1].inspect+"q1"
+    until x >= @sale_order_lines.size
+      puts  puts"hhhhhhhhhhhhh"+params[:delivery_line][x].inspect+"end qqq"
+      puts "order!!!!!!!!!!     "+@sale_order_lines[x].inspect+"end line"
+      @total += (@sale_order_lines[x].amount_with_taxes*params[:delivery_line][x].to_d)
+      puts @total.inspect+"total"
+      x += 1
+    end
   end
 
   def deliveries_create
+    @delivery_form = "delivery_form"
+    @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]})
+    @delivery_line =  @sale_order_lines.collect{|x| DeliveryLine.new}
+    #raise Exception.new @sale_order_lines.inspect
+    if @sale_order_lines == []
+      flash[:warning]=lc(:no_lines_found)
+      redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order]
+    end
     @delivery = DeliveryLine.new
-    @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]}) 
     @total = @sale_order_lines[0].order.amount_with_taxes
     if request.post?
       sale = find_and_check(:sale_order, session[:current_sale_order])
       delivery = Delivery.find_by_company_id_and_order_id(@current_company.id, sale.id)
-      raise Exception.new params.inspect
+      raise Exception.new params[:sum].inspect
       #for lines in @sale_order_lines
        # @delivery_lines = @sale_order
       #end
     end
-    render_form
+    render_form(:id=>@delivery_form)
   end
 
 

@@ -1,0 +1,9 @@
+.aclist{:align=>"center"}
+  %strong Afficher
+  -form_tag do
+    -for mode in @modes
+      =radio_button(:price, :mode , mode[0],:options=>{:checked=>true}),content_tag(:label, tc(mode[0].to_sym))
+    =select(:price, :supply,Entity.find(:all,:conditions=>{:company_id=>@current_company.id}).collect{|x| [x.full_name,x.id]},:options=>{:include_blank=>true}) 
+    .actions
+      =submit_tag tg"next"
+=dyta :prices

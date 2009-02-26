@@ -1,0 +1,27 @@
+%table.dyta
+  %tr
+    %th=" Expédié le : ",text_field(:date, :ship,:value=>Date.today,:size=>15)
+    %th=" Reçu le : ",text_field(:date, :deliver,:size=>15) 
+%table.dyta 
+  %tr
+    %th Produit
+    %th Montant HT
+    %th Montant TTC
+    %th Unité
+    %th Quantité 
+  -x=0
+  -for @line in @sale_order_lines
+    %tr
+      %td=@line.product.name
+      %td=@line.amount
+      %td=@line.amount_with_taxes
+      %td=@line.unit.name
+      %td{:style=>'text-align:center'}=text_field_tag('delivery_line[]', 'quantity', :id=>"#{@line.order.id}_#{@line.id}" , :value=>@line.quantity,:size=>10)
+    =#observe_field "sum_quantity", :url=>{:action => :sum_calculate}, :frequency => 0.25, :with=>"Form.Element.serialize('_sum_quantity')" 
+    =observe_field "#{@line.order.id}_#{@line.id}", :url=>{:action => :sum_calculate}, :frequency => 0.25, :with=>"Form.serialize('#{@delivery_form}')"
+  -x+=1
+%table.dyta
+  %tr
+    %td{:style=>'text-align:right'}= "Total de la livraison : ",text_field(:sum, :total,:value=>@total,:size=>10)
+=#observe_field "date_ship", :url=>{:action => :sum_calculate}, :frequency => 0.25, :with=>"date_ship" 
+
