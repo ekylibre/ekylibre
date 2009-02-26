@@ -323,7 +323,7 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 
 
 #login { width:512px; border: 1px solid #95b0e4; margin:64px auto; background:#c9d7f1; z-index: 1000;}
-#login .logoban { height:80px; background: url(/images/ekylong.png) no-repeat center; }
+#login .logoban { height:80px; background: url(/images/ekylong.png) no-repeat center; margin: 16px;}
 #login h2 { background: url(/images/template/gradient.png) repeat-x top; color:white; padding: 2px; text-align:center; font-size:18px;}
 #login table { border-collapse: collapse;  margin:16px auto; margin-left:auto; margin-right:auto;}
 #login table tr td { padding: 2px 4px;}

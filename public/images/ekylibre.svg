@@ -596,10 +596,10 @@
   </defs>
   <sodipodi:namedview
      id="base"
-     pagecolor="#ffffff"
+     pagecolor="#838383"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="2"
      inkscape:cx="-190.48156"
@@ -992,9 +992,16 @@
        inkscape:export-ydpi="133.84616">
       <g
          id="g2568"
-         inkscape:export-filename="/home/brice/dev/ekylibre/trunk/ekylibre/public/images/ekylogo.png"
-         inkscape:export-xdpi="180"
-         inkscape:export-ydpi="180">
+         inkscape:export-filename="/home/brice/dev/ekylibre/trunk/ekylibre/public/images/ekylibre.png"
+         inkscape:export-xdpi="900"
+         inkscape:export-ydpi="900">
+        <rect
+           style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect2547"
+           width="32"
+           height="32"
+           x="-332.76642"
+           y="708.63757" />
         <path
            style="fill:url(#linearGradient2566);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
            d="M -332.76642,708.63755 L -332.76642,740.63755 L -300.76642,740.63755 L -300.76642,708.63755 L -332.76642,708.63755 z M -330.76642,710.63755 L -302.76642,710.63755 L -302.76642,738.63755 L -330.76642,738.63755 L -330.76642,710.63755 z M -326.76642,714.63755 L -326.76642,718.63755 L -326.76642,722.63755 L -326.76642,726.63755 L -326.76642,730.63755 L -326.76642,734.63755 L -306.76642,734.63755 L -306.76642,730.63755 L -322.76642,730.63755 L -322.76642,726.63755 L -306.76642,726.63755 L -306.76642,722.63755 L -322.76642,722.63755 L -322.76642,718.63755 L -306.76642,718.63755 L -306.76642,714.63755 L -322.76642,714.63755 L -326.76642,714.63755 z"
