@@ -293,6 +293,8 @@ fr-FR:
       price:
         amount: Montant HT
         amount_with_taxes: Montant TTC
+        currency_id: Devise
+        entity_id: Fournisseur
         list_id: Liste de prix
         tax_id: TVA
         product_id: Produit
@@ -337,7 +339,7 @@ fr-FR:
         number: Numéro
         comment: Commentaire
       purchase_order_line: 
-        product_id: Produit
+        price_id: Produit
         quantity: Quantité
       rubric:
         name: Titre
@@ -919,9 +921,13 @@ fr-FR:
         title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
         total: Total
       sales_deliveries:
+        deliveries: Livraisons 
+        deliveries_create: Ajouter une livraison
+        invoice: Facturer
         title: "Livraisons (En travaux)"
         sales_print: Imprimer la commande
-
+      deliveries_create:
+       title: Ajouter une livraison
       sale_order_natures:
         title: Types de ventes
         sale_order_natures_create: Créer un nouveau type de vente

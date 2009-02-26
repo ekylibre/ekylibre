@@ -158,7 +158,8 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.column :range
     t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :prices_create
+    t.procedure :prices_create, :mode=>:sales
+    t.procedure :prices_create, :mode=>:purchases
   end
 
   def products
@@ -274,10 +275,18 @@ class ManagementController < ApplicationController
     if !params[:purchase_order_line_price_id].blank?
       price = find_and_check(:price, params[:purchase_order_line_price_id])
       @price_amount = Price.find_by_id(price.id).amount
-      @tax_id = price.tax_id
+     # @tax_id =
+      if price.tax.amount == 0.0210
+        @tax_id = 1
+      elsif price.tax.amount == 0.0550
+        @tax_id = 2
+      else 
+        @tax_id = 3
+      end
+      puts @tax_id.inspect+",,,,,,,,,,,,,,,,,,,,,"+@price_amount.inspect
     else
       @price_amount = 0 
-      @tax_id = Tax.find_by_company_id_and_amount(@current_company.id, 0.1960).id
+      @tax_id = 3
     end
   end
   
@@ -639,6 +648,26 @@ class ManagementController < ApplicationController
     deliveries_list params
   end
 
+
+  def sum_calculate
+    puts params[:sum_quantity]
+    puts "bla"
+  end
+
+  def deliveries_create
+    @delivery = DeliveryLine.new
+    @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]}) 
+    @total = @sale_order_lines[0].order.amount_with_taxes
+    if request.post?
+      sale = find_and_check(:sale_order, session[:current_sale_order])
+      delivery = Delivery.find_by_company_id_and_order_id(@current_company.id, sale.id)
+      raise Exception.new params.inspect
+      #for lines in @sale_order_lines
+       # @delivery_lines = @sale_order
+      #end
+    end
+    render_form
+  end
 
 
   def sales_invoices

@@ -59,6 +59,8 @@ class Price < ActiveRecord::Base
     existing_price = Price.find(:first, :conditions=>{:product_id=>self.product_id,:amount=>amount, :tax_id=>tax_id})
     if existing_price.nil?
       new_price = Price.create!(:tax_id=>tax_id, :amount=>amount,:currency_id=>self.currency_id,:product_id=>self.product_id,:company_id=>self.company_id, :entity_id=>entity_id)
+    else
+      new_price = existing_price
     end
     self.save
     new_price
