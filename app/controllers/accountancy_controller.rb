@@ -1,4 +1,4 @@
-class AccountancyController < ApplicationController
+ class AccountancyController < ApplicationController
   #  # groups all the accounts corresponding to a transaction of sale.
   #   ACCOUNTS_OF_SALES={:sale=>70, :tva_collected=>4457, :customer=>[411, 413, 4191], :bank=>[511, 512], :cash=>53 , 
   #     :others=>[654, 661, 665] }

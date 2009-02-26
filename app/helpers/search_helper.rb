@@ -1,6 +1,18 @@
 module SearchHelper
 
-
+  #module ActionView
+    #class Base
+     #  def dyli_field(name)
+#         form_dyli = ''
+#         form_dyli += content_tag :label, 'Entrez votre recherche:', {:name => 'search'} 
+#         form_dyli += tag :input, {:type =>'text', :name =>'search', :id =>'search'}
+#         form_dyli += tag :input, {:type => 'hidden', :name => 'search_hidden'}
+#         form_dyli += observe_field 'search', :frequency => 0.25,:update => 'tf_id_auto_complete', :with => 'search='+"escape(value)", :url => {:action => name.to_s+"_dyli_list"}
+#         form_dyli += tag(:div,:id =>'tf_id_auto_complete')
+#         render :text => form_dyli
+    #   end
+   # end
+  #end
 end
 
  #module Dyli
