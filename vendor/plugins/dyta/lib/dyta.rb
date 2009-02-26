@@ -27,7 +27,7 @@ module Dyta
         yield definition
 
         code  = ""
-
+        
         # List method
         conditions = ''
         if options[:conditions]

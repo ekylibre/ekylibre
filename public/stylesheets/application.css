@@ -16,7 +16,7 @@ div[xul="box"] { background: #ADA; }
 */
 /*table.entries { border-collapse: collapse; }*/
 
-
+.entity { text-align:right; }
 /*#lines { height: 300px; overflow: auto; }*/
 #top { /*border-bottom: 1px solid #C9D7F1;*/ height: 24px; }
 #loading { padding: 2px; text-align: center; }

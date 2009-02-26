@@ -831,6 +831,10 @@ fr-FR:
         units: 'Unités de mesure'
    
       prices: 
+         all: Tous les prix
+         sales: Les prix de vente
+         purchases: 'Les prix d''achat du fournisseur'
+         title: Liste des prix
          prices_create: 'Créer un nouveau prix d''achat' 
          prices_create: Créer un nouveau prix de vente 
       prices_create:
