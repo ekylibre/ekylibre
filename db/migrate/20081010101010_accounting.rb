@@ -247,8 +247,8 @@ class Accounting < ActiveRecord::Migration
 #    drop_table :journal_natures
     drop_table :account_balances
     drop_table :financialyears
-    drop_column :entities, :client_account_id,   :integer, :references=>:accounts
-    drop_column :entities, :supplier_account_id, :integer, :references=>:accounts
+    remove_column :entities, :client_account_id
+    remove_column :entities, :supplier_account_id
     drop_table :accounts
     drop_table :currencies
   end

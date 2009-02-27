@@ -1,3 +1,4 @@
+# Include hook code here
 require 'dyta'
 ActionController::Base.send(:include, ActionView::Helpers::AssetTagHelper)
 ActionController::Base.send(:include, ActionView::Helpers::TextHelper)

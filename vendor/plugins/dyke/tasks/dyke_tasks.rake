@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :dyta do
+# task :dyke do
 #   # Task goes here
 # end

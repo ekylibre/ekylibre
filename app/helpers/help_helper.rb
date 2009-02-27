@@ -27,6 +27,7 @@ module HelpHelper
       ltr = link_to_remote('\1', :url => {:controller=>:help ,  :action => "search", :article => '\1' }, :update => :help).gsub('%5C',"\\")
       content  =  content.gsub(/<<([\w\-]+)>>/ , ltr )
       content = textilize(content)
+      content  =  content.gsub('~' , '&nbsp;' )
       file_new = File.new(file_cache, "a+") # create new cache file
       file_new = File.open(file_cache, 'wb')
       file_new.write(content)
