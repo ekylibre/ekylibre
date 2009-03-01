@@ -17,10 +17,35 @@ class Mar1 < ActiveRecord::Migration
     add_column    :prices,           :active,        :boolean, :null=>false, :default=>true
     add_column    :prices,           :currency_id,   :integer, :null=>false, :references=>:currencies
     drop_table :price_lists
+
+#     create_table :wines do |t|
+#       t.column :name,                   :string,   :null=>false
+#       t.column :millesime,              :string,   :null=>false
+#       t.column :appelation,              :string,   :null=>false
+#       t.column :centilisation,              :string,   :null=>false
+#       t.column :degré,              :string,   :null=>false
+#       t.column :codification,              :string,   :null=>false
+#     end
+#     add_column    :products, :wine_id, :integer, :references=>:wines
+
   end
 
   def self.down
-    create_table  :price_lists
+#    drop_table :wines
+    create_table  :price_lists do |t|
+      t.column :name,                   :string,   :null=>false
+      t.column :started_on,             :date,     :null=>false
+      t.column :stopped_on,             :date
+      t.column :active,                 :boolean,  :null=>false, :default=>true
+      t.column :deleted,                :boolean,  :null=>false, :default=>false
+      t.column :comment,                :text
+      t.column :default,                :boolean,  :null=>false, :default=>true
+      t.column :currency_id,            :integer,  :null=>false, :references=>:currencies
+      t.column :entity_id,              :integer,  :references=>:entities,  :on_delete=>:cascade, :on_update=>:cascade
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+    end
+    add_index :price_lists, [:name, :company_id], :unique=>true
+    add_index :price_lists, :company_id
     remove_column :prices, :active
     remove_column :prices, :stopped_at
     remove_column :prices, :started_at
