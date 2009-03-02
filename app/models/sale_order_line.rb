@@ -43,4 +43,18 @@ class SaleOrderLine < ActiveRecord::Base
     self.order.refresh
   end
 
+  def undelivered_quantity
+    lines =  DeliveryLine.find(:all, :conditions=>{:company_id=>self.company_id, :order_line_id=>self.id})
+    if lines.nil?
+      rest = self.quantity
+    else
+      sum = 0
+      for line in lines 
+        sum += line.quantity
+      end
+      rest = (self.quantity - sum )
+    end
+    rest
+  end
+
 end

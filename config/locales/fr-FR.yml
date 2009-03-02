@@ -921,12 +921,17 @@ fr-FR:
         sale_order_lines_create: Ajouter un produit au devis
         title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
         total: Total
-      sales_deliveries:
+      sales_deliveries: 
+        address: Adresse de livraison
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
         deliveries: Livraisons 
         deliveries_create: Ajouter une livraison
         invoice: Facturer
         title: "Livraisons (En travaux)"
         sales_print: Imprimer la commande
+        ship: 'Expédié le : '
+        deliver: 'Reçu le : '
       deliveries_create:
        title: Ajouter une livraison
       sale_order_natures:
@@ -1133,6 +1138,8 @@ fr-FR:
       error_greater_than: "{{field}} est trop grand ({{maximum}} maximum)"
     delay:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
+    delivery_line: 
+      error_undelivered_quantity: 'La quantité livrée dépasse la quantité commandée'
     entity:
       error_missing_title: 'doit contenir la dénomination sociale "{{title}}"'
     entry:

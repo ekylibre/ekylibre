@@ -22,4 +22,22 @@
 #
 
 class DeliveryLine < ActiveRecord::Base
+
+  def before_validation
+    self.product = self.order_line.product
+    self.amount = self.order_line.price.amount*self.quantity
+    self.amount_with_taxes = self.order_line.price.amount_with_taxes*self.quantity
+    self.price_id = self.order_line.price.id
+    self.unit_id = self.order_line.unit.id
+  end
+
+  
+  def validate
+    errors.add_to_base tc(:error_undelivered_quantity) if self.quantity > self.undelivered_quantity
+  end
+
+  def undelivered_quantity
+    self.order_line.undelivered_quantity
+  end
+  
 end

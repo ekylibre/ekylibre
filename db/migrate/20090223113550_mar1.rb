@@ -16,6 +16,7 @@ class Mar1 < ActiveRecord::Migration
     add_column    :prices,           :stopped_at,    :timestamp
     add_column    :prices,           :active,        :boolean, :null=>false, :default=>true
     add_column    :prices,           :currency_id,   :integer, :null=>false, :references=>:currencies
+    add_column    :deliveries,       :contact_id,    :integer, :references=>:contacts
     drop_table :price_lists
 
 #     create_table :wines do |t|
@@ -46,6 +47,7 @@ class Mar1 < ActiveRecord::Migration
     end
     add_index :price_lists, [:name, :company_id], :unique=>true
     add_index :price_lists, :company_id
+    remove_column :deliveries, :contact_id
     remove_column :prices, :active
     remove_column :prices, :stopped_at
     remove_column :prices, :started_at

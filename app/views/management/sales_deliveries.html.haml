@@ -4,7 +4,47 @@
   - l.action :sales_print, :id=>@sale_order.id
 
 %h2=tc :deliveries
-=dyta :deliveries
+%table.dyta
+  %tr
+    %td.procedures{:colspan=>8} 
+      =link_to "Ajouter une livraison", :action=>:deliveries_create
+  -for delivery in @deliveries
+    %tr
+      %th= tc 'address'
+      %th= tc 'ship'
+      %th= tc 'deliver'
+      %th= tc 'amount'
+      %th= tc 'amount_with_taxes'
+      %th= link_to tg 'update', :action=>:deliveries_update
+    %tr
+      %td= delivery.contact.address
+      %td= delivery.shipped_on
+      %td= delivery.delivered_on
+      %td= delivery.amount
+      %td= delivery.amount_with_taxes
+ 
+    %tr{:colspan=>6} 
+      %th Produit
+      %th Unité
+      %th Prix unitaire HT
+      %th Prix unitaire TTC
+      %th Quantité 
+      %th Montant HT
+      %th Montant TTC
+      %th Quantité totale
+      %th Quantité restante
+    - for lines in @delivery_lines
+      -if lines.delivery_id == delivery.id and lines.quantity > 0
+        %tr
+          %td= lines.product.name
+          %td= lines.unit.name
+          %td= lines.price.amount
+          %td= lines.price.amount_with_taxes
+          %td= lines.quantity
+          %td= lines.amount
+          %td= lines.amount_with_taxes
+          %td= lines.order_line.quantity
+          %td= lines.undelivered_quantity
 
 - form_tag do
   .actions

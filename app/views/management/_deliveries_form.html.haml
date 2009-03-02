@@ -1,5 +1,6 @@
 %table.dyta
   %tr
+    %th=" Adresse de livraison : ",select(:contact, :dest,@contacts.collect{|x| [x.address, x.id]})
     %th=" Expédié le : ",text_field(:date, :ship,:value=>Date.today,:size=>15)
     %th=" Reçu le : ",text_field(:date, :deliver,:size=>15) 
 %table.dyta 
@@ -9,19 +10,24 @@
     %th Montant TTC
     %th Unité
     %th Quantité 
+    %th Quantité totale
+    %th Quantité restante
   -x=0
   -for @line in @sale_order_lines
     %tr
       %td=@line.product.name
-      %td=@line.amount
-      %td=@line.amount_with_taxes
+      %td=@line.price.amount
+      %td=@line.price.amount_with_taxes
       %td=@line.unit.name
-      %td{:style=>'text-align:center'}=text_field_tag('delivery_line[]', 'quantity', :id=>"#{@line.order.id}_#{@line.id}" , :value=>@line.quantity,:size=>10)
+      %td{:style=>'text-align:center'}=text_field_tag('delivery_line[]', 'quantity', :id=>"#{@line.order.id}_#{@line.id}" , :value=>@line.undelivered_quantity,:size=>10)
+      %td{:style=>'text-align:center'}=@line.quantity
+      %td{:style=>'text-align:center'}=@line.undelivered_quantity
     =#observe_field "sum_quantity", :url=>{:action => :sum_calculate}, :frequency => 0.25, :with=>"Form.Element.serialize('_sum_quantity')" 
     =observe_field "#{@line.order.id}_#{@line.id}", :url=>{:action => :sum_calculate}, :frequency => 0.25, :with=>"Form.serialize('#{@delivery_form}')"
   -x+=1
 %table.dyta
   %tr
-    %td{:style=>'text-align:right'}= "Total de la livraison : ",text_field(:sum, :total,:value=>@total,:size=>10)
+    %td{:style=>'text-align:right'}= "Total de la livraison HT : ",text_field(:sum, :total_ht,:value=>@total_ht,:size=>10)
+    %td{:style=>'text-align:right'}= "TTC : ",text_field(:sum, :total,:value=>@total,:size=>10)
 =#observe_field "date_ship", :url=>{:action => :sum_calculate}, :frequency => 0.25, :with=>"date_ship" 
 
