@@ -621,11 +621,27 @@ class ManagementController < ApplicationController
     end
   end
 
+  dyta(:undelivered_quantities, :model=>:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@sale_order.id']}) do |t|
+    t.column :name, :through=>:product
+    t.column :amount, :through=>:price
+    t.column :quantity
+    t.column :label, :through=>:unit
+    t.column :amount
+    t.column :amount_with_taxes
+    t.column :undelivered_quantity
+  end
+
   def sales_deliveries
     @sale_order = find_and_check(:sale_order, params[:id])
+    @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>@sale_order.id})
+    found_products = false
+    for line in @sale_order_lines
+      found_products = true if line.undelivered_quantity > 0 and !found_products
+    end
+    undelivered_quantities_list params if found_products
+    
     session[:current_sale_order] = @sale_order.id
-    @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]})
-    @deliveries = Delivery.find_all_by_company_id_and_order_id(@current_company.id, session[:current_sale_order])
+    @deliveries = Delivery.find_all_by_company_id_and_order_id(@current_company.id, @sale_order.id)
     @delivery_lines = []
     for delivery in @deliveries
       lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, delivery.id)
@@ -644,42 +660,77 @@ class ManagementController < ApplicationController
     @sale_order_lines = SaleOrderLine.find(:all, :conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]})
     x = 0
     until x >= @sale_order_lines.size
-      @total += (@sale_order_lines[x].price.amount_with_taxes*params[:delivery_line][x].to_d)
-      @total_ht += (@sale_order_lines[x].price.amount*params[:delivery_line][x].to_d)
+      # @total += (@sale_order_lines[x].price.amount_with_taxes*params[:delivery_line][x].to_d)
+      # @total_ht += (@sale_order_lines[x].price.amount*params[:delivery_line][x].to_d)
+      puts "@@@@@@@@@@@@@àà"+@sale_order_lines[x].price.amount.to_s+"@@@@"+params[:delivery_line][x].to_s
       x += 1
     end
   end
 
   def deliveries_create
     @delivery_form = "delivery_form"
-    @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]})
-    @delivery_line =  @sale_order_lines.collect{|x| DeliveryLine.new}
-    if @sale_order_lines == []
+    @sale_order = find_and_check(:sale_orders,session[:current_sale_order])
+    @sale_order_lines = @sale_order.lines
+    if @sale_order_lines.empty?
       flash[:warning]=lc(:no_lines_found)
       redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order]
     end
-    @delivery = DeliveryLine.new
-    @total_ht = @sale_order_lines[0].order.amount
-    @total = @sale_order_lines[0].order.amount_with_taxes
-    @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@sale_order_lines[0].order.client_id})
+    @delivery = Delivery.new
+    @delivery.amount = @sale_order.amount
+    @delivery.amount_with_taxes = @sale_order.amount_with_taxes
+    @delivery_lines =  @sale_order_lines.collect{|x| DeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
+    @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@sale_order.client_id})
     if request.post?
       sale = find_and_check(:sale_order, session[:current_sale_order])
-      @delivery = Delivery.create!(:order_id=>sale.id, :amount_with_taxes=>params[:sum][:total],:amount=>params[:sum][:total_ht], :company_id=>@current_company.id, :shipped_on=>params[:date][:ship], :delivered_on=>params[:date][:ship], :contact_id=>params[:contact][:dest])
+      @delivery = Delivery.new(params[:delivery])
+      @delivery.order_id = sale.id
+      @delivery.company_id = @current_company.id
+      @delivery.save
       session[:current_delivery] = @delivery.id
       x = 0
       for line in @sale_order_lines
-        @deliv_line = DeliveryLine.create!(:order_line_id=>line.id, :delivery_id=>@delivery.id, :quantity=>params[:delivery_line][x], :company_id=>@current_company.id)
+        @line = DeliveryLine.create!(:order_line_id=>line.id, :delivery_id=>@delivery.id, :quantity=>params[:delivery_line][x], :company_id=>@current_company.id)
         x += 1
       end
-      redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order] if @delivery.save
+      redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order] 
     end
     render_form(:id=>@delivery_form)
   end
 
   def deliveries_update
-    @
+    @delivery_form = "delivery_form"
+    @update = true
+    @delivery =  find_and_check(:deliveries, params[:line])
+    @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@delivery.order.client_id})
+    @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]})
+    @delivery_lines = DeliveryLine.find(:all,:conditions=>{:company_id=>@current_company.id, :delivery_id=>@delivery.id})
+    x = 0
+    @quantity = []
+    for line in @delivery_lines
+      @quantity[x] = line.quantity.to_f
+      x += 1
+    end
+    @total = 5
+    @total_ht = 0
+    if request.post?
+      @delivery.update_attributes(params[:delivery])
+      y = 0
+      for @line in @delivery_lines
+        @line.update_attributes(:quantity=>params[:delivery_line][y])
+        y += 1
+      end
+      redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order] 
+    end
+    render_form(:id=>@delivery_form)
   end
-  
+ 
+
+  def deliveries_delete
+    @delivery = find_and_check(:deliveries, params[:id])
+    if request.post? or request.delete?
+      redirect_to_back if @delivery.inspect
+    end
+  end
 
   def sales_invoices
   end

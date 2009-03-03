@@ -227,6 +227,7 @@ table.dyta { border-collapse: collapse; width: 100%; border-bottom: 1px solid #B
 table.dyta th { background: #e9f3fe url(/images/template/table_head.png) repeat-x bottom; padding:2px; color: #336; font-weight: bold; font-size:13px;}
 table.dyta tr.odd  td {background: #E1E6FF;}
 table.dyta tr.even td {background: #F0F2FF;}
+table.dyta tr.root td { font-weight: bold; }
 table.dyta tr      td {padding: 0px 2px;color: #007;}
 table.dyta tr      td.act { padding: 1px; width:16px;}
 table.dyta tr.odd  td.act { background: #FDD; }

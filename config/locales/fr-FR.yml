@@ -234,6 +234,10 @@ fr-FR:
         comment: Commentaire
         expression: Expression
         name: Nom
+      delivery:
+        contact_id: Adresse du client
+        shipped_on: Envoyé le
+        delivered_on: Reçu le
       department:
         name: Nom
         comment: Commentaire
@@ -379,6 +383,7 @@ fr-FR:
         price_id: Prix
         price_list_id: Tarif
         quantity: Quantité
+        undelivered_quantity: Reste à livrer
       shelf:
         catalog_name: Nom pour le catalogue
         catalog_description: Description
@@ -812,6 +817,9 @@ fr-FR:
       delays_update:
         title: 'Modification du délai : {{value}}'
 
+      _deliveries_form:
+        infos: 'Renseignez les caractéristiques de la livraison'
+
       index:
         delays: Délais
         invoicing_parameters: Facturation
@@ -930,8 +938,11 @@ fr-FR:
         invoice: Facturer
         title: "Livraisons (En travaux)"
         sales_print: Imprimer la commande
-        ship: 'Expédié le : '
-        deliver: 'Reçu le : '
+        ship: 'Expédié le  '
+        supply: Livraison
+        quantity: Quantité
+        undelivered: 'Reste à livrer'
+        deliver: 'Reçu le  '
       deliveries_create:
        title: Ajouter une livraison
       sale_order_natures:
@@ -947,9 +958,6 @@ fr-FR:
         general: 'Général'
         delays: 'Délais'
         downpayment: "Options pour l'acompte"
-        
-      
-
       shelves:
         title: Gérer les catégories de produits
         shelves_create: Ajouter une nouvelle catégorie de produits
@@ -1216,6 +1224,7 @@ fr-FR:
     cancel: 'Annuler'
     close: 'Fermer'
     create: 'Créer'
+    delete: 'Supprimer'
     update: 'Modifier'
     edit: 'Modifier'
     example: 'Exemple&nbsp;: {{value}}'

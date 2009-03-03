@@ -20,5 +20,14 @@
 #
 
 class Delivery < ActiveRecord::Base
+
+  def before_validation
+    self.amount = 0
+    self.amount_with_taxes = 0
+    for line in self.lines
+      self.amount += line.amount
+      self.amount_with_taxes += line.amount_with_taxes
+    end
+  end
   
 end

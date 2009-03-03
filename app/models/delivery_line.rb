@@ -36,6 +36,14 @@ class DeliveryLine < ActiveRecord::Base
     errors.add_to_base tc(:error_undelivered_quantity) if self.quantity > self.undelivered_quantity
   end
 
+  def after_save
+    self.delivery.save
+  end
+
+  def after_destroy
+    self.delivery.save
+  end
+
   def undelivered_quantity
     self.order_line.undelivered_quantity
   end
