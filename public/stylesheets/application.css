@@ -351,3 +351,11 @@ table.dyta tr.unpointable.even td{background: #FFCCCC;}
 table.dyta tr.unpointable.odd  td{background: #FF9999;}
 table.dyta tr.pointabled.even td{background:#0066FF;}
 table.dyta tr.pointabled.odd td{background:#0033FF;}
+
+
+/* all the styles used by the plugin Dyli.*/
+div.dyli_complete {width: 350px;}
+div.dyli_complete ul {position: fixed; border:1px solid #888; margin:0; padding:0; width:30%; list-style-type:none;}
+div.dyli_complete ul li {background-color:  #C9D7F1; margin:0; padding:3px;}
+div.dyli_complete ul li.selected {background-color: #B1D1F9;}
+div.dyli_complete ul strong.highlight {color: #800; margin:0; padding:0;}

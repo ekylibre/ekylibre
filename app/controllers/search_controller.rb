@@ -1,8 +1,9 @@
 class SearchController < ApplicationController
-   dyli :role_search, :attributes => [:name, :actions], :model => :role
-  
-  def test
-    @user = User.new
+  dyli :account_partial, :attributes => [:name, :number], :model => :account, :partial => :test
+    
+  def index
+    @entry = Entry.new if request.get?
+    raise Exception.new('params:'+params.inspect) if request.post? 
   end
   
 end
