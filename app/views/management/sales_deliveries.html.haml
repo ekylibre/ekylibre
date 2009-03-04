@@ -18,7 +18,8 @@
     %th= tc 'quantity'
     %th= tc 'amount'
     %th= tc 'amount_with_taxes'
-    %th
+    %th  
+    %th   
   -for delivery in @deliveries
     -klass=cycle("odd","even")
     %tr{:class=>klass+' root'}
@@ -28,9 +29,8 @@
       %td
       %td= delivery.amount
       %td= delivery.amount_with_taxes
-      %td
-        = link_to tg('update'), :action=>:deliveries_update, :line=>delivery.id
-        = link_to tg('delete'), :action=>:deliveries_delete, :id=>delivery.id
+      %td= link_to tg('update'), :action=>:deliveries_update, :id=>delivery.id
+      %td= link_to tg('delete'), {:action=>:deliveries_delete, :id=>delivery.id}, :method=>:post, :confirm=>tg(:are_you_sure)
     - for lines in @delivery_lines
       -if lines.delivery_id == delivery.id and lines.quantity > 0
         %tr{:class=>klass}
@@ -39,6 +39,7 @@
           %td= lines.quantity
           %td= lines.amount
           %td= lines.amount_with_taxes
+          %td
           %td
 - form_tag do
   .actions

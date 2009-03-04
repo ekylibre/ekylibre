@@ -209,7 +209,7 @@ class RelationsController < ApplicationController
     @complement_data = []
 
     if request.post?
-      # raise Exception.new params.inspect
+      raise Exception.new params.inspect
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
       
@@ -242,6 +242,7 @@ class RelationsController < ApplicationController
         end
       end
     else
+      @contact = Contact.new
       @entity = Entity.new
       for complement in @complements
         @complement_data << ComplementDatum.new(:complement_id=>complement.id)

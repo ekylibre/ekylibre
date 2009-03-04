@@ -84,4 +84,18 @@ class SaleOrder < ActiveRecord::Base
     [:estimate, :order, :invoice].collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
+  def undelivered(column)
+    sum = 0
+    if column == "amount"
+      for line in self.lines
+        sum += line.price.amount*line.undelivered_quantity
+      end
+    elsif column == "amount_with_taxes"
+       for line in self.lines
+        sum += line.price.amount_with_taxes*line.undelivered_quantity
+       end
+    end
+    sum
+  end
+
 end

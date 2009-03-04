@@ -29,5 +29,11 @@ class Delivery < ActiveRecord::Base
       self.amount_with_taxes += line.amount_with_taxes
     end
   end
-  
+
+  def before_destroy
+    for line in self.lines
+      line.destroy
+    end
+  end
+ 
 end
