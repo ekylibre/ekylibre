@@ -19,20 +19,51 @@ class Mar1 < ActiveRecord::Migration
     add_column    :deliveries,       :contact_id,    :integer, :references=>:contacts
     drop_table :price_lists
 
-#     create_table :wines do |t|
-#       t.column :name,                   :string,   :null=>false
-#       t.column :millesime,              :string,   :null=>false
-#       t.column :appelation,              :string,   :null=>false
-#       t.column :centilisation,              :string,   :null=>false
-#       t.column :degré,              :string,   :null=>false
-#       t.column :codification,              :string,   :null=>false
-#     end
-#     add_column    :products, :wine_id, :integer, :references=>:wines
+
+    # Appellation
+    create_table :appellation do |t|
+      
+    end
+
+
+    # Wine
+    create_table :wines do |t|
+      t.column :name,                   :string,   :null=>false
+      t.column :vintage,              :string,   :null=>false
+      t.column :appellation,              :string,   :null=>false
+      #       t.column :centilisation,              :string,   :null=>false
+      t.column :alcohol_degree,              :string,   :null=>false
+      #       t.column :codification,              :string,   :null=>false
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+    end
+    add_index :wines, :company_id
+
+    add_column    :products, :wine_id, :integer, :references=>:wines
+
+
+    # Employee
+    create_table :employees do |t|
+      t.column :department_id,          :integer,  :null=>false, :references=>:departments, :on_delete=>:restrict, :on_update=>:restrict
+      t.column :establishment_id,       :integer,  :null=>false, :references=>:establishments, :on_delete=>:restrict, :on_update=>:restrict
+      t.column :user_id,                :integer,  :references=>:users, :on_delete=>:restrict, :on_update=>:restrict
+      t.column :title,                  :string,   :null=>false, :limit=>32
+      t.column :last_name,              :string,   :null=>false
+      t.column :first_name,             :string,   :null=>false
+      t.column :arrived_on,             :date
+      t.column :departed_on,            :date
+      t.column :role,                   :string
+      t.column :office,                 :string,   :limit=>32
+      t.column :comment,                :text
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+    end
+    add_index :employees, :company_id
+
 
   end
 
   def self.down
-#    drop_table :wines
+    drop_table :employees
+    drop_table :wines
     create_table  :price_lists do |t|
       t.column :name,                   :string,   :null=>false
       t.column :started_on,             :date,     :null=>false

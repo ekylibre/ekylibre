@@ -1,22 +1,5 @@
 class Populating < ActiveRecord::Migration
   def self.up
-    # Employee
-#     create_table :employees do |t|
-#       t.column :department_id,          :integer,  :null=>false, :references=>:departments, :on_delete=>:restrict, :on_update=>:restrict
-#       t.column :establishment_id,       :integer,  :null=>false, :references=>:establishments, :on_delete=>:restrict, :on_update=>:restrict
-#       t.column :user_id,                :integer,  :references=>:users, :on_delete=>:restrict, :on_update=>:restrict
-#       t.column :title,                  :string,   :null=>false, :limit=>32
-#       t.column :last_name,              :string,   :null=>false
-#       t.column :first_name,             :string,   :null=>false
-#       t.column :arrived_on,             :date,     :null=>false
-#       t.column :departed_on,            :date,     :null=>false
-#       t.column :role,                   :string
-#       t.column :office,                 :string,   :limit=>32
-#       t.column :comment,                :text
-#       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
-#     end
-#     add_index :employees, [:company_id, :user_id], :unique=>true
-
     # EntityNature
     create_table :entity_natures do |t|
       t.column :name,                   :string,  :null=>false
@@ -176,6 +159,5 @@ class Populating < ActiveRecord::Migration
     drop_table :address_norms
     drop_table :entities
     drop_table :entity_natures
-#    drop_table :employees
   end
 end
