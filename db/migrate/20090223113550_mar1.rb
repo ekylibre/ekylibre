@@ -1,6 +1,20 @@
 class Mar1 < ActiveRecord::Migration
   def self.up 
     add_column    :companies,        :entity_id,     :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
+
+    add_column    :bank_accounts,     :entity_id,     :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
+
+    # entity is created for all the companies.
+    for company in Company.find(:all)
+      nature = company.entity_nature
+      company.entities.create!(:nature_id=>nature.id , :language_id=>1 , :name=>company.name)
+      company.update({:entity_id=>entity.id})
+      company.bank_accounts.update({:entity_id=>entity.id})
+
+    end
+          
+
+
     add_column    :products,         :price,         :decimal, :precision=>16, :scale=>2, :default=>0.0.to_d
     remove_column :delivery_lines,   :price_list_id
     remove_column :invoice_lines,    :price_list_id
