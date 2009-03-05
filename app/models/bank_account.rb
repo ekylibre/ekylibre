@@ -13,6 +13,7 @@
 #  journal_id   :integer       not null
 #  currency_id  :integer       not null
 #  account_id   :integer       not null
+#  entity_id    :integer       not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
@@ -32,6 +33,8 @@ class BankAccount < ActiveRecord::Base
    self.iban.gsub!(/[^A-Z0-9]/, '')
    self.iban_label = self.iban.scan(/..../).join " "
    self.iban_label2 = self.iban
+   
+   self.entity_id = self.company.entity_id
 
  end  
   
