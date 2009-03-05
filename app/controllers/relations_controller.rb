@@ -203,6 +203,16 @@ class RelationsController < ApplicationController
     @title = {:value=>@entity.full_name}
   end
   
+  def client_informations
+    #raise Exception.new "jjjjjjjjjjjjjjjjjjjjjjjjjj"+params.inspect
+   # render :partial => "client_form" if params[:entity_client] == 1
+    if params[:entity_client] == 1
+       @client = 1
+    else
+      @client =0
+    end
+  end
+
   def entities_create
     access :entities   
     @complements = @current_company.complements.find(:all,:order=>:position)

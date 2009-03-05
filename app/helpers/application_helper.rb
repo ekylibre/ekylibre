@@ -377,7 +377,7 @@ module ApplicationHelper
       # code += content_tag(:tr, content_tag(:th,'', :colspan=>xcn), :class=>"after-title") if line[:nature]==:title
       
     end
-    code = content_tag(:table, code, :class=>'formalize')
+    code = content_tag(:table, code, :class=>'formalize',:id=>form_options[:id])
     # code += 'error_messages_for ' ?
   end
 

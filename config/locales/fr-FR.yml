@@ -242,18 +242,28 @@ fr-FR:
         name: Nom
         comment: Commentaire
       entity:
-        first_name: Prénom
-        website: Site Web
-        name: Nom
-        code: Code
-        full_name: Nom complet
-        nature_id: Type
-        language_id: Langue
-        born_on: Date de naissance
-        dead_on: Date de décès
+        accises: 'Numéro d''accises'
         active: Actif
+        born_on: Date de naissance
+        cee_tva: TVA intra-communautaire
         client: Fiche client
+        code: Code
+        comment: Commentaire
+        country: Pays
+        dead_on: Date de décès
+        deliveries_conditions: Conditions de Livraison
+        discount_rate: 'Taux d''escompte'
+        first_name: Prénom
+        full_name: Nom complet
+        language_id: Langue
+        name: Nom
+        nature_id: Type
+        payments_number: Nombre de paiements
+        reduction_rate: Taux de réduction
+        reflation_submissive: Soumis à la relance
         supplier: Fiche fournisseur
+        tva_submissive: Soumis à la TVA
+        website: Site Web
       entity_nature:
         abbreviation: Abréviation
         active: Actif
@@ -332,6 +342,7 @@ fr-FR:
         to_purchase: 'Produit destiné à l''achat'
         to_rent: Produit destiné à la location
         unit_id: Unité de mesure
+        without_stocks: Ne nécessite pas de gestion de stocks
       purchase_order:
         client_id: Fournisseur
         supplier_id: Fournisseur
@@ -1066,6 +1077,7 @@ fr-FR:
         title: 'Renseignez les différentes caractéristiques de la fiche'
         details: 'Informations complémentaires'
         complements: 'Champs personnalisés'
+        client: 'Informations client'
       _entities_search:
         search: Rechercher une fiche
       entities_update:
