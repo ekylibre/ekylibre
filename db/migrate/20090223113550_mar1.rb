@@ -16,9 +16,14 @@ class Mar1 < ActiveRecord::Migration
         bank_account.update_attributes({:entity_id=>entity.id})
       end
     end
-    
-       
-    add_column    :products,         :price,         :decimal, :precision=>16, :scale=>2, :default=>0.0.to_d
+          
+
+    add_column    :entities,         :tva_submissive, :boolean, :null=>false,   :default=>true
+    add_column    :entities,         :rate_discount,  :decimal, :precision=>4,  :scale=>2
+    add_column    :entities,         :comment,        :text
+    add_column    :entities,         :reflation_submissive,  :boolean, :null=>false, :default=>false
+    add_column    :entities,         :accises,        :string,  :limit=>15
+    add_column    :products,         :price,          :decimal, :precision=>16, :scale=>2, :default=>0.0.to_d
     remove_column :delivery_lines,   :price_list_id
     remove_column :invoice_lines,    :price_list_id
     remove_column :prices,           :list_id
@@ -28,12 +33,12 @@ class Mar1 < ActiveRecord::Migration
     remove_column :prices,           :stopped_on
     remove_column :prices,           :deleted
     remove_column :prices,           :default
-    add_column    :prices,           :entity_id,     :integer, :null=>false, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
-    add_column    :prices,           :started_at,    :timestamp
-    add_column    :prices,           :stopped_at,    :timestamp
-    add_column    :prices,           :active,        :boolean, :null=>false, :default=>true
-    add_column    :prices,           :currency_id,   :integer, :null=>false, :references=>:currencies
-    add_column    :deliveries,       :contact_id,    :integer, :references=>:contacts
+    add_column    :prices,           :entity_id,      :integer, :null=>false, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
+    add_column    :prices,           :started_at,     :timestamp
+    add_column    :prices,           :stopped_at,     :timestamp
+    add_column    :prices,           :active,         :boolean, :null=>false, :default=>true
+    add_column    :prices,           :currency_id,    :integer, :null=>false, :references=>:currencies
+    add_column    :deliveries,       :contact_id,     :integer, :references=>:contacts
     drop_table :price_lists
 
 

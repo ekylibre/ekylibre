@@ -1002,6 +1002,9 @@ fr-FR:
 
     # Relations
     relations:
+      _coordinates_form:
+        canals: 'Coordonnées'
+        address: 'Adresse'
       complements:
         title: 'Champs complémentaires personnalisés'
         complements_create: Créer un nouveau champ personnalisé
@@ -1075,6 +1078,8 @@ fr-FR:
         entities: Gérer les fiches clients et fournisseurs
         parameters: Paramètres
         complements: Champs personnalisés
+      _general_description_form:
+        title: 'Description générale'
 
   # Used in the models
   # Used in the models

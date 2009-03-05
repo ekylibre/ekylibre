@@ -1,0 +1,6 @@
+=formalize do |f|
+  -f.error :contact
+  -f.title :title
+  -f.field :contact, :name
+  -f.field :contact, :default
+=javascript_tag("$('contact_name').focus();")

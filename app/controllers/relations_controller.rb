@@ -209,10 +209,14 @@ class RelationsController < ApplicationController
     @complement_data = []
 
     if request.post?
-      raise Exception.new params.inspect
+      #raise Exception.new params.inspect
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
-      
+      @contact = Contact.new(params[:contact])
+      @contact.company_id = @current_company.id
+      @contact.norm = @current_company.address_norms[0]
+      @contact.name =  tc(:first_contact)
+
       for complement in @complements
         attributes = params[:complement_datum][complement.id.to_s]||{}
         attributes[:complement_id] = complement.id
@@ -231,6 +235,11 @@ class RelationsController < ApplicationController
               @entity.errors.add_to_base(msg)
             end
             #            puts '>> Datum : '+datum.errors.inspect
+          end
+          @contact.entity_id = @entity.id
+          saved = false unless @contact.save
+          @contact.errors.each_full do |msg|
+            @entity.errors.add_to_base(msg)
           end
         end
         raise ActiveRecord::Rollback unless saved
@@ -256,6 +265,7 @@ class RelationsController < ApplicationController
     @entity = find_and_check(:entity,params[:id])
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
+    @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})
 
     if request.post? and @entity
       puts params[:complement_datum].inspect
@@ -276,7 +286,7 @@ class RelationsController < ApplicationController
 
       
       ActiveRecord::Base.transaction do
-        saved = @entity.save
+        saved = @entity.update_attributes(params[:entity])
         if saved
           for datum in @complement_data
             datum.entity_id = @entity.id
@@ -285,6 +295,10 @@ class RelationsController < ApplicationController
               @entity.errors.add_to_base(msg)
             end
           end
+        end
+        saved = false unless @contact.update_attributes(params[:contact])
+        @contact.errors.each_full do |msg|
+          @entity.errors.add_to_base(msg)
         end
         raise ActiveRecord::Rollback unless saved
         redirect_to_back
