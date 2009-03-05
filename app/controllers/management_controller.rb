@@ -66,8 +66,8 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.column :range
     t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :prices_create, :mode=>:sales
-    t.procedure :prices_create, :mode=>:purchases
+    t.procedure :sales_prices_create,     :action=>:prices_create, :mode=>:sales
+    t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases
   end
   
   def prices_conditions(options={})

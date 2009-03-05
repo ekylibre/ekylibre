@@ -238,7 +238,11 @@ table.dyta td.procedures > a.procedure.create {padding-left: 20px; background: u
 table.dyta td.empty { text-align:center; color: #777; padding:4px; background: #EEF; }
 table.dyta th, table.dyta td.empty, table.dyta td.procedures { border-top: 1px solid #BACFE6; }
 table.dyta th, table.dyta td { border-left: 1px solid #BACFE6; border-right: 1px solid #BACFE6; }
-
+table.dyta td.paginate { text-align:center; border-top:1px solid #BACFE6;  }
+table.dyta td.paginate div.pagination { padding: 2px; background: #FED; }
+table.dyta td.paginate div.pagination * { padding:2px 4px; }
+table.dyta td.paginate div.pagination span.current { font-weight:bold; color: black; }
+table.dyta td.paginate div.pagination span.disabled { color: #888; }
 table.dyta tr      td.decimal { text-align: right; }
 table.dyta tr      td.date { text-align: center; }
 table.dyta tr      td.web { text-align: center; }

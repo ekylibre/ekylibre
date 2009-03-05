@@ -857,8 +857,8 @@ fr-FR:
          sales: Les prix de vente
          purchases: 'Les prix d''achat du fournisseur'
          title: Liste des prix
-         prices_create: 'Créer un nouveau prix d''achat' 
-         prices_create: Créer un nouveau prix de vente 
+         purchases_prices_create: 'Enregistrer un nouveau prix d''achat' 
+         sales_prices_create: Enregistrer un nouveau prix de vente 
       prices_create:
         title: 'Ajout d''un nouveau prix'
       _prices_form:
@@ -1242,9 +1242,9 @@ fr-FR:
     close: 'Fermer'
     create: 'Créer'
     delete: 'Supprimer'
-    update: 'Modifier'
     edit: 'Modifier'
     example: 'Exemple&nbsp;: {{value}}'
+    filter: Filtrer
     finish: Terminer
     hint: 'Astuce&nbsp;: {{value}}'
     info: 'Information&nbsp;: {{value}}'
@@ -1256,6 +1256,7 @@ fr-FR:
     search: Rechercher
     search_go: Lancer la recherche
     submit: Envoyer
+    update: 'Modifier'
 
 
       
