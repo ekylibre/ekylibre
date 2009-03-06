@@ -139,7 +139,7 @@ class Mar1 < ActiveRecord::Migration
     remove_column :entities, :deliveries_conditions
     remove_column :entities, :reflation_submissive
     remove_column :entities, :tva_submissive
-    #remove_column :products, :weight
+    remove_column :products, :weight
     remove_column :bank_accounts, :entity_id
     remove_column :companies, :entity_id
   

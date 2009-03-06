@@ -342,6 +342,7 @@ fr-FR:
         to_purchase: 'Produit destiné à l''achat'
         to_rent: Produit destiné à la location
         unit_id: Unité de mesure
+        weight: Poids
         without_stocks: Ne nécessite pas de gestion de stocks
       purchase_order:
         client_id: Fournisseur

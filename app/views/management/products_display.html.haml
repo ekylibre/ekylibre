@@ -13,9 +13,11 @@
     %td
       =evalue @product, :shelf, :url=>{:action=>:shelves_display}
       =evalue @product, :unit, :label=>:label
+      =evalue @product, :weight
       =evalue @product, :active
-      =evalue @product, :to
+      =evalue @product, :without_stocks
     %td
+      =evalue @product, :to
       =evalue @product, :catalog_name
       =evalue @product, :catalog_description
       =evalue @product, :description
