@@ -581,6 +581,8 @@ fr-FR:
       print_by_financial_year:
         financial_year_select: Sélectionnez l''exercice comptable
         financial_id: Exercice comptable
+      _entries_update:
+        title: 'Modification de l''écriture' 
       _entries:
         title: 'Saisie des écritures'
         record_number: 'N°Pièce'
@@ -832,7 +834,8 @@ fr-FR:
         title: 'Ajout d''un nouveau délai'
       delays_update:
         title: 'Modification du délai : {{value}}'
-
+      _deliveries_update:
+        title: 'Modification de la livraison' 
       _deliveries_form:
         infos: 'Renseignez les caractéristiques de la livraison'
 
