@@ -5,7 +5,7 @@
   - if @mode == :sales
     - f.field :price, :product_id, :choices=>Product.find(:all,:conditions=>{:to_sale=>true, :company_id=>@current_company.id},:order=>:name).collect{|x| [x.name, x.id]}, :new=>{:action=>:products_create}
   - else 
-    - f.field :price, :product_id, :choices=>Product.find(:all,:conditions=>{:to_purchase=>true}).collect{|x| [x.name, x.id]}, :new=>{:action=>:products_create}
+    - f.field :price, :product_id, :choices=>Product.find(:all,:conditions=>{:to_purchase=>true, :company_id=>@current_company.id}).collect{|x| [x.name, x.id]}, :new=>{:action=>:products_create}
   - if @mode != :sales
     - f.field :price, :entity_id, :choices=>Entity.find(:all, :conditions=>{:company_id=>@current_company.id,:supplier=>true}).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations,:action=>:entities_create} 
   - f.field :price, :amount
