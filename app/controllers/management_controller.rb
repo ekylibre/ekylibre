@@ -6,7 +6,6 @@ class ManagementController < ApplicationController
   end
 
 
-
   dyta(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :active
@@ -151,12 +150,13 @@ class ManagementController < ApplicationController
   end
 
   dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['@product.id'], :active=>true}, :model=>:prices) do |t|
+    t.column :name, :through=>:entity
     t.column :amount
     t.column :amount_with_taxes
     t.column :range
     t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :prices_create, :mode=>:sales
-    t.procedure :prices_create, :mode=>:purchases
+    t.procedure :sales_prices_create,     :action=>:prices_create, :mode=>:sales
+    t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases
   end
 
   def products
