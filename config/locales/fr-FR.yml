@@ -399,6 +399,7 @@ fr-FR:
         price_list_id: Tarif
         quantity: Quantité
         undelivered_quantity: Reste à livrer
+        unit_id: Unité
       shelf:
         catalog_name: Nom pour le catalogue
         catalog_description: Description
@@ -973,6 +974,7 @@ fr-FR:
         title: "Modification d'un type de vente"
       _sale_order_natures_form:
         general: 'Général'
+        conditions: "Conditions de paiement"
         delays: 'Délais'
         downpayment: "Options pour l'acompte"
       shelves:
