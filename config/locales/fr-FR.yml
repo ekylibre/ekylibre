@@ -358,8 +358,12 @@ fr-FR:
         number: Numéro
         comment: Commentaire
       purchase_order_line: 
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
         price_id: Produit
+        product_id: Produit
         quantity: Quantité
+        unit_id: Unités
       rubric:
         name: Titre
         nature: Where - What
@@ -922,6 +926,7 @@ fr-FR:
         amount: Montant HT
         amount_with_taxes: Montant TTC
         purchase_order_lines_create: Ajouter un produit à la commande
+        purchases: Consulter la liste des achats
         order_print: Imprimer la commande
       purchases:
         title: Liste des achats

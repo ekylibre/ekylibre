@@ -631,11 +631,11 @@ class ManagementController < ApplicationController
   def sales_deliveries
     @sale_order = find_and_check(:sale_order, params[:id])
     @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>@sale_order.id})
-    found_products = false
+    @undelivered = false
     for line in @sale_order_lines
-      found_products = true if line.undelivered_quantity > 0 and !found_products
+      @undelivered = true if line.undelivered_quantity > 0 and !found_products
     end
-    undelivered_quantities_list params if found_products
+    undelivered_quantities_list params if @undelivered
     
     session[:current_sale_order] = @sale_order.id
     @deliveries = Delivery.find_all_by_company_id_and_order_id(@current_company.id, @sale_order.id)
@@ -673,7 +673,7 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order]
     end
     @delivery_lines =  @sale_order_lines.collect{|x| DeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
-    @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"))
+    @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :shipped_on=>Date.today, :delivered=>Date.today)
     session[:current_delivery] = @delivery.id
    # raise Exception.new @delivery_lines.inspect
     @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@sale_order.client_id})
