@@ -56,9 +56,9 @@ class Price < ActiveRecord::Base
   end
 
   def add_price(amount,tax_id,entity_id)
-    existing_price = Price.find(:first, :conditions=>{:product_id=>self.product_id,:amount=>amount, :tax_id=>tax_id})
+    existing_price = self.company.prices.find(:first, :conditions=>{:product_id=>self.product_id,:amount=>amount, :tax_id=>tax_id})
     if existing_price.nil?
-      new_price = Price.create!(:tax_id=>tax_id, :amount=>amount,:currency_id=>self.currency_id,:product_id=>self.product_id,:company_id=>self.company_id, :entity_id=>entity_id)
+      new_price = self.company.prices.create!(:tax_id=>tax_id, :amount=>amount,:currency_id=>self.currency_id,:product_id=>self.product_id, :entity_id=>entity_id)
     else
       new_price = existing_price
     end
