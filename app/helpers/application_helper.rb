@@ -93,13 +93,7 @@ module ApplicationHelper
 #    end
 #    ''
   end
-    
-
-  def images
-    image = "public/images/countries/fr.png"
-    image = "public/images/countries/en.png"
-  end
-  
+      
   def countries
     t('countries').to_a.sort{|a,b| a[1].to_s<=>b[1].to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
   end

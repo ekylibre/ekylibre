@@ -11,7 +11,7 @@
       =evalue @entity, :dead_on unless @entity.dead_on.blank?
       =evalue @entity, :active
       =evalue @entity, :website unless @entity.website.blank?
-      =evalue t('activerecord.attributes.entity.country'), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) 
+      =evalue t('activerecord.attributes.entity.country'), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country)  
     -if @entity.client
       %td
         =evalue @entity, :vat_number unless @entity.vat_number.blank?
