@@ -310,13 +310,13 @@ fr-FR:
         amount_with_taxes: Montant TTC
         currency_id: Devise
         entity_id: Fournisseur
+        id: Produit
         list_id: Liste de prix
-        tax_id: TVA
         product_id: Produit
-        product: Produit
         quantity_min: 'Quantité minimale'
         quantity_max: 'Quantité maximale'
         range: Intervalle
+        tax_id: TVA
         use_range: Définir un intervalle de quantité pour le produit
       price_list:
         active: Active (utilisable)
@@ -953,7 +953,7 @@ fr-FR:
         deliveries: Livraisons 
         deliveries_create: Ajouter une livraison
         invoice: Facturer
-        title: "Livraisons (En travaux)"
+        title: "Livraisons"
         sales_print: Imprimer la commande
         ship: 'Expédié le  '
         supply: Livraison

@@ -281,7 +281,8 @@ module Ekylibre
             when :column
               if @options[:through] and @options[:through].is_a?(Symbol)
                 raise Exception.new("Unknown reflection :#{@options[:through].to_s} for the ActiveRecord: "+@model.to_s) if @model.reflections[@options[:through]].nil?
-                @model.columns_hash[@model.reflections[@options[:through]].primary_key_name].human_name
+                # @model.columns_hash[@model.reflections[@options[:through]].primary_key_name].human_name
+                ::I18n.t("activerecord.attributes.#{@model.to_s.tableize.singularize}.#{@model.reflections[@options[:through]].primary_key_name.to_s}")
               elsif @options[:through] and @options[:through].is_a?(Array)
                 model = @model
                 (@options[:through].size-1).times do |x|
