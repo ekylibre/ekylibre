@@ -313,6 +313,7 @@ fr-FR:
         list_id: Liste de prix
         tax_id: TVA
         product_id: Produit
+        product: Produit
         use_range: Définir un intervalle de quantité pour le produit
         quantity_min: 'Quantité minimale'
         quantity_max: 'Quantité maximale'
@@ -343,7 +344,7 @@ fr-FR:
         to_purchase: 'Produit destiné à l''achat'
         to_rent: Produit destiné à la location
         unit_id: Unité de mesure
-        weight: Poids
+        weight: Poids (kg)
         without_stocks: Ne nécessite pas de gestion de stocks
       purchase_order:
         client_id: Fournisseur
