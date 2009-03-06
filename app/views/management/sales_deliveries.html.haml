@@ -12,16 +12,17 @@
   %tr
     %td.procedures{:colspan=>9} 
       =link_to "Ajouter une livraison", :action=>:deliveries_create
-  %tr
-    %th
-    %th= tc 'supply'
-    %th= tc 'ship'
-    %th= tc 'deliver'
-    %th= tc 'quantity'
-    %th= tc 'amount'
-    %th= tc 'amount_with_taxes'
-    %th  
-    %th   
+  -unless @deliveries.empty?
+    %tr
+      %th
+      %th= tc 'supply'
+      %th= tc 'ship'
+      %th= tc 'deliver'
+      %th= tc 'quantity'
+      %th= tc 'amount'
+      %th= tc 'amount_with_taxes'
+      %th  
+      %th   
   -for delivery in @deliveries
     -klass=cycle("odd","even")
     %tr{:class=>klass+' root'}

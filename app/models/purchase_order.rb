@@ -43,7 +43,7 @@ class PurchaseOrder < ActiveRecord::Base
      end
   end
   
-  def up_order
+  def refresh
     self.save
   end
 

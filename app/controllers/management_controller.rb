@@ -254,7 +254,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@purchase_order.id']}) do |t|
+  dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@purchase_order.id']}, :empty=>true) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:products_display}
     t.column :quantity
     t.column :label, :through=>:unit
@@ -308,21 +308,30 @@ class ManagementController < ApplicationController
     @price = Price.new
     if request.post?
       @purchase_order_line = @current_company.purchase_order_lines.find(:first, :conditions=>{:price_id=>params[:purchase_order_line][:price_id], :order_id=>session[:current_purchase]})
-      if !@purchase_order_line
+      if @purchase_order_line
+        @sale_order_line.quantity += params[:purchase_order_line][:quantity].to_d
+      else
         @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
         @purchase_order_line.company_id = @current_company.id
-        @purchase_order_line.order_id = session[:current_purchase]
-        @price = find_and_check(:price, params[:purchase_order_line][:price_id])
-        @price = @price.add_price(params[:price][:amount],params[:price][:tax_id], @purchase_order_line.order.supplier_id)
-        @purchase_order_line.product_id = find_and_check(:products, @price.product_id)
-        calculate_price(false)
-      else
-       # raise Exception.new @purchase_order_line.inspect
-        @price = find_and_check(:price, params[:purchase_order_line][:price_id])    
-        @price = @price.add_price(params[:price][:amount],params[:price][:tax_id],@purchase_order_line.order.supplier_id)
-        calculate_price(true)
+        @purchase_order_line.order_id = session[:current_purchase]        
+        @purchase_order_line.product_id = find_and_check(:price, params[:purchase_order_line][:price_id]).change(params[:price][:amount], params[:price][:tax_id]).product_id
       end
-      @purchase_order_line.price_id = @price.id
+
+#       if !@purchase_order_line
+#         @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
+#         @purchase_order_line.company_id = @current_company.id
+#         @purchase_order_line.order_id = session[:current_purchase]
+#         @price = find_and_check(:price, params[:purchase_order_line][:price_id])
+#         @price = @price.add_price(params[:price][:amount], params[:price][:tax_id], @purchase_order_line.order.supplier_id)
+#         @purchase_order_line.product_id = find_and_check(:products, @price.product_id)
+#         calculate_price(false)
+#       else
+#        # raise Exception.new @purchase_order_line.inspect
+#         @price = find_and_check(:price, params[:purchase_order_line][:price_id])    
+#         @price = @price.add_price(params[:price][:amount], params[:price][:tax_id], @purchase_order_line.order.supplier_id)
+#         calculate_price(true)
+#       end
+#       @purchase_order_line.price_id = @price.id
       redirect_to :action=>:purchases_products, :id=>session[:current_purchase] if @purchase_order_line.save
     else
       @purchase_order_line = PurchaseOrderLine.new
@@ -337,7 +346,7 @@ class ManagementController < ApplicationController
     @price = find_and_check(:price, @purchase_order_line.price_id)
     if request.post?
       params[:purchase_order_line][:company_id] = @current_company.id
-      calculate_price(false)
+#      calculate_price(false)
       if @purchase_order_line.update_attributes(params[:purchase_order_line])  
         @update = false
         redirect_to :action=>:purchases_products, :id=>@purchase_order_line.order_id  
@@ -638,7 +647,7 @@ class ManagementController < ApplicationController
     @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>@sale_order.id})
     @undelivered = false
     for line in @sale_order_lines
-      @undelivered = true if line.undelivered_quantity > 0 and !found_products
+      @undelivered = true if line.undelivered_quantity > 0 and !@undelivered
     end
     undelivered_quantities_list params if @undelivered
     
@@ -678,7 +687,7 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order]
     end
     @delivery_lines =  @sale_order_lines.collect{|x| DeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
-    @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :shipped_on=>Date.today, :delivered=>Date.today)
+    @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :shipped_on=>Date.today, :delivered_on=>Date.today)
     session[:current_delivery] = @delivery.id
    # raise Exception.new @delivery_lines.inspect
     @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@sale_order.client_id})

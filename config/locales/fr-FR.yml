@@ -841,7 +841,10 @@ fr-FR:
       _deliveries_update:
         title: 'Modification de la livraison' 
       _deliveries_form:
+        amount: Total de la livraison HT
+        amount_with_taxes: Total de la livraison TTC
         infos: 'Renseignez les caractéristiques de la livraison'
+        
 
       index:
         delays: Délais

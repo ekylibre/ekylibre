@@ -55,9 +55,13 @@ class Price < ActiveRecord::Base
     self.save
   end
 
-  def add_price(amount, tax_id, entity_id)
-    price = self.company.prices.find(:first, :conditions=>{:product_id=>self.product_id,:amount=>amount, :tax_id=>tax_id, :active=>true})
-    price = self.company.prices.create!(:tax_id=>tax_id, :amount=>amount, :currency_id=>self.currency_id, :product_id=>self.product_id, :entity_id=>entity_id) if price.nil?
+  def change(amount, tax_id)
+    conditions = {:product_id=>self.product_id,:amount=>amount, :tax_id=>tax_id, :active=>true, :entity_id=>self.entity_id, :currency_id=>self.currency_id}
+    price = self.company.prices.find(:first, :conditions=>conditions)
+    if price.nil?
+      self.update_attribute(:active, false)
+      price = self.company.prices.create!(conditions)
+    end
     price
   end
 

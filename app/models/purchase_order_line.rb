@@ -27,15 +27,19 @@ class PurchaseOrderLine < ActiveRecord::Base
   def before_validation
     self.account_id = self.price.product.account_id
     self.unit_id = self.price.product.unit_id
+    if self.price
+      self.amount = (self.price.amount*self.quantity).round(2)
+      self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2)
+    end
   end
   
   
   def after_save
-    self.order.up_order
+    self.order.refresh
   end
   
   def after_destroy
     #raise Exception.new "yyy"
-    self.order.up_order
+    self.order.refresh
   end
 end
