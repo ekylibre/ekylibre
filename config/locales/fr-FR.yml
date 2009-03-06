@@ -209,6 +209,7 @@ fr-FR:
         name: Nom
         value: Valeur
       contact:
+        country: Pays
         fax: Fax
         mobile: Portable
         name: Nom (interne)
@@ -471,7 +472,7 @@ fr-FR:
       title: Commerce
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
       messages:
-        need_product_to_create_price: 'Pour pouvoir ajouter un tarif à une liste de prix, il vous faut d''abord enregistrer un produit à tarifer. Une fois le produit enregistré vous pourrez enregistrer votre tarif.'
+        need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
         need_stock_location_to_record_stock_moves: 'Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage.'
   
     relations:
@@ -855,11 +856,12 @@ fr-FR:
    
       prices: 
          all: Tous les prix
-         sales: Les prix de vente
-         purchases: 'Les prix d''achat du fournisseur'
-         title: Liste des prix
+         client: Les prix de vente
+         display: 'Afficher :'
          purchases_prices_create: 'Enregistrer un nouveau prix d''achat' 
          sales_prices_create: Enregistrer un nouveau prix de vente 
+         supplier: 'Les prix d''achat du fournisseur'
+         title: Liste des prix
       prices_create:
         title: 'Ajout d''un nouveau prix'
       _prices_form:

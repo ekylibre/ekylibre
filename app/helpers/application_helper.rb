@@ -101,11 +101,7 @@ module ApplicationHelper
   end
   
   def countries
-    country_lines = []
-    t('countries').to_a.sort{|a,b| a[1].to_s<=>b[1].to_s}.each do |a|
-      country_lines<<[a[1],a[0]]
-    end
-    country_lines
+    t('countries').to_a.sort{|a,b| a[1].to_s<=>b[1].to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
   end
 
   def can_access?(action=:all)

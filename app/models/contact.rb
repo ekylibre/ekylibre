@@ -44,7 +44,7 @@ class Contact < ActiveRecord::Base
       Contact.update_all('"default"=false', ["entity_id=? AND company_id=? AND id!=?", self.entity_id,self.company_id, self.id||0])
     end
     
-    lines = [self.line_2, self.line_3, (self.line_4_number+' '+self.line_4_street).strip, self.line_5, (self.line_6_code+" "+self.line_6_city).strip].compact
+    lines = [self.line_2, self.line_3, (self.line_4_number+' '+self.line_4_street).strip, self.line_5, (self.line_6_code+" "+self.line_6_city).strip, I18n.t("countries.#{self.country}")].compact
     lines.delete ""
     self.address = lines.join(", ")
 

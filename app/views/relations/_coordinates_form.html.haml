@@ -8,6 +8,7 @@
   -f.field :contact, :line_5
   -f.field :contact, :line_6_code
   -f.field :contact, :line_6_city
+  -f.field :contact, :country, :choices=>countries, :options=>{:include_blank=>true}
   -f.title :canals
   -f.field :contact, :phone
   -f.field :contact, :fax

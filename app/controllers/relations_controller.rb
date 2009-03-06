@@ -3,8 +3,6 @@ class RelationsController < ApplicationController
   def index
   end
 
-
-
   dyta(:complements, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t|
     t.column :name
     t.column :nature_label
@@ -13,7 +11,7 @@ class RelationsController < ApplicationController
     t.column :choices_count
     t.action :complements_update, :image=>:update
     t.action :complement_choices, :image=>:menulist, :if=>'RECORD.nature == "choice"'
-    t.procedure :complements_create52
+    t.procedure :complements_create
   end
 
   dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['@complement.id']}) do |t| 
@@ -354,6 +352,7 @@ class RelationsController < ApplicationController
     else
       @contact = Contact.new
       @contact.name = (@entity.contacts.size>0 ? tc(:second_contact) : tc(:first_contact) )
+      @contact.country = @entity.country
     end
     @title = {:value=>@entity.full_name}
     render_form

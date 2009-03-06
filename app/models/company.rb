@@ -57,7 +57,7 @@ class Company < ActiveRecord::Base
     self.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
     self.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
     self.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
-    indefini = self.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'In', :in_name=>false)
+    indefini = self.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false)
     firm = self.entities.create!(:nature_id=>indefini.id,:language_id=>1, :name=>self.name)
     self.set_entity_id(firm.id)
    # self.entity_id = firm.id

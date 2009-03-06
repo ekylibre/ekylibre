@@ -82,6 +82,7 @@ class ManagementController < ApplicationController
   
   def prices
     @modes = ['all', 'client', 'supplier']
+    @suppliers = @current_company.entities.find(:all,:conditions=>{:supplier=>true})
     session[:entity_id] = 0
     if request.post?
       mode = params[:price][:mode]
@@ -118,7 +119,7 @@ class ManagementController < ApplicationController
       end
     else
       if @current_company.available_products.size<=0
-        flash[:message] = tc(:need_product_to_create_price)
+        flash[:message] = tc('messages.need_product_to_create_price')
         redirect_to :action=> :products_create
       end
       @price = Price.new
