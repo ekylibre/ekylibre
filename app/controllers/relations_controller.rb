@@ -13,7 +13,7 @@ class RelationsController < ApplicationController
     t.column :choices_count
     t.action :complements_update, :image=>:update
     t.action :complement_choices, :image=>:menulist, :if=>'RECORD.nature == "choice"'
-    t.procedure :complements_create
+    t.procedure :complements_create52
   end
 
   dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['@complement.id']}) do |t| 
@@ -275,7 +275,7 @@ class RelationsController < ApplicationController
     @entity = find_and_check(:entity,params[:id])
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
-    @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})
+    @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})||Contact.new
 
     if request.post? and @entity
       puts params[:complement_datum].inspect
