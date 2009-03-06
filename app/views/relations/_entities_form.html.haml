@@ -10,8 +10,8 @@
   -f.field :entity, :supplier
   -f.title :details
   -f.field :entity, :country
-  -f.field :entity, :cee_tva
-  -f.field :entity, :accises
+  -f.field :entity, :vat_number
+  -f.field :entity, :excise
   -f.field :entity, :code
   -f.field :entity, :born_on
   -#f.field :entity, :dead_on
@@ -19,15 +19,16 @@
   -f.field :entity, :comment, :field=>:textarea
   -for datum in @complement_data
     -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_value", :name=>"complement_datum[#{datum.complement_id}][value]", :value=>datum.value, :size=>datum.complement.length_max, :choices=>datum.complement.choices.collect{|x| [x.name , x.id]}  }
-=formalize(:style=>{:display=>:none},:id=>:client_form) do |f|
+
+=formalize(:id=>:client_form) do |f|
   -f.title :client
-  -f.field :entity, :tva_submissive
+  -f.field :entity, :vat_submissive
   -f.field :entity, :reflation_submissive
   -f.field :entity, :discount_rate
   -f.field :entity, :reduction_rate
   -f.field :entity, :payments_number
   -f.field :entity, :deliveries_conditions, :field=>:textarea
-=render :partial=>"coordinates_form"
+
 :javascript
   function displayFields(){
     if ($('entity_client').checked)
@@ -37,3 +38,6 @@
   }
   displayFields();
 =observe_field "entity_client", :function=>"displayFields();", :frequency => 0.25
+
+=render :partial=>"coordinates_form"
+

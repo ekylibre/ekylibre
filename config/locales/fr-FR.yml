@@ -242,10 +242,8 @@ fr-FR:
         name: Nom
         comment: Commentaire
       entity:
-        accises: 'Numéro d''accises'
         active: Actif
         born_on: Date de naissance
-        cee_tva: TVA intra-communautaire
         client: Fiche client
         code: Code
         comment: Commentaire
@@ -253,6 +251,7 @@ fr-FR:
         dead_on: Date de décès
         deliveries_conditions: Conditions de Livraison
         discount_rate: 'Taux d''escompte'
+        excise: 'Numéro d''accises'
         first_name: Prénom
         full_name: Nom complet
         language_id: Langue
@@ -262,7 +261,8 @@ fr-FR:
         reduction_rate: Taux de réduction
         reflation_submissive: Soumis à la relance
         supplier: Fiche fournisseur
-        tva_submissive: Soumis à la TVA
+        vat_number: Numéro de TVA intra-communautaire
+        vat_submissive: Soumis à la TVA
         website: Site Web
       entity_nature:
         abbreviation: Abréviation

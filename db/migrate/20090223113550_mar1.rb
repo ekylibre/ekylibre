@@ -5,28 +5,32 @@ class Mar1 < ActiveRecord::Migration
     add_index :bank_accounts, :entity_id
 
     # entity is automatically created for all the companies.
-    for company in Company.find(:all)
-      nature = company.entity_natures.find(:first, :conditions=>{:in_name=>false, :physical=>false,:abbreviation=>'-'})                              
-      nature = company.entity_natures.create!(:name=>'Inconnu', :abbreviation=>'-', :in_name=>false, :physical=>false) if nature.nil?
-      entity = company.entities.find(:first, :conditions=>{:code=>company.code})
-      entity = company.entities.create!(:nature_id=>nature.id , :language_id=>1 , :name=>company.name, :code=>company.code) if entity.nil?
-      company.update_attributes({:entity_id=>entity.id})
-      company.bank_accounts.each do |bank_account|
-        bank_account.update_attributes({:entity_id=>entity.id})
-      end
-    end
+    execute "INSERT INTO entity_natures(company_id, name, in_name, physical, abbreviation, created_at, updated_at) SELECT companies.id, 'Indéfini', false, false, '-', current_timestamp, current_timestamp FROM companies LEFT JOIN entity_natures en ON (en.company_id=companies.id AND en.name='Indéfini') WHERE en.id IS NULL"
+    execute "INSERT INTO entities(company_id, nature_id, language_id, name, code, full_name, created_at, updated_at) SELECT companies.id, en.id, ln.id, companies.name, companies.code, companies.name, current_timestamp, current_timestamp FROM companies LEFT JOIN entity_natures en ON (en.company_id=companies.id AND  en.name='Indéfini') LEFT JOIN entities e ON (e.code=companies.code), languages ln  WHERE ln.iso2='fr' AND e.id IS NULL"
+    execute "UPDATE bank_accounts SET entity_id=c.entity_id FROM companies c WHERE c.entity_id=bank_accounts.entity_id"
+
+#     for company in Company.find(:all)
+#       nature = company.entity_natures.find(:first, :conditions=>{:in_name=>false, :physical=>false,:abbreviation=>'-'})                              
+#       nature = company.entity_natures.create!(:name=>'Inconnu', :abbreviation=>'-', :in_name=>false, :physical=>false) if nature.nil?
+#       entity = company.entities.find(:first, :conditions=>{:code=>company.code})
+#       entity = company.entities.create!(:nature_id=>nature.id , :language_id=>1 , :name=>company.name, :code=>company.code) if entity.nil?
+#       company.update_attributes({:entity_id=>entity.id})
+#       company.bank_accounts.each do |bank_account|
+#         bank_account.update_attributes({:entity_id=>entity.id})
+#       end
+#     end
 
     
           
     add_column    :products,         :weight,         :decimal, :precision=>16, :scale=>3
-    add_column    :entities,         :tva_submissive, :boolean, :null=>false,   :default=>true
+    add_column    :entities,         :vat_submissive, :boolean, :null=>false,   :default=>true
     add_column    :entities,         :reflation_submissive,  :boolean, :null=>false, :default=>false
     add_column    :entities,         :deliveries_conditions, :string, :limit=>60
     add_column    :entities,         :discount_rate,  :decimal, :precision=>8,  :scale=>2
     add_column    :entities,         :reduction_rate, :decimal, :precision=>8,  :scale=>2
     add_column    :entities,         :comment,        :text
-    add_column    :entities,         :accises,        :string,  :limit=>15
-    add_column    :entities,         :cee_tva,        :string,  :limit=>15
+    add_column    :entities,         :excise,         :string,  :limit=>15
+    add_column    :entities,         :vat_number,     :string,  :limit=>15
     add_column    :entities,         :country,        :string,  :limit=>2
     add_column    :entities,         :payments_number,:integer
     add_column    :products,         :without_stocks, :boolean, :null=>false, :default=>false
@@ -109,11 +113,18 @@ class Mar1 < ActiveRecord::Migration
     add_index :price_lists, [:name, :company_id], :unique=>true
     add_index :price_lists, :company_id
 
-    add_column :delivery_lines,   :price_list_id, :integer, :references=>:price_lists
-    add_column :invoice_lines,    :price_list_id, :integer, :references=>:price_lists
-    add_column :prices,           :list_id, :integer, :references=>:price_lists
-    add_column :purchase_orders,  :list_id, :integer, :references=>:price_lists
-    add_column :sale_order_lines, :price_list_id, :integer, :references=>:price_lists
+    add_column :delivery_lines,   :price_list_id, :integer, :references=>nil
+    add_column :invoice_lines,    :price_list_id, :integer, :references=>nil
+    add_column :prices,           :list_id, :integer, :references=>nil
+    add_column :purchase_orders,  :list_id, :integer, :references=>nil
+    add_column :sale_order_lines, :price_list_id, :integer, :references=>nil
+
+#     add_column :delivery_lines,   :price_list_id, :integer, :references=>:price_lists
+#     add_column :invoice_lines,    :price_list_id, :integer, :references=>:price_lists
+#     add_column :prices,           :list_id, :integer, :references=>:price_lists
+#     add_column :purchase_orders,  :list_id, :integer, :references=>:price_lists
+#     add_column :sale_order_lines, :price_list_id, :integer, :references=>:price_lists
+
     add_column :prices,           :started_on, :date
     add_column :prices,           :stopped_on, :date
     add_column :prices,           :deleted, :boolean, :null=>false, :default=>false
@@ -129,14 +140,14 @@ class Mar1 < ActiveRecord::Migration
     remove_column :products, :without_stocks
     remove_column :entities, :payments_number
     remove_column :entities, :country
-    remove_column :entities, :cee_tva
-    remove_column :entities, :accises
+    remove_column :entities, :vat_number
+    remove_column :entities, :excise
     remove_column :entities, :comment
     remove_column :entities, :reduction_rate
     remove_column :entities, :discount_rate
     remove_column :entities, :deliveries_conditions
     remove_column :entities, :reflation_submissive
-    remove_column :entities, :tva_submissive
+    remove_column :entities, :vat_submissive
     remove_column :products, :weight
     remove_column :bank_accounts, :entity_id
     remove_column :companies, :entity_id
