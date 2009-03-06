@@ -36,11 +36,11 @@ class Mar1 < ActiveRecord::Migration
     add_column    :entities,         :payments_number,:integer
     add_column    :products,         :without_stocks, :boolean, :null=>false, :default=>false
     add_column    :products,         :price,          :decimal, :precision=>16, :scale=>2, :default=>0.0.to_d
-    add_column    :prices,           :entity_id,      :integer, :null=>false, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
+    add_column    :prices,           :entity_id,      :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
     add_column    :prices,           :started_at,     :timestamp
     add_column    :prices,           :stopped_at,     :timestamp
     add_column    :prices,           :active,         :boolean, :null=>false, :default=>true
-    add_column    :prices,           :currency_id,    :integer, :null=>false, :references=>:currencies
+    add_column    :prices,           :currency_id,    :integer, :references=>:currencies
     add_column    :deliveries,       :contact_id,     :integer, :references=>:contacts
     remove_column :delivery_lines,   :price_list_id
     remove_column :invoice_lines,    :price_list_id
