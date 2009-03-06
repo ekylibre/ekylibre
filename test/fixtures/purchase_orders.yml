@@ -1,17 +1,16 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090223113550
 #
 # Table name: purchase_orders
 #
 #  id                :integer       not null, primary key
 #  supplier_id       :integer       not null
-#  list_id           :integer       not null
 #  number            :string(64)    not null
 #  shipped           :boolean       not null
 #  invoiced          :boolean       not null
 #  amount            :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes :decimal(16, 2 default(0.0), not null
-#  dest_contact_id   :integer       not null
+#  dest_contact_id   :integer       
 #  comment           :text          
 #  company_id        :integer       not null
 #  created_at        :datetime      not null

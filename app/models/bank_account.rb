@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090223113550
 #
 # Table name: bank_accounts
 #
@@ -13,13 +13,13 @@
 #  journal_id   :integer       not null
 #  currency_id  :integer       not null
 #  account_id   :integer       not null
-#  entity_id    :integer       not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
 #  created_by   :integer       
 #  updated_by   :integer       
 #  lock_version :integer       default(0), not null
+#  entity_id    :integer       
 #
 
 class BankAccount < ActiveRecord::Base

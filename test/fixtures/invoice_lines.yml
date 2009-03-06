@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090223113550
 #
 # Table name: invoice_lines
 #
@@ -7,7 +7,6 @@
 #  invoice_id        :integer       not null
 #  order_line_id     :integer       not null
 #  product_id        :integer       not null
-#  price_list_id     :integer       not null
 #  price_id          :integer       not null
 #  quantity          :decimal(16, 2 default(1.0), not null
 #  amount            :decimal(16, 2 default(0.0), not null

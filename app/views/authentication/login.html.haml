@@ -12,4 +12,6 @@
         %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3)
   .actions
     =link_to "Aller sur la page de téléchargement de Firefox", "http://www.mozilla-europe.org/fr/firefox/"
-=javascript_tag("$('user_name').focus();")
+:javascript
+  $('user_name').select();
+  $('user_name').focus(); 

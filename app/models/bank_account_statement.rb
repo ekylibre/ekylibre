@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090223113550
 #
 # Table name: bank_account_statements
 #

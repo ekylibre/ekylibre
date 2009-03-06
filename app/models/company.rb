@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090223113550
 #
 # Table name: companies
 #
@@ -15,6 +15,7 @@
 #  created_by   :integer       
 #  updated_by   :integer       
 #  lock_version :integer       default(0), not null
+#  entity_id    :integer       
 #
 
 class Company < ActiveRecord::Base

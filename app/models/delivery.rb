@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090223113550
 #
 # Table name: deliveries
 #
@@ -17,6 +17,7 @@
 #  created_by        :integer       
 #  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
+#  contact_id        :integer       
 #
 
 class Delivery < ActiveRecord::Base

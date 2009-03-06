@@ -1,9 +1,7 @@
 class Mar1 < ActiveRecord::Migration
   def self.up 
     add_column    :companies,        :entity_id,     :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
-
-    add_column    :bank_accounts,     :entity_id,     :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
-
+    add_column    :bank_accounts,    :entity_id,     :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
     add_index :bank_accounts, :entity_id
 
     # entity is automatically created for all the companies.
@@ -17,6 +15,8 @@ class Mar1 < ActiveRecord::Migration
         bank_account.update_attributes({:entity_id=>entity.id})
       end
     end
+
+    
           
     add_column    :products,         :weight,         :decimal, :precision=>16, :scale=>3
     add_column    :entities,         :tva_submissive, :boolean, :null=>false,   :default=>true
@@ -86,13 +86,12 @@ class Mar1 < ActiveRecord::Migration
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
     add_index :employees, :company_id
-
-    
     add_column    :entities,         :employee_id,    :integer, :references=>:employees
 
   end
 
   def self.down
+    remove_column :entities, :employee_id
     drop_table :employees
     #drop_table :wines
     create_table  :price_lists do |t|
@@ -128,7 +127,6 @@ class Mar1 < ActiveRecord::Migration
     remove_column :prices, :currency_id 
     remove_column :products,  :price
     remove_column :products, :without_stocks
-    remove_column :entities, :employee_id
     remove_column :entities, :payments_number
     remove_column :entities, :country
     remove_column :entities, :cee_tva

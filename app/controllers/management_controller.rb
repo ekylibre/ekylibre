@@ -81,13 +81,13 @@ class ManagementController < ApplicationController
 
   
   def prices
-    @modes = [[:all],[:sales],[:purchases]]
+    @modes = ['all', 'client', 'supplier']
     session[:entity_id] = 0
     if request.post?
       mode = params[:price][:mode]
-      if mode == "purchases"
+      if mode == "supplier"
         session[:entity_id] = params[:price][:supply].to_i
-      elsif mode == "sales"
+      elsif mode == "client"
         session[:entity_id] = @current_company.entity_id
       else
         session[:entity_id] = 0
