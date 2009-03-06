@@ -6,6 +6,10 @@ class ManagementController < ApplicationController
   end
 
 
+
+
+
+
   dyta(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :active
@@ -101,6 +105,7 @@ class ManagementController < ApplicationController
       @price = Price.new(params[:price])
       @price.company_id = @current_company.id
       @price.entity_id = params[:price][:entity_id]||@current_company.entity_id
+      #raise Exception.new params[:price][:entity_id].inspect+"bbb"+@current_company.entity_id.inspect
       if @price.save
         all_safe = true
         if params[:price_tax]
