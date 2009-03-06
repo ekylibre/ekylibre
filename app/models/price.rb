@@ -25,7 +25,7 @@
 #
 
 class Price < ActiveRecord::Base
-  attr_readonly :company_id, :started_on, :list_id, :amount, :amount_with_taxes
+  attr_readonly :company_id, :started_at, :list_id, :amount, :amount_with_taxes
 
 
   def before_validation
@@ -55,15 +55,10 @@ class Price < ActiveRecord::Base
     self.save
   end
 
-  def add_price(amount,tax_id,entity_id)
-    existing_price = self.company.prices.find(:first, :conditions=>{:product_id=>self.product_id,:amount=>amount, :tax_id=>tax_id})
-    if existing_price.nil?
-      new_price = self.company.prices.create!(:tax_id=>tax_id, :amount=>amount,:currency_id=>self.currency_id,:product_id=>self.product_id, :entity_id=>entity_id)
-    else
-      new_price = existing_price
-    end
-    self.save
-    new_price
+  def add_price(amount, tax_id, entity_id)
+    price = self.company.prices.find(:first, :conditions=>{:product_id=>self.product_id,:amount=>amount, :tax_id=>tax_id, :active=>true})
+    price = self.company.prices.create!(:tax_id=>tax_id, :amount=>amount, :currency_id=>self.currency_id, :product_id=>self.product_id, :entity_id=>entity_id) if price.nil?
+    price
   end
 
   def all_taxes(company, options={})
