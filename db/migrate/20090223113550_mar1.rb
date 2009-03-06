@@ -21,7 +21,7 @@ class Mar1 < ActiveRecord::Migration
 #     end
 
     
-          
+    add_column    :contacts,         :country,        :string,  :limit=>2    
     add_column    :products,         :weight,         :decimal, :precision=>16, :scale=>3
     add_column    :entities,         :vat_submissive, :boolean, :null=>false,   :default=>true
     add_column    :entities,         :reflation_submissive,  :boolean, :null=>false, :default=>false
@@ -149,6 +149,7 @@ class Mar1 < ActiveRecord::Migration
     remove_column :entities, :reflation_submissive
     remove_column :entities, :vat_submissive
     remove_column :products, :weight
+    remove_column :contacts, :country
     remove_column :bank_accounts, :entity_id
     remove_column :companies, :entity_id
   

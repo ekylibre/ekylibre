@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081111111111
+# Schema version: 20090223113550
 #
 # Table name: employees
 #
@@ -10,8 +10,8 @@
 #  title            :string(32)    not null
 #  last_name        :string(255)   not null
 #  first_name       :string(255)   not null
-#  arrived_on       :date          not null
-#  departed_on      :date          not null
+#  arrived_on       :date          
+#  departed_on      :date          
 #  role             :string(255)   
 #  office           :string(32)    
 #  comment          :text          

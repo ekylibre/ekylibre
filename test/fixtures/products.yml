@@ -30,6 +30,8 @@
 #  created_by          :integer       
 #  updated_by          :integer       
 #  lock_version        :integer       default(0), not null
+#  weight              :decimal(16, 3 
+#  without_stocks      :boolean       not null
 #  price               :decimal(16, 2 default(0.0)
 #
 

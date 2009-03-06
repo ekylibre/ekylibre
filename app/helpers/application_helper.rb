@@ -95,6 +95,19 @@ module ApplicationHelper
   end
     
 
+  def images
+    image = "public/images/countries/fr.png"
+    image = "public/images/countries/en.png"
+  end
+  
+  def countries
+    country_lines = []
+    t('countries').to_a.sort{|a,b| a[1].to_s<=>b[1].to_s}.each do |a|
+      country_lines<<[a[1],a[0]]
+    end
+    country_lines
+  end
+
   def can_access?(action=:all)
     return false unless @current_user
     return session[:actions].include?(:all) ? true : session[:actions].include?(action)

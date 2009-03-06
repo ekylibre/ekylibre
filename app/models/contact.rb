@@ -31,6 +31,7 @@
 #  created_by    :integer       
 #  updated_by    :integer       
 #  lock_version  :integer       default(0), not null
+#  country       :string(2)     
 #
 
 class Contact < ActiveRecord::Base
