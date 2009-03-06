@@ -129,7 +129,7 @@ module Ekylibre
                   style = 'text-align:center;'
                 end
                 if column.options[:url]              
-                  datum = 'link_to('+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id})))'
+                  datum = "("+datum+".blank? ? '' : link_to("+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id}))))'
                   css_class += ' url'
                 elsif column.options[:mode] == :download# and !datum.nil?
                   datum = 'link_to('+value_image(:download)+', url_for_file_column('+column.data(record)+",'"+column.name+"'))"
