@@ -272,7 +272,7 @@ class RelationsController < ApplicationController
     @entity = find_and_check(:entity,params[:id])
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
-    @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})||Contact.new
+    @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})||Contact.new(:entity_id=>@entity.id,:company_id=>@current_company.id, :norm_id=>@current_company.address_norms[0].id, :name=> tc(:first_contact))
 
     if request.post? and @entity
       puts params[:complement_datum].inspect

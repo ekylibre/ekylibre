@@ -309,12 +309,14 @@ class ManagementController < ApplicationController
     if request.post?
       @purchase_order_line = @current_company.purchase_order_lines.find(:first, :conditions=>{:price_id=>params[:purchase_order_line][:price_id], :order_id=>session[:current_purchase]})
       if @purchase_order_line
-        @sale_order_line.quantity += params[:purchase_order_line][:quantity].to_d
+        @purchase_order_line.quantity += params[:purchase_order_line][:quantity].to_d
       else
         @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
         @purchase_order_line.company_id = @current_company.id
-        @purchase_order_line.order_id = session[:current_purchase]        
-        @purchase_order_line.product_id = find_and_check(:price, params[:purchase_order_line][:price_id]).change(params[:price][:amount], params[:price][:tax_id]).product_id
+        @purchase_order_line.order_id = session[:current_purchase]      
+        price = find_and_check(:price, params[:purchase_order_line][:price_id]).change(params[:price][:amount], params[:price][:tax_id])
+        @purchase_order_line.product_id = price.product_id
+        @purchase_order_line.price_id = price.id
       end
 
 #       if !@purchase_order_line
@@ -721,6 +723,7 @@ class ManagementController < ApplicationController
     @delivery =  find_and_check(:deliveries, params[:id])
     session[:current_delivery] = @delivery.id
     @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@delivery.order.client_id})
+    @sale_order = find_and_check(:sale_orders,session[:current_sale_order])
     @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]})
     @delivery_lines = DeliveryLine.find(:all,:conditions=>{:company_id=>@current_company.id, :delivery_id=>@delivery.id})
     
@@ -729,16 +732,15 @@ class ManagementController < ApplicationController
         saved = @delivery.update_attributes(params[:delivery])
         if saved
           for line in @delivery_lines
-            #raise Exception.new params.inspect+"         "+line.order_line.id.inspect
             saved = false unless line.update_attributes(:quantity=>params[:delivery_line][line.order_line.id.to_s][:quantity])
             line.errors.each_full do |msg|
-              line.errors.add_to_base(msg)
+              @delivery.errors.add_to_base(msg)
             end
           end
         end
         raise ActiveRecord::Rollback unless saved
+        redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order] 
       end
-      redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order] 
     end
     render_form(:id=>@delivery_form)
   end

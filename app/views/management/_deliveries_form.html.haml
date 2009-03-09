@@ -1,7 +1,7 @@
 =formalize do |f|
   -f.error :delivery
   -f.title :infos
-  -f.field :delivery, :contact_id, :choices=>@contacts.collect{|x| [x.address, x.id]}, :new=>{:controller=>:relations, :action=>:entities_contacts_create, :id=>@sale_order.client_id}
+  -f.field :delivery, :contact_id, :choices=>@contacts.collect{|x| [x.address, x.id]}, :new=>{:controller=>:relations, :action=>:entities_contacts_create, :id=>@sale_order.client_id} 
   -f.field :delivery, :shipped_on
   -f.field :delivery, :delivered_on
 %table.dyta 
