@@ -21,4 +21,11 @@
 #
 
 class InvoiceLine < ActiveRecord::Base
+
+  def before_validation
+    self.product = self.order_line.product
+    self.price_id = self.order_line.price.id
+    self.unit_id = self.order_line.unit.id
+  end
+
 end

@@ -580,25 +580,6 @@ class ManagementController < ApplicationController
 
 
   def sale_order_lines_create
- #    x = 0
-#     @lines = Hash.new
-#     @products = @current_company.available_products
-#     #raise Exception.new @products.inspect
-#     for product in @products
-#       prices = Price.find(:all,:conditions=>{:company_id=>@current_company.id, :product_id=> product.id})
-#       #raise Exception.new prices.inspect
-#       for price in prices
-#         if !price.nil?
-#          # @lines += product.name.to_s+price.amount_with_taxes.to_s+product.id.to_s
-#           @lines[x][:name] = product.name
-#           @lines[x][:id] = product.id
-#         else
-#          # @lines += product.price+product.name.to_s+product.id.to_s
-#         end
-#         x += 1 
-#       end
-#     end
-#     raise Exception.new @lines.inspect
     if request.post? 
       @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
       if @sale_order_line
@@ -664,6 +645,10 @@ class ManagementController < ApplicationController
       flash[:warning]=tc(:no_lines_found)
       redirect_to :action=>:sales_products, :id=>session[:current_sale_order]
     end
+    if request.post?
+      redirect_to :action=>:sales_invoices, :id=>@sale_order.id
+    end
+    
   end
 
 
@@ -691,7 +676,6 @@ class ManagementController < ApplicationController
     @delivery_lines =  @sale_order_lines.collect{|x| DeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
     @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :shipped_on=>Date.today, :delivered_on=>Date.today)
     session[:current_delivery] = @delivery.id
-   # raise Exception.new @delivery_lines.inspect
     @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@sale_order.client_id})
     
     if request.post?
@@ -753,7 +737,25 @@ class ManagementController < ApplicationController
     end
   end
 
+  dyta(:invoices, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :number
+  end
+
   def sales_invoices
+    @sale_order = find_and_check(:sale_order, params[:id])
+    @deliveries = Delivery.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>@sale_order.id})
+    @delivery_lines = []
+    for delivery in @deliveries
+      lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, delivery.id)
+      @delivery_lines += lines if !lines.nil?
+    end
+    invoices_list params
+    puts "hhjhjhh==============================="+@deliveries.inspect+",,,,,,,,,,,,,,,"+@sale_order.id.to_s+@deliveries[0].class.inspect
+
+    if request.post?
+      raise Exception.new params.inspect
+    end
+    #raise Exception.new params.inspect
   end
   
   def sales_payments

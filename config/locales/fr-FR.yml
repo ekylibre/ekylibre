@@ -974,6 +974,17 @@ fr-FR:
         deliver: 'Reçu le  '
       deliveries_create:
        title: Ajouter une livraison
+      sales_invoices:
+        title: Facturation
+        invoices: Factures
+        rest_to_invoice: À facturer
+        address: Livraison
+        ship: Expédié le
+        deliver: Reçu le
+        quantity: Quantité
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        to_invoice: Facturer
       sale_order_natures:
         title: Types de ventes
         sale_order_natures_create: Créer un nouveau type de vente

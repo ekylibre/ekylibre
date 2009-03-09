@@ -3,8 +3,42 @@
 
 %h2=tc :invoices
 =dyta :invoices
-
+%h2=tc :rest_to_invoice
 - form_tag do
-  .actions
-    =link_to tg(:previous), :action=>:sales_products
-    =submit_tag(tc('payments'), :action=>:sales_payments)
+  %table.dyta
+    %tr
+      %th 
+      %th= tc 'address'
+      %th= tc 'ship'
+      %th= tc 'deliver'
+      %th= tc 'quantity'
+      %th= tc 'amount'
+      %th= tc 'amount_with_taxes'
+      %th= tc 'to_invoice'   
+    -for @delivery in @deliveries
+    -klass=cycle("odd","even")
+      %tr{:class=>klass+' root'}
+        %td{:colspan=>2}= @delivery.contact.address
+        %td=@delivery.shipped_on
+        %td=@delivery.delivered_on
+        %td
+        %td=@delivery.amount
+        %td=@delivery.amount_with_taxes
+        %td{:style=>'text-align:center'}
+          =check_box_tag "delivery[#{@delivery.id}]","1",:id=>"delivery_#{@delivery.id}", :checked=>true
+      - for lines in @delivery_lines
+        -if lines.delivery_id == @delivery.id
+          %tr{:class=>klass}
+            %td{:style=>'width:20px'} 
+            %td{:colspan=>3}= lines.product.name
+            %td= lines.quantity
+            %td= lines.amount
+            %td= lines.amount_with_taxes
+            %td
+
+  .invoice
+    =submit_tag(tc('to_invoice'), :action=>:sales_payments)
+
+.actions
+  =link_to tg(:previous), :action=>:sales_products 
+  =submit_tag(tc('payments'), :action=>:sales_payments)
