@@ -155,6 +155,7 @@ fr-FR:
       company: Société
       contact: Contact
       department: Service
+      employee: Employé
       entity: Relation
       entry: Écriture
       establishment: Établissement
@@ -242,6 +243,12 @@ fr-FR:
       department:
         name: Nom
         comment: Commentaire
+      employee:
+        title: Fonction
+        first_name: Nom
+        last_name: Prénom
+        department_id: Département 
+        establishment_id: Etablissement
       entity:
         active: Actif
         born_on: Date de naissance
@@ -1133,6 +1140,20 @@ fr-FR:
       _general_description_form:
         title: 'Description générale'
 
+    resources:
+      index:
+        title: Gestion des ressources
+        human: Ressources humaines
+        employees: Fiches employés
+        
+      employees:
+        title:  'Fiches des employés'
+        create: 'Créer un nouvel employé'
+      employees_create:
+        title: 'Création d''un nouvel employé' 
+      employees_update:
+        title: 'Modification d''un employé'
+        
   # Used in the models
   # Used in the models
   # Used in the models

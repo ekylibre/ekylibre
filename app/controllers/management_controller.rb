@@ -5,11 +5,6 @@ class ManagementController < ApplicationController
   def index
   end
 
-
-
-
-
-
   dyta(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :active

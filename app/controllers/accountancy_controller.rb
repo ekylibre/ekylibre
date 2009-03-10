@@ -63,7 +63,7 @@
     t.column :code
     t.column :closed
     t.column :started_on
-    t.column :stopped_on
+     t.column :stopped_on
     t.action :financialyears_update, :image=>:update
     t.action :financialyears_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.procedure :create, :action=>:financialyears_create

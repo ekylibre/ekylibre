@@ -98,8 +98,6 @@ class RelationsController < ApplicationController
 
 
 
-
-
   dyta(:entities, :conditions=>:search_conditions, :empty=>true) do |t|
     t.column :name, :url=>{:action=>:entities_display}
     t.column :first_name, :url=>{:action=>:entities_display}
@@ -187,6 +185,7 @@ class RelationsController < ApplicationController
     t.action :entities_contacts_delete , :image=>:delete , :method=>:post, :confirm=>'are_you_sure'
     t.procedure :entities_contacts_create
   end
+
 
   def entities_display
     @company = @current_company
@@ -433,6 +432,8 @@ class RelationsController < ApplicationController
     end
     redirect_to_back
   end
-  
+ 
+
+ 
   
 end

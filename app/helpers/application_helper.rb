@@ -70,7 +70,7 @@ module ApplicationHelper
            [ {:name=>:employees} ] }
        ] },
 
-     # ProductionsController
+     # ProductionController
      {:name=>:production, :list=>
        [ {:name=>:wine, :list=>
            [ {:name=>:wines} ] }

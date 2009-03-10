@@ -4,13 +4,13 @@
       =formalize do |f|
         - f.error 'company', 'user'
         - f.title :my_company
-        - f.field :company, :name, {:example=>lc(:company_name_example)}
+        - f.field :company, :name, {:example=>tc(:company_name_example)}
         - f.title :my_self
         - f.field :user, :last_name
-        - f.field :user, :first_name, :example=>lc(:user_first_name_example)
-        - f.field :user, :name, :example=>lc(:user_name_example), :info=>lc(:user_name_info)
-        - f.field :user, :password, :null=>false, :hint=>lc(:user_password_hint)
-        - f.field :user, :password_confirmation, :null=>false, :info=>lc(:user_password_confirmation_info)
+        - f.field :user, :first_name, :example=>tc(:user_first_name_example)
+        - f.field :user, :name, :example=>tc(:user_name_example), :info=>tc(:user_name_info)
+        - f.field :user, :password, :null=>false, :hint=>tc(:user_password_hint)
+        - f.field :user, :password_confirmation, :null=>false, :info=>tc(:user_password_confirmation_info)
       .actions
         =submit_tag(tg(:create))
         =link_to(tg(:cancel), :action=>:login)
