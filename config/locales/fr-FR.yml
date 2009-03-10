@@ -481,11 +481,15 @@ fr-FR:
       messages:
         need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
         need_stock_location_to_record_stock_moves: 'Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage.'
+    production:
+      title: Production
   
     relations:
       title: Relations
       first_contact: Adresse principale
       second_contact: Adresse secondaire
+    resources:
+      title: Ressources
 
   # Used in the helpers
   # Used in the helpers

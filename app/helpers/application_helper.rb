@@ -62,7 +62,20 @@ module ApplicationHelper
              {:name=>:delays},
              {:name=>:sale_order_natures}
            ] }
+       ] },
+
+     # ResourcesController
+     {:name=>:resources, :list=>
+       [ {:name=>:human, :list=>
+           [ {:name=>:employees} ] }
+       ] },
+
+     # ProductionsController
+     {:name=>:production, :list=>
+       [ {:name=>:wine, :list=>
+           [ {:name=>:wines} ] }
        ] }
+
     ]
 
 
