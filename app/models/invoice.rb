@@ -28,7 +28,7 @@ class Invoice < ActiveRecord::Base
 
   def before_validation
     if self.number.blank?
-      last = self.client.sale_orders.find(:first, :order=>"number desc")
+      last = self.client.invoices.find(:first, :order=>"number desc")
       self.number = if last
                       last.number.succ!
                     else
@@ -37,29 +37,54 @@ class Invoice < ActiveRecord::Base
     end
   end
   
-  def self.generate(company, records) 
-    invoice = Invoice.new(:company_id=>company.id)
-    case records.class
+  def self.generate(company_id, records, options={})
+    puts "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"+records.class.to_s
+    invoice = Invoice.new(:company_id=>company_id, :nature=>"S")
+    case records.class.to_s
       
     when "Array"
+      for record in records
+        invoice.amount += record.amount
+        invoice.amount_with_taxes += record.amount_with_taxes
+        puts invoice.inspect
+      end
+      invoice.sale_order_id = records[0].order_id
+      invoice.payment_delay_id = records[0].order.payment_delay_id
+      invoice.client_id = records[0].order.client_id
+      invoice.contact_id = records[0].order.invoice_contact_id
+      invoice.payment_on = Date.today
+      invoice.save!
+      puts invoice.inspect
+      for record in records
+        record.update_attributes!(:invoice_id=>invoice.id)
+        for lines in record.lines
+          invoice_line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
+                                             :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
+                                             :order_line_id=>lines.order_line_id,:quantity=>lines.order_line.quantity)
+          invoice_line.save!
+        end
+      end
+
       
-    when  Delivery
+    when "Delivery"
+      puts invoice.inspect
       invoice.amount = records.amount
       invoice.amount_with_taxes = records.amount_with_taxes
       invoice.payment_delay_id = records.order.payment_delay_id
       invoice.client_id = records.order.client_id
       invoice.payment_on = Date.today
+      puts invoice.inspect
       invoice.contact_id = records.order.invoice_contact_id
-      invoice.save
-      
+      invoice.save!
+      puts invoice.inspect
       for lines in records.lines
-        line = invoice.line.create!(:company_id=>lines.company_id,:amount=>lines.amount,
-                                    :amount_with_taxes=>lines.amount_with_taxes,
+        line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
+                                    :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
                                     :order_line_id=>lines.order_line_id,:quantity=>lines.order_line.quantity)
         line.save
       end
       
-    when "SaleOrderLine"
+    when SaleOrderLine
       
     end
   

@@ -128,7 +128,7 @@ class Company < ActiveRecord::Base
   end
 
   def invoice(records, options={})
-    Invoice.generate(self.id,records, options{})
+    Invoice.generate(self.id,records)
   end
 
 end

@@ -656,12 +656,10 @@ class ManagementController < ApplicationController
     @sale_order = find_and_check(:sale_orders,session[:current_sale_order])
     @sale_order_lines = @sale_order.lines
     @delivery = Delivery.new(params[:delivery])
-    puts @delivery.inspect+params.inspect
     @delivery_lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, session[:current_delivery])
     for lines in  @sale_order_lines
       @delivery.amount_with_taxes += (lines.price.amount_with_taxes*(params[:delivery_line][lines.id.to_s][:quantity]).to_f)
       @delivery.amount += (lines.price.amount*(params[:delivery_line][lines.id.to_s][:quantity]).to_f)
-      puts "@@@@@@@@@@@@@àà"+lines.price.amount.to_s+"@@@@"+params[:delivery_line][lines.id.to_s][:quantity]
     end
   end
 
@@ -737,30 +735,41 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:invoices, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['@sale_order.id']}) do |t|
     t.column :number
+    t.column :address, :through=>:contact
+    t.column :amount
+    t.column :amount_with_taxes
   end
 
   def sales_invoices
     @sale_order = find_and_check(:sale_order, params[:id])
     @deliveries = Delivery.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>@sale_order.id})
     @delivery_lines = []
+    @rest_to_invoice = false
     for delivery in @deliveries
+      @rest_to_invoice = true if delivery.invoice_id.nil?
       lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, delivery.id)
       @delivery_lines += lines if !lines.nil?
     end
     invoices_list params
-    puts "hhjhjhh==============================="+@deliveries.inspect+",,,,,,,,,,,,,,,"+@sale_order.id.to_s+@deliveries[0].class.inspect
-
+    #puts "hhjhjhh==============================="+@deliveries.inspect+",,,,,,,,,,,,,,,"+@sale_order.id.to_s+@deliveries[0].class.inspect
+    
     if request.post?
-      raise Exception.new params.inspect
+      #raise Exception.new params.inspect+"   "+params[:delivery].size.to_s+"    "+params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)}.inspect
+      deliveries = params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)}
+      puts deliveries.inspect+"!!!!!!!!!!!!!!!!!!!!!!!!!!"+deliveries.class.to_s
+      @current_company.invoice(deliveries)
     end
-    #raise Exception.new params.inspect
+    
+    
   end
+  
+  
   
   def sales_payments
   end
-
+  
   def sales_print
     render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml", :key=>params[:id])
   end

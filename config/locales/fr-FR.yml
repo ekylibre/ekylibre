@@ -298,6 +298,11 @@ fr-FR:
         comment: Commentaire
         where_id: Module
         what_id: Caractéristique
+      invoice:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        contact_id: Adresse
+        number: Numéro 
       journal:
         closed_on: Date de clôture
         code: Code
@@ -968,7 +973,7 @@ fr-FR:
         amount_with_taxes: Montant TTC
         deliveries: Livraisons 
         deliveries_create: Ajouter une livraison
-        invoice: Facturer
+        invoice: Facturation 
         title: "Livraisons"
         sales_print: Imprimer la commande
         ship: 'Expédié le  '
@@ -988,6 +993,7 @@ fr-FR:
         quantity: Quantité
         amount: Montant HT
         amount_with_taxes: Montant TTC
+        payments: Réglements
         to_invoice: Facturer
       sale_order_natures:
         title: Types de ventes
