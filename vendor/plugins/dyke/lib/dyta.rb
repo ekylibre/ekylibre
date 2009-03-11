@@ -82,6 +82,7 @@ module Ekylibre
               end
             end
             code += ", "+PAGINATION[options[:pagination]][:find_params] if PAGINATION[options[:pagination]][:find_params]
+            code += ", :joins=>#{options[:joins].inspect})\n" unless options[:joins].blank?
             code += ", :order=>order)\n"
             code += "  if request.xhr?\n"
             code += "    render :text=>"+name.to_s+"_build(options)\n"
