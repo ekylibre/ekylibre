@@ -1,15 +1,12 @@
 # == Schema Information
 # Schema version: 20090311124450
 #
-# Table name: currencies
+# Table name: payment_parts
 #
 #  id           :integer       not null, primary key
-#  name         :string(255)   not null
-#  code         :string(255)   not null
-#  format       :string(16)    not null
-#  rate         :decimal(16, 6 default(1.0), not null
-#  active       :boolean       default(TRUE), not null
-#  comment      :text          
+#  amount       :decimal(16, 2 
+#  payment_id   :integer       not null
+#  order_id     :integer       not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null

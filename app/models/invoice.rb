@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090223113550
+# Schema version: 20090311124450
 #
 # Table name: invoices
 #
@@ -22,6 +22,7 @@
 #  created_by        :integer       
 #  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
+#  sale_order_id     :integer       
 #
 
 class Invoice < ActiveRecord::Base

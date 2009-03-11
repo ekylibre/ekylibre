@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090223113550
+# Schema version: 20090311124450
 #
 # Table name: prices
 #
@@ -17,11 +17,11 @@
 #  created_by        :integer       
 #  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
-#  entity_id         :integer       not null
+#  entity_id         :integer       
 #  started_at        :datetime      
 #  stopped_at        :datetime      
 #  active            :boolean       default(TRUE), not null
-#  currency_id       :integer       not null
+#  currency_id       :integer       
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

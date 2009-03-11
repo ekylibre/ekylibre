@@ -1,14 +1,12 @@
 # == Schema Information
 # Schema version: 20090311124450
 #
-# Table name: sequences
+# Table name: payment_parts
 #
 #  id           :integer       not null, primary key
-#  name         :string(255)   not null
-#  increment    :integer       default(1), not null
-#  format       :string(255)   not null
-#  active       :boolean       not null
-#  next_number  :integer       default(0), not null
+#  amount       :decimal(16, 2 
+#  payment_id   :integer       not null
+#  order_id     :integer       not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
@@ -17,5 +15,5 @@
 #  lock_version :integer       default(0), not null
 #
 
-class Sequence < ActiveRecord::Base
+class PaymentPart < ActiveRecord::Base
 end

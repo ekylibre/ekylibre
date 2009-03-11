@@ -808,8 +808,8 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:payments_sale_orders, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@sale_order.id']}) do |t|
-    t.column :amount, :through=>:payment
+  dyta(:payments, :conditions=>{:company_id=>['@current_company.id']} ) do |t|#,:joins=>"JOIN payment_parts ON payment_parts.order_id = @sale_order.id") do |t|
+    t.column :amount
     t.action :payments_update, :image=>:update
     t.action :payments_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :payments_create
@@ -817,7 +817,20 @@ class ManagementController < ApplicationController
   
   def sales_payments
     @sale_order = find_and_check(:sale_order, params[:id])
+    payments_list params
   end
+ 
+  def payments_create
+    if request.post?
+      @payment = Payment.new(params[:payment])
+      @payment.company_id = @current_company.id
+      redirect_to :back if @payment.save
+    else
+      @payment = Payment.new
+    end
+    render_form
+  end
+  
   
   def sales_print
     render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml", :key=>params[:id])

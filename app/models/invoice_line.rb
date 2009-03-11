@@ -1,10 +1,9 @@
 # == Schema Information
-# Schema version: 20090223113550
+# Schema version: 20090311124450
 #
 # Table name: invoice_lines
 #
 #  id                :integer       not null, primary key
-#  invoice_id        :integer       not null
 #  order_line_id     :integer       not null
 #  product_id        :integer       not null
 #  price_id          :integer       not null
@@ -18,6 +17,7 @@
 #  created_by        :integer       
 #  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
+#  invoice_id        :integer       
 #
 
 class InvoiceLine < ActiveRecord::Base

@@ -11,26 +11,27 @@ class Mar2t1 < ActiveRecord::Migration
     
     create_table :payments do |t|
       t.column :paid_on,                :date
-      t.column :amount,                 :decimal,  :precision=>16, :scale=>2
+      t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>2
       t.column :mode_id,                :integer,  :null=>false, :references=>:payment_modes
       t.column :account_id,             :integer,  :references=>:accounts
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
     add_index :payments, :company_id
 
-    create_table :payments_sale_orders do |t|
+    create_table :payment_parts do |t|
+      t.column :amount,                 :decimal,  :precision=>16, :scale=>2
       t.column :payment_id,             :integer,  :null=>false, :references=>:payments
       t.column :order_id,               :integer,  :null=>false, :references=>:sale_orders
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
-    add_index :payments_sale_orders, :company_id
+    add_index :payment_parts, :company_id
 
   end
 
 
 
   def self.down
-    drop_table :payments_sale_orders
+    drop_table :payment_parts
     drop_table :payments
     drop_table :payment_modes
   end
