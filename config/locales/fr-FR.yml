@@ -320,6 +320,9 @@ fr-FR:
         id: Journal
         name: Nom
         nature: Nature
+      payment_mode:
+        account_id: Compte associé
+        name: Nom
       price:
         amount: Montant HT
         amount_with_taxes: Montant TTC
@@ -892,7 +895,9 @@ fr-FR:
         taxes: 'Taxes'
         title: 'Gestion commerciale'
         units: 'Unités de mesure'
-   
+      payment_modes:
+        title: Types de paiement
+        payment_modes_create: 'Créer un nouveau type de paiement'
       prices: 
          all: Tous les prix
          client: Les prix de vente
@@ -1200,6 +1205,7 @@ fr-FR:
             immediate: 0 jour
             standard: 30 jours, fin de mois
         bank_journal_nature_name: Banque
+        check: Chèque
         department_name: Gestion/Production
         establishment_name: Établissement principal
         financialyear_code: 1A2

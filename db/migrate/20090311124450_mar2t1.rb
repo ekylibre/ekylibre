@@ -4,7 +4,7 @@ class Mar2t1 < ActiveRecord::Migration
     create_table :payment_modes do |t|
       t.column :name,                   :string,   :null=>false, :limit=>50
       t.column :nature,                 :string,   :null=>false, :limit=>1, :default=>'U'        # U undefined   C check
-      t.column :account_id,             :integer,  :references=>:bank_accounts
+      t.column :account_id,             :integer,  :references=>:accounts
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict 
     end
     add_index :payment_modes, :company_id
@@ -13,7 +13,7 @@ class Mar2t1 < ActiveRecord::Migration
       t.column :paid_on,                :date
       t.column :amount,                 :decimal,  :precision=>16, :scale=>2
       t.column :mode_id,                :integer,  :null=>false, :references=>:payment_modes
-      t.column :account_id,             :integer,  :references=>:bank_accounts
+      t.column :account_id,             :integer,  :references=>:accounts
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
     add_index :payments, :company_id

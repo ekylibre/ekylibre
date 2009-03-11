@@ -772,17 +772,51 @@ class ManagementController < ApplicationController
   
   dyta(:payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
+    t.column :label, :through=>:account
+    t.procedure :payment_modes_create
+    t.action :payment_modes_update, :image=>:update
+    t.action :payment_modes_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def payment_modes
-    
+    payment_modes_list params
   end
 
-  dyta(:payments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column 
+  def payment_modes_create
+    if request.post?
+      @payment_mode = PaymentMode.new(params[:payment_mode])
+      @payment_mode.company_id = @current_company.id
+      redirect_to :back if @payment_mode.save
+    else
+      @payment_mode = PaymentMode.new
+    end
+    render_form
+  end
+
+  def payment_modes_update
+    @payment_mode = find_and_check(:payment_modes, params[:id])
+    if request.post?
+      redirect_to :back if @payment_mode.update_attributes(params[:payment_mode])
+    end
+    render_form
+  end
+
+  def payment_modes_delete
+    @payment_mode = find_and_check(:payment_modes, params[:id])
+    if request.post? or request.delete?
+      redirect_to :back if @payment_mode.destroy
+    end
+  end
+
+  dyta(:payments_sale_orders, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@sale_order.id']}) do |t|
+    t.column :amount, :through=>:payment
+    t.action :payments_update, :image=>:update
+    t.action :payments_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :payments_create
   end
   
   def sales_payments
+    @sale_order = find_and_check(:sale_order, params[:id])
   end
   
   def sales_print
