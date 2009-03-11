@@ -163,6 +163,7 @@ fr-FR:
       financialyear: Exercice
       price_list: Liste de prix
       product: Produit
+      profession: Profession
       shelf: Catégorie de produit
       stock_location: Lieu de stockage
       stock_move: Mouvement de stock
@@ -247,6 +248,8 @@ fr-FR:
         title: Fonction
         first_name: Nom
         last_name: Prénom
+        profession_id: Profession
+        user_id: Utilisateur 
         department_id: Département 
         establishment_id: Etablissement
       entity:
@@ -359,6 +362,11 @@ fr-FR:
         unit_id: Unité de mesure
         weight: Poids (kg)
         without_stocks: Ne nécessite pas de gestion de stocks
+      profession:
+        name: 'Nom'
+        code: 'Code'
+        rome: 'Code ROME'
+        commercial: 'Activité commerciale'
       purchase_order:
         client_id: Fournisseur
         supplier_id: Fournisseur
@@ -1034,7 +1042,6 @@ fr-FR:
         catalog: Description pour catalogue
       shelves_update:
         title: 'Ajout d''une nouvelle catégorie de produits'
-  
       stocks_locations:
         title: Gérer les stocks
         stocks_locations_create: Ajouter un nouveau lieu de stockage
@@ -1088,8 +1095,6 @@ fr-FR:
         string_case: 'Options pour le texte'
       complements_update:
         title: 'Modification du champ personnalisé : {{value}}'
-  
-
       entities_create: 
         title: 'Création d''une nouvelle fiche client/fournisseur'
       entities_contacts_create:
@@ -1149,21 +1154,31 @@ fr-FR:
         title: Gestion des ressources
         human: Ressources humaines
         employees: Fiches employés
-        
+        parameters: Paramètres
+        professions: Professions
       employees:
         title:  'Fiches des employés'
+        nb_employees:
+          zero: 'Aucun employé enregistré'
+          one: '1 employé enregistré'
+          other: '{{count}} employés enregistrés'
         create: 'Créer un nouvel employé'
+      _employees_search:
+        title: 'Recherche'
+        search: 'Rechercher un employé'
       employees_create:
         title: 'Création d''un nouvel employé' 
       employees_update:
         title: 'Modification d''un employé'
-        
-  # Used in the models
-  # Used in the models
-  # Used in the models
-  # Used in the models
-  # Used in the models
-  # Used in the models
+      professions:
+        title: 'Gestion des professions'
+        create: 'Ajouter une nouvelle profession'
+    # Used in the models
+    # Used in the models
+    # Used in the models
+    # Used in the models
+    # Used in the models
+    # Used in the models
   models:
     account:
       error_delete: Le compte ne peut être effacé car il contient des sous-comptes.	

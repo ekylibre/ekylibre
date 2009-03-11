@@ -68,7 +68,9 @@ module ApplicationHelper
      # ResourcesController
      {:name=>:resources, :list=>
        [ {:name=>:human, :list=>
-           [ {:name=>:employees} ] }
+           [ {:name=>:employees} ] },
+         {:name=>:parameters, :list=>
+           [ {:name=>:professions} ] }
        ] },
 
      # ProductionController

@@ -1,0 +1,9 @@
+=formalize do |f|
+  - f.error :employee
+  - f.field :employee, :title
+  - f.field :employee, :first_name
+  - f.field :employee, :last_name  
+  - f.field :employee,:department_id,  :choices => @current_company.departments.find(:all).collect {|d| [d.name, d.id]}, :new => {:controller => :company, :action => :departments_create} 
+  - f.field :employee, :establishment_id, :choices => @current_company.establishments.find(:all).collect {|e| [e.name,e.id]}, :new => {:controller => :company, :action => :establishments_create} 
+ 
+ 
