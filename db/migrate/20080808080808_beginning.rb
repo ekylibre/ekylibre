@@ -177,7 +177,6 @@ class Beginning < ActiveRecord::Migration
     add_index :departments, :parent_id
 
 
- 
     Language.create!(:name=>'French', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
 
   end
