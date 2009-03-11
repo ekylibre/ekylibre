@@ -248,6 +248,7 @@ fr-FR:
         title: Fonction
         first_name: Nom
         last_name: Prénom
+        commercial: Activité commerciale	
         profession_id: Profession
         user_id: Utilisateur 
         department_id: Département 
@@ -268,6 +269,7 @@ fr-FR:
         language_id: Langue
         name: Nom
         nature_id: Type
+        employee_id: Intermédiaire
         payments_number: Nombre de paiements
         reduction_rate: Taux de réduction
         reflation_submissive: Soumis à la relance
@@ -1178,6 +1180,11 @@ fr-FR:
       professions:
         title: 'Gestion des professions'
         create: 'Ajouter une nouvelle profession'
+      professions_create: 
+        title: 'Ajout d''une nouvelle profession'	
+      professions_update: 
+        title: 'Modification de la profession'	
+    
     # Used in the models
     # Used in the models
     # Used in the models

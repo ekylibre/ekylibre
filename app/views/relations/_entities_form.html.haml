@@ -22,6 +22,7 @@
 
 =formalize(:id=>:client_form) do |f|
   -f.title :client
+  -f.field :entity, :employee_id, :choices=>@current_company.employees.find(:all, :conditions=>{:commercial=>'true'}, :order=>:last_name).collect{|p| [p.last_name, p.id]}
   -f.field :entity, :vat_submissive
   -f.field :entity, :reflation_submissive
   -f.field :entity, :discount_rate

@@ -26,7 +26,8 @@ class ResourcesController < ApplicationController
   
   # this action creates an employee with a form.
   def employees_create
-  access :employees
+ 
+    access :employees
     if request.post?
       @employee = Employee.new(params[:employee])
       @employee.company_id = @current_company.id
