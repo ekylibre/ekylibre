@@ -60,6 +60,7 @@ class Company < ActiveRecord::Base
     indefini = self.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false)
     firm = self.entities.create!(:nature_id=>indefini.id,:language_id=>1, :name=>self.name)
     self.set_entity_id(firm.id)
+    self.payment_modes.create!(:name=>tc('check'), :company_id=>self.id)
    # self.entity_id = firm.id
     #raise Exception.new self.inspect
     delays = []

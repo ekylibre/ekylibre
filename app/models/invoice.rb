@@ -46,7 +46,6 @@ class Invoice < ActiveRecord::Base
       for record in records
         invoice.amount += record.amount
         invoice.amount_with_taxes += record.amount_with_taxes
-        puts invoice.inspect
       end
       invoice.sale_order_id = records[0].order_id
       invoice.payment_delay_id = records[0].order.payment_delay_id
@@ -54,7 +53,6 @@ class Invoice < ActiveRecord::Base
       invoice.contact_id = records[0].order.invoice_contact_id
       invoice.payment_on = Date.today
       invoice.save!
-      puts invoice.inspect
       for record in records
         record.update_attributes!(:invoice_id=>invoice.id)
         for lines in record.lines
@@ -67,16 +65,15 @@ class Invoice < ActiveRecord::Base
 
       
     when "Delivery"
-      puts invoice.inspect
       invoice.amount = records.amount
       invoice.amount_with_taxes = records.amount_with_taxes
       invoice.payment_delay_id = records.order.payment_delay_id
       invoice.client_id = records.order.client_id
       invoice.payment_on = Date.today
-      puts invoice.inspect
+      invoice.sale_order_id = records.id
       invoice.contact_id = records.order.invoice_contact_id
       invoice.save!
-      puts invoice.inspect
+      records.update_attributes!(:invoice_id=>invoice.id)
       for lines in records.lines
         line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
                                     :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
@@ -84,10 +81,25 @@ class Invoice < ActiveRecord::Base
         line.save
       end
       
-    when SaleOrderLine
-      
+    when "SaleOrder"
+      invoice.amount = records.amount
+      invoice.amount_with_taxes = records.amount_with_taxes
+      invoice.payment_delay_id = records.payment_delay_id
+      invoice.client_id = records.client_id
+      invoice.payment_on = Date.today
+      invoice.contact_id = records.invoice_contact_id
+      invoice.sale_order_id = records.id
+      invoice.save!
+      puts invoice.inspect
+      records.update_attributes!(:invoiced=>true)
+      for lines in records.lines
+        line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
+                                   :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
+                                   :order_line_id=>lines.id,:quantity=>lines.quantity)
+        line.save
+      end
     end
-  
+    
   end
   
 

@@ -10,8 +10,9 @@
 %h2=tc :deliveries
 %table.dyta
   %tr
-    %td.procedures{:colspan=>9} 
-      =link_to "Ajouter une livraison", :action=>:deliveries_create
+    -if !@sale_order.invoiced
+      %td.procedures{:colspan=>9} 
+        =link_to "Ajouter une livraison", :action=>:deliveries_create
   -unless @deliveries.empty?
     %tr
       %th
@@ -32,8 +33,12 @@
       %td
       %td= delivery.amount
       %td= delivery.amount_with_taxes
-      %td= link_to tg('update'), :action=>:deliveries_update, :id=>delivery.id
-      %td= link_to tg('delete'), {:action=>:deliveries_delete, :id=>delivery.id}, :method=>:post, :confirm=>tg(:are_you_sure)
+      -if delivery.invoice_id.nil?
+        %td= link_to tg('update'), :action=>:deliveries_update, :id=>delivery.id
+        %td= link_to tg('delete'), {:action=>:deliveries_delete, :id=>delivery.id}, :method=>:post, :confirm=>tg(:are_you_sure)
+      -else
+        %td= tc'invoice_number'
+        %td= link_to delivery.invoice.number, :action=>:sales_invoices, :id=>delivery.order_id
     - for lines in @delivery_lines
       -if lines.delivery_id == delivery.id and lines.quantity > 0
         %tr{:class=>klass}

@@ -37,13 +37,15 @@
                 %td= lines.amount
                 %td= lines.amount_with_taxes
                 %td
-
     .invoice
-      =submit_tag(tc('to_invoice'), :action=>:sales_payments)
+      =submit_tag(tc('to_invoice'), :action=>:sales_invoices)
 
-
+-else
+  -form_tag do
+    .invoice
+      =submit_tag(tc('to_invoice'), :action=>:sales_invoices)
 
 
 .actions
-  =link_to tg(:previous), :action=>:sales_products 
-  =submit_tag(tc('payments'), :action=>:sales_payments)
+  =link_to tg(:previous), :action=>:sales_deliveries , :id=>@sale_order.id
+  =link_to(tc('payments'), :action=>:sales_payments,:id=>@sale_order.id)

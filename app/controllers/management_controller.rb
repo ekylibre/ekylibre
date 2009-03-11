@@ -751,16 +751,36 @@ class ManagementController < ApplicationController
     #puts "hhjhjhh==============================="+@deliveries.inspect+",,,,,,,,,,,,,,,"+@sale_order.id.to_s+@deliveries[0].class.inspect
     
     if request.post?
-      #raise Exception.new params.inspect+"   "+params[:delivery].size.to_s+"    "+params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)}.inspect
-      deliveries = params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)}
-      puts deliveries.inspect+"!!!!!!!!!!!!!!!!!!!!!!!!!!"+deliveries.class.to_s
-      @current_company.invoice(deliveries)
+      if params[:delivery].nil?
+        #raise Exception.new "ok"+@sale_order.lines.class.to_s
+        invoice = Invoice.find(:first, :conditions=>{:company_id=>@current_company.id, :sale_order_id=>@sale_order.id})
+        if invoice.nil?
+          @current_company.invoice(@sale_order)
+        else
+          flash[:message] = tc('messages.invoice_already_created')
+          redirect_to :action=>:sales_invoices, :id=>@sale_order.id
+        end
+      else
+        deliveries = params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)}
+        puts deliveries.inspect+"!!!!!!!!!!!!!!!!!!!!!!!!!!"+deliveries.class.to_s
+        @current_company.invoice(deliveries)
+      end
     end
     
     
   end
   
-  
+  dyta(:payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+  end
+
+  def payment_modes
+    
+  end
+
+  dyta(:payments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column 
+  end
   
   def sales_payments
   end

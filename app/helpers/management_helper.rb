@@ -1,6 +1,6 @@
 module ManagementHelper
-#  STEPS = ['sales_general', 'sales_products', 'sales_deliveries', 'sales_invoices', 'sales_payments']
-  STEPS = ['sales_general', 'sales_products', 'sales_deliveries', 'sales_invoices']
+  STEPS = ['sales_general', 'sales_products', 'sales_deliveries', 'sales_invoices', 'sales_payments']
+  #STEPS = ['sales_general', 'sales_products', 'sales_deliveries', 'sales_invoices']
 
 
   def sales_steps
