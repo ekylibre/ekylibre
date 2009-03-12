@@ -16,6 +16,7 @@ div[xul="box"] { background: #ADA; }
 */
 /*table.entries { border-collapse: collapse; }*/
 
+.payments { text-align:center }
 .invoice { text-align:center;  padding:5px 0px 5px; font-size:15px;  background: #FF3300; margin: 20px 600px 20px 600px; }
 .entity { text-align:right; }
 /*#lines { height: 300px; overflow: auto; }*/

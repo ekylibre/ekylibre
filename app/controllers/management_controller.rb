@@ -808,29 +808,80 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:payments, :conditions=>{:company_id=>['@current_company.id']} ) do |t|#,:joins=>"JOIN payment_parts ON payment_parts.order_id = @sale_order.id") do |t|
+  dyta(:payments, :conditions=>["payments.company_id = ? AND payment_parts.order_id = ? ",['@current_company.id'],['@sale_order.id']], :joins=>"JOIN payment_parts ON payment_id = payments.id ") do |t|
     t.column :amount
+    t.column :name, :through=>:mode
+    t.column :label, :through=>:account
+    t.column :paid_on
     t.action :payments_update, :image=>:update
     t.action :payments_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :payments_create
   end
   
   def sales_payments
-    @sale_order = find_and_check(:sale_order, params[:id])
+    @sale_order = find_and_check(:sale_orders, params[:id]||session[:current_sale_order])
+    session[:current_sale_order] = @sale_order.id
     payments_list params
   end
  
   def payments_create
+    @modes = ["new","existing_part"]
+    @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
     if request.post?
+      raise Exception.new params.inspect
       @payment = Payment.new(params[:payment])
       @payment.company_id = @current_company.id
-      redirect_to :back if @payment.save
+      ActiveRecord::Base.transaction do
+        saved = @payment.save
+        if saved 
+          payment_part = PaymentPart.new
+          payment_part.company_id = @current_company.id
+          payment_part.payment_id = @payment.id
+          payment_part.order_id = @sale_order.id
+          saved = false unless payment_part.save
+          payment_part.errors.each_full do |msg|
+            @payment.errors.add_to_base(msg)
+          end
+        end
+        raise ActiveRecord::Rollback unless saved
+      end
+      redirect_to :action=>:sales_payments, :id=>@sale_order.id
     else
       @payment = Payment.new
     end
+    @title = {:value=>@sale_order.number}
     render_form
   end
   
+  def payments_update
+    @sale_order = find_and_check(:sale_order, session[:current_sale_order])
+    @payment = find_and_check(:payment, params[:id])
+    if request.post?
+       ActiveRecord::Base.transaction do
+        saved = @payment.update_attributes(params[:payment])
+        if saved
+          payment_part = PaymentPart.find(:first, :conditions=>{:order_id=>@sale_order.id, :payment_id=>@payment.id})
+          payment_part.update_attributes(:amount=>params[:payment][:amount])
+          payment_part.errors.each_full do |msg|
+            @payment.errors.add_to_base(msg)
+          end
+        end
+        raise ActiveRecord::Rollback unless saved 
+      end
+      redirect_to :action=>:sales_payments, :id=>@sale_order.id 
+    end
+    @title = {:value=>@sale_order.number}
+    render_form 
+  end
+
+  def payments_delete
+    @sale_order = find_and_check(:sale_order, session[:current_sale_order])
+    @payment = find_and_check(:payment, params[:id])
+    if request.post? or request.delete?
+      payment_part = PaymentPart.find(:first, :conditions=>{:order_id=>@sale_order.id, :payment_id=>@payment.id})
+      redirect_to :action=>:sales_payments, :id=>@sale_order.id if ( payment_part.destroy and @payment.destroy)
+    end
+  end
   
   def sales_print
     render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml", :key=>params[:id])

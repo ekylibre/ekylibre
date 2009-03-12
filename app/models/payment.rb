@@ -17,4 +17,8 @@
 #
 
 class Payment < ActiveRecord::Base
+
+  def before_destroy
+  end
+
 end

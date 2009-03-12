@@ -98,4 +98,13 @@ class SaleOrder < ActiveRecord::Base
     sum
   end
 
+  def add_payment(payment)
+    rest_to_pay = PaymentPart.sum(:amount, :conditions=>{:order_id=>self.id,:company_id=>self.company_id})
+    if payment.amount > rest_to_pay
+      PaymentPart.create!(:amount=>rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
+      payment.update_attributes(:part_amount=>rest_to_pay)
+    end
+    rest_to_pay
+  end
+
 end

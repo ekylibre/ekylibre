@@ -1,3 +1,9 @@
+.payments
+  %ul
+    %li
+      -form_tag do
+        -for mode in @modes
+          =radio_button(:price, :mode , mode, :checked=>( mode=="new" ? true : false))+"&nbsp;"+content_tag(:label, tc(mode))
 =formalize do |f|
   -f.error :payment
   -f.title :title
