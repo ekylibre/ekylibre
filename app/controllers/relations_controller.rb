@@ -361,8 +361,10 @@ class RelationsController < ApplicationController
     @entity = Entity.find_by_id_and_company_id(session[:current_entity], @current_company.id)
     @contact = Contact.find_by_id_and_company_id(params[:id], @current_company.id)
     @id = @contact.entity_id
+    
+#    raise Exception.new('entity:'+@contact.entity.inspect)
     if request.post? and @contact
-      redirect_to_back if @contact.update_attributes(params[:contact])
+      redirect_to_back if @contact.upgrade(params[:contact]) # @contact.update_attributes(params[:contact])
     end
     @title = {:entity=>@entity.full_name, :contact=>@contact.name}
     render_form

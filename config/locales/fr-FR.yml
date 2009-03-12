@@ -1267,6 +1267,8 @@ fr-FR:
       error_too_long: "{{field}} est trop long ({{length}} caractères)"
       error_less_than: "{{field}} est trop petit ({{minimum}} minimum)"
       error_greater_than: "{{field}} est trop grand ({{maximum}} maximum)"
+    contact:
+      error_modify_contact: 'Impossible de modifier un contact'
     delay:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
     delivery_line: 

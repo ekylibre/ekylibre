@@ -31,7 +31,7 @@ class Mar2t1 < ActiveRecord::Migration
 
 
   def self.down
-    drop_table :payment_parts
+   # drop_table :payment_parts
     drop_table :payments
     drop_table :payment_modes
   end
