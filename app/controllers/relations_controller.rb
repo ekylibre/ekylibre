@@ -172,7 +172,7 @@ class RelationsController < ApplicationController
     #     # end
   end
 
-  dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['@entity.id'], :deleted=>false}, :empty=>true) do |t|
+  dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['@entity.id'], :deleted=>false, :active=>true}, :empty=>true) do |t|
     t.column :name, :url=>{:action=>:entities_contacts_update}
     t.column :address, :url=>{:action=>:entities_contacts_update}
     t.column :phone
