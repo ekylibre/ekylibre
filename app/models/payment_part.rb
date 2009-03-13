@@ -18,7 +18,7 @@
 class PaymentPart < ActiveRecord::Base
   
   def before_validation
-    self.amount = self.payment.amount
+    #self.amount = self.payment.amount
 
 
 #     amount = PaymentPart.sum(:amount, :conditions=>{:order_id=>self.order_id,:company_id=>self.company_id})

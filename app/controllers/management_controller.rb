@@ -810,8 +810,8 @@ class ManagementController < ApplicationController
 
   dyta(:payments, :conditions=>["payments.company_id = ? AND payment_parts.order_id = ? ",['@current_company.id'],['@sale_order.id']], :joins=>"JOIN payment_parts ON payment_id = payments.id ") do |t|
     t.column :amount
+    t.column :part_amount
     t.column :name, :through=>:mode
-    t.column :label, :through=>:account
     t.column :paid_on
     t.action :payments_update, :image=>:update
     t.action :payments_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
@@ -827,21 +827,23 @@ class ManagementController < ApplicationController
   def payments_create
     @modes = ["new","existing_part"]
     @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
+    @payments = Payment.find(:all,:conditions=>[" company_id = ? AND amount != part_amount",@current_company.id])
     if request.post?
-      raise Exception.new params.inspect
+      #raise Exception.new params.inspect
       @payment = Payment.new(params[:payment])
       @payment.company_id = @current_company.id
       ActiveRecord::Base.transaction do
         saved = @payment.save
         if saved 
-          payment_part = PaymentPart.new
-          payment_part.company_id = @current_company.id
-          payment_part.payment_id = @payment.id
-          payment_part.order_id = @sale_order.id
-          saved = false unless payment_part.save
-          payment_part.errors.each_full do |msg|
-            @payment.errors.add_to_base(msg)
-          end
+          # payment_part = PaymentPart.new
+#           payment_part.company_id = @current_company.id
+#           payment_part.payment_id = @payment.id
+#           payment_part.order_id = @sale_order.id
+#           saved = false unless payment_part.save
+          saved =  @sale_order.add_payment(@payment)
+          #payment_part.errors.each_full do |msg|
+          # @payment.errors.add_to_base(msg)
+          #end
         end
         raise ActiveRecord::Rollback unless saved
       end

@@ -26,12 +26,15 @@ class Mar2t1 < ActiveRecord::Migration
     end
     add_index :payment_parts, :company_id
 
+    add_column :payments, :part_amount, :decimal,  :precision=>16, :scale=>2
+
   end
 
 
 
   def self.down
-   # drop_table :payment_parts
+    remove_column :payments, :part_amount
+    drop_table :payment_parts
     drop_table :payments
     drop_table :payment_modes
   end

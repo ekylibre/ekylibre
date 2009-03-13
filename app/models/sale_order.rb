@@ -99,12 +99,18 @@ class SaleOrder < ActiveRecord::Base
   end
 
   def add_payment(payment)
-    rest_to_pay = PaymentPart.sum(:amount, :conditions=>{:order_id=>self.id,:company_id=>self.company_id})
+    saved = true
+    rest_to_pay = ( self.amount_with_taxes - PaymentPart.sum(:amount, :conditions=>{:order_id=>self.id,:company_id=>self.company_id}) )
     if payment.amount > rest_to_pay
-      PaymentPart.create!(:amount=>rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
-      payment.update_attributes(:part_amount=>rest_to_pay)
+      #raise Exception.new "1     "+self.amount_with_taxes.to_s+"  "+rest_to_pay.to_s+"  "+payment.amount.to_s
+      saved = false unless PaymentPart.create!(:amount=>rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
+      payment.update_attributes!(:part_amount=>rest_to_pay)
+    else
+      #raise Exception.new "2     "+self.amount_with_taxes.to_s+"  "+rest_to_pay.to_s+"  "+payment.amount.to_s
+      saved = false unless PaymentPart.create!(:amount=>payment.amount, :order_id=>self.id, :company_id=>self.company_id, :payment_id=>payment.id)
+      payment.update_attributes!(:part_amount=>payment.amount)
     end
-    rest_to_pay
+    saved
   end
 
 end
