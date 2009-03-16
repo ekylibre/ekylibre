@@ -758,13 +758,13 @@ class ManagementController < ApplicationController
           @current_company.invoice(@sale_order)
         else
           flash[:message] = tc('messages.invoice_already_created')
-          redirect_to :action=>:sales_invoices, :id=>@sale_order.id
         end
       else
         deliveries = params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)}
         puts deliveries.inspect+"!!!!!!!!!!!!!!!!!!!!!!!!!!"+deliveries.class.to_s
         @current_company.invoice(deliveries)
       end
+      redirect_to :action=>:sales_invoices, :id=>@sale_order.id
     end
     
     
@@ -820,32 +820,41 @@ class ManagementController < ApplicationController
   
   def sales_payments
     @sale_order = find_and_check(:sale_orders, params[:id]||session[:current_sale_order])
+    @payments = @sale_order.payment_parts
+    @invoices = @sale_order.invoices
+    raise Exception.new @invoices.inspect+"                                 !!!!!!!!!!!!!             "+@payments.inspect
     session[:current_sale_order] = @sale_order.id
     payments_list params
   end
  
   def payments_create
     @modes = ["new","existing_part"]
+   # @payment = Payment.new
+    @update = false
     @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
-    @payments = Payment.find(:all,:conditions=>[" company_id = ? AND amount != part_amount",@current_company.id])
+    @payments = @sale_order.payments 
     if request.post?
-      #raise Exception.new params.inspect
-      @payment = Payment.new(params[:payment])
-      @payment.company_id = @current_company.id
-      ActiveRecord::Base.transaction do
-        saved = @payment.save
-        if saved 
-          # payment_part = PaymentPart.new
-#           payment_part.company_id = @current_company.id
-#           payment_part.payment_id = @payment.id
-#           payment_part.order_id = @sale_order.id
-#           saved = false unless payment_part.save
-          saved =  @sale_order.add_payment(@payment)
-          #payment_part.errors.each_full do |msg|
-          # @payment.errors.add_to_base(msg)
-          #end
+      if params[:price][:mode] == "new"
+        @payment = Payment.new(params[:payment])
+        @payment.company_id = @current_company.id
+        ActiveRecord::Base.transaction do
+          saved = @payment.save
+          if saved 
+            saved =  @sale_order.add_payment(@payment)
+          end
+          raise ActiveRecord::Rollback unless saved
         end
-        raise ActiveRecord::Rollback unless saved
+      else
+        @payment = find_and_check(:payment, params[:pay][:part])
+        payment_part = PaymentPart.find(:first, :conditions=>{:company_id=>@current_company.id, :payment_id=>@payment.id})
+        if payment_part.order_id == @sale_order.id
+          #payment = Payment.create!(:amount=>(@payment.amount - @payment.part_amount), :mode_id=>@payment.mode_id, :company_id=>@current_company.id)
+          flash[:notice]=tc(:sale_order_already_paid)
+        else
+          payment = Payment.create!(:amount=>(@payment.amount - @payment.part_amount), :mode_id=>@payment.mode_id, :company_id=>@current_company.id)
+          saved = @sale_order.add_payment(payment)
+          @payment.update_attributes(:part_amount=>@payment.amount)
+        end
       end
       redirect_to :action=>:sales_payments, :id=>@sale_order.id
     else
@@ -856,11 +865,12 @@ class ManagementController < ApplicationController
   end
   
   def payments_update
+    @update = true
     @sale_order = find_and_check(:sale_order, session[:current_sale_order])
     @payment = find_and_check(:payment, params[:id])
     if request.post?
        ActiveRecord::Base.transaction do
-        saved = @payment.update_attributes(params[:payment])
+        saved = @payment.update_attributes(params[:payment]) and @payment.update_attributes(:part_amount=>params[:payment][:amount])
         if saved
           payment_part = PaymentPart.find(:first, :conditions=>{:order_id=>@sale_order.id, :payment_id=>@payment.id})
           payment_part.update_attributes(:amount=>params[:payment][:amount])

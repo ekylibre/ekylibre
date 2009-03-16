@@ -35,6 +35,7 @@
 #
 
 class SaleOrder < ActiveRecord::Base
+  #has_and_belongs_to_many :payments, :join_table=>:payment_parts
   attr_readonly :company_id, :created_on, :number
 
   def before_validation
@@ -104,13 +105,31 @@ class SaleOrder < ActiveRecord::Base
     if payment.amount > rest_to_pay
       #raise Exception.new "1     "+self.amount_with_taxes.to_s+"  "+rest_to_pay.to_s+"  "+payment.amount.to_s
       saved = false unless PaymentPart.create!(:amount=>rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
-      payment.update_attributes!(:part_amount=>rest_to_pay)
+      payment.update_attributes!(:part_amount=>rest_to_pay) if saved
     else
       #raise Exception.new "2     "+self.amount_with_taxes.to_s+"  "+rest_to_pay.to_s+"  "+payment.amount.to_s
       saved = false unless PaymentPart.create!(:amount=>payment.amount, :order_id=>self.id, :company_id=>self.company_id, :payment_id=>payment.id)
-      payment.update_attributes!(:part_amount=>payment.amount)
+      payment.update_attributes!(:part_amount=>payment.amount) if saved
     end
     saved
   end
 
+  def payments
+    #raise Exception.new
+    sale_orders = self.client.sale_orders
+    payment_parts = []
+    for sale_order in sale_orders
+      payment_parts += PaymentPart.find(:all, :conditions=>{:company_id=>self.company_id, :order_id=>sale_order.id})
+    end
+    #raise Exception.new payment_parts.inspect
+    payments = []
+    for part in payment_parts
+      pay = Payment.find(:all, :conditions=>["company_id = ? AND id = ? AND amount != part_amount",self.company_id ,part.payment_id])
+      payments += pay if !pay.nil?
+    end
+    payments
+  end
+
 end
+
+

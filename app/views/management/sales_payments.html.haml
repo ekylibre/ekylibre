@@ -7,3 +7,45 @@
   .actions
     =link_to tg(:previous), :action=>:sales_products
     =submit_tag(tc('close_sale'), :action=>:sales_close)
+
+
+%h2=tc :financial_state
+%table.dyta
+  %tr
+    %th{:colspan=>3}= tc(:invoices)
+    %th{:colspan=>3}= tc(:payments)
+  %tr
+    %th= tc(:number)
+    %th= tc(:payment_on)
+    %th= tc(:amount_wt)
+    %th= tc(:paid_on)
+    %th= tc(:payment_mode)
+    %th= tc(:amount_wt)
+  -x = 0 
+  -exist = true
+  -while exist == true
+    -if !@invoices[x].nil?
+      %tr
+        %td= @invoices[x].number 
+        %td= @invoices[x].payment_on
+        %td= @invoices[x].amount_with_taxes
+    -else
+      %tr
+        %td
+        %td
+        %td
+      -if @payments[x].nil?
+        -exist = false
+    -if !@payments[x].nil?
+      %tr
+        %td= @payments[x].paid_on 
+        %td= @payments[x].mode.name
+        %td= @payments[x].amount
+    -else
+      %tr
+        %td
+        %td
+        %td
+      -if @invoices[x].nil?
+        -exist = false
+    -x += 1

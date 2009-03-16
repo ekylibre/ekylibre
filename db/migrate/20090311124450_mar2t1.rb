@@ -27,7 +27,7 @@ class Mar2t1 < ActiveRecord::Migration
     add_index :payment_parts, :company_id
 
     add_column :payments, :part_amount, :decimal,  :precision=>16, :scale=>2
-
+    #add_column :payments, :order_id, :integer,  :null=>false, :references=>:sale_orders
   end
 
 

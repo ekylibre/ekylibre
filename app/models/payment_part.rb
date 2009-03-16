@@ -17,15 +17,9 @@
 
 class PaymentPart < ActiveRecord::Base
   
-  def before_validation
-    #self.amount = self.payment.amount
 
-
-#     amount = PaymentPart.sum(:amount, :conditions=>{:order_id=>self.order_id,:company_id=>self.company_id})
-#     sale_order = find_and_check(:sale_order, self.order_id)
-#     if surplus = (amount - sale_order.amount_with_taxes ) > 0
-#       payment_part = PaymentPart.new(:amount=>surplus,:order_id=>self.order_id,:company_id=>self.company_id,:payment_id=>a)
-#     end
+  def validate
+    errors.add_to_base tc(:error_sale_order_already_paid) if self.amount <= 0
   end
 
 

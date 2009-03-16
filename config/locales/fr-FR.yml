@@ -327,6 +327,7 @@ fr-FR:
         amount: Montant
         mode_id: Mode de paiement
         paid_on: Réglé le 
+        part_amount: Part attribuée à la vente
       payment_mode:
         account_id: Compte associé
         name: Nom
@@ -508,6 +509,7 @@ fr-FR:
     management:
       title: Commerce
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
+      sale_order_already_paid: ' La vente à déjà été payée en totalité '
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
         need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
@@ -1019,7 +1021,14 @@ fr-FR:
         deliver: 'Reçu le  '
       sales_payments: 
         title: Règlements
+        amount_wt: Montant TTC
         close_sale: Clôturer la vente
+        financial_state: Statut du paiement de la vente
+        invoices: Factures
+        number: Numéro
+        paid_on: Payé le 
+        payment_mode: Mode de paiement
+        payment_on: À payer le
         payments: Règlements
         payments_create: Ajouter un nouveau paiement
       sales_invoices:
@@ -1312,6 +1321,8 @@ fr-FR:
       error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus ajouter de pièces.' 
       error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
       error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
+    payment_part: 
+      error_sale_order_already_paid: ' La vente a déjà été payée en totalité '
     price:
       error_range_overlap: 'L''intervalle de quantité en chevauche un autre (de {{min}} à {{max}})'
       error_already_defined: 'Un prix a déjà été défini pour cette liste de prix et ce produit'
