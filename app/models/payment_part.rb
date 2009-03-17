@@ -22,6 +22,8 @@ class PaymentPart < ActiveRecord::Base
     errors.add_to_base tc(:error_sale_order_already_paid) if self.amount <= 0
   end
 
-
+ def payment_way
+   self.payment.mode.name
+  end
 
 end

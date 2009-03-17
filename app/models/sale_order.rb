@@ -99,9 +99,13 @@ class SaleOrder < ActiveRecord::Base
     sum
   end
 
+  def rest_to_pay
+    ( self.amount_with_taxes - PaymentPart.sum(:amount, :conditions=>{:order_id=>self.id,:company_id=>self.company_id}) ).to_f
+  end
+
   def add_payment(payment)
     saved = true
-    rest_to_pay = ( self.amount_with_taxes - PaymentPart.sum(:amount, :conditions=>{:order_id=>self.id,:company_id=>self.company_id}) )
+    rest_to_pay = ( self.amount_with_taxes - PaymentPart.sum(:amount, :conditions=>{:order_id=>self.id,:company_id=>self.company_id}) ) ##Facto + fct 
     if payment.amount > rest_to_pay
       #raise Exception.new "1     "+self.amount_with_taxes.to_s+"  "+rest_to_pay.to_s+"  "+payment.amount.to_s
       saved = false unless PaymentPart.create!(:amount=>rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
@@ -112,6 +116,21 @@ class SaleOrder < ActiveRecord::Base
       payment.update_attributes!(:part_amount=>payment.amount) if saved
     end
     saved
+  end
+
+  def add_part(payment)
+    #raise Exception.new "ol"
+    rest_to_pay = ( self.amount_with_taxes - PaymentPart.sum(:amount, :conditions=>{:order_id=>self.id,:company_id=>self.company_id}) )
+    puts rest_to_pay.to_s+"       rest_to_pay"
+    if rest_to_pay > (payment.amount - payment.part_amount)
+      puts payment.amount.to_s+" amount pay"+"     part amount payment"+payment.part_amount.to_s
+      PaymentPart.create!(:amount=>(payment.amount - payment.part_amount),:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
+      payment.update_attributes!(:part_amount=>(payment.amount))
+    else
+      puts payment.amount.to_s+" amount pay"+"     part amount payment"+payment.part_amount.to_s
+      PaymentPart.create!(:amount=>rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
+      payment.update_attributes!(:part_amount=>( payment.part_amount + rest_to_pay))
+    end
   end
 
   def payments
