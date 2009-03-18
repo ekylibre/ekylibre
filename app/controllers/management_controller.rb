@@ -852,11 +852,11 @@ class ManagementController < ApplicationController
     if request.post?
       @payment = @payment_part.payment
       if @payment.amount != @payment.part_amount
-        if params[:payment][:amount].to_d <= @sale_order.rest_to_pay ## + else + <= payment.amount + sum_parts
+        if params[:payment][:amount].to_d <= @sale_order.rest_to_pay ##and @payment.part_amount + params[:amount] <= @payment.amount + else + <= payment.amount + sum_parts
           old_value = @payment_part.amount
           @payment_part.update_attributes(:amount=>params[:payment][:amount])
           new_part_amount = (@payment.part_amount + params[:payment][:amount].to_d - old_value)
-          @payment.update_attributes!(:paid_on=>params[:payment][:paid_on], :mode_id=>params[:payment][:mode_id], :part_amount=>new_part_amount)
+          @payment.update_attributes!(:paid_on=>params[:payment][:paid_on], :mode_id=>params[:payment][:mode_id], :part_amount=>new_part_amount) #pas update amount
         end
       elsif params[:payment][:amount].to_d <= ( @sale_order.amount_with_taxes - (PaymentPart.sum(:amount, :conditions=>{:order_id=>@sale_order.id,:company_id=>@sale_order.company_id}) - @payment_part.amount))
         @payment.update_attributes(params[:payment])

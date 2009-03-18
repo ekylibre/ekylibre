@@ -27,8 +27,7 @@
     -if !@invoices[x].nil?
       %tr
         %td= @invoices[x].number 
-        %td= @invoices[x].payment_on
-        %td{:style=>"border-right: solid 1px red;"}= @invoices[x].amount_with_taxes
+        %td= @invoices[x].payment_on        %td{:style=>"border-right: solid 1px red;"}= @invoices[x].amount_with_taxes
         %td 
         %td
         %td 
