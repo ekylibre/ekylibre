@@ -343,7 +343,6 @@ class ManagementController < ApplicationController
     @price = find_and_check(:price, @purchase_order_line.price_id)
     if request.post?
       params[:purchase_order_line][:company_id] = @current_company.id
-#      calculate_price(false)
       if @purchase_order_line.update_attributes(params[:purchase_order_line])  
         @update = false
         redirect_to :action=>:purchases_products, :id=>@purchase_order_line.order_id  
@@ -454,15 +453,6 @@ class ManagementController < ApplicationController
       @sale_order.company_id = @current_company.id
       @sale_order.number = ''
       @sale_order.state = 'P'
-
-      # list = PriceList.find(:first,:conditions=>{:entity_id=>@current_company.current_entity})
-      #list  = PriceList.find(:first,:conditions=>{:name=>"Mes tarifs standards"})
-      #if list.blank?                                                                            
-        # list = PriceList.create!(:name=>"Mes tarifs standards", :started_on=>Date.today, :currency_id=>1, :entity_id=>@current_company.current_entity, :company_id=>@current_company.id) 
-       # list = PriceList.create!(:name=>"Mes tarifs standards", :started_on=>Date.today, :currency_id=>1, :entity_id=>1, :company_id=>@current_company.id)
-      #end
-      # @sale_order.price_list_id = list.id
-
       if @sale_order.save
         redirect_to :action=>:sales_products, :id=>@sale_order.id
       end
@@ -748,11 +738,8 @@ class ManagementController < ApplicationController
       @delivery_lines += lines if !lines.nil?
     end
     invoices_list params
-    #puts "hhjhjhh==============================="+@deliveries.inspect+",,,,,,,,,,,,,,,"+@sale_order.id.to_s+@deliveries[0].class.inspect
-    
     if request.post?
       if params[:delivery].nil?
-        #raise Exception.new "ok"+@sale_order.lines.class.to_s
         invoice = Invoice.find(:first, :conditions=>{:company_id=>@current_company.id, :sale_order_id=>@sale_order.id})
         if invoice.nil?
           @current_company.invoice(@sale_order)
@@ -761,7 +748,6 @@ class ManagementController < ApplicationController
         end
       else
         deliveries = params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)}
-        puts deliveries.inspect+"!!!!!!!!!!!!!!!!!!!!!!!!!!"+deliveries.class.to_s
         @current_company.invoice(deliveries)
       end
       redirect_to :action=>:sales_invoices, :id=>@sale_order.id
@@ -808,21 +794,11 @@ class ManagementController < ApplicationController
     end
   end
 
-#   dyta(:payments, :conditions=>["payments.company_id = ? AND payment_parts.order_id = ? ",['@current_company.id'],['@sale_order.id']], :joins=>"JOIN payment_parts ON payment_id = payments.id ") do |t|
-#     t.column :amount
-#     t.column :part_amount
-#     t.column :name, :through=>:mode
-#     t.column :paid_on
-#     t.action :payments_update, :image=>:update
-#     t.action :payments_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-#     t.procedure :payments_create
-#   end
-
   dyta(:payment_parts, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@sale_order.id']}) do |t|
-    t.column :amount, :through=>:payment, :label=>:sum_amount
+    t.column :amount, :through=>:payment, :label=>"Montant du paiment"
     t.column :amount
     t.column :payment_way
-    t.column :paid_on, :through=>:payment, :label=>:paid_on
+    t.column :paid_on, :through=>:payment, :label=>"Réglé le"
     t.action :payments_update, :image=>:update
     t.action :payments_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :payments_create
@@ -839,7 +815,6 @@ class ManagementController < ApplicationController
     @payments.each {|p| @payments_sum += p.amount}
     session[:current_sale_order] = @sale_order.id
     payment_parts_list params
-    #payments_list params
   end
  
   def payments_create
@@ -851,27 +826,15 @@ class ManagementController < ApplicationController
       if params[:price][:mode] == "new"
         @payment = Payment.new(params[:payment])
         @payment.company_id = @current_company.id
-        ActiveRecord::Base.transaction do
-          saved = @payment.save
-          if saved 
-            saved =  @sale_order.add_payment(@payment)
-          end
-          raise ActiveRecord::Rollback unless saved
-        end
+        @sale_order.add_payment(@payment) if @payment.save
       else
         @payment = find_and_check(:payment, params[:pay][:part])
         payment_part = PaymentPart.find(:first, :conditions=>{:company_id=>@current_company.id, :payment_id=>@payment.id})
-        if payment_part.order_id == @sale_order.id
-          #raise Exception.new "ok"
-          #payment = Payment.create!(:amount=>(@payment.amount - @payment.part_amount), :mode_id=>@payment.mode_id, :company_id=>@current_company.id)
-          flash[:notice]=tc(:sale_order_already_paid)
-        else
-          #raise Exception.new "ok22"
-          #payment = Payment.create!(:amount=>(@payment.amount - @payment.part_amount), :mode_id=>@payment.mode_id, :company_id=>@current_company.id)
-          saved = @sale_order.add_part(@payment)
-          #PaymentPart.create!(:amount=>@sale_order.rest_to_pay, :order_id=>@sale_order.id, :payment_id :company_id=>@current_company.id)
-          # @payment.update_attributes(:part_amount=>(self.part_amount+@payment.amount))
-        end
+        #if payment_part.order_id == @sale_order.id
+         # flash[:notice]=tc(:sale_order_already_paid)
+        #else
+        @sale_order.add_part(@payment)
+     # end
       end
       redirect_to :action=>:sales_payments, :id=>@sale_order.id
     else
@@ -884,46 +847,32 @@ class ManagementController < ApplicationController
   def payments_update
     @update = true
     @sale_order = find_and_check(:sale_order, session[:current_sale_order])
-    @payments = @sale_order.payment_parts ###Factoriser
-    @payments_sum = 0 
-    @payments.each {|p| @payments_sum += p.amount}
-    # @payment = find_and_check(:payments, params[:id])
     @payment_part = find_and_check(:payment_part, params[:id])
     @payment = Payment.new(:amount=>@payment_part.amount, :paid_on=>@payment_part.payment.paid_on, :mode_id=>@payment_part.payment.mode_id)
     if request.post?
-      ActiveRecord::Base.transaction do
-        saved = true
-        @payment = @payment_part.payment
-        if @payment.amount != @payment.part_amount
-          if params[:payment][:amount].to_d <= @sale_order.rest_to_pay
-            old_value = @payment_part.amount
-            @payment_part.update_attributes(:amount=>params[:payment][:amount])
-            new_part_amount = (@payment.part_amount + params[:payment][:amount].to_d - old_value)
-            #raise Exception.new new_part_amount.inspect
-            @payment.update_attributes!(:paid_on=>params[:payment][:paid_on], :mode_id=>params[:payment][:mode_id], :part_amount=>new_part_amount)
-          end
-        else
-          if params[:payment][:amount].to_d <= @sale_order.rest_to_pay
-            @payment.update_attributes(params[:payment])
-            @payment_part.update_attributes(:amount=>params[:payment][:amount])
-          else
-            flash[:warning]=tc(:amount_out_of_limits)
-          end
+      @payment = @payment_part.payment
+      if @payment.amount != @payment.part_amount
+        if params[:payment][:amount].to_d <= @sale_order.rest_to_pay ## + else + <= payment.amount + sum_parts
+          old_value = @payment_part.amount
+          @payment_part.update_attributes(:amount=>params[:payment][:amount])
+          new_part_amount = (@payment.part_amount + params[:payment][:amount].to_d - old_value)
+          @payment.update_attributes!(:paid_on=>params[:payment][:paid_on], :mode_id=>params[:payment][:mode_id], :part_amount=>new_part_amount)
         end
-        raise ActiveRecord::Rollback unless saved 
+      elsif params[:payment][:amount].to_d <= ( @sale_order.amount_with_taxes - (PaymentPart.sum(:amount, :conditions=>{:order_id=>@sale_order.id,:company_id=>@sale_order.company_id}) - @payment_part.amount))
+        @payment.update_attributes(params[:payment])
+        @payment_part.update_attributes(:amount=>params[:payment][:amount])
+      else
+        flash[:warning]=tc(:amount_out_of_limits)
       end
       redirect_to :action=>:sales_payments, :id=>@sale_order.id 
     end
-    @title = {:value=>@sale_order.number}
     render_form 
   end
 
   def payments_delete
     @sale_order = find_and_check(:sale_order, session[:current_sale_order])
-   # @payment = find_and_check(:payment, params[:id])
     @payment_part = find_and_check(:payment_part, params[:id])
     if request.post? or request.delete?
-      #payment_part = PaymentPart.find(:first, :conditions=>{:order_id=>@sale_order.id, :payment_id=>@payment.id})
       redirect_to :action=>:sales_payments, :id=>@sale_order.id if  @payment_part.destroy
     end
   end

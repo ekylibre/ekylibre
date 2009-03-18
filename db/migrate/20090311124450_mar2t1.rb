@@ -27,12 +27,20 @@ class Mar2t1 < ActiveRecord::Migration
     add_index :payment_parts, :company_id
 
     add_column :payments, :part_amount, :decimal,  :precision=>16, :scale=>2
-    #add_column :payments, :order_id, :integer,  :null=>false, :references=>:sale_orders
+    
+
+    remove_column :deliveries, :shipped_on
+    remove_column :deliveries, :delivered_on
+    add_column :deliveries, :shipped_on,      :date
+    add_column :deliveries, :delivered_on,    :date
+    
   end
 
 
 
   def self.down
+    #remove_column :deliveries, :delivered_on
+    #remove_column :deliveries, :shipped_on
     remove_column :payments, :part_amount
     drop_table :payment_parts
     drop_table :payments

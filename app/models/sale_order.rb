@@ -100,36 +100,29 @@ class SaleOrder < ActiveRecord::Base
   end
 
   def rest_to_pay
-    ( self.amount_with_taxes - PaymentPart.sum(:amount, :conditions=>{:order_id=>self.id,:company_id=>self.company_id}) ).to_f
+    ( self.invoices.sum(:amount_with_taxes,:conditions=>{:sale_order_id=>self.id,:company_id=>self.company_id}) - PaymentPart.sum(:amount, :conditions=>{:order_id=>self.id,:company_id=>self.company_id}) ).to_f
   end
 
   def add_payment(payment)
-    saved = true
-    rest_to_pay = ( self.amount_with_taxes - PaymentPart.sum(:amount, :conditions=>{:order_id=>self.id,:company_id=>self.company_id}) ) ##Facto + fct 
-    if payment.amount > rest_to_pay
-      #raise Exception.new "1     "+self.amount_with_taxes.to_s+"  "+rest_to_pay.to_s+"  "+payment.amount.to_s
-      saved = false unless PaymentPart.create!(:amount=>rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
-      payment.update_attributes!(:part_amount=>rest_to_pay) if saved
+    if payment.amount > self.rest_to_pay
+      #raise Exception.new self.rest_to_pay.inspect
+      payment.update_attributes!(:part_amount=>self.rest_to_pay)
+      PaymentPart.create!(:amount=>self.rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
     else
-      #raise Exception.new "2     "+self.amount_with_taxes.to_s+"  "+rest_to_pay.to_s+"  "+payment.amount.to_s
-      saved = false unless PaymentPart.create!(:amount=>payment.amount, :order_id=>self.id, :company_id=>self.company_id, :payment_id=>payment.id)
-      payment.update_attributes!(:part_amount=>payment.amount) if saved
+      PaymentPart.create!(:amount=>payment.amount, :order_id=>self.id, :company_id=>self.company_id, :payment_id=>payment.id)
+      payment.update_attributes!(:part_amount=>payment.amount) 
     end
-    saved
   end
 
   def add_part(payment)
-    #raise Exception.new "ol"
-    rest_to_pay = ( self.amount_with_taxes - PaymentPart.sum(:amount, :conditions=>{:order_id=>self.id,:company_id=>self.company_id}) )
-    puts rest_to_pay.to_s+"       rest_to_pay"
-    if rest_to_pay > (payment.amount - payment.part_amount)
+    if self.rest_to_pay > (payment.amount - payment.part_amount)
       puts payment.amount.to_s+" amount pay"+"     part amount payment"+payment.part_amount.to_s
       PaymentPart.create!(:amount=>(payment.amount - payment.part_amount),:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
       payment.update_attributes!(:part_amount=>(payment.amount))
     else
       puts payment.amount.to_s+" amount pay"+"     part amount payment"+payment.part_amount.to_s
-      PaymentPart.create!(:amount=>rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
-      payment.update_attributes!(:part_amount=>( payment.part_amount + rest_to_pay))
+      payment.update_attributes!(:part_amount=>( payment.part_amount + self.rest_to_pay))
+      PaymentPart.create!(:amount=>self.rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
     end
   end
 
