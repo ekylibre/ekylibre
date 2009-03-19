@@ -515,7 +515,7 @@ fr-FR:
       title: Commerce
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
       sale_order_already_paid: ' La vente à déjà été payée en totalité '
-      amount_out_of_limits: ' Le montant du réglement dépasse le reste à payer'
+      amount_out_of_limits: ' Le montant du réglement dépasse le montant total'
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
         need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'

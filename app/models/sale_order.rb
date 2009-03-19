@@ -35,7 +35,7 @@
 #
 
 class SaleOrder < ActiveRecord::Base
-  #has_and_belongs_to_many :payments, :join_table=>:payment_parts
+  
   attr_readonly :company_id, :created_on, :number
 
   def before_validation
@@ -105,7 +105,6 @@ class SaleOrder < ActiveRecord::Base
 
   def add_payment(payment)
     if payment.amount > self.rest_to_pay
-      #raise Exception.new self.rest_to_pay.inspect
       payment.update_attributes!(:part_amount=>self.rest_to_pay)
       PaymentPart.create!(:amount=>self.rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
     else
@@ -127,17 +126,23 @@ class SaleOrder < ActiveRecord::Base
   end
 
   def payments
-    #raise Exception.new
     sale_orders = self.client.sale_orders
-    payment_parts = []
+    payment_parts = [] 
     for sale_order in sale_orders
-      payment_parts += PaymentPart.find(:all, :conditions=>{:company_id=>self.company_id, :order_id=>sale_order.id})
+      payment_parts += sale_order.payment_parts
     end
-    #raise Exception.new payment_parts.inspect
     payments = []
     for part in payment_parts
+      found = false
       pay = Payment.find(:all, :conditions=>["company_id = ? AND id = ? AND amount != part_amount",self.company_id ,part.payment_id])
-      payments += pay if !pay.nil?
+     
+      if !pay.empty? 
+        for payment in payments
+          found = true if payment.id == pay[0].id 
+        end
+        payments += pay if (!pay.nil? and !found)
+        puts payments.inspect
+      end
     end
     payments
   end

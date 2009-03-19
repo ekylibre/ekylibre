@@ -830,11 +830,7 @@ class ManagementController < ApplicationController
       else
         @payment = find_and_check(:payment, params[:pay][:part])
         payment_part = PaymentPart.find(:first, :conditions=>{:company_id=>@current_company.id, :payment_id=>@payment.id})
-        #if payment_part.order_id == @sale_order.id
-         # flash[:notice]=tc(:sale_order_already_paid)
-        #else
         @sale_order.add_part(@payment)
-     # end
       end
       redirect_to :action=>:sales_payments, :id=>@sale_order.id
     else
@@ -851,14 +847,16 @@ class ManagementController < ApplicationController
     @payment = Payment.new(:amount=>@payment_part.amount, :paid_on=>@payment_part.payment.paid_on, :mode_id=>@payment_part.payment.mode_id)
     if request.post?
       @payment = @payment_part.payment
-      if @payment.amount != @payment.part_amount
-        if params[:payment][:amount].to_d <= @sale_order.rest_to_pay ##and @payment.part_amount + params[:amount] <= @payment.amount + else + <= payment.amount + sum_parts
-          old_value = @payment_part.amount
-          @payment_part.update_attributes(:amount=>params[:payment][:amount])
-          new_part_amount = (@payment.part_amount + params[:payment][:amount].to_d - old_value)
-          @payment.update_attributes!(:paid_on=>params[:payment][:paid_on], :mode_id=>params[:payment][:mode_id], :part_amount=>new_part_amount) #pas update amount
-        end
-      elsif params[:payment][:amount].to_d <= ( @sale_order.amount_with_taxes - (PaymentPart.sum(:amount, :conditions=>{:order_id=>@sale_order.id,:company_id=>@sale_order.company_id}) - @payment_part.amount))
+      amount = PaymentPart.find(:first, :conditions=>{:company_id=>@current_company.id, :payment_id=>@payment.id}).amount
+      conditions = ((@payment.amount != @payment.part_amount or amount != @payment.amount) and ((params[:payment][:amount].to_d <= @sale_order.rest_to_pay) and ((@payment.part_amount + (params[:payment][:amount].to_d - @payment_part.amount)) <= @payment.amount ) ) )
+      
+      if conditions
+        old_value = @payment_part.amount
+        @payment_part.update_attributes(:amount=>params[:payment][:amount])
+        new_part_amount = (@payment.part_amount + params[:payment][:amount].to_d - old_value)
+        @payment.update_attributes!(:paid_on=>params[:payment][:paid_on], :mode_id=>params[:payment][:mode_id], :part_amount=>new_part_amount)
+
+      elsif (!(@payment.amount != @payment.part_amount or amount != @payment.amount) and (params[:payment][:amount].to_d <= ( @sale_order.amount_with_taxes - (PaymentPart.sum(:amount, :conditions=>{:order_id=>@sale_order.id,:company_id=>@sale_order.company_id}) - @payment_part.amount))) ) 
         @payment.update_attributes(params[:payment])
         @payment_part.update_attributes(:amount=>params[:payment][:amount])
       else
@@ -873,7 +871,7 @@ class ManagementController < ApplicationController
     @sale_order = find_and_check(:sale_order, session[:current_sale_order])
     @payment_part = find_and_check(:payment_part, params[:id])
     if request.post? or request.delete?
-      redirect_to :action=>:sales_payments, :id=>@sale_order.id if  @payment_part.destroy
+      redirect_to :action=>:sales_payments, :id=>@sale_order.id if  @payment_part.destroy## +up payment ? -> amount ds model prend ts les part_amount correspondant
     end
   end
   
