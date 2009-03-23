@@ -36,5 +36,25 @@ class Delivery < ActiveRecord::Base
       line.destroy
     end
   end
+
+  def self.natures
+    [:exw, :cpt, :cip].collect{|x| [tc('natures.'+x.to_s), x] }
+  end
  
+  def stocks_moves_create
+    test = self.planned_on == Date.today
+    #raise Exception.new "ghghgh"+self.inspect+Date.today.inspect+test.inspect+self.lines.inspect
+    if self.planned_on == Date.today and self.nature == "exw"
+      for line in self.lines
+        #raise Exception.new line.inspect
+        StockMove.create!(:name=>tc(:sale)+"  "+self.order.number, :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>Date.today, :company_id=>line.company_id, :virtual=>false, :input=>false)
+      end
+    else
+      for line in self.lines
+        raise Exception.new line.inspect
+        StockMove.create!(:name=>tc(:sale)+"  "+self.order.number, :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :company_id=>line.company_id, :virtual=>false, :input=>false) 
+      end
+    end
+  end
+  
 end

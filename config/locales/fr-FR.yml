@@ -239,8 +239,9 @@ fr-FR:
         name: Nom
       delivery:
         contact_id: Adresse du client
-        shipped_on: Envoyé le
-        delivered_on: Reçu le
+        planned_on: Prévu le
+        moved_on: Fait le
+        nature: Type
       department:
         name: Nom
         comment: Commentaire
@@ -434,6 +435,7 @@ fr-FR:
       sale_order_line:
         amount: Montant HT
         amount_with_taxes: Montant TTC
+        location_id: Lieu de stockage
         product_id: Produit
         price_id: Prix
         price_list_id: Tarif
@@ -513,8 +515,9 @@ fr-FR:
       title: Boite à idées
     management:
       title: Commerce
+      need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
-      sale_order_already_paid: ' La vente à déjà été payée en totalité '
+      error_sale_order_already_paid: ' La vente à déjà été payée en totalité '
       amount_out_of_limits: ' Le montant du réglement dépasse le montant total'
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
@@ -1295,6 +1298,11 @@ fr-FR:
       error_modify_contact: 'Impossible de modifier un contact'
     delay:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
+    delivery: 
+      natures: 
+        cip: 'Livraison avec assurance'
+        cpt: 'Livraison sans assurance'
+        exw: 'En main propre'
     delivery_line: 
       error_undelivered_quantity: 'La quantité livrée dépasse la quantité commandée'
     entity:
@@ -1358,6 +1366,7 @@ fr-FR:
         rent: Location
       unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
     sale_order:
+      sale: vente
       natures:
         estimate: Devis
         order: Commande

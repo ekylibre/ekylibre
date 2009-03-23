@@ -85,6 +85,31 @@ class SaleOrder < ActiveRecord::Base
     [:estimate, :order, :invoice].collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
+  
+  def stocks_moves_create
+    for line in self.lines
+      #raise Exception.new line.inspect
+      StockMove.create!(:name=>tc(:sale)+"  "+self.number, :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.created_on, :company_id=>line.company_id, :virtual=>true, :input=>false)
+    end
+  end
+
+  def change_quantity(virtual, input )
+    for line in self.lines
+      product = ProductsStock.find(:first, :conditions=>{:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id})
+      product = ProductsStock.create!(:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id) if product.nil?
+      if virtual and input
+        product.update_attributes(:current_virtual_quantity=>product.current_virtual_quantity + line.quantity)
+      elsif virtual and !input
+        product.update_attributes(:current_virtual_quantity=>product.current_virtual_quantity - line.quantity)
+      elsif !virtual and input
+        product.update_attributes(:current_real_quantity=>product.current_real_quantity + line.quantity)
+      elsif !virtual and !input
+        product.update_attributes(:current_real_quantity=>product.current_real_quantity + line.quantity)
+      end
+    end
+  end
+
+
   def undelivered(column)
     sum = 0
     if column == "amount"
@@ -106,10 +131,12 @@ class SaleOrder < ActiveRecord::Base
   def add_payment(payment)
     if payment.amount > self.rest_to_pay
       payment.update_attributes!(:part_amount=>self.rest_to_pay)
-      PaymentPart.create!(:amount=>self.rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
+      part = PaymentPart.new(:amount=>self.rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
+      part.save!
     else
-      PaymentPart.create!(:amount=>payment.amount, :order_id=>self.id, :company_id=>self.company_id, :payment_id=>payment.id)
-      payment.update_attributes!(:part_amount=>payment.amount) 
+      part = PaymentPart.new(:amount=>payment.amount, :order_id=>self.id, :company_id=>self.company_id, :payment_id=>payment.id)
+      part.save!
+      payment.update_attributes!(:partx52_amount=>payment.amount) 
     end
   end
 
