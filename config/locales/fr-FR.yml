@@ -507,6 +507,30 @@ fr-FR:
       title: Boite à idées
     management:
       title: Commerce
+      delays:
+        delays_create: 'Ajouter un nouveau délai'
+      payment_modes:
+        payment_modes_create: 'Créer un nouveau type de paiement'
+      payment_parts:
+        payments_create: Ajouter un nouveau paiement
+      prices:
+        purchases_prices_create: 'Enregistrer un nouveau prix d''achat' 
+        sales_prices_create: Enregistrer un nouveau prix de vente 
+      products:
+        new_product: 'Ajout d''un nouveau produit'
+      purchase_order_lines:
+        purchase_order_lines_create: Ajouter un produit à la commande
+      sale_order_lines:
+        sale_order_lines_create: Ajouter un produit au devis
+      sale_order_natures:
+        sale_order_natures_create: Créer un nouveau type de vente
+      shelves: 
+        shelves_create: Ajouter une nouvelle catégorie de produits
+      stock_locations:
+        stocks_locations_create: Ajouter un nouveau lieu de stockage
+      stock_moves:
+        stocks_moves_create: Ajouter un mouvement de stock
+      need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
@@ -867,7 +891,6 @@ fr-FR:
 
       delays:
         title: 'Liste des délais'
-        delays_create: 'Ajouter un nouveau délai'
       _delays_form:
         general: Général
       delays_display:
@@ -914,13 +937,10 @@ fr-FR:
         existing_part: 'Utiliser un réglement non affecté'
       payment_modes:
         title: Types de paiement
-        payment_modes_create: 'Créer un nouveau type de paiement'
       prices: 
          all: Tous les prix
          client: Les prix de vente
          display: 'Afficher :'
-         purchases_prices_create: 'Enregistrer un nouveau prix d''achat' 
-         sales_prices_create: Enregistrer un nouveau prix de vente 
          supplier: 'Les prix d''achat du fournisseur'
          title: Liste des prix
       prices_create:
@@ -951,7 +971,6 @@ fr-FR:
           zero: 'Aucun produit enregistré'
           one: '1 produit enregistré'
           other: '{{count}} produits enregistrés'
-        new_product: 'Ajout d''un nouveau produit'
       products_create:
         title: 'Ajouter un nouveau produit'
       products_display:
@@ -976,7 +995,6 @@ fr-FR:
         lines: Lignes de la commande
         amount: Montant HT
         amount_with_taxes: Montant TTC
-        purchase_order_lines_create: Ajouter un produit à la commande
         purchases: Consulter la liste des achats
         order_print: Imprimer la commande
       purchases:
@@ -1003,7 +1021,6 @@ fr-FR:
         estimate_to_order: Passer le devis en commande
         lines: Lignes du devis
         sales_print: Imprimer le devis
-        sale_order_lines_create: Ajouter un produit au devis
         title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
         total: Total
       sales_deliveries: 
@@ -1025,7 +1042,6 @@ fr-FR:
         title: Règlements
         close_sale: Clôturer la vente
         payments: Règlements
-        payments_create: Ajouter un nouveau paiement
       sales_invoices:
         title: Facturation
         invoices: Factures
@@ -1040,7 +1056,6 @@ fr-FR:
         to_invoice: Facturer
       sale_order_natures:
         title: Types de ventes
-        sale_order_natures_create: Créer un nouveau type de vente
       sale_order_lines_create:
         title: "Ajout d'une ligne de produit"
       sale_order_natures_create:
@@ -1054,7 +1069,6 @@ fr-FR:
         downpayment: "Options pour l'acompte"
       shelves:
         title: Gérer les catégories de produits
-        shelves_create: Ajouter une nouvelle catégorie de produits
       shelves_create:
         title: 'Ajout d''une nouvelle catégorie de produits'
       shelves_display:
@@ -1068,7 +1082,6 @@ fr-FR:
         title: 'Ajout d''une nouvelle catégorie de produits'
       stocks_locations:
         title: Gérer les stocks
-        stocks_locations_create: Ajouter un nouveau lieu de stockage
       stocks_locations_create:
         title: 'Ajout d''un lieu de stockage'
       stocks_locations_display:
@@ -1077,7 +1090,6 @@ fr-FR:
         moves: Mouvements de stocks
         stocks_locations: Voir la liste des lieux de stockage
         stocks_locations_update: Modifier le lieu de stockage
-        stocks_moves_create: Ajouter un mouvement de stock
       _stocks_locations_form:
         description: Description générale
         localization: Localisation géographique
