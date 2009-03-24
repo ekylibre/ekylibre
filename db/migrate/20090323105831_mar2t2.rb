@@ -1,14 +1,18 @@
 class Mar2t2 < ActiveRecord::Migration
   def self.up
     add_column :deliveries, :nature,            :string, :limit=>3
-    add_column :stock_moves, :virtual,          :boolean, :null=>false
+    add_column :stock_moves, :virtual,          :boolean#,:null=>false
     add_column :sale_order_lines, :location_id, :integer, :references=>:stock_locations, :on_delete=>:cascade, :on_update=>:cascade
-    add_column :stock_moves, :input,            :boolean, :null=>false
+    add_column :stock_moves, :input,            :boolean#, :null=>false
 
     remove_column :deliveries, :delivered_on
     remove_column :deliveries, :shipped_on
-    add_column :deliveries, :planned_on, :date, :null=>false
+    add_column :deliveries, :planned_on, :date
     add_column :deliveries, :moved_on,   :date
+
+    add_column :products, :quantity_min,        :decimal, :precision=>16, :scale=>2, :default=>0.0.to_d
+    add_column :products, :critic_quantity_min, :decimal, :precision=>16, :scale=>2, :default=>1.0.to_d
+    add_column :products, :quantity_max,        :decimal, :precision=>16, :scale=>2, :default=>0.0.to_d
 
     create_table :products_stocks do |t|
       t.column :product_id,             :integer,  :null=>false, :references=>:products,  :on_delete=>:restrict, :on_update=>:restrict
@@ -27,8 +31,11 @@ class Mar2t2 < ActiveRecord::Migration
 
   def self.down
     drop_table :products_stocks
-    add_column :deliveries, :delivered_on, :date, :null=>false
-    add_column :deliveries, :shipped_on, :date, :null=>false
+    remove_column :products, :quantity_max
+    remove_column :products, :critic_quantity_min
+    remove_column :products, :quantity_min
+    add_column :deliveries, :delivered_on, :date
+    add_column :deliveries, :shipped_on, :date
     remove_column :deliveries, :planned_on 
     remove_column :deliveries, :moved_on
     remove_column :stock_moves, :input

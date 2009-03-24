@@ -645,6 +645,9 @@ class ManagementController < ApplicationController
         redirect_to :action=>:sales_products, :id=>session[:current_sale_order]
       end
       if request.post?
+        for delivery in @deliveries
+          delivery.stocks_moves_create if !delivery.moved_on.nil?
+        end
         redirect_to :action=>:sales_invoices, :id=>@sale_order.id
       end
     end
@@ -671,7 +674,7 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order]
     end
     @delivery_lines =  @sale_order_lines.collect{|x| DeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
-    @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :planned_on=>Date.today, :moved_on=>Date.today)
+    @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :planned_on=>Date.today)
     session[:current_delivery] = @delivery.id
     @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@sale_order.client_id})
     
@@ -694,7 +697,7 @@ class ManagementController < ApplicationController
         end
         raise ActiveRecord::Rollback unless saved  
       end
-      @delivery.stocks_moves_create
+      # @delivery.stocks_moves_create
       redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order] 
     end
     render_form(:id=>@delivery_form)
@@ -1052,6 +1055,30 @@ class ManagementController < ApplicationController
     if request.post? or request.delete?
       redirect_to :back if @stock_move.destroy
     end
+  end
+
+  def undelivered_sales
+    @deliveries = Delivery.find(:all,:conditions=>{:company_id=>@current_company.id, :moved_on=>nil})  ###  +  planned_on <= Date.today
+    @delivery_lines = []
+    for delivery in @deliveries
+      lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, delivery.id)
+      @delivery_lines += lines if !lines.nil?
+    end
+    if request.post?
+      deliveries = params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:delivery].nil?
+      #raise Exception.new params[:delivery].inspect+deliveries.inspect
+      if !deliveries.nil?
+        for delivery in deliveries
+          delivery.stocks_moves_create
+        end
+      end
+      redirect_to :action=>:undelivered_sales
+    end
+  end
+
+  def products_stocks
+    @products_stocks = ProductsStock.find_all_by_company_id(@current_company.id)
+    raise Exception.new @products_stocks.inspect
   end
 
 end

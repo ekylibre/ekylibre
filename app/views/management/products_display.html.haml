@@ -15,13 +15,18 @@
       =evalue @product, :unit, :label=>:label
       =evalue @product, :weight
       =evalue @product, :active
-      =evalue @product, :without_stocks
     %td
       =evalue @product, :to
       =evalue @product, :catalog_name
       =evalue @product, :catalog_description
       =evalue @product, :description
       =evalue @product, :comment
+    %td
+      =evalue @product, :without_stocks
+      - if @product.without_stocks == false 
+        =evalue @product, :quantity_min
+        =evalue @product, :critic_quantity_min
+        =evalue @product, :quantity_max
 
 %h2=tc :prices
 =dyta :product_prices

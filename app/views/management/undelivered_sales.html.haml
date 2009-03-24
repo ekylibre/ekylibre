@@ -1,0 +1,34 @@
+%p rajouter filtre date <= Date.today
+- form_tag do
+  %table.dyta
+    %tr
+      %th 
+      %th= tc 'delivery'
+      %th= tc 'planned_on'
+      %th= tc 'quantity'
+      %th= tc 'amount'
+      %th= tc 'amount_with_taxes'
+      %th= tc 'to_deliver'   
+    -for @delivery in @deliveries
+    -klass=cycle("odd","even")
+      %tr{:class=>klass+' root'}
+        %td{:colspan=>2}=@delivery.order.client.name.to_s+tc('to')+@delivery.contact.address.to_s
+        %td=@delivery.planned_on
+        %td
+        %td=@delivery.amount
+        %td=@delivery.amount_with_taxes
+        %td{:style=>'text-align:center'}
+          =check_box_tag "delivery[#{@delivery.id}]","#{@delivery.id}",true,:id=>"delivery_#{@delivery.id}"
+      - for lines in @delivery_lines
+        -if lines.delivery_id == @delivery.id
+          %tr{:class=>klass}
+            %td{:style=>'width:20px'} 
+            %td{:colspan=>2}= lines.product.name
+            %td= lines.quantity
+            %td= lines.amount
+            %td= lines.amount_with_taxes
+            %td
+
+  .actions
+    =link_to tg(:previous), :action=>:index
+    =submit_tag(tc('deliver'), :action=>:undelivered_sales)

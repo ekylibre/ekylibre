@@ -104,7 +104,7 @@ class SaleOrder < ActiveRecord::Base
       elsif !virtual and input
         product.update_attributes(:current_real_quantity=>product.current_real_quantity + line.quantity)
       elsif !virtual and !input
-        product.update_attributes(:current_real_quantity=>product.current_real_quantity + line.quantity)
+        product.update_attributes(:current_real_quantity=>product.current_real_quantity - line.quantity)
       end
     end
   end
@@ -136,7 +136,7 @@ class SaleOrder < ActiveRecord::Base
     else
       part = PaymentPart.new(:amount=>payment.amount, :order_id=>self.id, :company_id=>self.company_id, :payment_id=>payment.id)
       part.save!
-      payment.update_attributes!(:partx52_amount=>payment.amount) 
+      payment.update_attributes!(:part_amount=>payment.amount) 
     end
   end
 

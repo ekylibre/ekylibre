@@ -21,8 +21,8 @@
         -klass=cycle("odd","even")
           %tr{:class=>klass+' root'}
             %td{:colspan=>2}= @delivery.contact.address
-            %td=@delivery.shipped_on
-            %td=@delivery.delivered_on
+            %td=@delivery.planned_on
+            %td=@delivery.moved_on
             %td
             %td=@delivery.amount
             %td=@delivery.amount_with_taxes

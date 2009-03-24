@@ -239,8 +239,8 @@ fr-FR:
         name: Nom
       delivery:
         contact_id: Adresse du client
-        planned_on: Prévu le
-        moved_on: Fait le
+        planned_on: Prévue le
+        moved_on: Faite le
         nature: Type
       department:
         name: Nom
@@ -363,12 +363,15 @@ fr-FR:
         code: Code
         code2: Code secondaire
         comment: Commentaire
+        critic_quantity_min: Quantité minimum crtique
         description: Description
         ean13: Code EAN13
         name: Nom
         nature: Nature
         number: Numéro
         price: Prix indicatif
+        quantity_min: Quantité minimum
+        quantity_max: Quantité maximum
         service_coeff: Coefficient (de quantité) de service
         shelf_id: Catégorie
         supply_method: 'Moyen d''approvisionnement'
@@ -979,6 +982,7 @@ fr-FR:
         identification: Nom et codes du produit
         description: Descriptions
         nature: Type de produit
+        stocks: Gestion des stocks
       _products_search:
         title: 'Recherche'
         search: 'Rechercher un produit'
@@ -1029,11 +1033,11 @@ fr-FR:
         invoice_number: 'Facture n°'
         title: "Livraisons"
         sales_print: Imprimer la commande
-        ship: 'Expédié le  '
+        ship: 'Prévue le  '
         supply: Livraison
         quantity: Quantité
         undelivered: 'Reste à livrer'
-        deliver: 'Reçu le  '
+        deliver: 'Faite le  '
       sales_payments: 
         title: Règlements
         amount_wt: Montant TTC
@@ -1054,8 +1058,8 @@ fr-FR:
         invoices: Factures
         rest_to_invoice: À facturer
         address: Livraison
-        ship: Expédié le
-        deliver: Reçu le
+        ship: 'Prévue le'
+        deliver: 'Faite le'
         quantity: Quantité
         amount: Montant HT
         amount_with_taxes: Montant TTC
@@ -1115,6 +1119,17 @@ fr-FR:
         product: "{{product}} ({{unit}})"
       stocks_moves_update:
         title: 'Modifier le mouvement de stock : {{value}}'
+      undelivered_sales:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        client: Client
+        deliver: Valider 
+        delivery: Livraison
+        planned_on: Prévue le
+        quantity: Quantité
+        title: Livraisons en attente
+        to: ' à l''adresse '
+        to_deliver: Valider la livraison
 
     # Relations
     relations:
@@ -1299,6 +1314,7 @@ fr-FR:
     delay:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
     delivery: 
+      sale: vente
       natures: 
         cip: 'Livraison avec assurance'
         cpt: 'Livraison sans assurance'

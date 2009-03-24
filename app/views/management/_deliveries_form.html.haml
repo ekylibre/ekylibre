@@ -4,7 +4,6 @@
   -f.field :delivery, :contact_id, :choices=>@contacts.collect{|x| [x.address, x.id]}, :new=>{:controller=>:relations, :action=>:entities_contacts_create, :id=>@sale_order.client_id} 
   -f.field :delivery, :nature, :choices=>Delivery.natures
   -f.field :delivery, :planned_on
-  -f.field :delivery, :moved_on
 %table.dyta 
   %tr
     %th Produit

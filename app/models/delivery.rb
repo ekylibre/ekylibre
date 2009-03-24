@@ -22,6 +22,8 @@
 
 class Delivery < ActiveRecord::Base
 
+  validates_presence_of :planned_on
+
   def before_validation
     self.amount = 0
     self.amount_with_taxes = 0
@@ -29,6 +31,7 @@ class Delivery < ActiveRecord::Base
       self.amount += line.amount
       self.amount_with_taxes += line.amount_with_taxes
     end
+    self.moved_on = Date.today if self.planned_on == Date.today and self.nature == "exw"
   end
 
   def before_destroy
@@ -42,19 +45,24 @@ class Delivery < ActiveRecord::Base
   end
  
   def stocks_moves_create
-    test = self.planned_on == Date.today
+    #test = self.planned_on == Date.today
     #raise Exception.new "ghghgh"+self.inspect+Date.today.inspect+test.inspect+self.lines.inspect
-    if self.planned_on == Date.today and self.nature == "exw"
-      for line in self.lines
-        #raise Exception.new line.inspect
-        StockMove.create!(:name=>tc(:sale)+"  "+self.order.number, :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>Date.today, :company_id=>line.company_id, :virtual=>false, :input=>false)
-      end
-    else
-      for line in self.lines
-        raise Exception.new line.inspect
-        StockMove.create!(:name=>tc(:sale)+"  "+self.order.number, :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :company_id=>line.company_id, :virtual=>false, :input=>false) 
-      end
+    delivery_lines = DeliveryLine.find(:all, :conditions=>{:company_id=>self.company_id, :delivery_id=>self.id})
+    #raise Exception.new delivery_lines.inspect
+    #if self.planned_on == Date.today and self.nature == "exw"
+    for line in delivery_lines
+      #raise Exception.new delivery_lines.inspect
+      StockMove.create!(:name=>tc(:sale)+"  "+self.order.number, :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>Date.today, :company_id=>line.company_id, :virtual=>false, :input=>false)
+      product = ProductsStock.find(:first, :conditions=>{:product_id=>line.product_id, :location_id=>line.order_line.location_id, :company_id=>line.company_id})
+      product.update_attributes!(:current_real_quantity=>product.current_real_quantity - line.quantity)
     end
+    self.moved_on = Date.today if self.moved_on.nil?
+    self.save
+    #else
+    #for line in delivery_lines
+    # StockMove.create!(:name=>tc(:sale)+"  "+self.order.number, :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :company_id=>line.company_id, :virtual=>false, :input=>false) 
+    # end
+    #end
   end
   
 end
