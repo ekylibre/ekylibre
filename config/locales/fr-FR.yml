@@ -239,9 +239,8 @@ fr-FR:
         name: Nom
       delivery:
         contact_id: Adresse du client
-        planned_on: Prévue le
-        moved_on: Faite le
-        nature: Type
+        shipped_on: Envoyé le
+        delivered_on: Reçu le
       department:
         name: Nom
         comment: Commentaire
@@ -328,15 +327,9 @@ fr-FR:
         amount: Montant
         mode_id: Mode de paiement
         paid_on: Réglé le 
-        part_amount: Part attribuée à la vente
       payment_mode:
         account_id: Compte associé
         name: Nom
-      payment_part: 
-        sum_amount: Montant
-        amount: Montant attribué à la vente
-        payment_way: Mode de paiement
-        paid_on: Réglé le
       price:
         amount: Montant HT
         amount_with_taxes: Montant TTC
@@ -363,15 +356,12 @@ fr-FR:
         code: Code
         code2: Code secondaire
         comment: Commentaire
-        critic_quantity_min: Quantité minimum crtique
         description: Description
         ean13: Code EAN13
         name: Nom
         nature: Nature
         number: Numéro
         price: Prix indicatif
-        quantity_min: Quantité minimum
-        quantity_max: Quantité maximum
         service_coeff: Coefficient (de quantité) de service
         shelf_id: Catégorie
         supply_method: 'Moyen d''approvisionnement'
@@ -438,7 +428,6 @@ fr-FR:
       sale_order_line:
         amount: Montant HT
         amount_with_taxes: Montant TTC
-        location_id: Lieu de stockage
         product_id: Produit
         price_id: Prix
         price_list_id: Tarif
@@ -492,25 +481,14 @@ fr-FR:
 
   controllers:
     accountancy:
-      accounts:
-        create: 'Ajouter un nouveau compte comptable'
-      bank_accounts:
-        create: 'Ajouter un nouveau compte bancaire'
-      bank_account_statements:
-        create: 'Pointer un nouveau relevé de compte'
-      financialyears:
-        create: 'Ouvrir un nouvel exercice comptable'
-      journals:
-        create: 'Ouvrir un nouveau journal'
-
-      create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
-      create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
+      title: Comptabilité
       messages:
         need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
         need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
         need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
         no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
-      title: Comptabilité
+      create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
+      create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
     application:
       title: Application
       expired_session: 'Session expirée. Veuillez vous reconnecter.'
@@ -520,12 +498,6 @@ fr-FR:
       no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
     company:
       title: Société
-      users:
-        users_create: Ajouter un nouvel utilisateur
-      establishments:
-        establishments_create: Ajouter un nouvel établissement
-      departments:
-        departments_create: Ajouter un nouveau service
     guide:
       title: Accueil
       unknown_action: 'La page que vous demandez n''est pas disponible.'
@@ -535,10 +507,7 @@ fr-FR:
       title: Boite à idées
     management:
       title: Commerce
-      need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
-      error_sale_order_already_paid: ' La vente à déjà été payée en totalité '
-      amount_out_of_limits: ' Le montant du réglement dépasse le montant total'
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
         need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
@@ -547,22 +516,16 @@ fr-FR:
       title: Production
   
     relations:
-      complements:
-        complements_create: Créer un nouveau champ personnalisé
-      complement_choices:
-        complement_choices_create: 'Créer une nouvelle option'
-      contacts:
-        entities_contacts_create: 'Création d''un nouveau contact'
-      entities:
-        entities_create: Créer une nouvelle fiche        
-      entity_natures:
-        entities_natures_create: 'Ajouter un nouveau type de fiche'
+      title: Relations
       first_contact: Adresse principale
       second_contact: Adresse secondaire
-      title: Relations
     resources:
       title: Ressources
-
+      professions:
+        create: 'Ajout d''une nouvelle profession'	
+      employees:
+        create: 'Création d''un nouvel employé' 
+      
   # Used in the helpers
   # Used in the helpers
   # Used in the helpers
@@ -794,11 +757,13 @@ fr-FR:
           zero: Aucun service
           one: Un service
           other: '{{count}} services'
+        departments_create: Ajouter un nouveau service
         departments_number: Nombre de services
         establishments: 
           zero: Aucun établissement
           one: Un établissement
           other: '{{count}} établissements'
+        establishments_create: Ajouter un nouvel établissement
         establishments_number: 'Nombre d''établissements'
         title: 'Informations sur la société : {{value}}'
         update: Modifier le détail de la société
@@ -806,6 +771,7 @@ fr-FR:
           zero: Aucun utilisateur
           one: Un utilisateur
           other: '{{count}} utilisateurs'
+        users_create: Ajouter un nouvel utilisateur
         users_number: 'Nombre d''utilisateurs'
         values: Valeurs diverses
       update:
@@ -942,8 +908,6 @@ fr-FR:
         units: 'Unités de mesure'
       payments_create: 
         title: 'Ajouter un nouveau réglement à la vente : {{value}}'
-      payments_update:
-        title: 'Modifier un paiement'
       _payments_form:
         title: 'Renseignez les conditions du réglement '
         new: 'Créer un nouveau réglement'
@@ -951,10 +915,6 @@ fr-FR:
       payment_modes:
         title: Types de paiement
         payment_modes_create: 'Créer un nouveau type de paiement'
-      payment_modes_update:
-        title: Modifier un type de paiement
-      payment_modes_create:
-        title: Créer un nouveau type de paiement
       prices: 
          all: Tous les prix
          client: Les prix de vente
@@ -1006,7 +966,6 @@ fr-FR:
         identification: Nom et codes du produit
         description: Descriptions
         nature: Type de produit
-        stocks: Gestion des stocks
       _products_search:
         title: 'Recherche'
         search: 'Rechercher un produit'
@@ -1057,33 +1016,23 @@ fr-FR:
         invoice_number: 'Facture n°'
         title: "Livraisons"
         sales_print: Imprimer la commande
-        ship: 'Prévue le  '
+        ship: 'Expédié le  '
         supply: Livraison
         quantity: Quantité
         undelivered: 'Reste à livrer'
-        deliver: 'Faite le  '
+        deliver: 'Reçu le  '
       sales_payments: 
         title: Règlements
-        amount_wt: Montant TTC
         close_sale: Clôturer la vente
-        financial_state: Statut du paiement de la vente
-        invoices: Factures
-        invoices_total: Total factures
-        number: Numéro
-        paid_on: Réglé le 
-        payment_mode: Mode de paiement
-        payment_on: À payer le
         payments: Règlements
         payments_create: Ajouter un nouveau paiement
-        payments_total: Total réglements
-        rest_to_pay: Reste à payer
       sales_invoices:
         title: Facturation
         invoices: Factures
         rest_to_invoice: À facturer
         address: Livraison
-        ship: 'Prévue le'
-        deliver: 'Faite le'
+        ship: Expédié le
+        deliver: Reçu le
         quantity: Quantité
         amount: Montant HT
         amount_with_taxes: Montant TTC
@@ -1143,17 +1092,6 @@ fr-FR:
         product: "{{product}} ({{unit}})"
       stocks_moves_update:
         title: 'Modifier le mouvement de stock : {{value}}'
-      undelivered_sales:
-        amount: Montant HT
-        amount_with_taxes: Montant TTC
-        client: Client
-        deliver: Valider 
-        delivery: Livraison
-        planned_on: Prévue le
-        quantity: Quantité
-        title: Livraisons en attente
-        to: ' à l''adresse '
-        to_deliver: Valider la livraison
 
     # Relations
     relations:
@@ -1162,6 +1100,7 @@ fr-FR:
         address: 'Adresse'
       complements:
         title: 'Champs complémentaires personnalisés'
+        complements_create: Créer un nouveau champ personnalisé
       complement_choices:
         title: ' Options pour la liste déroulante : {{value}}'
         complement_choices_create: 'Créer une nouvelle option'
@@ -1201,6 +1140,7 @@ fr-FR:
         title: 'Modifier le type de fiche : {{value}}'
       entities:
         title: 'Fiches des relations'
+        entities_create: Créer une nouvelle fiche
         nb_entities: 
           zero: 'Aucune fiche enregistrée'
           one: '1 fiche enregistrée'
@@ -1210,6 +1150,7 @@ fr-FR:
           zero: 'Aucun contact'
           one: '1 contact'
           other: '{{count}} contacts'
+        entities_contacts_create: 'Création d''un nouveau contact'
         entities_update: Modifier la fiche
         title: 'Fiche : {{value}}'
       _entities_form:
@@ -1334,12 +1275,6 @@ fr-FR:
       error_modify_contact: 'Impossible de modifier un contact'
     delay:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
-    delivery: 
-      sale: vente
-      natures: 
-        cip: 'Livraison avec assurance'
-        cpt: 'Livraison sans assurance'
-        exw: 'En main propre'
     delivery_line: 
       error_undelivered_quantity: 'La quantité livrée dépasse la quantité commandée'
     entity:
@@ -1381,8 +1316,6 @@ fr-FR:
       error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus ajouter de pièces.' 
       error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
       error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
-    payment_part: 
-      error_sale_order_already_paid: ' La vente a déjà été payée en totalité '
     price:
       error_range_overlap: 'L''intervalle de quantité en chevauche un autre (de {{min}} à {{max}})'
       error_already_defined: 'Un prix a déjà été défini pour cette liste de prix et ce produit'
@@ -1403,7 +1336,6 @@ fr-FR:
         rent: Location
       unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
     sale_order:
-      sale: vente
       natures:
         estimate: Devis
         order: Commande
