@@ -22,6 +22,7 @@ class AuthenticationController < ApplicationController
       if user
         init_session(user)
         unless session[:user_id].blank?
+          session[:help] = true
           redirect_to session[:last_url]||{:controller=>:guide, :action=>:index}
         end
       else

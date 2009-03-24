@@ -77,7 +77,7 @@ end
 
 ActionController::Base.xil(:features=>[:template,:document], :subdir_size=>4)
 
-WillPaginate::ViewHelpers.pagination_options[:prev_label] = I18n.t('general.previous')
+WillPaginate::ViewHelpers.pagination_options[:previous_label] = I18n.t('general.previous')
 WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t('general.next')
 
 #schemulator :column=>:company_id, :filter=>"1"

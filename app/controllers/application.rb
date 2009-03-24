@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
       conditions[0] += " AND ("
       for attribute in options[:attributes]
         for word in keywords
-          conditions[0] += attribute.to_s+"::text ILIKE ? OR "
+          conditions[0] += 'CAST('+attribute.to_s+" AS VARCHAR) ILIKE ? OR "
           conditions << '%'+word+'%'
         end
       end 

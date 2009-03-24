@@ -41,7 +41,10 @@ module Ekylibre
             definition = Dyta.new(name, model, options)
             yield definition
 
-            code  = ""
+            name = name.to_s
+            code = ""
+
+            tag_method_name = 'dyta_'+name+'_tag'
             
             # List method
             conditions = ''
@@ -49,52 +52,74 @@ module Ekylibre
               conditions = ''
               case options[:conditions]
               when Array
-                conditions += '["'+options[:conditions][0].to_s+'"'
-                if options[:conditions].size>1
-                  for x in 1..options[:conditions].size-1
-                    conditions += ','+sanitize_conditions(options[:conditions][x])
+                case options[:conditions][0]
+                when String  # SQL
+                  conditions += '["'+options[:conditions][0].to_s+'"'
+                  if options[:conditions].size>1
+                    for x in 1..options[:conditions].size-1
+                      conditions += ','+sanitize_conditions(options[:conditions][x])
+                    end
                   end
+                  conditions += ']'
+                when Symbol # Method
+                  conditions += options[:conditions][0].to_s+'('
+                  if options[:conditions].size>1
+                    options[:conditions][1..-1].collect{|p| sanitize_conditions(p)}.join(', ')
+                  end                  
+                  conditions += ')'
+                else
+                  raise Exception.new("First element of an Array can only be String or Symbol.")
                 end
-                conditions += ']'
-              when Hash
+              when Hash # SQL
                 conditions += '{'+options[:conditions].collect{|key, value| ':'+key.to_s+'=>'+sanitize_conditions(value)}.join(',')+'}'
-              when Symbol
-                conditions = options[:conditions]
+              when Symbol # Method
+                conditions += options[:conditions].to_s+"(options)"
+              when String
+                conditions += options[:conditions]
               else
-                raise Exception.new("Only Array and Hash are accepted as conditions.")
+                raise Exception.new("Unsupported type for :conditions: #{options[:conditions].inspect}")
               end
             end
 
-            code += "hide_action :"+name.to_s+"_list\n"
+            # code += "hide_action :"+name.to_s+"_list\n"
             code += "def "+name.to_s+"_list(options={})\n"
+            code += "  options = (params||{}).merge options\n"
             code += "  order = nil\n"
             code += "  unless options['sort'].blank?\n"
             code += "    order  = options['sort']\n"
             code += "    order += options['dir']=='desc' ? ' DESC' : ' ASC'\n"
             code += "  end\n"
+#            code += "  puts '>>>>>>>>>>>>>>  '+"+conditions.to_s+".inspect\n"
             code += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
-            unless conditions.blank?
-              code += ", :conditions=>"
-              if conditions.is_a? Symbol
-                code += conditions.to_s+"(options)"
-              else
-                code += conditions
-              end
-            end
+            code += ", :conditions=>"+conditions unless conditions.blank?
+#             unless conditions.blank?
+#               code += ", :conditions=>"
+#               if conditions.is_a? Symbol
+#                 code += conditions.to_s+"(options)"
+#               else
+#                 code += conditions
+#               end
+#             end
             code += ", "+PAGINATION[options[:pagination]][:find_params] if PAGINATION[options[:pagination]][:find_params]
             code += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
             code += ", :order=>order)\n"
             code += "  if request.xhr?\n"
-            code += "    render :text=>"+name.to_s+"_build(options)\n"
+            code += "    render :inline=>'="+tag_method_name+"('+options.inspect+')', :type=>:haml\n"
+            #code += "    render :text=>"+tag_method_name+"(options)\n"
             code += "  end\n"
             code += "end\n"
 
-            # Build method
+ #           puts code
+
+            module_eval(code)
+
+            # Tag method
             if definition.procedures.size>0
               process = ''
               for procedure in definition.procedures
                 process += "+' '+" unless process.blank?
-                process += "link_to(tc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+procedure.options.inspect+", :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"')"
+                process += "link_to(t(\"controllers.\#\{self.controller.controller_name.to_s\}.#{name.to_s}.#{procedure.name.to_s}\"), #{procedure.options.inspect}, :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"')"
+                # process += "link_to(tc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+procedure.options.inspect+", :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"')"
               end      
               process = "'"+content_tag(:tr, content_tag(:td, "'+"+process+"+'", :class=>:procedures, :colspan=>definition.columns.size))+"'"
             end
@@ -102,7 +127,7 @@ module Ekylibre
             paginate_var = 'pages'
             paginate = case options[:pagination]
                        when :will_paginate then 
-                         paginate_var+"=will_paginate(@"+name.to_s+")\n"+
+                         paginate_var+"=will_paginate(@"+name.to_s+", :renderer=>'RemoteLinkRenderer', :remote=>{:update=>'"+name.to_s+"'}, :params=>{:sort=>params['sort'], :dir=>params['dir']} )\n"+
                            paginate_var+"='"+content_tag(:tr, content_tag(:td, "'+"+paginate_var+"+'", :class=>:paginate, :colspan=>definition.columns.size))+"' unless "+paginate_var+".nil?\n"
                        else
                          ''
@@ -114,10 +139,10 @@ module Ekylibre
             for column in definition.columns
               header += "+\n      " unless header.blank?
               header += "content_tag(:th, '"+h(column.header).gsub('\'','\\\\\'')+" '"
-              #          unless column.action? or column.options[:through]
-              #            header += "+link_to_remote("+value_image(:down2)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"'})"
-              #            header += "+link_to_remote("+value_image(:up2)+", :update=>'"+name.to_s+"', :url=>{:sort=>'"+column.name.to_s+"', :dir=>'desc'})"
-              #          end
+              unless column.action? or column.options[:through]
+                header += "+link_to_remote("+value_image(:down2)+", :update=>'"+name.to_s+"', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>'asc', :page=>params[:page]})"
+                header += "+link_to_remote("+value_image(:up2)+", :update=>'"+name.to_s+"', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>'desc', :page=>params[:page]})"
+              end
               header += ", :class=>'"+(column.action? ? 'act' : 'col')+"')"
               body   += "+\n        " unless body.blank?
               case column.nature
@@ -160,8 +185,8 @@ module Ekylibre
 
             header = 'content_tag(:tr, ('+header+'), :class=>"header")'
 
-            code += "hide_action :"+name.to_s+"_build\n"
-            code += "def "+name.to_s+"_build(options={})\n"
+            #code += "hide_action :"+tag_method_name+"\n"
+            code  = "def "+tag_method_name+"(options={})\n"
             code += "  @"+name.to_s+"=@"+name.to_s+"||{}\n"
             code += "  if @"+name.to_s+".size>0\n"
             code += "    header = "+header+"\n"
@@ -190,9 +215,10 @@ module Ekylibre
             code += "  text\n"
             code += "end\n"
 
+            ActionView::Base.send :class_eval, code
+
             # Finish
             #puts code
-            module_eval(code)
           end
 
           def value_image(value)
@@ -213,7 +239,11 @@ module Ekylibre
           
           def sanitize_conditions(value)
             if value.is_a? Array
-              value[0].to_s
+              if value.size==1 and value[0].is_a? String
+                value[0].to_s
+              else
+                value.inspect
+              end
             elsif value.is_a? String
               '"'+value.gsub('"','\"')+'"'
             elsif [Date, DateTime].include? value.class
@@ -225,9 +255,10 @@ module Ekylibre
 
         end  
 
-
-
       end
+
+
+
 
 
       # Dyta represents a DYnamic TAble
@@ -407,7 +438,8 @@ module Ekylibre
 
       module View
         def dyta(name)
-          self.controller.send(name.to_s+'_build')
+#          self.controller.send('dyta_'+name.to_s+'_tag')
+          self.send('dyta_'+name.to_s+'_tag')
         end
       end
 
@@ -415,3 +447,4 @@ module Ekylibre
 
   end
 end
+

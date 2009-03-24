@@ -98,7 +98,7 @@ class RelationsController < ApplicationController
 
 
 
-  dyta(:entities, :conditions=>:search_conditions, :empty=>true) do |t|
+  dyta(:entities, :conditions=>"search_conditions(:attributes=>[:id, :name, :code, :full_name, :website], :key=>session[:entity_key])", :empty=>true) do |t|
     t.column :name, :url=>{:action=>:entities_display}
     t.column :first_name, :url=>{:action=>:entities_display}
     #    t.column :full_name
@@ -119,7 +119,7 @@ class RelationsController < ApplicationController
     @size = Entity.count
     @key = params[:key]||session[:entity_key]
     session[:entity_key] = @key
-    entities_list({:attributes=>[:id, :name, :code, :full_name, :website], :key=>@key}.merge(params))
+    entities_list # ({:attributes=>[:id, :name, :code, :full_name, :website], :key=>@key}.merge(params))
     # contacts_list({:attributes=>[:id, :fax, :mobile, :telephone], :key=>@key}.merge(params))
     #     #  entities_list params
     #     @entities = {}

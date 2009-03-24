@@ -23,7 +23,7 @@ module Ekylibre
       def contextual_scope
         app_dirs = '(helpers|controllers|views|models)'
         latest_app_file = caller.detect { |level| level =~ /.*\/app\/#{app_dirs}\/[^\.\.]/ }
-        return '' unless latest_app_file
+        return 'eval' unless latest_app_file
         latest_app_file.split(/(\/app\/|\.)/)[2].gsub('/','.').gsub(/(_controller$|_helper$|_observer$)/,'')
       end
 

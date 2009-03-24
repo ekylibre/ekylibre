@@ -492,14 +492,25 @@ fr-FR:
 
   controllers:
     accountancy:
-      title: Comptabilité
+      accounts:
+        create: 'Ajouter un nouveau compte comptable'
+      bank_accounts:
+        create: 'Ajouter un nouveau compte bancaire'
+      bank_account_statements:
+        create: 'Pointer un nouveau relevé de compte'
+      financialyears:
+        create: 'Ouvrir un nouvel exercice comptable'
+      journals:
+        create: 'Ouvrir un nouveau journal'
+
+      create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
+      create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
       messages:
         need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
         need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
         need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
         no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
-      create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
-      create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
+      title: Comptabilité
     application:
       title: Application
       expired_session: 'Session expirée. Veuillez vous reconnecter.'
@@ -509,6 +520,12 @@ fr-FR:
       no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
     company:
       title: Société
+      users:
+        users_create: Ajouter un nouvel utilisateur
+      establishments:
+        establishments_create: Ajouter un nouvel établissement
+      departments:
+        departments_create: Ajouter un nouveau service
     guide:
       title: Accueil
       unknown_action: 'La page que vous demandez n''est pas disponible.'
@@ -530,9 +547,19 @@ fr-FR:
       title: Production
   
     relations:
-      title: Relations
+      complements:
+        complements_create: Créer un nouveau champ personnalisé
+      complement_choices:
+        complement_choices_create: 'Créer une nouvelle option'
+      contacts:
+        entities_contacts_create: 'Création d''un nouveau contact'
+      entities:
+        entities_create: Créer une nouvelle fiche        
+      entity_natures:
+        entities_natures_create: 'Ajouter un nouveau type de fiche'
       first_contact: Adresse principale
       second_contact: Adresse secondaire
+      title: Relations
     resources:
       title: Ressources
 
@@ -767,13 +794,11 @@ fr-FR:
           zero: Aucun service
           one: Un service
           other: '{{count}} services'
-        departments_create: Ajouter un nouveau service
         departments_number: Nombre de services
         establishments: 
           zero: Aucun établissement
           one: Un établissement
           other: '{{count}} établissements'
-        establishments_create: Ajouter un nouvel établissement
         establishments_number: 'Nombre d''établissements'
         title: 'Informations sur la société : {{value}}'
         update: Modifier le détail de la société
@@ -781,7 +806,6 @@ fr-FR:
           zero: Aucun utilisateur
           one: Un utilisateur
           other: '{{count}} utilisateurs'
-        users_create: Ajouter un nouvel utilisateur
         users_number: 'Nombre d''utilisateurs'
         values: Valeurs diverses
       update:
@@ -1138,7 +1162,6 @@ fr-FR:
         address: 'Adresse'
       complements:
         title: 'Champs complémentaires personnalisés'
-        complements_create: Créer un nouveau champ personnalisé
       complement_choices:
         title: ' Options pour la liste déroulante : {{value}}'
         complement_choices_create: 'Créer une nouvelle option'
@@ -1178,7 +1201,6 @@ fr-FR:
         title: 'Modifier le type de fiche : {{value}}'
       entities:
         title: 'Fiches des relations'
-        entities_create: Créer une nouvelle fiche
         nb_entities: 
           zero: 'Aucune fiche enregistrée'
           one: '1 fiche enregistrée'
@@ -1188,7 +1210,6 @@ fr-FR:
           zero: 'Aucun contact'
           one: '1 contact'
           other: '{{count}} contacts'
-        entities_contacts_create: 'Création d''un nouveau contact'
         entities_update: Modifier la fiche
         title: 'Fiche : {{value}}'
       _entities_form:
