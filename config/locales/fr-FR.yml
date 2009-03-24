@@ -498,13 +498,17 @@ fr-FR:
       no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
     company:
       title: Société
+      departments:
+        departments_create: Ajouter un nouveau service
+      establishments:
+        establishments_create: Ajouter un nouvel établissement
+      users:
+        users_create: Ajouter un nouvel utilisateur
     guide:
       title: Accueil
       unknown_action: 'La page que vous demandez n''est pas disponible.'
     help:
       title: Aide
-    ideabox:
-      title: Boite à idées
     management:
       title: Commerce
       delays:
@@ -540,9 +544,19 @@ fr-FR:
       title: Production
   
     relations:
-      title: Relations
+      complements:
+        complements_create: Ajouter un nouveau champ personnalisé
+      complement_choices:
+        complement_choices_create: Ajouter un nouveau choix à la liste
+      contacts:
+        entities_contacts_create: 'Création d''un nouveau contact'
+      entities:
+        entities_create: Créer une nouvelle fiche
+      entity_natures:
+        entities_natures_create: 'Ajouter un nouveau type de fiche'     
       first_contact: Adresse principale
       second_contact: Adresse secondaire
+      title: Relations
     resources:
       title: Ressources
       professions:
@@ -863,21 +877,6 @@ fr-FR:
         title: 'Aide'
   
 
-    #Ideabox
-    ideabox:
-      index:
-        title: 'Deposez vos idées'
-      ideas:
-        title: 'Boîte à idées'
-      ideas_create: 
-        title: 'Déposer une nouvelle idée'
-      ideas_update: 
-        title: 'Modifier une idée'
-      rubrics_create: 
-        title: 'Créer une nouvelle rubrique'
-      versions_create:
-        title: 'Créer une nouvelle version'
-
     # Layout
     layouts:
       application:
@@ -1162,7 +1161,6 @@ fr-FR:
           zero: 'Aucun contact'
           one: '1 contact'
           other: '{{count}} contacts'
-        entities_contacts_create: 'Création d''un nouveau contact'
         entities_update: Modifier la fiche
         title: 'Fiche : {{value}}'
       _entities_form:
