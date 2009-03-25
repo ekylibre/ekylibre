@@ -7,6 +7,8 @@
       %tr
         %th=tc :account_number
         %th=tc :account_name
+        %th
+        %th
       - @accounts.each do |account|
         %tr{:class=>cycle('odd','even')}
           %td
@@ -16,6 +18,8 @@
               - p['entry_currency_debit'].select
               - p.replace_html 'account', ''
           %td=account.name
+          %td=" "
+          %td=" "
   - else
     .error=tc :no_accounts
   =link_to tc(:accounts_create), :action=>:accounts_create

@@ -179,8 +179,10 @@ fr-FR:
         name: Intitulé
         bank_code: Code banque
         agency_code: Code guichet 
+        country_code: Code pays
         number: Numéro de compte bancaire
         key: Clé RIB
+        mod: Mode
         iban: IBAN
         iban_label: IBAN
         iban_label2: IBAN

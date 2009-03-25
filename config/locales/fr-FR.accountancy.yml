@@ -72,7 +72,8 @@ fr-FR:
         title: Comptes bancaires
         create: Créer un nouveau compte bancaire
       _bank_accounts_form:
-        rib: 'Relevé d''identité bancaire'
+        iban: 'Numéro de compte bancaire internationale (IBAN)'
+        rib: 'Relevé d''identité bancaire (RIB)'
         accountancy: Comptabilité
         create_journal: 'Vous devez d''abord créer un journal.'
         create_account: 'Vous devez d''abord créer un compte comptable.' 
@@ -99,7 +100,7 @@ fr-FR:
       print_by_financial_year:
         financial_year_select: Sélectionnez l''exercice comptable
         financial_id: Exercice comptable
-      _entries_update:
+      entries_update:
         title: 'Modification de l''écriture' 
       _entries:
         title: 'Saisie des écritures'

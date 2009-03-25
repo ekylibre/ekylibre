@@ -46,5 +46,5 @@
             %td{:align=>"right"}=number_to_currency(entry.currency_credit, :delimiter=>"", :precision => 2, :unit=>"")
             %td.act=link_to tc(:update), :action => "entries_update", :id => entry.id
             %td.act=link_to_remote tc (:delete), :url => {:action => "entries", :id => entry.id}, :method=>:delete, :confirm=> tc(:confirm) 
-=observe_field "account_number", :frequency => 0.25, :function =>"$('test').innerHTML = $('account_number').value; if ( $('account_number').value.indexOf('*', 0) > -1 ) { "+remote_function(:update => 'account', :url => { :action => 'accounts_find'}, :with => "'account=' + escape(value)")+";}"
+=observe_field "account_number", :frequency => 0.25, :function =>"if ( $('account_number').value.indexOf('*', 0) > -1 ) { "+remote_function(:update => 'account', :url => { :action => 'accounts_find'}, :with => "'account=' + escape(value)")+";}"
 #test

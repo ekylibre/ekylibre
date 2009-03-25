@@ -21,6 +21,7 @@
     t.action :journals_update, :image=>:update
     t.action :journals_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.action :journals_close
+    t.action :journals_list_entries
     t.procedure :create, :action=>:journals_create
   end
   
@@ -168,7 +169,6 @@
     redirect_to_current
   end
   
-
   #
   def accounts_letter_launch
     @accounts = Account.find(:all, :conditions => {:company_id => @current_company.id})
@@ -360,7 +360,6 @@
   def entries
     session[:entries] ||= {}
     session[:entries][:records_number] ||= 5
-    #puts "sf:"+session[:entries][:financialyear].to_s
     @journal = find_and_check(:journal, session[:entries][:journal]) if session[:entries][:journal]
     @financialyear = find_and_check(:financialyear, session[:entries][:financialyear]) if session[:entries][:financialyear]
 
@@ -405,6 +404,7 @@
       else
         @entry = Entry.new
       end
+      
       @records = @journal.last_records(session[:entries][:records_number].to_i)
       @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
       @record = JournalRecord.new if @record.nil?
@@ -433,17 +433,7 @@
 
   # this method deletes an entry with a form.
   def entries_delete
-   #  if request.post? or request.delete?
-#       @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
-#       if @entry.close?
-#         flash[:message]=lc(:messages, :need_unclosed_entry_to_delete)
-#       else
-#         Entry.delete(@entry)
-#       end
-#       #render :part#:action => "entries.rjs" 
-#       redirect_to :action => "entries" 
-   # end
-    
+ 
   end
 
   # lists all the transactions established on the accounts, sorted by date.
@@ -451,6 +441,11 @@
     journals_list params
   end
   
+  # this action displays all entries stored in the journal. 
+  def journals_list_entries
+  # @journal=@current_company.journal.find(params[:id])
+  end
+
   #this method creates a journal with a form. 
   def journals_create
     access :journals
