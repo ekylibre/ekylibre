@@ -1,0 +1,191 @@
+fr-FR: 
+  controllers:
+    accountancy:
+      title: Comptabilité
+      accounts:
+        create: 'Créer un nouveau compte comptable'
+      messages:
+        need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
+        need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
+        need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
+        no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
+      create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
+      create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
+
+
+  # Used in all the views
+  # Used in all the views
+  # Used in all the views
+  # Used in all the views
+  views: 
+    accountancy:
+
+      entries:
+        title: Test
+
+      index:
+        title: Comptabilité générale
+        accounts: Gérer les comptes comptables
+        bank_accounts: Gérer les comptes bancaires (RIB)
+        journals_close: Clôture de journal
+        financialyears_close: 'Clôture d''exercice'
+        financialyears: Gérer les exercices comptables
+        documents: Documents comptables
+        journals: Gérer les journaux
+        lettering: 'Lettrer des comptes de tiers'
+        statements: Pointer un relevé de compte bancaire
+        operations: Opérations de vérification et de clôture
+        parameters: Paramètres
+        document_prepare: Imprimer des documents comptables
+        works: Travaux comptables
+        entries: Saisir des écritures
+      accounts:
+        title: Comptes
+        create: Créer un nouveau compte
+        update: Modifier un compte
+        delete: Supprimer un compte
+      accounts_create:
+        title: Créer un nouveau compte
+      _accounts_find:
+        accounts_create: 'Créer un nouveau compte comptable'
+        account_name: 'Nom du compte '
+        account_number: 'Numéro de compte '
+        no_accounts: 'Il n''existe pas de compte commençant par ce numéro.'
+      accounts_letter_launch:
+        title: Lettrage de compte
+        select_account: "Sélectionnez un compte:"
+      accounts_letter:
+        title: Liste des écritures non lettrées
+        entry_record: Numéro de pièce
+        entry_name: Nom de l''écriture		    
+      accounts_update:
+        title: 'Modifier le compte : {{value}}'
+      bank_accounts:
+        title: Comptes bancaires
+        create: Créer un nouveau compte bancaire
+      _bank_accounts_form:
+        rib: 'Relevé d''identité bancaire'
+        accountancy: Comptabilité
+        create_journal: 'Vous devez d''abord créer un journal.'
+        create_account: 'Vous devez d''abord créer un compte comptable.' 
+      bank_accounts_create:
+        title: Créer un nouveau compte bancaire
+      bank_accounts_update:
+        title: Modifier le compte bancaire	
+      _currencies_find:
+        currency_id: Numéro de devise
+        currency_name: Nom de devise
+        currency_code: Code de devise
+        currency_rate: Taux de devise 
+      document_prepare:
+        title: Choisissez le type de document à imprimer
+        general_ledger: Grand livre
+        balance: Balance
+        journal: Journal général
+        journal_by_id: Journal
+        balance_sheet: Bilan
+        income_statements: Compte de résultat
+      document_print:
+        title: 'Impression du document : {{value}}'
+        print: Impression
+      print_by_financial_year:
+        financial_year_select: Sélectionnez l''exercice comptable
+        financial_id: Exercice comptable
+      _entries_update:
+        title: 'Modification de l''écriture' 
+      _entries:
+        title: 'Saisie des écritures'
+        record_number: 'N°Pièce'
+        record_created: 'Créée le'
+        record_printed: 'Datée du'
+        label: 'Libellé'
+        account_number: 'N°Compte'
+        record_debit: 'Débit'
+        record_credit: 'Crédit'
+        entry_letter: 'Lettrage'
+        entry_validate: 'Valider l''écriture'
+        confirmation: 'Êtes-vous sûr de votre saisie ?'     
+        balanced_entries: 'Vert : pièce équilibrée'
+        unbalanced_entries: 'Rouge : pièce non équilibrée'
+        update: 'Modifier'
+        delete: 'Supprimer'
+        confirm: 'Êtes-vous sûr de vouloir supprimer cette écriture ?'
+      entries:
+        title: Saisie des écritures
+        subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
+        journal_x: '{{name}} (clôturé le {{closed_on}})'
+        select_journal: 'Saisir les écritures dans le journal'
+        select_financialyear: 'Comptabiliser les écritures pour l''exercice comptable'
+        number_records: 'Nombre des dernières pièces à afficher'
+        update_params: 'Changer de journal et/ou d''exercice...'
+      financialyears:
+        title: Exercices comptables
+        create: Créer un nouvel exercice comptable
+      financialyears_create:
+        title: Créer un nouvel exercice
+      financialyears_update:
+        title: Modifier un nouvel exercice
+      financialyears_close:
+        title: 'Clôture d''exercice'
+        close: "Clôturer l'exercice"
+      journals:
+        title: Journaux
+        create: Créer un nouveau journal
+      _journals_find:
+        journal_id: Numéro de journal
+        journal_name: Nom du journal
+      _journals_form:
+        
+      journals_create:
+        title: Créer un nouveau journal
+      journals_update:
+        title: Modifier le journal
+      journals_close:
+        title: Clôture du journal
+        close: "Clôturer le journal"
+  
+      _print_by_journal:
+        dates: Saisissez les dates ainsi que le journal
+        journal: Journal
+        from: Période du
+        to: Au
+      _print_date_to_date:
+        dates: Saisissez les dates de début et de fin de la période
+        from: Période du
+        to: Au
+      print_balance_sheet:
+        title: Impression du bilan 
+        period: Période
+      statements:
+        title: Pointage des relevés de comptes bancaires 
+        select_bank_account: "Sélectionnez un compte bancaire:"	  
+        create: Créer un relevé de compte
+        create_bank_account: 'Vous devez d''abord créer un compte bancaire.'
+        debit: Total débit
+        credit: Total crédit
+       
+      statements_create:
+        title: Enregistrer un nouveau relevé de compte
+      statements_update:
+        title: Modifier un relevé
+      statements_point:
+        title: 'Pointage du relevé bancaire {{value}}'
+        validate: Valider 
+        statement_number: N°Relevé de compte bancaire
+        started_on: Du
+        stopped_on: Au
+        entry_name: 'Intitulé de l''écriture'
+        entry_debit: Débit
+        entry_credit: Crédit
+        entry_currency_rate: Devise  
+        total: 'Total pour le compte bancaire {{value}}:'
+       
+      statements_display:
+        statement_number: Numéro du relevé de compte
+        statement_bank_account_name: Nom du compte bancaire
+        statement_debit: Débit
+        statement_credit: Crédit
+        entry_name: Libellé
+        entry_debit: Dédit
+        entry_credit: Crédit
+        cancel: 'Annuler'

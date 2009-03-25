@@ -1,0 +1,279 @@
+fr-FR: 
+  controllers:
+    management:
+      title: Commerce
+      delays:
+        delays_create: 'Ajouter un nouveau délai'
+      payment_modes:
+        payment_modes_create: 'Créer un nouveau type de paiement'
+      payment_parts:
+        payments_create: Ajouter un nouveau paiement
+      prices:
+        purchases_prices_create: 'Enregistrer un nouveau prix d''achat' 
+        sales_prices_create: Enregistrer un nouveau prix de vente 
+      products:
+        new_product: 'Ajout d''un nouveau produit'
+      purchase_order_lines:
+        purchase_order_lines_create: Ajouter un produit à la commande
+      sale_order_lines:
+        sale_order_lines_create: Ajouter un produit au devis
+      sale_order_natures:
+        sale_order_natures_create: Créer un nouveau type de vente
+      shelves: 
+        shelves_create: Ajouter une nouvelle catégorie de produits
+      stock_locations:
+        stocks_locations_create: Ajouter un nouveau lieu de stockage
+      stock_moves:
+        stocks_moves_create: Ajouter un mouvement de stock
+      need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
+      no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
+      messages:
+        invoice_already_created: 'La facture de cette livraison a déjà été créée'
+        need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
+        need_stock_location_to_record_stock_moves: 'Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage.'
+
+  # Used in all the views
+  # Used in all the views
+  # Used in all the views
+  # Used in all the views
+  views: 
+    management:
+      
+      delays:
+        title: 'Liste des délais'
+      _delays_form:
+        general: Général
+      delays_display:
+        title: 'Délai : {{value}}'
+        delays_update: Modifier le délai
+      delays_create:
+        title: 'Ajout d''un nouveau délai'
+      delays_update:
+        title: 'Modification du délai : {{value}}'
+      _deliveries_update:
+        title: 'Modification de la livraison' 
+      _deliveries_form:
+        amount: Total de la livraison HT
+        amount_with_taxes: Total de la livraison TTC
+        infos: 'Renseignez les caractéristiques de la livraison'
+      deliveries_create:
+        title: Ajouter une livraison
+      index:
+        delays: Délais
+        invoicing_parameters: Facturation
+        parameters: Paramètres
+        payment_modes: Types de paiement
+        prices: Prix
+        products: Produits
+        purchases: Achats
+        purchases_consult: 'Consulter la liste des achats'
+        purchases_new: 'Nouvel achat'
+        sales: 'Ventes'
+        sales_consult: 'Consulter la liste des ventes'
+        sales_new: 'Nouvelle vente'
+        sale_order_natures: 'Types de vente'
+        shelves: 'Catégories de produit'
+        stocks: 'Stocks'
+        stocks_consult: 'Consulter l''état des stocks'
+        stocks_locations: 'Gérer les stocks'
+        taxes: 'Taxes'
+        title: 'Gestion commerciale'
+        units: 'Unités de mesure'
+      payments_create: 
+        title: 'Ajouter un nouveau réglement à la vente : {{value}}'
+      _payments_form:
+        title: 'Renseignez les conditions du réglement '
+        new: 'Créer un nouveau réglement'
+        existing_part: 'Utiliser un réglement non affecté'
+      payment_modes:
+        title: Types de paiement
+      prices: 
+         all: Tous les prix
+         client: Les prix de vente
+         display: 'Afficher :'
+         supplier: 'Les prix d''achat du fournisseur'
+         title: Liste des prix
+      prices_create:
+        title: 'Ajout d''un nouveau prix'
+      _prices_form:
+        general: Général
+        taxes: Taxes
+
+      price_lists:
+        title: Gérer les listes de prix
+        price_lists_create: Ajouter une nouvelle liste de prix
+      price_lists_create:
+        title: Ajouter une nouvelle liste de prix
+      price_lists_display:
+        title: 'Liste de prix : {{value}}'
+        prices: 'Produits et prix de la liste'
+        prices_create: 'Ajouter un nouveau prix'
+        price_lists: 'Voir les listes de prix'
+        price_lists_update: 'Modifier le détail de la liste de prix'
+      _price_lists_form:
+        general: Description générale
+      price_lists_update:
+        title: 'Modifier la liste de prix : {{value}}'
+  
+      products:
+        title: 'Gérer les produits'
+        nb_products:
+          zero: 'Aucun produit enregistré'
+          one: '1 produit enregistré'
+          other: '{{count}} produits enregistrés'
+      products_create:
+        title: 'Ajouter un nouveau produit'
+      products_display:
+        prices: 'Prix du produit'
+        products: 'Voir la liste de produits'
+        products_update: 'Modifier la fiche du produit'
+        purchases_prices_create: "Ajouter un prix d'achat"
+        sales_prices_create: 'Ajouter un prix de vente'
+        title: 'Fiche du produit : {{value}}'
+      _products_form:
+        accountancy: Comptabilité
+        identification: Nom et codes du produit
+        description: Descriptions
+        nature: Type de produit
+      _products_search:
+        title: 'Recherche'
+        search: 'Rechercher un produit'
+      products_update:
+        title: 'Modification du produit : {{value}}'
+      purchases_products: 
+        title: 'Selection des produits pour la commande {{value}} au fournisseur {{name}}'
+        lines: Lignes de la commande
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        purchases: Consulter la liste des achats
+        order_print: Imprimer la commande
+      purchases:
+        title: Liste des achats
+      purchase_orders_create:
+        title: Nouvel achat
+      purchase_order_lines_create:
+        title: Ajouter un produit à la commande
+      purchase_order_lines_update:
+        title: Modifier une ligne de la commande
+      sales:
+        title: Liste des ventes
+      sales_new:
+        title: 'Nouvelle vente'
+        nature: 'Type de vente'
+      sales_general:
+        client: 'Sélection du client'
+        title: 'Description générale de la vente'
+        conditions: Conditions de vente
+        letter: Lettre
+      sales_products:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        estimate_to_order: Passer le devis en commande
+        lines: Lignes du devis
+        sales_print: Imprimer le devis
+        title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
+        total: Total
+      sales_deliveries: 
+        address: Adresse de livraison
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        deliveries: Livraisons 
+        deliveries_create: Ajouter une livraison
+        invoice: Facturation 
+        invoice_number: 'Facture n°'
+        title: "Livraisons"
+        sales_print: Imprimer la commande
+        ship: 'Expédié le  '
+        supply: Livraison
+        quantity: Quantité
+        undelivered: 'Reste à livrer'
+        deliver: 'Reçu le  '
+      sales_payments: 
+        amount_wt: Montant TTC
+        close_sale: Clôturer la vente
+        financial_state: État de la vente
+        invoices: Factures
+        invoices_total: Total factures
+        number: Numéro
+        paid_on: Règlé le
+        payment_mode: Mode de paiement
+        payment_on: Payé le
+        payments: Règlements
+        payments_total: Total règlements
+        rest_to_pay: Reste à payer
+        title: Règlements
+      sales_invoices:
+        title: Facturation
+        invoices: Factures
+        rest_to_invoice: À facturer
+        address: Livraison
+        ship: Expédié le
+        deliver: Reçu le
+        quantity: Quantité
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        payments: Réglements
+        to_invoice: Facturer
+      sale_order_natures:
+        title: Types de ventes
+      sale_order_lines_create:
+        title: "Ajout d'une ligne de produit"
+      sale_order_natures_create:
+        title: "Ajout d'un type de vente"
+      sale_order_natures_update:
+        title: "Modification d'un type de vente"
+      _sale_order_natures_form:
+        general: 'Général'
+        conditions: "Conditions de paiement"
+        delays: 'Délais'
+        downpayment: "Options pour l'acompte"
+      shelves:
+        title: Gérer les catégories de produits
+      shelves_create:
+        title: 'Ajout d''une nouvelle catégorie de produits'
+      shelves_display:
+        title: 'Détail de la catégorie : {{value}}'
+        shelves: 'Voir la liste des catégories de produit'
+        shelves_update: 'Modifier la catégorie'
+      _shelves_form:
+        general: Informations générales
+        catalog: Description pour catalogue
+      shelves_update:
+        title: 'Ajout d''une nouvelle catégorie de produits'
+      stocks_locations:
+        title: Gérer les stocks
+      stocks_locations_create:
+        title: 'Ajout d''un lieu de stockage'
+      stocks_locations_display:
+        title: 'Détail du lieu de stockage : {{value}}'
+        establishment: Établissement
+        moves: Mouvements de stocks
+        stocks_locations: Voir la liste des lieux de stockage
+        stocks_locations_update: Modifier le lieu de stockage
+      _stocks_locations_form:
+        description: Description générale
+        localization: Localisation géographique
+        accountancy: Comptabilité
+      stocks_locations_update:
+        title: 'Modification d''un lieu de stockage'
+      stocks_moves_create:
+        title: 'Enregistrement d''un mouvement de stock'
+      _stocks_moves_form: 
+        description: Description
+        nature: Opération
+        product: "{{product}} ({{unit}})"
+      stocks_moves_update:
+        title: 'Modifier le mouvement de stock : {{value}}'
+      undelivered_sales:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        deliver: 'Valider l''envoi des livraisons'
+        delivery: Livraison
+        planned_on: Prévu le
+        quantity: Quantité
+        to: ' à l''adresse '
+        to_deliver: Livrer
+        title: Livraisons en attente
+
+     
+ 
