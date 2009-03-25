@@ -360,6 +360,21 @@ table.dyta tr.unpointable.odd  td{background: #FF9999;}
 table.dyta tr.pointabled.even td{background:#0066FF;}
 table.dyta tr.pointabled.odd td{background:#0033FF;}
 
+/* undelivered sales  */
+table.dyta tr.odd.advance td{background:#b7ff8b; }
+table.dyta tr.even.advance td{background:#d1ffb4; }
+table.dyta tr.even.late td{background:#ffd281; }
+table.dyta tr.odd.late td{background:#ffe2ae; }
+table.dyta tr.even.verylate td{background:#ffa17d; }
+table.dyta tr.odd.verylate td{background:#ffc3ab; }
+
+/* products stocks*/
+table.dyta tr.even.critic td{background:#ffa17d; }
+table.dyta tr.odd.critic td{background:#ffc3ab; }
+table.dyta tr.even.minimum td{background:#ffd281; }
+table.dyta tr.odd.minimum td{background:#ffe2ae; }
+table.dyta tr.odd.enough td{background:#b7ff8b; }
+table.dyta tr.even.enough td{background:#d1ffb4; }
 
 /* all the styles used by the plugin Dyli.*/
 div.dyli_complete {width: 350px;}

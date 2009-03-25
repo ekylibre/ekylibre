@@ -13,6 +13,7 @@ class Mar2t2 < ActiveRecord::Migration
     add_column :products, :quantity_min,        :decimal, :precision=>16, :scale=>2, :default=>0.0.to_d
     add_column :products, :critic_quantity_min, :decimal, :precision=>16, :scale=>2, :default=>1.0.to_d
     add_column :products, :quantity_max,        :decimal, :precision=>16, :scale=>2, :default=>0.0.to_d
+    #add_column :stock_moves, :generated,    :boolean
 
     create_table :products_stocks do |t|
       t.column :product_id,             :integer,  :null=>false, :references=>:products,  :on_delete=>:restrict, :on_update=>:restrict

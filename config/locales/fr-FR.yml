@@ -239,6 +239,8 @@ fr-FR:
         name: Nom
       delivery:
         contact_id: Adresse du client
+        nature: Type
+        planned_on: Prévu le
         shipped_on: Envoyé le
         delivered_on: Reçu le
       department:
@@ -356,12 +358,15 @@ fr-FR:
         code: Code
         code2: Code secondaire
         comment: Commentaire
+        critic_quantity_min: Quantité minimum critique
         description: Description
         ean13: Code EAN13
         name: Nom
         nature: Nature
         number: Numéro
         price: Prix indicatif
+        quantity_min: Quantité minimum
+        quantity_max: Quantité maximum
         service_coeff: Coefficient (de quantité) de service
         shelf_id: Catégorie
         supply_method: 'Moyen d''approvisionnement'
@@ -411,6 +416,7 @@ fr-FR:
         has_downpayment: 'Acompte à verser'
         downpayment_amount: 'Montant de l''acompte'
         comment: Commentaire
+        sale: Vente
         subject: Objet
         function_title: Civilités
         introduction: Introduction
@@ -428,6 +434,7 @@ fr-FR:
       sale_order_line:
         amount: Montant HT
         amount_with_taxes: Montant TTC
+        location_id: Lieu de stockage
         product_id: Produit
         price_id: Prix
         price_list_id: Tarif
@@ -855,6 +862,12 @@ fr-FR:
       error_modify_contact: 'Impossible de modifier un contact'
     delay:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
+    delivery:
+      natures:
+        exw: En main propre
+        cpt: Livraison sans assurance
+        cip: Livraison avec assurance
+      sale: Vente
     delivery_line: 
       error_undelivered_quantity: 'La quantité livrée dépasse la quantité commandée'
     entity:
@@ -920,6 +933,7 @@ fr-FR:
         estimate: Devis
         order: Commande
         invoice: Facture
+      sale: Vente
     sale_order_line:
       error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
     

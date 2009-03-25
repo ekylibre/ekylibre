@@ -30,5 +30,15 @@ class StockMove < ActiveRecord::Base
     self.unit_id = self.product.unit_id if self.product and self.unit.nil?
   end
   
-
+  def change_quantity
+    product_stock = ProductsStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
+    if product_stock.nil?
+      ProductStock.create(:company_id=>self.company_id, :product_id=>self.product_id, :location=>self.location_id)
+    elsif self.moved_on.nil?
+      product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
+    else
+      product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
+      product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity + self.quantity)
+    end
+  end
 end

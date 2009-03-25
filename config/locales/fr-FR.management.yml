@@ -11,6 +11,9 @@ fr-FR:
       prices:
         purchases_prices_create: 'Enregistrer un nouveau prix d''achat' 
         sales_prices_create: Enregistrer un nouveau prix de vente 
+      product_prices: 
+        sales_prices_create: 'Créer un nouveau prix de vente'
+        purchases_prices_create: 'Créer un nouveau prix d''achat'
       products:
         new_product: 'Ajout d''un nouveau produit'
       purchase_order_lines:
@@ -134,7 +137,8 @@ fr-FR:
         accountancy: Comptabilité
         identification: Nom et codes du produit
         description: Descriptions
-        nature: Type de produit
+        nature: Type de produit 
+        stocks: Gestion des stocks
       _products_search:
         title: 'Recherche'
         search: 'Rechercher un produit'
@@ -183,11 +187,11 @@ fr-FR:
         invoice_number: 'Facture n°'
         title: "Livraisons"
         sales_print: Imprimer la commande
-        ship: 'Expédié le  '
+        ship: 'Prévue le  '
         supply: Livraison
         quantity: Quantité
         undelivered: 'Reste à livrer'
-        deliver: 'Reçu le  '
+        deliver: 'Faite le  '
       sales_payments: 
         amount_wt: Montant TTC
         close_sale: Clôturer la vente
@@ -240,6 +244,17 @@ fr-FR:
         catalog: Description pour catalogue
       shelves_update:
         title: 'Ajout d''une nouvelle catégorie de produits'
+      stocks: 
+        critic_stock_min: Stock minimum critique
+        current_real_quantity: Quantité réelle
+        current_virtual_quantity: Quantité virtuelle
+        name: Nom
+        select_stock_location: 'Sélectionnez un lieu de stockage'
+        stock_min: Stock minimum
+        stock_max: Stock maximum
+        title: État des stocks
+        unit: Unité
+        weight: Poids
       stocks_locations:
         title: Gérer les stocks
       stocks_locations_create:

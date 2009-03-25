@@ -634,7 +634,6 @@ class ManagementController < ApplicationController
       undelivered_quantities_list params if @undelivered
       
       session[:current_sale_order] = @sale_order.id
-      # @deliveries = Delivery.find_all_by_company_id_and_order_id(@current_company.id, @sale_order.id)
       @delivery_lines = []
       for delivery in @deliveries
         lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, delivery.id)
@@ -679,7 +678,6 @@ class ManagementController < ApplicationController
     @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@sale_order.client_id})
     
     if request.post?
-      #raise Exception.new params[:delivery].inspect
       @delivery = Delivery.new(params[:delivery])
       @delivery.order_id = @sale_order.id
       @delivery.company_id = @current_company.id
@@ -697,7 +695,6 @@ class ManagementController < ApplicationController
         end
         raise ActiveRecord::Rollback unless saved  
       end
-      # @delivery.stocks_moves_create
       redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order] 
     end
     render_form(:id=>@delivery_form)
@@ -1031,7 +1028,10 @@ class ManagementController < ApplicationController
     if request.post? 
       @stock_move = StockMove.new(params[:stock_move])
       @stock_move.company_id = @current_company.id
-      redirect_to :action =>:stocks_locations_display, :id=>@stock_move.location_id if @stock_move.save
+      if @stock_move.save
+        @stock_move.change_quantity
+        redirect_to :action =>:stocks_locations_display, :id=>@stock_move.location_id 
+      end
     else
       @stock_move = StockMove.new
       @stock_move.planned_on = Date.today
@@ -1044,13 +1044,15 @@ class ManagementController < ApplicationController
     if request.post?
       params[:stock_move][:company_id] = @current_company.id
       if @stock_move.update_attributes(params[:stock_move])
+        #  @stock_move. ??
         redirect_to :action=>:stocks_locations_display, :id=>@stock_move.location_id
       end
     end
-    render_form(:label=>@stock_move.name)
+    @title = {:value=>@stock_move.name}
+    render_form
   end
 
-  def stocks_moves_delete
+  def stocks_moves_delete ## => Permission ? 
     @stock_move = find_and_check(:stock_move, params[:id])
     if request.post? or request.delete?
       redirect_to :back if @stock_move.destroy
@@ -1058,7 +1060,7 @@ class ManagementController < ApplicationController
   end
 
   def undelivered_sales
-    @deliveries = Delivery.find(:all,:conditions=>{:company_id=>@current_company.id, :moved_on=>nil})  ###  +  planned_on <= Date.today
+    @deliveries = Delivery.find(:all,:conditions=>{:company_id=>@current_company.id, :moved_on=>nil},:order=>"planned_on ASC")  
     @delivery_lines = []
     for delivery in @deliveries
       lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, delivery.id)
@@ -1066,7 +1068,6 @@ class ManagementController < ApplicationController
     end
     if request.post?
       deliveries = params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:delivery].nil?
-      #raise Exception.new params[:delivery].inspect+deliveries.inspect
       if !deliveries.nil?
         for delivery in deliveries
           delivery.stocks_moves_create
@@ -1076,9 +1077,13 @@ class ManagementController < ApplicationController
     end
   end
 
-  def products_stocks
-    @products_stocks = ProductsStock.find_all_by_company_id(@current_company.id)
-    raise Exception.new @products_stocks.inspect
+  def stocks
+    @products_stocks = ProductsStock.find_all_by_company_id(@current_company.id) ## => affichage par défaut : tous 
+    @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
+    if request.post?
+      #raise Exception.new params[:stock].inspect
+      @products_stocks = ProductsStock.find_all_by_company_id_and_location_id(@current_company.id, params[:stock][:location])
+    end
   end
 
 end

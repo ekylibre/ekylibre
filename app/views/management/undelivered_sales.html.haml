@@ -1,4 +1,3 @@
-%p rajouter filtre date <= Date.today
 - form_tag do
   %table.dyta
     %tr
@@ -10,15 +9,18 @@
       %th= tc 'amount_with_taxes'
       %th= tc 'to_deliver'   
     -for @delivery in @deliveries
-    -klass=cycle("odd","even")
-      %tr{:class=>klass+' root'}
+    -klass=cycle("odd","even")+" "+@delivery.moment.to_s
+      %tr{:class=>klass+' root '}
         %td{:colspan=>2}=@delivery.order.client.name.to_s+tc('to')+@delivery.contact.address.to_s
-        %td=@delivery.planned_on
+        %td=@delivery.planned_on.to_s
         %td
         %td=@delivery.amount
         %td=@delivery.amount_with_taxes
         %td{:style=>'text-align:center'}
-          =check_box_tag "delivery[#{@delivery.id}]","#{@delivery.id}",true,:id=>"delivery_#{@delivery.id}"
+          - if @delivery.planned_on <= Date.today
+            =check_box_tag "delivery[#{@delivery.id}]","#{@delivery.id}",true,:id=>"delivery_#{@delivery.id}"
+          - else
+            =check_box_tag "delivery[#{@delivery.id}]","#{@delivery.id}",false,:id=>"delivery_#{@delivery.id}"
       - for lines in @delivery_lines
         -if lines.delivery_id == @delivery.id
           %tr{:class=>klass}
