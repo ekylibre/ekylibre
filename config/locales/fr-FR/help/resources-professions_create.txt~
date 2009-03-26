@@ -1,0 +1,2 @@
+h1. Comment créer une profession
+Remplisser le formulaire de création de la profession en renseignant bien tous les champs. Faites attention à ce que le **Nom de la profession soit renseignée** sinon une erreur sera levée après validation du formulaire. 
