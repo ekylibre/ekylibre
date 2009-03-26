@@ -21,7 +21,7 @@
     t.action :journals_update, :image=>:update
     t.action :journals_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.action :journals_close
-    t.action :journals_list_entries
+    t.action :list_entries
     t.procedure :create, :action=>:journals_create
   end
   
@@ -345,6 +345,19 @@
     render :text => options_for_select(@financialyear_periods)
   end
 
+   # this action displays all entries stored in the journal. 
+  def list_entries
+    #  @journals = Journal.find_by_company_id(:all, :conditions=> @current_company.id) 
+    @journals = @current_company.journals
+    @financialyears = @current_company.financialyears
+    entries_list
+    if request.post?
+
+    end
+
+
+  end
+
   # this action has not specific view.
   def params_entries
     if request.post?
@@ -441,11 +454,7 @@
     journals_list params
   end
   
-  # this action displays all entries stored in the journal. 
-  def journals_list_entries
-  # @journal=@current_company.journal.find(params[:id])
-  end
-
+ 
   #this method creates a journal with a form. 
   def journals_create
     access :journals

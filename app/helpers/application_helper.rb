@@ -31,8 +31,9 @@ module ApplicationHelper
      {:name=>:accountancy, :list=>
        [ {:name=>:works, :list=>
            [ {:name=>:entries},
+             {:name=>:list_entries},
              {:name=>:statements},
-#             {:name=>:lettering},
+             # {:name=>:lettering},
              {:name=>:journals_close},
              {:name=>:financialyears_close} ] },
          {:name=>:documents, :list=>

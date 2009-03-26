@@ -21,8 +21,8 @@
 #journal
 =observe_field "bank_account_journal_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_journal_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'journal', :url => { :action => 'journals_find'}, :with => "'journal=' + escape(value)")+"}"
 
-=observe_field "bank_account_mod", :frequency => 0.25, :function =>"var m=$('bank_account_mod'); if ( (document.getElementById('bank_account_mod').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'currency', :url => { :action => 'currencies_find'}, :with => "'currency=' + escape(value)")+"}"
+=observe_field "bank_account_mod_iban", :frequency => 0.25, :function =>"if (element.checked) { $('iban').show(); $('rib').hide(); } else { $('rib').show(); $('iban').hide(); }"
 
 :javascript
   $('rib').hide();
-  $('iban').hide();
+  $('iban').show();

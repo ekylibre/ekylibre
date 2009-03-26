@@ -47,6 +47,7 @@ fr-FR:
         document_prepare: Imprimer des documents comptables
         works: Travaux comptables
         entries: Saisir des écritures
+        list_entries: Consulter des écritures 
       accounts:
         title: Comptes
         create: Créer un nouveau compte
@@ -127,6 +128,11 @@ fr-FR:
         select_financialyear: 'Comptabiliser les écritures pour l''exercice comptable'
         number_records: 'Nombre des dernières pièces à afficher'
         update_params: 'Changer de journal et/ou d''exercice...'
+      list_entries:
+        title: Consultation des écritures
+        journal_x: '{{name}} (clôturé le {{closed_on}})'  	
+        select_journal: 'Consulter les écritures du journal'
+        select_financialyear: 'Pour l''exercice comptable'
       financialyears:
         title: Exercices comptables
         create: Créer un nouvel exercice comptable
