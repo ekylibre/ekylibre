@@ -164,6 +164,7 @@ fr-FR:
       price_list: Liste de prix
       product: Produit
       profession: Profession
+      purchase_order: Achat
       shelf: Catégorie de produit
       stock_location: Lieu de stockage
       stock_move: Mouvement de stock
@@ -394,9 +395,11 @@ fr-FR:
         amount_with_taxes: Montant TTC
         number: Numéro
         comment: Commentaire
+        planned_on: Prévu le
       purchase_order_line: 
         amount: Montant HT
         amount_with_taxes: Montant TTC
+        location_id: Lieu de stockage
         price_id: Produit
         product_id: Produit
         quantity: Quantité
@@ -930,6 +933,8 @@ fr-FR:
         purchase: Achat
         rent: Location
       unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
+    purchase_order: 
+      purchase: Achat
     sale_order:
       natures:
         estimate: Devis

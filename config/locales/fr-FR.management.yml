@@ -151,6 +151,7 @@ fr-FR:
         amount_with_taxes: Montant TTC
         purchases: Consulter la liste des achats
         order_print: Imprimer la commande
+        validate: Valider la commande
       purchases:
         title: Liste des achats
       purchase_orders_create:
@@ -159,6 +160,8 @@ fr-FR:
         title: Ajouter un produit à la commande
       purchase_order_lines_update:
         title: Modifier une ligne de la commande
+      _purchase_orders_form:
+        infos: 'Renseignez les caractéristiques de l''achat '
       sales:
         title: Liste des ventes
       sales_new:
@@ -289,6 +292,16 @@ fr-FR:
         to: ' à l''adresse '
         to_deliver: Livrer
         title: Livraisons en attente
+      unreceived_purchases:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        planned_on: Prévue le 
+        purchase: Commande
+        quantity: Quantité
+        received: Reçue
+        title: Commandes en attente de réception
+        to: ' à l''adresse '
+        validate: Valider
 
      
  

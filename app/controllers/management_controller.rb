@@ -168,6 +168,8 @@ class ManagementController < ApplicationController
   end
 
   def products_create
+    @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
+    #raise Exception.new @stock_locations.inspect
     if request.post? 
       @product = Product.new(params[:product])
       @product.company_id = @current_company.id
@@ -229,17 +231,9 @@ class ManagementController < ApplicationController
     if request.post?
       @purchase_order = PurchaseOrder.new(params[:purchase_order])
       @purchase_order.company_id = @current_company.id
-     #  list = PriceList.find(:first,:conditions=>{:entity_id=>params[:purchase_order][:supplier_id]})
-#       if !list.blank?         
-#         @purchase_order.list_id = list.id
-#       else                                                                               ## Currency_id ...
-#         supplier = find_and_check(:entity, params[:purchase_order][:supplier_id])
-#         new_list = PriceList.create!(:name=>supplier.full_name, :started_on=>Date.today, :currency_id=>1, :entity_id=>params[:purchase_order][:supplier_id], :company_id=>@current_company.id)
-#         @purchase_order.list_id = new_list.id
-#       end
       redirect_to :action=>:purchases_products, :id=>@purchase_order.id if @purchase_order.save
     else
-      @purchase_order = PurchaseOrder.new
+      @purchase_order = PurchaseOrder.new(:planned_on=>Date.today)
       session[:current_entity] = @purchase_order.id
     end
     render_form
@@ -261,6 +255,11 @@ class ManagementController < ApplicationController
     @purchase_order = find_and_check(:purchase_order, params[:id])
     session[:current_purchase] = @purchase_order.id
     purchase_order_lines_list params
+    if request.post?
+      #raise Exception.new params.inspect
+      @purchase_order.stocks_moves_create
+      @purchase_order.change_quantity(true,true)
+    end
     @title = {:value=>@purchase_order.number,:name=>@purchase_order.supplier.full_name}
   end
 
@@ -296,6 +295,7 @@ class ManagementController < ApplicationController
 
 
   def purchase_order_lines_create
+    @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
     @price = Price.new
     if request.post?
       @purchase_order_line = @current_company.purchase_order_lines.find(:first, :conditions=>{:price_id=>params[:purchase_order_line][:price_id], :order_id=>session[:current_purchase]})
@@ -309,22 +309,6 @@ class ManagementController < ApplicationController
         @purchase_order_line.product_id = price.product_id
         @purchase_order_line.price_id = price.id
       end
-
-#       if !@purchase_order_line
-#         @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
-#         @purchase_order_line.company_id = @current_company.id
-#         @purchase_order_line.order_id = session[:current_purchase]
-#         @price = find_and_check(:price, params[:purchase_order_line][:price_id])
-#         @price = @price.add_price(params[:price][:amount], params[:price][:tax_id], @purchase_order_line.order.supplier_id)
-#         @purchase_order_line.product_id = find_and_check(:products, @price.product_id)
-#         calculate_price(false)
-#       else
-#        # raise Exception.new @purchase_order_line.inspect
-#         @price = find_and_check(:price, params[:purchase_order_line][:price_id])    
-#         @price = @price.add_price(params[:price][:amount], params[:price][:tax_id], @purchase_order_line.order.supplier_id)
-#         calculate_price(true)
-#       end
-#       @purchase_order_line.price_id = @price.id
       redirect_to :action=>:purchases_products, :id=>session[:current_purchase] if @purchase_order_line.save
     else
       @purchase_order_line = PurchaseOrderLine.new
@@ -1041,10 +1025,13 @@ class ManagementController < ApplicationController
 
   def stocks_moves_update
     @stock_move = find_and_check(:stock_move, params[:id])
+    last_quantity = @stock_move.quantity
+    # render_form(:read_only=>true) if !self.moved_on.nil? or self.generated
+  # else
     if request.post?
       params[:stock_move][:company_id] = @current_company.id
       if @stock_move.update_attributes(params[:stock_move])
-        #  @stock_move. ??
+        @stock_move.update_stock_quantity(last_quantity)
         redirect_to :action=>:stocks_locations_display, :id=>@stock_move.location_id
       end
     end
@@ -1076,6 +1063,22 @@ class ManagementController < ApplicationController
       redirect_to :action=>:undelivered_sales
     end
   end
+
+
+  def unreceived_purchases
+    @purchase_orders = PurchaseOrder.find(:all, :conditions=>{:company_id=>@current_company.id, :moved_on=>nil}, :order=>"planned_on ASC")
+    if request.post?
+      purchases = params[:purchase].collect{|x| PurchaseOrder.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:purchase].nil?
+      if !purchases.nil?
+        for purchase in purchases
+          #raise Exception.new purchases.inspect
+          purchase.real_stocks_moves_create
+        end
+      end
+      redirect_to :action=>:unreceived_purchases
+    end
+  end
+
 
   def stocks
     @products_stocks = ProductsStock.find_all_by_company_id(@current_company.id) ## => affichage par défaut : tous 
