@@ -10,7 +10,7 @@
 %h2=tc :deliveries
 %table.dyta
   %tr
-    -if !@sale_order.invoiced
+    -if !@sale_order.invoiced 
       %td.procedures{:colspan=>9} 
         =link_to "Ajouter une livraison", :action=>:deliveries_create
   -unless @deliveries.empty?
@@ -33,9 +33,12 @@
       %td
       %td= delivery.amount
       %td= delivery.amount_with_taxes
-      -if delivery.invoice_id.nil?
+      -if (delivery.invoice_id.nil? and delivery.moved_on.nil?)
         %td= link_to tg('update'), :action=>:deliveries_update, :id=>delivery.id
         %td= link_to tg('delete'), {:action=>:deliveries_delete, :id=>delivery.id}, :method=>:post, :confirm=>tg(:are_you_sure)
+      -elsif delivery.invoice_id.nil?
+        %td 
+        %td
       -else
         %td= tc'invoice_number'
         %td= link_to delivery.invoice.number, :action=>:sales_invoices, :id=>delivery.order_id

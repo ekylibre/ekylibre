@@ -9,4 +9,6 @@ Vous avez ici accès à un *récapitulatif* de votre devis vous en détaillant c
 * *Passer le devis en commande*, ce qui vous redirigera vers la livraison.
 * *Imprimer* le devis, ce qui entrainera la création d'un devis au format *pdf* qu'il vous sera possible d'imprimer. 
 
+Lors de la validation du devis *"Passer le devis en commande"*, les mouvements de stocks virtuels relatifs à la commande sont créés. À l'avenir, il sera impossible de revenir sur un devis validé.
+
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>

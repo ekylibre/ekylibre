@@ -84,12 +84,18 @@ fr-FR:
         units: 'Unités de mesure'
       payments_create: 
         title: 'Ajouter un nouveau réglement à la vente : {{value}}'
+      payments_update:
+        title: 'Modifier un paiement '
       _payments_form:
         title: 'Renseignez les conditions du réglement '
         new: 'Créer un nouveau réglement'
         existing_part: 'Utiliser un réglement non affecté'
       payment_modes:
         title: Types de paiement
+      payment_modes_create:
+        title: Créer un nouveau type de paiement
+      payment_modes_update:
+        title: Modifier un type de paiement
       prices: 
          all: Tous les prix
          client: Les prix de vente
@@ -285,6 +291,7 @@ fr-FR:
       undelivered_sales:
         amount: Montant HT
         amount_with_taxes: Montant TTC
+        client: ' Client '
         deliver: 'Valider l''envoi des livraisons'
         delivery: Livraison
         planned_on: Prévu le

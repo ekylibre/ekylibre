@@ -243,7 +243,7 @@ fr-FR:
       delivery:
         contact_id: Adresse du client
         nature: Type
-        planned_on: Prévu le
+        planned_on: Prévue le
         shipped_on: Envoyé le
         delivered_on: Reçu le
       department:
@@ -334,7 +334,10 @@ fr-FR:
         paid_on: Réglé le 
       payment_mode:
         account_id: Compte associé
-        name: Nom
+        name: Nom 
+      payment_part:
+        amount: Montant
+        payment_way: Moyen de paiement
       price:
         amount: Montant HT
         amount_with_taxes: Montant TTC
@@ -395,7 +398,7 @@ fr-FR:
         amount_with_taxes: Montant TTC
         number: Numéro
         comment: Commentaire
-        planned_on: Prévu le
+        planned_on: Réception prévue le
       purchase_order_line: 
         amount: Montant HT
         amount_with_taxes: Montant TTC

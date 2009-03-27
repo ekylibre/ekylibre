@@ -11,7 +11,7 @@
     -for @delivery in @deliveries
     -klass=cycle("odd","even")+" "+@delivery.moment.to_s
       %tr{:class=>klass+' root '}
-        %td{:colspan=>2}=@delivery.order.client.name.to_s+tc('to')+@delivery.contact.address.to_s
+        %td{:colspan=>2}=tc('client')+@delivery.order.client.full_name.to_s+tc('to')+@delivery.contact.address.to_s
         %td=@delivery.planned_on.to_s
         %td
         %td=@delivery.amount

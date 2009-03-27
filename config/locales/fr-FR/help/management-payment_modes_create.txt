@@ -1,0 +1,5 @@
+h1. Comment créer un nouveau type de paiement ?
+
+Pour créer un nouveau type de paiement, il vous suffit de renseigner les différents paramètres qui vous sont demandés. Certains sont obligatoires (encadrés bleux) et d'autres sont facultatifs (encadrés gris). La création ne peut s'effectuer uniquement si tous les champs obligatoires ont été correctement renseignés.
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

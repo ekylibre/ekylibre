@@ -1,0 +1,35 @@
+- form_tag do
+  %table.dyta
+    %tr
+      %th 
+      %th= tc 'purchase'
+      %th= tc 'planned_on'
+      %th= tc 'quantity'
+      %th= tc 'amount'
+      %th= tc 'amount_with_taxes'
+      %th= tc 'received'   
+    -for @purchase in @purchase_orders
+    -klass=cycle("odd","even")
+      %tr{:class=>klass+' root '}
+        %td{:colspan=>2}=@purchase.supplier.name.to_s+tc('to')+@purchase.dest_contact.address.to_s
+        %td=@purchase.planned_on.to_s
+        %td
+        %td=@purchase.amount
+        %td=@purchase.amount_with_taxes
+        %td{:style=>'text-align:center'}
+          - if @purchase.planned_on <= Date.today
+            =check_box_tag "purchase[#{@purchase.id}]","#{@purchase.id}",true,:id=>"purchase_#{@purchase.id}"
+          - else
+            =check_box_tag "purchase[#{@purchase.id}]","#{@purchase.id}",false,:id=>"purchase_#{@purchase.id}"
+      - for lines in @purchase.lines
+        %tr{:class=>klass}
+          %td{:style=>'width:20px'} 
+          %td{:colspan=>2}= lines.product.name
+          %td= lines.quantity
+          %td= lines.amount
+          %td= lines.amount_with_taxes
+          %td
+
+  .actions
+    =link_to tg(:previous), :action=>:index
+    =submit_tag(tc('validate'), :action=>:unreceived_purchases)

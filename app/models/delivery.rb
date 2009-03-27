@@ -47,9 +47,11 @@ class Delivery < ActiveRecord::Base
   def stocks_moves_create
     delivery_lines = DeliveryLine.find(:all, :conditions=>{:company_id=>self.company_id, :delivery_id=>self.id})
     for line in delivery_lines
-      StockMove.create!(:name=>tc(:sale)+"  "+self.order.number, :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>Date.today, :company_id=>line.company_id, :virtual=>false, :input=>false)
-      product = ProductsStock.find(:first, :conditions=>{:product_id=>line.product_id, :location_id=>line.order_line.location_id, :company_id=>line.company_id})
-      product.update_attributes!(:current_real_quantity=>product.current_real_quantity - line.quantity)
+      if line.quantity > 0
+        StockMove.create!(:name=>tc(:sale)+"  "+self.order.number, :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>Date.today, :company_id=>line.company_id, :virtual=>false, :input=>false)
+        product = ProductsStock.find(:first, :conditions=>{:product_id=>line.product_id, :location_id=>line.order_line.location_id, :company_id=>line.company_id})
+        product.update_attributes!(:current_real_quantity=>product.current_real_quantity - line.quantity)
+      end
     end
     self.moved_on = Date.today if self.moved_on.nil?
     self.save

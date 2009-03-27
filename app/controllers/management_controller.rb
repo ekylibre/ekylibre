@@ -259,6 +259,7 @@ class ManagementController < ApplicationController
       #raise Exception.new params.inspect
       @purchase_order.stocks_moves_create
       @purchase_order.change_quantity(true,true)
+      @purchase_order.update_attributes(:shipped=>true)
     end
     @title = {:value=>@purchase_order.number,:name=>@purchase_order.supplier.full_name}
   end
@@ -628,9 +629,9 @@ class ManagementController < ApplicationController
         redirect_to :action=>:sales_products, :id=>session[:current_sale_order]
       end
       if request.post?
-        for delivery in @deliveries
-          delivery.stocks_moves_create if !delivery.moved_on.nil?
-        end
+        #for delivery in @deliveries
+         # delivery.stocks_moves_create if !delivery.moved_on.nil?
+        #end
         redirect_to :action=>:sales_invoices, :id=>@sale_order.id
       end
     end
@@ -747,6 +748,10 @@ class ManagementController < ApplicationController
         end
       else
         deliveries = params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)}
+        #raise Exception.new deliveries.inspect
+        for delivery in deliveries
+          delivery.stocks_moves_create if !delivery.moved_on.nil?
+        end
         @current_company.invoice(deliveries)
       end
       redirect_to :action=>:sales_invoices, :id=>@sale_order.id

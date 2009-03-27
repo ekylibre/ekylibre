@@ -1,0 +1,7 @@
+h1. Comment créer une livraison ?
+
+Vous devez impérativement *saisir au moins une livraison* pour chaque vente. Si il n'y pas de réelle livraison, sélectionnez "En main propre" dans la liste déroulante Type. Vous devez également saisir la *date prévue* pour la livraison. 
+
+Pour chaque produit, définissez la quantité de produit à livrer pour la livraison dans le champ Quantité.
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

@@ -1,0 +1,7 @@
+h1. La facturation
+
+Vous avez un récapitulatif des différentes factures relatives à la vente.
+
+Le tableau "À facturer" récapitule les livraisons non facturées. Si vous sélectionnez plusieurs livraisons et cliquer sur facturer, une seule facture sera créée, concernant l'intégralité des livraisons sélectionnées.
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

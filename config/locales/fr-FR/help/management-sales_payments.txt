@@ -1,0 +1,11 @@
+h1. Les règlements
+
+Vous avez accès à un récapitulatif des paiements relatifs à la vente. Vous pouvez :
+* *Ajouter* un paiement à la vente
+* *Modifier* un paiment:  <<management-payments_update|{{buttons/update.png|modifier}}>>
+* *Supprimer* un paiement : {{buttons/delete.png|supprimer}}
+
+
+Le tableau "État de la vente" récapitule les différents règlements et factures relatifs à la vente et le montant total de ceux-cis.
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

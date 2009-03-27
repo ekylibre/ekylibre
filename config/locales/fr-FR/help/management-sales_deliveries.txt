@@ -1,0 +1,9 @@
+h1. Les livraisons
+
+Si il reste des produits à livrer, et donc que vous avez définit plusieurs livraisons, un tableau récapitule les quantités restantes à livrer pour chaque produit.
+
+Vous avez également un récapitulatif des livraisons déjà définies. Si une livraison a été facturée, vous ne pouvez plus ni la modifier, ni la facturer.
+
+
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>
