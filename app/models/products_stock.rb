@@ -1,4 +1,4 @@
-x52class ProductsStock < ActiveRecord::Base
+class ProductsStock < ActiveRecord::Base
   
   def before_validation
     self.quantity_min = self.product.quantity_min if !self.product.quantity_min.nil?
