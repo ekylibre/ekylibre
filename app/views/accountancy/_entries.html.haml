@@ -33,7 +33,7 @@
         %th=tc :record_credit
         %th
         %th
-      - @records.each do |record|
+      - @records.flatten.each do |record|
         - attr = cycle("even","odd")  
         - record.entries.each do |entry|
           %tr{ :class=>(entry.record.balanced ? "balanced" : "unbalanced")+" "+attr}

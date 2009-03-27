@@ -38,6 +38,7 @@
     t.column :iban_label
     t.action :bank_accounts_update, :image=>:update
     t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :statements_point    
     t.procedure :create, :action=>:bank_accounts_create
   end
 
@@ -51,20 +52,31 @@
     t.procedure :create, :action=>:statements_create
   end
   
-  dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name
-    t.column :debit
-    t.column :credit
-    t.column :letter
-    t.column :currency_rate
-    t.action :statements_point, :method=>:post
-  end
+  # dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+#     t.column :name
+#     t.column :debit
+#     t.column :credit
+#     t.column :letter
+#     t.column :currency_rate
+#     t.action :statements_point, :method=>:post
+#   end
   
+    dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+     t.column :number, :through=>:record
+     t.column :created_on, :through=>:record
+     t.column :printed_on, :through=>:record
+     t.column :name
+     t.column :number, :through=>:account
+     t.column :debit
+     t.column :credit
+   end
+   
+
   dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :code
     t.column :closed
     t.column :started_on
-     t.column :stopped_on
+    t.column :stopped_on
     t.action :financialyears_update, :image=>:update
     t.action :financialyears_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.procedure :create, :action=>:financialyears_create
@@ -345,18 +357,50 @@
     render :text => options_for_select(@financialyear_periods)
   end
 
-   # this action displays all entries stored in the journal. 
+
+  # this action displays all entries stored in the journal. 
   def list_entries
-    #  @journals = Journal.find_by_company_id(:all, :conditions=> @current_company.id) 
+    if params[:sort].blank?
+      params[:sort]="name"
+      params[:dir] ="asc"
+    end
+    entries_list params
+    session[:entries] ||= {}
+    @records=[]
+    @count_entries=0
+    
     @journals = @current_company.journals
     @financialyears = @current_company.financialyears
-    entries_list
+    
     if request.post?
-
+      
+      session[:entries][:journal] = params[:journal_id]
+      session[:entries][:financialyear] = params[:financialyear_id]
+    else
+      session[:entries][:journal] = params[:id] 
+      session[:entries][:financialyear] = 2
+    end
+    
+    unless session[:entries][:journal].nil?
+      @journal = Journal.find(session[:entries][:journal])
+      @financialyear = Financialyear.find(session[:entries][:financialyear])
+      periods = @journal.periods.find(:all,:conditions=>['financialyear_id=?',session[:entries][:financialyear]])
+      periods.each do |period|
+        # @records << period.records(:order=>"created_on DESC")
+        @records << period.records.paginate(:page => params[:page], :per_page=>4, :order => 'created_at DESC')
+      end
+      unless @records.empty?
+        @records.flatten!.each do |record|
+          record.entries.size.times do
+            @count_entries+=1
+          end
+        end
+      end
+       
     end
 
-
   end
+  
 
   # this action has not specific view.
   def params_entries
@@ -364,6 +408,7 @@
       session[:entries] ||= {}
       session[:entries][:journal] = params[:journal_id]
       session[:entries][:financialyear] = params[:financialyear_id]
+      session[:entries][:financialyearb] = session[:entries][:financialyear]
       session[:entries][:records_number] = params[:number]
       redirect_to :action => :entries
     end
@@ -373,6 +418,7 @@
   def entries
     session[:entries] ||= {}
     session[:entries][:records_number] ||= 5
+    @records=[]
     @journal = find_and_check(:journal, session[:entries][:journal]) if session[:entries][:journal]
     @financialyear = find_and_check(:financialyear, session[:entries][:financialyear]) if session[:entries][:financialyear]
 
@@ -418,13 +464,17 @@
         @entry = Entry.new
       end
       
-      @records = @journal.last_records(session[:entries][:records_number].to_i)
+      periods = @journal.periods.find(:all,:conditions=>['financialyear_id=?',session[:entries][:financialyear]])
+      periods.each do |period|
+        @records << @journal.last_records(period.id, session[:entries][:records_number].to_i)
+      end  
       @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
       @record = JournalRecord.new if @record.nil?
       if @record.new_record?
         @record.number = @records.size>0 ? @records.first.number.succ : 1
         @record.created_on = @record.printed_on = Date.today
       end
+      
       render :action => "entries.rjs" if request.xhr?
     end
     
