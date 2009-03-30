@@ -28,6 +28,7 @@ fr-FR:
         stocks_locations_create: Ajouter un nouveau lieu de stockage
       stock_moves:
         stocks_moves_create: Ajouter un mouvement de stock
+      need_stock_location_to_create_products: 'hh'
       need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
       messages:
@@ -294,7 +295,7 @@ fr-FR:
         client: ' Client '
         deliver: 'Valider l''envoi des livraisons'
         delivery: Livraison
-        planned_on: Prévu le
+        planned_on: Prévue le
         quantity: Quantité
         to: ' à l''adresse '
         to_deliver: Livrer

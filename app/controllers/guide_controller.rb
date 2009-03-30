@@ -2,6 +2,9 @@ class GuideController < ApplicationController
  
   def index
     @title = {:user=>@current_user.label}
+    @entities = @current_company.entities
+    @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
+    @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})
   end
 
   def welcome

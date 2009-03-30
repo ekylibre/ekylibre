@@ -23,10 +23,6 @@
       =evalue @product, :comment
     %td
       =evalue @product, :without_stocks
-      - if @product.without_stocks == false 
-        =evalue @product, :quantity_min
-        =evalue @product, :critic_quantity_min
-        =evalue @product, :quantity_max
 
 %h2=tc :prices
 =dyta :product_prices

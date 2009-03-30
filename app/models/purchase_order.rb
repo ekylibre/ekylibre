@@ -50,7 +50,11 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def stocks_moves_create
+    locations = StockLocation.find_all_by_company_id(self.company_id)
     for line in self.lines
+      if locations.size == 1
+        line.update_attributes!(:location_id=>locations[0].id)
+      end
       StockMove.create!(:name=>tc(:purchase)+"  "+self.number, :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :company_id=>line.company_id, :virtual=>true, :input=>true)
     end
   end

@@ -167,25 +167,68 @@ class ManagementController < ApplicationController
     @title = {:value=>@product.name}
   end
 
+  def change_quantities
+    @location = ProductsStock.find(:first, :conditions=>{:location_id=>params[:products_stock_location_id], :company_id=>@current_company.id, :product_id=>session[:product_id]} ) 
+    if @location.nil?
+      @location = ProductsStock.new(:quantity_min=>0, :quantity_max=>0, :critic_quantity_min=>1)
+    end
+  end
+
   def products_create
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
-    #raise Exception.new @stock_locations.inspect
+    if @stock_locations.size < 1
+      flash[:warning]=tc('need_stocks_location_to_create_products')
+      redirect_to :action=>:stocks_locations_create
+    end
     if request.post? 
       @product = Product.new(params[:product])
       @product.company_id = @current_company.id
-      redirect_to_back if @product.save
+      ActiveRecord::Base.transaction do
+        saved = @product.save
+        if params[:product][:without_stocks] == "0"
+          if saved
+            @product_stock = ProductsStock.new(params[:products_stock])
+            @product_stock.product_id = @product.id
+            @product_stock.company_id = @current_company.id
+            saved = false unless @product_stock.save!
+            @product_stock.errors.each_full do |msg|
+              @product.errors.add_to_base(msg)
+            end
+          end
+        end 
+        raise ActiveRecord::Rollback unless saved  
+      end
+      redirect_to_back
     else
       @product = Product.new
       @product.nature = Product.natures.first[1]
       @product.supply_method = Product.supply_methods.first[1]
+      @products_stock = ProductsStock.new
     end
     render_form
   end
-
+  
   def products_update
     @product = find_and_check(:product, params[:id])
+    session[:product_id] = @product.id
+    @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
+    if @product.without_stocks
+      @products_stock = ProductsStock.new
+    else
+      @products_stock = ProductsStock.find(:first, :conditions=>{:company_id=>@current_company.id ,:product_id=>@product.id} ) 
+    end
     if request.post?
       if @product.update_attributes(params[:product])
+        if @products_stock.id.nil? and params[:product][:without_stocks] == "0"
+          @product_stock = ProductsStock.new(params[:products_stock])
+          @product_stock.product_id = @product.id
+          @product_stock.company_id = @current_company.id 
+        elsif !@products_stock.id.nil? and @stock_locations.size > 1
+          #raise Exception.new params[:products_stock].inspect
+          @products_stock.add_or_update(params[:products_stock],@product.id)
+        else
+          @products_stock.update_attributes(params[:products_stock])
+        end
         redirect_to :action=>:products_display, :id=>@product.id
       end
     end
@@ -1076,7 +1119,6 @@ class ManagementController < ApplicationController
       purchases = params[:purchase].collect{|x| PurchaseOrder.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:purchase].nil?
       if !purchases.nil?
         for purchase in purchases
-          #raise Exception.new purchases.inspect
           purchase.real_stocks_moves_create
         end
       end
