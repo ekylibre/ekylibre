@@ -1,6 +1,6 @@
 h1. Livraisons en attente
 
-Vous avez accès à la liste des livraisons en attente de réception par vos clients. Il vous suffit de *cocher les livraisons qui ont été expédiées* et de valider l'envoi des livraisons. Les différents jeux de couleur permettent de connaître d'un seul coup d'oeil les retards :
+Vous avez accès à la liste des livraisons en attente de réception par vos clients. Il vous suffit de *cocher les livraisons qui ont été expédiées* et de valider l'envoi des livraisons. Les différents jeux de couleur permettent de connaître d'un seul coup d'oeil les eventuels retards :
 * vert : livraison postérieure à la date du jour
 * orange : livraison à effectuer entre au plus tard il y a 3 jours et aujourd'hui
 * rouge: la livraison aurait du être effectuée il y a plus de 3 jours

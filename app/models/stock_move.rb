@@ -31,9 +31,9 @@ class StockMove < ActiveRecord::Base
   end
   
   def change_quantity
-    product_stock = ProductsStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
+    product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
     if product_stock.nil?
-      ProductStock.create(:company_id=>self.company_id, :product_id=>self.product_id, :location=>self.location_id)
+      ProductStock.create!(:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.location_id)
     elsif self.moved_on.nil?
       product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
     else
@@ -43,7 +43,7 @@ class StockMove < ActiveRecord::Base
   end
 
   def update_stock_quantity(last_quantity)
-    product_stock = ProductsStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
+    product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
     if !self.moved_on.nil?
       product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity + self.quantity, :current_virtual_quantity=>(product_stock.current_virtual_quantity + (self.quantity - last_quantity)) )
     else

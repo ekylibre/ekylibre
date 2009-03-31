@@ -1,4 +1,4 @@
-class ProductsStock < ActiveRecord::Base
+class ProductStock < ActiveRecord::Base
   
   def before_validation
     self.quantity_min = self.product.quantity_min if self.quantity_min.nil?
@@ -22,10 +22,10 @@ class ProductsStock < ActiveRecord::Base
   def add_or_update(params,product_id)
     #raise Exception.new params.inspect+"rrr"+product_id.inspect
     #raise Exception.new params[:quantity_max].inspect
-    stock = ProductsStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>params[:location_id], :product_id=>product_id})
+    stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>params[:location_id], :product_id=>product_id})
     if stock.nil?
       #raise Exception.new params[:quantity_min].inspect
-      ProductsStock.create!(:company_id=>self.company_id, :location_id=>params[:location_id], :product_id=>product_id, :quantity_min=>params[:quantity_min], :quantity_max=>params[:quantity_max], :critic_quantity_min=>params[:critic_quantity_min])
+      ProductStock.create!(:company_id=>self.company_id, :location_id=>params[:location_id], :product_id=>product_id, :quantity_min=>params[:quantity_min], :quantity_max=>params[:quantity_max], :critic_quantity_min=>params[:critic_quantity_min])
     else
       stock.update_attributes(params)
     end

@@ -344,6 +344,7 @@ fr-FR:
         amount: Montant HT
         amount_with_taxes: Montant TTC
         currency_id: Devise
+        default: Par défaut
         entity_id: Fournisseur
         id: Produit
         list_id: Liste de prix
@@ -385,7 +386,7 @@ fr-FR:
         unit_id: Unité de mesure
         weight: Poids (kg)
         without_stocks: Ne nécessite pas de gestion de stocks
-      products_stock: 
+      product_stock: 
         critic_quantity_min: Quantité minimum critique
         location_id: Pour le lieu de stockage
         quantity_max: Quantité maximum
@@ -684,9 +685,9 @@ fr-FR:
           one: '1 livraison en attente'
           other: '{{count}} livraisons en attente '
         nb_purchases:
-          zero: 'Aucune commande en attente'
-          one: '1 commande en attente'
-          other: '{{count}} commandes en attente'
+          zero: 'Aucun achat en attente de reception'
+          one: '1 achat en attente de reception'
+          other: '{{count}} achats en attente de reception'
         performance_indicator: 'Tableau de bord'
         relations: 'Gestion des relations clients/fournisseurs'
       about_us:

@@ -40,6 +40,9 @@ class Price < ActiveRecord::Base
     self.started_at = Time.now
     self.quantity_min ||= 0
     self.quantity_max ||= 0
+    if self.default
+      Price.update_all('"default"=false', ["product_id=? AND company_id=? AND id!=?", self.product_id,self.company_id, self.id||0])
+    end
   end
 
   def validate

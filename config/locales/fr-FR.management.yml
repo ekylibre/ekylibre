@@ -28,7 +28,7 @@ fr-FR:
         stocks_locations_create: Ajouter un nouveau lieu de stockage
       stock_moves:
         stocks_moves_create: Ajouter un mouvement de stock
-      need_stock_location_to_create_products: 'hh'
+      need_stocks_location_to_create_products: 'Vous devez créer un lieu de stockage pour pouvoir créer un produit'
       need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
       messages:
@@ -63,8 +63,18 @@ fr-FR:
       deliveries_create:
         title: Ajouter une livraison
       index:
+        nb_sales: 
+          zero: 'Aucune livraison en attente'
+          one: '1 livraison en attente'
+          other: '{{count}} livraisons en attente '
+        nb_purchases:
+          zero: 'Aucun achat en attente de reception'
+          one: '1 achat en attente de reception'
+          other: '{{count}} achats en attente de reception'
         delays: Délais
+        indicator: Tableau de bord
         invoicing_parameters: Facturation
+        low_stocks: 'Stocks sous le seuil critique'
         parameters: Paramètres
         payment_modes: Types de paiement
         prices: Prix
@@ -83,6 +93,8 @@ fr-FR:
         taxes: 'Taxes'
         title: 'Gestion commerciale'
         units: 'Unités de mesure'
+      _location_choice:
+        select_stock_location: 'Choississez un lieu de stockage' 
       payments_create: 
         title: 'Ajouter un nouveau réglement à la vente : {{value}}'
       payments_update:
@@ -182,6 +194,7 @@ fr-FR:
       sales_products:
         amount: Montant HT
         amount_with_taxes: Montant TTC
+        deliveries: Livraisons
         estimate_to_order: Passer le devis en commande
         lines: Lignes du devis
         sales_print: Imprimer le devis
@@ -254,7 +267,18 @@ fr-FR:
         catalog: Description pour catalogue
       shelves_update:
         title: 'Ajout d''une nouvelle catégorie de produits'
-      stocks: 
+      _stocks:
+        critic_stock_min: Stock minimum critique
+        current_real_quantity: Quantité réelle
+        current_virtual_quantity: Quantité virtuelle
+        name: Nom
+        select_stock_location: 'Sélectionnez un lieu de stockage'
+        stock_min: Stock minimum
+        stock_max: Stock maximum
+        title: État des stocks
+        unit: Unité
+        weight: Poids
+      stocks:
         critic_stock_min: Stock minimum critique
         current_real_quantity: Quantité réelle
         current_virtual_quantity: Quantité virtuelle
@@ -295,6 +319,8 @@ fr-FR:
         client: ' Client '
         deliver: 'Valider l''envoi des livraisons'
         delivery: Livraison
+        management_index: 'Index de la gestion commerciale'
+        no_deliveries: Aucune livraison en attente
         planned_on: Prévue le
         quantity: Quantité
         to: ' à l''adresse '
@@ -306,8 +332,10 @@ fr-FR:
         planned_on: Prévue le 
         purchase: Commande
         quantity: Quantité
+        management_index: 'Index de la gestion commerciale'
+        no_purchases: Aucun achat en attente de reception
         received: Reçue
-        title: Commandes en attente de réception
+        title: Achats en attente de réception
         to: ' à l''adresse '
         validate: Valider
 

@@ -1,7 +1,7 @@
-=menu_index
-.aclist
+.aclist.indicator
   %h2= tc('performance_indicator')
   %ul
     %li= link_to tc('nb_entities',:count=>@entities.size), :controller=>:relations, :action=>:entities
     %li= link_to tc('nb_sales', :count=>@deliveries.size), :controller=>:management, :action=>:undelivered_sales
     %li= link_to tc('nb_purchases', :count=>@purchases.size), :controller=>:management, :action=>:unreceived_purchases
+=menu_index

@@ -1,36 +1,42 @@
-- form_tag do
-  %table.dyta
-    %tr
-      %th 
-      %th= tc 'delivery'
-      %th= tc 'planned_on'
-      %th= tc 'quantity'
-      %th= tc 'amount'
-      %th= tc 'amount_with_taxes'
-      %th= tc 'to_deliver'   
-    -for @delivery in @deliveries
-    -klass=cycle("odd","even")+" "+@delivery.moment.to_s
-      %tr{:class=>klass+' root '}
-        %td{:colspan=>2}=tc('client')+@delivery.order.client.full_name.to_s+tc('to')+@delivery.contact.address.to_s
-        %td=@delivery.planned_on.to_s
-        %td
-        %td=@delivery.amount
-        %td=@delivery.amount_with_taxes
-        %td{:style=>'text-align:center'}
-          - if @delivery.planned_on <= Date.today
-            =check_box_tag "delivery[#{@delivery.id}]","#{@delivery.id}",true,:id=>"delivery_#{@delivery.id}"
-          - else
-            =check_box_tag "delivery[#{@delivery.id}]","#{@delivery.id}",false,:id=>"delivery_#{@delivery.id}"
-      - for lines in @delivery_lines
-        -if lines.delivery_id == @delivery.id
-          %tr{:class=>klass}
-            %td{:style=>'width:20px'} 
-            %td{:colspan=>2}= lines.product.name
-            %td= lines.quantity
-            %td= lines.amount
-            %td= lines.amount_with_taxes
-            %td
+-if @deliveries.size > 0
+  - form_tag do
+    %table.dyta
+      %tr
+        %th 
+        %th= tc 'delivery'
+        %th= tc 'planned_on'
+        %th= tc 'quantity'
+        %th= tc 'amount'
+        %th= tc 'amount_with_taxes'
+        %th= tc 'to_deliver'   
+      -for @delivery in @deliveriesx52
+      -klass=cycle("odd","even")+" "+@delivery.moment.to_s
+        %tr{:class=>klass+' root '}
+          %td{:colspan=>2}=tc('client')+@delivery.order.client.full_name.to_s+tc('to')+@delivery.contact.address.to_s
+          %td=@delivery.planned_on.to_s
+          %td
+          %td=@delivery.amount
+          %td=@delivery.amount_with_taxes
+          %td{:style=>'text-align:center'}
+            - if @delivery.planned_on <= Date.today
+              =check_box_tag "delivery[#{@delivery.id}]","#{@delivery.id}",true,:id=>"delivery_#{@delivery.id}"
+            - else
+              =check_box_tag "delivery[#{@delivery.id}]","#{@delivery.id}",false,:id=>"delivery_#{@delivery.id}"
+        - for lines in @delivery_lines
+          -if lines.delivery_id == @delivery.id
+            %tr{:class=>klass}
+              %td{:style=>'width:20px'} 
+              %td{:colspan=>2}= lines.product.name
+              %td= lines.quantity
+              %td= lines.amount
+              %td= lines.amount_with_taxes
+              %td
 
+    .actions
+      =link_to tg(:previous), :action=>:index
+      =submit_tag(tc('deliver'), :action=>:undelivered_sales)
+
+-else
+  %p{:style=>'text-align:center'}= tc('no_deliveries')
   .actions
-    =link_to tg(:previous), :action=>:index
-    =submit_tag(tc('deliver'), :action=>:undelivered_sales)
+    =link_to tc(:management_index), :action=>:index

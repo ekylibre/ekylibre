@@ -49,7 +49,8 @@ class Delivery < ActiveRecord::Base
     for line in delivery_lines
       if line.quantity > 0
         StockMove.create!(:name=>tc(:sale)+"  "+self.order.number, :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>Date.today, :company_id=>line.company_id, :virtual=>false, :input=>false)
-        product = ProductsStock.find(:first, :conditions=>{:product_id=>line.product_id, :location_id=>line.order_line.location_id, :company_id=>line.company_id})
+        product = ProductStock.find(:first, :conditions=>{:product_id=>line.product_id, :location_id=>line.order_line.location_id, :company_id=>line.company_id})
+        product = ProductStock.create!(:product_id=>line.product_id, :location_id=>line.order_line.location_id, :company_id=>line.company_id) if product.nil?
         product.update_attributes!(:current_real_quantity=>product.current_real_quantity - line.quantity)
       end
     end

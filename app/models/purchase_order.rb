@@ -63,7 +63,8 @@ class PurchaseOrder < ActiveRecord::Base
     #raise Exception.new self.lines.inspect
     for line in self.lines
       StockMove.create!(:name=>tc(:purchase)+"  "+line.order.number, :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>Date.today, :company_id=>line.company_id, :virtual=>false, :input=>true)
-      product = ProductsStock.find(:first, :conditions=>{:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id})
+      product = ProductStock.find(:first, :conditions=>{:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id})
+      product = ProductStock.create!(:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id) if product.nil?
       product.update_attributes!(:current_real_quantity=>product.current_real_quantity + line.quantity)
     end
     self.moved_on = Date.today if self.moved_on.nil?
@@ -72,8 +73,8 @@ class PurchaseOrder < ActiveRecord::Base
 
   def change_quantity(virtual, input )
     for line in self.lines
-      product = ProductsStock.find(:first, :conditions=>{:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id})
-      product = ProductsStock.create!(:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id) if product.nil?
+      product = ProductStock.find(:first, :conditions=>{:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id})
+      product = ProductStock.create!(:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id) if product.nil?
       if virtual and input
         product.update_attributes(:current_virtual_quantity=>product.current_virtual_quantity + line.quantity)
       elsif virtual and !input

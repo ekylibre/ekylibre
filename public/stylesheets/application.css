@@ -15,7 +15,7 @@ div[xul="vbox"] { background: #FDC; }
 div[xul="box"] { background: #ADA; }
 */
 /*table.entries { border-collapse: collapse; }*/
-
+.stocks { padding: 5px 0 15px 0; }
 .paymentpart{ text-align:center; padding: 5px 0 5px 0; }
 .payments { text-align:center }
 .invoice { text-align:center;  padding:10px 0px 10px 0; font-size:15px;  background: #FF3300; margin: 20px 600px 20px 600px; }
@@ -59,6 +59,7 @@ div[xul="box"] { background: #ADA; }
 /*#side .aclist h2 { font-size : 13px; color: black; padding: 4px; background: #BDF; text-align: center; }*/
 /*#side .aclist h2 { font-size : 13px; color: white; padding: 2px 4px; background: #46A; text-align: center; }*/
 #side .aclist h2 { font-size : 13px; color: #00223B; padding: 2px 4px; background: #95b0e4; text-align: center; }
+
 #side .aclist ul { padding: 0px 2px; }
 #side .aclist li { padding: 2px 4px 4px 20px; list-style-type: none; background: url(../images/favicon.png) no-repeat center left; } /*background: #e9f3fe url(../images/template/table_head.png) repeat-x bottom; }*/
 #side .aclist li a { font-size: 11px; }
@@ -290,7 +291,7 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 #yield .aclist.special { background: #FE9; }
 #yield .aclist.special a:link, #yield .aclist.special a:visited { color: #A60; }
 
-
+#yield .aclist.indicator { background: #FD8; } /*#FA3;*/
 /*e7f2fd bbcfe6*/
 
 .errorExplanation { background: #ECA; color: #543; margin: 8px; }

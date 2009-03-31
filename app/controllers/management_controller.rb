@@ -3,6 +3,15 @@ class ManagementController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
 
   def index
+     @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
+    @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})
+    all_product_stocks = ProductStock.find(:all, :conditions=>{:company_id=>@current_company.id})
+    # @stock_locations = @current_company.stock_locations
+    @product_stocks = []
+    for product_stock in all_product_stocks
+      @product_stocks << product_stock if product_stock.state == "critic"
+    end
+    #raise Exception.new @product_stocks.inspect
   end
 
   dyta(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -58,6 +67,7 @@ class ManagementController < ApplicationController
     t.column :full_name, :through=>:entity
     t.column :amount
     t.column :amount_with_taxes
+    t.column :default
     t.column :range
     t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :sales_prices_create,     :action=>:prices_create, :mode=>:sales
@@ -149,6 +159,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:entity
     t.column :amount
     t.column :amount_with_taxes
+    t.column :default
     t.column :range
     t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :sales_prices_create,     :action=>:prices_create, :mode=>:sales
@@ -168,9 +179,9 @@ class ManagementController < ApplicationController
   end
 
   def change_quantities
-    @location = ProductsStock.find(:first, :conditions=>{:location_id=>params[:products_stock_location_id], :company_id=>@current_company.id, :product_id=>session[:product_id]} ) 
+    @location = ProductStock.find(:first, :conditions=>{:location_id=>params[:product_stock_location_id], :company_id=>@current_company.id, :product_id=>session[:product_id]} ) 
     if @location.nil?
-      @location = ProductsStock.new(:quantity_min=>0, :quantity_max=>0, :critic_quantity_min=>1)
+      @location = ProductStock.new(:quantity_min=>0, :quantity_max=>0, :critic_quantity_min=>1)
     end
   end
 
@@ -187,7 +198,7 @@ class ManagementController < ApplicationController
         saved = @product.save
         if params[:product][:without_stocks] == "0"
           if saved
-            @product_stock = ProductsStock.new(params[:products_stock])
+            @product_stock = ProductStock.new(params[:product_stock])
             @product_stock.product_id = @product.id
             @product_stock.company_id = @current_company.id
             saved = false unless @product_stock.save!
@@ -203,7 +214,7 @@ class ManagementController < ApplicationController
       @product = Product.new
       @product.nature = Product.natures.first[1]
       @product.supply_method = Product.supply_methods.first[1]
-      @products_stock = ProductsStock.new
+      @product_stock = ProductStock.new
     end
     render_form
   end
@@ -213,21 +224,21 @@ class ManagementController < ApplicationController
     session[:product_id] = @product.id
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
     if @product.without_stocks
-      @products_stock = ProductsStock.new
+      @product_stock = ProductStock.new
     else
-      @products_stock = ProductsStock.find(:first, :conditions=>{:company_id=>@current_company.id ,:product_id=>@product.id} ) 
+      @product_stock = ProductStock.find(:first, :conditions=>{:company_id=>@current_company.id ,:product_id=>@product.id} ) 
     end
     if request.post?
       if @product.update_attributes(params[:product])
-        if @products_stock.id.nil? and params[:product][:without_stocks] == "0"
-          @product_stock = ProductsStock.new(params[:products_stock])
+        if @product_stock.id.nil? and params[:product][:without_stocks] == "0"
+          @product_stock = ProductStock.new(params[:product_stock])
           @product_stock.product_id = @product.id
           @product_stock.company_id = @current_company.id 
-        elsif !@products_stock.id.nil? and @stock_locations.size > 1
-          #raise Exception.new params[:products_stock].inspect
-          @products_stock.add_or_update(params[:products_stock],@product.id)
+        elsif !@product_stock.id.nil? and @stock_locations.size > 1
+          #raise Exception.new params[:product_stock].inspect
+          @product_stock.add_or_update(params[:product_stock],@product.id)
         else
-          @products_stock.update_attributes(params[:products_stock])
+          @product_stock.update_attributes(params[:product_stock])
         end
         redirect_to :action=>:products_display, :id=>@product.id
       end
@@ -547,10 +558,14 @@ class ManagementController < ApplicationController
     @entity = @sale_order.client
     sale_order_lines_list params
     if request.post?
-      @sale_order.update_attribute(:state, 'D') if @sale_order.state == 'P'
-      #raise Exception.new @sale_order.lines.inspect
-      @sale_order.stocks_moves_create
-      @sale_order.change_quantity(true, false)
+      if @sale_order.state == 'D'
+        flash[:warning]=tc('sale_order_already_ordered')
+      else
+        @sale_order.update_attribute(:state, 'D') if @sale_order.state == 'P'
+        #raise Exception.new @sale_order.lines.inspect
+        @sale_order.stocks_moves_create
+        @sale_order.change_quantity(true, false)
+      end
       redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
     end
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
@@ -1128,11 +1143,11 @@ class ManagementController < ApplicationController
 
 
   def stocks
-    @products_stocks = ProductsStock.find_all_by_company_id(@current_company.id) ## => affichage par défaut : tous 
+    @product_stocks = ProductStock.find_all_by_company_id(@current_company.id) ## => affichage par défaut : tous 
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
     if request.post?
       #raise Exception.new params[:stock].inspect
-      @products_stocks = ProductsStock.find_all_by_company_id_and_location_id(@current_company.id, params[:stock][:location])
+      @product_stocks = ProductStock.find_all_by_company_id_and_location_id(@current_company.id, params[:stock][:location])
     end
   end
 

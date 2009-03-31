@@ -94,8 +94,8 @@ class SaleOrder < ActiveRecord::Base
 
   def change_quantity(virtual, input )
     for line in self.lines
-      product = ProductsStock.find(:first, :conditions=>{:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id})
-      product = ProductsStock.create!(:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id) if product.nil?
+      product = ProductStock.find(:first, :conditions=>{:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id})
+      product = ProductStock.create!(:product_id=>line.product_id, :location_id=>line.location_id, :company_id=>line.company_id) if product.nil?
       if virtual and input
         product.update_attributes(:current_virtual_quantity=>product.current_virtual_quantity + line.quantity)
       elsif virtual and !input
