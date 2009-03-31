@@ -25,48 +25,39 @@
     t.procedure :create, :action=>:journals_create
   end
   
-  dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :number
-    t.column :name
-    t.action :accounts_update, :image=>:update
-    t.action :accounts_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :create, :action=>:accounts_create
-  end
-  
-  dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name
-    t.column :iban_label
-    t.action :bank_accounts_update, :image=>:update
-    t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
-    t.action :statements_point    
-    t.procedure :create, :action=>:bank_accounts_create
-  end
-
-  dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :started_on
-    t.column :stopped_on
-    t.column :number
-    t.action :statements_update, :image=>:update
-    t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
-    t.action :statements_display
-    t.procedure :create, :action=>:statements_create
-  end
-  
-  # dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-#     t.column :name
-#     t.column :debit
-#     t.column :credit
-#     t.column :letter
-#     t.column :currency_rate
-#     t.action :statements_point, :method=>:post
-#   end
-  
-    dyta(:entries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-     t.column :number, :through=>:record
-     t.column :created_on, :through=>:record
-     t.column :printed_on, :through=>:record
+   dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+     t.column :number
      t.column :name
-     t.column :number, :through=>:account
+     t.action :accounts_update, :image=>:update
+     t.action :accounts_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :create, :action=>:accounts_create
+   end
+   
+   dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+     t.column :iban_label
+     t.action :bank_accounts_update, :image=>:update
+     t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+     t.action :statements_point    
+     t.procedure :create, :action=>:bank_accounts_create
+   end
+   
+  dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+     t.column :started_on
+     t.column :stopped_on
+     t.column :number
+     t.action :statements_update, :image=>:update
+     t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+     t.action :statements_display
+     t.procedure :create, :action=>:statements_create
+   end
+   
+   dyta(:entries, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN journal_periods p ON p.id=r.period_id INNER JOIN journals j ON j.id=p.journal_id", :conditions=>['entries.company_id=? AND j.id=? AND p.id=?', ['@current_company.id'], ['session[:entries][:journal]'], ['session[:entries][:financialyear]'] ]) do |t|
+     t.column :number, :label=>"Numéro", :through=>:record
+     t.column :created_on, :label=>"Crée le", :through=>:record
+     t.column :printed_on, :label=>"Saisie le", :through=>:record
+     t.column :name
+     t.column :number, :label=>"Compte" , :through=>:account
      t.column :debit
      t.column :credit
    end
@@ -359,46 +350,28 @@
 
 
   # this action displays all entries stored in the journal. 
-  def list_entries
-    if params[:sort].blank?
-      params[:sort]="name"
-      params[:dir] ="asc"
-    end
-    entries_list params
+  def entries_consult
     session[:entries] ||= {}
-    @records=[]
-    @count_entries=0
-    
+  
     @journals = @current_company.journals
     @financialyears = @current_company.financialyears
     
     if request.post?
-      
       session[:entries][:journal] = params[:journal_id]
       session[:entries][:financialyear] = params[:financialyear_id]
+      
     else
       session[:entries][:journal] = params[:id] 
       session[:entries][:financialyear] = 2
     end
-    
+
+
     unless session[:entries][:journal].nil?
       @journal = Journal.find(session[:entries][:journal])
       @financialyear = Financialyear.find(session[:entries][:financialyear])
-      periods = @journal.periods.find(:all,:conditions=>['financialyear_id=?',session[:entries][:financialyear]])
-      periods.each do |period|
-        # @records << period.records(:order=>"created_on DESC")
-        @records << period.records.paginate(:page => params[:page], :per_page=>4, :order => 'created_at DESC')
-      end
-      unless @records.empty?
-        @records.flatten!.each do |record|
-          record.entries.size.times do
-            @count_entries+=1
-          end
-        end
-      end
-       
+      entries_list #params
     end
-
+   
   end
   
 

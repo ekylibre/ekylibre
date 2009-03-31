@@ -89,7 +89,7 @@ module Ekylibre
             code += "    order  = options['sort']\n"
             code += "    order += options['dir']=='desc' ? ' DESC' : ' ASC'\n"
             code += "  end\n"
-#            code += "  puts '>>>>>>>>>>>>>>  '+"+conditions.to_s+".inspect\n"
+   
             code += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
             code += ", :conditions=>"+conditions unless conditions.blank?
 #             unless conditions.blank?
@@ -204,7 +204,8 @@ module Ekylibre
             end
             code += "  end\n"
             code += paginate;
-            code += "  text = "+process+"+text+"+paginate_var+".to_s\n" unless process.nil?
+            code += "  text = "+process+"+text\n" unless process.nil?
+            code += "  text += "+paginate_var+".to_s\n"
             code += "  unless request.xhr?\n"
             code += "    text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"')\n"
             # code += "  text = content_tag(:div, text)\n"
@@ -218,7 +219,7 @@ module Ekylibre
             ActionView::Base.send :class_eval, code
 
             # Finish
-            #puts code
+            puts code
           end
 
           def value_image(value)

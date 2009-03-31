@@ -292,6 +292,8 @@ fr-FR:
         title: Titre
       entry:
         name: Libellé
+        number_account: Nber	
+        record_id: Numéro
         account_id: Compte
         currency_debit: Débit
         currency_credit: Crédit
@@ -443,7 +445,6 @@ fr-FR:
         expiration_id: "Délai d'expiration du devis"
         name: Nom
         payment_delay_id: "Délai de paiement"
- 
       sale_order_line:
         amount: Montant HT
         amount_with_taxes: Montant TTC
