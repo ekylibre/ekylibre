@@ -132,4 +132,8 @@ class Company < ActiveRecord::Base
     Invoice.generate(self.id,records)
   end
 
+  def current_financialyear
+    self.financialyears.find(:last, :conditions => "closed = false")
+  end
+
 end

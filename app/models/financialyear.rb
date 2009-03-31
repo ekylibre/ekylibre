@@ -53,7 +53,7 @@ class Financialyear < ActiveRecord::Base
   
   # When a financial year is closed, all the matching journals are closed too. 
   def close(date)
-    periods = self.periods #JournalPeriod.find_all_by_financialyear_id(self.id)
+    periods = self.periods 
     
     if periods.size > 0
       periods.each do |period|

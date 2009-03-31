@@ -21,7 +21,7 @@
     t.action :journals_update, :image=>:update
     t.action :journals_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.action :journals_close
-    t.action :list_entries
+    t.action :entries_consult
     t.procedure :create, :action=>:journals_create
   end
   
@@ -88,8 +88,10 @@
   def bank_accounts_create
     access :bank_accounts
     if request.post? 
+      #puts 'param:'+params[:bank_account].to_s 
       @bank_account = BankAccount.new(params[:bank_account])
       @bank_account.company_id = @current_company.id
+      puts 'BA:'+@bank_account.inspect
       redirect_to_back if @bank_account.save
     else
       @bank_account = BankAccount.new
@@ -362,7 +364,7 @@
       
     else
       session[:entries][:journal] = params[:id] 
-      session[:entries][:financialyear] = 2
+      session[:entries][:financialyear] = @current_company.current_financialyear.id
     end
 
 

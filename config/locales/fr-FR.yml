@@ -183,10 +183,11 @@ fr-FR:
         country_code: Code pays
         number: Numéro de compte bancaire
         key: Clé RIB
-        mod: Mode
+        mode: Mode
         iban: IBAN
         iban_label: IBAN
         iban_label2: IBAN
+        bic: BIC
         account_id: Compte comptable référencé
         currency_id: Devise utilisée
         journal_id: Journal utilisé
@@ -827,6 +828,9 @@ fr-FR:
     account:
       error_delete: Le compte ne peut être effacé car il contient des sous-comptes.	
       default_account_name: 'Compte comptable {{number}}'
+    bank_account:
+      iban: 'Numéro de compte bancaire internationale (IBAN)'
+      rib: 'Relevé d''identité bancaire (RIB)'
     bank_account_statement:
       error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
       error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'  				   
