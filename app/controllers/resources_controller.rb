@@ -1,6 +1,6 @@
 class ResourcesController < ApplicationController
 
-  dyta(:employees, :conditions=>:search_conditions, :empty=>true) do |t|
+  dyta(:employees, :conditions=>"search_conditions(:attributes=>[:id, :title, :first_name, :last_name], :key=>session[:employee_key])", :empty=>true) do |t|
     t.column :title 
     t.column :first_name 
     t.column :last_name 
@@ -21,7 +21,9 @@ class ResourcesController < ApplicationController
 
   # this action lists all the employees with main informations for each of them.
   def employees
-    employees_list({:attributes=>[:id, :title, :first_name, :last_name], :key=>@key}.merge(params))
+    @key = params[:key]||session[:product_key]
+    session[:product_key] = @key
+    employees_list
   end
   
   # this action creates an employee with a form.

@@ -51,7 +51,9 @@ fr-FR:
       # Use the strftime parameters for formats.
       # When no format has been given, it uses default.
       # You can provide other formats here if you like!
-      default: "%d/%m/%Y" 
+      dbx: '%Y-%m-%d'
+      db: "%d/%m/%Y"
+      default: "%d/%m/%Y"
       short: "%b %d" 
       long: "%B %d, %Y" 
 
@@ -62,7 +64,7 @@ fr-FR:
     month_names: [~, Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
     abbr_month_names: [~, Janv, Févr, Mars, Avr, Mai, Juin, Juil, Août, Sept, Oct, Nov, Déc]
     # Used in date_select and datime_select.
-    order: [ :year, :month, :day ]
+    order: [ :day, :month, :year ]
 
   time:
     formats:

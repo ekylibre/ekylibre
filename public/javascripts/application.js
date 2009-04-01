@@ -246,3 +246,129 @@ function onLoading() {
 function onLoaded() {
   $('loading').setStyle({display: 'none'});
 }
+
+
+
+
+
+
+
+
+
+
+/*
+
+var AutoJumpToNextOnLength = Behavior.create({
+  initialize: function(inputLength)
+  {
+    this.inputLength = inputLength;
+    this.element.setAttribute('autocomplete','off');
+    this.keyRange = $R(48, 90).toArray().concat($R(96, 105).toArray()); // all alphanumeric characters
+  },
+  onkeydown: function(e)
+  {
+    alert('OK');
+    // Detect if there is selected text, if there is remove that selected text now.
+    selection = this.element.getValue().substring(this.element.selectionStart, this.element.selectionEnd).length
+    
+    if (selection == 0) {
+	  // Stops extra characters being entered    
+	  if (this.keyRange.include(e.keyCode)) {
+        return !(this.element.getValue().length >= this.inputLength);
+	  } else {
+        return true;
+	  }
+    }
+  },
+  onkeyup: function(e)
+  {
+    // Detect if there is selected text, if there is remove that selected text now.
+    selection = this.element.getValue().substring(this.element.selectionStart, this.element.selectionEnd).length
+    
+    if (selection == 0) {
+      
+      if (this.keyRange.include(e.keyCode) && (this.element.getValue().length == this.inputLength)) {
+        try {
+          this.element.next().focus();
+          this.element.next().select();
+        } catch(err) {
+          // No next field 
+          return false;
+        }
+      }
+    }
+  }
+  });
+
+Event.addBehavior({'.day_field, .month_field, .hour_field, .minute_field, second_field' : AutoJumpToNextOnLength(2)});
+Event.addBehavior({'.year_field' : AutoJumpToNextOnLength(4)});
+
+*/
+
+var numericKeys = $R(96, 105).toArray();
+var separatorKeys = [111, 191, 109, 190, 188];
+
+
+function autoTabDown(e) {
+  //  $('test').innerHTML += ' [D] ';
+  var element = e.element();
+  element.setAttribute('selected','true');
+  element.setAttribute('previous',element.getValue());
+  return false;
+}
+
+function autoTabUp(e) {
+  //  if (!numericRange.include(e.keyCode) && (e.element.getValue().length == e.element.getAttribute('size'))) {
+  var element = e.element();
+  /*
+  $('test').innerHTML += '['; 
+  $('test').innerHTML += 'U:'; 
+  $('test').innerHTML += element.getValue()+',';
+  $('test').innerHTML += element.getAttribute('size')+' '+element.getValue().length;
+  $('test').innerHTML += '::'+e.keyCode; 
+  $('test').innerHTML += '::'+separatorKeys.indexOf(e.keyCode);
+  $('test').innerHTML += '::'+separatorKeys.indexOf(e.keyCode);
+  $('test').innerHTML += '] '; 
+*/
+  if (isNaN(element.getValue()))
+    element.value = element.getAttribute('previous');
+  else {
+    if (element.getValue()<1)
+      element.value = element.getAttribute('previous');
+  }
+  
+  // || element.getValue().length*1 == element.getAttribute('size')*1) && element.getAttribute('selected') !== 'true'
+  if (separatorKeys.indexOf(e.keyCode)>=0) {
+    //  if (element.getValue().length*1 == element.getAttribute('size')*1) {
+    if (separatorKeys.indexOf(e.keyCode)>=0 && element.getValue().length>element.getAttribute('previous').length)
+      element.value = element.getAttribute('previous');
+    try {
+      element.next().activate();
+      return true;
+    } catch(err) {
+      // No next field 
+      return false;
+    }
+  }
+  element.setAttribute('selected','false');
+
+  return false;
+}
+
+
+function addAutoTab(elementArray) {
+  //  $('test').innerHTML += '>>';
+  //  alert(elementArray);
+  for (var index = 0, len = elementArray.length; index < len; ++index) {
+    var item = elementArray[index];
+    //item.observe('keydown', autoTab);
+    item.observe('keydown', autoTabDown);
+    item.observe('keyup', autoTabUp);
+  }
+  return true;
+}
+
+function initTab() {
+  //  addAutoTab($$('.day_field', '.month_field', '.hour_field', '.minute_field', '.second_field', '.year_field'));
+}
+

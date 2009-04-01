@@ -217,7 +217,8 @@ table.formalize tr.odd  td { background: #E5ECF6;}
 table.formalize tr.even td { background: #F0F8FF;}
 */
 table.formalize a.fastadd { margin: 0px 8px; }
-
+.day_field, .month_field, .hour_field, .minute_field, .second_field { width: 2.5ex; }
+.year_field { width: 4.5ex; }
 
 .actions { text-align:center; padding:4px !important; background: #CEC; margin: 8px 0 0; }
 .actions * { margin: 0px 8px; }
@@ -250,7 +251,7 @@ table.dyta td.paginate div.pagination span.disabled { color: #888; }
 table.dyta tr      td.decimal { text-align: right; }
 table.dyta tr      td.date { text-align: center; }
 table.dyta tr      td.web { text-align: center; }
-
+table.dyta th .sort { float: right; }
 table.dyta tr.details td { padding: 8px; text-align:center;}
 table.dyta tr.details td.comment { padding: 10px; font-size:15px; }
 .avindex {margin-top:30px;  padding: 10px 0 10px 0; }

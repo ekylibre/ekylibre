@@ -1,8 +1,0 @@
-h1. Professions
-
-h2. Qu'est ce qu'une profession ?
-Une profession est une activité manuelle ou intellectuelle procurant un salaire, une rémunération, des revenus à celui qui l'exerce. C'est un métier appartenant à un ensemble dans un secteur d'activité particulier.
-
-h2. Gestion d'un journal comptable
-Pour référencer une profession précise (lors de <<resources-employee|l'ajout d'un nouveau salarié>>), commencer par la <<resources-professions_create|créer>>. La profession crée apparaîtra dans le listing des professions. Par la suite, il vous sera possible de la modifier <<resources-profession_update|{{buttons/update.png|modifier}}>>, de la supprimer <<resources-professions_delete|{{buttons/delete.png|supprimer}}>>, sous condition qu'il n'existe aucun employé ayant cette profession.
- 

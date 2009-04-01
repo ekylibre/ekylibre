@@ -291,6 +291,16 @@ module ApplicationHelper
   end
 
 
+
+
+#  def date_field(object_name, method, options={})
+#    record = instance_variable_get('@'+object_name.to_s)
+#    hidden_field_tag(object_name.to_s+'_'+method, record.send(method))+
+#      text_field_tag(object_name.to_s+'_'+method+'_mask', nil, options.merge(:onload=>"hiddenToMask(this)"))+
+#      observe_field(object_name.to_s+'_'+method+'_mask', :function=>"date_convert(this, 'dmy', 'iso')")
+#  end
+
+
   def aclist(options={})
     code = '[EmptyAclistError]'
     if block_given?
@@ -455,10 +465,11 @@ module ApplicationHelper
           html_options[:size] = column.limit if column.limit<html_options[:size]
           html_options[:maxlength] = column.limit
         end
-        if column.type==:boolean
-          options[:field] = :checkbox
+        options[:field] = :checkbox if column.type==:boolean
+        if column.type==:date
+          options[:field] = :date 
+          html_options[:size] = 10
         end
-        html_options[:size] = 10 if column.type==:date
       end
       
       if options[:choices].is_a? Array
@@ -466,7 +477,6 @@ module ApplicationHelper
         html_options.delete :size
         html_options.delete :maxlength
       end
-      
       input = case options[:field]
               when :password
                 password_field record, method, html_options
@@ -478,9 +488,12 @@ module ApplicationHelper
                 options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label,x[0],:for=>input_id+'_'+x[1].to_s)}.join " "
               when :textarea
                 text_area record, method, :cols => 30, :rows => 3
+#              when :date
+#                date_text_field record, method, :order => [:day, :month, :year], :date_separator=>''
               else
                 text_field record, method, html_options
               end
+      #      input += content_tag(:strong, options[:field].to_s)
       if options[:field] = :select and options[:new].is_a? Hash
         label = tg(options[:new][:label]||:new)
         options[:new].delete :label

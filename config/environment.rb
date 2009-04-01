@@ -84,3 +84,10 @@ WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t('general.next
 #schemulator :column=>:company_id, :filter=>"SELECT company_id FROM all_users WHERE pid=pg_backend_pid()"
 
 
+
+
+
+#ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS[:default] = '%d/%m/%Y'
+#ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS[:default] = '%d/%m/%Y %H:%M:%S'
+
+

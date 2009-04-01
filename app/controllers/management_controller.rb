@@ -138,7 +138,7 @@ class ManagementController < ApplicationController
   
 
   
-  dyta(:products, :conditions=>:search_conditions, :empty=>true) do |t|
+  dyta(:products, :conditions=>"search_conditions(:attributes=>[:id, :name, :description, :catalog_name, :catalog_description, :comment], :key=>session[:product_key])", :empty=>true) do |t|
     t.column :number
     t.column :name, :through=>:shelf, :url=>{:action=>:shelves_display}
     t.column :name, :url=>{:action=>:products_display}
@@ -165,7 +165,7 @@ class ManagementController < ApplicationController
   def products
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key
-    products_list({:attributes=>[:id, :name, :description, :catalog_name, :catalog_description, :comment], :key=>@key}.merge(params))
+    products_list({}.merge(params))
   end
 
   def products_display

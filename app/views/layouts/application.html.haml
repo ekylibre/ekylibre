@@ -7,7 +7,7 @@
     %title='Ekylibre - '+t("controllers.#{controller.controller_name.to_s}.title")
     = stylesheet_link_tag 'application'
     = javascript_include_tag :defaults
-  %body{:id=>:body, :orient=>:vertical, :onload=>'resize();', :onresize=>'resize();'}
+  %body{:id=>:body, :orient=>:vertical, :onload=>'initTab(); resize();', :onresize=>'resize();'}
     = top_tag
     #columns{:orient=>:horizontal, :flex=>1}
       =left_tag
