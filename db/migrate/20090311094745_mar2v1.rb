@@ -16,9 +16,9 @@ class Mar2v1 < ActiveRecord::Migration
   end
   
   def self.down
-    remove_column :employees, :employee_id
-    
-    drop table :professions
+    remove_column :employees, :commercial
+    remove_column :employees, :profession_id
+    drop_table :professions
   end
   
 end
