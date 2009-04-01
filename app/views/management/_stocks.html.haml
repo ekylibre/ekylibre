@@ -12,7 +12,7 @@
       %th= tc 'current_real_quantity'
     -for @product_stock in @product_stocks
     -klass=cycle("odd","even")+" "+@product_stock.state
-      %tr{:class=>klass+' root'}
+      %tr{:class=>klass}
         %td= link_to @product_stock.product.name, :action=>:products_display, :id=>@product_stock.product_id
         %td= @product_stock.product.unit.label
         %td= @product_stock.product.weight
