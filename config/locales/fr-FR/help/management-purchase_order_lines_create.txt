@@ -7,5 +7,8 @@ h2. Le montant et la TVA
 * Si le produit n'a pas de prix déjà enregistré, l'ajout du produit à la commande entrainera la création automatique d'un nouveau prix dans la liste de prix correspondante.Vous pouvez consulter vos listes de prix et leurs différents prix dans la rubrique *Tarifs*.
 * Pour un produit dont le prix a déjà été enregistré, le montant HT et la TVA se mettent à jour automatiquement.
 
+h2. Le lieu de stockage
+* Ce champ n'apparaît que dans le cas ou vous disposez de plusieurs lieux de stockage.
+* Sélectionner le lieu de stockage permet de savoir à quel lieu de stockage seront liés les mouvements de stocks liés à cet achat. 
 
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>

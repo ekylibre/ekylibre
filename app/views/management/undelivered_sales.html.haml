@@ -9,7 +9,7 @@
         %th= tc 'amount'
         %th= tc 'amount_with_taxes'
         %th= tc 'to_deliver'   
-      -for @delivery in @deliveriesx52
+      -for @delivery in @deliveries
       -klass=cycle("odd","even")+" "+@delivery.moment.to_s
         %tr{:class=>klass+' root '}
           %td{:colspan=>2}=tc('client')+@delivery.order.client.full_name.to_s+tc('to')+@delivery.contact.address.to_s

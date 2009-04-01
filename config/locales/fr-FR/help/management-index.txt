@@ -10,7 +10,11 @@ h2. Comment gérer ses achats et ses ventes ?
 
 h2. Comment gérer ses stocks ?
 * La première étape consiste à enregistrer ses *lieux de stockage*. L'affichage d'un lieu de stockage permet d'enregistrer des *mouvements de stocks*.
-* Les mouvements de stocks permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks permettant de connaître de façon constante, en cours d'exercice, les *existants chiffrés* en quantités et en valeur.
+* Les mouvements de stocks permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks permettant de connaître de façon constante, en cours d'exercice, les *existants chiffrés* en quantités et en valeur. Les mouvements de stocks sont *créés automatiquement* lors de *ventes*, d'*achats*, de confirmation de *réception de commandes* ou d'*expédition de livraisons*. 
 
 h2. Comment paramétrer sa gestion commerciale?
-Il faut enregistrer ses *produits*, aussi bien ceux destinés a la vente que ceux destinés à l'achat. Ensuite, définir les *tarifs* de ces produits. L'enregistrement de *liste de prix* et de tarifs est *automatisée* lors de la création d'un achat.Vous avez également la possibilité de paramétrer des informations telles que les types de *délais* et les *types de vente* ou les *catégories de produits*. Autant de paramètres qui vous permettent d'affiner et de *personnaliser* votre gestion commerciale.
+Il faut enregistrer ses *produits*, aussi bien ceux destinés a la vente que ceux destinés à l'achat. Ensuite, définir les *tarifs* de ces produits.Vous avez également la possibilité de paramétrer des informations telles que les types de *délais* et les *types de vente* ou les *catégories de produits*. Autant de paramètres qui vous permettent d'affiner et de *personnaliser* votre gestion commerciale.
+
+h2. Le tableau de bord
+* Il vous permet en un coup d'oeil d'avoir accès aux événements pouvant nécessiter un traitement rapide de votre part, ou à des informations générales.
+* Il comporte également les éventuels produits pour lesquels le niveau de stock est sous le seuil minimum critique.

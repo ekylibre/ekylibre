@@ -15,3 +15,6 @@ Depuis l'accueil, vous pouvez accéder aux différents modules disponibles dans 
 * Gestion des relations Clients/Fournisseurs
 * Comptabilité générale
 * Gestion commerciale
+
+h2. Le tableau de bord 
+Il vous permet en un coup d'oeil d'avoir accès aux événements pouvant nécessiter un traitement rapide de votre part, ou à des informations générales.

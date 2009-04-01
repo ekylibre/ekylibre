@@ -98,10 +98,7 @@ class ManagementController < ApplicationController
         session[:entity_id] = 0
       end
     end
-    #raise Exception.new "        llllllllllllll"
-    #params = nil
     prices_list params
-    #raise Exception.new params.inspect
   end
   
   def prices_create
@@ -110,7 +107,6 @@ class ManagementController < ApplicationController
       @price = Price.new(params[:price])
       @price.company_id = @current_company.id
       @price.entity_id = params[:price][:entity_id]||@current_company.entity_id
-      #raise Exception.new params[:price][:entity_id].inspect+"bbb"+@current_company.entity_id.inspect
       if @price.save
         all_safe = true
         if params[:price_tax]
@@ -235,7 +231,6 @@ class ManagementController < ApplicationController
           @product_stock.product_id = @product.id
           @product_stock.company_id = @current_company.id 
         elsif !@product_stock.id.nil? and @stock_locations.size > 1
-          #raise Exception.new params[:product_stock].inspect
           @product_stock.add_or_update(params[:product_stock],@product.id)
         else
           @product_stock.update_attributes(params[:product_stock])
@@ -543,9 +538,9 @@ class ManagementController < ApplicationController
     t.column :amount, :through=>:price
     t.column :amount
     t.column :amount_with_taxes
-    t.action :sale_order_lines_update, :image=>:update
-    t.action :sale_order_lines_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :sale_order_lines_create
+    t.action :sale_order_lines_update, :image=>:update, :if=>'RECORD.order.state == "P"'
+    t.action :sale_order_lines_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.state == "P"'
+    t.procedure :sale_order_lines_create, :if=>'RECORD.order.state == "P"'
   end
 
   def sales_products
@@ -834,7 +829,7 @@ class ManagementController < ApplicationController
     if request.post?
       @payment_mode = PaymentMode.new(params[:payment_mode])
       @payment_mode.company_id = @current_company.id
-      redirect_to :back if @payment_mode.save
+      redirect_to_back if @payment_mode.save
     else
       @payment_mode = PaymentMode.new
     end
@@ -844,7 +839,7 @@ class ManagementController < ApplicationController
   def payment_modes_update
     @payment_mode = find_and_check(:payment_modes, params[:id])
     if request.post?
-      redirect_to :back if @payment_mode.update_attributes(params[:payment_mode])
+      redirect_to_back if @payment_mode.update_attributes(params[:payment_mode])
     end
     render_form
   end
@@ -852,7 +847,7 @@ class ManagementController < ApplicationController
   def payment_modes_delete
     @payment_mode = find_and_check(:payment_modes, params[:id])
     if request.post? or request.delete?
-      redirect_to :back if @payment_mode.destroy
+      redirect_to_back if @payment_mode.destroy
     end
   end
 
@@ -1143,11 +1138,12 @@ class ManagementController < ApplicationController
 
 
   def stocks
-    @product_stocks = ProductStock.find_all_by_company_id(@current_company.id) ## => affichage par défaut : tous 
+    @product_stocks = ProductStock.find_all_by_company_id(@current_company.id)## => affichage par défaut : tous 
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
     if request.post?
       #raise Exception.new params[:stock].inspect
       @product_stocks = ProductStock.find_all_by_company_id_and_location_id(@current_company.id, params[:stock][:location])
+      session[:location_id] = params[:stock][:location]
     end
   end
 

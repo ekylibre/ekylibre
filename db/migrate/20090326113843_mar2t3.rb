@@ -10,7 +10,7 @@ class Mar2t3 < ActiveRecord::Migration
     execute "INSERT INTO stock_locations(  company_id, account_id, name, created_at, updated_at)  SELECT companies.id, a.id ,'Lieu de stockage par défaut',current_timestamp, current_timestamp FROM companies LEFT JOIN accounts a ON (  a.company_id=companies.id AND a.number='3')  "
     execute "UPDATE sale_order_lines SET location_id =a.id FROM stock_locations a  WHERE a.name='Lieu de stockage par défaut' "
     execute "UPDATE purchase_order_lines SET location_id=a.id FROM stock_locations a  WHERE a.name='Lieu de stockage par défaut'"
-    #execute "UPDATE prices SET 'default' = true FROM prices WHERE id NOT IN (SELECT id FROM prices WHERE 'default' = true) "
+    execute 'UPDATE prices SET "default" = true  '
   end
 
   def self.down

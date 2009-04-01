@@ -4,4 +4,7 @@ Vous devez impérativement *saisir au moins une livraison* pour chaque vente. Si
 
 Pour chaque produit, définissez la quantité de produit à livrer pour la livraison dans le champ Quantité.
 
+La création de livraisons entraîne la création d'un rappel automatique des *livraisons en attente* pour toutes les livraisons créées (à l'exception des livraisons prévue le jour-même et de type "En main propre", auxquelles vous avez accès depuis le *tableau de bord* (Index de l'application et Index de la Gestion Commerciale) vous permettant ainsi de veiller à ce que celles-ci soient bien effectuées. Parallèlement, ceci vous permet de mettre à jour la gestion des stocks.
+
+
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>
