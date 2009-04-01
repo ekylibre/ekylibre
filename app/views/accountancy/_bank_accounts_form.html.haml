@@ -3,13 +3,13 @@
   - f.title :rib
   - f.field :bank_account, :name
   - f.field :bank_account, :mode, :field=>:radio, :choices=>BankAccount.modes  
-=formalize(:id=>:rib) do |f|
+=formalize(:id=>:bban) do |f|
   - f.field :bank_account, :bank_code  
   - f.field :bank_account, :agency_code
   - f.field :bank_account, :number
   - f.field :bank_account, :key   
 =formalize(:id=>:iban) do |f|  
-  - f.field :bank_account, :iban_label
+  - f.field :bank_account, :iban
   - f.field :bank_account, :bic
 =formalize do |f|  
   - f.title :accountancy
@@ -21,9 +21,15 @@
 =observe_field "bank_account_currency_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_currency_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'currency', :url => { :action => 'currencies_find'}, :with => "'currency=' + escape(value)")+"}"
 #journal
 =observe_field "bank_account_journal_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_journal_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'journal', :url => { :action => 'journals_find'}, :with => "'journal=' + escape(value)")+"}"
-=observe_field "bank_account_mode_iban", :frequency => 0.25, :function =>"if (element.checked) { $('iban').show(); $('rib').hide(); } else { $('rib').show(); $('iban').hide(); }"
+=observe_field "bank_account_mode_iban", :frequency => 0.25, :function =>"banToggle(element)"
 
 :javascript
-  $('bank_account_mode_iban').checked="checked";
-  $('rib').hide();
-  $('iban').show();
+  function banToggle(element) {
+    if (element.checked) { 
+      $('iban').show(); $('bban').hide();
+    } else { 
+      $('bban').show(); $('iban').hide();
+    }
+  }
+  banToggle($('bank_account_mode_iban'))
+ 

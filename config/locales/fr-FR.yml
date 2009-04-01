@@ -187,12 +187,14 @@ fr-FR:
         key: Clé RIB
         mode: Mode
         iban: IBAN
+        bban: RIB
         iban_label: IBAN
         iban_label2: IBAN
         bic: BIC
         account_id: Compte comptable référencé
         currency_id: Devise utilisée
         journal_id: Journal utilisé
+        bban_unvalid_key: 'La clé du BBAN n''est pas correcte.'
       bank_account_statement:
         started_on: Du
         stopped_on: Au
@@ -831,8 +833,11 @@ fr-FR:
       error_delete: Le compte ne peut être effacé car il contient des sous-comptes.	
       default_account_name: 'Compte comptable {{number}}'
     bank_account:
-      iban: 'Numéro de compte bancaire internationale (IBAN)'
-      rib: 'Relevé d''identité bancaire (RIB)'
+      iban: 'IBAN'
+      bban: 'Relevé d''identité bancaire (RIB)'
+      iban_length: 'La longueur de l''IBAN n''est pas correcte.'
+      iban_unvalid_key: 'La clé de l''IBAN n''est pas correcte.'
+      bban_unvalid_key: 'Un ou plusieurs éléments du RIB sont incorrects.'
     bank_account_statement:
       error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
       error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'  				   

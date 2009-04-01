@@ -15,6 +15,8 @@ fr-FR:
       messages:
         need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
         need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
+        need_financialyear_to_consult_entries: 'Vous devez avoir un exercice ouvert pour pouvoir consulter des écritures.'
+        need_journal_to_consult_entries: 'Vous devez créer un journal pour pouvoir consulter des écritures à l''intérieur.'
         need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
         no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
       create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
@@ -74,7 +76,7 @@ fr-FR:
         create: Créer un nouveau compte bancaire
       _bank_accounts_form:
         iban: 'Numéro de compte bancaire internationale (IBAN)'
-        rib: 'Relevé d''identité bancaire (RIB)'
+        rib: 'Description générale'
         accountancy: Comptabilité
         create_journal: 'Vous devez d''abord créer un journal.'
         create_account: 'Vous devez d''abord créer un compte comptable.' 

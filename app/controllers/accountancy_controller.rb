@@ -106,8 +106,9 @@
     access :bank_accounts
     @bank_account = BankAccount.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
-      @bank_account.update_attributes(params[:bank_account])
-      redirect_to :action => "bank_accounts"
+      if @bank_account.update_attributes(params[:bank_account])
+        redirect_to :action => "bank_accounts"
+      end
     end
     render_form
   end
@@ -357,18 +358,31 @@
   
     @journals = @current_company.journals
     @financialyears = @current_company.financialyears
-    
+   
+    unless @financialyears.size>0
+      flash[:message] = tc('messages.need_financialyear_to_consult_entries')
+      redirect_to :action=>:financialyears_create
+      return
+    end
+
+    unless @journals.size>0
+      flash[:message] = tc('messages.need_journal_to_consult_entries')
+      redirect_to :action=>:journals_create
+      return
+    end
+   
+
+ 
     if request.post?
       session[:entries][:journal] = params[:journal_id]
       session[:entries][:financialyear] = params[:financialyear_id]
       
     else
       session[:entries][:journal] = params[:id] 
-      session[:entries][:financialyear] = @current_company.current_financialyear.id
+      session[:entries][:financialyear] = @current_company.current_financialyear.id if @current_company.current_financialyear 
     end
 
-
-    unless session[:entries][:journal].nil?
+    unless session[:entries][:journal].nil? #or session[:entries][:financialyear].nil?
       @journal = Journal.find(session[:entries][:journal])
       @financialyear = Financialyear.find(session[:entries][:financialyear])
       entries_list #params
