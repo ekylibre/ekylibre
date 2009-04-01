@@ -76,9 +76,9 @@ class ManagementController < ApplicationController
   
   def prices_conditions(options={})
     if session[:entity_id] == 0 
-      conditions = ["company_id = ?", @current_company.id]
+      conditions = ["company_id = ? AND active = true", @current_company.id]
     else
-      conditions = ["company_id = ? AND entity_id = ? ", @current_company.id,session[:entity_id]]
+      conditions = ["company_id = ? AND entity_id = ?  AND active = true", @current_company.id,session[:entity_id]]
     end
     conditions
   end
@@ -131,14 +131,14 @@ class ManagementController < ApplicationController
   def prices_delete
     @price = find_and_check(:price, params[:id])
     if request.post? or request.delete?
-      @price.delete
+      @price.update_attributes(:active=>false)
     end
     redirect_to_back
   end
   
 
   
-  dyta(:products, :conditions=>"search_conditions(:attributes=>[:id, :name, :description, :catalog_name, :catalog_description, :comment], :key=>session[:product_key])", :empty=>true) do |t|
+  dyta(:products, :conditions=>:search_conditions, :empty=>true) do |t|
     t.column :number
     t.column :name, :through=>:shelf, :url=>{:action=>:shelves_display}
     t.column :name, :url=>{:action=>:products_display}
@@ -165,7 +165,7 @@ class ManagementController < ApplicationController
   def products
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key
-    products_list({}.merge(params))
+    products_list({:attributes=>[:id, :name, :description, :catalog_name, :catalog_description, :comment], :key=>@key}.merge(params))
   end
 
   def products_display
