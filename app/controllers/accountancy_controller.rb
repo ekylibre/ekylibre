@@ -395,7 +395,6 @@
       session[:entries] ||= {}
       session[:entries][:journal] = params[:journal_id]
       session[:entries][:financialyear] = params[:financialyear_id]
-     
       session[:entries][:records_number] = params[:number]
       redirect_to :action => :entries
     end
@@ -403,7 +402,6 @@
   
   # This method allows to enter the accountancy records with a form.
   def entries
-   
     session[:entries] ||= {}
     session[:entries][:records_number] ||= 5
     @records=[]
