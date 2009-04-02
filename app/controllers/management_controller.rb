@@ -6,7 +6,7 @@ class ManagementController < ApplicationController
      @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
     @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})
     all_product_stocks = ProductStock.find(:all, :conditions=>{:company_id=>@current_company.id})
-    # @stock_locations = @current_company.stock_locations
+    @stock_locations = @current_company.stock_locations
     @product_stocks = []
     for product_stock in all_product_stocks
       @product_stocks << product_stock if product_stock.state == "critic"
@@ -631,6 +631,7 @@ class ManagementController < ApplicationController
   end
 
   def sale_order_lines_update
+    @stock_locations = @current_company.stock_locations
     @sale_order_line = find_and_check(:sale_order_line, params[:id])
     if request.post?
       params[:sale_order_line].delete(:company_id)
@@ -1136,15 +1137,36 @@ class ManagementController < ApplicationController
     end
   end
 
+  dyta(:product_stocks, :conditions=>:stocks_conditions, :line_class=>'RECORD.state') do |t|
+    t.column :name, :through=>:product
+    t.column :weight, :through=>:product, :label=>"Poids"
+    t.column :quantity_max
+    t.column :quantity_min
+    t.column :critic_quantity_min
+    t.column :current_virtual_quantity
+    t.column :current_real_quantity
+  end
+  
 
-  def stocks
-    @product_stocks = ProductStock.find_all_by_company_id(@current_company.id)## => affichage par défaut : tous 
-    @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
-    if request.post?
-      #raise Exception.new params[:stock].inspect
-      @product_stocks = ProductStock.find_all_by_company_id_and_location_id(@current_company.id, params[:stock][:location])
-      session[:location_id] = params[:stock][:location]
-    end
+  def stocks_conditions(options={})
+    conditions = {}
+    conditions[:company_id] = @current_company.id
+    conditions[:location_id] = session[:location_id] if !session[:location_id].nil?
+    conditions
   end
 
+  def stocks
+    @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
+    if @stock_locations.size == 0
+      flash[:warning]=tc('no_stock_location')
+      redirect_to_back
+    else
+      if request.post?
+        session[:location_id] = params[:product_stock][:location_id]
+      end
+      @product_stock = ProductStock.new(:location_id=>session[:location_id]||StockLocation.find(:first, :conditions=>{:company_id=>@current_company.id} ).id)
+      product_stocks_list 
+    end
+  end
+  
 end

@@ -193,7 +193,7 @@ module Ekylibre
             code += "    reset_cycle('dyta')\n"
             code += "    body = ''\n"
             code += "    for "+record+" in @"+name.to_s+"\n"
-            code += "      body += content_tag(:tr, ("+body+"), :class=>'data '+cycle('odd','even', :name=>'dyta')  )\n"
+            code += "      body += content_tag(:tr, ("+body+"), :class=>'data '+cycle('odd','even', :name=>'dyta')"+(options[:line_class].blank? ? '' : '+" "+('+options[:line_class].gsub(/RECORD/,record)+')')+")\n"
             code += "    end\n"
             code += "    text = header+content_tag(:tbody,body)\n"
             code += "  else\n"
@@ -219,7 +219,7 @@ module Ekylibre
             ActionView::Base.send :class_eval, code
 
             # Finish
-            # puts code
+            puts code
           end
 
           def value_image(value)

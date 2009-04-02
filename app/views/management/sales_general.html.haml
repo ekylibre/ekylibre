@@ -17,5 +17,5 @@
     - f.field :sale_order, :conclusion, :field=>:textarea
   .actions
     =submit_tag tg :next
-=javascript_tag("function update_contacts(value) {new Ajax.Request('/management/sales_contacts', {asynchronous:true, evalScripts:true, parameters:'client_id=' + encodeURIComponent(value), onSuccess: function(resp) {$('sale_order_contact_id').update(resp.responseText); $('sale_order_delivery_contact_id').update(resp.responseText); $('sale_order_invoice_contact_id').update(resp.responseText);  }  }); }; /*update_contacts($('sale_order_client_id').value); */")
+=javascript_tag("function update_contacts(value) {new Ajax.Request('#{url_for(:controller=>:management, :action => :sales_contacts)}', {asynchronous:true, evalScripts:true, parameters:'client_id=' + encodeURIComponent(value), onSuccess: function(resp) {$('sale_order_contact_id').update(resp.responseText); $('sale_order_delivery_contact_id').update(resp.responseText); $('sale_order_invoice_contact_id').update(resp.responseText);  }  }); }; /*update_contacts($('sale_order_client_id').value); */")
 =observe_field "sale_order_client_id", :url=>{:action => :sales_contacts}, :frequency => 0.25, :function=>"update_contacts(value)"

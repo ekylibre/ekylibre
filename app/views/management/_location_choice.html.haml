@@ -1,5 +1,5 @@
 -form_tag do
   -if @stock_locations.size > 1
     .actions
-      = tc('select_stock_location'), select(:stock, :location, @stock_locations.collect{|x| [x.name, x.id]})
+      = tc('select_stock_location'), select(:product_stock, :location_id, @stock_locations.collect{|x| [x.name, x.id]})
       = submit_tag(tg('filter'), :action=>:undelivered_sales)

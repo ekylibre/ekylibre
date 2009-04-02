@@ -393,7 +393,10 @@ fr-FR:
         without_stocks: Ne nécessite pas de gestion de stocks
       product_stock: 
         critic_quantity_min: Quantité minimum critique
+        current_real_quantity: Stock réel
+        current_virtual_quantity: Stock virtuel
         location_id: Pour le lieu de stockage
+        product_id: Produit
         quantity_max: Quantité maximum
         quantity_min: Quantité minimum
       profession:

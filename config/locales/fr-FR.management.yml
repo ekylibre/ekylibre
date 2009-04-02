@@ -4,6 +4,7 @@ fr-FR:
       title: Commerce
       delays:
         delays_create: 'Ajouter un nouveau délai'
+      error_sale_order_already_paid: 'La vente a déjà été payée en totalité'
       payment_modes:
         payment_modes_create: 'Créer un nouveau type de paiement'
       payment_parts:
@@ -245,6 +246,8 @@ fr-FR:
         title: Types de ventes
       sale_order_lines_create:
         title: "Ajout d'une ligne de produit"
+      sale_order_lines_update:
+        title: "Modifier une ligne de produit"
       sale_order_natures_create:
         title: "Ajout d'un type de vente"
       sale_order_natures_update:
@@ -267,7 +270,7 @@ fr-FR:
         catalog: Description pour catalogue
       shelves_update:
         title: 'Ajout d''une nouvelle catégorie de produits'
-      _stocks:
+      _stock_indicator:
         critic_stock_min: Stock minimum critique
         current_real_quantity: Quantité réelle
         current_virtual_quantity: Quantité virtuelle
