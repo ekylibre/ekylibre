@@ -52,7 +52,7 @@
      t.procedure :create, :action=>:statements_create
    end
    
-   dyta(:entries, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN journal_periods p ON p.id=r.period_id INNER JOIN journals j ON j.id=p.journal_id", :conditions=>['entries.company_id=? AND j.id=? AND p.id=?', ['@current_company.id'], ['session[:entries][:journal]'], ['session[:entries][:financialyear]'] ]) do |t|
+   dyta(:entries, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN journal_periods p ON p.id=r.period_id INNER JOIN journals j ON j.id=p.journal_id", :conditions=>['entries.company_id=? AND j.id=? AND p.id=?', ['@current_company.id'], ['session[:entries][:journal].to_i'], ['session[:entries][:financialyear].to_i'] ]) do |t|
      t.column :number, :label=>"Numéro", :through=>:record
      t.column :created_on, :label=>"Crée le", :through=>:record
      t.column :printed_on, :label=>"Saisie le", :through=>:record
@@ -382,7 +382,9 @@
 
     unless session[:entries][:journal].nil? #or session[:entries][:financialyear].nil?
       @journal = Journal.find(session[:entries][:journal])
+     puts @journal.inspect
       @financialyear = Financialyear.find(session[:entries][:financialyear])
+      puts @financialyear.inspect
       entries_list #params
     end
    
