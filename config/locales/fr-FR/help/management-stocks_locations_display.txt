@@ -2,6 +2,8 @@ h1. Détails d'un lieu de stockage :
 
 Vous avez accès au récapitulatif de toutes les informations concernant votre lieu de stockage.Les *mouvements de stocks* permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks permettant de connaître de façon constante, en cours d'exercice, les existants chiffrés en quantités et en valeur.
 
+Lors de *ventes*, *d'achats*, d'*expeditions de livraisons*, de *réception d'achats*, des mouvements de stocks sont *créés automatiquement*.
+
 Vous pouvez également : 
 * ajouter un mouvement de stock 
 * le modifier : <<management-stocks_moves_update|{{buttons/update.png|modifier}}>> 
@@ -9,3 +11,4 @@ Vous pouvez également :
 
 
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>
+ 

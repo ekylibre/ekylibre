@@ -11,5 +11,4 @@ Vous avez également la possibilité de :
 Vous ne pouvez pas supprimer une option de liste déroulante.
 
 
-
 <<relations-index|Revenir à l'aide de gestion des relations >>

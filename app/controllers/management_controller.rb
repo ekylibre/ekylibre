@@ -3,7 +3,7 @@ class ManagementController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
 
   def index
-     @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
+    @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
     @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})
     all_product_stocks = ProductStock.find(:all, :conditions=>{:company_id=>@current_company.id})
     @stock_locations = @current_company.stock_locations
@@ -11,7 +11,6 @@ class ManagementController < ApplicationController
     for product_stock in all_product_stocks
       @product_stocks << product_stock if product_stock.state == "critic"
     end
-    #raise Exception.new @product_stocks.inspect
   end
 
   dyta(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -43,7 +42,7 @@ class ManagementController < ApplicationController
       @delay = Delay.new
     end
     render_form
-  end
+  end 
 
   def delays_update
     @delay = find_and_check(:delay, params[:id])
@@ -345,26 +344,31 @@ class ManagementController < ApplicationController
 
 
   def purchase_order_lines_create
-    @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
-    @price = Price.new
-    if request.post?
-      @purchase_order_line = @current_company.purchase_order_lines.find(:first, :conditions=>{:price_id=>params[:purchase_order_line][:price_id], :order_id=>session[:current_purchase]})
-      if @purchase_order_line
-        @purchase_order_line.quantity += params[:purchase_order_line][:quantity].to_d
-      else
-        @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
-        @purchase_order_line.company_id = @current_company.id
-        @purchase_order_line.order_id = session[:current_purchase]      
-        price = find_and_check(:price, params[:purchase_order_line][:price_id]).change(params[:price][:amount], params[:price][:tax_id])
-        @purchase_order_line.product_id = price.product_id
-        @purchase_order_line.price_id = price.id
-      end
-      redirect_to :action=>:purchases_products, :id=>session[:current_purchase] if @purchase_order_line.save
+    @stock_locations = @current_company.stock_locations
+    if @stock_locations.empty?
+      flash[:warning]=tc(:need_stock_location_to_create_purchase_order_line)
+      redirect_to :action=>:stocks_locations_create
     else
-      @purchase_order_line = PurchaseOrderLine.new
-      @purchase_order_line.order_id = session[:current_purchase] 
+      @price = Price.new
+      if request.post?
+        @purchase_order_line = @current_company.purchase_order_lines.find(:first, :conditions=>{:price_id=>params[:purchase_order_line][:price_id], :order_id=>session[:current_purchase]})
+        if @purchase_order_line
+          @purchase_order_line.quantity += params[:purchase_order_line][:quantity].to_d
+        else
+          @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
+          @purchase_order_line.company_id = @current_company.id
+          @purchase_order_line.order_id = session[:current_purchase]      
+          price = find_and_check(:price, params[:purchase_order_line][:price_id]).change(params[:price][:amount], params[:price][:tax_id])
+          @purchase_order_line.product_id = price.product_id
+          @purchase_order_line.price_id = price.id
+        end
+        redirect_to :action=>:purchases_products, :id=>session[:current_purchase] if @purchase_order_line.save
+      else
+        @purchase_order_line = PurchaseOrderLine.new
+        @purchase_order_line.order_id = session[:current_purchase] 
+      end
+      render_form
     end
-    render_form
   end
   
   def purchase_order_lines_update
@@ -391,7 +395,7 @@ class ManagementController < ApplicationController
   
   dyta(:sale_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number, :url=>{:action=>:sales_products}
-    t.column :name, :through=>:nature, :url=>{:action=>:sale_order_natures_display}
+    t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_natures_display}
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entities_display}
     t.column :state
     t.column :amount
@@ -1159,7 +1163,7 @@ class ManagementController < ApplicationController
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
     if @stock_locations.size == 0
       flash[:warning]=tc('no_stock_location')
-      redirect_to_back
+      redirect_to :action=>:stocks_locations_create
     else
       if request.post?
         session[:location_id] = params[:product_stock][:location_id]

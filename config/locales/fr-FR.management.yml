@@ -5,6 +5,7 @@ fr-FR:
       delays:
         delays_create: 'Ajouter un nouveau délai'
       error_sale_order_already_paid: 'La vente a déjà été payée en totalité'
+      no_stock_location: 'Veuillez créer un lieu de stockage'
       payment_modes:
         payment_modes_create: 'Créer un nouveau type de paiement'
       payment_parts:
@@ -31,6 +32,7 @@ fr-FR:
         stocks_moves_create: Ajouter un mouvement de stock
       need_stocks_location_to_create_products: 'Vous devez créer un lieu de stockage pour pouvoir créer un produit'
       need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
+      need_stock_location_to_create_purchase_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser un achat'
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'

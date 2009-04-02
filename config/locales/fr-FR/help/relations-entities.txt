@@ -11,7 +11,7 @@ Une fois votre recherche effectuée, vous avez accès à un tableau vous récapi
 La liste des colonnes du tableau n'est actuellement pas paramétrable.
 
 Vous pouvez :
-* créer une nouvelle fiche 
+* créer une nouvelle fiche  
 * l'afficher :  <<relations-entities_display|{{buttons/show.png|afficher}}>>
 * la modifier : <<relations-entities_update|{{buttons/update.png|modifier}}>> 
 * la supprimer : {{buttons/delete.png|supprimer}}
