@@ -371,8 +371,6 @@
       return
     end
    
-
- 
     if request.post?
       session[:entries][:journal] = params[:journal_id]
       session[:entries][:financialyear] = params[:financialyear_id]
@@ -397,7 +395,7 @@
       session[:entries] ||= {}
       session[:entries][:journal] = params[:journal_id]
       session[:entries][:financialyear] = params[:financialyear_id]
-      session[:entries][:financialyearb] = session[:entries][:financialyear]
+     
       session[:entries][:records_number] = params[:number]
       redirect_to :action => :entries
     end
@@ -405,6 +403,7 @@
   
   # This method allows to enter the accountancy records with a form.
   def entries
+   
     session[:entries] ||= {}
     session[:entries][:records_number] ||= 5
     @records=[]
@@ -427,8 +426,7 @@
       redirect_to :action=>:journals_create
       return
     end
-    
-    
+        
     if @valid
       @record = JournalRecord.new
       if request.post?
