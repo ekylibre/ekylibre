@@ -131,6 +131,8 @@ fr-FR:
         number_records: 'Nombre des dernières pièces à afficher'
         update_params: 'Changer de journal et/ou d''exercice...'
       entries_consult:
+        all_financialyears: '--- Tous les exercices comptables ---'
+        all_journals: '--- Tous les journaux ---'
         title: Consultation des écritures
         subtitle: 'Ecritures de l''exercice {{financialyear}} pour le journal {{journal}}'
         journal_x: '{{name}} (clôturé le {{closed_on}})'  	

@@ -21,7 +21,7 @@
     t.action :journals_update, :image=>:update
     t.action :journals_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.action :journals_close
-    t.action :entries_consult
+    t.action :entries_consult, :image=>:table
     t.procedure :create, :action=>:journals_create
   end
   
@@ -52,7 +52,7 @@
      t.procedure :create, :action=>:statements_create
    end
    
-   dyta(:entries, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN journal_periods p ON p.id=r.period_id INNER JOIN journals j ON j.id=p.journal_id", :conditions=>['entries.company_id=? AND j.id=? AND p.id=?', ['@current_company.id'], ['session[:entries][:journal].to_i'], ['session[:entries][:financialyear].to_i'] ]) do |t|
+   dyta(:entries, :conditions=>:entries_conditions, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN journal_periods p ON p.id=r.period_id") do |t|
      t.column :number, :label=>"Numéro", :through=>:record
      t.column :created_on, :label=>"Crée le", :through=>:record
      t.column :printed_on, :label=>"Saisie le", :through=>:record
@@ -314,7 +314,7 @@
     access :financialyears
     @financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
     if @financialyears.empty? 
-      flash[:message]=lc(:create_financialyear_before_close)
+      flash[:message]=tc(:create_financialyear_before_close)
       redirect_to :action => :financialyears_create
     end
     @financialyear = Financialyear.find :first
@@ -352,42 +352,68 @@
   end
 
 
+  def entries_conditions(options)
+    conditions = ["entries.company_id=?", @current_company_id]
+    unless session[:journal_period][:journal_id].blank?
+      journal = @current_company.journals.find(:first, :conditions=>{:id=>session[:journal_period][:journal_id]})
+      if journal
+        conditions[0] += " AND p.journal_id=?"
+        conditions << journal.id
+      end
+    end
+    unless session[:journal_period][:financialyear_id].blank?
+      financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:journal_period][:financialyear_id]||0})
+      if financialyear
+        conditions[0] += " AND p.financialyear_id=?"
+        conditions << financialyear.id
+      end
+    end
+    conditions
+  end
+
+
   # this action displays all entries stored in the journal. 
   def entries_consult
-    session[:entries] ||= {}
+    session[:journal_period] ||= {}
+    #     session[:entries] ||= {}
+    @journal_period = JournalPeriod.new(params[:journal_period])
   
     @journals = @current_company.journals
     @financialyears = @current_company.financialyears
    
-    unless @financialyears.size>0
-      flash[:message] = tc('messages.need_financialyear_to_consult_entries')
-      redirect_to :action=>:financialyears_create
-      return
-    end
-
-    unless @journals.size>0
-      flash[:message] = tc('messages.need_journal_to_consult_entries')
-      redirect_to :action=>:journals_create
-      return
-    end
-   
     if request.post?
-      session[:entries][:journal] = params[:journal_id]
-      session[:entries][:financialyear] = params[:financialyear_id]
-      
-    else
-      session[:entries][:journal] = params[:id] 
-      session[:entries][:financialyear] = @current_company.current_financialyear.id if @current_company.current_financialyear 
+      session[:journal_period] = params[:journal_period]
     end
 
-    unless session[:entries][:journal].nil? #or session[:entries][:financialyear].nil?
-      @journal = Journal.find(session[:entries][:journal])
-     puts @journal.inspect
-      @financialyear = Financialyear.find(session[:entries][:financialyear])
-      puts @financialyear.inspect
-      entries_list #params
-    end
+#     unless @financialyears.size>0
+#       flash[:message] = tc('messages.need_financialyear_to_consult_entries')
+#       redirect_to :action=>:financialyears_create
+#       return
+#     end
+
+#     unless @journals.size>0
+#       flash[:message] = tc('messages.need_journal_to_consult_entries')
+#       redirect_to :action=>:journals_create
+#       return
+#     end
    
+#     if request.post?
+#       session[:entries][:journal] = params[:journal_id]
+#       session[:entries][:financialyear] = params[:financialyear_id]
+      
+#     else
+#       session[:entries][:journal] = params[:id] 
+#       session[:entries][:financialyear] = @current_company.current_financialyear.id if @current_company.current_financialyear 
+#     end
+
+#     unless session[:entries][:journal].nil? #or session[:entries][:financialyear].nil?
+#       @journal = Journal.find(session[:entries][:journal])
+#      puts @journal.inspect
+#       @financialyear = Financialyear.find(session[:entries][:financialyear])
+#       puts @financialyear.inspect
+#       entries_list #params
+#     end
+    entries_list
   end
   
 
@@ -442,7 +468,7 @@
       elsif request.delete?
         @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
         if @entry.close?
-          flash[:message]=lc(:messages, :need_unclosed_entry_to_delete)
+          flash[:message]=tc(:messages, :need_unclosed_entry_to_delete)
         else
           Entry.delete(@entry)
         end
@@ -455,11 +481,12 @@
       periods.each do |period|
         @records << @journal.last_records(period.id, session[:entries][:records_number].to_i)
       end  
+#      @records = @journal.last_records(period.id, session[:entries][:records_number].to_i)
       @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
-      @record = JournalRecord.new if @record.nil?
+      @record = JournalRecord.new(params[:record]) if @record.nil?
       if @record.new_record?
         @record.number = @records.size>0 ? @records.first.number.succ : 1
-        @record.created_on = @record.printed_on = Date.today
+        @record.created_on ||= @record.printed_on ||= Date.today
       end
       
       render :action => "entries.rjs" if request.xhr?
@@ -523,7 +550,7 @@
     if request.post? or request.delete?
       @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id)  
       if @journal.periods.size > 0
-        flash[:message]=lc(:messages, :need_empty_journal_to_delete)
+        flash[:message]=tc(:messages, :need_empty_journal_to_delete)
         @journal.update_attribute(:deleted, true)
       else
         Journal.delete(@journal)
@@ -539,7 +566,7 @@
     @journal_periods = []
     @journals= @current_company.journals 
     if @journals.empty?
-      flash[:message]=lc(:create_journal_before_close)
+      flash[:message]=tc(:create_journal_before_close)
       redirect_to :action => :journals_create
     end
     if params[:id]  
@@ -558,7 +585,7 @@
       @journal = Journal.find_by_id_and_company_id(params[:journal][:id], @current_company.id)
       
       if @journal.nil?
-        flash[:error] = lc(:unavailable_journal)
+        flash[:error] = tc(:unavailable_journal)
       end  
       
       if @journal.close(params[:journal][:closed_on])

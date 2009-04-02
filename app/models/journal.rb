@@ -81,7 +81,7 @@ class Journal < ActiveRecord::Base
   
   # this method creates a period with a record.
   def create_record(financialyear, values = {})
-    period = self.periods.find(:first, :conditions=>['company_id = ? AND financialyear_id = ? AND ?::date BETWEEN started_on AND stopped_on', self.company_id, financialyear, values[:created_on].to_i ])
+    period = self.periods.find(:first, :conditions=>['company_id = ? AND financialyear_id = ? AND ? BETWEEN started_on AND stopped_on', self.company_id, financialyear, values[:created_on]])
     puts 'p:'+period.to_s
     period = self.periods.create!(:company_id=>self.company_id, :financialyear_id=> financialyear, :started_on=>values[:created_on]) if period.nil?
     record = JournalRecord.find(:first,:conditions=>{:period_id => period.id, :number => values[:number]}) 
@@ -91,11 +91,11 @@ class Journal < ActiveRecord::Base
 
   
   # this method searches the last records according to a number.  
-  def last_records(period, number_record=nil)
-    number_record=:all unless number_record
-    records = JournalRecord.find(:all, :conditions=>['journal_id = ? AND company_id = ? AND period_id = ?', self.id, self.company_id, period], :order => "lpad(number,20,'0') DESC", :limit => number_record)
-
-    return records
+  def last_records(period, number_record=:all)
+#    records = period.journal_records.find(:all, ['journal_id = ? AND company_id = ? AND period_id = ?', self.id, self.company_id, period], :order => "lpad(number,20,'0') DESC", :limit => number_record)
+#    records = JournalRecord.find(:all, :conditions=>['journal_id = ? AND company_id = ? AND period_id = ?', self.id, self.company_id, period], :order => "lpad(number,20,'0') DESC", :limit => number_record)
+#    return records
+    period.journal_records.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_record)
   end
 
   #

@@ -1,15 +1,25 @@
-=@entries.inspect
--if @journals
-  - form_tag(:action => :entries_consult) do
+.aclist
+  - form_tag do
     =formalize do |f|
-      - f.field tc(:select_journal), select_tag("journal_id", options_for_select(@journals.collect{|j| [tc(:journal_x, :name=>j.name, :closed_on=>j.closed_on.to_s), j.id]}, session[:entries][:journal].to_i))
-      - f.field tc(:select_financialyear), select_tag("financialyear_id", options_for_select(@financialyears.collect{|j| [j.code.to_s, j.id.to_s]}, session[:entries][:financialyear].to_s))
+      - f.field :journal_period, :journal_id, :choices=>@journals.collect{|j| [tc(:journal_x, :name=>j.name, :closed_on=>j.closed_on.to_s), j.id]}, :options=>{:include_blank=>tc(:all_journals)}
+      - f.field :journal_period, :financialyear_id, :choices=>@financialyears.collect{|x| [x.code, x.id]}, :options=>{:include_blank=>tc(:all_financialyears)}
     .actions
       =submit_tag tg('apply')
-  %hr
-  %h1=tc(:subtitle, :journal=>@journal.name, :financialyear=>@financialyear.code) if @journal
-  -unless session[:entries][:journal].nil? or session[:entries][:financialyear].nil?
-    =dyta(:entries)
+=dyta(:entries)
+
+
+/=@entries.inspect
+/-if @journals
+/  - form_tag(:action => :entries_consult) do
+/    =formalize do |f|
+/      - f.field tc(:select_journal), select_tag("journal_id", options_for_select(@journals.collect{|j| [tc(:journal_x, :name=>j.name, :closed_on=>j.closed_on.to_s), j.id]}, session[:entries][:journal].to_i))
+/      - f.field tc(:select_financialyear), select_tag("financialyear_id", options_for_select(@financialyears.collect{|j| [j.code.to_s, j.id.to_s]}, session[:entries][:financialyear].to_s))
+/    .actions
+/      =submit_tag tg('apply')
+/  %hr
+/  %h1=tc(:subtitle, :journal=>@journal.name, :financialyear=>@financialyear.code) if @journal
+/  -unless session[:entries][:journal].nil? or session[:entries][:financialyear].nil?
+/    =dyta(:entries)
 
 
 

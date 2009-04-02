@@ -334,6 +334,9 @@ fr-FR:
         id: Journal
         name: Nom
         nature: Nature
+      journal_period:
+        journal_id: Journal
+        financialyear_id: Exercice
       payment: 
         account_id: Compte associé 
         amount: Montant
