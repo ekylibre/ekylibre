@@ -33,6 +33,7 @@ class AuthenticationController < ApplicationController
   end
   
   def register
+    redirect_to_login if defined?(Ekylibre::DONT_REGISTER)
     if request.post?
       if session[:company_id].nil?
         @company = Company.new(params[:company])

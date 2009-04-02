@@ -140,8 +140,8 @@ module Ekylibre
               header += "+\n      " unless header.blank?
               header += "content_tag(:th, '"+h(column.header).gsub('\'','\\\\\'')+" '"
               unless column.action? or column.options[:through]
-                header += "+link_to_remote("+value_image(:down2)+", {:update=>'"+name.to_s+"', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>'asc', :page=>params[:page]}}, {:class=>'sort'})"
-                header += "+link_to_remote("+value_image(:up2) +", {:update=>'"+name.to_s+"', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>'desc', :page=>params[:page]}}, {:class=>'sort'})"
+                header += "+link_to_remote("+value_image(:up2)+", {:update=>'"+name.to_s+"', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>'asc', :page=>params[:page]}}, {:class=>'sort'})"
+                header += "+link_to_remote("+value_image(:down2) +", {:update=>'"+name.to_s+"', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>'desc', :page=>params[:page]}}, {:class=>'sort'})"
               end
               header += ", :class=>'"+(column.action? ? 'act' : 'col')+"')"
               body   += "+\n        " unless body.blank?
