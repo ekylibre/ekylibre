@@ -294,9 +294,9 @@ class ManagementController < ApplicationController
     t.column :amount, :through=>:price
     t.column :amount
     t.column :amount_with_taxes
-    t.action :purchase_order_lines_update, :image=>:update
-    t.action :purchase_order_lines_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :purchase_order_lines_create
+    t.action :purchase_order_lines_update, :image=>:update, :if=>'RECORD.order.shipped == false'
+    t.action :purchase_order_lines_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.shipped == false'
+    t.procedure :purchase_order_lines_create, :if=>'RECORD.order.shipped == false'
   end
 
   def purchases_products
