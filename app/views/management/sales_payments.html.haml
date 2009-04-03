@@ -6,7 +6,7 @@
 - form_tag do
   .actions
     =link_to tg(:previous), :action=>:sales_invoices, :id=>@sale_order.id
-    =submit_tag(tc('close_sale'), :action=>:sales_close)
+    =#submit_tag(tc('close_sale'), :action=>:sales_close)
 
 
 %h2=tc :financial_state
@@ -50,9 +50,13 @@
   .total
     %tr
       %th{:colspan=>2}=tc :invoices_total
-      %td{:colspan=>1, :style=>"border-right: solid 1px red;"}= @invoices_sum
+      %td{:colspan=>1, :style=>"font-weight:bold; border-right: solid 1px red;"}= @invoices_sum
       %th{:colspan=>2}=tc :payments_total
-      %td{:colspan=>1}= @payments_sum
+      %td{:colspan=>1, :style=>"font-weight:bold;"}= @payments_sum
 
-.balance
-  %h3=tc(:rest_to_pay)+" : "+(@invoices_sum - @payments_sum).to_s
+
+.total
+  %table.dyta
+    %tr
+      %th=tc(:rest_to_pay)
+      %td=(@invoices_sum - @payments_sum)

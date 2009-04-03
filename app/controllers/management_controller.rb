@@ -118,11 +118,15 @@ class ManagementController < ApplicationController
         redirect_to_back
       end
     else
+      #raise Exception.new params.inspect
       if @current_company.available_products.size<=0
         flash[:message] = tc('messages.need_product_to_create_price')
         redirect_to :action=> :products_create
+      elsif !params[:product_id].nil?
+        @price = Price.new(:product_id=>params[:product_id])
+      else
+        @price = Price.new 
       end
-      @price = Price.new
     end
     render_form    
   end
@@ -150,15 +154,15 @@ class ManagementController < ApplicationController
     t.procedure :new_product, :action=>:products_create
   end
   
-  dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['@product.id'], :active=>true}, :model=>:prices) do |t|
+  dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}, :model=>:prices) do |t|
     t.column :name, :through=>:entity
     t.column :amount
     t.column :amount_with_taxes
     t.column :default
     t.column :range
     t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :sales_prices_create,     :action=>:prices_create, :mode=>:sales
-    t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases
+    t.procedure :sales_prices_create,     :action=>:prices_create, :mode=>:sales, :product_id=>['session[:product_id]']
+    t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases, :product_id=>['session[:product_id]']
   end
 
   def products
@@ -169,6 +173,7 @@ class ManagementController < ApplicationController
 
   def products_display
     @product = find_and_check(:product, params[:id])
+    session[:product_id] = @product.id
     product_prices_list params
     @title = {:value=>@product.name}
   end
@@ -176,7 +181,7 @@ class ManagementController < ApplicationController
   def change_quantities
     @location = ProductStock.find(:first, :conditions=>{:location_id=>params[:product_stock_location_id], :company_id=>@current_company.id, :product_id=>session[:product_id]} ) 
     if @location.nil?
-      @location = ProductStock.new(:quantity_min=>0, :quantity_max=>0, :critic_quantity_min=>1)
+      @location = ProductStock.new(:quantity_min=>1, :quantity_max=>0, :critic_quantity_min=>0)
     end
   end
 
@@ -304,7 +309,6 @@ class ManagementController < ApplicationController
     session[:current_purchase] = @purchase_order.id
     purchase_order_lines_list params
     if request.post?
-      #raise Exception.new params.inspect
       @purchase_order.stocks_moves_create
       @purchase_order.change_quantity(true,true)
       @purchase_order.update_attributes(:shipped=>true)
@@ -316,7 +320,6 @@ class ManagementController < ApplicationController
     if !params[:purchase_order_line_price_id].blank?
       price = find_and_check(:price, params[:purchase_order_line_price_id])
       @price_amount = Price.find_by_id(price.id).amount
-     # @tax_id =
       if price.tax.amount == 0.0210
         @tax_id = 1
       elsif price.tax.amount == 0.0550
@@ -324,7 +327,6 @@ class ManagementController < ApplicationController
       else 
         @tax_id = 3
       end
-      puts @tax_id.inspect+",,,,,,,,,,,,,,,,,,,,,"+@price_amount.inspect
     else
       @price_amount = 0 
       @tax_id = 3
@@ -345,9 +347,13 @@ class ManagementController < ApplicationController
 
   def purchase_order_lines_create
     @stock_locations = @current_company.stock_locations
+    @purchase_order = PurchaseOrder.find_by_id_and_company_id(session[:current_purchase], @current_company.id)
     if @stock_locations.empty?
       flash[:warning]=tc(:need_stock_location_to_create_purchase_order_line)
       redirect_to :action=>:stocks_locations_create
+    elsif @purchase_order.shipped == true
+      flash[:warning]=tc(:impossible_to_add_lines_to_purchase)
+      redirect_to :action=>:purchases_products, :id=>@purchase_order.id
     else
       @price = Price.new
       if request.post?
@@ -463,9 +469,6 @@ class ManagementController < ApplicationController
 
 
 
-
-
-
   def sales_contacts
     client_id = params[:client_id]||(params[:sale_order]||{})[:client_id]||session[:current_entity]
     client_id = 0 if client_id.blank?
@@ -550,10 +553,7 @@ class ManagementController < ApplicationController
   def sales_products
     @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
-    #session[:current_list_id] = @sale_order.list_id
-    
     @stock_locations = @current_company.stock_locations
-    # raise Exception.new @stock_locations.inspect
     @entity = @sale_order.client
     sale_order_lines_list params
     if request.post?
@@ -561,7 +561,6 @@ class ManagementController < ApplicationController
         flash[:warning]=tc('sale_order_already_ordered')
       else
         @sale_order.update_attribute(:state, 'D') if @sale_order.state == 'P'
-        #raise Exception.new @sale_order.lines.inspect
         @sale_order.stocks_moves_create
         @sale_order.change_quantity(true, false)
       end
@@ -582,37 +581,16 @@ class ManagementController < ApplicationController
     end
   end
 
-#   def sale_order_lines_create
-#     if request.post? 
-#       @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:product_id=>params[:sale_order_line][:product_id], :order_id=>session[:current_sale_order]})
-
-
-#     if !@sale_order_line
-#       @sale_order_line = SaleOrderLine.new(params[:sale_order_line])
-#       @sale_order_line.company_id = @current_company.id
-#       @sale_order_line.order_id = session[:current_sale_order]
-#       params[:price][:product_id] = params[:purchase_order_line][:product_id]
-#       @price = @purchase_order_line.order.list.update_price(params[:price][:product_id],params[:price][:amount].to_d, params[:price][:tax_id])
-#       calculate_price(false)
-#     else
-#       @price = @sale_order_line.order.list.update_price(params[:purchase_order_line][:product_id],params[:price][:amount].to_d, params[:price][:tax_id])
-#       calculate_price(true)
-#     end
-#       @sale_order_line.price_id = @price.id
-#       redirect_to_back if @sale_order_line.save
-#     else
-#       @sale_order_line = SaleOrderLine.new
-#     end
-#     render_form
-#   end
-
-
 
   def sale_order_lines_create
     @stock_locations = @current_company.stock_locations
-    if @stock_locations.empty?
+    @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
+    if @stock_locations.empty? 
       flash[:warning]=tc(:need_stock_location_to_create_sale_order_line)
       redirect_to :action=>:stocks_locations_create
+    elsif @sale_order.state == 'D'
+      flash[:warning]=tc(:impossible_to_add_lines)
+      redirect_to :action=>:sales_products, :id=>@sale_order.id
     else
       if request.post? 
         @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
@@ -836,7 +814,7 @@ class ManagementController < ApplicationController
       @payment_mode.company_id = @current_company.id
       redirect_to_back if @payment_mode.save
     else
-      @payment_mode = PaymentMode.new
+      @payment_mode = PaymentMode.new(:mode=>"other")
     end
     render_form
   end
@@ -879,6 +857,7 @@ class ManagementController < ApplicationController
     payment_parts_list params
   end
  
+
   def payments_create
     @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
     if @sale_order.rest_to_pay <= 0
@@ -901,6 +880,13 @@ class ManagementController < ApplicationController
         redirect_to :action=>:sales_payments, :id=>@sale_order.id
       else
         @payment = Payment.new
+       #  mode = PaymentMode.find(:first, :conditions=>{:company_id=>@current_company.id})
+#         if !mode.nil?
+#           @payment = Payment.new(:mode_id=>mode.id)
+#           @check_infos = true if mode.mode == "check"
+#         else
+#           @payment = Payment.new
+#         end
       end
       @title = {:value=>@sale_order.number}
       render_form
@@ -1046,7 +1032,13 @@ class ManagementController < ApplicationController
     if request.post? 
       @stock_location = StockLocation.new(params[:stock_location])
       @stock_location.company_id = @current_company.id
-      redirect_to :action =>:stocks_locations_display, :id=>@stock_location.id if @stock_location.save
+      if @stock_location.save
+        if session[:history][1].to_s.include? "stocks" 
+          redirect_to :action=>:stocks_locations_display, :id=>@stock_location.id
+        else
+          redirect_to_back
+        end
+      end
     else
       @stock_location = StockLocation.new
     end

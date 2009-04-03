@@ -1,16 +1,19 @@
 -if @update != true
   .payments
     %ul
-      %li
-        -form_tag do
-          -for mode in @modes
-            =radio_button(:price, :mode , mode, :checked=>( mode=="new" ? true : false))+"&nbsp;"+content_tag(:label, tc(mode), :for=>'price_mode_'+mode)
+      -form_tag do
+        -for mode in @modes
+          =radio_button(:price, :mode , mode, :checked=>( mode=="new" ? true : false))+"&nbsp;"+content_tag(:label, tc(mode), :for=>'price_mode_'+mode)
 =formalize(:id=>:new_payment) do |f|
   -f.error :payment
   -f.title :title
   -f.field :payment, :amount
   -f.field :payment, :paid_on
   -f.field :payment, :mode_id, :choices=>PaymentMode.find(:all,:conditions=>{:company_id=>@current_company.id}).collect{|x| [x.name, x.id ]}, :new=>{:action=>:payment_modes_create}
+  -f.title :check
+  -f.field :payment, :check_number
+  -f.field :payment, :account_number
+  -f.field :payment, :bank
 
 -if @update != true  
   .paymentpart
@@ -28,5 +31,7 @@
       $('new_payment').hide();
          } 
   }
+
+    
   payment_type();
 =observe_field "price_mode_new", :function=>"payment_type();", :frequency => 0.25

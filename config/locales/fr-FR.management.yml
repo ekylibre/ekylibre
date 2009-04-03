@@ -30,6 +30,8 @@ fr-FR:
         stocks_locations_create: Ajouter un nouveau lieu de stockage
       stock_moves:
         stocks_moves_create: Ajouter un mouvement de stock
+      impossible_to_add_lines: 'Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande'
+      impossible_to_add_lines_to_purchase: 'Vous ne pouvez plus ajouter de produits à votre achat'
       need_stocks_location_to_create_products: 'Vous devez créer un lieu de stockage pour pouvoir créer un produit'
       need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
       need_stock_location_to_create_purchase_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser un achat'
@@ -104,6 +106,7 @@ fr-FR:
         title: 'Modifier un paiement '
       _payments_form:
         title: 'Renseignez les conditions du réglement '
+        check: 'Pour les paiements de type chèque'
         new: 'Créer un nouveau réglement'
         existing_part: 'Utiliser un réglement non affecté'
       payment_modes:
@@ -276,6 +279,7 @@ fr-FR:
         critic_stock_min: Stock minimum critique
         current_real_quantity: Quantité réelle
         current_virtual_quantity: Quantité virtuelle
+        location: Lieu de stockage
         name: Nom
         select_stock_location: 'Sélectionnez un lieu de stockage'
         stock_min: Stock minimum

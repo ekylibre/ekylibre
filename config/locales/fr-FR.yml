@@ -339,11 +339,15 @@ fr-FR:
         financialyear_id: Exercice
       payment: 
         account_id: Compte associé 
+        account_number: Numéro de compte
         amount: Montant
+        bank: Banque
+        check_number: Numéro de chèque
         mode_id: Mode de paiement
         paid_on: Réglé le 
       payment_mode:
         account_id: Compte associé
+        mode: Mode
         name: Nom 
       payment_part:
         amount: Montant
@@ -954,6 +958,10 @@ fr-FR:
       error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus ajouter de pièces.' 
       error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
       error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
+    payment_mode:
+      modes:
+        check: Chèque
+        other: Autre
     price:
       error_range_overlap: 'L''intervalle de quantité en chevauche un autre (de {{min}} à {{max}})'
       error_already_defined: 'Un prix a déjà été défini pour cette liste de prix et ce produit'

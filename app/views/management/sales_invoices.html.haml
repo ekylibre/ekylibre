@@ -40,11 +40,6 @@
     .invoice
       =submit_tag(tc('to_invoice'), :action=>:sales_invoices)
 
--else
-  -form_tag do
-    .invoice
-      =submit_tag(tc('to_invoice'), :action=>:sales_invoices)
-
 
 .actions
   =link_to tg(:previous), :action=>:sales_deliveries , :id=>@sale_order.id

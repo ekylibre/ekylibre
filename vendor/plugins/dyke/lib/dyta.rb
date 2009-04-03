@@ -219,7 +219,7 @@ module Ekylibre
             ActionView::Base.send :class_eval, code
 
             # Finish
-            puts code
+           # puts code
           end
 
           def value_image(value)

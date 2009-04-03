@@ -17,8 +17,8 @@ div[xul="box"] { background: #ADA; }
 /*table.entries { border-collapse: collapse; }*/
 .stocks { padding: 5px 0 15px 0; }
 .paymentpart{ text-align:center; padding: 5px 0 5px 0; }
-.payments { text-align:center }
-.invoice { text-align:center;  padding:10px 0px 10px 0; font-size:15px;  background: #FF3300; margin: 20px 600px 20px 600px; }
+.payments { text-align:center ; color:#000088;}
+.invoice { text-align:center;  padding:10px 0; font-size:15px; width: 200px;  background: #C87; border:5px solid red; margin: 20px auto; }
 .entity { text-align:right; }
 /*#lines { height: 300px; overflow: auto; }*/
 #top { /*border-bottom: 1px solid #C9D7F1;*/ height: 24px; }

@@ -2,6 +2,8 @@
   %table.dyta
     %tr
       %th= tc 'name'
+      - if @stock_locations.size > 1
+        %th= tc 'location'
       %th= tc 'weight'
       %th= tc 'stock_max'
       %th= tc 'stock_min'
@@ -12,6 +14,8 @@
     -klass=cycle("odd","even")+" "+@product_stock.state
       %tr{:class=>klass}
         %td= link_to @product_stock.product.name, :action=>:products_display, :id=>@product_stock.product_id
+        - if @stock_locations.size > 1
+          %td= @product_stock.location.name
         %td= @product_stock.product.weight
         %td= @product_stock.quantity_max
         %td= @product_stock.quantity_min

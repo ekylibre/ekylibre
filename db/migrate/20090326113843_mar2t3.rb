@@ -14,7 +14,7 @@ class Mar2t3 < ActiveRecord::Migration
   end
 
   def self.down
-    #remove_column :prices, :default
+    remove_column :prices, :default
     remove_column :stock_moves, :generated
     remove_column :purchase_order_lines, :location_id
     remove_column :purchase_orders, :moved_on
