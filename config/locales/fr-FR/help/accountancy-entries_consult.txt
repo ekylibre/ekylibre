@@ -1,7 +1,6 @@
 h1. Consulter des écritures
 
 
-
 h2. Choisir son journal et son exercice
 Sélectionner l'exercice comptable et le journal dont vous souhaitez consulter les écritures pour l'exercice choisi. Dans le cas où vous sélectionner le journal depuis <<accountancy-journals|le listing des journaux>>, celui-ci est automatiquement pris en compte dans le formulaire. De plus, l'exercice comptable considéré par défaut est toujours le dernier exercice non encore clôturé. 
 

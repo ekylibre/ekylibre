@@ -118,7 +118,7 @@ module Ekylibre
           hf_id, tf_id = determine_field_ids(options)
           determine_tag_options(hf_id, tf_id, options, tag_options)
           determine_completion_options(hf_id, options, completion_options)
-          
+          #raise Exception.new(completion_options[:after_update_element].inspect)
           return <<-HTML
        #{dyli_complete_stylesheet unless completion_options[:skip_style]}    
        #{hidden_field_tag(hf_name, hf_value, :id => hf_id)}
@@ -213,8 +213,8 @@ module Ekylibre
                                    end
           
           # if the user presses the button return to validate his choice from the list of completion. 
-          unless options[:submit_on_return]
-            tag_options[:onkeypress] = 'if (event.keyCode == Event.KEY_RETURN) {'+
+           unless options[:submit_on_return]
+            tag_options[:onkeypress] = 'if (event.keyCode == Event.KEY_RETURN && '+options[:resize].to_s+') {'+
               'this.size = (this.dyli.length > 128 ? 128 : this.dyli.length);'+
               'this.value = this.dyli; }'
           end
@@ -232,11 +232,20 @@ module Ekylibre
           var model_id = /#{options[:regexp_for_id]}/.exec(value.id)[1];
           $("#{hf_id}").value = model_id;
           element.dyli = document.getElementById('record_'+model_id).value;
-          element.size = (element.dyli.length > 128 ? 128 : element.dyli.length);
-          (#{options[:after_update_element]})(element, value, $("#{hf_id}"), model_id);
-         
-       }
-    JS
+          JS
+        
+          
+          if options[:resize]
+            completion_options[:after_update_element] += <<-JS.gsub(/\s+/, ' ')
+             element.size = (element.dyli.length > 128 ? 128 : element.dyli.length);               
+             JS
+          end
+ 
+          completion_options[:after_update_element] += <<-JS.gsub(/\s+/, ' ')
+            (#{options[:after_update_element]})(element, value, $("#{hf_id}"), model_id);
+            }
+            JS
+          
           
           # :url has higher priority than :action and :controller.
           completion_options[:url] = options[:url] || url_for(

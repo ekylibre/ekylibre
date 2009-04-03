@@ -73,8 +73,10 @@
     t.procedure :create, :action=>:financialyears_create
   end
 
+  dyli(:account_search, :attributes=>[:number, :name], :model=>:account)
   
-  #
+
+   #
   def index
   
   end
@@ -353,7 +355,7 @@
 
 
   def entries_conditions(options)
-    conditions = ["entries.company_id=?", @current_company_id]
+    conditions = ["entries.company_id=?", @current_company.id]
     unless session[:journal_period][:journal_id].blank?
       journal = @current_company.journals.find(:first, :conditions=>{:id=>session[:journal_period][:journal_id]})
       if journal
@@ -414,6 +416,7 @@
 #       entries_list #params
 #     end
     entries_list
+    #raise Exception.new(@entries.inspect)
   end
   
 
@@ -479,7 +482,7 @@
       
       periods = @journal.periods.find(:all,:conditions=>['financialyear_id=?',session[:entries][:financialyear]])
       periods.each do |period|
-        @records << @journal.last_records(period.id, session[:entries][:records_number].to_i)
+        @records << @journal.last_records(period, session[:entries][:records_number].to_i)
       end  
 #      @records = @journal.last_records(period.id, session[:entries][:records_number].to_i)
       @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
