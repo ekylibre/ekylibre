@@ -5,16 +5,6 @@ td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:focus { color:#00C; }
 a:hover { color: #000; }
 input[type="text"], input[type="password"], textarea, select { border:1px solid #aaa; background: #fff;}
-/*
-body { background: #ADA; behaviour:url(css/csshover.htc);}
-[xul] { overflow: auto; }
-div[xul="hbox"] > div, [orient="horizontal"] > div { float:left; }
-div[xul="splitter"] { background:#777; border:none; padding:2px; }
-div[xul="hbox"] { background: #CDF; }
-div[xul="vbox"] { background: #FDC; }
-div[xul="box"] { background: #ADA; }
-*/
-/*table.entries { border-collapse: collapse; }*/
 .stocks { padding: 5px 0 15px 0; }
 .paymentpart{ text-align:center; padding: 5px 0 5px 0; }
 .payments { text-align:center ; color:#000088;}
@@ -103,69 +93,12 @@ div[xul="box"] { background: #ADA; }
 
 .avis { padding: 10px 10px 30px 10px; text-align:center; margin-top:40px; border:0.1px solid black; font-weight:bold; border-right:none; border-left:none; }
 
-/*
-#test  { text-align:center; border: 0.5px solid; margin-left:50px;}
-#updatebutton { padding:0px 0 10px 200px; margin-top:50px; font-weight: bold; font-size:20px; }
-#changepwd { padding:20px 0 0 90px; }
-#userslist { text-align:center; padding:5px 0 5px 0; font-weight:bold; }
-#getback { text-align: left; padding: 5px 0 8px 50px; }
-
-#tit { font-weight: bold; padding:8px 0 0 0; font-size:20px; }
-#name { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px;  margin-right:1200px; margin-left: 100px;}
-#siren {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-right:1200px; margin-left: 100px; }
-#code {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-right:1200px; margin-left: 100px; }
-#estab {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-right:1200px; margin-left: 100px; }
-#depart{  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px;  margin-right:1200px; margin-left: 100px;}
-#use { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-bottom:30px; margin-right:1200px; margin-left: 100px;  }
-
-#titlep { text-align: center; font-weight:bold; font-size:30px; }
-#titlesearch  { text-align: center; font-weight:bold; font-size:30px; }
-#tit { font-weight: bold; padding:8px 0 0 0; font-size:20px; }
-#name { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
-#siren {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px;  border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
-#code {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
-#estab {  border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
-#depart{  border:0.3px solid; padding:5px 0 5px 0;  margin-top:10px; border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
-#use { border:0.3px solid; padding:5px 0 5px 0; margin-top:10px; margin-bottom:15px;  border-left:none; border-right:none; margin-left:50px; margin-right: 900px; }
-#dytae { margin-top: 20px; }
-#entlist { margin-top: 20px; text-align:center; font-weight:bold; font-size:30px; }
-.result { border:1px solid; margin-top:30px; margin-left:140px; margin-right:60px; margin-bottom:30px; padding:10px 5px 10px 5px; width:70% }
-td.result {  padding:15px 15px 15px 15px;  border-collapse: collapse; text-align:center;}
-table.document th { font-size:20px; padding:20px 0 20px 30px; text-align:left;  }
-table.document td { font-size:15px; }
-
-*/
-
-/*
-.menu a:hover { text-decoration:none;}
-.menu > ul { margin:0 0 0 4px; }
-.menu > ul > li { float:left; list-style-type:none; margin-top: 0px; padding:0px 7px 0px; text-decoration:none; background:white; position:relative; border: 1px solid transparent;}
-.menu > ul > li > a { text-decoration:underline; color:#00C;}
-.menu > ul > li > ul { position:absolute; z-index:4000; background:white; display:none; margin:5px 4px 4px -8px; width:8em; border:1px solid #C9D7F1 ; border-top:none; padding:0 8px 0 0;}
-.menu > ul > li > ul > li {width:100%; padding:4px; float:left; text-decoration:none; position:relative; list-style-type:none; } 
-.menu > ul > li > ul > li > a { width:100%; color:#00C; display:block; padding:0 0 0 3px; text-decoration:none;}
-.menu > ul > li > ul > li:hover { background-color:#C9D7F1; }
-.menu > ul > li:hover > ul, .menu > ul > li > ul:hover {display:block;}
-.menu > ul > li:hover { background:white; border: 1px solid #C9D7F1; border-bottom:none; height:25px;}
-*/
 .clearfix:after { content: "."; display:block; height:0; clear: both; visibility: hidden; }
 /* backslash hack hides from IE mac \*/
 * html .clearfix { height: 1%; }
 .clearfix { display: block; }
 /* end backslash hack*/
 
-
-/*
-#side > div { background: #BFB; margin: 2px 2px 8px; border:2px solid #BFB; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; }
-#side > div > div { background: #FFF }
-#side > div > h2 { font-weight:normal; padding: 0px 0px 2px; } 
-#side > div * { font-size: 11px; color: #111; }
-*/
-/*
-a.guide:link, a.guide:visited, a.guide:hover{ color: white; font-size:18px; }
-a.guide { float: left; }
-a.guide > div { width: 220px; height:58px; background: url(../images/template/guide.png) no-repeat top left; text-align:center; padding: 180px 18px 18px; }
-*/
 table.invex, table.invisible { border-collapse: collapse; }
 table.invex, table.flex { width: 100% }
 
@@ -225,6 +158,9 @@ table.formalize a.fastadd { margin: 0px 8px; }
 .actions a:link, .actions a:visited, .actions a:hover { color:#080;}
 
 .invalid { border: 1px solid red !important; background: #FDD !important; }
+
+
+a.procedure.create {padding-left: 20px; background: url(../images/buttons/create.png) no-repeat center left;}
 
 
 h3.dyta {padding:4px;color: #139; font-size: 16px; }
