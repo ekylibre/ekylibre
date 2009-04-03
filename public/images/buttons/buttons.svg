@@ -4855,7 +4855,7 @@
        inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/center.png" />
     <path
        sodipodi:type="star"
-       style="opacity:0.50151056999999999;fill:#333366;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4.60504532000000033;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.24420000000000019;stroke-opacity:0.53191456999999998"
+       style="opacity:0.50151056;fill:#333366;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4.60504532;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.2442;stroke-opacity:0.53191457"
        id="up3"
        sodipodi:sides="3"
        sodipodi:cx="196.25"
@@ -4868,7 +4868,7 @@
        inkscape:rounded="0"
        inkscape:randomized="0"
        d="M 207.1875,16 L 180.93021,8.4096529 L 200.63229,-10.534653 L 207.1875,16 z"
-       transform="matrix(0.2631802,-0.1462836,-0.2541557,-0.1522944,196.52011,53.744848)"
+       transform="matrix(0.2631802,-0.1462836,-0.2541557,-0.1522944,196.52011,51.744848)"
        inkscape:label="#path3009"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
