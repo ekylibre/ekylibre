@@ -204,6 +204,7 @@ fr-FR:
         deliveries: Livraisons
         estimate_to_order: Passer le devis en commande
         lines: Lignes du devis
+        sale_order_line_create: Ajouter un produit au devis
         sales_print: Imprimer le devis
         title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
         total: Total

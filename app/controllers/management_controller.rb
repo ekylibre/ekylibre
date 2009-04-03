@@ -538,7 +538,7 @@ class ManagementController < ApplicationController
 #     @title = {:client=>@entity.full_name}
 #   end
 
-  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@sale_order.id']}, :empty=>true) do |t|
+  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :empty=>true) do |t|
     t.column :name, :through=>:product
     t.column :quantity
     t.column :label, :through=>:unit
@@ -547,7 +547,7 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.action :sale_order_lines_update, :image=>:update, :if=>'RECORD.order.state == "P"'
     t.action :sale_order_lines_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.state == "P"'
-    t.procedure :sale_order_lines_create, :if=>'RECORD.order.state == "P"'
+    #t.procedure :sale_order_lines_create, :if=>'RECORD.order.state == "P"'
   end
 
   def sales_products
