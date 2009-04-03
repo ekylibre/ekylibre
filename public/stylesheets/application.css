@@ -5,6 +5,7 @@ td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:focus { color:#00C; }
 a:hover { color: #000; }
 input[type="text"], input[type="password"], textarea, select { border:1px solid #aaa; background: #fff;}
+.procedure {padding-left: 20px; background: url(../images/buttons/create.png) no-repeat center left ; padding:4px; background: #FEB;}
 .stocks { padding: 5px 0 15px 0; }
 .paymentpart{ text-align:center; padding: 5px 0 5px 0; }
 .payments { text-align:center ; color:#000088;}

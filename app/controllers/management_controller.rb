@@ -292,7 +292,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@purchase_order.id']}, :empty=>true) do |t|
+  dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_purchase]']}, :empty=>true) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:products_display}
     t.column :quantity
     t.column :label, :through=>:unit
@@ -301,7 +301,7 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.action :purchase_order_lines_update, :image=>:update, :if=>'RECORD.order.shipped == false'
     t.action :purchase_order_lines_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.shipped == false'
-    t.procedure :purchase_order_lines_create, :if=>'RECORD.order.shipped == false'
+    #t.procedure :purchase_order_lines_create, :if=>'RECORD.order.shipped == false'
   end
 
   def purchases_products
