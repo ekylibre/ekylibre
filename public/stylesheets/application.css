@@ -167,7 +167,7 @@ a.procedure.create {padding-left: 20px; background: url(../images/buttons/create
 h3.dyta {padding:4px;color: #139; font-size: 16px; }
 table.dyta { border-collapse: collapse; width: 100%; border-bottom: 1px solid #BACFE6;}
 table.dyta th { background: #e9f3fe url(../images/template/table_head.png) repeat-x bottom; padding:2px 3px; color: #336; font-weight: bold; font-size:13px; text-align:left; }
-table.dyta th.sorted { background: #C9D3E2 url(../images/template/table_head_sorted.png) ;}
+table.dyta th.sorted { background: #C9D3E2 url(../images/template/table_head_sorted.png) repeat-x bottom; padding:2px 3px; color: #336; font-weight: bold; font-size:13px; text-align:left;}
 table.dyta tr.odd  td {background: #E1E6FF;}
 table.dyta tr.even td {background: #F0F2FF;}
 table.dyta tr.root td { font-weight: bold; }
