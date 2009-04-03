@@ -130,11 +130,11 @@
 
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
-    if params[:sort].blank?
-      params[:sort]="number"
-      params[:dir] ="asc"
-    end
-    accounts_list params
+#    if params['sort'].blank?
+#      params['sort']="number"
+#      params['dir'] ="asc"
+#    end
+    accounts_list 'sort'=>"number", 'dir'=>'asc'
   end
   
   

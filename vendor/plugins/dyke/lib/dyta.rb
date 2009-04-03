@@ -83,10 +83,11 @@ module Ekylibre
 
             # code += "hide_action :"+name.to_s+"_list\n"
             code += "def "+name.to_s+"_list(options={})\n"
-            code += "  options = (params||{}).merge options\n"
+            code += "  options = (params||{}).merge(options)\n"
+#            code += "  raise Exception.new(options.inspect)\n"
             code += "  order = nil\n"
             code += "  unless options['sort'].blank?\n"
-            code += "    options[:dir] ||= 'asc'\n"
+            code += "    options['dir'] ||= 'asc'\n"
             code += "    order  = options['sort']\n"
             code += "    order += options['dir']=='desc' ? ' DESC' : ' ASC'\n"
             code += "  end\n"
@@ -128,7 +129,7 @@ module Ekylibre
             paginate_var = 'pages'
             paginate = case options[:pagination]
                        when :will_paginate then 
-                         '  '+paginate_var+"=will_paginate(@"+name.to_s+", :renderer=>'RemoteLinkRenderer', :remote=>{:update=>'"+name.to_s+"'}, :params=>{:sort=>params['sort'], :dir=>params['dir']} )\n  "+
+                         '  '+paginate_var+"=will_paginate(@"+name.to_s+", :renderer=>'RemoteLinkRenderer', :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{:sort=>params['sort'], :dir=>params['dir']} )\n  "+
                            paginate_var+"='"+content_tag(:tr, content_tag(:td, "'+"+paginate_var+"+'", :class=>:paginate, :colspan=>definition.columns.size))+"' unless "+paginate_var+".nil?\n"
                        else
                          ''
@@ -197,6 +198,7 @@ module Ekylibre
 
             #code += "hide_action :"+tag_method_name+"\n"
             code  = "def "+tag_method_name+"(options={})\n"
+#            code += "  raise Exception.new(options.inspect)\n"
             code += "  @"+name.to_s+"=@"+name.to_s+"||{}\n"
             code += "  if @"+name.to_s+".size>0\n"
             code += sorter
