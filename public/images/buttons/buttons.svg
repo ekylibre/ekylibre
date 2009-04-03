@@ -4309,7 +4309,7 @@
        inkscape:label="#show"
        inkscape:export-xdpi="90.000023"
        inkscape:export-ydpi="90.000023"
-       transform="matrix(0.666656,0,0,0.667507,-80.00312,-32.05579)">
+       transform="matrix(0.6657065,0,0,0.667762,-79.8129,-32.06736)">
       <path
          transform="matrix(0.941758,0,0,0.960033,-13.06204,1.440451)"
          sodipodi:open="true"
@@ -4321,13 +4321,13 @@
          sodipodi:cy="61"
          sodipodi:cx="230.5"
          id="path3505"
-         style="opacity:0.9;fill:#e27f1d;fill-opacity:1;fill-rule:nonzero;stroke:#a64e28;stroke-width:1.49988496;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         style="opacity:0.9;fill:#e27f1d;fill-opacity:1;fill-rule:nonzero;stroke:#a64e28;stroke-width:1.50066769;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
          sodipodi:type="arc" />
       <path
          sodipodi:nodetypes="ccccccc"
          id="path3507"
-         d="M 198.93754,65.21346 C 198.81572,66.611642 199.08211,67.665196 201.18758,67.0861 L 210.31261,61.622762 C 212.50231,60.552052 212.05909,58.969338 210.31261,58.219327 L 201.37508,53.289516 C 199.2613,52.304819 198.89214,53.49812 198.75004,54.974892 L 198.93754,65.21346 z "
-         style="opacity:0.9;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#a64e28;stroke-width:1.49906751;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+         d="M 198.93754,65.21346 C 198.81572,66.611642 199.08211,67.665196 201.18758,67.0861 L 210.31261,61.622762 C 212.50231,60.552052 212.05909,58.969338 210.31261,58.219327 L 201.37508,53.289516 C 199.2613,52.304819 198.89214,53.49812 198.75004,54.974892 L 198.93754,65.21346 z"
+         style="opacity:0.9;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#a64e28;stroke-width:1.4998498;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
     <g
        id="g12241"
@@ -4796,17 +4796,18 @@
        id="g3782"
        inkscape:export-filename="/home/brice/dev/ekylibre/trunk/ekylibre/public/images/buttons/waiting.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-ydpi="90"
+       transform="matrix(0.9966656,0,0,0.9965667,0.6662304,8.229808e-2)">
       <path
          sodipodi:nodetypes="cczcczc"
          id="path2988"
          d="M 192.47556,31.52594 L 207.52559,31.52594 C 207.57731,26.059402 201.87783,25.913633 201.91168,23.985186 C 201.94553,22.056739 207.40059,22 207.52559,16.47406 L 192.47556,16.47406 C 192.55891,22.279835 197.98344,22.169748 197.98113,23.985186 C 197.9788,25.800624 192.64976,26 192.47556,31.52594 z"
-         style="fill:url(#linearGradient3778);fill-rule:evenodd;stroke:#2f5ad6;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1" />
+         style="fill:url(#linearGradient3778);fill-opacity:1;fill-rule:evenodd;stroke:#2f5ad6;stroke-width:1.0033952;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <path
          sodipodi:nodetypes="ccccccccc"
          id="path3780"
          d="M 195.5,31.0625 L 199.3125,29 C 199.06243,27.270833 199.96522,25.291667 198.5,23.5625 L 194.6875,20.625 C 198.3125,19.954606 201.625,20.047262 205.25,20.875 C 204.03214,21.823803 202.07513,22.033465 201.625,23.75 C 200.09163,25.458333 200.83876,27.166667 200.5,28.875 L 204.25,31 L 195.5,31.0625 z"
-         style="fill:#ffd637;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1;opacity:0.7184466" />
+         style="opacity:0.71844662;fill:#ffd637;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     </g>
     <path
        sodipodi:type="star"
@@ -4832,5 +4833,45 @@
        d="M 48,-10.428388 C 48,-10.428388 53.99258,-16.138246 56.96281,-15.997438 C 59.768804,-15.864415 64,-10 64,-10 C 64,-10 59.584733,-12.82438 56.96281,-12.855923 C 54.565337,-12.884765 48,-10.428388 48,-10.428388 z"
        id="path3781"
        sodipodi:nodetypes="cscsc" />
+    <path
+       sodipodi:type="star"
+       style="opacity:0.50151056999999999;fill:#333366;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4.60504532000000033;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.24420000000000019;stroke-opacity:0.53191456999999998"
+       id="down3"
+       sodipodi:sides="3"
+       sodipodi:cx="196.25"
+       sodipodi:cy="4.625"
+       sodipodi:r1="15.780353"
+       sodipodi:r2="7.8901763"
+       sodipodi:arg1="0.80500349"
+       sodipodi:arg2="-2.0742343"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 207.1875,16 L 180.93021,8.4096529 L 200.63229,-10.534653 L 207.1875,16 z"
+       transform="matrix(0.2631801,0.1462837,-0.2541558,0.1522944,196.52013,-1.7448549)"
+       inkscape:label="#path3005"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/center.png" />
+    <path
+       sodipodi:type="star"
+       style="opacity:0.50151056999999999;fill:#333366;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4.60504532000000033;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.24420000000000019;stroke-opacity:0.53191456999999998"
+       id="up3"
+       sodipodi:sides="3"
+       sodipodi:cx="196.25"
+       sodipodi:cy="4.625"
+       sodipodi:r1="15.780353"
+       sodipodi:r2="7.8901763"
+       sodipodi:arg1="0.80500349"
+       sodipodi:arg2="-2.0742343"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 207.1875,16 L 180.93021,8.4096529 L 200.63229,-10.534653 L 207.1875,16 z"
+       transform="matrix(0.2631802,-0.1462836,-0.2541557,-0.1522944,196.52011,53.744848)"
+       inkscape:label="#path3009"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/center.png" />
   </g>
 </svg>

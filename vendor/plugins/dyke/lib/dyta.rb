@@ -86,6 +86,7 @@ module Ekylibre
             code += "  options = (params||{}).merge options\n"
             code += "  order = nil\n"
             code += "  unless options['sort'].blank?\n"
+            code += "    options[:dir] ||= 'asc'\n"
             code += "    order  = options['sort']\n"
             code += "    order += options['dir']=='desc' ? ' DESC' : ' ASC'\n"
             code += "  end\n"
@@ -127,7 +128,7 @@ module Ekylibre
             paginate_var = 'pages'
             paginate = case options[:pagination]
                        when :will_paginate then 
-                         paginate_var+"=will_paginate(@"+name.to_s+", :renderer=>'RemoteLinkRenderer', :remote=>{:update=>'"+name.to_s+"'}, :params=>{:sort=>params['sort'], :dir=>params['dir']} )\n"+
+                         '  '+paginate_var+"=will_paginate(@"+name.to_s+", :renderer=>'RemoteLinkRenderer', :remote=>{:update=>'"+name.to_s+"'}, :params=>{:sort=>params['sort'], :dir=>params['dir']} )\n  "+
                            paginate_var+"='"+content_tag(:tr, content_tag(:td, "'+"+paginate_var+"+'", :class=>:paginate, :colspan=>definition.columns.size))+"' unless "+paginate_var+".nil?\n"
                        else
                          ''
@@ -136,14 +137,23 @@ module Ekylibre
             record = 'r'
             header = ''
             body = ''
+            sorter  = "    sort = options['sort']\n"
+            sorter += "    dir = options['dir']\n"
+
             for column in definition.columns
               header += "+\n      " unless header.blank?
-              header += "content_tag(:th, '"+h(column.header).gsub('\'','\\\\\'')+" '"
+              header_title = "'"+h(column.header).gsub('\'','\\\\\'')+"'"
+              column_sort = ''
+#              header_title = "content_tag(:div, '"+h(column.header).gsub('\'','\\\\\'')+"')"
               unless column.action? or column.options[:through]
-                header += "+link_to_remote("+value_image(:up2)+", {:update=>'"+name.to_s+"', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>'asc', :page=>params[:page]}}, {:class=>'sort'})"
-                header += "+link_to_remote("+value_image(:down2) +", {:update=>'"+name.to_s+"', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>'desc', :page=>params[:page]}}, {:class=>'sort'})"
+                # sorter += "    dir_"+column.name.to_s+"=(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc')\n"
+                # header += "dir = (sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc')\n"
+                header_title = "link_to_remote("+header_title+", {:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>params[:page]}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
+                column_sort = "+(sort=='"+column.name.to_s+"' ? ' sorted' : '')"
+#                header += "+link_to_remote("+value_image(:up2)+", {:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>'asc', :page=>params[:page]}}, {:class=>'sort'})"
+#                header += "+link_to_remote("+value_image(:down2) +", {:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>'desc', :page=>params[:page]}}, {:class=>'sort'})"
               end
-              header += ", :class=>'"+(column.action? ? 'act' : 'col')+"')"
+              header += "content_tag(:th, "+header_title+", :class=>'"+(column.action? ? 'act' : 'col')+"'"+column_sort+")"
               body   += "+\n        " unless body.blank?
               case column.nature
               when :column
@@ -173,7 +183,7 @@ module Ekylibre
                   css_class += ' color'
                   style = "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
                 end
-                body += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"
+                body += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"+column_sort
                 body += ", :style=>'"+style+"'" unless style.blank?
                 body += ")"
               when :action
@@ -189,6 +199,7 @@ module Ekylibre
             code  = "def "+tag_method_name+"(options={})\n"
             code += "  @"+name.to_s+"=@"+name.to_s+"||{}\n"
             code += "  if @"+name.to_s+".size>0\n"
+            code += sorter
             code += "    header = "+header+"\n"
             code += "    reset_cycle('dyta')\n"
             code += "    body = ''\n"

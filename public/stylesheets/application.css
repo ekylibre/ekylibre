@@ -229,14 +229,17 @@ table.formalize a.fastadd { margin: 0px 8px; }
 
 h3.dyta {padding:4px;color: #139; font-size: 16px; }
 table.dyta { border-collapse: collapse; width: 100%; border-bottom: 1px solid #BACFE6;}
-table.dyta th { background: #e9f3fe url(../images/template/table_head.png) repeat-x bottom; padding:2px; color: #336; font-weight: bold; font-size:13px;}
+table.dyta th { background: #e9f3fe url(../images/template/table_head.png) repeat-x bottom; padding:2px 3px; color: #336; font-weight: bold; font-size:13px; text-align:left; }
+table.dyta th.sorted { background: #C9D3E2 url(../images/template/table_head_sorted.png) ;}
 table.dyta tr.odd  td {background: #E1E6FF;}
 table.dyta tr.even td {background: #F0F2FF;}
 table.dyta tr.root td { font-weight: bold; }
 table.dyta tr      td {padding: 0px 2px;color: #007;}
 table.dyta tr      td.act { padding: 1px; width:16px;}
-table.dyta tr.odd  td.act { background: #FDD; }
-table.dyta tr.even td.act { background: #FED; }
+table.dyta tr.odd  td.act { background: #E5D9DD; } /* #FDD; }*/
+table.dyta tr.even td.act { background: #F2E4DD; } /*#FED; }*/
+table.dyta tr.odd  td.sorted { background: #d6dbf9; } /* #FDD; }*/
+table.dyta tr.even td.sorted { background: #e4e7f9; } /*#FED; }*/
 table.dyta td.procedures { padding:4px; background: #FEB; }
 table.dyta td.procedures > a {padding: 4px;}
 table.dyta td.procedures > a.procedure.create {padding-left: 20px; background: url(../images/buttons/create.png) no-repeat center left;}
@@ -251,7 +254,14 @@ table.dyta td.paginate div.pagination span.disabled { color: #888; }
 table.dyta tr      td.decimal { text-align: right; }
 table.dyta tr      td.date { text-align: center; }
 table.dyta tr      td.web { text-align: center; }
-table.dyta th .sort { float: right; }
+/*table.dyta th .sort { widths: 100%; }
+table.dyta th .sort div { widths: 100%; }*/
+table.dyta th a.sort { display:block; width: 100%; text-decoration:none; padding: 1px; color: #336; }
+table.dyta th a.sort:active { padding:2px 0 0 2px;}
+table.dyta th a.sort.unsorted { background: url(../images/buttons/center.png) right center no-repeat; }
+table.dyta th a.sort.desc { background: url(../images/buttons/down3.png) right center no-repeat; }
+table.dyta th a.sort.asc { background: url(../images/buttons/up3.png) right center no-repeat; }
+table.dyta th a.sort { display:block; width: 100%;}
 table.dyta tr.details td { padding: 8px; text-align:center;}
 table.dyta tr.details td.comment { padding: 10px; font-size:15px; }
 .avindex {margin-top:30px;  padding: 10px 0 10px 0; }

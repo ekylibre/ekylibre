@@ -343,7 +343,7 @@
        xlink:href="#linearGradient3201"
        id="linearGradient3343"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.5,0,0,1,61.267847,5.00009)"
+       gradientTransform="matrix(0.5,0,0,1,63.267847,5.000105)"
        x1="122.03571"
        y1="315.93359"
        x2="122.03571"
@@ -437,6 +437,16 @@
        y1="320.93362"
        x2="390.28571"
        y2="288.93362" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3331"
+       id="linearGradient3274"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.5,0,0,1,68.267848,0.12503)"
+       x1="106.03571"
+       y1="320.80859"
+       x2="106.03571"
+       y2="300.80859" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -446,8 +456,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="4"
-     inkscape:cx="72.24898"
-     inkscape:cy="440"
+     inkscape:cx="114.36121"
+     inkscape:cy="220"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -581,6 +591,13 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
+       style="opacity:1;fill:#0f193f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3276"
+       width="2.375"
+       height="24.9375"
+       x="120.59821"
+       y="296.12109" />
+    <rect
        style="opacity:1;fill:url(#linearGradient2418);fill-opacity:1.0;fill-rule:nonzero;stroke:none;stroke-width:3.75000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="help"
        width="1"
@@ -621,7 +638,7 @@
        id="rect3341"
        width="1"
        height="20"
-       x="121.28571"
+       x="123.28571"
        y="300.93359"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
@@ -742,5 +759,44 @@
        inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/template/stepper_active.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#f0f2ff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2494"
+       width="80"
+       height="20"
+       x="214.28571"
+       y="100.93361" />
+    <rect
+       style="opacity:1;fill:#e1e6ff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2496"
+       width="80"
+       height="20"
+       x="214.28571"
+       y="120.93361" />
+    <rect
+       style="opacity:0.05438066;fill:#00128f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3268"
+       width="20"
+       height="40"
+       x="234.28571"
+       y="100.93361" />
+    <rect
+       style="opacity:0.1329305;fill:#ff8600;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3270"
+       width="20"
+       height="40"
+       x="254.28571"
+       y="100.93361" />
+    <rect
+       style="opacity:0.88821752;fill:url(#linearGradient3274);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3272"
+       width="1"
+       height="20"
+       x="121.28571"
+       y="300.93359"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:label="#rect2427"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/template/table_head_sorted.png" />
   </g>
 </svg>

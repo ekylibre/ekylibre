@@ -63,9 +63,9 @@ class ApplicationController < ActionController::Base
     session[:help_history] ||= []
     if request.get? and not request.xhr? and not [:authentication, :help].include?(controller_name.to_sym)
       session[:last_url] = request.url
-      help_search(self.controller_name+'-'+self.action_name) if session[:help]
+      #  help_search(self.controller_name+'-'+self.action_name) if session[:help]
     end
-    #    help_search(self.controller_name+'-'+self.action_name) if session[:help] and self.controller_name!='help'
+    help_search(self.controller_name+'-'+self.action_name) if session[:help] and not [:authentication, :help, :search].include?(controller_name.to_sym)
 
 
     begin
