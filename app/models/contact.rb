@@ -40,16 +40,14 @@
 
 class Contact < ActiveRecord::Base
   # belongs_to :element, :polymorphic=> true
- attr_readonly   :name, :entity_id, :company_id, :norm_id, :code, :line_2, :line_3, :line_4_number, :line_4_street,
-                 :line_5, :line_6_code, :line_6_city, :address, :phone, :fax, :mobile, :email, :website
-
+  attr_readonly :name, :entity_id, :company_id, :norm_id, :code, :line_2, :line_3, :line_4_number, :line_4_street,
+  :line_5, :line_6_code, :line_6_city, :address, :phone, :fax, :mobile, :email, :website
+  
 
   def before_validation
     self.default = true if self.entity.contacts.size <= 0
     
-    if self.default
-      Contact.update_all('"default"=false', ["entity_id=? AND company_id=? AND id!=?", self.entity_id,self.company_id, self.id||0])
-    end
+    Contact.update_all({:default=>false}, ["entity_id=? AND company_id=? AND id!=?", self.entity_id,self.company_id, self.id||0]) if self.default
     
     lines = [self.line_2, self.line_3, (self.line_4_number.to_s+' '+self.line_4_street.to_s).strip, self.line_5, (self.line_6_code.to_s+" "+self.line_6_city.to_s).strip, (self.country.blank? ? '' : I18n.t("countries.#{self.country}"))].compact
     lines.delete ""
@@ -59,33 +57,34 @@ class Contact < ActiveRecord::Base
   end
 
   # Each contact have a distinct code for a precise company.  
-  def validate_on_create
-      
+  def validate_on_create    
     unless self.code
       self.code = 'AAAA'
-      
       while Contact.count(:conditions=>["entity_id=? AND company_id=? AND code=?", self.entity_id, self.company_id, self.code])>0 do
         self.code.succ!
       end
       self.update_attributes!({:active=>true, :started_at=>Time.now})
     end
- 
   end
 
   # A contact can not be modified.
-  def validate_on_update 
-    errors.add_to_base tc(:error_modify_contact) if self.active
+  # Therefore a contact is created for each update
+  def before_update
+    self.active = false
+    self.stopped_at = Time.now
+    Contact.create!(self.attributes.merge({:code=>self.code, :active=>true, :started_at=>self.stopped_at, :stopped_at=>nil, :company_id=>self.company_id, :entity_id=>self.entity_id, :norm_id=>self.norm_id}))
   end
+  
+  #  def validate_on_update 
+  #    errors.add_to_base tc(:error_modify_contact) if self.active
+  #  end
 
- # This method 
- def upgrade(values)
-   now = Time.now
-   self.update_attributes({:active=>false, :stopped_at=>now})
-
-   contact = Contact.create!(values.merge!({:code=>self.code, :active=>true, :started_at=>now, :company_id=>self.company_id, :entity_id=>self.entity_id, :norm_id=>self.norm_id}))
-
-   contact
- end
-
+  # This method 
+  #  def upgrade(values)
+  #    now = Time.now
+  #    self.update_attributes({:active=>false, :stopped_at=>now})
+  #    contact = Contact.create!(values.merge!({:code=>self.code, :active=>true, :started_at=>now, :company_id=>self.company_id, :entity_id=>self.entity_id, :norm_id=>self.norm_id}))
+  #    contact
+  #  end
   
 end

@@ -99,12 +99,13 @@ class RelationsController < ApplicationController
 
 
   dyta(:entities, :conditions=>"search_conditions(:attributes=>[:id, :name, :code, :full_name, :website], :key=>session[:entity_key])", :empty=>true) do |t|
+    t.column :name, :through=>:nature
     t.column :name, :url=>{:action=>:entities_display}
     t.column :first_name, :url=>{:action=>:entities_display}
-    #    t.column :full_name
+    # t.column :full_name
     t.column :code, :url=>{:action=>:entities_display}
-    t.column :born_on
-    #    t.column :dead_on
+    # t.column :born_on
+    # t.column :dead_on
     t.column :website
     t.column :active
     t.action :entities_display, :image=>:show
@@ -257,8 +258,8 @@ class RelationsController < ApplicationController
         end
       end
     else
-      @contact = Contact.new
-      @entity = Entity.new
+      @contact = Contact.new(:country=>'fr')
+      @entity = Entity.new(:country=>'fr')
       for complement in @complements
         @complement_data << ComplementDatum.new(:complement_id=>complement.id)
       end
@@ -287,9 +288,7 @@ class RelationsController < ApplicationController
           @complement_data << ComplementDatum.new(attributes)
         end
       end
-      puts @complement_data.inspect
-
-
+#      puts @complement_data.inspect
       
       ActiveRecord::Base.transaction do
         saved = @entity.update_attributes(params[:entity])
@@ -364,7 +363,7 @@ class RelationsController < ApplicationController
     
 #    raise Exception.new('entity:'+@contact.entity.inspect)
     if request.post? and @contact
-      redirect_to_back if @contact.upgrade(params[:contact]) # @contact.update_attributes(params[:contact])
+      redirect_to_back if @contact.update_attributes(params[:contact]) # @contact.update_attributes(params[:contact])
     end
     @title = {:entity=>@entity.full_name, :contact=>@contact.name}
     render_form

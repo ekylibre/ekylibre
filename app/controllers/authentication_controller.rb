@@ -1,3 +1,5 @@
+require "digest/sha2"
+
 class AuthenticationController < ApplicationController
   
   def index
@@ -33,18 +35,22 @@ class AuthenticationController < ApplicationController
   end
   
   def register
-    redirect_to_login if defined?(Ekylibre::DONT_REGISTER)
     if request.post?
+      if defined?(Ekylibre::DONT_REGISTER)
+        hash = Digest::SHA256.hexdigest(params[:register_password])
+        puts hash
+        redirect_to :action=>:login if hash!=Ekylibre::DONT_REGISTER_PASSWORD
+      end
       if session[:company_id].nil?
         @company = Company.new(params[:company])
       else
         @company = Company.find(session[:company_id])
         @company.attributes = params[:company]
       end
+      @user = User.new(params[:user])
       if @company.save
         session[:company_id] = @company.id
         params[:user][:company_id] = @company.id
-        @user = User.new(params[:user])
         @user.role_id = @company.admin_role.id
         if @user.save
           init_session(@user)

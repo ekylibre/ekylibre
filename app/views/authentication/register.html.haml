@@ -2,7 +2,8 @@
   - form_tag do
     .fields
       =formalize do |f|
-        - f.error 'company', 'user'
+        - f.error 'company'
+        - f.error 'user'
         - f.title :my_company
         - f.field :company, :name, {:example=>tc(:company_name_example)}
         - f.title :my_self
@@ -12,5 +13,7 @@
         - f.field :user, :password, :null=>false, :hint=>tc(:user_password_hint)
         - f.field :user, :password_confirmation, :null=>false, :info=>tc(:user_password_confirmation_info)
       .actions
+        -if defined?(Ekylibre::DONT_REGISTER)
+          =text_field_tag :register_password
         =submit_tag(tg(:create))
         =link_to(tg(:cancel), :action=>:login)
