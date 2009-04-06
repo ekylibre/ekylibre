@@ -47,10 +47,10 @@ class AuthenticationController < ApplicationController
         @company = Company.find(session[:company_id])
         @company.attributes = params[:company]
       end
+      session[:company_id] = @company.id
+      params[:user][:company_id] = @company.id
       @user = User.new(params[:user])
       if @company.save
-        session[:company_id] = @company.id
-        params[:user][:company_id] = @company.id
         @user.role_id = @company.admin_role.id
         if @user.save
           init_session(@user)
