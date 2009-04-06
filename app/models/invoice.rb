@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090311124450
+# Schema version: 20090406132452
 #
 # Table name: invoices
 #

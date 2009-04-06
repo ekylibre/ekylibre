@@ -1,13 +1,11 @@
 # == Schema Information
-# Schema version: 20090311124450
+# Schema version: 20090406132452
 #
 # Table name: deliveries
 #
 #  id                :integer       not null, primary key
 #  order_id          :integer       not null
 #  invoice_id        :integer       
-#  shipped_on        :date          not null
-#  delivered_on      :date          not null
 #  amount            :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes :decimal(16, 2 default(0.0), not null
 #  comment           :text          
@@ -18,6 +16,9 @@
 #  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
 #  contact_id        :integer       
+#  nature            :string(3)     
+#  planned_on        :date          
+#  moved_on          :date          
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

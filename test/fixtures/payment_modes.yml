@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090311124450
+# Schema version: 20090406132452
 #
 # Table name: payment_modes
 #
@@ -13,6 +13,7 @@
 #  created_by   :integer       
 #  updated_by   :integer       
 #  lock_version :integer       default(0), not null
+#  mode         :string(5)     
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

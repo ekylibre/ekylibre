@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090311124450
+# Schema version: 20090406132452
 #
 # Table name: purchase_order_lines
 #
@@ -19,6 +19,7 @@
 #  created_by        :integer       
 #  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
+#  location_id       :integer       
 #
 
 class PurchaseOrderLine < ActiveRecord::Base

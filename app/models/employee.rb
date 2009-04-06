@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090311124450
+# Schema version: 20090406132452
 #
 # Table name: employees
 #
@@ -21,6 +21,8 @@
 #  created_by       :integer       
 #  updated_by       :integer       
 #  lock_version     :integer       default(0), not null
+#  profession_id    :integer       not null
+#  commercial       :boolean       not null
 #
 
 class Employee < ActiveRecord::Base

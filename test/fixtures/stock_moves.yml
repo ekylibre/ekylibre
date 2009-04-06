@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090311124450
+# Schema version: 20090406132452
 #
 # Table name: stock_moves
 #
@@ -21,6 +21,9 @@
 #  created_by         :integer       
 #  updated_by         :integer       
 #  lock_version       :integer       default(0), not null
+#  virtual            :boolean       
+#  input              :boolean       
+#  generated          :boolean       
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

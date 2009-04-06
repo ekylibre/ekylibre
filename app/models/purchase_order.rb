@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090311124450
+# Schema version: 20090406132452
 #
 # Table name: purchase_orders
 #
@@ -18,6 +18,8 @@
 #  created_by        :integer       
 #  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
+#  planned_on        :date          
+#  moved_on          :date          
 #
 
 class PurchaseOrder < ActiveRecord::Base

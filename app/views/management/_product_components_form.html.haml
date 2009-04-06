@@ -1,0 +1,3 @@
+=formalize do |f|
+  - f.field :product_component, :content_id, :choices=>@current_company.available_products.collect{|x| [x.name+" ( "+x.unit.label+" )", x.id]}
+  - f.field :product_component, :quantity

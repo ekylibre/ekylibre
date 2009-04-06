@@ -398,6 +398,9 @@ fr-FR:
         unit_id: Unité de mesure
         weight: Poids (kg)
         without_stocks: Ne nécessite pas de gestion de stocks
+      product_component:
+        content_id: Produit contenu
+        quantity: Quantité
       product_stock: 
         critic_quantity_min: Quantité minimum critique
         current_real_quantity: Stock réel

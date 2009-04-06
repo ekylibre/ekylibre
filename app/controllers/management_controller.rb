@@ -165,6 +165,22 @@ class ManagementController < ApplicationController
     #t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases, :product_id=>['session[:product_id]']
   end
 
+  dyta(:product_components, :conditions=>{:company_id=>['@current_company.id'], :package_id=>['session[:product_id]']}) do |t|
+    t.column :name
+  end
+
+  def product_components_create
+    if request.post?
+      @product_component = ProductComponent.new(params[:product_component])
+      @product_component.company_id = @current_company.id
+      @product_component.package_id = session[:product_id]
+      redirect_to :action=>:products_display, :id=>session[:product_id] if @product_component.save
+    else
+      @product_component = ProductComponent.new(:quantity=>1.0)
+    end
+    render_form
+  end
+
   def products
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key
@@ -175,6 +191,7 @@ class ManagementController < ApplicationController
     @product = find_and_check(:product, params[:id])
     session[:product_id] = @product.id
     product_prices_list params
+    product_components_list params
     @title = {:value=>@product.name}
   end
 
@@ -211,7 +228,7 @@ class ManagementController < ApplicationController
       end
       redirect_to_back
     else
-      @product = Product.new
+      @product = Product.new(:without_stocks=>true)
       @product.nature = Product.natures.first[1]
       @product.supply_method = Product.supply_methods.first[1]
       @product_stock = ProductStock.new

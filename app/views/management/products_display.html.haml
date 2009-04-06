@@ -31,3 +31,8 @@
   - if @product.to_purchase
     =link_to tc('purchase_price_create'), :action=>:prices_create, :mode=>:purchases,:product_id=>session[:product_id], :class=>'procedure create'
 =dyta :product_prices
+
+%h2=tc :components
+.aclist
+  =link_to tc('component_create'), :action=>:product_components_create, :class=>'procedure create'
+=dyta :product_components

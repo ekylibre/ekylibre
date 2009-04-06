@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090311124450
+# Schema version: 20090406132452
 #
 # Table name: contacts
 #
@@ -7,10 +7,6 @@
 #  name          :string(255)   
 #  entity_id     :integer       not null
 #  norm_id       :integer       not null
-#  code          :string(4)     not null
-#  active        :boolean       not null
-#  started_at    :datetime
-#  stopped_at    :datetime
 #  default       :boolean       not null
 #  closed_on     :date          
 #  line_2        :string(38)    
@@ -36,6 +32,10 @@
 #  updated_by    :integer       
 #  lock_version  :integer       default(0), not null
 #  country       :string(2)     
+#  code          :string(4)     
+#  active        :boolean       not null
+#  started_at    :datetime      
+#  stopped_at    :datetime      
 #
 
 class Contact < ActiveRecord::Base

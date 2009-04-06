@@ -151,9 +151,13 @@ fr-FR:
           zero: 'Aucun produit enregistré'
           one: '1 produit enregistré'
           other: '{{count}} produits enregistrés'
+      product_components_create: 
+        title: 'e'
       products_create:
         title: 'Ajouter un nouveau produit'
       products_display:
+        components: Composants
+        component_create: Ajouter un nouveau composant
         prices: 'Prix du produit'
         products: 'Voir la liste de produits'
         products_update: 'Modifier la fiche du produit'

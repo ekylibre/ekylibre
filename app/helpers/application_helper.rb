@@ -72,13 +72,13 @@ module ApplicationHelper
            [ {:name=>:employees} ] },
          {:name=>:parameters, :list=>
            [ {:name=>:professions} ] }
-       ] }#,
+       ] },
 
      # ProductionController
-#     {:name=>:production, :list=>
-#       [ {:name=>:wine, :list=>
-#           [ {:name=>:wines} ] }
-#       ] }
+     {:name=>:production, :list=>
+       [ {:name=>:wine, :list=>
+           [ {:name=>:wines} ] }
+       ] }
 
 
     ]

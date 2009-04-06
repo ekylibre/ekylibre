@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090311124450
+# Schema version: 20090406132452
 #
 # Table name: contacts
 #
@@ -32,6 +32,10 @@
 #  updated_by    :integer       
 #  lock_version  :integer       default(0), not null
 #  country       :string(2)     
+#  code          :string(4)     
+#  active        :boolean       not null
+#  started_at    :datetime      
+#  stopped_at    :datetime      
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
