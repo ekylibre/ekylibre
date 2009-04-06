@@ -1,0 +1,5 @@
+h1. Informations sur la société
+
+* Vous avez ici accès aux différentes informations concernant votre société. Vous pouvez également ajouter, modifier ou supprimer un utilisateur, un établissement ou un service, ainsi que vérouiller un utilisateur (celui-ci n'aura plus accès au logiciel).
+
+* Par défaut, un établissement et un service vous sont créés automatiquement.

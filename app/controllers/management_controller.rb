@@ -161,8 +161,8 @@ class ManagementController < ApplicationController
     t.column :default
     t.column :range
     t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :sales_prices_create,     :action=>:prices_create, :mode=>:sales, :product_id=>['session[:product_id]']
-    t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases, :product_id=>['session[:product_id]']
+    #t.procedure :sales_prices_create,     :action=>:prices_create, :mode=>:sales, :product_id=>['session[:product_id]']
+    #t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases, :product_id=>['session[:product_id]']
   end
 
   def products
@@ -1134,7 +1134,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:product_stocks, :conditions=>:stocks_conditions, :line_class=>'RECORD.state') do |t|
-    t.column :name, :through=>:product
+    t.column :name, :through=>:product,:url=>{:action=>:products_display}
     t.column :weight, :through=>:product, :label=>"Poids"
     t.column :quantity_max
     t.column :quantity_min

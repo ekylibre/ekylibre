@@ -1,0 +1,3 @@
+h1. Comment modifier un utilisateur ?
+
+Il vous suffit de modifier les champs que vous désirez, vous pouvez le faire pour des champs déjà renseignés ou pour des champs qui ne le sont pas encore.

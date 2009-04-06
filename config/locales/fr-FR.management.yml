@@ -61,6 +61,8 @@ fr-FR:
         title: 'Modification du délai : {{value}}'
       _deliveries_update:
         title: 'Modification de la livraison' 
+      deliveries_update:
+        title: 'Modification de la livraison'
       _deliveries_form:
         amount: Total de la livraison HT
         amount_with_taxes: Total de la livraison TTC
@@ -155,7 +157,9 @@ fr-FR:
         prices: 'Prix du produit'
         products: 'Voir la liste de produits'
         products_update: 'Modifier la fiche du produit'
+        purchase_price_create: 'Créer un prix d''achat'
         purchases_prices_create: "Ajouter un prix d'achat"
+        sale_price_create: Créer un prix de vente
         sales_prices_create: 'Ajouter un prix de vente'
         title: 'Fiche du produit : {{value}}'
       _products_form:
