@@ -51,6 +51,8 @@ class Entry < ActiveRecord::Base
         self.credit = self.currency_credit * self.currency_rate
       end
     end
+    
+    
   end
   
   def validate

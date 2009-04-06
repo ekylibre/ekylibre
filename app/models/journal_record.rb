@@ -44,8 +44,14 @@ class JournalRecord < ActiveRecord::Base
     self.save    
   end
   
+  #determines if the record is balanced or not.
   def balanced
     self.debit == self.credit and self.debit != 0
+  end
+
+  #determines the difference between the debit and the credit from the record.
+  def balance
+    self.debit - self.credit 
   end
 
   # this method allows to lock the record.

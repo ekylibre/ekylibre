@@ -387,36 +387,8 @@
       session[:journal_period] = params[:journal_period]
     end
 
-#     unless @financialyears.size>0
-#       flash[:message] = tc('messages.need_financialyear_to_consult_entries')
-#       redirect_to :action=>:financialyears_create
-#       return
-#     end
-
-#     unless @journals.size>0
-#       flash[:message] = tc('messages.need_journal_to_consult_entries')
-#       redirect_to :action=>:journals_create
-#       return
-#     end
-   
-#     if request.post?
-#       session[:entries][:journal] = params[:journal_id]
-#       session[:entries][:financialyear] = params[:financialyear_id]
-      
-#     else
-#       session[:entries][:journal] = params[:id] 
-#       session[:entries][:financialyear] = @current_company.current_financialyear.id if @current_company.current_financialyear 
-#     end
-
-#     unless session[:entries][:journal].nil? #or session[:entries][:financialyear].nil?
-#       @journal = Journal.find(session[:entries][:journal])
-#      puts @journal.inspect
-#       @financialyear = Financialyear.find(session[:entries][:financialyear])
-#       puts @financialyear.inspect
-#       entries_list #params
-#     end
     entries_list
-    #raise Exception.new(@entries.inspect)
+
   end
   
 
@@ -475,18 +447,28 @@
         else
           Entry.delete(@entry)
         end
-        @entry = Entry.new
+
+        @entry = Entry.new 
+
       else
-        @entry = Entry.new
+
+        @entry = Entry.new 
+
       end
       
       periods = @journal.periods.find(:all,:conditions=>['financialyear_id=?',session[:entries][:financialyear]])
       periods.each do |period|
-        @records << @journal.last_records(period, session[:entries][:records_number].to_i)
+        @records += @journal.last_records(period, session[:entries][:records_number].to_i)
       end  
-#      @records = @journal.last_records(period.id, session[:entries][:records_number].to_i)
+
       @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
+      
+      unless @record.nil?
+        (@record.balance > 0) ?  @entry=Entry.new(:currency_credit=>@record.balance.abs) :  @entry=Entry.new(:currency_debit=>@record.balance.abs)  
+      end
+        
       @record = JournalRecord.new(params[:record]) if @record.nil?
+      
       if @record.new_record?
         @record.number = @records.size>0 ? @records.first.number.succ : 1
         @record.created_on ||= @record.printed_on ||= Date.today
