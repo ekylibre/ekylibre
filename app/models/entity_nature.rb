@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090406132452
+# Schema version: 20090407073247
 #
 # Table name: entity_natures
 #

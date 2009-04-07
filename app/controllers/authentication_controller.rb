@@ -10,10 +10,10 @@ class AuthenticationController < ApplicationController
     retrieve_xil(params[:id],:key=>params[:id])
   end
   
-  def render_f
-    render :xil=>params[:id].to_i, :key=>1, :output=>:pdf, :crypt=>:none
+  def xil
+    #render :xil=>params[:id].to_i, :key=>1, :output=>:pdf, :crypt=>:none
     #render :xil=>"<?xml?><template title='Example' orientation='portrait' format='210x297' unit='mm' query-standard='sql' size='10' ><title>ToTo</title></template>", :key=>1, :output=>:pdf
-    #render :xil=>"lib/template.xsd", :key=>1, :output=>:pdf
+    render :xil=>"app/views/prints/xil2_test.xml", :client=>Entity.find(:first), :output=>:pdf
     #render :xil=>Template.find(2), :key=>1, :output=>:pdf
   end
   
@@ -24,7 +24,6 @@ class AuthenticationController < ApplicationController
       if user
         init_session(user)
         unless session[:user_id].blank?
-          session[:help] = true
           redirect_to session[:last_url]||{:controller=>:guide, :action=>:index}
         end
       else
@@ -39,26 +38,28 @@ class AuthenticationController < ApplicationController
       if defined?(Ekylibre::DONT_REGISTER)
         hash = Digest::SHA256.hexdigest(params[:register_password])
         puts hash
+        redirect_to :action=>:login unless defined?(Ekylibre::DONT_REGISTER_PASSWORD)
         redirect_to :action=>:login if hash!=Ekylibre::DONT_REGISTER_PASSWORD
       end
-      if session[:company_id].nil?
-        @company = Company.new(params[:company])
-      else
-        @company = Company.find(session[:company_id])
-        @company.attributes = params[:company]
-      end
-      session[:company_id] = @company.id
-      params[:user][:company_id] = @company.id
+      
+      @company = Company.new(params[:company])
       @user = User.new(params[:user])
-      if @company.save
-        @user.role_id = @company.admin_role.id
-        if @user.save
-          init_session(@user)
-          redirect_to :controller=>:guide, :action=>:welcome
+      saved = true
+      ActiveRecord::Base.transaction do
+        saved = @company.save
+        if saved
+          @user.company_id = @company.id
+          @user.role_id = @company.admin_role.id
+          saved = false unless @user.save
         end
+        raise ActiveRecord::Rollback unless saved            
       end
+      if saved
+        init_session(@user)
+        redirect_to :controller=>:guide, :action=>:welcome
+      end
+  
     else
-      session[:company_id] = nil
       @company = Company.new
       @user = User.new
     end
@@ -75,6 +76,7 @@ class AuthenticationController < ApplicationController
   protected
   
   def init_session(user)
+    session[:help] = true
     session[:user_id] = user.id
     session[:last_query] = Time.now.to_i
     session[:expiration] = 3600

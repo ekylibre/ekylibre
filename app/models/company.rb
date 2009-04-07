@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090406132452
+# Schema version: 20090407073247
 #
 # Table name: companies
 #
@@ -110,7 +110,7 @@ class Company < ActiveRecord::Base
   end
 
   def admin_role
-    self.roles.find(:first, :conditions=>"actions=' all '")
+    self.roles.find(:first, :conditions=>"actions ILIKE '%all%'")
   end
 
   def available_entities(options={})

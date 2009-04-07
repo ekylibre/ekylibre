@@ -36,6 +36,10 @@ module Ekylibre
 
       ORIENTATION={:portrait=>'P', :landscape=>'L'}
 
+
+
+
+
       # this function begins to analyze the template extracting the main characteristics of
       # the PDF document as the title, the orientation, the format, the unit ...
       def analyze_template(template, options={})
@@ -57,7 +61,7 @@ module Ekylibre
         options[:available_height] = 'h' # height of the page available in the time.
         options[:page_number]      = 'n' # page_number.
         options[:count]            = 'm' # block_number in the current page.
-        options[:pdf]              = 'p' # FPDF object.
+        options[:pdf]              = 'pdf' # FPDF object.
         options[:now]              = 't' # timestamp NOW.
         options[:title]            = 'g' # title of the document.
         options[:temp]             = XIL_TITLE # temporary variable.

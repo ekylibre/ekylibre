@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090406132452
+# Schema version: 20090407073247
 #
 # Table name: bank_accounts
 #
@@ -7,7 +7,6 @@
 #  name         :string(255)   not null
 #  iban         :string(34)    not null
 #  iban_label   :string(48)    not null
-#  iban_label2  :string(48)    not null
 #  bic          :string(16)    
 #  deleted      :boolean       not null
 #  journal_id   :integer       not null
@@ -20,11 +19,11 @@
 #  updated_by   :integer       
 #  lock_version :integer       default(0), not null
 #  entity_id    :integer       
-#  bank_code    :string(5)     
-#  agency_code  :string(5)     
-#  number       :string(11)    
-#  key          :string(2)     
-#  mod          :string(255)   default("IBAN"), not null
+#  bank_code    :string(255)   
+#  agency_code  :string(255)   
+#  number       :string(255)   
+#  key          :string(255)   
+#  mode         :string(255)   default("IBAN"), not null
 #
 
 class BankAccount < ActiveRecord::Base

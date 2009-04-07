@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090406132452
+# Schema version: 20090407073247
 #
 # Table name: product_stocks
 #
@@ -8,8 +8,8 @@
 #  location_id              :integer       not null
 #  current_real_quantity    :decimal(16, 2 default(0.0), not null
 #  current_virtual_quantity :decimal(16, 2 default(0.0), not null
-#  quantity_min             :decimal(16, 2 default(0.0), not null
-#  critic_quantity_min      :decimal(16, 2 default(1.0), not null
+#  quantity_min             :decimal(16, 2 default(1.0), not null
+#  critic_quantity_min      :decimal(16, 2 default(0.0), not null
 #  quantity_max             :decimal(16, 2 default(0.0), not null
 #  company_id               :integer       not null
 #  created_at               :datetime      not null

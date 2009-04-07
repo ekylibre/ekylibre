@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090406132452
+# Schema version: 20090407073247
 #
 # Table name: entities
 #
@@ -37,6 +37,10 @@
 #  country               :string(2)     
 #  payments_number       :integer       
 #  employee_id           :integer       
+#  proposer_id           :integer       
+#  payment_mode_id       :integer       
+#  payment_delay_id      :integer       
+#  invoices_count        :integer       
 #
 
 class Entity < ActiveRecord::Base
