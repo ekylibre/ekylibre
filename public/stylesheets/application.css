@@ -156,6 +156,7 @@ table.formalize a.fastadd { margin: 0px 8px; }
 
 .actions { text-align:center; padding:4px !important; background: #CEC; margin: 8px 0 0; }
 .actions * { margin: 0px 8px; }
+.actions a { padding: 4px; margin: 4px;}
 .actions a:link, .actions a:visited, .actions a:hover { color:#080;}
 
 .invalid { border: 1px solid red !important; background: #FDD !important; }

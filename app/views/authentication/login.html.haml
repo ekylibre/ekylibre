@@ -11,7 +11,9 @@
       %tr
         %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3)
   .actions
-    =link_to "Aller sur la page de téléchargement de Firefox", "http://www.mozilla-europe.org/fr/firefox/"
+    -unless defined?(Ekylibre::DONT_REGISTER)
+      =link_to tc(:register), :action=>:register
+    =link_to tc(:download_firefox), "http://www.mozilla-europe.org/fr/firefox/"
 :javascript
   $('user_name').select();
   $('user_name').focus(); 
