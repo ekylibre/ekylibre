@@ -270,6 +270,7 @@ fr-FR:
         code: Code
         comment: Commentaire
         country: Pays
+        created_on: Créée le
         dead_on: Date de décès
         deliveries_conditions: Conditions de Livraison
         discount_rate: 'Taux d''escompte'

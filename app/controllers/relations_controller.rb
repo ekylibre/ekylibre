@@ -107,6 +107,7 @@ class RelationsController < ApplicationController
     # t.column :born_on
     # t.column :dead_on
     t.column :website
+    t.column :created_on
     t.column :active
     t.action :entities_display, :image=>:show
     t.action :entities_update, :image=>:update

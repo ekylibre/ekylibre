@@ -63,7 +63,14 @@ class Entity < ActiveRecord::Base
     
     #self.active = false  unless self.dead_on.blank?
   end
-  
+
+  def created_on
+    self.created_at.to_date
+  end
+
+  def last_invoice
+    self.invoices.find(:first, :order=>"created_at DESC")
+  end
   
   def validate
     if self.nature

@@ -1,0 +1,970 @@
+<?xml version='1.0'?>
+<analysis>
+  <table name='Account' label='Compte'>
+    <column name='id' type='integer' notnull='true'>
+      Identifiant
+    </column>
+    <column name='number' type='character varying(16)' notnull='true'/>
+    <column name='alpha' type='character varying(16)'/>
+    <column name='name' type='character varying(208)' notnull='true'/>
+    <column name='label' type='character varying(255)' notnull='true'/>
+    <column name='deleted' type='boolean' notnull='true'/>
+    <column name='usable' type='boolean' notnull='true'/>
+    <column name='groupable' type='boolean' notnull='true'/>
+    <column name='keep_entries' type='boolean' notnull='true'/>
+    <column name='transferable' type='boolean' notnull='true'/>
+    <column name='letterable' type='boolean' notnull='true'/>
+    <column name='pointable' type='boolean' notnull='true'/>
+    <column name='is_debit' type='boolean' notnull='true'/>
+    <column name='last_letter' type='character varying(8)'/>
+    <column name='comment' type='text'/>
+    <column name='parent_id' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='number' type='character varying(16)' notnull='true'/>
+    <column name='alpha' type='character varying(16)'/>
+    <column name='name' type='character varying(208)' notnull='true'/>
+    <column name='label' type='character varying(255)' notnull='true'/>
+    <column name='deleted' type='boolean' notnull='true'/>
+    <column name='usable' type='boolean' notnull='true'/>
+    <column name='groupable' type='boolean' notnull='true'/>
+    <column name='keep_entries' type='boolean' notnull='true'/>
+    <column name='transferable' type='boolean' notnull='true'/>
+    <column name='letterable' type='boolean' notnull='true'/>
+    <column name='pointable' type='boolean' notnull='true'/>
+    <column name='is_debit' type='boolean' notnull='true'/>
+    <column name='last_letter' type='character varying(8)'/>
+    <column name='comment' type='text'/>
+    <column name='parent_id' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='AccountBalance' label='translation missing: fr-FR, activerecord, models, account_balance'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='account_id' type='integer' notnull='true'/>
+    <column name='financialyear_id' type='integer' notnull='true'/>
+    <column name='global_debit' type='numeric(16,2)' notnull='true'/>
+    <column name='global_credit' type='numeric(16,2)' notnull='true'/>
+    <column name='global_balance' type='numeric(16,2)' notnull='true'/>
+    <column name='global_count' type='integer' notnull='true'/>
+    <column name='local_debit' type='numeric(16,2)' notnull='true'/>
+    <column name='local_credit' type='numeric(16,2)' notnull='true'/>
+    <column name='local_balance' type='numeric(16,2)' notnull='true'/>
+    <column name='local_count' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='AddressNorm' label='translation missing: fr-FR, activerecord, models, address_norm'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='reference' type='character varying(255)'/>
+    <column name='default' type='boolean' notnull='true'/>
+    <column name='rtl' type='boolean' notnull='true'/>
+    <column name='align' type='character varying(8)' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='AddressNormItem' label='translation missing: fr-FR, activerecord, models, address_norm_item'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='contact_norm_id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='nature' type='character varying(15)' notnull='true'/>
+    <column name='maxlength' type='integer' notnull='true'/>
+    <column name='content' type='character varying(255)'/>
+    <column name='left_nature' type='character varying(15)'/>
+    <column name='left_value' type='character varying(63)'/>
+    <column name='right_nature' type='character varying(15)'/>
+    <column name='right_value' type='character varying(63)'/>
+    <column name='position' type='integer'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='BankAccount' label='Compte bancaire'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='iban' type='character varying(27)' notnull='true'/>
+    <column name='iban_label' type='character varying(48)' notnull='true'/>
+    <column name='bic' type='character varying(16)'/>
+    <column name='deleted' type='boolean' notnull='true'/>
+    <column name='journal_id' type='integer' notnull='true'/>
+    <column name='currency_id' type='integer' notnull='true'/>
+    <column name='account_id' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='entity_id' type='integer'/>
+    <column name='bank_code' type='character varying(5)'/>
+    <column name='agency_code' type='character varying(5)'/>
+    <column name='number' type='character varying(11)'/>
+    <column name='key' type='character varying(2)'/>
+    <column name='mode' type='character varying(255)' notnull='true'/>
+  </table>
+  <table name='BankAccountStatement' label='Relevé de compte bancaire'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='bank_account_id' type='integer' notnull='true'/>
+    <column name='started_on' type='date' notnull='true'/>
+    <column name='stopped_on' type='date' notnull='true'/>
+    <column name='intermediate' type='boolean' notnull='true'/>
+    <column name='number' type='character varying(255)' notnull='true'/>
+    <column name='debit' type='numeric(16,2)' notnull='true'/>
+    <column name='credit' type='numeric(16,2)' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Company' label='Société'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='code' type='character varying(8)' notnull='true'/>
+    <column name='siren' type='character varying(9)'/>
+    <column name='born_on' type='date'/>
+    <column name='locked' type='boolean' notnull='true'/>
+    <column name='deleted' type='boolean' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='entity_id' type='integer'/>
+  </table>
+  <table name='Complement' label='translation missing: fr-FR, activerecord, models, complement'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='nature' type='character varying(8)' notnull='true'/>
+    <column name='position' type='integer'/>
+    <column name='active' type='boolean' notnull='true'/>
+    <column name='required' type='boolean' notnull='true'/>
+    <column name='length_max' type='integer'/>
+    <column name='decimal_min' type='numeric(16,4)'/>
+    <column name='decimal_max' type='numeric(16,4)'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='ComplementChoice' label='translation missing: fr-FR, activerecord, models, complement_choice'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='complement_id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='value' type='character varying(255)' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='ComplementDatum' label='translation missing: fr-FR, activerecord, models, complement_datum'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='entity_id' type='integer' notnull='true'/>
+    <column name='complement_id' type='integer' notnull='true'/>
+    <column name='decimal_value' type='numeric'/>
+    <column name='string_value' type='text'/>
+    <column name='boolean_value' type='boolean'/>
+    <column name='date_value' type='date'/>
+    <column name='datetime_value' type='timestamp without time zone'/>
+    <column name='choice_value_id' type='integer'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Contact' label='Contact'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)'/>
+    <column name='entity_id' type='integer' notnull='true'/>
+    <column name='norm_id' type='integer' notnull='true'/>
+    <column name='default' type='boolean' notnull='true'/>
+    <column name='closed_on' type='date'/>
+    <column name='line_2' type='character varying(38)'/>
+    <column name='line_3' type='character varying(38)'/>
+    <column name='line_4_number' type='character varying(38)'/>
+    <column name='line_4_street' type='character varying(38)'/>
+    <column name='line_5' type='character varying(38)'/>
+    <column name='line_6_code' type='character varying(38)'/>
+    <column name='line_6_city' type='character varying(38)'/>
+    <column name='address' type='character varying(280)'/>
+    <column name='phone' type='character varying(32)'/>
+    <column name='fax' type='character varying(32)'/>
+    <column name='mobile' type='character varying(32)'/>
+    <column name='email' type='character varying(255)'/>
+    <column name='website' type='character varying(255)'/>
+    <column name='deleted' type='boolean' notnull='true'/>
+    <column name='latitude' type='double precision'/>
+    <column name='longitude' type='double precision'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='country' type='character varying(2)'/>
+    <column name='code' type='character varying(4)'/>
+    <column name='active' type='boolean' notnull='true'/>
+    <column name='started_at' type='timestamp without time zone'/>
+    <column name='stopped_at' type='timestamp without time zone'/>
+  </table>
+  <table name='Currency' label='translation missing: fr-FR, activerecord, models, currency'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='code' type='character varying(255)' notnull='true'/>
+    <column name='format' type='character varying(16)' notnull='true'/>
+    <column name='rate' type='numeric(16,6)' notnull='true'/>
+    <column name='active' type='boolean' notnull='true'/>
+    <column name='comment' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Delay' label='translation missing: fr-FR, activerecord, models, delay'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='active' type='boolean' notnull='true'/>
+    <column name='expression' type='character varying(255)' notnull='true'/>
+    <column name='comment' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Delivery' label='translation missing: fr-FR, activerecord, models, delivery'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='order_id' type='integer' notnull='true'/>
+    <column name='invoice_id' type='integer'/>
+    <column name='amount' type='numeric(16,2)' notnull='true'/>
+    <column name='amount_with_taxes' type='numeric(16,2)' notnull='true'/>
+    <column name='comment' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='contact_id' type='integer'/>
+    <column name='nature' type='character varying(3)'/>
+    <column name='planned_on' type='date'/>
+    <column name='moved_on' type='date'/>
+  </table>
+  <table name='DeliveryLine' label='translation missing: fr-FR, activerecord, models, delivery_line'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='delivery_id' type='integer' notnull='true'/>
+    <column name='order_line_id' type='integer' notnull='true'/>
+    <column name='product_id' type='integer' notnull='true'/>
+    <column name='price_id' type='integer' notnull='true'/>
+    <column name='quantity' type='numeric(16,2)' notnull='true'/>
+    <column name='unit_id' type='integer' notnull='true'/>
+    <column name='amount' type='numeric(16,2)' notnull='true'/>
+    <column name='amount_with_taxes' type='numeric(16,2)' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Department' label='Service'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='comment' type='text'/>
+    <column name='parent_id' type='integer'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Document' label='translation missing: fr-FR, activerecord, models, document'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='filename' type='character varying(255)'/>
+    <column name='original_name' type='character varying(255)' notnull='true'/>
+    <column name='key' type='integer'/>
+    <column name='filesize' type='integer'/>
+    <column name='crypt_key' type='bytea'/>
+    <column name='crypt_mode' type='character varying(255)' notnull='true'/>
+    <column name='sha256' type='character varying(255)' notnull='true'/>
+    <column name='printed_at' type='timestamp without time zone'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Employee' label='Employé'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='department_id' type='integer' notnull='true'/>
+    <column name='establishment_id' type='integer' notnull='true'/>
+    <column name='user_id' type='integer'/>
+    <column name='title' type='character varying(32)' notnull='true'/>
+    <column name='last_name' type='character varying(255)' notnull='true'/>
+    <column name='first_name' type='character varying(255)' notnull='true'/>
+    <column name='arrived_on' type='date'/>
+    <column name='departed_on' type='date'/>
+    <column name='role' type='character varying(255)'/>
+    <column name='office' type='character varying(32)'/>
+    <column name='comment' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='profession_id' type='integer' notnull='true'/>
+    <column name='commercial' type='boolean' notnull='true'/>
+  </table>
+  <table name='Entity' label='Relation'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='nature_id' type='integer' notnull='true'/>
+    <column name='language_id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='first_name' type='character varying(255)'/>
+    <column name='full_name' type='character varying(255)' notnull='true'/>
+    <column name='code' type='character varying(16)'/>
+    <column name='active' type='boolean' notnull='true'/>
+    <column name='born_on' type='date'/>
+    <column name='dead_on' type='date'/>
+    <column name='ean13' type='character varying(13)'/>
+    <column name='soundex' type='character varying(4)'/>
+    <column name='website' type='character varying(255)'/>
+    <column name='client' type='boolean' notnull='true'/>
+    <column name='supplier' type='boolean' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='client_account_id' type='integer'/>
+    <column name='supplier_account_id' type='integer'/>
+    <column name='vat_submissive' type='boolean' notnull='true'/>
+    <column name='reflation_submissive' type='boolean' notnull='true'/>
+    <column name='deliveries_conditions' type='character varying(60)'/>
+    <column name='discount_rate' type='numeric(8,2)'/>
+    <column name='reduction_rate' type='numeric(8,2)'/>
+    <column name='comment' type='text'/>
+    <column name='excise' type='character varying(15)'/>
+    <column name='vat_number' type='character varying(15)'/>
+    <column name='country' type='character varying(2)'/>
+    <column name='payments_number' type='integer'/>
+    <column name='employee_id' type='integer'/>
+  </table>
+  <table name='EntityNature' label='translation missing: fr-FR, activerecord, models, entity_nature'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='abbreviation' type='character varying(255)' notnull='true'/>
+    <column name='active' type='boolean' notnull='true'/>
+    <column name='physical' type='boolean' notnull='true'/>
+    <column name='in_name' type='boolean' notnull='true'/>
+    <column name='title' type='character varying(255)'/>
+    <column name='description' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Entry' label='Écriture'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='record_id' type='integer' notnull='true'/>
+    <column name='account_id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='currency_id' type='integer' notnull='true'/>
+    <column name='currency_rate' type='numeric(16,6)' notnull='true'/>
+    <column name='editable' type='boolean'/>
+    <column name='currency_debit' type='numeric(16,2)' notnull='true'/>
+    <column name='currency_credit' type='numeric(16,2)' notnull='true'/>
+    <column name='debit' type='numeric(16,2)' notnull='true'/>
+    <column name='credit' type='numeric(16,2)' notnull='true'/>
+    <column name='intermediate_id' type='integer'/>
+    <column name='statement_id' type='integer'/>
+    <column name='letter' type='character varying(8)'/>
+    <column name='expired_on' type='date'/>
+    <column name='position' type='integer'/>
+    <column name='comment' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Establishment' label='Établissement'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='nic' type='character varying(5)' notnull='true'/>
+    <column name='siret' type='character varying(255)' notnull='true'/>
+    <column name='comment' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Financialyear' label='Exercice'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='code' type='character varying(12)' notnull='true'/>
+    <column name='closed' type='boolean' notnull='true'/>
+    <column name='started_on' type='date' notnull='true'/>
+    <column name='stopped_on' type='date' notnull='true'/>
+    <column name='written_on' type='date' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Invoice' label='translation missing: fr-FR, activerecord, models, invoice'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='client_id' type='integer' notnull='true'/>
+    <column name='nature' type='character varying(1)' notnull='true'/>
+    <column name='number' type='character varying(64)' notnull='true'/>
+    <column name='amount' type='numeric(16,2)' notnull='true'/>
+    <column name='amount_with_taxes' type='numeric(16,2)' notnull='true'/>
+    <column name='payment_delay_id' type='integer' notnull='true'/>
+    <column name='payment_on' type='date' notnull='true'/>
+    <column name='paid' type='boolean' notnull='true'/>
+    <column name='lost' type='boolean' notnull='true'/>
+    <column name='has_downpayment' type='boolean' notnull='true'/>
+    <column name='downpayment_price' type='numeric(16,2)' notnull='true'/>
+    <column name='contact_id' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='sale_order_id' type='integer'/>
+  </table>
+  <table name='InvoiceLine' label='translation missing: fr-FR, activerecord, models, invoice_line'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='order_line_id' type='integer' notnull='true'/>
+    <column name='product_id' type='integer' notnull='true'/>
+    <column name='price_id' type='integer' notnull='true'/>
+    <column name='quantity' type='numeric(16,2)' notnull='true'/>
+    <column name='amount' type='numeric(16,2)' notnull='true'/>
+    <column name='amount_with_taxes' type='numeric(16,2)' notnull='true'/>
+    <column name='position' type='integer'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='invoice_id' type='integer'/>
+  </table>
+  <table name='Journal' label='Journal'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='nature' type='character varying(16)' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='code' type='character varying(4)' notnull='true'/>
+    <column name='deleted' type='boolean' notnull='true'/>
+    <column name='currency_id' type='integer' notnull='true'/>
+    <column name='counterpart_id' type='integer'/>
+    <column name='closed_on' type='date' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='JournalPeriod' label='translation missing: fr-FR, activerecord, models, journal_period'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='journal_id' type='integer' notnull='true'/>
+    <column name='financialyear_id' type='integer' notnull='true'/>
+    <column name='started_on' type='date' notnull='true'/>
+    <column name='stopped_on' type='date' notnull='true'/>
+    <column name='closed' type='boolean'/>
+    <column name='debit' type='numeric(16,2)' notnull='true'/>
+    <column name='credit' type='numeric(16,2)' notnull='true'/>
+    <column name='balance' type='numeric(16,2)' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='JournalRecord' label='translation missing: fr-FR, activerecord, models, journal_record'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='resource_id' type='integer'/>
+    <column name='resource_type' type='character varying(255)'/>
+    <column name='created_on' type='date' notnull='true'/>
+    <column name='printed_on' type='date' notnull='true'/>
+    <column name='number' type='character varying(255)' notnull='true'/>
+    <column name='status' type='character varying(1)' notnull='true'/>
+    <column name='debit' type='numeric(16,2)' notnull='true'/>
+    <column name='credit' type='numeric(16,2)' notnull='true'/>
+    <column name='position' type='integer' notnull='true'/>
+    <column name='period_id' type='integer' notnull='true'/>
+    <column name='journal_id' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Language' label='translation missing: fr-FR, activerecord, models, language'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='native_name' type='character varying(255)' notnull='true'/>
+    <column name='iso2' type='character varying(2)' notnull='true'/>
+    <column name='iso3' type='character varying(3)' notnull='true'/>
+  </table>
+  <table name='Parameter' label='translation missing: fr-FR, activerecord, models, parameter'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='nature' type='character varying(1)' notnull='true'/>
+    <column name='string_value' type='text'/>
+    <column name='boolean_value' type='boolean'/>
+    <column name='integer_value' type='integer'/>
+    <column name='decimal_value' type='numeric'/>
+    <column name='element_type' type='character varying(255)'/>
+    <column name='element_id' type='integer'/>
+    <column name='user_id' type='integer'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Payment' label='translation missing: fr-FR, activerecord, models, payment'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='paid_on' type='date'/>
+    <column name='amount' type='numeric(16,2)' notnull='true'/>
+    <column name='mode_id' type='integer' notnull='true'/>
+    <column name='account_id' type='integer'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='part_amount' type='numeric(16,2)'/>
+  </table>
+  <table name='PaymentMode' label='translation missing: fr-FR, activerecord, models, payment_mode'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(50)' notnull='true'/>
+    <column name='nature' type='character varying(1)' notnull='true'/>
+    <column name='account_id' type='integer'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='PaymentPart' label='translation missing: fr-FR, activerecord, models, payment_part'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='amount' type='numeric(16,2)'/>
+    <column name='payment_id' type='integer' notnull='true'/>
+    <column name='order_id' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Price' label='translation missing: fr-FR, activerecord, models, price'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='amount' type='numeric(16,4)' notnull='true'/>
+    <column name='amount_with_taxes' type='numeric(16,4)' notnull='true'/>
+    <column name='use_range' type='boolean' notnull='true'/>
+    <column name='quantity_min' type='numeric(16,2)' notnull='true'/>
+    <column name='quantity_max' type='numeric(16,2)' notnull='true'/>
+    <column name='product_id' type='integer' notnull='true'/>
+    <column name='tax_id' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='entity_id' type='integer'/>
+    <column name='started_at' type='timestamp without time zone'/>
+    <column name='stopped_at' type='timestamp without time zone'/>
+    <column name='active' type='boolean' notnull='true'/>
+    <column name='currency_id' type='integer'/>
+    <column name='default' type='boolean'/>
+  </table>
+  <table name='PriceTax' label='translation missing: fr-FR, activerecord, models, price_tax'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='price_id' type='integer' notnull='true'/>
+    <column name='tax_id' type='integer' notnull='true'/>
+    <column name='amount' type='numeric(16,4)' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Product' label='Produit'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='to_purchase' type='boolean' notnull='true'/>
+    <column name='to_sale' type='boolean' notnull='true'/>
+    <column name='to_rent' type='boolean' notnull='true'/>
+    <column name='nature' type='character varying(8)' notnull='true'/>
+    <column name='supply_method' type='character varying(8)' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='number' type='integer' notnull='true'/>
+    <column name='active' type='boolean' notnull='true'/>
+    <column name='amount' type='numeric(16,4)' notnull='true'/>
+    <column name='code' type='character varying(8)'/>
+    <column name='code2' type='character varying(64)'/>
+    <column name='ean13' type='character varying(13)'/>
+    <column name='catalog_name' type='character varying(255)' notnull='true'/>
+    <column name='catalog_description' type='text'/>
+    <column name='description' type='text'/>
+    <column name='comment' type='text'/>
+    <column name='service_coeff' type='double precision'/>
+    <column name='shelf_id' type='integer' notnull='true'/>
+    <column name='unit_id' type='integer' notnull='true'/>
+    <column name='account_id' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='weight' type='numeric(16,3)'/>
+    <column name='without_stocks' type='boolean' notnull='true'/>
+    <column name='price' type='numeric(16,2)'/>
+    <column name='quantity_min' type='numeric(16,2)'/>
+    <column name='critic_quantity_min' type='numeric(16,2)'/>
+    <column name='quantity_max' type='numeric(16,2)'/>
+  </table>
+  <table name='ProductStock' label='translation missing: fr-FR, activerecord, models, product_stock'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='product_id' type='integer' notnull='true'/>
+    <column name='location_id' type='integer' notnull='true'/>
+    <column name='current_real_quantity' type='numeric(16,2)' notnull='true'/>
+    <column name='current_virtual_quantity' type='numeric(16,2)' notnull='true'/>
+    <column name='quantity_min' type='numeric(16,2)' notnull='true'/>
+    <column name='critic_quantity_min' type='numeric(16,2)' notnull='true'/>
+    <column name='quantity_max' type='numeric(16,2)' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Profession' label='Profession'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='code' type='character varying(255)'/>
+    <column name='rome' type='character varying(255)'/>
+    <column name='commercial' type='boolean'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='PurchaseOrder' label='Achat'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='supplier_id' type='integer' notnull='true'/>
+    <column name='number' type='character varying(64)' notnull='true'/>
+    <column name='shipped' type='boolean' notnull='true'/>
+    <column name='invoiced' type='boolean' notnull='true'/>
+    <column name='amount' type='numeric(16,2)' notnull='true'/>
+    <column name='amount_with_taxes' type='numeric(16,2)' notnull='true'/>
+    <column name='dest_contact_id' type='integer'/>
+    <column name='comment' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='planned_on' type='date'/>
+    <column name='moved_on' type='date'/>
+  </table>
+  <table name='PurchaseOrderLine' label='translation missing: fr-FR, activerecord, models, purchase_order_line'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='order_id' type='integer' notnull='true'/>
+    <column name='product_id' type='integer' notnull='true'/>
+    <column name='unit_id' type='integer' notnull='true'/>
+    <column name='price_id' type='integer' notnull='true'/>
+    <column name='quantity' type='numeric(16,2)' notnull='true'/>
+    <column name='amount' type='numeric(16,2)' notnull='true'/>
+    <column name='amount_with_taxes' type='numeric(16,2)' notnull='true'/>
+    <column name='position' type='integer'/>
+    <column name='account_id' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='location_id' type='integer'/>
+  </table>
+  <table name='Role' label='translation missing: fr-FR, activerecord, models, role'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='actions' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='SaleOrder' label='translation missing: fr-FR, activerecord, models, sale_order'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='client_id' type='integer' notnull='true'/>
+    <column name='nature_id' type='integer' notnull='true'/>
+    <column name='created_on' type='date' notnull='true'/>
+    <column name='number' type='character varying(64)' notnull='true'/>
+    <column name='sum_method' type='character varying(8)' notnull='true'/>
+    <column name='invoiced' type='boolean' notnull='true'/>
+    <column name='amount' type='numeric(16,2)' notnull='true'/>
+    <column name='amount_with_taxes' type='numeric(16,2)' notnull='true'/>
+    <column name='state' type='character varying(1)' notnull='true'/>
+    <column name='expiration_id' type='integer' notnull='true'/>
+    <column name='expired_on' type='date' notnull='true'/>
+    <column name='payment_delay_id' type='integer' notnull='true'/>
+    <column name='has_downpayment' type='boolean' notnull='true'/>
+    <column name='downpayment_amount' type='numeric(16,2)' notnull='true'/>
+    <column name='contact_id' type='integer' notnull='true'/>
+    <column name='invoice_contact_id' type='integer' notnull='true'/>
+    <column name='delivery_contact_id' type='integer' notnull='true'/>
+    <column name='subject' type='character varying(255)'/>
+    <column name='function_title' type='character varying(255)'/>
+    <column name='introduction' type='text'/>
+    <column name='conclusion' type='text'/>
+    <column name='comment' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='SaleOrderLine' label='translation missing: fr-FR, activerecord, models, sale_order_line'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='order_id' type='integer' notnull='true'/>
+    <column name='product_id' type='integer' notnull='true'/>
+    <column name='price_id' type='integer' notnull='true'/>
+    <column name='invoiced' type='boolean' notnull='true'/>
+    <column name='quantity' type='numeric(16,2)' notnull='true'/>
+    <column name='unit_id' type='integer' notnull='true'/>
+    <column name='amount' type='numeric(16,2)' notnull='true'/>
+    <column name='amount_with_taxes' type='numeric(16,2)' notnull='true'/>
+    <column name='position' type='integer'/>
+    <column name='account_id' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='location_id' type='integer'/>
+  </table>
+  <table name='SaleOrderNature' label='translation missing: fr-FR, activerecord, models, sale_order_nature'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='expiration_id' type='integer' notnull='true'/>
+    <column name='active' type='boolean' notnull='true'/>
+    <column name='payment_delay_id' type='integer' notnull='true'/>
+    <column name='downpayment' type='boolean' notnull='true'/>
+    <column name='downpayment_minimum' type='numeric(16,2)' notnull='true'/>
+    <column name='downpayment_rate' type='numeric(16,2)' notnull='true'/>
+    <column name='comment' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Sequence' label='translation missing: fr-FR, activerecord, models, sequence'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='increment' type='integer' notnull='true'/>
+    <column name='format' type='character varying(255)' notnull='true'/>
+    <column name='active' type='boolean' notnull='true'/>
+    <column name='next_number' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Shelf' label='Catégorie de produit'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='catalog_name' type='character varying(255)' notnull='true'/>
+    <column name='catalog_description' type='text'/>
+    <column name='comment' type='text'/>
+    <column name='parent_id' type='integer'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='StockLocation' label='Lieu de stockage'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='x' type='character varying(255)'/>
+    <column name='y' type='character varying(255)'/>
+    <column name='z' type='character varying(255)'/>
+    <column name='comment' type='text'/>
+    <column name='parent_id' type='integer'/>
+    <column name='account_id' type='integer' notnull='true'/>
+    <column name='establishment_id' type='integer'/>
+    <column name='contact_id' type='integer'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='StockMove' label='Mouvement de stock'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='planned_on' type='date' notnull='true'/>
+    <column name='moved_on' type='date'/>
+    <column name='quantity' type='double precision' notnull='true'/>
+    <column name='comment' type='text'/>
+    <column name='second_move_id' type='integer'/>
+    <column name='second_location_id' type='integer'/>
+    <column name='tracking_id' type='integer'/>
+    <column name='location_id' type='integer' notnull='true'/>
+    <column name='unit_id' type='integer' notnull='true'/>
+    <column name='product_id' type='integer' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+    <column name='virtual' type='boolean'/>
+    <column name='input' type='boolean'/>
+    <column name='generated' type='boolean'/>
+  </table>
+  <table name='StockTracking' label='translation missing: fr-FR, activerecord, models, stock_tracking'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='serial' type='character varying(255)'/>
+    <column name='active' type='boolean' notnull='true'/>
+    <column name='begun_at' type='timestamp without time zone' notnull='true'/>
+    <column name='comment' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Tax' label='translation missing: fr-FR, activerecord, models, tax'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='group_name' type='character varying(255)' notnull='true'/>
+    <column name='included' type='boolean' notnull='true'/>
+    <column name='reductible' type='boolean' notnull='true'/>
+    <column name='nature' type='character varying(8)' notnull='true'/>
+    <column name='amount' type='numeric(16,4)' notnull='true'/>
+    <column name='description' type='text'/>
+    <column name='account_collected_id' type='integer'/>
+    <column name='account_paid_id' type='integer'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Template' label='translation missing: fr-FR, activerecord, models, template'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(255)' notnull='true'/>
+    <column name='content' type='text' notnull='true'/>
+    <column name='cache' type='text'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='Unit' label='translation missing: fr-FR, activerecord, models, unit'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(8)' notnull='true'/>
+    <column name='label' type='character varying(255)' notnull='true'/>
+    <column name='base' type='character varying(255)' notnull='true'/>
+    <column name='quantity' type='numeric' notnull='true'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+  <table name='User' label='Utilisateur'>
+    <column name='id' type='integer' notnull='true'/>
+    <column name='name' type='character varying(32)' notnull='true'/>
+    <column name='first_name' type='character varying(255)' notnull='true'/>
+    <column name='last_name' type='character varying(255)' notnull='true'/>
+    <column name='salt' type='character varying(64)'/>
+    <column name='hashed_password' type='character varying(64)'/>
+    <column name='locked' type='boolean' notnull='true'/>
+    <column name='deleted' type='boolean' notnull='true'/>
+    <column name='email' type='character varying(255)'/>
+    <column name='company_id' type='integer' notnull='true'/>
+    <column name='language_id' type='integer' notnull='true'/>
+    <column name='role_id' type='integer' notnull='true'/>
+    <column name='created_at' type='timestamp without time zone' notnull='true'/>
+    <column name='updated_at' type='timestamp without time zone' notnull='true'/>
+    <column name='created_by' type='integer'/>
+    <column name='updated_by' type='integer'/>
+    <column name='lock_version' type='integer' notnull='true'/>
+  </table>
+</analysis>
