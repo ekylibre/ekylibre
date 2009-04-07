@@ -174,7 +174,7 @@ class RelationsController < ApplicationController
     #     # end
   end
 
-  dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['@entity.id'], :deleted=>false, :active=>true}, :empty=>true) do |t|
+  dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['@entity.id'], :active=>true}, :empty=>true) do |t|
     t.column :name, :url=>{:action=>:entities_contacts_update}
     t.column :address, :url=>{:action=>:entities_contacts_update}
     t.column :phone
@@ -375,7 +375,7 @@ class RelationsController < ApplicationController
     if request.post? or request.delete?
       @contact = Contact.find_by_id_and_company_id(params[:id] , @current_company.id )
       @id = @contact.entity_id
-      @contact.deleted = true
+      @contact.active = true
       @contact.default = false
       @contact.save
       redirect_to_back

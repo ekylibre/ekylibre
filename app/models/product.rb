@@ -75,5 +75,10 @@ class Product < ActiveRecord::Base
     [:buy, :produce].collect{|x| [tc('supply_methods.'+x.to_s), x] }
   end
 
+  def has_components
+    products = ProductComponent.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.id})
+    !products.empty?
+  end
+
 
 end

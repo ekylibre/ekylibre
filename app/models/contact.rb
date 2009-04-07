@@ -57,22 +57,23 @@ class Contact < ActiveRecord::Base
   end
 
   # Each contact have a distinct code for a precise company.  
-  def validate_on_create    
+  def before_validation_on_create    
     unless self.code
       self.code = 'AAAA'
       while Contact.count(:conditions=>["entity_id=? AND company_id=? AND code=?", self.entity_id, self.company_id, self.code])>0 do
         self.code.succ!
       end
-      self.update_attributes!({:active=>true, :started_at=>Time.now})
+      self.active = true
+      self.started_at = Time.now
     end
   end
 
   # A contact can not be modified.
   # Therefore a contact is created for each update
   def before_update
-    self.active = false
     self.stopped_at = Time.now
-    Contact.create!(self.attributes.merge({:code=>self.code, :active=>true, :started_at=>self.stopped_at, :stopped_at=>nil, :company_id=>self.company_id, :entity_id=>self.entity_id, :norm_id=>self.norm_id}))
+    Contact.create!(self.attributes.merge({:code=>self.code, :active=>true, :started_at=>self.stopped_at, :stopped_at=>nil, :company_id=>self.company_id, :entity_id=>self.entity_id, :norm_id=>self.norm_id})) if self.active
+    self.active = false
   end
   
   #  def validate_on_update 

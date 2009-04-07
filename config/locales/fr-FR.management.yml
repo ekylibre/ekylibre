@@ -144,7 +144,6 @@ fr-FR:
         general: Description générale
       price_lists_update:
         title: 'Modifier la liste de prix : {{value}}'
-  
       products:
         title: 'Gérer les produits'
         nb_products:
@@ -152,7 +151,9 @@ fr-FR:
           one: '1 produit enregistré'
           other: '{{count}} produits enregistrés'
       product_components_create: 
-        title: 'e'
+        title: 'Ajouter un composant au produit {{value}} '
+      product_components_update: 
+        title: 'Modification d''un composant du produit {{product}} '
       products_create:
         title: 'Ajouter un nouveau produit'
       products_display:

@@ -165,22 +165,47 @@ class ManagementController < ApplicationController
     #t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases, :product_id=>['session[:product_id]']
   end
 
-  dyta(:product_components, :conditions=>{:company_id=>['@current_company.id'], :package_id=>['session[:product_id]']}) do |t|
+  dyta(:product_components, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}) do |t|
     t.column :name
+    t.action :product_components_update, :image=>:update
+    t.action :product_components_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def product_components_create
+    @product = find_and_check(:products, session[:product_id])
     if request.post?
       @product_component = ProductComponent.new(params[:product_component])
       @product_component.company_id = @current_company.id
-      @product_component.package_id = session[:product_id]
+      @product_component.product_id = @product.id
       redirect_to :action=>:products_display, :id=>session[:product_id] if @product_component.save
     else
       @product_component = ProductComponent.new(:quantity=>1.0)
     end
+    @title = {:value=>@product.name}
+    render_form
+  end
+  
+  def product_components_update
+    @product_component = find_and_check(:product_component, params[:id])
+    @product = find_and_check(:product, session[:product_id])
+    if request.post?
+      redirect_to :action=>:products_display, :id=>@product.id if @product_component.update_attributes!(params[:product_component])
+    else
+      #raise Exception.new @product_component.inspect
+    end
+    @title = {:product=>@product.name, :component=>@product_component.name}
     render_form
   end
 
+  def product_components_delete
+    if request.post?
+      @product_component = find_and_check(:product_component, params[:id])
+      # @product_component.active = false
+      @product_component.update_attributes!(:active=>false)
+      redirect_to :action=>:products_display, :id=>session[:product_id]
+    end
+  end
+  
   def products
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key

@@ -400,7 +400,8 @@ fr-FR:
         weight: Poids (kg)
         without_stocks: Ne nécessite pas de gestion de stocks
       product_component:
-        content_id: Produit contenu
+        component_id: Produit contenu
+        name: Nom
         quantity: Quantité
       product_stock: 
         critic_quantity_min: Quantité minimum critique
@@ -410,6 +411,10 @@ fr-FR:
         product_id: Produit
         quantity_max: Quantité maximum
         quantity_min: Quantité minimum
+      production: 
+        location_id: Lieu de stockage
+        product_id: Produit
+        quantity: Quantité
       profession:
         name: 'Nom'
         code: 'Code'
@@ -728,6 +733,21 @@ fr-FR:
         new: Nouveau...
 
 
+    # Production
+    production:
+      index:
+        production: Productions
+        productions: Productions
+        title: Gestion de la production
+      productions: 
+        productions: Productions
+        productions_create: Créer un nouvelle production
+        title: Productions
+      productions_create: 
+        title: Créer une nouvelle production
+      _productions_form:
+        infos: Renseignez les caractéristiques de la production
+
     # Relations
     relations:
       _coordinates_form:
@@ -985,6 +1005,8 @@ fr-FR:
         purchase: Achat
         rent: Location
       unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
+    product_component:
+      of_product: 'du produit'
     purchase_order: 
       purchase: Achat
     sale_order:

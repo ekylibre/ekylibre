@@ -76,9 +76,10 @@ module ApplicationHelper
 
      # ProductionController
      {:name=>:production, :list=>
-       [ {:name=>:wine, :list=>
-           [ {:name=>:wines} ] }
+       [  {:name=>:production, :list=>
+           [ {:name=>:productions} ]}
        ] }
+     
 
 
     ]
