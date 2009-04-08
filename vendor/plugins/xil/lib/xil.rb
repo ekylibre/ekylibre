@@ -46,14 +46,17 @@ ActionController::Base.class_eval do
   def render_xil(xil, options={})
     options = {:output=>:pdf}.merge(options)
     template = Ekylibre::Xil::Template.new(xil)
-    unless self.methods.include? template.method_name(options[:output])
+    method = template.method_name(options[:output])
+    unless self.methods.include? method
       code = template.compile_for(options[:output])
       puts code
       class_eval(code)
     end
     # Finally, the generated function is executed.
-    self.send(method_name,options[:key],options[:crypt]||xil_options[:crypt], options[:locals]||{})
+#    self.send(method, options[:key],options[:crypt]||xil_options[:crypt], options[:locals]||{})
+    self.send(method, options) #[:key],options[:crypt]||xil_options[:crypt], options[:locals]||{})
   end
+
 
   # this function looks for a method render_xil_name _'output' and calls analyse_template if not.
   def render_xil2(xil, options={})
@@ -111,6 +114,8 @@ ActionController::Base.class_eval do
     # Finally, the generated function is executed.
     self.send(method_name,options[:key],options[:crypt]||xil_options[:crypt], options[:locals]||{})
   end
+
+
 
 
 

@@ -3,14 +3,44 @@ module Ekylibre
 
     class Template
 
+
+      XIL_MARKUP2 = {
+        'template'=>{'document'=>1, 'styles'=>1},
+        'styles'=>{'style'=>'+'},
+        'style'=>{},
+        'document'=>{'page'=>'+'},
+        'page'=>{'loop'=>'*', 'block'=>'*', 'page-break'=>'*'},
+        'loop'=>{'loop'=>'*', 'block'=>'*', 'page-break'=>'*'},
+        'block'=>{'set'=>'+'},
+        'set'=>{'text'=>'*', 'image'=>'*', 'rectangle'=>'*','line'=>'*'},
+        'text'=>{},
+        'image'=>{},
+        'rectangle'=>{},
+        'line'=>{},
+        'page-break'=>{}
+      }
+
+
+      XIL_MARKUP = {
+        'template'=>{'document'=>1},
+        'document'=>{'page'=>'+'},
+        'page'=>{'block'=>'*'},
+        'block'=>{'set'=>'+'},
+        'set'=>{'text'=>'*'},
+        'text'=>{},
+      }
+
+
       def initialize(xil)
         @xil, @method_name = self.class.parse(xil)
+        puts '@@ '+@method_name
       end
       
       def compile_for(output, method_name=nil)
         method = 'compile_for_'+output.to_s
         if self.methods.include? method
-          code = (self.send 'compile_for_'+output.to_s, method_name)
+          method_name ||= self.method_name(output)
+          code = (self.send method, method_name, {:output=>output})
         else
           raise Exception.new("Unknown output format: #{output.inspect}")
         end
@@ -18,50 +48,64 @@ module Ekylibre
       end
 
       def method_name(output)
-        method = @method_name+'_'+output.to_s
-        if self.methods.include? method
-          method
-        else
-          nil
+        @method_name+'_'+output.to_s
+      end
+
+      def browse(element, environment={})
+        if XIL_MARKUP[element.name].nil?
+          raise Exception.new('Unknown element: '+element.name)
         end
+
+        code = ''
+        environment[:depth] ||= 1
+        element.each_element do |child|
+          if XIL_MARKUP[element.name].keys.include? child.name
+            env = environment.dup
+            env[:depth] += 1
+            code += send(environment[:output].to_s+'_'+child.name, env)
+          else
+            code += "\n# Unknown child: #{child.name}\n\n"
+          end
+        end
+        code.gsub("\n","\n"+"  "*environment[:depth])
       end
 
 
       def self.parse(input)
         options = Ekylibre::Xil::ClassMethods::xil_options
-        xil = nil
+        xil_text = nil
         method_name = nil
         if input.is_a? Integer
           # if the parameter is an integer.
           template = options[:template_model].find_by_id(input)
           raise Exception.new('This ID has not been found in the database.') if template.nil?
           method_name = input.to_s
-          xil = template.content
+          xil_text = template.content
         elsif input.is_a? String 
           # if the parameter is a string.
           # if it is a file. Else, an error is generated.
           if File.file? input
             file = File.open(input,'rb')
-            xil = file.read.to_s
+            input = file.read.to_s
             file.close()
           end
           if input.start_with? '<?xml'
             # the string begins by the XML standard format.
-            xil = input
+            xil_text = input
           else
             raise Exception.new("It is not an XML data: "+input.inspect)
           end
           # encodage of string into a crypt MD5 format to easier the authentification of template by the XIL-plugin.
-          method_name = Digest::MD5.hexdigest(xil)
+          method_name = Digest::MD5.hexdigest(xil_text)
           # the parameter is a template.
         elsif options[:features].include? :template
           if input.is_a? options[:template_model]
-            xil = input.content
+            xil_text = input.content
             method_name = input.id.to_s
           end
         end
-        method_name = "render_xil_#{method_name}"
-        xil, method_name
+        xil_tree = REXML::Document.new(xil_text)
+        return xil_tree, "render_xil_#{method_name}"
       end
 
     end
