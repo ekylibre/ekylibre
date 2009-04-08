@@ -32,7 +32,25 @@ class StockMove < ActiveRecord::Base
   def before_validation
     self.unit_id = self.product.unit_id if self.product and self.unit.nil?
   end
+
+  def before_create
+    product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id})
+    product_stock = ProductStock.create!(:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id) if product_stock.nil?
+
+    if self.virtual and self.input
+      product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
+    elsif self.virtual and !self.input
+      product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity - self.quantity)
+    elsif !self.virtual and self.input
+      product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity + self.quantity)
+    elsif !self.virtual and !self.input
+      product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity - self.quantity)
+    end
+
+  end
   
+
+### For stocks_moves created by user
   def change_quantity
     product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
     if product_stock.nil?
@@ -45,6 +63,7 @@ class StockMove < ActiveRecord::Base
     end
   end
 
+### For stocks_moves created by user
   def update_stock_quantity(last_quantity)
     product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
     if !self.moved_on.nil?

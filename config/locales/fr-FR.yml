@@ -401,6 +401,7 @@ fr-FR:
         without_stocks: Ne nécessite pas de gestion de stocks
       product_component:
         component_id: Produit contenu
+        location_id: Lieu de stockage
         name: Nom
         quantity: Quantité
       product_stock: 
@@ -547,6 +548,8 @@ fr-FR:
     help:
       title: Aide
     production:
+      mistake_on_quantities_sum: 'La somme des quantités n''est pas égale à la quantité totale produite' 
+      need_stock_location_to_create_production: Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions
       title: Production
   
     relations:
@@ -740,6 +743,13 @@ fr-FR:
         production: Productions
         productions: Productions
         title: Gestion de la production
+      production_lines_create:
+        title: 'Gérer les quantités utilisées '
+      _production_lines_form:
+        name: Nom
+        quantity: Quantité
+        total_quantity: Quantité totale produite
+        unit: Unité
       productions: 
         productions: Productions
         productions_create: Créer un nouvelle production
@@ -748,6 +758,8 @@ fr-FR:
         title: Créer une nouvelle production
       _productions_form:
         infos: Renseignez les caractéristiques de la production
+        production_legend_one: ' mp : matières premières'
+        production_legend_two: ' nc : nombre de composants '
 
     # Relations
     relations:
@@ -1006,8 +1018,12 @@ fr-FR:
         purchase: Achat
         rent: Location
       unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
+      components_number: ' nc '
+      raw_material: 'mp'
     product_component:
       of_product: 'du produit'
+    production: 
+      production: Production
     purchase_order: 
       purchase: Achat
     sale_order:

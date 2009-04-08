@@ -13,16 +13,30 @@ class ProductComponent < ActiveRecord::Base
   def before_validation_on_create    
     self.active = true
     self.started_at = Time.now
-    #raise Exception.new self.inspect
   end
 
-
   def before_update
-    #raise Exception.new "hhjhjhjh"
     self.stopped_at = Time.now
     ProductComponent.create!(self.attributes.merge({:started_at=>self.stopped_at, :stopped_at=>nil, :active=>true, :company_id=>self.company_id})) if self.active
     self.active = false
     true
   end
+  
+  def check_quantities(params, production_quantity)
+    total = 0
+    for p in params[self.id.to_s]
+      total += p[1].to_d
+    end
+    value = (total == (self.quantity*production_quantity))
+  end
+  
+#   def stocks_move_create(params, production_id)
+#     for p in params
+#       if p[1] > 0
+#         StockMove.create!(:name=>tc('production')+" "+self.id.to_s, :quantity=>p[1], :location_id=>p[0], :product_id=>self.component_id, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :virtual=>true, :input=>false, :origin_type=>Production.to_s, :origin_id=>production_id)
+#       end
+#     end
+
+#   end
 
 end

@@ -80,5 +80,18 @@ class Product < ActiveRecord::Base
     !products.empty?
   end
 
+  def components
+    products = ProductComponent.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.id})
+    products
+  end
+
+  def informations
+    if self.has_components
+      name = self.name+" ( "+self.unit.label+" ) "+tc('components_number')+self.components.size.to_s
+    else
+      name = self.name+" ( "+self.unit.label+" ) "+tc('raw_material')
+    end
+    name
+  end
 
 end

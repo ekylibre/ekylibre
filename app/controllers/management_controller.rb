@@ -216,7 +216,7 @@ class ManagementController < ApplicationController
     @product = find_and_check(:product, params[:id])
     session[:product_id] = @product.id
     product_prices_list params
-    product_components_list params
+    product_components_list 
     @title = {:value=>@product.name}
   end
 
@@ -352,7 +352,7 @@ class ManagementController < ApplicationController
     purchase_order_lines_list params
     if request.post?
       @purchase_order.stocks_moves_create
-      @purchase_order.change_quantity(true,true)
+      # @purchase_order.change_quantity(true,true)
       @purchase_order.update_attributes(:shipped=>true)
     end
     @title = {:value=>@purchase_order.number,:name=>@purchase_order.supplier.full_name}
@@ -604,7 +604,6 @@ class ManagementController < ApplicationController
       else
         @sale_order.update_attribute(:state, 'D') if @sale_order.state == 'P'
         @sale_order.stocks_moves_create
-        @sale_order.change_quantity(true, false)
       end
       redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
     end
@@ -707,9 +706,6 @@ class ManagementController < ApplicationController
         redirect_to :action=>:sales_products, :id=>session[:current_sale_order]
       end
       if request.post?
-        #for delivery in @deliveries
-         # delivery.stocks_moves_create if !delivery.moved_on.nil?
-        #end
         redirect_to :action=>:sales_invoices, :id=>@sale_order.id
       end
     end
@@ -826,7 +822,6 @@ class ManagementController < ApplicationController
         end
       else
         deliveries = params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)}
-        #raise Exception.new deliveries.inspect
         for delivery in deliveries
           delivery.stocks_moves_create if !delivery.moved_on.nil?
         end
