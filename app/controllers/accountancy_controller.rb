@@ -73,10 +73,10 @@
     t.procedure :create, :action=>:financialyears_create
   end
 
-  dyli(:account_search, :attributes=>[:number, :name], :model=>:account)
+   dyli(:account_search, :attributes=>[:number, :name], :conditions=>{:company_id=>@current_company}, :model=>:account)
   
 
-   #
+  #
   def index
   
   end
@@ -377,7 +377,7 @@
   # this action displays all entries stored in the journal. 
   def entries_consult
     session[:journal_period] ||= {}
-    #     session[:entries] ||= {}
+   
     @journal_period = JournalPeriod.new(params[:journal_period])
   
     @journals = @current_company.journals

@@ -32,9 +32,18 @@ module Ekylibre
               search=params[model.to_s.lower.to_sym][:search].chars.downcase
               conditions[0] = options[:attributes].collect do |attribute|
                 conditions << '%'+search+'%'
-                "LOWER(#{attribute}) LIKE ?"
+                "LOWER(#{attribute}) LIKE ? "
               end.join(" OR ")
               
+              conditions[0] += options[:conditions].collect do |key, value|
+                conditions << sanitize_conditions(value)
+                "AND #{key} = ?"
+              end.join(" ")
+              
+              #puts "company:"+options[:conditions].inspect
+
+              puts "conditions20: "+conditions.inspect
+             
               find_options = { 
                 :conditions => conditions,
                 :order => "#{options[:attributes][0]} ASC",
@@ -53,6 +62,23 @@ module Ekylibre
           end
           
         end 
+        
+        
+        def sanitize_conditions(value)
+          if value.is_a? Array
+            if value.size==1 and value[0].is_a? String
+              value[0].to_s
+              else
+              value.inspect
+            end
+          elsif value.is_a? String
+              '"'+value.gsub('"','\"')+'"'
+          elsif [Date, DateTime].include? value.class
+            '"'+value.to_formatted_s(:db)+'"'
+          else
+              value.to_s
+          end
+        end
         
       end
       
