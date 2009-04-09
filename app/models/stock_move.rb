@@ -50,7 +50,56 @@ class StockMove < ActiveRecord::Base
   end
   
 
-### For stocks_moves created by user
+  def before_update
+    old_move = StockMove.find_by_id_and_company_id(self.id, self.company_id)
+    old_product_stock = ProductStock.find(:first,:conditions=>{:product_id=>old_move.product_id, :location_id=>old_move.location_id, :company_id=>self.company_id})
+    product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id})
+    product_stock = ProductStock.create!(:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id) if product_stock.nil?
+    #raise Exception.new old_move.inspect+" <- old_move                   self-> "+self.inspect
+    
+    if old_move.location_id != self.location_id
+      if self.input and self.virtual
+        product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
+        old_product_stock.update_attributes!(:current_virtual_quantity=>old_product_stock.current_virtual_quantity - old_move.quantity)
+      elsif self.input and !self.virtual
+        product_stock.update_attributes!(:current_real_quantity=>product_stock.current_real_quantity + self.quantity)
+        old_product_stock.update_attributes(:current_real_quantity=>old_product_stock.current_real_quantity - old_move.quantity) 
+      elsif !self.input and self.virtual
+        product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity - self.quantity)
+        old_product_stock.update_attributes!(:current_virtual_quantity=>old_product_stock.current_virtual_quantity + old_move.quantity)
+      elsif !self.input and !self.virtual
+        product_stock.update_attributes!(:current_real_quantity=>product_stock.current_real_quantity - self.quantity)
+        old_product_stock.update_attributes(:current_real_quantity=>old_product_stock.current_real_quantity + old_move.quantity) 
+      end
+    else
+      if self.input and self.virtual
+        product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity + (self.quantity - old_move.quantity))
+      elsif self.input and !self.virtual
+        product_stock.update_attributes!(:current_real_quantity=>product_stock.current_real_quantity + (self.quantity - old_move.quantity) )
+      elsif !self.input and self.virtual
+        product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity - (self.quantity - old_move.quantity))
+      elsif !self.input and !self.virtual
+        product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity - (self.quantity - old_move.quantity) )    
+      end
+    end
+  end
+
+  def before_destroy
+    product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id})
+    if self.virtual and self.input
+      product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity - self.quantity)
+    elsif self.virtual and !self.input
+      product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
+    elsif !self.virtual and self.input
+      product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity - self.quantity)
+    elsif !self.virtual and !self.input
+      product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity + self.quantity)
+    end
+  end
+  
+  
+  
+  ### For stocks_moves created by user
   def change_quantity
     product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
     if product_stock.nil?
@@ -63,7 +112,7 @@ class StockMove < ActiveRecord::Base
     end
   end
 
-### For stocks_moves created by user
+  ### For stocks_moves created by user
   def update_stock_quantity(last_quantity)
     product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
     if !self.moved_on.nil?

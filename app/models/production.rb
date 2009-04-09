@@ -1,5 +1,6 @@
 class Production < ActiveRecord::Base
 
+  attr_readonly :company_id, :product_id
 
   def before_validation
     self.planned_on = Date.today
@@ -9,27 +10,45 @@ class Production < ActiveRecord::Base
   end
 
  
-  
-  def single_stock_move_create
-    
-    StockMove.create!(:name=>tc('production')+" "+self.id.to_s, :quantity=>self.quantity, :location_id=>self.location_id, :product_id=>self.product_id, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :virtual=>true, :input=>true, :origin_type=>Production.to_s, :origin_id=>self.id)
-
+  def before_update
+    old_real_move = StockMove.find(:first, :conditions=>{:company_id=>self.company_id, :origin_type=>Production.to_s, :origin_id=>self.id, :product_id=>self.product_id, :input=>true, :virtual=>false})
+    old_virtual_move = StockMove.find(:first, :conditions=>{:company_id=>self.company_id, :origin_type=>Production.to_s, :origin_id=>self.id, :product_id=>self.product_id, :input=>true, :virtual=>true})
+    #raise Exception.new old_move.inspect+" <- old_move                   self-> "+self.inspect
+    old_real_move.update_attributes!(:quantity=>self.quantity, :location_id=>self.location_id)
+    old_virtual_move.update_attributes!(:quantity=>self.quantity, :location_id=>self.location_id)
   end
 
-  def stocks_moves_create(params)
-    #raise Exception.new self.product.inspect
-    for component in self.product.components
-      #raise Exception.new params.inspect
-      for p in params[component.id.to_s]
-        if p[1].to_d > 0
-          StockMove.create!(:name=>tc('production')+" "+self.id.to_s, :quantity=>p[1], :location_id=>p[0], :product_id=>component.component_id, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :virtual=>true, :input=>false, :origin_type=>Production.to_s, :origin_id=>self.id)
+
+  def move_stocks(params={}, update=nil)
+    if !params.empty?
+      for component in self.product.components
+        for p in params[component.id.to_s]
+          if p[1].to_d > 0
+            virtual_move = StockMove.find(:first, :conditions=>{:company_id=>self.company_id, :origin_type=>Production.to_s, :origin_id=>self.id, :input=>false, :location_id=>p[0] , :product_id=>component.component_id, :virtual=>true})
+            real_move =  StockMove.find(:first, :conditions=>{:company_id=>self.company_id, :origin_type=>Production.to_s, :origin_id=>self.id, :input=>false, :location_id=>p[0] , :product_id=>component.component_id, :virtual=>false})
+            if virtual_move.nil?
+              StockMove.create!(:name=>tc('production')+" "+self.id.to_s, :quantity=>p[1], :location_id=>p[0], :product_id=>component.component_id, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :virtual=>true, :input=>false, :origin_type=>Production.to_s, :origin_id=>self.id)
+              StockMove.create!(:name=>tc('production')+" "+self.id.to_s, :quantity=>p[1], :location_id=>p[0], :product_id=>component.component_id, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :virtual=>false, :input=>false, :origin_type=>Production.to_s, :origin_id=>self.id)
+            else
+              real_move.update_attributes(:quantity=>p[1], :location_id=>p[0])
+              virtual_move.update_attributes(:quantity=>p[1], :location_id=>p[0])
+            end
+          end
         end
       end
+    end  
+    if update.nil?
+      StockMove.create!(:name=>tc('production')+" "+self.id.to_s, :quantity=>self.quantity, :location_id=>self.location_id, :product_id=>self.product_id, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :virtual=>true, :input=>true, :origin_type=>Production.to_s, :origin_id=>self.id)
+      StockMove.create!(:name=>tc('production')+" "+self.id.to_s, :quantity=>self.quantity, :location_id=>self.location_id, :product_id=>self.product_id, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :virtual=>false, :input=>true, :origin_type=>Production.to_s, :origin_id=>self.id)
     end
-    
-    StockMove.create!(:name=>tc('production')+" "+self.id.to_s, :quantity=>self.quantity, :location_id=>self.location_id, :product_id=>self.product_id, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :virtual=>true, :input=>true, :origin_type=>Production.to_s, :origin_id=>self.id)
   end
 
+  def before_destroy
+    stocks_moves = StockMove.find(:all, :conditions=>{:company_id=>self.company_id, :origin_type=>Production.to_s, :origin_id=>self.id})
+    for stocks_move in stocks_moves
+      stocks_move.destroy
+    end
+  end
 
-
+  
 end

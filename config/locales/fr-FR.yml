@@ -414,6 +414,7 @@ fr-FR:
         quantity_min: Quantité minimum
       production: 
         location_id: Lieu de stockage
+        moved_on: Fait le
         product_id: Produit
         quantity: Quantité
       profession:
@@ -745,6 +746,8 @@ fr-FR:
         title: Gestion de la production
       production_lines_create:
         title: 'Gérer les quantités utilisées '
+      production_lines_update:
+        title: 'Modifier les quantités utilisées'
       _production_lines_form:
         name: Nom
         quantity: Quantité
@@ -756,6 +759,8 @@ fr-FR:
         title: Productions
       productions_create: 
         title: Créer une nouvelle production
+      productions_update:
+        title: 'Modification de la production {{value}} du {{moved}}'
       _productions_form:
         infos: Renseignez les caractéristiques de la production
         production_legend_one: ' mp : matières premières'

@@ -41,16 +41,12 @@ class ProductStock < ActiveRecord::Base
   end
 
   def add_or_update(params,product_id)
-    #raise Exception.new params.inspect+"rrr"+product_id.inspect
-    #raise Exception.new params[:quantity_max].inspect
     stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>params[:location_id], :product_id=>product_id})
     if stock.nil?
-      #raise Exception.new params[:quantity_min].inspect
       ProductStock.create!(:company_id=>self.company_id, :location_id=>params[:location_id], :product_id=>product_id, :quantity_min=>params[:quantity_min], :quantity_max=>params[:quantity_max], :critic_quantity_min=>params[:critic_quantity_min])
     else
       stock.update_attributes(params)
     end
-    #raise Exception.new stocks.inspect
   end
 
 end
