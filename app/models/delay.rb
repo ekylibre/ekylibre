@@ -17,8 +17,7 @@
 #
 
 class Delay < ActiveRecord::Base
-  belongs_to :company
-
+ 
   belongs_to :company
   has_many :entities
   has_many :invoices
