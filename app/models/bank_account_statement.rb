@@ -20,7 +20,12 @@
 #
 
 class BankAccountStatement < ActiveRecord::Base
-  
+  belongs_to :bank_account
+  belongs_to :company
+
+  has_many :intermediate, :class_name=>"Entry"
+  has_many :statement, :class_name=>"Entry"
+
 
   # A bank account statement has to contain all the planned records.
   def validate    

@@ -20,7 +20,11 @@
 #
 
 class Journal < ActiveRecord::Base
-
+  belongs_to :company
+  
+  has_many :bankaccounts, :foreign_key=>:journal_id
+  has_many :periods, :foreign_key=>:journal_id
+  has_many :journalrecords, :foreign_key=>:journal_id
 
   #   before_create :journal_nature
   before_destroy :empty?

@@ -24,7 +24,17 @@
 #
 
 class JournalRecord < ActiveRecord::Base
+  belongs_to :company
+  belongs_to :resource
+
+  belongs_to :period
+  belongs_to :journal
+ 
+  has_many :entries, :class_name=>"Entry", :foreign_key=>:record_id
+
+
   acts_as_list :scope=>:period
+
   
   def before_validation
     self.debit = self.entries.sum(:debit)

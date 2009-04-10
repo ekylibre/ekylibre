@@ -22,6 +22,10 @@
 
 
 class JournalPeriod < ActiveRecord::Base
+  belongs_to :company
+  belongs_to :financial
+  belongs_to :journal
+  
   has_many :records, :class_name=>"JournalRecord", :foreign_key=>:period_id
   
 #  validates_uniqueness_of [:started_on, :stopped_on], :scope=> [:journal_id, :financialyear_id]

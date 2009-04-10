@@ -28,8 +28,26 @@
 #
 
 class Account < ActiveRecord::Base
-  validates_format_of :number, :with=>/[0-9]+/i
+  belongs_to :company
+  
+  has_many :account_balances
+  has_many :bank_accounts
+ 
+  has_many :entries
+  has_many :payments
+  has_many :payment_modes
+  has_many :products
+  has_many :purchase_order_lines
+
+
+
+  #has_many :counterpart_id, :class_name=>"Journal"
+  has_many :journals, :class_name=>"Journal", :foreign_key=>:counterpart_id
+
+
   acts_as_tree
+  validates_format_of :number, :with=>/[0-9]+/i
+
 
   # This method allows to create the parent accounts if it is necessary.
   def before_validation

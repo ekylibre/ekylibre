@@ -23,6 +23,10 @@
 #
 
 class AccountBalance < ActiveRecord::Base
+  belongs_to :account
+  belongs_to :company
+  belongs_to :financialyear
+  
   # validates_uniqueness_of :account, :name, :label 
 
 

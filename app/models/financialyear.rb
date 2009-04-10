@@ -18,10 +18,15 @@
 #
 
 class Financialyear < ActiveRecord::Base
-   has_many :periods, :class_name=>"JournalPeriod", :foreign_key=>:financialyear_id
+  belongs_to :company
+
+
+  has_many :accountbalances, :class_name=>"AccountBalance", :foreign_key=>:financialyear_id
+
+  has_many :periods, :class_name=>"JournalPeriod", :foreign_key=>:financialyear_id
+
 
  #validates_uniqueness_of [:started_on, :stopped_on]
-
 
   def before_validation
     #self.code = name.to_s[0..7].simpleize if code.blank?

@@ -30,6 +30,20 @@
 
 
 class Entry < ActiveRecord::Base
+  belongs_to :company
+  belongs_to :record
+  belongs_to :account
+  belongs_to :currency
+  belongs_to :bankaccountstatement, :foreign_key=>"intermediate_id"
+  belongs_to :bankaccountstatement, :foreign_key=>"statement_id"
+
+  
+  
+
+
+
+
+
   acts_as_list :scope=>:record
 
   attr_readonly :company_id, :record_id

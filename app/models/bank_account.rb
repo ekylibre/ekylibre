@@ -27,6 +27,15 @@
 #
 
 class BankAccount < ActiveRecord::Base
+  belongs_to :journal
+  belongs_to :currency
+  belongs_to :account
+  belongs_to :company
+  belongs_to :entity
+  
+  has_many :bank_account_statements
+
+
   #  validates_length_of :bank_code, :is => 5
   #   validates_length_of :agency_code, :is => 5
   #   validates_length_of :number, :is => 11
