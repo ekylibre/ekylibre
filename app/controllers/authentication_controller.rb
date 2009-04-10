@@ -18,7 +18,7 @@ class AuthenticationController < ApplicationController
   end
   
   def login
-    @login = 'lf'
+    session[:help] = false
     if request.post?
       user = User.authenticate(params[:user][:name], params[:user][:password])
       if user

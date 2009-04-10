@@ -17,7 +17,7 @@
     <column name='last_letter' type='CHARACTER VARYING(8)'/>
     <column name='comment' type='TEXT'/>
     <column name='parent_id' default='0' type='INTEGER' fkey='Account(id)' notnull='true'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -26,8 +26,8 @@
   </table>
   <table name='AccountBalance' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='account_id' type='INTEGER' fkey='Account(id)' notnull='true'/>
-    <column name='financialyear_id' type='INTEGER' fkey='Financialyear(id)' notnull='true'/>
+    <column name='account_id' type='INTEGER' notnull='true'/>
+    <column name='financialyear_id' type='INTEGER' notnull='true'/>
     <column name='global_debit' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='global_credit' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='global_balance' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
@@ -36,7 +36,7 @@
     <column name='local_credit' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='local_balance' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='local_count' default='0' type='INTEGER' notnull='true'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -50,7 +50,7 @@
     <column name='default' type='BOOLEAN' notnull='true'/>
     <column name='rtl' type='BOOLEAN' notnull='true'/>
     <column name='align' default='&quot;left&quot;' type='CHARACTER VARYING(8)' notnull='true'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -59,7 +59,7 @@
   </table>
   <table name='AddressNormItem' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='contact_norm_id' type='INTEGER' fkey='AddressNorm(id)' notnull='true'/>
+    <column name='contact_norm_id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='nature' default='&quot;content&quot;' type='CHARACTER VARYING(15)' notnull='true'/>
     <column name='maxlength' default='38' type='INTEGER' notnull='true'/>
@@ -69,7 +69,7 @@
     <column name='right_nature' default='&quot;space&quot;' type='CHARACTER VARYING(15)'/>
     <column name='right_value' type='CHARACTER VARYING(63)'/>
     <column name='position' type='INTEGER'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -83,16 +83,16 @@
     <column name='iban_label' type='CHARACTER VARYING(48)' notnull='true' label='IBAN'/>
     <column name='bic' type='CHARACTER VARYING(16)' label='BIC'/>
     <column name='deleted' type='BOOLEAN' notnull='true'/>
-    <column name='journal_id' type='INTEGER' fkey='Journal(id)' notnull='true' label='Journal utilisé'/>
-    <column name='currency_id' type='INTEGER' fkey='Currency(id)' notnull='true' label='Devise utilisée'/>
-    <column name='account_id' type='INTEGER' fkey='Account(id)' notnull='true' label='Compte comptable référencé'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='journal_id' type='INTEGER' notnull='true' label='Journal utilisé'/>
+    <column name='currency_id' type='INTEGER' notnull='true' label='Devise utilisée'/>
+    <column name='account_id' type='INTEGER' notnull='true' label='Compte comptable référencé'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
-    <column name='entity_id' type='INTEGER' fkey='Entity(id)'/>
+    <column name='entity_id' type='INTEGER'/>
     <column name='bank_code' type='CHARACTER VARYING(255)' label='Code banque'/>
     <column name='agency_code' type='CHARACTER VARYING(255)' label='Code guichet'/>
     <column name='number' type='CHARACTER VARYING(255)' label='Numéro de compte bancaire'/>
@@ -101,14 +101,14 @@
   </table>
   <table name='BankAccountStatement' version='20090407073247' label='Relevé de compte bancaire'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='bank_account_id' type='INTEGER' fkey='BankAccount(id)' notnull='true' label='Compte bancaire référencé'/>
+    <column name='bank_account_id' type='INTEGER' notnull='true' label='Compte bancaire référencé'/>
     <column name='started_on' type='DATE' notnull='true' label='Du'/>
     <column name='stopped_on' type='DATE' notnull='true' label='Au'/>
     <column name='intermediate' type='BOOLEAN' notnull='true'/>
     <column name='number' type='CHARACTER VARYING(255)' notnull='true' label='Numéro du relevé de compte'/>
     <column name='debit' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='credit' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -128,7 +128,7 @@
     <column name='created_by' type='INTEGER'/>
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
-    <column name='entity_id' type='INTEGER' fkey='Entity(id)'/>
+    <column name='entity_id' type='INTEGER'/>
   </table>
   <table name='Complement' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
@@ -140,7 +140,7 @@
     <column name='length_max' type='INTEGER' label='Nombre de caractères maximum'/>
     <column name='decimal_min' type='NUMERIC(16,4)' label='Intervalle bas'/>
     <column name='decimal_max' type='NUMERIC(16,4)' label='Intervalle haut'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -149,10 +149,10 @@
   </table>
   <table name='ComplementChoice' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='complement_id' type='INTEGER' fkey='Complement(id)' notnull='true'/>
+    <column name='complement_id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='value' type='CHARACTER VARYING(255)' notnull='true' label='Valeur'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -161,15 +161,15 @@
   </table>
   <table name='ComplementDatum' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='entity_id' type='INTEGER' fkey='Entity(id)' notnull='true'/>
-    <column name='complement_id' type='INTEGER' fkey='Complement(id)' notnull='true'/>
+    <column name='entity_id' type='INTEGER' notnull='true'/>
+    <column name='complement_id' type='INTEGER' notnull='true'/>
     <column name='decimal_value' type='NUMERIC'/>
     <column name='string_value' type='TEXT'/>
     <column name='boolean_value' type='BOOLEAN'/>
     <column name='date_value' type='DATE'/>
     <column name='datetime_value' type='TIMESTAMP WITHOUT TIME ZONE'/>
-    <column name='choice_value_id' type='INTEGER' fkey='ComplementChoice(id)'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='choice_value_id' type='INTEGER'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -179,8 +179,8 @@
   <table name='Contact' version='20090407073247' label='Contact'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' label='Nom (interne)'/>
-    <column name='entity_id' type='INTEGER' fkey='Entity(id)' notnull='true'/>
-    <column name='norm_id' type='INTEGER' fkey='AddressNorm(id)' notnull='true'/>
+    <column name='entity_id' type='INTEGER' notnull='true'/>
+    <column name='norm_id' type='INTEGER' notnull='true'/>
     <column name='default' type='BOOLEAN' notnull='true' label='Par défaut'/>
     <column name='closed_on' type='DATE' label='Annulé le'/>
     <column name='line_2' type='CHARACTER VARYING(38)' label='Destinataire - Service'/>
@@ -199,7 +199,7 @@
     <column name='deleted' type='BOOLEAN' notnull='true'/>
     <column name='latitude' type='DOUBLE PRECISION' label='Latitude'/>
     <column name='longitude' type='DOUBLE PRECISION' label='Longitude'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -219,7 +219,7 @@
     <column name='rate' default='1.0' type='NUMERIC(16,6)' notnull='true'/>
     <column name='active' default='TRUE' type='BOOLEAN' notnull='true'/>
     <column name='comment' type='TEXT'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -232,7 +232,7 @@
     <column name='active' default='TRUE' type='BOOLEAN' notnull='true' label='Utilisable'/>
     <column name='expression' type='CHARACTER VARYING(255)' notnull='true' label='Expression'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -241,33 +241,33 @@
   </table>
   <table name='Delivery' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='order_id' type='INTEGER' fkey='SaleOrder(id)' notnull='true'/>
-    <column name='invoice_id' type='INTEGER' fkey='Invoice(id)'/>
+    <column name='order_id' type='INTEGER' notnull='true'/>
+    <column name='invoice_id' type='INTEGER'/>
     <column name='amount' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='amount_with_taxes' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='comment' type='TEXT'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
-    <column name='contact_id' type='INTEGER' fkey='Contact(id)' label='Adresse du client'/>
+    <column name='contact_id' type='INTEGER' label='Adresse du client'/>
     <column name='nature' type='CHARACTER VARYING(3)' label='Type'/>
     <column name='planned_on' type='DATE' label='Prévue le'/>
     <column name='moved_on' type='DATE'/>
   </table>
   <table name='DeliveryLine' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='delivery_id' type='INTEGER' fkey='Delivery(id)' notnull='true'/>
-    <column name='order_line_id' type='INTEGER' fkey='SaleOrderLine(id)' notnull='true'/>
-    <column name='product_id' type='INTEGER' fkey='Product(id)' notnull='true'/>
-    <column name='price_id' type='INTEGER' fkey='Price(id)' notnull='true'/>
+    <column name='delivery_id' type='INTEGER' notnull='true'/>
+    <column name='order_line_id' type='INTEGER' notnull='true'/>
+    <column name='product_id' type='INTEGER' notnull='true'/>
+    <column name='price_id' type='INTEGER' notnull='true'/>
     <column name='quantity' default='1.0' type='NUMERIC(16,2)' notnull='true'/>
-    <column name='unit_id' type='INTEGER' fkey='Unit(id)' notnull='true'/>
+    <column name='unit_id' type='INTEGER' notnull='true'/>
     <column name='amount' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='amount_with_taxes' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -278,8 +278,8 @@
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
-    <column name='parent_id' type='INTEGER' fkey='Department(id)'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='parent_id' type='INTEGER'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -296,7 +296,7 @@
     <column name='crypt_mode' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='sha256' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='printed_at' type='TIMESTAMP WITHOUT TIME ZONE'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -305,9 +305,9 @@
   </table>
   <table name='Employee' version='20090407073247' label='Employé'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='department_id' type='INTEGER' fkey='Department(id)' notnull='true' label='Département'/>
-    <column name='establishment_id' type='INTEGER' fkey='Establishment(id)' notnull='true' label='Etablissement'/>
-    <column name='user_id' type='INTEGER' fkey='User(id)' label='Utilisateur'/>
+    <column name='department_id' type='INTEGER' notnull='true' label='Département'/>
+    <column name='establishment_id' type='INTEGER' notnull='true' label='Etablissement'/>
+    <column name='user_id' type='INTEGER' label='Utilisateur'/>
     <column name='title' type='CHARACTER VARYING(32)' notnull='true' label='Fonction'/>
     <column name='last_name' type='CHARACTER VARYING(255)' notnull='true' label='Prénom'/>
     <column name='first_name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
@@ -316,19 +316,19 @@
     <column name='role' type='CHARACTER VARYING(255)'/>
     <column name='office' type='CHARACTER VARYING(32)'/>
     <column name='comment' type='TEXT'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
-    <column name='profession_id' type='INTEGER' fkey='Profession(id)' notnull='true' label='Profession'/>
+    <column name='profession_id' type='INTEGER' notnull='true' label='Profession'/>
     <column name='commercial' type='BOOLEAN' notnull='true' label='Activité commerciale'/>
   </table>
   <table name='Entity' version='20090407073247' label='Relation'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='nature_id' type='INTEGER' fkey='EntityNature(id)' notnull='true' label='Type'/>
-    <column name='language_id' type='INTEGER' fkey='Language(id)' notnull='true' label='Langue'/>
+    <column name='nature_id' type='INTEGER' notnull='true' label='Type'/>
+    <column name='language_id' type='INTEGER' notnull='true' label='Langue'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='first_name' type='CHARACTER VARYING(255)' label='Prénom'/>
     <column name='full_name' type='CHARACTER VARYING(255)' notnull='true' label='Nom complet'/>
@@ -341,14 +341,14 @@
     <column name='website' type='CHARACTER VARYING(255)' label='Site Web'/>
     <column name='client' type='BOOLEAN' notnull='true' label='Fiche client'/>
     <column name='supplier' type='BOOLEAN' notnull='true' label='Fiche fournisseur'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
-    <column name='client_account_id' type='INTEGER' fkey='Account(id)'/>
-    <column name='supplier_account_id' type='INTEGER' fkey='Account(id)'/>
+    <column name='client_account_id' type='INTEGER'/>
+    <column name='supplier_account_id' type='INTEGER'/>
     <column name='vat_submissive' default='TRUE' type='BOOLEAN' notnull='true' label='Soumis à la TVA'/>
     <column name='reflation_submissive' type='BOOLEAN' notnull='true' label='Soumis à la relance'/>
     <column name='deliveries_conditions' type='CHARACTER VARYING(60)' label='Conditions de Livraison'/>
@@ -359,10 +359,10 @@
     <column name='vat_number' type='CHARACTER VARYING(15)' label='Numéro de TVA intra-communautaire'/>
     <column name='country' type='CHARACTER VARYING(2)' label='Pays'/>
     <column name='payments_number' type='INTEGER' label='Nombre de paiements'/>
-    <column name='employee_id' type='INTEGER' fkey='Employee(id)' label='Représentant'/>
-    <column name='proposer_id' type='INTEGER' fkey='Entity(id)'/>
-    <column name='payment_mode_id' type='INTEGER' fkey='PaymentMode(id)'/>
-    <column name='payment_delay_id' type='INTEGER' fkey='Delay(id)'/>
+    <column name='employee_id' type='INTEGER' label='Représentant'/>
+    <column name='proposer_id' type='INTEGER'/>
+    <column name='payment_mode_id' type='INTEGER'/>
+    <column name='payment_delay_id' type='INTEGER'/>
     <column name='invoices_count' type='INTEGER'/>
   </table>
   <table name='EntityNature' version='20090407073247'>
@@ -374,7 +374,7 @@
     <column name='in_name' default='TRUE' type='BOOLEAN' notnull='true' label='Abréviation incluse dans le nom de la fiche'/>
     <column name='title' type='CHARACTER VARYING(255)' label='Titre'/>
     <column name='description' type='TEXT' label='Description'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -383,23 +383,23 @@
   </table>
   <table name='Entry' version='20090407073247' label='Écriture'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='record_id' type='INTEGER' fkey='JournalRecord(id)' notnull='true' label='Numéro'/>
-    <column name='account_id' type='INTEGER' fkey='Account(id)' notnull='true' label='Compte'/>
+    <column name='record_id' type='INTEGER' notnull='true' label='Numéro'/>
+    <column name='account_id' type='INTEGER' notnull='true' label='Compte'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Libellé'/>
-    <column name='currency_id' type='INTEGER' fkey='Currency(id)' notnull='true'/>
+    <column name='currency_id' type='INTEGER' notnull='true'/>
     <column name='currency_rate' type='NUMERIC(16,6)' notnull='true'/>
     <column name='editable' default='TRUE' type='BOOLEAN'/>
     <column name='currency_debit' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Débit'/>
     <column name='currency_credit' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Crédit'/>
     <column name='debit' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='credit' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
-    <column name='intermediate_id' type='INTEGER' fkey='BankAccountStatement(id)'/>
-    <column name='statement_id' type='INTEGER' fkey='BankAccountStatement(id)'/>
+    <column name='intermediate_id' type='INTEGER'/>
+    <column name='statement_id' type='INTEGER'/>
     <column name='letter' type='CHARACTER VARYING(8)'/>
     <column name='expired_on' type='DATE'/>
     <column name='position' type='INTEGER'/>
     <column name='comment' type='TEXT'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -412,7 +412,7 @@
     <column name='nic' type='CHARACTER VARYING(5)' notnull='true' label='NIC (Numéro Interne de Classement)'/>
     <column name='siret' type='CHARACTER VARYING(255)' notnull='true' label='N° SIRET'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -426,7 +426,7 @@
     <column name='started_on' type='DATE' notnull='true' label='Commencé le'/>
     <column name='stopped_on' type='DATE' notnull='true' label='Date de clôture'/>
     <column name='written_on' type='DATE' notnull='true' label='Autoriser l&apos;écriture jusqu&apos;au'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -435,42 +435,42 @@
   </table>
   <table name='Invoice' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='client_id' type='INTEGER' fkey='Entity(id)' notnull='true'/>
+    <column name='client_id' type='INTEGER' notnull='true'/>
     <column name='nature' type='CHARACTER VARYING(1)' notnull='true'/>
     <column name='number' type='CHARACTER VARYING(64)' notnull='true' label='Numéro'/>
     <column name='amount' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Montant HT'/>
     <column name='amount_with_taxes' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Montant TTC'/>
-    <column name='payment_delay_id' type='INTEGER' fkey='Delay(id)' notnull='true'/>
+    <column name='payment_delay_id' type='INTEGER' notnull='true'/>
     <column name='payment_on' type='DATE' notnull='true'/>
     <column name='paid' type='BOOLEAN' notnull='true'/>
     <column name='lost' type='BOOLEAN' notnull='true'/>
     <column name='has_downpayment' type='BOOLEAN' notnull='true'/>
     <column name='downpayment_price' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
-    <column name='contact_id' type='INTEGER' fkey='Contact(id)' notnull='true' label='Adresse'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='contact_id' type='INTEGER' notnull='true' label='Adresse'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
-    <column name='sale_order_id' type='INTEGER' fkey='SaleOrder(id)'/>
+    <column name='sale_order_id' type='INTEGER'/>
   </table>
   <table name='InvoiceLine' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='order_line_id' type='INTEGER' fkey='SaleOrderLine(id)' notnull='true'/>
-    <column name='product_id' type='INTEGER' fkey='Product(id)' notnull='true'/>
-    <column name='price_id' type='INTEGER' fkey='Price(id)' notnull='true'/>
+    <column name='order_line_id' type='INTEGER' notnull='true'/>
+    <column name='product_id' type='INTEGER' notnull='true'/>
+    <column name='price_id' type='INTEGER' notnull='true'/>
     <column name='quantity' default='1.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='amount' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='amount_with_taxes' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='position' type='INTEGER'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
-    <column name='invoice_id' type='INTEGER' fkey='Invoice(id)'/>
+    <column name='invoice_id' type='INTEGER'/>
   </table>
   <table name='Journal' version='20090407073247' label='Journal'>
     <column name='id' type='INTEGER' notnull='true' label='Journal'/>
@@ -478,10 +478,10 @@
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='code' type='CHARACTER VARYING(4)' notnull='true' label='Code'/>
     <column name='deleted' type='BOOLEAN' notnull='true'/>
-    <column name='currency_id' type='INTEGER' fkey='Currency(id)' notnull='true' label='Devise'/>
-    <column name='counterpart_id' type='INTEGER' fkey='Account(id)'/>
+    <column name='currency_id' type='INTEGER' notnull='true' label='Devise'/>
+    <column name='counterpart_id' type='INTEGER'/>
     <column name='closed_on' default='Thu, 31 Dec 1970' type='DATE' notnull='true' label='Date de clôture'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -490,15 +490,15 @@
   </table>
   <table name='JournalPeriod' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='journal_id' type='INTEGER' fkey='Journal(id)' notnull='true' label='Journal'/>
-    <column name='financialyear_id' type='INTEGER' fkey='Financialyear(id)' notnull='true' label='Exercice'/>
+    <column name='journal_id' type='INTEGER' notnull='true' label='Journal'/>
+    <column name='financialyear_id' type='INTEGER' notnull='true' label='Exercice'/>
     <column name='started_on' type='DATE' notnull='true'/>
     <column name='stopped_on' type='DATE' notnull='true'/>
     <column name='closed' type='BOOLEAN'/>
     <column name='debit' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='credit' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='balance' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -516,9 +516,9 @@
     <column name='debit' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='credit' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='position' type='INTEGER' notnull='true'/>
-    <column name='period_id' type='INTEGER' fkey='JournalPeriod(id)' notnull='true'/>
-    <column name='journal_id' type='INTEGER' fkey='Journal(id)' notnull='true'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='period_id' type='INTEGER' notnull='true'/>
+    <column name='journal_id' type='INTEGER' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -542,8 +542,8 @@
     <column name='decimal_value' type='NUMERIC'/>
     <column name='element_type' type='CHARACTER VARYING(255)'/>
     <column name='element_id' type='INTEGER'/>
-    <column name='user_id' type='INTEGER' fkey='User(id)'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='user_id' type='INTEGER'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -554,9 +554,9 @@
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='paid_on' type='DATE' label='Réglé le'/>
     <column name='amount' type='NUMERIC(16,2)' notnull='true' label='Montant'/>
-    <column name='mode_id' type='INTEGER' fkey='PaymentMode(id)' notnull='true' label='Mode de paiement'/>
-    <column name='account_id' type='INTEGER' fkey='Account(id)' label='Compte associé'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='mode_id' type='INTEGER' notnull='true' label='Mode de paiement'/>
+    <column name='account_id' type='INTEGER' label='Compte associé'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -571,8 +571,8 @@
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(50)' notnull='true' label='Nom'/>
     <column name='nature' default='&quot;U&quot;' type='CHARACTER VARYING(1)' notnull='true'/>
-    <column name='account_id' type='INTEGER' fkey='Account(id)' label='Compte associé'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='account_id' type='INTEGER' label='Compte associé'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -583,9 +583,9 @@
   <table name='PaymentPart' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='amount' type='NUMERIC(16,2)' label='Montant'/>
-    <column name='payment_id' type='INTEGER' fkey='Payment(id)' notnull='true'/>
-    <column name='order_id' type='INTEGER' fkey='SaleOrder(id)' notnull='true'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='payment_id' type='INTEGER' notnull='true'/>
+    <column name='order_id' type='INTEGER' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -599,25 +599,25 @@
     <column name='use_range' type='BOOLEAN' notnull='true' label='Définir un intervalle de quantité pour le produit'/>
     <column name='quantity_min' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Quantité minimale'/>
     <column name='quantity_max' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Quantité maximale'/>
-    <column name='product_id' type='INTEGER' fkey='Product(id)' notnull='true' label='Produit'/>
-    <column name='tax_id' type='INTEGER' fkey='Tax(id)' notnull='true' label='TVA'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
+    <column name='tax_id' type='INTEGER' notnull='true' label='TVA'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
-    <column name='entity_id' type='INTEGER' fkey='Entity(id)' label='Fournisseur'/>
+    <column name='entity_id' type='INTEGER' label='Fournisseur'/>
     <column name='started_at' type='TIMESTAMP WITHOUT TIME ZONE'/>
     <column name='stopped_at' type='TIMESTAMP WITHOUT TIME ZONE'/>
     <column name='active' default='TRUE' type='BOOLEAN' notnull='true'/>
-    <column name='currency_id' type='INTEGER' fkey='Currency(id)' label='Devise'/>
+    <column name='currency_id' type='INTEGER' label='Devise'/>
     <column name='default' default='TRUE' type='BOOLEAN' label='Par défaut'/>
   </table>
   <table name='PriceTax' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='price_id' type='INTEGER' fkey='Price(id)' notnull='true'/>
-    <column name='tax_id' type='INTEGER' fkey='Tax(id)' notnull='true'/>
+    <column name='price_id' type='INTEGER' notnull='true'/>
+    <column name='tax_id' type='INTEGER' notnull='true'/>
     <column name='amount' default='0.0' type='NUMERIC(16,4)' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
@@ -644,10 +644,10 @@
     <column name='description' type='TEXT' label='Description'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
     <column name='service_coeff' type='DOUBLE PRECISION' label='Coefficient (de quantité) de service'/>
-    <column name='shelf_id' type='INTEGER' fkey='Shelf(id)' notnull='true' label='Catégorie'/>
-    <column name='unit_id' type='INTEGER' fkey='Unit(id)' notnull='true' label='Unité de mesure'/>
-    <column name='account_id' type='INTEGER' fkey='Account(id)' notnull='true' label='Compte comptable'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='shelf_id' type='INTEGER' notnull='true' label='Catégorie'/>
+    <column name='unit_id' type='INTEGER' notnull='true' label='Unité de mesure'/>
+    <column name='account_id' type='INTEGER' notnull='true' label='Compte comptable'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -662,14 +662,14 @@
   </table>
   <table name='ProductStock' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='product_id' type='INTEGER' fkey='Product(id)' notnull='true' label='Produit'/>
-    <column name='location_id' type='INTEGER' fkey='StockLocation(id)' notnull='true' label='Pour le lieu de stockage'/>
+    <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
+    <column name='location_id' type='INTEGER' notnull='true' label='Pour le lieu de stockage'/>
     <column name='current_real_quantity' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Stock réel'/>
     <column name='current_virtual_quantity' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Stock virtuel'/>
     <column name='quantity_min' default='1.0' type='NUMERIC(16,2)' notnull='true' label='Quantité minimum'/>
     <column name='critic_quantity_min' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Quantité minimum critique'/>
     <column name='quantity_max' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Quantité maximum'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -682,7 +682,7 @@
     <column name='code' type='CHARACTER VARYING(255)' label='Code'/>
     <column name='rome' type='CHARACTER VARYING(255)' label='Code ROME'/>
     <column name='commercial' type='BOOLEAN' label='Activité commerciale'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -691,15 +691,15 @@
   </table>
   <table name='PurchaseOrder' version='20090407073247' label='Achat'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='supplier_id' type='INTEGER' fkey='Entity(id)' notnull='true' label='Fournisseur'/>
+    <column name='supplier_id' type='INTEGER' notnull='true' label='Fournisseur'/>
     <column name='number' type='CHARACTER VARYING(64)' notnull='true' label='Numéro'/>
     <column name='shipped' type='BOOLEAN' notnull='true' label='Expédié'/>
     <column name='invoiced' type='BOOLEAN' notnull='true' label='Facturé'/>
     <column name='amount' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Montant HT'/>
     <column name='amount_with_taxes' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Montant TTC'/>
-    <column name='dest_contact_id' type='INTEGER' fkey='Contact(id)' label='Adresse de livraison'/>
+    <column name='dest_contact_id' type='INTEGER' label='Adresse de livraison'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -710,28 +710,28 @@
   </table>
   <table name='PurchaseOrderLine' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='order_id' type='INTEGER' fkey='PurchaseOrder(id)' notnull='true'/>
-    <column name='product_id' type='INTEGER' fkey='Product(id)' notnull='true' label='Produit'/>
-    <column name='unit_id' type='INTEGER' fkey='Unit(id)' notnull='true' label='Unités'/>
-    <column name='price_id' type='INTEGER' fkey='Price(id)' notnull='true' label='Produit'/>
+    <column name='order_id' type='INTEGER' notnull='true'/>
+    <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
+    <column name='unit_id' type='INTEGER' notnull='true' label='Unités'/>
+    <column name='price_id' type='INTEGER' notnull='true' label='Produit'/>
     <column name='quantity' default='1.0' type='NUMERIC(16,2)' notnull='true' label='Quantité'/>
     <column name='amount' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Montant HT'/>
     <column name='amount_with_taxes' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Montant TTC'/>
     <column name='position' type='INTEGER'/>
-    <column name='account_id' type='INTEGER' fkey='Account(id)' notnull='true'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='account_id' type='INTEGER' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
-    <column name='location_id' type='INTEGER' fkey='StockLocation(id)' label='Lieu de stockage'/>
+    <column name='location_id' type='INTEGER' label='Lieu de stockage'/>
   </table>
   <table name='Role' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='actions' type='TEXT'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -740,8 +740,8 @@
   </table>
   <table name='SaleOrder' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='client_id' type='INTEGER' fkey='Entity(id)' notnull='true' label='Client'/>
-    <column name='nature_id' type='INTEGER' fkey='SaleOrderNature(id)' notnull='true' label='Nature'/>
+    <column name='client_id' type='INTEGER' notnull='true' label='Client'/>
+    <column name='nature_id' type='INTEGER' notnull='true' label='Nature'/>
     <column name='created_on' type='DATE' notnull='true'/>
     <column name='number' type='CHARACTER VARYING(64)' notnull='true'/>
     <column name='sum_method' default='&quot;wt&quot;' type='CHARACTER VARYING(8)' notnull='true'/>
@@ -749,20 +749,20 @@
     <column name='amount' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='amount_with_taxes' default='0.0' type='NUMERIC(16,2)' notnull='true'/>
     <column name='state' default='&quot;O&quot;' type='CHARACTER VARYING(1)' notnull='true'/>
-    <column name='expiration_id' type='INTEGER' fkey='Delay(id)' notnull='true' label='Délai d&apos;expiration du devis'/>
+    <column name='expiration_id' type='INTEGER' notnull='true' label='Délai d&apos;expiration du devis'/>
     <column name='expired_on' type='DATE' notnull='true' label='Expiré le'/>
-    <column name='payment_delay_id' type='INTEGER' fkey='Delay(id)' notnull='true' label='Délai de paiement'/>
+    <column name='payment_delay_id' type='INTEGER' notnull='true' label='Délai de paiement'/>
     <column name='has_downpayment' type='BOOLEAN' notnull='true' label='Acompte à verser'/>
     <column name='downpayment_amount' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Montant de l&apos;acompte'/>
-    <column name='contact_id' type='INTEGER' fkey='Contact(id)' notnull='true' label='Adresse pour le devis'/>
-    <column name='invoice_contact_id' type='INTEGER' fkey='Contact(id)' notnull='true' label='Adresse pour la facture'/>
-    <column name='delivery_contact_id' type='INTEGER' fkey='Contact(id)' notnull='true' label='Adresse pour la livraison'/>
+    <column name='contact_id' type='INTEGER' notnull='true' label='Adresse pour le devis'/>
+    <column name='invoice_contact_id' type='INTEGER' notnull='true' label='Adresse pour la facture'/>
+    <column name='delivery_contact_id' type='INTEGER' notnull='true' label='Adresse pour la livraison'/>
     <column name='subject' type='CHARACTER VARYING(255)' label='Objet'/>
     <column name='function_title' type='CHARACTER VARYING(255)' label='Civilités'/>
     <column name='introduction' type='TEXT' label='Introduction'/>
     <column name='conclusion' type='TEXT' label='Conclusion'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -771,35 +771,35 @@
   </table>
   <table name='SaleOrderLine' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
-    <column name='order_id' type='INTEGER' fkey='SaleOrder(id)' notnull='true'/>
-    <column name='product_id' type='INTEGER' fkey='Product(id)' notnull='true' label='Produit'/>
-    <column name='price_id' type='INTEGER' fkey='Price(id)' notnull='true' label='Prix'/>
+    <column name='order_id' type='INTEGER' notnull='true'/>
+    <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
+    <column name='price_id' type='INTEGER' notnull='true' label='Prix'/>
     <column name='invoiced' type='BOOLEAN' notnull='true'/>
     <column name='quantity' default='1.0' type='NUMERIC(16,2)' notnull='true' label='Quantité'/>
-    <column name='unit_id' type='INTEGER' fkey='Unit(id)' notnull='true' label='Unité'/>
+    <column name='unit_id' type='INTEGER' notnull='true' label='Unité'/>
     <column name='amount' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Montant HT'/>
     <column name='amount_with_taxes' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Montant TTC'/>
     <column name='position' type='INTEGER'/>
-    <column name='account_id' type='INTEGER' fkey='Account(id)' notnull='true'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='account_id' type='INTEGER' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
-    <column name='location_id' type='INTEGER' fkey='StockLocation(id)' label='Lieu de stockage'/>
+    <column name='location_id' type='INTEGER' label='Lieu de stockage'/>
   </table>
   <table name='SaleOrderNature' version='20090407073247'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
-    <column name='expiration_id' type='INTEGER' fkey='Delay(id)' notnull='true' label='Délai d&apos;expiration du devis'/>
+    <column name='expiration_id' type='INTEGER' notnull='true' label='Délai d&apos;expiration du devis'/>
     <column name='active' default='TRUE' type='BOOLEAN' notnull='true' label='Actif'/>
-    <column name='payment_delay_id' type='INTEGER' fkey='Delay(id)' notnull='true' label='Délai de paiement'/>
+    <column name='payment_delay_id' type='INTEGER' notnull='true' label='Délai de paiement'/>
     <column name='downpayment' type='BOOLEAN' notnull='true' label='Avec acompte'/>
     <column name='downpayment_minimum' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Somme minimale'/>
     <column name='downpayment_rate' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Taux acompte'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -813,7 +813,7 @@
     <column name='format' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='active' type='BOOLEAN' notnull='true'/>
     <column name='next_number' default='0' type='INTEGER' notnull='true'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -827,7 +827,7 @@
     <column name='catalog_description' type='TEXT' label='Description'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
     <column name='parent_id' type='INTEGER' fkey='Shelf(id)' label='Sur-catégorie'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -842,10 +842,10 @@
     <column name='z' type='CHARACTER VARYING(255)' label='Position Z'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
     <column name='parent_id' type='INTEGER' fkey='StockLocation(id)' label='Lieu de stockage maître'/>
-    <column name='account_id' type='INTEGER' fkey='Account(id)' notnull='true' label='Compte comptable'/>
-    <column name='establishment_id' type='INTEGER' fkey='Establishment(id)' label='Établissement'/>
-    <column name='contact_id' type='INTEGER' fkey='Contact(id)' label='Adresse'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='account_id' type='INTEGER' notnull='true' label='Compte comptable'/>
+    <column name='establishment_id' type='INTEGER' label='Établissement'/>
+    <column name='contact_id' type='INTEGER' label='Adresse'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -859,13 +859,13 @@
     <column name='moved_on' type='DATE' label='Fait le'/>
     <column name='quantity' type='DOUBLE PRECISION' notnull='true' label='Quantité'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
-    <column name='second_move_id' type='INTEGER' fkey='StockMove(id)'/>
-    <column name='second_location_id' type='INTEGER' fkey='StockLocation(id)'/>
-    <column name='tracking_id' type='INTEGER' fkey='StockTracking(id)'/>
-    <column name='location_id' type='INTEGER' fkey='StockLocation(id)' notnull='true' label='Lieu de stockage'/>
-    <column name='unit_id' type='INTEGER' fkey='Unit(id)' notnull='true' label='Unité'/>
-    <column name='product_id' type='INTEGER' fkey='Product(id)' notnull='true' label='Produit'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='second_move_id' type='INTEGER'/>
+    <column name='second_location_id' type='INTEGER'/>
+    <column name='tracking_id' type='INTEGER'/>
+    <column name='location_id' type='INTEGER' notnull='true' label='Lieu de stockage'/>
+    <column name='unit_id' type='INTEGER' notnull='true' label='Unité'/>
+    <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -882,7 +882,7 @@
     <column name='active' default='TRUE' type='BOOLEAN' notnull='true'/>
     <column name='begun_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='comment' type='TEXT'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -898,9 +898,9 @@
     <column name='nature' type='CHARACTER VARYING(8)' notnull='true'/>
     <column name='amount' default='0.0' type='NUMERIC(16,4)' notnull='true'/>
     <column name='description' type='TEXT'/>
-    <column name='account_collected_id' type='INTEGER' fkey='Account(id)'/>
-    <column name='account_paid_id' type='INTEGER' fkey='Account(id)'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='account_collected_id' type='INTEGER'/>
+    <column name='account_paid_id' type='INTEGER'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -912,7 +912,7 @@
     <column name='name' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='content' type='TEXT' notnull='true'/>
     <column name='cache' type='TEXT'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -925,7 +925,7 @@
     <column name='label' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='base' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='quantity' type='NUMERIC' notnull='true'/>
-    <column name='company_id' type='INTEGER' fkey='Company(id)' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
