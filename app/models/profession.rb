@@ -17,4 +17,6 @@
 #
 
 class Profession < ActiveRecord::Base
+  belongs_to :company
+  has_many :employees
 end

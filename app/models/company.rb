@@ -19,7 +19,57 @@
 #
 
 class Company < ActiveRecord::Base
+  has_many :accounts
+  has_many :account_balances
+  has_many :address_norms
+  has_many :address_norm_items
+  has_many :bank_accounts
+  has_many :bank_account_statements
+  has_many :complements
+  has_many :complement_choices
+  has_many :complement_datas
+  has_many :contacts
+  has_many :currencies
+  has_many :delays
+  has_many :deliveries
+  has_many :delivery_lines
+  has_many :departments
+  has_many :documents
+  has_many :employees
+  has_many :entities
+  has_many :entity_natures
+  has_many :entries
+  has_many :establishments
+  has_many :financialyears
+  has_many :invoices
+  has_many :invoice_lines
+  has_many :journals
+  has_many :journal_periods
+  has_many :journal_records
+  has_many :parameters
+  has_many :payments
+  has_many :payment_modes
+  has_many :payment_parts
+  has_many :prices
+  has_many :products
+  has_many :product_stocks
+  has_many :professions
+  has_many :purchase_ordrs
+  has_many :purchase_order_lines
+  has_many :roles
+  has_many :sale_orders
+  has_many :sale_order_lines
+  has_many :sale_order_natures
+  has_many :sequences
+  has_many :shelves
+  has_many :stock_locations
+  has_many :stock_moves
+  has_many :stock_trackings
+  has_many :taxes
+  has_many :templates
+  has_many :units
   has_many :users
+
   
   def before_validation
     self.code = name.to_s[0..7].simpleize if code.blank?

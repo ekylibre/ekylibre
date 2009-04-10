@@ -26,11 +26,10 @@
 #
 
 class Employee < ActiveRecord::Base
-
-
-
-
-
-
-
+  belongs_to :company
+  belongs_to :department
+  belongs_to :establishment
+  belongs_to :profession
+  belongs_to :user
+  has_many :clients, :class_name=>Entity.to_s
 end

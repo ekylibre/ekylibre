@@ -17,6 +17,9 @@
 #
 
 class Unit < ActiveRecord::Base
+  belongs_to :company
+  has_many :products
+
   DEFAULT_UNITS = {
     :u=> {:base=>'u',  :quantity=>1},
     :kg=>{:base=>'g',  :quantity=>1000},

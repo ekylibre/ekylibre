@@ -25,15 +25,19 @@
 require "digest/sha2"
 
 class User < ActiveRecord::Base
-  cattr_accessor :current_user
-  attr_accessor :password_confirmation
+  belongs_to :company
+  belongs_to :language
+  belongs_to :role
+  has_many :parameters
+  has_one :employee
+
   validates_presence_of :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
   validates_confirmation_of :password
+
+  cattr_accessor :current_user
+  attr_accessor :password_confirmation
   attr_protected :hashed_password, :salt, :locked, :deleted, :role_id
   attr_readonly :company_id
-  belongs_to :company
-  belongs_to :role
-  belongs_to :language
   
   def before_validation
     self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')

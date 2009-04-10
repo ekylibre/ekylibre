@@ -20,6 +20,9 @@
 #
 
 class EntityNature < ActiveRecord::Base
+  belongs_to :company
+  has_many :entities
+
 
   def before_validation
     self.in_name = false if self.physical

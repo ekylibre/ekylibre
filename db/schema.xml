@@ -358,7 +358,7 @@
     <column name='excise' type='CHARACTER VARYING(15)' label='Numéro d&apos;accises'/>
     <column name='vat_number' type='CHARACTER VARYING(15)' label='Numéro de TVA intra-communautaire'/>
     <column name='country' type='CHARACTER VARYING(2)' label='Pays'/>
-    <column name='payments_number' type='INTEGER' label='Nombre de paiements'>Nombre de paiements utilisé pour régler une vente</column>
+    <column name='payments_number' type='INTEGER' label='Nombre de paiements'/>
     <column name='employee_id' type='INTEGER' fkey='Employee(id)' label='Représentant'/>
     <column name='proposer_id' type='INTEGER' fkey='Entity(id)'/>
     <column name='payment_mode_id' type='INTEGER' fkey='PaymentMode(id)'/>

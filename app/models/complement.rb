@@ -21,8 +21,12 @@
 #
 
 class Complement < ActiveRecord::Base
-  attr_readonly :company_id, :nature
+  belongs_to :company
+  has_many :choices, :class_name=>ComplementChoice.to_s
+  has_many :data, :class_name=>ComplementDatum.to_s
   acts_as_list
+
+  attr_readonly :company_id, :nature
 
   NATURES = ['string', 'decimal', 'boolean', 'date', 'datetime', 'choice']
    

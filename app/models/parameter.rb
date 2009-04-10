@@ -22,6 +22,8 @@
 #
 
 class Parameter < ActiveRecord::Base
+  belongs_to :company
+  belongs_to :user
 
   CONV={:float=>:d, :string=>:s, :true_class=>:b, :false_class=>:b, :fixnum=>:i}
 

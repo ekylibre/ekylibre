@@ -23,4 +23,5 @@
 #
 
 class AddressNormItem < ActiveRecord::Base
+  belongs_to :norm, :class_name=>AddressNorm.to_s, :foreign_key=>:contact_norm_id
 end

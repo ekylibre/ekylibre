@@ -44,6 +44,26 @@
 #
 
 class Entity < ActiveRecord::Base
+  belongs_to :client_account, :class_name=>Account.to_s
+  belongs_to :company
+  belongs_to :employee
+  belongs_to :language
+  belongs_to :nature, :class_name=>EntityNature.to_s
+  belongs_to :payment_delay, :class_name=>Delmay.to_s
+  belongs_to :payment_mode
+  belongs_to :proposer, :class_name=>Entity.to_s
+  belongs_to :supplier_account, :class_name=>Account.to_s
+  has_many :bank_accounts
+  has_many :complement_data
+  has_many :contacts
+  has_many :invoices
+  has_many :prices
+  has_many :purchase_orders
+  has_many :sale_orders
+
+
+  
+
   attr_readonly :company_id
   
  

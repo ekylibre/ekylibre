@@ -17,6 +17,7 @@
 #
 
 class Delay < ActiveRecord::Base
+  belongs_to :company
 
   DELAY_SEPARATOR = ', '
 

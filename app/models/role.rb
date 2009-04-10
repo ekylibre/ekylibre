@@ -15,6 +15,9 @@
 #
 
 class Role < ActiveRecord::Base
+  belongs_to :company
+
+
 
   ACTIONS = [ :all,                     # All
               :accountancy,             # Accountant

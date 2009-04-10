@@ -16,6 +16,10 @@
 #
 
 class ComplementChoice < ActiveRecord::Base
+  belongs_to :company
+  belongs_to :complement
+  has_many :data, :class_name=>ComplementDatum.to_s
+
   def to_s
     self.name
   end

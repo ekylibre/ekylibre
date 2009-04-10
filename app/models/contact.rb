@@ -39,6 +39,14 @@
 #
 
 class Contact < ActiveRecord::Base
+  belongs_to :company
+  belongs_to :entity
+  belongs_to :norm
+  has_many :deliveries
+  has_many :invoices
+  has_many :purchase_orders
+  has_many :stock_locations
+
   # belongs_to :element, :polymorphic=> true
   attr_readonly :name, :entity_id, :company_id, :norm_id, :code, :line_2, :line_3, :line_4_number, :line_4_street,
   :line_5, :line_6_code, :line_6_city, :address, :phone, :fax, :mobile, :email, :website

@@ -18,4 +18,8 @@
 #
 
 class AddressNorm < ActiveRecord::Base
+  belongs_to :company
+  has_many :items, :class_name=>AddressNormItem.to_s
+  has_many :contacts
+
 end

@@ -21,15 +21,19 @@
 #
 
 class ComplementDatum < ActiveRecord::Base
+  belongs_to :choice_value, :class_name=>ComplementChoice.to_s
+  belongs_to :company
+  belongs_to :complement
+  belongs_to :entity
   attr_readonly :company_id, :complement_id, :entity_id
 
-#  def after_initialize
- #   if self.complement
+  #  def after_initialize
+  #   if self.complement
   #    if self.complement.nature == "choice"
-   #     self.
-    #  end
-   # end
- # end
+  #     self.
+  #  end
+  # end
+  # end
 
   def validate
     complement = self.complement

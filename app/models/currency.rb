@@ -19,4 +19,11 @@
 #
 
 class Currency < ActiveRecord::Base
+  belongs_to :company
+  has_many :bank_accounts
+  has_many :entries
+  has_many :journals
+  has_many :prices
+
+
 end
