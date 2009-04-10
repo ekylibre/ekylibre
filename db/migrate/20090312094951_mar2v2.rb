@@ -4,8 +4,11 @@ class Mar2v2 < ActiveRecord::Migration
     add_column :contacts, :active, :boolean, :null=>false, :default=>false
     add_column :contacts, :started_at, :datetime
     add_column :contacts, :stopped_at, :datetime
-    
-    execute "UPDATE contacts SET code=lpad(id::text, 4, 'A')"
+
+    for contact in Contact.find(:all)
+      contact.code = contact.id.to_s(36).upcase.rjust(4,'A')
+    end
+    #    execute "UPDATE contacts SET code=lpad(id::text, 4, 'A')"
 
     add_index  :contacts, :code
     add_index  :contacts, :active

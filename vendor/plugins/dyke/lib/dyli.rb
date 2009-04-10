@@ -25,7 +25,7 @@ module Ekylibre
               model = options[:model].to_s.camelize.constantize
             end
             
-            raise Exception.new("The model specified does not exist.") unless ActiveRecord::Base.connection.tables.include? model.table_name
+            raise Exception.new("The model specified does not exist. (#{model.inspect})") unless ActiveRecord::Base.connection.tables.include? model.table_name
             
             define_method("dyli_#{name}") do
               conditions=[""]

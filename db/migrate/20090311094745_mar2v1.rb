@@ -9,7 +9,7 @@ class Mar2v1 < ActiveRecord::Migration
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
     
-    add_column :employees, :profession_id, :integer, :null=>false, :references=>:professions, :on_delete=>:restrict, :on_update=>:restrict
+    add_column :employees, :profession_id, :integer, :references=>:professions, :on_delete=>:restrict, :on_update=>:restrict
 
     add_column :employees, :commercial, :boolean, :null=>false, :default=>false
     

@@ -1,4 +1,4 @@
- class AccountancyController < ApplicationController
+class AccountancyController < ApplicationController
   #  # groups all the accounts corresponding to a transaction of sale.
   #   ACCOUNTS_OF_SALES={:sale=>70, :tva_collected=>4457, :customer=>[411, 413, 4191], :bank=>[511, 512], :cash=>53 , 
   #     :others=>[654, 661, 665] }
@@ -25,43 +25,43 @@
     t.procedure :create, :action=>:journals_create
   end
   
-   dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-     t.column :number
-     t.column :name
-     t.action :accounts_update, :image=>:update
-     t.action :accounts_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :create, :action=>:accounts_create
-   end
-   
-   dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :number
     t.column :name
-     t.column :iban_label
-     t.action :bank_accounts_update, :image=>:update
-     t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
-     t.action :statements_point    
-     t.procedure :create, :action=>:bank_accounts_create
-   end
-   
+    t.action :accounts_update, :image=>:update
+    t.action :accounts_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.procedure :create, :action=>:accounts_create
+  end
+  
+  dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :iban_label
+    t.action :bank_accounts_update, :image=>:update
+    t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :statements_point    
+    t.procedure :create, :action=>:bank_accounts_create
+  end
+  
   dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-     t.column :started_on
-     t.column :stopped_on
-     t.column :number
-     t.action :statements_update, :image=>:update
-     t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
-     t.action :statements_display
-     t.procedure :create, :action=>:statements_create
-   end
-   
-   dyta(:entries, :conditions=>:entries_conditions, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN journal_periods p ON p.id=r.period_id") do |t|
-     t.column :number, :label=>"Numéro", :through=>:record
-     t.column :created_on, :label=>"Crée le", :through=>:record
-     t.column :printed_on, :label=>"Saisie le", :through=>:record
-     t.column :name
-     t.column :number, :label=>"Compte" , :through=>:account
-     t.column :debit
-     t.column :credit
-   end
-   
+    t.column :started_on
+    t.column :stopped_on
+    t.column :number
+    t.action :statements_update, :image=>:update
+    t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :statements_display
+    t.procedure :create, :action=>:statements_create
+  end
+  
+  dyta(:entries, :conditions=>:entries_conditions, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN journal_periods p ON p.id=r.period_id") do |t|
+    t.column :number, :label=>"Numéro", :through=>:record
+    t.column :created_on, :label=>"Crée le", :through=>:record
+    t.column :printed_on, :label=>"Saisie le", :through=>:record
+    t.column :name
+    t.column :number, :label=>"Compte" , :through=>:account
+    t.column :debit
+    t.column :credit
+  end
+  
 
   dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :code
@@ -73,12 +73,12 @@
     t.procedure :create, :action=>:financialyears_create
   end
 
-#  dyli(:account_search, :attributes=>[:number, :name], :conditions=>{:company_id=>@current_company}, :model=>:account)
-    dyli(:account_search, :attributes=>[:number, :name], :model=>:account)
+  #  dyli(:account_search, :attributes=>[:number, :name], :conditions=>{:company_id=>@current_company}, :model=>:account)
+  #   dyli(:account_search, :attributes=>[:number, :name], :model=>:account)
 
   #
   def index
-  
+    
   end
 
   # lists all the bank_accounts with the mainly characteristics. 
@@ -130,10 +130,10 @@
 
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
-#    if params['sort'].blank?
-#      params['sort']="number"
-#      params['dir'] ="asc"
-#    end
+    #    if params['sort'].blank?
+    #      params['sort']="number"
+    #      params['dir'] ="asc"
+    #    end
     accounts_list 'sort'=>"number", 'dir'=>'asc'
   end
   
@@ -196,9 +196,9 @@
           [:general_ledger,{:partial=>"date_to_date"}],
           [:journal_by_id,{:partial=>"by_journal"}],
           [:journal,{:partial=>"date_to_date"}]]
-          #[:balance_sheet,{:partial=>"by_financial_year"}],
-          #[:income_statements,{:partial=>"by_financial_year"}]]
-          
+  #[:balance_sheet,{:partial=>"by_financial_year"}],
+  #[:income_statements,{:partial=>"by_financial_year"}]]
+  
   def document_prepare
     @prints = PRINTS
     if request.post?
@@ -269,7 +269,7 @@
   # this action creates a financialyear with a form.
   def financialyears_create
     access :financialyears
-   
+    
     if request.post? 
       @financialyear = Financialyear.new(params[:financialyear])
       @financialyear.company_id = @current_company.id
@@ -285,7 +285,7 @@
       @financialyear.code = @financialyear.started_on.year.to_s
       @financialyear.code += '/'+@financialyear.stopped_on.year.to_s if @financialyear.started_on.year!=@financialyear.stopped_on.year
     end
-   
+    
     render_form
   end
   
@@ -332,7 +332,7 @@
         d = @financialyear.started_on
         while (d+1).end_of_month < @financialyear.stopped_on
           d=(d+1).end_of_month
-        @financialyear_periods << d.to_s(:attributes)
+          @financialyear_periods << d.to_s(:attributes)
         end
       end
     end
@@ -422,7 +422,7 @@
       redirect_to :action=>:journals_create
       return
     end
-        
+    
     if @valid
       @record = JournalRecord.new
       if request.post?
@@ -461,7 +461,7 @@
       unless @record.nil?
         (@record.balance > 0) ?  @entry=Entry.new(:currency_credit=>@record.balance.abs) :  @entry=Entry.new(:currency_debit=>@record.balance.abs)  
       end
-        
+      
       @record = JournalRecord.new(params[:record]) if @record.nil?
       
       if @record.new_record?
@@ -490,7 +490,7 @@
 
   # this method deletes an entry with a form.
   def entries_delete
- 
+    
   end
 
   # lists all the transactions established on the accounts, sorted by date.
@@ -498,7 +498,7 @@
     journals_list params
   end
   
- 
+  
   #this method creates a journal with a form. 
   def journals_create
     access :journals
@@ -643,7 +643,7 @@
     @bank_account_statement=BankAccountStatement.find(session[:statement])
     @bank_account=BankAccount.find(@bank_account_statement.bank_account_id)
     
-#   @entries=@current_company.entries.find(:all, :conditions => {:account_id => @bank_account.account_id, :editable => true}, :joins => "INNER JOIN journal_records j ON j.id = entries.record_id WHERE j.created_on BETWEEN #{@bank_account_statement.started_on} AND #{@bank_account_statement.stopped_on}")
+    #   @entries=@current_company.entries.find(:all, :conditions => {:account_id => @bank_account.account_id, :editable => true}, :joins => "INNER JOIN journal_records j ON j.id = entries.record_id WHERE j.created_on BETWEEN #{@bank_account_statement.started_on} AND #{@bank_account_statement.stopped_on}")
 
     @entries=@current_company.entries.find(:all, :conditions => {:account_id => @bank_account.account_id, :editable => true}, :joins => "INNER JOIN journal_records j ON j.id = entries.record_id", :order => "statement_id DESC")
 
@@ -652,7 +652,7 @@
       @entry=Entry.find(params[:id]) 
 
       if @entry.statement_id.eql? session[:statement].to_i
-      
+        
         @entry.update_attribute("statement_id", nil)
         @bank_account_statement.credit -= @entry.debit
         @bank_account_statement.debit  -= @entry.credit
@@ -663,16 +663,16 @@
         @bank_account_statement.credit += @entry.debit
         @bank_account_statement.debit  += @entry.credit
         @bank_account_statement.save
-       
+        
       else
         @entry.statement.debit  -= @entry.credit
         @entry.statement.credit -= @entry.debit
         @entry.statement.save
         @entry.update_attribute("statement_id", nil)
       end
-    
+      
       render :action => "statements.rjs" 
-    
+      
     end
     @title = {:value => @bank_account_statement.number}
   end
