@@ -24,7 +24,7 @@ class SaleOrderNature < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :payment_delay, :class_name=>Delay.to_s
-  belongs_to :expiration_id, :class_name=>Delay.to_s
+  belongs_to :expiration, :class_name=>Delay.to_s
   has_many :sale_orders
 
 end

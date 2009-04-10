@@ -23,10 +23,9 @@
 #
 
 class PurchaseOrder < ActiveRecord::Base
-
   belongs_to :company
   belongs_to :contact
-  belongs_to :entity
+  belongs_to :supplier, :class_name=>Entity.to_s
   has_many :lines, :class_name=>PurchaseOrderLine.to_s
   
   validates_presence_of :planned_on
