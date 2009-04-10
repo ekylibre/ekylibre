@@ -1,6 +1,7 @@
 # plugin XIL : XML-based Impression-template Language.
 # This module groups the different methods allowing to obtain a PDF document by the analyze of a template.
 require File.dirname(__FILE__)+'/xil/base'
+require File.dirname(__FILE__)+'/xil/style'
 require File.dirname(__FILE__)+'/xil/pdf'
 
 
@@ -47,6 +48,7 @@ ActionController::Base.class_eval do
     options = {:output=>:pdf}.merge(options)
     template = Ekylibre::Xil::Template.new(xil)
     method = template.method_name(options[:output])
+    code = '[NoCode]'
     unless self.methods.include? method
       code = template.compile_for(options[:output])
       puts code
@@ -55,6 +57,8 @@ ActionController::Base.class_eval do
     # Finally, the generated function is executed.
 #    self.send(method, options[:key],options[:crypt]||xil_options[:crypt], options[:locals]||{})
     self.send(method, options) #[:key],options[:crypt]||xil_options[:crypt], options[:locals]||{})
+#    send_data code, :disposition => 'inline'
+    #render :text=>code
   end
 
 

@@ -9,19 +9,19 @@
     <parameter name="invoices_count" nature="integer" range="0..15" default="5">Nombre de factures à afficher</parameter>
     <parameter name="comment" nature="text">Commentaire</parameter>
   </parameters>
-  <styles>
-    <style rule="text" value="height:4mm; font-size:10pt;"/>
-    <style rule=".important" value="background:#FFD;border:.5mm solid #EEA; padding:1mm"/>
-    <style rule=".title" value="font-size:16pt;color: #007; text-align:center; vertical-align:middle; height: 20mm"/>
-    <style rule="p" value="color:#333"/>
-  </styles>
-  <document unit="mm" size="10" title="client.label">
-    <page orientation="portrait" format="210x297">
+  <formats>
+    <format rule="text" style="height:4mm; font-size:10pt;"/>
+    <format rule=".important" style="background:#FFD;border:.5mm solid #EEA; padding:1mm"/>
+    <format rule=".title" style="font-size:16pt;color: #007; text-align:center; vertical-align:middle; height: 20mm"/>
+    <format rule="p" style="color:#333"/>
+  </formats>
+  <document title="client.label">
+    <page style="margin: 10mm 15mm; size: 101.6mm 4in">
       <block type="footer">
-        <text class="small">{current_company.name} - SIREN : {current_company.siren}</text>
+        <text class="important">{current_company.name} - SIREN : {current_company.siren}</text>
       </block>
     </page>
-    <page orientation="landscape" format="210x297" style="margin: 10mm 15mm;">
+    <page style="margin: 10mm 15mm; size: portrait;">
       <block type="header">
         <set style="top:5mm;left:10mm">
           <image src="{client.portrait}" style="height:80mm;width:50mm"/>

@@ -3,40 +3,96 @@ module Ekylibre
 
     class Template
       
+      PDF_DEFAULT_UNIT = 'pt'
+      PDF_DEFAULT_FORMAT = Ekylibre::Xil::Style::FORMATS[Ekylibre::Xil::Style::DEFAULT_FORMAT]
+
       def compile_for_pdf(method_name, environment)
         environment[:output] ||= :pdf
         element = @xil.root
 
-        code  = ''
-        code += browse(element, environment)
-        code
+        # code  = ''
+        # code += browse(element, environment)
+        # code
+        code  = "def #{method_name}(options={})\n"
+        code += pdf_template(element, environment)
+        code += "end\n"
       end
       
       private
       
       def pdf_template(element, environment={})
+        environment[:pdf]              = 'pdf' # FPDF object.
+
+        environment[:covered]          = 'covered' # before_y.
+        environment[:remaining]        = 'remains' # after_y.
+#        environment[:available_height] = 'h' # height of the page available in the time.
+        environment[:page_number]      = 'page_number' # page_number.
+        environment[:count]            = 'page_block_count' # block_number in the current page.
+        environment[:now]              = 'time_now' # timestamp NOW.
+#        environment[:title]            = 'g' # title of the document.
+#        environment[:temp]             = XIL_TITLE # temporary variable.
+#        environment[:key]              = 'k'
+#        environment[:depth]            = -1 # depth of the different balises loop imbricated.
+#        environment[:permissions]      = [:copy,:print]
+#        environment[:file_name]        = 'o'  # file with the extension.
+
         code  = ''
-        code += "def #{method_name}(options={})\n"
+        
+        
         code += browse(element, environment)
-        code += "end\n"
+        
+#        code += "#{environment[:pdf]} = #{environment[:pdf]}.Output()\n"
+#        code += environment[:file_name]+"="+environment[:title]+".gsub(/[^a-z0-9\_]/i,'_')+'."+environment[:output].to_s+"'\n"
+
+        # if a storage of the PDF document is implied by the user.
+#        if @@xil_environment[:features].include? :document
+#          code+="ActionController::Base.save_document(_mode,"+environment[:key]+","+environment[:file_name]+","+environment[:pdf]+",@"+environment[:current_company].to_s+")\n"
+#        end
+
+        # displaying of the PDF document.
+        code += "send_data #{environment[:pdf]}.Output(), :filename=>'file.pdf', :disposition=>:inline\n"
+
         code
       end
       
       def pdf_document(element, environment={})
         code  = ''
+        code += environment[:pdf]+" = FPDF.new('P', '#{PDF_DEFAULT_UNIT}')\n"
+        code += environment[:pdf]+".alias_nb_pages('[[PAGENB]]')\n"
+        code += environment[:pdf]+".set_auto_page_break(false)\n"
+        code += environment[:page_number]+" = 1\n"
         code += browse(element, environment)
         code
       end
       
       def pdf_page(element, environment={})
-        code  = "pdf.add_page()\n"
+        attrs = element.attributes
+        style = Ekylibre::Xil::Style.new(attrs['style'])
+        # environment[:page] = {:orientation=>ORIENTATION[attrs['orientation']], :format=>attrs['format']}
+        # environment[:page][:margin_top] = style.get('margin')[0]
+        # style.set('height', format_height(options[:format],options[:unit])-options['margin_top']-options['margin_bottom'])
+        environment[:page] = {}
+        environment[:page][:style] = style
+        puts style.get('size').inspect
+        environment[:page][:format] = (style.get('size')||PDF_DEFAULT_FORMAT).collect{|l| l.to_f(PDF_DEFAULT_UNIT).to_s}.join('x')
+        code  = "pdf.add_page('P', '#{environment[:page][:format]}')\n"
+        # code += environment[:available_height]+"="+(format_height(environment[:format],environment[:unit])-environment['margin_top']-environment['margin_bottom']).to_s+"\n"
+        code += "#{environment[:count]} = 0\n"
+        code += "#{environment[:covered]} = 0\n"
+        code += "#{environment[:remaining]} = 0\n"
         code += browse(element, environment)
-        code += "pdf.add_page_break\n"
+#        code += "pdf.add_page_break\n"
         code
       end
       def pdf_block(element, environment={})
         code  = ''
+        # Header
+
+        # Body
         code += browse(element, environment)
+
+        #Footer
+
         code
       end
       
@@ -75,70 +131,70 @@ module Ekylibre
 
 #         raise Exception.new("Only SQL") unless document_root.attributes['query-standard']||'sql' == 'sql'
 
-#         options[:orientation]=(document_root.attributes['orientation'] || ORIENTATION.to_a[0][0]).to_sym
+#         environment[:orientation]=(document_root.attributes['orientation'] || ORIENTATION.to_a[0][0]).to_sym
 
-#         raise Exception.new("Bad orientation in the template") unless ORIENTATION.include? options[:orientation]
+#         raise Exception.new("Bad orientation in the template") unless ORIENTATION.include? environment[:orientation]
 
-#         options[:unit]             = attribute(document_root, :unit, 'mm')
-#         options[:format]           = attribute(document_root, :format, 'A4')
-#         options['margin_top']      = attribute(document_root, 'margin-top', 5).to_f
-#         options['margin_bottom']   = attribute(document_root, 'margin-bottom', 5).to_f
-#         options[:block_y]          = 'b' # before_y.
-#         options[:remaining]        = 'a' # after_y.
-#         options[:available_height] = 'h' # height of the page available in the time.
-#         options[:page_number]      = 'n' # page_number.
-#         options[:count]            = 'm' # block_number in the current page.
-#         options[:pdf]              = 'pdf' # FPDF object.
-#         options[:now]              = 't' # timestamp NOW.
-#         options[:title]            = 'g' # title of the document.
-#         options[:temp]             = XIL_TITLE # temporary variable.
-#         options[:key]              = 'k'
-#         options[:depth]            = -1 # depth of the different balises loop imbricated.
-#         options[:permissions]      = [:copy,:print]
-#         options[:file_name]        = 'o'  # file with the extension.
+#         environment[:unit]             = attribute(document_root, :unit, 'mm')
+#         environment[:format]           = attribute(document_root, :format, 'A4')
+#         environment['margin_top']      = attribute(document_root, 'margin-top', 5).to_f
+#         environment['margin_bottom']   = attribute(document_root, 'margin-bottom', 5).to_f
+#         environment[:covered]          = 'b' # before_y.
+#         environment[:remaining]        = 'a' # after_y.
+#         environment[:available_height] = 'h' # height of the page available in the time.
+#         environment[:page_number]      = 'n' # page_number.
+#         environment[:count]            = 'm' # block_number in the current page.
+#         environment[:pdf]              = 'pdf' # FPDF object.
+#         environment[:now]              = 't' # timestamp NOW.
+#         environment[:title]            = 'g' # title of the document.
+#         environment[:temp]             = XIL_TITLE # temporary variable.
+#         environment[:key]              = 'k'
+#         environment[:depth]            = -1 # depth of the different balises loop imbricated.
+#         environment[:permissions]      = [:copy,:print]
+#         environment[:file_name]        = 'o'  # file with the extension.
 
 #         # prototype of the generated function.
-#         code ="def render_xil_"+options[:name].to_s+"_"+options[:output].to_s+"("+options[:key]+", _mode=nil, _locals={})\n"
+#         code ="def render_xil_"+environment[:name].to_s+"_"+environment[:output].to_s+"("+environment[:key]+", _mode=nil, _locals={})\n"
 
-#         code+=options[:now]+"=Time.now\n"
-#         code+=options[:title]+"='file'\n"
+#         code += environment[:now]+"=Time.now\n"
+#         code += environment[:title]+"='file'\n"
 
 #         # declaration of the PDF document and first options.
-#         code+=options[:pdf]+"=FPDF.new('"+ORIENTATION[options[:orientation]]+"','"+options[:unit]+"','" +options[:format]+ "')\n"
-#         #code+=options[:pdf]+".set_protection(["+options[:permissions].collect{|x| ':'+x.to_s}.join(",")+"],'')\n"
-#         code+=options[:pdf]+".alias_nb_pages('[[PAGENB]]')\n"
-#         code+=options[:available_height]+"="+(format_height(options[:format],options[:unit])-options['margin_top']-options['margin_bottom']).to_s+"\n"
-#         code+=options[:page_number]+"=1\n"
-#         code+=options[:count]+"=0\n"
-#         code+=options[:pdf]+".set_auto_page_break(false)\n"
+#         code += environment[:pdf]+"=FPDF.new('"+ORIENTATION[environment[:orientation]]+"','"+environment[:unit]+"','" +environment[:format]+ "')\n"
+#         #code += environment[:pdf]+".set_protection(["+environment[:permissions].collect{|x| ':'+x.to_s}.join(",")+"],'')\n"
+#         code += environment[:pdf]+".alias_nb_pages('[[PAGENB]]')\n"
+#         code += environment[:available_height]+"="+(format_height(environment[:format],environment[:unit])-environment['margin_top']-environment['margin_bottom']).to_s+"\n"
+#         code += environment[:page_number]+"=1\n"
+#         code += environment[:count]+"=0\n"
+#         code += environment[:pdf]+".set_auto_page_break(false)\n"
 
-#         options[:specials]=[{}]
-#         options[:defaults]={"size"=>10, "family"=>'Arial', "color"=>'#000', "border-color"=>'#000', "border-width"=>0.2, "radius"=>0, "vertices"=>'1234'}.merge(document_root.attributes)
+#         environment[:specials]=[{}]
+#         environment[:defaults]={"size"=>10, "family"=>'Arial', "color"=>'#000', "border-color"=>'#000', "border-width"=>0.2, "radius"=>0, "vertices"=>'1234'}.merge(document_root.attributes)
 
-#         code+=options[:pdf]+".set_font('"+options[:defaults]['family']+"','',"+options[:defaults]['size'].to_s+")\n"
-#         code+=options[:pdf]+".set_margins(0,0)\n"
+#         code += environment[:pdf]+".set_font('"+environment[:defaults]['family']+"','',"+environment[:defaults]['size'].to_s+")\n"
+#         code += environment[:pdf]+".set_margins(0,0)\n"
 
 #         # add the first page.
-#         code+=options[:pdf]+".add_page()\n"
-#         code+=options[:block_y]+"="+options['margin_top'].to_s+"\n"
-#         code+=options[:remaining]+"="+options[:available_height]+"\n"
-#         code+="c=ActiveRecord::Base.connection\n"
-#         code+=analyze_title(document_root.elements[XIL_TITLE], options) if document_root.elements[XIL_TITLE]
-#         code+=analyze_infos(document_root.elements[XIL_INFOS],options) if document_root.elements[XIL_INFOS]
-#         code+=analyze_loop(document_root.elements[XIL_LOOP],options) if document_root.elements[XIL_LOOP]
+#         code += environment[:pdf]+".add_page()\n"
+#         code += environment[:covered]+"="+environment['margin_top'].to_s+"\n"
+#         code += environment[:remaining]+"="+environment[:available_height]+"\n"
+#         code += "c=ActiveRecord::Base.connection\n"
+#         code += analyze_title(document_root.elements[XIL_TITLE], options) if document_root.elements[XIL_TITLE]
+#         code += analyze_infos(document_root.elements[XIL_INFOS],options) if document_root.elements[XIL_INFOS]
+#         code += analyze_loop(document_root.elements[XIL_LOOP],options) if document_root.elements[XIL_LOOP]
 
-#         code+=options[:pdf]+"="+options[:pdf]+".Output()\n"
-#         code+=options[:file_name]+"="+options[:title]+".gsub(/[^a-z0-9\_]/i,'_')+'."+options[:output].to_s+"'\n"
+#         code += environment[:pdf]+"="+environment[:pdf]+".Output()\n"
+#         code += environment[:file_name]+"="+environment[:title]+".gsub(/[^a-z0-9\_]/i,'_')+'."+environment[:output].to_s+"'\n"
 
 #         # if a storage of the PDF document is implied by the user.
-#         if @@xil_options[:features].include? :document
-#           code+="ActionController::Base.save_document(_mode,"+options[:key]+","+options[:file_name]+","+options[:pdf]+",@"+options[:current_company].to_s+")\n"
+#         if @@xil_environment[:features].include? :document
+#           code += "ActionController::Base.save_document(_mode,"+environment[:key]+","+environment[:file_name]+","+environment[:pdf]+",@"+environment[:current_company].to_s+")\n"
 
 #         end
 
 #         # displaying of the PDF document.
-#         code+="send_data "+options[:pdf]+", :filename=>"+options[:file_name]+"\n"
-#         code+="end\n"
+#         code += "send_data "+environment[:pdf]+", :filename=>"+environment[:file_name]+"\n"
+#         code += "end\n"
 
 #         # in commentary, test the generate code putting it in a code.
 #         if RAILS_ENV=="development"
@@ -172,11 +228,11 @@ module Ekylibre
 #         infos.each_element(XIL_INFO) do |info|
 #           case info.attributes['type']
 #           when "subject-on"
-#             code+=options[:pdf]+".set_subject('#{info.text}')\n"
+#             code += environment[:pdf]+".set_subject('#{info.text}')\n"
 #           when "written-by"
-#             code+=options[:pdf]+".set_author('#{info.text}')\n"
+#             code += environment[:pdf]+".set_author('#{info.text}')\n"
 #           when "created-by"
-#             code+=options[:pdf]+".set_creator('#{info.text}')\n"
+#             code += environment[:pdf]+".set_creator('#{info.text}')\n"
 #           end
 #         end
 #         code.to_s
@@ -189,77 +245,77 @@ module Ekylibre
 #         query=title.attributes['query']
 #         # if the title is created as from a query.
 #         if query=~/^SELECT\ [^;]*$/i
-#           result=options[:temp]
-#           options[:fields]={} if options[:fields].nil?
+#           result=environment[:temp]
+#           environment[:fields]={} if environment[:fields].nil?
 #           query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each do |s|
-#             options[:fields][result+'.'+s.downcase.strip] = result+"[\""+s.downcase.strip+"\"].to_s"
+#             environment[:fields][result+'.'+s.downcase.strip] = result+"[\""+s.downcase.strip+"\"].to_s"
 #           end
-#           code+=result+"=c.select_one(\'"+clean_string(query, options,true)+"\')\n"
+#           code += result+"=c.select_one(\'"+clean_string(query, options,true)+"\')\n"
 #         end
-#         code+=options[:title]+"='"+clean_string(title.text,options)+"'\n"
+#         code += environment[:title]+"='"+clean_string(title.text,options)+"'\n"
 #         code.to_s
 #       end
 
 #       # this function runs the different elements loop in the template and analyzes each of it. 	
 #       def analyze_loop(loop, options={})
-#         options[:depth]+=1
+#         environment[:depth]+=1
 #         # if no blocks header and footer has been still encountered, the heights of these blocks are
 #         # valuated to the empty block.
-#         options[:specials][options[:depth]]={}
-#         options[:specials][options[:depth]][:header]={}
-#         options[:specials][options[:depth]][:footer]={}
-#         options[:specials][options[:depth]][:header][:even]=Element.new(XIL_BLOCK)
-#         options[:specials][options[:depth]][:header][:odd] =Element.new(XIL_BLOCK)
-#         options[:specials][options[:depth]][:footer][:odd] =Element.new(XIL_BLOCK)
-#         options[:specials][options[:depth]][:footer][:even]=Element.new(XIL_BLOCK)
+#         environment[:specials][environment[:depth]]={}
+#         environment[:specials][environment[:depth]][:header]={}
+#         environment[:specials][environment[:depth]][:footer]={}
+#         environment[:specials][environment[:depth]][:header][:even]=Element.new(XIL_BLOCK)
+#         environment[:specials][environment[:depth]][:header][:odd] =Element.new(XIL_BLOCK)
+#         environment[:specials][environment[:depth]][:footer][:odd] =Element.new(XIL_BLOCK)
+#         environment[:specials][environment[:depth]][:footer][:even]=Element.new(XIL_BLOCK)
 
 #         code=''
 #         attrs=loop.attributes
 
 #         # in the case where many elements loop are imbricated, a variable of depth is precised
 #         # to better save the results of query returned by each them.
-#         if options[:depth]>=1
-#           options[:specials][options[:depth]]={}
-#           options[:specials][options[:depth]][:header]=(options[:specials][options[:depth]-1][:header]).dup
-#           options[:specials][options[:depth]][:footer]=(options[:specials][options[:depth]-1][:footer]).dup
+#         if environment[:depth]>=1
+#           environment[:specials][environment[:depth]]={}
+#           environment[:specials][environment[:depth]][:header]=(environment[:specials][environment[:depth]-1][:header]).dup
+#           environment[:specials][environment[:depth]][:footer]=(environment[:specials][environment[:depth]-1][:footer]).dup
 #         end
 
 #         raise Exception.new("You must specify a name beginning by a character for the element loop (2 characters minimum): "+attrs['name'].to_s) unless attrs['name'].to_s=~/^[a-z][a-z0-9]+$/
 #         result=attrs["name"]
 
-#         options[:fields]={} if options[:fields].nil?
+#         environment[:fields]={} if environment[:fields].nil?
 #         query=attrs['query']
 
 #         # if a query is present as an attribute in the balise loop then, the query is executed and the results saved.
 #         if query
 #           if query=~/^SELECT\ [^;]*$/i
 #             query.split(/\ from\ /i)[0].to_s.split(/select\ /i)[1].to_s.split(',').each do |s|
-#               options[:fields][result+'.'+s.downcase.strip] = result+"[\""+s.downcase.strip+"\"].to_s"
+#               environment[:fields][result+'.'+s.downcase.strip] = result+"[\""+s.downcase.strip+"\"].to_s"
 #             end
-#             code+="for "+result+" in c.select_all('"+clean_string(query,options,true)+"')\n"
+#             code += "for "+result+" in c.select_all('"+clean_string(query,options,true)+"')\n"
 #           else
 #             raise Exception.new("Invalid SQL query. Maybe there is an SQL injection.")
 #           end
 #         else
-#           code+=result+"=[]\n"
+#           code += result+"=[]\n"
 #         end
 
 #         # begin to run the elements loop.
 #         loop.each_element do |element|
-#           depth=options[:depth]
+#           depth=environment[:depth]
 #           # verify if it is a header or a footer block and compute the parameters of the block
 #           # as the height ...
 #           if (element.attributes['type']=='header' or element.attributes['type']=='footer')
 #             mode=attribute(element, :mode, 'all').to_sym
 #             type=attribute(element, :type, 'header').to_sym
-#             options[:specials]=[] unless options[:specials].is_a? Array
-#             options[:specials][depth]={} unless options[:specials][depth].is_a? Hash
-#             options[:specials][depth][type]={} unless options[:specials][depth][type].is_a? Hash
+#             environment[:specials]=[] unless environment[:specials].is_a? Array
+#             environment[:specials][depth]={} unless environment[:specials][depth].is_a? Hash
+#             environment[:specials][depth][type]={} unless environment[:specials][depth][type].is_a? Hash
 #             if mode==:all
-#               options[:specials][depth][type][:even] = element.dup
-#               options[:specials][depth][type][:odd]  = options[:specials][depth][type][:even]
+#               environment[:specials][depth][type][:even] = element.dup
+#               environment[:specials][depth][type][:odd]  = environment[:specials][depth][type][:even]
 #             else
-#               options[:specials][depth][type][mode] = element.dup
+#               environment[:specials][depth][type][mode] = element.dup
 #             end
  
 #           else
@@ -267,41 +323,41 @@ module Ekylibre
 #             unless element.attributes['if'].nil?
 #               condition=element.attributes['if']
 #               query = 'SELECT ('+condition+')::BOOLEAN AS x'
-#               code+="if c.select_one(\'"+clean_string(query, options,true)+"\')[\"x\"]==\"t\"\n"
+#               code += "if c.select_one(\'"+clean_string(query, options,true)+"\')[\"x\"]==\"t\"\n"
 #             end
  
 #             # if the block considered is not a header or footer's block.
 #             if element.name==XIL_BLOCK
 #               block_height = block_height(element)
    
-#               bhfe = block_height(options[:specials][depth][:footer][:even])
-#               bhfo = block_height(options[:specials][depth][:footer][:odd])
+#               bhfe = block_height(environment[:specials][depth][:footer][:even])
+#               bhfo = block_height(environment[:specials][depth][:footer][:odd])
 
 #               # if the height of the block is bigger than the remaining height of the page, a new
 #               # page is created and the appropriate header sets in.
-#               code+="if("+options[:block_y]+"=="+options['margin_top'].to_s+")\n"+analyze_header(options)+"end\n" unless options[:specials].empty?
+#               code += "if("+environment[:covered]+"=="+environment['margin_top'].to_s+")\n"+analyze_header(options)+"end\n" unless environment[:specials].empty?
    
 #               if bhfe==bhfo
-#                 code+="if("+options[:count]+"==0 and "+options[:remaining]+"<"+(block_height+bhfe).to_s+")\nraise Exception.new('Footer too big.')\n"
-#                 code+="elsif("+options[:remaining]+"<"+(block_height+bhfe).to_s+")\n"
+#                 code += "if("+environment[:count]+"==0 and "+environment[:remaining]+"<"+(block_height+bhfe).to_s+")\nraise Exception.new('Footer too big.')\n"
+#                 code += "elsif("+environment[:remaining]+"<"+(block_height+bhfe).to_s+")\n"
 #               else
-#                 code+="if("+options[:count]+"==0 and "+options[:remaining]+"<"+block_height.to_s+"+"+bhfe.to_s+" and "+options[:remaining]+"<"+bhfo.to_s+")\nraise Exception.new('Footer too big.')\n"
-#                 code+="elsif("+options[:remaining]+"<"+block_height.to_s+"+("+options[:page_number]+".even? ? "+bhfe.to_s+":"+bhfo.to_s+"))\n"
+#                 code += "if("+environment[:count]+"==0 and "+environment[:remaining]+"<"+block_height.to_s+"+"+bhfe.to_s+" and "+environment[:remaining]+"<"+bhfo.to_s+")\nraise Exception.new('Footer too big.')\n"
+#                 code += "elsif("+environment[:remaining]+"<"+block_height.to_s+"+("+environment[:page_number]+".even? ? "+bhfe.to_s+":"+bhfo.to_s+"))\n"
 #               end
    
-#               code+=analyze_page_break(element,options)+"\n"
-#               code+="end\n"
-#               code+=options[:count]+"+=1\n"
+#               code += analyze_page_break(element,options)+"\n"
+#               code += "end\n"
+#               code += environment[:count]+"+=1\n"
 #             end
-#             code+=self.send('analyze_'+ element.name.gsub("-","_"),element, options.dup) if [XIL_LOOP, XIL_BLOCK, XIL_PAGEBREAK].include?(element.name)
-#             code+="end\n" unless element.attributes['if'].nil?
+#             code += self.send('analyze_'+ element.name.gsub("-","_"),element, options.dup) if [XIL_LOOP, XIL_BLOCK, XIL_PAGEBREAK].include?(element.name)
+#             code += "end\n" unless element.attributes['if'].nil?
 #             #            code += conditionalize(proc, element.attributes['if'], options)
 #           end
 
 #         end
 #         # the footer block is settled in the last page of the PDF document.
-#         code+=analyze_footer(options) if options[:depth]==0
-#         code+="end\n" if query
+#         code += analyze_footer(options) if environment[:depth]==0
+#         code += "end\n" if query
 #         code.to_s
 #       end
 
@@ -321,9 +377,9 @@ module Ekylibre
 #         block_height=block_height(block)
 
 #         # it runs.
-#         #unless options[:format].split('x')[1].to_i >= block_height(block) and options[:format].split('x')[0].to_i >= block_width(block)
+#         #unless environment[:format].split('x')[1].to_i >= block_height(block) and environment[:format].split('x')[0].to_i >= block_width(block)
 #         # raise Exception.new("Sorry, You have a block which bounds are incompatible with the format specified.")
-#         # puts block_width(block).to_s+"x"+block_height(block).to_s+":"+options[:format]
+#         # puts block_width(block).to_s+"x"+block_height(block).to_s+":"+environment[:format]
 #         #end
 
 #         # runs the elements of a block as text, image, line and rectangle.
@@ -331,16 +387,16 @@ module Ekylibre
 #           attrs=element.attributes
 #           case element.name
 #           when 'line'
-#             code+=options[:pdf]+".set_xy("+attrs['x1']+","+options[:block_y]+"+"+attrs['y1']+")\n"
+#             code += environment[:pdf]+".set_xy("+attrs['x1']+","+environment[:covered]+"+"+attrs['y1']+")\n"
 #           else
 #             raise  Exception.new("Unvalid markup tag "+element.name+" ("+element.inspect+")") if attrs['x'].blank? or attrs['y'].blank?
-#             code+=options[:pdf]+".set_xy("+attrs['x']+","+options[:block_y]+"+"+attrs['y']+")\n"
+#             code += environment[:pdf]+".set_xy("+attrs['x']+","+environment[:covered]+"+"+attrs['y']+")\n"
 #           end
-#           code+=self.send('analyze_'+ element.name,element,options).to_s if [XIL_TEXT,XIL_IMAGE,XIL_LINE,XIL_RECTANGLE].include? element.name
+#           code += self.send('analyze_'+ element.name,element,options).to_s if [XIL_TEXT,XIL_IMAGE,XIL_LINE,XIL_RECTANGLE].include? element.name
 #         end
 #         if block_height > 0
-#           code+=options[:block_y]+"+="+block_height.to_s+"\n"
-#           code+=options[:remaining]+"-="+block_height.to_s+"\n"
+#           code += environment[:covered]+"+="+block_height.to_s+"\n"
+#           code += environment[:remaining]+"-="+block_height.to_s+"\n"
 #         end
 #         conditionalize(code.to_s,block,options)
 #       end
@@ -382,28 +438,28 @@ module Ekylibre
 #       # a new page is created and added to the PDF document.
 #       def analyze_page_break(page_break,options={})
 #         code=""
-#         code+=analyze_footer(options)
-#         code+=options[:pdf]+".add_page()\n"
-#         code+=options[:count]+"=0\n"
-#         code+=options[:page_number]+"+=1\n"
-#         code+=options[:block_y]+"="+options['margin_top'].to_s+"\n"
-#         code+=options[:remaining]+"="+options[:available_height].to_s+"\n"
-#         code+=analyze_header(options)
+#         code += analyze_footer(options)
+#         code += environment[:pdf]+".add_page()\n"
+#         code += environment[:count]+"=0\n"
+#         code += environment[:page_number]+"+=1\n"
+#         code += environment[:covered]+"="+environment['margin_top'].to_s+"\n"
+#         code += environment[:remaining]+"="+environment[:available_height].to_s+"\n"
+#         code += analyze_header(options)
 #         conditionalize(code.to_s,page_break,options)
 #       end
 
 #       # runs and analyzes each header blocks in the template.
 #       def analyze_header(options={})
 #         code=""
-#         unless options[:specials].empty?
-#           unless options[:specials][options[:depth]].nil?
-#             unless options[:specials][options[:depth]][:header].nil?
-#               so=analyze_block(options[:specials][options[:depth]][:header][:odd],options)
-#               se=analyze_block(options[:specials][options[:depth]][:header][:even],options)
+#         unless environment[:specials].empty?
+#           unless environment[:specials][environment[:depth]].nil?
+#             unless environment[:specials][environment[:depth]][:header].nil?
+#               so=analyze_block(environment[:specials][environment[:depth]][:header][:odd],options)
+#               se=analyze_block(environment[:specials][environment[:depth]][:header][:even],options)
 #               if so!=se
-#                 code+="if "+options[:page_number]+".even?\n"+se+"else\n"+so+"end\n"
+#                 code += "if "+environment[:page_number]+".even?\n"+se+"else\n"+so+"end\n"
 #               else
-#                 code+=se
+#                 code += se
 #               end
 #             end
 #           end
@@ -414,22 +470,22 @@ module Ekylibre
 #       # runs and analyzes each footer blocks in the template.
 #       def analyze_footer(options={})
 #         code=""
-#         unless options[:specials].empty?
-#           unless options[:specials][options[:depth]].nil?
-#             unless options[:specials][options[:depth]][:footer].nil?
-#               so=analyze_block(options[:specials][options[:depth]][:footer][:odd],options)
-#               se=analyze_block(options[:specials][options[:depth]][:footer][:even],options)
+#         unless environment[:specials].empty?
+#           unless environment[:specials][environment[:depth]].nil?
+#             unless environment[:specials][environment[:depth]][:footer].nil?
+#               so=analyze_block(environment[:specials][environment[:depth]][:footer][:odd],options)
+#               se=analyze_block(environment[:specials][environment[:depth]][:footer][:even],options)
 #               if so!=se
-#                 code+="if "+options[:page_number]+".even?\n"
-#                 code+=options[:block_y]+"+="+options[:remaining]+"-"+block_height(options[:specials][options[:depth]][:footer][:even]).to_s+"\n"
-#                 code+=se
-#                 code+="else\n"
-#                 code+=options[:block_y]+"+="+options[:remaining]+"-"+block_height(options[:specials][options[:depth]][:footer][:odd]).to_s+"\n"
-#                 code+=so
-#                 code+="end\n"
+#                 code += "if "+environment[:page_number]+".even?\n"
+#                 code += environment[:covered]+"+="+environment[:remaining]+"-"+block_height(environment[:specials][environment[:depth]][:footer][:even]).to_s+"\n"
+#                 code += se
+#                 code += "else\n"
+#                 code += environment[:covered]+"+="+environment[:remaining]+"-"+block_height(environment[:specials][environment[:depth]][:footer][:odd]).to_s+"\n"
+#                 code += so
+#                 code += "end\n"
 #               else
-#                 code+=options[:block_y]+"+="+options[:remaining]+"-"+block_height(options[:specials][options[:depth]][:footer][:odd]).to_s+"\n"
-#                 code+=se
+#                 code += environment[:covered]+"+="+environment[:remaining]+"-"+block_height(environment[:specials][environment[:depth]][:footer][:odd]).to_s+"\n"
+#                 code += se
 #               end
 #             end
 #           end
@@ -443,19 +499,19 @@ module Ekylibre
 #         code=''
 #         attrs=text.attributes
 #         #raise Exception.new("Your text is out of the block") unless attrs['y'].to_i < attrs['width'].to_i
-#         color=attrs['color']||options[:defaults]['color']
-#         family=attrs['family']||options[:defaults]['family']
-#         size=attrs['size']||options[:defaults]['size']
+#         color=attrs['color']||environment[:defaults]['color']
+#         family=attrs['family']||environment[:defaults]['family']
+#         size=attrs['size']||environment[:defaults]['size']
 #         if attrs['border-color'] or attrs['border-width'] or attrs['background-color']
-#           code+=analyze_rectangle(text,options)
+#           code += analyze_rectangle(text,options)
 #         end
 #         style=''
 #         style+='B' if attrs['weight']=='bold'
 #         style+='U' if attrs['decoration']=='underline'
 #         style+='I' if attrs['style']=='italic'
-#         code+=options[:pdf]+".set_text_color("+rvb_to_num(color)+")\n"
-#         code+=options[:pdf]+".set_font('"+family+"','"+style+"',"+size.to_s+")\n"
-#         code+=options[:pdf]+".cell("+attrs['width']+","+attrs['height']+",'"+
+#         code += environment[:pdf]+".set_text_color("+rvb_to_num(color)+")\n"
+#         code += environment[:pdf]+".set_font('"+family+"','"+style+"',"+size.to_s+")\n"
+#         code += environment[:pdf]+".cell("+attrs['width']+","+attrs['height']+",'"+
 #           clean_string(text.text.to_s, options)+"',0,0,'"+attrs['align']+"',false)\n"
 #         conditionalize(code.to_s, text, options)
 #       end
@@ -464,7 +520,7 @@ module Ekylibre
 #       def analyze_image(image,options={})
 #         code=''
 #         attrs=image.attributes
-#         code+=options[:pdf]+".image('"+attrs['src']+"',"+attrs['x']+","+options[:block_y]+"+"+attrs['y']+","+attrs['width']+","+attrs['height']+")\n"
+#         code += environment[:pdf]+".image('"+attrs['src']+"',"+attrs['x']+","+environment[:covered]+"+"+attrs['y']+","+attrs['width']+","+attrs['height']+")\n"
 #         #        code.to_s
 #         conditionalize(code.to_s, image, options)
 #       end
@@ -473,12 +529,12 @@ module Ekylibre
 #       def analyze_line(line,options={})
 #         code=''
 #         attrs=line.attributes
-#         border_color=attrs['border-color']||options[:defaults]['border-color']
-#         border_width=attrs['border-width']||options[:defaults]['border-width']
-#         code+=options[:pdf]+".set_draw_color("+rvb_to_num(border_color)+")\n"
-#         code+=options[:pdf]+".set_line_width("+border_width.to_s+")\n"
-#         code+=options[:pdf]+".line("+attrs['x1']+","+options[:block_y]+"+"+attrs['y1']+","+
-#           attrs['x2']+","+options[:block_y]+"+"+attrs['y2']+")\n"
+#         border_color=attrs['border-color']||environment[:defaults]['border-color']
+#         border_width=attrs['border-width']||environment[:defaults]['border-width']
+#         code += environment[:pdf]+".set_draw_color("+rvb_to_num(border_color)+")\n"
+#         code += environment[:pdf]+".set_line_width("+border_width.to_s+")\n"
+#         code += environment[:pdf]+".line("+attrs['x1']+","+environment[:covered]+"+"+attrs['y1']+","+
+#           attrs['x2']+","+environment[:covered]+"+"+attrs['y2']+")\n"
 #         #        code.to_s
 #         conditionalize(code.to_s, line, options)
 #       end
@@ -487,21 +543,21 @@ module Ekylibre
 #       def analyze_rectangle(rectangle,options={})
 #         code=''
 #         attrs=rectangle.attributes
-#         radius=attribute(rectangle,'radius',options[:defaults]['radius'])
-#         vertices=attribute(rectangle,'vertices',options[:defaults]['vertices'])
+#         radius=attribute(rectangle,'radius',environment[:defaults]['radius'])
+#         vertices=attribute(rectangle,'vertices',environment[:defaults]['vertices'])
 #         style=''
 #         if attrs['background-color']
-#           code+=options[:pdf]+".set_fill_color("+rvb_to_num(attrs['background-color'])+")\n"
+#           code += environment[:pdf]+".set_fill_color("+rvb_to_num(attrs['background-color'])+")\n"
 #           style+='F'
 #         end
 #         if attrs['background-color'].nil? or attrs['border-color'] or attrs['border-width']
-#           border_color=attrs['border-color']||options[:defaults]['border-color']
-#           border_width=attrs['border-width']||options[:defaults]['border-width']
-#           code+=options[:pdf]+".set_line_width("+border_width.to_s+")\n"
-#           code+=options[:pdf]+".set_draw_color("+rvb_to_num(border_color)+")\n"
+#           border_color=attrs['border-color']||environment[:defaults]['border-color']
+#           border_width=attrs['border-width']||environment[:defaults]['border-width']
+#           code += environment[:pdf]+".set_line_width("+border_width.to_s+")\n"
+#           code += environment[:pdf]+".set_draw_color("+rvb_to_num(border_color)+")\n"
 #           style+='D'
 #         end
-#         code+=options[:pdf]+".rectangle("+attrs['x']+","+options[:block_y]+"+"+attrs['y']+
+#         code += environment[:pdf]+".rectangle("+attrs['x']+","+environment[:covered]+"+"+attrs['y']+
 #           ","+attrs['width']+","+attrs['height']+","+radius.to_s+",'"+style+"','"+vertices+"')\n"
 #         #        code.to_s
 #         conditionalize(code.to_s, rectangle, options)
@@ -522,11 +578,11 @@ module Ekylibre
 #       # cleans the string removing superfluous characters and replacing some constants.
 #       def clean_string(string,options,query=false)
 #         string.gsub!("'","\\\\'")
-#         options[:fields] = {} if options[:fields].nil?
+#         environment[:fields] = {} if environment[:fields].nil?
 #         if query
-#           options[:fields].each{|f| string.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'")}
+#           environment[:fields].each{|f| string.gsub!("\#{"+f[0]+"}","\\\\'\'+"+f[1]+"+\'\\\\'")}
 #         else
-#           options[:fields].each{|f| string.gsub!("\#{"+f[0]+"}","\'+"+f[1]+"+\'")}
+#           environment[:fields].each{|f| string.gsub!("\#{"+f[0]+"}","\'+"+f[1]+"+\'")}
 #         end
 #         while (string=~/[^\#]\{[A-Z\_].*.\}/)
 #           str=string.split('{')[1].split('}')[0]
@@ -537,15 +593,15 @@ module Ekylibre
 #             else
 #               format=str.split(':')[1]
 #             end
-#             string.gsub!("{"+str+"}",'\'+'+options[:now]+'.strftime(\''+format+'\')+\' ')
+#             string.gsub!("{"+str+"}",'\'+'+environment[:now]+'.strftime(\''+format+'\')+\' ')
 #           elsif str=~/LOCAL\:.*/
 #             string.gsub!("{"+str+"}",'\'+_locals[:'+str.split(':')[1]+'].to_s+\'')
 #           elsif str=~/KEY/
-#             string.gsub!("{"+str+"}",'\'+'+options[:key]+'.to_s+\'')
+#             string.gsub!("{"+str+"}",'\'+'+environment[:key]+'.to_s+\'')
 #           elsif str=~/TITLE/
-#             string.gsub!("{"+str+"}",'\'+'+options[:title]+'.to_s+\'')
+#             string.gsub!("{"+str+"}",'\'+'+environment[:title]+'.to_s+\'')
 #           elsif str=~/PAGENO/
-#             string.gsub!("{"+str+"}",'\'+'+options[:page_number]+'.to_s+\'')
+#             string.gsub!("{"+str+"}",'\'+'+environment[:page_number]+'.to_s+\'')
 #           elsif str=~/PAGENB/
 #             string.gsub!("{"+str+"}",'[[PAGENB]]')
 #           else
@@ -555,7 +611,7 @@ module Ekylibre
 
 #         while (string=~/\@\@.+\@\@/)
 #           str=string.split('@@')[1]
-#           string.gsub!('@@'+str+'@@', "'+"+options[:pdf]+".add_label('[["+str+"]]')+'")
+#           string.gsub!('@@'+str+'@@', "'+"+environment[:pdf]+".add_label('[["+str+"]]')+'")
 #         end
 
 

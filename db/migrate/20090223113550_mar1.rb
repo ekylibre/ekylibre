@@ -5,10 +5,18 @@ class Mar1 < ActiveRecord::Migration
     add_index :bank_accounts, :entity_id
 
     # entity is automatically created for all the companies.
-    execute "INSERT INTO entity_natures(company_id, name, in_name, physical, abbreviation, created_at, updated_at) SELECT companies.id, 'Indéfini', false, false, '-', current_timestamp, current_timestamp FROM companies LEFT JOIN entity_natures en ON (en.company_id=companies.id AND en.name='Indéfini') WHERE en.id IS NULL"
+    execute "INSERT INTO entity_natures(company_id, name, in_name, physical, abbreviation, created_at, updated_at) SELECT companies.id, 'Indéfini', CAST('false' AS BOOLEAN), CAST('false' AS BOOLEAN), '-', current_timestamp, current_timestamp FROM companies LEFT JOIN entity_natures en ON (en.company_id=companies.id AND en.name='Indéfini') WHERE en.id IS NULL"
     execute "INSERT INTO entities(company_id, nature_id, language_id, name, code, full_name, created_at, updated_at) SELECT companies.id, en.id, ln.id, companies.name, companies.code, companies.name, current_timestamp, current_timestamp FROM companies LEFT JOIN entity_natures en ON (en.company_id=companies.id AND  en.name='Indéfini') LEFT JOIN entities e ON (e.code=companies.code), languages ln  WHERE ln.iso2='fr' AND e.id IS NULL"
-    execute "UPDATE companies SET entity_id=e.id FROM entities e WHERE e.code=companies.code"
-    execute "UPDATE bank_accounts SET entity_id=c.entity_id FROM companies c WHERE c.entity_id=bank_accounts.entity_id"
+#    execute "UPDATE companies SET entity_id=e.id FROM entities e WHERE e.code=companies.code"
+    for company in Company.find(:all)
+      company.entity_id = Entity.find_by_company_id_and_code(company.id, company.code).id
+      company.save(false)
+    end
+#    execute "UPDATE bank_accounts SET entity_id=c.entity_id FROM companies c WHERE c.entity_id=bank_accounts.entity_id"
+    for bank_account in BankAccount.find(:all)
+      bank_account.entity_id = Company.find_by_id(bank_account.company_id).entity_id
+      bank_account.save(false)
+    end
 
 #     for company in Company.find(:all)
 #       nature = company.entity_natures.find(:first, :conditions=>{:in_name=>false, :physical=>false,:abbreviation=>'-'})                              

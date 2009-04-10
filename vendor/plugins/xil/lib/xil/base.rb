@@ -20,6 +20,7 @@ module Ekylibre
         'page-break'=>{}
       }
 
+      ORIENTATION={'portrait'=>'P', 'landscape'=>'L'}
 
       XIL_MARKUP = {
         'template'=>{'document'=>1},
@@ -32,15 +33,15 @@ module Ekylibre
 
 
       def initialize(xil)
-        @xil, @method_name = self.class.parse(xil)
-        puts '@@ '+@method_name
+        @xil, @method_prefix = self.class.parse(xil)
+        puts '@@ '+@method_prefix
       end
       
       def compile_for(output, method_name=nil)
-        method = 'compile_for_'+output.to_s
-        if self.methods.include? method
+        compile_method = 'compile_for_'+output.to_s
+        if self.methods.include? compile_method
           method_name ||= self.method_name(output)
-          code = (self.send method, method_name, {:output=>output})
+          code = self.send(compile_method, method_name, {:output=>output})
         else
           raise Exception.new("Unknown output format: #{output.inspect}")
         end
@@ -48,8 +49,10 @@ module Ekylibre
       end
 
       def method_name(output)
-        @method_name+'_'+output.to_s
+        @method_prefix+'_'+output.to_s
       end
+
+      private
 
       def browse(element, environment={})
         if XIL_MARKUP[element.name].nil?
@@ -57,17 +60,20 @@ module Ekylibre
         end
 
         code = ''
+        code += "# #{element.name}\n"# if element.has_elements?
         environment[:depth] ||= 1
         element.each_element do |child|
           if XIL_MARKUP[element.name].keys.include? child.name
             env = environment.dup
             env[:depth] += 1
-            code += send(environment[:output].to_s+'_'+child.name, env)
+            #   code += "# <#{child.name}>\n"
+            code += send(environment[:output].to_s+'_'+child.name, child, env)
           else
-            code += "\n# Unknown child: #{child.name}\n\n"
+            code += "# Unknown child: #{child.name}\n"
           end
         end
-        code.gsub("\n","\n"+"  "*environment[:depth])
+        # code  = code.gsub(/\n(\ )*/, "\n").gsub(/(^\n|\n$)/,'').gsub(/^/,'\1'+"  "*environment[:depth])+"\n"
+        code#.gsub("\n","\n"+"  "*environment[:depth])
       end
 
 
@@ -109,6 +115,7 @@ module Ekylibre
       end
 
     end
+
 
 
 
