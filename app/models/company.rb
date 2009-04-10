@@ -54,7 +54,7 @@ class Company < ActiveRecord::Base
   has_many :products
   has_many :product_stocks
   has_many :professions
-  has_many :purchase_ordrs
+  has_many :purchase_orders
   has_many :purchase_order_lines
   has_many :roles
   has_many :sale_orders
