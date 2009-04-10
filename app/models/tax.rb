@@ -26,8 +26,7 @@ class Tax < ActiveRecord::Base
   belongs_to :account_collected, :class_name=>Account.to_s
   belongs_to :account_paid, :class_name=>Account.to_s
   has_many :prices
-  has_many :price_taxes
-
+  
   def compute(amount)
     case self.nature.to_sym
     when :percent

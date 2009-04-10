@@ -26,8 +26,8 @@ class Delivery < ActiveRecord::Base
   belongs_to :company
   belongs_to :contact
   belongs_to :invoice
-  belongs_to :order
-  has_many :lines, :class_name=>InvoiceLine.to_s
+  belongs_to :order, :class_name=>SaleOrder.to_s
+  has_many :lines, :class_name=>DeliveryLine.to_s 
 
   validates_presence_of :planned_on
 

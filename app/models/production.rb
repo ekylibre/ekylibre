@@ -1,6 +1,9 @@
 class Production < ActiveRecord::Base
 
   attr_readonly :company_id, :product_id
+  belongs_to :company
+  belongs_to :product
+  belongs_to :location, :class_name=>StockLocation.to_s
 
   def before_validation
     self.planned_on = Date.today

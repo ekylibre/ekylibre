@@ -56,10 +56,10 @@ class Entity < ActiveRecord::Base
   has_many :bank_accounts
   has_many :complement_data
   has_many :contacts
-  has_many :invoices
+  has_many :invoices, :foreign_key=>:client_id
   has_many :prices
-  has_many :purchase_orders
-  has_many :sale_orders
+  has_many :purchase_orders, :foreign_key=>:supplier_id
+  has_many :sale_orders, :foreign_key=>:client_id
 
 
   

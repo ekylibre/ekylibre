@@ -23,7 +23,7 @@ class ProductStock < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :product
-  belongs_to :stock_location
+  belongs_to :location, :class_name=>StockLocation.to_s
   
   def before_validation
     self.quantity_min = self.product.quantity_min if self.quantity_min.nil?

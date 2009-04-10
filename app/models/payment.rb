@@ -24,7 +24,7 @@ class Payment < ActiveRecord::Base
   
   belongs_to :account
   belongs_to :company
-  belongs_to :payment_mode
+  belongs_to :mode, :class_name=>PaymentMode.to_s
   has_many :payment_parts
   
   def before_destroy

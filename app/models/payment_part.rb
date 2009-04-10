@@ -19,7 +19,7 @@ class PaymentPart < ActiveRecord::Base
   
   belongs_to :company
   belongs_to :payment
-  belongs_to :order
+  belongs_to :order, :class_name=>SaleOrder.to_s
 
   def validate
     errors.add_to_base tc(:error_sale_order_already_paid) if self.amount <= 0

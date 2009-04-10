@@ -1,6 +1,10 @@
 class ProductComponent < ActiveRecord::Base
 
   attr_readonly :company_id, :quantity, :content_id, :package_id, :name, :comment
+  belongs_to :company
+  belongs_to :product
+  belongs_to :component, :class_name=>Product.to_s
+  belongs_to :location, :class_name=>StockLocation.to_s
 
   def before_validation
     if self.quantity >= 2

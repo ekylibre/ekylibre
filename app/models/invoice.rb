@@ -27,13 +27,13 @@
 
 class Invoice < ActiveRecord::Base
 
-  belongs_to :client
+  belongs_to :client, :class_name=>Entity.to_s
   belongs_to :company
   belongs_to :contact
-  belongs_to :payment_id
+  belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :sale_order
   has_many :deliveries
-  has_many :invoice_lines
+  has_many :lines, :class_name=>InvoiceLine.to_s
 
   def before_validation
     if self.number.blank?

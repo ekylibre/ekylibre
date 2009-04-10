@@ -24,9 +24,9 @@
 
 class PurchaseOrder < ActiveRecord::Base
   belongs_to :company
-  belongs_to :contact
+  belongs_to :dest_contact, :class_name=>Contact.to_s
   belongs_to :supplier, :class_name=>Entity.to_s
-  has_many :lines, :class_name=>PurchaseOrderLine.to_s
+  has_many :lines, :class_name=>PurchaseOrderLine.to_s, :foreign_key=>:order_id
   
   validates_presence_of :planned_on
   attr_readonly :company_id

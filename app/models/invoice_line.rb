@@ -26,7 +26,7 @@ class InvoiceLine < ActiveRecord::Base
   belongs_to :invoice
   belongs_to :price
   belongs_to :product
-  belongs_to :sale_order_lines
+  belongs_to :order_line, :class_name=>SaleOrderLine.to_s
   
   def before_validation
     self.product = self.order_line.product

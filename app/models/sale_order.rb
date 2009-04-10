@@ -48,8 +48,8 @@ class SaleOrder < ActiveRecord::Base
   belongs_to :nature, :class_name=>SaleOrderNature.to_s
   has_many :deliveries
   has_many :invoices
-  has_many :payment_parts
-  has_many :sale_orders
+  has_many :payment_parts, :foreign_key=>:order_id
+  has_many :lines, :class_name=>SaleOrderLine.to_s, :foreign_key=>:order_id
   
   def before_validation
     if self.number.blank?

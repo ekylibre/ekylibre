@@ -28,9 +28,10 @@ class PurchaseOrderLine < ActiveRecord::Base
   belongs_to :account
   belongs_to :company
   belongs_to :product
-  belongs_to :order
+  belongs_to :order, :class_name=>PurchaseOrder.to_s
   belongs_to :price
   belongs_to :location
+  belongs_to :unit
   
   def before_validation
     self.account_id = self.price.product.account_id

@@ -70,6 +70,8 @@ class Company < ActiveRecord::Base
   has_many :units
   has_many :users
 
+  #validates_presence_of :entity_id
+
   
   def before_validation
     self.code = name.to_s[0..7].simpleize if code.blank?
@@ -108,7 +110,11 @@ class Company < ActiveRecord::Base
     self.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
     self.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
     indefini = self.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false)
-    firm = self.entities.create!(:nature_id=>indefini.id,:language_id=>1, :name=>self.name)
+#    raise Exception.new self.entities.inspect
+    #raise Exception.new [:nature_id=>indefini.id, :language_id=>1, :name=>self.name].inspect
+    #self.entities
+    firm = self.entities.create!(:nature_id=>indefini.id, :language_id=>1, :name=>self.name)
+    #firm = self.entities.create( :name=>'toto')
     self.set_entity_id(firm.id)
     self.payment_modes.create!(:name=>tc('default.check'), :company_id=>self.id)
    # self.entity_id = firm.id

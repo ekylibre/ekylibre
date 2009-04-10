@@ -47,7 +47,7 @@ class Product < ActiveRecord::Base
   has_many :delivery_lines
   has_many :invoice_lines
   has_many :prices
-  has_many :product_stocks
+  has_many :stocks, :class_name=>ProductStock.to_s
   has_many :purchase_order_lines
   has_many :sale_order_lines
   has_many :stock_moves
