@@ -1069,6 +1069,10 @@ fr-FR:
     search: Rechercher
     search_go: Lancer la recherche
     submit: Envoyer
+    unavailable:
+      journal: 'Le journal demandé est indisponible ({{value}})'
+      product: Le produit demandé est indisponible
+      financialyear: 'L''exercice comptable est indisponible {{value}}'
     update: 'Modifier'
 
 
@@ -1077,8 +1081,5 @@ fr-FR:
   # NE RIEN AJOUTER : VA ETRE SUPPRIMÉ
   app:
     
-    unavailable:
-      journal: 'Le journal demandé est indisponible ({{value}})'
-      product: Le produit demandé est indisponible
   
   

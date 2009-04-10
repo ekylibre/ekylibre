@@ -21,10 +21,13 @@
 
 class Journal < ActiveRecord::Base
   belongs_to :company
+  belongs_to :currency
+  belongs_to :counterpart, :class_name=>"Account"
+ #  belongs_to :account, :class_name=>"Account", :foreign_key=>:counterpart_id 
   
-  has_many :bankaccounts, :foreign_key=>:journal_id
-  has_many :periods, :foreign_key=>:journal_id
-  has_many :journalrecords, :foreign_key=>:journal_id
+  has_many :bank_accounts
+  has_many :periods, :class_name=>"JournalPeriod", :foreign_key=>:journal_id
+  has_many :records, :class_name=>"JournalRecord", :foreign_key=>:journal_id
 
   #   before_create :journal_nature
   before_destroy :empty?
@@ -38,6 +41,7 @@ class Journal < ActiveRecord::Base
   ACCOUNTS_OF_PURCHASES = {:purchase=>[60, 61, 62, 635], :tva_deductible=>[4452, 4456], :supplier=>[401, 403, 4091], 
     :bank=>512, :others=>765 }
   
+  #
   def before_validation
     if self.closed_on.nil?
       self.closed_on = Date.civil(1970,1,1) 
@@ -48,15 +52,8 @@ class Journal < ActiveRecord::Base
     end
   end
 
-
+  #
   def validate
-    #     period = JournalPeriod.find(:first, :conditions=>{:journal_id => self.id})
-    #     unless period.nil?
-    #       errors.add_to_base lc(:error_limited_period) if self.closed_on < period.stopped_on 
-    #       errors.add_to_base lc(:error_limited_financialyear) if self.created_at.to_date > period.financialyear.written_on.to_date 
-    #       errors.add_to_base lc(:error_limited_financialyear) if self.created_at.to_date > period.financialyear.stopped_on.to_date 
-    #       errors.add_to_base lc(:error_limited_financialyear) if self.created_at.to_date < period.financialyear.started_on.to_date 
-    #     end
   end
 
   # tests if the period contains records.
@@ -66,10 +63,8 @@ class Journal < ActiveRecord::Base
 
   # this method closes a journal.
   def close(date)
-   # puts 'y1'
     self.periods.each do |period|
       unless period.balanced
-       # puts 'y2'
         errors.add_to_base lc(:error_unbalanced_period_journal)
         return false 
       end
@@ -86,19 +81,16 @@ class Journal < ActiveRecord::Base
   # this method creates a period with a record.
   def create_record(financialyear, values = {})
     period = self.periods.find(:first, :conditions=>['company_id = ? AND financialyear_id = ? AND ?::date BETWEEN started_on AND stopped_on', self.company_id, financialyear, values[:created_on] ])
-   
     period = self.periods.create!(:company_id=>self.company_id, :financialyear_id=> financialyear, :started_on=>values[:created_on]) if period.nil?
-    
     record = JournalRecord.find(:first,:conditions=>{:period_id => period.id, :number => values[:number]}) 
-
-     record = JournalRecord.create!(values.merge({:period_id=>period.id, :company_id=>self.company_id, :journal_id=>self.id})) if record.nil?
+    record = JournalRecord.create!(values.merge({:period_id=>period.id, :company_id=>self.company_id, :journal_id=>self.id})) if record.nil?
     return record
   end
 
   
   # this method searches the last records according to a number.  
   def last_records(period, number_record=:all)
-    period.journal_records.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_record)
+    period.records.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_record)
   end
 
 
@@ -132,10 +124,7 @@ class Journal < ActiveRecord::Base
         end
       end
       results[record.created_on.to_sym] = result  unless result.empty? 
-      
     end
-    #    journals_list params
-    #    @journals = @current_company.journals
   end
 
   # this method returns an array .

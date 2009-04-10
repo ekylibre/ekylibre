@@ -35,14 +35,14 @@ module Ekylibre
                 "LOWER(#{attribute}) LIKE ? "
               end.join(" OR ")
               
-              conditions[0] += options[:conditions].collect do |key, value|
-                conditions << sanitize_conditions(value)
-                "AND #{key} = ?"
-              end.join(" ")
+             #  conditions[0] += options[:conditions].collect do |key, value|
+#                 conditions << sanitize_conditions(value)
+#                 "AND #{key} = ?"
+#               end.join(" ")
               
               #puts "company:"+options[:conditions].inspect
 
-              puts "conditions20: "+conditions.inspect
+             # puts "conditions20: "+conditions.inspect
              
               find_options = { 
                 :conditions => conditions,

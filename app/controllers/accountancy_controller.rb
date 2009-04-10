@@ -73,8 +73,8 @@
     t.procedure :create, :action=>:financialyears_create
   end
 
-   dyli(:account_search, :attributes=>[:number, :name], :conditions=>{:company_id=>@current_company}, :model=>:account)
-  
+#  dyli(:account_search, :attributes=>[:number, :name], :conditions=>{:company_id=>@current_company}, :model=>:account)
+    dyli(:account_search, :attributes=>[:number, :name], :model=>:account)
 
   #
   def index
@@ -93,7 +93,7 @@
       #puts 'param:'+params[:bank_account].to_s 
       @bank_account = BankAccount.new(params[:bank_account])
       @bank_account.company_id = @current_company.id
-      puts 'BA:'+@bank_account.inspect
+      #puts 'BA:'+@bank_account.inspect
       redirect_to_back if @bank_account.save
     else
       @bank_account = BankAccount.new
@@ -306,7 +306,7 @@
     if request.post? or request.delete?
       @financialyear = Financialyear.find_by_id_and_company_id(params[:id], @current_company.id)  
 
-      Financialyear.destroy @financialyear unless @financialyear.journal_periods.size > 0 
+      Financialyear.destroy @financialyear unless @financialyear.periods.size > 0 
     end
     redirect_to :action => "financialyears"
   end
@@ -377,18 +377,13 @@
   # this action displays all entries stored in the journal. 
   def entries_consult
     session[:journal_period] ||= {}
-   
     @journal_period = JournalPeriod.new(params[:journal_period])
-  
     @journals = @current_company.journals
     @financialyears = @current_company.financialyears
-   
     if request.post?
       session[:journal_period] = params[:journal_period]
     end
-
     entries_list
-
   end
   
 

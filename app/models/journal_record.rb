@@ -27,7 +27,7 @@ class JournalRecord < ActiveRecord::Base
   belongs_to :company
   belongs_to :resource
 
-  belongs_to :period
+  belongs_to :period, :class_name=>"JournalPeriod"
   belongs_to :journal
  
   has_many :entries, :class_name=>"Entry", :foreign_key=>:record_id

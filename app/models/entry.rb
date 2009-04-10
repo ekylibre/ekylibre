@@ -33,9 +33,10 @@ class Entry < ActiveRecord::Base
   belongs_to :account
   belongs_to :company
   belongs_to :currency
-  belongs_to :record
-#  belongs_to :bank_account_statement, :foreign_key=>"intermediate_id"
-#  belongs_to :bank_account_statement, :foreign_key=>"statement_id"
+  belongs_to :record, :class_name=>"JournalRecord"
+  belongs_to :intermediate, :class_name=>"BankAccountStatement"
+  belongs_to :statement, :class_name=>"BankAccountStatement"
+
   acts_as_list :scope=>:record
 
   attr_readonly :company_id, :record_id
@@ -45,6 +46,7 @@ class Entry < ActiveRecord::Base
   after_update  :update_record
   
 
+  #
   def before_validation 
     # computes the values depending on currency rate
     # for debit and credit.
@@ -57,19 +59,17 @@ class Entry < ActiveRecord::Base
         self.credit = self.currency_credit * self.currency_rate
       end
     end
-    
-    
   end
   
+  #
   def validate
     errors.add_to_base tc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?     
     errors.add_to_base tc(:error_amount_balance2) unless self.debit + self.credit >= 0    
-         
-    #raise Exception.new "models:"+ self.errors.inspect.to_s  
   end
   
+  # 
   def close?
-   return (not self.editable)
+    return (not self.editable)
   end
 
 

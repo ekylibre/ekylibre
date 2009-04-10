@@ -23,15 +23,13 @@ class BankAccountStatement < ActiveRecord::Base
   belongs_to :bank_account
   belongs_to :company
 
-  has_many :intermediate, :class_name=>"Entry"
-  has_many :statement, :class_name=>"Entry"
+  has_many :entries, :class_name=>"Entry", :foreign_key=>:intermediate_id
+  has_many :entries, :class_name=>"Entry", :foreign_key=>:statement_id
 
 
   # A bank account statement has to contain all the planned records.
   def validate    
    errors.add_to_base lc(:error_period_statement) if self.started_on >= self.stopped_on
-   #puts self.stopped.to_s+"et"+self.bank_account.journal.to_s
-   #errors.add lc(:error_journal_statement) if self.stopped_on > self.bank_account.journal.closed_on
   end
 
 

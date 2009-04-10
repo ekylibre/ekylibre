@@ -23,13 +23,13 @@
 
 class JournalPeriod < ActiveRecord::Base
   belongs_to :company
-  belongs_to :financial
+  belongs_to :financialyear
   belongs_to :journal
   
-  has_many :records, :class_name=>"JournalRecord", :foreign_key=>:period_id
+
+ has_many :records, :class_name=>"JournalRecord", :foreign_key=>:period_id
   
-#  validates_uniqueness_of [:started_on, :stopped_on], :scope=> [:journal_id, :financialyear_id]
-  
+ 
   #
   def before_validation
     self.financialyear = Financialyear.find(:first, :conditions=>['company_id = ? AND ? BETWEEN started_on AND stopped_on',self.company_id, self.started_on ]) if self.started_on #and !self.financialyear
@@ -45,18 +45,7 @@ class JournalPeriod < ActiveRecord::Base
   
   #
   def validate
-    
-   # errors.add lc(:error_period) if self.started_on > self.stopped_on
-   # errors.add lc(:error_period) if self.started_on != self.financialyear.started_on and self.started_on!=self.started_on.beginning_of_month
-    
-    #if self.journal 
-     # errors.add lc(:error_closed_journal) if self.started_on <= self.journal.closed_on
-    #end
-    
-    # if self.financialyear
-#       errors.add lc(:error_closed_financialyear) if self.financialyear.closed
-#       errors.add lc(:error_limited_financialyear) if self.financialyear.started_on > self.started_on or self.financialyear.stopped_on < self.stopped_on
-   # end
+
   end
   
   #
