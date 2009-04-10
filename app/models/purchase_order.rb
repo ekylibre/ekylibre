@@ -23,6 +23,11 @@
 #
 
 class PurchaseOrder < ActiveRecord::Base
+
+  belongs_to :company
+  belongs_to :contact
+  belongs_to :entity
+  has_many :lines, :class_name=>PurchaseOrderLine.to_s
   
   validates_presence_of :planned_on
   attr_readonly :company_id
