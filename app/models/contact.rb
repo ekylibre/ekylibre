@@ -41,7 +41,7 @@
 class Contact < ActiveRecord::Base
   belongs_to :company
   belongs_to :entity
-  belongs_to :norm
+  belongs_to :norm, :class_name=>AddressNorm.to_s
   has_many :deliveries
   has_many :invoices
   has_many :purchase_orders

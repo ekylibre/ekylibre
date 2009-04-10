@@ -859,6 +859,8 @@ fr-FR:
           one: '1 employé enregistré'
           other: '{{count}} employés enregistrés'
         create: 'Créer un nouvel employé'
+      _employees_form:
+        select_user: '--- Sans utilisateur ---'
       _employees_search:
         title: 'Recherche'
         search: 'Rechercher un employé'
