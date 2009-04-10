@@ -22,4 +22,16 @@
 #
 
 class StockLocation < ActiveRecord::Base
+  belongs_to :account
+  belongs_to :company
+  belongs_to :contact
+  belongs_to :establishment
+  belongs_to :parent, :class_name=>StockLocation.to_s
+  has_many :product_stocks
+  has_many :purchase_order_lines
+  has_many :sale_order_lines
+  has_many :stock_locations
+  has_many :stock_moves
+
+  
 end

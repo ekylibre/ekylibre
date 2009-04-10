@@ -40,6 +40,18 @@
 
 class Product < ActiveRecord::Base
 
+  belongs_to :account
+  belongs_to :company
+  belongs_to :shelf
+  belongs_to :unit
+  has_many :delivery_lines
+  has_many :invoice_lines
+  has_many :prices
+  has_many :product_stocks
+  has_many :purchase_order_lines
+  has_many :sale_order_lines
+  has_many :stock_moves
+
   def before_validation
     self.code = self.name.codeize.upper if self.code.blank?
     self.code = self.code[0..7]

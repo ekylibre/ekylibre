@@ -38,6 +38,19 @@ class SaleOrder < ActiveRecord::Base
   
   attr_readonly :company_id, :created_on, :number
 
+  belongs_to :company
+  belongs_to :invoice_contact, :class_name=>Contact.to_s
+  belongs_to :delivery_contact,:class_name=>Contact.to_s
+  belongs_to :contact
+  belongs_to :expiration, :class_name=>Delay.to_s
+  belongs_to :payment_delay, :class_name=>Delay.to_s
+  belongs_to :client, :class_name=>Entity.to_s
+  belongs_to :nature, :class_name=>SaleOrderNature.to_s
+  has_many :deliveries
+  has_many :invoices
+  has_many :payment_parts
+  has_many :sale_orders
+  
   def before_validation
     if self.number.blank?
       last = self.client.sale_orders.find(:first, :order=>"number desc")

@@ -26,6 +26,18 @@
 #
 
 class Price < ActiveRecord::Base
+
+  belongs_to :company
+  belongs_to :currency
+  belongs_to :entity
+  belongs_to :product
+  belongs_to :tax
+  has_many :delivery_lines
+  has_many :invoice_lines
+  has_many :price_taxes
+  has_many :purchase_order_lines
+  has_many :sale_order_lines
+
   attr_readonly :company_id, :started_at, :list_id, :amount, :amount_with_taxes
 
 

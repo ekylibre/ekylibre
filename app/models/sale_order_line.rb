@@ -25,6 +25,16 @@
 
 class SaleOrderLine < ActiveRecord::Base
   attr_readonly :company_id, :order_id
+
+  belongs_to :company
+  belongs_to :account
+  belongs_to :price
+  belongs_to :order, :class_name=>SaleOrder.to_s
+  belongs_to :product
+  belongs_to :unit
+  belongs_to :location, :class_name=>StockLocation.to_s
+  has_many :delivery_lines
+  has_many :invoice_lines
   
   def before_validation
     self.account_id = self.product.account_id

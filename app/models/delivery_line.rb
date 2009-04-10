@@ -22,6 +22,14 @@
 
 class DeliveryLine < ActiveRecord::Base
 
+  belongs_to :company
+  belongs_to :delivery
+  belongs_to :price
+  belongs_to :product
+  belongs_to :order_line, :class_name=>SaleOrderLine.to_s
+  belongs_to :unit
+ 
+
   def before_validation
     self.product = self.order_line.product
     self.amount = self.order_line.price.amount*self.quantity

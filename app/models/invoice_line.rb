@@ -22,6 +22,12 @@
 
 class InvoiceLine < ActiveRecord::Base
 
+  belongs_to :company
+  belongs_to :invoice
+  belongs_to :price
+  belongs_to :product
+  belongs_to :sale_order_lines
+  
   def before_validation
     self.product = self.order_line.product
     self.price_id = self.order_line.price.id

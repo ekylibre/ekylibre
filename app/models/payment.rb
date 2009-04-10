@@ -21,9 +21,12 @@
 #
 
 class Payment < ActiveRecord::Base
-
- 
-
+  
+  belongs_to :account
+  belongs_to :company
+  belongs_to :payment_mode
+  has_many :payment_parts
+  
   def before_destroy
   end
 

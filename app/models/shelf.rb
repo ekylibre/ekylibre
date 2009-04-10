@@ -19,6 +19,11 @@
 
 class Shelf < ActiveRecord::Base
 
+  belongs_to :company
+  belongs_to :parent, :class_name=>Shelf.to_s
+  has_many :products
+  has_many :shelves
+
   def before_validation
     self.catalog_name = self.name if self.catalog_name.blank?
   end

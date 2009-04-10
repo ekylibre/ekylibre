@@ -24,6 +24,13 @@
 
 class PurchaseOrderLine < ActiveRecord::Base
   attr_readonly :company_id, :order_id
+
+  belongs_to :account
+  belongs_to :company
+  belongs_to :product
+  belongs_to :order
+  belongs_to :price
+  belongs_to :location
   
   def before_validation
     self.account_id = self.price.product.account_id

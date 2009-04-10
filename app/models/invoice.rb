@@ -27,6 +27,14 @@
 
 class Invoice < ActiveRecord::Base
 
+  belongs_to :client
+  belongs_to :company
+  belongs_to :contact
+  belongs_to :payment_id
+  belongs_to :sale_order
+  has_many :deliveries
+  has_many :invoice_lines
+
   def before_validation
     if self.number.blank?
       last = self.client.invoices.find(:first, :order=>"number desc")

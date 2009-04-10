@@ -17,6 +17,11 @@
 #
 
 class PaymentMode < ActiveRecord::Base
+  
+  belongs_to :account
+  belongs_to :company
+  has_many :entities
+  has_many :payments
 
   def self.modes
     [:check, :other].collect{|x| [tc('modes.'+x.to_s), x]}

@@ -23,6 +23,12 @@
 
 class Delivery < ActiveRecord::Base
 
+  belongs_to :company
+  belongs_to :contact
+  belongs_to :invoice
+  belongs_to :order
+  has_many :lines, :class_name=>InvoiceLine.to_s
+
   validates_presence_of :planned_on
 
   def before_validation

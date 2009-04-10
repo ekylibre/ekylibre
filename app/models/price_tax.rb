@@ -16,6 +16,9 @@
 
 class PriceTax < ActiveRecord::Base
 
+  belongs_to :price
+  belongs_to :tax
+
   def before_validation
     unless self.tax.nil?
       self.amount = self.tax.compute(self.price.amount)
