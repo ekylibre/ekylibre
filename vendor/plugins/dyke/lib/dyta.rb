@@ -86,6 +86,12 @@ module Ekylibre
             code += "  options = (params||{}).merge(options)\n"
 #            code += "  raise Exception.new(options.inspect)\n"
             code += "  order = nil\n"
+            unless options[:order].nil?
+              raise Exception.new("options[:order] must be an Hash. Example: {:sort=>'column', :dir=>'asc'}") unless options[:order].is_a? Hash
+              raise Exception.new("options[:order]['sort'] must be completed (#{options[:order].inspect}).") if options[:order]['sort'].nil?
+              code += "  options['sort'] = #{options[:order]['sort'].to_s.inspect}\n"
+              code += "  options['dir'] = #{options[:order]['dir'].to_s.inspect}\n"
+            end
             code += "  unless options['sort'].blank?\n"
             code += "    options['dir'] ||= 'asc'\n"
             code += "    order  = options['sort']\n"
@@ -94,14 +100,6 @@ module Ekylibre
    
             code += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
             code += ", :conditions=>"+conditions unless conditions.blank?
-#             unless conditions.blank?
-#               code += ", :conditions=>"
-#               if conditions.is_a? Symbol
-#                 code += conditions.to_s+"(options)"
-#               else
-#                 code += conditions
-#               end
-#             end
             code += ", "+PAGINATION[options[:pagination]][:find_params] if PAGINATION[options[:pagination]][:find_params]
             code += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
             code += ", :order=>order)\n"
@@ -120,7 +118,11 @@ module Ekylibre
               process = ''
               for procedure in definition.procedures
                 process += "+' '+" unless process.blank?
-                process += "link_to(t(\"controllers.\#\{self.controller.controller_name.to_s\}.#{name.to_s}.#{procedure.name.to_s}\"), #{procedure.options.inspect}, :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"')"
+                process += "link_to(t(\"controllers.\#\{self.controller.controller_name.to_s\}.#{name.to_s}.#{procedure.name.to_s}\")"
+                process += ", {:action=>#{procedure.options[:action].inspect}}"
+                process += ", :method=>#{procedure.options[:method].inspect}" unless procedure.options[:method].nil?
+                process += ", :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"'"
+                process += ")"
                 # process += "link_to(tc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+procedure.options.inspect+", :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"')"
               end      
               process = "'"+content_tag(:tr, content_tag(:td, "'+"+process+"+'", :class=>:procedures, :colspan=>definition.columns.size))+"'"
@@ -138,21 +140,21 @@ module Ekylibre
             record = 'r'
             header = ''
             body = ''
-            sorter  = "    sort = options['sort']\n"
-            sorter += "    dir = options['dir']\n"
+            if options[:order].nil?
+              sorter  = "    sort = options['sort']\n"
+              sorter += "    dir = options['dir']\n"
+            else
+              sorter  = "    sort = #{options[:order]['sort'].to_s.inspect}\n"
+              sorter += "    dir = #{(options[:order]['dir']||'asc').to_s.inspect}\n"
+            end
 
             for column in definition.columns
               header += "+\n      " unless header.blank?
               header_title = "'"+h(column.header).gsub('\'','\\\\\'')+"'"
               column_sort = ''
-#              header_title = "content_tag(:div, '"+h(column.header).gsub('\'','\\\\\'')+"')"
-              unless column.action? or column.options[:through]
-                # sorter += "    dir_"+column.name.to_s+"=(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc')\n"
-                # header += "dir = (sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc')\n"
+              if column.sortable? and options[:order].nil?
                 header_title = "link_to_remote("+header_title+", {:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>params[:page]}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
                 column_sort = "+(sort=='"+column.name.to_s+"' ? ' sorted' : '')"
-#                header += "+link_to_remote("+value_image(:up2)+", {:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>'asc', :page=>params[:page]}}, {:class=>'sort'})"
-#                header += "+link_to_remote("+value_image(:down2) +", {:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>'desc', :page=>params[:page]}}, {:class=>'sort'})"
               end
               header += "content_tag(:th, "+header_title+", :class=>'"+(column.action? ? 'act' : 'col')+"'"+column_sort+")"
               body   += "+\n        " unless body.blank?
@@ -321,6 +323,10 @@ module Ekylibre
           @nature == :action
         end
 
+        def sortable?
+          not self.action? and not self.options[:through] and not @column.nil?
+        end
+
         def header
           if @options[:label].blank?
             case @nature
@@ -350,36 +356,36 @@ module Ekylibre
         end
         
         def datatype
-          begin
-            case @column.sql_type
-            when /int/i
-              :integer
-            when /float|double/i
-              :float
-            when /^(numeric|decimal|number)\((\d+)\)/i
-              :integer
-            when /^(numeric|decimal|number)\((\d+)(,(\d+))\)/i
-              :decimal
-            when /datetime/i
-              :datetime
-            when /timestamp/i
-              :timestamp
-            when /time/i
-              :time
-            when /date/i
-              :date
-            when /clob/i, /text/i
-              :text
-            when /blob/i, /binary/i
-              :binary
-            when /char/i, /string/i
-              :string
-            when /boolean/i
-              :boolean
-            end
-          rescue
-            nil
-          end
+          @options[:datatype]||begin
+                                 case @column.sql_type
+                                 when /int/i
+                                   :integer
+                                 when /float|double/i
+                                   :float
+                                 when /^(numeric|decimal|number)\((\d+)\)/i
+                                   :integer
+                                 when /^(numeric|decimal|number)\((\d+)(,(\d+))\)/i
+                                   :decimal
+                                 when /datetime/i
+                                   :datetime
+                                 when /timestamp/i
+                                   :timestamp
+                                 when /time/i
+                                   :time
+                                 when /date/i
+                                   :date
+                                 when /clob/i, /text/i
+                                   :text
+                                 when /blob/i, /binary/i
+                                   :binary
+                                 when /char/i, /string/i
+                                   :string
+                                 when /boolean/i
+                                   :boolean
+                                 end
+                               rescue
+                                 nil
+                               end
         end
 
         def data(record='record')
@@ -412,7 +418,7 @@ module Ekylibre
           link_options = link_options.inspect.to_s
           link_options = link_options[1..link_options.size-2]
           image_title = @options[:title]||@name.to_s.humanize
-          image_file = "buttons/"+(@options[:image]||@name).to_s+".png"
+          image_file = "buttons/"+(@options[:image]||@name.to_s.split('_')[-1]).to_s+".png"
           image_file = "buttons/unknown.png" unless File.file? "#{RAILS_ROOT}/public/images/"+image_file
           if @options[:remote] 
             remote_options = @options.dup

@@ -206,6 +206,7 @@ fr-FR:
         siren: Numéro SIREN
         born_on: Créée le
       complement: 
+        choices_count: Nb. Choix
         nature: Type de donnée
         nature_label: Type de donnée
         name: Nom
@@ -558,6 +559,7 @@ fr-FR:
         complements_create: Ajouter un nouveau champ personnalisé
       complement_choices:
         complement_choices_create: Ajouter un nouveau choix à la liste
+        complement_choices_sort: Trier les choix par nom
       contacts:
         entities_contacts_create: 'Création d''un nouveau contact'
       entities:

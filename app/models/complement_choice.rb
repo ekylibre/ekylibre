@@ -19,6 +19,7 @@ class ComplementChoice < ActiveRecord::Base
   belongs_to :company
   belongs_to :complement
   has_many :data, :class_name=>ComplementDatum.to_s
+  acts_as_list :scope=>:complement_id
 
   def to_s
     self.name

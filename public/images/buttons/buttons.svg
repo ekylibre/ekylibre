@@ -4873,5 +4873,29 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
        inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/center.png" />
+    <path
+       style="fill:#241e84;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       d="M 98.1875,16 L 96,23 L 97.90625,23 L 98.625,21.108108 L 100.625,21.108108 L 101.03125,23 L 103,23 L 101.5,16 L 98.1875,16 z M 99.3125,17.828829 L 100.3125,17.891892 L 100.375,19.405405 L 98.875,19.279279 L 99.3125,17.828829 z"
+       id="path2999"
+       sodipodi:nodetypes="cccccccccccccc"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/sort.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#900f1d;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.99999994000000003px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       d="M 96,25 L 103,25 L 99.78226,29.942217 L 103,29.942217 L 103,32 L 96,32 L 99.161295,27.029481 L 96,27.029481 L 96,25 z"
+       id="path3001"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/sort.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       d="M 106.18182,16 L 106.18182,27.623932 L 105.15341,26.436432 L 104,27.623932 L 108.07272,32 L 112,27.623932 L 111,26.498932 L 109.96363,27.623932 L 109.96363,16 L 106.18182,16 z"
+       id="path3003"
+       sodipodi:nodetypes="cccccccccc"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/sort.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

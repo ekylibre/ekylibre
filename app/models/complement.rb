@@ -41,6 +41,13 @@ class Complement < ActiveRecord::Base
   def choices_count
     self.choices.count
   end
-    
+
+  def sort_choices
+    choices = self.choices.find(:all, :order=>:name)
+    for x in 0..choices.size-1
+      choices[x]['position'] = x+1
+      choices[x].save!#(false)
+    end
+  end
 
 end

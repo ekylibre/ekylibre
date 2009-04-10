@@ -8,17 +8,20 @@ class RelationsController < ApplicationController
     t.column :nature_label
     t.column :required
     t.column :active
-    t.column :choices_count
+    t.column :choices_count, :datatype=>:integer
     t.action :complements_update, :image=>:update
     t.action :complement_choices, :image=>:menulist, :if=>'RECORD.nature == "choice"'
     t.procedure :complements_create
   end
 
-  dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['@complement.id']}) do |t| 
+  dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['session[:current_complement_id]']}, :order=>{'sort'=>'position'}) do |t| 
     t.column :name
     t.column :value
-    t.action :complement_choices_update, :image=>:update
+    t.action :complement_choices_up, :if=>"not RECORD.first\?", :method=>:post
+    t.action :complement_choices_down, :if=>"not RECORD.last\?", :method=>:post
+    t.action :complement_choices_update
     t.procedure :complement_choices_create
+    t.procedure :complement_choices_sort, {:method=>:post}
   end
   
   def complements
@@ -29,14 +32,14 @@ class RelationsController < ApplicationController
   def complement_choices
     access :complement_choices
     @complement = find_and_check(:complement , params[:id])
-    session[:my_complement] = @complement.id
+    session[:current_complement_id] = @complement.id
     @title = {:value=>@complement.name}
     complement_choices_list params
   end
 
   def complement_choices_create
     access :complement_choices
-    @complement = find_and_check(:complement, session[:my_complement])
+    @complement = find_and_check(:complement, session[:current_complement_id])
     if request.post?
       @complement_choice = ComplementChoice.new(params[:complement_choice])
       @complement_choice.company_id = @current_company.id
@@ -60,6 +63,33 @@ class RelationsController < ApplicationController
     @complement = find_and_check(:complement, @complement_choice.complement_id)
     @title = {:choice=>@complement_choice.name, :complement=>@complement.name}
     render_form
+  end
+  
+  def complement_choices_up
+    access :complement_choices
+    @complement_choice = find_and_check(:complement_choice, params[:id])
+    if request.post? and @complement_choice
+      @complement_choice.move_higher
+    end
+    redirect_to_current
+  end
+  
+  def complement_choices_sort
+    access :complement_choices
+    @complement = find_and_check(:complement, session[:current_complement_id])
+    if request.post? and @complement
+      @complement.sort_choices
+    end
+    redirect_to :action=>:complement_choices, :id=>@complement.id
+  end
+  
+  def complement_choices_down
+    access :complement_choices
+    @complement_choice = find_and_check(:complement_choice, params[:id])
+    if request.post? and @complement_choice
+      @complement_choice.move_lower
+    end
+    redirect_to_current
   end
   
   def complements_create
