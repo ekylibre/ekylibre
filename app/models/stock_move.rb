@@ -27,6 +27,12 @@
 #
 
 class StockMove < ActiveRecord::Base
+  belongs_to :company
+  belongs_to :location, :class_name=>StockLocation.to_s
+  belongs_to :product
+  belongs_to :tracking, :class_name=>StockTracking.to_s
+  belongs_to :unit
+
   attr_readonly :company_id
 
   def before_validation

@@ -18,4 +18,6 @@
 #
 
 class StockTracking < ActiveRecord::Base
+  belongs_to :company
+  has_many :stock_moves
 end
