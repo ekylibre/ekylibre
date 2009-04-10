@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090407073247
+# Schema version: 20090410102120
 #
 # Table name: employees
 #
@@ -21,7 +21,7 @@
 #  created_by       :integer       
 #  updated_by       :integer       
 #  lock_version     :integer       default(0), not null
-#  profession_id    :integer       not null
+#  profession_id    :integer       
 #  commercial       :boolean       not null
 #
 

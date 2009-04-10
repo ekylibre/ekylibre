@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090407073247
+# Schema version: 20090410102120
 #
 # Table name: address_norm_items
 #
