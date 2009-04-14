@@ -72,6 +72,7 @@ module Ekylibre
                 end
               when Hash # SQL
                 conditions += '{'+options[:conditions].collect{|key, value| ':'+key.to_s+'=>'+sanitize_conditions(value)}.join(',')+'}'
+
               when Symbol # Method
                 conditions += options[:conditions].to_s+"(options)"
               when String
@@ -98,6 +99,8 @@ module Ekylibre
             code += "    order += options['dir']=='desc' ? ' DESC' : ' ASC'\n"
             code += "  end\n"
    
+            #raise Exception.new('voila : '+conditions.to_s)
+            
             code += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
             code += ", :conditions=>"+conditions unless conditions.blank?
             code += ", "+PAGINATION[options[:pagination]][:find_params] if PAGINATION[options[:pagination]][:find_params]

@@ -15,6 +15,7 @@ module Ekylibre
           include ActionView::Helpers::TagHelper
           include ActionView::Helpers::UrlHelper
           
+
           #
           def dyli(name, options = {})
             options = {:limit => 5,:attributes => [:name], :partial => nil}.merge(options)
@@ -25,58 +26,53 @@ module Ekylibre
               model = options[:model].to_s.camelize.constantize
             end
             
-            raise Exception.new("The model specified does not exist. (#{model.inspect})") unless ActiveRecord::Base.connection.tables.include? model.table_name
+            code = ""
+            code += "def dyli_"+name.to_s+"\n"
+            code += "conditions = [\"\"]\n"
+            code += "search = params[:"+model.to_s.lower.to_s+"][:search].downcase\n"
             
-            define_method("dyli_#{name}") do
-              conditions=[""]
-              search=params[model.to_s.lower.to_sym][:search].chars.downcase
-              conditions[0] = options[:attributes].collect do |attribute|
-                conditions << '%'+search+'%'
-                "LOWER(#{attribute}) LIKE ? "
-              end.join(" OR ")
-              
-             #  conditions[0] += options[:conditions].collect do |key, value|
-#                 conditions << sanitize_conditions(value)
-#                 "AND #{key} = ?"
-#               end.join(" ")
-              
-              #puts "company:"+options[:conditions].inspect
-
-             # puts "conditions20: "+conditions.inspect
-             
-              find_options = { 
-                :conditions => conditions,
-                :order => "#{options[:attributes][0]} ASC",
-                :limit => options[:limit]
-              }
-              
-              @items = model.find(:all, find_options) 
-              
-              if options[:partial]
-                render :inline => "<%= dyli_result(@items,'"+search+"',"+options[:attributes].inspect+","+options[:partial].inspect+") %>"
-              else
-                render :inline => "<%= dyli_result(@items,'"+search+"',"+options[:attributes].inspect+") %>"
-              end
-              
+            options[:conditions].collect do |key, value| 
+              code += "conditions << "+sanitize_conditions(value)+"\n"
+              code += "conditions[0] += '"+key.to_s+" = ? AND '\n"
             end
+            
+            code += "conditions[0] += "+options[:attributes].inspect+".collect do |attribute|\n"
+            code += "conditions << '%'+search+'%'\n"
+            code += "'LOWER('+attribute.to_s+') LIKE ? '\n"
+            code += "end.join(\" OR \")\n"
+            
+            code += "find_options = {" 
+            code += ":conditions => conditions,"
+            code += ":order => \"#{options[:attributes][0]} ASC\","
+            code += ":limit => "+options[:limit].to_s+" }\n"
+            
+            code += "@items = "+model.to_s+".find(:all, find_options)\n"
+            
+            if options[:partial]
+              code += "render :inline => '<%= dyli_result(@items,'+search.to_s.inspect+',"+options[:attributes].inspect+","+options[:partial].inspect+") %>'\n"
+            else
+              code += "render :inline => '<%= dyli_result(@items,'+search.to_s.inspect+',"+options[:attributes].inspect+") %>'\n"
+            end
+            
+            code += "end\n"        
+            module_eval(code)
+            
           end
-          
         end 
-        
         
         def sanitize_conditions(value)
           if value.is_a? Array
             if value.size==1 and value[0].is_a? String
               value[0].to_s
-              else
+            else
               value.inspect
             end
           elsif value.is_a? String
-              '"'+value.gsub('"','\"')+'"'
+            '"'+value.gsub('"','\"')+'"'
           elsif [Date, DateTime].include? value.class
             '"'+value.to_formatted_s(:db)+'"'
           else
-              value.to_s
+            value.to_s
           end
         end
         
@@ -239,7 +235,7 @@ module Ekylibre
                                    end
           
           # if the user presses the button return to validate his choice from the list of completion. 
-           unless options[:submit_on_return]
+          unless options[:submit_on_return]
             tag_options[:onkeypress] = 'if (event.keyCode == Event.KEY_RETURN && '+options[:resize].to_s+') {'+
               'this.size = (this.dyli.length > 128 ? 128 : this.dyli.length);'+
               'this.value = this.dyli; }'
@@ -259,14 +255,14 @@ module Ekylibre
           $("#{hf_id}").value = model_id;
           element.dyli = document.getElementById('record_'+model_id).value;
           JS
-        
+          
           
           if options[:resize]
             completion_options[:after_update_element] += <<-JS.gsub(/\s+/, ' ')
              element.size = (element.dyli.length > 128 ? 128 : element.dyli.length);               
              JS
           end
- 
+          
           completion_options[:after_update_element] += <<-JS.gsub(/\s+/, ' ')
             (#{options[:after_update_element]})(element, value, $("#{hf_id}"), model_id);
             }
@@ -280,7 +276,6 @@ module Ekylibre
                                                               )
           
         end
-        
         
       end
       

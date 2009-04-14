@@ -62,7 +62,6 @@ class AccountancyController < ApplicationController
     t.column :credit
   end
   
-
   dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :code
     t.column :closed
@@ -73,8 +72,8 @@ class AccountancyController < ApplicationController
     t.procedure :create, :action=>:financialyears_create
   end
 
-  #  dyli(:account_search, :attributes=>[:number, :name], :conditions=>{:company_id=>@current_company}, :model=>:account)
-  #   dyli(:account_search, :attributes=>[:number, :name], :model=>:account)
+  dyli(:account_search, :attributes=>[:number, :name], :conditions=>{:company_id=>['@current_company.id']}, :model=>:account)
+
 
   #
   def index
@@ -261,6 +260,7 @@ class AccountancyController < ApplicationController
     end
   end
   
+
   # lists all the bank_accounts with the mainly characteristics. 
   def financialyears
     financialyears_list params
@@ -354,6 +354,7 @@ class AccountancyController < ApplicationController
   end
 
 
+  #
   def entries_conditions(options)
     conditions = ["entries.company_id=?", @current_company.id]
     unless session[:journal_period][:journal_id].blank?
