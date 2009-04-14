@@ -90,7 +90,7 @@ class StockMove < ActiveRecord::Base
     end
   end
 
-  def before_destroy
+  def before_destroy  
     product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id})
     if self.virtual and self.input
       product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity - self.quantity)
@@ -104,6 +104,9 @@ class StockMove < ActiveRecord::Base
   end
   
   
+
+
+
   
   ### For stocks_moves created by user
   def change_quantity

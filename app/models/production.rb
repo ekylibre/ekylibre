@@ -46,7 +46,7 @@ class Production < ActiveRecord::Base
     end
   end
 
-  def before_destroy
+  def before_destroy 
     stocks_moves = StockMove.find(:all, :conditions=>{:company_id=>self.company_id, :origin_type=>Production.to_s, :origin_id=>self.id})
     for stocks_move in stocks_moves
       stocks_move.destroy

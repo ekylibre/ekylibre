@@ -58,7 +58,7 @@ class ProductionController < ApplicationController
   end
 
   def productions_delete
-    @production = find_and_check(:production,(params[:id]))
+    @production = find_and_check(:production,(params[:id]))   
     if request.delete? or request.post?
       redirect_to :action=>:productions if @production.destroy
     end

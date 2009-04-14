@@ -36,7 +36,7 @@ class AuthenticationController < ApplicationController
   def register
     if request.post?
       if defined?(Ekylibre::DONT_REGISTER)
-        hash = Digest::SHA256.hexdigest(params[:register_password])
+        hash = Digest::SHA256.hexdigest(params[:register_password].to_s)
         puts hash
         redirect_to :action=>:login unless defined?(Ekylibre::DONT_REGISTER_PASSWORD)
         redirect_to :action=>:login if hash!=Ekylibre::DONT_REGISTER_PASSWORD
@@ -45,6 +45,7 @@ class AuthenticationController < ApplicationController
       @company = Company.new(params[:company])
       @user = User.new(params[:user])
       saved = true
+      puts saved.to_s+"KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
       ActiveRecord::Base.transaction do
         saved = @company.save
         if saved
