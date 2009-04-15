@@ -36,17 +36,23 @@ module Ekylibre
               code += "conditions[0] += '"+key.to_s+" = ? AND '\n"
             end
             
+            code += "conditions[0] += '('\n"
+
             code += "conditions[0] += "+options[:attributes].inspect+".collect do |attribute|\n"
             code += "conditions << '%'+search+'%'\n"
             code += "'LOWER('+attribute.to_s+') LIKE ? '\n"
             code += "end.join(\" OR \")\n"
             
+            code += "conditions[0] += ')'\n"
+
             code += "find_options = {" 
             code += ":conditions => conditions,"
             code += ":order => \"#{options[:attributes][0]} ASC\","
             code += ":limit => "+options[:limit].to_s+" }\n"
             
+
             code += "@items = "+model.to_s+".find(:all, find_options)\n"
+           
             
             if options[:partial]
               code += "render :inline => '<%= dyli_result(@items,'+search.to_s.inspect+',"+options[:attributes].inspect+","+options[:partial].inspect+") %>'\n"

@@ -65,6 +65,4 @@ class JournalPeriod < ActiveRecord::Base
     
   end    
   
- 
-  
 end

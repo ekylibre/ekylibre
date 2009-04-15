@@ -35,17 +35,18 @@ class JournalRecord < ActiveRecord::Base
 
   acts_as_list :scope=>:period
 
-  
+  #
   def before_validation
     self.debit = self.entries.sum(:debit)
     self.credit = self.entries.sum(:credit)
   end 
    
+  #
   def validate
-    errors.add_to_base lc(:error_printed_date) if self.printed_on > self.created_on
+    errors.add_to_base tc(:error_printed_date) if self.printed_on > self.created_on
     if self.period
-      errors.add_to_base lc(:error_closed_journal,[self.period.journal.closed_on.to_formatted_s]) if self.period.closed
-      errors.add_to_base lc(:error_limited_period) if self.created_on < self.period.started_on or self.created_on > self.period.stopped_on 
+      errors.add_to_base tc(:error_closed_journal,[self.period.journal.closed_on.to_formatted_s]) if self.created_on < self.journal.closed_on #if self.period.closed
+      errors.add_to_base tc(:error_limited_period) if self.created_on < self.period.started_on or self.created_on > self.period.stopped_on 
     end
   end
   
