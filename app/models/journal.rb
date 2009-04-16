@@ -78,22 +78,6 @@ class Journal < ActiveRecord::Base
   end
 
   
-  # this method creates a period with a record.
-  def create_record(financialyear, values = {})
-    period = self.periods.find(:first, :conditions=>['company_id = ? AND financialyear_id = ? AND ?::date BETWEEN started_on AND stopped_on', self.company_id, financialyear, values[:created_on] ])
-  
-    period = self.periods.create!(:company_id=>self.company_id, :financialyear_id=> financialyear, :started_on=>values[:created_on]) if period.nil?
-  
-    @record = JournalRecord.find(:first,:conditions=>{:period_id => period.id, :number => values[:number]})
-    
-    @record = JournalRecord.create!(values.merge({:period_id=>period.id, :company_id=>self.company_id, :journal_id=>self.id})) if @record.nil?
-    
-    #raise Exception.new('oui')
-    
-    return @record
-  end
-
-  
   # this method searches the last records according to a number.  
   def last_records(period, number_record=:all)
     period.records.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_record)

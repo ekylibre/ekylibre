@@ -408,17 +408,28 @@ class AccountancyController < ApplicationController
       @record = JournalRecord.new
       if request.post?
         session[:entries][:account_number] = params[:account][:search].split(',')[0]
-        @record = @journal.create_record(@financialyear.id, params[:record])
-        account = @current_company.accounts.find(:first, :conditions=>{:number => session[:entries][:account_number]})
-        @entry = @current_company.entries.build(params[:entry].merge({:account => account, :record_id => @record.id, :currency => @journal.currency}))
-       
-        if @entry.save
-          @record.reload
-          @entry  = Entry.new
-          session[:entries][:account_number] = ''
-        end
-
         
+        @period = @journal.periods.find(:first, :conditions=>['company_id = ? AND financialyear_id = ? AND ?::date BETWEEN started_on AND stopped_on', @current_company.id, @financialyear.id, params[:record][:created_on] ])
+        
+        @period = @journal.periods.create!(:company_id=>@current_company.id, :financialyear_id=> @financialyear.id, :started_on=>params[:record][:created_on]) if @period.nil?
+        
+        @record = JournalRecord.find(:first,:conditions=>{:period_id => @period.id, :number => params[:record][:number]})
+        @record = @period.records.build(params[:record].merge({:period_id=>@period.id, :company_id=>@current_company.id, :journal_id=>@journal.id})) if @record.nil?
+        
+        @entry = @current_company.entries.build(params[:entry])
+        
+        if @record.save
+          @entry.record_id = @record.id
+          @entry.currency_id = @journal.currency_id
+          if @entry.save
+            @record.reload
+            @entry  = Entry.new
+            session[:entries][:account_number] = ''
+          end
+        end
+  #      raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>                  : '+@record.errors.inspect)
+     
+
       elsif request.delete?
         @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
         if @entry.close?
@@ -430,32 +441,49 @@ class AccountancyController < ApplicationController
       else
         @entry = Entry.new 
       end
-      
-      
+     
+       raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>voila: '+@record.errors.inspect)
       periods = @journal.periods.find(:all,:conditions=>['financialyear_id=?',session[:entries][:financialyear]])
       periods.each do |period|
         @records += @journal.last_records(period, session[:entries][:records_number].to_i)
       end  
-    
-      @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
-    
-      unless @record.nil?
-        (@record.balance > 0) ?  @entry.currency_credit=@record.balance.abs :  @entry.currency_debit=@record.balance.abs  
-      end
-   
-      @record = JournalRecord.new(params[:record]) if @record.nil?
-   
-      if @record.new_record?
-        @record.number = @records.size>0 ? @records.first.number.succ : 1
-       
-        @record.created_on ||= @record.printed_on ||= Date.today
-      end
-   
+     
+#    #   raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>oui: '+@record.errors.inspect)
+
+#       # raise Exception.new('oui: '+@record.errors.inspect)
+#       #unless @record.errors
+#         #raise Exception.new('oui')
+        
+#        # @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
+#             #  puts('>>>>>>>>>>>>>>>>>>>>>>>>>>>oui2: '+@record.errors.inspect)
+#        # raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>oui2: '+@record.errors.inspect)
+#         unless @record.nil?
+#           #raise Exception.new('oui')
+#           if (@record.balance > 0) 
+#             @entry.currency_credit=@record.balance.abs 
+#           else
+#             @entry.currency_debit=@record.balance.abs  
+#           end
+#         end
+        
+#         @record = JournalRecord.new(params[:record]) if @record.nil?
+#          #raise Exception.new('ouif: '+@record.errors.inspect)
+#         if @record.new_record? and not @record.errors
+#           @record.number = @records.size>0 ? @records.first.number.succ : 1
+#           @record.created_on ||= @record.printed_on ||= Date.today
+#           #raise Exception.new('ouif2: '+@record.errors.inspect)
+#         end
+#       #end
+#       # raise Exception.new('oui')
+#       @record.errors.add_to_base('kmk')
+#     #  raise Exception.new('ouifi: '+@record.inspect+' :  '+@record.errors.inspect+'<< et >> '+@entry.inspect+' :  '+@entry.errors.inspect)
+
       render :action => "entries.rjs" if request.xhr?
+    
     end
     
   end
-  
+
   # this method updates an entry with a form.
   def entries_update
     access :entries
@@ -477,8 +505,8 @@ class AccountancyController < ApplicationController
   def journals
     journals_list params
   end
-  
-  
+
+
   #this method creates a journal with a form. 
   def journals_create
     access :journals
@@ -518,8 +546,8 @@ class AccountancyController < ApplicationController
     end
     redirect_to :action => "journals"
   end
-  
-  
+
+
   # This method allows to close the journal.
   def journals_close
     access :journals
@@ -553,8 +581,6 @@ class AccountancyController < ApplicationController
       end
     end
   end
-  
-  
 
   # This method allows to build the table of the periods.
   def journals_periods
@@ -567,7 +593,7 @@ class AccountancyController < ApplicationController
     end
     render :text => options_for_select(@journal_periods) 
   end
-  
+
   # lists all the statements in details for a precise account.
   def statements  
     bank_account_statements_list params
@@ -593,7 +619,7 @@ class AccountancyController < ApplicationController
     render_form 
   end
 
-  
+
   # This method updates a statement.
   def statements_update
     access :statements
@@ -605,7 +631,7 @@ class AccountancyController < ApplicationController
     end
     render_form
   end
-  
+
 
   # This method deletes a statement.
   def statements_delete
@@ -616,7 +642,7 @@ class AccountancyController < ApplicationController
     end
   end
 
-  
+
   # This method displays the list of entries recording to the bank account for the given statement.
   def statements_point
     session[:statement] = params[:id]  if request.get? 
@@ -654,12 +680,11 @@ class AccountancyController < ApplicationController
     end
     @title = {:value => @bank_account_statement.number}
   end
-  
+
   # displays in details the statement choosen with its mainly characteristics.
   def statements_display
     @bank_account_statement = BankAccountStatement.find(params[:id])
   end
-
 
 end
 
