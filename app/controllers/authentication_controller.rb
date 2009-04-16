@@ -46,6 +46,7 @@ class AuthenticationController < ApplicationController
       @user = User.new(params[:user])
       saved = true
       puts saved.to_s+"KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+      #raise Exception.new @company.inspect+"            ,,,,,,,,,    "+@user.inspect
       ActiveRecord::Base.transaction do
         saved = @company.save
         if saved

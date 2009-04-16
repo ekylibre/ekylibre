@@ -671,7 +671,7 @@ class ManagementController < ApplicationController
       redirect_to :back if @sale_order_line.destroy
     end
   end
-
+ 
   dyta(:undelivered_quantities, :model=>:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@sale_order.id']}) do |t|
     t.column :name, :through=>:product
     t.column :amount, :through=>:price

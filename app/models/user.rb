@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   
   def before_validation
     self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
-    if company
+    if self.company
       self.language = self.company.parameter('general.language').value if self.language.nil?
     end
     self.language = Language.find(:first, :order=>:name) if self.language.nil?
