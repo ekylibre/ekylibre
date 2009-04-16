@@ -192,4 +192,8 @@ class Company < ActiveRecord::Base
     self.financialyears.find(:last, :conditions => "closed = false", :order=>"started_on ASC")
   end
 
+  def productable_products
+    Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (supply_method = 'produce' OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
+  end
+
 end

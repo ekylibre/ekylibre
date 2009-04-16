@@ -25,8 +25,10 @@ class ProductionController < ApplicationController
     end
     @production = Production.new
 
-    @productable_products = @current_company.products.find_by_sql ["SELECT * FROM products WHERE (supply_method = 'produce' OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", @current_company.id]
+    @productable_products = @current_company.productable_products
+    #.find_by_sql ["SELECT * FROM products WHERE company_id = ? (supply_method = 'produce' OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))",@current_company.id, @current_company.id]
 
+    #raise Exception.new @current_company.productable_products.inspect
     if request.post?
       @production = Production.new(params[:production])
       @production.company_id = @current_company.id
