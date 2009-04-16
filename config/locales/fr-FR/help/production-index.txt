@@ -1,0 +1,3 @@
+h1. Gestion de la production
+
+Actuellement, vous pouvez enregistrer vos productions, aussi bien de *matières premières* qu'en *transformation*, qui sont couplées à la *gestion des stocks*.

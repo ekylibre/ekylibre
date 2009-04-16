@@ -1,0 +1,5 @@
+h1. Comment créer une production ?
+
+Il vous suffit de sélectionner le produit qui a été produit ainsi que sa quantité. *mp* signifie que la production désigne une matière première et *nc* représente le nombre de produits qui composent la production. Vous pouvez créer des composants à un produit dans l'affichage d'un produit (module commerce, produits, afficher le détail d'un produit). Si vous décide de produire un produit qui possède 3 composants, des *mouvements de stocks* seront crées pour ce produit ainsi que pour *tous ses composants*.
+
+<<production-index|Retour à l'aide sur la Gestion de la production>>

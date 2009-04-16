@@ -1,9 +1,8 @@
 h1. L'affichage d'un produit :
 * Vous avez ici accès à toutes les informations relatives à votre produits et à ses prix.
 
-* Vous pouvez créer plusieurs prix pour un même produit mais ils ne doivent pas appartenir à la même liste de prix. En effet, pour un produit et une liste de prix, on ne peut avoir qu'un seul et unique prix, à moins de définir des <<management-prices_create|intervalles>>
 
-* Le nom de la liste de prix est un lien vous redirigeant vers l'affichage de celle-ci proposant les différents prix lui étant associés.
+* Les *composants* désignent le ou les produits dont est constitué un autre produit. Concrètement, une bouteille de vin est composée d'une bouteille, d'une étiquette, d'une capsule et de vin. Définir les composants d'un produit permet de *gérer les stocks d'un produit et de tous ses composants* lors de la *production* de celui-ci.
 
 
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>

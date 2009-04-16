@@ -1,0 +1,8 @@
+h1. Les productions
+
+* Vous avez accès aux détails des diffèrentes productions réalisées et la possibilité de créer, modifier <<production-productions_update|{{buttons/update.png|modifier}}>> ou suppprimer {{buttons/delete.png|supprimer}} une production.
+
+* Vous pouvez produire des *matières premières* ou des *produits transformés*.
+
+
+<<production-index|Retour à l'aide sur la Gestion de la production>>
