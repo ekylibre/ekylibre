@@ -24,6 +24,8 @@
 #  virtual            :boolean       
 #  input              :boolean       
 #  generated          :boolean       
+#  origin_type        :string(255)   
+#  origin_id          :integer       
 #
 
 class StockMove < ActiveRecord::Base

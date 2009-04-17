@@ -1,3 +1,26 @@
+# == Schema Information
+# Schema version: 20090410102120
+#
+# Table name: product_components
+#
+#  id           :integer       not null, primary key
+#  name         :string(255)   not null
+#  product_id   :integer       not null
+#  component_id :integer       not null
+#  location_id  :integer       not null
+#  quantity     :decimal(16, 2 not null
+#  comment      :text          
+#  active       :boolean       not null
+#  started_at   :datetime      
+#  stopped_at   :datetime      
+#  company_id   :integer       not null
+#  created_at   :datetime      not null
+#  updated_at   :datetime      not null
+#  created_by   :integer       
+#  updated_by   :integer       
+#  lock_version :integer       default(0), not null
+#
+
 class ProductComponent < ActiveRecord::Base
 
   attr_readonly :company_id, :quantity, :content_id, :package_id, :name, :comment

@@ -115,7 +115,7 @@ fr-FR:
         record_debit: 'Débit'
         record_credit: 'Crédit'
         entry_letter: 'Lettrage'
-        entry_validate: 'Valider l''écriture'
+        entry_validate: 'OK'
         confirmation: 'Êtes-vous sûr de votre saisie ?'     
         balanced_entries: 'Vert : pièce équilibrée'
         unbalanced_entries: 'Rouge : pièce non équilibrée'

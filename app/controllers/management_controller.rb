@@ -75,9 +75,9 @@ class ManagementController < ApplicationController
   
   def prices_conditions(options={})
     if session[:entity_id] == 0 
-      conditions = ["company_id = ? AND active = true", @current_company.id]
+      conditions = ["company_id = ? AND active = ?", @current_company.id, true]
     else
-      conditions = ["company_id = ? AND entity_id = ?  AND active = true", @current_company.id,session[:entity_id]]
+      conditions = ["company_id = ? AND entity_id = ?  AND active = ?", @current_company.id,session[:entity_id], true]
     end
     conditions
   end

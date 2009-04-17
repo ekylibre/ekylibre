@@ -29,22 +29,15 @@
 
 class Account < ActiveRecord::Base
   belongs_to :company
-  
   has_many :account_balances
+  has_many :balances, :class_name=>AccountBalance.to_s
   has_many :bank_accounts
- 
   has_many :entries
+  has_many :journals, :class_name=>"Journal", :foreign_key=>:counterpart_id
   has_many :payments
   has_many :payment_modes
   has_many :products
   has_many :purchase_order_lines
-
-
-
-  #has_many :counterpart_id, :class_name=>"Journal"
-  has_many :journals, :class_name=>"Journal", :foreign_key=>:counterpart_id
-
-
   acts_as_tree
   validates_format_of :number, :with=>/[0-9]+/i
 

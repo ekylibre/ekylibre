@@ -166,7 +166,7 @@ class Company < ActiveRecord::Base
   end
 
   def admin_role
-    self.roles.find(:first, :conditions=>"actions ILIKE '%all%'")
+    self.roles.find(:first, :conditions=>"actions LIKE '%all%'")
   end
 
   def available_entities(options={})

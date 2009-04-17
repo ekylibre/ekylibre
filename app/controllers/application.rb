@@ -36,13 +36,13 @@ class ApplicationController < ActionController::Base
       conditions[0] += " AND ("
       for attribute in options[:attributes]
         for word in keywords
-          conditions[0] += 'CAST('+attribute.to_s+" AS VARCHAR) ILIKE ? OR "
-          conditions << '%'+word+'%'
+          conditions[0] += 'LOWER(CAST('+attribute.to_s+" AS VARCHAR)) LIKE ? OR "
+          conditions << '%'+word.lower+'%'
         end
       end 
       conditions[0] = conditions[0][0..-5]+")"
     else
-      conditions[0] += " AND true"
+      conditions[0] += " AND CAST ('true' AS BOOLEAN)"
     end
     conditions
   end

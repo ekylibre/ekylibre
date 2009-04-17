@@ -407,11 +407,14 @@ class AccountancyController < ApplicationController
     if @valid
       @record = JournalRecord.new
       if request.post?
-        session[:entries][:account_number] = params[:account][:search].split(',')[0]
-        
-        @period = @journal.periods.find(:first, :conditions=>['company_id = ? AND financialyear_id = ? AND ?::date BETWEEN started_on AND stopped_on', @current_company.id, @financialyear.id, params[:record][:created_on] ])
-        
-        @period = @journal.periods.create!(:company_id=>@current_company.id, :financialyear_id=> @financialyear.id, :started_on=>params[:record][:created_on]) if @period.nil?
+        # session[:entries][:account_number] = params[:account][:search].split(',')[0]
+        @period = @journal.periods.find(:first, :conditions=>['company_id = ? AND financialyear_id = ? AND CAST(? AS DATE) BETWEEN started_on AND stopped_on', @current_company.id, @financialyear.id, params[:record][:created_on] ])
+        if @period.nil?
+          @period = @journal.periods.create(:company_id=>@current_company.id, :financialyear_id=>@financialyear.id, :started_on=>params[:record][:created_on]) 
+          #raise Exception.new({:company_id=>@current_company, :financialyear_id=>@financialyear, :started_on=>params[:record][:created_on]}.inspect)
+          #raise Exception.new(@period.inspect)
+          @period.save
+        end
         
         @record = JournalRecord.find(:first,:conditions=>{:period_id => @period.id, :number => params[:record][:number]})
         @record = @period.records.build(params[:record].merge({:period_id=>@period.id, :company_id=>@current_company.id, :journal_id=>@journal.id})) if @record.nil?
@@ -424,7 +427,7 @@ class AccountancyController < ApplicationController
           if @entry.save
             @record.reload
             @entry  = Entry.new
-            session[:entries][:account_number] = ''
+            # session[:entries][:account_number] = ''
           end
         end
   #      raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>                  : '+@record.errors.inspect)
@@ -442,42 +445,43 @@ class AccountancyController < ApplicationController
         @entry = Entry.new 
       end
      
-       raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>voila: '+@record.errors.inspect)
-      periods = @journal.periods.find(:all,:conditions=>['financialyear_id=?',session[:entries][:financialyear]])
-      periods.each do |period|
-        @records += @journal.last_records(period, session[:entries][:records_number].to_i)
-      end  
+      #  raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>voila: '+@record.errors.inspect)
+      #      periods = @journal.periods.find(:all,:conditions=>['financialyear_id=?',session[:entries][:financialyear]])
+      #      periods.each do |period|
+      #        @records += @journal.last_records(period, session[:entries][:records_number].to_i)
+      #      end  
+      @records = @journal.records.find(:all, :order=>"created_on DESC", :limit=>session[:entries][:records_number].to_i)
      
-#    #   raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>oui: '+@record.errors.inspect)
-
-#       # raise Exception.new('oui: '+@record.errors.inspect)
-#       #unless @record.errors
-#         #raise Exception.new('oui')
-        
-#        # @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
-#             #  puts('>>>>>>>>>>>>>>>>>>>>>>>>>>>oui2: '+@record.errors.inspect)
-#        # raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>oui2: '+@record.errors.inspect)
-#         unless @record.nil?
-#           #raise Exception.new('oui')
-#           if (@record.balance > 0) 
-#             @entry.currency_credit=@record.balance.abs 
-#           else
-#             @entry.currency_debit=@record.balance.abs  
-#           end
-#         end
-        
-#         @record = JournalRecord.new(params[:record]) if @record.nil?
-#          #raise Exception.new('ouif: '+@record.errors.inspect)
-#         if @record.new_record? and not @record.errors
-#           @record.number = @records.size>0 ? @records.first.number.succ : 1
-#           @record.created_on ||= @record.printed_on ||= Date.today
-#           #raise Exception.new('ouif2: '+@record.errors.inspect)
-#         end
-#       #end
-#       # raise Exception.new('oui')
-#       @record.errors.add_to_base('kmk')
-#     #  raise Exception.new('ouifi: '+@record.inspect+' :  '+@record.errors.inspect+'<< et >> '+@entry.inspect+' :  '+@entry.errors.inspect)
-
+      #   raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>oui: '+@record.errors.inspect)
+      
+      # raise Exception.new('oui: '+@record.errors.inspect)
+      #unless @record.errors
+      #raise Exception.new('oui')
+      
+      @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
+      #  puts('>>>>>>>>>>>>>>>>>>>>>>>>>>>oui2: '+@record.errors.inspect)
+      # raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>oui2: '+@record.errors.inspect)
+      unless @record.nil?
+        #raise Exception.new('oui')
+        if (@record.balance > 0) 
+          @entry.currency_credit=@record.balance.abs 
+        else
+          @entry.currency_debit=@record.balance.abs  
+        end
+      end
+      
+      @record = JournalRecord.new(params[:record]) if @record.nil?
+      #raise Exception.new('ouif: '+@record.errors.inspect)
+      if @record.new_record? and not @record.errors
+        @record.number = @records.size>0 ? @records.first.number.succ : 1
+        @record.created_on ||= @record.printed_on ||= Date.today
+        #raise Exception.new('ouif2: '+@record.errors.inspect)
+      end
+      #end
+      # raise Exception.new('oui')
+      # @record.errors.add_to_base('kmk')
+      # raise Exception.new('ouifi: '+@record.inspect+' :  '+@record.errors.inspect+'<< et >> '+@entry.inspect+' :  '+@entry.errors.inspect)
+      
       render :action => "entries.rjs" if request.xhr?
     
     end

@@ -1,3 +1,22 @@
+# == Schema Information
+# Schema version: 20090410102120
+#
+# Table name: productions
+#
+#  id           :integer       not null, primary key
+#  product_id   :integer       not null
+#  quantity     :decimal(16, 2 default(0.0), not null
+#  location_id  :integer       not null
+#  planned_on   :date          not null
+#  moved_on     :date          not null
+#  company_id   :integer       not null
+#  created_at   :datetime      not null
+#  updated_at   :datetime      not null
+#  created_by   :integer       
+#  updated_by   :integer       
+#  lock_version :integer       default(0), not null
+#
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 # one:

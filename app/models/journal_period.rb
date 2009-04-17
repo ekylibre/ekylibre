@@ -25,29 +25,29 @@ class JournalPeriod < ActiveRecord::Base
   belongs_to :company
   belongs_to :financialyear
   belongs_to :journal
-  
-
- has_many :records, :class_name=>"JournalRecord", :foreign_key=>:period_id
+  has_many :records, :class_name=>"JournalRecord", :foreign_key=>:period_id
   
  
   #
   def before_validation
-    self.financialyear = Financialyear.find(:first, :conditions=>['company_id = ? AND ? BETWEEN started_on AND stopped_on',self.company_id, self.started_on ]) if self.started_on #and !self.financialyear
-    if self.financialyear and self.started_on
-      self.started_on = self.financialyear.started_on if self.started_on.month == self.financialyear.started_on.month 
-      self.started_on = self.started_on.beginning_of_month if self.started_on.month != self.financialyear.started_on.month and self.started_on!=self.started_on.beginning_of_month
-      self.stopped_on = self.started_on.end_of_month
-    else
-      
+    self.financialyear = self.company.financialyears.find(:first, :conditions=>['? BETWEEN started_on AND written_on', self.started_on ], :order=>:started_on) if self.started_on and self.company and !self.financialyear
+    if self.started_on and self.financialyear
+      unless self.out_of_range?
+        self.started_on = self.financialyear.started_on if self.started_on.month == self.financialyear.started_on.month 
+        self.started_on = self.started_on.beginning_of_month if self.started_on.month != self.financialyear.started_on.month and self.started_on!=self.started_on.beginning_of_month
+        self.stopped_on = self.started_on.end_of_month
+      end
     end
   end
-
   
-  #
   def validate
-
+    errors.add(:started_on, tc(:error_out_of_range, :started_on=>self.financialyear.started_on.to_s, :stopped_on=>self.financialyear.stopped_on.to_s)) if self.out_of_range?
   end
-  
+
+  def out_of_range?(made_on=nil)
+    made_on ||= self.started_on
+    not (self.financialyear.started_on<=made_on and made_on<=self.financialyear.written_on)
+  end
   #
   def balanced
     self.records.each do |record|
