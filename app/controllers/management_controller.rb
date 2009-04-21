@@ -118,7 +118,6 @@ class ManagementController < ApplicationController
         redirect_to_back
       end
     else
-      #raise Exception.new params.inspect
       if @current_company.available_products.size<=0
         flash[:message] = tc('messages.need_product_to_create_price')
         redirect_to :action=> :products_create
@@ -200,7 +199,6 @@ class ManagementController < ApplicationController
   def product_components_delete
     if request.post?
       @product_component = find_and_check(:product_component, params[:id])
-      # @product_component.active = false
       @product_component.update_attributes!(:active=>false)
       redirect_to :action=>:products_display, :id=>session[:product_id]
     end
@@ -442,7 +440,7 @@ class ManagementController < ApplicationController
   
   
   dyta(:sale_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :number, :url=>{:action=>:sales_products}
+    t.column :number, :url=>{:action=>:sales_details}
     t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_natures_display}
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entities_display}
     t.column :state
@@ -454,10 +452,38 @@ class ManagementController < ApplicationController
   def sales
     sale_orders_list params
   end
+  
+  dyta(:sale_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']},:model=>:sale_order_lines,:empty=>true) do |t|
+    t.column :name, :through=>:product
+    t.column :quantity
+    t.column :label, :through=>:unit
+    t.column :amount, :through=>:price
+    t.column :amount
+    t.column :amount_with_taxes
+  end
 
-
-
-
+  dyta(:invoice_lines, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}) do |t|
+    t.column :number
+    t.column :address, :through=>:contact
+    t.column :amount
+    t.column :amount_with_taxes
+  end
+  
+  dyta(:payments, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :model=>:payment_parts) do |t|
+    t.column :amount, :through=>:payment, :label=>"Montant du paiment"
+    t.column :amount
+    t.column :payment_way
+    t.column :paid_on, :through=>:payment, :label=>"Réglé le"
+  end
+  
+  def sales_details
+    @sale_order = find_and_check(:sale_order, params[:id])
+    session[:current_sale_order] = @sale_order.id
+    sale_lines_list
+    payments_list
+    @title = {:value=>@sale_order.number, :name=>@sale_order.client.full_name} 
+  end
+  
   dyta(:sale_order_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :active
@@ -602,6 +628,7 @@ class ManagementController < ApplicationController
       if @sale_order.state == 'D'
         flash[:warning]=tc('sale_order_already_ordered')
       else
+        @sale_order.confirmed_on = Date.today
         @sale_order.update_attribute(:state, 'D') if @sale_order.state == 'P'
         @sale_order.stocks_moves_create
       end
@@ -642,7 +669,6 @@ class ManagementController < ApplicationController
           @sale_order_line.company_id = @current_company.id
           @sale_order_line.order_id = session[:current_sale_order]
           @sale_order_line.product_id = find_and_check(:prices,params[:sale_order_line][:price_id]).product_id
-          #raise Exception.new @stock_locations.size.to_s+params[:sale_order_line].inspect
           @sale_order_line.location_id = @stock_locations[0].id if @stock_locations.size == 1
         end
         redirect_to_back if @sale_order_line.save
@@ -672,7 +698,7 @@ class ManagementController < ApplicationController
     end
   end
  
-  dyta(:undelivered_quantities, :model=>:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@sale_order.id']}) do |t|
+  dyta(:undelivered_quantities, :model=>:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     t.column :name, :through=>:product
     t.column :amount, :through=>:price
     t.column :quantity
@@ -684,6 +710,7 @@ class ManagementController < ApplicationController
 
   def sales_deliveries
     @sale_order = find_and_check(:sale_order, params[:id])
+    session[:current_sale_order] = @sale_order.id
     @deliveries = Delivery.find_all_by_company_id_and_order_id(@current_company.id, @sale_order.id)
     if @deliveries.empty?
       redirect_to :action=>:deliveries_create
@@ -794,7 +821,7 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['@sale_order.id']}) do |t|
+  dyta(:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}) do |t|
     t.column :number
     t.column :address, :through=>:contact
     t.column :amount
@@ -803,6 +830,7 @@ class ManagementController < ApplicationController
 
   def sales_invoices
     @sale_order = find_and_check(:sale_order, params[:id])
+    session[:current_sale_order] = @sale_order.id
     @deliveries = Delivery.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>@sale_order.id})
     @delivery_lines = []
     @rest_to_invoice = false
@@ -871,7 +899,7 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:payment_parts, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['@sale_order.id']}) do |t|
+  dyta(:payment_parts, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     t.column :amount, :through=>:payment, :label=>"Montant du paiment"
     t.column :amount
     t.column :payment_way
@@ -1201,5 +1229,6 @@ class ManagementController < ApplicationController
       product_stocks_list 
     end
   end
+
   
 end

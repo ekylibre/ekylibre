@@ -82,6 +82,7 @@ class Contact < ActiveRecord::Base
     self.stopped_at = Time.now
     Contact.create!(self.attributes.merge({:code=>self.code, :active=>true, :started_at=>self.stopped_at, :stopped_at=>nil, :company_id=>self.company_id, :entity_id=>self.entity_id, :norm_id=>self.norm_id})) if self.active
     self.active = false
+    true
   end
   
   #  def validate_on_update 

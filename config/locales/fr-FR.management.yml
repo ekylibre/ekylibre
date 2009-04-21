@@ -199,6 +199,12 @@ fr-FR:
         infos: 'Renseignez les caractéristiques de l''achat '
       sales:
         title: Liste des ventes
+      sales_details:
+        deliveries: Livraisons
+        invoices: Factures
+        payments: Règlements de la vente
+        sale_order_lines: Lignes de vente
+        title: 'Détails de la vente {{value}} au client {{name}}'
       sales_new:
         title: 'Nouvelle vente'
         nature: 'Type de vente'

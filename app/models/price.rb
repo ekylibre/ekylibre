@@ -45,9 +45,9 @@ class Price < ActiveRecord::Base
     self.amount = self.amount.round(2)
     self.amount_with_taxes = self.amount
     self.amount_with_taxes += self.tax.compute(self.amount) if self.tax
-    for tax in self.taxes
-      self.amount_with_taxes += tax.amount
-    end
+    #for tax in self.taxes
+      #self.amount_with_taxes += tax.amount
+    # end
     self.amount_with_taxes = self.amount_with_taxes.round(2)
 
     self.started_at = Time.now

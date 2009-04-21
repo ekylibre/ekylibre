@@ -447,10 +447,16 @@ fr-FR:
         nature: Where - What
         description: Description
       sale_order:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
         client_id: Client
+        confirmed_on: Confirmée le
+        created_on: Créée le
         nature: Nature
         nature_id: Nature
+        number: Numéro
         payment_delay_id: Délai de paiement
+        state: État
         contact_id: Adresse pour le devis
         invoice_contact_id:  Adresse pour la facture
         delivery_contact_id: Adresse pour la livraison
@@ -826,6 +832,16 @@ fr-FR:
           one: '1 contact'
           other: '{{count}} contacts'
         entities_update: Modifier la fiche
+        sale_orders_number:
+          zero: 'Aucune vente' 
+          one: '1 vente '
+          other: ' {{count}} ventes '
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        client: Client
+        confirmed_on: Réalisée le
+        nature: Nature
+        number: Numéro
         title: 'Fiche : {{value}}'
       _entities_form:
         title: 'Renseignez les différentes caractéristiques de la fiche'

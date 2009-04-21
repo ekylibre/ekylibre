@@ -69,7 +69,7 @@ class Entity < ActiveRecord::Base
  
   #has_many :contact
   def before_validation
-    #raise Exception.new self.inspect
+    
     self.soundex = self.name.soundex2
     self.first_name = self.first_name.to_s.strip
     self.name = self.name.to_s.strip
@@ -80,11 +80,11 @@ class Entity < ActiveRecord::Base
     
     self.code = self.full_name.codeize if self.code.blank?
     self.code = self.code[0..15]
+    #raise Exception.new self.inspect
     #    while Entity.find(:first, :conditions=>["company_id=? AND code=? AND id!=?",self.company_id, self.code, self.id||0])
     #      self.code.succ!
     #    end
 
-    
     #self.active = false  unless self.dead_on.blank?
   end
 

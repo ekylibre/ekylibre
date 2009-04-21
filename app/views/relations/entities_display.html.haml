@@ -27,7 +27,25 @@
 
 %h2=tc :contacts, :count=>@contacts.size
 =dyta :contacts
-
+-if @entity.client
+  %h2=tc :sale_orders_number , :count=>@sale_orders_number
+-if @sale_orders.size > 0 and @entity.client
+  %table.dyta
+    %tr
+      %th= tc 'number'
+      %th= tc 'nature'
+      %th= tc 'client'
+      %th= tc 'amount'
+      %th= tc 'amount_with_taxes'
+      %th= tc 'confirmed_on'
+    -for sale_order in @sale_orders
+      %tr
+        %td= link_to sale_order.number, :controller=>:management, :action=>:sales_details, :id=>sale_order.id
+        %td= sale_order.nature.name
+        %td= sale_order.client.full_name
+        %td= sale_order.amount
+        %td= sale_order.amount_with_taxes
+        %td= sale_order.confirmed_on
    
 
 
