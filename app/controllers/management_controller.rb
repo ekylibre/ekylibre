@@ -462,12 +462,20 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
   end
 
-  dyta(:invoice_lines, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}) do |t|
-    t.column :number
-    t.column :address, :through=>:contact
+  dyta(:deliveries, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     t.column :amount
     t.column :amount_with_taxes
+    t.column :nature
+    t.column :planned_on
+    t.column :moved_on
   end
+
+  # dyta(:invoice_lines, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
+#     t.column :number
+#     t.column :address, :through=>:contact
+#     t.column :amount
+#     t.column :amount_with_taxes
+#   end
   
   dyta(:payments, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :model=>:payment_parts) do |t|
     t.column :amount, :through=>:payment, :label=>"Montant du paiment"
@@ -480,6 +488,7 @@ class ManagementController < ApplicationController
     @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
     sale_lines_list
+    deliveries_list
     payments_list
     @title = {:value=>@sale_order.number, :name=>@sale_order.client.full_name} 
   end

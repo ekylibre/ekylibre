@@ -247,11 +247,15 @@ fr-FR:
         expression: Expression
         name: Nom
       delivery:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
         contact_id: Adresse du client
+        delivered_on: Reçu le
+        moved_on: Fait le
         nature: Type
         planned_on: Prévue le
         shipped_on: Envoyé le
-        delivered_on: Reçu le
+        type: Type
       department:
         name: Nom
         comment: Commentaire

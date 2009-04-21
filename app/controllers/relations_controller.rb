@@ -222,12 +222,10 @@ class RelationsController < ApplicationController
   def entities_display
     @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
     session[:current_entity] = @entity.id
-    # @name = @entity.first_name.to_s+" "+@entity.name.to_s
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})
     @sale_orders = SaleOrder.find(:all, :conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]}, :order=>"confirmed_on DESC",:limit=>5)
     contacts_list params
     session[:my_entity] = params[:id]
-    @id = params[:id]
     @contact = Contact.new
     session[:current_entity] = params[:id]
     @title = {:value=>@entity.full_name}
