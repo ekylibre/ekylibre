@@ -77,7 +77,7 @@ module Haml
     MID_BLOCK_KEYWORDS   = ['else', 'elsif', 'rescue', 'ensure', 'when']
 
     # The Regex that matches a Doctype command.
-    DOCTYPE_REGEX = /(\d\.\d)?[\s]*([a-z]*)/i
+    DOCTYPE_REGEX = /(\d\.\d)?[\s]*([a-z\-]*)/i
 
     # The Regex that matches a literal string or symbol value
     LITERAL_VALUE_REGEX = /^\s*(:(\w*)|(('|")([^\\\#'"]*?)\4))\s*$/
@@ -674,6 +674,7 @@ END
             case type
             when "strict";   '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
             when "frameset"; '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">'
+            when "strict-svg"; '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus SVG 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
             else             '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
             end
           end

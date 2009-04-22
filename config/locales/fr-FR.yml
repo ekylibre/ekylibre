@@ -251,7 +251,7 @@ fr-FR:
         amount_with_taxes: Montant TTC
         contact_id: Adresse du client
         delivered_on: Reçu le
-        moved_on: Fait le
+        moved_on: Faite le
         nature: Type
         planned_on: Prévue le
         shipped_on: Envoyé le

@@ -201,6 +201,7 @@ fr-FR:
         title: Liste des ventes
       sales_details:
         deliveries: Livraisons
+        general_informations: Informations générales
         invoices: Factures
         payments: Règlements de la vente
         sale_order_lines: Lignes de vente

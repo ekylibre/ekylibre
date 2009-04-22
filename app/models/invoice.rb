@@ -46,7 +46,7 @@ class Invoice < ActiveRecord::Base
     end
   end
   
-  def self.generate(company_id, records, options={})
+  def self.generate(company_id, records,  options={})
     puts "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"+records.class.to_s
     invoice = Invoice.new(:company_id=>company_id, :nature=>"S")
     case records.class.to_s
@@ -67,7 +67,7 @@ class Invoice < ActiveRecord::Base
         for lines in record.lines
           invoice_line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
                                              :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
-                                             :order_line_id=>lines.order_line_id,:quantity=>lines.order_line.quantity)
+                                             :order_line_id=>lines.order_line_id,:quantity=>lines.quantity)
           invoice_line.save!
         end
       end

@@ -102,5 +102,9 @@ class ProductionController < ApplicationController
     render_form
   end
 
+  def test_svg
+    @path = "310 200"
+  end
+
 
 end

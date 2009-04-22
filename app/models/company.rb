@@ -184,7 +184,7 @@ class Company < ActiveRecord::Base
     self.taxes.find(:all, options)
   end
 
-  def invoice(records, options={})
+  def invoice(records,  options={})
     Invoice.generate(self.id,records)
   end
 

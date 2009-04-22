@@ -341,7 +341,6 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.action :purchase_order_lines_update, :image=>:update, :if=>'RECORD.order.shipped == false'
     t.action :purchase_order_lines_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.shipped == false'
-    #t.procedure :purchase_order_lines_create, :if=>'RECORD.order.shipped == false'
   end
 
   def purchases_products
@@ -350,7 +349,6 @@ class ManagementController < ApplicationController
     purchase_order_lines_list params
     if request.post?
       @purchase_order.stocks_moves_create
-      # @purchase_order.change_quantity(true,true)
       @purchase_order.update_attributes(:shipped=>true)
     end
     @title = {:value=>@purchase_order.number,:name=>@purchase_order.supplier.full_name}
@@ -465,17 +463,17 @@ class ManagementController < ApplicationController
   dyta(:deliveries, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     t.column :amount
     t.column :amount_with_taxes
-    t.column :nature
+    t.column :nature, :children=>:product_id
     t.column :planned_on
     t.column :moved_on
   end
 
-  # dyta(:invoice_lines, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
-#     t.column :number
-#     t.column :address, :through=>:contact
-#     t.column :amount
-#     t.column :amount_with_taxes
-#   end
+  dyta(:invoice_lines, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
+    t.column :number
+    t.column :address, :through=>:contact
+    t.column :amount
+    t.column :amount_with_taxes
+  end
   
   dyta(:payments, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :model=>:payment_parts) do |t|
     t.column :amount, :through=>:payment, :label=>"Montant du paiment"
@@ -489,6 +487,7 @@ class ManagementController < ApplicationController
     session[:current_sale_order] = @sale_order.id
     sale_lines_list
     deliveries_list
+    invoice_lines_list
     payments_list
     @title = {:value=>@sale_order.number, :name=>@sale_order.client.full_name} 
   end
@@ -550,7 +549,8 @@ class ManagementController < ApplicationController
     client_id = params[:client_id]||(params[:sale_order]||{})[:client_id]||session[:current_entity]
     client_id = 0 if client_id.blank?
     session[:current_entity] = client_id
-    contacts = Contact.find_all_by_entity_id_and_company_id(client_id, @current_company.id)||[]
+    #contacts = Contact.find_all_by_entity_id_and_company_id(client_id, @current_company.id)||[]
+    contacts = Contact.find(:all, :conditions=>{:entity_id=>client_id, :company_id=>@current_company.id, :active=>true})  
     @contacts = contacts.collect{|x| [x.address, x.id]}
     render :text=>options_for_select(@contacts) if request.xhr?
   end
