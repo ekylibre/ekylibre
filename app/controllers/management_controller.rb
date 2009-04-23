@@ -474,10 +474,10 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
   end
 
-  dyta(:deliveries, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
-    t.column :text_nature, :children=>:product_id
-    t.column :planned_on
-    t.column :moved_on
+  dyta(:deliveries, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
+    t.column :text_nature, :children=>:product_name
+    t.column :planned_on, :children=>false
+    t.column :moved_on, :children=>false
     t.column :amount
     t.column :amount_with_taxes
   end

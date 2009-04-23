@@ -178,6 +178,8 @@ table.dyta tr.odd  td.act { background: #E5D9DD; } /* #FDD; }*/
 table.dyta tr.even td.act { background: #F2E4DD; } /*#FED; }*/
 table.dyta tr.odd  td.sorted { background: #d6dbf9; } /* #FDD; }*/
 table.dyta tr.even td.sorted { background: #e4e7f9; } /*#FED; }*/
+table.dyta tr.child td { color: #77A; }
+table.dyta tr.child td:first-child { padding-left:20px; }
 table.dyta td.procedures { padding:4px; background: #FEB; }
 table.dyta td.procedures > a {padding: 4px;}
 table.dyta td.procedures > a.procedure.create {padding-left: 20px; background: url(../images/buttons/create.png) no-repeat center left;}

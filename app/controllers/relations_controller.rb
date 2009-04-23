@@ -227,6 +227,7 @@ class RelationsController < ApplicationController
     contacts_list params
     session[:my_entity] = params[:id]
     @contact = Contact.new
+    @contacts_count = @entity.contacts.find(:all, :conditions=>{:active=>true}).size
     session[:current_entity] = params[:id]
     @title = {:value=>@entity.full_name}
   end

@@ -44,79 +44,72 @@ module Ekylibre
             name = name.to_s
             code = ""
 
-            list_method_name = name+'_list'
-            tag_method_name = 'dyta_'+name+'_tag'
-            children_method_name = 'dyta_'+name+'_children_tag'
-            
+            list_method_name = 'dyta_'+name+''
+            tag_method_name  = 'dyta_'+name+'_tag'
+
             # List method
             conditions = ''
-            if options[:conditions]
-              conditions = ''
-              case options[:conditions]
-              when Array
-                case options[:conditions][0]
-                when String  # SQL
-                  conditions += '["'+options[:conditions][0].to_s+'"'
-                  if options[:conditions].size>1
-                    for x in 1..options[:conditions].size-1
-                      conditions += ','+sanitize_conditions(options[:conditions][x])
-                    end
-                  end
-                  conditions += ']'
-                when Symbol # Method
-                  conditions += options[:conditions][0].to_s+'('
-                  if options[:conditions].size>1
-                    options[:conditions][1..-1].collect{|p| sanitize_conditions(p)}.join(', ')
-                  end                  
-                  conditions += ')'
-                else
-                  raise Exception.new("First element of an Array can only be String or Symbol.")
-                end
-              when Hash # SQL
-                conditions += '{'+options[:conditions].collect{|key, value| ':'+key.to_s+'=>'+sanitize_conditions(value)}.join(',')+'}'
-
-              when Symbol # Method
-                conditions += options[:conditions].to_s+"(options)"
-              when String
-                conditions += options[:conditions]
-              else
-                raise Exception.new("Unsupported type for :conditions: #{options[:conditions].inspect}")
-              end
-            end
+            conditions = conditions_to_code(options[:conditions]) if options[:conditions]
 
             # code += "hide_action :"+list_method_name\n"
-            code += "def #{list_method_name}(options={})\n"
-            code += "  options = (params||{}).merge(options)\n"
-#            code += "  raise Exception.new(options.inspect)\n"
-            code += "  order = nil\n"
+#            code += "def #{list_method_name}(options={})\n"
+            code += "def #{list_method_name}\n"
+#             code += "  options = (params||{}).merge(options)\n"
+#             code += "  order = nil\n"
+#             unless options[:order].nil?
+#               raise Exception.new("options[:order] must be an Hash. Example: {:sort=>'column', :dir=>'asc'}") unless options[:order].is_a? Hash
+#               raise Exception.new("options[:order]['sort'] must be completed (#{options[:order].inspect}).") if options[:order]['sort'].nil?
+#               code += "  options['sort'] = #{options[:order]['sort'].to_s.inspect}\n"
+#               code += "  options['dir'] = #{options[:order]['dir'].to_s.inspect}\n"
+#             end
+#             code += "  unless options['sort'].blank?\n"
+#             code += "    options['dir'] ||= 'asc'\n"
+#             code += "    order  = options['sort']\n"
+#             code += "    order += options['dir']=='desc' ? ' DESC' : ' ASC'\n"
+#             code += "  end\n"
+   
+#             #raise Exception.new('voila : '+conditions.to_s)
+            
+#             code += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
+#             code += ", :conditions=>"+conditions unless conditions.blank?
+#             code += ", "+PAGINATION[options[:pagination]][:find_params] if PAGINATION[options[:pagination]][:find_params]
+#             code += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
+#             code += ", :order=>order)\n"
+#            code += "  render :inline=>'="+tag_method_name+"('+options.inspect+')', :type=>:haml if request.xhr?\n"
+            code += "  render :inline=>'<%="+tag_method_name+"-%>' if request.xhr?\n"
+            code += "end\n"
+
+            code += "def #{name}_list(options={})\n"
+            code += "  0\n"
+            code += "end\n"
+
+#            puts code
+            module_eval(code)
+
+            builder  = ''
+            builder += "  options = params\n"
+            builder += "  order = nil\n"
             unless options[:order].nil?
               raise Exception.new("options[:order] must be an Hash. Example: {:sort=>'column', :dir=>'asc'}") unless options[:order].is_a? Hash
               raise Exception.new("options[:order]['sort'] must be completed (#{options[:order].inspect}).") if options[:order]['sort'].nil?
-              code += "  options['sort'] = #{options[:order]['sort'].to_s.inspect}\n"
-              code += "  options['dir'] = #{options[:order]['dir'].to_s.inspect}\n"
+              builder += "  options['sort'] = #{options[:order]['sort'].to_s.inspect}\n"
+              builder += "  options['dir'] = #{options[:order]['dir'].to_s.inspect}\n"
             end
-            code += "  unless options['sort'].blank?\n"
-            code += "    options['dir'] ||= 'asc'\n"
-            code += "    order  = options['sort']\n"
-            code += "    order += options['dir']=='desc' ? ' DESC' : ' ASC'\n"
-            code += "  end\n"
+            builder += "  unless options['sort'].blank?\n"
+            builder += "    options['dir'] ||= 'asc'\n"
+            builder += "    order  = options['sort']\n"
+            builder += "    order += options['dir']=='desc' ? ' DESC' : ' ASC'\n"
+            builder += "  end\n"
    
             #raise Exception.new('voila : '+conditions.to_s)
             
-            code += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
-            code += ", :conditions=>"+conditions unless conditions.blank?
-            code += ", "+PAGINATION[options[:pagination]][:find_params] if PAGINATION[options[:pagination]][:find_params]
-            code += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
-            code += ", :order=>order)\n"
-            code += "  if request.xhr?\n"
-            code += "    render :inline=>'="+tag_method_name+"('+options.inspect+')', :type=>:haml\n"
-            #code += "    render :text=>"+tag_method_name+"(options)\n"
-            code += "  end\n"
-            code += "end\n"
-
- #           puts code
-
-            module_eval(code)
+            builder += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
+            builder += ", :conditions=>"+conditions unless conditions.blank?
+            builder += ", "+PAGINATION[options[:pagination]][:find_params] if PAGINATION[options[:pagination]][:find_params]
+            builder += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
+            builder += ", :order=>order)\n"
+            
+            # puts builder
 
             # Tag method
             if definition.procedures.size>0
@@ -142,9 +135,6 @@ module Ekylibre
                          ''
                        end
 
-            record = 'r'
-            header = ''
-            body = ''
             if options[:order].nil?
               sorter  = "    sort = options['sort']\n"
               sorter += "    dir = options['dir']\n"
@@ -153,60 +143,20 @@ module Ekylibre
               sorter += "    dir = #{(options[:order]['dir']||'asc').to_s.inspect}\n"
             end
 
-            for column in definition.columns
-              header += "+\n      " unless header.blank?
-              header_title = "'"+h(column.header).gsub('\'','\\\\\'')+"'"
-              column_sort = ''
-              if column.sortable? and options[:order].nil?
-                header_title = "link_to_remote("+header_title+", {:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>#{list_method_name}, :sort=>'"+column.name.to_s+"', :dir=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>params[:page]}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
-                column_sort = "+(sort=='"+column.name.to_s+"' ? ' sorted' : '')"
-              end
-              header += "content_tag(:th, "+header_title+", :class=>'"+(column.action? ? 'act' : 'col')+"'"+column_sort+")"
-              body   += "+\n        " unless body.blank?
-              case column.nature
-              when :column
-                style = options[:style]||''
-                css_class = ''
-                datum = column.data(record)
-                if column.datatype == :boolean
-                  datum = value_image2(datum)
-                  style = 'text-align:center;'
-                end
-                if column.options[:url]              
-                  datum = "("+datum+".blank? ? '' : link_to("+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id}))))'
-                  css_class += ' url'
-                elsif column.options[:mode] == :download# and !datum.nil?
-                  datum = 'link_to('+value_image(:download)+', url_for_file_column('+column.data(record)+",'"+column.name+"'))"
-                  style = 'text-align:center;'
-                  css_class += ' act'
-                elsif column.options[:mode]||column.name == :email
-                  # datum = 'link_to('+datum+', "mailto:#{'+datum+'}")'
-                  datum = "("+datum+".blank? ? '' : link_to("+datum+", \"mailto:\#\{"+datum+"\}\"))"
-                  css_class += ' web'
-                elsif column.options[:mode]||column.name == :website
-                  datum = "("+datum+".blank? ? '' : link_to("+datum+", "+datum+"))"
-                  css_class += ' web'
-                end
-                if column.options[:name]==:color
-                  css_class += ' color'
-                  style = "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
-                end
-                body += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"+column_sort
-                body += ", :style=>'"+style+"'" unless style.blank?
-                body += ")"
-              when :action
-                body += "content_tag(:td, "+column.operation(record)+", :class=>'act')"
-              else 
-                body += "content_tag(:td, '&nbsp;&empty;&nbsp;')"
-              end
-            end
+            record = 'r'
+            child  = 'c'
+            header = columns_to_td(definition.columns, :nature=>:header, :method=>list_method_name, :order=>options[:order])
+            body = columns_to_td(definition.columns, :nature=>:body, :record=>record, :order=>options[:order])
+            if options[:children].is_a? Symbol
+              children = options[:children].to_s
+              child_body = columns_to_td(definition.columns, :nature=>:children, :record=>child, :order=>options[:order])
+            end          
 
             header = 'content_tag(:tr, ('+header+'), :class=>"header")'
 
-            #code += "hide_action :"+tag_method_name+"\n"
             code  = "def "+tag_method_name+"(options={})\n"
-#            code += "  raise Exception.new(options.inspect)\n"
-            code += "  @"+name.to_s+"=@"+name.to_s+"||{}\n"
+            code += builder
+            code += "  @"+name.to_s+"||={}\n"
             code += "  if @"+name.to_s+".size>0\n"
             code += sorter
             code += "    header = "+header+"\n"
@@ -214,6 +164,11 @@ module Ekylibre
             code += "    body = ''\n"
             code += "    for "+record+" in @"+name.to_s+"\n"
             code += "      body += content_tag(:tr, ("+body+"), :class=>'data '+cycle('odd','even', :name=>'dyta')"+(options[:line_class].blank? ? '' : '+" "+('+options[:line_class].gsub(/RECORD/,record)+')')+")\n"
+            if children
+              code += "      for #{child} in #{record}.#{children}\n"
+              code += "        body += content_tag(:tr, ("+child_body+"), :class=>'data child '+cycle('odd','even', :name=>'dyta')"+(options[:line_class].blank? ? '' : '+" "+('+options[:line_class].gsub(/RECORD/,child)+')')+")\n"
+              code += "      end\n"
+            end
             code += "    end\n"
             code += "    text = header+content_tag(:tbody,body)\n"
             code += "  else\n"
@@ -228,24 +183,23 @@ module Ekylibre
             code += "  text += "+paginate_var+".to_s\n"
             code += "  unless request.xhr?\n"
             code += "    text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"')\n"
-            # code += "  text = content_tag(:div, text)\n"
-            code += "    text = content_tag(:h3,  "+h(options[:label])+", :class=>:dyta)+text\n" unless options[:label].nil?
-            # code += "  text = content_tag(:div, text, :class=>'futo', )\n"
-            # code += "  text = content_tag(:h2,  "+options[:title]+", :class=>'futo')+text\n" unless options[:title].nil?
+            # code += "    text = content_tag(:h3,  "+h(options[:label])+", :class=>:dyta)+text\n" unless options[:label].nil?
             code += "  end\n"
             code += "  text\n"
             code += "end\n"
 
+            puts code
+            
             ActionView::Base.send :class_eval, code
 
-            code  = "def "+children_method_name+"(options={})\n"
-            code += "  '<tr><td>Children</td></tr>'\n"
-            code += "end\n"
-
-            ActionView::Base.send :class_eval, code
+            # code  = "def "+children_method_name+"(options={})\n"
+            # code += "  '<tr><td>Children</td></tr>'\n"
+            # code += "end\n"
+            
+            # ActionView::Base.send :class_eval, code
 
             # Finish
-           # puts code
+            # puts code
           end
 
           def value_image(value)
@@ -264,6 +218,100 @@ module Ekylibre
           end
           
           
+          def columns_to_td(columns, options={})
+            code = ''
+            nature = options[:nature]||:body
+            record = options[:record]||'RECORD'
+            list_method_name = options[:method]||'dyta_list'
+            for column in columns
+              column_sort = ''
+              if column.sortable? and options[:order].nil?
+                column_sort = "+(sort=='"+column.name.to_s+"' ? ' sorted' : '')"
+              end
+              if nature==:header
+                code += "+\n      " unless code.blank?
+                header_title = "'"+h(column.header).gsub('\'','\\\\\'')+"'"
+                if column.sortable? and options[:order].nil?
+                  header_title = "link_to_remote("+header_title+", {:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:#{list_method_name}, :sort=>'"+column.name.to_s+"', :dir=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>params[:page]}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
+                end
+                code += "content_tag(:th, "+header_title+", :class=>'"+(column.action? ? 'act' : 'col')+"'"+column_sort+")"
+              else
+                code   += "+\n        " unless code.blank?
+                case column.nature
+                when :column
+                  style = column.options[:style]||''
+                  css_class = ''
+                  datum = column.data(record, nature==:children)
+                  if column.datatype == :boolean
+                    datum = value_image2(datum)
+                    style = 'text-align:center;'
+                  end
+                  if column.options[:url]              
+                    datum = "("+datum+".blank? ? '' : link_to("+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id}))))'
+                    css_class += ' url'
+                  elsif column.options[:mode] == :download# and !datum.nil?
+                    datum = 'link_to('+value_image(:download)+', url_for_file_column('+column.data(record)+",'"+column.name+"'))"
+                    style = 'text-align:center;'
+                    css_class += ' act'
+                  elsif column.options[:mode]||column.name == :email
+                    # datum = 'link_to('+datum+', "mailto:#{'+datum+'}")'
+                    datum = "("+datum+".blank? ? '' : link_to("+datum+", \"mailto:\#\{"+datum+"\}\"))"
+                    css_class += ' web'
+                  elsif column.options[:mode]||column.name == :website
+                    datum = "("+datum+".blank? ? '' : link_to("+datum+", "+datum+"))"
+                    css_class += ' web'
+                  end
+                  if column.options[:name]==:color
+                    css_class += ' color'
+                    style = "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
+                  end
+                  code += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"+column_sort
+                  code += ", :style=>'"+style+"'" unless style.blank?
+                  code += ")"
+                when :action
+                  code += "content_tag(:td, "+(nature==:body ? column.operation(record) : '')+", :class=>'act')"
+                else 
+                  code += "content_tag(:td, '&nbsp;&empty;&nbsp;')"
+                end
+              end
+            end
+            code
+          end
+
+
+
+
+          # Generate the code from a conditions option
+          def conditions_to_code(conditions)
+            code = ''
+            case conditions
+            when Array
+              case conditions[0]
+              when String  # SQL
+                code += '["'+conditions[0].to_s+'"'
+                code += ', '+conditions[1..-1].collect{|p| sanitize_conditions(p)}.join(', ') if conditions.size>1
+                code += ']'
+              when Symbol # Method
+                code += conditions[0].to_s+'('
+                code += conditions[1..-1].collect{|p| sanitize_conditions(p)}.join(', ') if conditions.size>1
+                code += ')'
+              else
+                raise Exception.new("First element of an Array can only be String or Symbol.")
+              end
+            when Hash # SQL
+              code += '{'+conditions.collect{|key, value| ':'+key.to_s+'=>'+sanitize_conditions(value)}.join(',')+'}'
+            when Symbol # Method
+              code += conditions.to_s+"(options)"
+            when String
+              code += conditions
+            else
+              raise Exception.new("Unsupported type for :conditions: #{conditions.inspect}")
+            end
+            code
+          end
+
+
+
           def sanitize_conditions(value)
             if value.is_a? Array
               if value.size==1 and value[0].is_a? String
@@ -399,8 +447,13 @@ module Ekylibre
                                end
         end
 
-        def data(record='record')
-          code = if @options[:through]
+        def data(record='record', child = false)
+          
+          code = if child and @options[:children].is_a? Symbol
+                   record+'.'+@options[:children].to_s
+                 elsif child and @options[:children].is_a? FalseClass
+                   'nil'
+                 elsif @options[:through] and !child
                    through = [@options[:through]] unless @options[:through].is_a?(Array)
                    foreign_record = record
                    through.size.times { |x| foreign_record += '.'+through[x].to_s }

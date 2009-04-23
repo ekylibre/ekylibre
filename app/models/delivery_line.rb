@@ -54,5 +54,9 @@ class DeliveryLine < ActiveRecord::Base
   def undelivered_quantity
     self.order_line.undelivered_quantity
   end
+
+  def product_name
+    self.product.name
+  end
   
 end

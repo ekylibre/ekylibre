@@ -9,9 +9,9 @@
   =# evalue tc(:departments_number ) , @company.departments.size, :url=>{:action=>:departments}
   =# evalue tc(:users_number ) ,@users.size, :url=>{:action=>:users}
 
-%h2= tc :users, :count=>@users.size
+%h2= tc :users
 =dyta :users
-%h2= tc :establishments, :count=>@establishments.size
+%h2= tc :establishments
 =dyta :establishments
-%h2= tc :departments, :count=>@departments.size
+%h2= tc :departments
 =dyta :departments

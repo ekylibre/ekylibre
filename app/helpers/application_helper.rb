@@ -294,6 +294,27 @@ module ApplicationHelper
 
 
 
+  def search_conditions(options={})
+    conditions = ["company_id = ?", @current_company.id]
+    keywords = options[:key].to_s.split(" ")
+    if keywords.size>0 and options[:attributes].size>0
+      conditions[0] += " AND ("
+      for attribute in options[:attributes]
+        for word in keywords
+          conditions[0] += 'LOWER(CAST('+attribute.to_s+" AS VARCHAR)) LIKE ? OR "
+          conditions << '%'+word.lower+'%'
+        end
+      end 
+      conditions[0] = conditions[0][0..-5]+")"
+    else
+      conditions[0] += " AND CAST ('true' AS BOOLEAN)"
+    end
+    conditions
+  end
+
+
+
+
 #  def date_field(object_name, method, options={})
 #    record = instance_variable_get('@'+object_name.to_s)
 #    hidden_field_tag(object_name.to_s+'_'+method, record.send(method))+

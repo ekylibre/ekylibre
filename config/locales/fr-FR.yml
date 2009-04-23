@@ -645,24 +645,15 @@ fr-FR:
     # Company
     company:
       index:
-        departments:
-          zero: Aucun service
-          one: Un service
-          other: '{{count}} services'
+        departments: Services
         departments_create: Ajouter un nouveau service
         departments_number: Nombre de services
-        establishments: 
-          zero: Aucun établissement
-          one: Un établissement
-          other: '{{count}} établissements'
+        establishments: Établissement
         establishments_create: Ajouter un nouvel établissement
         establishments_number: 'Nombre d''établissements'
         title: 'Informations sur la société : {{value}}'
         update: Modifier le détail de la société
-        users:
-          zero: Aucun utilisateur
-          one: Un utilisateur
-          other: '{{count}} utilisateurs'
+        users: Utilisateur
         users_create: Ajouter un nouvel utilisateur
         users_number: 'Nombre d''utilisateurs'
         values: Valeurs diverses

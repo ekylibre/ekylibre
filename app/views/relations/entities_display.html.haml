@@ -26,7 +26,7 @@
       -for datum in @entity.complement_data.find(:all, :joins=>"JOIN complements ON (complements.id=complement_id)", :order=>"position")
         =evalue datum.complement.name, datum.value.to_s
 
-%h2=tc :contacts, :count=>@contacts.size
+%h2=tc :contacts, :count=>@contacts_count
 =dyta :contacts
 -if @entity.client
   %h2=tc :sale_orders_number , :count=>@sale_orders_number
