@@ -44,7 +44,9 @@ module Ekylibre
             name = name.to_s
             code = ""
 
+            list_method_name = name+'_list'
             tag_method_name = 'dyta_'+name+'_tag'
+            children_method_name = 'dyta_'+name+'_children_tag'
             
             # List method
             conditions = ''
@@ -82,8 +84,8 @@ module Ekylibre
               end
             end
 
-            # code += "hide_action :"+name.to_s+"_list\n"
-            code += "def "+name.to_s+"_list(options={})\n"
+            # code += "hide_action :"+list_method_name\n"
+            code += "def #{list_method_name}(options={})\n"
             code += "  options = (params||{}).merge(options)\n"
 #            code += "  raise Exception.new(options.inspect)\n"
             code += "  order = nil\n"
@@ -156,7 +158,7 @@ module Ekylibre
               header_title = "'"+h(column.header).gsub('\'','\\\\\'')+"'"
               column_sort = ''
               if column.sortable? and options[:order].nil?
-                header_title = "link_to_remote("+header_title+", {:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:"+name.to_s+"_list, :sort=>'"+column.name.to_s+"', :dir=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>params[:page]}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
+                header_title = "link_to_remote("+header_title+", {:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>#{list_method_name}, :sort=>'"+column.name.to_s+"', :dir=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>params[:page]}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
                 column_sort = "+(sort=='"+column.name.to_s+"' ? ' sorted' : '')"
               end
               header += "content_tag(:th, "+header_title+", :class=>'"+(column.action? ? 'act' : 'col')+"'"+column_sort+")"
@@ -232,6 +234,12 @@ module Ekylibre
             # code += "  text = content_tag(:h2,  "+options[:title]+", :class=>'futo')+text\n" unless options[:title].nil?
             code += "  end\n"
             code += "  text\n"
+            code += "end\n"
+
+            ActionView::Base.send :class_eval, code
+
+            code  = "def "+children_method_name+"(options={})\n"
+            code += "  '<tr><td>Children</td></tr>'\n"
             code += "end\n"
 
             ActionView::Base.send :class_eval, code
