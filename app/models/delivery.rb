@@ -74,5 +74,9 @@ class Delivery < ActiveRecord::Base
     end
     css
   end
+
+  def text_nature
+    tc('natures.'+self.nature.to_s)
+  end
   
 end

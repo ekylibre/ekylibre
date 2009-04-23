@@ -103,6 +103,7 @@ class ProductionController < ApplicationController
   end
 
   def test_svg
+    response.headers['Content-type'] = 'text/xml; charset=utf-8'
     @path = "310 200"
   end
 

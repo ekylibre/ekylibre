@@ -223,7 +223,7 @@ class RelationsController < ApplicationController
     @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
     session[:current_entity] = @entity.id
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})
-    @sale_orders = SaleOrder.find(:all, :conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]}, :order=>"confirmed_on DESC",:limit=>5)
+    @sale_orders = SaleOrder.find(:all, :conditions=>["company_id = ? AND client_id = ? AND state != 'P'", @current_company.id, params[:id] ], :order=>"confirmed_on DESC",:limit=>5)
     contacts_list params
     session[:my_entity] = params[:id]
     @contact = Contact.new

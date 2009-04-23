@@ -255,6 +255,7 @@ fr-FR:
         nature: Type
         planned_on: Prévue le
         shipped_on: Envoyé le
+        text_nature: Type
         type: Type
       department:
         name: Nom
@@ -843,9 +844,10 @@ fr-FR:
         amount: Montant HT
         amount_with_taxes: Montant TTC
         client: Client
-        confirmed_on: Réalisée le
+        confirmed_on: Confirmée le
         nature: Nature
         number: Numéro
+        state: État
         title: 'Fiche : {{value}}'
       _entities_form:
         title: 'Renseignez les différentes caractéristiques de la fiche'
@@ -979,7 +981,7 @@ fr-FR:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
     delivery:
       natures:
-        exw: En main propre
+        exw: Remise en main propre
         cpt: Livraison sans assurance
         cip: Livraison avec assurance
       sale: Vente
@@ -1061,6 +1063,12 @@ fr-FR:
         estimate: Devis
         order: Commande
         invoice: Facture
+      states:
+        P: Devis
+        L: Livraisons
+        I: Facturation
+        R: Règlements
+        F: Clôturée
       sale: Vente
     sale_order_line:
       error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'

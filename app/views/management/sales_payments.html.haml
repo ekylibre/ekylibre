@@ -3,12 +3,6 @@
 %h2=tc :payments
 =dyta :payment_parts
 
-- form_tag do
-  .actions
-    =link_to tg(:previous), :action=>:sales_invoices, :id=>@sale_order.id
-    =#submit_tag(tc('close_sale'), :action=>:sales_close)
-
-
 %h2=tc :financial_state
 %table.dyta
   %tr
@@ -60,3 +54,8 @@
     %tr
       %th=tc(:rest_to_pay)
       %td=(@invoices_sum - @payments_sum)
+- form_tag do
+  .actions
+    =link_to tg(:previous), :action=>:sales_invoices, :id=>@sale_order.id
+    -if @sale_order.state != 'F'
+      =submit_tag tc('close_sale')

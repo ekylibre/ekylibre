@@ -437,16 +437,30 @@ class ManagementController < ApplicationController
   end
   
   
-  dyta(:sale_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :number, :url=>{:action=>:sales_details}
+  dyta(:sale_orders, :conditions=>{:company_id=>['@current_company.id']},:order=>{'sort'=>'confirmed_on',:dir=>'DESC'} ) do |t|
+    #t.column :number, :url=>{:action=>:sales_details}
+    t.column :number, :url=>{:action=>:sales_products}
     t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_natures_display}
+    t.column :confirmed_on
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entities_display}
-    t.column :state
+    t.column :text_state
     t.column :amount
     t.column :amount_with_taxes
+    t.action :sale_orders_delete , :method=>:post, :if=>'RECORD.state == "P"'
   end
-
-
+  
+  def sale_orders_delete
+    @sale_order = find_and_check(:sale_order, params[:id])
+    if request.post? or request.delete?
+      if @sale_order.state == 'P'
+        @sale_order.destroy
+      else
+        flash[:warning]=tc('sale_order_can_not_be_deleted')
+      end
+      redirect_to :action=>:sales
+    end
+  end
+  
   def sales
     sale_orders_list params
   end
@@ -461,11 +475,11 @@ class ManagementController < ApplicationController
   end
 
   dyta(:deliveries, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
-    t.column :amount
-    t.column :amount_with_taxes
-    t.column :nature, :children=>:product_id
+    t.column :text_nature, :children=>:product_id
     t.column :planned_on
     t.column :moved_on
+    t.column :amount
+    t.column :amount_with_taxes
   end
 
   dyta(:invoice_lines, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
@@ -634,11 +648,11 @@ class ManagementController < ApplicationController
     @entity = @sale_order.client
     sale_order_lines_list params
     if request.post?
-      if @sale_order.state == 'D'
+      if @sale_order.state == 'L'
         flash[:warning]=tc('sale_order_already_ordered')
       else
         @sale_order.confirmed_on = Date.today
-        @sale_order.update_attribute(:state, 'D') if @sale_order.state == 'P'
+        @sale_order.update_attribute(:state, 'L') if @sale_order.state == 'P'
         @sale_order.stocks_moves_create
       end
       redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
@@ -665,7 +679,7 @@ class ManagementController < ApplicationController
     if @stock_locations.empty? 
       flash[:warning]=tc(:need_stock_location_to_create_sale_order_line)
       redirect_to :action=>:stocks_locations_create
-    elsif @sale_order.state == 'D'
+    elsif @sale_order.state == 'L'
       flash[:warning]=tc(:impossible_to_add_lines)
       redirect_to :action=>:sales_products, :id=>@sale_order.id
     else
@@ -742,6 +756,7 @@ class ManagementController < ApplicationController
         redirect_to :action=>:sales_products, :id=>session[:current_sale_order]
       end
       if request.post?
+        @sale_order.update_attribute(:state, 'I') if @sale_order.state == 'L'
         redirect_to :action=>:sales_invoices, :id=>@sale_order.id
       end
     end
@@ -850,6 +865,7 @@ class ManagementController < ApplicationController
     end
     invoices_list params
     if request.post?
+      @sale_order.update_attribute(:state, 'R') if @sale_order.state == 'I'
       if params[:delivery].nil?
         invoice = Invoice.find(:first, :conditions=>{:company_id=>@current_company.id, :sale_order_id=>@sale_order.id})
         if invoice.nil?
@@ -929,6 +945,10 @@ class ManagementController < ApplicationController
     @payments.each {|p| @payments_sum += p.amount}
     session[:current_sale_order] = @sale_order.id
     payment_parts_list params
+    if request.post?
+      @sale_order.update_attribute(:state, 'F') if @sale_order.state == 'R'
+      #redirect_to :action=>:sales_payments, :id=>@sale_order.id
+    end
   end
  
 

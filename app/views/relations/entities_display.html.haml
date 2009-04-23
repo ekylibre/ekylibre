@@ -38,6 +38,7 @@
       %th= tc 'amount'
       %th= tc 'amount_with_taxes'
       %th= tc 'confirmed_on'
+      %th= tc 'state'
     -for sale_order in @sale_orders
       %tr
         %td= link_to sale_order.number, :controller=>:management, :action=>:sales_details, :id=>sale_order.id
@@ -46,6 +47,6 @@
         %td= sale_order.amount
         %td= sale_order.amount_with_taxes
         %td= sale_order.confirmed_on
-   
+        %td= sale_order.text_state
 
 
