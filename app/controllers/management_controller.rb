@@ -483,8 +483,8 @@ class ManagementController < ApplicationController
   end
 
   dyta(:invoice_lines, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
-    t.column :number
-    t.column :address, :through=>:contact
+    t.column :number, :children=>false
+    t.column :address, :through=>:contact, :children=>false
     t.column :amount
     t.column :amount_with_taxes
   end

@@ -473,6 +473,7 @@ fr-FR:
         comment: Commentaire
         sale: Vente
         subject: Objet
+        text_state: État
         function_title: Civilités
         introduction: Introduction
         conclusion: Conclusion
@@ -645,15 +646,24 @@ fr-FR:
     # Company
     company:
       index:
-        departments: Services
+        departments:
+          zero: Aucun service
+          one: Un service
+          other: '{{count}} services'
         departments_create: Ajouter un nouveau service
         departments_number: Nombre de services
-        establishments: Établissement
+        establishments: 
+          zero: Aucun établissement
+          one: Un établissement
+          other: '{{count}} établissements'
         establishments_create: Ajouter un nouvel établissement
         establishments_number: 'Nombre d''établissements'
         title: 'Informations sur la société : {{value}}'
         update: Modifier le détail de la société
-        users: Utilisateur
+        users:
+          zero: Aucun utilisateur
+          one: Un utilisateur
+          other: '{{count}} utilisateurs'
         users_create: Ajouter un nouvel utilisateur
         users_number: 'Nombre d''utilisateurs'
         values: Valeurs diverses
