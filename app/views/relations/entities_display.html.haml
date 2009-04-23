@@ -14,6 +14,7 @@
       =evalue t('activerecord.attributes.entity.country'), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) unless @entity.country.blank?
     -if @entity.client
       %td
+        =evalue @entity, :proposer, :label=>:full_name unless @entity.proposer_id.blank?
         =evalue @entity, :vat_number unless @entity.vat_number.blank?
         =evalue @entity, :vat_submissive
         =evalue @entity, :reflation_submissive 

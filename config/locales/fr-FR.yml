@@ -288,6 +288,7 @@ fr-FR:
         nature_id: Type
         employee_id: Représentant
         payments_number: Nombre de paiements
+        proposer_id: Parrain
         reduction_rate: Taux de réduction
         reflation_submissive: Soumis à la relance
         supplier: Fiche fournisseur

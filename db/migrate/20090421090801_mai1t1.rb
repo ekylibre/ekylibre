@@ -1,6 +1,7 @@
 class Mai1t1 < ActiveRecord::Migration
   def self.up
     add_column :sale_orders, :confirmed_on, :date
+    execute "UPDATE sale_orders SET confirmed_on = current_date"
     execute "UPDATE sale_orders SET state = 'F'"
        
     create_table :shapes do |t|
@@ -20,6 +21,8 @@ class Mai1t1 < ActiveRecord::Migration
       t.column :stopped_at,   :timestamp
       t.column :company_id,   :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
+
+    
 
   end
 
