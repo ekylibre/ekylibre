@@ -73,16 +73,6 @@ class ManagementController < ApplicationController
     t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases
   end
   
-  def prices_conditions(options={})
-    if session[:entity_id] == 0 
-      conditions = ["company_id = ? AND active = ?", @current_company.id, true]
-    else
-      conditions = ["company_id = ? AND entity_id = ?  AND active = ?", @current_company.id,session[:entity_id], true]
-    end
-    conditions
-  end
-
-  
   def prices
     @modes = ['all', 'client', 'supplier']
     @suppliers = @current_company.entities.find(:all,:conditions=>{:supplier=>true})
@@ -1092,23 +1082,24 @@ class ManagementController < ApplicationController
     t.procedure :stocks_locations_create
   end
 
-  dyta(:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :location_id=>['@stock_location.id']}) do |t|
+  dyta(:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :location_id=>['session[:current_stock_location_id]']}) do |t|
     t.column :name
     t.column :planned_on
     t.column :moved_on
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :name, :through=>:product
-    t.column :comment
+    t.column :virtual
+    # t.column :comment
     t.action :stocks_moves_update, :image=>:update
     t.action :stocks_moves_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :stocks_moves_create
   end
   
   def stocks_locations
-    stock_locations_list params
+    # stock_locations_list params
   
-    unless @stock_locations.size>0
+    unless @current_company.stock_locations.size>0
       flash[:message] = tc('messages.need_stock_location_to_record_stock_moves')
       redirect_to :action=>:stocks_locations_create
       return

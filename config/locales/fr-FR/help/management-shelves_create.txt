@@ -1,4 +1,4 @@
-h1. Comment créer une catégorie de produits ?
+h1. Comment créer une catégorie de produits~?
 
 * Pour créer une nouvelle catégorie de produits, il vous suffit de renseigner les différents paramètres qui vous sont demandés. Certains sont obligatoires (encadrés bleux) et d'autres sont facultatifs (encadrés gris). La création ne peut s'effectuer uniquement si tous les champs obligatoires ont été correctement renseignés.
 * Les catégories peuvent être hierarchisées, c'est à dire que vous pouvez créer des sous-catégories et des sur-catégories.

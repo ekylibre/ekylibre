@@ -1,9 +1,8 @@
-h1. L'affichage d'un produit :
+h1. Fiche d'un produit
+
 * Vous avez ici accès à toutes les informations relatives à votre produits et à ses prix.
 
-
 * Les *composants* désignent le ou les produits dont est constitué un autre produit. Concrètement, une bouteille de vin est composée d'une bouteille, d'une étiquette, d'une capsule, d'un bouchon et de vin. Définir les composants d'un produit permet de *gérer les stocks d'un produit et de tous ses composants* lors de la *production* de celui-ci.
-
 
 p=. {{help/product_components.png|produit composé}}
 

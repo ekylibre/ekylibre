@@ -164,6 +164,8 @@ module ApplicationHelper
     content_tag(:div, content_tag(:div,code), :class=>:evalue)
   end
 
+  
+
 
   def left_tag
     return '' if !MENUS_ARRAY.include? self.controller.controller_name.to_sym or action_name=="index"
@@ -313,6 +315,18 @@ module ApplicationHelper
   end
 
 
+  def prices_conditions(options={})
+    if session[:entity_id] == 0 
+      conditions = ["company_id = ? AND active = ?", @current_company.id, true]
+    else
+      conditions = ["company_id = ? AND entity_id = ?  AND active = ?", @current_company.id,session[:entity_id], true]
+    end
+    conditions
+  end
+
+  
+
+
 
 
 #  def date_field(object_name, method, options={})
@@ -321,6 +335,59 @@ module ApplicationHelper
 #      text_field_tag(object_name.to_s+'_'+method+'_mask', nil, options.merge(:onload=>"hiddenToMask(this)"))+
 #      observe_field(object_name.to_s+'_'+method+'_mask', :function=>"date_convert(this, 'dmy', 'iso')")
 #  end
+
+
+  def itemize(name, options={})
+    code = '[EmptyItemizeError]'
+    if block_given?
+      list = Itemize.new(name)
+      yield list
+      code = itemize_to_html(list, options)
+    end
+    return code
+  end
+
+
+  def itemize_to_html(list, options={})
+    cols = options[:cols]
+    variable = instance_variable_get('@'+list.name.to_s)
+    code = ''
+    for item in list.items
+      if item[:nature] == :item
+        if item[:params].size==1
+          code += evalue(variable, item[:params][0])
+        end
+      end
+    end
+    code = content_tag(:legend, list.name)+code
+    code = content_tag(:fieldset, code, :class=>'itemize')
+    code
+  end
+
+  class Itemize
+    attr_reader :name, :items, :items_count, :stops_count
+
+    def initialize(name)
+      @name = name
+      @items = []
+      @items_count = 0
+      @stops_count = 0
+    end
+
+    def item(*args)
+      @items << {:nature=>:item, :params=>args}
+      @items_count += 1
+    end
+
+    def stop(*args)
+      @items << {:nature=>:stop, :params=>args}
+      @stops_count += 1
+    end
+  end
+
+
+
+
 
 
   def aclist(options={})

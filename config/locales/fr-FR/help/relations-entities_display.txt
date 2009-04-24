@@ -13,6 +13,6 @@ Vous avez également la possibilité de :
 Vous ne pouvez pas supprimer une option de liste déroulante.
 
 h2. Informations concernant les ventes
-Si votre fiche concerne un client, vous avez accès au récapitulatif des *5 dernières ventes* effectuées à ce client, ainsi qu'au *nombre total de vente* pour ce client. En cliquant sur le numéro de la vente, vous serez redirigé vers le récapitulatif détaillé de cette vente. 
+Si votre fiche concerne un client, vous avez accès au récapitulatif des *dernières ventes* effectuées à ce client, ainsi qu'au *nombre total de vente* pour ce client. En cliquant sur le numéro de la vente, vous pourrez consulter le récapitulatif détaillé de cette vente.
 
 <<relations-index|Revenir à l'aide de gestion des relations >>

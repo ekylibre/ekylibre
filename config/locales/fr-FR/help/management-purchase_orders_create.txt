@@ -1,10 +1,10 @@
 h1. Comment créer un nouvel achat ?
 
 
-h2. Sélection du fournisseur :
+h2. Sélection du fournisseur
 * Il vous suffit de sélectionner votre fournisseur dans la liste déroulante présentant vos différents fournisseurs et éventuellement d'ajouter une description à l'achat. Si le fournisseur de votre achat n'a pas encore été créé, vous pouvez le faire grâce au lien "nouveau" qui vous redirigera vers le formulaire de création d'un nouveau fournisseur. 
 
-h2. Création automatique d'une liste de prix :
+h2. Création automatique d'une liste de prix
 * La création d'un nouvel achat entrainera la création d'une nouvelle liste de prix au nom du fournisseur, dans le cas ou il n'en n'existait pas auparavant. En revanche, si celle-ci existait, ses informations concernant les prix des produits pour le fournisseur concerné seraient utilisées lors l'ajout de produits à la commande.
 
 

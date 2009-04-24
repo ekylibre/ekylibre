@@ -76,18 +76,20 @@ module Ekylibre
 #             code += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
 #             code += ", :order=>order)\n"
 #            code += "  render :inline=>'="+tag_method_name+"('+options.inspect+')', :type=>:haml if request.xhr?\n"
-            code += "  render :inline=>'<%="+tag_method_name+"-%>' if request.xhr?\n"
+#            code += "  raise Exception.new('Bordel!') if request.xhr?\n"
+            code += "  render :inline=>'=#{tag_method_name}', :type=>:haml if request.xhr?\n"
+            # code += "  render :inline=>'<b>DYTA</b>' if request.xhr?\n"
             code += "end\n"
 
             code += "def #{name}_list(options={})\n"
             code += "  0\n"
             code += "end\n"
 
-#            puts code
+            puts code
             module_eval(code)
 
             builder  = ''
-            builder += "  options = params\n"
+            builder += "  options = params||{}\n"
             builder += "  order = nil\n"
             unless options[:order].nil?
               raise Exception.new("options[:order] must be an Hash. Example: {:sort=>'column', :dir=>'asc'}") unless options[:order].is_a? Hash
@@ -107,7 +109,9 @@ module Ekylibre
             builder += ", :conditions=>"+conditions unless conditions.blank?
             builder += ", "+PAGINATION[options[:pagination]][:find_params] if PAGINATION[options[:pagination]][:find_params]
             builder += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
-            builder += ", :order=>order)\n"
+            builder += ", :order=>order)||{}\n"
+
+#            builder += "  raise Exception.new(@#{name}.inspect) if request.xhr?\n"
             
             # puts builder
 
@@ -145,8 +149,8 @@ module Ekylibre
 
             record = 'r'
             child  = 'c'
-            header = columns_to_td(definition.columns, :nature=>:header, :method=>list_method_name, :order=>options[:order])
-            body = columns_to_td(definition.columns, :nature=>:body, :record=>record, :order=>options[:order])
+            header = columns_to_td(definition.columns, :nature=>:header, :method=>list_method_name, :order=>options[:order], :id=>name)
+            body = columns_to_td(definition.columns, :nature=>:body , :record=>record, :order=>options[:order])
             if options[:children].is_a? Symbol
               children = options[:children].to_s
               child_body = columns_to_td(definition.columns, :nature=>:children, :record=>child, :order=>options[:order])
@@ -156,7 +160,7 @@ module Ekylibre
 
             code  = "def "+tag_method_name+"(options={})\n"
             code += builder
-            code += "  @"+name.to_s+"||={}\n"
+            # code += "  @"+name.to_s+"||={}\n"
             code += "  if @"+name.to_s+".size>0\n"
             code += sorter
             code += "    header = "+header+"\n"
@@ -181,11 +185,12 @@ module Ekylibre
             code += paginate;
             code += "  text = "+process+"+text\n" unless process.nil?
             code += "  text += "+paginate_var+".to_s\n"
+            # code += "  raise Exception.new(text.inspect)\n"
             code += "  unless request.xhr?\n"
             code += "    text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"')\n"
             # code += "    text = content_tag(:h3,  "+h(options[:label])+", :class=>:dyta)+text\n" unless options[:label].nil?
             code += "  end\n"
-            code += "  text\n"
+            code += "  return text\n"
             code += "end\n"
 
             puts code
@@ -223,16 +228,17 @@ module Ekylibre
             nature = options[:nature]||:body
             record = options[:record]||'RECORD'
             list_method_name = options[:method]||'dyta_list'
+            order = options[:order]
             for column in columns
               column_sort = ''
-              if column.sortable? and options[:order].nil?
+              if column.sortable? and order.nil?
                 column_sort = "+(sort=='"+column.name.to_s+"' ? ' sorted' : '')"
               end
               if nature==:header
                 code += "+\n      " unless code.blank?
                 header_title = "'"+h(column.header).gsub('\'','\\\\\'')+"'"
-                if column.sortable? and options[:order].nil?
-                  header_title = "link_to_remote("+header_title+", {:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:#{list_method_name}, :sort=>'"+column.name.to_s+"', :dir=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>params[:page]}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
+                if column.sortable? and order.nil?
+                  header_title = "link_to_remote("+header_title+", {:update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:#{list_method_name}, :sort=>'"+column.name.to_s+"', :dir=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>params[:page]}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
                 end
                 code += "content_tag(:th, "+header_title+", :class=>'"+(column.action? ? 'act' : 'col')+"'"+column_sort+")"
               else
@@ -246,7 +252,13 @@ module Ekylibre
                     datum = value_image2(datum)
                     style = 'text-align:center;'
                   end
-                  if column.options[:url]              
+                  if column.datatype == :date
+                    datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
+                  end
+                  if column.datatype == :decimal
+                    datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&nbsp;', :unit=>''))"
+                  end
+                  if column.options[:url] and nature==:body
                     datum = "("+datum+".blank? ? '' : link_to("+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id}))))'
                     css_class += ' url'
                   elsif column.options[:mode] == :download# and !datum.nil?

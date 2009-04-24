@@ -67,4 +67,8 @@ class SaleOrderLine < ActiveRecord::Base
     rest
   end
 
+  def product_name
+    self.product.name
+  end
+
 end

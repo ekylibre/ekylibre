@@ -1,6 +1,29 @@
 = aclist do |l|
   - l.action :entities_update, :id=>@entity.id
 
+<!-- =itemize(:entity) do |t| -->
+<!--   -t.item :name -->
+<!--   -t.item :first_name -->
+<!--   -t.item :code -->
+<!--   -t.item :born_on -->
+<!--   -t.item :dead_on -->
+<!--   -t.stop -->
+<!--   -t.item :active -->
+<!--   -t.item :website -->
+<!--   -t.item t('activerecord.attributes.entity.country'), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) -->
+<!--   -if @entity.client -->
+<!--     -t.item :proposer, :label=>:full_name -->
+<!--     -t.item :vat_number -->
+<!--     -t.item :vat_submissive -->
+<!--     -t.item :reflation_submissive  -->
+<!--     -t.item :discount_rate -->
+<!--     -t.item :reduction_rate -->
+<!--     -t.item :payments_number -->
+<!--   -for datum in @entity.complement_data.find(:all, :joins=>"JOIN complements ON (complements.id=complement_id)", :order=>"position") -->
+<!--     -t.item datum.complement.name, datum.value.to_s -->
+
+
+
 %table
   %tr
     %td
@@ -28,26 +51,6 @@
 
 %h2=tc :contacts, :count=>@contacts_count
 =dyta :contacts
--if @entity.client
-  %h2=tc :sale_orders_number , :count=>@sale_orders_number
--if @sale_orders.size > 0 and @entity.client
-  %table.dyta
-    %tr
-      %th= tc 'number'
-      %th= tc 'nature'
-      %th= tc 'client'
-      %th= tc 'amount'
-      %th= tc 'amount_with_taxes'
-      %th= tc 'confirmed_on'
-      %th= tc 'state'
-    -for sale_order in @sale_orders
-      %tr
-        %td= link_to sale_order.number, :controller=>:management, :action=>:sales_details, :id=>sale_order.id
-        %td= sale_order.nature.name
-        %td= sale_order.client.full_name
-        %td= sale_order.amount
-        %td= sale_order.amount_with_taxes
-        %td= sale_order.confirmed_on
-        %td= sale_order.text_state
-
-
+%h2=tc :sale_orders_number , :count=>@sale_orders_number
+-if @sale_orders_number>0
+  =dyta :entity_sales

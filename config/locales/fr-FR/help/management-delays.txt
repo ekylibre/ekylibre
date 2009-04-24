@@ -1,4 +1,4 @@
-h1. La liste des délais :
+h1. La liste des délais
 
 h2. Comment exprimer un délai ?
 

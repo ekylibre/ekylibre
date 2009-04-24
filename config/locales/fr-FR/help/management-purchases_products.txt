@@ -1,10 +1,10 @@
-h1. La sélection des produits :
+h1. La sélection des produits
 
-Vous avez ici accès à un *récapitulatif* de votre commande vous en détaillant chaque ligne et vous permettant de : 
+Vous avez ici accès à un *récapitulatif* de votre commande vous en détaillant chaque ligne et vous permettant de~: 
 
 * *Ajouter* un produit à la commande.
-* *Modifier* une ligne de commande :   <<management-purchase_order_lines_update|{{buttons/update.png|modifier}}>>
-* *Supprimer* une ligne de commande :  {{buttons/delete.png|supprimer}}
-* *Imprimer* la commande ( à venir ) 
+* *Modifier* une ligne de commande~:   <<management-purchase_order_lines_update|{{buttons/update.png|modifier}}>>
+* *Supprimer* une ligne de commande~:  {{buttons/delete.png|supprimer}}
+* *Imprimer* la commande (à venir) 
 
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>

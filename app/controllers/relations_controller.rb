@@ -137,7 +137,7 @@ class RelationsController < ApplicationController
     # t.column :born_on
     # t.column :dead_on
     t.column :website
-    t.column :created_on
+    t.column :created_on, :datatype=>:date
     t.column :active
     t.action :entities_display, :image=>:show
     t.action :entities_update, :image=>:update
@@ -219,12 +219,21 @@ class RelationsController < ApplicationController
   end
 
 
+  dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>:confirmed_on, :dir=>'desc'}, :children=>:lines) do |t|
+    t.column :number, :url=>{:controller=>:management, :action=>:sales_details}, :children=>:product_name
+    t.column :name, :through=>:nature, :children=>false
+    t.column :confirmed_on, :children=>false
+    t.column :text_state, :children=>false
+    t.column :amount
+    t.column :amount_with_taxes
+  end
+
   def entities_display
     @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
     session[:current_entity] = @entity.id
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})
-    @sale_orders = SaleOrder.find(:all, :conditions=>["company_id = ? AND client_id = ? AND state != 'P'", @current_company.id, params[:id] ], :order=>"confirmed_on DESC",:limit=>5)
-    contacts_list params
+#    @sale_orders = SaleOrder.find(:all, :conditions=>["company_id = ? AND client_id = ? AND state != 'P'", @current_company.id, params[:id] ], :order=>"confirmed_on DESC",:limit=>5)
+#    contacts_list params
     session[:my_entity] = params[:id]
     @contact = Contact.new
     @contacts_count = @entity.contacts.find(:all, :conditions=>{:active=>true}).size

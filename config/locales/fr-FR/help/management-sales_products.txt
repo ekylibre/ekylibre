@@ -1,11 +1,10 @@
-h1. La sélection des produits :
+h1. La sélection des produits
 
-Vous avez ici accès à un *récapitulatif* de votre devis vous en détaillant chaque ligne et vous permettant de : 
-
+Vous avez ici accès à un *récapitulatif* de votre devis vous en détaillant chaque ligne et vous permettant de~: 
 
 * *Ajouter* un produit au devis
-* *Modifier* une ligne du devis :  <<management-sale_order_lines_update|{{buttons/update.png|modifier}}>>
-* *Supprimer* une ligne du devis : {{buttons/delete.png|supprimer}}
+* *Modifier* une ligne du devis~:  <<management-sale_order_lines_update|{{buttons/update.png|modifier}}>>
+* *Supprimer* une ligne du devis~: {{buttons/delete.png|supprimer}}
 * *Passer le devis en commande*, ce qui vous redirigera vers la livraison.
 * *Imprimer* le devis, ce qui entrainera la création d'un devis au format *pdf* qu'il vous sera possible d'imprimer. 
 

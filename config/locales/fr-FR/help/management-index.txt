@@ -1,6 +1,6 @@
 h1. Gestion commerciale
 
-h2. Pour commencer :
+h2. Pour commencer
 Il est bon d'avoir au préalable enregistré ses clients et fournisseurs grâce au module *Relations*. De plus le *paramétrage* est la première étape de votre gestion commerciale.
 
 h2. Comment gérer ses achats et ses ventes ?
