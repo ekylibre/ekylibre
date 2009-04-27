@@ -57,9 +57,7 @@ module Ekylibre
       
       def pdf_document(element, environment={})
         code  = ''
-        code += environment[:pdf]+" = FPDF.new('P', '#{PDF_DEFAULT_UNIT}')\n"
-        code += environment[:pdf]+".alias_nb_pages('[[PAGENB]]')\n"
-        code += environment[:pdf]+".set_auto_page_break(false)\n"
+        code += environment[:pdf]+" = PDF::Writer.new\n"
         code += environment[:page_number]+" = 1\n"
         code += browse(element, environment)
         code
@@ -75,7 +73,7 @@ module Ekylibre
         environment[:page][:style] = style
         puts style.get('size').inspect
         environment[:page][:format] = (style.get('size')||PDF_DEFAULT_FORMAT).collect{|l| l.to_f(PDF_DEFAULT_UNIT).to_s}.join('x')
-        code  = "pdf.add_page('P', '#{environment[:page][:format]}')\n"
+        code  = "#{environment[:pdf]}.new_page('P', '#{environment[:page][:format]}')\n"
         # code += environment[:available_height]+"="+(format_height(environment[:format],environment[:unit])-environment['margin_top']-environment['margin_bottom']).to_s+"\n"
         code += "#{environment[:count]} = 0\n"
         code += "#{environment[:covered]} = 0\n"
