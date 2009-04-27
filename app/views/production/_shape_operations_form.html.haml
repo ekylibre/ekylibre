@@ -7,3 +7,4 @@
   - f.field :shape_operation, :nature_id, :choices=>@current_company.shape_operation_natures.collect{|x| [x.name, x.id]}, :new=>{:action=>:shape_operation_natures_create}
   - f.field :shape_operation, :planned_on
   - f.field :shape_operation, :description, :field=>:textarea
+  
