@@ -76,7 +76,15 @@ class Podofo
     @aliases[key] = value
   end
 
-  def image(params={}, page=nil)
+  def image(file, params={}, page=nil)
+    if @images[file].nil?
+      error("File does not exists (#{file.inspect})") unless File.exists? file
+      error("JPG only please (NOT #{file.inspect})") unless file.split('.')[-1] == 'jpg'
+      @images[file] = { :width=>56, :height=>45, 
+        :color_space=>'/DeviceRGB', :bits_per_component=>8, 
+        :filter=>'/DCTDecode', :file=>file }
+    end
+    params[:image] = file
     @pages[page||@page][:items] << {:nature=>:image, :params=>params}
   end
 
@@ -88,6 +96,11 @@ class Podofo
     @pages[page||@page][:items] << {:nature=>:box, :params=>params}
   end
 
+  def text(content, params={}, page=nil)
+    params[:text] = content
+    @pages[page||@page][:items] << {:nature=>:box, :params=>params}
+  end
+
   def generate(options={})
     yield self if block_given?
     @compress = false
@@ -96,7 +109,7 @@ class Podofo
     end
   end
 
-  def error(mesage, nature=nil)
+  def error(message, nature=nil)
     raise Exception.new("Podofo error: #{message}")
   end
 
@@ -319,6 +332,7 @@ class Podofo
       catalog << ['OpenAction', "[#{first_page} 0 R #{zoom}]"]
     end
     catalog << ['PageLayout', LAYOUTS[@layout]||LAYOUTS[:coutinuous]] unless @layout.nil?
+    # catalog << ['ViewerPreferences', [['FitWindow', true]]]
     new_object(nil, catalog)
   end
 
@@ -373,6 +387,8 @@ class Podofo
           code += "ET\n"
           code += "BT /F2 #{size} Tf 0 #{height-1.7*size} Td #{textstring(text)} Tj ET\n"
         end
+      elsif item[:nature]==:image
+        code += sprintf('q %.2f 0 0 %.2f %.2f %.2f cm /'+@images[item[:params][:image]][:name]+' Do Q', 100, 100, 100, 10)
       end
     end
 
@@ -390,13 +406,12 @@ class Podofo
 
 
   def build_fonts
-    @fonts = []
-    @fonts << {:name=>'F1', :type=>'Type1', :base=>'Times-Roman'}
-    @fonts << {:name=>'F2', :type=>'Type1', :base=>'Helvetica'}
-    @fonts << {:name=>'F3', :type=>'Type1', :base=>'Courier'}
+    @fonts['F1'] =  {:name=>'F1', :type=>'Type1', :base=>'Times-Roman'}
+    @fonts['F2'] =  {:name=>'F2', :type=>'Type1', :base=>'Helvetica'}
+    @fonts['F3'] =  {:name=>'F3', :type=>'Type1', :base=>'Courier'}
     
     fonts = []
-    for font in @fonts
+    for key, font in @fonts
       object = new_object(nil, [['Type', '/Font'], 
                                 ['Name', '/'+font[:name]], 
                                 ['Subtype', '/'+font[:type]], 
@@ -407,7 +422,26 @@ class Podofo
   end
 
   def build_images
-    []
+    images = []
+    for key, image in @images
+      f = open(image[:file], 'rb')
+      data = f.read
+      f.close
+      object = new_object do |lines|
+        lines << dictionary([['Type', '/XObject'],
+                             ['Subtype', '/Image'],
+                             ['Width', image[:width]],
+                             ['Height', image[:height]],
+                             ['ColorSpace', image[:color_space]],
+                             ['BitsPerComponent', image[:bits_per_component]],
+                             ['Filter', image[:filter]],
+                             ['Length', data.length]])
+        lines << new_stream(data)
+      end
+      image[:name] = 'I'+images.size.to_s
+      images << [image[:name], object.to_s+' 0 R']
+    end
+    images
   end
 
 
@@ -437,9 +471,15 @@ class Podofo
     end
     new_object do |lines|
       lines << "\<\<"+filter+'/Length '+stream.length.to_s+"\>\>"
-      lines << "stream\n"+stream+"\nendstream"
+      lines << new_stream(stream)
     end
   end
+
+
+  def new_stream(stream)
+    "stream\n"+stream+"\nendstream"
+  end
+
 
   def dictionary(dict=[], depth=0)
     raise Exception.new('Only Array type are accepted as dictionary type ('+dict.class.to_s+')') unless dict.is_a? Array
@@ -474,6 +514,8 @@ pdf = Podofo.new
 pdf.new_page([595.28, 841.89])
 pdf.title = 'Enfin un moteur PDF lisible'
 pdf.box(:text=>'Hello World!')
+pdf.image('sample2.jpg')
 pdf.new_page([1200.0,300.0])
-pdf.box(:text=>'Hello World!')
+pdf.text('Hello World! Encore une mission réussie pour Canard WC')
+pdf.image('sample2.jpg')
 pdf.generate
