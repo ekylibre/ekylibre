@@ -121,6 +121,8 @@ fr-FR:
          all: Tous les prix
          client: Les prix de vente
          display: 'Afficher :'
+         purchases_prices_create: 'Ajouter un prix d''achat '
+         sales_prices_create: Ajouter un prix de vente
          supplier: 'Les prix d''achat du fournisseur'
          title: Liste des prix
       prices_create:

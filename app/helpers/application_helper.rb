@@ -77,7 +77,11 @@ module ApplicationHelper
      # ProductionController
      {:name=>:production, :list=>
        [  {:name=>:production, :list=>
-           [ {:name=>:productions} ]}
+            [ {:name=>:productions} ] },
+          {:name=>:shapes, :list=>
+            [ {:name=>:shapes},
+              {:name=>:shape_operations},
+              {:name=>:shape_operation_natures}]}
        ] }
      
 
@@ -325,7 +329,12 @@ module ApplicationHelper
   end
 
   
-
+  def stocks_conditions(options={})
+    conditions = {}
+    conditions[:company_id] = @current_company.id
+    conditions[:location_id] = session[:location_id] if !session[:location_id].nil?
+    conditions
+  end
 
 
 

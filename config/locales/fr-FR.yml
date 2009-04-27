@@ -167,6 +167,9 @@ fr-FR:
       product: Produit
       profession: Profession
       purchase_order: Achat
+      shape: Îlot
+      shape_operation: Traitement
+      shape_operation_nature: Type de Traitement
       shelf: Catégorie de produit
       stock_location: Lieu de stockage
       stock_move: Mouvement de stock
@@ -496,6 +499,22 @@ fr-FR:
         quantity: Quantité
         undelivered_quantity: Reste à livrer
         unit_id: Unité
+      shape:
+        description: Description
+        master: Îlot maître
+        name: Nom
+        polygon: Coordonnées
+        shape_id: Îlot maître
+      shape_operation: 
+        description: Description    
+        employee_id: Employé
+        name: Nom
+        nature_id: Type 
+        planned_on: Prévu le
+        shape_id: Îlot
+      shape_operation_nature:
+        name: Nom
+        description: Description
       shelf:
         catalog_name: Nom pour le catalogue
         catalog_description: Description
@@ -747,8 +766,16 @@ fr-FR:
     # Production
     production:
       index:
+        indicator: Tableau de bord
+        nb_operations: 
+          zero: Aucun traitement en attente
+          one: 1 traitement en attente
+          other: '{{count}} traitements en attente'
         production: Productions
         productions: Productions
+        shape_operation_natures: Types de traitement
+        shape_operations: Traitements
+        shapes: Îlots
         title: Gestion de la production
       production_lines_create:
         title: 'Gérer les quantités utilisées '
@@ -770,7 +797,29 @@ fr-FR:
       _productions_form:
         infos: Renseignez les caractéristiques de la production
         production_legend_one: ' mp : matières premières'
-        production_legend_two: ' nc : nombre de composants '
+        production_legend_two: ' nc : nombre de composants ' 
+      shape_operation_natures:
+        shape_operation_natures_create: 'Créer un nouveau type de traitement'
+        title: Types de traitement
+      shape_operation_natures_create:
+        title: 'Créer un nouveau type de traitement'
+      shape_operations:
+        shape_operations_create: Créer un nouveau traitement
+        title: Traitements
+      shape_operations_create:
+        title: Créer un nouveau traitement
+      shape_operations_update:
+        title: 'Modification du traitement {{value}}'
+      _shape_operations_form:
+        infos: Renseignez les caractéristiques du traitement
+      _shapes_form:
+        infos: 'Renseignez les caractéristiques de l''îlot'
+      shapes: 
+        shapes:  'Îlots'
+        shapes_create: 'Créer un nouvel îlot'
+        title: 'Îlots'
+      shapes_create: 
+        title: Ajouter un nouvel îlot
 
     # Relations
     relations:

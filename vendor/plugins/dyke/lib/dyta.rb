@@ -92,7 +92,7 @@ module Ekylibre
             builder += "  options = params||{}\n"
             builder += "  order = nil\n"
             unless options[:order].nil?
-              raise Exception.new("options[:order] must be an Hash. Example: {:sort=>'column', :dir=>'asc'}") unless options[:order].is_a? Hash
+              raise Exception.new("options[:order] must be an Hash. Example: {:sort=>'column', 'dir'=>'asc'}") unless options[:order].is_a? Hash
               raise Exception.new("options[:order]['sort'] must be completed (#{options[:order].inspect}).") if options[:order]['sort'].nil?
               builder += "  options['sort'] = #{options[:order]['sort'].to_s.inspect}\n"
               builder += "  options['dir'] = #{options[:order]['dir'].to_s.inspect}\n"

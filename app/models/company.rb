@@ -61,6 +61,9 @@ class Company < ActiveRecord::Base
   has_many :sale_order_lines
   has_many :sale_order_natures
   has_many :sequences
+  has_many :shapes
+  has_many :shape_operation_natures
+  has_many :shape_operations
   has_many :shelves
   has_many :stock_locations
   has_many :stock_moves

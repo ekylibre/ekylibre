@@ -69,8 +69,8 @@ class ManagementController < ApplicationController
     t.column :default
     t.column :range
     t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :sales_prices_create,     :action=>:prices_create, :mode=>:sales
-    t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases
+    # t.procedure :sales_prices_create,     :action=>:prices_create, :mode=>:sales
+    # t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases
   end
   
   def prices
@@ -91,6 +91,7 @@ class ManagementController < ApplicationController
   end
   
   def prices_create
+    #raise Exception.new params.inspect
     @mode = (params[:mode]||"sales").to_sym 
     if request.post? 
       @price = Price.new(params[:price])
@@ -427,11 +428,11 @@ class ManagementController < ApplicationController
   end
   
   
-  dyta(:sale_orders, :conditions=>{:company_id=>['@current_company.id']},:order=>{'sort'=>'confirmed_on',:dir=>'DESC'} ) do |t|
+  dyta(:sale_orders, :conditions=>{:company_id=>['@current_company.id']},:order=>{'sort'=>'created_on','dir'=>'desc'} ) do |t|
     #t.column :number, :url=>{:action=>:sales_details}
     t.column :number, :url=>{:action=>:sales_products}
     t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_natures_display}
-    t.column :confirmed_on
+    t.column :created_on
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entities_display}
     t.column :text_state
     t.column :amount
@@ -1229,12 +1230,12 @@ class ManagementController < ApplicationController
   end
   
 
-  def stocks_conditions(options={})
-    conditions = {}
-    conditions[:company_id] = @current_company.id
-    conditions[:location_id] = session[:location_id] if !session[:location_id].nil?
-    conditions
-  end
+#   def stocks_conditions(options={})
+#     conditions = {}
+#     conditions[:company_id] = @current_company.id
+#     conditions[:location_id] = session[:location_id] if !session[:location_id].nil?
+#     conditions
+#   end
 
   def stocks
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)

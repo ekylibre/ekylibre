@@ -8,4 +8,7 @@
             =radio_button(:price, :mode , mode, :checked=>( mode=="all" ? true : false))+"&nbsp;"+content_tag(:label, tc(mode), :for=>'price_mode_'+mode)
           =select(:price, :supply, @suppliers.collect{|x| [x.full_name,x.id]})
           =submit_tag tg('filter')
+.aclist
+  = link_to tc('sales_prices_create'), :action=>:prices_create, :mode=>:sales, :class=>'procedure create'
+  = link_to tc('purchases_prices_create'), :action=>:prices_create, :mode=>:purchases, :class=>'procedure create'
 =dyta :prices

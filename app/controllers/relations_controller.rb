@@ -219,10 +219,10 @@ class RelationsController < ApplicationController
   end
 
 
-  dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>:confirmed_on, :dir=>'desc'}, :children=>:lines) do |t|
+  dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'}, :children=>:lines) do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sales_details}, :children=>:product_name
     t.column :name, :through=>:nature, :children=>false
-    t.column :confirmed_on, :children=>false
+    t.column :created_on, :children=>false
     t.column :text_state, :children=>false
     t.column :amount
     t.column :amount_with_taxes
