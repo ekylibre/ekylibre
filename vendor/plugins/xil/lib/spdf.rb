@@ -34,8 +34,6 @@ class Podofo
     'zapfdingbats'=>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 278, 974, 961, 974, 980, 719, 789, 790, 791, 690, 960, 939, 549, 855, 911, 933, 911, 945, 974, 755, 846, 762, 761, 571, 677, 763, 760, 759, 754, 494, 552, 537, 577, 692, 786, 788, 788, 790, 793, 794, 816, 823, 789, 841, 823, 833, 816, 831, 923, 744, 723, 749, 790, 792, 695, 776, 768, 792, 759, 707, 708, 682, 701, 826, 815, 789, 789, 707, 687, 696, 689, 786, 787, 713, 791, 785, 791, 873, 761, 762, 762, 759, 759, 892, 892, 788, 784, 438, 138, 277, 415, 392, 392, 668, 668, 0, 390, 390, 317, 317, 276, 276, 509, 509, 410, 410, 234, 234, 334, 334, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 732, 544, 544, 910, 667, 760, 760, 776, 595, 694, 626, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 894, 838, 1016, 458, 748, 924, 748, 918, 927, 928, 928, 834, 873, 828, 924, 924, 917, 930, 931, 463, 883, 836, 836, 867, 867, 696, 696, 874, 0, 874, 760, 946, 771, 865, 771, 888, 967, 888, 831, 873, 927, 970, 918, 0]
   }
 
-
-
   attr_accessor :title, :keywords, :creator, :author, :subject, :zoom, :layout
 
   def initialize
@@ -92,10 +90,9 @@ class Podofo
 
   def generate(options={})
     yield self if block_given?
-    @compress = true
-    build2
+    @compress = false
     open('/tmp/test.pdf','wb') do |f|
-      f.write(@buffer)
+      f.write(build)
     end
   end
 
@@ -106,50 +103,19 @@ class Podofo
 
   private
 
+
   def build
-    @buffer = ''
-    @objects = [:zero]
-    @objects_count = 2
-    # Header
-    build_header
-    # Pages
-    build_pages
-    # Resources
-    build_resources
-    # Info
-    build_info
-    # Catalog
-    build_catalog
-    # Cross-ref
-    o=@buffer.length
-    out('xref')
-    out('0 '+(@objects_count+1).to_s)
-    out('0000000000 65535 f ')
-    @objects_count.times do |i|
-      out(sprintf('%010d 00000 n ', @offsets[i]))
-    end
-    # Trailer
-    build_trailer
-    # End
-    out('startxref')
-    out(o)
-    out('%%EOF')
-  end
-
-
-  def build2
-    @buffer = ''
     @objects = [0]
     @objects_count = 0
     # Resources
-    resources_object = build2_resources
+    resources_object = build_resources
     # Pages
-    pages_object, first_page_object = build2_pages(resources_object)
+    pages_object, first_page_object = build_pages(resources_object)
     # build_resources
     # Info
-    info_object = build2_info
+    info_object = build_info
     # Catalog
-    root_object = build2_catalog(pages_object, first_page_object)
+    root_object = build_catalog(pages_object, first_page_object)
 
     # Building of the complete document
     pdf = "%PDF-#{PDF_VERSION}\n\n"
@@ -165,45 +131,17 @@ class Podofo
     length = pdf.length
     pdf += xref
     pdf += "trailer\n"
-    pdf += "\<\<\n"
-    pdf += '/Size '+(@objects_count+1).to_s+"\n"
-    pdf += '/Root '+root_object.to_s+" 0 R\n"
-    pdf += '/Info '+info_object.to_s+" 0 R\n"
-    pdf += "\>\>\n"
+    trailer = [['Size', (@objects_count+1).to_s], ['Root', root_object.to_s+' 0 R']]
+    trailer << ['Info', info_object.to_s+' 0 R'] if info_object
+    pdf += dictionary(trailer)
     pdf += "startxref\n"
     pdf += length.to_s+"\n"
     pdf += "%%EOF\n"
-
-    @buffer = pdf
+    pdf
   end
 
 
-  # Build he header which version of pdf it is
-  def build_header
-    out("%PDF-#{PDF_VERSION}")
-  end
-
-
-
-
-
-
-
-  # Resources
-
-  def build_resources
-    build_fonts
-    build_images
-    # Resource dictionary
-    @offsets[2]=@buffer.length
-    out('2 0 obj');
-    out("\<\<")
-    build_resourcedict
-    out("\>\>")
-    out('endobj')
-  end
-
-  def build_fonts
+  def build_fonts_0
     # $nf=$this->n;
     for diff in @diffs
       # Encodings
@@ -349,83 +287,17 @@ class Podofo
       @images[file]['data']=nil
       out('endobj')
       # Palette
-      if info['cs']=='Indexed'
-        new_object
-        pal=(@compress) ? Zlib::Deflate.deflate(info['pal']) : info['pal']
-        out('<<'+filter+'/Length '+pal.length.to_s+'>>')
-        build_stream(pal)
-        out('endobj')
-      end
+      new_stream_object(info['pal']) if info['cs']=='Indexed'
     end
   end
-
-  def build_xobjectdict
-    @images.each_value do |image|
-      out('/I'+image['i'].to_s+' '+image['n'].to_s+' 0 R')
-    end
-  end
-
-  def build_resourcedict
-    out('/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]')
-    out("/Font \<\<")
-    @fonts.each_value do |font|
-      out('/F'+font['i'].to_s+' '+font['n'].to_s+' 0 R')
-    end
-    out('>>')
-    out('/XObject <<')
-    build_xobjectdict
-    out('>>')
-  end
-
-
 
 
   # END Resources
 
+
+
+
   def build_info
-    new_object
-    out("\<\<")
-    out('/Producer '+textstring(self.class.to_s+' '+VERSION))
-    out('/Title '+textstring(@title)) unless @title.nil?
-    out('/Subject '+textstring(@subject)) unless @subject.nil?
-    out('/Author '+textstring(@author)) unless @author.nil?
-    out('/Keywords '+textstring(@keywords)) unless @keywords.nil?
-    out('/Creator '+textstring(@creator)) unless @creator.nil?
-    # out('/CreationDate '+textstring('D:'+DateTime.now.to_s))
-    out("\>\>")
-    out('endobj')
-  end
-
-  def build_catalog
-    new_object
-    out("\<\<")
-    out('/Type /Catalog')
-    out('/Pages 1 0 R')
-    if(@zoom==:full_page)
-      out('/OpenAction [3 0 R /Fit]')
-    elsif(@zoom==:full_width)
-      out('/OpenAction [3 0 R /FitH null]')
-    elsif(@zoom==:real)
-      out('/OpenAction [3 0 R /XYZ null null 1]')
-    elsif([Float, Integer].include? @zoom.class)
-      out('/OpenAction [3 0 R /XYZ null null '+(@zoom/100)+']')
-    end
-    if(@layout==:single)
-      out('/PageLayout /SinglePage')
-    elsif(@layout==:continuous)
-      out('/PageLayout /OneColumn')
-    elsif(@layout==:two or @layout==:two_left)
-      out('/PageLayout /TwoColumnLeft')
-    elsif(@layout==:two_right)
-      out('/PageLayout /TwoColumnRight')
-    end
-    out("\>\>")
-    out('endobj')
-  end
-
-
-
-  def build2_info
     info = [['Producer', textstring(self.class.to_s+' '+VERSION)]]
     info << ['Title '+textstring(@title)] unless @title.nil?
     info << ['Subject '+textstring(@subject)] unless @subject.nil?
@@ -435,99 +307,30 @@ class Podofo
     new_object(nil, info)
   end
 
-  def build2_catalog(pages_object, first_page=nil)
+  def build_catalog(pages_object, first_page=nil)
     catalog = [['Type', '/Catalog'],
                ['Pages', "#{pages_object.to_s} 0 R"]]
     if first_page and not zoom.nil?
       zoom = if @zoom.is_a? Symbol
-               ZOOMS[@zoom]||ZOOMS[:page]
+               ZOOMS[@zoom]
              elsif [Float, Integer].include? @zoom.class
                "/XYZ null null #{(@zoom/100).to_s}"
-             end
+             end||ZOOMS[:page]
       catalog << ['OpenAction', "[#{first_page} 0 R #{zoom}]"]
     end
     catalog << ['PageLayout', LAYOUTS[@layout]||LAYOUTS[:coutinuous]] unless @layout.nil?
-    return new_object(nil, dictionary(catalog))
-  end
-
-
-
-
-  def build_trailer
-    out('trailer')
-    out("\<\<")
-    out('/Size '+(@objects_count+1).to_s)
-    out('/Root '+(@objects_count).to_s+' 0 R')
-    out('/Info '+(@objects_count-1).to_s+' 0 R')
-    out("\>\>")
-  end
-
-  def build_pages
-    pages_count = @pages.size
-    filter=(@compress) ? '/Filter /FlateDecode ' : ''
-    for page in @pages
-      # Page
-      new_object
-      out('<</Type /Page')
-      out('/Parent 1 0 R')
-      out(sprintf('/MediaBox [0 0 %.2f %.2f]', page[:format][0], page[:format][1]))
-      #      if (isset($this->PageSizes[$n]))
-      #        out(sprintf('/MediaBox [0 0 %.2F %.2F]',$this->PageSizes[$n][0],$this->PageSizes[$n][1]))
-      #      end
-      out('/Resources 2 0 R')
-      # Links : TODO
-      out('/Contents '+(@objects_count+1).to_s+' 0 R>>')
-      out('endobj')
-      # Page content
-      p = build_page(page)
-      p = Zlib::Deflate.deflate(p) if @compress
-      new_object
-      out("\<\<"+filter+'/Length '+p.length.to_s+"\>\>")
-      new_stream(p)
-      out('endobj')
-    end
-    # Pages root
-    @offsets[1] = @buffer.length
-    out('1 0 obj')
-    out('<</Type /Pages')
-    kids='/Kids ['
-    pages_count.times do |i|
-      kids += (3+2*i).to_s+' 0 R '
-    end
-    out(kids+']')
-    out('/Count '+pages_count.to_s)
-    # out(sprintf('/MediaBox [0 0 %.2f %.2f]',800.0,800.0))
-    out("\>\>")
-    out('endobj')
-  end
-
-
-
-
-
-  def build_page(page)
-    # Beginning of page
-    code = ''
-    # Set line cap style to square
-    code += "2 J\n"
-    # Set line width
-    #    code += sprintf('%.2f w',5)
-    # Set font
-    set_font('Arial', '', 12)
-    # Items of page
-
-    return code
+    new_object(nil, catalog)
   end
 
 
   # Build the pages, page, content objects
-  def build2_pages(resources)
+  def build_pages(resources)
     pages_count = @pages.size
     pages = []
     parent = new_object    
     for page in @pages
       # Page content
-      contents = new_stream_object(build2_page(page))
+      contents = new_stream_object(build_page(page))
       # Page
       pages << new_object(nil,[['Type', '/Page'],
                                ['Parent', "#{parent} 0 R"], # Required
@@ -535,13 +338,10 @@ class Podofo
                                ['Resources', resources.to_s+' 0 R'], # Required
                                ['Contents', contents.to_s+' 0 R']])
     end
-    # Pages root
-    pages_root = new_object(parent) do |lines|
-      # No parent for root
-      lines << dictionary([['Type', '/Pages'],
-                           ['Kids', '['+pages.collect{|i| i.to_s+' 0 R'}.join(' ')+']'],
-                           ['Count',pages.size.to_s]])
-    end
+    # Pages root (No parent for root /Pages)
+    pages_root = new_object(parent, [['Type', '/Pages'],
+                                     ['Kids', '['+pages.collect{|i| i.to_s+' 0 R'}.join(' ')+']'],
+                                     ['Count',pages.size.to_s]])
     return pages_root, pages[0]
   end
   
@@ -549,7 +349,7 @@ class Podofo
 
 
 
-  def build2_page(page)
+  def build_page(page)
     # Beginning of page
     code = ''
     # Set line cap style to square
@@ -571,6 +371,7 @@ class Podofo
           code += "  #{textstring(text)} Tj\n"
           #          code += textstring(text)+"\n"
           code += "ET\n"
+          code += "BT /F2 #{size} Tf 0 #{height-1.7*size} Td #{textstring(text)} Tj ET\n"
         end
       end
     end
@@ -579,107 +380,34 @@ class Podofo
   end
 
 
-  def build2_resources()
-    build2_fonts
+  def build_resources
     resources = [['ProcSet', '[/PDF /Text /ImageB /ImageC /ImageI]']]
-    fonts = []
-    @fonts.each do |font|
-      fonts << [font[:name], font[:object].to_s+' 0 R' ]
-    end
-    resources << ['Font', fonts]
-    new_object(nil, dictionary(resources))
+    resources << ['Font', build_fonts]
+    resources << ['XObject', build_images]
+    new_object(nil, resources)
   end
 
 
 
-  def build2_fonts()
+  def build_fonts
     @fonts = []
     @fonts << {:name=>'F1', :type=>'Type1', :base=>'Times-Roman'}
     @fonts << {:name=>'F2', :type=>'Type1', :base=>'Helvetica'}
     @fonts << {:name=>'F3', :type=>'Type1', :base=>'Courier'}
     
+    fonts = []
     for font in @fonts
-      font[:object] = new_object(nil, dictionary([['Type', '/Font'], 
-                                                  ['Name', '/'+font[:name]], 
-                                                  ['Subtype', '/'+font[:type]], 
-                                                  ['BaseFont', '/'+font[:base]]]))
+      object = new_object(nil, [['Type', '/Font'], 
+                                ['Name', '/'+font[:name]], 
+                                ['Subtype', '/'+font[:type]], 
+                                ['BaseFont', '/'+font[:base]]])
+      fonts << [font[:name], object.to_s+' 0 R']
     end
-    @fonts
+    fonts
   end
 
-
-
-  def set_font(family, style, size)
-    # Select a font; size given in points
-    family.downcase!
-    #    family=@FontFamily if family==''
-    if family=='arial'
-      family='helvetica'
-    elsif family=='symbol' or family=='zapfdingbats'
-      style=''
-    end
-    style.upcase!
-    unless style.index('U').nil?
-      @underline=true
-      style.gsub!('U','')
-    else
-      @underline=false;
-    end
-    style='BI' if style=='IB'
-    #    size=@FontSizePt if size==0
-    # Test if font is already selected
-    #    return if @FontFamily==family and
-    #      @FontStyle==style and @FontSizePt==size
-    # Test if used for the first time
-    fontkey=family+style
-    unless @fonts.has_key?(fontkey)
-      if @CoreFonts.has_key?(fontkey)
-        unless CHAR_WIDTHS.has_key?(fontkey)
-          raise 'Font unavailable'
-        end
-        @fonts[fontkey]={
-          'i'=>@fonts.size,
-          'type'=>'core',
-          'name'=>@CoreFonts[fontkey],
-          'up'=>-100,
-          'ut'=>50,
-          'cw'=>CHAR_WIDTHS[fontkey]}
-      else
-        raise 'Font unavailable'
-      end
-    end
-
-    #Select it
-    #    @FontFamily=family
-    #    @FontStyle=style;
-    #    @FontSizePt=size
-    #    @FontSize=size/@k;
-    #    @CurrentFont=@fonts[fontkey]
-    if @page>0
-      out(sprintf('BT /F%d %.2f Tf ET', @fonts[fontkey], size))
-      #      out(sprintf('BT /F%d %.2f Tf ET', @CurrentFont['i'], @FontSizePt))
-    end
-  end
-
-
-
-
-
-
-
-
-
-
-  # Add a line to the buffer
-  def out(string)
-    @buffer += string.to_s+"\n"
-  end
-
-
-  def new_stream(stream)
-    out('stream')
-    out(stream)
-    out('endstream')
+  def build_images
+    []
   end
 
 
@@ -697,9 +425,7 @@ class Podofo
     elsif not data.nil?
       @objects[object_number] += (data.is_a?(Array) ? dictionary(data) : data)+"\n"
     end
-    # @offsets[@objects_count] = @buffer.length
-    # out(@objects_count.to_s+' 0 obj')
-    return object_number
+    object_number
   end
 
 
@@ -711,12 +437,9 @@ class Podofo
     end
     new_object do |lines|
       lines << "\<\<"+filter+'/Length '+stream.length.to_s+"\>\>"
-      lines << "stream"
-      lines << stream
-      lines << "endstream"
+      lines << "stream\n"+stream+"\nendstream"
     end
   end
-
 
   def dictionary(dict=[], depth=0)
     raise Exception.new('Only Array type are accepted as dictionary type ('+dict.class.to_s+')') unless dict.is_a? Array
@@ -724,18 +447,12 @@ class Podofo
     code += "\n" if dict.size>1
     for key, value in dict
       code += "  "*depth+'/'+key.to_s+' '
-      if value.is_a? Array
-        code += dictionary(value, depth+1)
-      else
-        code += value.to_s
-      end
+      code += value.is_a?(Array) ? dictionary(value, depth+1) : value.to_s
       code += "\n" if dict.size>1
     end
     code += "  "*depth+"\>\>"
     code
   end
-
-
 
   # Escape special characters
   def escape(string)
@@ -747,7 +464,6 @@ class Podofo
     # out('('+escape(string).to_s+')')
     '('+escape(string).to_s+')'
   end
-
 
 end
 
