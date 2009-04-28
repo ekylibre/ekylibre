@@ -33,4 +33,10 @@ class Employee < ActiveRecord::Base
   belongs_to :user
   has_many :clients, :class_name=>Entity.to_s
   has_many :shape_operations
+
+  def full_name
+    full_name = (self.last_name.to_s+" "+self.first_name.to_s).strip
+  end
+  
+
 end

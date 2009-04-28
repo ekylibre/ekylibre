@@ -24,7 +24,8 @@ module ApplicationHelper
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:entities_natures},
-             {:name=>:complements}
+             {:name=>:complements},
+             {:name=>:meetings}
            ] }
        ] },
      # AccountancyController

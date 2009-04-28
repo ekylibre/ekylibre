@@ -257,7 +257,7 @@ class ManagementController < ApplicationController
     if @product.without_stocks
       @product_stock = ProductStock.new
     else
-      @product_stock = ProductStock.find(:first, :conditions=>{:company_id=>@current_company.id ,:product_id=>@product.id} ) 
+      @product_stock = ProductStock.find(:first, :conditions=>{:company_id=>@current_company.id ,:product_id=>@product.id} )||ProductStock.new 
     end
     if request.post?
       if @product.update_attributes(params[:product])

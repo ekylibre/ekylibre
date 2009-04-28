@@ -298,6 +298,8 @@ fr-FR:
         vat_number: Numéro de TVA intra-communautaire
         vat_submissive: Soumis à la TVA
         website: Site Web
+      entity_meeting:
+        meeting_id: Lieu(x) de rencontre
       entity_nature:
         abbreviation: Abréviation
         active: Actif
@@ -348,6 +350,9 @@ fr-FR:
       journal_period:
         journal_id: Journal
         financialyear_id: Exercice
+      meeting: 
+        name: Nom
+        description: Description
       payment: 
         account_id: Compte associé 
         account_number: Numéro de compte
@@ -906,10 +911,18 @@ fr-FR:
         entities_natures: Types de fiches
         entities_managing: Clients et fournisseurs
         entities: Gérer les fiches clients et fournisseurs
+        meetings: Lieux de rencontre
         parameters: Paramètres
         complements: Champs personnalisés
       _general_description_form:
         title: 'Description générale'
+      meetings: 
+        meetings_create: Ajouter un lieu de rencontre
+        title: Lieux de rencontre
+      meetings_create:
+        title: Créer un nouveau lieu de rencontre
+      meetings_update:
+        title: 'Modification du lieu de rencontre {{value}}'
 
     resources:
       index:

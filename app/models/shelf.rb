@@ -24,6 +24,7 @@ class Shelf < ActiveRecord::Base
   has_many :shelves
 
   acts_as_tree
+
   def before_validation
     self.catalog_name = self.name if self.catalog_name.blank?
   end

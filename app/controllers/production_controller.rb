@@ -116,7 +116,7 @@ class ProductionController < ApplicationController
   dyta(:shape_operations, :conditions=>{:company_id=>['@current_company.id']} ) do |t|
     t.column :name
     t.column :name, :through=>:nature
-    t.column :last_name, :through=>:employee
+    t.column :full_name, :through=>:employee
     t.column :planned_on
     t.column :name, :through=>:shape
     t.action :shape_operations_update, :image=>:update

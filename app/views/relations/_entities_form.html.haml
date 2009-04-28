@@ -22,8 +22,10 @@
 
 =formalize(:id=>:client_form) do |f|
   -f.title :client
-  -if @mode.to_s.include? "update"
-    -f.field :entity, :proposer_id, :choices=>Entity.find(:all, :conditions=>['company_id = ? AND id != ?', @current_company.id,session[:current_entity]||0], :order=>:name).collect{|x| [x.full_name, x.id]}, :options=>{:include_blank=>true}
+  - f.field :entity_meeting, :meeting_id, :choices=>@current_company.meetings.collect{|x| [x.name, x.id]}, :options=>{:include_blank=>"-- Aucun --"}
+  - f.field :entity_meeting, :meeting_id, :choices=>@current_company.meetings.collect{|x| [x.name, x.id]}, :options=>{:include_blank=>"-- Aucun --"}
+  -if @operation.to_s == "update"
+    -f.field :entity, :proposer_id, :choices=>@current_company.find(:all, :conditions=>[' id != ?', @entity.id||0], :order=>:name).collect{|x| [x.full_name, x.id]}, :options=>{:include_blank=>true}
   -else
     -f.field :entity, :proposer_id, :choices=>@current_company.available_entities.collect{|x| [x.full_name, x.id]}, :options=>{:include_blank=>true}
   -f.field :entity, :employee_id, :choices=>@current_company.employees.find(:all, :conditions=>{:commercial=>'true'}, :order=>:last_name).collect{|p| [p.last_name, p.id]}

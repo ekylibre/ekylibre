@@ -255,6 +255,7 @@ class RelationsController < ApplicationController
     access :entities   
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
+    
 
     if request.post?
       @entity = Entity.new(params[:entity])
@@ -263,6 +264,7 @@ class RelationsController < ApplicationController
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
       @contact.name =  tc(:first_contact)
+      @entity_meeting = EntityMeeting.new
 
       for complement in @complements
         attributes = params[:complement_datum][complement.id.to_s]||{}
@@ -299,6 +301,7 @@ class RelationsController < ApplicationController
         end
       end
     else
+      @entity_meeting = EntityMeeting.new
       @contact = Contact.new(:country=>'fr')
       @entity = Entity.new(:country=>'fr')
       for complement in @complements
@@ -309,6 +312,7 @@ class RelationsController < ApplicationController
   end
   
   def entities_update
+    #raise Exception.new @operation.inspect
     access :entities
     @entity = find_and_check(:entity,params[:id])
     session[:current_entity] = @entity.id
@@ -317,6 +321,7 @@ class RelationsController < ApplicationController
     @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})||Contact.new(:entity_id=>@entity.id,:company_id=>@current_company.id, :norm_id=>@current_company.address_norms[0].id, :name=> tc(:first_contact))
 
     if request.post? and @entity
+      #raise Exception.new @operation.inspect
       puts params[:complement_datum].inspect
       for complement in @complements
         attributes = params[:complement_datum][complement.id.to_s]||{}
@@ -476,7 +481,41 @@ class RelationsController < ApplicationController
     redirect_to_back
   end
  
+  dyta(:meetings, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :description
+    t.action :meetings_update, :image=>:update
+    t.action :meetings_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+  end
 
+  def meetings
+    meetings_list
+  end
  
+  def meetings_create
+    @meeting = Meeting.new
+    if request.post?
+      @meeting = Meeting.new(params[:meeting])
+      @meeting.company_id = @current_company.id
+      redirect_to_back if @meeting.save
+    end
+    render_form
+  end
   
+  def meetings_update
+    @meeting = find_and_check(:meeting, params[:id])
+    if request.post?
+      redirect_to_back if @meeting.update_attributes(params[:meeting])
+    end
+    @title = {:value=>@meeting.name}
+    render_form
+  end
+
+  def meetings_delete
+    @meeting = find_and_check(:meeting, params[:id])
+    if request.post? or request.delete?
+      redirect_to_current if @meeting.destroy
+    end
+  end
+
 end
