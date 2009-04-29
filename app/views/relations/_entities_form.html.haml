@@ -22,7 +22,7 @@
 
 =formalize(:id=>:client_form) do |f|
   - f.title :client
-  - f.field :entity, :origin_id, :choices=>@current_company.meeting_locations.find(:all, :conditions=>{:active=>false}).collect{|x| [x.name, x.id]}
+  - f.field :entity, :origin_id, :choices=>@current_company.meeting_locations.find(:all, :conditions=>{:active=>true}).collect{|x| [x.name, x.id]}, :options=>{:include_blank=>tc('any')}
   - f.field :entity, :first_met_on
   -# f.field name ,{:datatype=>:choice, :id=>"meeting_#{meeting.position}_meeting_id", :name=>"entity_meeting[#{entity_meeting.position}][meeting_id]", :value=>entity_meeting.meeting_id, :choices=>@current_company.meetings.find(:all, :conditions=>{:active=>true}).collect{|x| [x.name, x.id]}, :options=>{:include_blank=>"--Aucun--"} }
   -if @operation == "update"

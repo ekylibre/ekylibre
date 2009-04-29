@@ -22,10 +22,13 @@ module ApplicationHelper
            [ {:name=>:entities}
              #  ,{:name=>:entities_create} 
            ] },
+         {:name=>:meetings, :list=>
+           [{:name=>:meetings},
+            {:name=>:meeting_locations},
+            {:name=>:meeting_modes}]},
          {:name=>:parameters, :list=>
            [ {:name=>:entities_natures},
-             {:name=>:complements},
-             {:name=>:meetings}
+             {:name=>:complements}
            ] }
        ] },
      # AccountancyController

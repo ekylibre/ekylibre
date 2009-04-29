@@ -57,6 +57,7 @@ class Entity < ActiveRecord::Base
   has_many :complement_data
   has_many :contacts
   has_many :invoices, :foreign_key=>:client_id
+  has_many :meetings
   has_many :prices
   has_many :purchase_orders, :foreign_key=>:supplier_id
   has_many :sale_orders, :foreign_key=>:client_id

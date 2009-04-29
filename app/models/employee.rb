@@ -32,6 +32,7 @@ class Employee < ActiveRecord::Base
   belongs_to :profession
   belongs_to :user
   has_many :clients, :class_name=>Entity.to_s
+  has_many :meetings
   has_many :shape_operations
 
   def full_name

@@ -284,11 +284,13 @@ fr-FR:
         deliveries_conditions: Conditions de Livraison
         discount_rate: 'Taux d''escompte'
         excise: 'Numéro d''accises'
+        first_met_on: Date de la première rencontre
         first_name: Prénom
         full_name: Nom complet
         language_id: Langue
         name: Nom
         nature_id: Type
+        origin_id: Lieu de rencontre
         employee_id: Représentant
         payments_number: Nombre de paiements
         proposer_id: Parrain
@@ -350,9 +352,11 @@ fr-FR:
       journal_period:
         journal_id: Journal
         financialyear_id: Exercice
-      meeting: 
+      meeting_location: 
         name: Nom
         description: Description
+      meeting_mode:
+        name: Nom
       payment: 
         account_id: Compte associé 
         account_number: Numéro de compte
@@ -897,6 +901,7 @@ fr-FR:
         state: État
         title: 'Fiche : {{value}}'
       _entities_form:
+        any: ' -- Aucun --'
         title: 'Renseignez les différentes caractéristiques de la fiche'
         details: 'Informations complémentaires'
         complements: 'Champs personnalisés'
@@ -912,18 +917,27 @@ fr-FR:
         entities_natures: Types de fiches
         entities_managing: Clients et fournisseurs
         entities: Gérer les fiches clients et fournisseurs
-        meetings: Lieux de rencontre
+        meeting_locations: Lieux de rencontre
+        meeting_modes: Types de rencontres
+        meetings: Rencontres
         parameters: Paramètres
         complements: Champs personnalisés
       _general_description_form:
         title: 'Description générale'
-      meetings: 
-        meetings_create: Ajouter un lieu de rencontre
+      meeting_locations: 
+        meeting_locations_create: Ajouter un lieu de rencontre
         title: Lieux de rencontre
-      meetings_create:
+      meeting_locations_create:
         title: Créer un nouveau lieu de rencontre
-      meetings_update:
+      meeting_locations_update:
         title: 'Modification du lieu de rencontre {{value}}'
+      meeting_modes:
+        meeting_modes_create: Ajouter un nouveau type de rencontre
+        title: Types de rencontres
+      meeting_modes_create:
+        title: Créer un nouveau type de rencontre
+      meeting_modes_update:
+        title: 'Modification du type de rencontre {{value}}'
 
     resources:
       index:

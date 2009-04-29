@@ -492,21 +492,97 @@ class RelationsController < ApplicationController
     redirect_to_back
   end
  
-  dyta(:meetings, :conditions=>{:company_id=>['@current_company.id'], :active=>true}) do |t|
+  dyta(:meeting_locations, :conditions=>{:company_id=>['@current_company.id'], :active=>true}) do |t|
     t.column :name
     t.column :description
+    t.action :meeting_locations_update, :image=>:update
+    t.action :meeting_locations_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+  end
+
+  def meeting_locations
+    meeting_locations_list
+  end
+ 
+  def meeting_locations_create
+    @meeting_location = MeetingLocation.new
+    if request.post?
+      @meeting_location = MeetingLocation.new(params[:meeting_location])
+      @meeting_location.company_id = @current_company.id
+      redirect_to_back if @meeting_location.save
+    end
+    render_form
+  end
+  
+  def meeting_locations_update
+    @meeting_location = find_and_check(:meeting_location, params[:id])
+    if request.post?
+      redirect_to_back if @meeting_location.update_attributes!(params[:meeting_location])
+    end
+    @title = {:value=>@meeting_location.name}
+    render_form
+  end
+
+  def meeting_locations_delete
+    @meeting_location = find_and_check(:meeting_location, params[:id])
+    if request.post? or request.delete?
+      redirect_to_current if @meeting_location.update_attributes(:active=>false)
+    end
+  end
+
+  dyta(:meeting_modes, :conditions=>{:company_id=>['@current_company.id'], :active=>true}) do |t|
+    t.column :name
+    t.action :meeting_modes_update, :image=>:update
+    t.action :meeting_modes_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+  end
+
+  def meeting_modes
+    meeting_modes_list
+  end
+
+  def meeting_modes_create
+    @meeting_mode = MeetingMode.new
+    if request.post?
+      #raise Exception.new params.inspect
+      @meeting_mode = MeetingMode.new(params[:meeting_mode])
+      @meeting_mode.company_id = @current_company.id
+      redirect_to_back if @meeting_mode.save
+    end
+    render_form
+  end
+
+  def meeting_modes_update
+    @meeting_mode = find_and_check(:meeting_mode, params[:id])
+    if request.post?
+      redirect_to_back if @meeting_mode.update_attributes!(params[:meeting_mode])
+    end
+    @title = {:value=>@meeting_mode.name}
+    render_form
+  end
+
+  def meeting_modes_delete
+    @meeting_mode = find_and_check(:meeting_mode, params[:id])
+    if request.post? or request.delete?
+      redirect_to_current if @meeting_mode.update_attributes(:active=>false)
+    end
+  end
+  
+  dyta(:meetings, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name, :through=>:entity
+    t.column :name, :through=>:location
+    t.column :date
+    #t.column :name, :through=>:employee
+    t.column :name, :through=>:mode
     t.action :meetings_update, :image=>:update
     t.action :meetings_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
-
+  
   def meetings
     meetings_list
   end
- 
+  
   def meetings_create
     @meeting = Meeting.new
     if request.post?
-      #raise Exception.new params.inspect
       @meeting = Meeting.new(params[:meeting])
       @meeting.company_id = @current_company.id
       redirect_to_back if @meeting.save
@@ -515,19 +591,9 @@ class RelationsController < ApplicationController
   end
   
   def meetings_update
-    @meeting = find_and_check(:meeting, params[:id])
-    if request.post?
-      redirect_to_back if @meeting.update_attributes!(params[:meeting])
-    end
-    @title = {:value=>@meeting.name}
-    render_form
   end
-
+  
   def meetings_delete
-    @meeting = find_and_check(:meeting, params[:id])
-    if request.post? or request.delete?
-      redirect_to_current if @meeting.update_attributes(:active=>false)
-    end
   end
 
 end

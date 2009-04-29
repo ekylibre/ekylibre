@@ -37,7 +37,6 @@ class Company < ActiveRecord::Base
   has_many :documents
   has_many :employees
   has_many :entities
-  has_many :entity_meetings
   has_many :entity_natures
   has_many :entries
   has_many :establishments
@@ -47,6 +46,8 @@ class Company < ActiveRecord::Base
   has_many :journals
   has_many :journal_periods
   has_many :journal_records
+  has_many :meeting_locations
+  has_many :meeting_modes
   has_many :meetings
   has_many :parameters
   has_many :payments
