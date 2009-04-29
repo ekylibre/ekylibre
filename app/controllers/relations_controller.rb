@@ -258,6 +258,10 @@ class RelationsController < ApplicationController
     
 
     if request.post?
+      #raise Exception.new params.inspect+"               "+params[:entity_meeting].inspect
+      #for meeting in params[:entity_meeting]
+       # raise Exception.new meeting[1].inspect if meeting[1].empty?
+      #end
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
       @contact = Contact.new(params[:contact])
@@ -291,6 +295,9 @@ class RelationsController < ApplicationController
           @contact.errors.each_full do |msg|
             @entity.errors.add_to_base(msg)
           end
+          for meeting in params[:entity_meeting]
+            EntityMeeting.create!(:entity_id=>@entity.id, :meeting_id=>meeting[1], :company_id=>@current_company.id) if !meeting[1].empty?
+          end
         end
         raise ActiveRecord::Rollback unless saved
         #raise Exception.new session.data.inspect
@@ -301,7 +308,6 @@ class RelationsController < ApplicationController
         end
       end
     else
-      @entity_meeting = EntityMeeting.new
       @contact = Contact.new(:country=>'fr')
       @entity = Entity.new(:country=>'fr')
       for complement in @complements
@@ -310,7 +316,7 @@ class RelationsController < ApplicationController
     end
     render_form
   end
-  
+
   def entities_update
     #raise Exception.new @operation.inspect
     access :entities
@@ -356,6 +362,11 @@ class RelationsController < ApplicationController
         redirect_to_back
       end
     else
+      @entity_meetings = EntityMeeting.find(:all, :conditions=>{:entity_id=>@entity.id, :company_id=>@current_company.id})
+      #raise Exception.new  @entity_meetings.inspect
+      #for entity_meeting in @entity_meetings
+      # @entity_meeting_x = 
+      #end
       for complement in @complements
         datum  = ComplementDatum.find_by_complement_id_and_entity_id(complement.id, @entity.id)
         if datum
@@ -481,7 +492,7 @@ class RelationsController < ApplicationController
     redirect_to_back
   end
  
-  dyta(:meetings, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:meetings, :conditions=>{:company_id=>['@current_company.id'], :active=>true}) do |t|
     t.column :name
     t.column :description
     t.action :meetings_update, :image=>:update
@@ -495,6 +506,7 @@ class RelationsController < ApplicationController
   def meetings_create
     @meeting = Meeting.new
     if request.post?
+      #raise Exception.new params.inspect
       @meeting = Meeting.new(params[:meeting])
       @meeting.company_id = @current_company.id
       redirect_to_back if @meeting.save
@@ -505,7 +517,7 @@ class RelationsController < ApplicationController
   def meetings_update
     @meeting = find_and_check(:meeting, params[:id])
     if request.post?
-      redirect_to_back if @meeting.update_attributes(params[:meeting])
+      redirect_to_back if @meeting.update_attributes!(params[:meeting])
     end
     @title = {:value=>@meeting.name}
     render_form
@@ -514,7 +526,7 @@ class RelationsController < ApplicationController
   def meetings_delete
     @meeting = find_and_check(:meeting, params[:id])
     if request.post? or request.delete?
-      redirect_to_current if @meeting.destroy
+      redirect_to_current if @meeting.update_attributes(:active=>false)
     end
   end
 

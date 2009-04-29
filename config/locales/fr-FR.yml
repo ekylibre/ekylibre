@@ -901,6 +901,7 @@ fr-FR:
         details: 'Informations complémentaires'
         complements: 'Champs personnalisés'
         client: 'Informations client'
+        meeting: Lieu(x) de rencontre
       _entities_search:
         search: Rechercher une fiche
       entities_update:

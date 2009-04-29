@@ -576,6 +576,7 @@ module ApplicationHelper
         html_options.delete :size
         html_options.delete :maxlength
       end
+      
       options[:options] ||= {}
       input = case options[:field]
               when :password
@@ -585,6 +586,7 @@ module ApplicationHelper
               when :select
                 options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
                 select record, method, options[:choices], options[:options], html_options
+                #select " ", options[:choices], options[:options], html_options
               when :radio
                 options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label,x[0],:for=>input_id+'_'+x[1].to_s)}.join " "
               when :textarea
@@ -605,6 +607,7 @@ module ApplicationHelper
 #      input += content_tag(:h6,options[:field].to_s+' '+options[:choices].class.to_s+' '+options.inspect)
       
       label = t("activerecord.attributes.#{object.class.name.underscore}.#{method.to_s}")
+      label = " " if options[:options][:hide_label] 
       
 #      label = if object.class.methods.include? "human_attribute_name"
 #                object.class.human_attribute_name(method.to_s)
@@ -618,6 +621,7 @@ module ApplicationHelper
       label = line[:label]||'[NoLabel]'
       if line[:field].is_a? Hash
         options = line[:field].dup
+        options[:options]||={}
         datatype = options[:datatype]
         options.delete :datatype
         name = options[:name]
@@ -635,6 +639,7 @@ module ApplicationHelper
                     text_field_tag(name, value, :id=>options[:id], :maxlength=>size, :size=>size)
                   end
                 when :choice
+                  options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
                   select_tag(name, options_for_select(options[:choices]), :id=>options[:id])
                 when :date
                   date_select(name, value, :start_year=>1980)
