@@ -2,19 +2,26 @@ module Ekylibre
   module Xil
 
     class Measure
+      UNIT_NATURES = {
+        'length'=>{:ref=>'m'},
+        'angle'=>{:ref=>'rad'}
+      }
 
       UNITS = {
-        'mm'=>{:nature=>'m', :factor=>0.001},
-        'cm'=>{:nature=>'m', :factor=>0.01},
-        'dm'=>{:nature=>'m', :factor=>0.1},
-        'm'=> {:nature=>'m', :factor=>1},
-        'km'=>{:nature=>'m', :factor=>1000},
-        'pt'=>{:nature=>'m', :factor=>0.0254/72},
-        'pc'=>{:nature=>'m', :factor=>0.0254/6},
-        'in'=>{:nature=>'m', :factor=>0.0254}, # 2.54cm
-        'ft'=>{:nature=>'m', :factor=>12*0.0254}, # 12 in
-        'yd'=>{:nature=>'m', :factor=>3*12*0.0254},  # 3 ft
-        'mi'=>{:nature=>'m', :factor=>1760*3*12*0.0254} # 1760 yd
+        'mm'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>0.001},
+        'cm'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>0.01},
+        'dm'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>0.1},
+        'm'=> {:nature=>UNIT_NATURES['length'][:ref], :factor=>1},
+        'km'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>1000},
+        'pt'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>0.0254/72},
+        'pc'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>0.0254/6},
+        'in'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>0.0254}, # 2.54cm
+        'ft'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>12*0.0254}, # 12 in
+        'yd'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>3*12*0.0254},  # 3 ft
+        'mi'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>1760*3*12*0.0254}, # 1760 yd
+        'gon'=>{:nature=>UNIT_NATURES['angle'][:ref], :factor=>Math::PI/200},
+        'deg'=>{:nature=>UNIT_NATURES['angle'][:ref], :factor=>Math::PI/180},
+        'rad'=>{:nature=>UNIT_NATURES['angle'][:ref], :factor=>1}
       }
 
       
@@ -86,6 +93,7 @@ module Ekylibre
         'text-align'=>{:nature=>['left', 'center', 'right', 'justify']},
         'text-decoration'=>{:nature=>['none', 'underline']},
         'vertical-align'=>{:nature=>['top', 'middle', 'bottom']},
+        'rotate'=>{:nature=>:angle},
         'size'=>{:nature=>:format}
       }
 
@@ -119,28 +127,52 @@ module Ekylibre
 
       def set(property, value)
         property = property.strip.downcase
+        value = Style.property_value(property, value)
+        @properties[property] = value unless value.nil?
+        
+#         definition = PROPERTIES[property]
+#         if definition.is_a? Hash
+#           if definition[:nature].is_a? Symbol
+#             value = Style.send("string_to_#{definition[:nature].to_s}", value.to_s)
+#             @properties[property] = value unless value.nil?
+#           elsif definition[:nature].is_a? Array
+#             @properties[property] = value if definition[:nature].include? value
+#           else
+#             raise Exception.new('Bad property definition: '+property)
+#           end
+#         end
+      end
+
+      def get(property, default_value)
+        @properties[property]||Style.property_value(property, default_value)
+      end
+
+      private
+
+      def self.property_value(property, value)
         value = value.strip if value.is_a? String
         definition = PROPERTIES[property]
         if definition.is_a? Hash
           if definition[:nature].is_a? Symbol
             value = Style.send("string_to_#{definition[:nature].to_s}", value.to_s)
-            @properties[property] = value unless value.nil?
           elsif definition[:nature].is_a? Array
-            @properties[property] = value if definition[:nature].include? value
+            value = nil unless definition[:nature].include? value
           else
             raise Exception.new('Bad property definition: '+property)
           end
         end
       end
 
-      def get(property)
-        @properties[property]
+      def self.string_to_length(value)
+        m = Measure.new(value)
+        m = Measure.new('0m') if m.nature!='m'
+        m
       end
 
-      private
-
-      def self.string_to_length(value)
-        Measure.new(value)
+      def self.string_to_angle(value)
+        m = Measure.new(value)
+        m = Measure.new('0rad') if m.nature!='rad'
+        m
       end
 
       def self.string_to_length4(value)

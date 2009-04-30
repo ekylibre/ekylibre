@@ -57,8 +57,8 @@ module Ekylibre
       
       def pdf_document(element, environment={})
         code  = ''
-        code += environment[:pdf]+" = PDF::Writer.new\n"
-        code += environment[:page_number]+" = 1\n"
+        code += environment[:pdf]+" = Spdf.new\n"
+        # code += environment[:page_number]+" = 1\n"
         code += browse(element, environment)
         code
       end
@@ -72,8 +72,8 @@ module Ekylibre
         environment[:page] = {}
         environment[:page][:style] = style
         puts style.get('size').inspect
-        environment[:page][:format] = (style.get('size')||PDF_DEFAULT_FORMAT).collect{|l| l.to_f(PDF_DEFAULT_UNIT).to_s}.join('x')
-        code  = "#{environment[:pdf]}.new_page('P', '#{environment[:page][:format]}')\n"
+        environment[:page][:format] = (style.get('size')||PDF_DEFAULT_FORMAT).collect{|l| l.to_f(PDF_DEFAULT_UNIT).to_s}.inspect # join('x')
+        code  = "#{environment[:pdf]}.new_page(#{environment[:page][:format]}, #{style.get('rotate','0deg').to_f('deg')})\n"
         # code += environment[:available_height]+"="+(format_height(environment[:format],environment[:unit])-environment['margin_top']-environment['margin_bottom']).to_s+"\n"
         code += "#{environment[:count]} = 0\n"
         code += "#{environment[:covered]} = 0\n"
@@ -82,6 +82,7 @@ module Ekylibre
 #        code += "pdf.add_page_break\n"
         code
       end
+
       def pdf_block(element, environment={})
         code  = ''
         # Header
