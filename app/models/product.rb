@@ -51,6 +51,7 @@ class Product < ActiveRecord::Base
   has_many :purchase_order_lines
   has_many :sale_order_lines
   has_many :stock_moves
+  has_many :stock_transfers
 
   def before_validation
     self.code = self.name.codeize.upper if self.code.blank?

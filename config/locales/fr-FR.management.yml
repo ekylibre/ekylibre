@@ -98,6 +98,7 @@ fr-FR:
         stocks_consult: 'Consulter l''état des stocks'
         stocks_locations: 'Gérer les stocks'
         taxes: 'Taxes'
+        stock_transfers: 'Transferts et pertes'
         title: 'Gestion commerciale'
         units: 'Unités de mesure'
       _location_choice:
@@ -306,7 +307,12 @@ fr-FR:
         stock_max: Stock maximum
         title: État des stocks
         unit: Unité
-        weight: Poids
+        weight: Poids 
+      stock_transfers:
+        stock_transfers_create: Ajouter un transfert ou une perte de stocks
+        title: Transferts et pertes de stocks
+      stock_transfers_create:
+        title: Ajouter un transfert ou une perte de stocks
       stocks:
         critic_stock_min: Stock minimum critique
         current_real_quantity: Quantité réelle

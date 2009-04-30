@@ -35,7 +35,6 @@ class Production < ActiveRecord::Base
   def before_update
     old_real_move = StockMove.find(:first, :conditions=>{:company_id=>self.company_id, :origin_type=>Production.to_s, :origin_id=>self.id, :product_id=>self.product_id, :input=>true, :virtual=>false})
     old_virtual_move = StockMove.find(:first, :conditions=>{:company_id=>self.company_id, :origin_type=>Production.to_s, :origin_id=>self.id, :product_id=>self.product_id, :input=>true, :virtual=>true})
-    #raise Exception.new old_move.inspect+" <- old_move                   self-> "+self.inspect
     old_real_move.update_attributes!(:quantity=>self.quantity, :location_id=>self.location_id)
     old_virtual_move.update_attributes!(:quantity=>self.quantity, :location_id=>self.location_id)
   end

@@ -31,6 +31,7 @@ class StockLocation < ActiveRecord::Base
   has_many :sale_order_lines
   has_many :stock_locations
   has_many :stock_moves
+  has_many :stock_transfers
 
   acts_as_tree
 end

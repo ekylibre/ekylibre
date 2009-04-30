@@ -1251,5 +1251,39 @@ class ManagementController < ApplicationController
     end
   end
 
+  dyta(:stock_transfers, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :nature
+    t.column :name, :through=>:product
+    t.column :name, :through=>:location
+    t.column :name, :through=>:second_location
+    t.column :moved_on
+    t.action :stock_transfers_update, :image=>:update
+    t.action :stock_transfers_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+  end
+
+  def stock_transfers
+   stock_transfers_list
+  end
+
+  def stock_transfers_create
+    @stock_transfer = StockTransfer.new(:nature=>"transfer")
+    if request.post?
+      @stock_transfer.company_id = @current_company.id
+      redirect_to_back if @stock_transfer.save
+    end
+    render_form
+  end
+
+  def stock_transfers_update
+    @stock_transfer = StockTransfer(params[:id])
+    if request.post?
+      redirect_to_back if @stock_transfer.update_attributes!(params[:stock_transfer])
+    end
+    render_form
+  end
+  
+  def stock_transfers_delete
+  end
+  
   
 end

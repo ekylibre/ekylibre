@@ -37,6 +37,7 @@
       =evalue t('activerecord.attributes.entity.country'), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) unless @entity.country.blank?
     -if @entity.client
       %td
+        =evalue @entity, :first_met_on unless @entity.first_met_on.blank?
         =evalue @entity, :proposer, :label=>:full_name unless @entity.proposer_id.blank?
         =evalue @entity, :vat_number unless @entity.vat_number.blank?
         =evalue @entity, :vat_submissive
@@ -51,6 +52,12 @@
 
 %h2=tc :contacts, :count=>@contacts_count
 =dyta :contacts
-%h2=tc :sale_orders_number , :count=>@sale_orders_number
--if @sale_orders_number>0
-  =dyta :entity_sales
+-if @entity.client
+  %h2=tc :sale_orders_number , :count=>@sale_orders_number
+  -if @sale_orders_number > 0
+    =dyta :entity_sales
+  %h2=tc :meetings, :count=>@meetings_count
+  .aclist
+    = link_to tc('meetings_create'), :action=>:meetings_create, :class=>'procedure create'
+  -if @meetings_count > 0
+    =dyta :entity_meetings

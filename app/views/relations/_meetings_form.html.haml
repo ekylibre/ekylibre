@@ -1,9 +1,9 @@
 = formalize do |f|
   - f.error :meeting
-  - f.field :meeting, :entity_id, :choices=>@current_company.entities.find(:all, :conditions=>{:client=>true}).collect{|x| [x.full_name, x.id]}
-  - f.field :meeting, :location_id, :choices=>@current_company.meeting_locations.find(:all, :conditions=>{:active=>true}).collect{|x| [x.name, x.id]}
+  - f.field :meeting, :entity_id, :choices=>@current_company.entities.find(:all, :conditions=>{:client=>true}, :order=>"name ASC").collect{|x| [x.full_name, x.id]}
+  - f.field :meeting, :location_id, :choices=>@current_company.meeting_locations.find(:all, :conditions=>{:active=>true}).collect{|x| [x.name, x.id]}, :new=>{:action=>:meeting_locations_create}
   - f.field :meeting, :date
-  - f.field :meeting, :employee_id, :choices=>@current_company.employees.collect{|x| [x.full_name, x.id]}
-  - f.field :meeting, :mode_id, :choices=>@current_company.meeting_modes.collect{|x| [x.name, x.id]}
+  - f.field :meeting, :employee_id, :choices=>@current_company.employees.collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:resources, :action=>:employees_create}
+  - f.field :meeting, :mode_id, :choices=>@current_company.meeting_modes.collect{|x| [x.name, x.id]}, :new=>{:action=>:meeting_modes_create}
   - f.field :meeting, :address, :field=>:textarea
   - f.field :meeting, :description, :field=>:textarea

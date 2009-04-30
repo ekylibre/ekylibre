@@ -219,7 +219,8 @@ class RelationsController < ApplicationController
   end
 
 
-  dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'}, :children=>:lines) do |t|
+  #dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'}, :children=>:lines) do |t|
+  dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']],  :children=>:lines) do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sales_details}, :children=>:product_name
     t.column :name, :through=>:nature, :children=>false
     t.column :created_on, :children=>false
@@ -228,16 +229,23 @@ class RelationsController < ApplicationController
     t.column :amount_with_taxes
   end
 
+  dyta(:entity_meetings, :model=>:meetings, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+    t.column :name, :through=>:location
+    t.column :date
+    t.column :full_name, :through=>:employee
+    t.column :name, :through=>:mode
+    t.action :meetings_update, :image=>:update
+    t.action :meetings_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+  end
+
   def entities_display
     @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
     session[:current_entity] = @entity.id
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})
-#    @sale_orders = SaleOrder.find(:all, :conditions=>["company_id = ? AND client_id = ? AND state != 'P'", @current_company.id, params[:id] ], :order=>"confirmed_on DESC",:limit=>5)
-#    contacts_list params
+    @meetings_count = @current_company.meetings.find(:all, :conditions=>{:entity_id=>@entity.id}).size
     session[:my_entity] = params[:id]
     @contact = Contact.new
     @contacts_count = @entity.contacts.find(:all, :conditions=>{:active=>true}).size
-    session[:current_entity] = params[:id]
     @title = {:value=>@entity.full_name}
   end
   
@@ -268,8 +276,7 @@ class RelationsController < ApplicationController
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
       @contact.name =  tc(:first_contact)
-      @entity_meeting = EntityMeeting.new
-
+      
       for complement in @complements
         attributes = params[:complement_datum][complement.id.to_s]||{}
         attributes[:complement_id] = complement.id
@@ -294,9 +301,6 @@ class RelationsController < ApplicationController
           saved = false unless @contact.save
           @contact.errors.each_full do |msg|
             @entity.errors.add_to_base(msg)
-          end
-          for meeting in params[:entity_meeting]
-            EntityMeeting.create!(:entity_id=>@entity.id, :meeting_id=>meeting[1], :company_id=>@current_company.id) if !meeting[1].empty?
           end
         end
         raise ActiveRecord::Rollback unless saved
@@ -362,11 +366,6 @@ class RelationsController < ApplicationController
         redirect_to_back
       end
     else
-      @entity_meetings = EntityMeeting.find(:all, :conditions=>{:entity_id=>@entity.id, :company_id=>@current_company.id})
-      #raise Exception.new  @entity_meetings.inspect
-      #for entity_meeting in @entity_meetings
-      # @entity_meeting_x = 
-      #end
       for complement in @complements
         datum  = ComplementDatum.find_by_complement_id_and_entity_id(complement.id, @entity.id)
         if datum
@@ -567,10 +566,10 @@ class RelationsController < ApplicationController
   end
   
   dyta(:meetings, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name, :through=>:entity
+    t.column :full_name, :through=>:entity
     t.column :name, :through=>:location
     t.column :date
-    #t.column :name, :through=>:employee
+    t.column :full_name, :through=>:employee
     t.column :name, :through=>:mode
     t.action :meetings_update, :image=>:update
     t.action :meetings_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
@@ -581,7 +580,13 @@ class RelationsController < ApplicationController
   end
   
   def meetings_create
-    @meeting = Meeting.new
+    if session[:history][1].to_s.include? "entities"
+      @meeting = Meeting.new(:entity_id=>session[:current_entity]||0)
+    else
+      @meeting = Meeting.new
+    end
+    #raise Exception.new @current_user.inspect
+    @meeting.employee = @current_user.employee
     if request.post?
       @meeting = Meeting.new(params[:meeting])
       @meeting.company_id = @current_company.id
@@ -591,9 +596,19 @@ class RelationsController < ApplicationController
   end
   
   def meetings_update
+    @meeting = find_and_check(:meeting, params[:id])
+    if request.post?
+      redirect_to_back if @meeting.update_attributes(params[:meeting])
+    end
+    @title = {:value=>@meeting.entity.full_name}
+    render_form
   end
   
   def meetings_delete
+    @meeting = find_and_check(:meeting, params[:id])
+    if request.post? or request.delete?
+      redirect_to_back if @meeting.destroy
+    end
   end
 
 end

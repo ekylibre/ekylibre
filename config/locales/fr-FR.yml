@@ -352,9 +352,17 @@ fr-FR:
       journal_period:
         journal_id: Journal
         financialyear_id: Exercice
-      meeting_location: 
-        name: Nom
+      meeting: 
+        address: Adresse
+        date: Date
         description: Description
+        employee_id: Employé
+        entity_id: Client
+        location_id: Lieu
+        mode_id: Type
+      meeting_location: 
+        description: Description
+        name: Nom
       meeting_mode:
         name: Nom
       payment: 
@@ -550,6 +558,13 @@ fr-FR:
         product_id: Produit
         comment: Commentaire
         location_id: Lieu de stockage
+      stock_transfer:
+        comment: Commentaire
+        location_id: Sortie du lieu de stockage
+        nature: Type
+        planned_on: Prévu le
+        product_id: Produit
+        second_location_id: Entrée du lieu de stockage
       user:
         email: 'E-mail'
         first_name: 'Prénom'
@@ -888,6 +903,11 @@ fr-FR:
           one: '1 contact'
           other: '{{count}} contacts'
         entities_update: Modifier la fiche
+        meetings:
+          zero: 'Aucune rencontre'
+          one: '1 rencontre'
+          other: '{{count}} rencontres '
+        meetings_create: Ajouter une rencontre
         sale_orders_number:
           zero: 'Aucune vente' 
           one: '1 vente '
@@ -918,7 +938,7 @@ fr-FR:
         entities_managing: Clients et fournisseurs
         entities: Gérer les fiches clients et fournisseurs
         meeting_locations: Lieux de rencontre
-        meeting_modes: Types de rencontres
+        meeting_modes: Types de rencontre
         meetings: Rencontres
         parameters: Paramètres
         complements: Champs personnalisés
@@ -933,11 +953,18 @@ fr-FR:
         title: 'Modification du lieu de rencontre {{value}}'
       meeting_modes:
         meeting_modes_create: Ajouter un nouveau type de rencontre
-        title: Types de rencontres
+        title: Types de rencontre
       meeting_modes_create:
         title: Créer un nouveau type de rencontre
       meeting_modes_update:
         title: 'Modification du type de rencontre {{value}}'
+      meetings:
+        meetings_create: Ajouter une rencontre
+        title: Rencontres
+      meetings_create: 
+        title: Ajouter une rencontre
+      meetings_update:
+        title: 'Modification de la rencontre avec {{value}}'
 
     resources:
       index:
@@ -1142,6 +1169,10 @@ fr-FR:
       sale: Vente
     sale_order_line:
       error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
+    stock_transfer:
+      natures:
+          transfer: Transfert 
+          waste: Perte
     
   
   # Genral words and expression through the all app

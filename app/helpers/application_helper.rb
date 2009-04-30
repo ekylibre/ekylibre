@@ -58,7 +58,8 @@ module ApplicationHelper
              {:name=>:purchases_consult, :url=>{:action=>:purchases}} ] },
          {:name=>:stocks, :list=>
            [ {:name=>:stocks_locations},
-             {:name=>:stocks_consult, :url=>{:action=>:stocks}} ] },
+             {:name=>:stocks_consult, :url=>{:action=>:stocks}},
+             {:name=>:stock_transfers}] },
          {:name=>:parameters, :list=>
            [ {:name=>:products},
  #            {:name=>:invoicing_parameters},
