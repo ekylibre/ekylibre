@@ -135,7 +135,7 @@ class Company < ActiveRecord::Base
     
 #    puts tc('accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.collect{|a| a[0].to_s+'  ::  '+a[1].to_s}.join "\n"
     tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
-      puts a.inspect
+      #puts a.inspect
       begin
         account = self.accounts.find_by_number(a[0].to_s)
         if account 

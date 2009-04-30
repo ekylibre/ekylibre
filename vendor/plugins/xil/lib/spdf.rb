@@ -6,6 +6,7 @@ class Spdf
   PDF_VERSION = "1.3"
   LAYOUTS = { :single=>'/SinglePage', :continuous=>'/OneColumn', :two_left=>'/TwoColumnLeft', :two_right=>'/TwoColumnRight' }
   ZOOMS = { :page=>"/Fit", :width=>"/FitH null", :height=>"/FitV null" }
+  BORDER_STYLES = {:dotted=>{:dash=>[1, 1], :phase=>0.5}, :dashed=>{:dash=>[3], :phase=>2} }
   JPEG_COLOR_SPACES = [nil, nil, nil, 'DeviceRGB', 'DeviceCMYK']
   PNG_COLOR_SPACES = ['DeviceGray', nil, 'DeviceRGB', 'Indexed']
 
@@ -64,8 +65,9 @@ class Spdf
     @pages[page||@page][:items] << {:nature=>:image, :params=>params}
   end
 
-  def line(points, page=nil)
+  def line(points, params={}, page=nil)
     error("Unvalid list of point") unless points.is_a? Array
+    points.each{|p| error("Unvalid point: #{p.inspect}") unless is_a_point? p}
     params[:points] = points
     @pages[page||@page][:items] << {:nature=>:line, :params=>params}
   end
@@ -224,18 +226,42 @@ class Spdf
       elsif nature==:line
         border = params[:border]
         width = border[:width]||2
-        code += width+' w '
-        code += '[#{width} #{width}] 0 d ' if border[:style] == :dashed
-        code += '[4 8] 0 d ' if params[:dashed]
-        x1 = params[:x1]||0
-        y1 = page_height-(params[:y1]||0)
-        x2 = params[:x2]||0
-        y2 = page_height-(params[:y2]||0)
-        code += sprintf('%.2f %.2f m %.2f %.2f l S', x1,y1,x2,y2)+"\n"
+        points = params[:points]
+        style = border[:style]
+        code += "1 J 1 j " # Set Line Cap (0, 1 ou 2)
+        code += self.class.string_to_color(border[:color]).collect{|x| x.to_f/255}.join(' ')+' RG ' if border[:color]
+        code += width.to_s+' w '
+        style = BORDER_STYLES[style] if BORDER_STYLES.keys.include? style
+        code += "[#{(style[:dash]||[]).collect{|x| x*width}.join(' ')}] #{(style[:phase]||0)*width} d " if style.is_a? Hash
+        points.size.times do |i|
+          code += points[i][0].to_s+' '+(page_height-points[i][1]).to_s+' '+(i==0 ? 'm' : 'l')+' '
+        end
+        code += " S\n"
+#        x1 = params[:points][0][0]||0
+#        y1 = page_height-(params[:points][0][1]||0)
+#        x2 = params[:points][1][0]||0
+#        y2 = page_height-(params[:points][1][1]||0)
+#        code += sprintf('%.2f %.2f m %.2f %.2f l 400 400 l S', x1,y1,x2,y2)+"\n"
       end
     end
 
     return code
+  end
+
+  def self.string_to_color(value)
+    value = "#"+value[1..1]*2+value[2..2]*2+value[3..3]*2 if value=~/^\#[a-f0-9]{3}$/i
+    if value=~/^\#[a-f0-9]{6}$/i
+      [value[1..2].to_i(16), value[3..4].to_i(16), value[5..6].to_i(16)]
+    elsif value=~/rgb\(\d+\,\d+\,\d+\)/i
+      array = value.split /(\(|\,|\))/
+      [array[2].strip, array[4].strip, array[6].strip].collect{|x| x[/\d*\.\d*/].to_f }
+    elsif value=~/rgb\(\d+\%\,\d+\%\,\d+\%\)/i
+      array = value.split /(\(|\,|\))/
+      [array[2].strip, array[4].strip, array[6].strip].collect{|x| x[/\d*\.\d*/].to_f*2.55 }
+    else
+      #raise Exception.new value.to_s
+      [255, 0, 255]
+    end
   end
 
 
@@ -510,6 +536,17 @@ class Spdf
     f.read(1).unpack('C')[0]
   end
 
+  def is_a_point?(p)
+    return false unless p.is_a? Array
+    return false if p.size != 2
+    begin
+      p[0], p[1] = p[0].to_f, p[1].to_f
+    rescue
+      return false
+    end
+    return true
+  end
+
 end
 
 
@@ -522,7 +559,7 @@ pdf.image('sample3.jpg', 300, 20, :width=>275)
 pdf.image('sample3.jpg', 300, 300, :height=>100)
 pdf.image('sample.jpg', 420, 300, :height=>100)
 pdf.image('sample4.png', 300, 600, :width=>275)
-pdf.line(300,20, 420, 300, :border=>{:width=>10, :style=>:dashed})
+pdf.line([[300,20], [420, 300], [400, 400], [350, 350]], :border=>{:width=>10, :style=>:dashed, :color=>'#12C'})
 pdf.box(:text=>'Hello World!', :x=>20, :y=>20)
 fs = ['Courier', 'Times', 'Helvetica']
 h = 20
