@@ -6,6 +6,11 @@
   - if stock_locations.size>0
     - f.field :stock_location, :parent_id, :choices=>stock_locations.collect{|x| [x.name, x.id]}, :options=>{:include_blank=>true}
   - f.field :stock_location, :comment, :field=>:textarea
+  -if @mode == :reservoir
+    - f.title :reservoir_informations
+    - f.field :stock_location, :product_id, :choices=>@current_company.available_products.collect{|x| [x.name, x.id]}, :new=>{:action=>:products_create}
+    - f.field :stock_location, :quantity_max  
+    - f.field :stock_location, :number
   - f.title :localization
   - f.field :stock_location, :establishment_id, :choices=>@current_company.establishments.find(:all, :order=>:name).collect{|x| [x.name, x.id]}
   - f.field :stock_location, :x

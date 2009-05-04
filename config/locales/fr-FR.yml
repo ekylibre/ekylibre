@@ -545,7 +545,10 @@ fr-FR:
         contact_id: Adresse
         establishment_id: Établissement
         name: Nom
+        number: Numéro
         parent_id: Lieu de stockage maître
+        product_id: Produit contenu
+        quantity_max: Quantité maximum
         x: Position X
         y: Position Y
         z: Position Z
@@ -558,13 +561,17 @@ fr-FR:
         product_id: Produit
         comment: Commentaire
         location_id: Lieu de stockage
+        virtual: Virtuel
       stock_transfer:
         comment: Commentaire
         location_id: Sortie du lieu de stockage
+        moved_on: Fait le
         nature: Type
         planned_on: Prévu le
         product_id: Produit
+        quantity: Quantité
         second_location_id: Entrée du lieu de stockage
+        text_nature: Type
       user:
         email: 'E-mail'
         first_name: 'Prénom'

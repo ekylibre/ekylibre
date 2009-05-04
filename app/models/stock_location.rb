@@ -33,5 +33,20 @@ class StockLocation < ActiveRecord::Base
   has_many :stock_moves
   has_many :stock_transfers
 
+  attr_readonly :company_id
+
   acts_as_tree
+
+
+  def before_validation_on_create
+    self.reservoir = true if !self.product_id.nil?
+  end
+
+  def before_validation
+    product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.id}) 
+    if !product_stock.nil?
+      self.product_id = nil if product_stock.current_real_quantity == 0
+    end
+  end
+
 end

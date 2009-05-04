@@ -60,7 +60,11 @@ class ManagementController < ApplicationController
       redirect_to :back if @delay.destroy
     end
   end
-    
+  
+  def inventory
+  end
+  
+  
   dyta(:prices, :conditions=>:prices_conditions) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:products_display}
     t.column :full_name, :through=>:entity
@@ -953,6 +957,7 @@ class ManagementController < ApplicationController
       @update = false
       @payments = @sale_order.payments 
       if request.post?
+        #raise Exception.new params.inspect
         if params[:price][:mode] == "new"
           @payment = Payment.new(params[:payment])
           @payment.company_id = @current_company.id
@@ -1078,9 +1083,10 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:establishment
     t.column :name, :through=>:parent
     t.action :stocks_locations_display, :image=>:show
+    #t.action :stocks_locations_update, :mode=>:reservoir, :image=>:update, :if=>'RECORD.reservoir == true'
     t.action :stocks_locations_update, :image=>:update
     t.action :stocks_locations_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :stocks_locations_create
+    #t.procedure :stocks_locations_create
   end
 
   dyta(:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :location_id=>['session[:current_stock_location_id]']}) do |t|
@@ -1091,7 +1097,6 @@ class ManagementController < ApplicationController
     t.column :label, :through=>:unit
     t.column :name, :through=>:product
     t.column :virtual
-    # t.column :comment
     t.action :stocks_moves_update, :image=>:update
     t.action :stocks_moves_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :stocks_moves_create
@@ -1110,12 +1115,14 @@ class ManagementController < ApplicationController
   def stocks_locations_display
     @stock_location = find_and_check(:stock_location, params[:id])
     session[:current_stock_location_id] = @stock_location.id
-    stock_moves_list params
+    stock_moves_list 
     @title = {:value=>@stock_location.name}
   end
 
   def stocks_locations_create
+    @mode = (params[:mode]||"original").to_sym
     if request.post? 
+      #raise Exception.new params.inspect
       @stock_location = StockLocation.new(params[:stock_location])
       @stock_location.company_id = @current_company.id
       if @stock_location.save
@@ -1133,6 +1140,7 @@ class ManagementController < ApplicationController
 
   def stocks_locations_update
     @stock_location = find_and_check(:stock_location, params[:id])
+    @mode = :reservoir if @stock_location.reservoir
     if request.post?
       if @stock_location.update_attributes(params[:stock_location])
         redirect_to :action=>:stocks_locations_display, :id=>@stock_location.id
@@ -1153,6 +1161,8 @@ class ManagementController < ApplicationController
     if request.post? 
       @stock_move = StockMove.new(params[:stock_move])
       @stock_move.company_id = @current_company.id
+      @stock_move.virtual = true
+      @stock_move.input = true
       if @stock_move.save
         @stock_move.change_quantity
         redirect_to :action =>:stocks_locations_display, :id=>@stock_move.location_id 
@@ -1252,10 +1262,12 @@ class ManagementController < ApplicationController
   end
 
   dyta(:stock_transfers, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :nature
+    t.column :text_nature
     t.column :name, :through=>:product
+    t.column :quantity
     t.column :name, :through=>:location
     t.column :name, :through=>:second_location
+    t.column :planned_on
     t.column :moved_on
     t.action :stock_transfers_update, :image=>:update
     t.action :stock_transfers_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
@@ -1266,8 +1278,10 @@ class ManagementController < ApplicationController
   end
 
   def stock_transfers_create
-    @stock_transfer = StockTransfer.new(:nature=>"transfer")
+    @stock_transfer = StockTransfer.new(:nature=>"transfer", :planned_on=>Date.today)
     if request.post?
+      #raise Exception.new params.inspect
+      @stock_transfer = StockTransfer.new(params[:stock_transfer])
       @stock_transfer.company_id = @current_company.id
       redirect_to_back if @stock_transfer.save
     end
@@ -1275,14 +1289,19 @@ class ManagementController < ApplicationController
   end
 
   def stock_transfers_update
-    @stock_transfer = StockTransfer(params[:id])
+    @stock_transfer = find_and_check(:stock_transfer, params[:id])
     if request.post?
+      #raise Exception.new params.inspect
       redirect_to_back if @stock_transfer.update_attributes!(params[:stock_transfer])
     end
     render_form
   end
   
   def stock_transfers_delete
+    @stock_transfer = find_and_check(:stock_transfer, params[:id])
+    if request.post? or request.delete?
+      redirect_to_back if @stock_transfer.destroy
+    end
   end
   
   

@@ -80,6 +80,7 @@ fr-FR:
           other: '{{count}} achats en attente de reception'
         delays: Délais
         indicator: Tableau de bord
+        inventory: 'Faire l''inventaire'
         invoicing_parameters: Facturation
         low_stocks: 'Stocks sous le seuil critique'
         parameters: Paramètres
@@ -313,6 +314,8 @@ fr-FR:
         title: Transferts et pertes de stocks
       stock_transfers_create:
         title: Ajouter un transfert ou une perte de stocks
+      stock_transfers_update:
+        title: 'Modification d''un transfert de stock'
       stocks:
         critic_stock_min: Stock minimum critique
         current_real_quantity: Quantité réelle
@@ -325,6 +328,8 @@ fr-FR:
         unit: Unité
         weight: Poids
       stocks_locations:
+        reservoirs_create: Ajouter un réservoir (cuve, ...)
+        stocks_locations_create: 'Ajouter un nouveau lieu de stockage   '
         title: Gérer les stocks
       stocks_locations_create:
         title: 'Ajout d''un lieu de stockage'
@@ -338,6 +343,7 @@ fr-FR:
         description: Description générale
         localization: Localisation géographique
         accountancy: Comptabilité
+        reservoir_informations: Informations sur la cuve
       stocks_locations_update:
         title: 'Modification d''un lieu de stockage'
       stocks_moves_create:

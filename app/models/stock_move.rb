@@ -112,6 +112,8 @@ class StockMove < ActiveRecord::Base
   
   ### For stocks_moves created by user
   def change_quantity
+    #self.virtual = true if self.virtual.nil?
+    #self.input = true if self.input.nil?
     product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
     if product_stock.nil?
       ProductStock.create!(:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.location_id)
