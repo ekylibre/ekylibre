@@ -61,7 +61,22 @@ class ManagementController < ApplicationController
     end
   end
   
-  def inventory
+  def inventories
+    
+  end
+  
+  def inventory_consult
+    #   srr = @current_company.product_stocks.find_all_by_location_id(1)
+    #     for sl in  @current_company.stock_locations
+    #       for s in sl.product_stocks
+    #         raise Exception.new s.inspect
+    #       end
+    #  end
+    if request.post?
+      #raise Exception.new params[:product_stock].inspect
+      inventory = Inventory.create!(:company_id=>@current_company.id, :date=>Date.today)
+      params[:product_stock].collect{|x| ProductStock.find_by_id_and_company_id(x[0], @current_company.id).reflect_changes(x[1], inventory.id) }
+    end
   end
   
   

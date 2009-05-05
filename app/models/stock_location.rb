@@ -26,7 +26,8 @@ class StockLocation < ActiveRecord::Base
   belongs_to :company
   belongs_to :contact
   belongs_to :establishment
-  has_many :product_stocks
+  belongs_to :product
+  has_many :product_stocks, :foreign_key=>:location_id
   has_many :purchase_order_lines
   has_many :sale_order_lines
   has_many :stock_locations
@@ -43,10 +44,24 @@ class StockLocation < ActiveRecord::Base
   end
 
   def before_validation
-    product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.id}) 
-    if !product_stock.nil?
-      self.product_id = nil if product_stock.current_real_quantity == 0
+   #  if self.reservoir
+#       product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.id}) 
+#       if !product_stock.nil?
+#         self.product_id = nil if product_stock.current_real_quantity == 0
+#       end
+   # end
+  end
+  
+  def can_receive(product_id)
+    #raise Exception.new product_id.inspect+self.reservoir.inspect
+    reception = true
+    if self.reservoir
+      product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.id}) 
+      if !product_stock.nil?
+        reception = (self.product_id == product_id || product_stock.current_real_quantity <= 0)
+      end
     end
+    reception
   end
 
 end

@@ -53,4 +53,25 @@ class ProductStock < ActiveRecord::Base
     end
   end
 
+#   def reflect_changes(quantity)
+#     old_current_real_quantity = self.current_real_quantity 
+#     if quantity.to_i != old_current_real_quantity
+#       input = old_current_real_quantity < quantity.to_i ? false : true
+#       #raise Exception.new input.inspect
+#       if input 
+#         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(quantity.to_i - old_current_real_quantity), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true, :input=>input, :origin_type=>InventoryLine.to_s)
+#         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(quantity.to_i - old_current_real_quantity), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false, :input=>input, :origin_type=>InventoryLine.to_s)
+#       else
+#         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(old_current_real_quantity - quantity.to_i), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true, :input=>input, :origin_type=>InventoryLine.to_s)
+#         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(old_current_real_quantity - quantity.to_i), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false, :input=>input, :origin_type=>InventoryLine.to_s)
+#       end
+#     end
+#   end
+
+  def reflect_changes(quantity, inventory_id)
+    rslt = (self.current_real_quantity.to_f == quantity.to_f)
+    puts self.current_real_quantity.to_f.inspect+quantity.to_f.inspect+rslt.inspect
+    InventoryLine.create!(:product_id=>self.product_id, :location_id=>self.location_id, :inventory_id=>inventory_id, :theoric_quantity=>self.current_real_quantity, :validated_quantity=>quantity, :company_id=>self.company_id)
+  end
+  
 end

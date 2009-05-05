@@ -60,7 +60,7 @@ module ApplicationHelper
            [ {:name=>:stocks_locations},
              {:name=>:stocks_consult, :url=>{:action=>:stocks}},
              {:name=>:stock_transfers},
-             {:name=>:inventory}] },
+             {:name=>:inventories}] },
          {:name=>:parameters, :list=>
            [ {:name=>:products},
  #            {:name=>:invoicing_parameters},

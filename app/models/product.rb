@@ -50,6 +50,7 @@ class Product < ActiveRecord::Base
   has_many :stocks, :class_name=>ProductStock.to_s
   has_many :purchase_order_lines
   has_many :sale_order_lines
+  has_many :locations, :class_name=>StockLocation.to_s
   has_many :stock_moves
   has_many :stock_transfers
 

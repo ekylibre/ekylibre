@@ -173,6 +173,7 @@ fr-FR:
       shelf: Catégorie de produit
       stock_location: Lieu de stockage
       stock_move: Mouvement de stock
+      stock_transfer: Transfert ou perte de Stock
       user: Utilisateur
 
     attributes:
@@ -1111,6 +1112,8 @@ fr-FR:
         validated: validée
         building: en construction
         complete: terminée
+    inventory_line:
+      inventory: 'Inventaire '
     journal:
       error_limited_period: '.'
       error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
@@ -1159,6 +1162,7 @@ fr-FR:
     product_component:
       of_product: 'du produit'
     production: 
+      stock_location_can_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
       production: Production
     purchase_order: 
       purchase: Achat
@@ -1177,6 +1181,8 @@ fr-FR:
     sale_order_line:
       error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
     stock_transfer:
+      stock_location_can_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
+      stock_location_can_transfer_product: 'Vous ne pouvez pas tranférer le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
       natures:
           transfer: Transfert 
           waste: Perte

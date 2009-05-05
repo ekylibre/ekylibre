@@ -80,7 +80,7 @@ fr-FR:
           other: '{{count}} achats en attente de reception'
         delays: Délais
         indicator: Tableau de bord
-        inventory: 'Faire l''inventaire'
+        inventories: 'Faire l''inventaire'
         invoicing_parameters: Facturation
         low_stocks: 'Stocks sous le seuil critique'
         parameters: Paramètres
@@ -102,6 +102,17 @@ fr-FR:
         stock_transfers: 'Transferts et pertes'
         title: 'Gestion commerciale'
         units: 'Unités de mesure'
+      inventories:
+        inventory_print: 'Imprimer l''inventaire'
+        inventory_consult: 'Consulter l''inventaire'
+        title: Inventaire
+      inventory_consult:
+        product: Produit
+        theoric_quantity: Quantité théorique
+        title: 'Inventaire'
+        unit: Unité
+        validate_and_reflect_changes: Valider et répercuter les différences
+        validated_quantity: Quantité constatée
       _location_choice:
         select_stock_location: 'Choississez un lieu de stockage' 
       payments_create: 
