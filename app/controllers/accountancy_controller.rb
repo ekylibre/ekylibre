@@ -41,8 +41,8 @@ class AccountancyController < ApplicationController
   
   dyta(:entries, :conditions=>:entries_conditions, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN journal_periods p ON p.id=r.period_id") do |t|
     t.column :number, :label=>"Numéro", :through=>:record
-    t.column :created_on, :label=>"Crée le", :through=>:record
-    t.column :printed_on, :label=>"Saisie le", :through=>:record
+    t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
+    t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
     t.column :name
     t.column :number, :label=>"Compte" , :through=>:account
     t.column :debit
@@ -416,7 +416,7 @@ class AccountancyController < ApplicationController
         if @entry.close?
           flash[:message]=tc(:messages, :need_unclosed_entry_to_delete)
         else
-          Entry.delete(@entry)
+          Entry.destroy(@entry)
         end
         @entry = Entry.new 
       else
@@ -450,7 +450,7 @@ class AccountancyController < ApplicationController
       
       @record = JournalRecord.new(params[:record]) if @record.nil?
       #raise Exception.new('ouif: '+@record.errors.inspect)
-      if @record.new_record? and not @record.errors
+      if @record.new_record? # and not @record.errors
         @record.number = @records.size>0 ? @records.first.number.succ : 1
         @record.created_on ||= @record.printed_on ||= Date.today
         #raise Exception.new('ouif2: '+@record.errors.inspect)

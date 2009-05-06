@@ -50,7 +50,7 @@ module Ekylibre
 #        end
 
         # displaying of the PDF document.
-        code += "send_data #{environment[:pdf]}.Output(), :filename=>'file.pdf', :disposition=>:inline\n"
+        code += "send_data #{environment[:pdf]}.generate, :filename=>'file.pdf', :disposition=>:inline\n"
 
         code
       end
@@ -86,7 +86,7 @@ module Ekylibre
       def pdf_block(element, environment={})
         code  = ''
         # Header
-
+        
         # Body
         code += browse(element, environment)
 
@@ -103,7 +103,7 @@ module Ekylibre
       
       def pdf_text(element, environment={})
         code  = ''
-        code += browse(element, environment)
+        code += "#{environment[:pdf]}.text(#{element.text.inspect})\n"
         code
       end
       

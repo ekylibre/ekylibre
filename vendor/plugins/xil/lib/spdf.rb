@@ -57,6 +57,7 @@ class Spdf
   end
 
   def image(file, x, y, params={}, page=nil)
+    self.new_page if @page<0
     if @images[file].nil?
       error("File does not exists (#{file.inspect})") unless File.exists? file
       @images[file] = image_info(file)
@@ -68,6 +69,7 @@ class Spdf
   end
 
   def line(points, params={}, page=nil)
+    self.new_page if @page<0
     error("Unvalid list of point") unless points.is_a? Array
     points.each{|p| error("Unvalid point: #{p.inspect}") unless is_a_point? p}
     params[:points] = points
@@ -75,6 +77,7 @@ class Spdf
   end
 
   def box(params={}, page=nil)
+    self.new_page if @page<0
     params[:font] ||= {}
     params[:font][:family] ||= 'Times'
     params[:font][:bold] ||= false
@@ -93,8 +96,13 @@ class Spdf
   def generate(options={})
     yield self if block_given?
     @compress = false
-    open('/tmp/test.pdf','wb') do |f|
-      f.write(build)
+    pdf_data = build
+    if options[:file]
+      open('/tmp/test.pdf','wb') do |f|
+        f.write(pdf_data)
+      end
+    else
+      return pdf_data
     end
   end
 
@@ -549,31 +557,32 @@ end
 
 
 
-
-pdf = Spdf.new
-pdf.title = 'Enfin un moteur PDF lisible'
-pdf.new_page([595.28, 841.89])
-pdf.image('sample3.jpg', 300, 20, :width=>275)
-pdf.image('sample3.jpg', 300, 300, :height=>100)
-pdf.image('sample.jpg', 420, 300, :height=>100)
-pdf.image('sample4.png', 300, 600, :width=>275)
-pdf.line([[300,20], [420, 300], [400, 400], [350, 350]], :border=>{:width=>10, :style=>:dashed, :color=>'#12C', :join=>:miter})
-pdf.line([[30,20], [42, 300], [40, 400], [35, 350]], :border=>{:width=>1, :style=>:dashed, :color=>'#c12', :cap=>:butt})
-pdf.box(:text=>'Hello World!', :x=>20, :y=>20)
-fs = ['Courier', 'Times', 'Helvetica']
-h = 20
-for j in [50,20*(fs.size+1)*4+50]
-  fs.size.times do |i|
-    pdf.text('Hello World! Test pour Spdf', 50, i*4*h+j+0*h, :font=>{:family=>fs[i], :size=>12})
-    pdf.text('Hello World! Test pour Spdf', 50, i*4*h+j+1*h, :font=>{:family=>fs[i], :size=>14, :bold=>true})
-    pdf.text('Hello World! Test pour Spdf', 50, i*4*h+j+2*h, :font=>{:family=>fs[i], :size=>16, :italic=>true})
-    pdf.text('Hello World! Test pour Spdf', 50, i*4*h+j+3*h, :font=>{:family=>fs[i], :size=>18, :bold=>true, :italic=>true})
+if __FILE__==$0
+  pdf = Spdf.new
+  pdf.title = 'Enfin un moteur PDF lisible'
+  pdf.new_page([595.28, 841.89])
+  pdf.image('sample3.jpg', 300, 20, :width=>275)
+  pdf.image('sample3.jpg', 300, 300, :height=>100)
+  pdf.image('sample.jpg', 420, 300, :height=>100)
+  pdf.image('sample4.png', 300, 600, :width=>275)
+  pdf.line([[300,20], [420, 300], [400, 400], [350, 350]], :border=>{:width=>10, :style=>:dashed, :color=>'#12C', :join=>:miter})
+  pdf.line([[30,20], [42, 300], [40, 400], [35, 350]], :border=>{:width=>1, :style=>:dashed, :color=>'#c12', :cap=>:butt})
+  pdf.box(:text=>'Hello World!', :x=>20, :y=>20)
+  fs = ['Courier', 'Times', 'Helvetica']
+  h = 20
+  for j in [50,20*(fs.size+1)*4+50]
+    fs.size.times do |i|
+      pdf.text('Hello World! Test pour Spdf', 50, i*4*h+j+0*h, :font=>{:family=>fs[i], :size=>12})
+      pdf.text('Hello World! Test pour Spdf', 50, i*4*h+j+1*h, :font=>{:family=>fs[i], :size=>14, :bold=>true})
+      pdf.text('Hello World! Test pour Spdf', 50, i*4*h+j+2*h, :font=>{:family=>fs[i], :size=>16, :italic=>true})
+      pdf.text('Hello World! Test pour Spdf', 50, i*4*h+j+3*h, :font=>{:family=>fs[i], :size=>18, :bold=>true, :italic=>true})
+    end
   end
+  pdf.text('Hello World! Deuxième', 100, 630, :font=>{:family=>'Courier', :bold=>true, :size=>16})
+  pdf.text('Hello World! Test pour Spdf', 100, 660, :font=>{:family=>'Symbol', :size=>16})
+  pdf.new_page([1200.0,300.0], 90)
+  pdf.image('sample2.jpg', 600, 20, :height=>260)
+  pdf.text('Hello World! Encore une mission reussie pour Spdf', 200, 200, :font=>{:family=>'Courier', :size=>16})
+  pdf.image('sample2.jpg', 300, 20)
+  pdf.generate
 end
-pdf.text('Hello World! Deuxième', 100, 630, :font=>{:family=>'Courier', :bold=>true, :size=>16})
-pdf.text('Hello World! Test pour Spdf', 100, 660, :font=>{:family=>'Symbol', :size=>16})
-pdf.new_page([1200.0,300.0], 90)
-pdf.image('sample2.jpg', 600, 20, :height=>260)
-pdf.text('Hello World! Encore une mission reussie pour Spdf', 200, 200, :font=>{:family=>'Courier', :size=>16})
-pdf.image('sample2.jpg', 300, 20)
-pdf.generate

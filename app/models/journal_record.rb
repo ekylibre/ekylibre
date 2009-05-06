@@ -28,7 +28,7 @@ class JournalRecord < ActiveRecord::Base
   belongs_to :journal
   belongs_to :period, :class_name=>"JournalPeriod"
   belongs_to :resource 
-  has_many :entries, :class_name=>"Entry", :foreign_key=>:record_id
+  has_many :entries, :foreign_key=>:record_id, :dependent=>:destroy # , :class_name=>"Entry"
   acts_as_list :scope=>:period
 
   #
@@ -48,7 +48,7 @@ class JournalRecord < ActiveRecord::Base
   
   # this method computes the debit and the credit of the record.
   def refresh
-    self.save    
+    self.save
   end
   
   #determines if the record is balanced or not.

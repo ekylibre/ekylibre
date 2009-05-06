@@ -39,11 +39,11 @@ class Entry < ActiveRecord::Base
 
   acts_as_list :scope=>:record
 
-  attr_readonly :company_id, :record_id
+  after_destroy  :update_record
+  after_create   :update_record
+  after_update   :update_record
 
-  after_destroy :update_record
-  after_create  :update_record
-  after_update  :update_record
+  attr_readonly :company_id, :record_id
   
 
   #
@@ -76,8 +76,10 @@ class Entry < ActiveRecord::Base
   # updates the amounts to the debit and the credit 
   # for the matching record.
   def update_record
+    # raise Exception.new(self.record)
     self.record.refresh
   end
+
   
   # this method allows to lock the entry. 
   def close

@@ -16,8 +16,9 @@ module Ekylibre
 
       require 'rexml/document'
       require 'digest/md5'
-      require 'fpdf'
+      # require 'fpdf'
       # require 'pdf/writer'
+      require 'spdf'
 
       include REXML
 

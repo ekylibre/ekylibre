@@ -85,7 +85,7 @@ module Ekylibre
             code += "  0\n"
             code += "end\n"
 
-            puts code
+            # puts code
             module_eval(code)
 
             builder  = ''
@@ -133,7 +133,7 @@ module Ekylibre
             paginate_var = 'pages'
             paginate = case options[:pagination]
                        when :will_paginate then 
-                         '  '+paginate_var+"=will_paginate(@"+name.to_s+", :renderer=>'RemoteLinkRenderer', :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{:sort=>params['sort'], :dir=>params['dir']} )\n  "+
+                         '  '+paginate_var+"=will_paginate(@"+name.to_s+", :renderer=>'RemoteLinkRenderer', :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{:sort=>params['sort'], :dir=>params['dir'], :action=>:#{list_method_name}})\n  "+
                            paginate_var+"='"+content_tag(:tr, content_tag(:td, "'+"+paginate_var+"+'", :class=>:paginate, :colspan=>definition.columns.size))+"' unless "+paginate_var+".nil?\n"
                        else
                          ''
@@ -193,7 +193,7 @@ module Ekylibre
             code += "  return text\n"
             code += "end\n"
 
-            puts code
+            # puts code
             
             ActionView::Base.send :class_eval, code
 
