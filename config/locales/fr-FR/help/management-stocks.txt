@@ -2,7 +2,7 @@ h1. Comment consulter l'état des stocks?
 
 Sélectionnez tout d'abord un lieu de stockage si vous en possédez plusieurs. 
 
-Ensuite vous avez accès à un détail de tous vos produits, ainsi que de l'état actuel des stocks, réel et virtuel.
+Ensuite vous avez accès à un détail de tous vos produits, ainsi que de l'état actuel des stocks, réels et virtuels.
 * Le *stock réel* représente la quantité de produit dont vous diposez, sans prendre en compte les eventuelles livraisons en attente d'expédition ou les commandes en attente de réception.
 * À l'inverse, le *stock virtuel* représente le stock de produit en prenant en compte les commandes et devis effectués.
 

@@ -1,0 +1,32 @@
+-if @shape_operations.size > 0
+  - form_tag do
+    %table.dyta
+      %tr
+        %th= tc 'name'
+        %th= tc 'nature'
+        %th= tc 'employee_name'
+        %th= tc 'shape_name'
+        %th= tc 'planned_on'
+        %th= tc 'executed'
+      -for shape_operation in @shape_operations
+      -klass=cycle("odd","even")
+        %tr{:class=>klass}
+          %td= shape_operation.name
+          %td= shape_operation.nature.name
+          %td= shape_operation.employee.full_name
+          %td= shape_operation.shape.name
+          %td= shape_operation.planned_on
+          %td{:style=>'text-align:center'}
+            - if shape_operation.planned_on <= Date.today
+              =check_box_tag "shape_operation[#{shape_operation.id}]","#{shape_operation.id}",true,:id=>"shape_operation_#{shape_operation.id}"
+            - else
+              =check_box_tag "shape_operation[#{shape_operation.id}]","#{shape_operation.id}",false,:id=>"shape_operation_#{shape_operation.id}"
+
+    .actions
+      =link_to tg(:previous), :action=>:index
+      =submit_tag(tc('validate'), :action=>:unvalidated_operations)
+
+-else
+  %p{:style=>'text-align:center'}= tc('no_operations')
+  .actions
+    =link_to tc(:index), :action=>:index

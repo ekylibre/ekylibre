@@ -118,6 +118,7 @@ class ProductionController < ApplicationController
     t.column :name, :through=>:nature
     t.column :full_name, :through=>:employee
     t.column :planned_on
+    t.column :moved_on
     t.column :name, :through=>:shape
     t.action :shape_operations_update, :image=>:update
     t.action :shape_operations_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
@@ -188,6 +189,15 @@ class ProductionController < ApplicationController
 
   def unvalidated_operations
     @shape_operations = @current_company.shape_operations.find(:all, :conditions=>{:moved_on=>nil})
+    if request.post?
+      shape_operations = params[:shape_operation].collect{|x| ShapeOperation.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:shape_operation].nil?
+      if !shape_operations.nil?
+        for shape_operation in shape_operations
+          shape_operation.update_attributes!(:moved_on=>Date.today)
+        end
+      end
+      redirect_to :action=>:unvalidated_operations
+    end
   end
 
 

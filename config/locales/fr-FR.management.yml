@@ -78,6 +78,10 @@ fr-FR:
           zero: 'Aucun achat en attente de reception'
           one: '1 achat en attente de reception'
           other: '{{count}} achats en attente de reception'
+        nb_transfers:
+          zero: 'Aucun transfert à effectuer'
+          one: '1 transfert à effectuer'
+          other: '{{count}} transferts à effectuer'
         delays: Délais
         indicator: Tableau de bord
         inventories: 'Faire l''inventaire'
@@ -108,6 +112,7 @@ fr-FR:
         title: Inventaire
       inventory_consult:
         product: Produit
+        reservoir: Réservoir
         theoric_quantity: Quantité théorique
         title: 'Inventaire'
         unit: Unité
@@ -378,6 +383,18 @@ fr-FR:
         to: ' à l''adresse '
         to_deliver: Livrer
         title: Livraisons en attente
+      unexecuted_transfers: 
+        executed: Réalisé 
+        index: 'Retour à l''index de la gestion_commerciale'
+        location_name: Sortie de
+        nature: Type
+        no_transfers: Aucun transfert à réaliser
+        planned_on: Prévu le
+        product_name: Produit 
+        quantity: Quantité
+        second_location_name: Entrée de 
+        title: Transferts à réaliser
+        transfer: Effectuer les transferts
       unreceived_purchases:
         amount: Montant HT
         amount_with_taxes: Montant TTC

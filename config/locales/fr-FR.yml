@@ -526,6 +526,7 @@ fr-FR:
       shape_operation: 
         description: Description    
         employee_id: Employé
+        moved_on: Fait le
         name: Nom
         nature_id: Type 
         planned_on: Prévu le
@@ -800,9 +801,9 @@ fr-FR:
       index:
         indicator: Tableau de bord
         nb_operations: 
-          zero: Aucun traitement en attente
-          one: 1 traitement en attente
-          other: '{{count}} traitements en attente'
+          zero: Aucun traitement à réaliser
+          one: 1 traitement à réaliser
+          other: '{{count}} traitements à réaliser'
         production: Productions
         productions: Productions
         shape_operation_natures: Types de traitement
@@ -852,6 +853,17 @@ fr-FR:
         title: 'Îlots'
       shapes_create: 
         title: Ajouter un nouvel îlot
+      unvalidated_operations:
+        employee_name: Employé
+        executed: Éffectué
+        index: 'Retour à l''index de la production'
+        name: Nom
+        nature: Type
+        no_operations: Aucun traitement à réaliser
+        planned_on: Prévu le
+        shape_name: Îlot
+        title: Traitements à réaliser
+        validate: Valider
 
     # Relations
     relations:
@@ -1181,8 +1193,8 @@ fr-FR:
     sale_order_line:
       error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
     stock_transfer:
-      stock_location_can_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
-      stock_location_can_transfer_product: 'Vous ne pouvez pas tranférer le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
+      stock_location_can_not_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
+      stock_location_can_not_transfer_product: 'Vous ne pouvez pas tranférer le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
       natures:
           transfer: Transfert 
           waste: Perte

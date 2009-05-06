@@ -80,6 +80,7 @@ class StockMove < ActiveRecord::Base
         old_product_stock.update_attributes(:current_real_quantity=>old_product_stock.current_real_quantity + old_move.quantity) 
       end
     else
+      #raise Exception.new self.quantity.to_s+"  "+old_move.inspect+"  "+old_move.quantity.to_s+"                 "+product_stock.inspect
       if self.input and self.virtual
         product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity + (self.quantity - old_move.quantity))
       elsif self.input and !self.virtual

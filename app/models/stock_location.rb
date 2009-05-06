@@ -55,10 +55,13 @@ class StockLocation < ActiveRecord::Base
   def can_receive(product_id)
     #raise Exception.new product_id.inspect+self.reservoir.inspect
     reception = true
-    if self.reservoir
+    if self.reservoir 
       product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.id}) 
       if !product_stock.nil?
         reception = (self.product_id == product_id || product_stock.current_real_quantity <= 0)
+        self.update_attributes!(:product_id=>product_id) if product_stock.current_real_quantity <= 0
+      else
+        self.update_attributes!(:product_id=>product_id)
       end
     end
     reception

@@ -11,6 +11,7 @@ class ManagementController < ApplicationController
     for product_stock in all_product_stocks
       @product_stocks << product_stock if product_stock.state == "critic"
     end
+    @stock_transfers = @current_company.stock_transfers.find(:all, :conditions=>{:moved_on=>nil}) 
   end
 
   dyta(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -1100,7 +1101,7 @@ class ManagementController < ApplicationController
     t.action :stocks_locations_display, :image=>:show
     #t.action :stocks_locations_update, :mode=>:reservoir, :image=>:update, :if=>'RECORD.reservoir == true'
     t.action :stocks_locations_update, :image=>:update
-    t.action :stocks_locations_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    #t.action :stocks_locations_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     #t.procedure :stocks_locations_create
   end
 
@@ -1230,6 +1231,20 @@ class ManagementController < ApplicationController
     end
   end
 
+
+  def unexecuted_transfers
+    @stock_transfers = @current_company.stock_transfers.find(:all, :conditions=>{:moved_on=>nil}, :order=>"planned_on ASC")
+    if request.post?
+      #raise Exception.new params.inspect
+      stock_transfers = params[:stock_transfer].collect{|x| StockTransfer.find_by_id_and_company_id(x[0], @current_company.id)} if !params[:stock_transfer].nil?
+      if !stock_transfers.nil?
+        for stock_transfer in stock_transfers
+          stock_transfer.execute_transfer
+        end
+      end
+      redirect_to_back
+    end
+  end
 
   def unreceived_purchases
     @purchase_orders = PurchaseOrder.find(:all, :conditions=>{:company_id=>@current_company.id, :moved_on=>nil}, :order=>"planned_on ASC")
