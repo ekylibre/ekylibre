@@ -69,7 +69,6 @@ class AccountancyController < ApplicationController
 
   # lists all the bank_accounts with the mainly characteristics. 
   def bank_accounts
-    bank_accounts_list params
   end
 
   # this method creates a bank_account with a form.
@@ -242,7 +241,7 @@ class AccountancyController < ApplicationController
 
   # lists all the bank_accounts with the mainly characteristics. 
   def financialyears
-    financialyears_list params
+    #financialyears_list params
   end
   
   # this action creates a financialyear with a form.
@@ -331,28 +330,7 @@ class AccountancyController < ApplicationController
     end
     render :text => options_for_select(@financialyear_periods)
   end
-
-
-  #
-  def entries_conditions(options)
-    conditions = ["entries.company_id=?", @current_company.id]
-    unless session[:journal_period][:journal_id].blank?
-      journal = @current_company.journals.find(:first, :conditions=>{:id=>session[:journal_period][:journal_id]})
-      if journal
-        conditions[0] += " AND p.journal_id=?"
-        conditions << journal.id
-      end
-    end
-    unless session[:journal_period][:financialyear_id].blank?
-      financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:journal_period][:financialyear_id]||0})
-      if financialyear
-        conditions[0] += " AND p.financialyear_id=?"
-        conditions << financialyear.id
-      end
-    end
-    conditions
-  end
-
+ 
 
   # this action displays all entries stored in the journal. 
   def entries_consult
@@ -364,7 +342,7 @@ class AccountancyController < ApplicationController
     if request.post?
       session[:journal_period] = params[:journal_period]
     end
-    entries_list
+  #  entries_list
   end
   
 
@@ -502,12 +480,11 @@ class AccountancyController < ApplicationController
 
   # this method deletes an entry with a form.
   def entries_delete
-    
   end
 
   # lists all the transactions established on the accounts, sorted by date.
   def journals
-    journals_list params
+    #journals_list params
   end
 
 

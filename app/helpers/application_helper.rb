@@ -145,6 +145,26 @@ module ApplicationHelper
     end
   end
 
+
+  def entries_conditions(options)
+    conditions = ["entries.company_id=?", @current_company.id]
+    unless session[:journal_period][:journal_id].blank?
+      journal = @current_company.journals.find(:first, :conditions=>{:id=>session[:journal_period][:journal_id]})
+      if journal
+        conditions[0] += " AND p.journal_id=?"
+        conditions << journal.id
+      end
+    end
+    unless session[:journal_period][:financialyear_id].blank?
+      financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:journal_period][:financialyear_id]||0})
+      if financialyear
+        conditions[0] += " AND p.financialyear_id=?"
+        conditions << financialyear.id
+      end
+    end
+    conditions
+  end
+ 
   def evalue(object, attribute, options={})
     value_class = 'value'
     if object.is_a? String
