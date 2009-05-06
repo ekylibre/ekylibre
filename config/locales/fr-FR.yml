@@ -823,7 +823,7 @@ fr-FR:
         unit: Unité
       productions: 
         productions: Productions
-        productions_create: Créer un nouvelle production
+        productions_create: Enregistrer un nouvelle production
         title: Productions
       productions_create: 
         title: Créer une nouvelle production
