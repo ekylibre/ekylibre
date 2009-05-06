@@ -115,7 +115,7 @@ class AccountancyController < ApplicationController
 
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
-    accounts_list 'sort'=>"number", 'dir'=>'asc'
+   # accounts_list 'sort'=>"number", 'dir'=>'asc'
   end
   
   
@@ -385,12 +385,11 @@ class AccountancyController < ApplicationController
     if @valid
       @record = JournalRecord.new
       if request.post?
-        # session[:entries][:account_number] = params[:account][:search].split(',')[0]
+       
         @period = @journal.periods.find(:first, :conditions=>['company_id = ? AND financialyear_id = ? AND CAST(? AS DATE) BETWEEN started_on AND stopped_on', @current_company.id, @financialyear.id, params[:record][:created_on] ])
         if @period.nil?
           @period = @journal.periods.create(:company_id=>@current_company.id, :financialyear_id=>@financialyear.id, :started_on=>params[:record][:created_on]) 
-          #raise Exception.new({:company_id=>@current_company, :financialyear_id=>@financialyear, :started_on=>params[:record][:created_on]}.inspect)
-          #raise Exception.new(@period.inspect)
+         
           @period.save
         end
         
@@ -405,10 +404,9 @@ class AccountancyController < ApplicationController
           if @entry.save
             @record.reload
             @entry  = Entry.new
-            # session[:entries][:account_number] = ''
+       
           end
         end
-  #      raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>                  : '+@record.errors.inspect)
      
 
       elsif request.delete?
@@ -423,24 +421,13 @@ class AccountancyController < ApplicationController
         @entry = Entry.new 
       end
      
-      #  raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>voila: '+@record.errors.inspect)
-      #      periods = @journal.periods.find(:all,:conditions=>['financialyear_id=?',session[:entries][:financialyear]])
-      #      periods.each do |period|
-      #        @records += @journal.last_records(period, session[:entries][:records_number].to_i)
-      #      end  
       @records = @journal.records.find(:all, :order=>"created_on DESC", :limit=>session[:entries][:records_number].to_i)
      
-      #   raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>oui: '+@record.errors.inspect)
-      
-      # raise Exception.new('oui: '+@record.errors.inspect)
-      #unless @record.errors
-      #raise Exception.new('oui')
       
       @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
-      #  puts('>>>>>>>>>>>>>>>>>>>>>>>>>>>oui2: '+@record.errors.inspect)
-      # raise Exception.new('>>>>>>>>>>>>>>>>>>>>>>>>>>>oui2: '+@record.errors.inspect)
+     
       unless @record.nil?
-        #raise Exception.new('oui')
+     
         if (@record.balance > 0) 
           @entry.currency_credit=@record.balance.abs 
         else
@@ -449,17 +436,12 @@ class AccountancyController < ApplicationController
       end
       
       @record = JournalRecord.new(params[:record]) if @record.nil?
-      #raise Exception.new('ouif: '+@record.errors.inspect)
+    
       if @record.new_record? # and not @record.errors
         @record.number = @records.size>0 ? @records.first.number.succ : 1
         @record.created_on ||= @record.printed_on ||= Date.today
-        #raise Exception.new('ouif2: '+@record.errors.inspect)
+    
       end
-      #end
-      # raise Exception.new('oui')
-      # @record.errors.add_to_base('kmk')
-      # raise Exception.new('ouifi: '+@record.inspect+' :  '+@record.errors.inspect+'<< et >> '+@entry.inspect+' :  '+@entry.errors.inspect)
-      
       render :action => "entries.rjs" if request.xhr?
     
     end
@@ -577,22 +559,33 @@ class AccountancyController < ApplicationController
 
   # lists all the statements in details for a precise account.
   def statements  
-    bank_account_statements_list params
+    @bank_accounts = @current_company.bank_accounts
+    #bank_account_statements_list params
     @valid = @current_company.bank_accounts.empty?
+    unless @bank_accounts.size>0
+      flash[:message] = tc('messages.need_bank_account_to_record_statements')
+      redirect_to :action=>:bank_accounts_create
+      return
+    end
   end
 
   # This method creates a statement.
   def statements_create
     access :statements
     @bank_accounts = @current_company.bank_accounts  
+        
     if request.post?
       @statement = BankAccountStatement.new(params[:statement])
       @statement.bank_account_id = params[:statement][:bank_account_id]
       @statement.company_id = @current_company.id
+      
       if BankAccount.find_by_id_and_company_id(params[:statement][:bank_account_id], @current_company.id).account.entries.find(:all, :conditions => "statement_id is NULL").size.zero?
         flash[:message]=tc('messages.no_entries_pointable_for_bank_account')
-      else  
-        redirect_to :action => "statements_point", :id => @statement.id if @statement.save
+      else
+       
+        if @statement.save
+          redirect_to :action => "statements_point", :id => @statement.id 
+        end
       end
     else
       @statement = BankAccountStatement.new
@@ -626,14 +619,17 @@ class AccountancyController < ApplicationController
 
   # This method displays the list of entries recording to the bank account for the given statement.
   def statements_point
+    flash[:message]="Partie de l'application en travaux"
+    redirect_to :action=>'statements'
     session[:statement] = params[:id]  if request.get? 
     @bank_account_statement=BankAccountStatement.find(session[:statement])
     @bank_account=BankAccount.find(@bank_account_statement.bank_account_id)
     
     @entries=@current_company.entries.find(:all, :conditions => {:account_id => @bank_account.account_id, :editable => true}, :joins => "INNER JOIN journal_records j ON j.id = entries.record_id", :order => "statement_id DESC")
-
+    
+    
     if request.xhr?
-      
+    
       @entry=Entry.find(params[:id]) 
 
       if @entry.statement_id.eql? session[:statement].to_i
@@ -665,6 +661,7 @@ class AccountancyController < ApplicationController
   # displays in details the statement choosen with its mainly characteristics.
   def statements_display
     @bank_account_statement = BankAccountStatement.find(params[:id])
+    @title = {:value => @bank_account_statement.number}
   end
 
 end

@@ -14,6 +14,7 @@ fr-FR:
         create: 'Créer un nouveau journal comptable'
       messages:
         need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
+        need_bank_account_to_record_statements: 'Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte.'
         need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
         need_financialyear_to_consult_entries: 'Vous devez avoir un exercice ouvert pour pouvoir consulter des écritures.'
         need_journal_to_consult_entries: 'Vous devez créer un journal pour pouvoir consulter des écritures à l''intérieur.'
@@ -200,8 +201,8 @@ fr-FR:
         entry_credit: Crédit
         entry_currency_rate: Devise  
         total: 'Total pour le compte bancaire {{value}}:'
-       
       statements_display:
+        title: 'Détail du relevé de compte {{value}}'
         statement_number: Numéro du relevé de compte
         statement_bank_account_name: Nom du compte bancaire
         statement_debit: Débit

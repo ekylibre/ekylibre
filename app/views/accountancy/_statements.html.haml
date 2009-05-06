@@ -1,3 +1,5 @@
-=javascript_tag("$('entry_number_"+@entry.id+"').innerHTML="+@entry.statement.id+";$('total_debit').innerHTML='"+@bank_account_statement.debit.to_s+"';$('total_credit').innerHTML='"+@bank_account_statement.credit.to_s+"';")
+=@entry.inspect
+=javascript_tag("$('entry_number_"+@entry.id.to_s+"').innerHTML="+@entry.statement.id.to_s+";$('total_debit').innerHTML='"+@bank_account_statement.debit.to_s+"';$('total_credit').innerHTML='"+@bank_account_statement.credit.to_s+"';")
+
 
   
