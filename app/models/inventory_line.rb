@@ -1,3 +1,22 @@
+# == Schema Information
+# Schema version: 20090428134248
+#
+# Table name: inventory_lines
+#
+#  id                 :integer       not null, primary key
+#  product_id         :integer       not null
+#  location_id        :integer       not null
+#  theoric_quantity   :decimal(16, 2 not null
+#  validated_quantity :decimal(16, 2 not null
+#  inventory_id       :integer       not null
+#  company_id         :integer       not null
+#  created_at         :datetime      not null
+#  updated_at         :datetime      not null
+#  created_by         :integer       
+#  updated_by         :integer       
+#  lock_version       :integer       default(0), not null
+#
+
 class InventoryLine < ActiveRecord::Base
 
 

@@ -23,6 +23,9 @@ class AccountancyController < ApplicationController
   dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :iban_label
+    t.column :name, :through=>:journal
+    t.column :name, :through=>:currency
+    t.column :number, :through=>:account
     t.action :bank_accounts_update, :image=>:update
     t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.action :statements_point    
@@ -588,7 +591,7 @@ class AccountancyController < ApplicationController
         end
       end
     else
-      @statement = BankAccountStatement.new
+      @statement = BankAccountStatement.new(:started_on=>Date.today-1.month-2.days, :stopped_on=>Date.today-2.days)
     end
     render_form 
   end
@@ -619,8 +622,8 @@ class AccountancyController < ApplicationController
 
   # This method displays the list of entries recording to the bank account for the given statement.
   def statements_point
-    flash[:message]="Partie de l'application en travaux"
-    redirect_to :action=>'statements'
+#    flash[:message]="Partie de l'application en travaux"
+#    redirect_to :action=>'statements'
     session[:statement] = params[:id]  if request.get? 
     @bank_account_statement=BankAccountStatement.find(session[:statement])
     @bank_account=BankAccount.find(@bank_account_statement.bank_account_id)

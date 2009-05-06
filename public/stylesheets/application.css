@@ -51,8 +51,9 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 /*#side .aclist h2 { font-size : 13px; color: white; padding: 2px 4px; background: #46A; text-align: center; }*/
 #side .aclist h2 { font-size : 13px; color: #00223B; padding: 2px 4px; background: #95b0e4; text-align: center; }
 
-#side .aclist ul { padding: 0px 2px; }
-#side .aclist li { padding: 2px 4px 4px 20px; list-style-type: none; background: url(../images/favicon.png) no-repeat center left; } /*background: #e9f3fe url(../images/template/table_head.png) repeat-x bottom; }*/
+#side .aclist ul { padding: 0 2px 0 4px; }
+#side .aclist li { padding: 2px 4px 4px 12px; list-style-type: none; background: url(../images/template/round.png) no-repeat center left; } /*background: #e9f3fe url(../images/template/table_head.png) repeat-x bottom; }*/
+#side .aclist li:hover { background: url(../images/template/round_hover.png) no-repeat center left; }
 #side .aclist li a { font-size: 11px; }
 /*#side .aclist li:hover { background: #FFC url(../images/template/action.png) repeat-x bottom; }*/
 

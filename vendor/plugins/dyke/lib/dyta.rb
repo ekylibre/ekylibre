@@ -281,7 +281,7 @@ module Ekylibre
                   code += ", :style=>'"+style+"'" unless style.blank?
                   code += ")"
                 when :action
-                  code += "content_tag(:td, "+(nature==:body ? column.operation(record) : '')+", :class=>'act')"
+                  code += "content_tag(:td, "+(nature==:body ? column.operation(record) : "''")+", :class=>'act')"
                 else 
                   code += "content_tag(:td, '&nbsp;&empty;&nbsp;')"
                 end

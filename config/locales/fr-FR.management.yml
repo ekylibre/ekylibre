@@ -84,7 +84,7 @@ fr-FR:
           other: '{{count}} transferts à effectuer'
         delays: Délais
         indicator: Tableau de bord
-        inventories: 'Faire l''inventaire'
+        inventories: 'Inventaires'
         invoicing_parameters: Facturation
         low_stocks: 'Stocks sous le seuil critique'
         parameters: Paramètres
@@ -344,8 +344,8 @@ fr-FR:
         unit: Unité
         weight: Poids
       stocks_locations:
-        reservoirs_create: Ajouter un réservoir (cuve, ...)
-        stocks_locations_create: 'Ajouter un nouveau lieu de stockage   '
+        reservoirs_create: Ajouter un réservoir (cuve, citerne, silot...)
+        stocks_locations_create: 'Ajouter un nouveau lieu de stockage'
         title: Gérer les stocks
       stocks_locations_create:
         title: 'Ajout d''un lieu de stockage'

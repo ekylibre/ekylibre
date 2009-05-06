@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090410102120
+# Schema version: 20090428134248
 #
 # Table name: entities
 #
@@ -41,6 +41,8 @@
 #  payment_mode_id       :integer       
 #  payment_delay_id      :integer       
 #  invoices_count        :integer       
+#  origin_id             :integer       
+#  first_met_on          :date          
 #
 
 class Entity < ActiveRecord::Base

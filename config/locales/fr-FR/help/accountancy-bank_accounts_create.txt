@@ -1,7 +1,7 @@
 h1. Comment créer un compte bancaire
 Remplisser le formulaire de création du compte bancaire en renseignant bien tous les champs. Les liens **Nouveau** situés en face de chaque zone de sélection permettent de créer un <<accountancy-accounts_create|nouveau compte comptable>> ou un <<accountancy-journals_create|nouveau journal>>. Des boutons radio dans le formulaire permettent de choisir l'identification du compte bancaire soit par <<accountancy-bank_accounts|IBAN>> ou par <<accountancy-bank_accounts|RIB>>. Dans les deux cas, il faudra bien renseigner les champs demandés en respectant le format des codes (se documenter sur internet) sinon une erreur sera levée.
 A titre d'exemple, le code IBAN FR7613515280805137297872234 se traduit en RIB :
-* code banque: **13515**
-* code guichet: **28080**
-* numéro de compte bancaire: **51372978722**
-* clé rib: **34**
+* code banque~: **13515**
+* code guichet~: **28080**
+* numéro de compte bancaire~: **51372978722**
+* clé rib~: **34**

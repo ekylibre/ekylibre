@@ -1,3 +1,25 @@
+# == Schema Information
+# Schema version: 20090428134248
+#
+# Table name: stock_transfers
+#
+#  id                 :integer       not null, primary key
+#  nature             :string(8)     not null
+#  product_id         :integer       not null
+#  quantity           :float         not null
+#  location_id        :integer       not null
+#  second_location_id :integer       
+#  planned_on         :date          not null
+#  moved_on           :date          
+#  comment            :text          
+#  company_id         :integer       not null
+#  created_at         :datetime      not null
+#  updated_at         :datetime      not null
+#  created_by         :integer       
+#  updated_by         :integer       
+#  lock_version       :integer       default(0), not null
+#
+
 class StockTransfer < ActiveRecord::Base
 
   belongs_to :company

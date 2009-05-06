@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090410102120
+# Schema version: 20090428134248
 #
 # Table name: account_balances
 #

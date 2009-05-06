@@ -215,7 +215,6 @@ class RelationsController < ApplicationController
     t.column :default
     t.action :entities_contacts_update , :image=>:update 
     t.action :entities_contacts_delete , :image=>:delete , :method=>:post, :confirm=>'are_you_sure'
-    t.procedure :entities_contacts_create
   end
 
 
@@ -231,7 +230,7 @@ class RelationsController < ApplicationController
 
   dyta(:entity_meetings, :model=>:meetings, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
     t.column :name, :through=>:location
-    t.column :date
+    t.column :taken_place_on
     t.column :full_name, :through=>:employee
     t.column :name, :through=>:mode
     t.action :meetings_update, :image=>:update
@@ -568,7 +567,7 @@ class RelationsController < ApplicationController
   dyta(:meetings, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :full_name, :through=>:entity
     t.column :name, :through=>:location
-    t.column :date
+    t.column :taken_place_on
     t.column :full_name, :through=>:employee
     t.column :name, :through=>:mode
     t.action :meetings_update, :image=>:update
@@ -580,11 +579,14 @@ class RelationsController < ApplicationController
   end
   
   def meetings_create
-    if session[:history][1].to_s.include? "entities"
-      @meeting = Meeting.new(:entity_id=>session[:current_entity]||0)
-    else
-      @meeting = Meeting.new
-    end
+    @entity = find_and_check(:entity, params[:entity_id]) if params[:entity_id]
+    @entity = find_and_check(:entity, session[:current_entity]) if @entity.nil?
+    @meeting = Meeting.new(:entity_id=>(@entity ? @entity.id : nil), :taken_place_on=>params[:taken_place_on]||Date.today)
+#    if session[:history][1].to_s.include? "entities"
+#      @meeting = Meeting.new(:entity_id=>session[:current_entity]||0)
+#    else
+#      @meeting = Meeting.new
+#    end
     #raise Exception.new @current_user.inspect
     @meeting.employee = @current_user.employee
     if request.post?

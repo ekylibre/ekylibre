@@ -200,10 +200,10 @@ fr-FR:
         journal_id: Journal utilisé
         bban_unvalid_key: 'La clé du BBAN n''est pas correcte.'
       bank_account_statement:
+        bank_account_id: Compte bancaire utilisé
+        number: Numéro du relevé de compte
         started_on: Du
         stopped_on: Au
-        number: Numéro du relevé de compte
-        bank_account_id: Compte bancaire référencé	
       company:
         code: Code interne
         name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)
@@ -255,9 +255,11 @@ fr-FR:
         amount_with_taxes: Montant TTC
         contact_id: Adresse du client
         delivered_on: Reçu le
+        invoice_id: Facture
         moved_on: Faite le
         nature: Type
         planned_on: Prévue le
+        quantity: Quantité
         shipped_on: Envoyé le
         text_nature: Type
         type: Type
@@ -291,7 +293,7 @@ fr-FR:
         language_id: Langue
         name: Nom
         nature_id: Type
-        origin_id: Lieu de rencontre
+        origin_id: Lieu de la première rencontre
         employee_id: Représentant
         payments_number: Nombre de paiements
         proposer_id: Parrain
@@ -355,12 +357,12 @@ fr-FR:
         financialyear_id: Exercice
       meeting: 
         address: Adresse
-        date: Date
         description: Description
-        employee_id: Employé
+        employee_id: Commercial/Représentant
         entity_id: Client
         location_id: Lieu
         mode_id: Type
+        taken_place_on: A eu lieu le
       meeting_location: 
         description: Description
         name: Nom
@@ -548,7 +550,7 @@ fr-FR:
         establishment_id: Établissement
         name: Nom
         number: Numéro
-        parent_id: Lieu de stockage maître
+        parent_id: Lieu de stockage parent
         product_id: Produit contenu
         quantity_max: Quantité maximum
         x: Position X
@@ -918,35 +920,39 @@ fr-FR:
           one: '1 fiche enregistrée'
           other: '{{count}} fiches enregistrées'
       entities_display:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        client: Client
+        confirmed_on: Confirmée le
         contacts:
           zero: 'Aucun contact'
           one: '1 contact'
           other: '{{count}} contacts'
+        entities_contacts_create: 'Ajouter un nouveau contact'
         entities_update: Modifier la fiche
         meetings:
           zero: 'Aucune rencontre'
           one: '1 rencontre'
           other: '{{count}} rencontres '
         meetings_create: Ajouter une rencontre
+        nature: Nature
+        number: Numéro
+        sales_new: 'Ajouter une nouvelle vente'
         sale_orders_number:
           zero: 'Aucune vente' 
           one: '1 vente '
           other: ' {{count}} ventes '
-        amount: Montant HT
-        amount_with_taxes: Montant TTC
-        client: Client
-        confirmed_on: Confirmée le
-        nature: Nature
-        number: Numéro
         state: État
         title: 'Fiche : {{value}}'
       _entities_form:
-        any: ' -- Aucun --'
         title: 'Renseignez les différentes caractéristiques de la fiche'
         details: 'Informations complémentaires'
         complements: 'Champs personnalisés'
         client: 'Informations client'
         meeting: Lieu(x) de rencontre
+        no_commercial: ' -- Sans commercial --'
+        no_origin: ' -- Sans origine --'
+        no_proposer: ' -- Sans parrain ni marraine --'
       _entities_search:
         search: Rechercher une fiche
       entities_update:
@@ -1001,7 +1007,7 @@ fr-FR:
           other: '{{count}} employés enregistrés'
         create: 'Créer un nouvel employé'
       _employees_form:
-        select_user: '--- Sans utilisateur ---'
+        select_user: '-- Sans utilisateur --'
       _employees_search:
         title: 'Recherche'
         search: 'Rechercher un employé'

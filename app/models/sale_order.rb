@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090410102120
+# Schema version: 20090428134248
 #
 # Table name: sale_orders
 #
@@ -32,6 +32,7 @@
 #  created_by          :integer       
 #  updated_by          :integer       
 #  lock_version        :integer       default(0), not null
+#  confirmed_on        :date          
 #
 
 class SaleOrder < ActiveRecord::Base

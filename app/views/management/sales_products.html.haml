@@ -6,7 +6,7 @@
 %h2=tc :lines
 -if @sale_order.state == 'P'
   .aclist
-    =link_to tc('sale_order_line_create'), :action=>:sale_order_lines_create, :class=>'procedure create'
+    =link_to tc('sale_order_line_create'), {:action=>:sale_order_lines_create}, :class=>'procedure create'
 =dyta :sale_order_lines
 
 .total

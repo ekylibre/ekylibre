@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090410102120
+# Schema version: 20090428134248
 #
 # Table name: stock_locations
 #
@@ -19,6 +19,11 @@
 #  created_by       :integer       
 #  updated_by       :integer       
 #  lock_version     :integer       default(0), not null
+#  reservoir        :boolean       
+#  product_id       :integer       
+#  quantity_max     :float         
+#  unit_id          :integer       
+#  number           :integer       
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

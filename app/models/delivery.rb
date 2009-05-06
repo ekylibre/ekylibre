@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090410102120
+# Schema version: 20090428134248
 #
 # Table name: deliveries
 #
@@ -73,6 +73,11 @@ class Delivery < ActiveRecord::Base
       css = "advance"
     end
     css
+  end
+
+  # Used with dyta for the moment
+  def quantity
+    ''
   end
 
   def text_nature

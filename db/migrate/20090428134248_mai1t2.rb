@@ -19,7 +19,7 @@ class Mai1t2 < ActiveRecord::Migration
       t.column :location_id,  :integer,  :null=>false,  :references=>:meeting_locations,  :on_delete=>:restrict, :on_update=>:restrict
       t.column :employee_id,  :integer,  :null=>false,  :references=>:employees, :on_delete=>:restrict, :on_update=>:restrict
       t.column :mode_id,      :integer,  :null=>false,  :references=>:meeting_modes, :on_delete=>:restrict, :on_update=>:restrict
-      t.column :date,         :date,     :null=>false
+      t.column :taken_place_on, :date,     :null=>false
       t.column :address,      :text
       t.column :description,  :text
       t.column :company_id,   :integer,  :null=>false,  :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
@@ -54,7 +54,7 @@ class Mai1t2 < ActiveRecord::Migration
     end
 
     add_column :stock_locations,  :reservoir,   :boolean, :default=>false
-    add_column :stock_locations,  :product_id,  :integer, :references=>:products,  :on_delete=>:restrict, :on_update=>:restrict 
+    add_column :stock_locations,  :product_id,  :integer, :references=>:products,  :on_delete=>:restrict, :on_update=>:restrict
     add_column :stock_locations,  :quantity_max,:float
     add_column :stock_locations,  :unit_id,     :integer, :references=>:units, :on_delete=>:cascade, :on_update=>:cascade
     add_column :stock_locations,  :number,      :integer
@@ -62,9 +62,9 @@ class Mai1t2 < ActiveRecord::Migration
     add_column :entities,     :origin_id,    :integer, :references=>:meeting_locations, :on_delete=>:restrict, :on_update=>:restrict
     add_column :entities,     :first_met_on, :date
 
-    execute "INSERT INTO meeting_locations(company_id, name, active,  created_at, updated_at) SELECT companies.id, 'Divers',CAST('true' AS BOOLEAN),  current_timestamp, current_timestamp FROM companies LEFT JOIN meeting_locations ml ON (ml.company_id=companies.id AND ml.name='Divers') WHERE ml.id IS NULL"
+    execute "INSERT INTO meeting_locations(company_id, name, active,  created_at, updated_at) SELECT companies.id, 'Divers', CAST('true' AS BOOLEAN),  current_timestamp, current_timestamp FROM companies LEFT JOIN meeting_locations ml ON (ml.company_id=companies.id AND ml.name='Divers') WHERE ml.id IS NULL"
 
-    execute "INSERT INTO meeting_modes(company_id, name, active,  created_at, updated_at) SELECT companies.id, 'En Personne',CAST('true' AS BOOLEAN),  current_timestamp, current_timestamp FROM companies LEFT JOIN meeting_modes mm ON (mm.company_id=companies.id AND mm.name='En personne') WHERE mm.id IS NULL"
+    execute "INSERT INTO meeting_modes(company_id, name, active,  created_at, updated_at) SELECT companies.id, 'En personne',CAST('true' AS BOOLEAN),  current_timestamp, current_timestamp FROM companies LEFT JOIN meeting_modes mm ON (mm.company_id=companies.id AND mm.name='En personne') WHERE mm.id IS NULL"
 
   end
 

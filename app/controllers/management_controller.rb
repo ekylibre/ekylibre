@@ -731,6 +731,21 @@ class ManagementController < ApplicationController
       redirect_to :back if @sale_order_line.destroy
     end
   end
+
+
+  dyta(:sales_deliveries, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
+    t.column :address, :through=>:contact, :children=>:product_name
+    t.column :planned_on, :children=>false
+    t.column :moved_on, :children=>false
+    t.column :number, :through=>:invoice, :url=>{:action=>:sales_invoices}, :children=>false
+    t.column :quantity
+    t.column :amount
+    t.column :amount_with_taxes
+    t.action :deliveries_update, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? '
+    t.action :deliveries_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>tg(:are_you_sure)
+  end
+
+
  
   dyta(:undelivered_quantities, :model=>:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     t.column :name, :through=>:product

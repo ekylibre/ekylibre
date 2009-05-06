@@ -20,6 +20,25 @@
   <defs
      id="defs2417">
     <linearGradient
+       id="linearGradient3275">
+      <stop
+         style="stop-color:#8a9aff;stop-opacity:1;"
+         offset="0"
+         id="stop3277" />
+      <stop
+         id="stop3283"
+         offset="0.5"
+         style="stop-color:#4f59f2;stop-opacity:1;" />
+      <stop
+         style="stop-color:#252990;stop-opacity:1;"
+         offset="0.83333331"
+         id="stop3285" />
+      <stop
+         style="stop-color:#060632;stop-opacity:1;"
+         offset="1"
+         id="stop3279" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3265">
       <stop
          id="stop3267"
@@ -447,6 +466,40 @@
        y1="320.80859"
        x2="106.03571"
        y2="300.80859" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3275"
+       id="radialGradient3281"
+       cx="49.85677"
+       cy="29.21056"
+       fx="49.85677"
+       fy="29.21056"
+       r="6.625"
+       gradientTransform="matrix(1.2281852,4.8200455e-2,-4.1666652e-2,1.0220126,-10.159476,-3.0096603)"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       id="filter3296"
+       x="-0.23772507"
+       width="1.4754501"
+       y="-0.2422967"
+       height="1.4845934">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.3124405"
+         id="feGaussianBlur3298" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3275"
+       id="radialGradient3302"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.2281852,4.8200455e-2,-4.1666652e-2,1.0220126,-9.4726588,-18.985604)"
+       cx="49.85677"
+       cy="29.21056"
+       fx="49.85677"
+       fy="29.21056"
+       r="6.625" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -798,5 +851,41 @@
        inkscape:export-ydpi="90"
        inkscape:label="#rect2427"
        inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/template/table_head_sorted.png" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#radialGradient3281);fill-opacity:1;stroke:#d8d8d8;stroke-width:2.18740067000000016;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.44236761"
+       id="round"
+       sodipodi:cx="51.375"
+       sodipodi:cy="31.142853"
+       sodipodi:rx="6.625"
+       sodipodi:ry="6.5"
+       d="M 58,31.142853 A 6.625,6.5 0 1 1 44.75,31.142853 A 6.625,6.5 0 1 1 58,31.142853 z"
+       transform="matrix(0.4528302,0,0,0.4615385,138.64507,104.18647)"
+       inkscape:label="#path2501"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:0.63996941;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3296)"
+       id="path3288"
+       sodipodi:cx="51.375"
+       sodipodi:cy="31.142853"
+       sodipodi:rx="6.625"
+       sodipodi:ry="6.5"
+       d="M 58,31.142853 A 6.625,6.5 0 1 1 44.75,31.142853 A 6.625,6.5 0 1 1 58,31.142853 z"
+       transform="matrix(0.4528302,0,0,0.4615385,136.45906,92.87248)" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#radialGradient3302);fill-opacity:1;stroke:#d8d8d8;stroke-width:2.18740058;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.44236761"
+       id="round_hover"
+       sodipodi:cx="51.375"
+       sodipodi:cy="31.142853"
+       sodipodi:rx="6.625"
+       sodipodi:ry="6.5"
+       d="M 58,31.142853 A 6.625,6.5 0 1 1 44.75,31.142853 A 6.625,6.5 0 1 1 58,31.142853 z"
+       transform="matrix(0.4528302,0,0,0.4615385,138.33406,111.55998)"
+       inkscape:label="#path2501"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>
