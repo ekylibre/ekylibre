@@ -4,7 +4,8 @@ module Ekylibre
     class Measure
       UNIT_NATURES = {
         'length'=>{:ref=>'m'},
-        'angle'=>{:ref=>'rad'}
+        'angle'=>{:ref=>'rad'},
+        'percent'=>{:ref=>'%'}
       }
 
       UNITS = {
@@ -21,7 +22,8 @@ module Ekylibre
         'mi'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>1760*3*12*0.0254}, # 1760 yd
         'gon'=>{:nature=>UNIT_NATURES['angle'][:ref], :factor=>Math::PI/200},
         'deg'=>{:nature=>UNIT_NATURES['angle'][:ref], :factor=>Math::PI/180},
-        'rad'=>{:nature=>UNIT_NATURES['angle'][:ref], :factor=>1}
+        'rad'=>{:nature=>UNIT_NATURES['angle'][:ref], :factor=>1},
+        '%'=>{:nature=>UNIT_NATURES['percent'][:ref], :factor=>0.01}
       }
 
       
@@ -29,7 +31,7 @@ module Ekylibre
         if value.is_a? String
           numeric = value[/\d*\.?\d*/]
           raise ArgumentError.new("Unvalid value: #{value.inspect}") if numeric.nil?
-          unit = value[/[a-z]+/]
+          unit = value[/[a-z\%]+/]
         else
           numeric = value
         end
@@ -38,8 +40,9 @@ module Ekylibre
         rescue
           raise ArgumentError.new("Value can't be converted to float: #{value.inspect}")
         end
-        raise ArgumentError.new("Unknown unit: #{value.inspect}") unless UNITS.keys.include? unit
+        raise ArgumentError.new("Unknown unit: #{unit.inspect} in #{value.inspect}") unless UNITS.keys.include? unit
         @unit = unit
+        self
       end
 
       def to_m(unit)
@@ -48,6 +51,10 @@ module Ekylibre
 
       def inspect
         @value.to_f.to_s+@unit
+      end
+      
+      def nature
+        UNITS[@unit][:nature]
       end
 
       def +(measure)
@@ -129,22 +136,12 @@ module Ekylibre
         property = property.strip.downcase
         value = Style.property_value(property, value)
         @properties[property] = value unless value.nil?
-        
-#         definition = PROPERTIES[property]
-#         if definition.is_a? Hash
-#           if definition[:nature].is_a? Symbol
-#             value = Style.send("string_to_#{definition[:nature].to_s}", value.to_s)
-#             @properties[property] = value unless value.nil?
-#           elsif definition[:nature].is_a? Array
-#             @properties[property] = value if definition[:nature].include? value
-#           else
-#             raise Exception.new('Bad property definition: '+property)
-#           end
-#         end
       end
 
-      def get(property, default_value)
-        @properties[property]||Style.property_value(property, default_value)
+      def get(property, default=nil)
+        prop = @properties[property]
+        prop ||= Style.property_value(property, default) unless default.nil?
+        prop
       end
 
       private

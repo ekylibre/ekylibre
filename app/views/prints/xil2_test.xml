@@ -7,7 +7,7 @@
     <parameter name="client" nature="record" source="entities#condition:active">Client/Fournisseur</parameter>
     <parameter name="invoices_show" nature="boolean" default="true">Afficher la liste des dernières factures</parameter>
     <parameter name="invoices_count" nature="integer" range="0..15" default="5">Nombre de factures à afficher</parameter>
-    <parameter name="comment" nature="text">Commentaire</parameter>
+    <parameter name="comment" nature="text" default="">Commentaire</parameter>
   </parameters>
   <formats>
     <format rule="text" style="height:4mm; font-size:10pt;"/>
@@ -15,49 +15,61 @@
     <format rule=".title" style="font-size:16pt;color: #007; text-align:center; vertical-align:middle; height: 20mm"/>
     <format rule="p" style="color:#333"/>
   </formats>
-  <document title="client.label">
-    <page style="margin: 10mm 15mm; size: 101.6mm 4in">
-      <block type="footer">
-        <text class="important">{current_company.name} - SIREN : {current_company.siren}</text>
-      </block>
-    </page>
+  <document title="{client.full_name}">
     <page style="margin: 10mm 15mm; size: portrait;">
-      <block type="header">
+      <block>
         <set style="top:5mm;left:10mm">
           <image src="{client.portrait}" style="height:80mm;width:50mm"/>
         </set>
         <set style="top:5mm;left:70mm">
-          <text class="important">{client.label}</text>
+          <text class="important">{client.full_name}</text>
           <text class="important" style="top:5mm">{client.first_name}</text>
-          <text class="important" style="top:10mm">{client.last_name}</text>
+          <text class="important" style="top:10mm">{client.name}</text>
         </set>
       </block>
       <block type="body">
-        <set>
-          <text class="title" style="width:100%;">Factures</text>
-          <text style="width:2x">Date</text>
-          <text style="width:3x; left:2x;">Montant HT</text>
-          <text style="width:4x; left:5x;">Montant TTC</text>
+        <set style="top:100mm; left:50mm;">
+          <text class="title" style="width:190mm;">Factures</text>
+          <set style="top:27pt">
+            <text style="width:20mm;">Date</text>
+            <text style="width:30mm; left:20mm;">Montant HT</text>
+            <text style="width:40mm; left:50mm;">Montant TTC</text>
+          </set>
         </set>
       </block>
       <loop for="invoice" in="client.invoices#conditions:amount&gt;10, nature='I'; order:created_at desc">
         <block>
           <set>
-	    <text style="width:2x">{invoice.date}</text>
-	    <text style="width:3x; left:2x;">{invoice.amount}</text>
-	    <text style="width:4x; left:5x;">{invoice.amount_with_taxes}</text>
+	    <text style="width:20mm;">{invoice.date}</text>
+	    <text style="width:30mm; left:20mm;">{invoice.amount}</text>
+	    <text style="width:40mm; left:50mm;">{invoice.amount_with_taxes}</text>
           </set>
         </block>
         <loop for="invoice_line" in="invoice.lines">
           <block>
 	    <set>
-	      <text style="width:1.9x; left:.1x">{invoice_line.product.name}</text>
-	      <text style="width:3x; left:2x;">{invoice_line.amount}</text>
-	      <text style="width:4x; left:5x;">{invoice_line.amount_with_taxes}</text>
+	      <text style="width:19pc; left:10mm;">{invoice_line.product.name}</text>
+	      <text style="width:30mm; left:20mm;">{invoice_line.amount}</text>
+	      <text style="width:40mm; left:50mm;">{invoice_line.amount_with_taxes}</text>
 	    </set>
           </block>
         </loop>
       </loop>
+    </page>
+    <page style="margin: 10mm 15mm; size: 101.6mm 4in">
+      <block type="body">
+        <set style="top:10mm; left:10mm;">
+          <text class="title" style="width:190mm;">Factures</text>
+          <set style="top:5mm">
+            <text style="width:20mm;">Date</text>
+            <text style="width:30mm; left:20mm;">Montant HT</text>
+            <text style="width:40mm; left:50mm;">Montant TTC</text>
+          </set>
+        </set>
+      </block>
+      <block type="footer">
+        <text class="important">{current_company.name} - SIREN : {current_company.siren}</text>
+      </block>
     </page>
   </document>
 </template>

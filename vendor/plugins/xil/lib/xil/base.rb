@@ -23,11 +23,14 @@ module Ekylibre
       ORIENTATION={'portrait'=>'P', 'landscape'=>'L'}
 
       XIL_MARKUP = {
-        'template'=>{'document'=>1},
-        'document'=>{'page'=>'+'},
-        'page'=>{'block'=>'*'},
-        'block'=>{'set'=>'+'},
-        'set'=>{'text'=>'*'},
+        'template'=>{:elements=>{'document'=>1, 'parameters'=>1}},
+        'parameters'=>{:elements=>{'parameter'=>'*'}},
+        'parameter'=>{},
+        'document'=>{:elements=>{'page'=>'+'}},
+        'page'=>{:elements=>{'loop'=>'*', 'block'=>'*'}},
+        'loop'=>{:elements=>{'loop'=>'*', 'block'=>'*'}, :attributes=>{'for'=>:required, 'in'=>:required}},
+        'block'=>{:elements=>{'set'=>'+'}},
+        'set'=>{:elements=>{'text'=>'*', 'set'=>'*'}},
         'text'=>{},
       }
 
@@ -59,21 +62,57 @@ module Ekylibre
           raise Exception.new('Unknown element: '+element.name)
         end
 
+
         code = ''
-        code += "# #{element.name}\n"# if element.has_elements?
+        #code += "# #{element.name}\n"# if element.has_elements?
         environment[:depth] ||= 1
         element.each_element do |child|
-          if XIL_MARKUP[element.name].keys.include? child.name
+          #code += '#'+('  '*environment[:depth])+child.name.upper+"\n"
+          if XIL_MARKUP[element.name][:elements].keys.include? child.name
+            # Verification of the attributes
+            raise Exception.new('Undefined element: '+child.name) if XIL_MARKUP[child.name].nil?
+            (XIL_MARKUP[child.name][:attributes]||{}).each do |name, value|
+              raise Exception.new("Attribute #{name.inspect} is missing for the element #{child.name}") if value==:required and child.attributes.get_attribute(name).nil?
+            end
+
             env = environment.dup
             env[:depth] += 1
-            #   code += "# <#{child.name}>\n"
             code += send(environment[:output].to_s+'_'+child.name, child, env)
-          else
-            code += "# Unknown child: #{child.name}\n"
+          #else
+            #code += "# Unknown child: #{child.name}\n"
           end
         end
         # code  = code.gsub(/\n(\ )*/, "\n").gsub(/(^\n|\n$)/,'').gsub(/^/,'\1'+"  "*environment[:depth])+"\n"
         code#.gsub("\n","\n"+"  "*environment[:depth])
+      end
+
+
+      def string_clean(string, env={})
+        string.gsub!("'","\\\\'")
+        string.gsub!(/\{[^\}]+\}/) do |data|
+          str = data[1..-2].strip
+          if str =~ /CURRENT_DATETIME.*/
+            format = (str =~ /\:/) ? str.split(':')[1] : "%Y-%m-%d %H:M"
+            "'+#{env[:now]}.strftime('#{format}')+' "
+          elsif str=~/TITLE/
+            '\'+'+env[:title]+'.to_s+\''
+          elsif str=~/PAGENO/
+            '\'+'+env[:page_number]+'.to_s+\''
+          elsif str=~/PAGENB/
+            '@@PAGENB@@'
+          elsif str=~/[a-z\_]{2,64}(\.[a-z\_]{2,64}){0,16}/
+            # Add variable verification /variable.****/
+            "'+ic.iconv(#{str}.to_s)+'"
+          else
+            raise Exception.new('Unvalid string replacement: '+str)
+          end
+        end
+        string = "'"+string+"'"
+        string.gsub! /^\'\'\+/, ''
+        string.gsub! /\+\'\'$/, ''
+        # the string is converted to the format ISO, which is more efficient for the PDF softwares to read the
+        # superfluous characters.
+        Iconv.iconv('ISO-8859-15','UTF-8', string).to_s
       end
 
 

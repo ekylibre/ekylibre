@@ -5,6 +5,7 @@ module Ekylibre
       
       PDF_DEFAULT_UNIT = 'pt'
       PDF_DEFAULT_FORMAT = Ekylibre::Xil::Style::FORMATS[Ekylibre::Xil::Style::DEFAULT_FORMAT]
+      PDF_DEFAULT_MARGIN = [Ekylibre::Xil::Measure.new('0m')]*4
 
       def compile_for_pdf(method_name, environment)
         environment[:output] ||= :pdf
@@ -14,7 +15,7 @@ module Ekylibre
         # code += browse(element, environment)
         # code
         code  = "def #{method_name}(options={})\n"
-        code += pdf_template(element, environment)
+        code += pdf_template(element, environment).gsub(/^/, '  ')
         code += "end\n"
       end
       
@@ -50,14 +51,54 @@ module Ekylibre
 #        end
 
         # displaying of the PDF document.
-        code += "send_data #{environment[:pdf]}.generate, :filename=>'file.pdf', :disposition=>:inline\n"
+        # code += "puts #{environment[:pdf]}.generate\n"
+        code += "send_data(#{environment[:pdf]}.generate, :filename=>'file.pdf', :disposition=>'inline', :type=>'application/pdf')\n"
 
         code
       end
+
+
+
+
+
+
+      def pdf_parameters(element, environment={})
+        code  = ''
+        code += browse(element, environment)
+        code
+      end
+
+      def pdf_parameter(element, environment={})
+        attrs = element.attributes
+        name = attrs['name']
+        raise Exception.new('Unvalid parameter name: '+name) unless name.match /^[a-zA-Z]\w+$/
+        default = attrs['default']
+        nature = attrs['nature']
+        if default
+          if nature=='boolean'
+            default = (default=="true")
+          elsif nature == 'integer'
+            default = default.to_i
+          elsif nature != 'text'
+            raise Exception.new("Parameter #{name} can't support a default value.")
+          end
+        end
+        code  = ''
+        code += "#{name} = options[:#{name}]"
+        code += "||#{default.inspect}" if default
+        code += "\n"
+        code += "raise Exception.new('Option :#{name} must be given') if #{name}.nil?\n" unless default
+        code
+      end
+
+
+
+
       
       def pdf_document(element, environment={})
         code  = ''
         code += environment[:pdf]+" = Spdf.new\n"
+        code += "ic = Iconv.new('ISO-8859-15', 'UTF-8')\n"
         # code += environment[:page_number]+" = 1\n"
         code += browse(element, environment)
         code
@@ -69,44 +110,83 @@ module Ekylibre
         # environment[:page] = {:orientation=>ORIENTATION[attrs['orientation']], :format=>attrs['format']}
         # environment[:page][:margin_top] = style.get('margin')[0]
         # style.set('height', format_height(options[:format],options[:unit])-options['margin_top']-options['margin_bottom'])
+        puts style.get('margin').inspect
         environment[:page] = {}
         environment[:page][:style] = style
-        puts style.get('size').inspect
-        environment[:page][:format] = (style.get('size')||PDF_DEFAULT_FORMAT).collect{|l| l.to_f(PDF_DEFAULT_UNIT).to_s}.inspect # join('x')
-        code  = "#{environment[:pdf]}.new_page(#{environment[:page][:format]}, #{style.get('rotate','0deg').to_f('deg')})\n"
+        environment[:page][:margin] = (style.get('margin')||PDF_DEFAULT_MARGIN).collect{|l| l.to_f(PDF_DEFAULT_UNIT).round(3)}
+        environment[:page][:format] =   (style.get('size')||PDF_DEFAULT_FORMAT).collect{|l| l.to_f(PDF_DEFAULT_UNIT).round(3)}
+        code  = "#{environment[:pdf]}.new_page(#{environment[:page][:format].inspect}, #{style.get('rotate','0deg').to_f('deg')})\n"
         # code += environment[:available_height]+"="+(format_height(environment[:format],environment[:unit])-environment['margin_top']-environment['margin_bottom']).to_s+"\n"
         code += "#{environment[:count]} = 0\n"
         code += "#{environment[:covered]} = 0\n"
         code += "#{environment[:remaining]} = 0\n"
+        code += "x, y = #{environment[:page][:margin][3]}, #{environment[:page][:margin][0]}\n"
         code += browse(element, environment)
 #        code += "pdf.add_page_break\n"
         code
       end
 
-      def pdf_block(element, environment={})
+      def pdf_loop(element, environment={})
         code  = ''
-        # Header
-        
-        # Body
-        code += browse(element, environment)
-
-        #Footer
+        attrs = element.attributes
+        variable = attrs['for']
+        finder = attrs['in']
+        raise Exception.new('for attribute is missing') if variable.blank?
+        raise Exception.new('in attribute is missing') if finder.blank?
+        code += 'for '+variable+' in '+finder.split("#")[0]+"\n"
+        code += browse(element, environment).gsub(/^/, '  ')
+        code += "end\n"
+        code
+      end
+      
+      def pdf_block(element, environment={})
+        code  = "# Block\n"
+        attrs = element.attributes
+        style = Ekylibre::Xil::Style.new(attrs['style'])
+        height = style.get('height','50mm').to_f(PDF_DEFAULT_UNIT)
+        if attrs['type'].nil? or attrs['type'] == 'body'
+          # Header
+          # Body
+          code += "if y>#{environment[:page][:format][0]-height-environment[:page][:margin][2]}\n"
+          code += "  pdf.new_page(#{environment[:page][:format].inspect})\n"
+          code += "  x, y = #{environment[:page][:margin][3]}, #{environment[:page][:margin][0]}\n"
+          code += "end\n"
+          code += browse(element, environment)
+          code += "y += #{height}\n" if height>0
+          #Footer
+        end
 
         code
       end
       
       def pdf_set(element, environment={})
         code  = ''
-        code += browse(element, environment)
+        elements = browse(element, environment)
+        attrs = element.attributes
+        style = Ekylibre::Xil::Style.new(attrs['style'])
+        left  = style.get('left','0mm').to_f(PDF_DEFAULT_UNIT)
+        top   = style.get('top','0mm').to_f(PDF_DEFAULT_UNIT)
+        unless elements.blank?
+          code += "x += #{left}\n" if left != 0
+          code += "y += #{top}\n"  if top != 0
+          code += elements
+          code += "y -= #{top}\n"  if top != 0
+          code += "x -= #{left}\n" if left != 0
+        end
         code
       end
       
       def pdf_text(element, environment={})
         code  = ''
-        code += "#{environment[:pdf]}.text(#{element.text.inspect})\n"
+        attrs = element.attributes
+        style = Ekylibre::Xil::Style.new(attrs['style'])
+        left  = style.get('left','0mm').to_f(PDF_DEFAULT_UNIT)
+        top   = style.get('top','0mm').to_f(PDF_DEFAULT_UNIT)
+        code += "#{environment[:pdf]}.text(#{string_clean(element.text, environment)}, x#{left == 0 ? '' : '+'+left.to_s}, y#{top == 0 ? '' : '+'+top.to_s})\n"
         code
       end
       
+
 
 
 
