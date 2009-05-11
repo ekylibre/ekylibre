@@ -30,7 +30,7 @@ fr-FR:
   # Used in all the views
   views: 
     accountancy:
-
+      
       entries:
         title: Test
 
@@ -53,7 +53,7 @@ fr-FR:
         entries_consult: Consulter des écritures 
       accounts:
         title: Comptes
-        create: Créer un nouveau compte
+        accounts_create: Enregistrer un nouveau compte
         update: Modifier un compte
         delete: Supprimer un compte
       accounts_create:
@@ -74,7 +74,7 @@ fr-FR:
         title: 'Modifier le compte : {{value}}'
       bank_accounts:
         title: Comptes bancaires
-        create: Créer un nouveau compte bancaire
+        bank_accounts_create: Créer un nouveau compte bancaire
       _bank_accounts_form:
         iban: 'Numéro de compte bancaire internationale (IBAN)'
         rib: 'Description générale'
@@ -142,7 +142,7 @@ fr-FR:
      
       financialyears:
         title: Exercices comptables
-        create: Créer un nouvel exercice comptable
+        financialyears_create: Enregister un nouvel exercice comptable
       financialyears_create:
         title: Créer un nouvel exercice
       financialyears_update:
@@ -152,7 +152,7 @@ fr-FR:
         close: "Clôturer l'exercice"
       journals:
         title: Journaux
-        create: Créer un nouveau journal
+        journals_create: Enregistrer un nouveau journal
       _journals_find:
         journal_id: Numéro de journal
         journal_name: Nom du journal
@@ -181,13 +181,14 @@ fr-FR:
       statements:
         title: Pointage des relevés de comptes bancaires 
         select_bank_account: "Sélectionnez un compte bancaire:"	  
-        create: Créer un relevé de compte
+        statements_create: Enregistrer un nouveau relevé de compte
         create_bank_account: 'Vous devez d''abord créer un compte bancaire.'
         debit: Total débit
         credit: Total crédit
        
       statements_create:
         title: Enregistrer un nouveau relevé de compte
+        
       statements_update:
         title: Modifier un relevé
       statements_point:

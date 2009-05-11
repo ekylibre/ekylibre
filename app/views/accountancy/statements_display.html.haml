@@ -1,24 +1,5 @@
-%table.dyta
-  %tr
-    %th=tc(:statement_number)
-    %th=tc(:statement_bank_account_name)
-    %th=tc(:statement_debit)
-    %th=tc(:statement_credit)
-  %tr
-    %th=@bank_account_statement.number
-    %th=@bank_account_statement.bank_account.name
-    %th=@bank_account_statement.debit
-    %th=@bank_account_statement.credit
-%br
-%table.dyta
-  %tr
-    %th=tc(:entry_name)
-    %th=tc(:entry_debit)
-    %th=tc(:entry_credit)
-  - @bank_account_statement.entries.each do |entry|
-    %tr
-      %td=entry.name
-      %td=entry.debit
-      %td=entry.credit
-=link_to(tc(:cancel), session[:history][1])
-  
+=evalue(@bank_account_statement, :number)
+=evalue(@bank_account_statement.bank_account, :name)
+=evalue(@bank_account_statement, :credit)
+=evalue(@bank_account_statement, :debit)
+=dyta(:entries)

@@ -9,7 +9,7 @@ class AccountancyController < ApplicationController
     t.action :journals_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.action :journals_close
     t.action :entries_consult, :image=>:table
-    t.procedure :create, :action=>:journals_create
+    #t.procedure :create, :action=>:journals_create
   end
   
   dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -17,7 +17,7 @@ class AccountancyController < ApplicationController
     t.column :name
     t.action :accounts_update, :image=>:update
     t.action :accounts_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :create, :action=>:accounts_create
+    #t.procedure :create, :action=>:accounts_create
   end
   
   dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -29,17 +29,17 @@ class AccountancyController < ApplicationController
     t.action :bank_accounts_update, :image=>:update
     t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.action :statements_point    
-    t.procedure :create, :action=>:bank_accounts_create
+    #t.procedure :create, :action=>:bank_accounts_create
   end
   
   dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :started_on
     t.column :stopped_on
     t.column :number
+    t.action :statements_display, :image=>:display
     t.action :statements_update, :image=>:update
     t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
-    t.action :statements_display
-    t.procedure :create, :action=>:statements_create
+    #t.procedure :create, :action=>:statements_create
   end
   
   dyta(:entries, :conditions=>:entries_conditions, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN journal_periods p ON p.id=r.period_id") do |t|
@@ -59,7 +59,7 @@ class AccountancyController < ApplicationController
     t.column :stopped_on
     t.action :financialyears_update, :image=>:update
     t.action :financialyears_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
-    t.procedure :create, :action=>:financialyears_create
+    #t.procedure :create, :action=>:financialyears_create
   end
 
   dyli(:account_search, :attributes=>[:number, :name], :conditions=>{:company_id=>['@current_company.id']}, :model=>:account)
@@ -345,7 +345,6 @@ class AccountancyController < ApplicationController
     if request.post?
       session[:journal_period] = params[:journal_period]
     end
-  #  entries_list
   end
   
 
@@ -396,9 +395,11 @@ class AccountancyController < ApplicationController
           @period.save
         end
         
-        @record = JournalRecord.find(:first,:conditions=>{:period_id => @period.id, :number => params[:record][:number]})
+        # @record = JournalRecord.find(:first,:conditions=>['period_id = ? AND created_on = CAST(? AS DATE) AND printed_on=CAST(? AS DATE) AND number=?', @period.id, params[:record][:created_on], params[:record][:printed_on], params[:record][:number] ])
+         @record = JournalRecord.find(:first,:conditions=>{:period_id => @period.id, :created_on=>params[:record][:created_on], :printed_on=>params[:record][:printed_on], :number => params[:record][:number]})
+        #raise Exception.new @record.inspect
         @record = @period.records.build(params[:record].merge({:period_id=>@period.id, :company_id=>@current_company.id, :journal_id=>@journal.id})) if @record.nil?
-        
+        # raise Exception.new @record.inspect
         @entry = @current_company.entries.build(params[:entry])
         
         if @record.save
@@ -440,7 +441,7 @@ class AccountancyController < ApplicationController
       
       @record = JournalRecord.new(params[:record]) if @record.nil?
     
-      if @record.new_record? # and not @record.errors
+      if @record.new_record? 
         @record.number = @records.size>0 ? @records.first.number.succ : 1
         @record.created_on ||= @record.printed_on ||= Date.today
     
@@ -664,6 +665,7 @@ class AccountancyController < ApplicationController
   # displays in details the statement choosen with its mainly characteristics.
   def statements_display
     @bank_account_statement = BankAccountStatement.find(params[:id])
+    session[:statement]=params[:id]
     @title = {:value => @bank_account_statement.number}
   end
 

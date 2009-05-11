@@ -36,7 +36,7 @@ module ApplicationHelper
        [ {:name=>:works, :list=>
            [ {:name=>:entries},
              {:name=>:entries_consult},
-             # {:name=>:statements},
+             {:name=>:statements},
              # {:name=>:lettering},
              {:name=>:journals_close},
              {:name=>:financialyears_close} ] },
@@ -161,6 +161,11 @@ module ApplicationHelper
         conditions[0] += " AND p.financialyear_id=?"
         conditions << financialyear.id
       end
+    end
+    unless session[:statement].blank?
+      statement = @current_company.bank_account_statements.find(:first, :conditions=>{:id=>session[:statement]})
+      conditions[0] += " AND statement_id = ?"
+      conditions << statement.id
     end
     conditions
   end
