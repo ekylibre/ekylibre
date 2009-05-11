@@ -91,8 +91,13 @@ module Ekylibre
         string.gsub!("'","\\\\'")
         string.gsub!(/\{[^\}]+\}/) do |data|
           str = data[1..-2].strip
+          if str =~ /\|/
+            str = str.split('|')
+            format = str[1]
+            str = str[0]
+          end
           if str =~ /CURRENT_DATETIME.*/
-            format = (str =~ /\:/) ? str.split(':')[1] : "%Y-%m-%d %H:M"
+            format ||= "%Y-%m-%d %H:M"
             "'+#{env[:now]}.strftime('#{format}')+' "
           elsif str=~/TITLE/
             '\'+'+env[:title]+'.to_s+\''
@@ -102,6 +107,7 @@ module Ekylibre
             '@@PAGENB@@'
           elsif str=~/[a-z\_]{2,64}(\.[a-z\_]{2,64}){0,16}/
             # Add variable verification /variable.****/
+            str += ".strftime('#{format}')" unless format.nil?
             "'+ic.iconv(#{str}.to_s)+'"
           else
             raise Exception.new('Unvalid string replacement: '+str)

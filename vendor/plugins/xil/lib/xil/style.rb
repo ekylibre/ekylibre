@@ -95,6 +95,7 @@ module Ekylibre
         'background'=>{:nature=>:color},
         'color'=>{:nature=>:color},
         'font-size'=>{:nature=>:length},
+        'font-family'=>{:nature=>['helvetica', 'times', 'courier', 'symbol', 'zapfdingbats']},
         'font-weight'=>{:nature=>['normal', 'bold']},
         'font-style'=>{:nature=>['normal', 'italic']},
         'text-align'=>{:nature=>['left', 'center', 'right', 'justify']},
@@ -139,6 +140,7 @@ module Ekylibre
       end
 
       def get(property, default=nil)
+        raise Exception.new("Unvalid property "+property) unless PROPERTIES.include? property
         prop = @properties[property]
         prop ||= Style.property_value(property, default) unless default.nil?
         prop
@@ -147,6 +149,7 @@ module Ekylibre
       private
 
       def self.property_value(property, value)
+        raise Exception.new("Unvalid property "+property) unless PROPERTIES.include? property
         value = value.strip if value.is_a? String
         definition = PROPERTIES[property]
         if definition.is_a? Hash
@@ -157,6 +160,8 @@ module Ekylibre
           else
             raise Exception.new('Bad property definition: '+property)
           end
+        else
+          raise Exception.new('Bad property definition: '+property)
         end
       end
 

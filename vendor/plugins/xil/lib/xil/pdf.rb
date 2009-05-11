@@ -180,9 +180,16 @@ module Ekylibre
         code  = ''
         attrs = element.attributes
         style = Ekylibre::Xil::Style.new(attrs['style'])
-        left  = style.get('left','0mm').to_f(PDF_DEFAULT_UNIT)
-        top   = style.get('top','0mm').to_f(PDF_DEFAULT_UNIT)
-        code += "#{environment[:pdf]}.text(#{string_clean(element.text, environment)}, x#{left == 0 ? '' : '+'+left.to_s}, y#{top == 0 ? '' : '+'+top.to_s})\n"
+        left   = style.get('left','0mm').to_f(PDF_DEFAULT_UNIT)
+        top    = style.get('top','0mm').to_f(PDF_DEFAULT_UNIT)
+        width  = style.get('width','100mm').to_f(PDF_DEFAULT_UNIT)
+        height = style.get('height','10mm').to_f(PDF_DEFAULT_UNIT)
+        font = {}
+        font[:size]   = style.get('font-size','10pt').to_f(PDF_DEFAULT_UNIT)
+        font[:family] = style.get('font-family','helvetica')
+        font[:weight] = style.get('font-weight')
+        font[:style]  = style.get('font-style')
+        code += "#{environment[:pdf]}.text(#{string_clean(element.text, environment)}, x#{left == 0 ? '' : '+'+left.to_s}, y#{top == 0 ? '' : '+'+top.to_s}, :font=>#{font.inspect})\n"
         code
       end
       
