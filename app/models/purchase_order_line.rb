@@ -30,16 +30,22 @@ class PurchaseOrderLine < ActiveRecord::Base
   belongs_to :product
   belongs_to :order, :class_name=>PurchaseOrder.to_s
   belongs_to :price
-  belongs_to :location
+  belongs_to :location, :class_name=>StockLocation.to_s
   belongs_to :unit
   
   def before_validation
+    check_reservoir = true
     self.account_id = self.price.product.account_id
     self.unit_id = self.price.product.unit_id
     if self.price
       self.amount = (self.price.amount*self.quantity).round(2)
       self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2)
     end
+    if self.location.reservoir && self.location.product_id != self.product_id
+      check_reservoir = false
+      errors.add_to_base(tc:stock_location_can_not_receive_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) 
+    end
+    check_reservoir
   end
   
   

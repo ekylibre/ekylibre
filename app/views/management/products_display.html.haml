@@ -16,7 +16,7 @@
       =evalue @product, :weight
       =evalue @product, :active
     %td
-      =evalue @product, :to
+      =evalue @product, :to if @product.to_sale or @product.to_purchase
       =evalue @product, :catalog_name
       =evalue @product, :catalog_description
       =evalue @product, :description
@@ -24,13 +24,14 @@
     %td
       =evalue @product, :without_stocks
 
-%h2=tc :prices
-.aclist
-  - if @product.to_sale
-    =link_to tc('sale_price_create'), :action=>:prices_create, :mode=>:sales,:product_id=>session[:product_id], :class=>'procedure create'
-  - if @product.to_purchase
-    =link_to tc('purchase_price_create'), :action=>:prices_create, :mode=>:purchases,:product_id=>session[:product_id], :class=>'procedure create'
-=dyta :product_prices
+-if @product.to_sale or @product.to_purchase
+  %h2=tc :prices
+  .aclist
+    - if @product.to_sale
+      =link_to tc('sale_price_create'), :action=>:prices_create, :mode=>:sales,:product_id=>session[:product_id], :class=>'procedure create'
+    - if @product.to_purchase
+      =link_to tc('purchase_price_create'), :action=>:prices_create, :mode=>:purchases,:product_id=>session[:product_id], :class=>'procedure create'
+  =dyta :product_prices
 
 %h2=tc :components
 .aclist

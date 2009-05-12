@@ -61,10 +61,13 @@ class StockLocation < ActiveRecord::Base
     #raise Exception.new product_id.inspect+self.reservoir.inspect
     reception = true
     if self.reservoir 
-      product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.id}) 
-      if !product_stock.nil?
-        reception = (self.product_id == product_id || product_stock.current_real_quantity <= 0)
-        self.update_attributes!(:product_id=>product_id) if product_stock.current_real_quantity <= 0
+      product_stock = ProductStock.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.id}) 
+      if !product_stock[0].nil?
+        reception = (self.product_id == product_id || product_stock[0].current_real_quantity <= 0)
+        self.update_attributes!(:product_id=>product_id) if product_stock[0].current_real_quantity <= 0
+        for ps in product_stock
+          ps.destroy
+        end
       else
         self.update_attributes!(:product_id=>product_id)
       end

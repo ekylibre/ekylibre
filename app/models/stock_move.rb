@@ -108,33 +108,35 @@ class StockMove < ActiveRecord::Base
   
   
 
-
+  def self.natures
+    [:virtual, :real].collect{|x| [tc('natures.'+x.to_s), x] }
+  end
 
   
   ### For stocks_moves created by user
-  def change_quantity
-    #self.virtual = true if self.virtual.nil?
-    #self.input = true if self.input.nil?
-    product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
-    if product_stock.nil?
-      ProductStock.create!(:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.location_id)
-    elsif self.moved_on.nil?
-      product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
-    else
-      product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
-      product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity + self.quantity)
-    end
-  end
+#   def change_quantity
+#     #self.virtual = true if self.virtual.nil?
+#     #self.input = true if self.input.nil?
+#     product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
+#     if product_stock.nil?
+#       ProductStock.create!(:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.location_id)
+#     elsif self.moved_on.nil?
+#       product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
+#     else
+#       product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
+#       product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity + self.quantity)
+#     end
+#   end
 
-  ### For stocks_moves created by user
-  def update_stock_quantity(last_quantity)
-    product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
-    if !self.moved_on.nil?
-      product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity + self.quantity, :current_virtual_quantity=>(product_stock.current_virtual_quantity + (self.quantity - last_quantity)) )
-    else
-      product_stock.update_attributes(:current_virtual_quantity=> product_stock.current_virtual_quantity + (self.quantity - last_quantity) )
-    end
-  end
+#   ### For stocks_moves created by user
+#   def update_stock_quantity(last_quantity)
+#     product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>self.location_id, :product_id=>self.product_id})
+#     if !self.moved_on.nil?
+#       product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity + self.quantity, :current_virtual_quantity=>(product_stock.current_virtual_quantity + (self.quantity - last_quantity)) )
+#     else
+#       product_stock.update_attributes(:current_virtual_quantity=> product_stock.current_virtual_quantity + (self.quantity - last_quantity) )
+#     end
+#   end
 
 
 end

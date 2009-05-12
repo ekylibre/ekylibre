@@ -52,7 +52,7 @@
 
 %h2=tc :contacts, :count=>@contacts_count
 .aclist
-  = link_to tc('entities_contacts_create'), {:action=>:entities_contact_create, :id=>@entity.id}, :class=>'procedure create'
+  = link_to tc('entities_contacts_create'), {:action=>:entities_contacts_create, :id=>@entity.id}, :class=>'procedure create'
 =dyta :contacts
 -if @entity.client
   %h2=tc :sale_orders_number , :count=>@sale_orders_number

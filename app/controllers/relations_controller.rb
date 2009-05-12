@@ -205,7 +205,6 @@ class RelationsController < ApplicationController
   end
 
   dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]'], :active=>true}, :empty=>true) do |t|
-    t.column :name, :url=>{:action=>:entities_contacts_update}
     t.column :address, :url=>{:action=>:entities_contacts_update}
     t.column :phone
     t.column :fax
@@ -274,7 +273,7 @@ class RelationsController < ApplicationController
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
-      @contact.name =  tc(:first_contact)
+      # @contact.name =  tc(:first_contact)
       
       for complement in @complements
         attributes = params[:complement_datum][complement.id.to_s]||{}
@@ -311,7 +310,7 @@ class RelationsController < ApplicationController
         end
       end
     else
-      @contact = Contact.new(:country=>'fr')
+      @contact = Contact.new(:country=>'fr', :default=>true)
       @entity = Entity.new(:country=>'fr')
       for complement in @complements
         @complement_data << ComplementDatum.new(:complement_id=>complement.id)
@@ -404,7 +403,7 @@ class RelationsController < ApplicationController
       redirect_to_back if @contact.save
     else
       @contact = Contact.new
-      @contact.name = (@entity.contacts.size>0 ? tc(:second_contact) : tc(:first_contact) )
+      # @contact.name = (@entity.contacts.size>0 ? tc(:second_contact) : tc(:first_contact) )
       @contact.country = @entity.country
     end
     @title = {:value=>@entity.full_name}
@@ -421,7 +420,7 @@ class RelationsController < ApplicationController
     if request.post? and @contact
       redirect_to_back if @contact.update_attributes(params[:contact]) # @contact.update_attributes(params[:contact])
     end
-    @title = {:entity=>@entity.full_name, :contact=>@contact.name}
+    @title = {:entity=>@entity.full_name}
     render_form
   end
   
@@ -580,14 +579,8 @@ class RelationsController < ApplicationController
   
   def meetings_create
     @entity = find_and_check(:entity, params[:entity_id]) if params[:entity_id]
-    @entity = find_and_check(:entity, session[:current_entity]) if @entity.nil?
+    @entity = find_and_check(:entity, session[:current_entity]) if @entity.nil? && session[:current_entity]
     @meeting = Meeting.new(:entity_id=>(@entity ? @entity.id : nil), :taken_place_on=>params[:taken_place_on]||Date.today)
-#    if session[:history][1].to_s.include? "entities"
-#      @meeting = Meeting.new(:entity_id=>session[:current_entity]||0)
-#    else
-#      @meeting = Meeting.new
-#    end
-    #raise Exception.new @current_user.inspect
     @meeting.employee = @current_user.employee
     if request.post?
       @meeting = Meeting.new(params[:meeting])

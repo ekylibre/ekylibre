@@ -486,7 +486,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:deliveries, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
-    t.column :text_nature, :children=>:product_name
+    t.column :address, :through=>:contact, :children=>:product_name, :label=>"Livraison"
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
     t.column :amount
@@ -510,10 +510,6 @@ class ManagementController < ApplicationController
   def sales_details
     @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
-    sale_lines_list
-    deliveries_list
-    invoice_lines_list
-    payments_list
     @title = {:value=>@sale_order.number, :name=>@sale_order.client.full_name} 
   end
   
@@ -1128,8 +1124,8 @@ class ManagementController < ApplicationController
     t.column :label, :through=>:unit
     t.column :name, :through=>:product
     t.column :virtual
-    t.action :stocks_moves_update, :image=>:update
-    t.action :stocks_moves_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :stocks_moves_update, :image=>:update, :if=>'RECORD.generated != true'
+    t.action :stocks_moves_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure,:if=>'RECORD.generated != true' 
     t.procedure :stocks_moves_create
   end
   
@@ -1192,12 +1188,12 @@ class ManagementController < ApplicationController
     if request.post? 
       @stock_move = StockMove.new(params[:stock_move])
       @stock_move.company_id = @current_company.id
-      @stock_move.virtual = true
-      @stock_move.input = true
-      if @stock_move.save
-        @stock_move.change_quantity
-        redirect_to :action =>:stocks_locations_display, :id=>@stock_move.location_id 
-      end
+      # @stock_move.virtual = true
+      # @stock_move.input = true
+      #if @stock_move.save
+        # @stock_move.change_quantity
+      redirect_to :action =>:stocks_locations_display, :id=>@stock_move.location_id if @stock_move.save
+      #end
     else
       @stock_move = StockMove.new
       @stock_move.planned_on = Date.today
@@ -1207,21 +1203,14 @@ class ManagementController < ApplicationController
 
   def stocks_moves_update
     @stock_move = find_and_check(:stock_move, params[:id])
-    last_quantity = @stock_move.quantity
-    # render_form(:read_only=>true) if !self.moved_on.nil? or self.generated
-  # else
     if request.post?
-      params[:stock_move][:company_id] = @current_company.id
-      if @stock_move.update_attributes(params[:stock_move])
-        @stock_move.update_stock_quantity(last_quantity)
-        redirect_to :action=>:stocks_locations_display, :id=>@stock_move.location_id
-      end
+      redirect_to :action=>:stocks_locations_display, :id=>@stock_move.location_id if @stock_move.update_attributes(params[:stock_move])
     end
     @title = {:value=>@stock_move.name}
     render_form
   end
 
-  def stocks_moves_delete ## => Permission ? 
+  def stocks_moves_delete 
     @stock_move = find_and_check(:stock_move, params[:id])
     if request.post? or request.delete?
       redirect_to :back if @stock_move.destroy

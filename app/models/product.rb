@@ -78,7 +78,7 @@ class Product < ActiveRecord::Base
   end
 
   def validate
-    errors.add_to_base(lc(:unknown_use_of_product)) unless self.to_sale or self.to_purchase or self.to_rent
+    #errors.add_to_base(lc(:unknown_use_of_product)) unless self.to_sale or self.to_purchase or self.to_rent
   end
 
   def self.natures

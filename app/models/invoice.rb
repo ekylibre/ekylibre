@@ -65,13 +65,20 @@ class Invoice < ActiveRecord::Base
       for record in records
         record.update_attributes!(:invoice_id=>invoice.id)
         for lines in record.lines
-          invoice_line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
-                                             :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
-                                             :order_line_id=>lines.order_line_id,:quantity=>lines.quantity)
-          invoice_line.save!
+          if lines.quantity > 0
+            line = InvoiceLine.find(:first, :conditions=>{:company_id=>lines.company_id, :product_id=>lines.order_line.product_id, :price_id=>lines.price_id, :invoice_id=>invoice.id})
+            if line.nil?
+              invoice_line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
+                                                 :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
+                                                 :order_line_id=>lines.order_line_id,:quantity=>lines.quantity) 
+              invoice_line.save!
+            else
+              line.update_attributes(:quantity=>(line.quantity + lines.quantity),:amount=>(line.amount + lines.amount),:amount_with_taxes=>(line.amount_with_taxes + lines.amount_with_taxes))
+            end
+          end
         end
       end
-
+      
       
     when "Delivery"
       invoice.amount = records.amount
@@ -84,10 +91,12 @@ class Invoice < ActiveRecord::Base
       invoice.save!
       records.update_attributes!(:invoice_id=>invoice.id)
       for lines in records.lines
-        line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
-                                    :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
-                                    :order_line_id=>lines.order_line_id,:quantity=>lines.order_line.quantity)
-        line.save
+        if lines.quantity > 0
+          line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
+                                     :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
+                                     :order_line_id=>lines.order_line_id,:quantity=>lines.order_line.quantity)
+          line.save
+        end
       end
       
     when "SaleOrder"
@@ -102,10 +111,12 @@ class Invoice < ActiveRecord::Base
       puts invoice.inspect
       records.update_attributes!(:invoiced=>true)
       for lines in records.lines
-        line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
-                                   :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
-                                   :order_line_id=>lines.id,:quantity=>lines.quantity)
-        line.save
+        if lines.quantity > 0
+          line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
+                                     :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
+                                     :order_line_id=>lines.id,:quantity=>lines.quantity)
+          line.save
+        end
       end
     end
     
