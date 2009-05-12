@@ -1210,11 +1210,7 @@ fr-FR:
       stock_location_can_not_waste_product: 'Vous ne pouvez pas enregistrer de perte pour  le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
       natures:
           transfer: Transfert 
-          waste: Perte
-    stock_move:
-      natures:
-        virtual: zz
-        real: hjhj    
+          waste: Perte    
   
   # Genral words and expression through the all app
   general:
