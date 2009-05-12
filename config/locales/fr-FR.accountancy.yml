@@ -19,6 +19,7 @@ fr-FR:
         need_financialyear_to_consult_entries: 'Vous devez avoir un exercice ouvert pour pouvoir consulter des écritures.'
         need_journal_to_consult_entries: 'Vous devez créer un journal pour pouvoir consulter des écritures à l''intérieur.'
         need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
+        need_entries_to_point: 'Aucune écriture n''a été trouvé pour la période du relevé bancaire {{value}}.'
         no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
       create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
       create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
@@ -192,18 +193,22 @@ fr-FR:
       statements_update:
         title: Modifier un relevé
       statements_point:
-        title: 'Pointage du relevé bancaire {{value}}'
+        title: 'Pointage du relevé bancaire {{value1}} du compte bancaire {{value2}}'
         validate: Valider 
-        statement_number: N°Relevé de compte bancaire
-        started_on: Du
-        stopped_on: Au
+        recorded_on: Enregistrée le
+        statement_number: N° Relevé 
+        statements_display: Détail du relevé de compte
+        statements: Tableau des relevés de compte
         entry_name: 'Intitulé de l''écriture'
         entry_debit: Débit
         entry_credit: Crédit
         entry_currency_rate: Devise  
-        total: 'Total pour le compte bancaire {{value}}:'
+        total: 'Total pour le compte bancaire :'
+        total_debit: 'Débit'
+        total_credit: 'Crédit'
       statements_display:
         title: 'Détail du relevé de compte {{value}}'
+        statements: Tableau des relevés de compte 
         statement_number: Numéro du relevé de compte
         statement_bank_account_name: Nom du compte bancaire
         statement_debit: Débit

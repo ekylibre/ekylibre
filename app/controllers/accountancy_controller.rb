@@ -9,7 +9,6 @@ class AccountancyController < ApplicationController
     t.action :journals_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.action :journals_close
     t.action :entries_consult, :image=>:table
-    #t.procedure :create, :action=>:journals_create
   end
   
   dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -17,7 +16,6 @@ class AccountancyController < ApplicationController
     t.column :name
     t.action :accounts_update, :image=>:update
     t.action :accounts_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    #t.procedure :create, :action=>:accounts_create
   end
   
   dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -29,17 +27,15 @@ class AccountancyController < ApplicationController
     t.action :bank_accounts_update, :image=>:update
     t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.action :statements_point    
-    #t.procedure :create, :action=>:bank_accounts_create
   end
   
   dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :started_on
     t.column :stopped_on
     t.column :number
-    t.action :statements_display, :image=>:display
+    t.action :statements_display, :image=>:show
     t.action :statements_update, :image=>:update
     t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
-    #t.procedure :create, :action=>:statements_create
   end
   
   dyta(:entries, :conditions=>:entries_conditions, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN journal_periods p ON p.id=r.period_id") do |t|
@@ -59,11 +55,9 @@ class AccountancyController < ApplicationController
     t.column :stopped_on
     t.action :financialyears_update, :image=>:update
     t.action :financialyears_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
-    #t.procedure :create, :action=>:financialyears_create
   end
 
   dyli(:account_search, :attributes=>[:number, :name], :conditions=>{:company_id=>['@current_company.id']}, :model=>:account)
-
 
   #
   def index
@@ -78,10 +72,9 @@ class AccountancyController < ApplicationController
   def bank_accounts_create
     access :bank_accounts
     if request.post? 
-      #puts 'param:'+params[:bank_account].to_s 
       @bank_account = BankAccount.new(params[:bank_account])
       @bank_account.company_id = @current_company.id
-      #puts 'BA:'+@bank_account.inspect
+     
       redirect_to_back if @bank_account.save
     else
       @bank_account = BankAccount.new
@@ -110,7 +103,7 @@ class AccountancyController < ApplicationController
       if @bank_account.statements.size > 0
         @bank_account.update_attribute(:deleted, true)
       else
-        BankAccount.delete @bank_account
+        BankAccount.destroy @bank_account
       end
     end
     redirect_to :action => "bank_accounts"
@@ -118,7 +111,7 @@ class AccountancyController < ApplicationController
 
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
-   # accounts_list 'sort'=>"number", 'dir'=>'asc'
+  
   end
   
   
@@ -337,12 +330,14 @@ class AccountancyController < ApplicationController
 
   # this action displays all entries stored in the journal. 
   def entries_consult
+    session[:statement] = nil
     session[:journal_period] ||= {}
     session[:journal_period][:journal_id] = params[:id] if params[:id]
     @journal_period = JournalPeriod.new(:journal_id=>params[:id])
     @journals = @current_company.journals
     @financialyears = @current_company.financialyears
     if request.post?
+      #raise Exception.new(params[:journal_period].inspect)
       session[:journal_period] = params[:journal_period]
     end
   end
@@ -396,8 +391,17 @@ class AccountancyController < ApplicationController
         end
         
         # @record = JournalRecord.find(:first,:conditions=>['period_id = ? AND created_on = CAST(? AS DATE) AND printed_on=CAST(? AS DATE) AND number=?', @period.id, params[:record][:created_on], params[:record][:printed_on], params[:record][:number] ])
-         @record = JournalRecord.find(:first,:conditions=>{:period_id => @period.id, :created_on=>params[:record][:created_on], :printed_on=>params[:record][:printed_on], :number => params[:record][:number]})
+       #  @record = JournalRecord.find(:first,:conditions=>{:period_id => @period.id, :created_on=>params[:record][:created_on], :printed_on=>params[:record][:printed_on], :number => params[:record][:number]})
+
+        @record = JournalRecord.find(:first,:conditions=>{:period_id => @period.id, :number => params[:record][:number]})
+        
+        unless @record.nil?
+          @record.created_on = params[:record][:created_on]
+          @record.printed_on = params[:record][:printed_on]
+        end
+
         #raise Exception.new @record.inspect
+
         @record = @period.records.build(params[:record].merge({:period_id=>@period.id, :company_id=>@current_company.id, :journal_id=>@journal.id})) if @record.nil?
         # raise Exception.new @record.inspect
         @entry = @current_company.entries.build(params[:entry])
@@ -412,7 +416,6 @@ class AccountancyController < ApplicationController
           end
         end
      
-
       elsif request.delete?
         @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
         if @entry.close?
@@ -425,13 +428,12 @@ class AccountancyController < ApplicationController
         @entry = Entry.new 
       end
      
-      @records = @journal.records.find(:all, :order=>"created_on DESC", :limit=>session[:entries][:records_number].to_i)
-     
-      
+      @records = @journal.records.find(:all, :order=>"number DESC", :limit=>session[:entries][:records_number].to_i)
+           
       @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
      
+          
       unless @record.nil?
-     
         if (@record.balance > 0) 
           @entry.currency_credit=@record.balance.abs 
         else
@@ -441,10 +443,11 @@ class AccountancyController < ApplicationController
       
       @record = JournalRecord.new(params[:record]) if @record.nil?
     
-      if @record.new_record? 
+      if @record.new_record?
+      
         @record.number = @records.size>0 ? @records.first.number.succ : 1
         @record.created_on ||= @record.printed_on ||= Date.today
-    
+        raise Exception.new('c la:'+@records.inspect+':'+@record.inspect)
       end
       render :action => "entries.rjs" if request.xhr?
     
@@ -470,7 +473,6 @@ class AccountancyController < ApplicationController
 
   # lists all the transactions established on the accounts, sorted by date.
   def journals
-    #journals_list params
   end
 
 
@@ -508,7 +510,7 @@ class AccountancyController < ApplicationController
         flash[:message]=tc(:messages, :need_empty_journal_to_delete)
         @journal.update_attribute(:deleted, true)
       else
-        Journal.delete(@journal)
+        Journal.destroy(@journal)
       end
     end
     redirect_to :action => "journals"
@@ -563,8 +565,8 @@ class AccountancyController < ApplicationController
 
   # lists all the statements in details for a precise account.
   def statements  
+       
     @bank_accounts = @current_company.bank_accounts
-    #bank_account_statements_list params
     @valid = @current_company.bank_accounts.empty?
     unless @bank_accounts.size>0
       flash[:message] = tc('messages.need_bank_account_to_record_statements')
@@ -615,7 +617,7 @@ class AccountancyController < ApplicationController
   def statements_delete
     if request.post? or request.delete?
       @statement = BankAccountStatement.find_by_id_and_company_id(params[:id], @current_company.id)  
-      BankAccountStatement.delete @statement
+      BankAccountStatement.destroy @statement
       redirect_to :action=>"statements"
     end
   end
@@ -629,9 +631,13 @@ class AccountancyController < ApplicationController
     @bank_account_statement=BankAccountStatement.find(session[:statement])
     @bank_account=BankAccount.find(@bank_account_statement.bank_account_id)
     
-    @entries=@current_company.entries.find(:all, :conditions => {:account_id => @bank_account.account_id, :editable => true}, :joins => "INNER JOIN journal_records j ON j.id = entries.record_id", :order => "statement_id DESC")
-    
-    
+    @entries=@current_company.entries.find(:all, :conditions =>['account_id = ? AND editable = true AND CAST(j.created_on AS DATE) BETWEEN ? AND ?', @bank_account.account_id, @bank_account_statement.started_on, @bank_account_statement.stopped_on ], :joins => "INNER JOIN journal_records j ON j.id = entries.record_id", :order => "statement_id DESC")
+     
+    unless @entries.size > 0
+      flash[:message] = tc('messages.need_entries_to_point', :value=>@bank_account_statement.number)
+      redirect_to :action=>'statements'
+    end
+
     if request.xhr?
     
       @entry=Entry.find(params[:id]) 
@@ -659,7 +665,7 @@ class AccountancyController < ApplicationController
       render :action => "statements.rjs" 
       
     end
-    @title = {:value => @bank_account_statement.number}
+    @title = {:value1 => @bank_account_statement.number, :value2 => @bank_account.name }
   end
 
   # displays in details the statement choosen with its mainly characteristics.

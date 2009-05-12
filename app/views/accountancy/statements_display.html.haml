@@ -1,5 +1,9 @@
+= aclist do |l|
+  - l.action :statements
+
 =evalue(@bank_account_statement, :number)
 =evalue(@bank_account_statement.bank_account, :name)
 =evalue(@bank_account_statement, :credit)
 =evalue(@bank_account_statement, :debit)
 =dyta(:entries)
+

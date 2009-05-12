@@ -5,6 +5,7 @@
       - f.field :journal_period, :financialyear_id, :choices=>@financialyears.collect{|x| [x.code, x.id]}, :options=>{:include_blank=>tc(:all_financialyears)}
     .actions
       =submit_tag tg('apply')
+
 =dyta(:entries)
 
 

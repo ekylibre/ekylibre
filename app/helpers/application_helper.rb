@@ -162,11 +162,13 @@ module ApplicationHelper
         conditions << financialyear.id
       end
     end
+  
     unless session[:statement].blank?
       statement = @current_company.bank_account_statements.find(:first, :conditions=>{:id=>session[:statement]})
-      conditions[0] += " AND statement_id = ?"
+      conditions[0] += " AND statement_id = ? "
       conditions << statement.id
     end
+      #raise Exception.new('v:'+conditions.inspect)
     conditions
   end
  
@@ -426,10 +428,6 @@ module ApplicationHelper
   end
 
 
-
-
-
-
   def aclist(options={})
     code = '[EmptyAclistError]'
     if block_given?
@@ -478,7 +476,6 @@ module ApplicationHelper
       @actions << options.merge({:name=>name})
     end
   end
-
 
 
   def formalize(options={})

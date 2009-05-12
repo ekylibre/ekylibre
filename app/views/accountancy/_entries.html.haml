@@ -38,8 +38,10 @@
         - record.entries.each do |entry|
           %tr{ :class=>(entry.record.balanced ? "balanced" : "unbalanced")+" "+attr}
             %td=entry.record.number
-            %td=entry.record.created_on.to_formatted_s :attributes
-            %td=entry.record.printed_on.to_formatted_s :attributes
+            %td=I18n.localize(entry.record.created_on)
+            %td=I18n.localize(entry.record.printed_on)
+            /%td=entry.record.created_on.to_formatted_s :attributes
+            /%td=entry.record.printed_on.to_formatted_s :attributes
             %td=entry.name
             %td=entry.account.number
             %td{:align=>"right"}=number_to_currency(entry.currency_debit, :delimiter=>"", :precision => 2, :unit=>"")

@@ -26,12 +26,20 @@ class BankAccountStatement < ActiveRecord::Base
   has_many :entries, :class_name=>"Entry", :foreign_key=>:intermediate_id
   has_many :entries, :class_name=>"Entry", :foreign_key=>:statement_id
 
+  before_destroy :statement_entry
 
   # A bank account statement has to contain all the planned records.
   def validate    
-   
     errors.add_to_base lc(:error_period_statement) if self.started_on >= self.stopped_on
   end
 
+  #
+  def statement_entry
+    if self.entries.size > 0
+      self.entries.each do |entry|
+        entry.update_attribute(:statement_id, nil)
+      end
+    end
+  end
 
 end
