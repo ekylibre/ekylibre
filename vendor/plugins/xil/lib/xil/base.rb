@@ -23,7 +23,9 @@ module Ekylibre
       ORIENTATION={'portrait'=>'P', 'landscape'=>'L'}
 
       XIL_MARKUP = {
-        'template'=>{:elements=>{'document'=>1, 'parameters'=>1}},
+        'template'=>{:elements=>{'document'=>1, 'formats'=>1, 'parameters'=>1}},
+        'formats'=>{:elements=>{'format'=>'*'}},
+        'format'=>{:attributes=>{'rule'=>:required, 'style'=>:required}},
         'parameters'=>{:elements=>{'parameter'=>'*'}},
         'parameter'=>{},
         'document'=>{:elements=>{'page'=>'+'}},
@@ -61,13 +63,9 @@ module Ekylibre
         if XIL_MARKUP[element.name].nil?
           raise Exception.new('Unknown element: '+element.name)
         end
-
-
         code = ''
-        #code += "# #{element.name}\n"# if element.has_elements?
         environment[:depth] ||= 1
         element.each_element do |child|
-          #code += '#'+('  '*environment[:depth])+child.name.upper+"\n"
           if XIL_MARKUP[element.name][:elements].keys.include? child.name
             # Verification of the attributes
             raise Exception.new('Undefined element: '+child.name) if XIL_MARKUP[child.name].nil?
@@ -82,8 +80,7 @@ module Ekylibre
             #code += "# Unknown child: #{child.name}\n"
           end
         end
-        # code  = code.gsub(/\n(\ )*/, "\n").gsub(/(^\n|\n$)/,'').gsub(/^/,'\1'+"  "*environment[:depth])+"\n"
-        code#.gsub("\n","\n"+"  "*environment[:depth])
+        code
       end
 
 
@@ -107,7 +104,7 @@ module Ekylibre
             '@@PAGENB@@'
           elsif str=~/[a-z\_]{2,64}(\.[a-z\_]{2,64}){0,16}/
             # Add variable verification /variable.****/
-            str += ".strftime('#{format}')" unless format.nil?
+            str = "(#{str}.nil? ? '' : #{str}.strftime('#{format}'))" unless format.nil?
             "'+ic.iconv(#{str}.to_s)+'"
           else
             raise Exception.new('Unvalid string replacement: '+str)

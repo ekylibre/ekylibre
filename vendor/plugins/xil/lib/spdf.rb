@@ -1,14 +1,12 @@
 require 'bigdecimal'
 require 'zlib'
 
+
 class Spdf
   VERSION = '0.1'
   PDF_VERSION = "1.3"
   LAYOUTS = { :single=>'/SinglePage', :continuous=>'/OneColumn', :two_left=>'/TwoColumnLeft', :two_right=>'/TwoColumnRight' }
   ZOOMS = { :page=>"/Fit", :width=>"/FitH null", :height=>"/FitV null" }
-  LINE_DASH_STYLES = {:dotted=>{:dash=>[1, 1], :phase=>0.5}, :dashed=>{:dash=>[3], :phase=>2} }
-  LINE_CAP_STYLES = {:butt=>0, :round=>1, :square=>2}
-  LINE_JOIN_STYLES = {:miter=>0, :round=>1, :bevel=>2}
   JPEG_COLOR_SPACES = [nil, nil, nil, 'DeviceRGB', 'DeviceCMYK']
   PNG_COLOR_SPACES = ['DeviceGray', nil, 'DeviceRGB', 'Indexed']
 
@@ -76,8 +74,12 @@ class Spdf
     @pages[page||@page][:items] << {:nature=>:line, :params=>params}
   end
 
-  def box(params={}, page=nil)
+  def box(x, y, width, height, params={}, page=nil)
     self.new_page if @page<0
+    params[:x] = x
+    params[:y] = y
+    params[:width] = width
+    params[:height] = height
     params[:font] ||= {}
     params[:font][:family] ||= 'Times'
     params[:font][:bold] ||= false
@@ -86,12 +88,12 @@ class Spdf
     @pages[page||@page][:items] << {:nature=>:box, :params=>params}
   end
 
-  def text(content, x, y, params={}, page=nil)
-    params[:text] = content
-    params[:x] = x
-    params[:y] = y
-    box(params, page)
-  end
+#   def text(content, x, y, params={}, page=nil)
+#     params[:text] = content
+#     params[:x] = x
+#     params[:y] = y
+#     box(params, page)
+#   end
 
   def generate(options={})
     yield self if block_given?
@@ -120,13 +122,12 @@ class Spdf
     resources_object = build_resources
     # Pages
     pages_object, first_page_object = build_pages(resources_object)
-    # build_resources
     # Info
     info_object = build_info
     # Catalog
     root_object = build_catalog(pages_object, first_page_object)
 
-    # Building of the complete document
+    # Built of the complete document
     pdf = "%PDF-#{PDF_VERSION}\n\n"
     xref  = "xref\n"
     xref += "0 #{(@objects_count+1).to_s}\n"
@@ -207,11 +208,30 @@ class Spdf
     code = ''
     page_width  = page[:format][0]
     page_height = page[:format][1]
+
+    dgs = GraphicState.new
+
     for item in page[:items]
       nature = item[:nature]
       params = item[:params]
       if nature==:box
         text = params[:text]
+        
+#         bac = params[:background]
+        
+#         boc = [255,0,255]
+#         if bac
+#           code += sprintf('%.3f %.3f %.3f RG ', bac[0]/255.0, bac[1]/255.0, bac[2]/255.0) 
+#           op = 'f'
+#         end
+#         if params[:border]
+#           params[:border][:color]
+#           if boc
+#             code += sprintf('%.3f %.3f %.3f rg ', boc[0]/255.0, boc[1]/255.0, boc[2]/255.0)
+#             op = (op=='f') ? 'B' : 'S'
+#           end
+#         end
+#         code+=out(sprintf('%.2f %.2f %.2f %.2f re %s ', params[:x], params[:y], params[:width], params[:height], op))
         if text
           font = get_font(params[:font][:family], params[:font][:bold], params[:font][:italic])
           size = params[:font][:size]||12
@@ -233,9 +253,14 @@ class Spdf
         end
         x = (params[:x]||0)
         y = page_height-(params[:y]||0)-h
+
+        dgs.new_graphics_state do |gs|
+          gs.concatenate_matrix(w, 0, 0, h, x, y)
+          gs.invoke_xobject(image[:name])
+        end
         code += sprintf('q %.2f 0 0 %.2f %.2f %.2f cm /'+image[:name]+" Do Q\n", w, h, x, y)
       elsif nature==:line
-        border = params[:border]
+        border = params[:border]||{}
         width = border[:width]||2
         points = params[:points]
         style = border[:style]
@@ -248,11 +273,25 @@ class Spdf
           code += points[i][0].to_s+' '+(page_height-points[i][1]).to_s+' '+(i==0 ? 'm' : 'l')+' '
         end
         code += " S\n"
+        
+        dgs.set_line_cap(border[:cap]||:round)
+        dgs.set_line_join(border[:join]||:round)
+        dgs.set_line_color(border[:color])
+        dgs.set_line_width(width)
+        dgs.set_line_dash(style, width)
+        dgs.move_to(points[0])
+        points[1..-1].each{|point| dgs.line_to(point)}
+        dgs.close_and_stroke_path
+
+
       end
     end
 
     return code
   end
+
+
+
 
   def self.string_to_color(value)
     value = "#"+value[1..1]*2+value[2..2]*2+value[3..3]*2 if value=~/^\#[a-f0-9]{3}$/i
@@ -555,6 +594,127 @@ class Spdf
 
 end
 
+
+
+class GraphicState
+
+  LINE_DASH_STYLES = {:dotted=>{:dash=>[1, 1], :phase=>0.5}, :dashed=>{:dash=>[3], :phase=>2} }
+  LINE_CAP_STYLES = {:butt=>0, :round=>1, :square=>2}
+  LINE_JOIN_STYLES = {:miter=>0, :round=>1, :bevel=>2}
+  
+  def initialize
+    @code = ''
+  end
+
+  def to_s
+    @code
+  end
+
+  def set_fill_color(a, b=nil, c=nil, d=nil)
+    a, b, c, d = a[0], a[1], a[2], a[3] if a === Array
+    @fill_color = [a, b, c, d]
+    @code += ' '+color(a, b, c, d).downcase
+    self
+  end
+
+  def set_line_color(a, b=nil, c=nil, d=nil)
+    a, b, c, d = a[0], a[1], a[2], a[3] if a === Array
+    @line_color = []
+    @code += ' '+color(a, b, c, d)
+    self
+  end
+
+  def set_line_cap(style)
+    return if style == @line_cap
+    cap = LINE_CAP_STYLES[style]
+    self.error('Unknown cap style: '+style.inspect) if cap.nil?
+    @line_cap = style
+    @code += ' '+cap.to_s+' J'    
+    self
+  end
+
+  def set_line_join(style)
+    return if style == @line_join
+    join = LINE_JOIN_STYLES[style]
+    self.error('Unknown join style: '+style.inspect) if join.nil?
+    @line_join = style
+    @code += ' '+join.to_s+' j'    
+    self
+  end
+
+  def set_miter_limit(width)
+    return if width == @miter_limit
+    self.error('Width must be numeric: '+width.inspect) unless [Float, Integer].include? width.class
+    @miter_limit = width
+    @code += ' '+@miter_limit.to_s+' M'
+    self
+  end
+
+  def set_line_width(width)
+    return if width == @line_width
+    self.error('Width must be numeric: '+width.inspect) unless [Float, Integer].include? width.class
+    @line_width = width
+    @code += ' '+@line_width.to_s+' w'
+    self
+  end
+
+  def set_line_dash(pattern, phase=0, width=nil)
+    width ||= @line_width
+    self.error('Unvalid type to set dash style: '+phase.inspect) unless [Float, Integer].include? phase.class
+    self.error('Unvalid type to set dash style: '+width.inspect) unless [Float, Integer].include? width.class
+    if pattern === Symbol
+      style = LINE_DASH_STYLES[pattern] if LINE_DASH_STYLES.keys.include? pattern
+      pattern, phase = style[:dash], style[:phase]
+    end
+    pattern = pattern.collect{|x| x*width}
+    phase *= width
+    return if pattern == @dash_pattern and phase == @dash_phase
+    @dash_pattern, @dash_phase = pattern, phase
+    @code += " [#{@dash_pattern.join(' ')}] #{@dash_phase} d" 
+    self
+  end
+
+  def text_object
+    @code += ' BT'
+    object = self.dup
+    yield object
+    @code = object.code
+    @code += ' ET'
+  end
+
+
+  def set_line_dash2(style, width=nil)
+    width ||= @width
+    
+    self.error('Unvalid type to set dash style: '+width.inspect) unless [Float, Integer].include? width.class
+    style = LINE_DASH_STYLES[style] if LINE_DASH_STYLES.keys.include? style
+    self.error('Unvalid type to set dash style: '+style.inspect) unless style.is_a? Hash
+    
+    @code += "[#{(style[:dash]||[]).collect{|x| x*width}.join(' ')}] #{(style[:phase]||0)*width} d" 
+    self
+  end
+
+
+  private
+
+  def color(a, b=nil, c=nil, d=nil)
+    self.error('Color channel A must be a number between 0.0 and 1.0') if a<0 or a>1
+    if b.nil? or c.nil?
+      a.to_f+' G'
+    else
+      self.error('Color channel B must be a number between 0.0 and 1.0') if b<0 or b>1
+      self.error('Color channel C must be a number between 0.0 and 1.0') if c<0 or c>1
+      if d.nil?
+      a.to_f+' '+b.to_f+' '+c.to_f+' RG'
+      else
+        self.error('Color channel D must be a number between 0.0 and 1.0') if d<0 or d>1
+        a.to_f+' '+b.to_f+' '+c.to_f+' '+d.to_f+' K'
+      end
+    end
+  end
+  
+
+end
 
 
 if __FILE__==$0

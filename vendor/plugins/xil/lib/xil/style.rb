@@ -50,6 +50,10 @@ module Ekylibre
       end
 
       def inspect
+        self.to_s
+      end
+      
+      def to_s
         @value.to_f.to_s+@unit
       end
       
@@ -83,6 +87,8 @@ module Ekylibre
 
 
     class Style
+
+      attr_reader :properties
 
       PROPERTIES = {
         'padding'=>{:nature=>:length4},
@@ -121,7 +127,7 @@ module Ekylibre
       DEFAULT_FORMAT = 'a4'
       
       def initialize(text)
-        self.parse(text)
+        self.parse(text.to_s)
       end
 
       def parse(text)
@@ -144,6 +150,44 @@ module Ekylibre
         prop = @properties[property]
         prop ||= Style.property_value(property, default) unless default.nil?
         prop
+      end
+
+      def to_s
+        style = ''
+        for prop, value in @properties
+          style += prop+':'
+          if value.is_a? Array
+            style += value.join(' ')
+          else
+            style += value.to_s
+          end
+          style += ';'
+        end
+        puts @properties.inspect
+        puts style
+        style
+      end
+
+      def dup
+        Style.new(self.to_s)
+      end
+
+      def merge(style)
+        merged = self.dup
+        merged.merge!(style)
+        merged
+      end
+
+      def merge!(style)
+        return self if style.nil?
+        if style.is_a? String
+          self.parse(style)
+        else
+          for prop, value in style.properties
+            self.set(prop, value)
+          end
+        end
+        self
       end
 
       private

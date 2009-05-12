@@ -19,6 +19,7 @@ class MeetingLocation < ActiveRecord::Base
 
   belongs_to :company
   has_many :meetings
+  has_many :entities
 
   attr_readonly :company_id, :name, :description
 

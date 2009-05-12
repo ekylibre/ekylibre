@@ -24,6 +24,21 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient3809">
+      <stop
+         style="stop-color:#929292;stop-opacity:1;"
+         offset="0"
+         id="stop3811" />
+      <stop
+         id="stop3817"
+         offset="0.5"
+         style="stop-color:#d5d5d5;stop-opacity:1;" />
+      <stop
+         style="stop-color:#929292;stop-opacity:1;"
+         offset="1"
+         id="stop3813" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3772">
       <stop
          style="stop-color:#ffffff;stop-opacity:1;"
@@ -3890,6 +3905,37 @@
        x2="208.02595"
        y2="24"
        gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4416"
+       id="radialGradient3004"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.524666,2.078441e-2,-1.593764e-2,1.364491,-218.61093,27.372958)"
+       cx="348.00012"
+       cy="-1.3381536"
+       fx="348.00012"
+       fy="-1.3381536"
+       r="11.375" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5319"
+       id="radialGradient3006"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.448585,1.854183e-2,-1.514048e-2,1.296392,-192.12653,27.500448)"
+       cx="347.99979"
+       cy="-0.90479255"
+       fx="347.99979"
+       fy="-0.90479255"
+       r="11.97253" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3809"
+       id="linearGradient3815"
+       x1="322"
+       y1="30.5625"
+       x2="322"
+       y2="22.1875"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -3946,7 +3992,7 @@
        id="guide8460" />
     <sodipodi:guide
        orientation="horizontal"
-       position="0"
+       position="313.125,-0.125"
        id="guide1533" />
     <sodipodi:guide
        orientation="vertical"
@@ -4897,5 +4943,48 @@
        inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/sort.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <path
+       style="opacity:0.9;fill:url(#radialGradient3004);fill-opacity:1;fill-rule:evenodd;stroke:url(#radialGradient3006);stroke-width:0.99999964;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 305,23.757447 L 304.47396,29.202787 L 308.77863,29.337161 L 308.50655,31.661475 L 315.53279,31.661021 L 315.25395,29.25 L 319.47396,29.160567 L 318.62336,23.707057 C 317.43775,22.683358 316.21096,22.349693 314.86056,22.059153 L 314.92439,16.661479 L 308.23448,16.661479 L 308.6093,22.187626 C 307.24143,22.495265 306.03832,22.975412 305,23.757447 z"
+       id="path3002"
+       sodipodi:nodetypes="ccccccccccccc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g3800"
+       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/print.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         sodipodi:nodetypes="ccccc"
+         id="path3012"
+         d="M 321.5,21.625 L 334.5,21.625 C 335.89668,24.932503 335.76872,27.858846 334.5,30.5 L 321.5,30.5 C 320.17864,27.730433 320.49732,24.726573 321.5,21.625 z"
+         style="fill:url(#linearGradient3815);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         id="path3008"
+         d="M 323.5,16.5 L 323.5,24.5 L 332.5,24.5 L 332.5,16.5 L 323.5,16.5 z"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         id="path3010"
+         d="M 323.375,28.75 L 323.125,31.5 L 333.25,31.5 L 332.875,28.625 L 323.375,28.75 z"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         id="path3014"
+         d="M 325,18.5 L 331,18.5"
+         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         id="path3016"
+         d="M 325,20.625 L 331,20.625"
+         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         id="path3807"
+         d="M 325,22.5 L 331,22.5"
+         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
   </g>
 </svg>

@@ -139,19 +139,23 @@ class RelationsController < ApplicationController
     t.column :website
     t.column :created_on, :datatype=>:date
     t.column :active
-    t.action :entities_display, :image=>:show
-    t.action :entities_update, :image=>:update
-    t.action :entities_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :entities_create
+    t.action :entities_display
+    t.action :entities_update
+    t.action :entities_print
+    t.action :entities_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
+
+  def entities_print
+    render :xil=>"#{RAILS_ROOT}/app/views/prints/xil2_test.xml", :client=>Entity.find(params[:id]||1), :output=>:pdf
+  end
 
   
   def entities
     @size = Entity.count
     @key = params[:key]||session[:entity_key]
     session[:entity_key] = @key
-    entities_list # ({:attributes=>[:id, :name, :code, :full_name, :website], :key=>@key}.merge(params))
+    #entities_list({:attributes=>[:id, :name, :code, :full_name, :website], :key=>@key}.merge(params))
     # contacts_list({:attributes=>[:id, :fax, :mobile, :telephone], :key=>@key}.merge(params))
     #     #  entities_list params
     #     @entities = {}
@@ -203,6 +207,8 @@ class RelationsController < ApplicationController
     #     #  end
     #     # end
   end
+
+
 
   dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]'], :active=>true}, :empty=>true) do |t|
     t.column :address, :url=>{:action=>:entities_contacts_update}

@@ -10,6 +10,7 @@ module Ekylibre
       def compile_for_pdf(method_name, environment)
         environment[:output] ||= :pdf
         element = @xil.root
+        @formats = {}
 
         # code  = ''
         # code += browse(element, environment)
@@ -58,7 +59,20 @@ module Ekylibre
       end
 
 
+      
+      def pdf_formats(element, environment={})
+        code  = ''
+        code += browse(element, environment)
+        code
+      end
 
+      def pdf_format(element, environment={})
+        attrs = element.attributes
+        @formats[attrs['rule']] = Ekylibre::Xil::Style.new(attrs['style'])
+        code  = ''
+        code += "# #{attrs['rule']} { #{attrs['style']} }\n"
+        code
+      end
 
 
 
@@ -112,17 +126,12 @@ module Ekylibre
         # style.set('height', format_height(options[:format],options[:unit])-options['margin_top']-options['margin_bottom'])
         puts style.get('margin').inspect
         environment[:page] = {}
-        environment[:page][:style] = style
+        environment[:page][:style]  = style
         environment[:page][:margin] = (style.get('margin')||PDF_DEFAULT_MARGIN).collect{|l| l.to_f(PDF_DEFAULT_UNIT).round(3)}
         environment[:page][:format] =   (style.get('size')||PDF_DEFAULT_FORMAT).collect{|l| l.to_f(PDF_DEFAULT_UNIT).round(3)}
-        code  = "#{environment[:pdf]}.new_page(#{environment[:page][:format].inspect}, #{style.get('rotate','0deg').to_f('deg')})\n"
-        # code += environment[:available_height]+"="+(format_height(environment[:format],environment[:unit])-environment['margin_top']-environment['margin_bottom']).to_s+"\n"
-        code += "#{environment[:count]} = 0\n"
-        code += "#{environment[:covered]} = 0\n"
-        code += "#{environment[:remaining]} = 0\n"
-        code += "x, y = #{environment[:page][:margin][3]}, #{environment[:page][:margin][0]}\n"
+        environment[:page][:rotate] = style.get('rotate', '0deg').to_f('deg')
+        code  = pdf_new_page(environment)
         code += browse(element, environment)
-#        code += "pdf.add_page_break\n"
         code
       end
 
@@ -143,13 +152,13 @@ module Ekylibre
         code  = "# Block\n"
         attrs = element.attributes
         style = Ekylibre::Xil::Style.new(attrs['style'])
-        height = style.get('height','50mm').to_f(PDF_DEFAULT_UNIT)
+        height = style.get('height', '50mm').to_f(PDF_DEFAULT_UNIT).round(4)
         if attrs['type'].nil? or attrs['type'] == 'body'
           # Header
           # Body
-          code += "if y>#{environment[:page][:format][0]-height-environment[:page][:margin][2]}\n"
-          code += "  pdf.new_page(#{environment[:page][:format].inspect})\n"
-          code += "  x, y = #{environment[:page][:margin][3]}, #{environment[:page][:margin][0]}\n"
+          code += "pdf.line([[0,y], [#{environment[:page][:format][0]}, y+#{height/2}], [0, y+#{height}]], :border=>{:color=>'#DDF'})\n"
+          code += "if y>#{environment[:page][:format][1]-height-environment[:page][:margin][2]}\n"
+          code += pdf_new_page(environment).gsub(/^/, '  ')
           code += "end\n"
           code += browse(element, environment)
           code += "y += #{height}\n" if height>0
@@ -164,8 +173,8 @@ module Ekylibre
         elements = browse(element, environment)
         attrs = element.attributes
         style = Ekylibre::Xil::Style.new(attrs['style'])
-        left  = style.get('left','0mm').to_f(PDF_DEFAULT_UNIT)
-        top   = style.get('top','0mm').to_f(PDF_DEFAULT_UNIT)
+        left  = style.get('left','0mm').to_f(PDF_DEFAULT_UNIT).round(4)
+        top   = style.get('top','0mm').to_f(PDF_DEFAULT_UNIT).round(4)
         unless elements.blank?
           code += "x += #{left}\n" if left != 0
           code += "y += #{top}\n"  if top != 0
@@ -179,17 +188,25 @@ module Ekylibre
       def pdf_text(element, environment={})
         code  = ''
         attrs = element.attributes
-        style = Ekylibre::Xil::Style.new(attrs['style'])
-        left   = style.get('left','0mm').to_f(PDF_DEFAULT_UNIT)
-        top    = style.get('top','0mm').to_f(PDF_DEFAULT_UNIT)
-        width  = style.get('width','100mm').to_f(PDF_DEFAULT_UNIT)
-        height = style.get('height','10mm').to_f(PDF_DEFAULT_UNIT)
+        style = @formats[element.name]
+        puts '-------------------------------------------------------'
+        puts style.inspect
+        # style = style.merge(@formats[".#{attrs[:class]}"])
+        # puts style.inspect
+        style = style.merge(Ekylibre::Xil::Style.new(attrs['style']))
+        puts style.inspect
+        
+        left   = style.get('left','0mm').to_f(PDF_DEFAULT_UNIT).round(4)
+        top    = style.get('top','0mm').to_f(PDF_DEFAULT_UNIT).round(4)
+        width  = style.get('width','100mm').to_f(PDF_DEFAULT_UNIT).round(4)
+        height = style.get('height','10mm').to_f(PDF_DEFAULT_UNIT).round(4)
         font = {}
         font[:size]   = style.get('font-size','10pt').to_f(PDF_DEFAULT_UNIT)
-        font[:family] = style.get('font-family','helvetica')
+        font[:family] = style.get('font-family', 'helvetica')
         font[:weight] = style.get('font-weight')
         font[:style]  = style.get('font-style')
-        code += "#{environment[:pdf]}.text(#{string_clean(element.text, environment)}, x#{left == 0 ? '' : '+'+left.to_s}, y#{top == 0 ? '' : '+'+top.to_s}, :font=>#{font.inspect})\n"
+        font.delete_if {|key, value| value.nil? } 
+        code += "#{environment[:pdf]}.box(x#{left == 0 ? '' : '+'+left.to_s}, y#{top == 0 ? '' : '+'+top.to_s}, #{width}, #{height}, :font=>#{font.inspect}, :text=>#{string_clean(element.text, environment)})\n"
         code
       end
       
@@ -200,7 +217,11 @@ module Ekylibre
 
 
 
-
+      def pdf_new_page(environment)
+        code  = "#{environment[:pdf]}.new_page(#{environment[:page][:format].inspect}, #{environment[:page][:rotate]})\n"
+        code += "x, y = #{environment[:page][:margin][3]}, #{environment[:page][:margin][0]}\n"
+        code
+      end
 
 
 
