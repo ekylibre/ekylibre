@@ -2,7 +2,7 @@
   -f.error :delivery
   -f.title :infos
   -f.field :delivery, :contact_id, :choices=>@contacts.collect{|x| [x.address, x.id]}, :new=>{:controller=>:relations, :action=>:entities_contacts_create, :id=>@sale_order.client_id} 
-  -f.field :delivery, :nature, :choices=>Delivery.natures
+  -f.field :delivery, :mode_id, :choices=>@current_company.delivery_modes.collect{|x| [x.name, x.id]}, :new=>{:action=>:delivery_modes_create}
   -f.field :delivery, :planned_on
 %table.dyta 
   %tr

@@ -26,6 +26,7 @@ class Delivery < ActiveRecord::Base
   belongs_to :company
   belongs_to :contact
   belongs_to :invoice
+  belongs_to :mode, :class_name=>DeliveryMode.to_s
   belongs_to :order, :class_name=>SaleOrder.to_s
   has_many :lines, :class_name=>DeliveryLine.to_s 
 
@@ -38,7 +39,7 @@ class Delivery < ActiveRecord::Base
       self.amount += line.amount
       self.amount_with_taxes += line.amount_with_taxes
     end
-    self.moved_on = Date.today if self.planned_on == Date.today and self.nature == "exw"
+    self.moved_on = Date.today if self.planned_on == Date.today and self.mode.code == "exw"
   end
 
   def before_destroy
@@ -82,6 +83,9 @@ class Delivery < ActiveRecord::Base
 
   def text_nature
     tc('natures.'+self.nature.to_s)
+  end
+
+  def lines_sum
   end
   
 end

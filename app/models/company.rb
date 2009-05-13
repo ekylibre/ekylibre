@@ -33,6 +33,7 @@ class Company < ActiveRecord::Base
   has_many :delays
   has_many :deliveries
   has_many :delivery_lines
+  has_many :delivery_modes
   has_many :departments
   has_many :documents
   has_many :employees

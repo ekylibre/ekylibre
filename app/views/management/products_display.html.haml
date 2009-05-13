@@ -22,7 +22,8 @@
       =evalue @product, :description
       =evalue @product, :comment
     %td
-      =evalue @product, :without_stocks
+      =#evalue @product, :without_stocks
+      =evalue @product, :manage_stocks
 
 -if @product.to_sale or @product.to_purchase
   %h2=tc :prices

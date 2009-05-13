@@ -67,8 +67,9 @@ module ApplicationHelper
              {:name=>:prices},
              {:name=>:shelves},
              {:name=>:delays},
-             {:name=>:sale_order_natures},
-             {:name=>:payment_modes}
+             {:name=>:delivery_modes},
+             {:name=>:payment_modes},
+             {:name=>:sale_order_natures}
            ] }
        ] },
 

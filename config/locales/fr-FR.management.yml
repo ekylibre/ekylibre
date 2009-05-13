@@ -69,6 +69,13 @@ fr-FR:
         infos: 'Renseignez les caractéristiques de la livraison'
       deliveries_create:
         title: Ajouter une livraison
+      delivery_modes:
+        delivery_modes_create: Ajouter un type livraison
+        title: Types de livraison
+      delivery_modes_create: 
+        title: 'Ajout d''un nouveau type de livraison'
+      delivery_modes_update:
+        title: 'Modification du type de livraison "{{value}}"'
       index:
         nb_sales: 
           zero: 'Aucune livraison en attente'
@@ -83,6 +90,7 @@ fr-FR:
           one: '1 transfert à effectuer'
           other: '{{count}} transferts à effectuer'
         delays: Délais
+        delivery_modes: Types de livraison
         indicator: Tableau de bord
         inventories: 'Inventaires'
         invoicing_parameters: Facturation

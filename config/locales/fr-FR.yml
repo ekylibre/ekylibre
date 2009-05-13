@@ -258,6 +258,7 @@ fr-FR:
         contact_id: Adresse du client
         delivered_on: Reçu le
         invoice_id: Facture
+        mode_id: Type
         moved_on: Faite le
         nature: Type
         planned_on: Prévue le
@@ -265,6 +266,10 @@ fr-FR:
         shipped_on: Envoyé le
         text_nature: Type
         type: Type
+      delivery_mode:
+        code: Code
+        comment: Commentaire
+        name: Nom
       department:
         name: Nom
         comment: Commentaire
@@ -415,6 +420,7 @@ fr-FR:
         critic_quantity_min: Quantité minimum critique
         description: Description
         ean13: Code EAN13
+        manage_stocks: Gérer les stocks
         name: Nom
         nature: Nature
         number: Numéro
@@ -1112,7 +1118,7 @@ fr-FR:
         cip: Livraison avec assurance
       sale: Vente
     delivery_line: 
-      error_undelivered_quantity: 'La quantité livrée dépasse la quantité commandée'
+      error_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité commandée'
     entity:
       error_missing_title: 'doit contenir la dénomination sociale "{{title}}"'
     entry:
@@ -1182,6 +1188,8 @@ fr-FR:
       raw_material: 'mp'
     product_component:
       of_product: 'du produit'
+    product_stock:
+      error_azz_z: 'hghhjj {{location}}'
     production: 
       stock_location_can_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
       production: Production

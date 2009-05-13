@@ -33,6 +33,10 @@ class ProductStock < ActiveRecord::Base
     self.location_id = locations[0].id if locations.size == 1
   end
 
+   def validate 
+     errors.add_to_base(tc:error_azz_z, :location=>self.location.name) unless self.location.can_receive(self.product_id)
+   end
+  
   def state
     if self.current_virtual_quantity <= self.critic_quantity_min
       css = "critic"
@@ -44,10 +48,12 @@ class ProductStock < ActiveRecord::Base
     css
   end
 
+
   def add_or_update(params,product_id)
     stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>params[:location_id], :product_id=>product_id})
     if stock.nil?
-      ProductStock.create!(:company_id=>self.company_id, :location_id=>params[:location_id], :product_id=>product_id, :quantity_min=>params[:quantity_min], :quantity_max=>params[:quantity_max], :critic_quantity_min=>params[:critic_quantity_min])
+      ps = ProductStock.new(:company_id=>self.company_id, :location_id=>params[:location_id], :product_id=>product_id, :quantity_min=>params[:quantity_min], :quantity_max=>params[:quantity_max], :critic_quantity_min=>params[:critic_quantity_min])
+      ps.save
     else
       stock.update_attributes(params)
     end

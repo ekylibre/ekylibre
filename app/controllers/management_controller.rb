@@ -247,7 +247,7 @@ class ManagementController < ApplicationController
       @product.company_id = @current_company.id
       ActiveRecord::Base.transaction do
         saved = @product.save
-        if params[:product][:without_stocks] == "0"
+        if params[:product][:manage_stocks] == "1"
           if saved
             @product_stock = ProductStock.new(params[:product_stock])
             @product_stock.product_id = @product.id
@@ -262,7 +262,8 @@ class ManagementController < ApplicationController
       end
       redirect_to_back
     else
-      @product = Product.new(:without_stocks=>true)
+      # @product = Product.new(:without_stocks=>true)
+      @product = Product.new
       @product.nature = Product.natures.first[1]
       @product.supply_method = Product.supply_methods.first[1]
       @product_stock = ProductStock.new
@@ -274,29 +275,39 @@ class ManagementController < ApplicationController
     @product = find_and_check(:product, params[:id])
     session[:product_id] = @product.id
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
-    if @product.without_stocks
+    if !@product.manage_stocks
       @product_stock = ProductStock.new
     else
       @product_stock = ProductStock.find(:first, :conditions=>{:company_id=>@current_company.id ,:product_id=>@product.id} )||ProductStock.new 
     end
     if request.post?
-      if @product.update_attributes(params[:product])
-        if @product_stock.id.nil? and params[:product][:without_stocks] == "0"
-          @product_stock = ProductStock.new(params[:product_stock])
-          @product_stock.product_id = @product.id
-          @product_stock.company_id = @current_company.id 
-        elsif !@product_stock.id.nil? and @stock_locations.size > 1
-          @product_stock.add_or_update(params[:product_stock],@product.id)
-        else
-          @product_stock.update_attributes(params[:product_stock])
+      ActiveRecord::Base.transaction do
+        saved = @product.update_attributes(params[:product])
+        ## @product_stock.  id.  nil?
+        if saved
+          if @product_stock.id.nil? and params[:product][:manage_stocks] == "1"
+            @product_stock = ProductStock.new(params[:product_stock])
+            @product_stock.product_id = @product.id
+            @product_stock.company_id = @current_company.id 
+            save = false unless @product_stock.save
+            #raise Exception.new "ghghgh"
+          elsif !@product_stock.id.nil? and @stock_locations.size > 1
+            save = false unless @product_stock.add_or_update(params[:product_stock],@product.id)
+          else
+            save = false unless @product_stock.update_attributes(params[:product_stock])
+          end
+          @product_stock.errors.each_full do |msg|
+            @product.errors.add_to_base(msg)
+          end
         end
-        redirect_to :action=>:products_display, :id=>@product.id
+        raise ActiveRecord::Rollback unless saved  
       end
+      redirect_to :action=>:products_display, :id=>@product.id
     end
     @title = {:value=>@product.name}
     render_form()
   end
-
+  
   def products_delete
     @product = find_and_check(:product, params[:id])
     if request.post? or request.delete?
@@ -818,29 +829,28 @@ class ManagementController < ApplicationController
         saved = @delivery.save
         if saved
           for line in @sale_order_lines
-            line = DeliveryLine.new(:order_line_id=>line.id, :delivery_id=>@delivery.id, :quantity=>params[:delivery_line][line.id.to_s][:quantity], :company_id=>@current_company.id)
-            saved = false unless line.save
-            line.errors.each_full do |msg|
-              line.errors.add_to_base(msg)
+            delivery_line = DeliveryLine.new(:order_line_id=>line.id, :delivery_id=>@delivery.id, :quantity=>params[:delivery_line][line.id.to_s][:quantity], :company_id=>@current_company.id)
+            saved = false unless delivery_line.save
+            delivery_line.errors.each_full do |msg|
+              @delivery.errors.add_to_base(msg)
             end
           end
         end
         raise ActiveRecord::Rollback unless saved  
+        redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order] 
       end
-      redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order] 
     end
     render_form(:id=>@delivery_form)
   end
   
   def deliveries_update
     @delivery_form = "delivery_form"
-    @delivery =  find_and_check(:deliveries, params[:id])
+    @delivery =  find_and_check(:delivery, params[:id])
     session[:current_delivery] = @delivery.id
     @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@delivery.order.client_id})
     @sale_order = find_and_check(:sale_orders,session[:current_sale_order])
     @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]})
     @delivery_lines = DeliveryLine.find(:all,:conditions=>{:company_id=>@current_company.id, :delivery_id=>@delivery.id})
-    
     if request.post?
       ActiveRecord::Base.transaction do
         saved = @delivery.update_attributes(params[:delivery])
@@ -864,6 +874,43 @@ class ManagementController < ApplicationController
     @delivery = find_and_check(:deliveries, params[:id])
     if request.post? or request.delete?
       redirect_to_back if @delivery.destroy
+    end
+  end
+
+  dyta(:delivery_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :code
+    t.column :comment
+    t.action :delivery_modes_update, :image=>:update
+    t.action :delivery_modes_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+  end
+
+  def delivery_modes
+  end
+
+  def delivery_modes_create
+    @delivery_mode = DeliveryMode.new
+    if request.post?
+      @delivery_mode = DeliveryMode.new(params[:delivery_mode])
+      @delivery_mode.company_id = @current_company.id
+      redirect_to_back if @delivery_mode.save
+    end
+    render_form
+  end
+
+  def delivery_modes_update
+    @delivery_mode = find_and_check(:delivery_mode, params[:id])
+    if request.post?
+      redirect_to_back if @delivery_mode.update_attributes(params[:delivery_mode])
+    end
+    @title = {:value=>@delivery_mode.name}
+    render_form
+  end
+
+  def delivery_modes_delete
+    @delivery_mode = find_and_check(:delivery_mode, params[:id])
+    if request.post?
+      redirect_to_back if @delivery_mode.destroy
     end
   end
 

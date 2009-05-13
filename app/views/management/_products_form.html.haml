@@ -1,5 +1,6 @@
 =formalize do |f|
   - f.error :product
+  - f.error :product_stock
   - f.title :identification
   - f.field :product, :name
   - f.field :product, :code
@@ -16,7 +17,8 @@
   - f.field :product, :active
   - f.field :product, :to_purchase
   - f.field :product, :to_sale
-  - f.field :product, :without_stocks
+  -# f.field :product, :without_stocks
+  - f.field :product, :manage_stocks
 =formalize(:id=>:stocks) do |f|
   - f.title :stocks
   - f.field :product_stock, :quantity_min
@@ -36,11 +38,11 @@
 
 :javascript
   function stocks(){
-    if($('product_without_stocks').checked)
-      $('stocks').hide();
-    else
+    if($('product_manage_stocks').checked)
       $('stocks').show();
+    else
+      $('stocks').hide();
   }
   stocks();
 
-=observe_field("product_without_stocks", :frequency=>0.25, :function=> "stocks();")
+=observe_field("product_manage_stocks", :frequency=>0.25, :function=> "stocks();")
