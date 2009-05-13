@@ -1,2 +1,4 @@
-h1. Comment afficher un relevé de compte bancaire
-Un descriptif du relevé de compte bancaire correspondant est affiché avec les principales informations telles que son numéro, le nom du compte bancaire référencé, ses débits et crédits totaux. S'ensuit une liste des écritures correspondantes à la période du relevé de compte bancaire.
+h1. Affichage du relevé bancaire
+Les numéro, nom du compte bancaire référencé, débits et crédits totaux sont affichés puis les écritures pointées sont listées dans un tableau.
+Vous pouvez aussi revenir dans le <<accountancy-statements|listing des relevés bancaires>>.
+

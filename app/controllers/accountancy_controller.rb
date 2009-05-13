@@ -26,7 +26,7 @@ class AccountancyController < ApplicationController
     t.column :number, :through=>:account
     t.action :bank_accounts_update, :image=>:update
     t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
-    t.action :statements_point    
+    #t.action :statements_point    
   end
   
   dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -331,7 +331,7 @@ class AccountancyController < ApplicationController
   # this action displays all entries stored in the journal. 
   def entries_consult
     session[:statement] = nil
-    session[:journal_period] ||= {}
+    session[:journal_period] = {}
     session[:journal_period][:journal_id] = params[:id] if params[:id]
     @journal_period = JournalPeriod.new(:journal_id=>params[:id])
     @journals = @current_company.journals
@@ -382,28 +382,45 @@ class AccountancyController < ApplicationController
     if @valid
       @record = JournalRecord.new
       if request.post?
-       
+        
         @period = @journal.periods.find(:first, :conditions=>['company_id = ? AND financialyear_id = ? AND CAST(? AS DATE) BETWEEN started_on AND stopped_on', @current_company.id, @financialyear.id, params[:record][:created_on] ])
+        
         if @period.nil?
           @period = @journal.periods.create(:company_id=>@current_company.id, :financialyear_id=>@financialyear.id, :started_on=>params[:record][:created_on]) 
-         
+          
           @period.save
         end
+       
+ 
+       #  @record = JournalRecord.find(:first,:conditions=>{:period_id => @period.id, :number => params[:record][:number]})
+      
+        # search all the records matching to the given journal and given number.
+        @records = @current_company.journal_records.find(:all,:conditions=>{:journal_id => @journal.id, :number => params[:record][:number]})
         
-        # @record = JournalRecord.find(:first,:conditions=>['period_id = ? AND created_on = CAST(? AS DATE) AND printed_on=CAST(? AS DATE) AND number=?', @period.id, params[:record][:created_on], params[:record][:printed_on], params[:record][:number] ])
-       #  @record = JournalRecord.find(:first,:conditions=>{:period_id => @period.id, :created_on=>params[:record][:created_on], :printed_on=>params[:record][:printed_on], :number => params[:record][:number]})
-
-        @record = JournalRecord.find(:first,:conditions=>{:period_id => @period.id, :number => params[:record][:number]})
-        
-        unless @record.nil?
-          @record.created_on = params[:record][:created_on]
-          @record.printed_on = params[:record][:printed_on]
+     #raise Exception.new('records1: '+@records.inspect)
+        #  
+        if @records.size > 0
+          @records.each do |record|
+          @record = record if record.period.financialyear_id.eql? @financialyear.id
+          end
+        else
+          @record = @records
         end
 
-        #raise Exception.new @record.inspect
+       # raise Exception.new('record3: '+@records.inspect+':'+@records.size.to_s+':'+@records.nil?.to_s+':et:'+@period.id.to_s)
 
-        @record = @period.records.build(params[:record].merge({:period_id=>@period.id, :company_id=>@current_company.id, :journal_id=>@journal.id})) if @record.nil?
-        # raise Exception.new @record.inspect
+        unless @record.nil? or @records.size.zero?
+          @record.created_on = params[:record][:created_on]
+          @record.printed_on = params[:record][:printed_on]
+          @record.period_id =  @period.id
+        end
+
+       # raise Exception.new('record1: '+@record.inspect+':et:'+@period.id.to_s)
+
+        @record = @period.records.build(params[:record].merge({:period_id=>@period.id, :company_id=>@current_company.id, :journal_id=>@journal.id})) if @record.nil? or @records.size.zero?       
+      
+
+        # raise Exception.new('record2: '+@record.inspect)
         @entry = @current_company.entries.build(params[:entry])
         
         if @record.save
@@ -415,7 +432,7 @@ class AccountancyController < ApplicationController
        
           end
         end
-     
+       #raise Exception.new('record3: '+@record.inspect+':et:'+@period.id.to_s)
       elsif request.delete?
         @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
         if @entry.close?
@@ -447,7 +464,7 @@ class AccountancyController < ApplicationController
       
         @record.number = @records.size>0 ? @records.first.number.succ : 1
         @record.created_on ||= @record.printed_on ||= Date.today
-        raise Exception.new('c la:'+@records.inspect+':'+@record.inspect)
+        #raise Exception.new('c la:'+@records.inspect+':'+@record.inspect)
       end
       render :action => "entries.rjs" if request.xhr?
     
@@ -563,6 +580,24 @@ class AccountancyController < ApplicationController
     render :text => options_for_select(@journal_periods) 
   end
 
+  # 
+  def lettering
+    @accounts = @current_company.accounts
+    @financialyears = @current_company.financialyears
+    session[:lettering] ||= {}
+    session[:lettering][:account] ||= {}
+    session[:lettering][:financialyear] ||= {}
+
+    if request.post?
+      entries = @current_company.entries.find(:all, :conditions => { :account_id => params[:account] })
+      entries.each do |entry|
+        @entries  if entry.record.period.financialyear_id.eql? session[:lettering][:financialyear]
+      end
+    end
+
+  end
+
+
   # lists all the statements in details for a precise account.
   def statements  
        
@@ -617,7 +652,7 @@ class AccountancyController < ApplicationController
   def statements_delete
     if request.post? or request.delete?
       @statement = BankAccountStatement.find_by_id_and_company_id(params[:id], @current_company.id)  
-      BankAccountStatement.destroy @statement
+     BankAccountStatement.destroy @statement
       redirect_to :action=>"statements"
     end
   end

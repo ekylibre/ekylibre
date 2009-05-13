@@ -110,7 +110,7 @@ fr-FR:
       _entries:
         title: 'Saisie des écritures'
         record_number: 'N°Pièce'
-        record_created: 'Créée le'
+        record_created: 'Crée le'
         record_printed: 'Datée du'
         label: 'Libellé'
         account_number: 'N°Compte'
