@@ -88,12 +88,12 @@ class Spdf
     @pages[page||@page][:items] << {:nature=>:box, :params=>params}
   end
 
-#   def text(content, x, y, params={}, page=nil)
-#     params[:text] = content
-#     params[:x] = x
-#     params[:y] = y
-#     box(params, page)
-#   end
+  #   def text(content, x, y, params={}, page=nil)
+  #     params[:text] = content
+  #     params[:x] = x
+  #     params[:y] = y
+  #     box(params, page)
+  #   end
 
   def generate(options={})
     yield self if block_given?
@@ -108,11 +108,11 @@ class Spdf
     end
   end
 
-  private
-
   def error(message, nature=nil)
     raise Exception.new("#{self.class.to_s} error: #{message}")
   end
+
+  private
 
   def build
     @objects = [0]
@@ -209,35 +209,24 @@ class Spdf
     page_width  = page[:format][0]
     page_height = page[:format][1]
 
-    dgs = GraphicState.new
+    dcs = ContentStream.new(self)
 
     for item in page[:items]
       nature = item[:nature]
       params = item[:params]
       if nature==:box
         text = params[:text]
-        
-#         bac = params[:background]
-        
-#         boc = [255,0,255]
-#         if bac
-#           code += sprintf('%.3f %.3f %.3f RG ', bac[0]/255.0, bac[1]/255.0, bac[2]/255.0) 
-#           op = 'f'
-#         end
-#         if params[:border]
-#           params[:border][:color]
-#           if boc
-#             code += sprintf('%.3f %.3f %.3f rg ', boc[0]/255.0, boc[1]/255.0, boc[2]/255.0)
-#             op = (op=='f') ? 'B' : 'S'
-#           end
-#         end
-#         code+=out(sprintf('%.2f %.2f %.2f %.2f re %s ', params[:x], params[:y], params[:width], params[:height], op))
         if text
           font = get_font(params[:font][:family], params[:font][:bold], params[:font][:italic])
           size = params[:font][:size]||12
           x = params[:x]||0
           y = page_height-0.7*size-(params[:y]||0)
-          code += "BT /#{font[:name]} #{size} Tf #{x} #{y} Td #{textstring(text)} Tj ET\n"
+          # code += "BT /#{font[:name]} #{size} Tf #{x} #{y} Td #{textstring(text)} Tj ET\n"
+          dcs.text_object do |to|
+            to.select_font(font[:name], size)
+            to.move_text_position(x,y)
+            to.show_text(text)
+          end
         end
       elsif nature==:image
         image = @images[item[:params][:image]]
@@ -254,40 +243,40 @@ class Spdf
         x = (params[:x]||0)
         y = page_height-(params[:y]||0)-h
 
-        dgs.new_graphics_state do |gs|
+        dcs.new_graphics_state do |gs|
           gs.concatenate_matrix(w, 0, 0, h, x, y)
           gs.invoke_xobject(image[:name])
         end
-        code += sprintf('q %.2f 0 0 %.2f %.2f %.2f cm /'+image[:name]+" Do Q\n", w, h, x, y)
+        # code += sprintf('q %.2f 0 0 %.2f %.2f %.2f cm /'+image[:name]+" Do Q\n", w, h, x, y)
       elsif nature==:line
         border = params[:border]||{}
         width = border[:width]||2
         points = params[:points]
         style = border[:style]
-        code += "#{LINE_CAP_STYLES[border[:cap]||:round]} J #{LINE_JOIN_STYLES[border[:join]||:round]} j " # Set Line Cap (0, 1 ou 2)
-        code += self.class.string_to_color(border[:color]).collect{|x| x.to_f/255}.join(' ')+' RG ' if border[:color]
-        code += width.to_s+' w '
-        style = LINE_DASH_STYLES[style] if LINE_DASH_STYLES.keys.include? style
-        code += "[#{(style[:dash]||[]).collect{|x| x*width}.join(' ')}] #{(style[:phase]||0)*width} d " if style.is_a? Hash
-        points.size.times do |i|
-          code += points[i][0].to_s+' '+(page_height-points[i][1]).to_s+' '+(i==0 ? 'm' : 'l')+' '
-        end
-        code += " S\n"
+        #         code += "#{LINE_CAP_STYLES[border[:cap]||:round]} J #{LINE_JOIN_STYLES[border[:join]||:round]} j " # Set Line Cap (0, 1 ou 2)
+        #         code += self.class.string_to_color(border[:color]).collect{|x| x.to_f/255}.join(' ')+' RG ' if border[:color]
+        #         code += width.to_s+' w '
+        #         style = LINE_DASH_STYLES[style] if LINE_DASH_STYLES.keys.include? style
+        #         code += "[#{(style[:dash]||[]).collect{|x| x*width}.join(' ')}] #{(style[:phase]||0)*width} d " if style.is_a? Hash
+        #         points.size.times do |i|
+        #           code += points[i][0].to_s+' '+(page_height-points[i][1]).to_s+' '+(i==0 ? 'm' : 'l')+' '
+        #         end
+        #         code += " S\n"
         
-        dgs.set_line_cap(border[:cap]||:round)
-        dgs.set_line_join(border[:join]||:round)
-        dgs.set_line_color(border[:color])
-        dgs.set_line_width(width)
-        dgs.set_line_dash(style, width)
-        dgs.move_to(points[0])
-        points[1..-1].each{|point| dgs.line_to(point)}
-        dgs.close_and_stroke_path
+        dcs.set_line_cap(border[:cap]||:round)
+        dcs.set_line_join(border[:join]||:round)
+        dcs.set_line_color(self.class.string_to_color(border[:color]))
+        dcs.set_line_width(width)
+        dcs.set_line_dash(style, width)
+        dcs.move_to(points[0])
+        points[1..-1].each{|point| dcs.line_to(point)}
+        dcs.stroke
 
 
       end
     end
-
-    return code
+    
+    return dcs.to_s
   end
 
 
@@ -295,18 +284,19 @@ class Spdf
 
   def self.string_to_color(value)
     value = "#"+value[1..1]*2+value[2..2]*2+value[3..3]*2 if value=~/^\#[a-f0-9]{3}$/i
-    if value=~/^\#[a-f0-9]{6}$/i
-      [value[1..2].to_i(16), value[3..4].to_i(16), value[5..6].to_i(16)]
-    elsif value=~/rgb\(\d+\,\d+\,\d+\)/i
-      array = value.split /(\(|\,|\))/
-      [array[2].strip, array[4].strip, array[6].strip].collect{|x| x[/\d*\.\d*/].to_f }
-    elsif value=~/rgb\(\d+\%\,\d+\%\,\d+\%\)/i
-      array = value.split /(\(|\,|\))/
-      [array[2].strip, array[4].strip, array[6].strip].collect{|x| x[/\d*\.\d*/].to_f*2.55 }
-    else
-      #raise Exception.new value.to_s
-      [255, 0, 255]
-    end
+    array = if value=~/^\#[a-f0-9]{6}$/i
+              [value[1..2].to_i(16), value[3..4].to_i(16), value[5..6].to_i(16)]
+            elsif value=~/rgb\(\d+\,\d+\,\d+\)/i
+              array = value.split /(\(|\,|\))/
+              [array[2].strip, array[4].strip, array[6].strip].collect{|x| x[/\d*\.\d*/].to_f }
+            elsif value=~/rgb\(\d+\%\,\d+\%\,\d+\%\)/i
+              array = value.split /(\(|\,|\))/
+              [array[2].strip, array[4].strip, array[6].strip].collect{|x| x[/\d*\.\d*/].to_f*2.55 }
+            else
+              #raise Exception.new value.to_s
+              [255, 0, 255]
+            end
+    array.collect{|x| x.to_f/255}
   end
 
 
@@ -596,13 +586,14 @@ end
 
 
 
-class GraphicState
-
+class ContentStream
+  NUMERIC_CLASSES = [Float, Integer, Fixnum]
   LINE_DASH_STYLES = {:dotted=>{:dash=>[1, 1], :phase=>0.5}, :dashed=>{:dash=>[3], :phase=>2} }
   LINE_CAP_STYLES = {:butt=>0, :round=>1, :square=>2}
   LINE_JOIN_STYLES = {:miter=>0, :round=>1, :bevel=>2}
-  
-  def initialize
+
+  def initialize(pdf)
+    @pdf = pdf
     @code = ''
   end
 
@@ -610,24 +601,38 @@ class GraphicState
     @code
   end
 
+  def child 
+    c = self.dup
+    c.clean_code
+    c
+  end
+
+  def clean_code
+    @code = ''
+  end
+
   def set_fill_color(a, b=nil, c=nil, d=nil)
-    a, b, c, d = a[0], a[1], a[2], a[3] if a === Array
-    @fill_color = [a, b, c, d]
-    @code += ' '+color(a, b, c, d).downcase
+    a, b, c, d = a[0], a[1], a[2], a[3] if a.is_a? Array
+    color = color(a, b, c, d)
+    return if color == @fill_color
+    @fill_color = color
+    @code += ' '+@fill_color.join(' ').downcase
     self
   end
 
   def set_line_color(a, b=nil, c=nil, d=nil)
-    a, b, c, d = a[0], a[1], a[2], a[3] if a === Array
-    @line_color = []
-    @code += ' '+color(a, b, c, d)
+    a, b, c, d = a[0], a[1], a[2], a[3] if a.is_a? Array
+    color = color(a, b, c, d)
+    return if color == @line_color
+    @line_color = color
+    @code += ' '+@line_color.join(' ')
     self
   end
 
   def set_line_cap(style)
     return if style == @line_cap
     cap = LINE_CAP_STYLES[style]
-    self.error('Unknown cap style: '+style.inspect) if cap.nil?
+    @pdf.error('Unknown cap style: '+style.inspect) if cap.nil?
     @line_cap = style
     @code += ' '+cap.to_s+' J'    
     self
@@ -636,7 +641,7 @@ class GraphicState
   def set_line_join(style)
     return if style == @line_join
     join = LINE_JOIN_STYLES[style]
-    self.error('Unknown join style: '+style.inspect) if join.nil?
+    @pdf.error('Unknown join style: '+style.inspect) if join.nil?
     @line_join = style
     @code += ' '+join.to_s+' j'    
     self
@@ -644,15 +649,24 @@ class GraphicState
 
   def set_miter_limit(width)
     return if width == @miter_limit
-    self.error('Width must be numeric: '+width.inspect) unless [Float, Integer].include? width.class
+    @pdf.error('Width must be numeric: '+width.inspect) unless NUMERIC_CLASSES.include? width.class
     @miter_limit = width
     @code += ' '+@miter_limit.to_s+' M'
     self
   end
 
+  def set_flatness(value)
+    return if value == @flatness
+    @pdf.error('Value must be numeric: '+value.inspect) unless NUMERIC_CLASSES.include? value.class
+    @pdf.error('Flatness must be a number between 0.0 and 100.0') if value<0 or value>100
+    @flatness = value
+    @code += ' '+@flatness.to_s+' i'
+    self
+  end
+
   def set_line_width(width)
     return if width == @line_width
-    self.error('Width must be numeric: '+width.inspect) unless [Float, Integer].include? width.class
+    @pdf.error('Width must be numeric: '+width.inspect) unless NUMERIC_CLASSES.include? width.class
     @line_width = width
     @code += ' '+@line_width.to_s+' w'
     self
@@ -660,9 +674,9 @@ class GraphicState
 
   def set_line_dash(pattern, phase=0, width=nil)
     width ||= @line_width
-    self.error('Unvalid type to set dash style: '+phase.inspect) unless [Float, Integer].include? phase.class
-    self.error('Unvalid type to set dash style: '+width.inspect) unless [Float, Integer].include? width.class
-    if pattern === Symbol
+    @pdf.error('Unvalid type to set dash style: '+phase.inspect) unless NUMERIC_CLASSES.include? phase.class
+    @pdf.error('Unvalid type to set dash style: '+width.inspect) unless NUMERIC_CLASSES.include? width.class
+    if pattern.is_a? Symbol
       style = LINE_DASH_STYLES[pattern] if LINE_DASH_STYLES.keys.include? pattern
       pattern, phase = style[:dash], style[:phase]
     end
@@ -675,43 +689,206 @@ class GraphicState
   end
 
   def text_object
-    @code += ' BT'
-    object = self.dup
-    yield object
-    @code = object.code
-    @code += ' ET'
+    @pdf.error('A text object needs block') unless block_given?    
+    yield object=self.child
+    @code += ' BT'+object.to_s+' ET'
   end
 
-
-  def set_line_dash2(style, width=nil)
-    width ||= @width
-    
-    self.error('Unvalid type to set dash style: '+width.inspect) unless [Float, Integer].include? width.class
-    style = LINE_DASH_STYLES[style] if LINE_DASH_STYLES.keys.include? style
-    self.error('Unvalid type to set dash style: '+style.inspect) unless style.is_a? Hash
-    
-    @code += "[#{(style[:dash]||[]).collect{|x| x*width}.join(' ')}] #{(style[:phase]||0)*width} d" 
+  def select_font(name, size)
+    @font_selected = true
+    @pdf.error('Unvalid type to set size: '+size.inspect) unless NUMERIC_CLASSES.include? size.class
+    @code += ' /'+name+' '+size.to_s+' Tf'
     self
   end
 
+  def move_text_position(x=nil, y=nil, leading=false)
+    if x.nil? or y.nil?
+      @code += ' T*'
+    else
+      @pdf.error('Unvalid type to set x coordinate: '+x.inspect) unless NUMERIC_CLASSES.include? x.class
+      @pdf.error('Unvalid type to set y coordinate: '+y.inspect) unless NUMERIC_CLASSES.include? y.class
+      @code += ' '+x.to_s+' '+y.to_s+(leading ? ' TD' : ' Td')
+    end
+    self
+  end
+
+  def set_character_spacing(value=0)
+    return if value == @character_spacing
+    @pdf.error('Value must be numeric: '+value.inspect) unless NUMERIC_CLASSES.include? value.class
+    @character_spacing = value
+    @code += ' '+@character_spacing+' Tc'
+    self
+  end
+
+  def set_word_spacing(value=0)
+    return if value == @word_spacing
+    @pdf.error('Value must be numeric: '+value.inspect) unless NUMERIC_CLASSES.include? value.class
+    @word_spacing = value
+    @code += ' '+@word_spacing+' Tw'
+    self
+  end
+
+  def set_horizontal_text_scaling(value=100)
+    return if value == @horizontal_text_scaling
+    @pdf.error('Value must be numeric: '+value.inspect) unless NUMERIC_CLASSES.include? value.class
+    @horizontal_text_scaling = value
+    @code += ' '+@horizontal_text_scaling+' Tz'
+    self
+  end
+
+  def set_text_leading(value=0)
+    return if value == @text_leading
+    @pdf.error('Value must be numeric: '+value.inspect) unless NUMERIC_CLASSES.include? value.class
+    @text_leading = value
+    @code += ' '+@text_leading+' TL'
+    self
+  end
+ 
+  def set_text_rendering_mode(value=0)
+    return if value == @text_rendering_mode
+    @pdf.error('Value must be numeric: '+value.inspect) unless NUMERIC_CLASSES.include? value.class
+    @pdf.error('Value must be a number between 0 and 7') if value<0 or value>7
+    @text_rendering_mode = value.round
+    @code += ' '+@text_rendering_mode+' Tr'
+    self
+  end
+
+  def set_text_rise(value=0)
+    return if value == @text_rise
+    @pdf.error('Value must be numeric: '+value.inspect) unless NUMERIC_CLASSES.include? value.class
+    @text_rise = value
+    @code += ' '+@text_rise+' Tr'
+    self
+  end
+ 
+  def show_text(text, eol=false, word_spacing=nil, character_spacing=nil)
+    @pdf.error('A font must be selected before showing text') unless @font_selected
+    @code += if eol
+               if word_spacing.nil? or character_spacing.nil?
+                 ' '+escape(text)+" '"
+               else
+                 @word_spacing = word_spacing
+                 @character_spacing = character_spacing
+                 ' '+@word_spacing.to_s+' '+@character_spacing.to_s+' '+escape(text)+' "'
+               end
+             else
+               ' '+escape(text)+' Tj'
+             end
+    self
+  end
+
+  def new_graphics_state
+    @pdf.error('A new graphics state needs block') unless block_given?
+    yield object=self.child
+    @code += ' q'+object.to_s+' Q'
+  end
+
+  def concatenate_matrix(a, b, c, d, e, f)
+    @code += ' '+a.to_s+' '+b.to_s+' '+c.to_s+' '+d.to_s+' '+e.to_s+' '+f.to_s+' cm'
+    self
+  end
+
+  def invoke_xobject(name)
+    @code += ' /'+name+' Do'
+    self
+  end
+
+  def move_to(x,y=nil)
+    x, y = x[0], x[1] if x.is_a? Array
+    @pdf.error('Unvalid type to set x coordinate: '+x.inspect) unless NUMERIC_CLASSES.include? x.class
+    @pdf.error('Unvalid type to set y coordinate: '+y.inspect) unless NUMERIC_CLASSES.include? y.class
+    @code += ' '+x.to_s+' '+y.to_s+' m'
+    self
+  end
+
+  def line_to(x,y=nil)
+    x, y = x[0], x[1] if x.is_a? Array
+    @pdf.error('Unvalid type to set x coordinate: '+x.inspect) unless NUMERIC_CLASSES.include? x.class
+    @pdf.error('Unvalid type to set y coordinate: '+y.inspect) unless NUMERIC_CLASSES.include? y.class
+    @code += ' '+x.to_s+' '+y.to_s+' l'
+    self
+  end
+
+  def curve_to(x1, y1, x2, y2=nil, x3=nil, y3=nil)
+    if x2.is_a? Array
+      x3, y3 = x2[0], x2[1] 
+      x1 ||= []
+      y1 ||= []
+      @pdf.error('Unvalid type to set x1 coordinate: '+x1.inspect) unless x1.is_a? Array
+      @pdf.error('Unvalid type to set y1 coordinate: '+y1.inspect) unless y1.is_a? Array
+      x1, y1, x2, y2 = x1[0], x1[1], y1[0], y1[1]
+    end
+    @pdf.error('Unvalid type to set x1 coordinate: '+x1.inspect) unless NUMERIC_CLASSES.include? x1.class or x1.nil?
+    @pdf.error('Unvalid type to set y1 coordinate: '+y1.inspect) unless NUMERIC_CLASSES.include? y1.class or x1.nil?
+    @pdf.error('Unvalid type to set x2 coordinate: '+x2.inspect) unless NUMERIC_CLASSES.include? x2.class or x2.nil?
+    @pdf.error('Unvalid type to set y2 coordinate: '+y2.inspect) unless NUMERIC_CLASSES.include? y2.class or x2.nil?
+    @pdf.error('Unvalid type to set x3 coordinate: '+x3.inspect) unless NUMERIC_CLASSES.include? x3.class
+    @pdf.error('Unvalid type to set y3 coordinate: '+y3.inspect) unless NUMERIC_CLASSES.include? y3.class
+    @pdf.error('Unvalid curve: P1 or P2 needed') if x1.nil? and x2.nil?
+    @code += if x1.nil?
+               ' '+x2.to_s+' '+y2.to_s+' '+x3.to_s+' '+y3.to_s+' v'
+             elsif x2.nil?
+               ' '+x1.to_s+' '+y1.to_s+' '+x3.to_s+' '+y3.to_s+' y'
+             else
+               ' '+x1.to_s+' '+y1.to_s+' '+x2.to_s+' '+y2.to_s+' '+x3.to_s+' '+y3.to_s+' c'
+             end
+  end
+
+  def fill(rule=:nonzero_winding_number)
+    @code += ' f'+(rule == :nonzero_winding_number ? '' : '*')
+  end
+
+  def stroke(close=false)
+    @code += (close ? ' s' : ' S')
+  end
+
+  def fill_and_stroke(close=true, rule=:nonzero_winding_number)
+    @code += (close ? ' b' : ' B')+(rule == :nonzero_winding_number ? '' : '*')
+  end
+
+  def close_path
+    @code += ' h'
+  end
+
+  def end_path
+    @code += ' n'
+  end
+
+  def append_rectangle(x, y, width, height)
+    @pdf.error('Unvalid type to set x coordinate: '+x.inspect) unless NUMERIC_CLASSES.include? x.class
+    @pdf.error('Unvalid type to set y coordinate: '+y.inspect) unless NUMERIC_CLASSES.include? y.class
+    @pdf.error('Unvalid type to set width coordinate: '+width.inspect) unless NUMERIC_CLASSES.include? width.class
+    @pdf.error('Unvalid type to set height coordinate: '+height.inspect) unless NUMERIC_CLASSES.include? height.class    
+    @code += ' '+x.to_s+' '+y.to_s+' '+width.to_s+' '+height.to_s+' re'
+  end
 
   private
 
   def color(a, b=nil, c=nil, d=nil)
-    self.error('Color channel A must be a number between 0.0 and 1.0') if a<0 or a>1
+    @pdf.error('Color channel A must be a number: '+a.inspect+' '+a.class.to_s) unless NUMERIC_CLASSES.include? a.class
+    @pdf.error('Color channel A must be a number between 0.0 and 1.0') if a<0 or a>1
     if b.nil? or c.nil?
-      a.to_f+' G'
+      [a.to_f, 'G']
     else
-      self.error('Color channel B must be a number between 0.0 and 1.0') if b<0 or b>1
-      self.error('Color channel C must be a number between 0.0 and 1.0') if c<0 or c>1
+      @pdf.error('Color channel B must be a number: '+b.inspect+' '+b.class.to_s) unless NUMERIC_CLASSES.include? b.class
+      @pdf.error('Color channel B must be a number between 0.0 and 1.0') if b<0 or b>1
+      @pdf.error('Color channel C must be a number: '+c.inspect+' '+c.class.to_s) unless NUMERIC_CLASSES.include? c.class
+      @pdf.error('Color channel C must be a number between 0.0 and 1.0') if c<0 or c>1
       if d.nil?
-      a.to_f+' '+b.to_f+' '+c.to_f+' RG'
+        [a.to_f, b.to_f, c.to_f, 'RG']
       else
-        self.error('Color channel D must be a number between 0.0 and 1.0') if d<0 or d>1
-        a.to_f+' '+b.to_f+' '+c.to_f+' '+d.to_f+' K'
+        @pdf.error('Color channel D must be a number: '+d.inspect+' '+d.class.to_s) unless NUMERIC_CLASSES.include? d.class
+        @pdf.error('Color channel D must be a number between 0.0 and 1.0') if d<0 or d>1
+        [a.to_f, b.to_f, c.to_f, d.to_f, 'K']
       end
     end
   end
+
+  # Format a text string
+  def escape(string)
+    '('+string.to_s.gsub('\\','\\\\').gsub('(','\\(').gsub(')','\\)').gsub("\r",'\\r')+')'
+  end
+
   
 
 end
@@ -727,22 +904,17 @@ if __FILE__==$0
   pdf.image('sample4.png', 300, 600, :width=>275)
   pdf.line([[300,20], [420, 300], [400, 400], [350, 350]], :border=>{:width=>10, :style=>:dashed, :color=>'#12C', :join=>:miter})
   pdf.line([[30,20], [42, 300], [40, 400], [35, 350]], :border=>{:width=>1, :style=>:dashed, :color=>'#c12', :cap=>:butt})
-  pdf.box(:text=>'Hello World!', :x=>20, :y=>20)
+  pdf.box(20, 20, 300, 20, :text=>'Hello World!')
+  pdf.line([[50,20], [92, 300], [90, 400], [85, 350]], :border=>{:width=>1, :style=>:dashed, :color=>'#183', :cap=>:butt})
   fs = ['Courier', 'Times', 'Helvetica']
   h = 20
   for j in [50,20*(fs.size+1)*4+50]
     fs.size.times do |i|
-      pdf.text('Hello World! Test pour Spdf', 50, i*4*h+j+0*h, :font=>{:family=>fs[i], :size=>12})
-      pdf.text('Hello World! Test pour Spdf', 50, i*4*h+j+1*h, :font=>{:family=>fs[i], :size=>14, :bold=>true})
-      pdf.text('Hello World! Test pour Spdf', 50, i*4*h+j+2*h, :font=>{:family=>fs[i], :size=>16, :italic=>true})
-      pdf.text('Hello World! Test pour Spdf', 50, i*4*h+j+3*h, :font=>{:family=>fs[i], :size=>18, :bold=>true, :italic=>true})
+      pdf.box(50, i*4*h+j+0*h, 300, 20, :font=>{:family=>fs[i], :size=>12}, :text=>'Hello World! Test pour Spdf')
+      pdf.box(50, i*4*h+j+1*h, 300, 20, :font=>{:family=>fs[i], :size=>14, :bold=>true}, :text=>'Hello World! Test pour Spdf')
+      pdf.box(50, i*4*h+j+2*h, 300, 20, :font=>{:family=>fs[i], :size=>16, :italic=>true}, :text=>'Hello World! Test pour Spdf')
+      pdf.box(50, i*4*h+j+3*h, 300, 20, :font=>{:family=>fs[i], :size=>18, :bold=>true, :italic=>true}, :text=>'Hello World! Test pour Spdf')
     end
   end
-  pdf.text('Hello World! Deuxième', 100, 630, :font=>{:family=>'Courier', :bold=>true, :size=>16})
-  pdf.text('Hello World! Test pour Spdf', 100, 660, :font=>{:family=>'Symbol', :size=>16})
-  pdf.new_page([1200.0,300.0], 90)
-  pdf.image('sample2.jpg', 600, 20, :height=>260)
-  pdf.text('Hello World! Encore une mission reussie pour Spdf', 200, 200, :font=>{:family=>'Courier', :size=>16})
-  pdf.image('sample2.jpg', 300, 20)
-  pdf.generate
+  pdf.generate :file=>'/tmp/test.pdf'
 end

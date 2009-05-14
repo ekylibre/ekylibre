@@ -163,8 +163,6 @@ module Ekylibre
           end
           style += ';'
         end
-        puts @properties.inspect
-        puts style
         style
       end
 
