@@ -26,7 +26,7 @@ class Mai2t1 < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :deliveries, :nature, :string, :limit=>3
+    add_column :deliveries, :nature, :string, :limit=>3 
     remove_column :deliveries, :mode_id
     drop_table :delivery_modes
     remove_column :products, :manage_stocks

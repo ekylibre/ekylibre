@@ -18,7 +18,7 @@
 -if @update != true  
   .paymentpart
     =select :pay, :part, @payments.collect{|x| [" Montant du réglement : "+x.amount.to_s+" du "+x.created_at.to_date.to_s+" par "+x.mode.name+" -- Montant utilisable : "+(x.amount - x.part_amount).to_s , x.id]}
-
+ 
 
 :javascript
   function payment_type(){

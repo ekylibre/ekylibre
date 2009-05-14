@@ -333,7 +333,7 @@ class RelationsController < ApplicationController
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
     @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})||Contact.new(:entity_id=>@entity.id,:company_id=>@current_company.id, :norm_id=>@current_company.address_norms[0].id)
-
+ 
     if request.post? and @entity
       #raise Exception.new @operation.inspect
       puts params[:complement_datum].inspect

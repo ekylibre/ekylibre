@@ -857,6 +857,7 @@ class ManagementController < ApplicationController
         if saved
           for line in @delivery_lines
             saved = false unless line.update_attributes(:quantity=>params[:delivery_line][line.order_line.id.to_s][:quantity])
+            puts "DDDDDDDDDDDDDDDDDDD                "+saved.to_s
             line.errors.each_full do |msg|
               @delivery.errors.add_to_base(msg)
             end
