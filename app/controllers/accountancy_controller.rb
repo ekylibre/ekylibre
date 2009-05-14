@@ -26,7 +26,6 @@ class AccountancyController < ApplicationController
     t.column :number, :through=>:account
     t.action :bank_accounts_update, :image=>:update
     t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
-    #t.action :statements_point    
   end
   
   dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}) do |t|

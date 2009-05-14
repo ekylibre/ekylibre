@@ -18,7 +18,7 @@ module Ekylibre
 
           #
           def dyli(name, options = {})
-            options = {:limit => 5,:attributes => [:name], :partial => nil}.merge(options)
+            options = {:limit => 5,:attributes => [:name], :filter => {:number => 'X%'}, :partial => nil}.merge(options)
             
             if options[:model].nil?
               model = name.to_s.camelize.constantize
@@ -37,22 +37,17 @@ module Ekylibre
             end
             
             code += "conditions[0] += '('\n"
-
             code += "conditions[0] += "+options[:attributes].inspect+".collect do |attribute|\n"
-            code += "conditions << '%'+search+'%'\n"
+            code += "search = "+options[:filter].inspect+"[attribute] ||'%X%'\n"
+            code += "conditions << search\n"
             code += "'LOWER('+attribute.to_s+') LIKE ? '\n"
             code += "end.join(\" OR \")\n"
-            
             code += "conditions[0] += ')'\n"
-
             code += "find_options = {" 
             code += ":conditions => conditions,"
             code += ":order => \"#{options[:attributes][0]} ASC\","
             code += ":limit => "+options[:limit].to_s+" }\n"
-            
-
             code += "@items = "+model.to_s+".find(:all, find_options)\n"
-           
             
             if options[:partial]
               code += "render :inline => '<%= dyli_result(@items,'+search.to_s.inspect+',"+options[:attributes].inspect+","+options[:partial].inspect+") %>'\n"
@@ -61,8 +56,14 @@ module Ekylibre
             end
             
             code += "end\n"        
-            module_eval(code)
             
+            f=File.open('/tmp/test_dyli.rb','wb')
+            f.write(code)
+            f.close
+
+            module_eval(code)
+           
+            code
           end
         end 
         
