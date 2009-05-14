@@ -1043,7 +1043,7 @@ class ManagementController < ApplicationController
         end
         redirect_to :action=>:sales_payments, :id=>@sale_order.id
       else
-        @payment = Payment.new
+        @payment = Payment.new(:paid_on=>Date.today, :amount=>@sale_order.rest_to_pay)
        #  mode = PaymentMode.find(:first, :conditions=>{:company_id=>@current_company.id})
 #         if !mode.nil?
 #           @payment = Payment.new(:mode_id=>mode.id)
