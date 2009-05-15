@@ -30,6 +30,7 @@ class JournalPeriod < ActiveRecord::Base
  
   #
   def before_validation
+   
     self.financialyear = self.company.financialyears.find(:first, :conditions=>['? BETWEEN started_on AND written_on', self.started_on ], :order=>:started_on) if self.started_on and self.company and !self.financialyear
     if self.started_on and self.financialyear
       unless self.out_of_range?
@@ -41,7 +42,8 @@ class JournalPeriod < ActiveRecord::Base
   end
   
   def validate
-    errors.add(:started_on, tc(:error_out_of_range, :started_on=>self.financialyear.started_on.to_s, :stopped_on=>self.financialyear.stopped_on.to_s)) if self.out_of_range?
+   # raise Exception.new('probleme2: '+self.financialyear.inspect+' out: '+self.out_of_range?.to_s)
+    errors.add_to_base self.started_on.to_s+tc(:error_out_of_range, :started_on=>self.financialyear.started_on.to_s, :stopped_on=>self.financialyear.stopped_on.to_s) if self.out_of_range?
   end
 
   def out_of_range?(made_on=nil)

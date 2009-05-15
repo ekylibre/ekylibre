@@ -18,7 +18,7 @@ module Ekylibre
 
           #
           def dyli(name, options = {})
-            options = {:limit => 5,:attributes => [:name], :filter => {:number => 'X%'}, :partial => nil}.merge(options)
+            options = {:limit => 12,:attributes => [:name], :filter => {:number => 'X%'}, :partial => nil}.merge(options)
             
             if options[:model].nil?
               model = name.to_s.camelize.constantize
@@ -38,8 +38,8 @@ module Ekylibre
             
             code += "conditions[0] += '('\n"
             code += "conditions[0] += "+options[:attributes].inspect+".collect do |attribute|\n"
-            code += "search = "+options[:filter].inspect+"[attribute] ||'%X%'\n"
-            code += "conditions << search\n"
+            code += "format = ("+options[:filter].inspect+"[attribute] ||'%X%').gsub('X', search)\n"
+            code += "conditions << format\n"
             code += "'LOWER('+attribute.to_s+') LIKE ? '\n"
             code += "end.join(\" OR \")\n"
             code += "conditions[0] += ')'\n"
@@ -170,7 +170,7 @@ module Ekylibre
           js_options[:indicator]  = "'#{options[:indicator]}'" if options[:indicator]
           js_options[:select]     = "'#{options[:select]}'" if options[:select]
           js_options[:paramName]  = "'#{options[:param_name]}'" if options[:param_name]
-          js_options[:frequency]  = "#{options[:frequency]}" if options[:frequency]
+          js_options[:frequency]  = 0.1 # "'{options[:frequency]}'" if options[:frequency]
           js_options[:method]     = "'#{options[:method].to_s}'" if options[:method]
 
           { :after_update_element => :afterUpdateElement, 
@@ -186,6 +186,7 @@ module Ekylibre
         
         private
         
+        #
         def dyli_complete_stylesheet
           content_tag('style', <<-EOT, :type => Mime::CSS)
         div.dyli_complete {
@@ -232,20 +233,21 @@ module Ekylibre
           tag_options.update({
                                :id      => tf_id,
                                # Cache the default text field value when the field gets focus.
-                               :onfocus => 'if (this.dyli == undefined) {this.dyli = this.value}',
+                              :onfocus => 'if (this.dyli == undefined) {this.dyli = this.value}',
                              })
           
           tag_options[:onchange] = if options[:allow_free_text]
-                                     "window.setTimeout(function () {if (this.value != this.dyli) {$('#{hf_id}').value = ''}}.bind(this), 200)"
+                                   "window.setTimeout(function () {if (this.value != this.dyli) {$('#{hf_id}').value = ''}}.bind(this), 1)"
                                    else
-                                     "window.setTimeout(function () {this.value = this.dyli}.bind(this), 200)"
-                                   end
+                                     "window.setTimeout(function () {this.value = this.dyli}.bind(this), 1)"
+                                    end
           
           # if the user presses the button return to validate his choice from the list of completion. 
           unless options[:submit_on_return]
             tag_options[:onkeypress] = 'if (event.keyCode == Event.KEY_RETURN && '+options[:resize].to_s+') {'+
               'this.size = (this.dyli.length > 128 ? 128 : this.dyli.length);'+
-              'this.value = this.dyli; }'
+              'this.value = this.dyli;'+
+              'this.blur;}'
           end
           
         end

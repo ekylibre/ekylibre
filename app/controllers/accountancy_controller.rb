@@ -54,6 +54,7 @@ class AccountancyController < ApplicationController
     t.column :stopped_on
     t.action :financialyears_update, :image=>:update
     t.action :financialyears_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :financialyears_close
   end
 
   dyli(:account_search, :attributes=>[:number, :name], :conditions=>{:company_id=>['@current_company.id']}, :model=>:account)
@@ -292,7 +293,11 @@ class AccountancyController < ApplicationController
       flash[:message]=tc(:create_financialyear_before_close)
       redirect_to :action => :financialyears_create
     end
-    @financialyear = Financialyear.find :first
+    if params[:id]  
+       @financialyear = Financialyear.find_by_id_and_company_id(params[:id], @current_company.id) 
+    else
+      @financialyear = Financialyear.find :first
+    end
     if request.post?
       @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
       
