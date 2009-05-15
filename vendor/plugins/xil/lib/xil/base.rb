@@ -115,7 +115,8 @@ module Ekylibre
         string.gsub! /\+\'\'$/, ''
         # the string is converted to the format ISO, which is more efficient for the PDF softwares to read the
         # superfluous characters.
-        Iconv.iconv('ISO-8859-15','UTF-8', string).to_s
+        # Iconv.iconv('ISO-8859-15','UTF-8', string).to_s
+        string
       end
 
 

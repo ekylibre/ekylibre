@@ -690,6 +690,7 @@ fr-FR:
         connect: 'Entrer'
         lost_login: 'Nom d''utilisateur oublié ?'
         lost_password: 'Mot de passe oublié ?'
+        no_javascript: 'Votre navigateur ne supporte pas le javascript. Vous devez l''activer pour pouvoir utiliser le logiciel. Merci de votre compréhension.'
         register: 'Créer une nouvelle société'
       register:
         administrator: Administrateur

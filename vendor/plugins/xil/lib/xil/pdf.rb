@@ -200,13 +200,26 @@ module Ekylibre
         top    = style.get('top','0mm').to_f(PDF_DEFAULT_UNIT).round(4)
         width  = style.get('width','100mm').to_f(PDF_DEFAULT_UNIT).round(4)
         height = style.get('height','10mm').to_f(PDF_DEFAULT_UNIT).round(4)
-        font = {}
-        font[:size]   = style.get('font-size','10pt').to_f(PDF_DEFAULT_UNIT)
-        font[:family] = style.get('font-family', 'helvetica')
-        font[:weight] = style.get('font-weight')
-        font[:style]  = style.get('font-style')
-        font.delete_if {|key, value| value.nil? } 
-        code += "#{environment[:pdf]}.box(x#{left == 0 ? '' : '+'+left.to_s}, y#{top == 0 ? '' : '+'+top.to_s}, #{width}, #{height}, :font=>#{font.inspect}, :text=>#{string_clean(element.text, environment)})\n"
+        
+        options = {}        
+        unless element.text.to_s.blank?
+          options[:text] = string_clean(element.text, environment)
+          options[:font] = {}
+          options[:font][:size]   = style.get('font-size','10pt').to_f(PDF_DEFAULT_UNIT)
+          options[:font][:family] = style.get('font-family', 'helvetica')
+          options[:font][:weight] = style.get('font-weight')
+          options[:font][:style]  = style.get('font-style')
+          options[:font][:align]  = style.get('text-align').to_s+' '+style.get('vertical-align').to_s
+        end
+        border = style.get('border')
+        options[:border] = {}
+        options[:border][:width] = border[0].to_f(PDF_DEFAULT_UNIT).round(4)
+        options[:border][:style] = border[1].to_sym
+        options[:border][:color] = border[2] 
+        
+        options[:font].delete_if {|key, value| value.nil? } 
+        # code += "#{environment[:pdf]}.box(x#{left == 0 ? '' : '+'+left.to_s}, y#{top == 0 ? '' : '+'+top.to_s}, #{width}, #{height}, :font=>#{font.inspect}, :text=>#{string_clean(element.text, environment)})\n"
+        code += "#{environment[:pdf]}.box(x#{left == 0 ? '' : '+'+left.to_s}, y#{top == 0 ? '' : '+'+top.to_s}, #{width}, #{height}, #{options.inspect})\n"
         code
       end
       
