@@ -147,7 +147,7 @@ module Ekylibre
           hf_id, tf_id = determine_field_ids(options)
           determine_tag_options(hf_id, tf_id, options, tag_options)
           determine_completion_options(hf_id, options, completion_options)
-          #raise Exception.new(completion_options[:after_update_element].inspect)
+     
           return <<-HTML
        #{dyli_complete_stylesheet unless completion_options[:skip_style]}    
        #{hidden_field_tag(hf_name, hf_value, :id => hf_id)}
@@ -237,17 +237,18 @@ module Ekylibre
                              })
           
           tag_options[:onchange] = if options[:allow_free_text]
-                                   "window.setTimeout(function () {if (this.value != this.dyli) {$('#{hf_id}').value = ''}}.bind(this), 1)"
+                                   "window.setTimeout(function () {if (this.value != this.dyli) {$('#{hf_id}').value = ''}}.bind(this), 200)"
                                    else
-                                     "window.setTimeout(function () {this.value = this.dyli}.bind(this), 1)"
-                                    end
+                                     "window.setTimeout(function () {this.value = this.dyli}.bind(this), 200)"
+                                   end
           
           # if the user presses the button return to validate his choice from the list of completion. 
           unless options[:submit_on_return]
             tag_options[:onkeypress] = 'if (event.keyCode == Event.KEY_RETURN && '+options[:resize].to_s+') {'+
-              'this.size = (this.dyli.length > 128 ? 128 : this.dyli.length);'+
-              'this.value = this.dyli;'+
-              'this.blur;}'
+              # 'this.size = (this.dyli.length > 128 ? 128 : this.dyli.length);'+
+              'this.size = this.dyli.length;'+
+              'this.value = this.dyli;'
+             
           end
           
         end
