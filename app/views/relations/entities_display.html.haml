@@ -61,6 +61,8 @@
     = link_to tc('sales_new'), {:controller=>:management, :action=>:sales_new, :client_id=>@entity.id}, :class=>'procedure create'
   -if @sale_orders_number > 0
     =dyta :entity_sales
+  -if @entity.client
+    %h2=tc('client_balance')+" : "+@entity.balance.to_s
   %h2=tc :meetings, :count=>@meetings_count
   .aclist
     = link_to tc('meetings_create'), {:action=>:meetings_create, :entity_id=>@entity.id}, :class=>'procedure create'

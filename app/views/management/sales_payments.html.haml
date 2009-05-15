@@ -54,6 +54,9 @@
     %tr
       %th=tc(:rest_to_pay)
       %td=(@invoices_sum - @payments_sum)
+
+%h2=tc('client_balance')+" : "+@sale_order.client.balance.to_s
+
 - form_tag do
   .actions
     =link_to tg(:previous), :action=>:sales_invoices, :id=>@sale_order.id

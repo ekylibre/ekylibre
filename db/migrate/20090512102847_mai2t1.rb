@@ -27,6 +27,9 @@ class Mai2t1 < ActiveRecord::Migration
 
   def self.down
     add_column :deliveries, :nature, :string, :limit=>3 
+
+    execute "UPDATE deliveries SET nature = m.code FROM delivery_modes m WHERE deliveries.company_id = m.company_id AND deliveries.mode_id = m.id"
+
     remove_column :deliveries, :mode_id
     drop_table :delivery_modes
     remove_column :products, :manage_stocks

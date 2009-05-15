@@ -12,6 +12,11 @@
       =evalue @stock_location, :x
       =evalue @stock_location, :y
       =evalue @stock_location, :z
+    -if @stock_location.reservoir
+      %td
+        =evalue @stock_location, :product, :label=>:name, :url=>{:action=>:products_display, :id=>@stock_location.product_id}
+        =evalue @stock_location, :number
+        =evalue @stock_location, :quantity_max
 
 %h2=tc :moves
 =dyta :stock_moves

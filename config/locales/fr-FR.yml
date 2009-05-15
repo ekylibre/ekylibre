@@ -388,7 +388,7 @@ fr-FR:
         mode: Mode
         name: Nom 
       payment_part:
-        amount: Montant
+        amount: Montant attribué à la vente
         payment_way: Moyen de paiement
       price:
         amount: Montant HT
@@ -932,6 +932,7 @@ fr-FR:
         amount: Montant HT
         amount_with_taxes: Montant TTC
         client: Client
+        client_balance: Solde du client
         confirmed_on: Confirmée le
         contacts:
           zero: 'Aucun contact'

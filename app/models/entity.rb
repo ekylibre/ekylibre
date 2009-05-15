@@ -109,4 +109,13 @@ class Entity < ActiveRecord::Base
     end
   end
   
+  def balance
+    #payments = Payment.find_all_by_entity_id_and_company_id(self.id, self.company_id).sum(:amount_with_taxes)
+    payments = Payment.sum(:amount, :conditions=>{:company_id=>self.company_id, :entity_id=>self.id})
+    invoices = Invoice.sum(:amount_with_taxes, :conditions=>{:company_id=>self.company_id, :client_id=>self.id})
+    #invoices = Invoice.find_all_by_client_id_and_company_id(self.id, self.company_id).sum(:amount_with_taxes)
+    #raise Exception.new.to_i.inspect
+    payments - invoices
+  end
+
 end 

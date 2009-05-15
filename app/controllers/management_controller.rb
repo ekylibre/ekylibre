@@ -224,6 +224,12 @@ class ManagementController < ApplicationController
   def products_display
     @product = find_and_check(:product, params[:id])
     session[:product_id] = @product.id
+    all_product_stocks = ProductStock.find(:all, :conditions=>{:company_id=>@current_company.id})
+    @product_stocks = []
+    @stock_locations = @current_company.stock_locations
+    for product_stock in all_product_stocks
+      @product_stocks << product_stock if product_stock.product_id == @product.id
+    end
     product_prices_list params
     product_components_list 
     @title = {:value=>@product.name}
@@ -656,7 +662,6 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.action :sale_order_lines_update, :image=>:update, :if=>'RECORD.order.state == "P"'
     t.action :sale_order_lines_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.state == "P"'
-    #t.procedure :sale_order_lines_create, :if=>'RECORD.order.state == "P"'
   end
 
   def sales_products
@@ -995,10 +1000,10 @@ class ManagementController < ApplicationController
   end
 
   dyta(:payment_parts, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
-    t.column :amount, :through=>:payment, :label=>"Montant du paiment"
+    t.column :amount, :through=>:payment, :label=>tc('payment_amount')
     t.column :amount
     t.column :payment_way
-    t.column :paid_on, :through=>:payment, :label=>"Réglé le"
+    t.column :paid_on, :through=>:payment, :label=>tc('paid_on')
     t.action :payments_update, :image=>:update
     t.action :payments_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
     t.procedure :payments_create
@@ -1014,6 +1019,7 @@ class ManagementController < ApplicationController
     @payments_sum = 0 
     @payments.each {|p| @payments_sum += p.amount}
     session[:current_sale_order] = @sale_order.id
+    #raise Exception.new @sale_order.client.balance.inspect
     payment_parts_list params
     if request.post?
       @sale_order.update_attribute(:state, 'F') if @sale_order.state == 'R'
@@ -1036,6 +1042,7 @@ class ManagementController < ApplicationController
         if params[:price][:mode] == "new"
           @payment = Payment.new(params[:payment])
           @payment.company_id = @current_company.id
+          @payment.entity_id = @sale_order.client_id
           @sale_order.add_payment(@payment) if @payment.save
         else
           @payment = find_and_check(:payment, params[:pay][:part])
@@ -1157,6 +1164,7 @@ class ManagementController < ApplicationController
     t.column :name
     t.column :name, :through=>:establishment
     t.column :name, :through=>:parent
+    t.column :reservoir
     t.action :stocks_locations_display, :image=>:show
     #t.action :stocks_locations_update, :mode=>:reservoir, :image=>:update, :if=>'RECORD.reservoir == true'
     t.action :stocks_locations_update, :image=>:update

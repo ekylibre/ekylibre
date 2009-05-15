@@ -36,6 +36,8 @@ fr-FR:
       need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
       need_stock_location_to_create_purchase_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser un achat'
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
+      paid_on: Réglé le
+      payment_amount: Montant du paiement
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
         need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
@@ -194,6 +196,7 @@ fr-FR:
         purchases_prices_create: "Ajouter un prix d'achat"
         sale_price_create: Créer un prix de vente
         sales_prices_create: 'Ajouter un prix de vente'
+        stocks: État des stocks
         title: 'Fiche du produit : {{value}}'
       _products_form:
         accountancy: Comptabilité
@@ -269,6 +272,7 @@ fr-FR:
         deliver: 'Faite le  '
       sales_payments: 
         amount_wt: Montant TTC
+        client_balance: Solde du client
         close_sale: Clôturer la vente
         financial_state: État de la vente
         invoices: Factures

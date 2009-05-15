@@ -39,7 +39,9 @@ class Delivery < ActiveRecord::Base
       self.amount += line.amount
       self.amount_with_taxes += line.amount_with_taxes
     end
-    self.moved_on = Date.today if self.planned_on == Date.today and self.mode.code == "exw"
+    if !self.mode.nil?
+      self.moved_on = Date.today if self.planned_on == Date.today and self.mode.code == "exw"
+    end
   end
 
   def before_destroy
@@ -85,7 +87,4 @@ class Delivery < ActiveRecord::Base
     tc('natures.'+self.nature.to_s)
   end
 
-  def lines_sum
-  end
-  
 end

@@ -3,14 +3,13 @@
 = aclist do |l|
   - l.action :sales_print, :id=>@sale_order.id
 
--if @undelivered
-  %h2=tc :undelivered
-  =dyta :undelivered_quantities
+%h2=tc :undelivered
+=dyta :undelivered_quantities
 
 %h2=tc :deliveries
 
 .aclist
-  -if !@sale_order.invoiced 
+  -if !@sale_order.invoiced && @undelivered
     =link_to tc("deliveries_create"), {:action=>:deliveries_create}, :class=>'procedure create'
 =dyta :sales_deliveries
 
