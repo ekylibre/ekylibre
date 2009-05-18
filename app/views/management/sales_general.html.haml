@@ -1,6 +1,6 @@
 =sales_steps
 - form_tag do
-  =formalize do |f|
+  =formalize do |f| 
     - f.error 'sale_order'
     - f.title :client
     - f.field :sale_order, :client_id, :choices=>@current_company.available_entities(:conditions=>{:client=>true}, :order=>:name).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations, :action=>:entities_create}
