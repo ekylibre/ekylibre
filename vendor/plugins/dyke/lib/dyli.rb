@@ -29,8 +29,9 @@ module Ekylibre
             code = ""
             code += "def dyli_"+name.to_s+"\n"
             code += "conditions = [\"\"]\n"
+           # code += "puts 'voilaz:'+params[:s].inspect\n"
             code += "search = params[:"+model.to_s.lower.to_s+"][:search].downcase\n"
-            
+            code += "puts 'voila2:'+search.to_s+':'+params[:mod].inspect \n"
             options[:conditions].collect do |key, value| 
               code += "conditions << "+sanitize_conditions(value)+"\n"
               code += "conditions[0] += '"+key.to_s+" = ? AND '\n"
@@ -48,7 +49,8 @@ module Ekylibre
             code += ":order => \"#{options[:attributes][0]} ASC\","
             code += ":limit => "+options[:limit].to_s+" }\n"
             code += "@items = "+model.to_s+".find(:all, find_options)\n"
-            
+          
+
             if options[:partial]
               code += "render :inline => '<%= dyli_result(@items,'+search.to_s.inspect+',"+options[:attributes].inspect+","+options[:partial].inspect+") %>'\n"
             else
@@ -105,6 +107,8 @@ module Ekylibre
           
           completion_options[:skip_style] = true;
           
+         # model = association.to_s.camelize.constantize 
+
           dyli_completer(tf_name, tf_value, hf_name, hf_value, options, tag_options, completion_options)
         end
         
@@ -145,7 +149,7 @@ module Ekylibre
           options[:submit_on_return] = options[:send_on_return] if options[:send_on_return]
           
           hf_id, tf_id = determine_field_ids(options)
-          determine_tag_options(hf_id, tf_id, options, tag_options)
+          determine_tag_options(tf_name, hf_id, tf_id, options, tag_options)
           determine_completion_options(hf_id, options, completion_options)
      
           return <<-HTML
@@ -161,7 +165,7 @@ module Ekylibre
         def dyli_complete_field(field_id, options = {})
           function =  "var #{field_id}_dyli_completer = new Ajax.Autocompleter("
           function << "'#{field_id}', "
-          function << "'" + (options[:update] || "#{field_id}_dyli_complete") + "', "
+          function << "'" + (options[:update] || "#{field_id}_dyli_complete") + "',"
           function << "'#{url_for(options[:url])}'"
           
           js_options = {}
@@ -170,7 +174,7 @@ module Ekylibre
           js_options[:indicator]  = "'#{options[:indicator]}'" if options[:indicator]
           js_options[:select]     = "'#{options[:select]}'" if options[:select]
           js_options[:paramName]  = "'#{options[:param_name]}'" if options[:param_name]
-          js_options[:frequency]  = 0.1 # "'{options[:frequency]}'" if options[:frequency]
+          js_options[:frequency]  = "'#{options[:frequency]}'" if options[:frequency]
           js_options[:method]     = "'#{options[:method].to_s}'" if options[:method]
 
           { :after_update_element => :afterUpdateElement, 
@@ -229,50 +233,60 @@ module Ekylibre
         end
         
         #  
-        def determine_tag_options(hf_id,tf_id, options, tag_options)
+        def determine_tag_options(tf_name, hf_id, tf_id, options, tag_options)
+         # raise Exception.new(options.inspect)  
+          # @items = model.find(:first, :conditions =>) 
+          # @item = model.find(:first, :conditions => $('#{tf_id}').value)
           tag_options.update({
                                :id      => tf_id,
                                # Cache the default text field value when the field gets focus.
-                              :onfocus => 'if (this.dyli == undefined) {this.dyli = this.value}',
+                               :onfocus => 'if (this.dyli == undefined) {this.dyli = this.value};',
+                               :onblur => remote_function(:url => {:mod => 'find', :action => 'dyli_' + tf_name.sub(/\[/, '_').gsub(/\[\]/, '_').gsub(/\[?\]$/, '')})
                              })
           
-          tag_options[:onchange] = if options[:allow_free_text]
-                                   "window.setTimeout(function () {if (this.value != this.dyli) {$('#{hf_id}').value = ''}}.bind(this), 200)"
-                                   else
-                                     "window.setTimeout(function () {this.value = this.dyli}.bind(this), 200)"
-                                   end
+         #  tag_options[:onchange] = if options[:allow_free_text]
+#                                    "window.setTimeout(function () {if (this.value != this.dyli) {$('#{hf_id}').value = ''} this.value=this.dyli;}.bind(this), 1000) "
+#                                    else
+#                                    "window.setTimeout(function () {this.value = this.dyli}.bind(this), 200)"
+                                   
+#                                    end
           
+         
           # if the user presses the button return to validate his choice from the list of completion. 
-          unless options[:submit_on_return]
-            tag_options[:onkeypress] = 'if (event.keyCode == Event.KEY_RETURN && '+options[:resize].to_s+') {'+
-              # 'this.size = (this.dyli.length > 128 ? 128 : this.dyli.length);'+
-              'this.size = this.dyli.length;'+
-              'this.value = this.dyli;'
-             
-          end
+    #       unless options[:submit_on_return]
+            
+#            tag_options[:onkeypress] = 'if (event.keyCode == Event.KEY_RETURN && '+options[:resize].to_s+') {'+
+#              'this.value = this.dyli; }'
+#           end
           
         end
 
         
         # Determines the actual completion options, taken into account the ones from
         # the user.
-        def determine_completion_options(hf_id, options, completion_options) #:nodoc:
+       def determine_completion_options(hf_id, options, completion_options) #:nodoc:
+      #    def determine_completion_options(tf_id, hf_id, options, completion_options) #:nodoc:
           # dyli_completer does most of its work in the afterUpdateElement hook of the
           # standard autocompletion mechanism. Here we generate the JavaScript that goes there.
           completion_options[:after_update_element] = <<-JS.gsub(/\s+/, ' ')
       function(element, value) {
           var model_id = /#{options[:regexp_for_id]}/.exec(value.id)[1];
           $("#{hf_id}").value = model_id;
-          element.dyli = document.getElementById('record_'+model_id).value;
+          element.dyli = element.value;
+
+          event.keyCode = Event.KEY_RETURN;
           JS
-          
-          
-          if options[:resize]
-            completion_options[:after_update_element] += <<-JS.gsub(/\s+/, ' ')
+         
+         #element.dyli = document.getElementById('record_'+model_id).value;
+         
+         #window.setTimeout(function () {element.dyli= element.value}.bind(this), 1000);
+         # element.dyli = document.getElementById('record_'+model_id).value;
+         if options[:resize]
+           completion_options[:after_update_element] += <<-JS.gsub(/\s+/, ' ')
              element.size = (element.dyli.length > 128 ? 128 : element.dyli.length);               
              JS
-          end
-          
+         end
+         
           completion_options[:after_update_element] += <<-JS.gsub(/\s+/, ' ')
             (#{options[:after_update_element]})(element, value, $("#{hf_id}"), model_id);
             }
