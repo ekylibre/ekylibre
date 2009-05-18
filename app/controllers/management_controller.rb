@@ -670,20 +670,42 @@ class ManagementController < ApplicationController
     @stock_locations = @current_company.stock_locations
     @entity = @sale_order.client
     sale_order_lines_list params
+    #raise Exception.new params.inspect
     if request.post?
-      if @sale_order.state == 'L'
-        flash[:warning]=tc('sale_order_already_ordered')
+      #raise Exception.new params.inspect
+      if params[:commit] != "bla"
+        if @sale_order.state == 'L'
+          flash[:warning]=tc('sale_order_already_ordered')
+        else
+          @sale_order.confirmed_on = Date.today
+          @sale_order.update_attribute(:state, 'L') if @sale_order.state == 'P'
+          @sale_order.stocks_moves_create
+        end
+        redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
       else
-        @sale_order.confirmed_on = Date.today
-        @sale_order.update_attribute(:state, 'L') if @sale_order.state == 'P'
-        @sale_order.stocks_moves_create
+        redirect_to :action=>:add_lines, :sale_order_line=>params[:sale_order_line]
       end
-      redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
     end
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
   end
 
-
+  def add_lines
+    #raise Exception.new params.inspect
+    @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
+    if @sale_order_line
+      @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
+      @sale_order_line.save
+    else
+      @sale_order_line = SaleOrderLine.new(params[:sale_order_line])
+      @sale_order_line.company_id = @current_company.id 
+      @sale_order_line.order_id = session[:current_sale_order]
+      @sale_order_line.product_id = find_and_check(:prices,params[:sale_order_line][:price_id]).product_id
+      @sale_order_line.location_id = @stock_locations[0].id if @stock_locations.size == 1
+    end
+    redirect_to :action=>:sales_products, :id=>session[:current_sale_order]
+    #raise Exception.new @sale_order_line.inspect
+  end
+  
   def calculate_sales_price(exist)
     if exist
       @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
@@ -1329,13 +1351,6 @@ class ManagementController < ApplicationController
     t.column :current_real_quantity
   end
   
-
-#   def stocks_conditions(options={})
-#     conditions = {}
-#     conditions[:company_id] = @current_company.id
-#     conditions[:location_id] = session[:location_id] if !session[:location_id].nil?
-#     conditions
-#   end
 
   def stocks
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)

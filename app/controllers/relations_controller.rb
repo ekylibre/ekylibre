@@ -15,7 +15,7 @@ class RelationsController < ApplicationController
   end
 
   dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['session[:current_complement_id]']}, :order=>{'sort'=>'position'}) do |t| 
-    t.column :name
+    t.column :name 
     t.column :value
     t.action :complement_choices_up, :if=>"not RECORD.first\?", :method=>:post
     t.action :complement_choices_down, :if=>"not RECORD.last\?", :method=>:post
