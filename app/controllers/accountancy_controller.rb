@@ -593,14 +593,49 @@ class AccountancyController < ApplicationController
     session[:lettering][:financialyear] ||= {}
 
     if request.post?
+      @entries=[]
       entries = @current_company.entries.find(:all, :conditions => { :account_id => params[:account] })
       entries.each do |entry|
-        @entries  if entry.record.period.financialyear_id.eql? session[:lettering][:financialyear]
+        @entries << entry  if entry.record.period.financialyear_id.eql? session[:lettering][:financialyear]
       end
     end
 
   end
 
+  
+  #
+  def report
+    flash[:error]="Partie de l'application en travaux"
+    return
+   
+    @journal = @current_company.journals.find(:last, :conditions => {:nature => 'report'})
+    
+    @last_financialyear = @current_company.financialyears.find(:last, :conditions => { :closed => true}) 
+
+     # @journal.periods.first.financialyear_id
+  
+    unless @journal
+      flash[:message] = tc('messages.need_report_journal_to_report')
+      redirect_to :action=>:journals_create
+      return
+    end
+    
+    unless @last_financialyear
+      flash[:message] = tc('messages.need_financialyear_to_report')
+      redirect_to :action=>:financialyears_close
+      return
+    end
+
+    @financialyear =[]
+    @financialyears = @current_company.financialyears.find(:all)
+    @financialyears.each do |financialyear|
+       @financialyear << financialyear if financialyear.periods.nil?
+    end
+
+    @period = @journal.periods.create(:company_id => @current_company.id, :financialyear_id => @last_financialyear.id, :started_on=>params[:record][:created_on]) 
+      
+    
+    end
 
   # lists all the statements in details for a precise account.
   def statements  

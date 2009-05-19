@@ -16,6 +16,8 @@ fr-FR:
         need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
         need_bank_account_to_record_statements: 'Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte.'
         need_journal_to_record_entries: 'Vous devez créer un journal pour pouvoir saisir des écritures à l''intérieur.'
+        need_report_journal_to_report: 'Vous devez créer un journal des à nouveaux pour cette opération.'
+        need_financialyear_to_report: 'Vous devez avoir un exercice cloturé pour cette opération.'
         need_financialyear_to_consult_entries: 'Vous devez avoir un exercice ouvert pour pouvoir consulter des écritures.'
         need_journal_to_consult_entries: 'Vous devez créer un journal pour pouvoir consulter des écritures à l''intérieur.'
         need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
@@ -45,6 +47,7 @@ fr-FR:
         documents: Documents comptables
         journals: Gérer les journaux
         lettering: 'Lettrer des comptes de tiers'
+        report: Reprise des à nouveaux
         statements: Pointer un relevé de compte bancaire
         operations: Opérations de vérification et de clôture
         parameters: Paramètres
@@ -179,6 +182,8 @@ fr-FR:
       print_balance_sheet:
         title: Impression du bilan 
         period: Période
+      report:
+        title: Reprise des à nouveaux
       statements:
         title: Pointage des relevés de comptes bancaires 
         select_bank_account: "Sélectionnez un compte bancaire:"	  

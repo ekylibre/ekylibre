@@ -119,7 +119,7 @@ class Journal < ActiveRecord::Base
 
   # this method returns an array .
   def self.natures
-    [:sale, :purchase, :bank, :various].collect{|x| [tc('natures.'+x.to_s), x] }
+    [:sale, :purchase, :bank, :report, :various].collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
 

@@ -27,11 +27,42 @@ module Ekylibre
             end
             
             code = ""
+            
+            #
             code += "def dyli_"+name.to_s+"\n"
             code += "conditions = [\"\"]\n"
            # code += "puts 'voilaz:'+params[:s].inspect\n"
             code += "search = params[:"+model.to_s.lower.to_s+"][:search].downcase\n"
-            code += "puts 'voila2:'+search.to_s+':'+params[:mod].inspect \n"
+            code += "puts 'voila2:'+search.to_s+':'+params.inspect \n"
+            options[:conditions].collect do |key, value| 
+              code += "conditions << "+sanitize_conditions(value)+"\n"
+              code += "conditions[0] += '"+key.to_s+" = ? AND '\n"
+            end
+            code += "conditions[0] += '('\n"
+            code += "conditions[0] += "+options[:attributes].inspect+".collect do |attribute|\n"
+            code += "format = ("+options[:filter].inspect+"[attribute] ||'%X%').gsub('X', search)\n"
+            code += "conditions << format\n"
+            code += "'LOWER('+attribute.to_s+') LIKE ? '\n"
+            code += "end.join(\" OR \")\n"
+            code += "conditions[0] += ')'\n"
+            code += "find_options = {" 
+            code += ":conditions => conditions,"
+            code += ":order => \"#{options[:attributes][0]} ASC\","
+            code += ":limit => "+options[:limit].to_s+" }\n"
+            code += "@items = "+model.to_s+".find(:all, find_options)\n"
+            if options[:partial]
+              code += "render :inline => '<%= dyli_result(@items,'+search.to_s.inspect+',"+options[:attributes].inspect+","+options[:partial].inspect+") %>'\n"
+            else
+              code += "render :inline => '<%= dyli_result(@items,'+search.to_s.inspect+',"+options[:attributes].inspect+") %>'\n"
+            end
+            code += "end\n"        
+            
+
+            code += "def dyli_one_"+name.to_s+"\n"
+            code += "search = params[:search].downcase\n"
+            #code += "raise Exception.new('merde')\n"
+            code += "conditions = [\"\"]\n"
+            code += "puts 'voila3:'+search+':'+params.inspect \n"
             options[:conditions].collect do |key, value| 
               code += "conditions << "+sanitize_conditions(value)+"\n"
               code += "conditions[0] += '"+key.to_s+" = ? AND '\n"
@@ -48,24 +79,30 @@ module Ekylibre
             code += ":conditions => conditions,"
             code += ":order => \"#{options[:attributes][0]} ASC\","
             code += ":limit => "+options[:limit].to_s+" }\n"
-            code += "@items = "+model.to_s+".find(:all, find_options)\n"
-          
+            code += "@item = "+model.to_s+".find(:first, find_options)\n"
+           
+            code += "@li_content=''\n"
+            code += "@li_content = "+options[:attributes].inspect+".collect do |attribute|\n"
+            code += "@item.send(attribute)\n"
+            code += "end.join(', ')\n"
 
-            if options[:partial]
-              code += "render :inline => '<%= dyli_result(@items,'+search.to_s.inspect+',"+options[:attributes].inspect+","+options[:partial].inspect+") %>'\n"
-            else
-              code += "render :inline => '<%= dyli_result(@items,'+search.to_s.inspect+',"+options[:attributes].inspect+") %>'\n"
-            end
+            code += "tf_id = params['tf']\n"
+            code += "hf_id = params['hf']\n"
+                        
+            code += "render(:update) do |page|\n"
+            code += "page["+"'tf_id.to_s'"+"]=@li_content\n" 
+            code += "page[\'hf_id.to_s\']=@item.send(:id)\n"
+            code += "end\n"
             
             code += "end\n"        
-            
+           
             f=File.open('/tmp/test_dyli.rb','wb')
             f.write(code)
             f.close
 
             module_eval(code)
            
-            code
+            
           end
         end 
         
@@ -149,7 +186,7 @@ module Ekylibre
           options[:submit_on_return] = options[:send_on_return] if options[:send_on_return]
           
           hf_id, tf_id = determine_field_ids(options)
-          determine_tag_options(tf_name, hf_id, tf_id, options, tag_options)
+          determine_tag_options(tf_name, tf_value, hf_id, tf_id, options, tag_options)
           determine_completion_options(hf_id, options, completion_options)
      
           return <<-HTML
@@ -233,7 +270,7 @@ module Ekylibre
         end
         
         #  
-        def determine_tag_options(tf_name, hf_id, tf_id, options, tag_options)
+        def determine_tag_options(tf_name, tf_value, hf_id, tf_id, options, tag_options)
          # raise Exception.new(options.inspect)  
           # @items = model.find(:first, :conditions =>) 
           # @item = model.find(:first, :conditions => $('#{tf_id}').value)
@@ -241,7 +278,7 @@ module Ekylibre
                                :id      => tf_id,
                                # Cache the default text field value when the field gets focus.
                                :onfocus => 'if (this.dyli == undefined) {this.dyli = this.value};',
-                               :onblur => remote_function(:url => {:mod => 'find', :action => 'dyli_' + tf_name.sub(/\[/, '_').gsub(/\[\]/, '_').gsub(/\[?\]$/, '')})
+                               :onblur => remote_function(:url => {:action => 'dyli_one_' + tf_name.sub(/\[/, '_').gsub(/\[\]/, '_').gsub(/\[?\]$/, ''), :tf => tf_id, :hf=> hf_id}, :with => "'search='+this.value")
                              })
           
          #  tag_options[:onchange] = if options[:allow_free_text]
@@ -273,7 +310,7 @@ module Ekylibre
           var model_id = /#{options[:regexp_for_id]}/.exec(value.id)[1];
           $("#{hf_id}").value = model_id;
           element.dyli = element.value;
-
+          element.size = (element.dyli.length > 128 ? 128 : element.dyli.length);               
           event.keyCode = Event.KEY_RETURN;
           JS
          
