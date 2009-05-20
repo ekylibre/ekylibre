@@ -88,12 +88,17 @@ module Ekylibre
 
             code += "tf_id = params['tf']\n"
             code += "hf_id = params['hf']\n"
-                        
-            code += "render(:update) do |page|\n"
-            code += "page["+"'tf_id.to_s'"+"]=@li_content\n" 
-            code += "page[\'hf_id.to_s\']=@item.send(:id)\n"
-            code += "end\n"
+            code += "li_id = '"+model.to_s.downcase+"_'+@item.send(:id).to_s\n"
             
+            # code += "render(:update) do |page|\n"
+#             code += "page["+"'tf_id.to_s'"+"]=@li_content\n" 
+#             code += "page[\'hf_id.to_s\']=@item.send(:id)\n"
+#             code += "end\n"
+           
+            code += "render :inline => content_tag('li', @li_content.to_s+tag('input', :type =>'hidden', :value =>@item.send(:id).to_s, :id =>'record'), :id => li_id) \n"
+           
+
+
             code += "end\n"        
            
             f=File.open('/tmp/test_dyli.rb','wb')
@@ -101,8 +106,7 @@ module Ekylibre
             f.close
 
             module_eval(code)
-           
-            
+                     
           end
         end 
         
@@ -154,6 +158,7 @@ module Ekylibre
           # We can't assume dom_id(model) is available because the plugin does not require Rails 2 by now.
           prefix = models.first.class.name.underscore.tr('/', '_') unless models.empty?
           
+          
           items = models.map do |model|
             
             li_id      = "#{prefix}_#{model.id}"
@@ -177,7 +182,7 @@ module Ekylibre
           options = {
             :regexp_for_id        => '(\d+)$',
             :append_random_suffix => true,
-            :allow_free_text      => false,
+            :allow_free_text      => true,
             :submit_on_return     => false,
             :controller           => controller.controller_name,
             :action               => 'dyli_' + tf_name.sub(/\[/, '_').gsub(/\[\]/, '_').gsub(/\[?\]$/, ''),
@@ -278,15 +283,16 @@ module Ekylibre
                                :id      => tf_id,
                                # Cache the default text field value when the field gets focus.
                                :onfocus => 'if (this.dyli == undefined) {this.dyli = this.value};',
-                               :onblur => remote_function(:url => {:action => 'dyli_one_' + tf_name.sub(/\[/, '_').gsub(/\[\]/, '_').gsub(/\[?\]$/, ''), :tf => tf_id, :hf=> hf_id}, :with => "'search='+this.value")
+                              # :onblur => remote_function(:update=> tf_id, :url => {:action => 'dyli_one_' + tf_name.sub(/\[/, '_').gsub(/\[\]/, '_').gsub(/\[?\]$/, ''), :tf => tf_id, :hf=> hf_id}, :with => "'search='+this.value")+";$('#{hf_id}').value= $('record').value;event.keyCode = Event.KEY_RETURN; $('#{tf_id}').size = ($('#{tf_id}').value.length > 128 ? 128 : $('#{tf_id}').value.length);"
+                               
                              })
           
-         #  tag_options[:onchange] = if options[:allow_free_text]
-#                                    "window.setTimeout(function () {if (this.value != this.dyli) {$('#{hf_id}').value = ''} this.value=this.dyli;}.bind(this), 1000) "
+          tag_options[:onchange] = if options[:allow_free_text]
+                                    "window.setTimeout(function () {if (this.value != this.dyli) {$('#{hf_id}').value = ''} this.value=this.dyli;}.bind(this), 1000) "
 #                                    else
 #                                    "window.setTimeout(function () {this.value = this.dyli}.bind(this), 200)"
                                    
-#                                    end
+                                    end
           
          
           # if the user presses the button return to validate his choice from the list of completion. 
