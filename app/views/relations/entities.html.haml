@@ -3,5 +3,7 @@
 =render :partial=>'entities_search'
 
 .aclist
-  =link_to tc('entities_create'), {:action=>:entities_create}, :class=>'procedure create'
+  %ul
+    %li=link_to tc('entities_create'), {:action=>:entities_create}, :class=>'procedure create'
+    %li=link_to tc('entities_export'), {:action=>:entities_export}
 =dyta :entities

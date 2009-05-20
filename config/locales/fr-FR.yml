@@ -925,6 +925,7 @@ fr-FR:
       entities:
         title: 'Fiches des relations'
         entities_create: Créer une nouvelle fiche
+        entities_export: Tout exporter au format CSV
         nb_entities: 
           zero: 'Aucune fiche enregistrée'
           one: '1 fiche enregistrée'

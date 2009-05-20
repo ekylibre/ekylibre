@@ -1,5 +1,5 @@
 class RelationsController < ApplicationController
-
+  
   def index
   end
 
@@ -612,4 +612,77 @@ class RelationsController < ApplicationController
     end
   end
 
+  def entities_export
+    @entities = Entity.find(:all, :conditions=>{:company_id=>@current_company.id})
+    
+    csv_string = FasterCSV.generate do |csv|
+    
+      csv << ["Code", "Type", "Nom", "Prénom","Adresse", "Téléphone", "Email", "Solde", "Taux de réduction", "Date de la première rencontre", "Commentaire" ]          ## Créer les noms de colonnes
+      
+    
+      @entities.each do |entity|
+        contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :default=>true, :deleted=>false})
+        line = []
+        line << [entity.code, entity.nature.name, entity.name, entity.first_name]
+        if !contact.nil?
+          line << [contact.address, contact.phone, contact.email]  
+        else
+          line << [ "-", "-", "-"]
+        end
+        line << [entity.balance, entity.reduction_rate.to_s.gsub(/\./,","), entity.first_met_on, entity.comment]
+        #raise Exception.new line.inspect
+        csv << line.flatten
+      end
+    end
+    
+    send_data csv_string,                                       ## Boite de dialogue 
+    :type => 'text/csv; charset=iso-8859-1; header=present',
+    :disposition => "attachment; filename=entities.csv"
+  end
+
+
+
+  def import_entities
+    ## actions possibles sur le paramètre de type Actioncontroller::uploadedstringIO
+    ## read  original_filename  content_type  size ...
+
+
+    ## si fichier < 10 ko  type == Actioncontroller::uploadedstringIO
+    ## sinon               type == File
+
+    if request.post?
+      
+      file = params[:csv_file][:path] ## Récupère fichier 
+      #raise Exception.new params[:csv_file][:path].original_filename.inspect
+
+      i = 0
+      #FasterCSV.foreach("#{RAILS_ROOT}/#{file.original_filename}") do |row|   ## Forme le path ?? non 
+      FasterCSV.foreach("#{RAILS_ROOT}/#{params[:csv_file][:path].original_filename}") do |row|
+        if i == 7
+          #raise Exception.new row[0].inspect                            ## Récupération des infos ... traitements ...
+        end
+        i += 1
+        
+        @entity = Entity.find_by_company_id_and_code(@current_company.id, row[0])
+        @contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>@entity.id, :default=>true, :deleted=>false}) if @entity
+
+        if i!=0 && !@entity.nil? and !@contact.nil?
+          @entity.attributes = {:nature_id=>8888888, :name=>row[2], :first_name=>row[3], :reduction_rate=>row[8].to_s.gsub(/\,/,"."), :first_met_on=>row[9], :comment=>row[10]}
+          @contact.attributes = {:phone=>row[5], :email=>row[6]}
+          #raise Exception.new @entity.valid?.inspect+@contact.valid?.inspect+@entity.nature.inspect+@entity.errors.inspect
+          puts @contact.valid?.to_s+@entity.valid?.to_s
+          puts @entity.errors.inspect
+          puts row.inspect
+          if !@entity.valid?
+            raise Exception.new i.inspect
+          end
+        end
+      end
+      
+      ## Ouvre le fichier demandé
+      #file = params[:csv_file][:path]
+      #send_data(file.read, :type => file.content_type , :filename => file.original_filename)
+    end
+  end
+  
 end
