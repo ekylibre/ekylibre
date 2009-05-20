@@ -626,11 +626,11 @@ module ApplicationHelper
                 text_field record, method, html_options
               end
       #      input += content_tag(:strong, options[:field].to_s)
-      if options[:field] = :select and options[:new].is_a? Hash
-        label = tg(options[:new][:label]||:new)
-        options[:new].delete :label
+      if options[:field] == :select and options[:new].is_a? Hash
+        label = tg(options[:new].delete(:label)||:new)
         input += link_to(label, options[:new], :class=>:fastadd)
       end
+      input += " "+tg("format_date.iso")+" " if options[:field] == :date
 
 
 #      input += content_tag(:h6,options[:field].to_s+' '+options[:choices].class.to_s+' '+options.inspect)

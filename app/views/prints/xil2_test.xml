@@ -10,9 +10,9 @@
     <parameter name="comment" nature="text" default="">Commentaire</parameter>
   </parameters>
   <formats>
-    <format rule="text" style="height:4mm; width: 50mm; font-size:10pt; border:1pt solid #00F"/>
-    <format rule=".important" style="background:#FFD;border:.5mm solid #EEA; padding:1mm"/>
-    <format rule=".label" style="color: #888; text-align:right;"/>
+    <format rule="text" style="height:4mm; width: 50mm; font-size:10pt;border:1pt solid #00F"/>
+    <format rule=".important" style="background:#FFD;border:0.5mm solid #EEA; padding:1mm"/>
+    <format rule=".label" style="color: #888; text-align:right; width: 35mm"/>
     <format rule=".title" style="font-size:16pt;color: #007; text-align:center; vertical-align:middle; height: 20mm"/>
   </formats>
   <document title="{client.full_name}">

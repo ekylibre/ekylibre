@@ -77,7 +77,7 @@ class Spdf
     @pages[page||@page][:items] << {:nature=>:line, :params=>params}
   end
 
-  def box(x, y, width, height, text, params={}, page=nil)
+  def box(x, y, width, height, text=nil, params={}, page=nil)
     self.new_page if @page<0
     params[:x] = x
     params[:y] = y
@@ -264,7 +264,6 @@ class Spdf
                  else
                    0
                  end
-            # size = size*0.7
             y += if params[:font][:align].to_s.include? 'middle'
                    -(height+size)/2
                  elsif params[:font][:align].to_s.include? 'bottom'

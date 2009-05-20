@@ -2,6 +2,8 @@ module Ekylibre
   module Xil
 
     class Measure
+      attr_reader :unit
+
       UNIT_NATURES = {
         'length'=>{:ref=>'m'},
         'angle'=>{:ref=>'rad'},
@@ -27,8 +29,12 @@ module Ekylibre
       }
 
       
-      def initialize(value, unit=nil)
-        if value.is_a? String
+      def initialize(value, options={})
+        unit = options[:unit]
+        if value.is_a? self.class
+          value = self.to_f
+          unit = self.unit
+        elsif value.is_a? String
           numeric = value[/\d*\.?\d*/]
           raise ArgumentError.new("Unvalid value: #{value.inspect}") if numeric.nil?
           unit = value[/[a-z\%]+/]
@@ -41,9 +47,13 @@ module Ekylibre
           raise ArgumentError.new("Value can't be converted to float: #{value.inspect}")
         end
         raise ArgumentError.new("Unknown unit: #{unit.inspect} in #{value.inspect}") unless UNITS.keys.include? unit
+        if options[:nature]
+          raise ArgumentError.new("Unvalid unit: #{unit.inspect} in #{value.inspect}. #{options[:nature]} expected") unless UNITS[unit][:nature] == options[:nature]
+        end
         @unit = unit
         self
       end
+
 
       def to_m(unit)
         Measure.new(self.to_f(unit), unit)
@@ -79,11 +89,57 @@ module Ekylibre
         end
       end
       
-      def to_s
-        @value.to_f.to_s+@unit
+    end
+
+
+    class Color
+      attr_reader :red, :blue, :green
+
+      def initialize(value)
+        @red, @green , @blue = 255, 0, 255
+        if value.is_a? self.class
+          @red, @green, @blue = value.red, value.green, value.blue
+        elsif value.is_a? String
+          value = "#"+value[1..1]*2+value[2..2]*2+value[3..3]*2 if value=~/^\#[a-f0-9]{3}$/i
+          value = if value=~/^\#[a-f0-9]{6}$/i
+                    [value[1..2].to_i(16), value[3..4].to_i(16), value[5..6].to_i(16)]
+                  elsif value=~/rgb\(\d+\,\d+\,\d+\)/i
+                    array = value.split /(\(|\,|\))/
+                    [array[2].strip, array[4].strip, array[6].strip].collect{|x| x[/\d*\.\d*/].to_f }
+                  elsif value=~/rgb\(\d+\%\,\d+\%\,\d+\%\)/i
+                    array = value.split /(\(|\,|\))/
+                    [array[2].strip, array[4].strip, array[6].strip].collect{|x| x[/\d*\.\d*/].to_f*2.55 }
+                  end
+          @red, @green, @blue = value[0], value[1], value[2]
+        end
+      end
+      
+      def to_a
+        [@red, @green, @blue]
+      end
+    end
+
+
+    class Line
+      def initialize(value)
+        if value.is_a? self.class
+          @width, @style, @color = self.width, self.style, self.color
+        else
+          value = value.strip.squeeze(" ").split[0..2] if value.is_a? String
+        raise Exception.new('Unvalid line value: '+value.inspect) unless value.is_a? Array
+          @width = Measure.new(value[0], :nature=>'m')
+          @style = :solid
+          @color = Color.new(value[2])
+        end
+      end
+
+      def to_a
+        [@width, @style, @color]
       end
       
     end
+
+
 
 
     class Style
@@ -126,8 +182,9 @@ module Ekylibre
 
       DEFAULT_FORMAT = 'a4'
       
-      def initialize(text)
-        self.parse(text.to_s)
+      def initialize(style=nil)
+        @properties = {}
+        self.merge!(style) unless style.nil?
       end
 
       def parse(text)
@@ -152,7 +209,7 @@ module Ekylibre
         prop
       end
 
-      def to_s
+      def to_ssss
         style = ''
         for prop, value in @properties
           style += prop+':'
@@ -167,23 +224,26 @@ module Ekylibre
       end
 
       def dup
-        Style.new(self.to_s)
+        Style.new(@properties)
       end
 
       def merge(style)
         merged = self.dup
-        merged.merge!(style)
+        merged.merge!(style.properties)
         merged
       end
 
       def merge!(style)
         return self if style.nil?
+        style = style.properties if style.is_a? self.class
         if style.is_a? String
           self.parse(style)
-        else
-          for prop, value in style.properties
-            self.set(prop, value)
-          end
+        elsif style.is_a? Hash
+          @properties.merge(style)
+#          for prop, value in style
+#            puts [prop, value].inspect
+#            self.set(prop, value)
+#          end
         end
         self
       end
@@ -196,7 +256,7 @@ module Ekylibre
         definition = PROPERTIES[property]
         if definition.is_a? Hash
           if definition[:nature].is_a? Symbol
-            value = Style.send("string_to_#{definition[:nature].to_s}", value.to_s)
+            value = Style.send("string_to_#{definition[:nature].to_s}", value)
           elsif definition[:nature].is_a? Array
             value = nil unless definition[:nature].include? value
           else
@@ -228,6 +288,7 @@ module Ekylibre
       end 
 
       def self.string_to_color(value)
+        return value.concat([0,0,0]).flatten[0..2] if value.is_a? Array
         value = "#"+value[1..1]*2+value[2..2]*2+value[3..3]*2 if value=~/^\#[a-f0-9]{3}$/i
         if value=~/^\#[a-f0-9]{6}$/i
           [value[1..2].to_i(16), value[3..4].to_i(16), value[5..6].to_i(16)]
@@ -244,9 +305,10 @@ module Ekylibre
       end
 
       def self.string_to_line(value)
-        value = value.strip.squeeze(" ").split[0..2]
+        value = value.strip.squeeze(" ").split[0..2] if value.is_a? String
+        raise Exception.new('Unvalid line value: '+value.inspect) unless value.is_a? Array
         value[0] = Style.string_to_length(value[0])
-        value[1] = 'solid'
+        value[1] = :solid
         value[2] = Style.string_to_color(value[2])
         value
       end

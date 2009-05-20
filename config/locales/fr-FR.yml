@@ -1238,6 +1238,8 @@ fr-FR:
     example: 'Exemple&nbsp;: {{value}}'
     filter: Filtrer
     finish: Terminer
+    format_date:
+      iso: "(AAAA-MM-JJ)"
     hint: 'Astuce&nbsp;: {{value}}'
     info: 'Information&nbsp;: {{value}}'
     next: Suivant
