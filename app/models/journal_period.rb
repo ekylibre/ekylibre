@@ -42,12 +42,13 @@ class JournalPeriod < ActiveRecord::Base
   end
   
   def validate
-   # raise Exception.new('probleme2: '+self.financialyear.inspect+' out: '+self.out_of_range?.to_s)
+#    raise Exception.new('probleme2: '+self.out_of_range?.to_s)
     errors.add_to_base self.started_on.to_s+tc(:error_out_of_range, :started_on=>self.financialyear.started_on.to_s, :stopped_on=>self.financialyear.stopped_on.to_s) if self.out_of_range?
   end
 
   def out_of_range?(made_on=nil)
     made_on ||= self.started_on
+    #raise Exception.new('out'+self.started_on.to_s)
     not (self.financialyear.started_on<=made_on and made_on<=self.financialyear.written_on)
   end
   #

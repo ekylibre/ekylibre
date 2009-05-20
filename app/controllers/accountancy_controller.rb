@@ -432,37 +432,20 @@ class AccountancyController < ApplicationController
           
           @period.save
         end
-       
  
-       #  @record = JournalRecord.find(:first,:conditions=>{:period_id => @period.id, :number => params[:record][:number]})
-      
-        # search all the records matching to the given journal and given number.
-        @records = @current_company.journal_records.find(:all,:conditions=>{:journal_id => @journal.id, :number => params[:record][:number]})
-        
-     #raise Exception.new('records1: '+@records.inspect)
-        #  
-        if @records.size > 0
-          @records.each do |record|
-          @record = record if record.period.financialyear_id.eql? @financialyear.id
-          end
-        else
-          @record = @records
-        end
-
-       # raise Exception.new('record3: '+@records.inspect+':'+@records.size.to_s+':'+@records.nil?.to_s+':et:'+@period.id.to_s)
-
-        unless @record.nil? or @records.size.zero?
+        @record = @current_company.journal_records.find(:first,:conditions=>{:journal_id => @journal.id,  :number => params[:record][:number]}, :joins => "INNER JOIN journal_periods p ON p.financialyear_id ="+@financialyear.id.to_s)
+#          raise Exception.new('r:'+@record.inspect)
+        if @record
           @record.created_on = params[:record][:created_on]
           @record.printed_on = params[:record][:printed_on]
           @record.period_id =  @period.id
         end
+        #raise Exception.new('r:'+@record.inspect)
+        
 
-       # raise Exception.new('record1: '+@record.inspect+':et:'+@period.id.to_s)
+        @record = @period.records.build(params[:record].merge({:period_id=>@period.id, :company_id=>@current_company.id, :journal_id=>@journal.id})) if @record.nil?
 
-        @record = @period.records.build(params[:record].merge({:period_id=>@period.id, :company_id=>@current_company.id, :journal_id=>@journal.id})) if @record.nil? or @records.size.zero?       
-      
-
-        # raise Exception.new('record2: '+@record.inspect)
+         #raise Exception.new('record2: '+@record.inspect)
         @entry = @current_company.entries.build(params[:entry])
         
         if @record.save
@@ -474,6 +457,7 @@ class AccountancyController < ApplicationController
        
           end
         end
+
        #raise Exception.new('record3: '+@record.inspect+':et:'+@period.id.to_s)
       elsif request.delete?
         @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  

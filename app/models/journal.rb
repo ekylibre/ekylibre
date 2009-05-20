@@ -26,7 +26,7 @@ class Journal < ActiveRecord::Base
  #  belongs_to :account, :class_name=>"Account", :foreign_key=>:counterpart_id 
   
   has_many :bank_accounts
-  has_many :periods, :class_name=>"JournalPeriod", :foreign_key=>:journal_id
+  #has_many :periods, :class_name=>"JournalPeriod", :foreign_key=>:journal_id
   has_many :records, :class_name=>"JournalRecord", :foreign_key=>:journal_id
 
   #   before_create :journal_nature
@@ -58,23 +58,39 @@ class Journal < ActiveRecord::Base
 
   # tests if the period contains records.
   def empty?
-    return self.periods.size <= 0
+   # return self.periods.size <= 0
+     return self.records.size <= 0
   end
 
   # this method closes a journal.
   def close(date)
-    self.periods.each do |period|
-      unless period.balanced
-        errors.add_to_base lc(:error_unbalanced_period_journal)
-        return false 
-      end
+    #  self.periods.each do |period|
+    #       unless period.balanced
+    #         errors.add_to_base lc(:error_unbalanced_period_journal)
+    #         return false 
+#       end
+    #     end
+    
+    self.records.each do |record|
+      unless record.balanced
+         errors.add_to_base lc(:error_unbalanced_record_journal)
+         return false 
+       end
     end
     
+    #    self.update_attribute(:closed_on, date)
+    #     self.periods.each do |period|
+    #       period.close(date)
+    #     end
+    #   return true
+    
+    
     self.update_attribute(:closed_on, date)
-    self.periods.each do |period|
-      period.close(date)
+    self.records.each do |record|
+      record.close
     end
     return true
+     
   end
 
   

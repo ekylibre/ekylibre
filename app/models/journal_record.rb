@@ -26,10 +26,12 @@
 class JournalRecord < ActiveRecord::Base
   belongs_to :company
   belongs_to :journal
-  belongs_to :period, :class_name=>"JournalPeriod"
+#  belongs_to :period, :class_name=>"JournalPeriod"
+  belongs_to :financialyear, :class_name=>"Financialyear"
   belongs_to :resource 
   has_many :entries, :foreign_key=>:record_id, :dependent=>:destroy 
-  acts_as_list :scope=>:period
+  #acts_as_list :scope=>:period
+  acts_as_list :scope=>:financialyear
 
   #
   def before_validation
@@ -39,9 +41,10 @@ class JournalRecord < ActiveRecord::Base
    
   #
   def validate
+    raise Exception.new('r:'+self.printed_on.to_s+':'+self.created_on.to_s)
     errors.add :printed_on, tc(:error_printed_date) if self.printed_on > self.created_on
-    if self.period
-      errors.add_to_base tc(:error_closed_journal,[self.period.journal.closed_on.to_formatted_s]) if self.created_on < self.journal.closed_on #if self.period.closed
+    if self.journal
+      errors.add_to_base tc(:error_closed_journal,[self.journal.closed_on.to_formatted_s]) if self.created_on < self.journal.closed_on #if self.period.closed
 
      # raise Exception.new('period: '+self.period.started_on.to_s)
      #  errors.add_to_base tc(:error_limited_period) if self.created_on < self.period.started_on or self.created_on > self.period.stopped_on 
@@ -65,6 +68,7 @@ class JournalRecord < ActiveRecord::Base
 
   # this method allows to lock the record.
   def close
+    self.update_attribute(:closed, true)
     if self.entries.size > 0
       self.entries.each do |entrie|
         entrie.close

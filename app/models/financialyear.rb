@@ -22,7 +22,8 @@ class Financialyear < ActiveRecord::Base
 
   has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financialyear_id
 
-  has_many :periods,  :class_name=>"JournalPeriod", :foreign_key=>:financialyear_id
+  #has_many :periods,  :class_name=>"JournalPeriod", :foreign_key=>:financialyear_id
+  has_many :records,  :class_name=>"JournalRecord"
 
   #
   def before_validation
@@ -46,18 +47,33 @@ class Financialyear < ActiveRecord::Base
   
   # When a financial year is closed, all the matching journals are closed too. 
   def close(date)
-    periods = self.periods 
+    #   periods = self.periods 
     
-    if periods.size > 0
-      periods.each do |period|
-         unless period.closed
-           errors.add_to_base lc(:error_unclosed_period_financialyear)
-           return false
-         end
+    #     if periods.size > 0
+    #       periods.each do |period|
+#          unless period.closed
+    #            errors.add_to_base lc(:error_unclosed_period_financialyear)
+    #            return false
+    #          end
+#       end
+    #     end
+    
+    #     self.update_attributes(:stopped_on => date, :closed => true)
+    #  return true
+    records = self.records
+    
+    if records.size > 0
+      records.each do |record|
+        unless record.closed
+          errors.add_to_base lc(:error_unclosed_record_financialyear)
+          return false
+        end
       end
     end
+    
     self.update_attributes(:stopped_on => date, :closed => true)
     return true
+  
   end
   
 end
