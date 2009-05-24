@@ -3,7 +3,6 @@ module Ekylibre
 
     class Template
 
-
       XIL_MARKUP2 = {
         'template'=>{'document'=>1, 'styles'=>1},
         'styles'=>{'style'=>'+'},
@@ -105,7 +104,7 @@ module Ekylibre
           elsif str=~/[a-z\_]{2,64}(\.[a-z\_]{2,64}){0,16}/
             # Add variable verification /variable.****/
             str = "(#{str}.nil? ? '' : #{str}.strftime('#{format}'))" unless format.nil?
-            "'+ic.iconv(#{str}.to_s)+'"
+            "'+#{str}.to_s+'"
           else
             raise Exception.new('Unvalid string replacement: '+str)
           end

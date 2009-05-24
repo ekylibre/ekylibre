@@ -1,97 +1,6 @@
 module Ekylibre
   module Xil
 
-    class Measure
-      attr_reader :unit
-
-      UNIT_NATURES = {
-        'length'=>{:ref=>'m'},
-        'angle'=>{:ref=>'rad'},
-        'percent'=>{:ref=>'%'}
-      }
-
-      UNITS = {
-        'mm'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>0.001},
-        'cm'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>0.01},
-        'dm'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>0.1},
-        'm'=> {:nature=>UNIT_NATURES['length'][:ref], :factor=>1},
-        'km'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>1000},
-        'pt'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>0.0254/72},
-        'pc'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>0.0254/6},
-        'in'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>0.0254}, # 2.54cm
-        'ft'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>12*0.0254}, # 12 in
-        'yd'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>3*12*0.0254},  # 3 ft
-        'mi'=>{:nature=>UNIT_NATURES['length'][:ref], :factor=>1760*3*12*0.0254}, # 1760 yd
-        'gon'=>{:nature=>UNIT_NATURES['angle'][:ref], :factor=>Math::PI/200},
-        'deg'=>{:nature=>UNIT_NATURES['angle'][:ref], :factor=>Math::PI/180},
-        'rad'=>{:nature=>UNIT_NATURES['angle'][:ref], :factor=>1},
-        '%'=>{:nature=>UNIT_NATURES['percent'][:ref], :factor=>0.01}
-      }
-
-      
-      def initialize(value, options={})
-        unit = options[:unit]
-        if value.is_a? self.class
-          value = self.to_f
-          unit = self.unit
-        elsif value.is_a? String
-          numeric = value[/\d*\.?\d*/]
-          raise ArgumentError.new("Unvalid value: #{value.inspect}") if numeric.nil?
-          unit = value[/[a-z\%]+/]
-        else
-          numeric = value
-        end
-        begin
-          @value = numeric.to_f
-        rescue
-          raise ArgumentError.new("Value can't be converted to float: #{value.inspect}")
-        end
-        raise ArgumentError.new("Unknown unit: #{unit.inspect} in #{value.inspect}") unless UNITS.keys.include? unit
-        if options[:nature]
-          raise ArgumentError.new("Unvalid unit: #{unit.inspect} in #{value.inspect}. #{options[:nature]} expected") unless UNITS[unit][:nature] == options[:nature]
-        end
-        @unit = unit
-        self
-      end
-
-
-      def to_m(unit)
-        Measure.new(self.to_f(unit), unit)
-      end
-
-      def inspect
-        self.to_s
-      end
-      
-      def to_s
-        @value.to_f.to_s+@unit
-      end
-      
-      def nature
-        UNITS[@unit][:nature]
-      end
-
-      def +(measure)
-        @value += measure.to_f(@unit)
-      end
-
-      def -(measure)
-        @value -= measure.to_f(@unit)
-      end
-
-      def to_f(unit=nil)
-        if unit.nil?
-          @value
-        else
-          raise Exception.new("Unknown unit: #{unit.inspect}") unless UNITS.keys.include? unit
-          raise Exception.new("Measure can't be converted from one system (#{UNITS[@unit][:nature].inspect}) to an other (#{UNITS[unit][:nature].inspect})") if UNITS[@unit][:nature]!=UNITS[unit][:nature]
-          @value*UNITS[@unit][:factor]/UNITS[unit][:factor]
-        end
-      end
-      
-    end
-
-
     class Color
       attr_reader :red, :blue, :green
 
@@ -127,7 +36,7 @@ module Ekylibre
         else
           value = value.strip.squeeze(" ").split[0..2] if value.is_a? String
         raise Exception.new('Unvalid line value: '+value.inspect) unless value.is_a? Array
-          @width = Measure.new(value[0], :nature=>'m')
+          @width = ::Measure.new(value[0], :nature=>'m')
           @style = :solid
           @color = Color.new(value[2])
         end
@@ -168,16 +77,16 @@ module Ekylibre
       }
 
       FORMATS = {
-        'a0'=>[Measure.new('840mm'), Measure.new('1189mm')],
-        'a1'=>[Measure.new('594mm'), Measure.new('841mm')],
-        'a2'=>[Measure.new('420mm'), Measure.new('594mm')],
-        'a3'=>[Measure.new('297mm'), Measure.new('420mm')],
-        'a4'=>[Measure.new('210mm'), Measure.new('297mm')],
-        'a5'=>[Measure.new('148mm'), Measure.new('210mm')],
-        'a6'=>[Measure.new('105mm'), Measure.new('148mm')],
-        'letter'=>[Measure.new('11in'), Measure.new('8.5in')],
-        'legal'=> [Measure.new('14in'), Measure.new('8.5in')],
-        'ledger'=>[Measure.new('17in'), Measure.new('11in')],
+        'a0'=>[::Measure.new('840mm'), ::Measure.new('1189mm')],
+        'a1'=>[::Measure.new('594mm'), ::Measure.new('841mm')],
+        'a2'=>[::Measure.new('420mm'), ::Measure.new('594mm')],
+        'a3'=>[::Measure.new('297mm'), ::Measure.new('420mm')],
+        'a4'=>[::Measure.new('210mm'), ::Measure.new('297mm')],
+        'a5'=>[::Measure.new('148mm'), ::Measure.new('210mm')],
+        'a6'=>[::Measure.new('105mm'), ::Measure.new('148mm')],
+        'letter'=>[::Measure.new('11in'), ::Measure.new('8.5in')],
+        'legal'=> [::Measure.new('14in'), ::Measure.new('8.5in')],
+        'ledger'=>[::Measure.new('17in'), ::Measure.new('11in')],
       }
 
       DEFAULT_FORMAT = 'a4'
@@ -268,14 +177,14 @@ module Ekylibre
       end
 
       def self.string_to_length(value)
-        m = Measure.new(value)
-        m = Measure.new('0m') if m.nature!='m'
+        m = ::Measure.new(value)
+        m = ::Measure.new('0m') if m.nature!='m'
         m
       end
 
       def self.string_to_angle(value)
-        m = Measure.new(value)
-        m = Measure.new('0rad') if m.nature!='rad'
+        m = ::Measure.new(value)
+        m = ::Measure.new('0rad') if m.nature!='rad'
         m
       end
 

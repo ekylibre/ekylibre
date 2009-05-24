@@ -1,7 +1,7 @@
 # plugin XIL : XML-based Impression-template Language.
 # This module groups the different methods allowing to obtain a PDF document by the analyze of a template.
-require File.dirname(__FILE__)+'/xil/base'
 require File.dirname(__FILE__)+'/xil/style'
+require File.dirname(__FILE__)+'/xil/base'
 require File.dirname(__FILE__)+'/xil/pdf'
 
 
