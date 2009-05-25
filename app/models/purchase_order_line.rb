@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090428134248
+# Schema version: 20090512102847
 #
 # Table name: purchase_order_lines
 #

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090428134248
+# Schema version: 20090512102847
 #
 # Table name: deliveries
 #
@@ -16,9 +16,9 @@
 #  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
 #  contact_id        :integer       
-#  nature            :string(3)     
 #  planned_on        :date          
 #  moved_on          :date          
+#  mode_id           :integer       
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

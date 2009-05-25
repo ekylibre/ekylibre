@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090428134248
+# Schema version: 20090512102847
 #
 # Table name: products
 #
@@ -31,11 +31,11 @@
 #  updated_by          :integer       
 #  lock_version        :integer       default(0), not null
 #  weight              :decimal(16, 3 
-#  without_stocks      :boolean       not null
 #  price               :decimal(16, 2 default(0.0)
 #  quantity_min        :decimal(16, 2 default(0.0)
 #  critic_quantity_min :decimal(16, 2 default(1.0)
 #  quantity_max        :decimal(16, 2 default(0.0)
+#  manage_stocks       :boolean       not null
 #
 
 class Product < ActiveRecord::Base
