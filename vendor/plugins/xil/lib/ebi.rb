@@ -2,8 +2,9 @@ require 'bigdecimal'
 require 'zlib'
 require 'iconv'
 
+# Ebi is a "japanese" prawn
 
-class Spdf
+class Ebi
   VERSION = '0.1'
   PDF_VERSION = "1.3"
   LAYOUTS = { :single=>'/SinglePage', :continuous=>'/OneColumn', :two_left=>'/TwoColumnLeft', :two_right=>'/TwoColumnRight' }
@@ -116,6 +117,7 @@ class Spdf
   end
 
   def escape(string)
+    raise Exception.new("Unvalid String to escape: #{string.inspect}") unless string.is_a? String
     string = @ic.iconv(string) if @encoding
     '('+string.to_s.gsub('\\','\\\\').gsub('(','\\(').gsub(')','\\)').gsub("\r",'\\r')+')'
   end
@@ -986,47 +988,4 @@ class ContentStream
     @pdf.escape(string)
   end
 
-end
-
-
-if __FILE__==$0
-  pdf = Spdf.new(:encoding=>'UTF-8')
-  pdf.title = 'Enfin un moteur PDF lisible'
-  pdf.new_page([595.28, 841.89])
-  full = true
-  if full
-    pdf.image('sample3.jpg', 300, 20, :width=>275)
-    pdf.image('sample3.jpg', 300, 300, :height=>100)
-    pdf.image('sample.jpg', 420, 300, :height=>100)
-    pdf.image('sample4.png', 300, 600, :width=>275)
-  end
-  pdf.line([[300,20], [420, 300], [400, 400], [350, 350]], :border=>{:width=>10, :style=>:dashed, :color=>'#12C', :join=>:miter})
-  pdf.line([[30,20], [42, 300], [40, 400], [35, 350]], :border=>{:width=>1, :style=>:dashed, :color=>'#c12', :cap=>:butt})
-  pdf.line([[50,20], [92, 300], [90, 400], [85, 350]], :border=>{:width=>1, :style=>:dashed, :color=>'#183', :cap=>:butt})
-  if full
-    fs = ['Courier', 'Times', 'Helvetica']
-    h = 20
-    for j in [50,20*(fs.size+1)*4+50]
-      fs.size.times do |i|
-        pdf.box(50, i*4*h+j+0*h, 300, 20, :font=>{:family=>fs[i], :size=>12}, :text=>'Hello World! Test pour Spdf')
-        pdf.box(50, i*4*h+j+1*h, 300, 20, :font=>{:family=>fs[i], :size=>14, :bold=>true}, :text=>'Hello World! Test pour Spdf')
-        pdf.box(50, i*4*h+j+2*h, 300, 20, :font=>{:family=>fs[i], :size=>16, :italic=>true}, :text=>'Hello World! Test pour Spdf')
-        pdf.box(50, i*4*h+j+3*h, 300, 20, :font=>{:family=>fs[i], :size=>18, :bold=>true, :italic=>true}, :text=>'Hello World! Test pour Spdf')
-      end
-    end
-  end
-  pdf.box(40, 40, 300, 60, :text=>"Heppo World! (Encadré)", :border=>{:color=>'#aaa'}, :background=>'#DEF', :font=>{:color=>'#75A', :size=>12})
-  pdf.box(40, 40, 300, 60, :text=>"Heppo World! (Centré)", :border=>{:color=>'#aaa'}, :font=>{:color=>'#75A', :align=>'center middle', :size=>12})
-  pdf.box(40, 40, 300, 60, :text=>"Heppo World! (Droite)", :border=>{:color=>'#aaa'}, :font=>{:color=>'#75A', :align=>'right bottom', :size=>12})
-  pdf.box(40, 40, 150, 30, :border=>{:color=>'#777'})
-
-  pdf.box(40, 40+12,  80, 48, :background=>'#777')
-  pdf.box(40+110, 40,  80, 24, :background=>'#777')
-  pdf.box(40+110, 40+36,  80, 24, :background=>'#777')
-  pdf.box(40+220, 40, 80, 48, :background=>'#777')
-
-  # pdf.box(40, 40, 300, 12, :border=>{:color=>'#777'})
-  # pdf.box(40, 64, 300, 12, :border=>{:color=>'#777'})
-  # pdf.box(40, 88, 300, 12, :border=>{:color=>'#777'})
-  pdf.generate :file=>'/tmp/test.pdf'
 end
