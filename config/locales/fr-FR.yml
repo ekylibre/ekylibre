@@ -359,7 +359,7 @@ fr-FR:
         id: Journal
         name: Nom
         nature: Nature
-      journal_period:
+      journal_record:
         journal_id: Journal
         financialyear_id: Exercice
       meeting: 
@@ -1152,7 +1152,7 @@ fr-FR:
         purchase: Achats
         sale: Ventes
         bank: Banque
-        report: Des à nouveaux
+        renew: Des à nouveaux
         various: Opérations diverses
     journal_period:
       error_out_of_range: ' est en dehors de l''intervalle de temps de l''exercice (du {{started_on}} au {{stopped_on}})'

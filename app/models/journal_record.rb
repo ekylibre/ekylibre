@@ -33,15 +33,19 @@ class JournalRecord < ActiveRecord::Base
   #acts_as_list :scope=>:period
   acts_as_list :scope=>:financialyear
 
+  validates_format_of :number, :with => /[\dA-Z]*/
+  validates_length_of :number, :is =>  4
+
   #
   def before_validation
     self.debit = self.entries.sum(:debit)
     self.credit = self.entries.sum(:credit)
+    self.number = self.number.rjust(4, "0")
   end 
    
   #
   def validate
-    raise Exception.new('r:'+self.printed_on.to_s+':'+self.created_on.to_s)
+    #raise Exception.new('r:'+self.printed_on.to_s+':'+self.created_on.to_s)
     errors.add :printed_on, tc(:error_printed_date) if self.printed_on > self.created_on
     if self.journal
       errors.add_to_base tc(:error_closed_journal,[self.journal.closed_on.to_formatted_s]) if self.created_on < self.journal.closed_on #if self.period.closed

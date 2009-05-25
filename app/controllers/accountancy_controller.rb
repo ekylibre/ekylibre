@@ -37,8 +37,8 @@ class AccountancyController < ApplicationController
     t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
   
-  dyta(:entries, :conditions=>:entries_conditions, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN journal_periods p ON p.id=r.period_id") do |t|
-    t.column :number, :label=>"Numéro", :through=>:record
+  dyta(:entries, :conditions=>:entries_conditions, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id") do |t|
+  t.column :number, :label=>"Numéro", :through=>:record
     t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
     t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
     t.column :name
@@ -212,13 +212,13 @@ class AccountancyController < ApplicationController
   
   # this method finds the journal with the matching id and the company_id.
   def journals_find
-    @find_journals = @current_company.journals #Journal.find(:all,:conditions=>["company_id = ?", @current_company.id])
+    @find_journals = @current_company.journals 
     render :partial => 'journals_find'
   end
   
   # this method finds the currency with the matching id and the company_id.
   def currencies_find
-    @find_currencies = @current_company.currencies #Currency.find(:all,:conditions=>["company_id = ?", @current_company.id])
+    @find_currencies = @current_company.currencies
     render :partial => 'currencies_find'
   end
   
@@ -237,7 +237,6 @@ class AccountancyController < ApplicationController
 
   # lists all the bank_accounts with the mainly characteristics. 
   def financialyears
-    #financialyears_list params
   end
   
   # this action creates a financialyear with a form.
@@ -279,8 +278,7 @@ class AccountancyController < ApplicationController
   def financialyears_delete
     if request.post? or request.delete?
       @financialyear = Financialyear.find_by_id_and_company_id(params[:id], @current_company.id)  
-
-      Financialyear.destroy @financialyear unless @financialyear.periods.size > 0 
+      Financialyear.destroy @financialyear unless @financialyear.size > 0 
     end
     redirect_to :action => "financialyears"
   end
@@ -299,6 +297,9 @@ class AccountancyController < ApplicationController
     else
       @financialyear = Financialyear.find :first
     end
+
+    @renew_journal = @current_company.journals.find(:all, :conditions => {:nature => :renew.to_s}, :joins => "INNER JOIN journal_records r ON r.journal_id = journals.id AND r.financialyear_id = "+@financialyear.id.to_s)
+#   raise Exception.new('renew:'+@renew_journal.inspect)
     if request.post?
       @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
       
@@ -307,17 +308,16 @@ class AccountancyController < ApplicationController
       end
     else
       if @financialyear
-        @financialyear_periods = []
+        @financialyear_records = []
         d = @financialyear.started_on
         while (d+1).end_of_month < @financialyear.stopped_on
           d=(d+1).end_of_month
-          @financialyear_periods << d.to_s(:attributes)
+          @financialyear_records << d.to_s(:attributes)
         end
       end
     end
   end
-  
-   
+     
   #
   def report
     flash[:error]="Partie de l'application en travaux"
@@ -344,10 +344,12 @@ class AccountancyController < ApplicationController
     @financialyear =[]
     @financialyears = @current_company.financialyears.find(:all)
     @financialyears.each do |financialyear|
-       @financialyear << financialyear if financialyear.periods.nil?
+#       @financialyear << financialyear if financialyear.periods.nil?
+      @financialyear << financialyear if financialyear.records.nil?
     end
 
-    @period = @journal.periods.create(:company_id => @current_company.id, :financialyear_id => @last_financialyear.id, :started_on=>params[:record][:created_on]) 
+   #  @period = @journal.periods.create(:company_id => @current_company.id, :financialyear_id => @last_financialyear.id, :started_on=>params[:record][:created_on]) 
+     @period = @journal.records.create(:company_id => @current_company.id, :financialyear_id => @last_financialyear.id, :started_on=>params[:record][:created_on]) 
       
     
     end
@@ -355,32 +357,29 @@ class AccountancyController < ApplicationController
   
 
   # 
-  def financialyears_periods
-    @financialyear_periods=[]
-    
+  def financialyears_records
+    @financialyear_records=[]
     @financialyear = Financialyear.find(params[:financialyear_select])
-    
     d = @financialyear.started_on
     
     while (d+1).end_of_month < @financialyear.stopped_on
       d=(d+1).end_of_month
-      @financialyear_periods << d.to_s(:attributes)
+      @financialyear_records << d.to_s(:attributes)
     end
-    render :text => options_for_select(@financialyear_periods)
-  end
+    render :text => options_for_select(@financialyear_records)
+ end
  
 
   # this action displays all entries stored in the journal. 
   def entries_consult
     session[:statement] = nil
-    session[:journal_period] = {}
-    session[:journal_period][:journal_id] = params[:id] if params[:id]
-    @journal_period = JournalPeriod.new(:journal_id=>params[:id])
+    session[:journal_record] = {}
+    session[:journal_record][:journal_id] = params[:id] if params[:id]
+    @journal_record = JournalRecord.new(:journal_id=>params[:id])
     @journals = @current_company.journals
     @financialyears = @current_company.financialyears
     if request.post?
-      #raise Exception.new(params[:journal_period].inspect)
-      session[:journal_period] = params[:journal_period]
+      session[:journal_record] = params[:journal_record]
     end
   end
   
@@ -403,18 +402,14 @@ class AccountancyController < ApplicationController
     @records=[]
     @journal = find_and_check(:journal, session[:entries][:journal]) if session[:entries][:journal]
     @financialyear = find_and_check(:financialyear, session[:entries][:financialyear]) if session[:entries][:financialyear]
-
     @valid = (not @journal.nil? and not @financialyear.nil?)
-
     @journals = @current_company.journals.find(:all, :order=>:name)
     @financialyears = @current_company.financialyears.find(:all, :conditions => {:closed => false}, :order=>:code)
-    
     unless @financialyears.size>0
       flash[:message] = tc('messages.need_financialyear_to_record_entries')
       redirect_to :action=>:financialyears_create
       return
     end
-
     unless @journals.size>0
       flash[:message] = tc('messages.need_journal_to_record_entries')
       redirect_to :action=>:journals_create
@@ -424,28 +419,15 @@ class AccountancyController < ApplicationController
     if @valid
       @record = JournalRecord.new
       if request.post?
-        
-        @period = @journal.periods.find(:first, :conditions=>['company_id = ? AND financialyear_id = ? AND CAST(? AS DATE) BETWEEN started_on AND stopped_on', @current_company.id, @financialyear.id, params[:record][:created_on] ])
-        
-        if @period.nil?
-          @period = @journal.periods.create(:company_id=>@current_company.id, :financialyear_id=>@financialyear.id, :started_on=>params[:record][:created_on]) 
-          
-          @period.save
-        end
- 
-        @record = @current_company.journal_records.find(:first,:conditions=>{:journal_id => @journal.id,  :number => params[:record][:number]}, :joins => "INNER JOIN journal_periods p ON p.financialyear_id ="+@financialyear.id.to_s)
-#          raise Exception.new('r:'+@record.inspect)
+        @record = @current_company.journal_records.find(:first,:conditions=>{:journal_id => @journal.id,  :number => params[:record][:number], :financialyear_id => @financialyear.id})
+
         if @record
           @record.created_on = params[:record][:created_on]
           @record.printed_on = params[:record][:printed_on]
-          @record.period_id =  @period.id
         end
-        #raise Exception.new('r:'+@record.inspect)
-        
 
-        @record = @period.records.build(params[:record].merge({:period_id=>@period.id, :company_id=>@current_company.id, :journal_id=>@journal.id})) if @record.nil?
+          @record = @financialyear.records.build(params[:record].merge({:company_id=>@current_company.id, :journal_id=>@journal.id})) if @record.nil?
 
-         #raise Exception.new('record2: '+@record.inspect)
         @entry = @current_company.entries.build(params[:entry])
         
         if @record.save
@@ -458,7 +440,6 @@ class AccountancyController < ApplicationController
           end
         end
 
-       #raise Exception.new('record3: '+@record.inspect+':et:'+@period.id.to_s)
       elsif request.delete?
         @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
         if @entry.close?
@@ -484,13 +465,14 @@ class AccountancyController < ApplicationController
         end
       end
       
+       # @record = JournalRecord.new(params[:record].merge({:created_on => Date.today})) if @record.nil?
       @record = JournalRecord.new(params[:record]) if @record.nil?
     
       if @record.new_record?
-      
         @record.number = @records.size>0 ? @records.first.number.succ : 1
-        @record.created_on ||= @record.printed_on ||= Date.today
-        #raise Exception.new('c la:'+@records.inspect+':'+@record.inspect)
+        # @record.created_on ||= @record.printed_on ||= Date.today
+        @record.created_on = Date.today
+        @record.printed_on = @records.size>0 ? @records.first.printed_on : Date.today
       end
       render :action => "entries.rjs" if request.xhr?
     
@@ -549,7 +531,7 @@ class AccountancyController < ApplicationController
   def journals_delete
     if request.post? or request.delete?
       @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id)  
-      if @journal.periods.size > 0
+      if @journal.records.size > 0
         flash[:message]=tc(:messages, :need_empty_journal_to_delete)
         @journal.update_attribute(:deleted, true)
       else
@@ -563,7 +545,7 @@ class AccountancyController < ApplicationController
   # This method allows to close the journal.
   def journals_close
     access :journals
-    @journal_periods = []
+    @journal_records = []
     @journals= @current_company.journals 
     if @journals.empty?
       flash[:message]=tc(:create_journal_before_close)
@@ -578,8 +560,8 @@ class AccountancyController < ApplicationController
       d = @journal.closed_on
       while (d+1).end_of_month < Date.today
         d=(d+1).end_of_month
-        @journal_periods << d.to_s(:attributes)
-      end
+        @journal_records << d.to_s(:attributes)
+     end
     end
     if request.post?
       @journal = Journal.find_by_id_and_company_id(params[:journal][:id], @current_company.id)
@@ -595,39 +577,19 @@ class AccountancyController < ApplicationController
   end
 
   # This method allows to build the table of the periods.
-  def journals_periods
-    @journal_periods=[]
+  def journals_records
+    @journals_records=[]
     @journal = Journal.find(params[:journal_select])
     d = @journal.closed_on
     while (d+1).end_of_month < Date.today
       d=(d+1).end_of_month
-      @journal_periods << d.to_s(:attributes)
+      @journal_records << d.to_s(:attributes)
     end
-    render :text => options_for_select(@journal_periods) 
+    render :text => options_for_select(@journal_records) 
   end
-
-  # 
-  def lettering
-    @accounts = @current_company.accounts
-    @financialyears = @current_company.financialyears
-    session[:lettering] ||= {}
-    session[:lettering][:account] ||= {}
-    session[:lettering][:financialyear] ||= {}
-
-    if request.post?
-      @entries=[]
-      entries = @current_company.entries.find(:all, :conditions => { :account_id => params[:account] })
-      entries.each do |entry|
-        @entries << entry  if entry.record.period.financialyear_id.eql? session[:lettering][:financialyear]
-      end
-    end
-
-  end
-
  
   # lists all the statements in details for a precise account.
   def statements  
-       
     @bank_accounts = @current_company.bank_accounts
     @valid = @current_company.bank_accounts.empty?
     unless @bank_accounts.size>0
@@ -687,8 +649,6 @@ class AccountancyController < ApplicationController
 
   # This method displays the list of entries recording to the bank account for the given statement.
   def statements_point
-#    flash[:message]="Partie de l'application en travaux"
-#    redirect_to :action=>'statements'
     session[:statement] = params[:id]  if request.get? 
     @bank_account_statement=BankAccountStatement.find(session[:statement])
     @bank_account=BankAccount.find(@bank_account_statement.bank_account_id)

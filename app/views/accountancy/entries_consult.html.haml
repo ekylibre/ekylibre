@@ -1,8 +1,8 @@
 .aclist
   - form_tag do
     =formalize do |f|
-      - f.field :journal_period, :journal_id, :choices=>@journals.collect{|j| [tc(:journal_x, :name=>j.name, :closed_on=>j.closed_on.to_s), j.id]}, :options=>{:include_blank=>tc(:all_journals)}
-      - f.field :journal_period, :financialyear_id, :choices=>@financialyears.collect{|x| [x.code, x.id]}, :options=>{:include_blank=>tc(:all_financialyears)}
+      - f.field :journal_record, :journal_id, :choices=>@journals.collect{|j| [tc(:journal_x, :name=>j.name, :closed_on=>j.closed_on.to_s), j.id]}, :options=>{:include_blank=>tc(:all_journals)}
+      - f.field :journal_record, :financialyear_id, :choices=>@financialyears.collect{|x| [x.code, x.id]}, :options=>{:include_blank=>tc(:all_financialyears)}
     .actions
       =submit_tag tg('apply')
 

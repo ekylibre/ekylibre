@@ -100,6 +100,11 @@ module ApplicationHelper
   MENUS_ARRAY = MENUS.collect{|x| x[:name]}
             
 
+  
+  def choices_yes_no
+    [ [I18n.t('yes'), true], [I18n.t('no'), false] ]
+  end
+
   def menus
     MENUS
   end
@@ -150,27 +155,26 @@ module ApplicationHelper
 
   def entries_conditions(options)
     conditions = ["entries.company_id=?", @current_company.id]
-    unless session[:journal_period][:journal_id].blank?
-      journal = @current_company.journals.find(:first, :conditions=>{:id=>session[:journal_period][:journal_id]})
+    unless session[:journal_record][:journal_id].blank?
+      journal = @current_company.journals.find(:first, :conditions=>{:id=>session[:journal_record][:journal_id]})
       if journal
-        conditions[0] += " AND p.journal_id=?"
+        conditions[0] += " AND r.journal_id=?"
         conditions << journal.id
       end
     end
-    unless session[:journal_period][:financialyear_id].blank?
-      financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:journal_period][:financialyear_id]||0})
-      if financialyear
-        conditions[0] += " AND p.financialyear_id=?"
+    unless session[:journal_record][:financialyear_id].blank?
+       financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:journal_record][:financialyear_id]||0})
+       if financialyear
+        conditions[0] += " AND r.financialyear_id=?"
         conditions << financialyear.id
       end
-    end
-  
+     end
     unless session[:statement].blank?
       statement = @current_company.bank_account_statements.find(:first, :conditions=>{:id=>session[:statement]})
       conditions[0] += " AND statement_id = ? "
       conditions << statement.id
     end
-      #raise Exception.new('v:'+conditions.inspect)
+
     conditions
   end
  
@@ -617,7 +621,7 @@ module ApplicationHelper
                 select record, method, options[:choices], options[:options], html_options
                 #select " ", options[:choices], options[:options], html_options
               when :radio
-                options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label,x[0],:for=>input_id+'_'+x[1].to_s)}.join " "
+                options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s)}.join " "
               when :textarea
                 text_area record, method, :cols => 30, :rows => 3
 #              when :date
@@ -667,6 +671,10 @@ module ApplicationHelper
                   else
                     text_field_tag(name, value, :id=>options[:id], :maxlength=>size, :size=>size)
                   end
+                when :radio
+                  options[:choices].collect do |x|
+            radio_button_tag('radio', (x[1].eql? true) ? 1 : 0, false, :id=>'radio_'+x[1].to_s)+"&nbsp;"+content_tag(:label,x[0])
+          end.join(" ")
                 when :choice
                   options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
                   select_tag(name, options_for_select(options[:choices]), :id=>options[:id])

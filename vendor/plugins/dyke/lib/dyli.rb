@@ -316,7 +316,7 @@ module Ekylibre
           var model_id = /#{options[:regexp_for_id]}/.exec(value.id)[1];
           $("#{hf_id}").value = model_id;
           element.dyli = element.value;
-          element.size = (element.dyli.length > 128 ? 128 : element.dyli.length);               
+          element.size = (element.dyli.length > 50 ? 50 : element.dyli.length);               
           event.keyCode = Event.KEY_RETURN;
           JS
          
@@ -326,7 +326,7 @@ module Ekylibre
          # element.dyli = document.getElementById('record_'+model_id).value;
          if options[:resize]
            completion_options[:after_update_element] += <<-JS.gsub(/\s+/, ' ')
-             element.size = (element.dyli.length > 128 ? 128 : element.dyli.length);               
+             element.size = (element.dyli.length > 50 ? 50 : element.dyli.length);               
              JS
          end
          

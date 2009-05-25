@@ -1,4 +1,6 @@
 fr-FR: 
+  yes: "oui"
+  no: "non"
   controllers:
     accountancy:
       title: Comptabilité
@@ -154,6 +156,7 @@ fr-FR:
       financialyears_close:
         title: 'Clôture d''exercice'
         close: "Clôturer l'exercice"
+        save_renew: 'Souhaitez-vous reporter les à nouveaux ?'
       journals:
         title: Journaux
         journals_create: Enregistrer un nouveau journal
