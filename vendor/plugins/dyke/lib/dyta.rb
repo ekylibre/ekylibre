@@ -208,6 +208,7 @@ module Ekylibre
           end
 
           def value_image(value)
+            value = :unknown if value.blank?
             if value.is_a? Symbol
               "image_tag('buttons/"+value.to_s+".png', :border=>0, :alt=>t('"+value.to_s+"'))"
             elsif value.is_a? String
@@ -218,8 +219,8 @@ module Ekylibre
             end
           end
 
-          def value_image2(value)
-            "image_tag('buttons/'+"+value.to_s+".to_s+'.png', :border=>0, :alt=>t("+value.to_s+".to_s))"
+          def value_image2(value=nil)
+            "image_tag('buttons/'+("+value.to_s+"||:false).to_s+'.png', :border=>0, :alt=>t(("+value.to_s+"||:false).to_s))"
           end
           
           
