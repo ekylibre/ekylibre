@@ -37,8 +37,8 @@ module ApplicationHelper
            [ {:name=>:entries},
              {:name=>:entries_consult},
              {:name=>:statements},
-             #{:name=>:lettering},
-             #{:name=>:report},
+             # {:name=>:lettering},
+             # {:name=>:report},
              {:name=>:journals_close},
              {:name=>:financialyears_close} ] },
          {:name=>:documents, :list=>
