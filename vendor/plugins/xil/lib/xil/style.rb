@@ -1,3 +1,6 @@
+require 'measure'
+
+
 module Ekylibre
   module Xil
 
@@ -77,16 +80,16 @@ module Ekylibre
       }
 
       FORMATS = {
-        'a0'=>[::Measure.new('840mm'), ::Measure.new('1189mm')],
-        'a1'=>[::Measure.new('594mm'), ::Measure.new('841mm')],
-        'a2'=>[::Measure.new('420mm'), ::Measure.new('594mm')],
-        'a3'=>[::Measure.new('297mm'), ::Measure.new('420mm')],
-        'a4'=>[::Measure.new('210mm'), ::Measure.new('297mm')],
-        'a5'=>[::Measure.new('148mm'), ::Measure.new('210mm')],
-        'a6'=>[::Measure.new('105mm'), ::Measure.new('148mm')],
-        'letter'=>[::Measure.new('11in'), ::Measure.new('8.5in')],
-        'legal'=> [::Measure.new('14in'), ::Measure.new('8.5in')],
-        'ledger'=>[::Measure.new('17in'), ::Measure.new('11in')],
+        'a0'=>[Measure.new(840, :mm), Measure.new(1189, :mm)],
+        'a1'=>[::Measure.new(594, :mm), ::Measure.new(841, :mm)],
+        'a2'=>[::Measure.new(420, :mm), ::Measure.new(594, :mm)],
+        'a3'=>[::Measure.new(297, :mm), ::Measure.new(420, :mm)],
+        'a4'=>[::Measure.new(210, :mm), ::Measure.new(297, :mm)],
+        'a5'=>[::Measure.new(148, :mm), ::Measure.new(210, :mm)],
+        'a6'=>[::Measure.new(105, :mm), ::Measure.new(148, :mm)],
+        'letter'=>[::Measure.new(11, :in), ::Measure.new(8.5, :in)],
+        'legal'=> [::Measure.new(14, :in), ::Measure.new(8.5, :in)],
+        'ledger'=>[::Measure.new(17, :in), ::Measure.new(11, :in)],
       }
 
       DEFAULT_FORMAT = 'a4'
@@ -178,13 +181,13 @@ module Ekylibre
 
       def self.string_to_length(value)
         m = ::Measure.new(value)
-        m = ::Measure.new('0m') if m.nature!='m'
+        m = ::Measure.new(0, :mm) if ::Measure.dimension(m.unit) != :length
         m
       end
 
       def self.string_to_angle(value)
         m = ::Measure.new(value)
-        m = ::Measure.new('0rad') if m.nature!='rad'
+        m = ::Measure.new(0, :rad) if ::Measure.dimension(m.unit) != :angle
         m
       end
 

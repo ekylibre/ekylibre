@@ -1,3 +1,5 @@
+require 'measure'
+
 module Ekylibre
   module Xil
 
@@ -5,7 +7,7 @@ module Ekylibre
       
       PDF_DEFAULT_UNIT = 'pt'
       PDF_DEFAULT_FORMAT = Ekylibre::Xil::Style::FORMATS[Ekylibre::Xil::Style::DEFAULT_FORMAT]
-      PDF_DEFAULT_MARGIN = [::Measure.new('0m')]*4
+      PDF_DEFAULT_MARGIN = [Measure.new(0, :mm)]*4
 
       def compile_for_pdf(method_name, environment)
         environment[:output] ||= :pdf

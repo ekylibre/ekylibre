@@ -74,6 +74,8 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 end
 
+
+
 ActionController::Base.xil(:features=>[:template,:document], :subdir_size=>4)
 
 WillPaginate::ViewHelpers.pagination_options[:previous_label] = I18n.t('general.previous')
@@ -88,5 +90,6 @@ WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t('general.next
 
 #ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS[:default] = '%d/%m/%Y'
 #ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS[:default] = '%d/%m/%Y %H:%M:%S'
+
 
 
