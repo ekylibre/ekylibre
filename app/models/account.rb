@@ -73,5 +73,22 @@ class Account < ActiveRecord::Base
     Account.find_all_by_parent_id(self.id)||{}
   end
 
+  # calculates the debit and the credit for the account and the solde.
+  def calc(company, financialyear)
+    debit = self.entries.sum(:debit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
+    credit = self.entries.sum(:credit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
+ 
+    balance = {}
+    unless debit.zero? and credit.zero? 
+      balance[:id] = self.id.to_i
+      balance[:number] = self.number.to_i
+      balance[:name] = self.name.to_s
+      balance[:debit] = debit
+      balance[:credit] = credit
+      balance[:solde] = credit - debit if self.number.to_s.match /^(6|7)/
+    end
+    balance unless balance.empty?
+  end
+
 end
 

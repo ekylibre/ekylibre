@@ -677,7 +677,12 @@ module ApplicationHelper
           end.join(" ")
                 when :choice
                   options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
-                  select_tag(name, options_for_select(options[:choices]), :id=>options[:id])
+                  content = select_tag(name, options_for_select(options[:choices]), :id=>options[:id])
+                   if options[:new].is_a? Hash
+                    
+                    content += link_to(tg(options[:new].delete(:label)||:new), options[:new], :class=>:fastadd)
+                   end
+                  content
                 when :date
                   date_select(name, value, :start_year=>1980)
                 when :datetime
@@ -685,6 +690,7 @@ module ApplicationHelper
                 else
                   text_field_tag(name, value, :id=>options[:id])
                 end
+      
       else
         input = line[:field].to_s
       end

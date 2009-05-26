@@ -298,14 +298,46 @@ class AccountancyController < ApplicationController
       @financialyear = Financialyear.find :first
     end
 
-    @renew_journal = @current_company.journals.find(:all, :conditions => {:nature => :renew.to_s}, :joins => "INNER JOIN journal_records r ON r.journal_id = journals.id AND r.financialyear_id = "+@financialyear.id.to_s)
-#   raise Exception.new('renew:'+@renew_journal.inspect)
+    @renew_journal = @current_company.journals.find(:all, :conditions => {:nature => :renew.to_s, :deleted => false})
+#        raise Exception.new('b:'+generate_balance_account(@current_company.id,@financialyear.id).inspect)
     if request.post?
       @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
-      
+      @journal_renew = Journal.find(params[:journal_id])
+
       if @financialyear.close(params[:financialyear][:stopped_on])
-        redirect_to session[:history][1]
+        balance_account = generate_balance_account(@current_company.id, @financialyear.id)
+        
+        if balance_account.size > 0
+          redirect_to :action => "financialyears_create"
+          @new_financialyear = @current_company.financialyears.find(:last)
+          
+          @record = @new_financialyear.records.build({:company_id => @current_company.id, :number => 1, :created_on => @new_financialyear.started_on, :printed_on => @new_financialyear.started_on})
+          
+          balance_account.each do |account|
+            
+            if account[:number].to_s.match /^(6|7)/
+              result += account[:solde] 
+            else
+               if account[:number].to_s.match /^12/
+                 account_id = account[:id]
+                 account_name = account[:name]
+                 account_solde = account[:solde]
+               end
+              
+              @record.entries.build({:currency_id => @journal_renew.currency_id, :account_id => account[:id], :name => account[:name], :currency_debit => account[:debit], :currency_credit => account[:credit]}) 
+            end
+          end
+          result = account_solde + result
+          if result > 0
+            @record.entries.build({:currency_id => @journal_renew.currency_id, :account_id => account_id, :name => account_name, :currency_debit => 0.0, :currency_credit => result]}) 
+          else
+            @record.entries.build({:currency_id => @journal_renew.currency_id, :account_id => account_id, :name => account_name, :currency_debit => result, :currency_credit => 0.0}) 
+          end
+redirect_to session[:history][1]
+        end
+
       end
+
     else
       if @financialyear
         @financialyear_records = []
@@ -317,7 +349,19 @@ class AccountancyController < ApplicationController
       end
     end
   end
+
      
+  # this method generates a table with debit and credit for each account.
+  def generate_balance_account(company, financialyear)
+    balance = []
+    debit = 0
+    credit = 0
+    @current_company.accounts.each do |account|
+      balance << account.calc(company, financialyear)
+    end
+    balance.compact!
+  end
+  
   #
   def report
     flash[:error]="Partie de l'application en travaux"
@@ -355,7 +399,6 @@ class AccountancyController < ApplicationController
     end
 
   
-
   # 
   def financialyears_records
     @financialyear_records=[]
@@ -426,10 +469,9 @@ class AccountancyController < ApplicationController
           @record.printed_on = params[:record][:printed_on]
         end
 
-          @record = @financialyear.records.build(params[:record].merge({:company_id=>@current_company.id, :journal_id=>@journal.id})) if @record.nil?
+          @record = @financialyear.records.build(params[:record].merge({:company_id => @current_company.id, :journal_id => @journal.id})) if @record.nil?
 
         @entry = @current_company.entries.build(params[:entry])
-        
         if @record.save
           @entry.record_id = @record.id
           @entry.currency_id = @journal.currency_id

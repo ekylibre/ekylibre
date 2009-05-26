@@ -156,7 +156,8 @@ fr-FR:
       financialyears_close:
         title: 'Clôture d''exercice'
         close: "Clôturer l'exercice"
-        save_renew: 'Souhaitez-vous reporter les à nouveaux ?'
+        save_renew: 'Souhaitez-vous reporter les à nouveaux ? '
+        select_renew_journal: 'Sélectionner un journal '
       journals:
         title: Journaux
         journals_create: Enregistrer un nouveau journal

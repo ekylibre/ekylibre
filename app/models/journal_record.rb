@@ -26,14 +26,12 @@
 class JournalRecord < ActiveRecord::Base
   belongs_to :company
   belongs_to :journal
-#  belongs_to :period, :class_name=>"JournalPeriod"
   belongs_to :financialyear, :class_name=>"Financialyear"
   belongs_to :resource 
   has_many :entries, :foreign_key=>:record_id, :dependent=>:destroy 
-  #acts_as_list :scope=>:period
   acts_as_list :scope=>:financialyear
 
-  validates_format_of :number, :with => /[\dA-Z]*/
+  validates_format_of :number, :with => /^[\dA-Z][\dA-Z]*$/, :message => "is invalid"
   validates_length_of :number, :is =>  4
 
   #
@@ -45,13 +43,10 @@ class JournalRecord < ActiveRecord::Base
    
   #
   def validate
-    #raise Exception.new('r:'+self.printed_on.to_s+':'+self.created_on.to_s)
+    errors.add :number, tc(:error_format_number) unless self.number=~/^[\dA-Z][\dA-Z]*$/
     errors.add :printed_on, tc(:error_printed_date) if self.printed_on > self.created_on
     if self.journal
-      errors.add_to_base tc(:error_closed_journal,[self.journal.closed_on.to_formatted_s]) if self.created_on < self.journal.closed_on #if self.period.closed
-
-     # raise Exception.new('period: '+self.period.started_on.to_s)
-     #  errors.add_to_base tc(:error_limited_period) if self.created_on < self.period.started_on or self.created_on > self.period.stopped_on 
+      errors.add_to_base tc(:error_closed_journal,[self.journal.closed_on.to_formatted_s]) if self.created_on < self.journal.closed_on
     end
   end
   
