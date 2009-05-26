@@ -645,6 +645,7 @@ fr-FR:
       first_contact: Adresse principale
       second_contact: Adresse secondaire
       title: Relations
+      you_must_select_a_file_to_import: Vous devez sélectionner un fichier à importer
     resources:
       title: Ressources
       professions:

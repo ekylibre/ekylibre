@@ -67,14 +67,14 @@ class Entity < ActiveRecord::Base
 
 
   
-
+  #validates_presence_of :name
   attr_readonly :company_id
   
  
   #has_many :contact
   def before_validation
     
-    self.soundex = self.name.soundex2
+    self.soundex = self.name.soundex2 if !self.name.nil?
     self.first_name = self.first_name.to_s.strip
     self.name = self.name.to_s.strip
     unless self.nature.nil?
