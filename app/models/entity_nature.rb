@@ -33,4 +33,6 @@ class EntityNature < ActiveRecord::Base
     end
   end
 
+
+
 end

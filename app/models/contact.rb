@@ -52,7 +52,9 @@ class Contact < ActiveRecord::Base
   
 
   def before_validation
-    self.default = true if self.entity.contacts.size <= 0
+    if self.entity
+      self.default = true if self.entity.contacts.size <= 0
+    end
     
     Contact.update_all({:default=>false}, ["entity_id=? AND company_id=? AND id!=?", self.entity_id,self.company_id, self.id||0]) if self.default
     

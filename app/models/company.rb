@@ -204,4 +204,11 @@ class Company < ActiveRecord::Base
     Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (supply_method = 'produce' OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
   end
 
+  def imported_entity_nature(row)
+    en1 = EntityNature.find_by_sql ["SELECT * FROM entity_natures WHERE company_id = ? AND upper(name) LIKE '%?%' ",self.id, row ]
+    en2 = EntityNature.find_by_sql ["SELECT * FROM entity_natures WHERE company_id = ? AND upper(abbreviation) LIKE '%?%'",self.id, row ] if en1.nil?
+    en3 = EntityNature.create!(:name=>row, :abbreviation=>row[0..1], :company_id=>self.id) if en1.nil? and en2.nil?
+    
+  end
+  
 end
