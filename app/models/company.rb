@@ -205,10 +205,16 @@ class Company < ActiveRecord::Base
   end
 
   def imported_entity_nature(row)
-    en1 = EntityNature.find_by_sql ["SELECT * FROM entity_natures WHERE company_id = ? AND upper(name) LIKE '%?%' ",self.id, row ]
-    en2 = EntityNature.find_by_sql ["SELECT * FROM entity_natures WHERE company_id = ? AND upper(abbreviation) LIKE '%?%'",self.id, row ] if en1.nil?
-    en3 = EntityNature.create!(:name=>row, :abbreviation=>row[0..1], :company_id=>self.id) if en1.nil? and en2.nil?
-    
+    if row.blank?
+      nature = self.entity_natures.find_by_abbreviation("-")
+    else
+      nature = EntityNature.find(:first, :conditions=>['company_id = ? AND name ILIKE ? ',self.id, row])
+      #raise Exception.new nature.empty?.inspect
+      #raise Exception.new nature.inspect if row == "SCEA"
+      nature = EntityNature.find(:first, :conditions=>['company_id = ? AND abbreviation ILIKE ?', self.id, row]) if nature.nil?
+      nature = EntityNature.create!(:name=>row, :abbreviation=>row[0..1], :in_name=>false, :company_id=>self.id) if nature.nil? 
+    end
+    nature.id
   end
   
 end

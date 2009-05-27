@@ -927,6 +927,7 @@ fr-FR:
         title: 'Fiches des relations'
         entities_create: Créer une nouvelle fiche
         entities_export: Tout exporter au format CSV
+        entities_import: Importer un fichier CSV
         nb_entities: 
           zero: 'Aucune fiche enregistrée'
           one: '1 fiche enregistrée'
@@ -957,6 +958,8 @@ fr-FR:
           other: ' {{count}} ventes '
         state: État
         title: 'Fiche : {{value}}'
+      entities_import:
+        title:  Importer des fiches clients et fournisseurs au format CSV
       _entities_form:
         title: 'Renseignez les différentes caractéristiques de la fiche'
         details: 'Informations complémentaires'

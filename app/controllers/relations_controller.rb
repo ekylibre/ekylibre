@@ -617,7 +617,7 @@ class RelationsController < ApplicationController
     
     csv_string = FasterCSV.generate do |csv|
     
-      csv << ["Code", "Type", "Nom", "Prénom","Dest-Service","Bat.-Res.-ZI","N° voie","Libelle voie","Lieu dit","Code Postal","Ville", "Téléphone", "Email", "Solde", "Taux de réduction", "Date de la première rencontre", "Commentaire" ]          ## Créer les noms de colonnes -->> line1, line2 .... != adresse
+      csv << ["Code", "Type", "Nom", "Prénom","Dest-Service","Bat.-Res.-ZI","N° voie","Libelle voie","Lieu dit","Code Postal","Ville",  "Téléphone", "Mobile", "Fax","Email","Site Web", "Taux de réduction", "Commentaire" ]          ## Créer les noms de colonnes -->> line1, line2 .... != adresse
       
     
       @entities.each do |entity|
@@ -625,12 +625,12 @@ class RelationsController < ApplicationController
         line = []
         line << [entity.code, entity.nature.name, entity.name, entity.first_name]
         if !contact.nil?
-          line << [contact.line_2, contact.line_3, contact.line_4_number, contact.line_4_street, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.email]  
+          line << [contact.line_2, contact.line_3, contact.line_4_number, contact.line_4_street, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
         else
           #line << [ "-", "-", "-"]
-          line << [ "", "", "", "", "", "", "", "", ""]
+          line << [ "", "", "", "", "", "", "", "", "", "", "", ""]
         end
-        line << [entity.balance, entity.reduction_rate.to_s.gsub(/\./,","), entity.first_met_on, entity.comment]
+        line << [ entity.reduction_rate.to_s.gsub(/\./,","), entity.comment]
         #raise Exception.new line.inspect
         csv << line.flatten
       end
@@ -643,7 +643,7 @@ class RelationsController < ApplicationController
 
 
 
-  def import_entities
+  def entities_import
     
     if request.post?
       if params[:csv_file][:path].blank?
@@ -667,10 +667,8 @@ class RelationsController < ApplicationController
           end
           
           if i!=0 
-            @entity.attributes = { :name=>row[2], :first_name=>row[3], :reduction_rate=>row[14].to_s.gsub(/\,/,"."), :first_met_on=>row[15], :comment=>row[16]}## nature_id = @current_company.imported_entity_nature(row[1])
-            raise Exception.new @current_company.imported_entity_nature(row[1].to_s).inspect
-            @contact.attributes = {:line_2=>row[4], :line_3=>row[5], :line_4_number=>row[6], :line_4_street=>row[7], :line_5=>row[8], :line_6_code=>row[9], :line_6_city=>row[10], :phone=>row[11], :email=>row[12]} if !@contact.nil?
-            puts row.inspect
+            @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[1]), :name=>row[2], :first_name=>row[3], :reduction_rate=>row[16].to_s.gsub(/\,/,"."), :comment=>row[17]}
+            @contact.attributes = {:line_2=>row[4], :line_3=>row[5], :line_4_number=>row[6], :line_4_street=>row[7], :line_5=>row[8], :line_6_code=>row[9], :line_6_city=>row[10], :phone=>row[11], :mobile=>row[12], :fax=>row[13] ,:email=>row[14], :website=>row[15]} if !@contact.nil?
             if !@contact.nil? 
               if !@contact.valid? or !@entity.valid?
                 @unavailable_entities << [i+1, @entity.errors.full_messages, @contact.errors.full_messages]
@@ -681,14 +679,11 @@ class RelationsController < ApplicationController
               @available_entities << [@entity, nil]
             end
           end
-          puts i
+          puts i if i % 100 == 0
           i += 1
-          #raise Exception.new @available_entities.inspect if i==13
         end 
         
-        if @unavailable_entities.empty?         # Faire les updates
-          
-         # raise Exception.new @available_entities.inspect
+        if @unavailable_entities.empty?         # Faire les update || create
           for entity_contact in @available_entities
             entity = Entity.find_by_company_id_and_code(@current_company.id, entity_contact[0].code)
             if entity.nil?
@@ -705,7 +700,7 @@ class RelationsController < ApplicationController
 
         end
       end
-      #raise Exception.new @unavailable_entities[0].inspect
+      
     end
     
   end
