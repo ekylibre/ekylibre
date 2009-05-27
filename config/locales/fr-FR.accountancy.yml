@@ -1,7 +1,5 @@
 fr-FR: 
-  yes: "oui"
-  no: "non"
-  controllers:
+  controller:
     accountancy:
       title: Comptabilité
       accounts:
@@ -27,7 +25,7 @@ fr-FR:
         no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
       create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
       create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
-
+      
 
   # Used in all the views
   # Used in all the views

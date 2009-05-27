@@ -277,7 +277,7 @@ fr-FR:
         title: Fonction
         first_name: Nom
         last_name: Prénom
-        commercial: Activité commerciale	
+        commercial: Activité commerciale        
         profession_id: Profession
         user_id: Utilisateur 
         department_id: Département 
@@ -322,7 +322,7 @@ fr-FR:
         title: Titre
       entry:
         name: Libellé
-        number_account: Nber	
+        number_account: Nber        
         record_id: Numéro
         account_id: Compte
         currency_debit: Débit
@@ -335,7 +335,7 @@ fr-FR:
       financialyear:
         id: Numéro
         code: Code
-        closed: Clôturé	
+        closed: Clôturé        
         started_on: Commencé le
         stopped_on: Date de clôture
         written_on: 'Autoriser l''écriture jusqu''au'
@@ -649,10 +649,13 @@ fr-FR:
     resources:
       title: Ressources
       professions:
-        create: 'Ajout d''une nouvelle profession'	
+        create: 'Ajout d''une nouvelle profession'        
       employees:
         create: 'Création d''un nouvel employé' 
-      
+    accountancy:
+      title: 'Comptabilite'
+      unclosable_financialyear: "L'exercice ne peut être clôturé."
+      unclosable_journal: "Le journal ne peut être clôturé."
   # Used in the helpers
   # Used in the helpers
   # Used in the helpers
@@ -660,6 +663,8 @@ fr-FR:
   helpers:
     accountancy:
     application:
+      yes: oui
+      no: non
       exit: Quitter
     authentication:
     company:
@@ -751,10 +756,10 @@ fr-FR:
       _establishments_form:
         subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
       departments:
-        title: Liste des services	de la société
+        title: Liste des services        de la société
         departments_create: Ajouter un nouveau service
         default_department_name: Gestion/Production
-        departments_listing: Liste des services	
+        departments_listing: Liste des services        
         getback: Retour à la fiche de société
       departments_create:
         title: 'Ajout d''un nouveau service'
@@ -1035,9 +1040,9 @@ fr-FR:
         title: 'Gestion des professions'
         create: 'Ajouter une nouvelle profession'
       professions_create: 
-        title: 'Ajout d''une nouvelle profession'	
+        title: 'Ajout d''une nouvelle profession'        
       professions_update: 
-        title: 'Modification de la profession'	
+        title: 'Modification de la profession'        
     
     # Used in the models
     # Used in the models
@@ -1047,7 +1052,7 @@ fr-FR:
     # Used in the models
   models:
     account:
-      error_delete: Le compte ne peut être effacé car il contient des sous-comptes.	
+      error_delete: Le compte ne peut être effacé car il contient des sous-comptes.        
       default_account_name: 'Compte comptable {{number}}'
     bank_account:
       iban: 'IBAN'
@@ -1057,9 +1062,9 @@ fr-FR:
       bban_unvalid_key: 'Un ou plusieurs éléments du RIB sont incorrects.'
     bank_account_statement:
       error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
-      error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'  				   
+      error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'                                
       error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
-      error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'			           
+      error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'                                   
     company:
       default:
         delays:
@@ -1131,13 +1136,13 @@ fr-FR:
     entry:
       error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
       error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'
-      error_amount_rate: 'Le taux de conversion n''existe pas.'	
+      error_amount_rate: 'Le taux de conversion n''existe pas.'        
     financialyear:
       error_stopped2_financialyear: 'La date de fin d''exercice doit être une date de fin de mois.'
       error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'
       error_written_financialyear: 'La date butoir de création des journaux doit être inférieure à la date de clôture.'
       error_overlap_financialyear: 'La période de l''exercice se chevauche.'
-      error_unclosed_period_financialyear: 'Cet exercice contient des journaux qui n''ont pas encore été clôturé.'
+      error_unclosed_record_financialyear: 'Cet exercice contient des journaux qui n''ont pas encore été clôturé.'
     idea:
       status:
         all: TOUTES
@@ -1150,8 +1155,8 @@ fr-FR:
       inventory: 'Inventaire '
     journal:
       error_limited_period: '.'
-      error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.' 	    
-      error_unbalanced_period_journal: 'Le journal contient des enregistrements non équilibrés.'
+      error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.'             
+      error_unbalanced_record_journal: 'Le journal contient des enregistrements non équilibrés.'
       natures:
         purchase: Achats
         sale: Ventes
@@ -1160,11 +1165,12 @@ fr-FR:
         various: Opérations diverses
     journal_period:
       error_out_of_range: ' est en dehors de l''intervalle de temps de l''exercice (du {{started_on}} au {{stopped_on}})'
-      error_period: 'L''intervalle de temps est incorrect pour la période.'	
+      error_period: 'L''intervalle de temps est incorrect pour la période.'        
       error_closed_journal: 'Vous ne pouvez pas ajouter de pièces comptables à cette date  car le journal est clôturé au {{value}}.'
       error_closed_financialyear: 'L''année financière est déjà terminée.'
       error_limited_financialyear: 'L''année financière sera déjà terminée à la fin de la période.'
     journal_record:
+      error_format_number: 'Le format de numéro de la pièce n''est pas bon.'
       error_printed_date: 'La date de la pièce doit être antérieure ou égale à la date de création de la pièce.'
       error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus ajouter de pièces.' 
       error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
@@ -1225,8 +1231,8 @@ fr-FR:
       stock_location_can_not_transfer_product: 'Vous ne pouvez pas tranférer le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
       stock_location_can_not_waste_product: 'Vous ne pouvez pas enregistrer de perte pour  le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
       natures:
-          transfer: Transfert 
-          waste: Perte    
+        transfer: Transfert 
+        waste: Perte    
   
   # Genral words and expression through the all app
   general:
@@ -1246,6 +1252,7 @@ fr-FR:
       iso: "(AAAA-MM-JJ)"
     hint: 'Astuce&nbsp;: {{value}}'
     info: 'Information&nbsp;: {{value}}'
+    n: non
     next: Suivant
     new: Nouveau...
     no_records: 'Pas d''enregistrements'
@@ -1259,12 +1266,5 @@ fr-FR:
       product: Le produit demandé est indisponible
       financialyear: 'L''exercice comptable est indisponible {{value}}'
     update: 'Modifier'
-
-
-      
-  # Other  TO DELETE
-  # NE RIEN AJOUTER : VA ETRE SUPPRIMÉ
-  app:
-    
-  
-  
+    y: oui
+   

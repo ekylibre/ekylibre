@@ -287,30 +287,37 @@ class AccountancyController < ApplicationController
   # This method allows to close the financialyear.
   def financialyears_close
     access :financialyears
+    
     @financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
     if @financialyears.empty? 
       flash[:message]=tc(:create_financialyear_before_close)
       redirect_to :action => :financialyears_create
     end
+    
     if params[:id]  
-       @financialyear = Financialyear.find_by_id_and_company_id(params[:id], @current_company.id) 
+      @financialyear = Financialyear.find_by_id_and_company_id(params[:id], @current_company.id) 
+      unless @financialyear.closable?
+        flash[:message]=tc(:unclosable_financialyear)
+        redirect_to :action => :financialyears 
+      end
     else
-      @financialyear = Financialyear.find :first
+      @financialyear = @current_company.financialyears.find :first, :conditions => { :closed => false}
     end
 
     @renew_journal = @current_company.journals.find(:all, :conditions => {:nature => :renew.to_s, :deleted => false})
-#        raise Exception.new('b:'+generate_balance_account(@current_company.id,@financialyear.id).inspect)
+
     if request.post?
+      #raise Exception.new('p:'+params[:journal_id].to_s)
       @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
       @journal_renew = Journal.find(params[:journal_id])
-
+      
       if @financialyear.close(params[:financialyear][:stopped_on])
         balance_account = generate_balance_account(@current_company.id, @financialyear.id)
         
         if balance_account.size > 0
           redirect_to :action => "financialyears_create"
           @new_financialyear = @current_company.financialyears.find(:last)
-          
+          raise Exception.new('f:'+@new_financialyear.inspect)
           @record = @new_financialyear.records.build({:company_id => @current_company.id, :number => 1, :created_on => @new_financialyear.started_on, :printed_on => @new_financialyear.started_on})
           
           balance_account.each do |account|
@@ -329,15 +336,15 @@ class AccountancyController < ApplicationController
           end
           result = account_solde + result
           if result > 0
-            @record.entries.build({:currency_id => @journal_renew.currency_id, :account_id => account_id, :name => account_name, :currency_debit => 0.0, :currency_credit => result]}) 
+            @record.entries.build({:currency_id => @journal_renew.currency_id, :account_id => account_id, :name => account_name, :currency_debit => 0.0, :currency_credit => result}) 
           else
             @record.entries.build({:currency_id => @journal_renew.currency_id, :account_id => account_id, :name => account_name, :currency_debit => result, :currency_credit => 0.0}) 
           end
-redirect_to session[:history][1]
+          redirect_to session[:history][1]
         end
-
+        
       end
-
+      
     else
       if @financialyear
         @financialyear_records = []
@@ -347,6 +354,7 @@ redirect_to session[:history][1]
           @financialyear_records << d.to_s(:attributes)
         end
       end
+  
     end
   end
 
@@ -361,43 +369,6 @@ redirect_to session[:history][1]
     end
     balance.compact!
   end
-  
-  #
-  def report
-    flash[:error]="Partie de l'application en travaux"
-    return
-   
-    @journal = @current_company.journals.find(:last, :conditions => {:nature => 'report'})
-    
-    @last_financialyear = @current_company.financialyears.find(:last, :conditions => { :closed => true}) 
-
-     # @journal.periods.first.financialyear_id
-  
-    unless @journal
-      flash[:message] = tc('messages.need_report_journal_to_report')
-      redirect_to :action=>:journals_create
-      return
-    end
-    
-    unless @last_financialyear
-      flash[:message] = tc('messages.need_financialyear_to_report')
-      redirect_to :action=>:financialyears_close
-      return
-    end
-
-    @financialyear =[]
-    @financialyears = @current_company.financialyears.find(:all)
-    @financialyears.each do |financialyear|
-#       @financialyear << financialyear if financialyear.periods.nil?
-      @financialyear << financialyear if financialyear.records.nil?
-    end
-
-   #  @period = @journal.periods.create(:company_id => @current_company.id, :financialyear_id => @last_financialyear.id, :started_on=>params[:record][:created_on]) 
-     @period = @journal.records.create(:company_id => @current_company.id, :financialyear_id => @last_financialyear.id, :started_on=>params[:record][:created_on]) 
-      
-    
-    end
-
   
   # 
   def financialyears_records
@@ -494,11 +465,10 @@ redirect_to session[:history][1]
         @entry = Entry.new 
       end
      
-      @records = @journal.records.find(:all, :order=>"number DESC", :limit=>session[:entries][:records_number].to_i)
+      @records = @journal.records.find(:all, :conditions => {:financialyear_id => @financialyear.id }, :order=>"number DESC", :limit=>session[:entries][:records_number].to_i)
            
-      @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0)"], :order=>:id) if @record.balanced or @record.new_record?
-     
-          
+      @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0) AND financialyear_id = ?", @financialyear.id], :order=>:id) if @record.balanced or @record.new_record?
+               
       unless @record.nil?
         if (@record.balance > 0) 
           @entry.currency_credit=@record.balance.abs 
@@ -507,12 +477,10 @@ redirect_to session[:history][1]
         end
       end
       
-       # @record = JournalRecord.new(params[:record].merge({:created_on => Date.today})) if @record.nil?
       @record = JournalRecord.new(params[:record]) if @record.nil?
     
       if @record.new_record?
         @record.number = @records.size>0 ? @records.first.number.succ : 1
-        # @record.created_on ||= @record.printed_on ||= Date.today
         @record.created_on = Date.today
         @record.printed_on = @records.size>0 ? @records.first.printed_on : Date.today
       end
@@ -588,19 +556,25 @@ redirect_to session[:history][1]
   def journals_close
     access :journals
     @journal_records = []
-    @journals= @current_company.journals 
+    # @journals= @current_company.journals 
+    @journals= @current_company.journals.find(:all, :conditions=> ["closed_on < ?", Date.today.to_s]) 
     if @journals.empty?
       flash[:message]=tc(:create_journal_before_close)
       redirect_to :action => :journals_create
     end
     if params[:id]  
       @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id) 
+      unless @journal.closable?(Date.today)
+        flash[:message]=tc(:unclosable_journal)
+        redirect_to :action => :journals 
+      end
     else
-      @journal = Journal.find :first
+      @journal = @current_company.journals.find(:first, :conditions=> ["closed_on < ?", Date.today.to_s]) 
     end
+        
     if @journal
       d = @journal.closed_on
-      while (d+1).end_of_month < Date.today
+      while d.end_of_month < Date.today
         d=(d+1).end_of_month
         @journal_records << d.to_s(:attributes)
      end
@@ -623,11 +597,11 @@ redirect_to session[:history][1]
     @journals_records=[]
     @journal = Journal.find(params[:journal_select])
     d = @journal.closed_on
-    while (d+1).end_of_month < Date.today
+    while d.end_of_month < Date.today
       d=(d+1).end_of_month
-      @journal_records << d.to_s(:attributes)
+      @journals_records << d.to_s(:attributes)
     end
-    render :text => options_for_select(@journal_records) 
+    render :text => options_for_select(@journals_records) 
   end
  
   # lists all the statements in details for a precise account.

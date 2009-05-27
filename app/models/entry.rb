@@ -83,7 +83,8 @@ class Entry < ActiveRecord::Base
   
   # this method allows to lock the entry. 
   def close
-    Entry.update_all("editable = false", {:record_id => self.record.id})
+    self.update_attribute(:editable, false)
+    #Entry.update_all("editable = false", {:record_id => self.record.id})
   end
   
  

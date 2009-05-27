@@ -13,7 +13,7 @@
 #  debit         :decimal(16, 2 default(0.0), not null
 #  credit        :decimal(16, 2 default(0.0), not null
 #  position      :integer       not null
-#  period_id     :integer       not null
+#  financialyear_id :interger   not null
 #  journal_id    :integer       not null
 #  company_id    :integer       not null
 #  created_at    :datetime      not null

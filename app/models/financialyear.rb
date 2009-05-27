@@ -44,22 +44,29 @@ class Financialyear < ActiveRecord::Base
     errors.add_to_base lc(:error_written_financialyear) unless self.written_on >= self.stopped_on
   end
   
-  # When a financial year is closed, all the matching journals are closed too. 
-  def close(date)
+  # tests if the financialyear can be closed.
+  def closable?
     records = self.records
     
     if records.size > 0
       records.each do |record|
         unless record.closed
-          errors.add_to_base lc(:error_unclosed_record_financialyear)
+          #errors.add_to_base tc(:error_unclosed_record_financialyear)
           return false
         end
       end
     end
-    
-    self.update_attributes(:stopped_on => date, :closed => true)
     return true
-  
+  end
+
+    # When a financial year is closed, all the matching journals are closed too. 
+  def close(date)
+    if self.closable?
+      self.company.journals.find(:all, :conditions => ["closed_on < ?", date]).each do |journal|
+        journal.close(date)
+      end
+      self.update_attributes(:stopped_on => date, :closed => true)
+    end
   end
   
 end

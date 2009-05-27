@@ -102,7 +102,7 @@ module ApplicationHelper
 
   
   def choices_yes_no
-    [ [I18n.t('yes'), true], [I18n.t('no'), false] ]
+    [ [::I18n.translate('general.y'), true], [I18n.t('general.n'), false] ]
   end
 
   def menus
