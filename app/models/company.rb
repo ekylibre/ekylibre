@@ -212,7 +212,7 @@ class Company < ActiveRecord::Base
       #raise Exception.new nature.empty?.inspect
       #raise Exception.new nature.inspect if row == "SCEA"
       nature = EntityNature.find(:first, :conditions=>['company_id = ? AND abbreviation ILIKE ?', self.id, row]) if nature.nil?
-      nature = EntityNature.create!(:name=>row, :abbreviation=>row[0..1], :in_name=>false, :company_id=>self.id) if nature.nil? 
+      nature = EntityNature.create!(:name=>row, :abbreviation=>row[0..1], :in_name=>false, :physical=>true, :company_id=>self.id) if nature.nil? 
     end
     nature.id
   end

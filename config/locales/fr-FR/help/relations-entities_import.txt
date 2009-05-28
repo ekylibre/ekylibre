@@ -1,0 +1,9 @@
+h1. Comment importer un fichier CSV ?
+ 
+* Sélectionnez le fichier à télécharger. Ceci va modifier votre base de données de fiches clients et fournisseurs. En effet, si vous avez *modifié ou ajouté des fiches* dans votre fichier csv qui n'étaient pas dans la base de données du logiciel, celles-ci le seront grâce à l'import.
+
+* Veillez à bien *respecter le format des colonnes* présenté sur la page afin que l'import puisse s'effectuer correctement.
+
+* *La première ligne du fichier ne sera jamais exploitée* car elle représente le titre de la colonne.
+
+<<relations-index|Revenir à l'aide de gestion des relations >>

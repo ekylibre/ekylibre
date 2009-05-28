@@ -612,6 +612,30 @@ class RelationsController < ApplicationController
     end
   end
 
+  @@exchange_format = [ {:name=>:entity_code, :null=>false}, 
+                             {:name=>:entity_nature_name, :null=>false},
+                             {:name=>:entity_name, :null=>false},
+                             {:name=>:entity_first_name, :null=>true},
+                             {:name=>:contact_line_2, :null=>true},
+                             {:name=>:contact_line_3, :null=>true},
+                             {:name=>:contact_line_4_number, :null=>true},
+                             {:name=>:contact_line_4_street, :null=>true},
+                             {:name=>:contact_line_5, :null=>true},
+                             {:name=>:contact_line_6_code, :null=>true},
+                             {:name=>:contact_line_6_city, :null=>false},
+                             {:name=>:contact_phone, :null=>true},
+                             {:name=>:contact_mobile, :null=>true},
+                             {:name=>:contact_fax, :null=>true}, 
+                             {:name=>:contact_email, :null=>true},
+                             {:name=>:contact_website, :null=>true},
+                             {:name=>:entity_reduction_rate, :null=>true},
+                             {:name=>:entity_comment, :null=>true} ]
+  
+  @@exchange_format.each do |column|
+    column[:label] = tc(column[:name])
+  end
+
+
   def entities_export
     @entities = Entity.find(:all, :conditions=>{:company_id=>@current_company.id})
     
@@ -644,7 +668,15 @@ class RelationsController < ApplicationController
 
 
   def entities_import
-    
+
+    @model = @@exchange_format
+    indices = {}
+
+    @model.size.times do |index|
+      indices[@model[index][:name]] = index
+    end
+
+    #raise Exception.new @model.inspect
     if request.post?
       if params[:csv_file][:path].blank?
         flash[:warning]=tc(:you_must_select_a_file_to_import)
@@ -656,20 +688,19 @@ class RelationsController < ApplicationController
         @available_entities = []
         @unavailable_entities = []
         File.open("#{RAILS_ROOT}/#{name}", "w") { |f| f.write(file.read)}
-        #FasterCSV.foreach("#{RAILS_ROOT}/#{params[:csv_file][:path].original_filename}") do |row|
         FasterCSV.foreach("#{RAILS_ROOT}/#{name}") do |row|
-          @entity = Entity.find_by_company_id_and_code(@current_company.id, row[0])
+          @entity = Entity.find_by_company_id_and_code(@current_company.id, row[indices[:entity_code]])
           if @entity.nil?
-            @entity = Entity.new(:code=>row[0], :company_id=>@current_company.id, :language_id=>Language.find(1).id, :nature_id=>@current_company.entity_natures[0])
+            @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>Language.find(1).id, :nature_id=>@current_company.entity_natures[0])
             @contact = Contact.new(:default=>true, :company_id=>@current_company.id, :entity_id=>0, :norm_id=>@current_company.address_norms[0])
           else
             @contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>@entity.id, :default=>true, :deleted=>false})
           end
-          
+          #raise Exception.new row.inspect if row[0]=="KKKKKKK"
           if i!=0 
-            @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[1]), :name=>row[2], :first_name=>row[3], :reduction_rate=>row[16].to_s.gsub(/\,/,"."), :comment=>row[17]}
-            @contact.attributes = {:line_2=>row[4], :line_3=>row[5], :line_4_number=>row[6], :line_4_street=>row[7], :line_5=>row[8], :line_6_code=>row[9], :line_6_city=>row[10], :phone=>row[11], :mobile=>row[12], :fax=>row[13] ,:email=>row[14], :website=>row[15]} if !@contact.nil?
-            if !@contact.nil? 
+            @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[indices[:entity_nature_name]]), :name=>row[indices[:entity_name]], :first_name=>row[indices[:entity_first_name]], :reduction_rate=>row[indices[:entity_reduction_rate]].to_s.gsub(/\,/,"."), :comment=>row[indices[:entity_comment]]}
+            @contact.attributes = {:line_2=>row[indices[:contact_line_2]], :line_3=>row[indices[:contact_line_3]], :line_4_number=>row[indices[:contact_line_4_number]], :line_4_street=>row[indices[:contact_line_4_street]], :line_5=>row[indices[:contact_line_5]], :line_6_code=>row[indices[:contact_line_6_code]], :line_6_city=>row[indices[:contact_line_6_city]], :phone=>row[indices[:contact_phone]], :mobile=>row[indices[:contact_mobile]], :fax=>row[indices[:contact_fax]] ,:email=>row[indices[:contact_email]], :website=>row[indices[:contact_website]] } if !@contact.nil?
+if !@contact.nil? 
               if !@contact.valid? or !@entity.valid?
                 @unavailable_entities << [i+1, @entity.errors.full_messages, @contact.errors.full_messages]
               else
