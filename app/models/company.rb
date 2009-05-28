@@ -215,6 +215,6 @@ class Company < ActiveRecord::Base
       nature = EntityNature.create!(:name=>row, :abbreviation=>row[0..1], :in_name=>false, :physical=>true, :company_id=>self.id) if nature.nil? 
     end
     nature.id
-  end
+  end 
   
 end
