@@ -34,10 +34,6 @@ class Journal < ActiveRecord::Base
   def before_validation
     if self.closed_on.nil?
       self.closed_on = Date.civil(1970,1,1) 
-      if self.company
-        f = self.company.financialyears.find(:first, :order=>:started_on)
-        self.closed_on = f.started_on-1.day unless f.nil?
-      end
     end
   end
 
@@ -68,7 +64,7 @@ class Journal < ActiveRecord::Base
   
   # this method closes a journal.
   def close(closed_on)
-    if self.closable
+    if self.closable?(closed_on)
       self.update_attribute(:closed_on, closed_on)
       self.records.each do |record|
         record.close

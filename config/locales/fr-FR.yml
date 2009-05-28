@@ -656,7 +656,12 @@ fr-FR:
       title: 'Comptabilite'
       unclosable_financialyear: "L'exercice ne peut être clôturé."
       unclosable_journal: "Le journal ne peut être clôturé."
-  # Used in the helpers
+      no_closable_journal: "Vous n'avez aucun journal à clôturer." 
+      create_financialyear_before_close: "Vous devez créer un exercice avant de le clôturer."  
+
+      
+ 
+ # Used in the helpers
   # Used in the helpers
   # Used in the helpers
   # Used in the helpers
@@ -1163,16 +1168,11 @@ fr-FR:
         bank: Banque
         renew: Des à nouveaux
         various: Opérations diverses
-    journal_period:
-      error_out_of_range: ' est en dehors de l''intervalle de temps de l''exercice (du {{started_on}} au {{stopped_on}})'
-      error_period: 'L''intervalle de temps est incorrect pour la période.'        
-      error_closed_journal: 'Vous ne pouvez pas ajouter de pièces comptables à cette date  car le journal est clôturé au {{value}}.'
-      error_closed_financialyear: 'L''année financière est déjà terminée.'
-      error_limited_financialyear: 'L''année financière sera déjà terminée à la fin de la période.'
     journal_record:
       error_format_number: 'Le format de numéro de la pièce n''est pas bon.'
-      error_printed_date: 'La date de la pièce doit être antérieure ou égale à la date de création de la pièce.'
-      error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus ajouter de pièces.' 
+      error_printed_date: 'La date de reçu de la pièce doit être antérieure ou égale à la date d''enregistrement de la pièce.'
+      error_created_date_current_financialyear: 'La date d''enregistrement de la pièce ne correspond pas à la période de l''exercice.'
+      error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus créer, modifier  ou supprimer de pièces.' 
       error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
       error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
     payment_mode:

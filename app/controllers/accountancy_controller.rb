@@ -7,7 +7,7 @@ class AccountancyController < ApplicationController
     t.column :closed_on
     t.action :journals_update, :image=>:update
     t.action :journals_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
-    t.action :journals_close
+    t.action :journals_close, :if => 'RECORD.closable?(Date.today)'
     t.action :entries_consult, :image=>:table
   end
   
@@ -254,7 +254,7 @@ class AccountancyController < ApplicationController
       @financialyear.started_on = f.stopped_on+1.day unless f.nil?
       @financialyear.started_on ||= Date.today
       @financialyear.stopped_on = (@financialyear.started_on+1.year-1.day).end_of_month
-      @financialyear.written_on = (@financialyear.stopped_on+6.months).end_of_month
+      # @financialyear.written_on = (@financialyear.stopped_on+6.months).end_of_month
       @financialyear.code = @financialyear.started_on.year.to_s
       @financialyear.code += '/'+@financialyear.stopped_on.year.to_s if @financialyear.started_on.year!=@financialyear.stopped_on.year
     end
@@ -305,61 +305,66 @@ class AccountancyController < ApplicationController
     end
 
     @renew_journal = @current_company.journals.find(:all, :conditions => {:nature => :renew.to_s, :deleted => false})
-
+    
     if request.post?
-      #raise Exception.new('p:'+params[:journal_id].to_s)
       @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
-      @journal_renew = Journal.find(params[:journal_id])
       
-      if @financialyear.close(params[:financialyear][:stopped_on])
-        balance_account = generate_balance_account(@current_company.id, @financialyear.id)
+      unless @financialyear.closable?
+        flash[:message]=tc(:unclosable_financialyear)
+        redirect_to :action => :financialyears 
+        return
+      end
+      
+      @renew_journal = Journal.find(params[:journal_id])
+      
+      @financialyear.close(params[:financialyear][:stopped_on])
+      balance_account = generate_balance_account(@current_company.id, @financialyear.id)
+      
+      if balance_account.size > 0
+        redirect_to :action => "financialyears_create"
+       
         
-        if balance_account.size > 0
-          redirect_to :action => "financialyears_create"
-          @new_financialyear = @current_company.financialyears.find(:last)
-          raise Exception.new('f:'+@new_financialyear.inspect)
-          @record = @new_financialyear.records.build({:company_id => @current_company.id, :number => 1, :created_on => @new_financialyear.started_on, :printed_on => @new_financialyear.started_on})
+        @new_financialyear = @current_company.financialyears.find(:last)
+               
+
+        @record = @new_financialyear.records.build({:company_id => @current_company.id, :number => 1, :created_on => @new_financialyear.started_on, :printed_on => @new_financialyear.started_on})
           
-          balance_account.each do |account|
-            
-            if account[:number].to_s.match /^(6|7)/
-              result += account[:solde] 
-            else
-               if account[:number].to_s.match /^12/
-                 account_id = account[:id]
-                 account_name = account[:name]
-                 account_solde = account[:solde]
-               end
-              
-              @record.entries.build({:currency_id => @journal_renew.currency_id, :account_id => account[:id], :name => account[:name], :currency_debit => account[:debit], :currency_credit => account[:credit]}) 
-            end
-          end
-          result = account_solde + result
-          if result > 0
-            @record.entries.build({:currency_id => @journal_renew.currency_id, :account_id => account_id, :name => account_name, :currency_debit => 0.0, :currency_credit => result}) 
+        balance_account.each do |account|
+          
+          if account[:number].to_s.match /^(6|7)/
+            result += account[:solde] 
+          elsif account[:number].to_s.match /^12/
+            account_id = account[:id]
+            account_name = account[:name]
+            #account_solde = account[:solde]
           else
-            @record.entries.build({:currency_id => @journal_renew.currency_id, :account_id => account_id, :name => account_name, :currency_debit => result, :currency_credit => 0.0}) 
+            @record.entries.build({:currency_id => @renew_journal.currency_id, :account_id => account[:id], :name => account[:name], :currency_debit => account[:debit], :currency_credit => account[:credit]}) 
           end
-          redirect_to session[:history][1]
         end
+        #result = account_solde + result
         
+        if result > 0
+          @record.entries.build({:currency_id => @renew_journal.currency_id, :account_id => account_id, :name => account_name, :currency_debit => 0.0, :currency_credit => result}) 
+        else
+          @record.entries.build({:currency_id => @renew_journal.currency_id, :account_id => account_id, :name => account_name, :currency_debit => result, :currency_credit => 0.0}) 
+        end
+        redirect_to session[:history][1]
       end
       
     else
       if @financialyear
         @financialyear_records = []
         d = @financialyear.started_on
-        while (d+1).end_of_month < @financialyear.stopped_on
-          d=(d+1).end_of_month
-          @financialyear_records << d.to_s(:attributes)
-        end
+      while (d+1).end_of_month < @financialyear.stopped_on
+        d=(d+1).end_of_month
+        @financialyear_records << d.to_s(:attributes)
       end
-  
+      end
     end
   end
-
-     
-  # this method generates a table with debit and credit for each account.
+  
+  
+# this method generates a table with debit and credit for each account.
   def generate_balance_account(company, financialyear)
     balance = []
     debit = 0
@@ -381,9 +386,9 @@ class AccountancyController < ApplicationController
       @financialyear_records << d.to_s(:attributes)
     end
     render :text => options_for_select(@financialyear_records)
- end
- 
-
+  end
+  
+  
   # this action displays all entries stored in the journal. 
   def entries_consult
     session[:statement] = nil
@@ -397,7 +402,7 @@ class AccountancyController < ApplicationController
     end
   end
   
-
+  
   # this action has not specific view.
   def params_entries
     if request.post?
@@ -439,20 +444,25 @@ class AccountancyController < ApplicationController
           @record.created_on = params[:record][:created_on]
           @record.printed_on = params[:record][:printed_on]
         end
+        
+         if @record.nil?
+          @record = @financialyear.records.build(params[:record].merge({:company_id => @current_company.id, :journal_id => @journal.id}))
+         end
+        
+         @entry = @current_company.entries.build(params[:entry])
 
-          @record = @financialyear.records.build(params[:record].merge({:company_id => @current_company.id, :journal_id => @journal.id})) if @record.nil?
-
-        @entry = @current_company.entries.build(params[:entry])
         if @record.save
           @entry.record_id = @record.id
           @entry.currency_id = @journal.currency_id
           if @entry.save
             @record.reload
             @entry  = Entry.new
-       
           end
+        else
+          @record.reload
+          @entry = Entry.new
         end
-
+        
       elsif request.delete?
         @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
         if @entry.close?
@@ -559,8 +569,8 @@ class AccountancyController < ApplicationController
     # @journals= @current_company.journals 
     @journals= @current_company.journals.find(:all, :conditions=> ["closed_on < ?", Date.today.to_s]) 
     if @journals.empty?
-      flash[:message]=tc(:create_journal_before_close)
-      redirect_to :action => :journals_create
+      flash[:message]=tc(:no_closable_journal)
+      redirect_to :action => :journals
     end
     if params[:id]  
       @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id) 
@@ -712,7 +722,7 @@ class AccountancyController < ApplicationController
     session[:statement]=params[:id]
     @title = {:value => @bank_account_statement.number}
   end
-
 end
+
 
 

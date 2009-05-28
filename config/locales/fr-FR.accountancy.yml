@@ -23,9 +23,7 @@ fr-FR:
         need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
         need_entries_to_point: 'Aucune écriture n''a été trouvé pour la période du relevé bancaire {{value}}.'
         no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
-      create_journal_before_close: "Vous devez avoir crée au moins un journal avant."
-      create_financialyear_before_close: "Vous devez avoir crée au moins un exercice avant."
-      
+    
 
   # Used in all the views
   # Used in all the views
