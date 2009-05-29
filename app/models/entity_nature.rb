@@ -21,7 +21,7 @@
 
 class EntityNature < ActiveRecord::Base
   belongs_to :company
-  has_many :entities, :foreign_key=>:nature_id
+  has_many :entities, :foreign_key=>:nature_id 
 
 
   def before_validation
