@@ -676,8 +676,8 @@ fr-FR:
       unclosable_financialyear: "L'exercice ne peut être clôturé."
       unclosable_journal: "Le journal ne peut être clôturé."
       no_closable_journal: "Vous n'avez aucun journal à clôturer." 
-      create_financialyear_before_close: "Vous devez créer un exercice avant de le clôturer."  
-
+      no_closable_financialyear: "Vous n'avez aucun exercice à clôturer."  
+      
       
  
  # Used in the helpers
@@ -1164,6 +1164,7 @@ fr-FR:
       error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
       error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'
       error_amount_rate: 'Le taux de conversion n''existe pas.'        
+      locked_entry: 'L''écriture est verrouillée.'
     financialyear:
       error_stopped2_financialyear: 'La date de fin d''exercice doit être une date de fin de mois.'
       error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'

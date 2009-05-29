@@ -61,7 +61,7 @@ class Financialyear < ActiveRecord::Base
     # When a financial year is closed, all the matching journals are closed too. 
   def close(date)
     if self.closable?
-      self.company.journals.find(:all, :conditions => ["closed_on < ?", date]).each do |journal|
+      self.company.journals.find(:all, :conditions => ["closed_on > ?", date]).each do |journal|
         journal.close(date)
       end
       self.update_attributes(:stopped_on => date, :closed => true)

@@ -52,24 +52,30 @@ class Journal < ActiveRecord::Base
       #errors.add_to_base tc(:error_already_closed_journal)
       return false
     else
-      self.records.each do |record|
-        unless record.balanced
-          #errors.add_to_base tc(:error_unbalanced_record_journal)
-          return false 
-        end
-      end
-      return true
+      return self.balance?
     end
  end
+
+  #
+  def balance?
+    self.records.each do |record|
+      unless record.balanced
+        #errors.add_to_base tc(:error_unbalanced_record_journal)
+        return false 
+      end
+    end
+    return true
+  end
+
   
   # this method closes a journal.
   def close(closed_on)
-    if self.closable?(closed_on)
+    #if self.closable?(closed_on)
       self.update_attribute(:closed_on, closed_on)
       self.records.each do |record|
         record.close
       end
-    end
+    #end
   end
   
   # this method searches the last records according to a number.  
