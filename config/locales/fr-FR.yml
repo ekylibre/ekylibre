@@ -638,10 +638,29 @@ fr-FR:
         complement_choices_sort: Trier les choix par nom
       contacts:
         entities_contacts_create: 'Création d''un nouveau contact'
+      contact_line_2: Dest-Service
+      contact_line_3: Bat.-Rés.-ZI
+      contact_line_4_number: Numéro de la voie
+      contact_line_4_street: Libellé de la voie
+      contact_line_5: Lieu dit
+      contact_line_6_code: Code Postal
+      contact_line_6_city: Ville
+      contact_email: Email
+      contact_fax: Fax
+      contact_mobile: Portable
+      contact_phone: Téléphone
+      contact_website: Site web
+      entities_natures_delete_permission: Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches
       entities:
         entities_create: Créer une nouvelle fiche
       entity_natures:
-        entities_natures_create: 'Ajouter un nouveau type de fiche'     
+        entities_natures_create: 'Ajouter un nouveau type de fiche' 
+      entity_code: Code
+      entity_comment: Commentaire
+      entity_first_name: Prénom
+      entity_name: Nom
+      entity_nature_name: Type    
+      entity_reduction_rate: Taux de réduction
       first_contact: Adresse principale
       second_contact: Adresse secondaire
       title: Relations
@@ -969,6 +988,9 @@ fr-FR:
         state: État
         title: 'Fiche : {{value}}'
       entities_import:
+        defined_columns: Voici le format à respecter des colonnes du fichier csv à importer
+        file_to_download: Fichier à télécharger
+        please_consult_help_to_have_more_informations: 'Veuillez consulter l''aide pour avoir plus d''informations sur l''import'
         title:  Importer des fiches clients et fournisseurs au format CSV
       _entities_form:
         title: 'Renseignez les différentes caractéristiques de la fiche'

@@ -489,10 +489,10 @@ class RelationsController < ApplicationController
       unless @entity_nature.entities.size > 0
         @entity_nature.destroy
       else
-        flash[:warning]=lc(:entities_natures_delete_permission)
+        flash[:warning]=tc(:entities_natures_delete_permission)
       end
     end
-    redirect_to_back
+    redirect_to :action=>:entities_natures
   end
  
   dyta(:meeting_locations, :conditions=>{:company_id=>['@current_company.id'], :active=>true}) do |t|
