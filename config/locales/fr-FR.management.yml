@@ -382,6 +382,11 @@ fr-FR:
         product: "{{product}} ({{unit}})"
       stocks_moves_update:
         title: 'Modifier le mouvement de stock : {{value}}'
+      taxes:
+        taxes_create: Ajouter une nouvelle taxe
+        title: Taxes
+      taxes_create:
+        title: Ajouter une nouvelle taxe
       undelivered_sales:
         amount: Montant HT
         amount_with_taxes: Montant TTC

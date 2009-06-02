@@ -1409,6 +1409,37 @@ class ManagementController < ApplicationController
       redirect_to_back if @stock_transfer.destroy
     end
   end
+
+  dyta(:taxes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :amount
+    t.column :nature
+    t.column :included
+    t.column :reductible
+    t.action :taxes_update, :image=>:update
+    t.action :taxes_delete, :image=>:delete, :method=>:post
+  end
   
+  def taxes
+  end
+  
+  def taxes_update
+    @tax = Tax.find_by_id_and_company_id(params[:id], @current_company.id)
+    render_form
+  end
+  
+  def taxes_delete
+  end
+
+  def taxes_create
+    @tax = Tax.new(:nature=>:percent)
+    if request.post?
+      #raise Exception.new params.inspect
+      @tax = Tax.new(params[:tax])
+      @tax.company_id = @current_company.id
+      redirect_to :action=>:taxes if @tax.save
+    end
+    render_form
+  end
   
 end

@@ -28,6 +28,7 @@ module ApplicationHelper
             {:name=>:meeting_modes}]},
          {:name=>:parameters, :list=>
            [ {:name=>:entities_natures},
+             {:name=>:entity_categories},
              {:name=>:complements}
            ] }
        ] },
@@ -68,6 +69,7 @@ module ApplicationHelper
              {:name=>:prices},
              {:name=>:shelves},
              {:name=>:delays},
+             {:name=>:taxes},
              {:name=>:delivery_modes},
              {:name=>:payment_modes},
              {:name=>:sale_order_natures}

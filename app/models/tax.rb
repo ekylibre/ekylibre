@@ -26,6 +26,10 @@ class Tax < ActiveRecord::Base
   belongs_to :account_collected, :class_name=>Account.to_s
   belongs_to :account_paid, :class_name=>Account.to_s
   has_many :prices
+
+  def validate
+    errors.add(:amount, tc(:amount_must_be_included_between_0_and_1)) if (self.amount < 0 || self.amount > 1) && self.nature=="percent"
+  end
   
   def compute(amount)
     case self.nature.to_sym
@@ -37,4 +41,9 @@ class Tax < ActiveRecord::Base
       raise Exception.new("Unknown tax nature : "+self.nature.inspect.to_s)
     end
   end
+
+  def self.natures
+     [:percent, :amount].collect{|x| [tc('natures.'+x.to_s), x] }
+  end
+  
 end

@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   has_one :employee
 
   validates_presence_of :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
+  validates_presence_of :free_price, :reduction_percent
   validates_confirmation_of :password
 
   cattr_accessor :current_user
@@ -46,6 +47,10 @@ class User < ActiveRecord::Base
     end
     self.language = Language.find(:first, :order=>:name) if self.language.nil?
   end
+
+  def validate
+    errors.add_to_base(tc:reduction_percent_between_0_and_100) if self.reduction_percent < 0 || self.reduction_percent > 100
+  end   
 
   def label
     self.first_name+' '+self.last_name

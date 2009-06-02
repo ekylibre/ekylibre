@@ -285,6 +285,7 @@ fr-FR:
       entity:
         active: Actif
         born_on: Date de naissance
+        category_id: Catégorie
         client: Fiche client
         code: Code
         comment: Commentaire
@@ -310,6 +311,10 @@ fr-FR:
         vat_number: Numéro de TVA intra-communautaire
         vat_submissive: Soumis à la TVA
         website: Site Web
+      entity_category:
+        default: Par défaut
+        description: Description
+        name: Nom
       entity_meeting:
         meeting_id: Lieu(x) de rencontre
       entity_nature:
@@ -585,15 +590,24 @@ fr-FR:
         quantity: Quantité
         second_location_id: Entrée du lieu de stockage
         text_nature: Type
+      tax:
+        amount: Valeur
+        group_name: Groupe
+        included: Incluse
+        name: Nom
+        nature: Nature
+        reductible: Réductible
       user:
         email: 'E-mail'
         first_name: 'Prénom'
+        free_price: Prix libres
         full_name: 'Nom complet'
         last_name: 'Nom'
         locked: 'Compte verrouillé'
         name: 'Nom d''utilisateur'
         password: 'Mot de passe'
         password_confirmation: 'Confirmation du mot&nbsp;de&nbsp;passe'
+        reduction_percent: Taux de réduction autorisé (%)
         role_id: Rôle
       version:
         number: Numéro
@@ -1005,8 +1019,16 @@ fr-FR:
         search: Rechercher une fiche
       entities_update:
         title: 'Modification de la fiche : {{value}}'
+      entity_categories:
+        title: Catégories de fiche
+        entity_categories_create: Ajouter une catégorie de fiche
+      entity_categories_create:
+        title: 'Ajout d''une nouvelle catégorie de fiche'
+      entity_categories_update:
+        title: 'Modification de la catégorie de fiche : {{value}}'
       index:
         title: Gestion des relations clients et fournisseurs
+        entity_categories: Catégories de fiches
         entities_create: Créer une nouvelle fiche
         entities_natures: Types de fiches
         entities_managing: Clients et fournisseurs
@@ -1256,6 +1278,13 @@ fr-FR:
       natures:
         transfer: Transfert 
         waste: Perte    
+    tax:
+      amount_must_be_included_between_0_and_1: doit être comprise entre 0 et 1
+      natures:
+        amount: Montant
+        percent: Pourcentage
+    user:
+       reduction_percent_between_0_and_100: Le taux de réduction autorisé doit être compris entre 0 et 100
   
   # Genral words and expression through the all app
   general:

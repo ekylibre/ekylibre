@@ -398,7 +398,43 @@ class RelationsController < ApplicationController
     redirect_to :action=>:entities
   end
   
+  dyta(:entity_categories, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}) do |t|
+    t.column :name
+    t.column :description
+    t.column :default
+    t.action :entity_categories_update, :image=>:update
+    t.action :entity_categories_delete, :image=>:delete, :method=>:post
+  end
 
+  def entity_categories
+  end
+
+  def entity_categories_create
+    @entity_category = EntityCategory.new
+    if request.post?
+      @entity_category = EntityCategory.new(params[:entity_category])
+      @entity_category.company_id = @current_company.id
+      redirect_to_back if @entity_category.save
+    end
+    render_form
+  end
+
+  def entity_categories_update
+    @entity_category = EntityCategory.find_by_id_and_company_id(params[:id], @current_company.id)
+    if request.post?
+      redirect_to :action=>:entity_categories if @entity_category.update_attributes!(params[:entity_category])
+    end
+    @title = {:value=>@entity_category.name}
+    render_form
+  end
+
+  def entity_categories_delete
+    @entity_category = EntityCategory.find_by_id_and_company_id(params[:id], @current_company.id)
+    if request.post? or request.delete?
+      redirect_to :action=>:entity_categories if @entity_category.destroy
+    end
+  end
+  
   def entities_contacts_create
     @entity = find_and_check(:entity, params[:id]||session[:current_entity])
     if request.post?
@@ -696,7 +732,7 @@ class RelationsController < ApplicationController
           else
             @contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>@entity.id, :default=>true, :deleted=>false})
           end
-          #raise Exception.new row.inspect if row[0]=="KKKKKKK"
+          
           if i!=0 
             @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[indices[:entity_nature_name]]), :name=>row[indices[:entity_name]], :first_name=>row[indices[:entity_first_name]], :reduction_rate=>row[indices[:entity_reduction_rate]].to_s.gsub(/\,/,"."), :comment=>row[indices[:entity_comment]]}
             @contact.attributes = {:line_2=>row[indices[:contact_line_2]], :line_3=>row[indices[:contact_line_3]], :line_4_number=>row[indices[:contact_line_4_number]], :line_4_street=>row[indices[:contact_line_4_street]], :line_5=>row[indices[:contact_line_5]], :line_6_code=>row[indices[:contact_line_6_code]], :line_6_city=>row[indices[:contact_line_6_city]], :phone=>row[indices[:contact_phone]], :mobile=>row[indices[:contact_mobile]], :fax=>row[indices[:contact_fax]] ,:email=>row[indices[:contact_email]], :website=>row[indices[:contact_website]] } if !@contact.nil?
@@ -713,8 +749,8 @@ if !@contact.nil?
           puts i if i % 100 == 0
           i += 1
         end 
-        
-        if @unavailable_entities.empty?         # Faire les update || create
+        # Fin boucle FasterCSV -- Début traitement données recueillies
+        if @unavailable_entities.empty?        
           for entity_contact in @available_entities
             entity = Entity.find_by_company_id_and_code(@current_company.id, entity_contact[0].code)
             if entity.nil?

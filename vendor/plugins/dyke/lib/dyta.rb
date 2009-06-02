@@ -257,7 +257,7 @@ module Ekylibre
                     datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
                   end
                   if column.datatype == :decimal
-                    datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&nbsp;', :unit=>''))"
+                    datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&nbsp;', :unit=>'', :precision=>#{column.options[:precision]||2}))"
                   end
                   if column.options[:url] and nature==:body
                     datum = "("+datum+".blank? ? '' : link_to("+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id}))))'

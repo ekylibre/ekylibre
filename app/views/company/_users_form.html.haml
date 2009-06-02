@@ -8,3 +8,5 @@
   -f.field :user, :password
   -f.field :user, :password_confirmation
   -f.field :user, :role_id, :choices=>@current_company.roles.find(:all, :order=>:name).collect{|x| [x.name, x.id]}
+  -f.field :user, :reduction_percent
+  -f.field :user, :free_price

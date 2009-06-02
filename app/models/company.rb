@@ -38,6 +38,7 @@ class Company < ActiveRecord::Base
   has_many :documents
   has_many :employees
   has_many :entities
+  has_many :entity_categories
   has_many :entity_natures
   has_many :entries
   has_many :establishments
