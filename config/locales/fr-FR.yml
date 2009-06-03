@@ -398,6 +398,7 @@ fr-FR:
       price:
         amount: Montant HT
         amount_with_taxes: Montant TTC
+        category_id: Catégorie de fiche associée
         currency_id: Devise
         default: Par défaut
         entity_id: Fournisseur
@@ -527,9 +528,11 @@ fr-FR:
         amount_with_taxes: Montant TTC
         location_id: Lieu de stockage
         product_id: Produit
-        price_id: Prix
+        price_amount: Montant HT
+        price_id: Produit tarifé
         price_list_id: Tarif
         quantity: Quantité
+        tax_id: Taxe
         undelivered_quantity: Reste à livrer
         unit_id: Unité
       shape:
@@ -1026,6 +1029,13 @@ fr-FR:
         title: 'Ajout d''une nouvelle catégorie de fiche'
       entity_categories_update:
         title: 'Modification de la catégorie de fiche : {{value}}'
+      entity_categories_display:
+        prices:
+          zero: 'Aucun tarif rattaché à cette catégorie'
+          one:  '1 tarif rattaché à cette catégorie'
+          other: '{{count}} tarifs rattachés à cette catégorie'
+        prices_create: Ajouter un tarif à cette catégorie
+        title: 'Catégorie de fiche : {{value}}'
       index:
         title: Gestion des relations clients et fournisseurs
         entity_categories: Catégories de fiches

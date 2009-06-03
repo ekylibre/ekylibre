@@ -27,8 +27,14 @@ class Tax < ActiveRecord::Base
   belongs_to :account_paid, :class_name=>Account.to_s
   has_many :prices
 
+  attr_readonly :amount, :nature, :company_id
+
   def validate
     errors.add(:amount, tc(:amount_must_be_included_between_0_and_1)) if (self.amount < 0 || self.amount > 1) && self.nature=="percent"
+  end
+
+  def before_destroy
+    Tax.create!(self.attributes.merge({:deleted=>true, :name=>self.name+" ", :company_id=>self.company_id})) 
   end
   
   def compute(amount)
@@ -44,6 +50,10 @@ class Tax < ActiveRecord::Base
 
   def self.natures
      [:percent, :amount].collect{|x| [tc('natures.'+x.to_s), x] }
+  end
+
+  def text_nature
+    tc('natures.'+self.nature.to_s)
   end
   
 end

@@ -10,6 +10,7 @@ fr-FR:
         payment_modes_create: 'Créer un nouveau type de paiement'
       payment_parts:
         payments_create: Ajouter un nouveau paiement
+      price: Prix
       prices:
         purchases_prices_create: 'Enregistrer un nouveau prix d''achat' 
         sales_prices_create: Enregistrer un nouveau prix de vente 
@@ -228,6 +229,9 @@ fr-FR:
         title: Modifier une ligne de la commande
       _purchase_orders_form:
         infos: 'Renseignez les caractéristiques de l''achat '
+      _sale_order_lines_form:
+        free_price: Renseignez ces champs si vous souhaitez appliquer un autre prix
+        infos: Choississez le produit et la quantité
       sales:
         title: Liste des ventes
       sales_details:
@@ -387,6 +391,8 @@ fr-FR:
         title: Taxes
       taxes_create:
         title: Ajouter une nouvelle taxe
+      taxes_update:
+        title: 'Modification de la taxe : {{value}}'
       undelivered_sales:
         amount: Montant HT
         amount_with_taxes: Montant TTC

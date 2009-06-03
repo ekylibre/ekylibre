@@ -47,6 +47,7 @@
 
 class Entity < ActiveRecord::Base
   belongs_to :client_account, :class_name=>Account.to_s
+  belongs_to :category, :class_name=>EntityCategory.to_s
   belongs_to :company
   belongs_to :employee
   belongs_to :language
@@ -67,7 +68,7 @@ class Entity < ActiveRecord::Base
 
 
   
-  #validates_presence_of :name
+  validates_presence_of :category_id
   attr_readonly :company_id
   
  

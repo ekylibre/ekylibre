@@ -1,9 +1,10 @@
 =formalize do |f|
   -f.error :tax
-  -f.field :tax, :nature, :field=>:radio, :choices=>Tax.natures
   -if @tax.new_record?
+    -f.field :tax, :nature, :field=>:radio, :choices=>Tax.natures
     -f.field :tax, :amount
   -else
+    -f.field t('activerecord.attributes.tax.nature'), @tax.text_nature
     -f.field t('activerecord.attributes.tax.amount'), @tax.amount.to_s
   -f.field :tax, :name
   -f.field :tax, :included

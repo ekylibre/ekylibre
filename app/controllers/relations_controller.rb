@@ -402,8 +402,9 @@ class RelationsController < ApplicationController
     t.column :name
     t.column :description
     t.column :default
-    t.action :entity_categories_update, :image=>:update
-    t.action :entity_categories_delete, :image=>:delete, :method=>:post
+    t.action :entity_categories_display
+    t.action :entity_categories_update
+    t.action :entity_categories_delete, :method=>:post
   end
 
   def entity_categories
@@ -433,6 +434,18 @@ class RelationsController < ApplicationController
     if request.post? or request.delete?
       redirect_to :action=>:entity_categories if @entity_category.destroy
     end
+  end
+
+  dyta(:category_prices, :model=>:prices, :conditions=>{:company_id=>['@current_company.id'], :active=>true, :category_id=>['session[:category]']}) do |t|
+    t.column :name, :through=>:product
+    t.column :amount
+  end
+
+  def entity_categories_display
+    @entity_category = find_and_check(:entity_category, params[:id])
+    session[:category] = @entity_category.id
+    @category_prices_count = @current_company.prices.find(:all, :conditions=>{:active=>true, :category_id=>@entity_category.id}).size
+    @title = {:value=>@entity_category.name}
   end
   
   def entities_contacts_create

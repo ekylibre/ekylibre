@@ -9,6 +9,7 @@
   - if @mode != :sales
     - f.field :price, :entity_id, :choices=>Entity.find(:all, :conditions=>{:company_id=>@current_company.id,:supplier=>true}).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations,:action=>:entities_create} 
   - f.field :price, :amount
+  - f.field :price, :category_id, :choices=>@current_company.entity_categories.find_all_by_deleted(false).collect{|x| [x.name, x.id]}
   - f.field :price, :default
   - f.field :price, :currency_id, :choices=>Currency.find(:all,:conditions=>{:company_id=>@current_company.id}).collect{|x| [x.name, x.id]}
   - f.field :price, :use_range

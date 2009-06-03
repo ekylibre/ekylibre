@@ -1,6 +1,11 @@
 = formalize do |f|
   - f.error :sale_order_line
-  - #f.field :sale_order_line, :product_id, :choices=>@current_company.available_products.collect{|x| [x.name, x.id]}, :new=>{:action=>:products_create}
-  -f.field :sale_order_line, :price_id, :choices=>Price.find(:all,:conditions=>{:company_id=>@current_company.id,:entity_id=>@current_company.entity_id, :active=>true}).collect{|x| [x.product.name+" "+x.amount.to_s+" "+x.currency.code, x.id]}, :new=>{:action=>:prices_create, :mode=>:sales}
+  - f.title :infos
+  - f.field :sale_order_line, :price_id, :choices=>Price.find(:all,:conditions=>{:company_id=>@current_company.id,:entity_id=>@current_company.entity_id, :active=>true, :category_id=>@sale_order.client.category}).collect{|x| [x.product.name+" "+x.amount.to_s+" "+x.currency.code, x.id]}, :new=>{:action=>:prices_create, :mode=>:sales}
   - f.field :sale_order_line, :location_id, :choices=>@stock_locations.collect{|x| [x.name, x.id]} if @stock_locations.size > 1
   - f.field :sale_order_line, :quantity
+-if @current_user.free_price
+  =formalize do |f|
+    -f.title :free_price
+    -f.field :sale_order_line, :price_amount
+    -f.field :sale_order_line, :tax_id, :choices=>@current_company.taxes.find_all_by_deleted(false).collect{|x| [x.name, x.id]}

@@ -135,7 +135,7 @@ class ManagementController < ApplicationController
       elsif !params[:product_id].nil?
         @price = Price.new(:product_id=>params[:product_id])
       else
-        @price = Price.new 
+        @price = Price.new(:category_id=>session[:category]||0)
       end
     end
     render_form    
@@ -497,7 +497,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:product
     t.column :quantity
     t.column :label, :through=>:unit
-    t.column :amount, :through=>:price
+    t.column :amount, :through=>:price, :label=>tc(:price)
     t.column :amount
     t.column :amount_with_taxes
   end
@@ -657,7 +657,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:product
     t.column :quantity
     t.column :label, :through=>:unit
-    t.column :amount, :through=>:price
+    t.column :amount, :through=>:price, :label=>tc('price')
     t.column :amount
     t.column :amount_with_taxes
     t.action :sale_order_lines_update, :image=>:update, :if=>'RECORD.order.state == "P"'
@@ -667,6 +667,7 @@ class ManagementController < ApplicationController
   def sales_products
     @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
+    session[:category] = @sale_order.client.category
     @stock_locations = @current_company.stock_locations
     @entity = @sale_order.client
     sale_order_lines_list params
@@ -741,7 +742,7 @@ class ManagementController < ApplicationController
         end
         redirect_to_back if @sale_order_line.save
       else
-        @sale_order_line = SaleOrderLine.new
+        @sale_order_line = SaleOrderLine.new(:price_amount=>0.0)
       end
       render_form
     end
@@ -783,7 +784,7 @@ class ManagementController < ApplicationController
  
   dyta(:undelivered_quantities, :model=>:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     t.column :name, :through=>:product
-    t.column :amount, :through=>:price
+    t.column :amount, :through=>:price, :label=>tc('price')
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :amount
@@ -845,7 +846,7 @@ class ManagementController < ApplicationController
     @delivery_lines =  @sale_order_lines.collect{|x| DeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
     @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :planned_on=>Date.today)
     session[:current_delivery] = @delivery.id
-    @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@sale_order.client_id})
+    @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :active=>true, :entity_id=>@sale_order.client_id})
     
     if request.post?
       @delivery = Delivery.new(params[:delivery])
@@ -1410,10 +1411,10 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:taxes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:taxes, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}) do |t|
     t.column :name
     t.column :amount
-    t.column :nature
+    t.column :text_nature
     t.column :included
     t.column :reductible
     t.action :taxes_update, :image=>:update
@@ -1422,14 +1423,7 @@ class ManagementController < ApplicationController
   
   def taxes
   end
-  
-  def taxes_update
-    @tax = Tax.find_by_id_and_company_id(params[:id], @current_company.id)
-    render_form
-  end
-  
-  def taxes_delete
-  end
+ 
 
   def taxes_create
     @tax = Tax.new(:nature=>:percent)
@@ -1440,6 +1434,22 @@ class ManagementController < ApplicationController
       redirect_to :action=>:taxes if @tax.save
     end
     render_form
+  end
+
+  def taxes_update
+    @tax = find_and_check(:tax, params[:id])
+    if request.post?
+      redirect_to :action=>:taxes if @tax.update_attributes!(params[:tax])
+    end
+    @title = {:value=>@tax.name}
+    render_form
+  end
+  
+  def taxes_delete
+    @tax = find_and_check(:tax, params[:id])
+    if request.post? or request.delete?
+      redirect_to :action=>:taxes if @tax.destroy
+    end
   end
   
 end

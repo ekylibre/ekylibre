@@ -1,0 +1,11 @@
+%table
+  %tr
+    %td
+      =evalue @entity_category, :name
+      =evalue @entity_category, :default
+      =evalue @entity_category, :description
+    
+%h2=tc :prices, :count=>@category_prices_count
+.aclist
+  = link_to tc('prices_create'), {:controller=>:management, :action=>:prices_create, :mode=>:sales}, :class=>'procedure create'
+=dyta :category_prices

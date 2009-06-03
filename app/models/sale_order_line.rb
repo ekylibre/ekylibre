@@ -31,6 +31,7 @@ class SaleOrderLine < ActiveRecord::Base
   belongs_to :price
   belongs_to :order, :class_name=>SaleOrder.to_s
   belongs_to :product
+  belongs_to :tax
   belongs_to :unit
   belongs_to :location, :class_name=>StockLocation.to_s
   has_many :delivery_lines
@@ -40,10 +41,20 @@ class SaleOrderLine < ActiveRecord::Base
     check_reservoir = true
     self.account_id = self.product.account_id
     self.unit_id = self.product.unit_id
-    if self.price
+   # if self.price
+    #  self.amount = (self.price.amount*self.quantity).round(2)
+    #  self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2)
+   # end
+    if self.price_amount > 0
+      self.amount = (self.price_amount*self.quantity).round(2)
+      self.amount_with_taxes = ((self.price_amount + self.tax.compute(self.amount))*self.quantity).round(2)
+      price = Price.create!(:amount=>self.price_amount, :tax_id=>self.tax, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id)
+      self.price_id = price.id
+    elsif self.price
       self.amount = (self.price.amount*self.quantity).round(2)
-      self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2)
+      self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2) 
     end
+    
     if self.location.reservoir && self.location.product_id != self.product_id
       check_reservoir = false
       errors.add_to_base(tc:stock_location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) 
