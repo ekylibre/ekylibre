@@ -249,6 +249,7 @@ class ManagementController < ApplicationController
   end
 
   def products_create
+    @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
     if request.post? 
       @product = Product.new(params[:product])
       @product.company_id = @current_company.id
