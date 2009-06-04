@@ -715,9 +715,7 @@ class RelationsController < ApplicationController
   end
 
 
-
   def entities_import
-
     @model = @@exchange_format
     indices = {}
 

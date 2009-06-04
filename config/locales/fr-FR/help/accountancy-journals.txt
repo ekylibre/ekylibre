@@ -5,7 +5,7 @@ Un journal comptable est une liste des opérations d'échanges spécialisées en
 
 h2. Gestion d'un journal comptable
 Pour utiliser un journal comptable (durant la <<accountancy-entries|Gestion des écritures>>, la <<accountancy-bank_accounts|Gestion d'un compte bancaire>>), commencer par le <<accountancy-journals_create|créer>>. Le journal crée apparaîtra dans le tableau des journaux. Par la suite, il vous sera possible de le modifier <<accountancy-journals_update|{{buttons/update.png|modifier}}>>, le supprimer <<accountancy-journals_delete|{{buttons/delete.png|supprimer}}>>(si il existe des écritures dans le journal) ou même de <<accountancy-entries_consult|consulter ses écritures>> pour l'exercice en cours.
-Dans le cas où vous souhaitez <<accountancy-journals_close|clôturer>> le journal, l'opération ne sera possible que si les conditions suivantes sont réunies:
+Dans le cas où vous souhaitez <<accountancy-journals_close|clore>> le journal, l'opération ne sera possible que si les conditions suivantes sont réunies:
 les **écritures** du journal doivent être **équilibrées**.
 la précédente **date de clôture du journal** doit être **antérieure** à la date du jour.
 

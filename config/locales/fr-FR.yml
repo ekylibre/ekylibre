@@ -694,7 +694,7 @@ fr-FR:
       unclosable_journal: "Le journal ne peut être clôturé."
       no_closable_journal: "Vous n'avez aucun journal à clôturer." 
       no_closable_financialyear: "Vous n'avez aucun exercice à clôturer."  
-      
+      next_illegal_period_financialyear: "Le prochain exercice ne démarre pas directement après."
       
  
  # Used in the helpers

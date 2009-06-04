@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090512102847
+# Schema version: 20090520140946
 #
 # Table name: financialyears
 #
@@ -8,7 +8,6 @@
 #  closed       :boolean       not null
 #  started_on   :date          not null
 #  stopped_on   :date          not null
-#  written_on   :date          not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null

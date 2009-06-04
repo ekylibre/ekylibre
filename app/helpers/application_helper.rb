@@ -165,7 +165,7 @@ module ApplicationHelper
       end
     end
     unless session[:journal_record][:financialyear_id].blank?
-       financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:journal_record][:financialyear_id]||0})
+       financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:journal_record][:financialyear_id]})
        if financialyear
         conditions[0] += " AND r.financialyear_id=?"
         conditions << financialyear.id

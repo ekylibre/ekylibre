@@ -512,15 +512,15 @@ module Ekylibre
             cases = []
             for a in @options[:actions]
               cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag('buttons/"+a[1][:action].to_s.split('_')[-1]+".png', :border=>0, :alt=>'"+a[0].to_s+"')"+
-                ", {:action=>'"+a[1][:action].to_s+"', :id=>"+record+".id}"+
-                ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+"}"+
+                ", {:action =>'"+a[1][:action].to_s+"', :id => "+record+".id}"+
+                ", {:id => '"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+"}"+
                 ")\n"
             end
 
             code = "if "+cases.join("elsif ")+"end"
           else
             code  = "link_to(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
-            code += ", {:action=>:"+@name.to_s+", :id=>"+record+".id}"
+            code += ", {:action=>:"+@name.to_s+", :id => "+record+".id}"
             code += ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+"}"
             code += ")"
           end

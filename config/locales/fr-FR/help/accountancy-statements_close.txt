@@ -1,1 +1,1 @@
-h1. Comment clôturer un relevé de compte bancaire
+h1. Comment clore un relevé de compte bancaire

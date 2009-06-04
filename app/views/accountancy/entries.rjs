@@ -2,12 +2,13 @@ page.replace_html 'lines', :partial => 'entries'
 page.replace_html 'errors', :partial => 'errors'
 
 page['record_number'] = @record.number
-page['record_number'].focus()
-page['record_number'].select
 
-unless @record.balanced
+if @record.new_record?
+  page['record_number'].focus() 
+  page['record_number'].select
+else
   page['entry_name'].focus() 
-  page['entry_name'].select
+  page['entry_name'].select 
 end
 
 
