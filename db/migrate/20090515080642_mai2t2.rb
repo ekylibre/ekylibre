@@ -22,7 +22,13 @@ class Mai2t2 < ActiveRecord::Migration
     
     execute "INSERT INTO entity_categories(company_id, name, created_at, updated_at) SELECT companies.id, 'Par défaut', current_timestamp, current_timestamp FROM companies"
 
-    execute "UPDATE entities SET category_id = c.id FROM entity_categories c WHERE c.name = 'Par défaut' AND c.company_id = entities.company_id"
+    #execute "UPDATE entities SET category_id = c.id FROM entity_categories c WHERE c.name = 'Par défaut' AND c.company_id = entities.company_id"
+    
+    Entity.find(:all).each do |entity|
+      ec = EntityCategory.find_by_company_id_and_name(entity.company_id, 'Par défaut')
+      entity.category_id = ec.id
+      entity.save(false)
+    end
 
     add_column :taxes,    :deleted, :boolean, :null=>false, :default=>false
       

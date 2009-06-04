@@ -19,7 +19,13 @@ class Mai2t1 < ActiveRecord::Migration
 
     execute "INSERT INTO delivery_modes(company_id, name, code, comment, created_at, updated_at) SELECT companies.id , 'Livraison sans assurance', 'cpt', '', current_timestamp, current_timestamp FROM companies"
 
-    execute "UPDATE deliveries SET mode_id = m.id FROM delivery_modes m WHERE m.code = deliveries.nature AND m.company_id = deliveries.company_id"
+    # execute "UPDATE deliveries SET mode_id = m.id FROM delivery_modes m WHERE m.code = deliveries.nature AND m.company_id = deliveries.company_id"
+    
+    Delivery.find(:all).each do |delivery|
+      dm = DeliveryMode.find_by_company_id_and_code(delivery.company_id, delivery.nature)
+      delivery.mode_id = dm.id
+      delivery.save(false)
+    end
     
     remove_column :deliveries,  :nature
     

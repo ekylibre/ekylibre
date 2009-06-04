@@ -1228,7 +1228,7 @@ class ManagementController < ApplicationController
   end
 
   def stocks_locations_create
-    @mode = (params[:mode]||session[:location_type]).to_sym
+    @mode = (params[:mode]||session[:location_type]||:original).to_sym
     session[:location_type] = @mode
     if request.post? 
       #raise Exception.new params.inspect
