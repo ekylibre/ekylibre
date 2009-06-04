@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
       User.current_user = User.find_by_id(session[:user_id])
       @current_user = User.current_user
       @current_company = @current_user.company
-      session[:actions] = @current_user.role.actions_array
+      #session[:actions] = @current_user.role.actions_array
       if session[:last_query].to_i<Time.now.to_i-session[:expiration]
         flash[:error] = tc :expired_session
         redirect_to_login
