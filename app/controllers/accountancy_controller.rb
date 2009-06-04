@@ -400,6 +400,22 @@ class AccountancyController < ApplicationController
   
   # this action displays all entries stored in the journal. 
   def entries_consult
+    @journals = @current_company.journals
+    @financialyears = @current_company.financialyears
+    
+    unless @journals.size > 0 or @financialyears.size > 0
+      unless @journals.size > 0 
+        flash[:message] = tc('messages.need_journal_to_consult_entries')
+        redirect_to :action => :journals_create
+        return
+      end
+      unless @financialyears.size > 0 
+        flash[:message] = tc('messages.need_financialyear_to_consult_entries')
+        redirect_to :action => :financialyears_create
+        return
+      end
+    end
+    
     session[:statement] = nil
     session[:journal_record] ||= {} 
     if params[:id]
@@ -408,9 +424,7 @@ class AccountancyController < ApplicationController
     end
 
     @journal_record = JournalRecord.new(:journal_id=> session[:journal_record][:journal_id], :financialyear_id => session[:journal_record][:financialyear_id])
-    @journals = @current_company.journals
-    @financialyears = @current_company.financialyears
-    
+        
     if request.post?
       session[:journal_record] = params[:journal_record]
     end

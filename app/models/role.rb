@@ -27,7 +27,7 @@ class Role < ActiveRecord::Base
   #set_column :actions, ACTIONS
 
   def before_validation
-    self.actions_array = self.actions_array # Refresh actions array
+#    self.actions_array = self.actions_array # Refresh actions array
   end
 
 #  def can_do?(action=:all)
@@ -35,13 +35,13 @@ class Role < ActiveRecord::Base
 #  end
 
   def can_do(action)
-    self.actions_set(action)
-    self.save!
+    #self.actions_set(action)
+    #self.save!
   end
 
   def cannot_do(action)
-    self.actions_set(action, false)
-    self.save!
+    #self.actions_set(action, false)
+    #self.save!
   end
 
   def action_name(action)

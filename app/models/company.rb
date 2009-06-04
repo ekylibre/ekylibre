@@ -46,7 +46,7 @@ class Company < ActiveRecord::Base
   has_many :invoices
   has_many :invoice_lines
   has_many :journals
-  has_many :journal_periods
+  #has_many :journal_periods
   has_many :journal_records
   has_many :meeting_locations
   has_many :meeting_modes
@@ -112,9 +112,9 @@ class Company < ActiveRecord::Base
       self.units.create(:name=>unit[0].to_s, :label=>tc('default.unit_'+unit[0].to_s), :base=>unit[1][:base], :quantity=>unit[1][:quantity])
     end
     self.address_norms.create!(:name=>'Norme AFNOR ZX110', :company_id=> self.id)
-    self.taxes.create!(:name=>tc('default.tva210'), :group_name=>'TVA', :nature=>'percent', :amount=>0.021)
-    self.taxes.create!(:name=>tc('default.tva550'), :group_name=>'TVA', :nature=>'percent', :amount=>0.055)
-    self.taxes.create!(:name=>tc('default.tva1960'), :group_name=>'TVA', :nature=>'percent', :amount=>0.196)
+    self.taxes.create!(:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021)
+    self.taxes.create!(:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055)
+    self.taxes.create!(:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196)
     self.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
     self.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
     self.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
@@ -175,7 +175,7 @@ class Company < ActiveRecord::Base
   end
 
   def admin_role
-    self.roles.find(:first, :conditions=>"actions LIKE '%all%'")
+    self.roles.find(:first)#, :conditions=>"actions LIKE '%all%'")
   end
 
   def available_entities(options={})
