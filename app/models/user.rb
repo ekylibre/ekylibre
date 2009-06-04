@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090512102847
+# Schema version: 20090520140946
 #
 # Table name: users
 #
@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
 
   def validate
-    errors.add_to_base(tc:reduction_percent_between_0_and_100) if self.reduction_percent < 0 || self.reduction_percent > 100
+    errors.add_to_base tc(:reduction_percent_between_0_and_100) if self.reduction_percent < 0 || self.reduction_percent > 100
   end   
 
   def label

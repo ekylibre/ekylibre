@@ -1,27 +1,27 @@
 # == Schema Information
-# Schema version: 20090512102847
+# Schema version: 20090520140946
 #
 # Table name: journal_records
 #
-#  id            :integer       not null, primary key
-#  resource_id   :integer       
-#  resource_type :string(255)   
-#  created_on    :date          not null
-#  printed_on    :date          not null
-#  number        :string(255)   not null
-#  status        :string(1)     default("A"), not null
-#  debit         :decimal(16, 2 default(0.0), not null
-#  credit        :decimal(16, 2 default(0.0), not null
-#  closed        :boolean       not null default "false"
-#  position      :integer       not null
-#  financialyear_id :interger   not null
-#  journal_id    :integer       not null
-#  company_id    :integer       not null
-#  created_at    :datetime      not null
-#  updated_at    :datetime      not null
-#  created_by    :integer       
-#  updated_by    :integer       
-#  lock_version  :integer       default(0), not null
+#  id               :integer       not null, primary key
+#  resource_id      :integer       
+#  resource_type    :string(255)   
+#  created_on       :date          not null
+#  printed_on       :date          not null
+#  number           :string(255)   not null
+#  status           :string(1)     default("A"), not null
+#  debit            :decimal(16, 2 default(0.0), not null
+#  credit           :decimal(16, 2 default(0.0), not null
+#  position         :integer       not null
+#  journal_id       :integer       not null
+#  company_id       :integer       not null
+#  created_at       :datetime      not null
+#  updated_at       :datetime      not null
+#  created_by       :integer       
+#  updated_by       :integer       
+#  lock_version     :integer       default(0), not null
+#  closed           :boolean       
+#  financialyear_id :integer       
 #
 
 class JournalRecord < ActiveRecord::Base
@@ -45,18 +45,11 @@ class JournalRecord < ActiveRecord::Base
   #
   def validate
     errors.add :number, tc(:error_format_number) unless self.number=~/^[\dA-Z][\dA-Z]*$/
-    #errors.add_to_base tc(:error_format_number) unless self.number=~/^[\dA-Z][\dA-Z]*$/
     errors.add :printed_on, tc(:error_printed_date) if self.printed_on > self.created_on
-    #errors.add_to_base tc(:error_printed_date) if self.printed_on > self.created_on    
     errors.add :created_on, tc(:error_created_date_current_financialyear) if self.created_on < self.financialyear.started_on or self.created_on > self.financialyear.stopped_on
-    #errors.add_to_base tc(:error_created_date_current_financialyear) if self.created_on < self.financialyear.started_on or self.created_on > self.financialyear.stopped_on
     if self.journal
-     #raise Exception.new('oui')
-      errors.add_to_base tc(:error_closed_journal,[self.journal.closed_on.to_formatted_s]) if self.created_on < self.journal.closed_on
-     # errors.add :created_on, tc(:error_closed_journal,[self.journal.closed_on.to_formatted_s]) if self.created_on < self.journal.closed_on
-
+      errors.add :created_on, tc(:error_closed_journal, [self.journal.closed_on.to_formatted_s]) if self.created_on < self.journal.closed_on 
     end
-    
   end
   
   # this method computes the debit and the credit of the record.

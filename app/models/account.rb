@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090512102847
+# Schema version: 20090520140946
 #
 # Table name: accounts
 #
@@ -85,7 +85,7 @@ class Account < ActiveRecord::Base
       balance[:name] = self.name.to_s
       balance[:debit] = debit
       balance[:credit] = credit
-      balance[:solde] = credit - debit if self.number.to_s.match /^(6|7)/
+      balance[:solde] = credit - debit if self.number.to_s.match /^(6|7)/ or self.number.to_s.match /^12/
     end
     balance unless balance.empty?
   end
