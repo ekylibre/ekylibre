@@ -719,7 +719,9 @@ class RelationsController < ApplicationController
   end
 
 
+
   def entities_import
+
     @model = @@exchange_format
     indices = {}
 
@@ -729,9 +731,9 @@ class RelationsController < ApplicationController
 
     #raise Exception.new @model.inspect
     if request.post?
-      if params[:csv_file][:path].blank?
+      if params[:csv_file].nil?
         flash[:warning]=tc(:you_must_select_a_file_to_import)
-        redirect_to :action=>:import_entities
+        redirect_to :action=>:entities_import
       else
         file = params[:csv_file][:path]
         name = "MES_FICHES.csv"

@@ -43,7 +43,7 @@ class Mai2t2 < ActiveRecord::Migration
     end
     
     #execute "UPDATE prices SET category_id = c.id FROM entity_categories c WHERE c.name = 'Par défaut' AND c.company_id = prices.company_id"
-    
+    #execute "UPDATE prices SET category_id = c.id WHERE categories.id IN (SELECT  id FROM categories c WHERE company_id = prices.company_id AND name = 'Par défaut')"
 
   end  
     
