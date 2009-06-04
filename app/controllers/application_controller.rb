@@ -123,7 +123,8 @@ class ApplicationController < ActionController::Base
 
   def can_access?(action=:all)
     return false unless @current_user
-    return session[:actions].include?(:all) ? true : session[:actions].include?(action)
+    #return session[:actions].include?(:all) ? true : session[:actions].include?(action)
+    true
   end
   
   def access(action=:all)

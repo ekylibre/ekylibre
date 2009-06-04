@@ -217,6 +217,11 @@ class ManagementController < ApplicationController
   end
   
   def products
+    @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
+    if @stock_locations.size < 1
+      flash[:warning]=tc('need_stocks_location_to_create_products')
+      redirect_to :action=>:stocks_locations_create
+    end
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key
     products_list({:attributes=>[:id, :name, :description, :catalog_name, :catalog_description, :comment], :key=>@key}.merge(params))
@@ -244,11 +249,6 @@ class ManagementController < ApplicationController
   end
 
   def products_create
-    @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
-    if @stock_locations.size < 1
-      flash[:warning]=tc('need_stocks_location_to_create_products')
-      redirect_to :action=>:stocks_locations_create
-    end
     if request.post? 
       @product = Product.new(params[:product])
       @product.company_id = @current_company.id
