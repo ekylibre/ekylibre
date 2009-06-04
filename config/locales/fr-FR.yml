@@ -408,7 +408,7 @@ fr-FR:
         quantity_min: 'Quantité minimale'
         quantity_max: 'Quantité maximale'
         range: Intervalle
-        tax_id: TVA
+        tax_id: Taxe
         use_range: Définir un intervalle de quantité pour le produit
       price_list:
         active: Active (utilisable)
@@ -1030,6 +1030,7 @@ fr-FR:
       entity_categories_update:
         title: 'Modification de la catégorie de fiche : {{value}}'
       entity_categories_display:
+        entity_categories_update: Modifier la catégorie de fiche
         prices:
           zero: 'Aucun tarif rattaché à cette catégorie'
           one:  '1 tarif rattaché à cette catégorie'

@@ -146,7 +146,7 @@ class ManagementController < ApplicationController
     if request.post? or request.delete?
       @price.update_attributes(:active=>false)
     end
-    redirect_to_back
+    redirect_to_current
   end
   
 
@@ -166,6 +166,7 @@ class ManagementController < ApplicationController
   
   dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}, :model=>:prices) do |t|
     t.column :name, :through=>:entity
+    t.column :name, :through=>:category
     t.column :amount
     t.column :amount_with_taxes
     t.column :default
@@ -730,8 +731,9 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sales_products, :id=>@sale_order.id
     else
       if request.post? 
+        #raise Exception.new params.inspect
         @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
-        if @sale_order_line
+        if @sale_order_line and params[:sale_order_line][:price_amount].to_d <= 0
           @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
         else
           @sale_order_line = SaleOrderLine.new(params[:sale_order_line])

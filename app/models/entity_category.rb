@@ -2,6 +2,7 @@ class EntityCategory < ActiveRecord::Base
 
   belongs_to :company
   has_many :entities, :foreign_key=>:category
+  has_many :prices, :foreign_key=>:category
 
   def before_validation
     EntityCategory.update_all({:default=>false}, ["company_id=? AND id!=?", self.company_id, self.id||0]) if self.default

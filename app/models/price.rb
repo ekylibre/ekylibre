@@ -27,6 +27,7 @@
 
 class Price < ActiveRecord::Base
 
+  belongs_to :category, :class_name=>EntityCategory.to_s
   belongs_to :company
   belongs_to :currency
   belongs_to :entity

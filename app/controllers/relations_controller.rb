@@ -437,10 +437,14 @@ class RelationsController < ApplicationController
   end
 
   dyta(:category_prices, :model=>:prices, :conditions=>{:company_id=>['@current_company.id'], :active=>true, :category_id=>['session[:category]']}) do |t|
-    t.column :name, :through=>:product
+    t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:products_display}
     t.column :amount
+    t.column :amount_with_taxes
+    t.column :name, :through=>:tax
+    t.action :prices_delete, :controller=>:management, :method=>:post, :confirm=>tg(:are_you_sure)
   end
-
+  
+  
   def entity_categories_display
     @entity_category = find_and_check(:entity_category, params[:id])
     session[:category] = @entity_category.id
