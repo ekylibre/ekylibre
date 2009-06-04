@@ -24,7 +24,7 @@ class Role < ActiveRecord::Base
               :sales                    # Saler
             ]
 
-  set_column :actions, ACTIONS
+  #set_column :actions, ACTIONS
 
   def before_validation
     self.actions_array = self.actions_array # Refresh actions array
