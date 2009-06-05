@@ -101,9 +101,9 @@ module Ekylibre
 
             code += "end\n"        
            
-            f=File.open('/tmp/test_dyli.rb','wb')
-            f.write(code)
-            f.close
+            #f=File.open('/tmp/test_dyli.rb','wb')
+            #f.write(code)
+            #f.close
 
             module_eval(code)
                      

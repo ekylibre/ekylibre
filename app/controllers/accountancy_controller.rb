@@ -278,7 +278,7 @@ class AccountancyController < ApplicationController
   def financialyears_delete
     if request.post? or request.delete?
       @financialyear = Financialyear.find_by_id_and_company_id(params[:id], @current_company.id)  
-      Financialyear.destroy @financialyear unless @financialyear.size > 0 
+      Financialyear.destroy @financialyear unless @financialyear.records.size > 0 
     end
     redirect_to :action => "financialyears"
   end
@@ -318,20 +318,21 @@ class AccountancyController < ApplicationController
       @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
       @renew_journal = Journal.find(params[:journal_id])
       
+      @new_financialyear = @current_company.financialyears.find(:first, :conditions => { :started_on => @financialyear.stopped_on+1})
+      
+      if @new_financialyear.nil?
+        flash[:message]=tc(:next_illegal_period_financialyear)
+        redirect_to :action => :financialyears
+        return
+      end
+      
+
       @financialyear.close(params[:financialyear][:stopped_on])
       
       balance_account = generate_balance_account(@current_company.id, @financialyear.id)
       
       if balance_account.size > 0
-        @new_financialyear = @current_company.financialyears.find(:first, :conditions => { :started_on => @financialyear.stopped_on+1})
-
-        if @new_financialyear.nil? 
-           flash[:message]=tc(:next_illegal_period_financialyear)
-           redirect_to :action => :financialyears
-          return
-        end
-        
-        @record = @new_financialyear.records.create({:company_id => @current_company.id, :journal_id => @renew_journal.id, :number => '1', :created_on => @new_financialyear.started_on, :printed_on => @new_financialyear.started_on})
+        @record = JournalRecord.create!(:financialyear_id => @new_financialyear.id, :company_id => @current_company.id, :journal_id => @renew_journal.id, :created_on => @new_financialyear.started_on, :printed_on => @new_financialyear.started_on)
 
         result=0
         account_id=0
@@ -484,7 +485,7 @@ class AccountancyController < ApplicationController
         end
         
         if @record.nil?
-          @record = @current_company.journal_records.create(params[:record].merge({:financialyear_id => @financialyear.id, :journal_id => @journal.id}))
+          @record = JournalRecord.create(params[:record].merge({:financialyear_id => @financialyear.id, :journal_id => @journal.id, :company_id => @current_company.id}))
         end 
         
         @entry = @current_company.entries.build(params[:entry])

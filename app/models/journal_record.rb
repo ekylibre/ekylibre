@@ -39,9 +39,17 @@ class JournalRecord < ActiveRecord::Base
   def before_validation
     self.debit = self.entries.sum(:debit)
     self.credit = self.entries.sum(:credit)
+    unless self.number
+      record = self.company.journal_records.find(:last, :conditions => ["EXTRACT(MONTH FROM created_on)=? AND financialyear_id=? AND journal_id=?", self.created_on.month, self.financialyear_id, self.journal_id], :order=>:number)
+      if record
+        self.number = record.number.succ
+      else
+        self.number = '1'
+      end
+    end
     self.number = self.number.rjust(4, "0")
   end 
-   
+  
   #
   def validate
     errors.add :number, tc(:error_format_number) unless self.number=~/^[\dA-Z][\dA-Z]*$/
