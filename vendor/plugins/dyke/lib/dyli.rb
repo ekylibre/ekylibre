@@ -60,7 +60,7 @@ module Ekylibre
 
             code += "def dyli_one_"+name.to_s+"\n"
             code += "search = params[:search].downcase\n"
-            #code += "raise Exception.new('merde')\n"
+           
             code += "conditions = [\"\"]\n"
             code += "puts 'voila3:'+search+':'+params.inspect \n"
             options[:conditions].collect do |key, value| 
@@ -89,22 +89,13 @@ module Ekylibre
             code += "tf_id = params['tf']\n"
             code += "hf_id = params['hf']\n"
             code += "li_id = '"+model.to_s.downcase+"_'+@item.send(:id).to_s\n"
-            
-            # code += "render(:update) do |page|\n"
-#             code += "page["+"'tf_id.to_s'"+"]=@li_content\n" 
-#             code += "page[\'hf_id.to_s\']=@item.send(:id)\n"
-#             code += "end\n"
-           
+                      
             code += "render :inline => content_tag('li', @li_content.to_s+tag('input', :type =>'hidden', :value =>@item.send(:id).to_s, :id =>'record'), :id => li_id) \n"
            
 
 
             code += "end\n"        
            
-            #f=File.open('/tmp/test_dyli.rb','wb')
-            #f.write(code)
-            #f.close
-
             module_eval(code)
                      
           end

@@ -326,7 +326,6 @@ class AccountancyController < ApplicationController
         return
       end
       
-
       @financialyear.close(params[:financialyear][:stopped_on])
       
       balance_account = generate_balance_account(@current_company.id, @financialyear.id)
@@ -354,7 +353,7 @@ class AccountancyController < ApplicationController
         if result > 0
           @entry=@current_company.entries.create({:record_id => @record.id, :currency_id => @renew_journal.currency_id, :account_id => account_id, :name => account_name, :currency_debit => 0.0, :currency_credit => result}) 
         else
-          @entry=@current_company.entries.create({:record_id => @record.id, :currency_id => @renew_journal.currency_id, :account_id => account_id, :name => account_name, :currency_debit => result, :currency_credit => 0.0}) 
+          @entry=@current_company.entries.create({:record_id => @record.id, :currency_id => @renew_journal.currency_id, :account_id => account_id, :name => account_name, :currency_debit => result.abs, :currency_credit => 0.0}) 
         end
         flash[:message] = "Exercice clôturé"
         redirect_to :action => :financialyears
@@ -485,7 +484,7 @@ class AccountancyController < ApplicationController
         end
         
         if @record.nil?
-          @record = JournalRecord.create(params[:record].merge({:financialyear_id => @financialyear.id, :journal_id => @journal.id, :company_id => @current_company.id}))
+          @record = JournalRecord.create!(params[:record].merge({:financialyear_id => @financialyear.id, :journal_id => @journal.id, :company_id => @current_company.id}))
         end 
         
         @entry = @current_company.entries.build(params[:entry])
