@@ -753,6 +753,7 @@ class ManagementController < ApplicationController
 
   def sale_order_lines_update
     @stock_locations = @current_company.stock_locations
+    @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
     @sale_order_line = find_and_check(:sale_order_line, params[:id])
     if request.post?
       params[:sale_order_line].delete(:company_id)
@@ -1390,7 +1391,7 @@ class ManagementController < ApplicationController
   def stock_transfers_create
     @stock_transfer = StockTransfer.new(:nature=>"transfer", :planned_on=>Date.today)
     if request.post?
-      #raise Exception.new params.inspect
+      #raise Exception.new(params.inspect)
       @stock_transfer = StockTransfer.new(params[:stock_transfer])
       @stock_transfer.company_id = @current_company.id
       redirect_to_back if @stock_transfer.save

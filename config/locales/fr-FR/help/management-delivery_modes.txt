@@ -1,0 +1,8 @@
+h1. Les types de livraison 
+
+* Les types de livraison permettent de connaître la *nature d'une livraison*.
+Vous pouvez *ajouter* <<management-delivery_modes_create|{{buttons/create.png|ajouter}}>>, *modifier* <<management-delivery_modes_update|{{buttons/update.png|modifier}}>> ou *supprimer* {{buttons/delete.png|supprimer}} un type de livraison.
+
+* Les *codes* correspondent à la *norme Incoterms 2000*.
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

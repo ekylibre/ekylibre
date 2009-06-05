@@ -679,6 +679,7 @@ fr-FR:
       entity_nature_name: Type    
       entity_reduction_rate: Taux de réduction
       first_contact: Adresse principale
+      import_succeed: 'Vos données ont été correctement importées '
       second_contact: Adresse secondaire
       title: Relations
       you_must_select_a_file_to_import: Vous devez sélectionner un fichier à importer

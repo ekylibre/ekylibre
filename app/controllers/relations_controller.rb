@@ -780,8 +780,8 @@ if !@contact.nil?
               contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>entity_contact[0].id, :default=>true, :deleted=>false}) 
               contact.update_attributes(entity_contact[1].attributes) if !contact.nil?
             end
+          flash[:notice]=tc(:import_succeed)
           end
-
         end
       end
       

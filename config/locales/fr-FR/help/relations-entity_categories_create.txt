@@ -1,0 +1,5 @@
+h1. Comment créer une catégorie de fiche ?
+
+Renseignez le nom de la catégorie, une éventuelle description. Le champ par défaut permet de définir la catégorie sélectionée par défaut lors de la création d'une fiche client.
+
+<<relations-index|Revenir à l'aide de gestion des relations >>
