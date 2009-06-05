@@ -140,7 +140,7 @@ class RelationsController < ApplicationController
     t.column :created_on, :datatype=>:date
     t.column :active
     t.action :entities_display
-    # t.action :entities_print
+    t.action :entities_print
     t.action :entities_update
     t.action :entities_delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -729,7 +729,6 @@ class RelationsController < ApplicationController
       indices[@model[index][:name]] = index
     end
 
-    #raise Exception.new @model.inspect
     if request.post?
       if params[:csv_file].nil?
         flash[:warning]=tc(:you_must_select_a_file_to_import)
@@ -762,7 +761,7 @@ if !@contact.nil?
             elsif @entity.valid?
               @available_entities << [@entity, nil]
             end
-          end
+          end 
           puts i if i % 100 == 0
           i += 1
         end 
