@@ -6,4 +6,4 @@ h1. L'affichage d'une catégorie de fiche
 
 * Vous pouvez ajouter <<relations-entity_categories_create|{{buttons/create.png|ajouter}}>> ou supprimer {{buttons/delete.png|supprimer}} des tarifs à cette catégorie.
 
-<<relations-index|Revenir à l'aide de gestion des relations >>
+<<relations-index|Revenir à l'aide de gestion des relations >> 
