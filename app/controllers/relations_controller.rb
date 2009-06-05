@@ -140,7 +140,7 @@ class RelationsController < ApplicationController
     t.column :created_on, :datatype=>:date
     t.column :active
     t.action :entities_display
-    t.action :entities_print
+    # t.action :entities_print
     t.action :entities_update
     t.action :entities_delete, :method=>:post, :confirm=>:are_you_sure
   end

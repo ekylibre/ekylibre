@@ -808,6 +808,13 @@ class ContentStream
     self
   end
  
+  def set_text_rotate(value, x, y)
+    @pdf.error('Value must be numeric: '+value.inspect) unless NUMERIC_CLASSES.include? value.class
+    rad = value * Math::PI / 180
+    set_text_matrix(Math.cos(rad), Math.sin(rad), -Math.sin(rad), Math.cos(rad), x, y)
+    self
+  end
+ 
   def set_text_matrix(a,b,c,d,e,f)
     a, b, c, d, e, f = a[0], a[1], a[2], a[3], a[4], a[5] if a.is_a? Array
     values = [a, b, c, d, e, f]
