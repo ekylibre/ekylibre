@@ -164,6 +164,7 @@ table.formalize a.fastadd { margin: 0px 8px; }
 
 
 a.procedure.create {padding-left: 20px; background: url(../images/buttons/create.png) no-repeat center left;}
+a.firefox{padding-left: 20px; background: url(../images/buttons/firefox.png) no-repeat center left;}
 
 
 h3.dyta {padding:4px;color: #139; font-size: 16px; }
@@ -348,3 +349,5 @@ div.dyli_complete ul strong.highlight {color: #800; margin:0; padding:0;}
 
 fieldset.itemize { border: 1px solid #777; -moz-border-radius: 8px; float: left; margin:8px;}
 fieldset.itemize legend { color: blue; margin: 0 8px; padding:2px;}
+
+

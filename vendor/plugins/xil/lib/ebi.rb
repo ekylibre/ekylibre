@@ -118,7 +118,7 @@ class Ebi
 
   def escape(string)
     raise Exception.new("Unvalid String to escape: #{string.inspect}") unless string.is_a? String
-    string = @ic.iconv(string) if @encoding
+    # string = @ic.iconv(string) if @encoding
     '('+string.to_s.gsub('\\','\\\\').gsub('(','\\(').gsub(')','\\)').gsub("\r",'\\r')+')'
   end
 

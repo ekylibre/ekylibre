@@ -13,7 +13,7 @@ module ApplicationHelper
            [ {:name=>:relations, :url=>{:controller=>:relations}},
              {:name=>:accountancy, :url=>{:controller=>:accountancy}},
              {:name=>:management, :url=>{:controller=>:management}} ] },
-         {:name=>:informations, :class=>:special, :list=>
+         {:name=>:informations, :list=>
            [ {:name=>:about_us} ] }
        ] },
      # RelationsController

@@ -40,13 +40,13 @@ fr-FR:
 
       index:
         title: Comptabilité générale
-        accounts: Gérer les comptes comptables
-        bank_accounts: Gérer les comptes bancaires (RIB)
+        accounts: Comptes comptables
+        bank_accounts: Comptes bancaires (RIB)
         journals_close: Clôture de journal
         financialyears_close: 'Clôture d''exercice'
-        financialyears: Gérer les exercices comptables
+        financialyears: Exercices comptables
         documents: Documents comptables
-        journals: Gérer les journaux
+        journals: Journaux
         lettering: 'Lettrer des comptes de tiers'
         report: Reprise des à nouveaux
         statements: Pointer un relevé de compte bancaire

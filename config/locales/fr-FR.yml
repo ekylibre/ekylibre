@@ -733,7 +733,7 @@ fr-FR:
     # Authentication
     authentication:
       login:
-        download_firefox: 'Aller sur la page de téléchargement de Firefox'
+        download_firefox: 'Télécharger Mozilla Firefox...'
         title: ''
         username: 'Nom d''utilisateur'
         password: 'Mot de passe'
