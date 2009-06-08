@@ -40,7 +40,7 @@ class StockTransfer < ActiveRecord::Base
       errors.add_to_base(tc:stock_location_can_not_receive_product, :location=>self.second_location.name, :product=>self.product.name, :contained_product=>self.second_location.product.name) unless self.second_location.can_receive(self.product_id)
     end
     unless self.location.can_receive(self.product_id)
-      errors.add_to_base(tc:stock_location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) if self.nature=="transfer"
+      errors.add_to_base(tc(:stock_location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) if self.nature=="transfer"
       errors.add_to_base(tc:stock_location_can_not_waste_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) if self.nature=="waste"
     end
   end

@@ -407,6 +407,7 @@ class RelationsController < ApplicationController
   end
   
   dyta(:entity_categories, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}) do |t|
+    t.column :code
     t.column :name
     t.column :description
     t.column :default
@@ -702,7 +703,7 @@ class RelationsController < ApplicationController
     
     csv_string = FasterCSV.generate do |csv|
     
-      csv << ["Code", "Type", "Nom", "Prénom","Dest-Service","Bat.-Res.-ZI","N° voie","Libelle voie","Lieu dit","Code Postal","Ville",  "Téléphone", "Mobile", "Fax","Email","Site Web", "Taux de réduction", "Commentaire" ]          ## Créer les noms de colonnes -->> line1, line2 .... != adresse
+      csv << ["Code", "Type", "Nom", "Prénom","Dest-Service","Bat.-Res.-ZI","N° voie","Libelle voie","Lieu dit","Code Postal","Ville",  "Téléphone", "Mobile", "Fax","Email","Site Web", "Taux de réduction", "Commentaire" ]         
       
     
       @entities.each do |entity|
@@ -760,7 +761,7 @@ class RelationsController < ApplicationController
           if i!=0 
             @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[indices[:entity_nature_name]]), :name=>row[indices[:entity_name]], :first_name=>row[indices[:entity_first_name]], :reduction_rate=>row[indices[:entity_reduction_rate]].to_s.gsub(/\,/,"."), :comment=>row[indices[:entity_comment]]}
             @contact.attributes = {:line_2=>row[indices[:contact_line_2]], :line_3=>row[indices[:contact_line_3]], :line_4_number=>row[indices[:contact_line_4_number]], :line_4_street=>row[indices[:contact_line_4_street]], :line_5=>row[indices[:contact_line_5]], :line_6_code=>row[indices[:contact_line_6_code]], :line_6_city=>row[indices[:contact_line_6_city]], :phone=>row[indices[:contact_phone]], :mobile=>row[indices[:contact_mobile]], :fax=>row[indices[:contact_fax]] ,:email=>row[indices[:contact_email]], :website=>row[indices[:contact_website]] } if !@contact.nil?
-if !@contact.nil? 
+            if !@contact.nil? 
               if !@contact.valid? or !@entity.valid?
                 @unavailable_entities << [i+1, @entity.errors.full_messages, @contact.errors.full_messages]
               else

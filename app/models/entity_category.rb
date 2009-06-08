@@ -5,6 +5,9 @@ class EntityCategory < ActiveRecord::Base
   has_many :prices, :foreign_key=>:category
 
   def before_validation
+    self.code = self.name.codeize if self.code.blank?
+    self.code = self.code[0..7]
+
     EntityCategory.update_all({:default=>false}, ["company_id=? AND id!=?", self.company_id, self.id||0]) if self.default
   end
 

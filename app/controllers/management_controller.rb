@@ -84,6 +84,7 @@ class ManagementController < ApplicationController
   dyta(:prices, :conditions=>:prices_conditions) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:products_display}
     t.column :full_name, :through=>:entity
+    t.column :name, :through=>:category, :label=>tc(:category)
     t.column :amount
     t.column :amount_with_taxes
     t.column :default
@@ -150,6 +151,110 @@ class ManagementController < ApplicationController
   end
   
 
+  def prices_export
+    @products = Product.find(:all, :conditions=>{:company_id=>@current_company.id, :active=>true})
+    @entity_categories = EntityCategory.find(:all, :conditions=>{:company_id=>@current_company.id, :deleted=>false})
+    
+    csv = ["",""]
+    csv2 = ["Code Produit", "Nom"]
+    @entity_categories.each do |category|
+      csv += [category.code, category.name, ""]
+      csv2 += ["HT","TTC","TVA"]
+    end
+    
+    csv_string = FasterCSV.generate_line(csv)
+    csv_string += FasterCSV.generate_line(csv2)
+    
+    csv_string += FasterCSV.generate do |csv|
+      
+      @products.each do |product|
+        line = []
+        line << [product.code, product.name]
+        @entity_categories.each do |category|
+          price = @current_company.prices.find(:first, :conditions=>{:active=>true,:product_id=>product.id, :category_id=>EntityCategory.find_by_code_and_company_id(category.code, @current_company.id).id})
+          #raise Exception.new price.inspect
+          if price.nil?
+            line << ["","",""]
+          else
+            line << [price.amount.to_s.gsub(/\./,","), price.amount_with_taxes.to_s.gsub(/\./,","), price.tax.amount]
+          end
+        end
+        csv << line.flatten
+      end
+      
+    end
+    
+    send_data csv_string,                                       
+    :type => 'text/csv; charset=iso-8859-1; header=present',
+    :disposition => "attachment; filename=Tarifs.csv"
+    
+  end
+  
+  def prices_import
+    
+    if request.post?
+      if params[:csv_file].nil?
+        flash[:warning]=tc(:you_must_select_a_file_to_import)
+        redirect_to :action=>:prices_import
+      else
+        file = params[:csv_file][:path]
+        name = "MES_TARIFS.csv"
+        @entity_categories = []
+        @available_prices = []
+        @unavailable_prices = []
+        i = 0
+        File.open("#{RAILS_ROOT}/#{name}", "w") { |f| f.write(file.read)}
+        FasterCSV.foreach("#{RAILS_ROOT}/#{name}") do |row|
+          if i == 0
+            x = 2
+            #raise Exception.new row[11].inspect
+            while !row[x].nil?
+              entity_category = EntityCategory.find_by_code_and_company_id(row[x], @current_company.id)
+              entity_category = EntityCategory.create!(:code=>row[x], :name=>row[x+1], :company_id=>@current_company.id) if entity_category.nil?
+              @entity_categories << entity_category
+              x += 3
+            end
+          end
+          
+          if i > 1
+            puts i.to_s+"hhhhhhhhhhhhhhh"
+            x = 2
+            @product = Product.find_by_code_and_company_id(row[0], @current_company.id) ## Cas ou pdt existe pas
+            for category in @entity_categories
+              blank = true
+              tax = Tax.find(:first, :conditions=>{:company_id=>@current_company.id, :amount=>row[x]})#fact ligne dessous?
+              tax_id = tax.nil? ? nil : tax.id
+              @price = Price.find(:first, :conditions=>{:product_id=>@product.id,:company_id=>@current_company_id, :category_id=>category.id} )
+              if @price.nil? and !row[x].nil? or !row[x+1].nil? or !row[x+2].nil?
+                @price = Price.new(:amount=>row[x], :tax_id=>tax_id, :amount_with_taxes=>row[x+1], :company_id=>@current_company.id, :product_id=>@product.id, :category_id=>category.id)
+                #raise Exception.new @price.inspect
+                blank = false
+              elsif !@price.nil?
+                blank = false
+                @price.amount = row[x]##.gsub 
+                @price.amount_with_taxes = row[x+1]
+                @price.tax_id = tax_id
+              end
+              if blank == false
+                if @price.valid?
+                  @available_prices << @price
+                else
+                  @unavailable_prices << [i+2, @price.errors.full_messages]
+                end
+              end
+              x += 3
+            end
+            #raise Exception.new @entity_categories.inspect
+          end
+          raise Exception.new @unavailable_prices.inspect if i == 12
+          i += 1
+        end
+        ##Fin boucle FasterCSV
+      end
+    end
+    
+  end
+  
   
   dyta(:products, :conditions=>:search_conditions, :empty=>true) do |t|
     t.column :number
