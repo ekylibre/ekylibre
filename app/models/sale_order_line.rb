@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090512102847
 #
 # Table name: sale_order_lines
 #
@@ -21,6 +20,8 @@
 #  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
 #  location_id       :integer       
+#  price_amount      :decimal(16, 2 
+#  tax_id            :integer       
 #
 
 class SaleOrderLine < ActiveRecord::Base

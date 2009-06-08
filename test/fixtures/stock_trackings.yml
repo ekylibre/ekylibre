@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090520140946
 #
 # Table name: stock_trackings
 #

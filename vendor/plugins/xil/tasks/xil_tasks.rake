@@ -3,7 +3,7 @@ namespace :xil do
   desc "Build a complete sample PDF"
   task :sample => :environment do
     # Task goes here
-    pdf = Ebi.new(:encoding=>'UTF-8')
+    pdf = Ebi::Document.new(:encoding=>'UTF-8')
     pdf.title = 'Enfin un moteur PDF lisible'
     for angle in 0..1
       pdf.new_page([595.28, 841.89], angle*90)

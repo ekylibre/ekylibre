@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090520140946
 #
 # Table name: payments
 #
@@ -18,6 +17,7 @@
 #  bank           :string(255)   
 #  check_number   :string(255)   
 #  account_number :string(255)   
+#  entity_id      :integer       
 #
 
 class Payment < ActiveRecord::Base

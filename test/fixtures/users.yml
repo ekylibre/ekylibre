@@ -1,25 +1,26 @@
 # == Schema Information
-# Schema version: 20090520140946
 #
 # Table name: users
 #
-#  id              :integer       not null, primary key
-#  name            :string(32)    not null
-#  first_name      :string(255)   not null
-#  last_name       :string(255)   not null
-#  salt            :string(64)    
-#  hashed_password :string(64)    
-#  locked          :boolean       not null
-#  deleted         :boolean       not null
-#  email           :string(255)   
-#  company_id      :integer       not null
-#  language_id     :integer       not null
-#  role_id         :integer       not null
-#  created_at      :datetime      not null
-#  updated_at      :datetime      not null
-#  created_by      :integer       
-#  updated_by      :integer       
-#  lock_version    :integer       default(0), not null
+#  id                :integer       not null, primary key
+#  name              :string(32)    not null
+#  first_name        :string(255)   not null
+#  last_name         :string(255)   not null
+#  salt              :string(64)    
+#  hashed_password   :string(64)    
+#  locked            :boolean       not null
+#  deleted           :boolean       not null
+#  email             :string(255)   
+#  company_id        :integer       not null
+#  language_id       :integer       not null
+#  role_id           :integer       not null
+#  created_at        :datetime      not null
+#  updated_at        :datetime      not null
+#  created_by        :integer       
+#  updated_by        :integer       
+#  lock_version      :integer       default(0), not null
+#  free_price        :boolean       default(TRUE), not null
+#  reduction_percent :decimal(, )   default(5.0), not null
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

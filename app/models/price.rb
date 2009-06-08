@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090520140946
 #
 # Table name: prices
 #
@@ -23,6 +22,7 @@
 #  active            :boolean       default(TRUE), not null
 #  currency_id       :integer       
 #  default           :boolean       default(TRUE)
+#  category_id       :integer       
 #
 
 class Price < ActiveRecord::Base

@@ -1,11 +1,9 @@
 # == Schema Information
-# Schema version: 20090520140946
 #
 # Table name: taxes
 #
 #  id                   :integer       not null, primary key
 #  name                 :string(255)   not null
-#  group_name           :string(255)   not null
 #  included             :boolean       not null
 #  reductible           :boolean       default(TRUE), not null
 #  nature               :string(8)     not null
@@ -19,6 +17,7 @@
 #  created_by           :integer       
 #  updated_by           :integer       
 #  lock_version         :integer       default(0), not null
+#  deleted              :boolean       not null
 #
 
 class Tax < ActiveRecord::Base

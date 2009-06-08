@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090428134248
 #
 # Table name: roles
 #
