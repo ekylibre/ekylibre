@@ -22,7 +22,7 @@ class Mai2v1 < ActiveRecord::Migration
   
 
   def self.down
-    add_column :financialyears, :written_on, :date, :null => false
+    add_column :financialyears, :written_on, :date
     
     create_table :journal_periods do |t|
       t.column :journal_id,       :integer, :null=>false, :references=>:journals, :on_delete=>:restrict, :on_update=>:cascade
