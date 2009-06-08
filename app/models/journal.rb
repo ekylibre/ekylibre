@@ -27,7 +27,6 @@ class Journal < ActiveRecord::Base
   has_many :bank_accounts
   has_many :records, :class_name=>"JournalRecord", :foreign_key=>:journal_id
 
-  #   before_create :journal_nature
   before_destroy :empty?
 
   #

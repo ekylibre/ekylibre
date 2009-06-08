@@ -666,6 +666,12 @@ class AccountancyController < ApplicationController
     render :text => options_for_select(@journals_records) 
   end
  
+  # This method allows to make lettering for the account.
+  def lettering
+    
+
+  end
+  
   # lists all the statements in details for a precise account.
   def statements  
     @bank_accounts = @current_company.bank_accounts

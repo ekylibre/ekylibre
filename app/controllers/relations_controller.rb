@@ -265,7 +265,8 @@ class RelationsController < ApplicationController
 
   def entities_create
     access :entities   
-    @complements = @current_company.complements.find(:all,:order=>:position)
+    
+       @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
     
 
@@ -276,6 +277,10 @@ class RelationsController < ApplicationController
       #end
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
+   
+
+   
+
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
@@ -315,6 +320,9 @@ class RelationsController < ApplicationController
           redirect_to_back
         end
       end
+    
+      
+
     else
       @contact = Contact.new(:country=>'fr', :default=>true)
       @entity = Entity.new(:country=>'fr')

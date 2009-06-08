@@ -64,11 +64,7 @@ class Entry < ActiveRecord::Base
   #
   def validate
     errors.add :debit, tc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?
-#    errors.add :credit, tc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?
-    #errors.add_to_base tc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?
     errors.add :debit, tc(:error_amount_balance2) unless self.debit + self.credit >= 0    
-    #errors.add_to_base tc(:locked_entry) if self.record.created_on < self.record.journal.closed_on
-  
   end
   
   # 

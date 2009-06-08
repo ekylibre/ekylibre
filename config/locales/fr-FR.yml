@@ -311,6 +311,8 @@ fr-FR:
         vat_number: Numéro de TVA intra-communautaire
         vat_submissive: Soumis à la TVA
         website: Site Web
+        client_account_id: Sélectionner le compte client associé
+        supplier_account_id: Sélectionner le compte fournisseur associé
       entity_category:
         default: Par défaut
         description: Description
@@ -1015,6 +1017,7 @@ fr-FR:
         details: 'Informations complémentaires'
         complements: 'Champs personnalisés'
         client: 'Informations client'
+        supplier: 'Informations fournisseur'
         meeting: Lieu(x) de rencontre
         no_commercial: ' -- Sans commercial --'
         no_origin: ' -- Sans origine --'

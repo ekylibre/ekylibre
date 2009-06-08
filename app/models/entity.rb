@@ -91,6 +91,8 @@ class Entity < ActiveRecord::Base
     #    end
 
     #self.active = false  unless self.dead_on.blank?
+    
+    
   end
 
   def created_on

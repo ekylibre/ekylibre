@@ -39,36 +39,40 @@ class Account < ActiveRecord::Base
   has_many :products
   has_many :purchase_order_lines
   acts_as_tree
-  validates_format_of :number, :with=>/[0-9]+/i
-
-
+  validates_format_of :number, :with=>/[0-9]{3}[0-9A-Z]+/
+  
   # This method allows to create the parent accounts if it is necessary.
   def before_validation
     self.label = self.number.to_s+' - '+self.name.to_s
-    self.parent_id = 0 if self.parent_id.blank?
+    index = -2
+    parent_account = Account.find(:last, :conditions => {:company_id => self.company_id, :number => self.number.to_s[0..index]})
+    while parent_account.nil? and index.abs <= self.number.length do
+      index += -1
+      parent_account = Account.find(:last, :conditions => {:company_id => self.company_id, :number => self.number.to_s[0..index]})
+    end
+    self.update_attribute(:parent_id, parent_account.id||0) 
   end
 
+  # This method is called after the account is created or updated.
   def after_save
-    if self.number.size>1
-      old_parent_id = self.parent_id
-      account = Account.find_by_company_id_and_number(self.company_id, self.number.to_s[0..-2])
-      unless account
-        account = Account.create!(:number=>self.number.to_s[0..-2], :name=>tc("default_account_name", :number=>self.number.to_s[0..-2]), :company_id=>self.company_id)
-      end
-      self.update_attribute(:parent_id, account.id) if account.id!=old_parent_id
+    sub_accounts = Account.find(:all, :conditions => ["id <> ? AND company_id = ? AND parent_id = ? AND number LIKE ?'%'", self.id, self.company_id, self.parent_id, self.number])
+    sub_accounts.each do |sub_account|
+      sub_account.update_attribute(:parent_id, self.id)
     end
   end
-
-  # This method allows to delete an account only if it has any sub-accounts.
-  def after_destroy
-    #raise Exception.new self.childrenz.inspect
-    raise Exception.new(tc('error_account_children')) if self.children.size>0
+    
+  # This method allows to delete the account only if it has any sub-accounts.
+  def before_destroy
+    raise Exception.new('child:'+self.inspect)
+    errors.add_to_base tc('error_account_children') if self.children.size > 0
   end
 
+  # This method allows to find all the parent accounts.
   def parent
     Account.find_by_id(self.parent_id)
   end
   
+  # This method allows to find all the sub-accounts.
   def childrenz
     Account.find_all_by_parent_id(self.id)||{}
   end

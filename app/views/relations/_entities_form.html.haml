@@ -20,8 +20,13 @@
   -for datum in @complement_data
     -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_value", :name=>"complement_datum[#{datum.complement_id}][value]", :value=>datum.value, :size=>datum.complement.length_max, :choices=>datum.complement.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
 
+=formalize(:id=>:supplier_form) do |f|
+  - f.title :supplier
+  - f.field :entity, :supplier_account_id, :choices=>@current_company.accounts.find(:all, :conditions => ["number LIKE ?", '401%']).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}, :options=>{:include_blank=>"--Aucun--"} 
+
 =formalize(:id=>:client_form) do |f|
   - f.title :client
+  - f.field :entity, :client_account_id, :choices=>@current_company.accounts.find(:all, :conditions => ["number LIKE ?", '411%']).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}, :options=>{:include_blank=>"--Aucun--"} 
   - f.field :entity, :category_id, :choices=>@current_company.entity_categories.find_all_by_deleted(false).collect{|x| [x.name, x.id]}
   - f.field :entity, :origin_id, :choices=>@current_company.meeting_locations.find(:all, :conditions=>{:active=>true}).collect{|x| [x.name, x.id]}, :options=>{:include_blank=>tc('no_origin')}
   - f.field :entity, :first_met_on
@@ -41,9 +46,15 @@
       $('client_form').show();     
     else
       $('client_form').hide(); 
+    if ($('entity_supplier').checked)
+      $('supplier_form').show();     
+    else
+      $('supplier_form').hide(); 
   }
   displayFields();
-=observe_field "entity_client", :function=>"displayFields();", :frequency => 0.25
+  $('supplier_form').hide();
 
+=observe_field "entity_client", :function=>"displayFields();", :frequency => 0.25
+=observe_field "entity_supplier", :function=>"displayFields();", :frequency => 0.25
 =render :partial=>"coordinates_form"
 
