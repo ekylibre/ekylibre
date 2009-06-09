@@ -311,8 +311,10 @@ fr-FR:
         vat_number: Numéro de TVA intra-communautaire
         vat_submissive: Soumis à la TVA
         website: Site Web
-        client_account_id: Sélectionner le compte client associé
-        supplier_account_id: Sélectionner le compte fournisseur associé
+        client_account_id: compte client associé
+        supplier_account_id: compte fournisseur associé
+        client: Client
+        supplier: Fournisseur
       entity_category:
         default: Par défaut
         description: Description
@@ -650,6 +652,7 @@ fr-FR:
       title: Production
   
     relations:
+      client: Compte client 
       complements:
         complements_create: Ajouter un nouveau champ personnalisé
       complement_choices:
@@ -683,6 +686,7 @@ fr-FR:
       first_contact: Adresse principale
       import_succeed: 'Vos données ont été correctement importées '
       second_contact: Adresse secondaire
+      supplier: Compte fournisseur
       title: Relations
       you_must_select_a_file_to_import: Vous devez sélectionner un fichier à importer
     resources:
@@ -1196,7 +1200,10 @@ fr-FR:
     delivery_line: 
       error_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité commandée'
     entity:
+      client: 'Client'
       error_missing_title: 'doit contenir la dénomination sociale "{{title}}"'
+      error_client_account_already_used: 'Le compte comptable client est déjà utilisé.'
+      error_supplier_account_already_used: 'Le compte comptable fournisseur est déjà utilisé.'
     entry:
       error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
       error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'

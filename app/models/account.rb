@@ -45,6 +45,7 @@ class Account < ActiveRecord::Base
     self.label = self.number.to_s+' - '+self.name.to_s
     index = -2
     parent_account = Account.find(:last, :conditions => {:company_id => self.company_id, :number => self.number.to_s[0..index]})
+   # raise Exception.new('p:'+parent_account.inspect)
     while parent_account.nil? and index.abs <= self.number.length do
       index += -1
       parent_account = Account.find(:last, :conditions => {:company_id => self.company_id, :number => self.number.to_s[0..index]})
@@ -54,7 +55,7 @@ class Account < ActiveRecord::Base
 
   # This method is called after the account is created or updated.
   def after_save
-    sub_accounts = Account.find(:all, :conditions => ["id <> ? AND company_id = ? AND parent_id = ? AND number LIKE ?'%'", self.id, self.company_id, self.parent_id, self.number])
+    sub_accounts = Account.find(:all, :conditions => ["id <> ? AND company_id = ? AND parent_id = ? AND number LIKE ?", self.id, self.company_id, self.parent_id, self.number+'%'])
     sub_accounts.each do |sub_account|
       sub_account.update_attribute(:parent_id, self.id)
     end
@@ -62,7 +63,6 @@ class Account < ActiveRecord::Base
     
   # This method allows to delete the account only if it has any sub-accounts.
   def before_destroy
-    raise Exception.new('child:'+self.inspect)
     errors.add_to_base tc('error_account_children') if self.children.size > 0
   end
 
@@ -76,8 +76,8 @@ class Account < ActiveRecord::Base
     Account.find_all_by_parent_id(self.id)||{}
   end
 
-  # calculates the debit and the credit for the account and the solde.
-  def calc(company, financialyear)
+  # computes the debit and the credit for the account and the balance.
+  def compute(company, financialyear)
     debit = self.entries.sum(:debit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
     credit = self.entries.sum(:credit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
  

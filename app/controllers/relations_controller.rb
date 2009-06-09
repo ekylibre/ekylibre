@@ -263,10 +263,11 @@ class RelationsController < ApplicationController
     end
   end
 
+  #
   def entities_create
     access :entities   
     
-       @complements = @current_company.complements.find(:all,:order=>:position)
+    @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
     
 
@@ -277,10 +278,13 @@ class RelationsController < ApplicationController
       #end
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
-   
-
-   
-
+  
+      if params[:entity][:client]
+        @entity.create_account(:client) unless params[:entity][:client_account_id].is_a? Integer
+      else
+        @entity.create_account(:supplier) unless params[:entity][:supplier_account_id].is_a? Integer
+      end
+          
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
@@ -321,8 +325,6 @@ class RelationsController < ApplicationController
         end
       end
     
-      
-
     else
       @contact = Contact.new(:country=>'fr', :default=>true)
       @entity = Entity.new(:country=>'fr')
@@ -333,6 +335,7 @@ class RelationsController < ApplicationController
     render_form
   end
 
+  #
   def entities_update
     #raise Exception.new @operation.inspect
     access :entities
@@ -343,6 +346,7 @@ class RelationsController < ApplicationController
     @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})||Contact.new(:entity_id=>@entity.id,:company_id=>@current_company.id, :norm_id=>@current_company.address_norms[0].id)
  
     if request.post? and @entity
+      
       #raise Exception.new @operation.inspect
       puts params[:complement_datum].inspect
       for complement in @complements
@@ -357,11 +361,19 @@ class RelationsController < ApplicationController
           @complement_data << ComplementDatum.new(attributes)
         end
       end
-#      puts @complement_data.inspect
+      #raise Exception.new('en:'+@entity.inspect)
+      
+      #      puts @complement_data.inspect
       #raise Exception.new params[:entity].inspect+"              "+@entity.inspect
       ActiveRecord::Base.transaction do
         saved = @entity.update_attributes(params[:entity])
         if saved
+          if params[:entity][:client]
+            @entity.create_account(:client) unless params[:entity][:client_account_id].is_a? Integer
+          else
+            @entity.create_account(:supplier) unless params[:entity][:supplier_account_id].is_a? Integer
+          end
+      
           for datum in @complement_data
             datum.entity_id = @entity.id
             saved = false unless datum.save
@@ -377,6 +389,7 @@ class RelationsController < ApplicationController
         raise ActiveRecord::Rollback unless saved
         redirect_to_back
       end
+    
     else
       for complement in @complements
         datum  = ComplementDatum.find_by_complement_id_and_entity_id(complement.id, @entity.id)

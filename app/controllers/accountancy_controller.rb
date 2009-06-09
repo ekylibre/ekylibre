@@ -84,7 +84,6 @@ class AccountancyController < ApplicationController
     end
     render_form
   end
-
   # this method updates a bank_account with a form.
   def bank_accounts_update
     access :bank_accounts
@@ -146,7 +145,9 @@ class AccountancyController < ApplicationController
   def accounts_delete
     if request.post? or request.delete?
       @account = Account.find_by_id_and_company_id(params[:id], @current_company.id)  
-      Account.destroy(@account.id) unless @account.entries.size > 0 or @account.balances.size > 0
+      unless @account.entries.size > 0 or @account.balances.size > 0
+        Account.destroy(@account.id) 
+      end
     end
     redirect_to_current
   end
@@ -379,7 +380,7 @@ class AccountancyController < ApplicationController
     debit = 0
     credit = 0
     @current_company.accounts.each do |account|
-      balance << account.calc(company, financialyear)
+      balance << account.compute(company, financialyear)
     end
     balance.compact!
   end

@@ -65,10 +65,8 @@ class Entity < ActiveRecord::Base
   has_many :prices
   has_many :purchase_orders, :foreign_key=>:supplier_id
   has_many :sale_orders, :foreign_key=>:client_id
-
-
   
-  validates_presence_of :category_id, :if=>Proc.new{|u| u.client}
+  #validates_presence_of :category_id, :if=>Proc.new{|u| u.client}
   attr_readonly :company_id
   
  
@@ -83,6 +81,9 @@ class Entity < ActiveRecord::Base
     end
     self.full_name = (self.name.to_s+" "+self.first_name.to_s).strip
     
+    #if self.client
+    #  self.client_account_id
+    
     self.code = self.full_name.codeize if self.code.blank?
     self.code = self.code[0..15]
     #raise Exception.new self.inspect
@@ -95,14 +96,18 @@ class Entity < ActiveRecord::Base
     
   end
 
+  #
   def created_on
     self.created_at.to_date
   end
 
+  #
   def last_invoice
     self.invoices.find(:first, :order=>"created_at DESC")
   end
   
+
+  #
   def validate
     if self.nature
       #raise Exception.new self.nature.in_name.inspect
@@ -112,6 +117,7 @@ class Entity < ActiveRecord::Base
     end
   end
   
+  #
   def balance
     #payments = Payment.find_all_by_entity_id_and_company_id(self.id, self.company_id).sum(:amount_with_taxes)
     payments = Payment.sum(:amount, :conditions=>{:company_id=>self.company_id, :entity_id=>self.id})
@@ -120,5 +126,26 @@ class Entity < ActiveRecord::Base
     #raise Exception.new.to_i.inspect
     payments - invoices
   end
+
+  
+  # this method creates automatically an account for the entity
+  def create_account(nature = :client, suffix = nil)
+    prefix = nature == :client ? 411 : 401
+    suffix ||= self.code
+    suffix = suffix.upper_ascii[0..5].rjust(6,'0')
+    account = 1
+    
+    while not account.nil? do
+      number = prefix
+      account = self.company.accounts.find(:first, :conditions => ["number LIKE ?", prefix.to_s+suffix.to_s])
+      suffix.succ! unless account.nil?
+    end
+    account = self.company.accounts.create({:number => prefix.to_s+suffix.to_s, :name => tc(nature)+self.name , :label => tc(nature)})
+    #raise Exception.new('account_id:'+account.inspect)         
+    self.send(nature.to_s+'_account_id=', account.id)
+   # raise Exception.new('e:'+self.inspect)
+#    raise Exception.new('account_id:'+self.supplier_account_id.to_s)      
+  end
+
 
 end 
