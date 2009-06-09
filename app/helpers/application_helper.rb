@@ -19,7 +19,8 @@ module ApplicationHelper
      # RelationsController
      {:name=>:relations, :list=>
        [ {:name=>:entities_managing, :list=>
-           [ {:name=>:entities}
+           [ {:name=>:entities},
+             {:name=>:import_export, :url=>{:action=>:entities_import}}
              #  ,{:name=>:entities_create} 
            ] },
          {:name=>:meetings, :list=>
@@ -54,7 +55,8 @@ module ApplicationHelper
      {:name=>:management, :list=>
        [ {:name=>:sales, :list=>
            [ {:name=>:sales_new},
-             {:name=>:sales_consult, :url=>{:action=>:sales}} ] },
+             {:name=>:sales_consult, :url=>{:action=>:sales}},
+             {:name=>:invoices}] },
          {:name=>:purchases, :list=>
            [ {:name=>:purchases_new},
              {:name=>:purchases_consult, :url=>{:action=>:purchases}} ] },
@@ -375,6 +377,9 @@ module ApplicationHelper
     conditions[:company_id] = @current_company.id
     conditions[:location_id] = session[:location_id] if !session[:location_id].nil?
     conditions
+  end
+
+  def invoices_conditions
   end
 
 

@@ -426,7 +426,7 @@ class RelationsController < ApplicationController
     t.column :default
     t.action :entity_categories_display
     t.action :entity_categories_update
-    t.action :entity_categories_delete, :method=>:post
+    t.action :entity_categories_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def entity_categories

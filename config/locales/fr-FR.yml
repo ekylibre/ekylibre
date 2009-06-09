@@ -359,7 +359,9 @@ fr-FR:
       invoice:
         amount: Montant HT
         amount_with_taxes: Montant TTC
+        client_id: Client
         contact_id: Adresse
+        credit: Avoir
         number: Numéro 
       journal:
         closed_on: Date de clôture
@@ -408,6 +410,7 @@ fr-FR:
         entity_id: Fournisseur
         id: Produit
         list_id: Liste de prix
+        price: Prix
         product_id: Produit
         quantity_min: 'Quantité minimale'
         quantity_max: 'Quantité maximale'
@@ -1013,6 +1016,7 @@ fr-FR:
         title: 'Fiche : {{value}}'
       entities_import:
         defined_columns: Voici le format à respecter des colonnes du fichier csv à importer
+        entities_export: Exporter vos fiches clients / fournisseurs au format CSV
         file_to_download: Fichier à télécharger
         please_consult_help_to_have_more_informations: 'Veuillez consulter l''aide pour avoir plus d''informations sur l''import'
         title:  Importer des fiches clients et fournisseurs au format CSV
@@ -1052,6 +1056,7 @@ fr-FR:
         entities_natures: Types de fiches
         entities_managing: Clients et fournisseurs
         entities: Gérer les fiches clients et fournisseurs
+        import_export: Import Export
         meeting_locations: Lieux de rencontre
         meeting_modes: Types de rencontre
         meetings: Rencontres

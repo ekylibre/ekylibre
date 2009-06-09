@@ -1,3 +1,17 @@
+= aclist do |l|
+  - l.action :prices_export
+  
+
+-if !@unavailable_prices.nil?
+  -if !@unavailable_prices.empty?
+    .errorExplanation
+      %h2=@unavailable_prices.size.to_s+" erreur(s) ont empéché l'import"
+      %p Il y a eu des problèmes avec les lignes suivantes :
+      %ul
+        -for error in @unavailable_prices
+          %li="ligne "+error[0].to_s+" :  "+ error[1].to_s+" "+error[2].to_s
+
+
 %h2=tc('file_to_download')
 -form_tag({}, :multipart=>true) do
   =file_field(:csv_file, :path)

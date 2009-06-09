@@ -80,6 +80,30 @@ class ManagementController < ApplicationController
     end
   end
   
+  dyta(:all_invoices, :model=>:invoices, :conditions=>"search_conditions(:attributes=>[:number], :key=>session[:invoices_key])", :empty=>true) do |t|
+    t.column :number
+    t.column :full_name, :through=>:client
+    t.column :address, :through=>:contact
+    t.column :amount
+    t.column :amount_with_taxes
+    t.column :credit
+    t.action :invoices_cancel
+  end
+
+  def invoices
+    @key = params[:key]||session[:invoices_key]
+    session[:invoices_key] = @key
+    all_invoices_list({:attributes=>[:number], :key=>@key}.merge(params))
+  end
+
+  def invoices_cancel
+    @invoice = find_and_check(:invoices, params[:id])
+    raise Exception.new @invoice.inspect
+    if request.post
+    end
+    @title = {:value=>@invoice.number, :name=>@invoice.client.full_name}
+    render_form
+  end
   
   dyta(:prices, :conditions=>:prices_conditions) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:products_display}
@@ -207,7 +231,7 @@ class ManagementController < ApplicationController
         FasterCSV.foreach("#{RAILS_ROOT}/#{name}") do |row|
           if i == 0
             x = 2
-            #raise Exception.new row[11].inspect
+            #raise Exception.new row.inspect
             while !row[x].nil?
               entity_category = EntityCategory.find_by_code_and_company_id(row[x], @current_company.id)
               entity_category = EntityCategory.create!(:code=>row[x], :name=>row[x+1], :company_id=>@current_company.id) if entity_category.nil?
@@ -222,34 +246,47 @@ class ManagementController < ApplicationController
             @product = Product.find_by_code_and_company_id(row[0], @current_company.id) ## Cas ou pdt existe pas
             for category in @entity_categories
               blank = true
-              tax = Tax.find(:first, :conditions=>{:company_id=>@current_company.id, :amount=>row[x]})#fact ligne dessous?
+              tax = Tax.find(:first, :conditions=>{:company_id=>@current_company.id, :amount=>row[x+2].to_s.gsub(/\,/,".").to_f})
               tax_id = tax.nil? ? nil : tax.id
-              @price = Price.find(:first, :conditions=>{:product_id=>@product.id,:company_id=>@current_company_id, :category_id=>category.id} )
-              if @price.nil? and !row[x].nil? or !row[x+1].nil? or !row[x+2].nil?
-                @price = Price.new(:amount=>row[x], :tax_id=>tax_id, :amount_with_taxes=>row[x+1], :company_id=>@current_company.id, :product_id=>@product.id, :category_id=>category.id)
-                #raise Exception.new @price.inspect
+              @price = Price.find(:first, :conditions=>{:product_id=>@product.id,:company_id=>@current_company.id, :category_id=>category.id, :active=>true} )
+              #raise Exception.new row.inspect+@price.inspect+@product.id.inspect+@current_company.id.inspect+category.id.inspect if i==5
+              if @price.nil? and (!row[x].nil? or !row[x+1].nil? or !row[x+2].nil?)
+                @price = Price.new(:amount=>row[x].to_s.gsub(/\,/,".").to_f, :tax_id=>tax_id, :amount_with_taxes=>row[x+1].to_s.gsub(/\,/,".").to_f, :company_id=>@current_company.id, :product_id=>@product.id, :category_id=>category.id, :entity_id=>@current_company.entity_id)
                 blank = false
               elsif !@price.nil?
                 blank = false
-                @price.amount = row[x]##.gsub 
-                @price.amount_with_taxes = row[x+1]
+                @price.amount = row[x].to_s.gsub(/\,/,".").to_f
+                @price.amount_with_taxes = row[x+1].to_s.gsub(/\,/,".").to_f
                 @price.tax_id = tax_id
               end
               if blank == false
                 if @price.valid?
                   @available_prices << @price
                 else
-                  @unavailable_prices << [i+2, @price.errors.full_messages]
+                  @unavailable_prices << [i+1, @price.errors.full_messages]
                 end
               end
               x += 3
             end
-            #raise Exception.new @entity_categories.inspect
           end
-          raise Exception.new @unavailable_prices.inspect if i == 12
+          for price in @available_prices
+            puts price.inspect+"    id" if price.id.nil? if i==14
+          end
+          #raise Exception.new @unavailable_prices.inspect if i == 12
           i += 1
         end
         ##Fin boucle FasterCSV
+        if @unavailable_prices.empty?
+          for price in @available_prices
+            if price.id.nil?
+              puts price.inspect
+              Price.create!(price.attributes)
+            else
+              price.update_attributes(price.attributes)
+            end
+            flash[:notice]=tc(:import_succeed)
+          end
+        end
       end
     end
     

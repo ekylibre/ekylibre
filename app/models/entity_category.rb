@@ -30,7 +30,7 @@ class EntityCategory < ActiveRecord::Base
 
 
   def before_destroy
-    EntityCategory.create!(self.attributes.merge({:deleted=>true, :company_id=>self.company_id})) 
+    EntityCategory.create!(self.attributes.merge({:deleted=>true, :code=>self.code.to_s+" ", :company_id=>self.company_id})) 
   end
   
 end

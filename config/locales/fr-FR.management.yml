@@ -2,6 +2,7 @@ fr-FR:
   controllers:
     management:
       category: Catégorie
+      import_succeed: Vos données ont été correctement importées
       title: Commerce
       delays:
         delays_create: 'Ajouter un nouveau délai'
@@ -98,6 +99,7 @@ fr-FR:
         delivery_modes: Types de livraison
         indicator: Tableau de bord
         inventories: 'Inventaires'
+        invoices: Rechercher des factures
         invoicing_parameters: Facturation
         low_stocks: 'Stocks sous le seuil critique'
         parameters: Paramètres
@@ -131,6 +133,14 @@ fr-FR:
         unit: Unité
         validate_and_reflect_changes: Valider et répercuter les différences
         validated_quantity: Quantité constatée
+      invoices: 
+        nb_invoices:
+          zero: Aucune facture enregistrée
+          one: 1 facture enregistrée
+          other: '{{count}} factures enregistrées'
+        title: Factures
+      _invoices_search: 
+        search: Rechercher une facture par son numéro
       _location_choice:
         select_stock_location: 'Choississez un lieu de stockage' 
       payments_create: 
@@ -165,6 +175,7 @@ fr-FR:
         taxes: Taxes
       prices_import:
         file_to_download: Fichier à importer
+        prices_export: Exporter vos tarifs au format CSV
         title: Importer un fichier CSV de tarifs
       price_lists:
         title: Gérer les listes de prix
