@@ -2,8 +2,82 @@ require 'bigdecimal'
 require 'zlib'
 require 'iconv'
 
+
+
+
+
+
+class ::Object
+
+  def to_pdf(in_content_stream=false)
+    case self
+    when NilClass   then "null"
+    when TrueClass  then "true"
+    when FalseClass then "false"
+    when Numeric    then String(self)
+    when Array
+      "[" << self.map { |e| e.to_pdf(in_content_stream) }.join(' ') << "]"
+#    when Prawn::LiteralString
+#      self = self.gsub(/[\\\n\(\)]/) { |m| "\\#{m}" }
+#      "(#{self})"
+    when Time
+      obj = self.strftime("D:%Y%m%d%H%M%S%z").chop.chop + "'00'"
+      obj = obj.gsub(/[\\\n\(\)]/) { |m| "\\#{m}" }
+      "(#{obj})"
+    when String
+      obj = "\xFE\xFF" + self.unpack("U*").pack("n*") unless in_content_stream
+      "<" << obj.unpack("H*").first << ">"
+    when Symbol
+       if (obj = self.to_s) =~ /\s/
+         raise Exception.new("A PDF Name cannot contain whitespace")
+       else
+         "/" << obj
+       end
+    when Hash
+      output = "<<"
+      self.each do |k,v|
+        unless String === k || Symbol === k
+          raise Exception.new("A PDF Dictionary must be keyed by names")
+        end
+        output << k.to_sym.to_pdf(in_content_stream) << " " <<
+                  v.to_pdf(in_content_stream)
+      end
+      output << ">>"
+#     when Prawn::Reference
+#       self.to_s      
+#     when Prawn::NameTree::Node
+#       PdfSelfect(self.to_hash)
+#     when Prawn::NameTree::Value
+#       PdfSelfect(self.name) + " " + PdfObject(self.value)
+    else
+      raise Exception.new("This object cannot be serialized to PDF (#{self.class.to_s})")
+    end     
+  end
+
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Ebi is a "japanese" prawn
 module Ebi
+
+
+  class Reference
+    def initialize
+    end
+  end
+
+
 
   class Document
     VERSION = '0.1'
@@ -13,12 +87,43 @@ module Ebi
     JPEG_COLOR_SPACES = [nil, nil, nil, 'DeviceRGB', 'DeviceCMYK']
     PNG_COLOR_SPACES = ['DeviceGray', nil, 'DeviceRGB', 'Indexed']
 
+    WIN_ANSI_MAPPING = {
+      0x20AC=>0x80,
+      0x201A=>0x82,
+      0x0192=>0x83,
+      0x201E=>0x84,
+      0x2026=>0x85,
+      0x2020=>0x86,
+      0x2021=>0x87,
+      0x02C6=>0x88,
+      0x2030=>0x89,
+      0x0160=>0x8A,
+      0x2039=>0x8B,
+      0x0152=>0x8C,
+      0x017D=>0x8E,
+      0x2018=>0x91,
+      0x2019=>0x92,
+      0x201C=>0x93,
+      0x201D=>0x94,
+      0x2022=>0x95,
+      0x2013=>0x96,
+      0x2014=>0x97,
+      0x02DC=>0x98,
+      0x2122=>0x99,
+      0x0161=>0x9A,
+      0x203A=>0x9B,
+      0x0152=>0x9C,
+      0x017E=>0x9E,
+      0x0178=>0x9F
+    }
+
     attr_accessor :title, :keywords, :creator, :author, :subject, :zoom, :layout
     attr_reader :fonts, :available_fonts, :compress, :encoding, :ic
 
     def initialize(options={})
       @encoding = options[:encoding]
-      @ic = Iconv.new('ISO-8859-1', @encoding) if @encoding
+      # @ic = Iconv.new('ISO-8859-1', @encoding) if @encoding
+      @ic = Iconv.new('UTF-8', @encoding) if @encoding
       @pages = []
       @page = -1
       @aliases = {}
@@ -47,7 +152,7 @@ module Ebi
     def new_page(format=[], rotate=0)
       error('Parameter format must be an array') unless format.is_a? Array
       format[0] ||= 1000.0
-      error('Parameter format can only contains numeric values') unless [Integer, Float, BigDecimal].include? format[0].class
+      error('Parameter format can only contains numeric values') unless [Integer, Float, BigDecimal, Fixnum].include? format[0].class
       format[1] ||= format[0]*1.414
       @pages ||= []
       @page = @pages.size
@@ -94,18 +199,11 @@ module Ebi
       @pages[page||@page][:items] << {:nature=>:box, :params=>params}
     end
 
-    #   def text(content, x, y, params={}, page=nil)
-    #     params[:text] = content
-    #     params[:x] = x
-    #     params[:y] = y
-    #     box(params, page)
-    #   end
-
     def generate(options={})
       yield self if block_given?
       pdf_data = build
       if options[:file]
-        open('/tmp/test.pdf','wb') do |f|
+        open(options[:file],'wb') do |f|
           f.write(pdf_data)
         end
       else
@@ -119,8 +217,10 @@ module Ebi
 
     def escape(string)
       raise Exception.new("Unvalid String to escape: #{string.inspect}") unless string.is_a? String
-      # string = @ic.iconv(string) if @encoding
-      '('+string.to_s.gsub('\\','\\\\').gsub('(','\\(').gsub(')','\\)').gsub("\r",'\\r')+')'
+      text = string
+      text = @ic.iconv(text) if @encoding
+      text = text.to_s.unpack("U*").collect{ |i| normalize(i) }.pack("C*")
+      '('+text.gsub('\\','\\\\').gsub('(','\\(').gsub(')','\\)').gsub("\r",'\\r')+')'
     end
 
     def font(name)
@@ -129,7 +229,13 @@ module Ebi
 
     private
 
-    def build(compress=false)
+    def normalize(codepoint)
+      return codepoint if codepoint <= 255
+      WIN_ANSI_MAPPING[codepoint] || 63
+    end
+
+
+    def build(compress=true)
       @compress = compress
       @objects = [0]
       @objects_count = 0
@@ -168,15 +274,23 @@ module Ebi
     end
 
     def build_info
-      info = []
-      info << ['Producer', escape(@producer)] unless @producer.nil?
-      info << ['Title', escape(@title)] unless @title.nil?
-      info << ['Subject', escape(@subject)] unless @subject.nil?
-      info << ['Author', escape(@author)] unless @author.nil?
-      info << ['Keywords', escape(@keywords)] unless @keywords.nil?
-      info << ['Creator', escape(@creator)] unless @creator.nil?
-      info << ['CreationDate', escape('D:'+@now.strftime("%Y%m%d%H%M%S%z"))]
-      info << ['ModDate', escape('D:'+@now.strftime("%Y%m%d%H%M%S%z"))]
+#       info = []
+#       info << ['Producer', escape(@producer)] unless @producer.nil?
+#       info << ['Title', escape(@title)] unless @title.nil?
+#       info << ['Subject', escape(@subject)] unless @subject.nil?
+#       info << ['Author', escape(@author)] unless @author.nil?
+#       info << ['Keywords', escape(@keywords)] unless @keywords.nil?
+#       info << ['Creator', escape(@creator)] unless @creator.nil?
+#       info << ['CreationDate', escape('D:'+@now.strftime("%Y%m%d%H%M%S%z"))]
+#       info << ['ModDate', escape('D:'+@now.strftime("%Y%m%d%H%M%S%z"))]
+
+      info = { :CreationDate => @now, :ModDate => @now }
+      info[:Producer] = @producer unless @producer.nil?
+      info[:Title]    = @title unless @title.nil?
+      info[:Subject]  = @subject unless @subject.nil?
+      info[:Author]   = @author unless @author.nil?
+      info[:Keywords] = @keywords unless @keywords.nil?
+      info[:Creator]  = @creator unless @creator.nil?      
       new_object(info)
     end
 
@@ -194,14 +308,29 @@ module Ebi
         catalog << ['OpenAction', "[#{first_page} 0 R #{zoom}]"]
       end
       catalog << ['PageLayout', LAYOUTS[@layout]||LAYOUTS[:coutinuous]] unless @layout.nil?
+
+#       catalog = {:Type=>:Catalog, :Pages=>Reference "#{pages_object.to_s} 0 R"}
+#       if first_page and not zoom.nil?
+#         zoom = if ZOOMS.keys.include? @zoom
+#                  ZOOMS[@zoom]
+#                elsif [Float, Integer].include? @zoom.class
+#                  "/XYZ null null #{(@zoom/100).to_s}"
+#                else
+#                  ZOOMS[:page]
+#                end
+#         catalog[:OpenAction] = [#{first_page} 0 R #{zoom}]
+#       end
+#       catalog << ['PageLayout', LAYOUTS[@layout]||LAYOUTS[:coutinuous]] unless @layout.nil?
+
       new_object(catalog)
     end
 
     # Build the pages, page, content objects
+    # TODO: Use balanced trees to optimize performance of viewer applications
     def build_pages(resources_object, parent_object=nil)
       pages_count = @pages.size
       pages = []
-      pages_object = new_object    
+      pages_object = new_object
       for page in @pages
         # Page content
         contents_object = new_stream_object(build_page(page))
@@ -392,10 +521,10 @@ module Ebi
       end
       if block_given?
         lines = []
-        yield(lines)
+        yield lines
         @objects[object_number] += lines.join("\n")+"\n"
       elsif not data.nil?
-        @objects[object_number] += (data.is_a?(Array) ? dictionary(data) : data)+"\n"
+        @objects[object_number] += ([Array, Hash].include?(data.class) ? dictionary(data) : data)+"\n"
       end
       object_number
     end
@@ -417,6 +546,7 @@ module Ebi
     end
 
     def dictionary(dict=[], depth=0)
+      return dict.to_pdf if dict.is_a? Hash
       raise Exception.new('Only Array type are accepted as dictionary type ('+dict.class.to_s+')') unless dict.is_a? Array
       eol = (dict.size>1 and not @compress)
       code  = "\<\<"
@@ -443,6 +573,9 @@ module Ebi
     end
 
     
+
+
+
     def image_info(file)
       extensions = {'jpeg'=>'jpeg', 'jpg'=>'jpeg', 'png'=>'png'}    
       extension = file.split('.')[-1]
@@ -612,6 +745,13 @@ module Ebi
 
 
 
+
+
+
+
+
+
+
   class Stream
     NUMERIC_CLASSES = [Float, Integer, Fixnum]
     LINE_DASH_STYLES = {:dotted=>{:dash=>[1, 1], :phase=>0.5}, :dashed=>{:dash=>[3], :phase=>2}, :solid=>{:dash=>[], :phase=>0}}
@@ -744,7 +884,7 @@ module Ebi
       cw = @pdf.font(@font_name)[:char_widths]
       @pdf.error('Char widths must be an Array: '+cw.inspect) unless cw.is_a? Array
       width = 0
-      s = @pdf.ic.iconv(string)
+      s = @pdf.ic ? @pdf.ic.iconv(string) : string
       s.each_byte { |char| width += cw[char] }
       return width*@font_size/1000.0
     end

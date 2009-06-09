@@ -111,7 +111,7 @@ module Xil
     
     def pdf_document(element, environment={})
       code  = ''
-      code += environment[:pdf]+" = Ebi.new(:encoding=>'UTF-8')\n"
+      code += environment[:pdf]+" = Ebi::Document.new\n"
       # code += "ic = Iconv.new('ISO-8859-15', 'UTF-8')\n"
       # code += environment[:page_number]+" = 1\n"
       code += browse(element, environment)
