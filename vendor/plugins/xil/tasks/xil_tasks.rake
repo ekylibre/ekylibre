@@ -69,6 +69,42 @@ namespace :xil do
 
 
 
+
+
+
+
+
+
+  desc "Build a sample PDF with Ebi"
+  task :hebi => :environment do
+    pdf = Hebi::Document.new(:encoding=>'UTF-8')
+    pdf.title = 'Enfin un moteur PDF lisible'
+
+    pdf.new_page([595.28, 841.89])
+    pdf.set_fill_color(0.5, 0.6, 0.7)
+    pdf.set_line_color(0.5, 0.6, 0.7)
+    pdf.set_line_color
+    pdf.image("#{RAILS_ROOT}/vendor/plugins/xil/tasks/images/chrome.jpg", 300, 20, :width=>275)
+
+    
+    pdf.generate :file=>'hebi.pdf'
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   desc "Build a sample PDF with Prawn"
   task :prawn => :environment do
     require 'prawn'

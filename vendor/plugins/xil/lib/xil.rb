@@ -2,23 +2,6 @@
 # This module groups the different methods allowing to obtain a PDF document by the analyze of a template.
 require 'measure'
 
-# require 'measure/length'
-# # Angle
-# class Measure
-#   {
-#     :rad => :radian,
-#     :deg => :degree,
-#     :gon => :grad,
-#   }.each do |a, u|
-#     define_unit u, :angle unless has_unit? u
-#     define_alias a, u
-#   end
-    
-#   define_conversion :deg, :gon=>10/9, :rad=>Math::PI/180
-#   define_conversion :rad, :gon=>200/Math::PI, :deg=>180/Math::PI
-#   define_conversion :gon, :deg=>9/10, :rad=>200/Math::PI
-# end
-
 require File.dirname(__FILE__)+'/xil/style'
 require File.dirname(__FILE__)+'/xil/base'
 require File.dirname(__FILE__)+'/xil/pdf'
@@ -37,6 +20,7 @@ module Xil
       require 'rexml/document'
       require 'digest/md5'
       require 'ebi'
+      require 'hebi'
       include REXML
     end
 

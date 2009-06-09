@@ -69,7 +69,7 @@ end
 
 
 # Ebi is a "japanese" prawn
-module Ebi
+module Hebi
 
 
   class Reference
@@ -157,31 +157,56 @@ module Ebi
       @pages ||= []
       @page = @pages.size
       rotate = 90*(rotate.to_f/90).round
-      @pages << {:format=>format, :items=>[], :rotate=>rotate}
+      @pages << {:format=>format, :actions=>[], :rotate=>rotate}
+    end
+
+    def page(number=nil)
+      @pages[number||@page]
     end
 
     def alias(key, value)
       @aliases[key] = value
     end
 
-    def image(file, x, y, params={}, page=nil)
+    def image(file, x, y, params={})
       self.new_page if @page<0
       if @images[file].nil?
         error("File does not exists (#{file.inspect})") unless File.exists? file
         @images[file] = image_info(file)
+        @images[file][:name] = 'I'+@images.size.to_s
       end
-      params[:x] = x
-      params[:y] = y
-      params[:image] = file
-      @pages[page||@page][:items] << {:nature=>:image, :params=>params}
+      image = @images[file]
+      h = params[:height]
+      w = params[:width]
+      if w and h.nil?
+        h = w*image[:height]/image[:width]
+      elsif w.nil? and h
+        w = h*image[:width]/image[:height]
+      elsif w.nil? and h.nil?
+        h = image[:height].to_f/4
+        w = image[:width].to_f/4
+      end
+      x ||= 0
+      y = page[:format][1]-(y||0)-h
+      self.save_graphics_state
+      self.concatenate_matrix(w, 0, 0, h, x, y)
+      self.invoke_xobject(image[:name])
+      self.restore_graphics_state
     end
 
-    def line(points, params={}, page=nil)
+    def line(points, params={})
       self.new_page if @page<0
       error("Unvalid list of point") unless points.is_a? Array
       points.each{|p| error("Unvalid point: #{p.inspect}") unless is_a_point? p}
-      params[:points] = points
-      @pages[page||@page][:items] << {:nature=>:line, :params=>params}
+      border = params[:border]||{}
+      self.set_line_cap(border[:cap])
+      self.set_line_join(border[:join])
+      self.set_line_color(self.class.string_to_color(border[:color]))
+      self.set_line_width(border[:width])
+      self.set_line_dash(border[:style])
+      self.move_to(points[0])
+      points[1..-1].each{|point| self.line_to(point)}
+      self.stroke(false)
     end
 
     def box(x, y, width, height, text=nil, params={}, page=nil)
@@ -196,8 +221,19 @@ module Ebi
       params[:font][:bold] ||= false
       params[:font][:italic] ||= false
       get_font(params[:font][:family], params[:font][:bold], params[:font][:italic])
-      @pages[page||@page][:items] << {:nature=>:box, :params=>params}
+#      @pages[page||@page][:actions] << {:name=>:box, :args=>params}
     end
+
+    def method_missing(method_name, *args)
+      if Hebi::Stream.method_defined? method_name
+        page = args.delete_at(-1) if args[-1].is_a? Integer
+        self.new_page if @page<0
+        @pages[page||@page][:actions] << {:name=>method_name, :args=>args}
+      else
+        raise Exception.new("Unknown method for Hebi (#{method_name.inspect})")
+      end
+    end
+    
 
     def generate(options={})
       yield self if block_given?
@@ -235,7 +271,7 @@ module Ebi
     end
 
 
-    def build(compress=true)
+    def build(compress=false)
       @compress = compress
       @objects = [0]
       @objects_count = 0
@@ -333,7 +369,11 @@ module Ebi
       pages_object = new_object
       for page in @pages
         # Page content
-        contents_object = new_stream_object(build_page(page))
+        stream = Stream.new(self)
+        for action in page[:actions]
+          stream.send action[:name], *action[:args]
+        end
+        contents_object = new_stream_object(stream.to_s)
         # Page
         dict = [['Type', '/Page'], ['Parent', "#{pages_object} 0 R"], # Required
                 ['MediaBox', sprintf('[0 0 %.2f %.2f]', page[:format][0], page[:format][1])], # Required
@@ -347,100 +387,6 @@ module Ebi
       dict << ['Parent', parent_object+' 0 R'] unless parent_object.nil?
       pages_root = new_object(dict, pages_object)
       return pages_root, pages[0]
-    end
-
-
-    def build_page(page)
-      code = ''
-      page_width  = page[:format][0]
-      page_height = page[:format][1]
-
-      dcs = Stream.new(self)
-
-      for item in page[:items]
-        nature = item[:nature]
-        params = item[:params]
-        if nature==:box
-          text = params[:text]
-          border = params[:border]||{}
-          background = params[:background]
-          x = params[:x]||0
-          # y = page_height-0.7*size-(params[:y]||0)
-          y = page_height-(params[:y]||0)
-          width  = params[:width]
-          height = params[:height]
-          unless background.nil?
-            dcs.set_fill_color(self.class.string_to_color(background))
-          end
-          unless border.empty?
-            dcs.set_line_cap(border[:cap])
-            dcs.set_line_join(border[:join])
-            dcs.set_line_color(self.class.string_to_color(border[:color]))
-            dcs.set_line_width(border[:width])
-            dcs.set_line_dash(border[:style])
-          end
-          unless border.empty? and background.nil?
-            dcs.append_rectangle(x, page_height-(params[:y]||0), width, -height) 
-            dcs.paint(!background.nil?, !border.empty?)
-          end
-          if text
-            font = get_font(params[:font][:family], params[:font][:bold], params[:font][:italic])
-            size = params[:font][:size]||12
-            dcs.text_object do |to|
-              dcs.set_fill_color self.class.string_to_color(params[:font][:color])
-              to.select_font(font[:name], size)
-              x += if params[:font][:align].to_s.include? 'center'
-                     (width-to.get_string_width(text))/2
-                   elsif params[:font][:align].to_s.include? 'right'
-                     (width-to.get_string_width(text))
-                   else
-                     0
-                   end
-              y += if params[:font][:align].to_s.include? 'middle'
-                     -(height+size)/2
-                   elsif params[:font][:align].to_s.include? 'bottom'
-                     -height
-                   else
-                     -size
-                   end+0.3*size
-
-              to.move_text_position(x,y)
-              to.show_text(text)
-            end
-          end
-        elsif nature==:image
-          image = @images[item[:params][:image]]
-          h = params[:height]
-          w = params[:width]
-          if w and h.nil?
-            h = w*image[:height]/image[:width]
-          elsif w.nil? and h
-            w = h*image[:width]/image[:height]
-          elsif w.nil? and h.nil?
-            h = image[:height].to_f/4
-            w = image[:width].to_f/4
-          end
-          x = (params[:x]||0)
-          y = page_height-(params[:y]||0)-h
-          dcs.new_graphics_state do |gs|
-            gs.concatenate_matrix(w, 0, 0, h, x, y)
-            gs.invoke_xobject(image[:name])
-          end
-        elsif nature==:line
-          points = params[:points]
-          border = params[:border]||{}
-          dcs.set_line_cap(border[:cap])
-          dcs.set_line_join(border[:join])
-          dcs.set_line_color(self.class.string_to_color(border[:color]))
-          dcs.set_line_width(border[:width])
-          dcs.set_line_dash(border[:style])
-          dcs.move_to(points[0])
-          points[1..-1].each{|point| dcs.line_to(point)}
-          dcs.stroke(false)
-        end
-      end
-      
-      return dcs.to_s
     end
 
 
@@ -501,7 +447,7 @@ module Ebi
           lines << dictionary(dict)
           lines << new_stream(image[:data])
         end
-        image[:name] = 'I'+images.size.to_s
+        # image[:name] = 'I'+images.size.to_s
         images << [image[:name], object.to_s+' 0 R']
       end
 
@@ -749,9 +695,6 @@ module Ebi
 
 
 
-
-
-
   class Stream
     NUMERIC_CLASSES = [Float, Integer, Fixnum]
     LINE_DASH_STYLES = {:dotted=>{:dash=>[1, 1], :phase=>0.5}, :dashed=>{:dash=>[3], :phase=>2}, :solid=>{:dash=>[], :phase=>0}}
@@ -989,6 +932,16 @@ module Ebi
       @pdf.error('A new graphics state needs block') unless block_given?
       yield object=self.child
       add_environment('q', 'Q', object)
+      self
+    end
+
+    def save_graphics_state
+      add 'q'
+      self
+    end
+
+    def restore_graphics_state
+      add 'Q'
       self
     end
 
