@@ -363,6 +363,16 @@ fr-FR:
         contact_id: Adresse
         credit: Avoir
         number: Numéro 
+        origin_id: 'Facture d''origine'
+        payment_on: Règlé le
+        sale_order: Vente
+        sale_order_id: Vente
+      invoice_line:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
+        price_id: Prix HT
+        product_id: Produit
+        quantity: Quantité
       journal:
         closed_on: Date de clôture
         code: Code

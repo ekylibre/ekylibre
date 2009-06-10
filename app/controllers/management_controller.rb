@@ -81,13 +81,13 @@ class ManagementController < ApplicationController
   end
   
   dyta(:all_invoices, :model=>:invoices, :conditions=>"search_conditions(:attributes=>[:number], :key=>session[:invoices_key])", :empty=>true) do |t|
-    t.column :number
+    t.column :number, :url=>{:action=>:invoices_display}
     t.column :full_name, :through=>:client
     t.column :address, :through=>:contact
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit
-    t.action :invoices_cancel
+    t.action :invoices_cancel, :if=>'RECORD.credit != true'
   end
 
   def invoices
@@ -98,11 +98,52 @@ class ManagementController < ApplicationController
 
   def invoices_cancel
     @invoice = find_and_check(:invoices, params[:id])
-    raise Exception.new @invoice.inspect
-    if request.post
+    session[:invoice] = @invoice.id
+    @invoice_cancel = Invoice.find_by_origin_id_and_company_id(@invoice.id, @current_company.id)
+    if @invoice_cancel.nil?
+      @invoice_cancel = Invoice.new(:origin_id=>@invoice.id, :client_id=>@invoice.client_id, :credit=>true, :company_id=>@current_company.id)
+      @invoice_cancel_lines = @invoice.lines.collect{|x| InvoiceLine.new(:origin_id=>x.id, :product_id=>x.product_id, :price_id=>x.price_id, :quantity=>0, :company_id=>@current_company.id, :order_line_id=>x.order_line_id)}
+    else
+      @invoice_cancel_lines = @invoice_cancel.lines
     end
-    @title = {:value=>@invoice.number, :name=>@invoice.client.full_name}
-    render_form
+    if request.post?
+      ActiveRecord::Base.transaction do
+        session[:errors] = []
+        saved = @invoice_cancel.save
+        if saved
+          for cancel_line in @invoice_cancel_lines
+            cancel_line.quantity -= params[:invoice_cancel_line][cancel_line.origin_id.to_s][:quantity].to_f
+            cancel_line.invoice_id = @invoice_cancel.id
+            saved = false unless cancel_line.save
+          end
+        end
+        if !saved
+          session[:errors] = []
+          for line in @invoice_cancel_lines
+            session[:errors] << line.errors.full_messages if !line.errors.full_messages.empty?
+          end
+          redirect_to :action=>:invoices_cancel, :id=>session[:invoice]
+          raise ActiveRecord::Rollback
+        else
+          redirect_to :action=>:invoices
+        end
+      end
+    end
+    @title = {:value=>@invoice.number, :name=>@invoice.client.full_name, :date=>@invoice.created_at.to_date.to_s}
+  end
+  
+  dyta(:invoice_credit_lines, :model=>:invoice_lines, :conditions=>{:company_id=>['@current_company.id'], :invoice_id=>['session[:current_invoice]']}) do |t|
+    t.column :name, :through=>:product, :url=>{:action=>:products_display}
+    t.column :amount, :through=>:price
+    t.column :amount_with_taxes, :through=>:price, :label=>tc('price_amount_with_taxes')
+    t.column :amount
+    t.column :amount_with_taxes
+  end
+
+  def invoices_display
+    @invoice = find_and_check(:invoice, params[:id])
+    session[:current_invoice] = @invoice.id
+    @title = {:number=>@invoice.number}
   end
   
   dyta(:prices, :conditions=>:prices_conditions) do |t|
@@ -251,7 +292,7 @@ class ManagementController < ApplicationController
               @price = Price.find(:first, :conditions=>{:product_id=>@product.id,:company_id=>@current_company.id, :category_id=>category.id, :active=>true} )
               #raise Exception.new row.inspect+@price.inspect+@product.id.inspect+@current_company.id.inspect+category.id.inspect if i==5
               if @price.nil? and (!row[x].nil? or !row[x+1].nil? or !row[x+2].nil?)
-                @price = Price.new(:amount=>row[x].to_s.gsub(/\,/,".").to_f, :tax_id=>tax_id, :amount_with_taxes=>row[x+1].to_s.gsub(/\,/,".").to_f, :company_id=>@current_company.id, :product_id=>@product.id, :category_id=>category.id, :entity_id=>@current_company.entity_id)
+                @price = Price.new(:amount=>row[x].to_s.gsub(/\,/,".").to_f, :tax_id=>tax_id, :amount_with_taxes=>row[x+1].to_s.gsub(/\,/,".").to_f, :company_id=>@current_company.id, :product_id=>@product.id, :category_id=>category.id, :entity_id=>@current_company.entity_id,:currency_id=>@current_company.currencies[0].id)
                 blank = false
               elsif !@price.nil?
                 blank = false

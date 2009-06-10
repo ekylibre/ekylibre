@@ -13,6 +13,7 @@ fr-FR:
       payment_parts:
         payments_create: Ajouter un nouveau paiement
       price: Prix
+      price_amount_with_taxes: Prix TTC
       prices:
         purchases_prices_create: 'Enregistrer un nouveau prix d''achat' 
         sales_prices_create: Enregistrer un nouveau prix de vente 
@@ -139,6 +140,19 @@ fr-FR:
           one: 1 facture enregistrée
           other: '{{count}} factures enregistrées'
         title: Factures
+      invoices_cancel:
+        already_credited_quantity: Q. déjà passée en avoir
+        price_amount: Prix HT
+        price_amount_with_taxes: Prix TTC
+        product: Produit
+        quantity_to_credit: Q. à passer en avoir
+        title: 'Avoir de la facture {{value}} au client {{name}} datée du {{date}} '
+        total_quantity: Q. totale
+        unit: Unité
+        validate: Valider
+      invoices_display:
+        invoice_lines: Lignes de la facture
+        title: 'Facture : {{number}}'
       _invoices_search: 
         search: Rechercher une facture par son numéro
       _location_choice:

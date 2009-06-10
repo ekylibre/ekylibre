@@ -29,10 +29,11 @@ class Invoice < ActiveRecord::Base
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :company
   belongs_to :contact
+  belongs_to :origin, :class_name=>Invoice.to_s
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :sale_order
   has_many :deliveries
-  has_many :lines, :class_name=>InvoiceLine.to_s
+  has_many :lines, :class_name=>InvoiceLine.to_s, :foreign_key=>:invoice_id
 
   def before_validation
     if self.number.blank?
@@ -42,6 +43,25 @@ class Invoice < ActiveRecord::Base
                     else
                       '00000001'
                     end
+    end
+    if self.credit
+      self.amount = 0
+      self.amount_with_taxes = 0
+      for line in self.lines
+        self.amount += line.amount
+        self.amount_with_taxes += line.amount_with_taxes
+      end
+    end
+    
+  end
+  
+  def before_validation_on_create
+    if self.credit and self.origin
+      self.payment_on = Date.today if self.payment_on.nil?
+      self.contact_id = self.origin.contact_id
+      self.nature = "C"
+      self.payment_delay_id = self.origin.payment_delay_id
+      self.sale_order_id = self.origin.sale_order_id
     end
   end
   

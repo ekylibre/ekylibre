@@ -1,0 +1,16 @@
+%table
+  %tr
+    %td
+      = evalue @invoice, :number
+      = evalue @invoice, :client, :label=>:full_name
+      = evalue @invoice, :contact, :label=>:address
+      = evalue @invoice, :payment_on
+    %td
+      = evalue @invoice, :amount
+      = evalue @invoice, :amount_with_taxes
+      = evalue @invoice, :credit
+      = evalue @invoice, :sale_order, :label=>:number, :url=>{:action=>:sales_details}
+      = evalue @invoice, :origin, :label=>:number, :url=>{:action=>:invoices_display} if !@invoice.origin.nil?
+
+%h2= tc(:invoice_lines) 
+=dyta :invoice_credit_lines

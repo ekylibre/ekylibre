@@ -23,6 +23,7 @@ class InvoiceLine < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :invoice
+  belongs_to :origin, :class_name=>InvoiceLine.to_s
   belongs_to :price
   belongs_to :product
   belongs_to :order_line, :class_name=>SaleOrderLine.to_s
@@ -38,6 +39,28 @@ class InvoiceLine < ActiveRecord::Base
     #false if !line.nil? and line.id != self.id
     #self.destroy if !line.nil?
     #true if line.nil?
+
+    if !self.origin_id.nil?
+      self.amount = self.quantity * self.price.amount
+      self.amount_with_taxes = self.quantity * self.price.amount_with_taxes
+    end
+    
+  end
+  
+  def validate
+    if !self.origin_id.nil?
+      errors.add(:quantity) if ((self.quantity*-1) > self.origin.quantity)
+    end
+  end
+
+  def after_save
+    if !self.origin_id.nil?
+      self.invoice.save 
+    end
+  end
+
+  def credited_quantity
+    
   end
   
 end
