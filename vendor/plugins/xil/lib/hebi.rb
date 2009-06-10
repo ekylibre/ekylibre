@@ -2,11 +2,6 @@ require 'bigdecimal'
 require 'zlib'
 require 'iconv'
 
-
-
-
-
-
 class ::Object
 
   def to_pdf(in_content_stream=false)
@@ -17,9 +12,6 @@ class ::Object
     when Numeric    then String(self)
     when Array
       "[" << self.map { |e| e.to_pdf(in_content_stream) }.join(' ') << "]"
-#    when Prawn::LiteralString
-#      self = self.gsub(/[\\\n\(\)]/) { |m| "\\#{m}" }
-#      "(#{self})"
     when Time
       obj = self.strftime("D:%Y%m%d%H%M%S%z").chop.chop + "'00'"
       obj = obj.gsub(/[\\\n\(\)]/) { |m| "\\#{m}" }
@@ -35,7 +27,7 @@ class ::Object
          "/" << obj
        end
     when Hash
-      output = "<<"
+      output = "\<\<"
       self.each do |k,v|
         unless String === k || Symbol === k
           raise Exception.new("A PDF Dictionary must be keyed by names")
@@ -43,15 +35,11 @@ class ::Object
         output << k.to_sym.to_pdf(in_content_stream) << " " <<
                   v.to_pdf(in_content_stream)
       end
-      output << ">>"
+      output << "\>\>"
     when Hebi::Reference
       self.to_s
-#     when Prawn::Reference
-#       self.to_s      
-#     when Prawn::NameTree::Node
-#       PdfSelfect(self.to_hash)
-#     when Prawn::NameTree::Value
-#       PdfSelfect(self.name) + " " + PdfObject(self.value)
+    when Hebi::Stream
+      self.to_s
     else
       raise Exception.new("This object cannot be serialized to PDF (#{self.class.to_s})")
     end     
@@ -60,68 +48,44 @@ class ::Object
 end
 
 
-
-
-
-
-
-
-
-
-
-
-
 # Hebi is a "japanese" snake (weighty but fast and nibble)
 module Hebi
 
-
+  # Reference to en object
   class Reference
     def initialize(id, complement=0)
       @id, @complement = id, complement
     end
 
     def to_s
-      @id+' '+@complement+' R'
+      @id.to_s+' '+@complement.to_s+' R'
+    end
+
+    def id
+      @id
     end
   end
 
+
+  # General Stream 
+  class Stream
+    def initialize(data)
+      @data = data
+    end
+
+    def to_s
+      "stream\n"+@data.to_s+"\nendstream"
+    end    
+  end
+
+
+  # Document
   class Document
     VERSION = '0.1'
     PDF_VERSION = "1.3"
     LAYOUTS = [:SinglePage, :OneColumn, :TwoColumnLeft, :TwoColumnRight]
     ZOOMS = {:page=>[:Fit], :width=>[:FitH, nil], :height=>[:FitV, nil] }
-    JPEG_COLOR_SPACES = [nil, nil, nil, 'DeviceRGB', 'DeviceCMYK']
-    PNG_COLOR_SPACES = ['DeviceGray', nil, 'DeviceRGB', 'Indexed']
-
-    WIN_ANSI_MAPPING = {
-      0x20AC=>0x80,
-      0x201A=>0x82,
-      0x0192=>0x83,
-      0x201E=>0x84,
-      0x2026=>0x85,
-      0x2020=>0x86,
-      0x2021=>0x87,
-      0x02C6=>0x88,
-      0x2030=>0x89,
-      0x0160=>0x8A,
-      0x2039=>0x8B,
-      0x0152=>0x8C,
-      0x017D=>0x8E,
-      0x2018=>0x91,
-      0x2019=>0x92,
-      0x201C=>0x93,
-      0x201D=>0x94,
-      0x2022=>0x95,
-      0x2013=>0x96,
-      0x2014=>0x97,
-      0x02DC=>0x98,
-      0x2122=>0x99,
-      0x0161=>0x9A,
-      0x203A=>0x9B,
-      0x0152=>0x9C,
-      0x017E=>0x9E,
-      0x0178=>0x9F
-    }
+    @@win_ansi_mapping = { 0x20AC=>0x80, 0x201A=>0x82, 0x0192=>0x83, 0x201E=>0x84, 0x2026=>0x85, 0x2020=>0x86, 0x2021=>0x87, 0x02C6=>0x88, 0x2030=>0x89, 0x0160=>0x8A, 0x2039=>0x8B, 0x0152=>0x8C, 0x017D=>0x8E, 0x2018=>0x91, 0x2019=>0x92, 0x201C=>0x93, 0x201D=>0x94, 0x2022=>0x95, 0x2013=>0x96, 0x2014=>0x97, 0x02DC=>0x98, 0x2122=>0x99, 0x0161=>0x9A, 0x203A=>0x9B, 0x0152=>0x9C, 0x017E=>0x9E, 0x0178=>0x9F }
 
     attr_accessor :title, :keywords, :creator, :author, :subject, :zoom, :layout
     attr_reader :fonts, :available_fonts, :compress, :encoding, :ic
@@ -174,29 +138,26 @@ module Hebi
       @aliases[key] = value
     end
 
-    def image(file, x, y, params={})
+    def image(file, x, y, w=nil, h=nil, params={})
       self.new_page if @page<0
       if @images[file].nil?
         error("File does not exists (#{file.inspect})") unless File.exists? file
-        @images[file] = image_info(file)
-        @images[file][:name] = 'I'+@images.size.to_s
+        @images[file] = Hebi::Image.new(file, ('I'+@images.size.to_s).to_sym)
       end
       image = @images[file]
-      h = params[:height]
-      w = params[:width]
       if w and h.nil?
-        h = w*image[:height]/image[:width]
+        h = w*image.height/image.width
       elsif w.nil? and h
-        w = h*image[:width]/image[:height]
+        w = h*image.width/image.height
       elsif w.nil? and h.nil?
-        h = image[:height].to_f/4
-        w = image[:width].to_f/4
+        h = image.height.to_f/4
+        w = image.width.to_f/4
       end
       x ||= 0
       y ||= 0 #= page[:format][1]-(y||0)-h
       self.save_graphics_state
       self.concatenate_matrix(w, 0, 0, h, x, y)
-      self.invoke_xobject(image[:name])
+      self.invoke_xobject(image.name)
       self.restore_graphics_state
     end
 
@@ -205,11 +166,7 @@ module Hebi
       error("Unvalid list of point") unless points.is_a? Array
       points.each{|p| error("Unvalid point: #{p.inspect}") unless is_a_point? p}
       border = params[:border]||{}
-      self.set_line_cap(border[:cap])
-      self.set_line_join(border[:join])
-      self.set_line_color(self.class.string_to_color(border[:color]))
-      self.set_line_width(border[:width])
-      self.set_line_dash(border[:style])
+      self.set_line(border)
       self.move_to(points[0])
       points[1..-1].each{|point| self.line_to(point)}
       self.stroke(false)
@@ -234,7 +191,7 @@ module Hebi
         self.paint(!background.nil?, !border.empty?)
       end
       if text
-        self.set_fill_color self.class.string_to_color(params[:font][:color])
+        self.set_fill_color params[:font][:color]
         self.font(params[:font][:family], :bold=>params[:font][:bold], :italic=>params[:font][:italic], :size=>params[:font][:size]||12)
         self.begin_text_object
         self.move_text_position(x,y)
@@ -296,7 +253,7 @@ module Hebi
       raise Exception.new("Unvalid String to escape: #{string.inspect}") unless string.is_a? String
       text = string
       text = @ic.iconv(text) if @encoding
-      text = text.to_s.unpack("U*").collect{ |i| (i<=255 ? i : WIN_ANSI_MAPPING[codepoint]||63) }.pack("C*")
+      text = text.to_s.unpack("U*").collect{ |i| (i<=255 ? i : @@win_ansi_mapping[codepoint]||63) }.pack("C*")
       '('+text.gsub('\\','\\\\').gsub('(','\\(').gsub(')','\\)').gsub("\r",'\\r')+')'
     end
 
@@ -306,17 +263,18 @@ module Hebi
 
     private
 
-    def build(compress=false)
+    def build(compress=true)
       @compress = compress
       @objects = [0]
       @objects_count = 0
       @now = Time.now
-      # Info
-      info_ref = build_info
       # Resources
       resources_ref = build_resources
       # Pages
       pages_ref, first_page_ref = build_pages(resources_ref)
+
+      # Info
+      info_ref = build_info
       # Catalog
       catalog_ref = build_catalog(pages_ref, @pages[0][:reference])
 
@@ -335,32 +293,31 @@ module Hebi
       length = pdf.length
       pdf += xref
       pdf += "trailer\n"
-      trailer = [['Size', (@objects_count+1).to_s], ['Root', catalog_ref.to_s]]
-      trailer << ['Info', info_ref.to_s] unless info_ref.nil?
-      pdf += dictionary(trailer)+"\n"
+      trailer = {:Size=>@objects_count+1, :Root=>catalog_ref}
+      trailer[:Info] = info_ref unless info_ref.nil?
+      pdf += trailer.to_pdf+"\n"
       pdf += "startxref\n"
       pdf += length.to_s+"\n"
       pdf += "%%EOF\n"
-      pdf
+      return pdf
     end
 
 
     def build_info
       info = { :CreationDate => @now, :ModDate => @now }
-      info[:Producer] = @producer unless @producer.nil?
-      info[:Title]    = @title unless @title.nil?
-      info[:Subject]  = @subject unless @subject.nil?
-      info[:Author]   = @author unless @author.nil?
-      info[:Keywords] = @keywords unless @keywords.nil?
-      info[:Creator]  = @creator unless @creator.nil?      
+      info[:Producer] = escape(@producer) unless @producer.nil?
+      info[:Title]    = escape(@title) unless @title.nil?
+      info[:Subject]  = escape(@subject) unless @subject.nil?
+      info[:Author]   = escape(@author) unless @author.nil?
+      info[:Keywords] = escape(@keywords) unless @keywords.nil?
+      info[:Creator]  = escape(@creator) unless @creator.nil?      
       new_object(info)
     end
 
 
     def build_resources
-      resources_ref = new_object
       # Build fonts objects
-      fonts = []
+      fonts = {}
       for key, font in @fonts
         dict = {:Type=>:Font, :Name=>font[:name]}
         if font[:type] == :core
@@ -370,59 +327,38 @@ module Hebi
         else
           error("Unsupported type of font: #{font[:type].inspect}")
         end
-        fonts << [font[:name], new_object(dict).to_s]
+        fonts[font[:name]] = new_object(dict)
       end
 
       # Build images objects
-      images = []
+      images = {}
       for key, image in @images
-        object = new_object do |lines|
-          dict = [['Type', '/XObject'], ['Subtype', '/Image'],
-                  ['Width', image[:width]], ['Height', image[:height]]]
-          if image[:color_space]=='Indexed'
-            dict << ['ColorSpace',  "[/Indexed /DeviceRGB #{image[:palette].length/3-1} #{resources_ref.to_s}]"]
+        images[image.name] = new_object do |lines|
+          dict = {:Type=>:XObject, :Subtype=>:Image, :Width=>image.width, :Height=>image.height}
+          if image.color_space==:Indexed
+            dict[:ColorSpace] = [:Indexed, :DeviceRGB, image.palette.length/3-1, new_stream_object(image.palette)]
           else
-            dict << ['ColorSpace', '/'+image[:color_space]]
-            dict << ['Decode', '[1 0 1 0 1 0 1 0]'] if image[:color_space]=='DeviceCMYK'
+            dict[:ColorSpace] = image.color_space
+            dict[:Decode] = [1, 0, 1, 0, 1, 0, 1, 0] if image.color_space==:DeviceCMYK
           end
-          dict << ['BitsPerComponent', image[:bits_per_component]]
-          dict << ['DecodeParms', image[:parms]] if image[:parms]
-          dict << ['Mask', image[:mask]] if image[:mask]
-          dict << ['Filter', image[:filter]] if image[:filter]
-          dict << ['Length', image[:data].length]
-          lines << dictionary(dict)
-          lines << new_stream(image[:data])
+          dict[:BitsPerComponent] = image.bits
+          dict[:DecodeParms] = image.parms if image.parms
+          dict[:Mask]   = image.mask if image.mask
+          dict[:Filter] = image.filter if image.filter
+          dict[:Length] = image.data.length
+          lines << dict
+          lines << Stream.new(image.data)
         end
-        # image[:name] = 'I'+images.size.to_s
-        images << [image[:name], object.to_s]
       end
 
       # Resource object
-      resources = [['ProcSet', '[/PDF /Text /ImageB /ImageC /ImageI]']]
-      resources << ['Font', fonts]
-      resources << ['XObject', images]
-      new_object(resources, resources_ref)
+      new_object({:ProcSet=> [:PDF, :Text, :ImageB, :ImageC, :ImageI], :Font=>fonts, :XObject=>images})
     end
 
 
 
-    def build_catalog(pages_object, first_page=nil)
-#       catalog = [['Type', '/Catalog'],
-#                  ['Pages', "#{pages_object.to_s} 0 R"]]
-#       if first_page and not @zoom.nil?
-#         zoom = if ZOOMS.keys.include? @zoom
-#                  ZOOMS[@zoom]
-#                elsif [Float, Integer].include? @zoom.class
-#                  "/XYZ null null #{(@zoom/100).to_s}"
-#                else
-#                  ZOOMS[:page]
-#                end
-#         catalog << ['OpenAction', "[#{first_page} 0 R #{zoom}]"]
-#       end
-#       catalog << ['PageLayout', LAYOUTS[@layout]||LAYOUTS[:coutinuous]] unless @layout.nil?
-
-#       catalog = {:Type=>:Catalog, :Pages=>pages}
-      
+    def build_catalog(pages_ref, first_page=nil)
+      catalog = {:Type=>:Catalog, :Pages=>pages_ref}
       if first_page and not zoom.nil?
         catalog[:OpenAction] = [first_page]
         catalog[:OpenAction] += if ZOOMS.keys.include? @zoom
@@ -439,266 +375,61 @@ module Hebi
 
     # Build the pages, page, content objects
     # TODO: Use balanced trees to optimize performance of viewer applications
-    def build_pages(resources_ref, parent_object=nil)
-      pages_count = @pages.size
+    def build_pages(resources_ref)
       pages = []
-      pages_object = new_object
+      pages_ref = new_object
       for page in @pages
-        # Page content
+        # Page content stream
         stream = ContentStream.new(self)
         for operation in page[:operations]
           stream.send operation[:name], *operation[:args]
         end
-        contents_object = new_stream_object(stream.to_s)
         # Page
-        dict = [['Type', '/Page'], ['Parent', "#{pages_object} 0 R"], # Required
-                ['MediaBox', sprintf('[0 0 %.2f %.2f]', page[:format][0], page[:format][1])], # Required
-                ['Resources', resources_ref.to_s+' 0 R'], # Required
-                ['Contents', contents_object.to_s+' 0 R']]
-        dict << ['Rotate', page[:rotate]] if page[:rotate] != 0
+        dict = {:Type=>:Page, :Parent=>pages_ref, # Required
+          :MediaBox=>[0, 0, page[:format][0], page[:format][1]], # Required
+          :Resources=>resources_ref, # Required
+          :Contents=>new_stream_object(stream.to_s)}
+        dict[:Rotate] = page[:rotate] if page[:rotate] != 0
         pages << new_object(dict)
       end
       # Pages root
-      dict = [['Type', '/Pages'], ['Kids', '['+pages.collect{|i| i.to_s+' 0 R'}.join(' ')+']'], ['Count',pages.size.to_s]]
-      dict << ['Parent', parent_object+' 0 R'] unless parent_object.nil?
-      pages_root = new_object(dict, pages_object)
-      return pages_root, pages[0]
+      dict = {:Type=>:Pages, :Kids=>pages, :Count=>pages.size}
+      return new_object(dict, pages_ref)
     end
 
-
-    def self.string_to_color(value)
-      value = "#"+value[1..1]*2+value[2..2]*2+value[3..3]*2 if value=~/^\#[a-f0-9]{3}$/i
-      array = if value=~/^\#[a-f0-9]{6}$/i
-                [value[1..2].to_i(16), value[3..4].to_i(16), value[5..6].to_i(16)]
-              elsif value=~/rgb\(\d+\,\d+\,\d+\)/i
-                array = value.split /(\(|\,|\))/
-                [array[2].strip, array[4].strip, array[6].strip].collect{|x| x[/\d*\.\d*/].to_f }
-              elsif value=~/rgb\(\d+\%\,\d+\%\,\d+\%\)/i
-                array = value.split /(\(|\,|\))/
-                [array[2].strip, array[4].strip, array[6].strip].collect{|x| x[/\d*\.\d*/].to_f*2.55 }
-              else
-                #raise Exception.new value.to_s
-                [0, 0, 0]
-              end
-      array.collect{|x| x.to_f/255}
-    end
-
-
-    def new_object(data=nil, object_number=nil)
-      if object_number.nil?
+    def new_object(data=nil, reference=nil)
+      if reference.nil?
         @objects_count += 1
         object_number = @objects_count
         @objects[object_number] = ''
+      elsif reference.is_a? Hebi::Reference
+        object_number = reference.id
+      else
+        raise Exception.new("Only Hebi::Reference can be used as parameter")
       end
       if block_given?
         lines = []
         yield lines
-        @objects[object_number] += lines.join("\n")+"\n"
+        lines.each do |item|
+          @objects[object_number] += item.to_pdf+"\n"
+        end
       elsif not data.nil?
-        @objects[object_number] += ([Array, Hash].include?(data.class) ? dictionary(data) : data)+"\n"
+        @objects[object_number] += data.to_pdf+"\n"
       end
-      Hebi::Reference.new(object_number)
+      return reference||Hebi::Reference.new(object_number)
     end
 
     def new_stream_object(stream)
-      filter = ''
+      dict = {}
       if @compress
-        filter = '/Filter /FlateDecode '
+        dict[:Filter] = :FlateDecode
         stream = Zlib::Deflate.deflate(stream)
       end
+      dict[:Length] = stream.to_s.length
       new_object do |lines|
-        lines << "\<\<"+filter+'/Length '+stream.length.to_s+"\>\>"
-        lines << new_stream(stream)
+        lines << dict
+        lines << Hebi::Stream.new(stream)
       end
-    end
-
-    def new_stream(stream)
-      "stream\n"+stream+"\nendstream"
-    end
-
-    def dictionary(dict=[], depth=0)
-      return dict.to_pdf if dict.is_a? Hash
-      raise Exception.new('Only Array type are accepted as dictionary type ('+dict.class.to_s+')') unless dict.is_a? Array
-      eol = (dict.size>1 and not @compress)
-      code  = "\<\<"
-      code += "\n" if eol
-      for key, value in dict
-        code += "  "*depth+'/'+key.to_s+' '
-        code += value.is_a?(Array) ? dictionary(value, depth+1) : value.to_s
-        code += "\n" if eol
-      end
-      code += "  "*depth+"\>\>"
-      code
-    end
-
-#     def get_font(family_name='Times', bold=false, italic=false)
-#       label = family_name.downcase+(bold ? '-bold' : '')+(italic ? '-italic' : '')
-#       font = @fonts[label]
-#       if font.nil?
-#         font = @available_fonts[label]
-#         error("Unavailable font: #{label}") if font.nil?
-#         font[:name] = 'F'+(@fonts.size+1).to_s
-#         @fonts[label] = font
-#       end
-#       font
-#     end
-
-    
-
-
-
-    def image_info(file)
-      extensions = {'jpeg'=>'jpeg', 'jpg'=>'jpeg', 'png'=>'png'}    
-      extension = file.split('.')[-1]
-      error("Image type not supported: #{extension}, (Supported: #{extensions.keys.join(', ')})") unless extensions.keys.include? extension
-      send("image_info_"+extensions[extension], file)
-    end
-
-    # jpeg marker codes
-    M_SOF0  = 0xc0
-    M_SOF1  = 0xc1
-    M_SOF2  = 0xc2
-    M_SOF3  = 0xc3
-    
-    M_SOF5  = 0xc5
-    M_SOF6  = 0xc6
-    M_SOF7  = 0xc7
-
-    M_SOF9  = 0xc9
-    M_SOF10 = 0xca
-    M_SOF11 = 0xcb
-
-    M_SOF13 = 0xcd
-    M_SOF14 = 0xce
-    M_SOF15 = 0xcf
-
-    M_SOI   = 0xd8
-    M_EOI   = 0xd9
-    M_SOS   = 0xda
-
-    def image_info_jpeg(file)
-      result = nil
-      File.open(file, "rb") do |f|
-        marker = image_info_jpeg_next_marker(f)
-        return nil if marker != M_SOI
-        while result.nil?
-          marker = image_info_jpeg_next_marker(f)
-          # puts('Marker : '+marker.to_s(16))
-          case marker
-          when M_SOF0, M_SOF1, M_SOF2, M_SOF3, M_SOF5, M_SOF6, M_SOF7, M_SOF9, M_SOF10, M_SOF11, M_SOF13, M_SOF14, M_SOF15 then
-            length = freadshort(f)
-            if result.nil?
-              result = {}
-              result[:bits_per_component] = freadbyte(f)
-              result[:height]   = freadshort(f)
-              result[:width]    = freadshort(f)
-              result[:channels] = freadbyte(f)
-              f.seek(length - 8, IO::SEEK_CUR)
-            else
-              f.seek(length - 2, IO::SEEK_CUR)
-            end
-          when M_SOS, M_EOI then
-            return nil
-          else
-            length = freadshort(f)
-            f.seek(length - 2, IO::SEEK_CUR)
-          end
-        end
-      end
-      f = open(file, 'rb')
-      data = f.read
-      f.close
-      result[:color_space] = JPEG_COLOR_SPACES[result[:channels]]||'DeviceGray' if result[:channels]
-      result[:data] = data
-      result[:filter] = '/DCTDecode'
-      result[:bits_per_component] ||= 8
-      result
-    end
-
-    def image_info_jpeg_next_marker(f)
-      begin
-        while (c = freadbyte(f)) != 0xff
-        end
-        c = freadbyte(f)
-      end while c == 0 # look for 0xff
-      return c
-    end
-    
-    def image_info_png(file)
-      f=open(file,'rb')
-      error('Not a PNG file: '+file) unless f.read(8)==137.chr+'PNG'+13.chr+10.chr+26.chr+10.chr
-      f.read(4)
-      error('Incorrect PNG file: '+file) if f.read(4)!='IHDR'
-      result = {}
-      result[:width]  = freadint(f)
-      result[:height] = freadint(f)
-      result[:bits_per_component] = f.read(1)[0]
-      error('16-bit depth not supported: '+file) if result[:bits_per_component]>8
-      ct=f.read(1)[0]
-      result[:color_space] = PNG_COLOR_SPACES[ct]
-      error('Alpha channel not supported: '+file) unless result[:color_space]
-      error('Unknown compression method: '+file) if f.read(1)[0]!=0
-      error('Unknown filter method: '+file) if f.read(1)[0]!=0
-      error('Interlacing not supported: '+file) if f.read(1)[0]!=0
-      f.read(4)
-      # result[:parms]='<</Predictor 15 /Colors '+(ct==2 ? '3' : '1')+' /BitsPerComponent '+result[:bits_per_component].to_s+' /Columns '+result[:width].to_s+'>>'
-      result[:parms]=[['Predictor', 15], ['Colors', (ct==2 ? '3' : '1')],
-                      ['BitsPerComponent', result[:bits_per_component]], ['Columns', result[:width]]]
-      # Scan chunks looking for palette, transparency and image data
-      transparency=''
-      result[:palette]=''
-      result[:data]=''
-      result[:filter]='/FlateDecode'
-      begin
-        n = freadint(f)
-        type=f.read(4)
-        if type=='PLTE'
-          # Read palette
-          result[:palette]=f.read(n)
-          f.read(4)
-        elsif type=='tRNS'
-          # Read transparency info
-          t=f.read(n)
-          if ct==0
-            transparency=[t[1]]
-          elsif ct==2
-            transparency=[t[1],t[3],t[5]]
-          else
-            pos=t.index(0)
-            transparency=[pos] unless pos.nil?
-          end
-          f.read(4)
-        elsif type=='IDAT'
-          # Read image data block
-          result[:data] << f.read(n)
-          f.read(4)
-        elsif type=='IEND'
-          break
-        else
-          f.read(n+4)
-        end
-      end while n
-      f.close
-      error('Missing palette in '+file) if result[:color_space]=='Indexed' and result[:palette]==''
-      if transparency.is_a?(Array)
-        mask=''
-        transparency.length.times { |i| mask += (transparency[i].to_s+' ')*2 }
-        result[:mask] = '['+mask+']'
-      end
-      result
-    end
-
-    # Read a 4-byte integer from file
-    def freadint(f)
-      f.read(4).unpack('N')[0]
-    end
-
-    def freadshort(f)
-      f.read(2).unpack('n')[0]
-    end
-
-    def freadbyte(f)
-      f.read(1).unpack('C')[0]
     end
 
     def is_a_point?(p)
@@ -715,6 +446,140 @@ module Hebi
   end
 
 
+
+
+  # Image (JPG or PNG)
+  class Image
+    JPEG_COLOR_SPACES = [nil, :DeviceGray, nil, :DeviceRGB, :DeviceCMYK]
+    JPEG_SOF_BLOCKS = %W(\xc0 \xc1 \xc2 \xc3 \xc5 \xc6 \xc7 \xc9 \xca \xcb \xcd \xce \xcf)
+    JPEG_APP_BLOCKS = %W(\xe0 \xe1 \xe2 \xe3 \xe4 \xe5 \xe6 \xe7 \xe8 \xe9 \xea \xeb \xec \xed \xee \xef)
+    PNG_COLOR_SPACES  = [:DeviceGray, nil, :DeviceRGB, :Indexed]
+
+    attr_reader :height, :width, :color_space, :bits, :name, :data, :filter
+    attr_reader :palette, :pixel_bytes, :transparency, :parms, :mask
+
+    def initialize(file, name)
+      extensions = {'jpeg'=>'jpeg', 'jpg'=>'jpeg', 'png'=>'png'}    
+      extension = file.split('.')[-1]
+      error("Image type not supported: #{extension}, (Supported: #{extensions.keys.join(', ')})") unless extensions.keys.include? extension
+      @nature = extensions[extension]
+      @name = name
+      send("initialize_"+@nature, file)
+    end
+
+    private
+
+    # Process a new JPG image
+    #
+    # <tt>:data</tt>:: A string containing a full PNG file
+    #
+    def initialize_jpeg(file)
+      info = {}
+      data = nil
+      File.open(file, "rb") do |f|
+        data = f.read
+      end
+      data = StringIO.new(data.dup)
+      channels = nil
+      c_marker = "\xff" # Section marker.
+      data.read(2) # Skip the first two bytes of JPEG identifier.
+      loop do
+        marker, code, length = data.read(4).unpack('aan')
+        raise "JPEG marker not found!" if marker != c_marker
+        
+        if JPEG_SOF_BLOCKS.include?(code)
+          @bits, @height, @width, @channels = data.read(6).unpack("CnnC")
+          # info[:BitsPerComponent], info[:Height], info[:Width], channels = data.read(6).unpack("CnnC")
+          break
+        end
+        
+        buffer = data.read(length - 2)
+      end
+      @color_space = JPEG_COLOR_SPACES[@channels]
+      raise Exception.new("JPG uses an unsupported number of channels") if @color_space.nil?
+      @filter = :DCTDecode
+      @decode = [1, 0, 1, 0, 1, 0, 1, 0] if @color_space==:DeviceCMYK
+      File.open(file, "rb") do |f|
+        data = f.read
+      end
+      @data   = data
+    end
+    
+    def initialize_png(file)
+      f=open(file,'rb')
+      error('Not a PNG file: '+file) unless f.read(8)==137.chr+'PNG'+13.chr+10.chr+26.chr+10.chr
+      f.read(4)
+      error('Incorrect PNG file: '+file) if f.read(4)!='IHDR'
+      @width  = freadint(f)
+      @height = freadint(f)
+      @bits   = f.read(1)[0]
+      error('16-bit depth not supported: '+file) if @bits>8
+      @pixel_bytes=f.read(1)[0]
+      @color_space = PNG_COLOR_SPACES[@pixel_bytes]
+      error('Alpha channel not supported: '+file) unless @color_space
+      error('Unknown compression method: '+file) if f.read(1)[0]!=0
+      error('Unknown filter method: '+file) if f.read(1)[0]!=0
+      error('Interlacing not supported: '+file) if f.read(1)[0]!=0
+      f.read(4)
+      # @parms='<</Predictor 15 /Colors '+(@pixel_bytes==2 ? '3' : '1')+' /BitsPerComponent '+@bits.to_s+' /Columns '+@width].to_s+'>>'
+      @parms={:Predictor=>15, :Colors=>(@pixel_bytes==2 ? 3 : 1), :BitsPerComponent=>@bits, :Columns=>@width}
+      # Scan chunks looking for palette, transparency and image data
+      @transparency=''
+      @palette=''
+      @data=''
+      @filter=:FlateDecode
+      begin
+        n = freadint(f)
+        type=f.read(4)
+        if type=='PLTE'
+          # Read palette
+          @palette=f.read(n)
+          f.read(4)
+        elsif type=='tRNS'
+          # Read @transparency info
+          t=f.read(n)
+          if @pixel_bytes==0
+            @transparency=[t[1]]
+          elsif @pixel_bytes==2
+            @transparency=[t[1],t[3],t[5]]
+          else
+            pos=t.index(0)
+            @transparency=[pos] unless pos.nil?
+          end
+          f.read(4)
+        elsif type=='IDAT'
+          # Read image data block
+          @data << f.read(n)
+          f.read(4)
+        elsif type=='IEND'
+          break
+        else
+          f.read(n+4)
+        end
+      end while n
+      f.close
+      error('Missing palette in '+file) if @color_space==:Indexed and @palette==''
+      if @transparency.is_a?(Array)
+        mask=''
+        @transparency.length.times { |i| mask += (@transparency[i].to_s+' ')*2 }
+        @mask = [mask]
+      end
+    end
+
+    # Read a 4-byte integer from file
+    def freadint(f)
+      f.read(4).unpack('N')[0]
+    end
+
+    def freadshort(f)
+      f.read(2).unpack('n')[0]
+    end
+
+    def freadbyte(f)
+      f.read(1).unpack('C')[0]
+    end
+
+  end
 
 
   class ContentStream
@@ -861,7 +726,7 @@ module Hebi
         @document.error('Unvalid type to set size: '+size.inspect) unless NUMERIC_CLASSES.include? size.class
         @font_size = size
       end
-      add '/'+@font_name+' '+@font_size.to_s+' Tf'
+      add '/'+@font_name.to_s+' '+@font_size.to_s+' Tf'
       self
     end
 
@@ -994,7 +859,7 @@ module Hebi
     end
 
     def invoke_xobject(name)
-      add '/'+name+' Do'
+      add '/'+name.to_s+' Do'
       self
     end
 
@@ -1147,12 +1012,8 @@ module Hebi
       array.collect{|x| x.to_f/255}
     end
 
-
     # Format a text string
     def escape(string)
-      #    string = @document.ic.iconv(string) if @document.encoding
-      #    string = '('+string.to_s.gsub('\\','\\\\').gsub('(','\\(').gsub(')','\\)').gsub("\r",'\\r')+')'
-      #    string
       @document.escape(string)
     end
 

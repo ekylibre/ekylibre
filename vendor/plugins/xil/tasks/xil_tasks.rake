@@ -84,18 +84,18 @@ namespace :xil do
     pdf.set_fill_color(0.5, 0.6, 0.7)
     pdf.set_line_color(0.5, 0.6, 0.7)
     pdf.set_line_color
-    pdf.image("#{RAILS_ROOT}/vendor/plugins/xil/tasks/images/chrome.jpg", 300, 20, :width=>275)
+    pdf.image("#{RAILS_ROOT}/vendor/plugins/xil/tasks/images/chrome.jpg", 300, 20, 275)
     pdf.font "Times", :size=>12
     pdf.text "Blabla bla blablb bla bla", :at=>[140, 140]
 
 
 
 
-    for angle in 0..3
+    for angle in 0..1
       pdf.new_page([595.28, 841.89], angle*90)
       full = true
-      pdf.image("#{RAILS_ROOT}/vendor/plugins/xil/tasks/images/chrome.jpg", 300, 400, :width=>275)
-      pdf.image("#{RAILS_ROOT}/vendor/plugins/xil/tasks/images/graph.png", 300,  000, :width=>275)
+      pdf.image("#{RAILS_ROOT}/vendor/plugins/xil/tasks/images/chrome.jpg", 300, 400, 275)
+      pdf.image("#{RAILS_ROOT}/vendor/plugins/xil/tasks/images/graph.png", 300,  000, 275)
       pdf.line([[300,20], [420, 300], [400, 400], [350, 350]], :border=>{:width=>10, :style=>:dashed, :color=>'#12C', :join=>:miter})
       pdf.line([[30,20], [42, 300], [40, 400], [35, 350]], :border=>{:width=>1, :style=>:dashed, :color=>'#c12', :cap=>:butt})
       pdf.line([[50,20], [92, 300], [90, 400], [85, 350]], :border=>{:width=>1, :style=>:dashed, :color=>'#183', :cap=>:butt})
