@@ -311,8 +311,8 @@ fr-FR:
         vat_number: Numéro de TVA intra-communautaire
         vat_submissive: Soumis à la TVA
         website: Site Web
-        client_account_id: compte client associé
-        supplier_account_id: compte fournisseur associé
+        client_account_id: Compte client associé
+        supplier_account_id: Compte fournisseur associé
         client: Client
         supplier: Fournisseur
       entity_category:
@@ -1206,6 +1206,7 @@ fr-FR:
       error_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité commandée'
     entity:
       client: 'Client'
+      supplier: 'Fournisseur'
       error_missing_title: 'doit contenir la dénomination sociale "{{title}}"'
       error_client_account_already_used: 'Le compte comptable client est déjà utilisé.'
       error_supplier_account_already_used: 'Le compte comptable fournisseur est déjà utilisé.'
@@ -1213,7 +1214,7 @@ fr-FR:
       error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
       error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'
       error_amount_rate: 'Le taux de conversion n''existe pas.'        
-      locked_entry: 'L''écriture est verrouillée.'
+      error_closed_entry: 'L''écriture {{value}} est verrouillée.'
     financialyear:
       error_stopped2_financialyear: 'La date de fin d''exercice doit être une date de fin de mois.'
       error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'

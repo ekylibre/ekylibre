@@ -38,7 +38,7 @@ class Account < ActiveRecord::Base
   has_many :products
   has_many :purchase_order_lines
   acts_as_tree
-  validates_format_of :number, :with=>/[0-9]{3}[0-9A-Z]+/
+  validates_format_of :number, :with=>/[0-9][0-9]?[0-9]?[0-9A-Z]*/
   
   # This method allows to create the parent accounts if it is necessary.
   def before_validation
@@ -50,14 +50,18 @@ class Account < ActiveRecord::Base
       index += -1
       parent_account = Account.find(:last, :conditions => {:company_id => self.company_id, :number => self.number.to_s[0..index]})
     end
-    self.update_attribute(:parent_id, parent_account.id||0) 
+#    raise Exception.new('p_account: '+parent_account.inspect+':'+index.abs.to_s+':'+self.number.to_s)
+    self.update_attribute(:parent_id, parent_account.id) unless parent_account.nil? 
+
   end
 
   # This method is called after the account is created or updated.
   def after_save
     sub_accounts = Account.find(:all, :conditions => ["id <> ? AND company_id = ? AND parent_id = ? AND number LIKE ?", self.id, self.company_id, self.parent_id, self.number+'%'])
-    sub_accounts.each do |sub_account|
+    if sub_accounts.size > 0
+      sub_accounts.each do |sub_account|
       sub_account.update_attribute(:parent_id, self.id)
+      end
     end
   end
     

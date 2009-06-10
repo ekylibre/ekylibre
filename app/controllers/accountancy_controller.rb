@@ -667,10 +667,37 @@ class AccountancyController < ApplicationController
     render :text => options_for_select(@journals_records) 
   end
  
-  # This method allows to make lettering for the account.
-  def lettering
-    
 
+  # This method allows to make lettering for the client and supplier accounts.
+  def lettering
+    @accounts_supplier = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '401%'])
+    @accounts_client = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '411%'])
+    
+    @financialyears = @current_company.financialyears.find(:all)
+    
+    entries =  Entry.find(:all, :conditions => ["editable = false AND (a.number LIKE ? OR a.number LIKE ?)", '401%', '411%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
+    
+    # if @entries.size.zero?
+#       flash[:message] = tc('messages.need_entries_to_letter')
+#       redirect_to :action => :entries
+#       return
+#     end
+
+    if request.post?
+      @account = Account.find_by_number([ params[:account_client_id], params[:account_supplier_id] ])
+ 
+      
+      @entries = @current_company.entries.find(:all, :conditions => { :account_id => [ params[:account_supplier_id], params[:account_client_id] ]})  
+      
+
+
+
+
+
+      @title = {:value1 => @account.number}
+      render :partial => 'lettering'
+    end
+   
   end
   
   # lists all the statements in details for a precise account.

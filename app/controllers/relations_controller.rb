@@ -209,7 +209,6 @@ class RelationsController < ApplicationController
   end
 
 
-
   dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]'], :active=>true}, :empty=>true) do |t|
     t.column :address, :url=>{:action=>:entities_contacts_update}
     t.column :phone
@@ -269,7 +268,9 @@ class RelationsController < ApplicationController
     
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
-    
+   
+    @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '411%'])
+    @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '401%'])
 
     if request.post?
       #raise Exception.new params.inspect+"               "+params[:entity_meeting].inspect
@@ -279,12 +280,24 @@ class RelationsController < ApplicationController
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
   
-      if params[:entity][:client]
-        @entity.create_account(:client) unless params[:entity][:client_account_id].is_a? Integer
-      else
-        @entity.create_account(:supplier) unless params[:entity][:supplier_account_id].is_a? Integer
+      unless params[:entity][:client].to_i.zero?
+        if params[:entity][:client_account_id].to_i.zero?
+          account = @entity.create_update_account(:client) 
+          @entity.client_account_id = account.id
+        else
+          @entity.client_account_id = params[:entity][:client_account_id]
+        end
       end
-          
+      
+      unless params[:entity][:supplier].to_i.zero?
+        if params[:entity][:supplier_account_id].to_i.zero?
+          account =@entity.create_update_account(:supplier)
+          @entity.supplier_account_id = account.id
+        else
+          @entity.supplier_account_id = params[:entity][:supplier_account_id]
+        end
+      end
+
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
@@ -345,6 +358,9 @@ class RelationsController < ApplicationController
     @complement_data = []
     @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})||Contact.new(:entity_id=>@entity.id,:company_id=>@current_company.id, :norm_id=>@current_company.address_norms[0].id)
  
+    @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '411%'])
+    @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '401%'])
+    
     if request.post? and @entity
       
       #raise Exception.new @operation.inspect
@@ -368,10 +384,18 @@ class RelationsController < ApplicationController
       ActiveRecord::Base.transaction do
         saved = @entity.update_attributes(params[:entity])
         if saved
-          if params[:entity][:client]
-            @entity.create_account(:client) unless params[:entity][:client_account_id].is_a? Integer
-          else
-            @entity.create_account(:supplier) unless params[:entity][:supplier_account_id].is_a? Integer
+          unless params[:entity][:client].to_i.zero?
+            if params[:entity][:client_account_id].to_i.zero?
+              account = @entity.create_update_account(:client) 
+              @entity.update_attribute(:client_account_id, account.id)
+            end
+          end
+          
+          unless params[:entity][:supplier].to_i.zero?
+            if params[:entity][:supplier_account_id].to_i.zero?
+              account = @entity.create_update_account(:supplier) 
+              @entity.update_attribute(:supplier_account_id, account.id)
+            end
           end
       
           for datum in @complement_data

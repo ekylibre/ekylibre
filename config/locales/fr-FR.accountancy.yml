@@ -172,7 +172,15 @@ fr-FR:
       journals_close:
         title: Clôture du journal
         close: "Clôturer le journal"
-  
+      lettering:
+        title: Lettrage de comptes
+        lettering_account_client: Lettrage des comptes clients
+        lettering_account_supplier: Lettrage des comptes fournisseurs
+        select_account_client: Compte à lettrer
+        select_account_supplier: Compte à lettrer
+        select_financialyear: 'Exercice'
+      _lettering:
+        title: 'ECRITURES dans le compte N° {{value1}}'     
       _print_by_journal:
         dates: Saisissez les dates ainsi que le journal
         journal: Journal

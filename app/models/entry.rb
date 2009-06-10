@@ -63,7 +63,13 @@ class Entry < ActiveRecord::Base
   #
   def validate
     errors.add :debit, tc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?
-    errors.add :debit, tc(:error_amount_balance2) unless self.debit + self.credit >= 0    
+    errors.add :debit, tc(:error_amount_balance2) unless self.debit + self.credit >= 0  
+     
+    if self.record.closed
+      self.record.entries.each do |entry|
+        errors.add_to_base tc(:error_closed_entry, entry.name) unless entry.close? 
+      end
+    end
   end
   
   # 
