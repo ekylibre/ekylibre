@@ -29,6 +29,7 @@ class CompanyController < ApplicationController
     t.column :first_name
     t.column :last_name
     t.column :free_price
+    t.column :credits
     t.column :reduction_percent
     t.column :email
     t.action :locked, :actions=>{"true"=>{:action=>:users_unlock},"false"=>{:action=>:users_lock}}, :method=>:post

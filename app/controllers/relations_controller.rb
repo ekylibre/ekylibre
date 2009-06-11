@@ -241,10 +241,23 @@ class RelationsController < ApplicationController
     t.action :meetings_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
 
+  
+  dyta(:client_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :number, :url=>{:controller=>:management, :action=>:invoices_display}
+    t.column :full_name, :through=>:client
+    t.column :address, :through=>:contact
+    t.column :amount
+    t.column :amount_with_taxes
+    t.column :credit
+    t.action :invoices_cancel, :if=>'RECORD.credit != true and @current_user.credits'
+  end
+
   def entities_display
     @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
     session[:current_entity] = @entity.id
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})
+    @key = ""
+    @invoices_count = @current_company.invoices.size
     @meetings_count = @current_company.meetings.find(:all, :conditions=>{:entity_id=>@entity.id}).size
     session[:my_entity] = params[:id]
     @contact = Contact.new

@@ -1,0 +1,14 @@
+h1. Comment gérer ses factures ?
+
+h2. La recherche d'une facture
+Par défaut, toutes vos factures sont affichées.
+La barre de recherche d'une facture vous permet de trouver toutes vos *factures* enregistrées ainsi que vos *avoirs*. Cette *recherche s'effectue sur le numéro* de la facture.
+
+Vous pouvez saisir dans le champ de recherche tout ou seulement une partie du numéro de la facture.
+
+h2. Passage en avoir
+
+Vous pouvez *passer une facture en avoir* (total ou partiel) grâce à l'action .L'avoir sera enregistré en tant que facture mais avec des quantités négatives.
+
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

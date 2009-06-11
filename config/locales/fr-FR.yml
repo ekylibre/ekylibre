@@ -618,6 +618,7 @@ fr-FR:
         nature: Nature
         reductible: Réductible
       user:
+        credits: 'Création d''avoirs'
         email: 'E-mail'
         first_name: 'Prénom'
         free_price: Prix libres
@@ -805,6 +806,7 @@ fr-FR:
       users_update:
          title: 'Modification de l''utilisateur'
       _users_form:
+        rights: Droits 
         subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
       establishments:
         getback: Retour à la fiche de société
@@ -1010,6 +1012,10 @@ fr-FR:
           other: '{{count}} contacts'
         entities_contacts_create: 'Ajouter un nouveau contact'
         entities_update: Modifier la fiche
+        invoices:
+          zero: Aucune facture
+          one: 1 facture
+          other: '{{count}} factures'
         meetings:
           zero: 'Aucune rencontre'
           one: '1 rencontre'

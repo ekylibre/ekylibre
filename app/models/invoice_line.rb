@@ -59,8 +59,7 @@ class InvoiceLine < ActiveRecord::Base
     end
   end
 
-  def credited_quantity
-    
-  end
+
+
   
 end

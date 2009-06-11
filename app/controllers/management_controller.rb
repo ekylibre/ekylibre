@@ -87,7 +87,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit
-    t.action :invoices_cancel, :if=>'RECORD.credit != true'
+    t.action :invoices_cancel, :if=>'RECORD.credit != true and @current_user.credits'
   end
 
   def invoices
@@ -136,6 +136,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:product, :url=>{:action=>:products_display}
     t.column :amount, :through=>:price
     t.column :amount_with_taxes, :through=>:price, :label=>tc('price_amount_with_taxes')
+    t.column :quantity
     t.column :amount
     t.column :amount_with_taxes
   end
@@ -696,7 +697,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:invoice_lines, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
-    t.column :number, :children=>false
+    t.column :number, :children=>false, :url=>{:action=>:invoices_display}
     t.column :address, :through=>:contact, :children=>false
     t.column :amount
     t.column :amount_with_taxes
