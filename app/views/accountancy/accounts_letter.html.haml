@@ -1,17 +1,22 @@
-- form_remote_tag() do
-  %table
-    %tr
-      %td.label=lc :entry_name
-      %td.label=lc :entry_debit
-      %td.label=lc :entry_credit
-      %td.label=lc :entry_currency_rate
+%table.dyta
+  %tr
+    %th=tc(:recorded_on)
+    %th=tc(:journal_name)
+    %th=tc(:entry_name)
+    %th=tc(:record_number)
+    %th=tc(:entry_debit)
+    %th=tc(:entry_credit)
+    %th=tc(:entry_letter)
+  - if @entries
     - @entries.each do |entry|
-      id=entry.id
-      =radio_button :entry, entry.id,
-      %td.input=submit_to_remote 'entry_validate', lc(:entry_validate), :url => {:action => :accounts_letter}, :html => {:tabindex => 7}
-      %tr
+      - attr = cycle("even", "odd")
+      %tr{:class => (entry.letter.empty? ? "unletterabled" : "letterabled")+" "+attr, :id=> 'e'+entry.id.to_s}
+        %td=I18n.localize(entry.record.created_on)
+        %td=entry.record.journal.name
         %td=entry.name
-        %td=entry.debit
-        %td=entry.credit
-        %td=entry.currency_rate
-      
+        %td=entry.record.number
+        %td.decimal=entry.debit
+        %td.decimal=entry.credit
+        %td{ :id => 'entry_letter_'+entry.id.to_s, :onclick => remote_function(:after => "var element=$('e"+entry.id.to_s+"'); if (element.hasClassName('unletterabled"+attr+"')) { element.removeClassName('unletterabled "+attr+"'); element.addClassName('letterabled"+attr+"'); } else if (element.hasClassName('letterabled"+attr+"')) { element.removeClassName('letterabled"+attr+"'); element.addClassName('unletterabled"+attr+"');}", :url => { :action => 'entries_letter', :id => entry.id })}=entry.letter    
+%br  
+#lettering=render :partial => 'accounts_letter'

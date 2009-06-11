@@ -311,6 +311,7 @@ table.dyta tr.balanced.odd td{background:#99EB99;}
 table.dyta tr.unbalanced.even td{background: #FFCCCC;}
 table.dyta tr.unbalanced.odd td{background: #FF9999;}
 
+/* statements_point */
 table.dyta tr.pointable.even td{background:#CCF5CC;}
 table.dyta tr.pointable.odd  td{background:#99EB99;}
 table.dyta tr.unpointable.even td{background: #FFCCCC;}
@@ -320,6 +321,16 @@ table.dyta tr.pointabled.odd td{background:#FF8830;}
 
 table.dyta tr.total{background:#D28830;}
 table.dyta tr.total td{color:RED;font-family:monospace;}
+
+/* lettering */
+table.dyta tr.letterabled.even td{background:#CCF5CC;}
+table.dyta tr.letterabled.odd  td{background:#99EB99;}
+table.dyta tr.unletterabled.even td{background: #FFCCCC;}
+table.dyta tr.unletterabled.odd  td{background: #FF9999;}
+
+
+
+
 
 
 /* undelivered sales  */

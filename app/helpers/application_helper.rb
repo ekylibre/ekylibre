@@ -149,39 +149,50 @@ module ApplicationHelper
     link_to tg(options[:label]||'back'), session[:history][1]
   end
 
-  
+  #
   def elink(condition,label,url)
     link_to_if(condition,label,url) do |name| 
       content_tag :strong, name
     end
   end
 
-
-  def entries_conditions(options)
+  #
+  def entries_conditions_journal_consult(options)
     conditions = ["entries.company_id=?", @current_company.id]
+
     unless session[:journal_record][:journal_id].blank?
+      
       journal = @current_company.journals.find(:first, :conditions=>{:id=>session[:journal_record][:journal_id]})
       if journal
         conditions[0] += " AND r.journal_id=?"
         conditions << journal.id
       end
     end
+
     unless session[:journal_record][:financialyear_id].blank?
        financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:journal_record][:financialyear_id]})
        if financialyear
         conditions[0] += " AND r.financialyear_id=?"
         conditions << financialyear.id
       end
-     end
+    end
+    
+    conditions
+  end
+ 
+  #
+  def entries_conditions_statements(options)
+    conditions = ["entries.company_id=?", @current_company.id]
+
     unless session[:statement].blank?
       statement = @current_company.bank_account_statements.find(:first, :conditions=>{:id=>session[:statement]})
       conditions[0] += " AND statement_id = ? "
       conditions << statement.id
     end
-
     conditions
   end
- 
+
+  #
   def evalue(object, attribute, options={})
     value_class = 'value'
     if object.is_a? String

@@ -179,9 +179,17 @@ fr-FR:
         select_account_client: Compte à lettrer
         select_account_supplier: Compte à lettrer
         select_financialyear: 'Exercice'
-      _lettering:
-        title: 'ECRITURES dans le compte N° {{value1}}'     
-      _print_by_journal:
+      
+      accounts_letter:
+        title: 'LETTRAGE du compte N° {{value1}}'     
+        recorded_on: 'Date'
+        journal_name: 'Journal'
+        entry_name: 'Libellé opération'
+        record_number: 'Pièce'
+        entry_debit: 'Débit'
+        entry_credit: 'Crédit'
+        entry_letter: 'Lettre'
+      _print_by_journal: 
         dates: Saisissez les dates ainsi que le journal
         journal: Journal
         from: Période du

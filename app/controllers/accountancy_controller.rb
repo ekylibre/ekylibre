@@ -37,8 +37,19 @@ class AccountancyController < ApplicationController
     t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
   
-  dyta(:entries, :conditions=>:entries_conditions, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id") do |t|
-  t.column :number, :label=>"Numéro", :through=>:record
+  
+  dyta(:entries_statement, :model => :entries, :conditions=>:entries_conditions_statements) do |t|
+    t.column :number, :label=>"Numéro", :through=>:record
+    t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
+    t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
+    t.column :name
+    t.column :number, :label=>"Compte" , :through=>:account
+    t.column :debit
+    t.column :credit
+  end
+
+  dyta(:entries, :conditions=>:entries_conditions_journal_consult, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id") do |t|
+    t.column :number, :label=>"Numéro", :through=>:record
     t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
     t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
     t.column :name
@@ -153,19 +164,19 @@ class AccountancyController < ApplicationController
   end
   
   #
-  def accounts_letter_launch
-    @accounts = Account.find(:all, :conditions => {:company_id => @current_company.id})
-  end
+  #def accounts_letter_launch
+   # @accounts = Account.find(:all, :conditions => {:company_id => @current_company.id})
+  #end
 
 
   #
-  def accounts_letter
-    if request.xhr?
+  #def accounts_letter
+   # if request.xhr?
       
-    else
-      @entries = Entry.find(:all, :conditions => ['company_id = ? AND account_id = ? AND letter is NULL', @current_company.id, params[:id] ])
-    end
-  end
+    #else
+    #  @entries = Entry.find(:all, :conditions => ['company_id = ? AND account_id = ? AND letter is NULL', @current_company.id, params[:id] ])
+   # end
+ # end
 
   PRINTS=[[:balance,{:partial=>"date_to_date",:ex=>"ex"}],
           [:general_ledger,{:partial=>"date_to_date"}],
@@ -670,12 +681,12 @@ class AccountancyController < ApplicationController
 
   # This method allows to make lettering for the client and supplier accounts.
   def lettering
-    @accounts_supplier = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '401%'])
-    @accounts_client = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '411%'])
+    @accounts_supplier = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '400%'])
+    @accounts_client = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '410%'])
     
     @financialyears = @current_company.financialyears.find(:all)
     
-    entries =  Entry.find(:all, :conditions => ["editable = false AND (a.number LIKE ? OR a.number LIKE ?)", '401%', '411%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
+    entries =  @current_company.entries.find(:all, :conditions => ["editable = false AND (a.number LIKE ? OR a.number LIKE ?)", '401%', '411%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
     
     # if @entries.size.zero?
 #       flash[:message] = tc('messages.need_entries_to_letter')
@@ -684,20 +695,68 @@ class AccountancyController < ApplicationController
 #     end
 
     if request.post?
-      @account = Account.find_by_number([ params[:account_client_id], params[:account_supplier_id] ])
- 
+      @account = @current_company.accounts.find(params[:account_client_id], params[:account_supplier_id])
+
+      #entry_first = @current_company.entries.find(:first, :conditions => { :account_id => @account.id}, :order => "id ASC")  
+      #car = 'A'
+      #balance = 0
       
-      @entries = @current_company.entries.find(:all, :conditions => { :account_id => [ params[:account_supplier_id], params[:account_client_id] ]})  
+      #balance = entry_first.debit - entry_first.credit
+
+      #entry_first.update_attribute(:letter, car.to_s) 
+                
+     # @entries = @current_company.entries.find(:all, :conditions => { :account_id => [ params[:account_supplier_id], params[:account_client_id] ]}, :order => "id ASC", :offset => 1, :limit => :all)  
+
+      # @entries.each do |entry|
+#         balance += entry.debit - entry.credit
+#         entry.update_attribute(:letter, car.to_s) 
+#         car.succ! if balance.zero?
+#       end
+
+#       @entries.insert(0, entry_first)      
       
-
-
-
-
-
-      @title = {:value1 => @account.number}
-      render :partial => 'lettering'
+      
+      redirect_to :action => "accounts_letter", :id => @account.id
     end
-   
+
+  end
+
+  # this method displays the array for make lettering.
+  def accounts_letter
+   @entries = @current_company.entries.find(:all, :conditions => { :account_id => params[:id]}, :order => "id ASC")
+   #car = 'A'
+    
+    @account = @current_company.accounts.find(params[:id])
+
+    @title = {:value1 => @account.number}
+  end
+
+  # this method makes the lettering.
+  def entries_letter
+    car = 'A'
+    if request.xhr?
+                    
+      @entry = @current_company.entries.find(params[:id])
+      sum_debit = 0
+      sum_credit = 0
+       
+      if not @entry.letter.empty?
+        @entry.update_attribute("letter", '')
+      else
+        @entry.update_attribute("letter", car.to_s)
+        
+        entries =@current_company.entries.find(:all, :conditions => ["letter = ?", car.to_s])
+        
+        if entries.size > 0
+          entries.each do |entry|
+            sum_debit += entry.debit
+            sum_credit += entry.credit
+          end
+          car.succ! if sum_debit == sum_credit
+        end
+      end
+      render :action => "accounts_letter.rjs"
+    end
   end
   
   # lists all the statements in details for a precise account.
