@@ -19,5 +19,5 @@ Vous pouvez :
 h2. Import Export CSV
 * *Exporter vos fiches* au format csv vous permet d'enregistrer un fichier csv au <<relations-entities_import|format ekylibre>>, rassemblant l'ensemble de vos fiches clients fournisseurs et leurs informations. Vous pouvez ensuite *travailler sur ce fichier en modifiant ou en ajoutant des fiches* clients fournisseurs. Pour *répercuter dans le logiciel ces changements*, vous n'avez plus qu'à *<<relations-entities_import|importer>> votre fichier* csv modifié.
 
-
+   
 <<relations-index|Revenir à l'aide de gestion des relations >>
