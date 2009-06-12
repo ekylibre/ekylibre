@@ -37,6 +37,23 @@ module Xil
 
 #   end
 
+  class Engine
+    def initialize(source, options={})
+
+    end
+
+    def precompiled
+      preamble = <<END.gsub("\n", ";")
+_erbout = '<h1> TEST </H1>'
+__in_erb_template = false
+'Blablabla'
+send_data "ABC", :type=>'text/raw'
+END
+      puts ">>>>> "+preamble.inspect
+      preamble
+    end
+  end
+
 
 
   class TemplateHandler < ActionView::TemplateHandler
@@ -48,7 +65,7 @@ module Xil
 
     def call(template)
       # compile(template)
-      template.inspect
+      # template.inspect
       "Toto 2"
     end
 
@@ -62,16 +79,17 @@ module Xil
 
       # template is a template object in Rails >=2.1.0,
       # a source string previously
-#       if template.respond_to? :source
-#         options[:filename] = template.filename
-#         source = template.source
-#       else
-#         source = template
-#       end
+      if template.respond_to? :source
+        options[:filename] = template.filename
+        source = template.source
+      else
+        source = template
+      end
 
       # Haml::Engine.new(source, options).send(:precompiled_with_ambles, [])
       puts template.inspect
-      send_data "ABC", :type=>'text/raw'
+      #"ABC Compiled"
+      Xil::Engine.new(source, options).precompiled
     end
 
 #    def cache_fragment(block, name = {}, options = nil)

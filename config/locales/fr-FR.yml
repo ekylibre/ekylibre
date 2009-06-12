@@ -1072,7 +1072,7 @@ fr-FR:
         entities_natures: Types de fiches
         entities_managing: Clients et fournisseurs
         entities: Gérer les fiches clients et fournisseurs
-        import_export: Import Export
+        import_export: Import/Export de fiches
         meeting_locations: Lieux de rencontre
         meeting_modes: Types de rencontre
         meetings: Rencontres
