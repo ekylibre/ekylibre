@@ -83,7 +83,7 @@ class ManagementController < ApplicationController
   dyta(:all_invoices, :model=>:invoices, :conditions=>"search_conditions(:attributes=>[:number], :key=>session[:invoices_key])", :empty=>true) do |t|
     t.column :number, :url=>{:action=>:invoices_display}
     t.column :full_name, :through=>:client
-    t.column :address, :through=>:contact
+    t.column :created_on
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit
@@ -93,7 +93,7 @@ class ManagementController < ApplicationController
   def invoices
     @key = params[:key]||session[:invoices_key]
     session[:invoices_key] = @key
-    all_invoices_list({:attributes=>[:number], :key=>@key}.merge(params))
+    #all_invoices_list({:attributes=>[:number], :key=>@key}.merge(params))
   end
 
   def invoices_cancel
@@ -112,7 +112,7 @@ class ManagementController < ApplicationController
         saved = @invoice_cancel.save
         if saved
           for cancel_line in @invoice_cancel_lines
-            cancel_line.quantity -= params[:invoice_cancel_line][cancel_line.origin_id.to_s][:quantity].to_f
+            cancel_line.quantity -= (params[:invoice_cancel_line][cancel_line.origin_id.to_s][:quantity].to_f)
             cancel_line.invoice_id = @invoice_cancel.id
             saved = false unless cancel_line.save
           end
@@ -125,11 +125,12 @@ class ManagementController < ApplicationController
           redirect_to :action=>:invoices_cancel, :id=>session[:invoice]
           raise ActiveRecord::Rollback
         else
+          session[:errors] = []
           redirect_to :action=>:invoices
         end
       end
     end
-    @title = {:value=>@invoice.number, :name=>@invoice.client.full_name, :date=>@invoice.created_at.to_date.to_s}
+    @title = {:value=>@invoice.number}
   end
   
   dyta(:invoice_credit_lines, :model=>:invoice_lines, :conditions=>{:company_id=>['@current_company.id'], :invoice_id=>['session[:current_invoice]']}) do |t|
@@ -141,6 +142,15 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
   end
 
+  dyta(:credits, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_invoice]'] }) do |t|
+    t.column :number, :url=>{:action=>:invoices_display}
+    t.column :full_name, :through=>:client
+    t.column :created_on
+    t.column :amount
+    t.column :amount_with_taxes
+  end
+
+
   def invoices_display
     @invoice = find_and_check(:invoice, params[:id])
     session[:current_invoice] = @invoice.id
@@ -150,7 +160,7 @@ class ManagementController < ApplicationController
   dyta(:prices, :conditions=>:prices_conditions) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:products_display}
     t.column :full_name, :through=>:entity
-    t.column :name, :through=>:category, :label=>tc(:category)
+    t.column :name, :through=>:category, :label=>tc(:category), :url=>{:controller=>:relations, :action=>:entity_categories_display}
     t.column :amount
     t.column :amount_with_taxes
     t.column :default
@@ -350,7 +360,8 @@ class ManagementController < ApplicationController
   
   dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}, :model=>:prices) do |t|
     t.column :name, :through=>:entity
-    t.column :name, :through=>:category
+    t.column :name, :through=>:category, :url=>{:controller=>:relations, :action=>:entity_categories_display}
+
     t.column :amount
     t.column :amount_with_taxes
     t.column :default
@@ -856,7 +867,7 @@ class ManagementController < ApplicationController
     session[:category] = @sale_order.client.category
     @stock_locations = @current_company.stock_locations
     @entity = @sale_order.client
-    sale_order_lines_list params
+    #sale_order_lines_list params
     #raise Exception.new params.inspect
     if request.post?
       #raise Exception.new params.inspect
@@ -992,7 +1003,7 @@ class ManagementController < ApplicationController
       for line in @sale_order_lines
         @undelivered = true if line.undelivered_quantity > 0 and !@undelivered
       end
-      undelivered_quantities_list params if @undelivered
+      
       
       session[:current_sale_order] = @sale_order.id
       @delivery_lines = []
@@ -1149,7 +1160,6 @@ class ManagementController < ApplicationController
       lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, delivery.id)
       @delivery_lines += lines if !lines.nil?
     end
-    invoices_list params
     if request.post?
       @sale_order.update_attribute(:state, 'R') if @sale_order.state == 'I'
       if params[:delivery].nil?

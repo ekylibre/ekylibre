@@ -361,6 +361,7 @@ fr-FR:
         amount_with_taxes: Montant TTC
         client_id: Client
         contact_id: Adresse
+        created_on: Créée le
         credit: Avoir
         number: Numéro 
         origin_id: 'Facture d''origine'

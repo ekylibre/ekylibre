@@ -36,6 +36,7 @@ class Invoice < ActiveRecord::Base
   has_many :lines, :class_name=>InvoiceLine.to_s, :foreign_key=>:invoice_id
 
   def before_validation
+    self.created_on = Date.today unless self.created_on.is_a? Date
     if self.number.blank?
       last = self.client.invoices.find(:first, :order=>"number desc")
       self.number = if last

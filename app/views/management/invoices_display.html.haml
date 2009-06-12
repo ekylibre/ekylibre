@@ -14,3 +14,8 @@
 
 %h2= tc(:invoice_lines) 
 =dyta :invoice_credit_lines
+
+
+- if !@invoice.credit
+  %h2= tc(:credits)
+  =dyta :credits

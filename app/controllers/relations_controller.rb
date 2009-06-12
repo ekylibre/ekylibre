@@ -224,7 +224,7 @@ class RelationsController < ApplicationController
 
 
   #dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'}, :children=>:lines) do |t|
-  dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']],  :children=>:lines) do |t|
+  dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sales_details}, :children=>:product_name
     t.column :name, :through=>:nature, :children=>false
     t.column :created_on, :children=>false
@@ -232,7 +232,7 @@ class RelationsController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
   end
-
+  
   dyta(:entity_meetings, :model=>:meetings, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
     t.column :name, :through=>:location
     t.column :taken_place_on
@@ -241,12 +241,13 @@ class RelationsController < ApplicationController
     t.action :meetings_update, :image=>:update
     t.action :meetings_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
-
   
-  dyta(:client_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  
+  dyta(:client_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id']}, :per_page=>5, :order=>{'sort'=>'created_on', 'dir'=>'desc'}) do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:invoices_display}
     t.column :full_name, :through=>:client
-    t.column :address, :through=>:contact
+    #t.column :address, :through=>:contact
+    t.column :created_on
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit

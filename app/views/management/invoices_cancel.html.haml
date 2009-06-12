@@ -29,7 +29,7 @@
           %td= @line.quantity
         -else
           %td= @line.quantity.to_f*-1
-        %td= text_field_tag "invoice_cancel_line[#{@line.origin_id}][quantity]", (@line.origin.quantity - (@line.quantity*-1) ), :id=>"invoice_cancel_line_#{@line.origin_id}_quantity"
+        %td= text_field_tag "invoice_cancel_line[#{@line.origin_id}][quantity]", (@line.origin.quantity - (@line.quantity*-1) ).abs, :id=>"invoice_cancel_line_#{@line.origin_id}_quantity"
 
   .actions
     =link_to tg(:previous), :action=>:invoices
