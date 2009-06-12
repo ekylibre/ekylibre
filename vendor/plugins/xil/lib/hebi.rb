@@ -219,7 +219,6 @@ module Hebi
       self.select_font(@fonts[label][:name], options[:size])
     end
 
-
     # Register all the ContentStream operations if the method exists
     def method_missing(method_name, *args)
       if Hebi::ContentStream.method_defined? method_name
@@ -231,7 +230,6 @@ module Hebi
       end
       self
     end
-    
 
     def generate(options={})
       yield self if block_given?
@@ -272,12 +270,10 @@ module Hebi
       resources_ref = build_resources
       # Pages
       pages_ref, first_page_ref = build_pages(resources_ref)
-
       # Info
       info_ref = build_info
       # Catalog
       catalog_ref = build_catalog(pages_ref, @pages[0][:reference])
-
       # Built of the complete document
       pdf = "%PDF-#{PDF_VERSION}\n\n"
       xref  = "xref\n"
@@ -302,7 +298,6 @@ module Hebi
       return pdf
     end
 
-
     def build_info
       info = { :CreationDate => @now, :ModDate => @now }
       info[:Producer] = escape(@producer) unless @producer.nil?
@@ -313,7 +308,6 @@ module Hebi
       info[:Creator]  = escape(@creator) unless @creator.nil?      
       new_object(info)
     end
-
 
     def build_resources
       # Build fonts objects
@@ -329,7 +323,6 @@ module Hebi
         end
         fonts[font[:name]] = new_object(dict)
       end
-
       # Build images objects
       images = {}
       for key, image in @images
@@ -350,12 +343,9 @@ module Hebi
           lines << Stream.new(image.data)
         end
       end
-
       # Resource object
       new_object({:ProcSet=> [:PDF, :Text, :ImageB, :ImageC, :ImageI], :Font=>fonts, :XObject=>images})
     end
-
-
 
     def build_catalog(pages_ref, first_page=nil)
       catalog = {:Type=>:Catalog, :Pages=>pages_ref}
@@ -397,6 +387,7 @@ module Hebi
       return new_object(dict, pages_ref)
     end
 
+    # Create a new object
     def new_object(data=nil, reference=nil)
       if reference.nil?
         @objects_count += 1
@@ -419,6 +410,7 @@ module Hebi
       return reference||Hebi::Reference.new(object_number)
     end
 
+    # Create an object with stream
     def new_stream_object(stream)
       dict = {}
       if @compress
@@ -471,7 +463,7 @@ module Hebi
 
     # Process a new JPG image
     #
-    # <tt>:data</tt>:: A string containing a full PNG file
+    # <tt>:file</tt>:: A string containing a full PNG file
     #
     def initialize_jpeg(file)
       info = {}
@@ -499,12 +491,11 @@ module Hebi
       raise Exception.new("JPG uses an unsupported number of channels") if @color_space.nil?
       @filter = :DCTDecode
       @decode = [1, 0, 1, 0, 1, 0, 1, 0] if @color_space==:DeviceCMYK
-      File.open(file, "rb") do |f|
-        data = f.read
-      end
+      File.open(file, "rb") { |f| data = f.read }
       @data   = data
     end
     
+    # Initialize a PNG file
     def initialize_png(file)
       f=open(file,'rb')
       error('Not a PNG file: '+file) unless f.read(8)==137.chr+'PNG'+13.chr+10.chr+26.chr+10.chr
@@ -578,10 +569,10 @@ module Hebi
     def freadbyte(f)
       f.read(1).unpack('C')[0]
     end
-
   end
 
 
+  # Content stream permit to record all the operations
   class ContentStream
     NUMERIC_CLASSES = [Float, Integer, Fixnum]
     LINE_DASH_STYLES = {:dotted=>{:dash=>[1, 1], :phase=>0.5}, :dashed=>{:dash=>[3], :phase=>2}, :solid=>{:dash=>[], :phase=>0}}
@@ -682,7 +673,6 @@ module Hebi
       self.set_line_dash(line[:style])
       self
     end
-
 
     def set_miter_limit(value=2)
       return if value == @miter_limit
@@ -949,7 +939,6 @@ module Hebi
       self
     end
 
-
     private
 
     def add(operation)
@@ -1006,7 +995,6 @@ module Hebi
                 array = value.split /(\(|\,|\))/
                 [array[2].strip, array[4].strip, array[6].strip].collect{|x| x[/\d*\.\d*/].to_f*2.55 }
               else
-                #raise Exception.new value.to_s
                 [0, 0, 0]
               end
       array.collect{|x| x.to_f/255}

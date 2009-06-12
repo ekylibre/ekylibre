@@ -20,7 +20,7 @@ module Ekylibre
           PAGINATION = {
             :will_paginate=>{
               :find_method=>'paginate',
-              :find_params=>':page=>params[:page], :per_page=>25'
+              :find_params=>':page=>params[:page], :per_page=>@@LENGTH@@'
             },
             :default=>{
               :find_method=>'find',
@@ -51,39 +51,13 @@ module Ekylibre
             conditions = ''
             conditions = conditions_to_code(options[:conditions]) if options[:conditions]
 
-            # code += "hide_action :"+list_method_name\n"
-#            code += "def #{list_method_name}(options={})\n"
             code += "def #{list_method_name}\n"
-#             code += "  options = (params||{}).merge(options)\n"
-#             code += "  order = nil\n"
-#             unless options[:order].nil?
-#               raise Exception.new("options[:order] must be an Hash. Example: {:sort=>'column', :dir=>'asc'}") unless options[:order].is_a? Hash
-#               raise Exception.new("options[:order]['sort'] must be completed (#{options[:order].inspect}).") if options[:order]['sort'].nil?
-#               code += "  options['sort'] = #{options[:order]['sort'].to_s.inspect}\n"
-#               code += "  options['dir'] = #{options[:order]['dir'].to_s.inspect}\n"
-#             end
-#             code += "  unless options['sort'].blank?\n"
-#             code += "    options['dir'] ||= 'asc'\n"
-#             code += "    order  = options['sort']\n"
-#             code += "    order += options['dir']=='desc' ? ' DESC' : ' ASC'\n"
-#             code += "  end\n"
-   
-#             #raise Exception.new('voila : '+conditions.to_s)
-            
-#             code += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
-#             code += ", :conditions=>"+conditions unless conditions.blank?
-#             code += ", "+PAGINATION[options[:pagination]][:find_params] if PAGINATION[options[:pagination]][:find_params]
-#             code += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
-#             code += ", :order=>order)\n"
-#            code += "  render :inline=>'="+tag_method_name+"('+options.inspect+')', :type=>:haml if request.xhr?\n"
-#            code += "  raise Exception.new('Bordel!') if request.xhr?\n"
             code += "  render :inline=>'=#{tag_method_name}', :type=>:haml if request.xhr?\n"
-            # code += "  render :inline=>'<b>DYTA</b>' if request.xhr?\n"
             code += "end\n"
 
-            code += "def #{name}_list(options={})\n"
-            code += "  0\n"
-            code += "end\n"
+            # code += "def #{name}_list(options={})\n"
+            # code += "  0\n"
+            # code += "end\n"
 
             # puts code
             module_eval(code)
@@ -107,7 +81,7 @@ module Ekylibre
             
             builder += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
             builder += ", :conditions=>"+conditions unless conditions.blank?
-            builder += ", "+PAGINATION[options[:pagination]][:find_params] if PAGINATION[options[:pagination]][:find_params]
+            builder += ", "+PAGINATION[options[:pagination]][:find_params].gsub('@@LENGTH@@', (options[:per_page]||25).to_s) if PAGINATION[options[:pagination]][:find_params]
             builder += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
             builder += ", :order=>order)||{}\n"
 

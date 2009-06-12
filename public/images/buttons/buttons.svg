@@ -24,6 +24,17 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient3803">
+      <stop
+         style="stop-color:#e1903c;stop-opacity:1;"
+         offset="0"
+         id="stop3805" />
+      <stop
+         style="stop-color:#e13c3c;stop-opacity:1;"
+         offset="1"
+         id="stop3808" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3809">
       <stop
          style="stop-color:#929292;stop-opacity:1;"
@@ -3936,6 +3947,16 @@
        x2="322"
        y2="22.1875"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3803"
+       id="linearGradient3810"
+       x1="257.75"
+       y1="-8.1875"
+       x2="273.375"
+       y2="-8.1875"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.0675168,0,0,0.96,-19.186221,-0.14)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -5001,6 +5022,14 @@
        d="M 128.5,31.5 L 143.5,16.5"
        id="path3810"
        inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/empty.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:url(#linearGradient3810);fill-opacity:1;fill-rule:evenodd;stroke:#d22424;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       d="M 262.50478,-15.5 L 256.5,-10.94 L 262.50478,-5.9 L 262.50478,-8.1000006 C 262.50478,-8.1000006 267.69851,-8.6446487 267.88296,-6.235 C 268.0487,-4.0697715 263.16879,-0.49999997 263.16879,-0.49999997 C 263.16879,-0.49999997 270.97417,-2.1389588 271.44523,-6.98 C 271.94146,-12.079718 262.50478,-13.300001 262.50478,-13.300001 L 262.50478,-15.5 z"
+       id="path3019"
+       sodipodi:nodetypes="cccczczcc"
+       inkscape:export-filename="/home/brice/ekylibre/public/images/buttons/cancel.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
   </g>

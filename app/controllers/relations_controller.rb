@@ -147,7 +147,8 @@ class RelationsController < ApplicationController
 
 
   def entities_print
-    render_xil "#{RAILS_ROOT}/app/views/prints/xil2_test.xml", :client=>Entity.find(params[:id]||1)
+    # render_xil "#{RAILS_ROOT}/app/views/prints/xil2_test.xml", :client=>Entity.find(params[:id]||1)
+    @client = Entity.find(params[:id]||1)
   end
 
   
