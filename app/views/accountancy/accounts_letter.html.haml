@@ -10,7 +10,7 @@
   - if @entries
     - @entries.each do |entry|
       - attr = cycle("even", "odd")
-      %tr{:class => (entry.letter.empty? ? "unletterabled" : "letterabled")+" "+attr, :id=> 'e'+entry.id.to_s}
+      %tr{:class => (not entry.letter.empty? ? ("letter"+" "+(   ? "" : "unbalanced")) : "")+" "+attr, :id=> 'e'+entry.id.to_s}
         %td=I18n.localize(entry.record.created_on)
         %td=entry.record.journal.name
         %td=entry.name

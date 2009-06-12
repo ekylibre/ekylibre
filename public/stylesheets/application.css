@@ -323,15 +323,10 @@ table.dyta tr.total{background:#D28830;}
 table.dyta tr.total td{color:RED;font-family:monospace;}
 
 /* lettering */
-table.dyta tr.letterabled.even td{background:#CCF5CC;}
-table.dyta tr.letterabled.odd  td{background:#99EB99;}
-table.dyta tr.unletterabled.even td{background: #FFCCCC;}
-table.dyta tr.unletterabled.odd  td{background: #FF9999;}
-
-
-
-
-
+table.dyta tr.letter.even td{background:#CCF5CC;}
+table.dyta tr.letter.odd  td{background:#99EB99;}
+table.dyta tr.letter.unbalanced.even td{background: #FFCCCC;}
+table.dyta tr.letter.unbalanced.odd  td{background: #FF9999;}
 
 /* undelivered sales  */
 table.dyta tr.odd.advance td{background:#c8ffa0; }
@@ -355,8 +350,6 @@ div.dyli_complete ul {position: fixed; border:1px solid #888; margin:0; padding:
 div.dyli_complete ul li {background-color:  #C9D7F1; margin:0; padding:3px;}
 div.dyli_complete ul li.selected {background-color: #B1D1F9;}
 div.dyli_complete ul strong.highlight {color: #800; margin:0; padding:0;}
-
-
 
 fieldset.itemize { border: 1px solid #777; -moz-border-radius: 8px; float: left; margin:8px;}
 fieldset.itemize legend { color: blue; margin: 0 8px; padding:2px;}

@@ -696,26 +696,7 @@ class AccountancyController < ApplicationController
 
     if request.post?
       @account = @current_company.accounts.find(params[:account_client_id], params[:account_supplier_id])
-
-      #entry_first = @current_company.entries.find(:first, :conditions => { :account_id => @account.id}, :order => "id ASC")  
-      #car = 'A'
-      #balance = 0
-      
-      #balance = entry_first.debit - entry_first.credit
-
-      #entry_first.update_attribute(:letter, car.to_s) 
-                
-     # @entries = @current_company.entries.find(:all, :conditions => { :account_id => [ params[:account_supplier_id], params[:account_client_id] ]}, :order => "id ASC", :offset => 1, :limit => :all)  
-
-      # @entries.each do |entry|
-#         balance += entry.debit - entry.credit
-#         entry.update_attribute(:letter, car.to_s) 
-#         car.succ! if balance.zero?
-#       end
-
-#       @entries.insert(0, entry_first)      
-      
-      
+             
       redirect_to :action => "accounts_letter", :id => @account.id
     end
 
@@ -723,38 +704,70 @@ class AccountancyController < ApplicationController
 
   # this method displays the array for make lettering.
   def accounts_letter
-   @entries = @current_company.entries.find(:all, :conditions => { :account_id => params[:id]}, :order => "id ASC")
-   #car = 'A'
-    
-    @account = @current_company.accounts.find(params[:id])
+    @entries = @current_company.entries.find(:all, :conditions => { :account_id => params[:id]}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
 
+    session[:letter]='AAAA'
+   
+    @account = @current_company.accounts.find(params[:id])
+    
     @title = {:value1 => @account.number}
   end
 
+
   # this method makes the lettering.
   def entries_letter
-    car = 'A'
+
     if request.xhr?
-                    
+      
       @entry = @current_company.entries.find(params[:id])
-      sum_debit = 0
-      sum_credit = 0
-       
-      if not @entry.letter.empty?
+      
+      @entries = @current_company.entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "letter ASC")
+
+      if @entry.letter != ""
+
         @entry.update_attribute("letter", '')
       else
-        @entry.update_attribute("letter", car.to_s)
-        
-        entries =@current_company.entries.find(:all, :conditions => ["letter = ?", car.to_s])
-        
-        if entries.size > 0
-          entries.each do |entry|
-            sum_debit += entry.debit
-            sum_credit += entry.credit
-          end
-          car.succ! if sum_debit == sum_credit
+        @eky = false
+
+        letters = []
+        @entries.each do |entry|
+          letters << entry.letter unless entry.letter == ""
         end
-      end
+        letters.uniq!
+  
+        unless letters.empty?
+         
+          letters.each do |letter|
+            
+            entries = @current_company.entries.find(:all, :conditions => ["letter = ? AND account_id = ?", letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
+            
+            if entries.size > 0
+              sum_debit = 0
+              sum_credit = 0
+              entries.each do |entry|
+                sum_debit += entry.debit
+                sum_credit += entry.credit
+              end
+             
+              if sum_debit != sum_credit
+                session[:letter] = letter
+                break
+              else
+                session[:letter] = letter.succ
+              end
+            end
+          end
+      
+        end
+        
+        @entry.update_attribute("letter", session[:letter].to_s)
+        
+        
+     #   @entry.account.balanced_letter?(session
+
+
+     end
+
       render :action => "accounts_letter.rjs"
     end
   end

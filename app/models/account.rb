@@ -97,5 +97,22 @@ class Account < ActiveRecord::Base
     balance unless balance.empty?
   end
 
+
+  # this method displays all the entries matching to the account.
+  def balanced_letter?(letter) 
+    entries = self.company.entries.find(:all, :conditions => ["letter = ?", letter.to_s], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
+   
+    if entries.size > 0
+      sum_debit = 0
+      sum_credit = 0
+      entries.each do |entry|
+        sum_debit += entry.debit
+        sum_credit += entry.credit
+      end
+      return true if sum_debit == sum_credit
+    end
+    return false
+  end
+  
 end
 
