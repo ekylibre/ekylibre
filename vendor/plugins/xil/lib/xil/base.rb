@@ -37,7 +37,6 @@ module Xil
 
     def initialize(xil)
       @xil, @method_prefix = self.class.parse(xil)
-      # puts '@@ '+@method_prefix
     end
     
     def compile_for(output, method_name=nil)

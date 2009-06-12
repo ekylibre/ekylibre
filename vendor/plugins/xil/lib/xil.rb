@@ -1,109 +1,32 @@
 require 'measure'
+require File.dirname(__FILE__)+'/xil/engine'
 #require File.dirname(__FILE__)+'/xil/style'
 #require File.dirname(__FILE__)+'/xil/base'
 #require File.dirname(__FILE__)+'/xil/pdf'
 
+raise Exception.new("ActionView::Template is needed.") unless defined? ActionView::Template and ActionView::Template.respond_to? :register_template_handler
+
 module Xil
   mattr_accessor :options
-
   @@options={:features=>[], :documents_path=>"#{RAILS_ROOT}/private/documents", :subdir_size=>4096, :document_model_name=>:documents, :template_model_name=>:templates, :company_variable=>:current_company, :crypt=>:rijndael}
-
-#   module ActionController
-#     def self.included (base)
-#       base.extend(ClassMethods)
-#     end
-
-#     module ClassMethods
-#       require 'rexml/document'
-#       require 'digest/md5'
-#       require 'ebi'
-#       require 'hebi'
-#       include REXML
-#     end
-
-
-#     def render_xil(xil, options={})
-#       options = {:output=>:pdf}.merge(options)
-#       template = Xil::Template.new(xil)
-#       method = template.method_name(options[:output])
-#       code = '[NoCode]'
-#       unless self.methods.include? method
-#         code = template.compile_for(options[:output])
-#         puts code
-#         class_eval(code)
-#       end
-#       self.send(method, options)
-#     end
-
-#   end
-
-  class Engine
-    def initialize(source, options={})
-
-    end
-
-    def precompiled
-      preamble = <<END.gsub("\n", ";")
-_erbout = '<h1> TEST </H1>'
-__in_erb_template = false
-'Blablabla'
-send_data "ABC", :type=>'text/raw'
-END
-      puts ">>>>> "+preamble.inspect
-      preamble
-    end
-  end
-
-
 
   class TemplateHandler < ActionView::TemplateHandler
     include ActionView::TemplateHandlers::Compilable if defined?(ActionView::TemplateHandlers::Compilable)
 
-    def initialize(view=nil)
-      @view = view
-    end
-
-    def call(template)
-      # compile(template)
-      # template.inspect
-      "Toto 2"
-    end
-
-    def render(template, local_assigns = {})
-      "Toto"
-    end
-
     def compile(template)
-      #options = Xil::Template.options.dup
-      options = {}
-
-      # template is a template object in Rails >=2.1.0,
-      # a source string previously
-      if template.respond_to? :source
-        options[:filename] = template.filename
-        source = template.source
-      else
-        source = template
-      end
-
-      # Haml::Engine.new(source, options).send(:precompiled_with_ambles, [])
-      puts template.inspect
-      #"ABC Compiled"
-      Xil::Engine.new(source, options).precompiled
+      Xil::Engine.new(template).to_code
     end
-
-#    def cache_fragment(block, name = {}, options = nil)
-#      @view.fragment_for(block, name, options) do
-#        eval("_xilout.buffer", block.binding)
-#      end
-#    end
   end
+
 end
 
-if defined? ActionView::Template and ActionView::Template.respond_to? :register_template_handler
-  ActionView::Template
-else
-  ActionView::Base
-end.register_template_handler(:xil, Xil::TemplateHandler)
+# Register PDF type 
+Mime::Type.register("application/pdf", :pdf) unless defined? Mime::PDF
+Mime::Type.register("application/vnd.oasis.opendocument.text", :odt) unless defined? Mime::ODT
 
-# ActionController::Base.send :include, Xil::ActionController
+# Register Template Handler
+ActionView::Template.register_template_handler(:xpdf, Xil::TemplateHandler)
+# ActionView::Template.register_template_handler(:xodt, Xil::TemplateHandler)
+
+# Specify we don't want to use the layouts
+ActionController::Base.exempt_from_layout :xpdf
