@@ -2,6 +2,7 @@ require 'measure'
 require File.dirname(__FILE__)+'/xil/engine'
 require File.dirname(__FILE__)+'/xil/style'
 require File.dirname(__FILE__)+'/xil/xpdf'
+require File.dirname(__FILE__)+'/xil/rpdf'
 #require File.dirname(__FILE__)+'/xil/base'
 
 raise Exception.new("ActionView::Template is needed") unless defined? ActionView::Template and ActionView::Template.respond_to? :register_template_handler
@@ -14,8 +15,9 @@ module Xil
     include ActionView::TemplateHandlers::Compilable if defined?(ActionView::TemplateHandlers::Compilable)
 
     def compile(template)
-      Xil::Engine.new(template).to_ruby
+      Xil::Engine.new(template).compile
     end
+
   end
 
 end
@@ -33,7 +35,9 @@ Mime::Type.register("application/vnd.oasis.opendocument.graphics-template", :otg
 
 # Register Template Handler
 ActionView::Template.register_template_handler(:xpdf, Xil::TemplateHandler)
+ActionView::Template.register_template_handler(:rpdf, Xil::TemplateHandler)
 # ActionView::Template.register_template_handler(:xodt, Xil::TemplateHandler)
 
 # Specify we don't want to use the layouts
 ActionController::Base.exempt_from_layout :xpdf
+ActionController::Base.exempt_from_layout :rpdf

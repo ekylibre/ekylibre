@@ -1,0 +1,3 @@
+doc.new_page
+doc.font "Times"
+doc.text "Hello world", :at=>[140,140]

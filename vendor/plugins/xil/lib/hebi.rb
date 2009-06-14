@@ -119,7 +119,11 @@ module Hebi
       }
     end
 
+    
+    
+
     def new_page(format=[], rotate=0)
+      # format = Xil::StyleFORMATS[format.to_s.lower.gsub(/[^\w]/,'').to_sym] unless format.is_a? Array
       error('Parameter format must be an array') unless format.is_a? Array
       format[0] ||= 1000.0
       error('Parameter format can only contains numeric values') unless [Integer, Float, BigDecimal, Fixnum].include? format[0].class

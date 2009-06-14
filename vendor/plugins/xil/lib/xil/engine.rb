@@ -1,17 +1,23 @@
-
 module Xil
 
   class Engine
     def initialize(template)
       @template = template
-      @xml = self.class.to_xml(@template.source)
+      @xml = self.class.to_xml(@template.source) if @template.extension.match /^x/
     end
 
-    def to_ruby
-      code  = "_set_controller_content_type(Mime::PDF)\n"
-      code += self.compile(@template.extension)
-      puts code
-      code
+    def compile
+      compile_method = 'compile_'+@template.extension
+      code = '[ErrorNoCode]'
+      if self.methods.include? compile_method
+        code = self.send(compile_method)
+      else
+        raise Exception.new("Unknown format: #{@template.extension.inspect}")
+      end
+      f = File.open("/tmp/#{compile_method}.rb", 'wb')
+      f.write(code)
+      f.close
+      return code
     end
 
     XIL_MARKUP = {
@@ -27,18 +33,6 @@ module Xil
       'set'=>{:elements=>{'text'=>'*', 'set'=>'*'}},
       'text'=>{},
     }
-
-
-    def compile(format)
-      compile_method = 'compile_'+format.to_s
-      code = '[ErrorNoCode]'
-      if self.methods.include? compile_method
-        code = self.send(compile_method)
-      else
-        raise Exception.new("Unknown format: #{@template.extension.inspect}")
-      end
-      code
-    end
 
     private
 
