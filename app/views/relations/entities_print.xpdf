@@ -1,11 +1,87 @@
-TEST 2
-wcwxc
-wxc
-wxc
-wxc
-wxc
-wxc
-wxc
-wxc
-wc
-wxc
+<?xml version="1.0" encoding="utf-8"?>
+<template title="Example" lang="fr" version="2.0">
+  <infos>
+    <info name="author">Brice T.</info>
+  </infos>
+  <parameters>
+    <parameter name="client" nature="record" source="entities#condition:active">Client/Fournisseur</parameter>
+    <parameter name="invoices_show" nature="boolean" default="true">Afficher la liste des dernières factures</parameter>
+    <parameter name="invoices_count" nature="integer" range="0..15" default="5">Nombre de factures à afficher</parameter>
+    <parameter name="comment" nature="text" default="">Commentaire</parameter>
+  </parameters>
+  <formats>
+    <format rule="text" style="height:4mm; width: 50mm; font-size:10pt;border:1pt solid #00F"/>
+    <format rule=".important" style="background:#FFD;border:0.5mm solid #EEA; padding:1mm"/>
+    <format rule=".label" style="color: #888; text-align:right; width: 35mm"/>
+    <format rule=".title" style="font-size:16pt;color: #007; text-align:center; vertical-align:middle; height: 20mm"/>
+  </formats>
+  <document title="{client.full_name}">
+    <page style="margin: 10mm 15mm; size: portrait;">
+      <block>
+        <set>
+          <image src="{client.portrait}" style="height:60mm;width:35mm"/>
+        </set>
+        <set style="left:40mm">
+          <text class="important" style="font-size:18pt">{client.full_name}</text>
+	  <set style="top:8mm">
+	    <set>
+              <text class="label" style="top:0mm">Code</text>
+              <text class="label" style="top:4mm">Date de naissance</text>
+              <text class="label" style="top:8mm">Origine</text>
+              <text class="label" style="top:12mm">Pays</text>
+	    </set>
+	    <set style="left: 35mm">
+              <text class="important" style="top:0mm; font-family: courier">{client.code}</text>
+              <text class="important" style="top:4mm">{client.born_on|%d/%m/%Y}</text>
+              <text class="important" style="top:8mm">{client.origin}, le {client.first_met_on|%d/%m/%Y}</text>
+              <text class="important" style="top:12mm">{client.country}</text>
+	    </set>
+	  </set>
+        </set>
+      </block>
+      <block type="body" style="height:10mm">
+        <set>
+          <text class="title" style="width:190mm;">Factures</text>
+          <set style="top:5mm">
+            <text style="X">Date</text>
+            <text style="left:40mm;">Montant HT</text>
+            <text style="left:80mm;">Montant TTC</text>
+          </set>
+        </set>
+      </block>
+      <loop for="invoice" in="client.invoices#conditions:amount&gt;10, nature='I'; order:created_at desc">
+        <block style="height:5mm;">
+          <set>
+	    <text style="">Le {invoice.created_at|%d/%m/%Y}</text>
+	    <text style="left:40mm;">{invoice.amount} €</text>
+	    <text style="left:80mm;">{invoice.amount_with_taxes} €</text>
+          </set>
+        </block>
+        <loop for="invoice_line" in="invoice.lines">
+          <block style="height:5mm;">
+	    <set>
+	      <text style="left:10mm;">{invoice_line.product.name}</text>
+	      <text style="left:40mm;">{invoice_line.amount}</text>
+	      <text style="left:80mm;">{invoice_line.amount_with_taxes}</text>
+	    </set>
+          </block>
+        </loop>
+      </loop>
+    </page>
+    <page style="margin: 10mm 15mm; size: 101.6mm 4in; rotate: 90deg">
+      <block type="body">
+        <set style="top:10mm; left:10mm;">
+          <text class="title" style="width:190mm;">Factures</text>
+          <set style="top:5mm">
+            <text style="width:20mm;">Date</text>
+            <text style="width:30mm; left:20mm;">Montant HT</text>
+            <text style="width:40mm; left:50mm;">Montant TTC</text>
+          </set>
+        </set>
+      </block>
+      <block type="footer">
+        <text class="important">{current_company.name} - SIREN : {current_company.siren}</text>
+      </block>
+    </page>
+  </document>
+</template>

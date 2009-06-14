@@ -1,10 +1,10 @@
 require 'measure'
 require File.dirname(__FILE__)+'/xil/engine'
-#require File.dirname(__FILE__)+'/xil/style'
+require File.dirname(__FILE__)+'/xil/style'
+require File.dirname(__FILE__)+'/xil/xpdf'
 #require File.dirname(__FILE__)+'/xil/base'
-#require File.dirname(__FILE__)+'/xil/pdf'
 
-raise Exception.new("ActionView::Template is needed.") unless defined? ActionView::Template and ActionView::Template.respond_to? :register_template_handler
+raise Exception.new("ActionView::Template is needed") unless defined? ActionView::Template and ActionView::Template.respond_to? :register_template_handler
 
 module Xil
   mattr_accessor :options
@@ -14,15 +14,22 @@ module Xil
     include ActionView::TemplateHandlers::Compilable if defined?(ActionView::TemplateHandlers::Compilable)
 
     def compile(template)
-      Xil::Engine.new(template).to_code
+      Xil::Engine.new(template).to_ruby
     end
   end
 
 end
 
-# Register PDF type 
+# Register new Mime types
 Mime::Type.register("application/pdf", :pdf) unless defined? Mime::PDF
 Mime::Type.register("application/vnd.oasis.opendocument.text", :odt) unless defined? Mime::ODT
+Mime::Type.register("application/vnd.oasis.opendocument.spreadsheet", :ods) unless defined? Mime::ODS
+Mime::Type.register("application/vnd.oasis.opendocument.presentation", :odp) unless defined? Mime::ODP
+Mime::Type.register("application/vnd.oasis.opendocument.graphics", :odg) unless defined? Mime::ODG
+Mime::Type.register("application/vnd.oasis.opendocument.text-template", :ott) unless defined? Mime::OTT
+Mime::Type.register("application/vnd.oasis.opendocument.spreadsheet-template", :ots) unless defined? Mime::OTS
+Mime::Type.register("application/vnd.oasis.opendocument.presentation-template", :otp) unless defined? Mime::OTP
+Mime::Type.register("application/vnd.oasis.opendocument.graphics-template", :otg) unless defined? Mime::OTG
 
 # Register Template Handler
 ActionView::Template.register_template_handler(:xpdf, Xil::TemplateHandler)
