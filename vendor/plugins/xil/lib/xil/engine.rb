@@ -10,7 +10,6 @@ module Xil
     def to_ruby
       code  = "_set_controller_content_type(Mime::PDF)\n"
       code += self.compile(@template.extension)
-      # code += "File.read(\"#{RAILS_ROOT}/hebi.pdf\")"
       puts code
       code
     end
