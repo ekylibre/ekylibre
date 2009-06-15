@@ -26,6 +26,8 @@ class Payment < ActiveRecord::Base
   belongs_to :company
   belongs_to :mode, :class_name=>PaymentMode.to_s
   has_many :payment_parts
+
+  validates_presence_of :to_bank_on
   
   def before_destroy
   end

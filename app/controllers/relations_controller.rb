@@ -256,7 +256,7 @@ class RelationsController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit
-    t.action :invoices_cancel, :if=>'RECORD.credit != true and @current_user.credits'
+   # t.action :controller=>:management, :invoices_cancel, :if=>'RECORD.credit != true and @current_user.credits'
   end
 
   def entities_display

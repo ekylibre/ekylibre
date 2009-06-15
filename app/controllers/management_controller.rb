@@ -26,7 +26,6 @@ class ManagementController < ApplicationController
   end
 
   def delays
-    delays_list params
   end
 
   def delays_display
@@ -184,7 +183,6 @@ class ManagementController < ApplicationController
         session[:entity_id] = 0
       end
     end
-    prices_list params
   end
   
   def prices_create
@@ -419,7 +417,7 @@ class ManagementController < ApplicationController
     end
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key
-    products_list({:attributes=>[:id, :name, :description, :catalog_name, :catalog_description, :comment], :key=>@key}.merge(params))
+   # products_list({:attributes=>[:id, :name, :description, :catalog_name, :catalog_description, :comment], :key=>@key}.merge(params))
   end
 
   def products_display
@@ -431,8 +429,6 @@ class ManagementController < ApplicationController
     for product_stock in all_product_stocks
       @product_stocks << product_stock if product_stock.product_id == @product.id
     end
-    product_prices_list params
-    product_components_list 
     @title = {:value=>@product.name}
   end
 
@@ -538,7 +534,6 @@ class ManagementController < ApplicationController
   end
 
   def purchases
-    purchase_orders_list params
   end
 
   def purchases_new
@@ -571,7 +566,7 @@ class ManagementController < ApplicationController
   def purchases_products
     @purchase_order = find_and_check(:purchase_order, params[:id])
     session[:current_purchase] = @purchase_order.id
-    purchase_order_lines_list params
+    #purchase_order_lines_list params
     if request.post?
       @purchase_order.stocks_moves_create
       @purchase_order.update_attributes(:shipped=>true)
@@ -687,7 +682,7 @@ class ManagementController < ApplicationController
   end
   
   def sales
-    sale_orders_list params
+    #sale_orders_list params
   end
   
   dyta(:sale_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']},:model=>:sale_order_lines,:empty=>true) do |t|
@@ -742,7 +737,7 @@ class ManagementController < ApplicationController
   end
 
   def sale_order_natures
-    sale_order_natures_list params
+    #sale_order_natures_list params
   end
 
   def sale_order_natures_display
@@ -1181,6 +1176,29 @@ class ManagementController < ApplicationController
     
     
   end
+
+  
+  dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :created_on
+  end
+
+  def embankments
+  end
+  
+  def embankments_create
+    # @checks = Payment.find(:all, :conditions=>{:company_id=>@current_company.id, :mode_id=>@current_company.payment_modes.find_by_})
+    @embankment = Embankment.new(:created_on=>Date.today)
+    if request.post?
+      @embankment = Embankment.new(params[:embankment])
+      @embankment.company_id = @current_company.id 
+      redirect_to :action=>:embankment_checks_create, :id=>@embankment.id if @embankment.save
+    end
+    render_form
+  end
+  
+  def embankment_checks_create
+    @embankment = find_and_check (:embankment, params[:id])
+  end
   
   dyta(:payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
@@ -1191,7 +1209,7 @@ class ManagementController < ApplicationController
   end
 
   def payment_modes
-    payment_modes_list params
+    #payment_modes_list params
   end
 
   def payment_modes_create
@@ -1241,7 +1259,7 @@ class ManagementController < ApplicationController
     @payments.each {|p| @payments_sum += p.amount}
     session[:current_sale_order] = @sale_order.id
     #raise Exception.new @sale_order.client.balance.inspect
-    payment_parts_list params
+#    payment_parts_list params
     if request.post?
       @sale_order.update_attribute(:state, 'F') if @sale_order.state == 'R'
       #redirect_to :action=>:sales_payments, :id=>@sale_order.id
@@ -1272,7 +1290,7 @@ class ManagementController < ApplicationController
         end
         redirect_to :action=>:sales_payments, :id=>@sale_order.id
       else
-        @payment = Payment.new(:paid_on=>Date.today, :amount=>@sale_order.rest_to_pay)
+        @payment = Payment.new(:paid_on=>Date.today, :to_bank_on=>Date.today, :amount=>@sale_order.rest_to_pay)
        #  mode = PaymentMode.find(:first, :conditions=>{:company_id=>@current_company.id})
 #         if !mode.nil?
 #           @payment = Payment.new(:mode_id=>mode.id)
@@ -1345,7 +1363,7 @@ class ManagementController < ApplicationController
   end
 
   def shelves
-    shelves_list params
+   # shelves_list params
   end
 
   def shelves_display
@@ -1419,7 +1437,7 @@ class ManagementController < ApplicationController
   def stocks_locations_display
     @stock_location = find_and_check(:stock_location, params[:id])
     session[:current_stock_location_id] = @stock_location.id
-    stock_moves_list 
+    #stock_moves_list 
     @title = {:value=>@stock_location.name}
   end
 
@@ -1562,7 +1580,6 @@ class ManagementController < ApplicationController
         session[:location_id] = params[:product_stock][:location_id]
       end
       @product_stock = ProductStock.new(:location_id=>session[:location_id]||StockLocation.find(:first, :conditions=>{:company_id=>@current_company.id} ).id)
-      product_stocks_list 
     end
   end
 
@@ -1579,7 +1596,6 @@ class ManagementController < ApplicationController
   end
 
   def stock_transfers
-   stock_transfers_list
   end
 
   def stock_transfers_create

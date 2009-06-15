@@ -83,6 +83,13 @@ fr-FR:
         title: 'Ajout d''un nouveau type de livraison'
       delivery_modes_update:
         title: 'Modification du type de livraison "{{value}}"'
+      embankments:
+        embankments_create: Ajouter une remise de chèque
+        title: Remises de chèques
+      _embankments_form:
+        infos: Renseignez les informations suivantes
+      embankments_create: 
+        title: Créer un relevé de chèques
       index:
         nb_sales: 
           zero: 'Aucune livraison en attente'
@@ -98,6 +105,7 @@ fr-FR:
           other: '{{count}} transferts à effectuer'
         delays: Délais
         delivery_modes: Types de livraison
+        embankments: Remises de chèques
         indicator: Tableau de bord
         inventories: 'Inventaires'
         invoices: Rechercher des factures

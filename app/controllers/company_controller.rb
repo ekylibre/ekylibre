@@ -2,9 +2,6 @@ class CompanyController < ApplicationController
 
   def index
     @company = @current_company
-    users_list params
-    departments_list params
-    establishments_list params
     @title = {:value=>@company.name}
   end
 
@@ -42,7 +39,6 @@ class CompanyController < ApplicationController
   end
 
   def users
-    users_list params
   end
 
   dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t|
@@ -56,7 +52,6 @@ class CompanyController < ApplicationController
   end
 
   def establishments
-    establishments_list params
   end
   
   dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t| 
@@ -68,7 +63,6 @@ class CompanyController < ApplicationController
   end
 
   def departments
-    departments_list params
   end
 
   def establishments_create
