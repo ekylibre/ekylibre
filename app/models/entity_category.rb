@@ -13,6 +13,7 @@
 #  created_by   :integer       
 #  updated_by   :integer       
 #  lock_version :integer       default(0), not null
+#  code         :string(8)     
 #
 
 class EntityCategory < ActiveRecord::Base

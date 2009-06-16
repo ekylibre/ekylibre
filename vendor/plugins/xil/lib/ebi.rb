@@ -7,54 +7,54 @@ require 'iconv'
 
 
 
-class ::Object
+# class ::Object
 
-  def to_pdf(in_content_stream=false)
-    case self
-    when NilClass   then "null"
-    when TrueClass  then "true"
-    when FalseClass then "false"
-    when Numeric    then String(self)
-    when Array
-      "[" << self.map { |e| e.to_pdf(in_content_stream) }.join(' ') << "]"
-#    when Prawn::LiteralString
-#      self = self.gsub(/[\\\n\(\)]/) { |m| "\\#{m}" }
-#      "(#{self})"
-    when Time
-      obj = self.strftime("D:%Y%m%d%H%M%S%z").chop.chop + "'00'"
-      obj = obj.gsub(/[\\\n\(\)]/) { |m| "\\#{m}" }
-      "(#{obj})"
-    when String
-      obj = "\xFE\xFF" + self.unpack("U*").pack("n*") unless in_content_stream
-      "<" << obj.unpack("H*").first << ">"
-    when Symbol
-       if (obj = self.to_s) =~ /\s/
-         raise Exception.new("A PDF Name cannot contain whitespace")
-       else
-         "/" << obj
-       end
-    when Hash
-      output = "<<"
-      self.each do |k,v|
-        unless String === k || Symbol === k
-          raise Exception.new("A PDF Dictionary must be keyed by names")
-        end
-        output << k.to_sym.to_pdf(in_content_stream) << " " <<
-                  v.to_pdf(in_content_stream)
-      end
-      output << ">>"
-#     when Prawn::Reference
-#       self.to_s      
-#     when Prawn::NameTree::Node
-#       PdfSelfect(self.to_hash)
-#     when Prawn::NameTree::Value
-#       PdfSelfect(self.name) + " " + PdfObject(self.value)
-    else
-      raise Exception.new("This object cannot be serialized to PDF (#{self.class.to_s})")
-    end     
-  end
+#   def to_pdf(in_content_stream=false)
+#     case self
+#     when NilClass   then "null"
+#     when TrueClass  then "true"
+#     when FalseClass then "false"
+#     when Numeric    then String(self)
+#     when Array
+#       "[" << self.map { |e| e.to_pdf(in_content_stream) }.join(' ') << "]"
+# #    when Prawn::LiteralString
+# #      self = self.gsub(/[\\\n\(\)]/) { |m| "\\#{m}" }
+# #      "(#{self})"
+#     when Time
+#       obj = self.strftime("D:%Y%m%d%H%M%S%z").chop.chop + "'00'"
+#       obj = obj.gsub(/[\\\n\(\)]/) { |m| "\\#{m}" }
+#       "(#{obj})"
+#     when String
+#       obj = "\xFE\xFF" + self.unpack("U*").pack("n*") unless in_content_stream
+#       "<" << obj.unpack("H*").first << ">"
+#     when Symbol
+#        if (obj = self.to_s) =~ /\s/
+#          raise Exception.new("A PDF Name cannot contain whitespace")
+#        else
+#          "/" << obj
+#        end
+#     when Hash
+#       output = "<<"
+#       self.each do |k,v|
+#         unless String === k || Symbol === k
+#           raise Exception.new("A PDF Dictionary must be keyed by names")
+#         end
+#         output << k.to_sym.to_pdf(in_content_stream) << " " <<
+#                   v.to_pdf(in_content_stream)
+#       end
+#       output << ">>"
+# #     when Prawn::Reference
+# #       self.to_s      
+# #     when Prawn::NameTree::Node
+# #       PdfSelfect(self.to_hash)
+# #     when Prawn::NameTree::Value
+# #       PdfSelfect(self.name) + " " + PdfObject(self.value)
+#     else
+#       raise Exception.new("This object cannot be serialized to PDF (#{self.class.to_s})")
+#     end     
+#   end
 
-end
+# end
 
 
 

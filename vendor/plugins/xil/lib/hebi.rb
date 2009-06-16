@@ -237,6 +237,8 @@ module Hebi
 
     def generate(options={})
       yield self if block_given?
+      self.new_page if @page<0
+      puts @pages.inspect
       pdf_data = build
       if options[:file]
         open(options[:file],'wb') do |f|

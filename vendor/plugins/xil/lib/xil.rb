@@ -15,6 +15,8 @@ module Xil
     include ActionView::TemplateHandlers::Compilable if defined?(ActionView::TemplateHandlers::Compilable)
 
     def compile(template)
+      puts template.inspect
+      # puts local_assigns.inspect
       Xil::Engine.new(template).compile
     end
 

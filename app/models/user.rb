@@ -21,6 +21,7 @@
 #  lock_version      :integer       default(0), not null
 #  free_price        :boolean       default(TRUE), not null
 #  reduction_percent :decimal(, )   default(5.0), not null
+#  credits           :boolean       default(TRUE), not null
 #
 
 require "digest/sha2"

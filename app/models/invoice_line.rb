@@ -17,6 +17,7 @@
 #  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
 #  invoice_id        :integer       
+#  origin_id         :integer       
 #
 
 class InvoiceLine < ActiveRecord::Base

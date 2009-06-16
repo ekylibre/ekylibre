@@ -22,6 +22,9 @@
 #  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
 #  sale_order_id     :integer       
+#  origin_id         :integer       
+#  credit            :boolean       not null
+#  created_on        :date          
 #
 
 class Invoice < ActiveRecord::Base
