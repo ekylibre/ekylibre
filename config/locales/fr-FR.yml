@@ -1009,6 +1009,11 @@ fr-FR:
       entities_display:
         amount: Montant HT
         amount_with_taxes: Montant TTC
+        bank_accounts:
+          zero: Aucun compte bancaire
+          one: 1 compte bancaire
+          other: '{{count}} comptes bancaires'
+        bank_accounts_create: 'Ajouter un nouveau compte bancaire'
         client: Client
         client_balance: Solde du client
         confirmed_on: Confirmée le

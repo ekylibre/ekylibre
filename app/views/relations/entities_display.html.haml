@@ -71,3 +71,8 @@
     = link_to tc('meetings_create'), {:action=>:meetings_create, :entity_id=>@entity.id}, :class=>'procedure create'
   -if @meetings_count > 0
     =dyta :entity_meetings
+
+%h2=tc :bank_accounts, :count=>@bank_accounts_count
+.aclist
+  = link_to tc('bank_accounts_create'), {:controller =>:accountancy, :action=>:bank_accounts_create, :entity_id=>@entity.id}, :class=>'procedure create'    
+=dyta :entity_bank_accounts

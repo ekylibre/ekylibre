@@ -90,11 +90,13 @@ class AccountancyController < ApplicationController
       redirect_to_back if @bank_account.save
     else
       @bank_account = BankAccount.new
+      @bank_account.entity_id = params[:entity_id] if params[:entity_id]
       @valid_account = @current_company.accounts.empty?
       @valid_journal = @current_company.journals.empty?  
     end
     render_form
   end
+
   # this method updates a bank_account with a form.
   def bank_accounts_update
     access :bank_accounts
@@ -721,30 +723,32 @@ class AccountancyController < ApplicationController
       
       @entry = @current_company.entries.find(params[:id])
       
-      @entries = @current_company.entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "letter ASC")
+       @entries = @current_company.entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "letter ASC")
+      
+      @letters = []
+      @entries.each do |entry|
+        @letters << entry.letter unless entry.letter == ""
+      end
+      @letters.uniq!
+     
 
       if @entry.letter != ""
+         @entries_letter = @current_company.entries.find(:all, :conditions => ["letter = ? AND account_id = ?", @entry.letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
 
         @entry.update_attribute("letter", '')
+      
       else
-        @eky = false
+            
+        if not @letters.empty?
 
-        letters = []
-        @entries.each do |entry|
-          letters << entry.letter unless entry.letter == ""
-        end
-        letters.uniq!
-  
-        unless letters.empty?
-         
-          letters.each do |letter|
+          @letters.each do |letter|
             
-            entries = @current_company.entries.find(:all, :conditions => ["letter = ? AND account_id = ?", letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
+            @entries_letter = @current_company.entries.find(:all, :conditions => ["letter = ? AND account_id = ?", letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
             
-            if entries.size > 0
+            if @entries_letter.size > 0
               sum_debit = 0
               sum_credit = 0
-              entries.each do |entry|
+              @entries_letter.each do |entry|
                 sum_debit += entry.debit
                 sum_credit += entry.credit
               end
@@ -757,19 +761,17 @@ class AccountancyController < ApplicationController
               end
             end
           end
-      
+       
         end
         
         @entry.update_attribute("letter", session[:letter].to_s)
-        
-        
-     #   @entry.account.balanced_letter?(session
-
-
-     end
-
+     
+            
+      end
+     
       render :action => "accounts_letter.rjs"
     end
+
   end
   
   # lists all the statements in details for a precise account.

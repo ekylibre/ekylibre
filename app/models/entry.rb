@@ -92,5 +92,11 @@ class Entry < ActiveRecord::Base
     #Entry.update_all("editable = false", {:record_id => self.record.id})
   end
   
- 
-end
+  #
+  def balanced_letter?(letter=nil) 
+    letter ||= self.letter
+    return nil if letter.blank?
+    self.account.balanced_letter?(letter)
+  end
+
+ end

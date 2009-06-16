@@ -3,6 +3,14 @@ class RelationsController < ApplicationController
   def index
   end
 
+  dyta(:entity_bank_accounts, :model => :bank_accounts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+    t.column :name
+    t.column :number
+    t.column :iban_label
+    t.action :bank_accounts_update, :controller => :accountancy, :image=>:update
+    t.action :bank_accounts_delete, :controller => :accountancy, :method=>:post, :image=>:delete, :confirm=> :are_you_sure 
+  end
+
   dyta(:complements, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t|
     t.column :name
     t.column :nature_label
@@ -269,6 +277,7 @@ class RelationsController < ApplicationController
     session[:my_entity] = params[:id]
     @contact = Contact.new
     @contacts_count = @entity.contacts.find(:all, :conditions=>{:active=>true}).size
+    @bank_accounts_count = @entity.bank_accounts.find(:all,:conditions=>{:company_id=>@current_company.id}).size
     @title = {:value=>@entity.full_name}
   end
   
