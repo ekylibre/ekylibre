@@ -24,13 +24,19 @@ class Payment < ActiveRecord::Base
   
   belongs_to :account
   belongs_to :company
+  belongs_to :embankment
+  belongs_to :entity
   belongs_to :mode, :class_name=>PaymentMode.to_s
   has_many :payment_parts
 
   validates_presence_of :to_bank_on
   
-  def before_destroy
+  def after_update
+    if !self.embankment_id.nil?
+      self.embankment.refresh
+    end
   end
+  
+  
 
- 
 end

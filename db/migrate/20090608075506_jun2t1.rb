@@ -13,20 +13,8 @@ class Jun2t1 < ActiveRecord::Migration
 
     add_column :invoices, :created_on, :date
     
-    add_column :payments, :to_bank_on, :date
-    
-    create_table :embankments do |t|
-      t.column :amount,            :decimal,  :null=>false
-      t.column :payments_number,   :integer,  :null=>false
-      t.column :created_on,        :date,     :null=>false
-      t.column :comment,           :text
-      t.column :bank_account_id,   :integer,  :null=>false, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :mode_id,           :integer,  :null=>false, :references=>:payment_modes, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :company_id,        :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-    end
-    
-    add_column :payments, :embankment_id, :integer, :references=>:payments_lists, :on_delete=>:cascade, :on_update=>:cascade
-    
+    add_column :payments, :to_bank_on, :date, :null=>false, :default=>Date.today
+ 
     
     EntityCategory.find(:all).each do |category|
       if category.code.blank?
@@ -46,15 +34,15 @@ class Jun2t1 < ActiveRecord::Migration
     PaymentMode.find(:all).each do |mode|
       if mode.name == "Chèque"
         mode.mode = "check"
-        mode.save
+      else
+        mode.mode = "other"
       end
+      mode.save
     end
     
   end
   
   def self.down
-    remove_column :payments, :embankment_id
-    drop_table :embankments
     remove_column :payments, :to_bank_on
     remove_column :invoices, :created_on
     remove_column :users, :credits

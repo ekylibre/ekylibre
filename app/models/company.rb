@@ -216,5 +216,26 @@ class Company < ActiveRecord::Base
     end
     nature.id
   end 
+
+  def checks_to_embank_on_update(embankment)
+    checks = []
+    for payment in self.payments
+      checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == embankment.mode_id) and (payment.embankment_id.nil? or payment.embankment_id == embankment.id) ) 
+    end
+    checks
+  end
+  
+  def checks_to_embank(mode_id)
+    checks = []
+    #raise Exception.new self.payments.inspect
+    for payment in self.payments
+      if mode_id == 0
+        checks << payment if ((payment.mode.mode == "check") and payment.embankment_id.nil?)
+      else
+        checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == mode_id) and payment.embankment_id.nil?)
+      end
+    end
+    checks
+  end
   
 end

@@ -274,9 +274,11 @@ fr-FR:
         name: Nom
         comment: Commentaire
       embankment: 
+        amount: Montant
         bank_account_id: Compte bancaire
         created_on: Crée le
-        mode_id: Type de chèque
+        mode_id: Type de paiement
+        payments_number: Nombre de chèque
       employee:
         title: Fonction
         first_name: Nom

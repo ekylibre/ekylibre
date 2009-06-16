@@ -2,11 +2,13 @@ fr-FR:
   controllers:
     management:
       category: Catégorie
+      choose_one_check_at_less: Sélectionnez au moins un chèque
       import_succeed: Vos données ont été correctement importées
       title: Commerce
       delays:
         delays_create: 'Ajouter un nouveau délai'
       error_sale_order_already_paid: 'La vente a déjà été payée en totalité'
+      no_check_to_embank: Aucun chèque à encaisser 
       no_stock_location: 'Veuillez créer un lieu de stockage'
       payment_modes:
         payment_modes_create: 'Créer un nouveau type de paiement'
@@ -85,11 +87,37 @@ fr-FR:
         title: 'Modification du type de livraison "{{value}}"'
       embankments:
         embankments_create: Ajouter une remise de chèque
+        nb_checks: 
+          zero: Aucun chèque à encaisser
+          one: 1 chèque à encaisser
+          other: '{{count}} chèques à encaisser'
         title: Remises de chèques
       _embankments_form:
         infos: Renseignez les informations suivantes
       embankments_create: 
         title: Créer un relevé de chèques
+      embankments_update:
+        title: 'Modification de la remise de chèque du {{date}}'
+      embankment_checks_create:
+        amount: Montant
+        back: Retour
+        embank: Encaisser
+        entity_name: Client
+        mode_name: Type
+        no_checks: Aucun chèque à encaisser pour ce type de chèque
+        title: Sélection des chèques
+        to_bank_on: À encaisser le
+        validate: Valider
+      embankment_checks_update:
+        amount: Montant
+        back: Retour
+        embank: Encaisser
+        entity_name: Client
+        mode_name: Type
+        no_checks: Aucun chèque à encaisser
+        title: Sélection des chèques
+        to_bank_on: À encaisser le
+        validate: Valider
       index:
         nb_sales: 
           zero: 'Aucune livraison en attente'

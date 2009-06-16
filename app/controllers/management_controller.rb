@@ -1179,25 +1179,86 @@ class ManagementController < ApplicationController
 
   
   dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :amount
+    t.column :payments_number
+    t.column :name, :through=>:bank_account
     t.column :created_on
+    t.action :embankments_update
+    t.action :embankments_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def embankments
   end
   
   def embankments_create
-    # @checks = Payment.find(:all, :conditions=>{:company_id=>@current_company.id, :mode_id=>@current_company.payment_modes.find_by_})
-    @embankment = Embankment.new(:created_on=>Date.today)
-    if request.post?
-      @embankment = Embankment.new(params[:embankment])
-      @embankment.company_id = @current_company.id 
-      redirect_to :action=>:embankment_checks_create, :id=>@embankment.id if @embankment.save
+    if @current_company.checks_to_embank(0).size == 0
+      flash[:warning]=tc(:no_check_to_embank)
+      redirect_to :action=>:embankments
+    else
+      @embankment = Embankment.new(:created_on=>Date.today)
+      if request.post?
+        @embankment = Embankment.new(params[:embankment])
+        @embankment.company_id = @current_company.id 
+        redirect_to :action=>:embankment_checks_create, :id=>@embankment.id if @embankment.save
+      end
+      render_form
     end
-    render_form
   end
   
+  def embankments_update
+    @embankment = find_and_check(:embankment, params[:id])
+    if request.post?
+      redirect_to :action=>:embankment_checks_update, :id=>@embankment.id if @embankment.update_attributes(params[:embankment])
+    end
+    @title = {:date=>@embankment.created_on}
+    render_form
+  end
+
+  def embankments_delete
+    @embankment = find_and_check(:embankment, params[:id])
+    if request.post? or request.delete?
+      redirect_to_current if @embankment.destroy
+    end
+  end
+
   def embankment_checks_create
     @embankment = find_and_check (:embankment, params[:id])
+    @checks = @current_company.checks_to_embank(@embankment.mode_id)
+    if request.post?
+      payments = params[:check].collect{|x| Payment.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:check].nil?
+      if !payments.nil?
+        for payment in payments
+          payment.update_attributes!(:embankment_id=>@embankment.id)
+        end
+      end
+      redirect_to :action=>:embankments
+    end
+  end
+
+  def embankment_checks_update
+    @embankment = find_and_check (:embankment, params[:id])
+    @checks = @current_company.checks_to_embank_on_update(@embankment)
+    if request.post?
+      if params[:check].nil?
+        flash[:warning]=tc(:choose_one_check_at_less)
+        redirect_to_current
+      else
+
+        for check in @embankment.checks
+          if params[:check][check.id.to_s].nil?
+            check.update_attributes(:embankment_id=>nil) 
+            @embankment.save
+          end
+        end
+        payments = params[:check].collect{|x| Payment.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:check].nil?
+        for payment in payments
+          payment.update_attributes(:embankment_id=>@embankment.id) if payment.embankment_id.nil?
+        end
+        redirect_to :action=>:embankments
+      end
+      
+    end
+    
   end
   
   dyta(:payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -1207,9 +1268,8 @@ class ManagementController < ApplicationController
     t.action :payment_modes_update, :image=>:update
     t.action :payment_modes_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
-
+  
   def payment_modes
-    #payment_modes_list params
   end
 
   def payment_modes_create
