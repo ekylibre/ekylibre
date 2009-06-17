@@ -183,6 +183,7 @@ fr-FR:
         name: Intitulé
         label: Label
       bank_account:
+        address: Adresse
         name: Intitulé
         bank_code: Code banque
         agency_code: Code guichet 
@@ -409,6 +410,8 @@ fr-FR:
         amount: Montant
         bank: Banque
         check_number: Numéro de chèque
+        embanker_id: Encaisseur
+        entity_id: Client
         mode_id: Mode de paiement
         paid_on: Réglé le 
         to_bank_on: À encaisser le

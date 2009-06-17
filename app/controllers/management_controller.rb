@@ -12,6 +12,8 @@ class ManagementController < ApplicationController
       @product_stocks << product_stock if product_stock.state == "critic"
     end
     @stock_transfers = @current_company.stock_transfers.find(:all, :conditions=>{:moved_on=>nil}) 
+    @payments_to_embank = @current_company.checks_to_embank(-1)
+    @embankments_to_lock = @current_company.embankments_to_lock
   end
 
   dyta(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -131,7 +133,8 @@ class ManagementController < ApplicationController
     end
     @title = {:value=>@invoice.number}
   end
-  
+   
+
   dyta(:invoice_credit_lines, :model=>:invoice_lines, :conditions=>{:company_id=>['@current_company.id'], :invoice_id=>['session[:current_invoice]']}) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:products_display}
     t.column :amount, :through=>:price
@@ -1183,11 +1186,27 @@ class ManagementController < ApplicationController
     t.column :payments_number
     t.column :name, :through=>:bank_account
     t.column :created_on
-    t.action :embankments_update
-    t.action :embankments_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :embankments_display
+    t.action :embankments_update, :if=>'RECORD.locked == false'
+    t.action :embankments_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.locked == false'
+  end
+
+  dyta(:embankment_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :embankment_id=>['session[:embankment_id]']}) do |t|
+    t.column :full_name, :through=>:entity
+    t.column :bank
+    t.column :account_number
+    t.column :check_number
+    t.column :paid_on
+    t.column :amount
   end
 
   def embankments
+  end
+
+  def embankments_display
+    @embankment = find_and_check(:embankment, params[:id])
+    session[:embankment_id] = @embankment.id
+    @title = {:date=>@embankment.created_on}
   end
   
   def embankments_create
@@ -1197,7 +1216,9 @@ class ManagementController < ApplicationController
     else
       @embankment = Embankment.new(:created_on=>Date.today)
       if request.post?
+        #raise Exception.new params.inspect
         @embankment = Embankment.new(params[:embankment])
+        @embankment.mode_id = @current_company.payment_modes.find(:first, :conditions=>{:mode=>"check"}).id  if @current_company.payment_modes.find_all_by_mode("check").size == 1
         @embankment.company_id = @current_company.id 
         redirect_to :action=>:embankment_checks_create, :id=>@embankment.id if @embankment.save
       end
@@ -1619,6 +1640,20 @@ class ManagementController < ApplicationController
     end
   end
 
+  def unvalidated_embankments
+    @embankments = @current_company.embankments_to_lock
+    if request.post?
+      embankments = params[:embankment].collect{|x| Embankment.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:embankment].nil?
+      if !embankments.nil?
+        for embankment in embankments
+          embankment.locked = true
+          embankment.save
+        end
+      end
+      redirect_to :action=>:unvalidated_embankments
+    end
+  end
+  
   dyta(:product_stocks, :conditions=>:stocks_conditions, :line_class=>'RECORD.state') do |t|
     t.column :name, :through=>:product,:url=>{:action=>:products_display}
     t.column :weight, :through=>:product, :label=>"Poids"
@@ -1702,8 +1737,7 @@ class ManagementController < ApplicationController
   def taxes_create
     @tax = Tax.new(:nature=>:percent)
     if request.post?
-      #raise Exception.new params.inspect
-      @tax = Tax.new(params[:tax])
+       @tax = Tax.new(params[:tax])
       @tax.company_id = @current_company.id
       redirect_to :action=>:taxes if @tax.save
     end

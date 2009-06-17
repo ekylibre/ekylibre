@@ -1,0 +1,8 @@
+.count=tc(:nb_checks, :count=>@current_company.checks_to_embank(0).size)
+
+-if @current_company.checks_to_embank(0).size > 0
+  .aclist
+    =link_to tc('embankments_create'), {:action=>:embankments_create}, :class=>'procedure create'
+=dyta :embankments
+
+

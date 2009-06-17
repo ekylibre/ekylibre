@@ -35,6 +35,7 @@ class Company < ActiveRecord::Base
   has_many :delivery_modes
   has_many :departments
   has_many :documents
+  has_many :embankments
   has_many :employees
   has_many :entities
   has_many :entity_categories
@@ -231,6 +232,8 @@ class Company < ActiveRecord::Base
     for payment in self.payments
       if mode_id == 0
         checks << payment if ((payment.mode.mode == "check") and payment.embankment_id.nil?)
+      elsif mode_id == -1
+        checks << payment if ((payment.mode.mode == "check") and (payment.embankment_id.nil?) and Date.today >= (payment.to_bank_on+(15)) )
       else
         checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == mode_id) and payment.embankment_id.nil?)
       end
@@ -238,4 +241,13 @@ class Company < ActiveRecord::Base
     checks
   end
   
+  def embankments_to_lock
+    embankments = []
+    for embankment in self.embankments
+      embankments << embankment if embankment.locked == false and embankment.created_on <= Date.today-(15)
+    end
+    embankments
+  end
+
+
 end

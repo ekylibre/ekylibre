@@ -110,6 +110,10 @@ class BankAccount < ActiveRecord::Base
     
   end
   
+  def formated_bban
+    self.bank_code.to_s+"."+self.agency_code.to_s+"."+self.number.to_s+"."+self.key.to_s
+  end
+
 
 end
 

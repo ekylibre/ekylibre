@@ -3,6 +3,7 @@ class Embankment < ActiveRecord::Base
 
   belongs_to :bank_account
   belongs_to :company
+  belongs_to :mode, :class_name=>PaymentMode.to_s
   has_many :payments
 
   attr_readonly :company_id

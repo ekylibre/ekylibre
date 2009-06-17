@@ -1,0 +1,30 @@
+- if @embankments.size > 0
+  - form_tag do
+    %table.dyta
+      %tr
+        %th= tc('created_on')
+        %th= tc('total_amount') 
+        %th= tc('payments_number')
+        %th= tc('bank_account')
+        %th= tc('validate')
+      -for @embankment in @embankments
+      -klass=cycle("odd","even")
+        %tr{:class=>klass+' root '}
+          %td= @embankment.created_on
+          %td= @embankment.amount
+          %td= @embankment.payments_number
+          %td= @embankment.bank_account.name
+          %td{:style=>'text-align:center'}
+            =check_box_tag "embankment[#{@embankment.id}]","#{@embankment.id}",true,:id=>"embankment_#{@embankment.id}" 
+
+    .actions
+      =link_to tg(:previous), :action=>:index
+      =submit_tag(tc('validate'), :action=>:unvalidated_embankments)
+
+
+
+- else
+  %p{:style=>'text-align:center'}= tc('no_embankments')
+  .actions
+    =link_to tc(:management_index), :action=>:index
+

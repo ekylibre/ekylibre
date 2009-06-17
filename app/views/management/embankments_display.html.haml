@@ -1,0 +1,21 @@
+%h3{:style=>' padding: 10px 30px; font-size:20px;'}=@current_company.name
+
+%p{:style=>' text-align:center; padding:35px 0 0 0; font-size:20px;'}=tc('embankment')+" "+I18n.localize(@embankment.created_on)
+
+- if @embankment.bank_account.mode == "iban"
+  %p{:style=>' text-align:center; padding:20px 0 0 0; font-size:15px;'}=tc('on_account')+" "+@embankment.bank_account.iban_label
+-else
+  %p{:style=>' text-align:center; padding:20px 0 0 0; font-size:15px;'}=tc('on_account')+" "+@embankment.bank_account.formated_bban
+  
+
+%p{:style=>'padding: 20px 0 0 0;'}=dyta :embankment_payments
+.total
+  %table.dyta
+    %tr
+      %th=tc(:check_number)
+      %td=@embankment.payments_number
+    %tr.important
+      %th=tc(:amount)
+      %td=@embankment.amount.to_s+" "+@embankment.bank_account.currency.code
+
+%p{:style=>'font-style: italic; padding:15px 0 0 10px;'}=tc('print_on')+" "+I18n.localize(Time.now)

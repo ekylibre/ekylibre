@@ -92,6 +92,13 @@ fr-FR:
           one: 1 chèque à encaisser
           other: '{{count}} chèques à encaisser'
         title: Remises de chèques
+      embankments_display:
+        amount: Montant total
+        embankment: Remise de chèques du
+        check_number: Nombre de chèques
+        print_on: Le
+        on_account: À remettre sur le compte
+        title: 'Remise de chèques du {{date}}'
       _embankments_form:
         infos: Renseignez les informations suivantes
       embankments_create: 
@@ -102,6 +109,7 @@ fr-FR:
         amount: Montant
         back: Retour
         embank: Encaisser
+        embanker: Encaisseur
         entity_name: Client
         mode_name: Type
         no_checks: Aucun chèque à encaisser pour ce type de chèque
@@ -112,6 +120,7 @@ fr-FR:
         amount: Montant
         back: Retour
         embank: Encaisser
+        embanker: Encaisseur
         entity_name: Client
         mode_name: Type
         no_checks: Aucun chèque à encaisser
@@ -131,6 +140,14 @@ fr-FR:
           zero: 'Aucun transfert à effectuer'
           one: '1 transfert à effectuer'
           other: '{{count}} transferts à effectuer'
+        nb_payments:
+          zero: Aucun chèque à encaisser depuis au moins 15 j.
+          one: 1 chèque à encaisser depuis au moins 15 j.
+          other: '{{count}} chèques à encaisser depuis au moins 15 j.'
+        nb_enbankments:
+          zero: Aucune remise de chèques à valider
+          one: 1 remise de chèques à valider
+          other:  '{{count}} remises de chèques à valider'
         delays: Délais
         delivery_modes: Types de livraison
         embankments: Remises de chèques
@@ -497,6 +514,15 @@ fr-FR:
         received: Reçue
         title: Achats en attente de réception
         to: ' à l''adresse '
+        validate: Valider
+      unvalidated_embankments:  
+        bank_account: Compte bancaire
+        created_on: Créée le
+        management_index: Index de la gestion commerciale
+        no_embankments: Aucune remise de chèque à valider
+        payments_number: Nombre de chèques
+        title: Remises de chèques à valider
+        total_amount: Montant total
         validate: Valider
 
      
