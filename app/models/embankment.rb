@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: embankments
+#
+#  id              :integer       not null, primary key
+#  amount          :decimal(16, 4 default(0.0), not null
+#  payments_number :integer       default(0), not null
+#  created_on      :date          not null
+#  comment         :text          
+#  bank_account_id :integer       not null
+#  mode_id         :integer       not null
+#  company_id      :integer       not null
+#  created_at      :datetime      not null
+#  updated_at      :datetime      not null
+#  created_by      :integer       
+#  updated_by      :integer       
+#  lock_version    :integer       default(0), not null
+#  locked          :boolean       not null
+#
+
 class Embankment < ActiveRecord::Base
 
 

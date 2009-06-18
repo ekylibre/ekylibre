@@ -68,13 +68,13 @@ module Ekylibre
             unless options[:order].nil?
               raise Exception.new("options[:order] must be an Hash. Example: {:sort=>'column', 'dir'=>'asc'}") unless options[:order].is_a? Hash
               raise Exception.new("options[:order]['sort'] must be completed (#{options[:order].inspect}).") if options[:order]['sort'].nil?
-              builder += "  options['sort'] = #{options[:order]['sort'].to_s.inspect}\n"
-              builder += "  options['dir'] = #{options[:order]['dir'].to_s.inspect}\n"
+              builder += "  options['#{name}_sort'] = #{options[:order]['sort'].to_s.inspect}\n"
+              builder += "  options['#{name}_dir'] = #{options[:order]['dir'].to_s.inspect}\n"
             end
-            builder += "  unless options['sort'].blank?\n"
-            builder += "    options['dir'] ||= 'asc'\n"
-            builder += "    order  = options['sort']\n"
-            builder += "    order += options['dir']=='desc' ? ' DESC' : ' ASC'\n"
+            builder += "  unless options['#{name}_sort'].blank?\n"
+            builder += "    options['#{name}_dir'] ||= 'asc'\n"
+            builder += "    order  = options['#{name}_sort']\n"
+            builder += "    order += options['#{name}_dir']=='desc' ? ' DESC' : ' ASC'\n"
             builder += "  end\n"
    
             #raise Exception.new('voila : '+conditions.to_s)
@@ -83,7 +83,7 @@ module Ekylibre
             builder += ", :conditions=>"+conditions unless conditions.blank?
             builder += ", "+PAGINATION[options[:pagination]][:find_params].gsub('@@LENGTH@@', (options[:per_page]||25).to_s) if PAGINATION[options[:pagination]][:find_params]
             builder += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
-            builder += ", :order=>nil)||{}\n"
+            builder += ", :order=>order)||{}\n"
 
 #            builder += "  raise Exception.new(@#{name}.inspect) if request.xhr?\n"
             
@@ -107,15 +107,15 @@ module Ekylibre
             paginate_var = 'pages'
             paginate = case options[:pagination]
                        when :will_paginate then 
-                         '  '+paginate_var+"=will_paginate(@"+name.to_s+", :renderer=>'RemoteLinkRenderer', :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{:sort=>params['sort'], :dir=>params['dir'], :action=>:#{list_method_name}})\n  "+
+                         '  '+paginate_var+"=will_paginate(@"+name.to_s+", :renderer=>'RemoteLinkRenderer', :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :action=>:#{list_method_name}})\n  "+
                            paginate_var+"='"+content_tag(:tr, content_tag(:td, "'+"+paginate_var+"+'", :class=>:paginate, :colspan=>definition.columns.size))+"' unless "+paginate_var+".nil?\n"
                        else
                          ''
                        end
 
             if options[:order].nil?
-              sorter  = "    sort = options['sort']\n"
-              sorter += "    dir = options['dir']\n"
+              sorter  = "    sort = options['#{name}_sort']\n"
+              sorter += "    dir = options['#{name}_dir']\n"
             else
               sorter  = "    sort = #{options[:order]['sort'].to_s.inspect}\n"
               sorter += "    dir = #{(options[:order]['dir']||'asc').to_s.inspect}\n"
@@ -213,7 +213,7 @@ module Ekylibre
                 code += "+\n      " unless code.blank?
                 header_title = "'"+h(column.header).gsub('\'','\\\\\'')+"'"
                 if column.sortable? and order.nil?
-                  header_title = "link_to_remote("+header_title+", {:update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:#{list_method_name}, :sort=>'"+column.name.to_s+"', :dir=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>params[:page]}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
+                  header_title = "link_to_remote("+header_title+", {:update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:#{list_method_name}, '#{options[:id]}_sort'=>'"+column.name.to_s+"', '#{options[:id]}_dir'=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>params[:page]}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
                 end
                 code += "content_tag(:th, "+header_title+", :class=>'"+(column.action? ? 'act' : 'col')+"'"+column_sort+")"
               else

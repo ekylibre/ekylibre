@@ -23,6 +23,7 @@
 #  number       :string(255)   
 #  key          :string(255)   
 #  mode         :string(255)   default("IBAN"), not null
+#  address      :text          
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

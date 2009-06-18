@@ -3,11 +3,10 @@
 # Table name: shapes
 #
 #  id           :integer       not null, primary key
-#  name         :string(255)   not null
-#  polygon      :string(255)   not null
+#  polygon      :string(255)   
 #  master       :boolean       default(TRUE), not null
-#  description  :text          
-#  parent_id    :integer       
+#  description  :string(255)   
+#  shape_id     :integer       
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null

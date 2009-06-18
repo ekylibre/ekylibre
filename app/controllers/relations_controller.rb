@@ -155,13 +155,39 @@ class RelationsController < ApplicationController
 
 
   def entities_print
-    # render_xil "#{RAILS_ROOT}/app/views/prints/xil2_test.xml", :client=>Entity.find(params[:id]||1)
-    @client = Entity.find(params[:id]||1)
+    @entity = find_and_check(:entity, params[:id])
+    return if @entity.nil?
+    total = 0
+    @contact_columns = Contact.content_columns[3..7].collect do |c|
+      size = c.limit||12
+      v = {:name=>c.name, :size=>size, :offset=>total}
+      total += size
+      v
+    end
+    @contact_columns.each{|x| x[:offset] = x[:offset].to_f/total }
+    puts @contact_columns.inspect
+    
   end
 
   def entities_print2
     # render_xil "#{RAILS_ROOT}/app/views/prints/xil2_test.xml", :client=>Entity.find(params[:id]||1)
-    @client = Entity.find(params[:id]||1)
+    @client = Entity.find(:first)
+    respond_to do |format|
+      format.pdf # Render action.html.erb
+    end
+  end
+
+  def entities_print3
+    @data = Entity.find(:all)
+    respond_to do |format|
+      format.html # Render action.html.erb
+      format.csv  # Render action.csv.rcsv
+    end
+  end
+
+  def entities_print4
+    @client = Entity.find(:first)
+    prawnto :prawn => { :page_size => 'A4' }
   end
 
   
@@ -268,7 +294,14 @@ class RelationsController < ApplicationController
   end
 
   def entities_display
-    @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
+    @entity = find_and_check(:entity, params[:id])
+    return if @entity.nil?
+#     @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
+#     if @entity.nil?
+#       flash[:error] = tc('unfound_entity')
+#       redirect_to :action=>:entities
+#       return
+#     end
     session[:current_entity] = @entity.id
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})
     @key = ""

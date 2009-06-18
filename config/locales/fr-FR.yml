@@ -713,6 +713,7 @@ fr-FR:
       second_contact: Adresse secondaire
       supplier: Compte fournisseur
       title: Relations
+      unfound_entity: La fiche que vous recherchez est introuvable
       you_must_select_a_file_to_import: Vous devez sélectionner un fichier à importer
     resources:
       title: Ressources
@@ -1374,6 +1375,7 @@ fr-FR:
     search_go: Lancer la recherche
     submit: Envoyer
     unavailable:
+      entity: 'La fiche demandée est indisponible'
       journal: 'Le journal demandé est indisponible ({{value}})'
       product: Le produit demandé est indisponible
       financialyear: 'L''exercice comptable est indisponible {{value}}'

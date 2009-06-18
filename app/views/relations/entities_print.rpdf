@@ -1,0 +1,65 @@
+page :a4, :margin=>[10.mm] do
+  part 52.mm do
+    set do
+      image "#{RAILS_ROOT}/vendor/plugins/xil/tasks/images/graph.png", 35.mm, 48.mm
+      line [[0,0], [35.mm,0], [35.mm,48.mm], [0,48.mm], [0,0]], :color=>'#789', :width=>1
+    end
+    set 40.mm do
+      text @entity.full_name, :size=>10.mm
+    end
+    set 40.mm, 11.mm do
+      set 0, 0, :color=>'#777' do
+        text "Nom"
+        text "Prénom", :top=>5.mm
+        text "Code", :top=>10.mm
+        text "Créé le", :top=>15.mm
+        text "Pays", :top=>20.mm
+      end
+      set 22.mm do
+        text @entity.name
+        text @entity.first_name, :top=>5.mm
+        text @entity.code, :top=>10.mm, :font=>"Courier"
+        text I18n.localize(@entity.created_on), :top=>15.mm
+	unless @entity.country.blank?
+          image "#{RAILS_ROOT}/public/images/countries/"+@entity.country+".png", 16, 12, :top=>19.5.mm
+	  text ::I18n.t("countries."+@entity.country), :left=>18, :top=>20.mm
+        end
+      end
+    end
+  end
+  part 16.mm do
+    set 0, 2.mm, :font_size=>10 do
+      text "Contacts", :size=>14, :top=>2.mm
+      for col in @contact_columns
+        text I18n.t('activerecord.attributes.contact.'+col[:name].to_s), :left=>width*col[:offset], :top=>10.mm
+      end
+      line [[0, 14.mm], [width, 14.mm]], :color=>'#333', :width=>0.5
+    end
+  end
+  for contact in @entity.contacts
+    part 4.mm do
+      set 0, 0.5.mm, :font_size=>10 do
+        for col in @contact_columns
+          text contact.send(col[:name]).to_s, :left=>width*col[:offset]
+          line([[width*col[:offset],0], [width*col[:offset], 3.5.mm]], :color=>'#99F', :width=>0.5) if col[:offset]>0
+        end
+        line [[0, 3.5.mm], [width, 3.5.mm]], :color=>'#99F', :width=>0.5
+      end
+    end
+  end
+  part 20.mm do
+    set 0, 2.mm do
+      text "Ventes", :size=>14, :top=>2.mm    
+    end
+  end
+  part 20.mm do
+    set 0, 2.mm do
+      text "Rencontres", :size=>14, :top=>2.mm    
+    end
+  end
+  part 20.mm do
+    set 0, 2.mm do
+      text "Comptes bancaires", :size=>14, :top=>2.mm    
+    end
+  end
+end

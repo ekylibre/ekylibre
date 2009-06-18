@@ -6,8 +6,11 @@ end
 
 module Ibeh
 
-  def self.document(writer, &block)
+  def self.document(writer, view, &block)
     doc = Document.new(writer)
+    view.instance_values.each do |k,v|
+      doc.instance_variable_set("@"+k.to_s, v)
+    end
     doc.call(doc, block)
     doc.writer
   end
@@ -22,6 +25,11 @@ module Ibeh
 
     def call(element, block=nil)
       puts self.class.to_s+' > '+element.class.to_s
+      if self!=element
+        self.instance_values.each do |k,v|
+          element.instance_variable_set("@"+k, v) unless element.instance_variable_defined? "@"+k
+        end
+      end
       if block
         block.arity < 1 ? element.instance_eval(&block) : block[element]
       end
@@ -71,6 +79,10 @@ module Ibeh
       variable(:font_name, "Helvetica")
       page_break
     end
+    
+    def debug?
+      @options[:debug]||false
+    end
 
     def variable(name, value=nil)
       @env[name] = value unless value.nil?
@@ -114,17 +126,20 @@ module Ibeh
       @page   = page
       @height = height
       @top    = @page.y
-      x1, x2 = @page.margin[3], @page.width-@page.margin[1]
-      @writer.line [[x1, @top], [x2, @top-height]], :border=>{:color=>'#cdF', :width=>5}
-      @writer.line [[x2, @top], [x1, @top-height]], :border=>{:color=>'#Fdc', :width=>5}
-      @writer.line [[x1, @top], [x2, @top], [x2, @top-height], [x1, @top-height], [x1, @top]], :border=>{:color=>'#888', :width=>0}
+      if @page.debug?
+        x1, x2 = @page.margin[3], @page.width-@page.margin[1]
+        @writer.line [[x1, @top], [x2, @top-height]], :border=>{:color=>'#cdF', :width=>5}
+        @writer.line [[x2, @top], [x1, @top-height]], :border=>{:color=>'#Fdc', :width=>5}
+        @writer.line [[x1, @top], [x2, @top], [x2, @top-height], [x1, @top-height], [x1, @top]], :border=>{:color=>'#888', :width=>0}
+      end
     end
 
-    def set(left=nil, top=nil, &block)
-      left ||= @page.margin[3]
-      top  ||= 0
-      set = Set.new(@writer, @page.env.dup, left, @top-top)
+    def set(left=0, top=0, env={}, &block)
+      left += @page.margin[3]
+      @writer.save_graphics_state
+      set = Set.new(@writer, @page.env.dup.merge(env), left, @top-top)
       call(set, block)
+      @writer.restore_graphics_state
     end
 
   end
@@ -146,23 +161,28 @@ module Ibeh
       @env[name]
     end
 
-    def set(left=0, top=0, &block)
-      set = Set.new(@writer, @env.dup, @left+left, @top-top)
+    def set(left=0, top=0, env={}, &block)
+      @writer.save_graphics_state
+      set = Set.new(@writer, @env.dup.merge(env), @left+left, @top-top)
+      set.font
       call(set, block)
+      @writer.restore_graphics_state
     end
 
-    def font(name, size=nil)
+    def font(name=nil, size=nil, color=nil)
       name = variable(:font_name, name)
       size = variable(:font_size, size)
-      @writer.font name, :size=>size
+      color = variable(:color, color)
+      @writer.font name, :size=>size, :color=>color
     end
 
     def text(value, options={}, &block)
       left = options[:left]||0
       top  = options[:top]||0
-      font(options[:font], options[:size])
-      @writer.text value, :at=>[@left+left, @top-top-variable(:font_size)]
-      font(variable(:font_name), variable(:font_size))
+      env = @env.dup
+      font(options[:font], options[:size], options[:color])
+      @writer.text value, :at=>[@left+left, @top-top-0.7*variable(:font_size)]
+      @env = env
     end
 
     def image(file, width, height, options={}, &block)
@@ -170,7 +190,14 @@ module Ibeh
       top  = options[:top]||0      
       @writer.image file, @left+left, @top-top-height, width, height
     end
-    
+
+    def line(points, options={})
+      @writer.line points.collect{|p| [@left+p[0], @top-p[1]]}, {:border=>options}
+    end
+
+    def width
+      @page.width-@page.margin[1]-@page.margin[3]-@left
+    end
 
   end
 

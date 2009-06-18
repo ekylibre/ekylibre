@@ -221,6 +221,7 @@ module Hebi
         @fonts[label][:name] = ('F'+@fonts.size.to_s).to_sym
       end
       self.select_font(@fonts[label][:name], options[:size])
+      self.set_fill_color(options[:color]) if options[:color]
     end
 
     # Register all the ContentStream operations if the method exists
@@ -238,7 +239,7 @@ module Hebi
     def generate(options={})
       yield self if block_given?
       self.new_page if @page<0
-      puts @pages.inspect
+      # puts @pages.inspect
       pdf_data = build
       if options[:file]
         open(options[:file],'wb') do |f|
@@ -267,7 +268,7 @@ module Hebi
 
     private
 
-    def build(compress=true)
+    def build(compress=false)
       @compress = compress
       @objects = [0]
       @objects_count = 0
@@ -617,7 +618,7 @@ module Hebi
     def set_line_color(a=nil, b=nil, c=nil, d=nil)
       a ||= 0
       color = color(a, b, c, d)
-      return if color == @line_color
+      # return if color == @line_color
       @line_color = color
       add @line_color.join(' ')
       self
@@ -625,7 +626,7 @@ module Hebi
 
     def set_line_cap(value=nil)
       value ||= :butt
-      return if value == @line_cap
+      # return if value == @line_cap
       cap = LINE_CAP_STYLES[value]
       @document.error('Unknown cap value: '+value.inspect) if cap.nil?
       @line_cap = value
@@ -635,7 +636,7 @@ module Hebi
 
     def set_line_join(value=nil)
       value ||= :miter
-      return if value == @line_join
+      # return if value == @line_join
       join = LINE_JOIN_STYLES[value]
       @document.error('Unknown join value: '+value.inspect) if join.nil?
       @line_join = value
@@ -645,7 +646,7 @@ module Hebi
 
     def set_line_width(value=nil)
       value ||= 0
-      return if value == @line_width
+      # return if value == @line_width
       @document.error('Value must be numeric: '+value.inspect) unless NUMERIC_CLASSES.include? value.class
       @line_width = value
       add @line_width.to_s+' w'
@@ -665,7 +666,7 @@ module Hebi
       @document.error('Unvalid type to set dash style: '+pattern.inspect) unless pattern.is_a? Array
       pattern = pattern.collect{|x| x*width}
       phase *= width
-      return if pattern == @dash_pattern and phase == @dash_phase
+      # return if pattern == @dash_pattern and phase == @dash_phase
       @dash_pattern, @dash_phase = pattern, phase
       add '['+@dash_pattern.join(' ')+'] '+@dash_phase.to_s+' d'
       self
@@ -681,7 +682,7 @@ module Hebi
     end
 
     def set_miter_limit(value=2)
-      return if value == @miter_limit
+      # return if value == @miter_limit
       @document.error('Value must be numeric: '+value.inspect) unless NUMERIC_CLASSES.include? value.class
       @miter_limit = value
       add @miter_limit.to_s+' M'
@@ -715,7 +716,7 @@ module Hebi
     end
 
     def select_font(name, size=nil)
-      return if @font_name==name and @font_size==size
+      # return if @font_name==name and @font_size==size
       @document.error('Unvalid font name: '+name.inspect+', available fonts are '+@document.fonts.collect{|f| f[:name]}.join(', ')) if @document.defined_font(name).nil?
       @font_name = name
       unless size.nil?

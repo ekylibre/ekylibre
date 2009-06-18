@@ -48,8 +48,8 @@ Rails::Initializer.run do |config|
   config.i18n.default_locale = :'fr-FR'
 end
 
-Xil.options[:features] += [:template,:document]
-Xil.options[:subdir_size] = 4
+#Xil.options[:features] += [:template,:document]
+#Xil.options[:subdir_size] = 4
 
 WillPaginate::ViewHelpers.pagination_options[:previous_label] = I18n.t('general.previous')
 WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t('general.next')

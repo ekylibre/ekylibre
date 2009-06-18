@@ -3,11 +3,8 @@
 # Table name: shape_operations
 #
 #  id           :integer       not null, primary key
-#  name         :string(255)   not null
-#  description  :text          
 #  shape_id     :integer       not null
 #  employee_id  :integer       not null
-#  nature_id    :integer       
 #  planned_on   :date          not null
 #  moved_on     :date          
 #  started_at   :datetime      not null
