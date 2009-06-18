@@ -740,7 +740,6 @@ class ManagementController < ApplicationController
   end
 
   def sale_order_natures
-    #sale_order_natures_list params
   end
 
   def sale_order_natures_display
@@ -886,7 +885,6 @@ class ManagementController < ApplicationController
   end
 
   def add_lines
-    #raise Exception.new params.inspect
     @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
     if @sale_order_line
       @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
@@ -925,7 +923,6 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sales_products, :id=>@sale_order.id
     else
       if request.post? 
-        #raise Exception.new params.inspect
         @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
         if @sale_order_line and params[:sale_order_line][:price_amount].to_d <= 0
           @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
@@ -1216,7 +1213,6 @@ class ManagementController < ApplicationController
     else
       @embankment = Embankment.new(:created_on=>Date.today)
       if request.post?
-        #raise Exception.new params.inspect
         @embankment = Embankment.new(params[:embankment])
         @embankment.mode_id = @current_company.payment_modes.find(:first, :conditions=>{:mode=>"check"}).id  if @current_company.payment_modes.find_all_by_mode("check").size == 1
         @embankment.company_id = @current_company.id 
@@ -1340,7 +1336,6 @@ class ManagementController < ApplicationController
     @payments.each {|p| @payments_sum += p.amount}
     session[:current_sale_order] = @sale_order.id
     #raise Exception.new @sale_order.client.balance.inspect
-#    payment_parts_list params
     if request.post?
       @sale_order.update_attribute(:state, 'F') if @sale_order.state == 'R'
       #redirect_to :action=>:sales_payments, :id=>@sale_order.id
@@ -1358,7 +1353,6 @@ class ManagementController < ApplicationController
       @update = false
       @payments = @sale_order.payments 
       if request.post?
-        #raise Exception.new params.inspect
         if params[:price][:mode] == "new"
           @payment = Payment.new(params[:payment])
           @payment.company_id = @current_company.id

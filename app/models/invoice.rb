@@ -38,6 +38,8 @@ class Invoice < ActiveRecord::Base
   has_many :deliveries
   has_many :lines, :class_name=>InvoiceLine.to_s, :foreign_key=>:invoice_id
 
+  attr_readonly :company_id
+
   def before_validation
     self.created_on = Date.today unless self.created_on.is_a? Date
     if self.number.blank?

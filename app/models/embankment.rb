@@ -38,7 +38,6 @@ class Embankment < ActiveRecord::Base
 
   
   def before_destroy
-    #raise Exception.new self.checks.inspect
     for check in self.checks
       check.update_attributes(:embankment_id=>nil)
     end

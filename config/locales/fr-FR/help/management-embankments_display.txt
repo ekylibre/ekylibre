@@ -2,4 +2,9 @@ h1. L'affichage d'une remise de chèque
 
 Vous avez un aperçu de ce à quoi ressemblera *l'impression de la remise de chèque*. Les *informations* de la remise de chèque y sont détaillées: nom de la société, date, compte bancaire à créditer, montant, descriptif des chèques...
 
+
+
+
+
+
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>
