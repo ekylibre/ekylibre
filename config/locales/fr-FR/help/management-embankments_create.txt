@@ -1,0 +1,8 @@
+h1. Comment créer un relevé de chèques ?
+
+Sélectionnez *le compte sur lequel seront virés les chèques* que vous allez sélectionner à la prochaine étape de création d'une remise de chèque.
+
+Si vous avez créé plusieurs modes de paiement de type chèque, vous devrez également sélectionner le mode. 
+
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

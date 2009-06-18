@@ -23,7 +23,7 @@
 
 class Payment < ActiveRecord::Base
   
-  belongs_to :account
+  belongs_to :account  
   belongs_to :company
   belongs_to :embanker, :class_name=>User.to_s
   belongs_to :embankment

@@ -1182,7 +1182,7 @@ class ManagementController < ApplicationController
 
   
   dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :amount
+    t.column :amount, :url=>{:action=>:embankments_display}
     t.column :payments_number
     t.column :name, :through=>:bank_account
     t.column :created_on
