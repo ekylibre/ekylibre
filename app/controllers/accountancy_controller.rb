@@ -720,27 +720,26 @@ class AccountancyController < ApplicationController
   def entries_letter
 
     if request.xhr?
-      
+    
       @entry = @current_company.entries.find(params[:id])
       
        @entries = @current_company.entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "letter ASC")
       
       @letters = []
       @entries.each do |entry|
-        @letters << entry.letter unless entry.letter == ""
+        @letters << entry.letter unless entry.letter.blank?  
       end
       @letters.uniq!
-     
-
+    
       if @entry.letter != ""
          @entries_letter = @current_company.entries.find(:all, :conditions => ["letter = ? AND account_id = ?", @entry.letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
 
         @entry.update_attribute("letter", '')
       
       else
-            
-        if not @letters.empty?
-
+        #raise Exception.new('edeb:'+@letters.inspect)              
+        if not @letters.empty? 
+          
           @letters.each do |letter|
             
             @entries_letter = @current_company.entries.find(:all, :conditions => ["letter = ? AND account_id = ?", letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
@@ -761,11 +760,10 @@ class AccountancyController < ApplicationController
               end
             end
           end
-       
         end
-        
+
         @entry.update_attribute("letter", session[:letter].to_s)
-     raise Exception.new('e:'+@entry.inspect)
+
             
       end
      
