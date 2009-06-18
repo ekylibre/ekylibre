@@ -51,7 +51,7 @@ class BankAccount < ActiveRecord::Base
      self.iban=BankAccount.generate_iban(COUNTRY_CODE_FR, self.bank_code+self.agency_code+self.number+self.key)
     end
     self.iban_label = self.iban.split(/(\w\w\w\w)/).delete_if{|k| k.empty?}.join(" ") 
-    self.entity_id = self.company.entity_id
+  #  self.entity_id = self.company.entity_id
   end  
   
   # IBAN have to be checked before saved.

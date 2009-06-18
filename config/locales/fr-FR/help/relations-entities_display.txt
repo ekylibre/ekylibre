@@ -10,6 +10,11 @@ Vous avez également la possibilité de :
 * le modifier : <<relations-entities_contacts_update|{{buttons/update.png|modifier}}>> 
 * le supprimer :   {{buttons/delete.png|supprimer}}
 
+Mais aussi de:
+* créer un nouveau compte bancaire
+* le modifier : <<accountancy-bank_accounts_update|{{buttons/update.png|modifier}}>> 
+* le supprimer :   {{buttons/delete.png|supprimer}}
+
 Vous ne pouvez pas supprimer une option de liste déroulante.
 
 h2. Informations concernant les ventes

@@ -23,7 +23,7 @@ class ResourcesController < ApplicationController
   def employees
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key
-    employees_list
+   # employees_list
   end
   
   # this action creates an employee with a form.
@@ -65,7 +65,7 @@ class ResourcesController < ApplicationController
 
   # this action lists all the professions with main informations for each of them.  
   def professions
-    professions_list params
+   # professions_list params
   end
 
   # this action creates a profession with a form.

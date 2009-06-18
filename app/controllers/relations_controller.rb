@@ -34,7 +34,7 @@ class RelationsController < ApplicationController
   
   def complements
     access :complements
-    complements_list
+    #complements_list
   end
 
   def complement_choices
@@ -300,15 +300,16 @@ class RelationsController < ApplicationController
    
     @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '411%'])
     @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '401%'])
-
+                  
     if request.post?
+                  
       #raise Exception.new params.inspect+"               "+params[:entity_meeting].inspect
       #for meeting in params[:entity_meeting]
        # raise Exception.new meeting[1].inspect if meeting[1].empty?
       #end
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
-  
+
       unless params[:entity][:client].to_i.zero?
         if params[:entity][:client_account_id].to_i.zero?
           account = @entity.create_update_account(:client) 
@@ -317,7 +318,7 @@ class RelationsController < ApplicationController
           @entity.client_account_id = params[:entity][:client_account_id]
         end
       end
-      
+
       unless params[:entity][:supplier].to_i.zero?
         if params[:entity][:supplier_account_id].to_i.zero?
           account =@entity.create_update_account(:supplier)
@@ -331,7 +332,7 @@ class RelationsController < ApplicationController
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
       # @contact.name =  tc(:first_contact)
-      
+
       for complement in @complements
         attributes = params[:complement_datum][complement.id.to_s]||{}
         attributes[:complement_id] = complement.id
@@ -342,6 +343,7 @@ class RelationsController < ApplicationController
       ActiveRecord::Base.transaction do
         #raise Exception.new @entity.inspect
         saved = @entity.save
+
         if saved
           for datum in @complement_data
             datum.entity_id = @entity.id
@@ -352,12 +354,14 @@ class RelationsController < ApplicationController
             end
             #            puts '>> Datum : '+datum.errors.inspect
           end
+
           @contact.entity_id = @entity.id
           saved = false unless @contact.save
           @contact.errors.each_full do |msg|
             @entity.errors.add_to_base(msg)
           end
         end
+
         raise ActiveRecord::Rollback unless saved
         #raise Exception.new session.data.inspect
         if session[:history][1].to_s.include? "relations"
@@ -366,7 +370,7 @@ class RelationsController < ApplicationController
           redirect_to_back
         end
       end
-    
+
     else
       @contact = Contact.new(:country=>'fr', :default=>true)
       @entity = Entity.new(:country=>'fr')
@@ -374,6 +378,7 @@ class RelationsController < ApplicationController
         @complement_data << ComplementDatum.new(:complement_id=>complement.id)
       end
     end
+#                                                            raise Exception.new('p12:'+params.inspect)      
     render_form
   end
 
@@ -464,7 +469,8 @@ class RelationsController < ApplicationController
       @id = params[:id]
       unless @entity.invoices.size > 0
         @id = params[:id]
-        Entity.delete(@id) if @entity
+        Entity.destroy(@id) if @entity
+#        Entity.delete(@id) if @entity
       else
         flash[:warning]=lc(:entities_delete_permission)
       end
@@ -584,7 +590,7 @@ class RelationsController < ApplicationController
 
   def entities_natures
     access :entities
-    entity_natures_list params
+#    entity_natures_list params
   end
 
   def entities_natures_create
@@ -631,7 +637,7 @@ class RelationsController < ApplicationController
   end
 
   def meeting_locations
-    meeting_locations_list
+    #meeting_locations_list
   end
  
   def meeting_locations_create
@@ -667,7 +673,7 @@ class RelationsController < ApplicationController
   end
 
   def meeting_modes
-    meeting_modes_list
+#    meeting_modes_list
   end
 
   def meeting_modes_create
@@ -708,7 +714,7 @@ class RelationsController < ApplicationController
   end
   
   def meetings
-    meetings_list
+    #meetings_list
   end
   
   def meetings_create

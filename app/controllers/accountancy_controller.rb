@@ -86,11 +86,11 @@ class AccountancyController < ApplicationController
     if request.post? 
       @bank_account = BankAccount.new(params[:bank_account])
       @bank_account.company_id = @current_company.id
-     
+      @bank_account.entity_id = session[:entity_id] 
       redirect_to_back if @bank_account.save
     else
       @bank_account = BankAccount.new
-      @bank_account.entity_id = params[:entity_id] if params[:entity_id]
+      session[:entity_id] = params[:entity_id] if params[:entity_id]
       @valid_account = @current_company.accounts.empty?
       @valid_journal = @current_company.journals.empty?  
     end
@@ -765,7 +765,7 @@ class AccountancyController < ApplicationController
         end
         
         @entry.update_attribute("letter", session[:letter].to_s)
-     
+     raise Exception.new('e:'+@entry.inspect)
             
       end
      

@@ -16,7 +16,7 @@ class ProductionController < ApplicationController
   end
 
   def productions
-    productions_list 
+   # productions_list 
   end
   
 
@@ -130,7 +130,7 @@ class ProductionController < ApplicationController
   end
 
   def shapes
-    shapes_list
+   # shapes_list
   end
 
   def shapes_create
@@ -144,7 +144,7 @@ class ProductionController < ApplicationController
   end
   
   def shape_operations
-    shape_operations_list
+   # shape_operations_list
   end
 
   def shape_operations_create
@@ -174,7 +174,7 @@ class ProductionController < ApplicationController
   end
 
   def shape_operation_natures
-    shape_operation_natures_list
+   # shape_operation_natures_list
   end
 
   def shape_operation_natures_create

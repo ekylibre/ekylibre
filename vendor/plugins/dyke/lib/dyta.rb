@@ -83,7 +83,7 @@ module Ekylibre
             builder += ", :conditions=>"+conditions unless conditions.blank?
             builder += ", "+PAGINATION[options[:pagination]][:find_params].gsub('@@LENGTH@@', (options[:per_page]||25).to_s) if PAGINATION[options[:pagination]][:find_params]
             builder += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
-            builder += ", :order=>order)||{}\n"
+            builder += ", :order=>nil)||{}\n"
 
 #            builder += "  raise Exception.new(@#{name}.inspect) if request.xhr?\n"
             

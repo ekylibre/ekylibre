@@ -18,8 +18,8 @@
         %td=entry.record.number
         %td.decimal=entry.debit
         %td.decimal=entry.credit
-        %td{:id => 'entry_letter_'+entry.id.to_s, :onclick => remote_function(:zafter => "$('e"+entry.id.to_s+"').className='$(\').innerHTML'"+attr, :url => { :action => 'entries_letter', :id => entry.id })}=entry.letter    
-      =#javascript_tag("$('e"+entry.id.to_s+"').className='$(\'prefix_class_"+entry.id.to_s+"\').innerHTML"+" "+attr+"'") 
+        %td{:id => 'entry_letter_'+entry.id.to_s, :onclick => remote_function(:url => { :action => 'entries_letter', :id => entry.id })}=entry.letter    
+      
 %br  
 #lettering=render :partial => 'accounts_letter'
 
