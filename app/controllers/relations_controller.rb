@@ -282,7 +282,7 @@ class RelationsController < ApplicationController
   end
   
   
-  dyta(:client_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id']}, :per_page=>5, :order=>{'sort'=>'created_on', 'dir'=>'desc'}) do |t|
+  dyta(:client_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity]']}, :per_page=>5, :order=>{'sort'=>'created_on', 'dir'=>'desc'}) do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:invoices_display}
     t.column :full_name, :through=>:client
     #t.column :address, :through=>:contact
@@ -305,7 +305,7 @@ class RelationsController < ApplicationController
     session[:current_entity] = @entity.id
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})
     @key = ""
-    @invoices_count = @current_company.invoices.size
+    @invoices_count = @entity.invoices.size
     @meetings_count = @current_company.meetings.find(:all, :conditions=>{:entity_id=>@entity.id}).size
     session[:my_entity] = params[:id]
     @contact = Contact.new
