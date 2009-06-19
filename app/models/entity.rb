@@ -149,7 +149,8 @@ class Entity < ActiveRecord::Base
       suffix.succ! unless account.nil?
     end
     
-    self.company.accounts.create({:number => prefix.to_s+suffix.to_s, :name => tc(nature,:value => self.name)})
+    #self.company.accounts.create({:number => prefix.to_s+suffix.to_s, :name => tc(nature,:value => self.name)})
+    self.company.accounts.create({:number => prefix.to_s+suffix.to_s, :name=>(self.first_name+" "+self.name).strip})
   end
 
 

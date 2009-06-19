@@ -336,10 +336,6 @@ class RelationsController < ApplicationController
                   
     if request.post?
                   
-      #raise Exception.new params.inspect+"               "+params[:entity_meeting].inspect
-      #for meeting in params[:entity_meeting]
-       # raise Exception.new meeting[1].inspect if meeting[1].empty?
-      #end
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
 
@@ -430,7 +426,6 @@ class RelationsController < ApplicationController
     
     if request.post? and @entity
       
-      #raise Exception.new @operation.inspect
       puts params[:complement_datum].inspect
       for complement in @complements
         attributes = params[:complement_datum][complement.id.to_s]||{}
