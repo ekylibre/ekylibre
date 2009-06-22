@@ -78,6 +78,7 @@ class Company < ActiveRecord::Base
   has_many :templates
   has_many :units
   has_many :users
+  belongs_to :entity
 
   #validates_presence_of :entity_id
 
@@ -249,5 +250,8 @@ class Company < ActiveRecord::Base
     embankments
   end
 
+  def default_contact
+    self.entity.contacts.find_by_default(true)
+  end
 
 end

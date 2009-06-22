@@ -2,6 +2,7 @@
   - f.error :bank_account
   - f.title :rib
   - f.field :bank_account, :name
+  - f.field :bank_account, :bank_name
   - f.field :bank_account, :mode, :field=>:radio, :choices=>BankAccount.modes  
 =formalize(:id=>:bban) do |f|
   - f.field :bank_account, :bank_code  

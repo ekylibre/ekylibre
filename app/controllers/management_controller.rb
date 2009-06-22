@@ -1184,6 +1184,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:bank_account
     t.column :created_on
     t.action :embankments_display
+    t.action :embankments_print
     t.action :embankments_update, :if=>'RECORD.locked == false'
     t.action :embankments_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.locked == false'
   end
@@ -1206,6 +1207,17 @@ class ManagementController < ApplicationController
     @title = {:date=>@embankment.created_on}
   end
   
+  def embankments_print
+    @embankment = find_and_check(:embankment, params[:id])
+    @payments = @current_company.payments.find_all_by_embankment_id(@embankment.id)
+    @lines = []
+    @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
+    @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+    #raise Exception.new @embankment.bank_account.bank_name.inspect
+    @account_address = @embankment.bank_account.address.split("\n")
+    #raise Exception.new Payment.content_columns.inspect
+  end
+
   def embankments_create
     if @current_company.checks_to_embank(0).size == 0
       flash[:warning]=tc(:no_check_to_embank)

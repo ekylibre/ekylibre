@@ -184,6 +184,7 @@ fr-FR:
         label: Label
       bank_account:
         address: Adresse
+        bank_name: Nom de la banque
         name: Intitulé
         bank_code: Code banque
         agency_code: Code guichet 
