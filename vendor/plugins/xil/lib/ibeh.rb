@@ -115,8 +115,9 @@ module Ibeh
             line [[0, 0], [table_width, 0]], :color=>'#777', :width=>0.2
             for c in columns
               text c[:title].to_s, :left=>c[:offset]+0.5.mm, :top=>0.5.mm, :bold=>true
-              line([[c[:offset],0], [c[:offset], 4.mm]], :color=>'#777', :width=>0.2) if c[:offset]>0
+              line([[c[:offset],0], [c[:offset], 4.mm]], :color=>'#777', :width=>0.2)
             end
+            line [[table_width, 0], [table_width, 4.mm]], :color=>'#777', :width=>0.2
             line [[0, 4.mm], [table_width, 4.mm]], :color=>'#333', :width=>0.5
           end
         end
@@ -125,9 +126,9 @@ module Ibeh
             set 0, 0, :font_size=>10 do
               for c in columns
                 text x.instance_eval(c[:value]).to_s, :left=>c[:offset]+0.5.mm, :top=>0.5.mm
-                line([[c[:offset],0], [c[:offset], 4.mm]], :color=>'#777', :width=>0.2) if c[:offset]>0
+                line([[c[:offset],0], [c[:offset], 4.mm]], :color=>'#777', :width=>0.2)
               end
-              line [[0, 4.mm], [table_width, 4.mm]], :color=>'#777', :width=>0.2
+              line [[table_width, 0], [table_width, 4.mm], [0, 4.mm]], :color=>'#777', :width=>0.2
             end
           end
         end
