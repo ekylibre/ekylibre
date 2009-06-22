@@ -5,7 +5,7 @@ page :a4, :margin=>[10.mm] do
       line [[0,0], [35.mm,0], [35.mm,48.mm], [0,48.mm], [0,0]], :color=>'#789', :width=>1
     end
     set 40.mm do
-      text @entity.full_name, :size=>10.mm
+      text @entity.full_name.strip, :left=>width/2, :size=>28, :align=>:center
     end
     set 40.mm, 11.mm do
       set 0, 0, :color=>'#777' do
@@ -27,43 +27,52 @@ page :a4, :margin=>[10.mm] do
       end
     end
   end
-  part 16.mm do
-    set 0, 2.mm, :font_size=>10 do
-      text "Contacts", :size=>14, :top=>2.mm
-      for col in @contact_columns
-        text I18n.t('activerecord.attributes.contact.'+col[:name].to_s), :left=>width*col[:offset], :top=>10.mm
-      end
-      line [[0, 14.mm], [width, 14.mm]], :color=>'#333', :width=>0.5
+
+  part 10.mm do
+    set do
+      text "Contacts", :size=>14, :top=>5.mm
     end
   end
-  for contact in @entity.contacts
-    part 4.mm do
-      set 0, 0.5.mm, :font_size=>10 do
-        for col in @contact_columns
-          text contact.send(col[:name]).to_s, :left=>width*col[:offset]
-          line([[width*col[:offset],0], [width*col[:offset], 3.5.mm]], :color=>'#99F', :width=>0.5) if col[:offset]>0
-        end
-        line [[0, 3.5.mm], [width, 3.5.mm]], :color=>'#99F', :width=>0.5
-      end
-    end
+  table @entity.contacts do
+    column "Adresse", 'lines', 4.2
+    column "Téléphone", 'phone'
+    column "Fax", 'fax'
+    column "Mobile", 'mobile'
+    column "E-mail", 'email', 2
   end
-  part 20.mm do
-    set 0, 2.mm do
-      text "Ventes", :size=>14, :top=>2.mm    
+
+  part 10.mm do
+    set do
+      text "Ventes", :size=>14, :top=>5.mm
     end
   end
   table @entity.sale_orders do
-    column "Date pqg", 'created_at.to_date'
-    column "Montant", 'amount'
+    column "N°", 'number'
+    column "Date", 'created_at.to_date',1, :align=>:center
+    column "Montant HT", 'amount', 1,  :align=>:right
+    column "Montant TTC", 'amount_with_taxes', 1, :align=>:right
   end
-  part 20.mm do
-    set 0, 2.mm do
-      text "Rencontres", :size=>14, :top=>2.mm    
+
+  part 10.mm do
+    set do
+      text "Rencontres", :size=>14, :top=>5.mm
     end
   end
-  part 20.mm do
-    set 0, 2.mm do
-      text "Comptes bancaires", :size=>14, :top=>2.mm    
+  table @entity.meetings do
+    column "Date", 'taken_place_on'
+    column "Lieu", 'location.name', 2
+    column "Avec", 'employee.full_name', 2
+    column "Type", 'mode.name'
+  end
+
+  part 10.mm do
+    set do
+      text "Comptes bancaires", :size=>14, :top=>5.mm
     end
+  end
+  table @entity.bank_accounts do
+    column "Intitulé", 'name', 2
+    column "IBAN", 'iban_label', 4
+    column "BIC/SWIFT", 'bic'
   end
 end

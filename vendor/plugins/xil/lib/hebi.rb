@@ -207,8 +207,9 @@ module Hebi
     def text(string, options={})
       at = options[:at]||[]
       self.begin_text_object
-      self.move_text_position(at[0]||0, at[1]||0)
-      self.show_text(string)
+#      self.move_text_position(at[0]||0, at[1]||0)
+#      self.show_text(string)
+      self.show_text_at(string, at[0]||0, at[1]||0, options[:align])
       self.end_text_object
     end
 
@@ -263,7 +264,7 @@ module Hebi
     end
 
     def defined_font(name)
-      (@fonts.detect{|key, font| font[:name] == name}||[])[0]
+      (@fonts.detect{|key, font| font[:name] == name}||[])[1]
     end
 
     private
@@ -729,12 +730,12 @@ module Hebi
 
     # Get width of a string in the current font
     def get_string_width(string)
-      @document.error('A font must be selected to compute a string width. ('+@font_name.inspect+'/'+@font_size.inspect+')')  if @font_name.nil? or @font_size.nil?
+      @document.error('A font must be selected to compute a string width. ('+@font_name.inspect+'/'+@font_size.inspect+')') if @font_name.nil? or @font_size.nil?
       cw = @document.defined_font(@font_name)[:char_widths]
-      @document.error('Char widths must be an Array: '+cw.inspect) unless cw.is_a? Array
+      @document.error('Char widths must be an Array: '+cw.inspect+' '+@font_name.inspect+' '+@document.fonts.inspect) unless cw.is_a? Array
       width = 0
       s = @document.ic ? @document.ic.iconv(string) : string
-      s.each_byte { |char| width += cw[char] }
+      s.ascii.each_byte { |char| width += cw[char] }
       return width*@font_size/1000.0
     end
 
@@ -832,6 +833,19 @@ module Hebi
       end
       self
     end
+
+    def show_text_at(text, x, y, align=:left)
+      w = get_string_width(text)
+      nx = x
+      if align==:center
+        nx -= w.to_f/2
+      elsif align==:right
+        nx -= w.to_f
+      end
+      self.move_text_position(nx, y)
+      self.show_text(text)
+    end
+    
 
     def new_graphics_state
       @document.error('A new graphics state needs block') unless block_given?

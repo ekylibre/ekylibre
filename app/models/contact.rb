@@ -57,10 +57,7 @@ class Contact < ActiveRecord::Base
     
     Contact.update_all({:default=>false}, ["entity_id=? AND company_id=? AND id!=?", self.entity_id,self.company_id, self.id||0]) if self.default
     
-    lines = [self.line_2, self.line_3, (self.line_4_number.to_s+' '+self.line_4_street.to_s).strip, self.line_5, (self.line_6_code.to_s+" "+self.line_6_city.to_s).strip, (self.country.blank? ? '' : I18n.t("countries.#{self.country}"))].compact
-    lines.delete ""
-    self.address = lines.join(", ")
-
+    self.address = self.lines
     self.website = "http://"+self.website unless self.website.blank? or self.website.match /^.+p.*\/\//
   end
 
@@ -83,6 +80,15 @@ class Contact < ActiveRecord::Base
     Contact.create!(self.attributes.merge({:code=>self.code, :active=>true, :started_at=>self.stopped_at, :stopped_at=>nil, :company_id=>self.company_id, :entity_id=>self.entity_id, :norm_id=>self.norm_id})) if self.active
     self.active = false
     true
+  end
+
+  def lines(sep=', ', with_city=true, with_country=true)
+    lines = [self.line_2, self.line_3, (self.line_4_number.to_s+' '+self.line_4_street.to_s).strip, self.line_5]
+    lines << (self.line_6_code.to_s+" "+self.line_6_city.to_s).strip if with_city
+    lines << (self.country.blank? ? '' : I18n.t("countries.#{self.country}")) if with_country
+    lines = lines.compact
+    lines.delete ""
+    lines.join(sep)
   end
   
   #  def validate_on_update 

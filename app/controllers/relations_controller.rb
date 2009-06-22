@@ -157,16 +157,6 @@ class RelationsController < ApplicationController
   def entities_print
     @entity = find_and_check(:entity, params[:id])
     return if @entity.nil?
-    total = 0
-    @contact_columns = Contact.content_columns[3..7].collect do |c|
-      size = c.limit||12
-      v = {:name=>c.name, :size=>size, :offset=>total}
-      total += size
-      v
-    end
-    @contact_columns.each{|x| x[:offset] = x[:offset].to_f/total }
-    puts @contact_columns.inspect
-    
   end
 
   def entities_print2

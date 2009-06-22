@@ -125,7 +125,15 @@ module Ibeh
           part(options[:row_height]||4.mm) do
             set 0, 0, :font_size=>10 do
               for c in columns
-                text x.instance_eval(c[:value]).to_s, :left=>c[:offset]+0.5.mm, :top=>0.5.mm
+                left = c[:offset]
+                if c[:options][:align]==:center
+                  left += c[:width].to_f/2
+                elsif c[:options][:align]==:right
+                  left += c[:width].to_f - 0.5.mm
+                else
+                  left += 0.5.mm
+                end
+                text x.instance_eval(c[:value]).to_s, :left=>left, :top=>0.5.mm, :align=>c[:options][:align]
                 line([[c[:offset],0], [c[:offset], 4.mm]], :color=>'#777', :width=>0.2)
               end
               line [[table_width, 0], [table_width, 4.mm], [0, 4.mm]], :color=>'#777', :width=>0.2
@@ -159,8 +167,8 @@ module Ibeh
       @columns = []
     end
 
-    def column(title, value, flex=1)
-      @columns << {:title=>title, :value=>value, :flex=>flex}
+    def column(title, value, flex=1, options={})
+      @columns << {:title=>title, :value=>value, :flex=>flex, :options=>options}
     end
   end
 
@@ -227,11 +235,16 @@ module Ibeh
     end
 
     def text(value, options={}, &block)
-      left = options[:left]||0
-      top  = options[:top]||0
       env = @env.dup
-      font(options[:font], options[:size], options[:color], :italic=>options[:italic], :bold=>options[:bold])
-      @writer.text value, :at=>[@left+left, @top-top-0.7*variable(:font_size)]
+      font(options[:font], options.delete(:size), options.delete(:color), :italic=>options[:italic], :bold=>options[:bold])
+      left = @left+(options[:left]||0)
+      top  = @top-(options[:top]||0)-0.7*variable(:font_size)
+      @writer.text value, :at=>[left, top], :align=>options[:align]
+      if @page.debug?
+        wcross = 5
+        @writer.line [[left-wcross, top], [left+wcross, top]], :border=>{:color=>'#FCC', :width=>0}
+        @writer.line [[left, top-wcross], [left, top+wcross]], :border=>{:color=>'#FCC', :width=>0}
+      end
       @env = env
     end
 

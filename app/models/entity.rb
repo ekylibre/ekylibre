@@ -59,7 +59,7 @@ class Entity < ActiveRecord::Base
   belongs_to :supplier_account, :class_name=>Account.to_s
   has_many :bank_accounts
   has_many :complement_data
-  has_many :contacts
+  has_many :contacts, :conditions=>{:active=>true}
   has_many :invoices, :foreign_key=>:client_id
   has_many :meetings
   has_many :payments
