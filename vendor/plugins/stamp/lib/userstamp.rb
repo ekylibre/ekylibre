@@ -29,7 +29,9 @@ module Stamp
       # After we update those attributes we continue by running the normal <tt>create</tt> method where the object
       # is actually validated and saved.
       def create_with_user
+        puts ">>>>> create_with_user"
         if record_userstamps and user_model.current_user != nil
+          puts "ok!"
           write_attribute(:created_by, user_model.current_user.id.to_i) if respond_to?(:created_by) and self.created_by.nil?
           write_attribute(:updated_by, user_model.current_user.id.to_i) if respond_to?(:updated_by)
         end
@@ -43,7 +45,9 @@ module Stamp
       # After we update those attributes we continue by running the normal <tt>update</tt> method where the object
       # is actually validated and saved.
       def update_with_user
+        puts ">>>>>>>>>> update_with_user"
         if record_userstamps and user_model.current_user != nil
+          puts "ok"
           write_attribute(:updated_by, user_model.current_user.id.to_i) if respond_to?(:updated_by)
         end
         update_without_user
@@ -67,11 +71,8 @@ module ActiveRecord
       self.user_model_name = model
     end
 
-
     def user_model
       Object.const_get(self.user_model_name.to_s.singularize.humanize)
     end
   end
 end
-
-

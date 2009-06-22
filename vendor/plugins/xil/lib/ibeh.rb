@@ -97,6 +97,38 @@ module Ibeh
       @y -= height
     end
 
+    def table(collection, width=nil, options={}, &block)
+      if block_given?
+        table = Table.new
+        call(table, block)
+        columns = table.columns
+        width ||= self.width-self.margin[1]-self.margin[3]
+        total, l = 0, 0
+        columns.each{|c| total += c[:flex]}
+        columns.each do |c|
+          c[:offset] = l
+          c[:width] = width*c[:flex]/total
+          l += c[:width]
+        end
+        part(options[:header_height]||5.mm) do
+          for c in columns
+            set c[:offset] do
+              text c[:title].to_s
+            end
+          end
+        end
+        for x in collection
+          part(options[:row_height]||4.mm) do
+            for c in columns
+              set c[:offset] do
+                text x.instance_eval(c[:value]).to_s
+              end
+            end
+          end
+        end
+      end
+    end
+
     def page_break
       @writer.new_page(@format, @options[:rotate]||0)
       @y = @format[1]-@margin[0]
@@ -113,6 +145,18 @@ module Ibeh
   end
 
 
+
+  class Table < Element
+    attr_reader :columns
+
+    def initialize
+      @columns = []
+    end
+
+    def column(title, value, flex=1)
+      @columns << {:title=>title, :value=>value, :flex=>flex}
+    end
+  end
 
 
 

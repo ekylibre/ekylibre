@@ -52,6 +52,10 @@ page :a4, :margin=>[10.mm] do
       text "Ventes", :size=>14, :top=>2.mm    
     end
   end
+  table @entity.sale_orders do
+    column "Date", 'created_at.to_date'
+    column "Montant", 'amount'
+  end
   part 20.mm do
     set 0, 2.mm do
       text "Rencontres", :size=>14, :top=>2.mm    
