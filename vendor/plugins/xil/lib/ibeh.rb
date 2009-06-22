@@ -97,32 +97,37 @@ module Ibeh
       @y -= height
     end
 
-    def table(collection, width=nil, options={}, &block)
+    def table(collection, table_width=nil, options={}, &block)
       if block_given?
         table = Table.new
         call(table, block)
         columns = table.columns
-        width ||= self.width-self.margin[1]-self.margin[3]
+        table_width ||= self.width-self.margin[1]-self.margin[3]
         total, l = 0, 0
-        columns.each{|c| total += c[:flex]}
+        columns.each{ |c| total += c[:flex] }
         columns.each do |c|
           c[:offset] = l
-          c[:width] = width*c[:flex]/total
+          c[:width] = table_width*c[:flex]/total
           l += c[:width]
         end
-        part(options[:header_height]||5.mm) do
-          for c in columns
-            set c[:offset] do
-              text c[:title].to_s
+        part(options[:header_height]||4.mm) do
+          set 0, 0, :font_size=>10 do
+            line [[0, 0], [table_width, 0]], :color=>'#777', :width=>0.2
+            for c in columns
+              text c[:title].to_s, :left=>c[:offset]+0.5.mm, :top=>0.5.mm, :bold=>true
+              line([[c[:offset],0], [c[:offset], 4.mm]], :color=>'#777', :width=>0.2) if c[:offset]>0
             end
+            line [[0, 4.mm], [table_width, 4.mm]], :color=>'#333', :width=>0.5
           end
         end
         for x in collection
           part(options[:row_height]||4.mm) do
-            for c in columns
-              set c[:offset] do
-                text x.instance_eval(c[:value]).to_s
+            set 0, 0, :font_size=>10 do
+              for c in columns
+                text x.instance_eval(c[:value]).to_s, :left=>c[:offset]+0.5.mm, :top=>0.5.mm
+                line([[c[:offset],0], [c[:offset], 4.mm]], :color=>'#777', :width=>0.2) if c[:offset]>0
               end
+              line [[0, 4.mm], [table_width, 4.mm]], :color=>'#777', :width=>0.2
             end
           end
         end
@@ -213,18 +218,18 @@ module Ibeh
       @writer.restore_graphics_state
     end
 
-    def font(name=nil, size=nil, color=nil)
+    def font(name=nil, size=nil, color=nil, options={})
       name = variable(:font_name, name)
       size = variable(:font_size, size)
       color = variable(:color, color)
-      @writer.font name, :size=>size, :color=>color
+      @writer.font name, options.merge(:size=>size, :color=>color)
     end
 
     def text(value, options={}, &block)
       left = options[:left]||0
       top  = options[:top]||0
       env = @env.dup
-      font(options[:font], options[:size], options[:color])
+      font(options[:font], options[:size], options[:color], :italic=>options[:italic], :bold=>options[:bold])
       @writer.text value, :at=>[@left+left, @top-top-0.7*variable(:font_size)]
       @env = env
     end

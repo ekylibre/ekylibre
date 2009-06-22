@@ -53,7 +53,7 @@ page :a4, :margin=>[10.mm] do
     end
   end
   table @entity.sale_orders do
-    column "Date", 'created_at.to_date'
+    column "Date pqg", 'created_at.to_date'
     column "Montant", 'amount'
   end
   part 20.mm do
