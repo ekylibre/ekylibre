@@ -88,6 +88,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit
+    t.action :invoices_print
     t.action :invoices_cancel, :if=>'RECORD.credit != true and @current_user.credits'
   end
 
@@ -773,7 +774,7 @@ class ManagementController < ApplicationController
     if request.post? or request.delete?
       redirect_to :back if @sale_order_nature.destroy
     end
-  end
+ end
 
 
 
@@ -883,6 +884,15 @@ class ManagementController < ApplicationController
     end
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
   end
+
+  def sales_print
+    @sale_order = find_and_check(:sale_order, params[:id])
+    @lines = []
+    @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
+    @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+    @client_address = @sale_order.contact.address.split(",").collect{ |x| x.strip}
+  end
+
 
   def add_lines
     @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
@@ -1142,6 +1152,15 @@ class ManagementController < ApplicationController
     t.column :address, :through=>:contact
     t.column :amount
     t.column :amount_with_taxes
+    t.action :invoices_print
+  end
+  
+  def invoices_print
+    @invoice = find_and_check(:invoice, params[:id])
+    @lines = []
+    @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
+    @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+    @client_address = @invoice.contact.address.split(",").collect{ |x| x.strip}
   end
 
   def sales_invoices
@@ -1163,7 +1182,7 @@ class ManagementController < ApplicationController
           @current_company.invoice(@sale_order)
         else
           flash[:message] = tc('messages.invoice_already_created')
-        end
+        end 
       else
         deliveries = params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)}
         for delivery in deliveries
@@ -1430,13 +1449,6 @@ class ManagementController < ApplicationController
     end
   end
   
-  def sales_print
-    render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml", :key=>params[:id])
-  end
-
-
-
-
 
   dyta(:shelves, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name

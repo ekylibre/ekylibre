@@ -1,0 +1,66 @@
+page :a4, :margin=>[10.mm] do
+  part 95.mm do
+    set  do
+      text @current_company.name, :size=>7.mm
+      set 0, 5.mm do
+        top = 10
+        for line in @lines
+          text line, :size=>10, :top=>top
+          top += 12
+        end
+      end
+      set 100.mm, 35.mm do
+        text @invoice.client.full_name, :size=>11, :font=>"courier"
+        top2 = 12
+        for address in  @client_address
+          text address, :size=>11, :top=>top2, :font=>"courier"
+          top2 += 12
+        end
+      end
+    end
+  end
+
+  
+  part 35.mm do
+    set do
+      if @current_company.default_contact.line_6_city.nil?
+        text "Le "+I18n.localize(Date.today)
+      else
+        text "À "+@current_company.default_contact.line_6_city+", le "+I18n.localize(Date.today)
+      end
+    end
+    
+    set do
+      if @invoice.credit
+        text "Avoir n° "+@invoice.number, :left=>width/2, :align=>:center, :bold=>:bold, :size=>14, :top=>15.mm
+      else
+        text "Facture n° "+@invoice.number, :left=>width/2, :align=>:center, :bold=>:bold, :size=>14, :top=>15.mm
+      end
+    end
+    
+  end 
+
+  table @invoice.lines do 
+    column "Produit", 'product.name', 3
+    column "Qté.", 'quantity', 0.75, :align=>:right
+    column "PU HT", 'price.amount',1, :align=>:right
+    column "Montant HT", 'amount', 1, :align=>:right
+    column "Montant TTC", 'amount_with_taxes', 1, :align=>:right
+    column "T.V.A.", '(price.tax.amount*100).to_s+" %"', 0.75, :align=>:center
+  end
+  
+  part 10.mm do
+    set 76.mm do
+      text "Net à payer", :top=>3.3.mm, :left=>4.mm, :bold=>:bold
+      text @invoice.amount_with_taxes.to_s, :top=>3.3.mm, :left=>70.mm, :bold=>:bold, :align=>:center
+      line [[0, 0], [width-9.mm, 0]],  :width=>0.3
+      line [[0, 0], [0, 10.mm]],  :width=>0.3
+      line [[width-9.mm, 0], [width-9.mm, 10.mm]],  :width=>0.3
+      line [[0, 10.mm], [width-9.mm, 10.mm]],  :width=>0.3
+      line [[44.3.mm, 0], [44.3.mm, 10.mm]],  :width=>0.3
+    end
+  end
+  
+
+  
+end  
