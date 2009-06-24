@@ -101,9 +101,10 @@ module Ibeh
         table = Table.new
         call(table, block)
         columns = table.columns
+        left = options[:left]||0
         relative = options[:relative]
         table_width = options[:width]
-        table_width ||= self.width-self.margin[1]-self.margin[3]
+        table_width ||= self.width-self.margin[1]-self.margin[3]-left
         total, l = 0, 0
         columns.each{ |c| total += c[:flex] }
         columns.each do |c|
@@ -126,23 +127,28 @@ module Ibeh
           part(options[:row_height]||4.mm) do
             set 0, 0, :font_size=>10 do
               for c in columns
+                options = c[:options]||{}
+                value = x.instance_eval(c[:value])
+                if options[:format]
+                  if value.is_a? Date
+                    value = ::I18n.localize(value, :format=>options[:format]||:default)
+                    options[:align] ||= :center
+                  elsif value.is_a? Numeric
+                    value = number_to_currency(value, :separator=>options[:separator]||',', :delimiter=>options[:delimiter]||' ', :unit=>options[:unit]||'', :precision=>options[:precision]||2) if options[:format]==:money
+                    options[:align] ||= :left
+                  end
+                end
+
                 left = c[:offset]
-                if c[:options][:align]==:center
+                if options[:align]==:center
                   left += c[:width].to_f/2
-                elsif c[:options][:align]==:right
+                elsif options[:align]==:right
                   left += c[:width].to_f - 0.5.mm
                 else
                   left += 0.5.mm
                 end
-                value = x.instance_eval(c[:value])
-                if c[:format]
-                  if value.is_a? Date
-                    value = ::I18n.localize(value, :format=>c[:format]) 
-                  elsif value.is_a? Numeric
-                    value = number_to_currency(value, :separator=>c[:separator]||',', :delimiter=>c[:delimiter]||' ', :unit=>c[:unit]||'', :precision=>c[:precision]||2) if c[:format]==:money
-                  end
-                end
-                text value.to_s, :left=>left, :top=>0.5.mm, :align=>c[:options][:align]
+
+                text value.to_s, :left=>left, :top=>0.5.mm, :align=>options[:align]
                 line([[c[:offset],0], [c[:offset], 4.mm]], :color=>'#777', :width=>0.2)
               end
               line [[table_width, 0], [table_width, 4.mm], [0, 4.mm]], :color=>'#777', :width=>0.2
@@ -268,7 +274,7 @@ module Ibeh
     end
 
     def width
-      @page.width-@page.margin[1]-@page.margin[3]-@left
+      @page.width-@page.margin[3]-@left # -@page.margin[1]
     end
 
   end
