@@ -891,6 +891,7 @@ class ManagementController < ApplicationController
     @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
     @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
     @client_address = @sale_order.contact.address.split(",").collect{ |x| x.strip}
+    #raise Exception.new @sale_order.payment_delay.compute(Date.today.to_s)
   end
 
 
@@ -1139,7 +1140,7 @@ class ManagementController < ApplicationController
     @title = {:value=>@delivery_mode.name}
     render_form
   end
-
+   
   def delivery_modes_delete
     @delivery_mode = find_and_check(:delivery_mode, params[:id])
     if request.post?

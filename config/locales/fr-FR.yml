@@ -56,6 +56,7 @@ fr-FR:
       default: "%d/%m/%Y"
       short: "%b %d" 
       long: "%B %d, %Y" 
+      month_letter: "%d %B %Y"
 
     day_names: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
     abbr_day_names: [Dim, Lun, Mar, Mer, Jeu, Ven, Sam]

@@ -102,14 +102,14 @@ module Ibeh
         call(table, block)
         columns = table.columns
         left = options[:left]||0
-        relative = options[:relative]
+        fixed = options[:fixed]||false
         table_width = options[:width]
         table_width ||= self.width-self.margin[1]-self.margin[3]-left
         total, l = 0, 0
         columns.each{ |c| total += c[:flex] }
         columns.each do |c|
           c[:offset] = l
-          c[:width] = relative ? table_width*c[:flex]/total : c[:flex]
+          c[:width] = fixed ? c[:flex] : table_width*c[:flex]/total 
           l += c[:width]
         end
         part(options[:header_height]||4.mm) do
@@ -129,16 +129,14 @@ module Ibeh
               for c in columns
                 options = c[:options]||{}
                 value = x.instance_eval(c[:value])
-                if options[:format]
-                  if value.is_a? Date
-                    value = ::I18n.localize(value, :format=>options[:format]||:default)
-                    options[:align] ||= :center
-                  elsif value.is_a? Numeric
-                    value = number_to_currency(value, :separator=>options[:separator]||',', :delimiter=>options[:delimiter]||' ', :unit=>options[:unit]||'', :precision=>options[:precision]||2) if options[:format]==:money
-                    options[:align] ||= :left
-                  end
+                if value.is_a? Date
+                  value = ::I18n.localize(value, :format=>options[:format]||:default)  if options[:format]
+                  options[:align] ||= :center
+                elsif value.is_a? Numeric
+                  value = number_to_currency(value, :separator=>options[:separator]||',', :delimiter=>options[:delimiter]||' ', :unit=>options[:unit]||'', :precision=>options[:precision]||2) if options[:format]==:money
+                  options[:align] ||= :right
                 end
-
+                
                 left = c[:offset]
                 if options[:align]==:center
                   left += c[:width].to_f/2

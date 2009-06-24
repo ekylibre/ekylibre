@@ -21,18 +21,19 @@ page :a4, :margin=>[10.mm] do
   end
 
   
-  part 35.mm do
+  part 40.mm do
     set do
       if @current_company.default_contact.line_6_city.nil?
-        text "Le "+I18n.localize(Date.today)
+        text "Le "+I18n.localize(Date.today, :format=>:month_letter)
       else
-        text "À "+@current_company.default_contact.line_6_city+", le "+I18n.localize(Date.today)
+        text "À "+@current_company.default_contact.line_6_city+", le "+I18n.localize(Date.today, :format=>:month_letter)
       end
     end
     
     set do
       if @invoice.credit
         text "Avoir n° "+@invoice.number, :left=>width/2, :align=>:center, :bold=>:bold, :size=>14, :top=>15.mm
+        text "de la facture n° "+@invoice.origin.number ,:left=>width/2, :align=>:center, :size=>14, :top=>25.mm
       else
         text "Facture n° "+@invoice.number, :left=>width/2, :align=>:center, :bold=>:bold, :size=>14, :top=>15.mm
       end
@@ -61,6 +62,17 @@ page :a4, :margin=>[10.mm] do
     end
   end
   
+
+  part 30.mm do
+    set 0 , 30.mm do
+      string = @invoice.credit ? "Avoir n° " : "Facture n° "
+      line [[0,0], [width,0]], :width=>0.5
+      text string+@invoice.number, :size=>10, :align=>:left, :top=>4.mm
+      text I18n.localize(Date.today, :format=>:month_letter), :size=>10, :left=>width/2, :align=>:center, :top=>4.mm
+      text "SIREN "+@current_company.siren.to_s, :size=>8, :left=>width/2, :align=>:center, :top=>10.mm
+      text "Paraphe",:size=>10, :left=>width-20.mm, :align=>:right, :top=>4.mm
+    end
+  end
 
   
 end  
