@@ -101,10 +101,10 @@ module Ibeh
         table = Table.new
         call(table, block)
         columns = table.columns
-        left = options[:left]||0
+        table_left = options[:left]||0
         fixed = options[:fixed]||false
         table_width = options[:width]
-        table_width ||= self.width-self.margin[1]-self.margin[3]-left
+        table_width ||= self.width-self.margin[1]-self.margin[3]-table_left
         total, l = 0, 0
         columns.each{ |c| total += c[:flex] }
         columns.each do |c|
@@ -113,7 +113,7 @@ module Ibeh
           l += c[:width]
         end
         part(options[:header_height]||4.mm) do
-          set 0, 0, :font_size=>10 do
+          set table_left, 0, :font_size=>10 do
             line [[0, 0], [table_width, 0]], :color=>'#777', :width=>0.2
             for c in columns
               text c[:title].to_s, :left=>c[:offset]+0.5.mm, :top=>0.5.mm, :bold=>true
@@ -125,7 +125,7 @@ module Ibeh
         end
         for x in collection
           part(options[:row_height]||4.mm) do
-            set 0, 0, :font_size=>10 do
+            set table_left, 0, :font_size=>10 do
               for c in columns
                 options = c[:options]||{}
                 value = x.instance_eval(c[:value])

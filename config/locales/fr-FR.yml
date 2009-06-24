@@ -1120,6 +1120,11 @@ fr-FR:
         title: Ajouter une rencontre
       meetings_update:
         title: 'Modification de la rencontre avec {{value}}'
+      sales_print:
+        deliveries_number: 
+          zero: 'Aucune livraison'
+          one: '1 livraison'
+          other: '{{count}} livraisons'
 
     resources:
       index:

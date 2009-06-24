@@ -401,6 +401,8 @@ fr-FR:
         conditions: "Conditions de paiement"
         delays: 'Délais'
         downpayment: "Options pour l'acompte"
+      sales_print:
+        deliveries_number: "jjkjj"
       shelves:
         title: Gérer les catégories de produits
       shelves_create:

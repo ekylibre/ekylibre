@@ -25,5 +25,9 @@ class Currency < ActiveRecord::Base
   has_many :journals
   has_many :prices
 
+  def symbol
+    return "€" 
+  end
+
 
 end

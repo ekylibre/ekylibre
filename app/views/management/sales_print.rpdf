@@ -1,8 +1,8 @@
-page :a4, :margin=>[10.mm], :debug=>true do
+page :a4, :margin=>[10.mm] do # , :debug=>true do
 
   @order = @sale_order.state != "P" 
   
-  part 95.mm do
+  part 90.mm do
     set  do
       text @current_company.name, :size=>7.mm
       set 0, 5.mm do
@@ -23,7 +23,7 @@ page :a4, :margin=>[10.mm], :debug=>true do
     end
   end
 
-  part 35.mm do    
+  part 25.mm do    
     set do
       if @current_company.default_contact.line_6_city.nil?
         text "Le "+I18n.localize(Date.today, :format=>:month_letter)
@@ -33,7 +33,7 @@ page :a4, :margin=>[10.mm], :debug=>true do
     end
     state = @sale_order.state == "P" ? "Devis n° " : "Commande n° "
     set do
-      text state+@sale_order.number, :left=>width/2, :align=>:center, :bold=>:bold, :size=>14, :top=>15.mm
+      text state+@sale_order.number, :left=>width/2, :align=>:center, :bold=>:bold, :size=>14, :top=>10.mm
     end
 
   end 
@@ -41,7 +41,7 @@ page :a4, :margin=>[10.mm], :debug=>true do
   table @sale_order.lines, :fixed=>true do 
     column "Produit", 'product.name', 80.mm
     column "Qté.", 'quantity', 20.mm
-    column "PU HT", 'price.amount',25.mm
+    column "Prix HT", 'price.amount',25.mm
     column "Montant HT", 'amount', 25.mm
     column "Montant TTC", 'amount_with_taxes', 25.mm
     column "T.V.A.", '(price.tax.amount*100).to_s+" %"', 15.mm, :align=>:center
@@ -49,7 +49,7 @@ page :a4, :margin=>[10.mm], :debug=>true do
 
   part 10.mm do
     set 80.mm do
-      text "Net à payer", :top=>3.3.mm, :left=>4.mm, :bold=>:bold
+      text "Net à payer ("+@sale_order.lines[0].price.currency.code+")", :top=>3.3.mm, :left=>4.mm, :bold=>:bold
       text @sale_order.amount_with_taxes.to_s, :top=>3.3.mm, :left=>70.mm, :bold=>:bold, :align=>:center
       line [[0, 0], [95.mm, 0]],  :width=>0.3
       line [[0, 0], [0, 10.mm]],  :width=>0.3
@@ -70,14 +70,21 @@ page :a4, :margin=>[10.mm], :debug=>true do
     end
   end
 
+
   if @order
+    part 20.mm do
+      set do
+       text ::I18n.t("views.relations.sales_print.deliveries_number", :count=>@sale_order.deliveries.size), :left=>width/2, :align=>:center, :bold=>:bold, :size=>14, :top=>15.mm
+      end
+    end
+    
     for delivery in @sale_order.deliveries
-      part 15.mm do
+      part 13.mm do
         set  0, 7.mm do
-          text "Livraison du "+I18n.localize(delivery.planned_on, :format=>:month_letter)+" à l'adresse "+delivery.contact.address, :size=>10, :bold=>:bold
+          text "Le "+I18n.localize(delivery.planned_on, :format=>:month_letter)+" à l'adresse "+delivery.contact.address, :size=>10, :bold=>:bold
         end
       end
-      table delivery.lines, :fixed=>true do
+      table delivery.lines, :fixed=>false , :left=>7.mm do
         column "Produit", "product.name", 80.mm
         column "Qté.", "quantity", 20.mm
         column "Prix HT",  "price.amount", 25.mm
@@ -90,7 +97,7 @@ page :a4, :margin=>[10.mm], :debug=>true do
   
   part 30.mm do
     set do
-      line [[0,0], [width,0]], :width=>0.5
+      line [[0,1.mm], [width,1.mm]], :width=>0.5
       text "Devis n° "+@sale_order.number, :size=>10, :align=>:left, :top=>4.mm
       text I18n.localize(Date.today, :format=>:month_letter), :size=>10, :left=>width/2, :align=>:center, :top=>4.mm
       text "SIREN "+@current_company.siren.to_s, :size=>8, :left=>width/2, :align=>:center, :top=>10.mm
