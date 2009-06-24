@@ -40,7 +40,6 @@ module Ibeh
 
   # Represents a <document>
   class Document < Element
-
     def page(format=:a4, options={}, &block)
       page = Page.new(@writer, format, options)
       call(page, block)
@@ -97,17 +96,19 @@ module Ibeh
       @y -= height
     end
 
-    def table(collection, table_width=nil, options={}, &block)
+    def table(collection, options={}, &block)
       if block_given?
         table = Table.new
         call(table, block)
         columns = table.columns
+        relative = options[:relative]
+        table_width = options[:width]
         table_width ||= self.width-self.margin[1]-self.margin[3]
         total, l = 0, 0
         columns.each{ |c| total += c[:flex] }
         columns.each do |c|
           c[:offset] = l
-          c[:width] = table_width*c[:flex]/total
+          c[:width] = relative ? table_width*c[:flex]/total : c[:flex]
           l += c[:width]
         end
         part(options[:header_height]||4.mm) do
@@ -133,7 +134,15 @@ module Ibeh
                 else
                   left += 0.5.mm
                 end
-                text x.instance_eval(c[:value]).to_s, :left=>left, :top=>0.5.mm, :align=>c[:options][:align]
+                value = x.instance_eval(c[:value])
+                if c[:format]
+                  if value.is_a? Date
+                    value = ::I18n.localize(value, :format=>c[:format]) 
+                  elsif value.is_a? Numeric
+                    value = number_to_currency(value, :separator=>c[:separator]||',', :delimiter=>c[:delimiter]||' ', :unit=>c[:unit]||'', :precision=>c[:precision]||2) if c[:format]==:money
+                  end
+                end
+                text value.to_s, :left=>left, :top=>0.5.mm, :align=>c[:options][:align]
                 line([[c[:offset],0], [c[:offset], 4.mm]], :color=>'#777', :width=>0.2)
               end
               line [[table_width, 0], [table_width, 4.mm], [0, 4.mm]], :color=>'#777', :width=>0.2
