@@ -44,7 +44,7 @@ module Ekylibre
             name = name.to_s
             code = ""
 
-            list_method_name = 'dyta_'+name+''
+            list_method_name = 'dyta_'+name
             tag_method_name  = 'dyta_'+name+'_tag'
 
             # List method
@@ -52,14 +52,9 @@ module Ekylibre
             conditions = conditions_to_code(options[:conditions]) if options[:conditions]
 
             code += "def #{list_method_name}\n"
-            code += "  render :inline=>'=#{tag_method_name}', :type=>:haml if request.xhr?\n"
+            code += "  render(:inline=>'<%=#{tag_method_name}-%>') if request.xhr?\n"
             code += "end\n"
 
-            # code += "def #{name}_list(options={})\n"
-            # code += "  0\n"
-            # code += "end\n"
-
-            # puts code
             module_eval(code)
 
             builder  = ''
@@ -76,17 +71,14 @@ module Ekylibre
             builder += "    order  = options['#{name}_sort']\n"
             builder += "    order += options['#{name}_dir']=='desc' ? ' DESC' : ' ASC'\n"
             builder += "  end\n"
-   
-            #raise Exception.new('voila : '+conditions.to_s)
+
             
             builder += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
             builder += ", :conditions=>"+conditions unless conditions.blank?
-            builder += ", "+PAGINATION[options[:pagination]][:find_params].gsub('@@LENGTH@@', (options[:per_page]||25).to_s) if PAGINATION[options[:pagination]][:find_params]
+            builder += ", "+PAGINATION[options[:pagination]][:find_params].gsub('@@LENGTH@@', "options['#{name}_per_page']||"+(options[:per_page]||25).to_s) if PAGINATION[options[:pagination]][:find_params]
             builder += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
             builder += ", :order=>order)||{}\n"
 
-#            builder += "  raise Exception.new(@#{name}.inspect) if request.xhr?\n"
-            
             # puts builder
 
             # Tag method
@@ -107,7 +99,7 @@ module Ekylibre
             paginate_var = 'pages'
             paginate = case options[:pagination]
                        when :will_paginate then 
-                         '  '+paginate_var+"=will_paginate(@"+name.to_s+", :renderer=>'RemoteLinkRenderer', :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :action=>:#{list_method_name}})\n  "+
+                         '  '+paginate_var+"=will_paginate(@"+name.to_s+", :renderer=>ActionController::RemoteLinkRenderer, :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], '#{name}_per_page'=>params['#{name}_per_page'], :action=>:#{list_method_name}})\n  "+
                            paginate_var+"='"+content_tag(:tr, content_tag(:td, "'+"+paginate_var+"+'", :class=>:paginate, :colspan=>definition.columns.size))+"' unless "+paginate_var+".nil?\n"
                        else
                          ''
@@ -171,14 +163,6 @@ module Ekylibre
             
             ActionView::Base.send :class_eval, code
 
-            # code  = "def "+children_method_name+"(options={})\n"
-            # code += "  '<tr><td>Children</td></tr>'\n"
-            # code += "end\n"
-            
-            # ActionView::Base.send :class_eval, code
-
-            # Finish
-            # puts code
           end
 
           def value_image(value)
@@ -514,6 +498,7 @@ module Ekylibre
 #          self.controller.send('dyta_'+name.to_s+'_tag')
           self.send('dyta_'+name.to_s+'_tag')
         end
+
       end
 
     end
@@ -521,3 +506,18 @@ module Ekylibre
   end
 end
 
+
+
+
+module ActionController
+  class RemoteLinkRenderer < WillPaginate::LinkRenderer
+    def prepare(collection, options, template)
+      @remote = options.delete(:remote) || {}
+      super
+    end  
+    protected
+    def page_link(page, text, attributes = {})
+      @template.link_to_remote(text, {:url => url_for(page), :method => :get}.merge(@remote))
+    end
+  end  
+end

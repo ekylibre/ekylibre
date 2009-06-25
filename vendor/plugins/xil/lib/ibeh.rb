@@ -5,6 +5,8 @@ class ::Numeric
 end
 
 module Ibeh
+  include ActionView::Helpers::NumberHelper
+
 
   def self.document(writer, view, &block)
     doc = Document.new(writer)
@@ -24,7 +26,7 @@ module Ibeh
     end
 
     def call(element, block=nil)
-      puts self.class.to_s+' > '+element.class.to_s
+      # puts self.class.to_s+' > '+element.class.to_s
       if self!=element
         self.instance_values.each do |k,v|
           element.instance_variable_set("@"+k, v) unless element.instance_variable_defined? "@"+k

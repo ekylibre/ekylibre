@@ -41,7 +41,7 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
   table @sale_order.lines, :fixed=>true do 
     column "Produit", 'product.name', 80.mm
     column "Qté.", 'quantity', 20.mm
-    column "Prix HT", 'price.amount',25.mm
+    column "Prix HT", 'price.amount', 25.mm, :numeric=>:money
     column "Montant HT", 'amount', 25.mm
     column "Montant TTC", 'amount_with_taxes', 25.mm
     column "T.V.A.", '(price.tax.amount*100).to_s+" %"', 15.mm, :align=>:center
