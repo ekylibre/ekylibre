@@ -59,7 +59,8 @@ class DeliveryLine < ActiveRecord::Base
   end
 
   def after_destroy
-    self.delivery.save
+   # raise Exception.new self.inspect
+    #self.delivery.save
   end
 
   def undelivered_quantity

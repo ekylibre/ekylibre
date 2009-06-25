@@ -90,7 +90,7 @@ class AccountancyController < ApplicationController
       redirect_to_back if @bank_account.save
     else
       @bank_account = BankAccount.new
-      session[:entity_id] = params[:entity_id] if params[:entity_id]
+      session[:entity_id] = params[:entity_id]||@current_company.entity_id
       @valid_account = @current_company.accounts.empty?
       @valid_journal = @current_company.journals.empty?  
     end

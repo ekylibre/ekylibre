@@ -250,6 +250,7 @@ module Ibeh
     end
 
     def text(value, options={}, &block)
+      value = value.to_s
       env = @env.dup
       font(options[:font], options.delete(:size), options.delete(:color), :italic=>options[:italic], :bold=>options[:bold])
       left = @left+(options[:left]||0)

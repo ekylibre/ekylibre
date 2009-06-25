@@ -446,10 +446,10 @@ fr-FR:
         currency_id: Devise
         name: Nom
       product:
-        account_id: Compte comptable
         active: Utilisable
         catalog_name: Nom pour le catalogue
         catalog_description: Description pour le catalogue
+        charge_account_id: Compte comptable de charges
         code: Code
         code2: Code secondaire
         comment: Commentaire
@@ -461,6 +461,7 @@ fr-FR:
         nature: Nature
         number: Numéro
         price: Prix de revient
+        product_account_id: Compte comptable de produits
         quantity_min: Quantité minimum
         quantity_max: Quantité maximum
         service_coeff: Coefficient (de quantité) de service

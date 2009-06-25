@@ -887,11 +887,17 @@ class ManagementController < ApplicationController
 
   def sales_print
     @sale_order = find_and_check(:sale_order, params[:id])
-    @lines = []
-    @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-    @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
-    @client_address = @sale_order.contact.address.split(",").collect{ |x| x.strip}
-    #raise Exception.new @sale_order.payment_delay.compute(Date.today.to_s)
+    if @current_company.default_contact.nil? || @sale_order.client.contacts.size == 0
+      entity = @current_company.default_contact.nil? ? @current_company.name : @sale_order.client.full_name
+      flash[:warning]=tc(:no_contacts, :name=>entity)
+      redirect_to_back
+    else
+      @lines = []
+      @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
+      @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+      @client_address = @sale_order.contact.address.split(",").collect{ |x| x.strip}
+      #raise Exception.new @sale_order.payment_delay.compute(Date.today.to_s)
+    end
   end
 
 
@@ -1062,10 +1068,12 @@ class ManagementController < ApplicationController
         saved = @delivery.save
         if saved
           for line in @sale_order_lines
-            delivery_line = DeliveryLine.new(:order_line_id=>line.id, :delivery_id=>@delivery.id, :quantity=>params[:delivery_line][line.id.to_s][:quantity], :company_id=>@current_company.id)
-            saved = false unless delivery_line.save
-            delivery_line.errors.each_full do |msg|
-              @delivery.errors.add_to_base(msg)
+            if params[:delivery_line][line.id.to_s][:quantity].to_f > 0
+              delivery_line = DeliveryLine.new(:order_line_id=>line.id, :delivery_id=>@delivery.id, :quantity=>params[:delivery_line][line.id.to_s][:quantity], :company_id=>@current_company.id)
+              saved = false unless delivery_line.save
+              delivery_line.errors.each_full do |msg|
+                @delivery.errors.add_to_base(msg)
+              end
             end
           end
         end
@@ -1158,10 +1166,16 @@ class ManagementController < ApplicationController
   
   def invoices_print
     @invoice = find_and_check(:invoice, params[:id])
-    @lines = []
-    @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-    @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
-    @client_address = @invoice.contact.address.split(",").collect{ |x| x.strip}
+    if @current_company.default_contact.nil? || @invoice.contact.nil?
+      entity = @current_company.default_contact.nil? ? @current_company.name : @invoice.client.full_name
+      flash[:warning]=tc(:no_contacts, :name=>entity)
+      redirect_to_back
+    else
+      @lines = []
+      @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
+      @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+      @client_address = @invoice.contact.address.split(",").collect{ |x| x.strip}
+    end
   end
 
   def sales_invoices
@@ -1229,13 +1243,19 @@ class ManagementController < ApplicationController
   
   def embankments_print
     @embankment = find_and_check(:embankment, params[:id])
-    @payments = @current_company.payments.find_all_by_embankment_id(@embankment.id)
-    @lines = []
-    @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-    @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
-    #raise Exception.new @embankment.bank_account.bank_name.inspect
-    @account_address = @embankment.bank_account.address.split("\n")
-    #raise Exception.new Payment.content_columns.inspect
+    if @current_company.default_contact.nil? || @embankment.bank_account.address.empty?
+      entity = @current_company.default_contact.nil? ? @current_company.name : @embankment.bank_account.name
+      flash[:warning]=tc(:no_contacts, :name=>entity)
+      redirect_to_back
+    else
+      @payments = @current_company.payments.find_all_by_embankment_id(@embankment.id)
+      @lines = []
+      @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
+      @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+      #raise Exception.new @embankment.bank_account.bank_name.inspect
+      @account_address = @embankment.bank_account.address.split("\n")
+      #raise Exception.new Payment.content_columns.inspect
+    end
   end
 
   def embankments_create

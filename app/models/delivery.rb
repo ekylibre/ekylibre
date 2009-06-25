@@ -49,6 +49,7 @@ class Delivery < ActiveRecord::Base
     end
   end
 
+
   def self.natures
     [:exw, :cpt, :cip].collect{|x| [tc('natures.'+x.to_s), x] }
   end

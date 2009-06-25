@@ -4,6 +4,7 @@ fr-FR:
       category: Catégorie
       choose_one_check_at_less: Sélectionnez au moins un chèque
       import_succeed: Vos données ont été correctement importées
+      no_contacts: 'Aucune adresse définie pour {{name}}'
       title: Commerce
       delays:
         delays_create: 'Ajouter un nouveau délai'

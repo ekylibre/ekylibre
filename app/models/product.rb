@@ -39,7 +39,8 @@
 
 class Product < ActiveRecord::Base
 
-  belongs_to :account
+  belongs_to :product_account, :class_name=>BankAccount.to_s
+  belongs_to :charge_account, :class_name=>BankAccount.to_s
   belongs_to :company
   belongs_to :shelf
   belongs_to :unit

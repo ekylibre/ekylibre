@@ -735,7 +735,7 @@ module Hebi
       @document.error('Char widths must be an Array: '+cw.inspect+' '+@font_name.inspect+' '+@document.fonts.inspect) unless cw.is_a? Array
       width = 0
       s = @document.ic ? @document.ic.iconv(string) : string
-      s.ascii.each_byte { |char| width += cw[char] }
+      s.to_s.ascii.each_byte { |char| width += cw[char] }
       return width*@font_size/1000.0
     end
 
