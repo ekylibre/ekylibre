@@ -40,7 +40,7 @@ class SaleOrderLine < ActiveRecord::Base
   
   def before_validation
     check_reservoir = true
-    self.account_id = self.product.account_id
+    self.account_id = self.product.product_account_id
     self.unit_id = self.product.unit_id
    # if self.price
     #  self.amount = (self.price.amount*self.quantity).round(2)

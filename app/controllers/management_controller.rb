@@ -950,7 +950,7 @@ class ManagementController < ApplicationController
           @sale_order_line.product_id = find_and_check(:prices,params[:sale_order_line][:price_id]).product_id
           @sale_order_line.location_id = @stock_locations[0].id if @stock_locations.size == 1
         end
-        redirect_to_back if @sale_order_line.save
+        redirect_to :action=>:sales_products, :id=>@sale_order.id if @sale_order_line.save
       else
         @sale_order_line = SaleOrderLine.new(:price_amount=>0.0)
       end
@@ -983,7 +983,7 @@ class ManagementController < ApplicationController
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
-    t.column :number, :through=>:invoice, :url=>{:action=>:sales_invoices}, :children=>false
+    t.column :number, :through=>:invoice, :url=>{:action=>:invoices_display}, :children=>false
     t.column :quantity
     t.column :amount
     t.column :amount_with_taxes

@@ -79,6 +79,7 @@ class Company < ActiveRecord::Base
   has_many :units
   has_many :users
   belongs_to :entity
+  belongs_to :sales_journal, :class_name=>Journal.to_s
 
   #validates_presence_of :entity_id
 
@@ -252,6 +253,16 @@ class Company < ActiveRecord::Base
 
   def default_contact
     self.entity.contacts.find_by_default(true)
+  end
+
+  def find_sales_journal
+    if self.sales_journal_id.nil?
+      journal_id = self.journals.find_by_nature("sale")
+      journal_id = Journal.create!(:company_id=>self.id, :nature=>"sale", :currency_id=>self.currencies(:first), :name=>tc(:sales), :code=>"V", :closed_on=>Date.today+(365)) if journal_id.nil?
+    else
+      journal_id = self.sales_journal_id
+    end
+    journal_id
   end
 
 end
