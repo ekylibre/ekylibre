@@ -1,0 +1,4 @@
+LoadModule passenger_module /usr/lib/apache2/modules/mod_passenger.so 
+PassengerRoot /usr
+PassengerRuby /usr/bin/ruby1.8 
+PassengerDefaultUser www-data

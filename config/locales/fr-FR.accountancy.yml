@@ -15,6 +15,7 @@ fr-FR:
       messages:
         need_financialyear_to_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir saisir des écritures.'
         need_bank_account_to_record_statements: 'Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte.'
+        need_entries_to_letter: 'Vous devez avoir des écritures verrouillées enregistrées au compte client et fournisseur.'
         need_journal_to_record_entries: 'Vous devez avoir au moins un journal pour pouvoir saisir des écritures à l''intérieur.'
         need_journal_to_consult_entries: 'Vous devez avoir au moins un journal pour pouvoir consulter des écritures à l''intérieur.'
         need_financialyear_to_record_entries: 'Vous devez avoir au moins un exercice pour pouvoir saisir des écritures à l''intérieur.'

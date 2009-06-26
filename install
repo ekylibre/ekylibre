@@ -1,0 +1,59 @@
+#!/bin/bash  
+
+gems=("rails -v=2.3.2" "ruby-pg" "rake" "fastthread" "haml" "fastercsv")
+
+sudo mkdir /usr/share/ekylibre
+sudo cp -R *  /usr/share/ekylibre
+
+sudo sh -c 'echo "deb http://apt.brightbox.net hardy main" > /etc/apt/sources.list.d/brightbox.list'
+sudo sh -c 'wget -q -O - http://apt.brightbox.net/release.asc | apt-key add -'
+sudo apt-get update
+sudo apt-get install libopenssl-ruby
+sudo apt-get update
+
+sudo apt-get install "apache2" "apache2.2-common" "apache2-utils" "libapache2-mod-passenger" "libapr1-dev" "libaprutil1-dev" "postgresql-8.3" "postgresql-server-dev-8.3" "rubygems" "ruby1.8-dev"	
+
+# install all the required gems without documentation.
+for index in ${!gems[*]};do
+ sudo gem1.8 install ${gems[$index]} --no-rdoc --no-ri	
+done
+
+#generates a random identifiant for the user.
+password=$(echo $RANDOM | sha256sum)
+password=${password:0:31}
+
+#connexion to PostgreSQL with an identifiant and a given password.
+sudo cp config/deploy/pg_hba.conf /etc/postgresql/8.3/main
+sudo /etc/init.d/postgresql-8.3 stop
+sudo /etc/init.d/postgresql-8.3 start
+
+sudo -u postgres psql -c "create user ekylibre with encrypted password '$password' CREATEDB SUPERUSER"
+sudo -u postgres psql -c "alter user  ekylibre with encrypted password '$password' CREATEDB SUPERUSER"
+sudo -u postgres psql -c "create database ekylibre_production"
+
+#updates the config file of ekylibre with the identifiant.
+sudo chmod -R 777 /usr/share/ekylibre
+
+sudo sed -i -e 's/username: rails/username: ekylibre/g' -i -e 's/password: R4|L5/password: '"$password"'/g' /usr/share/ekylibre/config/database.yml 
+
+#creates the symbolic-link between the folders sites-enabled and sites-available.
+sudo cp config/deploy/ekylibre.conf /etc/apache2/sites-available
+sudo ln -s /etc/apache2/sites-available/ekylibre.conf /etc/apache2/sites-enabled/
+
+#creates the symbolic-link between the folders sites-enabled and sites-available.
+sudo cp config/deploy/passenger /etc/apache2/conf.d/
+
+#
+cd /usr/share/ekylibre && rake db:migrate RAILS_ENV='production'
+cd ~
+sudo chown -R www-data /usr/share/ekylibre
+sudo ln -s /usr/share/ekylibre /var/www/   
+sudo chmod -R 755 /usr/share/ekylibre
+
+#launches the server apache for reinitialization.
+sudo /etc/init.d/apache2 restart 
+
+
+
+
+

@@ -198,8 +198,9 @@ class AccountancyController < ApplicationController
       params[:printed][:current_company] = @current_company.id
       params[:printed][:siren] = @current_company.siren.to_s
       params[:printed][:company_name] = @current_company.name.to_s
-      render(:xil=>"#{RAILS_ROOT}/app/views/prints/#{@print[0].to_s}.xml",:locals=>params[:printed])
-    end
+#      render(:xil=>"#{RAILS_ROOT}/app/views/prints/#{@print[0].to_s}.xml", :locals=>params[:printed])
+      render :partial => "print_test.rpdf"
+   end
     #params[:printed][:from] = Date.today
     @title = {:value=>t("views.#{self.controller_name}.document_prepare.#{@print[0].to_s}")}
   end
@@ -666,24 +667,22 @@ class AccountancyController < ApplicationController
   end
  
 
-  # This method allows to make lettering for the client and supplier accounts.
+  # This method allows to make lettering for the client1 and supplier accounts.
   def lettering
     @accounts_supplier = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '400%'])
     @accounts_client = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '410%'])
     
     @financialyears = @current_company.financialyears.find(:all)
     
-    entries =  @current_company.entries.find(:all, :conditions => ["editable = false AND (a.number LIKE ? OR a.number LIKE ?)", '401%', '411%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
-    
-    # if @entries.size.zero?
-#       flash[:message] = tc('messages.need_entries_to_letter')
-#       redirect_to :action => :entries
-#       return
-#     end
+    @entries =  @current_company.entries.find(:all, :conditions => ["editable = false AND (a.number LIKE ? OR a.number LIKE ?)", '400%', '410%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
+
+    unless @entries.size > 0
+      flash[:message] = tc('messages.need_entries_to_letter')
+      return
+    end
 
     if request.post?
       @account = @current_company.accounts.find(params[:account_client_id], params[:account_supplier_id])
-             
       redirect_to :action => "accounts_letter", :id => @account.id
     end
 
@@ -736,7 +735,7 @@ class AccountancyController < ApplicationController
                 sum_debit += entry.debit
                 sum_credit += entry.credit
               end
-             
+              
               if sum_debit != sum_credit
                 session[:letter] = letter
                 break
@@ -750,7 +749,7 @@ class AccountancyController < ApplicationController
       end
       
       @entries = @current_company.entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
-     
+      
       render :action => "accounts_letter.rjs"
     end
 

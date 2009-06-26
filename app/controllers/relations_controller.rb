@@ -159,27 +159,7 @@ class RelationsController < ApplicationController
     return if @entity.nil?
   end
 
-  def entities_print2
-    # render_xil "#{RAILS_ROOT}/app/views/prints/xil2_test.xml", :client=>Entity.find(params[:id]||1)
-    @client = Entity.find(:first)
-    respond_to do |format|
-      format.pdf # Render action.html.erb
-    end
-  end
-
-  def entities_print3
-    @data = Entity.find(:all)
-    respond_to do |format|
-      format.html # Render action.html.erb
-      format.csv  # Render action.csv.rcsv
-    end
-  end
-
-  def entities_print4
-    @client = Entity.find(:first)
-    prawnto :prawn => { :page_size => 'A4' }
-  end
-
+ 
   
   def entities
     @size = Entity.count
