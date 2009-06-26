@@ -165,21 +165,6 @@ class AccountancyController < ApplicationController
     redirect_to_current
   end
   
-  #
-  #def accounts_letter_launch
-   # @accounts = Account.find(:all, :conditions => {:company_id => @current_company.id})
-  #end
-
-
-  #
-  #def accounts_letter
-   # if request.xhr?
-      
-    #else
-    #  @entries = Entry.find(:all, :conditions => ['company_id = ? AND account_id = ? AND letter is NULL', @current_company.id, params[:id] ])
-   # end
- # end
-
   PRINTS=[[:balance,{:partial=>"date_to_date",:ex=>"ex"}],
           [:general_ledger,{:partial=>"date_to_date"}],
           [:journal_by_id,{:partial=>"by_journal"}],
@@ -723,7 +708,7 @@ class AccountancyController < ApplicationController
     
       @entry = @current_company.entries.find(params[:id])
       
-       @entries = @current_company.entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "letter ASC")
+       @entries = @current_company.entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
       
       @letters = []
       @entries.each do |entry|
@@ -735,9 +720,9 @@ class AccountancyController < ApplicationController
          @entries_letter = @current_company.entries.find(:all, :conditions => ["letter = ? AND account_id = ?", @entry.letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
 
         @entry.update_attribute("letter", '')
-      
+        
       else
-        #raise Exception.new('edeb:'+@letters.inspect)              
+     
         if not @letters.empty? 
           
           @letters.each do |letter|
@@ -761,11 +746,10 @@ class AccountancyController < ApplicationController
             end
           end
         end
-
         @entry.update_attribute("letter", session[:letter].to_s)
-
-            
       end
+      
+      @entries = @current_company.entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
      
       render :action => "accounts_letter.rjs"
     end

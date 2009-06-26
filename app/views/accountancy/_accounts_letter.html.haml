@@ -1,3 +1,26 @@
 - if @entry
+  
+  - @entries.each do |entry|
+    - attr = cycle("even", "odd")
+    
+    - if not entry.letter.to_s == ""
+     
+      - if entry.balanced_letter?.to_s == "true"
+        
+        =javascript_tag("var element=$('e"+entry.id.to_s+"'); if (element.hasClassName('letter-unbalanced')) { element.removeClassName('letter-unbalanced'); } element.addClassName('letter');") 
+      - else
+       
+        =javascript_tag("var element=$('e"+entry.id.to_s+"'); if (element.hasClassName('letter')) { element.removeClassName('letter'); } if (!element.hasClassName('letter-unbalanced')) { element.addClassName('letter-unbalanced');} ")
+    
+    - if entry.letter == ""
+      
+      =#javascript_tag("var element=$('e"+entry.id.to_s+"'); if (!element.hasClassName('"+attr+"')) { if (element.hasClassName('letter-unbalanced "+attr+"')) { element.removeClassName('letter-unbalanced "+attr+"'); } else { element.removeClassName('letter "+attr+"'); } element.addClassName('"+attr+"'); }")
+      =javascript_tag("var element=$('e"+entry.id.to_s+"'); if (element.hasClassName('letter-unbalanced')) { element.removeClassName('letter-unbalanced'); } else if (element.hasClassName('letter')) { element.removeClassName('letter');}")
+  
   =javascript_tag("$('entry_letter_"+@entry.id.to_s+"').innerHTML='"+@entry.letter+"'")
+
+
+
+   
+
 

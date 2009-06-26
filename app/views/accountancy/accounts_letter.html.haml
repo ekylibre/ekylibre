@@ -10,15 +10,14 @@
   - if @entries
     - @entries.each do |entry|
       - attr = cycle("even", "odd")
-      =hidden_field_tag 'prefix_class_'+entry.id.to_s, ' '
-      %tr{:class => ((entry.balanced_letter?.is_a? FalseClass) ? "unbalanced" : "")+" "+attr, :id=> 'e'+entry.id.to_s}
+      %tr{:class => attr+" "+((entry.letter.to_s != "") ? "letter"+((entry.balanced_letter?.to_s == "true") ?  "" : "-unbalanced ") : ""), :id=> 'e'+entry.id.to_s}
         %td=I18n.localize(entry.record.created_on)
         %td=entry.record.journal.name
         %td=entry.name
         %td=entry.record.number
         %td.decimal=entry.debit
         %td.decimal=entry.credit
-        %td{:id => 'entry_letter_'+entry.id.to_s, :onclick => remote_function(:url => { :action => 'entries_letter', :id => entry.id })}=entry.letter    
+        %td{:id => 'entry_letter_'+entry.id.to_s, :onclick => remote_function(:url => {:action => 'entries_letter', :id => entry.id })}=entry.letter    
       
 %br  
 #lettering=render :partial => 'accounts_letter'

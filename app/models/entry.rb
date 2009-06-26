@@ -92,10 +92,15 @@ class Entry < ActiveRecord::Base
     #Entry.update_all("editable = false", {:record_id => self.record.id})
   end
   
+  # this method allows to verify if the entry is lettered or not.
+  def letter?
+    not self.letter.blank?
+  end
+
   #
   def balanced_letter?(letter=nil) 
     letter ||= self.letter
-    return nil if letter.blank?
+    return false if letter.blank?
     self.account.balanced_letter?(letter)
   end
 
