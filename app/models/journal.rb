@@ -33,6 +33,8 @@ class Journal < ActiveRecord::Base
     if self.closed_on.nil?
       self.closed_on = Date.civil(1970,1,1) 
     end
+    self.code = tc('natures.'+self.nature.to_s).codeize if self.code.blank?
+    self.code = self.code[0..3]
   end
 
   #

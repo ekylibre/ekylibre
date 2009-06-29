@@ -68,7 +68,7 @@ fr-FR:
     order: [ :day, :month, :year ]
 
   time:
-    formats:
+    formats: 
       default: "%a, %d %b %Y %H:%M:%S %z" 
       short: "%d %b %H:%M" 
       long: "%B %d, %Y %H:%M" 
@@ -210,8 +210,12 @@ fr-FR:
         started_on: Du
         stopped_on: Au
       company:
+        bank_journal: Journal de banque
         code: Code interne
         name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)
+        purchases_journal: 'Journal d''achats'
+        sales: Ventes
+        sales_journal: Journal de Ventes
         siren: Numéro SIREN
         born_on: Créée le
       complement: 
@@ -1180,7 +1184,12 @@ fr-FR:
       error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
       error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'                                   
     company:
+      bank_journal: Journal de banque
+      purchases_journal: 'Journal d''achats'
+      sales: Ventes
+      sales_journal: Journal de Ventes
       default:
+        category: Par défaut
         delays:
           name:
             expiration: Expiration (1 M)

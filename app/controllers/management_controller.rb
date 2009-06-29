@@ -1686,6 +1686,7 @@ class ManagementController < ApplicationController
       if !embankments.nil?
         for embankment in embankments
           embankment.locked = true
+          #embankment.validate_payments
           embankment.save
         end
       end

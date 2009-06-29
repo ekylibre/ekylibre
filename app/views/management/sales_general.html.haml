@@ -3,12 +3,20 @@
   =formalize do |f| 
     - f.error 'sale_order'
     - f.title :client
-    - f.field :sale_order, :client_id, :choices=>@current_company.available_entities(:conditions=>{:client=>true}, :order=>:name).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations, :action=>:entities_create}
-    - f.title :conditions
-    - f.field :sale_order, :nature_id, :choices=>@current_company.sale_order_natures.collect{|x| [x.name, x.id]}
-    - f.field :sale_order, :contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create}
-    - f.field :sale_order, :delivery_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create}
-    - f.field :sale_order, :invoice_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create}
+    - if @sale_order.new_record?
+      - f.field :sale_order, :client_id, :choices=>@current_company.available_entities(:conditions=>{:client=>true}, :order=>:name).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations, :action=>:entities_create}
+      - f.title :conditions
+      - f.field :sale_order, :nature_id, :choices=>@current_company.sale_order_natures.collect{|x| [x.name, x.id]}
+      - f.field :sale_order, :contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create}
+      - f.field :sale_order, :delivery_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create}
+      - f.field :sale_order, :invoice_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create}
+    - else
+      - f.field t('activerecord.attributes.sale_order.client_id'), @sale_order.client.full_name
+      - f.title :conditions
+      - f.field t('activerecord.attributes.sale_order.nature_id'), @sale_order.nature.name
+      - f.field t('activerecord.attributes.sale_order.contact_id'), @sale_order.contact.address
+      - f.field t('activerecord.attributes.sale_order.delivery_contact_id'), @sale_order.delivery_contact.address
+      - f.field t('activerecord.attributes.sale_order.invoice_contact_id'), @sale_order.invoice_contact.address
     - f.field :sale_order, :comment, :field=>:textarea
     - f.title :letter
     - f.field :sale_order, :subject

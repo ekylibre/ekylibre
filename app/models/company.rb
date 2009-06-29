@@ -100,6 +100,13 @@ class Company < ActiveRecord::Base
     #raise Exception.new self.entity_id.inspect
   end
 
+  def set_journals_id(sales, purchases, bank)
+    self.sales_journal_id = sales
+    self.purchases_journal_id = purchases
+    self.bank_journal_id = bank
+    self.save
+  end
+
   def after_create
     role = Role.create!(:name=>tc('default.role.name.admin'), :company_id=>self.id,:actions=>'  ')
     role.can_do :all
@@ -134,7 +141,20 @@ class Company < ActiveRecord::Base
     ['expiration', 'standard', 'immediate'].each do |d|
       delays << self.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
     end
+    
+    self.entity_categories.create!(:name=>tc('default.category'))
+    
+    self.financialyears.create!(:code=>"2009/2010", :started_on=>Date.today, :stopped_on=>Date.today+(365))
+    
     self.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
+
+    sales_journal = self.journals.create!(:name=>tc(:sales_journal), :nature=>"sale", :currency_id=>currency.id)  
+    
+    purchases_journal = self.journals.create!(:name=>tc(:purchases_journal), :nature=>"purchase", :currency_id=>currency.id)
+    
+    bank_journal = self.journals.create!(:name=>tc(:bank_journal), :nature=>"bank", :currency_id=>currency.id)
+    
+    self.set_journals_id(sales_journal.id, purchases_journal.id, bank_journal.id)
 
     #tc('countries')
     
