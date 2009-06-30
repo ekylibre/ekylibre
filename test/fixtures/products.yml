@@ -22,7 +22,6 @@
 #  service_coeff       :float         
 #  shelf_id            :integer       not null
 #  unit_id             :integer       not null
-#  account_id          :integer       not null
 #  company_id          :integer       not null
 #  created_at          :datetime      not null
 #  updated_at          :datetime      not null
@@ -35,6 +34,8 @@
 #  critic_quantity_min :decimal(16, 2 default(1.0)
 #  quantity_max        :decimal(16, 2 default(0.0)
 #  manage_stocks       :boolean       not null
+#  product_account_id  :integer       
+#  charge_account_id   :integer       
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

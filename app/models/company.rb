@@ -2,19 +2,22 @@
 #
 # Table name: companies
 #
-#  id           :integer       not null, primary key
-#  name         :string(255)   not null
-#  code         :string(8)     not null
-#  siren        :string(9)     
-#  born_on      :date          
-#  locked       :boolean       not null
-#  deleted      :boolean       not null
-#  created_at   :datetime      not null
-#  updated_at   :datetime      not null
-#  created_by   :integer       
-#  updated_by   :integer       
-#  lock_version :integer       default(0), not null
-#  entity_id    :integer       
+#  id                   :integer       not null, primary key
+#  name                 :string(255)   not null
+#  code                 :string(8)     not null
+#  siren                :string(9)     
+#  born_on              :date          
+#  locked               :boolean       not null
+#  deleted              :boolean       not null
+#  created_at           :datetime      not null
+#  updated_at           :datetime      not null
+#  created_by           :integer       
+#  updated_by           :integer       
+#  lock_version         :integer       default(0), not null
+#  entity_id            :integer       
+#  sales_journal_id     :integer       
+#  purchases_journal_id :integer       
+#  bank_journal_id      :integer       
 #
 
 class Company < ActiveRecord::Base

@@ -18,7 +18,7 @@ class Jul1t1 < ActiveRecord::Migration
       product.product_account_id = product_account.id if product.product_account_id.nil?
       product.charge_account_id = charge_account.id if product.charge_account_id.nil?
       product.save
-      puts product_account.inspect
+      # puts product_account.inspect
     end
     
     remove_column :products, :account_id

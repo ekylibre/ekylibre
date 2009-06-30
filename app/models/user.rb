@@ -34,7 +34,6 @@ class User < ActiveRecord::Base
   has_one :employee
 
   validates_presence_of :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
-  validates_presence_of  :reduction_percent
   validates_confirmation_of :password
 
   cattr_accessor :current_user
