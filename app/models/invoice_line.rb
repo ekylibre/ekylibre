@@ -66,7 +66,7 @@ class InvoiceLine < ActiveRecord::Base
     Entry.create!(:company_id=>self.company_id, :record_id=>record.id, :account_id=>self.price.tax.account_collected_id, :currency_id=>self.price.currency_id,:editable=>false, :credit=>(self.amount_with_taxes - self.amount), :name=>self.price.tax.name+" "+(self.amount_with_taxes - self.amount).to_s+" "+self.price.currency.code, :currency_credit=>1)
 
        ### Charge account,  client (debit, 411..)
-    Entry.create!(:company_id=>self.company_id, :record_id=>record.id, :account_id=>self.order_line.order.client.create_update_account, :currency_id=>self.price.currency_id, :editable=>false, :debit=>self.amount_with_taxes, :name=>self.product.name+" "+self.price.amount_with_taxes.to_s+" "+self.price.currency.code, :currency_credit=>1)
+    Entry.create!(:company_id=>self.company_id, :record_id=>record.id, :account_id=>self.order_line.order.client.find_or_create_account, :currency_id=>self.price.currency_id, :editable=>false, :debit=>self.amount_with_taxes, :name=>self.product.name+" "+self.price.amount_with_taxes.to_s+" "+self.price.currency.code, :currency_credit=>1)
 
 
   end

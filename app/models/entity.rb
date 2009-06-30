@@ -153,5 +153,15 @@ class Entity < ActiveRecord::Base
     self.company.accounts.create({:number => prefix.to_s+suffix.to_s, :name=>(self.first_name+" "+self.name).strip})
   end
 
+  def find_or_create_account(nature = :client)
+    prefix = nature == :client ? 411 : 401
+    if self.nature == :client and self.client_account_id.nil?
+      last = self.company.accounts.find(:first, :conditions=>["number like ?",'%411'],:order=>"number desc")
+      account = self.company.create!(:number=>last.number.succ, :name=>self.full_name).id
+    else
+      account = self.client_account_id
+    end
+    account
+  end
 
 end 
