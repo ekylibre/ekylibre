@@ -7,17 +7,18 @@ class Jul1t1 < ActiveRecord::Migration
         price.save
       end
     end
-
+  
     add_column :products, :product_account_id, :integer, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
     add_column :products, :charge_account_id,  :integer, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
     
     Product.find(:all).each do |product|
       product_account = Account.find(:first, :conditions=>['deleted=false AND number=?','7'])
       charge_account = Account.find(:first, :conditions=>['deleted=false AND number=? ','6'])
-     # puts product_account.inspect
+    
       product.product_account_id = product_account.id if product.product_account_id.nil?
       product.charge_account_id = charge_account.id if product.charge_account_id.nil?
       product.save
+      puts product_account.inspect
     end
     
     remove_column :products, :account_id

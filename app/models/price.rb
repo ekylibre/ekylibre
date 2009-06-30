@@ -57,6 +57,7 @@ class Price < ActiveRecord::Base
       self.amount = (self.amount_with_taxes / (self.tax.amount + 1)).round(2)
       puts "JJJJJJJJJJJJJJJJJJJJJJJJJ   "+self.amount.to_s+"    "+self.amount_with_taxes.to_s
     end
+    self.currency_id = self.company.currencies.find(:first).id
     self.amount_with_taxes = self.amount_with_taxes.round(2)
     self.started_at = Time.now
     self.quantity_min ||= 0

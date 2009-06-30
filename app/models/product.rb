@@ -58,13 +58,16 @@ class Product < ActiveRecord::Base
     self.code = self.name.codeize.upper if self.code.blank?
     self.code = self.code[0..7]
     if self.company_id
+
       if self.number.blank?
         last = self.company.products.find(:first, :order=>'number DESC')
         self.number = last.nil? ? 1 : last.number+1 
       end
+      puts "gggglllll"
       while self.company.products.find(:first, :conditions=>["code=? AND id!=?", self.code, self.id||0])
         self.code.succ!
       end
+      puts "jjj"
     end
     self.catalog_name = self.name if self.catalog_name.blank?
   end

@@ -323,8 +323,8 @@ table.dyta tr.total{background:#D28830;}
 table.dyta tr.total td{color:RED;font-family:monospace;}
 
 /* lettering */
-table.dyta tr.even td{background: #FFCCCC;}
-table.dyta tr.odd  td{background: #FF9999;}
+/*table.dyta tr.even td{background: #FFCCCC;}
+table.dyta tr.odd  td{background: #FF9999;}*/
 table.dyta tr.letter.even td{background:#CCF5CC;}
 table.dyta tr.letter.odd  td{background:#99EB99;}
 table.dyta tr.letter-unbalanced.even td{background: #F9DBCC;}
