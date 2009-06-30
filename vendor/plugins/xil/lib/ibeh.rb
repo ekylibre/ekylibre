@@ -130,7 +130,7 @@ module Ibeh
             set table_left, 0, :font_size=>10 do
               for c in columns
                 options = c[:options]||{}
-                value = x.instance_eval(c[:value])
+                value = (x.is_a?(Hash) ? x[c[:value]] : x.instance_eval(c[:value]))
                 if value.is_a? Date
                   value = ::I18n.localize(value, :format=>options[:format]||:default)  if options[:format]
                   options[:align] ||= :center
