@@ -5,7 +5,7 @@ ActionController::Base.send(:include, ActionView::Helpers::AssetTagHelper)
 ActionController::Base.send(:include, ActionView::Helpers::TextHelper)
 ActionController::Base.send(:include, ActionView::Helpers::TagHelper)
 ActionController::Base.send(:include, ActionView::Helpers::UrlHelper)
-ActionController::Base.send(:include, WillPaginate::ViewHelpers)
+ActionController::Base.send(:include, WillPaginate::ViewHelpers) if defined? WillPaginate
 
 # Initialization of the plugin Dyta.
 ActionController::Base.send(:include, Ekylibre::Dyke::Dyta::Controller)

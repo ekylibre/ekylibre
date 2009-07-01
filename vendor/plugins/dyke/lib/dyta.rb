@@ -3,6 +3,13 @@ module Ekylibre
   module Dyke
     module Dyta
 
+      class InvalidName < ArgumentError
+        def initialize(name)
+          super "#{name} is a name already used or unusable"
+        end
+      end
+
+
       module Controller
 
 
@@ -30,8 +37,21 @@ module Ekylibre
               
 
           # Add methods to display a dynamic table
-          def dyta(name, options={}, &block)
-            options = {:pagination=>:will_paginate}.merge options
+          def dyta(name, new_options={}, &block)
+            name = name.to_s
+            list_method_name = 'dyta_'+name
+            tag_method_name  = 'dyta_'+name+'_tag'
+
+            if ActionView::Base.public_instance_methods.include? tag_method_name
+              if RAILS_ENV == 'production'
+                raise InvalidName.new(name)
+                return
+              end
+            end
+
+            options = {:pagination=>:default, :empty=>true}
+            options[:pagination] = :will_paginate if defined? WillPaginate
+            options.merge! new_options
             model = (options[:model]||name).to_s.classify.constantize
             begin
               model.columns_hash["id"]
@@ -41,11 +61,7 @@ module Ekylibre
             definition = Dyta.new(name, model, options)
             yield definition
 
-            name = name.to_s
             code = ""
-
-            list_method_name = 'dyta_'+name
-            tag_method_name  = 'dyta_'+name+'_tag'
 
             # List method
             conditions = ''
@@ -72,14 +88,11 @@ module Ekylibre
             builder += "    order += options['#{name}_dir']=='desc' ? ' DESC' : ' ASC'\n"
             builder += "  end\n"
 
-            
             builder += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
             builder += ", :conditions=>"+conditions unless conditions.blank?
-            builder += ", "+PAGINATION[options[:pagination]][:find_params].gsub('@@LENGTH@@', "options['#{name}_per_page']||"+(options[:per_page]||25).to_s) if PAGINATION[options[:pagination]][:find_params]
+            builder += ", "+PAGINATION[options[:pagination]][:find_params].gsub('@@LENGTH@@', "options['#{name}_per_page']||"+(options[:per_page]||25).to_s) unless PAGINATION[options[:pagination]][:find_params].blank?
             builder += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
             builder += ", :order=>order)||{}\n"
-
-            # puts builder
 
             # Tag method
             if definition.procedures.size>0
@@ -121,7 +134,7 @@ module Ekylibre
               children = options[:children].to_s
               child_body = columns_to_td(definition.columns, :nature=>:children, :record=>child, :order=>options[:order])
             end          
-
+            
             header = 'content_tag(:tr, ('+header+'), :class=>"header")'
 
             code  = "def "+tag_method_name+"(options={})\n"
@@ -150,8 +163,7 @@ module Ekylibre
             code += "  end\n"
             code += paginate;
             code += "  text = "+process+"+text\n" unless process.nil?
-            code += "  text += "+paginate_var+".to_s\n"
-            # code += "  raise Exception.new(text.inspect)\n"
+            code += "  text += "+paginate_var+".to_s\n" unless paginate.blank?
             code += "  unless request.xhr?\n"
             code += "    text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"')\n"
             # code += "    text = content_tag(:h3,  "+h(options[:label])+", :class=>:dyta)+text\n" unless options[:label].nil?
@@ -159,8 +171,9 @@ module Ekylibre
             code += "  return text\n"
             code += "end\n"
 
-            # puts code
-            
+            # list = code.split("\n")
+            # list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+
             ActionView::Base.send :class_eval, code
 
           end
@@ -495,10 +508,8 @@ module Ekylibre
 
       module View
         def dyta(name)
-#          self.controller.send('dyta_'+name.to_s+'_tag')
           self.send('dyta_'+name.to_s+'_tag')
         end
-
       end
 
     end
@@ -508,16 +519,17 @@ end
 
 
 
-
-module ActionController
-  class RemoteLinkRenderer < WillPaginate::LinkRenderer
-    def prepare(collection, options, template)
-      @remote = options.delete(:remote) || {}
-      super
+if defined? WillPaginate
+  module ActionController
+    class RemoteLinkRenderer < WillPaginate::LinkRenderer
+      def prepare(collection, options, template)
+        @remote = options.delete(:remote) || {}
+        super
+      end  
+      protected
+      def page_link(page, text, attributes = {})
+        @template.link_to_remote(text, {:url => url_for(page), :method => :get}.merge(@remote))
+      end
     end  
-    protected
-    def page_link(page, text, attributes = {})
-      @template.link_to_remote(text, {:url => url_for(page), :method => :get}.merge(@remote))
-    end
-  end  
+  end
 end
