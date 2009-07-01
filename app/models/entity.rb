@@ -149,15 +149,20 @@ class Entity < ActiveRecord::Base
       suffix.succ! unless account.nil?
     end
     
-    #self.company.accounts.create({:number => prefix.to_s+suffix.to_s, :name => tc(nature,:value => self.name)})
-    self.company.accounts.create({:number => prefix.to_s+suffix.to_s, :name=>(self.first_name+" "+self.name).strip})
+    self.company.accounts.create({:number => prefix.to_s+suffix.to_s, :name=>self.full_name})
   end
 
   def find_or_create_account(nature = :client)
     prefix = nature == :client ? 411 : 401
-    if self.nature == :client and self.client_account_id.nil?
-      last = self.company.accounts.find(:first, :conditions=>["number like ?",'%411'],:order=>"number desc")
-      account = self.company.create!(:number=>last.number.succ, :name=>self.full_name).id
+    #raise Exception.new self.inspect+prefix.inspect+self.nature.inspect
+    if self.client and self.client_account_id.nil?
+      
+      #last = self.company.accounts.find(:first, :conditions=>["number like ?",'%411'],:order=>"number desc")
+      #account = self.company.create!(:number=>last.number.succ, :name=>self.full_name).id
+      #raise Exception.new self.inspect
+      account = self.create_update_account(:client).id
+      self.client_account_id = account
+      self.save
     else
       account = self.client_account_id
     end

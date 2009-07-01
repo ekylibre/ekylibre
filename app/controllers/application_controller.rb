@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password").  
   # filter_parameter_logging :password
 
+
+
   protected  
 
   def render_form(options={})
@@ -61,6 +63,8 @@ class ApplicationController < ActionController::Base
   private
   
   def authorize
+     
+    
     session[:help_history] ||= []
     if request.get? and not request.xhr? and not [:authentication, :help].include?(controller_name.to_sym)
       session[:last_url] = request.url

@@ -309,24 +309,6 @@ class RelationsController < ApplicationController
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
 
-      unless params[:entity][:client].to_i.zero?
-        if params[:entity][:client_account_id].to_i.zero?
-          account = @entity.create_update_account(:client) 
-          @entity.client_account_id = account.id
-        else
-          @entity.client_account_id = params[:entity][:client_account_id]
-        end
-      end
-
-      unless params[:entity][:supplier].to_i.zero?
-        if params[:entity][:supplier_account_id].to_i.zero?
-          account =@entity.create_update_account(:supplier)
-          @entity.supplier_account_id = account.id
-        else
-          @entity.supplier_account_id = params[:entity][:supplier_account_id]
-        end
-      end
-
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
@@ -344,6 +326,25 @@ class RelationsController < ApplicationController
         saved = @entity.save
 
         if saved
+          
+          unless params[:entity][:client].to_i.zero?
+            if params[:entity][:client_account_id].to_i.zero?
+              account = @entity.create_update_account(:client) 
+              @entity.client_account_id = account.id
+            else
+              @entity.client_account_id = params[:entity][:client_account_id]
+            end
+          end
+          
+          unless params[:entity][:supplier].to_i.zero?
+            if params[:entity][:supplier_account_id].to_i.zero?
+              account =@entity.create_update_account(:supplier)
+              @entity.supplier_account_id = account.id
+            else
+              @entity.supplier_account_id = params[:entity][:supplier_account_id]
+            end
+          end
+          
           for datum in @complement_data
             datum.entity_id = @entity.id
             saved = false unless datum.save

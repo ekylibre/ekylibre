@@ -3,6 +3,7 @@ class ManagementController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
 
   def index
+    #raise Exception.new "jjjjj"+Actions.expire_actions.inspect
     @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
     @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})
     all_product_stocks = ProductStock.find(:all, :conditions=>{:company_id=>@current_company.id})
@@ -1243,7 +1244,7 @@ class ManagementController < ApplicationController
   
   def embankments_print
     @embankment = find_and_check(:embankment, params[:id])
-    if @current_company.default_contact.nil? || @embankment.bank_account.address.empty?
+    if @current_company.default_contact.nil? || @embankment.bank_account.address.nil?
       entity = @current_company.default_contact.nil? ? @current_company.name : @embankment.bank_account.name
       flash[:warning]=tc(:no_contacts, :name=>entity)
       redirect_to_back
