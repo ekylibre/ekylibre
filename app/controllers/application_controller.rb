@@ -16,9 +16,26 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password").  
   # filter_parameter_logging :password
 
-
+  # @@rights = {}
+  ADMIN = "administrate"
 
   protected  
+
+
+  def initialize
+    name = "rights.txt"
+    @@rights ||= {}
+    if @@rights.empty?
+      fic = File.open("#{RAILS_ROOT}/#{name}", "r") 
+      fic.each_line{|line|
+        line = line.strip.split(":")
+        @@rights[line[0].to_sym] ||= {}
+        @@rights[line[0].to_sym][line[1].to_sym] = line[2].to_sym 
+      }
+      #raise Exception.new @@rights.inspect
+    end
+    puts @@rights.inspect
+  end
 
   def render_form(options={})
     a = action_name.split '_'
@@ -63,7 +80,23 @@ class ApplicationController < ActionController::Base
   private
   
   def authorize
-     
+    
+    #raise Exception.new params[:controller].inspect+"hh"+@@rights[params[:controller].to_sym][params[:action].to_sym]
+    #raise Exception.new params.inspect+"hh"+session[:rights].inspect+ADMIN#+@@rights[params[:controller].to_sym][params[:action].to_sym].inspect
+    #raise Exception.new  session[:rights].include?(ADMIN.to_sym).inspect
+    if @@rights[params[:controller].to_sym].nil?
+      flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
+      redirect_to :controller=>:guide, :action=>:index
+    elsif @@rights[params[:controller].to_sym][params[:action].to_sym].nil?
+      flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
+      redirect_to :controller=>:guide, :action=>:index
+    else
+      unless (session[:rights].include?(@@rights[params[:controller].to_sym][params[:action].to_sym]) or session[:rights].include?(ADMIN.to_sym) )
+        flash[:error]=tc(:no_right_for_this_part_of_the_application_and_this_user)
+        redirect_to_back
+      end
+    end
+    
     
     session[:help_history] ||= []
     if request.get? and not request.xhr? and not [:authentication, :help].include?(controller_name.to_sym)

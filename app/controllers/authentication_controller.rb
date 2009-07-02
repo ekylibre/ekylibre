@@ -23,6 +23,8 @@ class AuthenticationController < ApplicationController
       user = User.authenticate(params[:user][:name], params[:user][:password])
       if user
         init_session(user)
+        session[:rights] = user.role.rights.split(" ").collect{|x| x.to_sym}
+        #raise Exception.new session[:rights].inspect
         unless session[:user_id].blank?
           redirect_to session[:last_url]||{:controller=>:guide, :action=>:index}
         end

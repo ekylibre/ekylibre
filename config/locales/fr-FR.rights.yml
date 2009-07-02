@@ -1,0 +1,14 @@
+fr-FR:
+  rights:
+    access_to_company: Accéder au module Société
+    access_to_index: 'Accéder à l''acceuil du logiciel'
+    access_to_management: Accéder au module Gestion commerciale
+    consult_sales: Consulter les ventes
+    consult_stocks: 'Consulter l''état des stocks'
+    create_sales: Créer une vente
+    manage_company: Gérer les informations concernant la société
+    manage_purchases: Gérer les achats
+    manage_rights: Gérer les droits utilisateurs
+    manage_stocks: Gérer les stocks
+    manage_taxes: Gérer les taxes
+    manage_users: Gérer les utilisateurs

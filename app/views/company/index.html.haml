@@ -11,6 +11,10 @@
 
 %h2= tc :users
 =dyta :users
+%h2= tc(:roles)
+.aclist
+  =link_to tc('roles_create'), {:action=>:roles_create}, :class=>'procedure create'
+=dyta :roles
 %h2= tc :establishments
 =dyta :establishments
 %h2= tc :departments

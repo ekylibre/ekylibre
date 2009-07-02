@@ -520,6 +520,8 @@ fr-FR:
         product_id: Produit
         quantity: Quantité
         unit_id: Unités
+      role:
+        name: Nom
       rubric:
         name: Titre
         nature: Where - What
@@ -662,6 +664,7 @@ fr-FR:
       title: Application
       expired_session: 'Session expirée. Veuillez vous reconnecter.'
       access_denied: 'Vous n''avez pas le droit d''accéder à cette fonctionnalité'
+      no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application'
     authentication:
       title: Connexion
       no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
@@ -803,12 +806,24 @@ fr-FR:
         establishments: Établissements
         establishments_create: Ajouter un nouvel établissement
         establishments_number: 'Nombre d''établissements'
+        roles: Rôles 
+        roles_create: Ajouter un rôle
         title: 'Informations sur la société : {{value}}'
         update: Modifier le détail de la société
         users: Utilisateurs
         users_create: Ajouter un nouvel utilisateur
         users_number: 'Nombre d''utilisateurs'
         values: Valeurs diverses
+      roles_create:
+        accountancy_rights: Droits comptabilité
+        company_rights: Droits société/utilisateurs
+        guide_rights: Droits naviguation
+        management_rights: Droits Gestion commerciale
+        relations_rights: Droits Relations clients/fournisseurs
+        role_name: Entrez le nom du rôle puis attribuez lui ses droits
+        title: Ajouter un rôle       
+        validate: Valider
+    
       update:
         title: 'Modification de la société : {{value}}'
         general: Vous pouvez modifier les différentes informations concernant votre société
@@ -1160,8 +1175,8 @@ fr-FR:
       professions_create: 
         title: 'Ajout d''une nouvelle profession'        
       professions_update: 
-        title: 'Modification de la profession'        
-    
+        title: 'Modification de la profession' 
+     
     # Used in the models
     # Used in the models
     # Used in the models

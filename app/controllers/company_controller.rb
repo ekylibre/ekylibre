@@ -25,6 +25,7 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :first_name
     t.column :last_name
+    t.column :name, :through=>:role
     t.column :free_price
     t.column :credits
     t.column :reduction_percent
@@ -61,6 +62,10 @@ class CompanyController < ApplicationController
     t.action :departments_update, :image=>:update
     t.action :departments_delete, :image=>:delete , :method=>:post , :confirm=>:sure
   end
+  dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+    t.column :name
+  end
+
 
   def departments
   end
@@ -129,6 +134,20 @@ class CompanyController < ApplicationController
     redirect_to_back
   end
 
+  def roles_create
+    @role = Role.new
+    for right in @@rights
+      @rights ||= {}
+      @rights[right[0].to_sym] = {}
+      @rights[right[0].to_sym] = right[1].values.uniq.collect
+    end
+    
+    if request.post?
+      @role = Role.new(params[:role])
+      raise Exception.new params.inspect
+    end
+  end
+  
   def users_create
     access :users
     if request.post?

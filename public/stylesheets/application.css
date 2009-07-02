@@ -250,6 +250,10 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 .window { padding:4px; background: #EEE; border: 1px solid #AAA; margin: 8px;}
 .window .dyta { background: white; }
 
+/* Droits utilisateurs */
+.right-category { text-align: center; padding: 15px 0 5px 0; font-weight: bold;}
+.right {  margin-left:50px;}
+
 /* entries */
 #table.entries tr * { border: 1px solid #AAA; padding: 1px 2px; }
 #table.entries tr.odd td{:background: #E3F4FF;}
