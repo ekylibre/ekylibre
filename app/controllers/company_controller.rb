@@ -15,6 +15,17 @@ class CompanyController < ApplicationController
     @title = {:value=>@company.name}
   end
 
+  def backup
+    filename = "backup-"+@current_company.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")+".zip"
+    stream = "backup "*1000
+    #    stream = Zlib::Deflate.deflate(stream)
+    Zlib::GzipWriter.open('/tmp/hoge.gz') do |gz|
+      gz.write stream
+    end
+    #send_data stream, :filename=>filename
+    send_file '/tmp/hoge.gz'
+  end
+
   def user
     @company = @current_company
     @user = @current_user
