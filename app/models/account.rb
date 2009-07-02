@@ -120,7 +120,6 @@ class Account < ActiveRecord::Base
 
   # this method loads the genreal ledger for all the accounts.
   def self.ledger(company, from, to)
-   # x = Time.now.to_i
     ledger = []
     accounts = Account.find(:all, :conditions => {:company_id => company})
     accounts.each do |account|
@@ -137,15 +136,14 @@ class Account < ActiveRecord::Base
           entry[:name] = e.name.to_s
           entry[:number_record] = e.record.number
           entry[:journal] = e.record.journal.name.to_s
-          entry[:credit] = e.record.credit
-          entry[:debit] = e.record.debit
+          entry[:credit] = e.credit
+          entry[:debit] = e.debit
           compute[:entries] << entry
         end
       end
       ledger << compute
     end
-  #  puts (Time.now.to_i-x).to_s+" secondes"
-   ledger.compact
+    ledger.compact
   end
 
 

@@ -198,16 +198,36 @@ class AccountancyController < ApplicationController
       params[:printed][:current_company] = @current_company.id
       params[:printed][:siren] = @current_company.siren.to_s
       params[:printed][:company_name] = @current_company.name.to_s
-   
+      
+      @lines = []
+      @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
+      @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+      
       if session[:mode] == "journal"
         @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to])
-        render :partial => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed]} , :collection => @entries        
+        sum_debit=0
+        sum_credit=0
+        if @entries.size > 0
+         @entries.each do |entry|
+            sum_debit += entry.debit
+            sum_credit += entry.credit
+          end
+        end
+        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :debit => sum_debit, :credit => sum_credit, :solde => sum_debit - sum_credit} , :collection => @entries        
       end
 
       if session[:mode] == "journal_by_id"
         id = @current_company.journals.find(:first, :conditions => { :name => params[:printed][:name] }).id
         @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to], id)
-        render :partial => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed]} , :collection => @entries        
+        sum_debit=0
+        sum_credit=0
+        if @entries.size > 0
+         @entries.each do |entry|
+            sum_debit += entry.debit
+            sum_credit += entry.credit
+          end
+        end
+        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :debit => sum_debit, :credit => sum_credit, :solde => sum_debit - sum_credit} , :collection => @entries        
       end
  
       if session[:mode] == "balance"
@@ -218,13 +238,13 @@ class AccountancyController < ApplicationController
           sum[:credit] += account[:credit]
           sum[:solde] += account[:solde]
         end
-        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :sum=> sum}, :collection => @accounts_balance
+        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :lines => @lines , :sum=> sum}, :collection => @accounts_balance
       end
 
       if session[:mode] == "general_ledger"
         @ledger = Account.ledger(@current_company.id, params[:printed][:from], params[:printed][:to])
         #raise Exception.new(@ledger.inspect)
-        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed]}, :collection => @ledger
+        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company}, :collection => @ledger
       end
       
    end

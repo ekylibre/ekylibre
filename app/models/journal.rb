@@ -98,7 +98,7 @@ class Journal < ActiveRecord::Base
     entries = []
     records.each do |record|
       entries << record.entries
-    end
+     end
     entries.flatten
   end
 
