@@ -1,0 +1,16 @@
+page :a4, :margin=>[10.mm] do
+  part 10.mm do
+    set do 
+      text "Journal général pour la période du "+printed[:from]+" au "+printed[:to], :bold =>:bold
+    end
+  end
+  table @entries  do
+    column "Numéro", 'record.number',1, :align=>:left
+    column "Crée le", 'record.created_on',1
+    column "Saisie le", 'record.printed_on',1
+    column "Intitulé", 'name',1
+    column "Compte", 'account.name',3.5
+    column "Débit", 'debit',1
+    column "Crédit", 'credit',1
+  end  
+end  

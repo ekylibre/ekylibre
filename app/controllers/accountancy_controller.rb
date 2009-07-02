@@ -165,10 +165,10 @@ class AccountancyController < ApplicationController
     redirect_to_current
   end
   
-  PRINTS=[[:balance,{:partial=>"date_to_date",:ex=>"ex"}],
-          [:general_ledger,{:partial=>"date_to_date"}],
+  PRINTS=[[:balance,{:partial=>"balance",:ex=>"ex"}],
+          [:general_ledger,{:partial=>"ledger"}],
           [:journal_by_id,{:partial=>"by_journal"}],
-          [:journal,{:partial=>"date_to_date"}]]
+          [:journal,{:partial=>"journals"}]]
   #[:balance_sheet,{:partial=>"by_financial_year"}],
   #[:income_statements,{:partial=>"by_financial_year"}]]
   
@@ -198,8 +198,34 @@ class AccountancyController < ApplicationController
       params[:printed][:current_company] = @current_company.id
       params[:printed][:siren] = @current_company.siren.to_s
       params[:printed][:company_name] = @current_company.name.to_s
-#      render(:xil=>"#{RAILS_ROOT}/app/views/prints/#{@print[0].to_s}.xml", :locals=>params[:printed])
-      render :partial => "print_test.rpdf"
+   
+      if session[:mode] == "journal"
+        @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to])
+        render :partial => @partial+".rpdf", :locals => {:printed => params[:printed]} , :collection => @entries        
+      end
+
+      if session[:mode] == "journal_by_id"
+        id = @current_company.journals.find(:first, :conditions => { :name => params[:printed][:name] }).id
+        @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to], id)
+        render :partial => @partial+".rpdf", :locals => {:printed => params[:printed]} , :collection => @entries        
+      end
+ 
+      if session[:mode] == "balance"
+        @accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
+        sum = {:debit=>0,:credit=>0,:solde=>0}
+        for account in @accounts_balance
+          sum[:debit] += account[:debit]
+          sum[:credit] += account[:credit]
+          sum[:solde] += account[:solde]
+        end
+        render :partial => @partial+".rpdf", :locals => {:printed => params[:printed], :sum=> sum}, :collection => @accounts_balance
+      end
+
+      if session[:mode] == "general_ledger"
+        @ledger = Account.ledger(@current_company.id, params[:printed][:from], params[:printed][:to])
+        render :partial => @partial+".rpdf", :locals => {:printed => params[:printed]}, :collection => @ledger
+      end
+      
    end
     #params[:printed][:from] = Date.today
     @title = {:value=>t("views.#{self.controller_name}.document_prepare.#{@print[0].to_s}")}

@@ -80,7 +80,7 @@ class Account < ActiveRecord::Base
     Account.find_all_by_parent_id(self.id)||{}
   end
 
-  # computes the debit and the credit for the account and the balance.
+  # computes the balance for a given financialyear.
   def compute(company, financialyear)
     debit = self.entries.sum(:debit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
     credit = self.entries.sum(:credit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
@@ -97,8 +97,55 @@ class Account < ActiveRecord::Base
     balance unless balance.empty?
   end
 
+  # this method loads the balance for a given period.
+  def self.balance(company, from, to)
+    balance = []
+    accounts = Account.find(:all, :conditions => {:company_id => company})
+    accounts.each do |account| 
+      debit = account.entries.sum(:debit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
+      credit = account.entries.sum(:credit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
+      
+      unless debit.zero? and credit.zero? 
+        compute={}
+        compute[:number] = account.number.to_i
+        compute[:name] = account.name.to_s
+        compute[:debit] = debit
+        compute[:credit] = credit
+        compute[:solde] = credit - debit 
+        balance << compute
+      end
+    end
+    balance.compact
+  end
 
-  # this method displays all the entries matching to the account.
+  # this method loads the genreal ledger for all the accounts.
+  def self.ledger(company, from, to)
+    ledger = []
+    accounts = Account.find(:all, :conditions => {:company_id => company})
+    accounts.each do |account|
+      compute={}
+      compute[:number] = account.number.to_i
+      compute[:name] = account.name.to_s
+      entries = account.entries.find(:all, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id")
+      if entries.size > 0
+        compute[:entries] = {}
+        entries.each do |entry|
+          compute[:entries][:date] = entry.record.created_on
+          compute[:entries][:name] = entry.name.to_s
+          compute[:entries][:number_record] = entry.record.number
+          compute[:entries][:journal] = entry.record.journal.name.to_s
+          compute[:entries][:credit] = entry.record.credit
+          compute[:entries][:debit] = entry.record.debit
+        end
+      end
+    ledger << compute
+    end
+    ledger.compact
+  end
+
+
+
+  # this method loads all the entries having the given letter for the account.
   def balanced_letter?(letter) 
     entries = self.company.entries.find(:all, :conditions => ["letter = ?", letter.to_s], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
    

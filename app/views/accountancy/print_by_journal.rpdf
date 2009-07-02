@@ -1,0 +1,13 @@
+page :a4 do
+  for record in @journal.records
+    table @journal.records.entries do
+      column "Number", "record.number", 80.mm
+      column "Crée le", "record.created_on", 20.mm
+      column "Saisie le",  "record.printed_on", 25.mm
+      column "Intitulé", "name", 25.mm
+      column "Compte", "account.name", 25.mm
+      column "Débit", "record.debit", 25.mm
+      column "Crédit", "record.credit", 25.mm      
+    end  
+  end
+end

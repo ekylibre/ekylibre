@@ -88,8 +88,9 @@ class Company < ActiveRecord::Base
 
   
   def before_validation
-    self.code = name.to_s[0..7].simpleize if code.blank?
-    self.code = rand.to_s[2..100].to_i.to_s(36)[0..7] if code.blank?
+    #raise Exception.new "kkkgggggkk"
+    self.code = self.name.to_s[0..7].simpleize if self.code.blank?
+    self.code = rand.to_s[2..100].to_i.to_s(36)[0..7] if self.code.blank?
     self.code.upper!
     while Company.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
       self.code.succ!

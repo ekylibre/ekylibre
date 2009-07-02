@@ -1,0 +1,34 @@
+%table.dyta
+  %tr
+    %th="&nbsp"
+    %th=tc(:statement_number)
+    %th=tc(:started_on)
+    %th=tc(:stopped_on)
+    %th=tc(:entry_name)
+    %th=tc(:entry_debit)
+    %th=tc(:entry_credit)
+  - @entries.each do |entry|
+    - attr = cycle("even", "odd")
+    %tr{:class => (entry.statement_id ? ((entry.statement_id.eql? session[:statement]) ? "pointable" :"pointabled") : "unpointable")+" "+attr, :id=> 'e'+entry.id.to_s }
+      %td{:onclick => remote_function(:after => "var element=$('e"+entry.id.to_s+"'); if (element.hasClassName('pointable "+attr+"')) { element.removeClassName('pointable "+attr+"'); element.addClassName('unpointable "+attr+"'); } else if (element.hasClassName('unpointable "+attr+"')) { element.removeClassName('unpointable "+attr+"'); element.addClassName('pointable "+attr+"'); } else { element.removeClassName('pointabled "+attr+"'); element.addClassName('unpointable "+attr+"'); }", :url => { :action => 'statements_point', :id => entry.id})}
+      %td{:id => 'entry_number_'+entry.id.to_s}=entry.statement.nil? ? "&nbsp" : link_to(entry.statement.number, :action=>:statements_display, :id=>entry.statement.id) 
+      %td=@bank_account_statement.started_on
+      %td=@bank_account_statement.stopped_on
+      %td=entry.name
+      %td.fixnum=entry.debit
+      %td.fixnum=entry.credit
+  %tr
+    %td=tc(:total, :value => @bank_account.name)
+    %td
+    %td
+    %td
+    %td
+    %td#total_debit= @bank_account_statement.debit || 0
+    %td#total_credit=@bank_account_statement.credit || 0
+%ul
+  %li="Vert/Bleu : écriture pointée " 
+  %li="Rouge: écriture à pointer"
+
+%br
+=link_to tc(:validate), :action => :statements, :id => @bank_account.id
+#total=render :partial=>'statements'

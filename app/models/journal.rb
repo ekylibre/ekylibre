@@ -78,6 +78,30 @@ class Journal < ActiveRecord::Base
     #end
   end
   
+  # this method displays all the records matching to a given period.
+  def self.records(company, from, to, id=nil)
+    records = []
+    if id.nil?
+      journals = Journal.find(:all, :conditions => {:company_id => company} )
+    else
+      journal = Journal.find(id)
+    end
+    if journals
+      journals.each do |journal|
+        records << journal.records.find(:all, :conditions => ["created_on BETWEEN ? AND ?", from, to])
+      end
+      records.flatten!
+    end
+    if journal
+        records = journal.records.find(:all, :conditions => ["created_on BETWEEN ? AND ?", from, to])
+    end
+    entries = []
+    records.each do |record|
+      entries << record.entries
+    end
+    entries.flatten
+  end
+
   # this method searches the last records according to a number.  
   def last_records(period, number_record=:all)
     period.records.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_record)

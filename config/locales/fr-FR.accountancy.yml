@@ -195,7 +195,11 @@ fr-FR:
         journal: Journal
         from: Période du
         to: Au
-      _print_date_to_date:
+      _print_journals: 
+        dates: Saisissez les dates
+        from: Période du
+        to: Au
+      _print_balance:
         dates: Saisissez les dates de début et de fin de la période
         from: Période du
         to: Au
