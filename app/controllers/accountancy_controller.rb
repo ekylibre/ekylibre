@@ -201,13 +201,13 @@ class AccountancyController < ApplicationController
    
       if session[:mode] == "journal"
         @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to])
-        render :partial => @partial+".rpdf", :locals => {:printed => params[:printed]} , :collection => @entries        
+        render :partial => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed]} , :collection => @entries        
       end
 
       if session[:mode] == "journal_by_id"
         id = @current_company.journals.find(:first, :conditions => { :name => params[:printed][:name] }).id
         @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to], id)
-        render :partial => @partial+".rpdf", :locals => {:printed => params[:printed]} , :collection => @entries        
+        render :partial => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed]} , :collection => @entries        
       end
  
       if session[:mode] == "balance"
@@ -218,16 +218,17 @@ class AccountancyController < ApplicationController
           sum[:credit] += account[:credit]
           sum[:solde] += account[:solde]
         end
-        render :partial => @partial+".rpdf", :locals => {:printed => params[:printed], :sum=> sum}, :collection => @accounts_balance
+        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :sum=> sum}, :collection => @accounts_balance
       end
 
       if session[:mode] == "general_ledger"
         @ledger = Account.ledger(@current_company.id, params[:printed][:from], params[:printed][:to])
-        render :partial => @partial+".rpdf", :locals => {:printed => params[:printed]}, :collection => @ledger
+        #raise Exception.new(@ledger.inspect)
+        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed]}, :collection => @ledger
       end
       
    end
-    #params[:printed][:from] = Date.today
+
     @title = {:value=>t("views.#{self.controller_name}.document_prepare.#{@print[0].to_s}")}
   end
 

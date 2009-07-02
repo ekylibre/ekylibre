@@ -1,13 +1,17 @@
-page :a4 do
-  for record in @journal.records
-    table @journal.records.entries do
-      column "Number", "record.number", 80.mm
-      column "Crée le", "record.created_on", 20.mm
-      column "Saisie le",  "record.printed_on", 25.mm
-      column "Intitulé", "name", 25.mm
-      column "Compte", "account.name", 25.mm
-      column "Débit", "record.debit", 25.mm
-      column "Crédit", "record.credit", 25.mm      
-    end  
+
+page :a4, :margin=>[10.mm] do
+  part 10.mm do
+    set do 
+      text "Journal "+printed[:name]+" pour la période du "+printed[:from]+" au "+printed[:to], :bold =>:bold
+    end
   end
-end
+  table @entries  do
+    column "Numéro", 'record.number',1, :align=>:left
+    column "Crée le", 'record.created_on',1
+    column "Saisie le", 'record.printed_on',1
+    column "Intitulé", 'name',1
+    column "Compte", 'account.name',3.5
+    column "Débit", 'debit',1
+    column "Crédit", 'credit',1
+  end  
+end  

@@ -120,6 +120,7 @@ class Account < ActiveRecord::Base
 
   # this method loads the genreal ledger for all the accounts.
   def self.ledger(company, from, to)
+   # x = Time.now.to_i
     ledger = []
     accounts = Account.find(:all, :conditions => {:company_id => company})
     accounts.each do |account|
@@ -127,20 +128,24 @@ class Account < ActiveRecord::Base
       compute[:number] = account.number.to_i
       compute[:name] = account.name.to_s
       entries = account.entries.find(:all, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id")
+      compute[:entries] = []
+
       if entries.size > 0
-        compute[:entries] = {}
-        entries.each do |entry|
-          compute[:entries][:date] = entry.record.created_on
-          compute[:entries][:name] = entry.name.to_s
-          compute[:entries][:number_record] = entry.record.number
-          compute[:entries][:journal] = entry.record.journal.name.to_s
-          compute[:entries][:credit] = entry.record.credit
-          compute[:entries][:debit] = entry.record.debit
+        entries.each do |e|
+          entry ={}
+          entry[:date] = e.record.created_on
+          entry[:name] = e.name.to_s
+          entry[:number_record] = e.record.number
+          entry[:journal] = e.record.journal.name.to_s
+          entry[:credit] = e.record.credit
+          entry[:debit] = e.record.debit
+          compute[:entries] << entry
         end
       end
-    ledger << compute
+      ledger << compute
     end
-    ledger.compact
+  #  puts (Time.now.to_i-x).to_s+" secondes"
+   ledger.compact
   end
 
 

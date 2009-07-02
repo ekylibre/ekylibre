@@ -203,6 +203,10 @@ fr-FR:
         dates: Saisissez les dates de début et de fin de la période
         from: Période du
         to: Au
+      _print_ledger:
+        dates: Saisissez les dates de début et de fin de la période
+        from: Période du
+        to: Au
       print_balance_sheet:
         title: Impression du bilan 
         period: Période
