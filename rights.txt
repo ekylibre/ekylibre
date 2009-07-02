@@ -1,0 +1,13 @@
+company:index:access_to_company
+company:users_create:manage_users
+company:users_update:manage_users
+company:roles_create:manage_rights
+management:index:access_to_management
+management:purchases:manage_purchases
+management:sales:consult_sales
+management:sales_new:create_sales
+management:stocks:consult_stocks
+management:stocks_locations:manage_stocks
+management:stocks_transfers:manage_stocks
+management:taxes:manage_taxes
+guide:index:access_to_index
