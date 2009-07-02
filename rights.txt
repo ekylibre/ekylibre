@@ -243,7 +243,7 @@ resources:professions:administrate
 resources:professions_create:administrate
 resources:professions_update:administrate
 resources:professions_delete:administrate
-search:index
+search:index:administrate
 company:index:access_to_company
 company:users_create:manage_users
 company:users_update:manage_users

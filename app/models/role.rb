@@ -15,8 +15,9 @@
 
 class Role < ActiveRecord::Base
   belongs_to :company
+  has_many :users
 
-
+  attr_readonly :company_id
 
   ACTIONS = [ :all,                     # All
               :accountancy,             # Accountant
@@ -26,6 +27,7 @@ class Role < ActiveRecord::Base
   #set_column :actions, ACTIONS
 
   def before_validation
+    
 #    self.actions_array = self.actions_array # Refresh actions array
   end
 
