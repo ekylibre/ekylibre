@@ -2,6 +2,9 @@
 module Ekylibre
   module Dyke
     module Dyta
+      mattr_accessor :will_paginate
+      @@will_paginate = false
+      @@will_paginate = true if defined? WillPaginate
 
       class InvalidName < ArgumentError
         def initialize(name)
@@ -12,17 +15,11 @@ module Ekylibre
 
       module Controller
 
-
         def self.included(base) #:nodoc:
           base.extend(ClassMethods)
         end
 
-
         module ClassMethods
-          
-          include ERB::Util
-          include ActionView::Helpers::TagHelper
-          include ActionView::Helpers::UrlHelper
 
           PAGINATION = {
             :will_paginate=>{
@@ -50,7 +47,7 @@ module Ekylibre
             end
 
             options = {:pagination=>:default, :empty=>true}
-            options[:pagination] = :will_paginate if defined? WillPaginate
+            options[:pagination] = :will_paginate if Ekylibre::Dyke::Dyta.will_paginate
             options.merge! new_options
             model = (options[:model]||name).to_s.classify.constantize
             begin
@@ -171,8 +168,7 @@ module Ekylibre
             code += "  return text\n"
             code += "end\n"
 
-            # list = code.split("\n")
-            # list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+            # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
 
             ActionView::Base.send :class_eval, code
 
@@ -519,7 +515,7 @@ end
 
 
 
-if defined? WillPaginate
+if Ekylibre::Dyke::Dyta.will_paginate
   module ActionController
     class RemoteLinkRenderer < WillPaginate::LinkRenderer
       def prepare(collection, options, template)

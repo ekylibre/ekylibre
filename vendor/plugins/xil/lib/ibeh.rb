@@ -249,7 +249,7 @@ module Ibeh
       @writer.font name, options.merge(:size=>size, :color=>color)
     end
 
-    def text(value, options={}, &block)
+    def text(value, options={})
       value = value.to_s
       env = @env.dup
       font(options[:font], options.delete(:size), options.delete(:color), :italic=>options[:italic], :bold=>options[:bold])
@@ -262,6 +262,34 @@ module Ibeh
         @writer.line [[left, top-wcross], [left, top+wcross]], :border=>{:color=>'#FCC', :width=>0}
       end
       @env = env
+    end
+
+    def cell(width, height, value, options={})
+      font(options[:font], options.delete(:size), options.delete(:color), :italic=>options[:italic], :bold=>options[:bold])
+      left = (options[:left]||0)
+      if options[:align]==:center
+        left += width.to_f/2
+      elsif options[:align]==:right
+        left += width.to_f - 0.5.mm
+      else
+        left += 0.5.mm
+      end
+      top = (options[:top]||0)
+      if options[:valign]==:middle
+        top += (height.to_f - variable(:font_size))/2
+      elsif options[:valign]==:bottom
+        top += (height.to_f - variable(:font_size))
+      else
+        top += 0.5.mm
+      end
+      rectangle(width, height, options) if options[:border]
+      text value, options.merge(:left=>left, :top=>top)
+    end
+
+    def rectangle(width, height, options={})
+      left = @left+(options[:left]||0)
+      top  = @top-(options[:top]||0)
+      @writer.rectangle left, top, width, -height, options
     end
 
     def image(file, width, height, options={}, &block)

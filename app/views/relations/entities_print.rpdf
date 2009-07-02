@@ -8,6 +8,11 @@ page :a4, :margin=>[10.mm] do
       text @entity.full_name.strip, :left=>width/2, :size=>28, :align=>:center
     end
     set 40.mm, 11.mm do
+      set 0, 0, :color=>'#E7E7E7', :font_size=>20 do
+        cell 150.mm, 35.mm, @entity.full_name, :valign=>:bottom
+        cell 150.mm, 35.mm, @entity.full_name, :align=>:center, :valign=>:middle
+        cell 150.mm, 35.mm, @entity.full_name, :align=>:right, :valign=>:top
+      end
       set 0, 0, :color=>'#777' do
         text "Nom"
         text "Prénom", :top=>5.mm
@@ -31,6 +36,7 @@ page :a4, :margin=>[10.mm] do
   part 10.mm do
     set do
       text "Contacts", :size=>14, :top=>5.mm
+      # rectangle 50.mm, 10.mm, :left=>120.mm
     end
   end
   table @entity.contacts do

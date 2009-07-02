@@ -176,6 +176,14 @@ module Hebi
       self.stroke(false)
     end
 
+    def rectangle(x, y, width, height, params={})
+      self.new_page if @page<0
+      border = params[:border]||{}
+      self.set_line(border)
+      self.append_rectangle(x, y, width, height)
+      self.stroke(false)      
+    end
+
     def box(x, y, width, height, text=nil, params={}, page=nil)
       self.new_page if @page<0
       params[:font] ||= {}
