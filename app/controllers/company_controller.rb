@@ -36,9 +36,9 @@ class CompanyController < ApplicationController
         columns = klass.column_names.sort
         for x in company.send(name.to_sym)
           puts x.id if x.id%200==0
-          record = table.add_element('record')
+          record = table.add_element('record', x.attributes)
           #columns.each do |c|
-           # record.add_attribute c, x.send(c).to_s
+          # record.add_attribute c, x.send(c).to_s
           #end
         end
       end
