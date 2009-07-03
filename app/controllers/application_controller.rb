@@ -80,7 +80,6 @@ class ApplicationController < ActionController::Base
   private
   
   def authorize
-    
     #raise Exception.new params[:controller].inspect+"hh"+@@rights[params[:controller].to_sym][params[:action].to_sym]
     #raise Exception.new params.inspect+"hh"+session[:rights].inspect+ADMIN#+@@rights[params[:controller].to_sym][params[:action].to_sym].inspect
     #raise Exception.new  session[:rights].include?(ADMIN.to_sym).inspect
