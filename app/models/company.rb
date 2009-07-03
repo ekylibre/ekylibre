@@ -29,7 +29,7 @@ class Company < ActiveRecord::Base
   has_many :bank_account_statements
   has_many :complements
   has_many :complement_choices
-  has_many :complement_datas
+  has_many :complement_data
   has_many :contacts
   has_many :currencies
   has_many :delays
@@ -112,9 +112,8 @@ class Company < ActiveRecord::Base
   end
 
   def after_create
-    role = Role.create!(:name=>tc('default.role.name.admin'), :company_id=>self.id,:actions=>'  ')
-    role.can_do :all
-    role = Role.create!(:name=>tc('default.role.name.public'), :company_id=>self.id,:actions=>'  ')
+    role = Role.create!(:name=>tc('default.role.name.admin'), :company_id=>self.id, :rights=>ApplicationController.rights(true).join(' '))
+    role = Role.create!(:name=>tc('default.role.name.public'), :company_id=>self.id ,:rights=>'')
     self.parameter('general.language').value=Language.find_by_iso2('fr')
     self.load_template("#{RAILS_ROOT}/lib/template.xml")
     self.departments.create!(:name=>tc('default.department_name'))

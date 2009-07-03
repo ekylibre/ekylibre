@@ -1,3 +1,5 @@
+require "rexml/document"
+
 class CompanyController < ApplicationController
 
   def index
@@ -16,14 +18,36 @@ class CompanyController < ApplicationController
   end
 
   def backup
-    filename = "backup-"+@current_company.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")+".zip"
-    stream = "backup "*1000
-    #    stream = Zlib::Deflate.deflate(stream)
-    Zlib::GzipWriter.open('/tmp/hoge.gz') do |gz|
-      gz.write stream
+    company = @current_company
+
+    filename = "backup-"+@current_company.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")+".zes"
+    file = "#{RAILS_ROOT}/tmp/#{filename}"
+    doc = REXML::Document.new
+    doc << REXML::XMLDecl.new
+    root = doc.add_element 'company'
+    reflections = Company.reflections
+    for name in reflections.keys.collect{|x| x.to_s}.sort
+      reflection = reflections[name.to_sym]
+      if reflection.macro==:has_many
+        klass = reflection.class_name.constantize
+        table = root.add_element('table', 'name'=>name, 'model'=>klass.to_s)
+        label = I18n.translate("activerecord.models.#{klass.to_s.underscore}")
+        table.add_attribute 'label', label unless label.match /^translation\ missing/
+        columns = klass.column_names.sort
+        for x in company.send(name.to_sym)
+          record = table.add_element('record')
+          columns.each do |c|
+            record.add_attribute c, x.send(c).to_s
+          end
+        end
+      end
     end
-    #send_data stream, :filename=>filename
-    send_file '/tmp/hoge.gz'
+
+    stream = doc.to_s #"backup "*1000
+    # send_data stream, :filename=>filename, :disposition=>'inline', :type=>'text'
+    send_data Zlib::Deflate.deflate(stream), :filename=>filename
+    # Zlib::GzipWriter.open(file) { |gz| gz.write(stream) }
+    # send_file file
   end
 
   def user

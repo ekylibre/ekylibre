@@ -21,20 +21,23 @@ class ApplicationController < ActionController::Base
 
   protected  
 
+  def self.rights(list = false)
+    hash = {}
+    array = []
+    file = File.open("#{RAILS_ROOT}/config/rights.txt", "r") 
+    file.each_line do |line|
+      line = line.strip.split(":")
+      hash[line[0].to_sym] ||= {}
+      hash[line[0].to_sym][line[1].to_sym] = line[2].to_sym 
+      array << line[2].to_sym 
+    end
+    return (list ? array.uniq : hash)
+  end
+
 
   def initialize
-    name = "rights.txt"
     @@rights ||= {}
-    if @@rights.empty?
-      fic = File.open("#{RAILS_ROOT}/config/#{name}", "r") 
-      fic.each_line{|line|
-        line = line.strip.split(":")
-        @@rights[line[0].to_sym] ||= {}
-        @@rights[line[0].to_sym][line[1].to_sym] = line[2].to_sym 
-      }
-      #raise Exception.new @@rights.inspect
-    end
-    puts @@rights.inspect
+    @@rights = self.class.rights if @@rights.empty?
   end
 
   def render_form(options={})
@@ -90,9 +93,15 @@ class ApplicationController < ActionController::Base
       flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
       redirect_to :controller=>:guide, :action=>:index
     else
+      session[:rights] ||= []
       unless (session[:rights].include?(@@rights[params[:controller].to_sym][params[:action].to_sym]) or session[:rights].include?(ADMIN.to_sym) )
         flash[:error]=tc(:no_right_for_this_part_of_the_application_and_this_user)
-        redirect_to_back
+        if session[:history]
+          redirect_to_back
+        else
+          redirect_to_login
+        end
+        return
       end
     end
     

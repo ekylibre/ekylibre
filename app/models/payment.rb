@@ -18,7 +18,7 @@
 #  check_number   :string(255)   
 #  account_number :string(255)   
 #  entity_id      :integer       
-#  to_bank_on     :date          default(Thu, 18 Jun 2009), not null
+#  to_bank_on     :date          default(Fri, 03 Jul 2009), not null
 #  embankment_id  :integer       
 #  embanker_id    :integer       
 #
