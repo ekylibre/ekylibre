@@ -22,8 +22,6 @@
 #  free_price        :boolean       default(TRUE), not null
 #  reduction_percent :decimal(, )   default(5.0), not null
 #  credits           :boolean       default(TRUE), not null
-#  admin             :boolean       default(TRUE), not null
-#  rights            :text          
 #
 
 require "digest/sha2"
