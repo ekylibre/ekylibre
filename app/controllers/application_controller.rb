@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
     name = "rights.txt"
     @@rights ||= {}
     if @@rights.empty?
-      fic = File.open("#{RAILS_ROOT}/#{name}", "r") 
+      fic = File.open("#{RAILS_ROOT}/config/#{name}", "r") 
       fic.each_line{|line|
         line = line.strip.split(":")
         @@rights[line[0].to_sym] ||= {}
