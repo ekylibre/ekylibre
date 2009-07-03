@@ -203,6 +203,9 @@ fr-FR:
         dates: Saisissez les dates de début et de fin de la période
         from: Période du
         to: Au
+      _print_balance_sheet:
+        balance_sheet: 'Sélectionnez l''exercice'
+        select_financialyear: Exercice
       _print_ledger:
         dates: Saisissez les dates de début et de fin de la période
         from: Période du

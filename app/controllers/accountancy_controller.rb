@@ -168,8 +168,9 @@ class AccountancyController < ApplicationController
   PRINTS=[[:balance,{:partial=>"balance",:ex=>"ex"}],
           [:general_ledger,{:partial=>"ledger"}],
           [:journal_by_id,{:partial=>"by_journal"}],
-          [:journal,{:partial=>"journals"}]]
-  #[:balance_sheet,{:partial=>"by_financial_year"}],
+          [:journal,{:partial=>"journals"}],
+          [:balance_sheet,{:partial=>"balance_sheet"}]]
+
   #[:income_statements,{:partial=>"by_financial_year"}]]
   
   def document_prepare
@@ -194,15 +195,19 @@ class AccountancyController < ApplicationController
         params[:printed][:from] = @financialyear.started_on
         params[:printed][:to] = @financialyear.stopped_on
       end
+     
       params[:printed][:name] = Journal.find_by_id_and_company_id(params[:printed][:name], @current_company.id).name if session[:mode] == "journal_by_id"
+      
       params[:printed][:current_company] = @current_company.id
       params[:printed][:siren] = @current_company.siren.to_s
       params[:printed][:company_name] = @current_company.name.to_s
       
+      
       @lines = []
       @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-      @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
-      
+      @lines << @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+      @lines << @current_company.code
+
       if session[:mode] == "journal"
         @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to])
         sum_debit=0
@@ -231,7 +236,7 @@ class AccountancyController < ApplicationController
       end
  
       if session[:mode] == "balance"
-        @accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
+         @accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
         sum = {:debit=>0,:credit=>0,:solde=>0}
         for account in @accounts_balance
           sum[:debit] += account[:debit]
@@ -241,9 +246,16 @@ class AccountancyController < ApplicationController
         render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :lines => @lines , :sum=> sum}, :collection => @accounts_balance
       end
 
+      if session[:mode] == "balance_sheet"
+        @financialyear = Financialyear.find_by_id_and_company_id(params[:printed][:financialyear], @current_company.id)
+        params[:printed][:from] = @financialyear.started_on
+        params[:printed][:to] = @financialyear.stopped_on
+        @accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
+        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :lines => @lines , :sum=> sum}, :collection => @accounts_balance
+      end
+
       if session[:mode] == "general_ledger"
         @ledger = Account.ledger(@current_company.id, params[:printed][:from], params[:printed][:to])
-        #raise Exception.new(@ledger.inspect)
         render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company}, :collection => @ledger
       end
       

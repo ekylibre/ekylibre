@@ -12,8 +12,8 @@ page :a4, :margin=>[10.mm] do
     end
   end
   part 10.mm do
-    set 30.mm do 
-      text "Journal "+printed[:name].to_s+" pour la période du "+I18n.localize(printed[:from].to_date, :format=> :month_letter)+" au "+I18n.localize(printed[:to].to_date, :format => :month_letter), :bold =>:bold
+    set do 
+      text "Journal "+printed[:name].to_s+" pour la période du "+I18n.localize(printed[:from].to_date, :format=> :month_letter)+" au "+I18n.localize(printed[:to].to_date, :format => :month_letter), :left=>width/2, :align=>:center, :bold =>:bold
     end
   end
   table @entries, :fixed=>true  do
@@ -31,7 +31,8 @@ page :a4, :margin=>[10.mm] do
       cell 190.mm, 4.mm, credit.to_s, :align=>:right, :border => 'true'
     end 
     set 150.mm, 10.mm do
-      cell 20.mm, 2.mm, solde.to_s, :align=>:right, :border => 'true'
+      cell 20.mm, 4.mm, "Solde ", :align=>:right, :bold=>:bold, :border => 'true'
+      cell 40.mm, 4.mm, solde.to_s, :align=>:right, :border => 'true'	
     end
   end
 end  
