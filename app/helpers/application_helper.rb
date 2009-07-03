@@ -101,8 +101,8 @@ module ApplicationHelper
 
     ]
 
-
-  MENUS_ARRAY = MENUS.collect{|x| x[:name]}
+  #raise Exception.new MENUS[0].inspect
+  MENUS_ARRAY = MENUS.collect{|x| x[:name]  }
             
 
   
@@ -111,10 +111,12 @@ module ApplicationHelper
   end
 
   def menus
+    
     MENUS
   end
   
   def menu_index(controller=self.controller.controller_name.to_sym)
+   # raise Exception.new session.data.inspect
 #     code = ''
 #     menu = MENUS.detect{|m| m[:name]==controller}
 #     if menu

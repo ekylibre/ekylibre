@@ -638,6 +638,7 @@ fr-FR:
         nature: Nature
         reductible: Réductible
       user:
+        admin: Admin
         credits: 'Création d''avoirs'
         email: 'E-mail'
         first_name: 'Prénom'
@@ -649,7 +650,7 @@ fr-FR:
         password: 'Mot de passe'
         password_confirmation: 'Confirmation du mot&nbsp;de&nbsp;passe'
         reduction_percent: Taux de réduction autorisé (%)
-        role_id: Rôle
+        role_id: À partir du rôle
       version:
         number: Numéro
         last: Derniere version ?
@@ -665,6 +666,7 @@ fr-FR:
       expired_session: 'Session expirée. Veuillez vous reconnecter.'
       access_denied: 'Vous n''avez pas le droit d''accéder à cette fonctionnalité'
       no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application'
+      no_right_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'
     authentication:
       title: Connexion
       no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
@@ -815,15 +817,26 @@ fr-FR:
         users_number: 'Nombre d''utilisateurs'
         values: Valeurs diverses
       roles_create:
-        accountancy_rights: Droits comptabilité
+        accountancy_rights: Droits module Comptabilité
+        authentication_rights: Droits de connexion
         company_rights: Droits société/utilisateurs
-        guide_rights: Droits naviguation
-        management_rights: Droits Gestion commerciale
-        relations_rights: Droits Relations clients/fournisseurs
+        guide_rights: Droits naviguation 
+        help_rights: 'Droits consultation de l''aide'
+        management_rights: Droits module Gestion commerciale
+        production_rights: Droits module Production
+        relations_rights: Droits module Relations clients/fournisseurs
+        resources_rights: Droits module Ressources
         role_name: Entrez le nom du rôle puis attribuez lui ses droits
+        search_rights: Droits de recherche
         title: Ajouter un rôle       
         validate: Valider
-    
+      _roles_form:
+        accountancy_rights: Droits module Comptabilité
+        company_rights: Droits société/utilisateurs
+        management_rights: Droits module Gestion commerciale
+        production_rights: Droits module Production
+        relations_rights: Droits module Relations clients/fournisseurs
+        resources_rights: Droits module Ressources
       update:
         title: 'Modification de la société : {{value}}'
         general: Vous pouvez modifier les différentes informations concernant votre société

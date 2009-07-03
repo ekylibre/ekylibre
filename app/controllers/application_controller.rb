@@ -86,6 +86,7 @@ class ApplicationController < ActionController::Base
     #raise Exception.new params[:controller].inspect+"hh"+@@rights[params[:controller].to_sym][params[:action].to_sym]
     #raise Exception.new params.inspect+"hh"+session[:rights].inspect+ADMIN#+@@rights[params[:controller].to_sym][params[:action].to_sym].inspect
     #raise Exception.new  session[:rights].include?(ADMIN.to_sym).inspect
+    session[:rights] ||= []
     if @@rights[params[:controller].to_sym].nil?
       flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
       redirect_to :controller=>:guide, :action=>:index
