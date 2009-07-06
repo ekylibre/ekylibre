@@ -802,6 +802,7 @@ fr-FR:
     # Company
     company:
       index:
+        backup: Enregistrer une sauvegarde
         departments: Services
         departments_create: Ajouter un nouveau service
         departments_number: Nombre de services

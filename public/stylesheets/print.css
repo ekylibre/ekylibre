@@ -1,0 +1,13 @@
+* { padding: 0; margin:0; font-size:10pt}
+
+h1 { font-size: 16pt; }
+
+#top, #side, #help, #help-open, .aclist, .act { display:none; }
+
+#main { width: 100%; }
+#left { width: 0%; }
+
+.dyta { border-collapse: collapse; width: 100%; }
+.dyta th, .dyta td { border: 0.1mm solid black; padding: 0.5mm; text-decoration:none;}
+.dyta th { font-weight: bold; }
+
