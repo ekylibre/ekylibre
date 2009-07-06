@@ -671,6 +671,7 @@ fr-FR:
       title: Connexion
       no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
     company:
+      role: Rôle
       title: Société
       departments:
         departments_create: Ajouter un nouveau service
@@ -680,7 +681,7 @@ fr-FR:
         users_create: Ajouter un nouvel utilisateur
     guide:
       title: Accueil
-      unknown_action: 'La page que vous demandez n''est pas disponible.'
+      unknown_action: 'La page que vous demandez n''est pas disponible. ({{value}})'
     help:
       title: Aide
     production:
@@ -818,6 +819,20 @@ fr-FR:
         users_number: 'Nombre d''utilisateurs'
         values: Valeurs diverses
       roles_create:
+        accountancy_rights: Droits module Comptabilité
+        authentication_rights: Droits de connexion
+        company_rights: Droits société/utilisateurs
+        guide_rights: Droits naviguation 
+        help_rights: 'Droits consultation de l''aide'
+        management_rights: Droits module Gestion commerciale
+        production_rights: Droits module Production
+        relations_rights: Droits module Relations clients/fournisseurs
+        resources_rights: Droits module Ressources
+        role_name: Entrez le nom du rôle puis attribuez lui ses droits
+        search_rights: Droits de recherche
+        title: Ajouter un rôle       
+        validate: Valider
+      roles_update:
         accountancy_rights: Droits module Comptabilité
         authentication_rights: Droits de connexion
         company_rights: Droits société/utilisateurs

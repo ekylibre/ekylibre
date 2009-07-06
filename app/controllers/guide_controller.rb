@@ -13,7 +13,7 @@ class GuideController < ApplicationController
   end
 
   def unknown_action
-    flash[:error] = tc(:unknown_action)
+    flash[:error] = tc(:unknown_action, :value=>request.url.inspect)
     redirect_to :action=>:index
   end
   

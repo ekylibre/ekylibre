@@ -61,6 +61,7 @@ company:departments_create:administrate_company
 company:departments_update:administrate_company
 company:departments_delete:administrate_company
 company:roles_create:administrate_company
+company:roles_update:administrate_company
 company:users_create:administrate_company
 company:users_update:administrate_company
 company:users_delete:administrate_company

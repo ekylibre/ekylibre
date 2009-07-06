@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
       self.language = self.company.parameter('general.language').value if self.language.nil?
     end
     self.language = Language.find(:first, :order=>:name) if self.language.nil?
+    self.rights = "administrate" if self.rights.nil?
   end
 
   def validate

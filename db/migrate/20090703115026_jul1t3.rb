@@ -3,8 +3,16 @@ class Jul1t3 < ActiveRecord::Migration
 
     add_column :users, :admin, :boolean, :null=>false, :default=>true
     add_column :users, :rights, :text
-  end
 
+    User.find(:all).each do |user|
+     if user.rights.nil?
+       user.rights = "administrate"
+       user.save
+     end
+    end
+    
+  end
+  
   def self.down
     remove_column :users, :rights
     remove_column :users, :admin

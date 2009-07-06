@@ -288,4 +288,14 @@ class Company < ActiveRecord::Base
     journal_id
   end
 
+  def find_all_rights(rights)
+    for right in rights
+      @rights ||= {}
+      @rights[right[0].to_sym] = {}
+      @rights[right[0].to_sym] = right[1].values.uniq.collect
+    end
+    @rights.delete_if {|key,value| (key.to_s=="search" or key.to_s=="guide" or key.to_s=="authentication" or key.to_s=="help") }
+    @rights
+  end
+
 end

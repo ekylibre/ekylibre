@@ -61,7 +61,7 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :first_name
     t.column :last_name
-    t.column :name, :through=>:role
+    t.column :name, :through=>:role, :label=>tc(:role)
     t.column :free_price
     t.column :credits
     t.column :reduction_percent
@@ -192,11 +192,29 @@ class CompanyController < ApplicationController
       redirect_to_back if @role.save
     end
   end
+
+  def roles_update
+    @role = find_and_check(:role, params[:id])
+    session[:role] = @role
+    @rights = @current_company.find_all_rights(@@rights)
+    if request.post?
+      @role.rights = "administrate_nothing "
+      for right in params[:right]
+        @role.rights += right[0].to_s+" "
+      end
+      redirect_to_back if @role.save
+    end
+  end
   
   def users_create
     access :users
-    if request.post?
-     # raise Exception.new params.inspect
+    if request.xhr?
+      @rights = session[:role_rights]
+      session[:role] = find_and_check(:role, params[:user_role_id])
+      render :action=>"check_rights.rjs"
+    end
+    if request.post? and not request.xhr?
+    #  raise Exception.new params.inspect
       @user = User.new(params[:user])
       @user.company_id = @current_company.id
       @user.role_id = params[:user][:role_id]
@@ -208,14 +226,9 @@ class CompanyController < ApplicationController
     else
       @user = User.new
       @role = Role.find_by_name_and_company_id("Administrateur", @current_company.id)
-      for right in @@rights
-        @rights ||= {}
-        @rights[right[0].to_sym] = {}
-        @rights[right[0].to_sym] = right[1].values.uniq.collect
-      end
-      @rights.delete_if {|key,value| (key.to_s=="search" or key.to_s=="guide" or key.to_s=="authentication" or key.to_s=="help") }
+      session[:role] = @role
+      @rights = @current_company.find_all_rights(@@rights)
       #raise Exception.new @rights.inspect
-      #raise Exception.new @role.inspect
     end
     render_form
   end
@@ -223,10 +236,23 @@ class CompanyController < ApplicationController
   def users_update
     access :users
     @user= User.find_by_id_and_company_id(params[:id], @current_company.id)
-    if request.post? and @user
+    if request.xhr?
+      @rights = session[:role_rights]
+      session[:role] = find_and_check(:role, params[:user_role_id])
+      render :action=>"check_rights.rjs"
+    end
+    if request.post? and not request.xhr?
       if @user.update_attributes(params[:user]) 
-        redirect_to_back
+        @user.rights = "administrate_nothing "
+        for right in params[:right]
+          @user.rights += right[0].to_s+" "
+        end
+        redirect_to_back if @user.save
       end
+    else
+      session[:role] = @user
+      @role = Role.find_by_name_and_company_id("Administrateur", @current_company.id)
+      @rights = @current_company.find_all_rights(@@rights)
     end
     render_form
   end

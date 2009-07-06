@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     @@rights ||= {}
     @@rights = self.class.rights if @@rights.empty?
   end
-
+  
   def render_form(options={})
     a = action_name.split '_'
     @operation    = a[-1].to_sym
