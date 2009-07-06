@@ -174,12 +174,7 @@ class CompanyController < ApplicationController
 
   def roles_create
     @role = Role.new
-    for right in @@rights
-      @rights ||= {}
-      @rights[right[0].to_sym] = {}
-      @rights[right[0].to_sym] = right[1].values.uniq.collect
-    end
-    
+    @rights = @current_company.find_all_rights(@@rights)
     if request.post?
       @role = Role.new(params[:role])
      # raise Exception.new params.inspect
@@ -228,6 +223,7 @@ class CompanyController < ApplicationController
       @role = Role.find_by_name_and_company_id("Administrateur", @current_company.id)
       session[:role] = @role
       @rights = @current_company.find_all_rights(@@rights)
+      session[:role_rights] = @rights
       #raise Exception.new @rights.inspect
     end
     render_form
@@ -253,6 +249,7 @@ class CompanyController < ApplicationController
       session[:role] = @user
       @role = Role.find_by_name_and_company_id("Administrateur", @current_company.id)
       @rights = @current_company.find_all_rights(@@rights)
+      session[:role_rights] = @rights
     end
     render_form
   end

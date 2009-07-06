@@ -102,7 +102,7 @@ class ProductionController < ApplicationController
     render_form
   end
 
-  def test_svg
+  def test_svg()
     response.headers['Content-type'] = 'text/xml; charset=utf-8'
     @path = "310 200"
   end

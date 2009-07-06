@@ -11,4 +11,9 @@ fr-FR:
     administrate_resources: Accéder au module Ressources
     administrate_search: Possibilité de rechercher (fiche client, produits,...)
     consult_sales: Consulter les ventes
-    create_new_sales: Créer une nouvelle vente
+    create_estimates: Créer un devis
+    import_export_entities: Importer, exporter des fiches clients/fournisseurs
+    modify_estimate: Modifier un devis
+    manage_meetings: Gérer les rencontres
+    manage_users: Gérer les utilisateurs
+    print_sales: Imprimer un devis, une commande
