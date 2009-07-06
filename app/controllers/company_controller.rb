@@ -19,7 +19,6 @@ class CompanyController < ApplicationController
 
   def backup
     company = @current_company
-
     filename = "backup-"+@current_company.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")
     file = "#{RAILS_ROOT}/tmp/#{filename}.xml.gz"
     doc = REXML::Document.new
@@ -47,7 +46,31 @@ class CompanyController < ApplicationController
   end
 
   def restore
-    
+    if request.post?
+      company = @current_company
+      # Récupération du fichier
+      backup = params[:backup][:path]
+      file = "#{RAILS_ROOT}/tmp/#{backup.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
+      File.open(file, "w") { |f| f.write(backup.read)}
+      # Décompression
+      Zlib::GzipReader.open(file) { |gz| stream = gz.read }
+      doc = REXML::Document.new(stream)
+      # Suppression des données
+      reflections = Company.reflections
+      for name in reflections.keys.collect{|x| x.to_s}.sort
+        reflection = reflections[name.to_sym]
+        if reflection.macro==:has_many
+          for x in company.send(name.to_sym)
+            x.class.delete x.id
+          end
+        end
+      end
+      
+      
+
+      # Chargement des données sauvegardées
+      
+    end
   end
   
 

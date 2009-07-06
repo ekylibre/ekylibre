@@ -1,6 +1,7 @@
 # application:redirect_to_current:<new>
 # authentication:retrieve:administrate_nothing
 # authentication:xil:administrate_nothing
+# production:test_svg:<new>
 accountancy:accounts:administrate_accountancy
 accountancy:accounts_create:administrate_accountancy
 accountancy:accounts_delete:administrate_accountancy
@@ -57,7 +58,6 @@ authentication:index:administrate_nothing
 authentication:login:administrate_nothing
 authentication:logout:administrate_nothing
 authentication:register:administrate_nothing
-company:restore:administrate_company
 company:backup:administrate_company
 company:departments:administrate_company
 company:departments_create:administrate_company
@@ -72,6 +72,7 @@ company:establishments_create:administrate_company
 company:establishments_delete:administrate_company
 company:establishments_update:administrate_company
 company:index:administrate_company
+company:restore:administrate_company
 company:roles_create:administrate_company
 company:roles_update:administrate_company
 company:update:administrate_company
@@ -242,12 +243,11 @@ management:add_lines:create_estimates
 management:sale_order_lines_create:create_estimates
 management:sales_general:create_estimates
 management:sales_new:create_estimates
-management:sales_products:create_estimates
 management:sales_new:create_estimates
+management:sales_products:create_estimates
 management:sale_order_lines_delete:modify_estimate
 management:sale_order_lines_update:modify_estimate
 management:sales_print:print_sales
-production:test_svg:<new>
 production:dyta_productions:administrate_production
 production:dyta_shape_operation_natures:administrate_production
 production:dyta_shape_operations:administrate_production
@@ -311,6 +311,8 @@ relations:entity_categories_delete:administrate_relations
 relations:entity_categories_display:administrate_relations
 relations:entity_categories_update:administrate_relations
 relations:index:administrate_relations
+relations:entities_export:import_export_entities
+relations:entities_import:import_export_entities
 relations:meeting_locations:manage_meetings
 relations:meeting_locations_create:manage_meetings
 relations:meeting_locations_delete:manage_meetings
@@ -324,8 +326,6 @@ relations:meetings_create:manage_meetings
 relations:meetings_delete:manage_meetings
 relations:meetings_delete:manage_meetings
 relations:meetings_update:manage_meetings
-relations:entities_export:import_export_entities
-relations:entities_import:import_export_entities
 resources:dyta_employees:administrate_resources
 resources:dyta_professions:administrate_resources
 resources:employees:administrate_resources
