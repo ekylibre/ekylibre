@@ -6,17 +6,6 @@ class AuthenticationController < ApplicationController
     redirect_to :action=>:login
   end
   
-  def retrieve
-    retrieve_xil(params[:id],:key=>params[:id])
-  end
-  
-  def xil
-    #render :xil=>params[:id].to_i, :key=>1, :output=>:pdf, :crypt=>:none
-    #render :xil=>"<?xml?><template title='Example' orientation='portrait' format='210x297' unit='mm' query-standard='sql' size='10' ><title>ToTo</title></template>", :key=>1, :output=>:pdf
-    render :xil=>"#{RAILS_ROOT}/app/views/prints/xil2_test.xml", :client=>Entity.find(params[:id]||1), :output=>:pdf
-    #render :xil=>Template.find(2), :key=>1, :output=>:pdf
-  end
-  
   def login
     session[:help] = false
     if request.post?

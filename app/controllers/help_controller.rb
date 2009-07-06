@@ -1,7 +1,7 @@
 class HelpController < ApplicationController
   include ActionView::Helpers::TagHelper
      
-  def close    
+  def close   
     session[:help]=false
     session[:help_history] = []
     render :text=>''

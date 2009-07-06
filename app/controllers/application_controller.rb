@@ -27,15 +27,17 @@ class ApplicationController < ActionController::Base
     file = File.open("#{RAILS_ROOT}/config/rights.txt", "r") 
     file.each_line do |line|
       line = line.strip.split(":")
-      hash[line[0].to_sym] ||= {}
-      hash[line[0].to_sym][line[1].to_sym] = line[2].to_sym 
-      array << line[2].to_sym 
+      unless line[0].match(/\#/) or line[1].match(/\</)
+        hash[line[0].to_sym] ||= {}
+        hash[line[0].to_sym][line[1].to_sym] = line[2].to_sym 
+        array << line[2].to_sym 
+      end
     end
     return (list ? array.uniq : hash)
   end
 
 
-  def initialize
+  def initialize()
     @@rights ||= {}
     @@rights = self.class.rights if @@rights.empty?
   end
@@ -82,7 +84,7 @@ class ApplicationController < ActionController::Base
 
   private
   
-  def authorize
+  def authorize()
     #raise Exception.new params[:controller].inspect+"hh"+@@rights[params[:controller].to_sym][params[:action].to_sym]
     #raise Exception.new params.inspect+"hh"+session[:rights].inspect+ADMIN#+@@rights[params[:controller].to_sym][params[:action].to_sym].inspect
     #raise Exception.new  session[:rights].include?(ADMIN.to_sym).inspect
