@@ -92,7 +92,7 @@ class Account < ActiveRecord::Base
       balance[:name] = self.name.to_s
       balance[:debit] = debit
       balance[:credit] = credit
-      balance[:solde] = credit - debit if self.number.to_s.match /^(6|7)/ or self.number.to_s.match /^12/
+      balance[:solde] = credit - debit #if self.number.to_s.match /^(6|7)/ or self.number.to_s.match /^12/
     end
     balance unless balance.empty?
   end
@@ -105,7 +105,7 @@ class Account < ActiveRecord::Base
       debit = account.entries.sum(:debit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
       credit = account.entries.sum(:credit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
       
-      unless debit.zero? and credit.zero? 
+      #unless debit.zero? and credit.zero? 
         compute={}
         compute[:number] = account.number.to_i
         compute[:name] = account.name.to_s
@@ -113,7 +113,7 @@ class Account < ActiveRecord::Base
         compute[:credit] = credit
         compute[:solde] = credit - debit 
         balance << compute
-      end
+      #end
     end
     balance.compact
   end

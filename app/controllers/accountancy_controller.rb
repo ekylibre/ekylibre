@@ -169,10 +169,10 @@ class AccountancyController < ApplicationController
           [:general_ledger,{:partial=>"ledger"}],
           [:journal_by_id,{:partial=>"by_journal"}],
           [:journal,{:partial=>"journals"}],
-          [:balance_sheet,{:partial=>"balance_sheet"}]]
+          [:balance_sheet,{:partial=>"balance_sheet"}],
+          [:income_statement,{:partial=>"income_statement"}]]
 
-  #[:income_statements,{:partial=>"by_financial_year"}]]
-  
+  # this method prepares the print of document.
   def document_prepare
     @prints = PRINTS
     if request.post?
@@ -181,13 +181,22 @@ class AccountancyController < ApplicationController
     end
   end
   
+  #  this method prints the document.
   def document_print
     for print in PRINTS
       @print = print if print[0].to_s == session[:mode]
     end
+    @financialyears =  @current_company.financialyears.find(:all, :order => :stopped_on)
+    if @financialyears.nil?
+      flash[:message]="Aucun exercice enregistré"
+      redirect_to :action => :document_prepare
+      return      
+    end
+      
     @partial = 'print_'+@print[1][:partial]
     @begin = Date.today.year.to_s+"-"+"01-01"
     @end = Date.today.year.to_s+"-12-31"
+    
     if request.post? 
       if session[:mode] == "income_statements"
         @financialyear = Financialyear.find_by_id_and_company_id(params[:printed][:id], @current_company.id)
@@ -238,20 +247,34 @@ class AccountancyController < ApplicationController
       if session[:mode] == "balance"
          @accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
         sum = {:debit=>0,:credit=>0,:solde=>0}
+
+        @accounts_balance.delete_if {|account| account[:credit].zero? and account[:debit].zero?}
+
         for account in @accounts_balance
           sum[:debit] += account[:debit]
           sum[:credit] += account[:credit]
           sum[:solde] += account[:solde]
         end
+                  
         render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :lines => @lines , :sum=> sum}, :collection => @accounts_balance
       end
 
       if session[:mode] == "balance_sheet"
         @financialyear = Financialyear.find_by_id_and_company_id(params[:printed][:financialyear], @current_company.id)
-        params[:printed][:from] = @financialyear.started_on
-        params[:printed][:to] = @financialyear.stopped_on
-        @accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
-        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :lines => @lines , :sum=> sum}, :collection => @accounts_balance
+        @balance = Account.balance(@current_company.id, @financialyear.started_on, @financialyear.stopped_on)
+        
+        @last_financialyear = @financialyear.previous(@current_company.id)
+        if @last_financialyear
+          index = 0
+          @previous_balance = Account.balance(@current_company.id, @last_financialyear.started_on, @last_financialyear.stopped_on)
+          @previous_balance.each do |balance|
+            @balance[index][:previous_debit]  = balance[:debit]
+            @balance[index][:previous_credit] = balance[:credit]
+            @balance[index][:previous_solde] = balance[:solde]
+            index+=1
+          end
+        end
+        render :partial => @partial+"2", :locals => {:printed => params[:printed], :company => @current_company, :lines => @lines }, :collection => {@balance, @previous_balance || '[]'} 
       end
 
       if session[:mode] == "general_ledger"
@@ -259,11 +282,12 @@ class AccountancyController < ApplicationController
         render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company}, :collection => @ledger
       end
       
-   end
+    end
 
-    @title = {:value=>t("views.#{self.controller_name}.document_prepare.#{@print[0].to_s}")}
+      @title = {:value=>t("views.#{self.controller_name}.document_prepare.#{@print[0].to_s}")}
   end
 
+  # this method orders sale.
   def order_sale
     #render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:locals=>params[:printed])
     render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:key=>params[:id])
@@ -293,7 +317,7 @@ class AccountancyController < ApplicationController
       redirect_to_back
     end
   end
-    
+   
 
   # lists all the bank_accounts with the mainly characteristics. 
   def financialyears
@@ -331,8 +355,7 @@ class AccountancyController < ApplicationController
     end
     render_form
   end
-  
-  
+    
   # this action deletes a financialyear.
   def financialyears_delete
     if request.post? or request.delete?
@@ -377,7 +400,8 @@ class AccountancyController < ApplicationController
       @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
       @renew_journal = Journal.find(params[:journal_id])
       
-      @new_financialyear = @current_company.financialyears.find(:first, :conditions => { :started_on => @financialyear.stopped_on+1})
+      # @new_financialyear = @current_company.financialyears.find(:first, :conditions => { :started_on => @financialyear.stopped_on+1})
+      @new_financialyear = @financialyear.next(@current_company.id)
       
       if @new_financialyear.nil?
         flash[:message]=tc(:next_illegal_period_financialyear)
@@ -443,7 +467,7 @@ class AccountancyController < ApplicationController
     balance.compact!
   end
   
-  # 
+  #
   def financialyears_records
     @financialyear_records=[]
     @financialyear = Financialyear.find(params[:financialyear_select])

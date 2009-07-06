@@ -64,5 +64,16 @@ class Financialyear < ActiveRecord::Base
       self.update_attributes(:stopped_on => date, :closed => true)
     end
   end
-  
+
+  # this method returns the previous financialyear.
+  def previous(company)
+    return Financialyear.find(:last, :conditions => ["company_id = ? AND stopped_on < ?", company, self.started_on], :order => "stopped_on ASC")
+  end
+ 
+   # this method returns the next financialyear.
+  def next(company)
+    return Financialyear.find(:first, :conditions => ["company_id = ? AND started_on = ?", company, self.stopped_on+1], :order => "started_on ASC")
+  end
+ 
+ 
 end

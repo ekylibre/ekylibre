@@ -103,7 +103,7 @@ fr-FR:
         journal: Journal général
         journal_by_id: Journal
         balance_sheet: Bilan
-        income_statements: Compte de résultat
+        income_statement: Compte de résultat
       document_print:
         title: 'Impression du document : {{value}}'
         print: Impression
@@ -206,6 +206,23 @@ fr-FR:
       _print_balance_sheet:
         balance_sheet: 'Sélectionnez l''exercice'
         select_financialyear: Exercice
+      _print_balance_sheet2:
+        active_balance_sheet: 'Bilan actif'
+        account_fixed_assets: 'Actif immobilisé'
+        account_untangible_fixed_assets: 'Immobilisations incorporelles'
+        account_tangible_fixed_assets: 'Immobilisations corporelles'
+        account_financial_assets: 'Immobilisations financières'
+        account_current_assets: 'Actif circulant'
+        account_inventories_assets: 'Stocks'
+        account_claims_assets: 'Créances'
+        account_others_assets: 'Divers'
+        account_accruals: 'Comptes de régularisation'
+        passive_balance_sheet: 'Bilan passif'
+        account_equity: 'Capitaux propres'
+        account_provision: 'Provisions pour risques et charges'
+        account_debt: 'Dettes'
+        account_accruals: 'Comptes de régularisation'
+        account_value: 'BRUT'
       _print_ledger:
         dates: Saisissez les dates de début et de fin de la période
         from: Période du
