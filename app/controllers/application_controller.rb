@@ -90,9 +90,7 @@ class ApplicationController < ActionController::Base
     #raise Exception.new params[:controller].inspect+"hh"+@@rights[params[:controller].to_sym][params[:action].to_sym]
     #raise Exception.new params.inspect+"hh"+session[:rights].inspect+ADMIN#+@@rights[params[:controller].to_sym][params[:action].to_sym].inspect
     #raise Exception.new  session[:rights].inspect#..include?(ADMIN.to_sym).inspect
-  
-    
-    
+      
     session[:help_history] ||= []
     if request.get? and not request.xhr? and not [:authentication, :help].include?(controller_name.to_sym)
       session[:last_url] = request.url
@@ -129,22 +127,24 @@ class ApplicationController < ActionController::Base
     end
 
     session[:rights] ||= []
-    if !@current_user.admin
-      if @@rights[params[:controller].to_sym].nil?
-        flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
-        redirect_to :controller=>:guide, :action=>:index
-      elsif @@rights[params[:controller].to_sym][params[:action].to_sym].nil?
-        flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
-        redirect_to :controller=>:guide, :action=>:index
-      else
-        unless (session[:rights].include?(@@rights[params[:controller].to_sym][params[:action].to_sym]) or session[:rights].include?(ADMIN.to_sym) )
-          flash[:error]=tc(:no_right_for_this_part_of_the_application_and_this_user)
-          if session[:history]
-            redirect_to_back
-          else
-            redirect_to_login
+    if @current_user
+      if !@current_user.admin
+        if @@rights[params[:controller].to_sym].nil?
+          flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
+          redirect_to :controller=>:guide, :action=>:index
+        elsif @@rights[params[:controller].to_sym][params[:action].to_sym].nil?
+          flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
+          redirect_to :controller=>:guide, :action=>:index
+        else
+          unless (session[:rights].include?(@@rights[params[:controller].to_sym][params[:action].to_sym]) or session[:rights].include?(ADMIN.to_sym) )
+            flash[:error]=tc(:no_right_for_this_part_of_the_application_and_this_user)
+            if session[:history]
+              redirect_to_back
+            else
+              redirect_to_login
+            end
+            return
           end
-          return
         end
       end
     end

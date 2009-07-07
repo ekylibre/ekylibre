@@ -51,6 +51,7 @@ class CompanyController < ApplicationController
       file = "#{RAILS_ROOT}/tmp/#{backup.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
       File.open(file, "w") { |f| f.write(backup.read)}
       # Décompression
+      stream = nil
       Zlib::GzipReader.open(file) { |gz| stream = gz.read }
       doc = REXML::Document.new(stream)
       # Suppression des données
@@ -58,17 +59,17 @@ class CompanyController < ApplicationController
       keys = {}
       reflections = Company.reflections
       for name in reflections.keys.collect{|x| x.to_s}.sort
+        reflection = reflections[name.to_sym]
         if reflection.macro==:has_many
-          reflection = reflections[name.to_sym]
           other = reflection.class_name
           other_class = other.constantize
           ids[other] = {}
           keys[other] = {}
-          for ref in other_class.reflections
+          for name, ref in other_class.reflections
             # Ex. : keys["User"]["role_id"] = "Role"
             keys[other][ref.primary_key_name] = ref.class_name if ref.macro==:belongs_to and ref.class_name!="Company"
           end
-          # other_class.delete_all(:company_id=>company.id)
+          other_class.delete_all(:company_id=>company.id)
         end
       end
       # Chargement des données sauvegardées
@@ -79,7 +80,10 @@ class CompanyController < ApplicationController
         for r in table.elements
           attributes = r.attributes
           id = attributes.delete('id')
-          record = company.send(reflection.name).build attributes
+          hash = {}
+          attributes.each{|a| hash[a[0]] = a[1]}
+          # raise Exception.new(hash.inspect)
+          record = company.send(reflection.name).build(hash)
           record.save(false)
           ids[reflection.class_name][id.to_s] = record.id
           data << record

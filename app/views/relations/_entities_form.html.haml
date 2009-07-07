@@ -20,10 +20,6 @@
   -for datum in @complement_data
     -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_value", :name=>"complement_datum[#{datum.complement_id}][value]", :value=>datum.value, :size=>datum.complement.length_max, :choices=>datum.complement.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
 
-=formalize(:id=>:supplier_form) do |f|
-  - f.title :supplier
-  - f.field :entity, :supplier_account_id, :choices=>@supplier_accounts.collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}, :options=>{:include_blank=>"--Créer automatiquement un compte fournisseur--"} 
-
 =formalize(:id=>:client_form) do |f|
   - f.title :client
   - f.field :entity, :client_account_id, :choices=>@client_accounts.collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}, :options=>{:include_blank=>"--Créer automatiquement un compte client--"} 
@@ -40,17 +36,23 @@
   -f.field :entity, :payments_number
   -f.field :entity, :deliveries_conditions, :field=>:textarea
 
+=formalize(:id=>:supplier_form) do |f|
+  - f.title :supplier
+  - f.field :entity, :supplier_account_id, :choices=>@supplier_accounts.collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}, :options=>{:include_blank=>"--Créer automatiquement un compte fournisseur--"} 
+
+
 :javascript
   function displayFields(){
     if ($('entity_client').checked) {
-      $('client_form').show(); $('supplier_form').hide();      
-    } else
+      $('client_form').show();
+    } else {
       $('client_form').hide(); 
-
+    }
     if ($('entity_supplier').checked) {
-      $('supplier_form').show(); $('client_form').hide();      
-    } else
+      $('supplier_form').show();
+    } else {
       $('supplier_form').hide(); 
+    }
   }
   displayFields();
   

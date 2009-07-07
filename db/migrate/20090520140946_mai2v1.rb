@@ -3,18 +3,20 @@ class Mai2v1 < ActiveRecord::Migration
     add_column :journal_records, :closed, :boolean, :default => false
 
     add_column :journal_records, :financialyear_id, :integer, :references => :financialyears, :on_delete=>:restrict, :on_update=>:cascade 
-    
-    JournalPeriod.find(:all).each do |period| 
-      period.records.each do |record| 
-        record.closed =  period.closed
-        record.financialyear_id = period.financialyear_id
-        record.journal_id = period.journal_id
-        record.save(false)
+
+    if defined? JournalPeriod
+      JournalPeriod.find(:all).each do |period| 
+        period.records.each do |record| 
+          record.closed =  period.closed
+          record.financialyear_id = period.financialyear_id
+          record.journal_id = period.journal_id
+          record.save(false)
+        end
       end
     end
 
     remove_column :journal_records, :period_id
-     
+    
     drop_table :journal_periods
 
     remove_column :financialyears, :written_on
@@ -47,9 +49,11 @@ class Mai2v1 < ActiveRecord::Migration
 
     execute "insert into journal_periods (journal_id, financialyear_id, started_on, stopped_on, closed, company_id, created_at, updated_at) select distinct journal_id, coalesce(financialyear_id, 0), cast(extract(year from created_on)||'-'||extract(month from created_on)||'-01' as date),  cast(extract(year from created_on)||'-'||extract(month from created_on)||'-28' as date), closed, company_id, current_timestamp, current_timestamp from journal_records"
 
-    JournalPeriod.find(:all).each do |period| 
-      period.stopped_on=period.stopped_on.end_of_month
-      period.save(false)
+    if defined? JournalPeriod
+      JournalPeriod.find(:all).each do |period| 
+        period.stopped_on=period.stopped_on.end_of_month
+        period.save(false)
+      end
     end
 
 
