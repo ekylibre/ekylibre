@@ -23,33 +23,22 @@ class CompanyController < ApplicationController
     version = (ActiveRecord::Migrator.current_version rescue 0)
     puts version
     filename = "backup-"+@current_company.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")
-    file = "#{RAILS_ROOT}/tmp/#{filename}.yml.gz"
+    file = "#{RAILS_ROOT}/tmp/#{filename}.xml.gz"
     doc = REXML::Document.new
     doc << REXML::XMLDecl.new
-    backup = doc.add_element 'backup', 'version'=>version
-    root = backup.add_element 'company', company.attributes
+    root = doc.add_element 'company', company.attributes.merge('version'=>version)
     reflections = Company.reflections
-    data = {}
     for name in reflections.keys.collect{|x| x.to_s}.sort
       reflection = reflections[name.to_sym]
       if reflection.macro==:has_many
-        puts name
-        data[name.to_sym] = company.send(name.to_sym)
-#         klass = reflection.class_name.constantize
-#         # table = root.add_element('table', )
-#         columns = klass.column_names.sort
-#         for x in company.send(name.to_sym)
-#           puts x.id if x.id%200==0
-#           root.add_element('r', x.attributes.merge('_reflection'=>name))
-#         end
+        table = root.add_element('table', 'reflection'=>name)
+        for x in company.send(name.to_sym).find(:all, :order=>:id)
+          puts x.id if x.id%200==0
+          table.add_element('r', x.attributes)
+        end
       end
     end
-    data = [company.attributes, data]
-
-    stream = data.to_yaml #"backup "*1000
-    # send_data stream, :filename=>filename+".yml", :disposition=>'attachment', :type=>'text'
-    # send_data Zlib::Deflate.deflate(stream), :filename=>filename
-    puts "ok"
+    stream = doc.to_s
     Zlib::GzipWriter.open(file) { |gz| gz.write(stream) }
     send_file file
   end
@@ -65,20 +54,45 @@ class CompanyController < ApplicationController
       Zlib::GzipReader.open(file) { |gz| stream = gz.read }
       doc = REXML::Document.new(stream)
       # Suppression des données
+      ids  = {}
+      keys = {}
       reflections = Company.reflections
       for name in reflections.keys.collect{|x| x.to_s}.sort
-        reflection = reflections[name.to_sym]
         if reflection.macro==:has_many
-          for x in company.send(name.to_sym)
-            x.class.delete x.id
+          reflection = reflections[name.to_sym]
+          other = reflection.class_name
+          other_class = other.constantize
+          ids[other] = {}
+          keys[other] = {}
+          for ref in other_class.reflections
+            # Ex. : keys["User"]["role_id"] = "Role"
+            keys[other][ref.primary_key_name] = ref.class_name if ref.macro==:belongs_to and ref.class_name!="Company"
           end
+          # other_class.delete_all(:company_id=>company.id)
         end
       end
-      
-      
-
       # Chargement des données sauvegardées
-      
+      data = []
+      root = doc.root
+      for table in root.elements
+        reflection = Company.reflections[table.attributes['reflection'].to_sym]
+        for r in table.elements
+          attributes = r.attributes
+          id = attributes.delete('id')
+          record = company.send(reflection.name).build attributes
+          record.save(false)
+          ids[reflection.class_name][id.to_s] = record.id
+          data << record
+        end
+      end
+      # Réorganisation des clés étrangères
+      for record in data
+        for key, class_name in keys[record.class.name]
+          # user[:role_id] = ids["Role"][user[:role_id].to_s]
+          record[key] = ids[class_name][record[key].to_s]
+        end
+        record.save(false)
+      end
     end
   end
   

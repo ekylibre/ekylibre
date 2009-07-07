@@ -752,7 +752,7 @@ fr-FR:
     application:
       yes: oui
       no: non
-      exit: Quitter
+      exit: Se déconnecter
     authentication:
     company:
     guide:
