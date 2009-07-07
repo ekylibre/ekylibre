@@ -33,6 +33,8 @@ class ApplicationController < ActionController::Base
         array << line[2].to_sym 
       end
     end
+    #array.sort
+    #raise Exception.new array.class.inspect
     return (list ? array.uniq : hash)
   end
 
@@ -155,12 +157,12 @@ class ApplicationController < ActionController::Base
     session[:help]=true
   end
 
-  def redirect_to_login
+  def redirect_to_login()
     session[:help] = false
     redirect_to :controller=>:authentication, :action=>:login
   end
   
-  def redirect_to_back
+  def redirect_to_back()
     if session[:history][1]
       session[:history].delete_at(0)
       redirect_to session[:history][0]

@@ -72,7 +72,7 @@ class AuthenticationController < ApplicationController
     session[:last_query] = Time.now.to_i
     session[:expiration] = 3600
     session[:help_history] = []
-    session[:rights] = user.role.rights.split(" ").collect{|x| x.to_sym}
+    session[:rights] = user.rights.split(" ").collect{|x| x.to_sym}
 #    session[:menu_guide] = user.company.menu("guide") 
 #    session[:menu_user]  = user.company.menu("user")
     

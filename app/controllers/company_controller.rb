@@ -3,6 +3,7 @@ require "rexml/document"
 class CompanyController < ApplicationController
 
   def index
+   # raise Exception.new @@rights.inspect
     @company = @current_company
     @title = {:value=>@company.name}
   end
@@ -48,6 +49,7 @@ class CompanyController < ApplicationController
     stream = data.to_yaml #"backup "*1000
     # send_data stream, :filename=>filename+".yml", :disposition=>'attachment', :type=>'text'
     # send_data Zlib::Deflate.deflate(stream), :filename=>filename
+    puts "ok"
     Zlib::GzipWriter.open(file) { |gz| gz.write(stream) }
     send_file file
   end
@@ -243,13 +245,22 @@ class CompanyController < ApplicationController
       @user = User.new(params[:user])
       @user.company_id = @current_company.id
       @user.role_id = params[:user][:role_id]
-      @user.rights = "administrate_nothing "
-      for right in params[:right]
-        @user.rights += right[0].to_s+" "
+      if params[:user][:admin] == "0"
+        @user.rights = "administrate_nothing "
+        for right in params[:right]
+          @user.rights += right[0].to_s+" "
+        end
+      else
+        @user.rights = "administrate"
       end
-      redirect_to_back if @user.save
+      if @user.save
+        redirect_to_back
+      else
+       # raise Exception.new session[:role_rights].inspect
+        @rights = session[:role_rights]
+      end
     else
-      @user = User.new
+      @user = User.new(:admin=>false)
       @role = Role.find_by_name_and_company_id("Administrateur", @current_company.id)
       session[:role] = @role
       @rights = @current_company.find_all_rights(@@rights)
@@ -262,18 +273,25 @@ class CompanyController < ApplicationController
   def users_update
     access :users
     @user= User.find_by_id_and_company_id(params[:id], @current_company.id)
+    #raise Exception.new @user.rights.inspect+session[:rights].inspect
     if request.xhr?
       @rights = session[:role_rights]
       session[:role] = find_and_check(:role, params[:user_role_id])
       render :action=>"check_rights.rjs"
     end
     if request.post? and not request.xhr?
-      if @user.update_attributes(params[:user]) 
-        @user.rights = "administrate_nothing "
-        for right in params[:right]
-          @user.rights += right[0].to_s+" "
+      if @user.update_attributes(params[:user])
+        if params[:user][:admin] == "0" 
+          @user.rights = "administrate_nothing "
+          for right in params[:right]
+            @user.rights += right[0].to_s+" "
+          end
+        else
+          @user.rights = "administrate"
         end
         redirect_to_back if @user.save
+      else
+        @rights = session[:role_rights]
       end
     else
       session[:role] = @user

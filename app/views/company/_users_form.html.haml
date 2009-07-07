@@ -8,9 +8,23 @@
   -f.field :user, :password
   -f.field :user, :password_confirmation
   -f.field :user, :admin
+=formalize(:id=>:show_rights) do |f|
   -f.title :rights
   -f.field :user, :role_id, :choices=>@current_company.roles.find(:all, :order=>:name).collect{|x| [x.name, x.id]}
   -#f.field :user, :reduction_percent
   -#f.field :user, :free_price
   -#f.field :user, :credits
 %div#rights=render :partial=>"roles_form"
+
+:javascript
+  function display_rights(){
+    if($('user_admin').checked){
+      $('show_rights').hide();
+      $('rights').hide();}
+    else{
+      $('show_rights').show();
+      $('rights').show();}
+  }
+  display_rights();
+
+=observe_field("user_admin", :frequency=>0.25, :function=>"display_rights();" )

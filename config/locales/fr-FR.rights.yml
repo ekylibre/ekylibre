@@ -5,15 +5,42 @@ fr-FR:
     administrate_company: Accéder au module Société/Utilisateurs
     administrate_guide: 'Accéder à l''acceuil du logiciel'
     administrate_help: 'Consulter l''aide'
-    administrate_management: Accéder au module Gestion Commerciale
+    administrate_management: Reste du module
     administrate_production: Accéder au module Production
     administrate_relations: Accéder au module Relations clients/fournisseurs
     administrate_resources: Accéder au module Ressources
     administrate_search: Possibilité de rechercher (fiche client, produits,...)
+    cancel_invoices: Faire des avoirs
+    consult_entities: Consulter les fiches clients/fournisseurs
+    consult_prices: Consulter les prix
+    consult_purchases: Consulter les achats
     consult_sales: Consulter les ventes
+    consult_stocks: 'Consulter l''état des stocks'
     create_estimates: Créer un devis
+    create_purchases: Créer, modifier des achats
     import_export_entities: Importer, exporter des fiches clients/fournisseurs
-    modify_estimate: Modifier un devis
+    manage_complements: Gérer les champs personnalisés
+    manage_delays: Gérer les délais 
+    manage_delivery_modes: Gérer les types de livraison
+    manage_embankments: Gérer les remises de chèques
+    manage_entities: Gérer les fiches clients/fournisseurs
+    manage_entities_natures: Gérer les types de fiche
+    manage_entity_categories: Gérer les catégories de fiche
+    manage_invoices_cancel: Faire des avoirs
+    manage_invoicing: Gérer la facturation et les règlements
     manage_meetings: Gérer les rencontres
-    manage_users: Gérer les utilisateurs
-    print_sales: Imprimer un devis, une commande
+    manage_orders: Gérer les commandes et livraisons
+    manage_payment_modes: Gérer les modes de paiments
+    manage_prices: Gérer les prix
+    manage_products: Gérer les produits
+    manage_sale_order_natures: Gérer les types de vente
+    manage_shelves: Gérer les catégories de produits
+    manage_stock_locations: Gérer les lieux de stockage
+    manage_stock_moves: Gérer les mouvements de stocks
+    manage_taxes: Gérer les taxes
+    manage_users: Gérer les utilisateurs (ajout, modification, verrouillage...)
+    print_entities: Imprimer les fiches clients/fournisseurs
+    print_sales: Imprimer les documents de vente (devis, factures...)
+    search_and_consult_invoices: Rechercher et consulter des factures
+    search_and_consult_products: Rechercher et consulter des produits
+    
