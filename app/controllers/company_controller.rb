@@ -22,30 +22,34 @@ class CompanyController < ApplicationController
     version = (ActiveRecord::Migrator.current_version rescue 0)
     puts version
     filename = "backup-"+@current_company.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")
-    file = "#{RAILS_ROOT}/tmp/#{filename}.xml.gz"
+    file = "#{RAILS_ROOT}/tmp/#{filename}.yml.gz"
     doc = REXML::Document.new
     doc << REXML::XMLDecl.new
     backup = doc.add_element 'backup', 'version'=>version
     root = backup.add_element 'company', company.attributes
     reflections = Company.reflections
+    data = {}
     for name in reflections.keys.collect{|x| x.to_s}.sort
       reflection = reflections[name.to_sym]
       if reflection.macro==:has_many
-        klass = reflection.class_name.constantize
-        # table = root.add_element('table', )
-        columns = klass.column_names.sort
-        for x in company.send(name.to_sym)
-          puts x.id if x.id%200==0
-          root.add_element('r', x.attributes.merge('_reflection'=>name))
-        end
+        puts name
+        data[name.to_sym] = company.send(name.to_sym)
+#         klass = reflection.class_name.constantize
+#         # table = root.add_element('table', )
+#         columns = klass.column_names.sort
+#         for x in company.send(name.to_sym)
+#           puts x.id if x.id%200==0
+#           root.add_element('r', x.attributes.merge('_reflection'=>name))
+#         end
       end
     end
+    data = [company.attributes, data]
 
-    stream = doc.to_s #"backup "*1000
-    send_data stream, :filename=>filename+".xml", :disposition=>'attachment', :type=>'text'
+    stream = data.to_yaml #"backup "*1000
+    # send_data stream, :filename=>filename+".yml", :disposition=>'attachment', :type=>'text'
     # send_data Zlib::Deflate.deflate(stream), :filename=>filename
-    # Zlib::GzipWriter.open(file) { |gz| gz.write(stream) }
-    # send_file file
+    Zlib::GzipWriter.open(file) { |gz| gz.write(stream) }
+    send_file file
   end
 
   def restore
