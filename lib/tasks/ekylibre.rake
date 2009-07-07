@@ -51,8 +51,17 @@ namespace :rights do
 
     # Droits non affectés
     to_update = 0
-    for right in rights
-      to_update += 1 if right[2].match(/\</)
+    doubles = 0
+    rights.size.times do |i|
+      to_update += 1 if rights[i][2].match(/\</)
+      unless rights[i][0].match(/\#/)
+        for j in i+1..rights.size-1
+          if rights[i][0]==rights[j][0] and rights[i][1]==rights[j][1]
+            rights[j][0] = '# '+rights[j][0] 
+            doubles += 1
+          end
+        end
+      end
     end
 
     # Tri
@@ -63,6 +72,6 @@ namespace :rights do
     file.write rights.collect{|x| x.join(":")}.join("\n")
     file.close
 
-    puts "#{deleted} deleted actions, #{created} created actions, #{to_update} actions to update"
+    puts "#{deleted} deleted actions, #{created} created actions, #{to_update} actions to update, #{doubles} doubles"
   end
 end
