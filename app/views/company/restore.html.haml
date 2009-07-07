@@ -1,0 +1,5 @@
+-form_tag({}, :multipart=>true) do
+  =formalize do |f|
+    -f.field tc(:download), file_field(:backup, :path)
+  .actions
+    =submit_tag 'Restaurer'
