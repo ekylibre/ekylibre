@@ -73,7 +73,6 @@ class CompanyController < ApplicationController
               keys[other][ref.primary_key_name] = ref.class_name if ref.macro==:belongs_to and ref.class_name!="Company"
             end
             other_class.delete_all(:company_id=>company.id)
-            # puts '>> '+company.send(reflection.name).count.to_s
           end
         end
         # Chargement des données sauvegardées
@@ -82,48 +81,30 @@ class CompanyController < ApplicationController
           reflection = Company.reflections[table.attributes['reflection'].to_sym]
           puts('>> '+reflection.name.to_s)
           for r in table.elements
-#            puts '>> '+company.send(reflection.name).count.to_s
             attributes = r.attributes
             id = attributes['id']
             attributes.delete('id')
             attributes.delete('company_id')
-            hash = {}
-            record = company.send(reflection.name).build #(hash)
+            record = company.send(reflection.name).build
             attributes.each{|k,v| record.send(k+'=', v)}
-#            attributes.each{|k,v| hash[k] = v}
-#             if reflection.name==:users
-#               puts attributes.inspect
-#               puts hash.inspect
-#             end
-            # raise Exception.new(hash.inspect)
-#            puts record.inspect if reflection.name==:users
             record.save(false)
-#            raise Exception.new id.name.inspect
             ids[reflection.class_name][id] = record.id
             data << record
           end
         end
-
-        puts ">> IDS >>\n"+ids.inspect
-        puts ">> KEYS >>\n"+keys.inspect
-#        puts ">> DATA >>\n"+data.inspect
         # Réorganisation des clés étrangères
         for record in data
-          puts "-------------------------------------------------------------------------------"
-          puts record.class.name
-          if record.nil?
-            puts ">>>>>>>>>>>>>>>>>>>>>>  NIL  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< "
-          else
-            for key, class_name in keys[record.class.name]
-              # user[:role_id] = ids["Role"][user[:role_id].to_s]
-              v = (ids[class_name]||{})[record[key].to_s]
-              record[key] = v unless v.nil? # ||record[key]
-            end
-            # puts record.inspect
-            record.save(false)
+          for key, class_name in keys[record.class.name]
+            # user[:role_id] = ids["Role"][user[:role_id].to_s]
+            v = (ids[class_name]||{})[record[key].to_s]
+            record[key] = v unless v.nil? # ||record[key]
           end
+          record.save(false)
         end
-
+        # Chargement des paramètres de la société
+        root.attributes.each{|k,v| company.send(k+'=', v)}
+        company.save
+        
       end
 
     end

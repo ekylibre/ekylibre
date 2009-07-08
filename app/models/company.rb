@@ -51,6 +51,7 @@ class Company < ActiveRecord::Base
   has_many :journals
   # has_many :journal_periods
   has_many :journal_records
+  has_many :languages
   has_many :meeting_locations
   has_many :meeting_modes
   has_many :meetings
