@@ -811,6 +811,7 @@ fr-FR:
         establishments: Établissements
         establishments_create: Ajouter un nouvel établissement
         establishments_number: 'Nombre d''établissements'
+        restore: Recharger une sauvegarde
         roles: Rôles 
         roles_create: Ajouter un rôle
         title: 'Informations sur la société : {{value}}'
@@ -819,6 +820,9 @@ fr-FR:
         users_create: Ajouter un nouvel utilisateur
         users_number: 'Nombre d''utilisateurs'
         values: Valeurs diverses
+      restore:
+        download: Sélectionner le fichier de sauvegarde à télécharger
+        title: Recharger les données depuis une sauvegarde
       roles_create:
         accountancy_rights: Droits module Comptabilité
         authentication_rights: Droits de connexion

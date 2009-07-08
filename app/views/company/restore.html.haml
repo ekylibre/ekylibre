@@ -1,3 +1,6 @@
+-if @new_code
+  %h2=tc(:your_new_code_is, :value=>@new_code)
+
 -form_tag({}, :multipart=>true) do
   =formalize do |f|
     -f.field tc(:download), file_field(:backup, :path)

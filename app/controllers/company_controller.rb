@@ -26,7 +26,8 @@ class CompanyController < ApplicationController
     file = "#{RAILS_ROOT}/tmp/#{filename}.xml.gz"
     doc = REXML::Document.new
     doc << REXML::XMLDecl.new
-    root = doc.add_element 'company', company.attributes.merge('version'=>version)
+    backup = doc.add_element 'backup', 'version'=>version, 'made_on'=>Date.today.to_s, 'made_by'=>@current_user.label
+    root = backup.add_element 'company', company.attributes
     reflections = Company.reflections
     for name in reflections.keys.collect{|x| x.to_s}.sort
       reflection = reflections[name.to_sym]
@@ -54,9 +55,11 @@ class CompanyController < ApplicationController
       stream = nil
       Zlib::GzipReader.open(file) { |gz| stream = gz.read }
       doc = REXML::Document.new(stream)
-      root = doc.root
+      backup = doc.root
+      root = backup.elements[0]
 
       ActiveRecord::Base.transaction do
+        start = Time.now.to_i
         # Suppression des données
         ids  = {}
         keys = {}
@@ -102,9 +105,11 @@ class CompanyController < ApplicationController
           record.save(false)
         end
         # Chargement des paramètres de la société
+        old_code = company.code
         root.attributes.each{|k,v| company.send(k+'=', v)}
         company.save
-        
+        @new_code = company.code if old_code!=company.code
+        flash.now[:notice] = tc(:restoration_finished, (Time.now.to_i-start).to_s)
       end
 
     end
