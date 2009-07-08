@@ -669,6 +669,7 @@ fr-FR:
       no_right_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'
     authentication:
       title: Connexion
+      need_company_code_to_login: 'Vous devez saisir votre nom d''utilisateur accompagné de votre code société. Exemple : SOCIETE\jean'
       no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
     company:
       role: Rôle

@@ -42,7 +42,7 @@ class PurchaseOrderLine < ActiveRecord::Base
     end
     if self.location.reservoir && self.location.product_id != self.product_id
       check_reservoir = false
-      errors.add_to_base(tc:stock_location_can_not_receive_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) 
+      errors.add_to_base(tc(:stock_location_can_not_receive_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) 
     end
     check_reservoir
   end

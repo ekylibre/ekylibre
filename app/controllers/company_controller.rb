@@ -3,7 +3,7 @@ require "rexml/document"
 class CompanyController < ApplicationController
 
   def index
-   # raise Exception.new @@rights.inspect
+    # raise Exception.new @@rights.inspect
     @company = @current_company
     @title = {:value=>@company.name}
   end
@@ -54,49 +54,78 @@ class CompanyController < ApplicationController
       stream = nil
       Zlib::GzipReader.open(file) { |gz| stream = gz.read }
       doc = REXML::Document.new(stream)
-      # Suppression des données
-      ids  = {}
-      keys = {}
-      reflections = Company.reflections
-      for name in reflections.keys.collect{|x| x.to_s}.sort
-        reflection = reflections[name.to_sym]
-        if reflection.macro==:has_many
-          other = reflection.class_name
-          other_class = other.constantize
-          ids[other] = {}
-          keys[other] = {}
-          for name, ref in other_class.reflections
-            # Ex. : keys["User"]["role_id"] = "Role"
-            keys[other][ref.primary_key_name] = ref.class_name if ref.macro==:belongs_to and ref.class_name!="Company"
-          end
-          other_class.delete_all(:company_id=>company.id)
-        end
-      end
-      # Chargement des données sauvegardées
-      data = []
       root = doc.root
-      for table in root.elements
-        reflection = Company.reflections[table.attributes['reflection'].to_sym]
-        for r in table.elements
-          attributes = r.attributes
-          id = attributes.delete('id')
-          hash = {}
-          attributes.each{|a| hash[a[0]] = a[1]}
-          # raise Exception.new(hash.inspect)
-          record = company.send(reflection.name).build(hash)
-          record.save(false)
-          ids[reflection.class_name][id.to_s] = record.id
-          data << record
+
+      ActiveRecord::Base.transaction do
+        # Suppression des données
+        ids  = {}
+        keys = {}
+        reflections = Company.reflections
+        for name in reflections.keys.collect{|x| x.to_s}.sort
+          reflection = reflections[name.to_sym]
+          if reflection.macro==:has_many
+            other = reflection.class_name
+            other_class = other.constantize
+            ids[other] = {}
+            keys[other] = {}
+            for name, ref in other_class.reflections
+              # Ex. : keys["User"]["role_id"] = "Role"
+              keys[other][ref.primary_key_name] = ref.class_name if ref.macro==:belongs_to and ref.class_name!="Company"
+            end
+            other_class.delete_all(:company_id=>company.id)
+            # puts '>> '+company.send(reflection.name).count.to_s
+          end
         end
-      end
-      # Réorganisation des clés étrangères
-      for record in data
-        for key, class_name in keys[record.class.name]
-          # user[:role_id] = ids["Role"][user[:role_id].to_s]
-          record[key] = ids[class_name][record[key].to_s]
+        # Chargement des données sauvegardées
+        data = []
+        for table in root.elements
+          reflection = Company.reflections[table.attributes['reflection'].to_sym]
+          puts('>> '+reflection.name.to_s)
+          for r in table.elements
+#            puts '>> '+company.send(reflection.name).count.to_s
+            attributes = r.attributes
+            id = attributes['id']
+            attributes.delete('id')
+            attributes.delete('company_id')
+            hash = {}
+            record = company.send(reflection.name).build #(hash)
+            attributes.each{|k,v| record.send(k+'=', v)}
+#            attributes.each{|k,v| hash[k] = v}
+#             if reflection.name==:users
+#               puts attributes.inspect
+#               puts hash.inspect
+#             end
+            # raise Exception.new(hash.inspect)
+#            puts record.inspect if reflection.name==:users
+            record.save(false)
+#            raise Exception.new id.name.inspect
+            ids[reflection.class_name][id] = record.id
+            data << record
+          end
         end
-        record.save(false)
+
+        puts ">> IDS >>\n"+ids.inspect
+        puts ">> KEYS >>\n"+keys.inspect
+#        puts ">> DATA >>\n"+data.inspect
+        # Réorganisation des clés étrangères
+        for record in data
+          puts "-------------------------------------------------------------------------------"
+          puts record.class.name
+          if record.nil?
+            puts ">>>>>>>>>>>>>>>>>>>>>>  NIL  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< "
+          else
+            for key, class_name in keys[record.class.name]
+              # user[:role_id] = ids["Role"][user[:role_id].to_s]
+              v = (ids[class_name]||{})[record[key].to_s]
+              record[key] = v unless v.nil? # ||record[key]
+            end
+            # puts record.inspect
+            record.save(false)
+          end
+        end
+
       end
+
     end
   end
   
@@ -118,9 +147,9 @@ class CompanyController < ApplicationController
     t.column :email
     t.column :admin
     t.action :locked, :actions=>{"true"=>{:action=>:users_unlock},"false"=>{:action=>:users_lock}}, :method=>:post
-#    t.column :locked
-#    t.action :users_lock , :image=>:unlock_access , :method=>:post , :confirm=>:sure
-#    t.action :users_unlock , :image=>:lock_access , :method=>:post , :confirm=>:sure
+    #    t.column :locked
+    #    t.action :users_lock , :image=>:unlock_access , :method=>:post , :confirm=>:sure
+    #    t.action :users_unlock , :image=>:lock_access , :method=>:post , :confirm=>:sure
     t.action :users_update, :image=>:update 
     t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:sure
     t.procedure :users_create, :action=>:users_create
@@ -169,7 +198,7 @@ class CompanyController < ApplicationController
     end
     render_form
   end
- 
+  
   def establishments_update
     access :establishments
     @establishment = Establishment.find_by_id_and_company_id(params[:id], @current_company.id)
@@ -227,7 +256,7 @@ class CompanyController < ApplicationController
     @rights = @current_company.find_all_rights(@@rights)
     if request.post?
       @role = Role.new(params[:role])
-     # raise Exception.new params.inspect
+      # raise Exception.new params.inspect
       @role.company_id = @current_company.id
       @role.rights = "administrate_nothing "
       for right in params[:right]
@@ -259,7 +288,7 @@ class CompanyController < ApplicationController
       render :action=>"check_rights.rjs"
     end
     if request.post? and not request.xhr?
-    #  raise Exception.new params.inspect
+      #  raise Exception.new params.inspect
       @user = User.new(params[:user])
       @user.company_id = @current_company.id
       @user.role_id = params[:user][:role_id]
@@ -274,7 +303,7 @@ class CompanyController < ApplicationController
       if @user.save
         redirect_to_back
       else
-       # raise Exception.new session[:role_rights].inspect
+        # raise Exception.new session[:role_rights].inspect
         @rights = session[:role_rights]
       end
     else

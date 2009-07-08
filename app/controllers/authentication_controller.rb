@@ -9,7 +9,23 @@ class AuthenticationController < ApplicationController
   def login
     session[:help] = false
     if request.post?
-      user = User.authenticate(params[:user][:name], params[:user][:password])
+      name = params[:user][:name]
+      company = nil
+      if name.match(/(\\|\/)/)
+        lname = name.split(/(\\|\/)/)
+        company = Company.find_by_code(lname[0])
+        if company.nil?
+          flash.now[:warning] = tc(:unknown_company)
+          return
+        end
+        name = lname[-1]
+      else
+        if User.count(:conditions=>{:name=>name})>1
+          flash.now[:warning] = tc(:need_company_code_to_login)
+          return
+        end
+      end
+      user = User.authenticate(name, params[:user][:password], company)
       if user
         init_session(user)
         #raise Exception.new session[:rights].inspect
@@ -17,7 +33,7 @@ class AuthenticationController < ApplicationController
           redirect_to session[:last_url]||{:controller=>:guide, :action=>:index}
         end
       else
-        flash[:error] = tc(:no_authenticated)
+        flash.now[:error] = tc(:no_authenticated)
       end
       session[:user_name] = params[:user][:name]
     end

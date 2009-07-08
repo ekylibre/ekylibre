@@ -40,7 +40,7 @@ class DeliveryLine < ActiveRecord::Base
   def validate_on_create
     #raise Exception.new self.undelivered_quantity.to_s+" "+self.quantity.to_s
     test = self.undelivered_quantity >= self.quantity 
-    errors.add_to_base(tc:error_undelivered_quantity, :product=>self.product.name) if (self.undelivered_quantity < self.quantity)
+    errors.add_to_base(tc(:error_undelivered_quantity), :product=>self.product.name) if (self.undelivered_quantity < self.quantity)
   end
   
   def before_update

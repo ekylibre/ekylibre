@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
   validates_confirmation_of :password
+  validates_uniqueness_of :name
 
   cattr_accessor :current_user
   attr_accessor :password_confirmation
@@ -70,8 +71,14 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.authenticate(name, password)
-    user = self.find_by_name(name.downcase)
+  def self.authenticate(name, password, company=nil)
+    user = nil
+    if company.nil?
+      users = self.find_all_by_name(name.downcase)
+      user = users[0] if users.size == 1
+    else
+      user = self.find_by_name_and_company_id(name.downcase, company.id)
+    end
     if user
       user = nil if user.locked or user.deleted or !user.authenticated?(password)
     end
