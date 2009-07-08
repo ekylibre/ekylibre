@@ -814,13 +814,13 @@ class RelationsController < ApplicationController
         flash[:warning]=tc(:you_must_select_a_file_to_import)
         redirect_to :action=>:entities_import
       else
-        file = params[:csv_file][:path]
-        name = "MES_FICHES.csv"
+        data = params[:csv_file][:path]
+        file = "#{RAILS_ROOT}/tmp/uploads/entities_import_#{data.original_filename.gsub(/[^\w]/,'_')}"
+        File.open(file, "wb") { |f| f.write(data.read)}
         i = 0
         @available_entities = []
         @unavailable_entities = []
-        File.open("#{RAILS_ROOT}/#{name}", "w") { |f| f.write(file.read)}
-        FasterCSV.foreach("#{RAILS_ROOT}/#{name}") do |row|
+        FasterCSV.foreach(file) do |row|
           @entity = Entity.find_by_company_id_and_code(@current_company.id, row[indices[:entity_code]])
           if @entity.nil?
             @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>Language.find(1).id, :nature_id=>@current_company.entity_natures[0])

@@ -48,7 +48,7 @@ class CompanyController < ApplicationController
       company = @current_company
       # Récupération du fichier
       backup = params[:backup][:path]
-      file = "#{RAILS_ROOT}/tmp/#{backup.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
+      file = "#{RAILS_ROOT}/tmp/uploads/#{backup.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
       File.open(file, "w") { |f| f.write(backup.read)}
       # Décompression
       stream = nil
