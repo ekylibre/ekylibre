@@ -11,13 +11,10 @@ class AuthenticationController < ApplicationController
     if request.post?
       name = params[:user][:name]
       company = nil
-      if name.match(/(\\|\/)/)
-        lname = name.split(/(\\|\/)/)
+      sep = /[^a-z0-9\.\_]/i
+      if name.match sep
+        lname = name.split(sep)
         company = Company.find_by_code(lname[0])
-        if company.nil?
-          flash.now[:warning] = tc(:unknown_company)
-          return
-        end
         name = lname[-1]
       else
         if User.count(:conditions=>{:name=>name})>1
