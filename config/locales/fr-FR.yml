@@ -849,7 +849,7 @@ fr-FR:
         resources_rights: Droits module Ressources
         role_name: Entrez le nom du rôle puis attribuez lui ses droits
         search_rights: Droits de recherche
-        title: Ajouter un rôle       
+        title: 'Modification du rôle {{value}}'
         validate: Valider
       _roles_form:
         accountancy_rights: Droits module Comptabilité

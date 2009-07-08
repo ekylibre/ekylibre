@@ -126,7 +126,7 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :first_name
     t.column :last_name
-    t.column :name, :through=>:role, :label=>tc(:role)
+   # t.column :name, :through=>:role, :label=>tc(:role)
     t.column :free_price
     t.column :credits
     t.column :reduction_percent
@@ -264,6 +264,7 @@ class CompanyController < ApplicationController
       end
       redirect_to_back if @role.save
     end
+    @title = {:value=>@role.name}
   end
   
   def users_create

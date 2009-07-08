@@ -1,7 +1,15 @@
 h1. Informations sur la société
 
-* Vous avez ici accès aux différentes informations concernant votre société. Vous pouvez également ajouter, modifier ou supprimer un utilisateur, un établissement ou un service, ainsi que vérouiller un utilisateur (celui-ci n'aura plus accès au logiciel).
+h2. Détails et utilisateurs
 
-* Vous pouvez *définir les droits* (*prix libres* , *taux de réduction autorisé*)d'un utilisateur depuis le formulaire de création/modification d'un utilisateur.
+Vous avez ici accès aux différentes informations concernant votre société. Vous pouvez également ajouter, modifier ou supprimer un utilisateur, un établissement ou un service, ainsi que vérouiller un utilisateur (celui-ci n'aura plus accès au logiciel).
 
-* Par défaut, un établissement et un service vous sont créés automatiquement.
+Par défaut, un établissement et un service vous sont créés automatiquement.
+
+h2. Les droits
+
+Lors de l'ajout/modification d'un utilisateur ou d'un rôle, vous avez accès au détail des différents droits du logiciel. Ceux-ci sont regroupés par module.
+*Un droit permet d'accéder à une ou plusieurs actions du logiciel*.
+Les droits relatifs à un utilisateur peuvent être définis grâce aux *rôles*. Un rôle permet de définir les droits de bases relatifs à un type d'utilisateur (ex. comptable). Ensuite depuis le formulaire utilisateur vous pouvez choisir de rajouter ou de supprimer des droits par rapport au rôle sélectionné.
+
+

@@ -1,6 +1,13 @@
 h1. Comment créer un nouvel utilisateur ?
 
-* Pour créer un nouvel utilisateur, il vous suffit de renseigner les différents paramètres qui vous sont demandés. Certains sont obligatoires (encadrés en bleu) et d'autres sont facultatifs (encadrés en gris). La création ne s'effectue uniquement que si tous les champs obligatoires ont été correctement renseignés.
-Le rôle permet d'attribuer des privilèges aux utilisateurs. L'administrateur a accès à toute l'application et a la possibilité de vérouiller un autre utilisateur.
+h2. Informations de base
 
-* Vous pouvez également définir les *droits d'un utilisateur* : *Taux réduction autorisé* et si il a la *possibilité de pratiquer des prix libres*.
+Pour créer un nouvel utilisateur, il vous suffit de renseigner les différents paramètres qui vous sont demandés. Certains sont obligatoires (encadrés en bleu) et d'autres sont facultatifs (encadrés en gris). La création ne s'effectue uniquement que si tous les champs obligatoires ont été correctement renseignés.
+
+h2. Les droits
+
+*Les droits permettent d'autoriser ou non l'accès a certaines parties du logiciel à l'utilisateur.*
+
+*Le rôle* permet de *sélectioner automatiquement une liste de droits* pour l'utilisateur. Vous pouvez créer différents rôles. Par défaut, deux rôles vous sont crées, un donnant accès à l'intégralité du logiciel (administrateur), et un qui restreint l'accès seulement à l'acceuil du logiciel (public). 
+Si le champ *Admin est coché*, l'utilisateur aura *accès à l'intégralité du logiciel*.
+

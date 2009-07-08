@@ -1,0 +1,3 @@
+h1. Comment créer un nouveau rôle?
+
+Un *rôle permet d'établir une liste de droits associée à une catégorie d'utilisateurs* (comptables, ouvriers,...). Lors de la création/modification d'un utilisateur, vous pourrez utiliser ce rôle pour établir les droits de votre utilisateur, et ensuite éventuellement *enlever* ou  *rajouter des droits* à cet utilisateur par rapport à ceux fournis par le rôle.

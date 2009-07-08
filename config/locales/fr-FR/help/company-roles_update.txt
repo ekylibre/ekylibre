@@ -1,0 +1,5 @@
+h1. Comment modifier un rôle ?
+
+Cochez ou décochez les droits que vous voukez voir ajoutés ou supprimés. Notez que *si vous modifier un rôle, les droits ajoutés et ceux supprimés seront répercutés à tous les utilisateurs qui dépendent de ce rôle*.
+
+Concrétement, si vous avez trois comptables qui n'ont accès qu'à la comptabilité et que vous modifiez le rôle comptable en supprimant un droit, tous les utilisateurs dépendant du rôle comptable se verront restreindre leurs droits.
