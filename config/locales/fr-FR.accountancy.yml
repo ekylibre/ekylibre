@@ -27,7 +27,7 @@ fr-FR:
         need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
         need_entries_to_point: 'Aucune écriture n''a été trouvé pour la période du relevé bancaire {{value}}.'
         no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
-    
+        no_financialyear: 'Aucun exercice enregistré'
 
   # Used in all the views
   # Used in all the views
@@ -102,8 +102,7 @@ fr-FR:
         balance: Balance
         journal: Journal général
         journal_by_id: Journal
-        balance_sheet: Bilan
-        income_statement: Compte de résultat
+        synthesis: Documents de synthèse
       document_print:
         title: 'Impression du document : {{value}}'
         print: Impression
@@ -206,27 +205,13 @@ fr-FR:
       _print_balance_sheet:
         balance_sheet: 'Sélectionnez l''exercice'
         select_financialyear: Exercice
-      _print_balance_sheet2:
-        active_balance_sheet: 'Bilan actif'
-        account_fixed_assets: 'Actif immobilisé'
-        account_untangible_fixed_assets: 'Immobilisations incorporelles'
-        account_tangible_fixed_assets: 'Immobilisations corporelles'
-        account_financial_assets: 'Immobilisations financières'
-        account_current_assets: 'Actif circulant'
-        account_inventories_assets: 'Stocks'
-        account_claims_assets: 'Créances'
-        account_others_assets: 'Divers'
-        account_accruals: 'Comptes de régularisation'
-        passive_balance_sheet: 'Bilan passif'
-        account_equity: 'Capitaux propres'
-        account_provision: 'Provisions pour risques et charges'
-        account_debt: 'Dettes'
-        account_accruals: 'Comptes de régularisation'
-        account_value: 'BRUT'
       _print_ledger:
         dates: Saisissez les dates de début et de fin de la période
         from: Période du
         to: Au
+      _print_synthesis:
+        synthesis: 'Sélectionnez l''exercice'
+        select_financialyear: Exercice
       print_balance_sheet:
         title: Impression du bilan 
         period: Période
@@ -270,3 +255,36 @@ fr-FR:
         entry_debit: Dédit
         entry_credit: Crédit
         cancel: 'Annuler'
+      synthesis:
+        title: 'Documents annuels pour {{value}}'
+        income_statement: 'Comptes de résultats' 
+        cost_income_statement: 'Charges'
+        finished_income_statement: 'Produits'
+        running_cost: 'Charges d''exploitation'
+        running_finished: 'Produits d''exploitation'
+        active_balance_sheet: 'Bilan actif'
+        active_fixed_sum: 'Total actifs immobilisés'
+        active_sum: 'Total actifs'
+        active_current_sum: 'Total actifs circulants'
+        account_fixed_assets: 'Actif immobilisé'
+        account_untangible_fixed_assets: 'Immobilisations incorporelles'
+        account_tangible_fixed_assets: 'Immobilisations corporelles'
+        account_financial_assets: 'Immobilisations financières'
+        account_current_assets: 'Actif circulant'
+        account_inventories_assets: 'Stocks'
+        account_claims_assets: 'Créances'
+        account_others_assets: 'Divers'
+        account_accruals: 'Comptes de régularisation'
+        passive_balance_sheet: 'Bilan passif'
+        passive_capital_sum: 'Total capitaux'
+        passive_stock_sum: 'Total provisions'
+        passive_debt_sum: 'Total dettes'
+        passive_sum: 'Total passifs'
+        account_equity: 'Capitaux propres'
+        account_provision: 'Provisions pour risques et charges'
+        account_debt: 'Dettes'
+        account_accruals: 'Comptes de régularisation'
+        account_value: 'BRUT'  
+        result: 'Résultat' 
+        total: 'Total'
+      

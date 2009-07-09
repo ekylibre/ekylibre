@@ -92,32 +92,50 @@ class Account < ActiveRecord::Base
       balance[:name] = self.name.to_s
       balance[:debit] = debit
       balance[:credit] = credit
-      balance[:solde] = credit - debit #if self.number.to_s.match /^(6|7)/ or self.number.to_s.match /^12/
+      balance[:balance] = debit - credit
     end
     balance unless balance.empty?
   end
 
   # this method loads the balance for a given period.
-  def self.balance(company, from, to)
+  def self.balance(company, from, to, list_accounts=[])
     balance = []
-    accounts = Account.find(:all, :conditions => {:company_id => company})
+    conditions = "company_id = "+company.to_s
+    if not list_accounts.empty?
+      conditions += " AND "+list_accounts.collect do |account|
+        "number LIKE '"+account.to_s+"%'"
+      end.join(" OR ")
+    end  
+    accounts = Account.find(:all, :conditions => conditions, :order => "number ASC")
+    solde = 0
+    #raise Exception.new("solde2: "+accounts.inspect) 
     accounts.each do |account| 
       debit = account.entries.sum(:debit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
       credit = account.entries.sum(:credit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
       
-      #unless debit.zero? and credit.zero? 
-        compute={}
-        compute[:number] = account.number.to_i
-        compute[:name] = account.name.to_s
-        compute[:debit] = debit
-        compute[:credit] = credit
-        compute[:solde] = credit - debit 
-        balance << compute
-      #end
+      compute={}
+      compute[:number] = account.number.to_i
+      compute[:name] = account.name.to_s
+      compute[:debit] = debit
+      compute[:credit] = credit
+      compute[:balance] = debit - credit 
+      solde += compute[:balance] if account.number.to_s.match /^(6|7)/
+            
+      #raise Exception.new("account: "+solde.to_s) if account.number.to_s.match /^7/
+      balance << compute
     end
+#    raise Exception.new("solde2: "+solde.to_s)
+    balance.each do |account| 
+       if account[:number].to_s.match /^12/
+         account[:debit] = 0
+         account[:credit] = 0
+         account[:balance] = solde
+       end
+    end
+#    raise Exception.new(balance.inspect)
     balance.compact
   end
-
+  
   # this method loads the genreal ledger for all the accounts.
   def self.ledger(company, from, to)
     ledger = []

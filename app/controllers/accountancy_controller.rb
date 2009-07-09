@@ -122,11 +122,12 @@ class AccountancyController < ApplicationController
     redirect_to :action => "bank_accounts"
   end
 
+
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
   
   end
-  
+ 
   
   # this action creates an account with a form.
   def accounts_create
@@ -165,12 +166,11 @@ class AccountancyController < ApplicationController
     redirect_to_current
   end
   
-  PRINTS=[[:balance,{:partial=>"balance",:ex=>"ex"}],
-          [:general_ledger,{:partial=>"ledger"}],
-          [:journal_by_id,{:partial=>"by_journal"}],
-          [:journal,{:partial=>"journals"}],
-          [:balance_sheet,{:partial=>"balance_sheet"}],
-          [:income_statement,{:partial=>"income_statement"}]]
+  PRINTS=[[:balance, {:partial=>"balance"}],
+          [:general_ledger, {:partial=>"ledger"}],
+          [:journal_by_id, {:partial=>"by_journal"}],
+          [:journal, {:partial=>"journals"}],
+          [:synthesis, {:partial=>"synthesis"}]]
 
   # this method prepares the print of document.
   def document_prepare
@@ -188,7 +188,7 @@ class AccountancyController < ApplicationController
     end
     @financialyears =  @current_company.financialyears.find(:all, :order => :stopped_on)
     if @financialyears.nil?
-      flash[:message]="Aucun exercice enregistré"
+      flash[:message]=tc(:no_financialyear)
       redirect_to :action => :document_prepare
       return      
     end
@@ -198,85 +198,86 @@ class AccountancyController < ApplicationController
     @end = Date.today.year.to_s+"-12-31"
     
     if request.post? 
-      if session[:mode] == "income_statements"
-        @financialyear = Financialyear.find_by_id_and_company_id(params[:printed][:id], @current_company.id)
-        params[:printed][:name] = @financialyear.code
-        params[:printed][:from] = @financialyear.started_on
-        params[:printed][:to] = @financialyear.stopped_on
-      end
-     
-      params[:printed][:name] = Journal.find_by_id_and_company_id(params[:printed][:name], @current_company.id).name if session[:mode] == "journal_by_id"
-      
-      params[:printed][:current_company] = @current_company.id
-      params[:printed][:siren] = @current_company.siren.to_s
-      params[:printed][:company_name] = @current_company.name.to_s
-      
-      
       @lines = []
-      @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-      @lines << @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
-      @lines << @current_company.code
-
+      unless not @current_company.default_contact
+        @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
+        @lines << @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+        @lines << @current_company.code
+      end
+       
+      sum = {:debit=> 0, :credit=> 0, :balance=> 0}
+      
       if session[:mode] == "journal"
         @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to])
-        sum_debit=0
-        sum_credit=0
         if @entries.size > 0
-         @entries.each do |entry|
-            sum_debit += entry.debit
-            sum_credit += entry.credit
+          @entries.each do |entry|
+            sum[:debit] += entry.debit
+            sum[:credit] += entry.credit
           end
+          sum[:balance] = sum[:debit] - sum[:credit]
         end
-        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :debit => sum_debit, :credit => sum_credit, :solde => sum_debit - sum_credit} , :collection => @entries        
+        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :sum => sum} , :collection => @entries        
       end
-
+      
       if session[:mode] == "journal_by_id"
-        id = @current_company.journals.find(:first, :conditions => { :name => params[:printed][:name] }).id
+        params[:printed][:name] = Journal.find_by_id_and_company_id(params[:printed][:name], @current_company.id).name if session[:mode] == "journal_by_id"
+        id = @current_company.journals.find(:first, :conditions => {:name => params[:printed][:name] }).id
         @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to], id)
-        sum_debit=0
-        sum_credit=0
         if @entries.size > 0
-         @entries.each do |entry|
-            sum_debit += entry.debit
-            sum_credit += entry.credit
+          @entries.each do |entry|
+            sum[:debit] += entry.debit
+            sum[:credit] += entry.credit
           end
+          sum[:balance] = sum[:debit] - sum[:credit]
         end
-        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :debit => sum_debit, :credit => sum_credit, :solde => sum_debit - sum_credit} , :collection => @entries        
+        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :sum => sum} , :collection => @entries        
       end
- 
+      
       if session[:mode] == "balance"
-         @accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
-        sum = {:debit=>0,:credit=>0,:solde=>0}
-
+        @accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
         @accounts_balance.delete_if {|account| account[:credit].zero? and account[:debit].zero?}
-
         for account in @accounts_balance
           sum[:debit] += account[:debit]
           sum[:credit] += account[:credit]
-          sum[:solde] += account[:solde]
         end
-                  
+        sum[:balance] = sum[:debit] - sum[:credit]
         render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :lines => @lines , :sum=> sum}, :collection => @accounts_balance
       end
 
-      if session[:mode] == "balance_sheet"
+      if session[:mode] == "synthesis"
         @financialyear = Financialyear.find_by_id_and_company_id(params[:printed][:financialyear], @current_company.id)
+        params[:printed][:name] = @financialyear.code
+        params[:printed][:from] = @financialyear.started_on
+        params[:printed][:to] = @financialyear.stopped_on
         @balance = Account.balance(@current_company.id, @financialyear.started_on, @financialyear.stopped_on)
+      
+        @balance.each do |account| 
+          sum[:credit] += account[:credit] 
+          sum[:debit] += account[:debit] 
+        end
+        sum[:balance] = sum[:debit] - sum[:credit]     
         
         @last_financialyear = @financialyear.previous(@current_company.id)
-        if @last_financialyear
+        
+        if not @last_financialyear.nil?
           index = 0
           @previous_balance = Account.balance(@current_company.id, @last_financialyear.started_on, @last_financialyear.stopped_on)
           @previous_balance.each do |balance|
-            @balance[index][:previous_debit]  = balance[:debit]
-            @balance[index][:previous_credit] = balance[:credit]
-            @balance[index][:previous_solde] = balance[:solde]
+            @balance[index][:previous_debit]   = balance[:debit]
+            @balance[index][:previous_credit]  = balance[:credit]
+            @balance[index][:previous_balance] = balance[:balance]
             index+=1
           end
+          session[:previous_balance] = @previous_balance
         end
-        render :partial => @partial+"2", :locals => {:printed => params[:printed], :company => @current_company, :lines => @lines }, :collection => {@balance, @previous_balance || '[]'} 
-      end
 
+        session[:lines] = @lines
+        session[:printed] = params[:printed]
+        session[:balance] = @balance
+        
+        redirect_to :action => :synthesis
+      end
+      
       if session[:mode] == "general_ledger"
         @ledger = Account.ledger(@current_company.id, params[:printed][:from], params[:printed][:to])
         render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company}, :collection => @ledger
@@ -286,12 +287,58 @@ class AccountancyController < ApplicationController
 
       @title = {:value=>t("views.#{self.controller_name}.document_prepare.#{@print[0].to_s}")}
   end
+  
+  # this method displays the income statement and the balance sheet.
+  def synthesis
+    @lines = session[:lines]
+    @printed = session[:printed]
+    @balance = session[:balance]
+    @result = 0
+    @solde = 0
+    @active_fixed_sum = 0
+    @active_current_sum = 0
+    @passive_capital_sum = 0
+    @passive_stock_sum = 0
+    @passive_debt_sum = 0
+    @cost_sum = 0
+    @finished_sum =  0
+    @previous_active_sum = 0
+    @previous_passive_sum = 0
+    @previous_cost_sum = 0
+    @previous_finished_sum = 0
+      
+    @balance.each do |account|
+      @solde += account[:balance]
+      @result = account[:balance] if account[:number].to_s.match /^12/
+      @active_fixed_sum += account[:balance] if account[:number].to_s.match /^(20|21|22|23|26|27)/
+      @active_current_sum += account[:balance] if account[:number].to_s.match /^(3|4|5)/ and account[:balance] <= 0
+      @passive_capital_sum += account[:balance] if account[:number].to_s.match /^(1[^5])/
+      @passive_stock_sum += account[:balance] if account[:number].to_s.match /^15/ 
+      @passive_debt_sum += account[:balance] if account[:number].to_s.match /^4/
+      @cost_sum += account[:balance] if account[:number].to_s.match /^6/
+      @finished_sum += account[:balance] if account[:number].to_s.match /^7/
+    end
+    
+    unless session[:previous_balance].blank?
+      @previous_solde = 0
+      @previous_balance = session[:previous_balance] 
+      session[:previous_balance] = {}
+      @previous_balance.each do |account|
+        @previous_solde += account[:balance]
+        @previous_result = account[:balance] if account[:number].to_s.match /^12/
+        @previous_active_sum += account[:balance] if account[:number].to_s.match /^(20|21|22|23|26|27)/
+        @previous_passive_sum += account[:balance] if account[:number].to_s.match /^(1[^5]|15|4|487)/     
+        @previous_cost_sum += account[:balance] if account[:number].to_s.match /^(20|21|22|23|26|27)/
+        @previous_finished_sum += account[:balance] if account[:number].to_s.match /^(1[^5]|15|4|487)/
+      end
+    end
+
+    @title = {:value=>"la période du "+@printed[:from].to_s+"au "+@printed[:to].to_s}
+  end
 
   # this method orders sale.
   def order_sale
-    #render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:locals=>params[:printed])
     render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:key=>params[:id])
-    ##
   end
   
   # this method finds the journal with the matching id and the company_id.
@@ -400,7 +447,6 @@ class AccountancyController < ApplicationController
       @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
       @renew_journal = Journal.find(params[:journal_id])
       
-      # @new_financialyear = @current_company.financialyears.find(:first, :conditions => { :started_on => @financialyear.stopped_on+1})
       @new_financialyear = @financialyear.next(@current_company.id)
       
       if @new_financialyear.nil?
@@ -425,9 +471,9 @@ class AccountancyController < ApplicationController
           if account[:number].to_s.match /^12/
             account_id = account[:id]
             account_name = account[:name]
-            result += account[:solde]
+            result += account[:balance ]
           elsif account[:number].to_s.match /^(6|7)/
-            result += account[:solde] 
+            result += account[:balance ] 
           else
             @entry=@current_company.entries.create({:record_id => @record.id, :currency_id => @renew_journal.currency_id, :account_id => account[:id], :name => account[:name], :currency_debit => account[:debit], :currency_credit => account[:credit]}) 
           end

@@ -1,0 +1,32 @@
+page :a4, :margin=>[10.mm] do
+  
+  part 30.mm do
+    set do
+      text company.name, :size=>7.mm
+      set 0, 5.mm do
+        top = 10
+        for line in @lines
+          text line, :size=>10, :top=>top
+          top += 12
+        end
+      end 
+    end
+  end
+  
+  part 10.mm do
+    set 20.mm do
+      text "Bilan pour la période du "+I18n.localize(printed[:from].to_date, :format=> :month_letter)+" au "+I18n.localize(printed[:to].to_date, :format => :month_letter), :left=>width/2, :align=>:center, :bold => :bold 
+    end
+  end
+
+  part 27.mm do
+    set 100.mm do
+      cell 20.mm, 20.mm, "BRUT"	, :size=>5
+      cell 30.mm, 20.mm, "AMORTISSEMENT", :size=>5, :left=>20.mm
+      cell 20.mm, 20.mm, "NET", :size=>5, :left=>50.mm
+      cell 20.mm, 20.mm, "NET", :size=>5, :left=>70.mm
+    end
+  end    
+
+
+end

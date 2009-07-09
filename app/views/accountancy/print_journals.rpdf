@@ -1,7 +1,7 @@
-page :a4, :margin=>[10.mm] do  
+page :a4, :margin=>[10.mm] do
   part 30.mm do
     set do
-      text company.name, :size=>7.mm
+      text company.name, :size => 7.mm
     end
     set 0, 5.mm do
       top = 10
@@ -11,19 +11,19 @@ page :a4, :margin=>[10.mm] do
       end
     end
   end
-  part 10.mm do
-    set do 
-      text "Journal "+printed[:name].to_s+" pour la période du "+I18n.localize(printed[:from].to_date, :format=> :month_letter)+" au "+I18n.localize(printed[:to].to_date, :format => :month_letter), :left=>width/2, :align=>:center, :bold =>:bold
+  part 20.mm do
+    set 5.mm do 
+       text "Journal général pour la période du "+I18n.localize(printed[:from].to_date, :format=> :month_letter)+" au "+I18n.localize(printed[:to].to_date, :format => :month_letter), :left=>width/2, :align=>:center, :bold =>:bold
     end
   end
-  table @entries, :fixed=>true  do
-    column "Numéro", 'record.number',35.mm, :align=>:left
+  table @entries, :fixed=>true do
+    column "Numéro", 'record.number', 35.mm, :align=>:left
     column "Crée le", 'record.created_on',30.mm
     column "Intitulé", 'name',40.mm
     column "Numéro Compte", 'account.number',45.mm
     column "Débit", 'debit',20.mm
     column "Crédit", 'credit',20.mm
-  end  
+  end 
   part 10.mm do
     set 0, 2.mm do
       cell 150.mm, 4.mm, "TOTAL "
@@ -34,5 +34,5 @@ page :a4, :margin=>[10.mm] do
       cell 20.mm, 4.mm, "Solde ", :align=>:right, :bold=>:bold, :border => 'true'
       cell 40.mm, 4.mm, sum[:solde].to_s, :align=>:right, :border => 'true'	
     end
-  end
+  end 
 end  

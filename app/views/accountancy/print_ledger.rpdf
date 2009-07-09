@@ -1,0 +1,38 @@
+page :a4, :margin=>[10.mm] do
+  part 30.mm do
+    set do
+      text company.name, :size=>7.mm
+    end
+    set 0, 5.mm do
+      top = 10
+      for line in @lines
+        text line, :size=>10, :top=>top
+        top += 12
+      end
+    end
+  end
+  part 10.mm do
+    set 30.mm do 
+      text "Grand livre pour la période du "+I18n.localize(printed[:from].to_date, :format=>:month_letter)+" au "+I18n.localize(printed[:to].to_date, :format=>:month_letter), :left=>width/2, :align=>:center, :bold =>:bold
+    end
+  end
+  for ledger in @ledger
+    if ledger[:entries].size > 0
+      part 10.mm do
+        set 0, 5.mm do
+          cell 85.mm, 0, "Numéro: "+ledger[:number].to_s, :bold=>:bold, :size => 12
+          cell 85.mm, 0, "Nom : "+ledger[:name].to_s, :left => 85.mm, :bold=>:bold
+        end
+      end
+      table ledger[:entries], :fixed => true do
+        column "Journal", :journal, 15.mm
+        column "Pièce", :number_record, 15.mm 
+        column "Intitulé", :name, 100.mm
+        column "Crée le", :date, 20.mm
+        column "Débit", :debit, 20.mm
+        column "Crédit", :credit, 20.mm
+      end
+    end
+  end
+    
+end 
