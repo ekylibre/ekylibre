@@ -21,24 +21,29 @@ class CompanyController < ApplicationController
   def backup
     company = @current_company
     version = (ActiveRecord::Migrator.current_version rescue 0)
-    puts version
     filename = "backup-"+@current_company.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")
     file = "#{RAILS_ROOT}/tmp/#{filename}.xml.gz"
     doc = REXML::Document.new
     doc << REXML::XMLDecl.new
-    backup = doc.add_element 'backup', 'version'=>version, 'made_on'=>Date.today.to_s, 'made_by'=>@current_user.label
+    backup = doc.add_element 'backup', 'version'=>version, 'creation-date'=>Date.today.to_s, 'creator'=>@current_user.label
     root = backup.add_element 'company', company.attributes
+    n = 0
+    start = Time.now.to_i
     reflections = Company.reflections
     for name in reflections.keys.collect{|x| x.to_s}.sort
       reflection = reflections[name.to_sym]
       if reflection.macro==:has_many
-        table = root.add_element('table', 'reflection'=>name)
-        for x in company.send(name.to_sym).find(:all, :order=>:id)
-          puts x.id if x.id%200==0
-          table.add_element('r', x.attributes)
+        rows = company.send(name.to_sym).find(:all, :order=>:id)
+        rows_count = rows.size
+        n += rows_count
+        table = root.add_element('rows', 'reflection'=>name, 'records-count'=>rows_count.to_s)
+        rows_count.times do |i|
+          puts i if i%200==0
+          table.add_element('row', rows[i].attributes)
         end
       end
     end
+    backup.add_attributes('records-count'=>n.to_s, 'generation-duration'=>(Time.now.to_i-start).to_s)
     stream = doc.to_s
     Zlib::GzipWriter.open(file) { |gz| gz.write(stream) }
     send_file file
@@ -56,7 +61,14 @@ class CompanyController < ApplicationController
       Zlib::GzipReader.open(file) { |gz| stream = gz.read }
       doc = REXML::Document.new(stream)
       backup = doc.root
-      root = backup.elements[0]
+
+      version = (ActiveRecord::Migrator.current_version rescue 0)
+      if backup.attribute('version').value != version.to_s
+        flash.now[:error] = tc :unvalid_version_for_restore
+        return
+      end
+
+      root = backup.elements[1]
 
       ActiveRecord::Base.transaction do
         start = Time.now.to_i
@@ -73,9 +85,12 @@ class CompanyController < ApplicationController
             keys[other] = {}
             for name, ref in other_class.reflections
               # Ex. : keys["User"]["role_id"] = "Role"
-              keys[other][ref.primary_key_name] = ref.class_name if ref.macro==:belongs_to and ref.class_name!="Company"
+              keys[other][ref.primary_key_name] = ref.class_name if ref.macro==:belongs_to and ref.class_name!=Company.name
             end
             other_class.delete_all(:company_id=>company.id)
+          elsif reflection.macro==:belongs_to
+            keys[Company.name] ||= {}
+            keys[Company.name][reflection.primary_key_name] = reflection.class_name
           end
         end
         # Chargement des données sauvegardées
@@ -99,17 +114,24 @@ class CompanyController < ApplicationController
         for record in data
           for key, class_name in keys[record.class.name]
             # user[:role_id] = ids["Role"][user[:role_id].to_s]
-            v = (ids[class_name]||{})[record[key].to_s]
+            v = ids[class_name][record[key].to_s]
             record[key] = v unless v.nil? # ||record[key]
           end
           record.save(false)
         end
         # Chargement des paramètres de la société
         old_code = company.code
-        root.attributes.each{|k,v| company.send(k+'=', v)}
-        company.save
+        attrs = root.attributes
+        attrs.delete('id')
+        attrs.delete('lock_version')
+        attrs.each{|k,v| company.send(k+'=', v)}
+        for key, class_name in keys[Company.name]
+          v = ids[class_name][company[key].to_s]
+          company[key] = v unless v.nil?
+        end
+        company.save!
         @new_code = company.code if old_code!=company.code
-        flash.now[:notice] = tc(:restoration_finished, (Time.now.to_i-start).to_s)
+        flash.now[:notice] = tc(:restoration_finished, :value=>(Time.now.to_i-start).to_s)
       end
 
     end
@@ -138,7 +160,6 @@ class CompanyController < ApplicationController
     #    t.action :users_unlock , :image=>:lock_access , :method=>:post , :confirm=>:sure
     t.action :users_update, :image=>:update 
     t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:sure
-    t.procedure :users_create, :action=>:users_create
   end
 
   def users
@@ -149,7 +170,6 @@ class CompanyController < ApplicationController
     t.column :nic
     t.column :siret
     t.column :comment
-    t.procedure :establishments_create, :action=>:establishments_create
     t.action :establishments_update, :image=>:update
     t.action :establishments_delete, :image=>:delete , :method=>:post , :confirm=>:sure
   end
@@ -160,18 +180,18 @@ class CompanyController < ApplicationController
   dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t| 
     t.column :name
     t.column :comment
-    t.procedure :departments_create, :action=>:departments_create
     t.action :departments_update, :image=>:update
     t.action :departments_delete, :image=>:delete , :method=>:post , :confirm=>:sure
   end
+
+  def departments
+  end
+
   dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name
     t.action :roles_update
   end
 
-
-  def departments
-  end
 
   def establishments_create
     access :establishments

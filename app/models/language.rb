@@ -13,5 +13,5 @@
 class Language < ActiveRecord::Base
   has_many :entities
   belongs_to :company
-  attr_protected :company_id
+  attr_readonly :company_id
 end

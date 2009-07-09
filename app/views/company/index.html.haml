@@ -1,7 +1,7 @@
-= aclist do |l|
-  - l.action :update
-  - l.action :backup
-  - l.action :restore
+=toolbar do
+  - link :update
+  - link :backup
+  - link :restore
 
 .detail
   = evalue @company , :name 
@@ -12,12 +12,18 @@
   =# evalue tc(:users_number ) ,@users.size, :url=>{:action=>:users}
 
 %h2= tc :users
+.aclist
+  =link_to tc('users_create'), {:action=>:users_create}, :class=>'procedure create'
 =dyta :users
 %h2= tc(:roles)
 .aclist
   =link_to tc('roles_create'), {:action=>:roles_create}, :class=>'procedure create'
 =dyta :roles
 %h2= tc :establishments
+.aclist
+  =link_to tc('establishments_create'), {:action=>:establishments_create}, :class=>'procedure create'
 =dyta :establishments
 %h2= tc :departments
+.aclist
+  =link_to tc('departments_create'), {:action=>:departments_create}, :class=>'procedure create'
 =dyta :departments

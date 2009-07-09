@@ -1,6 +1,6 @@
-= aclist do |l|
-  - l.action :shelves_update, :id=>@shelf.id
-  - l.action :shelves
+= toolbar do
+  - link :shelves_update, :id=>@shelf.id
+  - link :shelves
 
 =evalue @shelf, :name
 =evalue @shelf, :parent, :url=>{:action=>:shelves_display}

@@ -14,7 +14,7 @@ class AuthenticationController < ApplicationController
       sep = /[^a-z0-9\.\_]/i
       if name.match sep
         lname = name.split(sep)
-        company = Company.find_by_code(lname[0])
+        company = Company.find_by_code(lname[0].upper)
         name = lname[-1]
       else
         if User.count(:conditions=>{:name=>name})>1
@@ -40,7 +40,6 @@ class AuthenticationController < ApplicationController
     if request.post?
       if defined?(Ekylibre::DONT_REGISTER)
         hash = Digest::SHA256.hexdigest(params[:register_password].to_s)
-        puts hash
         redirect_to :action=>:login unless defined?(Ekylibre::DONT_REGISTER_PASSWORD)
         redirect_to :action=>:login if hash!=Ekylibre::DONT_REGISTER_PASSWORD
       end

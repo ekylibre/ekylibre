@@ -49,7 +49,6 @@ class Company < ActiveRecord::Base
   has_many :invoices
   has_many :invoice_lines
   has_many :journals
-  # has_many :journal_periods
   has_many :journal_records
   has_many :languages
   has_many :meeting_locations
@@ -84,12 +83,11 @@ class Company < ActiveRecord::Base
   has_many :users
   belongs_to :entity
   belongs_to :sales_journal, :class_name=>Journal.to_s
-
-  #validates_presence_of :entity_id
+  belongs_to :purchases_journal, :class_name=>Journal.to_s
+  belongs_to :bank_journal, :class_name=>Journal.to_s
 
   
   def before_validation
-    #raise Exception.new "kkkgggggkk"
     self.code = self.name.to_s[0..7].simpleize if self.code.blank?
     self.code = rand.to_s[2..100].to_i.to_s(36)[0..7] if self.code.blank?
     self.code.upper!

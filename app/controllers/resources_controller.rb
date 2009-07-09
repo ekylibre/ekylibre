@@ -6,7 +6,6 @@ class ResourcesController < ApplicationController
     t.column :last_name 
     t.action :employees_update, :image=>:update
     t.action :employees_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :create, :action=>:employees_create
   end
 
   dyta(:professions, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t|
@@ -16,7 +15,6 @@ class ResourcesController < ApplicationController
     t.column :commercial
     t.action :professions_update, :image=>:update
     t.action :professions_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :create, :action=>:professions_create
   end
 
   # this action lists all the employees with main informations for each of them.

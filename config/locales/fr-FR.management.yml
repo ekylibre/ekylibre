@@ -6,15 +6,9 @@ fr-FR:
       import_succeed: Vos données ont été correctement importées
       no_contacts: 'Aucune adresse définie pour {{name}}'
       title: Commerce
-      delays:
-        delays_create: 'Ajouter un nouveau délai'
       error_sale_order_already_paid: 'La vente a déjà été payée en totalité'
       no_check_to_embank: Aucun chèque à encaisser 
       no_stock_location: 'Veuillez créer un lieu de stockage'
-      payment_modes:
-        payment_modes_create: 'Créer un nouveau type de paiement'
-      payment_parts:
-        payments_create: Ajouter un nouveau paiement
       price: Prix
       price_amount_with_taxes: Prix TTC
       prices:
@@ -23,20 +17,12 @@ fr-FR:
       product_prices: 
         sales_prices_create: 'Créer un nouveau prix de vente'
         purchases_prices_create: 'Créer un nouveau prix d''achat'
-      products:
-        new_product: 'Ajout d''un nouveau produit'
       purchase_order_lines:
         purchase_order_lines_create: Ajouter un produit à la commande
       sale_order_lines:
         sale_order_lines_create: Ajouter un produit au devis
-      sale_order_natures:
-        sale_order_natures_create: Créer un nouveau type de vente
-      shelves: 
-        shelves_create: Ajouter une nouvelle catégorie de produits
       stock_locations:
         stocks_locations_create: Ajouter un nouveau lieu de stockage
-      stock_moves:
-        stocks_moves_create: Ajouter un mouvement de stock
       impossible_to_add_lines: 'Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande'
       impossible_to_add_lines_to_purchase: 'Vous ne pouvez plus ajouter de produits à votre achat'
       need_stocks_location_to_create_products: 'Vous devez créer un lieu de stockage pour pouvoir créer un produit'
@@ -59,6 +45,7 @@ fr-FR:
     management:
       
       delays:
+        delays_create: 'Ajouter un nouveau délai'
         title: 'Liste des délais'
       _delays_form:
         general: Général
@@ -223,6 +210,7 @@ fr-FR:
         existing_part: 'Utiliser un réglement non affecté'
       payment_modes:
         title: Types de paiement
+        payment_modes_create: 'Créer un nouveau type de paiement'
       payment_modes_create:
         title: Créer un nouveau type de paiement
       payment_modes_update:
@@ -262,6 +250,8 @@ fr-FR:
       price_lists_update:
         title: 'Modifier la liste de prix : {{value}}'
       products:
+      products:
+        products_create: 'Ajout d''un nouveau produit'
         title: 'Gérer les produits'
         nb_products:
           zero: 'Aucun produit enregistré'
@@ -372,9 +362,11 @@ fr-FR:
         payment_mode: Mode de paiement
         payment_on: Payé le
         payments: Règlements
+        payments_create: Ajouter un nouveau paiement
         payments_total: Total règlements
         rest_to_pay: Reste à payer
         title: Règlements
+
       sales_invoices:
         title: Facturation
         invoices: Factures
@@ -388,6 +380,7 @@ fr-FR:
         payments: Réglements
         to_invoice: Facturer
       sale_order_natures:
+        sale_order_natures_create: Créer un nouveau type de vente
         title: Types de ventes
       sale_order_lines_create:
         title: "Ajout d'une ligne de produit"
@@ -405,6 +398,7 @@ fr-FR:
       sales_print:
         deliveries_number: "jjkjj"
       shelves:
+        shelves_create: Ajouter une nouvelle catégorie de produits
         title: Gérer les catégories de produits
       shelves_create:
         title: 'Ajout d''une nouvelle catégorie de produits'
@@ -454,6 +448,7 @@ fr-FR:
       stocks_locations_create:
         title: 'Ajout d''un lieu de stockage'
       stocks_locations_display:
+        stocks_moves_create: Ajouter un mouvement de stock
         title: 'Détail du lieu de stockage : {{value}}'
         establishment: Établissement
         moves: Mouvements de stocks

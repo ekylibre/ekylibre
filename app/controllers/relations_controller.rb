@@ -19,7 +19,6 @@ class RelationsController < ApplicationController
     t.column :choices_count, :datatype=>:integer
     t.action :complements_update, :image=>:update
     t.action :complement_choices, :image=>:menulist, :if=>'RECORD.nature == "choice"'
-    t.procedure :complements_create
   end
 
   dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['session[:current_complement_id]']}, :order=>{'sort'=>'position'}) do |t| 
@@ -28,13 +27,10 @@ class RelationsController < ApplicationController
     t.action :complement_choices_up, :if=>"not RECORD.first\?", :method=>:post
     t.action :complement_choices_down, :if=>"not RECORD.last\?", :method=>:post
     t.action :complement_choices_update
-    t.procedure :complement_choices_create
-    t.procedure :complement_choices_sort, {:method=>:post}
   end
   
   def complements
     access :complements
-    #complements_list
   end
 
   def complement_choices
@@ -42,7 +38,6 @@ class RelationsController < ApplicationController
     @complement = find_and_check(:complement , params[:id])
     session[:current_complement_id] = @complement.id
     @title = {:value=>@complement.name}
-    complement_choices_list params
   end
 
   def complement_choices_create
@@ -352,7 +347,6 @@ class RelationsController < ApplicationController
             datum.errors.each_full do |msg|
               @entity.errors.add_to_base(msg)
             end
-            #            puts '>> Datum : '+datum.errors.inspect
           end
 
           @contact.entity_id = @entity.id
@@ -397,7 +391,7 @@ class RelationsController < ApplicationController
     
     if request.post? and @entity
       
-      puts params[:complement_datum].inspect
+      # puts params[:complement_datum].inspect
       for complement in @complements
         attributes = params[:complement_datum][complement.id.to_s]||{}
         attributes[:complement_id] = complement.id
@@ -584,7 +578,6 @@ class RelationsController < ApplicationController
     t.column :in_name
     t.action :entities_natures_update, :image=>:update
     t.action :entities_natures_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :entities_natures_create
   end
 
   def entities_natures

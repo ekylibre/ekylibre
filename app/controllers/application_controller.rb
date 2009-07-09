@@ -19,6 +19,25 @@ class ApplicationController < ActionController::Base
   # @@rights = {}
   ADMIN = "administrate"
 
+
+  def accessible?(url)
+    if url.is_a?(Hash)
+      url[:controller]||=controller_name 
+      url[:action]||=:index
+    end
+    if @current_user
+      if @current_user.admin or session[:rights].include?((@@rights[url[:controller].to_sym]||{})[url[:action].to_sym])
+        true
+      else
+        false
+      end
+    else
+      true
+    end
+  end
+  
+
+
   protected  
 
   def self.rights(list = false)
@@ -82,6 +101,7 @@ class ApplicationController < ActionController::Base
     end
     record
   end
+
 
 
   private
@@ -150,7 +170,7 @@ class ApplicationController < ActionController::Base
     end
     
   end
-  
+
   def help_search(article)
     @article = article
     session[:help_history] << @article if @article != session[:help_history].last

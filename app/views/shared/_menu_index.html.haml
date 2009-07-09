@@ -1,6 +1,10 @@
 - for list in menu[:list]
-  %div{:class=>'aclist '+list[:class].to_s}
-    %h2=t("views.#{self.controller.controller_name}.index.#{list[:name].to_s}")
-    %ul
-      - for action in list[:list]
-        %li=link_to t("views.#{self.controller.controller_name}.index.#{action[:name].to_s}"), action[:url]||{:action=>action[:name]}
+  - display = false
+  - list[:list].each do |action| 
+    - display = true if controller.accessible? action[:url]||{:action=>action[:name]}
+  - if display
+    %div{:class=>'aclist '+list[:class].to_s}
+      %h2=t("views.#{self.controller.controller_name}.index.#{list[:name].to_s}")
+      %ul
+        - for action in list[:list]
+          =li_link_to t("views.#{self.controller.controller_name}.index.#{action[:name].to_s}"), action[:url]||{:action=>action[:name]}

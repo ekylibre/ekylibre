@@ -29,6 +29,12 @@ fr-FR:
         no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'  
         no_financialyear: 'Aucun exercice enregistré'
 
+      unclosable_financialyear: "L'exercice ne peut être clôturé."
+      unclosable_journal: "Le journal ne peut être clôturé."
+      no_closable_journal: "Vous n'avez aucun journal à clôturer." 
+      no_closable_financialyear: "Vous n'avez aucun exercice à clôturer."  
+      next_illegal_period_financialyear: "Le prochain exercice ne démarre pas directement après."
+
   # Used in all the views
   # Used in all the views
   # Used in all the views

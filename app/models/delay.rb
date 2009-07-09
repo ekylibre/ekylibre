@@ -57,7 +57,6 @@ class Delay < ActiveRecord::Base
           end
         end
       else
-        puts ">>>> "+step
         return nil
       end
     end

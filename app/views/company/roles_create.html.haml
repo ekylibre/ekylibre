@@ -8,7 +8,7 @@
       =formalize do |f|
         - f.title tc((right[0].to_s+"_rights").to_sym)
         - for right_name in right[1]
-          - f.field t(('rights.'+right_name.to_s).to_sym), check_box_tag("right[#{right_name}]", "#{right_name}", true, :id=>"right_#{right_name}")
+          - f.field content_tag(:label,  t('rights.'+right_name.to_s), :for=>"right_#{right_name}"), check_box_tag("right[#{right_name}]", "#{right_name}", true, :id=>"right_#{right_name}")
   .actions
     =link_to tg(:previous), :action=>:index
     =submit_tag(tc('validate'), :action=>:roles_create)

@@ -111,30 +111,51 @@ module ApplicationHelper
   end
 
   def menus
-    
     MENUS
+  end
+
+
+
+  def link_to(*args, &block)
+    if block_given?
+      options      = args.first || {}
+      html_options = args.second
+      concat(link_to(capture(&block), options, html_options))
+    else
+      name         = args.first
+      options      = args.second || {}
+      html_options = args.third
+
+      if options.is_a? Hash
+        return "" unless controller.accessible?(options) 
+      end
+
+      url = url_for(options)
+      if html_options
+        html_options = html_options.stringify_keys
+        href = html_options['href']
+        convert_options_to_javascript!(html_options, url)
+        tag_options = tag_options(html_options)
+      else
+        tag_options = nil
+      end
+      
+      href_attr = "href=\"#{url}\"" unless href
+      "<a #{href_attr}#{tag_options}>#{name || url}</a>"
+    end
+  end
+
+  def li_link_to(*args)
+    options      = args[1] || {}
+    if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(options))
+      content_tag(:li, link_to(*args))
+    else
+      ''
+    end
   end
   
   def menu_index(controller=self.controller.controller_name.to_sym)
-   # raise Exception.new session.data.inspect
-#     code = ''
-#     menu = MENUS.detect{|m| m[:name]==controller}
-#     if menu
-#       for list in menu[:list]
-#         code += aclist(:class=>list[:class], :title=>list[:name]) do |l|
-#           for action in list[:list]
-#             l.action action[:name], action[:url]||{:action=>action[:name]}
-#           end
-#         end
-#       end
-#     end
-#     code
     render(:partial=>'shared/menu_index', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
-        
-#    for m in MENUS
-#      return render(:partial=>'shared/menu_index', :locals=>{:menu=>m}) if m[:name]==controller
-#    end
-#    ''
   end
       
   def countries
@@ -254,8 +275,16 @@ module ApplicationHelper
     
     # User Tag
     tag = ''
-    tag += link_to(@current_user.label, {:controller=>:company, :action=>:user})+" "
-    tag += link_to(@current_company.name, {:controller=>:company})+" "
+    if controller.accessible?({:controller=>:company, :action=>:user})
+      tag += link_to(@current_user.label, {:controller=>:company, :action=>:user})+" "
+    else
+      tag += content_tag(:span, @current_user.label)+" "
+    end
+    if controller.accessible?({:controller=>:company, :action=>:index})
+      tag += link_to(@current_company.name, {:controller=>:company})+" "
+    else
+      tag += content_tag(:span, @current_company.name)+" "
+    end
     tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout})+" "
     tag = content_tag(:nobr, tag);
 #    tag += css_menu_tag(session[:menu_user]) 
@@ -318,11 +347,6 @@ module ApplicationHelper
     code
   end
   
-  def title_tag
-#    content_tag(:title, 'Ekylibre - '+t(controller.controller_name.to_sym, :title))
-    content_tag(:title, 'Ekylibre - '+t("controllers.#{controller.controller_name.to_s}.title"))
-  end
-
   def title
     t("views."+controller.controller_name+'.'+action_name+'.title', @title||{})
   end
@@ -455,56 +479,62 @@ module ApplicationHelper
   end
 
 
-  def aclist(options={})
-    code = '[EmptyAclistError]'
+  # TOOLBAR
+
+  def toolbar(options={}, &block)
+    code = '[EmptyToolbarError]'
     if block_given?
-      list = Aclist.new()
-      yield list
-      list.action :back unless options[:back]
-      code = aclist_actions(list, options)
+      toolbar = Toolbar.new
+      self.instance_values.each do |k,v|
+        toolbar.instance_variable_set("@"+k.to_s, v)
+      end
+      block.arity < 1 ? toolbar.instance_eval(&block) : block[toolbar] if block
+      toolbar.link :back if options[:back]
+      # To HTML
+      code = ''
+      call = 'views.'+caller.detect{|x| x.match(/\/app\/views\//)}.split(/(\/app\/views\/|\.)/)[2].gsub(/\//,'.')+'.'
+      for tool in toolbar.tools
+        nature, args = tool[0], tool[1]
+        if nature == :link
+          name = args[0]
+          if name.is_a? Symbol and name!=:back
+            args[0] = t(call+name.to_s)
+            args[1] ||= {}
+            args[1][:action] ||= name
+            args[2] ||= {}
+            args[2][:class] = name.to_s.split('_')[-1]
+          end
+          code += li_link_to(*args)
+        end
+      end
+      code = content_tag(:ul, code)
+      code = content_tag(:h2, t(call+options[:title].to_s))+code if options[:title]
+      code = content_tag(:div, code, :class=>'toolbar'+(options[:class].nil? ? '' : ' '+options[:class].to_s))
     end
     return code
   end
 
-  def aclist_actions(list, options)
-    code = ''
-    call = 'views.'+caller.detect{|x| x.match(/\/app\/views\//)}.split(/(\/app\/views\/|\.)/)[2].gsub(/\//,'.')+'.'
-    for a in list.actions
-      if a[:name]==:back
-        code += content_tag(:li, link_to_back)
-      else
-        url = a.dup
-        url[:action] ||= url[:name]
-        url.delete :name
-        code += content_tag(:li, link_to(t(call+a[:name].to_s), url))
-      end
-    end
-    code = content_tag(:ul, code)
-    if options[:title]
-      if options[:title].is_a? Array
-        title_options = options[:title][1]
-        options[:title] = options[:title][0]
-      else
-        title_options = {}
-      end
-      code = content_tag(:h2, t(call+options[:title].to_s, title_options))+code 
-    end
-    content_tag(:div, code, :class=>'aclist '+options[:class].to_s)
-  end
-
-  class Aclist
-    attr_reader :actions
+  class Toolbar
+    attr_reader :tools
 
     def initialize()
-      @actions = []
+      @tools = []
     end
 
-    def action(name, options={})
-      @actions << options.merge({:name=>name})
+    def link(*args)
+      @tools << [:link, args]
     end
   end
 
 
+
+
+
+  #
+  #
+  #                         F O R M A L I Z E
+  #
+  #
   def formalize(options={})
     code = '[EmptyFormalizeError]'
     if block_given?

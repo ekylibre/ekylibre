@@ -1,4 +1,6 @@
-=aclist do  |l|
-  -l.action :complements_update, :id=>@complement.id
+=toolbar
+  -link :complement_choices_create
+  -link :complement_choices_sort, {}, {:method=>:post}
+  -link :complements_update, :id=>@complement.id
 
 =dyta :complement_choices

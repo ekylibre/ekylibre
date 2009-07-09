@@ -1,6 +1,6 @@
-= aclist do |l|
-  - l.action :price_lists_update, :id=>@price_list.id
-  - l.action :price_lists
+= toolbar do
+  - link :price_lists_update, :id=>@price_list.id
+  - link :price_lists
 
 =evalue @price_list, :name
 =evalue @price_list, :currency

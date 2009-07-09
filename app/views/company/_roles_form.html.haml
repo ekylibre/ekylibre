@@ -3,9 +3,7 @@
     =formalize do |f|
       - f.title tc((right[0].to_s+"_rights").to_sym)
       - for right_name in right[1]
-        - f.field t(('rights.'+right_name.to_s).to_sym), check_box_tag("right[#{right_name}]", "#{right_name}", session[:role].rights.include?(right_name.to_s)||session[:role].rights=="administrate", :id=>"right_#{right_name}")
-
-
-
+        - f.field content_tag(:label, t('rights.'+right_name.to_s), :for=>"right_#{right_name}"), check_box_tag("right[#{right_name}]", "#{right_name}", session[:role].rights.include?(right_name.to_s)||session[:role].rights=="administrate", :id=>"right_#{right_name}")
 
 =observe_field("user_role_id", :url=>{:action=>:users_create}, :frequency => 0.25 , :with=>"user_role_id")
+

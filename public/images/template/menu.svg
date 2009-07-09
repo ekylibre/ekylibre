@@ -853,14 +853,14 @@
        inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/template/table_head_sorted.png" />
     <path
        sodipodi:type="arc"
-       style="opacity:1;fill:url(#radialGradient3281);fill-opacity:1;stroke:#d8d8d8;stroke-width:2.18740067000000016;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.44236761"
+       style="opacity:1;fill:url(#radialGradient3281);fill-opacity:1;stroke:#d8d8d8;stroke-width:2.18740058;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.44236761"
        id="round"
        sodipodi:cx="51.375"
        sodipodi:cy="31.142853"
        sodipodi:rx="6.625"
        sodipodi:ry="6.5"
        d="M 58,31.142853 A 6.625,6.5 0 1 1 44.75,31.142853 A 6.625,6.5 0 1 1 58,31.142853 z"
-       transform="matrix(0.4528302,0,0,0.4615385,138.64507,104.18647)"
+       transform="matrix(0.4528302,0,0,0.4615385,158.52156,103.05998)"
        inkscape:label="#path2501"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
@@ -883,7 +883,7 @@
        sodipodi:rx="6.625"
        sodipodi:ry="6.5"
        d="M 58,31.142853 A 6.625,6.5 0 1 1 44.75,31.142853 A 6.625,6.5 0 1 1 58,31.142853 z"
-       transform="matrix(0.4528302,0,0,0.4615385,138.33406,111.55998)"
+       transform="matrix(0.4528302,0,0,0.4615385,158.52156,83.059983)"
        inkscape:label="#path2501"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />

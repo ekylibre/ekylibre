@@ -672,14 +672,10 @@ fr-FR:
       need_company_code_to_login: 'Vous devez saisir votre nom d''utilisateur accompagné de votre code société. Exemple : SOCIETE\jean'
       no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
     company:
+      restoration_finished: 'La restauration de la sauvegarde s''est terminée (en {{value}} secondes)'
       role: Rôle
       title: Société
-      departments:
-        departments_create: Ajouter un nouveau service
-      establishments:
-        establishments_create: Ajouter un nouvel établissement
-      users:
-        users_create: Ajouter un nouvel utilisateur
+      unvalid_version_for_restore: 'La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel'
     guide:
       title: Accueil
       unknown_action: 'La page que vous demandez n''est pas disponible. ({{value}})'
@@ -692,13 +688,6 @@ fr-FR:
   
     relations:
       client: Compte client 
-      complements:
-        complements_create: Ajouter un nouveau champ personnalisé
-      complement_choices:
-        complement_choices_create: Ajouter un nouveau choix à la liste
-        complement_choices_sort: Trier les choix par nom
-      contacts:
-        entities_contacts_create: 'Création d''un nouveau contact'
       contact_line_2: Dest-Service
       contact_line_3: Bat.-Rés.-ZI
       contact_line_4_number: Numéro de la voie
@@ -712,10 +701,6 @@ fr-FR:
       contact_phone: Téléphone
       contact_website: Site web
       entities_natures_delete_permission: Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches
-      entities:
-        entities_create: Créer une nouvelle fiche
-      entity_natures:
-        entities_natures_create: 'Ajouter un nouveau type de fiche' 
       entity_code: Code
       entity_comment: Commentaire
       entity_first_name: Prénom
@@ -729,19 +714,10 @@ fr-FR:
       title: Relations
       unfound_entity: La fiche que vous recherchez est introuvable
       you_must_select_a_file_to_import: Vous devez sélectionner un fichier à importer
+
     resources:
       title: Ressources
-      professions:
-        create: 'Ajout d''une nouvelle profession'        
-      employees:
-        create: 'Création d''un nouvel employé' 
-    accountancy:
-      title: 'Comptabilite'
-      unclosable_financialyear: "L'exercice ne peut être clôturé."
-      unclosable_journal: "Le journal ne peut être clôturé."
-      no_closable_journal: "Vous n'avez aucun journal à clôturer." 
-      no_closable_financialyear: "Vous n'avez aucun exercice à clôturer."  
-      next_illegal_period_financialyear: "Le prochain exercice ne démarre pas directement après."
+
       
  
  # Used in the helpers
@@ -804,7 +780,7 @@ fr-FR:
     # Company
     company:
       index:
-        backup: Enregistrer une sauvegarde
+        backup: Effectuer une sauvegarde des données
         departments: Services
         departments_create: Ajouter un nouveau service
         departments_number: Nombre de services
@@ -821,8 +797,11 @@ fr-FR:
         users_number: 'Nombre d''utilisateurs'
         values: Valeurs diverses
       restore:
+        backup: Effectuer une copie de sauvegarde
         download: Sélectionner le fichier de sauvegarde à télécharger
+        import_backup: Import de fichier de sauvegarde
         title: Recharger les données depuis une sauvegarde
+        your_new_code_is: 'Votre nouveau code société est : {{value}}'
       roles_create:
         accountancy_rights: Droits module Comptabilité
         authentication_rights: Droits de connexion
@@ -1024,7 +1003,8 @@ fr-FR:
         complements_create: Créer un nouveau champ personnalisé
       complement_choices:
         title: ' Options pour la liste déroulante : {{value}}'
-        complement_choices_create: 'Créer une nouvelle option'
+        complement_choices_create: Ajouter un nouveau choix à la liste
+        complement_choices_sort: Trier les choix par nom
         complements_update: 'Modifier le champ personnalisé'
       complement_choices_create: 
         title: ' Création d''une option pour la liste déroulante : {{value}}'
@@ -1188,6 +1168,7 @@ fr-FR:
         parameters: Paramètres
         professions: Professions
       employees:
+        employees_create: 'Création d''un nouvel employé' 
         title:  'Fiches des employés'
         nb_employees:
           zero: 'Aucun employé enregistré'
@@ -1204,8 +1185,8 @@ fr-FR:
       employees_update:
         title: 'Modification d''un employé'
       professions:
+        professions_create: 'Ajouter une nouvelle profession'
         title: 'Gestion des professions'
-        create: 'Ajouter une nouvelle profession'
       professions_create: 
         title: 'Ajout d''une nouvelle profession'        
       professions_update: 

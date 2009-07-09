@@ -5,7 +5,6 @@ td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:focus { color:#00C; }
 a:hover { color: #000; }
 input[type="text"], input[type="password"], textarea, select { border:1px solid #aaa; background: #fff;}
-.procedure {padding-left: 20px; background: url(../images/buttons/create.png) no-repeat center left ; padding:4px; background: #FEB;}
 .stocks { padding: 5px 0 15px 0; }
 .paymentpart{ text-align:center; padding: 5px 0 5px 0; }
 .payments { text-align:center ; color:#000088;}
@@ -84,7 +83,7 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 /*.help-t { float:right; margin:20px;}*/
 
 #guide { float:left; height:24px; margin-top:4px; }
-.menu a, .menu strong { margin-left: 10px; }
+.menu a, .menu strong, .menu span { margin-left: 10px; }
 
 #user { float:right; height:24px; margin:4px 10px; text-align:right;}
 
@@ -162,8 +161,6 @@ table.formalize a.fastadd { margin: 0px 8px; }
 
 .invalid { border: 1px solid red !important; background: #FDD !important; }
 
-
-a.procedure.create {padding-left: 20px; background: url(../images/buttons/create.png) no-repeat center left;}
 a.firefox{padding-left: 20px; background: url(../images/buttons/firefox.png) no-repeat center left;}
 
 
@@ -197,6 +194,21 @@ a.button:hover, a.button:active, a.button:focus { padding: 2px 7px;}
 #yield .aclist.special a:link, #yield .aclist.special a:visited { color: #A60; }
 
 #yield .aclist.indicator { background: #FD8; } /*#FA3;*/
+
+
+.toolbar { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px; border:1px solid #95b0e4; }
+.toolbar h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
+.toolbar ul {padding: 2px;}
+.toolbar ul > li {padding: 2px 0; list-style-type: none;}
+.toolbar ul > li > a {padding: 3px 2px 3px 20px; background: url(../images/template/round2.png) no-repeat center left;}
+.toolbar ul > li > a.update {background: url(../images/buttons/update.png) no-repeat center left;}
+.toolbar ul > li > a.create {background: url(../images/buttons/create.png) no-repeat center left;}
+.toolbar ul > li > a.sort   {background: url(../images/buttons/sort.png) no-repeat center left;}
+
+/*
+a.procedure.create {background: url(../images/buttons/create.png) no-repeat center left;}
+a.procedure.sort   {background: url(../images/buttons/sort.png) no-repeat center left;}
+*/
 /*e7f2fd bbcfe6*/
 
 .errorExplanation { background: #ECA; color: #543; margin: 8px; }

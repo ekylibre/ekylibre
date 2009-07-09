@@ -25,7 +25,6 @@ class ManagementController < ApplicationController
     t.action :delays_display, :image=>:show
     t.action :delays_update, :image=>:update
     t.action :delays_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :delays_create
   end
 
   def delays
@@ -170,8 +169,6 @@ class ManagementController < ApplicationController
     t.column :default
     t.column :range
     t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    # t.procedure :sales_prices_create,     :action=>:prices_create, :mode=>:sales
-    # t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases
   end
   
   def prices
@@ -358,7 +355,6 @@ class ManagementController < ApplicationController
     t.action :products_display, :image=>:show
     t.action :products_update, :image=>:update
     t.action :products_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :new_product, :action=>:products_create
   end
   
   dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}, :model=>:prices) do |t|
@@ -370,8 +366,6 @@ class ManagementController < ApplicationController
     t.column :default
     t.column :range
     t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    #t.procedure :sales_prices_create,     :action=>:prices_create, :mode=>:sales, :product_id=>['session[:product_id]']
-    #t.procedure :purchases_prices_create, :action=>:prices_create, :mode=>:purchases, :product_id=>['session[:product_id]']
   end
 
   dyta(:product_components, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}) do |t|
@@ -738,7 +732,6 @@ class ManagementController < ApplicationController
     t.column :comment
     t.action :sale_order_natures_update, :image=>:update
     t.action :sale_order_natures_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :sale_order_natures_create
   end
 
   def sale_order_natures
@@ -1334,7 +1327,6 @@ class ManagementController < ApplicationController
   dyta(:payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :label, :through=>:account
-    t.procedure :payment_modes_create
     t.action :payment_modes_update, :image=>:update
     t.action :payment_modes_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -1375,7 +1367,6 @@ class ManagementController < ApplicationController
     t.column :paid_on, :through=>:payment, :label=>tc('paid_on')
     t.action :payments_update, :image=>:update
     t.action :payments_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :payments_create
   end
 
   
@@ -1480,7 +1471,6 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:parent
     t.action :shelves_update, :image=>:update
     t.action :shelves_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    t.procedure :shelves_create
   end
 
   def shelves
@@ -1529,7 +1519,6 @@ class ManagementController < ApplicationController
     #t.action :stocks_locations_update, :mode=>:reservoir, :image=>:update, :if=>'RECORD.reservoir == true'
     t.action :stocks_locations_update, :image=>:update
     #t.action :stocks_locations_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-    #t.procedure :stocks_locations_create
   end
 
   dyta(:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :location_id=>['session[:current_stock_location_id]']}) do |t|
@@ -1542,7 +1531,6 @@ class ManagementController < ApplicationController
     t.column :virtual
     t.action :stocks_moves_update, :image=>:update, :if=>'RECORD.generated != true'
     t.action :stocks_moves_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure,:if=>'RECORD.generated != true' 
-    t.procedure :stocks_moves_create
   end
   
   def stocks_locations

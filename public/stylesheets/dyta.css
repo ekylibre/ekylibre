@@ -13,10 +13,12 @@ table.dyta tr.odd  td.sorted { background: #d6dbf9; } /* #FDD; }*/
 table.dyta tr.even td.sorted { background: #e4e7f9; } /*#FED; }*/
 table.dyta tr.child td { color: #77A; }
 table.dyta tr.child td:first-child { padding-left:20px; }
+/*
 table.dyta td.procedures { padding:4px; background: #FEB; }
 table.dyta td.procedures > a {padding: 4px;}
 table.dyta td.procedures > a.procedure.create {padding-left: 20px; background: url(../images/buttons/create.png) no-repeat center left;}
 table.dyta td.procedures > a.procedure.sort {padding-left: 20px; background: url(../images/buttons/sort.png) no-repeat center left;}
+*/
 table.dyta td.empty { text-align:center; color: #777; padding:4px; background: #EEF; }
 table.dyta th, table.dyta td.empty, table.dyta td.procedures { border-top: 1px solid #BACFE6; }
 table.dyta th, table.dyta td { border-left: 1px solid #BACFE6; border-right: 1px solid #BACFE6; }
@@ -40,9 +42,10 @@ table.dyta th a.sort.asc { background: url(../images/buttons/up3.png) right cent
 table.dyta th a.sort { display:block; width: 100%;}
 table.dyta tr.details td { padding: 8px; text-align:center;}
 table.dyta tr.details td.comment { padding: 10px; font-size:15px; }
+/*
 .avindex {margin-top:30px;  padding: 10px 0 10px 0; }
 .update{ text-align:center; margin-top:8px; font-size:15px;}
-
+*/
 .balance { text-align:center;margin-left:600px; margin-right:700px; margin-top:20px; padding:20px;border: 1px solid #BACFE6;}
 .total { text-align: right; }
 .total table { border-collapse: collapse; width: 100%; }

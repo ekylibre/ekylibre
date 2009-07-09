@@ -92,19 +92,19 @@ module Ekylibre
             builder += ", :order=>order)||{}\n"
 
             # Tag method
-            if definition.procedures.size>0
-              process = ''
-              for procedure in definition.procedures
-                process += "+' '+" unless process.blank?
-                process += "link_to(t(\"controllers.\#\{self.controller.controller_name.to_s\}.#{name.to_s}.#{procedure.name.to_s}\")"
-                process += ", {:action=>#{procedure.options[:action].inspect}}"
-                process += ", :method=>#{procedure.options[:method].inspect}" unless procedure.options[:method].nil?
-                process += ", :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"'"
-                process += ")"
-                # process += "link_to(tc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+procedure.options.inspect+", :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"')"
-              end      
-              process = "'"+content_tag(:tr, content_tag(:td, "'+"+process+"+'", :class=>:procedures, :colspan=>definition.columns.size))+"'"
-            end
+#             if definition.procedures.size>0
+#               process = ''
+#               for procedure in definition.procedures
+#                 process += "+' '+" unless process.blank?
+#                 process += "link_to(t(\"controllers.\#\{self.controller.controller_name.to_s\}.#{name.to_s}.#{procedure.name.to_s}\")"
+#                 process += ", {:action=>#{procedure.options[:action].inspect}}"
+#                 process += ", :method=>#{procedure.options[:method].inspect}" unless procedure.options[:method].nil?
+#                 process += ", :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"'"
+#                 process += ")"
+#                 # process += "link_to(tc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+procedure.options.inspect+", :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"')"
+#               end      
+#               process = "'"+content_tag(:tr, content_tag(:td, "'+"+process+"+'", :class=>:procedures, :colspan=>definition.columns.size))+"'"
+#             end
 
             paginate_var = 'pages'
             paginate = case options[:pagination]
@@ -159,7 +159,7 @@ module Ekylibre
             end
             code += "  end\n"
             code += paginate;
-            code += "  text = "+process+"+text\n" unless process.nil?
+            # code += "  text = "+process+"+text\n" unless process.nil?
             code += "  text += "+paginate_var+".to_s\n" unless paginate.blank?
             code += "  unless request.xhr?\n"
             code += "    text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"')\n"
@@ -319,7 +319,7 @@ module Ekylibre
       # Dyta represents a DYnamic TAble
       class Dyta
         attr_reader :name, :model, :options
-        attr_reader :columns, :procedures
+        attr_reader :columns # , :procedures
         
         def initialize(name, model, options)
           @name    = name
@@ -337,10 +337,10 @@ module Ekylibre
           @columns << DytaElement.new(model,:action,name,options)
         end
         
-        def procedure(name, options={})
-          options[:action] = name if options[:action].nil?
-          @procedures << DytaElement.new(model,:procedure,name,options)
-        end
+#         def procedure(name, options={})
+#           options[:action] = name if options[:action].nil?
+#           @procedures << DytaElement.new(model,:procedure,name,options)
+#         end
       end
 
 
