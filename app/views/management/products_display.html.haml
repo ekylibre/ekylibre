@@ -1,6 +1,6 @@
-= toolbar
-  - link :products_update, :id=>@product.id
-  - link :products
+=toolbar do
+  -link :products_update, :id=>@product.id
+  -link :products
 
 %table
   %tr
@@ -23,21 +23,21 @@
       =evalue @product, :comment
     %td
       =evalue @product, :manage_stocks
+
 - if @product_stocks.size > 0
   %h2= tc('stocks')
-  .stocks 
-    =render :partial=>"stock_indicator"
+  .stocks=render :partial=>"stock_indicator"
 
 -if @product.to_sale or @product.to_purchase
   %h2=tc :prices
-  .aclist
-    - if @product.to_sale
-      =link_to tc('sale_price_create'), :action=>:prices_create, :mode=>:sales,:product_id=>session[:product_id], :class=>'procedure create'
-    - if @product.to_purchase
-      =link_to tc('purchase_price_create'), :action=>:prices_create, :mode=>:purchases,:product_id=>session[:product_id], :class=>'procedure create'
+  =toolbar do |t|
+    -t.link(:sale_price_create, {:action=>:prices_create, :mode=>:sales, :product_id=>session[:product_id]}) if @product.to_sale
+    -t.link(:purchase_price_create, {:action=>:prices_create, :mode=>:purchases, :product_id=>session[:product_id]}) if @product.to_purchase
+
   =dyta :product_prices
 
 %h2=tc :components
-.aclist
-  =link_to tc('component_create'), :action=>:product_components_create, :class=>'procedure create'
+=toolbar do
+  -link :product_components_create
+
 =dyta :product_components

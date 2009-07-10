@@ -1,5 +1,4 @@
-.aclist
-  =link_to tc('stocks_locations_create'), {:action=>:stocks_locations_create, :mode=>:original}, :class=>'procedure create'
-  =' '
-  =link_to tc('reservoirs_create'), {:action=>:stocks_locations_create, :mode=>:reservoir}, :class=>'procedure create'
+=toolbar do
+  -link :stocks_locations_create, {:mode=>:original}
+  -link :reservoirs_create, {:action=>:stocks_locations_create, :mode=>:reservoir}
 =dyta :stock_locations

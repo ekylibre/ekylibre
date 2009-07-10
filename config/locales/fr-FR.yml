@@ -784,6 +784,7 @@ fr-FR:
         departments: Services
         departments_create: Ajouter un nouveau service
         departments_number: Nombre de services
+        entities_update: Mettre à jour la fiche société
         establishments: Établissements
         establishments_create: Ajouter un nouvel établissement
         establishments_number: 'Nombre d''établissements'
@@ -791,7 +792,7 @@ fr-FR:
         roles: Rôles 
         roles_create: Ajouter un rôle
         title: 'Informations sur la société : {{value}}'
-        update: Modifier le détail de la société
+        update: Modifier les codes société
         users: Utilisateurs
         users_create: Ajouter un nouvel utilisateur
         users_number: 'Nombre d''utilisateurs'
@@ -904,7 +905,9 @@ fr-FR:
           one: '1 achat en attente de reception'
           other: '{{count}} achats en attente de reception'
         performance_indicator: 'Tableau de bord'
+        production: 'Gestion de la production'
         relations: 'Gestion des relations clients/fournisseurs'
+        resources: 'Gestion des ressources humaines'
       about_us:
         title: 'À propos d''Ekylibre'
 

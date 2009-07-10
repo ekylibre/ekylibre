@@ -1,17 +1,15 @@
 -if @suppliers.size>0
-  .aclist
-    %ul
-      %li
-        -form_tag do
-          %label=tc "display"
-          -for mode in @modes
-            =radio_button(:price, :mode , mode, :checked=>( mode=="all" ? true : false))+"&nbsp;"+content_tag(:label, tc(mode), :for=>'price_mode_'+mode)
-          =select(:price, :supply, @suppliers.collect{|x| [x.full_name,x.id]})
-          =submit_tag tg('filter')
-.aclist
-  %ul
-    %li= link_to tc('sales_prices_create'), {:action=>:prices_create, :mode=>:sales}, :class=>'procedure create'
-    %li= link_to tc('purchases_prices_create'), {:action=>:prices_create, :mode=>:purchases}, :class=>'procedure create'
-    %li= link_to tc('prices_export'), {:action=>:prices_export}
-    %li= link_to tc('prices_import'), {:action=>:prices_import}
+  .toolbar
+    -form_tag do
+      %label=tc "display"
+      -for mode in @modes
+        =radio_button(:price, :mode , mode, :checked=>( mode=="all" ? true : false))+"&nbsp;"+content_tag(:label, tc(mode), :for=>'price_mode_'+mode)
+      =select(:price, :supply, @suppliers.collect{|x| [x.full_name,x.id]})
+      =submit_tag tg('filter')
+=toolbar do
+  -link :sales_prices_create, {:action=>:prices_create, :mode=>:sales}
+  -link :purchases_prices_create, {:action=>:prices_create, :mode=>:purchases}
+  -link :prices_export
+  -link :prices_import
+
 =dyta :prices

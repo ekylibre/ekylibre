@@ -53,13 +53,13 @@
         =evalue datum.complement.name, datum.value.to_s
 
 %h2=tc :contacts, :count=>@contacts_count
-.aclist
-  = link_to tc('entities_contacts_create'), {:action=>:entities_contacts_create, :id=>@entity.id}, :class=>'procedure create'
+=toolbar do
+  -link :entities_contacts_create, :id=>@entity.id
 =dyta :contacts
 -if @entity.client
   %h2=tc :sale_orders_number , :count=>@sale_orders_number
-  .aclist
-    = link_to tc('sales_new'), {:controller=>:management, :action=>:sales_new, :client_id=>@entity.id}, :class=>'procedure create'
+  =toolbar do
+    -link :sales_new, {:controller=>:management, :client_id=>@entity.id}
   -if @sale_orders_number > 0
     =dyta :entity_sales
   %h2= tc(:invoices, :count=>@invoices_count)
@@ -67,12 +67,12 @@
   -if @entity.client
     %h2=tc('client_balance')+" : "+@entity.balance.to_s
   %h2=tc :meetings, :count=>@meetings_count
-  .aclist
-    = link_to tc('meetings_create'), {:action=>:meetings_create, :entity_id=>@entity.id}, :class=>'procedure create'
+  =toolbar do
+    -link :meetings_create, :entity_id=>@entity.id
   -if @meetings_count > 0
     =dyta :entity_meetings
 
 %h2=tc :bank_accounts, :count=>@bank_accounts_count
-.aclist
-  = link_to tc('bank_accounts_create'), {:controller =>:accountancy, :action=>:bank_accounts_create, :entity_id=>@entity.id}, :class=>'procedure create'    
+=toolbar do
+  -link :bank_accounts_create, {:controller =>:accountancy, :entity_id=>@entity.id}
 =dyta :entity_bank_accounts

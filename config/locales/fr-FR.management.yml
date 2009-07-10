@@ -265,8 +265,8 @@ fr-FR:
         title: 'Ajouter un nouveau produit'
       products_display:
         components: Composants
-        component_create: Ajouter un nouveau composant
         prices: 'Prix du produit'
+        product_components_create: Ajouter un nouveau composant
         products: 'Voir la liste de produits'
         products_update: 'Modifier la fiche du produit'
         purchase_price_create: 'Créer un prix d''achat'
@@ -331,7 +331,7 @@ fr-FR:
         deliveries: Livraisons
         estimate_to_order: Passer le devis en commande
         lines: Lignes du devis
-        sale_order_line_create: Ajouter un produit au devis
+        sale_order_lines_create: Ajouter un produit au devis
         sales_print: Imprimer le devis
         title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
         total: Total

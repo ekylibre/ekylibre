@@ -1,8 +1,8 @@
 - if @valid
   %h1=tc(:subtitle, :journal=>@journal.name, :financialyear=>@financialyear.code)
 - if @valid
-  #update_params.aclist
-    =link_to_function tc(:update_params), "$('params').show(); $('update_params').hide();", :class=> 'procedure create'
+  #update_params.toolbar
+    =link_to_function tc(:update_params), "$('params').show(); $('update_params').hide();"
 #params.fore
   - form_tag(:action => :params_entries) do
     =formalize do |f|

@@ -12,7 +12,10 @@ module ApplicationHelper
        [ {:name=>:modules, :list=>
            [ {:name=>:relations, :url=>{:controller=>:relations}},
              {:name=>:accountancy, :url=>{:controller=>:accountancy}},
-             {:name=>:management, :url=>{:controller=>:management}} ] },
+             {:name=>:management, :url=>{:controller=>:management}},
+             {:name=>:resources, :url=>{:controller=>:resources}},
+             {:name=>:production, :url=>{:controller=>:production}}
+           ] },
          {:name=>:informations, :list=>
            [ {:name=>:about_us} ] }
        ] },
@@ -485,10 +488,16 @@ module ApplicationHelper
     code = '[EmptyToolbarError]'
     if block_given?
       toolbar = Toolbar.new
-      self.instance_values.each do |k,v|
-        toolbar.instance_variable_set("@"+k.to_s, v)
+      if block
+        if block.arity < 1
+          self.instance_values.each do |k,v|
+            toolbar.instance_variable_set("@"+k.to_s, v)
+          end
+          toolbar.instance_eval(&block)
+        else
+          block[toolbar] 
+        end
       end
-      block.arity < 1 ? toolbar.instance_eval(&block) : block[toolbar] if block
       toolbar.link :back if options[:back]
       # To HTML
       code = ''
@@ -507,9 +516,13 @@ module ApplicationHelper
           code += li_link_to(*args)
         end
       end
-      code = content_tag(:ul, code)
-      code = content_tag(:h2, t(call+options[:title].to_s))+code if options[:title]
-      code = content_tag(:div, code, :class=>'toolbar'+(options[:class].nil? ? '' : ' '+options[:class].to_s))
+      if code.strip.length>0
+        code = content_tag(:ul, code)
+        code = content_tag(:h2, t(call+options[:title].to_s))+code if options[:title]
+        code = content_tag(:div, code, :class=>'toolbar'+(options[:class].nil? ? '' : ' '+options[:class].to_s))
+      end
+    else
+      raise Exception.new('No block given for toolbar')
     end
     return code
   end

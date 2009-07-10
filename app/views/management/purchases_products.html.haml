@@ -2,9 +2,8 @@
   - link :purchases
 
 %h2=tc :lines 
--if @purchase_order.shipped == false
-  .aclist
-    =link_to tc('purchase_order_line_create'), :action=>:purchase_order_lines_create, :class=>'procedure create'
+=toolbar do
+  -link :purchase_order_lines_create if @purchase_order.shipped == false
 =dyta :purchase_order_lines
 
 

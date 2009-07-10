@@ -12,7 +12,7 @@
         %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3)
   .actions
     -unless defined?(Ekylibre::DONT_REGISTER)
-      =link_to tc(:register), {:action=>:register}, :class=>"procedure create"
+      =link_to tc(:register), {:action=>:register}, :class=>"register"
     =link_to tc(:download_firefox), "http://www.mozilla-europe.org/fr/firefox/", :class=>"firefox"
 #nojavascript.login
   .logoban

@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   ADMIN = "administrate"
 
 
-  def accessible?(url)
+  def accessible?(url={})
     if url.is_a?(Hash)
       url[:controller]||=controller_name 
       url[:action]||=:index

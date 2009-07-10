@@ -8,56 +8,10 @@
 
 %h2=tc :deliveries
 
-.aclist
-  -if !@sale_order.invoiced && @undelivered
-    =link_to tc("deliveries_create"), {:action=>:deliveries_create}, :class=>'procedure create'
+=toolbar do
+  -link :deliveries_create if !@sale_order.invoiced && @undelivered
 =dyta :sales_deliveries
 
-<!-- %table.dyta -->
-<!--   %tr -->
-<!--     -if !@sale_order.invoiced  -->
-<!--       %td.procedures{:colspan=>9}  -->
-<!--         =link_to "Ajouter une livraison", :action=>:deliveries_create -->
-
-<!--   -unless @deliveries.empty? -->
-<!--     %tr -->
-<!--       %th -->
-<!--       %th= tc 'supply' -->
-<!--       %th= tc 'ship' -->
-<!--       %th= tc 'deliver' -->
-<!--       %th= tc 'quantity' -->
-<!--       %th= tc 'amount' -->
-<!--       %th= tc 'amount_with_taxes' -->
-<!--       %th   -->
-<!--       %th    -->
-<!--   -for delivery in @deliveries -->
-<!--     -klass=cycle("odd","even") -->
-<!--     %tr{:class=>klass+' root'} -->
-<!--       %td{:colspan=>2}= delivery.contact.address -->
-<!--       %td= delivery.planned_on -->
-<!--       %td= delivery.moved_on -->
-<!--       %td -->
-<!--       %td= delivery.amount -->
-<!--       %td= delivery.amount_with_taxes -->
-<!--       -if (delivery.invoice_id.nil? and delivery.moved_on.nil?) -->
-<!--         %td= link_to tg('update'), :action=>:deliveries_update, :id=>delivery.id -->
-<!--         %td= link_to tg('delete'), {:action=>:deliveries_delete, :id=>delivery.id}, :method=>:post, :confirm=>tg(:are_you_sure) -->
-<!--       -elsif delivery.invoice_id.nil? -->
-<!--         %td  -->
-<!--         %td -->
-<!--       -else -->
-<!--         %td= tc'invoice_number' -->
-<!--         %td= link_to delivery.invoice.number, :action=>:sales_invoices, :id=>delivery.order_id -->
-<!--     - for lines in @delivery_lines -->
-<!--       -if lines.delivery_id == delivery.id and lines.quantity > 0 -->
-<!--         %tr{:class=>klass} -->
-<!--           %td{:style=>'width:20px'}  -->
-<!--           %td{:colspan=>3}= lines.product.name -->
-<!--           %td= lines.quantity -->
-<!--           %td= lines.amount -->
-<!--           %td= lines.amount_with_taxes -->
-<!--           %td -->
-<!--           %td -->
 - form_tag() do
   .actions
     =link_to tg(:previous), :action=>:sales_products

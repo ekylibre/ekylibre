@@ -2,5 +2,6 @@
 
 =render :partial=>'employees_search'
 
-.aclist=link_to tc(:employees_create), {:action=>:employees_create}, :class=>'procedure create'
+=toolbar do
+  -link :employees_create
 =dyta(:employees)

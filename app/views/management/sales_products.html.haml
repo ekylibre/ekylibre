@@ -4,9 +4,8 @@
   - link :sales_print, :id=>@sale_order.id
 
 %h2=tc :lines
--if @sale_order.state == 'P'
-  .aclist 
-    =link_to tc('sale_order_line_create'), {:action=>:sale_order_lines_create}, :class=>'procedure create'
+=toolbar do
+  -link(:sale_order_lines_create) if @sale_order.state == 'P'
 =dyta :sale_order_lines
 
 .total
