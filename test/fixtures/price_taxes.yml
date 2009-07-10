@@ -11,6 +11,7 @@
 #  created_by   :integer       
 #  updated_by   :integer       
 #  lock_version :integer       default(0), not null
+#  company_id   :integer       not null
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

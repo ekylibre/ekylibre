@@ -26,8 +26,8 @@
 class JournalRecord < ActiveRecord::Base
   belongs_to :company
   belongs_to :journal
-  belongs_to :financialyear, :class_name=>"Financialyear"
-  belongs_to :resource 
+  belongs_to :financialyear, :class_name=>Financialyear.name
+  belongs_to :resource, :polymorphic=>true
   has_many :entries, :foreign_key=>:record_id, :dependent=>:destroy 
   acts_as_list :scope=>:financialyear
 

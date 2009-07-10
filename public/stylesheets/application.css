@@ -61,29 +61,23 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 
 #top {height: 24px; }
 #top .menu a, #top .menu strong, #top .menu span { margin-left: 10px; }
+#guide { float:left; height:24px; margin-top:4px; }
+#user { float:right; height:24px; margin:4px 10px; text-align:right;}
 
-.help-link { float:right; }
-.help-link > a > div { width: 32px; height:32px; }
-#help-begin { background: url(../images/template/help-begin.png); height:32px; width:16px;}
-#help-web { background: url(../images/template/help-web.png); }
-/*#help-open { background: url(../images/template/help-open.png); }*/
-.help-link { padding: 7px 8px;}
-.help-link a { padding: 4px; font-size: 13px; color: #750; background: #e9e9a8; }
+.help-link { float:right; padding: 7px 8px;}
+.help-link a:link { padding: 4px; font-size: 13px; color: #750; background: #e9e9a8; }
+.help-link a:hover { color:black; }
 #help-open a { background: url(../images/buttons/help.png) no-repeat scroll left center; padding-left:20px; }
 #help-close a { background: url(../images/buttons/close.png) no-repeat scroll left center; padding-left:20px; }
 #help-previous a { background: url(../images/buttons/previous.png) no-repeat scroll left center; padding-left:20px; }
-/*.help-t { float:right; margin:20px;}*/
 
-#guide { float:left; height:24px; margin-top:4px; }
-
-#user { float:right; height:24px; margin:4px 10px; text-align:right;}
-
+/*
 #titleavis{ padding:20px 0 20px 0; text-align:center; color:#004477; border:0.1px solid blue; margin-top:20px; margin-bottom:10px; border-right:none; border-left:none;}
 #avis .main {padding:8px;  }
 #avis .logout { padding:3px 8px; text-align:right;  border-bottom:1px solid #C9D7F1; }
 #avis .title { padding:8px; text-align:center; color:#047 }
-
 .avis { padding: 10px 10px 30px 10px; text-align:center; margin-top:40px; border:0.1px solid black; font-weight:bold; border-right:none; border-left:none; }
+*/
 
 .clearfix:after { content: "."; display:block; height:0; clear: both; visibility: hidden; }
 /* backslash hack hides from IE mac \*/
@@ -177,10 +171,14 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 .toolbar ul {padding: 1px;}
 .toolbar ul > li {padding: 2px 0; list-style-type: none; height:16px; margin:2px 0;}
 .toolbar ul > li > a {padding: 2px 2px 2px 20px; height:16px; background: url(../images/template/round2.png) no-repeat center left;}
-.toolbar ul > li > a.update {background: url(../images/buttons/update.png) no-repeat center left;}
-.toolbar ul > li > a.create {background: url(../images/buttons/create.png) no-repeat center left;}
-.toolbar ul > li > a.sort   {background: url(../images/buttons/sort.png) no-repeat center left;}
-.toolbar ul > li > a.print  {background: url(../images/buttons/print.png) no-repeat center left;}
+.toolbar ul > li > a.update  {background: url(../images/buttons/update.png) no-repeat center left;}
+.toolbar ul > li > a.create  {background: url(../images/buttons/create.png) no-repeat center left;}
+.toolbar ul > li > a.sort    {background: url(../images/buttons/sort.png) no-repeat center left;}
+.toolbar ul > li > a.print   {background: url(../images/buttons/print.png) no-repeat center left;}
+.toolbar ul > li > a.backup  {background: url(../images/buttons/right.png) no-repeat center left;}
+.toolbar ul > li > a.export  {background: url(../images/buttons/right.png) no-repeat center left;}
+.toolbar ul > li > a.restore {background: url(../images/buttons/left.png) no-repeat center left;}
+.toolbar ul > li > a.import  {background: url(../images/buttons/left.png) no-repeat center left;}
 
 
 

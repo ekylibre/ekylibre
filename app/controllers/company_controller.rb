@@ -85,7 +85,7 @@ class CompanyController < ApplicationController
             keys[other] = {}
             for name, ref in other_class.reflections
               # Ex. : keys["User"]["role_id"] = "Role"
-              keys[other][ref.primary_key_name] = ref.class_name if ref.macro==:belongs_to and ref.class_name!=Company.name
+              keys[other][ref.primary_key_name] = (ref.options[:polymorphic] ? ref.options[:foreign_type].to_sym : ref.class_name) if ref.macro==:belongs_to and ref.class_name!=Company.name
             end
             other_class.delete_all(:company_id=>company.id)
           elsif reflection.macro==:belongs_to
@@ -93,6 +93,20 @@ class CompanyController < ApplicationController
             keys[Company.name][reflection.primary_key_name] = reflection.class_name
           end
         end
+
+        # Chargement des paramètres de la société
+        old_code = company.code
+        attrs = root.attributes
+        attrs.delete('id')
+        attrs.delete('lock_version')
+        attrs.each{|k,v| company.send(k+'=', v)}
+        for key, class_name in keys[Company.name]
+          v = ids[class_name][company[key].to_s]
+          company[key] = v unless v.nil?
+        end
+        company.save! #send(:update_without_callbacks) # 
+        @new_code = company.code if old_code!=company.code
+
         # Chargement des données sauvegardées
         data = []
         for table in root.elements
@@ -105,32 +119,30 @@ class CompanyController < ApplicationController
             attributes.delete('company_id')
             record = company.send(reflection.name).build
             attributes.each{|k,v| record.send(k+'=', v)}
-            record.save(false)
+            # record.save(false)
+            record.send(:create_without_callbacks)
             ids[reflection.class_name][id] = record.id
             data << record
           end
         end
+
         # Réorganisation des clés étrangères
         for record in data
           for key, class_name in keys[record.class.name]
             # user[:role_id] = ids["Role"][user[:role_id].to_s]
-            v = ids[class_name][record[key].to_s]
+            #raise Exception.new('>> '+class_name.inspect) if ids[class_name].nil?
+            if class_name.is_a? Symbol
+              v = ids[record[class_name]][record[key].to_s]
+            else
+              v = ids[class_name][record[key].to_s]
+            end
             record[key] = v unless v.nil? # ||record[key]
           end
-          record.save(false)
+          # record.save(false)
+          record.send(:update_without_callbacks)
         end
-        # Chargement des paramètres de la société
-        old_code = company.code
-        attrs = root.attributes
-        attrs.delete('id')
-        attrs.delete('lock_version')
-        attrs.each{|k,v| company.send(k+'=', v)}
-        for key, class_name in keys[Company.name]
-          v = ids[class_name][company[key].to_s]
-          company[key] = v unless v.nil?
-        end
-        company.save!
-        @new_code = company.code if old_code!=company.code
+
+        # raise Exception.new('Pas tout de suite')
         flash.now[:notice] = tc(:restoration_finished, :value=>(Time.now.to_i-start).to_s)
       end
 

@@ -3,14 +3,15 @@
     #help-close.help-link=link_to_remote(tg(:close), :url=>{:controller=>:help, :action=>:close}, :loading=>"closeHelp(); onLoading();", :loaded=>"onLoaded();")
     #help-previous.help-link=link_to_remote(tg(:previous), :url=>{:controller=>:help, :action=>:previous }, :update=>:help, :complete=>"resize2();", :loading=>"onLoading();", :loaded=>"onLoaded();" ) if session[:help_history].size>1
     %h1.title=tc :title
-  .content{:flex=>1, :style=>'overflow:auto;'}
-    - doc=retrieve(@article)
-    - if doc.blank?
-      .help-error
-        =tc(:error_no_file, :value=>@article)
-        =@article.to_s
-      %ul
-        %li=link_to_remote(tc("home"), :url=>{:controller=>:help, :action=>:search, :article=>"guide-index"}, :update=>:help, :complete=>"resize2();", :loading=>"onLoading();", :loaded=>"onLoaded();" )
-    - else
-      =doc
-    .text-end &nbsp;
+  -cache(:action=>"help", :id=>@article) do
+    .content{:flex=>1, :style=>'overflow:auto;'}
+      - doc=wikize(@article)
+      - if doc.blank?
+        .help-error
+          =tc(:error_no_file, :value=>@article)
+          =@article.to_s
+        %ul
+          %li=link_to_remote(tc("home"), :url=>{:controller=>:help, :action=>:search, :article=>"guide-index"}, :update=>:help, :complete=>"resize2();", :loading=>"onLoading();", :loaded=>"onLoaded();")
+      - else
+        =doc
+      .text-end &nbsp;

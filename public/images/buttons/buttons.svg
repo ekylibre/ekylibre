@@ -4199,12 +4199,18 @@
        style="opacity:0.9;fill:url(#linearGradient3687);fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient3689);stroke-width:0.67749643;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 168.74098,-15.643443 L 160.34065,-7.9900387 L 168.74098,-0.33663466 L 168.74098,-4.1633357 L 175.66478,-3.3609637 L 175.66771,-12.845906 L 168.74098,-11.81674 L 168.74098,-15.643443 z "
        id="path3651"
-       sodipodi:nodetypes="cccccccc" />
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="/home/brice/informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/left.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="opacity:0.9;fill:url(#linearGradient3691);fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient3693);stroke-width:0.67752331;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 183.26604,-15.64557 L 191.66705,-7.9921657 L 183.26604,-0.33876166 L 183.26604,-4.1654617 L 176.3417,-3.3630907 L 176.33876,-12.848032 L 183.26604,-11.818867 L 183.26604,-15.64557 z "
        id="path3653"
-       sodipodi:nodetypes="cccccccc" />
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="/home/brice/informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/right.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="opacity:0.9;fill:url(#radialGradient3695);fill-opacity:1;fill-rule:evenodd;stroke:url(#radialGradient3697);stroke-width:0.66637361;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 192.33319,-8.9217193 L 193.47948,-7.5479458 L 195.70913,-9.4629033 L 195.70913,-0.33318681 L 204.34134,-0.33318681 L 204.34134,-9.5461628 L 206.60612,-7.5063155 L 207.66253,-8.9217193 L 204.34134,-12.026137 L 204.34134,-14.711434 L 202.59852,-14.711434 L 202.59852,-13.424605 L 200.04607,-15.644375 L 192.33319,-8.9217193 z "

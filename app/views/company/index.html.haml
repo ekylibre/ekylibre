@@ -1,8 +1,8 @@
 =toolbar do
-  - link :entities_update, {:controller=>:relations, :id=>@company.entity_id}
-  - link :update
-  - link :backup
-  - link :restore
+  -link :entities_update, {:controller=>:relations, :id=>@company.entity_id}
+  -link :update
+  -link :backup
+  -link :restore
 
 .detail
   = evalue @company , :name 

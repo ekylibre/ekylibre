@@ -816,7 +816,7 @@ class RelationsController < ApplicationController
         FasterCSV.foreach(file) do |row|
           @entity = Entity.find_by_company_id_and_code(@current_company.id, row[indices[:entity_code]])
           if @entity.nil?
-            @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>Language.find(1).id, :nature_id=>@current_company.entity_natures[0])
+            @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>@current_company.entity.language.id, :nature_id=>@current_company.entity_natures[0])
             @contact = Contact.new(:default=>true, :company_id=>@current_company.id, :entity_id=>0, :norm_id=>@current_company.address_norms[0])
           else
             @contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>@entity.id, :default=>true, :deleted=>false})

@@ -59,6 +59,7 @@ class Company < ActiveRecord::Base
   has_many :payment_modes
   has_many :payment_parts
   has_many :prices
+  has_many :price_taxes
   has_many :products
   has_many :product_stocks
   has_many :professions

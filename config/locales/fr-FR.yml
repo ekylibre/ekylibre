@@ -1067,6 +1067,7 @@ fr-FR:
           one: '1 contact'
           other: '{{count}} contacts'
         entities_contacts_create: 'Ajouter un nouveau contact'
+        entities_print: Imprimer la fiche
         entities_update: Modifier la fiche
         invoices:
           zero: Aucune facture

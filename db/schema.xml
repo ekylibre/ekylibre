@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
-<analysis version='20090629120132'>
-  <table name='Account' version='20090629120132' label='Compte'>
+<analysis version='20090708072151'>
+  <table name='Account' version='20090708072151' label='Compte'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='number' type='CHARACTER VARYING(16)' notnull='true' label='Numéro'/>
     <column name='alpha' type='CHARACTER VARYING(16)'/>
@@ -24,7 +24,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='AccountBalance' version='20090629120132'>
+  <table name='AccountBalance' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='account_id' type='INTEGER' notnull='true'/>
     <column name='financialyear_id' type='INTEGER' notnull='true'/>
@@ -43,7 +43,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='AddressNorm' version='20090629120132'>
+  <table name='AddressNorm' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='reference' type='CHARACTER VARYING(255)'/>
@@ -57,7 +57,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='AddressNormItem' version='20090629120132'>
+  <table name='AddressNormItem' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='contact_norm_id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true'/>
@@ -76,7 +76,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='BankAccount' version='20090629120132' label='Compte bancaire'>
+  <table name='BankAccount' version='20090708072151' label='Compte bancaire'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Intitulé'/>
     <column name='iban' type='CHARACTER VARYING(34)' notnull='true' label='IBAN'/>
@@ -101,7 +101,7 @@
     <column name='address' type='TEXT' label='Adresse'/>
     <column name='bank_name' type='CHARACTER VARYING(50)' label='Nom de la banque'/>
   </table>
-  <table name='BankAccountStatement' version='20090629120132' label='Relevé de compte bancaire'>
+  <table name='BankAccountStatement' version='20090708072151' label='Relevé de compte bancaire'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='bank_account_id' type='INTEGER' notnull='true' label='Compte bancaire utilisé'/>
     <column name='started_on' type='DATE' notnull='true' label='Du'/>
@@ -117,7 +117,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Company' version='20090629120132' label='Société'>
+  <table name='Company' version='20090708072151' label='Société'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='code' type='CHARACTER VARYING(8)' notnull='true' label='Code interne'/>
@@ -135,7 +135,7 @@
     <column name='purchases_journal_id' type='INTEGER'/>
     <column name='bank_journal_id' type='INTEGER'/>
   </table>
-  <table name='Complement' version='20090629120132'>
+  <table name='Complement' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='nature' type='CHARACTER VARYING(8)' notnull='true' label='Type de donnée'/>
@@ -152,7 +152,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='ComplementChoice' version='20090629120132'>
+  <table name='ComplementChoice' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='complement_id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
@@ -165,7 +165,7 @@
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
     <column name='position' type='INTEGER'/>
   </table>
-  <table name='ComplementDatum' version='20090629120132'>
+  <table name='ComplementDatum' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='entity_id' type='INTEGER' notnull='true'/>
     <column name='complement_id' type='INTEGER' notnull='true'/>
@@ -182,7 +182,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Contact' version='20090629120132' label='Contact'>
+  <table name='Contact' version='20090708072151' label='Contact'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='entity_id' type='INTEGER' notnull='true'/>
     <column name='norm_id' type='INTEGER' notnull='true'/>
@@ -216,7 +216,7 @@
     <column name='started_at' type='TIMESTAMP WITHOUT TIME ZONE'/>
     <column name='stopped_at' type='TIMESTAMP WITHOUT TIME ZONE'/>
   </table>
-  <table name='Currency' version='20090629120132'>
+  <table name='Currency' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='code' type='CHARACTER VARYING(255)' notnull='true'/>
@@ -231,7 +231,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Delay' version='20090629120132'>
+  <table name='Delay' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='active' default='TRUE' type='BOOLEAN' notnull='true' label='Utilisable'/>
@@ -244,7 +244,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Delivery' version='20090629120132'>
+  <table name='Delivery' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='order_id' type='INTEGER' notnull='true'/>
     <column name='invoice_id' type='INTEGER' label='Facture'/>
@@ -262,7 +262,7 @@
     <column name='moved_on' type='DATE' label='Faite le'/>
     <column name='mode_id' type='INTEGER' label='Type'/>
   </table>
-  <table name='DeliveryLine' version='20090629120132'>
+  <table name='DeliveryLine' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='delivery_id' type='INTEGER' notnull='true'/>
     <column name='order_line_id' type='INTEGER' notnull='true'/>
@@ -279,7 +279,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='DeliveryMode' version='20090629120132'>
+  <table name='DeliveryMode' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='code' type='CHARACTER VARYING(3)' notnull='true' label='Code'/>
@@ -291,7 +291,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Department' version='20090629120132' label='Service'>
+  <table name='Department' version='20090708072151' label='Service'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
@@ -303,7 +303,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Document' version='20090629120132'>
+  <table name='Document' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='filename' type='CHARACTER VARYING(255)'/>
     <column name='original_name' type='CHARACTER VARYING(255)' notnull='true'/>
@@ -320,7 +320,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Embankment' version='20090629120132'>
+  <table name='Embankment' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='amount' default='0.0' type='NUMERIC(16,4)' notnull='true' label='Montant'/>
     <column name='payments_number' default='0' type='INTEGER' notnull='true' label='Nombre de chèque'/>
@@ -336,7 +336,7 @@
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
     <column name='locked' type='BOOLEAN' notnull='true'/>
   </table>
-  <table name='Employee' version='20090629120132' label='Employé'>
+  <table name='Employee' version='20090708072151' label='Employé'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='department_id' type='INTEGER' notnull='true' label='Département'/>
     <column name='establishment_id' type='INTEGER' notnull='true' label='Etablissement'/>
@@ -358,7 +358,7 @@
     <column name='profession_id' type='INTEGER' label='Profession'/>
     <column name='commercial' type='BOOLEAN' notnull='true' label='Activité commerciale'/>
   </table>
-  <table name='Entity' version='20090629120132' label='Relation'>
+  <table name='Entity' version='20090708072151' label='Relation'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='nature_id' type='INTEGER' notnull='true' label='Type'/>
     <column name='language_id' type='INTEGER' notnull='true' label='Langue'/>
@@ -401,7 +401,7 @@
     <column name='first_met_on' type='DATE' label='Date de la première rencontre'/>
     <column name='category_id' type='INTEGER' label='Catégorie'/>
   </table>
-  <table name='EntityCategory' version='20090629120132'>
+  <table name='EntityCategory' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='description' type='TEXT' label='Description'/>
@@ -415,7 +415,7 @@
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
     <column name='code' type='CHARACTER VARYING(8)'/>
   </table>
-  <table name='EntityNature' version='20090629120132'>
+  <table name='EntityNature' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom (interne)'/>
     <column name='abbreviation' type='CHARACTER VARYING(255)' notnull='true' label='Abréviation'/>
@@ -431,7 +431,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Entry' version='20090629120132' label='Écriture'>
+  <table name='Entry' version='20090708072151' label='Écriture'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='record_id' type='INTEGER' notnull='true' label='Numéro'/>
     <column name='account_id' type='INTEGER' notnull='true' label='Compte'/>
@@ -456,7 +456,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Establishment' version='20090629120132' label='Établissement'>
+  <table name='Establishment' version='20090708072151' label='Établissement'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='nic' type='CHARACTER VARYING(5)' notnull='true' label='NIC (Numéro Interne de Classement)'/>
@@ -469,7 +469,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Financialyear' version='20090629120132' label='Exercice'>
+  <table name='Financialyear' version='20090708072151' label='Exercice'>
     <column name='id' type='INTEGER' notnull='true' label='Numéro'/>
     <column name='code' type='CHARACTER VARYING(12)' notnull='true' label='Code'/>
     <column name='closed' type='BOOLEAN' notnull='true' label='Clôturé'/>
@@ -482,7 +482,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Inventory' version='20090629120132'>
+  <table name='Inventory' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='date' type='DATE' notnull='true'/>
     <column name='comment' type='TEXT'/>
@@ -494,7 +494,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='InventoryLine' version='20090629120132'>
+  <table name='InventoryLine' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='product_id' type='INTEGER' notnull='true'/>
     <column name='location_id' type='INTEGER' notnull='true'/>
@@ -508,7 +508,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Invoice' version='20090629120132'>
+  <table name='Invoice' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='client_id' type='INTEGER' notnull='true' label='Client'/>
     <column name='nature' type='CHARACTER VARYING(1)' notnull='true'/>
@@ -533,7 +533,7 @@
     <column name='credit' type='BOOLEAN' notnull='true' label='Avoir'/>
     <column name='created_on' type='DATE' label='Créée le'/>
   </table>
-  <table name='InvoiceLine' version='20090629120132'>
+  <table name='InvoiceLine' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='order_line_id' type='INTEGER' notnull='true'/>
     <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
@@ -551,7 +551,7 @@
     <column name='invoice_id' type='INTEGER'/>
     <column name='origin_id' type='INTEGER'/>
   </table>
-  <table name='Journal' version='20090629120132' label='Journal'>
+  <table name='Journal' version='20090708072151' label='Journal'>
     <column name='id' type='INTEGER' notnull='true' label='Journal'/>
     <column name='nature' type='CHARACTER VARYING(16)' notnull='true' label='Nature'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
@@ -567,7 +567,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='JournalRecord' version='20090629120132'>
+  <table name='JournalRecord' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='resource_id' type='INTEGER'/>
     <column name='resource_type' type='CHARACTER VARYING(255)'/>
@@ -588,14 +588,15 @@
     <column name='closed' type='BOOLEAN'/>
     <column name='financialyear_id' type='INTEGER' label='Exercice'/>
   </table>
-  <table name='Language' version='20090629120132'>
+  <table name='Language' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='native_name' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='iso2' type='CHARACTER VARYING(2)' notnull='true'/>
     <column name='iso3' type='CHARACTER VARYING(3)' notnull='true'/>
+    <column name='company_id' type='INTEGER'/>
   </table>
-  <table name='Meeting' version='20090629120132'>
+  <table name='Meeting' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='entity_id' type='INTEGER' notnull='true' label='Client'/>
     <column name='location_id' type='INTEGER' notnull='true' label='Lieu'/>
@@ -611,7 +612,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='MeetingLocation' version='20090629120132'>
+  <table name='MeetingLocation' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='description' type='TEXT' label='Description'/>
@@ -623,7 +624,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='MeetingMode' version='20090629120132'>
+  <table name='MeetingMode' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='active' type='BOOLEAN'/>
@@ -634,7 +635,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Parameter' version='20090629120132'>
+  <table name='Parameter' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='nature' default='&quot;u&quot;' type='CHARACTER VARYING(1)' notnull='true'/>
@@ -652,7 +653,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Payment' version='20090629120132'>
+  <table name='Payment' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='paid_on' type='DATE' label='Réglé le'/>
     <column name='amount' type='NUMERIC(16,2)' notnull='true' label='Montant'/>
@@ -669,11 +670,11 @@
     <column name='check_number' type='CHARACTER VARYING(255)' label='Numéro de chèque'/>
     <column name='account_number' type='CHARACTER VARYING(255)' label='Numéro de compte'/>
     <column name='entity_id' type='INTEGER' label='Client'/>
-    <column name='to_bank_on' default='Fri, 03 Jul 2009' type='DATE' notnull='true' label='À encaisser le'/>
+    <column name='to_bank_on' default='Wed, 08 Jul 2009' type='DATE' notnull='true' label='À encaisser le'/>
     <column name='embankment_id' type='INTEGER'/>
     <column name='embanker_id' type='INTEGER' label='Encaisseur'/>
   </table>
-  <table name='PaymentMode' version='20090629120132'>
+  <table name='PaymentMode' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(50)' notnull='true' label='Nom'/>
     <column name='nature' default='&quot;U&quot;' type='CHARACTER VARYING(1)' notnull='true'/>
@@ -686,7 +687,7 @@
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
     <column name='mode' type='CHARACTER VARYING(5)' label='Mode'/>
   </table>
-  <table name='PaymentPart' version='20090629120132'>
+  <table name='PaymentPart' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='amount' type='NUMERIC(16,2)' label='Montant attribué à la vente'/>
     <column name='payment_id' type='INTEGER' notnull='true'/>
@@ -698,7 +699,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Price' version='20090629120132'>
+  <table name='Price' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true' label='Produit'/>
     <column name='amount' type='NUMERIC(16,4)' notnull='true' label='Montant HT'/>
     <column name='amount_with_taxes' type='NUMERIC(16,4)' notnull='true' label='Montant TTC'/>
@@ -721,7 +722,7 @@
     <column name='default' default='TRUE' type='BOOLEAN' label='Par défaut'/>
     <column name='category_id' type='INTEGER' label='Catégorie de fiche associée'/>
   </table>
-  <table name='PriceTax' version='20090629120132'>
+  <table name='PriceTax' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='price_id' type='INTEGER' notnull='true'/>
     <column name='tax_id' type='INTEGER' notnull='true'/>
@@ -731,8 +732,9 @@
     <column name='created_by' type='INTEGER'/>
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
+    <column name='company_id' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Product' version='20090629120132' label='Produit'>
+  <table name='Product' version='20090708072151' label='Produit'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='to_purchase' type='BOOLEAN' notnull='true' label='Produit destiné à l&apos;achat'/>
     <column name='to_sale' default='TRUE' type='BOOLEAN' notnull='true' label='Produit destiné à la vente'/>
@@ -768,7 +770,7 @@
     <column name='product_account_id' type='INTEGER' label='Compte comptable de produits'/>
     <column name='charge_account_id' type='INTEGER' label='Compte comptable de charges'/>
   </table>
-  <table name='ProductComponent' version='20090629120132'>
+  <table name='ProductComponent' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='product_id' type='INTEGER' notnull='true'/>
@@ -786,7 +788,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='ProductStock' version='20090629120132'>
+  <table name='ProductStock' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
     <column name='location_id' type='INTEGER' notnull='true' label='Pour le lieu de stockage'/>
@@ -802,7 +804,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Production' version='20090629120132'>
+  <table name='Production' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
     <column name='quantity' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Quantité'/>
@@ -816,7 +818,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Profession' version='20090629120132' label='Profession'>
+  <table name='Profession' version='20090708072151' label='Profession'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='code' type='CHARACTER VARYING(255)' label='Code'/>
@@ -829,7 +831,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='PurchaseOrder' version='20090629120132' label='Achat'>
+  <table name='PurchaseOrder' version='20090708072151' label='Achat'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='supplier_id' type='INTEGER' notnull='true' label='Fournisseur'/>
     <column name='number' type='CHARACTER VARYING(64)' notnull='true' label='Numéro'/>
@@ -848,7 +850,7 @@
     <column name='planned_on' type='DATE' label='Réception prévue le'/>
     <column name='moved_on' type='DATE'/>
   </table>
-  <table name='PurchaseOrderLine' version='20090629120132'>
+  <table name='PurchaseOrderLine' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='order_id' type='INTEGER' notnull='true'/>
     <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
@@ -867,7 +869,7 @@
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
     <column name='location_id' type='INTEGER' label='Lieu de stockage'/>
   </table>
-  <table name='Role' version='20090629120132'>
+  <table name='Role' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='company_id' type='INTEGER' notnull='true'/>
@@ -878,7 +880,7 @@
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
     <column name='rights' type='TEXT'/>
   </table>
-  <table name='SaleOrder' version='20090629120132'>
+  <table name='SaleOrder' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='client_id' type='INTEGER' notnull='true' label='Client'/>
     <column name='nature_id' type='INTEGER' notnull='true' label='Nature'/>
@@ -910,7 +912,7 @@
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
     <column name='confirmed_on' type='DATE' label='Confirmée le'/>
   </table>
-  <table name='SaleOrderLine' version='20090629120132'>
+  <table name='SaleOrderLine' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='order_id' type='INTEGER' notnull='true'/>
     <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
@@ -932,7 +934,7 @@
     <column name='price_amount' type='NUMERIC(16,2)' label='Montant HT'/>
     <column name='tax_id' type='INTEGER' label='Taxe'/>
   </table>
-  <table name='SaleOrderNature' version='20090629120132'>
+  <table name='SaleOrderNature' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='expiration_id' type='INTEGER' notnull='true' label='Délai d&apos;expiration du devis'/>
@@ -949,7 +951,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Sequence' version='20090629120132'>
+  <table name='Sequence' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='increment' default='1' type='INTEGER' notnull='true'/>
@@ -963,7 +965,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Shape' version='20090629120132' label='Îlot'>
+  <table name='Shape' version='20090708072151' label='Îlot'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='polygon' type='CHARACTER VARYING(255)' notnull='true' label='Coordonnées'/>
@@ -977,7 +979,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='ShapeOperation' version='20090629120132' label='Traitement'>
+  <table name='ShapeOperation' version='20090708072151' label='Traitement'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='description' type='TEXT' label='Description'/>
@@ -995,7 +997,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='ShapeOperationNature' version='20090629120132' label='Type de Traitement'>
+  <table name='ShapeOperationNature' version='20090708072151' label='Type de Traitement'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='description' type='TEXT' label='Description'/>
@@ -1006,7 +1008,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Shelf' version='20090629120132' label='Catégorie de produit'>
+  <table name='Shelf' version='20090708072151' label='Catégorie de produit'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='catalog_name' type='CHARACTER VARYING(255)' notnull='true' label='Nom pour le catalogue'/>
@@ -1020,7 +1022,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='StockLocation' version='20090629120132' label='Lieu de stockage'>
+  <table name='StockLocation' version='20090708072151' label='Lieu de stockage'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='x' type='CHARACTER VARYING(255)' label='Position X'/>
@@ -1043,7 +1045,7 @@
     <column name='unit_id' type='INTEGER'/>
     <column name='number' type='INTEGER' label='Numéro'/>
   </table>
-  <table name='StockMove' version='20090629120132' label='Mouvement de stock'>
+  <table name='StockMove' version='20090708072151' label='Mouvement de stock'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='planned_on' type='DATE' notnull='true' label='Prévu le'/>
@@ -1068,7 +1070,7 @@
     <column name='origin_type' type='CHARACTER VARYING(255)'/>
     <column name='origin_id' type='INTEGER'/>
   </table>
-  <table name='StockTracking' version='20090629120132'>
+  <table name='StockTracking' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='serial' type='CHARACTER VARYING(255)'/>
@@ -1082,7 +1084,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='StockTransfer' version='20090629120132' label='Transfert ou perte de Stock'>
+  <table name='StockTransfer' version='20090708072151' label='Transfert ou perte de Stock'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='nature' type='CHARACTER VARYING(8)' notnull='true' label='Type'/>
     <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
@@ -1099,7 +1101,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Tax' version='20090629120132'>
+  <table name='Tax' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='included' type='BOOLEAN' notnull='true' label='Incluse'/>
@@ -1117,7 +1119,7 @@
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
     <column name='deleted' type='BOOLEAN' notnull='true'/>
   </table>
-  <table name='Template' version='20090629120132'>
+  <table name='Template' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true'/>
     <column name='content' type='TEXT' notnull='true'/>
@@ -1129,7 +1131,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='Unit' version='20090629120132'>
+  <table name='Unit' version='20090708072151'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(8)' notnull='true'/>
     <column name='label' type='CHARACTER VARYING(255)' notnull='true'/>
@@ -1142,7 +1144,7 @@
     <column name='updated_by' type='INTEGER'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true'/>
   </table>
-  <table name='User' version='20090629120132' label='Utilisateur'>
+  <table name='User' version='20090708072151' label='Utilisateur'>
     <column name='id' type='INTEGER' notnull='true'/>
     <column name='name' type='CHARACTER VARYING(32)' notnull='true' label='Nom d&apos;utilisateur'/>
     <column name='first_name' type='CHARACTER VARYING(255)' notnull='true' label='Prénom'/>
@@ -1154,7 +1156,7 @@
     <column name='email' type='CHARACTER VARYING(255)' label='E-mail'/>
     <column name='company_id' type='INTEGER' notnull='true'/>
     <column name='language_id' type='INTEGER' notnull='true'/>
-    <column name='role_id' type='INTEGER' notnull='true' label='Rôle'/>
+    <column name='role_id' type='INTEGER' notnull='true' label='À partir du rôle'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true'/>
     <column name='created_by' type='INTEGER'/>
@@ -1163,5 +1165,7 @@
     <column name='free_price' default='TRUE' type='BOOLEAN' notnull='true' label='Prix libres'/>
     <column name='reduction_percent' default='5.0' type='NUMERIC' notnull='true' label='Taux de réduction autorisé (%)'/>
     <column name='credits' default='TRUE' type='BOOLEAN' notnull='true' label='Création d&apos;avoirs'/>
+    <column name='admin' default='TRUE' type='BOOLEAN' notnull='true' label='Admin'/>
+    <column name='rights' type='TEXT'/>
   </table>
 </analysis>
