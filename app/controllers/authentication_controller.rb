@@ -80,6 +80,7 @@ class AuthenticationController < ApplicationController
   
   def init_session(user)
     session[:help] = true
+    session[:side] = true
     session[:user_id] = user.id
     session[:last_query] = Time.now.to_i
     session[:expiration] = 3600

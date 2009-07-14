@@ -11,11 +11,15 @@
   %body{:id=>:body, :orient=>:vertical, :onload=>'initTab(); resize();', :onresize=>'resize();'}
     = top_tag
     #columns{:orient=>:horizontal, :flex=>1}
-      =left_tag
+      -side=side_tag
+      -unless side.blank?
+        #side{:flexy=>'true', :orient=>:vertical, :style=>''+(session[:side] ? "" : "display:none")}
+          =side      
       #main{:flex=>9, :orient=>:vertical}
         #content{:flex=>3, :orient=>:vertical}
           .nav{:flexy=>'true'}
-            =help_tag
+            =help_link_tag
+            =side_link_tag
             %h1.title=title
           #yield{:flex=>50, :orient=>:vertical}
             = flash_tag :error

@@ -586,6 +586,7 @@ fr-FR:
         nature_id: Type 
         planned_on: Prévu le
         shape_id: Îlot
+        validated: Effectué
       shape_operation_nature:
         name: Nom
         description: Description
@@ -1415,6 +1416,7 @@ fr-FR:
     format_date:
       iso: "(AAAA-MM-JJ)"
     hint: 'Astuce&nbsp;: {{value}}'
+    indicator: 'Tableau de bord'
     info: 'Information&nbsp;: {{value}}'
     n: non
     next: Suivant

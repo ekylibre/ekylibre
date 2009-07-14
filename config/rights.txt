@@ -12,6 +12,7 @@
 # management:invoices_print:print_sales
 # production:test_svg:<new>
 # relations:meetings_delete:manage_meetings
+accountancy:synthesis:<new>
 accountancy:accounts:administrate_accountancy
 accountancy:accounts_create:administrate_accountancy
 accountancy:accounts_delete:administrate_accountancy
@@ -66,25 +67,25 @@ authentication:index:administrate_nothing
 authentication:login:administrate_nothing
 authentication:logout:administrate_nothing
 authentication:register:administrate_nothing
+company:dyta_departments:administrate_company
+company:dyta_establishments:administrate_company
+company:dyta_roles:administrate_company
+company:dyta_users:administrate_company
+company:index:administrate_company
+company:user:administrate_company
 company:backup:manage_company
 company:departments:manage_company
 company:departments_create:manage_company
 company:departments_delete:manage_company
 company:departments_update:manage_company
-company:dyta_departments:administrate_company
-company:dyta_establishments:administrate_company
-company:dyta_roles:administrate_company
-company:dyta_users:administrate_company
 company:establishments:manage_company
 company:establishments_create:manage_company
 company:establishments_delete:manage_company
 company:establishments_update:manage_company
-company:index:administrate_company
 company:restore:manage_company
+company:update:manage_company
 company:roles_create:manage_users
 company:roles_update:manage_users
-company:update:manage_company
-company:user:administrate_company
 company:users:manage_users
 company:users_create:manage_users
 company:users_delete:manage_users
@@ -244,15 +245,16 @@ production:productions:manage_productions
 production:productions_create:manage_productions
 production:productions_delete:manage_productions
 production:productions_update:manage_productions
+production:dyta_unvalidated_operations:manage_shape_operations
 production:shape_operation_natures:manage_shape_operations
 production:shape_operation_natures_create:manage_shape_operations
 production:shape_operations:manage_shape_operations
 production:shape_operations_create:manage_shape_operations
 production:shape_operations_delete:manage_shape_operations
 production:shape_operations_update:manage_shape_operations
+production:unvalidated_operations:manage_shape_operations
 production:shapes:manage_shapes
 production:shapes_create:manage_shapes
-production:unvalidated_operations:manage_shape_operations
 relations:dyta_client_invoices:administrate_relations
 relations:dyta_contacts:administrate_relations
 relations:dyta_entity_bank_accounts:administrate_relations

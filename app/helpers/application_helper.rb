@@ -249,14 +249,7 @@ module ApplicationHelper
     content_tag(:div, content_tag(:div,code), :class=>:evalue)
   end
 
-  
-
-
-  def left_tag
-    return '' if !MENUS_ARRAY.include? self.controller.controller_name.to_sym or action_name=="index"
-    content_tag(:div, menu_index, :id=>:side, :flexy=>true, :orient=> :vertical)
-  end
-
+ 
 
   def top_tag
     return '' if @current_user.blank?
@@ -267,14 +260,11 @@ module ApplicationHelper
       tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"),{:controller=>m[:name]})+" "
     end
     tag = content_tag(:nobr, tag);
-  #  tag += css_menu_tag(session[:menu_guide])
     code += content_tag(:div, tag, :id=>:guide, :class=>:menu)
     # Fix
     tag = ''
     tag += image_tag('template/ajax-loader-2.gif', :id=>:loading, :style=>'display:none;')
-    #    tag  = content_tag :div, tag
     code += content_tag(:div, tag, :style=>'text-align:center;', :align=>:center, :flex=>1)
-    #    code += content_tag(:div, tag, :style=>'left:0pt;')
     
     # User Tag
     tag = ''
@@ -290,77 +280,44 @@ module ApplicationHelper
     end
     tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout})+" "
     tag = content_tag(:nobr, tag);
-#    tag += css_menu_tag(session[:menu_user]) 
     code += content_tag(:div, tag, :id=>:user, :class=>:menu, :align=>:right)
     
     # Fix
-    #    code += content_tag(:div, '', :style=>'clear:both;')    
     code = content_tag(:div, code, :id=>:top, :orient=>:horizontal, :flexy=>true)
     code
   end
 
-  def menu_item_title(item)
-    title = item.name
-    if item.dynamic
-      title.gsub!('$company_name' , @current_company.name)
-      title.gsub!('$user_name' , @current_user.name)
-      title.gsub!('$user_label' , @current_user.label)
-    end
-    title
-  end
-
-
-  def css_menu_list(items)
+  def side_tag
+    return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym) or action_name=="index"
     code = ''
-    name_company =  @current_company.name 
-    name_user    =  @current_user.name
-    for item in items
-      menu_item_title(item)
-      if item.dynamic
-        if item.name == @current_company.name
-          tag   = link_to(name_company , item.url) +  css_sub_menu(item)
-        elsif item.name == @current_user.label
-          tag   = link_to(name_user , item.url) +  css_sub_menu(item)
-        else 
-          tag   = link_to('Quitter' , item.url) +  css_sub_menu(item)
-        end
-      else
-        tag   = link_to(item.name , item.url) +  css_sub_menu(item)
-      end
-      code += content_tag(:li , tag )
-    end
-    content_tag(:ul ,code)
-  end
-  
-  def css_sub_menu(item)
-    sub_menu = MenuItem.find(:all ,:order=>"position ASC",  :conditions=> { :parent_id => item.id } )
-    if sub_menu.size == 0 
-      return ''
-    else
-      css_menu_list(sub_menu)
-    end 
-  end
-  
-  def css_menu_tag(menu , options={})
-    menu = Menu.find_by_id(menu) if menu.is_a? Integer
-    raise Exception.new("Wrong type:"+menu.class.to_s) unless menu.is_a? Menu
-    menu_items = MenuItem.find(:all ,:order=>"position ASC", :conditions=> { :parent_id => nil , :menu_id => menu} )#. NULL AND menu_id = ?', menu ] )
-    code = css_menu_list(menu_items)
-    code = content_tag(:div,code , {:class=>:menu}.merge(options)) 
+    # code += link_to t("controllers.#{self.controller.controller_name}.title"), {:controller=>controller.controller_name.to_sym, :action=>:index}, :class=>:index
+    code += link_to tg("indicator"), {:controller=>controller.controller_name.to_sym, :action=>:index}, :class=>:indicator
+    code += menu_index
+    # content_tag(:div, code, :id=>:side, :flexy=>true, :orient=> :vertical)
     code
   end
-  
+
+
+
   def title
     t("views."+controller.controller_name+'.'+action_name+'.title', @title||{})
   end
 
-  def help_tag
+  def help_link_tag
     return '' if @current_user.blank?
     options = {:class=>"help-link"} 
     url = {:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name}
     content = content_tag(:div, '&nbsp;')
     options[:style] = "display:none" if session[:help]
     code = content_tag(:div, link_to_remote("Afficher l'aide", :update=>:help,  :url=>url, :complete=>"openHelp();", :loading=>"onLoading();", :loaded=>"onLoaded();"), {:id=>"help-open"}.merge(options))
+  end
+
+  def side_link_tag
+    return '' unless @current_user
+    return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym) or action_name=="index"
+    code = content_tag(:div)
+    operation = (session[:side] ? "close" : "open")
+    link_to_remote(code, {:url=>{:controller=>:help, :action=>:side}, :loading=>"onLoading(); openSide();", :loaded=>"onLoaded();"}, :id=>"side-"+operation, :class=>"side-link")
   end
 
 

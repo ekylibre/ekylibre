@@ -224,6 +224,19 @@ function closeHelp() {
   resize();
 }
 
+function openSide() {
+  if ($('side').style.display=='none') {
+    $('side').setStyle({display:'block'});
+    $('side-open').setAttribute('id', 'side-close');
+  } else {
+    $('side').setStyle({display:'none'});
+    $('side-close').setAttribute('id', 'side-open');
+  }
+  resize();
+}
+
+
+
 
 function windowResize() {
   var dims   = document.viewport.getDimensions();

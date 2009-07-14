@@ -23,5 +23,10 @@ class HelpController < ApplicationController
     render :partial=>'search'
   end
 
+  def side
+    session[:side] = false if session[:side].nil?
+    session[:side] = !session[:side] # (params[:operation]=='open')
+  end
+
 end
    

@@ -2,7 +2,7 @@
 
 h1 { font-size: 16pt; }
 
-#top, #side, #help, #help-open, .aclist, .act { display:none; }
+#top, #side, #help, #help-open, .toolbar, .act { display:none; }
 
 #main { width: 100%; }
 #left { width: 0%; }

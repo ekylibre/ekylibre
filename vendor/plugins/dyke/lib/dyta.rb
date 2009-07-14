@@ -125,11 +125,11 @@ module Ekylibre
 
             record = 'r'
             child  = 'c'
-            header = columns_to_td(definition.columns, :nature=>:header, :method=>list_method_name, :order=>options[:order], :id=>name)
-            body = columns_to_td(definition.columns, :nature=>:body , :record=>record, :order=>options[:order])
+            header = columns_to_td(definition, :nature=>:header, :method=>list_method_name, :order=>options[:order], :id=>name)
+            body = columns_to_td(definition, :nature=>:body , :record=>record, :order=>options[:order])
             if options[:children].is_a? Symbol
               children = options[:children].to_s
-              child_body = columns_to_td(definition.columns, :nature=>:children, :record=>child, :order=>options[:order])
+              child_body = columns_to_td(definition, :nature=>:children, :record=>child, :order=>options[:order])
             end          
             
             header = 'content_tag(:tr, ('+header+'), :class=>"header")'
@@ -191,7 +191,8 @@ module Ekylibre
           end
           
           
-          def columns_to_td(columns, options={})
+          def columns_to_td(definition, options={})
+            columns = definition.columns
             code = ''
             nature = options[:nature]||:body
             record = options[:record]||'RECORD'
@@ -248,6 +249,11 @@ module Ekylibre
                   code += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"+column_sort
                   code += ", :style=>'"+style+"'" unless style.blank?
                   code += ")"
+                when :check
+                  code += "content_tag(:td,"+
+                    "check_box_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name}, :id=>'#{definition.name}_'+#{record}.id.to_s+'_#{column.name}')"+
+                    "+hidden_field_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 0)"+
+                    ", :class=>'chk')"
                 when :action
                   code += "content_tag(:td, "+(nature==:body ? column.operation(record) : "''")+", :class=>'act')"
                 else 
@@ -303,6 +309,8 @@ module Ekylibre
               '"'+value.gsub('"','\"')+'"'
             elsif [Date, DateTime].include? value.class
               '"'+value.to_formatted_s(:db)+'"'
+            elsif value.is_a? NilClass
+              'nil'
             else
               value.to_s
             end
@@ -330,17 +338,17 @@ module Ekylibre
         end
         
         def column(name, options={})
-          @columns << DytaElement.new(model,:column,name,options)
+          @columns << DytaElement.new(model, :column, name, options)
         end
         
         def action(name, options={})
-          @columns << DytaElement.new(model,:action,name,options)
+          @columns << DytaElement.new(model, :action, name, options)
         end
         
-#         def procedure(name, options={})
-#           options[:action] = name if options[:action].nil?
-#           @procedures << DytaElement.new(model,:procedure,name,options)
-#         end
+        def check(name, options={})
+          @columns << DytaElement.new(model, :check, name, options)
+        end
+        
       end
 
 
@@ -386,6 +394,8 @@ module Ekylibre
               end;
             when :action
               'ƒ'
+            when :check
+              @model.human_attribute_name(@name.to_s)
             else 
               '-'
             end
@@ -428,7 +438,6 @@ module Ekylibre
         end
 
         def data(record='record', child = false)
-          
           code = if child and @options[:children].is_a? Symbol
                    record+'.'+@options[:children].to_s
                  elsif child and @options[:children].is_a? FalseClass
@@ -524,7 +533,7 @@ if Ekylibre::Dyke::Dyta.will_paginate
       end  
       protected
       def page_link(page, text, attributes = {})
-        @template.link_to_remote(text, {:url => url_for(page), :method => :get}.merge(@remote))
+        @template.link_to_remote(text, {:url => url_for(page), :method => :get}.merge(@remote), attributes)
       end
     end  
   end

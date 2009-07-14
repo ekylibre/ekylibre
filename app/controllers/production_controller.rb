@@ -187,15 +187,28 @@ class ProductionController < ApplicationController
     render_form
   end
 
+  dyta(:unvalidated_operations, :model=>:shape_operations, :conditions=>{:moved_on=>nil, :company_id=>['@current_company.id']}) do |t|
+    t.column :name 
+    t.column :name, :through=>:nature
+    t.column :full_name, :through=>:employee
+    t.column :name, :through=>:shape
+    t.column :planned_on
+    t.check :validated, :value=>'RECORD.planned_on<=Date.today'
+  end
+
   def unvalidated_operations
     @shape_operations = @current_company.shape_operations.find(:all, :conditions=>{:moved_on=>nil})
     if request.post?
-      shape_operations = params[:shape_operation].collect{|x| ShapeOperation.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:shape_operation].nil?
-      if !shape_operations.nil?
-        for shape_operation in shape_operations
-          shape_operation.update_attributes!(:moved_on=>Date.today)
-        end
+      for id, values in params[:unvalidated_operations]
+        operation = ShapeOperation.find_by_id_and_company_id(id, @current_company.id)
+        operation.update_attributes!(:moved_on=>Date.today) if operation and values[:validated]
       end
+#       shape_operations = params[:shape_operation].collect{|x| ShapeOperation.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:shape_operation].nil?
+#       if !shape_operations.nil?
+#         for shape_operation in shape_operations
+#           shape_operation.update_attributes!(:moved_on=>Date.today)
+#         end
+#       end
       redirect_to :action=>:unvalidated_operations
     end
   end

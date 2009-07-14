@@ -18,9 +18,15 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 
 .nav { height: 32px; }
 .nav .title { color: #750; font-size: 20px;  height: 24px; padding:4px 8px; font-weight: bold; overflow:hidden; margin:0; }
+.side-link { float:left; display:block;}
+.side-link div { width: 22px; height:32px; background: url(../images/buttons/close3.png) left center no-repeat;}
+#side-open div  { background: url(../images/buttons/open3.png) left center no-repeat;}
+#side-close div { background: url(../images/buttons/close3.png) left center no-repeat;}
+/*#leftos{ float:left; border:none; margin: 8px 0 0 1px; }
+#leftos img { border:none;}*/
 
-#content .nav { background: #C9D7F1; }
-#content .title { color: #047; }
+#main .nav { background: #C9D7F1; }
+#main .title { color: #047; }
 
 #help .nav { background: #e9e9a8; }
 #help .title { color: #750; text-align: center; }
@@ -38,13 +44,15 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #help .content .text-end { height: 1px; }
 #help .content .help-error { color: red; text-align: center; padding: 8px; background:#F5EAD7; }
 
-#side { width: 164px; padding: 8px 0 8px 8px; background: #c9d7f1; overflow: auto;  border-top: 1px solid #95b0e4; }
-#side .menu { background: #FFF; padding:0px; margin:0px 0px 8px; border: 2px solid #95b0e4; }
+#side { width: 164px; padding: 0 0 8px 8px; background: #c9d7f1; overflow: auto;  border-top: 1px solid #95b0e4;}
+#side .menu { background: #FFF; padding:0px; margin:8px 0px 0px; border: 2px solid #95b0e4; }
 #side .menu h2 { font-size : 13px; color: #00223B; padding: 2px 4px; background: #95b0e4; text-align: center; }
 #side .menu ul { padding: 0 2px 0 4px; }
-#side .menu li { padding: 2px 4px 4px 12px; list-style-type: none; background: url(../images/template/round.png) no-repeat center left; }
+#side .menu li { padding: 1px 4px 2px 12px; list-style-type: none; background: url(../images/template/round.png) no-repeat center left; }
 #side .menu li:hover { background: url(../images/template/round_hover.png) no-repeat center left; }
 #side .menu li a { font-size: 11px; }
+/*#side .index { display:block; padding: 2px; font-size: 11px; text-align:center; background: #FFF; border: 2px solid #95b0e4; margin: 2px;}*/
+#side .indicator { display:block; padding: 3px 2px 2px 20px; margin: 4px; background: url(../images/buttons/complete.png) left no-repeat;}
 
 #yield { padding: 8px; overflow: auto; background: url(../images/template/columns.png) repeat-x top; border: 1px solid #95b0e4; }
 #yield > h1 { margin: 0px 0px 8px; font-size:20px; color: #047;}
@@ -59,12 +67,12 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #yield .menu.indicator { background: #FD8; } /*#FA3;*/
 .errorExplanation { background: #ECA; color: #543; margin: 8px; }
 
-#top {height: 24px; }
-#top .menu a, #top .menu strong, #top .menu span { margin-left: 10px; }
+#top {height: 24px;}
+#top .menu a, #top .menu strong, #top .menu span { margin-left: 6px; }
 #guide { float:left; height:24px; margin-top:4px; }
 #user { float:right; height:24px; margin:4px 10px; text-align:right;}
 
-.help-link { float:right; padding: 7px 8px;}
+.help-link { float:right; padding: 8px 4px;}
 .help-link a:link { padding: 4px; font-size: 13px; color: #750; background: #e9e9a8; }
 .help-link a:hover { color:black; }
 #help-open a { background: url(../images/buttons/help.png) no-repeat scroll left center; padding-left:20px; }

@@ -32,7 +32,7 @@ class Production < ActiveRecord::Base
   end
 
   def validate
-    errors.add_to_base(tc:stock_location_can_receive_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) unless self.location.can_receive(self.product_id)
+    errors.add_to_base(tc(:stock_location_can_receive_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name)) unless self.location.can_receive(self.product_id)
   end
 
  
