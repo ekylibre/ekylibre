@@ -26,6 +26,7 @@ class HelpController < ApplicationController
   def side
     session[:side] = false if session[:side].nil?
     session[:side] = !session[:side] # (params[:operation]=='open')
+    render :text=>''
   end
 
 end

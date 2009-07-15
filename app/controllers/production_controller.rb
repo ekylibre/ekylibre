@@ -203,12 +203,6 @@ class ProductionController < ApplicationController
         operation = ShapeOperation.find_by_id_and_company_id(id, @current_company.id)
         operation.update_attributes!(:moved_on=>Date.today) if operation and values[:validated]
       end
-#       shape_operations = params[:shape_operation].collect{|x| ShapeOperation.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:shape_operation].nil?
-#       if !shape_operations.nil?
-#         for shape_operation in shape_operations
-#           shape_operation.update_attributes!(:moved_on=>Date.today)
-#         end
-#       end
       redirect_to :action=>:unvalidated_operations
     end
   end

@@ -103,6 +103,11 @@ table.invex, table.flex { width: 100% }
 .evalue .value { width:164px; }
 .evalue .code { font-family: monospace; }
 
+table.evalue { border-collapse: collapse; margin: 0 auto;}
+table.evalue td { border-bottom: 1px dotted #CCC; margin: 0px 4px; padding:1px 4px; }
+table.evalue .label { text-align:right; color: #777; }
+table.evalue .value { text-align:left; }
+
 div.tr { display: table-row; }
 div.td { display: table-cell; }
 

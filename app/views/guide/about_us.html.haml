@@ -1,4 +1,7 @@
 #about_us{:style=>'text-align: center; padding: 64px;'}
-  %p
-    =image_tag "logos.png"
-  =link_to "www.ekylibre.org", "http://www.ekylibre.org"
+  =link_to image_tag("logos.png"), "http://www.ekylibre.org"
+  %table.evalue
+    -for p in @properties
+      %tr
+        %td.label=p[0]
+        %td.value=p[1]

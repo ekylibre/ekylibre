@@ -250,10 +250,7 @@ module Ekylibre
                   code += ", :style=>'"+style+"'" unless style.blank?
                   code += ")"
                 when :check
-                  code += "content_tag(:td,"+
-                    "check_box_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name}, :id=>'#{definition.name}_'+#{record}.id.to_s+'_#{column.name}')"+
-                    "+hidden_field_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 0)"+
-                    ", :class=>'chk')"
+                  code += "content_tag(:td,"+(nature==:body ? "hidden_field_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id=>nil)+check_box_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name}, :id=>'#{definition.name}_'+#{record}.id.to_s+'_#{column.name}')" : "")+", :class=>'chk')"
                 when :action
                   code += "content_tag(:td, "+(nature==:body ? column.operation(record) : "''")+", :class=>'act')"
                 else 
@@ -469,9 +466,10 @@ module Ekylibre
           link_options[:confirm] = ::I18n.translate('general.'+@options[:confirm].to_s) unless @options[:confirm].nil?
           link_options[:method]  = @options[:method]     unless @options[:method].nil?
           link_options = link_options.inspect.to_s
-          link_options = link_options[1..link_options.size-2]
+          link_options = link_options[1..-2]
+          verb = @name.to_s.split('_')[-1]
           image_title = @options[:title]||@name.to_s.humanize
-          image_file = "buttons/"+(@options[:image]||@name.to_s.split('_')[-1]).to_s+".png"
+          image_file = "buttons/"+(@options[:image]||verb).to_s+".png"
           image_file = "buttons/unknown.png" unless File.file? "#{RAILS_ROOT}/public/images/"+image_file
           if @options[:remote] 
             remote_options = @options.dup
@@ -480,26 +478,26 @@ module Ekylibre
             remote_options = remote_options.inspect.to_s
             remote_options = remote_options[1..-2]
             code  = "link_to_remote(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
-            code += ", :url=>{:action=>:"+@name.to_s+", :id=>"+record+".id}"
-            code += ", "+remote_options
+            code += ", {:url=>{:action=>:"+@name.to_s+", :id=>"+record+".id}"
+            code += ", "+remote_options+"}"
+            code += ", {:alt=>::I18n.t('general.#{verb}'), :title=>::I18n.t('general.#{verb}')}"
             code += ")"
           elsif @options[:actions]
             raise Exception.new("options[:actions] have to be a Hash.") unless @options[:actions].is_a? Hash
             cases = []
             for a in @options[:actions]
-              cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag('buttons/"+a[1][:action].to_s.split('_')[-1]+".png', :border=>0, :alt=>'"+a[0].to_s+"')"+
+              v = a[1][:action].to_s.split('_')[-1]
+              cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag('buttons/"+v+".png', :border=>0, :alt=>'"+a[0].to_s+"')"+
                 ", {"+(a[1][:controller] ? ':controller=>:'+a[1][:controller].to_s+', ' : '')+":action=>'"+a[1][:action].to_s+"', :id=>"+record+".id}"+
-                ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+"}"+
+                ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :alt=>::I18n.t('general.#{v}'), :title=>::I18n.t('general.#{v}')}"+
                 ")\n"
             end
 
             code = "if "+cases.join("elsif ")+"end"
           else
             code  = "link_to(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
-
             code += ", {"+(@options[:controller] ? ':controller=>:'+@options[:controller].to_s+', ' : '')+":action=>:"+@name.to_s+", :id=>"+record+".id}"
-
-            code += ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+"}"
+            code += ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :alt=>::I18n.t('general.#{verb}'), :title=>::I18n.t('general.#{verb}')}"
             code += ")"
           end
           code = "if ("+@options[:if].gsub('RECORD', record)+")\n"+code+"\n end" if @options[:if]

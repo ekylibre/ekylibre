@@ -18,6 +18,10 @@ class GuideController < ApplicationController
   end
   
   def about_us
+    File.open("#{RAILS_ROOT}/VERSION") {|f| @version = f.read.split(',')}
+    @properties = Rails::Info.properties
+    @properties.reverse!
+    @properties.insert(0, ["Ekylibre version", @version.reverse.join(' / ')])
   end
 
 end

@@ -1406,9 +1406,12 @@ fr-FR:
     are_you_sure: 'Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?'
     back: 'Revenir à la page précédente'
     cancel: 'Annuler'
+    choices: 'Choix'
     close: 'Fermer'
     create: 'Créer'
     delete: 'Supprimer'
+    display: 'Afficher'
+    down: 'Descendre'
     edit: 'Modifier'
     example: 'Exemple&nbsp;: {{value}}'
     filter: Filtrer
@@ -1418,12 +1421,13 @@ fr-FR:
     hint: 'Astuce&nbsp;: {{value}}'
     indicator: 'Tableau de bord'
     info: 'Information&nbsp;: {{value}}'
+    lock: 'Verrouiller'
     n: non
     next: Suivant
     new: Nouveau...
     no_records: 'Pas d''enregistrements'
     previous: Précédent
-    print: Impression
+    print: Imprimer
     search: Rechercher
     search_go: Lancer la recherche
     submit: Envoyer
@@ -1432,6 +1436,8 @@ fr-FR:
       journal: 'Le journal demandé est indisponible ({{value}})'
       product: Le produit demandé est indisponible
       financialyear: 'L''exercice comptable est indisponible {{value}}'
+    unlock: 'Déverrouiller'
+    up: 'Monter'
     update: 'Modifier'
     y: oui
    
