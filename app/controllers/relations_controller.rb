@@ -1,6 +1,7 @@
 class RelationsController < ApplicationController
   
   def index
+    @entities = @current_company.entities
   end
 
   dyta(:entity_bank_accounts, :model => :bank_accounts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|

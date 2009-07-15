@@ -46,13 +46,14 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #help .content .text-end { height: 1px; }
 #help .content .help-error { color: red; text-align: center; padding: 8px; background:#F5EAD7; }
 
-#side { width: 164px; padding: 0 0 8px 8px; background: #c9d7f1; overflow: auto;  border-top: 1px solid #95b0e4;}
+#side { width: 192px; padding: 0 0 8px 8px; background: #c9d7f1; overflow: auto;  border-top: 1px solid #95b0e4;}
 #side .menu { background: #FFF; padding:0px; margin:8px 0px 0px; border: 2px solid #95b0e4; }
-#side .menu h2 { font-size : 13px; color: #00223B; padding: 2px 4px; background: #95b0e4; text-align: center; }
-#side .menu ul { padding: 0 2px 0 4px; }
-#side .menu li { padding: 1px 4px 2px 12px; list-style-type: none; background: url(../images/template/round.png) no-repeat center left; }
-#side .menu li:hover { background: url(../images/template/round_hover.png) no-repeat center left; }
-#side .menu li a { font-size: 11px; }
+#side .menu h2 { font-size : 13px; color: #012; padding: 2px 4px; background: #95b0e4; text-align: center; }
+#side .menu ul { padding: 0 0px 0 0px; }
+#side .menu li { list-style-type: none; background: url(../images/template/round.png) no-repeat center left; border-top: 1px dotted #95b0e4; }
+#side .menu li:hover { background: #DBE4F6 url(../images/template/round_hover.png) no-repeat center left; }
+#side .menu li a { display:block; padding: 2px 4px 4px 16px;}
+/*#side .menu li a { font-size: 11px; }*/
 /*#side .index { display:block; padding: 2px; font-size: 11px; text-align:center; background: #FFF; border: 2px solid #95b0e4; margin: 2px;}*/
 #side .indicator { display:block; padding: 3px 2px 2px 20px; margin: 4px; background: url(../images/buttons/complete.png) left no-repeat;}
 

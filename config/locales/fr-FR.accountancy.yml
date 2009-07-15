@@ -49,20 +49,24 @@ fr-FR:
         title: Comptabilité générale
         accounts: Comptes comptables
         bank_accounts: Comptes bancaires (RIB)
-        journals_close: Clôture de journal
-        financialyears_close: 'Clôture d''exercice'
-        financialyears: Exercices comptables
+        document_prepare: Impression des documents
         documents: Documents comptables
-        journals: Journaux
-        lettering: 'Lettrer des comptes de tiers'
-        report: Reprise des à nouveaux
-        statements: Pointer un relevé de compte bancaire
-        operations: Opérations de vérification et de clôture
-        parameters: Paramètres
-        document_prepare: Imprimer des documents comptables
-        works: Travaux comptables
         entries: Saisir des écritures
         entries_consult: Consulter des écritures 
+        financialyears_close: 'Clôture d''exercice'
+        financialyears: Exercices comptables
+        journals: Journaux
+        journals_close: Clôture de journal
+        lettering: 'Lettrer des comptes de tiers'
+        nb_entries: 
+          zero: 'Aucune écriture'
+          one: '1 écriture'
+          other: '{{count}} écritures'
+        operations: Opérations de vérification et de clôture
+        parameters: Paramètres
+        report: Reprise des à nouveaux
+        statements: Pointer un relevé de compte
+        works: Travaux comptables
       accounts:
         title: Comptes
         accounts_create: Enregistrer un nouveau compte

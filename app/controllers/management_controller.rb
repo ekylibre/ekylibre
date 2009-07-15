@@ -802,6 +802,7 @@ class ManagementController < ApplicationController
       if @sale_order.nil?
         @sale_order = SaleOrder.new 
       end
+      session[:current_entity] ||= @current_company.entities.find(:first, :conditions=>{:client=>true})
       @sale_order.client_id = session[:current_entity]
     end
     #    @title = {:client=>@entity.full_name}

@@ -73,7 +73,7 @@ class AccountancyController < ApplicationController
 
   # 
   def index
-    
+    @entries = @current_company.entries
   end
 
   # lists all the bank_accounts with the mainly characteristics. 
@@ -199,7 +199,7 @@ class AccountancyController < ApplicationController
     
     if request.post? 
       @lines = []
-      unless not @current_company.default_contact
+      if @current_company.default_contact
         @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
         @lines << @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
         @lines << @current_company.code

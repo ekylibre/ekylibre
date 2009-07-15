@@ -1132,11 +1132,15 @@ fr-FR:
         entities_create: Créer une nouvelle fiche
         entities_natures: Types de fiches
         entities_managing: Clients et fournisseurs
-        entities: Gérer les fiches clients et fournisseurs
+        entities: Gérer les fiches
         import_export: Import/Export de fiches
         meeting_locations: Lieux de rencontre
         meeting_modes: Types de rencontre
         meetings: Rencontres
+        nb_entities: 
+          zero: 'Aucune fiche clients/fournisseurs'
+          one: '1 fiche client/fournisseur'
+          other: '{{count}} fiches clients/fournisseurs'
         parameters: Paramètres
         complements: Champs personnalisés
       _general_description_form:
@@ -1171,8 +1175,12 @@ fr-FR:
     resources:
       index:
         title: Gestion des ressources
-        human: Ressources humaines
         employees: Fiches employés
+        human: Ressources humaines
+        nb_employees: 
+          zero: 'Aucun employé'
+          one: '1 employé'
+          other: '{{count}} employés'
         parameters: Paramètres
         professions: Professions
       employees:
@@ -1412,6 +1420,7 @@ fr-FR:
     cancel: 'Annuler'
     choices: 'Choix'
     close: 'Fermer'
+    consult: 'Consulter'
     create: 'Créer'
     delete: 'Supprimer'
     display: 'Afficher'

@@ -276,7 +276,11 @@ class Company < ActiveRecord::Base
   end
 
   def default_contact
-    self.entity.contacts.find_by_default(true)
+    if self.entity and self.entity.contacts
+      self.entity.contacts.find_by_default(true)
+    else
+      nil
+    end
   end
 
   def find_sales_journal

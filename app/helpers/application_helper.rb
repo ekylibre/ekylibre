@@ -166,10 +166,10 @@ module ApplicationHelper
     t('countries').to_a.sort{|a,b| a[1].to_s<=>b[1].to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
   end
 
-  def can_access?(action=:all)
-    return false unless @current_user
-    return session[:actions].include?(:all) ? true : session[:actions].include?(action)
-  end
+#   def can_access?(action=:all)
+#     return false unless @current_user
+#     return session[:actions].include?(:all) ? true : session[:actions].include?(action)
+#   end
 
   def link_to_back(options={})
 #    link_to tg(options[:label]||'back'), {:controller=>:guide, :action=>:back}, :class=>:back
@@ -291,10 +291,10 @@ module ApplicationHelper
   end
 
   def side_tag
-    return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym) or action_name=="index"
+    return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym)
     code = ''
     # code += link_to t("controllers.#{self.controller.controller_name}.title"), {:controller=>controller.controller_name.to_sym, :action=>:index}, :class=>:index
-    code += link_to tg("indicator"), {:controller=>controller.controller_name.to_sym, :action=>:index}, :class=>:indicator
+    code += link_to(tg("indicator"), {:controller=>controller.controller_name.to_sym, :action=>:index}, :class=>:indicator)
     code += menu_index
     # content_tag(:div, code, :id=>:side, :flexy=>true, :orient=> :vertical)
     code
@@ -317,7 +317,7 @@ module ApplicationHelper
 
   def side_link_tag
     return '' unless @current_user
-    return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym) or action_name=="index"
+    return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym)
     code = content_tag(:div)
     operation = (session[:side] ? "close" : "open")
     link_to_remote(code, {:url=>{:controller=>:help, :action=>:side}, :loading=>"onLoading(); openSide();", :loaded=>"onLoaded();"}, :id=>"side-"+operation, :class=>"side-link")
