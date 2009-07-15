@@ -291,7 +291,7 @@ fr-FR:
         lines: Lignes de la commande
         amount: Montant HT
         amount_with_taxes: Montant TTC
-        purchase_order_line_create: Ajouter un produit à la commande
+        purchase_order_lines_create: Ajouter un produit à la commande
         purchases: Consulter la liste des achats
         order_print: Imprimer la commande
         validate: Valider la commande

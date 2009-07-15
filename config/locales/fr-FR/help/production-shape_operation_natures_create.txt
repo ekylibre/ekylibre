@@ -1,0 +1,5 @@
+h1. Comment créer un type de traitement ?
+
+Il vous suffit de lui attribuer un nom et éventuellement une description.
+
+<<production-index|Retour à l'aide sur la Gestion de la production>>

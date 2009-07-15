@@ -1636,45 +1636,67 @@ class ManagementController < ApplicationController
 
   def undelivered_sales
     @deliveries = Delivery.find(:all,:conditions=>{:company_id=>@current_company.id, :moved_on=>nil},:order=>"planned_on ASC")  
-    @delivery_lines = []
-    for delivery in @deliveries
-      lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, delivery.id)
-      @delivery_lines += lines if !lines.nil?
-    end
     if request.post?
-      deliveries = params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:delivery].nil?
-      if !deliveries.nil?
-        for delivery in deliveries
-          delivery.stocks_moves_create
-        end
+      for id, values in params[:undelivered_sales]
+        #raise Exception.new params.inspect+id.inspect+values.inspect
+        delivery = Delivery.find_by_id_and_company_id(id, @current_company.id)
+        delivery.stocks_moves_create if delivery and values[:delivered].to_i == 1
       end
       redirect_to :action=>:undelivered_sales
     end
   end
+  
 
-
+  dyta(:unexecuted_transfers, :model=>:stock_transfers, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>{'sort'=>"planned_on", 'dir'=>"ASC"}) do |t| 
+    t.column :text_nature
+    t.column :name, :through=>:product
+    t.column :quantity, :datatype=>:decimal
+    t.column :name, :through=>:location
+    t.column :name, :through=>:second_location
+    t.column :planned_on, :children=>false
+    t.check :executed, :value=>'RECORD.planned_on<=Date.today'
+  end
+  
   def unexecuted_transfers
     @stock_transfers = @current_company.stock_transfers.find(:all, :conditions=>{:moved_on=>nil}, :order=>"planned_on ASC")
     if request.post?
-      #raise Exception.new params.inspect
-      stock_transfers = params[:stock_transfer].collect{|x| StockTransfer.find_by_id_and_company_id(x[0], @current_company.id)} if !params[:stock_transfer].nil?
-      if !stock_transfers.nil?
-        for stock_transfer in stock_transfers
-          stock_transfer.execute_transfer
-        end
+  #     #raise Exception.new params.inspect
+#       stock_transfers = params[:stock_transfer].collect{|x| StockTransfer.find_by_id_and_company_id(x[0], @current_company.id)} if !params[:stock_transfer].nil?
+#       if !stock_transfers.nil?
+#         for stock_transfer in stock_transfers
+#           stock_transfer.execute_transfer
+#         end
+#      end
+      for id, values in params[:unexecuted_transfers]
+        transfer = StockTransfer.find_by_id_and_company_id(id, @current_company.id)
+        transfer.execute_transfer if transfer and values[:executed].to_i == 1
       end
-      redirect_to_back
+      redirect_to :action=>:unexecuted_transfers
     end
   end
+  
+  dyta(:unreceived_purchases, :model=>:purchase_orders, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>{'sort'=>"planned_on", 'dir'=>"ASC"}) do |t| 
+    t.column :label, :children=>:product_name
+    t.column :planned_on, :children=>false
+    t.column :quantity, :datatype=>:decimal
+    t.column :amount
+    t.column :amount_with_taxes
+    t.check :received, :value=>'RECORD.planned_on<=Date.today'
+  end
+
 
   def unreceived_purchases
     @purchase_orders = PurchaseOrder.find(:all, :conditions=>{:company_id=>@current_company.id, :moved_on=>nil}, :order=>"planned_on ASC")
     if request.post?
-      purchases = params[:purchase].collect{|x| PurchaseOrder.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:purchase].nil?
-      if !purchases.nil?
-        for purchase in purchases
-          purchase.real_stocks_moves_create
-        end
+      #    purchases = params[:purchase].collect{|x| PurchaseOrder.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:purchase].nil?
+      #       if !purchases.nil?
+      #         for purchase in purchases
+      #           purchase.real_stocks_moves_create
+      #         end
+      #      end
+      for id, values in params[:unreceived_purchases]
+        purchase = PurchaseOrder.find_by_id_and_company_id(id, @current_company.id)
+        purchase.real_stocks_moves_create if purchase and values[:received].to_i == 1
       end
       redirect_to :action=>:unreceived_purchases
     end

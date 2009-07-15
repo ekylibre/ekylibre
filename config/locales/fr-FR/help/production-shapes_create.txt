@@ -1,0 +1,5 @@
+h1. Comment créer un nouvel îlot ?
+
+Les coordonnées sont les coordonnées spatiales de votre îlot. Le champ îlot maitre permet de savoir si cet îlot contient des sous-îlots.
+
+<<production-index|Retour à l'aide sur la Gestion de la production>>

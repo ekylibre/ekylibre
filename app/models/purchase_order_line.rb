@@ -34,7 +34,7 @@ class PurchaseOrderLine < ActiveRecord::Base
   
   def before_validation
     check_reservoir = true
-    self.account_id = self.price.product.account_id
+    self.account_id = self.price.product.charge_account_id
     self.unit_id = self.price.product.unit_id
     if self.price
       self.amount = (self.price.amount*self.quantity).round(2)
@@ -56,4 +56,9 @@ class PurchaseOrderLine < ActiveRecord::Base
     #raise Exception.new "yyy"
     self.order.refresh
   end
+
+  def product_name
+    self.product.name
+  end
+
 end

@@ -263,6 +263,7 @@ fr-FR:
         amount: Montant HT
         amount_with_taxes: Montant TTC
         contact_id: Adresse du client
+        delivered: Livré
         delivered_on: Reçu le
         invoice_id: Facture
         label: Libellé
@@ -504,16 +505,19 @@ fr-FR:
         rome: 'Code ROME'
         commercial: 'Activité commerciale'
       purchase_order:
+        amount: Montant HT
+        amount_with_taxes: Montant TTC
         client_id: Fournisseur
         supplier_id: Fournisseur
         dest_contact_id: Adresse de livraison
         shipped: Expédié
         invoiced: Facturé
-        amount: Montant HT
-        amount_with_taxes: Montant TTC
+        label: Commande
         number: Numéro
         comment: Commentaire
         planned_on: Réception prévue le
+        quantity: Quantité
+        received: Reçue
       purchase_order_line: 
         amount: Montant HT
         amount_with_taxes: Montant TTC
@@ -625,6 +629,7 @@ fr-FR:
         virtual: Virtuel
       stock_transfer:
         comment: Commentaire
+        executed: Réalisé
         location_id: Sortie du lieu de stockage
         moved_on: Fait le
         nature: Type
@@ -1378,6 +1383,7 @@ fr-FR:
       stock_location_can_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
       production: Production
     purchase_order: 
+      label: '{{supplier}} à {{address}}' 
       purchase: Achat
     sale_order:
       natures:

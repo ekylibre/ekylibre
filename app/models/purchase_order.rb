@@ -71,5 +71,12 @@ class PurchaseOrder < ActiveRecord::Base
     self.save
   end
 
+  def label 
+     tc('label', :supplier=>self.supplier.full_name.to_s, :address=>self.dest_contact.address.to_s)
+  end
+
+  def quantity 
+    ''
+  end
 
 end

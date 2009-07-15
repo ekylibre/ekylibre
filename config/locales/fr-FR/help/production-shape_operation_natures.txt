@@ -1,0 +1,5 @@
+h1. Les types de traitements
+
+Les types de traitements permettent de *rassembler les traitements en catégories*.
+
+<<production-index|Retour à l'aide sur la Gestion de la production>>

@@ -1,37 +1,10 @@
 -if @stock_transfers.size > 0
   - form_tag do
-    %table.dyta
-      %tr
-        %th= tc 'nature'
-        %th= tc 'product_name'
-        %th= tc 'quantity'
-        %th= tc 'location_name'
-        %th= tc 'second_location_name'
-        %th= tc 'planned_on'
-        %th= tc 'executed'
-      -for stock_transfer in @stock_transfers
-      -klass=cycle("odd","even")
-        %tr{:class=>klass}
-          %td= stock_transfer.text_nature
-          %td= stock_transfer.product.name
-          %td= stock_transfer.quantity
-          %td= stock_transfer.location.name
-          -if stock_transfer.nature == "transfer"
-            %td= stock_transfer.second_location.name
-          -else
-            %td 
-          %td= stock_transfer.planned_on
-          %td{:style=>'text-align:center'}
-            - if stock_transfer.planned_on <= Date.today
-              =check_box_tag "stock_transfer[#{stock_transfer.id}]","#{stock_transfer.id}",true,:id=>"stock_transfer_#{stock_transfer.id}"
-            - else
-              =check_box_tag "stock_transfer[#{stock_transfer.id}]","#{stock_transfer.id}",false,:id=>"stock_transfer_#{stock_transfer.id}"
-
+    =dyta :unexecuted_transfers
     .actions
       =link_to tg(:previous), :action=>:index
       =submit_tag(tc('transfer'), :action=>:undelivered_sales)
 
 -else
   %p{:style=>'text-align:center'}= tc('no_transfers')
-  .actions
-    =link_to tc(:index), :action=>:index
+    
