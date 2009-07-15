@@ -55,7 +55,7 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #side .menu li a { display:block; padding: 2px 4px 4px 16px;}
 /*#side .menu li a { font-size: 11px; }*/
 /*#side .index { display:block; padding: 2px; font-size: 11px; text-align:center; background: #FFF; border: 2px solid #95b0e4; margin: 2px;}*/
-#side .indicator { display:block; padding: 3px 2px 2px 20px; margin: 4px; background: url(../images/buttons/complete.png) left no-repeat;}
+#side .indicator li { background: url(../images/template/round_green.png) left no-repeat;}
 
 #yield { padding: 8px; overflow: auto; background: url(../images/template/columns.png) repeat-x top; border: 1px solid #95b0e4; }
 #yield > h1 { margin: 0px 0px 8px; font-size:20px; color: #047;}

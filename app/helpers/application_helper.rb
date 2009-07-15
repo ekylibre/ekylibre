@@ -158,9 +158,9 @@ module ApplicationHelper
     end
   end
   
-  def menu_index(controller=self.controller.controller_name.to_sym)
-    render(:partial=>'shared/menu_index', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
-  end
+#  def menu_index(controller=self.controller.controller_name.to_sym)
+#    render(:partial=>'shared/menu_index', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
+#  end
       
   def countries
     t('countries').to_a.sort{|a,b| a[1].to_s<=>b[1].to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
@@ -290,14 +290,15 @@ module ApplicationHelper
     code
   end
 
-  def side_tag
+  def side_tag(controller = self.controller.controller_name.to_sym)
     return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym)
-    code = ''
+    # code = ''
     # code += link_to t("controllers.#{self.controller.controller_name}.title"), {:controller=>controller.controller_name.to_sym, :action=>:index}, :class=>:index
-    code += link_to(tg("indicator"), {:controller=>controller.controller_name.to_sym, :action=>:index}, :class=>:indicator)
-    code += menu_index
+    # code += link_to(tg("indicator"), {:controller=>controller.controller_name.to_sym, :action=>:index}, :class=>:indicator)
+    # code += menu_index
     # content_tag(:div, code, :id=>:side, :flexy=>true, :orient=> :vertical)
-    code
+    # code
+    render(:partial=>'shared/menu', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
   end
 
 
