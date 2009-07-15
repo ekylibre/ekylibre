@@ -201,7 +201,9 @@ class ProductionController < ApplicationController
     if request.post?
       for id, values in params[:unvalidated_operations]
         operation = ShapeOperation.find_by_id_and_company_id(id, @current_company.id)
-        operation.update_attributes!(:moved_on=>Date.today) if operation and values[:validated]
+        #raise Exception.new params[:unvalidated_operations].inspect+id.inspect+values.inspect+operation.inspect
+        #raise Exception.new values[:validated].to_i.inspect
+        operation.update_attributes!(:moved_on=>Date.today) if operation and values[:validated].to_i == 1
       end
       redirect_to :action=>:unvalidated_operations
     end

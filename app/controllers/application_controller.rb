@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
       url[:action]||=:index
     end
     if @current_user
+      raise Exception.new (url.inspect) if url[:controller].blank? or url[:action].blank?
       if @current_user.admin or session[:rights].include?((@@rights[url[:controller].to_sym]||{})[url[:action].to_sym])
         true
       else

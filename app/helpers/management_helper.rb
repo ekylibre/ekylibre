@@ -9,7 +9,8 @@ module ManagementHelper
     tds = STEPS.size*2
     attributes = {:flex=>1}
     for x in 0..tds
-      @active_link = link_to(tc(('sales_step_'+((x+1)/2).to_s).to_sym), :action=>STEPS[x == 0 ? x : x/2].to_s, :id=>@sale_order.id.to_s) 
+      #raise Exception.new STEPS[x == 0 ? x : x/2].to_s.inspect if x==5
+      @active_link = link_to(tc(('sales_step_'+((x+1)/2).to_s).to_sym), :action=>STEPS[x == 0 ? x : x/2], :id=>@sale_order.id.to_s)
       @passive_link = tc('sales_step_'+((x+1)/2).to_s) 
       #raise Exception.new @sale_order.inspect
       if x % 2 == 0 # transit
