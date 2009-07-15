@@ -31,7 +31,7 @@
               %td= lines.amount
               %td= lines.amount_with_taxes
               %td
-
+    =dyta :undelivered_sales
     .actions
       =link_to tg(:previous), :action=>:index
       =submit_tag(tc('deliver'), :action=>:undelivered_sales)

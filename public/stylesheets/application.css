@@ -25,6 +25,8 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 /*#leftos{ float:left; border:none; margin: 8px 0 0 1px; }
 #leftos img { border:none;}*/
 
+#about_us a img { border:none; }
+
 #main .nav { background: #C9D7F1; }
 #main .title { color: #047; }
 

@@ -92,19 +92,6 @@ module Ekylibre
             builder += ", :order=>order)||{}\n"
 
             # Tag method
-#             if definition.procedures.size>0
-#               process = ''
-#               for procedure in definition.procedures
-#                 process += "+' '+" unless process.blank?
-#                 process += "link_to(t(\"controllers.\#\{self.controller.controller_name.to_s\}.#{name.to_s}.#{procedure.name.to_s}\")"
-#                 process += ", {:action=>#{procedure.options[:action].inspect}}"
-#                 process += ", :method=>#{procedure.options[:method].inspect}" unless procedure.options[:method].nil?
-#                 process += ", :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"'"
-#                 process += ")"
-#                 # process += "link_to(tc(:"+procedure.name.to_s+").gsub(/\ /,'&nbsp;'), "+procedure.options.inspect+", :class=>'procedure "+(procedure.options[:action].to_s||'no').split('_')[-1].to_s+"')"
-#               end      
-#               process = "'"+content_tag(:tr, content_tag(:td, "'+"+process+"+'", :class=>:procedures, :colspan=>definition.columns.size))+"'"
-#             end
 
             paginate_var = 'pages'
             paginate = case options[:pagination]
@@ -143,10 +130,11 @@ module Ekylibre
             code += "    reset_cycle('dyta')\n"
             code += "    body = ''\n"
             code += "    for "+record+" in @"+name.to_s+"\n"
-            code += "      body += content_tag(:tr, ("+body+"), :class=>'data '+cycle('odd','even', :name=>'dyta')"+(options[:line_class].blank? ? '' : '+" "+('+options[:line_class].gsub(/RECORD/,record)+')')+")\n"
+            code += "      line_class = ' '+"+options[:line_class].to_s.gsub(/RECORD/,record)+".to_s\n" unless options[:line_class].nil?
+            code += "      body += content_tag(:tr, ("+body+"), :class=>'data '+cycle('odd','even', :name=>'dyta')"+(options[:line_class].nil? ? '' : "+line_class")+")\n"
             if children
               code += "      for #{child} in #{record}.#{children}\n"
-              code += "        body += content_tag(:tr, ("+child_body+"), :class=>'data child '+cycle('odd','even', :name=>'dyta')"+(options[:line_class].blank? ? '' : '+" "+('+options[:line_class].gsub(/RECORD/,child)+')')+")\n"
+              code += "        body += content_tag(:tr, ("+child_body+"), :class=>'data child '+cycle('odd','even', :name=>'dyta')"+(options[:line_class].nil? ? '' : "+line_class")+")\n"
               code += "      end\n"
             end
             code += "    end\n"
@@ -250,7 +238,14 @@ module Ekylibre
                   code += ", :style=>'"+style+"'" unless style.blank?
                   code += ")"
                 when :check
-                  code += "content_tag(:td,"+(nature==:body ? "hidden_field_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id=>nil)+check_box_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name}, :id=>'#{definition.name}_'+#{record}.id.to_s+'_#{column.name}')" : "")+", :class=>'chk')"
+                  code += "content_tag(:td,"
+                  if nature==:body 
+                    code += "hidden_field_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id=>nil)+"
+                    code += "check_box_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name.to_s}, :id=>'#{definition.name}_'+#{record}.id.to_s+'_#{column.name}')"
+                  else
+                    code += "''"
+                  end
+                  code += ", :class=>'chk')"
                 when :action
                   code += "content_tag(:td, "+(nature==:body ? column.operation(record) : "''")+", :class=>'act')"
                 else 
@@ -342,7 +337,7 @@ module Ekylibre
           @columns << DytaElement.new(model, :action, name, options)
         end
         
-        def check(name, options={})
+        def check(name=:validated, options={})
           @columns << DytaElement.new(model, :check, name, options)
         end
         

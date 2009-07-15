@@ -1622,6 +1622,17 @@ class ManagementController < ApplicationController
     end
   end
 
+
+  dyta :undelivered_sales, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :line_class=>'RECORD.moment.to_s' do |t| # ,:order=>{'sort'=>"planned_on", 'dir'=>"ASC"}
+    t.column :label, :children=>:product_name
+    t.column :planned_on, :children=>false
+    t.column :quantity, :datatype=>:decimal
+    t.column :amount
+    t.column :amount_with_taxes
+    t.check :delivered, :value=>'RECORD.planned_on<=Date.today'
+  end
+
+
   def undelivered_sales
     @deliveries = Delivery.find(:all,:conditions=>{:company_id=>@current_company.id, :moved_on=>nil},:order=>"planned_on ASC")  
     @delivery_lines = []

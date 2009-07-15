@@ -78,6 +78,10 @@ class Delivery < ActiveRecord::Base
     css
   end
 
+  def label
+    tc('label', :client=>self.order.client.full_name.to_s, :address=>self.contact.address.to_s)
+  end
+
   # Used with dyta for the moment
   def quantity
     ''

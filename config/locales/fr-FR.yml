@@ -265,6 +265,7 @@ fr-FR:
         contact_id: Adresse du client
         delivered_on: Reçu le
         invoice_id: Facture
+        label: Libellé
         mode_id: Type
         moved_on: Faite le
         nature: Type
@@ -891,6 +892,7 @@ fr-FR:
         title: 'Bienvenue dans Ekylibre, {{user}}'
         about_us: 'À propos d''Ekylibre'
         accountancy: 'Comptabilité générale'
+        company: 'Paramètres de la société et des utilisateurs'
         informations: 'Informations'
         management: 'Gestion commerciale (ventes, achats et stocks)'
         modules: 'Modules'
@@ -1283,6 +1285,7 @@ fr-FR:
     delay:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
     delivery:
+      label: '{{client}} à {{address}}'
       natures:
         exw: Remise en main propre
         cpt: Livraison sans assurance

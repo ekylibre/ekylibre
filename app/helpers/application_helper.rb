@@ -14,7 +14,8 @@ module ApplicationHelper
              {:name=>:accountancy, :url=>{:controller=>:accountancy}},
              {:name=>:management, :url=>{:controller=>:management}},
              {:name=>:resources, :url=>{:controller=>:resources}},
-             {:name=>:production, :url=>{:controller=>:production}}
+             {:name=>:production, :url=>{:controller=>:production}},
+             {:name=>:company, :url=>{:controller=>:company}}
            ] },
          {:name=>:informations, :list=>
            [ {:name=>:about_us} ] }
