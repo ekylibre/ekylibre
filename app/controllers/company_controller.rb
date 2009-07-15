@@ -204,7 +204,6 @@ class CompanyController < ApplicationController
     t.action :roles_update
   end
 
-
   def establishments_create
     access :establishments
     if request.post?
@@ -339,7 +338,8 @@ class CompanyController < ApplicationController
   def users_update
     access :users
     @user= User.find_by_id_and_company_id(params[:id], @current_company.id)
-    #raise Exception.new @user.rights.inspect+session[:rights].inspect
+    @roles= @current_company.roles.find(:all,:order=>:name)
+    
     if request.xhr?
       @rights = session[:role_rights]
       session[:role] = find_and_check(:role, params[:user_role_id])
@@ -349,8 +349,10 @@ class CompanyController < ApplicationController
       if @user.update_attributes(params[:user])
         if params[:user][:admin] == "0" 
           @user.rights = "administrate_nothing "
-          for right in params[:right]
-            @user.rights += right[0].to_s+" "
+          unless params[:right].nil?
+            for right in params[:right]
+              @user.rights += right[0].to_s+" "
+            end
           end
         else
           @user.rights = "administrate"

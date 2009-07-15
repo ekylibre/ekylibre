@@ -112,9 +112,10 @@ class Company < ActiveRecord::Base
   end
 
   def after_create
+    self.languages.create!(:name=>'Français', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
     role = Role.create!(:name=>tc('default.role.name.admin'), :company_id=>self.id, :rights=>ApplicationController.rights(true).join(' '))
     role = Role.create!(:name=>tc('default.role.name.public'), :company_id=>self.id ,:rights=>'')
-    self.parameter('general.language').value=Language.find_by_iso2('fr')
+    self.parameter('general.language').value=self.languages.find_by_iso2('fr')
     self.load_template("#{RAILS_ROOT}/lib/template.xml")
     self.departments.create!(:name=>tc('default.department_name'))
     self.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")

@@ -12,6 +12,7 @@ fr-FR:
     administrate_search: Possibilité de rechercher (fiche client, produits,...)
     cancel_invoices: Faire des avoirs
     consult_entities: Consulter les fiches clients/fournisseurs
+    consult_entries: Consulter les écritures
     consult_prices: Consulter les prix
     consult_purchases: Consulter les achats
     consult_sales: Consulter les ventes
@@ -19,6 +20,8 @@ fr-FR:
     create_estimates: Créer un devis
     create_purchases: Créer, modifier des achats
     import_export_entities: Importer, exporter des fiches clients/fournisseurs
+    manage_accounts: Gérer les comptes comptables
+    manage_bank_accounts: Gérer les comptes bancaires 
     manage_company: Gérer les informations de la société  
     manage_complements: Gérer les champs personnalisés
     manage_delays: Gérer les délais 
@@ -27,6 +30,9 @@ fr-FR:
     manage_entities: Gérer les fiches clients/fournisseurs
     manage_entities_natures: Gérer les types de fiche
     manage_entity_categories: Gérer les catégories de fiche
+    manage_entries: Gérer les écritures
+    manage_financialyears: Gérer les exercices
+    manage_journals: Gérer les journaux
     manage_invoices_cancel: Faire des avoirs
     manage_invoicing: Gérer la facturation et les règlements
     manage_meetings: Gérer les rencontres
@@ -39,10 +45,12 @@ fr-FR:
     manage_shape_operations: Gérer les traitements
     manage_shapes: Gérer les îlots
     manage_shelves: Gérer les catégories de produits
+    manage_statements: 'Accéder au module d''impression des relevés de comptes'
     manage_stock_locations: Gérer les lieux de stockage
     manage_stock_moves: Gérer les mouvements de stocks
     manage_taxes: Gérer les taxes
     manage_users: Gérer les utilisateurs (ajout, modification, verrouillage...)
+    print_accounting_document: Imprimer les documents comptables
     print_entities: Imprimer les fiches clients/fournisseurs
     print_sales: Imprimer les documents de vente (devis, factures...)
     search_and_consult_invoices: Rechercher et consulter des factures

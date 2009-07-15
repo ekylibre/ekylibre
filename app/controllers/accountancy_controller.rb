@@ -268,7 +268,7 @@ class AccountancyController < ApplicationController
             @balance[index][:previous_balance] = balance[:balance]
             index+=1
           end
-          session[:previous_balance] = @previous_balance
+          session[:previous_financialyear] = true
         end
 
         session[:lines] = @lines
@@ -295,11 +295,20 @@ class AccountancyController < ApplicationController
     @balance = session[:balance]
     @result = 0
     @solde = 0
+    if session[:previous_financialyear] == true
+      @previous_solde = 0
+      @previous_result = 0
+    end
     @active_fixed_sum = 0
     @active_current_sum = 0
     @passive_capital_sum = 0
     @passive_stock_sum = 0
     @passive_debt_sum = 0
+    @previous_active_fixed_sum = 0
+    @previous_active_current_sum = 0
+    @previous_passive_capital_sum = 0
+    @previous_passive_stock_sum = 0
+    @previous_passive_debt_sum = 0
     @cost_sum = 0
     @finished_sum =  0
     @previous_active_sum = 0
@@ -311,25 +320,22 @@ class AccountancyController < ApplicationController
       @solde += account[:balance]
       @result = account[:balance] if account[:number].to_s.match /^12/
       @active_fixed_sum += account[:balance] if account[:number].to_s.match /^(20|21|22|23|26|27)/
-      @active_current_sum += account[:balance] if account[:number].to_s.match /^(3|4|5)/ and account[:balance] <= 0
+      @active_current_sum += account[:balance] if account[:number].to_s.match /^(3|4|5)/ and account[:balance] >= 0
       @passive_capital_sum += account[:balance] if account[:number].to_s.match /^(1[^5])/
       @passive_stock_sum += account[:balance] if account[:number].to_s.match /^15/ 
       @passive_debt_sum += account[:balance] if account[:number].to_s.match /^4/
       @cost_sum += account[:balance] if account[:number].to_s.match /^6/
       @finished_sum += account[:balance] if account[:number].to_s.match /^7/
-    end
-    
-    unless session[:previous_balance].blank?
-      @previous_solde = 0
-      @previous_balance = session[:previous_balance] 
-      session[:previous_balance] = {}
-      @previous_balance.each do |account|
-        @previous_solde += account[:balance]
-        @previous_result = account[:balance] if account[:number].to_s.match /^12/
-        @previous_active_sum += account[:balance] if account[:number].to_s.match /^(20|21|22|23|26|27)/
-        @previous_passive_sum += account[:balance] if account[:number].to_s.match /^(1[^5]|15|4|487)/     
-        @previous_cost_sum += account[:balance] if account[:number].to_s.match /^(20|21|22|23|26|27)/
-        @previous_finished_sum += account[:balance] if account[:number].to_s.match /^(1[^5]|15|4|487)/
+      if session[:previous_financialyear] == true
+        @previous_solde += account[:previous_balance]
+        @previous_result = account[:previous_balance] if account[:number].to_s.match /^12/
+        @previous_active_fixed_sum += account[:previous_balance] if account[:number].to_s.match /^(20|21|22|23|26|27)/
+        @previous_active_current_sum += account[:previous_balance] if account[:number].to_s.match /^(3|4|5)/ and account[:balance] >= 0
+        @previous_passive_capital_sum += account[:previous_balance] if account[:number].to_s.match /^(1[^5])/
+        @previous_passive_stock_sum += account[:previous_balance] if account[:number].to_s.match /^15/ 
+        @previous_passive_debt_sum += account[:previous_balance] if account[:number].to_s.match /^4/
+        @previous_cost_sum += account[:previous_balance] if account[:number].to_s.match /^6/
+        @previous_finished_sum += account[:previous_balance] if account[:number].to_s.match /^7/
       end
     end
 
@@ -337,33 +343,33 @@ class AccountancyController < ApplicationController
   end
 
   # this method orders sale.
-  def order_sale
-    render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:key=>params[:id])
-  end
+  #def order_sale
+   # render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:key=>params[:id])
+  #end
   
   # this method finds the journal with the matching id and the company_id.
-  def journals_find
-    @find_journals = @current_company.journals 
-    render :partial => 'journals_find'
-  end
+  # def journals_find
+#     @find_journals = @current_company.journals 
+#     render :partial => 'journals_find'
+#   end
   
-  # this method finds the currency with the matching id and the company_id.
-  def currencies_find
-    @find_currencies = @current_company.currencies
-    render :partial => 'currencies_find'
-  end
+#   # this method finds the currency with the matching id and the company_id.
+#   def currencies_find
+#     @find_currencies = @current_company.currencies
+#     render :partial => 'currencies_find'
+#   end
   
 
-  # this method finds the account with the matching number and the company_id.
-  def accounts_find
-    if request.xhr?
-      @search = params[:account].gsub('*','%')
-      @accounts = @current_company.accounts.find(:all,:conditions=>["number LIKE ?", @search])
-      render :partial => 'accounts_find'
-    else
-      redirect_to_back
-    end
-  end
+#   # this method finds the account with the matching number and the company_id.
+#   def accounts_find
+#     if request.xhr?
+#       @search = params[:account].gsub('*','%')
+#       @accounts = @current_company.accounts.find(:all,:conditions=>["number LIKE ?", @search])
+#       render :partial => 'accounts_find'
+#     else
+#       redirect_to_back
+#     end
+#   end
    
 
   # lists all the bank_accounts with the mainly characteristics. 
@@ -796,7 +802,7 @@ class AccountancyController < ApplicationController
   end
  
 
-  # This method allows to make lettering for the client1 and supplier accounts.
+  # This method allows to make lettering for the client and supplier accounts.
   def lettering
     @accounts_supplier = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '400%'])
     @accounts_client = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '410%'])

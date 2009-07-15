@@ -15,7 +15,6 @@ module Ekylibre
           include ActionView::Helpers::TagHelper
           include ActionView::Helpers::UrlHelper
           
-
           #
           def dyli(name, options = {})
             options = {:limit => 12,:attributes => [:name], :filter => {:number => 'X%'}, :partial => nil}.merge(options)

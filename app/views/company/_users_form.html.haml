@@ -10,7 +10,7 @@
   -f.field :user, :admin
 =formalize(:id=>:show_rights) do |f|
   -f.title :rights
-  -f.field :user, :role_id, :choices=>@current_company.roles.find(:all, :order=>:name).collect{|x| [x.name, x.id]}
+  -f.field :user, :role_id, :choices=>@current_company.roles.find(:all, :order=>:name).collect{|x| [x.name, x.id]}, :new=>{:action=>:roles_create}
   -#f.field :user, :reduction_percent
   -#f.field :user, :free_price
   -#f.field :user, :credits

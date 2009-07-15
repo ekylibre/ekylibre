@@ -269,7 +269,9 @@ module ApplicationHelper
     
     # User Tag
     tag = ''
+
     if controller.accessible?({:controller=>:company, :action=>:user})
+      
       tag += link_to(@current_user.label, {:controller=>:company, :action=>:user})+" "
     else
       tag += content_tag(:span, @current_user.label)+" "

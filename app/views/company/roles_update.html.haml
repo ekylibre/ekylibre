@@ -11,4 +11,4 @@
           - f.field content_tag(:label, t('rights.'+right_name.to_s), :for=>"right_#{right_name}"), check_box_tag("right[#{right_name}]", "#{right_name}", session[:role].rights.include?(right_name.to_s)||session[:role].rights=="administrate", :id=>"right_#{right_name}")
   .actions
     =link_to tg(:previous), :action=>:index
-    =submit_tag(tc('validate'), :action=>:roles_create)
+    =submit_tag(tc('validate'), :action=>:roles_update)

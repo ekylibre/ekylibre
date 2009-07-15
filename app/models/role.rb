@@ -19,7 +19,7 @@ class Role < ActiveRecord::Base
 
   attr_readonly :company_id
 
-  ACTIONS = [ :all,                     # All
+  ACTIONS =  [ :all,                     # All
               :accountancy,             # Accountant
               :sales                    # Saler
             ]
@@ -27,10 +27,8 @@ class Role < ActiveRecord::Base
   #set_column :actions, ACTIONS
 
   def before_validation
-    
-#    self.actions_array = self.actions_array # Refresh actions array
+    # self.actions_array = self.actions_array # Refresh actions array
   end
-
 
   def before_update
     old_rights_array = []

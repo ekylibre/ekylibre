@@ -291,6 +291,8 @@ fr-FR:
         account_debt: 'Dettes'
         account_accruals: 'Comptes de régularisation'
         account_value: 'BRUT'  
+        cost_sum: 'Total charges d''exploitation'
+        finished_sum: 'Total produits d''exploitation'
         result: 'Résultat' 
         total: 'Total'
       
