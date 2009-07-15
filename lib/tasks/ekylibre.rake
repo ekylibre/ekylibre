@@ -12,7 +12,7 @@ namespace :rights do
       file = File.open(x, "r")
       file.each_line do |line|
         actions << line.split(/def\s/)[1].gsub(/\s/,'') if line.match(/^\s*def\s+\w+\s*$/)
-        actions << line.gsub(/\s/,'').gsub("(:","_").split(/(\,|\))/)[0] if line.match(/^\s*dyta[\s\(]+\:\w+/)
+        actions << line.gsub(/\s/,'').gsub(/\(?:/,"_").split(/(\,|\))/)[0] if line.match(/^\s*dyta[\s\(]+\:\w+/)
       end
       ref[controller_name] = actions
     end
@@ -53,8 +53,8 @@ namespace :rights do
     to_update = 0
     doubles = 0
     rights.size.times do |i|
-      to_update += 1 if rights[i][2].match(/\</)
       unless rights[i][0].match(/\#/)
+        to_update += 1 if rights[i][2].match(/\</)
         for j in i+1..rights.size-1
           if rights[i][0]==rights[j][0] and rights[i][1]==rights[j][1]
             rights[j][0] = '# '+rights[j][0] 
