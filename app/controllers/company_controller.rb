@@ -168,10 +168,10 @@ class CompanyController < ApplicationController
     t.column :admin
     t.action :locked, :actions=>{"true"=>{:action=>:users_unlock},"false"=>{:action=>:users_lock}}, :method=>:post
     #    t.column :locked
-    #    t.action :users_lock , :image=>:unlock_access , :method=>:post , :confirm=>:sure
-    #    t.action :users_unlock , :image=>:lock_access , :method=>:post , :confirm=>:sure
+    #    t.action :users_lock , :image=>:unlock_access , :method=>:post , :confirm=>:are_you_sure
+    #    t.action :users_unlock , :image=>:lock_access , :method=>:post , :confirm=>:are_you_sure
     t.action :users_update, :image=>:update 
-    t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:sure
+    t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
   end
 
   def users
@@ -183,7 +183,7 @@ class CompanyController < ApplicationController
     t.column :siret
     t.column :comment
     t.action :establishments_update, :image=>:update
-    t.action :establishments_delete, :image=>:delete , :method=>:post , :confirm=>:sure
+    t.action :establishments_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
   end
 
   def establishments
@@ -193,7 +193,7 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :comment
     t.action :departments_update, :image=>:update
-    t.action :departments_delete, :image=>:delete , :method=>:post , :confirm=>:sure
+    t.action :departments_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
   end
 
   def departments
