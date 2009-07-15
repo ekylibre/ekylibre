@@ -1668,16 +1668,21 @@ class ManagementController < ApplicationController
     end
   end
 
+ dyta(:unvalidated_embankments, :model=>:embankments, :conditions=>{:locked=>false, :company_id=>['@current_company.id']}) do |t|
+    t.column :created_on
+    t.column :amount
+    t.column :payments_number
+    t.column :name, :through=>:bank_account
+    t.check :validated, :value=>'RECORD.created_on<=Date.today-(15)'
+  end
+
   def unvalidated_embankments
     @embankments = @current_company.embankments_to_lock
     if request.post?
-      embankments = params[:embankment].collect{|x| Embankment.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:embankment].nil?
-      if !embankments.nil?
-        for embankment in embankments
-          embankment.locked = true
-          #embankment.validate_payments
-          embankment.save
-        end
+      #raise Exception.new params.inspect
+      for id, values in params[:unvalidated_embankments]
+        embankment = Embankment.find_by_id_and_company_id(id, @current_company.id)
+        embankment.update_attributes!(:locked=>true) if embankment and values[:validated].to_i == 1
       end
       redirect_to :action=>:unvalidated_embankments
     end

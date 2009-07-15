@@ -286,6 +286,7 @@ fr-FR:
         created_on: Crée le
         mode_id: Type de paiement
         payments_number: Nombre de chèque
+        validated: Valider
       employee:
         title: Fonction
         first_name: Nom
