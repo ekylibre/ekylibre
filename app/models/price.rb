@@ -43,7 +43,7 @@ class Price < ActiveRecord::Base
 
 
   def before_validation
-    puts "kkkkkkkkkkkkkkkkkkkkkk"+self.amount.to_s+self.amount.nil?.inspect
+    puts "kk"+self.amount.to_s+self.amount.nil?.inspect
     if self.amount > 0 
       puts "klllllllllllll"
       self.amount = self.amount.round(2)
@@ -53,6 +53,7 @@ class Price < ActiveRecord::Base
       #for tax in self.taxes
       #self.amount_with_taxes += tax.amount
       # end
+      puts "h"
     elsif self.amount_with_taxes > 0
       self.amount = (self.amount_with_taxes / (self.tax.amount + 1)).round(2)
       puts "JJJJJJJJJJJJJJJJJJJJJJJJJ   "+self.amount.to_s+"    "+self.amount_with_taxes.to_s
