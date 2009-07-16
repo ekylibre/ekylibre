@@ -57,7 +57,7 @@ class Account < ActiveRecord::Base
 
   # This method is called after the account is created or updated.
   def after_save
-    sub_accounts = Account.find(:all, :conditions => ["id <> ? AND company_id = ? AND parent_id = ? AND number LIKE ?", self.id, self.company_id, self.parent_id, self.number+'%'])
+    sub_accounts = Account.find(:all, :conditions => ["id <> ? AND company_id = ? AND parent_id = ? AND number LIKE ?", self.id, self.company_id, self.parent_id, self.number.to_s+'%'])
     if sub_accounts.size > 0
       sub_accounts.each do |sub_account|
       sub_account.update_attribute(:parent_id, self.id)
