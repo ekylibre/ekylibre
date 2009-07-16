@@ -1,11 +1,12 @@
-= toolbar do
-  - link :purchases
+=evalue @purchase_order, :supplier
+=evalue @purchase_order, :planned_on
+=evalue @purchase_order, :comment
 
 %h2=tc :lines 
 =toolbar do
+  -link :purchases_print, :id=>@purchase_order.id if @purchase_order.lines.size>0
   -link :purchase_order_lines_create if @purchase_order.shipped == false
 =dyta :purchase_order_lines
-
 
 .total
   %table.dyta

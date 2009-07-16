@@ -214,6 +214,7 @@ class ManagementController < ApplicationController
       else
         @price = Price.new(:category_id=>session[:category]||0)
       end
+      @price.entity_id = params[:entity_id] if params[:entity_id]
     end
     render_form    
   end
@@ -526,13 +527,21 @@ class ManagementController < ApplicationController
   dyta(:purchase_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number ,:url=>{:action=>:purchases_products}
     t.column :full_name, :through=>:supplier, :url=>{:controller=>:relations, :action=>:entities_display}
+    t.column :address, :through=>:dest_contact
     t.column :shipped
     t.column :invoiced
     t.column :amount
     t.column :amount_with_taxes
+    t.action :purchases_print
   end
 
   def purchases
+  end
+
+  def purchases_print
+    @order    = find_and_check(:purchase_order, params[:id])
+    @supplier = @order.supplier
+    @client   = @current_company.entity
   end
 
   def purchases_new
@@ -983,7 +992,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :deliveries_update, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? '
-    t.action :deliveries_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>tg(:are_you_sure)
+    t.action :deliveries_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>:are_you_sure
   end
 
 

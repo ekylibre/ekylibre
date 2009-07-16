@@ -287,12 +287,13 @@ fr-FR:
       products_update:
         title: 'Modification du produit : {{value}}'
       purchases_products: 
-        title: 'Selection des produits pour la commande {{value}} au fournisseur {{name}}'
+        title: 'Produits de la commande {{value}} chez {{name}}'
         lines: Lignes de la commande
         amount: Montant HT
         amount_with_taxes: Montant TTC
         purchase_order_lines_create: Ajouter un produit à la commande
         purchases: Consulter la liste des achats
+        purchases_print: 'Imprimer la commande d''achat'
         order_print: Imprimer la commande
         validate: Valider la commande
       purchases:

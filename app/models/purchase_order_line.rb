@@ -40,9 +40,11 @@ class PurchaseOrderLine < ActiveRecord::Base
       self.amount = (self.price.amount*self.quantity).round(2)
       self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2)
     end
-    if self.location.reservoir && self.location.product_id != self.product_id
-      check_reservoir = false
-      errors.add_to_base(tc(:stock_location_can_not_receive_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) 
+    if self.location
+      if self.location.reservoir && self.location.product_id != self.product_id
+        check_reservoir = false
+        errors.add_to_base(tc(:stock_location_can_not_receive_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) 
+      end
     end
     check_reservoir
   end

@@ -2,7 +2,7 @@
   -f.error :purchase_order_line
   -if @update != true
     -#f.field :purchase_order_line, :product_id,:choices=>@current_company.available_products.collect{|x| [x.name, x.id]},:options=>{:include_blank=>true}, :new=>{:action=>:products_create}
-  -f.field :purchase_order_line, :price_id,:choices=>Price.find(:all,:conditions=>{:company_id=>@current_company.id,:entity_id=>@purchase_order_line.order.supplier_id, :default=>true}).collect{|x| [x.product.name+" "+x.amount.to_s+" "+x.currency.code, x.id]},:options=>{:include_blank=>true}, :new=>{:action=>:prices_create,:mode=>:purchases}
+  -f.field :purchase_order_line, :price_id, :choices=>@current_company.prices.find(:all, :conditions=>{:entity_id=>@purchase_order_line.order.supplier_id, :default=>true}).collect{|x| [x.product.name+" "+x.amount.to_s+" "+x.currency.code, x.id]},:options=>{:include_blank=>true}, :new=>{:action=>:prices_create,:mode=>:purchases, :entity_id=>@purchase_order_line.order.supplier_id}
   -f.field :purchase_order_line, :quantity
   -if @update != true
     -f.field :price, :amount 

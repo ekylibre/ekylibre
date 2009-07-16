@@ -224,7 +224,7 @@ class RelationsController < ApplicationController
     t.column :website
     t.column :default
     t.action :entities_contacts_update , :image=>:update 
-    t.action :entities_contacts_delete , :image=>:delete , :method=>:post, :confirm=>'are_you_sure'
+    t.action :entities_contacts_delete , :image=>:delete , :method=>:post, :confirm=>:are_you_sure
   end
 
 
@@ -516,7 +516,7 @@ class RelationsController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.column :name, :through=>:tax
-    t.action :prices_delete, :controller=>:management, :method=>:post, :confirm=>tg(:are_you_sure)
+    t.action :prices_delete, :controller=>:management, :method=>:post, :confirm=>:are_you_sure
   end
   
   

@@ -135,6 +135,14 @@ class Entity < ActiveRecord::Base
     payments - invoices
   end
 
+  def default_contact
+    if self.contacts.size>0
+      self.contacts.find_by_default(true)
+    else
+      nil
+    end
+  end
+
   
   # this method creates automatically an account for the entity
   def create_update_account(nature = :client, suffix = nil)

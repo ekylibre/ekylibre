@@ -55,7 +55,9 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #side .menu li a { display:block; padding: 2px 4px 4px 16px;}
 /*#side .menu li a { font-size: 11px; }*/
 /*#side .index { display:block; padding: 2px; font-size: 11px; text-align:center; background: #FFF; border: 2px solid #95b0e4; margin: 2px;}*/
-#side .indicator li { background: url(../images/template/round_green.png) left no-repeat;}
+#side .indicator { border-color: #8ad4c0}
+#side .indicator li { background: url(../images/template/round_green.png) left no-repeat; border-top:none;}
+#side .indicator li:hover { background: #DBF6E4 url(../images/template/round_hover.png) no-repeat center left; }
 
 #yield { padding: 8px; overflow: auto; background: url(../images/template/columns.png) repeat-x top; border: 1px solid #95b0e4; }
 #yield > h1 { margin: 0px 0px 8px; font-size:20px; color: #047;}
@@ -186,7 +188,7 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 .toolbar h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
 .toolbar ul {padding: 1px;}
 .toolbar ul > li {padding: 2px 0; list-style-type: none; height:16px; margin:2px 0;}
-.toolbar ul > li > a {padding: 2px 2px 2px 20px; height:16px; background: url(../images/template/round2.png) no-repeat center left;}
+.toolbar ul > li > a {padding: 2px 2px 2px 20px; height:16px; background: url(../images/template/round.png) no-repeat center left;}
 .toolbar ul > li > a.update  {background: url(../images/buttons/update.png) no-repeat center left;}
 .toolbar ul > li > a.create  {background: url(../images/buttons/create.png) no-repeat center left;}
 .toolbar ul > li > a.sort    {background: url(../images/buttons/sort.png) no-repeat center left;}

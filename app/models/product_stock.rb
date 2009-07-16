@@ -33,7 +33,9 @@ class ProductStock < ActiveRecord::Base
   end
 
    def validate 
-     errors.add_to_base(tc(:error_azz_z), :location=>self.location.name) unless self.location.can_receive(self.product_id)
+     if self.location
+       errors.add_to_base(tc(:error_azz_z, :location=>self.location.name)) unless self.location.can_receive(self.product_id)
+     end
    end
   
   def state
@@ -74,8 +76,8 @@ class ProductStock < ActiveRecord::Base
 #   end
 
   def reflect_changes(quantity, inventory_id)
-    rslt = (self.current_real_quantity.to_f == quantity.to_f)
-    puts self.current_real_quantity.to_f.inspect+quantity.to_f.inspect+rslt.inspect
+    result = (self.current_real_quantity.to_f == quantity.to_f)
+    puts self.current_real_quantity.to_f.inspect+quantity.to_f.inspect+result.inspect
     InventoryLine.create!(:product_id=>self.product_id, :location_id=>self.location_id, :inventory_id=>inventory_id, :theoric_quantity=>self.current_real_quantity, :validated_quantity=>quantity, :company_id=>self.company_id)
   end
   
