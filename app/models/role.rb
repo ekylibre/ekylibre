@@ -33,7 +33,7 @@ class Role < ActiveRecord::Base
   def before_update
     old_rights_array = []
     new_rights_array = []
-    old_rights = Role.find_by_id_and_company_id(self.id, self.company_id).rights.split(" ")
+    old_rights = Role.find_by_id_and_company_id(self.id, self.company_id).rights.to_s.split(" ")
     
     for right in old_rights
       old_rights_array << right.to_sym
