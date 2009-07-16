@@ -1,3 +1,4 @@
+require 'rails/info'
 class GuideController < ApplicationController
   # layout :application
 
