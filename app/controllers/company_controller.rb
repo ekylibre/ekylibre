@@ -1,4 +1,5 @@
 require "rexml/document"
+require "zlib"
 
 class CompanyController < ApplicationController
 
