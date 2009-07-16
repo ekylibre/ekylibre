@@ -46,12 +46,13 @@ class Jul1t2 < ActiveRecord::Migration
     add_column :roles,    :rights,  :text
     #add_column :entries, :fog, :boolean, :null=>false, :default=>true
 
-    Role.find(:all).each do |role|
-      if role.name == "Administrateur"
-        role.rights = "administrate"
-        role.save
-      end
-    end
+    execute "UPDATE role SET rights='administrate' WHERE LOWER(name) LIKE 'admin%'"
+#     Role.find(:all).each do |role|
+#       if role.name == "Administrateur"
+#         role.rights = "administrate"
+#         role.save
+#       end
+#     end
     
   end
     
