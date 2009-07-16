@@ -39,8 +39,8 @@ class Tax < ActiveRecord::Base
         account = Account.find_by_company_id_and_number(self.company_id, "445713") || Account.create!(:company_id=>self.company_id, :number=>"445713", :name=>self.name)
       else
         tax = Tax.find(:first, :conditions=>["company_id = ? and amount = ? and account_collected_id IS NOT NULL", self.company_id, self.amount])
-        last = self.company.accounts.find(:first, :conditions=>["number like ?",'4457%'], :order=>"created_at desc")
-        account = tax.nil? ? Account.create!(:company_id=>self.company_id, :number=>last.number.succ, :name=>self.name) : tax.account
+        last = self.company.accounts.find(:first, :conditions=>["number like ?",'4457%'], :order=>"created_at desc")||self.company.accounts.create(:number=>4457, :name=>"Taxes")
+        account = tax.nil? ? Account.create!(:company_id=>self.company_id, :number=>last.number.succ, :name=>self.name) : tax.account 
       end
       self.account_collected_id = account.id
     end
