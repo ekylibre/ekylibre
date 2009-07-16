@@ -65,6 +65,7 @@ class Price < ActiveRecord::Base
     if self.default
       Price.update_all('"default"=false', ["product_id=? AND company_id=? AND id!=?", self.product_id,self.company_id, self.id||0])
     end
+    puts "ok"
   end
 
   def validate

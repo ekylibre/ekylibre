@@ -7,6 +7,7 @@ class Jul1t1 < ActiveRecord::Migration
         price.save
       end
     end
+    puts "ok"
   
     add_column :products, :product_account_id, :integer, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
     add_column :products, :charge_account_id,  :integer, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
