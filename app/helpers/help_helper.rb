@@ -57,10 +57,10 @@ module HelpHelper
       content = content.gsub(/\{\{([^\}]+)((\|)([^}]+))\}\}/, '!'+url+'/\1(\4)!')
       content = content.gsub(/\{\{([^\}]+)\}\}/, '!'+url+'/\1!' )
       # <<controller-action|Label>>
-      ltr = link_to_remote('\4', :url => {:controller=>:help, :action=>"search", :article=>'\1'}, :update => :help).gsub('%5C',"\\")
+      ltr = link_to_remote('\4', :url => {:controller=>:help, :action=>"search", :article=>'\1'}, :update => :help, :complete=>'resize2();').gsub('%5C',"\\")
       content = content.gsub(/<<([\w\-]+)((\|)([^>]+))>>/ , ltr )
       # <<controller-action>>
-      ltr = link_to_remote('\1', :url => {:controller=>:help, :action=>"search", :article=>'\1'}, :update => :help).gsub('%5C',"\\")
+      ltr = link_to_remote('\1', :url => {:controller=>:help, :action=>"search", :article=>'\1'}, :update => :help, :complete=>'resize2();').gsub('%5C',"\\")
       content = content.gsub(/<<([\w\-]+)>>/ , ltr )
       content = content.squeeze(' ')
       #      content = content.gsub(/(\ *)(\:|\?)/ , '~\2' )
