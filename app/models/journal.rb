@@ -28,18 +28,16 @@ class Journal < ActiveRecord::Base
 
   before_destroy :empty?
 
-  #
+  # this method is called before creation or validation method.
   def before_validation
-    if self.closed_on.nil?
-      self.closed_on = Date.civil(1970,1,1) 
+    if self.closed_on == Date.civil(1970,12,31) 
+      self.closed_on = Financialyear.find(:first, :conditions => {:company_id => self.company_id}).started_on-1 || Date.civil(1970,12,31) 
     end
     self.code = tc('natures.'+self.nature.to_s).codeize if self.code.blank?
     self.code = self.code[0..3]
   end
 
-  #
-  def validate
-  end
+
 
   # tests if the record contains entries.
   def empty?

@@ -27,6 +27,8 @@ fr-FR:
     manage_delays: Gérer les délais 
     manage_delivery_modes: Gérer les types de livraison
     manage_embankments: Gérer les remises de chèques
+    manage_employees: Gérer les employées
+    manage_professions: Gérer les professions
     manage_entities: Gérer les fiches clients/fournisseurs
     manage_entities_natures: Gérer les types de fiche
     manage_entity_categories: Gérer les catégories de fiche
@@ -45,7 +47,7 @@ fr-FR:
     manage_shape_operations: Gérer les traitements
     manage_shapes: Gérer les îlots
     manage_shelves: Gérer les catégories de produits
-    manage_statements: 'Accéder au module d''impression des relevés de comptes'
+    manage_statements: Pointage des relevés de comptes
     manage_stock_locations: Gérer les lieux de stockage
     manage_stock_moves: Gérer les mouvements de stocks
     manage_taxes: Gérer les taxes

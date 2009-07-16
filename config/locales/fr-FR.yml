@@ -1450,7 +1450,6 @@ fr-FR:
     search: Rechercher
     search_go: Lancer la recherche
     submit: Envoyer
-    
     unavailable:
       entity: 'La fiche demandée est indisponible'
       journal: 'Le journal demandé est indisponible ({{value}})'

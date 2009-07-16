@@ -804,8 +804,11 @@ class AccountancyController < ApplicationController
 
   # This method allows to make lettering for the client and supplier accounts.
   def lettering
-    @accounts_supplier = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '400%'])
-    @accounts_client = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '410%'])
+    Account.create!(:name=>"Clients", :number=>"411") unless @current_company.accounts.exists?(:number=>"411")
+    Account.create!(:name=>"Fournisseurs", :number=>"401") unless @current_company.accounts.exists?(:number=>"401")
+
+    @accounts_supplier = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '401%'])
+    @accounts_client = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '411%'])
     
     @financialyears = @current_company.financialyears.find(:all)
     

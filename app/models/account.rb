@@ -44,9 +44,10 @@ class Account < ActiveRecord::Base
   def before_validation
     self.label = self.number.to_s+' - '+self.name.to_s
     index = -2
+#    raise Exception.new('a:'+self.number.to_s.length.to_s)
     parent_account = Account.find(:last, :conditions => {:company_id => self.company_id, :number => self.number.to_s[0..index]})
    # raise Exception.new('p:'+parent_account.inspect)
-    while parent_account.nil? and index.abs <= self.number.length do
+    while parent_account.nil? and index.abs <= self.number.to_s.length do
       index += -1
       parent_account = Account.find(:last, :conditions => {:company_id => self.company_id, :number => self.number.to_s[0..index]})
     end
