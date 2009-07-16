@@ -26,9 +26,9 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
   part 25.mm do    
     set do
       if @current_company.default_contact.line_6_city.nil?
-        text "Le "+I18n.localize(Date.today, :format=>:month_letter)
+        text "Le "+I18n.localize(@sale_order.created_on, :format=>:month_letter)
       else
-        text "À "+@current_company.default_contact.line_6_city+", le "+I18n.localize(Date.today, :format=>:month_letter)
+        text "À "+@current_company.default_contact.line_6_city+", le "+I18n.localize(@sale_order.created_on, :format=>:month_letter)
       end
     end
     state = @sale_order.state == "P" ? "Devis n° " : "Commande n° "
@@ -107,7 +107,7 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
     set do
       line [[0,1.mm], [width,1.mm]], :width=>0.5
       text "Devis n° "+@sale_order.number, :size=>10, :align=>:left, :top=>4.mm
-      text I18n.localize(Date.today, :format=>:month_letter), :size=>10, :left=>width/2, :align=>:center, :top=>4.mm
+      text I18n.localize(@sale_order.created_on, :format=>:month_letter), :size=>10, :left=>width/2, :align=>:center, :top=>4.mm
       text "SIREN "+@current_company.siren.to_s, :size=>8, :left=>width/2, :align=>:center, :top=>10.mm
       text "Paraphe",:size=>10, :left=>width-20.mm, :align=>:right, :top=>4.mm
     end

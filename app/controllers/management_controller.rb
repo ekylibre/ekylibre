@@ -1740,7 +1740,17 @@ class ManagementController < ApplicationController
     t.column :current_virtual_quantity
     t.column :current_real_quantity
   end
-  
+
+  dyta(:critic_product_stocks, :model=>:product_stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
+    t.column :name, :through=>:product,:url=>{:action=>:products_display}
+    t.column :name, :through=>:location, :label=>"Lieu de stockage"
+    t.column :quantity_max
+    t.column :quantity_min
+    t.column :critic_quantity_min
+    t.column :current_virtual_quantity
+    t.column :current_real_quantity
+  end
+
 
   def stocks
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)

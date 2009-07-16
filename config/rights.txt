@@ -82,6 +82,9 @@ help:close:administrate_nothing
 help:previous:administrate_nothing
 help:search:administrate_nothing
 help:side:administrate_nothing
+management:dyta_critic_product_stocks:administrate_management
+management:dyta_unexecuted_transfers:administrate_management
+management:dyta_unreceived_purchases:administrate_management
 management:dyta_all_invoices:administrate_management
 management:dyta_deliveries:administrate_management
 management:dyta_delivery_modes:administrate_management

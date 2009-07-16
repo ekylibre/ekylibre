@@ -4,3 +4,6 @@ Il vous suffit de modifier les champs que vous désirez, vous pouvez le faire po
 Vous pouvez *cocher ou décocher les différents droits* utilisateurs afin d'*autoriser* ou de *restreindre l'accès* à différentes parties du logiciel.
 
 La *modification des droits d'un utilisateur* ne sera *effective* qu'*à la prochaine connexion* de celui-ci.
+
+
+*Les champs* relatifs au *mot de passe* n'ont *pas besoin d'être renseignés* si vous ne voulez *pas que celui-ci ne change*.
