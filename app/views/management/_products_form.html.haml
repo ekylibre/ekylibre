@@ -13,6 +13,11 @@
   - f.field :product, :price
   - f.field :product, :nature, :field=>:radio, :choices=>Product.natures
   - f.field :product, :service_coeff, :html_options=>{ :id=>:service_coeff }
+=formalize(:id=>:sub_period) do |f|
+  - f.field :product, :subscription_period
+=formalize(:id=>:sub_numbers) do |f|
+  - f.field :product, :subscription_numbers
+=formalize do |f|
   - f.field :product, :supply_method, :field=>:radio, :choices=>Product.supply_methods
   - f.field :product, :active
   - f.field :product, :to_purchase
@@ -40,6 +45,18 @@
   =observe_field("product_stock_location_id", :url=>{:action=>:change_quantities}, :frequency=>0.25, :with=>"product_stock_location_id")
 
 :javascript
+  function subscription(){
+    if($('product_nature_sub_date').checked)
+      $('sub_period').show();
+    else
+      $('sub_period').hide();
+    if($('product_nature_sub_numb').checked)
+      $('sub_numbers').show();
+    else
+      $('sub_numbers').hide();
+  }
+  subscription();
+
   function stocks(){
     if($('product_manage_stocks').checked)
       $('stocks').show();
@@ -49,3 +66,7 @@
   stocks();
 
 =observe_field("product_manage_stocks", :frequency=>0.25, :function=> "stocks();")
+
+=observe_field("product_nature_sub_date", :frequency=>0.25, :function=>"subscription();")
+
+=observe_field("product_nature_sub_numb", :frequency=>0.25, :function=>"subscription();")

@@ -473,6 +473,8 @@ fr-FR:
         quantity_max: Quantité maximum
         service_coeff: Coefficient (de quantité) de service
         shelf_id: Catégorie
+        subscription_numbers: Nombre de numéros
+        subscription_period: Période
         supply_method: 'Moyen d''approvisionnement'
         to: Pour
         to_sale: Produit destiné à la vente
@@ -1365,6 +1367,8 @@ fr-FR:
       natures:
         product: Produit
         service: Service
+        sub_date: Abonnement par date
+        sub_numb: Abonnement par numéros
       supply_methods:
         buy: Achat
         produce: Production

@@ -86,7 +86,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.natures
-    [:product, :service].collect{|x| [tc('natures.'+x.to_s), x] }
+    [:product, :service, :sub_date, :sub_numb].collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
   def self.supply_methods
