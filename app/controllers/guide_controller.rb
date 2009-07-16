@@ -1,4 +1,3 @@
-require 'rails/info'
 class GuideController < ApplicationController
   # layout :application
 
@@ -20,7 +19,11 @@ class GuideController < ApplicationController
   
   def about_us
     File.open("#{RAILS_ROOT}/VERSION") {|f| @version = f.read.split(',')}
-    @properties = Rails::Info.properties
+    begin
+      @properties = Rails::Info.properties
+    rescue
+      @properties = []
+    end
     @properties.reverse!
     @properties.insert(0, ["Ekylibre version", @version.reverse.join(' / ')])
   end
