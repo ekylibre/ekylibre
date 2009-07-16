@@ -53,7 +53,9 @@ class JournalRecord < ActiveRecord::Base
   def validate
     errors.add :number, tc(:error_format_number) unless self.number=~/^[\dA-Z][\dA-Z]*$/
     errors.add :printed_on, tc(:error_printed_date) if self.printed_on > self.created_on
-    errors.add :created_on, tc(:error_created_date_current_financialyear) if self.created_on < self.financialyear.started_on or self.created_on > self.financialyear.stopped_on
+    if self.financialyear
+      errors.add :created_on, tc(:error_created_date_current_financialyear) if self.created_on < self.financialyear.started_on or self.created_on > self.financialyear.stopped_on
+    end
     if self.journal
       errors.add :created_on, tc(:error_closed_journal, [self.journal.closed_on.to_formatted_s]) if self.created_on < self.journal.closed_on 
     end
