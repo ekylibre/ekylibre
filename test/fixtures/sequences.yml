@@ -6,7 +6,6 @@
 #  name         :string(255)   not null
 #  increment    :integer       default(1), not null
 #  format       :string(255)   not null
-#  active       :boolean       not null
 #  next_number  :integer       default(0), not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
@@ -14,6 +13,7 @@
 #  created_by   :integer       
 #  updated_by   :integer       
 #  lock_version :integer       default(0), not null
+#  period       :string(255)   default("none"), not null
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

@@ -96,7 +96,7 @@ class Company < ActiveRecord::Base
     while Company.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
       self.code.succ!
     end
-    self.siren = '000000000' if self.siren.blank?
+    # self.siren = '000000000' if self.siren.blank?
   end
 
   def set_entity_id(id)
@@ -220,7 +220,7 @@ class Company < ActiveRecord::Base
     self.taxes.find(:all, options)
   end
 
-  def invoice(records,  options={})
+  def invoice(records)
     Invoice.generate(self.id,records)
   end
 

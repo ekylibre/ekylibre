@@ -25,6 +25,7 @@
 #  mode         :string(255)   default("IBAN"), not null
 #  address      :text          
 #  bank_name    :string(50)    
+#  default      :boolean       not null
 #
 
 class BankAccount < ActiveRecord::Base

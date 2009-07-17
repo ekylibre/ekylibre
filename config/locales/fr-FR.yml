@@ -324,6 +324,7 @@ fr-FR:
         proposer_id: Parrain
         reduction_rate: Taux de réduction
         reflation_submissive: Soumis à la relance
+        siren: Code SIREN
         supplier: Fiche fournisseur
         vat_number: Numéro de TVA intra-communautaire
         vat_submissive: Soumis à la TVA
@@ -795,8 +796,13 @@ fr-FR:
 
     # Company
     company:
+      configure:
+        title: 'Modification de la société : {{value}}'
+        general: Vous pouvez modifier les différentes informations concernant votre société
+        company_code_info: 'Ce code sert d''abréviation pour certaines impressions'
       index:
         backup: Effectuer une sauvegarde des données
+        configure: Modifier les paramètres
         departments: Services
         departments_create: Ajouter un nouveau service
         departments_number: Nombre de services
@@ -807,8 +813,7 @@ fr-FR:
         restore: Recharger une sauvegarde
         roles: Rôles 
         roles_create: Ajouter un rôle
-        title: 'Informations sur la société : {{value}}'
-        update: Modifier les codes société
+        title: 'Administration de : {{name}} ({{code}})'
         users: Utilisateurs
         users_create: Ajouter un nouvel utilisateur
         users_number: 'Nombre d''utilisateurs'
@@ -854,10 +859,6 @@ fr-FR:
         production_rights: Droits module Production
         relations_rights: Droits module Relations clients/fournisseurs
         resources_rights: Droits module Ressources
-      update:
-        title: 'Modification de la société : {{value}}'
-        general: Vous pouvez modifier les différentes informations concernant votre société
-        company_code_info: 'Ce code sert d''abréviation pour certaines impressions'
       user:
         title: 'Informations sur l''utilisateur : {{value}}'
         change_password: Changer de mot de passe

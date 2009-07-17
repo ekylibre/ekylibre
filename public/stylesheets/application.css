@@ -190,14 +190,15 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 .toolbar ul {padding: 1px;}
 .toolbar ul > li {padding: 2px 0; list-style-type: none; height:16px; margin:2px 0;}
 .toolbar ul > li > a {padding: 2px 2px 2px 20px; height:16px; background: url(../images/template/round.png) no-repeat center left;}
-.toolbar ul > li > a.update  {background: url(../images/buttons/update.png) no-repeat center left;}
-.toolbar ul > li > a.create  {background: url(../images/buttons/create.png) no-repeat center left;}
-.toolbar ul > li > a.sort    {background: url(../images/buttons/sort.png) no-repeat center left;}
-.toolbar ul > li > a.print   {background: url(../images/buttons/print.png) no-repeat center left;}
-.toolbar ul > li > a.backup  {background: url(../images/buttons/right.png) no-repeat center left;}
-.toolbar ul > li > a.export  {background: url(../images/buttons/right.png) no-repeat center left;}
-.toolbar ul > li > a.restore {background: url(../images/buttons/left.png) no-repeat center left;}
-.toolbar ul > li > a.import  {background: url(../images/buttons/left.png) no-repeat center left;}
+.toolbar ul > li > a.update    {background: url(../images/buttons/update.png) no-repeat center left;}
+.toolbar ul > li > a.create    {background: url(../images/buttons/create.png) no-repeat center left;}
+.toolbar ul > li > a.sort      {background: url(../images/buttons/sort.png) no-repeat center left;}
+.toolbar ul > li > a.print     {background: url(../images/buttons/print.png) no-repeat center left;}
+.toolbar ul > li > a.backup    {background: url(../images/buttons/right.png) no-repeat center left;}
+.toolbar ul > li > a.export    {background: url(../images/buttons/right.png) no-repeat center left;}
+.toolbar ul > li > a.restore   {background: url(../images/buttons/left.png) no-repeat center left;}
+.toolbar ul > li > a.import    {background: url(../images/buttons/left.png) no-repeat center left;}
+.toolbar ul > li > a.configure {background: url(../images/buttons/configure.png) no-repeat center left;}
 
 
 

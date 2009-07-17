@@ -6,10 +6,10 @@ class CompanyController < ApplicationController
   def index
     # raise Exception.new @@rights.inspect
     @company = @current_company
-    @title = {:value=>@company.name}
+    @title = {:name=>@company.name, :code=>@company.code}
   end
 
-  def update
+  def configure
     @company = @current_company
     if request.post?
       if @company.update_attributes(params[:company])
@@ -161,21 +161,15 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :first_name
     t.column :last_name
-   # t.column :name, :through=>:role, :label=>tc(:role)
-    t.column :free_price
-    t.column :credits
+    t.column :name, :through=>:role, :label=>tc(:role)
+    #t.column :free_price
+    #t.column :credits
     t.column :reduction_percent
     t.column :email
     t.column :admin
     t.action :locked, :actions=>{"true"=>{:action=>:users_unlock},"false"=>{:action=>:users_lock}}, :method=>:post
-    #    t.column :locked
-    #    t.action :users_lock , :image=>:unlock_access , :method=>:post , :confirm=>:are_you_sure
-    #    t.action :users_unlock , :image=>:lock_access , :method=>:post , :confirm=>:are_you_sure
     t.action :users_update, :image=>:update 
     t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
-  end
-
-  def users
   end
 
   dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t|
@@ -186,9 +180,6 @@ class CompanyController < ApplicationController
     t.action :establishments_update, :image=>:update
     t.action :establishments_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
   end
-
-  def establishments
-  end
   
   dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t| 
     t.column :name
@@ -197,13 +188,19 @@ class CompanyController < ApplicationController
     t.action :departments_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
   end
 
-  def departments
-  end
-
   dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name
     t.action :roles_update
   end
+
+  dyta(:sequences, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+    t.column :name
+    t.column :compute
+    t.column :format
+    t.action :sequences_update
+  end
+
+
 
   def establishments_create
     access :establishments
