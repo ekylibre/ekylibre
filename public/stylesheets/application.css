@@ -30,10 +30,10 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #main .nav { background: #C9D7F1; }
 #main .title { color: #047; }
 
+
+#help { width: 256px; border-left: 1px solid #BEBEBB; border-top: 1px solid #BEBEBB; background: #fefef9 url(../images/template/help.png) repeat-x top;}
 #help .nav { background: #e9e9a8; }
 #help .title { color: #750; text-align: center; }
-
-#help { border-left: 1px solid #BEBEBB; border-top: 1px solid #BEBEBB; background: #fefef9 url(../images/template/help.png) repeat-x top;}
 #help .content { padding: 8px; }
 #help .content h1 { font-size: 17px; margin: 0px 0px 16px; color: #750;}
 #help .content h2 { font-size: 15px; margin: 8px 8px 4px;  border-bottom: 1px solid #dd8;}
@@ -50,13 +50,14 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #side .menu { background: #FFF; padding:0px; margin:8px 0px 0px; border: 2px solid #95b0e4; }
 #side .menu h2 { font-size : 13px; color: #012; padding: 2px 4px; background: #95b0e4; text-align: center; }
 #side .menu ul { padding: 0 0px 0 0px; }
+#side .menu ul li:first-child { border-top: none; }
 #side .menu li { list-style-type: none; background: url(../images/template/round.png) no-repeat center left; border-top: 1px dotted #95b0e4; }
 #side .menu li:hover { background: #DBE4F6 url(../images/template/round_hover.png) no-repeat center left; }
 #side .menu li a { display:block; padding: 2px 4px 4px 16px;}
 /*#side .menu li a { font-size: 11px; }*/
 /*#side .index { display:block; padding: 2px; font-size: 11px; text-align:center; background: #FFF; border: 2px solid #95b0e4; margin: 2px;}*/
 #side .indicator { border-color: #8ad4c0}
-#side .indicator li { background: url(../images/template/round_green.png) left no-repeat; border-top:none;}
+#side .indicator li { background: url(../images/template/round_green.png) left no-repeat; }
 #side .indicator li:hover { background: #DBF6E4 url(../images/template/round_hover.png) no-repeat center left; }
 
 #yield { padding: 8px; overflow: auto; background: url(../images/template/columns.png) repeat-x top; border: 1px solid #95b0e4; }

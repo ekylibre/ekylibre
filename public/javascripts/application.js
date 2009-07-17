@@ -144,7 +144,7 @@ var xulElementMethods = {
           w = width-borders[index].horizontal;
           h = height-borders[index].vertical;
           if (flexes[index]>0) {
-            s = k*flexes[index];
+            s = Math.floor(k*flexes[index]);
           } else {
             s = lengths[index];
           }

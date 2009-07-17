@@ -6,17 +6,10 @@ class Jun1v1 < ActiveRecord::Migration
       bank_account = entity.bank_accounts.find :first
       bank_account.update_attribute(:default, true) if bank_account
     end
-
-end
+  end
 
   def self.down
-    
-    BankAccount.find(:all).each do |bank_account|
-      bank_account.update_attribute(:default, false) 
-    end
-    
     remove_column :bank_accounts, :default
-
   end
 
 end

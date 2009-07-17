@@ -20,7 +20,7 @@ class GuideController < ApplicationController
   def about_us
     File.open("#{RAILS_ROOT}/VERSION") {|f| @version = f.read.split(',')}
     begin
-      @properties = Rails::Info.properties
+      @properties = Rails::Info.properties.dup
     rescue
       @properties = []
     end

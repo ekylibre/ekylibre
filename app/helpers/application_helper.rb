@@ -264,7 +264,7 @@ module ApplicationHelper
     code += content_tag(:div, tag, :id=>:guide, :class=>:menu)
     # Fix
     tag = ''
-    tag += image_tag('template/ajax-loader-2.gif', :id=>:loading, :style=>'display:none;')
+    tag += image_tag('template/ajax-loader-3.gif', :id=>:loading, :style=>'display:none;')
     code += content_tag(:div, tag, :style=>'text-align:center;', :align=>:center, :flex=>1)
     
     # User Tag
