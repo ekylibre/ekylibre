@@ -37,6 +37,7 @@
 #
 
 class Contact < ActiveRecord::Base
+  belongs_to :area
   belongs_to :company
   belongs_to :entity
   belongs_to :norm, :class_name=>AddressNorm.to_s

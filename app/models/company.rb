@@ -21,6 +21,7 @@
 #
 
 class Company < ActiveRecord::Base
+  has_many :areas
   has_many :accounts
   has_many :account_balances
   has_many :address_norms

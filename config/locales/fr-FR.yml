@@ -233,6 +233,7 @@ fr-FR:
         name: Nom
         value: Valeur
       contact:
+        area_id: Zone
         country: Pays
         fax: Fax
         mobile: Portable

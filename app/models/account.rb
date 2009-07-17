@@ -39,7 +39,6 @@ class Account < ActiveRecord::Base
   has_many :purchase_order_lines
   acts_as_tree
   validates_format_of :number, :with=>/[0-9][0-9]?[0-9]?[0-9A-Z]*/
-  
   # This method allows to create the parent accounts if it is necessary.
   def before_validation
     self.label = self.number.to_s+' - '+self.name.to_s

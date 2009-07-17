@@ -4,6 +4,16 @@ class RelationsController < ApplicationController
     @entities = @current_company.entities
   end
 
+  # this method has not specific view.
+  def areas_find 
+    if request.xhr?
+      
+      @area = @current_company.areas.find(params[:area])
+      puts 's2'
+      render :action => 'areas_find.rjs'
+    end
+  end 
+ 
   dyta(:entity_bank_accounts, :model => :bank_accounts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
     t.column :name
     t.column :number
@@ -723,7 +733,8 @@ class RelationsController < ApplicationController
     render_form
   end
   
-  def meetings_update
+ 
+ def meetings_update
     @meeting = find_and_check(:meeting, params[:id])
     if request.post?
       redirect_to_back if @meeting.update_attributes(params[:meeting])
@@ -862,4 +873,6 @@ class RelationsController < ApplicationController
     
   end
   
+ 
+
 end
