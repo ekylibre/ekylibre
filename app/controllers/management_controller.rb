@@ -441,14 +441,15 @@ class ManagementController < ApplicationController
 
   def products_create
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
-    if request.post? 
+    if request.post?
+      #raise Exception.new params.inspect
       @product = Product.new(params[:product])
       @product.company_id = @current_company.id
+      @product_stock = ProductStock.new(params[:product_stock])
       ActiveRecord::Base.transaction do
         saved = @product.save
         if params[:product][:manage_stocks] == "1"
           if saved
-            @product_stock = ProductStock.new(params[:product_stock])
             @product_stock.product_id = @product.id
             @product_stock.company_id = @current_company.id
             saved = false unless @product_stock.save!
@@ -457,9 +458,12 @@ class ManagementController < ApplicationController
             end
           end
         end 
-        raise ActiveRecord::Rollback unless saved  
+        if saved
+          redirect_to_back
+        else
+          raise ActiveRecord::Rollback# unless saved  
+        end
       end
-      redirect_to_back
     else
       # @product = Product.new(:without_stocks=>true)
       @product = Product.new
@@ -932,8 +936,16 @@ class ManagementController < ApplicationController
     end
   end
 
+  def subscription_find
+    price = find_and_check(:prices, params[:sale_order_line_price_id])
+    @product = find_and_check(:products, price.product_id)
+    puts @product.inspect
+   # raise Exception.new @price.product.inspect
+  end
 
   def sale_order_lines_create
+    # @delay = Delay.find_by_id(100)
+    # raise Exception.new Date.today.inspect+"   "+@delay.expression.inspect+"  "+@delay.compute(Date.today).inspect
     @stock_locations = @current_company.stock_locations
     @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
     if @stock_locations.empty? 
@@ -944,6 +956,7 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sales_products, :id=>@sale_order.id
     else
       if request.post? 
+        raise Exception.new params.inspect
         @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
         if @sale_order_line and params[:sale_order_line][:price_amount].to_d <= 0
           @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
@@ -954,9 +967,16 @@ class ManagementController < ApplicationController
           @sale_order_line.product_id = find_and_check(:prices,params[:sale_order_line][:price_id]).product_id
           @sale_order_line.location_id = @stock_locations[0].id if @stock_locations.size == 1
         end
+        #### Transaction à faire 
+        if @sale_order_line.product.nature == "sub_date"
+          @subscription.started_on = params[:subscription][:finished_on]
+        elsif @sale_order_line.product.nature == "sub_numb"
+          @subscription.numbers = params[:subscription][:numbers]
+        end
         redirect_to :action=>:sales_products, :id=>@sale_order.id if @sale_order_line.save
       else
         @sale_order_line = SaleOrderLine.new(:price_amount=>0.0)
+        @subscription = Subscription.new
       end
       render_form
     end

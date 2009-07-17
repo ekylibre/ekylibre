@@ -43,19 +43,28 @@ class Delay < ActiveRecord::Base
     steps.each do |step|
       if step.match /^(eom|end of month|fdm|fin de mois)$/
         stopped_on = stopped_on.end_of_month
-      elsif step.match /^\d+\ (mois|month|jour|day)s?(\ (avant|ago))?$/
+      elsif step.match /^\d+\ (an|année|annee|year|mois|month|week|semaine|jour|day|heure|hour)s?(\ (avant|ago))?$/
         words = step.split " "
-        sign = words[2].nil? ? 1 : -1
-        case words[1].gsub('s','')
+        #raise Exception.new words.inspect
+        sign = words[2].nil? ? 1 : -1                  ## "ago" in step ?
+        case words[1].gsub(/s$/,'')
         when "jour", "day"
-          stopped_on += sign*words[0].to_i
+          stopped_on += sign*words[0].to_i             ## date = date + x days (x>0 if not "ago" in step , else x<0)
+        when "semaine", "week"
+          stopped_on += sign*words[0].to_i*7           ## date = date + x weeks (x>0 if not "ago" in step , else x<0)
         when "moi", "month"
           if sign > 0
-            stopped_on = stopped_on >> words[0].to_i
+            stopped_on = stopped_on >> words[0].to_i   ## date = date - x months
           else
-            stopped_on = stopped_on << words[0].to_i
+            stopped_on = stopped_on << words[0].to_i   ## date = date + x months
           end
-        end
+        when "an", "annee", "année", "year"
+          if sign > 0
+            stopped_on = stopped_on >> words[0].to_i*12   ## date = date - x years
+          else
+            stopped_on = stopped_on << words[0].to_i*12   ## date = date + x years
+          end
+        end 
       else
         return nil
       end

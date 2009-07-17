@@ -17,6 +17,7 @@
   - f.field :product, :subscription_period
 =formalize(:id=>:sub_numbers) do |f|
   - f.field :product, :subscription_numbers
+  - f.field :product, :actual_number
 =formalize do |f|
   - f.field :product, :supply_method, :field=>:radio, :choices=>Product.supply_methods
   - f.field :product, :active

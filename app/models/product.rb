@@ -55,6 +55,9 @@ class Product < ActiveRecord::Base
   has_many :stock_moves
   has_many :stock_transfers
 
+  validates_presence_of :subscription_period, :if=>Proc.new{|u| u.nature=="sub_date"}
+  validates_presence_of :subscription_numbers, :actual_number, :if=>Proc.new{|u| u.nature=="sub_numb"}
+
   def before_validation
     self.code = self.name.codeize.upper if self.code.blank?
     self.code = self.code[0..7]

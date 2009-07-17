@@ -454,6 +454,7 @@ fr-FR:
         name: Nom
       product:
         active: Utilisable
+        actual_number: Numéro en cours
         catalog_name: Nom pour le catalogue
         catalog_description: Description pour le catalogue
         charge_account_id: Compte comptable de charges
@@ -640,6 +641,10 @@ fr-FR:
         quantity: Quantité
         second_location_id: Entrée du lieu de stockage
         text_nature: Type
+      subscription: 
+        finish: Termine le
+        numbers: Nombre de numéros
+        start: Débute le
       tax:
         amount: Valeur
         group_name: Groupe
