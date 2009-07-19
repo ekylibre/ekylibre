@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
     help_search(self.controller_name+'-'+self.action_name) if session[:help] and not [:authentication, :help, :search].include?(controller_name.to_sym)
 
 
-    begin
+    #begin
       User.current_user = User.find_by_id(session[:user_id])
       @current_user = User.current_user
       @current_company = @current_user.company
@@ -141,10 +141,10 @@ class ApplicationController < ActionController::Base
         end
 
       end
-    rescue
-      reset_session
-      redirect_to_login
-    end
+#    rescue
+#      reset_session
+#      redirect_to_login
+#    end
 
     session[:rights] ||= []
     if @current_user

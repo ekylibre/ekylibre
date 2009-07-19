@@ -81,9 +81,9 @@ class Company < ActiveRecord::Base
   has_many :units
   has_many :users
   belongs_to :entity
-  belongs_to :sales_journal, :class_name=>Journal.to_s
-  belongs_to :purchases_journal, :class_name=>Journal.to_s
-  belongs_to :bank_journal, :class_name=>Journal.to_s
+  # belongs_to :sales_journal, :class_name=>Journal.to_s
+  # belongs_to :purchases_journal, :class_name=>Journal.to_s
+  # belongs_to :bank_journal, :class_name=>Journal.to_s
 
   
   def before_validation
