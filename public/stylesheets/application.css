@@ -11,7 +11,6 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 .invoice { text-align:center;  padding:10px 0; font-size:15px; width: 200px;  background: #C87; border:5px solid red; margin: 20px auto; }
 .entity { text-align:right; }
 #loading { padding: 2px; text-align: center; }
-#columns {  }
 #main { overflow: auto; border-top: 1px solid #95b0e4; }
 #content { overflow: auto; border-right:8px solid #C9D7F1; border-left:8px solid #C9D7F1; }
 #legals { margin:0; padding:4px 8px; background: #C9D7F1; font-size:13px; color: #047; text-align: center; }
@@ -74,7 +73,9 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 .errorExplanation { background: #ECA; color: #543; margin: 8px; }
 
 #top {height: 24px;}
-#top .menu a, #top .menu strong, #top .menu span { margin-left: 6px; }
+/*#top .menu a, #top .menu strong, #top .menu span { margin-left: 6px; }*/
+#top .menu * { padding: 4px 4px 5px;}
+#top .menu strong { background: #E4EBF8;}
 #guide { float:left; height:24px; margin-top:4px; }
 #user { float:right; height:24px; margin:4px 10px; text-align:right;}
 

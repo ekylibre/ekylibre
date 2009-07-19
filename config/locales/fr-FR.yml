@@ -211,13 +211,14 @@ fr-FR:
         stopped_on: Au
       company:
         bank_journal: Journal de banque
+        born_on: Créée le
         code: Code interne
+        entity_id: Fiche relation
         name: 'Nom' # (ou&nbsp;dénomination&nbsp;sociale)
         purchases_journal: 'Journal d''achats'
         sales: Ventes
         sales_journal: Journal de Ventes
         siren: Numéro SIREN
-        born_on: Créée le
       complement: 
         choices_count: Nb. Choix
         nature: Type de donnée
@@ -797,9 +798,10 @@ fr-FR:
     # Company
     company:
       configure:
-        title: 'Modification de la société : {{value}}'
-        general: Vous pouvez modifier les différentes informations concernant votre société
-        company_code_info: 'Ce code sert d''abréviation pour certaines impressions'
+        accountancy: Comptabilité
+        general: Paramètres généraux
+        management: Gestion commerciale
+        title: 'Paramètres de {{value}}'
       index:
         backup: Effectuer une sauvegarde des données
         configure: Modifier les paramètres
@@ -813,6 +815,7 @@ fr-FR:
         restore: Recharger une sauvegarde
         roles: Rôles 
         roles_create: Ajouter un rôle
+        sequences: Séquences
         title: 'Administration de : {{name}} ({{code}})'
         users: Utilisateurs
         users_create: Ajouter un nouvel utilisateur

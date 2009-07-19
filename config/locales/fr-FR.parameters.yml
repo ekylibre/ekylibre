@@ -1,0 +1,17 @@
+fr-FR:
+  parameters:
+    accountancy:
+      default_journals:
+        bank: 'Journal de banque par défaut'
+        purchases: 'Journal d''achats par défaut'
+        sales: 'Journal de ventes par défaut'
+      third_accounts:
+        clients: 'Comptes clients'
+        suppliers: 'Comptes fournisseurs'
+        taxes: 'Comptes taxes'
+    general:
+      language: 'Langue par défaut'
+    management:
+      embankments:
+        days_before_warning_undone: 'Nombre de jours avant de prévenir pour les encaissements non effectués'
+        days_before_warning_unvalidated: 'Nombre de jours nécessaire pour pour pouvoir valider une remise de chèque'

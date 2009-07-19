@@ -2,30 +2,27 @@
 #
 # Table name: companies
 #
-#  id                   :integer       not null, primary key
-#  name                 :string(255)   not null
-#  code                 :string(8)     not null
-#  siren                :string(9)     
-#  born_on              :date          
-#  locked               :boolean       not null
-#  deleted              :boolean       not null
-#  created_at           :datetime      not null
-#  updated_at           :datetime      not null
-#  created_by           :integer       
-#  updated_by           :integer       
-#  lock_version         :integer       default(0), not null
-#  entity_id            :integer       
-#  sales_journal_id     :integer       
-#  purchases_journal_id :integer       
-#  bank_journal_id      :integer       
+#  id                  :integer       not null, primary key
+#  name                :string(255)   not null
+#  code                :string(8)     not null
+#  born_on             :date          
+#  locked              :boolean       not null
+#  deleted             :boolean       not null
+#  created_at          :datetime      not null
+#  updated_at          :datetime      not null
+#  created_by          :integer       
+#  updated_by          :integer       
+#  lock_version        :integer       default(0), not null
+#  entity_id           :integer       
+#  invoice_sequence_id :integer       
 #
 
 class Company < ActiveRecord::Base
-  has_many :areas
   has_many :accounts
   has_many :account_balances
   has_many :address_norms
   has_many :address_norm_items
+  # has_many :areas
   has_many :bank_accounts
   has_many :bank_account_statements
   has_many :complements
@@ -99,24 +96,22 @@ class Company < ActiveRecord::Base
     # self.siren = '000000000' if self.siren.blank?
   end
 
-  def set_entity_id(id)
-    self.entity_id = id
-    self.save
-    #raise Exception.new self.entity_id.inspect
+  def siren
+    self.entity ? self.entity.siren : '000000000'
   end
 
-  def set_journals_id(sales, purchases, bank)
-    self.sales_journal_id = sales
-    self.purchases_journal_id = purchases
-    self.bank_journal_id = bank
-    self.save
-  end
+#   def set_journals_id(sales, purchases, bank)
+#     self.sales_journal_id = sales
+#     self.purchases_journal_id = purchases
+#     self.bank_journal_id = bank
+#     self.save
+#   end
 
   def after_create
-    self.languages.create!(:name=>'Français', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
+    language = self.languages.create!(:name=>'Français', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
+    self.set_parameter('general.language', language)
     role = Role.create!(:name=>tc('default.role.name.admin'), :company_id=>self.id, :rights=>ApplicationController.rights(true).join(' '))
     role = Role.create!(:name=>tc('default.role.name.public'), :company_id=>self.id ,:rights=>'')
-    self.parameter('general.language').value=self.languages.find_by_iso2('fr')
     self.load_template("#{RAILS_ROOT}/lib/template.xml")
     self.departments.create!(:name=>tc('default.department_name'))
     self.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
@@ -132,38 +127,27 @@ class Company < ActiveRecord::Base
     self.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
     self.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
     self.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
-    indefini = self.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false)
-#    raise Exception.new self.entities.inspect
-    #raise Exception.new [:nature_id=>indefini.id, :language_id=>1, :name=>self.name].inspect
-    #self.entities
-    firm = self.entities.create!(:nature_id=>indefini.id, :language_id=>1, :name=>self.name)
-    #firm = self.entities.create( :name=>'toto')
-    self.set_entity_id(firm.id)
+    undefined_nature = self.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false)
+    firm = self.entities.create!(:nature_id=>undefined_nature.id, :language_id=>language, :name=>self.name)
+    self.entity_id = firm.id
+    self.save
     self.payment_modes.create!(:name=>tc('default.check'), :company_id=>self.id)
-   # self.entity_id = firm.id
-    #raise Exception.new self.inspect
     delays = []
     ['expiration', 'standard', 'immediate'].each do |d|
       delays << self.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
     end
-    
     self.entity_categories.create!(:name=>tc('default.category'))
-    
-    self.financialyears.create!(:code=>"2009/2010", :started_on=>Date.today, :stopped_on=>Date.today+(365))
-    
+    self.financialyears.create!(:started_on=>Date.today)
     self.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
 
-    sales_journal = self.journals.create!(:name=>tc(:sales_journal), :nature=>"sale", :currency_id=>currency.id)  
-    
-    purchases_journal = self.journals.create!(:name=>tc(:purchases_journal), :nature=>"purchase", :currency_id=>currency.id)
-    
-    bank_journal = self.journals.create!(:name=>tc(:bank_journal), :nature=>"bank", :currency_id=>currency.id)
-    
-    self.set_journals_id(sales_journal.id, purchases_journal.id, bank_journal.id)
+#     sales_journal = self.journals.create!(:name=>tc(:sales_journal), :nature=>"sale", :currency_id=>currency.id)  
+#     purchases_journal = self.journals.create!(:name=>tc(:purchases_journal), :nature=>"purchase", :currency_id=>currency.id)
+#     bank_journal = self.journals.create!(:name=>tc(:bank_journal), :nature=>"bank", :currency_id=>currency.id)
+    self.set_parameter('accountancy.default_journals.sales', self.journals.create!(:name=>tc(:sales_journal), :nature=>"sale", :currency_id=>currency.id))
+    self.set_parameter('accountancy.default_journals.purchases', self.journals.create!(:name=>tc(:purchases_journal), :nature=>"purchase", :currency_id=>currency.id))
+    self.set_parameter('accountancy.default_journals.bank', self.journals.create!(:name=>tc(:bank_journal), :nature=>"bank", :currency_id=>currency.id))
 
-    #tc('countries')
-    
-#    puts tc('accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.collect{|a| a[0].to_s+'  ::  '+a[1].to_s}.join "\n"
+    #self.set_journals_id(sales_journal.id, purchases_journal.id, bank_journal.id)
     tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
       #puts a.inspect
       begin
@@ -176,23 +160,21 @@ class Company < ActiveRecord::Base
       rescue Exception
         
       end
-
     end
+
   end
 
   def parameter(name)
-    parameter = Parameter.find_by_name_and_company_id(name,self.id)
-    parameter = Parameter.new(:name=>name, :nature=>:u, :company_id=>self.id)
+    parameter = self.parameters.find_by_name(name)
+    #parameter = self.parameters.build(:name=>name) if parameter.nil?
     parameter
   end
 
-  def load_accounting_system
-    t('models.company.accounting_system').each do |a|
-      self.accounts.create!(:number=>a[0], :name=>a[1])
-    end
-#    for a in 1..8
-#      self.accounts.create!(:number=>a.to_s, :name=>l(:accounting_system, a.to_sym), :label=>l(:accounting_system, a.to_sym), :parent_id=>0)
-#    end
+  def set_parameter(name, value)
+    parameter = self.parameters.find_by_name(name)
+    parameter = self.parameters.build(:name=>name) if parameter.nil?
+    parameter.value = value
+    parameter.save
   end
 
   def load_template(filename)

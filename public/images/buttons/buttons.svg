@@ -24,6 +24,28 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient3910">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop3912" />
+      <stop
+         style="stop-color:#b9c6f2;stop-opacity:1;"
+         offset="1"
+         id="stop3914" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3856">
+      <stop
+         style="stop-color:#121848;stop-opacity:1;"
+         offset="0"
+         id="stop3858" />
+      <stop
+         style="stop-color:#4a58d2;stop-opacity:1;"
+         offset="1"
+         id="stop3861" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3852">
       <stop
          style="stop-color:#2b2b2b;stop-opacity:1;"
@@ -4067,6 +4089,79 @@
        y2="-2.625"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1.007874,0,0,1,-0.1299218,0)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3863"
+       x1="324.5"
+       y1="22.5"
+       x2="331.5"
+       y2="22.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3865"
+       x1="324.5"
+       y1="20.625"
+       x2="331.5"
+       y2="20.625"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3867"
+       x1="324.5"
+       y1="18.5"
+       x2="331.5"
+       y2="18.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3869"
+       x1="322.625"
+       y1="30.0625"
+       x2="333.75"
+       y2="30.0625"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3871"
+       x1="323"
+       y1="20.5"
+       x2="333"
+       y2="20.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3905"
+       gradientUnits="userSpaceOnUse"
+       x1="323"
+       y1="20.5"
+       x2="333"
+       y2="20.5" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3908"
+       gradientUnits="userSpaceOnUse"
+       x1="328.1875"
+       y1="26.375"
+       x2="328.1875"
+       y2="20.125"
+       spreadMethod="reflect" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3910"
+       id="linearGradient3916"
+       x1="322.625"
+       y1="24"
+       x2="333.75"
+       y2="24"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -5089,7 +5184,7 @@
        inkscape:export-ydpi="90" />
     <g
        id="g3800"
-       inkscape:export-filename="/home/brice/Informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/print.png"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/print.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90">
       <path
@@ -5098,30 +5193,24 @@
          d="M 321.5,21.625 L 334.5,21.625 C 335.89668,24.932503 335.76872,27.858846 334.5,30.5 L 321.5,30.5 C 320.17864,27.730433 320.49732,24.726573 321.5,21.625 z"
          style="fill:url(#linearGradient3815);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       <path
-         sodipodi:nodetypes="ccccc"
-         id="path3008"
-         d="M 323.5,16.5 L 323.5,24.5 L 332.5,24.5 L 332.5,16.5 L 323.5,16.5 z"
-         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         id="path3010"
-         d="M 323.375,28.75 L 323.125,31.5 L 333.25,31.5 L 332.875,28.625 L 323.375,28.75 z"
-         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+         style="fill:url(#linearGradient3916);fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient3908);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 323.5 16.5 L 323.5 24.5 L 332.5 24.5 L 332.5 16.5 L 323.5 16.5 z M 332.875 28.625 L 323.375 28.75 L 323.125 31.5 L 333.25 31.5 L 332.875 28.625 z "
+         id="path3008" />
       <path
          sodipodi:nodetypes="cc"
          id="path3014"
          d="M 325,18.5 L 331,18.5"
-         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+         style="fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:url(#linearGradient3867);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       <path
          sodipodi:nodetypes="cc"
          id="path3016"
          d="M 325,20.625 L 331,20.625"
-         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+         style="fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:url(#linearGradient3865);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       <path
          sodipodi:nodetypes="cc"
          id="path3807"
          d="M 325,22.5 L 331,22.5"
-         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+         style="fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:url(#linearGradient3863);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     </g>
     <path
        sodipodi:type="arc"

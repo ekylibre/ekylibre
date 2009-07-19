@@ -43,6 +43,7 @@
 #  origin_id             :integer       
 #  first_met_on          :date          
 #  category_id           :integer       
+#  siren                 :string(9)     
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

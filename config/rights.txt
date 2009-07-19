@@ -1,3 +1,7 @@
+# company:departments:manage_company
+# company:establishments:manage_company
+# company:update:manage_company
+# company:users:manage_users
 accountancy:dyta_accounts:administrate_accountancy
 accountancy:dyta_bank_account_statements:administrate_accountancy
 accountancy:dyta_bank_accounts:administrate_accountancy
@@ -49,26 +53,24 @@ authentication:index:administrate_nothing
 authentication:login:administrate_nothing
 authentication:logout:administrate_nothing
 authentication:register:administrate_nothing
+company:configure:administrate_company
 company:dyta_departments:administrate_company
 company:dyta_establishments:administrate_company
 company:dyta_roles:administrate_company
+company:dyta_sequences:administrate_company
 company:dyta_users:administrate_company
 company:index:administrate_company
 company:user:administrate_company
 company:backup:manage_company
-company:departments:manage_company
 company:departments_create:manage_company
 company:departments_delete:manage_company
 company:departments_update:manage_company
-company:establishments:manage_company
 company:establishments_create:manage_company
 company:establishments_delete:manage_company
 company:establishments_update:manage_company
 company:restore:manage_company
-company:update:manage_company
 company:roles_create:manage_users
 company:roles_update:manage_users
-company:users:manage_users
 company:users_create:manage_users
 company:users_delete:manage_users
 company:users_lock:manage_users
@@ -82,7 +84,7 @@ help:close:administrate_nothing
 help:previous:administrate_nothing
 help:search:administrate_nothing
 help:side:administrate_nothing
-management:purchases_print:<new>
+management:subscription_find:<new>
 management:dyta_all_invoices:administrate_management
 management:dyta_critic_product_stocks:administrate_management
 management:dyta_deliveries:administrate_management
@@ -139,6 +141,7 @@ management:purchase_order_lines_delete:create_purchases
 management:purchase_order_lines_update:create_purchases
 management:purchase_orders_create:create_purchases
 management:purchases_new:create_purchases
+management:purchases_print:create_purchases
 management:purchases_products:create_purchases
 management:unreceived_purchases:create_purchases
 management:delays:manage_delays

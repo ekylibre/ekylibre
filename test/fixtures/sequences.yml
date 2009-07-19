@@ -2,18 +2,22 @@
 #
 # Table name: sequences
 #
-#  id           :integer       not null, primary key
-#  name         :string(255)   not null
-#  increment    :integer       default(1), not null
-#  format       :string(255)   not null
-#  next_number  :integer       default(0), not null
-#  company_id   :integer       not null
-#  created_at   :datetime      not null
-#  updated_at   :datetime      not null
-#  created_by   :integer       
-#  updated_by   :integer       
-#  lock_version :integer       default(0), not null
-#  period       :string(255)   default("none"), not null
+#  id               :integer       not null, primary key
+#  name             :string(255)   not null
+#  format           :string(255)   not null
+#  company_id       :integer       not null
+#  created_at       :datetime      not null
+#  updated_at       :datetime      not null
+#  created_by       :integer       
+#  updated_by       :integer       
+#  lock_version     :integer       default(0), not null
+#  period           :string(255)   default("number"), not null
+#  last_year        :integer       
+#  last_month       :integer       
+#  last_cweek       :integer       
+#  last_number      :integer       
+#  number_increment :integer       default(1), not null
+#  number_start     :integer       default(1), not null
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

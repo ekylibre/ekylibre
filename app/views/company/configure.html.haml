@@ -1,14 +1,14 @@
+=error_messages_for 'company'
 -form_tag do
   =formalize do |f|
     -f.title tc(:general)
     -f.field :company, :name
     -f.field :company, :code
     -f.field :company, :entity_id
-    -f.title :accountancy
-    -journals = @current_company.journals.find(:all, :order=>:name).collect{|x| [x.name, x.id]}
-    -f.field :company, :sales_journal_id, :choices=>journals
-    -f.field :company, :purchases_journal_id, :choices=>journals
-    -f.field :company, :bank_journal_id, :choices=>journals
+    -for name, options in @tree
+      -f.title tc(name)
+      -for key in options.keys.sort
+        -f.field t("parameters."+key), {:datatype=>options[key][:nature].to_sym, :model=>options[key][:model], :value=>options[key][:value], :name=>"parameter[#{key}][value]"}
   .actions
     =submit_tag tg(:update)
     =link_to tg(:cancel), :back

@@ -11,10 +11,37 @@ class CompanyController < ApplicationController
 
   def configure
     @company = @current_company
-    if request.post?
-      if @company.update_attributes(params[:company])
-        redirect_to_back
+    @tree = Parameter.tree_reference.sort
+    for k, v in @tree
+      for name, options in v
+        param = @company.parameter(name)
+        if param
+          options[:value] = param.value 
+          options[:value] = options[:value].id if param.record? and options[:value]
+        end
+        options[:value] ||= options[:default]
       end
+    end
+    if request.post?
+      saved = false
+      ActiveRecord::Base.transaction do
+        saved = @company.update_attributes(params[:company])
+        if saved
+          for key, data in params[:parameter]
+            parameter = @company.parameters.find_by_name(key)
+            parameter = @company.parameters.build(:name=>key) if parameter.nil?
+            parameter.value = data[:value]
+            unless parameter.save
+              saved = false
+              parameter.errors.each_full do |msg|
+                @company.errors.add_to_base(msg)
+              end
+              raise ActiveRecord::Rollback
+            end
+          end
+        end
+      end
+      redirect_to_back if saved
     end
     @title = {:value=>@company.name}
   end
@@ -95,18 +122,6 @@ class CompanyController < ApplicationController
           end
         end
 
-        # Chargement des paramètres de la société
-        old_code = company.code
-        attrs = root.attributes
-        attrs.delete('id')
-        attrs.delete('lock_version')
-        attrs.each{|k,v| company.send(k+'=', v)}
-        for key, class_name in keys[Company.name]
-          v = ids[class_name][company[key].to_s]
-          company[key] = v unless v.nil?
-        end
-        company.save! #send(:update_without_callbacks) # 
-        @new_code = company.code if old_code!=company.code
 
         # Chargement des données sauvegardées
         data = []
@@ -127,6 +142,7 @@ class CompanyController < ApplicationController
           end
         end
 
+
         # Réorganisation des clés étrangères
         for record in data
           for key, class_name in keys[record.class.name]
@@ -142,6 +158,21 @@ class CompanyController < ApplicationController
           # record.save(false)
           record.send(:update_without_callbacks)
         end
+
+
+        # Chargement des paramètres de la société
+        old_code = company.code
+        attrs = root.attributes
+        attrs.delete('id')
+        attrs.delete('lock_version')
+        attrs.each{|k,v| company.send(k+'=', v)}
+        for key, class_name in keys[Company.name]
+          v = ids[class_name][company[key].to_s]
+          company[key] = v unless v.nil?
+        end
+        # company.save! #send(:update_without_callbacks) # 
+        company.send(:update_without_callbacks)
+        @new_code = company.code if old_code!=company.code
 
         # raise Exception.new('Pas tout de suite')
         flash.now[:notice] = tc(:restoration_finished, :value=>(Time.now.to_i-start).to_s)
@@ -161,7 +192,7 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :first_name
     t.column :last_name
-    t.column :name, :through=>:role, :label=>tc(:role)
+    t.column :name, :through=>:role, :label=>tc(:role), :url=>{:action=>:roles_update}
     #t.column :free_price
     #t.column :credits
     t.column :reduction_percent

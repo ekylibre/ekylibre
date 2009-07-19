@@ -24,12 +24,19 @@ class Financialyear < ActiveRecord::Base
 
   #
   def before_validation
+    self.stopped_on = self.started_on+1.year if self.stopped_on.blank? and self.started_on
     self.stopped_on = self.stopped_on.end_of_month unless self.stopped_on.blank?
-    self.code.upper!
-    while Financialyear.count(:conditions=>["code=? AND id!=?",self.code, self.id]) > 0 do
-      self.code.succ!
+    if self.started_on
+      self.code = self.started_on.year.to_s
+      self.code += "/"+self.stopped_on.year.to_s if self.started_on.year!=self.stopped_on.year
+      self.code += "EX"
     end
-    
+    self.code.upper!
+    if self.company
+      while self.company.financialyears.count(:conditions=>["code=? AND id!=?",self.code, self.id||0]) > 0 do
+        self.code.succ!
+      end
+    end
   end
 
   #

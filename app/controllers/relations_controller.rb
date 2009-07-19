@@ -7,7 +7,6 @@ class RelationsController < ApplicationController
   # this method has not specific view.
   def areas_find 
     if request.xhr?
-      
       @area = @current_company.areas.find(params[:area])
       puts 's2'
       render :action => 'areas_find.rjs'

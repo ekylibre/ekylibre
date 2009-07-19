@@ -67,12 +67,12 @@ module ApplicationHelper
              {:name=>:purchases_consult, :url=>{:action=>:purchases}} ] },
          {:name=>:stocks, :list=>
            [ {:name=>:stocks_locations},
-         #    {:name=>:inventories},
+             #    {:name=>:inventories},
              {:name=>:stock_transfers},
              {:name=>:stocks_consult, :url=>{:action=>:stocks}} ] },
          {:name=>:parameters, :list=>
            [ {:name=>:products},
- #            {:name=>:invoicing_parameters},
+             #            {:name=>:invoicing_parameters},
              {:name=>:prices},
              {:name=>:shelves},
              {:name=>:delays},
@@ -107,7 +107,7 @@ module ApplicationHelper
 
   #raise Exception.new MENUS[0].inspect
   MENUS_ARRAY = MENUS.collect{|x| x[:name]  }
-            
+  
 
   
   def choices_yes_no
@@ -158,22 +158,22 @@ module ApplicationHelper
     end
   end
   
-#  def menu_index(controller=self.controller.controller_name.to_sym)
-#    render(:partial=>'shared/menu_index', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
-#  end
-      
+  #  def menu_index(controller=self.controller.controller_name.to_sym)
+  #    render(:partial=>'shared/menu_index', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
+  #  end
+  
   def countries
     t('countries').to_a.sort{|a,b| a[1].to_s<=>b[1].to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
   end
 
-#   def can_access?(action=:all)
-#     return false unless @current_user
-#     return session[:actions].include?(:all) ? true : session[:actions].include?(action)
-#   end
+  #   def can_access?(action=:all)
+  #     return false unless @current_user
+  #     return session[:actions].include?(:all) ? true : session[:actions].include?(action)
+  #   end
 
   def link_to_back(options={})
-#    link_to tg(options[:label]||'back'), {:controller=>:guide, :action=>:back}, :class=>:back
-#    link_to tg(options[:label]||'back'), :back
+    #    link_to tg(options[:label]||'back'), {:controller=>:guide, :action=>:back}, :class=>:back
+    #    link_to tg(options[:label]||'back'), :back
     link_to tg(options[:label]||'back'), session[:history][1]
   end
 
@@ -198,8 +198,8 @@ module ApplicationHelper
     end
 
     unless session[:journal_record][:financialyear_id].blank?
-       financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:journal_record][:financialyear_id]})
-       if financialyear
+      financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:journal_record][:financialyear_id]})
+      if financialyear
         conditions[0] += " AND r.financialyear_id=?"
         conditions << financialyear.id
       end
@@ -207,7 +207,7 @@ module ApplicationHelper
     
     conditions
   end
- 
+  
   #
   def entries_conditions_statements(options)
     conditions = ["entries.company_id=?", @current_company.id]
@@ -250,7 +250,7 @@ module ApplicationHelper
     content_tag(:div, content_tag(:div,code), :class=>:evalue)
   end
 
- 
+  
 
   def top_tag
     return '' if @current_user.blank?
@@ -270,14 +270,14 @@ module ApplicationHelper
     # User Tag
     tag = ''
 
-    if controller.accessible?({:controller=>:company, :action=>:user})
-      
-      tag += link_to(@current_user.label, {:controller=>:company, :action=>:user})+" "
-    else
-      tag += content_tag(:span, @current_user.label)+" "
-    end
+    #     if controller.accessible?({:controller=>:company, :action=>:user})
+    #       tag += link_to(@current_user.label, {:controller=>:company, :action=>:user})+" "
+    #     else
+    tag += content_tag(:span, @current_user.label)+" "
+    #    end
     if controller.accessible?({:controller=>:company, :action=>:index})
-      tag += link_to(@current_company.name, {:controller=>:company})+" "
+      #      tag += link_to(@current_company.name, {:controller=>:company})+" "
+      tag += elink(self.controller.controller_name!='company', @current_company.name, {:controller=>:company})+" "
     else
       tag += content_tag(:span, @current_company.name)+" "
     end
@@ -334,7 +334,7 @@ module ApplicationHelper
   end
 
   def flash_tag(mode)
-#    content_tag(:div, 'Blabla', :class=>'flash '+mode.to_s)
+    #    content_tag(:div, 'Blabla', :class=>'flash '+mode.to_s)
     content_tag(:div, flash[mode], :class=>'flash '+mode.to_s) if flash[mode]
   end
 
@@ -386,12 +386,12 @@ module ApplicationHelper
 
 
 
-#  def date_field(object_name, method, options={})
-#    record = instance_variable_get('@'+object_name.to_s)
-#    hidden_field_tag(object_name.to_s+'_'+method, record.send(method))+
-#      text_field_tag(object_name.to_s+'_'+method+'_mask', nil, options.merge(:onload=>"hiddenToMask(this)"))+
-#      observe_field(object_name.to_s+'_'+method+'_mask', :function=>"date_convert(this, 'dmy', 'iso')")
-#  end
+  #  def date_field(object_name, method, options={})
+  #    record = instance_variable_get('@'+object_name.to_s)
+  #    hidden_field_tag(object_name.to_s+'_'+method, record.send(method))+
+  #      text_field_tag(object_name.to_s+'_'+method+'_mask', nil, options.merge(:onload=>"hiddenToMask(this)"))+
+  #      observe_field(object_name.to_s+'_'+method+'_mask', :function=>"date_convert(this, 'dmy', 'iso')")
+  #  end
 
 
   def itemize(name, options={})
@@ -539,17 +539,17 @@ module ApplicationHelper
       when :error
         line_code += content_tag(:td,error_messages_for(line[:params]),:class=>"error", :colspan=>xcn)
       when :title
-#        reset_cycle "parity"
+        #        reset_cycle "parity"
         if line[:value].is_a? Symbol
           calls = caller
           file = calls[3].split(/\:\d+\:/)[0].split('/')[-1].split('.')[0]
-#          file = file[1..-1] if file[0..0]=='_'
+          #          file = file[1..-1] if file[0..0]=='_'
           line[:value] = t("views.#{controller.controller_name}.#{file}.#{line[:value]}") 
-#          line[:value] = t(line[:value]) 
+          #          line[:value] = t(line[:value]) 
         end
         line_code += content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>xcn)
       when :field
-#        css_class += ' '+cycle('odd', 'even', :name=>"parity")
+        #        css_class += ' '+cycle('odd', 'even', :name=>"parity")
         fragments = line_fragments(line)
         line_code += content_tag(:td, fragments[:label], :class=>"label")
         line_code += content_tag(:td, fragments[:input], :class=>"input")
@@ -560,7 +560,7 @@ module ApplicationHelper
         html_options[:class] = css_class
         code += content_tag(:tr, line_code, html_options)
       end
-    
+      
       # after line
       # code += content_tag(:tr, content_tag(:th,'', :colspan=>xcn), :class=>"after-title") if line[:nature]==:title
       
@@ -578,7 +578,7 @@ module ApplicationHelper
     help = ''
     for hs in help_tags
       line[hs] = translate_help(line, hs)
-#      help += content_tag(:div,l(hs, [content_tag(:span,line[hs].to_s)]), :class=>hs) if line[hs]
+      #      help += content_tag(:div,l(hs, [content_tag(:span,line[hs].to_s)]), :class=>hs) if line[hs]
       help += content_tag(:div,t(hs), :class=>hs) if line[hs]
     end
     fragments[:help] = help
@@ -600,7 +600,7 @@ module ApplicationHelper
       model = object.class
       raise Exception.new('ModelError on object (not an ActiveRecord): '+object.class.to_s) unless model.methods.include? "create"
 
-#      record = model.name.underscore.to_sym
+      #      record = model.name.underscore.to_sym
       column = model.columns_hash[method.to_s]
       
       options[:field] = :password if method.to_s.match /password/
@@ -649,8 +649,8 @@ module ApplicationHelper
                 options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s)}.join " "
               when :textarea
                 text_area record, method, :cols => 30, :rows => 3
-#              when :date
-#                date_text_field record, method, :order => [:day, :month, :year], :date_separator=>''
+                #              when :date
+                #                date_text_field record, method, :order => [:day, :month, :year], :date_separator=>''
               else
                 text_field record, method, html_options
               end
@@ -662,18 +662,18 @@ module ApplicationHelper
       input += " "+tg("format_date.iso")+" " if options[:field] == :date
 
 
-#      input += content_tag(:h6,options[:field].to_s+' '+options[:choices].class.to_s+' '+options.inspect)
+      #      input += content_tag(:h6,options[:field].to_s+' '+options[:choices].class.to_s+' '+options.inspect)
       
       label = t("activerecord.attributes.#{object.class.name.underscore}.#{method.to_s}")
       label = " " if options[:options][:hide_label] 
       
-#      label = if object.class.methods.include? "human_attribute_name"
-#                object.class.human_attribute_name(method.to_s)
-#              elsif record.is_a? Symbol
-#                t("activerecord.attributes.#{object.class.name.underscore}.#{method.to_s}")
-#              else
-#                tg(method.to_s)
-#              end          
+      #      label = if object.class.methods.include? "human_attribute_name"
+      #                object.class.human_attribute_name(method.to_s)
+      #              elsif record.is_a? Symbol
+      #                t("activerecord.attributes.#{object.class.name.underscore}.#{method.to_s}")
+      #              else
+      #                tg(method.to_s)
+      #              end          
       label = content_tag(:label, label, :for=>input_id) if object!=record
     elsif line[:field]
       label = line[:label]||'[NoLabel]'
@@ -697,16 +697,19 @@ module ApplicationHelper
                     text_field_tag(name, value, :id=>options[:id], :maxlength=>size, :size=>size)
                   end
                 when :radio
-                  options[:choices].collect do |x|
-            radio_button_tag('radio', (x[1].eql? true) ? 1 : 0, false, :id=>'radio_'+x[1].to_s)+"&nbsp;"+content_tag(:label,x[0])
-          end.join(" ")
+                  options[:choices].collect{ |x| radio_button_tag('radio', (x[1].eql? true) ? 1 : 0, false, :id=>'radio_'+x[1].to_s)+"&nbsp;"+content_tag(:label,x[0]) }.join(" ")
                 when :choice
                   options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
-                  content = select_tag(name, options_for_select(options[:choices]), :id=>options[:id])
-                   if options[:new].is_a? Hash
-                    
+                  content = select_tag(name, options_for_select(options[:choices], value), :id=>options[:id])
+                  if options[:new].is_a? Hash
                     content += link_to(tg(options[:new].delete(:label)||:new), options[:new], :class=>:fastadd)
-                   end
+                  end
+                  content
+                when :record
+                  model = options[:model]
+                  method = [:label, :name, :to_s, :inspect].detect{|x| model.respond_to?(x)}
+                  choices = model.find_all_by_company_id(@current_company.id).collect{|x| [x.send(method), x.id]}
+                  content = select_tag(name, options_for_select(choices, value), :id=>options[:id])
                   content
                 when :date
                   date_select(name, value, :start_year=>1980)
@@ -715,7 +718,7 @@ module ApplicationHelper
                 else
                   text_field_tag(name, value, :id=>options[:id])
                 end
-      
+        
       else
         input = line[:field].to_s
       end
@@ -754,10 +757,10 @@ module ApplicationHelper
     end
 
     def field(*params)
-#      @lines << {:nature=>:field, :params=>params}
+      #      @lines << {:nature=>:field, :params=>params}
       line = params[2]||{}
-#      line[:help] = 
-#      line.merge({:nature=>:field, :help=>params[2]})
+      #      line[:help] = 
+      #      line.merge({:nature=>:field, :help=>params[2]})
       if params[1].is_a? Symbol
         line[:model] = params[0]
         line[:attribute] = params[1]
@@ -791,10 +794,10 @@ module SetColumnActiveRecord #:nodoc:
       col = column.to_s
       reflist = "#{col}_keys".upcase
       if reference.is_a? Hash
-#        code += "#{reflist} = {"+reference.collect{|x| ":"+x[0].to_s+"=>\""+x[1].to_s+"\""}.join(",")+"}\n"
+        #        code += "#{reflist} = {"+reference.collect{|x| ":"+x[0].to_s+"=>\""+x[1].to_s+"\""}.join(",")+"}\n"
         code += "#{reflist} = ["+reference.collect{|x| ":"+x[0].to_s}.join(",")+"]\n"
       elsif reference.is_a? Array
-#        code += "#{reflist} = {"+reference.collect{|x| ":"+x.to_s+"=>nil"}.join(",")+"}\n"
+        #        code += "#{reflist} = {"+reference.collect{|x| ":"+x.to_s+"=>nil"}.join(",")+"}\n"
         code += "#{reflist} = ["+reference.collect{|x| ":"+x.to_s}.join(",")+"]\n"
       else
         reflist = reference.to_s
@@ -803,14 +806,14 @@ module SetColumnActiveRecord #:nodoc:
         def #{col}_include?(key)
           key = key.to_sym unless key.is_a?(Symbol)
           return false unless #{reflist}.include?(key)
-#          return !self.#{col}.to_s.match("(\ |^)"+key.to_s+"(\ |$)").nil?
-          return #{col}_array.include?(key)
+            #          return !self.#{col}.to_s.match("(\ |^)"+key.to_s+"(\ |$)").nil?
+            return #{col}_array.include?(key)
         end
         def #{col}_set(key,add=true)
           raise(Exception.new("Only Symbol are accepted")) unless key.is_a?(Symbol)
           return self.#{col} unless #{reflist}.include?(key)
-          self.#{col}_array = (add ? self.#{col}_array << key : self.#{col}_array - [key])
-          return self.#{col}
+            self.#{col}_array = (add ? self.#{col}_array << key : self.#{col}_array - [key])
+            return self.#{col}
         end
         def #{col}_array
           self.#{col}.to_s.split(" ").collect{|key| key.to_sym if #{reflist}.include?(key.to_sym)}.compact
@@ -818,41 +821,41 @@ module SetColumnActiveRecord #:nodoc:
         def #{col}_array=(array)
           self.#{col} = " "+array.flatten.uniq.collect{|key| key.to_sym if #{reflist}.include?(key.to_sym)}.compact.join(" ")+" "
         end
-      end_eval
-#      ActionController::Base.logger.error(code)
-      module_eval(code)
+        end_eval
+        #      ActionController::Base.logger.error(code)
+        module_eval(code)
+      end
+      
     end
-    
   end
-end
 
-ActiveRecord::Base.send(:include, SetColumnActiveRecord)
+  ActiveRecord::Base.send(:include, SetColumnActiveRecord)
 
 
-# Hack to clean textilize
+  # Hack to clean textilize
 
-module ActionView
-  module Helpers #:nodoc:
-    # The TextHelper module provides a set of methods for filtering, formatting
-    # and transforming strings, which can reduce the amount of inline Ruby code in
-    # your views. These helper methods extend ActionView making them callable
-    # within your template files.
-    module TextHelper
-      begin
-        require_library_or_gem "redcloth" unless Object.const_defined?(:RedCloth)
-        def textilize(text, *rules)
-          if text.blank?
-            ""
-          else
-            rc = RedCloth.new(text, rules)
-            rc.no_span_caps = true
-            rc.to_html
+  module ActionView
+    module Helpers #:nodoc:
+      # The TextHelper module provides a set of methods for filtering, formatting
+      # and transforming strings, which can reduce the amount of inline Ruby code in
+      # your views. These helper methods extend ActionView making them callable
+      # within your template files.
+      module TextHelper
+        begin
+          require_library_or_gem "redcloth" unless Object.const_defined?(:RedCloth)
+          def textilize(text, *rules)
+            if text.blank?
+              ""
+            else
+              rc = RedCloth.new(text, rules)
+              rc.no_span_caps = true
+              rc.to_html
+            end
           end
+        rescue LoadError
+          # We can't really help what's not there
         end
-      rescue LoadError
-        # We can't really help what's not there
       end
     end
   end
-end
 

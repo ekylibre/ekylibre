@@ -2,22 +2,22 @@
 #
 # Table name: parameters
 #
-#  id            :integer       not null, primary key
-#  name          :string(255)   not null
-#  nature        :string(1)     default("u"), not null
-#  string_value  :text          
-#  boolean_value :boolean       
-#  integer_value :integer       
-#  decimal_value :decimal(, )   
-#  element_type  :string(255)   
-#  element_id    :integer       
-#  user_id       :integer       
-#  company_id    :integer       not null
-#  created_at    :datetime      not null
-#  updated_at    :datetime      not null
-#  created_by    :integer       
-#  updated_by    :integer       
-#  lock_version  :integer       default(0), not null
+#  id                :integer       not null, primary key
+#  name              :string(255)   not null
+#  nature            :string(8)     default("u"), not null
+#  string_value      :text          
+#  boolean_value     :boolean       
+#  integer_value     :integer       
+#  decimal_value     :decimal(, )   
+#  user_id           :integer       
+#  company_id        :integer       not null
+#  created_at        :datetime      not null
+#  updated_at        :datetime      not null
+#  created_by        :integer       
+#  updated_by        :integer       
+#  lock_version      :integer       default(0), not null
+#  record_value_id   :integer       
+#  record_value_type :string(255)   
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
