@@ -26,13 +26,11 @@ class ResourcesController < ApplicationController
   def employees
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key
-   # employees_list
+    # employees_list
   end
   
   # this action creates an employee with a form.
-  def employees_create
- 
-    access :employees
+  def employees_create    
     if request.post?
       @employee = Employee.new(params[:employee])
       @employee.company_id = @current_company.id
@@ -45,7 +43,6 @@ class ResourcesController < ApplicationController
 
   # this action updates an existing employee with a form.
   def employees_update
-    access :employees
     @employee = @current_company.employees.find_by_id(params[:id])
     # @employee = Employee.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
@@ -57,7 +54,6 @@ class ResourcesController < ApplicationController
 
   # this action deletes or hides an existing employee.
   def employees_delete
-    access :employees
     if request.post? or request.delete?
       @employee = @current_company.employees.find_by_id(params[:id])
       # @employee = Employee.find_by_id_and_company_id(params[:id], @current_company.id)  
@@ -68,12 +64,11 @@ class ResourcesController < ApplicationController
 
   # this action lists all the professions with main informations for each of them.  
   def professions
-   # professions_list params
+    # professions_list params
   end
 
   # this action creates a profession with a form.
   def professions_create
-  access :professions
     if request.post?
       @profession = Profession.new(params[:profession])
       @profession.company_id = @current_company.id
@@ -86,7 +81,6 @@ class ResourcesController < ApplicationController
 
   # this action updates an existing employee with a form.
   def professions_update
-    access :professions
     @profession = @current_company.professions.find_by_id(params[:id])
     if request.post? or request.put?
       redirect_to_back if @profession.update_attributes(params[:profession])
@@ -96,7 +90,6 @@ class ResourcesController < ApplicationController
 
   # this action deletes or hides an existing employee.
   def professions_delete
-    access :professions
     if request.post? or request.delete?
       @profession = @current_company.professions.find_by_id(params[:id])
       Profession.destroy(@profession.id) if @profession

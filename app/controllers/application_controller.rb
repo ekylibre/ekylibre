@@ -26,9 +26,8 @@ class ApplicationController < ActionController::Base
       url[:action]||=:index
     end
     if @current_user
-      # raise Exception.new(session[:rights].inspect+"   "+@@rights[url[:controller].to_sym][url[:action].to_sym].to_s)
       raise Exception.new(url.inspect) if url[:controller].blank? or url[:action].blank?
-      if @current_user.admin or session[:rights].include?((@@rights[url[:controller].to_sym]||{})[url[:action].to_sym])
+      if @current_user.admin or session[:rights].include?((User.rights[url[:controller].to_sym]||{})[url[:action].to_sym])
         true
       else
         false
@@ -39,29 +38,6 @@ class ApplicationController < ActionController::Base
   end
   
   protected  
-
-  def self.rights(list = false)
-    hash = {}
-    array = []
-    file = File.open("#{RAILS_ROOT}/config/rights.txt", "r") 
-    file.each_line do |line|
-      line = line.strip.split(":")
-      unless line[0].match(/\#/) or line[1].match(/\</)
-        hash[line[0].to_sym] ||= {}
-        hash[line[0].to_sym][line[1].to_sym] = line[2].to_sym 
-        array << line[2].to_sym 
-      end
-    end
-    #array.sort
-    #raise Exception.new array.class.inspect
-    return (list ? array.uniq : hash)
-  end
-
-
-  def initialize()
-    @@rights ||= {}
-    @@rights = self.class.rights if @@rights.empty?
-  end
   
   def render_form(options={})
     a = action_name.split '_'
@@ -107,19 +83,14 @@ class ApplicationController < ActionController::Base
   private
   
   def authorize()
-    #raise Exception.new params[:controller].inspect+"hh"+@@rights[params[:controller].to_sym][params[:action].to_sym]
-    #raise Exception.new params.inspect+"hh"+session[:rights].inspect+ADMIN#+@@rights[params[:controller].to_sym][params[:action].to_sym].inspect
-    #raise Exception.new  session[:rights].inspect#..include?(ADMIN.to_sym).inspect
-      
     session[:help_history] ||= []
     if request.get? and not request.xhr? and not [:authentication, :help].include?(controller_name.to_sym)
       session[:last_url] = request.url
-      #  help_search(self.controller_name+'-'+self.action_name) if session[:help]
     end
     help_search(self.controller_name+'-'+self.action_name) if session[:help] and not [:authentication, :help, :search].include?(controller_name.to_sym)
 
 
-    #begin
+    begin
       User.current_user = User.find_by_id(session[:user_id])
       @current_user = User.current_user
       @current_company = @current_user.company
@@ -129,7 +100,6 @@ class ApplicationController < ActionController::Base
         redirect_to_login
       else
         session[:last_query] = Time.now.to_i
-
         session[:history] ||= []
         if request.get? and not request.xhr?
           if request.url == session[:history][1]
@@ -139,24 +109,23 @@ class ApplicationController < ActionController::Base
             session[:history].delete_at(127)
           end
         end
-
       end
-#    rescue
-#      reset_session
-#      redirect_to_login
-#    end
+    rescue
+      reset_session
+      redirect_to_login
+    end
 
     session[:rights] ||= []
     if @current_user
       if !@current_user.admin
-        if @@rights[params[:controller].to_sym].nil?
+        if User.rights[params[:controller].to_sym].nil?
           flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
           redirect_to :controller=>:guide, :action=>:index
-        elsif @@rights[params[:controller].to_sym][params[:action].to_sym].nil?
+        elsif User.rights[params[:controller].to_sym][params[:action].to_sym].nil?
           flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
           redirect_to :controller=>:guide, :action=>:index
         else
-          unless (session[:rights].include?(@@rights[params[:controller].to_sym][params[:action].to_sym]) or session[:rights].include?(ADMIN.to_sym) )
+          unless (session[:rights].include?(User.rights[params[:controller].to_sym][params[:action].to_sym]) or session[:rights].include?(ADMIN.to_sym) )
             flash[:error]=tc(:no_right_for_this_part_of_the_application_and_this_user)
             if session[:history]
               redirect_to_back
@@ -195,21 +164,4 @@ class ApplicationController < ActionController::Base
     redirect_to session[:history][0]
   end
 
-  def can_access?(action=:all)
-    return false unless @current_user
-    #return session[:actions].include?(:all) ? true : session[:actions].include?(action)
-    true
-  end
-  
-  def access(action=:all)
-    if @current_user
-      unless can_access?(action)
-        flash[:error]=tc :access_denied
-        redirect_to :back
-      end
-    else
-      redirect_to_login unless @current_user
-    end
-  end
-  
 end

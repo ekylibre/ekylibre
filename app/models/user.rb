@@ -43,6 +43,12 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation
   attr_protected :hashed_password, :salt, :locked, :deleted, :role_id
   attr_readonly :company_id
+
+  class << self
+    def rights; @@rights; end
+    def rights_list; @@rights_list; end
+    def useful_rights; @@useful_rights; end
+  end
   
   def before_validation
     self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
@@ -97,14 +103,6 @@ class User < ActiveRecord::Base
     self.hashed_password == User.encrypted_password(password, self.salt)
   end
 
-  def admin?
-    self.role.can_do? :all
-  end
-
-  def can_do?(action)
-    self.role.can_do?(action)
-  end
-
   private
 
   def self.encrypted_password(password, salt)
@@ -126,4 +124,27 @@ class User < ActiveRecord::Base
     password
   end
 
+
+  def self.initialize_rights
+    @@rights = {}
+    @@rights_list = []
+    @@useful_rights = {}
+    file = File.open("#{RAILS_ROOT}/config/rights.txt", "r") 
+    file.each_line do |line|
+      line = line.strip.split(":")
+      unless line[0].match(/\#/) or line[2].match(/\</)
+        @@rights[line[0].to_sym] ||= {}
+        @@rights[line[0].to_sym][line[1].to_sym] = line[2].to_sym 
+        @@rights_list << line[2].to_sym 
+      end
+    end
+    @@rights_list.uniq!
+    for controller, actions in @@rights
+      unless [:search, :guide, :authentication, :help].include? controller
+        @@useful_rights[controller] = actions.values.uniq
+      end
+    end
+  end
+
+  User.initialize_rights
 end

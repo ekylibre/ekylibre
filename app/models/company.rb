@@ -22,7 +22,7 @@ class Company < ActiveRecord::Base
   has_many :account_balances
   has_many :address_norms
   has_many :address_norm_items
-  # has_many :areas
+  has_many :areas
   has_many :bank_accounts
   has_many :bank_account_statements
   has_many :complements
@@ -100,18 +100,11 @@ class Company < ActiveRecord::Base
     self.entity ? self.entity.siren : '000000000'
   end
 
-#   def set_journals_id(sales, purchases, bank)
-#     self.sales_journal_id = sales
-#     self.purchases_journal_id = purchases
-#     self.bank_journal_id = bank
-#     self.save
-#   end
-
   def after_create
     language = self.languages.create!(:name=>'Français', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
     self.set_parameter('general.language', language)
-    role = Role.create!(:name=>tc('default.role.name.admin'), :company_id=>self.id, :rights=>ApplicationController.rights(true).join(' '))
-    role = Role.create!(:name=>tc('default.role.name.public'), :company_id=>self.id ,:rights=>'')
+    self.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
+    self.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
     self.load_template("#{RAILS_ROOT}/lib/template.xml")
     self.departments.create!(:name=>tc('default.department_name'))
     self.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
@@ -121,6 +114,7 @@ class Company < ActiveRecord::Base
       self.units.create(:name=>unit[0].to_s, :label=>tc('default.unit_'+unit[0].to_s), :base=>unit[1][:base], :quantity=>unit[1][:quantity])
     end
     self.address_norms.create!(:name=>'Norme AFNOR ZX110', :company_id=> self.id)
+    self.taxes.create!(:name=>tc('default.tva000'), :nature=>'percent', :amount=>0.00)
     self.taxes.create!(:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021)
     self.taxes.create!(:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055)
     self.taxes.create!(:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196)
@@ -140,16 +134,12 @@ class Company < ActiveRecord::Base
     self.financialyears.create!(:started_on=>Date.today)
     self.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
 
-#     sales_journal = self.journals.create!(:name=>tc(:sales_journal), :nature=>"sale", :currency_id=>currency.id)  
-#     purchases_journal = self.journals.create!(:name=>tc(:purchases_journal), :nature=>"purchase", :currency_id=>currency.id)
-#     bank_journal = self.journals.create!(:name=>tc(:bank_journal), :nature=>"bank", :currency_id=>currency.id)
-    self.set_parameter('accountancy.default_journals.sales', self.journals.create!(:name=>tc(:sales_journal), :nature=>"sale", :currency_id=>currency.id))
-    self.set_parameter('accountancy.default_journals.purchases', self.journals.create!(:name=>tc(:purchases_journal), :nature=>"purchase", :currency_id=>currency.id))
-    self.set_parameter('accountancy.default_journals.bank', self.journals.create!(:name=>tc(:bank_journal), :nature=>"bank", :currency_id=>currency.id))
-
-    #self.set_journals_id(sales_journal.id, purchases_journal.id, bank_journal.id)
+    self.set_parameter('accountancy.default_journals.sales', self.journals.create!(:name=>tc('default.journals.sales'), :nature=>"sale", :currency_id=>currency.id))
+    self.set_parameter('accountancy.default_journals.purchases', self.journals.create!(:name=>tc('default.journals.purchases'), :nature=>"purchase", :currency_id=>currency.id))
+    self.set_parameter('accountancy.default_journals.bank', self.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
+    self.set_parameter('management.invoicing.numeration', self.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
+                       
     tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
-      #puts a.inspect
       begin
         account = self.accounts.find_by_number(a[0].to_s)
         if account 
@@ -270,16 +260,6 @@ class Company < ActiveRecord::Base
       journal_id = self.sales_journal_id
     end
     journal_id
-  end
-
-  def find_all_rights(rights)
-    for right in rights
-      @rights ||= {}
-      @rights[right[0].to_sym] = {}
-      @rights[right[0].to_sym] = right[1].values.uniq.collect
-    end
-    @rights.delete_if {|key,value| (key.to_s=="search" or key.to_s=="guide" or key.to_s=="authentication" or key.to_s=="help") }
-    @rights
   end
 
 end

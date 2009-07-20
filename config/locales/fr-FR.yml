@@ -816,7 +816,7 @@ fr-FR:
         roles: Rôles 
         roles_create: Ajouter un rôle
         sequences: Séquences
-        title: 'Administration de : {{name}} ({{code}})'
+        title: 'Administration de {{name}} ({{code}})'
         users: Utilisateurs
         users_create: Ajouter un nouvel utilisateur
         users_number: 'Nombre d''utilisateurs'
@@ -1247,12 +1247,11 @@ fr-FR:
       error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
       error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'                                   
     company:
-      bank_journal: Journal de banque
-      purchases_journal: 'Journal d''achats'
       sales: Ventes
-      sales_journal: Journal de Ventes
       default:
+        bank_journal_nature_name: Banque
         category: Par défaut
+        check: Chèque
         delays:
           name:
             expiration: Expiration (1 M)
@@ -1262,22 +1261,23 @@ fr-FR:
             expiration: 1 mois
             immediate: 0 jour
             standard: 30 jours, fin de mois
-        bank_journal_nature_name: Banque
-        check: Chèque
         department_name: Gestion/Production
         establishment_name: Établissement principal
         financialyear_code: 1A2
-        operations_journal_nature_name: Opérations Diverses
+        invoicing_numeration: Numéros de facture
+        journals:
+          bank: Journal de banque
+          purchases: 'Journal d''achats'
+          sales: Journal de ventes
         price_list_name: Tarif normal
-        purchases_journal_nature_name: Achats
         role:
           name:
             admin: Administrateur
             public: Public
         sale_order_nature_name: Vente standard
-        sales_journal_nature_name: Ventes
         sample_product_name: Produit Exemple
         shelf_name: Sans catégorie
+        tva000: TVA 0,00%
         tva210: TVA 2,10%
         tva550: TVA 5,50%
         tva1960: TVA 19,60%

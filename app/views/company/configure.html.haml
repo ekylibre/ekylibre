@@ -4,7 +4,7 @@
     -f.title tc(:general)
     -f.field :company, :name
     -f.field :company, :code
-    -f.field :company, :entity_id
+    -#f.field :company, :entity_id, :readonly=>true
     -for name, options in @tree
       -f.title tc(name)
       -for key in options.keys.sort

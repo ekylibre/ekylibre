@@ -15,3 +15,5 @@ fr-FR:
       embankments:
         days_before_warning_undone: 'Nombre de jours avant de prévenir pour les encaissements non effectués'
         days_before_warning_unvalidated: 'Nombre de jours nécessaire pour pour pouvoir valider une remise de chèque'
+      invoicing:
+        numeration: 'Numérotation des factures'

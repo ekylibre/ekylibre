@@ -19,17 +19,6 @@ class Role < ActiveRecord::Base
 
   attr_readonly :company_id
 
-  ACTIONS =  [ :all,                     # All
-              :accountancy,             # Accountant
-              :sales                    # Saler
-            ]
-
-  #set_column :actions, ACTIONS
-
-  def before_validation
-    # self.actions_array = self.actions_array # Refresh actions array
-  end
-
   def before_update
     old_rights_array = []
     new_rights_array = []
@@ -66,30 +55,5 @@ class Role < ActiveRecord::Base
       puts user.rights.inspect
     end
   end
-
-
-
-#  def can_do?(action=:all)
-#    return self.actions_include?(:all) ? true : self.actions_include?(action)
-#  end
-
-  def can_do(action)
-    #self.actions_set(action)
-    #self.save!
-  end
-
-  def cannot_do(action)
-    #self.actions_set(action, false)
-    #self.save!
-  end
-
-  def action_name(action)
-    lc(action.to_sym)
-  end
-
-#    raise Exception.new('Can\'t evaluate action: nil') if action.nil?
-#    action = Action.find_by_name(action.to_s) unless action.is_a? Action
-#    self.action_ids.include? action.id
-#  end
 
 end

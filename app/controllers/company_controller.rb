@@ -4,7 +4,6 @@ require "zlib"
 class CompanyController < ApplicationController
 
   def index
-    # raise Exception.new @@rights.inspect
     @company = @current_company
     @title = {:name=>@company.name, :code=>@company.code}
   end
@@ -234,7 +233,6 @@ class CompanyController < ApplicationController
 
 
   def establishments_create
-    access :establishments
     if request.post?
       @establishment = Establishment.new(params[:establishment])
       @establishment.company_id = @current_company.id
@@ -246,7 +244,6 @@ class CompanyController < ApplicationController
   end
   
   def establishments_update
-    access :establishments
     @establishment = Establishment.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @establishment
       if @establishment.update_attributes(params[:establishment])
@@ -257,7 +254,6 @@ class CompanyController < ApplicationController
   end
 
   def establishments_delete
-    access :establishments
     if request.post? or request.delete?
       @establishment = Establishment.find_by_id_and_company_id(params[:id], @current_company.id)
       Establishment.delete(params[:id]) if @establishment
@@ -266,7 +262,6 @@ class CompanyController < ApplicationController
   end
 
   def departments_create
-    access :departments
     if request.post? 
       @department = Department.new(params[:department])
       @department.company_id = @current_company.id
@@ -278,7 +273,6 @@ class CompanyController < ApplicationController
   end
 
   def departments_update
-    access :departments
     @department = Department.find_by_id_and_company_id(params[:id] , @current_company.id)
     if request.post? and @department
       if @department.update_attributes(params[:department])
@@ -289,7 +283,6 @@ class CompanyController < ApplicationController
   end
 
   def departments_delete
-    access :departments
     if request.post? or request.delete?
       @department= Department.find_by_id_and_company_id(params[:id] , @current_company.id)
       Department.delete(params[:id]) if @department
@@ -299,7 +292,7 @@ class CompanyController < ApplicationController
 
   def roles_create
     @role = Role.new
-    @rights = @current_company.find_all_rights(@@rights)
+    @rights = User.useful_rights
     if request.post?
       @role = Role.new(params[:role])
       # raise Exception.new params.inspect
@@ -316,7 +309,7 @@ class CompanyController < ApplicationController
   def roles_update
     @role = find_and_check(:role, params[:id])
     session[:role] = @role
-    @rights = @current_company.find_all_rights(@@rights)
+    @rights = User.useful_rights
     if request.post?
       @role.rights = "administrate_nothing "
       for right in params[:right]
@@ -328,7 +321,6 @@ class CompanyController < ApplicationController
   end
   
   def users_create
-    access :users
     if request.xhr?
       @rights = session[:role_rights]
       session[:role] = find_and_check(:role, params[:user_role_id])
@@ -357,7 +349,7 @@ class CompanyController < ApplicationController
       @user = User.new(:admin=>false)
       @role = Role.find_by_name_and_company_id("Administrateur", @current_company.id)
       session[:role] = @role
-      @rights = @current_company.find_all_rights(@@rights)
+      @rights = User.useful_rights
       session[:role_rights] = @rights
       #raise Exception.new @rights.inspect
     end
@@ -365,7 +357,6 @@ class CompanyController < ApplicationController
   end
 
   def users_update
-    access :users
     @user= User.find_by_id_and_company_id(params[:id], @current_company.id)
     @roles= @current_company.roles.find(:all,:order=>:name)
     
@@ -379,7 +370,7 @@ class CompanyController < ApplicationController
         if params[:user][:admin] == "0" 
           @user.rights = "administrate_nothing "
           unless params[:right].nil?
-            for right in params[:right]
+            for right in params[:right].to_a
               @user.rights += right[0].to_s+" "
             end
           end
@@ -393,14 +384,13 @@ class CompanyController < ApplicationController
     else
       session[:role] = @user
       @role = Role.find_by_name_and_company_id("Administrateur", @current_company.id)
-      @rights = @current_company.find_all_rights(@@rights)
+      @rights = User.useful_rights
       session[:role_rights] = @rights
     end
     render_form
   end
   
   def users_delete
-    access :users
     if request.post? or request.delete?
       @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
       if @user

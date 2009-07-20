@@ -82,7 +82,6 @@ class AccountancyController < ApplicationController
 
   # this method creates a bank_account with a form.
   def bank_accounts_create
-    access :bank_accounts
     if request.post? 
       @bank_account = BankAccount.new(params[:bank_account])
       @bank_account.company_id = @current_company.id
@@ -99,7 +98,6 @@ class AccountancyController < ApplicationController
 
   # this method updates a bank_account with a form.
   def bank_accounts_update
-    access :bank_accounts
     @bank_account = BankAccount.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
       if @bank_account.update_attributes(params[:bank_account])
@@ -131,7 +129,6 @@ class AccountancyController < ApplicationController
   
   # this action creates an account with a form.
   def accounts_create
-    access :accounts
     if request.post?
       @account = Account.new(params[:account])
       @account.company_id = @current_company.id
@@ -144,7 +141,6 @@ class AccountancyController < ApplicationController
 
   # this action updates an existing account with a form.
   def accounts_update
-    access :accounts
     @account = Account.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
       params[:account].delete :number
@@ -378,8 +374,6 @@ class AccountancyController < ApplicationController
   
   # this action creates a financialyear with a form.
   def financialyears_create
-    access :financialyears
-    
     if request.post? 
       @financialyear = Financialyear.new(params[:financialyear])
       @financialyear.company_id = @current_company.id
@@ -401,7 +395,6 @@ class AccountancyController < ApplicationController
   
   # this action updates a financialyear with a form.
   def financialyears_update
-    access :financialyears
     @financialyear = Financialyear.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
       redirect_to :action => "financialyears"  if @financialyear.update_attributes(params[:financialyear])
@@ -426,7 +419,6 @@ class AccountancyController < ApplicationController
   
   # This method allows to close the financialyear.
   def financialyears_close
-    access :financialyears
     @financialyears = []
 
     financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
@@ -683,7 +675,6 @@ class AccountancyController < ApplicationController
 
   # this method updates an entry with a form.
   def entries_update
-    access :entries
     @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
     
     if request.post? or request.put?
@@ -704,7 +695,6 @@ class AccountancyController < ApplicationController
 
   #this method creates a journal with a form. 
   def journals_create
-    access :journals
     if request.post?
       @journal = Journal.new(params[:journal])
       @journal.company_id = @current_company.id
@@ -718,7 +708,6 @@ class AccountancyController < ApplicationController
 
   #this method updates a journal with a form. 
   def journals_update
-    access :journals
     @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id)  
     
     if request.post? or request.put?
@@ -745,7 +734,6 @@ class AccountancyController < ApplicationController
 
   # This method allows to close the journal.
   def journals_close
-    access :journals
     @journal_records = []
     @journals = []
     
@@ -906,7 +894,6 @@ class AccountancyController < ApplicationController
 
   # This method creates a statement.
   def statements_create
-    access :statements
     @bank_accounts = @current_company.bank_accounts  
         
     if request.post?
@@ -931,7 +918,6 @@ class AccountancyController < ApplicationController
 
   # This method updates a statement.
   def statements_update
-    access :statements
     @bank_accounts = BankAccount.find(:all,:conditions=>"company_id = "+@current_company.id.to_s)  
     @statement = BankAccountStatement.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?

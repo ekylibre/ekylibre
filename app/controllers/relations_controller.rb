@@ -40,18 +40,15 @@ class RelationsController < ApplicationController
   end
   
   def complements
-    access :complements
   end
 
   def complement_choices
-    access :complement_choices
     @complement = find_and_check(:complement , params[:id])
     session[:current_complement_id] = @complement.id
     @title = {:value=>@complement.name}
   end
 
   def complement_choices_create
-    access :complement_choices
     @complement = find_and_check(:complement, session[:current_complement_id])
     if request.post?
       @complement_choice = ComplementChoice.new(params[:complement_choice])
@@ -68,7 +65,6 @@ class RelationsController < ApplicationController
   end
 
   def complement_choices_update
-    access :complement_choices
     @complement_choice = find_and_check(:complement_choice, params[:id])
     if request.post? and @complement_choice
       redirect_to_back if @complement_choice.update_attributes(params[:complement_choice])
@@ -79,7 +75,6 @@ class RelationsController < ApplicationController
   end
   
   def complement_choices_up
-    access :complement_choices
     @complement_choice = find_and_check(:complement_choice, params[:id])
     if request.post? and @complement_choice
       @complement_choice.move_higher
@@ -88,7 +83,6 @@ class RelationsController < ApplicationController
   end
   
   def complement_choices_sort
-    access :complement_choices
     @complement = find_and_check(:complement, session[:current_complement_id])
     if request.post? and @complement
       @complement.sort_choices
@@ -97,7 +91,6 @@ class RelationsController < ApplicationController
   end
   
   def complement_choices_down
-    access :complement_choices
     @complement_choice = find_and_check(:complement_choice, params[:id])
     if request.post? and @complement_choice
       @complement_choice.move_lower
@@ -106,7 +99,6 @@ class RelationsController < ApplicationController
   end
   
   def complements_create
-    access :complements
     if request.post?
       @complement = Complement.new(params[:complement])
       @complement.company_id = @current_company.id
@@ -125,7 +117,6 @@ class RelationsController < ApplicationController
   end
   
   def complements_update
-    access :complements
     @complement = find_and_check(:complement, params[:id])
     if request.post?
       redirect_to_back if @complement.update_attributes(params[:complement])
@@ -301,8 +292,6 @@ class RelationsController < ApplicationController
 
   #
   def entities_create
-    access :entities   
-    
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
    
@@ -389,7 +378,6 @@ class RelationsController < ApplicationController
   #
   def entities_update
     #raise Exception.new @operation.inspect
-    access :entities
     @entity = find_and_check(:entity,params[:id])
     session[:current_entity] = @entity.id
     @complements = @current_company.complements.find(:all,:order=>:position)
@@ -466,7 +454,6 @@ class RelationsController < ApplicationController
   end
 
   def entities_delete
-    access :entities
     if request.post? or request.delete?
       @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
       @id = params[:id]
@@ -554,7 +541,6 @@ class RelationsController < ApplicationController
   end
 
   def entities_contacts_update
-    access :contacts
     @entity = Entity.find_by_id_and_company_id(session[:current_entity], @current_company.id)
     @contact = Contact.find_by_id_and_company_id(params[:id], @current_company.id)
     @id = @contact.entity_id
@@ -568,7 +554,6 @@ class RelationsController < ApplicationController
   end
   
   def entities_contacts_delete
-    access :contacts
     if request.post? or request.delete?
       @contact = Contact.find_by_id_and_company_id(params[:id] , @current_company.id )
       @id = @contact.entity_id
@@ -591,12 +576,9 @@ class RelationsController < ApplicationController
   end
 
   def entities_natures
-    access :entities
-#    entity_natures_list params
   end
 
   def entities_natures_create
-    access :entities
     if request.post?
       @entity_nature = EntityNature.new(params[:entity_nature])
       @entity_nature.company_id = @current_company.id
@@ -608,7 +590,6 @@ class RelationsController < ApplicationController
   end
   
   def entities_natures_update
-    access :entities
     @entity_nature = find_and_check(:entity_nature, params[:id])
     if request.post? and @entity_nature
       params[:entity_nature].delete :company_id
@@ -619,7 +600,6 @@ class RelationsController < ApplicationController
   end
 
   def entities_natures_delete
-    access :entities
     if request.post? or request.delete?
       @entity_nature = find_and_check(:entity_nature, params[:id])
       unless @entity_nature.entities.size > 0
@@ -639,7 +619,6 @@ class RelationsController < ApplicationController
   end
 
   def meeting_locations
-    #meeting_locations_list
   end
  
   def meeting_locations_create
