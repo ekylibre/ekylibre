@@ -226,7 +226,7 @@ class CompanyController < ApplicationController
   dyta(:sequences, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name
     t.column :compute
-    t.column :format
+    t.column :format, :class=>:code
     t.action :sequences_update
   end
 

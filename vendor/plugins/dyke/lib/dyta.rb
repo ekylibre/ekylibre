@@ -203,7 +203,7 @@ module Ekylibre
                 case column.nature
                 when :column
                   style = column.options[:style]||''
-                  css_class = ''
+                  css_class = column.options[:class] ? ' '+column.options[:class].to_s : ''
                   datum = column.data(record, nature==:children)
                   if column.datatype == :boolean
                     datum = value_image2(datum)
@@ -233,6 +233,9 @@ module Ekylibre
                   if column.options[:name]==:color
                     css_class += ' color'
                     style = "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
+                  end
+                  if column.name==:code
+                    css_class += ' code'
                   end
                   code += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"+column_sort
                   code += ", :style=>'"+style+"'" unless style.blank?

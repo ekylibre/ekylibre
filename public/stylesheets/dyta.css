@@ -29,6 +29,8 @@ table.dyta tr      td.float   { text-align: right; }
 table.dyta tr      td.integer { text-align: right; }
 table.dyta tr      td.date { text-align: center; }
 table.dyta tr      td.web { text-align: center; }
+table.dyta tr      td.code { font-family: monospace; }
+table.dyta tr      td.code a { font-family: monospace; }
 /*table.dyta th .sort { widths: 100%; }
 table.dyta th .sort div { widths: 100%; }*/
 table.dyta th a.sort { display:block; width: 100%; text-decoration:none; padding: 1px; color: #336; }

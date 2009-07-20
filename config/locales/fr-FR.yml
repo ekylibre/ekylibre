@@ -168,6 +168,7 @@ fr-FR:
       product: Produit
       profession: Profession
       purchase_order: Achat
+      sequence: Séquence
       shape: Îlot
       shape_operation: Traitement
       shape_operation_nature: Type de Traitement
@@ -584,6 +585,10 @@ fr-FR:
         tax_id: Taxe
         undelivered_quantity: Reste à livrer
         unit_id: Unité
+      sequence:
+        name: Nom
+        compute: Dernière valeur
+        format: Format
       shape:
         description: Description
         master: Îlot maître
@@ -662,6 +667,7 @@ fr-FR:
         first_name: 'Prénom'
         free_price: Prix libres
         full_name: 'Nom complet'
+        language_id: 'Langue'
         last_name: 'Nom'
         locked: 'Compte verrouillé'
         name: 'Nom d''utilisateur'
