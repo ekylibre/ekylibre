@@ -36,7 +36,7 @@ class Sep1v1 < ActiveRecord::Migration
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     
-    add_column :contacts, :area_id, :integer, :null=>false, :references=>:areas, :on_delete=>:cascade, :on_update=>:cascade
+    add_column :contacts, :area_id, :integer, :references=>:areas, :on_delete=>:cascade, :on_update=>:cascade
   end
   
   

@@ -6,7 +6,7 @@
   -f.field :contact, :line_4_number
   -f.field :contact, :line_4_street
   -f.field :contact, :line_5
-  -#f.field :contact, :area_id, :choices=>company.areas.find(:all,:order=>"name ASC").collect {|c| [c.postcode+'-'+c.city.name, c.id]}
+  -f.field :contact, :area_id, :choices=>company.areas.find(:all,:order=>"name ASC").collect {|c| [c.postcode+'-'+c.city.name, c.id]}
   -f.field :contact, :line_6_code
   -f.field :contact, :line_6_city
   -f.field :contact, :country, :choices=>countries, :options=>{:include_blank=>true}
