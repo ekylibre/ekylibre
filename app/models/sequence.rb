@@ -8,8 +8,6 @@
 #  company_id       :integer       not null
 #  created_at       :datetime      not null
 #  updated_at       :datetime      not null
-#  created_by       :integer       
-#  updated_by       :integer       
 #  lock_version     :integer       default(0), not null
 #  period           :string(255)   default("number"), not null
 #  last_year        :integer       
@@ -18,6 +16,8 @@
 #  last_number      :integer       
 #  number_increment :integer       default(1), not null
 #  number_start     :integer       default(1), not null
+#  creator_id       :integer       
+#  updater_id       :integer       
 #
 
 class Sequence < ActiveRecord::Base

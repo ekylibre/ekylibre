@@ -6,6 +6,13 @@ class ApplicationController < ActionController::Base
   before_filter :authorize, :except=>[:login, :logout, :register]
   attr_accessor :current_user
   attr_accessor :current_company
+  after_filter :reset_stamper
+
+  def reset_stamper
+    User.reset_stamper
+  end
+
+  # include Userstamp
     
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -16,7 +23,6 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password").  
   # filter_parameter_logging :password
 
-  # @@rights = {}
   ADMIN = "administrate"
 
 
@@ -91,10 +97,10 @@ class ApplicationController < ActionController::Base
 
 
     begin
-      User.current_user = User.find_by_id(session[:user_id])
-      @current_user = User.current_user
+      # User.current_user = 
+      @current_user = User.find_by_id(session[:user_id]) # User.current_user
+      User.stamper = @current_user
       @current_company = @current_user.company
-      #session[:actions] = @current_user.role.actions_array
       if session[:last_query].to_i<Time.now.to_i-session[:expiration]
         flash[:error] = tc :expired_session
         redirect_to_login

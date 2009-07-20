@@ -20,8 +20,6 @@
 #  company_id            :integer       not null
 #  created_at            :datetime      not null
 #  updated_at            :datetime      not null
-#  created_by            :integer       
-#  updated_by            :integer       
 #  lock_version          :integer       default(0), not null
 #  client_account_id     :integer       
 #  supplier_account_id   :integer       
@@ -44,6 +42,8 @@
 #  first_met_on          :date          
 #  category_id           :integer       
 #  siren                 :string(9)     
+#  creator_id            :integer       
+#  updater_id            :integer       
 #
 
 class Entity < ActiveRecord::Base

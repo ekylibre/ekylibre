@@ -14,8 +14,6 @@
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
-#  created_by   :integer       
-#  updated_by   :integer       
 #  lock_version :integer       default(0), not null
 #  entity_id    :integer       
 #  bank_code    :string(255)   
@@ -26,6 +24,8 @@
 #  address      :text          
 #  bank_name    :string(50)    
 #  default      :boolean       not null
+#  creator_id   :integer       
+#  updater_id   :integer       
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

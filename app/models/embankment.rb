@@ -12,10 +12,10 @@
 #  company_id      :integer       not null
 #  created_at      :datetime      not null
 #  updated_at      :datetime      not null
-#  created_by      :integer       
-#  updated_by      :integer       
 #  lock_version    :integer       default(0), not null
 #  locked          :boolean       not null
+#  creator_id      :integer       
+#  updater_id      :integer       
 #
 
 class Embankment < ActiveRecord::Base

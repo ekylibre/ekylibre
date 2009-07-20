@@ -54,3 +54,4 @@ if defined? WillPaginate
   WillPaginate::ViewHelpers.pagination_options[:previous_label] = I18n.t('general.previous')
   WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t('general.next')
 end
+

@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: areas
+#
+#  id           :integer       not null, primary key
+#  postcode     :string(255)   not null
+#  name         :string(255)   not null
+#  city_id      :integer       not null
+#  company_id   :integer       not null
+#  created_at   :datetime      not null
+#  updated_at   :datetime      not null
+#  lock_version :integer       default(0), not null
+#  creator_id   :integer       
+#  updater_id   :integer       
+#
+
 class Area < ActiveRecord::Base
   belongs_to :city
   has_many :contacts

@@ -13,8 +13,6 @@
 #  company_id        :integer       not null
 #  created_at        :datetime      not null
 #  updated_at        :datetime      not null
-#  created_by        :integer       
-#  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
 #  entity_id         :integer       
 #  started_at        :datetime      
@@ -23,6 +21,8 @@
 #  currency_id       :integer       
 #  default           :boolean       default(TRUE)
 #  category_id       :integer       
+#  creator_id        :integer       
+#  updater_id        :integer       
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

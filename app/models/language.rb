@@ -8,6 +8,10 @@
 #  iso2        :string(2)     not null
 #  iso3        :string(3)     not null
 #  company_id  :integer       
+#  creator_id  :integer       
+#  updater_id  :integer       
+#  created_at  :datetime      
+#  updated_at  :datetime      
 #
 
 class Language < ActiveRecord::Base

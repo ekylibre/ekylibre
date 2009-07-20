@@ -86,8 +86,8 @@ module RedHillConsulting::SchemaValidations::ActiveRecord
       def load_association_validations
         columns = columns_hash
         reflect_on_all_associations(:belongs_to).each do |association|
-          column = columns[association.primary_key_name]
-          raise Exception.new("Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'") if column.nil?
+          column = columns[association.primary_key_name.to_s]
+          raise Exception.new("Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'\n#{association.inspect}\n#{columns.collect{|k,v| k}.inspect}") if column.nil?
           next unless validates?(column)
 
           # NOT NULL constraints

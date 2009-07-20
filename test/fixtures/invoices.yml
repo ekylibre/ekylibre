@@ -18,13 +18,13 @@
 #  company_id        :integer       not null
 #  created_at        :datetime      not null
 #  updated_at        :datetime      not null
-#  created_by        :integer       
-#  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
 #  sale_order_id     :integer       
 #  origin_id         :integer       
 #  credit            :boolean       not null
 #  created_on        :date          
+#  creator_id        :integer       
+#  updater_id        :integer       
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

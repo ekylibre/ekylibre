@@ -26,14 +26,15 @@
 #  company_id    :integer       not null
 #  created_at    :datetime      not null
 #  updated_at    :datetime      not null
-#  created_by    :integer       
-#  updated_by    :integer       
 #  lock_version  :integer       default(0), not null
 #  country       :string(2)     
 #  code          :string(4)     
 #  active        :boolean       not null
 #  started_at    :datetime      
 #  stopped_at    :datetime      
+#  area_id       :integer       
+#  creator_id    :integer       
+#  updater_id    :integer       
 #
 
 class Contact < ActiveRecord::Base

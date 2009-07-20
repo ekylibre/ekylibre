@@ -16,14 +16,14 @@
 #  role_id           :integer       not null
 #  created_at        :datetime      not null
 #  updated_at        :datetime      not null
-#  created_by        :integer       
-#  updated_by        :integer       
 #  lock_version      :integer       default(0), not null
 #  free_price        :boolean       default(TRUE), not null
 #  reduction_percent :decimal(, )   default(5.0), not null
 #  credits           :boolean       default(TRUE), not null
 #  admin             :boolean       default(TRUE), not null
 #  rights            :text          
+#  creator_id        :integer       
+#  updater_id        :integer       
 #
 
 require "digest/sha2"
@@ -39,10 +39,13 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   # validates_uniqueness_of :name, :scope=>:company_id
 
-  cattr_accessor :current_user
+  # cattr_accessor :current_user
   attr_accessor :password_confirmation
   attr_protected :hashed_password, :salt, :locked, :deleted, :role_id
   attr_readonly :company_id
+
+  # Needed to stamp all records
+  model_stamper
 
   class << self
     def rights; @@rights; end
