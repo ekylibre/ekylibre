@@ -5,6 +5,6 @@ accountancy.default_journals.bank,record,journal
 accountancy.third_accounts.clients,integer,411
 accountancy.third_accounts.suppliers,integer,401
 accountancy.third_accounts.taxes,integer,445
-management.invoicing.sequence,record,sequence
+management.invoicing.numeration,record,sequence
 management.embankments.days_before_warning_undone,integer,15
 management.embankments.days_before_warning_unvalidated,integer,15

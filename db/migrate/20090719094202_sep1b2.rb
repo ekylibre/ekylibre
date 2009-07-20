@@ -13,9 +13,11 @@ class Sep1b2 < ActiveRecord::Migration
     
     for company in Company.all
       ['sales', 'purchases', 'bank'].each do |journal|
-        parameter = Parameter.new(:name=>"accountancy.default_journals.#{journal}", :nature=>'record', :record_value_type=>Journal.name, :record_value_id=>company.send("#{journal}_journal"), :company_id=>company.id)
+        parameter = Parameter.new(:name=>"accountancy.default_journals.#{journal}", :nature=>'record', :record_value_type=>Journal.name, :record_value_id=>company.send("#{journal}_journal_id"), :company_id=>company.id)
         parameter.send(:create_without_callbacks)
       end
+      parameter = Parameter.new(:name=>"management.invoicing.numeration", :nature=>'record', :record_value_type=>Sequence.name, :record_value_id=>company.invoice_sequence_id, :company_id=>company.id)
+      parameter.send(:create_without_callbacks)
     end
 
     remove_column :parameters, :element_id
@@ -24,10 +26,12 @@ class Sep1b2 < ActiveRecord::Migration
     remove_column :companies, :sales_journal_id
     remove_column :companies, :purchases_journal_id
     remove_column :companies, :bank_journal_id
+    remove_column :companies, :invoice_sequence_id
 
   end
 
   def self.down
+    add_column :companies, :invoice_sequence_id, :integer, :references=>:sequences
     add_column :companies, :sales_journal_id, :integer, :references=>:journals, :on_delete=>:cascade, :on_update=>:cascade
     add_column :companies, :purchases_journal_id,:integer,:references=>:journals,:on_delete=>:cascade, :on_update=>:cascade
     add_column :companies, :bank_journal_id, :integer, :references=>:journals, :on_delete=>:cascade, :on_update=>:cascade
@@ -38,11 +42,14 @@ class Sep1b2 < ActiveRecord::Migration
     for company in Company.all
       ['sales', 'purchases', 'bank'].each do |journal|
         parameter = company.parameter("accountancy.default_journals.#{journal}")
-        company.send("#{journal}_journal=", parameter.value)
+        company.send("#{journal}_journal_id=", parameter.value.id) if parameter and parameter.value
       end
+      parameter = company.parameter("management.invoicing.numeration")
+      company.invoice_sequence_id = parameter.value.id if parameter and parameter.value
       company.send(:update_without_callbacks)
     end
     Parameter.delete_all(["name LIKE ?", 'accountancy.default_journals.%'])
+    Parameter.delete_all(["name = ?", 'management.invoicing.numeration'])
 
     for k, v in CONVERSIONS
       Parameter.update_all("nature='#{k}'","nature='#{v}'")
