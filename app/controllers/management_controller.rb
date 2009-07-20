@@ -1829,7 +1829,7 @@ class ManagementController < ApplicationController
 
   dyta(:taxes, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}) do |t|
     t.column :name
-    t.column :amount
+    t.column :amount, :precision=>3
     t.column :text_nature
     t.column :included
     t.column :reductible

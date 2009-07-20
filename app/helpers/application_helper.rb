@@ -609,7 +609,7 @@ module ApplicationHelper
 
       html_options = {}
       html_options[:size] = 24
-      html_options[:class] = ''
+      html_options[:class] = options[:class].to_s
       if column.nil?
         html_options[:class] += ' notnull' if options[:null]==false
         if method.to_s.match /password/
@@ -707,10 +707,10 @@ module ApplicationHelper
                   content
                 when :record
                   model = options[:model]
-                  method = [:label, :name, :to_s, :inspect].detect{|x| model.respond_to?(x)}
-                  choices = model.find_all_by_company_id(@current_company.id).collect{|x| [x.send(method), x.id]}
-                  content = select_tag(name, options_for_select(choices, value), :id=>options[:id])
-                  content
+                  instance = model.new
+                  method_name = [:label, :native_name, :name, :to_s, :inspect].detect{|x| instance.respond_to?(x)}
+                  choices = model.find_all_by_company_id(@current_company.id).collect{|x| [x.send(method_name), x.id]}
+                  select_tag(name, options_for_select(choices, value), :id=>options[:id])
                 when :date
                   date_select(name, value, :start_year=>1980)
                 when :datetime

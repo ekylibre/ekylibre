@@ -21,15 +21,24 @@
 #
 
 class Sequence < ActiveRecord::Base
-  @@periods = Sequence.columns_hash.keys.select{|x| x.match(/^last_/)}.collect{|x| x[5..-1] }
+  @@periods = Sequence.columns_hash.keys.select{|x| x.match(/^last_/)}.collect{|x| x[5..-1] }.sort
   @@replace = Regexp.new('\[('+@@periods.join('|')+')(\|(\d+)(\|([^\]]*))?)?\]')
 
+  has_many :parameters, :as=>:record_value
   belongs_to :company
   attr_readonly :company_id
   validates_inclusion_of :period, :in => @@periods  
 
   def before_validation
     self.period ||= 'number'
+  end
+
+  def destroyable?
+    self.parameters.size <= 0
+  end
+
+  def self.periods
+    @@periods.collect{|p| [tc("periods.#{p}"), p]}.sort{|a,b| a[0]<=>b[0]}
   end
 
   def compute(number=nil)

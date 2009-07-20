@@ -589,6 +589,10 @@ fr-FR:
         name: Nom
         compute: Dernière valeur
         format: Format
+        last_number: 'Dernier numéro'
+        number_increment: Incrément
+        number_start: 'Début de la numération'
+        period: Périodicité
       shape:
         description: Description
         master: Îlot maître
@@ -808,6 +812,28 @@ fr-FR:
         general: Paramètres généraux
         management: Gestion commerciale
         title: 'Paramètres de {{value}}'
+      departments:
+        title: Liste des services        de la société
+        departments_create: Ajouter un nouveau service
+        default_department_name: Gestion/Production
+        departments_listing: Liste des services        
+        getback: Retour à la fiche de société
+      departments_create:
+        title: 'Ajout d''un nouveau service'
+      departments_update:
+        title: Modification du service
+      _departments_form:
+        subtitle: Renseignez les différentes caractéristiques du service
+      establishments:
+        getback: Retour à la fiche de société
+        title: Liste des établissements
+        establishments_create: Ajouter un nouvel établissement
+      establishments_create:
+        title: 'Ajout d''un nouvel etablissement'
+      establishments_update:
+        title: 'Modification de l''établissement'
+      _establishments_form:
+        subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
       index:
         backup: Effectuer une sauvegarde des données
         configure: Modifier les paramètres
@@ -822,6 +848,7 @@ fr-FR:
         roles: Rôles 
         roles_create: Ajouter un rôle
         sequences: Séquences
+        sequences_create: Ajouter une séquence
         title: 'Administration de {{name}} ({{code}})'
         users: Utilisateurs
         users_create: Ajouter un nouvel utilisateur
@@ -868,6 +895,12 @@ fr-FR:
         production_rights: Droits module Production
         relations_rights: Droits module Relations clients/fournisseurs
         resources_rights: Droits module Ressources
+      sequences_create:
+        title: 'Création d''une nouvelle séquence'
+      sequences_update:
+        title: 'Modification de la séquence {{value}}'
+      _sequences_form:
+        subtitle: Caractéristiques de la séquence
       user:
         title: 'Informations sur l''utilisateur : {{value}}'
         change_password: Changer de mot de passe
@@ -882,31 +915,6 @@ fr-FR:
       _users_form:
         rights: Droits 
         subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
-      establishments:
-        getback: Retour à la fiche de société
-        title: Liste des établissements
-        establishments_create: Ajouter un nouvel établissement
-      establishments_create:
-        title: 'Ajout d''un nouvel etablissement'
-      establishments_update:
-        title: 'Modification de l''établissement'
-      _establishments_form:
-        subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
-      departments:
-        title: Liste des services        de la société
-        departments_create: Ajouter un nouveau service
-        default_department_name: Gestion/Production
-        departments_listing: Liste des services        
-        getback: Retour à la fiche de société
-      departments_create:
-        title: 'Ajout d''un nouveau service'
-      departments_update:
-        title: Modification du service
-      _departments_form:
-        subtitle: Renseignez les différentes caractéristiques du service
-      company_edit:
-        title: Modification de la société
-        general: Vous pouvez modifier les différentes informations concernant votre société
 
 
     # Guide
@@ -1422,6 +1430,12 @@ fr-FR:
     sale_order_line:
       error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
       stock_location_can_not_transfer_product : 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}} '
+    sequence:
+      periods:
+        cweek: Semaine
+        number: '-- Aucune --'
+        month: Mois
+        year: Année
     stock_transfer:
       stock_location_can_not_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
       stock_location_can_not_transfer_product: 'Vous ne pouvez pas tranférer le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'

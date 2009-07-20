@@ -223,13 +223,6 @@ class CompanyController < ApplicationController
     t.action :roles_update
   end
 
-  dyta(:sequences, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
-    t.column :name
-    t.column :compute
-    t.column :format, :class=>:code
-    t.action :sequences_update
-  end
-
 
 
   def establishments_create
@@ -418,5 +411,45 @@ class CompanyController < ApplicationController
     end
     redirect_to_current
   end
+
+
+  dyta(:sequences, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+    t.column :name
+    t.column :compute
+    t.column :format, :class=>:code
+    t.action :sequences_update
+    t.action :sequences_delete, :method=>:post , :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+  end
+
+  def sequences_create
+    if request.post? 
+      @sequence = Sequence.new(params[:sequence])
+      @sequence.company_id = @current_company.id
+      redirect_to_back if @sequence.save
+    else
+      @sequence = Sequence.new :format=>'[number|8]', :last_number=>0
+    end
+    render_form
+  end
+
+  def sequences_update
+    @sequence = Sequence.find_by_id_and_company_id(params[:id] , @current_company.id)
+    if request.post? and @sequence
+      if @sequence.update_attributes(params[:sequence])
+        redirect_to_back
+      end
+    end
+    @title = {:value=>@sequence.name}
+    render_form
+  end
+
+  def sequences_delete
+    if request.post? or request.delete?
+      @sequence= Sequence.find_by_id_and_company_id(params[:id] , @current_company.id)
+      Sequence.delete(params[:id]) if @sequence and @sequence.destroyable?
+    end
+    redirect_to_back
+  end
+
   
 end
