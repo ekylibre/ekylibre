@@ -8,12 +8,12 @@ class ApplicationController < ActionController::Base
   attr_accessor :current_company
   # after_filter :reset_stamper
 
- # def reset_stamper
-#    User.reset_stamper
-#  end
+  # def reset_stamper
+  #    User.reset_stamper
+  #  end
 
   include Userstamp if defined? Userstamp
-    
+  
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   # protect_from_forgery # :secret => '232b3ccf31f8f5fefcbb9d2ac3a00415'
@@ -97,30 +97,30 @@ class ApplicationController < ActionController::Base
     puts 's1'
 
     #begin
-      # User.current_user = 
-      @current_user = User.find_by_id(session[:user_id]) # User.current_user
-#      User.stamper = @current_user
-      @current_company = @current_user.company
-      if session[:last_query].to_i<Time.now.to_i-session[:expiration]
-        flash[:error] = tc :expired_session
-        redirect_to_login
-      else
-        session[:last_query] = Time.now.to_i
-        session[:history] ||= []
-        if request.get? and not request.xhr?
-          if request.url == session[:history][1]
-            session[:history].delete_at(0)
-          elsif request.url != session[:history][0]
-            session[:history].insert(0,request.url)
-            session[:history].delete_at(127)
-          end
+    # User.current_user = 
+    @current_user = User.find_by_id(session[:user_id]) # User.current_user
+    #      User.stamper = @current_user
+    @current_company = @current_user.company
+    if session[:last_query].to_i<Time.now.to_i-session[:expiration]
+      flash[:error] = tc :expired_session
+      redirect_to_login
+    else
+      session[:last_query] = Time.now.to_i
+      session[:history] ||= []
+      if request.get? and not request.xhr?
+        if request.url == session[:history][1]
+          session[:history].delete_at(0)
+        elsif request.url != session[:history][0]
+          session[:history].insert(0,request.url)
+          session[:history].delete_at(127)
         end
       end
-  #  rescue
- #     reset_session
- #     redirect_to_login
- #   end
-puts 's2'
+    end
+    #  rescue
+    #     reset_session
+    #     redirect_to_login
+    #   end
+    puts 's2'
     session[:rights] ||= []
     if @current_user
       unless @current_user.admin
@@ -147,7 +147,7 @@ puts 's2'
         end
       end
     end
-   puts 's3:'+session[:rights].inspect 
+    puts 's3'
   end
 
   def help_search(article)

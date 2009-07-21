@@ -47,7 +47,7 @@ module Ddb #:nodoc:
           # Defaults to :deleted_by when compatibility mode is on
           class_inheritable_accessor  :deleter_attribute
 
-          self.stampable
+          self.stampable unless caller[-1].match(/rake\:/)
         end
       end
 
