@@ -8,8 +8,7 @@ class RelationsController < ApplicationController
   def areas_find 
     if request.xhr?
       @area = @current_company.areas.find(params[:area])
-      puts 's2'
-      render :action => 'areas_find.rjs'
+      render :action => "areas_find.rjs"
     end
   end 
  
@@ -39,6 +38,8 @@ class RelationsController < ApplicationController
     t.action :complement_choices_update
   end
   
+  dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:company_id=>['@current_company.id']}, :joins => :city, :model => :area)
+
   def complements
   end
 
@@ -286,7 +287,7 @@ class RelationsController < ApplicationController
     if params[:entity_client] == 1
        @client = 1
     else
-      @client =0
+      @client = 0
     end
   end
 
@@ -295,8 +296,8 @@ class RelationsController < ApplicationController
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
    
-    @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '411%'])
-    @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '401%'])
+    @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", @current_company.parameter('accountancy.third_accounts.clients').value.to_s+'%'])
+    @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", @current_company.parameter('accountancy.third_accounts.suppliers').value.to_s+'%'])
                   
     if request.post?
                   

@@ -84,6 +84,19 @@ class Contact < ActiveRecord::Base
     true
   end
 
+  # this method records the specified area only if the city with his postcode associated does not exist. 
+  def after_save
+    area = self.company.areas.find(:first, :conditions=>["postcode = ? AND c.name = ?", self.line_6_code, self.line_6_city], :joins =>"INNER JOIN cities c ON c.id = areas.city_id")
+    #raise Exception.new(area.inspect)
+    if area.nil?
+      city = City.create!(:name => self.line_6_city, :district_id => 1, :company_id => self.company_id, :created_at => self.created_at, :updated_at =>self.updated_at)
+      area = Area.create!(:postcode => self.line_6_code, :city_id => city.id, :company_id => self.company_id, :created_at =>self.created_at, :updated_at=>self.updated_at)
+    end
+    
+    self.area_id = area.id
+  end
+  
+
   def lines(sep=', ', with_city=true, with_country=true)
     lines = [self.line_2, self.line_3, (self.line_4_number.to_s+' '+self.line_4_street.to_s).strip, self.line_5]
     lines << (self.line_6_code.to_s+" "+self.line_6_city.to_s).strip if with_city

@@ -25,14 +25,17 @@ module Ekylibre
               model = options[:model].to_s.camelize.constantize
             end
             
+          #   unless options[:joins].nil?
+#               model_join = options[:joins].to_s.pluralize#.camelize.constantize
+
+#             end
+
             code = ""
             
             #
             code += "def dyli_"+name.to_s+"\n"
             code += "conditions = [\"\"]\n"
-           # code += "puts 'voilaz:'+params[:s].inspect\n"
             code += "search = params[:"+model.to_s.lower.to_s+"][:search].downcase\n"
-            code += "puts 'voila2:'+search.to_s+':'+params.inspect \n"
             options[:conditions].collect do |key, value| 
               code += "conditions << "+sanitize_conditions(value)+"\n"
               code += "conditions[0] += '"+key.to_s+" = ? AND '\n"
@@ -43,12 +46,28 @@ module Ekylibre
             code += "conditions << format\n"
             code += "'LOWER('+attribute.to_s+') LIKE ? '\n"
             code += "end.join(\" OR \")\n"
+            
+#             if model_join
+#               code += "joins = 'INNER JOIN "+model_join.to_s+" "+model_join.first.to_s+" ON "+model_join.first.to_s+".id = "+(options[:model] || name).to_s.pluralize.to_s+"."+options[:joins].to_s+"_id'\n"
+#               code += "conditions[0] += ' OR '\n"
+#               code += "conditions[0] += "+options[:attributes_join].inspect+".collect do |attribute|\n"
+#               code += "format = ("+options[:filter].inspect+"[attribute] ||'%X%').gsub('X', search)\n"
+#               code += "conditions << format\n"
+#               code += "'LOWER("+model_join.first.to_s+"'.+attribute.to_s+') LIKE ? '\n"
+#               code += "end.join(\" OR \")\n"
+#             end
+           
             code += "conditions[0] += ')'\n"
             code += "find_options = {" 
             code += ":conditions => conditions,"
+           # code += ":joins => joins," #unless model_join.nil?
             code += ":order => \"#{options[:attributes][0]} ASC\","
             code += ":limit => "+options[:limit].to_s+" }\n"
             code += "@items = "+model.to_s+".find(:all, find_options)\n"
+           
+          #  attributes = (options[:attributes] << options[:attributes_join]).flatten!
+              attributes = options[:attributes]
+            #raise Exception.new(attributes.inspect)
             if options[:partial]
               code += "render :inline => '<%= dyli_result(@items,'+search.to_s.inspect+',"+options[:attributes].inspect+","+options[:partial].inspect+") %>'\n"
             else
@@ -56,12 +75,14 @@ module Ekylibre
             end
             code += "end\n"        
             
+            f=File.open('dyl.rb', 'wb')
+            f.write(code)
+            f.close
 
             code += "def dyli_one_"+name.to_s+"\n"
             code += "search = params[:search].downcase\n"
            
             code += "conditions = [\"\"]\n"
-            code += "puts 'voila3:'+search+':'+params.inspect \n"
             options[:conditions].collect do |key, value| 
               code += "conditions << "+sanitize_conditions(value)+"\n"
               code += "conditions[0] += '"+key.to_s+" = ? AND '\n"

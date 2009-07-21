@@ -342,32 +342,7 @@ class AccountancyController < ApplicationController
   #def order_sale
    # render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:key=>params[:id])
   #end
-  
-  # this method finds the journal with the matching id and the company_id.
-  # def journals_find
-#     @find_journals = @current_company.journals 
-#     render :partial => 'journals_find'
-#   end
-  
-#   # this method finds the currency with the matching id and the company_id.
-#   def currencies_find
-#     @find_currencies = @current_company.currencies
-#     render :partial => 'currencies_find'
-#   end
-  
-
-#   # this method finds the account with the matching number and the company_id.
-#   def accounts_find
-#     if request.xhr?
-#       @search = params[:account].gsub('*','%')
-#       @accounts = @current_company.accounts.find(:all,:conditions=>["number LIKE ?", @search])
-#       render :partial => 'accounts_find'
-#     else
-#       redirect_to_back
-#     end
-#   end
-   
-
+ 
   # lists all the bank_accounts with the mainly characteristics. 
   def financialyears
   end
@@ -792,15 +767,18 @@ class AccountancyController < ApplicationController
 
   # This method allows to make lettering for the client and supplier accounts.
   def lettering
-    Account.create!(:name=>"Clients", :number=>"411") unless @current_company.accounts.exists?(:number=>"411")
-    Account.create!(:name=>"Fournisseurs", :number=>"401") unless @current_company.accounts.exists?(:number=>"401")
+    clients_account = @current_company.parameter('accountancy.third_accounts.clients').value.to_s
+    suppliers_account = @current_company.parameter('accountancy.third_accounts.suppliers').value.to_s
 
-    @accounts_supplier = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '401%'])
-    @accounts_client = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '411%'])
+    Account.create!(:name=>"Clients", :number=>clients_account) unless @current_company.accounts.exists?(:number=>clients_account)
+    Account.create!(:name=>"Fournisseurs", :number=>suppliers_account) unless @current_company.accounts.exists?(:number=>suppliers_account)
+
+    @accounts_supplier = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", suppliers_account+'%'])
+    @accounts_client = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", clients_account+'%'])
     
     @financialyears = @current_company.financialyears.find(:all)
     
-    @entries =  @current_company.entries.find(:all, :conditions => ["editable = false AND (a.number LIKE ? OR a.number LIKE ?)", '400%', '410%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
+    @entries =  @current_company.entries.find(:all, :conditions => ["editable = false AND (a.number LIKE ? OR a.number LIKE ?)", clients_account+'%', suplliers_account+'%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
 
     unless @entries.size > 0
       flash[:message] = tc('messages.need_entries_to_letter')

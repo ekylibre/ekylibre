@@ -3,7 +3,7 @@
   -f.error :datum
   -f.title :title
   -f.field :entity, :nature_id, :choices=>@current_company.entity_natures.find(:all, :order=>:name).collect {|x| [x.name, x.id]}, :new=>{:action=>:entities_natures_create}
-  -f.field :entity, :language_id, :choices=>Language.find(:all, :order=>:native_name).collect {|x| [x.native_name, x.id]}
+  -f.field :entity, :language_id, :choices=>@current_company.languages.find(:all, :order=>:native_name).collect {|x| [x.native_name, x.id]}
   -f.field :entity, :name
   -f.field :entity, :first_name
   -f.field :entity, :client

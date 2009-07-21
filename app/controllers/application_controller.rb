@@ -6,13 +6,13 @@ class ApplicationController < ActionController::Base
   before_filter :authorize, :except=>[:login, :logout, :register]
   attr_accessor :current_user
   attr_accessor :current_company
-  after_filter :reset_stamper
+  # after_filter :reset_stamper
 
-  def reset_stamper
-    User.reset_stamper
-  end
+ # def reset_stamper
+#    User.reset_stamper
+#  end
 
-  # include Userstamp
+  include Userstamp if defined? Userstamp
     
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -94,12 +94,12 @@ class ApplicationController < ActionController::Base
       session[:last_url] = request.url
     end
     help_search(self.controller_name+'-'+self.action_name) if session[:help] and not [:authentication, :help, :search].include?(controller_name.to_sym)
+    puts 's1'
 
-
-    begin
+    #begin
       # User.current_user = 
       @current_user = User.find_by_id(session[:user_id]) # User.current_user
-      User.stamper = @current_user
+#      User.stamper = @current_user
       @current_company = @current_user.company
       if session[:last_query].to_i<Time.now.to_i-session[:expiration]
         flash[:error] = tc :expired_session
@@ -116,26 +116,30 @@ class ApplicationController < ActionController::Base
           end
         end
       end
-    rescue
-      reset_session
-      redirect_to_login
-    end
-
+  #  rescue
+ #     reset_session
+ #     redirect_to_login
+ #   end
+puts 's2'
     session[:rights] ||= []
     if @current_user
-      if !@current_user.admin
+      unless @current_user.admin
         if User.rights[params[:controller].to_sym].nil?
           flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
+          puts '>>> 1'
           redirect_to :controller=>:guide, :action=>:index
         elsif User.rights[params[:controller].to_sym][params[:action].to_sym].nil?
           flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
+          puts '>>> 2'
           redirect_to :controller=>:guide, :action=>:index
         else
           unless (session[:rights].include?(User.rights[params[:controller].to_sym][params[:action].to_sym]) or session[:rights].include?(ADMIN.to_sym) )
             flash[:error]=tc(:no_right_for_this_part_of_the_application_and_this_user)
             if session[:history]
+              puts '>>> 3'
               redirect_to_back
             else
+              puts '>>> 4'
               redirect_to_login
             end
             return
@@ -143,7 +147,7 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-    
+   puts 's3:'+session[:rights].inspect 
   end
 
   def help_search(article)

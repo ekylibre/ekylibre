@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   attr_readonly :company_id
 
   # Needed to stamp all records
-  model_stamper
+  model_stamper if defined? Userstamp
 
   class << self
     def rights; @@rights; end
