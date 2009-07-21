@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   #    User.reset_stamper
   #  end
 
-  include Userstamp if defined? Userstamp
+  include Userstamp
   
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
