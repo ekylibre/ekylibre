@@ -116,15 +116,18 @@ class ApplicationController < ActionController::Base
     # User.stamper = @current_user
 
     # Check rights before allowing access
-    flash[:error] = nil
+    message = nil
     if User.rights[controller_name.to_sym].nil?
-      flash[:error] = tc(:no_right_defined_for_this_part_of_the_application)
+      message = tc(:no_right_defined_for_this_part_of_the_application)
     elsif User.rights[controller_name.to_sym][action_name.to_sym].nil?
-      flash[:error] = tc(:no_right_defined_for_this_part_of_the_application)
+      message = tc(:no_right_defined_for_this_part_of_the_application)
     elsif not session[:rights].include? User.rights[controller_name.to_sym][action_name.to_sym] and not @current_user.admin
-      flash[:error] = tc(:no_right_defined_for_this_part_of_the_application_and_this_user)
+      message = tc(:no_right_defined_for_this_part_of_the_application_and_this_user)
     end
-    redirect_to_back if flash[:error]
+    if message
+      flash[:error] = message
+      redirect_to_back 
+    end
   end
 
   def help_search(article)

@@ -1,4 +1,5 @@
 # accountancy:dyli_accounts:administrate_accountancy
+# application:reset_stamper:<new>
 # company:departments:manage_company
 # company:establishments:manage_company
 # company:update:manage_company
@@ -51,15 +52,14 @@ accountancy:statements_update:manage_statements
 accountancy:document_prepare:print_accounting_document
 accountancy:document_print:print_accounting_document
 accountancy:synthesis:print_accounting_document
-application:reset_stamper:<new>
 authentication:index:administrate_nothing
 authentication:login:administrate_nothing
 authentication:logout:administrate_nothing
 authentication:register:administrate_nothing
-company:sequences_create:<new>
-company:sequences_delete:<new>
-company:sequences_update:<new>
-company:configure:administrate_company
+company:sequences_create:configure_company
+company:sequences_delete:configure_company
+company:sequences_update:configure_company
+company:configure:configure_company
 company:dyta_departments:administrate_company
 company:dyta_establishments:administrate_company
 company:dyta_roles:administrate_company
@@ -256,6 +256,7 @@ production:unvalidated_operations:manage_shape_operations
 production:shapes:manage_shapes
 production:shapes_create:manage_shapes
 relations:dyli_area_search:<new>
+relations:entities_extract:import_export_entities
 relations:dyta_client_invoices:administrate_relations
 relations:dyta_contacts:administrate_relations
 relations:dyta_entity_bank_accounts:administrate_relations
