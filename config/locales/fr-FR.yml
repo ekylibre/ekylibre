@@ -707,8 +707,6 @@ fr-FR:
       title: Application
       expired_session: 'Session expirée. Veuillez vous reconnecter.'
       access_denied: 'Vous n''avez pas le droit d''accéder à cette fonctionnalité'
-      no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application'
-      no_right_defined_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'
     authentication:
       title: Connexion
       need_company_code_to_login: 'Vous devez saisir votre nom d''utilisateur accompagné de votre code société. Exemple : SOCIETE\jean'
@@ -717,10 +715,8 @@ fr-FR:
       restoration_finished: 'La restauration de la sauvegarde s''est terminée (en {{value}} secondes)'
       role: Rôle
       title: Société
-      unvalid_version_for_restore: 'La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel'
-    guide:
-      title: Accueil
       unknown_action: 'La page que vous demandez n''est pas disponible. ({{value}})'
+      unvalid_version_for_restore: 'La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel'
     help:
       title: Aide
     production:
@@ -774,7 +770,6 @@ fr-FR:
       exit: Se déconnecter
     authentication:
     company:
-    guide:
     help:
     management:
       sales_step_1: 'Description'
@@ -821,6 +816,8 @@ fr-FR:
 
     # Company
     company:
+      about_us:
+        title: 'À propos d''Ekylibre'
       configure:
         accountancy: Comptabilité
         general: Paramètres généraux
@@ -848,7 +845,7 @@ fr-FR:
         title: 'Modification de l''établissement'
       _establishments_form:
         subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
-      index:
+      general:
         backup: Effectuer une sauvegarde des données
         configure: Modifier les paramètres
         departments: Services
@@ -868,47 +865,54 @@ fr-FR:
         users_create: Ajouter un nouvel utilisateur
         users_number: 'Nombre d''utilisateurs'
         values: Valeurs diverses
+      index:
+        title: 'Bienvenue dans Ekylibre, {{user}}'
+        about_us: 'À propos d''Ekylibre'
+        accountancy: 'Comptabilité générale'
+        configure: 'Options'
+        informations: 'Informations'
+        general: 'Utilisateurs et rôles'
+        help: 'Aide'
+        management: 'Gestion commerciale (ventes, achats et stocks)'
+        modules: 'Modules'
+        nb_entities: 
+          zero: 'Aucune fiche clients/fournisseurs'
+          one: '1 fiche client/fournisseur'
+          other: '{{count}} fiches clients/fournisseurs'
+        nb_sales: 
+          zero: 'Aucune livraison en attente'
+          one: '1 livraison en attente'
+          other: '{{count}} livraisons en attente '
+        nb_purchases:
+          zero: 'Aucun achat en attente de reception'
+          one: '1 achat en attente de reception'
+          other: '{{count}} achats en attente de reception'
+        parameters: 'Paramètres'
+        production: 'Gestion de la production'
+        relations: 'Gestion des relations clients/fournisseurs'
+        resources: 'Gestion des ressources humaines'
       restore:
         backup: Effectuer une copie de sauvegarde
         download: Sélectionner le fichier de sauvegarde à télécharger
         import_backup: Import de fichier de sauvegarde
         title: Recharger les données depuis une sauvegarde
         your_new_code_is: 'Votre nouveau code société est : {{value}}'
+      _rights_form:
+        accountancy_rights: Droits module Comptabilité
+        authentication_rights: Droits de connexion
+        company_rights: Droits module Société
+        help_rights: 'Droits consultation de l''aide'
+        management_rights: Droits module Gestion commerciale
+        production_rights: Droits module Production
+        relations_rights: Droits module Relations clients/fournisseurs
+        resources_rights: Droits module Ressources
+        search_rights: Droits de recherche
       roles_create:
-        accountancy_rights: Droits module Comptabilité
-        authentication_rights: Droits de connexion
-        company_rights: Droits société/utilisateurs
-        guide_rights: Droits naviguation 
-        help_rights: 'Droits consultation de l''aide'
-        management_rights: Droits module Gestion commerciale
-        production_rights: Droits module Production
-        relations_rights: Droits module Relations clients/fournisseurs
-        resources_rights: Droits module Ressources
-        role_name: Entrez le nom du rôle puis attribuez lui ses droits
-        search_rights: Droits de recherche
         title: Ajouter un rôle       
-        validate: Valider
       roles_update:
-        accountancy_rights: Droits module Comptabilité
-        authentication_rights: Droits de connexion
-        company_rights: Droits société/utilisateurs
-        guide_rights: Droits naviguation 
-        help_rights: 'Droits consultation de l''aide'
-        management_rights: Droits module Gestion commerciale
-        production_rights: Droits module Production
-        relations_rights: Droits module Relations clients/fournisseurs
-        resources_rights: Droits module Ressources
-        role_name: Entrez le nom du rôle puis attribuez lui ses droits
-        search_rights: Droits de recherche
         title: 'Modification du rôle {{value}}'
-        validate: Valider
       _roles_form:
-        accountancy_rights: Droits module Comptabilité
-        company_rights: Droits société/utilisateurs
-        management_rights: Droits module Gestion commerciale
-        production_rights: Droits module Production
-        relations_rights: Droits module Relations clients/fournisseurs
-        resources_rights: Droits module Ressources
+        role_name: Entrez le nom du rôle puis attribuez lui ses droits
       sequences_create:
         title: 'Création d''une nouvelle séquence'
       sequences_update:
@@ -930,35 +934,6 @@ fr-FR:
         rights: Droits 
         subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
 
-
-    # Guide
-    guide:
-      index:
-        title: 'Bienvenue dans Ekylibre, {{user}}'
-        about_us: 'À propos d''Ekylibre'
-        accountancy: 'Comptabilité générale'
-        company: 'Paramètres de la société et des utilisateurs'
-        informations: 'Informations'
-        management: 'Gestion commerciale (ventes, achats et stocks)'
-        modules: 'Modules'
-        nb_entities: 
-          zero: 'Aucune fiche clients/fournisseurs'
-          one: '1 fiche client/fournisseur'
-          other: '{{count}} fiches clients/fournisseurs'
-        nb_sales: 
-          zero: 'Aucune livraison en attente'
-          one: '1 livraison en attente'
-          other: '{{count}} livraisons en attente '
-        nb_purchases:
-          zero: 'Aucun achat en attente de reception'
-          one: '1 achat en attente de reception'
-          other: '{{count}} achats en attente de reception'
-        performance_indicator: 'Tableau de bord'
-        production: 'Gestion de la production'
-        relations: 'Gestion des relations clients/fournisseurs'
-        resources: 'Gestion des ressources humaines'
-      about_us:
-        title: 'À propos d''Ekylibre'
 
     # Help
     help:
@@ -1468,7 +1443,9 @@ fr-FR:
         amount: Montant
         percent: Pourcentage
     user:
-       reduction_percent_between_0_and_100: Le taux de réduction autorisé doit être compris entre 0 et 100
+      no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application : {{controller}}/{{action}}'
+      no_right_defined_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'
+
   
   # Genral words and expression through the all app
   general:

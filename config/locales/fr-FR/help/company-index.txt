@@ -1,15 +1,20 @@
-h1. Informations sur la société
+h1. Bienvenue dans l'aide d'Ekylibre
 
-h2. Détails et utilisateurs
+*Ekylibre* est un _logiciel de gestion intégré_. Il comprend différents modules qui permettent de traiter plusieurs aspects de la gestion d'une entreprise.
 
-Vous avez ici accès aux différentes informations concernant votre société. Vous pouvez également ajouter, modifier ou supprimer un utilisateur, un établissement ou un service, ainsi que vérouiller un utilisateur (celui-ci n'aura plus accès au logiciel).
+h2. Présentation de la page
+Vous trouverez en haut le menu principal :
+* à gauche, se trouve le menu relatif aux différents modules du logiciel
+* à droite, se trouve le menu relatif à votre société et vous-même en tant qu'utilisateur.
 
-Par défaut, un établissement et un service vous sont créés automatiquement.
+Juste en dessous, se trouve le titre de page qui vous permet de savoir en permanence ce que vous êtes en train de faire.
+Lorsque que vous irez un peu plus loin, vous pourrez voir apparaître sur la gauche le menu récapitulant les différentes actions relatives au module utilisé.
 
-h2. Les droits
+h2. Les différents modules
+Depuis l'accueil, vous pouvez accéder aux différents modules disponibles dans l'application
+* Gestion des relations Clients/Fournisseurs
+* Comptabilité générale
+* Gestion commerciale
 
-Lors de l'ajout/modification d'un utilisateur ou d'un rôle, vous avez accès au détail des différents droits du logiciel. Ceux-ci sont regroupés par module.
-*Un droit permet d'accéder à une ou plusieurs actions du logiciel*.
-Les droits relatifs à un utilisateur peuvent être définis grâce aux *rôles*. Un rôle permet de définir les droits de bases relatifs à un type d'utilisateur (ex. comptable). Ensuite depuis le formulaire utilisateur vous pouvez choisir de rajouter ou de supprimer des droits par rapport au rôle sélectionné.
-
-
+h2. Le tableau de bord 
+Il vous permet en un coup d'oeil d'avoir accès aux événements pouvant nécessiter un traitement rapide de votre part, ou à des informations générales.

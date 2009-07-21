@@ -15,7 +15,8 @@
   -#f.field :user, :reduction_percent
   -#f.field :user, :free_price
   -#f.field :user, :credits
-%div#rights=render :partial=>"roles_form"
+
+#rights=render :partial=>"rights_form"
 
 :javascript
   function display_rights(){
@@ -29,3 +30,4 @@
   display_rights();
 
 =observe_field("user_admin", :frequency=>0.25, :function=>"display_rights();" )
+=observe_field("user_role_id", :url=>{:action=>:users_create}, :update=>:rights, :frequency => 0.25 , :with=>"user_role_id")

@@ -116,17 +116,10 @@ class ApplicationController < ActionController::Base
     # User.stamper = @current_user
 
     # Check rights before allowing access
-    message = nil
-    if User.rights[controller_name.to_sym].nil?
-      message = tc(:no_right_defined_for_this_part_of_the_application)
-    elsif User.rights[controller_name.to_sym][action_name.to_sym].nil?
-      message = tc(:no_right_defined_for_this_part_of_the_application)
-    elsif not session[:rights].include? User.rights[controller_name.to_sym][action_name.to_sym] and not @current_user.admin
-      message = tc(:no_right_defined_for_this_part_of_the_application_and_this_user)
-    end
+    message = @current_user.authorization(session[:rights], controller_name, action_name)
     if message
       flash[:error] = message
-      redirect_to_back 
+      redirect_to_back unless @current_user.admin
     end
   end
 

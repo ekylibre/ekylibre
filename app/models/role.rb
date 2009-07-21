@@ -56,4 +56,16 @@ class Role < ActiveRecord::Base
     end
   end
 
+  def rights_array
+    self.rights.split(" ").collect{|x| x.to_sym}
+  end
+
+  def rights_array=(array)
+    self.rights = array.select{|x| User.rights_list.include?(x.to_sym)}.join(" ")
+  end
+
+  def destroyable?
+    self.users.size <= 0
+  end
+
 end

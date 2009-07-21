@@ -1,5 +1,6 @@
 # accountancy:dyli_accounts:administrate_accountancy
 # application:reset_stamper:<new>
+# company:index:__minimum__
 # company:departments:manage_company
 # company:establishments:manage_company
 # company:update:manage_company
@@ -52,16 +53,20 @@ accountancy:statements_update:manage_statements
 accountancy:document_prepare:print_accounting_document
 accountancy:document_print:print_accounting_document
 accountancy:synthesis:print_accounting_document
-authentication:index:administrate_nothing
-authentication:login:administrate_nothing
-authentication:logout:administrate_nothing
-authentication:register:administrate_nothing
+authentication:index:__minimum__
+authentication:login:__minimum__
+authentication:logout:__minimum__
+authentication:register:__minimum__
+company:about_us:__minimum__
+company:index:__minimum__
+company:unknown_action:__minimum__
+company:welcome:__minimum__
 company:dyta_departments:administrate_company
 company:dyta_establishments:administrate_company
 company:dyta_roles:administrate_company
 company:dyta_sequences:administrate_company
 company:dyta_users:administrate_company
-company:index:administrate_company
+company:general:administrate_company
 company:user:administrate_company
 company:configure:configure_company
 company:sequences_create:configure_company
@@ -76,31 +81,17 @@ company:establishments_delete:manage_company
 company:establishments_update:manage_company
 company:restore:manage_company
 company:roles_create:manage_users
+company:roles_delete:manage_users
 company:roles_update:manage_users
 company:users_create:manage_users
 company:users_delete:manage_users
 company:users_lock:manage_users
 company:users_unlock:manage_users
 company:users_update:manage_users
-guide:about_us:administrate_nothing
-guide:index:administrate_nothing
-guide:unknown_action:administrate_nothing
-guide:welcome:administrate_nothing
-help:close:administrate_nothing
-help:previous:administrate_nothing
-help:search:administrate_nothing
-help:side:administrate_nothing
-management:dyta_subscription_natures:manage_subscriptions
-management:dyta_subscriptions:manage_subscriptions
-management:subscription_find:manage_subscriptions
-management:subscription_natures:manage_subscriptions
-management:subscription_natures_create:manage_subscriptions
-management:subscription_natures_display:manage_subscriptions
-management:subscription_natures_down:manage_subscriptions 
-management:subscription_natures_up:manage_subscriptions
-management:subscription_natures_update:manage_subscriptions
-management:subscription_options_display:manage_subscriptions
-management:subscriptions:manage_subscriptions
+help:close:__minimum__
+help:previous:__minimum__
+help:search:__minimum__
+help:side:__minimum__
 management:dyta_all_invoices:administrate_management
 management:dyta_critic_product_stocks:administrate_management
 management:dyta_deliveries:administrate_management
@@ -231,6 +222,17 @@ management:stocks_moves_create:manage_stock_moves
 management:stocks_moves_delete:manage_stock_moves
 management:stocks_moves_update:manage_stock_moves
 management:unexecuted_transfers:manage_stock_moves
+management:dyta_subscription_natures:manage_subscriptions
+management:dyta_subscriptions:manage_subscriptions
+management:subscription_find:manage_subscriptions
+management:subscription_natures:manage_subscriptions
+management:subscription_natures_create:manage_subscriptions
+management:subscription_natures_display:manage_subscriptions
+management:subscription_natures_down:manage_subscriptions
+management:subscription_natures_up:manage_subscriptions
+management:subscription_natures_update:manage_subscriptions
+management:subscription_options_display:manage_subscriptions
+management:subscriptions:manage_subscriptions
 management:taxes:manage_taxes
 management:taxes_create:manage_taxes
 management:taxes_delete:manage_taxes
@@ -334,4 +336,4 @@ resources:professions:administrate_resources
 resources:professions_create:administrate_resources
 resources:professions_delete:administrate_resources
 resources:professions_update:administrate_resources
-search:index:administrate_nothing
+search:index:__minimum__

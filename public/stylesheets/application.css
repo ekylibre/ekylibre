@@ -76,7 +76,7 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 /*#top .menu a, #top .menu strong, #top .menu span { margin-left: 6px; }*/
 #top .menu * { padding: 4px 4px 5px;}
 #top .menu strong { background: #E4EBF8;}
-#guide { float:left; height:24px; margin-top:4px; }
+#modules { float:left; height:24px; margin-top:4px; }
 #user { float:right; height:24px; margin:4px 10px; text-align:right;}
 
 .help-link { float:right; padding: 8px 4px;}

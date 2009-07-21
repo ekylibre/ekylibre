@@ -15,25 +15,17 @@ module ApplicationHelper
              {:name=>:management, :url=>{:controller=>:management}},
              {:name=>:resources, :url=>{:controller=>:resources}},
              {:name=>:production, :url=>{:controller=>:production}},
-             {:name=>:company, :url=>{:controller=>:company}}
+           ] },
+         {:name=>:parameters, :list=>
+           [ {:name=>:general},
+             {:name=>:configure}
            ] },
          {:name=>:informations, :list=>
-           [ {:name=>:about_us} ] }
+           [ {:name=>:help},
+             {:name=>:about_us}
+           ] }
        ] },
 
-     # GuideController
-     {:name=>:guide, :list=>
-       [ {:name=>:modules, :list=>
-           [ {:name=>:relations, :url=>{:controller=>:relations}},
-             {:name=>:accountancy, :url=>{:controller=>:accountancy}},
-             {:name=>:management, :url=>{:controller=>:management}},
-             {:name=>:resources, :url=>{:controller=>:resources}},
-             {:name=>:production, :url=>{:controller=>:production}},
-             {:name=>:company, :url=>{:controller=>:company}}
-           ] },
-         {:name=>:informations, :list=>
-           [ {:name=>:about_us} ] }
-       ] },
      # RelationsController
      {:name=>:relations, :list=>
        [ {:name=>:entities_managing, :list=>
@@ -188,7 +180,6 @@ module ApplicationHelper
   #   end
 
   def link_to_back(options={})
-    #    link_to tg(options[:label]||'back'), {:controller=>:guide, :action=>:back}, :class=>:back
     #    link_to tg(options[:label]||'back'), :back
     link_to tg(options[:label]||'back'), session[:history][1]
   end
@@ -271,13 +262,13 @@ module ApplicationHelper
   def top_tag
     return '' if @current_user.blank?
     code = ''
-    # Guide Tag
+    # Modules Tag
     tag = ''
     for m in MENUS
       tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"),{:controller=>m[:name]})+" "
     end
     tag = content_tag(:nobr, tag);
-    code += content_tag(:div, tag, :id=>:guide, :class=>:menu)
+    code += content_tag(:div, tag, :id=>:modules, :class=>:menu)
     # Fix
     tag = ''
     tag += image_tag('template/ajax-loader-3.gif', :id=>:loading, :style=>'display:none;')
@@ -286,19 +277,10 @@ module ApplicationHelper
     # User Tag
     tag = ''
 
-    #     if controller.accessible?({:controller=>:company, :action=>:user})
-    #       tag += link_to(@current_user.label, {:controller=>:company, :action=>:user})+" "
-    #     else
     tag += content_tag(:span, @current_user.label)+" "
-    #    end
-    if controller.accessible?({:controller=>:company, :action=>:index})
-      #      tag += link_to(@current_company.name, {:controller=>:company})+" "
-      tag += elink(self.controller.controller_name!='company', @current_company.name, {:controller=>:company})+" "
-    else
-      tag += content_tag(:span, @current_company.name)+" "
-    end
-    tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout})+" "
-    tag = content_tag(:nobr, tag);
+    tag += content_tag(:span, @current_company.name)+" "
+    tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout}, :class=>:logout)+" "
+    tag = content_tag(:nobr, tag)
     code += content_tag(:div, tag, :id=>:user, :class=>:menu, :align=>:right)
     
     # Fix

@@ -4,6 +4,33 @@ require "zlib"
 class CompanyController < ApplicationController
 
   def index
+    @title = {:user=>@current_user.label}
+    @entities = @current_company.entities
+    @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
+    @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})
+  end
+
+  def welcome
+    redirect_to :action=>:index
+  end
+
+  def unknown_action
+    flash[:error] = tc(:unknown_action, :value=>request.url.inspect)
+    redirect_to :action=>:index
+  end
+  
+  def about_us
+    File.open("#{RAILS_ROOT}/VERSION") {|f| @version = f.read.split(',')}
+    begin
+      @properties = Rails::Info.properties.dup
+    rescue
+      @properties = []
+    end
+    @properties.reverse!
+    @properties.insert(0, ["Ekylibre version", @version.reverse.join(' / ')])
+  end
+
+  def general
     @company = @current_company
     @title = {:name=>@company.name, :code=>@company.code}
   end
@@ -187,20 +214,10 @@ class CompanyController < ApplicationController
     @title = {:value=>@user.label}
   end
 
-  dyta(:users, :conditions=>{:company_id=>['@current_company.id'],:deleted=>false}, :empty=>true) do |t| 
-    t.column :name
-    t.column :first_name
-    t.column :last_name
-    t.column :name, :through=>:role, :label=>tc(:role), :url=>{:action=>:roles_update}
-    #t.column :free_price
-    #t.column :credits
-    t.column :reduction_percent
-    t.column :email
-    t.column :admin
-    t.action :locked, :actions=>{"true"=>{:action=>:users_unlock},"false"=>{:action=>:users_lock}}, :method=>:post
-    t.action :users_update, :image=>:update 
-    t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
-  end
+
+
+
+
 
   dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t|
     t.column :name
@@ -211,20 +228,6 @@ class CompanyController < ApplicationController
     t.action :establishments_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
   end
   
-  dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t| 
-    t.column :name
-    t.column :comment
-    t.action :departments_update, :image=>:update
-    t.action :departments_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
-  end
-
-  dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
-    t.column :name
-    t.action :roles_update
-  end
-
-
-
   def establishments_create
     if request.post?
       @establishment = Establishment.new(params[:establishment])
@@ -252,6 +255,16 @@ class CompanyController < ApplicationController
       Establishment.delete(params[:id]) if @establishment
     end
     redirect_to_back
+  end
+
+
+
+
+  dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t| 
+    t.column :name
+    t.column :comment
+    t.action :departments_update, :image=>:update
+    t.action :departments_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
   end
 
   def departments_create
@@ -283,98 +296,98 @@ class CompanyController < ApplicationController
     redirect_to_back
   end
 
+
+
+
+
+  dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+    t.column :name
+    t.action :roles_update
+    t.action :roles_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+  end
+
   def roles_create
     @role = Role.new
-    @rights = User.useful_rights
     if request.post?
       @role = Role.new(params[:role])
-      # raise Exception.new params.inspect
       @role.company_id = @current_company.id
-      @role.rights = "administrate_nothing "
-      for right in params[:right]
-        @role.rights += right[0].to_s+" "
-      end
-      #raise Exception.new   @role.rights.inspect
+      @rights = @role.rights_array = params[:rights].keys
       redirect_to_back if @role.save
+    else
+      @rights = User.rights_list      
     end
+    render_form
   end
 
   def roles_update
     @role = find_and_check(:role, params[:id])
-    session[:role] = @role
-    @rights = User.useful_rights
     if request.post?
-      @role.rights = "administrate_nothing "
-      for right in params[:right]
-        @role.rights += right[0].to_s+" "
-      end
+      @role.attributes = params[:role]
+      @rights = @role.rights_array = params[:rights].keys
       redirect_to_back if @role.save
+    else
+      @rights = @role.rights_array
     end
     @title = {:value=>@role.name}
+    render_form
   end
+
+  def roles_delete
+    if request.post? or request.delete?
+      @role = Role.find_by_id_and_company_id(params[:id] , @current_company.id)
+      Role.delete(@role.id) if @role and @role.destroyable?
+    end
+    redirect_to_current
+  end
+
+
+
   
+
+
+  dyta(:users, :conditions=>{:company_id=>['@current_company.id'],:deleted=>false}, :empty=>true) do |t| 
+    t.column :name
+    t.column :first_name
+    t.column :last_name
+    t.column :name, :through=>:role, :label=>tc(:role), :url=>{:action=>:roles_update}
+    # t.column :free_price
+    # t.column :credits
+    t.column :reduction_percent
+    t.column :email
+    t.column :admin
+    t.action :locked, :actions=>{"true"=>{:action=>:users_unlock},"false"=>{:action=>:users_lock}}, :method=>:post
+    t.action :users_update, :image=>:update 
+    t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
+  end
+
   def users_create
     if request.xhr?
-      @rights = session[:role_rights]
-      session[:role] = find_and_check(:role, params[:user_role_id])
-      render :action=>"check_rights.rjs"
-    end
-    if request.post? and not request.xhr?
-      #  raise Exception.new params.inspect
-      @user = User.new(params[:user])
-      @user.company_id = @current_company.id
-      @user.role_id = params[:user][:role_id]
-      if params[:user][:admin] == "0"
-        @user.rights = "administrate_nothing "
-        for right in params[:right]
-          @user.rights += right[0].to_s+" "
-        end
-      end
-      if @user.save
-        redirect_to_back
-      else
-        # raise Exception.new session[:role_rights].inspect
-        @rights = session[:role_rights]
-      end
+      role = find_and_check(:role, params[:user_role_id])
+      @rights = role.rights_array if role
+      render :partial=>"rights_form"
     else
-      @user = User.new(:admin=>false)
-      @role = Role.find_by_name_and_company_id("Administrateur", @current_company.id)
-      session[:role] = @role
-      @rights = User.useful_rights
-      session[:role_rights] = @rights
-      #raise Exception.new @rights.inspect
+      if request.post?
+        @user = User.new(params[:user])
+        @user.company_id = @current_company.id
+        @rights = @user.rights_array = params[:rights].keys
+        redirect_to_back if @user.save
+      else
+        role = @current_company.roles.first
+        @user = User.new(:admin=>false, :role=>role)
+        @rights = role ? role.rights_array : []
+      end
     end
     render_form
   end
 
   def users_update
-    @user= User.find_by_id_and_company_id(params[:id], @current_company.id)
-    @roles= @current_company.roles.find(:all,:order=>:name)
-    
-    if request.xhr?
-      @rights = session[:role_rights]
-      session[:role] = find_and_check(:role, params[:user_role_id])
-      render :action=>"check_rights.rjs"
-    end
-    if request.post? and not request.xhr?
-      if @user.update_attributes(params[:user])
-        if params[:user][:admin] == "0" 
-          @user.rights = "administrate_nothing "
-          unless params[:right].nil?
-            for right in params[:right].to_a
-              @user.rights += right[0].to_s+" "
-            end
-          end
-        end
-        redirect_to_back if @user.save
-      else
-        @rights = session[:role_rights]
-      end
+    @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
+    if request.post?
+      @user.attributes = params[:user]
+      @rights = @user.rights_array = params[:rights].keys
+      redirect_to_back if @user.save
     else
-      session[:role] = @user
-      @role = Role.find_by_name_and_company_id("Administrateur", @current_company.id)
-      @rights = User.useful_rights
-      session[:role_rights] = @rights
+      @rights = @user.rights_array
     end
     render_form
   end
@@ -409,6 +422,9 @@ class CompanyController < ApplicationController
   end
 
 
+
+
+
   dyta(:sequences, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name
     t.column :compute
@@ -441,10 +457,10 @@ class CompanyController < ApplicationController
 
   def sequences_delete
     if request.post? or request.delete?
-      @sequence= Sequence.find_by_id_and_company_id(params[:id] , @current_company.id)
-      Sequence.delete(params[:id]) if @sequence and @sequence.destroyable?
+      @sequence = Sequence.find_by_id_and_company_id(params[:id] , @current_company.id)
+      Sequence.delete(@sequence.id) if @sequence and @sequence.destroyable?
     end
-    redirect_to_back
+    redirect_to_current
   end
 
   

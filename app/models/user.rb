@@ -37,17 +37,19 @@ class User < ActiveRecord::Base
 
   validates_presence_of :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
   validates_confirmation_of :password
+  validates_inclusion_of :reduction_percent, :in=>0..100
   # validates_uniqueness_of :name, :scope=>:company_id
 
   # cattr_accessor :current_user
   attr_accessor :password_confirmation
-  attr_protected :hashed_password, :salt, :locked, :deleted, :role_id
+  attr_protected :hashed_password, :salt, :locked, :deleted, :rights
   attr_readonly :company_id
 
   # Needed to stamp all records
   model_stamper
 
   class << self
+    def minimum_right; :__minimum__; end
     def rights; @@rights; end
     def rights_list; @@rights_list; end
     def useful_rights; @@useful_rights; end
@@ -62,12 +64,18 @@ class User < ActiveRecord::Base
     self.admin = true if self.rights.nil?
   end
 
-  def validate
-    errors.add_to_base tc(:reduction_percent_between_0_and_100) if self.reduction_percent < 0 || self.reduction_percent > 100
-  end   
-
   def label
     self.first_name+' '+self.last_name
+  end
+
+  def rights_array
+    self.rights.split(" ").collect{|x| x.to_sym}
+  end
+
+  def rights_array=(array)
+    narray = array.select{|x| User.rights_list.include? x.to_sym}.collect{|x| x.to_sym}
+    self.rights = narray.join(" ")
+    return narray
   end
 
   def password
@@ -94,6 +102,18 @@ class User < ActiveRecord::Base
       user = nil if user.locked or user.deleted or !user.authenticated?(password)
     end
     user
+  end
+
+  def authorization(rights_list, controller_name, action_name)
+    message = nil
+    if User.rights[controller_name.to_sym].nil?
+      message = tc(:no_right_defined_for_this_part_of_the_application, :controller=>controller_name, :action=>action_name)
+    elsif (right = User.rights[controller_name.to_sym][action_name.to_sym]).nil?
+      message = tc(:no_right_defined_for_this_part_of_the_application, :controller=>controller_name, :action=>action_name)
+    elsif not right == "*" and not rights_list.include?(right) and not self.admin
+      message = tc(:no_right_defined_for_this_part_of_the_application_and_this_user)
+    end
+    return message
   end
   
   def after_destroy
@@ -143,8 +163,8 @@ class User < ActiveRecord::Base
     end
     @@rights_list.uniq!
     for controller, actions in @@rights
-      unless [:search, :guide, :authentication, :help].include? controller
-        @@useful_rights[controller] = actions.values.uniq
+      unless [:search, :authentication, :help].include? controller
+        @@useful_rights[controller] = actions.values.uniq.delete_if{|x| x == User.minimum_right }
       end
     end
   end

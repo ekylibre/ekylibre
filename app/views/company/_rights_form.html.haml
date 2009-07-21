@@ -1,0 +1,8 @@
+=h @rights.inspect
+- for group, rights in User.useful_rights||{}
+  =formalize do |f|
+    - f.title tc("#{group}_rights")
+    - for right in rights
+      - f.field content_tag(:label, t("rights.#{right}"), :for=>"rights_#{right}"), check_box_tag("rights[#{right}]", "1", @rights.include?(right), :id=>"rights_#{right}")
+
+

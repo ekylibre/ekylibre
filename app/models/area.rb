@@ -9,9 +9,9 @@
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null
-#  lock_version :integer       default(0), not null
 #  creator_id   :integer       
 #  updater_id   :integer       
+#  lock_version :integer       default(0), not null
 #
 
 class Area < ActiveRecord::Base

@@ -1,34 +1,6 @@
-=toolbar do
-  -link :entities_update, {:controller=>:relations, :id=>@company.entity_id}
-  -link :configure
-  -link :backup
-  -link :restore
-
-%h2= tc :users
-=toolbar do
-  -link :users_create
-=dyta :users
-
-
-%h2= tc(:roles)
-=toolbar do
-  -link :roles_create
-=dyta :roles
-
-
--# %h2= tc :establishments
--# =toolbar do
--#   -link :establishments_create
--# =dyta :establishments
-
-
--# %h2= tc :departments
--# =toolbar do
--#   -link :departments_create
--# =dyta :departments
-
-
-%h2= tc :sequences
-=toolbar do
-  -link :sequences_create
-=dyta :sequences
+.menu.indicator
+  %h2= tg('indicator')
+  %ul
+    =li_link_to tc('nb_entities',:count=>@entities.size), :controller=>:relations, :action=>:entities
+    =li_link_to tc('nb_sales', :count=>@deliveries.size), :controller=>:management, :action=>:undelivered_sales
+    =li_link_to tc('nb_purchases', :count=>@purchases.size), :controller=>:management, :action=>:unreceived_purchases
