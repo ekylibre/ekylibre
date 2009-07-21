@@ -956,7 +956,7 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sales_products, :id=>@sale_order.id
     else
       if request.post? 
-        raise Exception.new params.inspect
+        raise Exception.new(params.inspect)
         @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
         if @sale_order_line and params[:sale_order_line][:price_amount].to_d <= 0
           @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
@@ -1315,7 +1315,7 @@ class ManagementController < ApplicationController
   end
 
   def embankment_checks_create
-    @embankment = find_and_check (:embankment, params[:id])
+    @embankment = find_and_check(:embankment, params[:id])
     @checks = @current_company.checks_to_embank(@embankment.mode_id)
     if request.post?
       payments = params[:check].collect{|x| Payment.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:check].nil?
@@ -1329,7 +1329,7 @@ class ManagementController < ApplicationController
   end
 
   def embankment_checks_update
-    @embankment = find_and_check (:embankment, params[:id])
+    @embankment = find_and_check(:embankment, params[:id])
     @checks = @current_company.checks_to_embank_on_update(@embankment)
     if request.post?
       if params[:check].nil?
