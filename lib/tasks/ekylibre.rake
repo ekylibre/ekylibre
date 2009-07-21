@@ -12,7 +12,7 @@ namespace :rights do
       file = File.open(x, "r")
       file.each_line do |line|
         actions << line.split(/def\s/)[1].gsub(/\s/,'') if line.match(/^\s*def\s+\w+\s*$/)
-        actions << line.gsub(/\s/,'').gsub(/\(?:/,"_").split(/(\,|\))/)[0] if line.match(/^\s*dyta[\s\(]+\:\w+/)
+        actions << line.gsub(/\s/,'').gsub(/\(?:/,"_").split(/(\,|\))/)[0] if line.match(/^\s*dy(ta|li)[\s\(]+\:\w+/)
       end
       ref[controller_name] = actions
     end
