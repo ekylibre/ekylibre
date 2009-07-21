@@ -657,15 +657,20 @@ fr-FR:
         text_nature: Type
       subscription: 
         contact_id: 'Adresse de l''abonné'
+        entity_name: Abonné
+        first_number: Premier numéro
         finished_on: Termine le
+        last_number: Dernier numéro
         nature_id: Type
-        numbers: Nombre de numéros
+        product_id: Produit
         started_on: Débute le
       subscription_nature:
         actual_number: Numéro en cours
         comment: Commentaire
+        id: Type
         name: Nom
         nature: Type
+        read_nature: Type
       tax:
         amount: Valeur
         group_name: Groupe

@@ -3,6 +3,7 @@ class Subscription < ActiveRecord::Base
 
 
   belongs_to :company
+  belongs_to :contact
   belongs_to :product
   #belongs_to :sale_order_line
 
@@ -13,5 +14,9 @@ class Subscription < ActiveRecord::Base
    
   end
 
+
+  def entity_name
+    self.contact.entity.full_name
+  end
 
 end

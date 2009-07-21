@@ -980,7 +980,8 @@ class ManagementController < ApplicationController
                 @subscription.started_on = params[:subscription][:started_on]
                 @subscription.finished_on = params[:subscription][:finished_on]
               elsif @sale_order_line.product.subscription_nature.nature == "quantity"
-                @subscription.numbers = params[:subscription][:numbers]
+                @subscription.first_number = params[:subscription][:first_number]
+                @subscription.last_number = params[:subscription][:last_number]
               end
               @subscription.contact_id = params[:subscription][:contact_id]
               
@@ -1670,8 +1671,19 @@ class ManagementController < ApplicationController
     end
   end
 
+  dyta(:subscription_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :read_nature
+    t.action :subscription_natures_display
+    t.action :subscription_natures_update
+  end
+
+  def subscription_natures
+  end
+
   def subscription_natures_create
     @subscription_nature = SubscriptionNature.new
+    @subscription_nature.nature = SubscriptionNature.natures.first[1]
     if request.post?
       @subscription_nature = SubscriptionNature.new(params[:subscription_nature])
       @subscription_nature.company_id = @current_company.id
@@ -1680,10 +1692,101 @@ class ManagementController < ApplicationController
     render_form
   end
 
-
-  def subscriptions
+  def subscription_natures_update
+    @subscription_nature = find_and_check(:subscription_nature, params[:id])
+    if request.post?
+    end
+    @title = {:value=>@subscription_nature.name}
+    render_form
   end
 
+  def subscription_natures_display
+    @subscription_nature = find_and_check(:subscription_nature, params[:id])
+    if @subscription_nature.nature == "quantity"
+      session[:subscription_nature_id] = @subscription_nature.id
+    end
+    redirect_to :action=>:subscriptions
+  end
+
+  def subscription_natures_up
+    if request.post?
+      #raise Exception.new "tt"+params.inspect
+      @subscription_nature = find_and_check(:subscription_nature, params[:id])
+      if !@subscription_nature.nil?
+        @subscription_nature.actual_number += 1
+        @subscription_nature.save
+      end
+      flash[:notice]=tc('new_actual_number', :value=>@subscription_nature.actual_number)
+      redirect_to_back
+    end
+  end
+
+  def subscription_natures_down
+    if request.post?
+      @subscription_nature = find_and_check(:subscription_nature, params[:id])
+      if !@subscription_nature.nil?
+        @subscription_nature.actual_number -= 1
+        @subscription_nature.save
+      end
+      flash[:notice]=tc('new_actual_number', :value=>@subscription_nature.actual_number)
+      redirect_to_back
+    end
+  end
+
+  dyta(:subscriptions, :conditions=>:subscriptions_conditions ) do |t|
+    t.column :entity_name
+    t.column :line_2, :through=>:contact, :label=>"Dest-Serv"
+    t.column :line_3, :through=>:contact, :label=>"Bat./Rés."
+    t.column :line_4_number, :through=>:contact, :label=>"N° voie"
+    t.column :line_4_street, :through=>:contact, :label=>"Libelle voie"
+    t.column :line_5, :through=>:contact, :label=>"Lieu dit"
+    t.column :line_6_code, :through=>:contact, :label=>"Code postal"
+    t.column :line_6_city, :through=>:contact, :label=>"Ville"
+    t.column :name, :through=>:product
+    t.column :started_on
+    t.column :finished_on
+    t.column :first_number
+    t.column :last_number
+  end
+
+  def subscription_options_display
+    
+    @subscription_nature = find_and_check(:subscription_nature, params[:subscription_nature_id])
+    # raise Exception.new params.inspect+"kkkkkkkkkkkkkkkkkkkk"+@subscription_nature.inspect
+    
+  end
+
+  def subscriptions
+    ### Vérifier quil existe au moins un type d'abonnement ==>PLANTE
+
+    @subscription_nature = session[:subscription_nature]||@current_company.subscription_natures.find(:first)
+     
+    session[:sub_is_date] = 0 
+    if request.post?
+      #raise Exception.new "tt"
+      session[:subscription_nature_id] = params[:subscription_nature][:name]||session[:subscription_nature_id]
+      subscription_nature = find_and_check(:subscription_nature, session[:subscription_nature_id])
+      session[:subscription_nature] = subscription_nature
+      if subscription_nature
+        if subscription_nature.nature == "quantity"
+          session[:subscription_number]= params[:subscription][:number].to_i > 0 ? params[:subscription][:number].to_i : 0
+          session[:sub_is_date] = 2
+        elsif subscription_nature.nature == "period" and !params[:subscription][:date].nil?
+          begin
+            params_to_date = params[:subscription][:date].to_date
+            session[:subscription_date] = params_to_date
+            session[:sub_is_date] = 1
+          rescue
+            session[:subscription_date] = Date.today
+            session[:sub_is_date] = 1
+            flash[:warning]=tc(:unvalid_date)
+          end
+        end
+      end
+      @subscription_nature = session[:subscription_nature]||@current_company.subscription_natures.find(:first)
+    end
+  end
+  
 
   dyta :undelivered_sales, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :line_class=>'RECORD.moment.to_s' do |t| # ,:order=>{'sort'=>"planned_on", 'dir'=>"ASC"}
     t.column :label, :children=>:product_name

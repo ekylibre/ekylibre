@@ -7,4 +7,8 @@ class SubscriptionNature < ActiveRecord::Base
    [:quantity, :period].collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
+ def read_nature
+   tc('natures.'+self.nature.to_s)
+ end
+
 end

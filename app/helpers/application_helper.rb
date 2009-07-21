@@ -62,7 +62,8 @@ module ApplicationHelper
              {:name=>:sales_consult, :url=>{:action=>:sales}},
              {:name=>:invoices},
              {:name=>:embankments},
-             {:name=>:subscriptions} ] },
+             {:name=>:subscriptions},
+             {:name=>:subscription_natures}] },
          {:name=>:purchases, :list=>
            [ {:name=>:purchases_new},
              {:name=>:purchases_consult, :url=>{:action=>:purchases}} ] },
@@ -382,11 +383,22 @@ module ApplicationHelper
     conditions
   end
 
-  def invoices_conditions
+  def subscriptions_conditions(options={})
+    conditions = {}
+    conditions = ["company_id = ? ", @current_company.id]
+    if session[:sub_is_date] == 2
+      conditions[0] += "AND ? BETWEEN first_number AND last_number "
+      conditions << session[:subscription_number] 
+    elsif  session[:sub_is_date] == 1
+      conditions[0] += "AND ? BETWEEN started_on AND finished_on "
+      conditions << session[:subscription_date] 
+    end
+    #raise Exception.new  conditions.inspect
+    conditions
   end
-
-
-
+  
+  
+  
   #  def date_field(object_name, method, options={})
   #    record = instance_variable_get('@'+object_name.to_s)
   #    hidden_field_tag(object_name.to_s+'_'+method, record.send(method))+

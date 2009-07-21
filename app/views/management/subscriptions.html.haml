@@ -1,0 +1,18 @@
+.toolbar
+  - form_tag do
+    %table.formalize
+      %td.label=tc('subscription_nature')
+      %td.input=select(:subscription_nature, :name, @current_company.subscription_natures.collect{|x| [x.name, x.id]})
+    
+
+    #subscription_options
+      =render :partial=>"subscription_options"
+
+    .actions
+      =submit_tag tg('apply')
+
+= dyta :subscriptions
+
+
+=observe_field("subscription_nature_name",  :url=>{:action => :subscription_options_display}, :frequency => 0.25, :with=>"subscription_nature_id")
+

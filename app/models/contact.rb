@@ -46,6 +46,7 @@ class Contact < ActiveRecord::Base
   has_many :invoices
   has_many :purchase_orders
   has_many :stock_locations
+  has_many :subscriptions
 
   # belongs_to :element, :polymorphic=> true
   attr_readonly :name, :entity_id, :company_id, :norm_id, :code, :line_2, :line_3, :line_4_number, :line_4_street,

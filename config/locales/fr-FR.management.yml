@@ -7,6 +7,7 @@ fr-FR:
       no_contacts: 'Aucune adresse définie pour {{name}}'
       title: Commerce
       error_sale_order_already_paid: 'La vente a déjà été payée en totalité'
+      new_actual_number: 'Le nouveau numéro en cours est {{value}}'
       no_check_to_embank: Aucun chèque à encaisser 
       no_stock_location: 'Veuillez créer un lieu de stockage'
       price: Prix
@@ -31,6 +32,7 @@ fr-FR:
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
       paid_on: Réglé le
       payment_amount: Montant du paiement
+      unvalid_date: Date incorrecte
       you_must_select_a_file_to_import: Vous devez sélectionner un fichier à importer
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
@@ -160,6 +162,7 @@ fr-FR:
         stocks_consult: 'Consulter l''état des stocks'
         stocks_locations: 'Gérer les stocks'
         stock_transfers: 'Transferts et pertes'
+        subscription_natures: 'Types d''abonnement'
         subscriptions: Abonnements
         taxes: 'Taxes'
         title: 'Gestion commerciale'
@@ -471,8 +474,22 @@ fr-FR:
         product: "{{product}} ({{unit}})"
       stocks_moves_update:
         title: 'Modifier le mouvement de stock : {{value}}'
+      subscription_natures: 
+        subscription_natures_create: 'Ajouter un type d''abonnement'
+        title: 'Types d''abonnements'
       subscription_natures_create:
         title: 'Ajouter un type d''abonnement'
+      subscription_natures_update:
+        title: 'Modification du type d''abonnement {{value}}' 
+      _subscription_options: 
+        select_date: Entrez une date
+        select_number: Entrez un numéro
+        subscription_natures_up: Incrémenter le numéro actuel (+1)
+        subscription_natures_down: Décrémenter le numéro actuel (-1)
+      subscriptions: 
+        select_number_or_date: Entrez un numéro ou une date
+        subscription_nature: 'Type d''abonnement'
+        title: 'Abonnements'
       taxes:
         taxes_create: Ajouter une nouvelle taxe
         title: Taxes
