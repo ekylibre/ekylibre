@@ -7,6 +7,20 @@ module ApplicationHelper
   
   MENUS=
     [ 
+     # CompanyController
+     {:name=>:company, :list=>
+       [ {:name=>:modules, :list=>
+           [ {:name=>:relations, :url=>{:controller=>:relations}},
+             {:name=>:accountancy, :url=>{:controller=>:accountancy}},
+             {:name=>:management, :url=>{:controller=>:management}},
+             {:name=>:resources, :url=>{:controller=>:resources}},
+             {:name=>:production, :url=>{:controller=>:production}},
+             {:name=>:company, :url=>{:controller=>:company}}
+           ] },
+         {:name=>:informations, :list=>
+           [ {:name=>:about_us} ] }
+       ] },
+
      # GuideController
      {:name=>:guide, :list=>
        [ {:name=>:modules, :list=>

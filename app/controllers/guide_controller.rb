@@ -1,5 +1,4 @@
 class GuideController < ApplicationController
-  # layout :application
 
   def index
     @title = {:user=>@current_user.label}
