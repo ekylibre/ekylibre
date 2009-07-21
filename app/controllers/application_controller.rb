@@ -23,9 +23,6 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password").  
   # filter_parameter_logging :password
 
-  ADMIN = "administrate"
-
-
   def accessible?(url={})
     if url.is_a?(Hash)
       url[:controller]||=controller_name 
@@ -84,8 +81,6 @@ class ApplicationController < ActionController::Base
     record
   end
 
-
-
   private
   
   def authorize()
@@ -94,19 +89,13 @@ class ApplicationController < ActionController::Base
       session[:last_url] = request.url
     end
     help_search(self.controller_name+'-'+self.action_name) if session[:help] and not [:authentication, :help, :search].include?(controller_name.to_sym)
-    puts 's1'
 
-    #begin
-    # User.current_user = 
-    @current_user = User.find_by_id(session[:user_id]) # User.current_user
-    #      User.stamper = @current_user
-    @current_company = @current_user.company
     if session[:last_query].to_i<Time.now.to_i-session[:expiration]
       flash[:error] = tc :expired_session
       redirect_to_login
+      return
     else
       session[:last_query] = Time.now.to_i
-      session[:history] ||= []
       if request.get? and not request.xhr?
         if request.url == session[:history][1]
           session[:history].delete_at(0)
@@ -116,38 +105,26 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-    #  rescue
-    #     reset_session
-    #     redirect_to_login
-    #   end
-    puts 's2'
-    session[:rights] ||= []
-    if @current_user
-      unless @current_user.admin
-        if User.rights[params[:controller].to_sym].nil?
-          flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
-          puts '>>> 1'
-          redirect_to :controller=>:guide, :action=>:index
-        elsif User.rights[params[:controller].to_sym][params[:action].to_sym].nil?
-          flash[:error]=tc(:no_right_defined_for_this_part_of_the_application)
-          puts '>>> 2'
-          redirect_to :controller=>:guide, :action=>:index
-        else
-          unless (session[:rights].include?(User.rights[params[:controller].to_sym][params[:action].to_sym]) or session[:rights].include?(ADMIN.to_sym) )
-            flash[:error]=tc(:no_right_for_this_part_of_the_application_and_this_user)
-            if session[:history]
-              puts '>>> 3'
-              redirect_to_back
-            else
-              puts '>>> 4'
-              redirect_to_login
-            end
-            return
-          end
-        end
-      end
+
+    # Load @current_user and @current_company
+    @current_user = User.find_by_id(session[:user_id]) # User.current_user
+    unless @current_user
+      redirect_to_login 
+      return
     end
-    puts 's3'
+    @current_company = @current_user.company
+    # User.stamper = @current_user
+
+    # Check rights before allowing access
+    flash[:error] = nil
+    if User.rights[controller_name.to_sym].nil?
+      flash[:error] = tc(:no_right_defined_for_this_part_of_the_application)
+    elsif User.rights[controller_name.to_sym][action_name.to_sym].nil?
+      flash[:error] = tc(:no_right_defined_for_this_part_of_the_application)
+    elsif not session[:rights].include? User.rights[controller_name.to_sym][action_name.to_sym] and not @current_user.admin
+      flash[:error] = tc(:no_right_defined_for_this_part_of_the_application_and_this_user)
+    end
+    redirect_to_back if flash[:error]
   end
 
   def help_search(article)
@@ -157,16 +134,17 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_login()
+    reset_session
     session[:help] = false
     redirect_to :controller=>:authentication, :action=>:login
   end
   
-  def redirect_to_back()
-    if session[:history][1]
+  def redirect_to_back(options={})
+    if session[:history] and session[:history][1]
       session[:history].delete_at(0)
-      redirect_to session[:history][0]
+      redirect_to session[:history][0], options
     else
-      redirect_to :back
+      redirect_to request.referer, options
     end
   end
 

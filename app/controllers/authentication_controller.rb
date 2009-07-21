@@ -79,16 +79,14 @@ class AuthenticationController < ApplicationController
   protected
   
   def init_session(user)
-    session[:help] = true
-    session[:side] = true
-    session[:user_id] = user.id
-    session[:last_query] = Time.now.to_i
-    session[:expiration] = 3600
+    session[:expiration]   = 3600
+    session[:help]         = true
     session[:help_history] = []
-    session[:rights] = user.rights.to_s.split(" ").collect{|x| x.to_sym}
-#    session[:menu_guide] = user.company.menu("guide") 
-#    session[:menu_user]  = user.company.menu("user")
-    
+    session[:history]      = []
+    session[:last_query]   = Time.now.to_i
+    session[:rights]       = user.rights.to_s.split(" ").collect{|x| x.to_sym}
+    session[:side]         = true
+    session[:user_id]      = user.id
   end
   
 end

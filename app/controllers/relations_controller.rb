@@ -154,65 +154,16 @@ class RelationsController < ApplicationController
   def entities_print
     @entity = find_and_check(:entity, params[:id])
     return if @entity.nil?
-  end
-
- 
+  end 
   
   def entities
     @size = Entity.count
     @key = params[:key]||session[:entity_key]
     session[:entity_key] = @key
-    #entities_list({:attributes=>[:id, :name, :code, :full_name, :website], :key=>@key}.merge(params))
-    # contacts_list({:attributes=>[:id, :fax, :mobile, :telephone], :key=>@key}.merge(params))
-    #     #  entities_list params
-    #     @entities = {}
-    #  @contacts = {}
-    #     #if request.post?
-    # #      id = params[:contact][:id].to_i
-    #     @key = params[:key]
-    #     entities_list({:attributes=>[:id, :name], :key=>@key}.merge(params))
-    # #       @person = Entity.find_by_id_and_company_id(id,@current_company.id)
-    # #       @contact = Contact.find_by_id_and_company_id(id, @current_company.id)
-    # #       if params[:contact][:fax] != ""
-    # #         @idfound = nil
-    # #         attributes = [:name, :code]
-    # #         conditions = ["false"]
-    # #         key_words = params[:contact][:fax].to_s.split(" ")
-    # #         for attribute in attributes
-    # #           for word in key_words
-    # #             conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
-    # #             conditions << word
-    # #           end
-    # #         end
-    # #         @entities = Entity.find(:all, :conditions=>conditions)||{}
-    # #         @entities << @person unless @person.blank?
+  end
 
-    #  if @entities.size > 80
-    #       flash[:warning]=lc(:too_much_result)
-    #       redirect_to :action => :entities_search
-    #     end
-    #     #       end
+  def entities_extract
     
-    #     #       if params[:contact][:fax] != ""
-    #     #         name = params[:contact][:fax].to_s.split(" ")
-    # #         @key = params[:contact][:fax]
-    # #         entities_list({:attributes=>[ :name], :key=>@key}.merge(params))
-    # #         attributes = [:email, :fax, :mobile]
-    # #         conditions = ["false"]
-    # #         key_words = params[:contact][:fax].to_s.split(" ")
-    # #         for attribute in attributes
-    # #           for word in key_words
-    # #             conditions[0] += " OR "+attribute.to_s+" ILIKE '%'||?||'%'"
-    # #             conditions << word
-    # #          end
-    #   #end
-    #       #  @contacts = Contact.find(:all, :conditions=>conditions) 
-    #     if @contacts.size > 80
-    #       flash[:warning]=lc(:too_much_result)
-    #       redirect_to :action => :entities_search
-    #     end 
-    #     #  end
-    #     # end
   end
 
 

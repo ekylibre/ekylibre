@@ -703,7 +703,7 @@ fr-FR:
       expired_session: 'Session expirée. Veuillez vous reconnecter.'
       access_denied: 'Vous n''avez pas le droit d''accéder à cette fonctionnalité'
       no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application'
-      no_right_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'
+      no_right_defined_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'
     authentication:
       title: Connexion
       need_company_code_to_login: 'Vous devez saisir votre nom d''utilisateur accompagné de votre code société. Exemple : SOCIETE\jean'

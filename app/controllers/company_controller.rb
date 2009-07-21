@@ -329,8 +329,6 @@ class CompanyController < ApplicationController
         for right in params[:right]
           @user.rights += right[0].to_s+" "
         end
-      else
-        @user.rights = "administrate"
       end
       if @user.save
         redirect_to_back
@@ -367,8 +365,6 @@ class CompanyController < ApplicationController
               @user.rights += right[0].to_s+" "
             end
           end
-        else
-          @user.rights = "administrate"
         end
         redirect_to_back if @user.save
       else
