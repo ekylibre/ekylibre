@@ -4,7 +4,7 @@
 # company:establishments:manage_company
 # company:update:manage_company
 # company:users:manage_users
-accountancy:dyli_account_search:<new>
+accountancy:dyli_account_search:administrate_accountancy
 accountancy:dyta_accounts:administrate_accountancy
 accountancy:dyta_bank_account_statements:administrate_accountancy
 accountancy:dyta_bank_accounts:administrate_accountancy
@@ -255,7 +255,7 @@ production:shape_operations_update:manage_shape_operations
 production:unvalidated_operations:manage_shape_operations
 production:shapes:manage_shapes
 production:shapes_create:manage_shapes
-relations:dyli_area_search:<new>
+relations:dyli_area_search:administrate_relations
 relations:entities_extract:import_export_entities
 relations:dyta_client_invoices:administrate_relations
 relations:dyta_contacts:administrate_relations

@@ -25,10 +25,25 @@ module Ekylibre
               model = options[:model].to_s.camelize.constantize
             end
             
-          #   unless options[:joins].nil?
-#               model_join = options[:joins].to_s.pluralize#.camelize.constantize
+             unless options[:joins].nil?
+               model_join = options[:joins].to_s.pluralize#.camelize.constantize
+             end
 
-#             end
+            select = options[:model].to_s.pluralize.to_s+'.id, '
+            select += options[:attributes].each do |attribute|
+              attribute.to_s
+            end.join(',')
+
+            displays = {}
+            displays[:attributes]= options[:attributes]
+
+            if options[:attributes_join]
+              displays[:joins] = options[:attributes_join]
+              select+= ', '
+              options[:attributes_join].each do |join|
+                select += options[:joins].to_s.first.to_s+'.'+join.to_s
+              end.join(',')
+            end
 
             code = ""
             
@@ -38,40 +53,39 @@ module Ekylibre
             code += "search = params[:"+model.to_s.lower.to_s+"][:search].downcase\n"
             options[:conditions].collect do |key, value| 
               code += "conditions << "+sanitize_conditions(value)+"\n"
-              code += "conditions[0] += '"+key.to_s+" = ? AND '\n"
+              code += "conditions[0] += '"+options[:model].to_s.pluralize+"."+key.to_s+" = ? AND '\n"
             end
             code += "conditions[0] += '('\n"
             code += "conditions[0] += "+options[:attributes].inspect+".collect do |attribute|\n"
             code += "format = ("+options[:filter].inspect+"[attribute] ||'%X%').gsub('X', search)\n"
             code += "conditions << format\n"
-            code += "'LOWER('+attribute.to_s+') LIKE ? '\n"
+            code += "'LOWER("+options[:model].to_s.pluralize+".'+attribute.to_s+') LIKE ? '\n"
             code += "end.join(\" OR \")\n"
             
-#             if model_join
-#               code += "joins = 'INNER JOIN "+model_join.to_s+" "+model_join.first.to_s+" ON "+model_join.first.to_s+".id = "+(options[:model] || name).to_s.pluralize.to_s+"."+options[:joins].to_s+"_id'\n"
-#               code += "conditions[0] += ' OR '\n"
-#               code += "conditions[0] += "+options[:attributes_join].inspect+".collect do |attribute|\n"
-#               code += "format = ("+options[:filter].inspect+"[attribute] ||'%X%').gsub('X', search)\n"
-#               code += "conditions << format\n"
-#               code += "'LOWER("+model_join.first.to_s+"'.+attribute.to_s+') LIKE ? '\n"
-#               code += "end.join(\" OR \")\n"
-#             end
+            if model_join
+              code += "joins = 'INNER JOIN "+model_join.to_s+" "+model_join.first.to_s+" ON "+model_join.first.to_s+".id = "+(options[:model] || name).to_s.pluralize.to_s+"."+options[:joins].to_s+"_id'\n"
+              code += "conditions[0] += ' OR '\n"
+              code += "conditions[0] += "+options[:attributes_join].inspect+".collect do |attribute|\n"
+              code += "format = ("+options[:filter].inspect+"[attribute] ||'%X%').gsub('X', search)\n"
+              code += "conditions << format\n"
+              code += "'LOWER("+model_join.first.to_s+".'+attribute.to_s+') LIKE ? '\n"
+              code += "end.join(\" OR \")\n"
+            end
            
             code += "conditions[0] += ')'\n"
             code += "find_options = {" 
+            code += ":select => "+select.inspect+","
             code += ":conditions => conditions,"
-           # code += ":joins => joins," #unless model_join.nil?
+            code += ":joins => joins," unless model_join.nil?
             code += ":order => \"#{options[:attributes][0]} ASC\","
             code += ":limit => "+options[:limit].to_s+" }\n"
             code += "@items = "+model.to_s+".find(:all, find_options)\n"
            
-          #  attributes = (options[:attributes] << options[:attributes_join]).flatten!
-              attributes = options[:attributes]
-            #raise Exception.new(attributes.inspect)
+            
             if options[:partial]
-              code += "render :inline => '<%= dyli_result(@items,'+search.to_s.inspect+',"+options[:attributes].inspect+","+options[:partial].inspect+") %>'\n"
+              code += "render :inline => '<%= dyli_result(@items, '+search.to_s.inspect+',"+displays.inspect+","+options[:partial].inspect+") %>'\n"
             else
-              code += "render :inline => '<%= dyli_result(@items,'+search.to_s.inspect+',"+options[:attributes].inspect+") %>'\n"
+              code += "render :inline => '<%= dyli_result(@items, '+search.to_s.inspect+',"+displays.inspect+") %>'\n"
             end
             code += "end\n"        
             
@@ -159,8 +173,6 @@ module Ekylibre
           
           completion_options[:skip_style] = true;
           
-         # model = association.to_s.camelize.constantize 
-
           dyli_completer(tf_name, tf_value, hf_name, hf_value, options, tag_options, completion_options)
         end
         
@@ -169,23 +181,22 @@ module Ekylibre
           # We can't assume dom_id(model) is available because the plugin does not require Rails 2 by now.
           prefix = models.first.class.name.underscore.tr('/', '_') unless models.empty?
           
-          
-          items = models.map do |model|
-            
-            li_id      = "#{prefix}_#{model.id}"
-            li_content = displays.collect {|display| model.send(display)}.join(', ')
 
+          #raise Exception.new(models.inspect)
+          items = models.map do |model|
+            li_id      = "#{prefix}_#{model.id}"
+            li_content = displays[:attributes].collect {|display| model.send(display)}.join(', ')
+            li_content += ','+displays[:joins].collect {|display| model.send(display)}.join(', ') if displays.include? :joins
             # if a partial is used or not to display the research.
             if partial
               content_tag('li', (render :partial => partial.to_s, :locals =>{:record=> model, :li_content => li_content, :search => search })+tag('input', :type =>'hidden', :value =>li_content, :id =>'record_'+model.id.to_s), :id => li_id)
             else
               content_tag('li', highlight(li_content, search)+tag('input', :type =>'hidden', :value =>li_content, :id =>'record_'+model.id.to_s), :id => li_id)
             end
-            
           end
-          
           content_tag('ul', items.uniq)
-        end
+
+       end
         
         
         # tag
@@ -280,7 +291,7 @@ module Ekylibre
           if options[:append_random_suffix]
             rand_id = Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by {rand}.join)
             hf_id << "_#{rand_id}"
-            tf_id << "_#{rand_id}"
+           # tf_id << "_#{rand_id}"
           end
           return hf_id, tf_id
         end

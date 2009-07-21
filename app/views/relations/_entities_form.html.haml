@@ -1,3 +1,4 @@
+=dyli_tag :contact, :area, :dyli=>:area_search, :resize=>true
 =formalize do |f|
   -f.error :entity
   -f.error :datum
@@ -57,7 +58,6 @@
   }
   displayFields();
   
-
 =observe_field "entity_client", :function=>"displayFields();", :frequency => 0.25
 =observe_field "entity_supplier", :function=>"displayFields();", :frequency => 0.25
 =render :partial=>"coordinates_form", :locals => {:company => @current_company}

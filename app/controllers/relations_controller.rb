@@ -38,7 +38,7 @@ class RelationsController < ApplicationController
     t.action :complement_choices_update
   end
   
-  dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:company_id=>['@current_company.id']}, :joins => :city, :model => :area)
+ 
 
   def complements
   end
@@ -150,12 +150,13 @@ class RelationsController < ApplicationController
     t.action :entities_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
-
+  #
   def entities_print
     @entity = find_and_check(:entity, params[:id])
     return if @entity.nil?
   end 
-  
+
+  #
   def entities
     @size = Entity.count
     @key = params[:key]||session[:entity_key]
@@ -183,6 +184,7 @@ class RelationsController < ApplicationController
     t.action :entities_contacts_delete , :image=>:delete , :method=>:post, :confirm=>:are_you_sure
   end
 
+   dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:company_id=>['@current_company.id']}, :joins => :city, :model => :area)
 
   #dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'}, :children=>:lines) do |t|
   dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|
@@ -328,6 +330,7 @@ class RelationsController < ApplicationController
       end
     end
 #                                                            raise Exception.new('p12:'+params.inspect)      
+  # @contact = Contact.new
     render_form
   end
 
@@ -488,6 +491,7 @@ class RelationsController < ApplicationController
       @contact.entity_id = @entity.id  
       redirect_to_back if @contact.save
     else
+      # this line has been added temporarly.
       @contact = Contact.new
       # @contact.name = (@entity.contacts.size>0 ? tc(:second_contact) : tc(:first_contact) )
       @contact.country = @entity.country
