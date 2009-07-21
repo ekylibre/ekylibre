@@ -92,4 +92,8 @@ class SaleOrderLine < ActiveRecord::Base
     self.product.name
   end
 
+  def is_a_subscription
+    self.product.nature == "subscrip"
+  end
+
 end

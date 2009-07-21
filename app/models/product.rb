@@ -43,6 +43,7 @@ class Product < ActiveRecord::Base
   belongs_to :product_account, :class_name=>BankAccount.to_s
   belongs_to :charge_account, :class_name=>BankAccount.to_s
   belongs_to :company
+  belongs_to :subscription_nature
   belongs_to :shelf
   belongs_to :unit
   has_many :delivery_lines
@@ -54,6 +55,8 @@ class Product < ActiveRecord::Base
   has_many :locations, :class_name=>StockLocation.to_s
   has_many :stock_moves
   has_many :stock_transfers
+  has_many :subscriptions
+
 
   validates_presence_of :subscription_period, :if=>Proc.new{|u| u.nature=="sub_date"}
   validates_presence_of :subscription_numbers, :actual_number, :if=>Proc.new{|u| u.nature=="sub_numb"}
@@ -89,7 +92,8 @@ class Product < ActiveRecord::Base
   end
 
   def self.natures
-    [:product, :service, :sub_date, :sub_numb].collect{|x| [tc('natures.'+x.to_s), x] }
+    #[:product, :service, :sub_date, :sub_numb].collect{|x| [tc('natures.'+x.to_s), x] }
+    [:product, :service, :subscrip].collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
   def self.supply_methods
@@ -115,4 +119,20 @@ class Product < ActiveRecord::Base
     name
   end
 
+  def duration
+    #raise Exception.new self.subscription_nature.nature.inspect+" blabla"
+    if self.subscription_nature
+      self.send('subscription_'+self.subscription_nature.nature)
+    else
+      return nil
+    end
+    
+  end
+  
+  def duration=(value)
+    #raise Exception.new subscription.inspect+self.subscription_nature_id.inspect
+    if self.subscription_nature
+      self.send('subscription_'+self.subscription_nature.nature+'=', value)
+    end
+  end
 end

@@ -75,6 +75,8 @@ class Company < ActiveRecord::Base
   has_many :stock_moves
   has_many :stock_trackings
   has_many :stock_transfers
+  has_many :subscription_natures
+  has_many :subscriptions
   has_many :taxes
   has_many :templates
   has_many :units

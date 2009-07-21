@@ -57,7 +57,7 @@ class InvoiceLine < ActiveRecord::Base
   def after_create
     record = JournalRecord.find(:first, :conditions=>{:resource_id=>self.invoice_id, :resource_type=>Invoice.to_s, :company_id=>self.company_id})
     
-    record = JournalRecord.create!(:company_id=>self.company_id, :resource_id=>self.invoice_id, :resource_type=>Invoice.to_s, :created_on=>Date.today, :printed_on=>Date.today, :financialyear_id=>self.company.financialyears.find_by_closed(false), :journal_id=>self.company.find_sales_journal) if record.nil?
+    record = JournalRecord.create!(:company_id=>self.company_id, :resource_id=>self.invoice_id, :resource_type=>Invoice.to_s, :created_on=>Date.today, :printed_on=>Date.today, :financialyear_id=>self.company.financialyears.find_by_closed(false), :journal_id=>self.company.parameters.find_by_name("accountancy.default_journals.sales").record_value_id) if record.nil?
 
        ### Product Account (credit, 7...)
     Entry.create!(:company_id=>self.company_id, :record_id=>record.id, :account_id=>self.product.product_account_id, :currency_id=>self.price.currency_id,:editable=>false, :credit=>self.amount, :name=>self.product.name+" "+self.price.amount.to_s+" "+self.price.currency.code, :currency_credit=>1)

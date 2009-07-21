@@ -467,6 +467,7 @@ fr-FR:
         comment: Commentaire
         critic_quantity_min: Quantité minimum critique
         description: Description
+        duration: 'Nombre de numéros OU période d''abonnement'
         ean13: Code EAN13
         manage_stocks: Gérer les stocks
         name: Nom
@@ -478,6 +479,7 @@ fr-FR:
         quantity_max: Quantité maximum
         service_coeff: Coefficient (de quantité) de service
         shelf_id: Catégorie
+        subscription_nature_id: Type
         subscription_numbers: Nombre de numéros
         subscription_period: Période
         supply_method: 'Moyen d''approvisionnement'
@@ -654,9 +656,16 @@ fr-FR:
         second_location_id: Entrée du lieu de stockage
         text_nature: Type
       subscription: 
-        finish: Termine le
+        contact_id: 'Adresse de l''abonné'
+        finished_on: Termine le
+        nature_id: Type
         numbers: Nombre de numéros
-        start: Débute le
+        started_on: Débute le
+      subscription_nature:
+        actual_number: Numéro en cours
+        comment: Commentaire
+        name: Nom
+        nature: Type
       tax:
         amount: Valeur
         group_name: Groupe
@@ -1393,6 +1402,7 @@ fr-FR:
         service: Service
         sub_date: Abonnement par date
         sub_numb: Abonnement par numéros
+        subscrip: Abonnement
       supply_methods:
         buy: Achat
         produce: Production
@@ -1442,7 +1452,11 @@ fr-FR:
       stock_location_can_not_waste_product: 'Vous ne pouvez pas enregistrer de perte pour  le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
       natures:
         transfer: Transfert 
-        waste: Perte    
+        waste: Perte  
+    subscription_nature: 
+      natures:
+        period: Abonnement par date
+        quantity: Abonnement par numéros  
     tax:
       amount_must_be_included_between_0_and_1: doit être comprise entre 0 et 1
       natures:

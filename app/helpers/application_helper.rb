@@ -61,7 +61,8 @@ module ApplicationHelper
            [ {:name=>:sales_new},
              {:name=>:sales_consult, :url=>{:action=>:sales}},
              {:name=>:invoices},
-             {:name=>:embankments} ] },
+             {:name=>:embankments},
+             {:name=>:subscriptions} ] },
          {:name=>:purchases, :list=>
            [ {:name=>:purchases_new},
              {:name=>:purchases_consult, :url=>{:action=>:purchases}} ] },

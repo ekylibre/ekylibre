@@ -159,8 +159,9 @@ fr-FR:
         stocks: 'Stocks'
         stocks_consult: 'Consulter l''état des stocks'
         stocks_locations: 'Gérer les stocks'
-        taxes: 'Taxes'
         stock_transfers: 'Transferts et pertes'
+        subscriptions: Abonnements
+        taxes: 'Taxes'
         title: 'Gestion commerciale'
         units: 'Unités de mesure'
       inventories:
@@ -470,6 +471,8 @@ fr-FR:
         product: "{{product}} ({{unit}})"
       stocks_moves_update:
         title: 'Modifier le mouvement de stock : {{value}}'
+      subscription_natures_create:
+        title: 'Ajouter un type d''abonnement'
       taxes:
         taxes_create: Ajouter une nouvelle taxe
         title: Taxes

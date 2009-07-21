@@ -30,7 +30,7 @@ class Sep1b1 < ActiveRecord::Migration
     add_column    :companies, :siren, :string, :limit=>9, :null=>false, :default=>"000000000"
 
     for company in Company.all
-      Company.update_all({:siren=>company.entity.siren}, {:id=>company.entity_id}) if company.entity
+      Company.update_all({:siren=>company.entity.siren}, {:id=>company.entity_id}) if company.entity and company.entity.siren
     end
 
     execute "DELETE FROM sequences WHERE format='F[year][month|2][number|6]'"
