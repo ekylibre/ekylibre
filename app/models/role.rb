@@ -68,4 +68,7 @@ class Role < ActiveRecord::Base
     self.users.size <= 0
   end
 
+  def diff_more; ''; end
+  def diff_less; ''; end
+
 end

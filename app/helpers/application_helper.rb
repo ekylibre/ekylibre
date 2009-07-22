@@ -14,9 +14,12 @@ module ApplicationHelper
              {:name=>:listings}
            ] },
          {:name=>:parameters, :list=>
-           [ {:name=>:users},
-             {:name=>:general},
-             {:name=>:configure}
+           [ {:name=>:configure},
+             {:name=>:users},
+             {:name=>:roles},
+             {:name=>:establishments},
+             {:name=>:departments},
+             {:name=>:sequences}
            ] },
          {:name=>:informations, :list=>
            [ {:name=>:help},
@@ -29,7 +32,6 @@ module ApplicationHelper
        [ {:name=>:entities_managing, :list=>
            [ {:name=>:entities},
              {:name=>:import_export, :url=>{:action=>:entities_import}}
-             #  ,{:name=>:entities_create} 
            ] },
          {:name=>:meetings, :list=>
            [{:name=>:meetings},
@@ -78,7 +80,6 @@ module ApplicationHelper
              {:name=>:stocks_consult, :url=>{:action=>:stocks}} ] },
          {:name=>:parameters, :list=>
            [ {:name=>:products},
-             #            {:name=>:invoicing_parameters},
              {:name=>:prices},
              {:name=>:shelves},
              {:name=>:delays},

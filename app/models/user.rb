@@ -78,6 +78,15 @@ class User < ActiveRecord::Base
     return narray
   end
 
+  def diff_more(right_markup = 'div', separator='')
+    (self.rights_array-self.role.rights_array).collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator)
+  end
+
+
+  def diff_less(right_markup = 'div', separator='')
+    (self.role.rights_array-self.rights_array).collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator)
+  end
+
   def password
     @password
   end

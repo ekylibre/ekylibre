@@ -252,6 +252,9 @@ class CompanyController < ApplicationController
     t.action :establishments_update, :image=>:update
     t.action :establishments_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
   end
+
+  def establishments
+  end
   
   def establishments_create
     if request.post?
@@ -284,12 +287,14 @@ class CompanyController < ApplicationController
 
 
 
-
   dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t| 
     t.column :name
     t.column :comment
     t.action :departments_update, :image=>:update
     t.action :departments_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
+  end
+
+  def departments
   end
 
   def departments_create
@@ -325,10 +330,15 @@ class CompanyController < ApplicationController
 
 
 
-  dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
-    t.column :name
+  dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}, :children=>:users) do |t| 
+    t.column :name, :children=>:label
+    t.column :diff_more, :class=>'rights more'
+    t.column :diff_less, :class=>'rights less'
     t.action :roles_update
     t.action :roles_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+  end
+
+  def roles
   end
 
   def roles_create
@@ -336,7 +346,8 @@ class CompanyController < ApplicationController
     if request.post?
       @role = Role.new(params[:role])
       @role.company_id = @current_company.id
-      @rights = @role.rights_array = params[:rights].keys
+      @role.rights_array = params[:rights].keys
+      @rights = @role.rights_array
       redirect_to_back if @role.save
     else
       @rights = User.rights_list      
@@ -348,7 +359,8 @@ class CompanyController < ApplicationController
     @role = find_and_check(:role, params[:id])
     if request.post?
       @role.attributes = params[:role]
-      @rights = @role.rights_array = params[:rights].keys
+      @role.rights_array = params[:rights].keys
+      @rights = @role.rights_array
       redirect_to_back if @role.save
     else
       @rights = @role.rights_array
@@ -396,7 +408,8 @@ class CompanyController < ApplicationController
       if request.post?
         @user = User.new(params[:user])
         @user.company_id = @current_company.id
-        @rights = @user.rights_array = params[:rights].keys
+        @user.rights_array = params[:rights].keys
+        @rights = @user.rights_array
         redirect_to_back if @user.save
       else
         role = @current_company.roles.first
@@ -411,7 +424,8 @@ class CompanyController < ApplicationController
     @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post?
       @user.attributes = params[:user]
-      @rights = @user.rights_array = params[:rights].keys
+      @user.rights_array = params[:rights].keys
+      @rights = @user.rights_array
       redirect_to_back if @user.save
     else
       @rights = @user.rights_array
@@ -459,6 +473,9 @@ class CompanyController < ApplicationController
     t.column :period_name
     t.action :sequences_update
     t.action :sequences_delete, :method=>:post , :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+  end
+
+  def sequences
   end
 
   def sequences_create

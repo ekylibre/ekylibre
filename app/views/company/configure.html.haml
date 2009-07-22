@@ -4,7 +4,7 @@
     -f.title tc(:general)
     -f.field :company, :name
     -f.field :company, :code
-    -#f.field :company, :entity_id, :readonly=>true
+    -f.field t("activerecord.attributes.company.entity_id"), link_to(@company.entity.full_name, {:controller=>:relations, :action=>:entities_update, :id=>@company.entity_id})
     -for name, options in @tree
       -f.title tc(name)
       -for key in options.keys.sort

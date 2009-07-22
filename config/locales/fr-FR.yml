@@ -537,6 +537,8 @@ fr-FR:
         unit_id: Unités
       role:
         name: Nom
+        diff_less: Droits enlevés
+        diff_more: Droits rajoutés
       rubric:
         name: Titre
         nature: Where - What
@@ -691,7 +693,7 @@ fr-FR:
         locked: 'Compte verrouillé'
         name: 'Nom d''utilisateur'
         password: 'Mot de passe'
-        password_confirmation: 'Confirmation du mot&nbsp;de&nbsp;passe'
+        password_confirmation: 'Confirmation du mot de passe'
         reduction_percent: Taux de réduction autorisé (%)
         role_id: À partir du rôle
       version:
@@ -823,13 +825,10 @@ fr-FR:
         accountancy: Comptabilité
         general: Paramètres généraux
         management: Gestion commerciale
-        title: 'Paramètres de {{value}}'
+        title: 'Configuration de {{value}}'
       departments:
-        title: Liste des services        de la société
+        title: Liste des services de la société
         departments_create: Ajouter un nouveau service
-        default_department_name: Gestion/Production
-        departments_listing: Liste des services        
-        getback: Retour à la fiche de société
       departments_create:
         title: 'Ajout d''un nouveau service'
       departments_update:
@@ -837,7 +836,6 @@ fr-FR:
       _departments_form:
         subtitle: Renseignez les différentes caractéristiques du service
       establishments:
-        getback: Retour à la fiche de société
         title: Liste des établissements
         establishments_create: Ajouter un nouvel établissement
       establishments_create:
@@ -846,23 +844,6 @@ fr-FR:
         title: 'Modification de l''établissement'
       _establishments_form:
         subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
-      general:
-        backup: Effectuer une sauvegarde des données
-        configure: Modifier les paramètres
-        departments: Services
-        departments_create: Ajouter un nouveau service
-        departments_number: Nombre de services
-        entities_update: Mettre à jour la fiche société
-        establishments: Établissements
-        establishments_create: Ajouter un nouvel établissement
-        establishments_number: 'Nombre d''établissements'
-        restore: Créer/Recharger une sauvegarde
-        roles: Rôles 
-        roles_create: Ajouter un rôle
-        sequences: Séquences
-        sequences_create: Ajouter une séquence
-        title: 'Administration de {{name}} ({{code}})'
-        values: Valeurs diverses
       help:
         other_results: 'Autres résultats...'
         pertinence: '(Pertinence : {{value}}%)'
@@ -873,13 +854,14 @@ fr-FR:
         search: 'Rechercher un article dans l''aide'
         title: 'Rubriques d''aide'
       index:
-        title: 'Bienvenue dans Ekylibre, {{user}}'
         about_us: 'À propos d''Ekylibre'
         accountancy: 'Comptabilité générale'
-        configure: 'Options'
-        informations: 'Informations'
+        configure: 'Configuration'
+        departments: 'Services'
+        establishments: 'Établissements'
         general: 'Autres paramètres'
         help: 'Aide'
+        informations: 'Informations'
         listings: 'Extractions de données'
         management: 'Gestion commerciale (ventes, achats et stocks)'
         modules: 'Modules'
@@ -900,6 +882,9 @@ fr-FR:
         relations: 'Gestion des relations clients/fournisseurs'
         resources: 'Gestion des ressources humaines'
         restore: 'Sauvegardes'
+        roles: 'Rôles'
+        sequences: 'Séquences'
+        title: 'Bienvenue dans Ekylibre, {{user}}'
         tools: 'Outils'
         users: 'Utilisateurs'
       restore:
@@ -918,12 +903,18 @@ fr-FR:
         relations_rights: Droits module Relations clients/fournisseurs
         resources_rights: Droits module Ressources
         search_rights: Droits de recherche
+      roles:
+        roles_create: Ajouter un rôle
+        title: Liste des rôles
       roles_create:
         title: Ajouter un rôle       
       roles_update:
         title: 'Modification du rôle {{value}}'
       _roles_form:
         role_name: Entrez le nom du rôle puis attribuez lui ses droits
+      sequences:
+        sequences_create: Ajouter une séquence
+        title: Liste des séquences
       sequences_create:
         title: 'Création d''une nouvelle séquence'
       sequences_update:

@@ -31,6 +31,9 @@ table.dyta tr      td.date { text-align: center; }
 table.dyta tr      td.web { text-align: center; }
 table.dyta tr      td.code { font-family: monospace; }
 table.dyta tr      td.code a { font-family: monospace; }
+table.dyta tr      td.rights * { font-size: 11px; }
+table.dyta tr      td.rights.more * { color: #080; }
+table.dyta tr      td.rights.less * { color: #F00; }
 /*table.dyta th .sort { widths: 100%; }
 table.dyta th .sort div { widths: 100%; }*/
 table.dyta th a.sort { display:block; width: 100%; text-decoration:none; padding: 1px; color: #336; }
