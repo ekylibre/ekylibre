@@ -7,6 +7,7 @@ fr-FR:
       no_contacts: 'Aucune adresse définie pour {{name}}'
       title: Commerce
       error_sale_order_already_paid: 'La vente a déjà été payée en totalité'
+      need_to_create_subscription_nature: 'Vous devez créer un type d''abonement pour pouvoir gérer vos abonnements'
       new_actual_number: 'Le nouveau numéro en cours est {{value}}'
       no_check_to_embank: Aucun chèque à encaisser 
       no_stock_location: 'Veuillez créer un lieu de stockage'

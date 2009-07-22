@@ -62,10 +62,10 @@ class Sequence < ActiveRecord::Base
     else
       self.last_number += self.number_increment 
     end
-    if period != 'number'
+    if period != 'number' and not self.send('last_'+period).nil?
       self.last_number = self.number_start if self.send('last_'+period) != Date.today.send(period)
     end
-    self.save
+    self.save!
     self.compute
   end
 

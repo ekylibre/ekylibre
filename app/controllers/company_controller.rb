@@ -346,7 +346,7 @@ class CompanyController < ApplicationController
     if request.post?
       @role = Role.new(params[:role])
       @role.company_id = @current_company.id
-      @role.rights_array = params[:rights].keys
+      @role.rights_array = (params[:rights]||{}).keys
       @rights = @role.rights_array
       redirect_to_back if @role.save
     else
@@ -359,7 +359,7 @@ class CompanyController < ApplicationController
     @role = find_and_check(:role, params[:id])
     if request.post?
       @role.attributes = params[:role]
-      @role.rights_array = params[:rights].keys
+      @role.rights_array = (params[:rights]||{}).keys
       @rights = @role.rights_array
       redirect_to_back if @role.save
     else
@@ -408,7 +408,7 @@ class CompanyController < ApplicationController
       if request.post?
         @user = User.new(params[:user])
         @user.company_id = @current_company.id
-        @user.rights_array = params[:rights].keys
+        @user.rights_array = (params[:rights]||{}).keys
         @rights = @user.rights_array
         redirect_to_back if @user.save
       else
@@ -424,7 +424,7 @@ class CompanyController < ApplicationController
     @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post?
       @user.attributes = params[:user]
-      @user.rights_array = params[:rights].keys
+      @user.rights_array = (params[:rights]||{}).keys
       @rights = @user.rights_array
       redirect_to_back if @user.save
     else

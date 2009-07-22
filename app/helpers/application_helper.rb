@@ -383,10 +383,10 @@ module ApplicationHelper
     conditions = ["company_id = ? ", @current_company.id]
     if session[:sub_is_date] == 2
       conditions[0] += "AND ? BETWEEN first_number AND last_number "
-      conditions << session[:subscription_number] 
+      conditions << session[:subscription_instant] 
     elsif  session[:sub_is_date] == 1
       conditions[0] += "AND ? BETWEEN started_on AND finished_on "
-      conditions << session[:subscription_date] 
+      conditions << session[:subscription_instant] 
     end
     #raise Exception.new  conditions.inspect
     conditions

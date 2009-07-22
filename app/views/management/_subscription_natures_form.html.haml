@@ -2,5 +2,20 @@
   - f.error :subscription_nature
   - f.field :subscription_nature, :nature, :field=>:radio, :choices=>SubscriptionNature.natures
   - f.field :subscription_nature, :name
+=formalize(:id=>:number) do |f|
   - f.field :subscription_nature, :actual_number
+=formalize do |f|
   - f.field :subscription_nature, :comment, :field=>:textarea
+
+
+:javascript
+  function display_number(){
+    if($('subscription_nature_nature_quantity').checked)
+      $('number').show();
+    else
+      $('number').hide();
+  }
+  display_number();
+
+
+=observe_field("subscription_nature_nature_quantity", :frequency=>0.25, :function=> "display_number();")

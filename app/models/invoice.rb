@@ -71,6 +71,10 @@ class Invoice < ActiveRecord::Base
     end
   end
   
+  def after_validation_on_create
+    self.number = self.company.parameter("management.invoicing.numeration").value.next_value
+  end
+
   def self.generate(company_id, records)
     # puts "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"+records.class.to_s
     invoice = Invoice.new(:company_id=>company_id, :nature=>"S")

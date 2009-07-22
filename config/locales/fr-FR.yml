@@ -659,9 +659,11 @@ fr-FR:
         second_location_id: Entrée du lieu de stockage
         text_nature: Type
       subscription: 
+        beginning: Débute le
         contact_id: 'Adresse de l''abonné'
         entity_name: Abonné
         first_number: Premier numéro
+        finish: Termine le
         finished_on: Termine le
         last_number: Dernier numéro
         nature_id: Type

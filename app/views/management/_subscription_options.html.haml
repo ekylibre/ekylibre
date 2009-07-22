@@ -2,11 +2,11 @@
   %table.formalize
     %tr.field 
       %td.label=tc('select_number')
-      %td.input=text_field(:subscription, :number, :size=>6, :value=>session[:subscription_number]||@subscription_nature.actual_number)
-  %p=link_to tc(:subscription_natures_up), {  :action=>:subscription_natures_up, :id=>@subscription_nature.id} , {:method=>:post}
-  %p=link_to tc(:subscription_natures_down), {:action=>:subscription_natures_down, :id=>@subscription_nature.id}, {:method=>:post}
+      %td.input=text_field(:subscription, :value, :size=>6, :value=>session[:subscription_instant]||@subscription_nature.actual_number)
+  %p=link_to tc(:subscription_natures_up)+" : "+@subscription_nature.actual_number.to_s, {  :action=>:subscription_natures_up, :id=>@subscription_nature.id} , {:method=>:post}
+  %p=link_to tc(:subscription_natures_down)+" : "+@subscription_nature.actual_number.to_s, {:action=>:subscription_natures_down, :id=>@subscription_nature.id}, {:method=>:post}
 -elsif @subscription_nature.nature == "period"
   %table.formalize
     %tr.field
       %td.label=tc('select_date')
-      %td.input=text_field(:subscription, :date, :size=>10, :value=>session[:subscription_date]||Date.today)
+      %td.input=text_field(:subscription, :value, :size=>10, :value=>session[:subscription_instant]||Date.today)
