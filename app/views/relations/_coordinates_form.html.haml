@@ -1,5 +1,3 @@
-
-
 =formalize do |f|
   -f.title :address
   -f.field :contact, :default
@@ -8,7 +6,7 @@
   -f.field :contact, :line_4_number
   -f.field :contact, :line_4_street
   -f.field :contact, :line_5
-  -#f.field :contact, :area_id, :choices=>company.areas.find(:all,:order=>"name ASC").collect {|c| [c.postcode+'-'+c.city.name, c.id]}
+ 
   -f.field :contact, :line_6_code
   -f.field :contact, :line_6_city
   -f.field :contact, :country, :choices=>countries, :options=>{:include_blank=>true}
@@ -19,12 +17,11 @@
   -f.field :contact, :email   
   -f.field :contact, :website
 
-=observe_field "dyli_tf", :frequency => 0.25, :function =>"$('contact_line_6_code').value= value.split(',')[0]; $('contact_line_6_city').value= value.split(',')[1];"
+=observe_field "dyli_tf", :frequency=> 0.25, :function =>remote_function(:url => {:action => :areas_find}, :with=>"'area='+escape(value)")
 
-=#observe_field "contact_area_id", :frequency => 0.25, :function =>remote_function(:update=>'area', :url => {:action => 'areas_find'}, :with => "'area=' + escape(value)")
-
-%br
-#area=render :partial=>'areas_find'
+:javascript
+  $('contact_line_6_code').value=" ";
+  $('contact_line_6_city').value=" ";
 
 
 

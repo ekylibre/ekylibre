@@ -18,7 +18,7 @@ module Ekylibre
           #
           def dyli(name, options = {})
             options = {:limit => 12,:attributes => [:name], :filter => {:number => 'X%'}, :partial => nil}.merge(options)
-            
+                
             if options[:model].nil?
               model = name.to_s.camelize.constantize
             else
@@ -49,6 +49,8 @@ module Ekylibre
             
             #
             code += "def dyli_"+name.to_s+"\n"
+            #code += "real_object = instance_variable_get(\""+sanitize_conditions(options[:submodel])+"\")\n" if options[:submodel]
+            #code += "puts 'o:'+real_object.to_s\n"
             code += "conditions = [\"\"]\n"
             code += "search = params[:"+model.to_s.lower.to_s+"][:search].downcase\n"
             options[:conditions].collect do |key, value| 
@@ -79,9 +81,14 @@ module Ekylibre
             code += ":joins => joins," unless model_join.nil?
             code += ":order => \"#{options[:attributes][0]} ASC\","
             code += ":limit => "+options[:limit].to_s+" }\n"
-            code += "@items = "+model.to_s+".find(:all, find_options)\n"
-           
             
+            #if options[:submodel]
+             # code += "@items = "+sanitize_conditions(options[:submodel])+"\n"
+              #code += "@items = real_object."+model.to_s.downcase.pluralize.to_s+".find(:all, find_options)\n" 
+            #else
+              code += "@items = "+model.to_s+".find(:all, find_options)\n" if options[:submodel]
+            #end
+
             if options[:partial]
               code += "render :inline => '<%= dyli_result(@items, '+search.to_s.inspect+',"+displays.inspect+","+options[:partial].inspect+") %>'\n"
             else
@@ -89,9 +96,12 @@ module Ekylibre
             end
             code += "end\n"        
             
+
             f=File.open('dyl.rb', 'wb')
             f.write(code)
             f.close
+
+            puts module_eval(code)
 
             code += "def dyli_one_"+name.to_s+"\n"
             code += "search = params[:search].downcase\n"
@@ -158,6 +168,7 @@ module Ekylibre
         
         #
         def dyli_tag(object, association, options={}, tag_options={}, completion_options={})
+#         real_object  = instance_variable_get("@object")
           real_object  = instance_variable_get("@#{object}")
           foreign_key  = real_object.class.reflect_on_association(association).primary_key_name
           
@@ -214,7 +225,7 @@ module Ekylibre
           
           hf_id, tf_id = determine_field_ids(options)
           determine_tag_options(tf_name, tf_value, hf_id, tf_id, options, tag_options)
-          determine_completion_options(hf_id, options, completion_options)
+          determine_completion_options(tf_id, hf_id, options, completion_options)
      
           return <<-HTML
        #{dyli_complete_stylesheet unless completion_options[:skip_style]}    
@@ -304,13 +315,13 @@ module Ekylibre
           tag_options.update({
                                :id      => tf_id,
                                # Cache the default text field value when the field gets focus.
-                               :onfocus => 'if (this.dyli == undefined) {this.dyli = this.value};',
+                               #:onfocus => 'if (this.dyli == undefined) {this.dyli = this.value};',
                               # :onblur => remote_function(:update=> tf_id, :url => {:action => 'dyli_one_' + tf_name.sub(/\[/, '_').gsub(/\[\]/, '_').gsub(/\[?\]$/, ''), :tf => tf_id, :hf=> hf_id}, :with => "'search='+this.value")+";$('#{hf_id}').value= $('record').value;event.keyCode = Event.KEY_RETURN; $('#{tf_id}').size = ($('#{tf_id}').value.length > 128 ? 128 : $('#{tf_id}').value.length);"
                                
                              })
           
           tag_options[:onchange] = if options[:allow_free_text]
-                                    "window.setTimeout(function () {if (this.value != this.dyli) {$('#{hf_id}').value = ''} this.value=this.dyli;}.bind(this), 1000) "
+                                    #"window.setTimeout(function () {if (this.value != this.dyli) {$('#{hf_id}').value = ''} this.value=this.dyli;}.bind(this), 1000) "
 #                                    else
 #                                    "window.setTimeout(function () {this.value = this.dyli}.bind(this), 200)"
                                    
@@ -329,7 +340,7 @@ module Ekylibre
         
         # Determines the actual completion options, taken into account the ones from
         # the user.
-       def determine_completion_options(hf_id, options, completion_options) #:nodoc:
+       def determine_completion_options(tf_id, hf_id, options, completion_options) #:nodoc:
       #    def determine_completion_options(tf_id, hf_id, options, completion_options) #:nodoc:
           # dyli_completer does most of its work in the afterUpdateElement hook of the
           # standard autocompletion mechanism. Here we generate the JavaScript that goes there.
@@ -341,7 +352,9 @@ module Ekylibre
           element.size = (element.dyli.length > 50 ? 50 : element.dyli.length);               
           event.keyCode = Event.KEY_RETURN;
           JS
-         
+         #completion_options[:after_update_element] += 
+
+
          #element.dyli = document.getElementById('record_'+model_id).value;
          
          #window.setTimeout(function () {element.dyli= element.value}.bind(this), 1000);

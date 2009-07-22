@@ -3,15 +3,18 @@ class RelationsController < ApplicationController
   def index
     @entities = @current_company.entities
   end
-
-  # this method has not specific view.
-  def areas_find 
+  
+  #
+  def areas_find
     if request.xhr?
-      @area = @current_company.areas.find(params[:area])
-      render :action => "areas_find.rjs"
+      area = params[:area].split(',')[0] 
+      @area = (area.nil? ? nil : area.strip)
+      city = params[:area].split(',')[1]
+      @city = (city.nil? ? nil : city.strip)
+      render :action=>'areas_find.rjs'
     end
-  end 
- 
+  end
+
   dyta(:entity_bank_accounts, :model => :bank_accounts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
     t.column :name
     t.column :number
@@ -177,7 +180,7 @@ class RelationsController < ApplicationController
     t.action :entities_contacts_delete , :image=>:delete , :method=>:post, :confirm=>:are_you_sure
   end
 
-   dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:company_id=>['@current_company.id']}, :joins => :city, :model => :area)
+   dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:id =>['@contact.area.id'], :company_id=>['@current_company.id']}, :joins => :city, :model => :area)
 
   #dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'}, :children=>:lines) do |t|
   dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|
@@ -254,7 +257,19 @@ class RelationsController < ApplicationController
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
 
+      @city = City.find(:first, :conditions => {:name => params[:contact][:line_6_city], :company_id => @current_company.id})
+      
+      if @city.nil?
+        @city = City.create!(:company_id=>@current_company.id, :name=>params[:contact][:line_6_city], :district_id=>1, :created_at=>Date.today, :updated_at=>Date.today)
+      end
+      @area = Area.find(:first, :conditions => {:company_id=>@current_company.id, :postcode=> params[:contact][:line_6_code], :city_id=>@city.id})
+      if @area.nil?
+        @area = Area.create!(:company_id=>@current_company.id, :city_id=>@city.id, :postcode=>params[:contact][:line_6_code], :created_at=>Date.today, :updated_at=>Date.today)
+      end
+      
+
       @contact = Contact.new(params[:contact])
+      @contact.area_id = @area.id
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
       # @contact.name =  tc(:first_contact)
