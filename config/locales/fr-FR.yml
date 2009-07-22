@@ -889,6 +889,8 @@ fr-FR:
         title: 'Bienvenue dans Ekylibre, {{user}}'
         tools: 'Outils'
         users: 'Utilisateurs'
+      listings:
+        title: 'Extractions de données'
       restore:
         backup: Effectuer une copie de sauvegarde
         download: Sélectionner le fichier de sauvegarde à télécharger

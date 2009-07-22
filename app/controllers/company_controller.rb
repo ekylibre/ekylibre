@@ -40,13 +40,8 @@ class CompanyController < ApplicationController
     @properties.insert(0, ["Ekylibre version", @version.reverse.join(' / ')])
   end
 
-  def general
-    @company = @current_company
-    @title = {:name=>@company.name, :code=>@company.code}
-  end
-
   def help
-    @per_page = 20
+    @per_page = 15
     if request.post?
       @key = params[:key]
       @key_words = @key.lower.split(" ").select{|x| x.strip.length>2}

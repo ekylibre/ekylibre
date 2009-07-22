@@ -219,7 +219,7 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 .results h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
 .results ul { padding: 4px 4px 4px 18px; }
 .results li { list-style-type: square; }
-.results li span.pertinence{ color: #AAA; font-size: 10px; }
+.results li .pertinence{ color: #AAA; font-size: 11px; }
 
 
 

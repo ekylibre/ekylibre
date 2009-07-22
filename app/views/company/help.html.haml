@@ -13,13 +13,13 @@
         -for r in @results[0..@per_page-1]
           %li
             =link_to(textilize_without_paragraph(r[:title]), {:action=>:help, :article=>r[:name]})+' '
-            %span.pertinence=tc(:pertinence, :value=>r[:pertinence].to_s)
+            .pertinence=tc(:pertinence, :value=>r[:pertinence].to_s)
       -if @results.size>@per_page
         %h2=link_to_function(tc(:other_results), "var list=$('other_results'); if (list.style.display=='none') {list.show();} else {list.hide();}")
         %ul#other_results{:style=>'display:none'}
           -for r in @results[@per_page..-1]
             %li
               =link_to(textilize_without_paragraph(r[:title]), {:article=>r[:name]})+' '
-              %span.pertinence=tc(:pertinence, :value=>r[:pertinence].to_s)
+              .pertinence=tc(:pertinence, :value=>r[:pertinence].to_s)
 
       

@@ -2,7 +2,7 @@ fr-FR:
   rights:
     __minimum__: 'Accéder au minimum vital'
     administrate_accountancy: 'Accéder au module Comptabilité'
-    administrate_company: 'Accéder au module Société/Utilisateurs'
+    administrate_company: 'Accéder au module Société'
     administrate_management: 'Accéder au module Commerce'
     administrate_production: 'Accéder au module Production'
     administrate_relations: 'Accéder au module Relations clients/fournisseurs'
@@ -45,7 +45,7 @@ fr-FR:
     manage_statements: 'Pointage des relevés de comptes'
     manage_stock_locations: 'Gérer les lieux de stockage'
     manage_stock_moves: 'Gérer les mouvements de stocks'
-    manage_subscriptions: 'translation missing: fr-FR, rights, manage_subscriptions'
+    manage_subscriptions: 'Gérer les abonnements'
     manage_taxes: 'Gérer les taxes'
     manage_users: 'Gérer les utilisateurs'
     print_accounting_document: 'Imprimer les documents comptables'
