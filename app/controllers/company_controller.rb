@@ -239,12 +239,6 @@ class CompanyController < ApplicationController
   end
   
 
-  def user
-    @company = @current_company
-    @user = @current_user
-    @title = {:value=>@user.label}
-  end
-
 
 
 
@@ -373,7 +367,9 @@ class CompanyController < ApplicationController
 
 
 
-  
+
+  def users
+  end
 
 
   dyta(:users, :conditions=>{:company_id=>['@current_company.id'],:deleted=>false}, :empty=>true) do |t| 

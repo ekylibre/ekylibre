@@ -862,9 +862,6 @@ fr-FR:
         sequences: Séquences
         sequences_create: Ajouter une séquence
         title: 'Administration de {{name}} ({{code}})'
-        users: Utilisateurs
-        users_create: Ajouter un nouvel utilisateur
-        users_number: 'Nombre d''utilisateurs'
         values: Valeurs diverses
       help:
         other_results: 'Autres résultats...'
@@ -881,7 +878,7 @@ fr-FR:
         accountancy: 'Comptabilité générale'
         configure: 'Options'
         informations: 'Informations'
-        general: 'Utilisateurs et rôles'
+        general: 'Autres paramètres'
         help: 'Aide'
         listings: 'Extractions de données'
         management: 'Gestion commerciale (ventes, achats et stocks)'
@@ -904,6 +901,7 @@ fr-FR:
         resources: 'Gestion des ressources humaines'
         restore: 'Sauvegardes'
         tools: 'Outils'
+        users: 'Utilisateurs'
       restore:
         backup: Effectuer une copie de sauvegarde
         download: Sélectionner le fichier de sauvegarde à télécharger
@@ -936,9 +934,8 @@ fr-FR:
         title: 'Informations sur l''utilisateur : {{value}}'
         change_password: Changer de mot de passe
       users:
+        users_create: Ajouter un nouvel utilisateur
         title: Liste des utilisateurs
-        getback: Retour à la fiche de société
-        users_create: Créer un nouvel utilisateur
       users_create:
         title: 'Création d''un nouvel utilisateur'
       users_update:

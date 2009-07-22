@@ -1,31 +1,27 @@
 =toolbar do
   -link :entities_update, {:controller=>:relations, :id=>@company.entity_id}
 
-%h2= tc :users
-=toolbar do
-  -link :users_create
-=dyta :users
-
-
 %h2= tc(:roles)
 =toolbar do
   -link :roles_create
 =dyta :roles
 
 
--# %h2= tc :establishments
--# =toolbar do
--#   -link :establishments_create
--# =dyta :establishments
-
-
--# %h2= tc :departments
--# =toolbar do
--#   -link :departments_create
--# =dyta :departments
-
-
 %h2= tc :sequences
 =toolbar do
   -link :sequences_create
 =dyta :sequences
+
+
+%h2= tc :establishments
+=toolbar do
+  -link :establishments_create
+=dyta :establishments
+
+
+%h2= tc :departments
+=toolbar do
+  -link :departments_create
+=dyta :departments
+
+

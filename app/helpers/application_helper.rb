@@ -9,19 +9,13 @@ module ApplicationHelper
     [ 
      # CompanyController
      {:name=>:company, :list=>
-       [ {:name=>:modules, :list=>
-           [ {:name=>:relations, :url=>{:controller=>:relations}},
-             {:name=>:accountancy, :url=>{:controller=>:accountancy}},
-             {:name=>:management, :url=>{:controller=>:management}},
-             {:name=>:resources, :url=>{:controller=>:resources}},
-             {:name=>:production, :url=>{:controller=>:production}},
-           ] },
-         {:name=>:tools, :list=>
+       [ {:name=>:tools, :list=>
            [ {:name=>:restore},
              {:name=>:listings}
            ] },
          {:name=>:parameters, :list=>
-           [ {:name=>:general},
+           [ {:name=>:users},
+             {:name=>:general},
              {:name=>:configure}
            ] },
          {:name=>:informations, :list=>
