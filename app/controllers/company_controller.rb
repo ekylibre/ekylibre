@@ -495,5 +495,18 @@ class CompanyController < ApplicationController
     redirect_to_current
   end
 
+
+
+
+  def listings
+    @klass = Entity
+
+    @reflections = @klass.reflections.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
+    
+    
+  end
+
+
+
   
 end

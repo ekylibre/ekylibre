@@ -24,6 +24,17 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient3901">
+      <stop
+         style="stop-color:#f13021;stop-opacity:1;"
+         offset="0"
+         id="stop3903" />
+      <stop
+         style="stop-color:#c0190c;stop-opacity:1;"
+         offset="1"
+         id="stop3905" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3877">
       <stop
          style="stop-color:#d0d0d0;stop-opacity:1;"
@@ -4226,6 +4237,15 @@
        y1="3.3125"
        x2="109.88072"
        y2="22" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3901"
+       id="linearGradient3907"
+       x1="208"
+       y1="32"
+       x2="223.75"
+       y2="48"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -5573,6 +5593,66 @@
        id="path4634"
        sodipodi:nodetypes="cccccccc"
        inkscape:export-filename="/home/brice/informatique/Developpement/ekylibre/trunk/ekylibre/public/images/buttons/right.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:0.90000000000000002;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#f13021;stroke-width:2.04485058999999980;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3099"
+       sodipodi:cx="199.46875"
+       sodipodi:cy="7.46875"
+       sodipodi:rx="7.21875"
+       sodipodi:ry="7.09375"
+       d="M 200.67556,0.47483171 A 7.21875,7.09375 0 1 1 200.66811,0.47359447"
+       sodipodi:start="4.8803552"
+       sodipodi:end="11.162494"
+       sodipodi:open="true"
+       transform="matrix(0.9695618,0,0,0.986646,22.602719,16.630992)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/logout.png" />
+    <path
+       style="fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:#f13021;stroke-width:2.50000000000000000;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 216,20.722656 L 216,27.222656"
+       id="path3885"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/logout.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient3907);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.50000000000000000;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3887"
+       width="16"
+       height="16"
+       x="208"
+       y="32"
+       ry="3"
+       rx="3"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/logout.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:2.596205;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3889"
+       sodipodi:cx="199.46875"
+       sodipodi:cy="7.46875"
+       sodipodi:rx="7.21875"
+       sodipodi:ry="7.09375"
+       d="M 200.67556,0.47483171 A 7.21875,7.09375 0 1 1 200.66811,0.47359447"
+       sodipodi:start="4.8803552"
+       sodipodi:end="11.162494"
+       sodipodi:open="true"
+       transform="matrix(0.7636567,0,0,0.7771127,63.7135,34.156807)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/logout.png" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 216.03914,37.379529 L 216.03914,42.499129"
+       id="path3891"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/logout.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
   </g>

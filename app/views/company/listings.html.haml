@@ -1,0 +1,14 @@
+-for name, reflection in @reflections
+  .klass
+    %h3
+      =check_box_tag "#{name}_checkbox", 1, false, "onclick"=>"if(this.checked) {$('#{name}').show()} else {$('#{name}').hide()}"
+      %label{:for=>"#{name}_checkbox"}=t("activerecord.attributes.#{@klass.name.underscore}.#{name}")
+    .join{:id=>name, :style=>"display: none;"}
+      %table
+        -for column in reflection.class_name.constantize.columns.sort{|a,b| a.name<=>b.name}
+          %tr
+            %td=check_box_tag "#{name}_#{column.name}"
+            %td
+              %label{:for=>"#{name}_#{column.name}"}=column.human_name # t("activerecord.attributes.#{reflection.class_name.underscore}.#{column.name}")
+            %td=select_tag 'sample', options_for_select([['Rien', 'none'], ['égal à', 'equal']])
+            %td=text_field_tag 'example'

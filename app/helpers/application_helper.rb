@@ -16,9 +16,12 @@ module ApplicationHelper
              {:name=>:resources, :url=>{:controller=>:resources}},
              {:name=>:production, :url=>{:controller=>:production}},
            ] },
+         {:name=>:tools, :list=>
+           [ {:name=>:restore},
+             {:name=>:listings}
+           ] },
          {:name=>:parameters, :list=>
            [ {:name=>:general},
-             {:name=>:restore},
              {:name=>:configure}
            ] },
          {:name=>:informations, :list=>
