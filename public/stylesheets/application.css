@@ -204,11 +204,19 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 .toolbar ul > li > a.extract   {background: url(../images/buttons/complete.png) no-repeat center left;}
 
 
-
 .search { background: #CEA !important; color: #580;  -moz-border-radius: 8px; padding:4px 6px; margin: 0 0 8px;}
 .search table { margin: 0px auto; }
 .search .label { padding: 1px 4px; }
 .search .submit { padding: 0px 4px; }
+
+
+
+.results { background: #EEF;  padding:4px 6px; margin: 0 0 8px;}
+.results h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
+.results ul { padding: 4px 4px 4px 18px; }
+.results li { list-style-type: square; }
+.results li span.pertinence{ color: #AAA; font-size: 10px; }
+
 
 
 /*e7f2fd bbcfe6*/

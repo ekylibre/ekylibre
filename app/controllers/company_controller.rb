@@ -3,6 +3,16 @@ require "zlib"
 
 class CompanyController < ApplicationController
 
+  helps = Dir["#{RAILS_ROOT}/config/locales/#{I18n.locale}/help/*.txt"].sort
+  @@helps = {}
+  for file in helps
+    File.open(file, 'rb') do |f| 
+      data = f.read
+      @@helps[file] = {:title=>data[/^h1.\s*(.*)\s*$/, 1], :name=>file.split(/(\\|\/|\.)/)[-3]}
+      raise Exception.new("No good title for #{file}") if @@helps[file][:title].blank?
+    end
+  end
+
   def index
     @title = {:user=>@current_user.label}
     @entities = @current_company.entities
@@ -33,6 +43,27 @@ class CompanyController < ApplicationController
   def general
     @company = @current_company
     @title = {:name=>@company.name, :code=>@company.code}
+  end
+
+  def help
+    @per_page = 20
+    if request.post?
+      @key = params[:key]
+      @key_words = @key.lower.split(" ").select{|x| x.strip.length>2}
+      reg = /(#{@key_words.join("|")})/i
+      @results = []
+      for file in @@helps.keys
+        File.open(file) do |f| 
+          data = f.read
+          if (match = data.scan(reg).size) > 0
+            @results << @@helps[file].merge(:count=>match) 
+          end
+        end
+      end
+      @results.sort!{|a,b| b[:count]<=>a[:count]}
+      max = @results[0][:count]
+      @results.each{|r| r[:pertinence] = (100*r[:count]/max).to_i}
+    end
   end
 
   def configure
@@ -352,12 +383,12 @@ class CompanyController < ApplicationController
     t.column :name, :through=>:role, :label=>tc(:role), :url=>{:action=>:roles_update}
     # t.column :free_price
     # t.column :credits
-    t.column :reduction_percent
+    # t.column :reduction_percent
     t.column :email
     t.column :admin
-    t.action :locked, :actions=>{"true"=>{:action=>:users_unlock},"false"=>{:action=>:users_lock}}, :method=>:post
+    t.action :locked, :actions=>{"true"=>{:action=>:users_unlock},"false"=>{:action=>:users_lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
     t.action :users_update, :image=>:update 
-    t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
+    t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure, :if=>'RECORD.id!=@current_user.id'
   end
 
   def users_create
@@ -429,6 +460,7 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :compute
     t.column :format, :class=>:code
+    t.column :period_name
     t.action :sequences_update
     t.action :sequences_delete, :method=>:post , :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end

@@ -1,4 +1,4 @@
-h2. Comment modifier le sélection des chèques ?
+h1. Comment modifier le sélection des chèques ?
 
 Par défaut, *les chèques que vous aviez sélectionnés sont cochés*. Vous pouvez choisir de *rajouter ou supprimer des chèques* à cette remise de chèques.
 

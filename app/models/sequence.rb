@@ -41,6 +41,10 @@ class Sequence < ActiveRecord::Base
     @@periods.collect{|p| [tc("periods.#{p}"), p]}.sort{|a,b| a[0]<=>b[0]}
   end
 
+  def period_name
+    tc("periods.#{self.period}") if self.period != "number"
+  end
+
   def compute(number=nil)
     number ||= self.last_number
     today = Date.today

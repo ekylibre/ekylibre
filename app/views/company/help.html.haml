@@ -1,0 +1,25 @@
+.search
+  - form_tag do
+    %table
+      %tr
+        %td.label=tc(:search)
+        %td.field=text_field_tag :key, @key
+        %td.submit=submit_tag tg(:search_go)
+-if @results
+  .results
+    %h2=tc(:results, :count=>@results.size)
+    -if @results.size>0
+      %ul
+        -for r in @results[0..@per_page-1]
+          %li
+            =link_to(textilize_without_paragraph(r[:title]), {:action=>:help, :article=>r[:name]})+' '
+            %span.pertinence=tc(:pertinence, :value=>r[:pertinence].to_s)
+      -if @results.size>@per_page
+        %h2=link_to_function(tc(:other_results), "var list=$('other_results'); if (list.style.display=='none') {list.show();} else {list.hide();}")
+        %ul#other_results{:style=>'display:none'}
+          -for r in @results[@per_page..-1]
+            %li
+              =link_to(textilize_without_paragraph(r[:title]), {:article=>r[:name]})+' '
+              %span.pertinence=tc(:pertinence, :value=>r[:pertinence].to_s)
+
+      

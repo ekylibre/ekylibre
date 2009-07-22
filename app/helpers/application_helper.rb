@@ -18,6 +18,7 @@ module ApplicationHelper
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:general},
+             {:name=>:restore},
              {:name=>:configure}
            ] },
          {:name=>:informations, :list=>

@@ -595,6 +595,7 @@ fr-FR:
         number_increment: Incrément
         number_start: 'Début de la numération'
         period: Périodicité
+        period_name: Périodicité
       shape:
         description: Description
         master: Îlot maître
@@ -679,7 +680,7 @@ fr-FR:
         nature: Nature
         reductible: Réductible
       user:
-        admin: Admin
+        admin: Administrateur
         credits: 'Création d''avoirs'
         email: 'E-mail'
         first_name: 'Prénom'
@@ -855,7 +856,7 @@ fr-FR:
         establishments: Établissements
         establishments_create: Ajouter un nouvel établissement
         establishments_number: 'Nombre d''établissements'
-        restore: Recharger une sauvegarde
+        restore: Créer/Recharger une sauvegarde
         roles: Rôles 
         roles_create: Ajouter un rôle
         sequences: Séquences
@@ -865,6 +866,15 @@ fr-FR:
         users_create: Ajouter un nouvel utilisateur
         users_number: 'Nombre d''utilisateurs'
         values: Valeurs diverses
+      help:
+        other_results: 'Autres résultats...'
+        pertinence: '(Pertinence : {{value}}%)'
+        results:
+          zero: 'Aucun résultat'
+          one: '1 résultat'
+          other: '{{count}} résultats'
+        search: 'Rechercher un article dans l''aide'
+        title: 'Rubriques d''aide'
       index:
         title: 'Bienvenue dans Ekylibre, {{user}}'
         about_us: 'À propos d''Ekylibre'
@@ -891,6 +901,7 @@ fr-FR:
         production: 'Gestion de la production'
         relations: 'Gestion des relations clients/fournisseurs'
         resources: 'Gestion des ressources humaines'
+        restore: 'Sauvegardes'
       restore:
         backup: Effectuer une copie de sauvegarde
         download: Sélectionner le fichier de sauvegarde à télécharger

@@ -57,6 +57,7 @@ authentication:index:__minimum__
 authentication:login:__minimum__
 authentication:logout:__minimum__
 authentication:register:__minimum__
+company:help:__minimum__
 company:about_us:__minimum__
 company:index:__minimum__
 company:unknown_action:__minimum__
