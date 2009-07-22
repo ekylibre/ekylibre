@@ -3,12 +3,10 @@ require "zlib"
 
 class CompanyController < ApplicationController
 
-  helps = Dir["#{RAILS_ROOT}/config/locales/#{I18n.locale}/help/*.txt"].sort
   @@helps = {}
-  for file in helps
+  for file in Dir["#{RAILS_ROOT}/config/locales/#{I18n.locale}/help/*.txt"].sort
     File.open(file, 'rb') do |f| 
-      data = f.read
-      @@helps[file] = {:title=>data[/^h1.\s*(.*)\s*$/, 1], :name=>file.split(/(\\|\/|\.)/)[-3]}
+      @@helps[file] = {:title=>f.read[/^h1.\s*(.*)\s*$/, 1], :name=>file.split(/[\\\/\.]+/)[-2]}
       raise Exception.new("No good title for #{file}") if @@helps[file][:title].blank?
     end
   end
@@ -239,13 +237,13 @@ class CompanyController < ApplicationController
 
 
 
-  dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t|
+  dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :nic
     t.column :siret
     t.column :comment
-    t.action :establishments_update, :image=>:update
-    t.action :establishments_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
+    t.action :establishments_update
+    t.action :establishments_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def establishments
@@ -275,18 +273,18 @@ class CompanyController < ApplicationController
   def establishments_delete
     if request.post? or request.delete?
       @establishment = Establishment.find_by_id_and_company_id(params[:id], @current_company.id)
-      Establishment.delete(params[:id]) if @establishment
+      Establishment.destroy(params[:id]) if @establishment
     end
     redirect_to_back
   end
 
 
 
-  dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t| 
+  dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name
     t.column :comment
-    t.action :departments_update, :image=>:update
-    t.action :departments_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure
+    t.action :departments_update
+    t.action :departments_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def departments
@@ -304,7 +302,7 @@ class CompanyController < ApplicationController
   end
 
   def departments_update
-    @department = Department.find_by_id_and_company_id(params[:id] , @current_company.id)
+    @department = Department.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @department
       if @department.update_attributes(params[:department])
         redirect_to_back
@@ -315,8 +313,8 @@ class CompanyController < ApplicationController
 
   def departments_delete
     if request.post? or request.delete?
-      @department= Department.find_by_id_and_company_id(params[:id] , @current_company.id)
-      Department.delete(params[:id]) if @department
+      @department= Department.find_by_id_and_company_id(params[:id], @current_company.id)
+      Department.destroy(params[:id]) if @department
     end
     redirect_to_back
   end
@@ -366,8 +364,8 @@ class CompanyController < ApplicationController
 
   def roles_delete
     if request.post? or request.delete?
-      @role = Role.find_by_id_and_company_id(params[:id] , @current_company.id)
-      Role.delete(@role.id) if @role and @role.destroyable?
+      @role = Role.find_by_id_and_company_id(params[:id], @current_company.id)
+      Role.destroy(@role.id) if @role and @role.destroyable?
     end
     redirect_to_current
   end
@@ -379,7 +377,7 @@ class CompanyController < ApplicationController
   end
 
 
-  dyta(:users, :conditions=>{:company_id=>['@current_company.id'],:deleted=>false}, :empty=>true) do |t| 
+  dyta(:users, :conditions=>{:company_id=>['@current_company.id'],:deleted=>false}) do |t| 
     t.column :name
     t.column :first_name
     t.column :last_name
@@ -390,8 +388,8 @@ class CompanyController < ApplicationController
     t.column :email
     t.column :admin
     t.action :locked, :actions=>{"true"=>{:action=>:users_unlock},"false"=>{:action=>:users_lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
-    t.action :users_update, :image=>:update 
-    t.action :users_delete, :image=>:delete , :method=>:post , :confirm=>:are_you_sure, :if=>'RECORD.id!=@current_user.id'
+    t.action :users_update 
+    t.action :users_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.id!=@current_user.id'
   end
 
   def users_create
@@ -467,7 +465,7 @@ class CompanyController < ApplicationController
     t.column :format, :class=>:code
     t.column :period_name
     t.action :sequences_update
-    t.action :sequences_delete, :method=>:post , :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :sequences_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
   def sequences
@@ -485,7 +483,7 @@ class CompanyController < ApplicationController
   end
 
   def sequences_update
-    @sequence = Sequence.find_by_id_and_company_id(params[:id] , @current_company.id)
+    @sequence = Sequence.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @sequence
       if @sequence.update_attributes(params[:sequence])
         redirect_to_back
@@ -497,8 +495,8 @@ class CompanyController < ApplicationController
 
   def sequences_delete
     if request.post? or request.delete?
-      @sequence = Sequence.find_by_id_and_company_id(params[:id] , @current_company.id)
-      Sequence.delete(@sequence.id) if @sequence and @sequence.destroyable?
+      @sequence = Sequence.find_by_id_and_company_id(params[:id], @current_company.id)
+      Sequence.destroy(@sequence.id) if @sequence and @sequence.destroyable?
     end
     redirect_to_current
   end
@@ -506,15 +504,50 @@ class CompanyController < ApplicationController
 
 
 
-  def listings
-    @klass = Entity
 
-    @reflections = @klass.reflections.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
-    
-    
+
+
+
+
+  dyta(:listings, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :comment
+    t.action :listings_update
+    t.action :listings_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
+  def listings
+  end
+  
+  def listings_create
+    if request.post?
+      @listing = Listing.new(params[:listing])
+      @listing.company_id = @current_company.id
+      redirect_to_back if @listing.save
+    else
+      @listing = Listing.new
+    end
+    render_form
+  end
+  
+  def listings_update
+    @listing = find_and_check(:listing, params[:id])
+    if request.post? and @listing
+      if @listing.update_attributes(params[:listing])
+        redirect_to_back
+      end
+    end
+    @title ={:value=>@listing.name}
+    render_form
+  end
 
+  def listings_delete
+    if request.post? or request.delete?
+      @listing = find_and_check(:listing, params[:id])
+      Listing.destroy(@listing.id) if @listing
+    end
+    redirect_to_back
+  end
 
   
 end

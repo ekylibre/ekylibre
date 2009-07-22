@@ -1,9 +1,9 @@
 require 'csv'
 
-namespace :rights do
+namespace :clean do
 
   desc "Update and sort rights list"
-  task :sort => :environment do
+  task :rights => :environment do
     new_right = '[new_right]'
 
     # Chargement des actions des controllers
@@ -83,7 +83,7 @@ namespace :rights do
     translation  = ::I18n.locale.to_s+":\n"
     translation += "  rights:\n"
     for right in rights_list
-      translation += "    #{right}: '#{::I18n.t('rights.'+right).gsub(/\'/,"''")}'\n"
+      translation += "    #{right}: "+::I18n.pretranslate("rights.#{right}")+"\n"
     end
     File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.rights.yml", "wb") do |file|
       file.write translation
@@ -91,4 +91,44 @@ namespace :rights do
 
     puts "#{deleted} deleted actions, #{created} created actions, #{to_update} actions to update, #{doubles} doubles"
   end
+
+
+  desc "Update and sort translation files"
+  task :locales => :environment do
+    classicals = {'fr-FR'=>{:company_id=>'Société', :id=>'ID', :lock_version=>'Version', :updated_at=>'Mis à jour le', :updater_id=>'Modificateur', :created_at=>'Créé le', :creator_id=>'Créateur', :comment=>'Commentaire' } }
+    models = Dir["#{RAILS_ROOT}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
+    models_names = ''
+    models_attributes = "\n"
+    for model in models
+      models_names += "      #{model}: "+::I18n.pretranslate("activerecord.models.#{model}")+"\n"
+      models_attributes += "\n      # #{::I18n.t("activerecord.models.#{model}")}\n"
+      models_attributes += "      #{model}:\n"
+      attributes = {}
+      for k, v in ::I18n.translate("activerecord.attributes.#{model}")||{}
+        attributes[k] = "'"+v.gsub("'","''")+"'"
+      end
+      for column in model.camelcase.constantize.columns
+        attribute = column.name.to_sym
+        trans = classicals[::I18n.locale.to_s][attribute]
+        trans = trans.nil? ? ::I18n.pretranslate("activerecord.attributes.#{model}.#{attribute}") : "'"+trans.gsub("'","''")+"'"
+        attributes[attribute] = trans
+      end
+      # raise Exception.new attributes.inspect
+      for attribute, trans in attributes.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
+        models_attributes += "        #{attribute}: "+trans+"\n"
+      end
+    end
+    translation  = ::I18n.locale.to_s+":\n"
+    translation += "  activerecord:\n"
+    translation += "    models:\n"
+    translation += models_names
+    translation += "    attributes:\n"
+    translation += models_attributes
+    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.models.yml", "wb") do |file|
+      file.write translation
+    end
+  end
+  
+
+
 end

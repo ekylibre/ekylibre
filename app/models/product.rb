@@ -2,40 +2,43 @@
 #
 # Table name: products
 #
-#  id                  :integer       not null, primary key
-#  to_purchase         :boolean       not null
-#  to_sale             :boolean       default(TRUE), not null
-#  to_rent             :boolean       not null
-#  nature              :string(8)     not null
-#  supply_method       :string(8)     not null
-#  name                :string(255)   not null
-#  number              :integer       not null
-#  active              :boolean       default(TRUE), not null
-#  amount              :decimal(16, 4 default(0.0), not null
-#  code                :string(8)     
-#  code2               :string(64)    
-#  ean13               :string(13)    
-#  catalog_name        :string(255)   not null
-#  catalog_description :text          
-#  description         :text          
-#  comment             :text          
-#  service_coeff       :float         
-#  shelf_id            :integer       not null
-#  unit_id             :integer       not null
-#  company_id          :integer       not null
-#  created_at          :datetime      not null
-#  updated_at          :datetime      not null
-#  lock_version        :integer       default(0), not null
-#  weight              :decimal(16, 3 
-#  price               :decimal(16, 2 default(0.0)
-#  quantity_min        :decimal(16, 2 default(0.0)
-#  critic_quantity_min :decimal(16, 2 default(1.0)
-#  quantity_max        :decimal(16, 2 default(0.0)
-#  manage_stocks       :boolean       not null
-#  product_account_id  :integer       
-#  charge_account_id   :integer       
-#  creator_id          :integer       
-#  updater_id          :integer       
+#  id                     :integer       not null, primary key
+#  to_purchase            :boolean       not null
+#  to_sale                :boolean       default(TRUE), not null
+#  to_rent                :boolean       not null
+#  nature                 :string(8)     not null
+#  supply_method          :string(8)     not null
+#  name                   :string(255)   not null
+#  number                 :integer       not null
+#  active                 :boolean       default(TRUE), not null
+#  amount                 :decimal(16, 4 default(0.0), not null
+#  code                   :string(8)     
+#  code2                  :string(64)    
+#  ean13                  :string(13)    
+#  catalog_name           :string(255)   not null
+#  catalog_description    :text          
+#  description            :text          
+#  comment                :text          
+#  service_coeff          :float         
+#  shelf_id               :integer       not null
+#  unit_id                :integer       not null
+#  company_id             :integer       not null
+#  created_at             :datetime      not null
+#  updated_at             :datetime      not null
+#  lock_version           :integer       default(0), not null
+#  weight                 :decimal(16, 3 
+#  price                  :decimal(16, 2 default(0.0)
+#  quantity_min           :decimal(16, 2 default(0.0)
+#  critic_quantity_min    :decimal(16, 2 default(1.0)
+#  quantity_max           :decimal(16, 2 default(0.0)
+#  manage_stocks          :boolean       not null
+#  product_account_id     :integer       
+#  charge_account_id      :integer       
+#  creator_id             :integer       
+#  updater_id             :integer       
+#  subscription_quantity  :integer       
+#  subscription_period    :string(255)   
+#  subscription_nature_id :integer       
 #
 
 class Product < ActiveRecord::Base

@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: subscriptions
+#
+#  id            :integer       not null, primary key
+#  started_on    :date          
+#  finished_on   :date          
+#  first_number  :integer       
+#  last_number   :integer       
+#  sale_order_id :integer       
+#  product_id    :integer       not null
+#  contact_id    :integer       not null
+#  company_id    :integer       not null
+#  created_at    :datetime      not null
+#  updated_at    :datetime      not null
+#  creator_id    :integer       
+#  updater_id    :integer       
+#  lock_version  :integer       default(0), not null
+#
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 # one:

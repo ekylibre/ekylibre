@@ -1,0 +1,7 @@
+=formalize do |f|
+  -f.error :listing
+  -f.title :subtitle
+  -f.field :listing, :name
+  -f.field :listing, :root_model, :choices=>Company.reflections.select{|k,v| v.macro==:has_many}.collect{|a,b| [t("activerecord.models.#{a.to_s.singularize}"), a.to_s.singularize]}.sort{|a,b| a[0].ascii<=>b[0].ascii}
+  -f.field :listing, :comment, :field=>:textarea
+

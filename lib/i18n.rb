@@ -12,10 +12,6 @@ module Ekylibre
         ::I18n.translate(*args)
       end
       
-      def lc(*args)
-        tc(*args)+'~'
-      end
-
       private
 
       def contextual_scope
@@ -36,6 +32,19 @@ ActiveRecord::Base.send :extend, Ekylibre::I18n::ContextualHelpers
 ActiveRecord::Base.send :include, Ekylibre::I18n::ContextualHelpers
 ActionView::Base.send :include, Ekylibre::I18n::ContextualHelpers
 
+
+module ::I18n
+
+  def self.pretranslate(*args)
+    res = translate(*args)
+    if res.match(/translation\ missing|\(\(/)
+      "((("+args[0].to_s.split(".")[-1].upper+")))"
+    else
+      "'"+res.gsub(/\'/,"''")+"'"
+    end
+  end
+
+end
 
 
 ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|

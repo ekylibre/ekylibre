@@ -5,8 +5,12 @@ class Sep1b4 < ActiveRecord::Migration
       t.column :root_model,             :string,   :null=>false
       t.column :query,                  :text
       t.column :comment,                :text
+      t.column :story,                  :text
       t.column :company_id,             :integer,  :null=>false
     end
+    add_index :listings, :company_id
+    add_index :listings, :name
+    add_index :listings, :root_model
 
     create_table :listing_nodes do |t|
       t.column :name,                   :string,   :null=>false
@@ -24,6 +28,14 @@ class Sep1b4 < ActiveRecord::Migration
       t.column :listing_id,             :integer,  :null=>false
       t.column :company_id,             :integer,  :null=>false
     end
+    add_index :listing_nodes, :name
+    add_index :listing_nodes, :nature
+    add_index :listing_nodes, :exportable
+    add_index :listing_nodes, :company_id
+    add_index :listing_nodes, :parent_id
+    add_index :listing_nodes, :listing_id
+    add_index :listing_nodes, :item_listing_id
+    add_index :listing_nodes, :item_listing_node_id
 
     create_table :listing_node_items do |t|
       t.column :node_id,                :integer,  :null=>false
@@ -31,6 +43,8 @@ class Sep1b4 < ActiveRecord::Migration
       t.column :value,                  :text
       t.column :company_id,             :integer,  :null=>false
     end
+    add_index :listing_node_items, :node_id
+    add_index :listing_node_items, :company_id
 
   end
 
