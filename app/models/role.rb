@@ -19,6 +19,10 @@ class Role < ActiveRecord::Base
 
   attr_readonly :company_id
 
+  def before_validation
+    self.rights_array=self.rights_array # Clean the rights
+  end
+
   def before_update
     old_rights_array = []
     new_rights_array = []

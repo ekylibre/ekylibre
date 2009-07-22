@@ -1,59 +1,55 @@
 fr-FR:
   rights:
-    administrate_accountancy: Accéder au module Comptabilité
-    administrate_authentication: Possibilité de se connecter
-    administrate_company: Accéder au module Société/Utilisateurs
-    administrate_help: 'Consulter l''aide'
-    administrate_management: Reste du module
-    administrate_production: Accéder au module Production
-    administrate_relations: Accéder au module Relations clients/fournisseurs
-    administrate_resources: Accéder au module Ressources
-    administrate_search: Possibilité de rechercher (fiche client, produits,...)
-    cancel_invoices: Faire des avoirs
-    consult_entities: Consulter les fiches clients/fournisseurs
-    consult_entries: Consulter les écritures
-    consult_prices: Consulter les prix
-    consult_purchases: Consulter les achats
-    consult_sales: Consulter les ventes
+    __minimum__: 'Accéder au minimum vital'
+    administrate_accountancy: 'Accéder au module Comptabilité'
+    administrate_company: 'Accéder au module Société/Utilisateurs'
+    administrate_management: 'Accéder au module Commerce'
+    administrate_production: 'Accéder au module Production'
+    administrate_relations: 'Accéder au module Relations clients/fournisseurs'
+    administrate_resources: 'Accéder au module Ressources'
+    cancel_invoices: 'Faire des avoirs'
+    configure_company: 'Configurer les options de la société'
+    consult_entities: 'Consulter les fiches clients/fournisseurs'
+    consult_entries: 'Consulter les écritures'
+    consult_prices: 'Consulter les prix'
+    consult_purchases: 'Consulter les achats'
+    consult_sales: 'Consulter les ventes'
     consult_stocks: 'Consulter l''état des stocks'
-    create_estimates: Créer un devis
-    create_purchases: Créer, modifier des achats
-    import_export_entities: Importer, exporter des fiches clients/fournisseurs
-    manage_accounts: Gérer les comptes comptables
-    manage_bank_accounts: Gérer les comptes bancaires 
-    manage_company: Gérer les informations de la société  
-    manage_complements: Gérer les champs personnalisés
-    manage_delays: Gérer les délais 
-    manage_delivery_modes: Gérer les types de livraison
-    manage_embankments: Gérer les remises de chèques
-    manage_employees: Gérer les employées
-    manage_professions: Gérer les professions
-    manage_entities: Gérer les fiches clients/fournisseurs
-    manage_entities_natures: Gérer les types de fiche
-    manage_entity_categories: Gérer les catégories de fiche
-    manage_entries: Gérer les écritures
-    manage_financialyears: Gérer les exercices
-    manage_journals: Gérer les journaux
-    manage_invoices_cancel: Faire des avoirs
-    manage_invoicing: Gérer la facturation et les règlements
-    manage_meetings: Gérer les rencontres
-    manage_orders: Gérer les commandes et livraisons
-    manage_payment_modes: Gérer les modes de paiments
-    manage_prices: Gérer les prix
-    manage_productions: Gérer les productions
-    manage_products: Gérer les produits
-    manage_sale_order_natures: Gérer les types de vente
-    manage_shape_operations: Gérer les traitements
-    manage_shapes: Gérer les îlots
-    manage_shelves: Gérer les catégories de produits
-    manage_statements: Pointage des relevés de comptes
-    manage_stock_locations: Gérer les lieux de stockage
-    manage_stock_moves: Gérer les mouvements de stocks
-    manage_taxes: Gérer les taxes
-    manage_users: Gérer les utilisateurs (ajout, modification, verrouillage...)
-    print_accounting_document: Imprimer les documents comptables
-    print_entities: Imprimer les fiches clients/fournisseurs
-    print_sales: Imprimer les documents de vente (devis, factures...)
-    search_and_consult_invoices: Rechercher et consulter des factures
-    search_and_consult_products: Rechercher et consulter des produits
-    
+    create_estimates: 'Créer un devis'
+    create_purchases: 'Créer, modifier des achats'
+    import_export_entities: 'Importer, exporter des fiches clients/fournisseurs'
+    manage_accounts: 'Gérer les comptes comptables'
+    manage_bank_accounts: 'Gérer les comptes bancaires'
+    manage_company: 'Gérer les informations de la société'
+    manage_complements: 'Gérer les champs personnalisés'
+    manage_delays: 'Gérer les délais'
+    manage_delivery_modes: 'Gérer les types de livraison'
+    manage_embankments: 'Gérer les remises de chèques'
+    manage_entities: 'Gérer les fiches clients/fournisseurs'
+    manage_entities_natures: 'Gérer les types de fiche'
+    manage_entity_categories: 'Gérer les catégories de fiche'
+    manage_entries: 'Gérer les écritures'
+    manage_financialyears: 'Gérer les exercices'
+    manage_invoicing: 'Gérer la facturation et les règlements'
+    manage_journals: 'Gérer les journaux'
+    manage_meetings: 'Gérer les rencontres'
+    manage_orders: 'Gérer les commandes et livraisons'
+    manage_payment_modes: 'Gérer les modes de paiments'
+    manage_prices: 'Gérer les prix'
+    manage_productions: 'Gérer les productions'
+    manage_products: 'Gérer les produits'
+    manage_sale_order_natures: 'Gérer les types de vente'
+    manage_shape_operations: 'Gérer les traitements'
+    manage_shapes: 'Gérer les îlots'
+    manage_shelves: 'Gérer les catégories de produits'
+    manage_statements: 'Pointage des relevés de comptes'
+    manage_stock_locations: 'Gérer les lieux de stockage'
+    manage_stock_moves: 'Gérer les mouvements de stocks'
+    manage_subscriptions: 'translation missing: fr-FR, rights, manage_subscriptions'
+    manage_taxes: 'Gérer les taxes'
+    manage_users: 'Gérer les utilisateurs'
+    print_accounting_document: 'Imprimer les documents comptables'
+    print_entities: 'Imprimer les fiches clients/fournisseurs'
+    print_sales: 'Imprimer les documents de vente (devis, factures...)'
+    search_and_consult_invoices: 'Rechercher et consulter des factures'
+    search_and_consult_products: 'Rechercher et consulter des produits'

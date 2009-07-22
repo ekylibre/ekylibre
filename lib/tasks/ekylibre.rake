@@ -4,6 +4,8 @@ namespace :rights do
 
   desc "Update and sort rights list"
   task :sort => :environment do
+    new_right = '[new_right]'
+
     # Chargement des actions des controllers
     ref = {}
     Dir.glob("#{RAILS_ROOT}/app/controllers/*_controller.rb") do |x|
@@ -18,11 +20,11 @@ namespace :rights do
     end
 
     # Lecture du fichier existant
-    file = File.open("#{RAILS_ROOT}/config/rights.txt", "r") 
+    file = File.open(User.rights_file, "rb")
     rights = []
     file.each_line do |line|
-      right = line.strip.split(":").collect{|x| x.strip.lower}
-      right[2] = 'administrate_'+right[0].to_s if right.size==2
+      right = line.strip.split(/[\:\t\,\;\s]+/).collect{|x| x.strip.lower}
+      right[2] = new_right if right.size==2
       rights << right if right.size==3
     end
     file.close
@@ -32,7 +34,7 @@ namespace :rights do
     for right in rights
       unless right[0].match(/^\#/)
         unless ref[right[0]].include?(right[1])
-          right[0] = '# '+right[0] 
+          right[0] = '#'+right[0] 
           deleted += 1
         end
       end
@@ -43,7 +45,7 @@ namespace :rights do
     for controller_name, actions in ref
       for a in actions
         unless rights.select{|r| r[0].gsub(/(\#|\s)/,'')==controller_name and r[1]==a}.size>0
-          rights << [controller_name, a, '<new>'] 
+          rights << [controller_name, a, new_right] 
           created += 1
         end
       end
@@ -54,7 +56,7 @@ namespace :rights do
     doubles = 0
     rights.size.times do |i|
       unless rights[i][0].match(/\#/)
-        to_update += 1 if rights[i][2].match(/\</)
+        to_update += 1 if rights[i][2].to_s.match(/^\w+$/).nil?
         for j in i+1..rights.size-1
           if rights[i][0]==rights[j][0] and rights[i][1]==rights[j][1]
             rights[j][0] = '# '+rights[j][0] 
@@ -68,9 +70,24 @@ namespace :rights do
     rights.sort!{|a, b| a[0]+':'+a[2]+':'+a[1]<=>b[0]+':'+b[2]+':'+b[1]}
 
     # Enregistrement du nouveau fichier
-    file = File.open("#{RAILS_ROOT}/config/rights.txt", "wb") 
-    file.write rights.collect{|x| x.join(":")}.join("\n")
+    file = File.open(User.rights_file, "wb") 
+    max = []
+    rights.each do |right|
+      3.times { |i| max[i] = right[i].length if right[i].length>max[i].to_i }
+    end
+    file.write rights.collect{|x| [x[0].ljust(max[0]), x[1].ljust(max[1]), x[2].ljust(max[2])].join(" ").strip}.join("\n")
     file.close
+
+    # Fichier de traduction
+    rights_list = rights.collect{|r| r[2].to_s if r[2].match(/^\w+$/) and not r[0].match(/\#/)}.compact.uniq.sort
+    translation  = ::I18n.locale.to_s+":\n"
+    translation += "  rights:\n"
+    for right in rights_list
+      translation += "    #{right}: '#{::I18n.t('rights.'+right).gsub(/\'/,"''")}'\n"
+    end
+    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.rights.yml", "wb") do |file|
+      file.write translation
+    end
 
     puts "#{deleted} deleted actions, #{created} created actions, #{to_update} actions to update, #{doubles} doubles"
   end

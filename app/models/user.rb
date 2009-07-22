@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
   model_stamper
 
   class << self
+    def rights_file; "#{RAILS_ROOT}/config/rights.txt"; end
     def minimum_right; :__minimum__; end
     def rights; @@rights; end
     def rights_list; @@rights_list; end
@@ -62,6 +63,7 @@ class User < ActiveRecord::Base
     end
     self.language = Language.find(:first, :order=>:name) if self.language.nil?
     self.admin = true if self.rights.nil?
+    self.rights_array=self.rights_array # Clean the rights
   end
 
   def label
@@ -161,10 +163,10 @@ class User < ActiveRecord::Base
     @@rights = {}
     @@rights_list = []
     @@useful_rights = {}
-    file = File.open("#{RAILS_ROOT}/config/rights.txt", "r") 
+    file = File.open(User.rights_file, "rb") 
     file.each_line do |line|
-      line = line.strip.split(":")
-      unless line[0].match(/\#/) or line[2].match(/\</)
+      line = line.strip.split(/[\:\t\,\;\s]+/)
+      unless line[0].match(/\#/) or line[2].to_s.match(/^\w+$/).nil?
         @@rights[line[0].to_sym] ||= {}
         @@rights[line[0].to_sym][line[1].to_sym] = line[2].to_sym 
         @@rights_list << line[2].to_sym 

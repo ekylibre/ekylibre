@@ -895,14 +895,11 @@ fr-FR:
         your_new_code_is: 'Votre nouveau code société est : {{value}}'
       _rights_form:
         accountancy_rights: Droits module Comptabilité
-        authentication_rights: Droits de connexion
         company_rights: Droits module Société
-        help_rights: 'Droits consultation de l''aide'
-        management_rights: Droits module Gestion commerciale
+        management_rights: Droits module Commerce
         production_rights: Droits module Production
-        relations_rights: Droits module Relations clients/fournisseurs
+        relations_rights: Droits module Relations
         resources_rights: Droits module Ressources
-        search_rights: Droits de recherche
       roles:
         roles_create: Ajouter un rôle
         title: Liste des rôles
