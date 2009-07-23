@@ -166,6 +166,13 @@ class RelationsController < ApplicationController
     session[:entity_key] = @key
   end
 
+  def entities_extract
+    @klass = Entity
+
+    @reflections = @klass.reflections.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
+    
+    
+  end
 
 
   dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]'], :active=>true}, :empty=>true) do |t|
@@ -180,7 +187,7 @@ class RelationsController < ApplicationController
     t.action :entities_contacts_delete , :image=>:delete , :method=>:post, :confirm=>:are_you_sure
   end
 
-   dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:id =>['@contact.area.id'], :company_id=>['@current_company.id']}, :joins => :city, :model => :area)
+   dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:company_id=>['@current_company.id']}, :joins => :city, :model => :area)
 
   #dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'}, :children=>:lines) do |t|
   dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|
