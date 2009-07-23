@@ -69,7 +69,7 @@ module ApplicationHelper
              {:name=>:invoices},
              {:name=>:embankments},
              {:name=>:subscriptions},
-             {:name=>:subscription_natures}] },
+           ] },
          {:name=>:purchases, :list=>
            [ {:name=>:purchases_new},
              {:name=>:purchases_consult, :url=>{:action=>:purchases}} ] },
@@ -86,7 +86,8 @@ module ApplicationHelper
              {:name=>:taxes},
              {:name=>:delivery_modes},
              {:name=>:payment_modes},
-             {:name=>:sale_order_natures}
+             {:name=>:sale_order_natures},
+             {:name=>:subscription_natures}
            ] }
        ] },
 
@@ -338,6 +339,46 @@ module ApplicationHelper
   def link_to_submit(form_name, label=:submit, options={})
     link_to_function(l(label), "document."+form_name+".submit()", options.merge({:class=>:button}))
   end
+
+
+
+  def wikize(content)
+    # {{buttons/update.png|Label}}
+    url = url_for(:controller=>:images)
+    content = content.gsub(/\{\{([^\}]+)((\|)([^}]+))\}\}/, '!'+url+'/\1(\4)!')
+    content = content.gsub(/\{\{([^\}]+)\}\}/, '!'+url+'/\1!' )
+    # <<controller-action|Label>>
+    ltr = link_to_remote('\4', :url => {:controller=>:help, :action=>"search", :article=>'\1'}, :update => :help, :complete=>'resize2();').gsub('%5C',"\\")
+    content = content.gsub(/<<([\w\-]+)((\|)([^>]+))>>/ , ltr )
+    # <<controller-action>>
+    ltr = link_to_remote('\1', :url => {:controller=>:help, :action=>"search", :article=>'\1'}, :update => :help, :complete=>'resize2();').gsub('%5C',"\\")
+    content = content.gsub(/<<([\w\-]+)>>/ , ltr )
+    content = content.squeeze(' ')
+    #      content = content.gsub(/(\ *)(\:|\?)/ , '~\2' )
+    content.gsub!(/(\w)(\?|\:)[\s$]/ , '\1~\2' )
+    content.gsub!(/[\s\~]+(\?|\:)/ , '~\1' )
+    content.gsub!(/\~/ , '&nbsp;' )
+    content = textilize(content)    
+  end
+
+
+  def article(name, options={})
+    name||=''
+    content = ''
+    default = options[:default]
+    file_text = RAILS_ROOT+"/config/locales/"+I18n.locale.to_s+"/help/"+name+".txt"
+    
+    if File.exists?(file_text)  # the file doesn't exist in the cache, but exits as a text file
+      File.open(file_text, 'r') do |file|
+        content = file.read
+      end
+      content = wikize(content)
+    end
+    content = article(default) if content.blank? and not default.blank?
+    return content
+  end
+
+
 
 
 

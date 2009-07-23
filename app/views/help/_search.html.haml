@@ -5,7 +5,7 @@
     %h1.title=tc :title
   -cache(:action=>"help", :id=>@article) do
     .content{:flex=>1, :style=>'overflow:auto;'}
-      - doc=wikize(@article)
+      - doc=article(@article)
       - if doc.blank?
         .help-error
           =tc(:error_no_file, :value=>@article)

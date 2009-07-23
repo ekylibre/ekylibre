@@ -33,17 +33,17 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #help { width: 256px; border-left: 1px solid #BEBEBB; border-top: 1px solid #BEBEBB; background: #fefef9 url(../images/template/help.png) repeat-x top;}
 #help .nav { background: #e9e9a8; }
 #help .title { color: #750; text-align: center; }
-#help .content { padding: 8px; }
-#help .content h1 { font-size: 17px; margin: 0px 0px 16px; color: #750;}
-#help .content h2 { font-size: 15px; margin: 8px 8px 4px;  border-bottom: 1px solid #dd8;}
-#help .content h3 { font-size: 13px; margin: 4px 16px 2px; color: #430; }
-#help .content pre { font-family: monospace; color: #777; background: #FFF; padding: 8px; margin: 8px 0; }
-#help .content ul { padding: 4px 20px; }
-#help .content ul li { list-style-type: square; }
-#help .content a img { border: 1px solid #00C; padding: 1px;}
-#help .content p { margin: 8px 0px;}
-#help .content .text-end { height: 1px; }
-#help .content .help-error { color: red; text-align: center; padding: 8px; background:#F5EAD7; }
+.content { padding: 8px; }
+.content h1 { font-size: 17px; margin: 0px 0px 16px; color: #750;}
+.content h2 { font-size: 15px; margin: 8px 8px 4px;  border-bottom: 1px solid #dd8;}
+.content h3 { font-size: 13px; margin: 4px 16px 2px; color: #430; }
+.content pre { font-family: monospace; color: #777; background: #FFF; padding: 8px; margin: 8px 0; }
+.content ul { padding: 4px 20px; }
+.content ul li { list-style-type: square; }
+.content a img { border: 1px solid #00C; padding: 1px;}
+.content p { margin: 8px 0px;}
+.content .text-end { height: 1px; }
+.content .help-error { color: red; text-align: center; padding: 8px; background:#F5EAD7; }
 
 #side { width: 192px; padding: 0 0 8px 8px; background: #c9d7f1; overflow: auto;  border-top: 1px solid #95b0e4;}
 #side .menu { background: #FFF; padding:0px; margin:8px 0px 0px; border: 2px solid #95b0e4; }
@@ -215,7 +215,7 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 
 
 
-.results { background: #EEF;  padding:4px 6px; margin: 0 0 8px;}
+.results { background: #EEF;  padding:4px 6px; margin: 0 0 8px; width:192px;}
 .results h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
 .results ul { padding: 4px 4px 4px 18px; }
 .results li { list-style-type: square; }
