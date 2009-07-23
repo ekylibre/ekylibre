@@ -757,12 +757,12 @@ fr-FR:
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
-        query: Requête
+        query: 'Requête'
         root_model: 'Racine'
+        root_model_name: 'Racine'
         story: 'Historique'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
-        root_model_name: Racine
 
       # Noeud d'extraction
       listing_node:
@@ -777,12 +777,12 @@ fr-FR:
         item_nature: (((ITEM_NATURE)))
         item_value: (((ITEM_VALUE)))
         label: (((LABEL)))
-        listing_id: Extraction
+        listing_id: 'Extraction'
         lock_version: 'Version'
-        name: Nom
-        nature: Nature
+        name: 'Nom'
+        nature: 'Nature'
         parent_id: (((PARENT_ID)))
-        position: Position
+        position: 'Position'
         reflection_name: (((REFLECTION_NAME)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
