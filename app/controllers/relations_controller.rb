@@ -166,14 +166,6 @@ class RelationsController < ApplicationController
     session[:entity_key] = @key
   end
 
-  def entities_extract
-    @klass = Entity
-
-    @reflections = @klass.reflections.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
-    
-    
-  end
-
 
   dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]'], :active=>true}, :empty=>true) do |t|
     t.column :address, :url=>{:action=>:entities_contacts_update}

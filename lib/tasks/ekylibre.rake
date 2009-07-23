@@ -99,6 +99,7 @@ namespace :clean do
     models = Dir["#{RAILS_ROOT}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
     models_names = ''
     models_attributes = "\n"
+    attrs_count, static_attrs_count = 0, 0
     for model in models
       models_names += "      #{model}: "+::I18n.pretranslate("activerecord.models.#{model}")+"\n"
       models_attributes += "\n      # #{::I18n.t("activerecord.models.#{model}")}\n"
@@ -107,6 +108,7 @@ namespace :clean do
       for k, v in ::I18n.translate("activerecord.attributes.#{model}")||{}
         attributes[k] = "'"+v.gsub("'","''")+"'"
       end
+      static_attrs_count += model.camelcase.constantize.columns.size
       for column in model.camelcase.constantize.columns
         attribute = column.name.to_sym
         trans = classicals[::I18n.locale.to_s][attribute]
@@ -117,6 +119,7 @@ namespace :clean do
       for attribute, trans in attributes.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
         models_attributes += "        #{attribute}: "+trans+"\n"
       end
+      attrs_count += attributes.size
     end
     translation  = ::I18n.locale.to_s+":\n"
     translation += "  activerecord:\n"
@@ -127,8 +130,12 @@ namespace :clean do
     File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.models.yml", "wb") do |file|
       file.write translation
     end
+
+    puts "#{models.size} models, #{static_attrs_count} static attributes, #{attrs_count-static_attrs_count} virtual attributes, #{(attrs_count.to_f/models.size).round(1)} attributes/models"
   end
   
 
+  desc "Clean all files as possible"
+  task :all => [:environment, :rights, :locales]
 
 end

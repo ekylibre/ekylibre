@@ -469,6 +469,7 @@ module Ekylibre
           image_title = @options[:title]||@name.to_s.humanize
           image_file = "buttons/"+(@options[:image]||verb).to_s+".png"
           image_file = "buttons/unknown.png" unless File.file? "#{RAILS_ROOT}/public/images/"+image_file
+          format = @options[:format] ? ", :format=>'#{@options[:format]}'" : ""
           if @options[:remote] 
             remote_options = @options.dup
             remote_options.delete :remote
@@ -476,7 +477,7 @@ module Ekylibre
             remote_options = remote_options.inspect.to_s
             remote_options = remote_options[1..-2]
             code  = "link_to_remote(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
-            code += ", {:url=>{:action=>:"+@name.to_s+", :id=>"+record+".id}"
+            code += ", {:url=>{:action=>:"+@name.to_s+", :id=>"+record+".id"+format+"}"
             code += ", "+remote_options+"}"
             code += ", {:alt=>::I18n.t('general.#{verb}'), :title=>::I18n.t('general.#{verb}')}"
             code += ")"
@@ -486,7 +487,7 @@ module Ekylibre
             for a in @options[:actions]
               v = a[1][:action].to_s.split('_')[-1]
               cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag('buttons/"+v+".png', :border=>0, :alt=>'"+a[0].to_s+"')"+
-                ", {"+(a[1][:controller] ? ':controller=>:'+a[1][:controller].to_s+', ' : '')+":action=>'"+a[1][:action].to_s+"', :id=>"+record+".id}"+
+                ", {"+(a[1][:controller] ? ':controller=>:'+a[1][:controller].to_s+', ' : '')+":action=>'"+a[1][:action].to_s+"', :id=>"+record+".id"+format+"}"+
                 ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :alt=>::I18n.t('general.#{v}'), :title=>::I18n.t('general.#{v}')}"+
                 ")\n"
             end
@@ -494,7 +495,7 @@ module Ekylibre
             code = "if "+cases.join("elsif ")+"end"
           else
             code  = "link_to(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
-            code += ", {"+(@options[:controller] ? ':controller=>:'+@options[:controller].to_s+', ' : '')+":action=>:"+@name.to_s+", :id=>"+record+".id}"
+            code += ", {"+(@options[:controller] ? ':controller=>:'+@options[:controller].to_s+', ' : '')+":action=>:"+@name.to_s+", :id=>"+record+".id"+format+"}"
             code += ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :alt=>::I18n.t('general.#{verb}'), :title=>::I18n.t('general.#{verb}')}"
             code += ")"
           end

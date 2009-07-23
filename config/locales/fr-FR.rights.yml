@@ -2,11 +2,11 @@ fr-FR:
   rights:
     __minimum__: 'Accéder au minimum vital'
     administrate_accountancy: 'Accéder au module Comptabilité'
-    administrate_company: 'Accéder au module Société'
     administrate_management: 'Accéder au module Commerce'
     administrate_production: 'Accéder au module Production'
     administrate_relations: 'Accéder au module Relations clients/fournisseurs'
     administrate_resources: 'Accéder au module Ressources'
+    backup_company: (((BACKUP_COMPANY)))
     cancel_invoices: 'Faire des avoirs'
     configure_company: 'Configurer les options de la société'
     consult_entities: 'Consulter les fiches clients/fournisseurs'
@@ -32,6 +32,7 @@ fr-FR:
     manage_financialyears: 'Gérer les exercices'
     manage_invoicing: 'Gérer la facturation et les règlements'
     manage_journals: 'Gérer les journaux'
+    manage_listings: (((MANAGE_LISTINGS)))
     manage_meetings: 'Gérer les rencontres'
     manage_orders: 'Gérer les commandes et livraisons'
     manage_payment_modes: 'Gérer les modes de paiments'

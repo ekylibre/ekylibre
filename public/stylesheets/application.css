@@ -64,11 +64,11 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #yield { padding: 8px; overflow: auto; background: url(../images/template/columns.png) repeat-x top; border: 1px solid #95b0e4; }
 #yield > h1 { margin: 0px 0px 8px; font-size:20px; color: #047;}
 #yield > h2 { margin: 16px 0px 4px; font-size:16px; color: #06A;}
-#yield li { color:#047; padding: 1px; }
 #yield .menu, .errorExplanation { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px;}
 #yield .menu h2, .errorExplanation h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
 #yield .menu ul, .errorExplanation ul { padding: 4px 4px 4px 18px; }
-#yield .menu li, .errorExplanation li { list-style-type: square; }
+#yield .menu li, .errorExplanation li { list-style-type: square; padding: 1px;}
+#yield .menu li { color:#047; }
 #yield .menu.special { background: #FE9; }
 #yield .menu.special a:link, #yield .menu.special a:visited { color: #A60; }
 #yield .menu.indicator { background: #FD8; } /*#FA3;*/
@@ -206,6 +206,7 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 .toolbar ul > li > a.configure {background: url(../images/buttons/configure.png) no-repeat center left;}
 .toolbar ul > li > a.extract   {background: url(../images/buttons/complete.png) no-repeat center left;}
 
+a.more {padding: 2px 2px 2px 16px; height:16px; background: url(../images/buttons/down2.png) no-repeat center left;}
 
 
 .search { background: #CEA !important; color: #580;  -moz-border-radius: 8px; padding:4px 6px; margin: 0 0 8px;}

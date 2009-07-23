@@ -296,13 +296,14 @@ fr-FR:
         subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
       help:
         other_results: 'Autres résultats...'
-        pertinence: '(Pertinence : {{value}}%)'
         results:
           zero: 'Aucun résultat'
           one: '1 résultat'
           other: '{{count}} résultats'
         search: 'Rechercher un article dans l''aide'
         title: 'Rubriques d''aide'
+      _help_result:
+        pertinence: '{{value}}%'
       index:
         about_us: 'À propos d''Ekylibre'
         accountancy: 'Comptabilité générale'

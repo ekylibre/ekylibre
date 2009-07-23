@@ -13,14 +13,10 @@
         -if @results.size>0
           %ul
             -for r in @results[0..@per_page-1]
-              %li
-                =link_to_remote(wikize(r[:title]), :url=>{:action=>:help, :article=>r[:name]}, :update=>:helpage)+' '
-                -#.pertinence=tc(:pertinence, :value=>r[:pertinence].to_s)
+              %li=render :partial=>'help_result', :locals=>{:result=>r}
           -if @results.size>@per_page
-            %h2=link_to_function(tc(:other_results), "var list=$('other_results'); if (list.style.display=='none') {list.show();} else {list.hide();}")
+            =link_to_function(tc(:other_results), "var list=$('other_results'); if (list.style.display=='none') {list.show();} else {list.hide();}", :class=>:more)
             %ul#other_results{:style=>'display:none'}
               -for r in @results[@per_page..-1]
-                %li
-                  =link_to(wikize(r[:title]), {:article=>r[:name]})+' '
-                  .pertinence=tc(:pertinence, :value=>r[:pertinence].to_s)
+                %li=render :partial=>'help_result', :locals=>{:result=>r}
     %td#helpage.content{:valign=>:top}

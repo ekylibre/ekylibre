@@ -20,7 +20,8 @@ class Listing < ActiveRecord::Base
   has_many :nodes, :class_name=>ListingNode.name
   attr_readonly :company_id
   
-  def before_validation
-    self.root_model = Entity.name
+  def root_model_name
+    ::I18n.t("activerecord.models."+self.root_model.underscore)
   end
+
 end

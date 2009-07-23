@@ -2,16 +2,16 @@ fr-FR:
   activerecord:
     models:
       account: 'Compte'
-      account_balance: (((ACCOUNT_BALANCE)))
+      account_balance: 'Balance de compte'
       address_norm: 'Norme postale'
       address_norm_item: 'Élément de norme postale'
-      area: (((AREA)))
+      area: 'Zone postale'
       bank_account: 'Compte bancaire'
       bank_account_statement: 'Relevé de compte bancaire'
       company: 'Société'
-      complement: (((COMPLEMENT)))
-      complement_choice: (((COMPLEMENT_CHOICE)))
-      complement_datum: (((COMPLEMENT_DATUM)))
+      complement: 'Champ complémentaire'
+      complement_choice: 'Choix de champ complémentaire'
+      complement_datum: 'Donnée complémentaire de fiche'
       contact: 'Contact'
       currency: 'Devise'
       delay: 'Délai'
@@ -36,11 +36,11 @@ fr-FR:
       journal_record: 'Pièce comptable'
       language: 'Langue'
       listing: 'Extraction'
-      listing_node: (((LISTING_NODE)))
-      listing_node_item: (((LISTING_NODE_ITEM)))
-      meeting: (((MEETING)))
-      meeting_location: (((MEETING_LOCATION)))
-      meeting_mode: (((MEETING_MODE)))
+      listing_node: 'Noeud d''extraction'
+      listing_node_item: 'Élément de noeud d''extraction'
+      meeting: 'Rencontre'
+      meeting_location: 'Lieu de rencontre'
+      meeting_mode: 'Mode de rencontre'
       parameter: 'Paramètre'
       payment: 'Réglement'
       payment_mode: 'Mode de réglement'
@@ -49,7 +49,7 @@ fr-FR:
       price_tax: 'Taxe de prix'
       product: 'Produit'
       product_component: 'Composant de produit'
-      product_stock: (((PRODUCT_STOCK)))
+      product_stock: 'Stock de produit'
       production: 'Production'
       profession: 'Profession'
       purchase_order: 'Achat'
@@ -65,7 +65,7 @@ fr-FR:
       shelf: 'Catégorie de produit'
       stock_location: 'Lieu de stockage'
       stock_move: 'Mouvement de stock'
-      stock_tracking: (((STOCK_TRACKING)))
+      stock_tracking: 'Lot traçable'
       stock_transfer: 'Transfert ou perte de Stock'
       subscription: 'Abonnement'
       subscription_nature: 'Type d''abonnement'
@@ -101,7 +101,7 @@ fr-FR:
         updater_id: 'Modificateur'
         usable: (((USABLE)))
 
-      # (((ACCOUNT_BALANCE)))
+      # Balance de compte
       account_balance:
         account_id: (((ACCOUNT_ID)))
         company_id: 'Société'
@@ -156,7 +156,7 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # (((AREA)))
+      # Zone postale
       area:
         city_id: (((CITY_ID)))
         company_id: 'Société'
@@ -227,7 +227,7 @@ fr-FR:
         deleted: 'Effacé'
         entity_id: 'Fiche relation'
         id: 'ID'
-        invoice_sequence_id: (((INVOICE_SEQUENCE_ID)))
+        invoice_sequence_id: '(((INVOICE_SEQUENCE_ID)))'
         lock_version: 'Version'
         locked: (((LOCKED)))
         name: 'Nom'
@@ -238,7 +238,7 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # (((COMPLEMENT)))
+      # Champ complémentaire
       complement:
         active: 'Actif'
         choices_count: 'Nb. Choix'
@@ -258,7 +258,7 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # (((COMPLEMENT_CHOICE)))
+      # Choix de champ complémentaire
       complement_choice:
         company_id: 'Société'
         complement_id: (((COMPLEMENT_ID)))
@@ -272,7 +272,7 @@ fr-FR:
         updater_id: 'Modificateur'
         value: 'Valeur'
 
-      # (((COMPLEMENT_DATUM)))
+      # Donnée complémentaire de fiche
       complement_datum:
         boolean_value: (((BOOLEAN_VALUE)))
         choice_value_id: (((CHOICE_VALUE_ID)))
@@ -757,13 +757,14 @@ fr-FR:
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
-        query: (((QUERY)))
+        query: Requête
         root_model: 'Racine'
         story: 'Historique'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
+        root_model_name: Racine
 
-      # (((LISTING_NODE)))
+      # Noeud d'extraction
       listing_node:
         company_id: 'Société'
         comparator: (((COMPARATOR)))
@@ -776,17 +777,17 @@ fr-FR:
         item_nature: (((ITEM_NATURE)))
         item_value: (((ITEM_VALUE)))
         label: (((LABEL)))
-        listing_id: (((LISTING_ID)))
+        listing_id: Extraction
         lock_version: 'Version'
-        name: (((NAME)))
-        nature: (((NATURE)))
+        name: Nom
+        nature: Nature
         parent_id: (((PARENT_ID)))
-        position: (((POSITION)))
+        position: Position
         reflection_name: (((REFLECTION_NAME)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # (((LISTING_NODE_ITEM)))
+      # Élément de noeud d'extraction
       listing_node_item:
         company_id: 'Société'
         created_at: 'Créé le'
@@ -799,7 +800,7 @@ fr-FR:
         updater_id: 'Modificateur'
         value: (((VALUE)))
 
-      # (((MEETING)))
+      # Rencontre
       meeting:
         address: 'Adresse'
         company_id: 'Société'
@@ -816,7 +817,7 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # (((MEETING_LOCATION)))
+      # Lieu de rencontre
       meeting_location:
         active: (((ACTIVE)))
         company_id: 'Société'
@@ -829,7 +830,7 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # (((MEETING_MODE)))
+      # Mode de rencontre
       meeting_mode:
         active: (((ACTIVE)))
         company_id: 'Société'
@@ -1014,7 +1015,7 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # (((PRODUCT_STOCK)))
+      # Stock de produit
       product_stock:
         company_id: 'Société'
         created_at: 'Créé le'
@@ -1332,7 +1333,7 @@ fr-FR:
         updater_id: 'Modificateur'
         virtual: 'Virtuel'
 
-      # (((STOCK_TRACKING)))
+      # Lot traçable
       stock_tracking:
         active: (((ACTIVE)))
         begun_at: (((BEGUN_AT)))

@@ -42,9 +42,10 @@ class CompanyController < ApplicationController
   def help
     @per_page = 15
     if request.xhr?
-      render :text=>article(params[:article])
-    elsif request.post?
-      @key = params[:key]
+      render :text=>article(params[:article], :url=>{:controller=>:company, :action=>:help, :article=>'\1'}, :update=>:helpage)
+    else
+      @key = params[:key]||session[:help_key]
+      session[:help_key] = @key
       @key_words = @key.lower.split(" ").select{|x| x.strip.length>2}
       reg = /(#{@key_words.join("|")})/i
       @results = []
@@ -56,9 +57,11 @@ class CompanyController < ApplicationController
           end
         end
       end
-      @results.sort!{|a,b| b[:count]<=>a[:count]}
-      max = @results[0][:count]
-      @results.each{|r| r[:pertinence] = (100*r[:count]/max).to_i}
+      if @results.size>0
+        @results.sort!{|a,b| b[:count]<=>a[:count]}
+        max = @results[0][:count]
+        @results.each{|r| r[:pertinence] = (100*r[:count]/max).to_i}
+      end
     end
   end
 
@@ -514,12 +517,20 @@ class CompanyController < ApplicationController
 
   dyta(:listings, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
+    t.column :root_model_name
     t.column :comment
+    t.action :listings, :format=>'csv'
+    t.action :listing_nodes
     t.action :listings_update
     t.action :listings_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def listings
+  end
+
+  def listings_build
+    flash[:warning] = 'En construction'
+    redirect_to_back
   end
   
   def listings_create
