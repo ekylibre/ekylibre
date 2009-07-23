@@ -1,0 +1,15 @@
+.quick-add
+  =tc('quick_add')
+.center-line
+  -form_tag(:action=>:sale_order_lines_create) do 
+    =tc('product')+" ", select(:sale_order_line, :price_id, Price.find(:all,:conditions=>{:company_id=>@current_company.id,:entity_id=>@current_company.entity_id, :active=>true, :category_id=>@sale_order.client.category.id}).collect{|x| [x.product.name+" "+x.amount.to_s+" "+x.currency.code, x.id]})
+    = "  "+tc('quantity'), text_field(:sale_order_line, :quantity, :size=>10, :value=>1.0)
+    =" "+tc('location'), select(:sale_order_line, :location_id, @current_company.stock_locations.collect{|x| [x.name, x.id]}) if @current_company.stock_locations.size > 1
+    #price_amount{:style=>'display:none'}
+      =text_field(:sale_order_line, :price_amount, :value=>0.0)
+    =submit_tag(tc('valid'), :action=>:sale_order_lines_create)
+
+  #subscription_line{:style=>'display:none'}
+    %p{:id=>:sub_line}=""
+
+=observe_field("sale_order_line_price_id", :url=>{:action => :subscription_message}, :frequency => 0.25, :with=>"sale_order_line_price_id")

@@ -421,7 +421,7 @@ module ApplicationHelper
 
   def subscriptions_conditions(options={})
     conditions = {}
-    conditions = ["company_id = ? ", @current_company.id]
+    conditions = ["company_id = ? AND sale_order_id NOT IN (SELECT id from sale_orders WHERE company_id = ? and state = 'P')", @current_company.id, @current_company.id]
     if session[:sub_is_date] == 2
       conditions[0] += "AND ? BETWEEN first_number AND last_number "
       conditions << session[:subscription_instant] 

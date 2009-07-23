@@ -944,6 +944,11 @@ class ManagementController < ApplicationController
    # raise Exception.new @price.product.inspect
   end
 
+  def subscription_message
+    price = find_and_check(:prices, params[:sale_order_line_price_id])
+    @product = find_and_check(:products, price.product_id)
+  end
+
   def sale_order_lines_create
     # @delay = Delay.find_by_id(100)
     # raise Exception.new Date.today.inspect+"   "+@delay.expression.inspect+"  "+@delay.compute(Date.today).inspect
@@ -978,14 +983,28 @@ class ManagementController < ApplicationController
               @subscription = Subscription.new(:sale_order_id=>@sale_order.id, :company_id=>@current_company.id, :product_id=>@sale_order_line.product_id)
 
               if @sale_order_line.product.subscription_nature.nature == "period"
-                @subscription.started_on = params[:subscription][:started_on]
-                @subscription.finished_on = params[:subscription][:finished_on]
+                if not params[:subscription].nil?    
+                  @subscription.started_on = params[:subscription][:started_on]
+                  @subscription.finished_on = params[:subscription][:finished_on]
+                else ## from quick_line
+                  @subscription.started_on = Date.today
+                  delay = Delay.new(:expression=>@sale_order_line.product.subscription_period, :name=>"temp")
+                  @subscription.finished_on = delay.compute(Date.today)
+                end
               elsif @sale_order_line.product.subscription_nature.nature == "quantity"
-                @subscription.first_number = params[:subscription][:first_number]
-                @subscription.last_number = params[:subscription][:last_number]
+                if not params[:subscription].nil?
+                  @subscription.first_number = params[:subscription][:first_number]
+                  @subscription.last_number = params[:subscription][:last_number]
+                else  ## from quick_line
+                  @subscription.first_number = @sale_order_line.product.subscription_nature.actual_number
+                  @subscription.last_number = (@sale_order_line.product.subscription_nature.actual_number + @sale_order_line.product.subscription_quantity)
+                end
               end
-              @subscription.contact_id = params[:subscription][:contact_id]
-              
+              if not params[:subscription].nil?
+                @subscription.contact_id = params[:subscription][:contact_id]
+              else
+                @subscription.contact_id =  @current_company.contacts.find(:first, :conditions=>{:active=>true}).id
+              end
               saved = false unless @subscription.save
               @sale_order_line.errors.each_full do |msg|
                 @subscription.errors.add_to_base(msg)
@@ -1005,6 +1024,8 @@ class ManagementController < ApplicationController
     @stock_locations = @current_company.stock_locations
     @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
     @sale_order_line = find_and_check(:sale_order_line, params[:id])
+    @subscription = @sale_order_line.is_a_subscription ? @current_company.subscriptions.find(:first, :conditions=>{:sale_order_id=>@sale_order.id}) : Subscription.new
+    #raise Exception.new @subscription.inspect
     if request.post?
       params[:sale_order_line].delete(:company_id)
       params[:sale_order_line].delete(:order_id)
@@ -1771,41 +1792,6 @@ class ManagementController < ApplicationController
     # raise Exception.new params.inspect+"kkkkkkkkkkkkkkkkkkkk"+@subscription_nature.inspect
     
   end
-
-#   def subscriptions
-#     ### Vérifier quil existe au moins un type d'abonnement ==>PLANTE
-#     if @current_company.subscription_natures.size == 0
-#       flash[:warning]=tc(:need_to_create_subscription_nature)
-#       redirect_to :action=>:subscription_natures
-#     else
-#       @subscription_nature = session[:subscription_nature]||@current_company.subscription_natures.find(:first)
-      
-#       session[:sub_is_date] = 0 
-#       if request.post?
-#         #raise Exception.new "tt"
-#         session[:subscription_nature_id] = params[:subscription_nature][:id]||session[:subscription_nature_id]
-#         subscription_nature = find_and_check(:subscription_nature, session[:subscription_nature_id])
-#         session[:subscription_nature] = subscription_nature
-#         if subscription_nature
-#           if subscription_nature.nature == "quantity"
-#             session[:subscription_number]= params[:subscription][:number].to_i > 0 ? params[:subscription][:number].to_i : 0
-#             session[:sub_is_date] = 2
-#           elsif subscription_nature.nature == "period" and !params[:subscription][:date].nil?
-#             begin
-#               params_to_date = params[:subscription][:date].to_date
-#               session[:subscription_date] = params_to_date
-#               session[:sub_is_date] = 1
-#             rescue
-#               session[:subscription_date] = Date.today
-#               session[:sub_is_date] = 1
-#               flash[:warning]=tc(:unvalid_date)
-#             end
-#           end
-#         end
-#         @subscription_nature = session[:subscription_nature]||@current_company.subscription_natures.find(:first)
-#       end
-#     end
-#   end
   
   def subscriptions
     if @current_company.subscription_natures.size == 0

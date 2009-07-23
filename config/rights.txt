@@ -1,3 +1,4 @@
+#company       general                        administrate_company
 accountancy    dyli_account_search            administrate_accountancy
 accountancy    dyta_accounts                  administrate_accountancy
 accountancy    dyta_bank_account_statements   administrate_accountancy
@@ -50,6 +51,10 @@ authentication index                          __minimum__
 authentication login                          __minimum__
 authentication logout                         __minimum__
 authentication register                       __minimum__
+company        dyta_listings                  [new_right]
+company        listings_create                [new_right]
+company        listings_delete                [new_right]
+company        listings_update                [new_right]
 company        about_us                       __minimum__
 company        help                           __minimum__
 company        index                          __minimum__
@@ -60,7 +65,6 @@ company        dyta_establishments            administrate_company
 company        dyta_roles                     administrate_company
 company        dyta_sequences                 administrate_company
 company        dyta_users                     administrate_company
-company        general                        administrate_company
 company        configure                      configure_company
 company        sequences_create               configure_company
 company        sequences_delete               configure_company
@@ -91,6 +95,7 @@ help           close                          __minimum__
 help           previous                       __minimum__
 help           search                         __minimum__
 help           side                           __minimum__
+management     subscription_message           create_estimates
 management     dyta_all_invoices              administrate_management
 management     dyta_critic_product_stocks     administrate_management
 management     dyta_deliveries                administrate_management

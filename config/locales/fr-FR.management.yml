@@ -311,6 +311,14 @@ fr-FR:
         title: Modifier une ligne de la commande
       _purchase_orders_form:
         infos: 'Renseignez les caractéristiques de l''achat '
+      _quick_line:
+        from: Du numéro
+        location: Lieu de stockage
+        product: Produit tarifé
+        quantity: Quantité
+        quick_add: Saisie rapide
+        to: au
+        valid: Valider
       _sale_order_lines_form:
         free_price: Renseignez ces champs si vous souhaitez appliquer un autre prix
         infos: Choississez le produit et la quantité
@@ -474,7 +482,13 @@ fr-FR:
         nature: Opération
         product: "{{product}} ({{unit}})"
       stocks_moves_update:
-        title: 'Modifier le mouvement de stock : {{value}}'
+        title: 'Modifier le mouvement de stock : {{value}}' 
+      subscription_message:
+        contact: 'à l''adresse'
+        from: Du numéro
+        from_date: Du
+        to: au numéro
+        to_date: Au
       subscription_natures: 
         subscription_natures_create: 'Ajouter un type d''abonnement'
         title: 'Types d''abonnements'

@@ -140,6 +140,7 @@ class Company < ActiveRecord::Base
     self.set_parameter('accountancy.default_journals.purchases', self.journals.create!(:name=>tc('default.journals.purchases'), :nature=>"purchase", :currency_id=>currency.id))
     self.set_parameter('accountancy.default_journals.bank', self.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
     self.set_parameter('management.invoicing.numeration', self.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
+    self.set_parameter('relations.entities.numeration', self.sequences.create!(:name=>tc('default.entities_numeration'), :format=>'[number|8]', :period=>'number'))
                        
     tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
       begin

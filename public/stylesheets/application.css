@@ -262,6 +262,8 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 .window .dyta { background: white; }
 
 .center { text-align: center; }
+.center-line { text-align: center; color:#000088;  } 
+.quick-add { text-align: center;  padding: 0 0 5px 0; color:#004477; font-size:13px; font-weight:bold; }
 
 /* Droits utilisateurs */
 .right-category { text-align: center; padding: 15px 0 5px 0; font-weight: bold;}

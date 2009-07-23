@@ -17,3 +17,8 @@ fr-FR:
         days_before_warning_unvalidated: 'Nombre de jours nécessaire pour pour pouvoir valider une remise de chèque'
       invoicing:
         numeration: 'Numérotation des factures'
+      sale_orders:
+        numeration: 'Numérotation des ventes'
+    relations: 
+      entities:
+        numeration: 'Numérotation des fiches clients/fournisseurs'

@@ -3,6 +3,8 @@
 = toolbar do
   - link :sales_print, :id=>@sale_order.id
 
+=render :partial=>"quick_line"
+
 %h2=tc :lines
 =toolbar do
   -link(:sale_order_lines_create) if @sale_order.state == 'P'

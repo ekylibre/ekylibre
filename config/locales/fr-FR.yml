@@ -274,6 +274,7 @@ fr-FR:
         accountancy: Comptabilité
         general: Paramètres généraux
         management: Gestion commerciale
+        relations: Relations clients/fournisseurs
         title: 'Configuration de {{value}}'
       departments:
         title: Liste des services de la société
