@@ -144,7 +144,7 @@ class Company < ActiveRecord::Base
     self.set_parameter('accountancy.default_journals.bank', self.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
     self.set_parameter('management.invoicing.numeration', self.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
     self.set_parameter('relations.entities.numeration', self.sequences.create!(:name=>tc('default.entities_numeration'), :format=>'[number|8]', :period=>'number'))
-                       
+    
     tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
       begin
         account = self.accounts.find_by_number(a[0].to_s)
@@ -184,7 +184,7 @@ class Company < ActiveRecord::Base
   end
 
   def available_entities(options={})
-#    options[:conditions]={:deleted=>false}
+    #    options[:conditions]={:deleted=>false}
     self.entities.find(:all, options)
   end
 
@@ -194,7 +194,7 @@ class Company < ActiveRecord::Base
   end
 
   def available_taxes(options={})
-#    options[:conditions]={:deleted=>false}
+    #    options[:conditions]={:deleted=>false}
     self.taxes.find(:all, options)
   end
 
@@ -267,5 +267,133 @@ class Company < ActiveRecord::Base
     end
     journal_id
   end
+
+
+  def backup(creator)
+    version = (ActiveRecord::Migrator.current_version rescue 0)
+    filename = "backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")
+    file = "#{RAILS_ROOT}/tmp/#{filename}.xml.gz"
+    doc = REXML::Document.new
+    doc << REXML::XMLDecl.new
+    backup = doc.add_element 'backup', 'version'=>version, 'creation-date'=>Date.today.to_s, 'creator'=>creator.label
+    root = backup.add_element 'company', self.attributes
+    n = 0
+    start = Time.now.to_i
+    reflections = self.class.reflections
+    for name in reflections.keys.collect{|x| x.to_s}.sort
+      reflection = reflections[name.to_sym]
+      if reflection.macro==:has_many
+        rows = self.send(name.to_sym).find(:all, :order=>:id)
+        rows_count = rows.size
+        n += rows_count
+        table = root.add_element('rows', 'reflection'=>name, 'records-count'=>rows_count.to_s)
+        rows_count.times do |i|
+          # puts i if i%200==0
+          table.add_element('row', rows[i].attributes)
+        end
+      end
+    end
+    backup.add_attributes('records-count'=>n.to_s, 'generation-duration'=>(Time.now.to_i-start).to_s)
+    stream = doc.to_s
+    Zlib::GzipWriter.open(file) { |gz| gz.write(stream) }
+    return file
+  end
+
+
+
+  def restore(file)
+    # Décompression
+    stream = nil
+    Zlib::GzipReader.open(file) { |gz| stream = gz.read }
+    doc = REXML::Document.new(stream)
+    backup = doc.root
+    version = (ActiveRecord::Migrator.current_version rescue 0)
+    return false if backup.attribute('version').value != version.to_s
+
+    root = backup.elements[1]
+    ActiveRecord::Base.transaction do
+      # Suppression des données
+      ids  = {}
+      keys = {}
+      reflections = self.class.reflections
+      for name in reflections.keys.collect{|x| x.to_s}.sort
+        reflection = reflections[name.to_sym]
+        if reflection.macro==:has_many
+          other = reflection.class_name
+          other_class = other.constantize
+          ids[other] = {}
+          keys[other] = {}
+          for name, ref in other_class.reflections
+            # Ex. : keys["User"]["role_id"] = "Role"
+            keys[other][ref.primary_key_name] = (ref.options[:polymorphic] ? ref.options[:foreign_type].to_sym : ref.class_name) if ref.macro==:belongs_to and ref.class_name!=self.class.name
+          end
+          other_class.delete_all(:company_id=>self.id)
+        elsif reflection.macro==:belongs_to
+          keys[self.class.name] ||= {}
+          keys[self.class.name][reflection.primary_key_name] = reflection.class_name
+        end
+      end
+
+
+      # Chargement des données sauvegardées
+      data = []
+      for table in root.elements
+        reflection = self.class.reflections[table.attributes['reflection'].to_sym]
+        puts('>> '+reflection.name.to_s)
+        for r in table.elements
+          attributes = r.attributes
+          id = attributes['id']
+          attributes.delete('id')
+          attributes.delete('company_id')
+          record = self.send(reflection.name).build
+          attributes.each{|k,v| record.send(k+'=', v)}
+          record.send(:create_without_callbacks)
+          ids[reflection.class_name][id] = record.id
+          data << record
+        end
+      end
+
+
+      # Réorganisation des clés étrangères
+      for record in data
+        for key, class_name in keys[record.class.name]
+          # user[:role_id] = ids["Role"][user[:role_id].to_s]
+          #raise Exception.new('>> '+class_name.inspect) if ids[class_name].nil?
+          if record[key]
+            v = ids[class_name.is_a?(Symbol) ? record[class_name] : class_name][record[key].to_s]
+#             if class_name.is_a? Symbol
+#               v = ids[record[class_name]][record[key].to_s]
+#             else
+#               v = ids[class_name][record[key].to_s]
+#             end
+            record[key] = v unless v.nil?
+          end
+        end
+        record.send(:update_without_callbacks)
+      end
+      
+      
+
+      # Chargement des paramètres de la société
+      attrs = root.attributes
+      attrs.delete('id')
+      attrs.delete('lock_version')
+      attrs.each{|k,v| self.send(k+'=', v)}
+      for key, class_name in keys[self.class.name]
+        v = ids[class_name][self[key].to_s]
+        self[key] = v unless v.nil?
+      end
+      while self.class.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
+        self.code.succ!
+      end
+      self.send(:update_without_callbacks)
+      # raise Active::Record::Rollback
+    end
+    return true
+  end
+
+
+
+
 
 end
