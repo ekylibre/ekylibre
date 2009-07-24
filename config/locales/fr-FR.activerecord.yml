@@ -35,6 +35,7 @@ fr-FR:
       area: 'Zone postale'
       bank_account: 'Compte bancaire'
       bank_account_statement: 'Relevé de compte bancaire'
+      city: (((CITY)))
       company: 'Société'
       complement: 'Champ complémentaire'
       complement_choice: 'Choix de champ complémentaire'
@@ -46,6 +47,7 @@ fr-FR:
       delivery_line: 'Ligne de livraison'
       delivery_mode: 'Mode de livraison'
       department: 'Service'
+      district: (((DISTRICT)))
       document: 'Document'
       embankment: 'Encaissement'
       employee: 'Employé'
@@ -243,6 +245,30 @@ fr-FR:
         stopped_on: 'Au'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
+
+      # (((CITY)))
+      city:
+        company_id: 'Société'
+        created_at: 'Créé le'
+        created_by: (((CREATED_BY)))
+        district_id: (((DISTRICT_ID)))
+        id: 'ID'
+        insee_ar: (((INSEE_AR)))
+        insee_artmaj: (((INSEE_ARTMAJ)))
+        insee_artmin: (((INSEE_ARTMIN)))
+        insee_cdc: (((INSEE_CDC)))
+        insee_cheflieu: (((INSEE_CHEFLIEU)))
+        insee_com: (((INSEE_COM)))
+        insee_ct: (((INSEE_CT)))
+        insee_dep: (((INSEE_DEP)))
+        insee_ncc: (((INSEE_NCC)))
+        insee_nccenr: (((INSEE_NCCENR)))
+        insee_reg: (((INSEE_REG)))
+        insee_tncc: (((INSEE_TNCC)))
+        lock_version: 'Version'
+        name: (((NAME)))
+        updated_at: 'Mis à jour le'
+        updated_by: (((UPDATED_BY)))
 
       # Société
       company:
@@ -455,6 +481,17 @@ fr-FR:
         parent_id: (((PARENT_ID)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
+
+      # (((DISTRICT)))
+      district:
+        company_id: 'Société'
+        created_at: 'Créé le'
+        created_by: (((CREATED_BY)))
+        id: 'ID'
+        lock_version: 'Version'
+        name: (((NAME)))
+        updated_at: 'Mis à jour le'
+        updated_by: (((UPDATED_BY)))
 
       # Document
       document:

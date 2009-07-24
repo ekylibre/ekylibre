@@ -60,7 +60,6 @@ module Xmlize
         table = root.add_element('table', 'name'=>model.to_s) if table.nil?
         label = I18n.translate("activerecord.models.#{model_name}")
         table.add_attribute('label', label) unless label.match /^translation\ missing/
-        table.add_attribute('version', version)
         for column in columns
           col = table.elements["column[@name='#{column.name}']"]
           col = table.add_element('column', 'name'=>column.name, 'type'=>column.sql_type.upcase) if col.nil?

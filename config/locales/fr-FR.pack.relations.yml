@@ -1,0 +1,214 @@
+fr-FR:
+
+  controllers:
+    relations:
+      client: 'Compte client'
+      contact_email: 'Email'
+      contact_fax: 'Fax'
+      contact_line_2: 'Dest-Service'
+      contact_line_3: 'Bat.-Rés.-ZI'
+      contact_line_4_number: 'Numéro de la voie'
+      contact_line_4_street: 'Libellé de la voie'
+      contact_line_5: 'Lieu dit'
+      contact_line_6_city: 'Ville'
+      contact_line_6_code: 'Code Postal'
+      contact_mobile: 'Portable'
+      contact_phone: 'Téléphone'
+      contact_website: 'Site web'
+      entities_natures_delete_permission: 'Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches'
+      entity_code: 'Code'
+      entity_comment: 'Commentaire'
+      entity_first_name: 'Prénom'
+      entity_name: 'Nom'
+      entity_nature_name: 'Type'
+      entity_reduction_rate: 'Taux de réduction'
+      first_contact: 'Adresse principale'
+      import_succeed: 'Vos données ont été correctement importées '
+      second_contact: 'Adresse secondaire'
+      supplier: 'Compte fournisseur'
+      title: 'Relations'
+      unfound_entity: 'La fiche que vous recherchez est introuvable'
+      you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
+
+  helpers:
+    relations:
+
+  views:
+    relations:
+      complement_choices:
+        complement_choices_create: 'Ajouter un nouveau choix à la liste'
+        complement_choices_sort: 'Trier les choix par nom'
+        complements_update: 'Modifier le champ personnalisé'
+        title: ' Options pour la liste déroulante : {{value}}'
+      complement_choices_create:
+        title: ' Création d''une option pour la liste déroulante : {{value}}'
+      _complement_choices_form:
+        title: 'Renseignez les caractéristiques de l''option'
+      complement_choices_update:
+        title: 'Modification de l''option "{{choice}}" du champ {{complement}} '
+      complements:
+        complements_create: 'Créer un nouveau champ personnalisé'
+        title: 'Champs complémentaires personnalisés'
+      complements_create:
+        title: 'Création d''un champ personnalisé'
+      _complements_form:
+        decimal_case: 'Options pour un décimal'
+        general: 'Général'
+        string_case: 'Options pour le texte'
+      complements_update:
+        title: 'Modification du champ personnalisé : {{value}}'
+      _coordinates_form:
+        address: 'Adresse'
+        canals: 'Coordonnées'
+      districts:
+        districts_create: 'Ajouter une zone'
+        title: 'Districts'
+      districts_create:
+        title: 'Ajouter une zone'
+      districts_update:
+        title: 'Modification de la zone avec {{value}}'
+      entities:
+        entities_create: 'Créer une nouvelle fiche'
+        entities_export: 'Tout exporter au format CSV'
+        entities_import: 'Importer un fichier CSV'
+        nb_entities:
+          one: '1 fiche enregistrée'
+          other: '{{count}} fiches enregistrées'
+          zero: 'Aucune fiche enregistrée'
+        title: 'Fiches des relations'
+      entities_contact_delete:
+        title: 'Caractéristiques du contact à supprimer'
+      entities_contacts_create:
+        title: 'Ajout d''un contact à la fiche de : {{value}}'
+      _entities_contacts_form:
+        address: 'Adresse'
+        canals: 'Coordonnées'
+        title: 'Description générale'
+      entities_contacts_update:
+        title: 'Modification de l''adresse de "{{entity}}"'
+      entities_create:
+        title: 'Création d''une nouvelle fiche client/fournisseur'
+      entities_display:
+        amount: 'Montant HT'
+        amount_with_taxes: 'Montant TTC'
+        bank_accounts:
+          one: '1 compte bancaire'
+          other: '{{count}} comptes bancaires'
+          zero: 'Aucun compte bancaire'
+        bank_accounts_create: 'Ajouter un nouveau compte bancaire'
+        client: 'Client'
+        client_balance: 'Solde du client'
+        confirmed_on: 'Confirmée le'
+        contacts:
+          one: '1 contact'
+          other: '{{count}} contacts'
+          zero: 'Aucun contact'
+        entities_contacts_create: 'Ajouter un nouveau contact'
+        entities_print: 'Imprimer la fiche'
+        entities_update: 'Modifier la fiche'
+        invoices:
+          one: '1 facture'
+          other: '{{count}} factures'
+          zero: 'Aucune facture'
+        meetings:
+          one: '1 rencontre'
+          other: '{{count}} rencontres '
+          zero: 'Aucune rencontre'
+        meetings_create: 'Ajouter une rencontre'
+        nature: 'Nature'
+        number: 'Numéro'
+        sale_orders_number:
+          one: '1 vente '
+          other: ' {{count}} ventes '
+          zero: 'Aucune vente'
+        sales_new: 'Ajouter une nouvelle vente'
+        state: 'État'
+        title: 'Fiche : {{value}}'
+      _entities_form:
+        client: 'Informations client'
+        complements: 'Champs personnalisés'
+        details: 'Informations complémentaires'
+        meeting: 'Lieu(x) de rencontre'
+        no_commercial: ' -- Sans commercial --'
+        no_origin: ' -- Sans origine --'
+        no_proposer: ' -- Sans parrain ni marraine --'
+        supplier: 'Informations fournisseur'
+        title: 'Renseignez les différentes caractéristiques de la fiche'
+      entities_import:
+        defined_columns: 'Voici le format à respecter des colonnes du fichier csv à importer'
+        entities_export: 'Exporter vos fiches clients / fournisseurs au format CSV'
+        file_to_download: 'Fichier à télécharger'
+        please_consult_help_to_have_more_informations: 'Veuillez consulter l''aide pour avoir plus d''informations sur l''import'
+        title: 'Importer des fiches clients et fournisseurs au format CSV'
+      entities_natures:
+        entities_natures_create: 'Ajouter un nouveau type de fiche'
+        title: 'Liste des types de fiches'
+      entities_natures_create:
+        title: 'Ajouter un nouveau type de fiche'
+      entities_natures_update:
+        title: 'Modifier le type de fiche : {{value}}'
+      _entities_search:
+        search: 'Rechercher une fiche'
+      entities_update:
+        title: 'Modification de la fiche : {{value}}'
+      entity_categories:
+        entity_categories_create: 'Ajouter une catégorie de fiche'
+        title: 'Catégories de fiche'
+      entity_categories_create:
+        title: 'Ajout d''une nouvelle catégorie de fiche'
+      entity_categories_display:
+        entity_categories_update: 'Modifier la catégorie de fiche'
+        prices:
+          one: '1 tarif rattaché à cette catégorie'
+          other: '{{count}} tarifs rattachés à cette catégorie'
+          zero: 'Aucun tarif rattaché à cette catégorie'
+        prices_create: 'Ajouter un tarif à cette catégorie'
+        title: 'Catégorie de fiche : {{value}}'
+      entity_categories_update:
+        title: 'Modification de la catégorie de fiche : {{value}}'
+      _general_description_form:
+        title: 'Description générale'
+      index:
+        complements: 'Champs personnalisés'
+        districts: 'Districts'
+        entities: 'Gérer les fiches'
+        entities_create: 'Créer une nouvelle fiche'
+        entities_managing: 'Clients et fournisseurs'
+        entities_natures: 'Types de fiches'
+        entity_categories: 'Catégories de fiches'
+        import_export: 'Import/Export de fiches'
+        meeting_locations: 'Lieux de rencontre'
+        meeting_modes: 'Types de rencontre'
+        meetings: 'Rencontres'
+        nb_entities:
+          one: '1 fiche client/fournisseur'
+          other: '{{count}} fiches clients/fournisseurs'
+          zero: 'Aucune fiche clients/fournisseurs'
+        parameters: 'Paramètres'
+        title: 'Gestion des relations clients et fournisseurs'
+      meeting_locations:
+        meeting_locations_create: 'Ajouter un lieu de rencontre'
+        title: 'Lieux de rencontre'
+      meeting_locations_create:
+        title: 'Créer un nouveau lieu de rencontre'
+      meeting_locations_update:
+        title: 'Modification du lieu de rencontre {{value}}'
+      meeting_modes:
+        meeting_modes_create: 'Ajouter un nouveau type de rencontre'
+        title: 'Types de rencontre'
+      meeting_modes_create:
+        title: 'Créer un nouveau type de rencontre'
+      meeting_modes_update:
+        title: 'Modification du type de rencontre {{value}}'
+      meetings:
+        meetings_create: 'Ajouter une rencontre'
+        title: 'Rencontres'
+      meetings_create:
+        title: 'Ajouter une rencontre'
+      meetings_update:
+        title: 'Modification de la rencontre avec {{value}}'
+      sales_print:
+        deliveries_number:
+          one: '1 livraison'
+          other: '{{count}} livraisons'
+          zero: 'Aucune livraison'

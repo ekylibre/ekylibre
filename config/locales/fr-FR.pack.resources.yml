@@ -1,0 +1,45 @@
+fr-FR:
+
+  controllers:
+    resources:
+      title: 'Ressources'
+
+  helpers:
+    resources:
+
+  views:
+    resources:
+      employees:
+        create: 'Créer un nouvel employé'
+        employees_create: 'Création d''un nouvel employé'
+        nb_employees:
+          one: '1 employé enregistré'
+          other: '{{count}} employés enregistrés'
+          zero: 'Aucun employé enregistré'
+        title: 'Fiches des employés'
+      employees_create:
+        title: 'Création d''un nouvel employé'
+      _employees_form:
+        select_user: '-- Sans utilisateur --'
+      _employees_search:
+        search: 'Rechercher un employé'
+        title: 'Recherche'
+      employees_update:
+        title: 'Modification d''un employé'
+      index:
+        employees: 'Fiches employés'
+        human: 'Ressources humaines'
+        nb_employees:
+          one: '1 employé'
+          other: '{{count}} employés'
+          zero: 'Aucun employé'
+        parameters: 'Paramètres'
+        professions: 'Professions'
+        title: 'Gestion des ressources'
+      professions:
+        professions_create: 'Ajouter une nouvelle profession'
+        title: 'Gestion des professions'
+      professions_create:
+        title: 'Ajout d''une nouvelle profession'
+      professions_update:
+        title: 'Modification de la profession'

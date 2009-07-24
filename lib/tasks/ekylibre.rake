@@ -2,8 +2,8 @@ require 'csv'
 
 def hash_to_yaml(hash, depth=0)
   code = ''
-  for k, v in hash.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
-    code += "  "*depth+k.to_s+":"+(v.is_a?(Hash) ? "\n"+hash_to_yaml(v,depth+1) : " '"+v.gsub("'", "''")+"'\n")
+  for k, v in hash.to_a.sort{|a,b| a[0].to_s.gsub("_"," ").strip<=>b[0].to_s.gsub("_"," ").strip}
+    code += "  "*depth+k.to_s+":"+(v.is_a?(Hash) ? "\n"+hash_to_yaml(v,depth+1) : " '"+v.gsub("'", "''")+"'\n") if v
   end
   code
 end
@@ -118,7 +118,7 @@ namespace :clean do
       models_attributes += "      #{model}:\n"
       attributes = {}
       for k, v in ::I18n.translate("activerecord.attributes.#{model}")||{}
-        attributes[k] = "'"+v.gsub("'","''")+"'"
+        attributes[k] = "'"+v.gsub("'","''")+"'" if v
       end
       static_attrs_count += model.camelcase.constantize.columns.size
       for column in model.camelcase.constantize.columns
@@ -146,6 +146,23 @@ namespace :clean do
     end
 
     puts "#{models.size} models, #{static_attrs_count} static attributes, #{attrs_count-static_attrs_count} virtual attributes, #{(attrs_count.to_f/models.size).round(1)} attributes/models"
+
+    controllers = Dir["#{RAILS_ROOT}/app/controllers/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
+    for controller in controllers
+      controller_name = controller.split("_")[0..-2]
+      translation  = ::I18n.locale.to_s+":\n"
+      for part in [:controllers, :helpers, :views] 
+        translation += "\n  #{part}:\n"
+        translation += "    #{controller_name}:\n"
+        translation += hash_to_yaml(::I18n.translate("#{part}.#{controller_name}"),3)
+      end
+      File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.pack.#{controller_name}.yml", "wb") do |file|
+        file.write translation
+      end
+    end
+
+    puts "#{controllers.size} controllers"
+
   end
   
 

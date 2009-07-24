@@ -1,0 +1,138 @@
+fr-FR:
+
+  controllers:
+    company:
+      restoration_finished: 'La restauration de la sauvegarde s''est terminée (en {{value}} secondes)'
+      role: 'Rôle'
+      title: 'Société'
+      unknown_action: 'La page que vous demandez n''est pas disponible. ({{value}})'
+      unvalid_version_for_restore: 'La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel'
+
+  helpers:
+    company:
+
+  views:
+    company:
+      about_us:
+        title: 'À propos d''Ekylibre'
+      configure:
+        accountancy: 'Comptabilité'
+        general: 'Paramètres généraux'
+        management: 'Gestion commerciale'
+        relations: 'Relations clients/fournisseurs'
+        title: 'Configuration de {{value}}'
+      departments:
+        departments_create: 'Ajouter un nouveau service'
+        title: 'Liste des services de la société'
+      departments_create:
+        title: 'Ajout d''un nouveau service'
+      _departments_form:
+        subtitle: 'Renseignez les différentes caractéristiques du service'
+      departments_update:
+        title: 'Modification du service'
+      establishments:
+        establishments_create: 'Ajouter un nouvel établissement'
+        title: 'Liste des établissements'
+      establishments_create:
+        title: 'Ajout d''un nouvel etablissement'
+      _establishments_form:
+        subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
+      establishments_update:
+        title: 'Modification de l''établissement'
+      help:
+        other_results: 'Autres résultats...'
+        results:
+          one: '1 résultat'
+          other: '{{count}} résultats'
+          zero: 'Aucun résultat'
+        search: 'Rechercher un article dans l''aide'
+        title: 'Rubriques d''aide'
+      _help_result:
+        pertinence: '{{value}}%'
+      index:
+        about_us: 'À propos d''Ekylibre'
+        accountancy: 'Comptabilité générale'
+        configure: 'Configuration'
+        departments: 'Services'
+        establishments: 'Établissements'
+        general: 'Autres paramètres'
+        help: 'Aide'
+        informations: 'Informations'
+        listings: 'Extractions de données'
+        management: 'Gestion commerciale (ventes, achats et stocks)'
+        modules: 'Modules'
+        nb_entities:
+          one: '1 fiche client/fournisseur'
+          other: '{{count}} fiches clients/fournisseurs'
+          zero: 'Aucune fiche clients/fournisseurs'
+        nb_purchases:
+          one: '1 achat en attente de reception'
+          other: '{{count}} achats en attente de reception'
+          zero: 'Aucun achat en attente de reception'
+        nb_sales:
+          one: '1 livraison en attente'
+          other: '{{count}} livraisons en attente '
+          zero: 'Aucune livraison en attente'
+        parameters: 'Paramètres'
+        production: 'Gestion de la production'
+        relations: 'Gestion des relations clients/fournisseurs'
+        resources: 'Gestion des ressources humaines'
+        restore: 'Sauvegardes'
+        roles: 'Rôles'
+        sequences: 'Séquences'
+        title: 'Bienvenue dans Ekylibre, {{user}}'
+        tools: 'Outils'
+        users: 'Utilisateurs'
+      listings:
+        listings_create: 'Créer une nouvelle extraction'
+        title: 'Extractions de données'
+      listings_create:
+        title: 'Création d''une nouvelle extraction'
+      _listings_form:
+        subtitle: 'Renseignez les informations concernant l''extraction'
+      listings_update:
+        title: 'Modification de l''extraction {{value}}'
+      restore:
+        backup: 'Effectuer une copie de sauvegarde'
+        download: 'Sélectionner le fichier de sauvegarde à télécharger'
+        import_backup: 'Import de fichier de sauvegarde'
+        title: 'Créer et recharger des sauvegardes'
+        your_new_code_is: 'Votre nouveau code société est : {{value}}'
+      _rights_form:
+        accountancy_rights: 'Droits module Comptabilité'
+        company_rights: 'Droits module Société'
+        management_rights: 'Droits module Commerce'
+        production_rights: 'Droits module Production'
+        relations_rights: 'Droits module Relations'
+        resources_rights: 'Droits module Ressources'
+      roles:
+        roles_create: 'Ajouter un rôle'
+        title: 'Liste des rôles'
+      roles_create:
+        title: 'Ajouter un rôle'
+      _roles_form:
+        role_name: 'Entrez le nom du rôle puis attribuez lui ses droits'
+      roles_update:
+        title: 'Modification du rôle {{value}}'
+      sequences:
+        sequences_create: 'Ajouter une séquence'
+        title: 'Liste des séquences'
+      sequences_create:
+        title: 'Création d''une nouvelle séquence'
+      _sequences_form:
+        subtitle: 'Caractéristiques de la séquence'
+      sequences_update:
+        title: 'Modification de la séquence {{value}}'
+      user:
+        change_password: 'Changer de mot de passe'
+        title: 'Informations sur l''utilisateur : {{value}}'
+      users:
+        title: 'Liste des utilisateurs'
+        users_create: 'Ajouter un nouvel utilisateur'
+      users_create:
+        title: 'Création d''un nouvel utilisateur'
+      _users_form:
+        rights: 'Droits'
+        subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
+      users_update:
+        title: 'Modification de l''utilisateur'

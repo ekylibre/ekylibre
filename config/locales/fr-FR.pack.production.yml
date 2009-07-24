@@ -1,0 +1,79 @@
+fr-FR:
+
+  controllers:
+    production:
+      mistake_on_quantities_sum: 'La somme des quantités n''est pas égale à la quantité totale produite'
+      need_stock_location_to_create_production: 'Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions'
+      title: 'Production'
+
+  helpers:
+    production:
+
+  views:
+    production:
+      index:
+        indicator: 'Tableau de bord'
+        nb_operations:
+          one: '1 traitement à réaliser'
+          other: '{{count}} traitements à réaliser'
+          zero: 'Aucun traitement à réaliser'
+        production: 'Productions'
+        productions: 'Productions'
+        shape_operation_natures: 'Types de traitement'
+        shape_operations: 'Traitements'
+        shapes: 'Îlots'
+        title: 'Gestion de la production'
+      production_lines_create:
+        title: 'Gérer les quantités utilisées '
+      _production_lines_form:
+        name: 'Nom'
+        quantity: 'Quantité'
+        total_quantity: 'Quantité totale produite'
+        unit: 'Unité'
+      production_lines_update:
+        title: 'Modifier les quantités utilisées'
+      productions:
+        productions: 'Productions'
+        productions_create: 'Enregistrer un nouvelle production'
+        title: 'Productions'
+      productions_create:
+        title: 'Créer une nouvelle production'
+      _productions_form:
+        infos: 'Renseignez les caractéristiques de la production'
+        production_legend_one: ' mp : matières premières'
+        production_legend_two: ' nc : nombre de composants '
+      productions_update:
+        title: 'Modification de la production {{value}} du {{moved}}'
+      shape_operation_natures:
+        shape_operation_natures_create: 'Créer un nouveau type de traitement'
+        title: 'Types de traitement'
+      shape_operation_natures_create:
+        title: 'Créer un nouveau type de traitement'
+      shape_operations:
+        shape_operations_create: 'Créer un nouveau traitement'
+        title: 'Traitements'
+      shape_operations_create:
+        title: 'Créer un nouveau traitement'
+      _shape_operations_form:
+        infos: 'Renseignez les caractéristiques du traitement'
+      shape_operations_update:
+        title: 'Modification du traitement {{value}}'
+      shapes:
+        shapes: 'Îlots'
+        shapes_create: 'Créer un nouvel îlot'
+        title: 'Îlots'
+      shapes_create:
+        title: 'Ajouter un nouvel îlot'
+      _shapes_form:
+        infos: 'Renseignez les caractéristiques de l''îlot'
+      unvalidated_operations:
+        employee_name: 'Employé'
+        executed: 'Éffectué'
+        index: 'Retour à l''index de la production'
+        name: 'Nom'
+        nature: 'Type'
+        no_operations: 'Aucun traitement à réaliser'
+        planned_on: 'Prévu le'
+        shape_name: 'Îlot'
+        title: 'Traitements à réaliser'
+        validate: 'Valider'

@@ -1,0 +1,15 @@
+fr-FR:
+
+  controllers:
+    help:
+      title: 'Aide'
+
+  helpers:
+    help:
+
+  views:
+    help:
+      _search:
+        error_no_file: 'Aucune aide disponible pour cette partie de l''application'
+        home: 'Retour à l''accueil de l''aide'
+        title: 'Aide'

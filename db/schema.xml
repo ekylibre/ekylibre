@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <analysis version='20090721150302'>
-  <table name='Account' version='20090721150302' label='Compte'>
+  <table name='Account' label='Compte'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='number' type='CHARACTER VARYING(16)' notnull='true' label='Numéro'/>
     <column name='alpha' type='CHARACTER VARYING(16)' label='(((ALPHA)))'/>
@@ -24,7 +24,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='AccountBalance' version='20090721150302' label='(((ACCOUNT_BALANCE)))'>
+  <table name='AccountBalance' label='Balance de compte'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='account_id' type='INTEGER' notnull='true' label='(((ACCOUNT_ID)))'/>
     <column name='financialyear_id' type='INTEGER' notnull='true' label='(((FINANCIALYEAR_ID)))'/>
@@ -43,7 +43,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='AddressNorm' version='20090721150302' label='Norme postale'>
+  <table name='AddressNorm' label='Norme postale'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='(((NAME)))'/>
     <column name='reference' type='CHARACTER VARYING(255)' label='(((REFERENCE)))'/>
@@ -57,7 +57,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='AddressNormItem' version='20090721150302' label='Élément de norme postale'>
+  <table name='AddressNormItem' label='Élément de norme postale'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='contact_norm_id' type='INTEGER' notnull='true' label='(((CONTACT_NORM_ID)))'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='(((NAME)))'/>
@@ -76,7 +76,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Area' version='20090721150302' label='(((AREA)))'>
+  <table name='Area' label='Zone postale'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='postcode' type='CHARACTER VARYING(255)' notnull='true' label='(((POSTCODE)))'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='(((NAME)))'/>
@@ -84,11 +84,11 @@
     <column name='company_id' type='INTEGER' notnull='true' label='Société'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Créé le'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Mis à jour le'/>
+    <column name='lock_version' default='0' type='INTEGER' notnull='true' label='Version'/>
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
-    <column name='lock_version' default='0' type='INTEGER' notnull='true' label='Version'/>
   </table>
-  <table name='BankAccount' version='20090721150302' label='Compte bancaire'>
+  <table name='BankAccount' label='Compte bancaire'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Intitulé'/>
     <column name='iban' type='CHARACTER VARYING(34)' notnull='true' label='IBAN'/>
@@ -114,7 +114,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='BankAccountStatement' version='20090721150302' label='Relevé de compte bancaire'>
+  <table name='BankAccountStatement' label='Relevé de compte bancaire'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='bank_account_id' type='INTEGER' notnull='true' label='Compte bancaire utilisé'/>
     <column name='started_on' type='DATE' notnull='true' label='Du'/>
@@ -130,7 +130,30 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Company' version='20090721150302' label='Société'>
+  <table name='City' label='(((CITY)))'>
+    <column name='id' type='INTEGER' notnull='true' label='ID'/>
+    <column name='insee_cdc' type='CHARACTER VARYING(1)' label='(((INSEE_CDC)))'/>
+    <column name='insee_cheflieu' type='CHARACTER VARYING(1)' label='(((INSEE_CHEFLIEU)))'/>
+    <column name='insee_reg' type='CHARACTER VARYING(2)' label='(((INSEE_REG)))'/>
+    <column name='insee_dep' type='CHARACTER VARYING(3)' label='(((INSEE_DEP)))'/>
+    <column name='insee_com' type='CHARACTER VARYING(3)' label='(((INSEE_COM)))'/>
+    <column name='insee_ar' type='CHARACTER VARYING(1)' label='(((INSEE_AR)))'/>
+    <column name='insee_ct' type='CHARACTER VARYING(2)' label='(((INSEE_CT)))'/>
+    <column name='insee_tncc' type='CHARACTER VARYING(1)' label='(((INSEE_TNCC)))'/>
+    <column name='insee_artmaj' type='CHARACTER VARYING(5)' label='(((INSEE_ARTMAJ)))'/>
+    <column name='insee_ncc' type='CHARACTER VARYING(70)' label='(((INSEE_NCC)))'/>
+    <column name='insee_artmin' type='CHARACTER VARYING(5)' label='(((INSEE_ARTMIN)))'/>
+    <column name='insee_nccenr' type='CHARACTER VARYING(70)' label='(((INSEE_NCCENR)))'/>
+    <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='(((NAME)))'/>
+    <column name='district_id' type='INTEGER' notnull='true' label='(((DISTRICT_ID)))'/>
+    <column name='company_id' type='INTEGER' notnull='true' label='Société'/>
+    <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Créé le'/>
+    <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Mis à jour le'/>
+    <column name='created_by' type='INTEGER' label='(((CREATED_BY)))'/>
+    <column name='updated_by' type='INTEGER' label='(((UPDATED_BY)))'/>
+    <column name='lock_version' default='0' type='INTEGER' notnull='true' label='Version'/>
+  </table>
+  <table name='Company' label='Société'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='code' type='CHARACTER VARYING(8)' notnull='true' label='Code interne'/>
@@ -141,11 +164,10 @@
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Mis à jour le'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true' label='Version'/>
     <column name='entity_id' type='INTEGER' label='Fiche relation'/>
-    <column name='invoice_sequence_id' type='INTEGER' label='(((INVOICE_SEQUENCE_ID)))'/>
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Complement' version='20090721150302' label='(((COMPLEMENT)))'>
+  <table name='Complement' label='Champ complémentaire'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='nature' type='CHARACTER VARYING(8)' notnull='true' label='Type de donnée'/>
@@ -162,7 +184,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='ComplementChoice' version='20090721150302' label='(((COMPLEMENT_CHOICE)))'>
+  <table name='ComplementChoice' label='Choix de champ complémentaire'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='complement_id' type='INTEGER' notnull='true' label='(((COMPLEMENT_ID)))'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
@@ -175,7 +197,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='ComplementDatum' version='20090721150302' label='(((COMPLEMENT_DATUM)))'>
+  <table name='ComplementDatum' label='Donnée complémentaire de fiche'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='entity_id' type='INTEGER' notnull='true' label='(((ENTITY_ID)))'/>
     <column name='complement_id' type='INTEGER' notnull='true' label='(((COMPLEMENT_ID)))'/>
@@ -192,7 +214,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Contact' version='20090721150302' label='Contact'>
+  <table name='Contact' label='Contact'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='entity_id' type='INTEGER' notnull='true' label='(((ENTITY_ID)))'/>
     <column name='norm_id' type='INTEGER' notnull='true' label='(((NORM_ID)))'/>
@@ -227,7 +249,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Currency' version='20090721150302' label='Devise'>
+  <table name='Currency' label='Devise'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='(((NAME)))'/>
     <column name='code' type='CHARACTER VARYING(255)' notnull='true' label='Code'/>
@@ -242,7 +264,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Delay' version='20090721150302' label='Délai'>
+  <table name='Delay' label='Délai'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='active' default='TRUE' type='BOOLEAN' notnull='true' label='Utilisable'/>
@@ -255,7 +277,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Delivery' version='20090721150302' label='Livraison'>
+  <table name='Delivery' label='Livraison'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='order_id' type='INTEGER' notnull='true' label='(((ORDER_ID)))'/>
     <column name='invoice_id' type='INTEGER' label='Facture'/>
@@ -273,7 +295,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='DeliveryLine' version='20090721150302' label='Ligne de livraison'>
+  <table name='DeliveryLine' label='Ligne de livraison'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='delivery_id' type='INTEGER' notnull='true' label='(((DELIVERY_ID)))'/>
     <column name='order_line_id' type='INTEGER' notnull='true' label='(((ORDER_LINE_ID)))'/>
@@ -290,7 +312,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='DeliveryMode' version='20090721150302' label='Mode de livraison'>
+  <table name='DeliveryMode' label='Mode de livraison'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='code' type='CHARACTER VARYING(3)' notnull='true' label='Code'/>
@@ -302,7 +324,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Department' version='20090721150302' label='Service'>
+  <table name='Department' label='Service'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
@@ -314,7 +336,17 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Document' version='20090721150302' label='Document'>
+  <table name='District' label='(((DISTRICT)))'>
+    <column name='id' type='INTEGER' notnull='true' label='ID'/>
+    <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='(((NAME)))'/>
+    <column name='company_id' type='INTEGER' notnull='true' label='Société'/>
+    <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Créé le'/>
+    <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Mis à jour le'/>
+    <column name='created_by' type='INTEGER' label='(((CREATED_BY)))'/>
+    <column name='updated_by' type='INTEGER' label='(((UPDATED_BY)))'/>
+    <column name='lock_version' default='0' type='INTEGER' notnull='true' label='Version'/>
+  </table>
+  <table name='Document' label='Document'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='filename' type='CHARACTER VARYING(255)' label='(((FILENAME)))'/>
     <column name='original_name' type='CHARACTER VARYING(255)' notnull='true' label='(((ORIGINAL_NAME)))'/>
@@ -331,7 +363,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Embankment' version='20090721150302' label='Encaissement'>
+  <table name='Embankment' label='Encaissement'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='amount' default='0.0' type='NUMERIC(16,4)' notnull='true' label='Montant'/>
     <column name='payments_number' default='0' type='INTEGER' notnull='true' label='Nombre de chèque'/>
@@ -347,7 +379,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Employee' version='20090721150302' label='Employé'>
+  <table name='Employee' label='Employé'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='department_id' type='INTEGER' notnull='true' label='Département'/>
     <column name='establishment_id' type='INTEGER' notnull='true' label='Etablissement'/>
@@ -369,7 +401,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Entity' version='20090721150302' label='Relation'>
+  <table name='Entity' label='Relation'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='nature_id' type='INTEGER' notnull='true' label='Type'/>
     <column name='language_id' type='INTEGER' notnull='true' label='Langue'/>
@@ -413,7 +445,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='EntityCategory' version='20090721150302' label='Catégorie de relation'>
+  <table name='EntityCategory' label='Catégorie de relation'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='description' type='TEXT' label='Description'/>
@@ -427,7 +459,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='EntityNature' version='20090721150302' label='Type de relation'>
+  <table name='EntityNature' label='Type de relation'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom (interne)'/>
     <column name='abbreviation' type='CHARACTER VARYING(255)' notnull='true' label='Abréviation'/>
@@ -443,7 +475,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Entry' version='20090721150302' label='Écriture'>
+  <table name='Entry' label='Écriture'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='record_id' type='INTEGER' notnull='true' label='Numéro'/>
     <column name='account_id' type='INTEGER' notnull='true' label='Compte'/>
@@ -468,7 +500,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Establishment' version='20090721150302' label='Établissement'>
+  <table name='Establishment' label='Établissement'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='nic' type='CHARACTER VARYING(5)' notnull='true' label='NIC (Numéro Interne de Classement)'/>
@@ -481,7 +513,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Financialyear' version='20090721150302' label='Exercice'>
+  <table name='Financialyear' label='Exercice'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='code' type='CHARACTER VARYING(12)' notnull='true' label='Code'/>
     <column name='closed' type='BOOLEAN' notnull='true' label='Clôturé'/>
@@ -494,7 +526,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Inventory' version='20090721150302' label='Inventaire'>
+  <table name='Inventory' label='Inventaire'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='date' type='DATE' notnull='true' label='(((DATE)))'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
@@ -506,7 +538,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='InventoryLine' version='20090721150302' label='Ligne d&apos;inventaire'>
+  <table name='InventoryLine' label='Ligne d&apos;inventaire'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='product_id' type='INTEGER' notnull='true' label='(((PRODUCT_ID)))'/>
     <column name='location_id' type='INTEGER' notnull='true' label='(((LOCATION_ID)))'/>
@@ -520,7 +552,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Invoice' version='20090721150302' label='Facture'>
+  <table name='Invoice' label='Facture'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='client_id' type='INTEGER' notnull='true' label='Client'/>
     <column name='nature' type='CHARACTER VARYING(1)' notnull='true' label='(((NATURE)))'/>
@@ -545,7 +577,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='InvoiceLine' version='20090721150302' label='Ligne de facture'>
+  <table name='InvoiceLine' label='Ligne de facture'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='order_line_id' type='INTEGER' notnull='true' label='(((ORDER_LINE_ID)))'/>
     <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
@@ -563,7 +595,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Journal' version='20090721150302' label='Journal'>
+  <table name='Journal' label='Journal'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='nature' type='CHARACTER VARYING(16)' notnull='true' label='Nature'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
@@ -579,7 +611,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='JournalRecord' version='20090721150302' label='Pièce comptable'>
+  <table name='JournalRecord' label='Pièce comptable'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='resource_id' type='INTEGER' label='(((RESOURCE_ID)))'/>
     <column name='resource_type' type='CHARACTER VARYING(255)' label='(((RESOURCE_TYPE)))'/>
@@ -600,7 +632,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Language' version='20090721150302' label='Langue'>
+  <table name='Language' label='Langue'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='(((NAME)))'/>
     <column name='native_name' type='CHARACTER VARYING(255)' notnull='true' label='(((NATIVE_NAME)))'/>
@@ -612,12 +644,13 @@
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' label='Créé le'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' label='Mis à jour le'/>
   </table>
-  <table name='Listing' version='20090721150302' label='Extraction'>
+  <table name='Listing' label='Extraction'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='root_model' type='CHARACTER VARYING(255)' notnull='true' label='Racine'/>
-    <column name='query' type='TEXT' label='(((QUERY)))'/>
+    <column name='query' type='TEXT' label='Requête'/>
     <column name='comment' type='TEXT' label='Commentaire'/>
+    <column name='story' type='TEXT' label='Historique'/>
     <column name='company_id' type='INTEGER' notnull='true' label='Société'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Créé le'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Mis à jour le'/>
@@ -625,21 +658,21 @@
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true' label='Version'/>
   </table>
-  <table name='ListingNode' version='20090721150302' label='(((LISTING_NODE)))'>
+  <table name='ListingNode' label='Noeud d&apos;extraction'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
-    <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='(((NAME)))'/>
-    <column name='label' type='CHARACTER VARYING(255)' notnull='true' label='(((LABEL)))'/>
-    <column name='nature' type='CHARACTER VARYING(255)' notnull='true' label='(((NATURE)))'/>
-    <column name='reflection_name' type='CHARACTER VARYING(255)' label='(((REFLECTION_NAME)))'/>
-    <column name='position' type='INTEGER' label='(((POSITION)))'/>
-    <column name='exportable' default='TRUE' type='BOOLEAN' notnull='true' label='(((EXPORTABLE)))'/>
-    <column name='parent_id' type='INTEGER' fkey='ListingNode(id)' label='(((PARENT_ID)))'/>
-    <column name='comparator' type='CHARACTER VARYING(16)' label='(((COMPARATOR)))'/>
+    <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
+    <column name='label' type='CHARACTER VARYING(255)' notnull='true' label='Libellé'/>
+    <column name='nature' type='CHARACTER VARYING(255)' notnull='true' label='Nature'/>
+    <column name='reflection_name' type='CHARACTER VARYING(255)' label='Réflection'/>
+    <column name='position' type='INTEGER' label='Position'/>
+    <column name='exportable' default='TRUE' type='BOOLEAN' notnull='true' label='Exportable'/>
+    <column name='parent_id' type='INTEGER' fkey='ListingNode(id)' label='Parent'/>
+    <column name='comparator' type='CHARACTER VARYING(16)' label='Comparateur'/>
     <column name='item_nature' type='CHARACTER VARYING(8)' label='(((ITEM_NATURE)))'/>
     <column name='item_value' type='TEXT' label='(((ITEM_VALUE)))'/>
     <column name='item_listing_id' type='INTEGER' label='(((ITEM_LISTING_ID)))'/>
     <column name='item_listing_node_id' type='INTEGER' label='(((ITEM_LISTING_NODE_ID)))'/>
-    <column name='listing_id' type='INTEGER' notnull='true' label='(((LISTING_ID)))'/>
+    <column name='listing_id' type='INTEGER' notnull='true' label='Extraction'/>
     <column name='company_id' type='INTEGER' notnull='true' label='Société'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Créé le'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Mis à jour le'/>
@@ -647,11 +680,11 @@
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true' label='Version'/>
   </table>
-  <table name='ListingNodeItem' version='20090721150302' label='(((LISTING_NODE_ITEM)))'>
+  <table name='ListingNodeItem' label='Élément de noeud d&apos;extraction'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
-    <column name='node_id' type='INTEGER' notnull='true' label='(((NODE_ID)))'/>
-    <column name='nature' type='CHARACTER VARYING(8)' notnull='true' label='(((NATURE)))'/>
-    <column name='value' type='TEXT' label='(((VALUE)))'/>
+    <column name='node_id' type='INTEGER' notnull='true' label='Noeud d&apos;extraction'/>
+    <column name='nature' type='CHARACTER VARYING(8)' notnull='true' label='Nature'/>
+    <column name='value' type='TEXT' label='Valeur'/>
     <column name='company_id' type='INTEGER' notnull='true' label='Société'/>
     <column name='created_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Créé le'/>
     <column name='updated_at' type='TIMESTAMP WITHOUT TIME ZONE' notnull='true' label='Mis à jour le'/>
@@ -659,7 +692,7 @@
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true' label='Version'/>
   </table>
-  <table name='Meeting' version='20090721150302' label='(((MEETING)))'>
+  <table name='Meeting' label='Rencontre'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='entity_id' type='INTEGER' notnull='true' label='Client'/>
     <column name='location_id' type='INTEGER' notnull='true' label='Lieu'/>
@@ -675,7 +708,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='MeetingLocation' version='20090721150302' label='(((MEETING_LOCATION)))'>
+  <table name='MeetingLocation' label='Lieu de rencontre'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='description' type='TEXT' label='Description'/>
@@ -687,7 +720,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='MeetingMode' version='20090721150302' label='(((MEETING_MODE)))'>
+  <table name='MeetingMode' label='Mode de rencontre'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='active' type='BOOLEAN' label='(((ACTIVE)))'/>
@@ -698,7 +731,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Parameter' version='20090721150302' label='Paramètre'>
+  <table name='Parameter' label='Paramètre'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='(((NAME)))'/>
     <column name='nature' default='&quot;u&quot;' type='CHARACTER VARYING(8)' notnull='true' label='(((NATURE)))'/>
@@ -716,7 +749,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Payment' version='20090721150302' label='Réglement'>
+  <table name='Payment' label='Réglement'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='paid_on' type='DATE' label='Réglé le'/>
     <column name='amount' type='NUMERIC(16,2)' notnull='true' label='Montant'/>
@@ -731,13 +764,13 @@
     <column name='check_number' type='CHARACTER VARYING(255)' label='Numéro de chèque'/>
     <column name='account_number' type='CHARACTER VARYING(255)' label='Numéro de compte'/>
     <column name='entity_id' type='INTEGER' label='Client'/>
-    <column name='to_bank_on' default='Tue, 07 Jul 2009' type='DATE' notnull='true' label='À encaisser le'/>
+    <column name='to_bank_on' default='Wed, 08 Jul 2009' type='DATE' notnull='true' label='À encaisser le'/>
     <column name='embankment_id' type='INTEGER' label='(((EMBANKMENT_ID)))'/>
     <column name='embanker_id' type='INTEGER' label='Encaisseur'/>
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='PaymentMode' version='20090721150302' label='Mode de réglement'>
+  <table name='PaymentMode' label='Mode de réglement'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(50)' notnull='true' label='Nom'/>
     <column name='nature' default='&quot;U&quot;' type='CHARACTER VARYING(1)' notnull='true' label='(((NATURE)))'/>
@@ -750,7 +783,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='PaymentPart' version='20090721150302' label='Partie de réglement'>
+  <table name='PaymentPart' label='Partie de réglement'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='amount' type='NUMERIC(16,2)' label='Montant attribué à la vente'/>
     <column name='payment_id' type='INTEGER' notnull='true' label='(((PAYMENT_ID)))'/>
@@ -762,7 +795,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Price' version='20090721150302' label='Prix'>
+  <table name='Price' label='Prix'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='amount' type='NUMERIC(16,4)' notnull='true' label='Montant HT'/>
     <column name='amount_with_taxes' type='NUMERIC(16,4)' notnull='true' label='Montant TTC'/>
@@ -785,7 +818,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='PriceTax' version='20090721150302' label='Taxe de prix'>
+  <table name='PriceTax' label='Taxe de prix'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='price_id' type='INTEGER' notnull='true' label='(((PRICE_ID)))'/>
     <column name='tax_id' type='INTEGER' notnull='true' label='(((TAX_ID)))'/>
@@ -797,7 +830,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Product' version='20090721150302' label='Produit'>
+  <table name='Product' label='Produit'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='to_purchase' type='BOOLEAN' notnull='true' label='Produit destiné à l&apos;achat'/>
     <column name='to_sale' default='TRUE' type='BOOLEAN' notnull='true' label='Produit destiné à la vente'/>
@@ -836,7 +869,7 @@
     <column name='subscription_period' type='CHARACTER VARYING(255)' label='Période'/>
     <column name='subscription_nature_id' type='INTEGER' label='Type'/>
   </table>
-  <table name='ProductComponent' version='20090721150302' label='Composant de produit'>
+  <table name='ProductComponent' label='Composant de produit'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='product_id' type='INTEGER' notnull='true' label='(((PRODUCT_ID)))'/>
@@ -854,7 +887,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='ProductStock' version='20090721150302' label='(((PRODUCT_STOCK)))'>
+  <table name='ProductStock' label='Stock de produit'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
     <column name='location_id' type='INTEGER' notnull='true' label='Pour le lieu de stockage'/>
@@ -870,7 +903,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Production' version='20090721150302' label='Production'>
+  <table name='Production' label='Production'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
     <column name='quantity' default='0.0' type='NUMERIC(16,2)' notnull='true' label='Quantité'/>
@@ -884,7 +917,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Profession' version='20090721150302' label='Profession'>
+  <table name='Profession' label='Profession'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='code' type='CHARACTER VARYING(255)' label='Code'/>
@@ -897,7 +930,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='PurchaseOrder' version='20090721150302' label='Achat'>
+  <table name='PurchaseOrder' label='Achat'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='supplier_id' type='INTEGER' notnull='true' label='Fournisseur'/>
     <column name='number' type='CHARACTER VARYING(64)' notnull='true' label='Numéro'/>
@@ -916,7 +949,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='PurchaseOrderLine' version='20090721150302' label='Ligne d&apos;achat'>
+  <table name='PurchaseOrderLine' label='Ligne d&apos;achat'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='order_id' type='INTEGER' notnull='true' label='(((ORDER_ID)))'/>
     <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
@@ -935,7 +968,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Role' version='20090721150302' label='Rôle'>
+  <table name='Role' label='Rôle'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='company_id' type='INTEGER' notnull='true' label='Société'/>
@@ -946,7 +979,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='SaleOrder' version='20090721150302' label='Vente'>
+  <table name='SaleOrder' label='Vente'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='client_id' type='INTEGER' notnull='true' label='Client'/>
     <column name='nature_id' type='INTEGER' notnull='true' label='Nature'/>
@@ -978,7 +1011,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='SaleOrderLine' version='20090721150302' label='Ligne de vente'>
+  <table name='SaleOrderLine' label='Ligne de vente'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='order_id' type='INTEGER' notnull='true' label='(((ORDER_ID)))'/>
     <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
@@ -1000,7 +1033,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='SaleOrderNature' version='20090721150302' label='Type de vente'>
+  <table name='SaleOrderNature' label='Type de vente'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='expiration_id' type='INTEGER' notnull='true' label='Délai d&apos;expiration du devis'/>
@@ -1017,7 +1050,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Sequence' version='20090721150302' label='Séquence'>
+  <table name='Sequence' label='Séquence'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='format' type='CHARACTER VARYING(255)' notnull='true' label='Format'/>
@@ -1035,7 +1068,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Shape' version='20090721150302' label='Îlot'>
+  <table name='Shape' label='Îlot'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='polygon' type='CHARACTER VARYING(255)' notnull='true' label='Coordonnées'/>
@@ -1049,7 +1082,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='ShapeOperation' version='20090721150302' label='Traitement'>
+  <table name='ShapeOperation' label='Traitement'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='description' type='TEXT' label='Description'/>
@@ -1067,7 +1100,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='ShapeOperationNature' version='20090721150302' label='Type de Traitement'>
+  <table name='ShapeOperationNature' label='Type de Traitement'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='description' type='TEXT' label='Description'/>
@@ -1078,7 +1111,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Shelf' version='20090721150302' label='Catégorie de produit'>
+  <table name='Shelf' label='Catégorie de produit'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='catalog_name' type='CHARACTER VARYING(255)' notnull='true' label='Nom pour le catalogue'/>
@@ -1092,7 +1125,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='StockLocation' version='20090721150302' label='Lieu de stockage'>
+  <table name='StockLocation' label='Lieu de stockage'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='x' type='CHARACTER VARYING(255)' label='Position X'/>
@@ -1115,7 +1148,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='StockMove' version='20090721150302' label='Mouvement de stock'>
+  <table name='StockMove' label='Mouvement de stock'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='planned_on' type='DATE' notnull='true' label='Prévu le'/>
@@ -1140,7 +1173,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='StockTracking' version='20090721150302' label='(((STOCK_TRACKING)))'>
+  <table name='StockTracking' label='Lot traçable'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='(((NAME)))'/>
     <column name='serial' type='CHARACTER VARYING(255)' label='(((SERIAL)))'/>
@@ -1154,7 +1187,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='StockTransfer' version='20090721150302' label='Transfert ou perte de Stock'>
+  <table name='StockTransfer' label='Transfert ou perte de Stock'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='nature' type='CHARACTER VARYING(8)' notnull='true' label='Type'/>
     <column name='product_id' type='INTEGER' notnull='true' label='Produit'/>
@@ -1171,7 +1204,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Subscription' version='20090721150302' label='Abonnement'>
+  <table name='Subscription' label='Abonnement'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='started_on' type='DATE' label='Débute le'/>
     <column name='finished_on' type='DATE' label='Termine le'/>
@@ -1187,7 +1220,7 @@
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true' label='Version'/>
   </table>
-  <table name='SubscriptionNature' version='20090721150302' label='Type d&apos;abonnement'>
+  <table name='SubscriptionNature' label='Type d&apos;abonnement'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='actual_number' type='INTEGER' label='Numéro en cours'/>
@@ -1200,7 +1233,7 @@
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
     <column name='lock_version' default='0' type='INTEGER' notnull='true' label='Version'/>
   </table>
-  <table name='Tax' version='20090721150302' label='Taxe'>
+  <table name='Tax' label='Taxe'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='Nom'/>
     <column name='included' type='BOOLEAN' notnull='true' label='Incluse'/>
@@ -1218,7 +1251,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Template' version='20090721150302' label='Modèle d&apos;impression'>
+  <table name='Template' label='Modèle d&apos;impression'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(255)' notnull='true' label='(((NAME)))'/>
     <column name='content' type='TEXT' notnull='true' label='(((CONTENT)))'/>
@@ -1230,7 +1263,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='Unit' version='20090721150302' label='Unité'>
+  <table name='Unit' label='Unité'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(8)' notnull='true' label='(((NAME)))'/>
     <column name='label' type='CHARACTER VARYING(255)' notnull='true' label='(((LABEL)))'/>
@@ -1243,7 +1276,7 @@
     <column name='creator_id' type='INTEGER' label='Créateur'/>
     <column name='updater_id' type='INTEGER' label='Modificateur'/>
   </table>
-  <table name='User' version='20090721150302' label='Utilisateur'>
+  <table name='User' label='Utilisateur'>
     <column name='id' type='INTEGER' notnull='true' label='ID'/>
     <column name='name' type='CHARACTER VARYING(32)' notnull='true' label='Nom d&apos;utilisateur'/>
     <column name='first_name' type='CHARACTER VARYING(255)' notnull='true' label='Prénom'/>

@@ -7,6 +7,7 @@
 #  root_model   :string(255)   not null
 #  query        :text          
 #  comment      :text          
+#  story        :text          
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  updated_at   :datetime      not null

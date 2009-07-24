@@ -1,0 +1,282 @@
+fr-FR:
+
+  controllers:
+    accountancy:
+      accounts:
+        create: 'Créer un nouveau compte comptable'
+      bank_account_statements:
+        create: 'Créer un nouveau relevé de compte bancaire'
+      bank_accounts:
+        create: 'Créer un nouveau compte bancaire'
+      financialyears:
+        create: 'Créer un nouvel exercice comptable '
+      journals:
+        create: 'Créer un nouveau journal comptable'
+      messages:
+        need_bank_account_to_record_statements: 'Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte.'
+        need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
+        need_entries_to_letter: 'Vous devez avoir des écritures verrouillées enregistrées au compte client et fournisseur.'
+        need_entries_to_point: 'Aucune écriture n''a été trouvé pour la période du relevé bancaire {{value}}.'
+        need_financialyear_to_consult_entries: 'Vous devez avoir un exercice ouvert pour pouvoir consulter des écritures.'
+        need_financialyear_to_record_entries: 'Vous devez avoir au moins un exercice pour pouvoir saisir des écritures à l''intérieur.'
+        need_financialyear_to_report: 'Vous devez avoir un exercice cloturé pour cette opération.'
+        need_journal_to_consult_entries: 'Vous devez créer un journal pour pouvoir consulter des écritures à l''intérieur.'
+        need_journal_to_record_entries: 'Vous devez avoir au moins un journal pour pouvoir saisir des écritures à l''intérieur.'
+        need_report_journal_to_report: 'Vous devez créer un journal des à nouveaux pour cette opération.'
+        no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'
+        no_financialyear: 'Aucun exercice enregistré'
+      next_illegal_period_financialyear: 'Le prochain exercice ne démarre pas directement après.'
+      no_closable_financialyear: 'Vous n''avez aucun exercice à clôturer.'
+      no_closable_journal: 'Vous n''avez aucun journal à clôturer.'
+      title: 'Comptabilité'
+      unclosable_financialyear: 'L''exercice ne peut être clôturé.'
+      unclosable_journal: 'Le journal ne peut être clôturé.'
+
+  helpers:
+    accountancy:
+
+  views:
+    accountancy:
+      accounts:
+        accounts_create: 'Enregistrer un nouveau compte'
+        delete: 'Supprimer un compte'
+        title: 'Comptes'
+        update: 'Modifier un compte'
+      accounts_create:
+        title: 'Créer un nouveau compte'
+      _accounts_find:
+        account_name: 'Nom du compte '
+        account_number: 'Numéro de compte '
+        accounts_create: 'Créer un nouveau compte comptable'
+        no_accounts: 'Il n''existe pas de compte commençant par ce numéro.'
+      accounts_letter:
+        entry_credit: 'Crédit'
+        entry_debit: 'Débit'
+        entry_letter: 'Lettre'
+        entry_name: 'Libellé opération'
+        journal_name: 'Journal'
+        record_number: 'Pièce'
+        recorded_on: 'Date'
+        title: 'LETTRAGE du compte N° {{value1}}'
+      accounts_letter_launch:
+        select_account: 'Sélectionnez un compte:'
+        title: 'Lettrage de compte'
+      accounts_update:
+        title: 'Modifier le compte : {{value}}'
+      bank_accounts:
+        bank_accounts_create: 'Créer un nouveau compte bancaire'
+        title: 'Comptes bancaires'
+      bank_accounts_create:
+        title: 'Créer un nouveau compte bancaire'
+      _bank_accounts_form:
+        accountancy: 'Comptabilité'
+        create_account: 'Vous devez d''abord créer un compte comptable.'
+        create_journal: 'Vous devez d''abord créer un journal.'
+        iban: 'Numéro de compte bancaire internationale (IBAN)'
+        rib: 'Description générale'
+      bank_accounts_update:
+        title: 'Modifier le compte bancaire'
+      _currencies_find:
+        currency_code: 'Code de devise'
+        currency_id: 'Numéro de devise'
+        currency_name: 'Nom de devise'
+        currency_rate: 'Taux de devise'
+      document_prepare:
+        balance: 'Balance'
+        general_ledger: 'Grand livre'
+        journal: 'Journal général'
+        journal_by_id: 'Journal'
+        synthesis: 'Documents de synthèse'
+        title: 'Choisissez le type de document à imprimer'
+      document_print:
+        print: 'Impression'
+        title: 'Impression du document : {{value}}'
+      entries:
+        journal_x: '{{name}} (clôturé le {{closed_on}})'
+        number_records: 'Nombre des dernières pièces à afficher'
+        select_financialyear: 'Comptabiliser les écritures pour l''exercice comptable'
+        select_journal: 'Saisir les écritures dans le journal'
+        subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
+        title: 'Saisie des écritures'
+        update_params: 'Changer de journal et/ou d''exercice...'
+      _entries:
+        account_number: 'N°Compte'
+        balanced_entries: 'Vert : pièce équilibrée'
+        confirm: 'Êtes-vous sûr de vouloir supprimer cette écriture ?'
+        confirmation: 'Êtes-vous sûr de votre saisie ?'
+        delete: 'Supprimer'
+        entry_letter: 'Lettrage'
+        entry_validate: 'OK'
+        label: 'Libellé'
+        record_created: 'Crée le'
+        record_credit: 'Crédit'
+        record_debit: 'Débit'
+        record_number: 'N°Pièce'
+        record_printed: 'Datée du'
+        title: 'Saisie des écritures'
+        unbalanced_entries: 'Rouge : pièce non équilibrée'
+        update: 'Modifier'
+      entries_consult:
+        all_financialyears: '--- Tous les exercices comptables ---'
+        all_journals: '--- Tous les journaux ---'
+        journal_x: '{{name}} (clôturé le {{closed_on}})'
+        select_financialyear: 'Pour l''exercice comptable'
+        select_journal: 'Consulter les écritures du journal'
+        subtitle: 'Ecritures de l''exercice {{financialyear}} pour le journal {{journal}}'
+        title: 'Consultation des écritures'
+      entries_update:
+        title: 'Modification de l''écriture'
+      financialyears:
+        financialyears_create: 'Enregister un nouvel exercice comptable'
+        title: 'Exercices comptables'
+      financialyears_close:
+        close: 'Clôturer l''exercice'
+        save_renew: 'Souhaitez-vous reporter les à nouveaux ? '
+        select_renew_journal: 'Sélectionner un journal '
+        title: 'Clôture d''exercice'
+      financialyears_create:
+        title: 'Créer un nouvel exercice'
+      financialyears_update:
+        title: 'Modifier un nouvel exercice'
+      index:
+        accounts: 'Comptes comptables'
+        bank_accounts: 'Comptes bancaires (RIB)'
+        document_prepare: 'Impression des documents'
+        documents: 'Documents comptables'
+        entries: 'Saisir des écritures'
+        entries_consult: 'Consulter des écritures'
+        financialyears: 'Exercices comptables'
+        financialyears_close: 'Clôture d''exercice'
+        journals: 'Journaux'
+        journals_close: 'Clôture de journal'
+        lettering: 'Lettrer des comptes de tiers'
+        nb_entries:
+          one: '1 écriture'
+          other: '{{count}} écritures'
+          zero: 'Aucune écriture'
+        operations: 'Opérations de vérification et de clôture'
+        parameters: 'Paramètres'
+        report: 'Reprise des à nouveaux'
+        statements: 'Pointer un relevé de compte'
+        title: 'Comptabilité générale'
+        works: 'Travaux comptables'
+      journals:
+        journals_create: 'Enregistrer un nouveau journal'
+        title: 'Journaux'
+      journals_close:
+        close: 'Clôturer le journal'
+        title: 'Clôture du journal'
+      journals_create:
+        title: 'Créer un nouveau journal'
+      _journals_find:
+        journal_id: 'Numéro de journal'
+        journal_name: 'Nom du journal'
+      journals_update:
+        title: 'Modifier le journal'
+      lettering:
+        lettering_account_client: 'Lettrage des comptes clients'
+        lettering_account_supplier: 'Lettrage des comptes fournisseurs'
+        select_account_client: 'Compte à lettrer'
+        select_account_supplier: 'Compte à lettrer'
+        select_financialyear: 'Exercice'
+        title: 'Lettrage de comptes'
+      _print_balance:
+        dates: 'Saisissez les dates de début et de fin de la période'
+        from: 'Période du'
+        to: 'Au'
+      print_balance_sheet:
+        period: 'Période'
+        title: 'Impression du bilan'
+      _print_balance_sheet:
+        balance_sheet: 'Sélectionnez l''exercice'
+        select_financialyear: 'Exercice'
+      print_by_financial_year:
+        financial_id: 'Exercice comptable'
+        financial_year_select: 'Sélectionnez l''''exercice comptable'
+      _print_by_journal:
+        dates: 'Saisissez les dates ainsi que le journal'
+        from: 'Période du'
+        journal: 'Journal'
+        to: 'Au'
+      _print_journals:
+        dates: 'Saisissez les dates'
+        from: 'Période du'
+        to: 'Au'
+      _print_ledger:
+        dates: 'Saisissez les dates de début et de fin de la période'
+        from: 'Période du'
+        to: 'Au'
+      _print_synthesis:
+        select_financialyear: 'Exercice'
+        synthesis: 'Sélectionnez l''exercice'
+      report:
+        title: 'Reprise des à nouveaux'
+      statements:
+        create_bank_account: 'Vous devez d''abord créer un compte bancaire.'
+        credit: 'Total crédit'
+        debit: 'Total débit'
+        select_bank_account: 'Sélectionnez un compte bancaire:'
+        statements_create: 'Enregistrer un nouveau relevé de compte'
+        title: 'Pointage des relevés de comptes bancaires'
+      statements_create:
+        title: 'Enregistrer un nouveau relevé de compte'
+      statements_display:
+        cancel: 'Annuler'
+        entry_credit: 'Crédit'
+        entry_debit: 'Dédit'
+        entry_name: 'Libellé'
+        statement_bank_account_name: 'Nom du compte bancaire'
+        statement_credit: 'Crédit'
+        statement_debit: 'Débit'
+        statement_number: 'Numéro du relevé de compte'
+        statements: 'Tableau des relevés de compte'
+        title: 'Détail du relevé de compte {{value}}'
+      statements_point:
+        entry_credit: 'Crédit'
+        entry_currency_rate: 'Devise'
+        entry_debit: 'Débit'
+        entry_name: 'Intitulé de l''écriture'
+        recorded_on: 'Enregistrée le'
+        statement_number: 'N° Relevé'
+        statements: 'Tableau des relevés de compte'
+        statements_display: 'Détail du relevé de compte'
+        title: 'Pointage du relevé bancaire {{value1}} du compte bancaire {{value2}}'
+        total: 'Total pour le compte bancaire :'
+        total_credit: 'Crédit'
+        total_debit: 'Débit'
+        validate: 'Valider'
+      statements_update:
+        title: 'Modifier un relevé'
+      synthesis:
+        account_accruals: 'Comptes de régularisation'
+        account_claims_assets: 'Créances'
+        account_current_assets: 'Actif circulant'
+        account_debt: 'Dettes'
+        account_equity: 'Capitaux propres'
+        account_financial_assets: 'Immobilisations financières'
+        account_fixed_assets: 'Actif immobilisé'
+        account_inventories_assets: 'Stocks'
+        account_others_assets: 'Divers'
+        account_provision: 'Provisions pour risques et charges'
+        account_tangible_fixed_assets: 'Immobilisations corporelles'
+        account_untangible_fixed_assets: 'Immobilisations incorporelles'
+        account_value: 'BRUT'
+        active_balance_sheet: 'Bilan actif'
+        active_current_sum: 'Total actifs circulants'
+        active_fixed_sum: 'Total actifs immobilisés'
+        active_sum: 'Total actifs'
+        cost_income_statement: 'Charges'
+        cost_sum: 'Total charges d''exploitation'
+        finished_income_statement: 'Produits'
+        finished_sum: 'Total produits d''exploitation'
+        income_statement: 'Comptes de résultats'
+        passive_balance_sheet: 'Bilan passif'
+        passive_capital_sum: 'Total capitaux'
+        passive_debt_sum: 'Total dettes'
+        passive_stock_sum: 'Total provisions'
+        passive_sum: 'Total passifs'
+        result: 'Résultat'
+        running_cost: 'Charges d''exploitation'
+        running_finished: 'Produits d''exploitation'
+        title: 'Documents annuels pour {{value}}'
+        total: 'Total'
