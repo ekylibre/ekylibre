@@ -1,0 +1,4 @@
+h1. Villes
+
+Ici, vous pouvez <<relations-cities_create|créer>>, <<relations-cities_update|modifier>>{{buttons/update.png|modifier}} ou même <<relations-cities_delete|supprimer>>{{buttons/delete.png|supprimer}} des villes.
+

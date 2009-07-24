@@ -35,6 +35,9 @@ fr-FR:
 
   views:
     relations:
+      cities:
+        title: 'Villes'
+        cities_create: 'Ajouter une ville' 
       cities_create:
         title: 'Ajouter une ville'
       cities_update:
@@ -65,22 +68,16 @@ fr-FR:
         address: 'Adresse'
         canals: 'Coordonnées'
       districts:
-        cities:
-          one: '1 ville enregistrée'
-          other: '{{count}} villes enregistrées'
-          zero: 'Aucune ville enregistrée'
         cities_create: 'Ajouter une ville'
         city_name: 'Ville'
-        districts:
-          one: '1 district enregistré'
-          other: '{{count}} districts enregistrés'
-          zero: 'Aucun district enregistré'
+        districts_create: 'Ajouter une zone'
+        title: 'Zones administratives'
         districts_create: 'Ajouter un district'
         title: 'Districts'
       districts_create:
-        title: 'Ajouter un district'
+        title: 'Ajouter une zone'
       districts_update:
-        title: 'Modification du district avec {{value}}'
+        title: 'Modification de la zone {{value}}'
       entities:
         entities_create: 'Créer une nouvelle fiche'
         entities_export: 'Tout exporter au format CSV'
@@ -189,7 +186,8 @@ fr-FR:
         title: 'Description générale'
       index:
         complements: 'Champs personnalisés'
-        districts: 'Districts'
+        cities: 'Villes'
+        districts: 'Zones administratives'
         entities: 'Gérer les fiches'
         entities_create: 'Créer une nouvelle fiche'
         entities_managing: 'Clients et fournisseurs'

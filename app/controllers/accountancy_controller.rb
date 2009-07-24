@@ -37,13 +37,12 @@ class AccountancyController < ApplicationController
     t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
   
-  
   dyta(:entries_statement, :model => :entries, :conditions=>:entries_conditions_statements) do |t|
     t.column :number, :label=>"Numéro", :through=>:record
     t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
     t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
     t.column :name
-    t.column :number, :label=>"Compte" , :through=>:account
+    t.column :number, :label=>"Compte", :through=>:account
     t.column :debit
     t.column :credit
   end

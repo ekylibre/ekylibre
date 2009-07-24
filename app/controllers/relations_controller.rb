@@ -58,6 +58,11 @@ class RelationsController < ApplicationController
   end
 
   #
+  def cities
+    @cities_count = @current_company.cities.count
+  end
+
+  #
   def cities_create
     if request.post?
       @city = City.new(params[:city])
@@ -73,7 +78,7 @@ class RelationsController < ApplicationController
   def cities_update
     @city = find_and_check(:city,params[:id])
     if request.post? and @city
-      redirect_to :action => "districts" if @city.update_attributes(params[:city])
+      redirect_to :action => "cities" if @city.update_attributes(params[:city])
     end
     @title = {:value=>@city.name}
     render_form
@@ -83,7 +88,7 @@ class RelationsController < ApplicationController
   def cities_delete
     @city = find_and_check(:city, params[:id])
     if request.post? or request.delete?
-      redirect_to_back if @city.destroy
+      redirect_to :action => "cities" if @city.destroy
     end
     render_form
   end
@@ -91,7 +96,6 @@ class RelationsController < ApplicationController
   #
   def districts
     @districts_count = @current_company.districts.count
-    @cities_count = @current_company.cities.count
   end
 
   #
@@ -119,7 +123,7 @@ class RelationsController < ApplicationController
   def districts_delete
      @district = find_and_check(:district, params[:id])
     if request.post? or request.delete?
-      redirect_to_back if @district.destroy
+      redirect_to :action => "districts" if @district.destroy
     end
     render_form
   end
