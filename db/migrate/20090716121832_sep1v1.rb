@@ -1,9 +1,7 @@
 class Sep1v1 < ActiveRecord::Migration
   def self.up
-    create_table :areas do |t|
-      t.column :postcode, :string, :null=>false
+    create_table :districts do |t|
       t.column :name, :string, :null=>false
-      t.column :city_id, :integer, :null=>false, :references=>:cities, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     
@@ -27,12 +25,14 @@ class Sep1v1 < ActiveRecord::Migration
       t.column :insee_nccenr, :string, :limit=>70
       
       t.column :name, :string, :null=>false
-      t.column :district_id, :integer, :null=>false, :references=>:districts, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :district_id, :integer, :references=>:districts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     
-    create_table :districts do |t|
+    create_table :areas do |t|
+      t.column :postcode, :string, :null=>false
       t.column :name, :string, :null=>false
+      t.column :city_id, :integer, :null=>false, :references=>:cities, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     
@@ -42,8 +42,8 @@ class Sep1v1 < ActiveRecord::Migration
   
   def self.down
     remove_column :contacts, :area_id    
-    drop_table :districts
-    drop_table :cities
     drop_table :areas
+    drop_table :cities
+    drop_table :districts
   end
 end

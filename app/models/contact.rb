@@ -90,8 +90,8 @@ class Contact < ActiveRecord::Base
     area = self.company.areas.find(:first, :conditions=>["postcode = ? AND c.name = ?", self.line_6_code, self.line_6_city], :joins =>"INNER JOIN cities c ON c.id = areas.city_id")
     #raise Exception.new(area.inspect)
     if area.nil?
-      city = City.create!(:name => self.line_6_city, :district_id => 1, :company_id => self.company_id, :created_at => self.created_at, :updated_at =>self.updated_at)
-      area = Area.create!(:postcode => self.line_6_code, :city_id => city.id, :company_id => self.company_id, :created_at =>self.created_at, :updated_at=>self.updated_at)
+      city = self.company.cities.create!(:name => self.line_6_city)
+      area = self.company.areas.create!(:postcode => self.line_6_code, :city_id => city.id)
     end
     
     self.area_id = area.id

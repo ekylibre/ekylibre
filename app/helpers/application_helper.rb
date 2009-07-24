@@ -702,7 +702,7 @@ module ApplicationHelper
               when :radio
                 options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s)}.join " "
               when :textarea
-                text_area record, method, :cols => 30, :rows => 3
+                text_area record, method, :cols => options[:options][:cols]||30, :rows => options[:options][:rows]||3
                 #              when :date
                 #                date_text_field record, method, :order => [:day, :month, :year], :date_separator=>''
               else
