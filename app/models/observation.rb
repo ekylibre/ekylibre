@@ -6,7 +6,7 @@ class Observation < ActiveRecord::Base
 
   
  def self.importances
-   [:important, :normal, :notice].collect{|x| [tc('levels.'+x.to_s), x] }
+   [:important, :normal, :notice].collect{|x| [tc('importances.'+x.to_s), x] }
  end
 
 

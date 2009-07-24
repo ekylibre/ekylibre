@@ -25,7 +25,6 @@ fr-FR:
     manage_delays: 'Gérer les délais'
     manage_delivery_modes: 'Gérer les types de livraison'
     manage_district: (((MANAGE_DISTRICT)))
-    manage_districts: (((MANAGE_DISTRICTS)))
     manage_embankments: 'Gérer les remises de chèques'
     manage_entities: 'Gérer les fiches clients/fournisseurs'
     manage_entities_natures: 'Gérer les types de fiche'

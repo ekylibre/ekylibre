@@ -906,11 +906,14 @@ class RelationsController < ApplicationController
     end
     
   end
-
+  
   def observations_create
-    @observation = Observation.new(:entity_id=>params[:entity_id], :importance=>"normal")
+    @observation = Observation.new(:importance=>"normal")
+    session[:entity_id] = params[:entity_id] if request.get?
     if request.post?
+      #raise Exception.new(session[:entity_id].inspect)
       @observation = Observation.new(params[:observation])
+      @observation.entity_id = session[:entity_id]
       @observation.company_id = @current_company.id
       redirect_to_back if @observation.save
     end
