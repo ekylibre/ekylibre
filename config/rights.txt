@@ -1,3 +1,4 @@
+#relations     cities_create                  manage_districts
 accountancy    dyli_account_search            administrate_accountancy
 accountancy    dyta_bank_account_statements   administrate_accountancy
 accountancy    dyta_entries                   administrate_accountancy
@@ -50,6 +51,11 @@ authentication index                          __minimum__
 authentication login                          __minimum__
 authentication logout                         __minimum__
 authentication register                       __minimum__
+company        dyta_listing_nodes             [new_right]
+company        listing_nodes                  [new_right]
+company        listing_nodes_create           [new_right]
+company        listing_nodes_delete           [new_right]
+company        listing_nodes_update           [new_right]
 company        about_us                       __minimum__
 company        help                           __minimum__
 company        index                          __minimum__
@@ -269,9 +275,11 @@ production     shape_operations_update        manage_shape_operations
 production     unvalidated_operations         manage_shape_operations
 production     shapes                         manage_shapes
 production     shapes_create                  manage_shapes
+relations      dyta_cities                    [new_right]
 relations      dyli_area_search               administrate_relations
 relations      dyta_client_invoices           administrate_relations
 relations      dyta_contacts                  administrate_relations
+relations      dyta_districts                 administrate_relations
 relations      dyta_entity_bank_accounts      administrate_relations
 relations      dyta_entity_categories         administrate_relations
 relations      dyta_entity_meetings           administrate_relations
@@ -297,6 +305,13 @@ relations      complements_create             manage_complements
 relations      complements_update             manage_complements
 relations      dyta_complement_choices        manage_complements
 relations      dyta_complements               manage_complements
+relations      cities_create                  manage_district
+relations      cities_delete                  manage_district
+relations      cities_update                  manage_district
+relations      districts                      manage_districts
+relations      districts_create               manage_districts
+relations      districts_delete               manage_districts
+relations      districts_update               manage_districts
 relations      areas_find                     manage_entities
 relations      client_informations            manage_entities
 relations      entities_contacts_create       manage_entities

@@ -14,7 +14,7 @@
 
 class District < ActiveRecord::Base
   belongs_to :company
-  has_many :cities
+  has_many :cities, :class_name=>City.to_s
   
   attr_readonly :company_id
 end

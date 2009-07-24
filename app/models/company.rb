@@ -24,6 +24,7 @@ class Company < ActiveRecord::Base
   has_many :areas
   has_many :bank_accounts
   has_many :bank_account_statements
+  has_many :cities
   has_many :complements
   has_many :complement_choices
   has_many :complement_data

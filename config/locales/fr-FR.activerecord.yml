@@ -35,7 +35,7 @@ fr-FR:
       area: 'Zone postale'
       bank_account: 'Compte bancaire'
       bank_account_statement: 'Relevé de compte bancaire'
-      city: (((CITY)))
+      city: 'City'
       company: 'Société'
       complement: 'Champ complémentaire'
       complement_choice: 'Choix de champ complémentaire'
@@ -47,7 +47,7 @@ fr-FR:
       delivery_line: 'Ligne de livraison'
       delivery_mode: 'Mode de livraison'
       department: 'Service'
-      district: (((DISTRICT)))
+      district: 'District'
       document: 'Document'
       embankment: 'Encaissement'
       employee: 'Employé'
@@ -113,7 +113,7 @@ fr-FR:
         created_at: 'Créé le'
         creator_id: 'Créateur'
         deleted: 'Effacé'
-        groupable: (((GROUPABLE)))
+        groupable: 'Groupable'
         id: 'ID'
         is_debit: (((IS_DEBIT)))
         keep_entries: (((KEEP_ENTRIES)))
@@ -193,8 +193,8 @@ fr-FR:
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
-        name: (((NAME)))
-        postcode: (((POSTCODE)))
+        name: 'Nom'
+        postcode: 'Code postal'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -250,8 +250,9 @@ fr-FR:
       city:
         company_id: 'Société'
         created_at: 'Créé le'
-        created_by: (((CREATED_BY)))
-        district_id: (((DISTRICT_ID)))
+        created_by: '(((CREATED_BY)))'
+        creator_id: 'Créateur'
+        district_id: 'District'
         id: 'ID'
         insee_ar: (((INSEE_AR)))
         insee_artmaj: (((INSEE_ARTMAJ)))
@@ -266,9 +267,10 @@ fr-FR:
         insee_reg: (((INSEE_REG)))
         insee_tncc: (((INSEE_TNCC)))
         lock_version: 'Version'
-        name: (((NAME)))
+        name: 'Nom'
         updated_at: 'Mis à jour le'
-        updated_by: (((UPDATED_BY)))
+        updated_by: '(((UPDATED_BY)))'
+        updater_id: 'Modificateur'
 
       # Société
       company:
@@ -486,12 +488,14 @@ fr-FR:
       district:
         company_id: 'Société'
         created_at: 'Créé le'
-        created_by: (((CREATED_BY)))
+        created_by: '(((CREATED_BY)))'
+        creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
-        name: (((NAME)))
+        name: 'Nom'
         updated_at: 'Mis à jour le'
-        updated_by: (((UPDATED_BY)))
+        updated_by: '(((UPDATED_BY)))'
+        updater_id: 'Modificateur'
 
       # Document
       document:
@@ -831,23 +835,23 @@ fr-FR:
       # Noeud d'extraction
       listing_node:
         company_id: 'Société'
-        comparator: 'Comparateur'
+        comparator: (((COMPARATOR)))
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        exportable: 'Exportable'
+        exportable: (((EXPORTABLE)))
         id: 'ID'
         item_listing_id: (((ITEM_LISTING_ID)))
         item_listing_node_id: (((ITEM_LISTING_NODE_ID)))
         item_nature: (((ITEM_NATURE)))
         item_value: (((ITEM_VALUE)))
-        label: 'Libellé'
+        label: (((LABEL)))
         listing_id: 'Extraction'
         lock_version: 'Version'
         name: 'Nom'
         nature: 'Nature'
-        parent_id: 'Parent'
+        parent_id: (((PARENT_ID)))
         position: 'Position'
-        reflection_name: 'Réflection'
+        reflection_name: (((REFLECTION_NAME)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -858,11 +862,11 @@ fr-FR:
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
-        nature: 'Nature'
-        node_id: 'Noeud d''extraction'
+        nature: (((NATURE)))
+        node_id: (((NODE_ID)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
-        value: 'Valeur'
+        value: (((VALUE)))
 
       # Rencontre
       meeting:

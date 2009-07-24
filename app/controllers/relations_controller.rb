@@ -42,18 +42,59 @@ class RelationsController < ApplicationController
     t.action :complement_choices_update
   end
   
-
-  dyta(:districts, :conditions=>{:company_id=>['@current_company.id']}, :children=>:cities) do |t| 
+  dyta(:districts, :children=>:cities, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name, :children=>:city_name, :url=>{:action=>:cities_create} 
     
-    t.action :complement_choices_up, :if=>"not RECORD.first\?", :method=>:post
-    t.action :complement_choices_down, :if=>"not RECORD.last\?", :method=>:post
-    t.action :complement_choices_update
+    t.action :districts_update, :image=>:update
+    t.action :districts_delete, :image=>:delete, :confirm=>:are_you_sure, :method=>:post
+ #   t.action :districts_consult, :image=>:table
   end
  
-  def districts
+  dyta(:cities, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+    t.column :name
+    t.action :cities_update, :image=>:update
+    t.action :cities_delete, :image=>:delete, :confirm=>:are_you_sure, :method=>:post
+ #   t.action :cities_consult, :image=>:table
   end
 
+  #
+  def cities_create
+    if request.post?
+      @city = City.new(params[:city])
+      @city.company_id = @current_company.id
+      redirect_to_back if @city.save
+    else
+      @city = City.new
+    end
+    render_form
+  end
+  
+  #
+  def cities_update
+    @city = find_and_check(:city,params[:id])
+    if request.post? and @city
+      redirect_to :action => "districts" if @city.update_attributes(params[:city])
+    end
+    @title = {:value=>@city.name}
+    render_form
+  end
+  
+  #
+  def cities_delete
+    @city = find_and_check(:city, params[:id])
+    if request.post? or request.delete?
+      redirect_to_back if @city.destroy
+    end
+    render_form
+  end
+
+  #
+  def districts
+    @districts_count = @current_company.districts.count
+    @cities_count = @current_company.cities.count
+  end
+
+  #
   def districts_create
     if request.post?
       @district = District.new(params[:district])
@@ -62,22 +103,25 @@ class RelationsController < ApplicationController
     else
       @district = District.new
     end
+    render_form
   end
   
+  #
   def districts_update
     @district = find_and_check(:district,params[:id])
     if request.post? and @district
-       redirect_to :action => "zones" if @district.update_attributes(params[:district])
+       redirect_to :action => "districts" if @district.update_attributes(params[:district])
     end
      @title = {:value=>@district.name}
     render_form
  end
 
   def districts_delete
-     @district = District.find_and_check(:district, params[:id])
+     @district = find_and_check(:district, params[:id])
     if request.post? or request.delete?
       redirect_to_back if @district.destroy
     end
+    render_form
   end
 
   def complements

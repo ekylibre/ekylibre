@@ -36,4 +36,8 @@ class City < ActiveRecord::Base
   #validates_format_of :insee_reg, :with=>/\d{2}/
   #validates_format_of :insee_com, :with=>/\d{3}/
  
+  def city_name
+    self.name
+  end
+
 end

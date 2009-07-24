@@ -9,6 +9,8 @@ fr-FR:
   helpers:
     application:
       exit: 'Se déconnecter'
+      false: 'non'
+      true: 'oui'
 
   views:
     application:

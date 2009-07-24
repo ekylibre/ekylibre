@@ -118,7 +118,6 @@ fr-FR:
 
 
 
-     
     # Used in the models
     # Used in the models
     # Used in the models
@@ -256,10 +255,6 @@ fr-FR:
       error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus créer, modifier  ou supprimer de pièces.' 
       error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
       error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
-    listing_node:
-      natures:
-        boolean: Booléen
-        string: Chaine de caractères
     payment_mode:
       modes:
         check: Chèque
@@ -341,8 +336,9 @@ fr-FR:
       no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application : {{controller}}/{{action}}'
       no_right_defined_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'
 
+
   
-  # Genral words and expression through the all app
+  # General words and expression through the all app
   general:
     add: Ajouter
     apply: Appliquer
