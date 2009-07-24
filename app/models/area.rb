@@ -15,10 +15,12 @@
 #
 
 class Area < ActiveRecord::Base
+  belongs_to :company
   belongs_to :city
   has_many :contacts
   validates_format_of :postcode, :with=>/\d{5}/
- 
+  attr_readonly :company_id
+
   def before_validation
     self.name = self.postcode.upper
   end

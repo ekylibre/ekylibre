@@ -609,6 +609,7 @@ fr-FR:
         entity_categories: Catégories de fiches
         entities_create: Créer une nouvelle fiche
         entities_natures: Types de fiches
+        districts: Districts
         entities_managing: Clients et fournisseurs
         entities: Gérer les fiches
         import_export: Import/Export de fiches
@@ -649,6 +650,14 @@ fr-FR:
           zero: 'Aucune livraison'
           one: '1 livraison'
           other: '{{count}} livraisons'
+      districts:
+        districts_create: Ajouter une zone
+        title: Districts
+      districts_create:
+        title: Ajouter une zone
+      districts_update:
+        title: 'Modification de la zone avec {{value}}'
+      
 
     resources:
       index:

@@ -15,6 +15,7 @@ class RelationsController < ApplicationController
     end
   end
 
+
   dyta(:entity_bank_accounts, :model => :bank_accounts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
     t.column :name
     t.column :number
@@ -41,7 +42,43 @@ class RelationsController < ApplicationController
     t.action :complement_choices_update
   end
   
+
+  dyta(:districts, :conditions=>{:company_id=>['@current_company.id']}, :children=>:cities) do |t| 
+    t.column :name, :children=>:city_name, :url=>{:action=>:cities_create} 
+    
+    t.action :complement_choices_up, :if=>"not RECORD.first\?", :method=>:post
+    t.action :complement_choices_down, :if=>"not RECORD.last\?", :method=>:post
+    t.action :complement_choices_update
+  end
  
+  def districts
+  end
+
+  def districts_create
+    if request.post?
+      @district = District.new(params[:district])
+      @district.company_id = @current_company.id
+      redirect_to_back if @district.save
+    else
+      @district = District.new
+    end
+  end
+  
+  def districts_update
+    @district = find_and_check(:district,params[:id])
+    if request.post? and @district
+       redirect_to :action => "zones" if @district.update_attributes(params[:district])
+    end
+     @title = {:value=>@district.name}
+    render_form
+ end
+
+  def districts_delete
+     @district = District.find_and_check(:district, params[:id])
+    if request.post? or request.delete?
+      redirect_to_back if @district.destroy
+    end
+  end
 
   def complements
   end

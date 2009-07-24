@@ -38,7 +38,8 @@ module ApplicationHelper
             {:name=>:meeting_locations},
             {:name=>:meeting_modes}]},
          {:name=>:parameters, :list=>
-           [ {:name=>:entities_natures},
+           [ {:name=>:districts},
+             {:name=>:entities_natures},
              {:name=>:entity_categories},
              {:name=>:complements}
            ] }
