@@ -522,7 +522,7 @@ class CompanyController < ApplicationController
     t.column :root_model_name
     t.column :comment
     t.action :listings, :format=>'csv'
-    t.action :listing_nodes
+    t.action :listing_nodes, :image=>:spread
     t.action :listings_update
     t.action :listings_delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -565,5 +565,53 @@ class CompanyController < ApplicationController
     redirect_to_back
   end
 
+
+  dyta(:listing_nodes, :conditions=>{:company_id=>['@current_company.id'], :listing_id=>['session[:current_listing_id]']}) do |t|
+    t.column :name
+    t.column :label
+    t.action :listings_update
+    t.action :listings_delete, :method=>:post, :confirm=>:are_you_sure
+  end
   
+  def listing_nodes
+    @listing = find_and_check(:listing, params[:id])
+    if @listing
+      session[:current_listing_id] = @listing.id
+    end
+  end
+
+  def listing_nodes_create
+    if request.post?
+      @listing_node = ListingNode.new(params[:listing_node])
+      @listing_node.company_id = @current_company.id
+      @listing_node.listing_id = session[:current_listing_id]
+      redirect_to_back if @listing_node.save
+    else
+      @listing_node = ListingNode.new
+    end
+    render_form
+  end
+  
+  def listing_nodes_update
+    @listing_node = find_and_check(:listing_node, params[:id])
+    if request.post? and @listing_node
+      if @listing_node.update_attributes(params[:listing_node])
+        redirect_to_back
+      end
+    end
+    @title ={:value=>@listing_node.name}
+    render_form
+  end
+
+  def listing_nodes_delete
+    if request.post? or request.delete?
+      @listing_node = find_and_check(:listing_node, params[:id])
+      ListingNode.destroy(@listing_node.id) if @listing_node
+    end
+    redirect_to_back
+  end
+
+
+
+
 end

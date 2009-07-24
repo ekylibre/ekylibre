@@ -33,5 +33,15 @@ class ListingNode < ActiveRecord::Base
   acts_as_list :scope=>:listing_id
   acts_as_tree
   attr_readonly :company_id, :listing_id, :nature
+  @@natures = [:datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
+  
+  def self.natures
+    hash = {}
+    @@natures.each{|n| hash[n] = tc('natures.'+n.to_s) }
+    hash
+  end
+
+  
+
   
 end

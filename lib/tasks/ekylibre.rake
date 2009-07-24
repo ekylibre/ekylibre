@@ -1,5 +1,13 @@
 require 'csv'
 
+def hash_to_yaml(hash, depth=0)
+  code = ''
+  for k, v in hash.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
+    code += "  "*depth+k.to_s+":"+(v.is_a?(Hash) ? "\n"+hash_to_yaml(v,depth+1) : " '"+v.gsub("'", "''")+"'\n")
+  end
+  code
+end
+
 namespace :clean do
 
   desc "Update and sort rights list"
@@ -102,7 +110,7 @@ namespace :clean do
     classicals = {'fr-FR'=>{:company_id=>'Société', :id=>'ID', :lock_version=>'Version', :updated_at=>'Mis à jour le', :updater_id=>'Modificateur', :created_at=>'Créé le', :creator_id=>'Créateur', :comment=>'Commentaire' } }
     models = Dir["#{RAILS_ROOT}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
     models_names = ''
-    models_attributes = "\n"
+    models_attributes = ""
     attrs_count, static_attrs_count = 0, 0
     for model in models
       models_names += "      #{model}: "+::I18n.pretranslate("activerecord.models.#{model}")+"\n"
@@ -125,13 +133,15 @@ namespace :clean do
       end
       attrs_count += attributes.size
     end
+    activerecord = ::I18n.translate('activerecord').delete_if{|k,v| k.to_s.match(/^models|attributes$/)}
     translation  = ::I18n.locale.to_s+":\n"
     translation += "  activerecord:\n"
-    translation += "    models:\n"
+    translation += hash_to_yaml(activerecord,2)
+    translation += "\n    models:\n"
     translation += models_names
-    translation += "    attributes:\n"
+    translation += "\n    attributes:\n"
     translation += models_attributes
-    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.models.yml", "wb") do |file|
+    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.activerecord.yml", "wb") do |file|
       file.write translation
     end
 

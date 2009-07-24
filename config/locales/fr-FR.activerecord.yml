@@ -1,5 +1,32 @@
 fr-FR:
   activerecord:
+    errors:
+      messages:
+        accepted: 'doit être accepté'
+        blank: 'ne peut pas être vide'
+        confirmation: 'est différent du champ de confirmation'
+        empty: 'ne peut pas être vide'
+        equal_to: 'must be equal to {{count}}'
+        even: 'must be even'
+        exclusion: 'est reservé'
+        greater_than: 'must be greater than {{count}}'
+        greater_than_or_equal_to: 'must be greater than or equal to {{count}}'
+        inclusion: 'n''est pas inclus dans la liste'
+        invalid: 'est invalide'
+        less_than: 'must be less than {{count}}'
+        less_than_or_equal_to: 'must be less than or equal to {{count}}'
+        not_a_number: 'n''est pas un nombre'
+        odd: 'must be odd'
+        taken: 'a déjà été pris'
+        too_long: 'is too long (maximum is {{count}} characters)'
+        too_short: 'is too short (minimum is {{count}} characters)'
+        wrong_length: 'is the wrong length (should be {{count}} characters)'
+      template:
+        body: 'Il y a eu des problèmes avec les champs suivants :'
+        header:
+          one: '1 erreur a empêché l''enregistrement ({{model}})'
+          other: '{{count}} erreurs ont empéché l''enregistrement ({{model}})'
+
     models:
       account: 'Compte'
       account_balance: 'Balance de compte'
@@ -73,8 +100,8 @@ fr-FR:
       template: 'Modèle d''impression'
       unit: 'Unité'
       user: 'Utilisateur'
-    attributes:
 
+    attributes:
 
       # Compte
       account:
@@ -767,23 +794,23 @@ fr-FR:
       # Noeud d'extraction
       listing_node:
         company_id: 'Société'
-        comparator: (((COMPARATOR)))
+        comparator: 'Comparateur'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        exportable: (((EXPORTABLE)))
+        exportable: 'Exportable'
         id: 'ID'
         item_listing_id: (((ITEM_LISTING_ID)))
         item_listing_node_id: (((ITEM_LISTING_NODE_ID)))
         item_nature: (((ITEM_NATURE)))
         item_value: (((ITEM_VALUE)))
-        label: (((LABEL)))
+        label: 'Libellé'
         listing_id: 'Extraction'
         lock_version: 'Version'
         name: 'Nom'
         nature: 'Nature'
-        parent_id: (((PARENT_ID)))
+        parent_id: 'Parent'
         position: 'Position'
-        reflection_name: (((REFLECTION_NAME)))
+        reflection_name: 'Réflection'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -794,11 +821,11 @@ fr-FR:
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
-        nature: (((NATURE)))
-        node_id: (((NODE_ID)))
+        nature: 'Nature'
+        node_id: 'Noeud d''extraction'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
-        value: (((VALUE)))
+        value: 'Valeur'
 
       # Rencontre
       meeting:

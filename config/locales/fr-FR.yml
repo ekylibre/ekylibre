@@ -117,38 +117,6 @@ fr-FR:
         many: "over {{count}} years" 
 
 
-  # ActiveRecord
-  activerecord:
-    errors:
-      template:
-        header:
-          one:   "1 erreur a empêché l'enregistrement ({{model}})" 
-          other:  "{{count}} erreurs ont empéché l'enregistrement ({{model}})" 
-        # The variable :count is also available
-        body: "Il y a eu des problèmes avec les champs suivants :" 
-      # The values :model, :attribute and :value are always available for interpolation
-      # The value :count is available when applicable. Can be used for pluralization.
-      messages:
-        inclusion: "n'est pas inclus dans la liste" 
-        exclusion: "est reservé" 
-        invalid: "est invalide" 
-        confirmation: "est différent du champ de confirmation" 
-        accepted: "doit être accepté" 
-        empty: "ne peut pas être vide" 
-        blank: "ne peut pas être vide" 
-        too_long: "is too long (maximum is {{count}} characters)" 
-        too_short: "is too short (minimum is {{count}} characters)" 
-        wrong_length: "is the wrong length (should be {{count}} characters)" 
-        taken: "a déjà été pris"
-        not_a_number: "n'est pas un nombre" 
-        greater_than: "must be greater than {{count}}" 
-        greater_than_or_equal_to: "must be greater than or equal to {{count}}" 
-        equal_to: "must be equal to {{count}}" 
-        less_than: "must be less than {{count}}" 
-        less_than_or_equal_to: "must be less than or equal to {{count}}" 
-        odd: "must be odd" 
-        even: "must be even"
-        # Append your own errors here or at the model/attributes scope.
 
   # You can use the app section freely to localize you application with the
   # localized_application feature. The entries defined here are accesable by the
@@ -217,8 +185,6 @@ fr-FR:
   helpers:
     accountancy:
     application:
-      yes: oui
-      no: non
       exit: Se déconnecter
     authentication:
     company:
@@ -832,6 +798,10 @@ fr-FR:
       error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus créer, modifier  ou supprimer de pièces.' 
       error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
       error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
+    listing_node:
+      natures:
+        boolean: Booléen
+        string: Chaine de caractères
     payment_mode:
       modes:
         check: Chèque

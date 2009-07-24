@@ -680,6 +680,9 @@ module ApplicationHelper
         end
       end
       
+      if options[:choices].is_a? Hash
+        options[:choices] = options[:choices].to_a.sort{|a,b| a[1]<=>b[1]}.collect{|x| x.reverse}
+      end
       if options[:choices].is_a? Array
         options[:field] = :select if options[:field]!=:radio
         html_options.delete :size
@@ -761,7 +764,7 @@ module ApplicationHelper
                   instance = model.new
                   method_name = [:label, :native_name, :name, :to_s, :inspect].detect{|x| instance.respond_to?(x)}
                   choices = model.find_all_by_company_id(@current_company.id).collect{|x| [x.send(method_name), x.id]}
-                  select_tag(name, options_for_select(choices, value), :id=>options[:id])
+                  select_tag(name, options_for_select([""]+choices, value), :id=>options[:id])
                 when :date
                   date_select(name, value, :start_year=>1980)
                 when :datetime
