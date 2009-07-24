@@ -1,0 +1,5 @@
+h1. Comment modifier une livraison ?
+
+Il vous suffit de modifier les informations désirées en veillant à respecter les quantités de produit.
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

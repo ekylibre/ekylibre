@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
   end
 
   def rights_array
-    self.rights.split(" ").collect{|x| x.to_sym}
+    self.rights.to_s.split(" ").collect{|x| x.to_sym}
   end
 
   def rights_array=(array)

@@ -275,6 +275,14 @@ production     shape_operations_update        manage_shape_operations
 production     unvalidated_operations         manage_shape_operations
 production     shapes                         manage_shapes
 production     shapes_create                  manage_shapes
+relations      districts                      [new_right]
+relations      districts_create               [new_right]
+relations      districts_delete               [new_right]
+relations      districts_update               [new_right]
+relations      dyta_districts                 [new_right]
+relations      dyta_observations              [new_right]
+relations      observations_create            [new_right]
+relations      observations_update            [new_right]
 relations      dyta_cities                    [new_right]
 relations      dyli_area_search               administrate_relations
 relations      dyta_client_invoices           administrate_relations

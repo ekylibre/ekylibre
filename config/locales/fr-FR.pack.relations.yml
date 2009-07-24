@@ -131,6 +131,11 @@ fr-FR:
         meetings_create: 'Ajouter une rencontre'
         nature: 'Nature'
         number: 'Numéro'
+        observations:
+          one: '1 observation'
+          other: '{{count}} observations'
+          zero: 'Aucune observation'
+        observations_create: 'Ajouter une observation'
         sale_orders_number:
           one: '1 vente '
           other: ' {{count}} ventes '

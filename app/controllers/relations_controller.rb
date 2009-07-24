@@ -293,6 +293,13 @@ class RelationsController < ApplicationController
    # t.action :controller=>:management, :invoices_cancel, :if=>'RECORD.credit != true and @current_user.credits'
   end
 
+  dyta(:observations, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']},:line_class=>'RECORD.status', :per_page=>5) do |t|
+    t.column :description
+    t.column :text_importance
+    t.action :observations_update
+    t.action :observations_delete
+  end
+
   def entities_display
     @entity = find_and_check(:entity, params[:id])
     return if @entity.nil?
@@ -311,6 +318,7 @@ class RelationsController < ApplicationController
     @contact = Contact.new
     @contacts_count = @entity.contacts.find(:all, :conditions=>{:active=>true}).size
     @bank_accounts_count = @entity.bank_accounts.find(:all,:conditions=>{:company_id=>@current_company.id}).size
+    @observations_count = @entity.observations.find(:all,:conditions=>{:company_id=>@current_company.id}).size
     @title = {:value=>@entity.full_name}
   end
   
@@ -898,7 +906,23 @@ class RelationsController < ApplicationController
     end
     
   end
+
+  def observations_create
+    @observation = Observation.new(:entity_id=>params[:entity_id], :importance=>"normal")
+    if request.post?
+      @observation = Observation.new(params[:observation])
+      @observation.company_id = @current_company.id
+      redirect_to_back if @observation.save
+    end
+    render_form
+  end
   
- 
+  def observations_update
+    @observation = find_and_check(:observation, params[:id])
+    if request.post?
+      redirect_to_back if @observation.update_attributes(params[:observation])
+    end
+    render_form
+  end
 
 end

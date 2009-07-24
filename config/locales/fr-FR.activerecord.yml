@@ -70,6 +70,7 @@ fr-FR:
       meeting: 'Rencontre'
       meeting_location: 'Lieu de rencontre'
       meeting_mode: 'Mode de rencontre'
+      observation: (((OBSERVATION)))
       parameter: 'Paramètre'
       payment: 'Réglement'
       payment_mode: 'Mode de réglement'
@@ -250,6 +251,9 @@ fr-FR:
       city:
         company_id: 'Société'
         created_at: 'Créé le'
+        created_by: '(((CREATED_BY)))'
+        creator_id: 'Créateur'
+        district_id: (((DISTRICT_ID)))
         created_by: '(((CREATED_BY)))'
         creator_id: 'Créateur'
         district_id: 'District'
@@ -907,6 +911,20 @@ fr-FR:
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+
+      # (((OBSERVATION)))
+      observation:
+        company_id: 'Société'
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        description: 'Description'
+        entity_id: 'Personne'
+        id: 'ID'
+        importance: 'Importance'
+        lock_version: 'Version'
+        text_importance: 'Importance'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 

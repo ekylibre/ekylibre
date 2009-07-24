@@ -89,6 +89,13 @@ class SaleOrder < ActiveRecord::Base
     self.created_on = Date.today
   end
 
+  def after_validation_on_create
+    specific_numeration = self.company.parameter("management.sale_orders.numeration").value
+    if not specific_numeration.nil?
+      self.number = specific_numeration.next_value
+    end
+  end
+  
   def refresh
     self.save
   end

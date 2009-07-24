@@ -790,7 +790,6 @@ class ManagementController < ApplicationController
     client_id = params[:client_id]||(params[:sale_order]||{})[:client_id]||session[:current_entity]
     client_id = 0 if client_id.blank?
     session[:current_entity] = client_id
-    #contacts = Contact.find_all_by_entity_id_and_company_id(client_id, @current_company.id)||[]
     contacts = Contact.find(:all, :conditions=>{:entity_id=>client_id, :company_id=>@current_company.id, :active=>true})  
     @contacts = contacts.collect{|x| [x.address, x.id]}
     render :text=>options_for_select(@contacts) if request.xhr?
@@ -1939,7 +1938,7 @@ class ManagementController < ApplicationController
     t.column :current_real_quantity
   end
 
-  dyta(:critic_product_stocks, :model=>:product_stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
+  dyta(:critic_product_stocks, :model=>:product_stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state') do |t|
     t.column :name, :through=>:product,:url=>{:action=>:products_display}
     t.column :name, :through=>:location, :label=>"Lieu de stockage"
     t.column :quantity_max

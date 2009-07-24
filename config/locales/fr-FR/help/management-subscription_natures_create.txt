@@ -1,0 +1,5 @@
+h1. Comment ajouter un type d'abonnement ?
+
+Choississez le nom ainsi que le type. Dans le cas d'un abonnement par numéro, précisez le numéro en cours.
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

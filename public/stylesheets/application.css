@@ -263,7 +263,7 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 .window .dyta { background: white; }
 
 .center { text-align: center; }
-.center-line { text-align: center; color:#000088;  } 
+.center-line { text-align: center; color:#000088; padding: 0 0 5px 0; } 
 .quick-add { text-align: center;  padding: 0 0 5px 0; color:#004477; font-size:13px; font-weight:bold; }
 
 /* Droits utilisateurs */
@@ -286,4 +286,5 @@ div.dyli_complete ul strong.highlight {color: #800; margin:0; padding:0;}
 fieldset.itemize { border: 1px solid #777; -moz-border-radius: 8px; float: left; margin:8px;}
 fieldset.itemize legend { color: blue; margin: 0 8px; padding:2px;}
 
-
+/* Observations */
+#important { background-color: red;} 

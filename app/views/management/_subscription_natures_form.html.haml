@@ -1,6 +1,9 @@
 =formalize do |f|
   - f.error :subscription_nature
-  - f.field :subscription_nature, :nature, :field=>:radio, :choices=>SubscriptionNature.natures
+  -if @subscription_nature.new_record?
+    - f.field :subscription_nature, :nature, :field=>:radio, :choices=>SubscriptionNature.natures
+  -else
+    - f.field t('activerecord.attributes.subscription_nature.nature'), @subscription_nature.read_nature
   - f.field :subscription_nature, :name
 =formalize(:id=>:number) do |f|
   - f.field :subscription_nature, :actual_number

@@ -81,7 +81,7 @@ page :a4, :margin=>[10.mm] do
       line [[0,0], [width,0]], :width=>0.5
       text string+@invoice.number, :size=>10, :align=>:left, :top=>4.mm
       text I18n.localize(Date.today, :format=>:month_letter), :size=>10, :left=>width/2, :align=>:center, :top=>4.mm
-      text "SIREN "+@current_company.siren.to_s, :size=>8, :left=>width/2, :align=>:center, :top=>10.mm
+      text "SIREN "+@current_company.siren.to_s+"    N° TVA intra-communautaire "+@current_company.entity.vat_number.to_s, :size=>8, :left=>width/2, :align=>:center, :top=>10.mm
       text "Paraphe",:size=>10, :left=>width-20.mm, :align=>:right, :top=>4.mm
     end
     

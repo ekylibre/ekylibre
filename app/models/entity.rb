@@ -63,6 +63,7 @@ class Entity < ActiveRecord::Base
   has_many :contacts, :conditions=>{:active=>true}
   has_many :invoices, :foreign_key=>:client_id
   has_many :meetings
+  has_many :observations
   has_many :payments
   has_many :prices
   has_many :purchase_orders, :foreign_key=>:supplier_id
@@ -97,6 +98,17 @@ class Entity < ActiveRecord::Base
     
    # raise Exception.new('acc:'+self.inspect)
   end
+
+
+  def after_validation_on_create
+    if not self.company.parameter("relations.entities.numeration").nil?
+      specific_numeration = self.company.parameter("relations.entities.numeration").value
+      if not specific_numeration.nil?
+        self.code = specific_numeration.next_value
+      end
+    end
+  end
+  
 
   #
   def destroy_bank_account
@@ -176,6 +188,11 @@ class Entity < ActiveRecord::Base
       account = self.client_account_id
     end
     account
+  end
+
+  def warning
+    count = self.observations.find_all_by_importance("important").size
+    #count += self.balance<0 ? 1 : 0
   end
 
 end 
