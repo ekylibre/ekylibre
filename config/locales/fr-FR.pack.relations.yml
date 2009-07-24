@@ -36,8 +36,8 @@ fr-FR:
   views:
     relations:
       cities:
+        cities_create: 'Ajouter une ville'
         title: 'Villes'
-        cities_create: 'Ajouter une ville' 
       cities_create:
         title: 'Ajouter une ville'
       cities_update:
@@ -70,8 +70,6 @@ fr-FR:
       districts:
         cities_create: 'Ajouter une ville'
         city_name: 'Ville'
-        districts_create: 'Ajouter une zone'
-        title: 'Zones administratives'
         districts_create: 'Ajouter un district'
         title: 'Districts'
       districts_create:
@@ -185,8 +183,8 @@ fr-FR:
       _general_description_form:
         title: 'Description générale'
       index:
-        complements: 'Champs personnalisés'
         cities: 'Villes'
+        complements: 'Champs personnalisés'
         districts: 'Zones administratives'
         entities: 'Gérer les fiches'
         entities_create: 'Créer une nouvelle fiche'

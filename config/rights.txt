@@ -1,8 +1,3 @@
-# relations    dyta_districts                 administrate_relations
-# relations    districts                      manage_districts
-# relations    districts_create               manage_districts
-# relations    districts_delete               manage_districts
-# relations    districts_update               manage_districts
 #relations     cities_create                  manage_districts
 accountancy    dyli_account_search            administrate_accountancy
 accountancy    dyta_bank_account_statements   administrate_accountancy
@@ -280,6 +275,8 @@ production     shape_operations_update        manage_shape_operations
 production     unvalidated_operations         manage_shape_operations
 production     shapes                         manage_shapes
 production     shapes_create                  manage_shapes
+relations      dyta_cities                    [new_right]
+relations      dyta_districts                 [new_right]
 relations      dyta_observations              [new_right]
 relations      observations_create            [new_right]
 relations      observations_update            [new_right]
@@ -311,10 +308,10 @@ relations      complements_create             manage_complements
 relations      complements_update             manage_complements
 relations      dyta_complement_choices        manage_complements
 relations      dyta_complements               manage_complements
+relations      cities                         manage_districts
 relations      cities_create                  manage_districts
 relations      cities_delete                  manage_districts
 relations      cities_update                  manage_districts
-relations      cities                         manage_districts
 relations      districts                      manage_districts
 relations      districts_create               manage_districts
 relations      districts_delete               manage_districts

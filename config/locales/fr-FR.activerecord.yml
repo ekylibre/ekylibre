@@ -911,7 +911,7 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # (((OBSERVATION)))
+      # Observation
       observation:
         company_id: 'Société'
         created_at: 'Créé le'
