@@ -174,7 +174,7 @@ class User < ActiveRecord::Base
     end
     @@rights_list.uniq!
     for controller, actions in @@rights
-      unless [:search, :authentication, :help].include? controller
+      unless [:authentication, :help].include? controller
         @@useful_rights[controller] = actions.values.uniq.delete_if{|x| x == User.minimum_right }
       end
     end

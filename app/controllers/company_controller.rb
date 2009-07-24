@@ -46,21 +46,23 @@ class CompanyController < ApplicationController
     else
       @key = params[:key]||session[:help_key]
       session[:help_key] = @key
-      @key_words = @key.lower.split(" ").select{|x| x.strip.length>2}
+      @key_words = @key.to_s.lower.split(" ").select{|x| x.strip.length>2}
       reg = /(#{@key_words.join("|")})/i
-      @results = []
-      for file in @@helps.keys
-        File.open(file) do |f| 
-          data = f.read
-          if (match = data.scan(reg).size) > 0
-            @results << @@helps[file].merge(:count=>match) 
+      if @key_words.size>0
+        @results = []
+        for file in @@helps.keys
+          File.open(file) do |f| 
+            data = f.read
+            if (match = data.scan(reg).size) > 0
+              @results << @@helps[file].merge(:count=>match) 
+            end
           end
         end
-      end
-      if @results.size>0
-        @results.sort!{|a,b| b[:count]<=>a[:count]}
-        max = @results[0][:count]
-        @results.each{|r| r[:pertinence] = (100*r[:count]/max).to_i}
+        if @results.size>0
+          @results.sort!{|a,b| b[:count]<=>a[:count]}
+          max = @results[0][:count]
+          @results.each{|r| r[:pertinence] = (100*r[:count]/max).to_i}
+        end
       end
     end
   end
