@@ -29,3 +29,4 @@ class SubscriptionNature < ActiveRecord::Base
  end
 
 end
+  
