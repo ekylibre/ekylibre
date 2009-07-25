@@ -41,7 +41,7 @@ class Contact < ActiveRecord::Base
   belongs_to :area
   belongs_to :company
   belongs_to :entity
-  belongs_to :norm, :class_name=>AddressNorm.to_s
+  belongs_to :norm, :class_name=>AddressNorm.name
   has_many :deliveries
   has_many :invoices
   has_many :purchase_orders
@@ -49,8 +49,8 @@ class Contact < ActiveRecord::Base
   has_many :subscriptions
 
   # belongs_to :element, :polymorphic=> true
-  attr_readonly :name, :entity_id, :company_id, :norm_id, :code, :line_2, :line_3, :line_4_number, :line_4_street,
-  :line_5, :line_6_code, :line_6_city, :address, :phone, :fax, :mobile, :email, :website
+  attr_readonly :entity_id, :company_id, :norm_id
+  attr_readonly :name, :code, :line_2, :line_3, :line_4_number, :line_4_street, :line_5, :line_6_code, :line_6_city, :address, :phone, :fax, :mobile, :email, :website
   
 
   def before_validation

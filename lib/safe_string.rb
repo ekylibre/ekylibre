@@ -1,9 +1,9 @@
 class ::String
-  MAJUSCULES = ['À','Â','Ä','É','È','Ê','Ë','Ì','Ï','Î','Ò','Ô','Ö','Û','Ü','Ù','Ç']
-  MINUSCULES = ['à','â','ä','é','è','ê','ë','ì','ï','î','ò','ô','ö','û','ü','ù','ç']
-  MOLUSCULES = ['a','a','a','é','é','é','é','i','i','i','o','o','o','u','u','u','ss'] # Phonétique
-  MEJUSCULES = ['A','A','A','E','E','E','E','I','I','I','O','O','O','U','U','U','C']  # Simplification "lisible"
-  MENUSCULES = ['a','a','a','e','e','e','e','i','i','i','o','o','o','u','u','u','c']  # Simplification "lisible"
+  MAJUSCULES = ['Á','À','Â','Ä','Å','Ã','Æ','É','È','Ê','Ë','Ì','Ï','Î','Ò','Ô','Ö','Û','Ü','Ù','Ç']
+  MINUSCULES = ['á','à','â','ä','å','ã','æ','é','è','ê','ë','ì','ï','î','ò','ô','ö','û','ü','ù','ç']
+  MOLUSCULES = ['a','a','a','a','a','a','a','é','é','é','é','i','i','i','o','o','o','u','u','u','ss'] # Phonétique
+  MEJUSCULES = ['A','A','A','A','A','A','A','E','E','E','E','I','I','I','O','O','O','U','U','U','C']  # Simplification "lisible"
+  MENUSCULES = ['a','a','a','a','a','a','a','e','e','e','e','i','i','i','o','o','o','u','u','u','c']  # Simplification "lisible"
   
   def translate(from, to)
     return self.dup.translate!(from, to)

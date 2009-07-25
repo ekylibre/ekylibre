@@ -47,7 +47,7 @@ fr-FR:
       delivery_line: 'Ligne de livraison'
       delivery_mode: 'Mode de livraison'
       department: 'Service'
-      district: 'District'
+      district: 'Zone administrative'
       document: 'Document'
       embankment: 'Encaissement'
       employee: 'Employé'
@@ -188,14 +188,14 @@ fr-FR:
 
       # Zone postale
       area:
-        city_id: (((CITY_ID)))
+        city_id: Ville
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
-        name: (((NAME)))
-        postcode: (((POSTCODE)))
+        name: Nom
+        postcode: Code postal
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -251,9 +251,8 @@ fr-FR:
       city:
         company_id: 'Société'
         created_at: 'Créé le'
-        created_by: '(((CREATED_BY)))'
         creator_id: 'Créateur'
-        district_id: 'District'
+        district_id: 'Zone administrative'
         id: 'ID'
         insee_ar: (((INSEE_AR)))
         insee_artmaj: (((INSEE_ARTMAJ)))
@@ -270,7 +269,6 @@ fr-FR:
         lock_version: 'Version'
         name: 'Nom'
         updated_at: 'Mis à jour le'
-        updated_by: '(((UPDATED_BY)))'
         updater_id: 'Modificateur'
 
       # Société
@@ -350,7 +348,7 @@ fr-FR:
       contact:
         active: 'Actif'
         address: 'Adresse'
-        area_id: 'Zone'
+        area_id: 'Code postal - Ville'
         closed_on: 'Annulé le'
         code: 'Code'
         company_id: 'Société'
@@ -489,13 +487,11 @@ fr-FR:
       district:
         company_id: 'Société'
         created_at: 'Créé le'
-        created_by: '(((CREATED_BY)))'
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
         updated_at: 'Mis à jour le'
-        updated_by: '(((UPDATED_BY)))'
         updater_id: 'Modificateur'
 
       # Document

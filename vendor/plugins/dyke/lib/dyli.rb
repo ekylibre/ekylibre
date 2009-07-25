@@ -172,7 +172,6 @@ module Ekylibre
           options  = { :action => "dyli_#{name}"}.merge(options)
           options[:id] = real_object.area_id unless real_object.new_record?
            
-          
           completion_options[:skip_style] = true;
           
           dyli_completer(tf_name, tf_value, hf_name, hf_value, options, tag_options, completion_options)

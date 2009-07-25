@@ -5,56 +5,22 @@ class RelationsController < ApplicationController
   end
   
   #
-  def areas_find
-    if request.xhr?
-      area = params[:area].split(',')[0] 
-      @area = (area.nil? ? nil : area.strip)
-      city = params[:area].split(',')[1]
-      @city = (city.nil? ? nil : city.strip)
-      render :action=>'areas_find.rjs'
-    end
-  end
+  #   def areas_find
+  #     if request.xhr?
+  #       area = params[:area].split(',')[0] 
+  #       @area = (area.nil? ? nil : area.strip)
+  #       city = params[:area].split(',')[1]
+  #       @city = (city.nil? ? nil : city.strip)
+  #       render :action=>'areas_find.rjs'
+  #     end
+  #   end
 
 
-  dyta(:entity_bank_accounts, :model => :bank_accounts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+  dyta(:cities, :conditions=>{:company_id=>['@current_company.id']}, :children=>:areas) do |t| 
     t.column :name
-    t.column :number
-    t.column :iban_label
-    t.action :bank_accounts_update, :controller => :accountancy, :image=>:update
-    t.action :bank_accounts_delete, :controller => :accountancy, :method=>:post, :image=>:delete, :confirm=> :are_you_sure 
-  end
-
-  dyta(:complements, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t|
-    t.column :name
-    t.column :nature_label
-    t.column :required
-    t.column :active
-    t.column :choices_count, :datatype=>:integer
-    t.action :complements_update, :image=>:update
-    t.action :complement_choices, :image=>:menulist, :if=>'RECORD.nature == "choice"'
-  end
-
-  dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['session[:current_complement_id]']}, :order=>{'sort'=>'position'}) do |t| 
-    t.column :name 
-    t.column :value
-    t.action :complement_choices_up, :if=>"not RECORD.first\?", :method=>:post
-    t.action :complement_choices_down, :if=>"not RECORD.last\?", :method=>:post
-    t.action :complement_choices_update
-  end
-  
-  dyta(:districts, :children=>:cities, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
-    t.column :name, :children=>:city_name, :url=>{:action=>:cities_create} 
-    
-    t.action :districts_update, :image=>:update
-    t.action :districts_delete, :image=>:delete, :confirm=>:are_you_sure, :method=>:post
- #   t.action :districts_consult, :image=>:table
-  end
- 
-  dyta(:cities, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
-    t.column :name
-    t.action :cities_update, :image=>:update
-    t.action :cities_delete, :image=>:delete, :confirm=>:are_you_sure, :method=>:post
- #   t.action :cities_consult, :image=>:table
+    t.column :name, :through=>:district, :children=>false
+    t.action :cities_update
+    t.action :cities_delete, :confirm=>:are_you_sure, :method=>:post
   end
 
   #
@@ -93,6 +59,14 @@ class RelationsController < ApplicationController
     render_form
   end
 
+
+
+  dyta(:districts, :children=>:cities, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+    t.column :name, :children=>:city_name, :url=>{:action=>:cities_create}     
+    t.action :districts_update
+    t.action :districts_delete, :confirm=>:are_you_sure, :method=>:post
+  end
+  
   #
   def districts
     @districts_count = @current_company.districts.count
@@ -114,22 +88,77 @@ class RelationsController < ApplicationController
   def districts_update
     @district = find_and_check(:district,params[:id])
     if request.post? and @district
-       redirect_to :action => "districts" if @district.update_attributes(params[:district])
+      redirect_to :action => "districts" if @district.update_attributes(params[:district])
     end
-     @title = {:value=>@district.name}
+    @title = {:value=>@district.name}
     render_form
- end
+  end
 
   def districts_delete
-     @district = find_and_check(:district, params[:id])
+    @district = find_and_check(:district, params[:id])
     if request.post? or request.delete?
       redirect_to :action => "districts" if @district.destroy
     end
     render_form
   end
 
+
+  dyta(:complements, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t|
+    t.column :name
+    t.column :nature_label
+    t.column :required
+    t.column :active
+    t.column :choices_count, :datatype=>:integer
+    t.action :complements_update
+    t.action :complement_choices, :image=>:menulist, :if=>'RECORD.nature == "choice"'
+  end
+
+
   def complements
   end
+
+  def complements_create
+    if request.post?
+      @complement = Complement.new(params[:complement])
+      @complement.company_id = @current_company.id
+      if @complement.save 
+        if @complement.nature=='choice'
+          redirect_to :action=>:complement_choices , :id=>@complement.id
+        else
+          redirect_to_back
+        end
+        #        redirect_to_back 
+      end
+    else
+      @complement = Complement.new
+    end
+    render_form
+  end
+  
+  def complements_update
+    @complement = find_and_check(:complement, params[:id])
+    if request.post?
+      redirect_to_back if @complement.update_attributes(params[:complement])
+      #      if @complement.nature == 'choice'
+      #        redirect_to :action=>:complement_choices , :id=>@complement.id
+      #      elsif  @complement
+      #        redirect_to_back if @complement.update_attributes(params[:complement])
+      #      end
+    end
+    @title = {:value=>@complement.name}
+    render_form
+  end
+
+
+
+  dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['session[:current_complement_id]']}, :order=>{'sort'=>'position'}) do |t| 
+    t.column :name 
+    t.column :value
+    t.action :complement_choices_up, :if=>"not RECORD.first\?", :method=>:post
+    t.action :complement_choices_down, :if=>"not RECORD.last\?", :method=>:post
+    t.action :complement_choices_update
+  end
+  
 
   def complement_choices
     @complement = find_and_check(:complement , params[:id])
@@ -187,39 +216,6 @@ class RelationsController < ApplicationController
     redirect_to_current
   end
   
-  def complements_create
-    if request.post?
-      @complement = Complement.new(params[:complement])
-      @complement.company_id = @current_company.id
-      if @complement.save 
-        if @complement.nature=='choice'
-          redirect_to :action=>:complement_choices , :id=>@complement.id
-        else
-          redirect_to_back
-        end
-        #        redirect_to_back 
-      end
-    else
-      @complement = Complement.new
-    end
-    render_form
-  end
-  
-  def complements_update
-    @complement = find_and_check(:complement, params[:id])
-    if request.post?
-      redirect_to_back if @complement.update_attributes(params[:complement])
-#      if @complement.nature == 'choice'
-#        redirect_to :action=>:complement_choices , :id=>@complement.id
-#      elsif  @complement
-#        redirect_to_back if @complement.update_attributes(params[:complement])
-#      end
-    end
-    @title = {:value=>@complement.name}
-    render_form
-  end
-
-
 
   dyta(:entities, :conditions=>"search_conditions(:attributes=>[:id, :name, :code, :full_name, :website], :key=>session[:entity_key])", :empty=>true) do |t|
     t.column :name, :through=>:nature
@@ -260,11 +256,12 @@ class RelationsController < ApplicationController
     t.column :email
     t.column :website
     t.column :default
-    t.action :entities_contacts_update , :image=>:update 
-    t.action :entities_contacts_delete , :image=>:delete , :method=>:post, :confirm=>:are_you_sure
+    t.action :entities_contacts_update  
+    t.action :entities_contacts_delete  , :method=>:post, :confirm=>:are_you_sure
   end
 
-   dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:company_id=>['@current_company.id']}, :joins => :city, :model => :area)
+  # dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:company_id=>['@current_company.id']}, :joins => :city, :model => :area)
+  dyse(:contact_line6, :area, :name, :attributes=>[:name, :city_id], :conditions => {:company_id=>['@current_company.id']})
 
   #dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'}, :children=>:lines) do |t|
   dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|
@@ -281,10 +278,17 @@ class RelationsController < ApplicationController
     t.column :taken_place_on
     t.column :full_name, :through=>:employee
     t.column :name, :through=>:mode
-    t.action :meetings_update, :image=>:update
-    t.action :meetings_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :meetings_update
+    t.action :meetings_delete, :method=>:post, :confirm=>:are_you_sure
   end
   
+  dyta(:entity_bank_accounts, :model => :bank_accounts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+    t.column :name
+    t.column :number
+    t.column :iban_label
+    t.action :bank_accounts_update, :controller => :accountancy
+    t.action :bank_accounts_delete, :controller => :accountancy, :method=>:post, :confirm=> :are_you_sure 
+  end
   
   dyta(:client_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity]']}, :per_page=>5, :order=>{'sort'=>'created_on', 'dir'=>'desc'}) do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:invoices_display}
@@ -294,7 +298,7 @@ class RelationsController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit
-   # t.action :controller=>:management, :invoices_cancel, :if=>'RECORD.credit != true and @current_user.credits'
+    # t.action :controller=>:management, :invoices_cancel, :if=>'RECORD.credit != true and @current_user.credits'
   end
 
   dyta(:observations, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']},:line_class=>'RECORD.status', :per_page=>5) do |t|
@@ -307,12 +311,12 @@ class RelationsController < ApplicationController
   def entities_display
     @entity = find_and_check(:entity, params[:id])
     return if @entity.nil?
-#     @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
-#     if @entity.nil?
-#       flash[:error] = tc('unfound_entity')
-#       redirect_to :action=>:entities
-#       return
-#     end
+    #     @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
+    #     if @entity.nil?
+    #       flash[:error] = tc('unfound_entity')
+    #       redirect_to :action=>:entities
+    #       return
+    #     end
     session[:current_entity] = @entity.id
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})
     @key = ""
@@ -328,9 +332,9 @@ class RelationsController < ApplicationController
   
   def client_informations
     #raise Exception.new "jjjjjjjjjjjjjjjjjjjjjjjjjj"+params.inspect
-   # render :partial => "client_form" if params[:entity_client] == 1
+    # render :partial => "client_form" if params[:entity_client] == 1
     if params[:entity_client] == 1
-       @client = 1
+      @client = 1
     else
       @client = 0
     end
@@ -340,12 +344,12 @@ class RelationsController < ApplicationController
   def entities_create
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
-   
+    
     @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", @current_company.parameter('accountancy.third_accounts.clients').value.to_s+'%'])
     @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", @current_company.parameter('accountancy.third_accounts.suppliers').value.to_s+'%'])
-                  
+    
     if request.post?
-                  
+      
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
 
@@ -429,8 +433,8 @@ class RelationsController < ApplicationController
         @complement_data << ComplementDatum.new(:complement_id=>complement.id)
       end
     end
-#                                                            raise Exception.new('p12:'+params.inspect)      
-  # @contact = Contact.new
+    #                                                            raise Exception.new('p12:'+params.inspect)      
+    # @contact = Contact.new
     render_form
   end
 
@@ -442,7 +446,7 @@ class RelationsController < ApplicationController
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
     @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})||Contact.new(:entity_id=>@entity.id,:company_id=>@current_company.id, :norm_id=>@current_company.address_norms[0].id)
- 
+    
     @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '411%'])
     @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '401%'])
     
@@ -481,7 +485,7 @@ class RelationsController < ApplicationController
               @entity.update_attribute(:supplier_account_id, account.id)
             end
           end
-      
+          
           for datum in @complement_data
             datum.entity_id = @entity.id
             saved = false unless datum.save
@@ -497,7 +501,7 @@ class RelationsController < ApplicationController
         raise ActiveRecord::Rollback unless saved
         redirect_to_back
       end
-    
+      
     else
       for complement in @complements
         datum  = ComplementDatum.find_by_complement_id_and_entity_id(complement.id, @entity.id)
@@ -519,7 +523,7 @@ class RelationsController < ApplicationController
       unless @entity.invoices.size > 0
         @id = params[:id]
         Entity.destroy(@id) if @entity
-#        Entity.delete(@id) if @entity
+        #        Entity.delete(@id) if @entity
       else
         flash[:warning]=lc(:entities_delete_permission)
       end
@@ -585,10 +589,17 @@ class RelationsController < ApplicationController
   def entities_contacts_create
     @entity = find_and_check(:entity, params[:id]||session[:current_entity])
     if request.post?
+      raise Exception.new(params[:contact].inspect)
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
       @contact.entity_id = @entity.id  
+      @contact.find_area(params[:area][:search])
+      area = params[:area][:search].split(',')[0] 
+      @area = (area.nil? ? nil : area.strip)
+      city = params[:area].split(',')[1]
+      @city = (city.nil? ? nil : city.strip)
+
       redirect_to_back if @contact.save
     else
       # this line has been added temporarly.
@@ -605,7 +616,7 @@ class RelationsController < ApplicationController
     @contact = Contact.find_by_id_and_company_id(params[:id], @current_company.id)
     @id = @contact.entity_id
     
-#    raise Exception.new('entity:'+@contact.entity.inspect)
+    #    raise Exception.new('entity:'+@contact.entity.inspect)
     if request.post? and @contact
       redirect_to_back if @contact.update_attributes(params[:contact]) # @contact.update_attributes(params[:contact])
     end
@@ -631,8 +642,8 @@ class RelationsController < ApplicationController
     t.column :active
     t.column :physical
     t.column :in_name
-    t.action :entities_natures_update, :image=>:update
-    t.action :entities_natures_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :entities_natures_update
+    t.action :entities_natures_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def entities_natures
@@ -670,17 +681,17 @@ class RelationsController < ApplicationController
     end
     redirect_to :action=>:entities_natures
   end
- 
+  
   dyta(:meeting_locations, :conditions=>{:company_id=>['@current_company.id'], :active=>true}) do |t|
     t.column :name
     t.column :description
-    t.action :meeting_locations_update, :image=>:update
-    t.action :meeting_locations_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :meeting_locations_update
+    t.action :meeting_locations_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def meeting_locations
   end
- 
+  
   def meeting_locations_create
     @meeting_location = MeetingLocation.new
     if request.post?
@@ -709,12 +720,12 @@ class RelationsController < ApplicationController
 
   dyta(:meeting_modes, :conditions=>{:company_id=>['@current_company.id'], :active=>true}) do |t|
     t.column :name
-    t.action :meeting_modes_update, :image=>:update
-    t.action :meeting_modes_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :meeting_modes_update
+    t.action :meeting_modes_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def meeting_modes
-#    meeting_modes_list
+    #    meeting_modes_list
   end
 
   def meeting_modes_create
@@ -750,8 +761,8 @@ class RelationsController < ApplicationController
     t.column :taken_place_on
     t.column :full_name, :through=>:employee
     t.column :name, :through=>:mode
-    t.action :meetings_update, :image=>:update
-    t.action :meetings_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :meetings_update
+    t.action :meetings_delete, :method=>:post, :confirm=>:are_you_sure
   end
   
   def meetings
@@ -771,8 +782,8 @@ class RelationsController < ApplicationController
     render_form
   end
   
- 
- def meetings_update
+  
+  def meetings_update
     @meeting = find_and_check(:meeting, params[:id])
     if request.post?
       redirect_to_back if @meeting.update_attributes(params[:meeting])
@@ -789,23 +800,23 @@ class RelationsController < ApplicationController
   end
 
   @@exchange_format = [ {:name=>:entity_code, :null=>false}, 
-                             {:name=>:entity_nature_name, :null=>false},
-                             {:name=>:entity_name, :null=>false},
-                             {:name=>:entity_first_name, :null=>true},
-                             {:name=>:contact_line_2, :null=>true},
-                             {:name=>:contact_line_3, :null=>true},
-                             {:name=>:contact_line_4_number, :null=>true},
-                             {:name=>:contact_line_4_street, :null=>true},
-                             {:name=>:contact_line_5, :null=>true},
-                             {:name=>:contact_line_6_code, :null=>true},
-                             {:name=>:contact_line_6_city, :null=>false},
-                             {:name=>:contact_phone, :null=>true},
-                             {:name=>:contact_mobile, :null=>true},
-                             {:name=>:contact_fax, :null=>true}, 
-                             {:name=>:contact_email, :null=>true},
-                             {:name=>:contact_website, :null=>true},
-                             {:name=>:entity_reduction_rate, :null=>true},
-                             {:name=>:entity_comment, :null=>true} ]
+                        {:name=>:entity_nature_name, :null=>false},
+                        {:name=>:entity_name, :null=>false},
+                        {:name=>:entity_first_name, :null=>true},
+                        {:name=>:contact_line_2, :null=>true},
+                        {:name=>:contact_line_3, :null=>true},
+                        {:name=>:contact_line_4_number, :null=>true},
+                        {:name=>:contact_line_4_street, :null=>true},
+                        {:name=>:contact_line_5, :null=>true},
+                        {:name=>:contact_line_6_code, :null=>true},
+                        {:name=>:contact_line_6_city, :null=>false},
+                        {:name=>:contact_phone, :null=>true},
+                        {:name=>:contact_mobile, :null=>true},
+                        {:name=>:contact_fax, :null=>true}, 
+                        {:name=>:contact_email, :null=>true},
+                        {:name=>:contact_website, :null=>true},
+                        {:name=>:entity_reduction_rate, :null=>true},
+                        {:name=>:entity_comment, :null=>true} ]
   
   @@exchange_format.each do |column|
     column[:label] = tc(column[:name])
@@ -816,10 +827,10 @@ class RelationsController < ApplicationController
     @entities = Entity.find(:all, :conditions=>{:company_id=>@current_company.id})
     
     csv_string = FasterCSV.generate do |csv|
-    
+      
       csv << ["Code", "Type", "Nom", "Prénom","Dest-Service","Bat.-Res.-ZI","N° voie","Libelle voie","Lieu dit","Code Postal","Ville",  "Téléphone", "Mobile", "Fax","Email","Site Web", "Taux de réduction", "Commentaire" ]         
       
-    
+      
       @entities.each do |entity|
         contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :default=>true, :deleted=>false})
         line = []
@@ -902,7 +913,7 @@ class RelationsController < ApplicationController
               contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>entity_contact[0].id, :default=>true, :deleted=>false}) 
               contact.update_attributes(entity_contact[1].attributes) if !contact.nil?
             end
-          flash[:notice]=tc(:import_succeed)
+            flash[:notice]=tc(:import_succeed)
           end
         end
       end

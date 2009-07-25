@@ -1,8 +1,3 @@
-# Methods added to this helper will be available to all templates in the application.
-# To comment
-# load File.dirname(__FILE__) + '/../../lib/i18n.rb'
-
-
 module ApplicationHelper
   
   MENUS=
@@ -41,8 +36,8 @@ module ApplicationHelper
            [ {:name=>:entities_natures},
              {:name=>:entity_categories},
              {:name=>:complements},
-             {:name=>:districts},
-             {:name=>:cities}
+             {:name=>:cities},
+             {:name=>:districts}
            ] }
        ] },
      # AccountancyController
@@ -108,11 +103,10 @@ module ApplicationHelper
           {:name=>:shapes, :list=>
             [ {:name=>:shapes},
               {:name=>:shape_operations},
-              {:name=>:shape_operation_natures}]}
+              {:name=>:shape_operation_natures}
+            ] }
        ] }
      
-
-
     ]
 
   #raise Exception.new MENUS[0].inspect
@@ -167,19 +161,10 @@ module ApplicationHelper
       ''
     end
   end
-  
-  #  def menu_index(controller=self.controller.controller_name.to_sym)
-  #    render(:partial=>'shared/menu_index', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
-  #  end
-  
+    
   def countries
-    t('countries').to_a.sort{|a,b| a[1].to_s<=>b[1].to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
+    t('countries').to_a.sort{|a,b| a[1].ascii.to_s<=>b[1].ascii.to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
   end
-
-  #   def can_access?(action=:all)
-  #     return false unless @current_user
-  #     return session[:actions].include?(:all) ? true : session[:actions].include?(action)
-  #   end
 
   def link_to_back(options={})
     #    link_to tg(options[:label]||'back'), :back
@@ -292,16 +277,8 @@ module ApplicationHelper
 
   def side_tag(controller = self.controller.controller_name.to_sym)
     return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym)
-    # code = ''
-    # code += link_to t("controllers.#{self.controller.controller_name}.title"), {:controller=>controller.controller_name.to_sym, :action=>:index}, :class=>:index
-    # code += link_to(tg("indicator"), {:controller=>controller.controller_name.to_sym, :action=>:index}, :class=>:indicator)
-    # code += menu_index
-    # content_tag(:div, code, :id=>:side, :flexy=>true, :orient=> :vertical)
-    # code
     render(:partial=>'shared/menu', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
   end
-
-
 
   def title
     t("views."+controller.controller_name+'.'+action_name+'.title', @title||{})
@@ -325,16 +302,7 @@ module ApplicationHelper
   end
 
 
-  def location_tag(location, options={})
-    location = Location.find_by_name(location.to_s) unless location.is_a? Location
-    return '' if location.nil?
-    content = ''
-    content += location.render(@current_user)
-    content_tag(:div, content, options.merge({:id=>location.name.to_s, :class=>:location, :align=>"center"}))
-  end
-
   def flash_tag(mode)
-    #    content_tag(:div, 'Blabla', :class=>'flash '+mode.to_s)
     content_tag(:div, flash[mode], :class=>'flash '+mode.to_s) if flash[mode]
   end
 
@@ -437,13 +405,6 @@ module ApplicationHelper
   end
   
   
-  
-  #  def date_field(object_name, method, options={})
-  #    record = instance_variable_get('@'+object_name.to_s)
-  #    hidden_field_tag(object_name.to_s+'_'+method, record.send(method))+
-  #      text_field_tag(object_name.to_s+'_'+method+'_mask', nil, options.merge(:onload=>"hiddenToMask(this)"))+
-  #      observe_field(object_name.to_s+'_'+method+'_mask', :function=>"date_convert(this, 'dmy', 'iso')")
-  #  end
 
 
   def itemize(name, options={})
