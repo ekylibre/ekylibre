@@ -69,9 +69,9 @@ fr-FR:
         amount: 'Total de la livraison HT'
         amount_with_taxes: 'Total de la livraison TTC'
         infos: 'Renseignez les caractéristiques de la livraison'
-      _deliveries_update:
-        title: 'Modification de la livraison'
       deliveries_update:
+        title: 'Modification de la livraison'
+      _deliveries_update:
         title: 'Modification de la livraison'
       delivery_modes:
         delivery_modes_create: 'Ajouter un type livraison'
@@ -156,16 +156,16 @@ fr-FR:
         prices: 'Prix'
         products: 'Produits'
         purchases: 'Achats'
-        purchases_consult: 'Consulter la liste des achats'
+        purchases_consult: 'Liste des achats'
         purchases_new: 'Nouvel achat'
         sale_order_natures: 'Types de vente'
         sales: 'Ventes'
-        sales_consult: 'Consulter la liste des ventes'
+        sales_consult: 'Liste des ventes'
         sales_new: 'Nouvelle vente'
         shelves: 'Catégories de produit'
         stock_transfers: 'Transferts et pertes'
         stocks: 'Stocks'
-        stocks_consult: 'Consulter l''état des stocks'
+        stocks_consult: 'État des stocks'
         stocks_locations: 'Gérer les stocks'
         subscription_natures: 'Types d''abonnement'
         subscriptions: 'Abonnements'

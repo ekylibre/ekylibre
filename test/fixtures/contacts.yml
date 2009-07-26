@@ -2,39 +2,38 @@
 #
 # Table name: contacts
 #
-#  id            :integer       not null, primary key
-#  entity_id     :integer       not null
-#  norm_id       :integer       not null
-#  default       :boolean       not null
+#  active        :boolean       not null
+#  address       :string(280)   
+#  area_id       :integer       
 #  closed_on     :date          
+#  code          :string(4)     
+#  company_id    :integer       not null
+#  country       :string(2)     
+#  created_at    :datetime      not null
+#  creator_id    :integer       
+#  default       :boolean       not null
+#  deleted       :boolean       not null
+#  email         :string(255)   
+#  entity_id     :integer       not null
+#  fax           :string(32)    
+#  id            :integer       not null, primary key
+#  latitude      :float         
 #  line_2        :string(38)    
 #  line_3        :string(38)    
 #  line_4_number :string(38)    
 #  line_4_street :string(38)    
 #  line_5        :string(38)    
-#  line_6_code   :string(38)    
-#  line_6_city   :string(38)    
-#  address       :string(280)   
-#  phone         :string(32)    
-#  fax           :string(32)    
-#  mobile        :string(32)    
-#  email         :string(255)   
-#  website       :string(255)   
-#  deleted       :boolean       not null
-#  latitude      :float         
-#  longitude     :float         
-#  company_id    :integer       not null
-#  created_at    :datetime      not null
-#  updated_at    :datetime      not null
+#  line_6        :string(255)   
 #  lock_version  :integer       default(0), not null
-#  country       :string(2)     
-#  code          :string(4)     
-#  active        :boolean       not null
+#  longitude     :float         
+#  mobile        :string(32)    
+#  norm_id       :integer       not null
+#  phone         :string(32)    
 #  started_at    :datetime      
 #  stopped_at    :datetime      
-#  area_id       :integer       
-#  creator_id    :integer       
+#  updated_at    :datetime      not null
 #  updater_id    :integer       
+#  website       :string(255)   
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

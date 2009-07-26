@@ -2,21 +2,21 @@
 #
 # Table name: deliveries
 #
-#  id                :integer       not null, primary key
-#  order_id          :integer       not null
-#  invoice_id        :integer       
 #  amount            :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes :decimal(16, 2 default(0.0), not null
 #  comment           :text          
 #  company_id        :integer       not null
-#  created_at        :datetime      not null
-#  updated_at        :datetime      not null
-#  lock_version      :integer       default(0), not null
 #  contact_id        :integer       
-#  planned_on        :date          
-#  moved_on          :date          
-#  mode_id           :integer       
+#  created_at        :datetime      not null
 #  creator_id        :integer       
+#  id                :integer       not null, primary key
+#  invoice_id        :integer       
+#  lock_version      :integer       default(0), not null
+#  mode_id           :integer       
+#  moved_on          :date          
+#  order_id          :integer       not null
+#  planned_on        :date          
+#  updated_at        :datetime      not null
 #  updater_id        :integer       
 #
 

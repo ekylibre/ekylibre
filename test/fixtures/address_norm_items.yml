@@ -2,22 +2,22 @@
 #
 # Table name: address_norm_items
 #
-#  id              :integer       not null, primary key
+#  company_id      :integer       not null
 #  contact_norm_id :integer       not null
-#  name            :string(255)   not null
-#  nature          :string(15)    default("content"), not null
-#  maxlength       :integer       default(38), not null
 #  content         :string(255)   
+#  created_at      :datetime      not null
+#  creator_id      :integer       
+#  id              :integer       not null, primary key
 #  left_nature     :string(15)    
 #  left_value      :string(63)    
+#  lock_version    :integer       default(0), not null
+#  maxlength       :integer       default(38), not null
+#  name            :string(255)   not null
+#  nature          :string(15)    default("content"), not null
+#  position        :integer       
 #  right_nature    :string(15)    default("space")
 #  right_value     :string(63)    
-#  position        :integer       
-#  company_id      :integer       not null
-#  created_at      :datetime      not null
 #  updated_at      :datetime      not null
-#  lock_version    :integer       default(0), not null
-#  creator_id      :integer       
 #  updater_id      :integer       
 #
 

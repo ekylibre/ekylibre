@@ -2,15 +2,15 @@
 #
 # Table name: price_taxes
 #
+#  amount       :decimal(16, 4 default(0.0), not null
+#  company_id   :integer       not null
+#  created_at   :datetime      not null
+#  creator_id   :integer       
 #  id           :integer       not null, primary key
+#  lock_version :integer       default(0), not null
 #  price_id     :integer       not null
 #  tax_id       :integer       not null
-#  amount       :decimal(16, 4 default(0.0), not null
-#  created_at   :datetime      not null
 #  updated_at   :datetime      not null
-#  lock_version :integer       default(0), not null
-#  company_id   :integer       not null
-#  creator_id   :integer       
 #  updater_id   :integer       
 #
 

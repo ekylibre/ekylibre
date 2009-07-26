@@ -2,48 +2,48 @@
 #
 # Table name: entities
 #
-#  id                    :integer       not null, primary key
-#  nature_id             :integer       not null
-#  language_id           :integer       not null
-#  name                  :string(255)   not null
-#  first_name            :string(255)   
-#  full_name             :string(255)   not null
-#  code                  :string(16)    
 #  active                :boolean       default(TRUE), not null
 #  born_on               :date          
-#  dead_on               :date          
-#  ean13                 :string(13)    
-#  soundex               :string(4)     
-#  website               :string(255)   
+#  category_id           :integer       
 #  client                :boolean       not null
-#  supplier              :boolean       not null
-#  company_id            :integer       not null
-#  created_at            :datetime      not null
-#  updated_at            :datetime      not null
-#  lock_version          :integer       default(0), not null
 #  client_account_id     :integer       
-#  supplier_account_id   :integer       
-#  vat_submissive        :boolean       default(TRUE), not null
-#  reflation_submissive  :boolean       not null
+#  code                  :string(16)    
+#  comment               :text          
+#  company_id            :integer       not null
+#  country               :string(2)     
+#  created_at            :datetime      not null
+#  creator_id            :integer       
+#  dead_on               :date          
 #  deliveries_conditions :string(60)    
 #  discount_rate         :decimal(8, 2) 
-#  reduction_rate        :decimal(8, 2) 
-#  comment               :text          
-#  excise                :string(15)    
-#  vat_number            :string(15)    
-#  country               :string(2)     
-#  payments_number       :integer       
+#  ean13                 :string(13)    
 #  employee_id           :integer       
-#  proposer_id           :integer       
-#  payment_mode_id       :integer       
-#  payment_delay_id      :integer       
-#  invoices_count        :integer       
-#  origin_id             :integer       
+#  excise                :string(15)    
 #  first_met_on          :date          
-#  category_id           :integer       
+#  first_name            :string(255)   
+#  full_name             :string(255)   not null
+#  id                    :integer       not null, primary key
+#  invoices_count        :integer       
+#  language_id           :integer       not null
+#  lock_version          :integer       default(0), not null
+#  name                  :string(255)   not null
+#  nature_id             :integer       not null
+#  origin_id             :integer       
+#  payment_delay_id      :integer       
+#  payment_mode_id       :integer       
+#  payments_number       :integer       
+#  proposer_id           :integer       
+#  reduction_rate        :decimal(8, 2) 
+#  reflation_submissive  :boolean       not null
 #  siren                 :string(9)     
-#  creator_id            :integer       
+#  soundex               :string(4)     
+#  supplier              :boolean       not null
+#  supplier_account_id   :integer       
+#  updated_at            :datetime      not null
 #  updater_id            :integer       
+#  vat_number            :string(15)    
+#  vat_submissive        :boolean       default(TRUE), not null
+#  website               :string(255)   
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

@@ -1238,6 +1238,7 @@ class ManagementController < ApplicationController
       @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
       @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
       @client_address = @invoice.contact.address.split(",").collect{ |x| x.strip}
+      print(@invoice)
     end
   end
 

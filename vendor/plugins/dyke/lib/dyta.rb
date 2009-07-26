@@ -174,8 +174,8 @@ module Ekylibre
             end
           end
 
-          def value_image2(value=nil)
-            "image_tag('buttons/'+("+value.to_s+"||:false).to_s+'.png', :border=>0, :alt=>t(("+value.to_s+"||:false).to_s))"
+          def value_image2(value=nil, dir='buttons')
+            "image_tag('"+dir.to_s+"/'+("+value.to_s+"||:false).to_s+'.png', :border=>0, :alt=>t(("+value.to_s+"||:false).to_s))"
           end
           
           
@@ -236,6 +236,9 @@ module Ekylibre
                   end
                   if column.name==:code
                     css_class += ' code'
+                  end
+                  if column.name==:country and  column.datatype == :string and column.limit == 2
+                    datum = "(#{datum}.nil? ? '' : #{value_image2(datum,'countries')}+' '+::I18n.translate('countries.'+#{datum}))"
                   end
                   code += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"+column_sort
                   code += ", :style=>'"+style+"'" unless style.blank?
@@ -399,6 +402,10 @@ module Ekylibre
           end
         end
         
+        def limit
+          @column.limit if @column
+        end
+
         def datatype
           @options[:datatype]||begin
                                  case @column.sql_type

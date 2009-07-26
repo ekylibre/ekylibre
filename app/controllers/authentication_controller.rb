@@ -11,9 +11,10 @@ class AuthenticationController < ApplicationController
     if request.post?
       name = params[:user][:name]
       company = nil
-      sep = /[^a-z0-9\.\_]/i
+      sep = /[^a-z0-9\.\_]+/i
       if name.match sep
         lname = name.split(sep)
+        session[:user_name] = lname[0].upper+'-'+lname[-1]
         company = Company.find_by_code(lname[0].upper)
         name = lname[-1]
       else
@@ -21,6 +22,7 @@ class AuthenticationController < ApplicationController
           flash.now[:warning] = tc(:need_company_code_to_login)
           return
         end
+        session[:user_name] = name
       end
       user = User.authenticate(name, params[:user][:password], company)
       if user
@@ -32,7 +34,6 @@ class AuthenticationController < ApplicationController
       else
         flash.now[:error] = tc(:no_authenticated)
       end
-      session[:user_name] = params[:user][:name]
     end
   end
   

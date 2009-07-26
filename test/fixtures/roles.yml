@@ -2,14 +2,14 @@
 #
 # Table name: roles
 #
-#  id           :integer       not null, primary key
-#  name         :string(255)   not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
-#  updated_at   :datetime      not null
-#  lock_version :integer       default(0), not null
-#  rights       :text          
 #  creator_id   :integer       
+#  id           :integer       not null, primary key
+#  lock_version :integer       default(0), not null
+#  name         :string(255)   not null
+#  rights       :text          
+#  updated_at   :datetime      not null
 #  updater_id   :integer       
 #
 

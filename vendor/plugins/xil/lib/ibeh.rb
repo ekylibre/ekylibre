@@ -8,10 +8,12 @@ module Ibeh
   include ActionView::Helpers::NumberHelper
 
 
-  def self.document(writer, view, &block)
+  def self.document(writer, view=nil, &block)
     doc = Document.new(writer)
-    view.instance_values.each do |k,v|
-      doc.instance_variable_set("@"+k.to_s, v)
+    if view
+      view.instance_values.each do |k,v|
+        doc.instance_variable_set("@"+k.to_s, v)
+      end
     end
     doc.call(doc, block)
     doc.writer

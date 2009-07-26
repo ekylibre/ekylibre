@@ -2,20 +2,20 @@
 #
 # Table name: delivery_lines
 #
-#  id                :integer       not null, primary key
-#  delivery_id       :integer       not null
-#  order_line_id     :integer       not null
-#  product_id        :integer       not null
-#  price_id          :integer       not null
-#  quantity          :decimal(16, 2 default(1.0), not null
-#  unit_id           :integer       not null
 #  amount            :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes :decimal(16, 2 default(0.0), not null
 #  company_id        :integer       not null
 #  created_at        :datetime      not null
-#  updated_at        :datetime      not null
-#  lock_version      :integer       default(0), not null
 #  creator_id        :integer       
+#  delivery_id       :integer       not null
+#  id                :integer       not null, primary key
+#  lock_version      :integer       default(0), not null
+#  order_line_id     :integer       not null
+#  price_id          :integer       not null
+#  product_id        :integer       not null
+#  quantity          :decimal(16, 2 default(1.0), not null
+#  unit_id           :integer       not null
+#  updated_at        :datetime      not null
 #  updater_id        :integer       
 #
 

@@ -2,27 +2,27 @@
 #
 # Table name: stock_locations
 #
+#  account_id       :integer       not null
+#  comment          :text          
+#  company_id       :integer       not null
+#  contact_id       :integer       
+#  created_at       :datetime      not null
+#  creator_id       :integer       
+#  establishment_id :integer       
 #  id               :integer       not null, primary key
+#  lock_version     :integer       default(0), not null
 #  name             :string(255)   not null
+#  number           :integer       
+#  parent_id        :integer       
+#  product_id       :integer       
+#  quantity_max     :float         
+#  reservoir        :boolean       
+#  unit_id          :integer       
+#  updated_at       :datetime      not null
+#  updater_id       :integer       
 #  x                :string(255)   
 #  y                :string(255)   
 #  z                :string(255)   
-#  comment          :text          
-#  parent_id        :integer       
-#  account_id       :integer       not null
-#  establishment_id :integer       
-#  contact_id       :integer       
-#  company_id       :integer       not null
-#  created_at       :datetime      not null
-#  updated_at       :datetime      not null
-#  lock_version     :integer       default(0), not null
-#  reservoir        :boolean       
-#  product_id       :integer       
-#  quantity_max     :float         
-#  unit_id          :integer       
-#  number           :integer       
-#  creator_id       :integer       
-#  updater_id       :integer       
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

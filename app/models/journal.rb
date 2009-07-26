@@ -2,19 +2,19 @@
 #
 # Table name: journals
 #
-#  id             :integer       not null, primary key
-#  nature         :string(16)    not null
-#  name           :string(255)   not null
-#  code           :string(4)     not null
-#  deleted        :boolean       not null
-#  currency_id    :integer       not null
-#  counterpart_id :integer       
 #  closed_on      :date          default(Thu, 31 Dec 1970), not null
+#  code           :string(4)     not null
 #  company_id     :integer       not null
+#  counterpart_id :integer       
 #  created_at     :datetime      not null
-#  updated_at     :datetime      not null
-#  lock_version   :integer       default(0), not null
 #  creator_id     :integer       
+#  currency_id    :integer       not null
+#  deleted        :boolean       not null
+#  id             :integer       not null, primary key
+#  lock_version   :integer       default(0), not null
+#  name           :string(255)   not null
+#  nature         :string(16)    not null
+#  updated_at     :datetime      not null
 #  updater_id     :integer       
 #
 

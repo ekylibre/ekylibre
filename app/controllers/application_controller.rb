@@ -131,6 +131,21 @@ class ApplicationController < ActionController::Base
     session[:help]=true
   end
 
+
+  def print(object, options={})
+    if @current_company
+      options[:view] = self
+      filename = options.delete(:filename)
+      filename += '.pdf' if filename and not filename.to_s.match(/\./)
+      result = @current_company.print(object, options)
+      if result.is_a? Document
+        send_file(result.file_path, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename||result.original_filename)
+      else
+        send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename)
+      end
+    end
+  end
+
   def redirect_to_login()
     reset_session
     session[:help] = false

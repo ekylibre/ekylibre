@@ -36,7 +36,7 @@ module ApplicationHelper
            [ {:name=>:entities_natures},
              {:name=>:entity_categories},
              {:name=>:complements},
-             {:name=>:cities},
+             {:name=>:areas},
              {:name=>:districts}
            ] }
        ] },
@@ -121,6 +121,7 @@ module ApplicationHelper
   def menus
     MENUS
   end
+
 
 
 

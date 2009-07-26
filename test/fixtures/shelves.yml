@@ -2,17 +2,17 @@
 #
 # Table name: shelves
 #
-#  id                  :integer       not null, primary key
-#  name                :string(255)   not null
-#  catalog_name        :string(255)   not null
 #  catalog_description :text          
+#  catalog_name        :string(255)   not null
 #  comment             :text          
-#  parent_id           :integer       
 #  company_id          :integer       not null
 #  created_at          :datetime      not null
-#  updated_at          :datetime      not null
-#  lock_version        :integer       default(0), not null
 #  creator_id          :integer       
+#  id                  :integer       not null, primary key
+#  lock_version        :integer       default(0), not null
+#  name                :string(255)   not null
+#  parent_id           :integer       
+#  updated_at          :datetime      not null
 #  updater_id          :integer       
 #
 

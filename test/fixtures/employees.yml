@@ -2,26 +2,26 @@
 #
 # Table name: employees
 #
-#  id               :integer       not null, primary key
-#  department_id    :integer       not null
-#  establishment_id :integer       not null
-#  user_id          :integer       
-#  title            :string(32)    not null
-#  last_name        :string(255)   not null
-#  first_name       :string(255)   not null
 #  arrived_on       :date          
-#  departed_on      :date          
-#  role             :string(255)   
-#  office           :string(32)    
 #  comment          :text          
+#  commercial       :boolean       not null
 #  company_id       :integer       not null
 #  created_at       :datetime      not null
-#  updated_at       :datetime      not null
-#  lock_version     :integer       default(0), not null
-#  profession_id    :integer       
-#  commercial       :boolean       not null
 #  creator_id       :integer       
+#  departed_on      :date          
+#  department_id    :integer       not null
+#  establishment_id :integer       not null
+#  first_name       :string(255)   not null
+#  id               :integer       not null, primary key
+#  last_name        :string(255)   not null
+#  lock_version     :integer       default(0), not null
+#  office           :string(32)    
+#  profession_id    :integer       
+#  role             :string(255)   
+#  title            :string(32)    not null
+#  updated_at       :datetime      not null
 #  updater_id       :integer       
+#  user_id          :integer       
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

@@ -2,17 +2,17 @@
 #
 # Table name: companies
 #
-#  id           :integer       not null, primary key
-#  name         :string(255)   not null
-#  code         :string(8)     not null
 #  born_on      :date          
-#  locked       :boolean       not null
-#  deleted      :boolean       not null
+#  code         :string(8)     not null
 #  created_at   :datetime      not null
-#  updated_at   :datetime      not null
-#  lock_version :integer       default(0), not null
-#  entity_id    :integer       
 #  creator_id   :integer       
+#  deleted      :boolean       not null
+#  entity_id    :integer       
+#  id           :integer       not null, primary key
+#  lock_version :integer       default(0), not null
+#  locked       :boolean       not null
+#  name         :string(255)   not null
+#  updated_at   :datetime      not null
 #  updater_id   :integer       
 #
 

@@ -16,9 +16,14 @@ module Ekylibre
           include ActionView::Helpers::UrlHelper
           
           # Controller-side method
+          #
+          # name       Name of the DYnamic SElect
+          # model      Model used for searches
+          # attribute  Column used to return result
+          # options    Options to specify attributes to display...
 
-          def dyse(name, model, attribute=:name, options = {})
-            attributes = options[:attributes]||[attribute]
+          def dyse(name, model, attribute, options = {})
+            attributes = [attribute]
 
             query = []
             parameters = ''
@@ -31,14 +36,15 @@ module Ekylibre
             code  = ""
             code += "def dyse_"+name.to_s+"\n"
             code += "  conditions = [#{query.join(' AND ').inspect+parameters}]\n"
-            code += "  search = params[:#{model}][:search]\n"
+            # code += "  raise Exception.new(params)\n"
+            code += "  search = params[:#{name}][:search]\n"
             code += "  words = search.lower.split(/\\s+/)\n"
             code += "  if words.size>0\n"
             code += "    conditions[0] += ' AND ('\n"
-            code += "    words.times do |index|\n"
+            code += "    words.size.times do |index|\n"
             code += "      word = #{(options[:filter]||'%X%').inspect}.gsub('X', words[index])\n"
             code += "      conditions[0] += ' OR ' if index>0\n"
-            code += "      conditions[0] += "+attributes.collect{|key| "LOWER(#{model.to_s.pluralize}.#{key}) LIKE ?"}.join(' OR ').inspect+"\n"
+            code += "      conditions[0] += "+attributes.collect{|key| "LOWER(CAST(#{model.to_s.pluralize}.#{key} AS VARCHAR)) LIKE ?"}.join(' OR ').inspect+"\n"
             code += "      conditions += ["+(["word"]*attributes.size).join(", ")+"]\n"
             code += "    end\n"
             code += "    conditions[0] += ')'\n"
@@ -86,19 +92,18 @@ module Ekylibre
       module View
         
         #
-        # def dyse_tag(object, association, options={}, tag_options={}, completion_options={})
-        def dyse_tag(object, association, name=nil, options={}, tag_options={}, completion_options={})
-          name ||= object.to_s+'_'+association.to_s
-          object  = instance_variable_get("@#{object}") if object.is_a? Symbol
-          #foreign_key  = object.class.reflect_on_association(association).primary_key_name
+        # def dyse_tag(object, method, options={}, tag_options={}, completion_options={})
+        def dyse(object, method, name, options={}, tag_options={}, completion_options={})
+          object_instance = instance_variable_get("@#{object}") if object.is_a? Symbol
+          #foreign_key  = object.class.reflect_on_association(method).primary_key_name
           
-#          name = options[:dyse] || association.to_s
+#          name = options[:dyse] || method.to_s
           
-          tf_name  = "#{association}[search]"
+          tf_name  = "#{name}[search]"
           tf_value = nil
           
-          hf_name  = "" # "#{object}[#{foreign_key}]"
-          hf_value = nil # (real_object.send(foreign_key) rescue nil)
+          hf_name  = "#{object}[#{method}]"
+          hf_value = (object_instance.send(method) rescue nil)
           options  = { :action => "dyse_#{name}"}.merge(options)
           # options[:id] = real_object.area_id unless real_object.new_record?
           
@@ -113,7 +118,7 @@ module Ekylibre
           options = {
             :regexp_for_id        => '(\d+)$',
             :append_random_suffix => true,
-            :allow_free_text      => false,
+            :allow_free_text      => true,
             :submit_on_return     => false,
             :controller           => controller.controller_name,
             :action               => 'dyse_' + tf_name.sub(/\[/, '_').gsub(/\[\]/, '_').gsub(/\[?\]$/, ''),
@@ -180,9 +185,9 @@ module Ekylibre
           hf_id = 'dyse_hf'
           tf_id = 'dyse_tf'
           if options[:append_random_suffix]
-            rand_id = Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by {rand}.join)
+            rand_id = Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by {rand}.join).to_i(16).to_s(36)[-10..-1]
             hf_id << "_#{rand_id}"
-            # tf_id << "_#{rand_id}"
+            tf_id << "_#{rand_id}"
           end
           return hf_id, tf_id
         end
@@ -193,9 +198,8 @@ module Ekylibre
                                :id      => tf_id,
                                # Cache the default text field value when the field gets focus.
                                # :onfocus => "this.value  = 4"
-                               #:onfocus => "if (this.dyse == undefined) {this.dyse = this.value}"
+                               # :onfocus => "if (this.dyse == undefined) {this.dyse = this.value}"
                                # :onblur => remote_function(:update=> tf_id, :url => {:action => 'dyse_one_' + tf_name.sub(/\[/, '_').gsub(/\[\]/, '_').gsub(/\[?\]$/, ''), :tf => tf_id, :hf=> hf_id}, :with => "'search='+this.value")+";$('#{hf_id}').value= $('record').value;event.keyCode = Event.KEY_RETURN; $('#{tf_id}').size = ($('#{tf_id}').value.length > 128 ? 128 : $('#{tf_id}').value.length);"
-                               
                              })
 
 
@@ -206,11 +210,11 @@ module Ekylibre
           #                                     end
 
 
-          tag_options[:onchange] = if not options[:allow_free_text]             
-                                     "window.setTimeout(function () {if (this.value != this.dyse) {$('#{hf_id}').value = ''} this.value=this.dyse;}.bind(this), 1000) "
-                                   else
-                                     # "window.setTimeout(function () {$('#{tf_id}').value = this.dyse},200)" #.bind(this), 200)"
-                                   end
+#           tag_options[:onchange] = if not options[:allow_free_text]             
+#                                      "window.setTimeout(function () {if (this.value != this.dyse) {$('#{hf_id}').value = ''} this.value=this.dyse;}.bind(this), 1000) "
+#                                    else
+#                                      # "window.setTimeout(function () {$('#{tf_id}').value = this.dyse},200)" #.bind(this), 200)"
+#                                    end
           
           
           # if the user presses the button return to validate his choice from the list of completion. 
@@ -231,12 +235,24 @@ module Ekylibre
           # standard autocompletion mechanism. Here we generate the JavaScript that goes there.
           completion_options[:after_update_element] = <<-JS.gsub(/\s+/, ' ')
       function(element, value) {
-          var model_id = /#{options[:regexp_for_id]}/.exec(value.id)[1];
-          $("#{hf_id}").value = model_id;
-          element.dyse=element.value; 
-          element.size = (element.dyse.length > 50 ? 50 : element.dyse.length);               
-          event.keyCode = Event.KEY_RETURN;
+          alert(value+" "+$("#{hf_id}").value+" "+$("#{tf_id}").value);
+          if (value) {
+            $("#{hf_id}").value = value;
+          } else {
+           $("#{hf_id}").value = $("#{tf_id}").value; 
+          }
           JS
+
+#           completion_options[:after_update_element] = <-JS.gsub(/\s+/, ' ')
+#       function(element, value) {
+#           var model_id = /#{options[:regexp_for_id]}/.exec(value.id)[1];
+#           $("#{hf_id}").value = model_id;
+#           element.dyse=element.value; 
+#           element.size = (element.dyse.length > 50 ? 50 : element.dyse.length);               
+#           event.keyCode = Event.KEY_RETURN;
+#           JS
+
+
           #element.value;
           if options[:resize]
             completion_options[:after_update_element] += <<-JS.gsub(/\s+/, ' ')
@@ -244,10 +260,10 @@ module Ekylibre
              JS
           end
           
-          completion_options[:after_update_element] += <<-JS.gsub(/\s+/, ' ')
-            (#{options[:after_update_element]})(element, value, $("#{hf_id}"), model_id);
-            }
-            JS
+          # completion_options[:after_update_element] += <-JS.gsub(/\s+/, ' ')
+#             (#{options[:after_update_element]})(element, value, $("#{hf_id}"), model_id);
+#             }
+#             JS
           
           
           # :url has higher priority than :action and :controller.

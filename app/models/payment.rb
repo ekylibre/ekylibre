@@ -2,24 +2,24 @@
 #
 # Table name: payments
 #
-#  id             :integer       not null, primary key
-#  paid_on        :date          
-#  amount         :decimal(16, 2 not null
-#  mode_id        :integer       not null
 #  account_id     :integer       
-#  company_id     :integer       not null
-#  created_at     :datetime      not null
-#  updated_at     :datetime      not null
-#  lock_version   :integer       default(0), not null
-#  part_amount    :decimal(16, 2 
+#  account_number :string(255)   
+#  amount         :decimal(16, 2 not null
 #  bank           :string(255)   
 #  check_number   :string(255)   
-#  account_number :string(255)   
-#  entity_id      :integer       
-#  to_bank_on     :date          default(Wed, 08 Jul 2009), not null
-#  embankment_id  :integer       
-#  embanker_id    :integer       
+#  company_id     :integer       not null
+#  created_at     :datetime      not null
 #  creator_id     :integer       
+#  embanker_id    :integer       
+#  embankment_id  :integer       
+#  entity_id      :integer       
+#  id             :integer       not null, primary key
+#  lock_version   :integer       default(0), not null
+#  mode_id        :integer       not null
+#  paid_on        :date          
+#  part_amount    :decimal(16, 2 
+#  to_bank_on     :date          default(Sat, 25 Jul 2009), not null
+#  updated_at     :datetime      not null
 #  updater_id     :integer       
 #
 

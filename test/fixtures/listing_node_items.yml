@@ -2,16 +2,16 @@
 #
 # Table name: listing_node_items
 #
-#  id           :integer       not null, primary key
-#  node_id      :integer       not null
-#  nature       :string(8)     not null
-#  value        :text          
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
-#  updated_at   :datetime      not null
 #  creator_id   :integer       
-#  updater_id   :integer       
+#  id           :integer       not null, primary key
 #  lock_version :integer       default(0), not null
+#  nature       :string(8)     not null
+#  node_id      :integer       not null
+#  updated_at   :datetime      not null
+#  updater_id   :integer       
+#  value        :text          
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

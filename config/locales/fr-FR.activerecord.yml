@@ -35,7 +35,6 @@ fr-FR:
       area: 'Zone postale'
       bank_account: 'Compte bancaire'
       bank_account_statement: 'Relevé de compte bancaire'
-      city: 'City'
       company: 'Société'
       complement: 'Champ complémentaire'
       complement_choice: 'Choix de champ complémentaire'
@@ -100,7 +99,6 @@ fr-FR:
       subscription: 'Abonnement'
       subscription_nature: 'Type d''abonnement'
       tax: 'Taxe'
-      template: 'Modèle d''impression'
       unit: 'Unité'
       user: 'Utilisateur'
 
@@ -188,14 +186,18 @@ fr-FR:
 
       # Zone postale
       area:
-        city_id: Ville
+        city: 'Ville'
+        city_id: 'Ville'
+        code: 'Code interne'
         company_id: 'Société'
+        country: 'Pays'
         created_at: 'Créé le'
         creator_id: 'Créateur'
+        district_id: 'Zone administrative'
         id: 'ID'
         lock_version: 'Version'
-        name: Nom
-        postcode: Code postal
+        name: 'Nom'
+        postcode: 'Code postal'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -244,30 +246,6 @@ fr-FR:
         number: 'Numéro du relevé de compte'
         started_on: 'Du'
         stopped_on: 'Au'
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
-
-      # City
-      city:
-        company_id: 'Société'
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        district_id: 'Zone administrative'
-        id: 'ID'
-        insee_ar: (((INSEE_AR)))
-        insee_artmaj: (((INSEE_ARTMAJ)))
-        insee_artmin: (((INSEE_ARTMIN)))
-        insee_cdc: (((INSEE_CDC)))
-        insee_cheflieu: (((INSEE_CHEFLIEU)))
-        insee_com: (((INSEE_COM)))
-        insee_ct: (((INSEE_CT)))
-        insee_dep: (((INSEE_DEP)))
-        insee_ncc: (((INSEE_NCC)))
-        insee_nccenr: (((INSEE_NCCENR)))
-        insee_reg: (((INSEE_REG)))
-        insee_tncc: (((INSEE_TNCC)))
-        lock_version: 'Version'
-        name: 'Nom'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -358,7 +336,7 @@ fr-FR:
         default: 'Par défaut'
         deleted: 'Effacé'
         email: 'Email'
-        entity_id: (((ENTITY_ID)))
+        entity_id: Relation
         fax: 'Fax'
         id: 'ID'
         latitude: 'Latitude'
@@ -367,6 +345,7 @@ fr-FR:
         line_4_number: 'Numéro de la voie'
         line_4_street: 'Libellé de la voie'
         line_5: 'Mention spéciale - Lieu dit'
+        line_6: 'Code postal ET ville'
         line_6_city: 'Ville'
         line_6_code: 'Code postal'
         lock_version: 'Version'
@@ -374,7 +353,7 @@ fr-FR:
         mobile: 'Portable'
         name: 'Nom (interne)'
         nature: 'Type'
-        norm_id: (((NORM_ID)))
+        norm_id: Norme postale
         phone: 'Téléphone'
         started_at: (((STARTED_AT)))
         stopped_at: (((STOPPED_AT)))
@@ -483,8 +462,9 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # District
+      # Zone administrative
       district:
+        code: 'Code'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
@@ -499,16 +479,21 @@ fr-FR:
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        crypt_key: (((CRYPT_KEY)))
-        crypt_mode: (((CRYPT_MODE)))
-        filename: (((FILENAME)))
-        filesize: (((FILESIZE)))
+        crypt_key: 'Clé de cryptage'
+        crypt_mode: 'Mode de cryptage'
+        extension: 'Extension'
+        filename: 'Nom du fichier stocké'
+        filesize: 'Taille mémoire'
         id: 'ID'
-        key: (((KEY)))
+        key: 'Clé'
         lock_version: 'Version'
-        original_name: (((ORIGINAL_NAME)))
-        printed_at: (((PRINTED_AT)))
-        sha256: (((SHA256)))
+        original_name: 'Nom du fichier'
+        owner_id: 'Propriétaire'
+        owner_type: 'Nature du propriétaire'
+        printed_at: 'Imprimé le'
+        sha256: 'Hash SHA256'
+        subdir: 'Sous-répertoire'
+        template: 'Modèle'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1500,19 +1485,6 @@ fr-FR:
         name: 'Nom'
         nature: 'Nature'
         reductible: 'Réductible'
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
-
-      # Modèle d'impression
-      template:
-        cache: (((CACHE)))
-        company_id: 'Société'
-        content: (((CONTENT)))
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        id: 'ID'
-        lock_version: 'Version'
-        name: (((NAME)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 

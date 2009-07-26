@@ -2,27 +2,27 @@
 #
 # Table name: prices
 #
-#  id                :integer       not null, primary key
+#  active            :boolean       default(TRUE), not null
 #  amount            :decimal(16, 4 not null
 #  amount_with_taxes :decimal(16, 4 not null
-#  use_range         :boolean       not null
-#  quantity_min      :decimal(16, 2 default(0.0), not null
-#  quantity_max      :decimal(16, 2 default(0.0), not null
-#  product_id        :integer       not null
-#  tax_id            :integer       not null
+#  category_id       :integer       
 #  company_id        :integer       not null
 #  created_at        :datetime      not null
-#  updated_at        :datetime      not null
-#  lock_version      :integer       default(0), not null
-#  entity_id         :integer       
-#  started_at        :datetime      
-#  stopped_at        :datetime      
-#  active            :boolean       default(TRUE), not null
+#  creator_id        :integer       
 #  currency_id       :integer       
 #  default           :boolean       default(TRUE)
-#  category_id       :integer       
-#  creator_id        :integer       
+#  entity_id         :integer       
+#  id                :integer       not null, primary key
+#  lock_version      :integer       default(0), not null
+#  product_id        :integer       not null
+#  quantity_max      :decimal(16, 2 default(0.0), not null
+#  quantity_min      :decimal(16, 2 default(0.0), not null
+#  started_at        :datetime      
+#  stopped_at        :datetime      
+#  tax_id            :integer       not null
+#  updated_at        :datetime      not null
 #  updater_id        :integer       
+#  use_range         :boolean       not null
 #
 
 class Price < ActiveRecord::Base

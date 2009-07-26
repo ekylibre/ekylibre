@@ -4,65 +4,70 @@ class RelationsController < ApplicationController
     @entities = @current_company.entities
   end
   
-  #
-  #   def areas_find
-  #     if request.xhr?
-  #       area = params[:area].split(',')[0] 
-  #       @area = (area.nil? ? nil : area.strip)
-  #       city = params[:area].split(',')[1]
-  #       @city = (city.nil? ? nil : city.strip)
-  #       render :action=>'areas_find.rjs'
-  #     end
-  #   end
+  
+#   def areas_find
+#     if request.xhr?
+#       area = params[:area].split(',')[0] 
+#       @area = (area.nil? ? nil : area.strip)
+#       city = params[:area].split(',')[1]
+#       @city = (city.nil? ? nil : city.strip)
+#       render :action=>'areas_find.rjs'
+#     end
+#   end
 
 
-  dyta(:cities, :conditions=>{:company_id=>['@current_company.id']}, :children=>:areas) do |t| 
+  dyta(:areas, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name
-    t.column :name, :through=>:district, :children=>false
-    t.action :cities_update
-    t.action :cities_delete, :confirm=>:are_you_sure, :method=>:post
+    t.column :postcode
+    t.column :city
+    t.column :code
+    t.column :name, :through=>:district
+    t.column :country    
+    t.action :areas_update
+    t.action :areas_delete, :confirm=>:are_you_sure, :method=>:post
   end
 
   #
-  def cities
-    @cities_count = @current_company.cities.count
+  def areas
   end
 
   #
-  def cities_create
+  def areas_create
     if request.post?
-      @city = City.new(params[:city])
-      @city.company_id = @current_company.id
-      redirect_to_back if @city.save
+      @area = Area.new(params[:area])
+      @area.company_id = @current_company.id
+      redirect_to_back if @area.save
     else
-      @city = City.new
+      @area = Area.new(:district_id=>params[:id])
     end
     render_form
   end
   
   #
-  def cities_update
-    @city = find_and_check(:city,params[:id])
-    if request.post? and @city
-      redirect_to :action => "cities" if @city.update_attributes(params[:city])
+  def areas_update
+    @area = find_and_check(:area,params[:id])
+    if request.post? and @area
+      redirect_to :action => "areas" if @area.update_attributes(params[:area])
     end
-    @title = {:value=>@city.name}
+    @title = {:value=>@area.name}
     render_form
   end
   
   #
-  def cities_delete
-    @city = find_and_check(:city, params[:id])
+  def areas_delete
+    @area = find_and_check(:area, params[:id])
     if request.post? or request.delete?
-      redirect_to :action => "cities" if @city.destroy
+      redirect_to :action => "areas" if @area.destroy
     end
     render_form
   end
 
 
 
-  dyta(:districts, :children=>:cities, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
-    t.column :name, :children=>:city_name, :url=>{:action=>:cities_create}     
+  dyta(:districts, :children=>:areas, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+    t.column :name
+    t.column :code
+    t.action :areas_create
     t.action :districts_update
     t.action :districts_delete, :confirm=>:are_you_sure, :method=>:post
   end
@@ -238,6 +243,7 @@ class RelationsController < ApplicationController
   def entities_print
     @entity = find_and_check(:entity, params[:id])
     return if @entity.nil?
+    print(@entity, :archive=>false, :filename=>@entity.code)
   end 
 
   #
@@ -260,8 +266,8 @@ class RelationsController < ApplicationController
     t.action :entities_contacts_delete  , :method=>:post, :confirm=>:are_you_sure
   end
 
-  # dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:company_id=>['@current_company.id']}, :joins => :city, :model => :area)
-  dyse(:contact_line6, :area, :name, :attributes=>[:name, :city_id], :conditions => {:company_id=>['@current_company.id']})
+  dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:company_id=>['@current_company.id']}, :joins => :city, :model => :area)
+  # dyse(:areas_name, :area, :name, :conditions => {:company_id=>['@current_company.id']})
 
   #dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'}, :children=>:lines) do |t|
   dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|
@@ -353,19 +359,7 @@ class RelationsController < ApplicationController
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
 
-      @city = City.find(:first, :conditions => {:name => params[:contact][:line_6_city], :company_id => @current_company.id})
-      
-      if @city.nil?
-        @city = City.create!(:company_id=>@current_company.id, :name=>params[:contact][:line_6_city], :district_id=>1, :created_at=>Date.today, :updated_at=>Date.today)
-      end
-      @area = Area.find(:first, :conditions => {:company_id=>@current_company.id, :postcode=> params[:contact][:line_6_code], :city_id=>@city.id})
-      if @area.nil?
-        @area = Area.create!(:company_id=>@current_company.id, :city_id=>@city.id, :postcode=>params[:contact][:line_6_code], :created_at=>Date.today, :updated_at=>Date.today)
-      end
-      
-
       @contact = Contact.new(params[:contact])
-      @contact.area_id = @area.id
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
       # @contact.name =  tc(:first_contact)
@@ -589,17 +583,10 @@ class RelationsController < ApplicationController
   def entities_contacts_create
     @entity = find_and_check(:entity, params[:id]||session[:current_entity])
     if request.post?
-      raise Exception.new(params[:contact].inspect)
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
       @contact.entity_id = @entity.id  
-      @contact.find_area(params[:area][:search])
-      area = params[:area][:search].split(',')[0] 
-      @area = (area.nil? ? nil : area.strip)
-      city = params[:area].split(',')[1]
-      @city = (city.nil? ? nil : city.strip)
-
       redirect_to_back if @contact.save
     else
       # this line has been added temporarly.
@@ -836,7 +823,7 @@ class RelationsController < ApplicationController
         line = []
         line << [entity.code, entity.nature.name, entity.name, entity.first_name]
         if !contact.nil?
-          line << [contact.line_2, contact.line_3, contact.line_4_number, contact.line_4_street, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
+          line << [contact.line_2, contact.line_3, contact.line_4_number, contact.line_4_street, contact.line_5, contact.area.postcode, contact.area.city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
         else
           #line << [ "-", "-", "-"]
           line << [ "", "", "", "", "", "", "", "", "", "", "", ""]
@@ -885,7 +872,7 @@ class RelationsController < ApplicationController
           
           if i!=0 
             @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[indices[:entity_nature_name]]), :name=>row[indices[:entity_name]], :first_name=>row[indices[:entity_first_name]], :reduction_rate=>row[indices[:entity_reduction_rate]].to_s.gsub(/\,/,"."), :comment=>row[indices[:entity_comment]]}
-            @contact.attributes = {:line_2=>row[indices[:contact_line_2]], :line_3=>row[indices[:contact_line_3]], :line_4_number=>row[indices[:contact_line_4_number]], :line_4_street=>row[indices[:contact_line_4_street]], :line_5=>row[indices[:contact_line_5]], :line_6_code=>row[indices[:contact_line_6_code]], :line_6_city=>row[indices[:contact_line_6_city]], :phone=>row[indices[:contact_phone]], :mobile=>row[indices[:contact_mobile]], :fax=>row[indices[:contact_fax]] ,:email=>row[indices[:contact_email]], :website=>row[indices[:contact_website]] } if !@contact.nil?
+            @contact.attributes = {:line_2=>row[indices[:contact_line_2]], :line_3=>row[indices[:contact_line_3]], :line_4_number=>row[indices[:contact_line_4_number]], :line_4_street=>row[indices[:contact_line_4_street]], :line_5=>row[indices[:contact_line_5]], :line_6=>row[indices[:contact_line_6_code]].to_s+' '+row[indices[:contact_line_6_city]].to_s, :phone=>row[indices[:contact_phone]], :mobile=>row[indices[:contact_mobile]], :fax=>row[indices[:contact_fax]] ,:email=>row[indices[:contact_email]], :website=>row[indices[:contact_website]] } if !@contact.nil?
             if !@contact.nil? 
               if !@contact.valid? or !@entity.valid?
                 @unavailable_entities << [i+1, @entity.errors.full_messages, @contact.errors.full_messages]

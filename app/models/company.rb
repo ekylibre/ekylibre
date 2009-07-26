@@ -2,17 +2,17 @@
 #
 # Table name: companies
 #
-#  id           :integer       not null, primary key
-#  name         :string(255)   not null
-#  code         :string(8)     not null
 #  born_on      :date          
-#  locked       :boolean       not null
-#  deleted      :boolean       not null
+#  code         :string(8)     not null
 #  created_at   :datetime      not null
-#  updated_at   :datetime      not null
-#  lock_version :integer       default(0), not null
-#  entity_id    :integer       
 #  creator_id   :integer       
+#  deleted      :boolean       not null
+#  entity_id    :integer       
+#  id           :integer       not null, primary key
+#  lock_version :integer       default(0), not null
+#  locked       :boolean       not null
+#  name         :string(255)   not null
+#  updated_at   :datetime      not null
 #  updater_id   :integer       
 #
 
@@ -24,7 +24,6 @@ class Company < ActiveRecord::Base
   has_many :areas
   has_many :bank_accounts
   has_many :bank_account_statements
-  has_many :cities
   has_many :complements
   has_many :complement_choices
   has_many :complement_data
@@ -80,7 +79,6 @@ class Company < ActiveRecord::Base
   has_many :subscription_natures
   has_many :subscriptions
   has_many :taxes
-  has_many :templates
   has_many :units
   has_many :users
   belongs_to :entity
@@ -103,6 +101,10 @@ class Company < ActiveRecord::Base
 
   def siren
     self.entity ? self.entity.siren : '000000000'
+  end
+
+  def company_id
+    self.id
   end
 
   def after_create
@@ -162,7 +164,9 @@ class Company < ActiveRecord::Base
 
   def parameter(name)
     parameter = self.parameters.find_by_name(name)
-    #parameter = self.parameters.build(:name=>name) if parameter.nil?
+    if parameter.nil? and Parameter.reference.keys.include? name
+      parameter = self.parameters.create!(:name=>name, :value=>Parameter.reference[name][:default])
+    end
     parameter
   end
 
@@ -361,11 +365,11 @@ class Company < ActiveRecord::Base
           #raise Exception.new('>> '+class_name.inspect) if ids[class_name].nil?
           if record[key]
             v = ids[class_name.is_a?(Symbol) ? record[class_name] : class_name][record[key].to_s]
-#             if class_name.is_a? Symbol
-#               v = ids[record[class_name]][record[key].to_s]
-#             else
-#               v = ids[class_name][record[key].to_s]
-#             end
+            #             if class_name.is_a? Symbol
+            #               v = ids[record[class_name]][record[key].to_s]
+            #             else
+            #               v = ids[class_name][record[key].to_s]
+            #             end
             record[key] = v unless v.nil?
           end
         end
@@ -377,15 +381,16 @@ class Company < ActiveRecord::Base
       # Chargement des paramètres de la société
       attrs = root.attributes
       attrs.delete('id')
-      attrs.delete('lock_version')
+      # attrs.delete('lock_version')
+      attrs.delete('code')
       attrs.each{|k,v| self.send(k+'=', v)}
       for key, class_name in keys[self.class.name]
         v = ids[class_name][self[key].to_s]
         self[key] = v unless v.nil?
       end
-      while self.class.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
-        self.code.succ!
-      end
+      #      while self.class.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
+      #        self.code.succ!
+      #      end
       self.send(:update_without_callbacks)
       # raise Active::Record::Rollback
     end
@@ -393,7 +398,80 @@ class Company < ActiveRecord::Base
   end
 
 
+  #   def archive(template, binary)
+  #     self.documents.build
 
+  #     def self.save_document(mode,key,filename,binary,company_id)
+  #     k=nil
+  #     if mode==:rijndael
+  #     k='+'*32
+  #     32.times { |index| k[index]=rand(256) }
+  #     end
+  
+  #     filesize=binary.length
+  #     binary_digest=Digest::SHA256.hexdigest(binary)
+  #     document=Document.create!(:key=>key,:filesize=>filesize,:sha256=>binary_digest, :original_name=>filename, :printed_at=>(Time.now), :crypt_key=>k, :crypt_mode=>mode.to_s,:company_id=>company_id,:filename=>'t')
+  #     s='"+new_options[:documents_path]+"/'+(document.id/"+new_options[:subdir_size].to_s+").to_s+'/'
+  
+  #     Dir.mkdir(s) unless File.directory?(s)
+  #     Ekylibre::Storage.encrypt_file(mode,s+document.id.to_s,k,binary)
+  
+  #     document.update_attribute(:filename,s+document.id.to_s)
+  
+  #     end
+  
+
+
+  #   end
+
+
+  def print(object, options={})
+    archive  = options[:archive]
+    template = options[:template]
+    if object.class.ancestors.include?(ActiveRecord::Base)
+      template ||= object.class.name.underscore.to_sym
+      archive = true if archive.nil?
+    else
+      raise Exception.new("The parameter object must be an ActiveRecord::Base descendant object")
+    end
+
+    # Try to find an existing archive
+    pdf = nil
+    document = nil
+    if archive
+      documents = self.documents.find_all_by_owner_id_and_owner_type(object.id, object.class.name)
+      if documents.size == 1
+        document = documents.first
+        pdf = document.data
+      elsif documents.size > 1
+        raise Exception.new("Many archives are existing for one record")
+      end
+    end
+
+    # Printing
+    # TODO: Cache printing method
+    if pdf.nil?
+      source = ''
+      template_file = "#{RAILS_ROOT}/app/views/prints/#{template}.rpdf"
+      raise Exception.new("Unfound template: #{template_file}") unless File.exists? template_file
+      File.open(template_file, 'rb') do |file|
+        source = file.read
+      end
+      doc = Ibeh.document(Hebi::Document.new, options[:view]) do
+        eval(source)
+      end
+      pdf = doc.generate
+      #pdf = source
+    end
+    
+    # Create the archive
+    if archive and document.nil?
+      document = Document.archive(object, pdf, :template=>template.to_s, :extension=>'pdf')
+    end
+    
+    # Return the doc
+    return document||pdf
+  end
 
 
 end

@@ -2,15 +2,15 @@
 #
 # Table name: inventories
 #
-#  id                :integer       not null, primary key
-#  date              :date          not null
-#  comment           :text          
 #  changes_reflected :boolean       
+#  comment           :text          
 #  company_id        :integer       not null
 #  created_at        :datetime      not null
-#  updated_at        :datetime      not null
-#  lock_version      :integer       default(0), not null
 #  creator_id        :integer       
+#  date              :date          not null
+#  id                :integer       not null, primary key
+#  lock_version      :integer       default(0), not null
+#  updated_at        :datetime      not null
 #  updater_id        :integer       
 #
 

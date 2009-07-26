@@ -2,19 +2,19 @@
 #
 # Table name: districts
 #
-#  id           :integer       not null, primary key
-#  name         :string(255)   not null
+#  code         :string(255)   
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
-#  updated_at   :datetime      not null
-#  created_by   :integer       
-#  updated_by   :integer       
+#  creator_id   :integer       
+#  id           :integer       not null, primary key
 #  lock_version :integer       default(0), not null
+#  name         :string(255)   not null
+#  updated_at   :datetime      not null
+#  updater_id   :integer       
 #
 
 class District < ActiveRecord::Base
   belongs_to :company
-  has_many :cities, :class_name=>City.to_s
-  
+  has_many :areas
   attr_readonly :company_id
 end

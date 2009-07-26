@@ -2,16 +2,16 @@
 #
 # Table name: financialyears
 #
-#  id           :integer       not null, primary key
-#  code         :string(12)    not null
 #  closed       :boolean       not null
-#  started_on   :date          not null
-#  stopped_on   :date          not null
+#  code         :string(12)    not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
-#  updated_at   :datetime      not null
-#  lock_version :integer       default(0), not null
 #  creator_id   :integer       
+#  id           :integer       not null, primary key
+#  lock_version :integer       default(0), not null
+#  started_on   :date          not null
+#  stopped_on   :date          not null
+#  updated_at   :datetime      not null
 #  updater_id   :integer       
 #
 

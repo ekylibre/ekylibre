@@ -2,21 +2,21 @@
 #
 # Table name: taxes
 #
-#  id                   :integer       not null, primary key
-#  name                 :string(255)   not null
-#  included             :boolean       not null
-#  reductible           :boolean       default(TRUE), not null
-#  nature               :string(8)     not null
-#  amount               :decimal(16, 4 default(0.0), not null
-#  description          :text          
 #  account_collected_id :integer       
 #  account_paid_id      :integer       
+#  amount               :decimal(16, 4 default(0.0), not null
 #  company_id           :integer       not null
 #  created_at           :datetime      not null
-#  updated_at           :datetime      not null
-#  lock_version         :integer       default(0), not null
-#  deleted              :boolean       not null
 #  creator_id           :integer       
+#  deleted              :boolean       not null
+#  description          :text          
+#  id                   :integer       not null, primary key
+#  included             :boolean       not null
+#  lock_version         :integer       default(0), not null
+#  name                 :string(255)   not null
+#  nature               :string(8)     not null
+#  reductible           :boolean       default(TRUE), not null
+#  updated_at           :datetime      not null
 #  updater_id           :integer       
 #
 

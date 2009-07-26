@@ -2,27 +2,27 @@
 #
 # Table name: users
 #
-#  id                :integer       not null, primary key
-#  name              :string(32)    not null
-#  first_name        :string(255)   not null
-#  last_name         :string(255)   not null
-#  salt              :string(64)    
-#  hashed_password   :string(64)    
-#  locked            :boolean       not null
+#  admin             :boolean       default(TRUE), not null
+#  company_id        :integer       not null
+#  created_at        :datetime      not null
+#  creator_id        :integer       
+#  credits           :boolean       default(TRUE), not null
 #  deleted           :boolean       not null
 #  email             :string(255)   
-#  company_id        :integer       not null
-#  language_id       :integer       not null
-#  role_id           :integer       not null
-#  created_at        :datetime      not null
-#  updated_at        :datetime      not null
-#  lock_version      :integer       default(0), not null
+#  first_name        :string(255)   not null
 #  free_price        :boolean       default(TRUE), not null
+#  hashed_password   :string(64)    
+#  id                :integer       not null, primary key
+#  language_id       :integer       not null
+#  last_name         :string(255)   not null
+#  lock_version      :integer       default(0), not null
+#  locked            :boolean       not null
+#  name              :string(32)    not null
 #  reduction_percent :decimal(, )   default(5.0), not null
-#  credits           :boolean       default(TRUE), not null
-#  admin             :boolean       default(TRUE), not null
 #  rights            :text          
-#  creator_id        :integer       
+#  role_id           :integer       not null
+#  salt              :string(64)    
+#  updated_at        :datetime      not null
 #  updater_id        :integer       
 #
 

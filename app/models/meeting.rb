@@ -2,19 +2,19 @@
 #
 # Table name: meetings
 #
-#  id             :integer       not null, primary key
-#  entity_id      :integer       not null
-#  location_id    :integer       not null
-#  employee_id    :integer       not null
-#  mode_id        :integer       not null
-#  taken_place_on :date          not null
 #  address        :text          
-#  description    :text          
 #  company_id     :integer       not null
 #  created_at     :datetime      not null
-#  updated_at     :datetime      not null
-#  lock_version   :integer       default(0), not null
 #  creator_id     :integer       
+#  description    :text          
+#  employee_id    :integer       not null
+#  entity_id      :integer       not null
+#  id             :integer       not null, primary key
+#  location_id    :integer       not null
+#  lock_version   :integer       default(0), not null
+#  mode_id        :integer       not null
+#  taken_place_on :date          not null
+#  updated_at     :datetime      not null
 #  updater_id     :integer       
 #
 

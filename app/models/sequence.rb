@@ -2,21 +2,21 @@
 #
 # Table name: sequences
 #
-#  id               :integer       not null, primary key
-#  name             :string(255)   not null
-#  format           :string(255)   not null
 #  company_id       :integer       not null
 #  created_at       :datetime      not null
-#  updated_at       :datetime      not null
-#  lock_version     :integer       default(0), not null
-#  period           :string(255)   default("number"), not null
-#  last_year        :integer       
-#  last_month       :integer       
+#  creator_id       :integer       
+#  format           :string(255)   not null
+#  id               :integer       not null, primary key
 #  last_cweek       :integer       
+#  last_month       :integer       
 #  last_number      :integer       
+#  last_year        :integer       
+#  lock_version     :integer       default(0), not null
+#  name             :string(255)   not null
 #  number_increment :integer       default(1), not null
 #  number_start     :integer       default(1), not null
-#  creator_id       :integer       
+#  period           :string(255)   default("number"), not null
+#  updated_at       :datetime      not null
 #  updater_id       :integer       
 #
 

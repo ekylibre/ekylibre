@@ -2,24 +2,24 @@
 #
 # Table name: journal_records
 #
-#  id               :integer       not null, primary key
-#  resource_id      :integer       
-#  resource_type    :string(255)   
-#  created_on       :date          not null
-#  printed_on       :date          not null
-#  number           :string(255)   not null
-#  status           :string(1)     default("A"), not null
-#  debit            :decimal(16, 2 default(0.0), not null
-#  credit           :decimal(16, 2 default(0.0), not null
-#  position         :integer       not null
-#  journal_id       :integer       not null
+#  closed           :boolean       
 #  company_id       :integer       not null
 #  created_at       :datetime      not null
-#  updated_at       :datetime      not null
-#  lock_version     :integer       default(0), not null
-#  closed           :boolean       
-#  financialyear_id :integer       
+#  created_on       :date          not null
 #  creator_id       :integer       
+#  credit           :decimal(16, 2 default(0.0), not null
+#  debit            :decimal(16, 2 default(0.0), not null
+#  financialyear_id :integer       
+#  id               :integer       not null, primary key
+#  journal_id       :integer       not null
+#  lock_version     :integer       default(0), not null
+#  number           :string(255)   not null
+#  position         :integer       not null
+#  printed_on       :date          not null
+#  resource_id      :integer       
+#  resource_type    :string(255)   
+#  status           :string(1)     default("A"), not null
+#  updated_at       :datetime      not null
 #  updater_id       :integer       
 #
 

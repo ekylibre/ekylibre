@@ -2,17 +2,17 @@
 #
 # Table name: productions
 #
-#  id           :integer       not null, primary key
-#  product_id   :integer       not null
-#  quantity     :decimal(16, 2 default(0.0), not null
-#  location_id  :integer       not null
-#  planned_on   :date          not null
-#  moved_on     :date          not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
-#  updated_at   :datetime      not null
-#  lock_version :integer       default(0), not null
 #  creator_id   :integer       
+#  id           :integer       not null, primary key
+#  location_id  :integer       not null
+#  lock_version :integer       default(0), not null
+#  moved_on     :date          not null
+#  planned_on   :date          not null
+#  product_id   :integer       not null
+#  quantity     :decimal(16, 2 default(0.0), not null
+#  updated_at   :datetime      not null
 #  updater_id   :integer       
 #
 

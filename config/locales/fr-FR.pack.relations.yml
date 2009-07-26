@@ -35,13 +35,13 @@ fr-FR:
 
   views:
     relations:
-      cities:
-        cities_create: 'Ajouter une ville'
-        title: 'Villes'
-      cities_create:
-        title: 'Ajouter une ville'
-      cities_update:
-        title: 'Modification de la ville {{value}}'
+      areas:
+        areas_create: 'Ajouter une zone postale'
+        title: 'Zones postales'
+      areas_create:
+        title: 'Ajouter une zone postale'
+      areas_update:
+        title: 'Modification de la zone postale {{value}}'
       complement_choices:
         complement_choices_create: 'Ajouter un nouveau choix à la liste'
         complement_choices_sort: 'Trier les choix par nom'
@@ -68,7 +68,7 @@ fr-FR:
         address: 'Adresse'
         canals: 'Coordonnées'
       districts:
-        cities_create: 'Ajouter une ville'
+        areas_create: 'Ajouter une ville'
         city_name: 'Ville'
         districts_create: 'Ajouter un district'
         title: 'Districts'
@@ -183,7 +183,7 @@ fr-FR:
       _general_description_form:
         title: 'Description générale'
       index:
-        cities: 'Villes'
+        areas: 'Zones postales'
         complements: 'Champs personnalisés'
         districts: 'Zones administratives'
         entities: 'Gérer les fiches'

@@ -155,6 +155,7 @@ fr-FR:
             immediate: 0 jour
             standard: 30 jours, fin de mois
         department_name: Gestion/Production
+        entities_numeration: Numérotation des relations
         establishment_name: Établissement principal
         financialyear_code: 1A2
         invoicing_numeration: Numéros de facture

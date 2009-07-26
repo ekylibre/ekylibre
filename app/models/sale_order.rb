@@ -2,35 +2,35 @@
 #
 # Table name: sale_orders
 #
-#  id                  :integer       not null, primary key
-#  client_id           :integer       not null
-#  nature_id           :integer       not null
-#  created_on          :date          not null
-#  number              :string(64)    not null
-#  sum_method          :string(8)     default("wt"), not null
-#  invoiced            :boolean       not null
 #  amount              :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes   :decimal(16, 2 default(0.0), not null
-#  state               :string(1)     default("O"), not null
-#  expiration_id       :integer       not null
-#  expired_on          :date          not null
-#  payment_delay_id    :integer       not null
-#  has_downpayment     :boolean       not null
-#  downpayment_amount  :decimal(16, 2 default(0.0), not null
-#  contact_id          :integer       not null
-#  invoice_contact_id  :integer       not null
-#  delivery_contact_id :integer       not null
-#  subject             :string(255)   
-#  function_title      :string(255)   
-#  introduction        :text          
-#  conclusion          :text          
+#  client_id           :integer       not null
 #  comment             :text          
 #  company_id          :integer       not null
-#  created_at          :datetime      not null
-#  updated_at          :datetime      not null
-#  lock_version        :integer       default(0), not null
+#  conclusion          :text          
 #  confirmed_on        :date          
+#  contact_id          :integer       not null
+#  created_at          :datetime      not null
+#  created_on          :date          not null
 #  creator_id          :integer       
+#  delivery_contact_id :integer       not null
+#  downpayment_amount  :decimal(16, 2 default(0.0), not null
+#  expiration_id       :integer       not null
+#  expired_on          :date          not null
+#  function_title      :string(255)   
+#  has_downpayment     :boolean       not null
+#  id                  :integer       not null, primary key
+#  introduction        :text          
+#  invoice_contact_id  :integer       not null
+#  invoiced            :boolean       not null
+#  lock_version        :integer       default(0), not null
+#  nature_id           :integer       not null
+#  number              :string(64)    not null
+#  payment_delay_id    :integer       not null
+#  state               :string(1)     default("O"), not null
+#  subject             :string(255)   
+#  sum_method          :string(8)     default("wt"), not null
+#  updated_at          :datetime      not null
 #  updater_id          :integer       
 #
 

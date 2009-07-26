@@ -2,29 +2,29 @@
 #
 # Table name: bank_accounts
 #
-#  id           :integer       not null, primary key
-#  name         :string(255)   not null
-#  iban         :string(34)    not null
-#  iban_label   :string(48)    not null
-#  bic          :string(16)    
-#  deleted      :boolean       not null
-#  journal_id   :integer       not null
-#  currency_id  :integer       not null
 #  account_id   :integer       not null
+#  address      :text          
+#  agency_code  :string(255)   
+#  bank_code    :string(255)   
+#  bank_name    :string(50)    
+#  bic          :string(16)    
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
-#  updated_at   :datetime      not null
-#  lock_version :integer       default(0), not null
-#  entity_id    :integer       
-#  bank_code    :string(255)   
-#  agency_code  :string(255)   
-#  number       :string(255)   
-#  key          :string(255)   
-#  mode         :string(255)   default("IBAN"), not null
-#  address      :text          
-#  bank_name    :string(50)    
-#  default      :boolean       not null
 #  creator_id   :integer       
+#  currency_id  :integer       not null
+#  default      :boolean       not null
+#  deleted      :boolean       not null
+#  entity_id    :integer       
+#  iban         :string(34)    not null
+#  iban_label   :string(48)    not null
+#  id           :integer       not null, primary key
+#  journal_id   :integer       not null
+#  key          :string(255)   
+#  lock_version :integer       default(0), not null
+#  mode         :string(255)   default("IBAN"), not null
+#  name         :string(255)   not null
+#  number       :string(255)   
+#  updated_at   :datetime      not null
 #  updater_id   :integer       
 #
 

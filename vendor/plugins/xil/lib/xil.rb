@@ -47,9 +47,11 @@ Mime::Type.register("application/vnd.oasis.opendocument.presentation-template", 
 Mime::Type.register("application/vnd.oasis.opendocument.graphics-template", :otg) unless defined? Mime::OTG
 
 # Register Template Handler
-#ActionView::Template.register_template_handler(:xpdf, Xil::TemplateHandler)
-#ActionView::Template.register_template_handler(:rpdf, Xil::TemplateHandler)
-ActionView::Template.register_template_handler(:rpdf, ActionView::TemplateHandlers::XIL)
+# ActionView::Template.register_template_handler(:rpdf, ActionView::TemplateHandlers::XIL)
+
+
+# ActionView::Template.register_template_handler(:xpdf, Xil::TemplateHandler)
+# ActionView::Template.register_template_handler(:rpdf, Xil::TemplateHandler)
 # ActionView::Template.register_template_handler(:xodt, Xil::TemplateHandler)
 
 # Specify we don't want to use the layouts

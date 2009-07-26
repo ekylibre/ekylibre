@@ -1,16 +1,14 @@
 module Xil
 
   class Engine
-
-    def compile_rpdf0
-      "_set_controller_content_type(Mime::PDF);"+
-        "doc=Hebi::Document.new;#{@template.source}\n;doc.generate;"
-    end
     
     def compile_rpdf
-      "_set_controller_content_type(Mime::PDF);"+
-#        "_xil_compile_setup;"+
-        "doc=Ibeh.document(Hebi::Document.new, self) do;#{@template.source}\n;end;doc.generate"
+      # raise Exception.new [@template.instance_variables, @template].inspect
+      code  = "_set_controller_content_type(Mime::PDF);"
+      # code << "raise Exception.new(self.instance_variables.inspect);"
+      code << "doc=Ibeh.document(Hebi::Document.new, self) do;#{@template.source}\n;end;pdf=doc.generate"
+      code << ";@current_company.archive(@template, pdf);pdf"
+      code
     end
     
   end
