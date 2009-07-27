@@ -19,6 +19,7 @@ fr-FR:
     create_purchases: 'Créer, modifier des achats'
     import_export_entities: 'Importer, exporter des fiches clients/fournisseurs'
     manage_accounts: 'Gérer les comptes comptables'
+    manage_areas: (((MANAGE_AREAS)))
     manage_bank_accounts: 'Gérer les comptes bancaires'
     manage_company: 'Gérer les informations de la société'
     manage_complements: 'Gérer les champs personnalisés'
@@ -35,6 +36,7 @@ fr-FR:
     manage_journals: 'Gérer les journaux'
     manage_listings: (((MANAGE_LISTINGS)))
     manage_meetings: 'Gérer les rencontres'
+    manage_observations: (((MANAGE_OBSERVATIONS)))
     manage_orders: 'Gérer les commandes et livraisons'
     manage_payment_modes: 'Gérer les modes de paiments'
     manage_prices: 'Gérer les prix'

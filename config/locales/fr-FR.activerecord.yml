@@ -188,6 +188,7 @@ fr-FR:
       area:
         city: 'Ville'
         city_id: 'Ville'
+        city_name: (((CITY_NAME)))
         code: 'Code interne'
         company_id: 'Société'
         country: 'Pays'
@@ -336,7 +337,7 @@ fr-FR:
         default: 'Par défaut'
         deleted: 'Effacé'
         email: 'Email'
-        entity_id: Relation
+        entity_id: 'Relation'
         fax: 'Fax'
         id: 'ID'
         latitude: 'Latitude'
@@ -353,7 +354,7 @@ fr-FR:
         mobile: 'Portable'
         name: 'Nom (interne)'
         nature: 'Type'
-        norm_id: Norme postale
+        norm_id: 'Norme postale'
         phone: 'Téléphone'
         started_at: (((STARTED_AT)))
         stopped_at: (((STOPPED_AT)))

@@ -282,15 +282,6 @@ production     shape_operations_update        manage_shape_operations
 production     unvalidated_operations         manage_shape_operations
 production     shapes                         manage_shapes
 production     shapes_create                  manage_shapes
-relations      areas                          [new_right]
-relations      areas_create                   [new_right]
-relations      areas_delete                   [new_right]
-relations      areas_update                   [new_right]
-relations      dyta_areas                     [new_right]
-relations      dyta_districts                 [new_right]
-relations      dyta_observations              [new_right]
-relations      observations_create            [new_right]
-relations      observations_update            [new_right]
 relations      dyta_client_invoices           administrate_relations
 relations      dyta_contacts                  administrate_relations
 relations      dyta_entity_bank_accounts      administrate_relations
@@ -307,6 +298,11 @@ relations      entities                       consult_entities
 relations      entities_display               consult_entities
 relations      entities_export                import_export_entities
 relations      entities_import                import_export_entities
+relations      areas                          manage_areas
+relations      areas_create                   manage_areas
+relations      areas_delete                   manage_areas
+relations      areas_update                   manage_areas
+relations      dyta_areas                     manage_areas
 relations      complement_choices             manage_complements
 relations      complement_choices_create      manage_complements
 relations      complement_choices_down        manage_complements
@@ -322,6 +318,7 @@ relations      districts                      manage_districts
 relations      districts_create               manage_districts
 relations      districts_delete               manage_districts
 relations      districts_update               manage_districts
+relations      dyta_districts                 manage_districts
 relations      client_informations            manage_entities
 relations      entities_contacts_create       manage_entities
 relations      entities_contacts_delete       manage_entities
@@ -351,6 +348,9 @@ relations      meetings                       manage_meetings
 relations      meetings_create                manage_meetings
 relations      meetings_delete                manage_meetings
 relations      meetings_update                manage_meetings
+relations      dyta_observations              manage_observations
+relations      observations_create            manage_observations
+relations      observations_update            manage_observations
 relations      entities_print                 print_entities
 resources      dyta_employees                 administrate_resources
 resources      dyta_professions               administrate_resources
