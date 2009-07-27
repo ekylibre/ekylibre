@@ -1,5 +1,3 @@
-require 'csv'
-
 def hash_to_yaml(hash, depth=0)
   code = ''
   for k, v in hash.to_a.sort{|a,b| a[0].to_s.gsub("_"," ").strip<=>b[0].to_s.gsub("_"," ").strip}
@@ -171,4 +169,17 @@ namespace :clean do
   desc "Clean all files as possible"
   task :all => [:environment, :rights, :locales]
 
+
+  desc "Zip test"
+  task :zip => [:environment] do
+    Zip::ZipFile.open("#{RAILS_ROOT}/my.zip", Zip::ZipFile::CREATE) do |zipfile|
+      zipfile.get_output_stream("backup.xml") { |f| f.puts "Hello from ZipFile" }
+      Dir.chdir("#{RAILS_ROOT}/private/NERV") do
+        for file in Dir["*/*/*.pdf"]
+          zipfile.add("prints/"+file,"#{RAILS_ROOT}/private/NERV/#{file}")
+        end
+      end
+    end
+  end
+  
 end

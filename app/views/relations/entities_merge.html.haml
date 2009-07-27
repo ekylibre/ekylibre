@@ -1,0 +1,3 @@
+-form_tag do
+  =formalize do |f|
+    -f.field tc(:entity_to_merge), select(:toto, :titi, @current_company.entities.collect{|x| [x.full_name, x.id]})

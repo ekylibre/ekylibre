@@ -8,10 +8,8 @@ class RelationsController < ApplicationController
   #
   def auto_complete_for_contact_line_6
     pattern = '%'+params[:contact][:line_6].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-    @areas = @current_company.areas.find(:all, :conditions => [ 'LOWER(name) LIKE ? ', pattern], :order => "name ASC") 
-        
-    render :inline => "<%= content_tag(:ul, @areas.map { |area| content_tag(:li, h(area.name)) }) %>"
-
+    @areas = @current_company.areas.find(:all, :conditions => [ 'LOWER(name) LIKE ? ', pattern], :order => "name ASC")
+    render :inline => "<%=content_tag(:ul, @areas.map { |area| content_tag(:li, h(area.name)) })%>"
   end
   
   dyta(:areas, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
@@ -233,6 +231,7 @@ class RelationsController < ApplicationController
     t.column :active
     t.action :entities_display
     t.action :entities_print
+    t.action :entities_merge
     t.action :entities_update
     t.action :entities_delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -334,6 +333,9 @@ class RelationsController < ApplicationController
     @entity_links = @current_company.entity_links.find(:all, :conditions=>{:entity1_id=>@entity.id}).size
     @title = {:value=>@entity.full_name}
   end
+
+
+
   
   def client_informations
     #raise Exception.new "jjjjjjjjjjjjjjjjjjjjjjjjjj"+params.inspect
@@ -522,6 +524,10 @@ class RelationsController < ApplicationController
       end
     end
     redirect_to :action=>:entities
+  end
+
+  def entities_merge
+    
   end
   
   dyta(:entity_categories, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}) do |t|

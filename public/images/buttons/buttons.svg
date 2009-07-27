@@ -24,6 +24,32 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient3951">
+      <stop
+         id="stop3953"
+         offset="0"
+         style="stop-color:#929292;stop-opacity:1;" />
+      <stop
+         style="stop-color:#d5d5d5;stop-opacity:1;"
+         offset="0.5"
+         id="stop3955" />
+      <stop
+         id="stop3957"
+         offset="1"
+         style="stop-color:#929292;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3936">
+      <stop
+         style="stop-color:#070707;stop-opacity:1;"
+         offset="0"
+         id="stop3938" />
+      <stop
+         style="stop-color:#727272;stop-opacity:1;"
+         offset="1"
+         id="stop3940" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3901">
       <stop
          style="stop-color:#f13021;stop-opacity:1;"
@@ -4246,6 +4272,86 @@
        x2="223.75"
        y2="48"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3670"
+       id="linearGradient3110"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9716599,0,0,0.9448821,2.652834,-12.022515)"
+       x1="96.327087"
+       y1="-12.361979"
+       x2="96.327087"
+       y2="-3.4322927" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3670"
+       id="linearGradient3114"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9557311,0,0,0.9443903,3.9290133,-28.071695)"
+       x1="90.703117"
+       y1="-12.631191"
+       x2="70.953842"
+       y2="-13.359332" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3809"
+       id="linearGradient3909"
+       x1="96"
+       y1="-41.5"
+       x2="112"
+       y2="-41.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3772"
+       id="linearGradient3925"
+       x1="97.625"
+       y1="-36.5"
+       x2="105.875"
+       y2="-36.5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-1.625,0)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3809"
+       id="linearGradient3931"
+       gradientUnits="userSpaceOnUse"
+       x1="96"
+       y1="-41.5"
+       x2="112"
+       y2="-41.5"
+       gradientTransform="translate(0,16)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3772"
+       id="linearGradient3933"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-1.625,16)"
+       x1="97.625"
+       y1="-36.5"
+       x2="105.875"
+       y2="-36.5" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3936"
+       id="radialGradient3946"
+       cx="98.75"
+       cy="-17.374723"
+       fx="98.75"
+       fy="-17.374723"
+       r="8.0003338"
+       gradientTransform="matrix(1,0,0,0.9999583,0,-1.0001964e-3)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3951"
+       id="linearGradient3949"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,16)"
+       x1="103.99966"
+       y1="-36.625"
+       x2="103.99966"
+       y2="-45.625" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -5655,5 +5761,45 @@
        inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/logout.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <path
+       style="fill:url(#linearGradient3110);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       d="M 90.75,-27.140625 L 91.6875,-24.984375 C 87.971291,-25.102148 83.96749,-28.067235 84,-31.460938 L 80.5,-31.460938 L 80.5,-28 C 83.125,-25.251379 84.567708,-24.9099 87.15625,-23.894531 C 85.008503,-23.185508 82.755807,-21.975964 80.5,-20 L 80.5,-16.453125 L 84,-16.5 C 85.479939,-19.808217 86.367649,-20.809155 91.6875,-22.859375 L 90.75,-20.703125 L 95.75,-23.921875 L 90.75,-27.140625 z"
+       id="path3108"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       sodipodi:nodetypes="ccccccccccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/merge.png" />
+    <path
+       style="fill:url(#linearGradient3114);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       d="M 90.581967,-45.181937 L 90.629098,-43 C 86.15854,-42.51423 84.997467,-46.775828 80.5,-47.5 L 80.5,-42.790865 C 84.831967,-42.75 84.375,-41.202373 86.047131,-39.937533 C 84.309593,-38.603878 83.843826,-37.5 80.5,-37.545029 L 80.5,-32.5 C 85.740031,-32.668811 84.847609,-37.217945 90.629098,-37 L 90.581967,-34.747788 L 95.5,-39.964862 L 90.581967,-45.181937 z"
+       id="path3112"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       sodipodi:nodetypes="ccccccccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/merge.png" />
+    <path
+       style="fill:url(#linearGradient3909);fill-opacity:1;fill-rule:evenodd;stroke:#747474;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       d="M 96.5,-44.5 L 105.68605,-44.5 L 105.68605,-47.5 L 111.5,-41.5 L 105.68605,-35.5 L 105.68605,-38.5 L 96.5,-38.5 L 96.5,-44.5 z"
+       id="path3116"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/merge.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:url(#linearGradient3925);fill-opacity:1;fill-rule:evenodd;stroke:#2169eb;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       d="M 96.5,-32.500001 L 99.75,-32.500001 L 102.375,-38.442559 L 103.75,-38.442559 L 103,-41.749598 L 98.25,-38.442559 L 99.75,-38.442559 L 96.5,-32.500001 z"
+       id="path3118"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/merge.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:url(#linearGradient3949);fill-opacity:1;fill-rule:evenodd;stroke:url(#radialGradient3946);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       d="M 106.8125,-31.5 L 106.8125,-28.5 L 96.5,-28.5 L 96.5,-22.5 L 100.125,-22.4375 C 98.24376,-21.263907 96.459798,-17.938964 96.5,-16.5 L 99.75,-16.5 C 100.11775,-18.604167 102.05235,-21.583333 104.75,-22.4375 L 106.8125,-22.5 L 106.8125,-19.5 L 111.5,-25.5 L 106.8125,-31.5 z"
+       id="path3927"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/merge.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       sodipodi:nodetypes="cccccccccccc" />
   </g>
 </svg>

@@ -85,20 +85,15 @@ class Company < ActiveRecord::Base
   has_many :users
   belongs_to :entity
 
-
-  # belongs_to :sales_journal, :class_name=>Journal.to_s
-  # belongs_to :purchases_journal, :class_name=>Journal.to_s
-  # belongs_to :bank_journal, :class_name=>Journal.to_s
-
+  attr_readonly :code
   
-  def before_validation
+  def before_validation_on_create
     self.code = self.name.to_s[0..7].simpleize if self.code.blank?
     self.code = rand.to_s[2..-1].to_i.to_s(36)[0..7] if self.code.blank?
     self.code = self.code.simpleize.upper
     while Company.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
       self.code.succ!
     end
-    # self.siren = '000000000' if self.siren.blank?
   end
 
   def siren
@@ -284,10 +279,10 @@ class Company < ActiveRecord::Base
   end
 
 
-  def backup(creator)
+  def backup(creator, with_prints=true)
     version = (ActiveRecord::Migrator.current_version rescue 0)
     filename = "backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")
-    file = "#{RAILS_ROOT}/tmp/#{filename}.xml.gz"
+    file = "#{RAILS_ROOT}/tmp/#{filename}.zip"
     doc = REXML::Document.new
     doc << REXML::XMLDecl.new
     backup = doc.add_element 'backup', 'version'=>version, 'creation-date'=>Date.today.to_s, 'creator'=>creator.label
@@ -310,16 +305,41 @@ class Company < ActiveRecord::Base
     end
     backup.add_attributes('records-count'=>n.to_s, 'generation-duration'=>(Time.now.to_i-start).to_s)
     stream = doc.to_s
-    Zlib::GzipWriter.open(file) { |gz| gz.write(stream) }
+
+    Zip::ZipFile.open(file, Zip::ZipFile::CREATE) do |zile|
+      zile.get_output_stream("backup.xml") { |f| f.puts(stream) }
+      if with_prints
+        prints_dir = "#{RAILS_ROOT}/private/#{self.code}"
+        Dir.chdir(prints_dir) do
+          for document in Dir["*/*/*.pdf"]
+            zile.add("prints/"+document, prints_dir+'/'+document)
+          end
+        end
+      end
+    end
+    # Zlib::GzipWriter.open(file) { |gz| gz.write(stream) }
     return file
   end
 
 
 
+  # Restore database
+  # with printed arhived documents if requested
   def restore(file)
+    prints_dir = "#{RAILS_ROOT}/private/#{self.code}"
     # Décompression
     stream = nil
-    Zlib::GzipReader.open(file) { |gz| stream = gz.read }
+    FileUtils.rm_rf(prints_dir+'.prints')
+    Zip::ZipFile.open(file) do |zile|
+      stream = zile.read("backup.xml")
+      zile.each do |entry|
+        if entry.name.match(/^prints[\\\/]/)
+          File.makedirs(File.join(prints_dir+"."+File.join(entry.name.split(/[\\\/]+/)[0..-2])))
+          zile.extract(entry, "#{prints_dir}.#{entry.name}") 
+        end
+      end
+    end
+    # Zlib::GzipReader.open(file) { |gz| stream = gz.read }
     doc = REXML::Document.new(stream)
     backup = doc.root
     version = (ActiveRecord::Migrator.current_version rescue 0)
@@ -392,7 +412,7 @@ class Company < ActiveRecord::Base
       # Chargement des paramètres de la société
       attrs = root.attributes
       attrs.delete('id')
-      # attrs.delete('lock_version')
+      attrs.delete('lock_version') # StaleObjectError solution
       attrs.delete('code')
       attrs.each{|k,v| self.send(k+'=', v)}
       for key, class_name in keys[self.class.name]
@@ -404,9 +424,19 @@ class Company < ActiveRecord::Base
       #      end
       self.send(:update_without_callbacks)
       # raise Active::Record::Rollback
+
+      if File.exist?(prints_dir+".prints")
+        File.move prints_dir, prints_dir+'.old'
+        File.move prints_dir+'.prints', prints_dir
+        FileUtils.rm_rf(prints_dir+'.old')
+      end
     end
+
     return true
   end
+
+
+
 
 
   def print(object, options={})
@@ -437,7 +467,7 @@ class Company < ActiveRecord::Base
     if pdf.nil?
       source = ''
       template_file = "#{RAILS_ROOT}/app/views/prints/#{template}.rpdf"
-      raise Exception.new("Unfound template: #{template_file}") unless File.exists? template_file
+      raise Exception.new("Unfound template: #{template_file}") unless File.exist? template_file
       File.open(template_file, 'rb') do |file|
         source = file.read
       end

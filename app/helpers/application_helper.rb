@@ -163,7 +163,7 @@ module ApplicationHelper
       ''
     end
   end
-    
+  
   def countries
     t('countries').to_a.sort{|a,b| a[1].ascii.to_s<=>b[1].ascii.to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
   end
@@ -842,38 +842,111 @@ module SetColumnActiveRecord #:nodoc:
         end_eval
         #      ActionController::Base.logger.error(code)
         module_eval(code)
-      end
-      
     end
   end
+end
 
-  ActiveRecord::Base.send(:include, SetColumnActiveRecord)
+ActiveRecord::Base.send(:include, SetColumnActiveRecord)
 
 
-  # Hack to clean textilize
 
-  module ActionView
-    module Helpers #:nodoc:
-      # The TextHelper module provides a set of methods for filtering, formatting
-      # and transforming strings, which can reduce the amount of inline Ruby code in
-      # your views. These helper methods extend ActionView making them callable
-      # within your template files.
-      module TextHelper
-        begin
-          require_library_or_gem "redcloth" unless Object.const_defined?(:RedCloth)
-          def textilize(text, *rules)
-            if text.blank?
-              ""
-            else
-              rc = RedCloth.new(text, rules)
-              rc.no_span_caps = true
-              rc.to_html
+module ActiveRecord
+  class Base
+
+
+    def merge(object, force=false)
+      raise Exception.new("Unvalid object to merge: #{object.class}. #{self.class} expected.") if object.class != self.class
+      reflections = self.class.reflections.collect{|k,v|  v if v.macro==:has_many}.compact
+      if force
+        for reflection in reflections
+          klass = reflection.class_name.constantize 
+          begin
+            klass.update_all({reflection.primary_key_name=>self.id}, {reflection.primary_key_name=>object.id})
+          rescue
+            for item in object.send(reflection.name)
+              begin
+                item.send(reflection.primary_key_name.to_s+'=', self.id)
+                item.send(:update_without_callbacks)
+              rescue
+                # If the item can't be attached, the item can't be.
+                puts item.inspect
+                klass.delete(item)
+              end
             end
           end
-        rescue LoadError
-          # We can't really help what's not there
         end
+        object.delete
+      else
+        ActiveRecord::Base.transaction do
+          for reflection in reflections
+            reflection.class_name.constantize.update_all({reflection.primary_key_name=>self.id}, {reflection.primary_key_name=>object.id})
+          end
+          object.delete
+        end
+      end
+      return self
+    end
+
+    def has_dependencies?
+      
+    end
+
+
+  end
+end
+
+
+
+# module NewMethodsActiveRecord #:nodoc:
+#   def self.included(base) #:nodoc:
+#     base.extend(ClassMethods)
+#   end
+  
+#   module ClassMethods
+
+#     def merge(object)
+#       raise Exception.new("Unvalid object to merge: #{object.class}. #{self.class} expected.") if object.class != self.class
+#       reflections = self.class.reflections.collect{|k,v|  v if v.macro==:has_many}.compact
+#       ActiveRecord::Base.transaction do
+#         for reflection in reflections
+#           reflection.class_name.constantize.update_all({reflection.primary_key_name=>self.id}, {reflection.primary_key_name=>object.id})
+#         end
+#         object.delete
+#       end
+#       return self
+#     end
+
+#   end
+# end
+
+# ActiveRecord::Base.send(:include, NewMethodsActiveRecord)
+
+
+
+# Hack to clean textilize
+
+module ActionView
+  module Helpers #:nodoc:
+    # The TextHelper module provides a set of methods for filtering, formatting
+    # and transforming strings, which can reduce the amount of inline Ruby code in
+    # your views. These helper methods extend ActionView making them callable
+    # within your template files.
+    module TextHelper
+      begin
+        require_library_or_gem "redcloth" unless Object.const_defined?(:RedCloth)
+        def textilize(text, *rules)
+          if text.blank?
+            ""
+          else
+            rc = RedCloth.new(text, rules)
+            rc.no_span_caps = true
+            rc.to_html
+          end
+        end
+      rescue LoadError
+        # We can't really help what's not there
       end
     end
   end
+end
 

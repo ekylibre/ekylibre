@@ -21,6 +21,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem "haml"
   config.gem "fastercsv"
+  config.gem "rubyzip", :lib=>"zip/zip"
   # config.gem "measure"
 
   # Only load the plugins named here, in the order given (default is alphabetical).

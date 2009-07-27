@@ -18,7 +18,7 @@
 #  mode_id        :integer       not null
 #  paid_on        :date          
 #  part_amount    :decimal(16, 2 
-#  to_bank_on     :date          default(Tue, 16 Jun 2009), not null
+#  to_bank_on     :date          default(Wed, 08 Jul 2009), not null
 #  updated_at     :datetime      not null
 #  updater_id     :integer       
 #

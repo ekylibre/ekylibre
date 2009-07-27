@@ -111,11 +111,10 @@ class CompanyController < ApplicationController
     if request.post?
       if params['backup']
         # Création d'une sauvegarde
-        send_file(@current_company.backup(@current_user))
-        
+        send_file(@current_company.backup(@current_user, params[:with_prints]))
       elsif params['restore']
         # Récupération d'une sauvegarde
-        backup = params[:backup][:path]
+        backup = params[:file][:path]
         file = "#{RAILS_ROOT}/tmp/uploads/#{backup.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
         File.open(file, "w") { |f| f.write(backup.read)}
         start = Time.now.to_i
