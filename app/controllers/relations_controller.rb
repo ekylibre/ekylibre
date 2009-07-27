@@ -667,6 +667,23 @@ class RelationsController < ApplicationController
     redirect_to :action=>:entities_natures
   end
   
+  dyta(:entity_link_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :name_1_to_2
+    t.column :name_2_to_1
+  end
+
+  def entity_link_natures
+  end
+
+  def entity_link_natures_create
+    if request.post?
+    else
+      @entity_link_nature = EntityLinkNature.new
+    end
+    render_form
+  end
+
   dyta(:meeting_locations, :conditions=>{:company_id=>['@current_company.id'], :active=>true}) do |t|
     t.column :name
     t.column :description

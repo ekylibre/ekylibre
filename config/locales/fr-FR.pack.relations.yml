@@ -180,6 +180,9 @@ fr-FR:
         title: 'Catégorie de fiche : {{value}}'
       entity_categories_update:
         title: 'Modification de la catégorie de fiche : {{value}}'
+      entity_link_natures:
+        entity_link_natures_create: 'Ajouter un type de liens'
+        title: 'Types de liens'
       _general_description_form:
         title: 'Description générale'
       index:
@@ -191,6 +194,7 @@ fr-FR:
         entities_managing: 'Clients et fournisseurs'
         entities_natures: 'Types de fiches'
         entity_categories: 'Catégories de fiches'
+        entity_link_natures: 'Types de liens'
         import_export: 'Import/Export de fiches'
         meeting_locations: 'Lieux de rencontre'
         meeting_modes: 'Types de rencontre'

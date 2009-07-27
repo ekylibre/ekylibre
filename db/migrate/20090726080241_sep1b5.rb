@@ -78,12 +78,12 @@ class Sep1b5 < ActiveRecord::Migration
     add_column :areas, :city_id, :integer
 
 
-    execute("INSERT INTO cities(name, district_id, company_id, created_at, updated_at) SELECT DISTINCT city, district_id, company_id, current_timestamp, current_timestamp FROM areas")
+    execute("INSERT INTO cities(name, district_id, company_id, created_at, updated_at) SELECT DISTINCT COALESCE(city,''), district_id, company_id, current_timestamp, current_timestamp FROM areas")
     for result in select_all("SELECT id, name, company_id FROM cities")
       execute "UPDATE areas SET city_id=#{result['id']} WHERE company_id=#{result['company_id']} AND city='"+result['name'].gsub("'","''")+"'"
     end
     for result in select_all("SELECT id, postcode, city FROM areas")
-      execute "UPDATE contacts SET line_6_code='"+result['postcode'].gsub("'","''")+"', line_6_city='"+result['city'].gsub("'","''")+"' WHERE area_id=#{result['id']} "
+      execute "UPDATE contacts SET line_6_code='"+result['postcode'].to_s.gsub("'","''")+"', line_6_city='"+result['city'].to_s.gsub("'","''")+"' WHERE area_id=#{result['id']} "
     end
 
     remove_column :districts, :code
