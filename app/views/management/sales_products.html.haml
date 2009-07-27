@@ -25,4 +25,4 @@
     - if @sale_order.state == 'P' and @sale_order.lines.size>0
       =submit_tag(tc('estimate_to_order'), :action=>:sales_deliveries)
     - elsif @sale_order.lines.size>0
-      =link_to tc('deliveries'), :action=>:sales_deliveries, :id=>@sale_order.
+      =link_to tc('deliveries'), :action=>:sales_deliveries, :id=>@sale_order.id

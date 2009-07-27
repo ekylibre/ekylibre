@@ -327,7 +327,11 @@ fr-FR:
       contact:
         active: 'Actif'
         address: 'Adresse'
+<<<<<<< .mine
+        area_id: 'Zone'
+=======
         area_id: 'sZone'
+>>>>>>> .r974
         closed_on: 'Annulé le'
         code: 'Code'
         company_id: 'Société'

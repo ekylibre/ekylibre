@@ -4,10 +4,13 @@ fr-FR:
     management:
       category: 'Catégorie'
       choose_one_check_at_less: 'Sélectionnez au moins un chèque'
+      embankment: 'Remise de chèques'
       error_sale_order_already_paid: 'La vente a déjà été payée en totalité'
+      estimate: 'Devis'
       import_succeed: 'Vos données ont été correctement importées'
       impossible_to_add_lines: 'Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande'
       impossible_to_add_lines_to_purchase: 'Vous ne pouvez plus ajouter de produits à votre achat'
+      invoice: 'Facture'
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
         need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
@@ -21,6 +24,7 @@ fr-FR:
       no_contacts: 'Aucune adresse définie pour {{name}}'
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
       no_stock_location: 'Veuillez créer un lieu de stockage'
+      order: 'Commande'
       paid_on: 'Réglé le'
       payment_amount: 'Montant du paiement'
       price: 'Prix'
@@ -69,9 +73,9 @@ fr-FR:
         amount: 'Total de la livraison HT'
         amount_with_taxes: 'Total de la livraison TTC'
         infos: 'Renseignez les caractéristiques de la livraison'
-      deliveries_update:
-        title: 'Modification de la livraison'
       _deliveries_update:
+        title: 'Modification de la livraison'
+      deliveries_update:
         title: 'Modification de la livraison'
       delivery_modes:
         delivery_modes_create: 'Ajouter un type livraison'

@@ -26,7 +26,7 @@
 
 - if @product_stocks.size > 0
   %h2= tc('stocks')
-  .stocks=render :partial=>"stock_indicator"
+  =dyta :uniq_critic_product_stocks
 
 -if @product.to_sale or @product.to_purchase
   %h2=tc :prices

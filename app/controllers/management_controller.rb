@@ -905,6 +905,7 @@ class ManagementController < ApplicationController
       @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
       @client_address = @sale_order.contact.address.split(",").collect{ |x| x.strip}
       #raise Exception.new @sale_order.payment_delay.compute(Date.today.to_s)
+      print(@sale_order, :archive=>@sale_order.state != 'P', :filename=>@sale_order.state == 'P' ? tc('estimate')+" "+@sale_order.number : tc('order')+" "+@sale_order.number )
     end
   end
 
@@ -1238,7 +1239,7 @@ class ManagementController < ApplicationController
       @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
       @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
       @client_address = @invoice.contact.address.split(",").collect{ |x| x.strip}
-      print(@invoice)
+      print(@invoice, :archive=>true, :filename=>tc('invoice')+" "+@invoice.number)
     end
   end
 
@@ -1331,7 +1332,7 @@ class ManagementController < ApplicationController
       @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
       #raise Exception.new @embankment.bank_account.bank_name.inspect
       @account_address = @embankment.bank_account.address.split("\n")
-      #raise Exception.new Payment.content_columns.inspect
+      print(@embankment, :archive=>false, :filename=>tc('embankment')+" "+@embankment.created_on.to_s)
     end
   end
 
@@ -1939,7 +1940,7 @@ class ManagementController < ApplicationController
     t.column :current_real_quantity
   end
 
-  dyta(:critic_product_stocks, :model=>:product_stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state') do |t|
+  dyta(:critic_product_stocks, :model=>:product_stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
     t.column :name, :through=>:product,:url=>{:action=>:products_display}
     t.column :name, :through=>:location, :label=>"Lieu de stockage"
     t.column :quantity_max
@@ -1949,6 +1950,16 @@ class ManagementController < ApplicationController
     t.column :current_real_quantity
   end
 
+
+  dyta(:uniq_critic_product_stocks, :model=>:product_stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min  AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state') do |t|
+    t.column :name, :through=>:product,:url=>{:action=>:products_display}
+    t.column :name, :through=>:location, :label=>"Lieu de stockage"
+    t.column :quantity_max
+    t.column :quantity_min
+    t.column :critic_quantity_min
+    t.column :current_virtual_quantity
+    t.column :current_real_quantity
+  end
 
   def stocks
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
