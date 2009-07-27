@@ -27,7 +27,7 @@ class Area < ActiveRecord::Base
 
   def before_validation
     return false unless self.company
-    self.name = self.name.gsub(/\s+/,' ').strip
+    self.name = self.name.gsub(/\s+/,' ').strip.upper
     words = self.name.split(' ')
     start = words[0].ascii.length<=3 ? 2 : 1
     self.postcode = words[0..start-1].join(" ")

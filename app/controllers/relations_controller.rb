@@ -1,21 +1,19 @@
 class RelationsController < ApplicationController
-  
+ 
+  #
   def index
     @entities = @current_company.entities
   end
-  
-  
-#   def areas_find
-#     if request.xhr?
-#       area = params[:area].split(',')[0] 
-#       @area = (area.nil? ? nil : area.strip)
-#       city = params[:area].split(',')[1]
-#       @city = (city.nil? ? nil : city.strip)
-#       render :action=>'areas_find.rjs'
-#     end
-#   end
 
+  #
+  def auto_complete_for_contact_line_6
+    pattern = '%'+params[:contact][:line_6].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+    @areas = @current_company.areas.find(:all, :conditions => [ 'LOWER(name) LIKE ? ', pattern], :order => "name ASC") 
+        
+    render :inline => "<%= content_tag(:ul, @areas.map { |area| content_tag(:li, h(area.name)) }) %>"
 
+  end
+  
   dyta(:areas, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name
     t.column :postcode

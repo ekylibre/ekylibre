@@ -31,9 +31,11 @@ namespace :clean do
     file = File.open(User.rights_file, "rb")
     rights = []
     file.each_line do |line|
-      right = line.strip.split(/[\:\t\,\;\s]+/).collect{|x| x.strip.lower}
-      right[2] = new_right if right.size==2
-      rights << right if right.size==3
+      unless line.match(/\<\<\<|\=\=\=|\>\>\>/)
+        right = line.strip.split(/[\:\t\,\;\s]+/).collect{|x| x.strip.lower}
+        right[2] = new_right if right.size==2
+        rights << right if right.size==3
+      end
     end
     file.close
 

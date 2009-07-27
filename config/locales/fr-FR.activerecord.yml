@@ -187,7 +187,7 @@ fr-FR:
       # Zone postale
       area:
         city: 'Ville'
-        city_id: 'Ville'
+        city_id: '(((CITY_ID)))'
         city_name: (((CITY_NAME)))
         code: 'Code interne'
         company_id: 'Société'
@@ -197,7 +197,7 @@ fr-FR:
         district_id: 'Zone administrative'
         id: 'ID'
         lock_version: 'Version'
-        name: 'Nom'
+        name: 'Zone'
         postcode: 'Code postal'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -327,7 +327,7 @@ fr-FR:
       contact:
         active: 'Actif'
         address: 'Adresse'
-        area_id: 'Code postal - Ville'
+        area_id: 'sZone'
         closed_on: 'Annulé le'
         code: 'Code'
         company_id: 'Société'
@@ -337,7 +337,7 @@ fr-FR:
         default: 'Par défaut'
         deleted: 'Effacé'
         email: 'Email'
-        entity_id: 'Relation'
+        entity_id: (((ENTITY_ID)))
         fax: 'Fax'
         id: 'ID'
         latitude: 'Latitude'
@@ -354,7 +354,7 @@ fr-FR:
         mobile: 'Portable'
         name: 'Nom (interne)'
         nature: 'Type'
-        norm_id: 'Norme postale'
+        norm_id: (((NORM_ID)))
         phone: 'Téléphone'
         started_at: (((STARTED_AT)))
         stopped_at: (((STOPPED_AT)))
@@ -480,19 +480,19 @@ fr-FR:
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        crypt_key: 'Clé de cryptage'
-        crypt_mode: 'Mode de cryptage'
+        crypt_key: (((CRYPT_KEY)))
+        crypt_mode: (((CRYPT_MODE)))
         extension: 'Extension'
-        filename: 'Nom du fichier stocké'
-        filesize: 'Taille mémoire'
+        filename: (((FILENAME)))
+        filesize: (((FILESIZE)))
         id: 'ID'
-        key: 'Clé'
+        key: '(((KEY)))'
         lock_version: 'Version'
-        original_name: 'Nom du fichier'
+        original_name: (((ORIGINAL_NAME)))
         owner_id: 'Propriétaire'
         owner_type: 'Nature du propriétaire'
-        printed_at: 'Imprimé le'
-        sha256: 'Hash SHA256'
+        printed_at: (((PRINTED_AT)))
+        sha256: (((SHA256)))
         subdir: 'Sous-répertoire'
         template: 'Modèle'
         updated_at: 'Mis à jour le'

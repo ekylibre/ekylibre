@@ -7,10 +7,7 @@
   -f.field :contact, :line_4_street
   -f.field :contact, :line_5
   -# f.field t("activerecord.attributes.contact.area_id"), dyli_tag(:contact, :area, :dyli=>:area_search, :resize=>true, :allow_free_text => true)
-  -#f.field t("activerecord.attributes.contact.area_id"), dyse(:contact, :line6, :areas_name)
-  -f.field :contact, :line_6
-  -# f.field :contact, :line_6_code
-  -# f.field :contact, :line_6_city
+  -f.field  t("activerecord.attributes.contact.line_6"), text_field_with_auto_complete(:contact, :line_6)
   -f.field :contact, :country, :choices=>countries, :options=>{:include_blank=>true}
   -f.title :canals
   -f.field :contact, :phone
@@ -20,11 +17,6 @@
   -f.field :contact, :website
 
 
-=# observe_field "dyli_tf", :frequency=> 0.25, :function =>remote_function(:url => {:action => :areas_find}, :with=>"'area='+escape(value)")
-
-:javascript
-  $('contact_line_6_code').value=" ";
-  $('contact_line_6_city').value=" ";
 
 
 
