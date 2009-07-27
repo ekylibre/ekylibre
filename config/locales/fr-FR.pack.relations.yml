@@ -222,6 +222,10 @@ fr-FR:
         title: 'Ajouter une rencontre'
       meetings_update:
         title: 'Modification de la rencontre avec {{value}}'
+      observations_create:
+        title: 'Ajouter une observation'
+      observations_update:
+        title: 'Modifier une observation'
       sales_print:
         deliveries_number:
           one: '1 livraison'
