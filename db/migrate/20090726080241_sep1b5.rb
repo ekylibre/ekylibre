@@ -20,7 +20,7 @@ class Sep1b5 < ActiveRecord::Migration
     change_column :areas, :city_id, :integer, :null=>true
 
     execute "UPDATE contacts SET line_6=TRIM(line_6_code)||' '||TRIM(line_6_city)"
-    execute "INSERT INTO areas(name, postcode, city, city_name, company_id, created_at, updated_at) SELECT DISTINCT line_6, line_6_code, line_6_city, TRIM(REPLACE(UPPER(line_6_city), 'CEDEX', '')), contacts.company_id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM contacts LEFT JOIN areas ON (contacts.line_6=areas.name) WHERE areas.id IS NULL"
+    execute "INSERT INTO areas(name, postcode, city, city_name, company_id, created_at, updated_at) SELECT DISTINCT COALESCE(line_6,''), COALESCE(line_6_code,''), line_6_city, TRIM(REPLACE(UPPER(line_6_city), 'CEDEX', '')), contacts.company_id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM contacts LEFT JOIN areas ON (contacts.line_6=areas.name) WHERE areas.id IS NULL"
     execute "UPDATE areas SET country='fr'"
     for result in select_all("SELECT id, name, company_id FROM areas")
       execute "UPDATE contacts SET area_id=#{result['id']} WHERE company_id=#{result['company_id']} AND line_6='"+result['name'].gsub("'","''")+"'"
