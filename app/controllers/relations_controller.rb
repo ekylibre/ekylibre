@@ -698,15 +698,15 @@ class RelationsController < ApplicationController
 
   def entity_links_create
     if request.post?
-      #raise Exception.new params.inspect+params[:entity_link][:nature_id].to_i.inspect
       @entity_link = EntityLink.new(:comment=>params[:entity_link][:comment], :nature_id=>params[:entity_link][:nature_id].to_i)
       if params[:entity_link][:nature_id].include?("-R")
-        @entity_link.entity2_id = session[:current_entity]
-        @entity_link.entity1_id = params[:entity_link][:entity2_id]
+       # @entity_link.entity2_id = session[:current_entity]
+       # @entity_link.entity1_id = params[:entity_link][:entity2_id]
       else
-        @entity_link.entity2_id = params[:entity_link][:entity2_id]
-        @entity_link.entity1_id = session[:current_entity]
       end
+      @entity_link.entity2_id = params[:entity_link][:entity2_id]
+      @entity_link.entity1_id = session[:current_entity]
+      #end
       @entity_link.company_id = @current_company.id
       redirect_to_back if @entity_link.save
     else

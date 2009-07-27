@@ -20,9 +20,7 @@ class EntityLinkNature < ActiveRecord::Base
   belongs_to :company
   has_many   :entity_links
 
-  def available_nature
-    self.symetric ? "" : self.name_2_to_1 
-  end
+
 
 end
  

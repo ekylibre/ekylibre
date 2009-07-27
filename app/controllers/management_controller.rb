@@ -16,7 +16,7 @@ class ManagementController < ApplicationController
     @payments_to_embank = @current_company.checks_to_embank(-1)
     @embankments_to_lock = @current_company.embankments_to_lock
   end
-
+  
   dyta(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :active
