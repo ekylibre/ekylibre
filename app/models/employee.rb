@@ -34,6 +34,15 @@ class Employee < ActiveRecord::Base
   has_many :meetings
   has_many :shape_operations
 
+  def before_validation
+    self.last_name ||= self.user.last_name  
+    self.first_name ||= self.user.first_name  
+  end
+
+  def validate
+#    raise Exception.new('probleme:'+self.inspect)
+  end
+
   def full_name
     full_name = (self.last_name.to_s+" "+self.first_name.to_s).strip
   end

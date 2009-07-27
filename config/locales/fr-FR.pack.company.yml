@@ -133,9 +133,12 @@ fr-FR:
         title: 'Liste des utilisateurs'
         users_create: 'Ajouter un nouvel utilisateur'
       users_create:
+        create_employee: 'Employee'
         title: 'Création d''un nouvel utilisateur'
       _users_form:
+        employee: 'Créer automatiquement un employé'
         rights: 'Droits'
         subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
+        title: 'Gestion des employés'
       users_update:
         title: 'Modification de l''utilisateur'

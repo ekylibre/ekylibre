@@ -359,6 +359,7 @@ fr-FR:
     display: 'Afficher'
     down: 'Descendre'
     edit: 'Modifier'
+    employee: 'Informations employé'
     example: 'Exemple&nbsp;: {{value}}'
     filter: Filtrer
     finish: Terminer

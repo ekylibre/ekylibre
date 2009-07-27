@@ -199,8 +199,8 @@ fr-FR:
         district_id: 'Zone administrative'
         id: 'ID'
         lock_version: 'Version'
-        name: (((NAME)))
-        postcode: (((POSTCODE)))
+        name: 'Zone'
+        postcode: 'Code postal'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -329,7 +329,7 @@ fr-FR:
       contact:
         active: 'Actif'
         address: 'Adresse'
-        area_id: 'Zone'
+        area_id: 'sZone'
         closed_on: 'Annulé le'
         code: 'Code'
         company_id: 'Société'

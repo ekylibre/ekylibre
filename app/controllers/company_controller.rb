@@ -267,10 +267,8 @@ class CompanyController < ApplicationController
     redirect_to_current
   end
 
-
-
-
   def users
+  # @employee = Employee.new
   end
 
 
@@ -289,6 +287,7 @@ class CompanyController < ApplicationController
     t.action :users_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.id!=@current_user.id'
   end
 
+
   def users_create
     if request.xhr?
       role = find_and_check(:role, params[:user_role_id])
@@ -300,10 +299,15 @@ class CompanyController < ApplicationController
         @user.company_id = @current_company.id
         @user.rights_array = (params[:rights]||{}).keys
         @rights = @user.rights_array
-        redirect_to_back if @user.save
+        if @user.save
+          unless params[:create_employee].nil?
+            @employee = Employee.create!(params[:employee].merge({:user_id=>@user.id, :company_id=>@current_company.id }))           end
+          redirect_to_back 
+        end
       else
         role = @current_company.roles.first
-        @user = User.new(:admin=>false, :role=>role)
+        @user = @current_company.users.new(:admin=>false, :role=>role)
+        @employee = @current_company.employees.new
         @rights = role ? role.rights_array : []
       end
     end
@@ -312,11 +316,16 @@ class CompanyController < ApplicationController
 
   def users_update
     @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
+    @employee = Employee.find_by_user_id(@user.id)
     if request.post?
       @user.attributes = params[:user]
       @user.rights_array = (params[:rights]||{}).keys
       @rights = @user.rights_array
-      redirect_to_back if @user.save
+      if @user.save
+        unless params[:create_employee].nil?
+          @employee = Employee.create!(params[:employee].merge({:user_id=>@user.id, :company_id=>@current_company.id }))           end
+        redirect_to_back 
+      end
     else
       @rights = @user.rights_array
     end
@@ -397,13 +406,6 @@ class CompanyController < ApplicationController
     end
     redirect_to_current
   end
-
-
-
-
-
-
-
 
 
   dyta(:listings, :conditions=>{:company_id=>['@current_company.id']}) do |t|
