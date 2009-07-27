@@ -1,717 +1,364 @@
-# accountancy    dyli_account_search              administrate_accountancy
-# accountancy    dyta_bank_account_statements     administrate_accountancy
-# accountancy    dyta_entries                     administrate_accountancy
-# accountancy    dyta_entries_statement           administrate_accountancy
-# accountancy    index                            administrate_accountancy
-# accountancy    entries_consult                  consult_entries
-# accountancy    entries_consult_by_journal_id    consult_entries
-# accountancy    accounts                         manage_accounts
-# accountancy    accounts_create                  manage_accounts
-# accountancy    accounts_delete                  manage_accounts
-# accountancy    accounts_update                  manage_accounts
-# accountancy    dyta_accounts                    manage_accounts
-# accountancy    bank_accounts                    manage_bank_accounts
-# accountancy    bank_accounts_create             manage_bank_accounts
-# accountancy    bank_accounts_delete             manage_bank_accounts
-# accountancy    bank_accounts_update             manage_bank_accounts
-# accountancy    dyta_bank_accounts               manage_bank_accounts
-# accountancy    accounts_letter                  manage_entries
-# accountancy    entries                          manage_entries
-# accountancy    entries_delete                   manage_entries
-# accountancy    entries_letter                   manage_entries
-# accountancy    entries_update                   manage_entries
-# accountancy    lettering                        manage_entries
-# accountancy    params_entries                   manage_entries
-# accountancy    dyta_financialyears              manage_financialyears
-# accountancy    financialyears                   manage_financialyears
-# accountancy    financialyears_close             manage_financialyears
-# accountancy    financialyears_create            manage_financialyears
-# accountancy    financialyears_delete            manage_financialyears
-# accountancy    financialyears_records           manage_financialyears
-# accountancy    financialyears_update            manage_financialyears
-# accountancy    dyta_journals                    manage_journals
-# accountancy    journals                         manage_journals
-# accountancy    journals_close                   manage_journals
-# accountancy    journals_create                  manage_journals
-# accountancy    journals_delete                  manage_journals
-# accountancy    journals_records                 manage_journals
-# accountancy    journals_report_find             manage_journals
-# accountancy    journals_update                  manage_journals
-# accountancy    statements                       manage_statements
-# accountancy    statements_create                manage_statements
-# accountancy    statements_delete                manage_statements
-# accountancy    statements_display               manage_statements
-# accountancy    statements_point                 manage_statements
-# accountancy    statements_update                manage_statements
-# accountancy    document_prepare                 print_accounting_document
-# accountancy    document_print                   print_accounting_document
-# accountancy    synthesis                        print_accounting_document
-# authentication index                            __minimum__
-# authentication login                            __minimum__
-# authentication logout                           __minimum__
-# authentication register                         __minimum__
-# company        about_us                         __minimum__
-# company        help                             __minimum__
-# company        index                            __minimum__
-# company        unknown_action                   __minimum__
-# company        welcome                          __minimum__
-# company        backups                          backup_company
-# company        configure                        configure_company
-# company        dyta_sequences                   configure_company
-# company        sequences_create                 configure_company
-# company        sequences_delete                 configure_company
-# company        sequences_update                 configure_company
-# company        departments                      manage_company
-# company        departments_create               manage_company
-# company        departments_delete               manage_company
-# company        departments_update               manage_company
-# company        dyta_departments                 manage_company
-# company        dyta_establishments              manage_company
-# company        establishments                   manage_company
-# company        establishments_create            manage_company
-# company        establishments_delete            manage_company
-# company        establishments_update            manage_company
-# company        sequences                        manage_company
-# company        dyta_listing_nodes               manage_listings
-# company        dyta_listings                    manage_listings
-# company        listing_nodes                    manage_listings
-# company        listing_nodes_create             manage_listings
-# company        listing_nodes_delete             manage_listings
-# company        listing_nodes_update             manage_listings
-# company        listings                         manage_listings
-# company        listings_build                   manage_listings
-# company        listings_create                  manage_listings
-# company        listings_delete                  manage_listings
-# company        listings_update                  manage_listings
-# company        dyta_roles                       manage_users
-# company        dyta_users                       manage_users
-# company        roles                            manage_users
-# company        roles_create                     manage_users
-# company        roles_delete                     manage_users
-# company        roles_update                     manage_users
-# company        users                            manage_users
-# company        users_create                     manage_users
-# company        users_delete                     manage_users
-# company        users_lock                       manage_users
-# company        users_unlock                     manage_users
-# company        users_update                     manage_users
-# help           close                            __minimum__
-# help           previous                         __minimum__
-# help           search                           __minimum__
-# help           side                             __minimum__
-# management     dyta_all_invoices                administrate_management
-# management     dyta_critic_product_stocks       administrate_management
-# management     dyta_deliveries                  administrate_management
-# management     dyta_delivery_modes              administrate_management
-# management     dyta_invoice_credit_lines        administrate_management
-# management     dyta_invoice_lines               administrate_management
-# management     dyta_invoices                    administrate_management
-# management     dyta_payment_modes               administrate_management
-# management     dyta_payment_parts               administrate_management
-# management     dyta_payments                    administrate_management
-# management     dyta_prices                      administrate_management
-# management     dyta_product_components          administrate_management
-# management     dyta_product_prices              administrate_management
-# management     dyta_product_stocks              administrate_management
-# management     dyta_products                    administrate_management
-# management     dyta_purchase_order_lines        administrate_management
-# management     dyta_sale_lines                  administrate_management
-# management     dyta_sale_order_lines            administrate_management
-# management     dyta_sale_order_natures          administrate_management
-# management     dyta_sale_orders                 administrate_management
-# management     dyta_sales_deliveries            administrate_management
-# management     dyta_shelves                     administrate_management
-# management     dyta_stock_locations             administrate_management
-# management     dyta_stock_moves                 administrate_management
-# management     dyta_stock_transfers             administrate_management
-# management     dyta_taxes                       administrate_management
-# management     dyta_undelivered_quantities      administrate_management
-# management     dyta_undelivered_sales           administrate_management
-# management     dyta_unexecuted_transfers        administrate_management
-# management     dyta_unreceived_purchases        administrate_management
-# management     dyta_unvalidated_embankments     administrate_management
-# management     index                            administrate_management
-# management     inventories                      administrate_management
-# management     inventory_consult                administrate_management
-# management     invoices_cancel                  cancel_invoices
-# management     prices                           consult_prices
-# management     dyta_purchase_orders             consult_purchases
-# management     purchases                        consult_purchases
-# management     sales                            consult_sales
-# management     sales_details                    consult_sales
-# management     stocks                           consult_stocks
-# management     add_lines                        create_estimates
-# management     price_find                       create_estimates
-# management     sale_order_lines_create          create_estimates
-# management     sale_order_lines_delete          create_estimates
-# management     sale_order_lines_update          create_estimates
-# management     sales_contacts                   create_estimates
-# management     sales_general                    create_estimates
-# management     sales_new                        create_estimates
-# management     sales_products                   create_estimates
-# management     sum_calculate                    create_estimates
-# management     purchase_order_lines_create      create_purchases
-# management     purchase_order_lines_delete      create_purchases
-# management     purchase_order_lines_update      create_purchases
-# management     purchase_orders_create           create_purchases
-# management     purchases_new                    create_purchases
-# management     purchases_print                  create_purchases
-# management     purchases_products               create_purchases
-# management     unreceived_purchases             create_purchases
-# management     delays                           manage_delays
-# management     delays_create                    manage_delays
-# management     delays_delete                    manage_delays
-# management     delays_display                   manage_delays
-# management     delays_update                    manage_delays
-# management     dyta_delays                      manage_delays
-# management     delivery_modes                   manage_delivery_modes
-# management     delivery_modes_create            manage_delivery_modes
-# management     delivery_modes_delete            manage_delivery_modes
-# management     delivery_modes_update            manage_delivery_modes
-# management     dyta_credits                     manage_embankments
-# management     dyta_embankment_payments         manage_embankments
-# management     dyta_embankments                 manage_embankments
-# management     embankment_checks_create         manage_embankments
-# management     embankment_checks_update         manage_embankments
-# management     embankments                      manage_embankments
-# management     embankments_create               manage_embankments
-# management     embankments_delete               manage_embankments
-# management     embankments_display              manage_embankments
-# management     embankments_print                manage_embankments
-# management     embankments_update               manage_embankments
-# management     unvalidated_embankments          manage_embankments
-# management     payments_create                  manage_invoicing
-# management     payments_delete                  manage_invoicing
-# management     payments_update                  manage_invoicing
-# management     sales_invoices                   manage_invoicing
-# management     sales_payments                   manage_invoicing
-# management     deliveries_create                manage_orders
-# management     deliveries_delete                manage_orders
-# management     deliveries_update                manage_orders
-# management     sale_orders_delete               manage_orders
-# management     sales_deliveries                 manage_orders
-# management     undelivered_sales                manage_orders
-# management     payment_modes                    manage_payment_modes
-# management     payment_modes_create             manage_payment_modes
-# management     payment_modes_delete             manage_payment_modes
-# management     payment_modes_update             manage_payment_modes
-# management     prices_create                    manage_prices
-# management     prices_delete                    manage_prices
-# management     prices_export                    manage_prices
-# management     prices_import                    manage_prices
-# management     change_quantities                manage_products
-# management     product_components_create        manage_products
-# management     product_components_delete        manage_products
-# management     product_components_update        manage_products
-# management     products_create                  manage_products
-# management     products_delete                  manage_products
-# management     products_update                  manage_products
-# management     sale_order_natures               manage_sale_order_natures
-# management     sale_order_natures_create        manage_sale_order_natures
-# management     sale_order_natures_delete        manage_sale_order_natures
-# management     sale_order_natures_display       manage_sale_order_natures
-# management     sale_order_natures_update        manage_sale_order_natures
-# management     shelves                          manage_shelves
-# management     shelves_create                   manage_shelves
-# management     shelves_delete                   manage_shelves
-# management     shelves_display                  manage_shelves
-# management     shelves_update                   manage_shelves
-# management     stocks_locations                 manage_stock_locations
-# management     stocks_locations_create          manage_stock_locations
-# management     stocks_locations_delete          manage_stock_locations
-# management     stocks_locations_display         manage_stock_locations
-# management     stocks_locations_update          manage_stock_locations
-# management     stock_transfers                  manage_stock_moves
-# management     stock_transfers_create           manage_stock_moves
-# management     stock_transfers_delete           manage_stock_moves
-# management     stock_transfers_update           manage_stock_moves
-# management     stocks_moves_create              manage_stock_moves
-# management     stocks_moves_delete              manage_stock_moves
-# management     stocks_moves_update              manage_stock_moves
-# management     unexecuted_transfers             manage_stock_moves
-# management     dyta_subscription_natures        manage_subscriptions
-# management     dyta_subscriptions               manage_subscriptions
-# management     subscription_find                manage_subscriptions
-# management     subscription_message             manage_subscriptions
-# management     subscription_natures             manage_subscriptions
-# management     subscription_natures_create      manage_subscriptions
-# management     subscription_natures_display     manage_subscriptions
-# management     subscription_natures_down        manage_subscriptions
-# management     subscription_natures_up          manage_subscriptions
-# management     subscription_natures_update      manage_subscriptions
-# management     subscription_options_display     manage_subscriptions
-# management     subscriptions                    manage_subscriptions
-# management     taxes                            manage_taxes
-# management     taxes_create                     manage_taxes
-# management     taxes_delete                     manage_taxes
-# management     taxes_update                     manage_taxes
-# management     invoices_print                   print_sales
-# management     sales_print                      print_sales
-# management     invoices                         search_and_consult_invoices
-# management     invoices_display                 search_and_consult_invoices
-# management     products                         search_and_consult_products
-# management     products_display                 search_and_consult_products
-# management     products_search                  search_and_consult_products
-# production     dyta_productions                 administrate_production
-# production     dyta_shape_operation_natures     administrate_production
-# production     dyta_shape_operations            administrate_production
-# production     dyta_shapes                      administrate_production
-# production     index                            administrate_production
-# production     production_lines_create          manage_productions
-# production     production_lines_update          manage_productions
-# production     productions                      manage_productions
-# production     productions_create               manage_productions
-# production     productions_delete               manage_productions
-# production     productions_update               manage_productions
-# production     dyta_unvalidated_operations      manage_shape_operations
-# production     shape_operation_natures          manage_shape_operations
-# production     shape_operation_natures_create   manage_shape_operations
-# production     shape_operations                 manage_shape_operations
-# production     shape_operations_create          manage_shape_operations
-# production     shape_operations_delete          manage_shape_operations
-# production     shape_operations_update          manage_shape_operations
-# production     unvalidated_operations           manage_shape_operations
-# production     shapes                           manage_shapes
-# production     shapes_create                    manage_shapes
-# relations      dyli_area_search                 [new_right]
-# relations      dyta_client_invoices             administrate_relations
-# relations      dyta_contacts                    administrate_relations
-# relations      dyta_entity_bank_accounts        administrate_relations
-# relations      dyta_entity_categories           administrate_relations
-# relations      dyta_entity_meetings             administrate_relations
-# relations      dyta_entity_natures              administrate_relations
-# relations      dyta_entity_sales                administrate_relations
-# relations      dyta_meeting_locations           administrate_relations
-# relations      dyta_meeting_modes               administrate_relations
-# relations      dyta_meetings                    administrate_relations
-# relations      index                            administrate_relations
-# relations      dyta_entities                    consult_entities
-# relations      entities                         consult_entities
-# relations      entities_display                 consult_entities
-# relations      entities_export                  import_export_entities
-# relations      entities_import                  import_export_entities
-# relations      areas                            manage_areas
-# relations      areas_create                     manage_areas
-# relations      areas_delete                     manage_areas
-# relations      areas_update                     manage_areas
-# relations      dyta_areas                       manage_areas
-# relations      complement_choices               manage_complements
-# relations      complement_choices_create        manage_complements
-# relations      complement_choices_down          manage_complements
-# relations      complement_choices_sort          manage_complements
-# relations      complement_choices_up            manage_complements
-# relations      complement_choices_update        manage_complements
-# relations      complements                      manage_complements
-# relations      complements_create               manage_complements
-# relations      complements_update               manage_complements
-# relations      dyta_complement_choices          manage_complements
-# relations      dyta_complements                 manage_complements
-# relations      districts                        manage_districts
-# relations      districts_create                 manage_districts
-# relations      districts_delete                 manage_districts
-# relations      districts_update                 manage_districts
-# relations      dyta_districts                   manage_districts
-# relations      client_informations              manage_entities
-# relations      entities_contacts_create         manage_entities
-# relations      entities_contacts_delete         manage_entities
-# relations      entities_contacts_update         manage_entities
-# relations      entities_create                  manage_entities
-# relations      entities_delete                  manage_entities
-# relations      entities_update                  manage_entities
-# relations      entities_natures                 manage_entities_natures
-# relations      entities_natures_create          manage_entities_natures
-# relations      entities_natures_delete          manage_entities_natures
-# relations      entities_natures_update          manage_entities_natures
-# relations      dyta_category_prices             manage_entity_categories
-# relations      entity_categories                manage_entity_categories
-# relations      entity_categories_create         manage_entity_categories
-# relations      entity_categories_delete         manage_entity_categories
-# relations      entity_categories_display        manage_entity_categories
-# relations      entity_categories_update         manage_entity_categories
-# relations      meeting_locations                manage_meetings
-# relations      meeting_locations_create         manage_meetings
-# relations      meeting_locations_delete         manage_meetings
-# relations      meeting_locations_update         manage_meetings
-# relations      meeting_modes                    manage_meetings
-# relations      meeting_modes_create             manage_meetings
-# relations      meeting_modes_delete             manage_meetings
-# relations      meeting_modes_update             manage_meetings
-# relations      meetings                         manage_meetings
-# relations      meetings_create                  manage_meetings
-# relations      meetings_delete                  manage_meetings
-# relations      meetings_update                  manage_meetings
-# relations      dyta_observations                manage_observations
-# relations      observations_create              manage_observations
-# relations      observations_update              manage_observations
-# relations      entities_print                   print_entities
-# resources      dyta_employees                   administrate_resources
-# resources      dyta_professions                 administrate_resources
-# resources      employees                        administrate_resources
-# resources      employees_create                 administrate_resources
-# resources      employees_delete                 administrate_resources
-# resources      employees_update                 administrate_resources
-# resources      index                            administrate_resources
-# resources      professions                      administrate_resources
-# resources      professions_create               administrate_resources
-# resources      professions_delete               administrate_resources
-accountancy      dyli_account_search              administrate_accountancy
-accountancy      dyta_bank_account_statements     administrate_accountancy
-accountancy      dyta_entries                     administrate_accountancy
-accountancy      dyta_entries_statement           administrate_accountancy
-accountancy      index                            administrate_accountancy
-accountancy      entries_consult                  consult_entries
-accountancy      entries_consult_by_journal_id    consult_entries
-accountancy      accounts                         manage_accounts
-accountancy      accounts_create                  manage_accounts
-accountancy      accounts_delete                  manage_accounts
-accountancy      accounts_update                  manage_accounts
-accountancy      dyta_accounts                    manage_accounts
-accountancy      bank_accounts                    manage_bank_accounts
-accountancy      bank_accounts_create             manage_bank_accounts
-accountancy      bank_accounts_delete             manage_bank_accounts
-accountancy      bank_accounts_update             manage_bank_accounts
-accountancy      dyta_bank_accounts               manage_bank_accounts
-accountancy      accounts_letter                  manage_entries
-accountancy      entries                          manage_entries
-accountancy      entries_delete                   manage_entries
-accountancy      entries_letter                   manage_entries
-accountancy      entries_update                   manage_entries
-accountancy      lettering                        manage_entries
-accountancy      params_entries                   manage_entries
-accountancy      dyta_financialyears              manage_financialyears
-accountancy      financialyears                   manage_financialyears
-accountancy      financialyears_close             manage_financialyears
-accountancy      financialyears_create            manage_financialyears
-accountancy      financialyears_delete            manage_financialyears
-accountancy      financialyears_records           manage_financialyears
-accountancy      financialyears_update            manage_financialyears
-accountancy      dyta_journals                    manage_journals
-accountancy      journals                         manage_journals
-accountancy      journals_close                   manage_journals
-accountancy      journals_create                  manage_journals
-accountancy      journals_delete                  manage_journals
-accountancy      journals_records                 manage_journals
-accountancy      journals_report_find             manage_journals
-accountancy      journals_update                  manage_journals
-accountancy      statements                       manage_statements
-accountancy      statements_create                manage_statements
-accountancy      statements_delete                manage_statements
-accountancy      statements_display               manage_statements
-accountancy      statements_point                 manage_statements
-accountancy      statements_update                manage_statements
-accountancy      document_prepare                 print_accounting_document
-accountancy      document_print                   print_accounting_document
-accountancy      synthesis                        print_accounting_document
-authentication   index                            __minimum__
-authentication   login                            __minimum__
-authentication   logout                           __minimum__
-authentication   register                         __minimum__
-company          about_us                         __minimum__
-company          help                             __minimum__
-company          index                            __minimum__
-company          unknown_action                   __minimum__
-company          welcome                          __minimum__
-company          backups                          backup_company
-company          configure                        configure_company
-company          dyta_sequences                   configure_company
-company          sequences_create                 configure_company
-company          sequences_delete                 configure_company
-company          sequences_update                 configure_company
-company          departments                      manage_company
-company          departments_create               manage_company
-company          departments_delete               manage_company
-company          departments_update               manage_company
-company          dyta_departments                 manage_company
-company          dyta_establishments              manage_company
-company          establishments                   manage_company
-company          establishments_create            manage_company
-company          establishments_delete            manage_company
-company          establishments_update            manage_company
-company          sequences                        manage_company
-company          dyta_listing_nodes               manage_listings
-company          dyta_listings                    manage_listings
-company          listing_nodes                    manage_listings
-company          listing_nodes_create             manage_listings
-company          listing_nodes_delete             manage_listings
-company          listing_nodes_update             manage_listings
-company          listings                         manage_listings
-company          listings_build                   manage_listings
-company          listings_create                  manage_listings
-company          listings_delete                  manage_listings
-company          listings_update                  manage_listings
-company          dyta_roles                       manage_users
-company          dyta_users                       manage_users
-company          roles                            manage_users
-company          roles_create                     manage_users
-company          roles_delete                     manage_users
-company          roles_update                     manage_users
-company          users                            manage_users
-company          users_create                     manage_users
-company          users_delete                     manage_users
-company          users_lock                       manage_users
-company          users_unlock                     manage_users
-company          users_update                     manage_users
-help             close                            __minimum__
-help             previous                         __minimum__
-help             search                           __minimum__
-help             side                             __minimum__
-management       dyta_uniq_critic_product_stocks  [new_right]
-management       dyta_all_invoices                administrate_management
-management       dyta_critic_product_stocks       administrate_management
-management       dyta_deliveries                  administrate_management
-management       dyta_delivery_modes              administrate_management
-management       dyta_invoice_credit_lines        administrate_management
-management       dyta_invoice_lines               administrate_management
-management       dyta_invoices                    administrate_management
-management       dyta_payment_modes               administrate_management
-management       dyta_payment_parts               administrate_management
-management       dyta_payments                    administrate_management
-management       dyta_prices                      administrate_management
-management       dyta_product_components          administrate_management
-management       dyta_product_prices              administrate_management
-management       dyta_product_stocks              administrate_management
-management       dyta_products                    administrate_management
-management       dyta_purchase_order_lines        administrate_management
-management       dyta_sale_lines                  administrate_management
-management       dyta_sale_order_lines            administrate_management
-management       dyta_sale_order_natures          administrate_management
-management       dyta_sale_orders                 administrate_management
-management       dyta_sales_deliveries            administrate_management
-management       dyta_shelves                     administrate_management
-management       dyta_stock_locations             administrate_management
-management       dyta_stock_moves                 administrate_management
-management       dyta_stock_transfers             administrate_management
-management       dyta_taxes                       administrate_management
-management       dyta_undelivered_quantities      administrate_management
-management       dyta_undelivered_sales           administrate_management
-management       dyta_unexecuted_transfers        administrate_management
-management       dyta_unreceived_purchases        administrate_management
-management       dyta_unvalidated_embankments     administrate_management
-management       index                            administrate_management
-management       inventories                      administrate_management
-management       inventory_consult                administrate_management
-management       invoices_cancel                  cancel_invoices
-management       prices                           consult_prices
-management       dyta_purchase_orders             consult_purchases
-management       purchases                        consult_purchases
-management       sales                            consult_sales
-management       sales_details                    consult_sales
-management       stocks                           consult_stocks
-management       add_lines                        create_estimates
-management       price_find                       create_estimates
-management       sale_order_lines_create          create_estimates
-management       sale_order_lines_delete          create_estimates
-management       sale_order_lines_update          create_estimates
-management       sales_contacts                   create_estimates
-management       sales_general                    create_estimates
-management       sales_new                        create_estimates
-management       sales_products                   create_estimates
-management       sum_calculate                    create_estimates
-management       purchase_order_lines_create      create_purchases
-management       purchase_order_lines_delete      create_purchases
-management       purchase_order_lines_update      create_purchases
-management       purchase_orders_create           create_purchases
-management       purchases_new                    create_purchases
-management       purchases_print                  create_purchases
-management       purchases_products               create_purchases
-management       unreceived_purchases             create_purchases
-management       delays                           manage_delays
-management       delays_create                    manage_delays
-management       delays_delete                    manage_delays
-management       delays_display                   manage_delays
-management       delays_update                    manage_delays
-management       dyta_delays                      manage_delays
-management       delivery_modes                   manage_delivery_modes
-management       delivery_modes_create            manage_delivery_modes
-management       delivery_modes_delete            manage_delivery_modes
-management       delivery_modes_update            manage_delivery_modes
-management       dyta_credits                     manage_embankments
-management       dyta_embankment_payments         manage_embankments
-management       dyta_embankments                 manage_embankments
-management       embankment_checks_create         manage_embankments
-management       embankment_checks_update         manage_embankments
-management       embankments                      manage_embankments
-management       embankments_create               manage_embankments
-management       embankments_delete               manage_embankments
-management       embankments_display              manage_embankments
-management       embankments_print                manage_embankments
-management       embankments_update               manage_embankments
-management       unvalidated_embankments          manage_embankments
-management       payments_create                  manage_invoicing
-management       payments_delete                  manage_invoicing
-management       payments_update                  manage_invoicing
-management       sales_invoices                   manage_invoicing
-management       sales_payments                   manage_invoicing
-management       deliveries_create                manage_orders
-management       deliveries_delete                manage_orders
-management       deliveries_update                manage_orders
-management       sale_orders_delete               manage_orders
-management       sales_deliveries                 manage_orders
-management       undelivered_sales                manage_orders
-management       payment_modes                    manage_payment_modes
-management       payment_modes_create             manage_payment_modes
-management       payment_modes_delete             manage_payment_modes
-management       payment_modes_update             manage_payment_modes
-management       prices_create                    manage_prices
-management       prices_delete                    manage_prices
-management       prices_export                    manage_prices
-management       prices_import                    manage_prices
-management       change_quantities                manage_products
-management       product_components_create        manage_products
-management       product_components_delete        manage_products
-management       product_components_update        manage_products
-management       products_create                  manage_products
-management       products_delete                  manage_products
-management       products_update                  manage_products
-management       sale_order_natures               manage_sale_order_natures
-management       sale_order_natures_create        manage_sale_order_natures
-management       sale_order_natures_delete        manage_sale_order_natures
-management       sale_order_natures_display       manage_sale_order_natures
-management       sale_order_natures_update        manage_sale_order_natures
-management       shelves                          manage_shelves
-management       shelves_create                   manage_shelves
-management       shelves_delete                   manage_shelves
-management       shelves_display                  manage_shelves
-management       shelves_update                   manage_shelves
-management       stocks_locations                 manage_stock_locations
-management       stocks_locations_create          manage_stock_locations
-management       stocks_locations_delete          manage_stock_locations
-management       stocks_locations_display         manage_stock_locations
-management       stocks_locations_update          manage_stock_locations
-management       stock_transfers                  manage_stock_moves
-management       stock_transfers_create           manage_stock_moves
-management       stock_transfers_delete           manage_stock_moves
-management       stock_transfers_update           manage_stock_moves
-management       stocks_moves_create              manage_stock_moves
-management       stocks_moves_delete              manage_stock_moves
-management       stocks_moves_update              manage_stock_moves
-management       unexecuted_transfers             manage_stock_moves
-management       dyta_subscription_natures        manage_subscriptions
-management       dyta_subscriptions               manage_subscriptions
-management       subscription_find                manage_subscriptions
-management       subscription_message             manage_subscriptions
-management       subscription_natures             manage_subscriptions
-management       subscription_natures_create      manage_subscriptions
-management       subscription_natures_display     manage_subscriptions
-management       subscription_natures_down        manage_subscriptions
-management       subscription_natures_up          manage_subscriptions
-management       subscription_natures_update      manage_subscriptions
-management       subscription_options_display     manage_subscriptions
-management       subscriptions                    manage_subscriptions
-management       taxes                            manage_taxes
-management       taxes_create                     manage_taxes
-management       taxes_delete                     manage_taxes
-management       taxes_update                     manage_taxes
-management       invoices_print                   print_sales
-management       sales_print                      print_sales
-management       invoices                         search_and_consult_invoices
-management       invoices_display                 search_and_consult_invoices
-management       products                         search_and_consult_products
-management       products_display                 search_and_consult_products
-management       products_search                  search_and_consult_products
-production       dyta_productions                 administrate_production
-production       dyta_shape_operation_natures     administrate_production
-production       dyta_shape_operations            administrate_production
-production       dyta_shapes                      administrate_production
-production       index                            administrate_production
-production       production_lines_create          manage_productions
-production       production_lines_update          manage_productions
-production       productions                      manage_productions
-production       productions_create               manage_productions
-production       productions_delete               manage_productions
-production       productions_update               manage_productions
-production       dyta_unvalidated_operations      manage_shape_operations
-production       shape_operation_natures          manage_shape_operations
-production       shape_operation_natures_create   manage_shape_operations
-production       shape_operations                 manage_shape_operations
-production       shape_operations_create          manage_shape_operations
-production       shape_operations_delete          manage_shape_operations
-production       shape_operations_update          manage_shape_operations
-production       unvalidated_operations           manage_shape_operations
-production       shapes                           manage_shapes
-production       shapes_create                    manage_shapes
-relations        dyli_area_search                 [new_right]
-relations        dyta_entity_link_natures         [new_right]
-relations        entity_link_natures              [new_right]
-relations        auto_complete_for_contact_line_6 administrate_relations
-relations        dyta_client_invoices             administrate_relations
-relations        dyta_contacts                    administrate_relations
-relations        dyta_entity_bank_accounts        administrate_relations
-relations        dyta_entity_categories           administrate_relations
-relations        dyta_entity_meetings             administrate_relations
-relations        dyta_entity_natures              administrate_relations
-relations        dyta_entity_sales                administrate_relations
-relations        dyta_meeting_locations           administrate_relations
-relations        dyta_meeting_modes               administrate_relations
-relations        dyta_meetings                    administrate_relations
-relations        index                            administrate_relations
-relations        dyta_entities                    consult_entities
-relations        entities                         consult_entities
-relations        entities_display                 consult_entities
-relations        entities_export                  import_export_entities
-relations        entities_import                  import_export_entities
-relations        areas                            manage_areas
-relations        areas_create                     manage_areas
-relations        areas_delete                     manage_areas
-relations        areas_update                     manage_areas
-relations        dyta_areas                       manage_areas
-relations        complement_choices               manage_complements
-relations        complement_choices_create        manage_complements
-relations        complement_choices_down          manage_complements
-relations        complement_choices_sort          manage_complements
-relations        complement_choices_up            manage_complements
-relations        complement_choices_update        manage_complements
-relations        complements                      manage_complements
-relations        complements_create               manage_complements
-relations        complements_update               manage_complements
-relations        dyta_complement_choices          manage_complements
-relations        dyta_complements                 manage_complements
-relations        districts                        manage_districts
-relations        districts_create                 manage_districts
-relations        districts_delete                 manage_districts
-relations        districts_update                 manage_districts
-relations        dyta_districts                   manage_districts
-relations        client_informations              manage_entities
-relations        entities_contacts_create         manage_entities
-relations        entities_contacts_delete         manage_entities
-relations        entities_contacts_update         manage_entities
-relations        entities_create                  manage_entities
-relations        entities_delete                  manage_entities
-relations        entities_update                  manage_entities
-relations        entities_natures                 manage_entities_natures
-relations        entities_natures_create          manage_entities_natures
-relations        entities_natures_delete          manage_entities_natures
-relations        entities_natures_update          manage_entities_natures
-relations        dyta_category_prices             manage_entity_categories
-relations        entity_categories                manage_entity_categories
-relations        entity_categories_create         manage_entity_categories
-relations        entity_categories_delete         manage_entity_categories
-relations        entity_categories_display        manage_entity_categories
-relations        entity_categories_update         manage_entity_categories
-relations        meeting_locations                manage_meetings
-relations        meeting_locations_create         manage_meetings
-relations        meeting_locations_delete         manage_meetings
-relations        meeting_locations_update         manage_meetings
-relations        meeting_modes                    manage_meetings
-relations        meeting_modes_create             manage_meetings
-relations        meeting_modes_delete             manage_meetings
-relations        meeting_modes_update             manage_meetings
-relations        meetings                         manage_meetings
-relations        meetings_create                  manage_meetings
-relations        meetings_delete                  manage_meetings
-relations        meetings_update                  manage_meetings
-relations        dyta_observations                manage_observations
-relations        observations_create              manage_observations
-relations        observations_update              manage_observations
-relations        entities_print                   print_entities
-resources        professions_update               [new_right]
-resources        dyta_employees                   administrate_resources
-resources        dyta_professions                 administrate_resources
-resources        employees                        administrate_resources
-resources        employees_create                 administrate_resources
-resources        employees_delete                 administrate_resources
-resources        employees_update                 administrate_resources
-resources        index                            administrate_resources
-resources        professions                      administrate_resources
-resources        professions_create               administrate_resources
-resources        professions_delete               administrate_resources
+accountancy    dyli_account_search              administrate_accountancy
+accountancy    dyta_bank_account_statements     administrate_accountancy
+accountancy    dyta_entries                     administrate_accountancy
+accountancy    dyta_entries_statement           administrate_accountancy
+accountancy    index                            administrate_accountancy
+accountancy    entries_consult                  consult_entries
+accountancy    entries_consult_by_journal_id    consult_entries
+accountancy    accounts                         manage_accounts
+accountancy    accounts_create                  manage_accounts
+accountancy    accounts_delete                  manage_accounts
+accountancy    accounts_update                  manage_accounts
+accountancy    dyta_accounts                    manage_accounts
+accountancy    bank_accounts                    manage_bank_accounts
+accountancy    bank_accounts_create             manage_bank_accounts
+accountancy    bank_accounts_delete             manage_bank_accounts
+accountancy    bank_accounts_update             manage_bank_accounts
+accountancy    dyta_bank_accounts               manage_bank_accounts
+accountancy    accounts_letter                  manage_entries
+accountancy    entries                          manage_entries
+accountancy    entries_delete                   manage_entries
+accountancy    entries_letter                   manage_entries
+accountancy    entries_update                   manage_entries
+accountancy    lettering                        manage_entries
+accountancy    params_entries                   manage_entries
+accountancy    dyta_financialyears              manage_financialyears
+accountancy    financialyears                   manage_financialyears
+accountancy    financialyears_close             manage_financialyears
+accountancy    financialyears_create            manage_financialyears
+accountancy    financialyears_delete            manage_financialyears
+accountancy    financialyears_records           manage_financialyears
+accountancy    financialyears_update            manage_financialyears
+accountancy    dyta_journals                    manage_journals
+accountancy    journals                         manage_journals
+accountancy    journals_close                   manage_journals
+accountancy    journals_create                  manage_journals
+accountancy    journals_delete                  manage_journals
+accountancy    journals_records                 manage_journals
+accountancy    journals_report_find             manage_journals
+accountancy    journals_update                  manage_journals
+accountancy    statements                       manage_statements
+accountancy    statements_create                manage_statements
+accountancy    statements_delete                manage_statements
+accountancy    statements_display               manage_statements
+accountancy    statements_point                 manage_statements
+accountancy    statements_update                manage_statements
+accountancy    document_prepare                 print_accounting_document
+accountancy    document_print                   print_accounting_document
+accountancy    synthesis                        print_accounting_document
+authentication index                            __minimum__
+authentication login                            __minimum__
+authentication logout                           __minimum__
+authentication register                         __minimum__
+company        about_us                         __minimum__
+company        help                             __minimum__
+company        index                            __minimum__
+company        unknown_action                   __minimum__
+company        welcome                          __minimum__
+company        backups                          backup_company
+company        configure                        configure_company
+company        dyta_sequences                   configure_company
+company        sequences_create                 configure_company
+company        sequences_delete                 configure_company
+company        sequences_update                 configure_company
+company        departments                      manage_company
+company        departments_create               manage_company
+company        departments_delete               manage_company
+company        departments_update               manage_company
+company        dyta_departments                 manage_company
+company        dyta_establishments              manage_company
+company        establishments                   manage_company
+company        establishments_create            manage_company
+company        establishments_delete            manage_company
+company        establishments_update            manage_company
+company        sequences                        manage_company
+company        dyta_listing_nodes               manage_listings
+company        dyta_listings                    manage_listings
+company        listing_nodes                    manage_listings
+company        listing_nodes_create             manage_listings
+company        listing_nodes_delete             manage_listings
+company        listing_nodes_update             manage_listings
+company        listings                         manage_listings
+company        listings_build                   manage_listings
+company        listings_create                  manage_listings
+company        listings_delete                  manage_listings
+company        listings_update                  manage_listings
+company        dyta_roles                       manage_users
+company        dyta_users                       manage_users
+company        roles                            manage_users
+company        roles_create                     manage_users
+company        roles_delete                     manage_users
+company        roles_update                     manage_users
+company        users                            manage_users
+company        users_create                     manage_users
+company        users_delete                     manage_users
+company        users_lock                       manage_users
+company        users_unlock                     manage_users
+company        users_update                     manage_users
+help           close                            __minimum__
+help           previous                         __minimum__
+help           search                           __minimum__
+help           side                             __minimum__
+management     dyta_uniq_critic_product_stocks  [new_right]
+management     dyta_all_invoices                administrate_management
+management     dyta_critic_product_stocks       administrate_management
+management     dyta_deliveries                  administrate_management
+management     dyta_delivery_modes              administrate_management
+management     dyta_invoice_credit_lines        administrate_management
+management     dyta_invoice_lines               administrate_management
+management     dyta_invoices                    administrate_management
+management     dyta_payment_modes               administrate_management
+management     dyta_payment_parts               administrate_management
+management     dyta_payments                    administrate_management
+management     dyta_prices                      administrate_management
+management     dyta_product_components          administrate_management
+management     dyta_product_prices              administrate_management
+management     dyta_product_stocks              administrate_management
+management     dyta_products                    administrate_management
+management     dyta_purchase_order_lines        administrate_management
+management     dyta_sale_lines                  administrate_management
+management     dyta_sale_order_lines            administrate_management
+management     dyta_sale_order_natures          administrate_management
+management     dyta_sale_orders                 administrate_management
+management     dyta_sales_deliveries            administrate_management
+management     dyta_shelves                     administrate_management
+management     dyta_stock_locations             administrate_management
+management     dyta_stock_moves                 administrate_management
+management     dyta_stock_transfers             administrate_management
+management     dyta_taxes                       administrate_management
+management     dyta_undelivered_quantities      administrate_management
+management     dyta_undelivered_sales           administrate_management
+management     dyta_unexecuted_transfers        administrate_management
+management     dyta_unreceived_purchases        administrate_management
+management     dyta_unvalidated_embankments     administrate_management
+management     index                            administrate_management
+management     inventories                      administrate_management
+management     inventory_consult                administrate_management
+management     invoices_cancel                  cancel_invoices
+management     prices                           consult_prices
+management     dyta_purchase_orders             consult_purchases
+management     purchases                        consult_purchases
+management     sales                            consult_sales
+management     sales_details                    consult_sales
+management     stocks                           consult_stocks
+management     add_lines                        create_estimates
+management     price_find                       create_estimates
+management     sale_order_lines_create          create_estimates
+management     sale_order_lines_delete          create_estimates
+management     sale_order_lines_update          create_estimates
+management     sales_contacts                   create_estimates
+management     sales_general                    create_estimates
+management     sales_new                        create_estimates
+management     sales_products                   create_estimates
+management     sum_calculate                    create_estimates
+management     purchase_order_lines_create      create_purchases
+management     purchase_order_lines_delete      create_purchases
+management     purchase_order_lines_update      create_purchases
+management     purchase_orders_create           create_purchases
+management     purchases_new                    create_purchases
+management     purchases_print                  create_purchases
+management     purchases_products               create_purchases
+management     unreceived_purchases             create_purchases
+management     delays                           manage_delays
+management     delays_create                    manage_delays
+management     delays_delete                    manage_delays
+management     delays_display                   manage_delays
+management     delays_update                    manage_delays
+management     dyta_delays                      manage_delays
+management     delivery_modes                   manage_delivery_modes
+management     delivery_modes_create            manage_delivery_modes
+management     delivery_modes_delete            manage_delivery_modes
+management     delivery_modes_update            manage_delivery_modes
+management     dyta_credits                     manage_embankments
+management     dyta_embankment_payments         manage_embankments
+management     dyta_embankments                 manage_embankments
+management     embankment_checks_create         manage_embankments
+management     embankment_checks_update         manage_embankments
+management     embankments                      manage_embankments
+management     embankments_create               manage_embankments
+management     embankments_delete               manage_embankments
+management     embankments_display              manage_embankments
+management     embankments_print                manage_embankments
+management     embankments_update               manage_embankments
+management     unvalidated_embankments          manage_embankments
+management     payments_create                  manage_invoicing
+management     payments_delete                  manage_invoicing
+management     payments_update                  manage_invoicing
+management     sales_invoices                   manage_invoicing
+management     sales_payments                   manage_invoicing
+management     deliveries_create                manage_orders
+management     deliveries_delete                manage_orders
+management     deliveries_update                manage_orders
+management     sale_orders_delete               manage_orders
+management     sales_deliveries                 manage_orders
+management     undelivered_sales                manage_orders
+management     payment_modes                    manage_payment_modes
+management     payment_modes_create             manage_payment_modes
+management     payment_modes_delete             manage_payment_modes
+management     payment_modes_update             manage_payment_modes
+management     prices_create                    manage_prices
+management     prices_delete                    manage_prices
+management     prices_export                    manage_prices
+management     prices_import                    manage_prices
+management     change_quantities                manage_products
+management     product_components_create        manage_products
+management     product_components_delete        manage_products
+management     product_components_update        manage_products
+management     products_create                  manage_products
+management     products_delete                  manage_products
+management     products_update                  manage_products
+management     sale_order_natures               manage_sale_order_natures
+management     sale_order_natures_create        manage_sale_order_natures
+management     sale_order_natures_delete        manage_sale_order_natures
+management     sale_order_natures_display       manage_sale_order_natures
+management     sale_order_natures_update        manage_sale_order_natures
+management     shelves                          manage_shelves
+management     shelves_create                   manage_shelves
+management     shelves_delete                   manage_shelves
+management     shelves_display                  manage_shelves
+management     shelves_update                   manage_shelves
+management     stocks_locations                 manage_stock_locations
+management     stocks_locations_create          manage_stock_locations
+management     stocks_locations_delete          manage_stock_locations
+management     stocks_locations_display         manage_stock_locations
+management     stocks_locations_update          manage_stock_locations
+management     stock_transfers                  manage_stock_moves
+management     stock_transfers_create           manage_stock_moves
+management     stock_transfers_delete           manage_stock_moves
+management     stock_transfers_update           manage_stock_moves
+management     stocks_moves_create              manage_stock_moves
+management     stocks_moves_delete              manage_stock_moves
+management     stocks_moves_update              manage_stock_moves
+management     unexecuted_transfers             manage_stock_moves
+management     dyta_subscription_natures        manage_subscriptions
+management     dyta_subscriptions               manage_subscriptions
+management     subscription_find                manage_subscriptions
+management     subscription_message             manage_subscriptions
+management     subscription_natures             manage_subscriptions
+management     subscription_natures_create      manage_subscriptions
+management     subscription_natures_display     manage_subscriptions
+management     subscription_natures_down        manage_subscriptions
+management     subscription_natures_up          manage_subscriptions
+management     subscription_natures_update      manage_subscriptions
+management     subscription_options_display     manage_subscriptions
+management     subscriptions                    manage_subscriptions
+management     taxes                            manage_taxes
+management     taxes_create                     manage_taxes
+management     taxes_delete                     manage_taxes
+management     taxes_update                     manage_taxes
+management     invoices_print                   print_sales
+management     sales_print                      print_sales
+management     invoices                         search_and_consult_invoices
+management     invoices_display                 search_and_consult_invoices
+management     products                         search_and_consult_products
+management     products_display                 search_and_consult_products
+management     products_search                  search_and_consult_products
+production     dyta_productions                 administrate_production
+production     dyta_shape_operation_natures     administrate_production
+production     dyta_shape_operations            administrate_production
+production     dyta_shapes                      administrate_production
+production     index                            administrate_production
+production     production_lines_create          manage_productions
+production     production_lines_update          manage_productions
+production     productions                      manage_productions
+production     productions_create               manage_productions
+production     productions_delete               manage_productions
+production     productions_update               manage_productions
+production     dyta_unvalidated_operations      manage_shape_operations
+production     shape_operation_natures          manage_shape_operations
+production     shape_operation_natures_create   manage_shape_operations
+production     shape_operations                 manage_shape_operations
+production     shape_operations_create          manage_shape_operations
+production     shape_operations_delete          manage_shape_operations
+production     shape_operations_update          manage_shape_operations
+production     unvalidated_operations           manage_shape_operations
+production     shapes                           manage_shapes
+production     shapes_create                    manage_shapes
+relations      dyli_area_search                 [new_right]
+relations      dyta_entity_links                [new_right]
+relations      entity_links_create              [new_right]
+relations      auto_complete_for_contact_line_6 administrate_relations
+relations      dyta_client_invoices             administrate_relations
+relations      dyta_contacts                    administrate_relations
+relations      dyta_entity_bank_accounts        administrate_relations
+relations      dyta_entity_categories           administrate_relations
+relations      dyta_entity_meetings             administrate_relations
+relations      dyta_entity_natures              administrate_relations
+relations      dyta_entity_sales                administrate_relations
+relations      dyta_meeting_locations           administrate_relations
+relations      dyta_meeting_modes               administrate_relations
+relations      dyta_meetings                    administrate_relations
+relations      index                            administrate_relations
+relations      dyta_entities                    consult_entities
+relations      entities                         consult_entities
+relations      entities_display                 consult_entities
+relations      entities_export                  import_export_entities
+relations      entities_import                  import_export_entities
+relations      areas                            manage_areas
+relations      areas_create                     manage_areas
+relations      areas_delete                     manage_areas
+relations      areas_update                     manage_areas
+relations      dyta_areas                       manage_areas
+relations      complement_choices               manage_complements
+relations      complement_choices_create        manage_complements
+relations      complement_choices_down          manage_complements
+relations      complement_choices_sort          manage_complements
+relations      complement_choices_up            manage_complements
+relations      complement_choices_update        manage_complements
+relations      complements                      manage_complements
+relations      complements_create               manage_complements
+relations      complements_update               manage_complements
+relations      dyta_complement_choices          manage_complements
+relations      dyta_complements                 manage_complements
+relations      districts                        manage_districts
+relations      districts_create                 manage_districts
+relations      districts_delete                 manage_districts
+relations      districts_update                 manage_districts
+relations      dyta_districts                   manage_districts
+relations      client_informations              manage_entities
+relations      entities_contacts_create         manage_entities
+relations      entities_contacts_delete         manage_entities
+relations      entities_contacts_update         manage_entities
+relations      entities_create                  manage_entities
+relations      entities_delete                  manage_entities
+relations      entities_update                  manage_entities
+relations      entities_natures                 manage_entities_natures
+relations      entities_natures_create          manage_entities_natures
+relations      entities_natures_delete          manage_entities_natures
+relations      entities_natures_update          manage_entities_natures
+relations      dyta_category_prices             manage_entity_categories
+relations      entity_categories                manage_entity_categories
+relations      entity_categories_create         manage_entity_categories
+relations      entity_categories_delete         manage_entity_categories
+relations      entity_categories_display        manage_entity_categories
+relations      entity_categories_update         manage_entity_categories
+relations      dyta_entity_link_natures         manage_entity_links
+relations      entity_link_natures              manage_entity_links
+relations      entity_link_natures_create       manage_entity_links
+relations      meeting_locations                manage_meetings
+relations      meeting_locations_create         manage_meetings
+relations      meeting_locations_delete         manage_meetings
+relations      meeting_locations_update         manage_meetings
+relations      meeting_modes                    manage_meetings
+relations      meeting_modes_create             manage_meetings
+relations      meeting_modes_delete             manage_meetings
+relations      meeting_modes_update             manage_meetings
+relations      meetings                         manage_meetings
+relations      meetings_create                  manage_meetings
+relations      meetings_delete                  manage_meetings
+relations      meetings_update                  manage_meetings
+relations      dyta_observations                manage_observations
+relations      observations_create              manage_observations
+relations      observations_update              manage_observations
+relations      entities_print                   print_entities
+resources      professions_update               [new_right]
+resources      dyta_employees                   administrate_resources
+resources      dyta_professions                 administrate_resources
+resources      employees                        administrate_resources
+resources      employees_create                 administrate_resources
+resources      employees_delete                 administrate_resources
+resources      employees_update                 administrate_resources
+resources      index                            administrate_resources
+resources      professions                      administrate_resources
+resources      professions_create               administrate_resources
+resources      professions_delete               administrate_resources

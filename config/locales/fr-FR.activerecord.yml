@@ -52,6 +52,7 @@ fr-FR:
       employee: 'Employé'
       entity: 'Relation'
       entity_category: 'Catégorie de relation'
+      entity_link: (((ENTITY_LINK)))
       entity_link_nature: (((ENTITY_LINK_NATURE)))
       entity_nature: 'Type de relation'
       entry: 'Écriture'
@@ -601,17 +602,33 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # translation missing: fr-FR, activerecord, models, entity_link_nature
+      # (((ENTITY_LINK)))
+      entity_link:
+        comment: 'Commentaire'
+        company_id: 'Société'
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        entity1_id: 'Fiche'
+        entity2_id: 'Fiche'
+        id: 'ID'
+        lock_version: 'Version'
+        nature_id: 'Lien'
+        started_on: 'Début'
+        stopped_on: (((STOPPED_ON)))
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+
+      # (((ENTITY_LINK_NATURE)))
       entity_link_nature:
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
-        name: (((NAME)))
-        name_1_to_2: (((NAME_1_TO_2)))
-        name_2_to_1: (((NAME_2_TO_1)))
-        symmetric: (((SYMMETRIC)))
+        name: 'Nom'
+        name_1_to_2: 'Fiche 1 ⇒ Fiche 2'
+        name_2_to_1: 'Fiche 2 ⇒ Fiche 1'
+        symmetric: 'Symétrique'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 

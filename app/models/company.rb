@@ -40,6 +40,8 @@ class Company < ActiveRecord::Base
   has_many :employees
   has_many :entities
   has_many :entity_categories
+  has_many :entity_link_natures
+  has_many :entity_links
   has_many :entity_natures
   has_many :entries
   has_many :establishments
@@ -190,6 +192,15 @@ class Company < ActiveRecord::Base
   def available_entities(options={})
     #    options[:conditions]={:deleted=>false}
     self.entities.find(:all, options)
+  end
+
+  def available_link_natures(options={})
+    array = self.entity_link_natures.find_all_by_symmetric(false).collect{|x| [x.name_1_to_2, x.id]}
+    array += self.entity_link_natures.find_all_by_symmetric(false).collect{|x| [x.name_2_to_1, x.id.to_s+"-R"]}
+    array += self.entity_link_natures.find_all_by_symmetric(true).collect{|x| [x.name_1_to_2, x.id]}
+    array.sort!{|a,b| a[0]<=>b[0] }
+    #raise Exception.new array.inspect
+    array
   end
 
   def available_products(options={})

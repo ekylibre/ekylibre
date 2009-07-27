@@ -1,3 +1,19 @@
 =formalize do |f|
   - f.error :entity_link_nature
   - f.field :entity_link_nature, :name
+  - f.field :entity_link_nature, :symmetric
+  - f.field :entity_link_nature, :name_1_to_2
+=formalize(:id=>"optional_field") do |f|
+  - f.field :entity_link_nature, :name_2_to_1
+
+
+:javascript
+  function symmetric(){
+    if($('entity_link_nature_symmetric').checked)
+      $('optional_field').hide();
+    else
+      $('optional_field').show();
+  }
+  symmetric();
+
+=observe_field("entity_link_nature_symmetric", :frequency=>0.25, :function=>"symmetric();")

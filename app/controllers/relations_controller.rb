@@ -331,6 +331,7 @@ class RelationsController < ApplicationController
     @contacts_count = @entity.contacts.find(:all, :conditions=>{:active=>true}).size
     @bank_accounts_count = @entity.bank_accounts.find(:all,:conditions=>{:company_id=>@current_company.id}).size
     @observations_count = @entity.observations.find(:all,:conditions=>{:company_id=>@current_company.id}).size
+    @entity_links = @current_company.entity_links.find(:all, :conditions=>{:entity1_id=>@entity.id}).size
     @title = {:value=>@entity.full_name}
   end
   
@@ -673,14 +674,47 @@ class RelationsController < ApplicationController
     t.column :name_2_to_1
   end
 
+  dyta(:entity_links, :conditions=>{:company_id=>['@current_company.id'], :entity1_id=>['session[:current_entity]']}) do |t|
+    t.column :full_name, :through=>:entity1
+    t.column :name_1_to_2, :through=>:nature
+    t.column :full_name, :through=>:entity2, :url=>{:action=>:entities_display}
+    t.column :started_on
+  end
+  
+
   def entity_link_natures
   end
 
   def entity_link_natures_create
     if request.post?
+      @entity_link_nature = EntityLinkNature.new(params[:entity_link_nature])
+      @entity_link_nature.company_id = @current_company.id
+      redirect_to_back if @entity_link_nature.save
     else
       @entity_link_nature = EntityLinkNature.new
     end
+    render_form
+  end
+
+  def entity_links_create
+    if request.post?
+      #raise Exception.new params.inspect+params[:entity_link][:nature_id].to_i.inspect
+      @entity_link = EntityLink.new(:comment=>params[:entity_link][:comment], :nature_id=>params[:entity_link][:nature_id].to_i)
+      if params[:entity_link][:nature_id].include?("-R")
+        @entity_link.entity2_id = session[:current_entity]
+        @entity_link.entity1_id = params[:entity_link][:entity2_id]
+      else
+        @entity_link.entity2_id = params[:entity_link][:entity2_id]
+        @entity_link.entity1_id = session[:current_entity]
+      end
+      @entity_link.company_id = @current_company.id
+      redirect_to_back if @entity_link.save
+    else
+      @entity_link = EntityLink.new
+      @entity = find_and_check(:entity, session[:current_entity])
+    end
+    @entity = find_and_check(:entity, session[:current_entity])
+    @title = {:name=>@entity.full_name}
     render_form
   end
 

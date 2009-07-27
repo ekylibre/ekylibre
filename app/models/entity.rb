@@ -61,6 +61,7 @@ class Entity < ActiveRecord::Base
   has_many :bank_accounts
   has_many :complement_data
   has_many :contacts, :conditions=>{:active=>true}
+  has_many :entity_links
   has_many :invoices, :foreign_key=>:client_id
   has_many :meetings
   has_many :observations

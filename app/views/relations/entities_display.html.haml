@@ -55,6 +55,10 @@
   -link :bank_accounts_create, {:controller =>:accountancy, :entity_id=>@entity.id}
 =dyta :entity_bank_accounts
 
+%h2=tc :entity_links, :count=>@entity_links
+=toolbar do
+  -link :entity_links_create, {:entity_id=>@entity.id}
+=dyta :entity_links
 
 %h2=tc :observations, :count=>@observations_count
 =toolbar do

@@ -115,6 +115,11 @@ fr-FR:
         entities_contacts_create: 'Ajouter un nouveau contact'
         entities_print: 'Imprimer la fiche'
         entities_update: 'Modifier la fiche'
+        entity_links:
+          one: '1 lien'
+          other: '{{count}} liens'
+          zero: 'Aucun lien'
+        entity_links_create: 'Ajouter un nouveau lien'
         invoices:
           one: '1 facture'
           other: '{{count}} factures'
@@ -181,8 +186,14 @@ fr-FR:
       entity_categories_update:
         title: 'Modification de la catégorie de fiche : {{value}}'
       entity_link_natures:
-        entity_link_natures_create: 'Ajouter un type de liens'
-        title: 'Types de liens'
+        entity_link_natures_create: 'Ajouter un nouveau type de lien'
+        title: 'Types de lien'
+      entity_link_natures_create:
+        title: 'Ajout d''un nouveau type de lien'
+      entity_links_create:
+        title: 'Ajout d''un nouveau lien à {{name}}'
+      _entity_links_form:
+        entity_name: 'La fiche'
       _general_description_form:
         title: 'Description générale'
       index:
