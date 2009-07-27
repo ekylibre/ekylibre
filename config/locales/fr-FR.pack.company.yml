@@ -15,6 +15,15 @@ fr-FR:
     company:
       about_us:
         title: 'À propos d''Ekylibre'
+      backups:
+        backup: 'Sauvegarder'
+        export: 'Export d''un fichier de sauvegarde'
+        import: 'Import de fichier de sauvegarde'
+        restore: 'Restaurer'
+        title: 'Créer et recharger des sauvegardes'
+        upload: 'Sélectionner le fichier de sauvegarde à télécharger'
+        with_prints: 'Inclure les impressions (factures, commandes...)'
+        your_new_code_is: 'Votre nouveau code société est : {{value}}'
       configure:
         accountancy: 'Comptabilité'
         general: 'Paramètres généraux'
@@ -52,6 +61,7 @@ fr-FR:
       index:
         about_us: 'À propos d''Ekylibre'
         accountancy: 'Comptabilité générale'
+        backups: 'Sauvegardes'
         configure: 'Configuration'
         departments: 'Services'
         establishments: 'Établissements'
@@ -77,7 +87,6 @@ fr-FR:
         production: 'Gestion de la production'
         relations: 'Gestion des relations clients/fournisseurs'
         resources: 'Gestion des ressources humaines'
-        restore: 'Sauvegardes'
         roles: 'Rôles'
         sequences: 'Séquences'
         title: 'Bienvenue dans Ekylibre, {{user}}'
@@ -92,12 +101,6 @@ fr-FR:
         subtitle: 'Renseignez les informations concernant l''extraction'
       listings_update:
         title: 'Modification de l''extraction {{value}}'
-      restore:
-        backup: 'Effectuer une copie de sauvegarde'
-        download: 'Sélectionner le fichier de sauvegarde à télécharger'
-        import_backup: 'Import de fichier de sauvegarde'
-        title: 'Créer et recharger des sauvegardes'
-        your_new_code_is: 'Votre nouveau code société est : {{value}}'
       _rights_form:
         accountancy_rights: 'Droits module Comptabilité'
         company_rights: 'Droits module Société'

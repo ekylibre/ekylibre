@@ -58,7 +58,7 @@ class Contact < ActiveRecord::Base
     end
     if self.line_6
       self.line_6 = self.line_6.gsub(/\s+/,' ').strip
-      self.area = self.company.areas.find(:first, :conditions=>["LOWER(TRIM(name)) LIKE ? AND country", self.line_6.lower])
+      self.area = self.company.areas.find(:first, :conditions=>["LOWER(TRIM(name)) LIKE ?", self.line_6.lower])
       self.area = self.company.areas.create!(:name=>self.line_6, :country=>self.country) if self.area.nil?
     end
     Contact.update_all({:default=>false}, ["entity_id=? AND company_id=? AND id!=?", self.entity_id,self.company_id, self.id||0]) if self.default
@@ -86,6 +86,14 @@ class Contact < ActiveRecord::Base
     self.active = false
     true
   end  
+
+  def line_6_code
+    self.area.postcode
+  end
+
+  def line_6_city
+    self.area.city
+  end
 
   def lines(sep=', ', with_city=true, with_country=true)
     lines = [self.line_2, self.line_3, (self.line_4_number.to_s+' '+self.line_4_street.to_s).strip, self.line_5]

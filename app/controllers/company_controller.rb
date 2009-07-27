@@ -104,29 +104,30 @@ class CompanyController < ApplicationController
     @title = {:value=>@company.name}
   end
 
-  def backup
-    send_file(@current_company.backup(@current_user))
-  end
 
 
-  def restore
+  def backups
+
     if request.post?
-      company = @current_company
-      # Récupération du fichier
-      backup = params[:backup][:path]
-      file = "#{RAILS_ROOT}/tmp/uploads/#{backup.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
-      File.open(file, "w") { |f| f.write(backup.read)}
-      old_code = company.code
-      start = Time.now.to_i
-      if @current_company.restore(file)
-        @new_code = company.code if old_code!=company.code
-        flash.now[:notice] = tc(:restoration_finished, :value=>(Time.now.to_i-start).to_s)
-      else
-        flash.now[:error] = tc(:unvalid_version_for_restore)
+      if params['backup']
+        # Création d'une sauvegarde
+        send_file(@current_company.backup(@current_user))
+        
+      elsif params['restore']
+        # Récupération d'une sauvegarde
+        backup = params[:backup][:path]
+        file = "#{RAILS_ROOT}/tmp/uploads/#{backup.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
+        File.open(file, "w") { |f| f.write(backup.read)}
+        start = Time.now.to_i
+        if @current_company.restore(file)
+          flash.now[:notice] = tc(:restoration_finished, :value=>(Time.now.to_i-start).to_s)
+        else
+          flash.now[:error] = tc(:unvalid_version_for_restore)
+        end
       end
     end
+
   end
-  
 
 
 

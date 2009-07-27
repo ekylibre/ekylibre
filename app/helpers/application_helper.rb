@@ -5,7 +5,7 @@ module ApplicationHelper
      # CompanyController
      {:name=>:company, :list=>
        [ {:name=>:tools, :list=>
-           [ {:name=>:restore},
+           [ {:name=>:backups},
              {:name=>:listings}
            ] },
          {:name=>:parameters, :list=>

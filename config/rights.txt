@@ -1,11 +1,3 @@
-#relations     dyta_cities                    [new_right]
-#relations     dyli_area_search               administrate_relations
-#relations     cities                         manage_districts
-#relations     cities_create                  manage_districts
-#relations     cities_create                  manage_districts
-#relations     cities_delete                  manage_districts
-#relations     cities_update                  manage_districts
-#relations     areas_find                     manage_entities
 accountancy    dyli_account_search            administrate_accountancy
 accountancy    dyta_bank_account_statements   administrate_accountancy
 accountancy    dyta_entries                   administrate_accountancy
@@ -63,8 +55,7 @@ company        help                           __minimum__
 company        index                          __minimum__
 company        unknown_action                 __minimum__
 company        welcome                        __minimum__
-company        backup                         backup_company
-company        restore                        backup_company
+company        backups                        backup_company
 company        configure                      configure_company
 company        dyta_sequences                 configure_company
 company        sequences_create               configure_company
@@ -282,6 +273,7 @@ production     shape_operations_update        manage_shape_operations
 production     unvalidated_operations         manage_shape_operations
 production     shapes                         manage_shapes
 production     shapes_create                  manage_shapes
+relations      dyli_area_search               [new_right]
 relations      dyta_client_invoices           administrate_relations
 relations      dyta_contacts                  administrate_relations
 relations      dyta_entity_bank_accounts      administrate_relations

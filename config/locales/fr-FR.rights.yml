@@ -6,7 +6,7 @@ fr-FR:
     administrate_production: 'Accéder au module Production'
     administrate_relations: 'Accéder au module Relations clients/fournisseurs'
     administrate_resources: 'Accéder au module Ressources'
-    backup_company: (((BACKUP_COMPANY)))
+    backup_company: 'Effectuer/Recharger des sauvegardes'
     cancel_invoices: 'Faire des avoirs'
     configure_company: 'Configurer les options de la société'
     consult_entities: 'Consulter les fiches clients/fournisseurs'
@@ -34,9 +34,9 @@ fr-FR:
     manage_financialyears: 'Gérer les exercices'
     manage_invoicing: 'Gérer la facturation et les règlements'
     manage_journals: 'Gérer les journaux'
-    manage_listings: (((MANAGE_LISTINGS)))
+    manage_listings: 'Gérer les extractions'
     manage_meetings: 'Gérer les rencontres'
-    manage_observations: (((MANAGE_OBSERVATIONS)))
+    manage_observations: 'Gérer les observations'
     manage_orders: 'Gérer les commandes et livraisons'
     manage_payment_modes: 'Gérer les modes de paiments'
     manage_prices: 'Gérer les prix'

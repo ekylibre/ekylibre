@@ -91,8 +91,8 @@ class Company < ActiveRecord::Base
   
   def before_validation
     self.code = self.name.to_s[0..7].simpleize if self.code.blank?
-    self.code = rand.to_s[2..100].to_i.to_s(36)[0..7] if self.code.blank?
-    self.code.upper!
+    self.code = rand.to_s[2..-1].to_i.to_s(36)[0..7] if self.code.blank?
+    self.code = self.code.simpleize.upper
     while Company.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
       self.code.succ!
     end
@@ -396,33 +396,6 @@ class Company < ActiveRecord::Base
     end
     return true
   end
-
-
-  #   def archive(template, binary)
-  #     self.documents.build
-
-  #     def self.save_document(mode,key,filename,binary,company_id)
-  #     k=nil
-  #     if mode==:rijndael
-  #     k='+'*32
-  #     32.times { |index| k[index]=rand(256) }
-  #     end
-  
-  #     filesize=binary.length
-  #     binary_digest=Digest::SHA256.hexdigest(binary)
-  #     document=Document.create!(:key=>key,:filesize=>filesize,:sha256=>binary_digest, :original_name=>filename, :printed_at=>(Time.now), :crypt_key=>k, :crypt_mode=>mode.to_s,:company_id=>company_id,:filename=>'t')
-  #     s='"+new_options[:documents_path]+"/'+(document.id/"+new_options[:subdir_size].to_s+").to_s+'/'
-  
-  #     Dir.mkdir(s) unless File.directory?(s)
-  #     Ekylibre::Storage.encrypt_file(mode,s+document.id.to_s,k,binary)
-  
-  #     document.update_attribute(:filename,s+document.id.to_s)
-  
-  #     end
-  
-
-
-  #   end
 
 
   def print(object, options={})
