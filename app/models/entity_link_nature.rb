@@ -20,7 +20,7 @@ class EntityLinkNature < ActiveRecord::Base
   belongs_to :company
   has_many   :entity_links
 
-
+  attr_readonly :company_id
 
 end
  
