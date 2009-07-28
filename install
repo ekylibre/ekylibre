@@ -1,6 +1,6 @@
 #!/bin/bash  
 
-gems=("rails -v=2.3.2" "ruby-pg" "rake" "fastthread" "haml" "fastercsv", "rubyzip")
+gems=("rails -v=2.3.2" "ruby-pg" "rake" "fastthread" "haml" "fastercsv" "rubyzip" "RedCloth")
 
 sudo mkdir /usr/share/ekylibre
 sudo cp -R *  /usr/share/ekylibre

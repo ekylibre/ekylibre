@@ -81,7 +81,7 @@ class ManagementController < ApplicationController
     end
   end
   
-  dyta(:all_invoices, :model=>:invoices, :conditions=>"search_conditions(:attributes=>[:number], :key=>session[:invoices_key])", :line_class=>'RECORD.status', :empty=>true) do |t|
+  dyta(:all_invoices, :model=>:invoices, :conditions=>"search_conditions(:attributes=>[:number], :key=>session[:invoices_key])", :line_class=>'RECORD.status') do |t|
     t.column :number, :url=>{:action=>:invoices_display}
     t.column :full_name, :through=>:client
     t.column :created_on
@@ -346,7 +346,7 @@ class ManagementController < ApplicationController
   end
   
   
-  dyta(:products, :conditions=>:search_conditions, :empty=>true) do |t|
+  dyta(:products, :conditions=>:search_conditions) do |t|
     t.column :number
     t.column :name, :through=>:shelf, :url=>{:action=>:shelves_display}
     t.column :name, :url=>{:action=>:products_display}
@@ -565,7 +565,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_purchase]']}, :empty=>true) do |t|
+  dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_purchase]']}) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:products_display}
     t.column :quantity
     t.column :label, :through=>:unit
@@ -856,7 +856,7 @@ class ManagementController < ApplicationController
 #     @title = {:client=>@entity.full_name}
 #   end
 
-  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :empty=>true) do |t|
+  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     t.column :name, :through=>:product
     t.column :quantity
     t.column :label, :through=>:unit

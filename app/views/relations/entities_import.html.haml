@@ -1,6 +1,9 @@
+%h2=tc('file_to_download')
 =toolbar do
   -link :entities_export
   
+
+%h2=tc('file_to_upload')
 
 -if !@unavailable_entities.nil?
   -if !@unavailable_entities.empty?
@@ -11,12 +14,13 @@
         -for error in @unavailable_entities
           %li="ligne "+error[0].to_s+" :  "+ error[1].to_s+" "+error[2].to_s
 
-%h2=tc('file_to_download')
 -form_tag({}, :multipart=>true) do
-  =file_field(:csv_file, :path)
-  =submit_tag('ok',:action=>:entities_import) 
+  =formalize do |f|
+    -f.field tc('csv_file'), file_field(:csv_file, :path)
+  .actions
+    =submit_tag(tc(:import),:action=>:entities_import) 
 
-%h2{:style=>'padding:5px;'}=tc('defined_columns')
+%p{:style=>'padding:5px;'}=tc('defined_columns')
 %ol{:style=>'text-align:left; padding: 0px 50px; '}
   -for field in @model
     %li=field[:label]

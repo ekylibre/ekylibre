@@ -125,7 +125,7 @@ class Company < ActiveRecord::Base
     self.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
     self.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
     undefined_nature = self.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false)
-    firm = self.entities.create!(:nature_id=>undefined_nature.id, :language_id=>language, :name=>self.name)
+    firm = self.entities.create!(:nature_id=>undefined_nature.id, :language_id=>language.id, :name=>self.name)
     self.entity_id = firm.id
     self.save
     self.payment_modes.create!(:name=>tc('default.check'), :company_id=>self.id)

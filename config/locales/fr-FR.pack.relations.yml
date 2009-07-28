@@ -159,11 +159,14 @@ fr-FR:
         supplier: 'Informations fournisseur'
         title: 'Renseignez les différentes caractéristiques de la fiche'
       entities_import:
-        defined_columns: 'Voici le format à respecter des colonnes du fichier csv à importer'
+        csv_file: Fichier CSV à importer
+        defined_columns: 'Voici le format à respecter des colonnes du fichier csv à importer :'
         entities_export: 'Exporter vos fiches clients / fournisseurs au format CSV'
-        file_to_download: 'Fichier à télécharger'
+        file_to_download: 'Export de la liste des clients/fournisseurs'
+        file_to_upload: 'Import de la liste des clients/fournisseurs'
         please_consult_help_to_have_more_informations: 'Veuillez consulter l''aide pour avoir plus d''informations sur l''import'
-        title: 'Importer des fiches clients et fournisseurs au format CSV'
+        title: 'Import/Export des fiches clients et fournisseurs au format CSV'
+        import: 'Importer'
       entities_merge:
         entity_to_delete: 'Doublon à fusionner (et faire disparaitre)'
         entity_to_update: 'Fiche à mettre à jour avec les éléments du doublon'

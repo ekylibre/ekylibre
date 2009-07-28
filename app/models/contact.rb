@@ -50,7 +50,6 @@ class Contact < ActiveRecord::Base
   # belongs_to :element, :polymorphic=> true
   attr_readonly :entity_id, :company_id, :norm_id
   attr_readonly :name, :code, :line_2, :line_3, :line_4_number, :line_4_street, :line_5, :line_6, :address, :phone, :fax, :mobile, :email, :website
-  validates_presence_of :area_id
 
   def before_validation
     if self.entity
@@ -58,8 +57,12 @@ class Contact < ActiveRecord::Base
     end
     if self.line_6
       self.line_6 = self.line_6.gsub(/\s+/,' ').strip
-      self.area = self.company.areas.find(:first, :conditions=>["LOWER(TRIM(name)) LIKE ?", self.line_6.lower])
-      self.area = self.company.areas.create!(:name=>self.line_6, :country=>self.country) if self.area.nil?
+      if self.line_6.blank?
+        self.area_id = nil
+      else
+        self.area = self.company.areas.find(:first, :conditions=>["LOWER(TRIM(name)) LIKE ?", self.line_6.lower])
+        self.area = self.company.areas.create!(:name=>self.line_6, :country=>self.country) if self.area.nil?
+      end
     end
     Contact.update_all({:default=>false}, ["entity_id=? AND company_id=? AND id!=?", self.entity_id,self.company_id, self.id||0]) if self.default
     self.address = self.lines

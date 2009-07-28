@@ -8,7 +8,7 @@ class RelationsController < ApplicationController
   #
   def auto_complete_for_contact_line_6
     pattern = '%'+params[:contact][:line_6].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-    @areas = @current_company.areas.find(:all, :conditions => [ 'LOWER(name) LIKE ? ', pattern], :order => "name ASC")
+    @areas = @current_company.areas.find(:all, :conditions => [ 'LOWER(name) LIKE ? ', pattern], :order => "name ASC", :limit=>12)
     render :inline => "<%=content_tag(:ul, @areas.map { |area| content_tag(:li, h(area.name)) })%>"
   end
   
@@ -104,7 +104,7 @@ class RelationsController < ApplicationController
   end
 
 
-  dyta(:complements, :conditions=>{:company_id=>['@current_company.id']}, :empty=>true) do |t|
+  dyta(:complements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :nature_label
     t.column :required
@@ -218,7 +218,7 @@ class RelationsController < ApplicationController
   end
   
 
-  dyta(:entities, :conditions=>"search_conditions(:attributes=>[:id, :name, :code, :full_name, :website], :key=>session[:entity_key])", :empty=>true) do |t|
+  dyta(:entities, :conditions=>"search_conditions(:attributes=>[:id, :name, :code, :full_name, :website], :key=>session[:entity_key])") do |t|
     t.column :name, :through=>:nature
     t.column :name, :url=>{:action=>:entities_display}
     t.column :first_name, :url=>{:action=>:entities_display}
@@ -249,9 +249,8 @@ class RelationsController < ApplicationController
     session[:entity_key] = @key
   end
 
- # dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]'], :active=>true}, :empty=>true) do |t|
-
-  dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]']   ],  :empty=>true) do |t|
+  # dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]'], :active=>true}) do |t|
+  dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
     t.column :address, :url=>{:action=>:entities_contacts_update}
     t.column :phone
     t.column :fax
@@ -947,11 +946,12 @@ class RelationsController < ApplicationController
         i = 0
         @available_entities = []
         @unavailable_entities = []
+        language = @current_company.parameter('general.language')
         FasterCSV.foreach(file) do |row|
           @entity = Entity.find_by_company_id_and_code(@current_company.id, row[indices[:entity_code]])
           if @entity.nil?
-            @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>@current_company.entity.language.id, :nature_id=>@current_company.entity_natures[0])
-            @contact = Contact.new(:default=>true, :company_id=>@current_company.id, :entity_id=>0, :norm_id=>@current_company.address_norms[0])
+            @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>language.id, :nature_id=>@current_company.entity_natures[0])
+            @contact = Contact.new(:default=>true, :company_id=>@current_company.id, :entity_id=>0, :norm_id=>@current_company.address_norms[0], :country=>'fr')
           else
             @contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>@entity.id, :default=>true, :deleted=>false})
           end
