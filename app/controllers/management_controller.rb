@@ -1473,7 +1473,7 @@ class ManagementController < ApplicationController
 
   def payments_create
     @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
-    if @sale_order.rest_to_pay <= 0
+    if @sale_order.rest_to_pay <= 0 and @sale_order.invoices.size > 0
       flash[:notice]=tc(:error_sale_order_already_paid)
       redirect_to :action=>:sales_payments, :id=>@sale_order.id
     else

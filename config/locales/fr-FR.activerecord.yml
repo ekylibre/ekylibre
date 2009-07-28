@@ -969,6 +969,7 @@ fr-FR:
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
+        downpayment: 'Acompte'
         embanker_id: 'Encaisseur'
         embankment_id: (((EMBANKMENT_ID)))
         entity_id: 'Client'
