@@ -43,6 +43,7 @@ class AuthenticationController < ApplicationController
         hash = Digest::SHA256.hexdigest(params[:register_password].to_s)
         redirect_to :action=>:login unless defined?(Ekylibre::DONT_REGISTER_PASSWORD)
         redirect_to :action=>:login if hash!=Ekylibre::DONT_REGISTER_PASSWORD
+        return
       end
       
       @company = Company.new(params[:company])
