@@ -109,7 +109,6 @@ class Company < ActiveRecord::Base
     self.set_parameter('general.language', language)
     self.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
     self.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
-    self.load_template("#{RAILS_ROOT}/lib/template.xml")
     self.departments.create!(:name=>tc('default.department_name'))
     self.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
     currency = self.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
@@ -172,12 +171,6 @@ class Company < ActiveRecord::Base
     parameter = self.parameters.build(:name=>name) if parameter.nil?
     parameter.value = value
     parameter.save
-  end
-
-  def load_template(filename)
-    f = File.open(filename,'rb')
-    Template.create!(:name=>filename.simpleize,:company_id=>self.id, :content=>f.read)
-    f.close
   end
 
   def admin_role
