@@ -91,11 +91,11 @@ class Contact < ActiveRecord::Base
   end  
 
   def line_6_code
-    self.area.postcode
+    self.area.postcode if self.area
   end
 
   def line_6_city
-    self.area.city
+    self.area.city if self.area
   end
 
   def lines(sep=', ', with_city=true, with_country=true)

@@ -896,32 +896,7 @@ class RelationsController < ApplicationController
 
 
   def entities_export
-    @entities = Entity.find(:all, :conditions=>{:company_id=>@current_company.id})
-    
-    csv_string = FasterCSV.generate do |csv|
-      
-      csv << ["Code", "Type", "Nom", "Prénom","Dest-Service","Bat.-Res.-ZI","N° voie","Libelle voie","Lieu dit","Code Postal","Ville",  "Téléphone", "Mobile", "Fax","Email","Site Web", "Taux de réduction", "Commentaire" ]         
-      
-      
-      @entities.each do |entity|
-        contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :default=>true, :deleted=>false})
-        line = []
-        line << [entity.code, entity.nature.name, entity.name, entity.first_name]
-        if !contact.nil?
-          line << [contact.line_2, contact.line_3, contact.line_4_number, contact.line_4_street, contact.line_5, contact.area.postcode, contact.area.city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
-        else
-          #line << [ "-", "-", "-"]
-          line << [ "", "", "", "", "", "", "", "", "", "", "", ""]
-        end
-        line << [ entity.reduction_rate.to_s.gsub(/\./,","), entity.comment]
-        #raise Exception.new line.inspect
-        csv << line.flatten
-      end
-    end
-    
-    send_data csv_string,                                       ## Boite de dialogue 
-    :type => 'text/csv; charset=iso-8859-1; header=present',
-    :disposition => "attachment; filename=Fiches_C-F.csv"
+    send_data @current_company.export_entities, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment", :filename=>'Fiches_C-F.csv'
   end
 
 

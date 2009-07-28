@@ -481,4 +481,33 @@ class Company < ActiveRecord::Base
   end
 
 
+
+  def export_entities(find_options={})
+    entities = self.entities.find(:all, find_options)
+    csv_string = FasterCSV.generate do |csv|
+      csv << ["Code", "Type", "Nom", "Prénom","Dest-Service","Bat.-Res.-ZI","N° voie","Libelle voie","Lieu dit","Code Postal","Ville",  "Téléphone", "Mobile", "Fax","Email","Site Web", "Taux de réduction", "Commentaire" ]
+      entities.each do |entity|
+        contact = self.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :default=>true, :deleted=>false})
+        line = []
+        line << [entity.code, entity.nature.name, entity.name, entity.first_name]
+        if !contact.nil?
+          line << [contact.line_2, contact.line_3, contact.line_4_number, contact.line_4_street, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
+        else
+          line << [ "", "", "", "", "", "", "", "", "", "", "", ""]
+        end
+        line << [ entity.reduction_rate.to_s.gsub(/\./,","), entity.comment]
+        csv << line.flatten
+      end
+    end
+    return csv_string
+  end
+
+
+
+  def import_entities
+    
+  end
+
+
+
 end
