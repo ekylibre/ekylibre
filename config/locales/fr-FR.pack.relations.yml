@@ -22,6 +22,9 @@ fr-FR:
       entity_name: 'Nom'
       entity_nature_name: 'Type'
       entity_reduction_rate: 'Taux de réduction'
+      errors:
+        cannot_merge_an_entity_with_itself: 'Il n''est pas possible de fusionner une fiche avec elle-même'
+        cannot_merge_entities: 'Une erreur est survenue. Il n''est pas possible de fusionner ces fiches.'
       first_contact: 'Adresse principale'
       import_succeed: 'Vos données ont été correctement importées '
       second_contact: 'Adresse secondaire'
@@ -80,6 +83,7 @@ fr-FR:
         entities_create: 'Créer une nouvelle fiche'
         entities_export: 'Tout exporter au format CSV'
         entities_import: 'Importer un fichier CSV'
+        entities_merge: 'Fusionner des fiches'
         nb_entities:
           one: '1 fiche enregistrée'
           other: '{{count}} fiches enregistrées'
@@ -159,6 +163,11 @@ fr-FR:
         file_to_download: 'Fichier à télécharger'
         please_consult_help_to_have_more_informations: 'Veuillez consulter l''aide pour avoir plus d''informations sur l''import'
         title: 'Importer des fiches clients et fournisseurs au format CSV'
+      entities_merge:
+        entity_to_delete: 'Doublon à fusionner (et faire disparaitre)'
+        entity_to_update: 'Fiche à mettre à jour avec les éléments du doublon'
+        title: 'Fusionner un doublon à sa fiche d''origine'
+        merge: 'Fusionner'
       entities_natures:
         entities_natures_create: 'Ajouter un nouveau type de fiche'
         title: 'Liste des types de fiches'

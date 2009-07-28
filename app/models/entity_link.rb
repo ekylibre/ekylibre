@@ -18,11 +18,10 @@
 #
 
 class EntityLink < ActiveRecord::Base
-
   belongs_to :company
-  belongs_to :entity1, :class_name=>Entity.to_s
-  belongs_to :entity2, :class_name=>Entity.to_s
-  belongs_to :nature, :class_name=>EntityLinkNature.to_s
+  belongs_to :entity1, :class_name=>Entity.name
+  belongs_to :entity2, :class_name=>Entity.name
+  belongs_to :nature, :class_name=>EntityLinkNature.name
 
-
+  attr_readonly :company_id
 end

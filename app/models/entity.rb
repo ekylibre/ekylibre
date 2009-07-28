@@ -61,7 +61,8 @@ class Entity < ActiveRecord::Base
   has_many :bank_accounts
   has_many :complement_data
   has_many :contacts, :conditions=>{:active=>true}
-  has_many :entity_links
+  has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity1_id
+  has_many :indirect_links, :class_name=>EntityLink.name, :foreign_key=>:entity2_id
   has_many :invoices, :foreign_key=>:client_id
   has_many :meetings
   has_many :observations
@@ -112,10 +113,26 @@ class Entity < ActiveRecord::Base
   
 
   #
+  def validate
+    if self.nature
+      #raise Exception.new self.nature.in_name.inspect
+      if self.nature.in_name
+        errors.add(:name, tc(:error_missing_title,:title=>self.nature.abbreviation)) unless self.name.match(/( |^)#{self.nature.abbreviation}( |$)/i)
+      end
+    end
+  end
+  
+
+
+  #
   def destroy_bank_account
     self.bank_accounts.find(:all).each do |bank_account|
       BankAccount.destroy bank_account
     end
+  end
+
+  def label
+    self.code+'. '+self.full_name
   end
 
   #
@@ -126,17 +143,6 @@ class Entity < ActiveRecord::Base
   #
   def last_invoice
     self.invoices.find(:first, :order=>"created_at DESC")
-  end
-  
-
-  #
-  def validate
-    if self.nature
-      #raise Exception.new self.nature.in_name.inspect
-      if self.nature.in_name
-        errors.add(:name, tc(:error_missing_title,:title=>self.nature.abbreviation)) unless self.name.match(/( |^)#{self.nature.abbreviation}( |$)/i)
-      end
-    end
   end
   
   #

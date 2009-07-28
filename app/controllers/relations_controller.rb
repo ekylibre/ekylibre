@@ -231,7 +231,6 @@ class RelationsController < ApplicationController
     t.column :active
     t.action :entities_display
     t.action :entities_print
-    t.action :entities_merge
     t.action :entities_update
     t.action :entities_delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -527,7 +526,19 @@ class RelationsController < ApplicationController
   end
 
   def entities_merge
-    
+    if request.post?
+      @master = find_and_check(:entity, params[:merge][:master])
+      @double = find_and_check(:entity, params[:merge][:double])
+      if @master.id == @double.id
+        flash[:error] = tc 'errors.cannot_merge_an_entity_with_itself'
+        return
+      end
+      @master.merge(@double, true)
+      begin
+      rescue
+        flash[:error] = tc('errors.cannot_merge_entities')
+      end
+    end
   end
   
   dyta(:entity_categories, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}) do |t|

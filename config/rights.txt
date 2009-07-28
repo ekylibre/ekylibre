@@ -324,6 +324,7 @@ relations      entities_contacts_create         manage_entities
 relations      entities_contacts_delete         manage_entities
 relations      entities_contacts_update         manage_entities
 relations      entities_create                  manage_entities
+relations      entities_merge                   manage_entities
 relations      entities_delete                  manage_entities
 relations      entities_update                  manage_entities
 relations      entities_natures                 manage_entities_natures

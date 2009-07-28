@@ -205,6 +205,7 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 .toolbar ul > li > a.import    {background: url(../images/buttons/left.png) no-repeat center left;}
 .toolbar ul > li > a.configure {background: url(../images/buttons/configure.png) no-repeat center left;}
 .toolbar ul > li > a.extract   {background: url(../images/buttons/complete.png) no-repeat center left;}
+.toolbar ul > li > a.merge     {background: url(../images/buttons/merge.png) no-repeat center left;}
 
 a.more {padding: 2px 2px 2px 16px; height:16px; background: url(../images/buttons/down2.png) no-repeat center left;}
 

@@ -1,3 +1,7 @@
 -form_tag do
   =formalize do |f|
-    -f.field tc(:entity_to_merge), select(:toto, :titi, @current_company.entities.collect{|x| [x.full_name, x.id]})
+    -entities = @current_company.entities.sort{|a,b| a.code.rjust(8,'0')<=>b.code.rjust(8,'0')}.collect{|x| [x.label, x.id]}
+    -f.field tc(:entity_to_update), select(:merge, :master, entities, :selected=>@master ? @master.id : nil)
+    -f.field tc(:entity_to_delete), select(:merge, :double, entities, :selected=>@double ? @double.id : nil)
+  .actions
+    =submit_tag tc(:merge)

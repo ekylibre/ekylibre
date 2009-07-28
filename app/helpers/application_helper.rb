@@ -26,16 +26,15 @@ module ApplicationHelper
      {:name=>:relations, :list=>
        [ {:name=>:entities_managing, :list=>
            [ {:name=>:entities},
-             {:name=>:import_export, :url=>{:action=>:entities_import}}
+             {:name=>:import_export, :url=>{:action=>:entities_import}},
+             {:name=>:meetings}
            ] },
-         {:name=>:meetings, :list=>
-           [{:name=>:meetings},
-            {:name=>:meeting_locations},
-            {:name=>:meeting_modes}]},
          {:name=>:parameters, :list=>
            [ {:name=>:entities_natures},
              {:name=>:entity_link_natures},
              {:name=>:entity_categories},
+             {:name=>:meeting_locations},
+             {:name=>:meeting_modes},
              {:name=>:complements},
              {:name=>:areas},
              {:name=>:districts}
