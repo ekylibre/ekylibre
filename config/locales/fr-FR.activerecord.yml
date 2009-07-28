@@ -199,8 +199,8 @@ fr-FR:
         district_id: 'Zone administrative'
         id: 'ID'
         lock_version: 'Version'
-        name: 'Zone'
-        postcode: 'Code postal'
+        name: (((NAME)))
+        postcode: (((POSTCODE)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -329,7 +329,7 @@ fr-FR:
       contact:
         active: 'Actif'
         address: 'Adresse'
-        area_id: 'sZone'
+        area_id: 'Zone'
         closed_on: 'Annulé le'
         code: 'Code'
         company_id: 'Société'
@@ -628,6 +628,7 @@ fr-FR:
         name: 'Nom'
         name_1_to_2: 'Fiche 1 ⇒ Fiche 2'
         name_2_to_1: 'Fiche 2 ⇒ Fiche 1'
+        propagate_contacts: 'Propager les contacts'
         symmetric: 'Symétrique'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'

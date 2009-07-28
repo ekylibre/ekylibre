@@ -24,4 +24,10 @@ class EntityLink < ActiveRecord::Base
   belongs_to :nature, :class_name=>EntityLinkNature.name
 
   attr_readonly :company_id
+  def after_create
+    self.started_on = Date.today
+    self.save
+  end
+
+
 end

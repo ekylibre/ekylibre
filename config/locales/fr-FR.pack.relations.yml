@@ -134,6 +134,7 @@ fr-FR:
           zero: 'Aucune rencontre'
         meetings_create: 'Ajouter une rencontre'
         nature: 'Nature'
+        new_sale: 'Nouvelle vente'
         number: 'Numéro'
         observations:
           one: '1 observation'
@@ -166,8 +167,8 @@ fr-FR:
       entities_merge:
         entity_to_delete: 'Doublon à fusionner (et faire disparaitre)'
         entity_to_update: 'Fiche à mettre à jour avec les éléments du doublon'
-        title: 'Fusionner un doublon à sa fiche d''origine'
         merge: 'Fusionner'
+        title: 'Fusionner un doublon à sa fiche d''origine'
       entities_natures:
         entities_natures_create: 'Ajouter un nouveau type de fiche'
         title: 'Liste des types de fiches'
@@ -203,6 +204,8 @@ fr-FR:
         title: 'Ajout d''un nouveau lien à {{name}}'
       _entity_links_form:
         entity_name: 'La fiche'
+      entity_links_update:
+        title: 'Modification du lien'
       _general_description_form:
         title: 'Description générale'
       index:

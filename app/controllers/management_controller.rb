@@ -81,7 +81,7 @@ class ManagementController < ApplicationController
     end
   end
   
-  dyta(:all_invoices, :model=>:invoices, :conditions=>"search_conditions(:attributes=>[:number], :key=>session[:invoices_key])", :empty=>true) do |t|
+  dyta(:all_invoices, :model=>:invoices, :conditions=>"search_conditions(:attributes=>[:number], :key=>session[:invoices_key])", :line_class=>'RECORD.status', :empty=>true) do |t|
     t.column :number, :url=>{:action=>:invoices_display}
     t.column :full_name, :through=>:client
     t.column :created_on

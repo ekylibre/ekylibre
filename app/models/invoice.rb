@@ -154,6 +154,10 @@ class Invoice < ActiveRecord::Base
     
   end
   
-
+ def status
+   status = ""
+   status = "critic" if self.credit
+   status
+ end
 
 end

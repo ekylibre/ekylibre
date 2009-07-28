@@ -35,13 +35,17 @@
   -link :entities_contacts_create, :id=>@entity.id
 =dyta :contacts
 -if @entity.client
-  %h2=tc :sale_orders_number , :count=>@sale_orders_number
-  =toolbar do
-    -link :sales_new, {:controller=>:management, :client_id=>@entity.id}
-  -if @sale_orders_number > 0
-    =dyta :entity_sales
-  %h2= tc(:invoices, :count=>@invoices_count)
-  =dyta(:client_invoices)
+  %table.flex{:style=>'margin-top: 10px; width: 100%; '}
+    %tr
+      %td{:valign=>:top}
+        %h2{:style=>' margin: 6px 0px 4px; font-size:16px; color: #06A;'}=tc(:sale_orders_number , :count=>@sale_orders_number)+"         "+link_to(tc(:new_sale), :controller=>:management, :action=>:sales_new, :client_id=>@entity.id)+"  "+image_tag('buttons/create.png', :border=>0)
+        -if @sale_orders_number > 0
+          =dyta :entity_sales
+      %td
+      %td
+      %td{:valign=>:top}
+        %h2{:style=>' margin: 6px 0px 4px; font-size:16px; color: #06A;'}= tc(:invoices, :count=>@invoices_count)
+        =dyta(:client_invoices)
   -if @entity.client
     %h2=tc('client_balance')+" : "+@entity.balance.to_s
   %h2=tc :meetings, :count=>@meetings_count
@@ -49,11 +53,6 @@
     -link :meetings_create, :entity_id=>@entity.id
   -if @meetings_count > 0
     =dyta :entity_meetings
-
-%h2=tc :bank_accounts, :count=>@bank_accounts_count
-=toolbar do
-  -link :bank_accounts_create, {:controller =>:accountancy, :entity_id=>@entity.id}
-=dyta :entity_bank_accounts
 
 %h2=tc :entity_links, :count=>@entity_links
 =toolbar do
@@ -65,3 +64,7 @@
   -link :observations_create, {:entity_id=>@entity.id}
 =dyta :observations
 
+%h2=tc :bank_accounts, :count=>@bank_accounts_count
+=toolbar do
+  -link :bank_accounts_create, {:controller =>:accountancy, :entity_id=>@entity.id}
+=dyta :entity_bank_accounts

@@ -1,3 +1,4 @@
+# relations    entities_merge                   manage_entities
 accountancy    dyli_account_search              administrate_accountancy
 accountancy    dyta_bank_account_statements     administrate_accountancy
 accountancy    dyta_entries                     administrate_accountancy
@@ -99,7 +100,7 @@ help           close                            __minimum__
 help           previous                         __minimum__
 help           search                           __minimum__
 help           side                             __minimum__
-management     dyta_uniq_critic_product_stocks  [new_right]
+management     dyta_uniq_critic_product_stocks  administrate_management
 management     dyta_all_invoices                administrate_management
 management     dyta_critic_product_stocks       administrate_management
 management     dyta_deliveries                  administrate_management
@@ -275,12 +276,9 @@ production     unvalidated_operations           manage_shape_operations
 production     shapes                           manage_shapes
 production     shapes_create                    manage_shapes
 relations      dyli_area_search                 [new_right]
-relations      dyta_entity_link_natures         [new_right]
-relations      dyta_entity_links                [new_right]
 relations      entities_merge                   [new_right]
-relations      entity_link_natures              [new_right]
-relations      entity_link_natures_create       [new_right]
-relations      entity_links_create              [new_right]
+relations      entity_links_delete              manage_entity_links
+relations      entity_links_update              manage_entity_links
 relations      auto_complete_for_contact_line_6 administrate_relations
 relations      dyta_client_invoices             administrate_relations
 relations      dyta_contacts                    administrate_relations
@@ -324,7 +322,6 @@ relations      entities_contacts_create         manage_entities
 relations      entities_contacts_delete         manage_entities
 relations      entities_contacts_update         manage_entities
 relations      entities_create                  manage_entities
-relations      entities_merge                   manage_entities
 relations      entities_delete                  manage_entities
 relations      entities_update                  manage_entities
 relations      entities_natures                 manage_entities_natures
@@ -337,6 +334,11 @@ relations      entity_categories_create         manage_entity_categories
 relations      entity_categories_delete         manage_entity_categories
 relations      entity_categories_display        manage_entity_categories
 relations      entity_categories_update         manage_entity_categories
+relations      dyta_entity_link_natures         manage_entity_links
+relations      dyta_entity_links                manage_entity_links
+relations      entity_link_natures              manage_entity_links
+relations      entity_link_natures_create       manage_entity_links
+relations      entity_links_create              manage_entity_links
 relations      meeting_locations                manage_meetings
 relations      meeting_locations_create         manage_meetings
 relations      meeting_locations_delete         manage_meetings
