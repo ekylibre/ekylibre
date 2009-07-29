@@ -983,7 +983,7 @@ fr-FR:
         lock_version: 'Version'
         mode_id: 'Mode de paiement'
         paid_on: 'Réglé le'
-        part_amount: (((PART_AMOUNT)))
+        part_amount: 'Montant déjà utilisé'
         received: (((RECEIVED)))
         scheduled: (((SCHEDULED)))
         to_bank_on: 'À encaisser le'
@@ -1012,8 +1012,8 @@ fr-FR:
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
-        order_id: (((ORDER_ID)))
-        payment_id: (((PAYMENT_ID)))
+        order_id: 'Vente'
+        payment_id: 'Réglement'
         payment_way: 'Moyen de paiement'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'

@@ -225,9 +225,11 @@ fr-FR:
         check: 'Pour les paiements de type chèque'
         existing_part: 'Utiliser un réglement non affecté'
         new: 'Créer un nouveau réglement'
-        title: 'Renseignez les conditions du réglement '
+        title: 'Renseignez les conditions du réglement'
+        unused_payment: 'Réglement à utiliser'
+        payment_label: 'Réglement : {{amount}} du {{date}} par {{mode}} / Montant utilisable : {{usable_amount}}'
       payments_update:
-        title: 'Modifier un paiement '
+        title: 'Modifier un paiement'
       price_lists:
         price_lists_create: 'Ajouter une nouvelle liste de prix'
         title: 'Gérer les listes de prix'

@@ -2,7 +2,7 @@
 #
 # Table name: journals
 #
-#  closed_on      :date          default(Thu, 31 Dec 1970), not null
+#  closed_on      :date          default(CURRENT_DATE), not null
 #  code           :string(4)     not null
 #  company_id     :integer       not null
 #  counterpart_id :integer       

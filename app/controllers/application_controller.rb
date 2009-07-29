@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
     record = model.classify.constantize.find_by_id_and_company_id(id, @current_company.id)
     if record.nil?
       flash[:error] = tg("unavailable.#{model.to_s}", :value=>id)
-      redirect_to :action=>options[:url]||model.pluralize
+      redirect_to_back # :action=>options[:url]||model.pluralize
     end
     record
   end

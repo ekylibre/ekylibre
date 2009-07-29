@@ -21,7 +21,7 @@
 #  part_amount    :decimal(16, 2 
 #  received       :boolean       default(TRUE), not null
 #  scheduled      :boolean       not null
-#  to_bank_on     :date          default(Tue, 16 Jun 2009), not null
+#  to_bank_on     :date          default(CURRENT_DATE), not null
 #  updated_at     :datetime      not null
 #  updater_id     :integer       
 #
@@ -34,14 +34,35 @@ class Payment < ActiveRecord::Base
   belongs_to :entity
   belongs_to :mode, :class_name=>PaymentMode.name
   has_many :parts, :class_name=>PaymentPart.name
-  
-  attr_readonly :company
+  has_many :orders, :through=>:parts
+  attr_readonly :company_id, :entity_id
+  attr_protected :part_amount, :account_id, :account_number
 
+  validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :to_bank_on
+
+  def before_validation
+    self.part_amount = self.parts.sum(:amount)
+  end
   
   def after_update
     if !self.embankment_id.nil?
       self.embankment.refresh
+    end
+  end
+  
+  # Use the minimum amount to pay the order
+  # If the payment is a downpayment, we look at the total unpaid amount
+  def pay(order)
+    PaymentPart.destroy(self.parts.find_all_by_order_id(order.id))
+    self.reload
+    minimum = [order.unpaid_amount(!self.downpayment), self.amount-self.part_amount].min
+    part = self.parts.create(:amount=>minimum, :order_id=>order.id, :company_id=>self.company_id)
+    if part.errors.size>0
+      part.errors.each_full { |msg| self.errors.add_to_base(msg) }
+      return false
+    else
+      return true
     end
   end
 

@@ -126,32 +126,8 @@ class SaleOrder < ActiveRecord::Base
     sum
   end
 
-  def rest_to_pay
-    ( self.invoices.sum(:amount_with_taxes,:conditions=>{:sale_order_id=>self.id,:company_id=>self.company_id}) - PaymentPart.sum(:amount, :conditions=>{:order_id=>self.id,:company_id=>self.company_id}) ).to_f
-  end
-
-  def add_payment(payment)
-    if payment.amount > self.rest_to_pay
-      payment.update_attributes!(:part_amount=>self.rest_to_pay)
-      part = PaymentPart.new(:amount=>self.rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
-      part.save!
-    else
-      part = PaymentPart.new(:amount=>payment.amount, :order_id=>self.id, :company_id=>self.company_id, :payment_id=>payment.id)
-      part.save!
-      payment.update_attributes!(:part_amount=>payment.amount) 
-    end
-  end
-
-  def add_part(payment)
-    if self.rest_to_pay > (payment.amount - payment.part_amount)
-      puts payment.amount.to_s+" amount pay"+"     part amount payment"+payment.part_amount.to_s
-      PaymentPart.create!(:amount=>(payment.amount - payment.part_amount),:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
-      payment.update_attributes!(:part_amount=>(payment.amount))
-    else
-      puts payment.amount.to_s+" amount pay"+"     part amount payment"+payment.part_amount.to_s
-      payment.update_attributes!(:part_amount=>( payment.part_amount + self.rest_to_pay))
-      PaymentPart.create!(:amount=>self.rest_to_pay,:order_id=>self.id,:company_id=>self.company_id,:payment_id=>payment.id)
-    end
+  def unpaid_amount(only_invoices=true)
+    (only_invoices ? self.invoices.sum(:amount_with_taxes) : self.amount_with_taxes).to_f - self.payment_parts.sum(:amount).to_f
   end
 
   def payments

@@ -722,7 +722,7 @@ class ManagementController < ApplicationController
   dyta(:payments, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :model=>:payment_parts) do |t|
     t.column :amount, :through=>:payment, :label=>"Montant du paiment"
     t.column :amount
-    t.column :name, :through=>:mode
+    t.column :payment_way
     t.column :paid_on, :through=>:payment, :label=>"Réglé le"
   end
   
@@ -1402,7 +1402,7 @@ class ManagementController < ApplicationController
   dyta(:payment_parts, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     t.column :amount, :through=>:payment, :label=>tc('payment_amount')
     t.column :amount
-    t.column :name, :through=>:mode
+    t.column :payment_way
     t.column :paid_on, :through=>:payment, :label=>tc('paid_on')
     t.action :payments_update, :image=>:update
     t.action :payments_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
@@ -1427,76 +1427,56 @@ class ManagementController < ApplicationController
 
   def payments_create
     @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
-    if @sale_order.rest_to_pay <= 0 and @sale_order.invoices.size > 0
+    if @sale_order.unpaid_amount <= 0 and @sale_order.invoices.size > 0
       flash[:notice]=tc(:error_sale_order_already_paid)
       redirect_to :action=>:sales_payments, :id=>@sale_order.id
-    else
-      @modes = ["new","existing_part"]
-      @update = false
-      @payments = @sale_order.payments 
-      if request.post?
-        if params[:price][:mode] == "new"
-          @payment = Payment.new(params[:payment])
-          @payment.company_id = @current_company.id
-          @payment.entity_id = @sale_order.client_id
-          @sale_order.add_payment(@payment) if @payment.save
-        else
-          @payment = find_and_check(:payment, params[:pay][:part])
-          payment_part = PaymentPart.find(:first, :conditions=>{:company_id=>@current_company.id, :payment_id=>@payment.id})
-          @sale_order.add_part(@payment)
-        end
-        redirect_to :action=>:sales_payments, :id=>@sale_order.id
-      else
-        @payment = Payment.new(:paid_on=>Date.today, :to_bank_on=>Date.today, :amount=>@sale_order.rest_to_pay)
-       #  mode = PaymentMode.find(:first, :conditions=>{:company_id=>@current_company.id})
-#         if !mode.nil?
-#           @payment = Payment.new(:mode_id=>mode.id)
-#           @check_infos = true if mode.mode == "check"
-#         else
-#           @payment = Payment.new
-#         end
-      end
-      @title = {:value=>@sale_order.number}
-      render_form
+      return
     end
+    @modes = ["new", "existing_part"]
+    @payments = @sale_order.client.usable_payments
+    if request.post?
+      if params[:price] and params[:price][:mode] == "existing_part"
+        @payment = find_and_check(:payment, params[:pay][:part])
+      else
+        @payment = Payment.new(params[:payment])
+        @payment.company_id = @current_company.id
+        @payment.entity_id = @sale_order.client_id
+        @payment.save
+      end
+      if @payment.errors.size <= 0
+        if @payment.pay(@sale_order)
+          redirect_to :action=>:sales_payments, :id=>@sale_order.id
+        end
+      end
+    else
+      has_invoices = (@sale_order.invoices.size>0)
+      @payment = Payment.new(:paid_on=>Date.today, :to_bank_on=>Date.today, :amount=>@sale_order.unpaid_amount(has_invoices), :downpayment=>!has_invoices)
+    end
+    @title = {:value=>@sale_order.number}
+    render_form
   end
   
-  def payments_update
-    @update = true
-    @sale_order = find_and_check(:sale_order, session[:current_sale_order])
-    @payment_part = find_and_check(:payment_part, params[:id])
-    @payment = Payment.new(:amount=>@payment_part.amount, :paid_on=>@payment_part.payment.paid_on, :mode_id=>@payment_part.payment.mode_id)
-    if request.post?
-      @payment = @payment_part.payment
-      amount = PaymentPart.find(:first, :conditions=>{:company_id=>@current_company.id, :payment_id=>@payment.id}).amount
-      conditions = ((@payment.amount != @payment.part_amount or amount != @payment.amount) and ((params[:payment][:amount].to_d <= (@sale_order.rest_to_pay + @payment_part.amount)) and ((@payment.part_amount + (params[:payment][:amount].to_d - @payment_part.amount)) <= @payment.amount ) ) )
-      if conditions
-        old_value = @payment_part.amount
-        @payment_part.update_attributes(:amount=>params[:payment][:amount])
-        new_part_amount = (@payment.part_amount + params[:payment][:amount].to_d - old_value)
-        @payment.update_attributes!(:paid_on=>params[:payment][:paid_on], :mode_id=>params[:payment][:mode_id], :part_amount=>new_part_amount)
 
-      elsif (!(@payment.amount != @payment.part_amount or amount != @payment.amount) and (params[:payment][:amount].to_d <= ( @sale_order.amount_with_taxes - (PaymentPart.sum(:amount, :conditions=>{:order_id=>@sale_order.id,:company_id=>@sale_order.company_id}) - @payment_part.amount))) ) 
-        @payment.update_attributes!(:amount=>params[:payment][:amount],:paid_on=>params[:payment][:paid_on], :mode_id=>params[:payment][:mode_id], :part_amount=>params[:payment][:amount])
-        @payment_part.update_attributes!(:amount=>params[:payment][:amount])
-      else
-        flash[:warning]=tc(:amount_out_of_limits)
+  def payments_update
+    @sale_order   = find_and_check(:sale_order, session[:current_sale_order])
+    return if (payment_part = find_and_check(:payment_part, params[:id])).nil?
+    @payment = payment_part.payment
+    if request.post?
+      if @payment.update_attributes(params[:payment])
+        if @payment.pay(@sale_order)
+          redirect_to :action=>:sales_payments, :id=>@sale_order.id 
+        end
       end
-      redirect_to :action=>:sales_payments, :id=>@sale_order.id 
     end
     render_form 
   end
 
   def payments_delete
-    @sale_order = find_and_check(:sale_order, session[:current_sale_order])
+    @sale_order  = find_and_check(:sale_order, session[:current_sale_order])
     @payment_part = find_and_check(:payment_part, params[:id])
     if request.post? or request.delete?
-      redirect_to :action=>:sales_payments, :id=>@sale_order.id if  @payment_part.destroy
-      # ## +up payment ? -> amount ds model prend ts les part_amount correspondant
-      # @payment = @payment_part.payment
-      # @payment.update_attributes(:part_amount=>(@payment.part_amount - @payment_part.amount)) 
-      # redirect & destroy p + pp
-      #    
+      @payment_part.destroy
+      redirect_to :action=>:sales_payments, :id=>@sale_order.id
     end
   end
   

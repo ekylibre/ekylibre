@@ -28,7 +28,7 @@
 #  lock_version          :integer       default(0), not null
 #  name                  :string(255)   not null
 #  nature_id             :integer       not null
-#  origin                :string(255)   
+#  origin_id             :integer       
 #  payment_delay_id      :integer       
 #  payment_mode_id       :integer       
 #  payments_number       :integer       
@@ -68,6 +68,7 @@ class Entity < ActiveRecord::Base
   has_many :meetings
   has_many :observations
   has_many :payments
+  has_many :usable_payments, :conditions=>["part_amount<amount"], :class_name=>Payment.name
   has_many :prices
   has_many :purchase_orders, :foreign_key=>:supplier_id
   has_many :sale_orders, :foreign_key=>:client_id

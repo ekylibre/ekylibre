@@ -32,7 +32,13 @@ module AnnotateModels
     max_size = klass.column_names.collect{|name| name.size}.max + 1
     klass.columns.sort{|a,b| a.name<=>b.name}.each do |col|
       attrs = []
-      attrs << "default(#{quote(col.default)})" if col.default
+      if col.default
+        if col.default.is_a? Date
+          attrs << "default(CURRENT_DATE)" 
+        else
+          attrs << "default(#{quote(col.default)})" 
+        end
+      end
       attrs << "not null" unless col.null
       attrs << "primary key" if col.name == klass.primary_key
 

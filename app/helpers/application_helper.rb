@@ -673,11 +673,13 @@ module ApplicationHelper
         html_options.delete :size
         html_options.delete :maxlength
       end
-      
+
       options[:options] ||= {}
       input = case options[:field]
               when :password
                 password_field record, method, html_options
+              when :label
+                record.send(method)
               when :checkbox
                 check_box record, method, html_options
               when :select

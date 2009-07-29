@@ -21,7 +21,7 @@
 #  part_amount    :decimal(16, 2 
 #  received       :boolean       default(TRUE), not null
 #  scheduled      :boolean       not null
-#  to_bank_on     :date          default(Tue, 16 Jun 2009), not null
+#  to_bank_on     :date          default(CURRENT_DATE), not null
 #  updated_at     :datetime      not null
 #  updater_id     :integer       
 #

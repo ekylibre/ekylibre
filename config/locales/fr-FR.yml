@@ -265,6 +265,8 @@ fr-FR:
       modes:
         check: Chèque
         other: Autre
+    payment_part:
+      error_sale_order_already_paid: 'Il n''y a pas de factures à régler. Si vous voulez enregistrer un acompte, n''oubliez pas de le préciser.'
     price:
       error_range_overlap: 'L''intervalle de quantité en chevauche un autre (de {{min}} à {{max}})'
       error_already_defined: 'Un prix a déjà été défini pour cette liste de prix et ce produit'
