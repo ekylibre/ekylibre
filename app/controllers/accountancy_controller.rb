@@ -163,7 +163,7 @@ class AccountancyController < ApplicationController
   
   PRINTS=[[:balance, {:partial=>"balance"}],
           [:general_ledger, {:partial=>"ledger"}],
-          [:journal_by_id, {:partial=>"by_journal"}],
+          [:journal_by_id, {:partial=>"journal"}],
           [:journal, {:partial=>"journals"}],
           [:synthesis, {:partial=>"synthesis"}]]
 
