@@ -27,6 +27,7 @@ module ApplicationHelper
        [ {:name=>:entities_managing, :list=>
            [ {:name=>:entities},
              {:name=>:import_export, :url=>{:action=>:entities_import}},
+             {:name=>:events},
              {:name=>:mandates},
              {:name=>:meetings}
            ] },
@@ -34,8 +35,9 @@ module ApplicationHelper
            [ {:name=>:entities_natures},
              {:name=>:entity_link_natures},
              {:name=>:entity_categories},
-             {:name=>:meeting_locations},
-             {:name=>:meeting_modes},
+             # {:name=>:meeting_locations},
+             # {:name=>:meeting_modes},
+             {:name=>:event_natures},
              {:name=>:complements},
              {:name=>:areas},
              {:name=>:districts}

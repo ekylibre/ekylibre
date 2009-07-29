@@ -12,6 +12,12 @@ class RelationsController < ApplicationController
     render :inline => "<%=content_tag(:ul, @areas.map { |area| content_tag(:li, h(area.name)) })%>"
   end
 
+  def auto_complete_for_event_location
+    pattern = '%'+params[:event][:location].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+    @events = @current_company.events.find(:all, :conditions=> [ 'location LIKE ?', pattern ], :order=>"location ASC", :limit=>12)
+    render :inline => "<%=content_tag(:ul, @events.map { |event| content_tag(:li, h(event.location)) })%>"
+  end
+
   #
   def auto_complete_for_mandate_family
     pattern = '%'+params[:mandate][:family].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
@@ -297,15 +303,22 @@ class RelationsController < ApplicationController
     t.column :amount_with_taxes
   end
   
-  dyta(:entity_meetings, :model=>:meetings, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
-    t.column :name, :through=>:location
-    t.column :taken_place_on
-    t.column :full_name, :through=>:employee
-    t.column :name, :through=>:mode
-    t.action :meetings_update
-    t.action :meetings_delete, :method=>:post, :confirm=>:are_you_sure
-  end
+#   dyta(:entity_meetings, :model=>:meetings, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+#     t.column :name, :through=>:location
+#     t.column :taken_place_on
+#     t.column :full_name, :through=>:employee
+#     t.column :name, :through=>:mode
+#     t.action :meetings_update
+#     t.action :meetings_delete, :method=>:post, :confirm=>:are_you_sure
+#   end
   
+  dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+    t.column :full_name, :through=>:employee
+    t.column :name, :through=>:nature
+    t.action :events_update
+    t.action :events_delete, :method=>:post, :confirm=>:are_you_sure
+  end
+
   dyta(:entity_bank_accounts, :model => :bank_accounts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
     t.column :name
     t.column :number
@@ -345,7 +358,8 @@ class RelationsController < ApplicationController
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})
     @key = ""
     @invoices_count = @entity.invoices.size
-    @meetings_count = @current_company.meetings.find(:all, :conditions=>{:entity_id=>@entity.id}).size
+    # @meetings_count = @current_company.meetings.find(:all, :conditions=>{:entity_id=>@entity.id}).size
+    @events_count = @current_company.events.find(:all, :conditions=>{:entity_id=>@entity.id}).size
     session[:my_entity] = params[:id]
     @contact = Contact.new
     @contacts_count = @entity.contacts.find(:all, :conditions=>{:active=>true}).size
@@ -773,7 +787,6 @@ class RelationsController < ApplicationController
     end
   end
 
-  # {:company_id=>['@current_company.id']}
   dyta(:mandates, :conditions=>:mandates_conditions) do |t|
     t.column :title
     t.column :organization
@@ -846,121 +859,85 @@ class RelationsController < ApplicationController
     end
   end
   
-
-  dyta(:meeting_locations, :conditions=>{:company_id=>['@current_company.id'], :active=>true}) do |t|
+  dyta(:event_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
-    t.column :description
-    t.action :meeting_locations_update
-    t.action :meeting_locations_delete, :method=>:post, :confirm=>:are_you_sure
-  end
-  
-  def meeting_locations
-  end
-  
-  def meeting_locations_create
-    @meeting_location = MeetingLocation.new
-    if request.post?
-      @meeting_location = MeetingLocation.new(params[:meeting_location])
-      @meeting_location.company_id = @current_company.id
-      redirect_to_back if @meeting_location.save
-    end
-    render_form
-  end
-  
-  def meeting_locations_update
-    @meeting_location = find_and_check(:meeting_location, params[:id])
-    if request.post?
-      redirect_to_back if @meeting_location.update_attributes!(params[:meeting_location])
-    end
-    @title = {:value=>@meeting_location.name}
-    render_form
+    t.column :duration
+    t.action :event_natures_update
+    t.action :event_natures_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
-  def meeting_locations_delete
-    @meeting_location = find_and_check(:meeting_location, params[:id])
-    if request.post? or request.delete?
-      redirect_to_current if @meeting_location.update_attributes(:active=>false)
-    end
+  def event_natures
+    #    event_natures_list
   end
 
-  dyta(:meeting_modes, :conditions=>{:company_id=>['@current_company.id'], :active=>true}) do |t|
-    t.column :name
-    t.action :meeting_modes_update
-    t.action :meeting_modes_delete, :method=>:post, :confirm=>:are_you_sure
-  end
-
-  def meeting_modes
-    #    meeting_modes_list
-  end
-
-  def meeting_modes_create
-    @meeting_mode = MeetingMode.new
+  def event_natures_create
+    @event_nature = EventNature.new
     if request.post?
       #raise Exception.new params.inspect
-      @meeting_mode = MeetingMode.new(params[:meeting_mode])
-      @meeting_mode.company_id = @current_company.id
-      redirect_to_back if @meeting_mode.save
+      @event_nature = EventNature.new(params[:event_nature])
+      @event_nature.company_id = @current_company.id
+      redirect_to_back if @event_nature.save
     end
     render_form
   end
 
-  def meeting_modes_update
-    @meeting_mode = find_and_check(:meeting_mode, params[:id])
+  def event_natures_update
+    @event_nature = find_and_check(:event_nature, params[:id])
     if request.post?
-      redirect_to_back if @meeting_mode.update_attributes!(params[:meeting_mode])
+      redirect_to_back if @event_nature.update_attributes!(params[:event_nature])
     end
-    @title = {:value=>@meeting_mode.name}
+    @title = {:value=>@event_nature.name}
     render_form
   end
 
-  def meeting_modes_delete
-    @meeting_mode = find_and_check(:meeting_mode, params[:id])
+  def event_natures_delete
+    @event_nature = find_and_check(:event_nature, params[:id])
     if request.post? or request.delete?
-      redirect_to_current if @meeting_mode.update_attributes(:active=>false)
+      redirect_to_current if @event_nature.update_attributes(:active=>false)
     end
   end
   
-  dyta(:meetings, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:events, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :full_name, :through=>:entity
-    t.column :name, :through=>:location
-    t.column :taken_place_on
+    t.column :duration
+    t.column :location
     t.column :full_name, :through=>:employee
-    t.column :name, :through=>:mode
-    t.action :meetings_update
-    t.action :meetings_delete, :method=>:post, :confirm=>:are_you_sure
+    t.column :name, :through=>:nature
+    t.column :started_at
+    t.action :events_update
+    t.action :events_delete, :method=>:post, :confirm=>:are_you_sure
   end
   
-  def meetings
-    #meetings_list
+  def events
   end
   
-  def meetings_create
+  def events_create
     @entity = find_and_check(:entity, params[:entity_id]) if params[:entity_id]
     @entity = find_and_check(:entity, session[:current_entity]) if @entity.nil? && session[:current_entity]
-    @meeting = Meeting.new(:entity_id=>(@entity ? @entity.id : nil), :taken_place_on=>params[:taken_place_on]||Date.today)
-    @meeting.employee = @current_user.employee
+    @event = Event.new(:entity_id=>(@entity ? @entity.id : nil))
+    @event.employee = @current_user.employee
     if request.post?
-      @meeting = Meeting.new(params[:meeting])
-      @meeting.company_id = @current_company.id
-      redirect_to_back if @meeting.save
+      @event = Event.new(params[:event])
+      @event.company_id = @current_company.id
+      redirect_to_back if @event.save
     end
     render_form
   end
   
   
-  def meetings_update
-    @meeting = find_and_check(:meeting, params[:id])
+  def events_update
+    @event = find_and_check(:event, params[:id])
     if request.post?
-      redirect_to_back if @meeting.update_attributes(params[:meeting])
+      redirect_to_back if @event.update_attributes(params[:event])
     end
-    @title = {:value=>@meeting.entity.full_name}
+    @title = {:value=>@event.entity.full_name}
     render_form
   end
   
-  def meetings_delete
-    @meeting = find_and_check(:meeting, params[:id])
+  def events_delete
+    @event = find_and_check(:event, params[:id])
     if request.post? or request.delete?
-      redirect_to_back if @meeting.destroy
+      redirect_to_back if @event.destroy
     end
   end
 

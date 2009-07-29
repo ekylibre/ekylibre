@@ -57,6 +57,8 @@ fr-FR:
       entity_nature: 'Type de relation'
       entry: 'Écriture'
       establishment: 'Établissement'
+      event: (((EVENT)))
+      event_nature: (((EVENT_NATURE)))
       financialyear: 'Exercice'
       inventory: 'Inventaire'
       inventory_line: 'Ligne d''inventaire'
@@ -69,9 +71,6 @@ fr-FR:
       listing_node: 'Noeud d''extraction'
       listing_node_item: 'Élément de noeud d''extraction'
       mandate: (((MANDATE)))
-      meeting: 'Rencontre'
-      meeting_location: 'Lieu de rencontre'
-      meeting_mode: 'Mode de rencontre'
       observation: 'Observation'
       parameter: 'Paramètre'
       payment: 'Réglement'
@@ -190,7 +189,6 @@ fr-FR:
       # Zone postale
       area:
         city: 'Ville'
-        city_id: '(((CITY_ID)))'
         city_name: (((CITY_NAME)))
         code: 'Code interne'
         company_id: 'Société'
@@ -200,7 +198,7 @@ fr-FR:
         district_id: 'Zone administrative'
         id: 'ID'
         lock_version: 'Version'
-        name: 'Zone'
+        name: 'Zone Postale'
         postcode: 'Code postal'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -330,7 +328,7 @@ fr-FR:
       contact:
         active: 'Actif'
         address: 'Adresse'
-        area_id: 'sZone'
+        area_id: 'Zone postale'
         closed_on: 'Annulé le'
         code: 'Code'
         company_id: 'Société'
@@ -571,6 +569,7 @@ fr-FR:
         lock_version: 'Version'
         name: 'Nom'
         nature_id: 'Type'
+        origin: 'Lieu de la première rencontre'
         origin_id: 'Lieu de la première rencontre'
         payment_delay_id: (((PAYMENT_DELAY_ID)))
         payment_mode_id: (((PAYMENT_MODE_ID)))
@@ -689,6 +688,36 @@ fr-FR:
         name: 'Nom'
         nic: 'NIC (Numéro Interne de Classement)'
         siret: 'N° SIRET'
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+
+      # translation missing: fr-FR, activerecord, models, event
+      event:
+        company_id: 'Société'
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        duration: 'Duréé (en min.)'
+        employee_id: 'Employé'
+        entity_id: 'Personne'
+        id: 'ID'
+        location: 'Lieu'
+        lock_version: 'Version'
+        nature_id: 'Type'
+        reason: 'Motif'
+        started_at: 'A débuté le'
+        started_sec: (((STARTED_SEC)))
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+
+      # translation missing: fr-FR, activerecord, models, event_nature
+      event_nature:
+        company_id: 'Société'
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        duration: 'Durée par défaut (en min.)'
+        id: 'ID'
+        lock_version: 'Version'
+        name: 'Nom'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -902,48 +931,7 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # Rencontre
-      meeting:
-        address: 'Adresse'
-        company_id: 'Société'
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        description: 'Description'
-        employee_id: 'Commercial/Représentant'
-        entity_id: 'Client'
-        id: 'ID'
-        location_id: 'Lieu'
-        lock_version: 'Version'
-        mode_id: 'Type'
-        taken_place_on: 'A eu lieu le'
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
-
-      # Lieu de rencontre
-      meeting_location:
-        active: (((ACTIVE)))
-        company_id: 'Société'
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        description: 'Description'
-        id: 'ID'
-        lock_version: 'Version'
-        name: 'Nom'
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
-
-      # Mode de rencontre
-      meeting_mode:
-        active: (((ACTIVE)))
-        company_id: 'Société'
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        id: 'ID'
-        lock_version: 'Version'
-        name: 'Nom'
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
-
+  
       # Observation
       observation:
         company_id: 'Société'

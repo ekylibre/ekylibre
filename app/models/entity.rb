@@ -28,7 +28,7 @@
 #  lock_version          :integer       default(0), not null
 #  name                  :string(255)   not null
 #  nature_id             :integer       not null
-#  origin_id             :integer       
+#  origin                :string(255)   
 #  payment_delay_id      :integer       
 #  payment_mode_id       :integer       
 #  payments_number       :integer       
@@ -53,7 +53,7 @@ class Entity < ActiveRecord::Base
   belongs_to :employee
   belongs_to :language
   belongs_to :nature, :class_name=>EntityNature.to_s
-  belongs_to :origin, :class_name=>MeetingLocation.to_s
+  #belongs_to :origin, :class_name=>MeetingLocation.to_s
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :payment_mode
   belongs_to :proposer, :class_name=>Entity.to_s

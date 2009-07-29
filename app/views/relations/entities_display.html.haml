@@ -48,11 +48,11 @@
         =dyta(:client_invoices)
   -if @entity.client
     %h2=tc('client_balance')+" : "+@entity.balance.to_s
-  %h2=tc :meetings, :count=>@meetings_count
-  =toolbar do
-    -link :meetings_create, :entity_id=>@entity.id
-  -if @meetings_count > 0
-    =dyta :entity_meetings
+%h2=tc :events, :count=>@events_count
+=toolbar do
+  -link :events_create, :entity_id=>@entity.id
+-if @events_count > 0
+  =dyta :entity_events
 
 %h2=tc :entity_links, :count=>@entity_links
 =toolbar do

@@ -124,6 +124,11 @@ fr-FR:
           other: '{{count}} liens'
           zero: 'Aucun lien'
         entity_links_create: 'Ajouter un nouveau lien'
+        events:
+          one: '1 événement'
+          other: '{{count}} événements '
+          zero: 'Aucun événement'
+        events_create: 'Ajouter un événement'
         invoices:
           one: '1 facture'
           other: '{{count}} factures'
@@ -133,11 +138,6 @@ fr-FR:
           other: '{{count}} responsabilités '
           zero: 'Aucune responsabilité'
         mandates_create: 'Ajouter une responsabilité'
-        meetings:
-          one: '1 rencontre'
-          other: '{{count}} rencontres '
-          zero: 'Aucune rencontre'
-        meetings_create: 'Ajouter une rencontre'
         nature: 'Nature'
         new_sale: 'Nouvelle vente'
         number: 'Numéro'
@@ -216,6 +216,20 @@ fr-FR:
         entity_name: 'La fiche'
       entity_links_update:
         title: 'Modification du lien'
+      event_natures: 
+        event_natures_create: 'Ajout d''un type d''événement'
+        title: 'Types d''événements'
+      event_natures_create:
+        title: 'Ajouter un type d''événement'
+      event_natures_update:
+        title: 'Modification du type d''événement "{{value}}"'
+      events:
+        events_create: 'Ajouter un événement'
+        title: 'Évenements'
+      events_create: 
+        title: 'Ajout d''un événement'
+      events_update:
+        title: 'Modification d''un événement'
       _general_description_form:
         title: 'Description générale'
       index:
@@ -228,11 +242,10 @@ fr-FR:
         entities_natures: 'Types de fiches'
         entity_categories: 'Catégories de fiches'
         entity_link_natures: 'Types de liens'
+        event_natures: 'Types d''évenements'
+        events: 'Évenements'
         import_export: 'Import/Export de fiches'
         mandates: 'Responsabilités'
-        meeting_locations: 'Lieux de rencontre'
-        meeting_modes: 'Types de rencontre'
-        meetings: 'Rencontres'
         nb_entities:
           one: '1 fiche client/fournisseur'
           other: '{{count}} fiches clients/fournisseurs'
@@ -254,27 +267,6 @@ fr-FR:
         title: 'Créer une responsabilité'
       mandates_update:
         title: 'Modification de la responsabilité de l''entité {{entity}}'
-      meeting_locations:
-        meeting_locations_create: 'Ajouter un lieu de rencontre'
-        title: 'Lieux de rencontre'
-      meeting_locations_create:
-        title: 'Créer un nouveau lieu de rencontre'
-      meeting_locations_update:
-        title: 'Modification du lieu de rencontre {{value}}'
-      meeting_modes:
-        meeting_modes_create: 'Ajouter un nouveau type de rencontre'
-        title: 'Types de rencontre'
-      meeting_modes_create:
-        title: 'Créer un nouveau type de rencontre'
-      meeting_modes_update:
-        title: 'Modification du type de rencontre {{value}}'
-      meetings:
-        meetings_create: 'Ajouter une rencontre'
-        title: 'Rencontres'
-      meetings_create:
-        title: 'Ajouter une rencontre'
-      meetings_update:
-        title: 'Modification de la rencontre avec {{value}}'
       observations_create:
         title: 'Ajouter une observation'
       observations_update:

@@ -10,6 +10,7 @@
 #  company_id     :integer       not null
 #  created_at     :datetime      not null
 #  creator_id     :integer       
+#  downpayment    :boolean       not null
 #  embanker_id    :integer       
 #  embankment_id  :integer       
 #  entity_id      :integer       
@@ -18,7 +19,9 @@
 #  mode_id        :integer       not null
 #  paid_on        :date          
 #  part_amount    :decimal(16, 2 
-#  to_bank_on     :date          default(Wed, 08 Jul 2009), not null
+#  received       :boolean       default(TRUE), not null
+#  scheduled      :boolean       not null
+#  to_bank_on     :date          default(Tue, 16 Jun 2009), not null
 #  updated_at     :datetime      not null
 #  updater_id     :integer       
 #

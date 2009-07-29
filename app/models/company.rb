@@ -45,6 +45,8 @@ class Company < ActiveRecord::Base
   has_many :entity_natures
   has_many :entries
   has_many :establishments
+  has_many :event_natures
+  has_many :events
   has_many :financialyears
   has_many :invoices
   has_many :invoice_lines
