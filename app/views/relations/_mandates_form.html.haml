@@ -1,0 +1,8 @@
+=formalize do |f|
+  -f.error :mandate
+  -f.field :mandate, :entity_id, :choices=>@entities.collect{|e| [e.full_name,e.id]}
+  -f.field  t("activerecord.attributes.mandate.family"), text_field_with_auto_complete(:mandate, :family)
+  -f.field  t("activerecord.attributes.mandate.organization"), text_field_with_auto_complete(:mandate, :organization)
+  -f.field  t("activerecord.attributes.mandate.title"), text_field_with_auto_complete(:mandate, :title)
+  -f.field  :mandate, :started_on
+  -f.field  :mandate, :stopped_on

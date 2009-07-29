@@ -64,6 +64,7 @@ class Entity < ActiveRecord::Base
   has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity1_id
   has_many :indirect_links, :class_name=>EntityLink.name, :foreign_key=>:entity2_id
   has_many :invoices, :foreign_key=>:client_id
+  has_many :mandates
   has_many :meetings
   has_many :observations
   has_many :payments
@@ -110,6 +111,7 @@ class Entity < ActiveRecord::Base
       end
     end
   end
+  
   
 
   #

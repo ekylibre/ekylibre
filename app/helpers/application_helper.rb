@@ -27,6 +27,7 @@ module ApplicationHelper
        [ {:name=>:entities_managing, :list=>
            [ {:name=>:entities},
              {:name=>:import_export, :url=>{:action=>:entities_import}},
+             {:name=>:mandates}
              {:name=>:meetings}
            ] },
          {:name=>:parameters, :list=>
@@ -202,7 +203,27 @@ module ApplicationHelper
     
     conditions
   end
-  
+
+  #
+  def mandates_conditions(options) 
+    conditions = ["mandates.company_id=?", @current_company.id]
+    
+    unless session[:mandates][:organization].blank?
+      conditions[0] += " AND organization = ?"
+      conditions << session[:mandates][:organization]
+    end
+
+         
+    unless session[:mandates][:date].blank?
+      conditions[0] += " AND (? BETWEEN started_on AND stopped_on)"
+       conditions << session[:mandates][:date].to_s
+    end
+    #raise Exception.new(conditions.inspect)
+    conditions
+  end
+
+
+
   #
   def entries_conditions_statements(options)
     conditions = ["entries.company_id=?", @current_company.id]

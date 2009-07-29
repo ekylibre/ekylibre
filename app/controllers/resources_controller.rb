@@ -9,6 +9,7 @@ class ResourcesController < ApplicationController
     t.column :title 
     t.column :first_name 
     t.column :last_name 
+    t.column :name, :through=>:user  
     t.action :employees_update, :image=>:update
     t.action :employees_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end

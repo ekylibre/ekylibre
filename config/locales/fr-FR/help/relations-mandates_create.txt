@@ -1,0 +1,3 @@
+h1. Ajout d'une responsabilité
+Remplissez le formulaire en précisant bien la fiche concernée et les dates de début et de fin de période au format indiqué à côté. 
+Les autres champs correspondent à des **listes de recherches** à partir desquelles vous sélectionnez votre donnée. Cependant, vous pouvez **saisir une valeur libre** et, dans ce cas, une nouvelle responsabilité sera crée automatiquement pour la fiche considérée.  

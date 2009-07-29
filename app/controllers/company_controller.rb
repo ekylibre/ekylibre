@@ -315,7 +315,7 @@ class CompanyController < ApplicationController
 
   def users_update
     @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
-    @employee = Employee.find_by_user_id(@user.id)
+    @employee = Employee.find_by_user_id(@user.id) || @current_company.employees.new
     if request.post?
       @user.attributes = params[:user]
       @user.rights_array = (params[:rights]||{}).keys

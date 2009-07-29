@@ -11,6 +11,28 @@ class RelationsController < ApplicationController
     @areas = @current_company.areas.find(:all, :conditions => [ 'LOWER(name) LIKE ? ', pattern], :order => "name ASC", :limit=>12)
     render :inline => "<%=content_tag(:ul, @areas.map { |area| content_tag(:li, h(area.name)) })%>"
   end
+
+  #
+  def auto_complete_for_mandate_family
+    pattern = '%'+params[:mandate][:family].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+    @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(family) LIKE ? ', pattern], :order => "family ASC", :select => 'DISTINCT family')
+    render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.family)) })%>"
+  end
+   
+   #
+  def auto_complete_for_mandate_organization
+    pattern = '%'+params[:mandate][:organization].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+    @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(organization) LIKE ? ', pattern], :order => "organization ASC", :select => 'DISTINCT organization')
+    render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.organization)) })%>"
+  end
+  
+  #
+  def auto_complete_for_mandate_title
+    pattern = '%'+params[:mandate][:title].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+    @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(title) LIKE ? ', pattern], :order => "title ASC", :select => 'DISTINCT title')
+    render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.title)) })%>"
+  end
+  
   
   dyta(:areas, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name
@@ -329,6 +351,7 @@ class RelationsController < ApplicationController
     @contacts_count = @entity.contacts.find(:all, :conditions=>{:active=>true}).size
     @bank_accounts_count = @entity.bank_accounts.find(:all,:conditions=>{:company_id=>@current_company.id}).size
     @observations_count = @entity.observations.find(:all,:conditions=>{:company_id=>@current_company.id}).size
+    @mandates_count = @entity.mandates.count(:conditions=>{:company_id=>@current_company.id})
     @entity_links = @current_company.entity_links.find(:all, :conditions=>["stopped_on IS NULL AND (entity1_id = ? OR entity2_id = ?)",@entity.id, @entity.id]).size
     @title = {:value=>@entity.full_name}
   end
@@ -337,8 +360,6 @@ class RelationsController < ApplicationController
 
   
   def client_informations
-    #raise Exception.new "jjjjjjjjjjjjjjjjjjjjjjjjjj"+params.inspect
-    # render :partial => "client_form" if params[:entity_client] == 1
     if params[:entity_client] == 1
       @client = 1
     else
@@ -362,8 +383,8 @@ class RelationsController < ApplicationController
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
       @contact.norm = @current_company.address_norms[0]
-      # @contact.name =  tc(:first_contact)
-
+    
+           
       for complement in @complements
         attributes = params[:complement_datum][complement.id.to_s]||{}
         attributes[:complement_id] = complement.id
@@ -372,7 +393,6 @@ class RelationsController < ApplicationController
       end
 
       ActiveRecord::Base.transaction do
-        #raise Exception.new @entity.inspect
         saved = @entity.save
 
         if saved
@@ -398,7 +418,6 @@ class RelationsController < ApplicationController
           for datum in @complement_data
             datum.entity_id = @entity.id
             saved = false unless datum.save
-            #            @entity.errors
             datum.errors.each_full do |msg|
               @entity.errors.add_to_base(msg)
             end
@@ -409,10 +428,10 @@ class RelationsController < ApplicationController
           @contact.errors.each_full do |msg|
             @entity.errors.add_to_base(msg)
           end
+                    
         end
 
         raise ActiveRecord::Rollback unless saved
-        #raise Exception.new session.data.inspect
         if session[:history][1].to_s.include? "relations"
           redirect_to :action=>:entities_display, :id=>@entity.id
         else
@@ -421,22 +440,23 @@ class RelationsController < ApplicationController
       end
 
     else
-      @contact = Contact.new(:country=>'fr', :default=>true)
-      @entity = Entity.new(:country=>'fr')
+      @contact = @current_company.contacts.new(:country=>'fr', :default=>true)
+      @entity = @current_company.entities.new(:country=>'fr')
       for complement in @complements
-        @complement_data << ComplementDatum.new(:complement_id=>complement.id)
+        @complement_data << @current_company.complementDatums.new(:complement_id=>complement.id)
       end
     end
-    #                                                            raise Exception.new('p12:'+params.inspect)      
-    # @contact = Contact.new
+    
+    
     render_form
   end
 
   #
   def entities_update
-    #raise Exception.new @operation.inspect
     @entity = find_and_check(:entity,params[:id])
     session[:current_entity] = @entity.id
+   
+    
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
     @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})||Contact.new(:entity_id=>@entity.id,:company_id=>@current_company.id, :norm_id=>@current_company.address_norms[0].id)
@@ -446,7 +466,6 @@ class RelationsController < ApplicationController
     
     if request.post? and @entity
       
-      # puts params[:complement_datum].inspect
       for complement in @complements
         attributes = params[:complement_datum][complement.id.to_s]||{}
         attributes[:complement_id] = complement.id
@@ -459,10 +478,7 @@ class RelationsController < ApplicationController
           @complement_data << ComplementDatum.new(attributes)
         end
       end
-      #raise Exception.new('en:'+@entity.inspect)
-      
-      #      puts @complement_data.inspect
-      #raise Exception.new params[:entity].inspect+"              "+@entity.inspect
+     
       ActiveRecord::Base.transaction do
         saved = @entity.update_attributes(params[:entity])
         if saved
@@ -488,6 +504,7 @@ class RelationsController < ApplicationController
             end
           end
         end
+        
         saved = false unless @contact.update_attributes(params[:contact])
         @contact.errors.each_full do |msg|
           @entity.errors.add_to_base(msg)
@@ -596,6 +613,7 @@ class RelationsController < ApplicationController
     @title = {:value=>@entity_category.name}
   end
   
+
   def entities_contacts_create
     @entity = find_and_check(:entity, params[:id]||session[:current_entity])
     if request.post?
@@ -738,6 +756,7 @@ class RelationsController < ApplicationController
     render_form
   end
 
+
   def entity_links_update
     @entity_link = find_and_check(:entity_link, params[:id])
     @entity = find_and_check(:entity, @entity_link.entity1_id)
@@ -754,13 +773,87 @@ class RelationsController < ApplicationController
     end
   end
 
+  # {:company_id=>['@current_company.id']}
+  dyta(:mandates, :conditions=>:mandates_conditions) do |t|
+    t.column :title
+    t.column :organization
+    t.column :family
+    t.column :started_on
+    t.column :stopped_on
+    t.action :mandates_update, :image=>:update
+    t.action :mandates_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+  end
+  
+  #
+  def mandates
+   
+    if mandate = Mandate.find_by_company_id_and_id(@current_company.id, params[:id])
+      params[:organization] = mandate.organization
+    end
+    @entities = @current_company.entities
+    unless @entities.size > 0 
+      flash[:message] = tc('messages.need_entities_to_consult_mandates')
+      redirect_to :action => :entities_create
+      return
+    end
+    @organizations = @current_company.mandates.find(:all, :select=>' DISTINCT organization ')
+    
+    session[:mandates] ||= {}
+    session[:mandates][:organization] = params[:organization] || '' #if params[:organization] #- Aucune organisation ---" 
+    session[:mandates][:date] = params[:date]||Date.today
+  
+  end
+  
+  dyta(:entity_mandates, :model=>:mandates, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+    t.column :title
+    t.column :organization, :url=>{:action=>:mandates}
+    t.column :family
+    t.column :started_on, :datatype=>:date
+    t.column :stopped_on, :datatype=>:date
+    t.action :mandates_update, :image=>:update
+    t.action :mandates_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+  end
+     
+  def mandates_create
+    @entity = find_and_check(:entity, params[:id]||session[:current_entity])
+    @entities = @current_company.entities
+    if request.post?
+      @mandate = Mandate.new(params[:mandate])
+      @mandate.company_id = @current_company.id
+      @mandate.entity_id = @entity.id  
+      redirect_to :action=>:entities_display if @mandate.save
+    else 
+      @mandate = Mandate.new
+    end
+    render_form
+  end
+  
+  def mandates_update
+    @entities = @current_company.entities
+    @mandate = Mandate.find_by_id_and_company_id(params[:id], @current_company.id)
+       
+    if request.post? and @mandate
+      redirect_to :action=>:entities_display if @mandate.update_attributes(params[:mandate])
+    end
+    @title = {:entity=>@mandate.entity.full_name}
+    render_form
+  end
+  
+  def mandates_delete
+    @mandate = Mandate.find_by_id_and_company_id(params[:id] , @current_company.id )
+    if request.post? or request.delete?
+      redirect_to :action=>:entities_display if @mandate.destroy
+    end
+  end
+  
+
   dyta(:meeting_locations, :conditions=>{:company_id=>['@current_company.id'], :active=>true}) do |t|
     t.column :name
     t.column :description
     t.action :meeting_locations_update
     t.action :meeting_locations_delete, :method=>:post, :confirm=>:are_you_sure
   end
-
+  
   def meeting_locations
   end
   

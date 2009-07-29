@@ -128,6 +128,11 @@ fr-FR:
           one: '1 facture'
           other: '{{count}} factures'
           zero: 'Aucune facture'
+        mandates:
+          one: '1 responsabilité'
+          other: '{{count}} responsabilités '
+          zero: 'Aucune responsabilité'
+        mandates_create: 'Ajouter une responsabilité'
         meetings:
           one: '1 rencontre'
           other: '{{count}} rencontres '
@@ -149,6 +154,8 @@ fr-FR:
         state: 'État'
         title: 'Fiche : {{value}}'
       _entities_form:
+        account_client_to_create: '--Créer automatiquement un compte client--'
+        account_supplier_to_create: '--Créer automatiquement un compte fournisseur--'
         client: 'Informations client'
         complements: 'Champs personnalisés'
         details: 'Informations complémentaires'
@@ -159,14 +166,14 @@ fr-FR:
         supplier: 'Informations fournisseur'
         title: 'Renseignez les différentes caractéristiques de la fiche'
       entities_import:
-        csv_file: Fichier CSV à importer
+        csv_file: 'Fichier CSV à importer'
         defined_columns: 'Voici le format à respecter des colonnes du fichier csv à importer :'
         entities_export: 'Exporter vos fiches clients / fournisseurs au format CSV'
         file_to_download: 'Export de la liste des clients/fournisseurs'
         file_to_upload: 'Import de la liste des clients/fournisseurs'
+        import: 'Importer'
         please_consult_help_to_have_more_informations: 'Veuillez consulter l''aide pour avoir plus d''informations sur l''import'
         title: 'Import/Export des fiches clients et fournisseurs au format CSV'
-        import: 'Importer'
       entities_merge:
         entity_to_delete: 'Doublon à fusionner (et faire disparaitre)'
         entity_to_update: 'Fiche à mettre à jour avec les éléments du doublon'
@@ -222,6 +229,7 @@ fr-FR:
         entity_categories: 'Catégories de fiches'
         entity_link_natures: 'Types de liens'
         import_export: 'Import/Export de fiches'
+        mandates: 'Responsabilités'
         meeting_locations: 'Lieux de rencontre'
         meeting_modes: 'Types de rencontre'
         meetings: 'Rencontres'
@@ -231,6 +239,21 @@ fr-FR:
           zero: 'Aucune fiche clients/fournisseurs'
         parameters: 'Paramètres'
         title: 'Gestion des relations clients et fournisseurs'
+      mandates:
+        include_blank: '--- Aucune organisation ---'
+        mandates_create: 'Créer une responsabilité'
+        nb_mandates:
+          one: '1 responsabilité enregistrée'
+          other: '{{count}} responsabilités enregistrées'
+          zero: 'Aucune responsabilité enregistrée'
+        select_date: 'Date'
+        select_organization: 'Organisation'
+        title: 'Responsabilités'
+        update_params: 'Modifier la recherche'
+      mandates_create:
+        title: 'Créer une responsabilité'
+      mandates_update:
+        title: 'Modification de la responsabilité de l''entité {{entity}}'
       meeting_locations:
         meeting_locations_create: 'Ajouter un lieu de rencontre'
         title: 'Lieux de rencontre'
