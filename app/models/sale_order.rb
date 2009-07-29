@@ -50,15 +50,13 @@ class SaleOrder < ActiveRecord::Base
   has_many :invoices
   has_many :payment_parts, :foreign_key=>:order_id
   has_many :lines, :class_name=>SaleOrderLine.to_s, :foreign_key=>:order_id
+
+  @@natures = [:estimate, :order, :invoice]
   
   def before_validation
     if self.number.blank?
       last = self.client.sale_orders.find(:first, :order=>"number desc")
-      self.number = if last
-                      last.number.succ!
-                    else
-                      '00000001'
-                    end
+      self.number = last ? last.number.succ! : '00000001'
     end
     self.created_on ||= Date.today
     if self.nature
@@ -68,7 +66,6 @@ class SaleOrder < ActiveRecord::Base
       if self.has_downpayment.nil?
         self.has_downpayment = self.nature.downpayment
       end
-      
       self.downpayment_amount ||= self.amount_with_taxes*self.nature.downpayment_rate if self.amount_with_taxes>=self.nature.downpayment_minimum
     end
 
@@ -102,7 +99,7 @@ class SaleOrder < ActiveRecord::Base
 
 
   def self.natures
-    [:estimate, :order, :invoice].collect{|x| [tc('natures.'+x.to_s), x] }
+    @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
   def text_state
@@ -166,8 +163,7 @@ class SaleOrder < ActiveRecord::Base
     payments = []
     for part in payment_parts
       found = false
-      pay = Payment.find(:all, :conditions=>["company_id = ? AND id = ? AND amount != part_amount",self.company_id ,part.payment_id])
-     
+      pay = self.company.payments.find(:all, :conditions=>["id = ? AND amount != part_amount", part.payment_id])
       if !pay.empty? 
         for payment in payments
           found = true if payment.id == pay[0].id 

@@ -15,17 +15,18 @@
 #
 
 class PaymentPart < ActiveRecord::Base
-  
   belongs_to :company
   belongs_to :payment
-  belongs_to :order, :class_name=>SaleOrder.to_s
+  belongs_to :order, :class_name=>SaleOrder.name
+  has_one :mode, :through=>:payment
+  attr_readonly :company_id
 
   def validate
     errors.add_to_base tc(:error_sale_order_already_paid) if self.amount <= 0 and self.payment.downpayment == false
   end
 
-  def payment_way
-    self.payment.mode.name
+  def payment_mode
+    self.payment.mode
   end
   
   def real?

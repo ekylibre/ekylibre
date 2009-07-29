@@ -24,14 +24,15 @@
 #
 
 class Payment < ActiveRecord::Base
-  
   belongs_to :account  
   belongs_to :company
-  belongs_to :embanker, :class_name=>User.to_s
+  belongs_to :embanker, :class_name=>User.name
   belongs_to :embankment
   belongs_to :entity
-  belongs_to :mode, :class_name=>PaymentMode.to_s
-  has_many :payment_parts
+  belongs_to :mode, :class_name=>PaymentMode.name
+  has_many :parts, :class_name=>PaymentPart.name
+  
+  attr_readonly :company
 
   validates_presence_of :to_bank_on
   
@@ -40,7 +41,5 @@ class Payment < ActiveRecord::Base
       self.embankment.refresh
     end
   end
-  
-  
 
 end

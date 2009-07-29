@@ -547,6 +547,7 @@ class ManagementController < ApplicationController
     @order    = find_and_check(:purchase_order, params[:id])
     @supplier = @order.supplier
     @client   = @current_company.entity
+    print(@order, :archive=>false)
   end
 
   def purchases_new
@@ -725,7 +726,7 @@ class ManagementController < ApplicationController
   dyta(:payments, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :model=>:payment_parts) do |t|
     t.column :amount, :through=>:payment, :label=>"Montant du paiment"
     t.column :amount
-    t.column :payment_way
+    t.column :name, :through=>:mode
     t.column :paid_on, :through=>:payment, :label=>"Réglé le"
   end
   
@@ -812,49 +813,13 @@ class ManagementController < ApplicationController
       end
     else
       @sale_order = SaleOrder.find_by_id_and_company_id(params[:id], @current_company.id)
-      if @sale_order.nil?
-        @sale_order = SaleOrder.new 
-      end
+      @sale_order = SaleOrder.new if @sale_order.nil?
       session[:current_entity] ||= @current_company.entities.find(:first, :conditions=>{:client=>true})
       @sale_order.client_id = session[:current_entity]
     end
     #    @title = {:client=>@entity.full_name}
   end
 
-#     @sale_order = SaleOrder.new
-
-#     session[:sales] = {}
-#     if request.get?
-#       session[:sales][:client_id] = params[:client_id]
-#     else
-#       session[:sales] = params[:sale] if params[:sale].is_a? Hash
-#     end
-
-# #    raise Exception.new session.data.inspect
-
-#     if session[:sales][:client_id]
-#       client = Entity.find_by_company_id_and_id(session[:sales][:client_id], @current_company.id)
-#       session[:sales].delete(:client_id) if client.nil?
-#     end
-    
-#     redirect_to :action=>:sales_general unless session[:sales][:client_id].nil?
-#   end
-
-#   def sales_general
-#     @step = 2
-#     @entity = Entity.find(session[:sales][:client_id])
-#     if request.post?
-#       @sale_order = SaleOrder.new(params[:sale])
-#       @sale_order.company_id = @current_company.id
-#       @sale_order.client_id = @entity.id
-#       if @sale_order.save
-#         redirect_to :action=>:sales_products
-#       end
-#     else
-#       @sale_order = SaleOrder.new
-#     end
-#     @title = {:client=>@entity.full_name}
-#   end
 
   dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     t.column :name, :through=>:product
@@ -873,10 +838,7 @@ class ManagementController < ApplicationController
     session[:category] = @sale_order.client.category
     @stock_locations = @current_company.stock_locations
     @entity = @sale_order.client
-    #sale_order_lines_list params
-    #raise Exception.new params.inspect
     if request.post?
-      #raise Exception.new params.inspect
       if params[:commit] != "bla"
         if @sale_order.state == 'L'
           flash[:warning]=tc('sale_order_already_ordered')
@@ -1444,7 +1406,7 @@ class ManagementController < ApplicationController
   dyta(:payment_parts, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     t.column :amount, :through=>:payment, :label=>tc('payment_amount')
     t.column :amount
-    t.column :payment_way
+    t.column :name, :through=>:mode
     t.column :paid_on, :through=>:payment, :label=>tc('paid_on')
     t.action :payments_update, :image=>:update
     t.action :payments_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
@@ -2012,6 +1974,9 @@ class ManagementController < ApplicationController
     end
   end
 
+
+
+
   dyta(:taxes, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}) do |t|
     t.column :name
     t.column :amount, :precision=>3
@@ -2024,7 +1989,6 @@ class ManagementController < ApplicationController
   
   def taxes
   end
- 
 
   def taxes_create
     @tax = Tax.new(:nature=>:percent)

@@ -16,14 +16,15 @@
 #
 
 class PaymentMode < ActiveRecord::Base
-  
   belongs_to :account
   belongs_to :company
   has_many :entities
   has_many :payments, :foreign_key=>:mode_id
+  attr_readonly :company_id
+  @@modes = [:check, :other] 
 
   def self.modes
-    [:check, :other].collect{|x| [tc('modes.'+x.to_s), x]}
+    @@modes.collect{|x| [tc('modes.'+x.to_s), x]}
   end
 
 
