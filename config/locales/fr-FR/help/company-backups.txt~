@@ -1,5 +1,0 @@
-h1. Créer et recharger des sauvegardes 
-
-Deux formulaires apparaissent à l'écran respectivement pour la sauvegarde ou son chargement.
-Dans le premier cas, il s'agit de l'enregistrement des données relatives à la société (nom, activité ...) avec la possibilité d'inclure également des impressions telles que des factures, des commandes. 
-Pour le chargement, il suffit de sélectionner le fichier à l'aide du bouton "parcourir". 
