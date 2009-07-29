@@ -293,7 +293,7 @@ class RelationsController < ApplicationController
   end
   
   dyta(:client_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity]']}, :line_class=>'RECORD.status', :per_page=>5,:children=>:lines, :order=>{'sort'=>'created_on', 'dir'=>'desc'}) do |t|
-    t.column :number, :url=>{:controller=>:management, :action=>:invoices_display}, :children=>:product
+    t.column :number, :url=>{:controller=>:management, :action=>:invoices_display}, :children=>:product_name
     #t.column :full_name, :through=>:client
     #t.column :address, :through=>:contact
     t.column :created_on, :children=>false

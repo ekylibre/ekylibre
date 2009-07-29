@@ -24,8 +24,13 @@ class PaymentPart < ActiveRecord::Base
     errors.add_to_base tc(:error_sale_order_already_paid) if self.amount <= 0 and self.payment.downpayment == false
   end
 
- def payment_way
-   self.payment.mode.name
+  def payment_way
+    self.payment.mode.name
   end
+  
+  def real?
+    not self.payment.scheduled or (self.payment.scheduled and self.payment.validated)
+  end
+ 
 
 end

@@ -950,13 +950,10 @@ class ManagementController < ApplicationController
   end
 
   def sale_order_lines_create
-    # @delay = Delay.find_by_id(100)
-    # raise Exception.new Date.today.inspect+"   "+@delay.expression.inspect+"  "+@delay.compute(Date.today).inspect
     @stock_locations = @current_company.stock_locations
     @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
     @sale_order_line = SaleOrderLine.new(:price_amount=>0.0)
     @subscription = Subscription.new
-    #raise Exception.new params.inspect
     if @stock_locations.empty? 
       flash[:warning]=tc(:need_stock_location_to_create_sale_order_line)
       redirect_to :action=>:stocks_locations_create
@@ -1463,7 +1460,6 @@ class ManagementController < ApplicationController
     @payments_sum = 0 
     @payments.each {|p| @payments_sum += p.amount}
     session[:current_sale_order] = @sale_order.id
-    #raise Exception.new @sale_order.client.balance.inspect
     if request.post?
       @sale_order.update_attribute(:state, 'F') if @sale_order.state == 'R'
       #redirect_to :action=>:sales_payments, :id=>@sale_order.id

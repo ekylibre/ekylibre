@@ -160,4 +160,8 @@ class Invoice < ActiveRecord::Base
    status
  end
 
+ def product_name
+   self.product.name
+ end
+
 end
