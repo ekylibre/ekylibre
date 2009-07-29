@@ -394,8 +394,6 @@ class ManagementController < ApplicationController
     @product = find_and_check(:product, session[:product_id])
     if request.post?
       redirect_to :action=>:products_display, :id=>@product.id if @product_component.update_attributes!(params[:product_component])
-    else
-      #raise Exception.new @product_component.inspect
     end
     @title = {:product=>@product.name, :component=>@product_component.name}
     render_form
@@ -417,7 +415,6 @@ class ManagementController < ApplicationController
     end
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key
-   # products_list({:attributes=>[:id, :name, :description, :catalog_name, :catalog_description, :comment], :key=>@key}.merge(params))
   end
 
   def products_display
@@ -462,11 +459,10 @@ class ManagementController < ApplicationController
         if saved
           redirect_to_back
         else
-          raise ActiveRecord::Rollback# unless saved  
+          raise ActiveRecord::Rollback
         end
       end
     else 
-      # @product = Product.new(:without_stocks=>true)
       @product = Product.new
       @product.nature = Product.natures.first[1]
       @product.supply_method = Product.supply_methods.first[1]
