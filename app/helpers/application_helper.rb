@@ -28,8 +28,7 @@ module ApplicationHelper
            [ {:name=>:entities},
              {:name=>:import_export, :url=>{:action=>:entities_import}},
              {:name=>:events},
-             {:name=>:mandates},
-             {:name=>:meetings}
+             {:name=>:mandates}
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:entities_natures},

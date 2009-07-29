@@ -7,3 +7,5 @@
   - f.field  t("activerecord.attributes.event.location"), text_field_with_auto_complete(:event, :location)
   - f.field :event, :reason, :field=>:textarea
   - f.field :event, :started_at
+
+=observe_field("event_nature_id",  :url=>{:action=>:change_minutes}, :frequency=>0.25, :with=>"event_nature_id")

@@ -14,7 +14,7 @@ class RelationsController < ApplicationController
 
   def auto_complete_for_event_location
     pattern = '%'+params[:event][:location].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-    @events = @current_company.events.find(:all, :conditions=> [ 'location LIKE ?', pattern ], :order=>"location ASC", :limit=>12)
+    @events = @current_company.events.find(:all, :conditions=> [ 'LOWER(location) LIKE ?', pattern ], :order=>"location ASC", :limit=>12)
     render :inline => "<%=content_tag(:ul, @events.map { |event| content_tag(:li, h(event.location)) })%>"
   end
 
@@ -85,7 +85,6 @@ class RelationsController < ApplicationController
     end
     render_form
   end
-
 
 
   dyta(:districts, :children=>:areas, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
@@ -910,11 +909,15 @@ class RelationsController < ApplicationController
   
   def events
   end
+
+  def change_minutes
+    @event_nature = find_and_check(:event_nature, params[:event_nature_id])
+  end
   
   def events_create
     @entity = find_and_check(:entity, params[:entity_id]) if params[:entity_id]
     @entity = find_and_check(:entity, session[:current_entity]) if @entity.nil? && session[:current_entity]
-    @event = Event.new(:entity_id=>(@entity ? @entity.id : nil))
+    @event = Event.new(:entity_id=>(@entity ? @entity.id : nil), :duration=>@current_company.event_natures.find(:first).duration)
     @event.employee = @current_user.employee
     if request.post?
       @event = Event.new(params[:event])
