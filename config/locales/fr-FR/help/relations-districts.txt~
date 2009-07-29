@@ -1,0 +1,11 @@
+h1. Zones administratives
+
+h2. Qu'est-ce qu'une zone administrative ?
+Il s'agit d'une des divisions du territoire national (région, département, arrondissement, canton, commune).
+
+
+h2. Gestion d'un compte comptable 
+Pour utiliser un compte comptable (durant la <<accountancy-entries|Gestion des écritures>> par-exemple), commencer par le <<accountancy-accounts_create|créer>>). Le compte créé apparaîtra dans le tableau des comptes. Par la suite, il vous sera possible de le <<accountancy-accounts_update|modifier>>~{{buttons/update.png|modifier}} ou même de le supprimer <<accountancy-accounts_delete|{{buttons/delete.png|supprimer}}>>, sous condition qu'il n'existe aucune écriture relative à ce compte.
+
+h2. Suppression de comptes comptables 
+*ATTENTION* : Actuellement, la suppression d'un compte qui possède des sous-comptes entraîne une erreur. 
