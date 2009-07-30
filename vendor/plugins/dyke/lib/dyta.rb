@@ -31,7 +31,7 @@ module Ekylibre
               :find_params=>''
             }
           }
-              
+          
 
           # Add methods to display a dynamic table
           def dyta(name, new_options={}, &block)
@@ -46,7 +46,7 @@ module Ekylibre
               end
             end
 
-            options = {:pagination=>:default, :empty=>true}
+            options = {:pagination=>:default, :empty=>true, :export=>'general.export'}
             options[:pagination] = :will_paginate if Ekylibre::Dyke::Dyta.will_paginate
             options.merge! new_options
             model = (options[:model]||name).to_s.classify.constantize
@@ -64,43 +64,46 @@ module Ekylibre
             conditions = ''
             conditions = conditions_to_code(options[:conditions]) if options[:conditions]
 
-            code += "def #{list_method_name}\n"
-            code += "  render(:inline=>'<%=#{tag_method_name}-%>') if request.xhr?\n"
-            code += "end\n"
 
-            module_eval(code)
-
-            builder  = ''
-            builder += "  options = params||{}\n"
-            builder += "  order = nil\n"
+            order_definition  = ''
+            order_definition += "  options = params||{}\n"
+            order_definition += "  order = nil\n"
             unless options[:order].nil?
               raise Exception.new("options[:order] must be an Hash. Example: {:sort=>'column', 'dir'=>'asc'}") unless options[:order].is_a? Hash
               raise Exception.new("options[:order]['sort'] must be completed (#{options[:order].inspect}).") if options[:order]['sort'].nil?
-              builder += "  options['#{name}_sort'] = #{options[:order]['sort'].to_s.inspect}\n"
-              builder += "  options['#{name}_dir'] = #{options[:order]['dir'].to_s.inspect}\n"
+              order_definition += "  options['#{name}_sort'] = #{options[:order]['sort'].to_s.inspect}\n"
+              order_definition += "  options['#{name}_dir'] = #{options[:order]['dir'].to_s.inspect}\n"
             end
-            builder += "  unless options['#{name}_sort'].blank?\n"
-            builder += "    options['#{name}_dir'] ||= 'asc'\n"
-            builder += "    order  = options['#{name}_sort']\n"
-            builder += "    order += options['#{name}_dir']=='desc' ? ' DESC' : ' ASC'\n"
-            builder += "  end\n"
+            order_definition += "  unless options['#{name}_sort'].blank?\n"
+            order_definition += "    options['#{name}_dir'] ||= 'asc'\n"
+            order_definition += "    order  = options['#{name}_sort']\n"
+            order_definition += "    order += options['#{name}_dir']=='desc' ? ' DESC' : ' ASC'\n"
+            order_definition += "  end\n"
 
+
+            builder  = order_definition
             builder += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
             builder += ", :conditions=>"+conditions unless conditions.blank?
             builder += ", "+PAGINATION[options[:pagination]][:find_params].gsub('@@LENGTH@@', "options['#{name}_per_page']||"+(options[:per_page]||25).to_s) unless PAGINATION[options[:pagination]][:find_params].blank?
             builder += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
             builder += ", :order=>order)||{}\n"
 
-            # Tag method
+            bottom_var = 'bottom'
+            bottom = "  #{bottom_var}=''\n"
+            # Export link
+            if options[:export]
+              bottom += '  '+bottom_var+"+='"+content_tag(:div, "'+link_to('"+::I18n.t(options[:export]).gsub(/\'/,'&apos;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir']}, {:method=>:post})+'", :class=>'export')+"'\n"
+            end
+            # Pages link
+            bottom += if options[:pagination] == :will_paginate
+                        '  '+bottom_var+"+=will_paginate(@"+name.to_s+", :renderer=>ActionController::RemoteLinkRenderer, :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], '#{name}_per_page'=>params['#{name}_per_page'], :action=>:#{list_method_name}}).to_s\n"
+                        #                           bottom_var+"='"+content_tag(:tr, content_tag(:td, "'+"+bottom_var+"+'", :class=>:paginate, :colspan=>definition.columns.size))+"' unless "+bottom_var+".nil?\n"
+                      else
+                        ''
+                      end
 
-            paginate_var = 'pages'
-            paginate = case options[:pagination]
-                       when :will_paginate then 
-                         '  '+paginate_var+"=will_paginate(@"+name.to_s+", :renderer=>ActionController::RemoteLinkRenderer, :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], '#{name}_per_page'=>params['#{name}_per_page'], :action=>:#{list_method_name}})\n  "+
-                           paginate_var+"='"+content_tag(:tr, content_tag(:td, "'+"+paginate_var+"+'", :class=>:paginate, :colspan=>definition.columns.size))+"' unless "+paginate_var+".nil?\n"
-                       else
-                         ''
-                       end
+            # Bottom tag
+            bottom += "  text+='"+content_tag(:tr, content_tag(:td, "'+"+bottom_var+"+'", :class=>:bottom, :colspan=>definition.columns.size))+"' unless text.blank? "+(options[:export] ? "" : " or "+bottom_var+".blank?")+"\n"
 
             if options[:order].nil?
               sorter  = "    sort = options['#{name}_sort']\n"
@@ -112,24 +115,50 @@ module Ekylibre
 
             record = 'r'
             child  = 'c'
-            header = columns_to_td(definition, :nature=>:header, :method=>list_method_name, :order=>options[:order], :id=>name)
-            body = columns_to_td(definition, :nature=>:body , :record=>record, :order=>options[:order])
+
+
+            code += "def #{list_method_name}\n"
+            code += "  if request.xhr?\n"
+            code += "    render(:inline=>'<%=#{tag_method_name}-%>')\n"
+            if options[:export]
+              code += "  elsif request.post?\n"
+              code += order_definition.gsub(/^/,'  ')
+              code += "    data = FasterCSV.generate do |csv|\n"
+              code += "      csv << #{columns_to_csv(definition, :header)}\n"
+              code += "      for #{record} in #{model}.find(:all"
+              code += ", :conditions=>"+conditions unless conditions.blank?
+              code += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
+              code += ", :order=>order)||{}\n"            
+              code += "        csv << #{columns_to_csv(definition, :body, :record=>record)}\n"
+              code += "      end\n"
+              code += "    end\n"
+              code += "    send_data(data, :type=>Mime::CSV, :disposition=>'inline', :filename=>'#{::I18n.translate('activerecord.models.'+model.name.underscore.to_s).simpleize}.csv')\n"
+            end
+            code += "  end\n"
+            code += "end\n"
+            
+            # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+
+            module_eval(code)
+
+            
+            header = columns_to_td(definition, :header, :method=>list_method_name, :order=>options[:order], :id=>name)
+            body = columns_to_td(definition, :body, :record=>record, :order=>options[:order])
             if options[:children].is_a? Symbol
               children = options[:children].to_s
-              child_body = columns_to_td(definition, :nature=>:children, :record=>child, :order=>options[:order])
+              child_body = columns_to_td(definition, :children, :record=>child, :order=>options[:order])
             end          
-            
+
             header = 'content_tag(:tr, ('+header+'), :class=>"header")'
 
-            code  = "def "+tag_method_name+"(options={})\n"
+            code  = "def #{tag_method_name}(options={})\n"
             code += builder
-            # code += "  @"+name.to_s+"||={}\n"
             code += "  if @"+name.to_s+".size>0\n"
             code += sorter
             code += "    header = "+header+"\n"
             code += "    reset_cycle('dyta')\n"
             code += "    body = ''\n"
-            code += "    for "+record+" in @"+name.to_s+"\n"
+            code += "    for #{record} in @"+name.to_s+"\n"
             code += "      line_class = ' '+"+options[:line_class].to_s.gsub(/RECORD/,record)+".to_s\n" unless options[:line_class].nil?
             code += "      body += content_tag(:tr, ("+body+"), :class=>'data '+cycle('odd','even', :name=>'dyta')"+(options[:line_class].nil? ? '' : "+line_class")+")\n"
             if children
@@ -146,13 +175,8 @@ module Ekylibre
               code += "    text = '"+content_tag(:tr,content_tag(:td,tg('no_records').gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
             end
             code += "  end\n"
-            code += paginate;
-            # code += "  text = "+process+"+text\n" unless process.nil?
-            code += "  text += "+paginate_var+".to_s\n" unless paginate.blank?
-            code += "  unless request.xhr?\n"
-            code += "    text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"')\n"
-            # code += "    text = content_tag(:h3,  "+h(options[:label])+", :class=>:dyta)+text\n" unless options[:label].nil?
-            code += "  end\n"
+            code += bottom;
+            code += "  text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"') unless request.xhr?\n"
             code += "  return text\n"
             code += "end\n"
 
@@ -179,10 +203,9 @@ module Ekylibre
           end
           
           
-          def columns_to_td(definition, options={})
+          def columns_to_td(definition, nature, options={})
             columns = definition.columns
             code = ''
-            nature = options[:nature]||:body
             record = options[:record]||'RECORD'
             list_method_name = options[:method]||'dyta_list'
             order = options[:order]
@@ -260,6 +283,36 @@ module Ekylibre
               end
             end
             code
+          end
+
+
+          def columns_to_csv(definition, nature, options={})
+            columns = definition.columns
+            array = []
+            record = options[:record]||'RECORD'
+            for column in columns
+              if column.nature==:column
+                if nature==:header
+                  array << column.header.inspect
+                else
+                  datum = column.data(record)
+                  if column.datatype == :boolean
+                    datum = "(#{datum} ? ::I18n.translate('general.dyta_true') : ::I18n.translate('general.dyta_false'))"
+                  end
+                  if column.datatype == :date
+                    datum = "::I18n.localize(#{datum})"
+                  end
+                  if column.datatype == :decimal
+                    datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&nbsp;', :unit=>'', :precision=>#{column.options[:precision]||2}))"
+                  end
+                  if column.name==:country and  column.datatype == :string and column.limit == 2
+                    datum = "(#{datum}.nil? ? '' : ::I18n.translate('countries.'+#{datum}))"
+                  end
+                  array << datum
+                end
+              end
+            end
+            '['+array.join(', ')+']'
           end
 
 

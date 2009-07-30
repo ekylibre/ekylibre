@@ -154,6 +154,7 @@ table.formalize td .hint         { color: #600;  background:#FDE; padding:2px;}
 table.formalize td .hint span    { color: #B54; }
 table.formalize tr.title th { padding: 16px 8px 2px; border-bottom: 0px dotted #002; color: #002; font-size:13px; border-bottom: 1px solid #CCC; font-weight:bold;}
 table.formalize td.input .code { font-family: monospace; }
+a.act img { border: none !important; }
 /*
 table.formalize tr.odd  td { background: #E5ECF6;}
 table.formalize tr.even td { background: #F0F8FF;}

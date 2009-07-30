@@ -4,11 +4,12 @@ class AccountancyController < ApplicationController
   dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :code
+    t.column :name, :through=>:currency
     t.column :closed_on
-    t.action :journals_update, :image=>:update
-    t.action :journals_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
     t.action :journals_close, :if => 'RECORD.closable?(Date.today)'
     t.action :entries_consult_by_journal_id, :image=>:table
+    t.action :journals_update, :image=>:update
+    t.action :journals_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
   
   dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -62,14 +63,14 @@ class AccountancyController < ApplicationController
     t.column :closed
     t.column :started_on
     t.column :stopped_on
-    t.action :financialyears_update, :image => :update, :if => '!RECORD.closed'  
-    t.action :financialyears_delete, :method => :post, :image =>:delete, :confirm=>:are_you_sure, :if => '!RECORD.closed'  
     t.action :financialyears_close, :if => '!RECORD.closed and RECORD.closable?'
     t.action :entries_consult, :image => :table
+    t.action :financialyears_update, :image => :update, :if => '!RECORD.closed'  
+    t.action :financialyears_delete, :method => :post, :image =>:delete, :confirm=>:are_you_sure, :if => '!RECORD.closed'  
   end
 
-  toto(:account_search, :attributes => [:number, :name], :conditions => {:company_id=>['@current_company.id']}, :model => :account)
-  toto(:entity, :attributes => [:full_name], :conditions => {:company_id=>['@current_company.id']}, :model => :entity)
+  dyli(:account_search, :attributes => [:number, :name], :conditions => {:company_id=>['@current_company.id']}, :model => :account)
+  dyli(:entity, :attributes => [:full_name], :conditions => {:company_id=>['@current_company.id']}, :model => :entity)
 
   # 
   def index

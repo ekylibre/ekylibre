@@ -360,7 +360,10 @@ fr-FR:
     delete: 'Supprimer'
     display: 'Afficher'
     down: 'Descendre'
+    dyta_false: 'FAUX'
+    dyta_true: 'VRAI'
     edit: 'Modifier'
+    export: 'Exporter'
     employee: 'Informations employé'
     example: 'Exemple&nbsp;: {{value}}'
     filter: Filtrer
