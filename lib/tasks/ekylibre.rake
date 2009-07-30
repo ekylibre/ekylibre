@@ -87,7 +87,9 @@ namespace :clean do
     rights.each do |right|
       3.times { |i| max[i] = right[i].length if right[i].length>max[i].to_i }
     end
-    file.write rights.collect{|x| [x[0].ljust(max[0]), x[1].ljust(max[1]), x[2].ljust(max[2])].join(" ").strip}.join("\n")
+    max[0] = 16
+    max[1] = 32
+    file.write rights.collect{|x| [0,1,2].collect{|i| x[i].ljust(max[i])}.join(" ").strip}.join("\n")
     file.close
 
     # Fichier de traduction

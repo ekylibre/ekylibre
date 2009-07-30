@@ -54,9 +54,6 @@ class Company < ActiveRecord::Base
   has_many :journal_records
   has_many :languages
   has_many :mandates
-  has_many :meeting_locations
-  has_many :meeting_modes
-  has_many :meetings
   has_many :parameters
   has_many :payments
   has_many :payment_modes

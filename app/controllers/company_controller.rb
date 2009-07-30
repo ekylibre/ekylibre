@@ -411,8 +411,7 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :root_model_name
     t.column :comment
-    t.action :listings, :format=>'csv'
-    t.action :listing_nodes, :image=>:spread
+    t.action :listings_extract, :format=>'csv', :image=>:action
     t.action :listings_update
     t.action :listings_delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -420,9 +419,19 @@ class CompanyController < ApplicationController
   def listings
   end
 
-  def listings_build
-    flash[:warning] = 'En construction'
-    redirect_to_back
+  def listings_extract
+    @listing = find_and_check(:listing, params[:id])
+    query = @listing.query
+    query.gsub(/CURRENT_COMPANY/i, @current_company.id.to_s)
+    result = ActiveRecord::Base.connection.select_all(@listing.query)
+    columns = result[0].keys.sort
+    csv_string = FasterCSV.generate do |csv|
+      csv << columns
+      for line in result
+        csv << columns.collect{|column| line[column]}
+      end
+    end
+    send_data csv_string, :type=>Mime::CSV, :disposition=>"inline"
   end
   
   def listings_create

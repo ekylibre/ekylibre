@@ -17,6 +17,7 @@ fr-FR:
     consult_stocks: 'Consulter l''état des stocks'
     create_estimates: 'Créer un devis'
     create_purchases: 'Créer, modifier des achats'
+    extract_listings: (((EXTRACT_LISTINGS)))
     import_export_entities: 'Importer, exporter des fiches clients/fournisseurs'
     manage_accounts: 'Gérer les comptes comptables'
     manage_areas: 'Gérer les zones'
@@ -32,6 +33,7 @@ fr-FR:
     manage_entity_categories: 'Gérer les catégories de fiche'
     manage_entity_links: (((MANAGE_ENTITY_LINKS)))
     manage_entries: 'Gérer les écritures'
+    manage_events: (((MANAGE_EVENTS)))
     manage_financialyears: 'Gérer les exercices'
     manage_invoicing: 'Gérer la facturation et les règlements'
     manage_journals: 'Gérer les journaux'
