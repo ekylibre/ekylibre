@@ -57,12 +57,10 @@
 
 .total
   %table.dyta
-    %tr
-      %th=tc(:rest_to_pay)
-      %td=(@invoices_sum - @payments_sum)
-    %tr
-      %th=tc('client_balance')
-      %td=@sale_order.client.balance.to_s
+    -for k, v in @sale_order.stats(:with_balance=>true)
+      %tr
+        %th=tc(k)
+        %td=number_to_currency(v, :unit=>'', :separator=>',')
 
 - form_tag do
   .actions

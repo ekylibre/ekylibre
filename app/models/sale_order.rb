@@ -98,6 +98,19 @@ class SaleOrder < ActiveRecord::Base
   end
 
 
+  def stats(options={})
+    invoiced = self.invoices.sum(:amount_with_taxes)
+    array = []
+    array << [:client_balance, self.client.balance.to_s] if options[:with_balance]
+    array << [:total_amount, self.amount_with_taxes]
+    array << [:uninvoiced_amount, self.amount_with_taxes - invoiced]
+    array << [:invoiced_amount, invoiced]
+    array << [:paid_amount, paid = self.payment_parts.sum(:amount)]
+    array << [:unpaid_amount, invoiced - paid]
+    array
+  end
+
+
   def self.natures
     @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
   end
