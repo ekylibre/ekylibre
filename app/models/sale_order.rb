@@ -26,6 +26,7 @@
 #  lock_version        :integer       default(0), not null
 #  nature_id           :integer       not null
 #  number              :string(64)    not null
+#  parts_amount        :decimal(16, 2 
 #  payment_delay_id    :integer       not null
 #  state               :string(1)     default("O"), not null
 #  subject             :string(255)   

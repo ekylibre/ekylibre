@@ -18,7 +18,7 @@
 #  lock_version   :integer       default(0), not null
 #  mode_id        :integer       not null
 #  paid_on        :date          
-#  part_amount    :decimal(16, 2 
+#  parts_amount   :decimal(16, 2 
 #  received       :boolean       default(TRUE), not null
 #  scheduled      :boolean       not null
 #  to_bank_on     :date          default(CURRENT_DATE), not null
