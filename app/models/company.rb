@@ -429,9 +429,6 @@ class Company < ActiveRecord::Base
   end
 
 
-
-
-
   def print(object, options={})
     archive  = options[:archive]
     template = options[:template]

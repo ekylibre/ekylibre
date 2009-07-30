@@ -1,6 +1,6 @@
 require 'dyta'
 require 'dyli'
-require 'dyse'
+#require 'dyse'
 
 ActionController::Base.send(:include, ActionView::Helpers::AssetTagHelper)
 ActionController::Base.send(:include, ActionView::Helpers::TextHelper)
@@ -16,6 +16,7 @@ ActionView::Base.send(:include, Ekylibre::Dyke::Dyta::View)
 ActionController::Base.send(:include, Ekylibre::Dyke::Dyli::Controller)
 ActionView::Base.send(:include, Ekylibre::Dyke::Dyli::View)
 
-ActionController::Base.send(:include, Ekylibre::Dyke::Dyse::Controller)
-ActionView::Base.send(:include, Ekylibre::Dyke::Dyse::View)
+
+#ActionController::Base.send(:include, Ekylibre::Dyke::Dyse::Controller)
+#ActionView::Base.send(:include, Ekylibre::Dyke::Dyse::View)
 

@@ -68,7 +68,8 @@ class AccountancyController < ApplicationController
     t.action :entries_consult, :image => :table
   end
 
-  dyli(:account_search, :attributes => [:number, :name], :conditions => {:company_id=>['@current_company.id']}, :model => :account)
+  toto(:account_search, :attributes => [:number, :name], :conditions => {:company_id=>['@current_company.id']}, :model => :account)
+  toto(:entity, :attributes => [:full_name], :conditions => {:company_id=>['@current_company.id']}, :model => :entity)
 
   # 
   def index
@@ -204,6 +205,7 @@ class AccountancyController < ApplicationController
       
       if session[:mode] == "journal"
         @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to])
+
         if @entries.size > 0
           @entries.each do |entry|
             sum[:debit] += entry.debit
@@ -211,11 +213,19 @@ class AccountancyController < ApplicationController
           end
           sum[:balance] = sum[:debit] - sum[:credit]
         end
-        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :sum => sum} , :collection => @entries        
+        params[:printed][:sum] = sum
+        params[:printed][:lines] = @lines
+        params[:printed][:entries] = @entries
+        @parameters = params
+        print(@current_company, :template=> "journals", :archive => false)
+        #render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :sum => sum} , :collection => @entries        
       end
       
       if session[:mode] == "journal_by_id"
-        params[:printed][:name] = Journal.find_by_id_and_company_id(params[:printed][:name], @current_company.id).name if session[:mode] == "journal_by_id"
+        if session[:mode] == "journal_by_id"
+          @journal = Journal.find_by_id_and_company_id(params[:printed][:name], @current_company.id)
+          params[:printed][:name] = @journal.name
+        end
         id = @current_company.journals.find(:first, :conditions => {:name => params[:printed][:name] }).id
         @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to], id)
         if @entries.size > 0
@@ -225,7 +235,13 @@ class AccountancyController < ApplicationController
           end
           sum[:balance] = sum[:debit] - sum[:credit]
         end
-        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :sum => sum} , :collection => @entries        
+        params[:printed][:sum] = sum
+        params[:printed][:entries] = @entries
+        params[:printed][:lines]= @lines
+        @parameters = params
+        print(@journal, :template=>"journal", :archive=>false)
+        
+        #render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :sum => sum} , :collection => @entries        
       end
       
       if session[:mode] == "balance"
@@ -236,7 +252,12 @@ class AccountancyController < ApplicationController
           sum[:credit] += account[:credit]
         end
         sum[:balance] = sum[:debit] - sum[:credit]
-        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :lines => @lines , :sum=> sum}, :collection => @accounts_balance
+        params[:printed][:sum] = sum
+        params[:printed][:balance]= @accounts_balance
+        params[:printed][:lines]= @lines
+        @parameters = params
+        print(@current_company, :template=>"balance", :archive=>false)
+        #render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :lines => @lines , :sum=> sum}, :collection => @accounts_balance
       end
 
       if session[:mode] == "synthesis"
@@ -275,7 +296,14 @@ class AccountancyController < ApplicationController
       
       if session[:mode] == "general_ledger"
         @ledger = Account.ledger(@current_company.id, params[:printed][:from], params[:printed][:to])
-        render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company}, :collection => @ledger
+        params[:printed][:sum] = sum
+        #raise Exception.new(@ledger.inspect)
+        params[:printed][:ledger]= @ledger
+        params[:printed][:lines]= @lines
+        @parameters = params
+        print(@current_company, :template=>"ledger", :archive=>false)
+       
+        #render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company}, :collection => @ledger
       end
       
     end

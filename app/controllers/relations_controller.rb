@@ -295,7 +295,8 @@ class RelationsController < ApplicationController
     t.action :entities_contacts_delete  , :method=>:post, :confirm=>:are_you_sure
   end
 
-  dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:company_id=>['@current_company.id']}, :joins => :city, :model => :area)
+  toto(:area_search, :attributes => [:postcode], :conditions => {:company_id=>['@current_company.id']}, :model => :area)
+  #dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:company_id=>['@current_company.id']}, :joins => :city, :model => :area)
   # dyse(:areas_name, :area, :name, :conditions => {:company_id=>['@current_company.id']})
 
   #dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'}, :children=>:lines) do |t|

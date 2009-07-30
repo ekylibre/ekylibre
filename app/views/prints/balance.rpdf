@@ -1,10 +1,10 @@
 page :a4, :margin=>[10.mm] do
   part 30.mm do
     set do
-      text company.name, :size=>7.mm
+      text @current_company.name, :size=>7.mm
       set 0, 5.mm do
         top = 10
-        for line in @lines
+        for line in @parameters["printed"]["lines"]
           text line, :size=>10, :top=>top
           top += 12
         end
@@ -13,10 +13,10 @@ page :a4, :margin=>[10.mm] do
   end
   part 10.mm do
     set 20.mm do
-      text "Balance des comptes pour la période du "+I18n.localize(printed[:from].to_date, :format=> :month_letter)+" au "+I18n.localize(printed[:to].to_date, :format => :month_letter), :left=>width/2, :align=>:center, :bold => :bold 
+      text "Balance des comptes pour la période du "+I18n.localize(@parameters["printed"]["from"].to_date, :format=> :month_letter)+" au "+I18n.localize(@parameters["printed"]["to"].to_date, :format => :month_letter), :left=>width/2, :align=>:center, :bold => :bold 
     end
   end
-  table @accounts_balance, :fixed=>false do 
+  table @parameters["printed"]["balance"], :fixed=>false do 
     column "Numéro", :number, 30.mm, :align => :left
     column "Intitulé",:name, 100.mm
     column "Débit", :debit, 20.mm
@@ -26,9 +26,9 @@ page :a4, :margin=>[10.mm] do
   part 10.mm do
     set 0, 2.mm do
       cell 140.mm, 5.mm, "TOTAL : "
-      cell 150.mm, 5.mm, sum[:debit].to_s, :align=>:right, :border => 'true'
-      cell 170.mm, 5.mm, sum[:credit].to_s, :align=>:right, :border => 'true'
-      cell 190.mm, 5.mm, sum[:solde].to_s, :align=>:right, :border => 'true'
+      cell 150.mm, 5.mm, @parameters["printed"]["sum"]["debit"].to_s, :align=>:right, :border => 'true'
+      cell 170.mm, 5.mm, @parameters["printed"]["sum"]["credit"].to_s, :align=>:right, :border => 'true'
+      cell 190.mm, 5.mm, @parameters["printed"]["sum"]["solde"].to_s, :align=>:right, :border => 'true'
     end 
   end
 end

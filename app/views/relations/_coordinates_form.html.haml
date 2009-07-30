@@ -6,7 +6,8 @@
   -f.field :contact, :line_4_number
   -f.field :contact, :line_4_street
   -f.field :contact, :line_5
-  -# f.field t("activerecord.attributes.contact.area_id"), dyli_tag(:contact, :area, :dyli=>:area_search, :resize=>true, :allow_free_text => true)
+  -#f.field t("activerecord.attributes.contact.area_id"), toto_tag(:contact_area, :area_search, :resize=>true, :allow_free_text => true)
+  -#f.field t("activerecord.attributes.contact.area_id"), dyli_tag(:contact, :area, :dyli=>:area_search, :resize=>true, :allow_free_text => true)
   -f.field  t("activerecord.attributes.contact.line_6"), text_field_with_auto_complete(:contact, :line_6)
   -f.field :contact, :country, :choices=>countries, :options=>{:include_blank=>true}
   -f.title :canals

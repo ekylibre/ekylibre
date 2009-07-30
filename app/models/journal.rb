@@ -84,15 +84,19 @@ class Journal < ActiveRecord::Base
     else
       journal = Journal.find(id)
     end
+   
     if journals
-      journals.each do |journal|
-        records << journal.records.find(:all, :conditions => ["created_on BETWEEN ? AND ?", from, to])
+      journals.each do |j|
+        records << j.records.find(:all, :conditions => ["created_on BETWEEN ? AND ?", from, to])
       end
+      
       records.flatten!
     end
+   
     if journal
-        records = journal.records.find(:all, :conditions => ["created_on BETWEEN ? AND ?", from, to])
+      records = journal.records.find(:all, :conditions => ["created_on BETWEEN ? AND ?", from, to])
     end
+   
     entries = []
     records.each do |record|
       entries << record.entries

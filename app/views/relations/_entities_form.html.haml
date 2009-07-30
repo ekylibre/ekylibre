@@ -25,7 +25,7 @@
   -f.title :client
   -f.field :entity, :client_account_id, :choices=>@client_accounts.collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}, :options=>{:include_blank=>tc(:account_client_to_create)} 
   -f.field :entity, :category_id, :choices=>@current_company.entity_categories.find_all_by_deleted(false).collect{|x| [x.name, x.id]}
-  -f.field :entity, :origin
+  -f.field :entity, :origin_id
   - f.field  t("activerecord.attributes.entity.origin"), text_field_with_auto_complete(:entity, :origin)
   -f.field :entity, :first_met_on
   - #f.field :name ,{:datatype=>:choice, :id=>"meeting_#{meeting.position}_meeting_id", :name=>"entity_meeting[#{entity_meeting.position}][meeting_id]", :value=>entity_meeting.meeting_id, :choices=>@current_company.meetings.find(:all, :conditions=>{:active=>true}).collect{|x| [x.name, x.id]}, :options=>{:include_blank=>"--Aucun--"} }

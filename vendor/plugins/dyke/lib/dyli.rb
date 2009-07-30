@@ -16,11 +16,12 @@ module Ekylibre
           include ActionView::Helpers::UrlHelper
           
           #
-          def dyli(name, options = {})
+          def dyli(name_db, options = {})
+           
             options = {:limit => 12,:attributes => [:name], :filter => {:number => 'X%'}, :partial => nil}.merge(options)
                 
             if options[:model].nil?
-              model = name.to_s.camelize.constantize
+              model = name_db.to_s.camelize.constantize
             else
               model = options[:model].to_s.camelize.constantize
             end
@@ -48,9 +49,10 @@ module Ekylibre
             code = ""
             
             #
-            code += "def dyli_"+name.to_s+"\n"
+            code += "def dyli_"+name_db.to_s+"\n"
             code += "conditions = [\"\"]\n"
-            code += "search = params[:"+model.to_s.lower.to_s+"][:search].downcase\n"
+            #code += "search = params[:"+model.to_s.lower.to_s+"][:search].downcase\n"
+            code += "search = params[:search].downcase\n"
             options[:conditions].collect do |key, value| 
               code += "conditions << "+sanitize_conditions(value)+"\n"
               code += "conditions[0] += '"+options[:model].to_s.pluralize+"."+key.to_s+" = ? AND '\n"
@@ -64,7 +66,7 @@ module Ekylibre
             code += "end.join(\" OR \")\n"
             
             if model_join
-              code += "joins = 'INNER JOIN "+model_join.to_s+" "+model_join.first.to_s+" ON "+model_join.first.to_s+".id = "+(options[:model] || name).to_s.pluralize.to_s+"."+options[:joins].to_s+"_id'\n"
+              code += "joins = 'INNER JOIN "+model_join.to_s+" "+model_join.first.to_s+" ON "+model_join.first.to_s+".id = "+(options[:model] || name_db).to_s.pluralize.to_s+"."+options[:joins].to_s+"_id'\n"
               code += "conditions[0] += ' OR '\n"
               code += "conditions[0] += "+options[:attributes_join].inspect+".collect do |attribute|\n"
               code += "format = ("+options[:filter].inspect+"[attribute] ||'%X%').gsub('X', search)\n"
@@ -90,10 +92,10 @@ module Ekylibre
             end
             code += "end\n"        
             
-            #f=File.open('dyl.rb', 'wb')
-            #f.write(code)
-            #f.close
-            #puts module_eval(code)
+            f=File.open('dyl.rb', 'wb')
+            f.write(code)
+            f.close
+            puts module_eval(code)
 
             code += "def dyli_one_"+name.to_s+"\n"
             code += "search = params[:search].downcase\n"
@@ -156,21 +158,52 @@ module Ekylibre
       
       
       module View
-        
+ 
+               #
+        def dyli_tag(name_html, name_db, options={}, tag_options={}, completion_options={})
+          #real_object  = instance_variable_get("@#{object}")
+          #foreign_key  = real_object.class.reflect_on_association(association).primary_key_name
+          
+          #raise Exception.new("You must inform the parameter nameDB.") unless nameDB
+          #name = options[:dyli] || association.to_s
+          #name = name_db || association.to_s
+          
+          #tf_name  = "#{association}[search]"
+          #tf_name  = "#{name_html}[search]"
+          tf_name  = "[search]"
+          tf_value = nil
+          
+          #hf_name  = "#{object}[#{foreign_key}]"
+          hf_name  = "#{name_html}"
+          hf_value =  nil
+          #hf_value = (real_object.send(foreign_key) rescue nil)
+          #options  = { :action => "dyli_#{name}"}.merge(options)
+          options  = {:action => "dyli_#{name_db}"}.merge(options)
+          #options[:real_object] = real_object.send(foreign_key) unless real_object.new_record?
+           
+          completion_options[:skip_style] = true;
+          
+          dyli_completer(tf_name, tf_value, hf_name, hf_value, options, tag_options, completion_options)
+        end
+ 
+       
         #
-        def dyli_tag(object, association, options={}, tag_options={}, completion_options={})
+        def dyli(object, association, name_db, options={}, tag_options={}, completion_options={})
           real_object  = instance_variable_get("@#{object}")
           foreign_key  = real_object.class.reflect_on_association(association).primary_key_name
           
-          name = options[:dyli] || association.to_s
+          #raise Exception.new("You must inform the parameter nameDB.") unless nameDB
+          #name = options[:dyli] || association.to_s
+          name = name_db || association.to_s
           
-          tf_name  = "#{association}[search]"
+         # tf_name  = "#{association}[search]"
+          tf_name  = "[search]"
           tf_value = nil
           
           hf_name  = "#{object}[#{foreign_key}]"
           hf_value = (real_object.send(foreign_key) rescue nil)
           options  = { :action => "dyli_#{name}"}.merge(options)
-          options[:id] = real_object.area_id unless real_object.new_record?
+          options[:real_object] = real_object.send(foreign_key) unless real_object.new_record?
            
           completion_options[:skip_style] = true;
           
@@ -354,7 +387,7 @@ module Ekylibre
              JS
          end
          
-          completion_options[:after_update_element] += <<-JS.gsub(/\s+/, ' ')
+         completion_options[:after_update_element] += <<-JS.gsub(/\s+/, ' ')
             (#{options[:after_update_element]})(element, value, $("#{hf_id}"), model_id);
             }
             JS
