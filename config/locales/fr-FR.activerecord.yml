@@ -691,7 +691,7 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # translation missing: fr-FR, activerecord, models, event
+      # (((EVENT)))
       event:
         company_id: 'Société'
         created_at: 'Créé le'
@@ -709,7 +709,7 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # translation missing: fr-FR, activerecord, models, event_nature
+      # (((EVENT_NATURE)))
       event_nature:
         company_id: 'Société'
         created_at: 'Créé le'
@@ -931,7 +931,6 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-  
       # Observation
       observation:
         company_id: 'Société'
@@ -984,6 +983,7 @@ fr-FR:
         mode_id: 'Mode de paiement'
         paid_on: 'Réglé le'
         part_amount: 'Montant déjà utilisé'
+        parts_amount: (((PARTS_AMOUNT)))
         received: (((RECEIVED)))
         scheduled: (((SCHEDULED)))
         to_bank_on: 'À encaisser le'
@@ -1253,6 +1253,7 @@ fr-FR:
         nature: 'Nature'
         nature_id: 'Nature'
         number: 'Numéro'
+        parts_amount: (((PARTS_AMOUNT)))
         payment_delay_id: 'Délai de paiement'
         sale: 'Vente'
         state: 'État'

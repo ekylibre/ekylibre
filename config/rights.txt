@@ -99,10 +99,12 @@ help             close                            __minimum__
 help             previous                         __minimum__
 help             search                           __minimum__
 help             side                             __minimum__
-management       dyta_deliveries_to_invoice       administrate_management
+management       dyta_waiting_payments            [new_right]
+management       payments                         [new_right]
 management       dyta_all_invoices                administrate_management
 management       dyta_critic_product_stocks       administrate_management
 management       dyta_deliveries                  administrate_management
+management       dyta_deliveries_to_invoice       administrate_management
 management       dyta_delivery_modes              administrate_management
 management       dyta_invoice_credit_lines        administrate_management
 management       dyta_invoice_lines               administrate_management
@@ -275,6 +277,7 @@ production       shape_operations_update          manage_shape_operations
 production       unvalidated_operations           manage_shape_operations
 production       shapes                           manage_shapes
 production       shapes_create                    manage_shapes
+relations        auto_complete_for_entity_origin  [new_right]
 relations        auto_complete_for_event_location [new_right]
 relations        auto_complete_for_mandate_family [new_right]
 relations        auto_complete_for_mandate_organization [new_right]

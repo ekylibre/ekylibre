@@ -91,14 +91,6 @@ fr-FR:
       document_print:
         print: 'Impression'
         title: 'Impression du document : {{value}}'
-      entries:
-        journal_x: '{{name}} (clôturé le {{closed_on}})'
-        number_records: 'Nombre des dernières pièces à afficher'
-        select_financialyear: 'Comptabiliser les écritures pour l''exercice comptable'
-        select_journal: 'Saisir les écritures dans le journal'
-        subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
-        title: 'Saisie des écritures'
-        update_params: 'Changer de journal et/ou d''exercice...'
       _entries:
         account_number: 'N°Compte'
         balanced_entries: 'Vert : pièce équilibrée'
@@ -116,6 +108,14 @@ fr-FR:
         title: 'Saisie des écritures'
         unbalanced_entries: 'Rouge : pièce non équilibrée'
         update: 'Modifier'
+      entries:
+        journal_x: '{{name}} (clôturé le {{closed_on}})'
+        number_records: 'Nombre des dernières pièces à afficher'
+        select_financialyear: 'Comptabiliser les écritures pour l''exercice comptable'
+        select_journal: 'Saisir les écritures dans le journal'
+        subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
+        title: 'Saisie des écritures'
+        update_params: 'Changer de journal et/ou d''exercice...'
       entries_consult:
         all_financialyears: '--- Tous les exercices comptables ---'
         all_journals: '--- Tous les journaux ---'

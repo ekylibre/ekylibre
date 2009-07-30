@@ -216,7 +216,7 @@ fr-FR:
         entity_name: 'La fiche'
       entity_links_update:
         title: 'Modification du lien'
-      event_natures: 
+      event_natures:
         event_natures_create: 'Ajout d''un type d''événement'
         title: 'Types d''événements'
       event_natures_create:
@@ -226,7 +226,7 @@ fr-FR:
       events:
         events_create: 'Ajouter un événement'
         title: 'Évenements'
-      events_create: 
+      events_create:
         title: 'Ajout d''un événement'
       events_update:
         title: 'Modification d''un événement'

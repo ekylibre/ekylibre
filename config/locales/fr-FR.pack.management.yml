@@ -38,9 +38,9 @@ fr-FR:
         sales_prices_create: 'Créer un nouveau prix de vente'
       purchase_order_lines:
         purchase_order_lines_create: 'Ajouter un produit à la commande'
-      scheduled: 'Échéance'
       sale_order_lines:
         sale_order_lines_create: 'Ajouter un produit au devis'
+      scheduled: 'Échéance'
       stock_locations:
         stocks_locations_create: 'Ajouter un nouveau lieu de stockage'
       title: 'Commerce'
@@ -76,9 +76,9 @@ fr-FR:
         amount: 'Total de la livraison HT'
         amount_with_taxes: 'Total de la livraison TTC'
         infos: 'Renseignez les caractéristiques de la livraison'
-      deliveries_update:
-        title: 'Modification de la livraison'
       _deliveries_update:
+        title: 'Modification de la livraison'
+      deliveries_update:
         title: 'Modification de la livraison'
       delivery_modes:
         delivery_modes_create: 'Ajouter un type livraison'
@@ -235,9 +235,9 @@ fr-FR:
         check: 'Pour les paiements de type chèque'
         existing_part: 'Utiliser un réglement non affecté'
         new: 'Créer un nouveau réglement'
+        payment_label: 'Réglement : {{amount}} du {{date}} par {{mode}} / Montant utilisable : {{usable_amount}}'
         title: 'Renseignez les conditions du réglement'
         unused_payment: 'Réglement à utiliser'
-        payment_label: 'Réglement : {{amount}} du {{date}} par {{mode}} / Montant utilisable : {{usable_amount}}'
       payments_update:
         title: 'Modifier un paiement'
       price_lists:
@@ -359,11 +359,11 @@ fr-FR:
         title: 'Modification d''un type de vente'
       sales:
         all: 'Toutes'
+        current: 'En cours'
         nb_sales:
           one: '1 vente'
           other: '{{count}} ventes'
           zero: 'Aucune vente'
-        current: 'En cours'
         search_sales: 'Rechercher des ventes'
         title: 'Liste des ventes'
         unpaid: 'Impayées'
