@@ -22,10 +22,12 @@ class PaymentPart < ActiveRecord::Base
 
   def after_save
     self.payment.save
+    self.order.save
   end
 
   def after_destroy
     self.payment.save
+    self.order.save
   end
 
   def validate

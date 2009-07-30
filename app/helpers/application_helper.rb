@@ -66,6 +66,7 @@ module ApplicationHelper
            [ {:name=>:sales_new},
              {:name=>:sales_consult, :url=>{:action=>:sales}},
              {:name=>:invoices},
+             {:name=>:payments},
              {:name=>:embankments},
              {:name=>:subscriptions},
            ] },
@@ -405,6 +406,20 @@ module ApplicationHelper
     conditions
   end
 
+  def sales_conditions(options={})
+    conditions = {}
+    conditions = ["company_id = ? ", @current_company.id ]
+
+    unless session[:sale_order_state].blank?
+      if session[:sale_order_state] == "current"
+        conditions[0] += "AND state != 'F' "
+      elsif session[:sale_order_state] == "unpaid"
+        conditions[0] += "AND state NOT IN('F','P') AND parts_amount < amount_with_taxes"
+      end
+    end
+    conditions
+  end
+  
   
   def stocks_conditions(options={})
     conditions = {}

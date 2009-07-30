@@ -68,7 +68,7 @@ class Entity < ActiveRecord::Base
   has_many :meetings
   has_many :observations
   has_many :payments
-  has_many :usable_payments, :conditions=>["part_amount<amount"], :class_name=>Payment.name
+  has_many :usable_payments, :conditions=>["parts_amount<amount"], :class_name=>Payment.name
   has_many :prices
   has_many :purchase_orders, :foreign_key=>:supplier_id
   has_many :sale_orders, :foreign_key=>:client_id

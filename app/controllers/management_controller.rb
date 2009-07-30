@@ -666,13 +666,13 @@ class ManagementController < ApplicationController
     end
   end
   
-  
-  dyta(:sale_orders, :conditions=>{:company_id=>['@current_company.id']},:order=>{'sort'=>'created_on','dir'=>'desc'} ) do |t|
-    #t.column :number, :url=>{:action=>:sales_details}
+
+  dyta(:sale_orders, :conditions=>:sales_conditions,:order=>{'sort'=>'created_on','dir'=>'desc'}, :line_class=>'RECORD.status' ) do |t|
     t.column :number, :url=>{:action=>:sales_products}
-    t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_natures_display}
+    #t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_natures_display}
     t.column :created_on
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entities_display}
+    t.column :code, :through=>:client, :url=>{:controller=>:relations, :action=>:entities_display}, :label=>tc('client_code')
     t.column :text_state
     t.column :amount
     t.column :amount_with_taxes
@@ -692,7 +692,12 @@ class ManagementController < ApplicationController
   end
   
   def sales
-    #sale_orders_list params
+    #raise Exception.new session[:sale_order_state].inspect
+    session[:sale_order_state] ||= "all"
+    if request.post?
+      #raise Exception.new params.inspect
+      session[:sale_order_state] = params[:sale_order][:state]
+    end
   end
   
   dyta(:sale_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']},:model=>:sale_order_lines,:empty=>true) do |t|
@@ -1127,7 +1132,6 @@ class ManagementController < ApplicationController
         if saved
           for line in @delivery_lines
             saved = false unless line.update_attributes(:quantity=>params[:delivery_line][line.order_line.id.to_s][:quantity])
-            puts "DDDDDDDDDDDDDDDDDDD                "+saved.to_s
             line.errors.each_full do |msg|
               @delivery.errors.add_to_base(msg)
             end
@@ -1385,8 +1389,9 @@ class ManagementController < ApplicationController
     t.column :amount, :through=>:payment, :label=>tc('payment_amount')
     t.column :amount
     t.column :payment_way
-    t.column :scheduled, :through=>:payment, :datatype=>:boolean
-    t.column :paid_on, :through=>:payment, :label=>tc('paid_on'), :datatype=>:date
+    t.column :scheduled, :through=>:payment, :datatype=>:boolean, :label=>tc('scheduled')
+    #t.column :paid_on, :through=>:payment, :label=>tc('paid_on'), :datatype=>:date
+    t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
     t.action :payments_update, :image=>:update
     t.action :payments_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -1407,6 +1412,16 @@ class ManagementController < ApplicationController
     end
   end
  
+  dyta(:waiting_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :received=>false}) do |t|
+    t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entities_display}
+    t.column :amount
+    t.column :name, :through=>:mode
+    t.column :to_bank_on
+  end
+
+  def payments
+    @payments_count = @current_company.payments.find(:all, :conditions=>{:received=>false}).size
+  end
 
   def payments_create
     @sale_order = find_and_check(:sale_orders, session[:current_sale_order])

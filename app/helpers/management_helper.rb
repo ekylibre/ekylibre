@@ -23,15 +23,10 @@ module ManagementHelper
         end
       else # step
         
-        if @sale_order.state == "P" or  @sale_order.state == "O"
+        if ["P"].include? @sale_order.state 
           link = @passive_link
-        elsif @sale_order.state == "L" or @sale_order.state == "I" or @sale_order.state == "R" or @sale_order.state ==  "F"
-          #link = x <= 5 ? @active_link : @passive_link
+        elsif ["L","I","R","F"].include? @sale_order.state 
           link = @active_link 
-        #elsif @sale_order.state == "I" 
-         # link = x <= 7 ? @active_link : @passive_link
-        #elsif @sale_order.state == "R" or @sale_order.state ==  "F"
-          #link = @active_link
         end
         code += content_tag(:td, link, :class=>((x+1)/2 == @step ? 'step active' : 'step' ))
       end

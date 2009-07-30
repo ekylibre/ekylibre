@@ -1,0 +1,5 @@
+h1. Comment créer une nouvelle observation ?
+
+Séléctionnez son importance et décrivez l'observation. *L'importance de l'observation* entrainera un *affichage spécifique* de celle-ci dans la fiche client ou fournisseur. En effet, une observation "Importante" sera *surlignée* en *rouge* (normale en *orange*) de même que la fiche client/fournisseur relative à l'observation, de manière à *rappeler qu'il y a des informations importantes en rapport avec cette fiche*.
+
+<<relations-index|Revenir à l'aide de gestion des relations >>

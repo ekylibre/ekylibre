@@ -7,7 +7,7 @@
 
 -if @operation != :update and @payments.size>0
   =formalize(:id=>:existing_payment) do |f|
-    -f.field tc(:unused_payment), select(:pay, :part, @payments.collect{|x| [tc(:payment_label, :amount=>x.amount.to_s, :date=>x.created_at.to_date, :mode=>x.mode.name, :usable_amount=>(x.amount - x.part_amount).to_s) , x.id]})
+    -f.field tc(:unused_payment), select(:pay, :part, @payments.collect{|x| [tc(:payment_label, :amount=>x.amount.to_s, :date=>x.created_at.to_date, :mode=>x.mode.name, :usable_amount=>(x.amount - x.parts_amount).to_s) , x.id]})
 
 =formalize(:id=>:new_payment) do |f|
   -f.title :title

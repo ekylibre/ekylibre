@@ -1,0 +1,5 @@
+h1. Les types de liens 
+
+Les types de liens permettent de définir les caractéristiques d'un lien entre deux entités. Vous pouvez ajouter un lien entre deux entités depuis les fiches clients/fournisseurs.
+
+<<relations-index|Revenir à l'aide de gestion des relations >>

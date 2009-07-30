@@ -54,6 +54,7 @@ class SaleOrder < ActiveRecord::Base
   @@natures = [:estimate, :order, :invoice]
   
   def before_validation
+    self.parts_amount = self.payment_parts.sum(:amount)||0
     if self.number.blank?
       last = self.client.sale_orders.find(:first, :order=>"number desc")
       self.number = last ? last.number.succ! : '00000001'
@@ -139,8 +140,8 @@ class SaleOrder < ActiveRecord::Base
     sum
   end
 
-  def unpaid_amount(only_invoices=true)
-    (only_invoices ? self.invoices.sum(:amount_with_taxes) : self.amount_with_taxes).to_f - self.payment_parts.sum(:amount).to_f
+  def unpaid_amount(only_invoices=true, only_received_payments=false)
+    (only_invoices ? self.invoices.sum(:amount_with_taxes) : self.amount_with_taxes).to_f - (only_received_payments ? self.payment_parts.sum(:amount, :conditions=>{:received=>true}) : self.payment_parts.sum(:amount)).to_f
   end
 
   def payments
@@ -164,6 +165,13 @@ class SaleOrder < ActiveRecord::Base
     payments
   end
 
+  def status
+    status = ""
+    #puts self.inspect
+    status = "critic" if not ['F','P'].include? self.state and self.parts_amount < self.amount_with_taxes
+    status
+  end
+  
 end
 
 

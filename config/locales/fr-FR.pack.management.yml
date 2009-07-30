@@ -4,6 +4,7 @@ fr-FR:
     management:
       category: 'Catégorie'
       choose_one_check_at_less: 'Sélectionnez au moins un chèque'
+      client_code: 'Code cl.'
       embankment: 'Remise de chèques'
       error_sale_order_already_paid: 'La vente a déjà été payée en totalité'
       estimate: 'Devis'
@@ -37,11 +38,13 @@ fr-FR:
         sales_prices_create: 'Créer un nouveau prix de vente'
       purchase_order_lines:
         purchase_order_lines_create: 'Ajouter un produit à la commande'
+      scheduled: 'Échéance'
       sale_order_lines:
         sale_order_lines_create: 'Ajouter un produit au devis'
       stock_locations:
         stocks_locations_create: 'Ajouter un nouveau lieu de stockage'
       title: 'Commerce'
+      to_bank_on: 'À encaisser le'
       unvalid_date: 'Date incorrecte'
       you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
 
@@ -157,6 +160,7 @@ fr-FR:
           zero: 'Aucun transfert à effectuer'
         parameters: 'Paramètres'
         payment_modes: 'Types de paiement'
+        payments: 'Suivi des règlements'
         prices: 'Prix'
         products: 'Produits'
         purchases: 'Achats'
@@ -219,6 +223,12 @@ fr-FR:
         title: 'Créer un nouveau type de paiement'
       payment_modes_update:
         title: 'Modifier un type de paiement'
+      payments:
+        nb_payments:
+          one: '1 règlement en attente'
+          other: '{{count}} règlements en attente'
+          zero: 'Aucun règlement en attente'
+        title: 'Suivi des règlements'
       payments_create:
         title: 'Ajouter un nouveau réglement à la vente : {{value}}'
       _payments_form:
@@ -348,7 +358,15 @@ fr-FR:
       sale_order_natures_update:
         title: 'Modification d''un type de vente'
       sales:
+        all: 'Toutes'
+        nb_sales:
+          one: '1 vente'
+          other: '{{count}} ventes'
+          zero: 'Aucune vente'
+        current: 'En cours'
+        search_sales: 'Rechercher des ventes'
         title: 'Liste des ventes'
+        unpaid: 'Impayées'
       sales_deliveries:
         address: 'Adresse de livraison'
         amount: 'Montant HT'

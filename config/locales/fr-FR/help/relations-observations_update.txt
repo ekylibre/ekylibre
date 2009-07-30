@@ -1,0 +1,6 @@
+h1. Comment modifier une observation ?
+
+Modifiez les champs désirés.
+
+
+<<relations-index|Revenir à l'aide de gestion des relations >>
