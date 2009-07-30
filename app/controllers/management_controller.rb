@@ -1010,6 +1010,16 @@ class ManagementController < ApplicationController
     t.action :deliveries_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>:are_you_sure
   end
 
+  dyta(:deliveries_to_invoice, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
+    t.column :address, :through=>:contact, :children=>:product_name
+    t.column :planned_on, :children=>false
+    t.column :moved_on, :children=>false
+    t.column :quantity
+    t.column :amount
+    t.column :amount_with_taxes
+    t.check :invoiceable, :value=>true
+  end
+
 
  
   dyta(:undelivered_quantities, :model=>:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
@@ -1199,49 +1209,21 @@ class ManagementController < ApplicationController
   end
 
   def sales_invoices
-    #raise Exception.new @current_company.parameters.find_by_name("accountancy.default_journals.sales").record_value_id.inspect
-    seq =  @current_company.parameter("management.invoicing.numeration").value
-    #raise Exception.new @current_company.parameters.find_by_name("management.invoicing.numeration").next_value.inspect
-    #raise Exception.new seq.next_value.inspect
-    #a = seq.next_value
-    #puts  seq.compute
-    #puts seq.next_value.inspect
-
     @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
-    @deliveries = Delivery.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>@sale_order.id})
-    @delivery_lines = []
-    @rest_to_invoice = false
-    for delivery in @deliveries
-      @rest_to_invoice = true if delivery.invoice_id.nil?
-      lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, delivery.id)
-      @delivery_lines += lines if !lines.nil?
-    end
+    @rest_to_invoice = @sale_order.deliveries.detect{|x| x.invoice_id.nil?}
     if request.post?
       @sale_order.update_attribute(:state, 'R') if @sale_order.state == 'I'
-      saved = false
       ActiveRecord::Base.transaction do
-        if params[:delivery].nil?
-          invoice = Invoice.find(:first, :conditions=>{:company_id=>@current_company.id, :sale_order_id=>@sale_order.id})
-          if invoice.nil?
-            saved = @current_company.invoice(@sale_order)
-          else
-            saved = true
-            flash[:message] = tc('messages.invoice_already_created')
-          end 
-        else
-          deliveries = params[:delivery].collect{|x| Delivery.find_by_id_and_company_id(x[0],@current_company.id)}
-          for delivery in deliveries
-            delivery.stocks_moves_create if !delivery.moved_on.nil?
-          end
-          saved = @current_company.invoice(deliveries)
+        deliveries = params[:deliveries_to_invoice].select{|k,v| v[:invoiceable].to_i==1}.collect do |id, attributes|
+          delivery = Delivery.find_by_id_and_company_id(id.to_i,@current_company.id)
+          delivery.stocks_moves_create if delivery and !delivery.moved_on.nil?
+          delivery
         end
-        raise ActiveRecord::Rollback unless saved
+        raise ActiveRecord::Rollback unless @current_company.invoice(deliveries)
       end
-      redirect_to :action=>:sales_invoices, :id=>@sale_order.id
+      # redirect_to :action=>:sales_invoices, :id=>@sale_order.id
     end
-    
-    
   end
   
   
@@ -1403,7 +1385,8 @@ class ManagementController < ApplicationController
     t.column :amount, :through=>:payment, :label=>tc('payment_amount')
     t.column :amount
     t.column :payment_way
-    t.column :paid_on, :through=>:payment, :label=>tc('paid_on')
+    t.column :scheduled, :through=>:payment, :datatype=>:boolean
+    t.column :paid_on, :through=>:payment, :label=>tc('paid_on'), :datatype=>:date
     t.action :payments_update, :image=>:update
     t.action :payments_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end

@@ -41,6 +41,11 @@ class Payment < ActiveRecord::Base
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :to_bank_on
 
+  def before_validation_on_create
+    self.scheduled = (self.to_bank_on>Date.today ? true : false) if self.scheduled.nil?
+    self.received = true unless self.scheduled
+  end
+
   def before_validation
     self.part_amount = self.parts.sum(:amount)
   end

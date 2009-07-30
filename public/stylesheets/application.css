@@ -8,7 +8,6 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 .stocks { padding: 5px 0 15px 0; }
 .paymentpart{ text-align:center; padding: 5px 0 5px 0; }
 .payments { text-align:center ; color:#000088;}
-.invoice { text-align:center;  padding:10px 0; font-size:15px; width: 200px;  background: #C87; border:5px solid red; margin: 20px auto; }
 .entity { text-align:right; }
 #loading { padding: 2px; text-align: center; }
 #main { overflow: auto; border-top: 1px solid #95b0e4; }
@@ -62,8 +61,8 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 
 
 #yield { padding: 8px; overflow: auto; background: url(../images/template/columns.png) repeat-x top; border: 1px solid #95b0e4; }
-#yield > h1 { margin: 0px 0px 8px; font-size:20px; color: #047;}
-#yield > h2 { margin: 16px 0px 4px; font-size:16px; color: #06A;}
+#yield h1 { margin: 0px 0px 8px; font-size:20px; color: #047;}
+#yield h2 { margin: 16px 0px 4px; font-size:16px; color: #06A;}
 #yield .menu, .errorExplanation { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px;}
 #yield .menu h2, .errorExplanation h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
 #yield .menu ul, .errorExplanation ul { padding: 4px 4px 4px 18px; }
@@ -288,3 +287,5 @@ fieldset.itemize { border: 1px solid #777; -moz-border-radius: 8px; float: left;
 fieldset.itemize legend { color: blue; margin: 0 8px; padding:2px;}
 
 
+
+.invoice { text-align:center;  padding:20px; font-size:15px; width: 200px;  background: #FDC; border:1px solid red; margin: 20px auto; }

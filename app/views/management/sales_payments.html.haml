@@ -5,8 +5,12 @@
   -link :payments_create
 =dyta :payment_parts
 
+-if @sale_order.invoices.size>0
+  %h2=tc :invoices
+  =dyta :invoices
+
 %h2=tc :financial_state
-%table.dyta
+%table.dyta{:style=>"display: none;"}
   %tr
     %th{:colspan=>3,:style=>"border-right: solid 1px red;"}= tc(:invoices)
     %th{:colspan=>3}= tc(:payments)
@@ -56,8 +60,9 @@
     %tr
       %th=tc(:rest_to_pay)
       %td=(@invoices_sum - @payments_sum)
-
-%h2=tc('client_balance')+" : "+@sale_order.client.balance.to_s
+    %tr
+      %th=tc('client_balance')
+      %td=@sale_order.client.balance.to_s
 
 - form_tag do
   .actions
