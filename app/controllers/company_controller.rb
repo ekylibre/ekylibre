@@ -422,7 +422,7 @@ class CompanyController < ApplicationController
   def listings_extract
     @listing = find_and_check(:listing, params[:id])
     query = @listing.query
-    query.gsub(/CURRENT_COMPANY/i, @current_company.id.to_s)
+    query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
     result = ActiveRecord::Base.connection.select_all(@listing.query)
     columns = result[0].keys.sort
     csv_string = FasterCSV.generate do |csv|
