@@ -17,6 +17,8 @@ class ManagementController < ApplicationController
     @embankments_to_lock = @current_company.embankments_to_lock
   end
   
+#  dyli(:contact, :attributes => [:address], :conditions => {:company_id=>['@current_company.id'], :active=>true}, :joins=>:entity, :attributes_join=>[:full_name])
+  
   dyta(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :active
@@ -171,6 +173,7 @@ class ManagementController < ApplicationController
     t.action :prices_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
   
+  
   def prices
     @modes = ['all', 'client', 'supplier']
     @suppliers = @current_company.entities.find(:all,:conditions=>{:supplier=>true})
@@ -210,10 +213,13 @@ class ManagementController < ApplicationController
         flash[:message] = tc('messages.need_product_to_create_price')
         redirect_to :action=> :products_create
       elsif !params[:product_id].nil?
+   
         @price = Price.new(:product_id=>params[:product_id])
       else
+   
         @price = Price.new(:category_id=>session[:category]||0)
       end
+
       @price.entity_id = params[:entity_id] if params[:entity_id]
     end
     render_form    
@@ -536,6 +542,9 @@ class ManagementController < ApplicationController
     t.action :purchases_print
   end
 
+  dyli(:entity, :attributes => [:full_name], :conditions => {:company_id=>['@current_company.id'], :supplier=>true})
+  dyli(:contact, :attributes => [:address], :conditions => {:entity_id=>['@current_company.entity_id']})
+
   def purchases
   end
 
@@ -679,6 +688,8 @@ class ManagementController < ApplicationController
     t.action :sale_orders_delete , :method=>:post, :if=>'RECORD.state == "P"'
   end
   
+ # dyli(:price, :attributes => [:product_name, :amount], :conditions => {:company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id'], :category_id=>['@sale_order.client.category.id'], :active=>true}, :joins=>:currency, :attributes_join=>[:code])
+
   def sale_orders_delete
     @sale_order = find_and_check(:sale_order, params[:id])
     if request.post? or request.delete?
@@ -1241,6 +1252,8 @@ class ManagementController < ApplicationController
     t.action :embankments_update, :if=>'RECORD.locked == false'
     t.action :embankments_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.locked == false'
   end
+
+#  dyli(:bank_account, :attributes => [:name], :conditions => {:company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
   dyta(:embankment_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :embankment_id=>['session[:embankment_id]']}) do |t|
     t.column :full_name, :through=>:entity

@@ -26,14 +26,17 @@ module Ekylibre
               model = options[:model].to_s.camelize.constantize
             end
             
-             unless options[:joins].nil?
+                    
+            unless options[:joins].nil?
                model_join = options[:joins].to_s.pluralize#.camelize.constantize
              end
 
-            select = options[:model].to_s.pluralize.to_s+'.id, '
-            select += options[:attributes].each do |attribute|
+            names_db = name_db.to_s.pluralize
+
+            select = names_db.to_s+'.id, '
+            select += names_db.to_s+"."+options[:attributes].each do |attribute|
               attribute.to_s
-            end.join(',')
+            end.join(', '+names_db.to_s+'.')
 
             displays = {}
             displays[:attributes]= options[:attributes]
@@ -45,24 +48,23 @@ module Ekylibre
                 select += options[:joins].to_s.first.to_s+'.'+join.to_s
               end.join(',')
             end
-
+            
             code = ""
             
             #
             code += "def dyli_"+name_db.to_s+"\n"
             code += "conditions = [\"\"]\n"
-            #code += "search = params[:"+model.to_s.lower.to_s+"][:search].downcase\n"
             code += "search = params[:search].downcase\n"
             options[:conditions].collect do |key, value| 
               code += "conditions << "+sanitize_conditions(value)+"\n"
-              code += "conditions[0] += '"+options[:model].to_s.pluralize+"."+key.to_s+" = ? AND '\n"
+              code += "conditions[0] += '"+names_db.to_s+"."+key.to_s+" = ? AND '\n"
             end
-            code += "conditions[0 ] += '"+options[:model].to_s.pluralize+".id = '+params[:real_object].to_s+' AND ' unless params[:real_object].nil?\n"
+            code += "conditions[0 ] += '"+names_db.to_s+".id = '+params[:real_object].to_s+' AND ' unless params[:real_object].nil?\n"
             code += "conditions[0] += '('\n"
             code += "conditions[0] += "+options[:attributes].inspect+".collect do |attribute|\n"
             code += "format = ("+options[:filter].inspect+"[attribute] ||'%X%').gsub('X', search)\n"
             code += "conditions << format\n"
-            code += "'LOWER("+options[:model].to_s.pluralize+".'+attribute.to_s+') LIKE ? '\n"
+            code += "'LOWER("+names_db.to_s+".'+attribute.to_s+') LIKE ? '\n"
             code += "end.join(\" OR \")\n"
             
             if model_join
@@ -92,11 +94,6 @@ module Ekylibre
             end
             code += "end\n"        
             
-            f=File.open('dyl.rb', 'wb')
-            f.write(code)
-            f.close
-            puts module_eval(code)
-
             code += "def dyli_one_"+name.to_s+"\n"
             code += "search = params[:search].downcase\n"
             code += "conditions = [\"\"]\n"
@@ -130,7 +127,6 @@ module Ekylibre
             code += "render :inline => content_tag('li', @li_content.to_s+tag('input', :type =>'hidden', :value =>@item.send(:id).to_s, :id =>'record'), :id => li_id) \n"
            
 
-
             code += "end\n"        
            
             module_eval(code)
@@ -161,26 +157,12 @@ module Ekylibre
  
                #
         def dyli_tag(name_html, name_db, options={}, tag_options={}, completion_options={})
-          #real_object  = instance_variable_get("@#{object}")
-          #foreign_key  = real_object.class.reflect_on_association(association).primary_key_name
-          
-          #raise Exception.new("You must inform the parameter nameDB.") unless nameDB
-          #name = options[:dyli] || association.to_s
-          #name = name_db || association.to_s
-          
-          #tf_name  = "#{association}[search]"
-          #tf_name  = "#{name_html}[search]"
           tf_name  = "[search]"
           tf_value = nil
-          
-          #hf_name  = "#{object}[#{foreign_key}]"
           hf_name  = "#{name_html}"
           hf_value =  nil
-          #hf_value = (real_object.send(foreign_key) rescue nil)
-          #options  = { :action => "dyli_#{name}"}.merge(options)
           options  = {:action => "dyli_#{name_db}"}.merge(options)
-          #options[:real_object] = real_object.send(foreign_key) unless real_object.new_record?
-           
+          
           completion_options[:skip_style] = true;
           
           dyli_completer(tf_name, tf_value, hf_name, hf_value, options, tag_options, completion_options)
@@ -189,14 +171,14 @@ module Ekylibre
        
         #
         def dyli(object, association, name_db, options={}, tag_options={}, completion_options={})
-          real_object  = instance_variable_get("@#{object}")
-          foreign_key  = real_object.class.reflect_on_association(association).primary_key_name
-          
-          #raise Exception.new("You must inform the parameter nameDB.") unless nameDB
-          #name = options[:dyli] || association.to_s
+          real_object = instance_variable_get("@#{object}")
+          association = association.to_s[0..-4].to_sym if association.to_s.match(/_id$/)
+          reflection  = real_object.class.reflect_on_association(association)
+          raise Exception.new("Unknown reflection #{association} for #{real_object.class}") if reflection.nil?
+          foreign_key = reflection.primary_key_name
+                    
           name = name_db || association.to_s
           
-         # tf_name  = "#{association}[search]"
           tf_name  = "[search]"
           tf_value = nil
           
@@ -245,6 +227,7 @@ module Ekylibre
           
           options[:submit_on_return] = options[:send_on_return] if options[:send_on_return]
           
+         
           hf_id, tf_id = determine_field_ids(options)
           determine_tag_options(tf_name, tf_value, hf_id, tf_id, options, tag_options)
           determine_completion_options(tf_id, hf_id, options, completion_options)
@@ -334,6 +317,7 @@ module Ekylibre
         def determine_tag_options(tf_name, tf_value, hf_id, tf_id, options, tag_options)
           tag_options.update({
                                :id      => tf_id,
+                               
                                # Cache the default text field value when the field gets focus.
                               # :onfocus => "this.value  = 4"
                                #:onfocus => "if (this.dyli == undefined) {this.dyli = this.value}"

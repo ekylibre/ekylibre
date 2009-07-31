@@ -688,6 +688,11 @@ module ApplicationHelper
         html_options.delete :size
         html_options.delete :maxlength
       end
+      if options[:choices].is_a? Symbol
+        options[:field] = :dyli
+        html_options.delete :size
+        html_options.delete :maxlength
+      end
 
       options[:options] ||= {}
       input = case options[:field]
@@ -701,6 +706,8 @@ module ApplicationHelper
                 options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
                 select record, method, options[:choices], options[:options], html_options
                 #select " ", options[:choices], options[:options], html_options
+              when :dyli
+                dyli record, method, options[:choices], options[:options], html_options
               when :radio
                 options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s)}.join " "
               when :textarea
@@ -711,7 +718,7 @@ module ApplicationHelper
                 text_field record, method, html_options
               end
       #      input += content_tag(:strong, options[:field].to_s)
-      if options[:field] == :select and options[:new].is_a? Hash
+      if [:select, :dyli].include?(options[:field]) and options[:new].is_a? Hash
         label = tg(options[:new].delete(:label)||:new)
         input += link_to(label, options[:new], :class=>:fastadd)
       end

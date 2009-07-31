@@ -268,6 +268,7 @@ class RelationsController < ApplicationController
     t.action :entities_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
+  dyli(:entity, :attributes=>[:full_name], :conditions =>{:company_id=>['@current_company.id']})
   #
   def entities_print
     @entity = find_and_check(:entity, params[:id])
@@ -375,8 +376,6 @@ class RelationsController < ApplicationController
     @entity_links = @current_company.entity_links.find(:all, :conditions=>["stopped_on IS NULL AND (entity1_id = ? OR entity2_id = ?)",@entity.id, @entity.id]).size
     @title = {:value=>@entity.full_name}
   end
-
-
 
   
   def client_informations
@@ -836,7 +835,7 @@ class RelationsController < ApplicationController
      
   def mandates_create
     @entity = find_and_check(:entity, params[:id]||session[:current_entity])
-    @entities = @current_company.entities
+    # @entities = @current_company.entities
     if request.post?
       @mandate = Mandate.new(params[:mandate])
       @mandate.company_id = @current_company.id
@@ -849,7 +848,7 @@ class RelationsController < ApplicationController
   end
   
   def mandates_update
-    @entities = @current_company.entities
+    # @entities = @current_company.entities
     @mandate = Mandate.find_by_id_and_company_id(params[:id], @current_company.id)
        
     if request.post? and @mandate

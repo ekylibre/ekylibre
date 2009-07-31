@@ -69,9 +69,8 @@ class AccountancyController < ApplicationController
     t.action :financialyears_delete, :method => :post, :image =>:delete, :confirm=>:are_you_sure, :if => '!RECORD.closed'  
   end
 
-  dyli(:account_search, :attributes => [:number, :name], :conditions => {:company_id=>['@current_company.id']}, :model => :account)
-  dyli(:entity, :attributes => [:full_name], :conditions => {:company_id=>['@current_company.id']}, :model => :entity)
-
+  dyli(:account, :attributes => [:number, :name], :conditions => {:company_id=>['@current_company.id']})
+ 
   # 
   def index
     @entries = @current_company.entries

@@ -277,23 +277,14 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 #table.entries tr.even td{:background: #A3FCFF;}
 
 
-/* all the styles used by the plugin Dyli.*/
-/* div.dyli_complete {width: 350px;} */
-/* div.dyli_complete ul {position: fixed; border:1px solid #888; margin:0; padding:0; width:30%; list-style-type:none;} */
-/* div.dyli_complete ul li {background-color:  #C9D7F1; margin:0; padding:3px;} */
-/* div.dyli_complete ul li.selected {background-color: #B1D1F9;} */
-/* div.dyli_complete ul strong.highlight {color: #800; margin:0; padding:0;} */
-
-div.toto_complete {width: 350px;} 
-div.toto_complete ul {position: fixed; border:1px solid #888; margin:0; padding:0; width:30%; list-style-type:none;} 
-div.toto_complete ul li {background-color:  #C9D7F1; margin:0; padding:3px;} 
-div.toto_complete ul li.selected {background-color: #B1D1F9;} 
-div.toto_complete ul strong.highlight {color: #800; margin:0; padding:0;} 
-
+/*all the styles used by the plugin Dyli.*/
+div.dyli_complete {width: 350px;}
+div.dyli_complete ul {position: fixed; border:1px solid #888; margin:0; padding:0; width:30%; list-style-type:none;}
+div.dyli_complete ul li {background-color:  #C9D7F1; margin:0; padding:3px;}
+div.dyli_complete ul li.selected {background-color: #B1D1F9;}
+div.dyli_complete ul strong.highlight {color: #800; margin:0; padding:0;}
 
 fieldset.itemize { border: 1px solid #777; -moz-border-radius: 8px; float: left; margin:8px;}
 fieldset.itemize legend { color: blue; margin: 0 8px; padding:2px;}
-
-
 
 .invoice { text-align:center;  padding:20px; font-size:15px; width: 200px;  background: #FDC; border:1px solid red; margin: 20px auto; }
