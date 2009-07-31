@@ -48,6 +48,10 @@ class PurchaseOrder < ActiveRecord::Base
        self.amount_with_taxes += line.amount_with_taxes
      end
   end
+
+  def after_create
+    self.supplier.add_event(:purchase_order, self.updater_id) if self.updater
+  end
   
   def refresh
     self.save

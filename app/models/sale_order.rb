@@ -23,11 +23,13 @@
 #  introduction        :text          
 #  invoice_contact_id  :integer       not null
 #  invoiced            :boolean       not null
+#  letter_format       :boolean       default(TRUE), not null
 #  lock_version        :integer       default(0), not null
 #  nature_id           :integer       not null
 #  number              :string(64)    not null
 #  parts_amount        :decimal(16, 2 
 #  payment_delay_id    :integer       not null
+#  responsible_id      :integer       
 #  state               :string(1)     default("O"), not null
 #  subject             :string(255)   
 #  sum_method          :string(8)     default("wt"), not null
@@ -95,6 +97,11 @@ class SaleOrder < ActiveRecord::Base
     end
   end
   
+  def after_create
+    self.client.add_event(:sale_order, self.updater_id)
+    true
+  end
+
   def refresh
     self.save
   end

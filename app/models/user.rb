@@ -70,6 +70,15 @@ class User < ActiveRecord::Base
     self.first_name+' '+self.last_name
   end
 
+  def toto(nature, entity)
+    if self.employee
+      event_natures = self.company.event_natures.find_all_by_usage(nature.to_s)
+      event_natures.each do |event_nature|
+#        self.company.events.create!(:started_at=>Time.now, :nature_id => event_nature.id, :duration=>event_nature.duration, :entity_id=>entity.id, :employee_id=>self.employee.id)
+      end
+    end
+  end
+  
   def rights_array
     self.rights.to_s.split(" ").collect{|x| x.to_sym}
   end
@@ -136,6 +145,7 @@ class User < ActiveRecord::Base
   def authenticated?(password)
     self.hashed_password == User.encrypted_password(password, self.salt)
   end
+  
 
   private
 
@@ -179,6 +189,7 @@ class User < ActiveRecord::Base
       end
     end
   end
-
+  
+  
   User.initialize_rights
 end

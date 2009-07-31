@@ -61,11 +61,11 @@ class Entity < ActiveRecord::Base
   has_many :bank_accounts
   has_many :complement_data
   has_many :contacts, :conditions=>{:active=>true}
+  has_many :events
   has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity1_id
   has_many :indirect_links, :class_name=>EntityLink.name, :foreign_key=>:entity2_id
   has_many :invoices, :foreign_key=>:client_id
   has_many :mandates
-  has_many :meetings
   has_many :observations
   has_many :payments
   has_many :usable_payments, :conditions=>["parts_amount<amount"], :class_name=>Payment.name
@@ -203,6 +203,16 @@ class Entity < ActiveRecord::Base
   def warning
     count = self.observations.find_all_by_importance("important").size
     #count += self.balance<0 ? 1 : 0
+  end
+
+  def add_event(nature, user_id)
+    employee = self.company.employees.find_by_user_id(user_id)
+    if employee
+      event_natures = self.company.event_natures.find_all_by_usage(nature.to_s)
+      event_natures.each do |event_nature|
+        self.company.events.create!(:started_at=>Time.now, :nature_id => event_nature.id, :duration=>event_nature.duration, :entity_id=>self.id, :employee_id=>employee.id)
+      end
+    end
   end
 
 end 

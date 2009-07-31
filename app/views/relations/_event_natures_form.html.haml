@@ -1,4 +1,5 @@
 = formalize do |f|
   - f.error :event_nature
   - f.field :event_nature, :name
+  - f.field :event_nature, :usage, :choices=>EventNature.usages
   - f.field :event_nature, :duration

@@ -15,6 +15,7 @@
 #  lock_version        :integer       default(0), not null
 #  name                :string(255)   not null
 #  payment_delay_id    :integer       not null
+#  payment_type        :string(255)   
 #  updated_at          :datetime      not null
 #  updater_id          :integer       
 #

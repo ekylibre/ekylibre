@@ -69,8 +69,7 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
     part 60.mm do
       set 0, 15.mm do 
         text "Conditions générales :", :bold=>:bold
-        text "1.  Ce devis et ses conditions générales sont valables jusqu'au "+I18n.localize(@sale_order.expired_on, :format=>:month_letter), :size=>8, :bold=>:bold, :top=>10.mm, :left=>10.mm
-        #if @sale_order.payment_delay.
+        text "1.  Ce devis et ses conditions générales sont valables jusqu'au "+I18n.localize(@sale_order.expired_on, :format=>:month_letter), :size=>7, :bold=>:bold, :top=>10.mm, :left=>10.mm
       end
     end
   end

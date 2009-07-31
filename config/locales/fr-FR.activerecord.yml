@@ -57,8 +57,8 @@ fr-FR:
       entity_nature: 'Type de relation'
       entry: 'Écriture'
       establishment: 'Établissement'
-      event: (((EVENT)))
-      event_nature: (((EVENT_NATURE)))
+      event: 'Événement'
+      event_nature: 'Type d''événement'
       financialyear: 'Exercice'
       inventory: 'Inventaire'
       inventory_line: 'Ligne d''inventaire'
@@ -720,6 +720,7 @@ fr-FR:
         name: 'Nom'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
+        usage: 'Utilisation'
 
       # Exercice
       financialyear:

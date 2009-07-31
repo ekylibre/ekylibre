@@ -78,6 +78,10 @@ class Invoice < ActiveRecord::Base
     end
   end
 
+  def after_create
+    self.client.add_event(:invoice, self.updater_id) if self.updater
+  end
+
   def self.generate(company_id, records)
     # puts "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"+records.class.to_s
     invoice = Invoice.new(:company_id=>company_id, :nature=>"S")

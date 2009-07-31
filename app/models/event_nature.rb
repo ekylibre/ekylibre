@@ -21,7 +21,12 @@ class EventNature < ActiveRecord::Base
   attr_readonly :company_id, :name
 
   
-  def before_validation_on_create
+  def self.usages
+    [:manual, :sale_order, :purchase_order, :invoice].collect{|x| [tc('usages.'+x.to_s), x] }
+  end
+  
+  def text_usage
+    self.usage.blank? ? "" :   tc('usages.'+self.usage.to_s)
   end
 
 end
