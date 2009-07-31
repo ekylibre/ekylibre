@@ -14,6 +14,7 @@ table.dyta tr.root td {font-weight: bold; }
 table.dyta tr      td {padding: 0px 2px;color: #007;}
 table.dyta tr      td.chk { text-align:center}
 table.dyta tr      td.act { padding: 1px; width:16px;}
+table.dyta tr      td.act a {padding: 0; margin: 0;}
 table.dyta tr.odd  td.act { background: #E5D9DD; } /* #FDD; }*/
 table.dyta tr.even td.act { background: #F2E4DD; } /*#FED; }*/
 table.dyta tr.odd  td.sorted { background: #d6dbf9; } /* #FDD; }*/

@@ -1642,8 +1642,8 @@ class ManagementController < ApplicationController
     t.column :name
     t.column :read_nature
     t.column :actual_number
-    t.action :subscription_natures_down, :method=>:post, :if=>"RECORD.nature=='quantity'"
-    t.action :subscription_natures_up, :method=>:post, :if=>"RECORD.nature=='quantity'"
+    t.action :subscription_natures_increment, :method=>:post, :if=>"RECORD.nature=='quantity'"
+    t.action :subscription_natures_decrement, :method=>:post, :if=>"RECORD.nature=='quantity'"
     t.action :subscription_natures_display
     t.action :subscription_natures_update
   end
@@ -1676,7 +1676,7 @@ class ManagementController < ApplicationController
     redirect_to :action=>:subscriptions, :nature=>@subscription_nature.id
   end
 
-  def subscription_natures_up
+  def subscription_natures_increment
     if request.post?
       #raise Exception.new "tt"+params.inspect
       @subscription_nature = find_and_check(:subscription_nature, params[:id])
@@ -1689,7 +1689,7 @@ class ManagementController < ApplicationController
     end
   end
 
-  def subscription_natures_down
+  def subscription_natures_decrement
     if request.post?
       @subscription_nature = find_and_check(:subscription_nature, params[:id])
       if !@subscription_nature.nil?

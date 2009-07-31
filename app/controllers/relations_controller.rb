@@ -925,7 +925,7 @@ class RelationsController < ApplicationController
   def events_create
     @entity = find_and_check(:entity, params[:entity_id]) if params[:entity_id]
     @entity = find_and_check(:entity, session[:current_entity]) if @entity.nil? && session[:current_entity]
-    @event = Event.new(:entity_id=>(@entity ? @entity.id : nil), :duration=>@current_company.event_natures.find(:first).duration)
+    @event = Event.new(:entity_id=>(@entity ? @entity.id : nil), :duration=>(@current_company.event_natures.size>0 ? @current_company.event_natures.find(:first).duration : 0), :started_at=>Time.now)
     @event.employee = @current_user.employee
     if request.post?
       @event = Event.new(params[:event])

@@ -4,8 +4,8 @@
       %td.label=tc('select_number')
       %td=text_field(:subscription, :value, :size=>6, :value=>session[:subscription_instant]||@subscription_nature.actual_number)
       %td
-        =link_to image_tag("buttons/plus.png"),  {:action=>:subscription_natures_up,   :id=>@subscription_nature.id} , {:method=>:post, :class=>:act}
-        =link_to image_tag("buttons/minus.png"), {:action=>:subscription_natures_down, :id=>@subscription_nature.id}, {:method=>:post, :class=>:act}
+        =link_to image_tag("buttons/increment.png"), {:action=>:subscription_natures_increment, :id=>@subscription_nature.id}, {:method=>:post, :class=>:act}
+        =link_to image_tag("buttons/decrement.png"), {:action=>:subscription_natures_decrement, :id=>@subscription_nature.id}, {:method=>:post, :class=>:act}
 -elsif @subscription_nature.nature == "period"
   %table
     %tr

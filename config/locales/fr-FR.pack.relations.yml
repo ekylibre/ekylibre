@@ -125,10 +125,10 @@ fr-FR:
           zero: 'Aucun lien'
         entity_links_create: 'Ajouter un nouveau lien'
         events:
-          one: '1 événement'
-          other: '{{count}} événements '
-          zero: 'Aucun événement'
-        events_create: 'Ajouter un événement'
+          one: '1 évènement'
+          other: '{{count}} évènements '
+          zero: 'Aucun évènement'
+        events_create: 'Ajouter un évènement'
         invoices:
           one: '1 facture'
           other: '{{count}} factures'
@@ -217,19 +217,19 @@ fr-FR:
       entity_links_update:
         title: 'Modification du lien'
       event_natures:
-        event_natures_create: 'Ajout d''un type d''événement'
-        title: 'Types d''événements'
+        event_natures_create: 'Ajout d''un type d''évènement'
+        title: 'Types d''évènements'
       event_natures_create:
-        title: 'Ajouter un type d''événement'
+        title: 'Ajouter un type d''évènement'
       event_natures_update:
-        title: 'Modification du type d''événement "{{value}}"'
+        title: 'Modification du type d''évènement "{{value}}"'
       events:
-        events_create: 'Ajouter un événement'
-        title: 'Évenements'
+        events_create: 'Ajouter un évènement'
+        title: 'Évènements'
       events_create:
-        title: 'Ajout d''un événement'
+        title: 'Ajout d''un évènement'
       events_update:
-        title: 'Modification d''un événement'
+        title: 'Modification d''un évènement'
       _general_description_form:
         title: 'Description générale'
       index:
@@ -242,8 +242,8 @@ fr-FR:
         entities_natures: 'Types de fiches'
         entity_categories: 'Catégories de fiches'
         entity_link_natures: 'Types de liens'
-        event_natures: 'Types d''évenements'
-        events: 'Évenements'
+        event_natures: 'Types d''évènements'
+        events: 'Évènements'
         import_export: 'Import/Export de fiches'
         mandates: 'Responsabilités'
         nb_entities:
