@@ -1250,12 +1250,14 @@ fr-FR:
         introduction: 'Introduction'
         invoice_contact_id: 'Adresse pour la facture'
         invoiced: (((INVOICED)))
+        letter_format: 'Devis au format lettre'
         lock_version: 'Version'
         nature: 'Nature'
         nature_id: 'Nature'
         number: 'Numéro'
         parts_amount: (((PARTS_AMOUNT)))
         payment_delay_id: 'Délai de paiement'
+        responsible_id: 'Responsable'
         sale: 'Vente'
         state: 'État'
         subject: 'Objet'

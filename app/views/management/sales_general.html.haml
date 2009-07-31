@@ -7,6 +7,7 @@
       - f.field :sale_order, :client_id, :choices=>@current_company.available_entities(:conditions=>{:client=>true}, :order=>:name).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations, :action=>:entities_create}
       - f.title :conditions
       - f.field :sale_order, :nature_id, :choices=>@current_company.sale_order_natures.collect{|x| [x.name, x.id]}
+      - f.field :sale_order, :responsible_id, :choices=>@current_company.employees.collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:resources, :action=>:employees_create}
       - f.field :sale_order, :contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create}
       - f.field :sale_order, :delivery_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create}
       - f.field :sale_order, :invoice_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create}
@@ -18,6 +19,7 @@
       - f.field t('activerecord.attributes.sale_order.delivery_contact_id'), @sale_order.delivery_contact.address
       - f.field t('activerecord.attributes.sale_order.invoice_contact_id'), @sale_order.invoice_contact.address
     - f.field :sale_order, :comment, :field=>:textarea
+    - f.field :sale_order, :letter_format
     - f.title :letter
     - f.field :sale_order, :subject
     - f.field :sale_order, :function_title
