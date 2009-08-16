@@ -160,10 +160,13 @@ module Ekylibre
             code += "    body = ''\n"
             code += "    for #{record} in @"+name.to_s+"\n"
             code += "      line_class = ' '+"+options[:line_class].to_s.gsub(/RECORD/,record)+".to_s\n" unless options[:line_class].nil?
-            code += "      body += content_tag(:tr, ("+body+"), :class=>'data '+cycle('odd','even', :name=>'dyta')"+(options[:line_class].nil? ? '' : "+line_class")+")\n"
+            code += "      line_style = ' '+"+options[:line_style].to_s.gsub(/RECORD/,record)+".to_s\n" unless options[:line_style].nil?
+            opt_line_class = (options[:line_class].nil? ? '' : "+line_class")
+            opt_line_style = (options[:line_style].nil? ? '' : "+line_style")
+            code += "      body += content_tag(:tr, ("+body+"), :class=>'data '+cycle('odd','even', :name=>'dyta')"+opt_line_class+opt_line_style+")\n"
             if children
               code += "      for #{child} in #{record}.#{children}\n"
-              code += "        body += content_tag(:tr, ("+child_body+"), :class=>'data child '+cycle('odd','even', :name=>'dyta')"+(options[:line_class].nil? ? '' : "+line_class")+")\n"
+              code += "        body += content_tag(:tr, ("+child_body+"), :class=>'data child '+cycle('odd','even', :name=>'dyta')"+opt_line_class+opt_line_style+")\n"
               code += "      end\n"
             end
             code += "    end\n"
@@ -226,13 +229,15 @@ module Ekylibre
                 case column.nature
                 when :column
                   style = column.options[:style]||''
+                  style = style.gsub(/RECORD/, record)+"+" if style.match(/RECORD/)
+                  style += "'"
                   css_class = column.options[:class] ? ' '+column.options[:class].to_s : ''
                   datum = column.data(record, nature==:children)
                   if column.datatype == :boolean
                     datum = value_image2(datum)
-                    style = 'text-align:center;'
+                    style += 'text-align:center;'
                   end
-                  if column.datatype == :date
+                  if [:date, :datetime, :timestamp].include? column.datatype
                     datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
                   end
                   if column.datatype == :decimal
@@ -243,7 +248,7 @@ module Ekylibre
                     css_class += ' url'
                   elsif column.options[:mode] == :download# and !datum.nil?
                     datum = 'link_to('+value_image(:download)+', url_for_file_column('+column.data(record)+",'"+column.name+"'))"
-                    style = 'text-align:center;'
+                    style += 'text-align:center;'
                     css_class += ' act'
                   elsif column.options[:mode]||column.name == :email
                     # datum = 'link_to('+datum+', "mailto:#{'+datum+'}")'
@@ -255,7 +260,7 @@ module Ekylibre
                   end
                   if column.options[:name]==:color
                     css_class += ' color'
-                    style = "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
+                    style += "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
                   end
                   if column.name==:code
                     css_class += ' code'
@@ -264,13 +269,13 @@ module Ekylibre
                     datum = "(#{datum}.nil? ? '' : '<nobr>'+#{value_image2(datum,'countries')}+'&nbsp;'+::I18n.translate('countries.'+#{datum}))+'</nobr>'"
                   end
                   code += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"+column_sort
-                  code += ", :style=>'"+style+"'" unless style.blank?
+                  code += ", :style=>"+style+"'" unless style[1..-1].blank?
                   code += ")"
                 when :check
                   code += "content_tag(:td,"
                   if nature==:body 
-                    code += "hidden_field_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id=>nil)+"
-                    code += "check_box_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name.to_s}, :id=>'#{definition.name}_'+#{record}.id.to_s+'_#{column.name}')"
+                    code += "check_box_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name.to_s}, :id=>'#{definition.name}_'+#{record}.id.to_s+'_#{column.name}')+"
+                    code += "hidden_field_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id=>nil)"
                   else
                     code += "''"
                   end
