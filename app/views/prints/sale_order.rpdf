@@ -2,48 +2,69 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
 
   @order = @sale_order.state != "P" 
   
-  part 90.mm do
+  part 80.mm do
     set  do
       text @current_company.name, :size=>7.mm
-      set 0, 5.mm do
-        top = 10
+      set  do
+        top = 0
         for line in @lines
-          text line, :size=>10, :top=>top
-          top += 12
+          text line,:size=>9, :top=>top, :left=>width, :align=>:right
+          top += 11
         end
       end
       set 100.mm, 35.mm do
-        text @sale_order.client.full_name, :size=>11, :font=>"courier"
+        text @sale_order.client.full_name, :size=>11, :font=>"helvetica"
         top2 = 12
         for address in  @client_address
-          text address, :size=>11, :top=>top2, :font=>"courier"
+          text address, :size=>11, :top=>top2, :font=>"helvetica"
           top2 += 12
         end
       end
     end
   end
 
-  part 25.mm do    
+  part 20.mm do    
     set do
-      if @current_company.default_contact.line_6.nil?
-        text "Le "+I18n.localize(@sale_order.created_on, :format=>:month_letter)
+      if @current_company.default_contact.area.city_name.nil?
+        text "Le "+I18n.localize(@sale_order.created_on, :format=>:month_letter), :left=>width, :align=>:right
       else
-        text "À "+@current_company.default_contact.line_6+", le "+I18n.localize(@sale_order.created_on, :format=>:month_letter)
+        text "À "+@current_company.default_contact.area.city_name+", le "+I18n.localize(@sale_order.created_on, :format=>:month_letter),  :left=>width, :align=>:right
       end
     end
     state = @sale_order.state == "P" ? "Devis n° " : "Commande n° "
     set do
-      text state+@sale_order.number, :left=>width/2, :align=>:center, :bold=>:bold, :size=>14, :top=>10.mm
+      text state+@sale_order.number, :left=>width/2, :align=>:center, :bold=>:bold, :size=>14, :top=>5.mm
     end
 
+    set do 
+      abbreviation = @sale_order.client.nature.abbreviation == "-" ? "" : @sale_order.client.nature.abbreviation 
+      text "Entre "+@current_company.name+", "+@sale_order.responsible.full_name+" et "+abbreviation+" "+@sale_order.client.full_name+".", :top=>13.mm
+    end
   end 
 
+  if !@order and @sale_order.letter_format and !@sale_order.function_title.blank?
+    part 7.mm do 
+      set do 
+        text @sale_order.function_title, :bold=>:bold, :left=>10.mm
+      end
+    end
+  end
+
+  if !@order and @sale_order.letter_format and !@sale_order.introduction.blank?
+    part 7.mm do 
+      set do 
+        text @sale_order.introduction
+      end
+    end
+  end
+
   table @sale_order.lines, :fixed=>true do 
-    column "Produit", 'product.name', 80.mm
-    column "Qté.", 'quantity', 20.mm
-    column "PU HT", 'price.amount', 25.mm, :numeric=>:money
-    column "Montant HT", 'amount', 25.mm, :numeric=>:money
-    column "Montant T.V.A. ", '(amount_with_taxes-amount)', 25.mm
+    column "Code", "product.code", 21.mm
+    column "Désignation", 'product.name', 80.mm
+    column "Qté.", 'quantity', 15.mm
+    column "PU HT", 'price.amount', 20.mm, :numeric=>:money
+    column "Montant HT", 'amount', 20.mm, :numeric=>:money
+    column "Mont T.V.A. ", '(amount_with_taxes-amount)', 20.mm
     column "T.V.A.", '(price.tax.amount*100).to_s+" %"', 15.mm, :align=>:center
   end
 
@@ -64,16 +85,54 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
     end
   end
 
-
+  if @sale_order.nature.payment_type == "check" and !@order
+    part 10.mm do
+      set do
+        text "Mode de paiement : ", :bold=>:bold
+        text "Chèque bancaire à l'ordre ", :left=>31.mm
+        text @current_company.name, :bold=>:bold,  :left=>68.mm
+      end
+    end
+  end
+  
   if !@order
-    part 60.mm do
-      set 0, 15.mm do 
+    part 45.mm do
+      set  do 
         text "Conditions générales :", :bold=>:bold
-        text "1.  Ce devis et ses conditions générales sont valables jusqu'au "+I18n.localize(@sale_order.expired_on, :format=>:month_letter), :size=>7, :bold=>:bold, :top=>10.mm, :left=>10.mm
+        text "1.  Ce devis et ses conditions générales sont valables jusqu'au "+I18n.localize(@sale_order.expired_on, :format=>:month_letter), :size=>7, :bold=>:bold, :top=>7.mm, :left=>5.mm
+        if @sale_order.nature.downpayment_rate > 0
+          text "2.  Un accompte de "+(@sale_order.nature.downpayment_rate*100).to_s+"% (soit "+(@sale_order.nature.downpayment_rate*@sale_order.amount_with_taxes).round(2).to_s+" "+@current_company.currencies.find(:first).code+") sera réglé à la signature de présent devis", :size=>7, :bold=>:bold, :top=>10.mm, :left=>5.mm
+        end
+        text "3.  Toute intervention supplémentaire nécessaire à la bonne conduite du dossier fera l'objet d'un devis supplémentaire.", :size=>7, :top=>13.mm, :left=>5.mm
+        text "4.  Nos factures sont payables 30 jours après leur émission.", :size=>7, :top=>16.mm, :left=>5.mm
+        text "5.  Les prestations ne pourront débuter qu'après acceptation du présent contrat.", :size=>7, :top=>19.mm, :left=>5.mm
+        text "6.  Dans le cas ou la mission s'arrête avant son terme pour des raisons indépendantes de "+@current_company.name+", le temps consacré sur le dossier sera facturé.", :size=>7, :top=>22.mm, :left=>5.mm
+        text "7.  "+@current_company.name+" s'engage à respecter le secret professionnel et à ne délivrer à un tiers informations ou documents qu'après accord du client.", :size=>7, :top=>25.mm, :left=>5.mm
+        text "8.  "+@current_company.name+" n'effectue aucune estimation de valeur de biens, de créances et de tous éléments nécessaires au dossier, objet du présent ordre de mission.", :size=>7, :top=>28.mm, :left=>5.mm
+        text "9.  La qualité des prestations ou leur règlement ne sauraient être conditionnés par les décisions des organismes bancaires, administratifs ou professionnels en prolongement des études produites.", :size=>7, :top=>31.mm, :left=>5.mm
+        text "10.  La validité de ce devis est conditionnée par la délivrance des documents et informations nécessaires à l'ouverture du dossier dans le délai d'un mois à compter de l'acceptation du devis par le signataire.", :size=>7, :top=>34.mm, :left=>5.mm
       end
     end
   end
 
+  if !@order and @sale_order.letter_format
+    part 15.mm do 
+      set do 
+        text "Dans la case ci-contre, veuillez dater, porter la mention 'Bon pour accord'", :bold=>:bold
+        text "et apposer votre signature.", :bold=>:bold, :top=>6.mm, :left=>30.mm
+        rectangle 75.mm, 10.mm, :left=>115.mm
+      end
+    end
+  end
+  
+  if !@order and @sale_order.letter_format and !@sale_order.conclusion.blank?
+    part 7.mm do 
+      set do 
+        text @sale_order.conclusion
+      end
+    end
+  end
+  
 
   if @order
     part 20.mm do
@@ -101,8 +160,8 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
 
   part 5.mm do
   end
-  
-  part 30.mm do
+
+  part 25.mm do
     set do
       line [[0,1.mm], [width,1.mm]], :width=>0.5
       text "Devis n° "+@sale_order.number, :size=>10, :align=>:left, :top=>4.mm

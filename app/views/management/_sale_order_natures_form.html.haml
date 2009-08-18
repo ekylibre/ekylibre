@@ -4,6 +4,7 @@
   - f.field :sale_order_nature, :active
   - f.field :sale_order_nature, :comment, :field=>:textarea
   - f.title :conditions
+  - f.field :sale_order_nature, :payment_type, :choices=>SaleOrderNature.payment_types
   - f.field :sale_order_nature, :expiration_id, :choices=>@current_company.delays.collect{|x| [x.name, x.id]}
   - f.field :sale_order_nature, :payment_delay_id, :choices=>@current_company.delays.collect{|x| [x.name, x.id]}
   - f.field :sale_order_nature, :downpayment

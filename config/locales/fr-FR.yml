@@ -319,6 +319,10 @@ fr-FR:
         R: Règlements
         F: Clôturée
       sale: Vente
+    sale_order_nature:
+      payment_types:
+        check: 'Chèque bancaire'
+        none: 'Aucun'
     purchase_order_line: 
       stock_location_can_not_receive_product : 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
     sale_order_line:
@@ -379,6 +383,9 @@ fr-FR:
     hint: 'Astuce&nbsp;: {{value}}'
     indicator: 'Tableau de bord'
     info: 'Information&nbsp;: {{value}}'
+    letter_conclusion: ' Veuillez agréer Chère Madame, Cher Monsieur, l''expression de mes salutations distinguées.'
+    letter_function_title: 'Chère Madame, Cher Monsieur'
+    letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
     lock: 'Verrouiller'
     n: non
     next: Suivant

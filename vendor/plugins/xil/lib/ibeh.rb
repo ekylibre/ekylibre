@@ -78,8 +78,8 @@ module Ibeh
       @margin[2] ||= @margin[0]
       @margin[3] ||= @margin[1]
       @env = {}
-      variable(:font_size, 12)
-      variable(:font_name, "Helvetica")
+      variable(:font_size, 10)
+      variable(:font_name, "Times")
       page_break
     end
     

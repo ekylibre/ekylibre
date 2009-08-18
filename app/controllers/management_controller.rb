@@ -828,6 +828,9 @@ class ManagementController < ApplicationController
       @sale_order = SaleOrder.new if @sale_order.nil?
       session[:current_entity] ||= @current_company.entities.find(:first, :conditions=>{:client=>true})
       @sale_order.client_id = session[:current_entity]
+      @sale_order.function_title = tg('letter_function_title')
+      @sale_order.introduction = tg('letter_introduction')
+      @sale_order.conclusion = tg('letter_conclusion')
     end
     #    @title = {:client=>@entity.full_name}
   end
@@ -876,7 +879,9 @@ class ManagementController < ApplicationController
     else
       @lines = []
       @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-      @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+      @lines <<  tc('phone')+" "+@current_company.default_contact.phone if !@current_company.default_contact.phone.blank?
+      @lines <<  tc('fax')+" "+@current_company.default_contact.fax if !@current_company.default_contact.fax.blank?
+      @lines <<  tc('email')+" "+@current_company.default_contact.email if !@current_company.default_contact.email.blank?
       @client_address = @sale_order.contact.address.split(",").collect{ |x| x.strip}
       #raise Exception.new @sale_order.payment_delay.compute(Date.today.to_s)
       print(@sale_order, :archive=>@sale_order.state != 'P', :filename=>@sale_order.state == 'P' ? tc('estimate')+" "+@sale_order.number : tc('order')+" "+@sale_order.number )

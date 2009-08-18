@@ -27,4 +27,9 @@ class SaleOrderNature < ActiveRecord::Base
   belongs_to :expiration, :class_name=>Delay.to_s
   has_many :sale_orders
 
+  def self.payment_types
+    [:check, :none].collect{|x| [tc('payment_types.'+x.to_s), x] }
+  end
+  
+
 end

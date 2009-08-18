@@ -1306,6 +1306,7 @@ fr-FR:
         lock_version: 'Version'
         name: 'Nom'
         payment_delay_id: 'Délai de paiement'
+        payment_type: 'Type de paiement'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
