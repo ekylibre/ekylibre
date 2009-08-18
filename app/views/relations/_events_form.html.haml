@@ -3,7 +3,7 @@
   - f.field :event, :entity_id, :choices=>@current_company.entities.find(:all, :conditions=>{:client=>true}, :order=>"name ASC").collect{|x| [x.full_name, x.id]}
   - f.field :event, :employee_id, :choices=>@current_company.employees.collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:resources, :action=>:employees_create}
   - f.field :event, :nature_id, :choices=>@current_company.event_natures.collect{|x| [x.name, x.id]}, :new=>{:action=>:event_natures_create}
-  - f.field :event, :duration
+- f.field :event, :duration
   - f.field  t("activerecord.attributes.event.location"), text_field_with_auto_complete(:event, :location)
   - f.field :event, :reason, :field=>:textarea
   - f.field :event, :started_at

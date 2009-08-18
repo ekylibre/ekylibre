@@ -52,13 +52,13 @@ fr-FR:
       employee: 'Employé'
       entity: 'Relation'
       entity_category: 'Catégorie de relation'
-      entity_link: (((ENTITY_LINK)))
-      entity_link_nature: (((ENTITY_LINK_NATURE)))
+      entity_link: 'Lien de relation'
+      entity_link_nature: 'Nature du lien de la relation'
       entity_nature: 'Type de relation'
       entry: 'Écriture'
       establishment: 'Établissement'
-      event: 'Événement'
-      event_nature: 'Type d''événement'
+      event: 'Évènement'
+      event_nature: 'Type d''évènement'
       financialyear: 'Exercice'
       inventory: 'Inventaire'
       inventory_line: 'Ligne d''inventaire'
@@ -70,7 +70,7 @@ fr-FR:
       listing: 'Extraction'
       listing_node: 'Noeud d''extraction'
       listing_node_item: 'Élément de noeud d''extraction'
-      mandate: (((MANDATE)))
+      mandate: 'Responsabilité'
       observation: 'Observation'
       parameter: 'Paramètre'
       payment: 'Réglement'
@@ -120,12 +120,12 @@ fr-FR:
         keep_entries: (((KEEP_ENTRIES)))
         label: 'Label'
         last_letter: (((LAST_LETTER)))
-        letterable: (((LETTERABLE)))
+        letterable: 'Lettrable'
         lock_version: 'Version'
         name: 'Intitulé'
         number: 'Numéro'
         parent_id: (((PARENT_ID)))
-        pointable: (((POINTABLE)))
+        pointable: 'Pointable'
         transferable: (((TRANSFERABLE)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -133,11 +133,11 @@ fr-FR:
 
       # Balance de compte
       account_balance:
-        account_id: (((ACCOUNT_ID)))
+        account_id: 'Compte'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        financialyear_id: (((FINANCIALYEAR_ID)))
+        financialyear_id: 'Exercice'
         global_balance: (((GLOBAL_BALANCE)))
         global_count: (((GLOBAL_COUNT)))
         global_credit: (((GLOBAL_CREDIT)))
@@ -189,7 +189,7 @@ fr-FR:
       # Zone postale
       area:
         city: 'Ville'
-        city_name: (((CITY_NAME)))
+        city_name: 'Nom'
         code: 'Code interne'
         company_id: 'Société'
         country: 'Pays'
@@ -220,7 +220,7 @@ fr-FR:
         currency_id: 'Devise utilisée'
         default: (((DEFAULT)))
         deleted: 'Effacé'
-        entity_id: (((ENTITY_ID)))
+        entity_id: 'Personne'
         iban: 'IBAN'
         iban_label: 'IBAN'
         iban_label2: 'IBAN'
@@ -254,7 +254,7 @@ fr-FR:
       # Société
       company:
         bank_journal: 'Journal de banque'
-        born_on: 'Créée le'
+        born_on: 'Crée le'
         code: 'Code interne'
         created_at: 'Créé le'
         creator_id: 'Créateur'
@@ -317,7 +317,7 @@ fr-FR:
         date_value: (((DATE_VALUE)))
         datetime_value: (((DATETIME_VALUE)))
         decimal_value: (((DECIMAL_VALUE)))
-        entity_id: (((ENTITY_ID)))
+        entity_id: 'Fiche'
         id: 'ID'
         lock_version: 'Version'
         string_value: (((STRING_VALUE)))
@@ -338,7 +338,7 @@ fr-FR:
         default: 'Par défaut'
         deleted: 'Effacé'
         email: 'Email'
-        entity_id: (((ENTITY_ID)))
+        entity_id: 'Fiche'
         fax: 'Fax'
         id: 'ID'
         latitude: 'Latitude'
@@ -696,7 +696,7 @@ fr-FR:
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        duration: 'Duréé (en min.)'
+        duration: 'Durée (en minutes)'
         employee_id: 'Employé'
         entity_id: 'Personne'
         id: 'ID'

@@ -1,0 +1,8 @@
+h1. Evènements 
+
+h2. Qu'est ce qu'un évènement ?
+Les évènements équivalent à **des mini-calendriers**. Ils permettent de situer dans le temps et l'espace les contacts établis par telle personne avec tel employé.
+
+h2. Gestion d'un évènement
+Il est possible de créer <<relation-events_create|{{buttons/create.png|créer}}>>, modifier <<relation-events_update|{{buttons/update.png|modifier}}>> ou même supprimer <<relation-events_delete|{{buttons/delete.png|supprimer}}>>.
+

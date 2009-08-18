@@ -5,5 +5,5 @@ Il s'agit d'un compte ouvert par une banque au nom d'un particulier ou d'un comm
 
 
 h2. Gestion d'un compte bancaire
-Pour utiliser un compte bancaire (création d'un <<accountancy-statements|relevé de comptes>>), commencer par le <<accountancy-bank_accounts_create|créer>>. Le compte bancaire créé apparaîtra dans le tableau des comptes bancaires. Par la suite, il vous sera possible de le modifier <<accountancy-bank_accounts_update|{{buttons/update.png|modifier}}>> ou même de le supprimer <<accountancy-bank_accounts_delete|{{buttons/delete.png|supprimer}}>>, sous réserve qu'il n'existe aucun <<accountancy-statements|relevé de compte>> relatif à ce compte bancaire.
+Pour utiliser un compte bancaire (création d'un <<accountancy-statements|relevé de comptes>>), commencer par le créer <<accountancy-bank_accounts_create|{{buttons/create.png|créer}}>>. Le compte bancaire créé apparaîtra dans le tableau des comptes bancaires. Par la suite, il vous sera possible de le modifier <<accountancy-bank_accounts_update|{{buttons/update.png|modifier}}>> ou même de le supprimer <<accountancy-bank_accounts_delete|{{buttons/delete.png|supprimer}}>>, sous réserve qu'il n'existe aucun <<accountancy-statements|relevé de compte>> relatif à ce compte bancaire.
 
