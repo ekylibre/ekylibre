@@ -72,6 +72,7 @@ class Entity < ActiveRecord::Base
   has_many :prices
   has_many :purchase_orders, :foreign_key=>:supplier_id
   has_many :sale_orders, :foreign_key=>:client_id
+  has_one :default_contact, :class_name=>Contact.name, :conditions=>{:default=>true}
   
  # validates_presence_of :category_id, :if=>Proc.new{|u| u.client}
   attr_readonly :company_id
@@ -158,13 +159,13 @@ class Entity < ActiveRecord::Base
     payments - invoices
   end
 
-  def default_contact
-    if self.contacts.size>0
-      self.contacts.find_by_default(true)
-    else
-      nil
-    end
-  end
+#   def default_contact
+#     if self.contacts.size>0
+#       self.contacts.find_by_default(true)
+#     else
+#       nil
+#     end
+#   end
 
   
   # this method creates automatically an account for the entity

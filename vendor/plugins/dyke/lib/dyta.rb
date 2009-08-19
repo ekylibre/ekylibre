@@ -435,9 +435,14 @@ module Ekylibre
             case @nature
             when :column
               if @options[:through] and @options[:through].is_a?(Symbol)
-                raise Exception.new("Unknown reflection :#{@options[:through].to_s} for the ActiveRecord: "+@model.to_s) if @model.reflections[@options[:through]].nil?
-                # @model.columns_hash[@model.reflections[@options[:through]].primary_key_name].human_name
-                ::I18n.t("activerecord.attributes.#{@model.to_s.tableize.singularize}.#{@model.reflections[@options[:through]].primary_key_name.to_s}")
+                reflection = @model.reflections[@options[:through]]
+                raise Exception.new("Unknown reflection :#{@options[:through].to_s} for the ActiveRecord: "+@model.to_s) if reflection.nil?
+                # # @model.columns_hash[@model.reflections[@options[:through]].primary_key_name].human_name
+                if reflection.macro == :has_one
+                  ::I18n.t("activerecord.attributes.#{reflection.class_name.underscore}.#{@name}")
+                else
+                  ::I18n.t("activerecord.attributes.#{@model.to_s.tableize.singularize}.#{@model.reflections[@options[:through]].primary_key_name.to_s}")
+                end
               elsif @options[:through] and @options[:through].is_a?(Array)
                 model = @model
                 (@options[:through].size-1).times do |x|

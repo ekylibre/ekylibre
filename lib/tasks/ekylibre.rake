@@ -6,6 +6,23 @@ def hash_to_yaml(hash, depth=0)
   code
 end
 
+
+desc "Create schema_hash.rb"
+task :shash => :environment do
+  hash = {}; 
+  Company.reflections.select{|k,v| v.macro==:has_many}.each do |k,v| 
+    cols={}; 
+    v.class_name.constantize.columns.each do |c| 
+      cols[c.name]={:null=>c.null, :type=>c.type} 
+    end
+    hash[k] = cols
+  end
+  File.open("#{RAILS_ROOT}/db/schema_hash.rb", "wb") do |f|
+    f.write("# Auto-generated from Ekylibre\n")
+    f.write("EKYLIBRE = "+hash.inspect)
+  end
+end
+
 namespace :clean do
 
   desc "Update and sort rights list"

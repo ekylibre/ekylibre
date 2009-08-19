@@ -252,16 +252,17 @@ class RelationsController < ApplicationController
   
 
   dyta(:entities, :conditions=>"search_conditions(:attributes=>[:id, :name, :code, :full_name, :website], :key=>session[:entity_key])") do |t|
-    t.column :name, :through=>:nature
+    t.column :active, :label=>'♦'
+    t.column :abbreviation, :through=>:nature
     t.column :name, :url=>{:action=>:entities_display}
     t.column :first_name, :url=>{:action=>:entities_display}
     # t.column :full_name
     t.column :code, :url=>{:action=>:entities_display}
     # t.column :born_on
     # t.column :dead_on
-    t.column :website
-    t.column :created_on, :datatype=>:date
-    t.column :active
+    # t.column :website
+    # t.column :created_on, :datatype=>:date
+    t.column :line_6_city, :through=>:default_contact
     t.action :entities_display
     t.action :entities_print
     t.action :entities_update

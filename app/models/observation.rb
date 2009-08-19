@@ -15,30 +15,30 @@
 #
 
 class Observation < ActiveRecord::Base
-
   belongs_to :company
   belongs_to :entity
 
-
+  attr_readonly :company_id
   
- def self.importances
-   [:important, :normal, :notice].collect{|x| [tc('importances.'+x.to_s), x] }
- end
+  
+  def self.importances
+    [:important, :normal, :notice].collect{|x| [tc('importances.'+x.to_s), x] }
+  end
 
 
- def text_importance
+  def text_importance
     tc('importances.'+self.importance.to_s)
- end
+  end
 
- def status
-   status = ""
-   case self.importance
-   when "important"
-     status = "critic"
-   when "normal"
-     status = "minimum"
-   end
-   status
- end
- 
+  def status
+    status = ""
+    case self.importance
+    when "important"
+      status = "critic"
+    when "normal"
+      status = "minimum"
+    end
+    status
+  end
+  
 end
