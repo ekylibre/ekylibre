@@ -3,7 +3,6 @@
 # Table name: products
 #
 #  active                 :boolean       default(TRUE), not null
-#  amount                 :decimal(16, 4 default(0.0), not null
 #  catalog_description    :text          
 #  catalog_name           :string(255)   not null
 #  charge_account_id      :integer       

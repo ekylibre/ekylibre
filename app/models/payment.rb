@@ -10,7 +10,6 @@
 #  company_id     :integer       not null
 #  created_at     :datetime      not null
 #  creator_id     :integer       
-#  downpayment    :boolean       not null
 #  embanker_id    :integer       
 #  embankment_id  :integer       
 #  entity_id      :integer       

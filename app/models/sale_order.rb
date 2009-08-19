@@ -4,16 +4,17 @@
 #
 #  amount              :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes   :decimal(16, 2 default(0.0), not null
+#  annotation          :text          
 #  client_id           :integer       not null
 #  comment             :text          
 #  company_id          :integer       not null
 #  conclusion          :text          
 #  confirmed_on        :date          
-#  contact_id          :integer       not null
+#  contact_id          :integer       
 #  created_at          :datetime      not null
 #  created_on          :date          not null
 #  creator_id          :integer       
-#  delivery_contact_id :integer       not null
+#  delivery_contact_id :integer       
 #  downpayment_amount  :decimal(16, 2 default(0.0), not null
 #  expiration_id       :integer       not null
 #  expired_on          :date          not null
@@ -21,7 +22,7 @@
 #  has_downpayment     :boolean       not null
 #  id                  :integer       not null, primary key
 #  introduction        :text          
-#  invoice_contact_id  :integer       not null
+#  invoice_contact_id  :integer       
 #  invoiced            :boolean       not null
 #  letter_format       :boolean       default(TRUE), not null
 #  lock_version        :integer       default(0), not null

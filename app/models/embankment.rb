@@ -9,20 +9,20 @@
 #  created_at      :datetime      not null
 #  created_on      :date          not null
 #  creator_id      :integer       
+#  embanker_id     :integer       
 #  id              :integer       not null, primary key
 #  lock_version    :integer       default(0), not null
 #  locked          :boolean       not null
 #  mode_id         :integer       not null
-#  payments_number :integer       default(0), not null
+#  payments_count  :integer       default(0), not null
 #  updated_at      :datetime      not null
 #  updater_id      :integer       
 #
 
 class Embankment < ActiveRecord::Base
-
-
   belongs_to :bank_account
   belongs_to :company
+  belongs_to :embanker, :class_name=>User.name
   belongs_to :mode, :class_name=>PaymentMode.to_s
   has_many :payments
 

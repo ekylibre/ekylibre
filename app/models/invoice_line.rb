@@ -4,13 +4,14 @@
 #
 #  amount            :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes :decimal(16, 2 default(0.0), not null
+#  annotation        :text          
 #  company_id        :integer       not null
 #  created_at        :datetime      not null
 #  creator_id        :integer       
 #  id                :integer       not null, primary key
 #  invoice_id        :integer       
 #  lock_version      :integer       default(0), not null
-#  order_line_id     :integer       not null
+#  order_line_id     :integer       
 #  origin_id         :integer       
 #  position          :integer       
 #  price_id          :integer       not null
@@ -21,13 +22,14 @@
 #
 
 class InvoiceLine < ActiveRecord::Base
-
   belongs_to :company
   belongs_to :invoice
   belongs_to :origin, :class_name=>InvoiceLine.to_s
   belongs_to :price
   belongs_to :product
   belongs_to :order_line, :class_name=>SaleOrderLine.to_s
+
+  validates_presence_of :order_line_id
   
   def before_validation
     self.product = self.order_line.product

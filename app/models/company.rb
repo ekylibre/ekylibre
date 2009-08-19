@@ -429,7 +429,9 @@ class Company < ActiveRecord::Base
           # user[:role_id] = ids["Role"][user[:role_id].to_s]
           #raise Exception.new('>> '+class_name.inspect) if ids[class_name].nil?
           if record[key]
-            v = ids[class_name.is_a?(Symbol) ? record[class_name] : class_name][record[key].to_s]
+            klass = (class_name.is_a?(Symbol) ? record[class_name] : class_name)
+            raise Exception.new([record.class.name, class_name, klass, record, key, ids[klass], record[key]].inspect) if ids[klass].nil? or record[key].nil?
+            v = ids[klass][record[key].to_s]
             #             if class_name.is_a? Symbol
             #               v = ids[record[class_name]][record[key].to_s]
             #             else
