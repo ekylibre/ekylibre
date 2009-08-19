@@ -877,13 +877,6 @@ class ManagementController < ApplicationController
       flash[:warning]=tc(:no_contacts, :name=>entity)
       redirect_to_back
     else
-      @lines = []
-      @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-      @lines <<  tc('phone')+" "+@current_company.default_contact.phone if !@current_company.default_contact.phone.blank?
-      @lines <<  tc('fax')+" "+@current_company.default_contact.fax if !@current_company.default_contact.fax.blank?
-      @lines <<  tc('email')+" "+@current_company.default_contact.email if !@current_company.default_contact.email.blank?
-      @client_address = @sale_order.contact.address.split(",").collect{ |x| x.strip}
-      #raise Exception.new @sale_order.payment_delay.compute(Date.today.to_s)
       print(@sale_order, :archive=>@sale_order.state != 'P', :filename=>@sale_order.state == 'P' ? tc('estimate')+" "+@sale_order.number : tc('order')+" "+@sale_order.number )
     end
   end
@@ -1031,7 +1024,8 @@ class ManagementController < ApplicationController
     t.action :deliveries_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>:are_you_sure
   end
 
-  dyta(:deliveries_to_invoice, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
+  
+  dyta(:deliveries_to_invoice, :model=>:deliveries, :children=>:lines,   :conditions=>['company_id = ? AND order_id = ? AND invoice_id IS NULL', ['@current_company.id'], ['session[:current_sale_order]']]) do |t|
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
@@ -1242,7 +1236,7 @@ class ManagementController < ApplicationController
         end
         raise ActiveRecord::Rollback unless @current_company.invoice(deliveries)
       end
-      # redirect_to :action=>:sales_invoices, :id=>@sale_order.id
+      redirect_to :action=>:sales_invoices, :id=>@sale_order.id
     end
   end
   

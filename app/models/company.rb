@@ -203,6 +203,7 @@ class Company < ActiveRecord::Base
   end
 
   def invoice(records)
+    puts records.inspect+"                          ddddddddddddddddddddddddd "
     Invoice.generate(self.id,records)
   end
 

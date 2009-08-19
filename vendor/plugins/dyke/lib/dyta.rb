@@ -274,8 +274,8 @@ module Ekylibre
                 when :check
                   code += "content_tag(:td,"
                   if nature==:body 
-                    code += "check_box_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name.to_s}, :id=>'#{definition.name}_'+#{record}.id.to_s+'_#{column.name}')+"
-                    code += "hidden_field_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id=>nil)"
+                    code += "hidden_field_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id=>nil)+"
+                    code += "check_box_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name.to_s}, :id=>'#{definition.name}_'+#{record}.id.to_s+'_#{column.name}')"
                   else
                     code += "''"
                   end

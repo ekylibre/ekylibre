@@ -83,7 +83,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def self.generate(company_id, records)
-    # puts "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"+records.class.to_s
+    puts "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"+records.class.to_s
     invoice = Invoice.new(:company_id=>company_id, :nature=>"S")
     case records.class.to_s
       

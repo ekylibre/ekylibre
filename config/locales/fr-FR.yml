@@ -62,7 +62,7 @@ fr-FR:
     abbr_day_names: [Dim, Lun, Mar, Mer, Jeu, Ven, Sam]
 
     # Don't forget the nil at the beginning; there's no such thing as a 0th month
-    month_names: [~, Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
+    month_names: [~, janvier, février, mars, avril, mai, juin, juillet, août, septembre, octobre, novembre, décembre]
     abbr_month_names: [~, Janv, Févr, Mars, Avr, Mai, Juin, Juil, Août, Sept, Oct, Nov, Déc]
     # Used in date_select and datime_select.
     order: [ :day, :month, :year ]
@@ -383,7 +383,7 @@ fr-FR:
     hint: 'Astuce&nbsp;: {{value}}'
     indicator: 'Tableau de bord'
     info: 'Information&nbsp;: {{value}}'
-    letter_conclusion: ' Veuillez agréer Chère Madame, Cher Monsieur, l''expression de mes salutations distinguées.'
+    letter_conclusion: ' Veuillez agréer, Chère Madame, Cher Monsieur, l''expression de mes salutations distinguées.'
     letter_function_title: 'Chère Madame, Cher Monsieur'
     letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
     lock: 'Verrouiller'
