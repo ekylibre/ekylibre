@@ -150,7 +150,7 @@ class User < ActiveRecord::Base
   private
 
   def self.encrypted_password(password, salt)
-    string_to_hash = "<"+password+":"+salt+"/>"
+    string_to_hash = "<"+password.to_s+":"+salt.to_s+"/>"
     Digest::SHA256.hexdigest(string_to_hash)
   end
 
