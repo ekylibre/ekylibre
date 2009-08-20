@@ -19,7 +19,7 @@
   -f.field :entity, :website
   -f.field :entity, :comment, :field=>:textarea
   -for datum in @complement_data
-    -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_value", :name=>"complement_datum[#{datum.complement_id}][value]", :value=>datum.value, :size=>datum.complement.length_max, :choices=>datum.complement.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
+    -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_value", :name=>"complement_datum[#{datum.complement_id}][value]", :value=>datum.value, :size=>datum.complement.length_max, :options=>{:include_blank=>(datum.complement.required ? nil : '')}, :choices=>datum.complement.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
 
 =formalize(:id=>:client_form) do |f|
   -f.title :client
@@ -35,7 +35,7 @@
   -f.field :entity, :reflation_submissive
   -f.field :entity, :discount_rate
   -f.field :entity, :reduction_rate
-  -f.field :entity, :payments_number
+  -f.field :entity, :authorized_payments_count
   -f.field :entity, :deliveries_conditions, :field=>:textarea
 
 =formalize(:id=>:supplier_form) do |f|
