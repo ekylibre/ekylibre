@@ -210,6 +210,8 @@ fr-FR:
         title: 'Types de lien'
       entity_link_natures_create:
         title: 'Ajout d''un nouveau type de lien'
+      entity_link_natures_update:
+        title: 'Modification du type de lien {{value}}'
       entity_links_create:
         title: 'Ajout d''un nouveau lien à {{name}}'
       _entity_links_form:

@@ -90,7 +90,7 @@ class SaleOrderLine < ActiveRecord::Base
   end
 
   def product_name
-    self.product.name
+    self.product ? self.product.name : tc(:no_product) 
   end
 
   def is_a_subscription

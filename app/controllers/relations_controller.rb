@@ -57,6 +57,7 @@ class RelationsController < ApplicationController
     t.action :areas_delete, :confirm=>:are_you_sure, :method=>:post
   end
 
+
   #
   def areas
   end
@@ -100,6 +101,8 @@ class RelationsController < ApplicationController
     t.action :districts_update
     t.action :districts_delete, :confirm=>:are_you_sure, :method=>:post
   end
+
+  dyli(:districts, [:name, :code])
   
   #
   def districts
@@ -732,18 +735,8 @@ class RelationsController < ApplicationController
     t.column :name_2_to_1
     t.column :propagate_contacts
     t.column :symmetric
+    t.action :entity_link_natures_update
   end
-
-  dyta(:entity_links, :conditions=>['stopped_on IS NULL AND company_id = ? AND (entity1_id = ? OR entity2_id = ?)' , ['@current_company.id'],['session[:current_entity]'],['session[:current_entity]']], :per_page=>5) do |t|
-    t.column :full_name, :through=>:entity1, :url=>{:action=>:entities_display}
-    t.column :name_1_to_2, :through=>:nature
-   # t.column :name_2_to_1, :through=>:nature
-    t.column :full_name, :through=>:entity2, :url=>{:action=>:entities_display}
-    t.column :comment
-    t.action :entity_links_update
-    t.action :entity_links_delete, :method=>:post, :confirm=>:are_you_sure
-  end
-  
 
   def entity_link_natures
   end
@@ -758,6 +751,28 @@ class RelationsController < ApplicationController
     end
     render_form
   end
+
+  def entity_link_natures_update
+    @entity_link_nature = find_and_check(:entity_link_nature, params[:id])
+    if request.post? and @entity_link_nature
+      params[:entity_link_nature].delete :company_id
+      redirect_to_back if @entity_link_nature.update_attributes(params[:entity_link_nature])
+    end
+    @title = {:value=>@entity_link_nature.name}
+    render_form
+  end
+
+
+  dyta(:entity_links, :conditions=>['stopped_on IS NULL AND company_id = ? AND (entity1_id = ? OR entity2_id = ?)' , ['@current_company.id'],['session[:current_entity]'],['session[:current_entity]']], :per_page=>5) do |t|
+    t.column :full_name, :through=>:entity1, :url=>{:action=>:entities_display}
+    t.column :name_1_to_2, :through=>:nature
+   # t.column :name_2_to_1, :through=>:nature
+    t.column :full_name, :through=>:entity2, :url=>{:action=>:entities_display}
+    t.column :comment
+    t.action :entity_links_update
+    t.action :entity_links_delete, :method=>:post, :confirm=>:are_you_sure
+  end
+  
 
   def entity_links_create
     if request.post?
@@ -798,6 +813,7 @@ class RelationsController < ApplicationController
   end
 
   dyta(:mandates, :conditions=>:mandates_conditions) do |t|
+    t.column :full_name, :through=>:entity, :url=>{:action=>:entities_display}
     t.column :title
     t.column :organization
     t.column :family

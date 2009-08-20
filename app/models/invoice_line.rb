@@ -83,7 +83,7 @@ class InvoiceLine < ActiveRecord::Base
   end
 
   def product_name
-    self.product.name.to_s
+    self.product ? self.product.name : tc(:no_product) 
   end
 
   

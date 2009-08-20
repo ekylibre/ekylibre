@@ -381,69 +381,48 @@ class Company < ActiveRecord::Base
 
       # Chargement des données sauvegardées
       puts "R> Loading backup data..."
-      data = []
+      data = {}
       root.each_element do |table|
         reflection = self.class.reflections[table.attributes['reflection'].to_sym]
         start = Time.now.to_i
-        puts('R> - '+reflection.name.to_s)
+        puts('R> - '+reflection.name.to_s+' ('+table.attributes['records-count'].to_s+')')
+        klass = reflection.class_name.constantize
         code =  "x = 0\n"
+        code += "data[:#{reflection.name}] = []\n"
         code += "table.each_element do |r|\n"
         code += "  x += 1\n"
         code += "  puts x.to_s if x.modulo(1000)==0\n"
         code += "  attributes = r.attributes\n"
         code += "  id = attributes['id']\n"
-        code += "  record = self.#{reflection.name}.build("
-        code += reflection.class_name.constantize.columns_hash.keys.delete_if{|x| [:company_id, :id].include? x}.collect do |col|
+        unbuildable = (['company_id', 'id']+klass.protected_attributes.to_a)
+        code += "  record = self.#{reflection.name}.build("+klass.columns_hash.keys.delete_if{|x| unbuildable.include? x.to_s}.collect do |col|
           ":#{col}=>attributes['#{col}']"
-        end.join(", ")
-        code += ")\n"
+        end.join(", ")+")\n"
+        klass.protected_attributes.to_a.each do |attr|
+          code += "  record.#{attr} = attributes['#{attr}']\n"
+        end
         code += "  record.send(:create_without_callbacks)\n"
         code += "  ids[#{reflection.class_name.inspect}][id] = record.id\n"
-        code += "  data << record\n"
+        code += "  data[:#{reflection.name}] << record\n"
         code += "end"
-        # puts code
         eval(code)
         duration = Time.now.to_i-start
         puts duration.to_s+' secondes' if duration > 5
-#         table.each_element do |r|
-#           attributes = r.attributes
-#           id = attributes['id']
-          
-
-#           record = self.send(reflection.name).build
-#           attributes.each do |attr|
-#             record.send(attr.name+'=', attr.value) unless ['id', 'company_id'].include? attr.name
-#           end
-#           #attributes.each{|k,v| record.send(k+'=', v)}
-#           record.send(:create_without_callbacks)
-#           ids[reflection.class_name][id] = record.id
-#           data << record
-#         end
       end
-
 
       # Réorganisation des clés étrangères
       puts "R> Redifining primary keys..."
-      for record in data
-        for key, class_name in keys[record.class.name]
-          # user[:role_id] = ids["Role"][user[:role_id].to_s]
-          #raise Exception.new('>> '+class_name.inspect) if ids[class_name].nil?
-          if record[key]
-            klass = (class_name.is_a?(Symbol) ? record[class_name] : class_name)
-            raise Exception.new([record.class.name, class_name, klass, record, key, ids[klass], record[key]].inspect) if ids[klass].nil? or record[key].nil?
-            v = ids[klass][record[key].to_s]
-            #             if class_name.is_a? Symbol
-            #               v = ids[record[class_name]][record[key].to_s]
-            #             else
-            #               v = ids[class_name][record[key].to_s]
-            #             end
-            record[key] = v unless v.nil?
-          end
-        end
-        record.send(:update_without_callbacks)
+      code  = ''
+      for reflection in data.keys
+        klass = Company.reflections[reflection].class_name
+        new_ids = "'"+keys[klass].collect do |key, class_name|
+          "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
+        end.join("+', ")
+        code += "for record in data[:#{reflection}]\n"
+        code += "  #{klass}.update_all(#{new_ids}, 'id='+record.id.to_s)\n"
+        code += "end\n"
       end
-      
-      
+      eval(code)
 
       # Chargement des paramètres de la société
       puts "R> Loading company data..."

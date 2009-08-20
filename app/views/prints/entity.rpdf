@@ -64,7 +64,7 @@ page :a4, :margin=>[10.mm] do
       text "Rencontres", :size=>14, :top=>5.mm
     end
   end
-  table @entity.meetings do
+  table @entity.events do
     column "Date", 'taken_place_on'
     column "Lieu", 'location.name', 2
     column "Avec", 'employee.full_name', 2

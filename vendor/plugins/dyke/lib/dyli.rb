@@ -250,6 +250,7 @@ module Ekylibre
           unless options[:submit_on_return]
             tag_options[:onkeypress] = 'return event.keyCode == Event.KEY_RETURN ? false : true'
           end
+          tag_options[:class] = 'dyli'
         end
         
         # Determines the actual completion options, taken into account the ones from

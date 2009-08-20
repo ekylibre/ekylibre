@@ -245,6 +245,8 @@ fr-FR:
         complete: terminée
     inventory_line:
       inventory: 'Inventaire '
+    invoice_line:
+      no_product: '[Pas de produit]'
     journal:
       error_limited_period: '.'
       error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.'             

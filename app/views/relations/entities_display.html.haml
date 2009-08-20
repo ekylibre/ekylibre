@@ -24,7 +24,7 @@
         =evalue @entity, :reflation_submissive 
         =evalue @entity, :discount_rate unless @entity.discount_rate.blank?
         =evalue @entity, :reduction_rate unless @entity.reduction_rate.blank?
-        =evalue @entity, :payments_number unless @entity.payments_number.blank?
+        =evalue @entity, :authorized_payments_count unless @entity.authorized_payments_count.blank?
         =#evalue @entity, :deliveries_conditions unless @entity.deliveries_conditions.blank?
     %td
       -for datum in @entity.complement_data.find(:all, :joins=>"JOIN complements ON (complements.id=complement_id)", :order=>"position")

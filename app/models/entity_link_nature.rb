@@ -18,7 +18,6 @@
 #
 
 class EntityLinkNature < ActiveRecord::Base
-
   belongs_to :company
   has_many   :entity_links
 
