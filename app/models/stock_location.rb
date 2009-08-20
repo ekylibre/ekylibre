@@ -40,6 +40,8 @@ class StockLocation < ActiveRecord::Base
 
   attr_readonly :company_id
 
+  validates_presence_of :account_id
+
   acts_as_tree
 
 

@@ -236,17 +236,29 @@ class Company < ActiveRecord::Base
     checks
   end
   
+ #  def checks_to_embank(mode_id)
+#     checks = []
+#     #raise Exception.new self.payments.inspect
+#     for payment in self.payments
+#       if mode_id == 0
+#         checks << payment if ((payment.mode.mode == "check") and payment.embankment_id.nil?)
+#       elsif mode_id == -1
+#         checks << payment if ((payment.mode.mode == "check") and (payment.embankment_id.nil?) and Date.today >= (payment.to_bank_on+(15)) )
+#       else
+#         checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == mode_id) and payment.embankment_id.nil?)
+#       end
+#     end
+#     checks
+#   end
+
   def checks_to_embank(mode_id)
     checks = []
-    #raise Exception.new self.payments.inspect
-    for payment in self.payments
-      if mode_id == 0
-        checks << payment if ((payment.mode.mode == "check") and payment.embankment_id.nil?)
-      elsif mode_id == -1
-        checks << payment if ((payment.mode.mode == "check") and (payment.embankment_id.nil?) and Date.today >= (payment.to_bank_on+(15)) )
-      else
-        checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == mode_id) and payment.embankment_id.nil?)
-      end
+    if mode_id == 0 
+      checks = self.payments.find(:all, :conditions=>['embankment_id IS NULL'], :joins=>"INNER JOIN payment_modes p ON p.mode = 'check' AND p.id = payments.mode_id")
+    elsif mode_id == -1
+      checks = self.payments.find(:all, :conditions=>['embankment_id IS NULL AND  current_date >= to_bank_on+15'], :joins=>"INNER JOIN payment_modes p ON p.mode = 'check' AND p.id = payments.mode_id")
+    else
+      checks = self.payments.find(:all, :conditions=>['embankment_id IS NULL AND mode_id = ?', mode_id], :joins=>"INNER JOIN payment_modes p ON p.mode = 'check' AND p.id = payments.mode_id")
     end
     checks
   end
@@ -254,7 +266,7 @@ class Company < ActiveRecord::Base
   def embankments_to_lock
     embankments = []
     for embankment in self.embankments
-      embankments << embankment if embankment.locked == false and embankment.created_on <= Date.today-(15)
+      embankments << embankment if ( embankment.locked == false and embankment.created_on <= Date.today-(15) )
     end
     embankments
   end

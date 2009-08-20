@@ -514,8 +514,7 @@ fr-FR:
         lock_version: 'Version'
         locked: (((LOCKED)))
         mode_id: 'Type de paiement'
-        payments_count: (((PAYMENTS_COUNT)))
-        payments_number: 'Nombre de chèque'
+        payments_count: 'Nombre de chèque'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
         validated: 'Valider'
@@ -1425,7 +1424,7 @@ fr-FR:
         parent_id: 'Lieu de stockage parent'
         product_id: 'Produit contenu'
         quantity_max: 'Quantité maximum'
-        reservoir: (((RESERVOIR)))
+        reservoir: 'Réservoir'
         unit_id: (((UNIT_ID)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'

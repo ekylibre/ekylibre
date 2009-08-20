@@ -43,13 +43,9 @@ class SaleOrderLine < ActiveRecord::Base
     check_reservoir = true
     self.account_id = self.product.product_account_id
     self.unit_id = self.product.unit_id
-   # if self.price
-    #  self.amount = (self.price.amount*self.quantity).round(2)
-    #  self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2)
-   # end
+
     if self.price_amount > 0
       price = Price.create!(:amount=>self.price_amount, :tax_id=>self.tax.id, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id)
-      #raise Exception.new(price.inspect+self.inspect)
       self.price_id = price.id
       #self.amount = (self.price_amount*self.quantity).round(2)
       #self.amount_with_taxes = ((self.price_amount + self.tax.compute(self.amount))*self.quantity).round(2)

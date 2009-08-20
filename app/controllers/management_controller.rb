@@ -1243,7 +1243,7 @@ class ManagementController < ApplicationController
   
   dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :amount, :url=>{:action=>:embankments_display}
-    t.column :payments_number
+    t.column :payments_count
     t.column :name, :through=>:bank_account
     t.column :created_on
     t.action :embankments_display
@@ -1324,6 +1324,7 @@ class ManagementController < ApplicationController
   def embankment_checks_create
     @embankment = find_and_check(:embankment, params[:id])
     @checks = @current_company.checks_to_embank(@embankment.mode_id)
+ #   raise Exception.new @checks[0].inspect
     if request.post?
       payments = params[:check].collect{|x| Payment.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:check].nil?
       if !payments.nil?
@@ -1582,7 +1583,6 @@ class ManagementController < ApplicationController
     @mode = (params[:mode]||session[:location_type]||:original).to_sym
     session[:location_type] = @mode
     if request.post? 
-      #raise Exception.new params.inspect
       @stock_location = StockLocation.new(params[:stock_location])
       @stock_location.company_id = @current_company.id
       if @stock_location.save

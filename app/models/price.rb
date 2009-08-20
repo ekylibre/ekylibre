@@ -39,6 +39,8 @@ class Price < ActiveRecord::Base
   has_many :purchase_order_lines
   has_many :sale_order_lines
 
+  validates_presence_of :category_id
+
   attr_readonly :company_id, :started_at, :list_id, :amount, :amount_with_taxes
 
 
