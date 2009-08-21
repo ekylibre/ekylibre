@@ -26,7 +26,7 @@ class ResourcesController < ApplicationController
   # this action lists all the employees with main informations for each of them.
   def employees
     @key = params[:key]||session[:product_key]
-    session[:product_key] = @key
+    session[:employee_key] = @key
     # employees_list
   end
   
