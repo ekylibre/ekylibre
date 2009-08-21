@@ -30,6 +30,9 @@
       -for datum in @entity.complement_data.find(:all, :joins=>"JOIN complements ON (complements.id=complement_id)", :order=>"position")
         =evalue datum.complement.name, datum.value.to_s
 
+%h2=tc :subscriptions
+=dyta :entity_subscriptions
+
 %h2=tc :contacts, :count=>@contacts_count
 =toolbar do
   -link :entities_contacts_create, :id=>@entity.id

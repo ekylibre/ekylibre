@@ -727,7 +727,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:invoice_lines, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
-    t.column :number, :children=>false, :url=>{:action=>:invoices_display}
+    t.column :number, :children=>:product_name, :url=>{:action=>:invoices_display}
     t.column :address, :through=>:contact, :children=>false
     t.column :amount
     t.column :amount_with_taxes

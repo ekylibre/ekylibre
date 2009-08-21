@@ -1587,6 +1587,7 @@ fr-FR:
         lock_version: 'Version'
         locked: 'Compte verrouillé'
         name: 'Nom d''utilisateur'
+        old_password: 'Mot de passe actuel'
         password: 'Mot de passe'
         password_confirmation: 'Confirmation du mot de passe'
         reduction_percent: 'Taux de réduction autorisé (%)'

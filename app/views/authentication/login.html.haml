@@ -10,10 +10,11 @@
         %td.input=password_field :user, :password, :tabindex=>2
       %tr
         %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3)
-  .actions
-    -unless defined?(Ekylibre::DONT_REGISTER)
-      =link_to tc(:register), {:action=>:register}, :class=>"register"
-    =link_to tc(:download_firefox), "http://www.mozilla-europe.org/fr/firefox/", :class=>"firefox"
+  - register, download_firefox = !defined?(Ekylibre::DONT_REGISTER), !request.env["HTTP_USER_AGENT"].match(/mozilla/i)
+  - if register or download_firefox
+    .actions
+      =link_to(tc(:register), {:action=>:register}, :class=>"register") if register
+      =link_to(tc(:download_firefox), "http://www.mozilla-europe.org/fr/firefox/", :class=>"firefox") if download_firefox
 #nojavascript.login
   .logoban
   .message=tc('no_javascript')

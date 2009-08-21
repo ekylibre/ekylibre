@@ -38,15 +38,20 @@ class Subscription < ActiveRecord::Base
   validates_presence_of :started_on, :stopped_on, :if=>Proc.new{|u| u.product.nature=="period"}
 
   def entity_name
-    self.contact.entity.full_name
+    self.entity.full_name||(self.contact ? (self.contact.entity.is_a?(Entity) ? self.contact.entity.full_name : '-') : '-')
+  end
+
+  
+  def natura
+    self.nature||(self.product ? self.product.subscription_nature : 'unknown_nature')
   end
 
   def beginning
-    self.product.subscription_nature.nature == "quantity" ? self.first_number : self.started_on 
+    self.natura == "quantity" ? self.first_number : self.started_on 
   end
 
   def finish
-    self.product.subscription_nature.nature == "quantity" ? self.last_number : self.stopped_on  
+    self.natura == "quantity" ? self.last_number : self.stopped_on  
   end
 
 end

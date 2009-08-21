@@ -24,6 +24,10 @@ fr-FR:
         upload: 'Sélectionner le fichier de sauvegarde à télécharger'
         with_prints: 'Inclure les impressions (factures, commandes...)'
         your_new_code_is: 'Votre nouveau code société est : {{value}}'
+      change_password:
+        title: Changer son mot de passe
+        put_old_password: Saisissez votre mot de passe actuel
+        put_new_password: Saisissez votre nouveau mot de passe
       configure:
         accountancy: 'Comptabilité'
         general: 'Paramètres généraux'
@@ -62,6 +66,7 @@ fr-FR:
         about_us: 'À propos d''Ekylibre'
         accountancy: 'Comptabilité générale'
         backups: 'Sauvegardes'
+        change_password: 'Modifier son mot de passe'
         configure: 'Configuration'
         departments: 'Services'
         establishments: 'Établissements'

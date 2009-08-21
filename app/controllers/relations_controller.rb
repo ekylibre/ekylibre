@@ -259,13 +259,8 @@ class RelationsController < ApplicationController
     t.column :abbreviation, :through=>:nature
     t.column :name, :url=>{:action=>:entities_display}
     t.column :first_name, :url=>{:action=>:entities_display}
-    # t.column :full_name
     t.column :code, :url=>{:action=>:entities_display}
-    # t.column :born_on
-    # t.column :dead_on
-    # t.column :website
-    # t.column :created_on, :datatype=>:date
-    t.column :line_6_city, :through=>:default_contact
+    t.column :line_6, :through=>:default_contact, :url=>{:action=>:entities_contact_update}
     t.action :entities_display
     t.action :entities_print
     t.action :entities_update
@@ -300,7 +295,10 @@ class RelationsController < ApplicationController
     t.action :entities_contacts_delete  , :method=>:post, :confirm=>:are_you_sure
   end
 
- 
+  dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions) do |t|
+    t.column :name, :through=>:nature
+  end
+
   dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sales_details}, :children=>:product_name
     #t.column :name, :through=>:nature, :children=>false

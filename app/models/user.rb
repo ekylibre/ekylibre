@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   # validates_uniqueness_of :name, :scope=>:company_id
 
   # cattr_accessor :current_user
-  attr_accessor :password_confirmation
+  attr_accessor :password_confirmation, :old_password
   attr_protected :hashed_password, :salt, :locked, :deleted, :rights
   attr_readonly :company_id
 

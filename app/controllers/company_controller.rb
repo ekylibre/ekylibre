@@ -266,6 +266,22 @@ class CompanyController < ApplicationController
     redirect_to_current
   end
 
+
+  def change_password
+    @user = @current_user
+    if request.post?
+      if @user.authenticated? params[:user][:old_password]
+        @user.password = params[:user][:password]
+        @user.password_confirmation = params[:user][:password_confirmation]
+        redirect_to :action=>:index if @user.save
+        @user.password = @user.password_confirmation = ''
+      else
+        @user.errors.add(:old_password, ::I18n.t('activerecord.errors.messages.invalid')) 
+      end      
+    end
+  end
+
+
   def users
   # @employee = Employee.new
   end
