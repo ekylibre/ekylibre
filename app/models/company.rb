@@ -428,7 +428,7 @@ class Company < ActiveRecord::Base
       for reflection in data.keys
         klass = Company.reflections[reflection].class_name
         new_ids = "'"+keys[klass].collect do |key, class_name|
-          "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
+          "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
         end.join("+', ")
         code += "for record in data[:#{reflection}]\n"
         code += "  #{klass}.update_all(#{new_ids}, 'id='+record.id.to_s)\n"
@@ -445,9 +445,6 @@ class Company < ActiveRecord::Base
         v = ids[class_name][self[key].to_s]
         self[key] = v unless v.nil?
       end
-      #      while self.class.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
-      #        self.code.succ!
-      #      end
       self.send(:update_without_callbacks)
       # raise Active::Record::Rollback
 

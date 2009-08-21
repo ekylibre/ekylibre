@@ -146,6 +146,10 @@ class User < ActiveRecord::Base
     self.hashed_password == User.encrypted_password(password, self.salt)
   end
   
+  # Used for generic password creation
+  def self.give_password(length=8, mode=:complex)
+    User.generate_password(length, mode)
+  end
 
   private
 

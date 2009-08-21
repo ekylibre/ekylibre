@@ -82,6 +82,7 @@ class Entity < ActiveRecord::Base
  
   #has_many :contact
   def before_validation
+    self.webpass = User.give_password if self.web.blank?
     self.soundex = self.name.soundex2 if !self.name.nil?
     self.first_name = self.first_name.to_s.strip
     self.name = self.name.to_s.strip
@@ -92,7 +93,6 @@ class Entity < ActiveRecord::Base
     
     #if self.client
     #  self.client_account_id
-    
     self.code = self.full_name.codeize if self.code.blank?
     self.code = self.code[0..15]
     #raise Exception.new self.inspect
@@ -104,7 +104,6 @@ class Entity < ActiveRecord::Base
     
    # raise Exception.new('acc:'+self.inspect)
   end
-
 
   def after_validation_on_create
     if not self.company.parameter("relations.entities.numeration").nil?
