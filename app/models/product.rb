@@ -25,6 +25,7 @@
 #  product_account_id     :integer       
 #  quantity_max           :decimal(16, 2 default(0.0)
 #  quantity_min           :decimal(16, 2 default(0.0)
+#  reduction_submissive   :boolean       not null
 #  service_coeff          :float         
 #  shelf_id               :integer       not null
 #  subscription_nature_id :integer       
@@ -35,6 +36,7 @@
 #  to_rent                :boolean       not null
 #  to_sale                :boolean       default(TRUE), not null
 #  unit_id                :integer       not null
+#  unquantifiable         :boolean       not null
 #  updated_at             :datetime      not null
 #  updater_id             :integer       
 #  weight                 :decimal(16, 3 

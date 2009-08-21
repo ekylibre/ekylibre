@@ -2,8 +2,9 @@
 #
 # Table name: subscriptions
 #
+#  comment       :text          
 #  company_id    :integer       not null
-#  contact_id    :integer       not null
+#  contact_id    :integer       
 #  created_at    :datetime      not null
 #  creator_id    :integer       
 #  entity_id     :integer       
@@ -13,7 +14,7 @@
 #  last_number   :integer       
 #  lock_version  :integer       default(0), not null
 #  nature_id     :integer       
-#  product_id    :integer       not null
+#  product_id    :integer       
 #  quantity      :decimal(, )   
 #  sale_order_id :integer       
 #  started_on    :date          
