@@ -35,7 +35,7 @@ class PaymentPart < ActiveRecord::Base
   end
 
   def validate
-    errors.add_to_base tc(:error_sale_order_already_paid) if self.amount <= 0 and self.payment.downpayment == false
+    errors.add_to_base tc(:error_sale_order_already_paid) if self.amount <= 0 and self.downpayment == false
   end
 
   def payment_way

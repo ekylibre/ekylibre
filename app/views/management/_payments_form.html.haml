@@ -14,7 +14,7 @@
   -f.field :payment, :amount
   -f.field :payment, :to_bank_on
   -f.field :payment, :mode_id, :choices=>@current_company.payment_modes.collect{|x| [x.name, x.id ]}, :new=>{:action=>:payment_modes_create}
-  -f.field :payment, :downpayment
+  -f.field tc('downpayment'), check_box("downpayment","check")
   -f.title :check
   -f.field :payment, :embanker_id, :choices=>@current_company.users.collect{|x| [x.first_name+" "+x.last_name, x.id]}
   -f.field :payment, :paid_on

@@ -1,8 +1,8 @@
 =formalize do |f|
   -f.error :purchase_order
   -f.title :infos
-  -f.field :purchase_order, :supplier_id, :choices=>:entity, :new=>{:controller=>:relations, :action=>:entities_create}
-  -f.field :purchase_order, :dest_contact_id, :choices=>@current_company.entity.contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create, :id=>@current_company.entity.id}
+  -f.field :purchase_order, :supplier_id, :choices=>:entities, :new=>{:controller=>:relations, :action=>:entities_create}
+  -f.field :purchase_order, :dest_contact_id, :choices=>:contacts, :resize=>true
   -f.field :purchase_order, :planned_on
   -f.field :purchase_order, :comment
 

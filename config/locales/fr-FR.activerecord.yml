@@ -1020,7 +1020,7 @@ fr-FR:
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        downpayment: (((DOWNPAYMENT)))
+        downpayment: 'Acompte'
         id: 'ID'
         invoice_id: (((INVOICE_ID)))
         lock_version: 'Version'

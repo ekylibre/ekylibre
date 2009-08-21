@@ -177,7 +177,6 @@ class SaleOrder < ActiveRecord::Base
 
   def status
     status = ""
-    #puts self.inspect
     status = "critic" if not ['F','P'].include? self.state and self.parts_amount < self.amount_with_taxes
     status
   end

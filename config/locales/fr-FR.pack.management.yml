@@ -236,6 +236,7 @@ fr-FR:
         title: 'Ajouter un nouveau réglement à la vente : {{value}}'
       _payments_form:
         check: 'Pour les paiements de type chèque'
+        downpayment: 'Acompte'
         existing_part: 'Utiliser un réglement non affecté'
         new: 'Créer un nouveau réglement'
         payment_label: 'Réglement : {{amount}} du {{date}} par {{mode}} / Montant utilisable : {{usable_amount}}'
@@ -322,6 +323,10 @@ fr-FR:
       _purchase_orders_form:
         infos: 'Renseignez les caractéristiques de l''achat '
       purchases:
+        nb_purchases: 
+          zero: 'Aucun achat'
+          one: '1 achat'
+          other: '{{count}} achats'
         title: 'Liste des achats'
       purchases_products:
         amount: 'Montant HT'

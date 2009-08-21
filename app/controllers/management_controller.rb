@@ -541,8 +541,9 @@ class ManagementController < ApplicationController
     t.action :purchases_print
   end
 
-  dyli(:entity, :full_name, :conditions => {:company_id=>['@current_company.id'], :supplier=>true})
-  
+
+  dyli(:entities, [:full_name], :conditions => {:company_id=>['@current_company.id'], :supplier=>true})
+  dyli(:contacts, [:address], :conditions => {:entity_id=>['@current_company.entity_id']})
 
   def purchases
   end
@@ -684,7 +685,7 @@ class ManagementController < ApplicationController
     t.column :text_state
     t.column :amount
     t.column :amount_with_taxes
-    t.action :sale_orders_delete , :method=>:post, :if=>'RECORD.state == "P"'
+    t.action :sale_orders_delete , :method=>:post, :if=>'RECORD.state == "P"', :confirm=>tc(:are_you_sure)
   end
   
   def sale_orders_delete
@@ -797,6 +798,8 @@ class ManagementController < ApplicationController
 
 
   def sales_contacts
+    #puts "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"+params.inspect
+    #raise Exception.new  params.inspect
     client_id = params[:client_id]||(params[:sale_order]||{})[:client_id]||session[:current_entity]
     client_id = 0 if client_id.blank?
     session[:current_entity] = client_id
@@ -809,6 +812,7 @@ class ManagementController < ApplicationController
     redirect_to :action=>:sales_general
   end
 
+  dyli(:clients, [:full_name], :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :client=>true})
 
   def sales_general
     sales_contacts
@@ -1402,6 +1406,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :payment_way
     t.column :scheduled, :through=>:payment, :datatype=>:boolean, :label=>tc('scheduled')
+    t.column :downpayment
     #t.column :paid_on, :through=>:payment, :label=>tc('paid_on'), :datatype=>:date
     t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
     t.action :payments_update, :image=>:update
@@ -1445,6 +1450,7 @@ class ManagementController < ApplicationController
     @modes = ["new", "existing_part"]
     @payments = @sale_order.client.usable_payments
     if request.post?
+     # raise Exception.new params[:downpayment][:check].inspect
       if params[:price] and params[:price][:mode] == "existing_part"
         @payment = find_and_check(:payment, params[:pay][:part])
       else
@@ -1454,13 +1460,13 @@ class ManagementController < ApplicationController
         @payment.save
       end
       if @payment.errors.size <= 0
-        if @payment.pay(@sale_order)
+        if @payment.pay(@sale_order, params[:downpayment][:check] )
           redirect_to :action=>:sales_payments, :id=>@sale_order.id
         end
       end
     else
       has_invoices = (@sale_order.invoices.size>0)
-      @payment = Payment.new(:paid_on=>Date.today, :to_bank_on=>Date.today, :amount=>@sale_order.unpaid_amount(has_invoices), :downpayment=>!has_invoices)
+      @payment = Payment.new(:paid_on=>Date.today, :to_bank_on=>Date.today, :amount=>@sale_order.unpaid_amount(has_invoices))
     end
     @title = {:value=>@sale_order.number}
     render_form
@@ -1473,7 +1479,7 @@ class ManagementController < ApplicationController
     @payment = payment_part.payment
     if request.post?
       if @payment.update_attributes(params[:payment])
-        if @payment.pay(@sale_order)
+        if @payment.pay(@sale_order,  params[:downpayment][:check])
           redirect_to :action=>:sales_payments, :id=>@sale_order.id 
         end
       end
