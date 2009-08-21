@@ -31,7 +31,11 @@ class Journal < ActiveRecord::Base
   # this method is called before creation or validation method.
   def before_validation
     if self.closed_on == Date.civil(1970,12,31) 
-      self.closed_on = Financialyear.find(:first, :conditions => {:company_id => self.company_id}).started_on-1 || Date.civil(1970,12,31) 
+      if Financialyear.exists?(:company_id=>self.company_id)
+        self.closed_on = Financialyear.find(:first, :conditions => {:company_id => self.company_id}).started_on-1 
+      else
+        self.closed_on = Date.civil(1970,12,31) 
+      end
     end
     self.code = tc('natures.'+self.nature.to_s).codeize if self.code.blank?
     self.code = self.code[0..3]

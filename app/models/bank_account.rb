@@ -38,7 +38,7 @@ class BankAccount < ActiveRecord::Base
   has_many :statements, :class_name=>"BankAccountStatement", :foreign_key=>:bank_account_id 
   has_many :embankments
 
-  validates_presence_of :bank_name
+  #validates_presence_of :bank_name
     
   TABLE_BBAN = {:A=>1,:B=>2,:C=>3,:D=>4,:E=>5,:F=>6,:G=>7,:H=>8,:I=>9,:J=>1,:K=>2,:L=>3,:M=>4,:N=>5,
     :O=>6, :P=>7, :Q=>8, :R=>9, :S=>2, :T=>3, :U=>4, :V=>5, :W=>6, :X=>7, :Y=>8, :Z=>9}

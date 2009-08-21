@@ -42,8 +42,8 @@ class Financialyear < ActiveRecord::Base
   #
   def validate
     unless self.stopped_on.blank? 
-      errors.add_to_base lc(:error_stopped2_financialyear) unless self.stopped_on == self.stopped_on.end_of_month
-      errors.add_to_base lc(:error_period_financialyear) unless self.started_on < self.stopped_on
+      errors.add_to_base tc(:error_stopped2_financialyear) unless self.stopped_on == self.stopped_on.end_of_month
+      errors.add_to_base tc(:error_period_financialyear) unless self.started_on < self.stopped_on
     end
   
   end

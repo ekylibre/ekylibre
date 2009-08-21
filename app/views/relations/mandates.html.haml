@@ -8,6 +8,6 @@
         %td.label=tc(:select_date)
         %td.field=text_field_tag("date", session[:mandates][:date].to_s, :size=>8)
         %td.submit=submit_tag tg("search_go")
-=dyta :mandates
+=dyta(:mandates)
 =#javascript_tag("$('date').value="+Date.today.to_s+";")
 

@@ -287,12 +287,15 @@ module Ekylibre
                 end
               end
             end
+
+           
             code
           end
 
 
           def columns_to_csv(definition, nature, options={})
             columns = definition.columns
+
             array = []
             record = options[:record]||'RECORD'
             for column in columns

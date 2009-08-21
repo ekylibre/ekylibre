@@ -11,6 +11,7 @@ fr-FR:
       exit: 'Se déconnecter'
       false: 'non'
       true: 'oui'
-
+      all_financialyears: '--- Tous les exercices ---'
+      all_journals: '--- Tous les journaux ---'
   views:
     application:

@@ -8,9 +8,9 @@
       - f.title :conditions
       - f.field :sale_order, :nature_id, :choices=>@current_company.sale_order_natures.collect{|x| [x.name, x.id]}
       - f.field :sale_order, :responsible_id, :choices=>@current_company.employees.collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:resources, :action=>:employees_create}
-      - f.field :sale_order, :contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create}
-      - f.field :sale_order, :delivery_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create}
-      - f.field :sale_order, :invoice_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create}
+      - f.field :sale_order, :contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create, :id=>@current_company.entity_id}
+      - f.field :sale_order, :delivery_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create, :id=>@current_company.entity_id}
+      - f.field :sale_order, :invoice_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entities_contacts_create, :id=>@current_company.entity_id}
     - else
       - f.field t('activerecord.attributes.sale_order.client_id'), @sale_order.client.full_name
       - f.title :conditions

@@ -86,14 +86,26 @@ class Account < ActiveRecord::Base
     credit = self.entries.sum(:credit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
  
     balance = {}
-    unless debit.zero? and credit.zero? 
+    unless (debit.zero? and credit.zero?) and not self.number.to_s.match /^12/
       balance[:id] = self.id.to_i
       balance[:number] = self.number.to_i
       balance[:name] = self.name.to_s
-      balance[:debit] = debit
-      balance[:credit] = credit
       balance[:balance] = debit - credit
+      if debit.zero? or credit.zero?
+        balance[:debit] = debit
+        balance[:credit] = credit
+      end
+      if not debit.zero? and not credit.zero?
+        if balance[:balance] > 0  
+          balance[:debit] = balance[:balance]
+          balance[:credit] = 0
+        else
+          balance[:debit] = 0
+          balance[:credit] = balance[:balance].abs
+        end
+      end
     end
+    
     balance unless balance.empty?
   end
 

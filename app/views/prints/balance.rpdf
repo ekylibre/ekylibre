@@ -21,14 +21,14 @@ page :a4, :margin=>[10.mm] do
     column "Intitulé",:name, 100.mm
     column "Débit", :debit, 20.mm
     column "Crédit", :credit, 20.mm
-    column "Solde", :solde, 20.mm
+    column "Solde", :balance, 20.mm
   end
   part 10.mm do
     set 0, 2.mm do
       cell 140.mm, 5.mm, "TOTAL : "
-      cell 150.mm, 5.mm, @parameters["printed"]["sum"]["debit"].to_s, :align=>:right, :border => 'true'
-      cell 170.mm, 5.mm, @parameters["printed"]["sum"]["credit"].to_s, :align=>:right, :border => 'true'
-      cell 190.mm, 5.mm, @parameters["printed"]["sum"]["solde"].to_s, :align=>:right, :border => 'true'
+      cell 150.mm, 5.mm, @parameters["printed"]["sum"]["debit"].to_i, :align=>:right, :border => 'true'
+      cell 170.mm, 5.mm, @parameters["printed"]["sum"]["credit"].to_i, :align=>:right, :border => 'true'
+      cell 190.mm, 5.mm, @parameters["printed"]["sum"]["balance"].to_i, :align=>:right, :border => 'true'
     end 
   end
 end

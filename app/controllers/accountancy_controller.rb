@@ -69,7 +69,7 @@ class AccountancyController < ApplicationController
     t.action :financialyears_delete, :method => :post, :image =>:delete, :confirm=>:are_you_sure, :if => '!RECORD.closed'  
   end
 
-  dyli(:account, :attributes => [:number, :name], :conditions => {:company_id=>['@current_company.id']})
+  dyli(:account, [:number, :name], :conditions => {:company_id=>['@current_company.id']})
  
   # 
   def index
@@ -266,7 +266,7 @@ class AccountancyController < ApplicationController
         params[:printed][:from] = @financialyear.started_on
         params[:printed][:to] = @financialyear.stopped_on
         @balance = Account.balance(@current_company.id, @financialyear.started_on, @financialyear.stopped_on)
-      
+        
         @balance.each do |account| 
           sum[:credit] += account[:credit] 
           sum[:debit] += account[:debit] 
@@ -445,60 +445,63 @@ class AccountancyController < ApplicationController
     
     if request.post?
       @financialyear= Financialyear.find_by_id_and_company_id(params[:financialyear][:id], @current_company.id)  
-      @renew_journal = Journal.find(params[:journal_id])
       
-      @new_financialyear = @financialyear.next(@current_company.id)
+      unless params[:journal_id].blank?
+        @renew_journal = Journal.find(params[:journal_id])
+        @new_financialyear = @financialyear.next(@current_company.id)
+        
+        if @new_financialyear.nil?
+          flash[:message]=tc(:next_illegal_period_financialyear)
+          redirect_to :action => :financialyears
+          return
+        end
+        
+        balance_account = generate_balance_account(@current_company.id, @financialyear.id)
       
-      if @new_financialyear.nil?
-        flash[:message]=tc(:next_illegal_period_financialyear)
-        redirect_to :action => :financialyears
-        return
-      end
-      
-      @financialyear.close(params[:financialyear][:stopped_on])
-      
-      balance_account = generate_balance_account(@current_company.id, @financialyear.id)
-      
-      if balance_account.size > 0
-        @record = JournalRecord.create!(:financialyear_id => @new_financialyear.id, :company_id => @current_company.id, :journal_id => @renew_journal.id, :created_on => @new_financialyear.started_on, :printed_on => @new_financialyear.started_on)
-
-        result=0
-        account_id=0
-        account_name=''
-
-        balance_account.each do |account|
-          
-          if account[:number].to_s.match /^12/
-            account_id = account[:id]
-            account_name = account[:name]
-            result += account[:balance ]
-          elsif account[:number].to_s.match /^(6|7)/
-            result += account[:balance ] 
+        if balance_account.size > 0
+          @record = JournalRecord.create!(:financialyear_id => @new_financialyear.id, :company_id => @current_company.id, :journal_id => @renew_journal.id, :created_on => @new_financialyear.started_on, :printed_on => @new_financialyear.started_on)
+          result=0
+          account_profit_id=0
+          account_loss_id=0
+          account_profit_name=''
+          account_loss_name=''
+          balance_account.each do |account|
+            if account[:number].to_s.match /^120/
+              account_profit_id = account[:id]
+              account_profit_name = account[:name]
+              result += account[:balance]
+            elsif account[:number].to_s.match /^129/
+              account_loss_id = account[:id]
+              account_loss_name = account[:name]
+              result -= account[:balance]
+            elsif account[:number].to_s.match /^(6|7)/
+              result += account[:balance] 
+            else
+              @entry=@current_company.entries.create({:record_id => @record.id, :currency_id => @renew_journal.currency_id, :account_id => account[:id], :name => account[:name], :currency_debit => account[:debit], :currency_credit => account[:credit]})
+            end
+          end
+          if result.to_i > 0
+            @entry=@current_company.entries.create({:record_id => @record.id, :currency_id => @renew_journal.currency_id, :account_id => account_loss_id, :name => account_loss_name, :currency_debit => result, :currency_credit => 0.0}) 
           else
-            @entry=@current_company.entries.create({:record_id => @record.id, :currency_id => @renew_journal.currency_id, :account_id => account[:id], :name => account[:name], :currency_debit => account[:debit], :currency_credit => account[:credit]}) 
+            @entry=@current_company.entries.create({:record_id => @record.id, :currency_id => @renew_journal.currency_id, :account_id => account_profit_id, :name => account_profit_name, :currency_debit => 0.0, :currency_credit => result.abs}) 
           end
         end
-
-        if result > 0
-          @entry=@current_company.entries.create({:record_id => @record.id, :currency_id => @renew_journal.currency_id, :account_id => account_id, :name => account_name, :currency_debit => 0.0, :currency_credit => result}) 
-        else
-          @entry=@current_company.entries.create({:record_id => @record.id, :currency_id => @renew_journal.currency_id, :account_id => account_id, :name => account_name, :currency_debit => result.abs, :currency_credit => 0.0}) 
-        end
-        flash[:message] = "Exercice clôturé"
-        redirect_to :action => :financialyears
       end
+      @financialyear.close(params[:financialyear][:stopped_on])
+      flash[:message] = "Exercice clôturé"
+      redirect_to :action => :financialyears
       
     else
       if @financialyear
         @financialyear_records = []
         d = @financialyear.started_on
         while d.end_of_month < @financialyear.stopped_on
-        d=(d+1).end_of_month
+          d=(d+1).end_of_month
           @financialyear_records << d.to_s(:attributes)
         end
       end
     end
-
+    
   end
   
   
@@ -529,8 +532,8 @@ class AccountancyController < ApplicationController
   
   # this action displays all entries stored in the journal. 
   def entries_consult
-    @journals = @current_company.journals
-    @financialyears = @current_company.financialyears
+    @journals = @current_company.journals.find(:all, :select=>' DISTINCT id, name, closed_on ')
+    @financialyears = @current_company.financialyears.find(:all, :select=>' DISTINCT id, code')
     
     unless @journals.size > 0 or @financialyears.size > 0
       unless @journals.size > 0 
@@ -552,12 +555,15 @@ class AccountancyController < ApplicationController
       session[:journal_record][:journal_id] = ''
     end
 
-    @journal_record = JournalRecord.new(:journal_id=> session[:journal_record][:journal_id], :financialyear_id => session[:journal_record][:financialyear_id])
-        
     if request.post?
-      session[:journal_record] = params[:journal_record]
+      journal =  Journal.find_by_id_and_company_id(params[:journal_id].to_i, @current_company.id)
+      session[:journal_record][:journal_id] = (journal ? journal.id : '')
+     
+      financialyear = Financialyear.find_by_id_and_company_id(params[:financialyear_id].to_i, @current_company.id)
+      session[:journal_record][:financialyear_id] = (financialyear ? financialyear.id : '')
     end
   
+    @journal_record = JournalRecord.new(:journal_id=> session[:journal_record][:journal_id], :financialyear_id => session[:journal_record][:financialyear_id])
   end
   
   # this action has not specific view.
@@ -576,6 +582,10 @@ class AccountancyController < ApplicationController
       session[:entries][:records_number] = params[:number]
       redirect_to :action => :entries
     end
+  end
+  
+  def entries_t
+  raise Exception.new('p:'+params[:v].to_s)
   end
   
   # This method allows to enter the accountancy records with a form.
@@ -797,8 +807,8 @@ class AccountancyController < ApplicationController
     clients_account = @current_company.parameter('accountancy.third_accounts.clients').value.to_s
     suppliers_account = @current_company.parameter('accountancy.third_accounts.suppliers').value.to_s
 
-    Account.create!(:name=>"Clients", :number=>clients_account) unless @current_company.accounts.exists?(:number=>clients_account)
-    Account.create!(:name=>"Fournisseurs", :number=>suppliers_account) unless @current_company.accounts.exists?(:number=>suppliers_account)
+    Account.create!(:name=>"Clients", :number=>clients_account, :company_id=>@current_company.id) unless @current_company.accounts.exists?(:number=>clients_account)
+    Account.create!(:name=>"Fournisseurs", :number=>suppliers_account, :company_id=>@current_company.id) unless @current_company.accounts.exists?(:number=>suppliers_account)
 
     @accounts_supplier = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", suppliers_account+'%'])
     @accounts_client = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", clients_account+'%'])

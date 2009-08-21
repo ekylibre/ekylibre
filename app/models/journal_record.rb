@@ -47,6 +47,7 @@ class JournalRecord < ActiveRecord::Base
       end
     end
     self.number = self.number.rjust(4, "0")
+    
   end 
   
   #

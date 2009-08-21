@@ -272,7 +272,7 @@ class RelationsController < ApplicationController
     t.action :entities_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
-  dyli(:entity, :attributes=>[:full_name], :conditions =>{:company_id=>['@current_company.id']})
+  dyli(:entity, :full_name, :conditions =>{:company_id=>['@current_company.id']})
   #
   def entities_print
     @entity = find_and_check(:entity, params[:id])
@@ -300,11 +300,7 @@ class RelationsController < ApplicationController
     t.action :entities_contacts_delete  , :method=>:post, :confirm=>:are_you_sure
   end
 
-  # toto(:area_search, :attributes => [:postcode], :conditions => {:company_id=>['@current_company.id']}, :model => :area)
-  # dyli(:area_search, :attributes => [:postcode], :attributes_join => [:name], :conditions => {:company_id=>['@current_company.id']}, :joins => :city, :model => :area)
-  # dyse(:areas_name, :area, :name, :conditions => {:company_id=>['@current_company.id']})
-
-  #dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'}, :children=>:lines) do |t|
+ 
   dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sales_details}, :children=>:product_name
     #t.column :name, :through=>:nature, :children=>false
@@ -652,6 +648,7 @@ class RelationsController < ApplicationController
       # this line has been added temporarly.
       @contact = Contact.new
       # @contact.name = (@entity.contacts.size>0 ? tc(:second_contact) : tc(:first_contact) )
+      @entity ||= @current_company.entity 
       @contact.country = @entity.country
     end
     @title = {:value=>@entity.full_name}

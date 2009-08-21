@@ -18,7 +18,6 @@ module Ekylibre
           #
           def dyli(name_db, attributes=:name, options={})
             model = (options[:model]||name_db).to_s.singularize.camelize.constantize
-
             attributes = [attributes] unless attributes.is_a? Array
             attributes_hash = {}
             0..attributes.size.times do |i|
@@ -125,7 +124,7 @@ module Ekylibre
           
           foreign = real_object.send(association)
           tf_name  = "#{name_db}[search]"
-          tf_value = foreign ? foreign.send([:label, :name, :inspect].detect{|a| foreign.respond_to? a}) : ''
+          tf_value = foreign ? foreign.send([:label, :name, :code, :inspect].detect{|a| foreign.respond_to? a}) : ''
           
           hf_name  = "#{object}[#{foreign_key}]"
           hf_value = (real_object.send(foreign_key) rescue nil)
@@ -214,16 +213,14 @@ module Ekylibre
           hf_id = 'dyli_hf'
           tf_id = 'dyli_tf'
           if options[:append_random_suffix]
-            # random_suffix = Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by {rand}.join)
+            random_suffix = Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by {rand}.join)
             random_suffix = Time.now.to_i.to_s(36)+rand.to_s[2..-1].to_i.to_s(36)
             hf_id << "_#{random_suffix}"
             tf_id << "_#{random_suffix}"
           end
-          return hf_id, tf_id
+         return hf_id, tf_id
         end
         
-
-
 
 
         def determine_tag_options(hf_id, tf_id, options, tag_options) #:nodoc:

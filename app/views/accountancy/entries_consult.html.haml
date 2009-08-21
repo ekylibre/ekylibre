@@ -1,11 +1,13 @@
-.toolbar
+.count=tc('nb_entries', :count=>@current_company.entries.size)
+.search  
   - form_tag do
-    =formalize do |f|
-      - f.field :journal_record, :journal_id, :choices=>@journals.collect{|j| [tc(:journal_x, :name=>j.name, :closed_on=>j.closed_on.to_s), j.id]}, :options=>{:include_blank=>tc(:all_journals)}
-      - f.field :journal_record, :financialyear_id, :choices=>@financialyears.collect{|x| [x.code, x.id]}, :options=>{:include_blank=>tc(:all_financialyears)}
-    .actions
-      =submit_tag tg('apply')
-
+    %table
+      %tr
+        %td.label=tc(:select_journal)
+        %td.field=select_tag("journal_id", options_for_select([tc(:all_journals)]+@journals.collect{|j| [tc(:journal_x, :name=>j.name, :closed_on=>j.closed_on.to_s), j.id]}, session[:journal_record][:journal_id]))
+        %td.label=tc(:select_financialyear)
+        %td.field=select_tag("financialyear_id", options_for_select([tc(:all_financialyears)]+@financialyears.collect{|f| [f.code.to_s, f.id]}, session[:journal_record][:financialyear_id]))
+        %td.submit=submit_tag tg("search_go")
 =dyta(:entries)
 
 
