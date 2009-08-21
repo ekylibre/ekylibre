@@ -24,11 +24,12 @@
 
 class InvoiceLine < ActiveRecord::Base
   belongs_to :company
+  belongs_to :entity
   belongs_to :invoice
+  belongs_to :order_line, :class_name=>SaleOrderLine.to_s
   belongs_to :origin, :class_name=>InvoiceLine.to_s
   belongs_to :price
   belongs_to :product
-  belongs_to :order_line, :class_name=>SaleOrderLine.to_s
 
   validates_presence_of :order_line_id
   
