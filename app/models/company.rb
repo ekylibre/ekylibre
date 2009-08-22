@@ -371,17 +371,19 @@ class Company < ActiveRecord::Base
       puts "R> Removing existing data..."
       ids  = {}
       keys = {}
+      fkeys = {}
       reflections = self.class.reflections
       for name in reflections.keys.collect{|x| x.to_s}.sort
         reflection = reflections[name.to_sym]
         if reflection.macro==:has_many
           other = reflection.class_name
           other_class = other.constantize
-          ids[other] = {}
-          keys[other] = {}
+          ids[other] = keys[other] = {}
+          fkeys[other] = []
           for name, ref in other_class.reflections
             # Ex. : keys["User"]["role_id"] = "Role"
             keys[other][ref.primary_key_name] = (ref.options[:polymorphic] ? ref.options[:foreign_type].to_sym : ref.class_name) if ref.macro==:belongs_to and ref.class_name!=self.class.name
+            fkeys[other] << ref.primary_key_name if ref.macro==:belongs_to and ref.class_name!=self.class.name
           end
           other_class.delete_all(:company_id=>self.id)
         elsif reflection.macro==:belongs_to
@@ -394,46 +396,113 @@ class Company < ActiveRecord::Base
       # Chargement des données sauvegardées
       puts "R> Loading backup data..."
       data = {}
-      root.each_element do |table|
-        reflection = self.class.reflections[table.attributes['reflection'].to_sym]
-        start = Time.now.to_i
-        puts('R> - '+reflection.name.to_s+' ('+table.attributes['records-count'].to_s+')')
+      children = root.children
+      elements = []
+      children.size.times{|i| elements << {:index=>i, :attributes=>children[i].attributes} if children[i].element? }
+      code = ''
+      for element in elements
+        reflection = self.class.reflections[element[:attributes]['reflection'].to_sym]
         klass = reflection.class_name.constantize
-        code =  "x = 0\n"
-        code += "data[:#{reflection.name}] = []\n"
-        code += "table.each_element do |r|\n"
-        code += "  x += 1\n"
-        code += "  puts x.to_s if x.modulo(1000)==0\n"
-        code += "  attributes = r.attributes\n"
+        foreign_keys = keys[reflection.class_name].collect{|key, v| ":#{key}=>record.#{key}"}
+        code += "puts('R> - #{reflection.name.to_s} (#{element[:attributes]['records-count']})')\n" 
+        code += "start = Time.now.to_i\n"
+        code += "data['#{reflection.class_name}'] ||= []\n" if foreign_keys.size>0
+        code += "children[#{element[:index]}].each_element do |r|\n"
+        code += "  attributes = r.attributes.to_h\n"
         code += "  id = attributes['id']\n"
-        unbuildable = (['company_id', 'id']+klass.protected_attributes.to_a)
-        code += "  record = self.#{reflection.name}.build("+klass.columns_hash.keys.delete_if{|x| unbuildable.include? x.to_s}.collect do |col|
-          ":#{col}=>attributes['#{col}']"
-        end.join(", ")+")\n"
+        code += "  record = self.#{reflection.name}.build(attributes.delete_if{|k,v| k=='id' or k=='company_id'})\n"
+#         code += "  attributes = r.attributes\n"
+#         code += "  id = attributes['id']\n"
+#         unbuildable = (['company_id', 'id']+klass.protected_attributes.to_a)
+#         code += "  record = self.#{reflection.name}.build("+klass.columns_hash.keys.delete_if{|x| unbuildable.include? x.to_s}.collect do |col|
+#           ":#{col}=>attributes['#{col}']"
+#         end.join(", ")+")\n"
         klass.protected_attributes.to_a.each do |attr|
           code += "  record.#{attr} = attributes['#{attr}']\n"
         end
         code += "  record.send(:create_without_callbacks)\n"
-        code += "  ids[#{reflection.class_name.inspect}][id] = record.id\n"
-        code += "  data[:#{reflection.name}] << record\n"
-        code += "end"
-        eval(code)
-        duration = Time.now.to_i-start
-        puts duration.to_s+' secondes' if duration > 5
+        code += "  ids['#{reflection.class_name}'][id] = record.id\n"
+        code += "  data['#{reflection.class_name}'] << [record.id, #{fkeys[reflection.class_name].collect{|f| keys[reflection.class_name][f].is_a?(Symbol) ? '[record.'+keys[reflection.class_name][f].to_s+', record.'+f.to_s+']' : 'record.'+f.to_s}.join(', ')}]\n" if fkeys[reflection.class_name].size>0
+        #code += "  data['#{reflection.class_name}'][record.id] = {#{foreign_keys.join(', ')}}\n" if foreign_keys.size>0
+        code += "end\n"
+        code += "duration = Time.now.to_i-start\n"
+        code += "puts duration.to_s+' secondes' if duration>5\n\n"
       end
+      File.open("/tmp/restore-1.rb", "wb") {|f| f.write(code)}
+      eval(code)
+
+#       data = {}
+#       root.each_element do |table|
+#         reflection = self.class.reflections[table.attributes['reflection'].to_sym]
+#         start = Time.now.to_i
+#         puts('R> - '+reflection.name.to_s+' ('+table.attributes['records-count'].to_s+')')
+#         klass = reflection.class_name.constantize
+#         foreign_keys = keys[reflection.class_name].collect{|key| ":#{key}=>record.#{key}"}
+#         code =  "x = 0\n"
+#         code += "data[:#{reflection.name}] = []\n" if foreign_keys.size>0
+#         code += "table.each_element do |r|\n"
+#         code += "  x += 1\n"
+#         code += "  puts x.to_s if x.modulo(1000)==0\n"
+#         code += "  attributes = r.attributes\n"
+#         code += "  id = attributes['id']\n"
+#         unbuildable = (['company_id', 'id']+klass.protected_attributes.to_a)
+#         code += "  record = self.#{reflection.name}.build("+klass.columns_hash.keys.delete_if{|x| unbuildable.include? x.to_s}.collect do |col|
+#           ":#{col}=>attributes['#{col}']"
+#         end.join(", ")+")\n"
+#         klass.protected_attributes.to_a.each do |attr|
+#           code += "  record.#{attr} = attributes['#{attr}']\n"
+#         end
+#         code += "  record.send(:create_without_callbacks)\n"
+#         code += "  ids[#{reflection.class_name.inspect}][id] = record.id\n"
+#         code += "  data[:#{reflection.name}] << {:id=>record.id#{foreign_keys}}\n" if foreign_keys.size>0
+#         code += "end"
+#         puts code
+#         eval(code)
+#         duration = Time.now.to_i-start
+#         puts duration.to_s+' secondes' if duration > 5
+#       end
+      
 
       # Réorganisation des clés étrangères
       puts "R> Redifining primary keys..."
       code  = ''
       for reflection in data.keys
-        klass = Company.reflections[reflection].class_name
-        new_ids = "'"+keys[klass].collect do |key, class_name|
-          "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
-        end.join("+', ")
-        code += "for record in data[:#{reflection}]\n"
-        code += "  #{klass}.update_all(#{new_ids}, 'id='+record.id.to_s)\n"
+        # klass = Company.reflections[reflection].class_name
+        klass = reflection
+
+
+        new_ids = "'"
+        for i in 1..fkeys[klass].size
+          key = fkeys[klass][i-1]
+          class_name = keys[klass][key]
+          new_ids += (i>1 ? "+', " : "")+"#{key}='+"
+          if class_name.is_a? Symbol
+            new_ids += "((ids[record[#{i}][0]][record[#{i}][1].to_s])||record[#{i}][1]||'NULL').to_s"
+          else
+            new_ids += "((ids['#{class_name}'][record[#{i}].to_s])||record[#{i}]||'NULL').to_s"
+          end
+        end
+
+#         new_ids = "'"+fkeys[klass].collect do |key|
+#           class_name = keys[klass][key]
+#           "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
+#         end.join("+', ")
+        #         new_ids = "'"+keys[klass].collect do |key, class_name|
+        #           "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
+        #         end.join("+', ")
+        code += "for record in data['#{reflection}']\n"
+        code += "  #{klass}.update_all(#{new_ids}, 'id='+record[0].to_s)\n"
         code += "end\n"
+#        klass = Company.reflections[reflection].class_name
+#        new_ids = "'"+keys[klass].collect do |key, class_name|
+#          "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
+#        end.join("+', ")
+#        code += "for record in data[:#{reflection}]\n"
+#        code += "  #{klass}.update_all(#{new_ids}, 'id='+record.id.to_s)\n"
+#        code += "end\n"
       end
+      File.open("/tmp/restore-2.rb", "wb") {|f| f.write(code)}      
+#      raise Exception.new
       eval(code)
 
       # Chargement des paramètres de la société
