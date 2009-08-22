@@ -37,12 +37,12 @@ class Delay < ActiveRecord::Base
   def compute(started_on)    
     # dead_on =(born_on >> self.months) + self.days
     # dead_on = dead_on.end_of_month + self.additional_days if self.end_of_month
-    puts started_on.inspect+"  LLLLLLLLLLLLLLLLLLLLLLLLLLLLL".inspect
+    # puts started_on.inspect+"  LLLLLLLLLLLLLLLLLLLLLLLLLLLLL".inspect
     return nil if started_on.nil?
     steps = self.expression.to_s.split(DELAY_SEPARATOR)||[]
     stopped_on = started_on
    # raise Exception.new steps.inspect
-    puts steps.inspect+" mm"
+    # puts steps.inspect+" mm"
     steps.each do |step|
       if step.match /^(eom|end of month|fdm|fin de mois)$/
         stopped_on = stopped_on.end_of_month
@@ -69,11 +69,11 @@ class Delay < ActiveRecord::Base
           end
         end 
       else
-        puts "hhh"
+        # puts "hhh"
         return nil
       end
     end
-    puts stopped_on.inspect+"  LLLLLLLLLL".inspect
+    # puts stopped_on.inspect+"  LLLLLLLLLL".inspect
     stopped_on
   end
 
