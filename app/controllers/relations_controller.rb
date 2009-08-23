@@ -295,13 +295,21 @@ class RelationsController < ApplicationController
     t.action :entities_contacts_delete  , :method=>:post, :confirm=>:are_you_sure
   end
 
-  dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions) do |t|
+  dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions, :order=>{'sort'=>'started_on DESC, first_number', 'dir'=>'DESC'}) do |t|
     t.column :name, :through=>:nature
+    t.column :start
+    t.column :finish
+    t.column :number, :through=>:invoice, :url=>{:action=>:invoices_display, :controller=>:management}
+    t.column :number, :through=>:sale_order, :url=>{:action=>:sales_details, :controller=>:management}
+    t.column :address, :through=>:contact
+    t.column :quantity, :datatype=>:decimal
+    t.column :suspended
   end
 
   dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sales_details}, :children=>:product_name
     #t.column :name, :through=>:nature, :children=>false
+    t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
     t.column :text_state, :children=>false
     t.column :amount
@@ -335,7 +343,7 @@ class RelationsController < ApplicationController
     t.action :bank_accounts_delete, :controller => :accountancy, :method=>:post, :confirm=> :are_you_sure 
   end
   
-  dyta(:client_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity]']}, :line_class=>'RECORD.status', :per_page=>5,:children=>:lines, :order=>{'sort'=>'created_on', 'dir'=>'desc'}) do |t|
+  dyta(:client_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity]']}, :line_class=>'RECORD.status', :per_page=>5,:children=>:lines, :order=>{'sort'=>'number', 'dir'=>'desc'}) do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:invoices_display}, :children=>:product_name
     #t.column :full_name, :through=>:client
     #t.column :address, :through=>:contact

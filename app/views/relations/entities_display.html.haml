@@ -2,7 +2,6 @@
   - link :entities_update, :id=>@entity.id
   - link :entities_print, :id=>@entity.id
 
-
 %table
   %tr
     %td
@@ -30,49 +29,87 @@
       -for datum in @entity.complement_data.find(:all, :joins=>"JOIN complements ON (complements.id=complement_id)", :order=>"position")
         =evalue datum.complement.name, datum.value.to_s
 
-%h2=tc :subscriptions
-=dyta :entity_subscriptions
 
-%h2=tc :contacts, :count=>@contacts_count
-=toolbar do
-  -link :entities_contacts_create, :id=>@entity.id
-=dyta :contacts
--if @entity.client
-  %table.flex{:style=>'margin-top: 10px; width: 100%; '}
-    %tr
-      %td{:valign=>:top}
-        %h2{:style=>' margin: 6px 0px 4px; font-size:16px; color: #06A;'}=tc(:sale_orders_number , :count=>@sale_orders_number)+"         "+link_to(tc(:new_sale), :controller=>:management, :action=>:sales_new, :client_id=>@entity.id)+"  "+image_tag('buttons/create.png', :border=>0)
-        -if @sale_orders_number > 0
-          =dyta :entity_sales
-      %td
-      %td
-      %td{:valign=>:top}
-        %h2{:style=>' margin: 6px 0px 4px; font-size:16px; color: #06A;'}= tc(:invoices, :count=>@invoices_count)
-        =dyta(:client_invoices)
-  -if @entity.client
-    %h2=tc('client_balance')+" : "+@entity.balance.to_s
-%h2=tc :events, :count=>@events_count
-=toolbar do
-  -link :events_create, :entity_id=>@entity.id
--if @events_count > 0
-  =dyta :entity_events
+=tabbox do |tb|
+  -tb.tab(tc(:subscriptions, :count=>@entity.subscriptions.count)) do |c|
+    -c << dyta(:entity_subscriptions)
+  -tb.tab(tc(:contacts, :count=>@contacts_count)) do |c|
+    -c << toolbar do
+      -link(:entities_contacts_create, :id=>@entity.id)
+    -c << dyta(:contacts)
+  -tb.tab(tc(:sale_orders_number , :count=>@sale_orders_number)) do |c|
+    -c << toolbar do |t|
+      -t.link(:sales_new, :controller=>:management, :id=>@entity.id)
+    -c << dyta(:entity_sales)
+  -if @invoices_count>0
+    -tb.tab(tc(:invoices, :count=>@invoices_count)) do |c|
+      -c << dyta(:client_invoices)
+  -tb.tab(tc(:events, :count=>@events_count)) do |c|
+    -c << toolbar do
+      -link :events_create, :entity_id=>@entity.id
+    -c << dyta(:entity_events)
+  -tb.tab(tc(:entity_links, :count=>@entity_links)) do |c|
+    -c << toolbar do
+      -link :entity_links_create, {:entity_id=>@entity.id}
+    -c << dyta(:entity_links)
+  -tb.tab(tc(:observations, :count=>@observations_count)) do |c|
+    -c << toolbar do
+      -link :observations_create, {:entity_id=>@entity.id}
+    -c << dyta(:observations)
+  -tb.tab(tc(:mandates, :count=>@mandates_count)) do |c|
+    -c << toolbar do
+      -link :mandates_create, {:entity_id=>@entity.id}
+    -c << dyta(:entity_mandates)
+  -tb.tab(tc(:bank_accounts, :count=>@bank_accounts_count)) do |c|
+    -c << toolbar do
+      -link :bank_accounts_create, {:controller =>:accountancy, :entity_id=>@entity.id}
+    -c << dyta(:entity_bank_accounts)
 
-%h2=tc :entity_links, :count=>@entity_links
-=toolbar do
-  -link :entity_links_create, {:entity_id=>@entity.id}
-=dyta :entity_links
+  
 
-%h2=tc :observations, :count=>@observations_count
-=toolbar do
-  -link :observations_create, {:entity_id=>@entity.id}
-=dyta :observations
+/%h2=tc :subscriptions
+/=dyta :entity_subscriptions
 
-%h2=tc :mandates, :count=>@mandates_count
-=toolbar do
-  -link :mandates_create, {:entity_id=>@entity.id}
-=dyta :entity_mandates
+/%h2=tc :contacts, :count=>@contacts_count
+/=toolbar do
+/  -link :entities_contacts_create, :id=>@entity.id
+/=dyta :contacts
+/-if @entity.client
+/  %table.flex{:style=>'margin-top: 10px; width: 100%; '}
+/    %tr
+/      %td{:valign=>:top}
+/        %h2{:style=>' margin: 6px 0px 4px; font-size:16px; color: #06A;'}=tc(:sale_orders_number , :count=>@sale_orders_number)+"         "+link_to(tc(:new_sale), :controller=>:management, :action=>:sales_new, :client_id=>@entity.id)+"  "+image_tag('buttons/create.png', :border=>0)
+/        -if @sale_orders_number > 0
+/          =dyta :entity_sales
+/      %td
+/      %td
+/      %td{:valign=>:top}
+/        %h2{:style=>' margin: 6px 0px 4px; font-size:16px; color: #06A;'}= tc(:invoices, :count=>@invoices_count)
+/        =dyta(:client_invoices)
+/  -if @entity.client
+/    %h2=tc('client_balance')+" : "+@entity.balance.to_s
+/%h2=tc :events, :count=>@events_count
+/=toolbar do
+/  -link :events_create, :entity_id=>@entity.id
+/-if @events_count > 0
+/  =dyta :entity_events
 
-%h2=tc :bank_accounts, :count=>@bank_accounts_count
-=toolbar do
-  -link :bank_accounts_create, {:controller =>:accountancy, :entity_id=>@entity.id}
-=dyta :entity_bank_accounts
+/%h2=tc :entity_links, :count=>@entity_links
+/=toolbar do
+/  -link :entity_links_create, {:entity_id=>@entity.id}
+/=dyta :entity_links
+
+/%h2=tc :observations, :count=>@observations_count
+/=toolbar do
+/  -link :observations_create, {:entity_id=>@entity.id}
+/=dyta :observations
+
+/%h2=tc :mandates, :count=>@mandates_count
+/=toolbar do
+/  -link :mandates_create, {:entity_id=>@entity.id}
+/=dyta :entity_mandates
+
+/%h2=tc :bank_accounts, :count=>@bank_accounts_count
+/=toolbar do
+/  -link :bank_accounts_create, {:controller =>:accountancy, :entity_id=>@entity.id}
+/=dyta :entity_bank_accounts

@@ -2,12 +2,12 @@
   - form_tag do
     %table
       %tr
-        %td.label=tc('subscription_nature')
-        %td.input=select(:subscription_nature, :id, @current_company.subscription_natures.collect{|x| [x.name, x.id]})
+        %td.label=tc("subscription_nature")
+        %td.input=select_tag(:nature, options_for_select(@current_company.subscription_natures.collect{|x| [x.name, x.id]}, :selected=>session[:subscriptions][:nature]['id']) )
         %td#subscription_options=render :partial=>"subscription_options"
-        %td=submit_tag tg('search_go')
+        %td=submit_tag tg("search_go")
 
 =dyta :subscriptions
 
-=observe_field("subscription_nature_id",  :url=>{:action => :subscription_options_display}, :frequency => 0.25, :with=>"subscription_nature_id")
+=observe_field("nature", :url=>{:action=>:subscription_options}, :update=>:subscription_options, :frequency => 0.25, :with=>"nature", :loading=>"onLoading()", :loaded=>"onLoaded()")
 

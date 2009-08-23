@@ -1655,10 +1655,10 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:subscription_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:subscription_natures, :conditions=>{:company_id=>['@current_company.id']}, :children=>:products) do |t|
     t.column :name
-    t.column :read_nature
-    t.column :actual_number
+    t.column :nature_label, :children=>false
+    t.column :actual_number, :children=>false
     t.action :subscription_natures_increment, :method=>:post, :if=>"RECORD.nature=='quantity'"
     t.action :subscription_natures_decrement, :method=>:post, :if=>"RECORD.nature=='quantity'"
     t.action :subscription_natures_display
@@ -1718,66 +1718,91 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:subscriptions, :conditions=>:subscriptions_conditions ) do |t|
-    t.column :entity_name
-    t.column :line_2, :through=>:contact, :label=>"Dest-Serv"
-    t.column :line_3, :through=>:contact, :label=>"Bat./Rés."
-    t.column :line_4_number, :through=>:contact, :label=>"N° voie"
-    t.column :line_4_street, :through=>:contact, :label=>"Libelle voie"
-    t.column :line_5, :through=>:contact, :label=>"Lieu dit"
-    t.column :line_6_code, :through=>:contact, :label=>"Code postal"
-    t.column :line_6_city, :through=>:contact, :label=>"Ville"
+  dyta(:subscriptions, :conditions=>:subscriptions_conditions, :export=>false) do |t|
+    t.column :full_name, :through=>:entity, :url=>{:action=>:entities_display, :controller=>:relations}
+#    t.column :line_2, :through=>:contact, :label=>"Dest-Serv"
+#    t.column :line_3, :through=>:contact, :label=>"Bat./Rés."
+#    t.column :line_4_number, :through=>:contact, :label=>"N° voie"
+#    t.column :line_4_street, :through=>:contact, :label=>"Libelle voie"
+#    t.column :line_5, :through=>:contact, :label=>"Lieu dit"
+#    t.column :line_6_code, :through=>:contact, :label=>"Code postal"
+#    t.column :line_6_city, :through=>:contact, :label=>"Ville"
     t.column :name, :through=>:product
     #t.column :started_on
     #t.column :finished_on
     #t.column :first_number
     #t.column :last_number
-    t.column :beginning
+    t.column :start
     t.column :finish
   end
 
-  def subscription_options_display
+#   def subscription_options_display
     
-    @subscription_nature = find_and_check(:subscription_nature, params[:subscription_nature_id])
-    # raise Exception.new params.inspect+"kkkkkkkkkkkkkkkkkkkk"+@subscription_nature.inspect
+#     @subscription_nature = find_and_check(:subscription_nature, params[:subscription_nature_id])
+#     # raise Exception.new params.inspect+"kkkkkkkkkkkkkkkkkkkk"+@subscription_nature.inspect
     
+#   end
+
+  def subscription_options
+    @subscription_nature = find_and_check(:subscription_nature, params[:nature])
+    render :partial=>'subscription_options'
   end
-  
+
+
   def subscriptions
     if @current_company.subscription_natures.size == 0
       flash[:warning]=tc(:need_to_create_subscription_nature)
       redirect_to :action=>:subscription_natures
-    else 
-      session[:sub_is_date] = 0 
-      if not params[:nature].nil?
-        @subscription_nature = find_and_check(:subscription_nature, params[:nature])
-        session[:subscription_instant] = @subscription_nature.nature == "quantity" ? @subscription_nature.actual_number : Date.today
-        session[:sub_is_date] = @subscription_nature.nature == "quantity" ? 2 : 1
-      else
-        @subscription_nature = session[:subscription_nature]||@current_company.subscription_natures.find(:first)
-      end
-      session[:subscription_nature] = @subscription_nature
+      return
     end
-    if request.post?
-      @subscription_nature = find_and_check(:subscription_nature, params[:subscription_nature][:id])
-      if @subscription_nature
-        if @subscription_nature.nature == "quantity"
-          session[:subscription_instant]= params[:subscription][:value].to_i > 0 ? params[:subscription][:value].to_i : 0
-          session[:sub_is_date] = 2
-        elsif @subscription_nature.nature == "period" and !params[:subscription][:value].nil?
-          begin
-            params_to_date = params[:subscription][:value].to_date
-            session[:subscription_instant] = params_to_date
-            session[:sub_is_date] = 1
-          rescue
-            session[:subscription_instant] = Date.today
-            session[:sub_is_date] = 1
-            flash[:warning]=tc(:unvalid_date)
-          end
-        end
-      end
+    if params[:nature]
+      return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature])
     end
+    @subscription_nature ||= @current_company.subscription_natures.first
+    session[:subscriptions] ||= {}
+    session[:subscriptions][:nature]  = @subscription_nature.attributes
+    instant = (@subscription_nature.period? ? params[:subscriptions][:instant].to_date : params[:subscriptions][:instant]) rescue nil
+    session[:subscriptions][:instant] = instant||@subscription_nature.now
   end
+  
+
+
+  # TO DELETE
+#   def subscriptions2()
+#     if @current_company.subscription_natures.size == 0
+#       flash[:warning]=tc(:need_to_create_subscription_nature)
+#       redirect_to :action=>:subscription_natures
+#     else 
+#       session[:sub_is_date] = 0 
+#       if not params[:nature].nil?
+#         @subscription_nature = find_and_check(:subscription_nature, params[:nature])
+#         session[:subscription_instant] = @subscription_nature.nature == "quantity" ? @subscription_nature.actual_number : Date.today
+#         session[:sub_is_date] = @subscription_nature.nature == "quantity" ? 2 : 1
+#       else
+#         @subscription_nature = session[:subscription_nature]||@current_company.subscription_natures.find(:first)
+#       end
+#       session[:subscription_nature] = @subscription_nature
+#     end
+#     if request.post?
+#       @subscription_nature = find_and_check(:subscription_nature, params[:subscription_nature][:id])
+#       if @subscription_nature
+#         session[:subscription] = 
+#         if @subscription_nature.nature == "quantity"
+#           session[:subscription_instant]= params[:subscription][:value].to_i > 0 ? params[:subscription][:value].to_i : 0
+#           session[:sub_is_date] = 2
+#         elsif @subscription_nature.nature == "period" and !params[:subscription][:value].nil?
+#           begin
+#             params_to_date = params[:subscription][:value].to_date
+#             session[:subscription_instant] = params_to_date
+#           rescue
+#             session[:subscription_instant] = Date.today
+#             flash[:warning]=tc(:unvalid_date)
+#           end
+#           session[:sub_is_date] = 1
+#         end
+#       end
+#     end
+#   end
   
   
   

@@ -17,7 +17,7 @@ fr-FR:
     consult_stocks: 'Consulter l''état des stocks'
     create_estimates: 'Créer un devis'
     create_purchases: 'Créer, modifier des achats'
-    extract_listings: (((EXTRACT_LISTINGS)))
+    extract_listings: 'Effectuer des extractions (sans pouvoir les concevoir)'
     import_export_entities: 'Importer, exporter des fiches clients/fournisseurs'
     manage_accounts: 'Gérer les comptes comptables'
     manage_areas: 'Gérer les zones'
@@ -31,14 +31,14 @@ fr-FR:
     manage_entities: 'Gérer les fiches clients/fournisseurs'
     manage_entities_natures: 'Gérer les types de fiche'
     manage_entity_categories: 'Gérer les catégories de fiche'
-    manage_entity_links: (((MANAGE_ENTITY_LINKS)))
+    manage_entity_links: 'Gérer les liens entre fiches'
     manage_entries: 'Gérer les écritures'
-    manage_events: (((MANAGE_EVENTS)))
+    manage_events: 'Gérer les évènements'
     manage_financialyears: 'Gérer les exercices'
     manage_invoicing: 'Gérer la facturation et les règlements'
     manage_journals: 'Gérer les journaux'
     manage_listings: 'Gérer les extractions'
-    manage_mandates: (((MANAGE_MANDATES)))
+    manage_mandates: 'Gérer les responsabilités'
     manage_observations: 'Gérer les observations'
     manage_orders: 'Gérer les commandes et livraisons'
     manage_payment_modes: 'Gérer les modes de paiments'

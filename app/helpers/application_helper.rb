@@ -431,14 +431,16 @@ module ApplicationHelper
   def subscriptions_conditions(options={})
     conditions = {}
     conditions = ["company_id = ? AND sale_order_id NOT IN (SELECT id from sale_orders WHERE company_id = ? and state = 'P')", @current_company.id, @current_company.id]
-    if session[:sub_is_date] == 2
-      conditions[0] += "AND ? BETWEEN first_number AND last_number "
-      conditions << session[:subscription_instant] 
-    elsif  session[:sub_is_date] == 1
-      conditions[0] += "AND ? BETWEEN started_on AND stopped_on "
-      conditions << session[:subscription_instant] 
+    if session[:subscriptions][:nature].is_a? Hash
+      conditions[0] += " AND nature_id = ?"
+      conditions << session[:subscriptions][:nature]['id'].to_i
     end
-    #raise Exception.new  conditions.inspect
+    if session[:subscriptions][:nature]['nature'] == "quantity"
+      conditions[0] += " AND ? BETWEEN first_number AND last_number"
+    elsif session[:subscriptions][:nature]['nature'] == "period"
+      conditions[0] += " AND ? BETWEEN started_on AND stopped_on"
+    end
+    conditions << session[:subscriptions][:instant]
     conditions
   end
   
@@ -492,6 +494,64 @@ module ApplicationHelper
       @stops_count += 1
     end
   end
+
+
+
+
+  # TABBOX
+
+  def tabbox(options={})
+    tb = Tabbox.new
+    yield tb
+    tablabels = tabpanels = js = ''
+    tabs = tb.tabs
+    jsmethod = tb.id+'c'
+    js += "function #{jsmethod}(id) {"
+    tabs.size.times do |i|
+      tab = tabs[i]
+      # js += "$('tp#{tab[:id]}').style.display = 'none';"
+      js += "$('tp#{tab[:id]}').removeClassName('current');"
+      js += "$('tl#{tab[:id]}').removeClassName('current');"
+      # tablabels += content_tag(:a, tab[:name], :class=>:tab, :href=>"#", :onclick=>"#{jsmethod}('#{tab[:id]}')")
+      tablabels += link_to_function(tab[:name].gsub(/\s+/,'&nbsp;'), "#{jsmethod}('#{tab[:id]}')", :class=>:tab, :id=>'tl'+tab[:id])+' '
+      tabpanels += content_tag(:div, tab[:content], :class=>:tabpanel, :id=>'tp'+tab[:id])
+    end
+    #js += "$('tp'+id).style.display = 'block';"
+    js += "$('tp'+id).addClassName('current');"
+    js += "$('tl'+id).addClassName('current');"
+    js += "return true;};"
+    js += "#{jsmethod}('#{tabs[0][:id]}');"
+    code  = content_tag(:div, tablabels, :class=>:tabs)+content_tag(:div, tabpanels, :class=>:tabpanels)
+    code += javascript_tag(js)
+    content_tag(:div, code, :class=>:tabbox, :id=>tb.id)
+  end
+
+
+  class Tabbox
+    attr_accessor :tabs, :id
+
+    def initialize(id=nil)
+      @tabs = []
+      @id = id||"a"+rand.to_s[2..-1].to_i.to_s(36)[0..5]
+      @sequence = 0
+    end
+
+    def tab(name)
+      content = []
+      yield content if block_given?
+      @tabs << {:name=>name, :content=>content.join, :id=>@id+(@sequence+=1).to_s}
+    end
+
+  end
+
+
+
+
+
+
+
+
+
 
 
   # TOOLBAR

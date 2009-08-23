@@ -120,6 +120,35 @@ module Hebi
     end
 
     
+
+
+
+
+
+
+
+
+
+
+#     def self.merge(documents)
+#       for document in documents
+#         pdf = Document.parse(document)
+#         pdf.catalog[:Pages]
+#       end
+#     end
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 
     def new_page(format=[], rotate=0)

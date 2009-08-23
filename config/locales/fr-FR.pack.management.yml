@@ -79,9 +79,9 @@ fr-FR:
         amount: 'Total de la livraison HT'
         amount_with_taxes: 'Total de la livraison TTC'
         infos: 'Renseignez les caractéristiques de la livraison'
-      _deliveries_update:
-        title: 'Modification de la livraison'
       deliveries_update:
+        title: 'Modification de la livraison'
+      _deliveries_update:
         title: 'Modification de la livraison'
       delivery_modes:
         delivery_modes_create: 'Ajouter un type livraison'
@@ -323,10 +323,10 @@ fr-FR:
       _purchase_orders_form:
         infos: 'Renseignez les caractéristiques de l''achat '
       purchases:
-        nb_purchases: 
-          zero: 'Aucun achat'
+        nb_purchases:
           one: '1 achat'
           other: '{{count}} achats'
+          zero: 'Aucun achat'
         title: 'Liste des achats'
       purchases_products:
         amount: 'Montant HT'

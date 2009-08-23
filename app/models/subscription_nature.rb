@@ -19,13 +19,22 @@ class SubscriptionNature < ActiveRecord::Base
   belongs_to :company
   has_many :products
 
- def self.natures
-   [:quantity, :period].collect{|x| [tc('natures.'+x.to_s), x] }
+  def self.natures
+    [:quantity, :period].collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
- def read_nature
-   tc('natures.'+self.nature.to_s)
- end
+
+  def nature_label
+    tc('natures.'+self.nature.to_s)
+  end
+
+  def period?
+    self.nature == "period"
+  end
+
+  def now
+    return (self.period? ? Date.today : self.actual_number)
+  end
 
 end
-  
+

@@ -8,10 +8,11 @@ fr-FR:
 
   helpers:
     application:
+      all_financialyears: '--- Tous les exercices ---'
+      all_journals: '--- Tous les journaux ---'
       exit: 'Se déconnecter'
       false: 'non'
       true: 'oui'
-      all_financialyears: '--- Tous les exercices ---'
-      all_journals: '--- Tous les journaux ---'
+
   views:
     application:

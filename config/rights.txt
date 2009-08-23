@@ -1,6 +1,9 @@
+#management      dyli_contact                     [new_right]
+#management      dyli_entity                      [new_right]
 #management      subscription_natures_down        manage_subscriptions
 #management      subscription_natures_up          manage_subscriptions
 accountancy      dyli_account                     [new_right]
+accountancy      entries_t                        [new_right]
 accountancy      dyta_bank_account_statements     administrate_accountancy
 accountancy      dyta_entries                     administrate_accountancy
 accountancy      dyta_entries_statement           administrate_accountancy
@@ -53,6 +56,7 @@ authentication   login                            __minimum__
 authentication   logout                           __minimum__
 authentication   register                         __minimum__
 company          about_us                         __minimum__
+company          change_password                  __minimum__
 company          help                             __minimum__
 company          index                            __minimum__
 company          unknown_action                   __minimum__
@@ -101,13 +105,12 @@ help             close                            __minimum__
 help             previous                         __minimum__
 help             search                           __minimum__
 help             side                             __minimum__
-management       dyli_contact                     [new_right]
-management       dyli_entity                      [new_right]
+management       dyli_account                     [new_right]
+management       dyli_clients                     [new_right]
+management       dyli_contacts                    [new_right]
+management       dyli_entities                    [new_right]
 management       dyta_deliveries_to_invoice       [new_right]
 management       dyta_waiting_payments            [new_right]
-management       payments                         [new_right]
-management       subscription_natures_decrement   [new_right]
-management       subscription_natures_increment   [new_right]
 management       dyta_all_invoices                administrate_management
 management       dyta_critic_product_stocks       administrate_management
 management       dyta_deliveries                  administrate_management
@@ -190,6 +193,7 @@ management       embankments_display              manage_embankments
 management       embankments_print                manage_embankments
 management       embankments_update               manage_embankments
 management       unvalidated_embankments          manage_embankments
+management       payments                         manage_invoicing
 management       payments_create                  manage_invoicing
 management       payments_delete                  manage_invoicing
 management       payments_update                  manage_invoicing
@@ -245,8 +249,11 @@ management       subscription_find                manage_subscriptions
 management       subscription_message             manage_subscriptions
 management       subscription_natures             manage_subscriptions
 management       subscription_natures_create      manage_subscriptions
+management       subscription_natures_decrement   manage_subscriptions
 management       subscription_natures_display     manage_subscriptions
+management       subscription_natures_increment   manage_subscriptions
 management       subscription_natures_update      manage_subscriptions
+management       subscription_options             manage_subscriptions
 management       subscription_options_display     manage_subscriptions
 management       subscriptions                    manage_subscriptions
 management       taxes                            manage_taxes
@@ -284,8 +291,8 @@ production       shapes_create                    manage_shapes
 relations        auto_complete_for_entity_origin  [new_right]
 relations        auto_complete_for_event_location [new_right]
 relations        change_minutes                   [new_right]
+relations        dyli_districts                   [new_right]
 relations        dyli_entity                      [new_right]
-relations        dyta_entity_events               [new_right]
 relations        entities_merge                   [new_right]
 relations        auto_complete_for_contact_line_6 administrate_relations
 relations        dyta_client_invoices             administrate_relations
@@ -322,6 +329,8 @@ relations        districts_delete                 manage_districts
 relations        districts_update                 manage_districts
 relations        dyta_districts                   manage_districts
 relations        client_informations              manage_entities
+relations        dyta_entity_events               manage_entities
+relations        dyta_entity_subscriptions        manage_entities
 relations        entities_contacts_create         manage_entities
 relations        entities_contacts_delete         manage_entities
 relations        entities_contacts_update         manage_entities
@@ -342,6 +351,7 @@ relations        dyta_entity_link_natures         manage_entity_links
 relations        dyta_entity_links                manage_entity_links
 relations        entity_link_natures              manage_entity_links
 relations        entity_link_natures_create       manage_entity_links
+relations        entity_link_natures_update       manage_entity_links
 relations        entity_links_create              manage_entity_links
 relations        entity_links_delete              manage_entity_links
 relations        entity_links_update              manage_entity_links

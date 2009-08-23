@@ -1,13 +1,15 @@
 -if @subscription_nature.nature == "quantity"
   %table
     %tr
-      %td.label=tc('select_number')
-      %td=text_field(:subscription, :value, :size=>6, :value=>session[:subscription_instant]||@subscription_nature.actual_number)
+      %td.label=tc("select_number")
+      %td=text_field_tag(:instant, session[:subscriptions][:instant], :size=>6)
       %td
         =link_to image_tag("buttons/increment.png"), {:action=>:subscription_natures_increment, :id=>@subscription_nature.id}, {:method=>:post, :class=>:act}
         =link_to image_tag("buttons/decrement.png"), {:action=>:subscription_natures_decrement, :id=>@subscription_nature.id}, {:method=>:post, :class=>:act}
 -elsif @subscription_nature.nature == "period"
   %table
     %tr
-      %td.label=tc('select_date')
-      %td.input=text_field(:subscription, :value, :size=>10, :value=>session[:subscription_instant]||Date.today)
+      %td.label=tc("select_date")
+      %td.input=text_field_tag(:instant, session[:subscriptions][:instant], :size=>10)
+-else
+  %strong [NoNatureError]

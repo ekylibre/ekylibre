@@ -148,10 +148,14 @@ fr-FR:
         observations_create: 'Ajouter une observation'
         sale_orders_number:
           one: '1 vente '
-          other: ' {{count}} ventes '
+          other: '{{count}} ventes'
           zero: 'Aucune vente'
         sales_new: 'Ajouter une nouvelle vente'
         state: 'État'
+        subscriptions:
+          one: '1 abonnement'
+          other: '{{count}} abonnements'
+          zero: 'Aucun abonnement'
         title: 'Fiche : {{value}}'
       _entities_form:
         account_client_to_create: '--Créer automatiquement un compte client--'
