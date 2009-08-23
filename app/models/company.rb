@@ -405,28 +405,31 @@ class Company < ActiveRecord::Base
         klass = reflection.class_name.constantize
         foreign_keys = keys[reflection.class_name].collect{|key, v| ":#{key}=>record.#{key}"}
         code += "puts('R> - #{reflection.name.to_s} (#{element[:attributes]['records-count']})')\n" 
-        code += "start = Time.now.to_i\n"
+        code += "start, tdb1, tdb2p = Time.now, 0, 0\n"
         code += "data['#{reflection.class_name}'] ||= []\n" if foreign_keys.size>0
         code += "children[#{element[:index]}].each_element do |r|\n"
         code += "  attributes = r.attributes.to_h\n"
         code += "  id = attributes['id']\n"
-        code += "  record = self.#{reflection.name}.build(attributes.delete_if{|k,v| k=='id' or k=='company_id'})\n"
-#         code += "  attributes = r.attributes\n"
-#         code += "  id = attributes['id']\n"
-#         unbuildable = (['company_id', 'id']+klass.protected_attributes.to_a)
-#         code += "  record = self.#{reflection.name}.build("+klass.columns_hash.keys.delete_if{|x| unbuildable.include? x.to_s}.collect do |col|
-#           ":#{col}=>attributes['#{col}']"
-#         end.join(", ")+")\n"
-        klass.protected_attributes.to_a.each do |attr|
+        code += "  dstart = Time.now\n"
+
+        code += "  record = self.#{reflection.name}.new\n"
+        klass.columns_hash.keys.delete_if{|k| k=='id' or k=='company_id'}.each do |attr|
           code += "  record.#{attr} = attributes['#{attr}']\n"
         end
+
+        code += "  tdb1 += Time.now-dstart\n"
         code += "  record.send(:create_without_callbacks)\n"
+        code += "  tdb2p += Time.now-dstart\n"
         code += "  ids['#{reflection.class_name}'][id] = record.id\n"
         code += "  data['#{reflection.class_name}'] << [record.id, #{fkeys[reflection.class_name].collect{|f| keys[reflection.class_name][f].is_a?(Symbol) ? '[record.'+keys[reflection.class_name][f].to_s+', record.'+f.to_s+']' : 'record.'+f.to_s}.join(', ')}]\n" if fkeys[reflection.class_name].size>0
         #code += "  data['#{reflection.class_name}'][record.id] = {#{foreign_keys.join(', ')}}\n" if foreign_keys.size>0
         code += "end\n"
-        code += "duration = Time.now.to_i-start\n"
-        code += "puts duration.to_s+' secondes' if duration>5\n\n"
+        if element[:attributes]['records-count'].to_i>30
+          code += "duration, tdb2 = Time.now-start, tdb2p-tdb1\n"
+          code += "duration = Time.now-start\n"
+          code += "puts 'R>     T: '+duration.to_s[0..6]+' | TDB1: '+tdb1.to_s[0..6]+' | TDB2: '+tdb2.to_s[0..6]+' | RS: '+(duration-tdb2p).to_s[0..6]+' | AVG(TDB1): '+(tdb1/#{element[:attributes]['records-count']}).to_s[0..6]+' | AVG(TDB2): '+(tdb2/#{element[:attributes]['records-count']}).to_s[0..6]\n"
+          # code += "puts 'R>     *****************************' if (tdb1>tdb2)\n" 
+        end
       end
       File.open("/tmp/restore-1.rb", "wb") {|f| f.write(code)}
       eval(code)
@@ -503,7 +506,9 @@ class Company < ActiveRecord::Base
       end
       File.open("/tmp/restore-2.rb", "wb") {|f| f.write(code)}      
 #      raise Exception.new
+      start = Time.now
       eval(code)
+      puts "R> Total: #{(Time.now-start)}s"
 
       # Chargement des paramètres de la société
       puts "R> Loading company data..."
