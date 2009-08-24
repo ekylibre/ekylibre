@@ -41,6 +41,7 @@ module ApplicationHelper
              # {:name=>:meeting_locations},
              # {:name=>:meeting_modes},
              {:name=>:event_natures},
+             # {:name=>:configure_mandates},
              {:name=>:complements},
              {:name=>:areas},
              {:name=>:districts}
