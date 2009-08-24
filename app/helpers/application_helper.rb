@@ -433,7 +433,8 @@ module ApplicationHelper
 
   def subscriptions_conditions(options={})
     conditions = {}
-    conditions = ["company_id = ? AND sale_order_id NOT IN (SELECT id from sale_orders WHERE company_id = ? and state = 'P')", @current_company.id, @current_company.id]
+    conditions = ["company_id = ? AND COALESCE(sale_order_id,0) NOT IN (SELECT id from sale_orders WHERE company_id = ? and state = 'P')", @current_company.id, @current_company.id]
+    #conditions = ["company_id = ?", @current_company.id]
     if session[:subscriptions][:nature].is_a? Hash
       conditions[0] += " AND nature_id = ?"
       conditions << session[:subscriptions][:nature]['id'].to_i

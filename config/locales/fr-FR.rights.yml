@@ -11,6 +11,7 @@ fr-FR:
     configure_company: 'Configurer les options de la société'
     consult_entities: 'Consulter les fiches clients/fournisseurs'
     consult_entries: 'Consulter les écritures'
+    consult_invoices: 'Consulter les écritures'
     consult_prices: 'Consulter les prix'
     consult_purchases: 'Consulter les achats'
     consult_sales: 'Consulter les ventes'

@@ -547,6 +547,8 @@ fr-FR:
         select_number_or_date: 'Entrez un numéro ou une date'
         subscription_nature: 'Type d''abonnement'
         title: 'Abonnements'
+      subscriptions_create:
+        title: 'Création d''un abonnement'
       taxes:
         taxes_create: 'Ajouter une nouvelle taxe'
         title: 'Taxes'

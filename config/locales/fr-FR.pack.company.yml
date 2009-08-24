@@ -141,14 +141,14 @@ fr-FR:
         end: ' au '
         events: ' événements de type '
         minutes: ' minutes '
-        nb_events: 
+        nb_events:
           one: ' 1 événement de type '
-          other: ' {{count}} événements de type ' 
+          other: ' {{count}} événements de type '
           zero: ' Aucun événement de type '
-        nb_sales: 
-          zero: 'Aucune commande'
+        nb_sales:
           one: '1 commande'
           other: '{{count}} commandes'
+          zero: 'Aucune commande'
         start: 'De la période allant du '
         title: 'Mes statistiques'
         total_amount: ' Total montant HT '

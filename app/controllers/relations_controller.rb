@@ -260,7 +260,7 @@ class RelationsController < ApplicationController
     t.column :name, :url=>{:action=>:entities_display}
     t.column :first_name, :url=>{:action=>:entities_display}
     t.column :code, :url=>{:action=>:entities_display}
-    t.column :line_6, :through=>:default_contact, :url=>{:action=>:entities_contact_update}
+    t.column :line_6, :through=>:default_contact, :url=>{:action=>:entities_contacts_update}
     t.action :entities_display
     t.action :entities_print
     t.action :entities_update

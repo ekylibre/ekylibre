@@ -36,8 +36,8 @@ class Subscription < ActiveRecord::Base
 
   attr_readonly :company_id
 
-  validates_presence_of :started_on, :stopped_on, :if=>Proc.new{|u| u.product.nature=="period"}
-  validates_presence_of :first_number, :last_number, :if=>Proc.new{|u| u.product.nature=="quantity"}
+  validates_presence_of :started_on, :stopped_on, :if=>Proc.new{|u| u.nature and u.nature.nature=="period"}
+  validates_presence_of :first_number, :last_number, :if=>Proc.new{|u| u.nature and u.nature.nature=="quantity"}
   validates_presence_of :nature_id, :entity_id
 
 

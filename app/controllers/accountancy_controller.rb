@@ -584,10 +584,6 @@ class AccountancyController < ApplicationController
     end
   end
   
-  def entries_t
-  raise Exception.new('p:'+params[:v].to_s)
-  end
-  
   # This method allows to enter the accountancy records with a form.
   def entries
     session[:entries] ||= {}

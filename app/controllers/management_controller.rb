@@ -1761,10 +1761,28 @@ class ManagementController < ApplicationController
     @subscription_nature ||= @current_company.subscription_natures.first
     session[:subscriptions] ||= {}
     session[:subscriptions][:nature]  = @subscription_nature.attributes
-    instant = (@subscription_nature.period? ? params[:subscriptions][:instant].to_date : params[:subscriptions][:instant]) rescue nil
+    instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant]) rescue nil 
     session[:subscriptions][:instant] = instant||@subscription_nature.now
   end
   
+  def subscriptions_create
+    if request.post?
+      @subscription = Subscription.new(params[:subscription])
+      @subscription.company_id = @current_company.id
+      # redirect_to :action=>:subscriptions if @subscription.save
+      redirect_to_back if @subscription.save
+    else
+      @subscription = Subscription.new(:entity_id=>params[:entity_id])
+    end
+    @subscription_nature = @subscription.nature
+    render_form
+  end
+  
+  def subscriptions_period    
+    @subscription = Subscription.new(:nature=>SubscriptionNature.find_by_company_id_and_id(@current_company.id, params[:subscription_nature_id].to_i))
+    render :partial=>'subscriptions_period_form'
+  end
+
 
 
   # TO DELETE
