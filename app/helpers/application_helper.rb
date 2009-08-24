@@ -4,9 +4,12 @@ module ApplicationHelper
     [ 
      # CompanyController
      {:name=>:company, :list=>
-       [ {:name=>:tools, :list=>
-           [ {:name=>:change_password},
-             {:name=>:backups},
+       [ {:name=>:my_account, :list=>
+           [{:name=>:user_statistics}, 
+            {:name=>:change_password}
+           ] },
+         {:name=>:tools, :list=>
+           [ {:name=>:backups},
              {:name=>:listings}
            ] },
          {:name=>:parameters, :list=>
@@ -175,7 +178,6 @@ module ApplicationHelper
     #    link_to tg(options[:label]||'back'), :back
     link_to tg(options[:label]||'back'), session[:history][1]
   end
-
   #
   def elink(condition,label,url)
     link_to_if(condition,label,url) do |name| 

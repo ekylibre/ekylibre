@@ -66,7 +66,7 @@ fr-FR:
         about_us: 'À propos d''Ekylibre'
         accountancy: 'Comptabilité générale'
         backups: 'Sauvegardes'
-        change_password: 'Modifier son mot de passe'
+        change_password: 'Modifier mon mot de passe'
         configure: 'Configuration'
         departments: 'Services'
         establishments: 'Établissements'
@@ -76,6 +76,7 @@ fr-FR:
         listings: 'Extractions de données'
         management: 'Gestion commerciale (ventes, achats et stocks)'
         modules: 'Modules'
+        my_account: 'Mon compte'
         nb_entities:
           one: '1 fiche client/fournisseur'
           other: '{{count}} fiches clients/fournisseurs'
@@ -96,6 +97,7 @@ fr-FR:
         sequences: 'Séquences'
         title: 'Bienvenue dans Ekylibre, {{user}}'
         tools: 'Outils'
+        user_statistics: 'Mes statistiques'
         users: 'Utilisateurs'
       listings:
         listings_create: 'Créer une nouvelle extraction'
@@ -134,6 +136,23 @@ fr-FR:
       user:
         change_password: 'Changer de mot de passe'
         title: 'Informations sur l''utilisateur : {{value}}'
+      user_statistics:
+        during: ' pour une durée '
+        end: ' au '
+        events: ' événements de type '
+        minutes: ' minutes '
+        nb_events: 
+          one: ' 1 événement de type '
+          other: ' {{count}} événements de type ' 
+          zero: ' Aucun événement de type '
+        nb_sales: 
+          zero: 'Aucune commande'
+          one: '1 commande'
+          other: '{{count}} commandes'
+        start: 'De la période allant du '
+        title: 'Mes statistiques'
+        total_amount: ' Total montant HT '
+        total_invoiced_amount: 'Total montant facturé '
       users:
         title: 'Liste des utilisateurs'
         users_create: 'Ajouter un nouvel utilisateur'

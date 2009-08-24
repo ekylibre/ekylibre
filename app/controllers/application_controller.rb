@@ -30,7 +30,8 @@ class ApplicationController < ActionController::Base
     end
     if @current_user
       raise Exception.new(url.inspect) if url[:controller].blank? or url[:action].blank?
-      if @current_user.admin or session[:rights].include?((User.rights[url[:controller].to_sym]||{})[url[:action].to_sym])
+      #if @current_user.admin or session[:rights].include?((User.rights[url[:controller].to_sym]||{})[url[:action].to_sym])
+      if @current_user.authorization(session[:rights], url[:controller], url[:action]).nil?
         true
       else
         false
@@ -120,7 +121,7 @@ class ApplicationController < ActionController::Base
     # Check rights before allowing access
     message = @current_user.authorization(session[:rights], controller_name, action_name)
     if message
-      flash[:error] = message
+      flash[:error] = message+request.url.inspect
       redirect_to_back unless @current_user.admin
     end
   end
@@ -156,8 +157,10 @@ class ApplicationController < ActionController::Base
     if session[:history] and session[:history][1]
       session[:history].delete_at(0)
       redirect_to session[:history][0], options
-    else
+    elsif request.referer
       redirect_to request.referer, options
+    else
+      redirect_to_login
     end
   end
 

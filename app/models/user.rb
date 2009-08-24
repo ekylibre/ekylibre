@@ -130,7 +130,7 @@ class User < ActiveRecord::Base
       message = tc(:no_right_defined_for_this_part_of_the_application, :controller=>controller_name, :action=>action_name)
     elsif (right = User.rights[controller_name.to_sym][action_name.to_sym]).nil?
       message = tc(:no_right_defined_for_this_part_of_the_application, :controller=>controller_name, :action=>action_name)
-    elsif not right == "*" and not rights_list.include?(right) and not self.admin
+    elsif not right == User.minimum_right and not rights_list.include?(right) and not self.admin
       message = tc(:no_right_defined_for_this_part_of_the_application_and_this_user)
     end
     return message
