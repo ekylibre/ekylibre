@@ -17,7 +17,8 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
   
   part 75.mm do
     set  do
-      text @sale_order.company.name, :size=>7.mm
+      #text @sale_order.company.name, :size=>7.mm
+      image "#{RAILS_ROOT}/public/images/"+@current_company.name+".jpg", 30.mm, 48.mm if File.exists? "#{RAILS_ROOT}/public/images/"+@current_company.name+".jpg"
       set  do
         top = 0
         for line in @lines
@@ -38,7 +39,7 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
 
   part 11.mm do    
     set do
-      if @current_company.default_contact.area.city_name.nil?
+      if @current_company.default_contact.area.nil?
         text "Le "+I18n.localize(@sale_order.created_on, :format=>:month_letter), :left=>width, :align=>:right
       else
         text "À "+@current_company.default_contact.area.city_name.capitalize+", le "+I18n.localize(@sale_order.created_on, :format=>:month_letter),  :left=>width, :align=>:right
