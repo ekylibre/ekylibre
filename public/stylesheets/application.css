@@ -1,4 +1,4 @@
-* {margin:0; padding:0; font-family: Arial, sans-serif;}
+* {margin:0; padding:0; font-family: sans-serif;}
 /* BLUE EKYLIBRE : #3060FF */
 html {background: #FFF;}
 td, th, a, p, input, textarea, select, div { font-size:13px;}
@@ -15,7 +15,7 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #legals { margin:0; padding:4px 8px; background: #C9D7F1; font-size:13px; color: #047; text-align: center; }
 
 .nav { height: 32px; }
-.nav .title { color: #750; font-size: 20px;  height: 24px; padding:4px 8px; font-weight: bold; overflow:hidden; margin:0; }
+.nav .title { color: #750; font-size: 20px;  height: 24px; padding:4px 8px; font-weight: normal; overflow:hidden; margin:0; }
 .side-link { float:left; display:block;}
 .side-link div { width: 22px; height:32px; background: url(../images/buttons/close3.png) left center no-repeat;}
 #side-open div  { background: url(../images/buttons/open3.png) left center no-repeat;}
@@ -61,7 +61,7 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 
 
 #yield { padding: 8px; overflow: auto; background: url(../images/template/columns.png) repeat-x top; border: 1px solid #95b0e4; }
-#yield h1 { margin: 0px 0px 8px; font-size:20px; color: #047;}
+#yield h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: normal;}
 #yield h2 { margin: 16px 0px 4px; font-size:16px; color: #06A;}
 #yield .menu, .errorExplanation { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px;}
 #yield .menu h2, .errorExplanation h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }

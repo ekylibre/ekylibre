@@ -282,13 +282,14 @@ class CompanyController < ApplicationController
   end
 
   def user_statistics
-    session[:statistics_start] ||= Date.today<<(12)
-    session[:statistics_end] ||= Date.today
-    @sale_orders_count = SaleOrder.count_by_sql ["SELECT  count(*) FROM sale_orders WHERE company_id = ? AND state != 'P' AND responsible_id = ? AND created_on BETWEEN ? AND ? ", @current_company.id, @current_user.employee.id, session[:statistics_start], session[:statistics_end] ]
-    @sale_orders_amount = SaleOrder.count_by_sql ["SELECT sum(amount) FROM sale_orders WHERE company_id = ? AND state != 'P' AND responsible_id = ? AND created_on BETWEEN ? AND ? ", @current_company.id, @current_user.employee.id, session[:statistics_start], session[:statistics_end] ]
-    @invoiced_amount = Invoice.count_by_sql ["SELECT sum(invoices.amount) FROM invoices INNER JOIN sale_orders ON sale_orders.responsible_id = ? AND invoices.sale_order_id = sale_orders.id WHERE invoices.company_id = ? AND invoices.payment_on BETWEEN ? AND ? ", @current_user.employee.id,  @current_company.id,session[:statistics_start], session[:statistics_end] ]
-    @event_natures = EventNature.find_by_sql ["SELECT en.*, ecount, esum FROM event_natures as en LEFT JOIN (SELECT nature_id , count(id) as ecount , sum(duration) as esum FROM events WHERE CAST(started_at AS date) BETWEEN ? AND ? AND employee_id = ? GROUP BY nature_id) as stats ON id = nature_id  WHERE company_id = ? ORDER BY name ",session[:statistics_start], session[:statistics_end], @current_user.employee.id, @current_company.id]
-    
+    session[:statistics_start] ||= Date.today << 12
+    session[:statistics_end]   ||= Date.today
+    if @current_user.employee
+      @sale_orders_count = SaleOrder.count_by_sql ["SELECT  count(*) FROM sale_orders WHERE company_id = ? AND state != 'P' AND responsible_id = ? AND created_on BETWEEN ? AND ? ", @current_company.id, @current_user.employee.id, session[:statistics_start], session[:statistics_end] ]
+      @sale_orders_amount = SaleOrder.count_by_sql ["SELECT sum(amount) FROM sale_orders WHERE company_id = ? AND state != 'P' AND responsible_id = ? AND created_on BETWEEN ? AND ? ", @current_company.id, @current_user.employee.id, session[:statistics_start], session[:statistics_end] ]
+      @invoiced_amount = Invoice.count_by_sql ["SELECT sum(invoices.amount) FROM invoices INNER JOIN sale_orders ON sale_orders.responsible_id = ? AND invoices.sale_order_id = sale_orders.id WHERE invoices.company_id = ? AND invoices.payment_on BETWEEN ? AND ? ", @current_user.employee.id,  @current_company.id,session[:statistics_start], session[:statistics_end] ]
+      @event_natures = EventNature.find_by_sql ["SELECT en.*, ecount, esum FROM event_natures as en LEFT JOIN (SELECT nature_id , count(id) as ecount , sum(duration) as esum FROM events WHERE CAST(started_at AS date) BETWEEN ? AND ? AND employee_id = ? GROUP BY nature_id) as stats ON id = nature_id  WHERE company_id = ? ORDER BY name ",session[:statistics_start], session[:statistics_end], @current_user.employee.id, @current_company.id]
+    end
     # @embanked_amount = PaymentPart.count_by_sql []
     if request.post?
       #raise Exception.new params.inspect

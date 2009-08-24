@@ -137,22 +137,21 @@ fr-FR:
         change_password: 'Changer de mot de passe'
         title: 'Informations sur l''utilisateur : {{value}}'
       user_statistics:
-        during: ' pour une durée '
+        during: 'pour une durée'
         end: ' au '
-        events: ' événements de type '
-        minutes: ' minutes '
-        nb_events:
-          one: ' 1 événement de type '
-          other: ' {{count}} événements de type '
-          zero: ' Aucun événement de type '
+        events:
+          one: ' 1 évènement de type {{nature}} d''une durée de {{duration}} minutes'
+          other: ' {{count}} évènements de type {{nature}} pour une durée totale de {{duration}} minutes'
+          zero: ' Aucun événement de type {{nature}}'
         nb_sales:
           one: '1 commande'
           other: '{{count}} commandes'
           zero: 'Aucune commande'
-        start: 'De la période allant du '
+        start: 'Du'
         title: 'Mes statistiques'
         total_amount: ' Total montant HT '
         total_invoiced_amount: 'Total montant facturé '
+        no_employee: 'Vous n''avez pas fiche employé, donc pas de statistiques.'
       users:
         title: 'Liste des utilisateurs'
         users_create: 'Ajouter un nouvel utilisateur'
