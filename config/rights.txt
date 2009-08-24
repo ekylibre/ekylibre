@@ -2,6 +2,7 @@
 #management      dyli_entity                      [new_right]
 #management      subscription_natures_down        manage_subscriptions
 #management      subscription_natures_up          manage_subscriptions
+#management      subscription_options_display     manage_subscriptions
 accountancy      dyli_account                     [new_right]
 accountancy      entries_t                        [new_right]
 accountancy      dyta_bank_account_statements     administrate_accountancy
@@ -254,7 +255,6 @@ management       subscription_natures_display     manage_subscriptions
 management       subscription_natures_increment   manage_subscriptions
 management       subscription_natures_update      manage_subscriptions
 management       subscription_options             manage_subscriptions
-management       subscription_options_display     manage_subscriptions
 management       subscriptions                    manage_subscriptions
 management       taxes                            manage_taxes
 management       taxes_create                     manage_taxes
