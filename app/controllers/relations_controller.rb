@@ -653,8 +653,8 @@ class RelationsController < ApplicationController
   end
 
   def entities_contacts_update
-    @entity = Entity.find_by_id_and_company_id(session[:current_entity], @current_company.id)
     @contact = Contact.find_by_id_and_company_id(params[:id], @current_company.id)
+    @entity = @contact.entity # Entity.find_by_id_and_company_id(session[:current_entity], @current_company.id)
     @id = @contact.entity_id
     
     #    raise Exception.new('entity:'+@contact.entity.inspect)
@@ -668,11 +668,11 @@ class RelationsController < ApplicationController
   def entities_contacts_delete
     if request.post? or request.delete?
       @contact = Contact.find_by_id_and_company_id(params[:id] , @current_company.id )
-      @id = @contact.entity_id
-      @contact.active = true
-      @contact.default = false
-      @contact.save
-      redirect_to_back
+      if @contact
+        @contact.active = false
+        @contact.save
+      end
+      redirect_to_current
     end
   end
   

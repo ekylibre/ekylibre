@@ -280,6 +280,7 @@ fr-FR:
       error_already_defined: 'Un prix a déjà été défini pour cette liste de prix et ce produit'
       range: 'De {{min}} à {{max}}'
       no_range: 'Pas d''intervalle'
+      label: '{{product}} / {{amount}} {{currency}}'
     price_list:
       error_range_overlap_detected: 'Des plages de prix se chevauchent pour le même produit. Ceci est normalement impossible. Veuillez signaler l''incident à votre administrateur système.'
     product:

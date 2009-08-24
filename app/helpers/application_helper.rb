@@ -504,8 +504,8 @@ module ApplicationHelper
 
   # TABBOX
 
-  def tabbox(options={})
-    tb = Tabbox.new
+  def tabbox(id)
+    tb = Tabbox.new(id)
     yield tb
     tablabels = tabpanels = js = ''
     tabs = tb.tabs
@@ -513,18 +513,16 @@ module ApplicationHelper
     js += "function #{jsmethod}(id) {"
     tabs.size.times do |i|
       tab = tabs[i]
-      # js += "$('tp#{tab[:id]}').style.display = 'none';"
       js += "$('tp#{tab[:id]}').removeClassName('current');"
       js += "$('tl#{tab[:id]}').removeClassName('current');"
-      # tablabels += content_tag(:a, tab[:name], :class=>:tab, :href=>"#", :onclick=>"#{jsmethod}('#{tab[:id]}')")
       tablabels += link_to_function(tab[:name].gsub(/\s+/,'&nbsp;'), "#{jsmethod}('#{tab[:id]}')", :class=>:tab, :id=>'tl'+tab[:id])+' '
       tabpanels += content_tag(:div, tab[:content], :class=>:tabpanel, :id=>'tp'+tab[:id])
     end
-    #js += "$('tp'+id).style.display = 'block';"
     js += "$('tp'+id).addClassName('current');"
     js += "$('tl'+id).addClassName('current');"
+    js += "new Ajax.Request('#{url_for(:controller=>:company, :action=>:tabbox_index, :id=>tb.id)}?index='+id);"
     js += "return true;};"
-    js += "#{jsmethod}('#{tabs[0][:id]}');"
+    js += "#{jsmethod}('#{(session[:tabbox] ? session[:tabbox][tb.id] : nil)||tabs[0][:id]}');"
     code  = content_tag(:div, tablabels, :class=>:tabs)+content_tag(:div, tabpanels, :class=>:tabpanels)
     code += javascript_tag(js)
     content_tag(:div, code, :class=>:tabbox, :id=>tb.id)
@@ -532,11 +530,11 @@ module ApplicationHelper
 
 
   class Tabbox
-    attr_accessor :tabs, :id
+    attr_accessor :tabs, :id, :generated
 
-    def initialize(id=nil)
+    def initialize(id)
       @tabs = []
-      @id = id||"a"+rand.to_s[2..-1].to_i.to_s(36)[0..5]
+      @id = id.to_s
       @sequence = 0
     end
 

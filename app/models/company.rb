@@ -197,6 +197,15 @@ class Company < ActiveRecord::Base
     self.products.find(:all, options)
   end
 
+  def available_prices(category_id=nil)
+    conditions = ["entity_id=? AND p.active AND prices.active", self.entity_id]
+    if category_id
+      conditions[0] += " AND category_id=?"
+      conditions << category_id
+    end
+    self.prices.find(:all, :joins=>"JOIN products p ON (p.id=product_id)", :conditions=>conditions, :order=>"p.name, prices.amount")
+  end
+
   def available_taxes(options={})
     #    options[:conditions]={:deleted=>false}
     self.taxes.find(:all, options)

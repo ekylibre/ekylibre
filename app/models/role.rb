@@ -31,7 +31,7 @@ class Role < ActiveRecord::Base
     for right in old_rights
       old_rights_array << right.to_sym
     end
-    for right in self.rights.split(" ")
+    for right in self.rights.split(/\s+/)
       new_rights_array << right.to_sym
     end
 
@@ -42,7 +42,7 @@ class Role < ActiveRecord::Base
     for user in users
       puts user.rights.inspect
       user_rights_array = []
-      for right in user.rights.split(" ")
+      for right in user.rights.split(/\s+/)
         user_rights_array << right.to_sym
       end
       
@@ -61,7 +61,7 @@ class Role < ActiveRecord::Base
   end
 
   def rights_array
-    self.rights.split(" ").collect{|x| x.to_sym}
+    self.rights.split(/\s+/).collect{|x| x.to_sym}
   end
 
   def rights_array=(array)

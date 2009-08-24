@@ -61,7 +61,7 @@ class SaleOrder < ActiveRecord::Base
   def before_validation
     self.parts_amount = self.payment_parts.sum(:amount)||0
     if self.number.blank?
-      last = self.client.sale_orders.find(:first, :order=>"number desc")
+      last = self.company.sale_orders.find(:first, :order=>"number desc")
       self.number = last ? last.number.succ! : '00000001'
     end
     self.created_on ||= Date.today
@@ -177,7 +177,7 @@ class SaleOrder < ActiveRecord::Base
 
   def status
     status = ""
-    status = "critic" if not ['F','P'].include? self.state and self.parts_amount < self.amount_with_taxes
+    status = "critic" if not ['F','P'].include? self.state and self.parts_amount.to_f < self.amount_with_taxes.to_f
     status
   end
   

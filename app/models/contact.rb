@@ -85,7 +85,9 @@ class Contact < ActiveRecord::Base
   # Therefore a contact is created for each update
   def before_update
     self.stopped_at = Time.now
-    Contact.create!(self.attributes.merge({:code=>self.code, :active=>true, :started_at=>self.stopped_at, :stopped_at=>nil, :company_id=>self.company_id, :entity_id=>self.entity_id, :norm_id=>self.norm_id})) if self.active
+    if self.active
+      Contact.create!(self.attributes.merge({:code=>self.code, :active=>true, :started_at=>self.stopped_at, :stopped_at=>nil, :company_id=>self.company_id, :entity_id=>self.entity_id, :norm_id=>self.norm_id}))
+    end
     self.active = false
     true
   end  

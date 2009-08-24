@@ -88,12 +88,12 @@ table.dyta tr.even.verylate td{background:#ffad87; }
 table.dyta tr.odd.verylate td{background:#ffba9a; }
 
 /* products stocks*/
-table.dyta tr.even.critic td{background:#ffad87; }
-table.dyta tr.odd.critic td{background:#ffba9a; }
-table.dyta tr.even.minimum td{background:#ffcc81; }
-table.dyta tr.odd.minimum td{background:#ffd495; }
-table.dyta tr.odd.enough td{background:#beff8e; }
-table.dyta tr.even.enough td{background:#c8ffa0; }
+table.dyta tr.even.critic  td {background:#ffba9a;}
+table.dyta tr.odd.critic   td {background:#ffad87;}
+table.dyta tr.even.minimum td {background:#ffcc81;}
+table.dyta tr.odd.minimum  td {background:#ffd495;}
+table.dyta tr.odd.enough   td {background:#beff8e;}
+table.dyta tr.even.enough  td {background:#c8ffa0;}
 
 
 .total table.dyta tr.separated * { border-top: 1px solid red !important;}

@@ -305,7 +305,7 @@ class CompanyController < ApplicationController
   end
 
 
-  dyta(:users, :conditions=>{:company_id=>['@current_company.id'],:deleted=>false}) do |t| 
+  dyta(:users, :conditions=>{:company_id=>['@current_company.id'],:deleted=>false}, :line_class=>"(RECORD.locked ? 'critic' : '')") do |t| 
     t.column :name
     t.column :first_name
     t.column :last_name
@@ -318,6 +318,13 @@ class CompanyController < ApplicationController
     t.action :locked, :actions=>{"true"=>{:action=>:users_unlock},"false"=>{:action=>:users_lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
     t.action :users_update 
     t.action :users_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.id!=@current_user.id'
+  end
+
+
+  def tabbox_index
+    session[:tabbox] ||= {}
+    session[:tabbox][params['id']] = params['index']
+    render :text=>nil
   end
 
 
