@@ -848,52 +848,52 @@ class RelationsController < ApplicationController
   end
   
   #
-  def configure_mandates()
-    @mandates=[]
+#   def configure_mandates()
+#     @mandates=[]
        
-    @current_company.mandates.find(:all, :select => 'DISTINCT family, organization, title').each do |mandate|
-      @mandates << mandate.family, mandate.organization, mandate.title
-    end
+#     @current_company.mandates.find(:all, :select => 'DISTINCT family, organization, title').each do |mandate|
+#       @mandates << [mandate.family, mandate.organization, mandate.title]
+#     end
     
-  end
+#   end
    
-  #
-  def configure_mandates_family()
+#   #
+#   def configure_mandates_family()
   
-    params["families"].each do |key, value|
-      if value["new_name"].to_s != value["former_name"].to_s
-        @current_company.mandates.update_all("family = '"+value["new_name"].to_s+"'", "family LIKE '%"+value["former_name"].to_s+"%'")
-      end
+#     params["families"].each do |key, value|
+#       if value["new_name"].to_s != value["former_name"].to_s
+#         @current_company.mandates.update_all("family = '"+value["new_name"].to_s+"'", "family LIKE '%"+value["former_name"].to_s+"%'")
+#       end
 
-      Mandate.delete_all(:family => value["new_name"].to_s, :company_id=>@current_company.id) if value["to_delete"]
-    end
+#       Mandate.delete_all(:family => value["new_name"].to_s, :company_id=>@current_company.id) if value["to_delete"]
+#     end
     
-    redirect_to :action => :configure_mandates
-  end
+#     redirect_to :action => :configure_mandates
+#   end
 
-  #
-  def configure_mandates_organization()
+#   #
+#   def configure_mandates_organization()
 
-    params["organizations"].each do |key, value|
-      if value["new_name"].to_s != value["former_name"].to_s
-        @current_company.mandates.update_all("organization = '"+value["new_name"].to_s+"'", "organization LIKE '%"+value["former_name"].to_s+"%'")
-      end
-     @current_company.mandates.destroy_all(:organization => value["new_name"].to_s) if value["to_delete"]
-    end
-    redirect_to :action => :configure_mandates
-  end
+#     params["organizations"].each do |key, value|
+#       if value["new_name"].to_s != value["former_name"].to_s
+#         @current_company.mandates.update_all("organization = '"+value["new_name"].to_s+"'", "organization LIKE '%"+value["former_name"].to_s+"%'")
+#       end
+#      @current_company.mandates.destroy_all(:organization => value["new_name"].to_s) if value["to_delete"]
+#     end
+#     redirect_to :action => :configure_mandates
+#   end
 
-  #
-  def configure_mandates_title()
+#   #
+#   def configure_mandates_title()
 
-    params["titles"].each do |key, value|
-      if value["new_name"].to_s != value["former_name"].to_s
-        @current_company.mandates.update_all("title = '"+value["new_name"].to_s+"'", "title LIKE '%"+value["former_name"].to_s+"%'")
-      end
-    @current_company.mandates.destroy_all(:title => value["new_name"].to_s) if value["to_delete"]
-    end
-    redirect_to :action => :configure_mandates
-  end
+#     params["titles"].each do |key, value|
+#       if value["new_name"].to_s != value["former_name"].to_s
+#         @current_company.mandates.update_all("title = '"+value["new_name"].to_s+"'", "title LIKE '%"+value["former_name"].to_s+"%'")
+#       end
+#     @current_company.mandates.destroy_all(:title => value["new_name"].to_s) if value["to_delete"]
+#     end
+#     redirect_to :action => :configure_mandates
+#   end
 
   #
   def mandates_create
