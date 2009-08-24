@@ -308,7 +308,6 @@ class RelationsController < ApplicationController
 
   dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sales_details}, :children=>:product_name
-    #t.column :name, :through=>:nature, :children=>false
     t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
     t.column :text_state, :children=>false
@@ -316,15 +315,7 @@ class RelationsController < ApplicationController
     t.column :amount_with_taxes
   end
   
-#   dyta(:entity_meetings, :model=>:meetings, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
-#     t.column :name, :through=>:location
-#     t.column :taken_place_on
-#     t.column :full_name, :through=>:employee
-#     t.column :name, :through=>:mode
-#     t.action :meetings_update
-#     t.action :meetings_delete, :method=>:post, :confirm=>:are_you_sure
-#   end
-  
+
   dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
     t.column :full_name, :through=>:employee
     t.column :duration
