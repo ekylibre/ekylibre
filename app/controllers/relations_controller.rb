@@ -271,9 +271,9 @@ class RelationsController < ApplicationController
     t.action :entities_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
-<<<<<<< .mine
+
   dyli(:entities, :full_name, :conditions =>{:company_id=>['@current_company.id']})
-=======
+
 
   #
   def entities
@@ -284,8 +284,7 @@ class RelationsController < ApplicationController
     session[:entity_key] = @key
   end
 
-  dyli(:entity, :full_name, :conditions =>{:company_id=>['@current_company.id']})
->>>>>>> .r1054
+
   #
   def entities_print
     @entity = find_and_check(:entity, params[:id])
