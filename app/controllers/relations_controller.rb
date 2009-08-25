@@ -20,8 +20,7 @@ class RelationsController < ApplicationController
 
   def auto_complete_for_event_location
     pattern = '%'+params[:event][:location].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-    # @events = @current_company.events.find(:all, :conditions=> [ 'LOWER(location) LIKE ?', pattern ], :order=>"location ASC", :limit=>12, :distinct=>true)
-    @events = @current_company.events.find_by_sql ["SELECT DISTINCT location FROM events WHERE (company_id = ? AND LOWER(location) LIKE ?) ORDER BY location ASC LIMIT 12",@current_company.id, pattern ]
+    @events = @current_company.events.find(:all, :conditions=> [ 'LOWER(location) LIKE ?', pattern ], :order=>"location ASC", :limit=>12)
     render :inline => "<%=content_tag(:ul, @events.map { |event| content_tag(:li, h(event.location)) })%>"
   end
 
@@ -254,12 +253,9 @@ class RelationsController < ApplicationController
     redirect_to_current
   end
   
-
-
-  dyta(:entities, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)") do |t|
-#  dyta(:entities, :conditions=>["COALESCE(entities.code)||' '||COALESCE", ['session[:entity_key]']], :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)") do |t|
-#  dyta(:entities, :conditions=>"search_conditions(:attributes=>[:code, :full_name, :website], :key=>session[:entity_key])") do |t|
-    t.column :active, :label=>'♦'
+  
+  dyta(:entities, :conditions=>:search_conditions(:attributes=>[:id, :name, :code, :full_name, :website], :key=>session[:entity_key])) do |t|
+    t.column :active, :label=>''
     t.column :abbreviation, :through=>:nature
     t.column :name, :url=>{:action=>:entities_display}
     t.column :first_name, :url=>{:action=>:entities_display}
@@ -271,20 +267,7 @@ class RelationsController < ApplicationController
     t.action :entities_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
-
-  dyli(:entities, :full_name, :conditions =>{:company_id=>['@current_company.id']})
-
-
-  #
-  def entities
-    # raise Exception.new(self.class.conds(:entities, :entities=>[:code, :full_name, :website], :contacts=>[:address, :phone, :fax, :mobile, :email, :website]))
-    
-    @size = Entity.count
-    @key = params[:key]||session[:entity_key]
-    session[:entity_key] = @key
-  end
-
-
+  dyli(:entity, :full_name, :conditions =>{:company_id=>['@current_company.id']})
   #
   def entities_print
     @entity = find_and_check(:entity, params[:id])
@@ -292,8 +275,15 @@ class RelationsController < ApplicationController
     print(@entity, :archive=>false, :filename=>@entity.code)
   end 
 
-  dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
-   # dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE ((entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?)   AND entity_link_natures.propagate_contacts = true) OR (entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE ((entity_links.company_id = ?) AND entity1_id = ? OR entity2_id = ?)   AND entity_link_natures.propagate_contacts = true) ) ) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
+  #
+  def entities
+    @size = Entity.count
+    @key = params[:key]||session[:entity_key]
+    session[:entity_key] = @key
+  end
+
+  # dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]'], :active=>true}) do |t|
+  dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ? AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ? AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
     t.column :address, :url=>{:action=>:entities_contacts_update}
     t.column :phone
     t.column :fax
@@ -318,7 +308,7 @@ class RelationsController < ApplicationController
 
   dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sales_details}, :children=>:product_name
-    t.column :full_name, :through=>:responsible, :url=>{ :action=>:entities_display}, :children=>false
+    t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
     t.column :text_state, :children=>false
     t.column :amount
@@ -327,7 +317,7 @@ class RelationsController < ApplicationController
   
 
   dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
-    t.column :full_name, :through=>:employee,:url=>{ :action=>:entities_display}
+    t.column :full_name, :through=>:employee
     t.column :duration
     t.column :location
     t.column :name, :through=>:nature
@@ -359,7 +349,7 @@ class RelationsController < ApplicationController
     t.column :description
     t.column :text_importance
     t.action :observations_update
-    t.action :observations_delete
+    t.action :observations_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def entities_display
@@ -816,7 +806,27 @@ class RelationsController < ApplicationController
     end
   end
 
-  dyta(:mandates, :conditions=>:mandates_conditions) do |t|
+
+   #
+  def self.mandates_conditions(options={}) 
+    code = ""
+    code += "conditions = ['mandates.company_id=?', @current_company.id.to_s]\n"
+    code += "unless session[:mandates][:organization].blank? \n"
+    code += "conditions[0] += ' AND organization = ?'\n"
+    code += "conditions << session[:mandates][:organization] \n"
+    code += "end \n"
+             
+    code += "unless session[:mandates][:date].blank? \n"
+    code += "conditions[0] += 'AND (? BETWEEN started_on AND stopped_on)'\n"
+    code += "conditions << session[:mandates][:date].to_s \n"
+    code += "end \n"
+    code += "conditions \n"
+
+    code
+  end
+
+
+  dyta(:mandates, :conditions=>mandates_conditions) do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entities_display}
     t.column :title
     t.column :organization
@@ -913,7 +923,7 @@ class RelationsController < ApplicationController
       @mandate.entity_id = @entity.id  
       redirect_to :action=>:entities_display if @mandate.save
     else 
-      @mandate = Mandate.new(:entity_id=>@entity.id)
+      @mandate = Mandate.new
     end
     render_form
   end

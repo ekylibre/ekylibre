@@ -131,8 +131,6 @@ module ApplicationHelper
   end
 
 
-
-
   def link_to(*args, &block)
     if block_given?
       options      = args.first || {}
@@ -184,61 +182,6 @@ module ApplicationHelper
     link_to_if(condition,label,url) do |name| 
       content_tag :strong, name
     end
-  end
-
-  #
-  def entries_conditions_journal_consult(options)
-    conditions = ["entries.company_id=?", @current_company.id]
-
-    unless session[:journal_record][:journal_id].blank?
-      journal = @current_company.journals.find(:first, :conditions=>{:id=>session[:journal_record][:journal_id]})
-      if journal
-        conditions[0] += " AND r.journal_id=?"
-        conditions << journal.id
-      end
-    end
-     
-    unless session[:journal_record][:financialyear_id].blank?
-      financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:journal_record][:financialyear_id]})
-      if financialyear
-        conditions[0] += " AND r.financialyear_id=?"
-        conditions << financialyear.id
-      end
-    end
-    
-    conditions
-  end
-
-  #
-  def mandates_conditions(options) 
-    conditions = ["mandates.company_id=?", @current_company.id]
-    
-    unless session[:mandates][:organization].blank?
-      conditions[0] += " AND organization = ?"
-      conditions << session[:mandates][:organization]
-    end
-
-         
-    unless session[:mandates][:date].blank?
-      conditions[0] += " AND (? BETWEEN started_on AND stopped_on)"
-       conditions << session[:mandates][:date].to_s
-    end
-    #raise Exception.new(conditions.inspect)
-    conditions
-  end
-
-
-
-  #
-  def entries_conditions_statements(options)
-    conditions = ["entries.company_id=?", @current_company.id]
-
-    unless session[:statement].blank?
-      statement = @current_company.bank_account_statements.find(:first, :conditions=>{:id=>session[:statement]})
-      conditions[0] += " AND statement_id = ? "
-      conditions << statement.id
-    end
-    conditions
   end
 
   #
@@ -376,30 +319,6 @@ module ApplicationHelper
     return content
   end
 
-
-
-
-
-
-  def search_conditions(options={})
-    conditions = ["company_id = ?", @current_company.id]
-    keywords = options[:key].to_s.split(" ")
-    if keywords.size>0 and options[:attributes].size>0
-      conditions[0] += " AND ("
-      for attribute in options[:attributes]
-        for word in keywords
-          conditions[0] += 'LOWER(CAST('+attribute.to_s+" AS VARCHAR)) LIKE ? OR "
-          conditions << '%'+word.lower+'%'
-        end
-      end 
-      conditions[0] = conditions[0][0..-5]+")"
-    else
-      conditions[0] += " AND CAST ('true' AS BOOLEAN)"
-    end
-    conditions
-  end
-
-
   def prices_conditions(options={})
     if session[:entity_id] == 0 
       conditions = ["company_id = ? AND active = ?", @current_company.id, true]
@@ -448,8 +367,6 @@ module ApplicationHelper
     conditions
   end
   
-  
-
 
   def itemize(name, options={})
     code = '[EmptyItemizeError]'

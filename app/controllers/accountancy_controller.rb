@@ -38,7 +38,24 @@ class AccountancyController < ApplicationController
     t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
   
-  dyta(:entries_statement, :model => :entries, :conditions=>:entries_conditions_statements) do |t|
+   
+
+  #
+  def self.entries_conditions_statements(options={})
+    code = ""
+    code += "conditions = ['entries.company_id=?', @current_company.id] \n"
+
+    code += "unless session[:statement].blank? \n"
+    code += "statement = @current_company.bank_account_statements.find(:first, :conditions=>{:id=>session[:statement]})\n"
+    code += "conditions[0] += ' AND statement_id = ? '\n"
+    code += "conditions << statement.id \n"
+    code += "end \n"
+    code += "conditions \n"
+    code
+  end
+
+
+  dyta(:entries_statement, :model =>:entries, :conditions=>entries_conditions_statements) do |t|
     t.column :number, :label=>"Numéro", :through=>:record
     t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
     t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
@@ -48,7 +65,34 @@ class AccountancyController < ApplicationController
     t.column :credit
   end
 
-  dyta(:entries, :conditions=>:entries_conditions_journal_consult, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id") do |t|
+
+ #
+  def self.entries_conditions_journal_consult(options={})
+    code = ""
+    code += "conditions=['entries.company_id=?', @current_company.id.to_s] \n"
+    code += "unless session[:journal_record][:journal_id].blank? \n" 
+    code += "journal=@current_company.journals.find(:first, :conditions=>{:id=>session[:journal_record][:journal_id]})\n" 
+    code += "if journal\n"
+    code += "conditions[0] += 'AND r.journal_id=?'\n"
+    code += "conditions << journal.id \n"
+    code += "end \n"
+    code+="end\n"
+    
+    code +="unless session[:journal_record][:financialyear_id].blank? \n"
+    code += "financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:journal_record][:financialyear_id]}) \n"
+    code += "if financialyear \n"
+    code += "conditions[0] += ' AND r.financialyear_id=?' \n"
+    code += "conditions << financialyear.id \n"
+    code += "end \n"
+    code+="end\n"
+    code += "conditions \n"
+ 
+    code
+  end
+
+
+
+  dyta(:entries, :conditions=>entries_conditions_journal_consult, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id") do |t|
     t.column :number, :label=>"Numéro", :through=>:record
     t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
     t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
@@ -70,6 +114,7 @@ class AccountancyController < ApplicationController
   end
 
   dyli(:account, [:number, :name], :conditions => {:company_id=>['@current_company.id']})
+ 
  
   # 
   def index
