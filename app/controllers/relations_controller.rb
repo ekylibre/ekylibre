@@ -462,7 +462,7 @@ class RelationsController < ApplicationController
       @contact = @current_company.contacts.new(:country=>'fr', :default=>true)
       @entity = @current_company.entities.new(:country=>'fr')
       for complement in @complements
-        @complement_data << @current_company.complementDatums.new(:complement_id=>complement.id)
+        @complement_data << @current_company.complement_data.new(:entity_id=>@entity.id, :complement_id=>complement.id)
       end
     end
     
@@ -847,20 +847,19 @@ class RelationsController < ApplicationController
     t.action :mandates_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
   
-  #
+
 #   def configure_mandates()
 #     @mandates=[]
-       
+
 #     @current_company.mandates.find(:all, :select => 'DISTINCT family, organization, title').each do |mandate|
 #       @mandates << [mandate.family, mandate.organization, mandate.title]
 #     end
     
 #   end
    
-#   #
-#   def configure_mandates_family()
-  
-#     params["families"].each do |key, value|
+  #
+ # def configure_mandates_family()
+    #     params["families"].each do |key, value|
 #       if value["new_name"].to_s != value["former_name"].to_s
 #         @current_company.mandates.update_all("family = '"+value["new_name"].to_s+"'", "family LIKE '%"+value["former_name"].to_s+"%'")
 #       end
@@ -964,7 +963,7 @@ class RelationsController < ApplicationController
     end
   end
   
-  dyta(:events, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:events, :conditions=>['company_id = ?',['@current_company.id']]) do |t|
     t.column :full_name, :through=>:entity
     t.column :duration
     t.column :location
@@ -1130,6 +1129,13 @@ class RelationsController < ApplicationController
       redirect_to_back if @observation.update_attributes(params[:observation])
     end
     render_form
+  end
+ 
+  def observations_delete
+    @observation = find_and_check(:observation, params[:id])
+     if request.post? or request.delete?
+       redirect_to_back if @observation.destroy
+    end
   end
 
 end

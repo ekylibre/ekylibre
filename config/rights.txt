@@ -374,6 +374,7 @@ relations        mandates_delete                  manage_mandates
 relations        mandates_update                  manage_mandates
 relations        dyta_observations                manage_observations
 relations        observations_create              manage_observations
+relations        observations_delete              manage_observations
 relations        observations_update              manage_observations
 relations        entities_print                   print_entities
 resources        dyta_employees                   administrate_resources

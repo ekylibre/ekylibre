@@ -65,10 +65,10 @@ page :a4, :margin=>[10.mm] do
     end
   end
   table @entity.events do
-    column "Date", 'taken_place_on'
-    column "Lieu", 'location.name', 2
+    column "Date", 'duration'
+    column "Lieu", 'location', 2
     column "Avec", 'employee.full_name', 2
-    column "Type", 'mode.name'
+    column "Type", 'nature.name'
   end
 
   part 10.mm do
