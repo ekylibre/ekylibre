@@ -261,9 +261,9 @@ fr-FR:
         deleted: 'Effacé'
         entity_id: 'Fiche relation'
         id: 'ID'
-        invoice_sequence_id: '(((INVOICE_SEQUENCE_ID)))'
+        invoice_sequence_id: Séquence de facturation
         lock_version: 'Version'
-        locked: (((LOCKED)))
+        locked: Verrouillée
         name: 'Nom'
         purchases_journal: 'Journal d''achats'
         sales: 'Ventes'
@@ -546,7 +546,7 @@ fr-FR:
       # Relation
       entity:
         active: 'Actif'
-        authorized_payments_count: 'Nombre de règlement autorisés'
+        authorized_payments_count: 'Nombre de règlements autorisés'
         born_on: 'Date de naissance'
         category_id: 'Catégorie'
         client: 'Client'
@@ -774,7 +774,7 @@ fr-FR:
       invoice:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
-        annotation: (((ANNOTATION)))
+        annotation: Annotation
         client_id: 'Client'
         company_id: 'Société'
         contact_id: 'Adresse'
@@ -782,18 +782,17 @@ fr-FR:
         created_on: 'Créée le'
         creator_id: 'Créateur'
         credit: 'Avoir'
-        downpayment_amount: (((DOWNPAYMENT_AMOUNT)))
-        downpayment_price: '(((DOWNPAYMENT_PRICE)))'
-        has_downpayment: (((HAS_DOWNPAYMENT)))
+        downpayment_amount: "Montant de l'acompte"
+        has_downpayment: A un acompte
         id: 'ID'
         lock_version: 'Version'
-        lost: (((LOST)))
-        nature: (((NATURE)))
+        lost: En perte
+        nature: Nature
         number: 'Numéro'
         origin_id: 'Facture d''origine'
-        paid: (((PAID)))
-        payment_delay_id: (((PAYMENT_DELAY_ID)))
-        payment_on: 'Règlé le'
+        paid: Réglée
+        payment_delay_id: Délai de paiement
+        payment_on: 'A régler le plus tard le'
         sale_order: 'Vente'
         sale_order_id: 'Vente'
         updated_at: 'Mis à jour le'
@@ -803,13 +802,13 @@ fr-FR:
       invoice_line:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
-        annotation: (((ANNOTATION)))
+        annotation: Annotation
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
         entity_id: (((ENTITY_ID)))
         id: 'ID'
-        invoice_id: (((INVOICE_ID)))
+        invoice_id: Facture
         lock_version: 'Version'
         order_line_id: (((ORDER_LINE_ID)))
         origin_id: (((ORIGIN_ID)))
