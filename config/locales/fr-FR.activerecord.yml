@@ -338,6 +338,7 @@ fr-FR:
         default: 'Par défaut'
         deleted: 'Effacé'
         email: 'Email'
+        entity: 'Fiche'
         entity_id: 'Fiche'
         fax: 'Fax'
         id: 'ID'
@@ -545,7 +546,7 @@ fr-FR:
       # Relation
       entity:
         active: 'Actif'
-        authorized_payments_count: (((AUTHORIZED_PAYMENTS_COUNT)))
+        authorized_payments_count: 'Nombre de règlement autorisés'
         born_on: 'Date de naissance'
         category_id: 'Catégorie'
         client: 'Client'

@@ -254,7 +254,7 @@ class RelationsController < ApplicationController
   end
   
   
-  dyta(:entities, :conditions=>:search_conditions(:attributes=>[:id, :name, :code, :full_name, :website], :key=>session[:entity_key])) do |t|
+  dyta(:entities, :conditions=>"search_conditions(:attributes=>[:id, :name, :code, :full_name, :website], :key=>session[:entity_key])") do |t|
     t.column :active, :label=>''
     t.column :abbreviation, :through=>:nature
     t.column :name, :url=>{:action=>:entities_display}
@@ -282,8 +282,17 @@ class RelationsController < ApplicationController
     session[:entity_key] = @key
   end
 
-  # dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]'], :active=>true}) do |t|
-  dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ? AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ? AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
+
+  #
+  def entities_print
+    @entity = find_and_check(:entity, params[:id])
+    return if @entity.nil?
+    print(@entity, :archive=>false, :filename=>@entity.code)
+  end 
+
+  #dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
+  dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON  entity_link_natures.propagate_contacts = true AND entity_links.nature_id = entity_link_natures.id  WHERE (entity1_id = ? OR entity2_id = ?)) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_link_natures.propagate_contacts = true AND entity_links.nature_id = entity_link_natures.id WHERE  (entity1_id = ? OR entity2_id = ?) ) )', ['@current_company.id'], ['session[:current_entity]'],['session[:current_entity]'],['session[:current_entity]'],['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
+    
     t.column :address, :url=>{:action=>:entities_contacts_update}
     t.column :phone
     t.column :fax
@@ -291,6 +300,7 @@ class RelationsController < ApplicationController
     t.column :email
     t.column :website
     t.column :default
+    t.column :code, :through=>:entity, :url=>{:action=>:entities_display}, :label=>tc(:entity_id)
     t.action :entities_contacts_update  
     t.action :entities_contacts_delete  , :method=>:post, :confirm=>:are_you_sure
   end
@@ -1150,12 +1160,12 @@ class RelationsController < ApplicationController
     end
     render_form
   end
- 
+  
   def observations_delete
     @observation = find_and_check(:observation, params[:id])
-     if request.post? or request.delete?
-       redirect_to_back if @observation.destroy
+    if request.post? or request.delete?
+      redirect_to_back if @observation.destroy
     end
   end
-
+  
 end

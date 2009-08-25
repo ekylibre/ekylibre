@@ -91,7 +91,7 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.column :credit
     t.action :invoices_print
-    t.action :invoices_cancel, :if=>'RECORD.credit != true and @current_user.credits'
+    t.action :invoices_cancel, :if=>'RECORD.credit != true'
   end
 
   def invoices

@@ -29,7 +29,7 @@
       -for datum in @entity.complement_data.find(:all, :joins=>"JOIN complements ON (complements.id=complement_id)", :order=>"position")
         =evalue datum.complement.name, datum.value.to_s
 
-
+ 
 =tabbox(:entities) do |tb|
   -tb.tab(tc(:subscriptions, :count=>@entity.subscriptions.count)) do |c|
     -c << toolbar do
