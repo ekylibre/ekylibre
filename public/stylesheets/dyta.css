@@ -92,8 +92,8 @@ table.dyta tr.even.critic  td {background:#ffba9a;}
 table.dyta tr.odd.critic   td {background:#ffad87;}
 table.dyta tr.even.minimum td {background:#ffcc81;}
 table.dyta tr.odd.minimum  td {background:#ffd495;}
-table.dyta tr.odd.enough   td {background:#beff8e;}
 table.dyta tr.even.enough  td {background:#c8ffa0;}
+table.dyta tr.odd.enough   td {background:#beff8e;}
 
 
 .total table.dyta tr.separated * { border-top: 1px solid red !important;}

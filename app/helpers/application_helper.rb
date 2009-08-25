@@ -296,9 +296,9 @@ module ApplicationHelper
     # <<controller-action>>
     ltr = link_to_remote('\1', options).gsub('%5C',"\\")
     content = content.gsub(/<<([\w\-]+)>>/ , ltr )
-    content = content.squeeze(' ')
+    # content = content.squeeze(' ') # useless
     #      content = content.gsub(/(\ *)(\:|\?)/ , '~\2' )
-    content.gsub!(/(\w)(\?|\:)[\s$]/ , '\1~\2' )
+    content.gsub!(/(\w)(\?|\:)([\s$])/ , '\1~\2\3' )
     content.gsub!(/[\s\~]+(\?|\:)/ , '~\1' )
     content.gsub!(/\~/ , '&nbsp;' )
     content = without_paragraph ? textilize_without_paragraph(content) : textilize(content)

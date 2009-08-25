@@ -92,4 +92,15 @@ class Subscription < ActiveRecord::Base
     self.nature.nature == "quantity" ? self.last_number : ::I18n.localize(self.stopped_on  )
   end
 
+  def active?(instant=nil)
+    if self.nature.nature == "quantity"
+      instant ||= self.nature.actual_number
+      self.first_number<=instant and instant<=self.last_number
+    else
+      instant ||= Date.today
+      self.started_on<=instant and instant<=self.stopped_on
+    end
+  end
+
+
 end

@@ -70,6 +70,7 @@ class ApplicationController < ActionController::Base
   end
 
 
+  # TO DELETE
   def search_conditions(options={})
     conditions = ["company_id = ?", @current_company.id]
     keywords = options[:key].to_s.split(" ")
@@ -100,6 +101,15 @@ class ApplicationController < ActionController::Base
 
   private
   
+  def historize()
+    if request.url == session[:history][1]
+      session[:history].delete_at(0)
+    elsif request.url != session[:history][0]
+      session[:history].insert(0,request.url)
+      session[:history].delete_at(127)
+    end
+  end
+
   def authorize()
     session[:help_history] ||= []
     if request.get? and not request.xhr? and not [:authentication, :help].include?(controller_name.to_sym)
@@ -115,14 +125,7 @@ class ApplicationController < ActionController::Base
       return
     else
       session[:last_query] = Time.now.to_i
-      if request.get? and not request.xhr?
-        if request.url == session[:history][1]
-          session[:history].delete_at(0)
-        elsif request.url != session[:history][0]
-          session[:history].insert(0,request.url)
-          session[:history].delete_at(127)
-        end
-      end
+      historize if request.get? and not request.xhr?
     end
 
     # Load @current_user and @current_company

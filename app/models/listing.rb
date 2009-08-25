@@ -20,6 +20,8 @@ class Listing < ActiveRecord::Base
   belongs_to :company
   has_many :nodes, :class_name=>ListingNode.name
   attr_readonly :company_id
+
+  validates_format_of :query, :with=>/\s+SELECT\s+[^\;]*/i
   
   def root_model_name
     ::I18n.t("activerecord.models."+self.root_model.underscore)

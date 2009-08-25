@@ -33,7 +33,7 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #help .nav { background: #e9e9a8; }
 #help .title { color: #750; text-align: center; }
 .content { padding: 8px; }
-.content h1 { font-size: 17px; margin: 0px 0px 16px; color: #750;}
+.content h1 { font-size: 17px; margin: 0px 0px 16px; color: #750; font-weight:normal;}
 .content h2 { font-size: 15px; margin: 8px 8px 4px;  border-bottom: 1px solid #dd8;}
 .content h3 { font-size: 13px; margin: 4px 16px 2px; color: #430; }
 .content pre { font-family: monospace; color: #777; background: #FFF; padding: 8px; margin: 8px 0; }

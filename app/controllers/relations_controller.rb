@@ -253,9 +253,12 @@ class RelationsController < ApplicationController
     redirect_to_current
   end
   
-  
-  dyta(:entities, :conditions=>"search_conditions(:attributes=>[:id, :name, :code, :full_name, :website], :key=>session[:entity_key])") do |t|
-    t.column :active, :label=>''
+
+
+#  dyta(:entities, :conditions=>["COALESCE(entities.code)||' '||COALESCE", ['session[:entity_key]']], :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)") do |t|
+#  dyta(:entities, :conditions=>"search_conditions(:attributes=>[:code, :full_name, :website], :key=>session[:entity_key])") do |t|
+  dyta(:entities, :distinct=>true, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)") do |t|
+    t.column :active, :label=>'♦'
     t.column :abbreviation, :through=>:nature
     t.column :name, :url=>{:action=>:entities_display}
     t.column :first_name, :url=>{:action=>:entities_display}
@@ -277,9 +280,7 @@ class RelationsController < ApplicationController
 
   #
   def entities
-    @size = Entity.count
-    @key = params[:key]||session[:entity_key]
-    session[:entity_key] = @key
+    session[:entity_key] = params[:key]||session[:entity_key]
   end
 
 
@@ -305,7 +306,7 @@ class RelationsController < ApplicationController
     t.action :entities_contacts_delete  , :method=>:post, :confirm=>:are_you_sure
   end
 
-  dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions, :order=>{'sort'=>'started_on DESC, first_number', 'dir'=>'DESC'}) do |t|
+  dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions, :order=>{'sort'=>'stopped_on DESC, first_number', 'dir'=>'DESC'}, :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
     t.column :name, :through=>:nature
     t.column :start
     t.column :finish

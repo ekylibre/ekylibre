@@ -1,12 +1,10 @@
-.count=tc('nb_entities', :count=>@current_company.entities.size)
-
 =render :partial=>"shared/entities_search"
 
 =toolbar do
   -link :entities_create
   -link :entities_merge
-  -link :entities_export
-  -link :entities_import
+  -#link :entities_export
+  -#link :entities_import
 
 =dyta :entities
    

@@ -57,6 +57,7 @@ company          index                            __minimum__
 company          tabbox_index                     __minimum__
 company          unknown_action                   __minimum__
 company          user_statistics                  __minimum__
+company          history                          __minimum__
 company          welcome                          __minimum__
 company          backups                          backup_company
 company          configure                        configure_company
