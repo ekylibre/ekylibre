@@ -254,7 +254,10 @@ class RelationsController < ApplicationController
   end
   
 
-  dyta(:entities, :conditions=>"search_conditions(:attributes=>[:id, :name, :code, :full_name, :website], :key=>session[:entity_key])") do |t|
+
+  dyta(:entities, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)") do |t|
+#  dyta(:entities, :conditions=>["COALESCE(entities.code)||' '||COALESCE", ['session[:entity_key]']], :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)") do |t|
+#  dyta(:entities, :conditions=>"search_conditions(:attributes=>[:code, :full_name, :website], :key=>session[:entity_key])") do |t|
     t.column :active, :label=>'♦'
     t.column :abbreviation, :through=>:nature
     t.column :name, :url=>{:action=>:entities_display}
@@ -267,6 +270,16 @@ class RelationsController < ApplicationController
     t.action :entities_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
+
+  #
+  def entities
+    # raise Exception.new(self.class.conds(:entities, :entities=>[:code, :full_name, :website], :contacts=>[:address, :phone, :fax, :mobile, :email, :website]))
+    
+    @size = Entity.count
+    @key = params[:key]||session[:entity_key]
+    session[:entity_key] = @key
+  end
+
   dyli(:entity, :full_name, :conditions =>{:company_id=>['@current_company.id']})
   #
   def entities_print
@@ -274,13 +287,6 @@ class RelationsController < ApplicationController
     return if @entity.nil?
     print(@entity, :archive=>false, :filename=>@entity.code)
   end 
-
-  #
-  def entities
-    @size = Entity.count
-    @key = params[:key]||session[:entity_key]
-    session[:entity_key] = @key
-  end
 
   # dyta(:contacts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]'], :active=>true}) do |t|
   dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'] ]) do |t|

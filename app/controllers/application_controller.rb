@@ -54,6 +54,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  def self.search_conditions(model_name, columns)
+    model = model_name.to_s.classify.constantize
+    columns = [columns] if [String, Symbol].include? columns.class 
+    columns = columns.collect{|k,v| v.collect{|x| "#{k}.#{x}"}} if columns.is_a? Hash
+    columns.flatten!
+    raise Exception.new "Bad columns: "+columns.inspect unless columns.is_a? Array
+    code = ""
+    code+="c=['#{model.table_name}.company_id=?', @current_company.id]\n"
+    code+="session[:#{model.name.underscore}_key].to_s.lower.split(/\\s+/).each{|kw| kw='%'+kw+'%';"
+    code+="c[0]+=' AND (#{columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'}.join(' OR ')})';c+=[#{(['kw']*columns.size).join(',')}]}\n"
+    code+="c"
+    code
+  end
+
+
   def search_conditions(options={})
     conditions = ["company_id = ?", @current_company.id]
     keywords = options[:key].to_s.split(" ")

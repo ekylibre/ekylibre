@@ -357,7 +357,10 @@ fr-FR:
       no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application : {{controller}}/{{action}}'
       no_right_defined_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'
 
-
+  views:
+    shared:
+      _entities_search:
+        search: Rechercher une relation
   
   # General words and expression through the all app
   general:

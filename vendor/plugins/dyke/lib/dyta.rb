@@ -348,7 +348,7 @@ module Ekylibre
             when Symbol # Method
               code += conditions.to_s+"(options)"
             when String
-              code += conditions
+              code += "("+conditions.gsub(/\s*\n\s*/,';')+")"
             else
               raise Exception.new("Unsupported type for :conditions: #{conditions.inspect}")
             end
