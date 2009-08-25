@@ -3,7 +3,7 @@
 .center-line
   -form_tag(:action=>:sale_order_lines_create) do 
     =tc('product')+" "+select(:sale_order_line, :price_id, @current_company.available_prices.collect{|x| [x.label, x.id]})
-    = "  "+tc('quantity'), text_field(:sale_order_line, :quantity, :size=>10, :value=>1.0)
+    = "  "+tc('quantity')+" "+text_field(:sale_order_line, :quantity, :size=>10, :value=>1.0)
     =" "+tc('location'), select(:sale_order_line, :location_id, @current_company.stock_locations.collect{|x| [x.name, x.id]}) if @current_company.stock_locations.size > 1
     #price_amount{:style=>'display:none'}
       =text_field(:sale_order_line, :price_amount, :value=>0.0)

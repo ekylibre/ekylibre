@@ -289,7 +289,7 @@ production       shapes_create                    manage_shapes
 relations        entities_merge                   [new_right]
 relations        auto_complete_for_contact_line_6 administrate_relations
 relations        change_minutes                   administrate_relations
-relations        dyli_entity                      administrate_relations
+relations        dyli_entities                    administrate_relations
 relations        index                            administrate_relations
 relations        dyta_client_invoices             consult_entities
 relations        dyta_entities                    consult_entities

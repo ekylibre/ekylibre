@@ -13,7 +13,7 @@
           %td=@check.amount
           %td=@check.to_bank_on
           %td=@check.entity.full_name
-          -if !@check.embanker_id.nil?
+          -if !@check.embanker.nil?
             %td=@check.embanker.first_name+" "+@check.embanker.last_name
           -else
             %td

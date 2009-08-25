@@ -1,8 +1,9 @@
 class ManagementController < ApplicationController
 
   include ActionView::Helpers::FormOptionsHelper
-
+ 
   def index
+    #raise Exception.new session.data.inspect
     #raise Exception.new "jjjjj"+Actions.expire_actions.inspect
     @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
     @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})

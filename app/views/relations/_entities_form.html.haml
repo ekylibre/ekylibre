@@ -29,7 +29,8 @@
   - f.field  t("activerecord.attributes.entity.origin"), text_field_with_auto_complete(:entity, :origin)
   -f.field :entity, :first_met_on
   - #f.field :name ,{:datatype=>:choice, :id=>"meeting_#{meeting.position}_meeting_id", :name=>"entity_meeting[#{entity_meeting.position}][meeting_id]", :value=>entity_meeting.meeting_id, :choices=>@current_company.meetings.find(:all, :conditions=>{:active=>true}).collect{|x| [x.name, x.id]}, :options=>{:include_blank=>"--Aucun--"} }
-  -f.field :entity, :proposer_id, :choices=>@current_company.entities.find(:all, :conditions=>["id != ?", (@entity.new_record? ? 0 : @entity)], :order=>:name).collect{|x| [x.full_name, x.id]}, :options=>{:include_blank=>tc('no_proposer')}
+  -#f.field :entity, :proposer_id, :choices=>@current_company.entities.find(:all, :conditions=>["id != ?", (@entity.new_record? ? 0 : @entity)], :order=>:name).collect{|x| [x.full_name, x.id]}, :options=>{:include_blank=>tc('no_proposer')}
+  -f.field :entity, :proposer_id, :choices=>:entities
   -f.field :entity, :employee_id, :choices=>@current_company.employees.find(:all, :conditions=>{:commercial=>'true'}, :order=>:last_name).collect{|p| [p.last_name, p.id]}, :new=>{:controller=>:resources, :action=>:employees_create}, :options=>{:include_blank=>tc(:no_commercial)}
   -f.field :entity, :vat_submissive
   -f.field :entity, :reflation_submissive

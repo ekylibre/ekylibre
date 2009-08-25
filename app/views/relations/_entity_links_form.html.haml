@@ -2,5 +2,6 @@
   - f.error :entity_link
   - f.field tc(:entity_name), @entity.full_name
   - f.field :entity_link, :nature_id,  :choices=>@current_company.available_link_natures
-  - f.field :entity_link, :entity2_id, :choices=>@current_company.available_entities.collect{|x| [x.full_name, x.id]}
+  -# f.field :entity_link, :entity2_id, :choices=>@current_company.available_entities.collect{|x| [x.full_name, x.id]}
+  - f.field :entity_link, :entity2_id, :choices=>:entities
   - f.field :entity_link, :comment, :field=>:textarea

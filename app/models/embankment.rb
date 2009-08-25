@@ -31,7 +31,7 @@ class Embankment < ActiveRecord::Base
   def before_validation
     if !self.id.nil?
       payments = Payment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
-      self.payments_number = payments.size
+      self.payments_count = payments.size
       self.amount = payments.sum{|p| p.amount}
     end
   end
