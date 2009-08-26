@@ -45,8 +45,11 @@ class Employee < ActiveRecord::Base
   end
 
   def full_name
-    full_name = (self.last_name.to_s+" "+self.first_name.to_s).strip
+    (self.last_name.to_s+" "+self.first_name.to_s).strip
   end
-  
+
+  def label
+    (self.first_name.to_s+" "+self.last_name.to_s).strip
+  end  
 
 end

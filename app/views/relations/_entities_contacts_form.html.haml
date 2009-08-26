@@ -1,4 +1,6 @@
-=#render :partial=>"general_description_form"
+=formalize do |f|
+  -f.title :general
+  -f.field :contact, :default
 =render :partial=>"coordinates_form", :locals => {:company => @current_company}
  
 

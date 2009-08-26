@@ -118,6 +118,7 @@ fr-FR:
       _entities_contacts_form:
         address: 'Adresse'
         canals: 'Coordonnées'
+        general: 'Général'
         title: 'Description générale'
       entities_contacts_update:
         title: 'Modification de l''adresse de "{{entity}}"'

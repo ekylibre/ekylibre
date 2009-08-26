@@ -143,15 +143,7 @@ module Ibeh
           set table_left, 0, :font_size=>10 do
             line [[0, 0], [table_width, 0]], :color=>'#000', :width=>0.5
             for c in columns
-              left = c[:offset]
-              if options[:align]==:center
-                left += c[:width].to_f/2
-              elsif options[:align]==:right
-                left += c[:width].to_f - 0.5.mm
-              else
-                left += 0.5.mm
-              end
-              part.resize_to(text(c[:title].to_s, :left=>left, :top=>0.5.mm, :bold=>true, :width=>c[:width]-1.mm))
+              part.resize_to(textbox(c[:title].to_s, c[:width], part.height, :left=>c[:offset], :top=>0.5.mm, :bold=>true, :align=>:center, :valign=>:middle))
               line([[c[:offset],0], [c[:offset], part.height]], :color=>'#000', :width=>0.5)
             end
             line [[table_width, 0], [table_width, part.height]], :color=>'#000', :width=>0.5
@@ -170,19 +162,19 @@ module Ibeh
                 elsif value.is_a? Numeric
                   value = number_to_currency(value, :separator=>options[:separator]||',', :delimiter=>options[:delimiter]||' ', :unit=>options[:unit]||'', :precision=>options[:precision]||2) if options[:format]==:money
                   options[:align] ||= :right
-                end
-                
-                left = c[:offset]
-                if options[:align]==:center
-                  left += c[:width].to_f/2
-                elsif options[:align]==:right
-                  left += c[:width].to_f - 0.5.mm
-                else
-                  left += 0.5.mm
-                end
+                end                
+#                 left = c[:offset]
+#                 if options[:align]==:center
+#                   left += c[:width].to_f/2
+#                 elsif options[:align]==:right
+#                   left += c[:width].to_f - 0.5.mm
+#                 else
+#                   left += 0.5.mm
+#                 end
 
-                height = text(value.to_s, :left=>left, :top=>0.5.mm, :align=>options[:align], :width=>c[:width])
-                part.resize_to(height)
+#                 height = text(value.to_s, :left=>left, :top=>0.5.mm, :align=>options[:align], :width=>c[:width])
+#                 part.resize_to(height)
+                part.resize_to(textbox(value.to_s, c[:width], part.height, :left=>c[:offset], :top=>0.5.mm, :align=>options[:align]))
               end
               for c in columns
                 line([[c[:offset],0], [c[:offset], part.height]], :color=>'#000', :width=>0.5)
@@ -278,6 +270,10 @@ module Ibeh
       @env[name]
     end
 
+    def string_height(text, width, options={})
+      @writer.get_string_height(text, width, variable(:font_name), variable(:font_size), {:italic=>options[:italic], :bold=>options[:bold]})
+    end
+
     def set(left=0, top=0, env={}, &block)
       write(:save_graphics_state)
       set = Set.new(@writer, @env.dup.merge(env), @left+left, @top-top, @part)
@@ -310,6 +306,32 @@ module Ibeh
       @env = env
       return height
     end
+
+
+    def textbox(value, width, height=nil, options={})
+      face_options = {:italic=>options[:italic], :bold=>options[:bold]}
+      # font(options[:font], options.delete(:size), options.delete(:color), face_options)
+      padding = 1.mm.to_f
+      left = (options[:left]||0)
+      if options[:align]==:center
+        left += width.to_f/2
+      elsif options[:align]==:right
+        left += width.to_f - padding/2
+      else
+        left += padding/2
+      end
+      h = @writer.get_string_height(value, width, variable(:font_name), variable(:font_size), face_options)
+      top = (options[:top]||0)
+      if options[:valign]==:middle
+        top += (height.to_f - h)/2
+      elsif options[:valign]==:bottom
+        top += (height.to_f - h)
+      else
+        top += padding/2
+      end
+      text(value, options.merge(:left=>left, :top=>top, :width=>width))+padding
+    end
+
 
     def cell(width, height, value, options={})
       font(options[:font], options.delete(:size), options.delete(:color), :italic=>options[:italic], :bold=>options[:bold])

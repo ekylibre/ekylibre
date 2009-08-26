@@ -17,8 +17,14 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
   
   part 65.mm do
     set  do
-      #text @sale_order.company.name, :size=>7.mm
-      image "#{RAILS_ROOT}/public/images/"+@current_company.name+".jpg", 30.mm, 48.mm if File.exists? "#{RAILS_ROOT}/public/images/"+@current_company.name+".jpg"
+      logo =  @sale_order.company.entity.website.split('#')
+      if File.exist?(logo[0])
+        dims = logo[1].split('x').collect{|c| c.to_f.mm}
+        dims = [] unless dims.size == 2
+        image logo[0], dims[0]||30.mm, dims[1]||48.mm
+      else
+        text @sale_order.company.entity.full_name, :size=>16
+      end
       set  do
         top = 0
         for line in @lines
@@ -39,20 +45,20 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
 
   part 11.mm do    
     set do
-      if @current_company.default_contact.area.nil?
+      if @sale_order.company.default_contact.area.nil?
         text "Le "+I18n.localize(@sale_order.created_on, :format=>:month_letter), :left=>width, :align=>:right
       else
-        text "À "+@current_company.default_contact.area.city_name.capitalize+", le "+I18n.localize(@sale_order.created_on, :format=>:month_letter),  :left=>width, :align=>:right
+        text "À "+@sale_order.company.default_contact.area.city_name.capitalize+", le "+I18n.localize(@sale_order.created_on, :format=>:month_letter),  :left=>width, :align=>:right
       end
     end
-    state = @sale_order.state == "P" ? "Devis n° " : "Commande n° "
+    state = @sale_order.state == "P" ? "Devis n°" : "Commande n°"
     set do
       text state+@sale_order.number, :align=>:left, :bold=>:bold
     end
 
     set do 
-      abbreviation = @sale_order.client.nature.abbreviation == "-" ? "" : @sale_order.client.nature.abbreviation 
-      text "Entre "+@sale_order.company.name+", "+@sale_order.responsible.full_name+" et "+abbreviation+" "+@sale_order.client.full_name+".", :top=>7.mm
+      # abbreviation = @sale_order.client.nature.abbreviation == "-" ? "" : @sale_order.client.nature.abbreviation 
+      text "Entre "+@sale_order.company.name+", "+@sale_order.responsible.label+" et "+@sale_order.client.full_name+".", :top=>4.mm
     end
   end 
 
@@ -67,19 +73,19 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
   if !@order and @sale_order.letter_format and !@sale_order.introduction.blank?
     part 7.mm do 
       set do 
-        text @sale_order.introduction
+        part.resize_to(text(@sale_order.introduction, :width=>width))
       end
     end
   end
 
   table @sale_order.lines, :fixed=>true do 
-    column "Code", "product.code", 21.mm
+    column "Code", "product.code", 21.mm, :align=>:center
     column "Désignation", 'product.name', 80.mm
-    column "Qté.", 'quantity', 14.mm
-    column "Prix unitaire hors taxes", 'price.amount', 21.mm, :numeric=>:money
-    column "Montant HT", 'amount', 20.mm, :numeric=>:money
-    column "Mont T.V.A. ", '(amount_with_taxes-amount)', 20.mm
-    column "T.V.A.", '(price.tax.amount*100).to_s+" %"', 15.mm, :align=>:center
+    column "Qté.", 'quantity', 13.mm
+    column "Prix unitaire Hors Taxes", 'price.amount', 22.mm, :numeric=>:money
+    column "Montant Hors Taxes", 'amount', 20.mm, :numeric=>:money
+    column "Montant T.V.A. ", '(amount_with_taxes-amount)', 20.mm
+    column "Taux T.V.A.", '(price.tax.amount*100).to_s+" %"', 15.mm, :align=>:center
   end
 
   part 14.mm do
@@ -110,22 +116,50 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
   if !@order
     conditions = []
     conditions << "Ce devis et ses conditions générales sont valables jusqu'au "+I18n.localize(@sale_order.expired_on, :format=>:month_letter) if !@sale_order.nature.expiration.nil?
-    conditions << "Un acompte de "+(@sale_order.nature.downpayment_rate*100).to_s+"% (soit "+(@sale_order.nature.downpayment_rate*@sale_order.amount_with_taxes).round(2).to_s+" "+@sale_order.company.currencies.find(:first).code+") sera réglé à la signature de présent devis" if @sale_order.nature.downpayment_rate > 0
-    conditions += @sale_order.company.entity.comment.split("\n")
+    conditions << "Un acompte de "+(@sale_order.nature.downpayment_rate*100).to_s+"% (soit "+(@sale_order.nature.downpayment_rate*@sale_order.amount_with_taxes).round(2).to_s+" "+@sale_order.company.currencies.find(:first).code+") sera réglé à la signature de présent devis" if @sale_order.nature.downpayment_rate > 0 and @sale_order.nature.downpayment_minimum<=@sale_order.amount_with_taxes
+    conditions += @sale_order.company.entity.comment.split("\n").collect{|c| c.strip.gsub(/\s+/, ' ')}
     part 5.mm do
       set do
         text "Conditions générales :", :bold=>:bold
       end
-    end
-    indice = 1
-    for condition in conditions
-      part 1.mm do
-        set do
-          part.resize_to(text(indice.to_s+".  "+condition, :size=>7, :left=>5.mm, :width=>185.mm))
+
+      set 0.mm, 5.mm do
+        nb_columns = 2
+        col_width = 190.mm/nb_columns
+        total_height = 0
+        font("Times", 7)
+        conditions.each{|s|  total_height += string_height(s, col_width-10.mm)+1.mm; }
+        col_height = total_height.to_f/nb_columns
+        left = 0
+        walked = 0
+        max = 0
+        indice = 0
+        for condition in conditions
+          text((indice+=1).to_s+".",  :left=>left+6.mm, :top=>walked, :align=>:right)
+          walked += text(condition, :left=>left+7.mm, :top=>walked, :width=>col_width-10.mm)+1.mm
+          puts "WALKED: #{total_height*0.35} / #{max*0.35} / #{walked*0.35}"
+          if walked>=col_height
+            max = walked if walked > max
+            left += col_width
+            walked = 0
+          end
         end
+        puts "************"
+        part.resize_to(max+7.mm)
       end
-      indice += 1
+
     end
+
+#     indice = 1
+#     for condition in conditions
+#       part 1.mm do
+#         set do
+#           text(indice.to_s+".", :size=>7, :left=>6.mm, :align=>:right)
+#           part.resize_to(text(condition, :size=>7, :left=>7.mm, :width=>80.mm)+1.mm)
+#         end
+#       end
+#       indice += 1
+#     end
     part 1.mm do
     end
   end
@@ -156,8 +190,9 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
   if !@order and @sale_order.letter_format
     part 25.mm do 
       set do 
-        text "Dans la case ci-contre, veuillez dater, porter la mention ", :bold=>:bold
-        text "''Bon pour accord'' et apposer votre signature.", :bold=>:bold, :top=>6.mm, :left=>7.5.mm
+        text "Dans la case ci-contre, veuillez dater, porter la mention \"Bon pour accord\" et apposer votre signature.", :bold=>:bold, :top=>3.mm, :left=>97.mm, :width=>60.mm, :align=>:right
+        #        text "Dans la case ci-contre, veuillez dater, porter la mention ", :bold=>:bold
+        #        text "''Bon pour accord'' et apposer votre signature.", :bold=>:bold, :top=>6.mm, :left=>7.5.mm
         rectangle 75.mm, 20.mm, :left=>100.mm, :width=>0.7
       end
     end
@@ -168,15 +203,15 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
   if !@order and @sale_order.letter_format and !@sale_order.conclusion.blank?
     part 7.mm do 
       set do 
-        part.resize_to(text(@sale_order.conclusion, :width=>180.mm))
+        part.resize_to(text(@sale_order.conclusion, :width=>width))
       end
     end
   end
   
   if !@order and @sale_order.letter_format
-    part 10.mm do 
-      set 145.mm do 
-        text @sale_order.responsible.full_name, :bold=>:bold, :align=>:center
+    part 15.mm do 
+      set 145.mm, 3.mm do 
+        text @sale_order.responsible.label, :bold=>:bold, :align=>:center
         text "Service "+@sale_order.responsible.department.name, :align=>:center, :top=>4.mm
       end
     end
@@ -207,16 +242,18 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
   end
 
   
-  part 25.mm, :bottom=>true do
+  part 15.mm, :bottom=>true do
     set do
       line [[0,1.mm], [width,1.mm]], :width=>0.5
-      text "Devis n° "+@sale_order.number, :size=>10, :align=>:left, :top=>4.mm
-      text "Réf. Client : "+@sale_order.client.code, :top=>10.mm, :align=>:left
-      text "Page 1 sur 1", :top=>15.mm, :align=>:left, :size=>8
-      text I18n.localize(@sale_order.created_on, :format=>:month_letter), :size=>10, :left=>width/2, :align=>:center, :top=>4.mm
-      text "N° TVA Intracommunautaire "+@sale_order.company.entity.vat_number.to_s+" - SIREN "+@sale_order.company.siren.to_s+" - Code APE "+@sale_order.company.entity.ean13.to_s, :size=>7, :left=>width/2, :align=>:center, :top=>10.mm
-      text "Paraphe",:size=>10, :left=>width-20.mm, :align=>:right, :top=>4.mm
-      rectangle 18.mm, 8.mm, :left=>width-18.mm, :width=>0.5, :top=>2.mm
+      set 0, 2.5.mm do 
+        text "Devis n°"+@sale_order.number, :size=>10, :align=>:left
+        text "Réf. Client : "+@sale_order.client.code, :top=>4.mm, :align=>:left
+        text "Page 1 sur 1", :top=>8.mm, :align=>:left
+        text I18n.localize(@sale_order.created_on, :format=>:month_letter), :size=>10, :left=>width/2, :align=>:center
+        text "N° TVA Intracommunautaire : "+@sale_order.company.entity.vat_number.to_s+" - SIREN : "+@sale_order.company.siren.to_s+" - Code APE : "+@sale_order.company.entity.ean13.to_s, :size=>7, :left=>width/2, :align=>:center, :top=>6.mm
+        text "Paraphe",:size=>10, :left=>width-20.mm, :align=>:right, :bold=>true
+        rectangle 18.mm, 8.mm, :left=>width-18.mm, :width=>0.2
+      end
     end
   end
 

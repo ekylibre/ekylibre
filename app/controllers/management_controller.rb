@@ -710,6 +710,7 @@ class ManagementController < ApplicationController
     t.column :text_state
     t.column :amount
     t.column :amount_with_taxes
+    t.action :sales_print
     t.action :sale_orders_delete , :method=>:post, :if=>'RECORD.state == "P"', :confirm=>tc(:are_you_sure)
   end
   

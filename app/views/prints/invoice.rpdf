@@ -1,5 +1,8 @@
 page :a4, :margin=>[10.mm] do
   part 95.mm do
+    set do
+      text "Ne pas envoyer à qui que ce soit! En cours de construction. Merci.", :size=>100, :width=>190.mm, :color=>"#F00"
+    end
     set  do
       text @current_company.name, :size=>7.mm
       set 0, 5.mm do
