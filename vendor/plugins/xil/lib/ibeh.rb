@@ -114,8 +114,8 @@ module Ibeh
       part.testing! false
       # Writing part
       page_break if @y-part.height-@margin[2]<0
-      if options[:bottom]=>true
-        Part.new(@writer, self, @y-@margin[2]-part.height)
+      if options[:bottom]
+        part(@y-@margin[2]-part.height)
       end
       part = Part.new(@writer, self, part.height)
       call(part, block)
@@ -143,7 +143,7 @@ module Ibeh
           set table_left, 0, :font_size=>10 do
             line [[0, 0], [table_width, 0]], :color=>'#000', :width=>0.5
             for c in columns
-              text c[:title].to_s, :left=>c[:offset]+0.5.mm, :top=>0.5.mm, :bold=>true
+              part.resize_to(text(c[:title].to_s, :left=>c[:offset]+0.5.mm, :top=>0.5.mm, :bold=>true, :width=>c[:width]-1.mm))
               line([[c[:offset],0], [c[:offset], part.height]], :color=>'#000', :width=>0.5)
             end
             line [[table_width, 0], [table_width, part.height]], :color=>'#000', :width=>0.5

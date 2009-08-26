@@ -82,7 +82,7 @@ class ManagementController < ApplicationController
     end
   end
   
-  dyta(:all_invoices, :model=>:invoices, :conditions=>"search_conditions(:attributes=>[:number], :key=>session[:invoices_key])", :line_class=>'RECORD.status') do |t|
+  dyta(:all_invoices, :model=>:invoices, :conditions=>search_conditions(:invoices, :number), :line_class=>'RECORD.status') do |t|
     t.column :number, :url=>{:action=>:invoices_display}
     t.column :full_name, :through=>:client
     t.column :created_on
@@ -94,8 +94,8 @@ class ManagementController < ApplicationController
   end
 
   def invoices
-    @key = params[:key]||session[:invoices_key]
-    session[:invoices_key] = @key
+    @key = params[:key]||session[:invoice_key]
+    session[:invoice_key] = @key
     #all_invoices_list({:attributes=>[:number], :key=>@key}.merge(params))
   end
 
@@ -1236,7 +1236,7 @@ class ManagementController < ApplicationController
   
   def invoices_print
     @invoice = find_and_check(:invoice, params[:id])
-    if @current_company.default_contact.nil? || @invoice.contact.nil?
+    if @current_company.default_contact.nil? || @invoice.contact.nil? 
       entity = @current_company.default_contact.nil? ? @current_company.name : @invoice.client.full_name
       flash[:warning]=tc(:no_contacts, :name=>entity)
       redirect_to_back

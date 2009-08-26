@@ -75,8 +75,8 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
   table @sale_order.lines, :fixed=>true do 
     column "Code", "product.code", 21.mm
     column "Désignation", 'product.name', 80.mm
-    column "Qté.", 'quantity', 15.mm
-    column "PU HT", 'price.amount', 20.mm, :numeric=>:money
+    column "Qté.", 'quantity', 14.mm
+    column "Prix unitaire hors taxes", 'price.amount', 21.mm, :numeric=>:money
     column "Montant HT", 'amount', 20.mm, :numeric=>:money
     column "Mont T.V.A. ", '(amount_with_taxes-amount)', 20.mm
     column "T.V.A.", '(price.tax.amount*100).to_s+" %"', 15.mm, :align=>:center
@@ -106,25 +106,47 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
     end
   end
   
+  ### Conditions générales
   if !@order
-    part 40.mm do
-      set  do 
+    conditions = []
+    #conditions << "" if @sale_order.nature
+    conditions += @sale_order.company.entity.comment.split("\n")
+    part 5.mm do
+      set do
         text "Conditions générales :", :bold=>:bold
-        text "1.  Ce devis et ses conditions générales sont valables jusqu'au "+I18n.localize(@sale_order.expired_on, :format=>:month_letter), :size=>7, :bold=>:bold, :top=>4.mm, :left=>5.mm
-        if @sale_order.nature.downpayment_rate > 0
-          text "2.  Un acompte de "+(@sale_order.nature.downpayment_rate*100).to_s+"% (soit "+(@sale_order.nature.downpayment_rate*@sale_order.amount_with_taxes).round(2).to_s+" "+@sale_order.company.currencies.find(:first).code+") sera réglé à la signature de présent devis", :size=>7, :bold=>:bold, :top=>7.mm, :left=>5.mm
-        end
-        text "3.  Toute intervention supplémentaire nécessaire à la bonne conduite du dossier fera l'objet d'un devis supplémentaire.", :size=>7, :top=>10.mm, :left=>5.mm
-        text "4.  Nos factures sont payables 30 jours après leur émission.", :size=>7, :top=>13.mm, :left=>5.mm
-        text "5.  Les prestations ne pourront débuter qu'après acceptation du présent contrat.", :size=>7, :top=>16.mm, :left=>5.mm
-        text "6.  Dans le cas ou la mission s'arrête avant son terme pour des raisons indépendantes de "+@sale_order.company.name+", le temps consacré sur le dossier sera facturé.", :size=>7, :top=>19.mm, :left=>5.mm
-        text "7.  "+@sale_order.company.name+" s'engage à respecter le secret professionnel et à ne délivrer à un tiers informations ou documents qu'après accord du client.", :size=>7, :top=>22.mm, :left=>5.mm
-        text "8.  "+@sale_order.company.name+" n'effectue aucune estimation de valeur de biens, de créances et de tous éléments nécessaires au dossier, objet du présent ordre de mission.", :size=>7, :top=>25.mm, :left=>5.mm
-        text "9.  La qualité des prestations ou leur règlement ne sauraient être conditionnés par les décisions des organismes bancaires, administratifs ou professionnels en prolongement des études produites.", :size=>7, :top=>28.mm, :left=>5.mm
-        text "10.  La validité de ce devis est conditionnée par la délivrance des documents et informations nécessaires à l'ouverture du dossier dans le délai d'un mois à compter de l'acceptation du devis par le signataire.", :size=>7, :top=>31.mm, :left=>5.mm
       end
     end
+    indice = 1
+    for condition in conditions
+      part 1.mm do
+        set do
+          part.resize_to(text(indice.to_s+".  "+condition, :size=>7, :left=>5.mm, :width=>150.mm))
+        end
+      end
+      indice += 1
+    end
+    
   end
+  
+  #   if !@order
+#     part 40.mm do
+#       set  do 
+#         text "Conditions générales :", :bold=>:bold
+#         text "1.  Ce devis et ses conditions générales sont valables jusqu'au "+I18n.localize(@sale_order.expired_on, :format=>:month_letter), :size=>7, :bold=>:bold, :top=>4.mm, :left=>5.mm
+#         if @sale_order.nature.downpayment_rate > 0
+#           text "2.  Un acompte de "+(@sale_order.nature.downpayment_rate*100).to_s+"% (soit "+(@sale_order.nature.downpayment_rate*@sale_order.amount_with_taxes).round(2).to_s+" "+@sale_order.company.currencies.find(:first).code+") sera réglé à la signature de présent devis", :size=>7, :bold=>:bold, :top=>7.mm, :left=>5.mm
+#         end
+#         text "3.  Toute intervention supplémentaire nécessaire à la bonne conduite du dossier fera l'objet d'un devis supplémentaire.", :size=>7, :top=>10.mm, :left=>5.mm
+#         text "4.  Nos factures sont payables 30 jours après leur émission.", :size=>7, :top=>13.mm, :left=>5.mm
+#         text "5.  Les prestations ne pourront débuter qu'après acceptation du présent contrat.", :size=>7, :top=>16.mm, :left=>5.mm
+#         text "6.  Dans le cas ou la mission s'arrête avant son terme pour des raisons indépendantes de "+@sale_order.company.name+", le temps consacré sur le dossier sera facturé.", :size=>7, :top=>19.mm, :left=>5.mm
+#         text "7.  "+@sale_order.company.name+" s'engage à respecter le secret professionnel et à ne délivrer à un tiers informations ou documents qu'après accord du client.", :size=>7, :top=>22.mm, :left=>5.mm
+#         text "8.  "+@sale_order.company.name+" n'effectue aucune estimation de valeur de biens, de créances et de tous éléments nécessaires au dossier, objet du présent ordre de mission.", :size=>7, :top=>25.mm, :left=>5.mm
+#         text "9.  La qualité des prestations ou leur règlement ne sauraient être conditionnés par les décisions des organismes bancaires, administratifs ou professionnels en prolongement des études produites.", :size=>7, :top=>28.mm, :left=>5.mm
+#         text "10.  La validité de ce devis est conditionnée par la délivrance des documents et informations nécessaires à l'ouverture du dossier dans le délai d'un mois à compter de l'acceptation du devis par le signataire.", :size=>7, :top=>31.mm, :left=>5.mm
+#       end
+#     end
+#   end
 
   if !@order and @sale_order.letter_format
     part 25.mm do 
@@ -177,10 +199,8 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
     end
   end
 
-  part 20.mm do
-  end
-
-  part 25.mm do
+  
+  part 25.mm, :bottom=>true do
     set do
       line [[0,1.mm], [width,1.mm]], :width=>0.5
       text "Devis n° "+@sale_order.number, :size=>10, :align=>:left, :top=>4.mm
