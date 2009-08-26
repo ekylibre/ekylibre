@@ -114,10 +114,14 @@ module Ibeh
       part.testing! false
       # Writing part
       page_break if @y-part.height-@margin[2]<0
+      if options[:bottom]=>true
+        Part.new(@writer, self, @y-@margin[2]-part.height)
+      end
       part = Part.new(@writer, self, part.height)
       call(part, block)
       @y -= part.height
     end
+
 
     def table(collection, options={}, &block)
       if block_given?
@@ -284,8 +288,9 @@ module Ibeh
     def text(value, options={})
       value = value.to_s
       env = @env.dup
-      height = @writer.get_string_height(value, options[:width], variable(:font_name), variable(:font_size), options)
-      font(options[:font], options.delete(:size), options.delete(:color), :italic=>options[:italic], :bold=>options[:bold])
+      face_options = {:italic=>options[:italic], :bold=>options[:bold]}
+      font(options[:font], options.delete(:size), options.delete(:color), face_options)
+      height = @writer.get_string_height(value, options[:width], variable(:font_name), variable(:font_size), face_options)
       left = @left+(options[:left]||0)
       top  = @top-(options[:top]||0)-0.7*variable(:font_size)
       write(:text, value, :at=>[left, top], :align=>options[:align], :width=>options[:width])
