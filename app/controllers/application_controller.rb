@@ -70,23 +70,23 @@ class ApplicationController < ActionController::Base
   end
 
   # TO DELETE
-  def search_conditions(options={})
-    conditions = ["company_id = ?", @current_company.id]
-    keywords = options[:key].to_s.split(" ")
-    if keywords.size>0 and options[:attributes].size>0
-      conditions[0] += " AND ("
-      for attribute in options[:attributes]
-        for word in keywords
-          conditions[0] += 'LOWER(CAST('+attribute.to_s+" AS VARCHAR)) LIKE ? OR "
-          conditions << '%'+word.lower+'%'
-        end
-      end 
-      conditions[0] = conditions[0][0..-5]+")"
-    else
-      conditions[0] += " AND CAST ('true' AS BOOLEAN)"
-    end
-    conditions
-  end
+  # def search_conditions(options={})
+#     conditions = ["company_id = ?", @current_company.id]
+#     keywords = options[:key].to_s.split(" ")
+#     if keywords.size>0 and options[:attributes].size>0
+#       conditions[0] += " AND ("
+#       for attribute in options[:attributes]
+#         for word in keywords
+#           conditions[0] += 'LOWER(CAST('+attribute.to_s+" AS VARCHAR)) LIKE ? OR "
+#           conditions << '%'+word.lower+'%'
+#         end
+#       end 
+#       conditions[0] = conditions[0][0..-5]+")"
+#     else
+#       conditions[0] += " AND CAST ('true' AS BOOLEAN)"
+#     end
+#     conditions
+#   end
 
   def find_and_check(model, id, options={})
     model = model.to_s
