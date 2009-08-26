@@ -66,7 +66,6 @@ class ManagementController < ApplicationController
   end
   
   def inventories
-    
   end
   
   def inventory_consult

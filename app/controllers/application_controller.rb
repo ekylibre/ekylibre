@@ -69,7 +69,6 @@ class ApplicationController < ActionController::Base
     code
   end
 
-
   # TO DELETE
   def search_conditions(options={})
     conditions = ["company_id = ?", @current_company.id]
