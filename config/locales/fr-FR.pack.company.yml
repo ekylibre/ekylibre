@@ -106,6 +106,9 @@ fr-FR:
         title: 'Création d''une nouvelle extraction'
       _listings_form:
         subtitle: 'Renseignez les informations concernant l''extraction'
+      listings_mail:
+        click_to_mail: 'Cliquez ici pour écrire votre message'
+        title: 'Envoyer un mail pour "{{listing}}"'
       listings_update:
         title: 'Modification de l''extraction {{value}}'
       _rights_form:

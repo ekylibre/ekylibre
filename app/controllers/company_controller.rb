@@ -476,11 +476,15 @@ class CompanyController < ApplicationController
   
   def listings_mail
     @listing = find_and_check(:listing, params[:id])
-    #raise Exception.new @listing.inspect
     query = @listing.query
     query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
     result = ActiveRecord::Base.connection.select_all(@listing.query)
-    raise Exception.new result[0].inspect
+    #raise Exception.new result[0]["email"].inspect
+    @mails = result.collect{|c| c["email"] unless c["email"].blank? }.compact
+    #raise Exception.new mails.join(",").inspect
+    #send_data mail_to(:bcc=>mails.join("&bcc="))
+    #mail_to(:bcc=>mails.join("&bcc="))
+    @title = {:listing => @listing.name}
   end
 
   def listings_create
