@@ -1,0 +1,1 @@
+=mail_to('?'+@mails.collect{|m| 'bcc='+m}.join('&')+"&body=--%0A#{@current_user.label}%0A#{@current_company.entity.full_name}", tc(:click_to_mail))
