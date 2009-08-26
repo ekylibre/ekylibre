@@ -40,11 +40,11 @@ page :a4, :margin=>[10.mm] do
     end
   end
   table @entity.contacts do
-    column "Adresse", 'lines', 6.2
+    column "Adresse", 'lines', 3.5
     column "Téléphone", 'phone'
     column "Fax", 'fax'
     column "Mobile", 'mobile'
-    column "E-mail", 'email', 2
+    column "E-mail", 'email', 2.5
   end
 
   part 10.mm do

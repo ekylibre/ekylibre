@@ -88,6 +88,11 @@ namespace :xil do
     pdf.font "Times", :size=>12
     pdf.text "Blabla bla blablb bla bla", :at=>[140, 140]
 
+    string, width = "Blabla bla blablb bla bla. "*30, 200
+    height = pdf.get_string_height(string, width, "Times", 12)
+    pdf.text string+height.to_s, :at=>[304, 640], :width=>width
+    pdf.text "Blabla solor bla ipsum ba bla bla. "*22+height.to_s, :at=>[300, 640], :width=>width, :align=>:right
+    pdf.text "Lorem ipsum dolor sit amet. "*20+height.to_s, :at=>[302, 340], :width=>200, :align=>:center
 
 
 

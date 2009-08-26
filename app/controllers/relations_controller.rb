@@ -328,10 +328,11 @@ class RelationsController < ApplicationController
   
 
   dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+    t.column :name, :through=>:nature
+    t.column :reason
     t.column :full_name, :through=>:employee
     t.column :duration
     t.column :location
-    t.column :name, :through=>:nature
     t.column :started_at
     t.action :events_update
     t.action :events_delete, :method=>:post, :confirm=>:are_you_sure

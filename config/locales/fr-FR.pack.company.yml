@@ -150,11 +150,11 @@ fr-FR:
           one: '1 commande'
           other: '{{count}} commandes'
           zero: 'Aucune commande'
+        no_employee: 'Vous n''avez pas fiche employé, donc pas de statistiques.'
         start: 'Du'
         title: 'Mes statistiques'
         total_amount: ' Total montant HT '
         total_invoiced_amount: 'Total montant facturé '
-        no_employee: 'Vous n''avez pas fiche employé, donc pas de statistiques.'
       users:
         title: 'Liste des utilisateurs'
         users_create: 'Ajouter un nouvel utilisateur'

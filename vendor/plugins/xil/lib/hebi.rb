@@ -79,6 +79,22 @@ module Hebi
   end
 
 
+  # Font
+  class Font
+
+    def cut_string(string, width, font_size)
+    end
+
+    def string_height(string, width, font_size)
+      return cut_string(string, width, size).size * size
+    end
+
+    def string_width(string, font_size)
+    end
+  end
+
+
+
   # Document
   class Document
     VERSION = '0.1'
@@ -167,9 +183,9 @@ module Hebi
       @pages[number||@page]
     end
 
-    def alias(key, value)
-      @aliases[key] = value
-    end
+#    def alias(key, value)
+#      @aliases[key] = value
+#    end
 
     def image(file, x, y, w=nil, h=nil, params={})
       self.new_page if @page<0
@@ -243,11 +259,11 @@ module Hebi
 
     def text(string, options={})
       at = options[:at]||[]
-      self.begin_text_object
-#      self.move_text_position(at[0]||0, at[1]||0)
-#      self.show_text(string)
-      self.show_text_at(string, at[0]||0, at[1]||0, options[:align])
-      self.end_text_object
+#      self.begin_text_object
+##      self.move_text_position(at[0]||0, at[1]||0)
+##      self.show_text(string)
+      self.show_text_at(string, at[0]||0, at[1]||0, options[:align], options[:width])
+#      self.end_text_object
     end
 
     def font(name, options={})
@@ -261,6 +277,56 @@ module Hebi
       self.select_font(@fonts[label][:name], options[:size])
       self.set_fill_color(options[:color]) if options[:color]
     end
+
+
+    def get_string_width(string, font_name, font_size, options={})
+      label = font_name.downcase+(options[:bold] ? '-bold' : '')+(options[:italic] ? '-italic' : '')
+      font = available_fonts[label]
+      cw = font[:char_widths]
+      error('Char widths must be an Array: '+cw.inspect+' '+font_name.inspect+' '+available_fonts.inspect) unless cw.is_a? Array
+      s = ic ? ic.iconv(string) : string
+      width = 0
+      s.to_s.ascii.each_byte { |char| width += cw[char] }
+      return width*font_size/1000.0
+    end
+
+    def cut_string(text, width, font_name, font_size, options={})
+      max = get_string_width(text, font_name, font_size, options)
+      w = width.to_f>0 ? width.to_f : max
+      lines = []
+      if w < max
+        string = text.strip.split(/\s+/)
+        i = 0
+        space = get_string_width(' ', font_name, font_size, options)
+        for word in string
+          ww = get_string_width(word, font_name, font_size, options)
+          if lines[i].nil?
+            lines[i] ||= {:text=>word, :length=>ww}
+          elsif lines[i][:length]+space+ww <= w
+            lines[i][:length] += space+ww
+            lines[i][:text] += ' '+word
+          else
+            i += 1
+            lines[i] = {:text=>word, :length=>ww}
+          end
+          i += 1 if ww > w
+        end
+      else
+        lines[0] = {:text=>text, :length=>max}
+      end
+      return lines
+    end
+
+
+    # Get height of a multilines string in the current font
+    def get_string_height(string, width, font_name, font_size, options={})
+      lines = cut_string(string, width, font_name, font_size, options)
+      return lines.size * font_size
+    end
+
+
+
+
 
     # Register all the ContentStream operations if the method exists
     def method_missing(method_name, *args)
@@ -303,6 +369,12 @@ module Hebi
     def defined_font(name)
       (@fonts.detect{|key, font| font[:name] == name}||[])[1]
     end
+
+    def available_font(name)
+      (@available_fonts.detect{|key, font| font[:name] == name}||[])[1]
+    end
+
+
 
     private
 
@@ -776,6 +848,41 @@ module Hebi
       return width*@font_size/1000.0
     end
 
+    def cut_string(text, width)
+      max = get_string_width(text)
+      w = width.to_i>0 ? width : max
+      lines = []
+      if w < max
+        string = text.strip.split(/\s+/)
+        i = 0
+        space = get_string_width(' ')
+        for word in string
+          ww = get_string_width(word)
+          if lines[i].nil?
+            lines[i] ||= {:text=>word, :length=>ww}
+          elsif lines[i][:length]+space+ww <= w
+            lines[i][:length] += space+ww
+            lines[i][:text] += ' '+word
+          else
+            i += 1
+            lines[i] = {:text=>word, :length=>ww}
+          end
+          i += 1 if ww > w
+        end
+      else
+        lines[0] = {:text=>text, :length=>max}
+      end
+      return lines
+    end
+
+
+    # Get height of a multilines string in the current font
+    def get_string_height(string, width) # , font_name, font_size)
+      lines = cut_string(string, width)
+      return lines.size * @font_size
+    end
+
+
     def move_text_position(x=nil, y=nil, leading=false)
       if x.nil? or y.nil?
         add 'T*'
@@ -871,16 +978,23 @@ module Hebi
       self
     end
 
-    def show_text_at(text, x, y, align=:left)
-      w = get_string_width(text)
-      nx = x
-      if align==:center
-        nx -= w.to_f/2
-      elsif align==:right
-        nx -= w.to_f
+    def show_text_at(text, x, y, align=:left, width=nil)
+      lines = cut_string(text, width)
+      top = y
+      for line in lines
+        nx = x
+        if align==:center
+          nx -= line[:length].to_f/2
+        elsif align==:right
+          nx -= line[:length].to_f
+        end
+        self.begin_text_object
+        self.move_text_position(nx, top)
+        self.show_text(line[:text], true)
+        self.end_text_object
+        top -= @font_size
       end
-      self.move_text_position(nx, y)
-      self.show_text(text)
+      return lines.size*@font_size
     end
     
 

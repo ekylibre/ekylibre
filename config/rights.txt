@@ -57,7 +57,6 @@ company          index                            __minimum__
 company          tabbox_index                     __minimum__
 company          unknown_action                   __minimum__
 company          user_statistics                  __minimum__
-company          history                          __minimum__
 company          welcome                          __minimum__
 company          backups                          backup_company
 company          configure                        configure_company
@@ -288,10 +287,10 @@ production       unvalidated_operations           manage_shape_operations
 production       dyta_shapes                      manage_shapes
 production       shapes                           manage_shapes
 production       shapes_create                    manage_shapes
+relations        dyli_entity                      [new_right]
 relations        entities_merge                   [new_right]
 relations        auto_complete_for_contact_line_6 administrate_relations
 relations        change_minutes                   administrate_relations
-relations        dyli_entities                    administrate_relations
 relations        index                            administrate_relations
 relations        dyta_client_invoices             consult_entities
 relations        dyta_entities                    consult_entities

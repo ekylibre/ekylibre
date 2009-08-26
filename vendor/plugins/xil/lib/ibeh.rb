@@ -23,8 +23,22 @@ module Ibeh
   class Element
     attr_reader :writer
 
+    @@testing = false
+    
     def initialize(writer)
       @writer = writer
+    end
+
+    def testing?
+      @@testing
+    end
+    
+    def testing!(test=true)
+      @@testing = test
+    end
+
+    def write(method, *args)
+      @writer.send(method, *args) unless testing?
     end
 
     def call(element, block=nil)
@@ -93,11 +107,16 @@ module Ibeh
     end
 
     def part(height=nil, options={}, &block)
-      height ||= @format[1]-@margin[0]-@margin[2]
-      page_break if @y-height-@margin[2]<0
-      part = Part.new(@writer, self, height)
+      # Testing height of part
+      part = Part.new(@writer, self, height||(@format[1]-@margin[0]-@margin[2]))
+      part.testing!
       call(part, block)
-      @y -= height
+      part.testing! false
+      # Writing part
+      page_break if @y-part.height-@margin[2]<0
+      part = Part.new(@writer, self, part.height)
+      call(part, block)
+      @y -= part.height
     end
 
     def table(collection, options={}, &block)
@@ -118,13 +137,13 @@ module Ibeh
         end
         part(options[:header_height]||4.mm) do
           set table_left, 0, :font_size=>10 do
-            line [[0, 0], [table_width, 0]], :color=>'#777', :width=>0.2
+            line [[0, 0], [table_width, 0]], :color=>'#000', :width=>0.5
             for c in columns
               text c[:title].to_s, :left=>c[:offset]+0.5.mm, :top=>0.5.mm, :bold=>true
-              line([[c[:offset],0], [c[:offset], 4.mm]], :color=>'#777', :width=>0.2)
+              line([[c[:offset],0], [c[:offset], part.height]], :color=>'#000', :width=>0.5)
             end
-            line [[table_width, 0], [table_width, 4.mm]], :color=>'#777', :width=>0.2
-            line [[0, 4.mm], [table_width, 4.mm]], :color=>'#333', :width=>0.5
+            line [[table_width, 0], [table_width, part.height]], :color=>'#000', :width=>0.5
+            line [[0, part.height], [table_width, part.height]], :color=>'#000', :width=>0.5
           end
         end
         for x in collection
@@ -150,10 +169,13 @@ module Ibeh
                   left += 0.5.mm
                 end
 
-                text value.to_s, :left=>left, :top=>0.5.mm, :align=>options[:align]
-                line([[c[:offset],0], [c[:offset], 4.mm]], :color=>'#777', :width=>0.2)
+                height = text(value.to_s, :left=>left, :top=>0.5.mm, :align=>options[:align], :width=>c[:width])
+                part.resize_to(height)
               end
-              line [[table_width, 0], [table_width, 4.mm], [0, 4.mm]], :color=>'#777', :width=>0.2
+              for c in columns
+                line([[c[:offset],0], [c[:offset], part.height]], :color=>'#000', :width=>0.5)
+              end
+              line [[table_left, part.height], [table_width, part.height], [table_width, 0], [0,0]], :color=>'#000', :width=>0.5
             end
           end
         end
@@ -161,7 +183,7 @@ module Ibeh
     end
 
     def page_break
-      @writer.new_page(@format, @options[:rotate]||0)
+      write(:new_page, @format, @options[:rotate]||0)
       @y = @format[1]-@margin[0]
     end
 
@@ -195,6 +217,7 @@ module Ibeh
 
   # Represents a <part>
   class Part < Element
+    attr_accessor :height, :test
 
     def initialize(writer, page, height)
       super writer
@@ -203,18 +226,22 @@ module Ibeh
       @top    = @page.y
       if @page.debug?
         x1, x2 = @page.margin[3], @page.width-@page.margin[1]
-        @writer.line [[x1, @top], [x2, @top-height]], :border=>{:color=>'#cdF', :width=>5}
-        @writer.line [[x2, @top], [x1, @top-height]], :border=>{:color=>'#Fdc', :width=>5}
-        @writer.line [[x1, @top], [x2, @top], [x2, @top-height], [x1, @top-height], [x1, @top]], :border=>{:color=>'#888', :width=>0}
+        write(:line, [[x1, @top], [x2, @top-height]], :border=>{:color=>'#cdF', :width=>5})
+        write(:line, [[x2, @top], [x1, @top-height]], :border=>{:color=>'#Fdc', :width=>5})
+        write(:line, [[x1, @top], [x2, @top], [x2, @top-height], [x1, @top-height], [x1, @top]], :border=>{:color=>'#888', :width=>0})
       end
     end
 
     def set(left=0, top=0, env={}, &block)
       left += @page.margin[3]
-      @writer.save_graphics_state
-      set = Set.new(@writer, @page.env.dup.merge(env), left, @top-top)
+      write(:save_graphics_state)
+      set = Set.new(@writer, @page.env.dup.merge(env), left, @top-top, self)
       call(set, block)
-      @writer.restore_graphics_state
+      write(:restore_graphics_state)
+    end
+
+    def resize_to(height, forced=false)      
+      @height = height if forced or (!forced and height>@height)
     end
 
   end
@@ -224,11 +251,14 @@ module Ibeh
 
   # Represents a <set>
   class Set < Element
-    def initialize(writer, env, left, top)
+    attr_accessor :part
+
+    def initialize(writer, env, left, top, part)
       super writer
       @env  = env
       @left = left
       @top  = top
+      @part = part
     end
 
     def variable(name, value=nil)
@@ -237,33 +267,35 @@ module Ibeh
     end
 
     def set(left=0, top=0, env={}, &block)
-      @writer.save_graphics_state
-      set = Set.new(@writer, @env.dup.merge(env), @left+left, @top-top)
+      write(:save_graphics_state)
+      set = Set.new(@writer, @env.dup.merge(env), @left+left, @top-top, @part)
       set.font
       call(set, block)
-      @writer.restore_graphics_state
+      write(:restore_graphics_state)
     end
 
     def font(name=nil, size=nil, color=nil, options={})
       name = variable(:font_name, name)
       size = variable(:font_size, size)
       color = variable(:color, color)
-      @writer.font name, options.merge(:size=>size, :color=>color)
+      write(:font, name, options.merge(:size=>size, :color=>color))
     end
 
     def text(value, options={})
       value = value.to_s
       env = @env.dup
+      height = @writer.get_string_height(value, options[:width], variable(:font_name), variable(:font_size), options)
       font(options[:font], options.delete(:size), options.delete(:color), :italic=>options[:italic], :bold=>options[:bold])
       left = @left+(options[:left]||0)
       top  = @top-(options[:top]||0)-0.7*variable(:font_size)
-      @writer.text value, :at=>[left, top], :align=>options[:align]
+      write(:text, value, :at=>[left, top], :align=>options[:align], :width=>options[:width])
       if @page.debug?
         wcross = 5
-        @writer.line [[left-wcross, top], [left+wcross, top]], :border=>{:color=>'#FCC', :width=>0}
-        @writer.line [[left, top-wcross], [left, top+wcross]], :border=>{:color=>'#FCC', :width=>0}
+        write(:line, [[left-wcross, top], [left+wcross, top]], :border=>{:color=>'#FCC', :width=>0})
+        write(:line, [[left, top-wcross], [left, top+wcross]], :border=>{:color=>'#FCC', :width=>0})
       end
       @env = env
+      return height
     end
 
     def cell(width, height, value, options={})
@@ -291,17 +323,17 @@ module Ibeh
     def rectangle(width, height, options={})
       left = @left+(options[:left]||0)
       top  = @top-(options[:top]||0)
-      @writer.rectangle left, top, width, -height, options
+      write(:rectangle, left, top, width, -height, options)
     end
 
     def image(file, width, height, options={}, &block)
       left = options[:left]||0
       top  = options[:top]||0      
-      @writer.image file, @left+left, @top-top-height, width, height
+      write(:image, file, @left+left, @top-top-height, width, height)
     end
 
     def line(points, options={})
-      @writer.line points.collect{|p| [@left+p[0], @top-p[1]]}, {:border=>options}
+      write(:line, points.collect{|p| [@left+p[0], @top-p[1]]}, {:border=>options})
     end
 
     def width
