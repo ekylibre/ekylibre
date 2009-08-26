@@ -561,7 +561,7 @@ fr-FR:
         dead_on: 'Date de décès'
         deliveries_conditions: 'Conditions de Livraison'
         discount_rate: 'Taux d''escompte'
-        ean13: (((EAN13)))
+        ean13: 'Ean13'
         employee_id: 'Représentant'
         excise: 'Numéro d''accises'
         first_met_on: 'Date de la première rencontre'

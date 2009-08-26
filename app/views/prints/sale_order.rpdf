@@ -15,7 +15,7 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
     @client_address = @sale_order.contact.lines(",",true,false).split(",").collect{ |x| x.strip}
   end
   
-  part 75.mm do
+  part 65.mm do
     set  do
       #text @sale_order.company.name, :size=>7.mm
       image "#{RAILS_ROOT}/public/images/"+@current_company.name+".jpg", 30.mm, 48.mm if File.exists? "#{RAILS_ROOT}/public/images/"+@current_company.name+".jpg"
@@ -109,7 +109,8 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
   ### Conditions générales
   if !@order
     conditions = []
-    #conditions << "" if @sale_order.nature
+    conditions << "Ce devis et ses conditions générales sont valables jusqu'au "+I18n.localize(@sale_order.expired_on, :format=>:month_letter) if !@sale_order.nature.expiration.nil?
+    conditions << "Un acompte de "+(@sale_order.nature.downpayment_rate*100).to_s+"% (soit "+(@sale_order.nature.downpayment_rate*@sale_order.amount_with_taxes).round(2).to_s+" "+@sale_order.company.currencies.find(:first).code+") sera réglé à la signature de présent devis" if @sale_order.nature.downpayment_rate > 0
     conditions += @sale_order.company.entity.comment.split("\n")
     part 5.mm do
       set do
@@ -120,12 +121,13 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
     for condition in conditions
       part 1.mm do
         set do
-          part.resize_to(text(indice.to_s+".  "+condition, :size=>7, :left=>5.mm, :width=>150.mm))
+          part.resize_to(text(indice.to_s+".  "+condition, :size=>7, :left=>5.mm, :width=>185.mm))
         end
       end
       indice += 1
     end
-    
+    part 1.mm do
+    end
   end
   
   #   if !@order
@@ -148,20 +150,25 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
 #     end
 #   end
 
+
+  ### Signature 
+  
   if !@order and @sale_order.letter_format
     part 25.mm do 
       set do 
-        text "Dans la case ci-contre, veuillez dater, porter la mention 'Bon pour accord'", :bold=>:bold
-        text "et apposer votre signature.", :bold=>:bold, :top=>6.mm, :left=>30.mm
-        rectangle 55.mm, 20.mm, :left=>115.mm, :width=>0.7
+        text "Dans la case ci-contre, veuillez dater, porter la mention ", :bold=>:bold
+        text "''Bon pour accord'' et apposer votre signature.", :bold=>:bold, :top=>6.mm, :left=>7.5.mm
+        rectangle 75.mm, 20.mm, :left=>100.mm, :width=>0.7
       end
     end
   end
   
+  ### Conclusion
+  
   if !@order and @sale_order.letter_format and !@sale_order.conclusion.blank?
     part 7.mm do 
       set do 
-        text @sale_order.conclusion
+        part.resize_to(text(@sale_order.conclusion, :width=>180.mm))
       end
     end
   end
@@ -205,8 +212,9 @@ page :a4, :margin=>[10.mm] do # , :debug=>true do
       line [[0,1.mm], [width,1.mm]], :width=>0.5
       text "Devis n° "+@sale_order.number, :size=>10, :align=>:left, :top=>4.mm
       text "Réf. Client : "+@sale_order.client.code, :top=>10.mm, :align=>:left
+      text "Page 1 sur 1", :top=>15.mm, :align=>:left, :size=>8
       text I18n.localize(@sale_order.created_on, :format=>:month_letter), :size=>10, :left=>width/2, :align=>:center, :top=>4.mm
-      text "SIREN "+@sale_order.company.siren.to_s, :size=>8, :left=>width/2, :align=>:center, :top=>10.mm
+      text "N° TVA Intracommunautaire "+@sale_order.company.entity.vat_number.to_s+" - SIREN "+@sale_order.company.siren.to_s+" - Code APE "+@sale_order.company.entity.ean13.to_s, :size=>7, :left=>width/2, :align=>:center, :top=>10.mm
       text "Paraphe",:size=>10, :left=>width-20.mm, :align=>:right, :top=>4.mm
       rectangle 18.mm, 8.mm, :left=>width-18.mm, :width=>0.5, :top=>2.mm
     end
