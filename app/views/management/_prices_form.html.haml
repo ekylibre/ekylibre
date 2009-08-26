@@ -7,7 +7,7 @@
   - else 
     - f.field :price, :product_id, :choices=>Product.find(:all,:conditions=>{:to_purchase=>true, :company_id=>@current_company.id}).collect{|x| [x.name, x.id]}, :new=>{:action=>:products_create}
   - if @mode != :sales
-    -f.field :price, :entity_id, :choices=>:entity
+    -f.field :price, :entity_id, :choices=>:entities
     -#f.field :price, :entity_id, :choices=>Entity.find(:all, :conditions=>{:company_id=>@current_company.id,:supplier=>true}).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations,:action=>:entities_create} 
   - f.field :price, :amount
   - f.field :price, :category_id, :choices=>@current_company.entity_categories.find_all_by_deleted(false).collect{|x| [x.name, x.id]}

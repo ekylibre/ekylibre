@@ -41,6 +41,7 @@ fr-FR:
         sales_prices_create: 'Créer un nouveau prix de vente'
       purchase_order_lines:
         purchase_order_lines_create: 'Ajouter un produit à la commande'
+      reservoir: 'Réservoir'
       sale_order_lines:
         sale_order_lines_create: 'Ajouter un produit au devis'
       scheduled: 'Échéance'

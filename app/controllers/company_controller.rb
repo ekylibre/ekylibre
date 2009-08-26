@@ -310,8 +310,6 @@ class CompanyController < ApplicationController
     t.column :first_name
     t.column :last_name
     t.column :name, :through=>:role, :label=>tc(:role), :url=>{:action=>:roles_update}
-    # t.column :free_price
-    # t.column :credits
     # t.column :reduction_percent
     t.column :email
     t.column :admin
@@ -453,6 +451,7 @@ class CompanyController < ApplicationController
     t.column :root_model_name
     t.column :comment
     t.action :listings_extract, :format=>'csv', :image=>:action
+    t.action :listings_mail
     t.action :listings_update
     t.action :listings_delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -475,6 +474,15 @@ class CompanyController < ApplicationController
     send_data csv_string, :type=>Mime::CSV, :disposition=>"inline"
   end
   
+  def listings_mail
+    @listing = find_and_check(:listing, params[:id])
+    #raise Exception.new @listing.inspect
+    query = @listing.query
+    query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
+    result = ActiveRecord::Base.connection.select_all(@listing.query)
+    raise Exception.new result[0].inspect
+  end
+
   def listings_create
     if request.post?
       @listing = Listing.new(params[:listing])

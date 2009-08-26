@@ -65,6 +65,7 @@ company          dyta_sequences                   configure_company
 company          sequences_create                 configure_company
 company          sequences_delete                 configure_company
 company          sequences_update                 configure_company
+company          listings_mail                    mail_listings
 company          listings_extract                 extract_listings
 company          departments                      manage_company
 company          departments_create               manage_company

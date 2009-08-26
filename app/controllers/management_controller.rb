@@ -160,8 +160,19 @@ class ManagementController < ApplicationController
     session[:current_invoice] = @invoice.id
     @title = {:number=>@invoice.number}
   end
+
+  def self.prices_conditions(options={})
+    code = ""
+    code += " if session[:entity_id] == 0 \n " 
+    code += " conditions = ['company_id = ? AND active = ?', @current_company.id, true] \n "
+    code += " else \n "
+    code += " conditions = ['company_id = ? AND entity_id = ?  AND active = ?', @current_company.id,session[:entity_id], true]"
+    code += " end \n "
+    code += " conditions \n "
+    code
+  end
   
-  dyta(:prices, :conditions=>:prices_conditions) do |t|
+  dyta(:prices, :conditions=>prices_conditions) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:products_display}
     t.column :full_name, :through=>:entity
     t.column :name, :through=>:category, :label=>tc(:category), :url=>{:controller=>:relations, :action=>:entity_categories_display}
@@ -351,7 +362,8 @@ class ManagementController < ApplicationController
   end
   
   
-  dyta(:products, :conditions=>:search_conditions) do |t|
+#  dyta(:products, :conditions=>:search_conditions) do |t|
+  dyta(:products, :conditions=>search_conditions(:products, :products=>[:code, :name])) do |t|
     t.column :number
     t.column :name, :through=>:shelf, :url=>{:action=>:shelves_display}
     t.column :name, :url=>{:action=>:products_display}
@@ -675,8 +687,21 @@ class ManagementController < ApplicationController
     end
   end
   
+  def self.sales_conditions
+    code = ""
+    code += " conditions = ['company_id = ? ', @current_company.id ] \n "
+    code += " unless session[:sale_order_state].blank? \n "
+    code += " if session[:sale_order_state] == 'current' \n "
+    code += " conditions[0] += \" AND state != 'F' \" \n " 
+    code += " elsif session[:sale_order_state] == 'unpaid' \n "
+    code += " conditions[0] += \"AND state NOT IN('F','P') AND parts_amount < amount_with_taxes\" \n "
+    code += " end \n "
+    code += " end \n "
+    code += " conditions \n "
+    code
+  end
 
-  dyta(:sale_orders, :conditions=>:sales_conditions,:order=>{'sort'=>'created_on','dir'=>'desc'}, :line_class=>'RECORD.status' ) do |t|
+  dyta(:sale_orders, :conditions=>sales_conditions,:order=>{'sort'=>'created_on','dir'=>'desc'}, :line_class=>'RECORD.status' ) do |t|
     t.column :number, :url=>{:action=>:sales_products}
     #t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_natures_display}
     t.column :created_on
@@ -1549,7 +1574,7 @@ class ManagementController < ApplicationController
     t.column :name
     t.column :name, :through=>:establishment
     t.column :name, :through=>:parent
-    t.column :reservoir
+    t.column :reservoir, :label=>tc(:reservoir)
     t.action :stocks_locations_display, :image=>:show
     #t.action :stocks_locations_update, :mode=>:reservoir, :image=>:update, :if=>'RECORD.reservoir == true'
     t.action :stocks_locations_update, :image=>:update
@@ -1719,7 +1744,24 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:subscriptions, :conditions=>:subscriptions_conditions, :export=>false) do |t|
+  def self.subscriptions_conditions(options={})
+    code = ""
+    code += "conditions = [ \" company_id = ? AND COALESCE(sale_order_id,0) NOT IN (SELECT id from sale_orders WHERE company_id = ? and state = 'P') \" , @current_company.id, @current_company.id] \n"
+    code += "if session[:subscriptions][:nature].is_a? Hash \n"
+    code += "conditions[0] += \" AND nature_id = ?\" \n "
+    code += "conditions << session[:subscriptions][:nature]['id'].to_i \n"
+    code += "end \n"
+    code += "if session[:subscriptions][:nature]['nature'] == 'quantity' \n"
+    code += "conditions[0] += \" AND ? BETWEEN first_number AND last_number\" \n"
+    code += "elsif session[:subscriptions][:nature]['nature'] == 'period' \n"
+    code += "conditions[0] += \" AND ? BETWEEN started_on AND stopped_on\" \n"
+    code += "end \n"
+    code += "conditions << session[:subscriptions][:instant] \n"
+    code += "conditions \n"
+    code
+  end
+
+  dyta(:subscriptions, :conditions=>subscriptions_conditions, :export=>false) do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entities_display, :controller=>:relations}
 #    t.column :line_2, :through=>:contact, :label=>"Dest-Serv"
 #    t.column :line_3, :through=>:contact, :label=>"Bat./Rés."
@@ -1765,6 +1807,8 @@ class ManagementController < ApplicationController
     instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant]) rescue nil 
     session[:subscriptions][:instant] = instant||@subscription_nature.now
   end
+
+  dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity]']})
   
   def subscriptions_create
     if request.post?
@@ -1923,7 +1967,16 @@ class ManagementController < ApplicationController
     end
   end
   
-  dyta(:product_stocks, :conditions=>:stocks_conditions, :line_class=>'RECORD.state') do |t|
+  def self.stocks_conditions(options={})
+    code = ""
+    code += " conditions = {} \n "
+    code += "conditions[:company_id] = @current_company.id \n"
+    code += " conditions[:location_id] = session[:location_id] if !session[:location_id].nil? \n "
+    code += " conditions \n "
+    code
+  end
+
+  dyta(:product_stocks, :conditions=>stocks_conditions, :line_class=>'RECORD.state') do |t|
     t.column :name, :through=>:product,:url=>{:action=>:products_display}
     t.column :weight, :through=>:product, :label=>"Poids"
     t.column :quantity_max
