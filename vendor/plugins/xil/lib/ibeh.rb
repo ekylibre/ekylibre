@@ -143,7 +143,15 @@ module Ibeh
           set table_left, 0, :font_size=>10 do
             line [[0, 0], [table_width, 0]], :color=>'#000', :width=>0.5
             for c in columns
-              part.resize_to(text(c[:title].to_s, :left=>c[:offset]+0.5.mm, :top=>0.5.mm, :bold=>true, :width=>c[:width]-1.mm))
+              left = c[:offset]
+              if options[:align]==:center
+                left += c[:width].to_f/2
+              elsif options[:align]==:right
+                left += c[:width].to_f - 0.5.mm
+              else
+                left += 0.5.mm
+              end
+              part.resize_to(text(c[:title].to_s, :left=>left, :top=>0.5.mm, :bold=>true, :width=>c[:width]-1.mm))
               line([[c[:offset],0], [c[:offset], part.height]], :color=>'#000', :width=>0.5)
             end
             line [[table_width, 0], [table_width, part.height]], :color=>'#000', :width=>0.5
