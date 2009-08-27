@@ -266,7 +266,7 @@ module Ekylibre
                   if column.name==:code
                     css_class += ' code'
                   end
-                  if column.name==:country and  column.datatype == :string and column.limit == 2
+                  if column.name==:country and  column.datatype == :string and column.limit <= 8
                     datum = "(#{datum}.nil? ? '' : '<nobr>'+#{value_image2(datum,'countries')}+'&nbsp;'+::I18n.translate('countries.'+#{datum}))+'</nobr>'"
                   end
                   code += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"+column_sort

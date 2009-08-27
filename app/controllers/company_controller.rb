@@ -403,6 +403,50 @@ class CompanyController < ApplicationController
 
 
 
+  dyta(:print_templates, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :native_name, :through=>:language
+    t.column :country
+    t.action :print_templates_update
+    t.action :print_templates_duplicate
+    t.action :print_templates_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+  end
+
+
+
+
+  def print_templates
+  end
+
+  def print_templates_create
+    if request.post? 
+      @print_template = PrintTemplate.new(params[:print_template])
+      @print_template.company_id = @current_company.id
+      redirect_to_back if @print_template.save
+    else
+      @print_template = PrintTemplate.new :country=>@current_company.entity.country, :language_id=>@current_company.entity.language_id
+    end
+    render_form
+  end
+
+  def print_templates_duplicate
+    return unless  @print_template = PrintTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
+    render :text=>'<pre>'+PrintTemplate.compile(@print_template.source)+'</pre>'
+  end
+
+  def print_templates_update
+    @print_template = PrintTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
+    if request.post? and @print_template
+      if @print_template.update_attributes(params[:print_template])
+        redirect_to_back
+      end
+    end
+    @title = {:value=>@print_template.name}
+    render_form    
+  end
+
+
+
   dyta(:sequences, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name
     t.column :compute

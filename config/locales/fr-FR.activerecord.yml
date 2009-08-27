@@ -78,6 +78,7 @@ fr-FR:
       payment_part: 'Partie de réglement'
       price: 'Prix'
       price_tax: 'Taxe de prix'
+      print_template: 'Modèle d''impression'
       product: 'Produit'
       product_component: 'Composant de produit'
       product_stock: 'Stock de produit'
@@ -1070,6 +1071,12 @@ fr-FR:
         tax_id: (((TAX_ID)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
+ 
+      print_template:
+        name: Nom
+        language_id: Langue
+        country: Pays
+        source: Source
 
       # Produit
       product:

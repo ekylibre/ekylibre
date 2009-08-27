@@ -22,7 +22,7 @@ class ComplementChoice < ActiveRecord::Base
   acts_as_list :scope=>:complement_id
 
   def before_validation
-    self.value ||= self.name.to_s.codeize
+    self.value = self.name.to_s.codeize if self.value.blank?
   end
 
   def to_s

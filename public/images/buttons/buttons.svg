@@ -24,6 +24,17 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient3941">
+      <stop
+         style="stop-color:#909090;stop-opacity:1;"
+         offset="0"
+         id="stop3943" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="1"
+         id="stop3945" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3951">
       <stop
          id="stop3953"
@@ -4352,6 +4363,78 @@
        y1="-36.625"
        x2="103.99966"
        y2="-45.625" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3910"
+       id="linearGradient3164"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-323,5)"
+       x1="322.625"
+       y1="24"
+       x2="333.75"
+       y2="24" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3166"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-323,5)"
+       spreadMethod="reflect"
+       x1="328.1875"
+       y1="26.375"
+       x2="328.1875"
+       y2="20.125" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3168"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-323,5)"
+       x1="324.5"
+       y1="18.5"
+       x2="331.5"
+       y2="18.5" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3170"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-323,5)"
+       x1="324.5"
+       y1="20.625"
+       x2="331.5"
+       y2="20.625" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3172"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-323,5)"
+       x1="324.5"
+       y1="22.5"
+       x2="331.5"
+       y2="22.5" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3174"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-322.9375,7)"
+       x1="324.5"
+       y1="22.5"
+       x2="331.5"
+       y2="22.5" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3941"
+       id="radialGradient3947"
+       cx="40"
+       cy="15.166668"
+       fx="40"
+       fy="15.166668"
+       r="7.9999995"
+       gradientTransform="matrix(-1,-4.2861756e-8,5.9604638e-8,-1.3906252,79.999999,37.966152)"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -5901,5 +5984,87 @@
        style="fill:#ffffff;fill-opacity:1;stroke:#45943d;stroke-opacity:1"
        d="M 102.3125,33.999967 L 102.3125,38.187467 L 98.249998,38.187467 L 98.249998,41.812467 L 102.3125,41.812467 L 102.3125,45.999967 L 105.6875,45.999967 L 105.6875,41.812467 L 109.75,41.812467 L 109.75,38.187467 L 105.6875,38.187467 L 105.6875,33.999967 L 102.3125,33.999967 z"
        id="rect3932" />
+    <g
+       id="g3189"
+       transform="translate(6,-5)"
+       style="stroke:#575757;stroke-opacity:1;fill:#e3e3e3;fill-opacity:1"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/duplicate.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         sodipodi:nodetypes="ccccc"
+         id="path3191"
+         d="M 0.5,21.5 L 0.5,31.5 L 9.5,31.5 L 9.5,21.5 L 0.5,21.5 z"
+         style="fill:#e3e3e3;fill-opacity:1;fill-rule:evenodd;stroke:#575757;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         style="fill:#e3e3e3;fill-opacity:1;fill-rule:evenodd;stroke:#575757;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 2,23.5 L 8,23.5"
+         id="path3193"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:#e3e3e3;fill-opacity:1;fill-rule:evenodd;stroke:#575757;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 2,25.625 L 8,25.625"
+         id="path3195"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:#e3e3e3;fill-opacity:1;fill-rule:evenodd;stroke:#575757;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 2,27.5 L 8,27.5"
+         id="path3197"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:#e3e3e3;fill-opacity:1;fill-rule:evenodd;stroke:#575757;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 2.0625,29.5 L 8.0625,29.5"
+         id="path3199"
+         sodipodi:nodetypes="cc" />
+    </g>
+    <g
+       id="g3182"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/duplicate.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         sodipodi:nodetypes="ccccc"
+         id="path3137"
+         d="M 0.5,21.5 L 0.5,31.5 L 9.5,31.5 L 9.5,21.5 L 0.5,21.5 z"
+         style="fill:url(#linearGradient3164);fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient3166);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:url(#linearGradient3168);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 2,23.5 L 8,23.5"
+         id="path3139"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:url(#linearGradient3170);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 2,25.625 L 8,25.625"
+         id="path3141"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:url(#linearGradient3172);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 2,27.5 L 8,27.5"
+         id="path3143"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:url(#linearGradient3174);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 2.0625,29.5 L 8.0625,29.5"
+         id="path3155"
+         sodipodi:nodetypes="cc" />
+    </g>
+    <rect
+       style="opacity:1;fill:url(#radialGradient3947);fill-opacity:1.0;fill-rule:nonzero;stroke:#0e77c2;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3995"
+       width="14.999999"
+       height="11.000001"
+       x="32.5"
+       y="16.5"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/mail.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#0e77c2;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       d="M 47.5,16.625 L 32.75,16.625 L 39.875,23.5 L 47.5,16.625 z"
+       id="path3997"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/mail.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       sodipodi:nodetypes="cccc" />
   </g>
 </svg>

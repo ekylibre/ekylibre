@@ -64,6 +64,12 @@ company          dyta_sequences                   configure_company
 company          sequences_create                 configure_company
 company          sequences_delete                 configure_company
 company          sequences_update                 configure_company
+company          dyta_print_templates             manage_print_templates
+company          print_templates                  manage_print_templates
+company          print_templates_create           manage_print_templates
+company          print_templates_duplicate        manage_print_templates
+company          print_templates_update           manage_print_templates
+company          print_templates_delete           manage_print_templates
 company          listings_mail                    mail_listings
 company          listings_extract                 extract_listings
 company          departments                      manage_company

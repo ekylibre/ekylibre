@@ -1,0 +1,6 @@
+=formalize do |f|
+  -f.error 'print_template'
+  -f.field :print_template, :name
+  -f.field :print_template, :language_id, :choices=>@current_company.languages.collect{|x| [x.native_name, x.id]}
+  -f.field :print_template, :country, :choices=>countries
+  -f.field :print_template, :source, :field=>:textarea, :options=>{:cols=>80, :rows=>30}, :class=>:code
