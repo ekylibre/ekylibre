@@ -91,8 +91,18 @@ class SaleOrderLine < ActiveRecord::Base
     self.product ? self.product.name : tc(:no_product) 
   end
 
+  # TO DELETE
   def is_a_subscription
+    self.subscription?
+  end
+
+  def subscription?
     self.product.nature == "subscrip"
   end
+
+  def taxes
+    self.amount_with_taxes - self.amount
+  end
+
 
 end

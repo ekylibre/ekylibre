@@ -140,7 +140,8 @@ module Ibeh
           l += c[:width]
         end
         part(options[:header_height]||4.mm) do
-          set table_left, 0, :font_size=>10 do
+          # set table_left, 0, :font_size=>10 do
+          set :left=>table_left, :font_size=>10 do
             line [[0, 0], [table_width, 0]], :color=>'#000', :width=>0.5
             for c in columns
               part.resize_to(textbox(c[:title].to_s, c[:width], part.height, :left=>c[:offset], :top=>0.5.mm, :bold=>true, :align=>:center, :valign=>:middle))
@@ -152,7 +153,8 @@ module Ibeh
         end
         for x in collection
           part(options[:row_height]||4.mm) do
-            set table_left, 0, :font_size=>10 do
+            # set table_left, 0, :font_size=>10 do
+            set :left=>table_left, :font_size=>10 do
               for c in columns
                 options = c[:options]||{}
                 value = (x.is_a?(Hash) ? x[c[:value]] : x.instance_eval(c[:value]))
@@ -236,7 +238,11 @@ module Ibeh
       end
     end
 
-    def set(left=0, top=0, env={}, &block)
+#     def set(left=0, top=0, env={}, &block)
+#       left ||= 0
+#       top ||= 0
+    def set(options={}, env={}, &block)
+      left, top = options[:left]||0, options[:top]||0
       left += @page.margin[3]
       write(:save_graphics_state)
       set = Set.new(@writer, @page.env.dup.merge(env), left, @top-top, self)
@@ -246,7 +252,7 @@ module Ibeh
 
     def resize_to(height, forced=false)      
       @height = height if forced or (!forced and height>@height)
-    end
+    end    
 
   end
 
@@ -274,7 +280,9 @@ module Ibeh
       @writer.get_string_height(text, width, variable(:font_name), variable(:font_size), {:italic=>options[:italic], :bold=>options[:bold]})
     end
 
-    def set(left=0, top=0, env={}, &block)
+    # def set(left=0, top=0, env={}, &block)
+    def set(options={}, env={}, &block)
+      left, top = options[:left]||0, options[:top]||0
       write(:save_graphics_state)
       set = Set.new(@writer, @env.dup.merge(env), @left+left, @top-top, @part)
       set.font
@@ -304,6 +312,7 @@ module Ibeh
         write(:line, [[left, top-wcross], [left, top+wcross]], :border=>{:color=>'#FCC', :width=>0})
       end
       @env = env
+      self.part.resize_to(height) if options[:resize]
       return height
     end
 
@@ -371,9 +380,54 @@ module Ibeh
       write(:line, points.collect{|p| [@left+p[0], @top-p[1]]}, {:border=>options})
     end
 
+
+
+
+
+
+    def list(collection, options={})
+      nb_columns = (options[:columns]||1).to_i
+      width = options[:width]||self.width
+      col_width = width/nb_columns
+      face_options = {:italic=>options[:italic], :bold=>options[:bold]}
+      font(options[:font], options.delete(:size), options.delete(:color), face_options)
+      #font("Times", 7)
+      font_size = variable(:font_size)
+      alinea = font_size*4
+      total_height = 0
+      collection.each{|s| total_height += string_height(s, col_width-alinea)+0.1*alinea; }
+      col_height = total_height.to_f/nb_columns
+      left = 0
+      walked = 0
+      max = 0
+      indice = 0
+      for string in collection
+        text((indice+=1).to_s+".",  :left=>left+0.6*alinea, :top=>walked, :align=>:right)
+        walked += text(string, :left=>left+0.7*alinea, :top=>walked, :width=>col_width-alinea)+0.1*alinea
+        # puts "WALKED: #{total_height*0.35} / #{max*0.35} / #{walked*0.35}"
+        if walked>=0.97*col_height
+          max = walked if walked > max
+          left += col_width
+          walked = 0
+        end
+      end
+      # puts "************"
+      self.part.resize_to(max) if options[:resize]
+    end
+
+
+
+
+
+
+
     def width
       @page.width-@page.margin[3]-@left # -@page.margin[1]
     end
+
+
+
+
 
   end
 

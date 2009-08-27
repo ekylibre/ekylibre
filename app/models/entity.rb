@@ -217,4 +217,8 @@ class Entity < ActiveRecord::Base
     end
   end
 
+  def contact
+    self.default_contact.address
+  end
+
 end 

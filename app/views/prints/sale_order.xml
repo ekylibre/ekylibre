@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<template title="Example" lang="fr" version="2.0">
+  <document unit="mm" size="10" title="client.label">
+    <page orientation="portrait" format="A4" margin="10mm">
+      <part height="65mm">
+        <set>
+          <image src="{{sale_order.company/photo}}">
+            <text value="{{sale_order.company.entity/full_name}}" size="16"/>
+          </image>
+          <text value="{{sale_order.company.entity/contact}}" align="right" left="100%" size="9"/>
+          <text value="{{sale_order/address}}" align="left" font="helvetica" top="35mm" left="100mm"/>
+        </set>
+      </part>
+      <part height="11mm">
+        <set>
+          <text value="À {{sale_order.company.default_contact.area/city_name?capitalize=true}}, le {{sale_order/created_on?format=month_letter}}" left="100%" align="right"/>
+          <text value="{{sale_order/number_label}}"/>
+        </set>
+        <set top="4mm">
+          <text value="Entre {{sale_order.company/name}}, {{sale_order.responsible/label}} et {{sale_order.client/full_name}}."/>
+        </set>
+      </part>
+      <part if="sale_order/letter?">
+        <set>
+          <text value="{{sale_order.function_title}}" bold="true" left="10mm"/>
+          <text value="{{sale_order.introduction}}" width="100%" resize="true" top="4mm"/>
+        </set>
+      </part>
+      <table collection="sale_order.lines" fixed="true">
+        <column label="Code" property="product/code" width="21mm" align="center"/>
+        <column label="Désignation" property="product/name" width="80mm"/>
+        <column label="Qté." property="quantity" width="13mm"/>
+        <column label="Prix unitaire Hors Taxes" property="price/amount" width="22mm" numeric="money"/>
+        <column label="Montant Hors Taxes" property="amount" width="20mm" numeric="money"/>
+        <column label="Montant T.V.A." property="taxes" width="20mm"/>
+        <column label="Taux T.V.A." property="price.tax/amount" width="15mm" align="center"/>
+      </table>
+      
+      <part height="14mm">
+	<set left="101mm">
+	  <text value="Totaux ({{sale_order.lines[0].price.currency.code}})" top="0.5mm" left="33mm" align="right" bold="true"/>
+	  <text value="Net à payer ({{sale_order.lines[0].price.currency.code}})" top="6mm" left="33mm" align="right" bold="true" size="11.5"/>
+	  <text value="{{sale_order.amount_with_taxes}}" top="6mm" left="55mm" align="center" bold="true" size="12"/>
+	  <text value="{{sale_order.amount}}" top="0.5mm" left="54.5mm" align="right"/>
+	  <text value="{{sale_order.taxes}}" top="0.5mm" left="74.5mm" align="right"/>
+	  <rectangle width="75mm" height="4mm"/>
+	  <rectangle width="75mm" height="7mm" top="4mm"/>
+	  <line path="35mm,0 ; 35mm,11mm" width="0.5"/>
+	  <line path="55mm,0 ; 55mm,4mm"  width="0.5"/>
+	</set>
+      </part>
+
+      
+      <part height="6mm" if="sale_order.need_check?">
+	<set>
+	  <text value="Mode de paiement : " bold="true"/>
+	  <text value="Chèque bancaire à l'ordre" left="31mm"/>
+	  <text value="{{sale_order.company/name}}" bold="true" left="68mm"/>
+	</set>
+      </part>
+      
+
+      <part height="5mm">
+	<set>
+          <text value="Conditions générales :" bold="true"/>
+	</set>
+        <set top="5mm">
+          <list columns="2" collection="sale_order.sales_conditions" resize="true" font="Times" size="7"/>
+        </set>
+      </part>
+
+      <part height="25mm" if="sale_order/letter?">
+	<set>
+          <text value="Dans la case ci-contre, veuillez dater, porter la mention &quot;Bon pour accord&quot; et apposer votre signature." bold="true" top="3mm" left="97mm" width="60mm" align="right"/>
+          <rectangle width="75mm" height="20mm" left="100mm"/>
+	</set>
+      </part>
+      
+      <part height="7mm" if="sale_order/letter?">
+	<set>
+          <text value="{{sale_order/conclusion}}" width="100%" resize="true"/>
+	</set>
+      </part>
+  
+      <part height="15mm" if="sale_order/letter?"> 
+	<set left="145mm" top="3.mm"> 
+          <text value="{{sale_order.responsible/label}}" bold="true" align="center"/>
+          <text value="Service {{sale_order.responsible.department/name}}" align="center" top="4mm"/>
+	</set>
+      </part>
+
+      <!-- Deliveries -->
+      
+      <part height="15mm" bottom="true">
+	<set>
+	  <line path="0,1mm ; 100%,1mm" width="0.5"/>
+	  <set top="2.5mm"> 
+            <text value="Devis n°{{sale_order/number}}" size="10" align="left"/>
+            <text value="Réf. Client : {{sale_order.client/code}}" top="4mm" align="left"/>
+            <text value="Page 1 sur 1" top="8mm" align="left"/>
+            <text value="{{sale_order/created_on?format=month_letter}}" size="10" left="50%" align="center"/>
+            <text value="N° TVA Intracommunautaire : {{sale_order.company.entity/vat_number}} - SIREN : {{sale_order.company.entity/siren}} - Code APE : {{sale_order.company.entity/ean13}}" size="7" left="50%" align="center" top="6mm"/>
+            <text value="Paraphe" size="10" left="170mm" align="right" bold="true"/>
+            <rectangle width="18mm" height="8mm" left="172mm"/>
+	  </set>
+	</set>
+      </part>
+      
+    </page>
+    
+  </document>
+</template>

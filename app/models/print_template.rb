@@ -41,29 +41,38 @@ class PrintTemplate < ActiveRecord::Base
     template = xml.root
     # raise Exception.new template.find('*').to_a.inspect
     document = template.find('document')[0]
-    code = ''
+    code = ''    
+    code << "sale_order = SaleOrder.first\n"
+    code << "doc=Ibeh.document(Hebi::Document.new, self) do |ibeh|\n"
+
     document.find('page').each do |page|
-      code += "page(:#{page.attributes['format']||'a4'}) do |p|\n"
+      code += "ibeh.page(#{parameters(page, 'ERROR')[0]}) do |p|\n"
       page.each_element do |element|
         name = element.name.to_sym
         if [:table, :part].include? name
-          if name == :part
-            code += "  p.#{element.name}() do |x|\n"
-            element.find('set').each do |set|
-              code += compile_element(set).gsub(/^/, '  ')
-            end
-            code += "  end"
-            code += " if #{element.attributes['if']}" if element.attributes['if']
-            code += "\n"
-          else
+#           if name == :part
+#             code += "  p.#{element.name}() do |x|\n"
+#             element.find('set').each do |set|
+#               code += compile_element(set).gsub(/^/, '  ')
+#             end
+#             code += "  end"
+#             code += " if #{element.attributes['if'].gsub(/\//,'.')}" if element.attributes['if']
+#             code += "\n"
+#           else
             code += compile_element(element, 'p')
-          end
+#          end
         end
       end
       code += "end\n"
     end
     
+    code << "end\n"
+    code << "File.open('/tmp/test.pdf', 'wb') {|f| f.write(doc.generate)}\n"
+    #code << "@current_company.archive(@template, pdf);pdf"
 
+    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+
+    eval(code)
     return code
   end
 
@@ -73,62 +82,109 @@ class PrintTemplate < ActiveRecord::Base
   class << self
     
     SET_ELEMENTS = {
-      :column=>[:label, :value, :width],
+      :page=>[:format],
+      :part=>[:height],
+      :table=>[:collection],
+      :list=>[:collection],
+      :column=>[:label, :property, :width],
+      :set=>[],
       :font=>[],
       :text=>[:value],
       :cell=>[:value, :width],
       :rectangle=>[:width, :height],
-      :line=>[:points],
+      :line=>[:path],
       :image=>[:src]
     }
     
 
-    def attrs_to_s(attrs)
-      attrs.collect do |k,v|
-        ":#{k}=>"+
-          case(k)
-          when :align, :valign then
-            ":#{v.strip.gsub(/\s+/,'_')}"
-          when :top, :left, :width, :height, :size then
-            if v.match(/\d+(\.\d+)?mm/)
-              v[0..-3]+'.mm'
-            elsif v == "width" or v.match(/\d+(\.\d+)?/)
-              v
-            end
-          when :resize, :fixed, :bold, :italic then
-            v == "true" ? "true" : "false"
-          else
-            v.inspect
-          end
-      end.join(', ')
+
+    def str_to_measure(string, nvar)
+      string = string.to_s
+      if string.match(/\d+(\.\d+)?mm/)
+        string[0..-3]+'.mm'
+      elsif string.match(/\d+(\.\d+)?\%/)
+        string[0..-2].to_f == 100 ? "#{nvar}.width" : (string[0..-2].to_f/100).to_s+"*#{nvar}.width"
+      elsif string.match(/\d+(\.\d+)?/)
+        string
+      else
+        "((0))"
+      end
+    end
+
+    def attr_to_s(k, v, nvar)
+      case(k)
+      when :align, :valign then
+        ":#{v.strip.gsub(/\s+/,'_')}"
+      when :top, :left, :width, :height, :size then
+        str_to_measure(v, nvar)
+      when :margin, :padding then
+        '['+v.strip.split(/\s+/).collect{|m| str_to_measure(m, nvar)}.join(', ')+']'
+      when :collection then
+        v
+      when :property then
+        "'"+v.gsub(/\//, '.')+"'"
+      when :resize, :fixed, :bold, :italic then
+        v == "true" ? "true" : "false"
+      when :value
+        v = v.inspect.gsub(/\{\{[^\}]+\}\}/) do |m|
+          data_path = m[2..-3]
+          address = data_path.split('?')[0].gsub('/','.')
+          "\"+#{address}.to_s+\""
+        end
+        v = v[3..-1] if v.match(/^\"\"\+/)
+        v = v[0..-4] if v.match(/\+\"\"$/)
+        v
+      when :path
+        '['+v.split(/\s*\;\s*/).collect{|point| '['+point.split(/\s*\,\s*/).collect{|m| str_to_measure(m, nvar)}.join(', ')+']'}.join(', ')+']'
+      else
+        v.inspect
+      end
+    end
+
+
+
+
+    def parameters(element, nvar)
+      name = element.name.to_sym
+      attributes, parameters = {}, []
+      element.attributes.to_h.collect{|k,v| attributes[k.to_sym] = v}
+      (SET_ELEMENTS[name]||[]).each{|attr| parameters << attr_to_s(attr, attributes.delete(attr), nvar)}
+      attributes.delete(:if)
+      attrs = attrs_to_s(attributes, nvar)
+      attrs = ', '+attrs if !attrs.blank? and parameters.size>0
+      return parameters.join(', ')+attrs, parameters, attributes
+    end
+
+
+
+
+    def attrs_to_s(attrs, nvar)
+      attrs.collect{|k,v| ":#{k}=>#{attr_to_s(k, v, nvar)}"}.join(', ')
     end
     
     def compile_element(element, variable='x', depth=0, skip=false)
       nvar = 'r'+depth.to_s
       code  = ''
-      code += "#{variable}.#{element.name}() do |#{nvar}|\n" unless skip
+
+      code += "#{variable}.#{element.name}(#{parameters(element, variable)[0]}) do |#{nvar}|\n" unless skip
       element.each_element do |x|
-      name = x.name.to_sym
-        attributes, parameters = {}, []
-        x.attributes.to_h.collect{|k,v| attributes[k.to_sym] = v }
-        (SET_ELEMENTS[name]||[]).each{|attr| parameters << attributes.delete(attr).inspect}
-        attrs = attrs_to_s(attributes)
-        attrs = ', '+attrs unless attrs.blank?
+        name = x.name.to_sym
         if name == :set
           code += compile_element(x, nvar, depth+1)
         elsif name == :image
-          code += "  if File.exist?(#{parameters[0]})\n"
-          code += "    #{nvar}.#{name}(#{parameters.join(', ')}#{attrs})\n"
+          params, p, attrs = parameters(x,nvar)
+          code += "  if File.exist?(#{p[0]})\n"
+          code += "    #{nvar}.#{name}(#{params})\n"
           code += "  else\n"
           code += compile_element(x, nvar, depth, true)
           code += "  end\n"        
         else
-          code += "  #{nvar}.#{name}(#{parameters.join(', ')}#{attrs})\n"
+          code += "  #{nvar}.#{name}(#{parameters(x,nvar)[0]})\n"
         end
       end
       unless skip
         code += "end"
-        code += " if #{element.attributes['if']}" if element.attributes['if']
+        code += " if #{element.attributes['if'].gsub(/\//,'.')}" if element.attributes['if']
         code += "\n"
       end
       code.gsub(/^/, '  ')

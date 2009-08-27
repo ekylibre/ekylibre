@@ -180,7 +180,37 @@ class SaleOrder < ActiveRecord::Base
     status = "critic" if not ['F','P'].include? self.state and self.parts_amount.to_f < self.amount_with_taxes.to_f
     status
   end
+
+  def letter?
+    self.letter_format and self.state == "P" 
+  end
+
+  def need_check?
+    self.letter? and self.nature.payment_type == "check"
+  end
+
+  def address
+    self.contact ? self.contact.address : self.client.default_contact.address
+  end
+
+  def number_label
+    tc("number_label.#{self.state=='P' ? 'proposal' : 'command'}", :number=>self.number)
+  end
+
+  def taxes
+    self.amount_with_taxes - self.amount
+  end
   
+  def sales_conditions
+    c = []
+    16.to_i.times do
+      s = ''
+      (rand*20+10).to_i.times { s += "w"*(2+rand*10)+" " }
+      c << s.strip+"."
+    end
+    c
+  end
+
 end
 
 
