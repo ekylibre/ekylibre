@@ -1,0 +1,30 @@
+%h2
+  - form_tag(:action=>:mandates_config) do 
+    %table.dyta
+      
+      %tr
+        %th="&nbsp;"
+        %th{:colspan=>2}=tc :filter
+        %th{:colspan=>2}=tc :mandate_new_value
+      %tr
+        %td=tc :family
+        %td=select_tag :filter_family, options_for_select(@filters_select)
+        %td=text_field_tag :family
+        %td=check_box_tag :family_check
+        %td=text_field_tag :new_family
+      %tr
+        %td=tc :organization
+        %td=select_tag :filter_organization, options_for_select(@filters_select)
+        %td=text_field_tag :organization
+        %td=check_box_tag :organization_check
+        %td=text_field_tag :new_organization
+      
+      %tr
+        %td=tc :title2
+        %td=select_tag :filter_title, options_for_select(@filters_select)
+        %td=text_field_tag :title
+        %td=check_box_tag :title_check
+        %td=text_field_tag :new_title
+     
+
+    =submit_tag tc(:validate) 

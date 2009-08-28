@@ -857,7 +857,7 @@ class RelationsController < ApplicationController
     end
     @entities = @current_company.entities
     unless @entities.size > 0 
-      flash[:message] = tc('messages.need_entities_to_consult_mandates')
+      flash[:messages] = tc('messages.need_entities_to_consult_mandates')
       redirect_to :action => :entities_create
       return
     end
@@ -879,52 +879,82 @@ class RelationsController < ApplicationController
     t.action :mandates_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
   
-
-#   def configure_mandates()
-#     @mandates=[]
-
-#     @current_company.mandates.find(:all, :select => 'DISTINCT family, organization, title').each do |mandate|
-#       @mandates << [mandate.family, mandate.organization, mandate.title]
-#     end
-    
-#   end
+  # this method configures mandates
+  def mandates_configure
+    if @current_company.mandates.size == 0
+      flash[:warning]=tc(:need_to_create_mandates_before)
+      redirect_to :action=>:mandates
+      return
+    end
    
-  #
- # def configure_mandates_family()
-    #     params["families"].each do |key, value|
-#       if value["new_name"].to_s != value["former_name"].to_s
-#         @current_company.mandates.update_all("family = '"+value["new_name"].to_s+"'", "family LIKE '%"+value["former_name"].to_s+"%'")
-#       end
-
-#       Mandate.delete_all(:family => value["new_name"].to_s, :company_id=>@current_company.id) if value["to_delete"]
-#     end
+    filters = {
+                :no_filters => '',
+                :contains => '%X%',
+                :is  => 'X',
+                :begins => 'X%',
+                :finishes => '%X',
+                :not_contains => '%X%',
+                :not_is  => 'X',
+                :not_begins => 'X%',
+                :not_finishes => '%X'
+               }
     
-#     redirect_to :action => :configure_mandates
-#   end
+    @filters_select = filters.collect{|f,k| [tc(f), f]}.sort()
+   
+    if request.post?
+      
+      # ---- conditions ----
+      if params[:family_check].to_i.zero? and params[:organization_check].to_i.zero? and params[:title_check].to_i.zero?
+        flash[:message] = tc(:check_fields)
+        redirect_to :action=>:mandates_config
+        return
+      end
+      
+      unless params[:filter_family] != tc(:no_filter) or params[:filter_organization] != tc(:no_filter) or params[:filter_title] != tc(:no_filter)
+        flash[:message] = tc(:mandates_filters)
+        redirect_to :action=>:mandates_config
+        return
+      end
+      
+      if params[:family].blank? and params[:organization].blank? and params[:title].blank?
+        flash[:message] = tc(:mandates_fields)
+        redirect_to :action=>:mandates_config
+        return
+      end
+      
+      if params[:new_family].blank? and params[:new_organization].blank? and params[:new_title].blank?
+        flash[:message] = tc(:mandates_new_fields)
+        redirect_to :action=>:mandates_config
+        return
+      end
 
-#   #
-#   def configure_mandates_organization()
+      conditions = ['']
+     for p,v in params do 
+          if (p.to_sym == :family or p.to_sym == :organization or p.to_sym == :title) and (not params[p.to_s].blank?)
+            conditions[0] += " AND " if conditions[0].size > 0
+            conditions[0] += "LOWER(#{p}) "+((params["filter_#{p}"].to_s.match 'not').nil? ? "" : "NOT ").to_s+"LIKE ?"
+            conditions << filters[params["filter_#{p}"].to_sym].gsub('X', v.lower.to_s)
+          end
+      end
+      raise Exception.new(conditions.inspect)
 
-#     params["organizations"].each do |key, value|
-#       if value["new_name"].to_s != value["former_name"].to_s
-#         @current_company.mandates.update_all("organization = '"+value["new_name"].to_s+"'", "organization LIKE '%"+value["former_name"].to_s+"%'")
-#       end
-#      @current_company.mandates.destroy_all(:organization => value["new_name"].to_s) if value["to_delete"]
-#     end
-#     redirect_to :action => :configure_mandates
-#   end
-
-#   #
-#   def configure_mandates_title()
-
-#     params["titles"].each do |key, value|
-#       if value["new_name"].to_s != value["former_name"].to_s
-#         @current_company.mandates.update_all("title = '"+value["new_name"].to_s+"'", "title LIKE '%"+value["former_name"].to_s+"%'")
-#       end
-#     @current_company.mandates.destroy_all(:title => value["new_name"].to_s) if value["to_delete"]
-#     end
-#     redirect_to :action => :configure_mandates
-#   end
+      @mandates = @current_company.mandates.find(:all, :conditions => conditions)
+      
+      values=''
+      values += params.collect do |p, v| 
+        if (p.to_sym == :new_family or p.to_sym == :new_organization or p.to_sym == :new_title)
+          if not (params["#{p}"].blank? or params["#{p.split('_')[1]}_check"].to_i.zero?)
+            "#{p.split('_')[1]} = '"+v.to_s+"'"
+          end
+        end
+      end.compact.join(',')
+      
+      @current_company.mandates.update_all(values.to_s, conditions)
+      
+    end
+    
+  end
+  
 
   #
   def mandates_create

@@ -302,6 +302,8 @@ relations        dyli_entity                      [new_right]
 relations        entities_merge                   [new_right]
 relations        auto_complete_for_contact_line_6 administrate_relations
 relations        change_minutes                   administrate_relations
+relations        mandates_configure               manage_mandates
+relations        dyli_entities                    administrate_relations
 relations        index                            administrate_relations
 relations        dyta_client_invoices             consult_entities
 relations        dyta_entities                    consult_entities
@@ -381,6 +383,7 @@ relations        auto_complete_for_mandate_title  manage_mandates
 relations        dyta_entity_mandates             manage_mandates
 relations        dyta_mandates                    manage_mandates
 relations        mandates                         manage_mandates
+relations        mandates_config                  manage_mandates
 relations        mandates_create                  manage_mandates
 relations        mandates_delete                  manage_mandates
 relations        mandates_update                  manage_mandates
