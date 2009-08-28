@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<template title="Example" lang="fr" version="2.0">
+  <parameters>
+    <parameter name="invoice" nature="invoice"/>
+  </parameters>
+  <document unit="mm" size="10" title="client.label">
+    <page orientation="portrait" format="A4" margin="10mm">
+      <part height="95mm">
+	<set>
+	  <text value="{{invoice.company/name}}" size="7.mm" />
+	</set>
+      </part>
+      <part height="40.mm">
+	<set>
+	  <text value="À {{invoice.company.default_contact.area/city_name?capitalize=true}}, le {{invoice/created_on?format=month_letter}}" left="100%" align="right"/>
+	</set>
+	<set>
+	  <text value="Facture n°{{invoice/number}}" left="50%" align="center" bold="true" size="14" top="25mm"/>
+	</set>
+	
+      </part>
+      
+      <!-- Tableau -->
+      <table collection="invoice.lines" fixed="true">
+	<column label="Code" property="product/code" width="20mm" align="center"/>
+	<column label="Produit" property="product/name" width="80mm"/>
+	<column label="Qté." property="quantity" width="13mm"/>
+	<column label="Prix unitaire HT" property="price/amount" width="22mm" numeric="money"/>
+	<column label="Montant Hors Taxes" property="amount" width="20mm" numeric="money"/>
+	<column label="Montant T.V.A." property="taxes" width="20mm" />
+	<column label="Taux T.V.A." property="price.tax/amount" width="15mm" align="center"/>
+      </table>
+      
+      <!-- Totaux -->
+      <part height="14mm">
+	<set left="100mm">
+	  <text value="Totaux ({{invoice.lines[0].price.currency.code}})" top="0.5mm" left="33mm" align="right" bold="true"/>
+	  <text value="Net à payer ({{invoice.lines[0].price.currency.code}})" top="6mm" left="33mm" align="right" bold="true" size="11.5"/>
+	  <text value="{{invoice.amount_with_taxes}}" top="6mm" left="55mm" align="center" bold="true" size="12"/>
+	  <text value="{{invoice.amount}}" top="0.5mm" left="54.5mm" align="right"/>
+	  <text value="{{invoice.taxes}}" top="0.5mm" left="74.5mm" align="right"/>
+	  <rectangle width="75mm" height="4mm"/>
+	  <rectangle width="75mm" height="7mm" top="4mm"/>
+	  <line path="35mm,0 ; 35mm,11mm" width="0.5"/>
+	  <line path="55mm,0 ; 55mm,4mm"  width="0.5"/>
+	</set>
+      </part>
+      
+      <part height="10mm">
+	<set>
+	  <text value="La facture est à régler au plus tard le {{invoice/limit_to_pay}}" left="50%" align="center" size="12"/>
+	</set>
+      </part>
+      
+      
+      
+      <part height="45mm" bottom="true">
+	<set>
+	  <line path="0,1mm ; 100%,1mm" width="0.5"/>
+	  <set top="2.5mm"> 
+            <text value="Facture n°{{invoice/number}}" size="10" align="left"/>
+            <text value="Réf. Client : {{invoice.client/code}}" top="4mm" align="left"/>
+            <text value="Page 1 sur 1" top="8mm" align="left"/>
+            <text value="{{invoice/created_on?format=month_letter}}" size="10" left="50%" align="center"/>
+            <text value="N° TVA Intracommunautaire : {{invoice.company.entity/vat_number}} - SIREN : {{invoice.company.entity/siren}} - Code APE : {{invoice.company.entity/ean13}}" size="7" left="50%" align="center" top="6mm"/>
+          </set>
+	</set>
+        
+	<set top="20mm">
+	  <line path="0,1mm ; 100%,1mm" border="0.5 dashed #000"/>
+	  <text value="À découper et à joindre à votre règlement" left="50%" align="center" top="3.5mm" />
+	  <text value="N° de facture {{invoice/number}}" top="13mm"/>
+	  <text value="Code client {{invoice.client/code}}" top="16.5mm" left="50%" align="center" />
+	  <text value="{{invoice.client/full_name}}" top="10.5mm" left="50%" align="center" />
+	  <text value="Reste à payer ({{invoice.lines[0].price.currency/code}}) {{invoice.client/reverse_balance}}" top="13mm" right="20.mm" align="right" />
+	  
+	</set>
+      </part>
+      
+      
+      
+    </page>
+    
+  </document>
+</template>

@@ -912,7 +912,7 @@ class Company < ActiveRecord::Base
     if template.nature.to_archive
       # documents = self.documents.find_all_by_owner_id_and_owner_type(object.id, object.class.name)
       # documents = template.nature.documents # .find_all_by_nature_id(template.nature_id)
-      documents = self.documents.find_all_by_owner_id_and_owner_type_and_nature_id(object.id, object.class.name, template.nature_id)
+      documents = self.documents.find(:all, :conditions=>["owner_id = ? and owner_type = ? and template = ?", object.id, object.class.name, template.nature.code])
       if documents.size == 1
         document = documents.first
         pdf = document.data

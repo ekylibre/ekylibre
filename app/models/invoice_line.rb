@@ -88,5 +88,8 @@ class InvoiceLine < ActiveRecord::Base
     self.product ? self.product.name : tc(:no_product) 
   end
 
+  def taxes
+    self.amount_with_taxes - self.amount
+  end  
   
 end

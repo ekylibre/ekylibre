@@ -1236,17 +1236,17 @@ class ManagementController < ApplicationController
   
   def invoices_print
     @invoice = find_and_check(:invoice, params[:id])
-    if @current_company.default_contact.nil? || @invoice.contact.nil? 
-      entity = @current_company.default_contact.nil? ? @current_company.name : @invoice.client.full_name
-      flash[:warning]=tc(:no_contacts, :name=>entity)
-      redirect_to_back
-    else
-      @lines = []
-      @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-      @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
-      @client_address = @invoice.contact.address.split(",").collect{ |x| x.strip}
-      print(@invoice, :archive=>true, :filename=>tc('invoice')+" "+@invoice.number)
-    end
+    #if @current_company.default_contact.nil? || @invoice.contact.nil? 
+      #entity = @current_company.default_contact.nil? ? @current_company.name : @invoice.client.full_name
+      #flash[:warning]=tc(:no_contacts, :name=>entity)
+      #redirect_to_back
+    #else
+      # @lines = []
+      # @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
+      # @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+      # @client_address = @invoice.contact.address.split(",").collect{ |x| x.strip}
+    print(@invoice, :archive=>true, :filename=>tc('invoice')+" "+@invoice.number)
+    # end
   end
 
   def sales_invoices

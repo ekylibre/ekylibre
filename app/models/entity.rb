@@ -160,6 +160,10 @@ class Entity < ActiveRecord::Base
     payments - invoices
   end
 
+  def reverse_balance
+    self.balance*-1
+  end
+
 #   def default_contact
 #     if self.contacts.size>0
 #       self.contacts.find_by_default(true)

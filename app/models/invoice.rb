@@ -169,4 +169,13 @@ class Invoice < ActiveRecord::Base
    self.product.name
  end
 
+ def limit_to_pay
+   self.payment_delay.compute(self.created_on)
+ end
+
+ def taxes
+   self.amount_with_taxes - self.amount
+ end
+
+
 end
