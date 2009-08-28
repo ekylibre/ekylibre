@@ -1,0 +1,6 @@
+=formalize do |f|
+  -f.error 'document_nature'
+  -f.field :document_nature, :name
+  -f.field :document_nature, :code
+  -f.field :document_nature, :family, :choices=>DocumentNature.families
+  -f.field :document_nature, :to_archive
