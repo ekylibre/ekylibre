@@ -90,7 +90,8 @@ fr-FR:
           other: '{{count}} livraisons en attente '
           zero: 'Aucune livraison en attente'
         parameters: 'Paramètres'
-        print_templates: "Modèles d'impression"
+        document_templates: "Modèles de documents"
+        document_natures: "Types de documents"
         production: 'Gestion de la production'
         relations: 'Gestion des relations clients/fournisseurs'
         resources: 'Gestion des ressources humaines'
@@ -112,13 +113,20 @@ fr-FR:
         title: 'Envoyer un mail pour "{{listing}}"'
       listings_update:
         title: 'Modification de l''extraction {{value}}'
-      print_templates:
-        print_templates_create: 'Créer un modèle d''impression'
-        title: 'Liste des modèles d''impression'
-      print_templates_create:
-        title: 'Création d''un modèle d''impression'
-      print_templates_update:
-        title: 'Modification du modèle d''impression "{{value}}"'
+      document_templates:
+        document_templates_create: 'Créer un modèle de document'
+        title: 'Liste des modèles de document'
+      document_templates_create:
+        title: 'Création d''un modèle de document'
+      document_templates_update:
+        title: 'Modification du modèle de document "{{value}}"'
+      document_natures:
+        document_natures_create: 'Créer un type de document'
+        title: 'Liste des types de document'
+      document_natures_create:
+        title: 'Création d''un type de document'
+      document_natures_update:
+        title: 'Modification du type de document "{{value}}"'
       _rights_form:
         accountancy_rights: 'Droits module Comptabilité'
         company_rights: 'Droits module Société'

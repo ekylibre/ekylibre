@@ -17,7 +17,7 @@
 
 class Language < ActiveRecord::Base
   has_many :entities
-  has_many :print_templates
+  has_many :document_templates
   has_many :users
   belongs_to :company
 

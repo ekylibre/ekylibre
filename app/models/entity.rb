@@ -218,7 +218,7 @@ class Entity < ActiveRecord::Base
   end
 
   def contact
-    self.default_contact.address
+    self.default_contact ? self.default_contact.address : '[NoDefaultContactError]'
   end
 
 end 

@@ -1,29 +1,33 @@
 # == Schema Information
 #
-# Table name: print_templates
+# Table name: document_templates
 #
+#  active       :boolean       not null
 #  cache        :text          
 #  company_id   :integer       not null
-#  country      :string(8)     
+#  country      :string(2)     
 #  created_at   :datetime      not null
 #  creator_id   :integer       
+#  deleted      :boolean       not null
 #  id           :integer       not null, primary key
 #  language_id  :integer       
 #  lock_version :integer       default(0), not null
 #  name         :string(255)   not null
+#  nature_id    :integer       not null
 #  source       :text          
 #  updated_at   :datetime      not null
 #  updater_id   :integer       
 #
 
-class PrintTemplate < ActiveRecord::Base
+class DocumentTemplate < ActiveRecord::Base
   belongs_to :company
   belongs_to :language
+  belongs_to :nature, :class_name=>DocumentNature.name
 
   attr_readonly :company_id
 
   def before_validation
-    self.cache = self.class.compile(self.source) rescue nil
+    self.cache = self.class.compile(self.source) # rescue nil
   end
 
   def validates
@@ -34,46 +38,48 @@ class PrintTemplate < ActiveRecord::Base
     true
   end
 
+
+  def execute(*args)
+    # Analyze parameters
+    raise Exception.new("Must be an activerecord") unless args[0].class.ancestors.include?(ActiveRecord::Base)
+    # Evaluate ruby cache
+    return eval(self.cache)
+  end
+
+
+
   def self.compile(source)
     file = "#{RAILS_ROOT}/tmp/pt_compile-"+Time.now.strftime("%Y%m%d-%H%M%S")+"-"+rand.to_s+".xml"
     File.open(file, 'wb') {|f| f.write(source)}
     xml = LibXML::XML::Document.file(file)
     template = xml.root
     # raise Exception.new template.find('*').to_a.inspect
-    document = template.find('document')[0]
-    code = ''    
-    code << "sale_order = SaleOrder.first\n"
-    code << "doc=Ibeh.document(Hebi::Document.new, self) do |ibeh|\n"
+    code = ''
+    i = 0
+    template.find('parameters/parameter').each do |p|
+      code << "#{p.attributes['name']} = args[#{i}]\n"
+      i+=1
+    end
+    
+    code << "doc = Ibeh.document(Hebi::Document.new, self) do |ibeh|\n"
 
+    document = template.find('document')[0]
     document.find('page').each do |page|
       code += "ibeh.page(#{parameters(page, 'ERROR')[0]}) do |p|\n"
       page.each_element do |element|
         name = element.name.to_sym
-        if [:table, :part].include? name
-#           if name == :part
-#             code += "  p.#{element.name}() do |x|\n"
-#             element.find('set').each do |set|
-#               code += compile_element(set).gsub(/^/, '  ')
-#             end
-#             code += "  end"
-#             code += " if #{element.attributes['if'].gsub(/\//,'.')}" if element.attributes['if']
-#             code += "\n"
-#           else
-            code += compile_element(element, 'p')
-#          end
-        end
+        code += compile_element(element, 'p') if [:table, :part].include? name
       end
       code += "end\n"
     end
     
     code << "end\n"
-    code << "File.open('/tmp/test.pdf', 'wb') {|f| f.write(doc.generate)}\n"
+    #code << "File.open('/tmp/test.pdf', 'wb') {|f| f.write(doc.generate)}\n"
     #code << "@current_company.archive(@template, pdf);pdf"
+    code << "doc.generate"
 
     list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-
-    eval(code)
-    return code
+    return '('+code.gsub(/\s*\n\s*/, ';')+')'
   end
 
   private
@@ -115,10 +121,14 @@ class PrintTemplate < ActiveRecord::Base
       case(k)
       when :align, :valign then
         ":#{v.strip.gsub(/\s+/,'_')}"
-      when :top, :left, :width, :height, :size then
+      when :top, :left, :right, :width, :height, :size, :border_width then
         str_to_measure(v, nvar)
       when :margin, :padding then
         '['+v.strip.split(/\s+/).collect{|m| str_to_measure(m, nvar)}.join(', ')+']'
+      when :border then
+        border = v.strip.split(/\s+/)
+        raise Exception.new("Attribute border malformed: #{v.inspect}. Ex.: '1mm solid #123456'") if border.size!=3
+        "{:width=>#{str_to_measure(border[0], nvar)}, :style=>:#{border[1]}, :color=>#{border[2].inspect}}"
       when :collection then
         v
       when :property then

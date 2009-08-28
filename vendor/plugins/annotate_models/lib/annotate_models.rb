@@ -96,7 +96,7 @@ module AnnotateModels
     
     if models.empty?
       Dir.chdir(MODEL_DIR) do 
-        models = Dir["**/*.rb"]
+        models = Dir["**/*.rb"].sort
       end
     end
     models

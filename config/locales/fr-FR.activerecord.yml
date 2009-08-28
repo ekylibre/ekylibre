@@ -78,7 +78,8 @@ fr-FR:
       payment_part: 'Partie de réglement'
       price: 'Prix'
       price_tax: 'Taxe de prix'
-      print_template: 'Modèle d''impression'
+      document_template: 'Modèle de document'
+      document_nature: 'Type de document'
       product: 'Produit'
       product_component: 'Composant de produit'
       product_stock: 'Stock de produit'
@@ -1072,11 +1073,20 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
  
-      print_template:
+      document_template:
+        active: Actif
+        nature_id: Nature	
         name: Nom
         language_id: Langue
         country: Pays
         source: Source
+
+      document_nature:
+        name: Nom
+        code: Code
+        family: Module
+        family_label: Module
+        to_archive: Archiver les documents
 
       # Produit
       product:

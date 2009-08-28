@@ -9,4 +9,9 @@ management.invoicing.numeration,record,sequence
 management.embankments.days_before_warning_undone,integer,15
 management.embankments.days_before_warning_unvalidated,integer,15
 management.sale_orders.numeration,record,sequence
+management.impressions.natures.invoice,record,document_nature
+management.impressions.natures.sale_order,record,document_nature
+management.impressions.natures.purchase_order,record,document_nature
+management.impressions.natures.delivery,record,document_nature
 relations.entities.numeration,record,sequence
+relations.impressions.natures.entity,record,document_nature

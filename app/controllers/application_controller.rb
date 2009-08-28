@@ -153,7 +153,7 @@ class ApplicationController < ActionController::Base
 
   def print(object, options={})
     if @current_company
-      options[:view] = self
+      # options[:view] = self
       filename = options.delete(:filename)
       filename += '.pdf' if filename and not filename.to_s.match(/\./)
       result = @current_company.print(object, options)

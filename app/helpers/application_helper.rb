@@ -16,10 +16,11 @@ module ApplicationHelper
            [ {:name=>:configure},
              {:name=>:users},
              {:name=>:roles},
-             {:name=>:print_templates},
              {:name=>:establishments},
              {:name=>:departments},
-             {:name=>:sequences}
+             {:name=>:sequences},
+             {:name=>:document_templates},
+             {:name=>:document_natures}
            ] },
          {:name=>:informations, :list=>
            [ {:name=>:help},

@@ -403,47 +403,101 @@ class CompanyController < ApplicationController
 
 
 
-  dyta(:print_templates, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:document_templates, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :active
     t.column :name
+    t.column :name, :through=>:nature
     t.column :native_name, :through=>:language
     t.column :country
-    t.action :print_templates_update
-    t.action :print_templates_duplicate
-    t.action :print_templates_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :document_templates_update
+    t.action :document_templates_duplicate
+    t.action :document_templates_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
 
 
 
-  def print_templates
+  def document_templates
   end
 
-  def print_templates_create
+  def document_templates_create
     if request.post? 
-      @print_template = PrintTemplate.new(params[:print_template])
-      @print_template.company_id = @current_company.id
-      redirect_to_back if @print_template.save
+      @document_template = DocumentTemplate.new(params[:document_template])
+      @document_template.company_id = @current_company.id
+      redirect_to_back if @document_template.save
     else
-      @print_template = PrintTemplate.new :country=>@current_company.entity.country, :language_id=>@current_company.entity.language_id
+      @document_template = DocumentTemplate.new :country=>@current_company.entity.country, :language_id=>@current_company.entity.language_id
     end
     render_form
   end
 
-  def print_templates_duplicate
-    return unless  @print_template = PrintTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
-    render :text=>'<pre>'+PrintTemplate.compile(@print_template.source)+'</pre>'
+  def document_templates_duplicate
+    return unless  @document_template = DocumentTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
+    render :text=>'<pre>'+DocumentTemplate.compile(@document_template.source)+'</pre>'
   end
 
-  def print_templates_update
-    @print_template = PrintTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
-    if request.post? and @print_template
-      if @print_template.update_attributes(params[:print_template])
+  def document_templates_update
+    @document_template = DocumentTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
+    if request.post? and @document_template
+      if @document_template.update_attributes(params[:document_template])
         redirect_to_back
       end
     end
-    @title = {:value=>@print_template.name}
+    @title = {:value=>@document_template.name}
     render_form    
   end
+
+
+
+
+
+
+
+
+
+
+  dyta(:document_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :family_label
+    t.column :name
+    t.column :code
+    t.column :to_archive
+    t.action :document_natures_update
+    t.action :document_natures_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+  end
+
+
+  def document_natures
+  end
+
+  def document_natures_create
+    if request.post? 
+      @document_nature = DocumentNature.new(params[:document_nature])
+      @document_nature.company_id = @current_company.id
+      redirect_to_back if @document_nature.save
+    else
+      @document_nature = DocumentNature.new
+    end
+    render_form
+  end
+
+  def document_natures_update
+    @document_nature = DocumentNature.find_by_id_and_company_id(params[:id], @current_company.id)
+    if request.post? and @document_nature
+      if @document_nature.update_attributes(params[:document_nature])
+        redirect_to_back
+      end
+    end
+    @title = {:value=>@document_nature.name}
+    render_form    
+  end
+
+
+
+
+
+
+
+
 
 
 

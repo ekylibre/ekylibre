@@ -19,6 +19,7 @@
 #  sha256        :string(255)   not null
 #  subdir        :string(255)   not null
 #  template      :string(255)   not null
+#  template_id   :integer       
 #  updated_at    :datetime      not null
 #  updater_id    :integer       
 #
@@ -28,6 +29,9 @@ require 'ftools'
 class Document < ActiveRecord::Base
   belongs_to :company
   belongs_to :owner, :polymorphic=>true
+  belongs_to :template, :class_name=>DocumentTemplate
+
+  validates_presence_of :template_id
 
   attr_readonly :company_id
 

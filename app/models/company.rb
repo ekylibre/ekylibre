@@ -36,6 +36,8 @@ class Company < ActiveRecord::Base
   has_many :departments
   has_many :districts
   has_many :documents
+  has_many :document_natures
+  has_many :document_templates
   has_many :embankments
   has_many :employees
   has_many :entities
@@ -884,6 +886,56 @@ class Company < ActiveRecord::Base
 
 
   def print(object, options={})
+    unless object.class.ancestors.include?(ActiveRecord::Base)
+      raise Exception.new("The parameter object must be an ActiveRecord::Base descendant object")
+    end
+
+    # Finding template
+    template = nil
+    if options[:template]
+      template = options[:template] if options[:template].is_a? DocumentTemplate
+      template = self.document_templates.find_by_id(options[:template]) if options[:template].is_a? Integer
+    end
+    if options[:nature] and template.nil?
+      nature = options[:nature] if options[:nature].is_a? DocumentNature
+      nature = self.document_natures.find_by_id(options[:nature]) if options[:nature].is_a? Integer
+    end
+    nature = self.document_natures.find_by_code(object.class.name.underscore) unless nature
+    raise Exception.new("Can't find any document nature to print") unless nature
+    template = nature.templates.find(:first, :order=>:name) if template.nil?
+    
+    raise Exception.new("Can't find any template to print") unless template
+      
+    # Try to find an existing archive
+    pdf = nil
+    document = nil
+    if template.nature.to_archive
+      # documents = self.documents.find_all_by_owner_id_and_owner_type(object.id, object.class.name)
+      # documents = template.nature.documents # .find_all_by_nature_id(template.nature_id)
+      documents = self.documents.find_all_by_owner_id_and_owner_type_and_nature_id(object.id, object.class.name, template.nature_id)
+      if documents.size == 1
+        document = documents.first
+        pdf = document.data
+      elsif documents.size > 1
+        raise Exception.new("Many archives are existing for one record")
+      end
+    end
+
+    # Printing
+    # TODO: Cache printing method
+    pdf = template.execute(object) if pdf.nil?
+    
+    # Create the archive
+    if template.nature.to_archive and document.nil?
+      document = Document.archive(object, pdf, :template=>template.nature.code, :template_id=>template.id, :extension=>'pdf')
+    end
+    
+    # Return the doc
+    return document||pdf
+  end
+
+
+  def print3(object, options={})
     archive  = options[:archive]
     template = options[:template]
     if object.class.ancestors.include?(ActiveRecord::Base)

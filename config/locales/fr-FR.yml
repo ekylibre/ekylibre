@@ -212,6 +212,14 @@ fr-FR:
       sale: Vente
     delivery_line: 
       error_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité commandée'
+    document_nature:
+      families:
+        company: Société
+        relations: Relations
+        accountancy: Comptabilité
+        management: Commerce
+        resources: Ressources
+        production: Production
     entity:
       client: 'Client'
       supplier: 'Fournisseur'

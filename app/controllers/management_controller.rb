@@ -902,7 +902,8 @@ class ManagementController < ApplicationController
       flash[:warning]=tc(:no_contacts, :name=>entity)
       redirect_to_back
     else
-      print(@sale_order, :archive=>@sale_order.state != 'P', :filename=>@sale_order.state == 'P' ? tc('estimate')+" "+@sale_order.number : tc('order')+" "+@sale_order.number )
+      print(@sale_order, :filename=>@sale_order.state == 'P' ? tc('estimate')+" "+@sale_order.number : tc('order')+" "+@sale_order.number)
+      # print(@sale_order, :archive=>@sale_order.state != 'P', :filename=>@sale_order.state == 'P' ? tc('estimate')+" "+@sale_order.number : tc('order')+" "+@sale_order.number )
     end
   end
 

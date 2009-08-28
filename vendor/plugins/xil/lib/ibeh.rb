@@ -134,6 +134,7 @@ module Ibeh
         table_width ||= self.width-self.margin[1]-self.margin[3]-table_left
         total, l = 0, 0
         columns.each{ |c| total += c[:flex] }
+        table_width = total if options[:fixed]
         columns.each do |c|
           c[:offset] = l
           c[:width] = fixed ? c[:flex] : table_width*c[:flex]/total 
@@ -142,13 +143,13 @@ module Ibeh
         part(options[:header_height]||4.mm) do
           # set table_left, 0, :font_size=>10 do
           set :left=>table_left, :font_size=>10 do
-            line [[0, 0], [table_width, 0]], :color=>'#000', :width=>0.5
+            line [[0, 0], [table_width, 0]], :border=>{:color=>'#000', :width=>0.5}
             for c in columns
               part.resize_to(textbox(c[:title].to_s, c[:width], part.height, :left=>c[:offset], :top=>0.5.mm, :bold=>true, :align=>:center, :valign=>:middle))
-              line([[c[:offset],0], [c[:offset], part.height]], :color=>'#000', :width=>0.5)
+              line([[c[:offset],0], [c[:offset], part.height]], :border=>{:color=>'#000', :width=>0.5})
             end
-            line [[table_width, 0], [table_width, part.height]], :color=>'#000', :width=>0.5
-            line [[0, part.height], [table_width, part.height]], :color=>'#000', :width=>0.5
+            line [[table_width, 0], [table_width, part.height]], :border=>{:color=>'#000', :width=>0.5}
+            line [[0, part.height], [table_width, part.height]], :border=>{:color=>'#000', :width=>0.5}
           end
         end
         for x in collection
@@ -179,9 +180,9 @@ module Ibeh
                 part.resize_to(textbox(value.to_s, c[:width], part.height, :left=>c[:offset], :top=>0.5.mm, :align=>options[:align]))
               end
               for c in columns
-                line([[c[:offset],0], [c[:offset], part.height]], :color=>'#000', :width=>0.5)
+                line([[c[:offset],0], [c[:offset], part.height]], :border=>{:color=>'#000', :width=>0.5})
               end
-              line [[table_left, part.height], [table_width, part.height], [table_width, 0], [0,0]], :color=>'#000', :width=>0.5
+              line [[table_left, part.height], [table_width, part.height], [table_width, 0], [0,0]], :border=>{:color=>'#000', :width=>0.5}
             end
           end
         end
@@ -242,7 +243,14 @@ module Ibeh
 #       left ||= 0
 #       top ||= 0
     def set(options={}, env={}, &block)
-      left, top = options[:left]||0, options[:top]||0
+      if options[:right]
+        left = self.width-options[:right]
+      else
+        left = options[:left]||0
+      end
+      # left = @left+(options[:left]||0)
+      top  = options[:top]||0
+      #left, top = options[:left]||0, options[:top]||0
       left += @page.margin[3]
       write(:save_graphics_state)
       set = Set.new(@writer, @page.env.dup.merge(env), left, @top-top, self)
@@ -253,6 +261,10 @@ module Ibeh
     def resize_to(height, forced=false)      
       @height = height if forced or (!forced and height>@height)
     end    
+
+    def width
+      @page.width-@page.margin[1]-@page.margin[3]
+    end
 
   end
 
@@ -282,7 +294,13 @@ module Ibeh
 
     # def set(left=0, top=0, env={}, &block)
     def set(options={}, env={}, &block)
-      left, top = options[:left]||0, options[:top]||0
+      if options[:right]
+        left = self.width-options[:right]
+      else
+        left = options[:left]||0
+      end
+      top  = options[:top]||0
+      #left, top = options[:left]||0, options[:top]||0
       write(:save_graphics_state)
       set = Set.new(@writer, @env.dup.merge(env), @left+left, @top-top, @part)
       set.font
@@ -303,7 +321,11 @@ module Ibeh
       face_options = {:italic=>options[:italic], :bold=>options[:bold]}
       font(options[:font], options.delete(:size), options.delete(:color), face_options)
       height = @writer.get_string_height(value, options[:width], variable(:font_name), variable(:font_size), face_options)
-      left = @left+(options[:left]||0)
+      if options[:right]
+        left = @left+(self.width-options[:right])
+      else
+        left = @left+(options[:left]||0)
+      end
       top  = @top-(options[:top]||0)-0.7*variable(:font_size)
       write(:text, value, :at=>[left, top], :align=>options[:align], :width=>options[:width])
       if @page.debug?
@@ -365,7 +387,12 @@ module Ibeh
     end
 
     def rectangle(width, height, options={})
-      left = @left+(options[:left]||0)
+      if options[:right]
+        left = @left+(self.width-options[:right])
+      else
+        left = @left+(options[:left]||0)
+      end
+      # left = @left+(options[:left]||0)
       top  = @top-(options[:top]||0)
       write(:rectangle, left, top, width, -height, options)
     end
@@ -377,7 +404,7 @@ module Ibeh
     end
 
     def line(points, options={})
-      write(:line, points.collect{|p| [@left+p[0], @top-p[1]]}, {:border=>options})
+      write(:line, points.collect{|p| [@left+p[0], @top-p[1]]}, options)
     end
 
 
