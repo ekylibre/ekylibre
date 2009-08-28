@@ -56,9 +56,13 @@ class DocumentTemplate < ActiveRecord::Base
     # raise Exception.new template.find('*').to_a.inspect
     code = ''
     i = 0
-    template.find('parameters/parameter').each do |p|
-      code << "#{p.attributes['name']} = args[#{i}]\n"
-      i+=1
+    parameters = template.find('parameters/parameter')
+    if parameters.size > 0
+      code << "raise ArgumentError.new('Unvalid number of argument') if args.size != #{parameters.size}"
+      parameters.each do |p|
+        code << "#{p.attributes['name']} = args[#{i}]\n"
+        i+=1
+      end
     end
     
     code << "doc = Ibeh.document(Hebi::Document.new, self) do |ibeh|\n"
