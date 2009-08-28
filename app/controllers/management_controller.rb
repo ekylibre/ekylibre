@@ -3,8 +3,6 @@ class ManagementController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
  
   def index
-    #raise Exception.new session.data.inspect
-    #raise Exception.new "jjjjj"+Actions.expire_actions.inspect
     @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
     @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})
     all_product_stocks = ProductStock.find(:all, :conditions=>{:company_id=>@current_company.id})
@@ -555,7 +553,7 @@ class ManagementController < ApplicationController
 
 
   dyli(:entities, [:full_name], :conditions => {:company_id=>['@current_company.id'], :supplier=>true})
-  dyli(:contacts, [:address], :conditions => {:entity_id=>['@current_company.entity_id']})
+  dyli(:contacts, [:address], :conditions => { :company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
   def purchases
   end
@@ -860,7 +858,6 @@ class ManagementController < ApplicationController
       @sale_order.introduction = tg('letter_introduction')
       @sale_order.conclusion = tg('letter_conclusion')
     end
-    #    @title = {:client=>@entity.full_name}
   end
 
 
@@ -940,7 +937,7 @@ class ManagementController < ApplicationController
   def subscription_find
     price = find_and_check(:prices, params[:sale_order_line_price_id])
     @product = find_and_check(:products, price.product_id)
-    puts @product.inspect
+    #puts @product.inspect
    # raise Exception.new @price.product.inspect
   end
 
@@ -949,6 +946,8 @@ class ManagementController < ApplicationController
     @product = find_and_check(:products, price.product_id)
   end
 
+  dyli(:all_contacts, [ :address], :model=>:contacts, :conditions => {:company_id=>['@current_company.id'], :active=>true})
+  
   def sale_order_lines_create
     @stock_locations = @current_company.stock_locations
     @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
@@ -962,7 +961,6 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sales_products, :id=>@sale_order.id
     else
       if request.post? 
-        #raise Exception.new "jhuhyuhu"+params.inspect
         @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
         if @sale_order_line and params[:sale_order_line][:price_amount].to_d <= 0
           @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
@@ -1809,7 +1807,7 @@ class ManagementController < ApplicationController
     session[:subscriptions][:instant] = instant||@subscription_nature.now
   end
 
-  dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity]']})
+  dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity]'], :company_id=>['@current_company.id']})
   
   def subscriptions_create
     if request.post?

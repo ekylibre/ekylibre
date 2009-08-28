@@ -329,6 +329,7 @@ fr-FR:
     purchase_order_line: 
       stock_location_can_not_receive_product : 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
     sale_order_line:
+      currency_is_not_sale_order_currency: 'Le prix du produit ne correspond pas à la monnaie définie pour la vente'
       error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
       stock_location_can_not_transfer_product : 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}} '
     sequence:

@@ -85,9 +85,10 @@ class SaleOrder < ActiveRecord::Base
     else
       
     end
-
+    
+    
   end
-
+  
   def before_validation_on_create
     self.created_on = Date.today
   end

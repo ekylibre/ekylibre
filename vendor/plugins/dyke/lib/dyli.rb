@@ -130,6 +130,7 @@ module Ekylibre
           hf_value = (real_object.send(foreign_key) rescue nil)
           options  = { :action => "dyli_#{name}"}.merge(options)
           options[:real_object] = real_object.send(foreign_key) unless real_object.new_record?
+          options[:field_id] = "#{object}_#{foreign_key}"
            
           completion_options[:skip_style] = true;
           
@@ -151,8 +152,8 @@ module Ekylibre
           
           options[:submit_on_return] = options[:send_on_return] if options[:send_on_return]
           
-          hf_id = hf_name
-          tf_id = "dyli_tf"
+          hf_id = options[:field_id]
+          tf_id = "tf_"+hf_id
           #hf_id, tf_id = determine_field_ids(options)
           # determine_tag_options(tf_name, tf_value, hf_id, tf_id, options, tag_options)
           # determine_completion_options(tf_id, hf_id, options, completion_options)

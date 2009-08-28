@@ -1,13 +1,15 @@
 if @product.nature == "subscrip"
+  page['subscriptions'].show
   if @product.subscription_nature.nature == "period"
     page['subscription_date'].show
     page['subscription_started_on'].value = Date.today
     delay = Delay.new(:expression=>@product.subscription_period, :name=>"temp")
-    page['subscription_finished_on'].value = delay.compute(Date.today)
+    page['subscription_stopped_on'].value = delay.compute(Date.today)
   else
     page['subscription_date'].hide
   end
 else
+  page['subscriptions'].hide
   page['subscription_date'].hide 
 end
 if @product.nature == "subscrip"

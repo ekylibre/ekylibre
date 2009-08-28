@@ -376,7 +376,7 @@ fr-FR:
         format: (((FORMAT)))
         id: 'ID'
         lock_version: 'Version'
-        name: (((NAME)))
+        name: 'Nom'
         rate: (((RATE)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -1262,6 +1262,7 @@ fr-FR:
         created_at: 'Créé le'
         created_on: 'Crée le'
         creator_id: 'Créateur'
+        currency_id: 'Devise'
         delivery_contact_id: 'Adresse pour la livraison'
         downpayment_amount: 'Montant de l''acompte'
         expiration_id: 'Délai d''expiration du devis'

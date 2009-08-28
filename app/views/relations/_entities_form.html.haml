@@ -21,6 +21,7 @@
   -f.field :entity, :ean13
   -for datum in @complement_data
     -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_value", :name=>"complement_datum[#{datum.complement_id}][value]", :value=>datum.value, :size=>datum.complement.length_max, :options=>{:include_blank=>(datum.complement.required ? nil : '')}, :choices=>datum.complement.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
+ 
 
 =formalize(:id=>:client_form) do |f|
   -f.title :client
