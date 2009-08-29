@@ -406,7 +406,7 @@ class CompanyController < ApplicationController
   dyta(:document_templates, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :active
     t.column :name
-    t.column :name, :through=>:nature
+    t.column :name, :through=>:nature, :url=>{:action=>:document_natures_update}
     t.column :native_name, :through=>:language
     t.column :country
     t.action :document_templates_update

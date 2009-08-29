@@ -157,11 +157,12 @@ class ApplicationController < ActionController::Base
       filename = options.delete(:filename)
       filename += '.pdf' if filename and not filename.to_s.match(/\./)
       result = @current_company.print(object, options)
-      if result.is_a? Document
-        send_file(result.file_path, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename||result.original_name)
-      else
-        send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename)
-      end
+      send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename)
+#       if result.is_a? Document
+#         send_file(result.file_path, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename||result.original_name)
+#       else
+#         send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename)
+#       end
     end
   end
 

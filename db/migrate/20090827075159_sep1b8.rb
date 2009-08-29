@@ -28,9 +28,13 @@ class Sep1b8 < ActiveRecord::Migration
     add_index :document_templates, [:company_id, :active]
 
     add_column :documents, :template_id, :integer, :references=>:document_templates
+
+    remove_column :documents, :template
   end
 
   def self.down
+    add_column :documents, :template, :string
+
     remove_column :documents, :template_id
 
     drop_table :document_templates

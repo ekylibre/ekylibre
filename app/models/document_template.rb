@@ -23,11 +23,18 @@ class DocumentTemplate < ActiveRecord::Base
   belongs_to :company
   belongs_to :language
   belongs_to :nature, :class_name=>DocumentNature.name
+  has_many :documents, :foreign_key=>:template_id
+
+  validates_presence_of :nature_id
 
   attr_readonly :company_id
 
   def before_validation
-    self.cache = self.class.compile(self.source) # rescue nil
+    begin
+      self.cache = self.class.compile(self.source) # rescue nil
+    rescue Exception => e
+      self.errors.add(:source, e.message)
+    end  
   end
 
   def validates
@@ -39,13 +46,53 @@ class DocumentTemplate < ActiveRecord::Base
   end
 
 
-  def execute(*args)
+
+  def print(*args)
     # Analyze parameters
-    raise Exception.new("Must be an activerecord") unless args[0].class.ancestors.include?(ActiveRecord::Base)
-    # Evaluate ruby cache
-    return eval(self.cache)
+    object = args[0]
+    raise Exception.new("Must be an activerecord") unless object.class.ancestors.include?(ActiveRecord::Base)
+
+    # Try to find an existing archive
+    if self.nature.to_archive
+      document = self.documents.find(:first, :conditions=>["owner_id = ? and owner_type = ?", object.id, object.class.name], :order=>"created_at DESC")
+      begin
+        return document.data if document
+      rescue
+        
+      end
+    end
+
+    # Build the PDF data
+    pdf = eval(self.cache)
+
+    # Archive the document if necessary
+    if self.nature.to_archive
+      document = self.archive(object, pdf, :extension=>'pdf')
+    end
+    
+    return pdf
   end
 
+
+  def archive(owner, data, attributes={})
+    document = self.documents.new(attributes.merge(:company_id=>owner.company_id, :owner_id=>owner.id, :owner_type=>owner.class.name))
+    method_name = [:document_name, :number, :code, :name, :id].detect{|x| owner.respond_to?(x)}
+    document.printed_at = Time.now
+    document.extension ||= 'bin'
+    document.subdir = Date.today.strftime('%Y-%m')
+    document.original_name = owner.send(method_name).to_s.simpleize+'.'+document.extension.to_s
+    document.filename = owner.send(method_name).to_s.codeize+'-'+document.printed_at.to_i.to_s(36).upper+'-'+Document.generate_key+'.'+document.extension.to_s
+    document.filesize = data.length
+    document.sha256 = Digest::SHA256.hexdigest(data)
+    document.crypt_mode = 'none'
+    if document.save
+      File.makedirs(document.path)
+      File.open(document.file_path, 'wb') {|f| f.write(data) }
+    else
+      raise Exception.new document.errors.inspect
+    end
+    return document
+  end
 
 
   def self.compile(source)
@@ -58,7 +105,7 @@ class DocumentTemplate < ActiveRecord::Base
     i = 0
     parameters = template.find('parameters/parameter')
     if parameters.size > 0
-      code << "raise ArgumentError.new('Unvalid number of argument') if args.size != #{parameters.size}"
+      code << "raise ArgumentError.new('Unvalid number of argument') if args.size != #{parameters.size}\n"
       parameters.each do |p|
         code << "#{p.attributes['name']} = args[#{i}]\n"
         i+=1
@@ -81,6 +128,8 @@ class DocumentTemplate < ActiveRecord::Base
     #code << "File.open('/tmp/test.pdf', 'wb') {|f| f.write(doc.generate)}\n"
     #code << "@current_company.archive(@template, pdf);pdf"
     code << "doc.generate"
+
+    File.delete(file)
 
     list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     return '('+code.gsub(/\s*\n\s*/, ';')+')'
@@ -107,20 +156,20 @@ class DocumentTemplate < ActiveRecord::Base
     }
     
 
-
     def str_to_measure(string, nvar)
       string = string.to_s
-      if string.match(/\d+(\.\d+)?mm/)
-        string[0..-3]+'.mm'
-      elsif string.match(/\d+(\.\d+)?\%/)
-        string[0..-2].to_f == 100 ? "#{nvar}.width" : (string[0..-2].to_f/100).to_s+"*#{nvar}.width"
-      elsif string.match(/\d+(\.\d+)?/)
-        string
-      else
-        "((0))"
-      end
+      '('+if string.match(/\-?\d+(\.\d+)?mm/)
+            string[0..-3]+'.mm'
+          elsif string.match(/\-?\d+(\.\d+)?\%/)
+            string[0..-2].to_f == 100 ? "#{nvar}.width" : (string[0..-2].to_f/100).to_s+"*#{nvar}.width"
+          elsif string.match(/\-?\d+(\.\d+)?/)
+            string
+          else
+            " (0) "
+          end+')'
     end
 
+    
     def attr_to_s(k, v, nvar)
       case(k)
       when :align, :valign then
