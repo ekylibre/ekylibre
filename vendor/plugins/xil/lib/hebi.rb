@@ -291,31 +291,55 @@ module Hebi
     end
 
     def cut_string(text, width, font_name, font_size, options={})
-      max = get_string_width(text, font_name, font_size, options)
-      w = width.to_f>0 ? width.to_f : max
-      lines = []
-      if w < max
-        string = text.strip.split(/\s+/)
-        i = 0
+      strings = text.split(/\s*\n\s*/)
+      return strings.collect{|s| {:text=>s, :length=>get_string_width(s, font_name, font_size, options) }} if width.nil?
+      lines, i = [], 0
+      for string in strings
+        words = string.strip.split(/\s+/)
         space = get_string_width(' ', font_name, font_size, options)
-        for word in string
+        for word in words
           ww = get_string_width(word, font_name, font_size, options)
           if lines[i].nil?
             lines[i] ||= {:text=>word, :length=>ww}
-          elsif lines[i][:length]+space+ww <= w
+          elsif lines[i][:length]+space+ww <= width
             lines[i][:length] += space+ww
             lines[i][:text] += ' '+word
           else
             i += 1
             lines[i] = {:text=>word, :length=>ww}
           end
-          i += 1 if ww > w
+          i += 1 if ww > width
         end
-      else
-        lines[0] = {:text=>text, :length=>max}
+        i += 1
       end
       return lines
     end
+#     def cut_string(text, width, font_name, font_size, options={})
+#       max = get_string_width(text, font_name, font_size, options)
+#       w = width.to_f>0 ? width.to_f : max
+#       lines = []
+#       if w < max
+#         string = text.strip.split(/\s+/)
+#         i = 0
+#         space = get_string_width(' ', font_name, font_size, options)
+#         for word in string
+#           ww = get_string_width(word, font_name, font_size, options)
+#           if lines[i].nil?
+#             lines[i] ||= {:text=>word, :length=>ww}
+#           elsif lines[i][:length]+space+ww <= w
+#             lines[i][:length] += space+ww
+#             lines[i][:text] += ' '+word
+#           else
+#             i += 1
+#             lines[i] = {:text=>word, :length=>ww}
+#           end
+#           i += 1 if ww > w
+#         end
+#       else
+#         lines[0] = {:text=>text, :length=>max}
+#       end
+#       return lines
+#     end
 
 
     # Get height of a multilines string in the current font
@@ -362,7 +386,8 @@ module Hebi
       raise Exception.new("Unvalid String to escape: #{string.inspect}") unless string.is_a? String
       text = string
       text = @ic.iconv(text) if @encoding
-      text = text.to_s.unpack("U*").collect{ |i| (i<=255 ? i : @@win_ansi_mapping[codepoint]||63) }.pack("C*")
+      #      text = text.to_s.unpack("U*").collect{ |i| (i<=255 ? i : @@win_ansi_mapping[codepoint]||63) }.pack("C*")
+      text = text.to_s.unpack("U*").collect{ |i| (i<=255 ? i : @@win_ansi_mapping[i]||63) }.pack("C*")
       '('+text.gsub('\\','\\\\').gsub('(','\\(').gsub(')','\\)').gsub("\r",'\\r')+')'
     end
 
@@ -848,29 +873,56 @@ module Hebi
       return width*@font_size/1000.0
     end
 
+#     def cut_string(text, width)
+#       max = get_string_width(text)
+#       w = width.to_i>0 ? width : max
+#       lines = []
+#       if w < max
+#         string = text.strip.split(/\s+/)
+#         i = 0
+#         space = get_string_width(' ')
+#         for word in string
+#           ww = get_string_width(word)
+#           if lines[i].nil?
+#             lines[i] ||= {:text=>word, :length=>ww}
+#           elsif lines[i][:length]+space+ww <= w
+#             lines[i][:length] += space+ww
+#             lines[i][:text] += ' '+word
+#           else
+#             i += 1
+#             lines[i] = {:text=>word, :length=>ww}
+#           end
+#           i += 1 if ww > w
+#         end
+#       else
+#         lines[0] = {:text=>text, :length=>max}
+#       end
+#       return lines
+#     end
+
+
+
     def cut_string(text, width)
-      max = get_string_width(text)
-      w = width.to_i>0 ? width : max
-      lines = []
-      if w < max
-        string = text.strip.split(/\s+/)
-        i = 0
+      strings = text.split(/\s*\n\s*/)
+      return strings.collect{|s| {:text=>s, :length=>get_string_width(s) }} if width.nil?
+      lines, i = [], 0
+      for string in strings
+        words = string.strip.split(/\s+/)
         space = get_string_width(' ')
-        for word in string
+        for word in words
           ww = get_string_width(word)
           if lines[i].nil?
             lines[i] ||= {:text=>word, :length=>ww}
-          elsif lines[i][:length]+space+ww <= w
+          elsif lines[i][:length]+space+ww <= width
             lines[i][:length] += space+ww
             lines[i][:text] += ' '+word
           else
             i += 1
             lines[i] = {:text=>word, :length=>ww}
           end
-          i += 1 if ww > w
+          i += 1 if ww > width
         end
-      else
-        lines[0] = {:text=>text, :length=>max}
+        i += 1
       end
       return lines
     end
