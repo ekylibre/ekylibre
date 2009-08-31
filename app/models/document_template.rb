@@ -243,7 +243,7 @@ class DocumentTemplate < ActiveRecord::Base
           code += compile_element(x, nvar, depth+1)
         elsif name == :image
           params, p, attrs = parameters(x,nvar)
-          code += "  if File.exist?(#{p[0]})\n"
+          code += "  if File.exist?((#{p[0]}).to_s)\n"
           code += "    #{nvar}.#{name}(#{params})\n"
           code += "  else\n"
           code += compile_element(x, nvar, depth, true)

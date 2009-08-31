@@ -40,8 +40,6 @@ class Invoice < ActiveRecord::Base
   has_many :deliveries
   has_many :lines, :class_name=>InvoiceLine.to_s, :foreign_key=>:invoice_id
 
-  validates_uniqueness_of :number, :scope=>:company_id
-
   attr_readonly :company_id
 
   def before_validation
@@ -180,5 +178,15 @@ class Invoice < ActiveRecord::Base
    self.amount_with_taxes - self.amount
  end
 
+ def address
+   a = self.client.full_name+"\n"
+   a += (self.contact ? self.contact.address : self.client.default_contact.address).gsub(/\s*\,\s*/, "\n")
+   a
+ end
+
+ def rest_to_pay
+   self.sale_order.invoices.sum(:amount_with_taxes)-self.sale_order.payment_parts.sum(:amount)
+ end
+ 
 
 end

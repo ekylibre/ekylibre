@@ -5,9 +5,14 @@
   </parameters>
   <document unit="mm" size="10" title="client.label">
     <page orientation="portrait" format="A4" margin="10mm">
-      <part height="95mm">
+      <part height="65mm">
 	<set>
-	  <text value="{{invoice.company/name}}" size="7.mm" />
+	  <image value="{{invoice.company.entity/photo}}" height="30mm">
+	    <text value="{{invoice.company/name}}" size="7.mm" />
+	  </image>
+	</set>
+	<set left="100mm" top="35mm">
+	 <text value="{{invoice/address}}"/>
 	</set>
       </part>
       <part height="40.mm">
@@ -46,34 +51,41 @@
 	</set>
       </part>
       
-      <part height="10mm">
-	<set>
-	  <text value="La facture est à régler au plus tard le {{invoice/limit_to_pay}}" left="50%" align="center" size="12"/>
+      <part if="invoice/rest_to_pay&gt;0" height="15mm">
+	<set top="8mm">
+	  <text value="La facture est à régler au plus tard le {{invoice/limit_to_pay?format=month_letter}}" left="50%" align="center" bold="true"/>
+	</set>
+      </part>
+      
+      <part if="invoice/rest_to_pay&lt;=0" height="15mm">
+	<set top="8mm">
+	  <text value="Facture acquitée" left="50%" align="center" bold="true"/>
 	</set>
       </part>
       
       
       
-      <part height="45mm" bottom="true">
+      <part height="35mm" bottom="true">
 	<set>
 	  <line path="0,1mm ; 100%,1mm" width="0.5"/>
 	  <set top="2.5mm"> 
             <text value="Facture n°{{invoice/number}}" size="10" align="left"/>
             <text value="Réf. Client : {{invoice.client/code}}" top="4mm" align="left"/>
-            <text value="Page 1 sur 1" top="8mm" align="left"/>
             <text value="{{invoice/created_on?format=month_letter}}" size="10" left="50%" align="center"/>
             <text value="N° TVA Intracommunautaire : {{invoice.company.entity/vat_number}} - SIREN : {{invoice.company.entity/siren}} - Code APE : {{invoice.company.entity/ean13}}" size="7" left="50%" align="center" top="6mm"/>
+	    <text value="Page 1 sur 1"  left="100%" align="right"/>
           </set>
 	</set>
         
 	<set top="20mm">
-	  <line path="0,1mm ; 100%,1mm" border="0.5 dashed #000"/>
-	  <text value="À découper et à joindre à votre règlement" left="50%" align="center" top="3.5mm" />
-	  <text value="N° de facture {{invoice/number}}" top="13mm"/>
-	  <text value="Code client {{invoice.client/code}}" top="16.5mm" left="50%" align="center" />
-	  <text value="{{invoice.client/full_name}}" top="10.5mm" left="50%" align="center" />
-	  <text value="Reste à payer ({{invoice.lines[0].price.currency/code}}) {{invoice.client/reverse_balance}}" top="13mm" right="20.mm" align="right" />
-	  
+	  <line path="-50%,1mm ; 150%,1mm" border="0.5 dashed #000"/>
+	  <text value="À découper et à joindre à votre règlement" left="50%" align="center" top="4mm" bold="true" />
+	  <text value="N. Facture {{invoice/number}}" top="9mm" right="40mm"/>
+	  <text value="Code client {{invoice.client/code}}" top="13mm" align="left" />
+	  <text value="{{invoice.client/full_name}}" top="9mm"  align="left" />
+	  <!--<text value="Reste à payer ({{invoice.lines[0].price.currency/code}}) {{invoice.client/reverse_balance}}" top="13mm" right="20.mm" align="right" />*-->
+	  <text value="Reste à payer ({{invoice.lines[0].price.currency/code}}) {{invoice/rest_to_pay}}" top="13mm" right="40mm" />
+		     
 	</set>
       </part>
       

@@ -13,7 +13,7 @@
           <image value="{{sale_order.company.entity/photo}}" height="30mm">
             <text value="{{sale_order.company.entity/full_name}}" size="16"/>
           </image>
-          <text value="{{sale_order/address}}" align="left" font="helvetica" top="35mm" left="100mm"/>
+          <text value="{{sale_order.client/contact}}" align="left" font="helvetica" top="35mm" left="100mm"/>
         </set>
       </part>
       <part height="11mm">
