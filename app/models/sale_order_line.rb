@@ -46,6 +46,7 @@ class SaleOrderLine < ActiveRecord::Base
     self.account_id = self.product.product_account_id
     self.unit_id = self.product.unit_id
     self.account_id ||= 0
+    self.price_amount ||= 0
 
     if self.price_amount > 0
       price = Price.create!(:amount=>self.price_amount, :tax_id=>self.tax.id, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id)
