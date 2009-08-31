@@ -66,6 +66,7 @@ company          sequences_delete                 configure_company
 company          sequences_update                 configure_company
 company          dyta_document_templates          manage_document_templates
 company          document_templates               manage_document_templates
+company          document_templates_load          manage_document_templates
 company          document_templates_create        manage_document_templates
 company          document_templates_duplicate     manage_document_templates
 company          document_templates_update        manage_document_templates

@@ -57,6 +57,7 @@ fr-FR:
       short: "%b %d" 
       long: "%B %d, %Y" 
       month_letter: "%d %B %Y"
+      legal: "%d %B %Y"
 
     day_names: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
     abbr_day_names: [Dim, Lun, Mar, Mer, Jeu, Ven, Sam]
@@ -318,6 +319,8 @@ fr-FR:
     purchase_order: 
       label: '{{supplier}} à {{address}}' 
       purchase: Achat
+    purchase_order_line: 
+      stock_location_can_not_receive_product : 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
     sale_order:
       natures:
         estimate: Devis
@@ -330,12 +333,13 @@ fr-FR:
         R: Règlements
         F: Clôturée
       sale: Vente
+      sales_conditions:
+        downpayment: 'Un acompte de {{percent}}% (soit {{amount}}€) à la signature du présent devis.'
+        validity: 'Ce devis et ses conditions générales sont valables jusqu''au {{expiration}}.'
     sale_order_nature:
       payment_types:
         check: 'Chèque bancaire'
         none: 'Aucun'
-    purchase_order_line: 
-      stock_location_can_not_receive_product : 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
     sale_order_line:
       currency_is_not_sale_order_currency: 'Le prix du produit ne correspond pas à la monnaie définie pour la vente'
       error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'

@@ -50,6 +50,6 @@
   letter_informations();
 
 
-=observe_field "sale_order[client_id]", :url=>{:action => :sales_contacts}, :frequency => 0.25, :function=>"update_contacts(value)"
+=observe_field "sale_order_client_id", :url=>{:action => :sales_contacts}, :frequency => 0.25, :function=>"update_contacts(value)"
 
 =observe_field("sale_order_letter_format", :frequency=>0.25, :function=> "letter_informations();")

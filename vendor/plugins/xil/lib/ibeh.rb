@@ -224,7 +224,7 @@ module Ibeh
 
   # Represents a <part>
   class Part < Element
-    attr_accessor :height, :test
+    attr_accessor :height, :top
 
     def initialize(writer, page, height)
       super writer
@@ -334,7 +334,7 @@ module Ibeh
         write(:line, [[left, top-wcross], [left, top+wcross]], :border=>{:color=>'#FCC', :width=>0})
       end
       @env = env
-      self.part.resize_to(height) if options[:resize]
+      self.part.resize_to(height-@top+self.part.top) if options[:resize]
       return height
     end
 
@@ -439,7 +439,7 @@ module Ibeh
         end
       end
       # puts "************"
-      self.part.resize_to(max) if options[:resize]
+      self.part.resize_to(max+self.part.top-@top) if options[:resize]
     end
 
 

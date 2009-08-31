@@ -269,6 +269,7 @@ fr-FR:
         name: 'Nom'
         purchases_journal: 'Journal d''achats'
         sales: 'Ventes'
+        sales_conditions: 'Conditions Générales de Vente'
         sales_journal: 'Journal de Ventes'
         siren: 'Numéro SIREN'
         updated_at: 'Mis à jour le'

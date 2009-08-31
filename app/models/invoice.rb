@@ -39,6 +39,8 @@ class Invoice < ActiveRecord::Base
   has_many :deliveries
   has_many :lines, :class_name=>InvoiceLine.to_s, :foreign_key=>:invoice_id
 
+  validates_uniqueness_of :number, :scope=>:company_id
+
   attr_readonly :company_id
 
   def before_validation

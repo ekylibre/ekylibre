@@ -420,6 +420,20 @@ class CompanyController < ApplicationController
   def document_templates
   end
 
+  def document_templates_load
+    language = @current_company.entity.language
+    prints_dir = "#{RAILS_ROOT}/app/views/prints"
+    {'sale_order'=>{:to_archive=>false}, 'invoice'=>{:to_archive=>true}}.each do |m, options|
+      # Sale_order
+      nature = @current_company.document_natures.find_by_code(m)
+      nature = @current_company.document_natures.create(:code=>m, :name=>tc('default_document_natures.'+m.to_s), :to_archive=>options[:to_archive], :family=>'management') if nature.nil?
+      File.open("#{prints_dir}/#{m}.xml", 'rb') do |f|
+        @current_company.document_templates.create(:nature_id=>nature.id, :active=>true, :name=>tc('default_document_templates.'+m.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read)
+      end
+    end
+    redirect_to :action=>:document_templates
+  end
+
   def document_templates_create
     if request.post? 
       @document_template = DocumentTemplate.new(params[:document_template])

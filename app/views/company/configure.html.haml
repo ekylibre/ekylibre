@@ -5,6 +5,7 @@
     -f.field :company, :name
     -f.field t("activerecord.attributes.company.code"), content_tag(:strong, @company.code)
     -f.field t("activerecord.attributes.company.entity_id"), link_to(@company.entity.full_name, {:controller=>:relations, :action=>:entities_update, :id=>@company.entity_id})
+    -f.field :company, :sales_conditions, :field=>:textarea, :options=>{:cols=>60, :rows=>8}
     -for name, options in @tree
       -f.title tc(name)
       -for key in options.keys.sort

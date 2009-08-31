@@ -59,22 +59,23 @@ class InvoiceLine < ActiveRecord::Base
   end
 
   def after_create
-    if self.amount > 0 ## avoirs non traités
-      record = JournalRecord.find(:first, :conditions=>{:resource_id=>self.invoice_id, :resource_type=>Invoice.to_s, :company_id=>self.company_id})
+
+#     if self.amount > 0 ## avoirs non traités
+#       record = JournalRecord.find(:first, :conditions=>{:resource_id=>self.invoice_id, :resource_type=>Invoice.to_s, :company_id=>self.company_id})
       
-      #raise Exception.new self.company.parameter("accountancy.default_journals.sales").inspect
+#       #raise Exception.new self.company.parameter("accountancy.default_journals.sales").inspect
 
-      record = JournalRecord.create!(:company_id=>self.company_id, :resource_id=>self.invoice_id, :resource_type=>Invoice.to_s, :created_on=>Date.today, :printed_on=>Date.today, :financialyear_id=>self.company.financialyears.find_by_closed(false), :journal_id=>self.company.parameter("accountancy.default_journals.sales").value.id) if record.nil?
+#       record = JournalRecord.create!(:company_id=>self.company_id, :resource_id=>self.invoice_id, :resource_type=>Invoice.to_s, :created_on=>Date.today, :printed_on=>Date.today, :financialyear_id=>self.company.financialyears.find_by_closed(false), :journal_id=>self.company.parameter("accountancy.default_journals.sales").value.id) if record.nil?
 
-       ### Product Account (credit, 7...)
-      Entry.create!(:company_id=>self.company_id, :record_id=>record.id, :account_id=>self.product.product_account_id, :currency_id=>self.price.currency_id,:editable=>false, :credit=>self.amount, :name=>self.product.name+" "+self.price.amount.to_s+" "+self.price.currency.code, :currency_credit=>1)
+#        ### Product Account (credit, 7...)
+#       Entry.create!(:company_id=>self.company_id, :record_id=>record.id, :account_id=>self.product.product_account_id, :currency_id=>self.price.currency_id,:editable=>false, :credit=>self.amount, :name=>self.product.name+" "+self.price.amount.to_s+" "+self.price.currency.code, :currency_credit=>1)
 
-      ### Tax amount (credit, 445..)
-      Entry.create!(:company_id=>self.company_id, :record_id=>record.id, :account_id=>self.price.tax.account_collected_id, :currency_id=>self.price.currency_id,:editable=>false, :credit=>(self.amount_with_taxes - self.amount), :name=>self.price.tax.name+" "+(self.amount_with_taxes - self.amount).to_s+" "+self.price.currency.code, :currency_credit=>1)
+#       ### Tax amount (credit, 445..)
+#       Entry.create!(:company_id=>self.company_id, :record_id=>record.id, :account_id=>self.price.tax.account_collected_id, :currency_id=>self.price.currency_id,:editable=>false, :credit=>(self.amount_with_taxes - self.amount), :name=>self.price.tax.name+" "+(self.amount_with_taxes - self.amount).to_s+" "+self.price.currency.code, :currency_credit=>1)
 
-      ### Charge account,  client (debit, 411..)
-      Entry.create!(:company_id=>self.company_id, :record_id=>record.id, :account_id=>self.order_line.order.client.find_or_create_account, :currency_id=>self.price.currency_id, :editable=>false, :debit=>self.amount_with_taxes, :name=>self.product.name+" "+self.price.amount_with_taxes.to_s+" "+self.price.currency.code, :currency_credit=>1)
-    end
+#       ### Charge account,  client (debit, 411..)
+#       Entry.create!(:company_id=>self.company_id, :record_id=>record.id, :account_id=>self.order_line.order.client.find_or_create_account, :currency_id=>self.price.currency_id, :editable=>false, :debit=>self.amount_with_taxes, :name=>self.product.name+" "+self.price.amount_with_taxes.to_s+" "+self.price.currency.code, :currency_credit=>1)
+#     end
     
   end
 

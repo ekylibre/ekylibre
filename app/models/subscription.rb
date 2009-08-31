@@ -43,7 +43,7 @@ class Subscription < ActiveRecord::Base
 
   def before_validation
     self.sale_order_id ||= self.invoice.sale_order_id if self.invoice
-    self.nature_id ||= self.product.nature_id if self.product
+    self.nature_id ||= self.product.subscription_nature_id if self.product
     unless self.entity
       self.entity_id ||= self.contact.entity_id if self.contact
       self.entity_id ||= self.invoice.client_id if self.invoice

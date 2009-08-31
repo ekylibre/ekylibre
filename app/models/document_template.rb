@@ -30,6 +30,7 @@ class DocumentTemplate < ActiveRecord::Base
   attr_readonly :company_id
 
   def before_validation
+    self.cache = self.class.compile(self.source) # rescue nil
     begin
       self.cache = self.class.compile(self.source) # rescue nil
     rescue Exception => e
@@ -190,9 +191,15 @@ class DocumentTemplate < ActiveRecord::Base
         v == "true" ? "true" : "false"
       when :value
         v = v.inspect.gsub(/\{\{[^\}]+\}\}/) do |m|
-          data_path = m[2..-3]
-          address = data_path.split('?')[0].gsub('/','.')
-          "\"+#{address}.to_s+\""
+          data = m[2..-3].to_s.split('?')
+          datum = data[0].gsub('/', '.')
+          datum = case data[1].to_s.split('=')[0]
+                  when 'format'
+                    "::I18n.localize(#{datum}, :format=>:legal)"
+                  else
+                    datum
+                  end
+          "\"+#{datum}.to_s+\""
         end
         v = v[3..-1] if v.match(/^\"\"\+/)
         v = v[0..-4] if v.match(/\+\"\"$/)

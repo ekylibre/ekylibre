@@ -981,11 +981,11 @@ class ManagementController < ApplicationController
               if @sale_order_line.product.subscription_nature.nature == "period"
                 if not params[:subscription].nil?    
                   @subscription.started_on = params[:subscription][:started_on]
-                  @subscription.finished_on = params[:subscription][:finished_on]
+                  @subscription.stopped_on = params[:subscription][:stopped_on]
                 else ## from quick_line
                   @subscription.started_on = Date.today
                   delay = Delay.new(:expression=>@sale_order_line.product.subscription_period, :name=>"temp")
-                  @subscription.finished_on = delay.compute(Date.today)
+                  @subscription.stopped_on = delay.compute(Date.today)
                 end
               elsif @sale_order_line.product.subscription_nature.nature == "quantity"
                 if not params[:subscription].nil?

@@ -13,14 +13,13 @@
           <image src="{{sale_order.company/photo}}">
             <text value="{{sale_order.company.entity/full_name}}" size="16"/>
           </image>
-          <text value="{{sale_order.company.entity/contact}}" align="right" left="100%" size="9"/>
           <text value="{{sale_order/address}}" align="left" font="helvetica" top="35mm" left="100mm"/>
         </set>
       </part>
       <part height="11mm">
         <set>
           <text value="À Bordeaux, le {{sale_order/created_on?format=month_letter}}" left="100%" align="right"/>
-          <text value="{{sale_order/number_label}}"/>
+          <text value="Devis N°{{sale_order/number}}"/>
         </set>
         <set top="4mm">
           <text value="Entre {{sale_order.company/name}}, {{sale_order.responsible/label}} et {{sale_order.client/full_name}}."/>
@@ -36,6 +35,7 @@
           <text value="{{sale_order.introduction}}" width="100%" resize="true"/>
         </set>
       </part>
+      
       <table collection="sale_order.lines" fixed="true">
         <column label="Code" property="product/code" width="20mm" align="center"/>
         <column label="Désignation" property="product/name" width="80mm"/>
@@ -45,11 +45,12 @@
         <column label="Montant T.V.A." property="taxes" width="20mm"/>
         <column label="Taux T.V.A." property="price.tax/amount" width="15mm" align="center"/>
       </table>
+
       
       <part height="14mm">
         <set right="90mm" top="1mm">
-          <text value="Totaux ({{sale_order.lines[0].price.currency.code}})" top="0.5mm" left="33mm" align="right" bold="true"/>
-          <text value="Net à payer ({{sale_order.lines[0].price.currency.code}})" top="6mm" left="33mm" align="right" bold="true" size="11.5"/>
+          <text value="Totaux ({{sale_order.lines[0].price.currency.code}})" top="0.5mm" left="34mm" align="right" bold="true"/>
+          <text value="Net à payer ({{sale_order.lines[0].price.currency.code}})" top="6mm" left="34mm" align="right" bold="true" size="11.5"/>
           <text value="{{sale_order.amount_with_taxes}}" top="6mm" left="55mm" align="center" bold="true" size="12"/>
           <text value="{{sale_order.amount}}" top="0.5mm" left="54.5mm" align="right"/>
           <text value="{{sale_order.taxes}}" top="0.5mm" left="74.5mm" align="right"/>
@@ -60,12 +61,21 @@
         </set>
       </part>
 
-      
-      <part height="6mm" if="sale_order.need_check?">
+
+
+      <part height="7mm" if="sale_order/letter?">
         <set>
+          <text value="{{sale_order/conclusion}}" width="100%" resize="true"/>
+        </set>
+      </part>
+  
+
+
+      
+      <part height="8mm" if="sale_order.need_check?">
+        <set top="2mm">
           <text value="Mode de paiement : " bold="true"/>
-          <text value="Chèque bancaire à l'ordre" left="31mm"/>
-          <text value="{{sale_order.company/name}}" bold="true" left="68mm"/>
+          <text value="Chèque bancaire" left="31mm"/>
         </set>
       </part>
       
@@ -82,18 +92,16 @@
       <part height="25mm" if="sale_order/letter?">
         <set>
           <text value="Dans la case ci-contre, veuillez dater, porter la mention &quot;Bon pour accord&quot; et apposer votre signature." bold="true" top="3mm" right="93mm" width="60mm" align="right"/>
-          <rectangle width="75mm" height="20mm" right="90mm" border="0.5 solid #000"/>
+          <rectangle width="75mm" height="20mm" right="90mm" top="3mm" border="0.5 solid #000"/>
         </set>
       </part>
       
-      <part height="7mm" if="sale_order/letter?">
+      <part height="30mm" if="sale_order/letter?"> 
         <set>
-          <text value="{{sale_order/conclusion}}" width="100%" resize="true"/>
+          <text value="Dans l'attente de votre réponse,"/>
+          <text value="Veuillez agréer, {{sale_order.function_title}}, l'expression de mes salutations distinguées." top="4mm"/>
         </set>
-      </part>
-  
-      <part height="15mm" if="sale_order/letter?"> 
-        <set left="145mm" top="3.mm"> 
+        <set left="145mm" top="12mm"> 
           <text value="{{sale_order.responsible/label}}" bold="true" align="center"/>
           <text value="Service {{sale_order.responsible.department/name}}" align="center" top="4mm"/>
         </set>
