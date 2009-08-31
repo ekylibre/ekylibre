@@ -140,6 +140,7 @@ module Ibeh
           c[:width] = fixed ? c[:flex] : table_width*c[:flex]/total 
           l += c[:width]
         end
+        part(1.mm)
         part(options[:header_height]||4.mm) do
           # set table_left, 0, :font_size=>10 do
           set :left=>table_left, :font_size=>10 do
@@ -166,17 +167,6 @@ module Ibeh
                   value = number_to_currency(value, :separator=>options[:separator]||',', :delimiter=>options[:delimiter]||' ', :unit=>options[:unit]||'', :precision=>options[:precision]||2) if options[:format]==:money
                   options[:align] ||= :right
                 end                
-#                 left = c[:offset]
-#                 if options[:align]==:center
-#                   left += c[:width].to_f/2
-#                 elsif options[:align]==:right
-#                   left += c[:width].to_f - 0.5.mm
-#                 else
-#                   left += 0.5.mm
-#                 end
-
-#                 height = text(value.to_s, :left=>left, :top=>0.5.mm, :align=>options[:align], :width=>c[:width])
-#                 part.resize_to(height)
                 part.resize_to(textbox(value.to_s, c[:width], part.height, :left=>c[:offset], :top=>0.5.mm, :align=>options[:align]))
               end
               for c in columns

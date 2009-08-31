@@ -856,7 +856,7 @@ class ManagementController < ApplicationController
       @sale_order.client_id = session[:current_entity]
       @sale_order.function_title = tg('letter_function_title')
       @sale_order.introduction = tg('letter_introduction')
-      @sale_order.conclusion = tg('letter_conclusion')
+      # @sale_order.conclusion = tg('letter_conclusion')
     end
   end
 
