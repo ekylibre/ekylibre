@@ -397,6 +397,8 @@ fr-FR:
         invoices: 'Factures'
         payments: 'Règlements de la vente'
         sale_order_lines: 'Lignes de vente'
+        sales_products: 'Modifier la vente'
+        sales_print: 'Imprimer la vente'
         title: 'Détails de la vente {{value}} au client {{name}}'
       sales_general:
         client: 'Sélection du client'
