@@ -193,6 +193,8 @@ module Hebi
         error("File does not exists (#{file.inspect})") unless File.exists? file
         @images[file] = Hebi::Image.new(file, ('I'+@images.size.to_s).to_sym)
       end
+      w = nil if w == 0
+      h = nil if h == 0
       image = @images[file]
       if w and h.nil?
         h = w*image.height/image.width

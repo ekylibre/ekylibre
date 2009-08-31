@@ -3,6 +3,7 @@
 # Table name: entities
 #
 #  active                    :boolean       default(TRUE), not null
+#  activity_code             :string(32)    
 #  authorized_payments_count :integer       
 #  born_on                   :date          
 #  category_id               :integer       
@@ -32,6 +33,7 @@
 #  origin                    :string(255)   
 #  payment_delay_id          :integer       
 #  payment_mode_id           :integer       
+#  photo                     :string(255)   
 #  proposer_id               :integer       
 #  reduction_rate            :decimal(8, 2) 
 #  reflation_submissive      :boolean       not null

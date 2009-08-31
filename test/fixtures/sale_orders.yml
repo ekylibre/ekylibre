@@ -14,6 +14,7 @@
 #  created_at          :datetime      not null
 #  created_on          :date          not null
 #  creator_id          :integer       
+#  currency_id         :integer       
 #  delivery_contact_id :integer       
 #  downpayment_amount  :decimal(16, 2 default(0.0), not null
 #  expiration_id       :integer       not null

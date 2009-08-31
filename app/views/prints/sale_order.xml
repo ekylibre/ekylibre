@@ -10,7 +10,7 @@
     <page orientation="portrait" format="A4" margin="10mm">
       <part height="65mm">
         <set>
-          <image src="{{sale_order.company/photo}}">
+          <image value="{{sale_order.company.entity/photo}}" height="30mm">
             <text value="{{sale_order.company.entity/full_name}}" size="16"/>
           </image>
           <text value="{{sale_order/address}}" align="left" font="helvetica" top="35mm" left="100mm"/>

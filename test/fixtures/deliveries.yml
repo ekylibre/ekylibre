@@ -9,6 +9,7 @@
 #  contact_id        :integer       
 #  created_at        :datetime      not null
 #  creator_id        :integer       
+#  currency_id       :integer       
 #  id                :integer       not null, primary key
 #  invoice_id        :integer       
 #  lock_version      :integer       default(0), not null

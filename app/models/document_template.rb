@@ -153,7 +153,7 @@ class DocumentTemplate < ActiveRecord::Base
       :cell=>[:value, :width],
       :rectangle=>[:width, :height],
       :line=>[:path],
-      :image=>[:src]
+      :image=>[:value, :width, :height]
     }
     
 

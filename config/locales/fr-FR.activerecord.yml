@@ -580,6 +580,7 @@ fr-FR:
         payment_delay_id: (((PAYMENT_DELAY_ID)))
         payment_mode_id: (((PAYMENT_MODE_ID)))
         payments_number: 'Nombre de paiements'
+        photo: 'Photo'
         proposer_id: 'Parrain'
         reduction_rate: 'Taux de réduction'
         reflation_submissive: 'Soumis à la relance'

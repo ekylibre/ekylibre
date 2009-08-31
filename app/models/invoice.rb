@@ -12,6 +12,7 @@
 #  created_on         :date          
 #  creator_id         :integer       
 #  credit             :boolean       not null
+#  currency_id        :integer       
 #  downpayment_amount :decimal(16, 2 default(0.0), not null
 #  has_downpayment    :boolean       not null
 #  id                 :integer       not null, primary key
