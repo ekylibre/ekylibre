@@ -226,5 +226,9 @@ class Entity < ActiveRecord::Base
   def contact
     self.default_contact ? self.default_contact.address : '[NoDefaultContactError]'
   end
-
+  
+  def max_reduction_rate ### rajouter filtre date 
+    SubscriptionNature.count_by_sql ["SELECT max(reduction_rate) FROM subscription_natures  INNER JOIN subscriptions ON nature_id = subscription_natures.id WHERE subscriptions.entity_id = ? AND subscription_natures.company_id = ?", self.id, self.company_id]
+  end
+  
 end 

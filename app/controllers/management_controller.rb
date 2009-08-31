@@ -862,18 +862,21 @@ class ManagementController < ApplicationController
 
 
   dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
-    t.column :name, :through=>:product
+    #t.column :name, :through=>:product
+    t.column :label, :label=>tc('product')
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :amount, :through=>:price, :label=>tc('price')
     t.column :amount
     t.column :amount_with_taxes
-    t.action :sale_order_lines_update, :image=>:update, :if=>'RECORD.order.state == "P"'
-    t.action :sale_order_lines_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.state == "P"'
+    t.action :sale_order_lines_update, :image=>:update, :if=>'RECORD.order.state == "P" and RECORD.reduction_origin_id.nil? '
+    t.action :sale_order_lines_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.state == "P"  and RECORD.reduction_origin_id.nil? '
   end
 
   def sales_products
     @sale_order = find_and_check(:sale_order, params[:id])
+    #raise Exception.new @sale_order.client.subscriptions.inspect
+    #raise Exception.new @sale_order.client.max_reduction_rate.inspect
     session[:current_sale_order] = @sale_order.id
     session[:category] = @sale_order.client.category
     @stock_locations = @current_company.stock_locations

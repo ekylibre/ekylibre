@@ -36,6 +36,7 @@ fr-FR:
       prices:
         purchases_prices_create: 'Enregistrer un nouveau prix d''achat'
         sales_prices_create: 'Enregistrer un nouveau prix de vente'
+      product: 'Produit'
       product_prices:
         purchases_prices_create: 'Créer un nouveau prix d''achat'
         sales_prices_create: 'Créer un nouveau prix de vente'

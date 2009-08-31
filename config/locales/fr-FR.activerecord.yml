@@ -574,6 +574,7 @@ fr-FR:
         invoices_count: (((INVOICES_COUNT)))
         language_id: 'Langue'
         lock_version: 'Version'
+        max_reduction_rate: 'Taux de réduction'
         name: 'Nom'
         nature_id: 'Type'
         origin: 'Lieu de la première rencontre'
@@ -1118,7 +1119,7 @@ fr-FR:
         product_account_id: 'Compte comptable de produits'
         quantity_max: 'Quantité maximum'
         quantity_min: 'Quantité minimum'
-        reduction_submissive: (((REDUCTION_SUBMISSIVE)))
+        reduction_submissive: 'Soumis à réduction'
         service_coeff: 'Coefficient (de quantité) de service'
         shelf_id: 'Catégorie'
         subscription_nature_id: 'Type'
@@ -1556,6 +1557,7 @@ fr-FR:
         name: 'Nom'
         nature: 'Type'
         read_nature: 'Type'
+        reduction_rate: 'Taux de réduction'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 

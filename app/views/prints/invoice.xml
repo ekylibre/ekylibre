@@ -11,7 +11,7 @@
 	    <text value="{{invoice.company/name}}" size="7.mm" />
 	  </image>
 	</set>
-	<set left="100mm" top="35mm">
+	<set left="100mm" top="40mm">
 	 <text value="{{invoice/address}}"/>
 	</set>
       </part>
@@ -19,8 +19,11 @@
 	<set>
 	  <text value="À {{invoice.company.default_contact.area/city_name?capitalize=true}}, le {{invoice/created_on?format=month_letter}}" left="100%" align="right"/>
 	</set>
-	<set>
+	<set if="!invoice.credit">
 	  <text value="Facture n°{{invoice/number}}" left="50%" align="center" bold="true" size="14" top="25mm"/>
+	</set>
+	<set if="invoice.credit">
+	  <text value="Avoir n°{{invoice/number}} de la facture {{invoice.origin/number}}" left="50%" align="center" bold="true" size="14" top="25mm"/>
 	</set>
 	
       </part>
@@ -69,7 +72,12 @@
 	<set>
 	  <line path="0,1mm ; 100%,1mm" width="0.5"/>
 	  <set top="2.5mm"> 
-            <text value="Facture n°{{invoice/number}}" size="10" align="left"/>
+	    <set if="!invoice.credit">
+              <text  value="Facture n°{{invoice/number}}" size="10" align="left"/>
+	    </set>
+	    <set if="invoice.credit">
+	      <text if="invoice.credit" value="Avoir n°{{invoice/number}}" size="10" align="left"/>
+	    </set>
             <text value="Réf. Client : {{invoice.client/code}}" top="4mm" align="left"/>
             <text value="{{invoice/created_on?format=month_letter}}" size="10" left="50%" align="center"/>
             <text value="N° TVA Intracommunautaire : {{invoice.company.entity/vat_number}} - SIREN : {{invoice.company.entity/siren}} - Code APE : {{invoice.company.entity/ean13}}" size="7" left="50%" align="center" top="6mm"/>
@@ -77,7 +85,7 @@
           </set>
 	</set>
         
-	<set top="20mm">
+	<set if="!invoice.credit" top="20mm">
 	  <line path="-50%,1mm ; 150%,1mm" border="0.5 dashed #000"/>
 	  <text value="À découper et à joindre à votre règlement" left="50%" align="center" top="4mm" bold="true" />
 	  <text value="N. Facture {{invoice/number}}" top="9mm" right="40mm"/>
@@ -88,8 +96,6 @@
 		     
 	</set>
       </part>
-      
-      
       
     </page>
     

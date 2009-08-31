@@ -22,6 +22,7 @@
         =evalue @entity, :vat_number unless @entity.vat_number.blank?
         =evalue @entity, :vat_submissive
         =evalue @entity, :reflation_submissive 
+        =evalue @entity, :max_reduction_rate
         =evalue @entity, :discount_rate unless @entity.discount_rate.blank?
         =evalue @entity, :reduction_rate unless @entity.reduction_rate.blank?
         =evalue @entity, :authorized_payments_count unless @entity.authorized_payments_count.blank?

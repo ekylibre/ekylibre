@@ -5,6 +5,7 @@
   -else
     - f.field t('activerecord.attributes.subscription_nature.nature'), @subscription_nature.read_nature
   - f.field :subscription_nature, :name
+  - f.field :subscription_nature, :reduction_rate
 =formalize(:id=>:number) do |f|
   - f.field :subscription_nature, :actual_number
 =formalize do |f|
