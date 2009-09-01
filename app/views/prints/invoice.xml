@@ -67,21 +67,21 @@
       </part>
 -->
 
-      <part if="invoice.sale_order.payment_parts.sum(:amount)&gt;0" height="15mm">
+      <part if="invoice.sale_order.payment_parts.sum(:amount)&gt;0" height="14mm">
 	<set top="10mm">
-	  <text value="Règlements effectués" left="50%" align="center" bold="true"/>
+	  <text value="Règlements effectués"  bold="true"/>
 	</set>
 	<set if="invoice/rest_to_pay&lt;=0" top="10mm">
-	  <text value=": facture acquitée" left="66%" align="center" bold="true" />
+	  <text value=": facture acquitée" left="33mm" bold="true" />
 	</set>
       </part>
 
       <table if="invoice.sale_order.payment_parts.sum(:amount)&gt;0" collection="invoice.sale_order.payment_parts" fixed="true">
-	<column label="Montant" property="amount" width="30mm" numeric="money"/>
 	<column label="Payé le" property="payment/paid_on" width="30mm"/>
-	<column label="Numéro de chèque" property="payment/check_number" width="40mm"/>
-	<column label="Numéro de compte" property="payment/account_number" width="40mm"/>
 	<column label="Banque" property="payment/bank" width="50mm"/>
+	<column label="Numéro de compte" property="payment/account_number" width="40mm"/>
+	<column label="Numéro de chèque" property="payment/check_number" width="40mm"/>
+	<column label="Montant" property="amount" width="30mm" numeric="money"/>
       </table>
       
       
