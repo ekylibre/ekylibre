@@ -3,7 +3,7 @@
   -if @subscription_nature.new_record?
     - f.field :subscription_nature, :nature, :field=>:radio, :choices=>SubscriptionNature.natures
   -else
-    - f.field t('activerecord.attributes.subscription_nature.nature'), @subscription_nature.read_nature
+    - f.field t('activerecord.attributes.subscription_nature.nature'), @subscription_nature.nature_label
   - f.field :subscription_nature, :name
   - f.field :subscription_nature, :reduction_rate
 =formalize(:id=>:number) do |f|

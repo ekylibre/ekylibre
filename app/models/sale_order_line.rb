@@ -12,6 +12,7 @@
 #  entity_id           :integer       
 #  id                  :integer       not null, primary key
 #  invoiced            :boolean       not null
+#  label               :text          
 #  location_id         :integer       
 #  lock_version        :integer       default(0), not null
 #  order_id            :integer       not null
@@ -40,6 +41,7 @@ class SaleOrderLine < ActiveRecord::Base
   belongs_to :reduction_origin, :class_name=>SaleOrderLine.to_s
   belongs_to :tax
   belongs_to :unit
+  has_one :reduction, :class_name=>SaleOrderLine.to_s, :foreign_key=>:reduction_origin_id
   has_many :delivery_lines
   has_many :invoice_lines
   
@@ -50,13 +52,17 @@ class SaleOrderLine < ActiveRecord::Base
     self.account_id ||= 0
     self.price_amount ||= 0
 
-    if self.price_amount > 0
-      price = Price.create!(:amount=>self.price_amount, :tax_id=>self.tax.id, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id)
-      self.price_id = price.id
-      #self.amount = (self.price_amount*self.quantity).round(2)
-      #self.amount_with_taxes = ((self.price_amount + self.tax.compute(self.amount))*self.quantity).round(2)
-      #elsif self.price
+    if self.reduction_origin_id.nil?
+      self.label = self.product.name
+    else
+      self.label = tc('reduction_on', :product=>self.product.name, :rate=>self.order.client.max_reduction_rate)
     end
+    
+    if self.price_amount > 0
+      price = Price.create!(:amount=>self.price_amount, :tax_id=>self.tax.id, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id, :category_id=>self.order.client.category_id)
+      self.price_id = price.id
+    end
+    
     if self.price 
       if self.reduction_origin_id.nil?
         self.amount = (self.price.amount*self.quantity).round(2)
@@ -81,6 +87,15 @@ class SaleOrderLine < ActiveRecord::Base
     true
   end
   
+  def after_update
+    self.reduction.update_attributes(:quantity=>self.quantity*(self.order.client.max_reduction_rate*-0.01), :product_id=>self.product_id, :price_id=>self.price_id, :location_id=>self.location_id) if self.reduction
+  end
+  
+  def after_destroy
+    self.reduction.destroy  if self.reduction
+    self.order.refresh
+  end
+
   def validate
     errors.add_to_base(tc(:stock_location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) unless self.location.can_receive(self.product_id)
     errors.add_to_base(tc(:currency_is_not_sale_order_currency)) if self.price.currency_id != self.order.currency_id
@@ -90,15 +105,15 @@ class SaleOrderLine < ActiveRecord::Base
     self.order.refresh if self.reduction_origin.nil?
   end
 
-  def label
-    label = ""
-    if self.reduction_origin_id.nil?
-      label = self.product.name
-    else
-      label = tc('reduction_on', :product=>self.product.name)
-    end
-    label
-  end
+#   def label
+#     label = ""
+#     if self.reduction_origin_id.nil?
+#       label = self.product.name
+#     else
+#       label = tc('reduction_on', :product=>self.product.name)
+#     end
+#     label
+#   end
 
   def undelivered_quantity
     lines =  DeliveryLine.find(:all, :conditions=>{:company_id=>self.company_id, :order_line_id=>self.id})

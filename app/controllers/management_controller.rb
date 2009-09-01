@@ -509,7 +509,8 @@ class ManagementController < ApplicationController
           elsif !@product_stock.id.nil? and @stock_locations.size > 1
             save = false unless @product_stock.add_or_update(params[:product_stock],@product.id)
           else
-            save = false unless @product_stock.update_attributes(params[:product_stock])
+            #save = false unless @product_stock.update_attributes(params[:product_stock])
+            save = true
           end
           @product_stock.errors.each_full do |msg|
             @product.errors.add_to_base(msg)
@@ -863,7 +864,7 @@ class ManagementController < ApplicationController
 
   dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     #t.column :name, :through=>:product
-    t.column :label, :label=>tc('product')
+    t.column :label
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :amount, :through=>:price, :label=>tc('price')
@@ -1142,13 +1143,13 @@ class ManagementController < ApplicationController
         saved = @delivery.save
         if saved
           for line in @sale_order_lines
-            if params[:delivery_line][line.id.to_s][:quantity].to_f > 0
-              delivery_line = DeliveryLine.new(:order_line_id=>line.id, :delivery_id=>@delivery.id, :quantity=>params[:delivery_line][line.id.to_s][:quantity], :company_id=>@current_company.id)
-              saved = false unless delivery_line.save
-              delivery_line.errors.each_full do |msg|
-                @delivery.errors.add_to_base(msg)
-              end
+            #if params[:delivery_line][line.id.to_s][:quantity].to_f > 0
+            delivery_line = DeliveryLine.new(:order_line_id=>line.id, :delivery_id=>@delivery.id, :quantity=>params[:delivery_line][line.id.to_s][:quantity].to_f, :company_id=>@current_company.id)
+            saved = false unless delivery_line.save
+            delivery_line.errors.each_full do |msg|
+              @delivery.errors.add_to_base(msg)
             end
+            #end
           end
         end
         raise ActiveRecord::Rollback unless saved  
@@ -1711,6 +1712,7 @@ class ManagementController < ApplicationController
   def subscription_natures_update
     @subscription_nature = find_and_check(:subscription_nature, params[:id])
     if request.post?
+      redirect_to_back if @subscription_nature.update_attributes(params[:subscription_nature])
     end
     @title = {:value=>@subscription_nature.name}
     render_form

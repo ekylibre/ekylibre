@@ -343,7 +343,7 @@ fr-FR:
     sale_order_line:
       currency_is_not_sale_order_currency: 'Le prix du produit ne correspond pas à la monnaie définie pour la vente'
       error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
-      reduction_on: '    Réduction sur le produit {{product}}'
+      reduction_on: 'Remise de {{rate}}% sur le produit {{product}}'
       stock_location_can_not_transfer_product : 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}} '
     sequence:
       periods:
