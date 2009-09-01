@@ -53,9 +53,9 @@ class SaleOrderLine < ActiveRecord::Base
     self.price_amount ||= 0
 
     if self.reduction_origin_id.nil?
-      self.label = self.product.name
+      self.label = self.product.catalog_name
     else
-      self.label = tc('reduction_on', :product=>self.product.name, :rate=>self.order.client.max_reduction_rate)
+      self.label = tc('reduction_on', :product=>self.product.catalog_name, :rate=>self.order.client.max_reduction_rate)
     end
     
     if self.price_amount > 0

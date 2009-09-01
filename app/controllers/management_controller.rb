@@ -899,6 +899,15 @@ class ManagementController < ApplicationController
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
   end
 
+  def sale_orders_invoice
+    @sale_order = find_and_check(:sale_orders, params[:id])
+    if request.post?
+      #raise Exception.new "ok"+@sale_order.inspect
+      @sale_order.deliver_and_invoice
+      redirect_to :action=>:sales_invoices, :id=>@sale_order.id
+    end
+  end
+
   def sales_print
     @sale_order = find_and_check(:sale_order, params[:id])
     if @current_company.default_contact.nil? || @sale_order.client.contacts.size == 0
@@ -1051,24 +1060,26 @@ class ManagementController < ApplicationController
     t.column :quantity
     t.column :amount
     t.column :amount_with_taxes
-    t.action :deliveries_update, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? '
-    t.action :deliveries_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>:are_you_sure
+    #t.action :deliveries_update, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? '
+    t.action :deliveries_update, :if=>'!RECORD.order.invoiced'
+    #t.action :deliveries_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>:are_you_sure
+    t.action :deliveries_delete, :if=>'!RECORD.order.invoiced', :method=>:post, :confirm=>:are_you_sure
   end
 
   
-  dyta(:deliveries_to_invoice, :model=>:deliveries, :children=>:lines,   :conditions=>['company_id = ? AND order_id = ? AND invoice_id IS NULL', ['@current_company.id'], ['session[:current_sale_order]']]) do |t|
-    t.column :address, :through=>:contact, :children=>:product_name
-    t.column :planned_on, :children=>false
-    t.column :moved_on, :children=>false
-    t.column :quantity
-    t.column :amount
-    t.column :amount_with_taxes
-    t.check :invoiceable, :value=>true
-  end
+#   dyta(:deliveries_to_invoice, :model=>:deliveries, :children=>:lines,   :conditions=>['company_id = ? AND order_id = ? AND invoice_id IS NULL', ['@current_company.id'], ['session[:current_sale_order]']]) do |t|
+#     t.column :address, :through=>:contact, :children=>:product_name
+#     t.column :planned_on, :children=>false
+#     t.column :moved_on, :children=>false
+#     t.column :quantity
+#     t.column :amount
+#     t.column :amount_with_taxes
+#     t.check :invoiceable, :value=>true
+#   end
 
 
  
-  dyta(:undelivered_quantities, :model=>:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
+  dyta(:undelivered_quantities, :model=>:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]'], :reduction_origin_id=>nil}) do |t|
     t.column :name, :through=>:product
     t.column :amount, :through=>:price, :label=>tc('price')
     t.column :quantity
@@ -1129,7 +1140,7 @@ class ManagementController < ApplicationController
       flash[:warning]=lc(:no_lines_found)
       redirect_to :action=>:sales_deliveries, :id=>session[:current_sale_order]
     end
-    @delivery_lines =  @sale_order_lines.collect{|x| DeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
+    @delivery_lines =  @sale_order_lines.find_all_by_reduction_origin_id(nil).collect{|x| DeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
     @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :planned_on=>Date.today)
     session[:current_delivery] = @delivery.id
     @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :active=>true, :entity_id=>@sale_order.client_id})
@@ -1142,14 +1153,14 @@ class ManagementController < ApplicationController
       ActiveRecord::Base.transaction do
         saved = @delivery.save
         if saved
-          for line in @sale_order_lines
-            #if params[:delivery_line][line.id.to_s][:quantity].to_f > 0
+          for line in @sale_order_lines.find_all_by_reduction_origin_id(nil)
+            if params[:delivery_line][line.id.to_s][:quantity].to_f > 0
             delivery_line = DeliveryLine.new(:order_line_id=>line.id, :delivery_id=>@delivery.id, :quantity=>params[:delivery_line][line.id.to_s][:quantity].to_f, :company_id=>@current_company.id)
             saved = false unless delivery_line.save
             delivery_line.errors.each_full do |msg|
               @delivery.errors.add_to_base(msg)
             end
-            #end
+            end
           end
         end
         raise ActiveRecord::Rollback unless saved  
@@ -1256,17 +1267,21 @@ class ManagementController < ApplicationController
   def sales_invoices
     @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
-    @rest_to_invoice = @sale_order.deliveries.detect{|x| x.invoice_id.nil?}
+    # @rest_to_invoice = @sale_order.deliveries.detect{|x| x.invoice_id.nil?}
+    @can_invoice = !@sale_order.lines.detect{|x| x.undelivered_quantity > 0}
+    @can_invoice = false unless @sale_order.state == 'I'
     if request.post?
       @sale_order.update_attribute(:state, 'R') if @sale_order.state == 'I'
-      ActiveRecord::Base.transaction do
-        deliveries = params[:deliveries_to_invoice].select{|k,v| v[:invoiceable].to_i==1}.collect do |id, attributes|
-          delivery = Delivery.find_by_id_and_company_id(id.to_i,@current_company.id)
-          delivery.stocks_moves_create if delivery and !delivery.moved_on.nil?
-          delivery
-        end
-        raise ActiveRecord::Rollback unless @current_company.invoice(deliveries)
-      end
+     #  ActiveRecord::Base.transaction do
+#         deliveries = params[:deliveries_to_invoice].select{|k,v| v[:invoiceable].to_i==1}.collect do |id, attributes|
+#           delivery = Delivery.find_by_id_and_company_id(id.to_i,@current_company.id)
+#           delivery.stocks_moves_create if delivery and !delivery.moved_on.nil?
+#           delivery
+#         end
+#         raise ActiveRecord::Rollback unless @current_company.invoice(deliveries)
+     # end
+      # @current_company.invoice(@sale_order)
+      @sale_order.invoice
       redirect_to :action=>:sales_invoices, :id=>@sale_order.id
     end
   end

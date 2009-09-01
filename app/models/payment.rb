@@ -59,7 +59,6 @@ class Payment < ActiveRecord::Base
   # Use the minimum amount to pay the order
   # If the payment is a downpayment, we look at the total unpaid amount
   def pay(order, downpayment=false)
-    #raise Exception.new self.inspect
     PaymentPart.destroy(self.parts.find_all_by_order_id(order.id))
     self.reload
    # minimum = [order.unpaid_amount(!self.downpayment), self.amount-self.parts_amount].min

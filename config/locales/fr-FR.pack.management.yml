@@ -452,6 +452,7 @@ fr-FR:
         amount_with_taxes: 'Montant TTC'
         deliveries: 'Livraisons'
         estimate_to_order: 'Passer le devis en commande'
+        invoice_sale_order: 'Facturer la vente'
         lines: 'Lignes du devis'
         sale_order_lines_create: 'Ajouter un produit au devis'
         sales_print: 'Imprimer le devis'

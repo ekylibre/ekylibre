@@ -87,7 +87,6 @@ class SaleOrder < ActiveRecord::Base
       
     end
     
-    
   end
   
   def before_validation_on_create
@@ -110,6 +109,28 @@ class SaleOrder < ActiveRecord::Base
     self.save
   end
 
+  def deliver_and_invoice
+    self.confirmed_on = Date.today
+    self.stocks_moves_create
+    delivery = Delivery.create!(:amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :company_id=>self.company_id, :order_id=>self.id, :planned_on=>Date.today, :moved_on=>Date.today)
+    for line in self.lines.find_all_by_reduction_origin_id(nil)
+      DeliveryLine.create!(:delivery_id=>delivery.id, :order_line_id=>line.id, :quantity=>line.quantity, :company_id=>self.company_id)
+    end
+    self.invoice
+    self.state = 'R'
+    self.save
+  end
+
+  def invoice
+    invoice = Invoice.create!(:company_id=>self.company_id, :nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :payment_delay_id=>self.payment_delay_id, :client_id=>self.client_id, :payment_on=>Date.today, :contact_id=>self.invoice_contact_id, :sale_order_id=>self.id)
+    self.invoiced = true
+    self.save
+    for line in self.lines
+      if line.quantity > 0 or not line.reduction_origin_id.nil?
+        invoice_line =  InvoiceLine.create!(:company_id=>line.company_id,:amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes,:invoice_id=>invoice.id, :order_line_id=>line.id,:quantity=>line.quantity)
+      end
+    end
+  end
 
   def stats(options={})
     invoiced = self.invoices.sum(:amount_with_taxes)

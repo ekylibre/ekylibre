@@ -82,7 +82,7 @@ class Product < ActiveRecord::Base
     end
     self.catalog_name = self.name if self.catalog_name.blank?
   end
-
+ 
   def to
     to = []
     to << :sale if self.to_sale

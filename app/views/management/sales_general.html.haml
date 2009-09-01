@@ -30,6 +30,8 @@
     - f.field :sale_order, :conclusion, :field=>:textarea
   .actions
     =submit_tag tg :next
+
+
 :javascript
   function update_contacts(value) {
     new Ajax.Request('#{url_for(:controller=>:management, :action => :sales_contacts)}', {asynchronous:true, evalScripts:true, parameters:'client_id=' + encodeURIComponent(value), onSuccess: function(resp) {

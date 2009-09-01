@@ -155,6 +155,7 @@ management       sales_contacts                   create_estimates
 management       sales_general                    create_estimates
 management       sales_new                        create_estimates
 management       sales_products                   create_estimates
+management       sale_orders_invoice              manage_orders
 management       sum_calculate                    create_estimates
 management       dyli_contacts                    create_purchases
 management       purchase_order_lines_create      create_purchases
