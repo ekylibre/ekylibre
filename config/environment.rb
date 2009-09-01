@@ -57,3 +57,5 @@ if defined? WillPaginate
   WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t('general.next')
 end
 
+ExceptionNotifier.exception_recipients = %w(dev@ekylibre.org dev@fdsea33.fr)
+ExceptionNotifier.sender_address =  %("Ekylibre Error" <notifier@ekylibre.org>)
