@@ -583,7 +583,15 @@ class CompanyController < ApplicationController
         csv << columns.collect{|column| line[column]}
       end
     end
-    send_data csv_string, :type=>Mime::CSV, :disposition=>"inline"
+
+#    result = ActiveRecord::Base.connection.select_rows(@listing.query)
+#     csv_string = FasterCSV.generate do |csv|
+#       for line in result
+#         csv << line
+#       end
+#     end
+
+    send_data csv_string, :filename=>@listing.name.simpleize+'.csv', :type=>Mime::CSV, :disposition=>"inline"
   end
   
   def listings_mail

@@ -115,6 +115,7 @@ fr-FR:
         title: 'Modification de l''extraction {{value}}'
       document_templates:
         document_templates_create: 'Créer un modèle de document'
+        document_templates_load: 'Charger les modèles par défaut'
         title: 'Liste des modèles de document'
       document_templates_create:
         title: 'Création d''un modèle de document'
