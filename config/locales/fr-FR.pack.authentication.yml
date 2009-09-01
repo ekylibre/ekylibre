@@ -4,7 +4,7 @@ fr-FR:
     authentication:
       need_company_code_to_login: 'Vous devez saisir votre nom d''utilisateur accompagné de votre code société. Exemple : SOCIETE\jean'
       no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
-      title: 'Connexion'
+      title: 'Authentification'
 
   helpers:
     authentication:
@@ -19,7 +19,7 @@ fr-FR:
         no_javascript: 'Votre navigateur ne supporte pas le javascript. Vous devez l''activer pour pouvoir utiliser le logiciel. Merci de votre compréhension.'
         password: 'Mot de passe'
         register: 'Créer une nouvelle société'
-        title: ''
+        title: 'Connexion'
         username: 'Nom d''utilisateur'
       register:
         administrator: 'Administrateur'

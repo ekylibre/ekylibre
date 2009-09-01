@@ -226,9 +226,13 @@ class Entity < ActiveRecord::Base
   def contact
     self.default_contact ? self.default_contact.address : '[NoDefaultContactError]'
   end
-  
-  def max_reduction_rate ### rajouter filtre date 
-    SubscriptionNature.count_by_sql ["SELECT max(reduction_rate) FROM subscription_natures  INNER JOIN subscriptions ON nature_id = subscription_natures.id WHERE subscriptions.entity_id = ? AND subscription_natures.company_id = ?", self.id, self.company_id]
+
+
+
+  # TODO:  Prendre en compte les liens si demandé
+  def max_reduction_rate(computed_on=Date.today)
+    # Subscription.count_by_sql(["SELECT max(reduction_rate) FROM subscriptions AS s JOIN subscription_natures ON (s.nature_id = subscription_natures.id) WHERE s.entity_id = ? AND s.company_id = ? AND ? BETWEEN s.started_on AND s.stopped_on", self.id, self.company_id, computed_on]).to_f
+    Subscription.maximum(:reduction_rate, :joins=>"JOIN subscription_natures ON (nature_id = subscription_natures.id)", :conditions=>["subscriptions.entity_id = ? AND subscriptions.company_id = ? AND ? BETWEEN started_on AND stopped_on", self.id, self.company_id, computed_on]).to_f
   end
   
 end 

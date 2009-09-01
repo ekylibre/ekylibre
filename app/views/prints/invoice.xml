@@ -8,11 +8,11 @@
       <part height="65mm">
 	<set>
 	  <image value="{{invoice.company.entity/photo}}" height="30mm">
-	    <text value="{{invoice.company/name}}" size="7.mm" />
+	    <text value="{{invoice.company/name}}" size="7.mm"/>
 	  </image>
 	</set>
 	<set left="100mm" top="40mm">
-	 <text value="{{invoice/address}}"/>
+	 <text value="{{invoice/address}}" font="helvetica"/>
 	</set>
       </part>
       <part height="40.mm">
@@ -32,10 +32,10 @@
       <table collection="invoice.lines" fixed="true">
 	<column label="Code" property="product/code" width="20mm" align="center"/>
 	<column label="Produit" property="order_line/label" width="80mm"/>
-	<column label="Qté." property="quantity" width="13mm"/>
+	<column label="Qté." property="quantity" width="13mm" numeric="money"/>
 	<column label="Prix unitaire HT" property="price/amount" width="22mm" numeric="money"/>
 	<column label="Montant Hors Taxes" property="amount" width="20mm" numeric="money"/>
-	<column label="Montant T.V.A." property="taxes" width="20mm" />
+	<column label="Montant T.V.A." property="taxes" width="20mm" numeric="money"/>
 	<column label="Taux T.V.A." property="price.tax/amount" width="15mm" align="center"/>
       </table>
       
@@ -44,9 +44,9 @@
 	<set left="100mm" top="1mm">
 	  <text value="Totaux ({{invoice.lines[0].price.currency.code}})" top="0.5mm" left="33mm" align="right" bold="true"/>
 	  <text value="Net à payer ({{invoice.lines[0].price.currency.code}})" top="6mm" left="33mm" align="right" bold="true" size="11.5"/>
-	  <text value="{{invoice.amount_with_taxes}}" top="6mm" left="55mm" align="center" bold="true" size="12"/>
-	  <text value="{{invoice.amount}}" top="0.5mm" left="54.5mm" align="right"/>
-	  <text value="{{invoice.taxes}}" top="0.5mm" left="74.5mm" align="right"/>
+	  <text value="{{invoice.amount_with_taxes?numeric}}" top="6mm" left="55mm" align="center" bold="true" size="12"/>
+	  <text value="{{invoice.amount?numeric}}" top="0.5mm" left="54.5mm" align="right"/>
+	  <text value="{{invoice.taxes?numeric}}" top="0.5mm" left="74.5mm" align="right"/>
 	  <rectangle width="75mm" height="4mm"  border="0.5 solid #000"/>
 	  <rectangle width="75mm" height="7mm" top="4mm" border="0.5 solid #000"/>
 	  <line path="35mm,0 ; 35mm,11mm" width="0.5"  border="0.5 solid #000"/>
@@ -103,19 +103,32 @@
           </set>
 	</set>
         
+	<!--	<set if="!invoice.credit" top="20mm">
+		<line path="-50%,1mm ; 150%,1mm" border="0.5 dashed #000"/>
+		<text value="À découper et à joindre à votre règlement" left="50%" align="center" top="4mm" bold="true" />
+		<text value="N. Facture {{invoice/number}}" top="9mm" right="40mm"/>
+		<text value="Code client {{invoice.client/code}}" top="13mm" align="left" />
+		<text value="{{invoice.client/full_name}}" top="9mm"  align="left" />
+		<text value="Reste à payer ({{invoice.lines[0].price.currency/code}}) {{invoice/rest_to_pay}}" top="13mm" right="40mm" bold="true"/>		
+		</set>
+	  -->
+
 	<set if="!invoice.credit" top="20mm">
 	  <line path="-50%,1mm ; 150%,1mm" border="0.5 dashed #000"/>
-	  <text value="À découper et à joindre à votre règlement" left="50%" align="center" top="4mm" bold="true" />
-	  <text value="N. Facture {{invoice/number}}" top="9mm" right="40mm"/>
-	  <text value="Code client {{invoice.client/code}}" top="13mm" align="left" />
-	  <text value="{{invoice.client/full_name}}" top="9mm"  align="left" />
+	  <line path="70mm,1mm ; 70mm,70mm" border="0.5 dashed #000"/>
+	  <text value="À découper et à joindre à votre règlement" top="3mm" bold="true" />
+	  <text value="Reste à payer ({{invoice.lines[0].price.currency/code}}) : {{invoice/rest_to_pay}}" top="8mm"/>
+	  <text value="N°Facture : {{invoice/number}}" top="12mm"/>
+	  <text value="Client : {{invoice.client/code}}" top="16mm" align="left" />
+	  <!--<text value="{{invoice.client/full_name}}" top="9mm"  align="left" />-->
 	  <!--<text value="Reste à payer ({{invoice.lines[0].price.currency/code}}) {{invoice.client/reverse_balance}}" top="13mm" right="20.mm" align="right" />*-->
-	  <text value="Reste à payer ({{invoice.lines[0].price.currency/code}}) {{invoice/rest_to_pay}}" top="13mm" right="40mm" />
 		     
 	</set>
+
+
       </part>
 
- <part if="invoice/rest_to_pay&lt;=0" height="20mm" bottom="true">
+      <part if="invoice/rest_to_pay&lt;=0" height="20mm" bottom="true">
 	<set>
 	  <line path="0,1mm ; 100%,1mm" width="0.5"/>
 	  <set top="2.5mm"> 

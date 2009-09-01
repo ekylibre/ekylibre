@@ -156,6 +156,12 @@ fr-FR:
             immediate: 0 jour
             standard: 30 jours, fin de mois
         department_name: Gestion/Production
+        document_natures:
+          invoice: Facture
+          sale_order: Vente
+        document_templates:
+          invoice: Facture de vente
+          sale_order: 'Devis/Commande'
         entities_numeration: Numérotation des relations
         establishment_name: Établissement principal
         financialyear_code: 1A2
@@ -334,7 +340,7 @@ fr-FR:
         F: Clôturée
       sale: Vente
       sales_conditions:
-        downpayment: 'Un acompte de {{percent}}% (soit {{amount}}€) à la signature du présent devis.'
+        downpayment: 'Un acompte de {{percent}}% (soit {{amount}}€) devra être versé à la signature du présent devis.'
         validity: 'Ce devis et ses conditions générales sont valables jusqu''au {{expiration}}.'
     sale_order_nature:
       payment_types:
@@ -343,7 +349,7 @@ fr-FR:
     sale_order_line:
       currency_is_not_sale_order_currency: 'Le prix du produit ne correspond pas à la monnaie définie pour la vente'
       error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
-      reduction_on: 'Remise de {{rate}}% sur le produit {{product}}'
+      reduction_on: 'Remise de {{percent}}% sur : {{product}}'
       stock_location_can_not_transfer_product : 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}} '
     sequence:
       periods:

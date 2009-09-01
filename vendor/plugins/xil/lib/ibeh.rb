@@ -5,7 +5,6 @@ class ::Numeric
 end
 
 module Ibeh
-  include ActionView::Helpers::NumberHelper
 
 
   def self.document(writer, view=nil, &block)
@@ -21,6 +20,7 @@ module Ibeh
 
   # Default xil element
   class Element
+    include ActionView::Helpers::NumberHelper
     attr_reader :writer
 
     @@testing = false
@@ -161,10 +161,10 @@ module Ibeh
                 options = c[:options]||{}
                 value = (x.is_a?(Hash) ? x[c[:value]] : x.instance_eval(c[:value]))
                 if value.is_a? Date
-                  value = ::I18n.localize(value, :format=>options[:format]||:default)  if options[:format]
+                  value = ::I18n.localize(value, :format=>options[:format]||:default) if options[:format]
                   options[:align] ||= :center
                 elsif value.is_a? Numeric
-                  value = number_to_currency(value, :separator=>options[:separator]||',', :delimiter=>options[:delimiter]||' ', :unit=>options[:unit]||'', :precision=>options[:precision]||2) if options[:format]==:money
+                  value = number_to_currency(value, :separator=>options[:separator]||',', :delimiter=>options[:delimiter]||' ', :unit=>options[:unit]||'', :precision=>options[:precision]||2) if options[:numeric]==:money
                   options[:align] ||= :right
                 end                
                 part.resize_to(textbox(value.to_s, c[:width], part.height, :left=>c[:offset], :top=>0.5.mm, :align=>options[:align]))

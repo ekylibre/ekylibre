@@ -379,7 +379,7 @@ fr-FR:
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
-        rate: (((RATE)))
+        rate: Taux de change
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1556,7 +1556,7 @@ fr-FR:
         lock_version: 'Version'
         name: 'Nom'
         nature: 'Type'
-        read_nature: 'Type'
+        nature_label: 'Type'
         reduction_rate: 'Taux de réduction'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'

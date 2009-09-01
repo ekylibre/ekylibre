@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
     columns = [columns] if [String, Symbol].include? columns.class 
     columns = columns.collect{|k,v| v.collect{|x| "#{k}.#{x}"}} if columns.is_a? Hash
     columns.flatten!
-    raise Exception.new "Bad columns: "+columns.inspect unless columns.is_a? Array
+    raise Exception.new("Bad columns: "+columns.inspect) unless columns.is_a? Array
     code = ""
     code+="c=['#{model.table_name}.company_id=?', @current_company.id]\n"
     code+="session[:#{model.name.underscore}_key].to_s.lower.split(/\\s+/).each{|kw| kw='%'+kw+'%';"

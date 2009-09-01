@@ -170,7 +170,7 @@ class SaleOrder < ActiveRecord::Base
         sum += line.price.amount_with_taxes*line.undelivered_quantity
        end
     end
-    sum
+    sum.round(2)
   end
 
   def unpaid_amount(only_invoices=true, only_received_payments=false)
@@ -235,7 +235,7 @@ class SaleOrder < ActiveRecord::Base
 #     end
 #     c
     c = []
-    c << tc('sales_conditions.downpayment', :percent=>self.nature.downpayment_rate, :amount=>(self.nature.downpayment_rate*self.amount_with_taxes).round(2)) if self.amount_with_taxes>self.nature.downpayment_minimum
+    c << tc('sales_conditions.downpayment', :percent=>100*self.nature.downpayment_rate, :amount=>(self.nature.downpayment_rate*self.amount_with_taxes).round(2)) if self.amount_with_taxes>self.nature.downpayment_minimum
     c << tc('sales_conditions.validity', :expiration=>::I18n.localize(self.expired_on, :format=>:legal))
     c += self.company.sales_conditions.to_s.split(/\s*\n\s*/)
     c += self.responsible.department.sales_conditions.to_s.split(/\s*\n\s*/)

@@ -52,12 +52,8 @@ class SaleOrderLine < ActiveRecord::Base
     self.account_id ||= 0
     self.price_amount ||= 0
 
-    if self.reduction_origin_id.nil?
-      self.label = self.product.catalog_name
-    else
-      self.label = tc('reduction_on', :product=>self.product.catalog_name, :rate=>self.order.client.max_reduction_rate)
-    end
-    
+    reduction_rate = self.order.client.max_reduction_rate
+
     if self.price_amount > 0
       price = Price.create!(:amount=>self.price_amount, :tax_id=>self.tax.id, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id, :category_id=>self.order.client.category_id)
       self.price_id = price.id
@@ -68,11 +64,18 @@ class SaleOrderLine < ActiveRecord::Base
         self.amount = (self.price.amount*self.quantity).round(2)
         self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2) 
       else
-        self.amount = -(self.order.client.max_reduction_rate*0.01)*self.reduction_origin.amount_with_taxes
-        self.amount_with_taxes = self.amount
+        self.quantity = -reduction_rate*self.reduction_origin.quantity
+        self.amount   = -reduction_rate*self.reduction_origin.amount       
+        self.amount_with_taxes = -reduction_rate*self.reduction_origin.amount_with_taxes
       end
     end
-    
+
+    if self.reduction_origin_id.nil?
+      self.label = self.product.catalog_name
+    else
+      self.label = tc('reduction_on', :product=>self.product.catalog_name, :rate=>reduction_rate, :percent=>reduction_rate*100, :amount=>self.amount_with_taxes-self.reduction_origin.amount_with_taxes)
+    end
+        
     if self.location.reservoir && self.location.product_id != self.product_id
       check_reservoir = false
       errors.add_to_base(tc(:stock_location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name, :account_id=>0, :unit_id=>self.unit_id) 
@@ -81,14 +84,15 @@ class SaleOrderLine < ActiveRecord::Base
   end
 
   def after_create
-    if self.order.client.max_reduction_rate > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
-      SaleOrderLine.create!(:reduction_origin_id=>self.id, :company_id=>self.company_id, :price_id=>self.price_id, :product_id=>self.product_id, :order_id=>self.order_id, :location_id=>self.location_id, :quantity=>self.quantity*(self.order.client.max_reduction_rate*-0.01) ) 
+    reduction_rate = self.order.client.max_reduction_rate
+    if reduction_rate > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
+      self.company.sale_order_lines.create!(:reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :order_id=>self.order_id, :location_id=>self.location_id, :quantity=>-self.quantity*reduction_rate)
     end
     true
   end
   
   def after_update
-    self.reduction.update_attributes(:quantity=>self.quantity*(self.order.client.max_reduction_rate*-0.01), :product_id=>self.product_id, :price_id=>self.price_id, :location_id=>self.location_id) if self.reduction
+    self.reduction.update_attributes(:quantity=>self.quantity*(-self.order.client.max_reduction_rate), :product_id=>self.product_id, :price_id=>self.price_id, :location_id=>self.location_id) if self.reduction
   end
   
   def after_destroy
@@ -131,6 +135,12 @@ class SaleOrderLine < ActiveRecord::Base
 
   def product_name
     self.product ? self.product.name : tc(:no_product) 
+  end
+
+  def designation
+    d  = self.label
+    d += "\n"+self.annotation.to_s unless self.annotation.blank?
+    d
   end
 
   # TO DELETE

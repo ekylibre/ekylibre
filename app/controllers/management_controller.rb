@@ -553,7 +553,7 @@ class ManagementController < ApplicationController
   end
 
 
-  dyli(:entities, [:full_name], :conditions => {:company_id=>['@current_company.id'], :supplier=>true})
+  dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id'], :supplier=>true})
   dyli(:contacts, [:address], :conditions => { :company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
   def purchases
@@ -837,7 +837,7 @@ class ManagementController < ApplicationController
     redirect_to :action=>:sales_general
   end
 
-  dyli(:clients, [:full_name], :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :client=>true})
+  dyli(:clients, [:code, :full_name], :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :client=>true})
 
   def sales_general
     sales_contacts
@@ -1126,10 +1126,14 @@ class ManagementController < ApplicationController
     @sale_order_lines = @sale_order.lines
     @delivery = Delivery.new(params[:delivery])
     @delivery_lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, session[:current_delivery])
-    for lines in  @sale_order_lines
-      @delivery.amount_with_taxes += (lines.price.amount_with_taxes*(params[:delivery_line][lines.id.to_s][:quantity]).to_f)
-      @delivery.amount += (lines.price.amount*(params[:delivery_line][lines.id.to_s][:quantity]).to_f)
+    for line in  @sale_order_lines
+      if params[:delivery_line][line.id.to_s]
+        @delivery.amount_with_taxes += (line.price.amount_with_taxes*(params[:delivery_line][line.id.to_s][:quantity]).to_f)
+        @delivery.amount += (line.price.amount*(params[:delivery_line][line.id.to_s][:quantity]).to_f)
+      end
     end
+    @delivery.amount = @delivery.amount.round(2)
+    @delivery.amount_with_taxes = @delivery.amount_with_taxes.round(2)
   end
 
   def deliveries_create
@@ -1704,6 +1708,7 @@ class ManagementController < ApplicationController
     t.column :name
     t.column :nature_label, :children=>false
     t.column :actual_number, :children=>false
+    t.column :reduction_rate, :children=>false
     t.action :subscription_natures_increment, :method=>:post, :if=>"RECORD.nature=='quantity'"
     t.action :subscription_natures_decrement, :method=>:post, :if=>"RECORD.nature=='quantity'"
     t.action :subscription_natures_display

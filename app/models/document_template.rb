@@ -29,6 +29,8 @@ class DocumentTemplate < ActiveRecord::Base
 
   attr_readonly :company_id
 
+  include ActionView::Helpers::NumberHelper
+
   def before_validation
     self.cache = self.class.compile(self.source) # rescue nil
     begin
@@ -159,7 +161,7 @@ class DocumentTemplate < ActiveRecord::Base
 
     def str_to_measure(string, nvar)
       string = string.to_s
-      '('+if string.match(/\-?\d+(\.\d+)?mm/)
+      m = if string.match(/\-?\d+(\.\d+)?mm/)
             string[0..-3]+'.mm'
           elsif string.match(/\-?\d+(\.\d+)?\%/)
             string[0..-2].to_f == 100 ? "#{nvar}.width" : (string[0..-2].to_f/100).to_s+"*#{nvar}.width"
@@ -167,13 +169,15 @@ class DocumentTemplate < ActiveRecord::Base
             string
           else
             " (0) "
-          end+')'
+          end
+      m = '('+m+')' if m.match(/^\-/)
+      return m
     end
 
     
     def attr_to_s(k, v, nvar)
       case(k)
-      when :align, :valign then
+      when :align, :valign, :numeric then
         ":#{v.strip.gsub(/\s+/,'_')}"
       when :top, :left, :right, :width, :height, :size, :border_width then
         str_to_measure(v, nvar)
@@ -185,6 +189,12 @@ class DocumentTemplate < ActiveRecord::Base
         "{:width=>#{str_to_measure(border[0], nvar)}, :style=>:#{border[1]}, :color=>#{border[2].inspect}}"
       when :collection then
         v
+      when :format
+        if v.to_s.match(/x/)
+          v.to_s.split(/x/)[0..1].collect{|x| str_to_measure(x.strip)}
+        else
+          ':'+v.to_s.lower
+        end
       when :property then
         "'"+v.gsub(/\//, '.')+"'"
       when :resize, :fixed, :bold, :italic then
@@ -196,6 +206,8 @@ class DocumentTemplate < ActiveRecord::Base
           datum = case data[1].to_s.split('=')[0]
                   when 'format'
                     "::I18n.localize(#{datum}, :format=>:legal)"
+                  when 'numeric'
+                    "number_to_currency(#{datum}, :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2)"
                   else
                     datum
                   end

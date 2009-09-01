@@ -426,9 +426,9 @@ class CompanyController < ApplicationController
     {'sale_order'=>{:to_archive=>false}, 'invoice'=>{:to_archive=>true}}.each do |m, options|
       # Sale_order
       nature = @current_company.document_natures.find_by_code(m)
-      nature = @current_company.document_natures.create(:code=>m, :name=>tc('default_document_natures.'+m.to_s), :to_archive=>options[:to_archive], :family=>'management') if nature.nil?
+      nature = @current_company.document_natures.create(:code=>m, :name=>t('models.company.default.document_natures.'+m.to_s), :to_archive=>options[:to_archive], :family=>'management') if nature.nil?
       File.open("#{prints_dir}/#{m}.xml", 'rb') do |f|
-        @current_company.document_templates.create(:nature_id=>nature.id, :active=>true, :name=>tc('default_document_templates.'+m.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read)
+        @current_company.document_templates.create(:nature_id=>nature.id, :active=>true, :name=>t('models.company.default.document_templates.'+m.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read)
       end
     end
     redirect_to :action=>:document_templates
@@ -459,6 +459,14 @@ class CompanyController < ApplicationController
     end
     @title = {:value=>@document_template.name}
     render_form    
+  end
+
+  def document_templates_delete
+    if request.post? or request.delete?
+      @document_template = DocumentTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
+      DocumentTemplate.destroy(@document_template.id) if @document_template and @document_template.destroyable?
+    end
+    redirect_to_current
   end
 
 
@@ -503,6 +511,14 @@ class CompanyController < ApplicationController
     end
     @title = {:value=>@document_nature.name}
     render_form    
+  end
+
+  def document_natures_delete
+    if request.post? or request.delete?
+      @document_nature = DocumentNature.find_by_id_and_company_id(params[:id], @current_company.id)
+      DocumentNature.destroy(@document_nature.id) if @document_nature and @document_nature.destroyable?
+    end
+    redirect_to_current
   end
 
 

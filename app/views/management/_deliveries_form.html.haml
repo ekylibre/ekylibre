@@ -15,7 +15,7 @@
     %th Quantité
   -for @line in @delivery_lines
     %tr{:class=>cycle('odd','even')}
-      %td=@line.order_line.product.name
+      %td=@line.order_line.label
       %td=@line.order_line.price.amount
       %td=@line.order_line.price.amount_with_taxes
       %td=@line.order_line.unit.name
