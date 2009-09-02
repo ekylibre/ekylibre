@@ -7,7 +7,7 @@ if @product.nature == "subscrip"
   elsif @product.subscription_nature.nature == "quantity"
     page['subscription_line'].show
     contact = @current_company.contacts.find(:first, :conditions=>{:active=>true, :entity_id=>session[:current_entity]})||@current_company.contacts.find(:first)
-    page.replace_html 'sub_line', tc('from')+" "+@product.subscription_nature.actual_number.to_s+" "+tc('to')+" "+(@product.subscription_nature.actual_number + @product.subscription_quantity).to_s+" "+tc('contact')+" "+contact.entity.full_name+" "+contact.address
+    page.replace_html 'sub_line', tc('from')+" "+@product.subscription_nature.actual_number.to_s+" "+tc('to')+" "+(@product.subscription_nature.actual_number + (@product.subscription_quantity||0)).to_s+" "+tc('contact')+" "+contact.entity.full_name+" "+contact.address
   else 
     page['subscription_line'].hide  
   end

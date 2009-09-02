@@ -1338,7 +1338,7 @@ fr-FR:
         entity_id: (((ENTITY_ID)))
         id: 'ID'
         invoiced: (((INVOICED)))
-        label: (((LABEL)))
+        label: 'Produit'
         location_id: 'Lieu de stockage'
         lock_version: 'Version'
         order_id: (((ORDER_ID)))

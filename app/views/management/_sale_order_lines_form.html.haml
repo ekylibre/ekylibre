@@ -23,7 +23,7 @@
 
 #subscriptions{:style=>'display:none'}
   =formalize do |f|
-    - f.field :subscription, :contact_id, :choices=>:all_contacts
+    - f.field :subscription, :contact_id, :choices=>:subscription_contacts
 
 -#if @current_user.free_price
 =formalize do |f|
