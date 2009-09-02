@@ -553,7 +553,8 @@ class ManagementController < ApplicationController
   end
 
 
-  dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id'], :supplier=>true})
+  dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
+  dyli(:suppliers, [:code, :full_name],  :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :supplier=>true })
   dyli(:contacts, [:address], :conditions => { :company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
   def purchases
@@ -1508,8 +1509,10 @@ class ManagementController < ApplicationController
         end
       end
     else
+      last_payment = @sale_order.client.payments.find(:first, :order=>"paid_on desc")
+      #raise Exception.new last_payment.inspect
       has_invoices = (@sale_order.invoices.size>0)
-      @payment = Payment.new(:paid_on=>Date.today, :to_bank_on=>Date.today, :amount=>@sale_order.unpaid_amount(has_invoices))
+      @payment = Payment.new(:paid_on=>Date.today, :to_bank_on=>Date.today, :amount=>@sale_order.unpaid_amount(has_invoices), :embanker_id=>@current_user.id, :bank=>last_payment.nil? ? "" : last_payment.bank, :account_number=>last_payment.nil? ? "" : last_payment.account_number)
     end
     @title = {:value=>@sale_order.number}
     render_form

@@ -144,7 +144,7 @@ class SaleOrder < ActiveRecord::Base
     array << [:invoiced_amount, invoiced]
     array << [:paid_amount, paid = self.payment_parts.sum(:amount)]
     array << [:unpaid_amount, invoiced - paid]
-    array
+    array 
   end
 
 
@@ -205,7 +205,7 @@ class SaleOrder < ActiveRecord::Base
 
   def status
     status = ""
-    status = "critic" if not ['F','P'].include? self.state and self.parts_amount.to_f < self.amount_with_taxes.to_f
+    status = "critic" if not ['F','P'].include? self.state and self.parts_amount.to_f < self.amount_with_taxes
     status
   end
 
