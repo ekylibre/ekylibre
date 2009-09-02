@@ -38,8 +38,9 @@ class Document < ActiveRecord::Base
 
   DIRECTORY = "#{RAILS_ROOT}/private"
 
-  
-
+  def before_validation
+    self.nature_code = self.template.nature.code if self.template
+  end
 
   def data
     path = self.file_path

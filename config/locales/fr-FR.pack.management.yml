@@ -59,7 +59,7 @@ fr-FR:
       sales_step_2: 'Produits'
       sales_step_3: 'Livraisons'
       sales_step_4: 'Règlements'
-     
+
   views:
     management:
       delays:
@@ -398,8 +398,8 @@ fr-FR:
         invoices: 'Factures'
         payments: 'Règlements de la vente'
         sale_order_lines: 'Lignes de vente'
-        sales_products: 'Modifier la vente'
         sales_print: 'Imprimer la vente'
+        sales_products: 'Modifier la vente'
         title: 'Détails de la vente {{value}} au client {{name}}'
       sales_general:
         client: 'Sélection du client'

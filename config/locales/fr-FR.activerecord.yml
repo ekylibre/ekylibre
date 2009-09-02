@@ -48,6 +48,8 @@ fr-FR:
       department: 'Service'
       district: 'Zone administrative'
       document: 'Document'
+      document_nature: 'Type de document'
+      document_template: 'Modèle de document'
       embankment: 'Encaissement'
       employee: 'Employé'
       entity: 'Relation'
@@ -78,8 +80,6 @@ fr-FR:
       payment_part: 'Partie de réglement'
       price: 'Prix'
       price_tax: 'Taxe de prix'
-      document_template: 'Modèle de document'
-      document_nature: 'Type de document'
       product: 'Produit'
       product_component: 'Composant de produit'
       product_stock: 'Stock de produit'
@@ -263,9 +263,9 @@ fr-FR:
         deleted: 'Effacé'
         entity_id: 'Fiche relation'
         id: 'ID'
-        invoice_sequence_id: Séquence de facturation
+        invoice_sequence_id: 'Séquence de facturation'
         lock_version: 'Version'
-        locked: Verrouillée
+        locked: 'Verrouillée'
         name: 'Nom'
         purchases_journal: 'Journal d''achats'
         sales: 'Ventes'
@@ -379,7 +379,7 @@ fr-FR:
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
-        rate: Taux de change
+        rate: 'Taux de change'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -406,6 +406,7 @@ fr-FR:
         contact_id: 'Adresse du client'
         created_at: 'Créé le'
         creator_id: 'Créateur'
+        currency_id: (((CURRENCY_ID)))
         delivered: 'Livré'
         delivered_on: 'Reçu le'
         id: 'ID'
@@ -466,6 +467,7 @@ fr-FR:
         lock_version: 'Version'
         name: 'Nom'
         parent_id: (((PARENT_ID)))
+        sales_conditions: (((SALES_CONDITIONS)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -494,6 +496,7 @@ fr-FR:
         id: 'ID'
         key: '(((KEY)))'
         lock_version: 'Version'
+        nature_code: (((NATURE_CODE)))
         original_name: (((ORIGINAL_NAME)))
         owner_id: 'Propriétaire'
         owner_type: 'Nature du propriétaire'
@@ -501,6 +504,40 @@ fr-FR:
         sha256: (((SHA256)))
         subdir: 'Sous-répertoire'
         template: 'Modèle'
+        template_id: (((TEMPLATE_ID)))
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+
+      # Type de document
+      document_nature:
+        code: 'Code'
+        company_id: 'Société'
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        family: 'Module'
+        family_label: 'Module'
+        id: 'ID'
+        lock_version: 'Version'
+        name: 'Nom'
+        to_archive: 'Archiver les documents'
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+
+      # Modèle de document
+      document_template:
+        active: 'Actif'
+        cache: (((CACHE)))
+        company_id: 'Société'
+        country: 'Pays'
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        deleted: (((DELETED)))
+        id: 'ID'
+        language_id: 'Langue'
+        lock_version: 'Version'
+        name: 'Nom'
+        nature_id: 'Nature'
+        source: 'Source'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -549,6 +586,7 @@ fr-FR:
       # Relation
       entity:
         active: 'Actif'
+        activity_code: (((ACTIVITY_CODE)))
         authorized_payments_count: 'Nombre de règlements autorisés'
         born_on: 'Date de naissance'
         category_id: 'Catégorie'
@@ -779,7 +817,7 @@ fr-FR:
       invoice:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
-        annotation: Annotation
+        annotation: 'Annotation'
         client_id: 'Client'
         company_id: 'Société'
         contact_id: 'Adresse'
@@ -787,16 +825,17 @@ fr-FR:
         created_on: 'Créée le'
         creator_id: 'Créateur'
         credit: 'Avoir'
-        downpayment_amount: "Montant de l'acompte"
-        has_downpayment: A un acompte
+        currency_id: (((CURRENCY_ID)))
+        downpayment_amount: 'Montant de l''acompte'
+        has_downpayment: 'A un acompte'
         id: 'ID'
         lock_version: 'Version'
-        lost: En perte
-        nature: Nature
+        lost: 'En perte'
+        nature: 'Nature'
         number: 'Numéro'
         origin_id: 'Facture d''origine'
-        paid: Réglée
-        payment_delay_id: Délai de paiement
+        paid: 'Réglée'
+        payment_delay_id: 'Délai de paiement'
         payment_on: 'A régler le plus tard le'
         sale_order: 'Vente'
         sale_order_id: 'Vente'
@@ -807,13 +846,13 @@ fr-FR:
       invoice_line:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
-        annotation: Annotation
+        annotation: 'Annotation'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
         entity_id: (((ENTITY_ID)))
         id: 'ID'
-        invoice_id: Facture
+        invoice_id: 'Facture'
         lock_version: 'Version'
         order_line_id: (((ORDER_LINE_ID)))
         origin_id: (((ORIGIN_ID)))
@@ -1075,21 +1114,6 @@ fr-FR:
         tax_id: (((TAX_ID)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
- 
-      document_template:
-        active: Actif
-        nature_id: Nature	
-        name: Nom
-        language_id: Langue
-        country: Pays
-        source: Source
-
-      document_nature:
-        name: Nom
-        code: Code
-        family: Module
-        family_label: Module
-        to_archive: Archiver les documents
 
       # Produit
       product:
@@ -1272,7 +1296,7 @@ fr-FR:
         conclusion: 'Conclusion'
         confirmed_on: 'Confirmée le'
         contact_id: 'Adresse pour le devis'
-        created_at: 'Créée le'
+        created_at: 'Créé le'
         created_on: 'Créée le'
         creator_id: 'Créateur'
         currency_id: 'Devise'
@@ -1314,6 +1338,7 @@ fr-FR:
         entity_id: (((ENTITY_ID)))
         id: 'ID'
         invoiced: (((INVOICED)))
+        label: (((LABEL)))
         location_id: 'Lieu de stockage'
         lock_version: 'Version'
         order_id: (((ORDER_ID)))
@@ -1323,6 +1348,7 @@ fr-FR:
         price_list_id: 'Tarif'
         product_id: 'Produit'
         quantity: 'Quantité'
+        reduction_origin_id: (((REDUCTION_ORIGIN_ID)))
         tax_id: 'Taxe'
         undelivered_quantity: 'Reste à livrer'
         unit_id: 'Unité'
@@ -1552,6 +1578,7 @@ fr-FR:
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
+        entity_link_nature_id: 'Type de lien permettant d''étendre l''abonnement'
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'

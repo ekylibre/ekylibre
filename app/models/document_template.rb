@@ -57,7 +57,8 @@ class DocumentTemplate < ActiveRecord::Base
 
     # Try to find an existing archive
     if self.nature.to_archive
-      document = self.documents.find(:first, :conditions=>["owner_id = ? and owner_type = ?", object.id, object.class.name], :order=>"created_at DESC")
+      # document = self.documents.find(:first, :conditions=>["owner_id = ? and owner_type = ?", object.id, object.class.name], :order=>"created_at DESC")
+      document = self.company.documents.find(:first, :conditions=>{:nature_code=>self.nature.code, :owner_id=>object.id, :owner_type=>object.class.name}, :order=>"created_at DESC")
       begin
         return document.data if document
       rescue

@@ -43,6 +43,21 @@ fr-FR:
         subtitle: 'Renseignez les différentes caractéristiques du service'
       departments_update:
         title: 'Modification du service'
+      document_natures:
+        document_natures_create: 'Créer un type de document'
+        title: 'Liste des types de document'
+      document_natures_create:
+        title: 'Création d''un type de document'
+      document_natures_update:
+        title: 'Modification du type de document "{{value}}"'
+      document_templates:
+        document_templates_create: 'Créer un modèle de document'
+        document_templates_load: 'Charger les modèles par défaut'
+        title: 'Liste des modèles de document'
+      document_templates_create:
+        title: 'Création d''un modèle de document'
+      document_templates_update:
+        title: 'Modification du modèle de document "{{value}}"'
       establishments:
         establishments_create: 'Ajouter un nouvel établissement'
         title: 'Liste des établissements'
@@ -69,6 +84,8 @@ fr-FR:
         change_password: 'Modifier mon mot de passe'
         configure: 'Configuration'
         departments: 'Services'
+        document_natures: 'Types de documents'
+        document_templates: 'Modèles de documents'
         establishments: 'Établissements'
         general: 'Autres paramètres'
         help: 'Aide'
@@ -90,8 +107,6 @@ fr-FR:
           other: '{{count}} livraisons en attente '
           zero: 'Aucune livraison en attente'
         parameters: 'Paramètres'
-        document_templates: "Modèles de documents"
-        document_natures: "Types de documents"
         production: 'Gestion de la production'
         relations: 'Gestion des relations clients/fournisseurs'
         resources: 'Gestion des ressources humaines'
@@ -113,22 +128,6 @@ fr-FR:
         title: 'Envoyer un mail pour "{{listing}}"'
       listings_update:
         title: 'Modification de l''extraction {{value}}'
-      document_templates:
-        document_templates_create: 'Créer un modèle de document'
-        document_templates_load: 'Charger les modèles par défaut'
-        title: 'Liste des modèles de document'
-      document_templates_create:
-        title: 'Création d''un modèle de document'
-      document_templates_update:
-        title: 'Modification du modèle de document "{{value}}"'
-      
-      document_natures:
-        document_natures_create: 'Créer un type de document'
-        title: 'Liste des types de document'
-      document_natures_create:
-        title: 'Création d''un type de document'
-      document_natures_update:
-        title: 'Modification du type de document "{{value}}"'
       _rights_form:
         accountancy_rights: 'Droits module Comptabilité'
         company_rights: 'Droits module Société'

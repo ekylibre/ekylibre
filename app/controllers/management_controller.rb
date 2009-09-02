@@ -1295,6 +1295,7 @@ class ManagementController < ApplicationController
     t.column :amount, :url=>{:action=>:embankments_display}
     t.column :payments_count
     t.column :name, :through=>:bank_account
+    t.column :label, :through=>:embanker
     t.column :created_on
     t.action :embankments_display
     t.action :embankments_print

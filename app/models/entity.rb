@@ -229,10 +229,9 @@ class Entity < ActiveRecord::Base
 
 
 
-  # TODO:  Prendre en compte les liens si demandé
   def max_reduction_rate(computed_on=Date.today)
     # Subscription.count_by_sql(["SELECT max(reduction_rate) FROM subscriptions AS s JOIN subscription_natures ON (s.nature_id = subscription_natures.id) WHERE s.entity_id = ? AND s.company_id = ? AND ? BETWEEN s.started_on AND s.stopped_on", self.id, self.company_id, computed_on]).to_f
-    Subscription.maximum(:reduction_rate, :joins=>"JOIN subscription_natures ON (nature_id = subscription_natures.id)", :conditions=>["subscriptions.entity_id = ? AND subscriptions.company_id = ? AND ? BETWEEN started_on AND stopped_on", self.id, self.company_id, computed_on]).to_f
+    Subscription.maximum(:reduction_rate, :joins=>"JOIN subscription_natures AS sn ON (nature_id = sn.id) LEFT JOIN entity_links AS el ON (el.nature_id = sn.entity_link_nature_id AND subscriptions.entity_id IN (entity1_id, entity2_id))", :conditions=>["? IN (subscriptions.entity_id, entity1_id, entity2_id) AND ? BETWEEN subscriptions.started_on AND subscriptions.stopped_on AND subscriptions.company_id = ?", self.id, computed_on, self.company_id]).to_f
   end
   
 end 

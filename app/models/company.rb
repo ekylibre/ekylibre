@@ -263,14 +263,14 @@ class Company < ActiveRecord::Base
 #     checks
 #   end
 
-  def checks_to_embank(mode_id)
+  def checks_to_embank(mode_id=0)
     checks = []
     if mode_id == 0 
-      checks = self.payments.find(:all, :conditions=>['embankment_id IS NULL'], :joins=>"INNER JOIN payment_modes p ON p.mode = 'check' AND p.id = payments.mode_id")
+      checks = self.payments.find(:all, :conditions=>['embanker_id IS NOT NULL AND embankment_id IS NULL'], :joins=>"INNER JOIN payment_modes p ON p.mode = 'check' AND p.id = payments.mode_id")
     elsif mode_id == -1
-      checks = self.payments.find(:all, :conditions=>['embankment_id IS NULL AND  current_date >= to_bank_on+15'], :joins=>"INNER JOIN payment_modes p ON p.mode = 'check' AND p.id = payments.mode_id")
+      checks = self.payments.find(:all, :conditions=>['embanker_id IS NOT NULL AND embankment_id IS NULL AND  current_date >= to_bank_on+15'], :joins=>"INNER JOIN payment_modes p ON p.mode = 'check' AND p.id = payments.mode_id")
     else
-      checks = self.payments.find(:all, :conditions=>['embankment_id IS NULL AND mode_id = ?', mode_id], :joins=>"INNER JOIN payment_modes p ON p.mode = 'check' AND p.id = payments.mode_id")
+      checks = self.payments.find(:all, :conditions=>['embanker_id IS NOT NULL AND embankment_id IS NULL AND mode_id = ?', mode_id], :joins=>"INNER JOIN payment_modes p ON p.mode = 'check' AND p.id = payments.mode_id")
     end
     checks
   end
