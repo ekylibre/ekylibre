@@ -597,21 +597,21 @@ class CompanyController < ApplicationController
     @listing = find_and_check(:listing, params[:id])
     query = @listing.query
     query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
-    result = ActiveRecord::Base.connection.select_all(@listing.query)
-    columns = result[0].keys.sort
-    csv_string = FasterCSV.generate do |csv|
-      csv << columns
-      for line in result
-        csv << columns.collect{|column| line[column]}
-      end
-    end
-
-#    result = ActiveRecord::Base.connection.select_rows(@listing.query)
+#     result = ActiveRecord::Base.connection.select_all(@listing.query)
+#     columns = result[0].keys.sort
 #     csv_string = FasterCSV.generate do |csv|
+#       csv << columns
 #       for line in result
-#         csv << line
+#         csv << columns.collect{|column| line[column]}
 #       end
 #     end
+
+    result = ActiveRecord::Base.connection.select_rows(@listing.query)
+    csv_string = FasterCSV.generate do |csv|
+      for line in result
+        csv << line
+      end
+    end
 
     send_data csv_string, :filename=>@listing.name.simpleize+'.csv', :type=>Mime::CSV, :disposition=>"inline"
   end
