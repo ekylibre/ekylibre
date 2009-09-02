@@ -303,7 +303,7 @@ class RelationsController < ApplicationController
     t.column :default
     t.column :code, :through=>:entity, :url=>{:action=>:entities_display}, :label=>tc(:entity_id)
     t.action :entities_contacts_update  
-    t.action :entities_contacts_delete  , :method=>:post, :confirm=>:are_you_sure
+    t.action :entities_contacts_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions, :order=>{'sort'=>'stopped_on DESC, first_number', 'dir'=>'DESC'}, :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
@@ -315,6 +315,8 @@ class RelationsController < ApplicationController
     t.column :address, :through=>:contact
     t.column :quantity, :datatype=>:decimal
     t.column :suspended
+    t.action :subscriptions_update, :controller=>:management
+    t.action :subscriptions_delete, :controller=>:management, :method=>:post, :confirm=>:are_you_sure
   end
 
   dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|

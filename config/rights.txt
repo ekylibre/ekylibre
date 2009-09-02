@@ -87,6 +87,7 @@ company          document_natures_update          manage_document_natures
 company          dyta_document_natures            manage_document_natures
 company          document_templates               manage_document_templates
 company          document_templates_create        manage_document_templates
+company          document_templates_print         manage_document_templates
 company          document_templates_delete        manage_document_templates
 company          document_templates_duplicate     manage_document_templates
 company          document_templates_load          manage_document_templates
@@ -270,6 +271,8 @@ management       subscription_natures_update      manage_subscriptions
 management       subscription_options             manage_subscriptions
 management       subscriptions                    manage_subscriptions
 management       subscriptions_create             manage_subscriptions
+management       subscriptions_update             manage_subscriptions
+management       subscriptions_delete             manage_subscriptions
 management       subscriptions_period             manage_subscriptions
 management       dyta_taxes                       manage_taxes
 management       taxes                            manage_taxes

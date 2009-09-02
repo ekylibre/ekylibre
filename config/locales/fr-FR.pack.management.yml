@@ -555,6 +555,8 @@ fr-FR:
         title: 'Abonnements'
       subscriptions_create:
         title: 'Création d''un abonnement'
+      subscriptions_update:
+        title: 'Modification de "{{value}}" du {{start}} au {{finish}}'
       taxes:
         taxes_create: 'Ajouter une nouvelle taxe'
         title: 'Taxes'

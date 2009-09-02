@@ -4,7 +4,7 @@
   -f.field :subscription, :contact_id, :choices=>:subscription_contacts
   -#f.field :subscription, :invoice_id
   -#f.field :subscription, :sale_order_id
-  -f.field :subscription, :nature_id, :choices=>@current_company.subscription_natures.collect{|x| [x.name, x.id]}, :options=>{:include_blank=>true}
+  -f.field :subscription, :nature_id, :choices=>@current_company.subscription_natures.collect{|x| [x.name, x.id]}
   -f.field :subscription, :quantity
   -f.field :subscription, :suspended
   -f.field :subscription, :comment, :field=>:textarea

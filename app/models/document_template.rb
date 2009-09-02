@@ -99,7 +99,28 @@ class DocumentTemplate < ActiveRecord::Base
   end
 
 
-  def self.compile(source)
+  def sample
+    code = self.class.compile(self.source, :debug)
+    pdf = nil
+    begin 
+      pdf = eval(code)
+    rescue Exception=>e
+      doc = Ibeh.document(Hebi::Document.new, self)do |ibeh|
+        ibeh.page(:a4, :margin=>[15.mm]) do |p|
+          p.part 200.mm do |x|
+            x.set do |s|
+              s.text "Exception : "+e.inspect+"\n"+e.backtrace[0..25].join("\n")+"..."
+            end
+          end
+        end
+      end
+      pdf = doc.generate
+    end
+    pdf
+  end
+
+
+  def self.compile(source, mode=:normal)
     file = "#{RAILS_ROOT}/tmp/pt_compile-"+Time.now.strftime("%Y%m%d-%H%M%S")+"-"+rand.to_s+".xml"
     File.open(file, 'wb') {|f| f.write(source)}
     xml = LibXML::XML::Document.file(file)
@@ -107,12 +128,14 @@ class DocumentTemplate < ActiveRecord::Base
     # raise Exception.new template.find('*').to_a.inspect
     code = ''
     i = 0
-    parameters = template.find('parameters/parameter')
-    if parameters.size > 0
-      code << "raise ArgumentError.new('Unvalid number of argument') if args.size != #{parameters.size}\n"
-      parameters.each do |p|
-        code << "#{p.attributes['name']} = args[#{i}]\n"
-        i+=1
+    unless mode == :debug
+      parameters = template.find('parameters/parameter')
+      if parameters.size > 0
+        code << "raise ArgumentError.new('Unvalid number of argument') if args.size != #{parameters.size}\n"
+        parameters.each do |p|
+          code << "#{p.attributes['name']} = args[#{i}]\n"
+          i+=1
+        end
       end
     end
     
@@ -120,23 +143,21 @@ class DocumentTemplate < ActiveRecord::Base
 
     document = template.find('document')[0]
     document.find('page').each do |page|
-      code += "ibeh.page(#{parameters(page, 'ERROR')[0]}) do |p|\n"
+      code += "ibeh.page(#{parameters(page, 'ERROR', mode)[0]}) do |p|\n"
       page.each_element do |element|
         name = element.name.to_sym
-        code += compile_element(element, 'p') if [:table, :part].include? name
+        code += compile_element(element, 'p', mode) if [:table, :part].include? name
       end
       code += "end\n"
     end
     
     code << "end\n"
-    #code << "File.open('/tmp/test.pdf', 'wb') {|f| f.write(doc.generate)}\n"
-    #code << "@current_company.archive(@template, pdf);pdf"
     code << "doc.generate"
 
     File.delete(file)
 
     list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    return '('+code.gsub(/\s*\n\s*/, ';')+')'
+    return '('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
   end
 
   private
@@ -175,8 +196,11 @@ class DocumentTemplate < ActiveRecord::Base
       return m
     end
 
+    def attrs_to_s(attrs, nvar, mode)
+      attrs.collect{|k,v| ":#{k}=>#{attr_to_s(k, v, nvar, mode)}"}.join(', ')
+    end
     
-    def attr_to_s(k, v, nvar)
+    def attr_to_s(k, v, nvar, mode)
       case(k)
       when :align, :valign, :numeric then
         ":#{v.strip.gsub(/\s+/,'_')}"
@@ -189,7 +213,7 @@ class DocumentTemplate < ActiveRecord::Base
         raise Exception.new("Attribute border malformed: #{v.inspect}. Ex.: '1mm solid #123456'") if border.size!=3
         "{:width=>#{str_to_measure(border[0], nvar)}, :style=>:#{border[1]}, :color=>#{border[2].inspect}}"
       when :collection then
-        v
+        mode==:debug ? "[]" : v
       when :format
         if v.to_s.match(/x/)
           v.to_s.split(/x/)[0..1].collect{|x| str_to_measure(x.strip)}
@@ -212,7 +236,7 @@ class DocumentTemplate < ActiveRecord::Base
                   else
                     datum
                   end
-          "\"+#{datum}.to_s+\""
+          (mode==:debug ? "[VALUE]" : "\"+#{datum}.to_s+\"")
         end
         v = v[3..-1] if v.match(/^\"\"\+/)
         v = v[0..-4] if v.match(/\+\"\"$/)
@@ -227,13 +251,13 @@ class DocumentTemplate < ActiveRecord::Base
 
 
 
-    def parameters(element, nvar)
+    def parameters(element, nvar, mode)
       name = element.name.to_sym
       attributes, parameters = {}, []
       element.attributes.to_h.collect{|k,v| attributes[k.to_sym] = v}
-      (SET_ELEMENTS[name]||[]).each{|attr| parameters << attr_to_s(attr, attributes.delete(attr), nvar)}
+      (SET_ELEMENTS[name]||[]).each{|attr| parameters << attr_to_s(attr, attributes.delete(attr), nvar, mode)}
       attributes.delete(:if)
-      attrs = attrs_to_s(attributes, nvar)
+      attrs = attrs_to_s(attributes, nvar, mode)
       attrs = ', '+attrs if !attrs.blank? and parameters.size>0
       return parameters.join(', ')+attrs, parameters, attributes
     end
@@ -241,28 +265,26 @@ class DocumentTemplate < ActiveRecord::Base
 
 
 
-    def attrs_to_s(attrs, nvar)
-      attrs.collect{|k,v| ":#{k}=>#{attr_to_s(k, v, nvar)}"}.join(', ')
-    end
-    
-    def compile_element(element, variable='x', depth=0, skip=false)
+    def compile_element(element, variable, mode, options={}) # depth=0, skip=false)
+      depth = options[:depth]||0
+      skip = options[:skip]||false
       nvar = 'r'+depth.to_s
       code  = ''
 
-      code += "#{variable}.#{element.name}(#{parameters(element, variable)[0]}) do |#{nvar}|\n" unless skip
+      code += "#{variable}.#{element.name}(#{parameters(element, variable, mode)[0]}) do |#{nvar}|\n" unless skip
       element.each_element do |x|
         name = x.name.to_sym
         if name == :set
-          code += compile_element(x, nvar, depth+1)
+          code += compile_element(x, nvar, mode, :depth=>depth+1)
         elsif name == :image
-          params, p, attrs = parameters(x,nvar)
+          params, p, attrs = parameters(x, nvar, mode)
           code += "  if File.exist?((#{p[0]}).to_s)\n"
           code += "    #{nvar}.#{name}(#{params})\n"
           code += "  else\n"
-          code += compile_element(x, nvar, depth, true)
-          code += "  end\n"        
+          code += compile_element(x, nvar, mode, :depth=>depth, :skip=>true)
+          code += "  end\n"
         else
-          code += "  #{nvar}.#{name}(#{parameters(x,nvar)[0]})\n"
+          code += "  #{nvar}.#{name}(#{parameters(x, nvar, mode)[0]})\n"
         end
       end
       unless skip

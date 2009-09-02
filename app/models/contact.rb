@@ -92,6 +92,10 @@ class Contact < ActiveRecord::Base
     true
   end  
 
+  def label
+    self.entity.code+". "+self.address
+  end
+
   def line_6_code
     self.area.postcode if self.area
   end

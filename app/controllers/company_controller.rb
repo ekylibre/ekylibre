@@ -409,6 +409,7 @@ class CompanyController < ApplicationController
     t.column :name, :through=>:nature, :url=>{:action=>:document_natures_update}
     t.column :native_name, :through=>:language
     t.column :country
+    t.action :document_templates_print
     t.action :document_templates_update
     t.action :document_templates_duplicate
     t.action :document_templates_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
@@ -443,6 +444,11 @@ class CompanyController < ApplicationController
       @document_template = DocumentTemplate.new :country=>@current_company.entity.country, :language_id=>@current_company.entity.language_id
     end
     render_form
+  end
+
+  def document_templates_print
+    return unless @document_template = find_and_check(:document_template, params[:id])
+    send_data @document_template.sample, :filename=>@document_template.name.simpleize, :type=>Mime::PDF, :disposition=>'inline'
   end
 
   def document_templates_duplicate

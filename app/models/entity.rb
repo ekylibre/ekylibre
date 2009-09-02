@@ -76,7 +76,7 @@ class Entity < ActiveRecord::Base
   has_many :usable_payments, :conditions=>["parts_amount<amount"], :class_name=>Payment.name
   has_many :sale_orders, :foreign_key=>:client_id
   has_many :subscriptions
-  has_one :default_contact, :class_name=>Contact.name, :conditions=>{:default=>true}
+  has_one :default_contact, :class_name=>Contact.name, :conditions=>{:default=>true, :active=>true}
   
  # validates_presence_of :category_id, :if=>Proc.new{|u| u.client}
   attr_readonly :company_id
