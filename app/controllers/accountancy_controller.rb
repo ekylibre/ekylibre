@@ -337,15 +337,14 @@ class AccountancyController < ApplicationController
       end
       
       if session[:mode] == "general_ledger"
-        @ledger = Account.ledger(@current_company.id, params[:printed][:from], params[:printed][:to])
-        params[:printed][:sum] = sum
-        #raise Exception.new(@ledger.inspect)
-        params[:printed][:ledger]= @ledger
-        params[:printed][:lines]= @lines
-        @parameters = params
-        print(@current_company, :template=>"ledger", :archive=>false)
+       #  ledger = Account.ledger(@current_company.id, params[:printed][:from], params[:printed][:to])
        
-        #render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company}, :collection => @ledger
+#         ledger_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Grand livre comptabilité"})
+#         pdf = ledger_template.print(@current_company, ledger,  params[:printed][:from],  params[:printed][:to], sum)
+#         File.open('tmp/ledger.pdf', 'wb') do |f|
+#           f.write(pdf)
+#         end
+           
       end
       
     end

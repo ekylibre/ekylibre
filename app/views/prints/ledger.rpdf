@@ -31,7 +31,7 @@ page :a4, :margin=>[10.mm] do
         column "Intitulé", :name, 100.mm
         column "Crée le", :date, 20.mm
         column "Débit", :debit, 16.mm
-        column "Crédit", :credit, 12	.mm
+        column "Crédit", :credit, 12.mm
       end
     end
   end

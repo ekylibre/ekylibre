@@ -1,0 +1,6 @@
+h1. Liste des modèles de document
+
+Les modèles de document *contiennent les données* qui sont destinées à être archivés ou non sous forme de *fichier d'impression PDF*.
+
+NB: Il existe des modèles de document *par défaut comme la facture de vente ou le devis/commande*, lesquelles peuvent être chargés directement à l'aide du lien *Charger les modèles par défaut*.
+
