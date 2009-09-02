@@ -58,9 +58,8 @@ fr-FR:
       sales_step_1: 'Description'
       sales_step_2: 'Produits'
       sales_step_3: 'Livraisons'
-      sales_step_4: 'Factures'
-      sales_step_5: 'Règlements'
-
+      sales_step_4: 'Règlements'
+     
   views:
     management:
       delays:
@@ -381,6 +380,7 @@ fr-FR:
         address: 'Adresse de livraison'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
+        are_you_sure_to_invoice: 'Êtes-vous sûr(e) de vouloir facturer la vente ?'
         deliver: 'Faite le  '
         deliveries: 'Livraisons'
         deliveries_create: 'Ajouter une livraison'
@@ -450,6 +450,7 @@ fr-FR:
       sales_products:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
+        are_you_sure_to_invoice: 'Êtes-vous sûr(e) de vouloir facturer la vente ?'
         deliveries: 'Livraisons'
         estimate_to_order: 'Passer le devis en commande'
         invoice_sale_order: 'Facturer la vente'

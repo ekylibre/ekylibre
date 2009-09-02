@@ -20,6 +20,8 @@ class SubscriptionNature < ActiveRecord::Base
   belongs_to :company
   has_many :products
 
+  validates_numericality_of :reduction_rate, :greater_than=>0, :less_than_or_equal_to=>1
+
   def self.natures
     [:quantity, :period].collect{|x| [tc('natures.'+x.to_s), x] }
   end

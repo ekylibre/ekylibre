@@ -36,6 +36,7 @@ class InvoiceLine < ActiveRecord::Base
   def before_validation
     self.product = self.order_line.product
     self.price_id = self.order_line.price.id
+    self.annotation = self.order_line.annotation
     #line = InvoiceLine.find(:first, :conditions=>{:company_id=>self.company_id, :product_id=>self.order_line.product_id, :price_id=>self.price_id, :invoice_id=>self.invoice_id})
     #raise Exception.new line.inspect
     #line.update_attributes!(:quantity=>(line.quantity + self.quantity),:amount=>(line.amount + self.amount),:amount_with_taxes=>(line.amount_with_taxes + self.amount_with_taxes) ) if !line.nil? and line.id != self.id
@@ -93,4 +94,12 @@ class InvoiceLine < ActiveRecord::Base
     self.amount_with_taxes - self.amount
   end  
   
+
+  def designation
+    d  = self.order_line.label
+    d += "\n"+self.annotation.to_s unless self.annotation.blank?
+    d
+  end
+
+
 end

@@ -1265,15 +1265,15 @@ fr-FR:
       sale_order:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
-        annotation: (((ANNOTATION)))
+        annotation: 'Annotation'
         client_id: 'Client'
         comment: 'Commentaire'
         company_id: 'Société'
         conclusion: 'Conclusion'
         confirmed_on: 'Confirmée le'
         contact_id: 'Adresse pour le devis'
-        created_at: 'Créé le'
-        created_on: 'Crée le'
+        created_at: 'Créée le'
+        created_on: 'Créée le'
         creator_id: 'Créateur'
         currency_id: 'Devise'
         delivery_contact_id: 'Adresse pour la livraison'
@@ -1307,7 +1307,7 @@ fr-FR:
         account_id: (((ACCOUNT_ID)))
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
-        annotation: (((ANNOTATION)))
+        annotation: 'Annotation'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'

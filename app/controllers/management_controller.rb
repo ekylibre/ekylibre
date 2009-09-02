@@ -904,7 +904,7 @@ class ManagementController < ApplicationController
     if request.post?
       #raise Exception.new "ok"+@sale_order.inspect
       @sale_order.deliver_and_invoice
-      redirect_to :action=>:sales_invoices, :id=>@sale_order.id
+      redirect_to :action=>:sales_payments, :id=>@sale_order.id
     end
   end
 
@@ -1273,9 +1273,9 @@ class ManagementController < ApplicationController
     session[:current_sale_order] = @sale_order.id
     # @rest_to_invoice = @sale_order.deliveries.detect{|x| x.invoice_id.nil?}
     @can_invoice = !@sale_order.lines.detect{|x| x.undelivered_quantity > 0}
-    @can_invoice = false unless @sale_order.state == 'I'
+    @can_invoice = false if @sale_order.invoiced
     if request.post?
-      @sale_order.update_attribute(:state, 'R') if @sale_order.state == 'I'
+      @sale_order.update_attribute(:state, 'R') #if @sale_order.state == 'I'
      #  ActiveRecord::Base.transaction do
 #         deliveries = params[:deliveries_to_invoice].select{|k,v| v[:invoiceable].to_i==1}.collect do |id, attributes|
 #           delivery = Delivery.find_by_id_and_company_id(id.to_i,@current_company.id)
@@ -1286,7 +1286,7 @@ class ManagementController < ApplicationController
      # end
       # @current_company.invoice(@sale_order)
       @sale_order.invoice
-      redirect_to :action=>:sales_invoices, :id=>@sale_order.id
+      redirect_to :action=>:sales_payments, :id=>@sale_order.id
     end
   end
   

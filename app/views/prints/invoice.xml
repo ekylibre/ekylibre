@@ -31,7 +31,7 @@
       <!-- Tableau -->
       <table collection="invoice.lines" fixed="true">
 	<column label="Code" property="product/code" width="20mm" align="center"/>
-	<column label="Produit" property="order_line/label" width="80mm"/>
+	<column label="Désignation" property="designation" width="80mm"/>
 	<column label="Qté." property="quantity" width="13mm" numeric="money"/>
 	<column label="Prix unitaire HT" property="price/amount" width="22mm" numeric="money"/>
 	<column label="Montant Hors Taxes" property="amount" width="20mm" numeric="money"/>

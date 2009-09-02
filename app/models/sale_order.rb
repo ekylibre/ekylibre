@@ -122,6 +122,9 @@ class SaleOrder < ActiveRecord::Base
   end
 
   def invoice
+    for delivery in self.deliveries
+      delivery.stocks_moves_create
+    end
     invoice = Invoice.create!(:company_id=>self.company_id, :nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :payment_delay_id=>self.payment_delay_id, :client_id=>self.client_id, :payment_on=>Date.today, :contact_id=>self.invoice_contact_id, :sale_order_id=>self.id)
     self.invoiced = true
     self.save
@@ -155,7 +158,9 @@ class SaleOrder < ActiveRecord::Base
 
   def stocks_moves_create
     for line in self.lines
-      StockMove.create!(:name=>tc(:sale)+"  "+self.number, :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.created_on, :company_id=>line.company_id, :virtual=>true, :input=>false, :origin_type=>SaleOrder.to_s, :origin_id=>self.id, :generated=>true)
+      if line.quantity > 0
+        StockMove.create!(:name=>tc(:sale)+"  "+self.number, :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.created_on, :company_id=>line.company_id, :virtual=>true, :input=>false, :origin_type=>SaleOrder.to_s, :origin_id=>self.id, :generated=>true)
+      end
     end
   end
 
