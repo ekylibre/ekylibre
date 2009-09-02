@@ -148,7 +148,7 @@ class Account < ActiveRecord::Base
     balance.compact
   end
   
-  # this method loads the genreal ledger for all the accounts.
+  # this method loads the general ledger for all the accounts.
   def self.ledger(company, from, to)
     ledger = []
     accounts = Account.find(:all, :conditions => {:company_id => company})

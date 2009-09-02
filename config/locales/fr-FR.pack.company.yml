@@ -121,6 +121,7 @@ fr-FR:
         title: 'Création d''un modèle de document'
       document_templates_update:
         title: 'Modification du modèle de document "{{value}}"'
+      
       document_natures:
         document_natures_create: 'Créer un type de document'
         title: 'Liste des types de document'

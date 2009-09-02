@@ -25,7 +25,7 @@ page :a4, :margin=>[10.mm] do
     column "Crédit", 'credit',20.mm
   end  
   part 10.mm do
-    set 0, 2.mm do
+    set 100.mm, 2.mm do
       cell 150.mm, 4.mm, "TOTAL "
       cell 170.mm, 4.mm, @parameters["printed"]["sum"]["debit"].to_s, :align=>:right, :border => 'true'
       cell 190.mm, 4.mm, @parameters["printed"]["sum"]["credit"].to_s, :align=>:right, :border => 'true'

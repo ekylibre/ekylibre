@@ -899,63 +899,59 @@ class RelationsController < ApplicationController
                 :not_finishes => '%X'
                }
     
-    @filters_select = filters.collect{|f,k| [tc(f), f]}.sort()
-   
+    
+
+    @filters_select = filters.collect{|f,k| [tc(f), f]}.sort
+    
+    shortcuts = {
+      :fam => :family,
+      :org => :organization,
+      :tit => :title
+    } 
+
     if request.post?
       
       # ---- conditions ----
-      if params[:family_check].to_i.zero? and params[:organization_check].to_i.zero? and params[:title_check].to_i.zero?
-        flash[:message] = tc(:check_fields)
-        redirect_to :action=>:mandates_config
-        return
+      params.each do |p, v|
+        flash[:message] = tc(:check_fields) if params[:family_check].to_i.zero? and params[:organization_check].to_i.zero? and params[:title_check].to_i.zero?
+        flash[:message] = tc(:mandates_new_fields) if params[:new_family].blank? and params[:new_organization].blank? and params[:new_title].blank?
+        flash[:message] = tc(:mandates_fields) if params[:family].blank? and params[:organization].blank? and params[:title].blank?
+        if flash.size > 0
+          redirect_to :action=>:mandates_configure
+          return
+        end
       end
       
-      unless params[:filter_family] != tc(:no_filter) or params[:filter_organization] != tc(:no_filter) or params[:filter_title] != tc(:no_filter)
-        flash[:message] = tc(:mandates_filters)
-        redirect_to :action=>:mandates_config
-        return
-      end
-      
-      if params[:family].blank? and params[:organization].blank? and params[:title].blank?
-        flash[:message] = tc(:mandates_fields)
-        redirect_to :action=>:mandates_config
-        return
-      end
-      
-      if params[:new_family].blank? and params[:new_organization].blank? and params[:new_title].blank?
-        flash[:message] = tc(:mandates_new_fields)
-        redirect_to :action=>:mandates_config
-        return
-      end
-
-      conditions = ['']
-     for p,v in params do 
-          if (p.to_sym == :family or p.to_sym == :organization or p.to_sym == :title) and (not params[p.to_s].blank?)
+      conditions = nil
+      for p,v in params do 
+        if (p.to_sym == :family or p.to_sym == :organization or p.to_sym == :title) and (not params[p.to_s].blank?)
+          if params["filter_#{p}"].to_sym != :no_filters
+            conditions = [''] if conditions.nil?
             conditions[0] += " AND " if conditions[0].size > 0
             conditions[0] += "LOWER(#{p}) "+((params["filter_#{p}"].to_s.match 'not').nil? ? "" : "NOT ").to_s+"LIKE ?"
             conditions << filters[params["filter_#{p}"].to_sym].gsub('X', v.lower.to_s)
           end
+        end
       end
-      raise Exception.new(conditions.inspect)
-
       @mandates = @current_company.mandates.find(:all, :conditions => conditions)
       
       values=''
       values += params.collect do |p, v| 
         if (p.to_sym == :new_family or p.to_sym == :new_organization or p.to_sym == :new_title)
           if not (params["#{p}"].blank? or params["#{p.split('_')[1]}_check"].to_i.zero?)
-            "#{p.split('_')[1]} = '"+v.to_s+"'"
+            "#{p.split('_')[1]} = '#{v.gsub(/\'/,'\'\'').gsub(/\@...\@/){|x| '\'||'+shortcuts[x[1..-2].to_sym].to_s+'||\''}}'"
           end
         end
       end.compact.join(',')
-      
+
+      #raise Exception.new('v:'+values.inspect)
+
       @current_company.mandates.update_all(values.to_s, conditions)
       
     end
     
   end
   
-
   #
   def mandates_create
     @entity = find_and_check(:entity, params[:id]||session[:current_entity])

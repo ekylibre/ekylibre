@@ -280,7 +280,7 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 /*all the styles used by the plugin Dyli.*/
 div.dyli_complete {width: 350px;}
 div.dyli_complete ul {position: fixed; border:1px solid #888; margin:0; padding:0; width:30%; list-style-type:none;}
-div.dyli_complete ul li {background: #EEF; margin:0; padding:3px;}
+div.dyli_complete ul li {background-color: #EEF; margin:0; padding:3px;} /*#C9D7F1*/
 div.dyli_complete ul li.selected {background-color: #B1D1F9;}
 div.dyli_complete ul strong.highlight {color: #800; margin:0; padding:0;}
 

@@ -235,74 +235,71 @@ class AccountancyController < ApplicationController
     end
       
     @partial = 'print_'+@print[1][:partial]
-    @begin = Date.today.year.to_s+"-"+"01-01"
-    @end = Date.today.year.to_s+"-12-31"
+    started_on = Date.today.year.to_s+"-"+"01-01"
+    stopped_on = Date.today.year.to_s+"-12-31"
     
     if request.post? 
-      @lines = []
+      lines = []
       if @current_company.default_contact
-        @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-        @lines << @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
-        @lines << @current_company.code
+        lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
+        lines << @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+        lines << @current_company.code
       end
        
       sum = {:debit=> 0, :credit=> 0, :balance=> 0}
       
       if session[:mode] == "journal"
-        @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to])
+        entries = Journal.records(@current_company.id,  params[:printed][:from],  params[:printed][:to])
 
-        if @entries.size > 0
-          @entries.each do |entry|
+        if entries.size > 0
+          entries.each do |entry|
             sum[:debit] += entry.debit
             sum[:credit] += entry.credit
           end
           sum[:balance] = sum[:debit] - sum[:credit]
         end
-        params[:printed][:sum] = sum
-        params[:printed][:lines] = @lines
-        params[:printed][:entries] = @entries
-        @parameters = params
-        print(@current_company, :template=> "journals", :archive => false)
-        #render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :sum => sum} , :collection => @entries        
+        
+        journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Grand journal comptabilité"})
+        pdf = journal_template.print(@current_company,  params[:printed][:from],  params[:printed][:to], entries, sum)
+        File.open('tmp/journaux.pdf', 'wb') do |f|
+          f.write(pdf)
+        end
       end
       
       if session[:mode] == "journal_by_id"
-        if session[:mode] == "journal_by_id"
-          @journal = Journal.find_by_id_and_company_id(params[:printed][:name], @current_company.id)
-          params[:printed][:name] = @journal.name
-        end
-        id = @current_company.journals.find(:first, :conditions => {:name => params[:printed][:name] }).id
-        @entries = Journal.records(@current_company.id, params[:printed][:from], params[:printed][:to], id)
-        if @entries.size > 0
-          @entries.each do |entry|
+        journal = Journal.find_by_id_and_company_id(params[:printed][:name], @current_company.id)
+        id = @current_company.journals.find(:first, :conditions => {:name => journal.name }).id
+        entries = Journal.records(@current_company.id,  params[:printed][:from],  params[:printed][:to], id)
+        if entries.size > 0
+          entries.each do |entry|
             sum[:debit] += entry.debit
             sum[:credit] += entry.credit
           end
           sum[:balance] = sum[:debit] - sum[:credit]
         end
-        params[:printed][:sum] = sum
-        params[:printed][:entries] = @entries
-        params[:printed][:lines]= @lines
-        @parameters = params
-        print(@journal, :template=>"journal", :archive=>false)
-        
-        #render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :sum => sum} , :collection => @entries        
+
+        journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Journal comptabilité"})
+        pdf = journal_template.print(journal,  params[:printed][:from],  params[:printed][:to], entries, sum)
+        File.open('tmp/journal.pdf', 'wb') do |f|
+          f.write(pdf)
+        end
       end
       
       if session[:mode] == "balance"
-        @accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
-        @accounts_balance.delete_if {|account| account[:credit].zero? and account[:debit].zero?}
-        for account in @accounts_balance
+        accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
+        accounts_balance.delete_if {|account| account[:credit].zero? and account[:debit].zero?}
+        for account in accounts_balance
           sum[:debit] += account[:debit]
           sum[:credit] += account[:credit]
         end
         sum[:balance] = sum[:debit] - sum[:credit]
-        params[:printed][:sum] = sum
-        params[:printed][:balance]= @accounts_balance
-        params[:printed][:lines]= @lines
-        @parameters = params
-        print(@current_company, :template=>"balance", :archive=>false)
-        #render :template => self.controller_name.to_s+'/'+@partial+".rpdf", :locals => {:printed => params[:printed], :company => @current_company, :lines => @lines , :sum=> sum}, :collection => @accounts_balance
+     
+        balance_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Balance comptabilité"})
+        pdf = balance_template.print(@current_company, accounts_balance,  params[:printed][:from],  params[:printed][:to], sum)
+        File.open('tmp/balance.pdf', 'wb') do |f|
+          f.write(pdf)
+        end
+     
       end
 
       if session[:mode] == "synthesis"

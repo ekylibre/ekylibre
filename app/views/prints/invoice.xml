@@ -62,7 +62,7 @@
      <!-- 
       <part if="invoice/rest_to_pay&lt;=0" height="15mm">
 	<set top="8mm">
-	  <text value="Facture acquitée" left="50%" align="center" bold="true"/>
+	  <text value="Facture acquittée" left="50%" align="center" bold="true"/>
 	</set>
       </part>
 -->

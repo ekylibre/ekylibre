@@ -71,8 +71,6 @@ module Ekylibre
             code += "  render :text=>'<ul>'+list+'</ul>'\n"
             code += "end\n"
 
-            # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-
             module_eval(code)
           end
         end 
@@ -105,7 +103,7 @@ module Ekylibre
           hf_name  = "#{name_html}"
           hf_value =  nil
           options  = {:action => "dyli_#{name_db}"}.merge(options)
-          
+          options[:field_id] = name_html.gsub(/[\[\]]/,'_').gsub(/(^\_+|\_+$)/, '')
           completion_options[:skip_style] = true;
           
           dyli_completer(tf_name, tf_value, hf_name, hf_value, options, tag_options, completion_options)
