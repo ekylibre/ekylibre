@@ -1,11 +1,11 @@
 class Sep1b5 < ActiveRecord::Migration
   def self.up
     # It's like the table creation because it was never used
-    add_column :documents, :template,    :string,  :null=>false
-    add_column :documents, :subdir,      :string,  :null=>false
-    add_column :documents, :extension,   :string,  :null=>false
-    add_column :documents, :owner_id,    :integer, :null=>false
-    add_column :documents, :owner_type,  :string,  :null=>false
+    add_column :documents, :template,    :string  #,  :null=>false
+    add_column :documents, :subdir,      :string  #,  :null=>false
+    add_column :documents, :extension,   :string  #,  :null=>false
+    add_column :documents, :owner_id,    :integer #, :null=>false
+    add_column :documents, :owner_type,  :string  #,  :null=>false
     add_index :documents, :owner_id
     add_index :documents, :owner_type
 

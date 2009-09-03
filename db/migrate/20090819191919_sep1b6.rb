@@ -31,7 +31,7 @@ class Sep1b6 < ActiveRecord::Migration
     rename_column :embankments, :payments_number, :payments_count
     rename_column :entities, :payments_number, :authorized_payments_count
 
-    execute "UPDATE payment_parts SET downpayment=true WHERE payment_id IN (SELECT id FROM payments WHERE downpayment)"
+    execute "UPDATE payment_parts SET downpayment=CAST('true' AS BOOLEAN) WHERE payment_id IN (SELECT id FROM payments WHERE downpayment)"
 
     remove_column :payments, :downpayment
     remove_column :products, :amount
@@ -41,7 +41,7 @@ class Sep1b6 < ActiveRecord::Migration
     add_column :products, :amount, :decimal
     add_column :payments, :downpayment, :boolean, :null=>false, :default=>false
 
-    execute "UPDATE payments SET downpayment=true WHERE id IN (SELECT payment_id FROM payment_parts WHERE downpayment)"
+    execute "UPDATE payments SET downpayment=CAST('true' AS BOOLEAN) WHERE id IN (SELECT payment_id FROM payment_parts WHERE downpayment)"
 
     rename_column :entities, :authorized_payments_count, :payments_number
     rename_column :embankments, :payments_count, :payments_number
