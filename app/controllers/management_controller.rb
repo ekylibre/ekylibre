@@ -853,7 +853,7 @@ class ManagementController < ApplicationController
       @sale_order = SaleOrder.find_by_id_and_company_id(params[:id], @current_company.id)
       @sale_order = SaleOrder.new if @sale_order.nil?
       session[:current_entity] ||= @current_company.entities.find(:first, :conditions=>{:client=>true})
-      @sale_order.responsible_id = @current_user.employee.id
+      @sale_order.responsible_id = @current_user.employee.id if !@current_user.employee.nil?
       @sale_order.client_id = session[:current_entity]
       @sale_order.function_title = tg('letter_function_title')
       @sale_order.introduction = tg('letter_introduction')

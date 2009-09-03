@@ -56,6 +56,7 @@ class SaleOrder < ActiveRecord::Base
   has_many :invoices
   has_many :payment_parts, :foreign_key=>:order_id
   has_many :lines, :class_name=>SaleOrderLine.to_s, :foreign_key=>:order_id
+  has_many :subscriptions, :class_name=>Subscription.to_s
 
   @@natures = [:estimate, :order, :invoice]
   
