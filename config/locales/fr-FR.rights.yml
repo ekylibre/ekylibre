@@ -20,7 +20,7 @@ fr-FR:
     create_purchases: 'Créer, modifier des achats'
     extract_listings: 'Effectuer des extractions (sans pouvoir les concevoir)'
     import_export_entities: 'Importer, exporter des fiches clients/fournisseurs'
-    mail_listings: (((MAIL_LISTINGS)))
+    mail_listings: 'Gérer l''envoi et la réception d''e-mails'
     manage_accounts: 'Gérer les comptes comptables'
     manage_areas: 'Gérer les zones'
     manage_bank_accounts: 'Gérer les comptes bancaires'
@@ -29,8 +29,8 @@ fr-FR:
     manage_delays: 'Gérer les délais'
     manage_delivery_modes: 'Gérer les types de livraison'
     manage_districts: 'Gérer les districts'
-    manage_document_natures: (((MANAGE_DOCUMENT_NATURES)))
-    manage_document_templates: (((MANAGE_DOCUMENT_TEMPLATES)))
+    manage_document_natures: 'Gérer les types de modèles de document'
+    manage_document_templates: 'Gérer les modèles de document'
     manage_embankments: 'Gérer les remises de chèques'
     manage_entities: 'Gérer les fiches clients/fournisseurs'
     manage_entities_natures: 'Gérer les types de fiche'
@@ -59,6 +59,7 @@ fr-FR:
     manage_subscriptions: 'Gérer les abonnements'
     manage_taxes: 'Gérer les taxes'
     manage_users: 'Gérer les utilisateurs'
+    merge_entities: 'Fusionner les fiches clients/fournisseurs'
     print_accounting_document: 'Imprimer les documents comptables'
     print_entities: 'Imprimer les fiches clients/fournisseurs'
     print_sales: 'Imprimer les documents de vente (devis, factures...)'

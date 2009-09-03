@@ -21,13 +21,13 @@ fr-FR:
         numeration: 'Numérotation des ventes'
       impressions:
         natures:
-          delivery: 'Modèle d''impression pour les devis' 
-          invoice: 'Modèle d''impression pour les factures'
-          purchase_order: 'Modèle d''impression pour les achats'
-          sale_order: 'Modèle d''impression pour les ventes'
+          delivery: 'Type de document pour les devis' 
+          invoice: 'Type de document  pour les factures'
+          purchase_order: 'Type de document pour les achats'
+          sale_order: 'Type de document pour les ventes'
     relations: 
       entities:
         numeration: 'Numérotation des fiches clients/fournisseurs'
       impressions:
         natures:
-          entity: 'Modèle d''impression pour les fiches clients/fournisseur'
+          entity: 'Type de document pour les fiches clients/fournisseur'

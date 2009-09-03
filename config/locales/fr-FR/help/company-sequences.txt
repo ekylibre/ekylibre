@@ -1,5 +1,8 @@
 h1. Liste des séquences
 
-Vous avez accés aux différentes informations relatives à **toutes les séquences** rattachées à votre société.
+Les séquences permettent de *préciser le format des numéros apparaissant sur les pièces justificatives* reçues ou produites par la société. Ce format pourra être une année, un mois ou une semaine suivant la périodicité choisie pour l'évolution de ce numéro.
+
+NB: cela s'avérera *utile lors d'opérations de traçabilité de la société* telles que l'archivage et la classification de documents en comptabilité.
+
 
 
