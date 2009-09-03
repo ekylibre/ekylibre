@@ -29,8 +29,6 @@
 #
 
 class SaleOrderLine < ActiveRecord::Base
-  attr_readonly :company_id, :order_id
-
   belongs_to :account
   belongs_to :company
   belongs_to :entity
@@ -42,11 +40,15 @@ class SaleOrderLine < ActiveRecord::Base
   belongs_to :tax
   belongs_to :unit
   has_one :reduction, :class_name=>SaleOrderLine.to_s, :foreign_key=>:reduction_origin_id
-  has_many :delivery_lines
+  has_many :delivery_lines, :foreign_key=>:order_line_id
   has_many :invoice_lines
+  acts_as_list :scope=>:order
+
+  attr_readonly :company_id, :order_id
   
   def before_validation
-    check_reservoir = true
+    # check_reservoir = true
+    self.product = self.price.product if self.price
     self.account_id = self.product.product_account_id
     self.unit_id = self.product.unit_id
     self.account_id ||= 0
@@ -75,67 +77,39 @@ class SaleOrderLine < ActiveRecord::Base
     else
       self.label = tc('reduction_on', :product=>self.product.catalog_name, :rate=>reduction_rate, :percent=>reduction_rate*100, :amount=>self.amount_with_taxes-self.reduction_origin.amount_with_taxes)
     end
-        
-    if self.location.reservoir && self.location.product_id != self.product_id
-      check_reservoir = false
-      errors.add_to_base(tc(:stock_location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name, :account_id=>0, :unit_id=>self.unit_id) 
-    end
-    check_reservoir
+    
+    #     if self.location.reservoir && self.location.product_id != self.product_id
+    #       check_reservoir = false
+    #       errors.add_to_base(tc(:stock_location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name, :account_id=>0, :unit_id=>self.unit_id) 
+    #     end
+    #     check_reservoir
   end
 
-  def after_create
+  
+  def after_save
     reduction_rate = self.order.client.max_reduction_rate
     if reduction_rate > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
-      self.company.sale_order_lines.create!(:reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :order_id=>self.order_id, :location_id=>self.location_id, :quantity=>-self.quantity*reduction_rate)
+      reduction = self.reduction || self.build_reduction
+      reduction.attributes = {:company_id=>self.company_id, :reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :order_id=>self.order_id, :location_id=>self.location_id, :quantity=>-self.quantity*reduction_rate}
+      reduction.save!
+    elsif self.reduction
+      self.reduction.destroy
     end
-    true
-  end
-  
-  def after_update
-    self.reduction.update_attributes(:quantity=>self.quantity*(-self.order.client.max_reduction_rate), :product_id=>self.product_id, :price_id=>self.price_id, :location_id=>self.location_id) if self.reduction
+    self.order.reload.refresh if self.reduction_origin.nil?
   end
   
   def after_destroy
-    self.reduction.destroy  if self.reduction
+    self.reduction.destroy if self.reduction
     self.order.refresh
   end
 
   def validate
-    errors.add_to_base(tc(:stock_location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) unless self.location.can_receive(self.product_id)
+    errors.add_to_base(tc(:stock_location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) unless self.location.can_receive?(self.product_id)
     errors.add_to_base(tc(:currency_is_not_sale_order_currency)) if self.price.currency_id != self.order.currency_id
   end
   
-  def after_save
-    self.order.refresh if self.reduction_origin.nil?
-  end
-
-#   def label
-#     label = ""
-#     if self.reduction_origin_id.nil?
-#       label = self.product.name
-#     else
-#       label = tc('reduction_on', :product=>self.product.name)
-#     end
-#     label
-#   end
-
   def undelivered_quantity
-    self.quantity - self.delivered_quantity
-#     lines =  DeliveryLine.find(:all, :conditions=>{:company_id=>self.company_id, :order_line_id=>self.id})
-#     if lines.nil?
-#       rest = self.quantity
-#     else
-#       sum = 0
-#       for line in lines 
-#         sum += line.quantity
-#       end
-#       rest = (self.quantity - sum )
-#     end
-#     rest
-  end
-
-  def delivered_quantity
-    DeliveryLine.sum(:quantity, :conditions=>{:company_id=>self.company_id, :order_line_id=>self.id})
+    self.quantity - self.delivery_lines.sum(:quantity)
   end
 
   def product_name
@@ -148,11 +122,6 @@ class SaleOrderLine < ActiveRecord::Base
     d
   end
 
-  # TO DELETE
-  def is_a_subscription
-    self.subscription?
-  end
-
   def subscription?
     self.product.nature == "subscrip"
   end
@@ -160,6 +129,5 @@ class SaleOrderLine < ActiveRecord::Base
   def taxes
     self.amount_with_taxes - self.amount
   end
-
 
 end

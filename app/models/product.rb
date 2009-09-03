@@ -53,14 +53,15 @@ class Product < ActiveRecord::Base
   has_many :delivery_lines
   has_many :invoice_lines
   has_many :prices
-  has_many :stocks, :class_name=>ProductStock.to_s
   has_many :purchase_order_lines
-  has_many :sale_order_lines
   has_many :locations, :class_name=>StockLocation.to_s
+  has_many :sale_order_lines
   has_many :stock_moves
   has_many :stock_transfers
+  has_many :stocks, :class_name=>ProductStock.to_s
   has_many :subscriptions
 
+  attr_readonly :company_id
 
   validates_presence_of :subscription_period, :if=>Proc.new{|u| u.nature=="sub_date"}
   validates_presence_of :subscription_numbers, :actual_number, :if=>Proc.new{|u| u.nature=="sub_numb"}
@@ -139,4 +140,30 @@ class Product < ActiveRecord::Base
       self.send('subscription_'+self.subscription_nature.nature+'=', value)
     end
   end
+
+
+  # Create virtual stock moves to reserve the products
+  def reserve_stock(quantity, options={})
+    add_stock_move(quantity, true, false, options)
+  end
+
+  # Create real stocks moves to update the real state of stocks
+  def take_stock_out(quantity, options={})
+    add_stock_move(quantity, false, false, options)
+  end
+
+  private
+  
+  def add_stock_move(quantity, virtual, input, options={})
+    if self.manage_stocks  and quantity>0
+      attributes = options.merge(:quantity=>quantity, :virtual=>virtual, :input=>input, :generated=>true, :company_id=>self.company_id)
+      origin = options[:origin]
+      code = [:number, :code, :name, :id].detect{|x| origin.respond_to? x}
+      attributes[:name] = tc('stock_move', :origin=>(origin ? tc("activerecord.models.#{origin.class.name.underscore}") : "*"), :code=>(origin ? origin.send(code) : "*"))
+      attributes[:location_id] ||= self.locations.first.id
+      attributes[:planned_on] ||= Date.today
+      self.stock_moves.create!(attributes)      
+    end    
+  end
+  
 end

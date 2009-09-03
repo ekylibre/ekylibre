@@ -54,13 +54,13 @@
 	</set>
       </part>
 
-      <part if="invoice/rest_to_pay&gt;0" height="15mm">
+      <part if="invoice/unpaid_amount&gt;0" height="15mm">
 	<set top="8mm">
-	  <text value="La facture est à régler au plus tard le {{invoice/limit_to_pay?format=month_letter}}" left="50%" align="center" bold="true"/>
+	  <text value="La facture est à régler au plus tard le {{invoice/payment_on?format=month_letter}}" left="50%" align="center" bold="true"/>
 	</set>
       </part>
      <!-- 
-      <part if="invoice/rest_to_pay&lt;=0" height="15mm">
+      <part if="invoice/unpaid_amount&lt;=0" height="15mm">
 	<set top="8mm">
 	  <text value="Facture acquittée" left="50%" align="center" bold="true"/>
 	</set>
@@ -71,7 +71,7 @@
 	<set top="10mm">
 	  <text value="Règlements effectués"  bold="true"/>
 	</set>
-	<set if="invoice/rest_to_pay&lt;=0" top="10mm">
+	<set if="invoice/unpaid_amount&lt;=0" top="10mm">
 	  <text value=": facture acquitée" left="33mm" bold="true" />
 	</set>
       </part>
@@ -86,7 +86,7 @@
       
       
       
-      <part if="invoice/rest_to_pay&gt;0" height="35mm" bottom="true">
+      <part if="invoice/unpaid_amount&gt;0" height="35mm" bottom="true">
 	<set>
 	  <line path="0,1mm ; 100%,1mm" width="0.5"/>
 	  <set top="2.5mm"> 
@@ -109,7 +109,7 @@
 		<text value="N. Facture {{invoice/number}}" top="9mm" right="40mm"/>
 		<text value="Code client {{invoice.client/code}}" top="13mm" align="left" />
 		<text value="{{invoice.client/full_name}}" top="9mm"  align="left" />
-		<text value="Reste à payer ({{invoice.lines[0].price.currency/code}}) {{invoice/rest_to_pay}}" top="13mm" right="40mm" bold="true"/>		
+		<text value="Reste à payer ({{invoice.lines[0].price.currency/code}}) {{invoice/unpaid_amount}}" top="13mm" right="40mm" bold="true"/>		
 		</set>
 	  -->
 
@@ -117,7 +117,7 @@
 	  <line path="-50%,1mm ; 150%,1mm" border="0.5 dashed #000"/>
 	  <line path="70mm,1mm ; 70mm,70mm" border="0.5 dashed #000"/>
 	  <text value="À découper et à joindre à votre règlement" top="3mm" bold="true" />
-	  <text value="Reste à payer ({{invoice.lines[0].price.currency/code}}) : {{invoice/rest_to_pay}}" top="8mm"/>
+	  <text value="Reste à payer ({{invoice.lines[0].price.currency/code}}) : {{invoice/unpaid_amount}}" top="8mm"/>
 	  <text value="N°Facture : {{invoice/number}}" top="12mm"/>
 	  <text value="Client : {{invoice.client/code}}" top="16mm" align="left" />
 	  <!--<text value="{{invoice.client/full_name}}" top="9mm"  align="left" />-->
@@ -128,7 +128,7 @@
 
       </part>
 
-      <part if="invoice/rest_to_pay&lt;=0" height="20mm" bottom="true">
+      <part if="invoice/unpaid_amount&lt;=0" height="20mm" bottom="true">
 	<set>
 	  <line path="0,1mm ; 100%,1mm" width="0.5"/>
 	  <set top="2.5mm"> 

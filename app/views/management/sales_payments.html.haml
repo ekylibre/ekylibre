@@ -10,57 +10,12 @@
   =dyta :invoices
 
 %h2=tc :financial_state
-%table.dyta{:style=>"display: none;"}
-  %tr
-    %th{:colspan=>3,:style=>"border-right: solid 1px red;"}= tc(:invoices)
-    %th{:colspan=>3}= tc(:payments)
-  %tr
-    %th= tc(:number)
-    %th= tc(:payment_on)
-    %th{:style=>"border-right: solid 1px red;"}= tc(:amount_wt)
-    %th= tc(:paid_on)
-    %th= tc(:payment_mode)
-    %th= tc(:amount_wt)
-  -x = 0 
-  -exist = true
-  -while exist == true
-    -if !@invoices[x].nil?
-      %tr
-        %td= @invoices[x].number 
-        %td= @invoices[x].payment_on        
-        %td{:style=>"border-right: solid 1px red;"}= @invoices[x].amount_with_taxes
-        %td 
-        %td
-        %td 
-    -else
-      -if @payments[x].nil?
-        -exist = false
-    -if !@payments[x].nil?
-      %tr
-        %td 
-        %td
-        %td{:style=>"border-right: solid 1px red;"}
-        %td= @payments[x].payment.paid_on
-        %td= @payments[x].payment.mode.name
-        %td= @payments[x].amount
-    -else
-      -if @invoices[x].nil?
-        -exist = false
-    -x += 1
-  .total
-    %tr
-      %th{:colspan=>2}=tc :invoices_total
-      %td{:colspan=>1, :style=>"font-weight:bold; border-right: solid 1px red;"}= @invoices_sum
-      %th{:colspan=>2}=tc :payments_total
-      %td{:colspan=>1, :style=>"font-weight:bold;"}= @payments_sum
-
-
 .total
   %table.dyta
     -for k, v in @sale_order.stats(:with_balance=>true)
       %tr
         %th=tc(k)
-        %td=number_to_currency(v, :unit=>'', :separator=>',')
+        %td=number_to_currency(v, :unit=>'', :separator=>',', :delimiter=>'&nbsp;')
 
 - form_tag do
   .actions

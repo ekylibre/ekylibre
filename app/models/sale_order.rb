@@ -40,24 +40,24 @@
 #
 
 class SaleOrder < ActiveRecord::Base
-  
-  attr_readonly :company_id, :created_on, :number
-
-  belongs_to :company
-  belongs_to :invoice_contact, :class_name=>Contact.to_s
-  belongs_to :delivery_contact,:class_name=>Contact.to_s
-  belongs_to :contact
-  belongs_to :expiration, :class_name=>Delay.to_s
-  belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :client, :class_name=>Entity.to_s
+  belongs_to :company
+  belongs_to :contact
+  belongs_to :delivery_contact,:class_name=>Contact.to_s
+  belongs_to :expiration, :class_name=>Delay.to_s
+  belongs_to :invoice_contact, :class_name=>Contact.to_s
   belongs_to :nature, :class_name=>SaleOrderNature.to_s
+  belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :responsible, :class_name=>Employee.to_s
   has_many :deliveries, :foreign_key=>:order_id
   has_many :invoices
-  has_many :payment_parts, :foreign_key=>:order_id
   has_many :lines, :class_name=>SaleOrderLine.to_s, :foreign_key=>:order_id
-  has_many :subscriptions, :class_name=>Subscription.to_s
+  has_many :payment_parts, :foreign_key=>:order_id
   has_many :stock_moves, :as=>:origin
+  has_many :subscriptions, :class_name=>Subscription.to_s
+
+  attr_readonly :company_id, :created_on, :number
+
 
   @@natures = [:estimate, :order, :invoice]
   
@@ -97,9 +97,7 @@ class SaleOrder < ActiveRecord::Base
 
   def after_validation_on_create
     specific_numeration = self.company.parameter("management.sale_orders.numeration").value
-    if not specific_numeration.nil?
-      self.number = specific_numeration.next_value
-    end
+    self.number = specific_numeration.next_value unless specific_numeration.nil?
   end
   
   def after_create
@@ -112,20 +110,23 @@ class SaleOrder < ActiveRecord::Base
   end
 
   
-  # Confirm that the sale order.
+  # Confirm the sale order. This permits to lock the sale_order and move the virtual stocks.
+  # This method don't verify the stock moves.
   def confirm(confirmed_on=Date.today)
     if self.state == 'P'
       self.state = 'L'
       self.confirmed_on = confirmed_on
       for line in self.lines.find(:all, :conditions=>["quantity>0"])
-        self.stock_moves.create!(:name=>tc(:sale, :number=>self.number), :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.created_on, :company_id=>line.company_id, :virtual=>true, :input=>false, :generated=>true) # , :origin_type=>self.class.name, :origin_id=>self.id
+        line.product.reserve_stock(line.quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self)
+        # self.stock_moves.create!(:name=>tc(:sale, :number=>self.number), :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.created_on, :company_id=>line.company_id, :virtual=>true, :input=>false, :generated=>true) # , :origin_type=>self.class.name, :origin_id=>self.id
       end
       self.save
     end
   end
 
 
-  # Create the last delivery with undelivered products if necessary
+  # Create the last delivery with undelivered products if necessary.
+  # The sale order is confirmed if it hasn't be done.
   def deliver
     self.confirm
     lines = []
@@ -136,52 +137,36 @@ class SaleOrder < ActiveRecord::Base
     end
     if lines.size>0
       delivery = self.deliveries.create!(:amount=>0, :amount_with_taxes=>0, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :contact_id=>self.delivery_contact_id)
-      delivery.lines.create! lines
+      for line in lines
+        delivery.lines.create! line
+      end
     end    
   end
 
 
-  
-  # Invoice all the products creating the delivery if necessary 
+  # Invoice all the products creating the delivery if necessary. 
   def invoice
     return false if self.undelivered(:amount) > 0
-    # Move stocks when possible
-    # for delivery in self.deliveries
-    #   delivery.stocks_moves_create
-    # end
     invoice = self.invoices.create!(:company_id=>self.company_id, :nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
-    for line in self.lines.find(:all, :conditions=>["quantity>0 AND reduction_origin_id IS NULL"])
+    for line in self.lines
       invoice.lines.create!(:company_id=>line.company_id, :order_line_id=>line.id, :amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes, :quantity=>line.quantity)
     end
     self.invoiced = true
     self.save
   end
 
+
+  # Delivers all undeliverd products and invoice the order after. This operation cleans the order.
   def deliver_and_invoice
     self.deliver
     self.invoice
   end
 
 
-#   def deliver_and_invoice
-#     self.confirmed_on ||= Date.today
-#     self.stocks_moves_create
-#     lines = []
-#     for line in self.lines.find_all_by_reduction_origin_id(nil)
-#       if quantity = line.undelivered_quantity > 0
-#         lines << {:order_line_id=>line.id, :quantity=>quantity, :company_id=>self.company_id}
-#       end
-#     end
-#     if lines.size>0
-#       # Create delivery
-#       delivery = self.deliveries.create!(:amount=>0, :amount_with_taxes=>0, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :contact_id=>self.delivery_contact_id)
-#       delivery.lines.create! lines
-#     end
-#     self.invoice
-#     self.state = 'R'
-#     self.save
-#   end
-
+  # Produces some amounts about the sale order.
+  # Some options can be used:
+  # - +:multi_invoices+ adds the uninvoiced amount and invoiced amount
+  # - +:with_balance+ adds the balance of the client of the sale order
   def stats(options={})
     invoiced = self.invoices.sum(:amount_with_taxes)
     array = []
@@ -205,37 +190,22 @@ class SaleOrder < ActiveRecord::Base
     tc('states.'+self.state.to_s)
   end
 
-#   def stocks_moves_create
-#     for line in self.lines.find(:all, :conditions=>["quantity>0"])
-#       StockMove.create!(:name=>tc(:sale, :number=>self.number), :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.created_on, :company_id=>line.company_id, :virtual=>true, :input=>false, :origin_type=>SaleOrder.to_s, :origin_id=>self.id, :generated=>true)
-#     end
-#   end
 
-  def undelivered(column)
-    sum = 0
-    if column == "amount"
-      for line in self.lines
-        sum += line.price.amount*line.undelivered_quantity
-      end
-    elsif column == "amount_with_taxes"
-       for line in self.lines
-        sum += line.price.amount_with_taxes*line.undelivered_quantity
-       end
-    end
-    sum.round(2)
-  end
-
+  # Computes an amount (with or without taxes) of the undelivered products
+  # - +column+ can be +:amount+ or +:amount_with_taxes+
   def undelivered(column)
     sum  = self.send(column)
-    sum -= DeliveryLine.sum(column, :joins=>"JOIN deliveries ON (delivery_id=deliveries.id)", :conditions=>{:order_id=>self.id})
+    sum -= DeliveryLine.sum(column, :joins=>"JOIN deliveries ON (delivery_id=deliveries.id)", :conditions=>["deliveries.order_id=?", self.id])
     sum.round(2)
   end
 
 
+  # Computes unpaid amounts.
   def unpaid_amount(only_invoices=true, only_received_payments=false)
     (only_invoices ? self.invoices.sum(:amount_with_taxes) : self.amount_with_taxes).to_f - (only_received_payments ? self.payment_parts.sum(:amount, :conditions=>{:received=>true}) : self.payment_parts.sum(:amount)).to_f
   end
 
+  
   def payments
     sale_orders = self.client.sale_orders
     payment_parts = [] 
@@ -262,6 +232,11 @@ class SaleOrder < ActiveRecord::Base
     status = "critic" if not ['F','P'].include? self.state and self.parts_amount.to_f < self.amount_with_taxes
     status
   end
+  
+  def delivering?
+    self.state == 'L'
+  end
+
 
   def letter?
     self.letter_format and self.state == "P" 
@@ -284,15 +259,10 @@ class SaleOrder < ActiveRecord::Base
   def taxes
     self.amount_with_taxes - self.amount
   end
-  
+
+
+  # Build general sales condition for the sale order
   def sales_conditions
-#     c = []
-#     16.to_i.times do
-#       s = ''
-#       (rand*20+10).to_i.times { s += "w"*(2+rand*10)+" " }
-#       c << s.strip+"."
-#     end
-#     c
     c = []
     c << tc('sales_conditions.downpayment', :percent=>100*self.nature.downpayment_rate, :amount=>(self.nature.downpayment_rate*self.amount_with_taxes).round(2)) if self.amount_with_taxes>self.nature.downpayment_minimum
     c << tc('sales_conditions.validity', :expiration=>::I18n.localize(self.expired_on, :format=>:legal))

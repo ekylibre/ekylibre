@@ -30,13 +30,17 @@
 class StockMove < ActiveRecord::Base
   belongs_to :company
   belongs_to :location, :class_name=>StockLocation.to_s
+  belongs_to :origin, :polymorphic=>true
   belongs_to :product
   belongs_to :tracking, :class_name=>StockTracking.to_s
   belongs_to :unit
 
   attr_readonly :company_id
+  
+  validates_presence_of :generated
 
   def before_validation
+    self.generated = false if self.generated.nil?
     self.unit_id = self.product.unit_id if self.product and self.unit.nil?
   end
 

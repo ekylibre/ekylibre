@@ -855,6 +855,7 @@ class ManagementController < ApplicationController
       session[:current_entity] ||= @current_company.entities.find(:first, :conditions=>{:client=>true})
       @sale_order.responsible_id = @current_user.employee.id if !@current_user.employee.nil?
       @sale_order.client_id = session[:current_entity]
+      @sale_order.letter_format = false
       @sale_order.function_title = tg('letter_function_title')
       @sale_order.introduction = tg('letter_introduction')
       # @sale_order.conclusion = tg('letter_conclusion')
@@ -883,19 +884,26 @@ class ManagementController < ApplicationController
     @stock_locations = @current_company.stock_locations
     @entity = @sale_order.client
     if request.post?
-      if params[:commit] != "bla"
-        if @sale_order.state == 'L'
-          flash[:warning]=tc('sale_order_already_ordered')
-        else
-          @sale_order.confirm
-#           @sale_order.confirmed_on = Date.today
-#           @sale_order.update_attribute(:state, 'L') if @sale_order.state == 'P'
-#           @sale_order.stocks_moves_create
-        end
-        redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
-      else
-        redirect_to :action=>:add_lines, :sale_order_line=>params[:sale_order_line]
-      end
+      @sale_order.confirm
+#       if @sale_order.delivering?
+#         flash[:warning]=tc('sale_order_already_ordered')
+#       else
+#         @sale_order.confirm
+#       end
+      redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
+#       if params[:commit] != "bla"
+#         if @sale_order.state == 'L'
+#           flash[:warning]=tc('sale_order_already_ordered')
+#         else
+#           @sale_order.confirm
+# #           @sale_order.confirmed_on = Date.today
+# #           @sale_order.update_attribute(:state, 'L') if @sale_order.state == 'P'
+# #           @sale_order.stocks_moves_create
+#         end
+#         redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
+#       else
+#         redirect_to :action=>:add_lines, :sale_order_line=>params[:sale_order_line]
+#       end
     end
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
   end
@@ -924,21 +932,21 @@ class ManagementController < ApplicationController
   end
 
 
-  def add_lines
-    @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
-    if @sale_order_line
-      @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
-      @sale_order_line.save
-    else
-      @sale_order_line = SaleOrderLine.new(params[:sale_order_line])
-      @sale_order_line.company_id = @current_company.id 
-      @sale_order_line.order_id = session[:current_sale_order]
-      @sale_order_line.product_id = find_and_check(:prices,params[:sale_order_line][:price_id]).product_id
-      @sale_order_line.location_id = @stock_locations[0].id if @stock_locations.size == 1
-    end
-    redirect_to :action=>:sales_products, :id=>session[:current_sale_order]
-    #raise Exception.new @sale_order_line.inspect
-  end
+#   def add_lines
+#     @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
+#     if @sale_order_line
+#       @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
+#       @sale_order_line.save
+#     else
+#       @sale_order_line = SaleOrderLine.new(params[:sale_order_line])
+#       @sale_order_line.company_id = @current_company.id 
+#       @sale_order_line.order_id = session[:current_sale_order]
+#       @sale_order_line.product_id = find_and_check(:prices,params[:sale_order_line][:price_id]).product_id
+#       @sale_order_line.location_id = @stock_locations[0].id if @stock_locations.size == 1
+#     end
+#     redirect_to :action=>:sales_products, :id=>session[:current_sale_order]
+#     #raise Exception.new @sale_order_line.inspect
+#   end
   
   def calculate_sales_price(exist)
     if exist
@@ -991,7 +999,7 @@ class ManagementController < ApplicationController
         ActiveRecord::Base.transaction do
           saved = @sale_order_line.save
           if saved 
-            if @sale_order_line.is_a_subscription
+            if @sale_order_line.subscription?
               @subscription = Subscription.new(:sale_order_id=>@sale_order.id, :company_id=>@current_company.id, :product_id=>@sale_order_line.product_id)
 
               if @sale_order_line.product.subscription_nature.nature == "period"
@@ -1036,11 +1044,11 @@ class ManagementController < ApplicationController
     @stock_locations = @current_company.stock_locations
     @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
     @sale_order_line = find_and_check(:sale_order_line, params[:id])
-    @subscription = @sale_order_line.is_a_subscription ? @current_company.subscriptions.find(:first, :conditions=>{:sale_order_id=>@sale_order.id}) : Subscription.new
+    @subscription = @current_company.subscriptions.find(:first, :conditions=>{:sale_order_id=>@sale_order.id}) || Subscription.new
     #raise Exception.new @subscription.inspect
     if request.post?
-      params[:sale_order_line].delete(:company_id)
-      params[:sale_order_line].delete(:order_id)
+      # params[:sale_order_line].delete(:company_id)
+      # params[:sale_order_line].delete(:order_id)
       redirect_to_back if @sale_order_line.update_attributes(params[:sale_order_line])
     end
     @title = {:value=>@sale_order_line.product.name}
@@ -1248,9 +1256,9 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}) do |t|
-    t.column :number
-    t.column :address, :through=>:contact
+  dyta(:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
+    t.column :number, :children=>:designation
+    # t.column :address, :through=>:contact, :children=>:product_name
     t.column :amount
     t.column :amount_with_taxes
     t.action :invoices_print
@@ -1917,7 +1925,7 @@ class ManagementController < ApplicationController
       for id, values in params[:undelivered_sales]
         #raise Exception.new params.inspect+id.inspect+values.inspect
         delivery = Delivery.find_by_id_and_company_id(id, @current_company.id)
-        delivery.stocks_moves_create if delivery and values[:delivered].to_i == 1
+        delivery.ship if delivery and values[:delivered].to_i == 1
       end
       redirect_to :action=>:undelivered_sales
     end

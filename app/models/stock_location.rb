@@ -58,7 +58,7 @@ class StockLocation < ActiveRecord::Base
    # end
   end
   
-  def can_receive(product_id)
+  def can_receive?(product_id)
     #raise Exception.new product_id.inspect+self.reservoir.inspect
     reception = true
     if self.reservoir 
@@ -76,6 +76,11 @@ class StockLocation < ActiveRecord::Base
       end
     end
     reception
+  end
+
+  # obsolete
+  def can_receive(product_id)
+    self.can_receive?(product_id)
   end
 
 end

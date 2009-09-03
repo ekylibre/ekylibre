@@ -22,14 +22,15 @@
 #
 
 class Delivery < ActiveRecord::Base
-
   belongs_to :company
   belongs_to :contact
   belongs_to :invoice
   belongs_to :mode, :class_name=>DeliveryMode.to_s
   belongs_to :order, :class_name=>SaleOrder.to_s
   has_many :lines, :class_name=>DeliveryLine.to_s 
+  has_many :stock_moves, :as=>:origin
 
+  attr_readonly :company_id, :order_id
   validates_presence_of :planned_on
 
   def before_validation
@@ -39,9 +40,9 @@ class Delivery < ActiveRecord::Base
       self.amount += line.amount
       self.amount_with_taxes += line.amount_with_taxes
     end
-    if !self.mode.nil?
-      self.moved_on = Date.today if self.planned_on == Date.today and self.mode.code == "exw"
-    end
+#     if !self.mode.nil?
+#       self.moved_on = Date.today if self.planned_on == Date.today and self.mode.code == "exw"
+#     end
   end
 
   def before_destroy
@@ -55,29 +56,26 @@ class Delivery < ActiveRecord::Base
     [:exw, :cpt, :cip].collect{|x| [tc('natures.'+x.to_s), x] }
   end
  
-  def stocks_moves_create
-    #delivery_lines = DeliveryLine.find(:all, :conditions=>{:company_id=>self.company_id, :delivery_id=>self.id})
-   # for line in delivery_lines
-    for line in self.lines
-      if line.quantity > 0
-         StockMove.create!(:name=>tc(:sale)+"  "+self.order.number, :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>Date.today, :company_id=>line.company_id, :virtual=>false, :input=>false, :origin_type=>Delivery.to_s, :origin_id=>self.id, :generated=>true)
-      end
+
+  # Ships the delivery and move the real stocks. This operation locks the delivery.
+  # This permits to manage stocks.
+  def ship(shipped_on=Date.today)
+    for line in self.lines.find(:all, :conditions=>["quantity>0"])
+      # self.stock_moves.create!(:name=>tc(:sale, :number=>self.order.number), :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>shipped_on, :company_id=>line.company_id, :virtual=>false, :input=>false, :origin_type=>Delivery.to_s, :origin_id=>self.id, :generated=>true)
+      line.product.take_stock_out(line.quantity, :location_id=>line.order_line.location_id, :planned_on=>self.planned_on, :moved_on=>shipped_on)
     end
-    self.moved_on = Date.today if self.moved_on.nil?
+    self.moved_on = shipped_on if self.moved_on.nil?
     self.save
   end
   
   def moment
     if self.planned_on <= Date.today-(3)
-      css = "verylate"
+      "verylate"
     elsif self.planned_on <= Date.today
-      css = "late"
-  # elsif self.planned_on == Date.today
-    # css = "today"
+      "late"
     elsif self.planned_on > Date.today
-      css = "advance"
+      "advance"
     end
-    css
   end
 
   def label

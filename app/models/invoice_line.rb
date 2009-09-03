@@ -26,8 +26,8 @@ class InvoiceLine < ActiveRecord::Base
   belongs_to :company
   belongs_to :entity
   belongs_to :invoice
-  belongs_to :order_line, :class_name=>SaleOrderLine.to_s
-  belongs_to :origin, :class_name=>InvoiceLine.to_s
+  belongs_to :order_line, :class_name=>SaleOrderLine.name
+  belongs_to :origin, :class_name=>InvoiceLine.name
   belongs_to :price
   belongs_to :product
 
@@ -96,12 +96,10 @@ class InvoiceLine < ActiveRecord::Base
     self.amount_with_taxes - self.amount
   end  
   
-
   def designation
     d  = self.order_line.label
     d += "\n"+self.annotation.to_s unless self.annotation.blank?
     d
   end
-
 
 end

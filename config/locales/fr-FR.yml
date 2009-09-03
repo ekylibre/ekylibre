@@ -216,7 +216,7 @@ fr-FR:
         exw: Remise en main propre
         cpt: Livraison sans assurance
         cip: Livraison avec assurance
-      sale: Vente
+      sale: "Vente {{number}}"
     delivery_line: 
       error_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité commandée'
       sale: 'Vente {{number}}'
@@ -316,6 +316,7 @@ fr-FR:
       unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
       components_number: ' nc '
       raw_material: 'mp'
+      stock_move: '{{origin}} ({{code}})'
     product_component:
       of_product: 'du produit'
     product_stock:

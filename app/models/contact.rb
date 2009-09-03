@@ -108,7 +108,7 @@ class Contact < ActiveRecord::Base
     lines = [self.line_2, self.line_3, (self.line_4_number.to_s+' '+self.line_4_street.to_s).strip, self.line_5]
     lines << self.line_6.to_s if with_city
     lines << (self.country.blank? ? '' : I18n.t("countries.#{self.country}")) if with_country
-    lines = lines.compact
+    lines = lines.compact.collect{|x| x.gsub(sep,' ')}
     lines.delete ""
     lines.join(sep)
   end

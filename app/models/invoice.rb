@@ -38,7 +38,7 @@ class Invoice < ActiveRecord::Base
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :sale_order
   has_many :deliveries
-  has_many :lines, :class_name=>InvoiceLine.to_s, :foreign_key=>:invoice_id
+  has_many :lines, :class_name=>InvoiceLine.name
 
   attr_readonly :company_id, :number, :sale_order_id, :amount, :amount_with_taxes, :client_id, :contact_id, :currency_id, :annotation
 
@@ -53,7 +53,6 @@ class Invoice < ActiveRecord::Base
                     end
     end
     self.payment_on = self.payment_delay.compute(self.created_on) if self.payment_delay
-
     if self.credit
       self.amount = 0
       self.amount_with_taxes = 0
@@ -62,7 +61,6 @@ class Invoice < ActiveRecord::Base
         self.amount_with_taxes += line.amount_with_taxes
       end
     end
-    
   end
   
   def before_validation_on_create
@@ -85,110 +83,29 @@ class Invoice < ActiveRecord::Base
   def after_create
     self.client.add_event(:invoice, self.updater_id) if self.updater
   end
-
-#   def self.generate(company_id, records)
-#     puts "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"+records.class.to_s
-#     invoice = Invoice.new(:company_id=>company_id, :nature=>"S")
-#     case records.class.to_s
-      
-#     when "Array"
-#       for record in records
-#         invoice.amount += record.amount
-#         invoice.amount_with_taxes += record.amount_with_taxes
-#       end
-#       invoice.sale_order_id = records[0].order_id
-#       invoice.payment_delay_id = records[0].order.payment_delay_id
-#       invoice.client_id = records[0].order.client_id
-#       invoice.contact_id = records[0].order.invoice_contact_id
-#       invoice.payment_on = Date.today
-#       invoice.save!
-#       for record in records
-#         record.update_attributes!(:invoice_id=>invoice.id)
-#         for lines in record.lines
-#           if lines.quantity > 0
-#             line = InvoiceLine.find(:first, :conditions=>{:company_id=>lines.company_id, :product_id=>lines.order_line.product_id, :price_id=>lines.price_id, :invoice_id=>invoice.id})
-#             if line.nil?
-#               invoice_line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
-#                                                  :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
-#                                                  :order_line_id=>lines.order_line_id,:quantity=>lines.quantity) 
-#               invoice_line.save!
-#             else
-#               line.update_attributes(:quantity=>(line.quantity + lines.quantity),:amount=>(line.amount + lines.amount),:amount_with_taxes=>(line.amount_with_taxes + lines.amount_with_taxes))
-#             end
-#           end
-#         end
-#       end
-      
-      
-#     when "Delivery"
-#       invoice.amount = records.amount
-#       invoice.amount_with_taxes = records.amount_with_taxes
-#       invoice.payment_delay_id = records.order.payment_delay_id
-#       invoice.client_id = records.order.client_id
-#       invoice.payment_on = Date.today
-#       invoice.sale_order_id = records.id
-#       invoice.contact_id = records.order.invoice_contact_id
-#       invoice.save!
-#       records.update_attributes!(:invoice_id=>invoice.id)
-#       for lines in records.lines
-#         if lines.quantity > 0
-#           line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
-#                                      :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
-#                                      :order_line_id=>lines.order_line_id,:quantity=>lines.order_line.quantity)
-#           line.save
-#         end
-#       end
-      
-#     when "SaleOrder"
-#       invoice.amount = records.amount
-#       invoice.amount_with_taxes = records.amount_with_taxes
-#       invoice.payment_delay_id = records.payment_delay_id
-#       invoice.client_id = records.client_id
-#       invoice.payment_on = Date.today
-#       invoice.contact_id = records.invoice_contact_id
-#       invoice.sale_order_id = records.id
-#       invoice.save!
-#       puts invoice.inspect
-#       records.update_attributes!(:invoiced=>true)
-#       for lines in records.lines
-#         if lines.quantity > 0 or not lines.reduction_origin_id.nil?
-#           line = InvoiceLine.create!(:company_id=>lines.company_id,:amount=>lines.amount,
-#                                      :amount_with_taxes=>lines.amount_with_taxes,:invoice_id=>invoice.id,
-#                                      :order_line_id=>lines.id,:quantity=>lines.quantity)
-#           line.save
-#         end
-#       end
-#     end
-    
-#   end
   
- def status
-   status = ""
-   status = "critic" if self.credit
-   status
- end
+  def status
+    status = ""
+    status = "critic" if self.credit
+    status
+  end
 
- def product_name
-   self.product.name
- end
+  def product_name
+    self.product.name
+  end
 
- def limit_to_pay
-   self.payment_delay.compute(self.created_on)
- end
+  def taxes
+    self.amount_with_taxes - self.amount
+  end
 
- def taxes
-   self.amount_with_taxes - self.amount
- end
+  def address
+    a = self.client.full_name+"\n"
+    a += (self.contact ? self.contact.address : self.client.default_contact.address).gsub(/\s*\,\s*/, "\n")
+    a
+  end
 
- def address
-   a = self.client.full_name+"\n"
-   a += (self.contact ? self.contact.address : self.client.default_contact.address).gsub(/\s*\,\s*/, "\n")
-   a
- end
-
- def rest_to_pay
-   self.sale_order.invoices.sum(:amount_with_taxes)-self.sale_order.payment_parts.sum(:amount)
- end
- 
-
+  def unpaid_amount
+    self.sale_order.invoices.sum(:amount_with_taxes)-self.sale_order.payment_parts.sum(:amount)
+  end
+  
 end
