@@ -1006,11 +1006,7 @@ class ManagementController < ApplicationController
                   @subscription.last_number = params[:subscription][:last_number]
                 else  ## from quick_line
                   @subscription.first_number = @sale_order_line.product.subscription_nature.actual_number
-<<<<<<< .mine
-                  @subscription.last_number = (@sale_order_line.product.subscription_nature.actual_number + @sale_order_line.product.subscription_quantity)
-=======
                   @subscription.last_number = (@sale_order_line.product.subscription_nature.actual_number + ((@sale_order_line.product.subscription_quantity-1)||0))
->>>>>>> .r1109
                 end
               end
               if not params[:subscription].nil?
