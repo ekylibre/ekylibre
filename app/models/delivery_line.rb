@@ -20,27 +20,29 @@
 #
 
 class DeliveryLine < ActiveRecord::Base
-
   belongs_to :company
   belongs_to :delivery
   belongs_to :price
   belongs_to :product
-  belongs_to :order_line, :class_name=>SaleOrderLine.to_s
+  belongs_to :order_line, :class_name=>SaleOrderLine.name
   belongs_to :unit
  
+  attr_readonly :company_id, :order_line_id, :product_id, :price_id, :unit_id
 
   def before_validation
-    self.product = self.order_line.product
+    self.product_id = self.order_line.product_id
+    self.price_id = self.order_line.price.id
+    self.unit_id = self.order_line.unit_id
     self.amount = self.order_line.price.amount*self.quantity
     self.amount_with_taxes = self.order_line.price.amount_with_taxes*self.quantity
-    self.price_id = self.order_line.price.id
-    self.unit_id = self.order_line.unit.id
   end
   
   def validate_on_create
-    #raise Exception.new self.undelivered_quantity.to_s+" "+self.quantity.to_s
-    test = self.undelivered_quantity >= self.quantity 
-    errors.add_to_base(tc(:error_undelivered_quantity), :product=>self.product.name) if (self.undelivered_quantity < self.quantity)
+    # raise Exception.new self.undelivered_quantity.to_s+" "+self.quantity.to_s
+    # test = self.undelivered_quantity >= self.quantity 
+    if self.product
+      errors.add_to_base(tc(:error_undelivered_quantity), :product=>self.product_name) if (self.undelivered_quantity < self.quantity)
+    end
   end
   
   def before_update
@@ -52,7 +54,6 @@ class DeliveryLine < ActiveRecord::Base
     
     #raise Exception.new self.undelivered_quantity.to_s+" "+self.quantity.to_s+" - "+line.quantity.to_s+test.to_s
   end
-  
 
   def after_save
     self.delivery.save

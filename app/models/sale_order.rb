@@ -57,6 +57,7 @@ class SaleOrder < ActiveRecord::Base
   has_many :payment_parts, :foreign_key=>:order_id
   has_many :lines, :class_name=>SaleOrderLine.to_s, :foreign_key=>:order_id
   has_many :subscriptions, :class_name=>Subscription.to_s
+  has_many :stock_moves, :as=>:origin
 
   @@natures = [:estimate, :order, :invoice]
   
@@ -110,39 +111,86 @@ class SaleOrder < ActiveRecord::Base
     self.save
   end
 
-  def deliver_and_invoice
-    self.confirmed_on = Date.today
-    self.stocks_moves_create
-    delivery = Delivery.create!(:amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :company_id=>self.company_id, :order_id=>self.id, :planned_on=>Date.today, :moved_on=>Date.today)
-    for line in self.lines.find_all_by_reduction_origin_id(nil)
-      DeliveryLine.create!(:delivery_id=>delivery.id, :order_line_id=>line.id, :quantity=>line.quantity, :company_id=>self.company_id)
+  
+  # Confirm that the sale order.
+  def confirm(confirmed_on=Date.today)
+    if self.state == 'P'
+      self.state = 'L'
+      self.confirmed_on = confirmed_on
+      for line in self.lines.find(:all, :conditions=>["quantity>0"])
+        self.stock_moves.create!(:name=>tc(:sale, :number=>self.number), :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.created_on, :company_id=>line.company_id, :virtual=>true, :input=>false, :generated=>true) # , :origin_type=>self.class.name, :origin_id=>self.id
+      end
+      self.save
     end
-    self.invoice
-    self.state = 'R'
+  end
+
+
+  # Create the last delivery with undelivered products if necessary
+  def deliver
+    self.confirm
+    lines = []
+    for line in self.lines.find_all_by_reduction_origin_id(nil)
+      if quantity = line.undelivered_quantity > 0
+        lines << {:order_line_id=>line.id, :quantity=>quantity, :company_id=>self.company_id}
+      end
+    end
+    if lines.size>0
+      delivery = self.deliveries.create!(:amount=>0, :amount_with_taxes=>0, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :contact_id=>self.delivery_contact_id)
+      delivery.lines.create! lines
+    end    
+  end
+
+
+  
+  # Invoice all the products creating the delivery if necessary 
+  def invoice
+    return false if self.undelivered(:amount) > 0
+    # Move stocks when possible
+    # for delivery in self.deliveries
+    #   delivery.stocks_moves_create
+    # end
+    invoice = self.invoices.create!(:company_id=>self.company_id, :nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
+    for line in self.lines.find(:all, :conditions=>["quantity>0 AND reduction_origin_id IS NULL"])
+      invoice.lines.create!(:company_id=>line.company_id, :order_line_id=>line.id, :amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes, :quantity=>line.quantity)
+    end
+    self.invoiced = true
     self.save
   end
 
-  def invoice
-    for delivery in self.deliveries
-      delivery.stocks_moves_create
-    end
-    invoice = Invoice.create!(:company_id=>self.company_id, :nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :payment_delay_id=>self.payment_delay_id, :client_id=>self.client_id, :payment_on=>Date.today, :contact_id=>self.invoice_contact_id, :sale_order_id=>self.id)
-    self.invoiced = true
-    self.save
-    for line in self.lines
-      if line.quantity > 0 or not line.reduction_origin_id.nil?
-        invoice_line =  InvoiceLine.create!(:company_id=>line.company_id,:amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes,:invoice_id=>invoice.id, :order_line_id=>line.id,:quantity=>line.quantity)
-      end
-    end
+  def deliver_and_invoice
+    self.deliver
+    self.invoice
   end
+
+
+#   def deliver_and_invoice
+#     self.confirmed_on ||= Date.today
+#     self.stocks_moves_create
+#     lines = []
+#     for line in self.lines.find_all_by_reduction_origin_id(nil)
+#       if quantity = line.undelivered_quantity > 0
+#         lines << {:order_line_id=>line.id, :quantity=>quantity, :company_id=>self.company_id}
+#       end
+#     end
+#     if lines.size>0
+#       # Create delivery
+#       delivery = self.deliveries.create!(:amount=>0, :amount_with_taxes=>0, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :contact_id=>self.delivery_contact_id)
+#       delivery.lines.create! lines
+#     end
+#     self.invoice
+#     self.state = 'R'
+#     self.save
+#   end
 
   def stats(options={})
     invoiced = self.invoices.sum(:amount_with_taxes)
     array = []
     array << [:client_balance, self.client.balance.to_s] if options[:with_balance]
     array << [:total_amount, self.amount_with_taxes]
-    array << [:uninvoiced_amount, self.amount_with_taxes - invoiced]
-    array << [:invoiced_amount, invoiced]
+    if options[:multi_invoices]
+      array << [:uninvoiced_amount, self.amount_with_taxes - invoiced]
+      array << [:invoiced_amount, invoiced]
+    end
     array << [:paid_amount, paid = self.payment_parts.sum(:amount)]
     array << [:unpaid_amount, invoiced - paid]
     array 
@@ -157,13 +205,11 @@ class SaleOrder < ActiveRecord::Base
     tc('states.'+self.state.to_s)
   end
 
-  def stocks_moves_create
-    for line in self.lines
-      if line.quantity > 0
-        StockMove.create!(:name=>tc(:sale)+"  "+self.number, :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.created_on, :company_id=>line.company_id, :virtual=>true, :input=>false, :origin_type=>SaleOrder.to_s, :origin_id=>self.id, :generated=>true)
-      end
-    end
-  end
+#   def stocks_moves_create
+#     for line in self.lines.find(:all, :conditions=>["quantity>0"])
+#       StockMove.create!(:name=>tc(:sale, :number=>self.number), :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.created_on, :company_id=>line.company_id, :virtual=>true, :input=>false, :origin_type=>SaleOrder.to_s, :origin_id=>self.id, :generated=>true)
+#     end
+#   end
 
   def undelivered(column)
     sum = 0
@@ -178,6 +224,13 @@ class SaleOrder < ActiveRecord::Base
     end
     sum.round(2)
   end
+
+  def undelivered(column)
+    sum  = self.send(column)
+    sum -= DeliveryLine.sum(column, :joins=>"JOIN deliveries ON (delivery_id=deliveries.id)", :conditions=>{:order_id=>self.id})
+    sum.round(2)
+  end
+
 
   def unpaid_amount(only_invoices=true, only_received_payments=false)
     (only_invoices ? self.invoices.sum(:amount_with_taxes) : self.amount_with_taxes).to_f - (only_received_payments ? self.payment_parts.sum(:amount, :conditions=>{:received=>true}) : self.payment_parts.sum(:amount)).to_f

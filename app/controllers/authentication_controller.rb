@@ -29,7 +29,7 @@ class AuthenticationController < ApplicationController
         init_session(user)
         #raise Exception.new session[:rights].inspect
         unless session[:user_id].blank?
-          redirect_to session[:last_url]||{:controller=>:company, :action=>:index}
+          redirect_to session[:last_url]||{:controller=>:company, :action=>:welcome}
         end
       else
         flash.now[:error] = tc(:no_authenticated)
@@ -85,6 +85,7 @@ class AuthenticationController < ApplicationController
     session[:help]         = true
     session[:help_history] = []
     session[:history]      = []
+    session[:last_page]    = {}
     session[:last_query]   = Time.now.to_i
     session[:rights]       = user.rights.to_s.split(" ").collect{|x| x.to_sym}
     session[:side]         = true

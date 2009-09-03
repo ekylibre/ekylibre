@@ -40,7 +40,7 @@ class Invoice < ActiveRecord::Base
   has_many :deliveries
   has_many :lines, :class_name=>InvoiceLine.to_s, :foreign_key=>:invoice_id
 
-  attr_readonly :company_id
+  attr_readonly :company_id, :number, :sale_order_id, :amount, :amount_with_taxes, :client_id, :contact_id, :currency_id, :annotation
 
   def before_validation
     self.created_on = Date.today unless self.created_on.is_a? Date
@@ -52,6 +52,8 @@ class Invoice < ActiveRecord::Base
                       '00000001'
                     end
     end
+    self.payment_on = self.payment_delay.compute(self.created_on) if self.payment_delay
+
     if self.credit
       self.amount = 0
       self.amount_with_taxes = 0

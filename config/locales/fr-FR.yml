@@ -219,6 +219,7 @@ fr-FR:
       sale: Vente
     delivery_line: 
       error_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité commandée'
+      sale: 'Vente {{number}}'
     document_nature:
       families:
         company: Société
@@ -338,7 +339,7 @@ fr-FR:
         I: Facturation
         R: Règlements
         F: Clôturée
-      sale: Vente
+      sale: 'Vente {{number}}'
       sales_conditions:
         downpayment: 'Un acompte de {{percent}}% (soit {{amount}}€) devra être versé à la signature du présent devis.'
         validity: 'Ce devis et ses conditions générales sont valables jusqu''au {{expiration}}.'

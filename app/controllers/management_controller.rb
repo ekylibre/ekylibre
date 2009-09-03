@@ -887,9 +887,10 @@ class ManagementController < ApplicationController
         if @sale_order.state == 'L'
           flash[:warning]=tc('sale_order_already_ordered')
         else
-          @sale_order.confirmed_on = Date.today
-          @sale_order.update_attribute(:state, 'L') if @sale_order.state == 'P'
-          @sale_order.stocks_moves_create
+          @sale_order.confirm
+#           @sale_order.confirmed_on = Date.today
+#           @sale_order.update_attribute(:state, 'L') if @sale_order.state == 'P'
+#           @sale_order.stocks_moves_create
         end
         redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
       else
@@ -903,7 +904,9 @@ class ManagementController < ApplicationController
     @sale_order = find_and_check(:sale_orders, params[:id])
     if request.post?
       #raise Exception.new "ok"+@sale_order.inspect
-      @sale_order.deliver_and_invoice
+      ActiveRecord::Base.transaction do
+        raise ActiveRecord::Rollback unless @sale_order.deliver_and_invoice
+      end
       redirect_to :action=>:sales_payments, :id=>@sale_order.id
     end
   end
@@ -1285,7 +1288,9 @@ class ManagementController < ApplicationController
 #         raise ActiveRecord::Rollback unless @current_company.invoice(deliveries)
      # end
       # @current_company.invoice(@sale_order)
-      @sale_order.invoice
+      ActiveRecord::Base.transaction do  
+        raise ActiveRecord::Rollback unless @sale_order.invoice
+      end
       redirect_to :action=>:sales_payments, :id=>@sale_order.id
     end
   end

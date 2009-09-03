@@ -112,10 +112,12 @@ fr-FR:
         resources: 'Gestion des ressources humaines'
         roles: 'Rôles'
         sequences: 'Séquences'
-        title: 'Bienvenue dans Ekylibre, {{user}}'
+        title: 'Bonjour, {{user}}'
         tools: 'Outils'
         user_statistics: 'Mes statistiques'
         users: 'Utilisateurs'
+      welcome:
+        title: 'Bienvenue dans Ekylibre, {{user}}'
       listings:
         listings_create: 'Créer une nouvelle extraction'
         title: 'Extractions de données'

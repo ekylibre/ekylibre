@@ -32,6 +32,8 @@ class InvoiceLine < ActiveRecord::Base
   belongs_to :product
 
   validates_presence_of :order_line_id
+
+  attr_readonly :company_id, :invoice_id, :order_line_id, :quantity, :amount, :amount_with_taxes, :annotation, :price_id, :product_id
   
   def before_validation
     self.product = self.order_line.product

@@ -32,7 +32,7 @@ class Document < ActiveRecord::Base
 
   attr_accessor :archive
 
-  validates_presence_of :template_id
+  validates_presence_of :template_id, :subdir, :extension, :owner_type, :owner_id
 
   attr_readonly :company_id
 

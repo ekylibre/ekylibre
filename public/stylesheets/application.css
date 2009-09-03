@@ -60,7 +60,8 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #side .indicator li a:link, #side .indicator li a:visited { color:#080;}
 
 
-#yield { padding: 8px; overflow: auto; background: url(../images/template/columns.png) repeat-x top; border: 1px solid #95b0e4; }
+/*#yield { padding: 8px; overflow: auto; background: url(../images/template/columns.png) repeat-x top; border: 1px solid #95b0e4; }*/
+#yield { padding: 8px; overflow: auto; background: #F7F7FF; border: 1px solid #95b0e4; }
 #yield h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: normal;}
 #yield h2 { margin: 16px 0px 4px; font-size:16px; color: #06A;}
 #yield .menu, .errorExplanation { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px;}

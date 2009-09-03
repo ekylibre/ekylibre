@@ -34,7 +34,7 @@ class Delay < ActiveRecord::Base
     errors.add(:expression, I18n.t('activerecord.errors.messages.invalid')) if self.compute(Date.today).nil?
   end
 
-  def compute(started_on)    
+  def compute(started_on=Date.today)
     # dead_on =(born_on >> self.months) + self.days
     # dead_on = dead_on.end_of_month + self.additional_days if self.end_of_month
     # puts started_on.inspect+"  LLLLLLLLLLLLLLLLLLLLLLLLLLLLL".inspect

@@ -217,6 +217,9 @@ module ApplicationHelper
   end
 
   
+  def last_page(controller)
+    session[:last_page][controller]||url_for(:controller=>controller, :action=>:index)
+  end
 
   def top_tag
     return '' if @current_user.blank?
@@ -224,9 +227,10 @@ module ApplicationHelper
     # Modules Tag
     tag = ''
     for m in MENUS
-      tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"),{:controller=>m[:name]})+" "
+      # tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"),{:controller=>m[:name]})+" "
+      tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"), last_page(m[:name].to_s))+" "
     end
-    tag = content_tag(:nobr, tag);
+    tag = content_tag(:nobr, tag)
     code += content_tag(:div, tag, :id=>:modules, :class=>:menu)
     # Fix
     tag = ''
@@ -246,6 +250,24 @@ module ApplicationHelper
     code = content_tag(:div, code, :id=>:top, :orient=>:horizontal, :flexy=>true)
     code
   end
+
+#   def modules_tag
+#     tag = ''
+#     for m in MENUS
+#       tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"),{:controller=>m[:name]})+" "
+#     end
+#     tag += image_tag('template/ajax-loader-3.gif', :id=>:loading, :style=>'display:none;')
+#   end
+
+#   def user_tag
+#     tag = ''
+#     tag += content_tag(:span, @current_user.label)+" "
+#     tag += content_tag(:span, @current_company.name)+" "
+#     tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout}, :class=>:logout)+" "
+#   end
+
+
+
 
   def side_tag(controller = self.controller.controller_name.to_sym)
     return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym)
