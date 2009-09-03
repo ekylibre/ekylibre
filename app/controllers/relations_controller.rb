@@ -650,6 +650,7 @@ class RelationsController < ApplicationController
 
   def entities_contacts_create
     @entity = find_and_check(:entity, params[:id]||session[:current_entity])
+    #raise Exception.new(@entity.id.to_s)
     if request.post?
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id

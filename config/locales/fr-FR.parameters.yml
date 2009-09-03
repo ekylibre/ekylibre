@@ -19,6 +19,15 @@ fr-FR:
         numeration: 'Numérotation des factures'
       sale_orders:
         numeration: 'Numérotation des ventes'
+      impressions:
+        natures:
+          delivery: 'Modèle d''impression pour les devis' 
+          invoice: 'Modèle d''impression pour les factures'
+          purchase_order: 'Modèle d''impression pour les achats'
+          sale_order: 'Modèle d''impression pour les ventes'
     relations: 
       entities:
         numeration: 'Numérotation des fiches clients/fournisseurs'
+      impressions:
+        natures:
+          entity: 'Modèle d''impression pour les fiches clients/fournisseur'

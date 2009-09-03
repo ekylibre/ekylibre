@@ -828,7 +828,7 @@ class ManagementController < ApplicationController
     client_id = params[:client_id]||(params[:sale_order]||{})[:client_id]||session[:current_entity]
     client_id = 0 if client_id.blank?
     session[:current_entity] = client_id
-    contacts = Contact.find(:all, :conditions=>{:entity_id=>client_id, :company_id=>@current_company.id, :active=>true})  
+    contacts = Contact.find(:all, :conditions=>{:entity_id=> client_id, :company_id=>@current_company.id, :active=>true})  
     @contacts = contacts.collect{|x| [x.address, x.id]}
     render :text=>options_for_select(@contacts) if request.xhr?
   end
@@ -900,7 +900,7 @@ class ManagementController < ApplicationController
   end
 
   def sale_orders_invoice
-    return unless @sale_order = find_and_check(:sale_orders, params[:id])
+    @sale_order = find_and_check(:sale_orders, params[:id])
     if request.post?
       #raise Exception.new "ok"+@sale_order.inspect
       @sale_order.deliver_and_invoice
@@ -909,9 +909,15 @@ class ManagementController < ApplicationController
   end
 
   def sales_print
-    return unless @sale_order = find_and_check(:sale_order, params[:id])
-    print(@sale_order, :filename=>@sale_order.state == 'P' ? tc('estimate')+" "+@sale_order.number : tc('order')+" "+@sale_order.number)
-    # print(@sale_order, :archive=>@sale_order.state != 'P', :filename=>@sale_order.state == 'P' ? tc('estimate')+" "+@sale_order.number : tc('order')+" "+@sale_order.number )
+    @sale_order = find_and_check(:sale_order, params[:id])
+    if @current_company.default_contact.nil? || @sale_order.client.contacts.size == 0
+      entity = @current_company.default_contact.nil? ? @current_company.name : @sale_order.client.full_name
+      flash[:warning]=tc(:no_contacts, :name=>entity)
+      redirect_to_back
+    else
+      print(@sale_order, :filename=>@sale_order.state == 'P' ? tc('estimate')+" "+@sale_order.number : tc('order')+" "+@sale_order.number)
+      # print(@sale_order, :archive=>@sale_order.state != 'P', :filename=>@sale_order.state == 'P' ? tc('estimate')+" "+@sale_order.number : tc('order')+" "+@sale_order.number )
+    end
   end
 
 
@@ -1000,7 +1006,11 @@ class ManagementController < ApplicationController
                   @subscription.last_number = params[:subscription][:last_number]
                 else  ## from quick_line
                   @subscription.first_number = @sale_order_line.product.subscription_nature.actual_number
+<<<<<<< .mine
+                  @subscription.last_number = (@sale_order_line.product.subscription_nature.actual_number + @sale_order_line.product.subscription_quantity)
+=======
                   @subscription.last_number = (@sale_order_line.product.subscription_nature.actual_number + ((@sale_order_line.product.subscription_quantity-1)||0))
+>>>>>>> .r1109
                 end
               end
               if not params[:subscription].nil?
@@ -1289,7 +1299,6 @@ class ManagementController < ApplicationController
     t.column :amount, :url=>{:action=>:embankments_display}
     t.column :payments_count
     t.column :name, :through=>:bank_account
-    t.column :label, :through=>:embanker
     t.column :created_on
     t.action :embankments_display
     t.action :embankments_print
@@ -1830,7 +1839,7 @@ class ManagementController < ApplicationController
     session[:subscriptions][:instant] = instant||@subscription_nature.now
   end
 
-  dyli(:subscription_contacts,  ["e.code", "address"], :model=>:contact, :joins=>"JOIN entities AS e ON (e.id=entity_id)", :conditions=>{:company_id=>['@current_company.id'], :active=>true})
+  dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity]'], :company_id=>['@current_company.id']})
   
   def subscriptions_create
     if request.post?
@@ -1839,47 +1848,14 @@ class ManagementController < ApplicationController
       # redirect_to :action=>:subscriptions if @subscription.save
       redirect_to_back if @subscription.save
     else
-      entity = Entity.find_by_id_and_company_id(params[:entity_id], @current_company.id)
-      attributes = {}
-      if entity
-        attributes[:entity_id]  = entity.id 
-        attributes[:contact_id] = entity.default_contact.id if entity.default_contact
-      end
-      @subscription = Subscription.new(attributes)
+      @subscription = Subscription.new(:entity_id=>params[:entity_id])
     end
     @subscription_nature = @subscription.nature
     render_form
   end
-  
-  def subscriptions_update
-    return unless @subscription = find_and_check(:subscription, params[:id])
-    if request.post?
-      redirect_to_back if @subscription.update_attributes!(params[:subscription])
-    end
-    @subscription_nature = @subscription.nature
-    @title = {:value=>@subscription.nature.name, :start=>@subscription.start, :finish=>@subscription.finish}
-    render_form
-  end
-
-  def subscriptions_delete
-    return unless @subscription = find_and_check(:subscription, params[:id])
-    if request.post? or request.delete?
-      redirect_to_current if @subscription.destroy
-    end
-  end
-  
-
   
   def subscriptions_period    
-    nature = SubscriptionNature.find_by_company_id_and_id(@current_company.id, params[:subscription_nature_id].to_i)
-    @subscription = Subscription.new(:nature=>nature)
-    if @subscription.nature
-      if @subscription.nature == "quantity"
-        @subscription.first_number = @subscription.nature.actual_number
-      else
-        @subscription.started_on = Date.today
-      end
-    end
+    @subscription = Subscription.new(:nature=>SubscriptionNature.find_by_company_id_and_id(@current_company.id, params[:subscription_nature_id].to_i))
     render :partial=>'subscriptions_period_form'
   end
 
@@ -2144,7 +2120,7 @@ class ManagementController < ApplicationController
   end
 
   def taxes_update
-    return unless @tax = find_and_check(:tax, params[:id])
+    @tax = find_and_check(:tax, params[:id])
     if request.post?
       redirect_to :action=>:taxes if @tax.update_attributes!(params[:tax])
     end
@@ -2153,7 +2129,7 @@ class ManagementController < ApplicationController
   end
   
   def taxes_delete
-    return unless @tax = find_and_check(:tax, params[:id])
+    @tax = find_and_check(:tax, params[:id])
     if request.post? or request.delete?
       redirect_to :action=>:taxes if @tax.destroy
     end
