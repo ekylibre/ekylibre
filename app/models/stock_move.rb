@@ -47,9 +47,8 @@ class StockMove < ActiveRecord::Base
   def before_create
     product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id})
     product_stock = ProductStock.create!(:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id) if product_stock.nil?
-
-    quantity, direction = operators
-    product_stock.update_attribute(quantity, product_stock.send(quantity) + direction*self.quantity)
+    product_stock.increment!(column, direction*self.quantity)
+##    product_stock.update_attribute(column, product_stock.send(column) + direction*self.quantity)
 #     if self.virtual and self.input
 #       product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
 #     elsif self.virtual and !self.input
@@ -67,13 +66,11 @@ class StockMove < ActiveRecord::Base
     old_product_stock = ProductStock.find(:first,:conditions=>{:product_id=>old_move.product_id, :location_id=>old_move.location_id, :company_id=>self.company_id})
     product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id})
     product_stock = ProductStock.create!(:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id) if product_stock.nil?
-    #raise Exception.new old_move.inspect+" <- old_move                   self-> "+self.inspect
-    
-    quantity, direction = operators
-
     if old_move.location_id != self.location_id
-      product_stock.update_attribute!(quantity, product_stock.send(quantity) + direction*self.quantity)
-      old_product_stock.update_attribute!(quantity, product_stock.send(quantity) - direction*old_move.quantity)
+      product_stock.increment!(column, direction*self.quantity)
+      old_product_stock.decrement!(column, direction*old_move.quantity)
+##      product_stock.update_attribute(column, product_stock.send(column) + direction*self.quantity)
+##      old_product_stock.update_attribute(column, old_product_stock.send(column) - direction*old_move.quantity)
 #       if self.input and self.virtual
 #         product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
 #         old_product_stock.update_attributes!(:current_virtual_quantity=>old_product_stock.current_virtual_quantity - old_move.quantity)
@@ -89,7 +86,8 @@ class StockMove < ActiveRecord::Base
 #       end
     else
       #raise Exception.new self.quantity.to_s+"  "+old_move.inspect+"  "+old_move.quantity.to_s+"                 "+product_stock.inspect
-      product_stock.update_attribute!(quantity, product_stock.send(quantity) + direction*(self.quantity - old_move.quantity))
+      product_stock.increment!(column, direction*(self.quantity - old_move.quantity))
+##      product_stock.update_attribute(column, product_stock.send(column) + direction*(self.quantity - old_move.quantity))
 #       if self.input and self.virtual
 #         product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity + (self.quantity - old_move.quantity))
 #       elsif self.input and !self.virtual
@@ -104,8 +102,8 @@ class StockMove < ActiveRecord::Base
 
   def before_destroy  
     product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id})
-    quantity, direction = operators
-    product_stock.update_attribute(quantity, product_stock.send(quantity) - direction*self.quantity)
+    product_stock.decrement!(column, direction*self.quantity)
+##    product_stock.update_attribute(column, product_stock.send(column) - direction*self.quantity)
 #     if self.virtual and self.input
 #       product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity - self.quantity)
 #     elsif self.virtual and !self.input
@@ -125,8 +123,14 @@ class StockMove < ActiveRecord::Base
 
   private
 
-  def operators
-    return "current_"+(self.virtual ? 'virtual' : 'real')+"_quantity", (self.input ? 1 : -1)
+  # Column to use in the product stock can be +:current_virtual_stock+ or +:current_real_stock+
+  def column
+    "current_"+(self.virtual ? 'virtual' : 'real')+"_quantity"
+  end
+
+  # Returns 1 if the stock move is an input and -1 if the stock move is an output.
+  def direction
+    (self.input ? 1 : -1)
   end
   
   ### For stocks_moves created by user

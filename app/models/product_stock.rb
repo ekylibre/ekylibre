@@ -19,10 +19,11 @@
 #
 
 class ProductStock < ActiveRecord::Base
-
   belongs_to :company
-  belongs_to :product
   belongs_to :location, :class_name=>StockLocation.to_s
+  belongs_to :product
+  
+  attr_readonly :company_id
   
   def before_validation
     self.quantity_min = self.product.quantity_min if self.quantity_min.nil?
@@ -32,25 +33,24 @@ class ProductStock < ActiveRecord::Base
     self.location_id = locations[0].id if locations.size == 1
   end
 
-   def validate 
-     if self.location
-       errors.add_to_base(tc(:error_azz_z, :location=>self.location.name)) unless self.location.can_receive(self.product_id)
-     end
-   end
+  def validate 
+    if self.location
+      errors.add_to_base(tc(:error_azz_z, :location=>self.location.name)) unless self.location.can_receive(self.product_id)
+    end
+  end
   
   def state
     if self.current_virtual_quantity <= self.critic_quantity_min
-      css = "critic"
+      "critic"
     elsif self.current_virtual_quantity <= self.quantity_min
-      css = "minimum"
+      "minimum"
     else
-      css = "enough"
+      "enough"
     end
-    css
   end
 
 
-  def add_or_update(params,product_id)
+  def add_or_update(params, product_id)
     stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>params[:location_id], :product_id=>product_id})
     if stock.nil?
       ps = ProductStock.new(:company_id=>self.company_id, :location_id=>params[:location_id], :product_id=>product_id, :quantity_min=>params[:quantity_min], :quantity_max=>params[:quantity_max], :critic_quantity_min=>params[:critic_quantity_min])
@@ -60,20 +60,20 @@ class ProductStock < ActiveRecord::Base
     end
   end
 
-#   def reflect_changes(quantity)
-#     old_current_real_quantity = self.current_real_quantity 
-#     if quantity.to_i != old_current_real_quantity
-#       input = old_current_real_quantity < quantity.to_i ? false : true
-#       #raise Exception.new input.inspect
-#       if input 
-#         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(quantity.to_i - old_current_real_quantity), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true, :input=>input, :origin_type=>InventoryLine.to_s)
-#         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(quantity.to_i - old_current_real_quantity), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false, :input=>input, :origin_type=>InventoryLine.to_s)
-#       else
-#         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(old_current_real_quantity - quantity.to_i), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true, :input=>input, :origin_type=>InventoryLine.to_s)
-#         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(old_current_real_quantity - quantity.to_i), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false, :input=>input, :origin_type=>InventoryLine.to_s)
-#       end
-#     end
-#   end
+  #   def reflect_changes(quantity)
+  #     old_current_real_quantity = self.current_real_quantity 
+  #     if quantity.to_i != old_current_real_quantity
+  #       input = old_current_real_quantity < quantity.to_i ? false : true
+  #       #raise Exception.new input.inspect
+  #       if input 
+  #         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(quantity.to_i - old_current_real_quantity), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true, :input=>input, :origin_type=>InventoryLine.to_s)
+  #         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(quantity.to_i - old_current_real_quantity), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false, :input=>input, :origin_type=>InventoryLine.to_s)
+  #       else
+  #         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(old_current_real_quantity - quantity.to_i), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true, :input=>input, :origin_type=>InventoryLine.to_s)
+  #         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(old_current_real_quantity - quantity.to_i), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false, :input=>input, :origin_type=>InventoryLine.to_s)
+  #       end
+  #     end
+  #   end
 
   def reflect_changes(quantity, inventory_id)
     result = (self.current_real_quantity.to_f == quantity.to_f)

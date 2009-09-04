@@ -300,6 +300,9 @@ fr-FR:
     price_list:
       error_range_overlap_detected: 'Des plages de prix se chevauchent pour le même produit. Ceci est normalement impossible. Veuillez signaler l''incident à votre administrateur système.'
     product:
+      informations:
+        with_components: '{{product}} ({{unit}}) NC'
+        without_components: '{{product}} ({{unit}}) MP'
       natures:
         product: Produit
         service: Service
@@ -314,8 +317,6 @@ fr-FR:
         purchase: Achat
         rent: Location
       unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
-      components_number: ' nc '
-      raw_material: 'mp'
       stock_move: '{{origin}} ({{code}})'
     product_component:
       of_product: 'du produit'

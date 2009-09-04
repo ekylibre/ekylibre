@@ -116,12 +116,14 @@ class Product < ActiveRecord::Base
   end
 
   def informations
-    if self.has_components
-      name = self.name+" ( "+self.unit.label+" ) "+tc('components_number')+self.components.size.to_s
-    else
-      name = self.name+" ( "+self.unit.label+" ) "+tc('raw_material')
-    end
-    name
+#     if self.has_components
+#       # name = self.name+" ( "+self.unit.label+" ) "+tc('components_number')+self.components.size.to_s
+#       tc('informations.with_components', :product=>self.name, :unit=>self.unit.label, :size=>self.components.size)
+#     else
+#       # name = self.name+" ( "+self.unit.label+" ) "+tc('raw_material')
+#       tc('informations.without_components', :product=>self.name, :unit=>self.unit.label, :size=>self.components.size)
+#     end
+    tc('informations.with'+(self.has_components ? '' : 'out')+'_components', :product=>self.name, :unit=>self.unit.label, :size=>self.components.size)
   end
 
   def duration
