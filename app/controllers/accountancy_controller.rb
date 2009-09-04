@@ -554,7 +554,7 @@ class AccountancyController < ApplicationController
     @current_company.accounts.each do |account|
       balance << account.compute(company, financialyear)
     end
-    balance.compact!
+    raise Exception.new balance.compact!
   end
   
   #
@@ -808,7 +808,7 @@ class AccountancyController < ApplicationController
         
     if @journal
       d = @journal.closed_on
-      while d.end_of_month < Date.today
+      while d.end_of_month <= Date.today.end_of_month
         d=(d+1).end_of_month
         @journal_records << d.to_s(:attributes)
      end
@@ -852,7 +852,7 @@ class AccountancyController < ApplicationController
     
     @financialyears = @current_company.financialyears.find(:all)
     
-    @entries =  @current_company.entries.find(:all, :conditions => ["editable = false AND (a.number LIKE ? OR a.number LIKE ?)", clients_account+'%', suppliers_account+'%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
+    @entries =  @current_company.entries.find(:all, :conditions => ["editable = ? AND (a.number LIKE ? OR a.number LIKE ?)", false, clients_account+'%', suppliers_account+'%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
 
     unless @entries.size > 0
       flash[:message] = tc('messages.need_entries_to_letter')

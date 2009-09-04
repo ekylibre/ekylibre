@@ -50,7 +50,7 @@ class Journal < ActiveRecord::Base
 
   #
   def closable?(closed_on)
-    if closed_on < self.closed_on
+    if closed_on < self.closed_on #or
       #errors.add_to_base tc(:error_already_closed_journal)
       return false
     else

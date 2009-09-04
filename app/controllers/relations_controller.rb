@@ -257,7 +257,7 @@ class RelationsController < ApplicationController
 
 #  dyta(:entities, :conditions=>["COALESCE(entities.code)||' '||COALESCE", ['session[:entity_key]']], :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)") do |t|
 #  dyta(:entities, :conditions=>"search_conditions(:attributes=>[:code, :full_name, :website], :key=>session[:entity_key])") do |t|
-  dyta(:entities, :distinct=>true, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)") do |t|
+  dyta(:entities, :distinct=>true, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active") do |t|
     t.column :active, :label=>'♦'
     t.column :abbreviation, :through=>:nature
     t.column :name, :url=>{:action=>:entities_display}
@@ -293,7 +293,7 @@ class RelationsController < ApplicationController
   end 
 
   #dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
-  dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON  entity_link_natures.propagate_contacts = true AND entity_links.nature_id = entity_link_natures.id  WHERE (entity1_id = ? OR entity2_id = ?)) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_link_natures.propagate_contacts = true AND entity_links.nature_id = entity_link_natures.id WHERE  (entity1_id = ? OR entity2_id = ?) ) )', ['@current_company.id'], ['session[:current_entity]'],['session[:current_entity]'],['session[:current_entity]'],['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
+  dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON  entity_link_natures.propagate_contacts = true AND entity_links.nature_id = entity_link_natures.id  WHERE (entity1_id = ? OR entity2_id = ?)) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_link_natures.propagate_contacts = true AND entity_links.nature_id = entity_link_natures.id WHERE  (entity1_id = ? OR entity2_id = ?) ) )', ['@current_company.id'],['session[:current_entity]'],['session[:current_entity]'],['session[:current_entity]'],['session[:current_entity]'], ['session[:current_entity]'] ]) do |t|
     
     t.column :address, :url=>{:action=>:entities_contacts_update}
     t.column :phone

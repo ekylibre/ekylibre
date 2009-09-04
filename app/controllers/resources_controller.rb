@@ -5,7 +5,7 @@ class ResourcesController < ApplicationController
   end
 
 
-  dyta(:employees, :conditions=>"search_conditions(:attributes=>[:id, :title, :first_name, :last_name], :key=>session[:employee_key])", :empty=>true) do |t|
+  dyta(:employees, :conditions=>search_conditions(:employees, :employees=>[:id, :title, :first_name, :last_name]), :empty=>true) do |t|
     t.column :title 
     t.column :first_name 
     t.column :last_name 
