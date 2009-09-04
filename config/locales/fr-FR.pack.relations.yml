@@ -37,6 +37,7 @@ fr-FR:
       mandates_filters: 'Vous devez saisir au moins une valeur de recherche pour un des champs'
       mandates_new_fields: 'Vous devez saisir au moins une valeur dans l''un des champs de modification'
       need_to_create_mandates_before: 'Vous devez créer des mandats avant'
+      need_entities_to_consult_mandates: 'Vous devez créer des fiches clients/fournisseurs avant'
       no_filters: '--- Pas de filtre ---'
       not_begins: 'Ne commence pas par'
       not_contains: 'Ne contient pas'

@@ -36,9 +36,9 @@
   -# f.field :product, :comment
 =formalize do |f|
   - f.title :accountancy
-  -# f.field :product, :account_id, :choices=>@current_company.accounts.find(:all, :conditions=>['deleted=false AND number LIKE ?','70%'], :order=>:number).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}
-  - f.field :product, :product_account_id, :choices=>@current_company.accounts.find(:all, :conditions=>['deleted=false AND number LIKE ?','70%'], :order=>:number).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}
-  -f .field :product, :charge_account_id, :choices=>@current_company.accounts.find(:all, :conditions=>['deleted=false AND number LIKE ?','6%'], :order=>:number).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}
+  -# f.field :product, :account_id, :choices=>@current_company.accounts.find(:all, :conditions=>['deleted=? AND number LIKE ?', false, '70%'], :order=>:number).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}
+  - f.field :product, :product_account_id, :choices=>@current_company.accounts.find(:all, :conditions=>['deleted=? AND number LIKE ?', false, '70%'], :order=>:number).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}
+  -f .field :product, :charge_account_id, :choices=>@current_company.accounts.find(:all, :conditions=>['deleted=? AND number LIKE ?',false, '6%'], :order=>:number).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:accounts_create}
 =javascript_tag("function display_service_coeff(element) { var sc=$('service_coeff'); if (element.checked) { sc.style.display=''; } else { sc.style.display='none'; }; return false; }\ndisplay_service_coeff($('product_nature_service'));")
 =observe_field("product_name", :frequency =>0.25, :function => "var cn = $('product_catalog_name'); cn.value = value;")
 =observe_field("product_nature_service", :frequency =>0.25, :function => "display_service_coeff(element);" )

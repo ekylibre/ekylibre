@@ -808,7 +808,7 @@ class AccountancyController < ApplicationController
         
     if @journal
       d = @journal.closed_on
-      while d.end_of_month <= Date.today.end_of_month
+      while d.end_of_month < Date.today
         d=(d+1).end_of_month
         @journal_records << d.to_s(:attributes)
      end

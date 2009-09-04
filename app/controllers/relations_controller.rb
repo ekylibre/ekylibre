@@ -859,16 +859,23 @@ class RelationsController < ApplicationController
     if mandate = Mandate.find_by_company_id_and_id(@current_company.id, params[:id])
       params[:organization] = mandate.organization
     end
+
     @entities = @current_company.entities
     unless @entities.size > 0 
-      flash[:messages] = tc('messages.need_entities_to_consult_mandates')
+      flash[:message] = tc(:need_entities_to_consult_mandates)
       redirect_to :action => :entities_create
       return
     end
+    
     @organizations = @current_company.mandates.find(:all, :select=>' DISTINCT organization ')
+    unless @organizations.size > 0 
+      flash[:message] = tc(:need_to_create_mandates_before)
+      redirect_to :action => :mandates_create
+      return
+    end
     
     session[:mandates] ||= {}
-    session[:mandates][:organization] = params[:organization] || '' #if params[:organization] #- Aucune organisation ---" 
+    session[:mandates][:organization] = params[:organization] || ''
     session[:mandates][:date] = params[:date]||Date.today
   
   end
@@ -886,7 +893,7 @@ class RelationsController < ApplicationController
   # this method configures mandates
   def mandates_configure
     if @current_company.mandates.size == 0
-      flash[:warning]=tc(:need_to_create_mandates_before)
+      flash[:message]=tc(:need_to_create_mandates_before)
       redirect_to :action=>:mandates
       return
     end
