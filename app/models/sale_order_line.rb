@@ -48,9 +48,12 @@ class SaleOrderLine < ActiveRecord::Base
   
   def before_validation
     # check_reservoir = true
+    self.company_id = self.order.company_id
     self.product = self.price.product if self.price
-    self.account_id = self.product.product_account_id
-    self.unit_id = self.product.unit_id
+    if self.product
+      self.account_id = self.product.product_account_id 
+      self.unit_id = self.product.unit_id
+    end
     self.account_id ||= 0
     self.price_amount ||= 0
 
@@ -125,6 +128,27 @@ class SaleOrderLine < ActiveRecord::Base
   def subscription?
     self.product.nature == "subscrip"
   end
+
+  def new_subscription(attributes={})
+    subscription = Subscription.new((attributes||{}).merge(:sale_order_id=>self.order.id, :company_id=>self.company.id, :product_id=>self.product_id, :nature_id=>self.product.subscription_nature_id))
+    subscription.attributes = attributes
+    product = subscription.product
+    nature  = subscription.nature
+    if nature
+      if nature.nature == "period"
+        subscription.started_on ||= Date.today
+        subscription.stopped_on ||= Delay.compute((product.subscription_period||'1 year')+", 1 day ago", subscription.started_on)
+      else
+        subscription.first_number ||= nature.actual_number
+        subscription.last_number  ||= subscription.first_number+(product.subscription_quantity||1)-1
+      end
+    end
+    subscription.quantity   ||= 1
+    subscription.contact_id ||= self.order.contact_id
+    subscription.entity_id  ||= subscription.contact.entity_id if subscription.contact
+    subscription
+  end
+
 
   def taxes
     self.amount_with_taxes - self.amount

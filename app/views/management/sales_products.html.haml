@@ -23,6 +23,11 @@
       %th=tc :amount_with_taxes
       %td=@sale_order.amount_with_taxes
 
+-if @sale_order.subscriptions.size>0
+  %h2=tc :subscriptions
+  =dyta :sale_order_subscriptions
+
+
 - form_tag do
   .actions
     =link_to tg(:previous), :action=>:sales_general

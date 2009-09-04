@@ -463,6 +463,7 @@ fr-FR:
         sale_orders_invoice: 'Facturer directement tout le devis'
         sale_orders_print: 'Imprimer le devis'
         sales_deliveries: 'Livraisons'
+        subscriptions: 'Abonnements'
         title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
         total: 'Total'
       shelves:

@@ -96,6 +96,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize()
+    session[:last_page] ||= {}
     session[:help_history] ||= []
     if request.get? and not request.xhr? and not [:authentication, :help].include?(controller_name.to_sym)
       session[:last_url] = request.url

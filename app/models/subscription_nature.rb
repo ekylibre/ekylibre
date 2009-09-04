@@ -41,5 +41,6 @@ class SubscriptionNature < ActiveRecord::Base
     return (self.period? ? Date.today : self.actual_number)
   end
 
+
 end
 

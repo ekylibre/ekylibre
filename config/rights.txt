@@ -276,6 +276,8 @@ management       subscription_natures_update      manage_subscriptions
 management       subscription_options             manage_subscriptions
 management       subscriptions                    manage_subscriptions
 management       subscriptions_create             manage_subscriptions
+management       subscriptions_update             manage_subscriptions
+management       subscriptions_delete             manage_subscriptions
 management       subscriptions_period             manage_subscriptions
 management       dyta_taxes                       manage_taxes
 management       taxes                            manage_taxes
