@@ -35,7 +35,7 @@ class StockMove < ActiveRecord::Base
   belongs_to :tracking, :class_name=>StockTracking.to_s
   belongs_to :unit
 
-  attr_readonly :company_id
+  attr_readonly :company_id, :product_id
   
   validates_presence_of :generated
 
@@ -48,16 +48,17 @@ class StockMove < ActiveRecord::Base
     product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id})
     product_stock = ProductStock.create!(:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id) if product_stock.nil?
 
-    if self.virtual and self.input
-      product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
-    elsif self.virtual and !self.input
-      product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity - self.quantity)
-    elsif !self.virtual and self.input
-      product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity + self.quantity)
-    elsif !self.virtual and !self.input
-      product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity - self.quantity)
-    end
-
+    quantity, direction = operators
+    product_stock.update_attribute(quantity, product_stock.send(quantity) + direction*self.quantity)
+#     if self.virtual and self.input
+#       product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
+#     elsif self.virtual and !self.input
+#       product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity - self.quantity)
+#     elsif !self.virtual and self.input
+#       product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity + self.quantity)
+#     elsif !self.virtual and !self.input
+#       product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity - self.quantity)
+#     end
   end
   
 
@@ -68,53 +69,65 @@ class StockMove < ActiveRecord::Base
     product_stock = ProductStock.create!(:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id) if product_stock.nil?
     #raise Exception.new old_move.inspect+" <- old_move                   self-> "+self.inspect
     
+    quantity, direction = operators
+
     if old_move.location_id != self.location_id
-      if self.input and self.virtual
-        product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
-        old_product_stock.update_attributes!(:current_virtual_quantity=>old_product_stock.current_virtual_quantity - old_move.quantity)
-      elsif self.input and !self.virtual
-        product_stock.update_attributes!(:current_real_quantity=>product_stock.current_real_quantity + self.quantity)
-        old_product_stock.update_attributes(:current_real_quantity=>old_product_stock.current_real_quantity - old_move.quantity) 
-      elsif !self.input and self.virtual
-        product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity - self.quantity)
-        old_product_stock.update_attributes!(:current_virtual_quantity=>old_product_stock.current_virtual_quantity + old_move.quantity)
-      elsif !self.input and !self.virtual
-        product_stock.update_attributes!(:current_real_quantity=>product_stock.current_real_quantity - self.quantity)
-        old_product_stock.update_attributes(:current_real_quantity=>old_product_stock.current_real_quantity + old_move.quantity) 
-      end
+      product_stock.update_attribute!(quantity, product_stock.send(quantity) + direction*self.quantity)
+      old_product_stock.update_attribute!(quantity, product_stock.send(quantity) - direction*old_move.quantity)
+#       if self.input and self.virtual
+#         product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
+#         old_product_stock.update_attributes!(:current_virtual_quantity=>old_product_stock.current_virtual_quantity - old_move.quantity)
+#       elsif self.input and !self.virtual
+#         product_stock.update_attributes!(:current_real_quantity=>product_stock.current_real_quantity + self.quantity)
+#         old_product_stock.update_attributes(:current_real_quantity=>old_product_stock.current_real_quantity - old_move.quantity) 
+#       elsif !self.input and self.virtual
+#         product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity - self.quantity)
+#         old_product_stock.update_attributes!(:current_virtual_quantity=>old_product_stock.current_virtual_quantity + old_move.quantity)
+#       elsif !self.input and !self.virtual
+#         product_stock.update_attributes!(:current_real_quantity=>product_stock.current_real_quantity - self.quantity)
+#         old_product_stock.update_attributes(:current_real_quantity=>old_product_stock.current_real_quantity + old_move.quantity) 
+#       end
     else
       #raise Exception.new self.quantity.to_s+"  "+old_move.inspect+"  "+old_move.quantity.to_s+"                 "+product_stock.inspect
-      if self.input and self.virtual
-        product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity + (self.quantity - old_move.quantity))
-      elsif self.input and !self.virtual
-        product_stock.update_attributes!(:current_real_quantity=>product_stock.current_real_quantity + (self.quantity - old_move.quantity) )
-      elsif !self.input and self.virtual
-        product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity - (self.quantity - old_move.quantity))
-      elsif !self.input and !self.virtual
-        product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity - (self.quantity - old_move.quantity) )    
-      end
+      product_stock.update_attribute!(quantity, product_stock.send(quantity) + direction*(self.quantity - old_move.quantity))
+#       if self.input and self.virtual
+#         product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity + (self.quantity - old_move.quantity))
+#       elsif self.input and !self.virtual
+#         product_stock.update_attributes!(:current_real_quantity=>product_stock.current_real_quantity + (self.quantity - old_move.quantity) )
+#       elsif !self.input and self.virtual
+#         product_stock.update_attributes!(:current_virtual_quantity=>product_stock.current_virtual_quantity - (self.quantity - old_move.quantity))
+#       elsif !self.input and !self.virtual
+#         product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity - (self.quantity - old_move.quantity) )    
+#       end
     end
   end
 
   def before_destroy  
     product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id})
-    if self.virtual and self.input
-      product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity - self.quantity)
-    elsif self.virtual and !self.input
-      product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
-    elsif !self.virtual and self.input
-      product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity - self.quantity)
-    elsif !self.virtual and !self.input
-      product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity + self.quantity)
-    end
+    quantity, direction = operators
+    product_stock.update_attribute(quantity, product_stock.send(quantity) - direction*self.quantity)
+#     if self.virtual and self.input
+#       product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity - self.quantity)
+#     elsif self.virtual and !self.input
+#       product_stock.update_attributes(:current_virtual_quantity=>product_stock.current_virtual_quantity + self.quantity)
+#     elsif !self.virtual and self.input
+#       product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity - self.quantity)
+#     elsif !self.virtual and !self.input
+#       product_stock.update_attributes(:current_real_quantity=>product_stock.current_real_quantity + self.quantity)
+#     end
   end
   
   
-
   def self.natures
     [:virtual, :real].collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
+
+  private
+
+  def operators
+    return "current_"+(self.virtual ? 'virtual' : 'real')+"_quantity", (self.input ? 1 : -1)
+  end
   
   ### For stocks_moves created by user
 #   def change_quantity
