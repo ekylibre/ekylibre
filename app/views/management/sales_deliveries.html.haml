@@ -1,7 +1,8 @@
 =sales_steps
 
-= toolbar do
-  - link :sales_print, :id=>@sale_order.id
+=toolbar do |t|
+  -t.link :sale_orders_print, :id=>@sale_order.id
+  -t.link(:sale_orders_invoice, {:id=>@sale_order.id}, {:method=>:post, :confirm=>tc(:are_you_sure_to_invoice)}) if @sale_order.amount_with_taxes > @sale_order.invoiced_amount
 
 -if @undelivered
   %h2=tc :undelivered
@@ -9,11 +10,11 @@
 
 %h2=tc :deliveries
 =toolbar do
-  -link :deliveries_create if !@sale_order.invoiced && @undelivered
+  -link :deliveries_create if !@sale_order.invoiced and @undelivered
 =dyta :sales_deliveries
 
 - form_tag() do
   .actions
     =link_to tg(:previous), :action=>:sales_products
     =#submit_tag(tc('invoice'), :action=>:sales_invoices)
-    =link_to(tc('invoice'), {:action=>:sales_invoices, :id=>@sale_order.id}, {:method=>:post, :confirm=>tc(:are_you_sure_to_invoice)})
+    =#link_to(tc('invoice'), {:action=>:sales_invoices, :id=>@sale_order.id}, {:method=>:post, :confirm=>tc(:are_you_sure_to_invoice)})

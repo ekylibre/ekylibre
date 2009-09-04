@@ -12,6 +12,7 @@
 #  filesize      :integer       
 #  id            :integer       not null, primary key
 #  lock_version  :integer       default(0), not null
+#  nature_code   :string(255)   
 #  original_name :string(255)   not null
 #  owner_id      :integer       not null
 #  owner_type    :string(255)   not null

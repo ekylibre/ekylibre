@@ -331,16 +331,17 @@ fr-FR:
     purchase_order_line: 
       stock_location_can_not_receive_product : 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
     sale_order:
+      label:
+        estimate: 'Devis N°{{number}}'
+        order: 'Commande N°{{number}}'
       natures:
         estimate: Devis
         order: Commande
         invoice: Facture
       states:
-        P: Devis
-        L: Livraisons
-        I: Facturation
-        R: Règlements
-        F: Clôturée
+        E: 'Devis'
+        A: 'En cours'
+        C: 'Terminée'
       sale: 'Vente {{number}}'
       sales_conditions:
         downpayment: 'Un acompte de {{percent}}% (soit {{amount}}€) devra être versé à la signature du présent devis.'

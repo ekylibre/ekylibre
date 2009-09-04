@@ -22,13 +22,14 @@ module ManagementHelper
         end
       else # step
         
-        if ["P"].include? @sale_order.state 
+        if @sale_order.estimate?
           link = @passive_link
-        elsif ["L","I","R","F"].include? @sale_order.state 
+        elsif @sale_order.active?
           link = @active_link 
         else
           link = @passive_link
         end
+        link = @active_link
         code += content_tag(:td, link, :class=>((x+1)/2 == @step ? 'step active' : 'step' ))
       end
     end

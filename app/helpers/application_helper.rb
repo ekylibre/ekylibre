@@ -343,53 +343,6 @@ module ApplicationHelper
     return content
   end
 
-#   def prices_conditions(options={})
-#     if session[:entity_id] == 0 
-#       conditions = ["company_id = ? AND active = ?", @current_company.id, true]
-#     else
-#       conditions = ["company_id = ? AND entity_id = ?  AND active = ?", @current_company.id,session[:entity_id], true]
-#     end
-#     conditions
-#   end
-
-#   def sales_conditions(options={})
-#     conditions = {}
-#     conditions = ["company_id = ? ", @current_company.id ]
-
-#     unless session[:sale_order_state].blank?
-#       if session[:sale_order_state] == "current"
-#         conditions[0] += "AND state != 'F' "
-#       elsif session[:sale_order_state] == "unpaid"
-#         conditions[0] += "AND state NOT IN('F','P') AND parts_amount < amount_with_taxes"
-#       end
-#     end
-#     conditions
-#   end
-  
-  
-#   def stocks_conditions(options={})
-#     conditions = {}
-#     conditions[:company_id] = @current_company.id
-#     conditions[:location_id] = session[:location_id] if !session[:location_id].nil?
-#     conditions
-#   end
-
-#   def subscriptions_conditions(options={})
-#     conditions = {}
-#     conditions = ["company_id = ? AND COALESCE(sale_order_id,0) NOT IN (SELECT id from sale_orders WHERE company_id = ? and state = 'P')", @current_company.id, @current_company.id]
-#     #conditions = ["company_id = ?", @current_company.id]
-#     if session[:subscriptions][:nature].is_a? Hash
-#       conditions[0] += " AND nature_id = ?"
-#       conditions << session[:subscriptions][:nature]['id'].to_i
-#     end
-#     if session[:subscriptions][:nature]['nature'] == "quantity"
-#       conditions[0] += " AND ? BETWEEN first_number AND last_number"
-#     elsif session[:subscriptions][:nature]['nature'] == "period"
-#       conditions[0] += " AND ? BETWEEN started_on AND stopped_on"
-#     end
-#     conditions << session[:subscriptions][:instant]
-#     conditions
-#   end
   
 
   def itemize(name, options={})

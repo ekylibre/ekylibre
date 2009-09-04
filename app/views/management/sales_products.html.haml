@@ -1,13 +1,17 @@
 =sales_steps
 
-= toolbar do
-  - link :sales_print, :id=>@sale_order.id
+= toolbar do |t|
+  - t.link :sale_orders_print, :id=>@sale_order.id
+  - if @sale_order.lines.size>0
+    - if @sale_order.estimate?
+      - t.link :sale_orders_confirm, {:id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_confirm)
+    - if @sale_order.amount_with_taxes > @sale_order.invoiced_amount
+      - t.link :sale_orders_invoice, {:id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_invoice)
+  - t.link(:sale_order_lines_create) if @sale_order.estimate?
 
 
 %h2=tc :lines
-=toolbar do
-  -link(:sale_order_lines_create) if @sale_order.state == 'P'
-=render :partial=>"quick_line" if @sale_order.state == 'P'
+=render :partial=>"quick_line" if @sale_order.estimate?
 =dyta :sale_order_lines
 
 .total
@@ -22,9 +26,4 @@
 - form_tag do
   .actions
     =link_to tg(:previous), :action=>:sales_general
-    - if @sale_order.state == 'P' and @sale_order.lines.size>0
-      =#submit_tag(tc('estimate_to_order'), :action=>:sales_deliveries)
-      =link_to(tc('estimate_to_order'), {:action=>:sales_products}, :method=>:post)
-      =link_to(tc('invoice_sale_order'), {:action=>:sale_orders_invoice, :id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_invoice))
-    - elsif @sale_order.lines.size>0
-      =link_to tc('deliveries'), :action=>:sales_deliveries, :id=>@sale_order.id
+    =link_to(tc('deliveries'), :action=>:sales_deliveries, :id=>@sale_order.id) unless @sale_order.estimate?

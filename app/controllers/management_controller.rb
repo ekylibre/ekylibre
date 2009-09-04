@@ -689,15 +689,15 @@ class ManagementController < ApplicationController
   
   def self.sales_conditions
     code = ""
-    code += " conditions = ['company_id = ? ', @current_company.id ] \n "
-    code += " unless session[:sale_order_state].blank? \n "
-    code += " if session[:sale_order_state] == 'current' \n "
-    code += " conditions[0] += \" AND state != 'F' \" \n " 
-    code += " elsif session[:sale_order_state] == 'unpaid' \n "
-    code += " conditions[0] += \"AND state NOT IN('F','P') AND parts_amount < amount_with_taxes\" \n "
-    code += " end \n "
-    code += " end \n "
-    code += " conditions \n "
+    code += "conditions = ['company_id = ? ', @current_company.id ] \n "
+    code += "unless session[:sale_order_state].blank? \n "
+    code += "  if session[:sale_order_state] == 'current' \n "
+    code += "    conditions[0] += \" AND state != 'C' \" \n " 
+    code += "  elsif session[:sale_order_state] == 'unpaid' \n "
+    code += "    conditions[0] += \"AND state NOT IN('C','E') AND parts_amount < amount_with_taxes\" \n "
+    code += "  end\n "
+    code += "end\n "
+    code += "conditions\n "
     code
   end
 
@@ -710,14 +710,14 @@ class ManagementController < ApplicationController
     t.column :text_state
     t.column :amount
     t.column :amount_with_taxes
-    t.action :sales_print
-    t.action :sale_orders_delete , :method=>:post, :if=>'RECORD.state == "P"', :confirm=>tc(:are_you_sure)
+    t.action :sale_orders_print
+    t.action :sale_orders_delete , :method=>:post, :if=>'RECORD.estimate? ', :confirm=>tc(:are_you_sure)
   end
   
   def sale_orders_delete
     @sale_order = find_and_check(:sale_order, params[:id])
     if request.post? or request.delete?
-      if @sale_order.state == 'P'
+      if @sale_order.estimate?
         @sale_order.destroy
       else
         flash[:warning]=tc('sale_order_can_not_be_deleted')
@@ -845,7 +845,6 @@ class ManagementController < ApplicationController
       @sale_order = SaleOrder.new(params[:sale_order])
       @sale_order.company_id = @current_company.id
       @sale_order.number = ''
-      @sale_order.state = 'P'
       if @sale_order.save
         redirect_to :action=>:sales_products, :id=>@sale_order.id
       end
@@ -863,7 +862,7 @@ class ManagementController < ApplicationController
   end
 
 
-  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
+  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :export=>false) do |t|
     #t.column :name, :through=>:product
     t.column :label
     t.column :quantity
@@ -871,63 +870,47 @@ class ManagementController < ApplicationController
     t.column :amount, :through=>:price, :label=>tc('price')
     t.column :amount
     t.column :amount_with_taxes
-    t.action :sale_order_lines_update, :image=>:update, :if=>'RECORD.order.state == "P" and RECORD.reduction_origin_id.nil? '
-    t.action :sale_order_lines_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.state == "P"  and RECORD.reduction_origin_id.nil? '
+    t.action :sale_order_lines_update, :image=>:update, :if=>'RECORD.order.estimate? and RECORD.reduction_origin_id.nil? '
+    t.action :sale_order_lines_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.estimate? and RECORD.reduction_origin_id.nil? '
   end
 
   def sales_products
-    @sale_order = find_and_check(:sale_order, params[:id])
-    #raise Exception.new @sale_order.client.subscriptions.inspect
-    #raise Exception.new @sale_order.client.max_reduction_rate.inspect
+    return unless @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
     session[:category] = @sale_order.client.category
     @stock_locations = @current_company.stock_locations
     @entity = @sale_order.client
-    if request.post?
-      @sale_order.confirm
-#       if @sale_order.delivering?
-#         flash[:warning]=tc('sale_order_already_ordered')
-#       else
-#         @sale_order.confirm
-#       end
-      redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
-#       if params[:commit] != "bla"
-#         if @sale_order.state == 'L'
-#           flash[:warning]=tc('sale_order_already_ordered')
-#         else
-#           @sale_order.confirm
-# #           @sale_order.confirmed_on = Date.today
-# #           @sale_order.update_attribute(:state, 'L') if @sale_order.state == 'P'
-# #           @sale_order.stocks_moves_create
-#         end
-#         redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
-#       else
-#         redirect_to :action=>:add_lines, :sale_order_line=>params[:sale_order_line]
-#       end
-    end
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
   end
 
-  def sale_orders_invoice
-    @sale_order = find_and_check(:sale_orders, params[:id])
+  def sale_orders_confirm
+    return unless @sale_order = find_and_check(:sale_orders, params[:id])
     if request.post?
-      #raise Exception.new "ok"+@sale_order.inspect
-      ActiveRecord::Base.transaction do
-        raise ActiveRecord::Rollback unless @sale_order.deliver_and_invoice
-      end
-      redirect_to :action=>:sales_payments, :id=>@sale_order.id
+      @sale_order.confirm
+      redirect_to :action=>:sales_deliveries, :id=>@sale_order.id
     end
   end
 
-  def sales_print
+  def sale_orders_invoice
+    return unless @sale_order = find_and_check(:sale_orders, params[:id])
+    if request.post?
+      ActiveRecord::Base.transaction do
+        raise ActiveRecord::Rollback unless @sale_order.deliver_and_invoice
+        redirect_to :action=>:sales_payments, :id=>@sale_order.id
+        return
+      end
+    end
+    redirect_to :action=>:sales_products, :id=>@sale_order.id
+  end
+
+  def sale_orders_print
     @sale_order = find_and_check(:sale_order, params[:id])
     if @current_company.default_contact.nil? || @sale_order.client.contacts.size == 0
       entity = @current_company.default_contact.nil? ? @current_company.name : @sale_order.client.full_name
       flash[:warning]=tc(:no_contacts, :name=>entity)
       redirect_to_back
     else
-      print(@sale_order, :filename=>@sale_order.state == 'P' ? tc('estimate')+" "+@sale_order.number : tc('order')+" "+@sale_order.number)
-      # print(@sale_order, :archive=>@sale_order.state != 'P', :filename=>@sale_order.state == 'P' ? tc('estimate')+" "+@sale_order.number : tc('order')+" "+@sale_order.number )
+      print(@sale_order, :filename=>@sale_order.label)
     end
   end
 
@@ -981,7 +964,7 @@ class ManagementController < ApplicationController
     if @stock_locations.empty? 
       flash[:warning]=tc(:need_stock_location_to_create_sale_order_line)
       redirect_to :action=>:stocks_locations_create
-    elsif @sale_order.state == 'L'
+    elsif @sale_order.active?
       flash[:warning]=tc(:impossible_to_add_lines)
       redirect_to :action=>:sales_products, :id=>@sale_order.id
     else
@@ -1101,33 +1084,29 @@ class ManagementController < ApplicationController
   end
 
   def sales_deliveries
-    @sale_order = find_and_check(:sale_order, params[:id])
+    return unless @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
     @deliveries = Delivery.find_all_by_company_id_and_order_id(@current_company.id, @sale_order.id)
     if @deliveries.empty?
       redirect_to :action=>:deliveries_create
-    else
-      @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>@sale_order.id})
-      @undelivered = false
-      for line in @sale_order_lines
-        @undelivered = true if line.undelivered_quantity > 0 and !@undelivered
-      end
+      return
+    end
+    @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>@sale_order.id})
+    @undelivered = false
+    for line in @sale_order_lines
+      @undelivered = true if line.undelivered_quantity > 0 and !@undelivered
+    end
+    
       
-      
-      session[:current_sale_order] = @sale_order.id
-      @delivery_lines = []
-      for delivery in @deliveries
-        lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, delivery.id)
-        @delivery_lines += lines if !lines.nil?
-      end
-      if @sale_order_lines == []
-        flash[:warning]=tc(:no_lines_found)
-        redirect_to :action=>:sales_products, :id=>session[:current_sale_order]
-      end
-      if request.post?
-        @sale_order.update_attribute(:state, 'I') if @sale_order.state == 'L'
-        redirect_to :action=>:sales_invoices, :id=>@sale_order.id
-      end
+    session[:current_sale_order] = @sale_order.id
+    @delivery_lines = []
+    for delivery in @deliveries
+      lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, delivery.id)
+      @delivery_lines += lines if !lines.nil?
+    end
+    if @sale_order_lines == []
+      flash[:warning]=tc(:no_lines_found)
+      redirect_to :action=>:sales_products, :id=>session[:current_sale_order]
     end
   end
 
@@ -1286,7 +1265,6 @@ class ManagementController < ApplicationController
     @can_invoice = !@sale_order.lines.detect{|x| x.undelivered_quantity > 0}
     @can_invoice = false if @sale_order.invoiced
     if request.post?
-      @sale_order.update_attribute(:state, 'R') #if @sale_order.state == 'I'
      #  ActiveRecord::Base.transaction do
 #         deliveries = params[:deliveries_to_invoice].select{|k,v| v[:invoiceable].to_i==1}.collect do |id, attributes|
 #           delivery = Delivery.find_by_id_and_company_id(id.to_i,@current_company.id)
@@ -1486,7 +1464,7 @@ class ManagementController < ApplicationController
     @payments.each {|p| @payments_sum += p.amount}
     session[:current_sale_order] = @sale_order.id
     if request.post?
-      @sale_order.update_attribute(:state, 'F') if @sale_order.state == 'R'
+      # @sale_order.update_attribute(:state, 'F') if @sale_order.state == 'R'
       #redirect_to :action=>:sales_payments, :id=>@sale_order.id
     end
   end

@@ -116,8 +116,6 @@ fr-FR:
         tools: 'Outils'
         user_statistics: 'Mes statistiques'
         users: 'Utilisateurs'
-      welcome:
-        title: 'Bienvenue dans Ekylibre, {{user}}'
       listings:
         listings_create: 'Créer une nouvelle extraction'
         title: 'Extractions de données'
@@ -187,3 +185,5 @@ fr-FR:
         title: 'Gestion des employés'
       users_update:
         title: 'Modification de l''utilisateur'
+      welcome:
+        title: 'Bienvenue dans Ekylibre, {{user}}'

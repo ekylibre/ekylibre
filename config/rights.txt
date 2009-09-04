@@ -1,5 +1,9 @@
+#management      add_lines                        create_estimates
 #management      dyta_deliveries_to_invoice       manage_invoicing
+#management      subscriptions_delete             manage_subscriptions
+#management      subscriptions_update             manage_subscriptions
 #relations       dyli_entities                    administrate_relations
+#relations       dyli_entity                      administrate_relations
 #relations       mandates_config                  manage_mandates
 accountancy      index                            administrate_accountancy
 accountancy      dyta_entries                     consult_entries
@@ -87,10 +91,10 @@ company          document_natures_update          manage_document_natures
 company          dyta_document_natures            manage_document_natures
 company          document_templates               manage_document_templates
 company          document_templates_create        manage_document_templates
-company          document_templates_print         manage_document_templates
 company          document_templates_delete        manage_document_templates
 company          document_templates_duplicate     manage_document_templates
 company          document_templates_load          manage_document_templates
+company          document_templates_print         manage_document_templates
 company          document_templates_update        manage_document_templates
 company          dyta_document_templates          manage_document_templates
 company          dyta_listing_nodes               manage_listings
@@ -119,10 +123,11 @@ help             close                            __minimum__
 help             previous                         __minimum__
 help             search                           __minimum__
 help             side                             __minimum__
-management       dyli_all_contacts                administrate_management
-management       dyli_subscription_contacts       administrate_management
+management       dyli_suppliers                   administrate_management
 management       dyli_account                     administrate_management
+management       dyli_all_contacts                administrate_management
 management       dyli_entities                    administrate_management
+management       dyli_subscription_contacts       administrate_management
 management       dyta_critic_product_stocks       administrate_management
 management       dyta_payments                    administrate_management
 management       dyta_sale_lines                  administrate_management
@@ -151,7 +156,6 @@ management       purchases                        consult_purchases
 management       sales                            consult_sales
 management       sales_details                    consult_sales
 management       stocks                           consult_stocks
-management       add_lines                        create_estimates
 management       dyli_clients                     create_estimates
 management       price_find                       create_estimates
 management       sale_order_lines_create          create_estimates
@@ -206,6 +210,7 @@ management       deliveries_create                manage_orders
 management       deliveries_delete                manage_orders
 management       deliveries_update                manage_orders
 management       dyta_deliveries                  manage_orders
+management       sale_orders_confirm              manage_orders
 management       sale_orders_delete               manage_orders
 management       sale_orders_invoice              manage_orders
 management       sales_deliveries                 manage_orders
@@ -271,8 +276,6 @@ management       subscription_natures_update      manage_subscriptions
 management       subscription_options             manage_subscriptions
 management       subscriptions                    manage_subscriptions
 management       subscriptions_create             manage_subscriptions
-management       subscriptions_update             manage_subscriptions
-management       subscriptions_delete             manage_subscriptions
 management       subscriptions_period             manage_subscriptions
 management       dyta_taxes                       manage_taxes
 management       taxes                            manage_taxes
@@ -280,7 +283,7 @@ management       taxes_create                     manage_taxes
 management       taxes_delete                     manage_taxes
 management       taxes_update                     manage_taxes
 management       invoices_print                   print_sales
-management       sales_print                      print_sales
+management       sale_orders_print                print_sales
 management       invoices                         search_and_consult_invoices
 management       invoices_display                 search_and_consult_invoices
 management       products                         search_and_consult_products
@@ -307,8 +310,6 @@ production       unvalidated_operations           manage_shape_operations
 production       dyta_shapes                      manage_shapes
 production       shapes                           manage_shapes
 production       shapes_create                    manage_shapes
-relations        dyli_entity                      administrate_relations
-relations        entities_merge                   merge_entities
 relations        auto_complete_for_contact_line_6 administrate_relations
 relations        change_minutes                   administrate_relations
 relations        index                            administrate_relations
@@ -398,6 +399,7 @@ relations        dyta_observations                manage_observations
 relations        observations_create              manage_observations
 relations        observations_delete              manage_observations
 relations        observations_update              manage_observations
+relations        entities_merge                   merge_entities
 relations        entities_print                   print_entities
 resources        dyta_employees                   administrate_resources
 resources        dyta_professions                 administrate_resources

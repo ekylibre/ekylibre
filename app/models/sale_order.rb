@@ -72,12 +72,11 @@ class SaleOrder < ActiveRecord::Base
       self.expiration_id ||= self.nature.expiration_id 
       self.expired_on ||= self.expiration.compute(self.created_on)
       self.payment_delay_id ||= self.nature.payment_delay_id 
-      if self.has_downpayment.nil?
-        self.has_downpayment = self.nature.downpayment
-      end
+      self.has_downpayment = self.nature.downpayment if self.has_downpayment.nil?
       self.downpayment_amount ||= self.amount_with_taxes*self.nature.downpayment_rate if self.amount_with_taxes>=self.nature.downpayment_minimum
     end
 
+    self.sum_method = 'wt'
     if 1 # wt
       self.amount = 0
       self.amount_with_taxes = 0
@@ -85,13 +84,21 @@ class SaleOrder < ActiveRecord::Base
         self.amount += line.amount
         self.amount_with_taxes += line.amount_with_taxes
       end
-    else
-      
     end
-    
+
+    # Set state to 'Complete' if all is paid
+    if self.parts_amount == self.amount_with_taxes and self.invoices.sum(:amount_with_taxes) == self.amount_with_taxes
+      self.state = 'C'
+    elsif self.deliveries.size>0 or self.invoices.size>0 or self.parts_amount>0
+      self.state = 'A'
+    else
+      self.state = 'E'
+    end
+    true
   end
   
   def before_validation_on_create
+    self.state = 'E'
     self.created_on = Date.today
   end
 
@@ -112,15 +119,12 @@ class SaleOrder < ActiveRecord::Base
   
   # Confirm the sale order. This permits to lock the sale_order and move the virtual stocks.
   # This method don't verify the stock moves.
-  def confirm(confirmed_on=Date.today)
-    if self.state == 'P'
-      self.state = 'L'
-      self.confirmed_on = confirmed_on
+  def confirm(validated_on=Date.today)
+    if self.estimate? and self.confirmed_on.nil?
       for line in self.lines.find(:all, :conditions=>["quantity>0"])
         line.product.reserve_stock(line.quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self)
-        # self.stock_moves.create!(:name=>tc(:sale, :number=>self.number), :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.created_on, :company_id=>line.company_id, :virtual=>true, :input=>false, :generated=>true) # , :origin_type=>self.class.name, :origin_id=>self.id
       end
-      self.save
+      self.update_attribute(:confirmed_on, validated_on||Date.today)
     end
   end
 
@@ -140,6 +144,7 @@ class SaleOrder < ActiveRecord::Base
       for line in lines
         delivery.lines.create! line
       end
+      self.refresh
     end    
   end
 
@@ -152,7 +157,7 @@ class SaleOrder < ActiveRecord::Base
       invoice.lines.create!(:company_id=>line.company_id, :order_line_id=>line.id, :amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes, :quantity=>line.quantity)
     end
     self.invoiced = true
-    self.save
+    self.save!
   end
 
 
@@ -168,7 +173,7 @@ class SaleOrder < ActiveRecord::Base
   # - +:multi_invoices+ adds the uninvoiced amount and invoiced amount
   # - +:with_balance+ adds the balance of the client of the sale order
   def stats(options={})
-    invoiced = self.invoices.sum(:amount_with_taxes)
+    invoiced = self.invoiced_amount
     array = []
     array << [:client_balance, self.client.balance.to_s] if options[:with_balance]
     array << [:total_amount, self.amount_with_taxes]
@@ -202,10 +207,14 @@ class SaleOrder < ActiveRecord::Base
 
   # Computes unpaid amounts.
   def unpaid_amount(only_invoices=true, only_received_payments=false)
-    (only_invoices ? self.invoices.sum(:amount_with_taxes) : self.amount_with_taxes).to_f - (only_received_payments ? self.payment_parts.sum(:amount, :conditions=>{:received=>true}) : self.payment_parts.sum(:amount)).to_f
+    (only_invoices ? self.invoiced_amount : self.amount_with_taxes).to_f - (only_received_payments ? self.payment_parts.sum(:amount, :conditions=>{:received=>true}) : self.payment_parts.sum(:amount)).to_f
   end
 
+  def invoiced_amount
+    self.invoices.sum(:amount_with_taxes)
+  end
   
+
   def payments
     sale_orders = self.client.sale_orders
     payment_parts = [] 
@@ -233,13 +242,26 @@ class SaleOrder < ActiveRecord::Base
     status
   end
   
-  def delivering?
-    self.state == 'L'
+  def label
+    tc('label.'+(self.estimate? ? 'estimate' : 'order'), :number=>@sale_order.number)
+  end
+
+  
+  def estimate?
+    self.state == 'E'
+  end
+
+  def active?
+    self.state == 'A'
+  end
+
+  def complete?
+    self.state == 'C'
   end
 
 
   def letter?
-    self.letter_format and self.state == "P" 
+    self.letter_format and self.estimate? 
   end
 
   def need_check?
@@ -253,7 +275,7 @@ class SaleOrder < ActiveRecord::Base
   end
 
   def number_label
-    tc("number_label.#{self.state=='P' ? 'proposal' : 'command'}", :number=>self.number)
+    tc("number_label."+(self.estimate? ? 'proposal' : 'command'), :number=>self.number)
   end
 
   def taxes

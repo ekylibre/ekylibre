@@ -80,9 +80,9 @@ fr-FR:
         amount: 'Total de la livraison HT'
         amount_with_taxes: 'Total de la livraison TTC'
         infos: 'Renseignez les caractéristiques de la livraison'
-      deliveries_update:
-        title: 'Modification de la livraison'
       _deliveries_update:
+        title: 'Modification de la livraison'
+      deliveries_update:
         title: 'Modification de la livraison'
       delivery_modes:
         delivery_modes_create: 'Ajouter un type livraison'
@@ -366,6 +366,8 @@ fr-FR:
         general: 'Général'
       sale_order_natures_update:
         title: 'Modification d''un type de vente'
+      sale_orders_print:
+        deliveries_number: 'jjkjj'
       sales:
         all: 'Toutes'
         current: 'En cours'
@@ -387,7 +389,8 @@ fr-FR:
         invoice: 'Facturation'
         invoice_number: 'Facture n°'
         quantity: 'Quantité'
-        sales_print: 'Imprimer la commande'
+        sale_orders_invoice: 'Effectuer la dernière livraison (si nécessaire) et tout facturer'
+        sale_orders_print: 'Imprimer la commande'
         ship: 'Prévue le  '
         supply: 'Livraison'
         title: 'Livraisons'
@@ -399,7 +402,7 @@ fr-FR:
         payments: 'Règlements'
         payments_create: 'Ajouter un règlement'
         sale_order_lines: 'Lignes de vente'
-        sales_print: 'Imprimer la vente'
+        sale_orders_print: 'Imprimer la vente'
         sales_products: 'Modifier la vente'
         title: 'Détails de la vente {{value}} au client {{name}}'
       sales_general:
@@ -446,18 +449,20 @@ fr-FR:
         total_amount: 'Montant de la commande'
         uninvoiced_amount: 'Montant non facturé'
         unpaid_amount: 'Montant restant à payer'
-      sales_print:
-        deliveries_number: 'jjkjj'
       sales_products:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
-        are_you_sure_to_invoice: 'Êtes-vous sûr(e) de vouloir facturer la vente ?'
+        are_you_sure_to_confirm: 'Êtes-vous sûr(e) de vouloir passer la vente en commande ?'
+        are_you_sure_to_invoice: 'Êtes-vous sûr(e) de vouloir facturer directement la vente ?'
         deliveries: 'Livraisons'
         estimate_to_order: 'Passer le devis en commande'
         invoice_sale_order: 'Facturer la vente'
         lines: 'Lignes du devis'
-        sale_order_lines_create: 'Ajouter un produit au devis'
-        sales_print: 'Imprimer le devis'
+        sale_order_lines_create: 'Ajouter un produit au devis (Mode complet)'
+        sale_orders_confirm: 'Passer le devis en commande et aller aux livraisons'
+        sale_orders_invoice: 'Facturer directement tout le devis'
+        sale_orders_print: 'Imprimer le devis'
+        sales_deliveries: 'Livraisons'
         title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
         total: 'Total'
       shelves:
