@@ -285,12 +285,14 @@ div.dyli_complete ul strong.highlight {color: #800; margin:0; padding:0;}
 fieldset.itemize { border: 1px solid #777; -moz-border-radius: 8px; float: left; margin:8px;}
 fieldset.itemize legend { color: blue; margin: 0 8px; padding:2px;}
 
+/*
 .center { text-align: center; }
 .center-line { text-align: center; color:#000088; padding: 0 0 5px 0; } 
-/*.quick-add { text-align: center;  padding: 0 0 5px 0; color:#004477; font-size:13px; font-weight:bold; }*/
+.quick-add { text-align: center;  padding: 0 0 5px 0; color:#004477; font-size:13px; font-weight:bold; }
+*/
 
-fieldset.quick-add { margin: 4px 0; border: 1px solid #95b0e4; -moz-border-radius: 4px; }
-fieldset.quick-add legend { margin: 0 4px; padding: 0 2px; font-weight:bold; }
+fieldset.quick-add { margin: 4px 0; border: 1px solid #95b0e4; -moz-border-radius: 4px; padding:4px; text-align: center; color: #008; }
+fieldset.quick-add legend { margin: 0 4px; padding: 0 2px; color: #002}
 
 
 input.dyli { background: #FFF url(../images/buttons/previous2.png) right center no-repeat; }

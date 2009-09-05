@@ -34,11 +34,11 @@ module Ekylibre
                 parameters += ', ' + sanitize_conditions(value)
               end
             end
-
-            code = ""
             
+            method_name = name_db.to_s+'_dyli'
+
             code  = ""
-            code += "def dyli_"+name_db.to_s+"\n"
+            code += "def #{method_name}\n"
             code += "  conditions = [#{query.join(' AND ').inspect+parameters}]\n"
             # code += "  raise Exception.new(params.inspect)\n"
             code += "  search = params[:#{name_db}][:search]||\"\"\n"

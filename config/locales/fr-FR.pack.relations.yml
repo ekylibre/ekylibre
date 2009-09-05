@@ -55,48 +55,48 @@ fr-FR:
   views:
     relations:
       areas:
-        areas_create: 'Ajouter une zone postale'
+        area_create: 'Ajouter une zone postale'
         title: 'Zones postales'
-      areas_create:
+      area_create:
         title: 'Ajouter une zone postale'
-      areas_update:
+      area_update:
         title: 'Modification de la zone postale {{value}}'
       complement_choices:
-        complement_choices_create: 'Ajouter un nouveau choix à la liste'
+        complement_choice_create: 'Ajouter un nouveau choix à la liste'
         complement_choices_sort: 'Trier les choix par nom'
-        complements_update: 'Modifier le champ personnalisé'
+        complement_update: 'Modifier le champ personnalisé'
         title: ' Options pour la liste déroulante : {{value}}'
-      complement_choices_create:
+      complement_choice_create:
         title: ' Création d''une option pour la liste déroulante : {{value}}'
-      _complement_choices_form:
+      _complement_choice_form:
         title: 'Renseignez les caractéristiques de l''option'
-      complement_choices_update:
+      complement_choice_update:
         title: 'Modification de l''option "{{choice}}" du champ {{complement}} '
       complements:
-        complements_create: 'Créer un nouveau champ personnalisé'
+        complement_create: 'Créer un nouveau champ personnalisé'
         title: 'Champs complémentaires personnalisés'
-      complements_create:
+      complement_create:
         title: 'Création d''un champ personnalisé'
-      _complements_form:
+      _complement_form:
         decimal_case: 'Options pour un décimal'
         general: 'Général'
         string_case: 'Options pour le texte'
-      complements_update:
+      complement_update:
         title: 'Modification du champ personnalisé : {{value}}'
       _coordinates_form:
         address: 'Adresse'
         canals: 'Coordonnées'
       districts:
-        areas_create: 'Ajouter une ville'
+        area_create: 'Ajouter une ville'
         city_name: 'Ville'
-        districts_create: 'Ajouter un district'
+        district_create: 'Ajouter un district'
         title: 'Districts'
-      districts_create:
+      district_create:
         title: 'Ajouter une zone'
-      districts_update:
+      district_update:
         title: 'Modification de la zone {{value}}'
       entities:
-        entities_create: 'Créer une nouvelle fiche'
+        entity_create: 'Créer une nouvelle fiche'
         entities_export: 'Tout exporter au format CSV'
         entities_import: 'Importer un fichier CSV'
         entities_merge: 'Fusionner des fiches'
@@ -107,25 +107,25 @@ fr-FR:
         title: 'Fiches des relations'
       entities_contact_delete:
         title: 'Caractéristiques du contact à supprimer'
-      entities_contacts_create:
+      entity_contact_create:
         title: 'Ajout d''un contact à la fiche de : {{value}}'
-      _entities_contacts_form:
+      _entity_contact_form:
         address: 'Adresse'
         canals: 'Coordonnées'
         general: 'Général'
         title: 'Description générale'
-      entities_contacts_update:
+      entity_contact_update:
         title: 'Modification de l''adresse de "{{entity}}"'
-      entities_create:
+      entity_create:
         title: 'Création d''une nouvelle fiche client/fournisseur'
-      entities_display:
+      entity:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
         bank_accounts:
           one: '1 compte bancaire'
           other: '{{count}} comptes bancaires'
           zero: 'Aucun compte bancaire'
-        bank_accounts_create: 'Ajouter un nouveau compte bancaire'
+        bank_account_create: 'Ajouter un nouveau compte bancaire'
         client: 'Client'
         client_balance: 'Solde du client'
         confirmed_on: 'Confirmée le'
@@ -133,19 +133,19 @@ fr-FR:
           one: '1 contact'
           other: '{{count}} contacts'
           zero: 'Aucun contact'
-        entities_contacts_create: 'Ajouter un nouveau contact'
-        entities_print: 'Imprimer la fiche'
-        entities_update: 'Modifier la fiche'
+        entity_contact_create: 'Ajouter un nouveau contact'
+        entity_print: 'Imprimer la fiche'
+        entity_update: 'Modifier la fiche'
         entity_links:
           one: '1 lien'
           other: '{{count}} liens'
           zero: 'Aucun lien'
-        entity_links_create: 'Ajouter un nouveau lien'
+        entity_link_create: 'Ajouter un nouveau lien'
         events:
           one: '1 évènement'
           other: '{{count}} évènements '
           zero: 'Aucun évènement'
-        events_create: 'Ajouter un évènement'
+        event_create: 'Ajouter un évènement'
         invoices:
           one: '1 facture'
           other: '{{count}} factures'
@@ -154,7 +154,7 @@ fr-FR:
           one: '1 responsabilité'
           other: '{{count}} responsabilités '
           zero: 'Aucune responsabilité'
-        mandates_create: 'Ajouter une responsabilité'
+        mandate_create: 'Ajouter une responsabilité'
         nature: 'Nature'
         new_sale: 'Nouvelle vente'
         number: 'Numéro'
@@ -162,20 +162,20 @@ fr-FR:
           one: '1 observation'
           other: '{{count}} observations'
           zero: 'Aucune observation'
-        observations_create: 'Ajouter une observation'
+        observation_create: 'Ajouter une observation'
         sale_orders_number:
           one: '1 vente '
           other: '{{count}} ventes'
           zero: 'Aucune vente'
-        sales_new: 'Ajouter une nouvelle vente'
+        sale_order_create: 'Ajouter une nouvelle vente'
         state: 'État'
         subscriptions:
           one: '1 abonnement'
           other: '{{count}} abonnements'
           zero: 'Aucun abonnement'
-        subscriptions_create: 'Ajouter un abonnement'
+        subscription_create: 'Ajouter un abonnement'
         title: 'Fiche : {{value}}'
-      _entities_form:
+      _entity_form:
         account_client_to_create: '--Créer automatiquement un compte client--'
         account_supplier_to_create: '--Créer automatiquement un compte fournisseur--'
         client: 'Informations client'
@@ -202,57 +202,57 @@ fr-FR:
         merge: 'Fusionner'
         title: 'Fusionner un doublon à sa fiche d''origine'
       entities_natures:
-        entities_natures_create: 'Ajouter un nouveau type de fiche'
+        entity_nature_create: 'Ajouter un nouveau type de fiche'
         title: 'Liste des types de fiches'
-      entities_natures_create:
+      entity_nature_create:
         title: 'Ajouter un nouveau type de fiche'
-      entities_natures_update:
+      entity_nature_update:
         title: 'Modifier le type de fiche : {{value}}'
       _entities_search:
         search: 'Rechercher une fiche'
-      entities_update:
+      entity_update:
         title: 'Modification de la fiche : {{value}}'
       entity_categories:
-        entity_categories_create: 'Ajouter une catégorie de fiche'
+        entity_category_create: 'Ajouter une catégorie de fiche'
         title: 'Catégories de fiche'
-      entity_categories_create:
+      entity_category_create:
         title: 'Ajout d''une nouvelle catégorie de fiche'
-      entity_categories_display:
-        entity_categories_update: 'Modifier la catégorie de fiche'
+      entity_category:
+        entity_category_update: 'Modifier la catégorie de fiche'
         prices:
           one: '1 tarif rattaché à cette catégorie'
           other: '{{count}} tarifs rattachés à cette catégorie'
           zero: 'Aucun tarif rattaché à cette catégorie'
-        prices_create: 'Ajouter un tarif à cette catégorie'
+        price_create: 'Ajouter un tarif à cette catégorie'
         title: 'Catégorie de fiche : {{value}}'
-      entity_categories_update:
+      entity_category_update:
         title: 'Modification de la catégorie de fiche : {{value}}'
       entity_link_natures:
-        entity_link_natures_create: 'Ajouter un nouveau type de lien'
+        entity_link_nature_create: 'Ajouter un nouveau type de lien'
         title: 'Types de lien'
-      entity_link_natures_create:
+      entity_link_nature_create:
         title: 'Ajout d''un nouveau type de lien'
-      entity_link_natures_update:
+      entity_link_nature_update:
         title: 'Modification du type de lien {{value}}'
-      entity_links_create:
+      entity_link_create:
         title: 'Ajout d''un nouveau lien à {{name}}'
-      _entity_links_form:
+      _entity_link_form:
         entity_name: 'La fiche'
-      entity_links_update:
+      entity_link_update:
         title: 'Modification du lien'
       event_natures:
-        event_natures_create: 'Ajout d''un type d''évènement'
+        event_nature_create: 'Ajout d''un type d''évènement'
         title: 'Types d''évènements'
-      event_natures_create:
+      event_nature_create:
         title: 'Ajouter un type d''évènement'
-      event_natures_update:
+      event_nature_update:
         title: 'Modification du type d''évènement "{{value}}"'
       events:
-        events_create: 'Ajouter un évènement'
+        event_create: 'Ajouter un évènement'
         title: 'Évènements'
-      events_create:
+      event_create:
         title: 'Ajout d''un évènement'
-      events_update:
+      event_update:
         title: 'Modification d''un évènement'
       _general_description_form:
         title: 'Description générale'
@@ -261,7 +261,7 @@ fr-FR:
         complements: 'Champs personnalisés'
         districts: 'Zones administratives'
         entities: 'Gérer les fiches'
-        entities_create: 'Créer une nouvelle fiche'
+        entity_create: 'Créer une nouvelle fiche'
         entities_managing: 'Clients et fournisseurs'
         entities_natures: 'Types de fiches'
         entity_categories: 'Catégories de fiches'
@@ -279,7 +279,7 @@ fr-FR:
         title: 'Gestion des relations clients et fournisseurs'
       mandates:
         include_blank: '--- Aucune organisation ---'
-        mandates_create: 'Créer une responsabilité'
+        mandate_create: 'Créer une responsabilité'
         nb_mandates:
           one: '1 responsabilité enregistrée'
           other: '{{count}} responsabilités enregistrées'
@@ -300,13 +300,13 @@ fr-FR:
         new_title: 'Nouveau titre'
         title: 'Configuration des responsabilités'
         validate: 'Modifier'
-      mandates_create:
+      mandate_create:
         title: 'Créer une responsabilité'
-      mandates_update:
+      mandate_update:
         title: 'Modification de la responsabilité de l''entité {{entity}}'
-      observations_create:
+      observation_create:
         title: 'Ajouter une observation'
-      observations_update:
+      observation_update:
         title: 'Modifier une observation'
       sales_print:
         deliveries_number:

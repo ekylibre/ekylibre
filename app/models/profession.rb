@@ -18,4 +18,7 @@
 class Profession < ActiveRecord::Base
   belongs_to :company
   has_many :employees
+
+  attr_readonly :company_id
+
 end

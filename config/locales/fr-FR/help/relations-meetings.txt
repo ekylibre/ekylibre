@@ -1,8 +1,0 @@
-h1. Les rencontres
-
-* Les rencontres permettent de lister les *rencontres faites avec les clients* que ce soit des rencontres *physiques*, par *téléphone*, *email*, ...
-* Vous pouvez noter le *lieu* ainsi que l'éventuel *commercial* à l'origine de cette rencontre.
-* Ceci permettra à l'avenir de sortir un *listing* de toutes les persones rencontrées à tel ou tel salon, ou ds persones ayant reçu un mailing donné.
-* Le récapitulatif des rencontres d'une personne est également accessible depuis sa fiche.
-
-<<relations-index|Revenir à l'aide de gestion des relations >>

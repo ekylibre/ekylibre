@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password").  
   # filter_parameter_logging :password
 
+
   def accessible?(url={})
     if url.is_a?(Hash)
       url[:controller]||=controller_name 
@@ -173,5 +174,62 @@ class ApplicationController < ActionController::Base
   def redirect_to_current()
     redirect_to session[:history][0]
   end
+
+
+
+
+
+  def self.manage(name, operations=[:create, :update, :delete])
+    
+    record_name = name.to_s.singularize
+    model = name.to_s.singularize.classify.constantize
+    code = ''
+    methods_prefix = record_name
+    
+    if operations.include? :create
+      code += "def #{methods_prefix}_create\n"
+      code += "  if request.post?\n"
+      code += "    @#{record_name} = #{model.name}.new(params[:#{record_name}])\n"
+      code += "    @#{record_name}.company_id = @current_company.id\n"
+      code += "    redirect_to_back if @#{record_name}.save\n"
+      code += "  else\n"
+      code += "    @#{record_name} = #{model.name}.new\n"
+      code += "  end\n"
+      code += "  render_form\n"
+      code += "end\n"
+    end
+    
+    if operations.include? :update
+      # this action updates an existing employee with a form.
+      code += "def #{methods_prefix}_update\n"
+      code += "  return unless @#{record_name} = find_and_check(:#{record_name}, params[:id])\n"
+      code += "  if request.post? or request.put?\n"
+      raise Exception.new("You must put :company_id in attr_readonly of #{model.name}") if model.readonly_attributes.nil? or not model.readonly_attributes.include?("company_id")
+      code += "    redirect_to_back if @#{record_name}.update_attributes(params[:#{record_name}])\n"
+      code += "  end\n"
+      code += "  @title = @#{record_name}.attributes\n"
+      code += "  render_form\n"
+      code += "end\n"
+    end
+
+    if operations.include? :delete
+      # this action deletes or hides an existing employee.
+      code += "def #{methods_prefix}_delete\n"
+      code += "  return unless @#{record_name} = find_and_check(:#{record_name}, params[:id])\n"
+      code += "  if request.delete?\n"
+      code += "    #{model.name}.destroy(@#{record_name}.id)\n"
+      code += "  end\n"
+      code += "  redirect_to_current\n"
+      code += "end\n"
+    end
+
+    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    
+    class_eval(code)
+    
+  end
+
+
+
 
 end

@@ -1,0 +1,16 @@
+- if @employee
+  =formalize do |f|
+    - f.error :employee
+    - f.title t('general.employee')
+    - f.field :employee, :title
+    - unless defined? create_user 
+      - f.field :employee, :first_name
+      - f.field :employee, :last_name
+    - f.field :employee, :commercial
+    - f.field :employee, :profession_id,  :choices => @current_company.professions.find(:all).collect {|p| [p.name, p.id]}, :new => {:action => :profession_create} 
+    - unless defined? create_user
+      - f.field :employee, :user_id, :choices => @current_company.users.find(:all).collect {|u| [u.name, u.id]}, :new => {:controller => :company, :action => :user_create} , :options=>{:include_blank=>tc(:select_user)}
+    - f.field :employee, :department_id, :choices => @current_company.departments.find(:all).collect {|d| [d.name, d.id]}, :new => {:controller => :company, :action => :department_create} 
+    - f.field :employee, :establishment_id, :choices => @current_company.establishments.find(:all).collect {|e| [e.name,e.id]}, :new => {:controller => :company, :action => :establishment_create} 
+ 
+ 

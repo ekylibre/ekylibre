@@ -1,13 +1,13 @@
 =sales_steps
 
 = toolbar do |t|
-  - t.link :sale_orders_print, :id=>@sale_order.id
+  - t.link :sale_order_print, :id=>@sale_order.id
   - if @sale_order.lines.size>0
     - if @sale_order.estimate?
       - t.link :sale_orders_confirm, {:id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_confirm)
     - if @sale_order.amount_with_taxes > @sale_order.invoiced_amount
       - t.link :sale_orders_invoice, {:id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_invoice)
-  - t.link(:sale_order_lines_create) if @sale_order.estimate?
+  - t.link(:sale_order_line_create) if @sale_order.estimate?
 
 
 %h2=tc :lines

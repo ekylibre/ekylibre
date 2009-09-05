@@ -22,46 +22,48 @@ class ManagementController < ApplicationController
     t.column :active
     t.column :expression
     t.column :comment
-    t.action :delays_display, :image=>:show
-    t.action :delays_update
-    t.action :delays_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :delay, :image=>:show
+    t.action :delay_update
+    t.action :delay_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def delays
   end
 
-  def delays_display
+  def delay
     @delay = find_and_check(:delay, params[:id])
     @title = {:value=>@delay.name}
   end
 
-  def delays_create
-    if request.post? 
-      @delay = Delay.new(params[:delay])
-      @delay.company_id = @current_company.id
-      redirect_to_back if @delay.save
-    else
-      @delay = Delay.new
-    end
-    render_form
-  end 
+  manage :delays
 
-  def delays_update
-    @delay = find_and_check(:delay, params[:id])
-    if request.post?
-      params[:delay][:company_id] = @current_company.id
-      redirect_to_back if @delay.update_attributes(params[:delay])
-    end
-    @title = {:value=>@delay.name}
-    render_form
-  end
+#   def delay_create
+#     if request.post? 
+#       @delay = Delay.new(params[:delay])
+#       @delay.company_id = @current_company.id
+#       redirect_to_back if @delay.save
+#     else
+#       @delay = Delay.new
+#     end
+#     render_form
+#   end 
 
-  def delays_delete
-    @delay = find_and_check(:delay, params[:id])
-    if request.post? or request.delete?
-      redirect_to_back if @delay.destroy
-    end
-  end
+#   def delay_update
+#     @delay = find_and_check(:delay, params[:id])
+#     if request.post?
+#       params[:delay][:company_id] = @current_company.id
+#       redirect_to_back if @delay.update_attributes(params[:delay])
+#     end
+#     @title = {:value=>@delay.name}
+#     render_form
+#   end
+
+#   def delay_delete
+#     @delay = find_and_check(:delay, params[:id])
+#     if request.post? or request.delete?
+#       redirect_to_back if @delay.destroy
+#     end
+#   end
   
   def inventories
   end
@@ -136,7 +138,7 @@ class ManagementController < ApplicationController
    
 
   dyta(:invoice_credit_lines, :model=>:invoice_lines, :conditions=>{:company_id=>['@current_company.id'], :invoice_id=>['session[:current_invoice]']}) do |t|
-    t.column :name, :through=>:product, :url=>{:action=>:products_display}
+    t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :amount, :through=>:price
     t.column :amount_with_taxes, :through=>:price, :label=>tc('price_amount_with_taxes')
     t.column :quantity
@@ -171,14 +173,14 @@ class ManagementController < ApplicationController
   end
   
   dyta(:prices, :conditions=>prices_conditions) do |t|
-    t.column :name, :through=>:product, :url=>{:action=>:products_display}
+    t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :full_name, :through=>:entity
-    t.column :name, :through=>:category, :label=>tc(:category), :url=>{:controller=>:relations, :action=>:entity_categories_display}
+    t.column :name, :through=>:category, :label=>tc(:category), :url=>{:controller=>:relations, :action=>:entity_category}
     t.column :amount
     t.column :amount_with_taxes
     t.column :default
     t.column :range
-    t.action :prices_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :price_delete, :method=>:post, :confirm=>:are_you_sure
   end
   
   
@@ -198,7 +200,7 @@ class ManagementController < ApplicationController
     end
   end
   
-  def prices_create
+  def price_create
     #raise Exception.new params.inspect
     @mode = (params[:mode]||"sales").to_sym 
     if request.post? 
@@ -219,7 +221,7 @@ class ManagementController < ApplicationController
     else
       if @current_company.available_products.size<=0
         flash[:message] = tc('messages.need_product_to_create_price')
-        redirect_to :action=> :products_create
+        redirect_to :action=> :product_create
       elsif !params[:product_id].nil?
    
         @price = Price.new(:product_id=>params[:product_id])
@@ -233,7 +235,7 @@ class ManagementController < ApplicationController
     render_form    
   end
   
-  def prices_delete
+  def price_delete
     @price = find_and_check(:price, params[:id])
     if request.post? or request.delete?
       @price.update_attributes(:active=>false)
@@ -363,40 +365,40 @@ class ManagementController < ApplicationController
 #  dyta(:products, :conditions=>:search_conditions) do |t|
   dyta(:products, :conditions=>search_conditions(:products, :products=>[:code, :name])) do |t|
     t.column :number
-    t.column :name, :through=>:shelf, :url=>{:action=>:shelves_display}
-    t.column :name, :url=>{:action=>:products_display}
+    t.column :name, :through=>:shelf, :url=>{:action=>:shelf}
+    t.column :name, :url=>{:action=>:product}
     t.column :code
     t.column :description
     t.column :active
-    t.action :products_display, :image=>:show
-    t.action :products_update
-    t.action :products_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :product, :image=>:show
+    t.action :product_update
+    t.action :product_delete, :method=>:post, :confirm=>:are_you_sure
   end
   
   dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}, :model=>:prices) do |t|
     t.column :name, :through=>:entity
-    t.column :name, :through=>:category, :url=>{:controller=>:relations, :action=>:entity_categories_display}
+    t.column :name, :through=>:category, :url=>{:controller=>:relations, :action=>:entity_category}
 
     t.column :amount
     t.column :amount_with_taxes
     t.column :default
     t.column :range
-    t.action :prices_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :price_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   dyta(:product_components, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}) do |t|
     t.column :name
-    t.action :product_components_update
-    t.action :product_components_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :product_component_update
+    t.action :product_component_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
-  def product_components_create
+  def product_component_create
     @product = find_and_check(:products, session[:product_id])
     if request.post?
       @product_component = ProductComponent.new(params[:product_component])
       @product_component.company_id = @current_company.id
       @product_component.product_id = @product.id
-      redirect_to :action=>:products_display, :id=>session[:product_id] if @product_component.save
+      redirect_to :action=>:product, :id=>session[:product_id] if @product_component.save
     else
       @product_component = ProductComponent.new(:quantity=>1.0)
     end
@@ -404,21 +406,21 @@ class ManagementController < ApplicationController
     render_form
   end
   
-  def product_components_update
+  def product_component_update
     @product_component = find_and_check(:product_component, params[:id])
     @product = find_and_check(:product, session[:product_id])
     if request.post?
-      redirect_to :action=>:products_display, :id=>@product.id if @product_component.update_attributes!(params[:product_component])
+      redirect_to :action=>:product, :id=>@product.id if @product_component.update_attributes!(params[:product_component])
     end
     @title = {:product=>@product.name, :component=>@product_component.name}
     render_form
   end
 
-  def product_components_delete
+  def product_component_delete
     if request.post?
       @product_component = find_and_check(:product_component, params[:id])
       @product_component.update_attributes!(:active=>false)
-      redirect_to :action=>:products_display, :id=>session[:product_id]
+      redirect_to :action=>:product, :id=>session[:product_id]
     end
   end
   
@@ -426,13 +428,13 @@ class ManagementController < ApplicationController
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
     if @stock_locations.size < 1
       flash[:warning]=tc('need_stocks_location_to_create_products')
-      redirect_to :action=>:stocks_locations_create
+      redirect_to :action=>:stock_location_create
     end
     @key = params[:key]||session[:product_key]
     session[:product_key] = @key
   end
 
-  def products_display
+  def product
     @product = find_and_check(:product, params[:id])
     session[:product_id] = @product.id
     all_product_stocks = ProductStock.find(:all, :conditions=>{:company_id=>@current_company.id})
@@ -451,7 +453,7 @@ class ManagementController < ApplicationController
     end
   end
 
-  def products_create
+  def product_create
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
     if request.post?
       #raise Exception.new params.inspect
@@ -486,7 +488,7 @@ class ManagementController < ApplicationController
     render_form
   end
   
-  def products_update
+  def product_update
     @product = find_and_check(:product, params[:id])
     session[:product_id] = @product.id
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
@@ -518,13 +520,13 @@ class ManagementController < ApplicationController
         end
         raise ActiveRecord::Rollback unless saved  
       end
-      redirect_to :action=>:products_display, :id=>@product.id
+      redirect_to :action=>:product, :id=>@product.id
     end
     @title = {:value=>@product.name}
     render_form()
   end
   
-  def products_delete
+  def product_delete
     @product = find_and_check(:product, params[:id])
     if request.post? or request.delete?
       redirect_to :back if @product.delete
@@ -543,7 +545,7 @@ class ManagementController < ApplicationController
 
   dyta(:purchase_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number ,:url=>{:action=>:purchases_products}
-    t.column :full_name, :through=>:supplier, :url=>{:controller=>:relations, :action=>:entities_display}
+    t.column :full_name, :through=>:supplier, :url=>{:controller=>:relations, :action=>:entity}
     t.column :address, :through=>:dest_contact
     t.column :shipped
     t.column :invoiced
@@ -568,10 +570,10 @@ class ManagementController < ApplicationController
   end
 
   def purchases_new
-    redirect_to :action=>:purchase_orders_create
+    redirect_to :action=>:purchase_order_create
   end
 
-  def purchase_orders_create
+  def purchase_order_create
     if request.post?
       @purchase_order = PurchaseOrder.new(params[:purchase_order])
       @purchase_order.company_id = @current_company.id
@@ -584,14 +586,14 @@ class ManagementController < ApplicationController
   end
 
   dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_purchase]']}) do |t|
-    t.column :name, :through=>:product, :url=>{:action=>:products_display}
+    t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :amount, :through=>:price
     t.column :amount
     t.column :amount_with_taxes
-    t.action :purchase_order_lines_update, :if=>'RECORD.order.shipped == false'
-    t.action :purchase_order_lines_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.shipped == false'
+    t.action :purchase_order_line_update, :if=>'RECORD.order.shipped == false'
+    t.action :purchase_order_line_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.shipped == false'
   end
 
   def purchases_products
@@ -634,12 +636,12 @@ class ManagementController < ApplicationController
   end
 
 
-  def purchase_order_lines_create
+  def purchase_order_line_create
     @stock_locations = @current_company.stock_locations
     @purchase_order = PurchaseOrder.find_by_id_and_company_id(session[:current_purchase], @current_company.id)
     if @stock_locations.empty?
       flash[:warning]=tc(:need_stock_location_to_create_purchase_order_line)
-      redirect_to :action=>:stocks_locations_create
+      redirect_to :action=>:stock_location_create
     elsif @purchase_order.shipped == true
       flash[:warning]=tc(:impossible_to_add_lines_to_purchase)
       redirect_to :action=>:purchases_products, :id=>@purchase_order.id
@@ -666,7 +668,7 @@ class ManagementController < ApplicationController
     end
   end
   
-  def purchase_order_lines_update
+  def purchase_order_line_update
     @update = true
     @purchase_order_line = find_and_check(:purchase_order_line, params[:id])
     @price = find_and_check(:price, @purchase_order_line.price_id)
@@ -680,7 +682,7 @@ class ManagementController < ApplicationController
     render_form
   end
   
-  def purchase_order_lines_delete
+  def purchase_order_line_delete
     @purchase_order_line = find_and_check(:purchase_order_line, params[:id])
     if request.post? or request.delete?
       redirect_to :back  if @purchase_order_line.destroy
@@ -703,18 +705,18 @@ class ManagementController < ApplicationController
 
   dyta(:sale_orders, :conditions=>sales_conditions,:order=>{'sort'=>'created_on','dir'=>'desc'}, :line_class=>'RECORD.status' ) do |t|
     t.column :number, :url=>{:action=>:sales_products}
-    #t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_natures_display}
+    #t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_nature}
     t.column :created_on
-    t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entities_display}
-    t.column :code, :through=>:client, :url=>{:controller=>:relations, :action=>:entities_display}, :label=>tc('client_code')
+    t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
+    t.column :code, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}, :label=>tc('client_code')
     t.column :text_state
     t.column :amount
     t.column :amount_with_taxes
-    t.action :sale_orders_print
-    t.action :sale_orders_delete , :method=>:post, :if=>'RECORD.estimate? ', :confirm=>tc(:are_you_sure)
+    t.action :sale_order_print
+    t.action :sale_order_delete , :method=>:post, :if=>'RECORD.estimate? ', :confirm=>tc(:are_you_sure)
   end
   
-  def sale_orders_delete
+  def sale_order_delete
     @sale_order = find_and_check(:sale_order, params[:id])
     if request.post? or request.delete?
       if @sale_order.estimate?
@@ -775,25 +777,25 @@ class ManagementController < ApplicationController
   dyta(:sale_order_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :active
-    t.column :name, :through=>:expiration, :url=>{:action=>:delays_display}, :label=>"Délai d'expiration"
-    t.column :name, :through=>:payment_delay, :url=>{:action=>:delays_display}, :label=>"Délai de paiement"
+    t.column :name, :through=>:expiration, :url=>{:action=>:delay}, :label=>"Délai d'expiration"
+    t.column :name, :through=>:payment_delay, :url=>{:action=>:delay}, :label=>"Délai de paiement"
     t.column :downpayment
     t.column :downpayment_minimum
     t.column :downpayment_rate
     t.column :comment
-    t.action :sale_order_natures_update
-    t.action :sale_order_natures_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :sale_order_nature_update
+    t.action :sale_order_nature_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def sale_order_natures
   end
 
-  def sale_order_natures_display
+  def sale_order_nature
     @sale_order_nature = find_and_check(:sale_order_nature, params[:id])
     @title = {:value=>@sale_order_nature.name}
   end
 
-  def sale_order_natures_create
+  def sale_order_nature_create
     if request.post? 
       @sale_order_nature = SaleOrderNature.new(params[:sale_order_nature])
       @sale_order_nature.company_id = @current_company.id
@@ -804,7 +806,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def sale_order_natures_update
+  def sale_order_nature_update
     @sale_order_nature = find_and_check(:sale_order_nature, params[:id])
     if request.post?
       params[:sale_order_nature][:company_id] = @current_company.id
@@ -814,7 +816,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def sale_order_natures_delete
+  def sale_order_nature_delete
     @sale_order_nature = find_and_check(:sale_order_nature, params[:id])
     if request.post? or request.delete?
       redirect_to :back if @sale_order_nature.destroy
@@ -833,13 +835,9 @@ class ManagementController < ApplicationController
     render :text=>options_for_select(@contacts) if request.xhr?
   end
 
-  def sales_new
-    redirect_to :action=>:sales_general
-  end
-
   dyli(:clients, [:code, :full_name], :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :client=>true})
 
-  def sales_general
+  def sale_order_create
     sales_contacts
     if request.post?
       @sale_order = SaleOrder.new(params[:sale_order])
@@ -862,6 +860,8 @@ class ManagementController < ApplicationController
   end
 
 
+
+
   dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :export=>false) do |t|
     #t.column :name, :through=>:product
     t.column :label
@@ -870,21 +870,21 @@ class ManagementController < ApplicationController
     t.column :amount, :through=>:price, :label=>tc('price')
     t.column :amount
     t.column :amount_with_taxes
-    t.action :sale_order_lines_update, :if=>'RECORD.order.estimate? and RECORD.reduction_origin_id.nil? '
-    t.action :sale_order_lines_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.estimate? and RECORD.reduction_origin_id.nil? '
+    t.action :sale_order_line_update, :if=>'RECORD.order.estimate? and RECORD.reduction_origin_id.nil? '
+    t.action :sale_order_line_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.estimate? and RECORD.reduction_origin_id.nil? '
   end
 
   dyta(:sale_order_subscriptions, :conditions=>{:company_id=>['@current_company.id'], :sale_order_id=>['session[:current_sale_order]']}, :export=>false, :model=>:subscriptions) do |t|
-    t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entities_display}
+    t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :address, :through=>:contact
     t.column :start
     t.column :finish
     t.column :quantity
-    t.action :subscriptions_update
-    t.action :subscriptions_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :subscription_update
+    t.action :subscription_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
-  def sales_products
+  def sale_orders_lines
     return unless @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
     session[:category] = @sale_order.client.category
@@ -913,7 +913,7 @@ class ManagementController < ApplicationController
     redirect_to :action=>:sales_products, :id=>@sale_order.id
   end
 
-  def sale_orders_print
+  def sale_order_print
     @sale_order = find_and_check(:sale_order, params[:id])
     if @current_company.default_contact.nil? || @sale_order.client.contacts.size == 0
       entity = @current_company.default_contact.nil? ? @current_company.name : @sale_order.client.full_name
@@ -964,16 +964,16 @@ class ManagementController < ApplicationController
     @product = find_and_check(:products, price.product_id)
   end
 
-  dyli(:all_contacts, [ :address], :model=>:contacts, :conditions => {:company_id=>['@current_company.id'], :active=>true})
+  dyli(:all_contacts, [:address], :model=>:contacts, :conditions => {:company_id=>['@current_company.id'], :active=>true})
   
-  def sale_order_lines_create
+  def sale_order_line_create
     @stock_locations = @current_company.stock_locations
     @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
     @sale_order_line = SaleOrderLine.new(:price_amount=>0.0)
     @subscription = Subscription.new
     if @stock_locations.empty? 
       flash[:warning]=tc(:need_stock_location_to_create_sale_order_line)
-      redirect_to :action=>:stocks_locations_create
+      redirect_to :action=>:stock_location_create
       return
     elsif @sale_order.active?
       flash[:warning]=tc(:impossible_to_add_lines)
@@ -1008,7 +1008,7 @@ class ManagementController < ApplicationController
     render_form
   end
   
-  def sale_order_lines_update
+  def sale_order_line_update
     @stock_locations = @current_company.stock_locations
     @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
     @sale_order_line = find_and_check(:sale_order_line, params[:id])
@@ -1023,7 +1023,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def sale_order_lines_delete
+  def sale_order_line_delete
     @sale_order_line = find_and_check(:sale_order_line, params[:id])
     if request.post? or request.delete?
       redirect_to :back if @sale_order_line.destroy
@@ -1039,10 +1039,10 @@ class ManagementController < ApplicationController
     t.column :quantity
     t.column :amount
     t.column :amount_with_taxes
-    #t.action :deliveries_update, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? '
-    t.action :deliveries_update, :if=>'!RECORD.order.invoiced'
-    #t.action :deliveries_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>:are_you_sure
-    t.action :deliveries_delete, :if=>'!RECORD.order.invoiced', :method=>:post, :confirm=>:are_you_sure
+    #t.action :delivery_update, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? '
+    t.action :delivery_update, :if=>'!RECORD.order.invoiced'
+    #t.action :delivery_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>:are_you_sure
+    t.action :delivery_delete, :if=>'!RECORD.order.invoiced', :method=>:post, :confirm=>:are_you_sure
   end
 
   
@@ -1071,27 +1071,13 @@ class ManagementController < ApplicationController
   def sales_deliveries
     return unless @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
-    @deliveries = Delivery.find_all_by_company_id_and_order_id(@current_company.id, @sale_order.id)
-    if @deliveries.empty?
-      redirect_to :action=>:deliveries_create
-      return
-    end
-    @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>@sale_order.id})
-    @undelivered = false
-    for line in @sale_order_lines
-      @undelivered = true if line.undelivered_quantity > 0 and !@undelivered
-    end
-    
-      
-    session[:current_sale_order] = @sale_order.id
-    @delivery_lines = []
-    for delivery in @deliveries
-      lines = DeliveryLine.find_all_by_company_id_and_delivery_id(@current_company.id, delivery.id)
-      @delivery_lines += lines if !lines.nil?
-    end
-    if @sale_order_lines == []
+    if @sale_order.deliveries.size <= 0
+      redirect_to :action=>:delivery_create
+    elsif @sale_order.lines.size <= 0
       flash[:warning]=tc(:no_lines_found)
       redirect_to :action=>:sales_products, :id=>session[:current_sale_order]
+    else
+      @undelivered_amount = @sale_order.undelivered :amount_with_taxes
     end
   end
 
@@ -1111,7 +1097,7 @@ class ManagementController < ApplicationController
     @delivery.amount_with_taxes = @delivery.amount_with_taxes.round(2)
   end
 
-  def deliveries_create
+  def delivery_create
     @delivery_form = "delivery_form"
     @sale_order = find_and_check(:sale_orders,session[:current_sale_order])
     @sale_order_lines = @sale_order.lines
@@ -1149,7 +1135,7 @@ class ManagementController < ApplicationController
     render_form(:id=>@delivery_form)
   end
   
-  def deliveries_update
+  def delivery_update
     @delivery_form = "delivery_form"
     @delivery =  find_and_check(:delivery, params[:id])
     session[:current_delivery] = @delivery.id
@@ -1176,7 +1162,7 @@ class ManagementController < ApplicationController
   end
  
 
-  def deliveries_delete
+  def delivery_delete
     @delivery = find_and_check(:deliveries, params[:id])
     if request.post? or request.delete?
       redirect_to_back if @delivery.destroy
@@ -1187,14 +1173,14 @@ class ManagementController < ApplicationController
     t.column :name
     t.column :code
     t.column :comment
-    t.action :delivery_modes_update
-    t.action :delivery_modes_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :delivery_mode_update
+    t.action :delivery_mode_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def delivery_modes
   end
 
-  def delivery_modes_create
+  def delivery_mode_create
     @delivery_mode = DeliveryMode.new
     if request.post?
       @delivery_mode = DeliveryMode.new(params[:delivery_mode])
@@ -1204,7 +1190,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def delivery_modes_update
+  def delivery_mode_update
     @delivery_mode = find_and_check(:delivery_mode, params[:id])
     if request.post?
       redirect_to_back if @delivery_mode.update_attributes(params[:delivery_mode])
@@ -1213,7 +1199,7 @@ class ManagementController < ApplicationController
     render_form
   end
    
-  def delivery_modes_delete
+  def delivery_mode_delete
     @delivery_mode = find_and_check(:delivery_mode, params[:id])
     if request.post?
       redirect_to_back if @delivery_mode.destroy
@@ -1268,14 +1254,14 @@ class ManagementController < ApplicationController
   
   
   dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :amount, :url=>{:action=>:embankments_display}
+    t.column :amount, :url=>{:action=>:embankment}
     t.column :payments_count
     t.column :name, :through=>:bank_account
     t.column :created_on
-    t.action :embankments_display
-    t.action :embankments_print
-    t.action :embankments_update, :if=>'RECORD.locked == false'
-    t.action :embankments_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.locked == false'
+    t.action :embankment
+    t.action :embankment_print
+    t.action :embankment_update, :if=>'RECORD.locked == false'
+    t.action :embankment_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.locked == false'
   end
 
 #  dyli(:bank_account, :attributes => [:name], :conditions => {:company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
@@ -1292,13 +1278,13 @@ class ManagementController < ApplicationController
   def embankments
   end
 
-  def embankments_display
+  def embankment
     @embankment = find_and_check(:embankment, params[:id])
     session[:embankment_id] = @embankment.id
     @title = {:date=>@embankment.created_on}
   end
   
-  def embankments_print
+  def embankment_print
     @embankment = find_and_check(:embankment, params[:id])
     if @current_company.default_contact.nil? || @embankment.bank_account.address.nil?
       entity = @current_company.default_contact.nil? ? @current_company.name : @embankment.bank_account.name
@@ -1315,7 +1301,7 @@ class ManagementController < ApplicationController
     end
   end
 
-  def embankments_create
+  def embankment_create
     if @current_company.checks_to_embank(0).size == 0
       flash[:warning]=tc(:no_check_to_embank)
       redirect_to :action=>:embankments
@@ -1325,29 +1311,29 @@ class ManagementController < ApplicationController
         @embankment = Embankment.new(params[:embankment])
         @embankment.mode_id = @current_company.payment_modes.find(:first, :conditions=>{:mode=>"check"}).id  if @current_company.payment_modes.find_all_by_mode("check").size == 1
         @embankment.company_id = @current_company.id 
-        redirect_to :action=>:embankment_checks_create, :id=>@embankment.id if @embankment.save
+        redirect_to :action=>:embankment_payment_create, :id=>@embankment.id if @embankment.save
       end
       render_form
     end
   end
   
-  def embankments_update
+  def embankment_update
     @embankment = find_and_check(:embankment, params[:id])
     if request.post?
-      redirect_to :action=>:embankment_checks_update, :id=>@embankment.id if @embankment.update_attributes(params[:embankment])
+      redirect_to :action=>:embankment_payment_update, :id=>@embankment.id if @embankment.update_attributes(params[:embankment])
     end
     @title = {:date=>@embankment.created_on}
     render_form
   end
 
-  def embankments_delete
+  def embankment_delete
     @embankment = find_and_check(:embankment, params[:id])
     if request.post? or request.delete?
       redirect_to_current if @embankment.destroy
     end
   end
 
-  def embankment_checks_create
+  def embankment_payment_create
     @embankment = find_and_check(:embankment, params[:id])
     @checks = @current_company.checks_to_embank(@embankment.mode_id)
  #   raise Exception.new @checks[0].inspect
@@ -1362,7 +1348,7 @@ class ManagementController < ApplicationController
     end
   end
 
-  def embankment_checks_update
+  def embankment_payment_update
     @embankment = find_and_check(:embankment, params[:id])
     @checks = @current_company.checks_to_embank_on_update(@embankment)
     if request.post?
@@ -1391,8 +1377,8 @@ class ManagementController < ApplicationController
   dyta(:payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :label, :through=>:account
-    t.action :payment_modes_update
-    t.action :payment_modes_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :payment_mode_update
+    t.action :payment_mode_delete, :method=>:post, :confirm=>:are_you_sure
   end
   
   dyli(:account, :label, :conditions =>{:company_id=>['@current_company.id']})
@@ -1400,7 +1386,7 @@ class ManagementController < ApplicationController
   def payment_modes
   end
 
-  def payment_modes_create
+  def payment_mode_create
     if request.post?
       @payment_mode = PaymentMode.new(params[:payment_mode])
       @payment_mode.company_id = @current_company.id
@@ -1411,7 +1397,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def payment_modes_update
+  def payment_mode_update
     @payment_mode = find_and_check(:payment_modes, params[:id])
     if request.post?
       redirect_to_back if @payment_mode.update_attributes(params[:payment_mode])
@@ -1419,7 +1405,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def payment_modes_delete
+  def payment_mode_delete
     @payment_mode = find_and_check(:payment_modes, params[:id])
     if request.post? or request.delete?
       redirect_to_back if @payment_mode.destroy
@@ -1434,8 +1420,8 @@ class ManagementController < ApplicationController
     t.column :downpayment
     #t.column :paid_on, :through=>:payment, :label=>tc('paid_on'), :datatype=>:date
     t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
-    t.action :payments_update
-    t.action :payments_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :payment_update
+    t.action :payment_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   
@@ -1455,7 +1441,7 @@ class ManagementController < ApplicationController
   end
  
   dyta(:waiting_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :received=>false}) do |t|
-    t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entities_display}
+    t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :amount
     t.column :name, :through=>:mode
     t.column :to_bank_on
@@ -1465,7 +1451,7 @@ class ManagementController < ApplicationController
     @payments_count = @current_company.payments.find(:all, :conditions=>{:received=>false}).size
   end
 
-  def payments_create
+  def payment_create
     @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
     if @sale_order.unpaid_amount <= 0 and @sale_order.invoices.size > 0
       flash[:notice]=tc(:error_sale_order_already_paid)
@@ -1500,7 +1486,7 @@ class ManagementController < ApplicationController
   end
   
 
-  def payments_update
+  def payment_update
     @sale_order   = find_and_check(:sale_order, session[:current_sale_order])
     return if (payment_part = find_and_check(:payment_part, params[:id])).nil?
     @payment = payment_part.payment
@@ -1514,7 +1500,7 @@ class ManagementController < ApplicationController
     render_form 
   end
 
-  def payments_delete
+  def payment_delete
     @sale_order  = find_and_check(:sale_order, session[:current_sale_order])
     @payment_part = find_and_check(:payment_part, params[:id])
     if request.post? or request.delete?
@@ -1530,20 +1516,20 @@ class ManagementController < ApplicationController
     t.column :catalog_name
     t.column :catalog_description
     t.column :name, :through=>:parent
-    t.action :shelves_update
-    t.action :shelves_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :shelf_update
+    t.action :shelf_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def shelves
    # shelves_list params
   end
 
-  def shelves_display
+  def shelf
     @shelf = find_and_check(:shelf, params[:id])
     @title = {:value=>@shelf.name}
   end
 
-  def shelves_create
+  def shelf_create
     if request.post? 
       @shelf = Shelf.new(params[:shelf])
       @shelf.company_id = @current_company.id
@@ -1554,7 +1540,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def shelves_update
+  def shelf_update
     @shelf = find_and_check(:shelf, params[:id])
     if request.post?
       params[:shelf][:company_id] = @current_company.id
@@ -1563,7 +1549,7 @@ class ManagementController < ApplicationController
     render_form(:label=>@shelf.name)
   end
 
-  def shelves_delete
+  def shelf_delete
     @shelf = find_and_check(:shelf, params[:id])
     if request.post? or request.delete?
       redirect_to :back if @shelf.destroy
@@ -1576,10 +1562,10 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:establishment
     t.column :name, :through=>:parent
     t.column :reservoir, :label=>tc(:reservoir)
-    t.action :stocks_locations_display, :image=>:show
-    #t.action :stocks_locations_update, :mode=>:reservoir, :if=>'RECORD.reservoir == true'
-    t.action :stocks_locations_update
-    #t.action :stocks_locations_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :stock_location, :image=>:show
+    #t.action :stock_location_update, :mode=>:reservoir, :if=>'RECORD.reservoir == true'
+    t.action :stock_location_update
+    #t.action :stock_location_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   dyta(:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :location_id=>['session[:current_stock_location_id]']}) do |t|
@@ -1590,8 +1576,8 @@ class ManagementController < ApplicationController
     t.column :label, :through=>:unit
     t.column :name, :through=>:product
     t.column :virtual
-    t.action :stocks_moves_update, :if=>'RECORD.generated != true'
-    t.action :stocks_moves_delete, :method=>:post, :confirm=>:are_you_sure,:if=>'RECORD.generated != true' 
+    t.action :stock_move_update, :if=>'RECORD.generated != true'
+    t.action :stock_move_delete, :method=>:post, :confirm=>:are_you_sure,:if=>'RECORD.generated != true' 
   end
   
   def stocks_locations
@@ -1599,19 +1585,19 @@ class ManagementController < ApplicationController
   
     unless @current_company.stock_locations.size>0
       flash[:message] = tc('messages.need_stock_location_to_record_stock_moves')
-      redirect_to :action=>:stocks_locations_create
+      redirect_to :action=>:stock_location_create
       return
     end
   end
 
-  def stocks_locations_display
+  def stock_location
     @stock_location = find_and_check(:stock_location, params[:id])
     session[:current_stock_location_id] = @stock_location.id
     #stock_moves_list 
     @title = {:value=>@stock_location.name}
   end
 
-  def stocks_locations_create
+  def stock_location_create
     @mode = (params[:mode]||session[:location_type]||:original).to_sym
     session[:location_type] = @mode
     if request.post? 
@@ -1619,7 +1605,7 @@ class ManagementController < ApplicationController
       @stock_location.company_id = @current_company.id
       if @stock_location.save
         if session[:history][1].to_s.include? "stocks" 
-          redirect_to :action=>:stocks_locations_display, :id=>@stock_location.id
+          redirect_to :action=>:stock_location, :id=>@stock_location.id
         else
           redirect_to_back
         end
@@ -1630,25 +1616,25 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def stocks_locations_update
+  def stock_location_update
     @stock_location = find_and_check(:stock_location, params[:id])
     @mode = :reservoir if @stock_location.reservoir
     if request.post?
       if @stock_location.update_attributes(params[:stock_location])
-        redirect_to :action=>:stocks_locations_display, :id=>@stock_location.id
+        redirect_to :action=>:stock_location, :id=>@stock_location.id
       end
     end
     render_form(:label=>@stock_location.name)
   end
 
-  def stocks_locations_delete
+  def stock_location_delete
     @stock_location = find_and_check(:stock_location, params[:id])
     if request.post? or request.delete?
       redirect_to :back if @stock_location.destroy
     end
   end
 
-  def stocks_moves_create
+  def stock_move_create
     @stock_location = StockLocation.find_by_id session[:current_stock_location_id]
     if request.post? 
       @stock_move = StockMove.new(params[:stock_move])
@@ -1657,7 +1643,7 @@ class ManagementController < ApplicationController
       # @stock_move.input = true
       #if @stock_move.save
         # @stock_move.change_quantity
-      redirect_to :action =>:stocks_locations_display, :id=>@stock_move.location_id if @stock_move.save
+      redirect_to :action =>:stock_location, :id=>@stock_move.location_id if @stock_move.save
       #end
     else
       @stock_move = StockMove.new
@@ -1666,16 +1652,16 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def stocks_moves_update
+  def stock_move_update
     @stock_move = find_and_check(:stock_move, params[:id])
     if request.post?
-      redirect_to :action=>:stocks_locations_display, :id=>@stock_move.location_id if @stock_move.update_attributes(params[:stock_move])
+      redirect_to :action=>:stock_location, :id=>@stock_move.location_id if @stock_move.update_attributes(params[:stock_move])
     end
     @title = {:value=>@stock_move.name}
     render_form
   end
 
-  def stocks_moves_delete 
+  def stock_move_delete 
     @stock_move = find_and_check(:stock_move, params[:id])
     if request.post? or request.delete?
       redirect_to :back if @stock_move.destroy
@@ -1687,16 +1673,24 @@ class ManagementController < ApplicationController
     t.column :nature_label, :children=>false
     t.column :actual_number, :children=>false
     t.column :reduction_rate, :children=>false
-    t.action :subscription_natures_increment, :method=>:post, :if=>"RECORD.nature=='quantity'"
-    t.action :subscription_natures_decrement, :method=>:post, :if=>"RECORD.nature=='quantity'"
-    t.action :subscription_natures_display
-    t.action :subscription_natures_update
+    t.action :subscription_nature_increment, :method=>:post, :if=>"RECORD.nature=='quantity'"
+    t.action :subscription_nature_decrement, :method=>:post, :if=>"RECORD.nature=='quantity'"
+    t.action :subscription_nature
+    t.action :subscription_nature_update
   end
 
   def subscription_natures
   end
 
-  def subscription_natures_create
+
+  def subscription_nature
+    @subscription_nature = find_and_check(:subscription_nature, params[:id])
+    session[:subscription_nature] = @subscription_nature
+    redirect_to :action=>:subscriptions, :nature=>@subscription_nature.id
+  end
+
+
+  def subscription_nature_create
     @subscription_nature = SubscriptionNature.new
     @subscription_nature.nature = SubscriptionNature.natures.first[1]
     if request.post?
@@ -1707,7 +1701,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def subscription_natures_update
+  def subscription_nature_update
     @subscription_nature = find_and_check(:subscription_nature, params[:id])
     if request.post?
       redirect_to_back if @subscription_nature.update_attributes(params[:subscription_nature])
@@ -1716,13 +1710,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def subscription_natures_display
-    @subscription_nature = find_and_check(:subscription_nature, params[:id])
-    session[:subscription_nature] = @subscription_nature
-    redirect_to :action=>:subscriptions, :nature=>@subscription_nature.id
-  end
-
-  def subscription_natures_increment
+  def subscription_nature_increment
     if request.post?
       #raise Exception.new "tt"+params.inspect
       @subscription_nature = find_and_check(:subscription_nature, params[:id])
@@ -1735,7 +1723,7 @@ class ManagementController < ApplicationController
     end
   end
 
-  def subscription_natures_decrement
+  def subscription_nature_decrement
     if request.post?
       @subscription_nature = find_and_check(:subscription_nature, params[:id])
       if !@subscription_nature.nil?
@@ -1765,7 +1753,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:subscriptions, :conditions=>subscriptions_conditions, :export=>false) do |t|
-    t.column :full_name, :through=>:entity, :url=>{:action=>:entities_display, :controller=>:relations}
+    t.column :full_name, :through=>:entity, :url=>{:action=>:entity, :controller=>:relations}
 #    t.column :line_2, :through=>:contact, :label=>"Dest-Serv"
 #    t.column :line_3, :through=>:contact, :label=>"Bat./Rés."
 #    t.column :line_4_number, :through=>:contact, :label=>"N° voie"
@@ -1813,7 +1801,7 @@ class ManagementController < ApplicationController
 
   dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity]'], :active=>true, :company_id=>['@current_company.id']})
   
-  def subscriptions_create
+  def subscription_create
     if request.post?
       @subscription = Subscription.new(params[:subscription])
       @subscription.company_id = @current_company.id
@@ -1826,7 +1814,7 @@ class ManagementController < ApplicationController
   end
   
 
-  def subscriptions_update
+  def subscription_update
     return unless @subscription = find_and_check(:subscription, params[:id])
     if request.post?
       redirect_to_back if @subscription.update_attributes!(params[:subscription])
@@ -1835,7 +1823,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def subscriptions_delete
+  def subscription_delete
     return unless @subscription = find_and_check(:subscription, params[:id])
     if request.post? or request.delete?
       redirect_to_current if @subscription.destroy
@@ -1996,7 +1984,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:product_stocks, :conditions=>stocks_conditions, :line_class=>'RECORD.state') do |t|
-    t.column :name, :through=>:product,:url=>{:action=>:products_display}
+    t.column :name, :through=>:product,:url=>{:action=>:product}
     t.column :weight, :through=>:product, :label=>"Poids"
     t.column :quantity_max
     t.column :quantity_min
@@ -2006,7 +1994,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:critic_product_stocks, :model=>:product_stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
-    t.column :name, :through=>:product,:url=>{:action=>:products_display}
+    t.column :name, :through=>:product,:url=>{:action=>:product}
     t.column :name, :through=>:location, :label=>"Lieu de stockage"
     t.column :quantity_max
     t.column :quantity_min
@@ -2017,7 +2005,7 @@ class ManagementController < ApplicationController
 
 
   dyta(:uniq_critic_product_stocks, :model=>:product_stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min  AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state') do |t|
-    t.column :name, :through=>:product,:url=>{:action=>:products_display}
+    t.column :name, :through=>:product,:url=>{:action=>:product}
     t.column :name, :through=>:location, :label=>"Lieu de stockage"
     t.column :quantity_max
     t.column :quantity_min
@@ -2030,7 +2018,7 @@ class ManagementController < ApplicationController
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
     if @stock_locations.size == 0
       flash[:warning]=tc('no_stock_location')
-      redirect_to :action=>:stocks_locations_create
+      redirect_to :action=>:stock_location_create
     else
       if request.post?
         session[:location_id] = params[:product_stock][:location_id]
@@ -2047,14 +2035,14 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:second_location
     t.column :planned_on
     t.column :moved_on
-    t.action :stock_transfers_update
-    t.action :stock_transfers_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :stock_transfer_update
+    t.action :stock_transfer_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def stock_transfers
   end
 
-  def stock_transfers_create
+  def stock_transfer_create
     @stock_transfer = StockTransfer.new(:nature=>"transfer", :planned_on=>Date.today)
     if request.post?
       #raise Exception.new(params.inspect)
@@ -2065,7 +2053,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def stock_transfers_update
+  def stock_transfer_update
     @stock_transfer = find_and_check(:stock_transfer, params[:id])
     if request.post?
       #raise Exception.new params.inspect
@@ -2074,7 +2062,7 @@ class ManagementController < ApplicationController
     render_form
   end
   
-  def stock_transfers_delete
+  def stock_transfer_delete
     @stock_transfer = find_and_check(:stock_transfer, params[:id])
     if request.post? or request.delete?
       redirect_to_back if @stock_transfer.destroy
@@ -2090,14 +2078,14 @@ class ManagementController < ApplicationController
     t.column :text_nature
     t.column :included
     t.column :reductible
-    t.action :taxes_update
-    t.action :taxes_delete, :method=>:post
+    t.action :tax_update
+    t.action :tax_delete, :method=>:post
   end
   
   def taxes
   end
 
-  def taxes_create
+  def tax_create
     @tax = Tax.new(:nature=>:percent)
     if request.post?
        @tax = Tax.new(params[:tax])
@@ -2107,7 +2095,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  def taxes_update
+  def tax_update
     return unless @tax = find_and_check(:tax, params[:id])
     if request.post?
       redirect_to :action=>:taxes if @tax.update_attributes!(params[:tax])
@@ -2116,7 +2104,7 @@ class ManagementController < ApplicationController
     render_form
   end
   
-  def taxes_delete
+  def tax_delete
     return unless @tax = find_and_check(:tax, params[:id])
     if request.post? or request.delete?
       redirect_to :action=>:taxes if @tax.destroy

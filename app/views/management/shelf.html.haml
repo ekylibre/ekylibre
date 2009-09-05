@@ -1,0 +1,10 @@
+= toolbar do
+  - link :shelf_update, :id=>@shelf.id
+  - link :shelves
+
+=evalue @shelf, :name
+=evalue @shelf, :parent, :url=>{:action=>:shelf}
+=evalue @shelf, :comment
+=evalue @shelf, :catalog_name
+=evalue @shelf, :catalog_description
+

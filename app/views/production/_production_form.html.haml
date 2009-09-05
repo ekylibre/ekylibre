@@ -1,0 +1,12 @@
+=formalize do |f|
+  - f.error :production
+  - f.title :infos
+  - if !request.url.include? "update" 
+    - f.field :production, :product_id, :choices=>@productable_products.collect{|x| [x.informations.to_s, x.id]}, :new=>{:controller=>:management, :action=>:product_create}
+  - f.field :production, :quantity
+  - if @current_company.stock_locations.size > 1
+    - f.field :production, :location_id, :choices=>@current_company.stock_locations.collect{|x| [x.name, x.id]}, :new=>{:controller=>:management, :action=>:stock_location_create}
+
+- if !request.url.include? "update" 
+  %p= tc('production_legend_one')
+  %p= tc('production_legend_two')

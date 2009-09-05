@@ -23,6 +23,8 @@ class Delay < ActiveRecord::Base
   has_many :sale_orders
   has_many :sale_order_natures
 
+  attr_readonly :company_id
+
   DELAY_SEPARATOR = ', '
 
   def before_validation

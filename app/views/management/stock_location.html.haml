@@ -1,0 +1,24 @@
+= toolbar do
+  - link :stock_location_update, :id=>@stock_location.id
+  - link :stocks_locations
+
+%table
+  %tr
+    %td
+      =evalue @stock_location, :name
+      =evalue @stock_location, :comment
+    %td
+      =evalue @stock_location, :establishment
+      =evalue @stock_location, :x
+      =evalue @stock_location, :y
+      =evalue @stock_location, :z
+    -if @stock_location.reservoir
+      %td
+        =evalue @stock_location, :product, :label=>:name, :url=>{:action=>:product, :id=>@stock_location.product_id}
+        =evalue @stock_location, :number
+        =evalue @stock_location, :quantity_max
+
+%h2=tc :moves
+=toolbar do
+  -link :stock_move_create
+=dyta :stock_moves

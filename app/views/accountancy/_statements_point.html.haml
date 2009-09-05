@@ -11,7 +11,7 @@
     - attr = cycle("even", "odd")
     %tr{:class => (entry.statement_id ? ((entry.statement_id.eql? session[:statement]) ? "pointable" :"pointabled") : "unpointable")+" "+attr, :id=> 'e'+entry.id.to_s }
       %td{:onclick => remote_function(:after => "var element=$('e"+entry.id.to_s+"'); if (element.hasClassName('pointable "+attr+"')) { element.removeClassName('pointable "+attr+"'); element.addClassName('unpointable "+attr+"'); } else if (element.hasClassName('unpointable "+attr+"')) { element.removeClassName('unpointable "+attr+"'); element.addClassName('pointable "+attr+"'); } else { element.removeClassName('pointabled "+attr+"'); element.addClassName('unpointable "+attr+"'); }", :url => { :action => 'statements_point', :id => entry.id})}
-      %td{:id => 'entry_number_'+entry.id.to_s}=entry.statement.nil? ? "&nbsp" : link_to(entry.statement.number, :action=>:statements_display, :id=>entry.statement.id) 
+      %td{:id => 'entry_number_'+entry.id.to_s}=entry.statement.nil? ? "&nbsp" : link_to(entry.statement.number, :action=>:bank_account_statement, :id=>entry.statement.id) 
       %td=@bank_account_statement.started_on
       %td=@bank_account_statement.stopped_on
       %td=entry.name

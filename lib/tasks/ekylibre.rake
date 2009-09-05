@@ -36,8 +36,19 @@ namespace :clean do
       actions = []
       file = File.open(x, "r")
       file.each_line do |line|
+        line = line.gsub(/(^\s*|\s*$)/,'')
         actions << line.split(/def\s/)[1].gsub(/\s/,'') if line.match(/^\s*def\s+\w+\s*$/)
-        actions << line.gsub(/\s/,'').gsub(/\(?:/,"_").split(/(\,|\))/)[0] if line.match(/^\s*dy(ta|li)[\s\(]+\:\w+/)
+        # actions << line.gsub(/\s/,'').gsub(/\(?:/,"_").split(/(\,|\))/)[0] if line.match(/^\s*dy(ta|li)[\s\(]+\:\w+/)
+        if line.match(/^\s*dy(li|ta)[\s\(]+\:\w+/)
+          dyxx = line.split(/[\s\(\)\,\:]+/)
+          actions << dyxx[1]+'_'+dyxx[0]
+        end
+        if line.match(/^\s*manage[\s\(]+\:\w+/)
+          prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
+          actions << prefix+'_create'
+          actions << prefix+'_update'
+          actions << prefix+'_delete'
+        end
       end
       ref[controller_name] = actions
     end
@@ -57,6 +68,11 @@ namespace :clean do
     # Mise en commentaire des actions supprimées
     deleted = 0
     for right in rights
+      if right[1].to_s.match(/_dy(ta|li)$/)
+        on = right[1].gsub(/^(.*)_(dy(ta|li))$/,'\2_\1')
+        r = rights.detect{|x| x[1]==on}
+        right[2] = r[2] if r
+      end
       unless right[0].match(/^\#/)
         unless ref[right[0]].include?(right[1])
           right[0] = '#'+right[0] 

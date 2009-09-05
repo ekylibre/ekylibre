@@ -1,0 +1,67 @@
+=formalize do |f|
+  -f.error :entity
+  -f.error :datum
+  -f.title :title
+  -f.field :entity, :nature_id, :choices=>@current_company.entity_natures.find(:all, :order=>:name).collect {|x| [x.name, x.id]}, :new=>{:action=>:entity_nature_create}
+  -f.field :entity, :language_id, :choices=>@current_company.languages.find(:all, :order=>:native_name).collect {|x| [x.native_name, x.id]}
+  -f.field :entity, :name
+  -f.field :entity, :first_name
+  -f.field :entity, :client
+  -f.field :entity, :supplier
+  -f.title :details
+  -f.field :entity, :country,:choices=>countries
+  -f.field :entity, :siren
+  -f.field :entity, :vat_number
+  -f.field :entity, :excise
+  -f.field :entity, :code
+  -f.field :entity, :born_on
+  -#f.field :entity, :dead_on
+  -f.field :entity, :website
+  -f.field :entity, :photo
+  -f.field :entity, :comment, :field=>:textarea
+  -f.field :entity, :ean13
+  -for datum in @complement_data
+    -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_value", :name=>"complement_datum[#{datum.complement_id}][value]", :value=>datum.value, :size=>datum.complement.length_max, :options=>{:include_blank=>(datum.complement.required ? nil : '')}, :choices=>datum.complement.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
+ 
+
+=formalize(:id=>:client_form) do |f|
+  -f.title :client
+  -f.field :entity, :client_account_id, :choices=>@client_accounts.collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:account_create}, :options=>{:include_blank=>tc(:account_client_to_create)} 
+  -f.field :entity, :category_id, :choices=>@current_company.entity_categories.find_all_by_deleted(false).collect{|x| [x.name, x.id]}
+  -#f.field :entity, :origin
+  - f.field  t("activerecord.attributes.entity.origin"), text_field_with_auto_complete(:entity, :origin)
+  -f.field :entity, :first_met_on
+  - #f.field :name ,{:datatype=>:choice, :id=>"meeting_#{meeting.position}_meeting_id", :name=>"entity_meeting[#{entity_meeting.position}][meeting_id]", :value=>entity_meeting.meeting_id, :choices=>@current_company.meetings.find(:all, :conditions=>{:active=>true}).collect{|x| [x.name, x.id]}, :options=>{:include_blank=>"--Aucun--"} }
+  -#f.field :entity, :proposer_id, :choices=>@current_company.entities.find(:all, :conditions=>["id != ?", (@entity.new_record? ? 0 : @entity)], :order=>:name).collect{|x| [x.full_name, x.id]}, :options=>{:include_blank=>tc('no_proposer')}
+  -f.field :entity, :proposer_id, :choices=>:entities
+  -f.field :entity, :employee_id, :choices=>@current_company.employees.find(:all, :conditions=>{:commercial=>'true'}, :order=>:last_name).collect{|p| [p.last_name, p.id]}, :new=>{:controller=>:resources, :action=>:employee_create}, :options=>{:include_blank=>tc(:no_commercial)}
+  -f.field :entity, :vat_submissive
+  -f.field :entity, :reflation_submissive
+  -f.field :entity, :discount_rate
+  -f.field :entity, :reduction_rate
+  -f.field :entity, :authorized_payments_count
+  -f.field :entity, :deliveries_conditions, :field=>:textarea
+
+=formalize(:id=>:supplier_form) do |f|
+  -f.title :supplier
+  -f.field :entity, :supplier_account_id, :choices=>@supplier_accounts.collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:account_create}, :options=>{:include_blank=>tc(:account_supplier_to_create)} 
+
+
+:javascript
+  function displayFields(){
+    if ($('entity_client').checked) {
+      $('client_form').show();
+    } else {
+      $('client_form').hide(); 
+    }
+    if ($('entity_supplier').checked) {
+      $('supplier_form').show();
+    } else {
+      $('supplier_form').hide(); 
+    }
+  }
+  displayFields();
+  
+=observe_field "entity_client", :function=>"displayFields();", :frequency => 0.25
+=observe_field "entity_supplier", :function=>"displayFields();", :frequency => 0.25
+=render :partial=>"coordinates_form", :locals => {:company => @current_company}

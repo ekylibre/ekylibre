@@ -35,6 +35,8 @@ class Employee < ActiveRecord::Base
   has_many :sale_orders
   has_many :shape_operations
 
+  attr_readonly :company_id
+
   def before_validation
     self.last_name ||= self.user.last_name  
     self.first_name ||= self.user.first_name  

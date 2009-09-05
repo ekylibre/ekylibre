@@ -11,8 +11,8 @@ class ProductionController < ApplicationController
     t.column :quantity
     #t.column :label, :through=>[:product,:unit]
     t.column :moved_on
-    t.action :productions_update, :image=>:update
-    t.action :productions_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :production_update, :image=>:update
+    t.action :production_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def productions
@@ -20,10 +20,10 @@ class ProductionController < ApplicationController
   end
   
 
-  def productions_create
+  def production_create
     if @current_company.stock_locations.empty?
       flash[:warning]=tc(:need_stock_location_to_create_production)
-      redirect_to :controller=>:management, :action=>:stocks_locations_create
+      redirect_to :controller=>:management, :action=>:stock_location_create
     end
     @production = Production.new
 
@@ -34,7 +34,7 @@ class ProductionController < ApplicationController
       @production.company_id = @current_company.id
       if @production.save
         if @production.product.has_components
-          redirect_to :action=>:production_lines_create, :id=>@production.id
+          redirect_to :action=>:production_line_create, :id=>@production.id
         else
           @production.move_stocks
           redirect_to :action=>:productions 
@@ -44,12 +44,12 @@ class ProductionController < ApplicationController
     render_form
   end
 
-  def productions_update
+  def production_update
     @production = find_and_check(:production,(params[:id]))
     if request.post?
       if @production.update_attributes(params[:production])
         if @production.product.has_components
-          redirect_to :action=>:production_lines_update, :id=>@production.id
+          redirect_to :action=>:production_line_update, :id=>@production.id
         else
           redirect_to :action=>:productions
         end
@@ -59,14 +59,14 @@ class ProductionController < ApplicationController
     render_form
   end
 
-  def productions_delete
+  def production_delete
     @production = find_and_check(:production,(params[:id]))   
     if request.delete? or request.post?
       redirect_to :action=>:productions if @production.destroy
     end
   end
 
-  def production_lines_create
+  def production_line_create
     @production = find_and_check(:production, params[:id])
     @components = @production.product.components    
     if request.post?
@@ -84,7 +84,7 @@ class ProductionController < ApplicationController
     render_form
   end
 
-  def production_lines_update
+  def production_line_update
     @production = find_and_check(:production, params[:id])
     @components = @production.product.components   
     if request.post?
@@ -120,8 +120,8 @@ class ProductionController < ApplicationController
     t.column :planned_on
     t.column :moved_on
     t.column :name, :through=>:shape
-    t.action :shape_operations_update, :image=>:update
-    t.action :shape_operations_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :shape_operation_update, :image=>:update
+    t.action :shape_operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
 
   dyta(:shape_operation_natures, :conditions=>{:company_id=>['@current_company.id']} ) do |t|
@@ -133,7 +133,7 @@ class ProductionController < ApplicationController
    # shapes_list
   end
 
-  def shapes_create
+  def shape_create
     @shape = Shape.new
     if request.post?
       @shape = Shape.new(params[:shape])
@@ -147,7 +147,7 @@ class ProductionController < ApplicationController
    # shape_operations_list
   end
 
-  def shape_operations_create
+  def shape_operation_create
     @shape_operation = ShapeOperation.new(:planned_on=>Date.today)
     if request.post?
       @shape_operation = ShapeOperation.new(params[:shape_operation])
@@ -157,7 +157,7 @@ class ProductionController < ApplicationController
     render_form
   end
 
-  def shape_operations_update
+  def shape_operation_update
     @shape_operation = find_and_check(:shape_operation, params[:id])
     if request.post?
       redirect_to_back if @shape_operation.update_attributes(params[:shape_operation])
@@ -166,7 +166,7 @@ class ProductionController < ApplicationController
     render_form
   end
   
-  def shape_operations_delete
+  def shape_operation_delete
     @shape_operation = find_and_check(:shape_operation, params[:id])
     if request.post? or request.delete?
       redirect_to_back if @shape_operation.destroy
@@ -177,7 +177,7 @@ class ProductionController < ApplicationController
    # shape_operation_natures_list
   end
 
-  def shape_operation_natures_create
+  def shape_operation_nature_create
     @shape_operation_nature = ShapeOperationNature.new
     if request.post?
       @shape_operation_nature = ShapeOperationNature.new(params[:shape_operation_nature])

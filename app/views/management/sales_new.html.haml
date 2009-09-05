@@ -3,12 +3,12 @@
   =formalize do |f|
     - f.error 'sale_order'
     - f.title :client
-    - f.field :sale_order, :client_id, :choices=>@current_company.available_entities(:order=>:name).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations, :action=>:entities_create}, :options=>{:include_blank=>true}
+    - f.field :sale_order, :client_id, :choices=>@current_company.available_entities(:order=>:name).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations, :action=>:entity_create}, :options=>{:include_blank=>true}
     - f.title :conditions
     - f.field :sale_order, :nature_id, :choices=>@current_company.sale_order_natures.collect{|x| [x.name, x.id]}
-    - f.field :sale_order, :contact_id, :choices=>[], :new=>{:controller=>:relations, :action=>:entities_contacts_create}
-    - f.field :sale_order, :delivery_contact_id, :choices=>[], :new=>{:controller=>:relations, :action=>:entities_contacts_create}
-    - f.field :sale_order, :invoice_contact_id, :choices=>[], :new=>{:controller=>:relations, :action=>:entities_contacts_create}
+    - f.field :sale_order, :contact_id, :choices=>[], :new=>{:controller=>:relations, :action=>:entity_contact_create}
+    - f.field :sale_order, :delivery_contact_id, :choices=>[], :new=>{:controller=>:relations, :action=>:entity_contact_create}
+    - f.field :sale_order, :invoice_contact_id, :choices=>[], :new=>{:controller=>:relations, :action=>:entity_contact_create}
     - f.field :sale_order, :comment, :field=>:textarea
     - f.title :letter
     - f.field :sale_order, :subject

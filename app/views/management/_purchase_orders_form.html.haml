@@ -1,9 +1,0 @@
-=formalize do |f|
-  -f.error :purchase_order
-  -f.title :infos
-  -f.field :purchase_order, :supplier_id, :choices=>:suppliers, :new=>{:controller=>:relations, :action=>:entities_create}
-  -f.field :purchase_order, :dest_contact_id, :choices=>:contacts, :resize=>true
-  -f.field :purchase_order, :planned_on
-  -f.field :purchase_order, :comment
-
-

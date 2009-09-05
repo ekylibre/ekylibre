@@ -57,8 +57,8 @@ module ApplicationHelper
              {:name=>:statements},
              {:name=>:lettering},
              # {:name=>:report},
-             {:name=>:journals_close},
-             {:name=>:financialyears_close} ] },
+             {:name=>:journal_close},
+             {:name=>:financialyear_close} ] },
          {:name=>:documents, :list=>
            [ {:name=>:document_prepare} ] },
          {:name=>:parameters, :list=>
@@ -70,7 +70,7 @@ module ApplicationHelper
      # ManagementController
      {:name=>:management, :list=>
        [ {:name=>:sales, :list=>
-           [ {:name=>:sales_new},
+           [ {:name=>:sale_order_create},
              {:name=>:sales_consult, :url=>{:action=>:sales}},
              {:name=>:invoices},
              {:name=>:payments},

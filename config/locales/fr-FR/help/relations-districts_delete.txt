@@ -1,3 +1,0 @@
-h1. Comment supprimer une zone 
-Après avoir cliqué sur **la croix**, une boîte de dialogue apparaît vous permettant de confirmer la suppression de la zone.
-Dans ce cas, l'ensemble des villes rattachées à cette zone seront aussi supprimées.

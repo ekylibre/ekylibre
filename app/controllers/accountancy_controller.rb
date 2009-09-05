@@ -6,17 +6,17 @@ class AccountancyController < ApplicationController
     t.column :code
     t.column :name, :through=>:currency
     t.column :closed_on
-    t.action :journals_close, :if => 'RECORD.closable?(Date.today)'
+    t.action :journal_close, :if => 'RECORD.closable?(Date.today)'
     t.action :entries_consult_by_journal_id, :image=>:table
-    t.action :journals_update, :image=>:update
-    t.action :journals_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :journal_update, :image=>:update
+    t.action :journal_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
   
   dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :number
     t.column :name
-    t.action :accounts_update, :image=>:update
-    t.action :accounts_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :account_update, :image=>:update
+    t.action :account_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
   
   dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -25,17 +25,17 @@ class AccountancyController < ApplicationController
     t.column :name, :through=>:journal
     t.column :name, :through=>:currency
     t.column :number, :through=>:account
-    t.action :bank_accounts_update, :image=>:update
-    t.action :bank_accounts_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :bank_account_update, :image=>:update
+    t.action :bank_account_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
   
   dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :started_on
     t.column :stopped_on
     t.column :number
-    t.action :statements_display, :image=>:show
-    t.action :statements_update, :image=>:update
-    t.action :statements_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :bank_account_statement, :image=>:show
+    t.action :bank_account_statement_update, :image=>:update
+    t.action :bank_account_statement_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
   
    
@@ -107,10 +107,10 @@ class AccountancyController < ApplicationController
     t.column :closed
     t.column :started_on
     t.column :stopped_on
-    t.action :financialyears_close, :if => '!RECORD.closed and RECORD.closable?'
+    t.action :financialyear_close, :if => '!RECORD.closed and RECORD.closable?'
     t.action :entries_consult, :image => :table
-    t.action :financialyears_update, :image => :update, :if => '!RECORD.closed'  
-    t.action :financialyears_delete, :method => :post, :image =>:delete, :confirm=>:are_you_sure, :if => '!RECORD.closed'  
+    t.action :financialyear_update, :image => :update, :if => '!RECORD.closed'  
+    t.action :financialyear_delete, :method => :post, :image =>:delete, :confirm=>:are_you_sure, :if => '!RECORD.closed'  
   end
 
   dyli(:account, [:number, :name], :conditions => {:company_id=>['@current_company.id']})
@@ -126,7 +126,7 @@ class AccountancyController < ApplicationController
   end
 
   # this method creates a bank_account with a form.
-  def bank_accounts_create
+  def bank_account_create
     if request.post? 
       @bank_account = BankAccount.new(params[:bank_account])
       @bank_account.company_id = @current_company.id
@@ -142,7 +142,7 @@ class AccountancyController < ApplicationController
   end
 
   # this method updates a bank_account with a form.
-  def bank_accounts_update
+  def bank_account_update
     @bank_account = BankAccount.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
       if @bank_account.update_attributes(params[:bank_account])
@@ -153,7 +153,7 @@ class AccountancyController < ApplicationController
   end
   
   # this method deletes a bank_account.
-  def bank_accounts_delete
+  def bank_account_delete
     if request.post? or request.delete?
       @bank_account = BankAccount.find_by_id_and_company_id(params[:id], @current_company.id)  
       if @bank_account.statements.size > 0
@@ -173,7 +173,7 @@ class AccountancyController < ApplicationController
  
   
   # this action creates an account with a form.
-  def accounts_create
+  def account_create
     if request.post?
       @account = Account.new(params[:account])
       @account.company_id = @current_company.id
@@ -185,7 +185,7 @@ class AccountancyController < ApplicationController
   end
 
   # this action updates an existing account with a form.
-  def accounts_update
+  def account_update
     @account = Account.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
       params[:account].delete :number
@@ -197,7 +197,7 @@ class AccountancyController < ApplicationController
 
 
   # this action deletes or hides an existing account.
-  def accounts_delete
+  def account_delete
     if request.post? or request.delete?
       @account = Account.find_by_id_and_company_id(params[:id], @current_company.id)  
       unless @account.entries.size > 0 or @account.balances.size > 0
@@ -416,7 +416,7 @@ class AccountancyController < ApplicationController
   end
   
   # this action creates a financialyear with a form.
-  def financialyears_create
+  def financialyear_create
     if request.post? 
       @financialyear = Financialyear.new(params[:financialyear])
       @financialyear.company_id = @current_company.id
@@ -437,7 +437,7 @@ class AccountancyController < ApplicationController
   
   
   # this action updates a financialyear with a form.
-  def financialyears_update
+  def financialyear_update
     @financialyear = Financialyear.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
       redirect_to :action => "financialyears"  if @financialyear.update_attributes(params[:financialyear])
@@ -446,7 +446,7 @@ class AccountancyController < ApplicationController
   end
     
   # this action deletes a financialyear.
-  def financialyears_delete
+  def financialyear_delete
     if request.post? or request.delete?
       @financialyear = Financialyear.find_by_id_and_company_id(params[:id], @current_company.id)  
       Financialyear.destroy @financialyear unless @financialyear.records.size > 0 
@@ -461,7 +461,7 @@ class AccountancyController < ApplicationController
   end
   
   # This method allows to close the financialyear.
-  def financialyears_close
+  def financialyear_close
     @financialyears = []
 
     financialyears = Financialyear.find(:all, :conditions => {:company_id => @current_company.id, :closed => false})
@@ -579,12 +579,12 @@ class AccountancyController < ApplicationController
     unless @journals.size > 0 or @financialyears.size > 0
       unless @journals.size > 0 
         flash[:message] = tc('messages.need_journal_to_consult_entries')
-        redirect_to :action => :journals_create
+        redirect_to :action => :journal_create
         return
       end
       unless @financialyears.size > 0 
         flash[:message] = tc('messages.need_financialyear_to_consult_entries')
-        redirect_to :action => :financialyears_create
+        redirect_to :action => :financialyear_create
         return
       end
     end
@@ -638,12 +638,12 @@ class AccountancyController < ApplicationController
     @financialyears = @current_company.financialyears.find(:all, :conditions => {:closed => false}, :order=>:code)
     unless @financialyears.size>0
       flash[:message] = tc('messages.need_financialyear_to_record_entries')
-      redirect_to :action=>:financialyears_create
+      redirect_to :action=>:financialyear_create
       return
     end
     unless @journals.size>0
       flash[:message] = tc('messages.need_journal_to_record_entries')
-      redirect_to :action=>:journals_create
+      redirect_to :action=>:journal_create
       return
     end
     
@@ -723,7 +723,7 @@ class AccountancyController < ApplicationController
   end
 
   # this method updates an entry with a form.
-  def entries_update
+  def entry_update
     @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
     
     if request.post? or request.put?
@@ -734,7 +734,7 @@ class AccountancyController < ApplicationController
   end
 
   # this method deletes an entry with a form.
-  def entries_delete
+  def entry_delete
   end
 
   # lists all the transactions established on the accounts, sorted by date.
@@ -743,7 +743,7 @@ class AccountancyController < ApplicationController
 
 
   #this method creates a journal with a form. 
-  def journals_create
+  def journal_create
     if request.post?
       @journal = Journal.new(params[:journal])
       @journal.company_id = @current_company.id
@@ -756,7 +756,7 @@ class AccountancyController < ApplicationController
   end
 
   #this method updates a journal with a form. 
-  def journals_update
+  def journal_update
     @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id)  
     
     if request.post? or request.put?
@@ -767,7 +767,7 @@ class AccountancyController < ApplicationController
   end
 
   # this action deletes or hides an existing journal.
-  def journals_delete
+  def journal_delete
     if request.post? or request.delete?
       @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id)  
       if @journal.records.size > 0
@@ -782,7 +782,7 @@ class AccountancyController < ApplicationController
 
 
   # This method allows to close the journal.
-  def journals_close
+  def journal_close
     @journal_records = []
     @journals = []
     
@@ -867,7 +867,7 @@ class AccountancyController < ApplicationController
   end
 
   # this method displays the array for make lettering.
-  def accounts_letter
+  def account_letter
     @entries = @current_company.entries.find(:all, :conditions => { :account_id => params[:id]}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
 
     session[:letter]='AAAA'
@@ -879,7 +879,7 @@ class AccountancyController < ApplicationController
 
 
   # this method makes the lettering.
-  def entries_letter
+  def entry_letter
 
     if request.xhr?
     
@@ -939,13 +939,13 @@ class AccountancyController < ApplicationController
     @valid = @current_company.bank_accounts.empty?
     unless @bank_accounts.size>0
       flash[:message] = tc('messages.need_bank_account_to_record_statements')
-      redirect_to :action=>:bank_accounts_create
+      redirect_to :action=>:bank_account_create
       return
     end
   end
 
   # This method creates a statement.
-  def statements_create
+  def bank_account_statement_create
     @bank_accounts = @current_company.bank_accounts  
         
     if request.post?
@@ -969,7 +969,7 @@ class AccountancyController < ApplicationController
 
 
   # This method updates a statement.
-  def statements_update
+  def bank_account_statement_update
     @bank_accounts = BankAccount.find(:all,:conditions=>"company_id = "+@current_company.id.to_s)  
     @statement = BankAccountStatement.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
@@ -981,7 +981,7 @@ class AccountancyController < ApplicationController
 
 
   # This method deletes a statement.
-  def statements_delete
+  def bank_account_statement_delete
     if request.post? or request.delete?
       @statement = BankAccountStatement.find_by_id_and_company_id(params[:id], @current_company.id)  
      BankAccountStatement.destroy @statement
@@ -991,7 +991,7 @@ class AccountancyController < ApplicationController
 
 
   # This method displays the list of entries recording to the bank account for the given statement.
-  def statements_point
+  def bank_account_statement_point
     session[:statement] = params[:id]  if request.get? 
     @bank_account_statement=BankAccountStatement.find(session[:statement])
     @bank_account=BankAccount.find(@bank_account_statement.bank_account_id)
@@ -1034,7 +1034,7 @@ class AccountancyController < ApplicationController
   end
 
   # displays in details the statement choosen with its mainly characteristics.
-  def statements_display
+  def bank_account_statement
     @bank_account_statement = BankAccountStatement.find(params[:id])
     session[:statement]=params[:id]
     @title = {:value => @bank_account_statement.number}

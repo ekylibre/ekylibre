@@ -1,6 +1,6 @@
 =toolbar do |t|
   -t.link :sales_products, :id=>@sale_order.id
-  -t.link :sale_orders_print, :id=>@sale_order.id
+  -t.link :sale_order_print, :id=>@sale_order.id
 
 %h2= tc 'general_informations'
 %table
@@ -28,7 +28,7 @@
 =dyta :invoice_lines
 %h2= tc 'payments'
 =toolbar do |t|
-  -t.link :payments_create if @sale_order.state == 'R' and @sale_order.unpaid_amount>0
+  -t.link :payment_create if @sale_order.state == 'R' and @sale_order.unpaid_amount>0
 =dyta :payments
 
 .actions

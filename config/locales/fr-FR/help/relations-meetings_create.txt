@@ -1,5 +1,0 @@
-h1. Comment créer une rencontre ?
-
-Sélectionnez le client rencontré, le lieu, la date, le commercial, le type et vous pouvez préciser l'adresse et ajouter une description.
-
-<<relations-index|Revenir à l'aide de gestion des relations >>

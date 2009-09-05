@@ -1,0 +1,27 @@
+=formalize do |f|
+  - f.error 'price'
+  - f.error 'price_tax'
+  - f.title :general
+  - if @mode == :sales
+    - f.field :price, :product_id, :choices=>Product.find(:all,:conditions=>{:to_sale=>true, :company_id=>@current_company.id},:order=>:name).collect{|x| [x.name, x.id]}, :new=>{:action=>:product_create}
+  - else 
+    - f.field :price, :product_id, :choices=>Product.find(:all,:conditions=>{:to_purchase=>true, :company_id=>@current_company.id}).collect{|x| [x.name, x.id]}, :new=>{:action=>:product_create}
+  - if @mode != :sales
+    -f.field :price, :entity_id, :choices=>:entities
+    -#f.field :price, :entity_id, :choices=>Entity.find(:all, :conditions=>{:company_id=>@current_company.id,:supplier=>true}).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations,:action=>:entity_create} 
+  - f.field :price, :amount
+  - f.field :price, :category_id, :choices=>@current_company.entity_categories.find_all_by_deleted(false).collect{|x| [x.name, x.id]}
+  - f.field :price, :default
+  - f.field :price, :currency_id, :choices=>Currency.find(:all,:conditions=>{:company_id=>@current_company.id}).collect{|x| [x.name, x.id]}
+  - f.field :price, :use_range
+  - f.field :price, :quantity_min, :html_options=>{:id=>:price_qmin}
+  - f.field :price, :quantity_max, :html_options=>{:id=>:price_qmax}
+  - f.title :taxes
+  - f.field :price, :tax_id, :choices=>@price.all_taxes(@current_company, :order=>"taxes.amount").collect{|x| [x.name, x.id]}
+/  - #taxes = @price.all_taxes(@current_company, :order=>"taxes.amount")
+/  - #unless taxes.empty?
+/    - #for tax in taxes
+/      - #f.field tax.name, check_box_tag("price_tax_#{tax.id.to_s}",1,@price[:used],:name=>"price_tax[#{tax.id.to_s}]")
+
+=javascript_tag("function display_quantities(element) { var qmin=$('price_qmin'); var qmax=$('price_qmax');  if (element.checked) { qmin.show(); qmax.show(); } else { qmin.hide(); qmax.hide(); }; return false; }\ndisplay_quantities($('price_use_range'));")
+=observe_field("price_use_range", :frequency =>0.25, :function => "display_quantities(element);")

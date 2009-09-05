@@ -7,8 +7,8 @@
       =select(:price, :supply, @suppliers.collect{|x| [x.full_name,x.id]})
       =submit_tag tg('filter')
 =toolbar do
-  -link :sales_prices_create, {:action=>:prices_create, :mode=>:sales}
-  -link :purchases_prices_create, {:action=>:prices_create, :mode=>:purchases}
+  -link :sales_prices_create, {:action=>:price_create, :mode=>:sales}
+  -link :purchases_prices_create, {:action=>:price_create, :mode=>:purchases}
   -link :prices_export
   -link :prices_import
 

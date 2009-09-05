@@ -58,7 +58,6 @@ class SaleOrder < ActiveRecord::Base
 
   attr_readonly :company_id, :created_on, :number
 
-
   @@natures = [:estimate, :order, :invoice]
   
   def before_validation
@@ -87,7 +86,7 @@ class SaleOrder < ActiveRecord::Base
     end
 
     # Set state to 'Complete' if all is paid
-    if self.parts_amount == self.amount_with_taxes and self.invoices.sum(:amount_with_taxes) == self.amount_with_taxes
+    if self.amount_with_taxes>0 and self.parts_amount == self.amount_with_taxes and self.invoices.sum(:amount_with_taxes) == self.amount_with_taxes
       self.state = 'C'
     elsif self.deliveries.size>0 or self.invoices.size>0 or self.parts_amount>0
       self.state = 'A'
@@ -98,7 +97,6 @@ class SaleOrder < ActiveRecord::Base
   end
   
   def before_validation_on_create
-    self.state = 'E'
     self.created_on = Date.today
   end
 
@@ -117,7 +115,7 @@ class SaleOrder < ActiveRecord::Base
   end
 
   
-  # Confirm the sale order. This permits to lock the sale_order and move the virtual stocks.
+  # Confirm the sale order. This permits to reserve stocks before ship.
   # This method don't verify the stock moves.
   def confirm(validated_on=Date.today)
     if self.estimate? and self.confirmed_on.nil?
@@ -161,7 +159,7 @@ class SaleOrder < ActiveRecord::Base
   end
 
 
-  # Delivers all undeliverd products and invoice the order after. This operation cleans the order.
+  # Delivers all undelivered products and invoice the order after. This operation cleans the order.
   def deliver_and_invoice
     self.deliver
     self.invoice
@@ -238,10 +236,11 @@ class SaleOrder < ActiveRecord::Base
 
   def status
     status = ""
-    status = "critic" if not ['F','P'].include? self.state and self.parts_amount.to_f < self.amount_with_taxes
+    status = "critic" if self.active? and self.parts_amount.to_f < self.amount_with_taxes
     status
   end
-  
+
+
   def label
     tc('label.'+(self.estimate? ? 'estimate' : 'order'), :number=>@sale_order.number)
   end

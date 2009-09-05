@@ -139,14 +139,14 @@ class CompanyController < ApplicationController
     t.column :nic
     t.column :siret
     t.column :comment
-    t.action :establishments_update
-    t.action :establishments_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :establishment_update
+    t.action :establishment_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def establishments
   end
   
-  def establishments_create
+  def establishment_create
     if request.post?
       @establishment = Establishment.new(params[:establishment])
       @establishment.company_id = @current_company.id
@@ -157,7 +157,7 @@ class CompanyController < ApplicationController
     render_form
   end
   
-  def establishments_update
+  def establishment_update
     @establishment = Establishment.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @establishment
       if @establishment.update_attributes(params[:establishment])
@@ -167,7 +167,7 @@ class CompanyController < ApplicationController
     render_form
   end
 
-  def establishments_delete
+  def establishment_delete
     if request.post? or request.delete?
       @establishment = Establishment.find_by_id_and_company_id(params[:id], @current_company.id)
       Establishment.destroy(params[:id]) if @establishment
@@ -180,14 +180,14 @@ class CompanyController < ApplicationController
   dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name
     t.column :comment
-    t.action :departments_update
-    t.action :departments_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :department_update
+    t.action :department_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def departments
   end
 
-  def departments_create
+  def department_create
     if request.post? 
       @department = Department.new(params[:department])
       @department.company_id = @current_company.id
@@ -198,7 +198,7 @@ class CompanyController < ApplicationController
     render_form
   end
 
-  def departments_update
+  def department_update
     @department = Department.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @department
       if @department.update_attributes(params[:department])
@@ -208,7 +208,7 @@ class CompanyController < ApplicationController
     render_form
   end
 
-  def departments_delete
+  def department_delete
     if request.post? or request.delete?
       @department= Department.find_by_id_and_company_id(params[:id], @current_company.id)
       Department.destroy(params[:id]) if @department
@@ -224,14 +224,14 @@ class CompanyController < ApplicationController
     t.column :name, :children=>:label
     t.column :diff_more, :class=>'rights more'
     t.column :diff_less, :class=>'rights less'
-    t.action :roles_update
-    t.action :roles_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :role_update
+    t.action :role_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
   def roles
   end
 
-  def roles_create
+  def role_create
     @role = Role.new
     if request.post?
       @role = Role.new(params[:role])
@@ -245,7 +245,7 @@ class CompanyController < ApplicationController
     render_form
   end
 
-  def roles_update
+  def role_update
     @role = find_and_check(:role, params[:id])
     if request.post?
       @role.attributes = params[:role]
@@ -259,7 +259,7 @@ class CompanyController < ApplicationController
     render_form
   end
 
-  def roles_delete
+  def role_delete
     if request.post? or request.delete?
       @role = Role.find_by_id_and_company_id(params[:id], @current_company.id)
       Role.destroy(@role.id) if @role and @role.destroyable?
@@ -310,13 +310,13 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :first_name
     t.column :last_name
-    t.column :name, :through=>:role, :label=>tc(:role), :url=>{:action=>:roles_update}
+    t.column :name, :through=>:role, :label=>tc(:role), :url=>{:action=>:role_update}
     # t.column :reduction_percent
     t.column :email
     t.column :admin
-    t.action :locked, :actions=>{"true"=>{:action=>:users_unlock},"false"=>{:action=>:users_lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
-    t.action :users_update 
-    t.action :users_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.id!=@current_user.id'
+    t.action :locked, :actions=>{"true"=>{:action=>:user_unlock},"false"=>{:action=>:user_lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
+    t.action :user_update 
+    t.action :user_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.id!=@current_user.id'
   end
 
 
@@ -327,7 +327,7 @@ class CompanyController < ApplicationController
   end
 
 
-  def users_create
+  def user_create
     if request.xhr?
       role = find_and_check(:role, params[:user_role_id])
       @rights = role.rights_array if role
@@ -353,7 +353,7 @@ class CompanyController < ApplicationController
     render_form
   end
 
-  def users_update
+  def user_update
     @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
     @employee = Employee.find_by_user_id(@user.id) || @current_company.employees.new
     if request.post?
@@ -371,7 +371,7 @@ class CompanyController < ApplicationController
     render_form
   end
   
-  def users_delete
+  def user_delete
     if request.post? or request.delete?
       @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
       if @user
@@ -382,7 +382,7 @@ class CompanyController < ApplicationController
     redirect_to_back
   end
   
-  def users_lock
+  def user_lock
     @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
     if @user
       @user.locked = true
@@ -391,7 +391,7 @@ class CompanyController < ApplicationController
     redirect_to_current
   end
   
-  def users_unlock
+  def user_unlock
     @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
     if @user
       @user.locked = false
@@ -407,13 +407,13 @@ class CompanyController < ApplicationController
   dyta(:document_templates, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :active
     t.column :name
-    t.column :name, :through=>:nature, :url=>{:action=>:document_natures_update}
+    t.column :name, :through=>:nature, :url=>{:action=>:document_nature_update}
     t.column :native_name, :through=>:language
     t.column :country
-    t.action :document_templates_print
-    t.action :document_templates_update
+    t.action :document_template_print
+    t.action :document_template_update
     t.action :document_templates_duplicate
-    t.action :document_templates_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :document_template_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
 
@@ -436,7 +436,7 @@ class CompanyController < ApplicationController
     redirect_to :action=>:document_templates
   end
 
-  def document_templates_create
+  def document_template_create
     if request.post? 
       @document_template = DocumentTemplate.new(params[:document_template])
       @document_template.company_id = @current_company.id
@@ -447,7 +447,7 @@ class CompanyController < ApplicationController
     render_form
   end
 
-  def document_templates_print
+  def document_template_print
     return unless @document_template = find_and_check(:document_template, params[:id])
     send_data @document_template.sample, :filename=>@document_template.name.simpleize, :type=>Mime::PDF, :disposition=>'inline'
   end
@@ -457,7 +457,7 @@ class CompanyController < ApplicationController
     render :text=>'<pre>'+DocumentTemplate.compile(@document_template.source)+'</pre>'
   end
 
-  def document_templates_update
+  def document_template_update
     @document_template = DocumentTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @document_template
       if @document_template.update_attributes(params[:document_template])
@@ -468,7 +468,7 @@ class CompanyController < ApplicationController
     render_form    
   end
 
-  def document_templates_delete
+  def document_template_delete
     if request.post? or request.delete?
       @document_template = DocumentTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
       DocumentTemplate.destroy(@document_template.id) if @document_template and @document_template.destroyable?
@@ -490,15 +490,15 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :code
     t.column :to_archive
-    t.action :document_natures_update
-    t.action :document_natures_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :document_nature_update
+    t.action :document_nature_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
 
   def document_natures
   end
 
-  def document_natures_create
+  def document_nature_create
     if request.post? 
       @document_nature = DocumentNature.new(params[:document_nature])
       @document_nature.company_id = @current_company.id
@@ -509,7 +509,7 @@ class CompanyController < ApplicationController
     render_form
   end
 
-  def document_natures_update
+  def document_nature_update
     @document_nature = DocumentNature.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @document_nature
       if @document_nature.update_attributes(params[:document_nature])
@@ -520,7 +520,7 @@ class CompanyController < ApplicationController
     render_form    
   end
 
-  def document_natures_delete
+  def document_nature_delete
     if request.post? or request.delete?
       @document_nature = DocumentNature.find_by_id_and_company_id(params[:id], @current_company.id)
       DocumentNature.destroy(@document_nature.id) if @document_nature and @document_nature.destroyable?
@@ -543,14 +543,14 @@ class CompanyController < ApplicationController
     t.column :compute
     t.column :format, :class=>:code
     t.column :period_name
-    t.action :sequences_update
-    t.action :sequences_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :sequence_update
+    t.action :sequence_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
   def sequences
   end
 
-  def sequences_create
+  def sequence_create
     if request.post? 
       @sequence = Sequence.new(params[:sequence])
       @sequence.company_id = @current_company.id
@@ -561,7 +561,7 @@ class CompanyController < ApplicationController
     render_form
   end
 
-  def sequences_update
+  def sequence_update
     @sequence = Sequence.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @sequence
       if @sequence.update_attributes(params[:sequence])
@@ -572,7 +572,7 @@ class CompanyController < ApplicationController
     render_form
   end
 
-  def sequences_delete
+  def sequence_delete
     if request.post? or request.delete?
       @sequence = Sequence.find_by_id_and_company_id(params[:id], @current_company.id)
       Sequence.destroy(@sequence.id) if @sequence and @sequence.destroyable?
@@ -585,16 +585,16 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :root_model_name
     t.column :comment
-    t.action :listings_extract, :format=>'csv', :image=>:action
-    t.action :listings_mail
-    t.action :listings_update
-    t.action :listings_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :listing_extract, :format=>'csv', :image=>:action
+    t.action :listing_mail
+    t.action :listing_update
+    t.action :listing_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def listings
   end
 
-  def listings_extract
+  def listing_extract
     @listing = find_and_check(:listing, params[:id])
     query = @listing.query
     query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
@@ -617,7 +617,7 @@ class CompanyController < ApplicationController
     send_data csv_string, :filename=>@listing.name.simpleize+'.csv', :type=>Mime::CSV, :disposition=>"inline"
   end
   
-  def listings_mail
+  def listing_mail
     @listing = find_and_check(:listing, params[:id])
     query = @listing.query
     query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
@@ -630,7 +630,7 @@ class CompanyController < ApplicationController
     @title = {:listing => @listing.name}
   end
 
-  def listings_create
+  def listing_create
     if request.post?
       @listing = Listing.new(params[:listing])
       @listing.company_id = @current_company.id
@@ -641,7 +641,7 @@ class CompanyController < ApplicationController
     render_form
   end
   
-  def listings_update
+  def listing_update
     @listing = find_and_check(:listing, params[:id])
     if request.post? and @listing
       if @listing.update_attributes(params[:listing])
@@ -652,7 +652,7 @@ class CompanyController < ApplicationController
     render_form
   end
 
-  def listings_delete
+  def listing_delete
     if request.post? or request.delete?
       @listing = find_and_check(:listing, params[:id])
       Listing.destroy(@listing.id) if @listing
@@ -664,8 +664,8 @@ class CompanyController < ApplicationController
   dyta(:listing_nodes, :conditions=>{:company_id=>['@current_company.id'], :listing_id=>['session[:current_listing_id]']}) do |t|
     t.column :name
     t.column :label
-    t.action :listings_update
-    t.action :listings_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :listing_update
+    t.action :listing_delete, :method=>:post, :confirm=>:are_you_sure
   end
   
   def listing_nodes
@@ -675,7 +675,7 @@ class CompanyController < ApplicationController
     end
   end
 
-  def listing_nodes_create
+  def listing_node_create
     if request.post?
       @listing_node = ListingNode.new(params[:listing_node])
       @listing_node.company_id = @current_company.id
@@ -687,7 +687,7 @@ class CompanyController < ApplicationController
     render_form
   end
   
-  def listing_nodes_update
+  def listing_node_update
     @listing_node = find_and_check(:listing_node, params[:id])
     if request.post? and @listing_node
       if @listing_node.update_attributes(params[:listing_node])
@@ -698,7 +698,7 @@ class CompanyController < ApplicationController
     render_form
   end
 
-  def listing_nodes_delete
+  def listing_node_delete
     if request.post? or request.delete?
       @listing_node = find_and_check(:listing_node, params[:id])
       ListingNode.destroy(@listing_node.id) if @listing_node

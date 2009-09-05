@@ -11,20 +11,20 @@ fr-FR:
     resources:
       employees:
         create: 'Créer un nouvel employé'
-        employees_create: 'Création d''un nouvel employé'
+        employee_create: 'Création d''un nouvel employé'
         nb_employees:
           one: '1 employé enregistré'
           other: '{{count}} employés enregistrés'
           zero: 'Aucun employé enregistré'
         title: 'Fiches des employés'
-      employees_create:
+      employee_create:
         title: 'Création d''un nouvel employé'
-      _employees_form:
+      _employee_form:
         select_user: '-- Sans utilisateur --'
       _employees_search:
         search: 'Rechercher un employé'
         title: 'Recherche'
-      employees_update:
+      employee_update:
         title: 'Modification d''un employé'
       index:
         employees: 'Fiches employés'
@@ -37,9 +37,9 @@ fr-FR:
         professions: 'Professions'
         title: 'Gestion des ressources'
       professions:
-        professions_create: 'Ajouter une nouvelle profession'
+        profession_create: 'Ajouter une nouvelle profession'
         title: 'Gestion des professions'
-      professions_create:
+      profession_create:
         title: 'Ajout d''une nouvelle profession'
-      professions_update:
+      profession_update:
         title: 'Modification de la profession'

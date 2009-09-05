@@ -1,2 +1,0 @@
-h1. Comment supprimer un compte bancaire
-Après avoir cliqué sur **la croix**, une boîte de dialogue apparaît vous permettant de confirmer la suppression du compte bancaire. Celle-ci sera rendu effective uniquement dans le cas où le compte bancaire à supprimer n'est utilisé par aucun relevé de compte.

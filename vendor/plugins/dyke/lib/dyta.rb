@@ -36,8 +36,11 @@ module Ekylibre
           # Add methods to display a dynamic table
           def dyta(name, new_options={}, &block)
             name = name.to_s
-            list_method_name = 'dyta_'+name
-            tag_method_name  = 'dyta_'+name+'_tag'
+            # Don't forget the View module if you change the names
+            # list_method_name = 'dyta_'+name
+            # tag_method_name  = 'dyta_'+name+'_tag'
+            list_method_name = name+'_dyta'
+            tag_method_name  = list_method_name+'_tag'
 
             if ActionView::Base.public_instance_methods.include? tag_method_name
               if RAILS_ENV == 'production'
@@ -584,7 +587,7 @@ module Ekylibre
 
       module View
         def dyta(name)
-          self.send('dyta_'+name.to_s+'_tag')
+          self.send(name.to_s+'_dyta_tag')
         end
       end
 

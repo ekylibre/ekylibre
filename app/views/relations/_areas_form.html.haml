@@ -1,6 +1,0 @@
-=formalize do |f|
-  - f.error :area
-  - f.field :area, :district_id, :choices => :districts, :new => {:action => :districts_create}
-  - f.field :area, :name
-  - f.field :area, :code
-  - f.field :area, :country, :choices=>countries, :options=>{:include_blank=>true}

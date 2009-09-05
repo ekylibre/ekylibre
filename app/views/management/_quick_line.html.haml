@@ -1,14 +1,15 @@
 %fieldset.quick-add
-  %legend.quick-add=tc('quick_add')
-  .center-line
-    -form_tag(:action=>:sale_order_lines_create) do 
-      %nobr=tc('product')+" "+select(:sale_order_line, :price_id, @current_company.available_prices.collect{|x| [x.label, x.id]})
-      %nobr=tc('quantity')+" "+text_field(:sale_order_line, :quantity, :size=>10, :value=>1.0)
-      -if @current_company.stock_locations.size > 1
-        %nobr=tc('location')+" "+select(:sale_order_line, :location_id, @current_company.stock_locations.collect{|x| [x.name, x.id]})
-      #price_amount{:style=>'display:none'}
-        =text_field(:sale_order_line, :price_amount, :value=>0.0)
-      =submit_tag(tc('valid'), :action=>:sale_order_lines_create)
-    #subscription_line{:style=>'display:none'}
-      %p{:id=>:sub_line}=""
+  %legend=tc('title')
+  -form_tag(:action=>:sale_order_line_create) do 
+    %nobr=tc('product')+" "+select(:sale_order_line, :price_id, @current_company.available_prices.collect{|x| [x.label, x.id]})
+    %nobr=tc('quantity')+" "+text_field(:sale_order_line, :quantity, :size=>5, :value=>1.0)
+    -if @current_company.stock_locations.size > 1
+      %nobr=tc('location')+" "+select(:sale_order_line, :location_id, @current_company.stock_locations.collect{|x| [x.name, x.id]})
+    #price_amount{:style=>'display:none'}
+      =text_field(:sale_order_line, :price_amount, :value=>0.0)
+    =submit_tag(tc('valid'), :action=>:sale_order_line_create)
+  #subscription
+
+  #subscription_line{:style=>'display:none'}
+    %p{:id=>:sub_line}=""
   =observe_field("sale_order_line_price_id", :url=>{:action => :subscription_message}, :frequency => 0.25, :with=>"sale_order_line_price_id")
