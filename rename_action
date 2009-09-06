@@ -31,7 +31,7 @@ rename() {
     controller=$1
     old=$2
     new=$3
-    replace "app/controllers/${controller}_controller.rb" "def\s+${old}(\W|$)" "def\s+${new}\1"
+    replace "app/controllers/${controller}_controller.rb" "def ${old}(\W|$)" "def ${new}\1"
     replace "app/controllers/*.rb" ":${old}(\W|$)" ":${new}\1"
     replace "app/views/*/*.haml" ":${old}(\W|$)" ":${new}\1"
     replace "app/helpers/*.rb" ":${old}(\W|$)" ":${new}\1"

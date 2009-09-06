@@ -162,6 +162,10 @@ fr-FR:
           one: '1 observation'
           other: '{{count}} observations'
           zero: 'Aucune observation'
+        payments:
+          one: '1 réglement'
+          other: '{{count}} réglements'
+          zero: 'Aucun réglement'
         observation_create: 'Ajouter une observation'
         sale_orders_number:
           one: '1 vente '

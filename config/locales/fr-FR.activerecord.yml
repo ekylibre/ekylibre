@@ -1037,8 +1037,7 @@ fr-FR:
         lock_version: 'Version'
         mode_id: 'Mode de paiement'
         paid_on: 'Réglé le'
-        part_amount: 'Montant déjà utilisé'
-        parts_amount: (((PARTS_AMOUNT)))
+        parts_amount: 'Montant utilisé'
         received: (((RECEIVED)))
         scheduled: (((SCHEDULED)))
         to_bank_on: 'À encaisser le'

@@ -43,6 +43,7 @@ class SaleOrder < ActiveRecord::Base
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :company
   belongs_to :contact
+  belongs_to :currency
   belongs_to :delivery_contact,:class_name=>Contact.to_s
   belongs_to :expiration, :class_name=>Delay.to_s
   belongs_to :invoice_contact, :class_name=>Contact.to_s
@@ -88,7 +89,7 @@ class SaleOrder < ActiveRecord::Base
     # Set state to 'Complete' if all is paid
     if self.amount_with_taxes>0 and self.parts_amount == self.amount_with_taxes and self.invoices.sum(:amount_with_taxes) == self.amount_with_taxes
       self.state = 'C'
-    elsif self.deliveries.size>0 or self.invoices.size>0 or self.parts_amount>0
+    elsif not self.confirmed_on.blank? or self.parts_amount>0 or self.invoices.size>0
       self.state = 'A'
     else
       self.state = 'E'

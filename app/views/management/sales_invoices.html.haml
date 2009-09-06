@@ -10,8 +10,8 @@
     =#dyta :deliveries_to_invoice
 
   .actions
-    =link_to tg(:previous), :action=>:sales_deliveries , :id=>@sale_order.id
+    =link_to tg(:previous), :action=>:sale_order_deliveries , :id=>@sale_order.id
     -#if @rest_to_invoice
     -if @can_invoice
       =submit_tag(tc('to_invoice'), {:action=>:sales_invoices})
-    =link_to(tc('payments'), :action=>:sales_payments,:id=>@sale_order.id)
+    =link_to(tc('payments'), :action=>:sale_order_summary,:id=>@sale_order.id)

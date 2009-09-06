@@ -267,12 +267,6 @@ class RelationsController < ApplicationController
 
   dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
 
-  def entity_print
-    @entity = find_and_check(:entity, params[:id])
-    return if @entity.nil?
-    print(@entity, :archive=>false, :filename=>@entity.code)
-  end 
-
   #
   def entities
     session[:entity_key] = params[:key]||session[:entity_key]
@@ -322,7 +316,7 @@ class RelationsController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :sales_details, :image=>:display, :controller=>:management
-    t.action :sales_products, :image=>:update, :controller=>:management, :if=>"RECORD.complete\?"
+    t.action :sale_order_lines, :image=>:update, :controller=>:management, :if=>"RECORD.complete\?"
   end
   
   dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :default_order=>"created_at DESC") do |t|
@@ -355,6 +349,17 @@ class RelationsController < ApplicationController
     # t.action :controller=>:management, :invoices_cancel, :if=>'RECORD.credit != true and @current_user.credits'
   end
 
+  dyta(:entity_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :default_order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
+    t.column :label, :through=>:embanker
+    t.column :name, :through=>:mode
+    t.column :bank
+    t.column :account_number
+    t.column :check_number
+    t.column :parts_amount
+    t.column :amount
+  end
+
+
   dyta(:observations, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']},:line_class=>'RECORD.status', :per_page=>5) do |t|
     t.column :description
     t.column :text_importance
@@ -375,6 +380,7 @@ class RelationsController < ApplicationController
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})
     @key = ""
     @invoices_count = @entity.invoices.size
+    @payments_count = @entity.payments.size
     # @meetings_count = @current_company.meetings.find(:all, :conditions=>{:entity_id=>@entity.id}).size
     @events_count = @current_company.events.find(:all, :conditions=>{:entity_id=>@entity.id}).size
     session[:my_entity] = params[:id]

@@ -11,11 +11,11 @@ replace () {
     done
 }
 
-./rename_action.sh $controller "${old}_display" "${new}"
-./rename_action.sh $controller "${old}_create" "${new}_create"
-./rename_action.sh $controller "${old}_update" "${new}_update"
-./rename_action.sh $controller "${old}_delete" "${new}_delete"
-./rename_action.sh $controller "${old}_print" "${new}_print"
+#./rename_action.sh $controller "${old}_display" "${new}"
+#./rename_action.sh $controller "${old}_create" "${new}_create"
+#./rename_action.sh $controller "${old}_update" "${new}_update"
+#./rename_action.sh $controller "${old}_delete" "${new}_delete"
+#./rename_action.sh $controller "${old}_print" "${new}_print"
 #./rename_action.sh $controller "${old}_up" "${new}_up"
 #./rename_action.sh $controller "${old}_down" "${new}_down"
 #./rename_action.sh $controller "${old}_mail" "${new}_mail"

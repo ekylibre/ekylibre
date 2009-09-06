@@ -43,11 +43,14 @@
     -c << dyta(:contacts)
   -tb.tab(tc(:sale_orders_number , :count=>@sale_orders_number)) do |c|
     -c << toolbar do |t|
-      -t.link(:sale_order_create, :controller=>:management, :id=>@entity.id)
+      -t.link(:sale_order_create, :controller=>:management, :client_id=>@entity.id)
     -c << dyta(:entity_sale_orders)
   -if @invoices_count>0
     -tb.tab(tc(:invoices, :count=>@invoices_count)) do |c|
       -c << dyta(:client_invoices)
+  -if @payments_count>0
+    -tb.tab(tc(:payments, :count=>@payments_count)) do |c|
+      -c << dyta(:entity_payments)
   -tb.tab(tc(:events, :count=>@events_count)) do |c|
     -c << toolbar do
       -link :event_create, :entity_id=>@entity.id

@@ -1,9 +1,10 @@
-=sales_steps
+=sale_steps
 
-%h2=tc :payments
-=toolbar do
-  -link :payment_create
-=dyta :payment_parts
+- if @sale_order.amount_with_taxes > 0
+  %h2=tc :payments
+  =toolbar do
+    -link :payment_create 
+  =dyta :payment_parts
 
 -if @sale_order.invoices.size>0
   %h2=tc :invoices
