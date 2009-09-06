@@ -1,0 +1,188 @@
+/* Auto-generated from Ekylibre */
+
+/* _Default_ */
+table.dyta tr td {background:#D1DAFF}
+table.dyta tr td.act {background:#D7CEDD}
+table.dyta tr td.sorted {background:#C3CDF7}
+table.dyta tr.even td {background:#DCE3FF}
+table.dyta tr.even td.act {background:#E1D6DD}
+table.dyta tr.even td.sorted {background:#CED6F7}
+table.dyta tr.odd td {background:#E5EAFF}
+table.dyta tr.odd td.act {background:#E8DCDD}
+table.dyta tr.odd td.sorted {background:#D6DCF7}
+
+/* Advance */
+table.dyta tr.advance td {background:#D8FFA3}
+table.dyta tr.advance td.act {background:#DDEE8D}
+table.dyta tr.advance td.sorted {background:#CAF0A1}
+table.dyta tr.advance.even td {background:#E1FFBA}
+table.dyta tr.advance.even td.act {background:#E5EEA1}
+table.dyta tr.advance.even td.sorted {background:#D3F0B6}
+table.dyta tr.advance.odd td {background:#E9FFCB}
+table.dyta tr.advance.odd td.act {background:#ECEEB0}
+table.dyta tr.advance.odd td.sorted {background:#DAF0C6}
+
+/* Balanced */
+table.dyta tr.balanced td {background:#D8FFA3}
+table.dyta tr.balanced td.act {background:#DDEE8D}
+table.dyta tr.balanced td.sorted {background:#CAF0A1}
+table.dyta tr.balanced.even td {background:#E1FFBA}
+table.dyta tr.balanced.even td.act {background:#E5EEA1}
+table.dyta tr.balanced.even td.sorted {background:#D3F0B6}
+table.dyta tr.balanced.odd td {background:#E9FFCB}
+table.dyta tr.balanced.odd td.act {background:#ECEEB0}
+table.dyta tr.balanced.odd td.sorted {background:#DAF0C6}
+
+/* Critic */
+table.dyta tr.critic td {background:#FFAD87}
+table.dyta tr.critic td.act {background:#FFA775}
+table.dyta tr.critic td.sorted {background:#EFA386}
+table.dyta tr.critic.even td {background:#FFC1A5}
+table.dyta tr.critic.even td.act {background:#FFB98F}
+table.dyta tr.critic.even td.sorted {background:#EFB6A3}
+table.dyta tr.critic.odd td {background:#FFD1BB}
+table.dyta tr.critic.odd td.act {background:#FFC7A2}
+table.dyta tr.critic.odd td.sorted {background:#EFC5B8}
+
+/* Enough */
+table.dyta tr.enough td {background:#D8FFA3}
+table.dyta tr.enough td.act {background:#DDEE8D}
+table.dyta tr.enough td.sorted {background:#CAF0A1}
+table.dyta tr.enough.even td {background:#E1FFBA}
+table.dyta tr.enough.even td.act {background:#E5EEA1}
+table.dyta tr.enough.even td.sorted {background:#D3F0B6}
+table.dyta tr.enough.odd td {background:#E9FFCB}
+table.dyta tr.enough.odd td.act {background:#ECEEB0}
+table.dyta tr.enough.odd td.sorted {background:#DAF0C6}
+
+/* Error */
+table.dyta tr.error td {background:#FFAD87}
+table.dyta tr.error td.act {background:#FFA775}
+table.dyta tr.error td.sorted {background:#EFA386}
+table.dyta tr.error.even td {background:#FFC1A5}
+table.dyta tr.error.even td.act {background:#FFB98F}
+table.dyta tr.error.even td.sorted {background:#EFB6A3}
+table.dyta tr.error.odd td {background:#FFD1BB}
+table.dyta tr.error.odd td.act {background:#FFC7A2}
+table.dyta tr.error.odd td.sorted {background:#EFC5B8}
+
+/* Late */
+table.dyta tr.late td {background:#FFE0B3}
+table.dyta tr.late td.act {background:#FFD49B}
+table.dyta tr.late td.sorted {background:#EFD3B0}
+table.dyta tr.late.even td {background:#FFE7C6}
+table.dyta tr.late.even td.act {background:#FFDAAB}
+table.dyta tr.late.even td.sorted {background:#EFDAC1}
+table.dyta tr.late.odd td {background:#FFEDD4}
+table.dyta tr.late.odd td.act {background:#FFDFB8}
+table.dyta tr.late.odd td.sorted {background:#EFDFCF}
+
+/* Letter */
+table.dyta tr.letter td {background:#D8FFA3}
+table.dyta tr.letter td.act {background:#DDEE8D}
+table.dyta tr.letter td.sorted {background:#CAF0A1}
+table.dyta tr.letter.even td {background:#E1FFBA}
+table.dyta tr.letter.even td.act {background:#E5EEA1}
+table.dyta tr.letter.even td.sorted {background:#D3F0B6}
+table.dyta tr.letter.odd td {background:#E9FFCB}
+table.dyta tr.letter.odd td.act {background:#ECEEB0}
+table.dyta tr.letter.odd td.sorted {background:#DAF0C6}
+
+/* Letter-unbalanced */
+table.dyta tr.letter-unbalanced td {background:#FFE0B3}
+table.dyta tr.letter-unbalanced td.act {background:#FFD49B}
+table.dyta tr.letter-unbalanced td.sorted {background:#EFD3B0}
+table.dyta tr.letter-unbalanced.even td {background:#FFE7C6}
+table.dyta tr.letter-unbalanced.even td.act {background:#FFDAAB}
+table.dyta tr.letter-unbalanced.even td.sorted {background:#EFDAC1}
+table.dyta tr.letter-unbalanced.odd td {background:#FFEDD4}
+table.dyta tr.letter-unbalanced.odd td.act {background:#FFDFB8}
+table.dyta tr.letter-unbalanced.odd td.sorted {background:#EFDFCF}
+
+/* Minimum */
+table.dyta tr.minimum td {background:#FFE0B3}
+table.dyta tr.minimum td.act {background:#FFD49B}
+table.dyta tr.minimum td.sorted {background:#EFD3B0}
+table.dyta tr.minimum.even td {background:#FFE7C6}
+table.dyta tr.minimum.even td.act {background:#FFDAAB}
+table.dyta tr.minimum.even td.sorted {background:#EFDAC1}
+table.dyta tr.minimum.odd td {background:#FFEDD4}
+table.dyta tr.minimum.odd td.act {background:#FFDFB8}
+table.dyta tr.minimum.odd td.sorted {background:#EFDFCF}
+
+/* Notice */
+table.dyta tr.notice td {background:#D8FFA3}
+table.dyta tr.notice td.act {background:#DDEE8D}
+table.dyta tr.notice td.sorted {background:#CAF0A1}
+table.dyta tr.notice.even td {background:#E1FFBA}
+table.dyta tr.notice.even td.act {background:#E5EEA1}
+table.dyta tr.notice.even td.sorted {background:#D3F0B6}
+table.dyta tr.notice.odd td {background:#E9FFCB}
+table.dyta tr.notice.odd td.act {background:#ECEEB0}
+table.dyta tr.notice.odd td.sorted {background:#DAF0C6}
+
+/* Pointable */
+table.dyta tr.pointable td {background:#D8FFA3}
+table.dyta tr.pointable td.act {background:#DDEE8D}
+table.dyta tr.pointable td.sorted {background:#CAF0A1}
+table.dyta tr.pointable.even td {background:#E1FFBA}
+table.dyta tr.pointable.even td.act {background:#E5EEA1}
+table.dyta tr.pointable.even td.sorted {background:#D3F0B6}
+table.dyta tr.pointable.odd td {background:#E9FFCB}
+table.dyta tr.pointable.odd td.act {background:#ECEEB0}
+table.dyta tr.pointable.odd td.sorted {background:#DAF0C6}
+
+/* Unbalanced */
+table.dyta tr.unbalanced td {background:#FFAD87}
+table.dyta tr.unbalanced td.act {background:#FFA775}
+table.dyta tr.unbalanced td.sorted {background:#EFA386}
+table.dyta tr.unbalanced.even td {background:#FFC1A5}
+table.dyta tr.unbalanced.even td.act {background:#FFB98F}
+table.dyta tr.unbalanced.even td.sorted {background:#EFB6A3}
+table.dyta tr.unbalanced.odd td {background:#FFD1BB}
+table.dyta tr.unbalanced.odd td.act {background:#FFC7A2}
+table.dyta tr.unbalanced.odd td.sorted {background:#EFC5B8}
+
+/* Unpointable */
+table.dyta tr.unpointable td {background:#FFAD87}
+table.dyta tr.unpointable td.act {background:#FFA775}
+table.dyta tr.unpointable td.sorted {background:#EFA386}
+table.dyta tr.unpointable.even td {background:#FFC1A5}
+table.dyta tr.unpointable.even td.act {background:#FFB98F}
+table.dyta tr.unpointable.even td.sorted {background:#EFB6A3}
+table.dyta tr.unpointable.odd td {background:#FFD1BB}
+table.dyta tr.unpointable.odd td.act {background:#FFC7A2}
+table.dyta tr.unpointable.odd td.sorted {background:#EFC5B8}
+
+/* Unpointabled */
+table.dyta tr.unpointabled td {background:#FFE0B3}
+table.dyta tr.unpointabled td.act {background:#FFD49B}
+table.dyta tr.unpointabled td.sorted {background:#EFD3B0}
+table.dyta tr.unpointabled.even td {background:#FFE7C6}
+table.dyta tr.unpointabled.even td.act {background:#FFDAAB}
+table.dyta tr.unpointabled.even td.sorted {background:#EFDAC1}
+table.dyta tr.unpointabled.odd td {background:#FFEDD4}
+table.dyta tr.unpointabled.odd td.act {background:#FFDFB8}
+table.dyta tr.unpointabled.odd td.sorted {background:#EFDFCF}
+
+/* Verylate */
+table.dyta tr.verylate td {background:#FFAD87}
+table.dyta tr.verylate td.act {background:#FFA775}
+table.dyta tr.verylate td.sorted {background:#EFA386}
+table.dyta tr.verylate.even td {background:#FFC1A5}
+table.dyta tr.verylate.even td.act {background:#FFB98F}
+table.dyta tr.verylate.even td.sorted {background:#EFB6A3}
+table.dyta tr.verylate.odd td {background:#FFD1BB}
+table.dyta tr.verylate.odd td.act {background:#FFC7A2}
+table.dyta tr.verylate.odd td.sorted {background:#EFC5B8}
+
+/* Warning */
+table.dyta tr.warning td {background:#FFE0B3}
+table.dyta tr.warning td.act {background:#FFD49B}
+table.dyta tr.warning td.sorted {background:#EFD3B0}
+table.dyta tr.warning.even td {background:#FFE7C6}
+table.dyta tr.warning.even td.act {background:#FFDAAB}
+table.dyta tr.warning.even td.sorted {background:#EFDAC1}
+table.dyta tr.warning.odd td {background:#FFEDD4}
+table.dyta tr.warning.odd td.act {background:#FFDFB8}
+table.dyta tr.warning.odd td.sorted {background:#EFDFCF}

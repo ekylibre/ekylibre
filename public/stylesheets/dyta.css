@@ -8,17 +8,21 @@ table.dyta th a.sort.unsorted { background: url(../images/buttons/center.png) ri
 table.dyta th a.sort.desc { background: url(../images/buttons/down3.png) right center no-repeat; }
 table.dyta th a.sort.asc { background: url(../images/buttons/up3.png) right center no-repeat; }
 table.dyta th a.sort { display:block; width: 100%;}
+/*
 table.dyta tr.odd  td {background: #E1E6FF;}
 table.dyta tr.even td {background: #F0F2FF;}
+*/
 table.dyta tr.root td {font-weight: bold; }
 table.dyta tr      td {padding: 0px 2px;color: #007;}
 table.dyta tr      td.chk { text-align:center}
 table.dyta tr      td.act { padding: 1px; width:16px;}
 table.dyta tr      td.act a {padding: 0; margin: 0;}
-table.dyta tr.odd  td.act { background: #E5D9DD; } /* #FDD; }*/
-table.dyta tr.even td.act { background: #F2E4DD; } /*#FED; }*/
-table.dyta tr.odd  td.sorted { background: #d6dbf9; } /* #FDD; }*/
-table.dyta tr.even td.sorted { background: #e4e7f9; } /*#FED; }*/
+/*
+table.dyta tr.odd  td.act { background: #E5D9DD; }
+table.dyta tr.even td.act { background: #F2E4DD; }
+table.dyta tr.odd  td.sorted { background: #d6dbf9; }
+table.dyta tr.even td.sorted { background: #e4e7f9; } 
+*/
 table.dyta tr.child td { color: #77A; }
 table.dyta tr.child td:first-child { padding-left:20px; }
 table.dyta td.empty { text-align:center; color: #777; padding:4px; background: #EEF; }
@@ -55,46 +59,8 @@ table.dyta tr.details td.comment { padding: 10px; font-size:15px; }
 .total table.dyta td { font-weight: bold; border: 1px solid #BACFE6; padding: 4px 8px; font-size: 17px; background:#FFF0E0;}
 .total table.dyta tr.important td { font-weight: bold; padding: 4px 8px; font-size: 20px !important; }
 
-table.dyta tr.balanced.even td{background:#CCF5CC;}
-table.dyta tr.balanced.odd td{background:#99EB99;}
-table.dyta tr.unbalanced.even td{background: #FFCCCC;}
-table.dyta tr.unbalanced.odd td{background: #FF9999;}
-
-/* statements_point */
-table.dyta tr.pointable.even td{background:#CCF5CC;}
-table.dyta tr.pointable.odd  td{background:#99EB99;}
-table.dyta tr.unpointable.even td{background: #FFCCCC;}
-table.dyta tr.unpointable.odd  td{background: #FF9999;}
-table.dyta tr.pointabled.even td{background:#FF5B2B;}
-table.dyta tr.pointabled.odd td{background:#FF8830;}
-
 table.dyta tr.total{background:#D28830;}
 table.dyta tr.total td{color:RED;font-family:monospace;}
-
-/* lettering */
-/*table.dyta tr.even td{background: #FFCCCC;}
-table.dyta tr.odd  td{background: #FF9999;}*/
-table.dyta tr.letter.even td{background:#CCF5CC;}
-table.dyta tr.letter.odd  td{background:#99EB99;}
-table.dyta tr.letter-unbalanced.even td{background: #F9DBCC;}
-table.dyta tr.letter-unbalanced.odd  td{background: #F9CC99;}
-
-/* undelivered sales  */
-table.dyta tr.odd.advance td{background:#c8ffa0; }
-table.dyta tr.even.advance td{background:#beff8e; }
-table.dyta tr.even.late td{background:#ffcc81; }
-table.dyta tr.odd.late td{background:#ffd495; }
-table.dyta tr.even.verylate td{background:#ffad87; }
-table.dyta tr.odd.verylate td{background:#ffba9a; }
-
-/* products stocks*/
-table.dyta tr.even.critic  td {background:#ffba9a;}
-table.dyta tr.odd.critic   td {background:#ffad87;}
-table.dyta tr.even.minimum td {background:#ffcc81;}
-table.dyta tr.odd.minimum  td {background:#ffd495;}
-table.dyta tr.even.enough  td {background:#c8ffa0;}
-table.dyta tr.odd.enough   td {background:#beff8e;}
-
 
 .total table.dyta tr.separated * { border-top: 1px solid red !important;}
 .total table.dyta  th  { text-align:right; }
