@@ -109,10 +109,11 @@ module ApplicationHelper
      # ProductionController
      {:name=>:production, :list=>
        [  {:name=>:production, :list=>
-            [ {:name=>:productions} ] },
-          {:name=>:shapes, :list=>
+            [ {:name=>:productions},
+              {:name=>:shape_operations}
+            ] },
+          {:name=>:parameters, :list=>
             [ {:name=>:shapes},
-              {:name=>:shape_operations},
               {:name=>:shape_operation_natures}
             ] }
        ] }

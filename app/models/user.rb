@@ -145,6 +145,11 @@ class User < ActiveRecord::Base
   def authenticated?(password)
     self.hashed_password == User.encrypted_password(password, self.salt)
   end
+
+  def employee_id
+    return self.employee.id if self.employee
+    nil
+  end
   
   # Used for generic password creation
   def self.give_password(length=8, mode=:complex)

@@ -1606,6 +1606,7 @@ fr-FR:
         lock_version: 'Version'
         name: 'Nom'
         nature: 'Nature'
+        nature_label: 'Type'
         reductible: 'Réductible'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'

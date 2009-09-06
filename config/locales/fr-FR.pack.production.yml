@@ -17,6 +17,7 @@ fr-FR:
           one: '1 traitement à réaliser'
           other: '{{count}} traitements à réaliser'
           zero: 'Aucun traitement à réaliser'
+        parameters: 'Paramètres'
         production: 'Productions'
         productions: 'Productions'
         shape_operation_natures: 'Types de traitement'
@@ -49,6 +50,8 @@ fr-FR:
         title: 'Types de traitement'
       shape_operation_nature_create:
         title: 'Créer un nouveau type de traitement'
+      shape_operation_nature_update:
+        title: 'Modification du type de traitement "{{name}}"'
       shape_operations:
         shape_operation_create: 'Créer un nouveau traitement'
         title: 'Traitements'
@@ -57,13 +60,15 @@ fr-FR:
       _shape_operation_form:
         infos: 'Renseignez les caractéristiques du traitement'
       shape_operation_update:
-        title: 'Modification du traitement {{value}}'
+        title: 'Modification du traitement {{name}}'
       shapes:
         shapes: 'Îlots'
         shape_create: 'Créer un nouvel îlot'
         title: 'Îlots'
       shape_create:
         title: 'Ajouter un nouvel îlot'
+      shape_update:
+        title: 'Modification de l'' îlot {{name}}'
       _shape_form:
         infos: 'Renseignez les caractéristiques de l''îlot'
       unvalidated_operations:

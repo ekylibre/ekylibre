@@ -178,7 +178,7 @@ namespace :clean do
     doubles = 0
     rights.size.times do |i|
       unless rights[i][0].match(/\#/)
-        if File.exists?("#{RAILS_ROOT}/app/views/#{rights[i][0]}/#{rights[i][1]}.html.haml") or (File.exists?("#{RAILS_ROOT}/app/views/#{rights[i][0]}/_#{rights[i][1].split("_")[0]}_form.html.haml") and rights[i][1].split("_")[-1].match(/create|update/))
+        if File.exists?("#{RAILS_ROOT}/app/views/#{rights[i][0]}/#{rights[i][1]}.html.haml") or (File.exists?("#{RAILS_ROOT}/app/views/#{rights[i][0]}/_#{rights[i][1].split("_")[0..-2].join('_')}_form.html.haml") and rights[i][1].split("_")[-1].match(/create|update/))
           help = "#{RAILS_ROOT}/config/locales/#{::I18n.locale}/help/#{rights[i][0]}-#{rights[i][1]}.txt"
           puts "Help file missing: #{help}" unless File.exists?(help) or rights[i][1].match /dy(li|ta)|delete/ or rights[i][0].match /authentication|help/
         end

@@ -70,7 +70,7 @@ class Tax < ActiveRecord::Base
      [:percent, :amount].collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
-  def text_nature
+  def nature_label
     tc('natures.'+self.nature.to_s)
   end
   

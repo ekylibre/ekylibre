@@ -20,6 +20,17 @@
   <defs
      id="defs2417">
     <linearGradient
+       id="linearGradient3306">
+      <stop
+         id="stop3308"
+         offset="0"
+         style="stop-color:#c8d8eb;stop-opacity:1;" />
+      <stop
+         id="stop3310"
+         offset="1"
+         style="stop-color:#e9f3fe;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3287">
       <stop
          id="stop3289"
@@ -530,6 +541,16 @@
        fx="49.85677"
        fy="29.21056"
        r="6.625" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3306"
+       id="linearGradient2534"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.5,0,0,1,73.017851,1.5e-5)"
+       x1="106.03571"
+       y1="320.80859"
+       x2="106.03571"
+       y2="300.80859" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -1007,5 +1028,15 @@
          id="rect3339"
          style="fill:#d4612a;fill-opacity:0.20392157;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     </g>
+    <rect
+       style="opacity:1;fill:url(#linearGradient2534);fill-opacity:1.0;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="table_head_hover"
+       width="1"
+       height="20"
+       x="126.03571"
+       y="300.80859"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:label="#rect2427" />
   </g>
 </svg>

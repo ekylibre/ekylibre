@@ -116,9 +116,6 @@ help             close                            __minimum__
 help             previous                         __minimum__
 help             search                           __minimum__
 help             side                             __minimum__
-management       delay_create                     manage_delays
-management       delay_delete                     manage_delays
-management       delay_update                     manage_delays
 management       sale_order_subscriptions_dyta    [new_right]
 management       all_contacts_dyli                administrate_management
 management       critic_product_stocks_dyta       administrate_management
@@ -171,6 +168,9 @@ management       purchases_print                  create_purchases
 management       purchases_products               create_purchases
 management       unreceived_purchases             create_purchases
 management       delay                            manage_delays
+management       delay_create                     manage_delays
+management       delay_delete                     manage_delays
+management       delay_update                     manage_delays
 management       delays                           manage_delays
 management       delays_dyta                      manage_delays
 management       delivery_mode_create             manage_delivery_modes
@@ -295,6 +295,8 @@ production       productions_dyta                 manage_productions
 production       shape_operation_create           manage_shape_operations
 production       shape_operation_delete           manage_shape_operations
 production       shape_operation_nature_create    manage_shape_operations
+production       shape_operation_nature_delete    manage_shape_operations
+production       shape_operation_nature_update    manage_shape_operations
 production       shape_operation_natures          manage_shape_operations
 production       shape_operation_natures_dyta     manage_shape_operations
 production       shape_operation_update           manage_shape_operations
@@ -303,6 +305,8 @@ production       shape_operations_dyta            manage_shape_operations
 production       unvalidated_operations           manage_shape_operations
 production       unvalidated_operations_dyta      manage_shape_operations
 production       shape_create                     manage_shapes
+production       shape_update                     manage_shapes
+production       shape_delete                     manage_shapes
 production       shapes                           manage_shapes
 production       shapes_dyta                      manage_shapes
 relations        auto_complete_for_contact_line_6 administrate_relations

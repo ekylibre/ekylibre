@@ -16,7 +16,6 @@ class ProductionController < ApplicationController
   end
 
   def productions
-   # productions_list 
   end
   
 
@@ -28,7 +27,7 @@ class ProductionController < ApplicationController
     @production = Production.new
 
     @productable_products = @current_company.productable_products
-   
+    
     if request.post?
       @production = Production.new(params[:production])
       @production.company_id = @current_company.id
@@ -111,12 +110,21 @@ class ProductionController < ApplicationController
   dyta(:shapes, :conditions=>{:company_id=>['@current_company.id']} ) do |t|
     t.column :name
     t.column :polygon
+    t.column :description
+    t.action :shape_update
+    t.action :shape_delete, :method=>:delete, :confirm=>:are_you_sure
   end
+
+  def shapes
+  end
+
+  manage :shapes
+  
 
   dyta(:shape_operations, :conditions=>{:company_id=>['@current_company.id']} ) do |t|
     t.column :name
     t.column :name, :through=>:nature
-    t.column :full_name, :through=>:employee
+    t.column :full_name, :through=>:employee # , :url=>{:controller=>:resources, :action=>:employee}
     t.column :planned_on
     t.column :moved_on
     t.column :name, :through=>:shape
@@ -124,68 +132,26 @@ class ProductionController < ApplicationController
     t.action :shape_operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
 
+  def shape_operations
+  end
+
+  manage :shape_operations, :planned_on=>"Date.today", :employee_id=>"@current_user.employee_id"
+
+
+
   dyta(:shape_operation_natures, :conditions=>{:company_id=>['@current_company.id']} ) do |t|
     t.column :name
     t.column :description
-  end
-
-  def shapes
-   # shapes_list
-  end
-
-  def shape_create
-    @shape = Shape.new
-    if request.post?
-      @shape = Shape.new(params[:shape])
-      @shape.company_id = @current_company.id
-      redirect_to_back if @shape.save
-    end
-    render_form
-  end
-  
-  def shape_operations
-   # shape_operations_list
-  end
-
-  def shape_operation_create
-    @shape_operation = ShapeOperation.new(:planned_on=>Date.today)
-    if request.post?
-      @shape_operation = ShapeOperation.new(params[:shape_operation])
-      @shape_operation.company_id = @current_company.id
-      redirect_to_back if @shape_operation.save
-    end
-    render_form
-  end
-
-  def shape_operation_update
-    @shape_operation = find_and_check(:shape_operation, params[:id])
-    if request.post?
-      redirect_to_back if @shape_operation.update_attributes(params[:shape_operation])
-    end
-    @title = {:value=>@shape_operation.name}
-    render_form
-  end
-  
-  def shape_operation_delete
-    @shape_operation = find_and_check(:shape_operation, params[:id])
-    if request.post? or request.delete?
-      redirect_to_back if @shape_operation.destroy
-    end
+    t.action :shape_operation_nature_update
+    t.action :shape_operation_nature_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
   def shape_operation_natures
-   # shape_operation_natures_list
   end
 
-  def shape_operation_nature_create
-    @shape_operation_nature = ShapeOperationNature.new
-    if request.post?
-      @shape_operation_nature = ShapeOperationNature.new(params[:shape_operation_nature])
-      @shape_operation_nature.company_id = @current_company.id 
-      redirect_to_back if @shape_operation_nature.save
-    end
-    render_form
-  end
+  manage :shape_operation_natures
+
+
 
   dyta(:unvalidated_operations, :model=>:shape_operations, :conditions=>{:moved_on=>nil, :company_id=>['@current_company.id']}) do |t|
     t.column :name 

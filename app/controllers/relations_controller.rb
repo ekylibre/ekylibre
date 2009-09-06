@@ -255,12 +255,11 @@ class RelationsController < ApplicationController
   
   dyta(:entities, :distinct=>true, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)") do |t|
     t.column :active, :label=>'♦'
+    t.column :code, :url=>{:action=>:entity}
     t.column :abbreviation, :through=>:nature
     t.column :name, :url=>{:action=>:entity}
     t.column :first_name, :url=>{:action=>:entity}
-    t.column :code, :url=>{:action=>:entity}
     t.column :line_6, :through=>:default_contact, :url=>{:action=>:entity_contact_update}
-    t.action :entity
     t.action :entity_print
     t.action :entity_update
     t.action :entity_delete, :method=>:post, :confirm=>:are_you_sure

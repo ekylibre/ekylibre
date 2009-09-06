@@ -179,8 +179,10 @@ class ApplicationController < ActionController::Base
 
 
 
-  def self.manage(name, operations=[:create, :update, :delete])
-    
+  # Build standard actions to manage records of a model
+  def self.manage(name, defaults={})
+    operations = [:create, :update, :delete]
+
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
     code = ''
@@ -193,7 +195,8 @@ class ApplicationController < ActionController::Base
       code += "    @#{record_name}.company_id = @current_company.id\n"
       code += "    redirect_to_back if @#{record_name}.save\n"
       code += "  else\n"
-      code += "    @#{record_name} = #{model.name}.new\n"
+      values = defaults.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")
+      code += "    @#{record_name} = #{model.name}.new(#{values})\n"
       code += "  end\n"
       code += "  render_form\n"
       code += "end\n"
@@ -207,7 +210,12 @@ class ApplicationController < ActionController::Base
       raise Exception.new("You must put :company_id in attr_readonly of #{model.name}") if model.readonly_attributes.nil? or not model.readonly_attributes.include?("company_id")
       code += "    redirect_to_back if @#{record_name}.update_attributes(params[:#{record_name}])\n"
       code += "  end\n"
-      code += "  @title = @#{record_name}.attributes\n"
+      values = model.content_columns.collect do |c|
+        value = "@#{record_name}.#{c.name}"
+        value = "(#{value}.nil? ? nil : ::I18n.localize(#{value}))" if [:date, :datetime].include? c.type
+        ":#{c.name}=>#{value}"
+      end.join(", ")
+      code += "  @title = {#{values}}\n"
       code += "  render_form\n"
       code += "end\n"
     end
@@ -218,6 +226,9 @@ class ApplicationController < ActionController::Base
       code += "  return unless @#{record_name} = find_and_check(:#{record_name}, params[:id])\n"
       code += "  if request.delete?\n"
       code += "    #{model.name}.destroy(@#{record_name}.id)\n"
+      code += "    flash[:notice]=tg(:record_has_been_correctly_removed)\n"
+      code += "  else\n"
+      code += "    flash[:error]=tg(:record_has_not_been_removed)\n"
       code += "  end\n"
       code += "  redirect_to_current\n"
       code += "end\n"
