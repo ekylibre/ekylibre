@@ -64,13 +64,14 @@ fr-FR:
 
     # Don't forget the nil at the beginning; there's no such thing as a 0th month
     month_names: [~, janvier, février, mars, avril, mai, juin, juillet, août, septembre, octobre, novembre, décembre]
-    abbr_month_names: [~, Janv, Févr, Mars, Avr, Mai, Juin, Juil, Août, Sept, Oct, Nov, Déc]
+    abbr_month_names: [~, janv, févr, mars, avr, mai, juin, juil, août, sept, oct, nov, déc]
     # Used in date_select and datime_select.
     order: [ :day, :month, :year ]
 
   time:
     formats: 
-      default: "%a, %d %b %Y %H:%M:%S %z" 
+      default: "%d %b. %Y à %H:%M:%S"
+      default0: "%a, %d %b %Y %H:%M:%S %z"
       short: "%d %b %H:%M" 
       long: "%B %d, %Y %H:%M" 
     am: "am" 

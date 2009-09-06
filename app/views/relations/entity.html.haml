@@ -44,7 +44,7 @@
   -tb.tab(tc(:sale_orders_number , :count=>@sale_orders_number)) do |c|
     -c << toolbar do |t|
       -t.link(:sale_order_create, :controller=>:management, :id=>@entity.id)
-    -c << dyta(:entity_sales)
+    -c << dyta(:entity_sale_orders)
   -if @invoices_count>0
     -tb.tab(tc(:invoices, :count=>@invoices_count)) do |c|
       -c << dyta(:client_invoices)

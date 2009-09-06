@@ -93,7 +93,7 @@ class DocumentTemplate < ActiveRecord::Base
       File.makedirs(document.path)
       File.open(document.file_path, 'wb') {|f| f.write(data) }
     else
-      raise Exception.new document.errors.inspect
+      raise Exception.new(document.errors.inspect)
     end
     return document
   end

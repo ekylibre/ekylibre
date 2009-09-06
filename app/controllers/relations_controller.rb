@@ -314,7 +314,7 @@ class RelationsController < ApplicationController
     t.action :subscription_delete, :controller=>:management, :method=>:post, :confirm=>:are_you_sure
   end
 
-  dyta(:entity_sales, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']], :order=>{'sort'=>'created_on', 'dir'=>'desc'} ,  :children=>:lines, :per_page=>5) do |t|
+  dyta(:entity_sale_orders, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']] ,  :children=>:lines, :per_page=>5, :default_order=>"created_at DESC") do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sales_details}, :children=>:product_name
     t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
@@ -325,8 +325,7 @@ class RelationsController < ApplicationController
     t.action :sales_products, :image=>:update, :controller=>:management, :if=>"RECORD.complete\?"
   end
   
-
-  dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+  dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :default_order=>"created_at DESC") do |t|
     t.column :name, :through=>:nature
     t.column :reason
     t.column :full_name, :through=>:employee

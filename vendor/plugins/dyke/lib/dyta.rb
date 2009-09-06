@@ -67,6 +67,7 @@ module Ekylibre
             conditions = ''
             conditions = conditions_to_code(options[:conditions]) if options[:conditions]
 
+            default_order = (options[:default_order] ? '||'+options[:default_order].inspect : '')
 
             order_definition  = ''
             order_definition += "  options = params||{}\n"
@@ -90,7 +91,7 @@ module Ekylibre
             builder += ", :conditions=>"+conditions unless conditions.blank?
             builder += ", "+PAGINATION[options[:pagination]][:find_params].gsub('@@LENGTH@@', "options['#{name}_per_page']||"+(options[:per_page]||25).to_s) unless PAGINATION[options[:pagination]][:find_params].blank?
             builder += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
-            builder += ", :order=>order)||{}\n"
+            builder += ", :order=>order#{default_order})||{}\n"
 
             bottom_var = 'bottom'
             bottom = "  #{bottom_var}=''\n"
@@ -132,7 +133,7 @@ module Ekylibre
               code += "      for #{record} in #{model}.find(:all"
               code += ", :conditions=>"+conditions unless conditions.blank?
               code += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
-              code += ", :order=>order)||{}\n"            
+              code += ", :order=>order#{default_order})||{}\n"            
               code += "        csv << #{columns_to_csv(definition, :body, :record=>record)}\n"
               code += "      end\n"
               code += "    end\n"

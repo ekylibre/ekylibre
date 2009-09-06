@@ -318,7 +318,7 @@ relations        entities                         consult_entities
 relations        entities_dyta                    consult_entities
 relations        entity                           consult_entities
 relations        entity_bank_accounts_dyta        consult_entities
-relations        entity_sales_dyta                consult_entities
+relations        entity_sale_orders_dyta          consult_entities
 relations        entities_export                  import_export_entities
 relations        entities_import                  import_export_entities
 relations        area_create                      manage_areas
