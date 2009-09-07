@@ -4,7 +4,7 @@ h2. Sélection du client
 Il vous suffit de sélectionner votre client dans la liste déroulante présentant vos différents clients. Si le client de votre vente n'a pas encore été créé, vous pouvez le faire grâce au lien "nouveau" qui vous redirigera vers le formulaire de création d'un nouveau client.
 
 h2. Sélection de l'adresse
- Si vous avez déjà enregistré une adresse à votre client, celle-ci sera automatiquement générée. Si ce n'est pas le cas vous devrez créer une adresse de livraison grâce au lien "nouveau".
+Si vous avez déjà enregistré une adresse à votre client, celle-ci sera automatiquement générée. Si ce n'est pas le cas vous devrez créer une adresse de livraison grâce au lien "nouveau".
 
 h2. La lettre
 Les champs relatifs à la lettre sont tous facultatifs et seront utilisés lors de l'impression du devis ou de la commande pour paramétrer des informations telles que la civilité ou la formule de politesse.

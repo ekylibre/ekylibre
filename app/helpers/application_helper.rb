@@ -326,6 +326,9 @@ module ApplicationHelper
     content.gsub!(/(\w)(\?|\:)([\s$])/ , '\1~\2\3' )
     content.gsub!(/[\s\~]+(\?|\:)/ , '~\1' )
     content.gsub!(/\~/ , '&nbsp;' )
+    # Puts 2 EOL after a title
+    content.gsub!(/(^h[0-9]\.\ [^\n]*\n)/ , "\\1\n")
+    # raise Exception.new(content)
     content = without_paragraph ? textilize_without_paragraph(content) : textilize(content)
     content
   end
