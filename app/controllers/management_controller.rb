@@ -1262,7 +1262,7 @@ class ManagementController < ApplicationController
 
 #  dyli(:bank_account, :attributes => [:name], :conditions => {:company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
-  dyta(:embankment_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :embankment_id=>['session[:embankment_id]']}) do |t|
+  dyta(:embankment_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :embankment_id=>['session[:embankment_id]']}, :per_page=>1000, :export=>false) do |t|
     t.column :full_name, :through=>:entity
     t.column :bank
     t.column :account_number
@@ -1271,7 +1271,7 @@ class ManagementController < ApplicationController
     t.column :amount
   end
 
-  dyta(:embankable_payments, :model=>:payments, :conditions=>["company_id=? AND (embankment_id=? OR (mode_id=? AND embankment_id IS NULL))", ['@current_company.id'], ['session[:embankment_id]'], ['session[:payment_mode_id]']], :per_page=>100) do |t|
+  dyta(:embankable_payments, :model=>:payments, :conditions=>["company_id=? AND (embankment_id=? OR (mode_id=? AND embankment_id IS NULL))", ['@current_company.id'], ['session[:embankment_id]'], ['session[:payment_mode_id]']], :per_page=>100, :default_order=>"created_at DESC", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
     t.column :full_name, :through=>:entity
     t.column :bank
     t.column :account_number
@@ -1279,7 +1279,7 @@ class ManagementController < ApplicationController
     t.column :paid_on
     t.column :label, :through=>:embanker
     t.column :amount
-    t.check :to_embank, :value=>'(RECORD.embanker.nil? or RECORD.embanker_id==@current_user.id)'
+    t.check :to_embank, :value=>'(session[:embankment_id].nil? ? (RECORD.embanker.nil? or RECORD.embanker_id==@current_user.id) : (RECORD.embankment_id==session[:embankment_id]))'
   end
 
 
@@ -1332,24 +1332,44 @@ class ManagementController < ApplicationController
         payments = params[:embankable_payments].collect{|id, attrs| (attrs[:to_embank].to_i==1 ? id.to_i : nil)}.compact
         Payment.update_all({:embankment_id=>@embankment.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
         @embankment.refresh
-        redirect_to :action=>:embankment, :id=>@embankment.id
+        redirect_to :action=>:embankments
       end
       # redirect_to :action=>:embankment_payment_create, :id=>@embankment.id if @embankment.save
     else
-      @embankment = Embankment.new(:created_on=>Date.today, :mode_id=>mode.id, :embanker_id=>@current_user.employee_id)
+      @embankment = Embankment.new(:created_on=>Date.today, :mode_id=>mode.id, :embanker_id=>@current_user.id)
     end
     @title = {:mode=>mode.name}
     render_form
   end
-  
+
+
   def embankment_update
-    @embankment = find_and_check(:embankment, params[:id])
+    return unless @embankment = find_and_check(:embankment, params[:id])
+    session[:embankment_id] = @embankment.id
+    session[:payment_mode_id] = @embankment.mode_id
     if request.post?
-      redirect_to :action=>:embankment_payment_update, :id=>@embankment.id if @embankment.update_attributes(params[:embankment])
+      if @embankment.update_attributes(params[:embankment])
+        ActiveRecord::Base.transaction do
+          payments = params[:embankable_payments].collect{|id, attrs| (attrs[:to_embank].to_i==1 ? id.to_i : nil)}.compact
+          Payment.update_all({:embankment_id=>nil}, ["company_id=? AND embankment_id=?", @current_company.id, @embankment.id])
+          Payment.update_all({:embankment_id=>@embankment.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
+        end
+        @embankment.refresh
+        redirect_to :action=>:embankments 
+      end
     end
     @title = {:date=>@embankment.created_on}
     render_form
   end
+  
+#   def embankment_update
+#     @embankment = find_and_check(:embankment, params[:id])
+#     if request.post?
+#       redirect_to :action=>:embankment_payment_update, :id=>@embankment.id if @embankment.update_attributes(params[:embankment])
+#     end
+#     @title = {:date=>@embankment.created_on}
+#     render_form
+#   end
 
   def embankment_delete
     @embankment = find_and_check(:embankment, params[:id])
@@ -1358,46 +1378,46 @@ class ManagementController < ApplicationController
     end
   end
 
-  def embankment_payment_create
-    @embankment = find_and_check(:embankment, params[:id])
-    @checks = @current_company.checks_to_embank(@embankment.mode_id)
- #   raise Exception.new @checks[0].inspect
-    if request.post?
-      payments = params[:check].collect{|x| Payment.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:check].nil?
-      if !payments.nil?
-        for payment in payments
-          payment.update_attributes!(:embankment_id=>@embankment.id)
-        end
-      end
-      redirect_to :action=>:embankments
-    end
-  end
+#   def embankment_payment_create
+#     @embankment = find_and_check(:embankment, params[:id])
+#     @checks = @current_company.checks_to_embank(@embankment.mode_id)
+#  #   raise Exception.new @checks[0].inspect
+#     if request.post?
+#       payments = params[:check].collect{|x| Payment.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:check].nil?
+#       if !payments.nil?
+#         for payment in payments
+#           payment.update_attributes!(:embankment_id=>@embankment.id)
+#         end
+#       end
+#       redirect_to :action=>:embankments
+#     end
+#   end
 
-  def embankment_payment_update
-    @embankment = find_and_check(:embankment, params[:id])
-    @checks = @current_company.checks_to_embank_on_update(@embankment)
-    if request.post?
-      if params[:check].nil?
-        flash[:warning]=tc(:choose_one_check_at_less)
-        redirect_to_current
-      else
+#   def embankment_payment_update
+#     @embankment = find_and_check(:embankment, params[:id])
+#     @checks = @current_company.checks_to_embank_on_update(@embankment)
+#     if request.post?
+#       if params[:check].nil?
+#         flash[:warning]=tc(:choose_one_check_at_less)
+#         redirect_to_current
+#       else
 
-        for check in @embankment.checks
-          if params[:check][check.id.to_s].nil?
-            check.update_attributes(:embankment_id=>nil) 
-            @embankment.save
-          end
-        end
-        payments = params[:check].collect{|x| Payment.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:check].nil?
-        for payment in payments
-          payment.update_attributes(:embankment_id=>@embankment.id) if payment.embankment_id.nil?
-        end
-        redirect_to :action=>:embankments
-      end
+#         for check in @embankment.checks
+#           if params[:check][check.id.to_s].nil?
+#             check.update_attributes(:embankment_id=>nil) 
+#             @embankment.save
+#           end
+#         end
+#         payments = params[:check].collect{|x| Payment.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:check].nil?
+#         for payment in payments
+#           payment.update_attributes(:embankment_id=>@embankment.id) if payment.embankment_id.nil?
+#         end
+#         redirect_to :action=>:embankments
+#       end
       
-    end
+#     end
     
-  end
+#   end
   
   dyta(:payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name

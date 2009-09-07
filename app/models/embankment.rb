@@ -26,6 +26,8 @@ class Embankment < ActiveRecord::Base
   belongs_to :mode, :class_name=>PaymentMode.to_s
   has_many :payments, :dependent=>:nullify
 
+  validates_presence_of :embanker_id
+
   attr_readonly :company_id
 
   def before_validation

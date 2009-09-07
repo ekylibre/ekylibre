@@ -214,6 +214,10 @@ class Company < ActiveRecord::Base
     self.taxes.find(:all, options)
   end
 
+  def available_users(options={})
+    self.users.find(:all, :order=>:last_name, :conditions=>{:locked=>false})
+  end
+
   def invoice(records)
     puts records.inspect+"                          ddddddddddddddddddddddddd "
     Invoice.generate(self.id,records)
@@ -240,13 +244,13 @@ class Company < ActiveRecord::Base
     nature.id
   end 
 
-  def checks_to_embank_on_update(embankment)
-    checks = []
-    for payment in self.payments
-      checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == embankment.mode_id) and (payment.embankment_id.nil? or payment.embankment_id == embankment.id) ) 
-    end
-    checks
-  end
+#   def checks_to_embank_on_update(embankment)
+#     checks = []
+#     for payment in self.payments
+#       checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == embankment.mode_id) and (payment.embankment_id.nil? or payment.embankment_id == embankment.id) ) 
+#     end
+#     checks
+#   end
   
  #  def checks_to_embank(mode_id)
 #     checks = []
@@ -265,11 +269,11 @@ class Company < ActiveRecord::Base
 
   def checks_to_embank(mode_id=0)
     checks = []
-    finder = {:joins=>"INNER JOIN payment_modes p ON p.mode = 'check' AND p.id = payments.mode_id", :limit=>100}
+    finder = {:joins=>"INNER JOIN payment_modes p ON p.mode = 'check' AND p.id = payments.mode_id"}
     if mode_id == 0 
       checks = self.payments.find(:all, finder.merge(:conditions=>['embankment_id IS NULL'] ))
     elsif mode_id == -1
-      checks = self.payments.find(:all, finder.merge(:conditions=>['embankment_id IS NULL AND current_date >= to_bank_on+15']))
+      checks = self.payments.find(:all, finder.merge(:conditions=>['embankment_id IS NULL AND current_date >= to_bank_on+14']))
     else
       checks = self.payments.find(:all, finder.merge(:conditions=>['embankment_id IS NULL AND mode_id = ?', mode_id]))
     end

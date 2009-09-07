@@ -1,3 +1,5 @@
+#management      embankment_payment_create        manage_embankments
+#management      embankment_payment_update        manage_embankments
 accountancy      index                            administrate_accountancy
 accountancy      entries_consult                  consult_entries
 accountancy      entries_consult_by_journal_id    consult_entries
@@ -180,11 +182,10 @@ management       delivery_mode_update             manage_delivery_modes
 management       delivery_modes                   manage_delivery_modes
 management       delivery_modes_dyta              manage_delivery_modes
 management       credits_dyta                     manage_embankments
+management       embankable_payments_dyta         manage_embankments
 management       embankment                       manage_embankments
 management       embankment_create                manage_embankments
 management       embankment_delete                manage_embankments
-management       embankment_payment_create        manage_embankments
-management       embankment_payment_update        manage_embankments
 management       embankment_payments_dyta         manage_embankments
 management       embankment_print                 manage_embankments
 management       embankment_update                manage_embankments
