@@ -234,7 +234,7 @@ class ApplicationController < ActionController::Base
       code += "end\n"
     end
 
-    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     
     class_eval(code)
     

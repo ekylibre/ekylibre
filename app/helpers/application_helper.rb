@@ -478,13 +478,16 @@ module ApplicationHelper
         nature, args = tool[0], tool[1]
         if nature == :link
           name = args[0]
+          args[1] ||= {}
+          args[2] ||= {}
           if name.is_a? Symbol and name!=:back
             args[0] = t(call+name.to_s)
-            args[1] ||= {}
             args[1][:action] ||= name
-            args[2] ||= {}
             args[2][:class] = name.to_s.split('_')[-1]
+          else
+            args[2][:class] = args[1][:action].to_s.split('_')[-1] if args[1][:action]
           end
+          
           code += li_link_to(*args)
         end
       end

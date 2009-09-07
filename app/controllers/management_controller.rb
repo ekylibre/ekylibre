@@ -1039,7 +1039,6 @@ class ManagementController < ApplicationController
     t.action :delivery_delete, :if=>'!RECORD.order.invoiced', :method=>:delete, :confirm=>:are_you_sure
   end
 
-
   
 #   dyta(:deliveries_to_invoice, :model=>:deliveries, :children=>:lines,   :conditions=>['company_id = ? AND order_id = ? AND invoice_id IS NULL', ['@current_company.id'], ['session[:current_sale_order]']]) do |t|
 #     t.column :address, :through=>:contact, :children=>:product_name
@@ -1250,12 +1249,12 @@ class ManagementController < ApplicationController
   end
   
   
-  dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"created_at DESC") do |t|
     t.column :amount, :url=>{:action=>:embankment}
     t.column :payments_count
     t.column :name, :through=>:bank_account
+    t.column :label, :through=>:embanker
     t.column :created_on
-    t.action :embankment
     t.action :embankment_print
     t.action :embankment_update, :if=>'RECORD.locked == false'
     t.action :embankment_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.locked == false'
@@ -1271,6 +1270,18 @@ class ManagementController < ApplicationController
     t.column :paid_on
     t.column :amount
   end
+
+  dyta(:embankable_payments, :model=>:payments, :conditions=>["company_id=? AND (embankment_id=? OR (mode_id=? AND embankment_id IS NULL))", ['@current_company.id'], ['session[:embankment_id]'], ['session[:payment_mode_id]']], :per_page=>100) do |t|
+    t.column :full_name, :through=>:entity
+    t.column :bank
+    t.column :account_number
+    t.column :check_number
+    t.column :paid_on
+    t.column :label, :through=>:embanker
+    t.column :amount
+    t.check :to_embank, :value=>'(RECORD.embanker.nil? or RECORD.embanker_id==@current_user.id)'
+  end
+
 
   def embankments
   end
@@ -1299,19 +1310,36 @@ class ManagementController < ApplicationController
   end
 
   def embankment_create
-    if @current_company.checks_to_embank(0).size == 0
+    mode = PaymentMode.find_by_id_and_company_id(params[:mode_id], @current_company.id)
+    if mode.nil?
+      flash[:warning] = tc('messages.need_payment_mode_to_create_embankment')
+      redirect_to :action=>:embankments
+      return
+    end
+    if mode.embankable_payments.size <= 0
       flash[:warning]=tc(:no_check_to_embank)
       redirect_to :action=>:embankments
-    else
-      @embankment = Embankment.new(:created_on=>Date.today)
-      if request.post?
-        @embankment = Embankment.new(params[:embankment])
-        @embankment.mode_id = @current_company.payment_modes.find(:first, :conditions=>{:mode=>"check"}).id  if @current_company.payment_modes.find_all_by_mode("check").size == 1
-        @embankment.company_id = @current_company.id 
-        redirect_to :action=>:embankment_payment_create, :id=>@embankment.id if @embankment.save
-      end
-      render_form
+      return
     end
+    session[:embankment_id] = nil
+    session[:payment_mode_id] = mode.id
+    if request.post?
+      @embankment = Embankment.new(params[:embankment])
+      # @embankment.mode_id = @current_company.payment_modes.find(:first, :conditions=>{:mode=>"check"}).id if @current_company.payment_modes.find_all_by_mode("check").size == 1
+      @embankment.mode_id = mode.id 
+      @embankment.company_id = @current_company.id 
+      if @embankment.save
+        payments = params[:embankable_payments].collect{|id, attrs| (attrs[:to_embank].to_i==1 ? id.to_i : nil)}.compact
+        Payment.update_all({:embankment_id=>@embankment.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
+        @embankment.refresh
+        redirect_to :action=>:embankment, :id=>@embankment.id
+      end
+      # redirect_to :action=>:embankment_payment_create, :id=>@embankment.id if @embankment.save
+    else
+      @embankment = Embankment.new(:created_on=>Date.today, :mode_id=>mode.id, :embanker_id=>@current_user.employee_id)
+    end
+    @title = {:mode=>mode.name}
+    render_form
   end
   
   def embankment_update

@@ -9,7 +9,7 @@
         %th= tc('embank')
       - for @check in @checks
       -klass=cycle("odd","even")
-        %tr{:class=>klass+' root '}
+        %tr{:class=>klass}
           %td=@check.amount
           %td=@check.to_bank_on
           %td=@check.entity.full_name

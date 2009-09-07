@@ -24,7 +24,7 @@ class Embankment < ActiveRecord::Base
   belongs_to :company
   belongs_to :embanker, :class_name=>User.name
   belongs_to :mode, :class_name=>PaymentMode.to_s
-  has_many :payments
+  has_many :payments, :dependent=>:nullify
 
   attr_readonly :company_id
 

@@ -1,4 +1,4 @@
-- form_tag({}, {:id=>@options[:id]}) do
+- form_tag(nil, {:id=>@options[:id]}) do
   =render :partial=>@partial
   .actions
     =submit_tag(tg(@options[:submit]||:create))

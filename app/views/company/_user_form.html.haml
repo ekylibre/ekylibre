@@ -11,7 +11,7 @@
   -f.field :user, :admin
   -f.field  t("views.company._users_form.employee"), check_box_tag(:create_employee)
 
-#employee=render :partial=>"resources/employees_form", :locals=>{:create_user=>true}
+#employee=render :partial=>"resources/employee_form", :locals=>{:create_user=>true}
  
 =formalize(:id=>:show_rights) do |f|
   -f.title :rights

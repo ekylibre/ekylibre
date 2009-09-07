@@ -89,7 +89,7 @@ class SaleOrder < ActiveRecord::Base
     # Set state to 'Complete' if all is paid
     if self.amount_with_taxes>0 and self.parts_amount == self.amount_with_taxes and self.invoices.sum(:amount_with_taxes) == self.amount_with_taxes
       self.state = 'C'
-    elsif not self.confirmed_on.blank? or self.parts_amount>0 or self.invoices.size>0
+    elsif not self.confirmed_on.blank? or self.invoices.size>0 #  or self.parts_amount>0
       self.state = 'A'
     else
       self.state = 'E'
@@ -243,7 +243,7 @@ class SaleOrder < ActiveRecord::Base
 
 
   def label
-    tc('label.'+(self.estimate? ? 'estimate' : 'order'), :number=>@sale_order.number)
+    tc('label.'+(self.estimate? ? 'estimate' : 'order'), :number=>self.number)
   end
 
   

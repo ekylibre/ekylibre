@@ -122,14 +122,17 @@ fr-FR:
         to_bank_on: 'À encaisser le'
         validate: 'Valider'
       embankments:
-        embankment_create: 'Ajouter une remise de chèque'
+        embankment_create: 
+          one: 'Ajouter une remise : {{mode}} (1 règlement)'
+          other: 'Ajouter une remise : {{mode}} ({{count}} règlements)'
+          zero: 'Ajouter une remise : {{mode}} (Pas de règlement)'
         nb_checks:
           one: '1 chèque à encaisser'
           other: '{{count}} chèques à encaisser'
           zero: 'Aucun chèque à encaisser'
         title: 'Remises de chèques'
       embankment_create:
-        title: 'Créer un relevé de chèques'
+        title: 'Créer une remise : {{mode}}'
       embankment:
         amount: 'Montant total'
         check_number: 'Nombre de chèques'
@@ -139,6 +142,7 @@ fr-FR:
         title: 'Remise de chèques du {{date}}'
       _embankment_form:
         infos: 'Renseignez les informations suivantes'
+        payments: 'Règlements'
       embankment_update:
         title: 'Modification de la remise de chèque du {{date}}'
       index:

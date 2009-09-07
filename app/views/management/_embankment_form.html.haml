@@ -1,11 +1,10 @@
 =formalize do |f|
   - f.error :embankment
   - f.title :infos
-  - if @current_company.payment_modes.find_all_by_mode("check").size > 1
-    - if @embankment.new_record?
-      - f.field :embankment, :mode_id, :choices=>@current_company.payment_modes.find_all_by_mode("check").collect{|x| [x.name, x.id]}, :new=>{:action=>:payment_mode_create}
-    - else
-      - f.field t('activerecord.attributes.embankment.mode_id'), @embankment.mode.name
-  -#f.field :embankment, :bank_account_id, :choices=>:bank_account
-  -f.field :embankment, :bank_account_id, :choices=>@current_company.bank_accounts.find_all_by_entity_id(@current_company.entity_id).collect{|x| [x.name, x.id]}, :new=>{:controller=>:accountancy, :action=>:bank_account_create}
+  - f.field :embankment, :bank_account_id, :choices=>@current_company.bank_accounts.find_all_by_entity_id(@current_company.entity_id).collect{|x| [x.name, x.id]}, :new=>{:controller=>:accountancy, :action=>:bank_account_create}
   - f.field :embankment, :created_on
+
+=hidden_field_tag :mode_id, @embankment.mode_id
+
+%h2=tc :payments
+=dyta :embankable_payments

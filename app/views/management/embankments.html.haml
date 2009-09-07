@@ -1,7 +1,8 @@
-.count=tc(:nb_checks, :count=>@current_company.checks_to_embank(0).size)
-
-=toolbar do
-  -link(:embankment_create) if @current_company.checks_to_embank(0).size > 0
+=toolbar do |t|
+  -for mode in @current_company.payment_modes.find(:all, :order=>:name)
+    -count=mode.embankable_payments.size
+    -if count > 0
+      -t.link(tc(:embankment_create, :count=>count, :mode=>mode.name), {:action=>:embankment_create, :mode_id=>mode.id})
 =dyta :embankments
 
 
