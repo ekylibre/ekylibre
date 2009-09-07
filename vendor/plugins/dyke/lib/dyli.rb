@@ -102,7 +102,7 @@ module Ekylibre
           tf_value = nil
           hf_name  = "#{name_html}"
           hf_value =  nil
-          options  = {:action => "dyli_#{name_db}"}.merge(options)
+          options  = {:action => "#{name_db}_dyli"}.merge(options)
           options[:field_id] = name_html.gsub(/[\[\]]/,'_').gsub(/(^\_+|\_+$)/, '')
           completion_options[:skip_style] = true;
           
@@ -126,7 +126,7 @@ module Ekylibre
           
           hf_name  = "#{object}[#{foreign_key}]"
           hf_value = (real_object.send(foreign_key) rescue nil)
-          options  = { :action => "dyli_#{name}"}.merge(options)
+          options  = { :action => "#{name}_dyli"}.merge(options)
           options[:real_object] = real_object.send(foreign_key) unless real_object.new_record?
           options[:field_id] = "#{object}_#{foreign_key}"
            
@@ -144,7 +144,7 @@ module Ekylibre
             :allow_free_text      => false,
             :submit_on_return     => false,
             :controller           => controller.controller_name,
-            :action               => 'dyli_' + tf_name.sub(/\[/, '_').gsub(/\[\]/, '_').gsub(/\[?\]$/, ''),
+            :action               => tf_name.sub(/\[/, '_').gsub(/\[\]/, '_').gsub(/\[?\]$/, '') + '_dyli',
             :after_update_element => 'Prototype.emptyFunction'
           }.merge(options)
           
