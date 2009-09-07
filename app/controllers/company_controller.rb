@@ -130,11 +130,7 @@ class CompanyController < ApplicationController
   end
 
 
-
-
-
-
-  dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:nic) do |t|
     t.column :name
     t.column :nic
     t.column :siret
@@ -177,7 +173,7 @@ class CompanyController < ApplicationController
 
 
 
-  dyta(:departments, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+  dyta(:departments, :conditions=>{:company_id=>['@current_company.id']},:default_order=>:name) do |t| 
     t.column :name
     t.column :comment
     t.action :department_update
@@ -217,10 +213,7 @@ class CompanyController < ApplicationController
   end
 
 
-
-
-
-  dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}, :children=>:users) do |t| 
+  dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:name, :children=>:users) do |t| 
     t.column :name, :children=>:label
     t.column :diff_more, :class=>'rights more'
     t.column :diff_less, :class=>'rights less'
@@ -305,8 +298,7 @@ class CompanyController < ApplicationController
   # @employee = Employee.new
   end
 
-
-  dyta(:users, :conditions=>['company_id= ? AND deleted=?', ['@current_company.id'], false], :line_class=>"(RECORD.locked ? 'critic' : '')", :default_order=>"last_name, first_name") do |t| 
+  dyta(:users, :conditions=>['company_id= ? AND deleted=?', ['@current_company.id'], false], :default_order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')") do |t| 
     t.column :name
     t.column :first_name
     t.column :last_name
@@ -400,11 +392,7 @@ class CompanyController < ApplicationController
     redirect_to_current
   end
 
-
-
-
-
-  dyta(:document_templates, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:document_templates, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:name) do |t|
     t.column :active
     t.column :name
     t.column :name, :through=>:nature, :url=>{:action=>:document_nature_update}
@@ -415,9 +403,6 @@ class CompanyController < ApplicationController
     t.action :document_templates_duplicate
     t.action :document_template_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
-
-
-
 
   def document_templates
   end
@@ -477,15 +462,7 @@ class CompanyController < ApplicationController
   end
 
 
-
-
-
-
-
-
-
-
-  dyta(:document_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:document_natures, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:family) do |t|
     t.column :family_label
     t.column :name
     t.column :code
@@ -661,7 +638,7 @@ class CompanyController < ApplicationController
   end
 
 
-  dyta(:listing_nodes, :conditions=>{:company_id=>['@current_company.id'], :listing_id=>['session[:current_listing_id]']}) do |t|
+  dyta(:listing_nodes, :conditions=>{:company_id=>['@current_company.id'], :listing_id=>['session[:current_listing_id]']}, :default_order => :name) do |t|
     t.column :name
     t.column :label
     t.action :listing_update

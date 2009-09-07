@@ -1,25 +1,25 @@
 class AccountancyController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
   
-  dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:code) do |t|
     t.column :name
     t.column :code
     t.column :name, :through=>:currency
     t.column :closed_on
     t.action :journal_close, :if => 'RECORD.closable?(Date.today)'
-    t.action :entries_consult_by_journal_id, :image=>:table
+   # t.action :entries_consult, :image=>:table
     t.action :journal_update, :image=>:update
     t.action :journal_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
   
-  dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"number ASC") do |t|
     t.column :number
     t.column :name
     t.action :account_update, :image=>:update
     t.action :account_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
   
-  dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:name) do |t|
     t.column :name
     t.column :iban_label
     t.column :name, :through=>:journal
@@ -29,7 +29,7 @@ class AccountancyController < ApplicationController
     t.action :bank_account_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
   
-  dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"started_on ASC") do |t|
     t.column :started_on
     t.column :stopped_on
     t.column :number
@@ -38,8 +38,6 @@ class AccountancyController < ApplicationController
     t.action :bank_account_statement_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
   
-   
-
   #
   def self.entries_conditions_statements(options={})
     code = ""
@@ -54,8 +52,7 @@ class AccountancyController < ApplicationController
     code
   end
 
-
-  dyta(:entries_statement, :model =>:entries, :conditions=>entries_conditions_statements) do |t|
+  dyta(:entries_statement, :model =>:entries, :conditions=>entries_conditions_statements, :default_order=>:record_id) do |t|
     t.column :number, :label=>"Numéro", :through=>:record
     t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
     t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
@@ -91,8 +88,7 @@ class AccountancyController < ApplicationController
   end
 
 
-
-  dyta(:entries, :conditions=>entries_conditions_journal_consult, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id") do |t|
+  dyta(:entries, :conditions=>entries_conditions_journal_consult, :default_order=>:record_id, :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id") do |t|
     t.column :number, :label=>"Numéro", :through=>:record
     t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
     t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
@@ -100,15 +96,17 @@ class AccountancyController < ApplicationController
     t.column :number, :label=>"Compte" , :through=>:account
     t.column :debit
     t.column :credit
+    t.action :entry_update, :image => :update, :if => '!RECORD.close?'  
+    t.action :entry_delete, :image => :delete,  :method => :post, :confirm=>:are_you_sure, :if => '!RECORD.close?'
   end
   
-  dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:started_on) do |t|
     t.column :code
     t.column :closed
     t.column :started_on
     t.column :stopped_on
     t.action :financialyear_close, :if => '!RECORD.closed and RECORD.closable?'
-    t.action :entries_consult, :image => :table
+   # t.action :entries_consult, :image => :table
     t.action :financialyear_update, :image => :update, :if => '!RECORD.closed'  
     t.action :financialyear_delete, :method => :post, :image =>:delete, :confirm=>:are_you_sure, :if => '!RECORD.closed'  
   end
@@ -455,10 +453,10 @@ class AccountancyController < ApplicationController
   end
   
  # this method finds the report journal with the matching id and the company_id.
-  def journals_report_find
-    @journal = @current_company.journals(:last, :conditions => {:nature => :renew.to_s, :deleted => false}) 
-    return @journal.name
-  end
+ # def journals_report_find
+ #   @journal = @current_company.journals(:last, :conditions => {:nature => :renew.to_s, :deleted => false}) 
+ #   return @journal.name
+  #end
   
   # This method allows to close the financialyear.
   def financialyear_close
@@ -497,7 +495,7 @@ class AccountancyController < ApplicationController
           return
         end
         
-        balance_account = generate_balance_account(@current_company.id, @financialyear.id)
+        balance_account = generate_balance_account(@current_company.id, @financialyear.started_on, @financialyear.stopped_on)
       
         if balance_account.size > 0
           @record = JournalRecord.create!(:financialyear_id => @new_financialyear.id, :company_id => @current_company.id, :journal_id => @renew_journal.id, :created_on => @new_financialyear.started_on, :printed_on => @new_financialyear.started_on)
@@ -529,7 +527,7 @@ class AccountancyController < ApplicationController
         end
       end
       @financialyear.close(params[:financialyear][:stopped_on])
-      flash[:message] = "Exercice clôturé"
+      flash[:message] = tc('messages.closed_financialyears')
       redirect_to :action => :financialyears
       
     else
@@ -547,14 +545,19 @@ class AccountancyController < ApplicationController
   
   
 # this method generates a table with debit and credit for each account.
-  def generate_balance_account(company, financialyear)
+#  def generate_balance_account(company, financialyear)
+  def generate_balance_account(company, from, to)
     balance = []
     debit = 0
     credit = 0
-    @current_company.accounts.each do |account|
-      balance << account.compute(company, financialyear)
-    end
-    raise Exception.new balance.compact!
+    #a=Account.balance(company, from, to)
+    #raise Exception.new a.inspect
+    return Account.balance(company, from, to)
+    
+    # @current_company.accounts.each do |account|
+    #  balance << account.compute(company, financialyear)
+    #end
+  #  raise Exception.new balance_account.inspect
   end
   
   #
@@ -592,6 +595,7 @@ class AccountancyController < ApplicationController
     session[:statement] = nil
     session[:journal_record] ||= {} 
     if params[:id]
+     #  raise Exception.new params[:id].to_s
       session[:journal_record][:financialyear_id] = params[:id] 
       session[:journal_record][:journal_id] = ''
     end
@@ -735,6 +739,10 @@ class AccountancyController < ApplicationController
 
   # this method deletes an entry with a form.
   def entry_delete
+    if request.post? or request.delete?
+      @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id) 
+      Entry.destroy(@entry.id)
+    end
   end
 
   # lists all the transactions established on the accounts, sorted by date.
@@ -843,7 +851,7 @@ class AccountancyController < ApplicationController
   def lettering
     clients_account = @current_company.parameter('accountancy.third_accounts.clients').value.to_s
     suppliers_account = @current_company.parameter('accountancy.third_accounts.suppliers').value.to_s
-
+    
     Account.create!(:name=>"Clients", :number=>clients_account, :company_id=>@current_company.id) unless @current_company.accounts.exists?(:number=>clients_account)
     Account.create!(:name=>"Fournisseurs", :number=>suppliers_account, :company_id=>@current_company.id) unless @current_company.accounts.exists?(:number=>suppliers_account)
 
@@ -853,7 +861,7 @@ class AccountancyController < ApplicationController
     @financialyears = @current_company.financialyears.find(:all)
     
     @entries =  @current_company.entries.find(:all, :conditions => ["editable = ? AND (a.number LIKE ? OR a.number LIKE ?)", false, clients_account+'%', suppliers_account+'%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
-
+ 
     unless @entries.size > 0
       flash[:message] = tc('messages.need_entries_to_letter')
       return
@@ -861,7 +869,7 @@ class AccountancyController < ApplicationController
 
     if request.post?
       @account = @current_company.accounts.find(params[:account_client_id], params[:account_supplier_id])
-      redirect_to :action => "accounts_letter", :id => @account.id
+      redirect_to :action => "account_letter", :id => @account.id
     end
 
   end
@@ -958,7 +966,7 @@ class AccountancyController < ApplicationController
       else
        
         if @statement.save
-          redirect_to :action => "statements_point", :id => @statement.id 
+          redirect_to :action => "bank_account_statement_point", :id => @statement.id 
         end
       end
     else

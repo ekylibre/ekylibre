@@ -13,6 +13,7 @@ fr-FR:
       journals:
         create: 'Créer un nouveau journal comptable'
       messages:
+        closed_financialyears: 'Exercice clôturé'
         need_bank_account_to_record_statements: 'Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte.'
         need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
         need_entries_to_letter: 'Vous devez avoir des écritures verrouillées enregistrées au compte client et fournisseur.'

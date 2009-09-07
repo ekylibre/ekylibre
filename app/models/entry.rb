@@ -72,7 +72,7 @@ class Entry < ActiveRecord::Base
     end
   end
   
-  # 
+  # this method tests if the entry is .
   def close?
     return (not self.editable)
   end

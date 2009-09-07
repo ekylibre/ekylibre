@@ -81,33 +81,33 @@ class Account < ActiveRecord::Base
   end
 
   # computes the balance for a given financialyear.
-  def compute(company, financialyear)
-    debit = self.entries.sum(:debit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
-    credit = self.entries.sum(:credit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
+ #  def compute(company, financialyear)
+#     debit = self.entries.sum(:debit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
+#     credit = self.entries.sum(:credit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
  
-    balance = {}
-    unless (debit.zero? and credit.zero?) and not self.number.to_s.match /^12/
-      balance[:id] = self.id.to_i
-      balance[:number] = self.number.to_i
-      balance[:name] = self.name.to_s
-      balance[:balance] = debit - credit
-      if debit.zero? or credit.zero?
-        balance[:debit] = debit
-        balance[:credit] = credit
-      end
-      if not debit.zero? and not credit.zero?
-        if balance[:balance] > 0  
-          balance[:debit] = balance[:balance]
-          balance[:credit] = 0
-        else
-          balance[:debit] = 0
-          balance[:credit] = balance[:balance].abs
-        end
-      end
-    end
+#     balance = {}
+#     unless (debit.zero? and credit.zero?) and not self.number.to_s.match /^12/
+#       balance[:id] = self.id.to_i
+#       balance[:number] = self.number.to_i
+#       balance[:name] = self.name.to_s
+#       balance[:balance] = debit - credit
+#       if debit.zero? or credit.zero?
+#         balance[:debit] = debit
+#         balance[:credit] = credit
+#       end
+#       if not debit.zero? and not credit.zero?
+#         if balance[:balance] > 0  
+#           balance[:debit] = balance[:balance]
+#           balance[:credit] = 0
+#         else
+#           balance[:debit] = 0
+#           balance[:credit] = balance[:balance].abs
+#         end
+#       end
+#     end
     
-    balance unless balance.empty?
-  end
+#     balance unless balance.empty?
+#   end
 
   # this method loads the balance for a given period.
   def self.balance(company, from, to, list_accounts=[])
@@ -126,17 +126,33 @@ class Account < ActiveRecord::Base
       credit = account.entries.sum(:credit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
       
       compute={}
+      compute[:id] = account.id.to_i
       compute[:number] = account.number.to_i
       compute[:name] = account.name.to_s
       compute[:debit] = debit
       compute[:credit] = credit
       compute[:balance] = debit - credit 
+
+      if debit.zero? or credit.zero?
+        compute[:debit] = debit
+        compute[:credit] = credit
+      end
+      
+      if not debit.zero? and not credit.zero?
+        if compute[:balance] > 0  
+          compute[:debit] = compute[:balance]
+          compute[:credit] = 0
+        else
+          compute[:debit] = 0
+          compute[:credit] = compute[:balance].abs
+        end
+      end
+      
       solde += compute[:balance] if account.number.to_s.match /^(6|7)/
-            
-      #raise Exception.new("account: "+solde.to_s) if account.number.to_s.match /^7/
+          
       balance << compute
     end
-#    raise Exception.new("solde2: "+solde.to_s)
+   #raise Exception.new("solde2: "+solde.to_s)
     balance.each do |account| 
        if account[:number].to_s.match /^12/
          account[:debit] = 0
@@ -144,7 +160,7 @@ class Account < ActiveRecord::Base
          account[:balance] = solde
        end
     end
-#    raise Exception.new(balance.inspect)
+   #raise Exception.new(balance.inspect)
     balance.compact
   end
   

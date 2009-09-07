@@ -571,9 +571,9 @@ fr-FR:
         departed_on: (((DEPARTED_ON)))
         department_id: 'Département'
         establishment_id: 'Etablissement'
-        first_name: 'Nom'
+        first_name: 'Prénom'
         id: 'ID'
-        last_name: 'Prénom'
+        last_name: 'Nom'
         lock_version: 'Version'
         office: (((OFFICE)))
         profession_id: 'Profession'

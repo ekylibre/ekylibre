@@ -47,8 +47,8 @@
             %td{:align=>"right"}=number_to_currency(entry.currency_debit, :delimiter=>"", :precision => 2, :unit=>"")
             %td{:align=>"right"}=number_to_currency(entry.currency_credit, :delimiter=>"", :precision => 2, :unit=>"")
             - unless entry.record.created_on < entry.record.journal.closed_on
-              %td.act=link_to image_tag('buttons/update.png', :border=>0), :action => "entries_update", :id => entry.id
-              %td.act=link_to_remote image_tag('buttons/delete.png', :border=>0), :url =>{:action => "entries", :id => entry.id}, :method=>:delete, :confirm=> tc(:confirm) 
+              %td.act=link_to image_tag('buttons/update.png', :border=>0), :action => :entry_update, :id => entry.id
+              %td.act=link_to_remote image_tag('buttons/delete.png', :border=>0), :url =>{:action => :entry_delete, :id => entry.id}, :method=>:delete, :confirm=> tc(:confirm) 
 
 
 
