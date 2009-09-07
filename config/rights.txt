@@ -1,5 +1,3 @@
-management      sale_order_deliveries_dyta            administrate_management
-management      sale_order_contacts                   create_estimates
 accountancy      index                            administrate_accountancy
 accountancy      entries_consult                  consult_entries
 accountancy      entries_consult_by_journal_id    consult_entries
@@ -118,7 +116,6 @@ help             close                            __minimum__
 help             previous                         __minimum__
 help             search                           __minimum__
 help             side                             __minimum__
-management       sale_order_subscriptions_dyta    create_estimates
 management       all_contacts_dyli                administrate_management
 management       critic_product_stocks_dyta       administrate_management
 management       index                            administrate_management
@@ -126,6 +123,7 @@ management       inventories                      administrate_management
 management       inventory_consult                administrate_management
 management       payments_dyta                    administrate_management
 management       sale_lines_dyta                  administrate_management
+management       sale_order_deliveries_dyta       administrate_management
 management       sale_order_lines_dyta            administrate_management
 management       sale_order_natures_dyta          administrate_management
 management       sale_orders_dyta                 administrate_management
@@ -152,11 +150,13 @@ management       sales_details                    consult_sales
 management       stocks                           consult_stocks
 management       clients_dyli                     create_estimates
 management       price_find                       create_estimates
+management       sale_order_contacts              create_estimates
 management       sale_order_create                create_estimates
 management       sale_order_line_create           create_estimates
 management       sale_order_line_delete           create_estimates
 management       sale_order_line_update           create_estimates
 management       sale_order_lines                 create_estimates
+management       sale_order_subscriptions_dyta    create_estimates
 management       sale_order_update                create_estimates
 management       sum_calculate                    create_estimates
 management       contacts_dyli                    create_purchases
@@ -310,7 +310,6 @@ production       shape_delete                     manage_shapes
 production       shape_update                     manage_shapes
 production       shapes                           manage_shapes
 production       shapes_dyta                      manage_shapes
-relations        entity_payments_dyta             consult_entities
 relations        auto_complete_for_contact_line_6 administrate_relations
 relations        change_minutes                   administrate_relations
 relations        entities_dyli                    administrate_relations
@@ -320,6 +319,7 @@ relations        entities                         consult_entities
 relations        entities_dyta                    consult_entities
 relations        entity                           consult_entities
 relations        entity_bank_accounts_dyta        consult_entities
+relations        entity_payments_dyta             consult_entities
 relations        entity_sale_orders_dyta          consult_entities
 relations        entities_export                  import_export_entities
 relations        entities_import                  import_export_entities
