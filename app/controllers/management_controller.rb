@@ -1293,20 +1293,21 @@ class ManagementController < ApplicationController
   end
   
   def embankment_print
-    @embankment = find_and_check(:embankment, params[:id])
-    if @current_company.default_contact.nil? || @embankment.bank_account.address.nil?
-      entity = @current_company.default_contact.nil? ? @current_company.name : @embankment.bank_account.name
-      flash[:warning]=tc(:no_contacts, :name=>entity)
-      redirect_to_back
-    else
-      @payments = @current_company.payments.find_all_by_embankment_id(@embankment.id)
-      @lines = []
-      @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-      @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
-      #raise Exception.new @embankment.bank_account.bank_name.inspect
-      @account_address = @embankment.bank_account.address.split("\n")
-      print(@embankment, :archive=>false, :filename=>tc('embankment')+" "+@embankment.created_on.to_s)
-    end
+    return embankment = find_and_check(:embankment, params[:id])
+    print(embankment, :filename=>tc('embankment', :creation=>::I18n.localize(embankment.created_on))
+#     if @current_company.default_contact.nil? || @embankment.bank_account.address.nil?
+#       entity = @current_company.default_contact.nil? ? @current_company.name : @embankment.bank_account.name
+#       flash[:warning]=tc(:no_contacts, :name=>entity)
+#       redirect_to_back
+#     else
+#       @payments = @current_company.payments.find_all_by_embankment_id(@embankment.id)
+#       @lines = []
+#       @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
+#       @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+#       #raise Exception.new @embankment.bank_account.bank_name.inspect
+#       @account_address = @embankment.bank_account.address.split("\n")
+#       print(@embankment, :archive=>false, :filename=>tc('embankment')+" "+@embankment.created_on.to_s)
+#     end
   end
 
   def embankment_create

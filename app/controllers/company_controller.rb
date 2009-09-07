@@ -295,7 +295,6 @@ class CompanyController < ApplicationController
 
 
   def users
-  # @employee = Employee.new
   end
 
   dyta(:users, :conditions=>['company_id= ? AND deleted=?', ['@current_company.id'], false], :default_order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')") do |t| 
