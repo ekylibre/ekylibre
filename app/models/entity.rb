@@ -227,6 +227,8 @@ class Entity < ActiveRecord::Base
     self.default_contact ? self.default_contact.address : '[NoDefaultContactError]'
   end
 
+  
+
 
 
   def max_reduction_rate(computed_on=Date.today)
@@ -234,4 +236,10 @@ class Entity < ActiveRecord::Base
     Subscription.maximum(:reduction_rate, :joins=>"JOIN subscription_natures AS sn ON (nature_id = sn.id) LEFT JOIN entity_links AS el ON (el.nature_id = sn.entity_link_nature_id AND subscriptions.entity_id IN (entity1_id, entity2_id))", :conditions=>["? IN (subscriptions.entity_id, entity1_id, entity2_id) AND ? BETWEEN subscriptions.started_on AND subscriptions.stopped_on AND subscriptions.company_id = ?", self.id, computed_on, self.company_id]).to_f
   end
   
+  def description
+    desc = self.code+" - "+self.full_name+" - "
+    desc += self.default_contact.area.name unless self.default_contact.nil?
+    desc
+  end
+
 end 
