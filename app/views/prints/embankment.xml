@@ -8,63 +8,46 @@
   </parameters>
   <document unit="mm" size="10" title="client.label">
     <page format="A4" margin="10mm">
-      <part height="95mm">
+      <part height="32mm">
         <set>
-          <text value="{{embankment.company}}" size="7mm"/>
-          <set left=" 100mm, 35mm">
-            <text value=" @embankment.bank_account.bank_name" size="11" font="courier"/>
-	    <text value=" account_line size="11 top="top2 font=""courier"/>
-            </set>
-	</set>
+          <image value="{{embankment.company.entity/photo}}" height="30mm">
+            <text value="{{embankment.company.entity/full_name}}" size="16"/>
+          </image>
+          <set left="100mm" top="35mm">
+            <text value="{{embankment.bank_account/bank_name}}" size="11"/>
+          </set>
+        </set>
       </part>
 
-      <part height="40mm"> 
-        <set>
-	  if @current_company.default_contact.line_6_city.nil?
-          "Le "+I18n.localize(@embankment.created_on)
-	  else
-          <text value=" "À "+@current_company.default_contact.line_6_city+", le "+I18n.localize(@embankment.created_on)" />
-	</set>
-	<set> 
-          <text value=" "Remise de chèques du "+I18n.localize(@embankment.created_on) top="15mm bold=":bold left="width/2 align=":centeréé" />
-          <set>
-	    if @embankment.bank_account.mode == "iban"
-            <text value=" "À remettre sur le compte "+@embankment.bank_account.iban_label" top="25mm", :left="width/2" align=":center"/>
-	    else
-	    <text value=" "À remettre sur le compte "+@embankment.bank_account.formated_bban" top="25mm",  :left="width/2" align=":center"/>
-	  </set>
-	</set>
+      <part height="15mm"> 
+        <set left="50%"> 
+          <text value="Remise en banque du {{embankment.created_on?format=classic}}" top="1mm" bold="true" size="12" align="center"/>
+          <text value="À remettre sur le compte {{embankment.bank_account/iban_label}}" top="6mm" align="center"/>
+        </set>
       </part>
 
-      <table collection="embankment.payments">
-	column "Client", "entity.full_name", 1.6
-	column "Banque", "bank"
-	column "N° Compte", "account_number", 1.3
-	column "N° Chèque", "check_number"
-	column "Date", "paid_on", 0.8 align="center"
-	column "Montant", "amount", 0.65 align=":right"
+      <table collection="embankment.payments" fixed="true">
+        <column label="Client" property="entity.full_name" width="75mm"/>
+        <column label="Banque" property="bank" width="35mm"/>
+        <column label="N. Compte" property="account_number" width="25mm" align="center"/>
+        <column label="N. Ch." property="check_number" width="15mm" align="center"/>
+        <column label="Date" property="paid_on" width="20mm" align="center"/>
+        <column label="Montant" property="amount" width="20mm" align="right" numeric="money"/>
       </table>
   
-      <part height="20mm">
-        <set left=" 65mm, 5mm">
-          <text value=" @embankment.payments_number.to_s+" chèques pour un montant total de "+@embankment.amount.to_s size="12 italic=":italic"/>
-	</set>
-      </part>
-
-      <part height="30mm">
-        <set left=" 100mm">
-          <text value="Signature" size="12" top="5mm" left="10mm"/>
-								 line [[0, 1.5mm], [width, 1.5mm]],  :width="0.3"
-														 line [[0, 25mm], [width, 25mm]],  :width="0.3"
-																			       line [[0, 1.5mm], [0, 25mm]],  :width="0.3"
-      line [[width, 1.5mm], [width, 25mm]],  :width="0.3"
-    end
-  end
-  
       <part height="10mm">
-        <set left=" 70mm, 5mm">
-     text "Imprimé le "+I18n.localize(Time.now) size="8
-    end
-  end
-  
-end  
+        <set left="50%" top="3mm">
+          <text value="{{embankment/payments_count}} règlements pour un montant total de {{embankment/amount?numeric}}€" size="12" bold="true" align="center"/>
+        </set>
+      </part>
+<!--
+      <part height="35mm">
+        <set left="100mm" top="3mm">
+          <rectangle width="80mm" height="30mm"/>
+          <text value="Cachet et/ou signature" top="2mm" left="2mm"/>
+        </set>
+      </part>
+-->
+    </page>
+  </document>
+</template>

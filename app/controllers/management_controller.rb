@@ -54,7 +54,7 @@ class ManagementController < ApplicationController
     end
   end
   
-  dyta(:all_invoices, :model=>:invoices, :conditions=>search_conditions(:invoices, :number), :line_class=>'RECORD.status') do |t|
+  dyta(:all_invoices, :model=>:invoices, :conditions=>search_conditions(:invoices, :number), :line_class=>'RECORD.status', :default_order=>"created_on DESC") do |t|
     t.column :number, :url=>{:action=>:invoices_display}
     t.column :full_name, :through=>:client
     t.column :created_on
@@ -1293,8 +1293,8 @@ class ManagementController < ApplicationController
   end
   
   def embankment_print
-    return embankment = find_and_check(:embankment, params[:id])
-    print(embankment, :filename=>tc('embankment', :creation=>::I18n.localize(embankment.created_on))
+    return unless embankment = find_and_check(:embankment, params[:id])
+    print(embankment, :filename=>tc('embankment', :creation=>::I18n.localize(embankment.created_on)))
 #     if @current_company.default_contact.nil? || @embankment.bank_account.address.nil?
 #       entity = @current_company.default_contact.nil? ? @current_company.name : @embankment.bank_account.name
 #       flash[:warning]=tc(:no_contacts, :name=>entity)
