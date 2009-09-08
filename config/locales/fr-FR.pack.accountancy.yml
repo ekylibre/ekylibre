@@ -26,6 +26,8 @@ fr-FR:
         need_report_journal_to_report: 'Vous devez créer un journal des à nouveaux pour cette opération.'
         no_entries_pointable_for_bank_account: 'Ce compte bancaire ne contient aucune écriture à pointer.'
         no_financialyear: 'Aucun exercice enregistré'
+        no_template_journal: 'Pas de modèle journal'
+        no_template_journal_by_id: 'Pas de modèle journal {{value}}'
       next_illegal_period_financialyear: 'Le prochain exercice ne démarre pas directement après.'
       no_closable_financialyear: 'Vous n''avez aucun exercice à clôturer.'
       no_closable_journal: 'Vous n''avez aucun journal à clôturer.'

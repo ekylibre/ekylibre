@@ -160,8 +160,9 @@ class DocumentTemplate < ActiveRecord::Base
     return '('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
   end
 
-  private
 
+
+  private
 
   class << self
     

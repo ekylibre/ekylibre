@@ -220,7 +220,7 @@ class AccountancyController < ApplicationController
     end
   end
   
-  #  this method prints the document.
+  #  this method prints the document
   def document_print
     for print in PRINTS
       @print = print if print[0].to_s == session[:mode]
@@ -257,11 +257,16 @@ class AccountancyController < ApplicationController
           sum[:balance] = sum[:debit] - sum[:credit]
         end
         
-        journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Grand journal comptabilité"})
-        pdf = journal_template.print(@current_company,  params[:printed][:from],  params[:printed][:to], entries, sum)
-        File.open('tmp/journaux.pdf', 'wb') do |f|
-          f.write(pdf)
+        journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Journaux"})
+        if journal_template.nil?
+          flash[:message]=tc(:no_template_journal)
+          redirect_to :action=>:document_print
+          return
         end
+        
+        pdf = journal_template.print(@current_company,  params[:printed][:from],  params[:printed][:to], entries, sum)
+        
+        send_data pdf, :type=>:pdf
       end
       
       if session[:mode] == "journal_by_id"
@@ -276,11 +281,18 @@ class AccountancyController < ApplicationController
           sum[:balance] = sum[:debit] - sum[:credit]
         end
 
-        journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Journal comptabilité"})
+        journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Journal"})
+     
+         if journal_template.nil?
+           flash[:message]=tc(:no_template_journal_by_id, :value=>journal.name)
+           redirect_to :action=>:document_print
+           return
+         end
+        
         pdf = journal_template.print(journal,  params[:printed][:from],  params[:printed][:to], entries, sum)
-        File.open('tmp/journal.pdf', 'wb') do |f|
-          f.write(pdf)
-        end
+        
+        send_data pdf, :type=>:pdf
+        
       end
       
       if session[:mode] == "balance"
@@ -293,11 +305,17 @@ class AccountancyController < ApplicationController
         sum[:balance] = sum[:debit] - sum[:credit]
      
         balance_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Balance comptabilité"})
+        if balance_template.nil?
+          flash[:message]=tc(:no_balance)
+          redirect_to :action=>:balance
+          return
+        end
+        
         pdf = balance_template.print(@current_company, accounts_balance,  params[:printed][:from],  params[:printed][:to], sum)
         File.open('tmp/balance.pdf', 'wb') do |f|
           f.write(pdf)
         end
-     
+      
       end
 
       if session[:mode] == "synthesis"

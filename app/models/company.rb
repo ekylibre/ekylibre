@@ -132,6 +132,10 @@ class Company < ActiveRecord::Base
     firm = self.entities.create!(:nature_id=>undefined_nature.id, :language_id=>language.id, :name=>self.name)
     self.entity_id = firm.id
     self.save
+    
+    # loading of all the templates
+    load_prints
+
     self.payment_modes.create!(:name=>tc('default.check'), :company_id=>self.id)
     delays = []
     ['expiration', 'standard', 'immediate'].each do |d|
@@ -1014,7 +1018,30 @@ class Company < ActiveRecord::Base
     end
     return csv_string
   end
+  
+  # this method loads all the templates existing.
+  def load_prints
+    language = self.entity.language
+    prints_dir = "#{RAILS_ROOT}/app/views/prints"
 
+    templates = {}
+    templates[:management] ={'sale_order'=>{:to_archive=>false}, 'invoice'=>{:to_archive=>true}}
+    templates[:accountancy] ={'journal'=>{:to_archive=>false}, 'journals'=>{:to_archive=>false}}
+  
+    templates.each do |mod, a|
+      a.each do |n, options|
+        nature = self.document_natures.find_by_code(n)
+        nature = self.document_natures.create(:code=>n, :name=>tc('default.document_natures.'+n.to_s), :to_archive=>options[:to_archive], :family=>mod.to_s) if nature.nil?
+        
+        File.open("#{prints_dir}/#{n}.xml", 'rb') do |f|
+          self.document_templates.create(:nature_id=>nature.id, :active=>true, :name=>tc('default.document_templates.'+n.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read)
+        end
+  
+      end
+    end
+
+  end
+  
 
 
   def import_entities

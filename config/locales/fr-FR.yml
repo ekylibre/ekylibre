@@ -159,9 +159,13 @@ fr-FR:
         department_name: Gestion/Production
         document_natures:
           invoice: Facture
+          journal: Journal
+          journals: Journaux
           sale_order: Vente
         document_templates:
           invoice: Facture de vente
+          journal: Journal
+          journals: Journaux
           sale_order: 'Devis/Commande'
         entities_numeration: Numérotation des relations
         establishment_name: Établissement principal

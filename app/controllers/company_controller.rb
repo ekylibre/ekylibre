@@ -409,17 +409,23 @@ class CompanyController < ApplicationController
   def document_templates_load
     language = @current_company.entity.language
     prints_dir = "#{RAILS_ROOT}/app/views/prints"
-    {'sale_order'=>{:to_archive=>false}, 'invoice'=>{:to_archive=>true}}.each do |m, options|
-      # Sale_order
-      nature = @current_company.document_natures.find_by_code(m)
-      nature = @current_company.document_natures.create(:code=>m, :name=>t('models.company.default.document_natures.'+m.to_s), :to_archive=>options[:to_archive], :family=>'management') if nature.nil?
-      File.open("#{prints_dir}/#{m}.xml", 'rb') do |f|
-        @current_company.document_templates.create(:nature_id=>nature.id, :active=>true, :name=>t('models.company.default.document_templates.'+m.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read)
+ 
+    templates = {}
+    templates[:management] ={'sale_order'=>{:to_archive=>false}, 'invoice'=>{:to_archive=>true}}
+    templates[:accountancy] ={'journal'=>{:to_archive=>false}, 'journal_by_id'=>{:to_archive=>false}}
+  
+    templates.each do |mod, a|
+      a.each do |n, options|
+        nature = @current_company.document_natures.find_by_code(n)
+        nature = @current_company.document_natures.create(:code=>n, :name=>t('models.company.default.document_natures.'+n.to_s), :to_archive=>options[:to_archive], :family=>mod.to_s) if nature.nil?
+        
+        File.open("#{prints_dir}/#{n}.xml", 'rb') do |f|
+          @current_company.document_templates.create(:nature_id=>nature.id, :active=>true, :name=>t('models.company.default.document_templates.'+n.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read)
+        end
       end
     end
-    redirect_to :action=>:document_templates
   end
-
+ 
   def document_template_create
     if request.post? 
       @document_template = DocumentTemplate.new(params[:document_template])
@@ -503,15 +509,6 @@ class CompanyController < ApplicationController
     end
     redirect_to_current
   end
-
-
-
-
-
-
-
-
-
 
 
   dyta(:sequences, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
