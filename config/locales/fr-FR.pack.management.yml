@@ -187,6 +187,7 @@ fr-FR:
         sales_consult: 'Liste des ventes'
         sale_order_create: 'Nouvelle vente'
         shelves: 'Catégories de produit'
+        statistics: 'Statistiques'
         stock_transfers: 'Transferts et pertes'
         stocks: 'Stocks'
         stocks_consult: 'État des stocks'
@@ -494,6 +495,11 @@ fr-FR:
         general: 'Informations générales'
       shelf_update:
         title: 'Ajout d''une nouvelle catégorie de produits'
+      statistics:
+        title: 'Statistique'
+        product: 'Produit'
+        nb_years: 'Nombre d''années dans l''historique'
+        go: 'Valider'
       _stock_indicator:
         critic_stock_min: 'Stock minimum critique'
         current_real_quantity: 'Quantité réelle'

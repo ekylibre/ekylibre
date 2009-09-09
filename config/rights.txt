@@ -150,6 +150,7 @@ management       purchases                        consult_purchases
 management       sales                            consult_sales
 management       sales_details                    consult_sales
 management       stocks                           consult_stocks
+management       statistics                       consult_sales
 management       clients_dyli                     create_estimates
 management       price_find                       create_estimates
 management       sale_order_contacts              create_estimates

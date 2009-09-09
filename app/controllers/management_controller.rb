@@ -1,5 +1,6 @@
 class ManagementController < ApplicationController
 
+  
   include ActionView::Helpers::FormOptionsHelper
  
   def index
@@ -37,9 +38,50 @@ class ManagementController < ApplicationController
 
   manage :delays
   
+
+  #this method allows to create a graphism
+  def statistics
+    session[:product] ||= {}
+    session[:nb_year] ||= {}
+    
+    if request.post?
+      session[:product] = params[:product]
+      session[:nb_year] = params[:nb_year]
+  
+      product = @current_company.products.find(params[:product]).name
+
+      g=Gruff::Line.new(500,500)
+      
+      12.times do |m|
+        g.labels[m]=(m+1).to_s 
+      end
+
+      (params[:nb_year].to_i+1).times do |x|
+        d = (Date.today - x.year) - 12.month
+        sales=[]
+        
+        12.times do |m|
+          
+          sales << @current_company.sale_order_lines.sum(:quantity, :conditions=>['product_id=? and created_on BETWEEN ? AND ?', params[:product].to_s, d.beginning_of_month, d.end_of_month], :joins=>"INNER JOIN sale_orders as s ON s.id=sale_order_lines.order_id").to_f
+
+          d += 1.month
+          
+        end
+        g.data(product, sales)
+      end
+    
+      Dir.mkdir "#{RAILS_ROOT}/public/images/tmp/#{@current_company.name}" unless File.exists? "#{RAILS_ROOT}/public/images/tmp/#{@current_company.name}"
+      g.write("#{RAILS_ROOT}/public/images/tmp/#{@current_company.name}/#{session[:product].gsub(' ','_')}-#{params[:nb_year]}.png")
+
+    end
+    
+  end
+    
+  #
   def inventories
   end
   
+  #
   def inventory_consult
     #   srr = @current_company.product_stocks.find_all_by_location_id(1)
     #     for sl in  @current_company.stock_locations
