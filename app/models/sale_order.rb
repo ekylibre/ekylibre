@@ -123,7 +123,7 @@ class SaleOrder < ActiveRecord::Base
       for line in self.lines.find(:all, :conditions=>["quantity>0"])
         line.product.reserve_stock(line.quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self)
       end
-      self.update_attribute(:confirmed_on, validated_on||Date.today)
+      self.reload.update_attribute(:confirmed_on, validated_on||Date.today)
     end
   end
 
