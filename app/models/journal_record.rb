@@ -36,6 +36,7 @@ class JournalRecord < ActiveRecord::Base
 
   #
   def before_validation
+    
     self.debit = self.entries.sum(:debit)
     self.credit = self.entries.sum(:credit)
     unless self.number

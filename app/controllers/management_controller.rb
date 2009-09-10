@@ -85,7 +85,7 @@ class ManagementController < ApplicationController
     if request.post?
       session[:product] = params[:product]
       session[:nb_year] = params[:nb_year]
-  
+      #raise Exception.new session[:product].to_s
       product = @current_company.products.find(params[:product]).name
 
       g=Gruff::Line.new(500,500)

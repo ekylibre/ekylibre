@@ -674,15 +674,18 @@ class AccountancyController < ApplicationController
       if request.post?
         @record = @current_company.journal_records.find(:first,:conditions=>["journal_id = ? AND number = ? AND financialyear_id = ?", @journal.id, params[:record][:number].rjust(4,"0"), @financialyear.id])
        
+        created_on = params[:record][:created_on].gsub('/','-').to_date.strftime
+        printed_on = params[:record][:printed_on].gsub('/', '-').to_date.strftime
+
         if @record
           if @record.created_on > @record.journal.closed_on
-            @record.created_on = params[:record][:created_on]
-            @record.printed_on = params[:record][:printed_on]
+            @record.created_on = created_on
+            @record.printed_on = printed_on
           end
         end
         
         if @record.nil?
-          @record = JournalRecord.create!(params[:record].merge({:financialyear_id => @financialyear.id, :journal_id => @journal.id, :company_id => @current_company.id}))
+          @record = JournalRecord.create!(params[:record].merge({:financialyear_id => @financialyear.id, :journal_id => @journal.id, :company_id => @current_company.id, :created_on => created_on, :printed_on => printed_on}))
         end 
         
         @entry = @current_company.entries.build(params[:entry])
@@ -696,6 +699,7 @@ class AccountancyController < ApplicationController
             @entry  = Entry.new
           end
         else
+          raise Exception.new('error 1')
           error_balance_or_new_record = true if @record.balanced or @record.new_record?
           # @record.reload
           @entry = Entry.new
@@ -718,6 +722,7 @@ class AccountancyController < ApplicationController
 #       
       unless error_balance_or_new_record
         @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0) AND financialyear_id = ?", @financialyear.id], :order=>:id) if @record.balanced or @record.new_record?
+        
       end
       
       unless @record.nil?

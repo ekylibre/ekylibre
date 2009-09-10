@@ -11,8 +11,8 @@
       %th{:colspan=>2}
     %tr
       %td=text_field :record, :number, {:size=>5}
-      %td=text_field :record, :created_on, {:size=>10}
-      %td=text_field :record, :printed_on, {:size=>10} 
+      %td=text_field_tag 'record[created_on]', I18n.localize(@record.created_on)
+      %td=text_field_tag 'record[printed_on]', I18n.localize(@record.printed_on)
       %td=text_field :entry,  :name, {:size=>16}
       %td=dyli_tag 'entry[account_id]', :account, :resize=>true 
       %td=text_field :entry, :currency_debit, {:size=>7}
@@ -49,6 +49,5 @@
             - unless entry.record.created_on < entry.record.journal.closed_on
               %td.act=link_to image_tag('buttons/update.png', :border=>0), :action => :entry_update, :id => entry.id
               %td.act=link_to_remote image_tag('buttons/delete.png', :border=>0), :url =>{:action => :entry_delete, :id => entry.id}, :method=>:delete, :confirm=> tc(:confirm) 
-
 
 
