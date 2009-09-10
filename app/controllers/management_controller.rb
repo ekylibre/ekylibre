@@ -15,6 +15,44 @@ class ManagementController < ApplicationController
     @stock_transfers = @current_company.stock_transfers.find(:all, :conditions=>{:moved_on=>nil}) 
     @payments_to_embank = @current_company.checks_to_embank(-1)
     @embankments_to_lock = @current_company.embankments_to_lock
+
+#     sn = @current_company.subscription_natures.find(:first, :order=>"COALESCE(reduction_rate, 0) DESC")
+#     g = Gruff::Line.new(800,200)
+#     g.title = sn.name
+#     start, finish  = 700, sn.actual_number
+#     for x in 0..2
+#       months = []
+#       f = finish-22*x+1
+#       s = f-21
+#       for i in s..f
+#         months << sn.subscriptions.count(:conditions=>["? between first_number AND last_number", i])
+#       end
+#       g.data "Du #{s} au #{f}", months
+#     end
+#     g.write("#{RAILS_ROOT}/public/images/gruff/#{@current_company.id}-test.png")
+
+#     g = Gruff::Line.new(800,200)
+#     g.title = sn.name
+#     start, finish  = 700, sn.actual_number
+#     months = []
+#     for i in start..finish
+#       months << sn.subscriptions.count(:conditions=>["? between first_number AND last_number", i])
+#     end
+#     g.data "Du #{start} au #{finish}", months
+#     g.write("#{RAILS_ROOT}/public/images/gruff/#{@current_company.id}-test.png")
+    
+
+#     g = Gruff::Line.new(800,200)
+#     sn = @current_company.subscription_natures.find(:first, :order=>"COALESCE(reduction_rate, 0) DESC")
+#     g.title = sn.name
+#     for x in 2007..2009
+#       months = []
+#       12.times do |i|
+#         months << sn.subscriptions.count(:conditions=>["started_on BETWEEN ? AND ?", Date.civil(x,i+1,1), Date.civil(x,i+1,1).end_of_month])
+#       end
+#       g.data x.to_s, months
+#     end
+#     g.write("#{RAILS_ROOT}/public/images/gruff/#{@current_company.id}-test.png")
   end
   
   
@@ -775,14 +813,24 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
   end
   
-  dyta(:payments, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :model=>:payment_parts) do |t|
-    t.column :amount, :through=>:payment, :label=>"Montant du paiment"
+#   dyta(:payments, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :model=>:payment_parts) do |t|
+#     # t.column :payer, :through=>[:payment, :entity], :label=>"Payeur"
+#     t.column :payment_way
+#     t.column :paid_on, :through=>:payment, :label=>"Réglé le"
+#     t.column :amount
+#     t.column :amount, :through=>:payment, :label=>"Montant du paiment"
+#   end
+  
+  dyta(:payments, :conditions=>["payments.company_id=? AND payment_parts.order_id=?", ['@current_company.id'], ['session[:current_sale_order]']], :joins=>"JOIN payment_parts ON (payments.id=payment_id)") do |t|
+    t.column :id
+    t.column :full_name, :through=>:entity
+    #t.column :payment_way
+    t.column :paid_on
     t.column :amount
-    t.column :payment_way
-    t.column :paid_on, :through=>:payment, :label=>"Réglé le"
+    # t.column :amount, :through=>:payment, :label=>"Montant du paiment"
   end
   
-  def sales_details
+  def sale_order
     @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
     @title = {:value=>@sale_order.number, :name=>@sale_order.client.full_name} 

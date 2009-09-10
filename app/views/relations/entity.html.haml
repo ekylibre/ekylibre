@@ -47,7 +47,7 @@
     -c << dyta(:entity_sale_orders)
   -if @invoices_count>0
     -tb.tab(tc(:invoices, :count=>@invoices_count)) do |c|
-      -c << dyta(:client_invoices)
+      -c << dyta(:entity_invoices)
   -if @payments_count>0
     -tb.tab(tc(:payments, :count=>@payments_count)) do |c|
       -c << dyta(:entity_payments)

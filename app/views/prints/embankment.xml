@@ -13,9 +13,6 @@
           <image value="{{embankment.company.entity/photo}}" height="30mm">
             <text value="{{embankment.company.entity/full_name}}" size="16"/>
           </image>
-          <set left="100mm" top="35mm">
-            <text value="{{embankment.bank_account/bank_name}}" size="11"/>
-          </set>
         </set>
       </part>
 

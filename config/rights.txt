@@ -148,7 +148,7 @@ management       purchase_order_lines_dyta        consult_purchases
 management       purchase_orders_dyta             consult_purchases
 management       purchases                        consult_purchases
 management       sales                            consult_sales
-management       sales_details                    consult_sales
+management       sale_order                    consult_sales
 management       stocks                           consult_stocks
 management       statistics                       consult_sales
 management       clients_dyli                     create_estimates
@@ -316,7 +316,7 @@ relations        auto_complete_for_contact_line_6 administrate_relations
 relations        change_minutes                   administrate_relations
 relations        entities_dyli                    administrate_relations
 relations        index                            administrate_relations
-relations        client_invoices_dyta             consult_entities
+relations        entity_invoices_dyta             consult_entities
 relations        entities                         consult_entities
 relations        entities_dyta                    consult_entities
 relations        entity                           consult_entities

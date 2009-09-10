@@ -408,7 +408,7 @@ fr-FR:
         supply: 'Livraison'
         title: 'Livraisons'
         undelivered: 'Reste à livrer'
-      sales_details:
+      sale_order:
         deliveries: 'Livraisons'
         general_informations: 'Informations générales'
         invoices: 'Factures'

@@ -21,6 +21,7 @@ class SubscriptionNature < ActiveRecord::Base
   belongs_to :company
   belongs_to :entity_link_nature
   has_many :products
+  has_many :subscriptions, :foreign_key=>:nature_id
 
   validates_numericality_of :reduction_rate, :greater_than=>0, :less_than_or_equal_to=>1
 
