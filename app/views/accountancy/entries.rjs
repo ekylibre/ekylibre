@@ -3,7 +3,7 @@ page.replace_html 'lines', :partial => 'entries'
 page.replace_html 'errors', :partial => 'errors'
 
 page['record_number'].focus()
-page['entry_name'].value=(@record.balanced ? '' : @record.entries.first.name) 
+page['entry_name'].value=((@record.balanced or @record.new_record?) ? '' : @record.entries.first.name) 
 
 
 
