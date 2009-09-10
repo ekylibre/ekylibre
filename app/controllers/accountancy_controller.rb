@@ -97,7 +97,7 @@ class AccountancyController < ApplicationController
     t.column :debit
     t.column :credit
     t.action :entry_update, :image => :update, :if => '!RECORD.close?'  
-    t.action :entry_delete, :image => :delete,  :method => :post, :confirm=>:are_you_sure, :if => '!RECORD.close?'
+    t.action :entry_delete, :image => :delete,  :method => :post, :confirm=>:are_you_sure, :if => '!RECORD.close? and !RECORD.letter?'
   end
   
   dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:started_on) do |t|

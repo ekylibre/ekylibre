@@ -60,7 +60,7 @@ fr-FR:
         journal_name: 'Journal'
         record_number: 'Pièce'
         recorded_on: 'Date'
-        title: 'LETTRAGE du compte N° {{value1}}'
+        title: 'Lettrage du compte N° {{value1}}'
       accounts_letter_launch:
         select_account: 'Sélectionnez un compte:'
         title: 'Lettrage de compte'

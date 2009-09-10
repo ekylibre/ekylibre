@@ -94,7 +94,7 @@ class Entry < ActiveRecord::Base
   
   # this method allows to verify if the entry is lettered or not.
   def letter?
-    not self.letter.blank?
+    return (not self.letter.blank?)
   end
 
   #

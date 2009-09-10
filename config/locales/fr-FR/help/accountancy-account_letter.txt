@@ -1,5 +1,5 @@
 h1. Comment lettrer des écritures ?
-Vous avez un tableau répertoriant les différentes écritures relatives au compte choisi pour l'exercice considéré. Pour chacune d'elles, sont indiqués les montants au débit et au crédit. Le repère consiste ici **en une lettre** dont la valeur varie si l'ensemble des écritures de même lettre sont **équilibrées**. En cliquant sur une écriture, vous la lettrer.    
+Vous avez un tableau répertoriant les différentes écritures relatives au compte choisi pour l'exercice considéré. Pour chacune d'elles, sont indiqués les montants au débit et au crédit. Le repère consiste ici **en une lettre** dont la valeur varie si l'ensemble des écritures de même lettre sont **équilibrées**. En cliquant sur une écriture, vous l'a lettré.    
 **Un jeu de couleurs** vous permet de savoir où vous en êtes dans l'équilibrage du lettrage:
 * **rouge** si l'écriture est non lettrée
 * **vert** si l'écriture est lettrée et équilibrée  
