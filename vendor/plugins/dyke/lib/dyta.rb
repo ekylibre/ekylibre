@@ -285,6 +285,14 @@ module Ekylibre
                     code += "''"
                   end
                   code += ", :class=>'chk')"
+                when :textbox
+                  code += "content_tag(:td,"
+                  if nature==:body 
+                    code += "text_field_tag('#{definition.name}['+#{record}.id.to_s+'][#{column.name}]', #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name.to_s}, :id=>'#{definition.name}_'+#{record}.id.to_s+'_#{column.name}'#{column.options[:size] ? ', :size=>'+column.options[:size].to_s : ''})"
+                  else
+                    code += "''"
+                  end
+                  code += ", :class=>'txt')"
                 when :action
                   code += "content_tag(:td, "+(nature==:body ? column.operation(record) : "''")+", :class=>'act')"
                 else 
@@ -413,6 +421,10 @@ module Ekylibre
           @columns << DytaElement.new(model, :check, name, options)
         end
         
+        def textbox(name=:name, options={})
+          @columns << DytaElement.new(model, :textbox, name, options)
+        end
+        
       end
 
 
@@ -463,7 +475,7 @@ module Ekylibre
               end;
             when :action
               'ƒ'
-            when :check
+            when :check, :textbox then
               @model.human_attribute_name(@name.to_s)
             else 
               '-'

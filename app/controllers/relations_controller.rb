@@ -300,7 +300,7 @@ class RelationsController < ApplicationController
     t.column :name, :through=>:nature
     t.column :start
     t.column :finish
-    t.column :number, :through=>:invoice, :url=>{:action=>:invoices_display, :controller=>:management}
+    t.column :number, :through=>:invoice, :url=>{:action=>:invoice, :controller=>:management}
     t.column :number, :through=>:sale_order, :url=>{:action=>:sale_order, :controller=>:management}
     t.column :address, :through=>:contact
     t.column :quantity, :datatype=>:decimal
@@ -351,8 +351,8 @@ class RelationsController < ApplicationController
     t.column :amount_with_taxes
     # t.column :credit
     t.action :invoice_print, :controller=>:management
-    # t.action :controller=>:management, :invoices_cancel, :if=>'RECORD.credit != true and @current_user.credits'
-    # t.action :controller=>:management, :invoices_cancel, :if=>'RECORD.credit != true and @current_user.credits'
+    # t.action :controller=>:management, :invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
+    # t.action :controller=>:management, :invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
   end
 
   dyta(:entity_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :default_order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|

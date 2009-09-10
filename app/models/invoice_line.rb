@@ -30,6 +30,7 @@ class InvoiceLine < ActiveRecord::Base
   belongs_to :origin, :class_name=>InvoiceLine.name
   belongs_to :price
   belongs_to :product
+  has_many :credit_lines, :class_name=>InvoiceLine.name, :foreign_key=>:origin_id
 
   validates_presence_of :order_line_id
 
@@ -56,7 +57,7 @@ class InvoiceLine < ActiveRecord::Base
   end
   
   def validate
-    if !self.origin_id.nil?
+    unless self.origin_id.nil?
       errors.add(:quantity) if ((self.quantity*-1) > self.origin.quantity)
     end
   end
@@ -100,6 +101,16 @@ class InvoiceLine < ActiveRecord::Base
     d  = self.order_line.label
     d += "\n"+self.annotation.to_s unless self.annotation.blank?
     d
+  end
+
+
+  
+  def credited_quantity
+    self.credit_lines.sum(:quantity)
+  end
+
+  def uncredited_quantity
+    self.quantity - self.credited_quantity
   end
 
 end

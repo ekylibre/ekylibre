@@ -138,7 +138,7 @@ management       uniq_critic_product_stocks_dyta  administrate_management
 management       unreceived_purchases_dyta        administrate_management
 management       unvalidated_embankments_dyta     administrate_management
 management       entities_dyli                    administrate_relations
-management       invoices_cancel                  cancel_invoices
+management       invoice_cancel                  cancel_invoices
 management       all_invoices_dyta                consult_invoices
 management       invoice_credit_lines_dyta        consult_invoices
 management       invoice_lines_dyta               consult_invoices
@@ -283,7 +283,7 @@ management       taxes_dyta                       manage_taxes
 management       invoices_print                   print_sales
 management       sale_order_print                 print_sales
 management       invoices                         search_and_consult_invoices
-management       invoices_display                 search_and_consult_invoices
+management       invoice                 search_and_consult_invoices
 management       product                          search_and_consult_products
 management       products                         search_and_consult_products
 management       products_search                  search_and_consult_products

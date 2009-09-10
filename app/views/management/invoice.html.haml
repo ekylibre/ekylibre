@@ -10,7 +10,7 @@
       = evalue @invoice, :amount_with_taxes
       = evalue @invoice, :credit
       = evalue @invoice, :sale_order, :label=>:number, :url=>{:action=>:sale_order}
-      = evalue @invoice, :origin, :label=>:number, :url=>{:action=>:invoices_display} if !@invoice.origin.nil?
+      = evalue @invoice, :origin, :label=>:number, :url=>{:action=>:invoice} if !@invoice.origin.nil?
 
 %h2= tc(:invoice_lines) 
 =dyta :invoice_credit_lines

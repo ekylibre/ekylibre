@@ -30,7 +30,6 @@
 #
 
 class Invoice < ActiveRecord::Base
-
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :company
   belongs_to :contact
@@ -39,6 +38,7 @@ class Invoice < ActiveRecord::Base
   belongs_to :sale_order
   has_many :deliveries
   has_many :lines, :class_name=>InvoiceLine.name
+  has_many :credits, :class_name=>Invoice.name, :foreign_key=>:origin_id
 
   attr_readonly :company_id, :number, :sale_order_id, :amount, :amount_with_taxes, :client_id, :contact_id, :currency_id, :annotation
 
