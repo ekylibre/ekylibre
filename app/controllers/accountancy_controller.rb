@@ -883,8 +883,8 @@ class AccountancyController < ApplicationController
     
     @financialyears = @current_company.financialyears.find(:all)
     
-    @entries =  @current_company.entries.find(:all, :conditions => ["editable = ? AND (a.number LIKE ? OR a.number LIKE ?)", false, clients_account+'%', suppliers_account+'%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
- 
+    @entries =  @current_company.entries.find(:all, :conditions => ["editable = ? AND (a.number LIKE ? OR a.number LIKE ?)", true, clients_account+'%', suppliers_account+'%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
+    
     unless @entries.size > 0
       flash[:message] = tc('messages.need_entries_to_letter')
       return
@@ -959,7 +959,7 @@ class AccountancyController < ApplicationController
       
       @entries = @current_company.entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
       
-      render :action => "accounts_letter.rjs"
+      render :action => "account_letter.rjs"
     end
 
   end

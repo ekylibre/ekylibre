@@ -17,8 +17,8 @@
         %td=entry.record.number
         %td.decimal=entry.debit
         %td.decimal=entry.credit
-        %td{:id => 'entry_letter_'+entry.id.to_s, :onclick => remote_function(:url => {:action => 'entries_letter', :id => entry.id })}=entry.letter    
+        %td{:id => 'entry_letter_'+entry.id.to_s, :onclick => remote_function(:url => {:action => 'entry_letter', :id => entry.id })}=entry.letter    
       
 %br  
-#lettering=render :partial => 'accounts_letter'
+#lettering=render :partial => 'account_letter'
 
