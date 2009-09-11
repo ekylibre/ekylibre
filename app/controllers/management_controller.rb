@@ -103,7 +103,7 @@ class ManagementController < ApplicationController
         g.data('N'+(x>0 ? '-'+x.to_s : ''), sales) # +d.year.to_s
       end
 
-      dir = "#{RAILS_ROOT}/public/images/gruff/#{@current_company.name}"
+      dir = "#{RAILS_ROOT}/public/images/gruff/#{@current_company.code}"
       @graph = "management-statistics-#{product.code}-#{rand.to_s[2..-1]}.png"
       
       File.makedirs dir unless File.exists? dir
