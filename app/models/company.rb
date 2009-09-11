@@ -201,6 +201,7 @@ class Company < ActiveRecord::Base
 
   def available_products(options={})
     options[:conditions]={:active=>true}
+    options[:order] ||= 'name'
     self.products.find(:all, options)
   end
 

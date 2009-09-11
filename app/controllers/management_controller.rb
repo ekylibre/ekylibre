@@ -79,33 +79,35 @@ class ManagementController < ApplicationController
 
   #this method allows to create a graphism
   def statistics
-    session[:product] ||= {}
-    session[:nb_year] ||= {}
-    
+    session[:nb_year] ||= 2
     if request.post?
-      session[:product] = params[:product]
+      return unless product = find_and_check(:product, params[:product_id])
+      session[:product_id] = product.id
       session[:nb_year] = params[:nb_year]
-      product = @current_company.products.find(params[:product]).name
 
-      g=Gruff::Line.new(500,500)
-      
-      12.times do |m|
-        g.labels[m]=(m+1).to_s 
-      end
+      g = Gruff::Line.new('800x600')
+      g.title = product.catalog_name
+      g.title_font_size=20
+      g.line_width = 2
+      g.dot_radius = 2
 
       (params[:nb_year].to_i+1).times do |x|
         d = (Date.today - x.year) - 12.month
         sales=[]
         
         12.times do |m|
-          sales << @current_company.sale_order_lines.sum(:quantity, :conditions=>['product_id=? and created_on BETWEEN ? AND ?', params[:product].to_s, d.beginning_of_month, d.end_of_month], :joins=>"INNER JOIN sale_orders as s ON s.id=sale_order_lines.order_id").to_f
+          sales << @current_company.sale_order_lines.sum(:quantity, :conditions=>['product_id=? and created_on BETWEEN ? AND ?', product.id, d.beginning_of_month, d.end_of_month], :joins=>"INNER JOIN sale_orders as s ON s.id=sale_order_lines.order_id").to_f
           d += 1.month
+          g.labels[m] = t('date.abbr_month_names')[d.month]
         end
-        g.data(product, sales)
+        g.data('N'+(x>0 ? '-'+x.to_s : ''), sales) # +d.year.to_s
       end
-    
-      Dir.mkdir "#{RAILS_ROOT}/public/images/tmp/#{@current_company.name}" unless File.exists? "#{RAILS_ROOT}/public/images/tmp/#{@current_company.name}"
-      g.write("#{RAILS_ROOT}/public/images/tmp/#{@current_company.name}/#{session[:product].gsub(' ','_')}-#{params[:nb_year]}.png")
+
+      dir = "#{RAILS_ROOT}/public/images/gruff/#{@current_company.name}"
+      @graph = "management-statistics-#{product.code}-#{rand.to_s[2..-1]}.png"
+      
+      File.makedirs dir unless File.exists? dir
+      g.write(dir+"/"+@graph)
 
     end
   end
@@ -130,15 +132,16 @@ class ManagementController < ApplicationController
   end
   
   dyta(:all_invoices, :model=>:invoices, :conditions=>search_conditions(:invoices, :number), :line_class=>'RECORD.status', :default_order=>"created_on DESC") do |t|
-    t.column :number, :url=>{:action=>:invoice}
+    t.column :number, :url=>{:action=>:invoices_display}
     t.column :full_name, :through=>:client
     t.column :created_on
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit
-    t.action :invoice_print
+    t.action :invoices_print
     t.action :invoice_cancel, :if=>"RECORD.creditable\?"
   end
+
 
   def invoices
     @key = params[:key]||session[:invoice_key]
@@ -241,7 +244,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:credits, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_invoice]'] }) do |t|
-    t.column :number, :url=>{:action=>:invoice}
+    t.column :number, :url=>{:action=>:invoices_display}
     t.column :full_name, :through=>:client
     t.column :created_on
     t.column :amount
@@ -249,7 +252,7 @@ class ManagementController < ApplicationController
   end
 
 
-  def invoice
+  def invoices_display
     @invoice = find_and_check(:invoice, params[:id])
     session[:current_invoice] = @invoice.id
     @title = {:number=>@invoice.number}
@@ -849,7 +852,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:invoice_lines, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
-    t.column :number, :children=>:product_name, :url=>{:action=>:invoice}
+    t.column :number, :children=>:product_name, :url=>{:action=>:invoices_display}
     t.column :address, :through=>:contact, :children=>false
     t.column :amount
     t.column :amount_with_taxes
@@ -1161,7 +1164,7 @@ class ManagementController < ApplicationController
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
-    t.column :number, :through=>:invoice, :url=>{:action=>:invoice}, :children=>false
+    t.column :number, :through=>:invoice, :url=>{:action=>:invoices_display}, :children=>false
     t.column :quantity
     t.column :amount
     t.column :amount_with_taxes
@@ -1339,10 +1342,10 @@ class ManagementController < ApplicationController
     # t.column :address, :through=>:contact, :children=>:product_name
     t.column :amount
     t.column :amount_with_taxes
-    t.action :invoice_print
+    t.action :invoices_print
   end
   
-  def invoice_print
+  def invoices_print
     @invoice = find_and_check(:invoice, params[:id])
     #if @current_company.default_contact.nil? || @invoice.contact.nil? 
       #entity = @current_company.default_contact.nil? ? @current_company.name : @invoice.client.full_name
