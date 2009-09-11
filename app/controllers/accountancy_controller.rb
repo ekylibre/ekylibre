@@ -111,7 +111,19 @@ class AccountancyController < ApplicationController
     t.action :financialyear_delete, :method => :post, :image =>:delete, :confirm=>:are_you_sure, :if => '!RECORD.closed'  
   end
 
-  dyli(:account, [:number, :name], :conditions => {:company_id=>['@current_company.id']})
+  
+  dyta(:taxes, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}) do |t|
+    t.column :name
+    t.column :amount, :precision=>3
+    t.column :nature_label
+    t.column :included
+    t.column :reductible
+    t.action :tax_update
+    t.action :tax_delete, :method=>:delete, :confirm=>:are_you_sure
+  end
+  
+
+ dyli(:account, [:number, :name], :conditions => {:company_id=>['@current_company.id']})
  
  
   # 
@@ -1070,6 +1082,12 @@ class AccountancyController < ApplicationController
     session[:statement]=params[:id]
     @title = {:value => @bank_account_statement.number}
   end
+    
+  def taxes
+  end
+  
+  manage :taxes, :nature=>":percent"
+
 end
 
 

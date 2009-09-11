@@ -48,6 +48,11 @@ accountancy      statements                       manage_statements
 accountancy      document_prepare                 print_accounting_document
 accountancy      document_print                   print_accounting_document
 accountancy      synthesis                        print_accounting_document
+accountancy      tax_create                       manage_taxes
+accountancy      tax_delete                       manage_taxes
+accountancy      tax_update                       manage_taxes
+accountancy      taxes                            manage_taxes
+accountancy      taxes_dyta                       manage_taxes
 authentication   index                            __minimum__
 authentication   login                            __minimum__
 authentication   logout                           __minimum__
@@ -275,11 +280,6 @@ management       subscription_update              manage_subscriptions
 management       subscriptions                    manage_subscriptions
 management       subscriptions_dyta               manage_subscriptions
 management       subscriptions_period             manage_subscriptions
-management       tax_create                       manage_taxes
-management       tax_delete                       manage_taxes
-management       tax_update                       manage_taxes
-management       taxes                            manage_taxes
-management       taxes_dyta                       manage_taxes
 management       invoices_print                   print_sales
 management       sale_order_print                 print_sales
 management       invoices                         search_and_consult_invoices

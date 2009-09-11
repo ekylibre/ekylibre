@@ -1,0 +1,14 @@
+.search
+  -form_tag do
+    %table
+      %tr
+        %td.label=tc("product")
+        %td.input=select_tag(:product, options_for_select(@current_company.products.collect{|x| [x.name, x.id]}, session[:product].to_s))
+        %td.label=tc("nb_years")
+        %td.input=text_field_tag(:nb_year, session[:nb_year].to_s, :size=>3)
+        %td=submit_tag tg("search_go")
+%br
+- unless session[:product].blank?
+  =image_tag "tmp/#{@current_company.name}/#{session[:product].gsub(' ','_')}-#{session[:nb_year]}.png"
+
+

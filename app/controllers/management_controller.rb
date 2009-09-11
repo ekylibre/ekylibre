@@ -2229,19 +2229,4 @@ class ManagementController < ApplicationController
 
 
 
-  dyta(:taxes, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}) do |t|
-    t.column :name
-    t.column :amount, :precision=>3
-    t.column :nature_label
-    t.column :included
-    t.column :reductible
-    t.action :tax_update
-    t.action :tax_delete, :method=>:delete, :confirm=>:are_you_sure
-  end
-  
-  def taxes
-  end
-  
-  manage :taxes, :nature=>":percent"
-  
 end

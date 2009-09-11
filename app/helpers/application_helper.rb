@@ -65,6 +65,7 @@ module ApplicationHelper
            [ {:name=>:accounts},
              {:name=>:journals},
              {:name=>:bank_accounts},
+             {:name=>:taxes},
              {:name=>:financialyears} ] }
        ] },
      # ManagementController
@@ -91,7 +92,6 @@ module ApplicationHelper
              {:name=>:prices},
              {:name=>:shelves},
              {:name=>:delays},
-             {:name=>:taxes},
              {:name=>:delivery_modes},
              {:name=>:payment_modes},
              {:name=>:sale_order_natures},
