@@ -194,7 +194,6 @@ fr-FR:
         stocks_locations: 'Gérer les stocks'
         subscription_natures: 'Types d''abonnement'
         subscriptions: 'Abonnements'
-        taxes: 'Taxes'
         title: 'Gestion commerciale'
         units: 'Unités de mesure'
       inventories:
@@ -215,7 +214,7 @@ fr-FR:
           other: '{{count}} factures enregistrées'
           zero: 'Aucune facture enregistrée'
         title: 'Factures'
-      invoice_cancel:
+      invoices_cancel:
         already_credited_quantity: 'Qté. déjà passée en avoir'
         price_amount: 'Prix HT'
         price_amount_with_taxes: 'Prix TTC'
@@ -225,7 +224,7 @@ fr-FR:
         total_quantity: 'Qté. totale'
         unit: 'Unité'
         validate: 'Valider'
-      invoice:
+      invoices_display:
         credits: 'Avoirs'
         invoice_lines: 'Lignes de la facture'
         title: 'Facture : {{number}}'
@@ -584,13 +583,6 @@ fr-FR:
         title: 'Création d''un abonnement'
       subscription_update:
         title: 'Modification de "{{value}}" du {{start}} au {{finish}}'
-      taxes:
-        tax_create: 'Ajouter une nouvelle taxe'
-        title: 'Taxes'
-      tax_create:
-        title: 'Ajouter une nouvelle taxe'
-      tax_update:
-        title: 'Modification de la taxe : {{value}}'
       undelivered_sales:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'

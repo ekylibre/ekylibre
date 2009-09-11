@@ -165,6 +165,7 @@ fr-FR:
         parameters: 'Paramètres'
         report: 'Reprise des à nouveaux'
         statements: 'Pointer un relevé de compte'
+        taxes: 'Taxes' 
         title: 'Comptabilité générale'
         works: 'Travaux comptables'
       journals:
@@ -225,6 +226,13 @@ fr-FR:
         select_bank_account: 'Sélectionnez un compte bancaire:'
         bank_account_statement_create: 'Enregistrer un nouveau relevé de compte'
         title: 'Pointage des relevés de comptes bancaires'
+      taxes:
+        tax_create: 'Ajouter une nouvelle taxe'
+        title: 'Taxes'
+      tax_create:
+        title: 'Ajouter une nouvelle taxe'
+      tax_update:
+        title: 'Modification de la taxe : {{name}}'
       bank_account_statement_create:
         title: 'Enregistrer un nouveau relevé de compte'
       bank_account_statement:
