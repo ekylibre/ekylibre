@@ -40,7 +40,7 @@ class Invoice < ActiveRecord::Base
   has_many :lines, :class_name=>InvoiceLine.name
   has_many :credits, :class_name=>Invoice.name, :foreign_key=>:origin_id
 
-  attr_readonly :company_id, :number, :sale_order_id, :amount, :amount_with_taxes, :client_id, :contact_id, :currency_id, :annotation
+  attr_readonly :company_id, :number, :sale_order_id, :client_id, :contact_id, :currency_id, :annotation # , :amount, :amount_with_taxes
 
   def before_validation
     self.created_on = Date.today unless self.created_on.is_a? Date
@@ -85,9 +85,13 @@ class Invoice < ActiveRecord::Base
   end
   
   def status
-    status = ""
-    status = "critic" if self.credit
-    status
+    if not self.creditable? 
+      "error"
+    elsif self.credited_amount<0
+      "warning"
+    else
+      ""
+    end
   end
 
   def product_name
@@ -106,6 +110,14 @@ class Invoice < ActiveRecord::Base
 
   def unpaid_amount
     self.sale_order.invoices.sum(:amount_with_taxes)-self.sale_order.payment_parts.sum(:amount)
+  end
+
+  def credited_amount
+    self.credits.sum(:amount_with_taxes)
+  end
+
+  def creditable?
+    not self.credit and self.amount_with_taxes + self.credited_amount > 0
   end
   
 end

@@ -65,7 +65,7 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 #yield h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: normal;}
 #yield h2 { margin: 16px 0px 4px; font-size:16px; color: #06A;}
 #yield .menu, .errorExplanation { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px;}
-#yield .menu h2, .errorExplanation h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
+#yield .menu h2, .errorExplanation h2 { font-size : 16px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }
 #yield .menu ul, .errorExplanation ul { padding: 4px 4px 4px 18px; }
 #yield .menu li, .errorExplanation li { list-style-type: square; padding: 1px;}
 #yield .menu li { color:#047; }

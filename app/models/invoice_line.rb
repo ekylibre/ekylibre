@@ -49,7 +49,7 @@ class InvoiceLine < ActiveRecord::Base
     #self.destroy if !line.nil?
     #true if line.nil?
 
-    if !self.origin_id.nil?
+    unless self.origin_id.nil?
       self.amount = self.quantity * self.price.amount
       self.amount_with_taxes = self.quantity * self.price.amount_with_taxes
     end
@@ -58,7 +58,11 @@ class InvoiceLine < ActiveRecord::Base
   
   def validate
     unless self.origin_id.nil?
-      errors.add(:quantity) if ((self.quantity*-1) > self.origin.quantity)
+      if self.origin.quantity > 0
+        errors.add(:quantity) if -self.quantity > self.origin.quantity
+      else
+        errors.add(:quantity) if -self.quantity < self.origin.quantity
+      end
     end
   end
 
@@ -84,9 +88,7 @@ class InvoiceLine < ActiveRecord::Base
   end
 
   def after_save
-    if !self.origin_id.nil?
-      self.invoice.save 
-    end
+    self.invoice.save unless self.origin_id.nil?
   end
 
   def product_name

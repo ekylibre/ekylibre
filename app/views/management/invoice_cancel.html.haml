@@ -7,11 +7,19 @@
         -for error in session[:errors]
           %li= error.to_s
 
-=error_messages_for 'invoice'
+
+=error_messages_for('invoice', :object=>@credit) if @credit
 
 
 - form_tag() do
   =dyta :credit_lines
+
+  .actions
+    =#link_to tg(:previous), :action=>:invoices
+    =submit_tag(tc('validate'), :action=>:invoice_cancel)
+
+
+#old 
   %table.dyta{:style=>'display:none'}
     %tr
       %th= tc('product')
@@ -33,9 +41,4 @@
           %td= 0
         -else
           %td= text_field_tag "credit_lines[#{line.id}][quantity]", line.uncredited_quantity, :id=>"credit_lines_#{line.id}_quantity"
-
-  .actions
-    =#link_to tg(:previous), :action=>:invoices
-    =submit_tag(tc('validate'), :action=>:invoice_cancel)
-
-  
+ 

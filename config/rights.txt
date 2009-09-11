@@ -280,7 +280,7 @@ management       subscription_update              manage_subscriptions
 management       subscriptions                    manage_subscriptions
 management       subscriptions_dyta               manage_subscriptions
 management       subscriptions_period             manage_subscriptions
-management       invoices_print                   print_sales
+management       invoice_print                   print_sales
 management       sale_order_print                 print_sales
 management       invoices                         search_and_consult_invoices
 management       invoice                 search_and_consult_invoices
