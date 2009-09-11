@@ -9,6 +9,6 @@
         %td=submit_tag tg("search_go")
 %br
 - unless session[:product].blank?
-  =image_tag "tmp/#{@current_company.name}/#{session[:product].gsub(' ','_')}-#{session[:nb_year]}.png"
+  =image_tag "gruff/#{@current_company.name}/#{session[:product].gsub(' ','_')}-#{session[:nb_year]}.png"
 
 

@@ -85,10 +85,12 @@ class ManagementController < ApplicationController
     if request.post?
       session[:product] = params[:product]
       session[:nb_year] = params[:nb_year]
-      product = @current_company.products.find(params[:product]).name
+      product = @current_company.products.find(params[:product]).catalog_name
 
-      g=Gruff::Line.new(500,500)
-      
+      g=Gruff::Line.new('800x600')
+      g.title=product.to_s
+      g.title_font_size=20
+    
       12.times do |m|
         g.labels[m]=(m+1).to_s 
       end
@@ -101,11 +103,11 @@ class ManagementController < ApplicationController
           sales << @current_company.sale_order_lines.sum(:quantity, :conditions=>['product_id=? and created_on BETWEEN ? AND ?', params[:product].to_s, d.beginning_of_month, d.end_of_month], :joins=>"INNER JOIN sale_orders as s ON s.id=sale_order_lines.order_id").to_f
           d += 1.month
         end
-        g.data(product, sales)
+        g.data(d.year.to_s, sales)
       end
     
-      Dir.mkdir "#{RAILS_ROOT}/public/images/tmp/#{@current_company.name}" unless File.exists? "#{RAILS_ROOT}/public/images/tmp/#{@current_company.name}"
-      g.write("#{RAILS_ROOT}/public/images/tmp/#{@current_company.name}/#{session[:product].gsub(' ','_')}-#{params[:nb_year]}.png")
+      File.makedirs "#{RAILS_ROOT}/public/images/gruff/#{@current_company.name}" unless File.exists? "#{RAILS_ROOT}/public/images/gruff/#{@current_company.name}"
+      g.write("#{RAILS_ROOT}/public/images/gruff/#{@current_company.name}/#{session[:product].gsub(' ','_')}-#{params[:nb_year]}.png")
 
     end
   end
@@ -130,14 +132,14 @@ class ManagementController < ApplicationController
   end
   
   dyta(:all_invoices, :model=>:invoices, :conditions=>search_conditions(:invoices, :number), :line_class=>'RECORD.status', :default_order=>"created_on DESC") do |t|
-    t.column :number, :url=>{:action=>:invoice}
+    t.column :number, :url=>{:action=>:invoices_display}
     t.column :full_name, :through=>:client
     t.column :created_on
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit
     t.action :invoices_print
-    t.action :invoice_cancel, :if=>'RECORD.credit != true'
+    t.action :invoices_cancel, :if=>'RECORD.credit != true'
   end
 
   def invoices
@@ -146,60 +148,37 @@ class ManagementController < ApplicationController
     #all_invoices_list({:attributes=>[:number], :key=>@key}.merge(params))
   end
 
-
-  dyta(:credit_lines, :model=>:invoice_lines, :conditions=>{:invoice_id=>['session[:invoice_id]']}) do |t|
-    t.column :name, :through=>:product
-    t.column :amount_with_taxes, :through=>:price, :label=>::I18n.t('activerecord.attributes.price.amount_with_taxes')
-    t.column :quantity
-    t.column :credited_quantity, :datatype=>:decimal
-    t.check  :validated, :value=>"true", :label=>'OK'
-    t.textbox :quantity, :value=>"RECORD.uncredited_quantity", :size=>6
-  end
-
-  def invoice_cancel
-    return unless @invoice = find_and_check(:invoices, params[:id])
-    session[:invoice_id] = @invoice.id
-#    @invoice_cancel = Invoice.find_by_origin_id_and_company_id(@invoice.id, @current_company.id)
-#     if @invoice_cancel.nil?
-#       @invoice_cancel = Invoice.new(:origin_id=>@invoice.id, :client_id=>@invoice.client_id, :credit=>true, :company_id=>@current_company.id)
-#       @invoice_cancel_lines = @invoice.lines.collect{|x| InvoiceLine.new(:origin_id=>x.id, :product_id=>x.product_id, :price_id=>x.price_id, :quantity=>0, :company_id=>@current_company.id, :order_line_id=>x.order_line_id)}
-#     else
-#       @invoice_cancel_lines = @invoice_cancel.lines
-#     end
+  def invoices_cancel
+    @invoice = find_and_check(:invoices, params[:id])
+    session[:invoice] = @invoice.id
+    @invoice_cancel = Invoice.find_by_origin_id_and_company_id(@invoice.id, @current_company.id)
+    if @invoice_cancel.nil?
+      @invoice_cancel = Invoice.new(:origin_id=>@invoice.id, :client_id=>@invoice.client_id, :credit=>true, :company_id=>@current_company.id)
+      @invoice_cancel_lines = @invoice.lines.collect{|x| InvoiceLine.new(:origin_id=>x.id, :product_id=>x.product_id, :price_id=>x.price_id, :quantity=>0, :company_id=>@current_company.id, :order_line_id=>x.order_line_id)}
+    else
+      @invoice_cancel_lines = @invoice_cancel.lines
+    end
     if request.post?
       ActiveRecord::Base.transaction do
         session[:errors] = []
-        credit = Invoice.new(:origin_id=>@invoice.id, :client_id=>@invoice.client_id, :credit=>true, :company_id=>@current_company.id)
-        saved = credit.save
+        saved = @invoice_cancel.save
         if saved
-          params[:credit_lines] ||= {}
-          for line in @invoice.lines
-            if params[:credit_lines][line.id.to_s]
-              if params[:credit_lines][line.id.to_s][:validated].to_i == 1
-                credit_line = credit.lines.create(:quantity=>[:credit_lines][line.id.to_s][:quantity].to_f, :origin_id=>line.id, :product_id=>line.product_id, :price_id=>line.price_id, :company_id=>line.company_id, :order_line_id=>line.order_line_id)
-                unless credit_line.save
-                  saved = false
-                  session[:errors] << credit_line.errors.full_messages
-                end
-              end
-            end
+          for cancel_line in @invoice_cancel_lines
+            cancel_line.quantity -= (params[:invoice_cancel_line][cancel_line.origin_id.to_s][:quantity].to_f)
+            cancel_line.invoice_id = @invoice_cancel.id
+            saved = false unless cancel_line.save
           end
-
-#           for cancel_line in @invoice_cancel_lines
-#             cancel_line.quantity -= (params[:invoice_cancel_line][cancel_line.origin_id.to_s][:quantity].to_f)
-#             cancel_line.invoice_id = @invoice_cancel.id
-#             saved = false unless cancel_line.save
-#           end
         end
-        if saved
-          redirect_to :action=>:invoice, :id=>credit.id
-        else
-#           session[:errors] = []
-#           for line in @invoice_cancel_lines
-#             session[:errors] << line.errors.full_messages if !line.errors.full_messages.empty?
-#           end
-          redirect_to :action=>:invoice_cancel, :id=>session[:invoice_id]
+        if !saved
+          session[:errors] = []
+          for line in @invoice_cancel_lines
+            session[:errors] << line.errors.full_messages if !line.errors.full_messages.empty?
+          end
+          redirect_to :action=>:invoices_cancel, :id=>session[:invoice]
           raise ActiveRecord::Rollback
+        else
+          session[:errors] = []
+          redirect_to :action=>:invoices
         end
       end
     end
@@ -217,7 +196,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:credits, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_invoice]'] }) do |t|
-    t.column :number, :url=>{:action=>:invoice}
+    t.column :number, :url=>{:action=>:invoices_display}
     t.column :full_name, :through=>:client
     t.column :created_on
     t.column :amount
@@ -225,7 +204,7 @@ class ManagementController < ApplicationController
   end
 
 
-  def invoice
+  def invoices_display
     @invoice = find_and_check(:invoice, params[:id])
     session[:current_invoice] = @invoice.id
     @title = {:number=>@invoice.number}
@@ -825,7 +804,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:invoice_lines, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
-    t.column :number, :children=>:product_name, :url=>{:action=>:invoice}
+    t.column :number, :children=>:product_name, :url=>{:action=>:invoices_display}
     t.column :address, :through=>:contact, :children=>false
     t.column :amount
     t.column :amount_with_taxes
@@ -1137,7 +1116,7 @@ class ManagementController < ApplicationController
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
-    t.column :number, :through=>:invoice, :url=>{:action=>:invoice}, :children=>false
+    t.column :number, :through=>:invoice, :url=>{:action=>:invoices_display}, :children=>false
     t.column :quantity
     t.column :amount
     t.column :amount_with_taxes
