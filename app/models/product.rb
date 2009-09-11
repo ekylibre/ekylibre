@@ -143,6 +143,13 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def default_start
+    self.subscription_nature.nature == "period" ? Date.today : self.subscription_nature.actual_number
+  end
+
+  def default_finish
+    self.subscription_nature.nature == "period" ? Delay.compute("1 year, 1 day ago") : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
+  end
 
   # Create virtual stock moves to reserve the products
   def reserve_stock(quantity, options={})
