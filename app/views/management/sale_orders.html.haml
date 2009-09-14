@@ -5,7 +5,7 @@
       =tc('search_sales')
       - [:all, :current, :unpaid].each do |state|
         =radio_button(:sale_order, :state , state, :checked=>( state.to_s == session[:sale_order_state] ? true : false))+"&nbsp;"+content_tag(:label, tc(state), :for=>'sale_order_'+state.to_s)
-      =submit_tag tg('search_go', :action=>:sales)
+      =submit_tag tg('search_go', :action=>:sale_orders)
 
 =dyta :sale_orders
 

@@ -152,8 +152,8 @@ management       invoices_dyta                    consult_invoices
 management       prices                           consult_prices
 management       purchase_order_lines_dyta        consult_purchases
 management       purchase_orders_dyta             consult_purchases
-management       purchases                        consult_purchases
-management       sales                            consult_sales
+management       purchase_orders                        consult_purchases
+management       sale_orders                            consult_sales
 management       sale_order                    consult_sales
 management       stocks                           consult_stocks
 management       statistics                       consult_sales
@@ -255,7 +255,7 @@ management       stock_location_create            manage_stock_locations
 management       stock_location_delete            manage_stock_locations
 management       stock_location_update            manage_stock_locations
 management       stock_locations_dyta             manage_stock_locations
-management       stocks_locations                 manage_stock_locations
+management       stock_location                 manage_stock_locations
 management       stock_move_create                manage_stock_moves
 management       stock_move_delete                manage_stock_moves
 management       stock_move_update                manage_stock_moves

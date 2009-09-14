@@ -268,7 +268,7 @@ fr-FR:
         locked: 'Verrouillée'
         name: 'Nom'
         purchases_journal: 'Journal d''achats'
-        sales: 'Ventes'
+        sale_orders: 'Ventes'
         sales_conditions: 'Conditions Générales de Vente'
         sales_journal: 'Journal de Ventes'
         siren: 'Numéro SIREN'

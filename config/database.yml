@@ -37,7 +37,7 @@ development:
 test:
   adapter: sqlite3
   encoding: unicode
-  database: db/ekylibre_test.sqlite3
+  database: db/data/test.sqlite3
   pool: 5
   username: rails
   password:

@@ -180,11 +180,11 @@ fr-FR:
         payments: 'Suivi des règlements'
         prices: 'Prix'
         products: 'Produits'
-        purchases: 'Achats'
+        purchase_orders: 'Achats'
         purchases_consult: 'Liste des achats'
         purchases_new: 'Nouvel achat'
         sale_order_natures: 'Types de vente'
-        sales: 'Ventes'
+        sale_orders: 'Ventes'
         sales_consult: 'Liste des ventes'
         sale_order_create: 'Nouvelle vente'
         shelves: 'Catégories de produit'
@@ -192,7 +192,7 @@ fr-FR:
         stock_transfers: 'Transferts et pertes'
         stocks: 'Stocks'
         stocks_consult: 'État des stocks'
-        stocks_locations: 'Gérer les stocks'
+        stock_location: 'Gérer les stocks'
         subscription_natures: 'Types d''abonnement'
         subscriptions: 'Abonnements'
         title: 'Gestion commerciale'
@@ -336,7 +336,7 @@ fr-FR:
         title: 'Nouvel achat'
       _purchase_order_form:
         infos: 'Renseignez les caractéristiques de l''achat '
-      purchases:
+      purchase_orders:
         nb_purchases:
           one: '1 achat'
           other: '{{count}} achats'
@@ -348,7 +348,7 @@ fr-FR:
         lines: 'Lignes de la commande'
         order_print: 'Imprimer la commande'
         purchase_order_line_create: 'Ajouter un produit à la commande'
-        purchases: 'Consulter la liste des achats'
+        purchase_orders: 'Consulter la liste des achats'
         purchases_print: 'Imprimer la commande d''achat'
         title: 'Produits de la commande {{value}} chez {{name}}'
         validate: 'Valider la commande'
@@ -381,7 +381,7 @@ fr-FR:
         title: 'Modification d''un type de vente'
       sale_order_print:
         deliveries_number: 'jjkjj'
-      sales:
+      sale_orders:
         all: 'Toutes'
         current: 'En cours'
         nb_sales:
@@ -531,7 +531,7 @@ fr-FR:
         title: 'État des stocks'
         unit: 'Unité'
         weight: 'Poids'
-      stocks_locations:
+      stock_location:
         reservoirs_create: 'Ajouter un réservoir (cuve, citerne, silot...)'
         stock_location_create: 'Ajouter un nouveau lieu de stockage'
         title: 'Gérer les stocks'
@@ -540,7 +540,7 @@ fr-FR:
       stock_location:
         establishment: 'Établissement'
         moves: 'Mouvements de stocks'
-        stocks_locations: 'Voir la liste des lieux de stockage'
+        stock_location: 'Voir la liste des lieux de stockage'
         stock_location_update: 'Modifier le lieu de stockage'
         stock_move_create: 'Ajouter un mouvement de stock'
         title: 'Détail du lieu de stockage : {{value}}'

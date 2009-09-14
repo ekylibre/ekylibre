@@ -666,7 +666,7 @@ class ManagementController < ApplicationController
   dyli(:suppliers, [:code, :full_name],  :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :supplier=>true })
   dyli(:contacts, [:address], :conditions => { :company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
-  def purchases
+  def purchase_orders
   end
 
   def purchases_print
@@ -831,11 +831,11 @@ class ManagementController < ApplicationController
       else
         flash[:warning]=tc('sale_order_can_not_be_deleted')
       end
-      redirect_to :action=>:sales
+      redirect_to :action=>:sale_orders
     end
   end
   
-  def sales
+  def sale_orders
     #raise Exception.new session[:sale_order_state].inspect
     session[:sale_order_state] ||= "all"
     if request.post?
@@ -1360,9 +1360,10 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
+  dyta(:sale_order_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
     t.column :number, :children=>:designation
     # t.column :address, :through=>:contact, :children=>:product_name
+    t.column :created_on, :children=>false
     t.column :amount
     t.column :amount_with_taxes
     t.action :invoice_print
@@ -1383,28 +1384,28 @@ class ManagementController < ApplicationController
     # end
   end
 
-  def sales_invoices
-    @sale_order = find_and_check(:sale_order, params[:id])
-    session[:current_sale_order] = @sale_order.id
-    # @rest_to_invoice = @sale_order.deliveries.detect{|x| x.invoice_id.nil?}
-    @can_invoice = !@sale_order.lines.detect{|x| x.undelivered_quantity > 0}
-    @can_invoice = false if @sale_order.invoiced
-    if request.post?
-     #  ActiveRecord::Base.transaction do
-#         deliveries = params[:deliveries_to_invoice].select{|k,v| v[:invoiceable].to_i==1}.collect do |id, attributes|
-#           delivery = Delivery.find_by_id_and_company_id(id.to_i,@current_company.id)
-#           delivery.stocks_moves_create if delivery and !delivery.moved_on.nil?
-#           delivery
-#         end
-#         raise ActiveRecord::Rollback unless @current_company.invoice(deliveries)
-     # end
-      # @current_company.invoice(@sale_order)
-      ActiveRecord::Base.transaction do  
-        raise ActiveRecord::Rollback unless @sale_order.invoice
-      end
-      redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
-    end
-  end
+#   def sales_invoices
+#     @sale_order = find_and_check(:sale_order, params[:id])
+#     session[:current_sale_order] = @sale_order.id
+#     # @rest_to_invoice = @sale_order.deliveries.detect{|x| x.invoice_id.nil?}
+#     @can_invoice = !@sale_order.lines.detect{|x| x.undelivered_quantity > 0}
+#     @can_invoice = false if @sale_order.invoiced
+#     if request.post?
+#      #  ActiveRecord::Base.transaction do
+# #         deliveries = params[:deliveries_to_invoice].select{|k,v| v[:invoiceable].to_i==1}.collect do |id, attributes|
+# #           delivery = Delivery.find_by_id_and_company_id(id.to_i,@current_company.id)
+# #           delivery.stocks_moves_create if delivery and !delivery.moved_on.nil?
+# #           delivery
+# #         end
+# #         raise ActiveRecord::Rollback unless @current_company.invoice(deliveries)
+#      # end
+#       # @current_company.invoice(@sale_order)
+#       ActiveRecord::Base.transaction do  
+#         raise ActiveRecord::Rollback unless @sale_order.invoice
+#       end
+#       redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
+#     end
+#   end
   
   
   dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"created_at DESC") do |t|
@@ -1784,9 +1785,7 @@ class ManagementController < ApplicationController
     t.action :stock_move_delete, :method=>:delete, :confirm=>:are_you_sure,:if=>'RECORD.generated != true' 
   end
   
-  def stocks_locations
-    # stock_locations_list params
-  
+  def stock_locations
     unless @current_company.stock_locations.size>0
       flash[:message] = tc('messages.need_stock_location_to_record_stock_moves')
       redirect_to :action=>:stock_location_create
@@ -1797,7 +1796,6 @@ class ManagementController < ApplicationController
   def stock_location
     @stock_location = find_and_check(:stock_location, params[:id])
     session[:current_stock_location_id] = @stock_location.id
-    #stock_moves_list 
     @title = {:value=>@stock_location.name}
   end
 

@@ -19,6 +19,6 @@
 
 - form_tag do
   .actions
-    =link_to tg(:previous), :action=>:purchases
+    =link_to tg(:previous), :action=>:purchase_orders
     - if @purchase_order.shipped == false
       =submit_tag(tc('validate'), :action=>:purchases_products) if @purchase_order.lines.size>0

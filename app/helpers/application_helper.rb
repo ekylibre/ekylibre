@@ -70,20 +70,20 @@ module ApplicationHelper
        ] },
      # ManagementController
      {:name=>:management, :list=>
-       [ {:name=>:sales, :list=>
+       [ {:name=>:sale_orders, :list=>
            [ {:name=>:sale_order_create},
-             {:name=>:sales_consult, :url=>{:action=>:sales}},
+             {:name=>:sales_consult, :url=>{:action=>:sale_orders}},
              {:name=>:invoices},
              {:name=>:payments},
              {:name=>:embankments},
              {:name=>:subscriptions},
              {:name=>:statistics}
            ] },
-         {:name=>:purchases, :list=>
+         {:name=>:purchase_orders, :list=>
            [ {:name=>:purchases_new},
-             {:name=>:purchases_consult, :url=>{:action=>:purchases}} ] },
+             {:name=>:purchases_consult, :url=>{:action=>:purchase_orders}} ] },
          {:name=>:stocks, :list=>
-           [ {:name=>:stocks_locations},
+           [ {:name=>:stock_location},
              #    {:name=>:inventories},
              {:name=>:stock_transfers},
              {:name=>:stocks_consult, :url=>{:action=>:stocks}} ] },
