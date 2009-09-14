@@ -828,6 +828,7 @@ fr-FR:
         credit: 'Avoir'
         currency_id: (((CURRENCY_ID)))
         downpayment_amount: 'Montant de l''acompte'
+        facture: 'Facture'
         has_downpayment: 'A un acompte'
         id: 'ID'
         lock_version: 'Version'

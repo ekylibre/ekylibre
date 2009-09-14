@@ -131,7 +131,7 @@ class ManagementController < ApplicationController
   end
   
   dyta(:all_invoices, :model=>:invoices, :conditions=>search_conditions(:invoices, :number), :line_class=>'RECORD.status', :default_order=>"created_on DESC") do |t|
-    t.column :number, :url=>{:action=>:invoices_display}
+    t.column :number, :url=>{:action=>:invoice}
     t.column :full_name, :through=>:client
     t.column :created_on
     t.column :amount
@@ -142,7 +142,7 @@ class ManagementController < ApplicationController
   end
 
 
-  def invoices
+  def invoice
     @key = params[:key]||session[:invoice_key]
     session[:invoice_key] = @key
     #all_invoices_list({:attributes=>[:number], :key=>@key}.merge(params))
@@ -243,7 +243,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:credits, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_invoice]'] }) do |t|
-    t.column :number, :url=>{:action=>:invoices_display}
+    t.column :number, :url=>{:action=>:invoice}
     t.column :full_name, :through=>:client
     t.column :created_on
     t.column :amount
@@ -851,7 +851,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:invoice_lines, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
-    t.column :number, :children=>:product_name, :url=>{:action=>:invoices_display}
+    t.column :number, :children=>:product_name, :url=>{:action=>:invoice}
     t.column :address, :through=>:contact, :children=>false
     t.column :amount
     t.column :amount_with_taxes
@@ -1175,7 +1175,7 @@ class ManagementController < ApplicationController
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
-    t.column :number, :through=>:invoice, :url=>{:action=>:invoices_display}, :children=>false
+    t.column :number, :through=>:invoice, :url=>{:action=>:invoice}, :children=>false
     t.column :quantity
     t.column :amount
     t.column :amount_with_taxes

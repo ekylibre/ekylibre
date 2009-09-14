@@ -313,6 +313,21 @@ class SaleOrder < ActiveRecord::Base
     c
   end
 
+
+  # this method makes the link between the accountancy and management module.
+ #  def to_accountancy
+#     if self.complete?  
+#       self
+
+      
+
+#     end
+
+
+
+#   end
+
+
 end
 
 

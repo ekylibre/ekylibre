@@ -119,5 +119,33 @@ class Invoice < ActiveRecord::Base
   def creditable?
     not self.credit and self.amount_with_taxes + self.credited_amount > 0
   end
+
+  # this method links the accountancy and management modules.
+  def to_accountancy
+    unless self.lost or not self.paid or self.sale_order.state == 'C'
+      financialyear = self.company.financialyears.find(:first, :conditions => ["code LIKE ? and closed='false'", '%'+self.payment_on.year+'%'])
+      journal_sale =  self.company.journals.find(:first, :conditions => ['nature = ? AND closed_on < ?', tc(:sale), self.payment_on])
+      
+      record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>tc(:facture), :created_on=>self.payment_on, :printed_on => self.created_on, :journal_id=>journal_sale.id, :financialyear_id => financialyear.id)
+     
+      self.lines.each do |line|
+
+        entry = self.company.entries.create!(:record_id=>record.id, :account_id=> self.client_id, :name=> self.client.label, :debit=>(line.amount_with_taxes*line.quantity), :credit=>0.0)
+
+        entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.product.product_account_id, :name=>tc(:sale)+line.product.name, :debit=>0.0, :credit=>(line.amount*line.quantity))
+
+         entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.order_line.tax.account_collected_id, :name=>line.order_line.tax.name, :debit=>0.0, :credit=>self.taxes)
+
+      end
+
+
+      #entry = self.company.entries.create!(:record_id=>record.id, :account_id=>self.sale_order.lines.first.tax.account_collected_id, :name=>self.sale_order.lines.first.tax.name, :debit=>0.0, :credit=>self.taxes)
+ 
+      
+      # entry = self.company.entries.create!(:record_id=>record.id, :account_id=> , :name=> , :debit=>self.amount_with_taxes, :credit=>0.0)
+      
+    end
+
+  end
   
 end

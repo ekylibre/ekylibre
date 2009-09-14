@@ -353,7 +353,10 @@ fr-FR:
         validity: 'Ce devis et ses conditions générales sont valables jusqu''au {{expiration}}.'
     sale_order_nature:
       payment_types:
+        card: 'Carte bancaire'
+        cash: 'Espèce'
         check: 'Chèque bancaire'
+        transfer: 'Virement' 
         none: 'Aucun'
     sale_order_line:
       currency_is_not_sale_order_currency: 'Le prix du produit ne correspond pas à la monnaie définie pour la vente'

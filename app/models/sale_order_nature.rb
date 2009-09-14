@@ -28,7 +28,7 @@ class SaleOrderNature < ActiveRecord::Base
   has_many :sale_orders
 
   def self.payment_types
-    [:check, :none].collect{|x| [tc('payment_types.'+x.to_s), x] }
+    [:card, :cash, :check,  :none, :transfer].collect{|x| [tc('payment_types.'+x.to_s), x] }
   end
   
 
