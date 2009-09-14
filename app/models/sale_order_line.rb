@@ -49,6 +49,9 @@ class SaleOrderLine < ActiveRecord::Base
   def before_validation
     # check_reservoir = true
     self.company_id = self.order.company_id
+    if not self.price and self.order and self.product
+      self.price = self.product.default_price(order.client.category_id)
+    end
     self.product = self.price.product if self.price
     if self.product
       self.account_id = self.product.product_account_id 

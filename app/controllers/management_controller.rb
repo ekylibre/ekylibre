@@ -79,14 +79,13 @@ class ManagementController < ApplicationController
 
   #this method allows to create a graphism
   def statistics
-    session[:nb_year] ||= 2
+    session[:nb_year] = params[:nb_year]||2
     if request.post?
       return unless product = find_and_check(:product, params[:product_id])
       session[:product_id] = product.id
-      session[:nb_year] = params[:nb_year]
 
       g = Gruff::Line.new('800x600')
-      g.title = product.catalog_name
+      g.title = product.catalog_name.to_s
       g.title_font_size=20
       g.line_width = 2
       g.dot_radius = 2
@@ -98,9 +97,9 @@ class ManagementController < ApplicationController
         12.times do |m|
           sales << @current_company.sale_order_lines.sum(:quantity, :conditions=>['product_id=? and created_on BETWEEN ? AND ?', product.id, d.beginning_of_month, d.end_of_month], :joins=>"INNER JOIN sale_orders as s ON s.id=sale_order_lines.order_id").to_f
           d += 1.month
-          g.labels[m] = t('date.abbr_month_names')[d.month]
+          g.labels[m] = t('date.abbr_month_names')[d.month].to_s
         end
-        g.data('N'+(x>0 ? '-'+x.to_s : ''), sales) # +d.year.to_s
+        g.data('N'+(x>0 ? '-'+x.to_s : '').to_s, sales) # +d.year.to_s
       end
 
       dir = "#{RAILS_ROOT}/public/images/gruff/#{@current_company.code}"
@@ -252,7 +251,7 @@ class ManagementController < ApplicationController
   end
 
 
-  def invoices_display
+  def invoice
     @invoice = find_and_check(:invoice, params[:id])
     session[:current_invoice] = @invoice.id
     @title = {:number=>@invoice.number}
@@ -1043,6 +1042,7 @@ class ManagementController < ApplicationController
     redirect_to :action=>:sale_order_lines, :id=>@sale_order.id
   end
 
+
   def sale_order_print
     @sale_order = find_and_check(:sale_order, params[:id])
     if @current_company.default_contact.nil? || @sale_order.client.contacts.size == 0
@@ -1052,6 +1052,17 @@ class ManagementController < ApplicationController
     else
       print(@sale_order, :filename=>@sale_order.label)
     end
+  end
+
+  def sale_order_duplicate
+    return unless sale_order = find_and_check(:sale_order, params[:id])
+    if request.post?
+      if copy = sale_order.duplicate(@current_user.employee_id)
+        redirect_to :action=>:sale_order_lines, :id=>copy.id
+        return
+      end
+    end
+    redirect_to_current
   end
 
 

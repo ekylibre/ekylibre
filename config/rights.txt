@@ -160,6 +160,7 @@ management       clients_dyli                     create_estimates
 management       price_find                       create_estimates
 management       sale_order_contacts              create_estimates
 management       sale_order_create                create_estimates
+management       sale_order_duplicate             create_estimates
 management       sale_order_line_create           create_estimates
 management       sale_order_line_delete           create_estimates
 management       sale_order_line_update           create_estimates

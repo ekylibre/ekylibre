@@ -51,6 +51,20 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def before_validation_on_create
+    if self.nature
+      if self.nature.nature == "period"
+        period = (self.product ? self.product.subcription_period : nil)||'1 year'
+        self.started_on ||= Date.today
+        self.stopped_on ||= Delay.compute(period+", 1 day ago", self.started_on)
+      else
+        period = (self.product ? self.product.subscription_quantity : nil)||1
+        self.first_number ||= self.nature.actual_number
+        self.last_number  ||= self.first_number+period-1
+      end
+    end
+  end
+
   def validates
     if self.contact and self.entity
       errors.add(:entity_id, tc('errors.entity_must_be_the_same_as_the_contact_entity')) if self.contact.entity_id!=self.entity_id

@@ -41,7 +41,7 @@ class Price < ActiveRecord::Base
 
   validates_presence_of :category_id, :currency_id, :product_id
 
-  attr_readonly :company_id, :started_at, :list_id, :amount, :amount_with_taxes
+  attr_readonly :company_id, :started_at, :amount, :amount_with_taxes
 
 
   def before_validation

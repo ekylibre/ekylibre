@@ -235,6 +235,26 @@ class SaleOrder < ActiveRecord::Base
     payments
   end
 
+  # Duplicates a +sale_order+ in 'E' mode with its lines and its active subscriptions
+  def duplicate(attributes={})
+    copy = self.company.sale_orders.build(attributes.merge(:client_id=>self.client_id, :nature_id=>self.nature_id, :currency_id=>self.currency_id))
+    copy.save!
+    if copy.save
+      # Lines
+      for line in self.lines.find(:all, :conditions=>["quantity>0"])
+        copy.lines.create! :order_id=>copy.id, :product_id=>line.product_id, :quantity=>line.quantity, :location_id=>line.location_id, :company_id=>self.company_id
+      end
+      # Subscriptions
+      for sub in self.subscriptions.find(:all, :conditions=>["NOT suspended"])
+        copy.subscriptions.create!(:sale_order_id=>copy.id, :entity_id=>sub.entity_id, :contact_id=>sub.contact_id, :quantity=>sub.quantity, :nature_id=>sub.nature_id, :product_id=>sub.product_id, :company_id=>self.company_id)
+      end
+    else
+      raise Exception.new copy.errors.inspect
+    end
+    copy
+  end
+
+
   def status
     status = ""
     status = "critic" if self.active? and self.parts_amount.to_f < self.amount_with_taxes

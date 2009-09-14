@@ -318,6 +318,7 @@ class RelationsController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :sale_order_print, :controller=>:management
+    t.action :sale_order_duplicate, :controller=>:management, :method=>:post
     t.action :sale_order_lines, :image=>:update, :controller=>:management, :if=>"not RECORD.complete\?"
     t.action :sale_order_delete, :controller=>:management, :if=>"RECORD.estimate\?", :method=>:delete, :confirm=>:are_you_sure
   end

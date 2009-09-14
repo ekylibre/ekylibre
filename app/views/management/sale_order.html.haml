@@ -8,8 +8,9 @@
     %td
       =evalue @sale_order, :nature
       =evalue @sale_order, :contact, :label=>:address
-      -if (@sale_order.contact_id != @sale_order.delivery_contact_id) || (@sale_order.contact_id != @sale_order.invoice_contact_id)
+      -if (@sale_order.contact_id != @sale_order.delivery_contact_id)
         =evalue @sale_order, :delivery_contact, :label=>:address
+      -if (@sale_order.contact_id != @sale_order.invoice_contact_id)
         =evalue @sale_order, :invoice_contact, :label=>:address
       =evalue @sale_order, :created_on
     %td
@@ -17,19 +18,31 @@
       =evalue @sale_order, :amount_with_taxes
       =evalue @sale_order, :payment_delay, :label=>:name
       =evalue @sale_order, :confirmed_on
-    %td
-      =evalue @sale_order, :comment if !@sale_order.comment.empty?
+    -if !@sale_order.comment.empty?
+      %td
+        =evalue @sale_order, :comment 
 
-%h2= tc 'sale_order_lines'
-=dyta :sale_lines
-%h2= tc 'deliveries'
-=dyta :deliveries
-%h2= tc 'invoices' 
-=dyta :invoice_lines
-%h2= tc 'payments'
-=toolbar do |t|
-  -t.link :payment_create if @sale_order.state == 'R' and @sale_order.unpaid_amount>0
-=dyta :payments
+%h2= tc 'lines'
+=dyta :sale_order_lines
+
+-if @sale_order.deliveries.count > 0
+  %h2= tc 'deliveries'
+  =dyta :deliveries
+
+-if @sale_order.invoices.count > 0
+  %h2= tc 'invoices' 
+  =dyta :invoice_lines
+
+-if @sale_order.payment_parts.count > 0
+  %h2= tc 'payments'
+  =toolbar do |t|
+    -t.link :payment_create if @sale_order.state == 'R' and @sale_order.unpaid_amount>0
+  =dyta :payments
+
+-if @sale_order.subscriptions.count>0
+  %h2= tc :subscriptions
+  =dyta :sale_order_subscriptions
+
 
 .actions
   =link_to_back

@@ -115,6 +115,10 @@ class Product < ActiveRecord::Base
     products
   end
 
+  def default_price(category_id)
+    self.prices.find(:first, :conditions=>{:category_id=>category_id, :active=>true, :default=>true})
+  end
+
   def informations
 #     if self.has_components
 #       # name = self.name+" ( "+self.unit.label+" ) "+tc('components_number')+self.components.size.to_s

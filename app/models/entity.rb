@@ -81,6 +81,8 @@ class Entity < ActiveRecord::Base
  # validates_presence_of :category_id, :if=>Proc.new{|u| u.client}
   attr_readonly :company_id
   
+  validates_presence_of :category_id
+
   before_destroy :destroy_bank_account
  
   #has_many :contact

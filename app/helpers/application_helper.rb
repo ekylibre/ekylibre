@@ -198,13 +198,15 @@ module ApplicationHelper
     else
       #     label = object.class.human_attribute_name(attribute.to_s)
       value = object.send(attribute)
+      label = t("activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}")
+      label = t("activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}_id") if label.match(/translation.missing/)
       if value.is_a? ActiveRecord::Base
         record = value
         value = record.send(options[:label]||:name)
         options[:url][:id] ||= record.id if options[:url]
-        label = t "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}_id"
+        # label = t "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}_id"
       else
-        label = t "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}"
+        # label = t "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}"
       end
       value_class += ' code' if attribute.to_s == "code"
     end
