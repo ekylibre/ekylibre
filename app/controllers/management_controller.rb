@@ -137,7 +137,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit
-    t.action :invoices_print
+    t.action :invoice_print
     t.action :invoice_cancel, :if=>"RECORD.creditable\?"
   end
 
@@ -1353,10 +1353,10 @@ class ManagementController < ApplicationController
     # t.column :address, :through=>:contact, :children=>:product_name
     t.column :amount
     t.column :amount_with_taxes
-    t.action :invoices_print
+    t.action :invoice_print
   end
   
-  def invoices_print
+  def invoice_print
     @invoice = find_and_check(:invoice, params[:id])
     #if @current_company.default_contact.nil? || @invoice.contact.nil? 
       #entity = @current_company.default_contact.nil? ? @current_company.name : @invoice.client.full_name
