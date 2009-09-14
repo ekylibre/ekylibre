@@ -147,6 +147,7 @@ management       invoice_cancel                  cancel_invoices
 management       all_invoices_dyta                consult_invoices
 management       invoice_credit_lines_dyta        consult_invoices
 management       invoice_lines_dyta               consult_invoices
+management       invoice_to_accountancy           consult_invoices
 management       invoices_dyta                    consult_invoices
 management       prices                           consult_prices
 management       purchase_order_lines_dyta        consult_purchases

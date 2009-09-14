@@ -105,7 +105,6 @@ class InvoiceLine < ActiveRecord::Base
     d
   end
 
-
   
   def credited_quantity
     self.credit_lines.sum(:quantity)

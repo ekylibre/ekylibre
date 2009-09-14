@@ -123,18 +123,22 @@ class Invoice < ActiveRecord::Base
   # this method links the accountancy and management modules.
   def to_accountancy
     unless self.lost or not self.paid or self.sale_order.state == 'C'
-      financialyear = self.company.financialyears.find(:first, :conditions => ["code LIKE ? and closed='false'", '%'+self.payment_on.year+'%'])
-      journal_sale =  self.company.journals.find(:first, :conditions => ['nature = ? AND closed_on < ?', tc(:sale), self.payment_on])
+      financialyear = self.company.financialyears.find(:first, :conditions => ["code LIKE ? and closed='false'", '%'+self.payment_on.year.to_s+'%'])
+      
+      journal_sale =  self.company.journals.find(:first, :conditions => ['nature = ? AND closed_on < ?', 'sale', self.payment_on])
+      
+     # raise Exception.new("f:"+financialyear.inspect+" j:"+journal_sale.inspect)
       
       record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>tc(:facture), :created_on=>self.payment_on, :printed_on => self.created_on, :journal_id=>journal_sale.id, :financialyear_id => financialyear.id)
      
       self.lines.each do |line|
+        entry = self.company.entries.create!(:record_id=>record.id, :account_id=> self.client_id, :name=> self.client.label, :currency_debit=>(line.amount_with_taxes*line.quantity), :currency_credit=>0.0, :currency_id=>journal_sale.currency_id)
 
-        entry = self.company.entries.create!(:record_id=>record.id, :account_id=> self.client_id, :name=> self.client.label, :debit=>(line.amount_with_taxes*line.quantity), :credit=>0.0)
+        entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.product.product_account_id, :name=>'sale '+line.product.name.to_s, :currency_debit=>0.0, :currency_credit=>(line.amount*line.quantity), :currency_id=>journal_sale.currency_id)
 
-        entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.product.product_account_id, :name=>tc(:sale)+line.product.name, :debit=>0.0, :credit=>(line.amount*line.quantity))
-
-         entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.order_line.tax.account_collected_id, :name=>line.order_line.tax.name, :debit=>0.0, :credit=>self.taxes)
+        #raise Exception.new(line.order_line.inspect)
+        entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.price.tax.account_collected_id, :name=>line.price.tax.name, :currency_debit=>0.0, :currency_credit=>line.taxes, :currency_id=>journal_sale.currency_id)
+      #  entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.order_line.tax.account_collected_id, :name=>line.order_line.tax.name, :currency_debit=>0.0, :currency_credit=>self.taxes, :currency_id=>journal_sale.currency_id)
 
       end
 

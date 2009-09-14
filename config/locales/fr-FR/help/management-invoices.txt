@@ -8,7 +8,7 @@ Vous pouvez saisir dans le champ de recherche tout ou seulement une partie du nu
 
 h2. Passage en avoir
 
-Vous pouvez *passer une facture en avoir* (total ou partiel) grâce à l'action {{buttons/cancel.png|avoir}}.L'avoir sera enregistré en tant que facture mais avec des quantités négatives.
+Vous pouvez *passer une facture en avoir* (total ou partiel) grâce à l'action {{buttons/cancel.png|avoir}}.L'avoir sera enregistré en tant que facture mais avec des quantités négatives. En tant qu'avoir partiel ou total, elle sera *surlignée* dans le tableau *respectivement en orange ou en rouge*. 
 
 
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>

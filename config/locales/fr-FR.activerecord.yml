@@ -839,6 +839,7 @@ fr-FR:
         paid: 'Réglée'
         payment_delay_id: 'Délai de paiement'
         payment_on: 'A régler au plus tard le'
+        sale: 'Vente'
         sale_order: 'Vente'
         sale_order_id: 'Vente'
         updated_at: 'Mis à jour le'

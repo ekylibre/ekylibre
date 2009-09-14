@@ -137,16 +137,27 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit
+    #t.action :invoice_to_accountancy
+   
     t.action :invoice_print
+
     t.action :invoice_cancel, :if=>"RECORD.creditable\?"
   end
 
 
-  def invoice
-    @key = params[:key]||session[:invoice_key]
-    session[:invoice_key] = @key
-    #all_invoices_list({:attributes=>[:number], :key=>@key}.merge(params))
+  def invoices
+   @key = params[:key]||session[:invoice]
+   session[:invoice_key] = @key
+   #all_invoices_list({:attributes=>[:number], :key=>@key}.merge(params))
   end
+
+  
+  #
+  # def invoice_to_accountancy
+#     @invoice = find_and_check(:invoice, params[:id])
+#     @invoice.to_accountancy
+#     redirect_to :action=>:invoices
+#   end
 
 
   dyta(:credit_lines, :model=>:invoice_lines, :conditions=>{:invoice_id=>['session[:invoice_id]']}) do |t|
