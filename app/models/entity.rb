@@ -240,7 +240,8 @@ class Entity < ActiveRecord::Base
   
   def description
     desc = self.code+" - "+self.full_name+" - "
-    desc += self.default_contact.area.name unless self.default_contact.nil?
+    c = self.default_contact
+    desc += c.line_6 unless c.nil?
     desc
   end
 
