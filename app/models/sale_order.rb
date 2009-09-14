@@ -67,6 +67,12 @@ class SaleOrder < ActiveRecord::Base
       last = self.company.sale_orders.find(:first, :order=>"number desc")
       self.number = last ? last.number.succ! : '00000001'
     end
+    if self.contact.nil?
+      dc = self.client.default_contact
+      self.contact_id = dc.id if dc
+    end
+    self.delivery_contact_id ||= self.contact_id
+    self.invoice_contact_id  ||= self.delivery_contact_id
     self.created_on ||= Date.today
     if self.nature
       self.expiration_id ||= self.nature.expiration_id 
@@ -144,7 +150,8 @@ class SaleOrder < ActiveRecord::Base
         delivery.lines.create! line
       end
       self.refresh
-    end    
+    end
+    self
   end
 
 
@@ -162,9 +169,30 @@ class SaleOrder < ActiveRecord::Base
 
   # Delivers all undelivered products and invoice the order after. This operation cleans the order.
   def deliver_and_invoice
-    self.deliver
-    self.invoice
+    self.deliver.invoice
   end
+
+  # Duplicates a +sale_order+ in 'E' mode with its lines and its active subscriptions
+  def duplicate(attributes={})
+    fields = [:client_id, :nature_id, :currency_id, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :comment]
+    hash = {}
+    copy = self.company.sale_orders.build(attributes.merge(fields.inject{|hash, c| hash[c]=self.send(c)}))
+    copy.save!
+    if copy.save
+      # Lines
+      for line in self.lines.find(:all, :conditions=>["quantity>0"])
+        copy.lines.create! :order_id=>copy.id, :product_id=>line.product_id, :quantity=>line.quantity, :location_id=>line.location_id, :company_id=>self.company_id
+      end
+      # Subscriptions
+      for sub in self.subscriptions.find(:all, :conditions=>["NOT suspended"])
+        copy.subscriptions.create!(:sale_order_id=>copy.id, :entity_id=>sub.entity_id, :contact_id=>sub.contact_id, :quantity=>sub.quantity, :nature_id=>sub.nature_id, :product_id=>sub.product_id, :company_id=>self.company_id)
+      end
+    else
+      raise Exception.new copy.errors.inspect
+    end
+    copy
+  end
+
 
 
   # Produces some amounts about the sale order.
@@ -233,25 +261,6 @@ class SaleOrder < ActiveRecord::Base
       end
     end
     payments
-  end
-
-  # Duplicates a +sale_order+ in 'E' mode with its lines and its active subscriptions
-  def duplicate(attributes={})
-    copy = self.company.sale_orders.build(attributes.merge(:client_id=>self.client_id, :nature_id=>self.nature_id, :currency_id=>self.currency_id))
-    copy.save!
-    if copy.save
-      # Lines
-      for line in self.lines.find(:all, :conditions=>["quantity>0"])
-        copy.lines.create! :order_id=>copy.id, :product_id=>line.product_id, :quantity=>line.quantity, :location_id=>line.location_id, :company_id=>self.company_id
-      end
-      # Subscriptions
-      for sub in self.subscriptions.find(:all, :conditions=>["NOT suspended"])
-        copy.subscriptions.create!(:sale_order_id=>copy.id, :entity_id=>sub.entity_id, :contact_id=>sub.contact_id, :quantity=>sub.quantity, :nature_id=>sub.nature_id, :product_id=>sub.product_id, :company_id=>self.company_id)
-      end
-    else
-      raise Exception.new copy.errors.inspect
-    end
-    copy
   end
 
 

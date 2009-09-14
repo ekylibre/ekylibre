@@ -1045,6 +1045,7 @@ class ManagementController < ApplicationController
     return unless @sale_order = find_and_check(:sale_orders, params[:id])
     if request.post?
       ActiveRecord::Base.transaction do
+        # raise Exception.new(@sale_order.deliver_and_invoice.errors.inspect)
         raise ActiveRecord::Rollback unless @sale_order.deliver_and_invoice
         redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
         return
@@ -1068,7 +1069,7 @@ class ManagementController < ApplicationController
   def sale_order_duplicate
     return unless sale_order = find_and_check(:sale_order, params[:id])
     if request.post?
-      if copy = sale_order.duplicate(@current_user.employee_id)
+      if copy = sale_order.duplicate(:responsible_id=>@current_user.employee_id)
         redirect_to :action=>:sale_order_lines, :id=>copy.id
         return
       end

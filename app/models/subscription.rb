@@ -54,7 +54,7 @@ class Subscription < ActiveRecord::Base
   def before_validation_on_create
     if self.nature
       if self.nature.nature == "period"
-        period = (self.product ? self.product.subcription_period : nil)||'1 year'
+        period = (self.product ? self.product.subscription_period : nil)||'1 year'
         self.started_on ||= Date.today
         self.stopped_on ||= Delay.compute(period+", 1 day ago", self.started_on)
       else
