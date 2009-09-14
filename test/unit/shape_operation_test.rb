@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: shape_operations
+#
+#  company_id   :integer       not null
+#  created_at   :datetime      not null
+#  creator_id   :integer       
+#  description  :text          
+#  employee_id  :integer       not null
+#  id           :integer       not null, primary key
+#  lock_version :integer       default(0), not null
+#  moved_on     :date          
+#  name         :string(255)   not null
+#  nature_id    :integer       
+#  planned_on   :date          not null
+#  shape_id     :integer       not null
+#  started_at   :datetime      not null
+#  stopped_at   :datetime      
+#  updated_at   :datetime      not null
+#  updater_id   :integer       
+#
+
 require 'test_helper'
 
 class ShapeOperationTest < ActiveSupport::TestCase

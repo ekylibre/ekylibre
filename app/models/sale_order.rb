@@ -188,7 +188,7 @@ class SaleOrder < ActiveRecord::Base
         copy.subscriptions.create!(:sale_order_id=>copy.id, :entity_id=>sub.entity_id, :contact_id=>sub.contact_id, :quantity=>sub.quantity, :nature_id=>sub.nature_id, :product_id=>sub.product_id, :company_id=>self.company_id)
       end
     else
-      raise Exception.new copy.errors.inspect
+      raise Exception.new(copy.errors.inspect)
     end
     copy
   end

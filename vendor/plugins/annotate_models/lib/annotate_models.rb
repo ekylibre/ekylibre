@@ -2,6 +2,7 @@ require "config/environment"
 
 MODEL_DIR   = File.join(RAILS_ROOT, "app/models")
 FIXTURE_DIR = File.join(RAILS_ROOT, "test/fixtures")
+UNIT_DIR = File.join(RAILS_ROOT, "test/unit")
 
 module AnnotateModels
 
@@ -86,6 +87,9 @@ module AnnotateModels
 
     fixture_file_name = File.join(FIXTURE_DIR, klass.table_name + ".yml")
     annotate_one_file(fixture_file_name, info)
+
+    unit_file_name = File.join(UNIT_DIR, klass.name.underscore + "_test.rb")
+    annotate_one_file(unit_file_name, info)
   end
 
   # Return a list of the model files to annotate. If we have 

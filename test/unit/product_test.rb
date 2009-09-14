@@ -1,3 +1,47 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  active                 :boolean       default(TRUE), not null
+#  catalog_description    :text          
+#  catalog_name           :string(255)   not null
+#  charge_account_id      :integer       
+#  code                   :string(8)     
+#  code2                  :string(64)    
+#  comment                :text          
+#  company_id             :integer       not null
+#  created_at             :datetime      not null
+#  creator_id             :integer       
+#  critic_quantity_min    :decimal(16, 2 default(1.0)
+#  description            :text          
+#  ean13                  :string(13)    
+#  id                     :integer       not null, primary key
+#  lock_version           :integer       default(0), not null
+#  manage_stocks          :boolean       not null
+#  name                   :string(255)   not null
+#  nature                 :string(8)     not null
+#  number                 :integer       not null
+#  price                  :decimal(16, 2 default(0.0)
+#  product_account_id     :integer       
+#  quantity_max           :decimal(16, 2 default(0.0)
+#  quantity_min           :decimal(16, 2 default(0.0)
+#  reduction_submissive   :boolean       not null
+#  service_coeff          :float         
+#  shelf_id               :integer       not null
+#  subscription_nature_id :integer       
+#  subscription_period    :string(255)   
+#  subscription_quantity  :integer       
+#  supply_method          :string(8)     not null
+#  to_purchase            :boolean       not null
+#  to_rent                :boolean       not null
+#  to_sale                :boolean       default(TRUE), not null
+#  unit_id                :integer       not null
+#  unquantifiable         :boolean       not null
+#  updated_at             :datetime      not null
+#  updater_id             :integer       
+#  weight                 :decimal(16, 3 
+#
+
 require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase

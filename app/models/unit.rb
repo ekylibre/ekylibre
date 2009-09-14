@@ -33,6 +33,7 @@ class Unit < ActiveRecord::Base
     :m3=>{:base=>'m3', :quantity=>1}
   }
 
+
   def self.default_units
     DEFAULT_UNITS
   end
