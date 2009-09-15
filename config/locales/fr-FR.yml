@@ -266,6 +266,10 @@ fr-FR:
         complete: terminée
     inventory_line:
       inventory: 'Inventaire '
+    invoice:
+      label:
+        normal: 'Facture N°{{number}}'
+        credit: 'Avoir N°{{number}}'
     invoice_line:
       no_product: '[Pas de produit]'
     journal:

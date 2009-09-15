@@ -93,6 +93,13 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  # Initialize default parameters
+  def init
+    self.before_validation
+    self.before_validation_on_create if self.new_record?
+    self
+  end
+
   # TODO: Changer le nom de la méthode
 #  def natura
 #    self.nature||(self.product ? self.product.subscription_nature : 'unknown_nature')

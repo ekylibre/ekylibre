@@ -54,6 +54,10 @@ class ::String
     return self.upper_ascii.gsub(/[^A-Z0-9]/,'')
   end
     
+  def pdfize
+    return self.ascii.gsub(/\\W/,'_')
+  end
+    
   
   def to_ss
     ss = self.dup.to_s

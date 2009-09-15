@@ -1,25 +1,18 @@
-if @product.nature == "subscrip"
-  page['subscriptions'].show
-  if @product.subscription_nature.nature == "period"
+if @subscription
+  if @subscription.nature.nature == "period"
+    page['subscription_started_on'].value = @subscription.started_on
+    page['subscription_stopped_on'].value = @subscription.stopped_on
+    page['subscription_number'].hide
     page['subscription_date'].show
-    page['subscription_started_on'].value = Date.today
-    delay = Delay.new(:expression=>@product.subscription_period, :name=>"temp")
-    page['subscription_stopped_on'].value = delay.compute(Date.today)
-  else
+  elsif @subscription.nature.nature == "quantity"
+    page['subscription_first_number'].value = @subscription.first_number
+    page['subscription_last_number'].value  = @subscription.last_number
     page['subscription_date'].hide
+    page['subscription_number'].show
   end
+  page['subscriptions'].show
 else
   page['subscriptions'].hide
   page['subscription_date'].hide 
-end
-if @product.nature == "subscrip"
-  if @product.subscription_nature.nature == "quantity"
-    page['subscription_number'].show
-    page['subscription_first_number'].value = @product.subscription_nature.actual_number	
-    page['subscription_last_number'].value =(@product.subscription_nature.actual_number + ((@product.subscription_quantity-1)||0))
-  else
-    page['subscription_number'].hide  
-  end 
-else
-  page['subscription_number'].hide 
+  page['subscription_number'].hide   
 end

@@ -215,7 +215,7 @@ fr-FR:
           other: '{{count}} factures enregistrées'
           zero: 'Aucune facture enregistrée'
         title: 'Factures'
-      invoices_cancel:
+      invoice_cancel:
         already_credited_quantity: 'Qté. déjà passée en avoir'
         price_amount: 'Prix HT'
         price_amount_with_taxes: 'Prix TTC'
@@ -228,6 +228,7 @@ fr-FR:
       invoice:
         credits: 'Avoirs'
         invoice_lines: 'Lignes de la facture'
+        invoice_print: 'Imprimer la facture'
         title: 'Facture {{number}}'
       _invoices_search:
         search: 'Rechercher une facture par son numéro'

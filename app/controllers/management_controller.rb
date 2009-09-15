@@ -130,7 +130,7 @@ class ManagementController < ApplicationController
     end
   end
   
-  dyta(:all_invoices, :model=>:invoices, :conditions=>search_conditions(:invoices, :number), :line_class=>'RECORD.status', :default_order=>"created_on DESC") do |t|
+  dyta(:all_invoices, :model=>:invoices, :conditions=>search_conditions(:invoices, :number), :line_class=>'RECORD.status', :default_order=>"created_on DESC, number DESC") do |t|
     t.column :number, :url=>{:action=>:invoice}
     t.column :full_name, :through=>:client
     t.column :created_on
@@ -267,6 +267,12 @@ class ManagementController < ApplicationController
     session[:current_invoice] = @invoice.id
     @title = {:number=>@invoice.number}
   end
+
+  def invoice_print
+    return unless invoice = find_and_check(:invoice, params[:id])
+    print(invoice, :filename=>invoice.label)
+  end
+
 
   def self.prices_conditions(options={})
     code = ""
@@ -1107,9 +1113,12 @@ class ManagementController < ApplicationController
 
   def subscription_find
     price = find_and_check(:prices, params[:sale_order_line_price_id])
-    @product = find_and_check(:products, price.product_id)
+    product = find_and_check(:products, price.product_id)
+    if product.nature == "subscrip"
+      @subscription = Subscription.new(:product_id=>product.id).init
+    end
     #puts @product.inspect
-   # raise Exception.new @price.product.inspect
+    # raise Exception.new @price.product.inspect
   end
 
   def subscription_message
@@ -1369,21 +1378,6 @@ class ManagementController < ApplicationController
     t.action :invoice_print
   end
   
-  def invoice_print
-    @invoice = find_and_check(:invoice, params[:id])
-    #if @current_company.default_contact.nil? || @invoice.contact.nil? 
-      #entity = @current_company.default_contact.nil? ? @current_company.name : @invoice.client.full_name
-      #flash[:warning]=tc(:no_contacts, :name=>entity)
-      #redirect_to_back
-    #else
-      # @lines = []
-      # @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-      # @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
-      # @client_address = @invoice.contact.address.split(",").collect{ |x| x.strip}
-    print(@invoice, :archive=>true, :filename=>tc('invoice')+" "+@invoice.number)
-    # end
-  end
-
 #   def sales_invoices
 #     @sale_order = find_and_check(:sale_order, params[:id])
 #     session[:current_sale_order] = @sale_order.id
@@ -2001,7 +1995,8 @@ class ManagementController < ApplicationController
     session[:subscriptions][:instant] = instant||@subscription_nature.now
   end
 
-  dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity]'], :active=>true, :company_id=>['@current_company.id']})
+  # dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity]'], :active=>true, :company_id=>['@current_company.id']})
+  dyli(:subscription_contacts,  ['entities.full_name', :address] ,:model=>:contact, :joins=>"JOIN entities ON (entity_id=entities.id)", :conditions=>{:active=>true, :company_id=>['@current_company.id']})
   
   def subscription_create
     if request.post?

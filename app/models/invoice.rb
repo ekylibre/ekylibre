@@ -94,6 +94,10 @@ class Invoice < ActiveRecord::Base
     end
   end
 
+  def label
+    tc('label.'+(self.credit ? 'credit' : 'normal'), :number=>self.number, :created_on=>::I18n.localize(self.created_on))
+  end
+
   def product_name
     self.product.name
   end
