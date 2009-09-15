@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
       session[:history].insert(0,request.url)
       session[:history].delete_at(127)
     end
-    session[:last_page][self.controller_name] = request.url unless request.url.match(/print(\/\d+)?$/)
+    session[:last_page][self.controller_name] = request.url unless request.url.match(/(print|dyta|extract)(\/\d+(\.\w+)?)?$/)
   end
 
   def authorize()

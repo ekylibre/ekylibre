@@ -23,7 +23,11 @@ class SubscriptionNature < ActiveRecord::Base
   has_many :products
   has_many :subscriptions, :foreign_key=>:nature_id
 
-  validates_numericality_of :reduction_rate, :greater_than=>0, :less_than_or_equal_to=>1
+  validates_numericality_of :reduction_rate, :greater_than_or_equal_to=>0, :less_than_or_equal_to=>1
+
+  def before_validation
+    self.reduction_rate ||= 0
+  end
 
   def self.natures
     [:quantity, :period].collect{|x| [tc('natures.'+x.to_s), x] }

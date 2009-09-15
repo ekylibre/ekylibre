@@ -1,3 +1,24 @@
+-form_tag({}, :method=>:put) do 
+  %fieldset
+    %legend=tc(:sales)
+    %nobr
+      %label=tc("nb_years")
+      =text_field_tag(:nb_years, session[:nb_year].to_s, :size=>2)
+    %nobr
+      %label=tc("data_to_export")
+      -for x in [:quantity, :amount, :amount_with_taxes]
+        =radio_button_tag "mode", x
+        %label{:for=>"mode_#{x}"}=tc(x)
+    %nobr
+      %label=tc("source")
+      -for x in [:invoice, :sale_order]
+        =radio_button_tag "source", x
+        %label{:for=>"source_#{x}"}=tc(x)
+    =submit_tag tg(:export)
+      
+   
+
+
 .search
   -form_tag do
     %table
@@ -5,7 +26,7 @@
         %td.label=tc("product")
         %td.input=select_tag(:product_id, options_for_select(@current_company.available_products.collect{|x| [x.name, x.id]}, session[:product_id]))
         %td.label=tc("nb_years")
-        %td.input=text_field_tag(:nb_year, session[:nb_year].to_s, :size=>3)
+        %td.input=text_field_tag(:nb_year, session[:nb_year].to_s, :size=>2)
         %td=submit_tag tg("search_go")
 
 

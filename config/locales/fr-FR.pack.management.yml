@@ -498,8 +498,16 @@ fr-FR:
       shelf_update:
         title: 'Ajout d''une nouvelle catégorie de produits'
       statistics:
-        title: 'Statistique'
+        amount: 'Montants HT'
+        amount_with_taxes: 'Montants TTC'
+        data_to_export: 'Données à exporter :'
+        title: 'Statistiques'
+        sales: 'Exporter un tableau des ventes au format CSV'
         product: 'Produit'
+        quantity: 'Quantités'
+        source: 'Source de données :'
+        invoice: 'Factures'
+        sale_order: 'Commandes'
         nb_years: 'Nombre d''années dans l''historique'
         go: 'Valider'
       _stock_indicator:

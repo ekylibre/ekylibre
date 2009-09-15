@@ -2,6 +2,7 @@ class ManagementController < ApplicationController
 
   
   include ActionView::Helpers::FormOptionsHelper
+  include ActionView::Helpers::NumberHelper
  
   def index
     @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
@@ -108,7 +109,45 @@ class ManagementController < ApplicationController
       File.makedirs dir unless File.exists? dir
       g.write(dir+"/"+@graph)
 
+    elsif request.put?
+      data = {}
+      mode = params[:mode].to_s.to_sym
+      source = params[:source].to_s.to_sym
+      query = if source == :invoice
+        "SELECT product_id, sum(sol.#{mode}) AS total FROM invoice_lines AS sol JOIN invoices AS so ON (sol.invoice_id=so.id) WHERE created_on BETWEEN ? AND ? GROUP BY product_id"
+      else
+        "SELECT product_id, sum(sol.#{mode}) AS total FROM sale_order_lines AS sol JOIN sale_orders AS so ON (sol.order_id=so.id) WHERE state != 'E' AND created_on BETWEEN ? AND ? GROUP BY product_id"
+      end
+      start = (Date.today - params[:nb_years].to_i.year).beginning_of_month
+      finish = Date.today.end_of_month
+      date = start
+      header = [t('activerecord.models.product')]
+      puts [start, finish].inspect
+      while date <= finish
+        puts date.inspect
+        period = '="'+t('date.month_names')[date.month]+" "+date.year.to_s+'"'
+        header << period
+        for product in @current_company.products.find(:all, :select=>"products.*, total", :joins=>ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order=>"product_id")
+          data[product.name] ||= {}
+          data[product.name][period] = product.total
+        end
+        date += 1.month
+      end
+
+      csv_data = FasterCSV.generate do |csv|
+        csv << header
+        for k in data.keys.sort
+          row = [k]
+          header.size.times {|i| row << number_to_currency(data[k][header[i+1]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2) }
+          csv << row
+        end
+      end
+      
+      send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>::I18n.translate('activerecord.models.product')+'.csv'
     end
+
+
+
   end
     
   #
@@ -1907,27 +1946,20 @@ class ManagementController < ApplicationController
   end
 
   def subscription_nature_increment
+    return unless @subscription_nature = find_and_check(:subscription_nature, params[:id])
     if request.post?
-      #raise Exception.new "tt"+params.inspect
-      @subscription_nature = find_and_check(:subscription_nature, params[:id])
-      if !@subscription_nature.nil?
-        @subscription_nature.actual_number += 1
-        @subscription_nature.save
-      end
+      @subscription_nature.increment!(:actual_number)
       flash[:notice]=tc('new_actual_number', :value=>@subscription_nature.actual_number)
-      redirect_to_back
+      redirect_to_current
     end
   end
 
   def subscription_nature_decrement
+    return unless @subscription_nature = find_and_check(:subscription_nature, params[:id])
     if request.post?
-      @subscription_nature = find_and_check(:subscription_nature, params[:id])
-      if !@subscription_nature.nil?
-        @subscription_nature.actual_number -= 1
-        @subscription_nature.save
-      end
+      @subscription_nature.decrement!(:actual_number)
       flash[:notice]=tc('new_actual_number', :value=>@subscription_nature.actual_number)
-      redirect_to_back
+      redirect_to_current
     end
   end
 

@@ -1,6 +1,9 @@
 * {margin:0; padding:0; font-family: sans-serif;}
 /* BLUE EKYLIBRE : #3060FF */
 html {background: #FFF;}
+fieldset { border:1px solid #DDD; padding: 4px; margin: 1px 1px 4px; }
+fieldset legend { padding: 0 2px; color: #047; }
+fieldset nobr { margin: 0 8px; vertical-align: middle; }
 td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:focus { color:#00C; }
 a:hover { color: #000; }
