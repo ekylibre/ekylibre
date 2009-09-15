@@ -98,7 +98,11 @@ class ManagementController < ApplicationController
         12.times do |m|
           sales << @current_company.sale_order_lines.sum(:quantity, :conditions=>['product_id=? and created_on BETWEEN ? AND ?', product.id, d.beginning_of_month, d.end_of_month], :joins=>"INNER JOIN sale_orders as s ON s.id=sale_order_lines.order_id").to_f
           d += 1.month
-          g.labels[m] = t('date.abbr_month_names')[d.month]
+          puts d.month.inspect
+          puts t('date.abbr_month_names').inspect
+          puts ::I18n.t('date.abbr_month_names').inspect
+          puts t('date.abbr_month_names')[d.month].inspect
+          g.labels[m] = t('date.abbr_month_names')[d.month].to_s
         end
         g.data('N'+(x>0 ? '-'+x.to_s : '').to_s, sales) # +d.year.to_s
       end
