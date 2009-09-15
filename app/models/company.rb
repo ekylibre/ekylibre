@@ -51,11 +51,16 @@ class Company < ActiveRecord::Base
   has_many :event_natures
   has_many :events
   has_many :financialyears
+  has_many :inventories
+  has_many :inventory_lines
   has_many :invoices
   has_many :invoice_lines
   has_many :journals
   has_many :journal_records
   has_many :languages
+  has_many :listings
+  has_many :listing_nodes
+  has_many :listing_node_items
   has_many :mandates
   has_many :observations
   has_many :parameters
@@ -64,7 +69,9 @@ class Company < ActiveRecord::Base
   has_many :payment_parts
   has_many :prices
   has_many :price_taxes
+  has_many :productions
   has_many :products
+  has_many :product_components
   has_many :product_stocks
   has_many :professions
   has_many :purchase_orders
@@ -91,6 +98,10 @@ class Company < ActiveRecord::Base
 
   attr_readonly :code
   
+  @@rhm = Company.reflections.collect{|r,v| v.name.to_s.singularize.to_sym if v.macro==:has_many}.compact
+  @@ehm = EKYLIBRE_MODELS.delete_if{|x| x==:company}
+  raise Exception.new("Models and has_many are not corresponding in Company !!!\nUnwanted: #{(@@rhm-@@ehm).inspect}\nMissing:  #{(@@ehm-@@rhm).inspect}\n") if @@rhm-@@ehm!=@@ehm-@@rhm
+
   def before_validation_on_create
     self.code = self.name.to_s[0..7].simpleize if self.code.blank?
     self.code = rand.to_s[2..-1].to_i.to_s(36)[0..7] if self.code.blank?
@@ -98,6 +109,10 @@ class Company < ActiveRecord::Base
     while Company.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
       self.code.succ!
     end
+  end
+
+  def self.models
+    Object.subclasses_of(ActiveRecord::Base).collect{|x| x.name}
   end
 
   def siren
@@ -321,21 +336,23 @@ class Company < ActiveRecord::Base
     self.attributes.each{|k,v| root[k] = v.to_s}
     n = 0
     start = Time.now.to_i
-    reflections = self.class.reflections
-    for name in reflections.keys.collect{|x| x.to_s}.sort
-      reflection = reflections[name.to_sym]
-      if reflection.macro==:has_many
-        rows = self.send(name.to_sym).find(:all, :order=>:id)
-        rows_count = rows.size
-        n += rows_count
-        root << table = XML::Node.new('rows')
-        {'reflection'=>name, 'records-count'=>rows_count.to_s}.each{|k,v| table[k]=v}
-        #table = root.add_element('rows', )
-        rows_count.times do |i|
-          # puts i if i%200==0
-          table << row = XML::Node.new('row')
-          rows[i].attributes.each{|k,v| row[k] = v.to_s}
-        end
+    models = EKYLIBRE_MODELS.delete_if{|x| x==:company}
+    #reflections = self.class.reflections
+
+    for name in models # reflections.keys.collect{|x| x.to_s}.sort
+      # reflection = reflections[name.to_sym]
+      # if reflection.macro==:has_many
+      # rows = self.send(name.to_sym).find(:all, :order=>:id)
+      rows = name.to_s.camelcase.constantize.find(:all, :conditions=>{:company_id=>self.id}, :order=>:id)
+      rows_count = rows.size
+      n += rows_count
+      root << table = XML::Node.new('rows')
+      {'reflection'=>name.pluralize, 'records-count'=>rows_count.to_s}.each{|k,v| table[k]=v}
+      #table = root.add_element('rows', )
+      rows_count.times do |i|
+        # puts i if i%200==0
+        table << row = XML::Node.new('row')
+        rows[i].attributes.each{|k,v| row[k] = v.to_s}
       end
     end
     # backup.add_attributes('records-count'=>n.to_s, 'generation-duration'=>(Time.now.to_i-start).to_s)
