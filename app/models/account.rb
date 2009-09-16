@@ -42,7 +42,7 @@ class Account < ActiveRecord::Base
   # This method allows to create the parent accounts if it is necessary.
   def before_validation
     self.label = self.number.to_s+' - '+self.name.to_s
-    index = -2
+    index = -252
 #    raise Exception.new('a:'+self.number.to_s.length.to_s)
     parent_account = Account.find(:last, :conditions => {:company_id => self.company_id, :number => self.number.to_s[0..index]})
    # raise Exception.new('p:'+parent_account.inspect)

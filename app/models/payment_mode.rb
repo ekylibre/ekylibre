@@ -24,7 +24,7 @@ class PaymentMode < ActiveRecord::Base
   has_many :payments, :foreign_key=>:mode_id
   has_many :embankable_payments, :class_name=>Payment.name, :foreign_key=>:mode_id, :conditions=>["embankment_id IS NULL"]
   attr_readonly :company_id
-  @@modes = [:check, :other] 
+  @@modes = [:card, :cash, :check, :other, :transfer] 
 
   def self.modes
     @@modes.collect{|x| [tc('modes.'+x.to_s), x]}
