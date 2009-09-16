@@ -98,11 +98,7 @@ class ManagementController < ApplicationController
         12.times do |m|
           sales << @current_company.sale_order_lines.sum(:quantity, :conditions=>['product_id=? and created_on BETWEEN ? AND ?', product.id, d.beginning_of_month, d.end_of_month], :joins=>"INNER JOIN sale_orders as s ON s.id=sale_order_lines.order_id").to_f
           d += 1.month
-          puts d.month.inspect
-          puts t('date.abbr_month_names').inspect
-          puts ::I18n.t('date.abbr_month_names').inspect
-          puts t('date.abbr_month_names')[d.month].inspect
-          g.labels[m] = t('date.abbr_month_names')[d.month].to_s
+          g.labels[m] = d.month.to_s # t('date.abbr_month_names')[d.month].to_s
         end
         g.data('N'+(x>0 ? '-'+x.to_s : '').to_s, sales) # +d.year.to_s
       end
@@ -128,9 +124,10 @@ class ManagementController < ApplicationController
       header = [t('activerecord.models.product')]
       puts [start, finish].inspect
       while date <= finish
-        puts date.inspect
-        raise Exception.new(t('date.month_names').inspect)
-        period = '="'+t('date.month_names')[date.month]+" "+date.year.to_s+'"'
+        # puts date.inspect
+        # raise Exception.new(t('date.month_names').inspect)
+        # period = '="'+t('date.month_names')[date.month]+" "+date.year.to_s+'"'
+        period = '="'+date.year.to_s+" "+date.month.to_s+'"'
         header << period
         for product in @current_company.products.find(:all, :select=>"products.*, total", :joins=>ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order=>"product_id")
           data[product.name] ||= {}
