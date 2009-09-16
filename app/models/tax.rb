@@ -26,6 +26,8 @@ class Tax < ActiveRecord::Base
   belongs_to :account_paid, :class_name=>Account.to_s
   has_many :prices
 
+  validates_inclusion_of :nature, :in=>%w( amount percent )
+
   attr_readonly :amount, :nature, :company_id
 
   def before_validation
@@ -55,15 +57,22 @@ class Tax < ActiveRecord::Base
     Tax.create!(self.attributes.merge({:deleted=>true, :name=>self.name+" ", :company_id=>self.company_id})) 
   end
   
-  def compute(amount)
-    case self.nature.to_sym
-    when :percent
-      amount*self.amount
-    when :amount
+  def compute(amount, with_taxes=false)
+    if self.percent? and with_taxes
+      amount.to_f / (1 + 1.0/self.amount.to_f)
+    elsif self.percent?
+      amount.to_f*self.amount.to_f
+    elsif self.amount?
       self.amount
-    else
-      raise Exception.new("Unknown tax nature : "+self.nature.inspect.to_s)
     end
+  end
+
+  def percent?
+    self.nature == "percent"
+  end
+  
+  def amount?
+    self.nature == "amount"
   end
 
   def self.natures
