@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   attr_accessor :current_company
   # after_filter :reset_stamper
 
+
   # def reset_stamper
   #    User.reset_stamper
   #  end
@@ -97,6 +98,15 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize()
+
+    response.headers["Last-Modified"] = Time.now.httpdate
+    response.headers["Expires"] = '0'
+    # HTTP 1.0
+    response.headers["Pragma"] = "no-cache"
+    # HTTP 1.1 'pre-check=0, post-check=0' (IE specific)
+    response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
+
+
     session[:last_page] ||= {}
     session[:help_history] ||= []
     if request.get? and not request.xhr? and not [:authentication, :help].include?(controller_name.to_sym)
