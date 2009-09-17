@@ -717,7 +717,7 @@ module ApplicationHelper
         options.delete :value
         input = case datatype
                 when :boolean
-                  check_box_tag(name, "1", value, options)+hidden_field_tag(name, "0")
+                  hidden_field_tag(name, "0")+check_box_tag(name, "1", value, options)
                 when :string
                   size = (options[:size]||0).to_i
                   if size>64
