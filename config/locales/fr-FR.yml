@@ -317,7 +317,8 @@ fr-FR:
         service: Service
         sub_date: Abonnement par date
         sub_numb: Abonnement par numéros
-        subscrip: Abonnement
+        subscrip: Abonnement 
+        transfer: Transfert
       supply_methods:
         buy: Achat
         produce: Production
