@@ -180,7 +180,8 @@ class SaleOrder < ActiveRecord::Base
   def duplicate(attributes={})
     fields = [:client_id, :nature_id, :currency_id, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :comment]
     hash = {}
-    copy = self.company.sale_orders.build(attributes.merge(fields.inject{|hash, c| hash[c]=self.send(c)}))
+    fields.each{|c| hash[c] = self.send(c)}
+    copy = self.company.sale_orders.build(attributes.merge(hash))
     copy.save!
     if copy.save
       # Lines
