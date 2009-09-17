@@ -141,7 +141,9 @@ class SaleOrder < ActiveRecord::Base
     lines = []
     for line in self.lines.find_all_by_reduction_origin_id(nil)
       if quantity = line.undelivered_quantity > 0
-        lines << {:order_line_id=>line.id, :quantity=>quantity, :company_id=>self.company_id}
+        #raise Exception.new quantity.inspect+line.inspect
+        #lines << {:order_line_id=>line.id, :quantity=>quantity, :company_id=>self.company_id}
+        lines << {:order_line_id=>line.id, :quantity=>line.quantity, :company_id=>self.company_id}
       end
     end
     if lines.size>0
@@ -157,7 +159,9 @@ class SaleOrder < ActiveRecord::Base
 
   # Invoice all the products creating the delivery if necessary. 
   def invoice
+    puts self.undelivered(:amount).inspect+"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
     return false if self.undelivered(:amount) > 0
+   # raise Exception.new "3"
     invoice = self.invoices.create!(:company_id=>self.company_id, :nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
     for line in self.lines
       invoice.lines.create!(:company_id=>line.company_id, :order_line_id=>line.id, :amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes, :quantity=>line.quantity)

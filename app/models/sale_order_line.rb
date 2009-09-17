@@ -133,6 +133,7 @@ class SaleOrderLine < ActiveRecord::Base
   end
 
   def new_subscription(attributes={})
+    #raise Exception.new attributes.inspect
     subscription = Subscription.new((attributes||{}).merge(:sale_order_id=>self.order.id, :company_id=>self.company.id, :product_id=>self.product_id, :nature_id=>self.product.subscription_nature_id))
     subscription.attributes = attributes
     product = subscription.product

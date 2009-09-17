@@ -54,7 +54,7 @@ class Payment < ActiveRecord::Base
     if !self.embankment_id.nil?
       self.embankment.refresh
     end
-  end
+  end  
   
   # Use the minimum amount to pay the order
   # If the payment is a downpayment, we look at the total unpaid amount
