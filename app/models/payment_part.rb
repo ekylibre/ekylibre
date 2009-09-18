@@ -26,7 +26,7 @@ class PaymentPart < ActiveRecord::Base
 
   def after_save
     self.payment.save
-    self.order.save
+    self.order.save 
   end
 
   def after_destroy
