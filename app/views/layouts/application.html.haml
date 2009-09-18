@@ -7,6 +7,7 @@
     %title=(@current_company ? @current_company.code : 'Ekylibre')+' - '+t("controllers.#{controller.controller_name.to_s}.title")+' - '+t("views.#{controller.controller_name}.#{action_name}.title", @title||{})
     = stylesheet_link_tag 'application', 'dyta', 'dyta-colors'
     = stylesheet_link_tag 'print', :media=>'print'
+    = calendar_link_tag
     = javascript_include_tag :defaults
   %body{:id=>:body, :orient=>:vertical, :onload=>"resize();", :onresize=>'resize();'}
     = top_tag

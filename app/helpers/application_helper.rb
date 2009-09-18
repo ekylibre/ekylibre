@@ -225,6 +225,26 @@ module ApplicationHelper
     session[:last_page][controller]||url_for(:controller=>controller, :action=>:index)
   end
 
+  def calendar_link_tag(lang='fr')
+    # <script src="/red/javascripts/calendar/calendar.js" type="text/javascript"></script>
+    # <script src="/red/javascripts/calendar/lang/calendar-fr.js" type="text/javascript"></script>
+    # <script src="/red/javascripts/calendar/calendar-setup.js" type="text/javascript"></script>
+    # , 'calendar/border-radius'
+    javascript_include_tag('calendar/calendar', 'calendar/lang/calendar-'+lang, 'calendar/calendar-setup')+
+      stylesheet_link_tag('calendar')
+  end
+
+  def calendar_field(object_name, method, options={})
+    # <p><label for="issue_start_date">Début</label>
+    # <input id="issue_start_date" name="issue[start_date]" size="10" type="text" value="2009-09-18" />
+    # <img alt="Calendar" class="calendar-trigger" id="issue_start_date_trigger" src="/red/images/calendar.png" />
+    # <script type="text/javascript">//<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>
+    id = object_name.to_s+'_'+method.to_s
+    text_field(object_name, method, {:size=>10}.merge(options))+
+      image_tag('buttons/calendar.png', :class=>'calendar-trigger', :id=>id+'_trigger')+
+      javascript_tag("Calendar.setup({inputField : '#{id}', ifFormat : '%Y-%m-%d', button : '#{id}_trigger' });")
+  end
+
   def top_tag
     return '' if @current_user.blank?
     code = ''
@@ -643,6 +663,12 @@ module ApplicationHelper
         if column.type==:date
           options[:field] = :date 
           html_options[:size] = 10
+
+
+
+# <p><label for="issue_start_date">Début</label><input id="issue_start_date" name="issue[start_date]" size="10" type="text" value="2009-09-18" /><img alt="Calendar" class="calendar-trigger" id="issue_start_date_trigger" src="/red/images/calendar.png" /><script type="text/javascript">
+# //<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>
+
         end
       end
       
@@ -678,8 +704,9 @@ module ApplicationHelper
                 options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s)}.join " "
               when :textarea
                 text_area record, method, :cols => options[:options][:cols]||30, :rows => options[:options][:rows]||3, :class=>(options[:options][:cols]==80 ? :code : nil)
-                #              when :date
-                #                date_text_field record, method, :order => [:day, :month, :year], :date_separator=>''
+              when :date
+                # date_text_field record, method, :order => [:day, :month, :year], :date_separator=>''
+                calendar_field record, method
               else
                 text_field record, method, html_options
               end
@@ -688,7 +715,7 @@ module ApplicationHelper
         label = tg(options[:new].delete(:label)||:new)
         input += link_to(label, options[:new], :class=>:fastadd)
       end
-      input += " "+tg("format_date.iso")+" " if options[:field] == :date
+      # input += " "+tg("format_date.iso")+" " if options[:field] == :date
 
 
       #      input += content_tag(:h6,options[:field].to_s+' '+options[:choices].class.to_s+' '+options.inspect)

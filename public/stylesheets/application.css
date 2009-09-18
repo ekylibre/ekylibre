@@ -7,7 +7,6 @@ fieldset nobr { margin: 0 8px; vertical-align: middle; }
 td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:focus { color:#00C; }
 a:hover { color: #000; }
-input[type="text"], input[type="password"], textarea, select { border:1px solid #aaa; background: #fff;}
 .stocks { padding: 5px 0 15px 0; }
 .paymentpart{ text-align:center; padding: 5px 0 5px 0; }
 .payments { text-align:center ; color:#000088;}
@@ -172,7 +171,6 @@ table.formalize a.fastadd { margin: 0px 8px; }
 .actions a { padding: 4px; margin: 4px;}
 .actions a:link, .actions a:visited, .actions a:hover { color:#080;}
 
-.invalid { border: 1px solid red !important; background: #FDD !important; }
 
 a.firefox  {padding-left: 20px; background: url(../images/buttons/firefox.png) no-repeat center left;}
 a.register {padding-left: 20px; background: url(../images/buttons/create.png) no-repeat center left;}
@@ -182,11 +180,19 @@ a.register {padding-left: 20px; background: url(../images/buttons/create.png) no
 a.right { float:right; }
 
 /* BEGIN BUTTON STYLES */
+/*
 input[type="submit"] { text-decoration:none; border:1px solid #BBB; color:#444; background: #CCC url(../images/template/button.png) repeat-x top; -moz-border-radius: 4px; padding:1px 5px 2px; }
 input[type="submit"]:hover { border:2px solid #DA4; color: #555; text-decoration:none; background: #DDD url(../images/template/button_hover.png) repeat-x top; }
 input[type="submit"]:active, input[type="submit"]:focus { border:2px solid #68C; color: #555; text-decoration:none; background: #CCC url(../images/template/button_hover.png) repeat-x top; }
 input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus { padding:0px 4px 1px; }
+*/
 /* END */
+input[type="text"], input[type="password"], textarea, select { border:1px solid #aaa; background: #fff;} 
+input[type="text"], input[type="password"], textarea, select { margin:1px; border-width: 1px; }
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border:2px solid #79e !important; margin: 0px;}
+input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea.invalid:focus, select.invalid:focus { border-color: red !important; }
+.invalid { border: 1px solid red !important; background: #FDD !important; } 
+
 
 .fore { border: 1px solid #C9D7F1; margin: 8px 0; background: #EFE; }
 .fore .formalize { margin:8px auto; }
@@ -249,10 +255,6 @@ h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1
 
 
 
-
-input[type="text"], input[type="password"], textarea, select { margin:1px; border-width: 1px; }
-input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border:2px solid #79e !important; margin: 0px;}
-input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea.invalid:focus, select.invalid:focus { border-color: red !important; }
 
 
 .login { width:512px; border: 1px solid #95b0e4; margin:64px auto; background:#c9d7f1; z-index: 1000;}
