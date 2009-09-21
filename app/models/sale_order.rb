@@ -49,7 +49,7 @@ class SaleOrder < ActiveRecord::Base
   belongs_to :invoice_contact, :class_name=>Contact.to_s
   belongs_to :nature, :class_name=>SaleOrderNature.to_s
   belongs_to :payment_delay, :class_name=>Delay.to_s
-  belongs_to :responsible, :class_name=>Employee.to_s
+  belongs_to :responsible, :class_name=>Employee.name
   has_many :deliveries, :foreign_key=>:order_id
   has_many :invoices
   has_many :lines, :class_name=>SaleOrderLine.to_s, :foreign_key=>:order_id

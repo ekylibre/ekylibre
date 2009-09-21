@@ -4,13 +4,17 @@ class Sep1t6 < ActiveRecord::Migration
     add_column :payments, :parts_amount, :decimal,  :precision=>16, :scale=>2
     execute "UPDATE payments SET parts_amount = part_amount "
     remove_column :payments, :part_amount
+
     add_column :sale_orders, :parts_amount, :decimal,  :precision=>16, :scale=>2
-    begin
-      SaleOrder.find(:all).each do |sale_order|
-        sale_order.save
-      end
-    rescue
+    for order in select_all("SELECT id FROM sale_orders")
+      execute "UPDATE sale_orders SET parts_amount=(SELECT sum(amount) FROM payment_parts WHERE order_id=#{order['id']}) WHERE id=#{order['id']}"
     end
+#     begin
+#       SaleOrder.find(:all).each do |sale_order|
+#         sale_order.save
+#       end
+#     rescue
+#     end
   end
 
   def self.down
