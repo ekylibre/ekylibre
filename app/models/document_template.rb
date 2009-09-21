@@ -157,9 +157,6 @@ class DocumentTemplate < ActiveRecord::Base
     
     File.delete(file)
 
-
-
-
     list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     return '('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
   end

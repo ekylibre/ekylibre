@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<template title="Example" lang="fr" version="2.0">
+  <parameters>
+    <parameter name="company" nature="company"/>
+    <parameter name="started_on" nature="date"/>
+    <parameter name="stopped_on" nature="date"/>
+    <parameter name="entries" nature="entry"/> 
+    <parameter name="sum" nature="entry"/> 
+  </parameters>
+  <document unit="mm" size="10" title="grand journal">
+    <page orientation="portrait" format="A4" margin="10mm">
+      <part height="30mm">
+	<set>
+	  <text value="{{company.name}}" bold="true" size="7mm"/>
+	</set>
+      </part>
+      <part height="10mm">
+	<set>
+	  <text value="Journaux pour la période du {{I18n.localize(started_on.to_date, :format=> :month_letter)}} au {{I18n.localize(stopped_on.to_date, :format=> :month_letter)}}" left="50%" align="center" bold="true"/>
+	</set>
+      </part>
+      
+      <!-- Tableau des écritures du grand journal pour la période considérée -->
+      <table collection="entries" fixed="true">
+	<column label="Numéro" property="record/number" width="35mm" align="left"/>
+	<column label="Crée le" property="record/created_on" width="30mm"/>
+	<column label="Intitulé" property="name" width="40mm"/>
+	<column label="Numéro compte" property="account/number" width="45mm"/>
+	<column label="Débit" property="debit" width="20mm"/>
+	<column label="Crédit" property="credit" width="20mm"/>
+      </table>
+      
+      <!-- Totaux -->
+      <part height="10mm">
+	<set left="130mm" top="4mm">
+	  <text value="Totaux" top="6mm" left="10mm"/>
+          <text value="{{sum[:debit]}}" top="6mm" left="30mm" align="right" bold="true"/>
+	  <text value="{{sum[:credit]}}" top="6mm" left="50mm" align="right" bold="true"/>
+	</set>
+        <set left="130mm" top="10mm">
+          <text value="Solde " top="4mm" left="10mm" align="right" bold="true" />
+	  <text value="{{sum[:balance]}}" top="4mm" left="30mm" align="right" />
+	</set>
+      </part>
+         
+    </page>
+    
+  </document>
+</template>
