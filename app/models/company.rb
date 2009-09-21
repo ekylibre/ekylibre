@@ -97,6 +97,8 @@ class Company < ActiveRecord::Base
   belongs_to :entity
 
   attr_readonly :code
+
+  require "#{RAILS_ROOT}/lib/models" unless defined?(EKYLIBRE_MODELS)
   
   @@rhm = Company.reflections.collect{|r,v| v.name.to_s.singularize.to_sym if v.macro==:has_many}.compact
   @@ehm = EKYLIBRE_MODELS.delete_if{|x| x==:company}
