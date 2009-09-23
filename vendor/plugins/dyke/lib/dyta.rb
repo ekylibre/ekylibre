@@ -137,7 +137,7 @@ module Ekylibre
               code += "        csv << #{columns_to_csv(definition, :body, :record=>record)}\n"
               code += "      end\n"
               code += "    end\n"
-              code += "    send_data(data, :type=>Mime::CSV, :disposition=>'inline', :filename=>'#{::I18n.translate('activerecord.models.'+model.name.underscore.to_s).simpleize}.csv')\n"
+              code += "    send_data(data, :type=>Mime::CSV, :disposition=>'inline', :filename=>'#{::I18n.translate('activerecord.models.'+model.name.underscore.to_s).gsub(/[^a-z0-9]/i,'_')}.csv')\n"
             end
             code += "  end\n"
             code += "end\n"
@@ -180,7 +180,7 @@ module Ekylibre
             if options[:empty]
               code += "    text = ''\n"
             else
-              code += "    text = '"+content_tag(:tr,content_tag(:td,tg('no_records').gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
+              code += "    text = '"+content_tag(:tr,content_tag(:td, ::I18n.translate('dyta.no_records').gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
             end
             code += "  end\n"
             code += bottom;

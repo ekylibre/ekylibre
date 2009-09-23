@@ -355,8 +355,14 @@ class ManagementController < ApplicationController
   end
   
   def price_create
-    #raise Exception.new params.inspect
     @mode = (params[:mode]||"sales").to_sym 
+
+    if @mode == :sales
+      @products = Product.find(:all, :conditions=>{:to_sale=>true, :company_id=>@current_company.id}, :order=>:name)
+    else 
+      @products = Product.find(:all, :conditions=>{:to_purchase=>true, :company_id=>@current_company.id}, :order=>:name)
+    end
+
     if request.post? 
       @price = Price.new(params[:price])
       @price.company_id = @current_company.id

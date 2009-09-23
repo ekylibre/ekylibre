@@ -39,6 +39,8 @@ class Price < ActiveRecord::Base
   has_many :sale_order_lines
 
   validates_presence_of :category_id, :currency_id, :product_id
+  validates_numericality_of :amount, :greater_than_or_equal_to=>0
+  validates_numericality_of :amount_with_taxes, :greater_than_or_equal_to=>0
 
   attr_readonly :company_id, :started_at, :amount, :amount_with_taxes
 
@@ -49,7 +51,7 @@ class Price < ActiveRecord::Base
       self.amount_with_taxes = self.amount_with_taxes.round(2)
       tax_amount = (self.tax ? self.tax.compute(self.amount_with_taxes, true) : 0)
       self.amount = self.amount_with_taxes - tax_amount.round(2)
-    elsif self.amount.to_f > 0 
+    else  # if self.amount.to_f >= 0 
       tax_amount = (self.tax ? self.tax.compute(self.amount) : 0)
       self.amount_with_taxes = (self.amount+tax_amount).round(2)
       self.amount = self.amount_with_taxes - tax_amount.round(2)
@@ -66,7 +68,7 @@ class Price < ActiveRecord::Base
     #     else
     #       errors.add_to_base tc(:error_already_defined) unless self.company.prices.find(:first, :conditions=>["NOT use_range AND product_id=? AND stopped_on IS NULL AND list_id=? AND id!=COALESCE(?,0)", self.product_id, self.list_id, self.id]).nil?
     #     end
-    errors.add(:price) if self.amount <= 0 and self.amount_with_taxes <= 0 
+    # errors.add(:price) if self.amount.to_f <= 0 and self.amount_with_taxes.to_f <= 0 
   end
 
   def after_save

@@ -2,13 +2,9 @@
   - f.error 'price'
   - f.error 'price_tax'
   - f.title :general
-  - if @mode == :sale_orders
-    - f.field :price, :product_id, :choices=>Product.find(:all,:conditions=>{:to_sale=>true, :company_id=>@current_company.id},:order=>:name).collect{|x| [x.name, x.id]}, :new=>{:action=>:product_create}
-  - else 
-    - f.field :price, :product_id, :choices=>Product.find(:all,:conditions=>{:to_purchase=>true, :company_id=>@current_company.id}).collect{|x| [x.name, x.id]}, :new=>{:action=>:product_create}
-  - if @mode != :sale_orders
+  - f.field :price, :product_id, :choices=>@products.collect{|x| [x.name, x.id]}, :new=>{:action=>:product_create} 
+  - if @mode != :sales
     -f.field :price, :entity_id, :choices=>:entities
-    -#f.field :price, :entity_id, :choices=>Entity.find(:all, :conditions=>{:company_id=>@current_company.id,:supplier=>true}).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:relations,:action=>:entity_create} 
   - f.field :price, :amount
   - f.field :price, :category_id, :choices=>@current_company.entity_categories.find_all_by_deleted(false).collect{|x| [x.name, x.id]}
   - f.field :price, :default
