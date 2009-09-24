@@ -83,8 +83,8 @@ module ApplicationHelper
            [ {:name=>:purchases_new},
              {:name=>:purchases_consult, :url=>{:action=>:purchase_orders}} ] },
          {:name=>:stocks, :list=>
-           [ {:name=>:stock_location},
-             #    {:name=>:inventories},
+           [ {:name=>:stock_location, :url=>{:action=>:stock_locations}},
+             {:name=>:inventories},
              {:name=>:stock_transfers},
              {:name=>:stocks_consult, :url=>{:action=>:stocks}} ] },
          {:name=>:parameters, :list=>

@@ -940,7 +940,7 @@ class Company < ActiveRecord::Base
     # Printing
     # TODO: Cache printing method
     return template.print(object)
-
+ 
 #     # Try to find an existing archive
 #     pdf = nil
 #     document = nil

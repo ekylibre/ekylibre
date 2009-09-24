@@ -18,9 +18,20 @@
 
 class InventoryLine < ActiveRecord::Base
 
+  belongs_to :company
+  belongs_to :inventory
+  belongs_to :location, :class_name=>StockLocation.name
+  belongs_to :product
 
-  def after_create
-    puts self.validated_quantity.to_s+"   "+self.theoric_quantity.to_s+"    lllllllll"
+  attr_readonly :company_id
+
+  def after_save
+    if self.inventory.changes_reflected
+      self.reflect_changes
+    end
+  end
+  
+  def reflect_changes
     if self.validated_quantity != self.theoric_quantity
       rslt =  (self.validated_quantity.to_f != self.theoric_quantity.to_f)
       puts rslt
@@ -35,5 +46,5 @@ class InventoryLine < ActiveRecord::Base
       end
     end
   end
-  
+
 end

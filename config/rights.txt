@@ -130,7 +130,11 @@ management       all_contacts_dyli                administrate_management
 management       critic_product_stocks_dyta       administrate_management
 management       index                            administrate_management
 management       inventories                      administrate_management
-management       inventory_consult                administrate_management
+management       inventory_create                 administrate_management
+management       inventory_update                 administrate_management
+management       inventory_delete                 administrate_management
+management       inventory_reflect                administrate_management
+management       inventory_print                  administrate_management
 management       payments_dyta                    administrate_management
 management       sale_lines_dyta                  administrate_management
 management       sale_order_deliveries_dyta       administrate_management

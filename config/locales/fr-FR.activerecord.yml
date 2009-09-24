@@ -787,12 +787,13 @@ fr-FR:
 
       # Inventaire
       inventory:
-        changes_reflected: (((CHANGES_REFLECTED)))
+        changes_reflected: 'Refleter les changements'
         comment: 'Commentaire'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        date: (((DATE)))
+        date: 'Créé le'
+        employee_id: 'Responsable'
         id: 'ID'
         lock_version: 'Version'
         updated_at: 'Mis à jour le'
@@ -805,13 +806,13 @@ fr-FR:
         creator_id: 'Créateur'
         id: 'ID'
         inventory_id: (((INVENTORY_ID)))
-        location_id: (((LOCATION_ID)))
+        location_id: 'Lieu de stockage'
         lock_version: 'Version'
-        product_id: (((PRODUCT_ID)))
-        theoric_quantity: (((THEORIC_QUANTITY)))
+        product_id: 'Produit'
+        theoric_quantity: 'Quantité théorique'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
-        validated_quantity: (((VALIDATED_QUANTITY)))
+        validated_quantity: 'Quantité constatée'
 
       # Facture
       invoice:

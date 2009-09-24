@@ -153,23 +153,77 @@ class ManagementController < ApplicationController
   end
     
   #
+
+  dyta(:inventories, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :date
+    t.column :changes_reflected, :label=>tc('changes_reflected')
+    t.column :label, :through=>:employee
+    t.column :comment
+    t.action :inventory_print
+    t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and RECORD.changes_reflected == false'
+    t.action :inventory_update,  :if=>'RECORD.changes_reflected == false'
+    t.action :inventory_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.changes_reflected == false'
+  end
+
+  dyta(:inventory_lines_create, :model=>:product_stocks, :conditions=>{:company_id=>['@current_company.id'] }, :per_page=>1000, :order=>{'sort'=>'location_id', 'dir'=>'asc'}) do |t|
+    t.column :name, :through=>:location
+    t.column :name, :through=>:product
+    t.column :shelf_name, :through=>:product, :label=>tc('shelf')
+    t.column :current_real_quantity, :label=>tc('theoric_quantity')
+    t.textbox :current_real_quantity
+  end
+
+  dyta(:inventory_lines_update, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['session[:current_inventory]'] }, :per_page=>1000,:order=>{ 'sort'=>'location_id', 'dir'=>'asc'}) do |t|
+    t.column :name, :through=>:location
+    t.column :name, :through=>:product
+    t.column :shelf_name, :through=>:product, :label=>tc('shelf')
+    t.column :theoric_quantity
+    t.textbox :validated_quantity
+  end
+
   def inventories
   end
   
-  #
-  def inventory_consult
-    #   srr = @current_company.product_stocks.find_all_by_location_id(1)
-    #     for sl in  @current_company.stock_locations
-    #       for s in sl.product_stocks
-    #         raise Exception.new s.inspect
-    #       end
-    #  end
+  def inventory_create
+    flash[:notice] = tc(:you_should_lock_your_old_inventories) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
+    @inventory = Inventory.new
+    
     if request.post?
-      #raise Exception.new params[:product_stock].inspect
-      inventory = Inventory.create!(:company_id=>@current_company.id, :date=>Date.today)
-      params[:product_stock].collect{|x| ProductStock.find_by_id_and_company_id(x[0], @current_company.id).reflect_changes(x[1], inventory.id) }
+      @inventory = Inventory.new(params[:inventory])
+      @inventory.company_id = @current_company
+      @inventory.save
+      params[:inventory_lines_create].collect{|x| ProductStock.find_by_id_and_company_id(x[0], @current_company.id).to_inventory_line(x[1][:current_real_quantity].to_f, @inventory.id) }
+      redirect_to :action=>:inventories
     end
   end
+
+  def inventory_reflect
+    return unless @inventory = find_and_check(:inventories, params[:id])
+    redirect_to :action=>:inventories if @inventory.update_attributes(:changes_reflected=>true)
+  end
+
+  def inventory_update
+    return unless @inventory = find_and_check(:inventories, params[:id])
+    session[:current_inventory] = @inventory.id
+    if request.post? and !@inventory.changes_reflected
+      params[:inventory_lines_update].collect{|x| InventoryLine.find_by_id_and_company_id(x[0], @current_company.id).update_attributes!(:validated_quantity=>x[1][:validated_quantity].to_f) }
+      @inventory.update_attributes(params[:inventory])
+      redirect_to :action=>:inventories
+    end
+  end
+
+  def inventory_delete
+    return unless @inventory = find_and_check(:inventories, params[:id])
+    if request.post? and !@inventory.changes_reflected
+      redirect_to_back if @inventory.destroy
+    end
+  end
+
+  def inventory_print
+    return unless @inventory = find_and_check(:inventories, params[:id])
+    print(@inventory, :filename=>tc('inventory')+" "+@inventory.date.to_s)
+  end
+
   
   dyta(:all_invoices, :model=>:invoices, :conditions=>search_conditions(:invoices, :number), :line_class=>'RECORD.status', :default_order=>"created_on DESC, number DESC") do |t|
     t.column :number, :url=>{:action=>:invoice}

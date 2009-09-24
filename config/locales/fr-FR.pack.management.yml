@@ -3,6 +3,7 @@ fr-FR:
   controllers:
     management:
       category: 'Catégorie'
+      changes_reflected: 'Changements répercutés'
       choose_one_check_at_less: 'Sélectionnez au moins un chèque'
       client_code: 'Code cl.'
       email: 'Email: '
@@ -15,6 +16,7 @@ fr-FR:
       import_succeed: 'Vos données ont été correctement importées'
       impossible_to_add_lines: 'Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande'
       impossible_to_add_lines_to_purchase: 'Vous ne pouvez plus ajouter de produits à votre achat'
+      inventory: 'Inventaire'
       invoice: 'Facture'
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
@@ -49,12 +51,15 @@ fr-FR:
       sale_order_lines:
         sale_order_line_create: 'Ajouter un produit au devis'
       scheduled: 'Échéance'
+      shelf: 'Catégorie'
       stock_locations:
         stock_location_create: 'Ajouter un nouveau lieu de stockage'
+      theoric_quantity: 'Quantité théorique'
       title: 'Commerce'
       to_bank_on: 'À encaisser le'
       unvalid_date: 'Date incorrecte'
       you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
+      you_should_lock_your_old_inventories: 'Attention: il est conseillé de supprimer les inventaires non verouillés ou de les verouiller avant d''en créer un nouveau'
 
   helpers:
     management:
@@ -198,17 +203,23 @@ fr-FR:
         title: 'Gestion commerciale'
         units: 'Unités de mesure'
       inventories:
-        inventory_consult: 'Consulter l''inventaire'
+        inventory_create: 'Créer un nouvel inventaire'
         inventory_print: 'Imprimer l''inventaire'
-        title: 'Inventaire'
-      inventory_consult:
+        title: 'Inventaires'
+      inventory_create:
+        inventory: 'Complétez l''inventaire'
         product: 'Produit'
         reservoir: 'Réservoir'
+        shelf: 'Catégorie'
         theoric_quantity: 'Quantité théorique'
         title: 'Inventaire'
         unit: 'Unité'
-        validate_and_reflect_changes: 'Valider et répercuter les différences'
+        validate: 'Valider '
         validated_quantity: 'Quantité constatée'
+      inventory_update:
+        inventory: 'Mofifiez votre inventaire'
+        title: 'Modification de l''inventaire'
+        validate: 'Valider les changements'
       invoices:
         nb_invoices:
           one: '1 facture enregistrée'

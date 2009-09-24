@@ -15,4 +15,31 @@
 #
 
 class Inventory < ActiveRecord::Base
+
+  belongs_to :company
+  belongs_to :employee
+  has_many :lines,  :class_name=>InventoryLine.name
+
+  attr_readonly :company_id
+
+
+  def before_validation
+    self.date ||= Date.today
+  end
+
+  def after_update
+    if self.changes_reflected
+      for line in self.lines
+        line.save
+      end
+    end
+  end
+
+  def before_destroy
+    for line in self.lines
+      line.destroy
+    end
+  end
+
+
 end

@@ -75,10 +75,11 @@ class ProductStock < ActiveRecord::Base
   #     end
   #   end
 
-  def reflect_changes(quantity, inventory_id)
+  def to_inventory_line(quantity, inventory_id)
     result = (self.current_real_quantity.to_f == quantity.to_f)
     puts self.current_real_quantity.to_f.inspect+quantity.to_f.inspect+result.inspect
     InventoryLine.create!(:product_id=>self.product_id, :location_id=>self.location_id, :inventory_id=>inventory_id, :theoric_quantity=>self.current_real_quantity, :validated_quantity=>quantity, :company_id=>self.company_id)
   end
   
 end
+ 

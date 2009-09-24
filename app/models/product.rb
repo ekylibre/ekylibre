@@ -165,6 +165,10 @@ class Product < ActiveRecord::Base
     add_stock_move(quantity, false, false, options)
   end
 
+  def shelf_name
+    self.shelf.name
+  end
+
   private
   
   def add_stock_move(quantity, virtual, input, options={})
@@ -178,5 +182,6 @@ class Product < ActiveRecord::Base
       self.stock_moves.create!(attributes)      
     end    
   end
+
   
 end
