@@ -352,7 +352,7 @@ class CompanyController < ApplicationController
       @user.rights_array = (params[:rights]||{}).keys
       @rights = @user.rights_array
       if @user.save
-        unless params[:create_employee].nil?
+        if !params[:create_employee].nil? and @user.employee.nil?
           @employee = Employee.create!(params[:employee].merge({:user_id=>@user.id, :company_id=>@current_company.id }))           end
         redirect_to_back 
       end

@@ -337,7 +337,9 @@ fr-FR:
         nature: 'Type de produit'
         stocks: 'Gestion des stocks'
       _products_search:
+        active: 'Actif'
         search: 'Rechercher un produit'
+        shelf: 'Catégorie'
         title: 'Recherche'
       product_update:
         title: 'Modification du produit : {{value}}'
@@ -606,6 +608,8 @@ fr-FR:
         title: 'Création d''un abonnement'
       subscription_update:
         title: 'Modification de "{{value}}" du {{start}} au {{finish}}'
+      transports:
+        title: 'Transports'
       undelivered_sales:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'

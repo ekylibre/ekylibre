@@ -8,6 +8,7 @@
 #  created_at        :datetime      not null
 #  creator_id        :integer       
 #  date              :date          not null
+#  employee_id       :integer       
 #  id                :integer       not null, primary key
 #  lock_version      :integer       default(0), not null
 #  updated_at        :datetime      not null

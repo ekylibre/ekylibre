@@ -183,6 +183,8 @@ fr-FR:
         rights: 'Droits'
         subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
         title: 'Gestion des employés'
+      _users_form:
+        employee:  'Créer automatiquement une fiche employé'
       user_update:
         title: 'Modification de l''utilisateur'
       welcome:

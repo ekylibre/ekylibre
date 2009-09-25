@@ -17,17 +17,20 @@
 #  moved_on          :date          
 #  order_id          :integer       not null
 #  planned_on        :date          
+#  transport_id      :integer       
 #  updated_at        :datetime      not null
 #  updater_id        :integer       
+#  weight            :decimal(, )   
 #
 
 class Delivery < ActiveRecord::Base
   belongs_to :company
   belongs_to :contact
   belongs_to :invoice
-  belongs_to :mode, :class_name=>DeliveryMode.to_s
-  belongs_to :order, :class_name=>SaleOrder.to_s
-  has_many :lines, :class_name=>DeliveryLine.to_s 
+  belongs_to :mode, :class_name=>DeliveryMode.name
+  belongs_to :order, :class_name=>SaleOrder.name
+  belongs_to :transport
+  has_many :lines, :class_name=>DeliveryLine.name 
   has_many :stock_moves, :as=>:origin
 
   attr_readonly :company_id, :order_id
@@ -48,6 +51,13 @@ class Delivery < ActiveRecord::Base
   def before_destroy
     for line in self.lines
       line.destroy
+    end
+  end
+
+  def before_save
+    self.weight = 0
+    for line in self.lines
+      self.weight += (line.product.weight||0)*line.quantity
     end
   end
 

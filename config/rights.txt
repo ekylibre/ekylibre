@@ -295,6 +295,8 @@ management       invoices                         search_and_consult_invoices
 management       product                          search_and_consult_products
 management       products                         search_and_consult_products
 management       products_search                  search_and_consult_products
+management       transports                       manage_transports
+management       transports_dyta                  manage_transports
 production       index                            administrate_production
 production       production_create                manage_productions
 production       production_delete                manage_productions

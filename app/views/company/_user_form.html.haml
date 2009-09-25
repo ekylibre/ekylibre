@@ -9,9 +9,15 @@
   -f.field :user, :password
   -f.field :user, :password_confirmation
   -f.field :user, :admin
-  -f.field  t("views.company._users_form.employee"), check_box_tag(:create_employee)
+  -if !@user.new_record?
+    -if @user.employee.nil?
+      -f.field  t("views.company._users_form.employee"), check_box_tag(:create_employee)
+  -else
+    -f.field  t("views.company._users_form.employee"), check_box_tag(:create_employee) 
 
-#employee=render :partial=>"resources/employee_form", :locals=>{:create_user=>true}
+-if !@user.new_record?
+  -if @user.employee.nil?
+    #employee=render :partial=>"resources/employee_form", :locals=>{:create_user=>true}
  
 =formalize(:id=>:show_rights) do |f|
   -f.title :rights

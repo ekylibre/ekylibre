@@ -186,8 +186,7 @@ class ManagementController < ApplicationController
   
   def inventory_create
     flash[:notice] = tc(:you_should_lock_your_old_inventories) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
-    @inventory = Inventory.new
-    
+    @inventory = Inventory.new(:employee_id=>@current_user.employee.nil? ? 0 : @current_user.employee.id)
     if request.post?
       @inventory = Inventory.new(params[:inventory])
       @inventory.company_id = @current_company
@@ -575,20 +574,6 @@ class ManagementController < ApplicationController
     
   end
   
-  
-#  dyta(:products, :conditions=>:search_conditions) do |t|
-  dyta(:products, :conditions=>search_conditions(:products, :products=>[:code, :name])) do |t|
-    t.column :number
-    t.column :name, :through=>:shelf, :url=>{:action=>:shelf}
-    t.column :name, :url=>{:action=>:product}
-    t.column :code
-    t.column :description
-    t.column :active
-    t.action :product, :image=>:show
-    t.action :product_update
-    t.action :product_delete, :method=>:delete, :confirm=>:are_you_sure
-  end
-  
   dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}, :model=>:prices) do |t|
     t.column :name, :through=>:entity
     t.column :name, :through=>:category, :url=>{:controller=>:relations, :action=>:entity_category}
@@ -637,17 +622,47 @@ class ManagementController < ApplicationController
       redirect_to :action=>:product, :id=>session[:product_id]
     end
   end
-  
+
+
+  def self.products_conditions(options={})
+    code = ""
+    code += "conditions = [ \" company_id = ? AND (code ILIKE ? OR name ILIKE ?) AND active = ? \" , @current_company.id, '%'+session[:product_key]+'%', '%'+session[:product_key]+'%', session[:product_active]] \n"
+    code += "if session[:product_shelf_id].to_i != 0 \n"
+    code += "conditions[0] += \" AND shelf_id = ?\" \n" 
+    code += "conditions << session[:product_shelf_id].to_i \n"
+    code += "end \n"
+    code += "conditions \n"
+    code
+  end
+
+  #dyta(:products, :conditions=>search_conditions(:products, :products=>[:code, :name])) do |t|
+  dyta(:products, :conditions=>products_conditions) do |t|
+    t.column :number
+    t.column :name, :through=>:shelf, :url=>{:action=>:shelf}
+    t.column :name, :url=>{:action=>:product}
+    t.column :code
+    t.column :description
+    #t.column :active
+    t.action :product, :image=>:show
+    t.action :product_update
+    t.action :product_delete, :method=>:delete, :confirm=>:are_you_sure
+  end
+    
   def products
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
+    session[:product_active] = true if session[:product_active].nil?
     if @stock_locations.size < 1
       flash[:warning]=tc('need_stocks_location_to_create_products')
       redirect_to :action=>:stock_location_create
     end
-    @key = params[:key]||session[:product_key]
+    @key = params[:key]||session[:product_key]||" "
     session[:product_key] = @key
+    if request.post?
+      session[:product_active] = params[:product_active].nil? ? false : true
+      session[:product_shelf_id] = params[:product].nil? ? 0 : params[:product][:shelf_id].to_i
+    end
   end
-
+  
   def product
     @product = find_and_check(:product, params[:id])
     session[:product_id] = @product.id
@@ -1825,7 +1840,7 @@ class ManagementController < ApplicationController
   end
 
   def shelf
-    @shelf = find_and_check(:shelf, params[:id])
+    return unless @shelf = find_and_check(:shelf, params[:id])
     @title = {:value=>@shelf.name}
   end
 
@@ -2363,7 +2378,16 @@ class ManagementController < ApplicationController
     end
   end
 
-
+  dyta(:transports, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :weight
+    #t.action :transport_create
+  end
+  
+  def transports
+  end
+  
+  def transport_create
+  end
 
 
 end

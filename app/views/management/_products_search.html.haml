@@ -4,4 +4,8 @@
       %tr
         %td.label=tc(:search)
         %td.field=text_field_tag :key, @key
+        %td.label=tc(:active)
+        %td=check_box_tag(:product_active, "1", session[:product_active].nil? ? true : session[:product_active])
+        %td.label=tc(:shelf)
+        %td=select(:product, :shelf_id, @current_company.shelves.collect{|s| [s.name, s.id]}, :include_blank=>"-- Toutes --", :selected=>session[:product_shelf_id])
         %td.submit=submit_tag tg(:search_go)
