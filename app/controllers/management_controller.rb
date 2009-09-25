@@ -938,7 +938,7 @@ class ManagementController < ApplicationController
       else
         flash[:warning]=tc('sale_order_can_not_be_deleted')
       end
-      redirect_to :action=>:sale_orders
+      redirect_to_back
     end
   end
   

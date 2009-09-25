@@ -188,7 +188,7 @@ class RelationsController < ApplicationController
 
 
 
-  dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['session[:current_complement_id]']}, :order=>{'sort'=>'position'}) do |t| 
+  dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['session[:current_complement_id]']}, :default_order=>'position') do |t| 
     t.column :name 
     t.column :value
     t.action :complement_choice_up, :if=>"not RECORD.first\?", :method=>:post
@@ -295,7 +295,7 @@ class RelationsController < ApplicationController
     t.action :entity_contact_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
-  dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions, :order=>{'sort'=>'stopped_on DESC, first_number', 'dir'=>'DESC'}, :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
+  dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions, :default_order=>'stopped_on DESC, first_number', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
 #  dyta(:entity_subscriptions, :joins=>"JOIN subscription_natures AS sn ON (sn.id=subscriptions.nature_id) LEFT JOIN entity_links AS el ON (sn.entity_link_nature_id=el.nature_id AND COALESCE(el.stopped_on,CURRENT_DATE) <= CURRENT_DATE AND entity_id IN (entity1_id, entity2_id))", :conditions=>["subscriptions.company_id = ? AND ? IN (entity_id, COALESCE(entity1_id,0), COALESCE(entity2_id,0))", ['@current_company.id'], ['session[:current_entity]']], :model=>:subscriptions, :order=>{'sort'=>'stopped_on DESC, first_number', 'dir'=>'DESC'}, :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
     t.column :name, :through=>:nature
     t.column :start
@@ -358,13 +358,15 @@ class RelationsController < ApplicationController
 
   dyta(:entity_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :default_order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
     t.column :id
+    t.column :paid_on
     t.column :label, :through=>:embanker
     t.column :name, :through=>:mode
     t.column :bank
-    t.column :account_number
+    # t.column :account_number
     t.column :check_number
     t.column :parts_amount
     t.column :amount
+    t.column :created_on, :through=>:embankment, :url=>{:controller=>:management, :action=>:embankment}, :datatype=>:date
     t.action :payment_update, :controller=>:management, :if=>"RECORD.embankment.nil\?"
     t.action :payment_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.parts_amount.to_f<=0"
   end
