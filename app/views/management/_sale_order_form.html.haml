@@ -11,6 +11,7 @@
   - f.field :sale_order, :contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@current_company.entity_id}
   - f.field :sale_order, :delivery_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@current_company.entity_id}
   - f.field :sale_order, :invoice_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@current_company.entity_id}
+  - f.field :sale_order, :transporter_id, :choices=>@current_company.entities.find_all_by_active_and_transporter(true,true).collect{|t| [t.full_name,t.id]}, :options=>{:include_blank=>"--Aucun--"}
   - f.field :sale_order, :comment, :field=>:textarea
   - f.field :sale_order, :letter_format
 =formalize(:id=>:letter_format) do |f|

@@ -252,7 +252,7 @@ class RelationsController < ApplicationController
     end
     redirect_to_current
   end
-  
+   
   dyta(:entities, :distinct=>true, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)", :default_order=>"LPAD(entities.code, 16, '0')") do |t|
     t.column :active, :label=>'♦'
     t.column :code, :url=>{:action=>:entity}
@@ -788,8 +788,8 @@ class RelationsController < ApplicationController
 
   dyta(:entity_links, :conditions=>['stopped_on IS NULL AND company_id = ? AND (entity1_id = ? OR entity2_id = ?)' , ['@current_company.id'],['session[:current_entity]'],['session[:current_entity]']], :per_page=>5) do |t|
     t.column :description, :through=>:entity1, :url=>{:action=>:entity}
-    t.column :name_1_to_2, :through=>:nature
-   # t.column :name_2_to_1, :through=>:nature
+    t.column :name_1_to_2, :through=>:nature#, :if=>'RECORD.entity1_id == session[:current_entity]'
+    #t.column :name_2_to_1, :through=>:nature, :if=>'RECORD.entity1_id != session[:current_entity]'
     t.column :description, :through=>:entity2, :url=>{:action=>:entity}
     t.column :comment
     t.action :entity_link_update
@@ -820,9 +820,14 @@ class RelationsController < ApplicationController
 
 
   def entity_link_update
-    @entity_link = find_and_check(:entity_link, params[:id])
+    return unless @entity_link = find_and_check(:entity_link, params[:id])
     @entity = find_and_check(:entity, @entity_link.entity1_id)
     if request.post?
+      if params[:entity_link][:nature_id].include?("-R") 
+        params[:entity_link][:entity1_id] = params[:entity_link][:entity2_id]
+        params[:entity_link][:entity2_id] = session[:current_entity].to_i == params[:entity_link][:entity2_id].to_i ? @entity.id : session[:current_entity]
+      end
+      #raise Exception.new params[:entity_link].inspect+params.inspect+params[:entity_link][:entity2_id].inspect
       redirect_to_back if @entity_link.update_attributes(params[:entity_link])
     end
     render_form

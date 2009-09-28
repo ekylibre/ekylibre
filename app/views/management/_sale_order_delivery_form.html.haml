@@ -6,6 +6,7 @@
   -f.field :delivery, :contact_id, :choices=>@contacts.collect{|x| [x.address, x.id]}, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@sale_order.client_id} 
   -f.field :delivery, :mode_id, :choices=>@current_company.delivery_modes.collect{|x| [x.name, x.id]}, :new=>{:action=>:delivery_mode_create}
   -f.field :delivery, :planned_on
+  -f.field :delivery, :transporter_id, :choices=>@current_company.entities.find_all_by_active_and_transporter(true,true).collect{|t| [t.full_name,t.id]}, :options=>{:include_blank=>"--Aucun--"}
 %table.dyta 
   %tr
     %th Produit

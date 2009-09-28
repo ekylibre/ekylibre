@@ -77,7 +77,8 @@ module ApplicationHelper
              {:name=>:payments},
              {:name=>:embankments},
              {:name=>:subscriptions},
-             {:name=>:statistics}
+             {:name=>:statistics},
+             {:name=>:transports}
            ] },
          {:name=>:purchase_orders, :list=>
            [ {:name=>:purchases_new},

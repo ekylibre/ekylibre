@@ -34,39 +34,39 @@ fr-FR:
         management: 'Gestion commerciale'
         relations: 'Relations clients/fournisseurs'
         title: 'Configuration de {{value}}'
-      departments:
-        department_create: 'Ajouter un nouveau service'
-        title: 'Liste des services de la société'
       department_create:
         title: 'Ajout d''un nouveau service'
       _department_form:
         subtitle: 'Renseignez les différentes caractéristiques du service'
       department_update:
         title: 'Modification du service'
-      document_natures:
-        document_nature_create: 'Créer un type de document'
-        title: 'Liste des types de document'
+      departments:
+        department_create: 'Ajouter un nouveau service'
+        title: 'Liste des services de la société'
       document_nature_create:
         title: 'Création d''un type de document'
       document_nature_update:
         title: 'Modification du type de document "{{value}}"'
-      document_templates:
-        document_template_create: 'Créer un modèle de document'
-        document_templates_load: 'Charger les modèles par défaut'
-        title: 'Liste des modèles de document'
+      document_natures:
+        document_nature_create: 'Créer un type de document'
+        title: 'Liste des types de document'
       document_template_create:
         title: 'Création d''un modèle de document'
       document_template_update:
         title: 'Modification du modèle de document "{{value}}"'
-      establishments:
-        establishment_create: 'Ajouter un nouvel établissement'
-        title: 'Liste des établissements'
+      document_templates:
+        document_template_create: 'Créer un modèle de document'
+        document_templates_load: 'Charger les modèles par défaut'
+        title: 'Liste des modèles de document'
       establishment_create:
         title: 'Ajout d''un nouvel etablissement'
       _establishment_form:
         subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
       establishment_update:
         title: 'Modification de l''établissement'
+      establishments:
+        establishment_create: 'Ajouter un nouvel établissement'
+        title: 'Liste des établissements'
       help:
         other_results: 'Autres résultats...'
         results:
@@ -116,9 +116,6 @@ fr-FR:
         tools: 'Outils'
         user_statistics: 'Mes statistiques'
         users: 'Utilisateurs'
-      listings:
-        listing_create: 'Créer une nouvelle extraction'
-        title: 'Extractions de données'
       listing_create:
         title: 'Création d''une nouvelle extraction'
       _listing_form:
@@ -128,6 +125,9 @@ fr-FR:
         title: 'Envoyer un mail pour "{{listing}}"'
       listing_update:
         title: 'Modification de l''extraction {{value}}'
+      listings:
+        listing_create: 'Créer une nouvelle extraction'
+        title: 'Extractions de données'
       _rights_form:
         accountancy_rights: 'Droits module Comptabilité'
         company_rights: 'Droits module Société'
@@ -135,27 +135,35 @@ fr-FR:
         production_rights: 'Droits module Production'
         relations_rights: 'Droits module Relations'
         resources_rights: 'Droits module Ressources'
-      roles:
-        role_create: 'Ajouter un rôle'
-        title: 'Liste des rôles'
       role_create:
         title: 'Ajouter un rôle'
       _role_form:
         role_name: 'Entrez le nom du rôle puis attribuez lui ses droits'
       role_update:
         title: 'Modification du rôle {{value}}'
-      sequences:
-        sequence_create: 'Ajouter une séquence'
-        title: 'Liste des séquences'
+      roles:
+        role_create: 'Ajouter un rôle'
+        title: 'Liste des rôles'
       sequence_create:
         title: 'Création d''une nouvelle séquence'
       _sequence_form:
         subtitle: 'Caractéristiques de la séquence'
       sequence_update:
         title: 'Modification de la séquence {{value}}'
+      sequences:
+        sequence_create: 'Ajouter une séquence'
+        title: 'Liste des séquences'
       user:
         change_password: 'Changer de mot de passe'
         title: 'Informations sur l''utilisateur : {{value}}'
+      user_create:
+        create_employee: 'Employee'
+        title: 'Création d''un nouvel utilisateur'
+      _user_form:
+        employee: 'Créer automatiquement un employé'
+        rights: 'Droits'
+        subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
+        title: 'Gestion des employés'
       user_statistics:
         during: 'pour une durée'
         end: ' au '
@@ -172,20 +180,12 @@ fr-FR:
         title: 'Mes statistiques'
         total_amount: ' Total montant HT '
         total_invoiced_amount: 'Total montant facturé '
+      user_update:
+        title: 'Modification de l''utilisateur'
       users:
         title: 'Liste des utilisateurs'
         user_create: 'Ajouter un nouvel utilisateur'
-      user_create:
-        create_employee: 'Employee'
-        title: 'Création d''un nouvel utilisateur'
-      _user_form:
-        employee: 'Créer automatiquement un employé'
-        rights: 'Droits'
-        subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
-        title: 'Gestion des employés'
       _users_form:
-        employee:  'Créer automatiquement une fiche employé'
-      user_update:
-        title: 'Modification de l''utilisateur'
+        employee: 'Créer automatiquement une fiche employé'
       welcome:
         title: 'Bienvenue dans Ekylibre, {{user}}'

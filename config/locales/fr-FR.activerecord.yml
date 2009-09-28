@@ -103,6 +103,7 @@ fr-FR:
       subscription: 'Abonnement'
       subscription_nature: 'Type d''abonnement'
       tax: 'Taxe'
+      transport: (((TRANSPORT)))
       unit: 'Unité'
       user: 'Utilisateur'
 
@@ -422,9 +423,12 @@ fr-FR:
         quantity: 'Quantité'
         shipped_on: 'Envoyé le'
         text_nature: 'Type'
+        transport_id: 'Transport'
+        transporter_id: 'Transporteur'
         type: 'Type'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
+        weight: 'Poids'
 
       # Ligne de livraison
       delivery_line:
@@ -547,7 +551,7 @@ fr-FR:
         bank_account_id: 'Compte bancaire'
         comment: 'Commentaire'
         company_id: 'Société'
-        created_at: 'Créée le'
+        created_at: 'Créé le'
         created_on: 'Créée le'
         creator_id: 'Créateur'
         embanker_id: 'Encaisseur'
@@ -627,6 +631,7 @@ fr-FR:
         soundex: (((SOUNDEX)))
         supplier: 'Fournisseur'
         supplier_account_id: 'Compte fournisseur associé'
+        transporter: 'Transporteur'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
         vat_number: 'Numéro de TVA intra-communautaire'
@@ -1328,6 +1333,7 @@ fr-FR:
         subject: 'Objet'
         sum_method: (((SUM_METHOD)))
         text_state: 'État'
+        transporter_id: 'Transporteur'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1613,6 +1619,19 @@ fr-FR:
         reductible: 'Réductible'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
+
+      # translation missing: fr-FR, activerecord, models, transport
+      transport:
+        comment: 'Commentaire'
+        company_id: 'Société'
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        id: 'ID'
+        lock_version: 'Version'
+        transporter_id: 'Transporteur'
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+        weight: 'Poids'
 
       # Unité
       unit:

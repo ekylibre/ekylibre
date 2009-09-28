@@ -15,6 +15,7 @@
 class Transport < ActiveRecord::Base
 
   belongs_to :company
+  belongs_to :transporter, :class_name=>Entity.name
   has_many :deliveries
 
   attr_readonly :company_id

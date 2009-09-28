@@ -58,6 +58,7 @@ fr-FR:
     manage_stock_moves: 'Gérer les mouvements de stocks'
     manage_subscriptions: 'Gérer les abonnements'
     manage_taxes: 'Gérer les taxes'
+    manage_transports: (((MANAGE_TRANSPORTS)))
     manage_users: 'Gérer les utilisateurs'
     merge_entities: 'Fusionner les fiches clients/fournisseurs'
     print_accounting_document: 'Imprimer les documents comptables'

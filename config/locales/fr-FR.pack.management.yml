@@ -2,6 +2,7 @@ fr-FR:
 
   controllers:
     management:
+      are_you_sure_to_delete_delivery: 'Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?'
       category: 'Catégorie'
       changes_reflected: 'Changements répercutés'
       choose_one_check_at_less: 'Sélectionnez au moins un chèque'
@@ -21,8 +22,8 @@ fr-FR:
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
         need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
-        need_stock_location_to_record_stock_moves: 'Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage.'
         need_quantities_to_cancel_an_invoice: 'Vous devez spécifier une quantité pour pouvoir faire un avoir'
+        need_stock_location_to_record_stock_moves: 'Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage.'
       need_stock_location_to_create_purchase_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser un achat'
       need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
       need_stocks_location_to_create_products: 'Vous devez créer un lieu de stockage pour pouvoir créer un produit'
@@ -63,48 +64,52 @@ fr-FR:
 
   helpers:
     management:
+      sale_steps:
+        deliveries: 'Planification des livraisons'
+        estimate: 'Création du devis'
+        general: 'Description'
+        products: 'Produits'
+        summary: 'Factures et réglements'
       sales_step_1: 'Description'
       sales_step_2: 'Produits'
       sales_step_3: 'Livraisons'
       sales_step_4: 'Règlements'
-      sale_steps:
-        general: 'Description'
-        products: 'Produits'
-        estimate: 'Création du devis'
-        deliveries: 'Planification des livraisons'
-        summary: 'Factures et réglements'
 
   views:
     management:
-      delays:
-        delay_create: 'Ajouter un nouveau délai'
-        title: 'Liste des délais'
-      delay_create:
-        title: 'Ajout d''un nouveau délai'
       delay:
         delay_update: 'Modifier le délai'
         title: 'Délai : {{value}}'
+      delay_create:
+        title: 'Ajout d''un nouveau délai'
       _delay_form:
         general: 'Général'
       delay_update:
         title: 'Modification du délai : {{value}}'
-      sale_order_delivery_create:
-        title: 'Ajouter une livraison'
-      _sale_order_delivery_form:
-        amount: 'Total de la livraison HT'
-        amount_with_taxes: 'Total de la livraison TTC'
-        infos: 'Renseignez les caractéristiques de la livraison'
-      _delivery_update:
-        title: 'Modification de la livraison'
-      sale_order_delivery_update:
-        title: 'Modification de la livraison'
-      delivery_modes:
-        delivery_mode_create: 'Ajouter un type livraison'
-        title: 'Types de livraison'
+      delays:
+        delay_create: 'Ajouter un nouveau délai'
+        title: 'Liste des délais'
       delivery_mode_create:
         title: 'Ajout d''un nouveau type de livraison'
       delivery_mode_update:
         title: 'Modification du type de livraison "{{value}}"'
+      delivery_modes:
+        delivery_mode_create: 'Ajouter un type livraison'
+        title: 'Types de livraison'
+      _delivery_update:
+        title: 'Modification de la livraison'
+      embankment:
+        amount: 'Montant total'
+        check_number: 'Nombre de chèques'
+        embankment: 'Remise de chèques du'
+        on_account: 'À remettre sur le compte'
+        print_on: 'Le'
+        title: 'Remise de chèques du {{date}}'
+      embankment_create:
+        title: 'Créer une remise : {{mode}}'
+      _embankment_form:
+        infos: 'Renseignez les informations suivantes'
+        payments: 'Règlements'
       embankment_payment_create:
         amount: 'Montant'
         back: 'Retour'
@@ -127,8 +132,10 @@ fr-FR:
         title: 'Sélection des chèques'
         to_bank_on: 'À encaisser le'
         validate: 'Valider'
+      embankment_update:
+        title: 'Modification de la remise de chèque du {{date}}'
       embankments:
-        embankment_create: 
+        embankment_create:
           one: 'Ajouter une remise : {{mode}} (1 règlement)'
           other: 'Ajouter une remise : {{mode}} ({{count}} règlements)'
           zero: 'Ajouter une remise : {{mode}} (Pas de règlement)'
@@ -137,20 +144,6 @@ fr-FR:
           other: '{{count}} chèques à encaisser'
           zero: 'Aucun chèque à encaisser'
         title: 'Remises de chèques'
-      embankment_create:
-        title: 'Créer une remise : {{mode}}'
-      embankment:
-        amount: 'Montant total'
-        check_number: 'Nombre de chèques'
-        embankment: 'Remise de chèques du'
-        on_account: 'À remettre sur le compte'
-        print_on: 'Le'
-        title: 'Remise de chèques du {{date}}'
-      _embankment_form:
-        infos: 'Renseignez les informations suivantes'
-        payments: 'Règlements'
-      embankment_update:
-        title: 'Modification de la remise de chèque du {{date}}'
       index:
         delays: 'Délais'
         delivery_modes: 'Types de livraison'
@@ -188,19 +181,20 @@ fr-FR:
         purchase_orders: 'Achats'
         purchases_consult: 'Liste des achats'
         purchases_new: 'Nouvel achat'
+        sale_order_create: 'Nouvelle vente'
         sale_order_natures: 'Types de vente'
         sale_orders: 'Ventes'
         sales_consult: 'Liste des ventes'
-        sale_order_create: 'Nouvelle vente'
         shelves: 'Catégories de produit'
         statistics: 'Statistiques'
+        stock_location: 'Gérer les stocks'
         stock_transfers: 'Transferts et pertes'
         stocks: 'Stocks'
         stocks_consult: 'État des stocks'
-        stock_location: 'Gérer les stocks'
         subscription_natures: 'Types d''abonnement'
         subscriptions: 'Abonnements'
         title: 'Gestion commerciale'
+        transports: 'Transports'
         units: 'Unités de mesure'
       inventories:
         inventory_create: 'Créer un nouvel inventaire'
@@ -220,12 +214,12 @@ fr-FR:
         inventory: 'Mofifiez votre inventaire'
         title: 'Modification de l''inventaire'
         validate: 'Valider les changements'
-      invoices:
-        nb_invoices:
-          one: '1 facture enregistrée'
-          other: '{{count}} factures enregistrées'
-          zero: 'Aucune facture enregistrée'
-        title: 'Factures'
+      invoice:
+        credits: 'Avoirs'
+        invoice_cancel: 'Faire un avoir sur la facture'
+        invoice_lines: 'Lignes de la facture'
+        invoice_print: 'Imprimer la facture'
+        title: 'Facture {{number}}'
       invoice_cancel:
         already_credited_quantity: 'Qté. déjà passée en avoir'
         price_amount: 'Prix HT'
@@ -236,29 +230,16 @@ fr-FR:
         total_quantity: 'Qté. totale'
         unit: 'Unité'
         validate: 'Valider'
-      invoice:
-        credits: 'Avoirs'
-        invoice_lines: 'Lignes de la facture'
-        invoice_print: 'Imprimer la facture'
-        invoice_cancel: 'Faire un avoir sur la facture'
-        title: 'Facture {{number}}'
+      invoices:
+        nb_invoices:
+          one: '1 facture enregistrée'
+          other: '{{count}} factures enregistrées'
+          zero: 'Aucune facture enregistrée'
+        title: 'Factures'
       _invoices_search:
         search: 'Rechercher une facture par son numéro'
       _location_choice:
         select_stock_location: 'Choississez un lieu de stockage'
-      payment_modes:
-        payment_mode_create: 'Créer un nouveau type de paiement'
-        title: 'Types de paiement'
-      payment_mode_create:
-        title: 'Créer un nouveau type de paiement'
-      payment_mode_update:
-        title: 'Modifier un type de paiement'
-      payments:
-        nb_payments:
-          one: '1 règlement en attente'
-          other: '{{count}} règlements en attente'
-          zero: 'Aucun règlement en attente'
-        title: 'Suivi des règlements'
       payment_create:
         title: 'Ajouter un nouveau réglement à la vente : {{value}}'
       _payment_form:
@@ -269,18 +250,36 @@ fr-FR:
         payment_label: 'Réglement : {{amount}} du {{date}} par {{mode}} / Montant utilisable : {{usable_amount}}'
         title: 'Renseignez les conditions du réglement'
         unused_payment: 'Réglement à utiliser'
+      payment_mode_create:
+        title: 'Créer un nouveau type de paiement'
+      payment_mode_update:
+        title: 'Modifier un type de paiement'
+      payment_modes:
+        payment_mode_create: 'Créer un nouveau type de paiement'
+        title: 'Types de paiement'
       payment_update:
         title: 'Modifier un paiement'
+      payments:
+        nb_payments:
+          one: '1 règlement en attente'
+          other: '{{count}} règlements en attente'
+          zero: 'Aucun règlement en attente'
+        title: 'Suivi des règlements'
+      price_create:
+        title: 'Ajout d''un nouveau prix'
+      _price_form:
+        general: 'Général'
+        taxes: 'Taxes'
       price_lists:
         price_lists_create: 'Ajouter une nouvelle liste de prix'
         title: 'Gérer les listes de prix'
       price_lists_create:
         title: 'Ajouter une nouvelle liste de prix'
       price_lists_display:
+        price_create: 'Ajouter un nouveau prix'
         price_lists: 'Voir les listes de prix'
         price_lists_update: 'Modifier le détail de la liste de prix'
         prices: 'Produits et prix de la liste'
-        price_create: 'Ajouter un nouveau prix'
         title: 'Liste de prix : {{value}}'
       _price_lists_form:
         general: 'Description générale'
@@ -296,19 +295,36 @@ fr-FR:
         sale_order_price_create: 'Ajouter un prix de vente'
         supplier: 'Les prix d''achat du fournisseur'
         title: 'Liste des prix'
-      price_create:
-        title: 'Ajout d''un nouveau prix'
-      _price_form:
-        general: 'Général'
-        taxes: 'Taxes'
       prices_import:
         file_to_download: 'Fichier à importer'
         prices_export: 'Exporter vos tarifs au format CSV'
         title: 'Importer un fichier CSV de tarifs'
+      product:
+        components: 'Composants'
+        prices: 'Prix du produit'
+        product_component_create: 'Ajouter un nouveau composant'
+        product_update: 'Modifier la fiche du produit'
+        products: 'Voir la liste de produits'
+        purchase_price_create: 'Créer un prix d''achat'
+        purchases_price_create: 'Ajouter un prix d''achat'
+        sale_price_create: 'Créer un prix de vente'
+        sales_price_create: 'Ajouter un prix de vente'
+        stocks: 'État des stocks'
+        title: 'Fiche du produit : {{value}}'
       product_component_create:
         title: 'Ajouter un composant au produit {{value}} '
       product_component_update:
         title: 'Modification d''un composant du produit {{product}} '
+      product_create:
+        title: 'Ajouter un nouveau produit'
+      _product_form:
+        accountancy: 'Comptabilité'
+        description: 'Descriptions'
+        identification: 'Nom et codes du produit'
+        nature: 'Type de produit'
+        stocks: 'Gestion des stocks'
+      product_update:
+        title: 'Modification du produit : {{value}}'
       products:
         nb_products:
           one: '1 produit enregistré'
@@ -316,41 +332,19 @@ fr-FR:
           zero: 'Aucun produit enregistré'
         product_create: 'Ajout d''un nouveau produit'
         title: 'Gérer les produits'
-      product_create:
-        title: 'Ajouter un nouveau produit'
-      product:
-        components: 'Composants'
-        prices: 'Prix du produit'
-        product_component_create: 'Ajouter un nouveau composant'
-        products: 'Voir la liste de produits'
-        product_update: 'Modifier la fiche du produit'
-        purchase_price_create: 'Créer un prix d''achat'
-        purchases_price_create: 'Ajouter un prix d''achat'
-        sale_price_create: 'Créer un prix de vente'
-        sales_price_create: 'Ajouter un prix de vente'
-        stocks: 'État des stocks'
-        title: 'Fiche du produit : {{value}}'
-      _product_form:
-        accountancy: 'Comptabilité'
-        description: 'Descriptions'
-        identification: 'Nom et codes du produit'
-        nature: 'Type de produit'
-        stocks: 'Gestion des stocks'
       _products_search:
         active: 'Actif'
         search: 'Rechercher un produit'
         shelf: 'Catégorie'
         title: 'Recherche'
-      product_update:
-        title: 'Modification du produit : {{value}}'
-      purchase_order_line_create:
-        title: 'Ajouter un produit à la commande'
-      purchase_order_line_update:
-        title: 'Modifier une ligne de la commande'
       purchase_order_create:
         title: 'Nouvel achat'
       _purchase_order_form:
         infos: 'Renseignez les caractéristiques de l''achat '
+      purchase_order_line_create:
+        title: 'Ajouter un produit à la commande'
+      purchase_order_line_update:
+        title: 'Modifier une ligne de la commande'
       purchase_orders:
         nb_purchases:
           one: '1 achat'
@@ -375,6 +369,48 @@ fr-FR:
         title: 'Saisie rapide'
         to: 'au'
         valid: 'Valider'
+      sale_order:
+        deliveries: 'Livraisons'
+        general_informations: 'Informations générales'
+        invoices: 'Factures'
+        lines: 'Lignes de vente'
+        payment_create: 'Ajouter un règlement'
+        payments: 'Règlements'
+        sale_order_lines: 'Modifier la vente'
+        sale_order_print: 'Imprimer la vente'
+        subscriptions: 'Abonnements'
+        title: 'Détails de la vente {{value}} au client {{name}}'
+      sale_order_create:
+        title: 'Création de la vente'
+      sale_order_deliveries:
+        address: 'Adresse de livraison'
+        amount: 'Montant HT'
+        amount_with_taxes: 'Montant TTC'
+        are_you_sure_to_invoice: 'Êtes-vous sûr(e) de vouloir facturer la vente ?'
+        deliver: 'Faite le  '
+        deliveries: 'Livraisons'
+        invoice: 'Facturation'
+        invoice_number: 'Facture n°'
+        quantity: 'Quantité'
+        sale_order_delivery_create: 'Ajouter une livraison'
+        sale_order_invoice: 'Effectuer la dernière livraison (si nécessaire) et tout facturer'
+        sale_order_print: 'Imprimer la commande'
+        ship: 'Prévue le  '
+        supply: 'Livraison'
+        title: 'Livraisons'
+        undelivered: 'Reste à livrer'
+      sale_order_delivery_create:
+        title: 'Ajouter une livraison'
+      _sale_order_delivery_form:
+        amount: 'Total de la livraison HT'
+        amount_with_taxes: 'Total de la livraison TTC'
+        infos: 'Renseignez les caractéristiques de la livraison'
+      sale_order_delivery_update:
+        title: 'Modification de la livraison'
+      _sale_order_form:
+        client: 'Sélection du client'
+        conditions: 'Conditions de vente'
+        letter: 'Lettre'
       sale_order_line_create:
         title: 'Ajout d''une ligne de produit'
       _sale_order_line_form:
@@ -382,9 +418,25 @@ fr-FR:
         infos: 'Choississez le produit et la quantité'
       sale_order_line_update:
         title: 'Modifier une ligne de produit'
-      sale_order_natures:
-        sale_order_nature_create: 'Créer un nouveau type de vente'
-        title: 'Types de ventes'
+      sale_order_lines:
+        amount: 'Montant HT'
+        amount_with_taxes: 'Montant TTC'
+        are_you_sure_to_confirm: 'Êtes-vous sûr(e) de vouloir passer la vente en commande ?'
+        are_you_sure_to_invoice: 'Êtes-vous sûr(e) de vouloir facturer directement la vente ?'
+        deliveries: 'Livraisons'
+        estimate_to_order: 'Passer le devis en commande'
+        general: 'Informations générales'
+        invoice_sale_order: 'Facturer la vente'
+        lines: 'Lignes du devis'
+        sale_order_confirm: 'Passer le devis en commande et aller aux livraisons'
+        sale_order_deliveries: 'Livraisons'
+        sale_order_invoice: 'Facturer directement tout le devis'
+        sale_order_line_create: 'Ajouter un produit au devis (Mode complet)'
+        sale_order_print: 'Imprimer le devis'
+        sale_order_update: 'Modifier les informations du devis'
+        subscriptions: 'Abonnements'
+        title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
+        total: 'Total'
       sale_order_nature_create:
         title: 'Ajout d''un type de vente'
       _sale_order_nature_form:
@@ -394,66 +446,11 @@ fr-FR:
         general: 'Général'
       sale_order_nature_update:
         title: 'Modification d''un type de vente'
+      sale_order_natures:
+        sale_order_nature_create: 'Créer un nouveau type de vente'
+        title: 'Types de ventes'
       sale_order_print:
         deliveries_number: 'jjkjj'
-      sale_orders:
-        all: 'Toutes'
-        current: 'En cours'
-        nb_sales:
-          one: '1 vente'
-          other: '{{count}} ventes'
-          zero: 'Aucune vente'
-        search_sales: 'Rechercher des ventes'
-        title: 'Liste des ventes'
-        unpaid: 'Impayées'
-      sale_order_deliveries:
-        address: 'Adresse de livraison'
-        amount: 'Montant HT'
-        amount_with_taxes: 'Montant TTC'
-        are_you_sure_to_invoice: 'Êtes-vous sûr(e) de vouloir facturer la vente ?'
-        deliver: 'Faite le  '
-        deliveries: 'Livraisons'
-        sale_order_delivery_create: 'Ajouter une livraison'
-        invoice: 'Facturation'
-        invoice_number: 'Facture n°'
-        quantity: 'Quantité'
-        sale_order_invoice: 'Effectuer la dernière livraison (si nécessaire) et tout facturer'
-        sale_order_print: 'Imprimer la commande'
-        ship: 'Prévue le  '
-        supply: 'Livraison'
-        title: 'Livraisons'
-        undelivered: 'Reste à livrer'
-      sale_order:
-        deliveries: 'Livraisons'
-        general_informations: 'Informations générales'
-        invoices: 'Factures'
-        payments: 'Règlements'
-        payment_create: 'Ajouter un règlement'
-        lines: 'Lignes de vente'
-        sale_order_print: 'Imprimer la vente'
-        sale_order_lines: 'Modifier la vente'
-        subscriptions: Abonnements
-        title: 'Détails de la vente {{value}} au client {{name}}'
-      sale_order_create:
-        title: 'Création de la vente'
-      sale_order_update:
-        title: 'Modifcation de la vente N°{{number}}'
-      _sale_order_form:
-        client: 'Sélection du client'
-        conditions: 'Conditions de vente'
-        letter: 'Lettre'
-      sales_invoices:
-        address: 'Livraison'
-        amount: 'Montant HT'
-        amount_with_taxes: 'Montant TTC'
-        deliver: 'Reçu le'
-        invoices: 'Factures'
-        payments: 'Réglements'
-        quantity: 'Quantité'
-        rest_to_invoice: 'À facturer'
-        ship: 'Expédié le'
-        title: 'Facturation'
-        to_invoice: 'Facturer'
       sale_order_summary:
         amount_wt: 'Montant TTC'
         balance_amount: 'Solde du client'
@@ -467,63 +464,68 @@ fr-FR:
         order_amount_with_taxes: 'Montant de la commande'
         paid_amount: 'Montant réglé'
         paid_on: 'Règlé le'
+        payment_create: 'Ajouter un nouveau paiement'
         payment_mode: 'Mode de paiement'
         payment_on: 'Payé le'
         payments: 'Règlements'
         payments_amount: 'Montant réglé'
-        payment_create: 'Ajouter un nouveau paiement'
         payments_total: 'Total règlements'
         rest_to_pay: 'Reste à payer'
         title: 'Règlements'
         total_amount: 'Montant de la commande'
         uninvoiced_amount: 'Montant non facturé'
         unpaid_amount: 'Montant restant à payer'
-      sale_order_lines:
+      sale_order_update:
+        title: 'Modifcation de la vente N°{{number}}'
+      sale_orders:
+        all: 'Toutes'
+        current: 'En cours'
+        nb_sales:
+          one: '1 vente'
+          other: '{{count}} ventes'
+          zero: 'Aucune vente'
+        search_sales: 'Rechercher des ventes'
+        title: 'Liste des ventes'
+        unpaid: 'Impayées'
+      sales_invoices:
+        address: 'Livraison'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
-        are_you_sure_to_confirm: 'Êtes-vous sûr(e) de vouloir passer la vente en commande ?'
-        are_you_sure_to_invoice: 'Êtes-vous sûr(e) de vouloir facturer directement la vente ?'
-        deliveries: 'Livraisons'
-        estimate_to_order: 'Passer le devis en commande'
-        general: Informations générales
-        invoice_sale_order: 'Facturer la vente'
-        lines: 'Lignes du devis'
-        sale_order_line_create: 'Ajouter un produit au devis (Mode complet)'
-        sale_order_confirm: 'Passer le devis en commande et aller aux livraisons'
-        sale_order_invoice: 'Facturer directement tout le devis'
-        sale_order_print: 'Imprimer le devis'
-        sale_order_update: 'Modifier les informations du devis'
-        sale_order_deliveries: 'Livraisons'
-        subscriptions: 'Abonnements'
-        title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
-        total: 'Total'
-      shelves:
-        shelf_create: 'Ajouter une nouvelle catégorie de produits'
-        title: 'Gérer les catégories de produits'
+        deliver: 'Reçu le'
+        invoices: 'Factures'
+        payments: 'Réglements'
+        quantity: 'Quantité'
+        rest_to_invoice: 'À facturer'
+        ship: 'Expédié le'
+        title: 'Facturation'
+        to_invoice: 'Facturer'
+      shelf:
+        shelf_update: 'Modifier la catégorie'
+        shelves: 'Voir la liste des catégories de produit'
+        title: 'Détail de la catégorie : {{value}}'
       shelf_create:
         title: 'Ajout d''une nouvelle catégorie de produits'
-      shelf:
-        shelves: 'Voir la liste des catégories de produit'
-        shelf_update: 'Modifier la catégorie'
-        title: 'Détail de la catégorie : {{value}}'
       _shelf_form:
         catalog: 'Description pour catalogue'
         general: 'Informations générales'
       shelf_update:
         title: 'Ajout d''une nouvelle catégorie de produits'
+      shelves:
+        shelf_create: 'Ajouter une nouvelle catégorie de produits'
+        title: 'Gérer les catégories de produits'
       statistics:
         amount: 'Montants HT'
         amount_with_taxes: 'Montants TTC'
         data_to_export: 'Données à exporter :'
-        title: 'Statistiques'
-        sales: 'Exporter un tableau des ventes au format CSV'
+        go: 'Valider'
+        invoice: 'Factures'
+        nb_years: 'Nombre d''années dans l''historique'
         product: 'Produit'
         quantity: 'Quantités'
-        source: 'Source de données :'
-        invoice: 'Factures'
         sale_order: 'Commandes'
-        nb_years: 'Nombre d''années dans l''historique'
-        go: 'Valider'
+        sales: 'Exporter un tableau des ventes au format CSV'
+        source: 'Source de données :'
+        title: 'Statistiques'
       _stock_indicator:
         critic_stock_min: 'Stock minimum critique'
         current_real_quantity: 'Quantité réelle'
@@ -536,30 +538,6 @@ fr-FR:
         title: 'État des stocks'
         unit: 'Unité'
         weight: 'Poids'
-      stock_transfers:
-        stock_transfer_create: 'Ajouter un transfert ou une perte de stocks'
-        title: 'Transferts et pertes de stocks'
-      stock_transfer_create:
-        title: 'Ajouter un transfert ou une perte de stocks'
-      stock_transfer_update:
-        title: 'Modification d''un transfert de stock'
-      stocks:
-        critic_stock_min: 'Stock minimum critique'
-        current_real_quantity: 'Quantité réelle'
-        current_virtual_quantity: 'Quantité virtuelle'
-        name: 'Nom'
-        select_stock_location: 'Sélectionnez un lieu de stockage'
-        stock_max: 'Stock maximum'
-        stock_min: 'Stock minimum'
-        title: 'État des stocks'
-        unit: 'Unité'
-        weight: 'Poids'
-      stock_location:
-        reservoirs_create: 'Ajouter un réservoir (cuve, citerne, silot...)'
-        stock_location_create: 'Ajouter un nouveau lieu de stockage'
-        title: 'Gérer les stocks'
-      stock_location_create:
-        title: 'Ajout d''un lieu de stockage'
       stock_location:
         establishment: 'Établissement'
         moves: 'Mouvements de stocks'
@@ -567,6 +545,8 @@ fr-FR:
         stock_location_update: 'Modifier le lieu de stockage'
         stock_move_create: 'Ajouter un mouvement de stock'
         title: 'Détail du lieu de stockage : {{value}}'
+      stock_location_create:
+        title: 'Ajout d''un lieu de stockage'
       _stock_location_form:
         accountancy: 'Comptabilité'
         description: 'Description générale'
@@ -582,32 +562,60 @@ fr-FR:
         product: '{{product}} ({{unit}})'
       stock_move_update:
         title: 'Modifier le mouvement de stock : {{value}}'
+      stock_transfer_create:
+        title: 'Ajouter un transfert ou une perte de stocks'
+      stock_transfer_update:
+        title: 'Modification d''un transfert de stock'
+      stock_transfers:
+        stock_transfer_create: 'Ajouter un transfert ou une perte de stocks'
+        title: 'Transferts et pertes de stocks'
+      stocks:
+        critic_stock_min: 'Stock minimum critique'
+        current_real_quantity: 'Quantité réelle'
+        current_virtual_quantity: 'Quantité virtuelle'
+        name: 'Nom'
+        select_stock_location: 'Sélectionnez un lieu de stockage'
+        stock_max: 'Stock maximum'
+        stock_min: 'Stock minimum'
+        title: 'État des stocks'
+        unit: 'Unité'
+        weight: 'Poids'
+      subscription_create:
+        title: 'Création d''un abonnement'
       subscription_message:
         contact: 'à l''adresse'
         from: 'Du numéro'
         from_date: 'Du'
         to: 'au numéro'
         to_date: 'Au'
-      subscription_natures:
-        subscription_nature_create: 'Ajouter un type d''abonnement'
-        title: 'Types d''abonnements'
       subscription_nature_create:
         title: 'Ajouter un type d''abonnement'
       subscription_nature_update:
         title: 'Modification du type d''abonnement {{value}}'
+      subscription_natures:
+        subscription_nature_create: 'Ajouter un type d''abonnement'
+        title: 'Types d''abonnements'
       _subscription_options:
         select_date: 'Entrez une date'
         select_number: 'Entrez un numéro'
         subscription_natures_down: 'Décrémenter le numéro actuel (-1)'
         subscription_natures_up: 'Incrémenter le numéro actuel (+1)'
+      subscription_update:
+        title: 'Modification de "{{value}}" du {{start}} au {{finish}}'
       subscriptions:
         select_number_or_date: 'Entrez un numéro ou une date'
         subscription_nature: 'Type d''abonnement'
         title: 'Abonnements'
-      subscription_create:
-        title: 'Création d''un abonnement'
-      subscription_update:
-        title: 'Modification de "{{value}}" du {{start}} au {{finish}}'
+      transport_create:
+        title: 'Ajout d''un nouveau transport'
+      transport_deliveries: 
+        add_delivery: 'Ajouter une livraison'
+        delivery: 'Livraison'
+        title: 'Livraisons du transport'
+      _transport_form: 
+        info: 'Renseignez les informations du transport'
+      transport_update: 
+        title: 'Modification du transport'
       transports:
         title: 'Transports'
       undelivered_sales:

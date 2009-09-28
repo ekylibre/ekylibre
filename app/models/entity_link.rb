@@ -26,9 +26,8 @@ class EntityLink < ActiveRecord::Base
   attr_readonly :company_id
 
   def after_create
-    self.started_on = Date.today
+    self.started_on ||= Date.today
     self.save
   end
-
 
 end

@@ -40,18 +40,8 @@ fr-FR:
 
   views:
     accountancy:
-      accounts:
-        account_create: 'Enregistrer un nouveau compte'
-        delete: 'Supprimer un compte'
-        title: 'Comptes'
-        update: 'Modifier un compte'
       account_create:
         title: 'Créer un nouveau compte'
-      _accounts_find:
-        account_name: 'Nom du compte '
-        account_number: 'Numéro de compte '
-        account_create: 'Créer un nouveau compte comptable'
-        no_accounts: 'Il n''existe pas de compte commençant par ce numéro.'
       account_letter:
         entry_credit: 'Crédit'
         entry_debit: 'Débit'
@@ -61,14 +51,21 @@ fr-FR:
         record_number: 'Pièce'
         recorded_on: 'Date'
         title: 'Lettrage du compte N° {{value1}}'
+      account_update:
+        title: 'Modifier le compte : {{value}}'
+      accounts:
+        account_create: 'Enregistrer un nouveau compte'
+        delete: 'Supprimer un compte'
+        title: 'Comptes'
+        update: 'Modifier un compte'
+      _accounts_find:
+        account_create: 'Créer un nouveau compte comptable'
+        account_name: 'Nom du compte '
+        account_number: 'Numéro de compte '
+        no_accounts: 'Il n''existe pas de compte commençant par ce numéro.'
       accounts_letter_launch:
         select_account: 'Sélectionnez un compte:'
         title: 'Lettrage de compte'
-      account_update:
-        title: 'Modifier le compte : {{value}}'
-      bank_accounts:
-        bank_account_create: 'Créer un nouveau compte bancaire'
-        title: 'Comptes bancaires'
       bank_account_create:
         title: 'Créer un nouveau compte bancaire'
       _bank_account_form:
@@ -77,8 +74,40 @@ fr-FR:
         create_journal: 'Vous devez d''abord créer un journal.'
         iban: 'Numéro de compte bancaire internationale (IBAN)'
         rib: 'Description générale'
+      bank_account_statement:
+        cancel: 'Annuler'
+        entry_credit: 'Crédit'
+        entry_debit: 'Dédit'
+        entry_name: 'Libellé'
+        statement_bank_account_name: 'Nom du compte bancaire'
+        statement_credit: 'Crédit'
+        statement_debit: 'Débit'
+        statement_number: 'Numéro du relevé de compte'
+        statements: 'Tableau des relevés de compte'
+        title: 'Détail du relevé de compte {{value}}'
+      bank_account_statement_create:
+        title: 'Enregistrer un nouveau relevé de compte'
+      bank_account_statement_point:
+        bank_account_statement: 'Détail du relevé de compte'
+        entry_credit: 'Crédit'
+        entry_currency_rate: 'Devise'
+        entry_debit: 'Débit'
+        entry_name: 'Intitulé de l''écriture'
+        recorded_on: 'Enregistrée le'
+        statement_number: 'N° Relevé'
+        statements: 'Tableau des relevés de compte'
+        title: 'Pointage du relevé bancaire {{value1}} du compte bancaire {{value2}}'
+        total: 'Total pour le compte bancaire :'
+        total_credit: 'Crédit'
+        total_debit: 'Débit'
+        validate: 'Valider'
+      bank_account_statement_update:
+        title: 'Modifier un relevé'
       bank_account_update:
         title: 'Modifier le compte bancaire'
+      bank_accounts:
+        bank_account_create: 'Créer un nouveau compte bancaire'
+        title: 'Comptes bancaires'
       _currencies_find:
         currency_code: 'Code de devise'
         currency_id: 'Numéro de devise'
@@ -94,6 +123,14 @@ fr-FR:
       document_print:
         print: 'Impression'
         title: 'Impression du document : {{value}}'
+      entries:
+        journal_x: '{{name}} (clôturé le {{closed_on}})'
+        number_records: 'Nombre des dernières pièces à afficher'
+        select_financialyear: 'Comptabiliser les écritures pour l''exercice comptable'
+        select_journal: 'Saisir les écritures dans le journal'
+        subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
+        title: 'Saisie des écritures'
+        update_params: 'Changer de journal et/ou d''exercice...'
       _entries:
         account_number: 'N°Compte'
         balanced_entries: 'Vert : pièce équilibrée'
@@ -111,14 +148,6 @@ fr-FR:
         title: 'Saisie des écritures'
         unbalanced_entries: 'Rouge : pièce non équilibrée'
         update: 'Modifier'
-      entries:
-        journal_x: '{{name}} (clôturé le {{closed_on}})'
-        number_records: 'Nombre des dernières pièces à afficher'
-        select_financialyear: 'Comptabiliser les écritures pour l''exercice comptable'
-        select_journal: 'Saisir les écritures dans le journal'
-        subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
-        title: 'Saisie des écritures'
-        update_params: 'Changer de journal et/ou d''exercice...'
       entries_consult:
         all_financialyears: '--- Tous les exercices ---'
         all_journals: '--- Tous les journaux ---'
@@ -133,9 +162,6 @@ fr-FR:
         title: 'Consultation des écritures'
       entry_update:
         title: 'Modification de l''écriture'
-      financialyears:
-        financialyear_create: 'Enregister un nouvel exercice comptable'
-        title: 'Exercices comptables'
       financialyear_close:
         close: 'Clôturer l''exercice'
         save_renew: 'Souhaitez-vous reporter les à nouveaux ? '
@@ -145,6 +171,9 @@ fr-FR:
         title: 'Créer un nouvel exercice'
       financialyear_update:
         title: 'Modifier un nouvel exercice'
+      financialyears:
+        financialyear_create: 'Enregister un nouvel exercice comptable'
+        title: 'Exercices comptables'
       index:
         accounts: 'Comptes comptables'
         bank_accounts: 'Comptes bancaires (RIB)'
@@ -152,10 +181,10 @@ fr-FR:
         documents: 'Documents comptables'
         entries: 'Saisir des écritures'
         entries_consult: 'Consulter des écritures'
-        financialyears: 'Exercices comptables'
         financialyear_close: 'Clôture d''exercice'
-        journals: 'Journaux'
+        financialyears: 'Exercices comptables'
         journal_close: 'Clôture de journal'
+        journals: 'Journaux'
         lettering: 'Lettrer des comptes de tiers'
         nb_entries:
           one: '1 écriture'
@@ -165,22 +194,22 @@ fr-FR:
         parameters: 'Paramètres'
         report: 'Reprise des à nouveaux'
         statements: 'Pointer un relevé de compte'
-        taxes: 'Taxes' 
+        taxes: 'Taxes'
         title: 'Comptabilité générale'
         works: 'Travaux comptables'
-      journals:
-        journal_create: 'Enregistrer un nouveau journal'
-        title: 'Journaux'
       journal_close:
         close: 'Clôturer le journal'
         title: 'Clôture du journal'
       journal_create:
         title: 'Créer un nouveau journal'
+      journal_update:
+        title: 'Modifier le journal'
+      journals:
+        journal_create: 'Enregistrer un nouveau journal'
+        title: 'Journaux'
       _journals_find:
         journal_id: 'Numéro de journal'
         journal_name: 'Nom du journal'
-      journal_update:
-        title: 'Modifier le journal'
       lettering:
         lettering_account_client: 'Lettrage des comptes clients'
         lettering_account_supplier: 'Lettrage des comptes fournisseurs'
@@ -220,48 +249,12 @@ fr-FR:
       report:
         title: 'Reprise des à nouveaux'
       statements:
+        bank_account_statement_create: 'Enregistrer un nouveau relevé de compte'
         create_bank_account: 'Vous devez d''abord créer un compte bancaire.'
         credit: 'Total crédit'
         debit: 'Total débit'
         select_bank_account: 'Sélectionnez un compte bancaire:'
-        bank_account_statement_create: 'Enregistrer un nouveau relevé de compte'
         title: 'Pointage des relevés de comptes bancaires'
-      taxes:
-        tax_create: 'Ajouter une nouvelle taxe'
-        title: 'Taxes'
-      tax_create:
-        title: 'Ajouter une nouvelle taxe'
-      tax_update:
-        title: 'Modification de la taxe : {{name}}'
-      bank_account_statement_create:
-        title: 'Enregistrer un nouveau relevé de compte'
-      bank_account_statement:
-        cancel: 'Annuler'
-        entry_credit: 'Crédit'
-        entry_debit: 'Dédit'
-        entry_name: 'Libellé'
-        statement_bank_account_name: 'Nom du compte bancaire'
-        statement_credit: 'Crédit'
-        statement_debit: 'Débit'
-        statement_number: 'Numéro du relevé de compte'
-        statements: 'Tableau des relevés de compte'
-        title: 'Détail du relevé de compte {{value}}'
-      bank_account_statement_point:
-        entry_credit: 'Crédit'
-        entry_currency_rate: 'Devise'
-        entry_debit: 'Débit'
-        entry_name: 'Intitulé de l''écriture'
-        recorded_on: 'Enregistrée le'
-        statement_number: 'N° Relevé'
-        statements: 'Tableau des relevés de compte'
-        bank_account_statement: 'Détail du relevé de compte'
-        title: 'Pointage du relevé bancaire {{value1}} du compte bancaire {{value2}}'
-        total: 'Total pour le compte bancaire :'
-        total_credit: 'Crédit'
-        total_debit: 'Débit'
-        validate: 'Valider'
-      bank_account_statement_update:
-        title: 'Modifier un relevé'
       synthesis:
         account_accruals: 'Comptes de régularisation'
         account_claims_assets: 'Créances'
@@ -295,3 +288,10 @@ fr-FR:
         running_finished: 'Produits d''exploitation'
         title: 'Documents annuels pour {{value}}'
         total: 'Total'
+      tax_create:
+        title: 'Ajouter une nouvelle taxe'
+      tax_update:
+        title: 'Modification de la taxe : {{name}}'
+      taxes:
+        tax_create: 'Ajouter une nouvelle taxe'
+        title: 'Taxes'

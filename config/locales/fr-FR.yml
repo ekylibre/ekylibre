@@ -404,6 +404,7 @@ fr-FR:
     add: Ajouter
     apply: Appliquer
     are_you_sure: 'Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?'
+    are_you_sure_to_delete_delivery: 'Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?'
     back: 'Revenir à la page précédente'
     cancel: 'Annuler'
     choices: 'Choix'
@@ -449,5 +450,6 @@ fr-FR:
     unlock: 'Déverrouiller'
     up: 'Monter'
     update: 'Modifier'
+    validate: 'Valider'
     y: oui
    

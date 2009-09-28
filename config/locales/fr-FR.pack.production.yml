@@ -24,6 +24,12 @@ fr-FR:
         shape_operations: 'Traitements'
         shapes: 'Îlots'
         title: 'Gestion de la production'
+      production_create:
+        title: 'Créer une nouvelle production'
+      _production_form:
+        infos: 'Renseignez les caractéristiques de la production'
+        production_legend_one: ' mp : matières premières'
+        production_legend_two: ' nc : nombre de composants '
       production_line_create:
         title: 'Gérer les quantités utilisées '
       _production_line_form:
@@ -33,44 +39,38 @@ fr-FR:
         unit: 'Unité'
       production_line_update:
         title: 'Modifier les quantités utilisées'
-      productions:
-        productions: 'Productions'
-        production_create: 'Enregistrer un nouvelle production'
-        title: 'Productions'
-      production_create:
-        title: 'Créer une nouvelle production'
-      _production_form:
-        infos: 'Renseignez les caractéristiques de la production'
-        production_legend_one: ' mp : matières premières'
-        production_legend_two: ' nc : nombre de composants '
       production_update:
         title: 'Modification de la production {{value}} du {{moved}}'
-      shape_operation_natures:
-        shape_operation_nature_create: 'Créer un nouveau type de traitement'
-        title: 'Types de traitement'
-      shape_operation_nature_create:
-        title: 'Créer un nouveau type de traitement'
-      shape_operation_nature_update:
-        title: 'Modification du type de traitement "{{name}}"'
-      shape_operations:
-        shape_operation_create: 'Créer un nouveau traitement'
-        title: 'Traitements'
+      productions:
+        production_create: 'Enregistrer un nouvelle production'
+        productions: 'Productions'
+        title: 'Productions'
+      shape_create:
+        title: 'Ajouter un nouvel îlot'
+      _shape_form:
+        infos: 'Renseignez les caractéristiques de l''îlot'
       shape_operation_create:
         title: 'Créer un nouveau traitement'
       _shape_operation_form:
         infos: 'Renseignez les caractéristiques du traitement'
+      shape_operation_nature_create:
+        title: 'Créer un nouveau type de traitement'
+      shape_operation_nature_update:
+        title: 'Modification du type de traitement "{{name}}"'
+      shape_operation_natures:
+        shape_operation_nature_create: 'Créer un nouveau type de traitement'
+        title: 'Types de traitement'
       shape_operation_update:
         title: 'Modification du traitement {{name}}'
-      shapes:
-        shapes: 'Îlots'
-        shape_create: 'Créer un nouvel îlot'
-        title: 'Îlots'
-      shape_create:
-        title: 'Ajouter un nouvel îlot'
+      shape_operations:
+        shape_operation_create: 'Créer un nouveau traitement'
+        title: 'Traitements'
       shape_update:
         title: 'Modification de l'' îlot {{name}}'
-      _shape_form:
-        infos: 'Renseignez les caractéristiques de l''îlot'
+      shapes:
+        shape_create: 'Créer un nouvel îlot'
+        shapes: 'Îlots'
+        title: 'Îlots'
       unvalidated_operations:
         employee_name: 'Employé'
         executed: 'Éffectué'

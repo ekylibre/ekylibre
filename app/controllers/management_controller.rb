@@ -1385,7 +1385,7 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sale_order_deliveries, :id=>session[:current_sale_order]
     end
     @delivery_lines =  @sale_order_lines.find_all_by_reduction_origin_id(nil).collect{|x| DeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
-    @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :planned_on=>Date.today)
+    @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :planned_on=>Date.today, :transporter_id=>@sale_order.transporter_id)
     session[:current_delivery] = @delivery.id
     @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :active=>true, :entity_id=>@sale_order.client_id})
     
@@ -2379,14 +2379,71 @@ class ManagementController < ApplicationController
   end
 
   dyta(:transports, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :full_name, :through=>:transporter
     t.column :weight
-    #t.action :transport_create
+    t.action :transport_update
+  end
+
+  dyta(:transport_deliveries, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :transport_id=>['session[:current_transport]']}) do |t|
+    t.column :address, :through=>:contact, :children=>:product_name
+    t.column :planned_on, :children=>false
+    t.column :moved_on, :children=>false
+    t.column :number, :through=>:invoice, :url=>{:action=>:invoice}, :children=>false
+    t.column :quantity
+    t.column :amount
+    t.column :amount_with_taxes
+    t.column :weight, :children=>false
+    t.action :transport_delivery_delete, :method=>:post, :confirm=>:are_you_sure_to_delete_delivery
   end
   
   def transports
   end
   
   def transport_create
+    @transport = Transport.new
+    session[:current_transport] = 0
+    if request.post?
+      @transport = Transport.new(params[:transport])
+      @transport.company_id = @current_company.id
+      redirect_to :action=>:transport_deliveries, :id=>@transport.id if @transport.save
+    end
+    #render_form
+  end
+
+  def transport_update
+    return unless @transport = find_and_check(:transports, params[:id])
+    if request.post?
+      raise Exception.new "noo"+params.inspect
+      redirect_to :action=>:transports
+    end
+    #render_form
+  end
+
+  dyli(:deliveries, [:planned_on, "contacts.address"], :conditions=>["deliveries.company_id = ? AND transport_id IS NULL", ['@current_company.id']], :joins=>"INNER JOIN contacts ON contacts.id = deliveries.contact_id ")
+  
+  def transport_deliveries
+    return unless @transport = find_and_check(:transports, params[:id])
+    session[:current_transport] = @transport.id
+    raise Exception.new params.inspect
+    #back = !params[:back].nil?
+    if request.post?
+      raise Exception.new params.inspect
+      delivery = find_and_check(:deliveries, params[:delivery].nil? ? params[:last][:id].to_i : params[:delivery][:id].to_i)
+      if delivery
+        if !params[:back].nil? 
+          redirect_to :action=>:transport_update, :id=>@transport.id if delivery.update_attributes(:transport_id=>@transport.id) 
+        else
+          redirect_to :action=>:transport_deliveries, :id=>@transport.id if delivery.update_attributes(:transport_id=>@transport.id) 
+        end
+      end
+    end
+  end
+  
+  def transport_delivery_delete
+    return unless @delivery =  find_and_check(:deliveries, params[:id])
+    if request.post? or request.delete?
+      redirect_to_current if @delivery.update_attributes!(:transport_id=>nil)
+    end
   end
 
 

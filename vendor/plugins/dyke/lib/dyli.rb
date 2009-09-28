@@ -33,6 +33,17 @@ module Ekylibre
                 query << (key.is_a?(Symbol) ? model.table_name+"."+key.to_s : key.to_s)+'=?'
                 parameters += ', ' + sanitize_conditions(value)
               end
+            elsif options[:conditions].is_a? Array
+              conditions = options[:conditions]
+              case conditions[0]
+              when String  # SQL
+#               query << '["'+conditions[0].to_s+'"'
+                query << conditions[0].to_s
+                parameters += ', '+conditions[1..-1].collect{|p| sanitize_conditions(p)}.join(', ') if conditions.size>1
+#                query << ')'
+              else
+                raise Exception.new("First element of an Array can only be String or Symbol.")
+              end
             end
             
             method_name = name_db.to_s+'_dyli'
