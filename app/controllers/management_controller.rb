@@ -2354,7 +2354,6 @@ class ManagementController < ApplicationController
   def stock_transfer_create
     @stock_transfer = StockTransfer.new(:nature=>"transfer", :planned_on=>Date.today)
     if request.post?
-      #raise Exception.new(params.inspect)
       @stock_transfer = StockTransfer.new(params[:stock_transfer])
       @stock_transfer.company_id = @current_company.id
       redirect_to_back if @stock_transfer.save
@@ -2446,6 +2445,7 @@ class ManagementController < ApplicationController
       redirect_to :action=>:transports if @transport.destroy
     end
   end
+
 
   def transport_print
     return unless @transport = find_and_check(:transports, params[:id])

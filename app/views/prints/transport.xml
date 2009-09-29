@@ -10,13 +10,16 @@
     <page orientation="portrait" format="A4" margin="10mm">
       
       <iteration variable="delivery" collection="transport.deliveries">
-	<part height="40mm">
+	<part height="60mm">
 	  <set>
-	    <text value="Transport du {{delivery.planned_on}}" left="50%" align="center" bold="true"/>
+	    <text value="{{delivery.contact/address}}"/>
+	    <text value="{{delivery.order.client.contact/address}}" left="60mm"/>
+	    <text value=" Transporteur : {{transport.transporter/address}}"  left="120mm"/>
+	    <text value="Poids : {{delivery.weight}}"/>
 	  </set>
 	</part>
       </iteration>
-
+      
     </page>
   </document>
 </template>
