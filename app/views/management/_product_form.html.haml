@@ -6,6 +6,7 @@
   - f.field :product, :code
   - f.field :product, :code2
   - f.field :product, :ean13
+  - f.field :product, :catalog_name
   - f.title :nature
   - f.field :product, :shelf_id, :choices=>@current_company.shelves.find(:all, :order=>:name).collect{|x| [x.name, x.id]}, :new=>{:action=>:shelf_create}
   - f.field :product, :unit_id, :choices=>@current_company.units.find(:all, :order=>:label).collect{|x| [x.label, x.id]}
@@ -40,7 +41,7 @@
   - f.field :product, :product_account_id, :choices=>@current_company.accounts.find(:all, :conditions=>['deleted=? AND number LIKE ?', false, '70%'], :order=>:number).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:account_create}
   -f .field :product, :charge_account_id, :choices=>@current_company.accounts.find(:all, :conditions=>['deleted=? AND number LIKE ?',false, '6%'], :order=>:number).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:account_create}
 =javascript_tag("function display_service_coeff(element) { var sc=$('service_coeff'); if (element.checked) { sc.style.display=''; } else { sc.style.display='none'; }; return false; }\ndisplay_service_coeff($('product_nature_service'));")
-=observe_field("product_name", :frequency =>0.25, :function => "var cn = $('product_catalog_name'); cn.value = value;")
+=#observe_field("product_name", :frequency =>0.25, :function => "var cn = $('product_catalog_name'); cn.value = value;")
 =observe_field("product_nature_service", :frequency =>0.25, :function => "display_service_coeff(element);" )
 -if request.url.to_s.include? "update"
   =observe_field("product_stock_location_id", :url=>{:action=>:change_quantities}, :frequency=>0.25, :with=>"product_stock_location_id")

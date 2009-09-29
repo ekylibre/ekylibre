@@ -175,6 +175,7 @@ class DocumentTemplate < ActiveRecord::Base
       :column=>[:label, :property, :width],
       :set=>[],
       :font=>[],
+      :iteration=>[:variable, :collection],
       :text=>[:value],
       :cell=>[:value, :width],
       :rectangle=>[:width, :height],
@@ -245,6 +246,8 @@ class DocumentTemplate < ActiveRecord::Base
         v
       when :path
         '['+v.split(/\s*\;\s*/).collect{|point| '['+point.split(/\s*\,\s*/).collect{|m| str_to_measure(m, nvar)}.join(', ')+']'}.join(', ')+']'
+      when :variable
+        v.strip
       else
         v.inspect
       end
@@ -278,6 +281,11 @@ class DocumentTemplate < ActiveRecord::Base
         name = x.name.to_sym
         if name == :set
           code += compile_element(x, nvar, mode, :depth=>depth+1)
+        elsif name == :iteration
+          params, p, attrs = parameters(x, nvar, mode)
+          code += "  for #{p[0]} in #{p[1]}\n"
+          code += compile_element(x, nvar, mode, :depth=>depth, :skip=>true)
+          code += "  end\n"          
         elsif name == :image
           params, p, attrs = parameters(x, nvar, mode)
           code += "  if File.exist?((#{p[0]}).to_s)\n"
