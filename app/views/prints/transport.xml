@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<template title="Example" lang="fr" version="2.0">
+  <infos>
+    <info name="authors">Thibaud Mérigon, Brice Texier</info>
+  </infos>
+  <parameters>
+    <parameter name="transport" nature="transport">Transport</parameter>
+  </parameters>
+  <document unit="mm" size="10" title="bla">
+    <page orientation="portrait" format="A4" margin="10mm">
+      
+      <iteration variable="delivery" collection="transport.deliveries">
+	<part height="40mm">
+	  <set>
+	    <text value="Transport du {{delivery.planned_on}}" left="50%" align="center" bold="true"/>
+	  </set>
+	</part>
+      </iteration>
+
+    </page>
+  </document>
+</template>

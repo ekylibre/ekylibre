@@ -18,6 +18,7 @@
 #  order_id          :integer       not null
 #  planned_on        :date          
 #  transport_id      :integer       
+#  transporter_id    :integer       
 #  updated_at        :datetime      not null
 #  updater_id        :integer       
 #  weight            :decimal(, )   
@@ -61,6 +62,9 @@ class Delivery < ActiveRecord::Base
     end
   end
 
+  def after_save
+    self.transport.refresh if self.transport
+  end
 
   def self.natures
     [:exw, :cpt, :cip].collect{|x| [tc('natures.'+x.to_s), x] }
@@ -99,6 +103,10 @@ class Delivery < ActiveRecord::Base
 
   def text_nature
     tc('natures.'+self.nature.to_s)
+  end
+
+  def contact_address
+    self.contact.address if self.contact 
   end
 
 end

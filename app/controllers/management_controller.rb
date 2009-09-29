@@ -2378,10 +2378,13 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:transports, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :full_name, :through=>:transporter
+  dyta(:transports, :children=>:deliveries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :created_on, :children=>:planned_on
+    t.column :full_name, :through=>:transporter, :children=>:contact_address
     t.column :weight
+    t.action :transport_print
     t.action :transport_update
+    t.action :transport_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   dyta(:transport_deliveries, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :transport_id=>['session[:current_transport]']}) do |t|
@@ -2407,34 +2410,25 @@ class ManagementController < ApplicationController
       @transport.company_id = @current_company.id
       redirect_to :action=>:transport_deliveries, :id=>@transport.id if @transport.save
     end
-    #render_form
   end
 
   def transport_update
     return unless @transport = find_and_check(:transports, params[:id])
+    session[:current_transport] = @transport.id
     if request.post?
-      raise Exception.new "noo"+params.inspect
-      redirect_to :action=>:transports
+      redirect_to :action=>:transport_update, :id=>@transport.id if @transport.update_attributes(params[:transport])
     end
-    #render_form
   end
 
   dyli(:deliveries, [:planned_on, "contacts.address"], :conditions=>["deliveries.company_id = ? AND transport_id IS NULL", ['@current_company.id']], :joins=>"INNER JOIN contacts ON contacts.id = deliveries.contact_id ")
   
   def transport_deliveries
-    return unless @transport = find_and_check(:transports, params[:id])
+    return unless @transport = find_and_check(:transports, params[:id]||session[:current_transport])
     session[:current_transport] = @transport.id
-    raise Exception.new params.inspect
-    #back = !params[:back].nil?
     if request.post?
-      raise Exception.new params.inspect
-      delivery = find_and_check(:deliveries, params[:delivery].nil? ? params[:last][:id].to_i : params[:delivery][:id].to_i)
+      delivery = find_and_check(:deliveries, params[:delivery][:id].to_i)
       if delivery
-        if !params[:back].nil? 
-          redirect_to :action=>:transport_update, :id=>@transport.id if delivery.update_attributes(:transport_id=>@transport.id) 
-        else
-          redirect_to :action=>:transport_deliveries, :id=>@transport.id if delivery.update_attributes(:transport_id=>@transport.id) 
-        end
+        redirect_to :action=>:transport_update, :id=>@transport.id if delivery.update_attributes(:transport_id=>@transport.id) 
       end
     end
   end
@@ -2445,6 +2439,17 @@ class ManagementController < ApplicationController
       redirect_to_current if @delivery.update_attributes!(:transport_id=>nil)
     end
   end
+  
+  def transport_delete
+    return unless @transport = find_and_check(:transports, params[:id])
+    if request.post? or request.delete?
+      redirect_to :action=>:transports if @transport.destroy
+    end
+  end
 
+  def transport_print
+    return unless @transport = find_and_check(:transports, params[:id])
+    print(@transport, :filename=>tc('transport')+" "+@transport.created_on.to_s)
+  end
 
 end

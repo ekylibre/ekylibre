@@ -1,0 +1,15 @@
+-form_tag do
+  =formalize do |f|
+    -f.error :transport
+    -f.title :info
+    -f.field :transport, :transporter_id, :choices=>@current_company.entities.find_all_by_active_and_transporter(true,true).collect{|t| [t.full_name,t.id]}, :new=>{:controller=>:relations, :action=>:entity_create}
+    -f.field :transport, :comment, :field=>:textarea
+  .actions
+    =submit_tag(tg(:validate), :action=>:transport_update)
+
+%h2=tc(:transport_deliveries)
+
+
+=render :partial=>'transport_deliveries', :id=>@transport.id
+
+

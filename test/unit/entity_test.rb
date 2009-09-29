@@ -41,6 +41,7 @@
 #  soundex                   :string(4)     
 #  supplier                  :boolean       not null
 #  supplier_account_id       :integer       
+#  transporter               :boolean       not null
 #  updated_at                :datetime      not null
 #  updater_id                :integer       
 #  vat_number                :string(15)    

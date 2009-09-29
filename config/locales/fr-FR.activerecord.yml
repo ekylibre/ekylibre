@@ -1625,6 +1625,7 @@ fr-FR:
         comment: 'Commentaire'
         company_id: 'Société'
         created_at: 'Créé le'
+        created_on: 'Créé le'
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'

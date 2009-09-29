@@ -8,7 +8,7 @@
   </parameters>
   <document unit="mm" size="10" title="employee.label">
     <page orientation="portrait" format="A4" margin="10mm">
-      
+       
       <part height="40mm">
 	<set>
 	  <text value="Inventaire du {{inventory.date}} effectué par {{inventory.employee.label}}" left="50%" align="center" bold="true"/>

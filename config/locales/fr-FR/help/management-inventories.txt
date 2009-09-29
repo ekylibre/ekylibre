@@ -1,0 +1,9 @@
+h1. Les inventaires
+
+Vous avez accès à la liste des inventaires effectués.
+
+Vous pouvez modifier ou supprimer un inventaire tant que vous ne l'avez pas vérouiller en décidant de refléter les changements en gestion des stocks.
+
+
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

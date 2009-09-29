@@ -297,6 +297,8 @@ management       transport_delivery_delete        manage_transports
 management       transport_deliveries_dyta        manage_transports
 management       transports                       manage_transports
 management       transport_update                 manage_transports
+management       transport_print                  manage_transports
+management       transport_delete                 manage_transports
 management       transports_dyta                  manage_transports
 management       invoice_print                    print_sales
 management       sale_order_print                 print_sales

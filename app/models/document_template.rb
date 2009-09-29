@@ -157,7 +157,7 @@ class DocumentTemplate < ActiveRecord::Base
     
     code << "end\n"
     code << "doc.generate"
-
+ 
     
     File.delete(file)
 

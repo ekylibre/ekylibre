@@ -58,6 +58,7 @@ fr-FR:
       theoric_quantity: 'Quantité théorique'
       title: 'Commerce'
       to_bank_on: 'À encaisser le'
+      transport: 'Transport'
       unvalid_date: 'Date incorrecte'
       you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
       you_should_lock_your_old_inventories: 'Attention: il est conseillé de supprimer les inventaires non verouillés ou de les verouiller avant d''en créer un nouveau'
@@ -607,17 +608,22 @@ fr-FR:
         subscription_nature: 'Type d''abonnement'
         title: 'Abonnements'
       transport_create:
-        title: 'Ajout d''un nouveau transport'
-      transport_deliveries: 
-        add_delivery: 'Ajouter une livraison'
-        delivery: 'Livraison'
-        title: 'Livraisons du transport'
-      _transport_form: 
         info: 'Renseignez les informations du transport'
+        title: 'Ajout d''un nouveau transport'
+      _transport_deliveries: 
+        add: 'Ajouter la livraison au transport'
+        add_delivery: 'Ajouter une livraison'
+        back: 'Valider et revenir à la liste des transports'
+        delivery: 'Livraison'
+      transport_deliveries:
+        title: 'Livraisons du transport'
       transport_update: 
+        info: 'Renseignez les informations du transport'
         title: 'Modification du transport'
+        transport_deliveries: 'Livraisons du transport'
       transports:
         title: 'Transports'
+        transport_create: 'Ajouter un nouveau transport'
       undelivered_sales:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'

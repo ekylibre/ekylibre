@@ -788,8 +788,7 @@ class RelationsController < ApplicationController
 
   dyta(:entity_links, :conditions=>['stopped_on IS NULL AND company_id = ? AND (entity1_id = ? OR entity2_id = ?)' , ['@current_company.id'],['session[:current_entity]'],['session[:current_entity]']], :per_page=>5) do |t|
     t.column :description, :through=>:entity1, :url=>{:action=>:entity}
-    t.column :name_1_to_2, :through=>:nature#, :if=>'RECORD.entity1_id == session[:current_entity]'
-    #t.column :name_2_to_1, :through=>:nature, :if=>'RECORD.entity1_id != session[:current_entity]'
+    t.column :name_1_to_2, :through=>:nature
     t.column :description, :through=>:entity2, :url=>{:action=>:entity}
     t.column :comment
     t.action :entity_link_update
