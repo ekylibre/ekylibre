@@ -146,7 +146,11 @@ class DocumentTemplate < ActiveRecord::Base
       code += "ibeh.page(#{parameters(page, 'ERROR', mode)[0]}) do |p|\n"
       page.each_element do |element|
         name = element.name.to_sym
-        code += compile_element(element, 'p', mode) if [:table, :part].include? name
+        if [:table, :part].include? name 
+          code += compile_element(element, 'p', mode) 
+        elsif name == :iteration
+          code += compile_element(page, 'p', mode, :skip=>true) 
+        end
       end
       code += "end\n"
     end
