@@ -6,6 +6,10 @@ Vous pouvez *modifier* le *transporteur*, le commentaire ainsi qu'*ajouter ou su
 
 Vous pouvez *rechercher une livraison par sa date ainsi que par l'addresse de livraison*.
 
+Le bouton "Valider" permet de modifier les caractéristiques du transport.
+
+Si votre livraison est correctement définie, validez en cliquant sur "Valider et revenir à la liste des transports".
+
 h2. Poids des livraisons
 
 Si *le poids de votre livraison est incorrect*, *vérifiez le poids des produits qui composent cette livraison*. Si vous n'avez pas défini de poids à vos produits, le poids de votre livraison sera nul. 

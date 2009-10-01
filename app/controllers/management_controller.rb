@@ -2271,7 +2271,6 @@ class ManagementController < ApplicationController
   def unvalidated_embankments
     @embankments = @current_company.embankments_to_lock
     if request.post?
-      #raise Exception.new params.inspect
       for id, values in params[:unvalidated_embankments]
         embankment = Embankment.find_by_id_and_company_id(id, @current_company.id)
         embankment.update_attributes!(:locked=>true) if embankment and values[:validated].to_i == 1
@@ -2379,6 +2378,7 @@ class ManagementController < ApplicationController
 
   dyta(:transports, :children=>:deliveries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :created_on, :children=>:planned_on
+    t.column :transport_on, :children=>false
     t.column :full_name, :through=>:transporter, :children=>:contact_address
     t.column :weight
     t.action :transport_print
@@ -2402,7 +2402,8 @@ class ManagementController < ApplicationController
   end
   
   def transport_create
-    @transport = Transport.new
+    @transport = Transport.new(:transport_on=>Date.today)
+    @transport.responsible_id = @current_user.employee.id if !@current_user.employee.nil?
     session[:current_transport] = 0
     if request.post?
       @transport = Transport.new(params[:transport])

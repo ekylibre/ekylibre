@@ -9,6 +9,8 @@
 #  creator_id     :integer       
 #  id             :integer       not null, primary key
 #  lock_version   :integer       default(0), not null
+#  responsible_id :integer       
+#  transport_on   :date          
 #  transporter_id :integer       not null
 #  updated_at     :datetime      not null
 #  updater_id     :integer       

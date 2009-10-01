@@ -34,6 +34,7 @@ class Employee < ActiveRecord::Base
   has_many :events
   has_many :sale_orders
   has_many :shape_operations
+  has_many :transports
 
   attr_readonly :company_id
 

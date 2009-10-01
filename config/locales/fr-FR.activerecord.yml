@@ -1629,6 +1629,8 @@ fr-FR:
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
+        responsible_id: 'Responsable'
+        transport_on: 'Transport le'
         transporter_id: 'Transporteur'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
