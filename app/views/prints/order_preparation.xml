@@ -31,6 +31,7 @@
       <table collection="transport.deliveries.first.lines" fixed="true">
 	<column label="Quantité" property="quantity" width="20mm"/>
 	<column label="Produit" property="product.name" width="60mm"/>
+	<column label="Montant" property="price.amount_with_taxes" width="40mm/>"
       </table>
 
     </page>

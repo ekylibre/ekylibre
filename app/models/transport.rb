@@ -47,5 +47,11 @@ class Transport < ActiveRecord::Base
     end
   end
 
+  def address
+    a = self.transporter.full_name+"\n"
+    a += self.transporter.default_contact.address.gsub(/\s*\,\s*/, "\n") if !self.transporter.default_contact.nil?
+    a
+  end
+  
 
 end

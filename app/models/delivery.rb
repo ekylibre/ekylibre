@@ -109,4 +109,14 @@ class Delivery < ActiveRecord::Base
     self.contact.address if self.contact 
   end
 
+  def address
+    a = self.order.client.full_name+"\n"
+    a += (self.contact ? self.contact.address : self.order.client.default_contact.address).gsub(/\s*\,\s*/, "\n")
+    a
+  end
+
+  def parcel_sum
+    self.lines.sum(:quantity)
+  end
+
 end
