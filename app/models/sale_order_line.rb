@@ -56,6 +56,11 @@ class SaleOrderLine < ActiveRecord::Base
     if self.product
       self.account_id = self.product.product_account_id 
       self.unit_id = self.product.unit_id
+      if self.product.manage_stocks
+        self.location_id ||= self.product.stocks.first.location_id
+      else
+        self.location_id = nil
+      end
     end
     self.account_id ||= 0
     self.price_amount ||= 0

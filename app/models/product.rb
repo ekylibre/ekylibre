@@ -54,7 +54,8 @@ class Product < ActiveRecord::Base
   has_many :invoice_lines
   has_many :prices
   has_many :purchase_order_lines
-  has_many :locations, :class_name=>StockLocation.to_s
+  # TODO rename locations to reservoirs
+  has_many :locations, :class_name=>StockLocation.to_s, :conditions=>{:reservoir=>true}
   has_many :sale_order_lines
   has_many :stock_moves
   has_many :stock_transfers

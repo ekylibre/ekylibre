@@ -78,6 +78,7 @@ class Contact < ActiveRecord::Base
       end
       self.active = true
       self.started_at = Time.now
+      self.norm_id ||= self.company.address_norms.find_by_default(true)
     end
   end
 

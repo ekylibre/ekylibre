@@ -46,6 +46,14 @@ class SubscriptionNature < ActiveRecord::Base
     return (self.period? ? Date.today : self.actual_number)
   end
 
+  def fields
+    if self.period?
+      return :started_on, :stopped_on
+    else
+      return :first_number, :last_number
+    end
+  end
+
 
 end
 
