@@ -253,8 +253,9 @@ module ApplicationHelper
     tag = ''
     for m in MENUS
       # tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"),{:controller=>m[:name]})+" "
-      tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"), last_page(m[:name].to_s))+" "
+      tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"), last_page(m[:name].to_s))+" "  if controller.accessible?({:controller=>m[:name]})
     end
+    
     tag = content_tag(:nobr, tag)
     code += content_tag(:div, tag, :id=>:modules, :class=>:menu)
     # Fix

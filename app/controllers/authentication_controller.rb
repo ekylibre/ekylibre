@@ -7,8 +7,8 @@ class AuthenticationController < ApplicationController
   end
   
   def login
-    session[:help] = false
     if request.post?
+      puts "POST : "+session[:last_session].inspect+" jhbjbjb"+session.inspect+" all !!! "+session.inspect
       name = params[:user][:name]
       company = nil
       sep = /[^a-z0-9\.\_]+/i

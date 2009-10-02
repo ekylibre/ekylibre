@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
 
 
   def accessible?(url={})
+    #puts url.inspect
     if url.is_a?(Hash)
       url[:controller]||=controller_name 
       url[:action]||=:index
@@ -164,8 +165,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_to_login()
-    reset_session
+  def redirect_to_login
     session[:help] = false
     redirect_to :controller=>:authentication, :action=>:login
   end

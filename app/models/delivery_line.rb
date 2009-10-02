@@ -49,7 +49,6 @@ class DeliveryLine < ActiveRecord::Base
     line = DeliveryLine.find_by_id_and_company_id(self.id, self.company_id)
     errors.add_to_base tc(:error_undelivered_quantity, :product=>self.product.name) if (self.undelivered_quantity < ( self.quantity - line.quantity ))
     #test = (self.undelivered_quantity < ( self.quantity - line.quantity))
-    #puts " undelivered       "+self.undelivered_quantity.to_s+"        self.quantity "+self.quantity.to_s+"     line.quantity "+line.quantity.to_s+" "+test.to_s
     #test = (self.undelivered_quantity < ( self.quantity - line.quantity))
     
     #raise Exception.new self.undelivered_quantity.to_s+" "+self.quantity.to_s+" - "+line.quantity.to_s+test.to_s

@@ -25,7 +25,7 @@
 #
 
 class Delivery < ActiveRecord::Base
-  belongs_to :company
+  belongs_to :company 
   belongs_to :contact
   belongs_to :invoice
   belongs_to :mode, :class_name=>DeliveryMode.name
