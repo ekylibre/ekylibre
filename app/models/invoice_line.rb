@@ -94,6 +94,11 @@ class InvoiceLine < ActiveRecord::Base
   def product_name
     self.product ? self.product.name : tc(:no_product) 
   end
+  
+  def label
+    self.order_line ? self.order_line.label : product_name
+  end
+  
 
   def taxes
     self.amount_with_taxes - self.amount

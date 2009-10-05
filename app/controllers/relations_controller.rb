@@ -311,7 +311,7 @@ class RelationsController < ApplicationController
   end
 
   dyta(:entity_sale_orders, :model=>:sale_orders, :conditions=>['company_id=? AND client_id=?', ['@current_company.id'], ['session[:current_entity]']] ,  :children=>:lines, :per_page=>5, :default_order=>"created_on DESC") do |t|
-    t.column :number, :url=>{:controller=>:management, :action=>:sale_order}, :children=>:product_name
+    t.column :number, :url=>{:controller=>:management, :action=>:sale_order}, :children=>:label
     t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
     t.column :text_state, :children=>false
@@ -342,8 +342,8 @@ class RelationsController < ApplicationController
     t.action :bank_account_delete, :controller => :accountancy, :method=>:post, :confirm=> :are_you_sure 
   end
   
-  dyta(:entity_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity]']}, :line_class=>'RECORD.status', :per_page=>5,:children=>:lines, :default_order=>"created_on DESC") do |t|
-    t.column :number, :url=>{:controller=>:management, :action=>:invoice}, :children=>:product_name
+  dyta(:entity_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity]']}, :line_class=>'RECORD.status', :per_page=>5, :children=>:lines, :default_order=>"created_on DESC") do |t|
+    t.column :number, :url=>{:controller=>:management, :action=>:invoice}, :children=>:label
     t.column :number, :through=>:sale_order, :url=>{:controller=>:management, :action=>:sale_order}, :children=>false
     # t.column :full_name, :through=>:client
     # t.column :address, :through=>:contact

@@ -86,7 +86,6 @@ task :dytacolor do
     for k1, v1 in dims[1].sort{|a,b| a[0].to_s<=>b[0].to_s}
       raise Exception.new("Color must given for :#{k1}") if v1.nil?
       dim1 = (k1==:__default__ ? '' : '.'+k1.to_s)
-      # inter = color_to_array(v1)
       inter = color_merge(base, color_to_array(v1))
       for k2, v2 in dims[2].sort{|a,b| a[0].to_s<=>b[0].to_s}
         raise Exception.new("Color must given for :#{k2}") if v2.nil?
