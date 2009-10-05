@@ -51,6 +51,8 @@ class SaleOrderLine < ActiveRecord::Base
     self.company_id = self.order.company_id if self.order
     if not self.price and self.order and self.product
       self.price = self.product.default_price(order.client.category_id)
+      #raise Exception.new self.inspect 
+      @test = true
     end
     self.product = self.price.product if self.price
     if self.product
@@ -72,7 +74,7 @@ class SaleOrderLine < ActiveRecord::Base
       self.price_id = price.id
     end
     
-    if self.price 
+    if self.price
       if self.reduction_origin_id.nil?
         if self.quantity
           self.amount = (self.price.amount*self.quantity).round(2)
@@ -82,7 +84,8 @@ class SaleOrderLine < ActiveRecord::Base
           self.quantity = q.round(2)
           self.amount_with_taxes = (q*self.price.amount_with_taxes).round(2)
         elsif self.amount_with_taxes
-          q = self.amount/self.price.amount_with_taxes
+          #raise Exception.new "okkk"+self.inspect if @test
+          q = self.amount_with_taxes/self.price.amount_with_taxes
           self.quantity = q.round(2)
           self.amount = (q*self.price.amount).round(2)
         end
