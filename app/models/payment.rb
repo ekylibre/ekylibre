@@ -38,7 +38,7 @@ class Payment < ActiveRecord::Base
   attr_protected :parts_amount, :account_id
 
   validates_numericality_of :amount, :greater_than=>0
-  validates_presence_of :to_bank_on
+  validates_presence_of :to_bank_on, :entity_id
 
   def before_validation_on_create
     self.scheduled = (self.to_bank_on>Date.today ? true : false) #if self.scheduled.nil?

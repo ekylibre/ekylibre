@@ -727,6 +727,7 @@ class ManagementController < ApplicationController
       @product_stock = ProductStock.find(:first, :conditions=>{:company_id=>@current_company.id ,:product_id=>@product.id} )||ProductStock.new 
     end
     if request.post?
+      saved = false
       ActiveRecord::Base.transaction do
         saved = @product.update_attributes(params[:product])
         ## @product_stock.  id.  nil?
@@ -749,7 +750,7 @@ class ManagementController < ApplicationController
         end
         raise ActiveRecord::Rollback unless saved  
       end
-      redirect_to :action=>:product, :id=>@product.id
+      redirect_to_back if saved # :action=>:product, :id=>@product.id
     end
     @title = {:value=>@product.name}
     render_form()

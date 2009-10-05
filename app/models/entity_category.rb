@@ -22,6 +22,8 @@ class EntityCategory < ActiveRecord::Base
   has_many :entities, :foreign_key=>:category
   has_many :prices, :foreign_key=>:category
 
+  attr_readonly :company_id
+
   def before_validation
     self.code = self.name.codeize if self.code.blank?
     self.code = self.code[0..7]

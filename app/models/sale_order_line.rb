@@ -48,7 +48,7 @@ class SaleOrderLine < ActiveRecord::Base
   
   def before_validation
     # check_reservoir = true
-    self.company_id = self.order.company_id
+    self.company_id = self.order.company_id if self.order
     if not self.price and self.order and self.product
       self.price = self.product.default_price(order.client.category_id)
     end
@@ -74,8 +74,18 @@ class SaleOrderLine < ActiveRecord::Base
     
     if self.price 
       if self.reduction_origin_id.nil?
-        self.amount = (self.price.amount*self.quantity).round(2)
-        self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2) 
+        if self.quantity
+          self.amount = (self.price.amount*self.quantity).round(2)
+          self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2) 
+        elsif self.amount
+          q = self.amount/self.price.amount
+          self.quantity = q.round(2)
+          self.amount_with_taxes = (q*self.price.amount_with_taxes).round(2)
+        elsif self.amount_with_taxes
+          q = self.amount/self.price.amount_with_taxes
+          self.quantity = q.round(2)
+          self.amount = (q*self.price.amount).round(2)
+        end
       else
         self.quantity = -reduction_rate*self.reduction_origin.quantity
         self.amount   = -reduction_rate*self.reduction_origin.amount       

@@ -35,7 +35,6 @@
 #  state               :string(1)     default("O"), not null
 #  subject             :string(255)   
 #  sum_method          :string(8)     default("wt"), not null
-#  transporter_id      :integer       
 #  updated_at          :datetime      not null
 #  updater_id          :integer       
 #
