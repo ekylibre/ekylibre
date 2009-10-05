@@ -24,14 +24,16 @@
 	<set>
 	  <text value="Poids (kg) : {{transport.deliveries.first.weight}}"/>
 	  <text value="Date d'expédition : {{transport/transport_on?format=month_letter}}" top="5mm"/>
-	  <text value="Nombre de colis : {{transport.deliveries.first/parcel_sum}}" top="10mm"/>
+	  <text value="Nombre de colis : {{transport.deliveries.first/parcel_sum}}" top="10mm"  if="delivery.done"/>
 	</set>
       </part>
 
-      <table collection="transport.deliveries.first.lines" fixed="true">
-	<column label="Quantité" property="quantity" width="20mm"/>
-	<column label="Produit" property="product.name" width="60mm"/>
-      </table>
+      <iteration variable="delivery" collection="transport.deliveries">
+	<table collection="delivery.lines" fixed="true">
+	  <column label="Quantité" property="quantity" width="20mm"/>
+	  <column label="Produit" property="product.name" width="60mm"/>
+	</table>
+      </iteration>
 
     </page>
   </document>

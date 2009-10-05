@@ -139,24 +139,31 @@ class DocumentTemplate < ActiveRecord::Base
       end
     end
     
-    code << "doc = Ibeh.document(Hebi::Document.new, self) do |ibeh|\n"
-
     document = template.find('document')[0]
-    document.find('page').each do |page|
-      code += "ibeh.page(#{parameters(page, 'ERROR', mode)[0]}) do |p|\n"
-      page.each_element do |element|
-        name = element.name.to_sym
-        if [:table, :part].include? name 
-          code += compile_element(element, 'p', mode) 
-        elsif name == :iteration
-          code += compile_element(page, 'p', mode, :skip=>true) 
-        end
-      end
-      code += "end\n"
+    code << "doc = Ibeh.document(Hebi::Document.new, self) do |_document_|\n"
+    # code << compile_element(document, '__document', mode, :skip=>true)
+    document.each_element do |x|
+      code << compile_element(x, '_document_', mode)
     end
-    
+    #code << compile_element(document, '__document', mode)
     code << "end\n"
     code << "doc.generate"
+
+#     document.find('page').each do |page|
+#       code += "ibeh.page(#{parameters(page, 'ERROR', mode)[0]}) do |p|\n"
+      
+#       page.each_element do |element|
+#         name = element.name.to_sym
+#         if [:table, :part].include? name 
+#           code += compile_element(element, 'p', mode) 
+#         elsif name == :iteration
+#           code += compile_element(page, 'p', mode, :skip=>true) 
+#         end
+#       end
+#       code += "end\n"
+#     end
+    
+
  
     
     File.delete(file)
@@ -171,7 +178,7 @@ class DocumentTemplate < ActiveRecord::Base
 
   class << self
     
-    SET_ELEMENTS = {
+    ATTRIBUTES = {
       :page=>[:format],
       :part=>[:height],
       :table=>[:collection],
@@ -185,6 +192,14 @@ class DocumentTemplate < ActiveRecord::Base
       :rectangle=>[:width, :height],
       :line=>[:path],
       :image=>[:value, :width, :height]
+    }
+    
+    CHILDREN = {
+      :document=>[:page, :iteration],
+      :page=>[:part, :table, :iteration],
+      :part=>[:set, :iteration],
+      :table=>[:column],
+      :set=>[:set, :iteration, :font, :text, :cell, :rectangle, :line, :image, :list]
     }
     
 
@@ -251,7 +266,7 @@ class DocumentTemplate < ActiveRecord::Base
       when :path
         '['+v.split(/\s*\;\s*/).collect{|point| '['+point.split(/\s*\,\s*/).collect{|m| str_to_measure(m, nvar)}.join(', ')+']'}.join(', ')+']'
       when :variable
-        v.strip
+        v.to_s.strip
       else
         v.inspect
       end
@@ -264,7 +279,7 @@ class DocumentTemplate < ActiveRecord::Base
       name = element.name.to_sym
       attributes, parameters = {}, []
       element.attributes.to_h.collect{|k,v| attributes[k.to_sym] = v}
-      (SET_ELEMENTS[name]||[]).each{|attr| parameters << attr_to_s(attr, attributes.delete(attr), nvar, mode)}
+      (ATTRIBUTES[name]||[]).each{|attr| parameters << attr_to_s(attr, attributes.delete(attr), nvar, mode)}
       attributes.delete(:if)
       attrs = attrs_to_s(attributes, nvar, mode)
       attrs = ', '+attrs if !attrs.blank? and parameters.size>0
@@ -277,37 +292,74 @@ class DocumentTemplate < ActiveRecord::Base
     def compile_element(element, variable, mode, options={}) # depth=0, skip=false)
       depth = options[:depth]||0
       skip = options[:skip]||false
-      nvar = 'r'+depth.to_s
       code  = ''
-
-      code += "#{variable}.#{element.name}(#{parameters(element, variable, mode)[0]}) do |#{nvar}|\n" unless skip
-      element.each_element do |x|
-        name = x.name.to_sym
-        if name == :set
-          code += compile_element(x, nvar, mode, :depth=>depth+1)
-        elsif name == :iteration
-          params, p, attrs = parameters(x, nvar, mode)
-          code += "  for #{p[0]} in #{p[1]}\n"
-          code += compile_element(x, nvar, mode, :depth=>depth, :skip=>true)
-          code += "  end\n"          
-        elsif name == :image
-          params, p, attrs = parameters(x, nvar, mode)
-          code += "  if File.exist?((#{p[0]}).to_s)\n"
-          code += "    #{nvar}.#{name}(#{params})\n"
-          code += "  else\n"
-          code += compile_element(x, nvar, mode, :depth=>depth, :skip=>true)
-          code += "  end\n"
-        else
-          code += "  #{nvar}.#{name}(#{parameters(x, nvar, mode)[0]})\n"
+      name = element.name.to_sym
+      params, p, attrs = parameters(element, variable, mode)
+      if name == :iteration
+        code += "for #{p[0]} in #{p[1]}\n"
+        element.each_element do |x|
+          code += compile_element(x, variable, mode, :depth=>depth)||'  '
         end
-      end
-      unless skip
-        code += "end"
-        code += " if #{element.attributes['if'].gsub(/\//,'.')}" if element.attributes['if']
+        code += "end\n"
+      elsif name == :image
+        code += "if File.exist?((#{p[0]}).to_s)\n"
+        code += "  #{variable}.#{name}(#{params})\n"
+        code += "else\n"
+        element.each_element do |x|
+          code += compile_element(x, variable, mode, :depth=>depth)
+        end
+        code += "end\n"
+      else
+        nvar = '_r'+depth.to_s+'_'
+        children = ''
+        element.each_element do |x|
+          children += compile_element(x, nvar, mode, :depth=>depth+1)
+        end
+        code = "#{variable}.#{name}(#{params})"
+        code += " do |#{nvar}|\n"+children+"end" unless children.blank?
         code += "\n"
       end
+      
+
+#       if skip 
+#         nvar = variable
+#       else
+#         code += "#{variable}.#{element.name}(#{parameters(element, variable, mode)[0]}) do |#{nvar}|\n"
+#       end
+#       element.each_element do |x|
+#         name = x.name.to_sym
+#         # puts [element.name, CHILDREN[element.name], name].inspect
+#         # next unless (CHILDREN[element.name.to_sym]||[]).include?(name)
+#         if CHILDREN.keys.include? name
+#           code += compile_element(x, nvar, mode, :depth=>depth+1)
+#         elsif name == :iteration
+#           params, p, attrs = parameters(x, nvar, mode)
+#           code += "  for #{p[0]} in #{p[1]}\n"
+#           code += compile_element(x, nvar, mode, :depth=>depth, :skip=>true)||'  '
+#           code += "  end\n"          
+#         elsif name == :image
+#           params, p, attrs = parameters(x, nvar, mode)
+#           code += "  if File.exist?((#{p[0]}).to_s)\n"
+#           code += "    #{nvar}.#{name}(#{params})\n"
+#           code += "  else\n"
+#           code += compile_element(x, nvar, mode, :depth=>depth, :skip=>true)
+#           code += "  end\n"
+#         else
+#           code += "  #{nvar}.#{name}(#{parameters(x, nvar, mode)[0]})\n"
+#         end
+#       end
+#       unless skip
+#         code += "end"
+#         code += " if #{element.attributes['if'].gsub(/\//,'.')}" if element.attributes['if']
+#         code += "\n"
+#       end
       code.gsub(/^/, '  ')
     end
+
+
+
+
+
   end
   
 
