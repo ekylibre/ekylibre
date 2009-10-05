@@ -2364,7 +2364,6 @@ class ManagementController < ApplicationController
   def stock_transfer_update
     @stock_transfer = find_and_check(:stock_transfer, params[:id])
     if request.post?
-      #raise Exception.new params.inspect
       redirect_to_back if @stock_transfer.update_attributes!(params[:stock_transfer])
     end
     render_form
@@ -2442,6 +2441,7 @@ class ManagementController < ApplicationController
   end
   
   def transport_delete
+    #raise Exception.new params.inspect
     return unless @transport = find_and_check(:transports, params[:id])
     if request.post? or request.delete?
       redirect_to :action=>:transports if @transport.destroy

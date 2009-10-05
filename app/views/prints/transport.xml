@@ -6,7 +6,7 @@
   <parameters>
     <parameter name="transport" nature="transport">Transport</parameter>
   </parameters>
-  <document unit="mm" size="10" title="bla">
+  <document unit="mm" size="10" title="transport">
     <page orientation="portrait" format="A4" margin="10mm">
            
       <part height="30mm">
