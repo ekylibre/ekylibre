@@ -39,7 +39,7 @@ class PaymentPart < ActiveRecord::Base
   end
 
   def payment_way
-    self.payment.mode.name
+    self.payment.mode.name if self.payment.mode
   end
   
   def real?
