@@ -138,7 +138,8 @@ management       inventory_delete                 administrate_management
 management       inventory_print                  administrate_management
 management       inventory_reflect                administrate_management
 management       inventory_update                 administrate_management
-management       payments_dyta                    administrate_management
+management       sale_order_payments_dyta                    administrate_management
+management       payment_sale_orders_dyta                    administrate_management
 management       sale_lines_dyta                  administrate_management
 management       sale_order_deliveries_dyta       administrate_management
 management       sale_order_lines_dyta            administrate_management
@@ -211,6 +212,7 @@ management       embankments                      manage_embankments
 management       embankments_dyta                 manage_embankments
 management       unvalidated_embankments          manage_embankments
 management       account_dyli                     manage_entries
+management       payment                          manage_invoicing
 management       payment_create                   manage_invoicing
 management       payment_delete                   manage_invoicing
 management       payment_parts_dyta               manage_invoicing

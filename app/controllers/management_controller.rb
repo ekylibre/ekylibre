@@ -999,8 +999,8 @@ class ManagementController < ApplicationController
 #     t.column :amount, :through=>:payment, :label=>"Montant du paiment"
 #   end
   
-  dyta(:payments, :conditions=>["payments.company_id=? AND payment_parts.order_id=?", ['@current_company.id'], ['session[:current_sale_order]']], :joins=>"JOIN payment_parts ON (payments.id=payment_id)") do |t|
-    t.column :id
+  dyta(:sale_order_payments, :model=>:payments, :conditions=>["payments.company_id=? AND payment_parts.order_id=?", ['@current_company.id'], ['session[:current_sale_order]']], :joins=>"JOIN payment_parts ON (payments.id=payment_id)") do |t|
+    t.column :id, :url=>{:action=>:payment}
     t.column :full_name, :through=>:entity
     #t.column :payment_way
     t.column :paid_on
@@ -1124,7 +1124,7 @@ class ManagementController < ApplicationController
 
 
 
-  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :export=>false) do |t|
+  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     #t.column :name, :through=>:product
     t.column :label
     t.column :quantity
@@ -1136,7 +1136,7 @@ class ManagementController < ApplicationController
     t.action :sale_order_line_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.order.estimate? and RECORD.reduction_origin_id.nil? '
   end
 
-  dyta(:sale_order_subscriptions, :conditions=>{:company_id=>['@current_company.id'], :sale_order_id=>['session[:current_sale_order]']}, :export=>false, :model=>:subscriptions) do |t|
+  dyta(:sale_order_subscriptions, :conditions=>{:company_id=>['@current_company.id'], :sale_order_id=>['session[:current_sale_order]']}, :model=>:subscriptions) do |t|
     t.column :name, :through=>:nature
     t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :address, :through=>:contact
@@ -1532,7 +1532,7 @@ class ManagementController < ApplicationController
 
 #  dyli(:bank_account, :attributes => [:name], :conditions => {:company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
-  dyta(:embankment_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :embankment_id=>['session[:embankment_id]']}, :per_page=>1000, :export=>false) do |t|
+  dyta(:embankment_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :embankment_id=>['session[:embankment_id]']}, :per_page=>1000) do |t|
     t.column :full_name, :through=>:entity
     t.column :bank
     t.column :account_number
@@ -1767,8 +1767,27 @@ class ManagementController < ApplicationController
     @payments_count = @current_company.payments.find(:all, :conditions=>{:received=>false}).size
   end
 
+
+
+  dyta(:payment_sale_orders, :model=>:sale_orders, :conditions=>["sale_orders.company_id=? AND id IN (SELECT order_id FROM payment_parts WHERE payment_id=?)", ['@current_company.id'], ['session[:current_payment_id]']]) do |t|
+    t.column :number, :url=>{:action=>:sale_order}
+    t.column :description, :through=>:client, :url=>{:action=>:entity, :controller=>:relations}
+    t.column :created_on
+    t.column :amount
+    t.column :amount_with_taxes
+  end
+
+
+
+  def payment
+    return unless @payment = find_and_check(:payments, params[:id])
+    session[:current_payment_id] = @payment.id
+    @title = {:entity=>@payment.entity.full_name, :paid_on=>::I18n.localize(@payment.paid_on)}
+  end
+
+
   def payment_create
-    @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
+    return unless @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
     if @sale_order.unpaid_amount <= 0 and @sale_order.invoices.size > 0
       flash[:notice]=tc(:error_sale_order_already_paid)
       redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
@@ -2058,7 +2077,7 @@ class ManagementController < ApplicationController
     code
   end
 
-  dyta(:subscriptions, :conditions=>subscriptions_conditions, :export=>false) do |t|
+  dyta(:subscriptions, :conditions=>subscriptions_conditions) do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity, :controller=>:relations}
 #    t.column :line_2, :through=>:contact, :label=>"Dest-Serv"
 #    t.column :line_3, :through=>:contact, :label=>"Bat./Rés."

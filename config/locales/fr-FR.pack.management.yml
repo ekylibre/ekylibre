@@ -241,6 +241,9 @@ fr-FR:
         search: 'Rechercher une facture par son numéro'
       _location_choice:
         select_stock_location: 'Choississez un lieu de stockage'
+      payment:
+        title: 'Réglement de {{entity}} du {{paid_on}}'
+        sale_orders: 'Ventes liées au règlement'
       payment_create:
         title: 'Ajouter un nouveau réglement à la vente : {{value}}'
       _payment_form:

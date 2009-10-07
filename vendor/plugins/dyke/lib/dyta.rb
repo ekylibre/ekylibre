@@ -267,7 +267,7 @@ module Ekylibre
                     style += "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
                   elsif column.name==:country and  column.datatype == :string and column.limit <= 8
                     datum = "(#{datum}.nil? ? '' : '<nobr>'+#{value_image2(datum,'countries')}+'&nbsp;'+::I18n.translate('countries.'+#{datum}))+'</nobr>'"
-                  else
+                  elsif column.datatype == :string
                     datum = "h("+datum+")"
                   end
                   if column.name==:code

@@ -1,0 +1,23 @@
+
+%table
+  %tr
+    %td
+      =evalue @payment, :amount
+      =evalue @payment, :parts_amount
+      =evalue @payment, :entity, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
+      =evalue @payment, :embanker, :label=>:label
+      =evalue @payment, :embankment, :label=>:created_on, :url=>{:action=>:embankment}
+    %td
+      =evalue @payment, :mode
+      =evalue @payment, :paid_on
+      =evalue @payment, :to_bank_on
+      =evalue @payment, :received
+      =evalue @payment, :scheduled
+    %td
+      =evalue @payment, :bank
+      =evalue @payment, :account_number
+      =evalue @payment, :check_number
+
+-if @payment.parts.size>0
+  %h2=tc(:sale_orders)
+  =dyta :payment_sale_orders

@@ -357,7 +357,7 @@ class RelationsController < ApplicationController
   end
 
   dyta(:entity_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :default_order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
-    t.column :id
+    t.column :id, :url=>{:controller=>:management, :action=>:payment}
     t.column :paid_on
     t.column :label, :through=>:embanker
     t.column :name, :through=>:mode
@@ -365,7 +365,7 @@ class RelationsController < ApplicationController
     # t.column :account_number
     t.column :check_number
     t.column :parts_amount
-    t.column :amount
+    t.column :amount, :url=>{:controller=>:management, :action=>:payment}
     t.column :created_on, :through=>:embankment, :url=>{:controller=>:management, :action=>:embankment}, :datatype=>:date
     t.action :payment_update, :controller=>:management, :if=>"RECORD.embankment.nil\?"
     t.action :payment_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.parts_amount.to_f<=0"

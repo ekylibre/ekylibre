@@ -1047,8 +1047,8 @@ fr-FR:
         mode_id: 'Mode de paiement'
         paid_on: 'Réglé le'
         parts_amount: 'Montant utilisé'
-        received: (((RECEIVED)))
-        scheduled: (((SCHEDULED)))
+        received: 'Reçu'
+        scheduled: 'Encaissement programmé'
         to_bank_on: 'À encaisser le'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
