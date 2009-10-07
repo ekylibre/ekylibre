@@ -23,6 +23,7 @@ Rails::Initializer.run do |config|
   config.gem "fastercsv"
   config.gem "libxml-ruby", :lib=>'libxml'
   config.gem "rubyzip", :lib=>"zip/zip"
+  # config.gem "RedCloth", :lib=>"redcloth"
   # config.gem "measure"
 
   # Only load the plugins named here, in the order given (default is alphabetical).

@@ -262,16 +262,16 @@ module Ekylibre
                   elsif column.options[:mode]||column.name == :website
                     datum = "("+datum+".blank? ? '' : link_to("+datum+", "+datum+"))"
                     css_class += ' web'
-                  end
-                  if column.options[:name]==:color
+                  elsif column.options[:name]==:color
                     css_class += ' color'
                     style += "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
+                  elsif column.name==:country and  column.datatype == :string and column.limit <= 8
+                    datum = "(#{datum}.nil? ? '' : '<nobr>'+#{value_image2(datum,'countries')}+'&nbsp;'+::I18n.translate('countries.'+#{datum}))+'</nobr>'"
+                  else
+                    datum = "h("+datum+")"
                   end
                   if column.name==:code
                     css_class += ' code'
-                  end
-                  if column.name==:country and  column.datatype == :string and column.limit <= 8
-                    datum = "(#{datum}.nil? ? '' : '<nobr>'+#{value_image2(datum,'countries')}+'&nbsp;'+::I18n.translate('countries.'+#{datum}))+'</nobr>'"
                   end
                   code += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"+column_sort
                   code += ", :style=>"+style+"'" unless style[1..-1].blank?
