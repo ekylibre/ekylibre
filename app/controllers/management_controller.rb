@@ -1782,7 +1782,7 @@ class ManagementController < ApplicationController
   def payment
     return unless @payment = find_and_check(:payments, params[:id])
     session[:current_payment_id] = @payment.id
-    @title = {:entity=>@payment.entity.full_name, :paid_on=>::I18n.localize(@payment.paid_on)}
+    @title = {:entity=>@payment.entity.full_name, :paid_on=>@payment.paid_on.is_a?(Date) ? ::I18n.localize(@payment.paid_on) : '????????'}
   end
 
 

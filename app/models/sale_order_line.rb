@@ -43,6 +43,8 @@ class SaleOrderLine < ActiveRecord::Base
   has_many :delivery_lines, :foreign_key=>:order_line_id
   has_many :invoice_lines
   acts_as_list :scope=>:order
+  
+  validates_presence_of :price_id
 
   attr_readonly :company_id, :order_id
   
@@ -131,7 +133,9 @@ class SaleOrderLine < ActiveRecord::Base
     if self.location
       errors.add_to_base(tc(:stock_location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) unless self.location.can_receive?(self.product_id)
     end
-    errors.add_to_base(tc(:currency_is_not_sale_order_currency)) if self.price.currency_id != self.order.currency_id
+    if self.price
+      errors.add_to_base(tc(:currency_is_not_sale_order_currency)) if self.price.currency_id != self.order.currency_id
+    end
   end
   
   def undelivered_quantity
