@@ -48,7 +48,6 @@ fr-FR:
       department: 'Service'
       district: 'Zone administrative'
       document: 'Document'
-      document_nature: 'Type de document'
       document_template: 'Modèle de document'
       embankment: 'Encaissement'
       employee: 'Employé'
@@ -512,36 +511,25 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # Type de document
-      document_nature:
-        code: 'Code'
-        company_id: 'Société'
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        family: 'Module'
-        family_label: 'Module'
-        id: 'ID'
-        lock_version: 'Version'
-        name: 'Nom'
-        to_archive: 'Archiver les documents'
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
-
       # Modèle de document
       document_template:
         active: 'Actif'
         cache: (((CACHE)))
+        code: 'Code'
         company_id: 'Société'
         country: 'Pays'
         created_at: 'Créé le'
         creator_id: 'Créateur'
         deleted: (((DELETED)))
+        family: 'Module'
+        family_label: 'Module'
         id: 'ID'
         language_id: 'Langue'
         lock_version: 'Version'
         name: 'Nom'
         nature_id: 'Nature'
         source: 'Source'
+        to_archive: 'Archiver les documents'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1620,7 +1608,7 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # translation missing: fr-FR, activerecord, models, transport
+      # (((TRANSPORT)))
       transport:
         comment: 'Commentaire'
         company_id: 'Société'

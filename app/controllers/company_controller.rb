@@ -394,12 +394,15 @@ class CompanyController < ApplicationController
   dyta(:document_templates, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:name) do |t|
     t.column :active
     t.column :name
-    t.column :name, :through=>:nature, :url=>{:action=>:document_nature_update}
+    t.column :code
+    # t.column :name, :through=>:nature, :url=>{:action=>:document_nature_update}
+    t.column :family_label
+    t.column :to_archive
     t.column :native_name, :through=>:language
     t.column :country
     t.action :document_template_print
     t.action :document_template_update
-    t.action :document_templates_duplicate
+    t.action :document_template_duplicate
     t.action :document_template_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
@@ -442,7 +445,7 @@ class CompanyController < ApplicationController
     send_data @document_template.sample, :filename=>@document_template.name.simpleize, :type=>Mime::PDF, :disposition=>'inline'
   end
 
-  def document_templates_duplicate
+  def document_template_duplicate
     return unless  @document_template = DocumentTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
     render :text=>'<pre>'+DocumentTemplate.compile(@document_template.source)+'</pre>'
   end
@@ -467,48 +470,48 @@ class CompanyController < ApplicationController
   end
 
 
-  dyta(:document_natures, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:family) do |t|
-    t.column :family_label
-    t.column :name
-    t.column :code
-    t.column :to_archive
-    t.action :document_nature_update
-    t.action :document_nature_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
-  end
+#   dyta(:document_natures, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:family) do |t|
+#     t.column :family_label
+#     t.column :name
+#     t.column :code
+#     t.column :to_archive
+#     t.action :document_nature_update
+#     t.action :document_nature_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+#   end
 
 
-  def document_natures
-  end
+#   def document_natures
+#   end
 
-  def document_nature_create
-    if request.post? 
-      @document_nature = DocumentNature.new(params[:document_nature])
-      @document_nature.company_id = @current_company.id
-      redirect_to_back if @document_nature.save
-    else
-      @document_nature = DocumentNature.new
-    end
-    render_form
-  end
+#   def document_nature_create
+#     if request.post? 
+#       @document_nature = DocumentNature.new(params[:document_nature])
+#       @document_nature.company_id = @current_company.id
+#       redirect_to_back if @document_nature.save
+#     else
+#       @document_nature = DocumentNature.new
+#     end
+#     render_form
+#   end
 
-  def document_nature_update
-    @document_nature = DocumentNature.find_by_id_and_company_id(params[:id], @current_company.id)
-    if request.post? and @document_nature
-      if @document_nature.update_attributes(params[:document_nature])
-        redirect_to_back
-      end
-    end
-    @title = {:value=>@document_nature.name}
-    render_form    
-  end
+#   def document_nature_update
+#     @document_nature = DocumentNature.find_by_id_and_company_id(params[:id], @current_company.id)
+#     if request.post? and @document_nature
+#       if @document_nature.update_attributes(params[:document_nature])
+#         redirect_to_back
+#       end
+#     end
+#     @title = {:value=>@document_nature.name}
+#     render_form    
+#   end
 
-  def document_nature_delete
-    if request.post? or request.delete?
-      @document_nature = DocumentNature.find_by_id_and_company_id(params[:id], @current_company.id)
-      DocumentNature.destroy(@document_nature.id) if @document_nature and @document_nature.destroyable?
-    end
-    redirect_to_current
-  end
+#   def document_nature_delete
+#     if request.post? or request.delete?
+#       @document_nature = DocumentNature.find_by_id_and_company_id(params[:id], @current_company.id)
+#       DocumentNature.destroy(@document_nature.id) if @document_nature and @document_nature.destroyable?
+#     end
+#     redirect_to_current
+#   end
 
 
   dyta(:sequences, :conditions=>{:company_id=>['@current_company.id']}) do |t| 

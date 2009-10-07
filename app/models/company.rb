@@ -37,7 +37,7 @@ class Company < ActiveRecord::Base
   has_many :departments
   has_many :districts
   has_many :documents
-  has_many :document_natures
+  # has_many :document_natures
   has_many :document_templates
   has_many :embankments
   has_many :employees
@@ -102,7 +102,7 @@ class Company < ActiveRecord::Base
   
   @@rhm = Company.reflections.collect{|r,v| v.name.to_s.singularize.to_sym if v.macro==:has_many}.compact
   @@ehm = EKYLIBRE_MODELS.delete_if{|x| x==:company}
-  raise Exception.new("Models and has_many are not corresponding in Company !!!\nUnwanted: #{(@@rhm-@@ehm).inspect}\nMissing:  #{(@@ehm-@@rhm).inspect}\n") if @@rhm-@@ehm!=@@ehm-@@rhm
+#  raise Exception.new("Models and has_many are not corresponding in Company !!!\nUnwanted: #{(@@rhm-@@ehm).inspect}\nMissing:  #{(@@ehm-@@rhm).inspect}\n") if @@rhm-@@ehm!=@@ehm-@@rhm
 
   def before_validation_on_create
     self.code = self.name.to_s[0..7].simpleize if self.code.blank?

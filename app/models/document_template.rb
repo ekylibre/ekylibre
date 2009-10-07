@@ -4,17 +4,19 @@
 #
 #  active       :boolean       not null
 #  cache        :text          
+#  code         :string(32)    
 #  company_id   :integer       not null
 #  country      :string(2)     
 #  created_at   :datetime      not null
 #  creator_id   :integer       
 #  deleted      :boolean       not null
+#  family       :string(32)    
 #  id           :integer       not null, primary key
 #  language_id  :integer       
 #  lock_version :integer       default(0), not null
 #  name         :string(255)   not null
-#  nature_id    :integer       not null
 #  source       :text          
+#  to_archive   :boolean       
 #  updated_at   :datetime      not null
 #  updater_id   :integer       
 #
@@ -22,14 +24,17 @@
 class DocumentTemplate < ActiveRecord::Base
   belongs_to :company
   belongs_to :language
-  belongs_to :nature, :class_name=>DocumentNature.name
+  # belongs_to :nature, :class_name=>DocumentNature.name
   has_many :documents, :foreign_key=>:template_id
 
   validates_presence_of :nature_id
 
   attr_readonly :company_id
 
+  @@families = [:company, :relations, :accountancy, :management, :resources, :production]
+
   include ActionView::Helpers::NumberHelper
+
 
   def before_validation
     self.cache = self.class.compile(self.source) # rescue nil
@@ -46,6 +51,14 @@ class DocumentTemplate < ActiveRecord::Base
 
   def destroyable?
     true
+  end
+
+  def self.families
+    @@families.collect{|x| [tc('families.'+x.to_s), x.to_s]}
+  end
+
+  def family_label
+    tc('families.'+self.family) if self.family
   end
 
 

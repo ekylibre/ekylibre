@@ -64,6 +64,8 @@ class Product < ActiveRecord::Base
 
   attr_readonly :company_id
 
+  validates_uniqueness_of :code, :scope=>:company_id
+
   validates_presence_of :subscription_period, :if=>Proc.new{|u| u.nature=="sub_date"}
   validates_presence_of :subscription_numbers, :actual_number, :if=>Proc.new{|u| u.nature=="sub_numb"}
 

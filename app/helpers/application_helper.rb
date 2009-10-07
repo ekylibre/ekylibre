@@ -19,8 +19,7 @@ module ApplicationHelper
              {:name=>:establishments},
              {:name=>:departments},
              {:name=>:sequences},
-             {:name=>:document_templates},
-             {:name=>:document_natures}
+             {:name=>:document_templates}
            ] },
          {:name=>:informations, :list=>
            [ {:name=>:help},

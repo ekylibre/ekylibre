@@ -165,7 +165,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_to_login
+  def redirect_to_login()
     session[:help] = false
     redirect_to :controller=>:authentication, :action=>:login
   end

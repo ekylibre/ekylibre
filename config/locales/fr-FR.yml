@@ -414,6 +414,7 @@ fr-FR:
     delete: 'Supprimer'
     display: 'Afficher'
     down: 'Descendre'
+    duplicate: 'Dupliquer'
     dyta_false: 'FAUX'
     dyta_true: 'VRAI'
     edit: 'Modifier'
