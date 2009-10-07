@@ -1729,7 +1729,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:payment_parts, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
-    t.column :amount, :through=>:payment, :label=>tc('payment_amount')
+    t.column :amount, :through=>:payment, :label=>tc('payment_amount'), :url=>{:action=>:payment}
     t.column :amount
     t.column :payment_way
     t.column :scheduled, :through=>:payment, :datatype=>:boolean, :label=>tc('scheduled')
