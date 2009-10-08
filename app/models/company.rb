@@ -37,7 +37,6 @@ class Company < ActiveRecord::Base
   has_many :departments
   has_many :districts
   has_many :documents
-  # has_many :document_natures
   has_many :document_templates
   has_many :embankments
   has_many :employees
@@ -577,343 +576,7 @@ class Company < ActiveRecord::Base
 
 
 
-  # Restore database
-  # with printed arhived documents if requested
-  def restore_sql(file)
-    prints_dir = "#{RAILS_ROOT}/private/#{self.code}"
-    # Décompression
-    puts "R> Uncompressing backup..."
-    backup = "#{RAILS_ROOT}/tmp/uncompressed-backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")+".xml"
-    stream = nil
-    FileUtils.rm_rf(prints_dir+'.prints')
-    Zip::ZipFile.open(file) do |zile|
-      stream = zile.read("backup.xml")
-      # zile.extract("backup.xml", backup)
-      # File.open(file, 'wb') {|f| f.write(zile.read("backup.xml"))}
-      zile.each do |entry|
-        if entry.name.match(/^prints[\\\/]/)
-          File.makedirs(File.join(prints_dir+"."+File.join(entry.name.split(/[\\\/]+/)[0..-2])))
-          zile.extract(entry, "#{prints_dir}.#{entry.name}") 
-        end
-      end
-    end
-    
-    # Parsing
-    version = (ActiveRecord::Migrator.current_version rescue 0)
-    puts "R> Parsing backup.xml (#{version})..."
-    backup = stream.split("\n")
-#    doc = LibXML::XML::Document.file(backup)
-#    backup = doc.root
-#    attr_version = backup.attributes['version']
-#    return false if not attr_version or (attr_version != version.to_s)
 
-#    root = backup.children[1]
-    ActiveRecord::Base.transaction do
-      # Suppression des données
-      puts "R> Removing existing data..."
-      ids  = {}
-      keys = {}
-      reflections = self.class.reflections
-      for name in reflections.keys.collect{|x| x.to_s}.sort
-        reflection = reflections[name.to_sym]
-        if reflection.macro==:has_many
-          other = reflection.class_name
-          other_class = other.constantize
-          ids[other] = {}
-          keys[other] = {}
-          for name, ref in other_class.reflections
-            # Ex. : keys["User"]["role_id"] = "Role"
-            keys[other][ref.primary_key_name] = (ref.options[:polymorphic] ? ref.options[:foreign_type].to_sym : ref.class_name) if ref.macro==:belongs_to and ref.class_name!=self.class.name
-          end
-          other_class.delete_all(:company_id=>self.id)
-        elsif reflection.macro==:belongs_to
-          keys[self.class.name] ||= {}
-          keys[self.class.name][reflection.primary_key_name] = reflection.class_name
-        end
-      end
-
-
-      # Chargement des données sauvegardées
-      puts "R> Loading backup data..."
-      data = []
-      backup.size.times do |i|
-        line = backup[i]
-        if line.match(/^\s*COPY\s+/)
-          line = line.strip
-          reflection = self.class.reflections[line.split(/[\s+\(]/)[1].to_sym]
-          puts('R> - '+reflection.name.to_s)
-          columns = {}
-          cols = line.split(/\(/)[1].split(/\)/)[0].split(',').collect{|c| c.strip.to_sym}
-          cols.size.times do |i|
-            columns[cols[i]] = {:index=>i} unless [:id, :company_id].include?(cols[i])
-          end
-          code  = "while backup[i]!='\\.' do\n"
-          code += "  puts i\n"
-          code += "  puts i.to_s if i.modulo(100)==0\n"
-          code += "  values = backup[i].split(/\\t/).collect{|v| (v=='\\N' ? '\\N' : v.gsub(/\\\\n/, \"\\n\").gsub(/\\\\t/, \"\\t\"))}\n"
-          code += "  ActiveRecord::Base.connection.execute('INSERT INTO #{reflection.name} (#{columns.keys.join(',')}) VALUES ('+values.inspect+')')\n"
-          code += "  record = self.#{reflection.name}.build("+columns.collect do |column, params|
-            ":#{column}=>values[#{params[:index]}]"
-          end.compact.join(", ")+")\n"
-          code += "  record.send(:create_without_callbacks)\n"
-          code += "  ids[#{reflection.class_name.inspect}][values[#{columns.index(:id)}]] = record.id\n"
-          code += "  data << record\n"
-          code += "  i += 1\n"
-          code += "end\n"
-          i += 1
-          puts code  # if reflection.name==:areas
-          eval(code) # if reflection.name==:areas
-        elsif line.match(/^\s+$/) or line.match(/^\-\-/)
-          next
-        else
-          next
-          raise Exception.new("Malformation: line #{i}: "+line)
-        end
-      end
-
-#       data = []
-#       root.each_element do |table|
-#         reflection = self.class.reflections[table.attributes['reflection'].to_sym]
-#         puts('R> - '+reflection.name.to_s)
-#         code =  "x = 0\n"
-#         code += "table.each_element do |r|\n"
-#         code += "  x += 1\n"
-#         code += "  puts x.to_s if x.modulo(100)==0\n"
-#         code += "  attributes = r.attributes\n"
-#         code += "  id = attributes['id']\n"
-#         code += "  record = self.#{reflection.name}.build("
-#         code += reflection.class_name.constantize.columns_hash.keys.delete_if{|x| [:company_id, :id].include? x}.collect do |col|
-#           ":#{col}=>attributes['#{col}']"
-#         end.join(", ")
-#         code += ")\n"
-#         code += "  record.send(:create_without_callbacks)\n"
-#         code += "  ids[#{reflection.class_name.inspect}][id] = record.id\n"
-#         code += "  data << record\n"
-#         code += "end"
-#         puts code
-#         eval(code)
-#       end
-
-
-#       # Réorganisation des clés étrangères
-#       puts "R> Redifining primary keys..."
-#       for record in data
-#         for key, class_name in keys[record.class.name]
-#           # user[:role_id] = ids["Role"][user[:role_id].to_s]
-#           #raise Exception.new('>> '+class_name.inspect) if ids[class_name].nil?
-#           if record[key]
-#             v = ids[class_name.is_a?(Symbol) ? record[class_name] : class_name][record[key].to_s]
-#             #             if class_name.is_a? Symbol
-#             #               v = ids[record[class_name]][record[key].to_s]
-#             #             else
-#             #               v = ids[class_name][record[key].to_s]
-#             #             end
-#             record[key] = v unless v.nil?
-#           end
-#         end
-#         record.send(:update_without_callbacks)
-#       end
-      
-      
-
-#       # Chargement des paramètres de la société
-#       puts "R> Loading company data..."
-#       attrs = root.attributes.each do |attr|
-#         self.send(attr.name+'=', attr.value) unless ['id', 'lock_version', 'code'].include? attr.name
-#       end
-#       for key, class_name in keys[self.class.name]
-#         v = ids[class_name][self[key].to_s]
-#         self[key] = v unless v.nil?
-#       end
-#       #      while self.class.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
-#       #        self.code.succ!
-#       #      end
-#       self.send(:update_without_callbacks)
-#       # raise Active::Record::Rollback
-
-#       if File.exist?(prints_dir+".prints")
-#         puts "R> Replacing prints..."
-#         File.move prints_dir, prints_dir+'.old'
-#         File.move prints_dir+'.prints', prints_dir
-#         FileUtils.rm_rf(prints_dir+'.old')
-#       end
-    end
-
-    return true
-  end
-
-
-
-
-  def backup_rexml(creator, with_prints=true)
-    version = (ActiveRecord::Migrator.current_version rescue 0)
-    filename = "backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")
-    file = "#{RAILS_ROOT}/tmp/#{filename}.zip"
-    doc = REXML::Document.new
-    doc << REXML::XMLDecl.new
-    backup = doc.add_element 'backup', 'version'=>version, 'creation-date'=>Date.today.to_s, 'creator'=>creator.label
-    root = backup.add_element 'company', self.attributes
-    n = 0
-    start = Time.now.to_i
-    reflections = self.class.reflections
-    for name in reflections.keys.collect{|x| x.to_s}.sort
-      reflection = reflections[name.to_sym]
-      if reflection.macro==:has_many
-        rows = self.send(name.to_sym).find(:all, :order=>:id)
-        rows_count = rows.size
-        n += rows_count
-        table = root.add_element('rows', 'reflection'=>name, 'records-count'=>rows_count.to_s)
-        rows_count.times do |i|
-          # puts i if i%200==0
-          table.add_element('row', rows[i].attributes)
-        end
-      end
-    end
-    backup.add_attributes('records-count'=>n.to_s, 'generation-duration'=>(Time.now.to_i-start).to_s)
-    stream = doc.to_s
-
-    Zip::ZipFile.open(file, Zip::ZipFile::CREATE) do |zile|
-      zile.get_output_stream("backup.xml") { |f| f.puts(stream) }
-      if with_prints
-        prints_dir = "#{RAILS_ROOT}/private/#{self.code}"
-        Dir.chdir(prints_dir) do
-          for document in Dir["*/*/*.pdf"]
-            zile.add("prints/"+document, prints_dir+'/'+document)
-          end
-        end
-      end
-    end
-    # Zlib::GzipWriter.open(file) { |gz| gz.write(stream) }
-    return file
-  end
-
-
-
-
-  # Restore database
-  # with printed arhived documents if requested
-  def restore_rexml(file)
-    prints_dir = "#{RAILS_ROOT}/private/#{self.code}"
-    # Décompression
-    puts "R> Uncompressing backup..."
-    backup = "#{RAILS_ROOT}/tmp/uncompressed-backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")+".xml"
-    stream = nil
-    FileUtils.rm_rf(prints_dir+'.prints')
-    Zip::ZipFile.open(file) do |zile|
-      stream = zile.read("backup.xml")
-      # zile.extract("backup.xml", backup)
-      # File.open(file, 'wb') {|f| f.write(zile.read("backup.xml"))}
-      zile.each do |entry|
-        if entry.name.match(/^prints[\\\/]/)
-          File.makedirs(File.join(prints_dir+"."+File.join(entry.name.split(/[\\\/]+/)[0..-2])))
-          zile.extract(entry, "#{prints_dir}.#{entry.name}") 
-        end
-      end
-    end
-    File.open(file, 'wb') {|f| f.write(stream)}
-    
-    
-    # Zlib::GzipReader.open(file) { |gz| stream = gz.read }
-    puts "R> Parsing backup.xml..."
-    doc = REXML::Document.new(File.new(file))
-    backup = doc.root
-    version = (ActiveRecord::Migrator.current_version rescue 0)
-    return false if backup.attribute('version').value != version.to_s
-
-    root = backup.elements[1]
-    ActiveRecord::Base.transaction do
-      # Suppression des données
-      puts "R> Removing existing data..."
-      ids  = {}
-      keys = {}
-      reflections = self.class.reflections
-      for name in reflections.keys.collect{|x| x.to_s}.sort
-        reflection = reflections[name.to_sym]
-        if reflection.macro==:has_many
-          other = reflection.class_name
-          other_class = other.constantize
-          ids[other] = {}
-          keys[other] = {}
-          for name, ref in other_class.reflections
-            # Ex. : keys["User"]["role_id"] = "Role"
-            keys[other][ref.primary_key_name] = (ref.options[:polymorphic] ? ref.options[:foreign_type].to_sym : ref.class_name) if ref.macro==:belongs_to and ref.class_name!=self.class.name
-          end
-          other_class.delete_all(:company_id=>self.id)
-        elsif reflection.macro==:belongs_to
-          keys[self.class.name] ||= {}
-          keys[self.class.name][reflection.primary_key_name] = reflection.class_name
-        end
-      end
-
-
-      # Chargement des données sauvegardées
-      puts "R> Loading backup data..."
-      data = []
-      for table in root.elements
-        reflection = self.class.reflections[table.attributes['reflection'].to_sym]
-        puts('>> '+reflection.name.to_s)
-        for r in table.elements
-          attributes = r.attributes
-          id = attributes['id']
-          attributes.delete('id')
-          attributes.delete('company_id')
-          record = self.send(reflection.name).build
-          attributes.each{|k,v| record.send(k+'=', v)}
-          record.send(:create_without_callbacks)
-          ids[reflection.class_name][id] = record.id
-          data << record
-        end
-      end
-
-
-      # Réorganisation des clés étrangères
-      puts "R> Redifining primary keys..."
-      for record in data
-        for key, class_name in keys[record.class.name]
-          # user[:role_id] = ids["Role"][user[:role_id].to_s]
-          #raise Exception.new('>> '+class_name.inspect) if ids[class_name].nil?
-          if record[key]
-            v = ids[class_name.is_a?(Symbol) ? record[class_name] : class_name][record[key].to_s]
-            #             if class_name.is_a? Symbol
-            #               v = ids[record[class_name]][record[key].to_s]
-            #             else
-            #               v = ids[class_name][record[key].to_s]
-            #             end
-            record[key] = v unless v.nil?
-          end
-        end
-        record.send(:update_without_callbacks)
-      end
-      
-      
-
-      # Chargement des paramètres de la société
-      puts "R> Loading company data..."
-      attrs = root.attributes
-      attrs.delete('id')
-      attrs.delete('lock_version') # StaleObjectError solution
-      attrs.delete('code')
-      attrs.each{|k,v| self.send(k+'=', v)}
-      for key, class_name in keys[self.class.name]
-        v = ids[class_name][self[key].to_s]
-        self[key] = v unless v.nil?
-      end
-      #      while self.class.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
-      #        self.code.succ!
-      #      end
-      self.send(:update_without_callbacks)
-      # raise Active::Record::Rollback
-
-      if File.exist?(prints_dir+".prints")
-        puts "R> Replacing prints..."
-        File.move prints_dir, prints_dir+'.old'
-        File.move prints_dir+'.prints', prints_dir
-        FileUtils.rm_rf(prints_dir+'.old')
-      end
-    end
-
-    return true
-  end
 
 
   def print(object, options={})
@@ -926,98 +589,14 @@ class Company < ActiveRecord::Base
     if options[:template]
       template = options[:template] if options[:template].is_a? DocumentTemplate
       template = self.document_templates.find_by_id(options[:template]) if options[:template].is_a? Integer
+      template = self.document_templates.find_by_code(options[:template]) if options[:template].is_a? String
     end
-    if options[:nature] and template.nil?
-      nature = options[:nature] if options[:nature].is_a? DocumentNature
-      nature = self.document_natures.find_by_id(options[:nature]) if options[:nature].is_a? Integer
-    end
-    nature = self.document_natures.find_by_code(object.class.name.underscore) unless nature
-    raise Exception.new("Can't find any document nature to print") unless nature
-    template = nature.templates.find(:first, :order=>:name) if template.nil?
-    
-    raise Exception.new("Can't find any template to print") unless template
+    return DocumentTemplate.error_document("Can't find any template to print") unless template
       
     # Printing
     # TODO: Cache printing method
     return template.print(object)
- 
-#     # Try to find an existing archive
-#     pdf = nil
-#     document = nil
-#     if template.nature.to_archive
-#       # documents = self.documents.find_all_by_owner_id_and_owner_type(object.id, object.class.name)
-#       # documents = template.nature.documents # .find_all_by_nature_id(template.nature_id)
-#       documents = self.documents.find(:all, :conditions=>["owner_id = ? and owner_type = ? and template = ?", object.id, object.class.name, template.nature.code])
-#       if documents.size == 1
-#         document = documents.first
-#         pdf = document.data
-#       elsif documents.size > 1
-#         raise Exception.new("Many archives are existing for one record")
-#       end
-#     end
-
-
-#     pdf = template.execute(object) if pdf.nil?
-    
-#     # Create the archive
-#     if template.nature.to_archive and document.nil?
-
-#       document = Document.archive(object, pdf, :template_id=>template.id, :extension=>'pdf')
-#     end
-    
-#     # Return the doc
-#     return document||pdf
   end
-
-
-  def print3(object, options={})
-    archive  = options[:archive]
-    template = options[:template]
-    if object.class.ancestors.include?(ActiveRecord::Base)
-      template ||= object.class.name.underscore.to_sym
-      archive = true if archive.nil?
-    else
-      raise Exception.new("The parameter object must be an ActiveRecord::Base descendant object")
-    end
-
-    # Try to find an existing archive
-    pdf = nil
-    document = nil
-    if archive
-      documents = self.documents.find_all_by_owner_id_and_owner_type(object.id, object.class.name)
-      if documents.size == 1
-        document = documents.first
-        pdf = document.data
-      elsif documents.size > 1
-        raise Exception.new("Many archives are existing for one record")
-      end
-    end
-
-    # Printing
-    # TODO: Cache printing method
-    if pdf.nil?
-      source = ''
-      template_file = "#{RAILS_ROOT}/app/views/prints/#{template}.rpdf"
-      raise Exception.new("Unfound template: #{template_file}") unless File.exist? template_file
-      File.open(template_file, 'rb') do |file|
-        source = file.read
-      end
-      doc = Ibeh.document(Hebi::Document.new, options[:view]) do
-        eval(source)
-      end
-      pdf = doc.generate
-      #pdf = source
-    end
-    
-    # Create the archive
-    if archive and document.nil?
-      document = Document.archive(object, pdf, :template=>template.to_s, :extension=>'pdf')
-    end
-    
-    # Return the doc
-    return document||pdf
-  end
-
 
 
   def export_entities(find_options={})
@@ -1042,25 +621,20 @@ class Company < ActiveRecord::Base
   
   # this method loads all the templates existing.
   def load_prints
-    language = self.entity.language
+    language = @current_company.entity.language
     prints_dir = "#{RAILS_ROOT}/app/views/prints"
-
-    templates = {}
-    templates[:management] ={'sale_order'=>{:to_archive=>false}, 'invoice'=>{:to_archive=>true}}
-    templates[:accountancy] ={'journal'=>{:to_archive=>false}, 'journals'=>{:to_archive=>false}}
+ 
+    families = {}
+    families[:management] ={'sale_order'=>{:to_archive=>false}, 'invoice'=>{:to_archive=>true}}
+    families[:accountancy] ={'journal'=>{:to_archive=>false}, 'journal_by_id'=>{:to_archive=>false}}
   
-    templates.each do |mod, a|
-      a.each do |n, options|
-        nature = self.document_natures.find_by_code(n)
-        nature = self.document_natures.create(:code=>n, :name=>tc('default.document_natures.'+n.to_s), :to_archive=>options[:to_archive], :family=>mod.to_s) if nature.nil?
-        
-        File.open("#{prints_dir}/#{n}.xml", 'rb') do |f|
-          self.document_templates.create(:nature_id=>nature.id, :active=>true, :name=>tc('default.document_templates.'+n.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read)
+    families.each do |family, templates|
+      templates.each do |template, options|
+        File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
+          @current_company.document_templates.create(:active=>true, :name=>t('models.company.default.document_templates.'+template.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read, :to_archive=>options[:to_archive], :family=>family.to_s, :code=>template)
         end
-  
       end
     end
-
   end
   
 

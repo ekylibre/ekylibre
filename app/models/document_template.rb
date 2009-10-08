@@ -24,10 +24,9 @@
 class DocumentTemplate < ActiveRecord::Base
   belongs_to :company
   belongs_to :language
-  # belongs_to :nature, :class_name=>DocumentNature.name
   has_many :documents, :foreign_key=>:template_id
 
-  validates_presence_of :nature_id
+  validates_uniqueness_of :code, :scope=>:company_id
 
   attr_readonly :company_id
 
@@ -90,6 +89,11 @@ class DocumentTemplate < ActiveRecord::Base
     return pdf
   end
 
+#   def print_in_file(*args)
+#     dataprint(args)
+    
+#   end
+
 
   def archive(owner, data, attributes={})
     document = self.documents.new(attributes.merge(:company_id=>owner.company_id, :owner_id=>owner.id, :owner_type=>owner.class.name))
@@ -118,18 +122,26 @@ class DocumentTemplate < ActiveRecord::Base
     begin 
       pdf = eval(code)
     rescue Exception=>e
-      doc = Ibeh.document(Hebi::Document.new, self)do |ibeh|
-        ibeh.page(:a4, :margin=>[15.mm]) do |p|
-          p.part 200.mm do |x|
-            x.set do |s|
+      pdf = DocumentTemplate.error_document(e)
+    end
+    pdf
+  end
+
+  def self.error_document(exception)
+    doc = Ibeh.document(Hebi::Document.new, self)do |ibeh|
+      ibeh.page(:a4, :margin=>[15.mm]) do |p|
+        p.part 200.mm do |x|
+          x.set do |s|
+            if e.is_a? Exception
               s.text "Exception : "+e.inspect+"\n"+e.backtrace[0..25].join("\n")+"..."
+            else
+              s.text "Erreur : "+e.inspect
             end
           end
         end
       end
-      pdf = doc.generate
     end
-    pdf
+    return doc.generate    
   end
 
 
