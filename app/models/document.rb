@@ -40,7 +40,7 @@ class Document < ActiveRecord::Base
   DIRECTORY = "#{RAILS_ROOT}/private"
 
   def before_validation
-    self.nature_code = self.template.nature.code if self.template
+    self.nature_code = self.template.code if self.template
   end
 
   def data
@@ -57,7 +57,7 @@ class Document < ActiveRecord::Base
   end
 
   def path
-    "#{DIRECTORY}/#{self.company.code}/#{self.template.nature.code}/#{self.subdir}"
+    "#{DIRECTORY}/#{self.company.code}/#{self.nature_code}/#{self.subdir}"
   end
 
   def file_path

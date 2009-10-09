@@ -551,12 +551,33 @@ class CompanyController < ApplicationController
     @listing = find_and_check(:listing, params[:id])
     query = @listing.query
     query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
-    result = ActiveRecord::Base.connection.select_all(@listing.query)
-    #raise Exception.new result[0]["email"].inspect
-    @mails = result.collect{|c| c["email"] unless c["email"].blank? }.compact
-    #raise Exception.new mails.join(",").inspect
-    #send_data mail_to(:bcc=>mails.join("&bcc="))
-    #mail_to(:bcc=>mails.join("&bcc="))
+    full_results = ActiveRecord::Base.connection.select_all(@listing.query)
+    results = full_results.select{|c| !c["email"].blank? }
+    @mails = results.collect{|c| c["email"] }
+    @columns = results[0].keys.sort
+    if request.post?
+      session[:mail] = params.dup
+      session[:mail].delete(:attachment)
+      texts = [params[:subject], params[:body]]
+      attachment = params[:attachment]
+      if attachment
+        # file = "#{RAILS_ROOT}/tmp/uploads/attachment_#{attachment.original_filename.gsub(/\W/,'_')}"
+        # File.open(file, "wb") { |f| f.write(attachment.read)}
+        attachment = {:filename=>attachment.original_filename, :content_type=>attachment.content_type, :body=>attachment.read.dup}
+      end
+      if params[:send_test]
+        results = [results[0]]
+        results[0]["email"] = params[:from]
+      end
+      for result in results
+        ts = texts.collect do |t|
+          r = t.to_s.dup
+          @columns.each{|c| r.gsub!(/\{\{#{c}\}\}/, result[c].to_s)}
+          r
+        end
+        Mailman.deliver_message(params[:from], result["email"], ts[0], ts[1], attachment)
+      end
+    end
     @title = {:listing => @listing.name}
   end
 

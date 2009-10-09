@@ -111,7 +111,7 @@ module Hebi
       # @ic = Iconv.new('ISO-8859-1', @encoding) if @encoding
       @ic = Iconv.new('UTF-8', @encoding) if @encoding
       @pages = []
-      @page = -1
+      @current_page = -1
       @aliases = {}
       @fonts = {}
       @images = {}
@@ -174,13 +174,13 @@ module Hebi
       error('Parameter format can only contains numeric values') unless [Integer, Float, BigDecimal, Fixnum].include? format[0].class
       format[1] ||= format[0]*1.414
       @pages ||= []
-      @page = @pages.size
+      @current_page = @pages.size
       rotate = 90*(rotate.to_f/90).round
       @pages << {:format=>format, :operations=>[], :rotate=>rotate}
     end
 
     def page(number=nil)
-      @pages[number||@page]
+      @pages[number||@current_page]
     end
 
 #    def alias(key, value)
@@ -188,7 +188,7 @@ module Hebi
 #    end
 
     def image(file, x, y, w=nil, h=nil, params={})
-      self.new_page if @page<0
+      self.new_page if @current_page<0
       if @images[file].nil?
         error("File does not exists (#{file.inspect})") unless File.exists? file
         @images[file] = Hebi::Image.new(file, ('I'+@images.size.to_s).to_sym)
@@ -213,7 +213,7 @@ module Hebi
     end
 
     def line(points, params={})
-      self.new_page if @page<0
+      self.new_page if @current_page<0
       error("Unvalid list of point") unless points.is_a? Array
       points.each{|p| error("Unvalid point: #{p.inspect}") unless is_a_point? p}
       border = params[:border]||{}
@@ -224,7 +224,7 @@ module Hebi
     end
 
     def rectangle(x, y, width, height, params={})
-      self.new_page if @page<0
+      self.new_page if @current_page<0
       border = params[:border]||{}
       self.set_line(border)
       self.append_rectangle(x, y, width, height)
@@ -232,13 +232,13 @@ module Hebi
     end
 
     def box(x, y, width, height, text=nil, params={}, page=nil)
-      self.new_page if @page<0
+      self.new_page if @current_page<0
       params[:font] ||= {}
       params[:font][:family] ||= 'Times'
       params[:font][:bold]   ||= false
       params[:font][:italic] ||= false
       # get_font(params[:font][:family], params[:font][:bold], params[:font][:italic])
-      #      @pages[page||@page][:operations] << {:name=>:box, :args=>params}
+      #      @pages[page||@current_page][:operations] << {:name=>:box, :args=>params}
       border = params[:border]||{}
       background = params[:background]
       x ||= 0
@@ -269,7 +269,7 @@ module Hebi
     end
 
     def font(name, options={})
-      self.new_page if @page<0
+      self.new_page if @current_page<0
       label = name.downcase+(options[:bold] ? '-bold' : '')+(options[:italic] ? '-italic' : '')
       if @fonts[label].nil?
         error("Unavailable font: #{label}") if @available_fonts[label].nil?
@@ -358,8 +358,8 @@ module Hebi
     def method_missing(method_name, *args)
       if Hebi::ContentStream.method_defined? method_name
         # page = args.delete_at(-1) if args[-1].is_a? Integer
-        self.new_page if @page<0
-        @pages[@page][:operations] << {:name=>method_name, :args=>args}
+        self.new_page if @current_page<0
+        @pages[@current_page][:operations] << {:name=>method_name, :args=>args}
       else
         raise Exception.new("Unknown method for #{self.class.to_s} (#{method_name.inspect})")
       end
@@ -368,7 +368,7 @@ module Hebi
 
     def generate(options={})
       yield self if block_given?
-      self.new_page if @page<0
+      self.new_page if @current_page<0
       # puts @pages.inspect
       pdf_data = build
       if options[:file]
@@ -716,7 +716,7 @@ module Hebi
   end
 
 
-  # Content stream permit to record all the operations
+  # Content stream permits to record all the operations
   class ContentStream
     NUMERIC_CLASSES = [Float, Integer, Fixnum]
     LINE_DASH_STYLES = {:dotted=>{:dash=>[1, 1], :phase=>0.5}, :dashed=>{:dash=>[3], :phase=>2}, :solid=>{:dash=>[], :phase=>0}}

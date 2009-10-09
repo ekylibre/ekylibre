@@ -121,7 +121,20 @@ fr-FR:
       _listing_form:
         subtitle: 'Renseignez les informations concernant l''extraction'
       listing_mail:
+        attachment: 'Pièce jointe'
         click_to_mail: 'Cliquez ici pour écrire votre message'
+        personalized_mail: 'Envoyer un mail personnalisé'
+        available_columns: 'Champs disponibles : {{columns}}'
+        mails:
+          zero: 'Aucun e-mail'
+          one: '1 e-mail'
+          other: '{{count}} e-mails'
+        from: Expéditeur
+        default_subject: '[{{company}}]'
+        subject: Sujet
+        body: Corps du message
+        send: Envoyer le mail
+        send_test: Envoyer un mail de test
         title: 'Envoyer un mail pour "{{listing}}"'
       listing_update:
         title: 'Modification de l''extraction {{value}}'

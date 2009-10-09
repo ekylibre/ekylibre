@@ -513,6 +513,10 @@ module ApplicationHelper
           end
           
           code += li_link_to(*args)
+        elsif nature == :mail
+          args[2] ||= {}
+          args[2][:class] = :mail
+          code += content_tag(:li, mail_to(*args).to_s)
         end
       end
       if code.strip.length>0
@@ -535,6 +539,10 @@ module ApplicationHelper
 
     def link(*args)
       @tools << [:link, args]
+    end
+
+    def mail(*args)
+      @tools << [:mail, args]
     end
   end
 

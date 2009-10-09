@@ -590,6 +590,8 @@ class Company < ActiveRecord::Base
       template = options[:template] if options[:template].is_a? DocumentTemplate
       template = self.document_templates.find_by_id(options[:template]) if options[:template].is_a? Integer
       template = self.document_templates.find_by_code(options[:template]) if options[:template].is_a? String
+    elsif
+      template = self.document_templates.find_by_code(object.class.to_s.underscore)
     end
     return DocumentTemplate.error_document("Can't find any template to print") unless template
       

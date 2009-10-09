@@ -225,7 +225,7 @@ fr-FR:
     delivery_line: 
       error_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité commandée'
       sale: 'Vente {{number}}'
-    document_nature:
+    document_template:
       families:
         company: Société
         relations: Relations

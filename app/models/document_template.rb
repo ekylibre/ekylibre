@@ -36,16 +36,16 @@ class DocumentTemplate < ActiveRecord::Base
 
 
   def before_validation
-    self.cache = self.class.compile(self.source) # rescue nil
-    begin
-      self.cache = self.class.compile(self.source) # rescue nil
-    rescue Exception => e
-      self.errors.add(:source, e.message)
-    end  
+    self.cache = self.class.compile(self.source) rescue nil
+#     begin
+#       self.cache = self.class.compile(self.source) # rescue nil
+#     rescue => e
+#       errors.add(:source, e.inspect)
+#     end  
   end
 
-  def validates
-    errors.add(:source, 'est invalide') if self.cache.nil?
+  def validate
+    errors.add(:source, 'est invalide') if self.cache.blank?
   end
 
   def destroyable?
@@ -68,9 +68,9 @@ class DocumentTemplate < ActiveRecord::Base
     raise Exception.new("Must be an activerecord") unless object.class.ancestors.include?(ActiveRecord::Base)
 
     # Try to find an existing archive
-    if self.nature.to_archive
+    if self.to_archive
       # document = self.documents.find(:first, :conditions=>["owner_id = ? and owner_type = ?", object.id, object.class.name], :order=>"created_at DESC")
-      document = self.company.documents.find(:first, :conditions=>{:nature_code=>self.nature.code, :owner_id=>object.id, :owner_type=>object.class.name}, :order=>"created_at DESC")
+      document = self.company.documents.find(:first, :conditions=>{:nature_code=>self.code, :owner_id=>object.id, :owner_type=>object.class.name}, :order=>"created_at DESC")
       begin
         return document.data if document
       rescue
@@ -82,7 +82,7 @@ class DocumentTemplate < ActiveRecord::Base
     pdf = eval(self.cache)
 
     # Archive the document if necessary
-    if self.nature.to_archive
+    if self.to_archive
       document = self.archive(object, pdf, :extension=>'pdf')
     end
     
@@ -127,8 +127,8 @@ class DocumentTemplate < ActiveRecord::Base
     pdf
   end
 
-  def self.error_document(exception)
-    doc = Ibeh.document(Hebi::Document.new, self)do |ibeh|
+  def self.error_document(e)
+    Ibeh.document(Hebi::Document.new, self) do |ibeh|
       ibeh.page(:a4, :margin=>[15.mm]) do |p|
         p.part 200.mm do |x|
           x.set do |s|
@@ -140,17 +140,13 @@ class DocumentTemplate < ActiveRecord::Base
           end
         end
       end
-    end
-    return doc.generate    
+    end.generate    
   end
 
 
   def self.compile(source, mode=:normal)
-    file = "#{RAILS_ROOT}/tmp/pt_compile-"+Time.now.strftime("%Y%m%d-%H%M%S")+"-"+rand.to_s+".xml"
-    File.open(file, 'wb') {|f| f.write(source)}
-    xml = LibXML::XML::Document.file(file)
+    xml = XML::Parser.io(StringIO.new(source.to_s)).parse
     template = xml.root
-    # raise Exception.new template.find('*').to_a.inspect
     code = ''
     i = 0
     unless mode == :debug
@@ -166,35 +162,13 @@ class DocumentTemplate < ActiveRecord::Base
     
     document = template.find('document')[0]
     code << "doc = Ibeh.document(Hebi::Document.new, self) do |_document_|\n"
-    # code << compile_element(document, '__document', mode, :skip=>true)
-    document.each_element do |x|
-      code << compile_element(x, '_document_', mode)
-    end
-    #code << compile_element(document, '__document', mode)
+    code << compile_children(document, '_document_', mode)
     code << "end\n"
     code << "doc.generate"
 
-#     document.find('page').each do |page|
-#       code += "ibeh.page(#{parameters(page, 'ERROR', mode)[0]}) do |p|\n"
-      
-#       page.each_element do |element|
-#         name = element.name.to_sym
-#         if [:table, :part].include? name 
-#           code += compile_element(element, 'p', mode) 
-#         elsif name == :iteration
-#           code += compile_element(page, 'p', mode, :skip=>true) 
-#         end
-#       end
-#       code += "end\n"
-#     end
-    
-
- 
-    
-    File.delete(file) rescue nil
-
     list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    return '('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
+    # return '('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
+    return '('+code+')'
   end
 
 
@@ -270,7 +244,7 @@ class DocumentTemplate < ActiveRecord::Base
       when :property then
         "'"+v.gsub(/\//, '.')+"'"
       when :resize, :fixed, :bold, :italic then
-        v == "true" ? "true" : "false"
+        v.lower == "true" ? "true" : "false"
       when :value
         v = v.inspect.gsub(/\{\{[^\}]+\}\}/) do |m|
           data = m[2..-3].to_s.split('?')
@@ -300,90 +274,53 @@ class DocumentTemplate < ActiveRecord::Base
 
 
 
-    def parameters(element, nvar, mode)
+    def parameters(element, variable, mode)
       name = element.name.to_sym
       attributes, parameters = {}, []
       element.attributes.to_h.collect{|k,v| attributes[k.to_sym] = v}
-      (ATTRIBUTES[name]||[]).each{|attr| parameters << attr_to_s(attr, attributes.delete(attr), nvar, mode)}
+      attributes[:value] ||= element.content if name == :text
+      (ATTRIBUTES[name]||[]).each{|attr| parameters << attr_to_s(attr, attributes.delete(attr), variable, mode)}
       attributes.delete(:if)
-      attrs = attrs_to_s(attributes, nvar, mode)
+      attrs = attrs_to_s(attributes, variable, mode)
       attrs = ', '+attrs if !attrs.blank? and parameters.size>0
       return parameters.join(', ')+attrs, parameters, attributes
     end
 
+    # Call code generation function for each children
+    def compile_children(element, variable, mode, depth=0)
+      code = ''
+      element.each_element do |x|
+        code += compile_element(x, variable, mode, depth)||'  '
+      end
+      code
+    end
 
-
-
-    def compile_element(element, variable, mode, options={}) # depth=0, skip=false)
-      depth = options[:depth]||0
-      skip = options[:skip]||false
+    # Generate code for given element
+    def compile_element(element, variable, mode, depth=0)
       code  = ''
       name = element.name.to_sym
       params, p, attrs = parameters(element, variable, mode)
       if name == :iteration
         code += "for #{p[0]} in #{p[1]}\n"
-        element.each_element do |x|
-          code += compile_element(x, variable, mode, :depth=>depth)||'  '
-        end
-        code += "end\n"
+        code += compile_children(element, variable, mode, depth)
+        code += "end"
       elsif name == :image
         code += "if File.exist?((#{p[0]}).to_s)\n"
         code += "  #{variable}.#{name}(#{params})\n"
         code += "else\n"
-        element.each_element do |x|
-          code += compile_element(x, variable, mode, :depth=>depth)
-        end
-        code += "end\n"
+        code += compile_children(element, variable, mode, depth)
+        code += "end"
       else
         nvar = '_r'+depth.to_s+'_'
-        children = ''
-        element.each_element do |x|
-          children += compile_element(x, nvar, mode, :depth=>depth+1)
-        end
+        children = compile_children(element, nvar, mode, depth+1)
         code = "#{variable}.#{name}(#{params})"
         code += " do |#{nvar}|\n"+children+"end" unless children.blank?
-        code += "\n"
       end
-      
-
-#       if skip 
-#         nvar = variable
-#       else
-#         code += "#{variable}.#{element.name}(#{parameters(element, variable, mode)[0]}) do |#{nvar}|\n"
-#       end
-#       element.each_element do |x|
-#         name = x.name.to_sym
-#         # puts [element.name, CHILDREN[element.name], name].inspect
-#         # next unless (CHILDREN[element.name.to_sym]||[]).include?(name)
-#         if CHILDREN.keys.include? name
-#           code += compile_element(x, nvar, mode, :depth=>depth+1)
-#         elsif name == :iteration
-#           params, p, attrs = parameters(x, nvar, mode)
-#           code += "  for #{p[0]} in #{p[1]}\n"
-#           code += compile_element(x, nvar, mode, :depth=>depth, :skip=>true)||'  '
-#           code += "  end\n"          
-#         elsif name == :image
-#           params, p, attrs = parameters(x, nvar, mode)
-#           code += "  if File.exist?((#{p[0]}).to_s)\n"
-#           code += "    #{nvar}.#{name}(#{params})\n"
-#           code += "  else\n"
-#           code += compile_element(x, nvar, mode, :depth=>depth, :skip=>true)
-#           code += "  end\n"
-#         else
-#           code += "  #{nvar}.#{name}(#{parameters(x, nvar, mode)[0]})\n"
-#         end
-#       end
-#       unless skip
-#         code += "end"
-#         code += " if #{element.attributes['if'].gsub(/\//,'.')}" if element.attributes['if']
-#         code += "\n"
-#       end
+      # Encapsulation si condition
+      code = "if #{element.attributes['if'].gsub(/\//,'.')}\n#{code.gsub(/^/,'  ')}\nend" if element.attributes['if']
+      code += "\n"
       code.gsub(/^/, '  ')
     end
-
-
-
-
 
   end
   

@@ -215,6 +215,7 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 .toolbar ul > li > a.import    {background: url(../images/buttons/left.png) no-repeat center left;}
 .toolbar ul > li > a.configure {background: url(../images/buttons/configure.png) no-repeat center left;}
 .toolbar ul > li > a.extract   {background: url(../images/buttons/complete.png) no-repeat center left;}
+.toolbar ul > li > a.mail      {background: url(../images/buttons/mail.png) no-repeat center left;}
 .toolbar ul > li > a.merge     {background: url(../images/buttons/merge.png) no-repeat center left;}
 .toolbar ul > li > a.cancel    {background: url(../images/buttons/cancel.png) no-repeat center left;}
 
