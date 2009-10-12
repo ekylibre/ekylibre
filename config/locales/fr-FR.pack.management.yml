@@ -251,7 +251,7 @@ fr-FR:
         downpayment: 'Acompte'
         existing_part: 'Utiliser un réglement non affecté'
         new: 'Créer un nouveau réglement'
-        payment_label: 'Réglement : {{amount}} du {{date}} par {{mode}} / Montant utilisable : {{usable_amount}}'
+        payment_label: '{{amount}} du {{date}} par {{mode}} / Mont. utilisable : {{usable_amount}} / Payeur: {{entity}} / Num. chèque: {{cn}}'
         title: 'Renseignez les conditions du réglement'
         unused_payment: 'Réglement à utiliser'
       payment_mode_create:

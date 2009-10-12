@@ -1033,6 +1033,7 @@ fr-FR:
         id: 'ID'
         lock_version: 'Version'
         mode_id: 'Mode de paiement'
+        number: 'Numéro'
         paid_on: 'Réglé le'
         parts_amount: 'Montant utilisé'
         received: 'Reçu'

@@ -357,7 +357,8 @@ class RelationsController < ApplicationController
   end
 
   dyta(:entity_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :default_order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
-    t.column :id, :url=>{:controller=>:management, :action=>:payment}
+    #t.column :id, :url=>{:controller=>:management, :action=>:payment}
+    t.column :number, :url=>{:controller=>:management, :action=>:payment}
     t.column :paid_on
     t.column :label, :through=>:embanker
     t.column :name, :through=>:mode
@@ -892,8 +893,8 @@ class RelationsController < ApplicationController
     end
     
     session[:mandates] ||= {}
-    session[:mandates][:organization] = params[:organization] || ''
-    session[:mandates][:date] = params[:date]||Date.today
+    session[:mandates][:organization] = params[:organization]||session[:mandates][:organization]||''
+    session[:mandates][:date] = params[:date]||session[:mandates][:date]||Date.today
   
   end
   
@@ -989,7 +990,7 @@ class RelationsController < ApplicationController
       @mandate.entity_id = @entity.id  
       redirect_to :action=>:entity if @mandate.save
     else 
-      @mandate = Mandate.new
+      @mandate = Mandate.new(:entity_id=>@entity.nil? ? 0 : @entity.id)
     end
     render_form
   end

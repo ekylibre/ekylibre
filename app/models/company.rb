@@ -324,6 +324,9 @@ class Company < ActiveRecord::Base
     journal_id
   end
 
+  def usable_payments
+    self.payments.find(:all, :conditions=>["parts_amount<amount"], :order=>"created_at desc")
+  end
 
   def backup(creator, with_prints=true)
     version = (ActiveRecord::Migrator.current_version rescue 0)

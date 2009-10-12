@@ -89,7 +89,7 @@ class Invoice < ActiveRecord::Base
       "error"
     elsif self.credited_amount<0
       "warning"
-    else
+    else 
       ""
     end
   end

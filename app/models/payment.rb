@@ -41,6 +41,13 @@ class Payment < ActiveRecord::Base
   validates_presence_of :to_bank_on, :entity_id
 
   def before_validation_on_create
+    specific_numeration = self.company.parameter("management.payments.numeration").value
+    if not specific_numeration.nil?
+      self.number = specific_numeration.next_value
+    else
+      last = self.company.payments.find(:first, :conditions=>["number IS NOT NULL"], :order=>"number desc")
+      self.number = last.number.succ
+    end
     self.scheduled = (self.to_bank_on>Date.today ? true : false) #if self.scheduled.nil?
     self.received = false if self.scheduled
     true

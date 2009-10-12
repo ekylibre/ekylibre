@@ -197,7 +197,6 @@ class Entity < ActiveRecord::Base
 
   def find_or_create_account(nature = :client)
     prefix = nature == :client ? 411 : 401
-    #raise Exception.new self.inspect+prefix.inspect+self.nature.inspect
     if self.client and self.client_account_id.nil?
       
       #last = self.company.accounts.find(:first, :conditions=>["number like ?",'%411'],:order=>"number desc")

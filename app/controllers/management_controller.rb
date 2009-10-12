@@ -381,7 +381,7 @@ class ManagementController < ApplicationController
   
   dyta(:prices, :conditions=>prices_conditions) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:product}
-    t.column :full_name, :through=>:entity
+    t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :name, :through=>:category, :label=>tc(:category), :url=>{:controller=>:relations, :action=>:entity_category}
     t.column :amount
     t.column :amount_with_taxes
@@ -1000,7 +1000,8 @@ class ManagementController < ApplicationController
 #   end
   
   dyta(:sale_order_payments, :model=>:payments, :conditions=>["payments.company_id=? AND payment_parts.order_id=?", ['@current_company.id'], ['session[:current_sale_order]']], :joins=>"JOIN payment_parts ON (payments.id=payment_id)") do |t|
-    t.column :id, :url=>{:action=>:payment}
+   # t.column :id, :url=>{:action=>:payment}
+    t.column :number, :url=>{:action=>:payment}
     t.column :full_name, :through=>:entity
     #t.column :payment_way
     t.column :paid_on
@@ -1303,10 +1304,11 @@ class ManagementController < ApplicationController
   end
 
   def sale_order_line_delete
-    @sale_order_line = find_and_check(:sale_order_line, params[:id])
+    return unless @sale_order_line = find_and_check(:sale_order_line, params[:id])
     if request.post? or request.delete?
-      redirect_to :back if @sale_order_line.destroy
+       @sale_order_line.destroy
     end
+    redirect_to_back
   end
 
   dyta(:sale_order_deliveries, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
@@ -1533,12 +1535,12 @@ class ManagementController < ApplicationController
 #  dyli(:bank_account, :attributes => [:name], :conditions => {:company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
   dyta(:embankment_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :embankment_id=>['session[:embankment_id]']}, :per_page=>1000) do |t|
-    t.column :full_name, :through=>:entity
+    t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :bank
     t.column :account_number
     t.column :check_number
     t.column :paid_on
-    t.column :amount
+    t.column :amount, :url=>{:action=>:payment}
   end
 
   dyta(:embankable_payments, :model=>:payments, :conditions=>["company_id=? AND (embankment_id=? OR (mode_id=? AND embankment_id IS NULL))", ['@current_company.id'], ['session[:embankment_id]'], ['session[:payment_mode_id]']], :per_page=>100, :default_order=>"created_at DESC", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
@@ -1758,7 +1760,7 @@ class ManagementController < ApplicationController
  
   dyta(:waiting_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :received=>false}) do |t|
     t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
-    t.column :amount
+    t.column :amount, :url=>{:action=>:payment}
     t.column :name, :through=>:mode
     t.column :to_bank_on
   end
@@ -1785,6 +1787,7 @@ class ManagementController < ApplicationController
     @title = {:entity=>@payment.entity.full_name, :paid_on=>@payment.paid_on.is_a?(Date) ? ::I18n.localize(@payment.paid_on) : '????????'}
   end
 
+  #dyli(:usable_payments, :conditions=>["parts_amount<amount"])
 
   def payment_create
     return unless @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
@@ -1794,7 +1797,7 @@ class ManagementController < ApplicationController
       return
     end
     @modes = ["new", "existing_part"]
-    @payments = @sale_order.client.usable_payments
+   # @payments = @sale_order.client.usable_payments
     if request.post?
      # raise Exception.new params[:downpayment][:check].inspect
       if params[:price] and params[:price][:mode] == "existing_part"
