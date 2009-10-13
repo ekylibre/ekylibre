@@ -45,9 +45,9 @@ class Payment < ActiveRecord::Base
   validates_presence_of :to_bank_on, :entity_id
 
   def before_validation_on_create
-    specific_numeration = self.company.parameter("management.payments.numeration").value
-    if not specific_numeration.nil?
-      self.number = specific_numeration.next_value
+    specific_numeration = self.company.parameter("management.payments.numeration")
+    if specific_numeration
+      self.number = specific_numeration.value.next_value
     else
       last = self.company.payments.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
       self.number = last ? last.number.succ : '000000'
@@ -83,8 +83,7 @@ class Payment < ActiveRecord::Base
     part_amount = [expense.unpaid_amount(!downpayment), self.amount-self.parts_amount].min
     part = self.parts.create(:amount=>part_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>downpayment)
     if part.errors.size > 0
-      # part.errors.each_full { |msg| self.errors.add_to_base(msg) }
-      self.errors << part.errors.full_messages
+      part.errors.each_full { |msg| self.errors.add_to_base(msg) }
       return false
     end
     return true

@@ -32,6 +32,8 @@ class PaymentPart < ActiveRecord::Base
 
   def before_validation
     # self.expense_type ||= self.expense.class.name
+    self.downpayment = false if self.downpayment.nil?
+    return true
   end
 
   def validate
