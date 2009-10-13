@@ -12,6 +12,10 @@
         - f.field :user, :name, :example=>tc(:user_name_example), :info=>tc(:user_name_info)
         - f.field :user, :password, :null=>false, :hint=>tc(:user_password_hint)
         - f.field :user, :password_confirmation, :null=>false, :info=>tc(:user_password_confirmation_info)
+      %table.formalize
+        %tr.field
+          %td.label=tc(:load_demo_data)
+          %td.input=check_box_tag(:demo, :load_data)
       .actions
         -if defined?(Ekylibre::DONT_REGISTER)
           =text_field_tag :register_password

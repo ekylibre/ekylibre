@@ -26,6 +26,7 @@ fr-FR:
         company_name: 'Nom de votre société'
         company_name_example: 'SARL Martin et Fils'
         company_siren_example: '012345678'
+        load_demo_data: 'Charger des données de tests'
         my_company: 'Saisissez les informations sur votre société'
         my_self: 'Saisissez les informations vous concernant'
         title: 'Enregistrer sa société'

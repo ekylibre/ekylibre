@@ -151,7 +151,7 @@ class Company < ActiveRecord::Base
     self.save
     
     # loading of all the templates
-    load_prints
+    #load_prints
 
     self.payment_modes.create!(:name=>tc('default.check'), :company_id=>self.id)
     delays = []
@@ -301,7 +301,7 @@ class Company < ActiveRecord::Base
     end
     checks
   end
-  
+
   def embankments_to_lock
     embankments = []
     for embankment in self.embankments
@@ -642,12 +642,37 @@ class Company < ActiveRecord::Base
     end
   end
   
-
-
   def import_entities
-    
   end
 
+  def self.load_demo_data(locale="fr-FR", company=nil)
+    company.load_demo_data(company) if company
+  end
+  
+  def load_demo_data(company)
+    company.entity_natures.create!(:name=>"Société A Responsabilité Limitée", :abbreviation=>"SARL", :in_name=>true)
+    last_name = ["MARTIN","DUPONT","DURAND","CHIRAC", "LABAT", "VILLENEUVE", "SICARD", "FRERET", "FOUCAULT", "DUPEYRON", "BORGÈS", "DUBOIS", "LEROY", "MOREL", "GUERIN", "MORIN", "ROUSSEAU", "LEMAIRE", "DUVAL", "BRUN", "FERNANDEZ", "BRETON", "LEBLANC", "DA SILVA", "CORDIER", "BRIAND", "CAMUS", "VOISIN", "LELIEVRE", "GONZALEZ"]
+    first_name = ["Benoit", "Stéphane", "Marine", "Roger", "Céline", "Bertrand", "Julie", "Kévin", "Maxime", "Vincent", "Clire", "Marie-France", "Jean-Marie", "Anne-Marie", "Dominique", "Alain", "Daniel", "Sylvie", "Fabrice", "Nathalie", "Véronique", "Jeanine", "Edouard", "Colette", "Sébastien", "Rémi", "Joseph", "Baptiste", "Martine", "Guy"]
+    streets = ["Cours Xavier Arnozan", "Cours du général de Gaulle", "route pavée", "Avenue Thiers", "rue Gambetta", "5th Avenue", "rue Louis La Brocante", "Rue Léon Blum", "Avenue François Mittérand", "Cours de la marne"]
+    entity_natures = company.entity_natures.collect{|x| x.id.to_s}
+    indifferent_attributes = {:category_id=>company.entity_categories.first.id, :language_id=>company.languages.first.id}
 
-
+    for x in 0..30
+      entity = company.entities.new(indifferent_attributes)
+      entity.name = last_name[rand(last_name.size)]
+      entity.first_name = first_name[rand(first_name.size)]
+      entity.nature_id = entity_natures[rand(entity_natures.size).to_i]
+      entity.name = entity.nature.abbreviation+" "+entity.name if entity.nature.in_name 
+      if (rand() > 0.5 or rand() > 0.8)
+        entity.client = true ## e = rand() > 0.5
+      elsif rand() > 0.75
+        entity.supplier = true
+      else rand() > 0.9
+        entity.transporter = true
+      end
+      entity.save! 
+      contact = entity.contacts.create(:company_id=>entity.company_id, :line_4_number=>rand(100), :line_4_street=>streets[rand(streets.size)], :norm_id=>entity.company.address_norms.first.id, :default=>true)
+    end
+  end
+  
 end

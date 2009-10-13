@@ -17,6 +17,7 @@ class CompanyController < ApplicationController
     @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
     @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})
     @title = {:user=>@current_user.label, :company=>@current_company.name}
+    Company.load_demo_data("",@current_company)
   end
 
   def welcome
