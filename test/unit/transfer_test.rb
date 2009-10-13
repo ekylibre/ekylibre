@@ -1,25 +1,25 @@
 # == Schema Information
 #
-# Table name: payment_parts
+# Table name: transfers
 #
-#  amount       :decimal(16, 2 
+#  amount       :decimal(16, 2 default(0.0), not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  creator_id   :integer       
-#  downpayment  :boolean       not null
-#  expense_id   :integer       default(0), not null
-#  expense_type :string(255)   default("UnknownModel"), not null
 #  id           :integer       not null, primary key
-#  invoice_id   :integer       
 #  lock_version :integer       default(0), not null
-#  payment_id   :integer       not null
+#  locked       :boolean       not null
+#  parts_amount :decimal(16, 2 default(0.0), not null
+#  started_on   :date          
+#  stopped_on   :date          
+#  supplier_id  :integer       not null
 #  updated_at   :datetime      not null
 #  updater_id   :integer       
 #
 
 require 'test_helper'
 
-class PaymentPartTest < ActiveSupport::TestCase
+class TransferTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

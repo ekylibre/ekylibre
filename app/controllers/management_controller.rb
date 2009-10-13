@@ -991,15 +991,7 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
   end
   
-#   dyta(:payments, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :model=>:payment_parts) do |t|
-#     # t.column :payer, :through=>[:payment, :entity], :label=>"Payeur"
-#     t.column :payment_way
-#     t.column :paid_on, :through=>:payment, :label=>"Réglé le"
-#     t.column :amount
-#     t.column :amount, :through=>:payment, :label=>"Montant du paiment"
-#   end
-  
-  dyta(:sale_order_payments, :model=>:payments, :conditions=>["payments.company_id=? AND payment_parts.order_id=?", ['@current_company.id'], ['session[:current_sale_order]']], :joins=>"JOIN payment_parts ON (payments.id=payment_id)") do |t|
+  dyta(:sale_order_payments, :model=>:payments, :conditions=>["payments.company_id=? AND payment_parts.expense_id=? AND payment_parts.expense_type=?", ['@current_company.id'], ['session[:current_sale_order]'], SaleOrder.name], :joins=>"JOIN payment_parts ON (payments.id=payment_id)") do |t|
    # t.column :id, :url=>{:action=>:payment}
     t.column :number, :url=>{:action=>:payment}
     t.column :full_name, :through=>:entity
@@ -1497,28 +1489,6 @@ class ManagementController < ApplicationController
     t.action :invoice_print
   end
   
-#   def sales_invoices
-#     @sale_order = find_and_check(:sale_order, params[:id])
-#     session[:current_sale_order] = @sale_order.id
-#     # @rest_to_invoice = @sale_order.deliveries.detect{|x| x.invoice_id.nil?}
-#     @can_invoice = !@sale_order.lines.detect{|x| x.undelivered_quantity > 0}
-#     @can_invoice = false if @sale_order.invoiced
-#     if request.post?
-#      #  ActiveRecord::Base.transaction do
-# #         deliveries = params[:deliveries_to_invoice].select{|k,v| v[:invoiceable].to_i==1}.collect do |id, attributes|
-# #           delivery = Delivery.find_by_id_and_company_id(id.to_i,@current_company.id)
-# #           delivery.stocks_moves_create if delivery and !delivery.moved_on.nil?
-# #           delivery
-# #         end
-# #         raise ActiveRecord::Rollback unless @current_company.invoice(deliveries)
-#      # end
-#       # @current_company.invoice(@sale_order)
-#       ActiveRecord::Base.transaction do  
-#         raise ActiveRecord::Rollback unless @sale_order.invoice
-#       end
-#       redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
-#     end
-#   end
   
   
   dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"created_at DESC") do |t|
@@ -1730,7 +1700,8 @@ class ManagementController < ApplicationController
     end
   end
 
-  dyta(:payment_parts, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
+  dyta(:sale_order_payment_parts, :model=>:payment_parts, :conditions=>["company_id=? AND expense_id=? AND expense_type=?", ['@current_company.id'], ['session[:current_sale_order]'], SaleOrder.name]) do |t|
+    t.column :number, :through=>:payment, :url=>{:action=>:payment}
     t.column :amount, :through=>:payment, :label=>tc('payment_amount'), :url=>{:action=>:payment}
     t.column :amount
     t.column :payment_way
@@ -1738,24 +1709,20 @@ class ManagementController < ApplicationController
     t.column :downpayment
     #t.column :paid_on, :through=>:payment, :label=>tc('paid_on'), :datatype=>:date
     t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
-    t.action :payment_update
-    t.action :payment_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :payment_part_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
   
   def sale_order_summary
-    @sale_order = find_and_check(:sale_orders, params[:id]||session[:current_sale_order])
-    @payments = @sale_order.payment_parts
-    @invoices = @sale_order.invoices
-    @invoices_sum = 0
-    @invoices.each {|i| @invoices_sum += i.amount_with_taxes}
-    @payments_sum = 0 
-    @payments.each {|p| @payments_sum += p.amount}
+    return unless @sale_order = find_and_check(:sale_orders, params[:id]||session[:current_sale_order])
+#     @payments = @sale_order.payment_parts
+#     @invoices = @sale_order.invoices
+#     @invoices_sum = 0
+#     @invoices.each {|i| @invoices_sum += i.amount_with_taxes}
+#     @payments_sum = 0 
+#     @payments.each {|p| @payments_sum += p.amount}
     session[:current_sale_order] = @sale_order.id
-    if request.post?
-      # @sale_order.update_attribute(:state, 'F') if @sale_order.state == 'R'
-      #redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
-    end
+    @title = {:number=>@sale_order.number}
   end
  
   dyta(:waiting_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :received=>false}) do |t|
@@ -1771,7 +1738,7 @@ class ManagementController < ApplicationController
 
 
 
-  dyta(:payment_sale_orders, :model=>:sale_orders, :conditions=>["sale_orders.company_id=? AND id IN (SELECT order_id FROM payment_parts WHERE payment_id=?)", ['@current_company.id'], ['session[:current_payment_id]']]) do |t|
+  dyta(:payment_sale_orders, :model=>:sale_orders, :conditions=>["sale_orders.company_id=? AND id IN (SELECT expense_id FROM payment_parts WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], SaleOrder.name]) do |t|
     t.column :number, :url=>{:action=>:sale_order}
     t.column :description, :through=>:client, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on
@@ -1789,27 +1756,27 @@ class ManagementController < ApplicationController
 
   #dyli(:usable_payments, :conditions=>["parts_amount<amount"])
 
-  def payment_create
+  def payment_part_create
     return unless @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
     if @sale_order.unpaid_amount <= 0 and @sale_order.invoices.size > 0
       flash[:notice]=tc(:error_sale_order_already_paid)
       redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
       return
     end
-    @modes = ["new", "existing_part"]
+    @payment_part = PaymentPart.new
    # @payments = @sale_order.client.usable_payments
     if request.post?
      # raise Exception.new params[:downpayment][:check].inspect
-      if params[:price] and params[:price][:mode] == "existing_part"
-        @payment = find_and_check(:payment, params[:pay][:part])
-      else
+      if params[:new_payment]
         @payment = Payment.new(params[:payment])
         @payment.company_id = @current_company.id
         @payment.entity_id = @sale_order.client_id
         @payment.save
+      else
+        @payment = find_and_check(:payment, params[:pay][:part])
       end
       if @payment.errors.size <= 0
-        if @payment.pay(@sale_order, params[:downpayment][:check] )
+        if @payment.pay(@sale_order, :downpayment=>params[:payment_part][:downpayment])
           redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
         end
       end
@@ -1824,23 +1791,31 @@ class ManagementController < ApplicationController
   end
   
 
+#   def payment_update
+#     # @sale_order = find_and_check(:sale_order, session[:current_sale_order])
+#     return unless @payment = find_and_check(:payment_par, params[:id])
+#     @payment = payment_part.payment
+#     if request.post?
+#       if @payment.update_attributes(params[:payment])
+#         if @payment.pay(@sale_order, :downpayment=>params[:downpayment][:check])
+#           redirect_to :action=>:sale_order_summary, :id=>@sale_order.id 
+#         end
+#       end
+#     end
+#     render_form 
+#   end
+
   def payment_update
-    @sale_order   = find_and_check(:sale_order, session[:current_sale_order])
-    return if (payment_part = find_and_check(:payment_part, params[:id])).nil?
-    @payment = payment_part.payment
+    return unless @payment = find_and_check(:payment, params[:id])
     if request.post?
-      if @payment.update_attributes(params[:payment])
-        if @payment.pay(@sale_order,  params[:downpayment][:check])
-          redirect_to :action=>:sale_order_summary, :id=>@sale_order.id 
-        end
-      end
+      redirect_to_back if @payment.update_attributes(params[:payment])
     end
     render_form 
   end
 
-  def payment_delete
-    @sale_order  = find_and_check(:sale_order, session[:current_sale_order])
-    @payment_part = find_and_check(:payment_part, params[:id])
+  def payment_part_delete
+    return unless @sale_order   = find_and_check(:sale_order, session[:current_sale_order])
+    return unless @payment_part = find_and_check(:payment_part, params[:id])
     if request.post? or request.delete?
       @payment_part.destroy
       redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
@@ -1879,7 +1854,7 @@ class ManagementController < ApplicationController
   end
 
   def shelf_update
-    @shelf = find_and_check(:shelf, params[:id])
+    return unless @shelf = find_and_check(:shelf, params[:id])
     if request.post?
       params[:shelf][:company_id] = @current_company.id
       redirect_to_back if @shelf.update_attributes(params[:shelf])

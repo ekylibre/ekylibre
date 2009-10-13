@@ -555,6 +555,7 @@ class CompanyController < ApplicationController
     results = full_results.select{|c| !c["email"].blank? }
     @mails = results.collect{|c| c["email"] }
     @columns = results[0].keys.sort
+    session[:mail] ||= {}
     if request.post?
       session[:mail] = params.dup
       session[:mail].delete(:attachment)

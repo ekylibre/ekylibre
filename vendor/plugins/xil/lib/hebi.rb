@@ -171,11 +171,10 @@ module Hebi
       # format = Xil::StyleFORMATS[format.to_s.lower.gsub(/[^\w]/,'').to_sym] unless format.is_a? Array
       error('Parameter format must be an array') unless format.is_a? Array
       format[0] ||= 1000.0
-      error('Parameter format can only contains numeric values') unless [Integer, Float, BigDecimal, Fixnum].include? format[0].class
+      error('Parameter format can only contains numeric values') unless format[0].is_a? Numeric
       format[1] ||= format[0]*1.414
-      @pages ||= []
-      @current_page = @pages.size
       rotate = 90*(rotate.to_f/90).round
+      @current_page = @pages.size
       @pages << {:format=>format, :operations=>[], :rotate=>rotate}
     end
 
@@ -191,7 +190,7 @@ module Hebi
       self.new_page if @current_page<0
       if @images[file].nil?
         error("File does not exists (#{file.inspect})") unless File.exists? file
-        @images[file] = Hebi::Image.new(file, ('I'+@images.size.to_s).to_sym)
+        @images[file] = Hebi::Image.new(file, ('Image'+@images.size.to_s).to_sym)
       end
       w = nil if w == 0
       h = nil if h == 0
@@ -293,10 +292,15 @@ module Hebi
     end
 
     def cut_string(text, width, font_name, font_size, options={})
-      strings = text.split(/\s*\n\s*/)
+      strings = text.split(/\n/)
       return strings.collect{|s| {:text=>s, :length=>get_string_width(s, font_name, font_size, options) }} if width.nil?
       lines, i = [], 0
       for string in strings
+        if string.blank?
+          lines[i] = {:text=>string, :length=>0}
+          i+=1
+          next
+        end
         words = string.strip.split(/\s+/)
         space = get_string_width(' ', font_name, font_size, options)
         for word in words
@@ -316,32 +320,6 @@ module Hebi
       end
       return lines
     end
-#     def cut_string(text, width, font_name, font_size, options={})
-#       max = get_string_width(text, font_name, font_size, options)
-#       w = width.to_f>0 ? width.to_f : max
-#       lines = []
-#       if w < max
-#         string = text.strip.split(/\s+/)
-#         i = 0
-#         space = get_string_width(' ', font_name, font_size, options)
-#         for word in string
-#           ww = get_string_width(word, font_name, font_size, options)
-#           if lines[i].nil?
-#             lines[i] ||= {:text=>word, :length=>ww}
-#           elsif lines[i][:length]+space+ww <= w
-#             lines[i][:length] += space+ww
-#             lines[i][:text] += ' '+word
-#           else
-#             i += 1
-#             lines[i] = {:text=>word, :length=>ww}
-#           end
-#           i += 1 if ww > w
-#         end
-#       else
-#         lines[0] = {:text=>text, :length=>max}
-#       end
-#       return lines
-#     end
 
 
     # Get height of a multilines string in the current font
@@ -369,7 +347,6 @@ module Hebi
     def generate(options={})
       yield self if block_given?
       self.new_page if @current_page<0
-      # puts @pages.inspect
       pdf_data = build
       if options[:file]
         open(options[:file],'wb') do |f|
@@ -905,10 +882,15 @@ module Hebi
 
 
     def cut_string(text, width)
-      strings = text.split(/\s*\n\s*/)
+      strings = text.split(/\n/)
       return strings.collect{|s| {:text=>s, :length=>get_string_width(s) }} if width.nil?
       lines, i = [], 0
       for string in strings
+        if string.blank?
+          lines[i] = {:text=>string, :length=>0}
+          i+=1
+          next
+        end
         words = string.strip.split(/\s+/)
         space = get_string_width(' ')
         for word in words

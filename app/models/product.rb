@@ -62,6 +62,8 @@ class Product < ActiveRecord::Base
   has_many :stocks, :class_name=>ProductStock.to_s
   has_many :subscriptions
 
+  @@natures = [:product, :service, :subscrip, :transfer]
+
   attr_readonly :company_id
 
   validates_uniqueness_of :code, :scope=>:company_id
@@ -101,7 +103,7 @@ class Product < ActiveRecord::Base
 
   def self.natures
     #[:product, :service, :sub_date, :sub_numb].collect{|x| [tc('natures.'+x.to_s), x] }
-    [:product, :service, :subscrip, :transfer].collect{|x| [tc('natures.'+x.to_s), x] }
+    @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
   def self.supply_methods

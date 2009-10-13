@@ -2,9 +2,9 @@
 
 - if @sale_order.amount_with_taxes > 0
   %h2=tc :payments
-  =toolbar do
-    -link :payment_create 
-  =dyta :payment_parts
+  =toolbar do |t|
+    -t.link :payment_part_create 
+  =dyta :sale_order_payment_parts
 
 -if @sale_order.invoices.size>0
   %h2=tc :invoices
@@ -17,9 +17,3 @@
       %tr
         %th=tc(k)
         %td=number_to_currency(v, :unit=>'', :separator=>',', :delimiter=>'&nbsp;')
-
-- form_tag do
-  .actions
-    =link_to tg(:previous), :action=>:sales_invoices, :id=>@sale_order.id
-    -if @sale_order.state != 'F'
-      =submit_tag tc('close_sale')

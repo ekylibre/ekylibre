@@ -242,17 +242,21 @@ fr-FR:
       _location_choice:
         select_stock_location: 'Choississez un lieu de stockage'
       payment:
+        payment_update: 'Modifier le réglement'
         sale_orders: 'Ventes liées au règlement'
         title: 'Réglement de {{entity}} du {{paid_on}}'
-      payment_create:
+      payment_part_create:
         title: 'Ajouter un nouveau réglement à la vente : {{value}}'
       _payment_form:
         check: 'Pour les paiements de type chèque'
+        title: 'Renseignez les conditions du réglement'
+      _payment_part_form:
         downpayment: 'Acompte'
+        new_payment: 'Enregistrer un nouveau réglement'
+        select_existing_payment: 'Sélectionner un réglement existant'
         existing_part: 'Utiliser un réglement non affecté'
         new: 'Créer un nouveau réglement'
-        payment_label: '{{amount}} du {{date}} par {{mode}} / Mont. utilisable : {{usable_amount}} / Payeur: {{entity}} / Num. chèque: {{cn}}'
-        title: 'Renseignez les conditions du réglement'
+        payment_label: '{{number}}. {{amount}} du {{date}} par {{mode}} de {{entity}}'
         unused_payment: 'Réglement à utiliser'
       payment_mode_create:
         title: 'Créer un nouveau type de paiement'
@@ -378,7 +382,7 @@ fr-FR:
         general_informations: 'Informations générales'
         invoices: 'Factures'
         lines: 'Lignes de vente'
-        payment_create: 'Ajouter un règlement'
+        payment_part_create: 'Ajouter un règlement'
         payments: 'Règlements'
         sale_order_lines: 'Modifier la vente'
         sale_order_print: 'Imprimer la vente'
@@ -468,14 +472,14 @@ fr-FR:
         order_amount_with_taxes: 'Montant de la commande'
         paid_amount: 'Montant réglé'
         paid_on: 'Règlé le'
-        payment_create: 'Ajouter un nouveau paiement'
+        payment_part_create: 'Ajouter un nouveau paiement'
         payment_mode: 'Mode de paiement'
         payment_on: 'Payé le'
         payments: 'Règlements'
         payments_amount: 'Montant réglé'
         payments_total: 'Total règlements'
         rest_to_pay: 'Reste à payer'
-        title: 'Règlements'
+        title: 'Factures et règlements de la vente {{number}}'
         total_amount: 'Montant de la commande'
         uninvoiced_amount: 'Montant non facturé'
         unpaid_amount: 'Montant restant à payer'

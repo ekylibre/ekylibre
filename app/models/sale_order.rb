@@ -54,7 +54,7 @@ class SaleOrder < ActiveRecord::Base
   has_many :deliveries, :foreign_key=>:order_id
   has_many :invoices
   has_many :lines, :class_name=>SaleOrderLine.to_s, :foreign_key=>:order_id
-  has_many :payment_parts, :foreign_key=>:order_id
+  has_many :payment_parts, :as=>:expense
   has_many :stock_moves, :as=>:origin
   has_many :subscriptions, :class_name=>Subscription.to_s
 
@@ -332,57 +332,34 @@ class SaleOrder < ActiveRecord::Base
   # this method saves the sale in the accountancy module.
 #   def to_accountancy
 #     journal_bank =  self.company.journals.find(:first, :conditions => ['nature = ? AND closed_on < ?', 'bank', Date.today])
-    
 #     financialyear = self.company.financialyears.find(:first, :conditions => ["code LIKE ? AND closed=?'", '%'+self.created_on.year.to_s+'%', false])
-  
-#     payments = self.company.payments.find(:all, :conditions => "p.order_id = "+self.id.to_s, :joins => "inner join payment_parts as p on p.payment_id=payments.id inner join sale_orders as s on s.id=p.order_id")
-      
+#     payments = self.company.payments.find( ... # TODO
 #     record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>'sale', :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal_bank.id, :financialyear_id => financialyear.id)
-
-
 #     if self.client.client_account_id.nil?
 #       self.client.reload.update_attribute(:client_account_id, self.client.create_update_account(:client).id)
 #     end
-    
-
 #     # if the sale contains a downpayment
 #     if self.has_downpayment
 #       entry = self.company.entries.create!(:record_id=>record.id, :account_id=>payment_mode.bank_account.account_id, :name=>payment_mode.bank_account.label, :currency_debit=>self.downpayment_amount, :currency_credit=>0.0, :currency_id=>journal_bank.currency_id)
-      
 #       account_downpayment = self.company.accounts.find(self.client.client_account_id).number
-      
 #       account = self.company.accounts.find(:number=>account_downpayment.insert(2, '9').to_s)
-
 #       if account.nil?
 #         account = self.company.accounts.create!(:name=>"Clients, avances et acomptes reçus", :number=>account_downpayment, :company_id=>self.company.id)
 #       end
-
 #       entry = self.company.entries.create!(:record_id=>record.id, :account_id=>account.id, :name=>account.label, :currency_debit=>0.0, :currency_credit=>self.downpayment_amount, :currency_id=>journal_bank.currency_id)
-      
 #       entry = self.company.entries.create!(:record_id=>record.id, :account_id=>account.id, :name=>account.label, :currency_debit=>self.downpayment_amount, :currency_credit=>0.0, :currency_id=>journal_bank.currency_id)
-      
 #     end
-
 #     bank_account = payments.first.mode.bank_account
 #     sum = 0
-
 #     payments.each do |payment|
 #       sum += payment.amount
 #       if [:card, :cash, :check, :transfer].include? payment.mode.mode.to_sym
-      
 #         entry = self.company.entries.create!(:record_id=>record.id, :account_id=>payment.mode.account_id, :name=>payment.mode.name, :currency_debit=>payment.amount, :currency_credit=>0.0, :currency_id=>journal_bank.currency_id)
-        
 #         entry = self.company.entries.create!(:record_id=>record.id, :account_id=>payment.mode.account_id, :name=>payment.mode.name, :currency_debit=>0.0, :currency_credit=>payment.amount, :currency_id=>journal_bank.currency_id)
-        
 #       end
-    
-   
 #     end
-   
 #     entry = self.company.entries.create!(:record_id=>record.id, :account_id=>bank_account.account_id, :name=>bank_account.account.name, :currency_debit=>sum, :currency_credit=>0.0, :currency_id=>journal_bank.currency_id)
-
 #     entry = self.company.entries.create!(:record_id=>record.id, :account_id=>self.client.client_account_id, :name=>self.client.full_name, :currency_debit=>0.0, :currency_credit=>self.lines.sum(:amount_with_taxes)*self.lines.sum(:quantity), :currency_id=>journal_bank.currency_id)
-    
 #   end
 
 

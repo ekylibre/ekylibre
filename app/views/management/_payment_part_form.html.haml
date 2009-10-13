@@ -1,0 +1,24 @@
+=formalize do |f|
+  -f.field :payment_part, :downpayment
+  -f.field content_tag(:label, tc("new_payment"), :for=>:new_payment), check_box_tag(:new_payment, "1", true)
+
+#existing_payment
+  =formalize do |f|
+    -f.title tc(:select_existing_payment)
+    -f.field tc(:unused_payment), select(:pay, :part, @current_company.usable_payments.collect{|x| [tc(:payment_label, :amount=>x.amount.to_s, :date=>x.created_at.to_date, :mode=>x.mode.name, :usable_amount=>(x.amount - x.parts_amount).to_s, :entity=>x.entity.full_name, :number=>x.number), x.id]})
+
+#create_payment=render :partial=>'payment_form'
+
+:javascript
+  function payment_toggle(){
+    if ($('new_payment').checked) {
+      $('existing_payment').hide();
+      $('create_payment').show();
+    } else {
+      $('existing_payment').show();
+      $('create_payment').hide();
+    } 
+  }
+  payment_toggle();
+
+=observe_field "new_payment", :function=>"payment_toggle();", :frequency => 0.25

@@ -16,6 +16,7 @@
 #  id             :integer       not null, primary key
 #  lock_version   :integer       default(0), not null
 #  mode_id        :integer       not null
+#  number         :string(255)   
 #  paid_on        :date          
 #  parts_amount   :decimal(16, 2 
 #  received       :boolean       default(TRUE), not null

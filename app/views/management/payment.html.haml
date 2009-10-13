@@ -1,7 +1,11 @@
+=toolbar do |t|
+  -t.link :payment_update, :id=>@payment.id
+
 
 %table
   %tr
     %td
+      =evalue @payment, :number
       =evalue @payment, :amount
       =evalue @payment, :parts_amount
       =evalue @payment, :entity, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}

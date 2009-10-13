@@ -215,9 +215,9 @@ management       inventory_print                  manage_inventories
 management       inventory_reflect                manage_inventories
 management       inventory_update                 manage_inventories
 management       payment                          manage_invoicing
-management       payment_create                   manage_invoicing
-management       payment_delete                   manage_invoicing
-management       payment_parts_dyta               manage_invoicing
+management       payment_part_create              manage_invoicing
+management       payment_part_delete              manage_invoicing
+management       sale_order_payment_parts_dyta               manage_invoicing
 management       payment_update                   manage_invoicing
 management       payments                         manage_invoicing
 management       sale_order_summary               manage_invoicing
