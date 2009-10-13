@@ -105,7 +105,7 @@ class InvoiceLine < ActiveRecord::Base
   end  
   
   def designation
-    d  = self.order_line.label
+    d  = self.label
     d += "\n"+self.annotation.to_s unless self.annotation.blank?
     d
   end

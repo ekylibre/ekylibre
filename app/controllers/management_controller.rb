@@ -718,7 +718,7 @@ class ManagementController < ApplicationController
   end
   
   def product_update
-    @product = find_and_check(:product, params[:id])
+    return unless @product = find_and_check(:product, params[:id])
     session[:product_id] = @product.id
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
     if !@product.manage_stocks
