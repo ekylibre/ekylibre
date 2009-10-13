@@ -27,7 +27,7 @@ class PaymentPart < ActiveRecord::Base
   cattr_reader :expense_types
   @@expense_types = [SaleOrder.name, Transfer.name]
 
-
+  validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :expense_id, :expense_type
 
   def before_validation

@@ -86,9 +86,8 @@ class Payment < ActiveRecord::Base
       # part.errors.each_full { |msg| self.errors.add_to_base(msg) }
       self.errors << part.errors.full_messages
       return false
-    else
-      return true
     end
+    return true
   end
 
 

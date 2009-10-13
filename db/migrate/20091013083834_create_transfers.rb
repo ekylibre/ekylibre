@@ -3,8 +3,10 @@ class CreateTransfers < ActiveRecord::Migration
     create_table :transfers do |t|
       t.column :amount,       :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :parts_amount, :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
-      t.column :supplier_id,  :integer, :null=>false
-      t.column :locked,       :boolean, :null=>false, :default=>false
+      t.column :supplier_id,  :integer
+      t.column :label,        :string
+      t.column :comment,      :string
+      # t.column :locked,       :boolean, :null=>false, :default=>false
       t.column :started_on,   :date
       t.column :stopped_on,   :date
       t.column :company_id,   :integer, :null=>false
