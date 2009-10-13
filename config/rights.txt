@@ -67,7 +67,7 @@ authentication   index                            __minimum__
 authentication   login                            __minimum__
 authentication   logout                           __minimum__
 authentication   register                         __minimum__
-company          about_us                         __minimum__
+company          about                            __minimum__
 company          change_password                  __minimum__
 company          help                             __minimum__
 company          index                            __minimum__

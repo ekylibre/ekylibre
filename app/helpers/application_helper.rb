@@ -23,7 +23,7 @@ module ApplicationHelper
            ] },
          {:name=>:informations, :list=>
            [ {:name=>:help},
-             {:name=>:about_us}
+             {:name=>:about}
            ] }
        ] },
 

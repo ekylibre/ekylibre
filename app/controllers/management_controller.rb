@@ -1751,7 +1751,7 @@ class ManagementController < ApplicationController
   def payment
     return unless @payment = find_and_check(:payments, params[:id])
     session[:current_payment_id] = @payment.id
-    @title = {:entity=>@payment.entity.full_name, :paid_on=>@payment.paid_on.is_a?(Date) ? ::I18n.localize(@payment.paid_on) : '????????'}
+    @title = {:number=>@payment.number, :entity=>@payment.entity.full_name}
   end
 
   #dyli(:usable_payments, :conditions=>["parts_amount<amount"])
@@ -1790,26 +1790,12 @@ class ManagementController < ApplicationController
     render_form
   end
   
-
-#   def payment_update
-#     # @sale_order = find_and_check(:sale_order, session[:current_sale_order])
-#     return unless @payment = find_and_check(:payment_par, params[:id])
-#     @payment = payment_part.payment
-#     if request.post?
-#       if @payment.update_attributes(params[:payment])
-#         if @payment.pay(@sale_order, :downpayment=>params[:downpayment][:check])
-#           redirect_to :action=>:sale_order_summary, :id=>@sale_order.id 
-#         end
-#       end
-#     end
-#     render_form 
-#   end
-
   def payment_update
     return unless @payment = find_and_check(:payment, params[:id])
     if request.post?
       redirect_to_back if @payment.update_attributes(params[:payment])
     end
+    @title = {:number=>@payment.number}
     render_form 
   end
 

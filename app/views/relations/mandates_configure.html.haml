@@ -6,10 +6,10 @@
       %th{:colspan=>2}=tc :mandate_new_value
     -for column in [:family, :organization, :title]
       %tr{:class=>cycle('odd', 'even')}
-        %td=tc 'column_'+column.to_s
-        %td=select_tag "filter_#{column}".to_sym, options_for_select(@filters_select)
-        %td=text_field_tag column
-        %td=check_box_tag "#{column}_check".to_sym
-        %td=text_field_tag "new_#{column}".to_sym
+        %td=tc "column_#{column}"
+        %td=select_tag     "columns[#{column}][filter]", options_for_select(@filters)
+        %td=text_field_tag "columns[#{column}][search]"
+        %td=check_box_tag  "columns[#{column}][update]"
+        %td=text_field_tag "columns[#{column}][new_value]"
   .actions
     =submit_tag tc(:validate) 

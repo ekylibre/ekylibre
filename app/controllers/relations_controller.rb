@@ -910,73 +910,30 @@ class RelationsController < ApplicationController
   
   # this method configures mandates
   def mandates_configure
-    if @current_company.mandates.size == 0
-      flash[:message]=tc(:need_to_create_mandates_before)
-      redirect_to :action=>:mandates
-      return
-    end
+    flash[:message]=tc(:need_to_create_mandates_before) if @current_company.mandates.size == 0
    
-    filters = {
-                :no_filters => '',
-                :contains => '%X%',
-                :is  => 'X',
-                :begins => 'X%',
-                :finishes => '%X',
-                :not_contains => '%X%',
-                :not_is  => 'X',
-                :not_begins => 'X%',
-                :not_finishes => '%X'
-               }
-    
-    
-
-    @filters_select = filters.collect{|f,k| [tc(f), f]}.sort
-    
-    shortcuts = {
-      :fam => :family,
-      :org => :organization,
-      :tit => :title
-    } 
+    filters = { :no_filters => '', :contains => '%X%', :is => 'X', :begins => 'X%', :finishes => '%X', :not_contains => '%X%', :not_is  => 'X', :not_begins => 'X%', :not_finishes => '%X' }
+    shortcuts = { :fam => :family, :org => :organization, :tit => :title } 
+    @filters = filters.collect{|f,k| [tc(f), f]}.sort
 
     if request.post?
-      
-      # ---- conditions ----
-      params.each do |p, v|
-        flash[:message] = tc(:check_fields) if params[:family_check].to_i.zero? and params[:organization_check].to_i.zero? and params[:title_check].to_i.zero?
-        flash[:message] = tc(:mandates_new_fields) if params[:new_family].blank? and params[:new_organization].blank? and params[:new_title].blank?
-        flash[:message] = tc(:mandates_fields) if params[:family].blank? and params[:organization].blank? and params[:title].blank?
-        if flash.size > 0
-          redirect_to :action=>:mandates_configure
-          return
-        end
+      flash[:error] += tc(:specify_updates) unless params[:columns].detect{|k,v| !v[:update].blank?}
+      flash[:error] += tc(:select_filter) unless params[:columns].detect{|k,v| !v[:filter].blank?}
+      if flash.size > 0
+        redirect_to :action=>:mandates_configure
+        return
       end
       
-      conditions = nil
-      for p,v in params do 
-        if (p.to_sym == :family or p.to_sym == :organization or p.to_sym == :title) and (not params[p.to_s].blank?)
-          if params["filter_#{p}"].to_sym != :no_filters
-            conditions = [''] if conditions.nil?
-            conditions[0] += " AND " if conditions[0].size > 0
-            conditions[0] += "LOWER(#{p}) "+((params["filter_#{p}"].to_s.match 'not').nil? ? "" : "NOT ").to_s+"LIKE ?"
-            conditions << filters[params["filter_#{p}"].to_sym].gsub('X', v.lower.to_s)
-          end
+      conditions = ["company_id = ?", @current_company.id]
+      updates = "updated_at = CURRENT_TIMESTAMP"
+      for p, v in params[:columns] do
+        if params[:filter].to_sym != :no_filters
+          conditions[0] += " AND LOWER(#{p}) "+(params[:filter].to_s.match(/^not_/) ? "NOT " : "").to_s+"LIKE ?"
+          conditions << filters[params[:filter].to_sym].gsub(/X/, v[:search].lower.to_s)
         end
+        updates += ", #{p} = '#{v[:new_value].gsub(/\'/,'\'\'').gsub(/\@...\@/){|x| '\'||'+shortcuts[x[1..-2].to_sym].to_s+'||\''}}'" if params[:update]
       end
-      @mandates = @current_company.mandates.find(:all, :conditions => conditions)
-      
-      values=''
-      values += params.collect do |p, v| 
-        if (p.to_sym == :new_family or p.to_sym == :new_organization or p.to_sym == :new_title)
-          if not (params["#{p}"].blank? or params["#{p.split('_')[1]}_check"].to_i.zero?)
-            "#{p.split('_')[1]} = '#{v.gsub(/\'/,'\'\'').gsub(/\@...\@/){|x| '\'||'+shortcuts[x[1..-2].to_sym].to_s+'||\''}}'"
-          end
-        end
-      end.compact.join(',')
-
-      #raise Exception.new('v:'+values.inspect)
-
-      @current_company.mandates.update_all(values.to_s, conditions)
-      
+      Mandate.update_all(updates, conditions)
     end
     
   end
@@ -1050,7 +1007,7 @@ class RelationsController < ApplicationController
     end
   end
   
-  dyta(:events, :conditions=>['company_id = ?',['@current_company.id']]) do |t|
+  dyta(:events, :conditions=>['company_id = ?',['@current_company.id']], :default_order=>"started_at DESC") do |t|
     t.column :full_name, :through=>:entity
     t.column :duration
     t.column :location

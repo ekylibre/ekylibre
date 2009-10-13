@@ -35,7 +35,7 @@ fr-FR:
       no_stock_location: 'Veuillez créer un lieu de stockage'
       order: 'Commande'
       paid_on: 'Réglé le'
-      payment_amount: 'Montant du paiement'
+      payment_amount: 'Montant du réglement'
       phone: 'Tél.'
       price: 'Prix'
       price_amount_with_taxes: 'Prix TTC'
@@ -175,7 +175,7 @@ fr-FR:
           other: '{{count}} transferts à effectuer'
           zero: 'Aucun transfert à effectuer'
         parameters: 'Paramètres'
-        payment_modes: 'Types de paiement'
+        payment_modes: 'Types de réglement'
         payments: 'Suivi des règlements'
         prices: 'Prix'
         products: 'Produits'
@@ -244,11 +244,11 @@ fr-FR:
       payment:
         payment_update: 'Modifier le réglement'
         sale_orders: 'Ventes liées au règlement'
-        title: 'Réglement de {{entity}} du {{paid_on}}'
+        title: 'Réglement n°{{number}} de {{entity}}'
       payment_part_create:
         title: 'Ajouter un nouveau réglement à la vente : {{value}}'
       _payment_form:
-        check: 'Pour les paiements de type chèque'
+        check: 'Pour les réglements de type chèque'
         title: 'Renseignez les conditions du réglement'
       _payment_part_form:
         downpayment: 'Acompte'
@@ -259,14 +259,14 @@ fr-FR:
         payment_label: '{{number}}. {{amount}} du {{date}} par {{mode}} de {{entity}}'
         unused_payment: 'Réglement à utiliser'
       payment_mode_create:
-        title: 'Créer un nouveau type de paiement'
+        title: 'Créer un nouveau type de réglement'
       payment_mode_update:
-        title: 'Modifier un type de paiement'
+        title: 'Modifier un type de réglement'
       payment_modes:
-        payment_mode_create: 'Créer un nouveau type de paiement'
-        title: 'Types de paiement'
+        payment_mode_create: 'Créer un nouveau type de réglement'
+        title: 'Types de réglement'
       payment_update:
-        title: 'Modifier un paiement'
+        title: 'Modification du réglement n°{{number}}'
       payments:
         nb_payments:
           one: '1 règlement en attente'
@@ -448,7 +448,7 @@ fr-FR:
       sale_order_nature_create:
         title: 'Ajout d''un type de vente'
       _sale_order_nature_form:
-        conditions: 'Conditions de paiement'
+        conditions: 'Conditions de réglement'
         delays: 'Délais'
         downpayment: 'Options pour l''acompte'
         general: 'Général'
@@ -472,8 +472,8 @@ fr-FR:
         order_amount_with_taxes: 'Montant de la commande'
         paid_amount: 'Montant réglé'
         paid_on: 'Règlé le'
-        payment_part_create: 'Ajouter un nouveau paiement'
-        payment_mode: 'Mode de paiement'
+        payment_part_create: 'Ajouter un nouveau réglement'
+        payment_mode: 'Mode de réglement'
         payment_on: 'Payé le'
         payments: 'Règlements'
         payments_amount: 'Montant réglé'
@@ -484,7 +484,7 @@ fr-FR:
         uninvoiced_amount: 'Montant non facturé'
         unpaid_amount: 'Montant restant à payer'
       sale_order_update:
-        title: 'Modifcation de la vente N°{{number}}'
+        title: 'Modification de la vente N°{{number}}'
       sale_orders:
         all: 'Toutes'
         current: 'En cours'

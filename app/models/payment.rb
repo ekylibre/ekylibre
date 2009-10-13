@@ -46,7 +46,7 @@ class Payment < ActiveRecord::Base
 
   def before_validation_on_create
     specific_numeration = self.company.parameter("management.payments.numeration")
-    if specific_numeration
+    if specific_numeration and specific_numeration.value
       self.number = specific_numeration.value.next_value
     else
       last = self.company.payments.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")

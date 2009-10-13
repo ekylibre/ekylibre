@@ -13,7 +13,7 @@ fr-FR:
 
   views:
     company:
-      about_us:
+      about:
         title: 'À propos d''Ekylibre'
       backups:
         backup: 'Sauvegarder'
@@ -78,7 +78,7 @@ fr-FR:
       _help_result:
         pertinence: '{{value}}%'
       index:
-        about_us: 'À propos d''Ekylibre'
+        about: 'À propos d''Ekylibre'
         accountancy: 'Comptabilité générale'
         backups: 'Sauvegardes'
         change_password: 'Modifier mon mot de passe'
