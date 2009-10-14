@@ -658,7 +658,7 @@ class Company < ActiveRecord::Base
     cities = ["33000 Bordeaux", "33170 Gradignan", "40600 Biscarosse", "33400 Talence", "75001 Paris", "13000 Marseille", "33600 Pessac", "47000 Agen", "33710 Pugnac", "33700 Mérignac", "40000 Mont de Marsan"]
     entity_natures = company.entity_natures.collect{|x| x.id.to_s}
     indifferent_attributes = {:category_id=>company.entity_categories.first.id, :language_id=>company.languages.first.id}
-    products = ["A","B","C","D"]
+    products = ["Salades","Bouteille en verre 75 cl","Bouchon liège","Capsule CRD", "Capsule", "Étiquette", "Vin Saint-Emilion 2005", "Caisse Bois 6 btles", "Bouteille Saint-Emilion 2005 75 cl", "Caisse 6 b. Saint-Emilion 2005", "patates", "Séjour 1 nuit", "Séjour 1 semaine 1/2 pension", "Fongicide", "Insecticide"]
     shelf_id = company.shelves.first.id
     unit_id  = company.units.first.id
     category_id = company.entity_categories.first.id
@@ -671,20 +671,23 @@ class Company < ActiveRecord::Base
       entity.nature_id = entity_natures[rand(entity_natures.size).to_i]
       entity.name = entity.nature.abbreviation+" "+entity.name if entity.nature.in_name 
       entity.client = (rand() > 0.5 or rand() > 0.8)
-      entity.supplier = rand() > 0.75
+      entity.supplier = (rand() > 0.75 or x == 0)
       entity.transporter = rand() > 0.9
       entity.save! 
       contact = entity.contacts.create!(:company_id=>company.id, :line_4_number=>rand(100), :line_4_street=>streets[rand(streets.size)], :norm_id=>entity.company.address_norms.first.id, :line_6=>cities[rand(cities.size)], :default=>true)
-      
-      product = company.products.create(:nature=>"product", :name=>products[rand(products.size)], :to_sale=>true, :supply_method=>"produce", :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true) if x%2 == 0
-      if not product.id.nil?
-        product.reload
-        product.prices.create!(:amount=>rand(100), :company_id=>company.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size).to_i], :category_id=>category_id, :entity_id=>company.entity_id)
-      end
     end
     company.entity_link_natures.create!(:name=>"Gérant - Société", :name_1_to_2=>"gère la société", :name_2_to_1=>"est une société qui a pour associé", :propagate_contacts=>true, :symmetric=>false)
     company.subscription_natures.create!(:name=>"Abonement annuel", :nature=>"period", :reduction_rate=>0.1)
-
+    company.event_natures.create!(:name=>"Conversation téléphonique", :duration=>10, :usage=>"manual")
+    for product_name in products
+      #product = company.products.create(:nature=>"product", :name=>products[rand(products.size)], :to_sale=>true, :supply_method=>"produce", :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true) #if x%2 == 0
+      product = company.products.create(:nature=>"product", :name=>product_name, :to_sale=>true, :supply_method=>"produce", :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true) #if x%2 == 0
+      product.reload
+      #product.prices.create!(:amount=>rand(100), :company_id=>company.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size).to_i], :category_id=>category_id, :entity_id=>product.name.include?("icide") ? company.entities.find(:first, :conditions=>{:supplier=>true}).id : company.entity_id)
+      product.prices.create!(:amount=>rand(100), :company_id=>company.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size).to_i], :category_id=>category_id, :entity_id=>product.name.include?("icide") ? company.entities.find(:first, :conditions=>{:supplier=>true}).id : company.entity_id)
+    end
+    
+    ## pdt composé , abt //// Non générique, tjr les memes lignes ????
   end
   
 end

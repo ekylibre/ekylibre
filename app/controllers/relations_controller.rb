@@ -986,13 +986,11 @@ class RelationsController < ApplicationController
   end
 
   def event_natures
-    #    event_natures_list
   end
 
   def event_nature_create
     @event_nature = EventNature.new
     if request.post?
-      #raise Exception.new params.inspect
       @event_nature = EventNature.new(params[:event_nature])
       @event_nature.company_id = @current_company.id
       redirect_to_back if @event_nature.save

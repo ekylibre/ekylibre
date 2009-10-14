@@ -24,6 +24,7 @@ fr-FR:
         need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
         need_quantities_to_cancel_an_invoice: 'Vous devez spécifier une quantité pour pouvoir faire un avoir'
         need_stock_location_to_record_stock_moves: 'Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage.'
+      need_product_stocks_to_create_inventories: 'Vous devez gérer les stocks d''au moins un produit pour pouvoir créer un inventaire'
       need_stock_location_to_create_purchase_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser un achat'
       need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
       need_stocks_location_to_create_products: 'Vous devez créer un lieu de stockage pour pouvoir créer un produit'

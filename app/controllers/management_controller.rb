@@ -185,11 +185,15 @@ class ManagementController < ApplicationController
   end
   
   def inventory_create
+    if @current_company.product_stocks.size <= 0
+      flash[:warning] = tc(:need_product_stocks_to_create_inventories)
+      redirect_to_back
+    end
     flash[:notice] = tc(:you_should_lock_your_old_inventories) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
     @inventory = Inventory.new(:employee_id=>@current_user.employee.nil? ? 0 : @current_user.employee.id)
     if request.post?
       @inventory = Inventory.new(params[:inventory])
-      @inventory.company_id = @current_company
+      @inventory.company_id = @current_company.id
       @inventory.save
       params[:inventory_lines_create].collect{|x| ProductStock.find_by_id_and_company_id(x[0], @current_company.id).to_inventory_line(x[1][:current_real_quantity].to_f, @inventory.id) }
       redirect_to :action=>:inventories
