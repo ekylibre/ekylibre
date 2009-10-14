@@ -245,6 +245,8 @@ fr-FR:
         payment_update: 'Modifier le réglement'
         sale_orders: 'Ventes liées au règlement'
         title: 'Réglement n°{{number}} de {{entity}}'
+      payment_create:
+        title: 'Ajout d''un nouveau règlement'
       payment_part_create:
         title: 'Ajouter un nouveau réglement à la vente : {{value}}'
       _payment_form:
@@ -553,6 +555,10 @@ fr-FR:
         stock_location_update: 'Modifier le lieu de stockage'
         stock_move_create: 'Ajouter un mouvement de stock'
         title: 'Détail du lieu de stockage : {{value}}'
+      stock_locations:
+        reservoirs_create: 'Ajouter un réservoir'
+        stock_location_create: 'Ajouter un lieu de stockage'
+        title: 'Lieux de stockage'
       stock_location_create:
         title: 'Ajout d''un lieu de stockage'
       _stock_location_form:

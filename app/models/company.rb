@@ -44,7 +44,7 @@ class Company < ActiveRecord::Base
   has_many :entity_categories
   has_many :entity_link_natures
   has_many :entity_links
-  has_many :entity_natures
+  has_many :entity_natures  
   has_many :entries
   has_many :establishments
   has_many :event_natures
@@ -148,7 +148,8 @@ class Company < ActiveRecord::Base
     category = self.entity_categories.create!(:name=>'user')
     firm = self.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>self.name)
     self.entity_id = firm.id
-    self.save
+    self.save ## TODO default_contact to create
+    self.entity.contacts.create!(:company_id=>self.id, :line_2=>"XXXXXXXXXXXXXXXXXXX", :line_3=>"XXXXXXXXXXXXXXXXXXXX", :line_5=>"XXXXXXXXXXXXXXXXXXXX", :norm_id=>self.address_norms.first.id, :default=>true)
     
     # loading of all the templates
     #load_prints
@@ -180,9 +181,9 @@ class Company < ActiveRecord::Base
         
       end
     end
-
+    self.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>self.accounts.find(:first, :conditions=>["number ILIKE ?", '3%' ], :order=>:number).id)
   end
-
+  
   def parameter(name)
     parameter = self.parameters.find_by_name(name)
     if parameter.nil? and Parameter.reference.keys.include? name
@@ -652,27 +653,38 @@ class Company < ActiveRecord::Base
   def load_demo_data(company)
     company.entity_natures.create!(:name=>"Société A Responsabilité Limitée", :abbreviation=>"SARL", :in_name=>true)
     last_name = ["MARTIN","DUPONT","DURAND","CHIRAC", "LABAT", "VILLENEUVE", "SICARD", "FRERET", "FOUCAULT", "DUPEYRON", "BORGÈS", "DUBOIS", "LEROY", "MOREL", "GUERIN", "MORIN", "ROUSSEAU", "LEMAIRE", "DUVAL", "BRUN", "FERNANDEZ", "BRETON", "LEBLANC", "DA SILVA", "CORDIER", "BRIAND", "CAMUS", "VOISIN", "LELIEVRE", "GONZALEZ"]
-    first_name = ["Benoit", "Stéphane", "Marine", "Roger", "Céline", "Bertrand", "Julie", "Kévin", "Maxime", "Vincent", "Clire", "Marie-France", "Jean-Marie", "Anne-Marie", "Dominique", "Alain", "Daniel", "Sylvie", "Fabrice", "Nathalie", "Véronique", "Jeanine", "Edouard", "Colette", "Sébastien", "Rémi", "Joseph", "Baptiste", "Martine", "Guy"]
-    streets = ["Cours Xavier Arnozan", "Cours du général de Gaulle", "route pavée", "Avenue Thiers", "rue Gambetta", "5th Avenue", "rue Louis La Brocante", "Rue Léon Blum", "Avenue François Mittérand", "Cours de la marne"]
+    first_name = ["Benoit", "Stéphane", "Marine", "Roger", "Céline", "Bertrand", "Julie", "Kévin", "Maxime", "Vincent", "Claire", "Marie-France", "Jean-Marie", "Anne-Marie", "Dominique", "Alain", "Daniel", "Sylvie", "Fabrice", "Nathalie", "Véronique", "Jeanine", "Edouard", "Colette", "Sébastien", "Rémi", "Joseph", "Baptiste", "Martine", "Guy"]
+    streets = ["Cours Xavier Arnozan", "Cours du général de Gaulle", "Route pavée", "Avenue Thiers", "Rue Gambetta", "5th Avenue", "rue Louis La Brocante", "Rue Léon Blum", "Avenue François Mittérand", "Cours de la marne"]
+    cities = ["33000 Bordeaux", "33170 Gradignan", "40600 Biscarosse", "33400 Talence", "75001 Paris", "13000 Marseille", "33600 Pessac", "47000 Agen", "33710 Pugnac", "33700 Mérignac", "40000 Mont de Marsan"]
     entity_natures = company.entity_natures.collect{|x| x.id.to_s}
     indifferent_attributes = {:category_id=>company.entity_categories.first.id, :language_id=>company.languages.first.id}
-
+    products = ["A","B","C","D"]
+    shelf_id = company.shelves.first.id
+    unit_id  = company.units.first.id
+    category_id = company.entity_categories.first.id
+    taxes = company.taxes.collect{|x| x.id.to_s}
+    
     for x in 0..30
       entity = company.entities.new(indifferent_attributes)
       entity.name = last_name[rand(last_name.size)]
       entity.first_name = first_name[rand(first_name.size)]
       entity.nature_id = entity_natures[rand(entity_natures.size).to_i]
       entity.name = entity.nature.abbreviation+" "+entity.name if entity.nature.in_name 
-      if (rand() > 0.5 or rand() > 0.8)
-        entity.client = true ## e = rand() > 0.5
-      elsif rand() > 0.75
-        entity.supplier = true
-      else rand() > 0.9
-        entity.transporter = true
-      end
+      entity.client = (rand() > 0.5 or rand() > 0.8)
+      entity.supplier = rand() > 0.75
+      entity.transporter = rand() > 0.9
       entity.save! 
-      contact = entity.contacts.create(:company_id=>entity.company_id, :line_4_number=>rand(100), :line_4_street=>streets[rand(streets.size)], :norm_id=>entity.company.address_norms.first.id, :default=>true)
+      contact = entity.contacts.create!(:company_id=>company.id, :line_4_number=>rand(100), :line_4_street=>streets[rand(streets.size)], :norm_id=>entity.company.address_norms.first.id, :line_6=>cities[rand(cities.size)], :default=>true)
+      
+      product = company.products.create(:nature=>"product", :name=>products[rand(products.size)], :to_sale=>true, :supply_method=>"produce", :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true) if x%2 == 0
+      if not product.id.nil?
+        product.reload
+        product.prices.create!(:amount=>rand(100), :company_id=>company.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size).to_i], :category_id=>category_id, :entity_id=>company.entity_id)
+      end
     end
+    company.entity_link_natures.create!(:name=>"Gérant - Société", :name_1_to_2=>"gère la société", :name_2_to_1=>"est une société qui a pour associé", :propagate_contacts=>true, :symmetric=>false)
+    company.subscription_natures.create!(:name=>"Abonement annuel", :nature=>"period", :reduction_rate=>0.1)
+
   end
   
 end

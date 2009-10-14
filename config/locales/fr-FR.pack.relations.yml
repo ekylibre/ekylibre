@@ -173,6 +173,7 @@ fr-FR:
           one: '1 observation'
           other: '{{count}} observations'
           zero: 'Aucune observation'
+        payment_create: 'Ajouter un règlement'
         payments:
           one: '1 réglement'
           other: '{{count}} réglements'

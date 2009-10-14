@@ -655,7 +655,7 @@ class ManagementController < ApplicationController
       flash[:warning]=tc('need_stocks_location_to_create_products')
       redirect_to :action=>:stock_location_create
     end
-    @key = params[:key]||session[:product_key]||" "
+    @key = params[:key]||session[:product_key]||""
     session[:product_key] = @key
     if request.post?
       session[:product_active] = params[:product_active].nil? ? false : true
@@ -1754,6 +1754,25 @@ class ManagementController < ApplicationController
     @title = {:number=>@payment.number, :entity=>@payment.entity.full_name}
   end
 
+  def payment_create
+    if request.post?
+      @payment = Payment.new(params[:payment])
+      @payment.company_id = @current_company.id
+      @payment.entity_id = session[:current_entity]
+      redirect_to_back if @payment.save
+    else
+      @payment = Payment.new(:embanker_id=>@current_user.id)
+    end
+    render_form
+  end
+
+  def payment_delete
+    return unless @payment = find_and_check(:payment, params[:id])
+    if request.post? or request.delete?
+      redirect_to_current if @payment.destroy
+    end
+  end
+  
   #dyli(:usable_payments, :conditions=>["parts_amount<amount"])
 
   def payment_part_create

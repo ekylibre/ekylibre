@@ -39,7 +39,7 @@ class AuthenticationController < ApplicationController
   
   def register
     if request.post?
-      #raise Exception.new params.inspect
+      #raise Exception.new params[:demo].inspect
       if defined?(Ekylibre::DONT_REGISTER)
         hash = Digest::SHA256.hexdigest(params[:register_password].to_s)
         redirect_to :action=>:login unless defined?(Ekylibre::DONT_REGISTER_PASSWORD)
@@ -58,7 +58,7 @@ class AuthenticationController < ApplicationController
           @user.role_id = @company.admin_role.id
           saved = false unless @user.save
         end
-        if params[:demo][:load_data]
+        if params[:demo] and saved
           Company.load_demo_data("fr-FR", @company)
         end
         raise ActiveRecord::Rollback unless saved            
