@@ -111,8 +111,8 @@ class ManagementController < ApplicationController
 
     elsif request.put?
       data = {}
-      mode = params[:mode].to_s.to_sym
-      source = params[:source].to_s.to_sym
+      mode = (params[:mode]||:quantity).to_s.to_sym
+      source = (params[:source]||:invoice).to_s.to_sym
       query = if source == :invoice
         "SELECT product_id, sum(sol.#{mode}) AS total FROM invoice_lines AS sol JOIN invoices AS so ON (sol.invoice_id=so.id) WHERE created_on BETWEEN ? AND ? GROUP BY product_id"
       else

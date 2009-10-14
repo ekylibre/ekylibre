@@ -511,7 +511,7 @@ class CompanyController < ApplicationController
   end
 
 
-  dyta(:listings, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:listings, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:name) do |t|
     t.column :name
     t.column :root_model_name
     t.column :comment
