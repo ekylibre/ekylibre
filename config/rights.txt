@@ -422,6 +422,7 @@ relations        mandate_create                   manage_mandates
 relations        mandate_delete                   manage_mandates
 relations        mandate_update                   manage_mandates
 relations        mandates                         manage_mandates
+relations        auto_complete_for_mandate        manage_mandates
 relations        mandates_configure               manage_mandates
 relations        mandates_dyta                    manage_mandates
 relations        observation_create               manage_observations

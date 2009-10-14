@@ -1,4 +1,5 @@
 - form_tag(:action=>:mandates_configure) do 
+  =auto_complete_stylesheet
   %table.dyta
     %tr
       %th=tc(:column)
@@ -8,7 +9,10 @@
       %tr{:class=>cycle('odd', 'even')}
         %td=tc "column_#{column}"
         %td=select_tag     "columns[#{column}][filter]", options_for_select(@filters)
-        %td=text_field_tag "columns[#{column}][search]"
+        %td
+          =text_field_tag "columns[#{column}][search]", nil, :id=>"columns_#{column}_search"
+          .auto_complete{:id=>"columns_#{column}_search_auto_complete"}
+          =auto_complete_field("columns_#{column}_search", { :url => { :action => "auto_complete_for_mandate", :column=>column} })
         %td=check_box_tag  "columns[#{column}][update]"
         %td=text_field_tag "columns[#{column}][new_value]"
   .actions

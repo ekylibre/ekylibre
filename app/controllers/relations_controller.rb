@@ -24,6 +24,14 @@ class RelationsController < ApplicationController
     render :inline => "<%=content_tag(:ul, @events.map { |event| content_tag(:li, h(event.location)) })%>"
   end
 
+
+  def auto_complete_for_mandate
+    column = params[:column]||'family'
+    pattern = '%'+params[:columns][column][:search].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+    @mandates = @current_company.mandates.find(:all, :conditions => [ "LOWER(#{column}) LIKE ? ", pattern], :order=>column, :select => "DISTINCT #{column}")
+    render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.#{column})) })-%>"
+  end
+
   #
   def auto_complete_for_mandate_family
     pattern = '%'+params[:mandate][:family].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
@@ -917,9 +925,10 @@ class RelationsController < ApplicationController
     @filters = filters.collect{|f,k| [tc(f), f]}.sort
 
     if request.post?
-      flash[:error] += tc(:specify_updates) unless params[:columns].detect{|k,v| !v[:update].blank?}
-      flash[:error] += tc(:select_filter) unless params[:columns].detect{|k,v| !v[:filter].blank?}
-      if flash.size > 0
+      flash[:error] = ''
+      flash[:error] += tc('errors.specify_updates') unless params[:columns].detect{|k,v| !v[:update].blank?}
+      flash[:error] += tc('errors.select_filter') unless params[:columns].detect{|k,v| !v[:filter].blank?}
+      unless flash[:error].blank?
         redirect_to :action=>:mandates_configure
         return
       end
@@ -927,11 +936,11 @@ class RelationsController < ApplicationController
       conditions = ["company_id = ?", @current_company.id]
       updates = "updated_at = CURRENT_TIMESTAMP"
       for p, v in params[:columns] do
-        if params[:filter].to_sym != :no_filters
-          conditions[0] += " AND LOWER(#{p}) "+(params[:filter].to_s.match(/^not_/) ? "NOT " : "").to_s+"LIKE ?"
-          conditions << filters[params[:filter].to_sym].gsub(/X/, v[:search].lower.to_s)
+        if v[:filter].to_sym != :no_filters
+          conditions[0] += " AND LOWER(#{p}) "+(v[:filter].to_s.match(/^not_/) ? "NOT " : "").to_s+"LIKE ?"
+          conditions << filters[v[:filter].to_sym].gsub(/X/, v[:search].lower.to_s)
         end
-        updates += ", #{p} = '#{v[:new_value].gsub(/\'/,'\'\'').gsub(/\@...\@/){|x| '\'||'+shortcuts[x[1..-2].to_sym].to_s+'||\''}}'" if params[:update]
+        updates += ", #{p} = '#{v[:new_value].gsub(/\'/,'\'\'').gsub(/\@...\@/){|x| '\'||'+shortcuts[x[1..-2].to_sym].to_s+'||\''}}'" if v[:update]
       end
       Mandate.update_all(updates, conditions)
     end

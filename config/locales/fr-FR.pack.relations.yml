@@ -29,6 +29,8 @@ fr-FR:
       errors:
         cannot_merge_an_entity_with_itself: 'Il n''est pas possible de fusionner une fiche avec elle-même'
         cannot_merge_entities: 'Une erreur est survenue. Il n''est pas possible de fusionner ces fiches.'
+        specify_updates: 'Vous devez spécifier au moins un champ à modifier'
+        select_filter: 'Vous choisir appliquer au moins un filtre de recherche'
       finishes: 'Termine par'
       first_contact: 'Adresse principale'
       import_succeed: 'Vos données ont été correctement importées '

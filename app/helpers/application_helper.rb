@@ -322,7 +322,7 @@ module ApplicationHelper
 
 
   def flash_tag(mode)
-    content_tag(:div, flash[mode], :class=>'flash '+mode.to_s) if flash[mode]
+    content_tag(:div, flash[mode], :class=>'flash '+mode.to_s) unless flash[mode].blank?
   end
 
   def link_to_submit(form_name, label=:submit, options={})
