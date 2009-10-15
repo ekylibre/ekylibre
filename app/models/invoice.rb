@@ -94,6 +94,14 @@ class Invoice < ActiveRecord::Base
     end
   end
 
+  def responsible_name
+    if self.sale_order and self.sale_order.responsible
+      self.sale_order.responsible.label
+    else
+      ""
+    end
+  end
+
   def label
     tc('label.'+(self.credit ? 'credit' : 'normal'), :number=>self.number, :created_on=>::I18n.localize(self.created_on))
   end
