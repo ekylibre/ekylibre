@@ -50,6 +50,7 @@ class Product < ActiveRecord::Base
   belongs_to :subscription_nature
   belongs_to :shelf
   belongs_to :unit
+  has_many :components, :class_name=>ProductComponent.to_s
   has_many :delivery_lines
   has_many :invoice_lines
   has_many :prices

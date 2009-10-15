@@ -48,7 +48,7 @@ class Subscription < ActiveRecord::Base
       self.entity_id ||= self.contact.entity_id if self.contact
       self.entity_id ||= self.invoice.client_id if self.invoice
       self.entity_id ||= self.sale_order.client_id if self.sale_order
-    end
+    end 
   end
 
   def before_validation_on_create

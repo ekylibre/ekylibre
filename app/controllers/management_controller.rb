@@ -639,14 +639,12 @@ class ManagementController < ApplicationController
     code
   end
 
-  #dyta(:products, :conditions=>search_conditions(:products, :products=>[:code, :name])) do |t|
   dyta(:products, :conditions=>products_conditions) do |t|
     t.column :number
     t.column :name, :through=>:shelf, :url=>{:action=>:shelf}
     t.column :name, :url=>{:action=>:product}
     t.column :code
     t.column :description
-    #t.column :active
     t.action :product, :image=>:show
     t.action :product_update
     t.action :product_delete, :method=>:delete, :confirm=>:are_you_sure
@@ -674,7 +672,7 @@ class ManagementController < ApplicationController
     @product_stocks = []
     @stock_locations = @current_company.stock_locations
     for product_stock in all_product_stocks
-      @product_stocks << product_stock if product_stock.product_id == @product.id
+      @product_stocks << product_stock if ((product_stock.product_id == @product.id) and product_stock.current_virtual_quantity <= product_stock.critic_quantity_min) 
     end
     @title = {:value=>@product.name}
   end

@@ -660,7 +660,7 @@ class Company < ActiveRecord::Base
     indifferent_attributes = {:category_id=>company.entity_categories.first.id, :language_id=>company.languages.first.id}
     products = ["Salades","Bouteille en verre 75 cl","Bouchon liège","Capsule CRD", "Capsule", "Étiquette", "Vin Saint-Emilion 2005", "Caisse Bois 6 btles", "Bouteille Saint-Emilion 2005 75 cl", "Caisse 6 b. Saint-Emilion 2005", "patates", "Séjour 1 nuit", "Séjour 1 semaine 1/2 pension", "Fongicide", "Insecticide"]
     shelf_id = company.shelves.first.id
-    unit_id  = company.units.first.id
+    unit_id  = company.units.find(:first, :conditions=>{:label=>"Unité"}).id
     category_id = company.entity_categories.first.id
     taxes = company.taxes.collect{|x| x.id.to_s}
     
@@ -679,15 +679,25 @@ class Company < ActiveRecord::Base
     company.entity_link_natures.create!(:name=>"Gérant - Société", :name_1_to_2=>"gère la société", :name_2_to_1=>"est une société qui a pour associé", :propagate_contacts=>true, :symmetric=>false)
     company.subscription_natures.create!(:name=>"Abonement annuel", :nature=>"period", :reduction_rate=>0.1)
     company.event_natures.create!(:name=>"Conversation téléphonique", :duration=>10, :usage=>"manual")
+    
     for product_name in products
-      #product = company.products.create(:nature=>"product", :name=>products[rand(products.size)], :to_sale=>true, :supply_method=>"produce", :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true) #if x%2 == 0
-      product = company.products.create(:nature=>"product", :name=>product_name, :to_sale=>true, :supply_method=>"produce", :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true) #if x%2 == 0
+      product = company.products.create(:nature=>"product", :name=>product_name, :to_sale=>true, :supply_method=>"produce", :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true) 
       product.reload
-      #product.prices.create!(:amount=>rand(100), :company_id=>company.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size).to_i], :category_id=>category_id, :entity_id=>product.name.include?("icide") ? company.entities.find(:first, :conditions=>{:supplier=>true}).id : company.entity_id)
       product.prices.create!(:amount=>rand(100), :company_id=>company.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size).to_i], :category_id=>category_id, :entity_id=>product.name.include?("icide") ? company.entities.find(:first, :conditions=>{:supplier=>true}).id : company.entity_id)
     end
     
-    ## pdt composé , abt //// Non générique, tjr les memes lignes ????
+    product = company.products.find_by_name("Caisse 6 b. Saint-Emilion 2005")
+    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Bouteille Saint-Emilion 2005 75 cl").id, :quantity=>6, :location_id=>company.stock_locations.first.id)
+    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Caisse Bois 6 btles").id, :quantity=>1, :location_id=>company.stock_locations.first.id)
+
+    product = company.products.find_by_name("Bouteille Saint-Emilion 2005 75 cl")
+    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Bouchon liège").id, :quantity=>1, :location_id=>company.stock_locations.first.id)
+    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Étiquette").id, :quantity=>1, :location_id=>company.stock_locations.first.id)
+    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Bouteille en verre 75 cl").id, :quantity=>1, :location_id=>company.stock_locations.first.id)
+    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Vin Saint-Emilion 2005").id, :quantity=>0.75, :location_id=>company.stock_locations.first.id)
+    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Capsule CRD").id, :quantity=>1, :location_id=>company.stock_locations.first.id)
+    
+    company.subscriptions.create!(:nature_id=>company.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>company.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
   end
   
 end

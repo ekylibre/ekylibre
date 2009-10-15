@@ -58,7 +58,7 @@ class AuthenticationController < ApplicationController
           saved = false unless @user.save
         end
         if params[:demo] and saved 
-          Company.load_demo_data("fr-FR", @company)
+          Company.load_demo_data("fr-FR", @company) 
         end
         raise ActiveRecord::Rollback unless saved            
       end
