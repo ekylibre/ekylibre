@@ -51,7 +51,7 @@ class Document < ActiveRecord::Base
         file_data = file.read
       end
     else
-      raise Exception.new("File (#{path}) does not exists!")
+      raise Exception.new("Archive (#{path}) does not exists!")
     end
     file_data
   end

@@ -71,11 +71,8 @@ class DocumentTemplate < ActiveRecord::Base
     if self.to_archive
       # document = self.documents.find(:first, :conditions=>["owner_id = ? and owner_type = ?", object.id, object.class.name], :order=>"created_at DESC")
       document = self.company.documents.find(:first, :conditions=>{:nature_code=>self.code, :owner_id=>object.id, :owner_type=>object.class.name}, :order=>"created_at DESC")
-      begin
-        return document.data if document
-      rescue
-        
-      end
+      pdf = document.data rescue nil
+      return pdf if pdf
     end
 
     # Build the PDF data
