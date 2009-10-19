@@ -62,15 +62,15 @@ class Document < ActiveRecord::Base
     "#{DIRECTORY}/#{self.company.code}/#{code}/#{self.subdir}"
   end
 
-  def file_path
-    File.join(self.path, self.filename)
+  def file_path(strict=true)
+    File.join(self.path(strict), self.filename)
   end
 
 
   def self.missing_files(update=false)
     count = 0
     for document in Document.all
-      unless File.exists? document.file_path(false)
+      unless File.exists?(document.file_path(false))
         if update
           document.nature_code += '*'
           document.save(false)
