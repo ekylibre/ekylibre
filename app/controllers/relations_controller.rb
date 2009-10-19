@@ -949,12 +949,12 @@ class RelationsController < ApplicationController
   
   #
   def mandate_create
-    @entity = find_and_check(:entity, params[:id]||session[:current_entity])
+    @entity = find_and_check(:entity, params[:id]||session[:current_entity]||@current_company.entities.first.id)
     if request.post?
       @mandate = Mandate.new(params[:mandate])
       @mandate.company_id = @current_company.id
       @mandate.entity_id = @entity.id  
-      redirect_to :action=>:entity if @mandate.save
+      redirect_to_back if @mandate.save
     else 
       @mandate = Mandate.new(:entity_id=>@entity.nil? ? 0 : @entity.id)
     end

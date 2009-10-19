@@ -130,10 +130,23 @@ class SaleOrder < ActiveRecord::Base
       for line in self.lines.find(:all, :conditions=>["quantity>0"])
         line.product.reserve_stock(line.quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self)
       end
-      self.reload.update_attribute(:confirmed_on, validated_on||Date.today)
+      self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today, :state=>"A")
     end
   end
 
+  ## Create the real stock moves when no deliveries are defined (invoice directly)
+  def move_real_stocks
+    if self.deliveries.size > 0
+      for line in self.lines
+        line.product.take_stock_out(line.undelivered_quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self)
+      end
+    else
+      for line in self.lines
+        line.product.take_stock_out(line.quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self)
+      end
+    end
+  end
+  
 
   # Create the last delivery with undelivered products if necessary.
   # The sale order is confirmed if it hasn't be done.
@@ -161,7 +174,7 @@ class SaleOrder < ActiveRecord::Base
   # Invoice all the products creating the delivery if necessary. 
   def invoice
     puts self.undelivered(:amount).inspect+"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
-    return false if self.undelivered(:amount) > 0
+    #return false if self.undelivered(:amount) > 0
    # raise Exception.new "3"
     invoice = self.invoices.create!(:company_id=>self.company_id, :nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
     for line in self.lines

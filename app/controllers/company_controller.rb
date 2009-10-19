@@ -239,7 +239,7 @@ class CompanyController < ApplicationController
   end
 
   def role_update
-    @role = find_and_check(:role, params[:id])
+    return unless @role = find_and_check(:role, params[:id])
     if request.post?
       @role.attributes = params[:role]
       @role.rights_array = (params[:rights]||{}).keys

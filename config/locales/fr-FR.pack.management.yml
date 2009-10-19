@@ -50,6 +50,7 @@ fr-FR:
       purchase_order_lines:
         purchase_order_line_create: 'Ajouter un produit à la commande'
       reservoir: 'Réservoir'
+      sale_order_already_invoiced: 'La vente a déjà été facturée: vous ne pouvez pas définir de livraison'
       sale_order_lines:
         sale_order_line_create: 'Ajouter un produit au devis'
       scheduled: 'Échéance'
@@ -402,9 +403,10 @@ fr-FR:
         deliveries: 'Livraisons'
         invoice: 'Facturation'
         invoice_number: 'Facture n°'
+        no_deliveries_for_this_sale_order: 'Cette vente n''est associée à aucune livraison '
         quantity: 'Quantité'
         sale_order_delivery_create: 'Ajouter une livraison'
-        sale_order_invoice: 'Effectuer la dernière livraison (si nécessaire) et tout facturer'
+        sale_order_invoice: 'Facturer la vente'
         sale_order_print: 'Imprimer la commande'
         ship: 'Prévue le  '
         supply: 'Livraison'

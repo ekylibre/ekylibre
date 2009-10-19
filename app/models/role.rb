@@ -61,7 +61,7 @@ class Role < ActiveRecord::Base
   end
 
   def rights_array
-    self.rights.split(/\s+/).collect{|x| x.to_sym}
+    self.rights.split(/\s+/).collect{|x| x.to_sym} if self.rights
   end
 
   def rights_array=(array)

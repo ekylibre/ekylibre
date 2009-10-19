@@ -2,17 +2,23 @@
 
 =toolbar do |t|
   -t.link :sale_order_print, :id=>@sale_order.id
-  -t.link(:sale_order_invoice, {:id=>@sale_order.id}, {:method=>:post, :confirm=>tc(:are_you_sure_to_invoice)}) if @sale_order.amount_with_taxes > @sale_order.invoiced_amount
+  -#t.link(:sale_order_invoice, {:id=>@sale_order.id}, {:method=>:post, :confirm=>tc(:are_you_sure_to_invoice)}) if @sale_order.amount_with_taxes > @sale_order.invoiced_amount
+  -t.link(:sale_order_invoice, {:id=>@sale_order.id, :has_deliveries=>true}, {:method=>:post, :confirm=>tc(:are_you_sure_to_invoice)}) if not @sale_order.invoiced
 
--if @undelivered
-  %h2=tc :undelivered
-  =dyta :undelivered_quantities
 
-%h2=tc :deliveries
-=toolbar do |t|
-  -t.link :sale_order_delivery_create if !@sale_order.invoiced and @undelivered
-=dyta :sale_order_deliveries
-
+-#if @undelivered
+  %h2=#tc :undelivered
+  =#dyta :undelivered_quantities
+-if @sale_order.invoiced and @sale_order.deliveries.size == 0
+  %h2=tc(:no_deliveries_for_this_sale_order)
+-else
+  -if @undelivered_amount > 0 and not @sale_order.invoiced
+    %h2=tc :undelivered
+    =dyta :undelivered_quantities
+  %h2=tc :deliveries
+  =toolbar do |t|
+    -t.link :sale_order_delivery_create if !@sale_order.invoiced and @undelivered_amount > 0
+  =dyta :sale_order_deliveries
 - form_tag() do
   .actions
     =link_to tg(:previous), :action=>:sale_order_lines

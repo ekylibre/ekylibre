@@ -1159,12 +1159,26 @@ class ManagementController < ApplicationController
     end
   end
 
-  def sale_order_invoice
+#   def sale_order_invoice
+#     return unless @sale_order = find_and_check(:sale_orders, params[:id])
+#     if request.post?
+#       ActiveRecord::Base.transaction do
+#         # raise Exception.new(@sale_order.deliver_and_invoice.errors.inspect)
+#         raise ActiveRecord::Rollback unless @sale_order.deliver_and_invoice
+#         redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
+#         return
+#       end
+#     end
+#     redirect_to :action=>:sale_order_lines, :id=>@sale_order.id
+#   end
+
+  def sale_order_invoice 
     return unless @sale_order = find_and_check(:sale_orders, params[:id])
     if request.post?
       ActiveRecord::Base.transaction do
-        # raise Exception.new(@sale_order.deliver_and_invoice.errors.inspect)
-        raise ActiveRecord::Rollback unless @sale_order.deliver_and_invoice
+        saved = @sale_order.confirm unless params[:has_deliveries]
+        saved = @sale_order.move_real_stocks
+        raise ActiveRecord::Rollback unless @sale_order.invoice and saved
         redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
         return
       end
@@ -1254,6 +1268,7 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sale_order_lines, :id=>@sale_order.id
       return
     elsif request.post? 
+      #raise Exception.new params.inspect
       @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
       if @sale_order_line and params[:sale_order_line][:price_amount].to_d <= 0
         @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
@@ -1347,8 +1362,11 @@ class ManagementController < ApplicationController
   def sale_order_deliveries
     return unless @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
-    if @sale_order.deliveries.size <= 0
+    if @sale_order.deliveries.size <= 0 and not @sale_order.invoiced
       redirect_to :action=>:sale_order_delivery_create
+    elsif @sale_order.deliveries.size <= 0 and @sale_order.invoiced
+      flash[:notice] =  tc(:sale_order_already_invoiced)
+      #redirect_to_back
     elsif @sale_order.lines.size <= 0
       flash[:warning]=tc(:no_lines_found)
       redirect_to :action=>:sale_order_lines, :id=>session[:current_sale_order]
@@ -1357,7 +1375,7 @@ class ManagementController < ApplicationController
     end
   end
 
-
+  
   def sum_calculate
     @sale_order = find_and_check(:sale_orders,session[:current_sale_order])
     @sale_order_lines = @sale_order.lines
@@ -1376,10 +1394,14 @@ class ManagementController < ApplicationController
   def sale_order_delivery_create
     @delivery_form = "delivery_form"
     @sale_order = find_and_check(:sale_orders,session[:current_sale_order])
+    if @sale_order.invoiced
+      flash[:notice] = tc(:sale_order_already_invoiced)
+      redirect_to_back
+    end
     @sale_order_lines = @sale_order.lines
     if @sale_order_lines.empty?
-      flash[:warning]=lc(:no_lines_found)
-      redirect_to :action=>:sale_order_deliveries, :id=>session[:current_sale_order]
+      flash[:warning]=tc(:no_lines_found)
+      redirect_to_back
     end
     @delivery_lines =  @sale_order_lines.find_all_by_reduction_origin_id(nil).collect{|x| DeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
     @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :planned_on=>Date.today, :transporter_id=>@sale_order.transporter_id)
@@ -1418,13 +1440,14 @@ class ManagementController < ApplicationController
     @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@delivery.order.client_id})
     @sale_order = find_and_check(:sale_orders,session[:current_sale_order])
     @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]})
-    @delivery_lines = DeliveryLine.find(:all,:conditions=>{:company_id=>@current_company.id, :delivery_id=>@delivery.id})
+    # @delivery_lines = DeliveryLine.find(:all,:conditions=>{:company_id=>@current_company.id, :delivery_id=>@delivery.id})
+    @delivery_lines = @delivery.lines
     if request.post?
       ActiveRecord::Base.transaction do
-        saved = @delivery.update_attributes(params[:delivery])
+        saved = @delivery.update_attributes!(params[:delivery])
         if saved
-          for line in @delivery_lines
-            saved = false unless line.update_attributes(:quantity=>params[:delivery_line][line.order_line.id.to_s][:quantity])
+          for line in @delivery.lines
+            saved = false unless line.update_attributes!(:quantity=>params[:delivery_line][line.order_line.id.to_s][:quantity])
             line.errors.each_full do |msg|
               @delivery.errors.add_to_base(msg)
             end

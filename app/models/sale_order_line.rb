@@ -50,6 +50,7 @@ class SaleOrderLine < ActiveRecord::Base
   
   def before_validation
     # check_reservoir = true
+    #raise Exception.new self.inspect
     self.company_id = self.order.company_id if self.order
     if not self.price and self.order and self.product
       self.price = self.product.default_price(order.client.category_id)
@@ -73,7 +74,7 @@ class SaleOrderLine < ActiveRecord::Base
 
     if self.price_amount > 0
       price = Price.create!(:amount=>self.price_amount, :tax_id=>self.tax.id, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id, :category_id=>self.order.client.category_id)
-      self.price_id = price.id
+      self.price = price
     end
     
     if self.price
