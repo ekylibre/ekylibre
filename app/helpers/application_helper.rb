@@ -75,18 +75,18 @@ module ApplicationHelper
              {:name=>:invoices},
              {:name=>:payments},
              {:name=>:embankments},
+             {:name=>:transports},
              {:name=>:subscriptions},
-             {:name=>:statistics},
-             {:name=>:transports}
+             {:name=>:statistics}
            ] },
          {:name=>:purchase_orders, :list=>
            [ {:name=>:purchases_new},
              {:name=>:purchases_consult, :url=>{:action=>:purchase_orders}} ] },
          {:name=>:stocks, :list=>
-           [ {:name=>:stock_location, :url=>{:action=>:stock_locations}},
-             {:name=>:inventories},
-             {:name=>:stock_transfers},
-             {:name=>:stocks_consult, :url=>{:action=>:stocks}} ] },
+           [{:name=>:stocks_consult, :url=>{:action=>:stocks}},
+            {:name=>:stock_location, :url=>{:action=>:stock_locations}},
+            {:name=>:stock_transfers},
+            {:name=>:inventories}  ] },
          {:name=>:parameters, :list=>
            [ {:name=>:products},
              {:name=>:prices},

@@ -48,7 +48,8 @@ fr-FR:
       second_contact: 'Adresse secondaire'
       supplier: 'Compte fournisseur'
       title: 'Relations'
-      unfound_entity: 'La fiche que vous recherchez est introuvable'
+      unfound_entity: 'La fiche que vous recherchez est introuvable' 
+      usage: 'Utilisation'
       you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
 
   helpers:
@@ -267,7 +268,7 @@ fr-FR:
         areas: 'Zones postales'
         complements: 'Champs personnalisés'
         districts: 'Zones administratives'
-        entities: 'Gérer les fiches'
+        entities: 'Fiches'
         entities_managing: 'Clients et fournisseurs'
         entities_natures: 'Types de fiches'
         entity_categories: 'Catégories de fiches'
@@ -276,6 +277,7 @@ fr-FR:
         event_natures: 'Types d''évènements'
         events: 'Évènements'
         import_export: 'Import/Export de fiches'
+        last_events: 'Derniers événements'
         mandates: 'Responsabilités'
         mandates_configure: 'Configurer les responsabilités'
         nb_entities:

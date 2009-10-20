@@ -1,3 +1,4 @@
-.count=tc(:nb_payments, :count=>@payments_count)
+.count=#tc(:nb_payments, :count=>@payments_count)
 
-=dyta(:waiting_payments)
+=render :partial=>'payments_search'
+=dyta :payments

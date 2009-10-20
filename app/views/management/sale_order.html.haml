@@ -6,6 +6,7 @@
 %table
   %tr
     %td
+      =evalue @sale_order, :client, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
       =evalue @sale_order, :nature
       =evalue @sale_order, :contact, :label=>:address
       -if (@sale_order.contact_id != @sale_order.delivery_contact_id)

@@ -5,6 +5,15 @@ class RelationsController < ApplicationController
     @entities = @current_company.entities
   end
 
+  dyta(:recent_events, :model=>:events, :conditions=>['company_id = ?',['@current_company.id']], :default_order=>"started_at DESC", :per_page=>10) do |t|
+    t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
+    t.column :name, :through=>:nature
+    t.column :duration
+    t.column :location
+    t.column :full_name, :through=>:employee
+    t.column :started_at
+  end
+
   #
   def auto_complete_for_contact_line_6
     pattern = '%'+params[:contact][:line_6].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
@@ -979,7 +988,7 @@ class RelationsController < ApplicationController
   
   dyta(:event_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
-    t.column :text_usage
+    t.column :text_usage, :label=>tc(:usage)
     t.column :duration
     t.action :event_nature_update
     t.action :event_nature_delete, :method=>:post, :confirm=>:are_you_sure
@@ -1015,7 +1024,7 @@ class RelationsController < ApplicationController
   end
   
   dyta(:events, :conditions=>['company_id = ?',['@current_company.id']], :default_order=>"started_at DESC") do |t|
-    t.column :full_name, :through=>:entity
+    t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location
     t.column :full_name, :through=>:employee

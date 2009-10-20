@@ -20,7 +20,7 @@ class EventNature < ActiveRecord::Base
   has_many :events
 
   attr_readonly :company_id, :name
-
+ 
   
   def self.usages
     [:manual, :sale_order, :purchase_order, :invoice].collect{|x| [tc('usages.'+x.to_s), x] }

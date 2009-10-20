@@ -228,9 +228,10 @@ class ManagementController < ApplicationController
   end
 
   
-  dyta(:all_invoices, :model=>:invoices, :conditions=>search_conditions(:invoices, :number), :line_class=>'RECORD.status', :default_order=>"created_on DESC, number DESC") do |t|
+  dyta(:all_invoices, :model=>:invoices, :conditions=>search_conditions(:invoices, :invoices=>[:number, :amount, :amount_with_taxes], :e=>[:full_name, :code], :s=>[:number]), :line_class=>'RECORD.status', :joins=>"LEFT JOIN entities e ON e.id = invoices.client_id LEFT JOIN sale_orders s ON s.id = invoices.sale_order_id", :default_order=>"created_on DESC, number DESC") do |t|
     t.column :number, :url=>{:action=>:invoice}
-    t.column :full_name, :through=>:client
+    t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
+    t.column :number, :through=>:sale_order, :url=>{:action=>:sale_order}
     t.column :created_on
     t.column :amount
     t.column :amount_with_taxes
@@ -246,7 +247,6 @@ class ManagementController < ApplicationController
   def invoices
    @key = params[:key]||session[:invoice]
    session[:invoice_key] = @key
-   #all_invoices_list({:attributes=>[:number], :key=>@key}.merge(params))
   end
 
   
@@ -351,19 +351,19 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
   end
 
-  dyta(:credits, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_invoice]'] }) do |t|
-    t.column :number, :url=>{:action=>:invoice}
-    t.column :full_name, :through=>:client
-    t.column :created_on
+  dyta(:credits, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_invoice]'] }, :children=>:lines) do |t|
+    t.column :number, :url=>{:action=>:invoice}, :children=>:designation
+    t.column :full_name, :through=>:client, :children=>false
+    t.column :created_on, :children=>false
     t.column :amount
     t.column :amount_with_taxes
   end
 
 
   def invoice
-    @invoice = find_and_check(:invoice, params[:id])
+    return unless @invoice = find_and_check(:invoice, params[:id])
     session[:current_invoice] = @invoice.id
-    @title = {:number=>@invoice.number}
+    @title = {:nature=>@invoice.credit ? tc(:credit) : tc(:invoice), :number=>@invoice.number}
   end
 
   def invoice_print
@@ -921,21 +921,22 @@ class ManagementController < ApplicationController
     end
   end
   
-  def self.sales_conditions
+  def self.sale_orders_conditions
     code = ""
-    code += "conditions = ['company_id = ? ', @current_company.id ] \n "
+    code = search_conditions(:sale_order, :sale_orders=>[:amount, :number], :entities=>[:code, :full_name])+"||=[]\n"
+    #code += "conditions = ['company_id = ? ', @current_company.id ] \n "
     code += "unless session[:sale_order_state].blank? \n "
     code += "  if session[:sale_order_state] == 'current' \n "
-    code += "    conditions[0] += \" AND state != 'C' \" \n " 
+    code += "    c[0] += \" AND state != 'C' \" \n " 
     code += "  elsif session[:sale_order_state] == 'unpaid' \n "
-    code += "    conditions[0] += \"AND state NOT IN('C','E') AND parts_amount < amount_with_taxes\" \n "
+    code += "    c[0] += \"AND state NOT IN('C','E') AND parts_amount < amount_with_taxes\" \n "
     code += "  end\n "
     code += "end\n "
-    code += "conditions\n "
+    code += "c\n "
     code
   end
 
-  dyta(:sale_orders, :conditions=>sales_conditions,:order=>{'sort'=>'created_on','dir'=>'desc'}, :line_class=>'RECORD.status' ) do |t|
+  dyta(:sale_orders, :conditions=>sale_orders_conditions, :joins=>"JOIN entities ON entities.id = sale_orders.client_id", :order=>{'sort'=>'created_on','dir'=>'desc'}, :line_class=>'RECORD.status' ) do |t|
     t.column :number, :url=>{:action=>:sale_order_lines}
     #t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_nature}
     t.column :created_on
@@ -963,9 +964,11 @@ class ManagementController < ApplicationController
   def sale_orders
     #raise Exception.new session[:sale_order_state].inspect
     session[:sale_order_state] ||= "all"
+    @key = params[:key]||session[:sale_order_key]||""
     if request.post?
       #raise Exception.new params.inspect
       session[:sale_order_state] = params[:sale_order][:state]
+      session[:sale_order_key] = @key
     end
   end
   
@@ -996,7 +999,7 @@ class ManagementController < ApplicationController
   dyta(:sale_order_payments, :model=>:payments, :conditions=>["payments.company_id=? AND payment_parts.expense_id=? AND payment_parts.expense_type=?", ['@current_company.id'], ['session[:current_sale_order]'], SaleOrder.name], :joins=>"JOIN payment_parts ON (payments.id=payment_id)") do |t|
    # t.column :id, :url=>{:action=>:payment}
     t.column :number, :url=>{:action=>:payment}
-    t.column :full_name, :through=>:entity
+    t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     #t.column :payment_way
     t.column :paid_on
     t.column :amount
@@ -1508,6 +1511,7 @@ class ManagementController < ApplicationController
   dyta(:sale_order_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
     t.column :number, :children=>:designation
     # t.column :address, :through=>:contact, :children=>:product_name
+    t.column :full_name, :through=>:client, :children=>false, :url=>{:controller=>:relations, :action=>:entity}
     t.column :created_on, :children=>false
     t.column :amount
     t.column :amount_with_taxes
@@ -1749,16 +1753,30 @@ class ManagementController < ApplicationController
     session[:current_sale_order] = @sale_order.id
     @title = {:number=>@sale_order.number}
   end
+
+  def self.payments_conditions(options={})
+    code = ""
+    code = search_conditions(:payments, :payments=>[:amount, :check_number], :sale_orders=>[:amount, :number], :entities=>[:code, :full_name])+"||=[]\n"
+    
+    code += "conditions \n"
+    code
+  end
  
-  dyta(:waiting_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :received=>false}) do |t|
+  dyta(:payments, :conditions=>search_conditions(:payments, :payments=>[:amount], :e=>[:full_name, :code]), :joins=>"LEFT JOIN entities e ON e.id = payments.entity_id", :default_order=>"to_bank_on DESC") do |t|
+    #dyta(:payments, :conditions=>payments_conditions, :joins=>"LEFT JOIN entities ON entities.id = payments.client_id LEFT JOIN sale_orders ON sale_orders.id = payments.sale_order_id", :order=>{'sort'=>'to_bank_on','dir'=>'desc'}) do |t|
     t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
+    t.column :paid_on
     t.column :amount, :url=>{:action=>:payment}
     t.column :name, :through=>:mode
     t.column :to_bank_on
+    t.column :label, :through=>:embanker
+    t.column :amount, :through=>:embankment, :url=>{:action=>:embankment}
   end
 
   def payments
     @payments_count = @current_company.payments.find(:all, :conditions=>{:received=>false}).size
+    @key = params[:key]||session[:payment]||""
+    session[:payment_key] = @key
   end
 
 
@@ -2328,7 +2346,7 @@ class ManagementController < ApplicationController
 
   dyta(:critic_product_stocks, :model=>:product_stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
     t.column :name, :through=>:product,:url=>{:action=>:product}
-    t.column :name, :through=>:location, :label=>"Lieu de stockage"
+    #t.column :name, :through=>:location, :label=>"Lieu de stockage"
     t.column :quantity_max
     t.column :quantity_min
     t.column :critic_quantity_min

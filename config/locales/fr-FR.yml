@@ -142,6 +142,7 @@ fr-FR:
       error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
       error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'                                   
     company:
+      sale_order_creation: 'Création d''un devis'
       sale_orders: Ventes
       default:
         bank_journal_nature_name: Banque

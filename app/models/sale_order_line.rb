@@ -50,7 +50,6 @@ class SaleOrderLine < ActiveRecord::Base
   
   def before_validation
     # check_reservoir = true
-    #raise Exception.new self.inspect
     self.company_id = self.order.company_id if self.order
     if not self.price and self.order and self.product
       self.price = self.product.default_price(order.client.category_id)

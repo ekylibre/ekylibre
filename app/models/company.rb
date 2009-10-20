@@ -182,6 +182,7 @@ class Company < ActiveRecord::Base
       end
     end
     self.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>self.accounts.find(:first, :conditions=>["number ILIKE ?", '3%' ], :order=>:number).id)
+    self.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))
   end
   
   def parameter(name)
@@ -681,7 +682,7 @@ class Company < ActiveRecord::Base
     company.event_natures.create!(:name=>"Conversation téléphonique", :duration=>10, :usage=>"manual")
     
     for product_name in products
-      product = company.products.create(:nature=>"product", :name=>product_name, :to_sale=>true, :supply_method=>"produce", :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true) 
+      product = company.products.create(:nature=>"product", :name=>product_name, :to_sale=>true, :supply_method=>"produce", :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true, :weight=>rand(3)) 
       product.reload
       product.prices.create!(:amount=>rand(100), :company_id=>company.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size).to_i], :category_id=>category_id, :entity_id=>product.name.include?("icide") ? company.entities.find(:first, :conditions=>{:supplier=>true}).id : company.entity_id)
     end
