@@ -112,7 +112,7 @@ class InvoiceLine < ActiveRecord::Base
 
   
   def credited_quantity
-    self.credit_lines.sum(:quantity)
+    self.credit_lines.sum(:quantity)*-1
   end
 
   def uncredited_quantity

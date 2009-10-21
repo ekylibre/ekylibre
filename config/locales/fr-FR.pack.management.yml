@@ -68,6 +68,9 @@ fr-FR:
 
   helpers:
     management:
+      purchase_steps:
+        active: 'Création de l''achat'
+        summary: 'Règlements'
       sale_steps:
         deliveries: 'Planification des livraisons'
         estimate: 'Création du devis'
@@ -241,6 +244,9 @@ fr-FR:
           zero: 'Aucune facture enregistrée'
         title: 'Factures'
       _invoices_search:
+        all: 'Toutes'
+        cancelled: 'Passées en avoir'
+        credits: 'Avoirs'
         search: 'Rechercher une facture'
       _location_choice:
         select_stock_location: 'Choississez un lieu de stockage'
@@ -280,9 +286,9 @@ fr-FR:
         title: 'Suivi des règlements'
       _payments_search:
         all: 'Tous'
-        embanked: 'Encaissé'
+        embanked: 'Encaissés'
         search: 'Rechercher des règlements'
-        waiting: 'Échéance'
+        waiting: 'Échéances'
       price_create:
         title: 'Ajout d''un nouveau prix'
       _price_form:
@@ -369,16 +375,23 @@ fr-FR:
           other: '{{count}} achats'
           zero: 'Aucun achat'
         title: 'Liste des achats'
-      purchases_products:
+      purchase_order_lines:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
+        general: 'Informations générales'
         lines: 'Lignes de la commande'
         order_print: 'Imprimer la commande'
         purchase_order_line_create: 'Ajouter un produit à la commande'
+        purchase_order_update: 'Modifier les informations de la commande'
         purchase_orders: 'Consulter la liste des achats'
-        purchases_print: 'Imprimer la commande d''achat'
+        purchase_order_print: 'Imprimer la commande d''achat'
         title: 'Produits de la commande {{value}} chez {{name}}'
         validate: 'Valider la commande'
+      purchase_order_summary:
+        payment_part_create: 'Ajouter un règlement'
+        payments: 'Règlements' 
+        products: 'Produits de la commande'
+        title: 'Règlements'
       _quick_line:
         from: 'Du numéro'
         location: 'Lieu de stockage'
@@ -504,7 +517,7 @@ fr-FR:
           other: '{{count}} ventes'
           zero: 'Aucune vente'
         search_sales: 'Rechercher des ventes'
-        title: 'Liste des ventes'
+        title: 'Liste des devis/commandes'
         unpaid: 'Impayées'
       sales_invoices:
         address: 'Livraison'

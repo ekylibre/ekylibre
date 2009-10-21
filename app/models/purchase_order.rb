@@ -26,7 +26,8 @@ class PurchaseOrder < ActiveRecord::Base
   belongs_to :dest_contact, :class_name=>Contact.name
   belongs_to :supplier, :class_name=>Entity.name
   has_many :lines, :class_name=>PurchaseOrderLine.name, :foreign_key=>:order_id
-  
+  has_many :payment_parts, :as=>:expense
+
   validates_presence_of :planned_on
   attr_readonly :company_id
 
@@ -81,6 +82,18 @@ class PurchaseOrder < ActiveRecord::Base
 
   def quantity 
     ''
+  end
+
+  def payments_sum
+    self.payment_parts.sum(:amount)
+  end
+
+  def editable
+    if self.amount_with_taxes == 0 
+      return true
+    else
+      return self.payments_sum != self.amount_with_taxes
+    end
   end
 
 end

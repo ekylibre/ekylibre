@@ -173,6 +173,8 @@ class SaleOrder < ActiveRecord::Base
 
   # Invoice all the products creating the delivery if necessary. 
   def invoice
+    self.confirm
+    self.reload
     puts self.undelivered(:amount).inspect+"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
     #return false if self.undelivered(:amount) > 0
    # raise Exception.new "3"

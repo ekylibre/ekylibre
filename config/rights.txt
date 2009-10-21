@@ -149,7 +149,7 @@ management       unvalidated_embankments_dyta     administrate_management
 management       entities_dyli                    administrate_relations
 management       credit_lines_dyta                cancel_invoices
 management       invoice_cancel                   cancel_invoices
-management       all_invoices_dyta                consult_invoices
+management       invoices_dyta                    consult_invoices
 management       invoice_credit_lines_dyta        consult_invoices
 management       invoice_lines_dyta               consult_invoices
 management       prices                           consult_prices
@@ -175,12 +175,15 @@ management       sale_order_update                create_estimates
 management       sum_calculate                    create_estimates
 management       contacts_dyli                    create_purchases
 management       purchase_order_create            create_purchases
+management       purchase_order_update            create_purchases
 management       purchase_order_line_create       create_purchases
 management       purchase_order_line_delete       create_purchases
 management       purchase_order_line_update       create_purchases
 management       purchases_new                    create_purchases
-management       purchases_print                  create_purchases
-management       purchases_products               create_purchases
+management       purchases_payments               create_purchases
+management       purchase_order_summary           create_purchases
+management       purchase_order_print                  create_purchases
+management       purchase_order_lines             create_purchases
 management       unreceived_purchases             create_purchases
 management       delay                            manage_delays
 management       delay_create                     manage_delays

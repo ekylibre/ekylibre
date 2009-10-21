@@ -228,7 +228,21 @@ class ManagementController < ApplicationController
   end
 
   
-  dyta(:all_invoices, :model=>:invoices, :conditions=>search_conditions(:invoices, :invoices=>[:number, :amount, :amount_with_taxes], :e=>[:full_name, :code], :s=>[:number]), :line_class=>'RECORD.status', :joins=>"LEFT JOIN entities e ON e.id = invoices.client_id LEFT JOIN sale_orders s ON s.id = invoices.sale_order_id", :default_order=>"created_on DESC, number DESC") do |t|
+  def self.invoices_conditions
+    code = ""
+    code = search_conditions(:invoices, :invoices=>[:number, :amount, :amount_with_taxes], :e=>[:full_name, :code], :s=>[:number])+"||=[]\n"
+    code += "unless session[:invoice_state].blank? \n"
+    code += "  if session[:invoice_state] == 'credits' \n"
+    code += "    c[0] += \" AND credit = true \"\n"
+    code += "  elsif session[:invoice_state] == 'cancelled' \n"
+    code += "    c[0] += \" AND invoices.id IN (SELECT origin_id FROM invoices WHERE credit = true)\" \n"
+    code += "  end\n "
+    code += "end\n "
+    code += "c \n"
+    code
+  end
+  
+  dyta(:invoices, :conditions=>invoices_conditions, :line_class=>'RECORD.status', :joins=>"LEFT JOIN entities e ON e.id = invoices.client_id LEFT JOIN sale_orders s ON s.id = invoices.sale_order_id", :default_order=>"created_on DESC, number DESC") do |t|
     t.column :number, :url=>{:action=>:invoice}
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
     t.column :number, :through=>:sale_order, :url=>{:action=>:sale_order}
@@ -237,16 +251,20 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.column :credit
     #t.action :invoice_to_accountancy
-   
+    
     t.action :invoice_print
-
+    
     t.action :invoice_cancel, :if=>"RECORD.creditable\?"
   end
 
 
   def invoices
-   @key = params[:key]||session[:invoice]
-   session[:invoice_key] = @key
+    @key = params[:key]||session[:invoice]||""
+    session[:invoice_state] ||= "all"
+    if request.post?
+      session[:invoice_state] = params[:invoice][:state]
+      session[:invoice_key] = @key
+    end
   end
 
   
@@ -776,25 +794,26 @@ class ManagementController < ApplicationController
 
 
   dyta(:purchase_orders, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :number ,:url=>{:action=>:purchases_products}
+    t.column :number ,:url=>{:action=>:purchase_order_lines}
     t.column :full_name, :through=>:supplier, :url=>{:controller=>:relations, :action=>:entity}
     t.column :address, :through=>:dest_contact
     t.column :shipped
     t.column :invoiced
     t.column :amount
     t.column :amount_with_taxes
-    t.action :purchases_print
+    t.action :purchase_order_lines, :image=>:update
+    t.action :purchase_order_print
   end
 
 
   dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
-  dyli(:suppliers, [:code, :full_name],  :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :supplier=>true })
-  dyli(:contacts, [:address], :conditions => { :company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
+  #dyli(:suppliers, [:code, :full_name],  :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :supplier=>true })
+  #dyli(:contacts, [:address], :conditions => { :company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
   def purchase_orders
   end
 
-  def purchases_print
+  def purchase_order_print
     @order    = find_and_check(:purchase_order, params[:id])
     @supplier = @order.supplier
     @client   = @current_company.entity
@@ -809,7 +828,7 @@ class ManagementController < ApplicationController
     if request.post?
       @purchase_order = PurchaseOrder.new(params[:purchase_order])
       @purchase_order.company_id = @current_company.id
-      redirect_to :action=>:purchases_products, :id=>@purchase_order.id if @purchase_order.save
+      redirect_to :action=>:purchase_order_lines, :id=>@purchase_order.id if @purchase_order.save
     else
       @purchase_order = PurchaseOrder.new(:planned_on=>Date.today)
       session[:current_entity] = @purchase_order.id
@@ -828,7 +847,8 @@ class ManagementController < ApplicationController
     t.action :purchase_order_line_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.shipped == false'
   end
 
-  def purchases_products
+  #def purchase_order_lines
+  def purchase_order_lines
     @purchase_order = find_and_check(:purchase_order, params[:id])
     session[:current_purchase] = @purchase_order.id
     #purchase_order_lines_list params
@@ -869,14 +889,14 @@ class ManagementController < ApplicationController
 
 
   def purchase_order_line_create
-    @stock_locations = @current_company.stock_locations
+    # @stock_locations = @current_company.stock_locations
     @purchase_order = PurchaseOrder.find_by_id_and_company_id(session[:current_purchase], @current_company.id)
-    if @stock_locations.empty?
+    if @current_company.stock_locations.size <= 0
       flash[:warning]=tc(:need_stock_location_to_create_purchase_order_line)
       redirect_to :action=>:stock_location_create
     elsif @purchase_order.shipped == true
       flash[:warning]=tc(:impossible_to_add_lines_to_purchase)
-      redirect_to :action=>:purchases_products, :id=>@purchase_order.id
+      redirect_to :action=>:purchase_order_lines, :id=>@purchase_order.id
     else
       @price = Price.new
       if request.post?
@@ -891,7 +911,7 @@ class ManagementController < ApplicationController
           @purchase_order_line.product_id = price.product_id
           @purchase_order_line.price_id = price.id
         end
-        redirect_to :action=>:purchases_products, :id=>session[:current_purchase] if @purchase_order_line.save
+        redirect_to :action=>:purchase_order_lines, :id=>session[:current_purchase] if @purchase_order_line.save
       else
         @purchase_order_line = PurchaseOrderLine.new
         @purchase_order_line.order_id = session[:current_purchase] 
@@ -908,7 +928,7 @@ class ManagementController < ApplicationController
       params[:purchase_order_line][:company_id] = @current_company.id
       if @purchase_order_line.update_attributes(params[:purchase_order_line])  
         @update = false
-        redirect_to :action=>:purchases_products, :id=>@purchase_order_line.order_id  
+        redirect_to :action=>:purchase_order_lines, :id=>@purchase_order_line.order_id  
       end
     end
     render_form
@@ -920,7 +940,12 @@ class ManagementController < ApplicationController
       redirect_to :back  if @purchase_order_line.destroy
     end
   end
-  
+
+  def purchase_order_summary
+    return unless @purchase_order = find_and_check(:purchase_order, params[:id])
+    session[:current_purchase] = @purchase_order.id
+  end
+
   def self.sale_orders_conditions
     code = ""
     code = search_conditions(:sale_order, :sale_orders=>[:amount, :number], :entities=>[:code, :full_name])+"||=[]\n"
@@ -1179,7 +1204,7 @@ class ManagementController < ApplicationController
     return unless @sale_order = find_and_check(:sale_orders, params[:id])
     if request.post?
       ActiveRecord::Base.transaction do
-        saved = @sale_order.confirm unless params[:has_deliveries]
+       # saved = @sale_order.confirm unless params[:has_deliveries]
         saved = @sale_order.move_real_stocks
         raise ActiveRecord::Rollback unless @sale_order.invoice and saved
         redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
@@ -1756,29 +1781,53 @@ class ManagementController < ApplicationController
 
   def self.payments_conditions(options={})
     code = ""
-    code = search_conditions(:payments, :payments=>[:amount, :check_number], :sale_orders=>[:amount, :number], :entities=>[:code, :full_name])+"||=[]\n"
-    
-    code += "conditions \n"
+    code = search_conditions(:payments, :payments=>[:amount, :parts_amount, :check_number], :entities=>[:code, :full_name])+"||=[]\n"
+    code += "unless session[:payment_state].blank? \n"
+    code += "  if session[:payment_state] == 'embanked' \n"
+    code += "    c[0] += \" AND embankment_id IS NOT NULL\" \n"
+    code += "  elsif session[:payment_state] == 'waiting' \n"
+    code += "    c[0] += \" AND to_bank_on > ?\"\n"
+    code += "    c << Date.today \n"
+    code += "  end\n "
+    code += "end\n "
+    code += "unless session[:payment_mode].blank? \n"
+    code += "  if session[:payment_mode] == 'purchase' \n"
+    code += "    c[0] += \" AND entity_id = ? \" \n"
+    code += "    c << @current_company.entity_id \n"
+    code += "  elsif session[:payment_mode] == 'sale_order' \n"
+    code += "    c[0] += \" AND entity_id != ? \" \n"
+    code += "    c << @current_company.entity_id \n"
+    code += "  end\n"
+    code += "end\n "
+    code += "c \n"
     code
   end
  
-  dyta(:payments, :conditions=>search_conditions(:payments, :payments=>[:amount], :e=>[:full_name, :code]), :joins=>"LEFT JOIN entities e ON e.id = payments.entity_id", :default_order=>"to_bank_on DESC") do |t|
-    #dyta(:payments, :conditions=>payments_conditions, :joins=>"LEFT JOIN entities ON entities.id = payments.client_id LEFT JOIN sale_orders ON sale_orders.id = payments.sale_order_id", :order=>{'sort'=>'to_bank_on','dir'=>'desc'}) do |t|
+  # dyta(:payments, :conditions=>search_conditions(:payments, :payments=>[:amount], :e=>[:full_name, :code]), :joins=>"LEFT JOIN entities e ON e.id = payments.entity_id", :default_order=>"to_bank_on DESC") do |t|
+  dyta(:payments, :conditions=>payments_conditions, :joins=>"LEFT JOIN entities ON entities.id = payments.entity_id", :default_order=>"to_bank_on DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :paid_on
     t.column :amount, :url=>{:action=>:payment}
     t.column :name, :through=>:mode
+    t.column :check_number
     t.column :to_bank_on
     t.column :label, :through=>:embanker
     t.column :amount, :through=>:embankment, :url=>{:action=>:embankment}
+    t.action :payment_update, :if=>"RECORD.embankment.nil\?"
+    t.action :payment_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.parts_amount.to_f<=0"
   end
 
   def payments
-    @payments_count = @current_company.payments.find(:all, :conditions=>{:received=>false}).size
+    # @payments_count = @current_company.payments.find(:all, :conditions=>{:received=>false}).size
+    #raise Exception.new params[:mode].inspect
+    session[:payment_mode] = params[:mode]||"sale_order"
     @key = params[:key]||session[:payment]||""
-    session[:payment_key] = @key
+    session[:payment_state] ||= "all"
+    if request.post?
+      session[:payment_state] = params[:payment][:state]
+      session[:payment_key] = @key
+    end
   end
-
 
 
   dyta(:payment_sale_orders, :model=>:sale_orders, :conditions=>["sale_orders.company_id=? AND id IN (SELECT expense_id FROM payment_parts WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], SaleOrder.name]) do |t|

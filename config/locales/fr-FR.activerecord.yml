@@ -1262,10 +1262,10 @@ fr-FR:
         lock_version: 'Version'
         order_id: (((ORDER_ID)))
         position: (((POSITION)))
-        price_id: 'Produit'
+        price_id: 'Prix'
         product_id: 'Produit'
         quantity: 'Quantité'
-        unit_id: 'Unités'
+        unit_id: 'Unité'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 

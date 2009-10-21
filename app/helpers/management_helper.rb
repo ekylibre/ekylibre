@@ -25,4 +25,29 @@ module ManagementHelper
     code
   end
   
+  PURCHASE_STEPS = [
+                    {:name=>:active, :actions=>[:purchase_order_lines, :purchase_order_create, :purchase_order_update, :purchase_order_line_create, :purchase_order_line_update, :purchase_order_line_delete], :states=>[:active, :complete]},
+                    {:name=>:summary, :actions=>[:purchase_order_summary], :states=>[:active, :complete]}
+                   ]
+
+  PURCHASE_ORDER_SATES = {'A'=>:active, 'C'=>:complete}
+  
+  def purchase_steps
+    code = ''
+    last_active = false
+    PURCHASE_STEPS.each_index do |index|
+      title = tc('purchase_steps.'+PURCHASE_STEPS[index][:name].to_s)
+      active = (PURCHASE_STEPS[index][:actions].include?(action_name.to_sym) ? ' active' : nil)
+      if not @purchase_order.new_record? and active.nil?
+        title = link_to(title, :action=>PURCHASE_STEPS[index][:actions][0], :id=>@purchase_order.id.to_s)
+      end
+      code += content_tag(:td, '&nbsp;', :class=>'transit'+(active ? ' left' : (last_active ? ' right' : nil)).to_s) if index>0
+      code += content_tag(:td, title, :class=>'step'+active.to_s)
+      last_active = active
+    end
+    code = content_tag(:tr, code)
+    code = content_tag(:table, code, :class=>:stepper)
+    code
+  end
+
 end

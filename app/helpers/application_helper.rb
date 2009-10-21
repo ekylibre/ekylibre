@@ -73,7 +73,7 @@ module ApplicationHelper
            [ {:name=>:sale_order_create},
              {:name=>:sales_consult, :url=>{:action=>:sale_orders}},
              {:name=>:invoices},
-             {:name=>:payments},
+             {:name=>:payments, :url=>{:action=>:payments, :mode=>:sale_order}},
              {:name=>:embankments},
              {:name=>:transports},
              {:name=>:subscriptions},
@@ -81,7 +81,8 @@ module ApplicationHelper
            ] },
          {:name=>:purchase_orders, :list=>
            [ {:name=>:purchases_new},
-             {:name=>:purchases_consult, :url=>{:action=>:purchase_orders}} ] },
+             {:name=>:purchases_consult, :url=>{:action=>:purchase_orders}},
+             {:name=>:payments, :url=>{:action=>:payments, :mode=>:purchase}} ] },
          {:name=>:stocks, :list=>
            [{:name=>:stocks_consult, :url=>{:action=>:stocks}},
             {:name=>:stock_location, :url=>{:action=>:stock_locations}},
