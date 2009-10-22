@@ -188,7 +188,7 @@ module Ekylibre
             code += "  return text\n"
             code += "end\n"
 
-            # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+            list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
 
             ActionView::Base.send :class_eval, code
 
@@ -237,41 +237,45 @@ module Ekylibre
                   style = style.gsub(/RECORD/, record)+"+" if style.match(/RECORD/)
                   style += "'"
                   css_class = column.options[:class] ? ' '+column.options[:class].to_s : ''
-                  datum = column.data(record, nature==:children)
-                  if column.datatype == :boolean
-                    datum = value_image2(datum)
-                    style += 'text-align:center;'
-                  end
-                  if [:date, :datetime, :timestamp].include? column.datatype
-                    datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
-                  end
-                  if column.datatype == :decimal
-                    datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&nbsp;', :unit=>'', :precision=>#{column.options[:precision]||2}))"
-                  end
-                  if column.options[:url] and nature==:body
+                  if nature!=:children or (not column.options[:children].is_a? FalseClass and nature==:children)
+                    datum = column.data(record, nature==:children)
+                    if column.datatype == :boolean
+                      datum = value_image2(datum)
+                      style += 'text-align:center;'
+                    end
+                    if [:date, :datetime, :timestamp].include? column.datatype
+                      datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
+                    end
+                    if column.datatype == :decimal
+                      datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&nbsp;', :unit=>'', :precision=>#{column.options[:precision]||2}))"
+                    end
+                    if column.options[:url] and nature==:body
                     datum = "("+datum+".blank? ? '' : link_to("+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id}))))'
-                    css_class += ' url'
-                  elsif column.options[:mode] == :download# and !datum.nil?
-                    datum = 'link_to('+value_image(:download)+', url_for_file_column('+column.data(record)+",'"+column.name+"'))"
-                    style += 'text-align:center;'
-                    css_class += ' act'
-                  elsif column.options[:mode]||column.name == :email
-                    # datum = 'link_to('+datum+', "mailto:#{'+datum+'}")'
-                    datum = "("+datum+".blank? ? '' : link_to("+datum+", \"mailto:\#\{"+datum+"\}\"))"
-                    css_class += ' web'
-                  elsif column.options[:mode]||column.name == :website
-                    datum = "("+datum+".blank? ? '' : link_to("+datum+", "+datum+"))"
-                    css_class += ' web'
-                  elsif column.options[:name]==:color
-                    css_class += ' color'
-                    style += "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
-                  elsif column.name==:country and  column.datatype == :string and column.limit <= 8
-                    datum = "(#{datum}.nil? ? '' : '<nobr>'+#{value_image2(datum,'countries')}+'&nbsp;'+::I18n.translate('countries.'+#{datum}))+'</nobr>'"
-                  elsif column.datatype == :string
-                    datum = "h("+datum+")"
-                  end
-                  if column.name==:code
-                    css_class += ' code'
+                      css_class += ' url'
+                    elsif column.options[:mode] == :download# and !datum.nil?
+                      datum = "("+datum+".blank? ? '' : link_to("+value_image(:download)+", url_for_file_column("+record+",'#{column.name}')))"
+                      style += 'text-align:center;'
+                      css_class += ' act'
+                    elsif column.options[:mode]||column.name == :email
+                      # datum = 'link_to('+datum+', "mailto:#{'+datum+'}")'
+                      datum = "("+datum+".blank? ? '' : link_to("+datum+", \"mailto:\#\{"+datum+"\}\"))"
+                      css_class += ' web'
+                    elsif column.options[:mode]||column.name == :website
+                      datum = "("+datum+".blank? ? '' : link_to("+datum+", "+datum+"))"
+                      css_class += ' web'
+                    elsif column.name==:color
+                      css_class += ' color'
+                      style += "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
+                    elsif column.name==:country and  column.datatype == :string and column.limit <= 8
+                      datum = "(#{datum}.nil? ? '' : '<nobr>'+#{value_image2(datum,'countries')}+'&nbsp;'+::I18n.translate('countries.'+#{datum}))+'</nobr>'"
+                    elsif column.datatype == :string
+                      datum = "h("+datum+")"
+                    end
+                    if column.name==:code
+                      css_class += ' code'
+                    end
+                  else
+                    datum = 'nil'
                   end
                   code += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"+column_sort
                   code += ", :style=>"+style+"'" unless style[1..-1].blank?

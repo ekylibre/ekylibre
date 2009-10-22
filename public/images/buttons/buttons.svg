@@ -4443,9 +4443,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="8"
-     inkscape:cx="119.21521"
-     inkscape:cy="-78.190568"
+     inkscape:zoom="16"
+     inkscape:cx="205.40147"
+     inkscape:cy="66.809432"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -4453,8 +4453,8 @@
      inkscape:showpageshadow="false"
      gridtolerance="0.4px"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1439"
-     inkscape:window-height="851"
+     inkscape:window-width="1679"
+     inkscape:window-height="1003"
      inkscape:window-x="0"
      inkscape:window-y="0">
     <sodipodi:guide
@@ -6066,5 +6066,176 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
        sodipodi:nodetypes="cccc" />
+    <path
+       transform="scale(0.976726,1.0238286)"
+       style="font-size:21.43694305000000000px;font-style:normal;font-weight:normal;line-height:125%;fill:#1e4589;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 158.77782,-53.636847 L 152.47654,-53.636847 L 151.48215,-50.789753 L 147.43132,-50.789753 L 153.21971,-66.417368 L 158.02418,-66.417368 L 163.81258,-50.789753 L 159.76175,-50.789753 L 158.77782,-53.636847 M 153.48139,-56.536277 L 157.7625,-56.536277 L 155.62718,-62.753828 L 153.48139,-56.536277"
+       id="text3161"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/bold.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="font-size:22.92019463000000101px;font-style:normal;font-weight:normal;line-height:125%;fill:#aa2a0a;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 162.86993,-71.012878 L 165.43278,-71.012878 L 168.53283,-54.303967 L 166.17142,-54.303967 L 165.47755,-58.590312 L 157.95686,-58.590312 L 155.59545,-54.303967 L 153.21166,-54.303967 L 162.86993,-71.012878 M 163.68691,-68.785769 L 158.99767,-60.470484 L 165.13061,-60.470484 L 163.68691,-68.785769"
+       id="text3165"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/italic.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       transform="scale(1.044307,0.9575729)" />
+    <path
+       style="font-size:21.44771384999999952px;font-style:normal;font-weight:normal;fill:#347336;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 182.65625 -68 L 176 -54 L 178.5 -54 L 180.09375 -57.59375 L 187.96875 -57.59375 L 189.53125 -54 L 192 -54 L 185.34375 -68 L 182.65625 -68 z M 184 -66.125 L 187.21875 -59.15625 L 180.78125 -59.15625 L 184 -66.125 z M 176 -53 L 176 -52 L 176.5 -52 L 191.5 -52 L 192 -52 L 192 -53 L 191.5 -53 L 176.5 -53 L 176 -53 z "
+       id="text3169"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/underline.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 148.01953,-79.644531 L 146.41406,-75.291016 L 149.63086,-75.291016 L 148.01953,-79.644531 M 147.35156,-80.810547 L 148.69336,-80.810547 L 152.02735,-72.0625 L 150.79688,-72.0625 L 150,-74.306641 L 146.05664,-74.306641 L 145.25977,-72.0625 L 144.01172,-72.0625 L 147.35156,-80.810547"
+       id="text3968" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#9f7a14;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 166.65625 -52 L 163.75 -45 L 160.5 -45 L 160 -45 L 160 -44 L 160.5 -44 L 163.3125 -44 L 160 -36 L 162.5 -36 L 164.09375 -40.09375 L 171.96875 -40.09375 L 173.53125 -36 L 176 -36 L 172.6875 -44 L 175.5 -44 L 176 -44 L 176 -45 L 175.5 -45 L 172.25 -45 L 169.34375 -52 L 166.65625 -52 z M 168 -49.875 L 169.96875 -45 L 166.03125 -45 L 168 -49.875 z M 165.625 -44 L 170.375 -44 L 171.21875 -41.90625 L 164.78125 -41.90625 L 165.625 -44 z "
+       id="path3973"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/stroke.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g3986"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/sub.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         id="path3982"
+         d="M 181.47185,-50.400535 L 179.26864,-44.428668 L 183.68311,-44.428668 L 181.47185,-50.400535 M 180.55519,-52 L 182.39656,-52 L 186.97186,-40 L 185.28326,-40 L 184.18969,-43.078367 L 178.77815,-43.078367 L 177.68458,-40 L 175.97186,-40 L 180.55519,-52"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#1d2d7e;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans" />
+      <path
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#c82116;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         d="M 187.95373,-39.342933 L 187.95373,-36.778299 L 189.48348,-36.778299 C 189.99653,-36.778298 190.37583,-36.883009 190.62135,-37.092431 C 190.87,-37.304978 190.99433,-37.628487 190.99434,-38.06296 C 190.99433,-38.500556 190.87,-38.822502 190.62135,-39.0288 C 190.37583,-39.238219 189.99653,-39.34293 189.48348,-39.342933 L 187.95373,-39.342933 M 187.95373,-42.221701 L 187.95373,-40.111854 L 189.36544,-40.111854 C 189.83128,-40.111851 190.17752,-40.197807 190.40416,-40.369725 C 190.63393,-40.544759 190.74882,-40.810444 190.74883,-41.166778 C 190.74882,-41.519977 190.63393,-41.784097 190.40416,-41.959142 C 190.17752,-42.134175 189.83128,-42.221695 189.36544,-42.221701 L 187.95373,-42.221701 M 187,-43 L 189.43626,-43 C 190.16336,-42.999993 190.72363,-42.849959 191.11709,-42.549899 C 191.51054,-42.249825 191.70727,-41.823168 191.70728,-41.269926 C 191.70727,-40.8417 191.60654,-40.501 191.4051,-40.247823 C 191.20364,-39.994638 190.90778,-39.83679 190.51748,-39.774279 C 190.98646,-39.674253 191.35002,-39.464833 191.60812,-39.146015 C 191.86938,-38.830316 192,-38.434915 192,-37.959812 C 192,-37.334672 191.78596,-36.851752 191.35789,-36.511052 C 190.92981,-36.17035 190.32074,-36 189.53069,-36 L 187,-36 L 187,-43"
+         id="path4001" />
+    </g>
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 157.17383,-76.177734 L 157.17383,-72.972656 L 159.07227,-72.972656 C 159.70898,-72.972655 160.17968,-73.103515 160.48438,-73.365234 C 160.79296,-73.630858 160.94726,-74.035154 160.94727,-74.578125 C 160.94726,-75.124997 160.79296,-75.52734 160.48438,-75.785156 C 160.17968,-76.046871 159.70898,-76.17773 159.07227,-76.177734 L 157.17383,-76.177734 M 157.17383,-79.775391 L 157.17383,-77.138672 L 158.92578,-77.138672 C 159.5039,-77.138667 159.93359,-77.246089 160.21484,-77.460938 C 160.49999,-77.679682 160.64257,-78.011713 160.64258,-78.457031 C 160.64257,-78.898431 160.49999,-79.228508 160.21484,-79.447266 C 159.93359,-79.666008 159.5039,-79.775383 158.92578,-79.775391 L 157.17383,-79.775391 M 155.99023,-80.748047 L 159.01367,-80.748047 C 159.91601,-80.748038 160.61132,-80.560538 161.09961,-80.185547 C 161.58788,-79.810539 161.83202,-79.277336 161.83203,-78.585938 C 161.83202,-78.050775 161.70702,-77.624994 161.45703,-77.308594 C 161.20702,-76.992183 160.83984,-76.794917 160.35547,-76.716797 C 160.93749,-76.591792 161.38867,-76.330074 161.70898,-75.931641 C 162.0332,-75.537106 162.19531,-75.042966 162.19531,-74.449219 C 162.19531,-73.667967 161.92968,-73.064452 161.39844,-72.638672 C 160.86718,-72.21289 160.11132,-72 159.13086,-72 L 155.99023,-72 L 155.99023,-80.748047"
+       id="text3996" />
+    <g
+       id="g4003"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/sup.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       transform="matrix(0.9982443,0,0,1,16.337087,0)">
+      <path
+         id="path4005"
+         d="M 181.47185,-46.400535 L 179.26864,-40.428668 L 183.68311,-40.428668 L 181.47185,-46.400535 M 180.55519,-48 L 182.39656,-48 L 186.97186,-36 L 185.28326,-36 L 184.18969,-39.078367 L 178.77815,-39.078367 L 177.68458,-36 L 175.97186,-36 L 180.55519,-48"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#1d2d7e;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans" />
+      <path
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#c82116;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         d="M 187.94662,-48.342933 L 187.94662,-45.778299 L 189.47906,-45.778299 C 189.99301,-45.778298 190.37298,-45.883009 190.61893,-46.092431 C 190.86802,-46.304978 190.99257,-46.628487 190.99258,-47.06296 C 190.99257,-47.500556 190.86802,-47.822502 190.61893,-48.0288 C 190.37298,-48.238219 189.99301,-48.34293 189.47906,-48.342933 L 187.94662,-48.342933 M 187.94662,-51.221701 L 187.94662,-49.111854 L 189.36081,-49.111854 C 189.82747,-49.111851 190.17432,-49.197807 190.40136,-49.369725 C 190.63153,-49.544759 190.74662,-49.810444 190.74663,-50.166778 C 190.74662,-50.519977 190.63153,-50.784097 190.40136,-50.959142 C 190.17432,-51.134175 189.82747,-51.221695 189.36081,-51.221701 L 187.94662,-51.221701 M 186.99121,-52 L 189.43175,-52 C 190.16013,-51.999993 190.72139,-51.849959 191.11554,-51.549899 C 191.50968,-51.249825 191.70676,-50.823168 191.70677,-50.269926 C 191.70676,-49.8417 191.60585,-49.501 191.40406,-49.247823 C 191.20224,-48.994638 190.90586,-48.83679 190.51488,-48.774279 C 190.98468,-48.674253 191.34888,-48.464833 191.60743,-48.146015 C 191.86915,-47.830316 192,-47.434915 192,-46.959812 C 192,-46.334672 191.78559,-45.851752 191.35676,-45.511052 C 190.92793,-45.17035 190.31779,-45 189.52635,-45 L 186.99121,-45 L 186.99121,-52"
+         id="path4007" />
+    </g>
+    <path
+       style="opacity:1;fill:#c82116;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 194.1231,-66.25 C 193.35653,-66.25 192.73438,-65.619444 192.73438,-64.84251 C 192.73438,-64.065575 193.35653,-63.43502 194.1231,-63.43502 C 194.88968,-63.43502 195.51182,-64.065575 195.51182,-64.84251 C 195.51182,-65.619444 194.88968,-66.25 194.1231,-66.25 z M 196.63781,-65.593171 L 196.63781,-64.091849 L 206.92188,-64.091849 L 206.92188,-65.593171 L 196.63781,-65.593171 z"
+       id="path4013"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/ul.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:1;fill:#c82116;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 194.1231,-61.547497 C 193.35653,-61.547497 192.73438,-60.916941 192.73438,-60.140007 C 192.73438,-59.363072 193.35653,-58.732517 194.1231,-58.732517 C 194.88968,-58.732517 195.51182,-59.363072 195.51182,-60.140007 C 195.51182,-60.916941 194.88968,-61.547497 194.1231,-61.547497 z M 196.63781,-60.890668 L 196.63781,-59.389346 L 206.92188,-59.389346 L 206.92188,-60.890668 L 196.63781,-60.890668 z"
+       id="path4018"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/ul.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:1;fill:#c82116;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 194.1231,-56.84499 C 193.35653,-56.84499 192.73438,-56.214434 192.73438,-55.4375 C 192.73438,-54.660565 193.35653,-54.03001 194.1231,-54.03001 C 194.88968,-54.03001 195.51182,-54.660565 195.51182,-55.4375 C 195.51182,-56.214434 194.88968,-56.84499 194.1231,-56.84499 z M 196.63781,-56.188161 L 196.63781,-54.686839 L 206.92188,-54.686839 L 206.92188,-56.188161 L 196.63781,-56.188161 z"
+       id="path4020"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/ul.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:1;fill:#c82116;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 212.74718,-65.515666 L 212.74718,-64.014344 L 223.03125,-64.014344 L 223.03125,-65.515666 L 212.74718,-65.515666 z"
+       id="path4022"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/ol.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:1;fill:#c82116;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 212.74718,-60.813163 L 212.74718,-59.311841 L 223.03125,-59.311841 L 223.03125,-60.813163 L 212.74718,-60.813163 z"
+       id="path4024"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/ol.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:1;fill:#c82116;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 212.74718,-56.110656 L 212.74718,-54.609334 L 223.03125,-54.609334 L 223.03125,-56.110656 L 212.74718,-56.110656 z"
+       id="path4026"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/ol.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 178.23828,-78.058594 L 180.17188,-78.058594 L 180.17188,-84.732422 L 178.06836,-84.310547 L 178.06836,-85.388672 L 180.16016,-85.810547 L 181.34375,-85.810547 L 181.34375,-78.058594 L 183.27734,-78.058594 L 183.27734,-77.0625 L 178.23828,-77.0625 L 178.23828,-78.058594"
+       id="text4028" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 199.24023,-77.058594 L 203.37109,-77.058594 L 203.37109,-76.0625 L 197.81641,-76.0625 L 197.81641,-77.058594 C 198.26562,-77.523436 198.87695,-78.146482 199.65039,-78.927734 C 200.42773,-79.712887 200.91601,-80.218746 201.11523,-80.445312 C 201.49414,-80.871089 201.75781,-81.230464 201.90625,-81.523438 C 202.05859,-81.820307 202.13476,-82.111322 202.13477,-82.396484 C 202.13476,-82.861321 201.9707,-83.240227 201.64258,-83.533203 C 201.31835,-83.826164 200.89453,-83.972648 200.37109,-83.972656 C 200,-83.972648 199.60742,-83.908195 199.19336,-83.779297 C 198.7832,-83.650383 198.34375,-83.455071 197.875,-83.193359 L 197.875,-84.388672 C 198.35156,-84.58007 198.79687,-84.724601 199.21094,-84.822266 C 199.625,-84.919913 200.0039,-84.968741 200.34766,-84.96875 C 201.2539,-84.968741 201.97656,-84.742179 202.51562,-84.289062 C 203.05468,-83.83593 203.32421,-83.230462 203.32422,-82.472656 C 203.32421,-82.113275 203.25585,-81.771479 203.11914,-81.447266 C 202.98632,-81.126948 202.74218,-80.748042 202.38672,-80.310547 C 202.28906,-80.197261 201.97851,-79.869137 201.45508,-79.326172 C 200.93164,-78.787107 200.19336,-78.031248 199.24023,-77.058594"
+       id="text4032" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 219.11914,-80.966797 C 219.68554,-80.845699 220.12695,-80.593746 220.44336,-80.210938 C 220.76367,-79.828121 220.92382,-79.355466 220.92383,-78.792969 C 220.92382,-77.929686 220.62695,-77.261718 220.0332,-76.789062 C 219.43945,-76.316406 218.5957,-76.080078 217.50195,-76.080078 C 217.13476,-76.080078 216.75586,-76.117188 216.36523,-76.191406 C 215.97851,-76.261719 215.57812,-76.369141 215.16406,-76.513672 L 215.16406,-77.65625 C 215.49219,-77.464843 215.85156,-77.320311 216.24219,-77.222656 C 216.63281,-77.124999 217.04101,-77.076171 217.4668,-77.076172 C 218.20898,-77.076171 218.77343,-77.222655 219.16016,-77.515625 C 219.55078,-77.808592 219.74609,-78.234373 219.74609,-78.792969 C 219.74609,-79.308591 219.56445,-79.710934 219.20117,-80 C 218.84179,-80.292965 218.33984,-80.439449 217.69531,-80.439453 L 216.67578,-80.439453 L 216.67578,-81.412109 L 217.74219,-81.412109 C 218.32421,-81.412104 218.76953,-81.527338 219.07812,-81.757812 C 219.38671,-81.992182 219.54101,-82.328119 219.54102,-82.765625 C 219.54101,-83.214837 219.38085,-83.558586 219.06055,-83.796875 C 218.74414,-84.039055 218.28906,-84.160148 217.69531,-84.160156 C 217.37109,-84.160148 217.02343,-84.124992 216.65234,-84.054688 C 216.28125,-83.984367 215.87305,-83.874992 215.42773,-83.726562 L 215.42773,-84.78125 C 215.87695,-84.906241 216.29687,-84.999991 216.6875,-85.0625 C 217.08203,-85.124991 217.45312,-85.156241 217.80078,-85.15625 C 218.69921,-85.156241 219.41015,-84.951163 219.93359,-84.541016 C 220.45703,-84.134758 220.71874,-83.583977 220.71875,-82.888672 C 220.71874,-82.404291 220.58007,-81.994135 220.30273,-81.658203 C 220.02538,-81.326167 219.63085,-81.095698 219.11914,-80.966797"
+       id="text4036" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 209.2198,-63.541105 L 209.98506,-63.541105 L 209.98506,-66.211232 L 209.15255,-66.042444 L 209.15255,-66.47379 L 209.98042,-66.642578 L 210.44887,-66.642578 L 210.44887,-63.541105 L 211.21413,-63.541105 L 211.21413,-63.142578 L 209.2198,-63.142578 L 209.2198,-63.541105"
+       id="path4043"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/ol.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.49999997;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 209.65024,-58.563323 L 211.25805,-58.563323 L 211.25805,-58.171875 L 209.09606,-58.171875 L 209.09606,-58.563323 C 209.27091,-58.745998 209.50884,-58.990844 209.80988,-59.297862 C 210.11244,-59.606413 210.30249,-59.805207 210.38003,-59.894243 C 210.5275,-60.061566 210.63013,-60.202794 210.68791,-60.317928 C 210.7472,-60.434592 210.77685,-60.548956 210.77685,-60.66102 C 210.77685,-60.843693 210.713,-60.992596 210.58528,-61.10773 C 210.45908,-61.222859 210.29412,-61.280425 210.0904,-61.280427 C 209.94596,-61.280425 209.79316,-61.255096 209.632,-61.204441 C 209.47236,-61.15378 209.30132,-61.077026 209.11887,-60.974177 L 209.11887,-61.443915 C 209.30436,-61.519131 209.47768,-61.575929 209.63885,-61.61431 C 209.8,-61.652683 209.94748,-61.671872 210.08127,-61.671875 C 210.434,-61.671872 210.71527,-61.582837 210.92508,-61.40477 C 211.1349,-61.226697 211.2398,-60.988758 211.2398,-60.690954 C 211.2398,-60.549723 211.2132,-60.415404 211.15999,-60.287993 C 211.10829,-60.162114 211.01327,-60.013211 210.87491,-59.841283 C 210.8369,-59.796763 210.71603,-59.667816 210.5123,-59.454441 C 210.30857,-59.242598 210.02122,-58.945559 209.65024,-58.563323"
+       id="path4045"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/ol.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 210.64796,-55.283856 C 210.86438,-55.237157 211.03304,-55.139998 211.15395,-54.992378 C 211.27633,-54.844754 211.33753,-54.662486 211.33754,-54.445573 C 211.33753,-54.112669 211.22409,-53.855084 210.99722,-53.672816 C 210.77035,-53.490548 210.44795,-53.399414 210.03003,-53.399414 C 209.88973,-53.399414 209.74495,-53.413725 209.59568,-53.442345 C 209.44792,-53.469459 209.29494,-53.510884 209.13672,-53.566619 L 209.13672,-54.007226 C 209.2621,-53.933414 209.39941,-53.877679 209.54868,-53.840021 C 209.69793,-53.802362 209.8539,-53.783533 210.0166,-53.783533 C 210.30018,-53.783533 210.51586,-53.84002 210.66363,-53.952997 C 210.81289,-54.065972 210.88752,-54.230164 210.88752,-54.445573 C 210.88752,-54.644409 210.81811,-54.799564 210.6793,-54.911034 C 210.54198,-55.024009 210.35019,-55.080497 210.10391,-55.080498 L 209.71435,-55.080498 L 209.71435,-55.455579 L 210.12182,-55.455579 C 210.34421,-55.455577 210.51437,-55.500014 210.63229,-55.588891 C 210.75019,-55.67927 210.80916,-55.808816 210.80916,-55.977529 C 210.80916,-56.150756 210.74796,-56.283314 210.62557,-56.375205 C 210.50467,-56.468595 210.33078,-56.515292 210.10391,-56.515295 C 209.98003,-56.515292 209.84718,-56.501735 209.70539,-56.474624 C 209.5636,-56.447506 209.40762,-56.405329 209.23746,-56.34809 L 209.23746,-56.754804 C 209.40911,-56.803004 209.56957,-56.839156 209.71882,-56.863262 C 209.86958,-56.88736 210.01138,-56.89941 210.14421,-56.899414 C 210.4875,-56.89941 210.75915,-56.820327 210.95917,-56.662164 C 211.15917,-56.505501 211.25917,-56.293106 211.25917,-56.024979 C 211.25917,-55.838189 211.20618,-55.680023 211.10021,-55.550479 C 210.99424,-55.422438 210.84348,-55.333563 210.64796,-55.283856"
+       id="path4047"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/ol.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g3978"
+       style="fill:#0000ff;fill-opacity:1">
+      <path
+         id="path3185"
+         d="M 212,-50.93369 L 210.39766,-46.952445 L 213.60818,-46.952445 L 212,-50.93369 M 211.33333,-52 L 212.67251,-52 L 216,-44 L 214.77193,-44 L 213.9766,-46.052244 L 210.04093,-46.052244 L 209.24562,-44 L 208,-44 L 211.33333,-52"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans" />
+      <path
+         id="path3187"
+         d="M 218.14448,-47.820495 L 218.14448,-44.889484 L 219.98018,-44.889484 C 220.59584,-44.889483 221.05099,-45.009153 221.34562,-45.248493 C 221.644,-45.491403 221.7932,-45.861128 221.79321,-46.357669 C 221.7932,-46.857778 221.644,-47.225717 221.34562,-47.461487 C 221.05099,-47.700822 220.59584,-47.820492 219.98018,-47.820495 L 218.14448,-47.820495 M 218.14448,-51.110516 L 218.14448,-48.699263 L 219.83853,-48.699263 C 220.39754,-48.699259 220.81303,-48.797495 221.08499,-48.993972 C 221.36071,-49.194011 221.49858,-49.49765 221.49859,-49.904889 C 221.49858,-50.308545 221.36071,-50.610397 221.08499,-50.810449 C 220.81303,-51.010486 220.39754,-51.110509 219.83853,-51.110516 L 218.14448,-51.110516 M 217,-52 L 219.92351,-52 C 220.79603,-51.999992 221.46836,-51.828525 221.94051,-51.485599 C 222.41265,-51.142658 222.64872,-50.65505 222.64873,-50.022773 C 222.64872,-49.533372 222.52785,-49.144 222.28612,-48.854655 C 222.04437,-48.565301 221.68933,-48.384903 221.22097,-48.313463 C 221.78375,-48.199147 222.22002,-47.959809 222.52974,-47.595446 C 222.84325,-47.234647 223,-46.782761 223,-46.239786 C 223,-45.525339 222.74315,-44.973431 222.22947,-44.584059 C 221.71577,-44.194686 220.98489,-44 220.03683,-44 L 217,-44 L 217,-52"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans" />
+      <path
+         id="path3189"
+         d="M 208,-43 L 208,-42 L 208.5,-42 L 222.5,-42 L 223,-42 L 223,-43 L 222.5,-43 L 208.5,-43 L 208,-43 z"
+         style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#fefeff;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.49999976;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 215.63221,-36.787419 L 215.63221,-46.870889 L 223.41466,-39.952303 L 219.93109,-39.952303 L 222.08053,-36.566613 L 219.70873,-36.566613 L 218.004,-39.142682 L 215.63221,-36.787419 z"
+       id="path3987"
+       sodipodi:nodetypes="cccccccc" />
+    <path
+       style="fill:#fefeff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       d="M 215.63221,-36.787419 L 215.63221,-46.870889 L 223.41466,-39.952303 L 219.93109,-39.952303 L 222.08053,-36.566613 L 219.70873,-36.566613 L 218.004,-39.142682 L 215.63221,-36.787419 z"
+       id="path3983"
+       sodipodi:nodetypes="cccccccc" />
   </g>
 </svg>
