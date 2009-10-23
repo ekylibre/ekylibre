@@ -327,7 +327,7 @@ class Company < ActiveRecord::Base
   end
 
   def usable_payments
-    self.payments.find(:all, :conditions=>["parts_amount<amount"], :order=>"created_at desc")
+    self.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0)"], :order=>"created_at desc")
   end
 
   def backup(creator, with_prints=true)

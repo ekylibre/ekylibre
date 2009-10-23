@@ -72,6 +72,10 @@ class Payment < ActiveRecord::Base
     end
   end  
 
+  def unused_amount
+    (self.amount||0)-(self.parts_amount||0)
+  end
+
   
   # Use the minimum amount to pay the expense
   # If the payment is a downpayment, we look at the total unpaid amount
@@ -80,7 +84,7 @@ class Payment < ActiveRecord::Base
     downpayment = options[:downpayment]
     PaymentPart.destroy_all(:expense_type=>expense.class.name, :expense_id=>expense.id, :payment_id=>self.id)
     self.reload
-    part_amount = [expense.unpaid_amount(!downpayment), self.amount-self.parts_amount].min
+    part_amount = [expense.unpaid_amount(!downpayment), self.unused_amount].min
     part = self.parts.create(:amount=>part_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>downpayment)
     if part.errors.size > 0
       part.errors.each_full { |msg| self.errors.add_to_base(msg) }
