@@ -93,6 +93,33 @@ class Payment < ActiveRecord::Base
     return true
   end
 
+ #this method saves the payment in the accountancy module.
+  def to_accountancy
+    financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) and closed=?", '%'+self.payment_on.year.to_s+'%', true])
+      
+    journal_bank =  self.company.journals.find(:first, :conditions => ['nature = ? AND closed_on < ?', 'bank', self.created_on.to_s])
+    
+    record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>tc(:payment), :created_on=>self.payment_on, :printed_on => self.created_on, :journal_id=>journal_bank.id, :financialyear_id => financialyear.id)
+
+    mode_account_id = self.mode.account_id
+    mode_account = self.mode.account.name
+                      
+    self.parts.each do |part|
+      entry = self.company.entries.create!(:record_id=>record.id, :account_id=> part.order.client.client_account_id, :name=> part.order.client.full_name, :currency_credit=>part.amount, :currency_debit=>0.0, :currency_id=>journal_bank.currency_id)
+
+      entry = self.company.entries.create!(:record_id=>record.id, :account_id=>self.account_id, :name=>self.bank, :currency_debit=>part.amount, :currency_credit=>0.0, :currency_id=>journal_bank.currency_id)
+
+      entry = self.company.entries.create!(:record_id=>record.id, :account_id=>mode_account_id, :name=>mode_account, :currency_credit=>0.0, :currency_debit=>part_amount, :currency_id=>journal_bank.currency_id)
+
+      entry = self.company.entries.create!(:record_id=>record.id, :account_id=>mode_account_id, :name=>mode_account, :currency_debit=>0.0, :currency_credit=>part_amount, :currency_id=>journal_bank.currency_id)
+        
+        
+    end
+
+  end
+
+        
+
 
 #   def pay(order, downpayment=false)
 #     PaymentPart.destroy(self.parts.find_all_by_order_id(order.id))
@@ -107,5 +134,17 @@ class Payment < ActiveRecord::Base
 #       return true
 #     end
 #   end
+
+
+end
+
+
+
+
+
+
+
+
+
 
 end

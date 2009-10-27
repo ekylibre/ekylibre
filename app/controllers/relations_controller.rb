@@ -890,24 +890,23 @@ class RelationsController < ApplicationController
   
   #
   def mandates
-   
     if mandate = Mandate.find_by_company_id_and_id(@current_company.id, params[:id])
       params[:organization] = mandate.organization
     end
 
-    @entities = @current_company.entities
-    unless @entities.size > 0 
-      flash[:message] = tc(:need_entities_to_consult_mandates)
-      redirect_to :action => :entity_create
-      return
-    end
+     @entities = @current_company.entities
+#     unless @entities.size > 0 
+#       flash[:message] = tc(:need_entities_to_consult_mandates)
+#       redirect_to :action => :entity_create
+#       return
+#     end
     
-    @organizations = @current_company.mandates.find(:all, :select=>' DISTINCT organization ')
-    unless @organizations.size > 0 
-      flash[:message] = tc(:need_to_create_mandates_before)
-      redirect_to :action => :mandate_create
-      return
-    end
+     @organizations = @current_company.mandates.find(:all, :select=>' DISTINCT organization ')
+#     unless @organizations.size > 0 
+#       flash[:message] = tc(:need_to_create_mandates_before)
+     #  redirect_to :action => :mandate_create
+#       return
+#     end
     
     session[:mandates] ||= {}
     session[:mandates][:organization] = params[:organization]||session[:mandates][:organization]||''
@@ -958,7 +957,8 @@ class RelationsController < ApplicationController
   
   #
   def mandate_create
-    @entity = find_and_check(:entity, params[:id]||session[:current_entity]||@current_company.entities.first.id)
+   @entity = find_and_check(:entity, params[:id]||session[:current_entity]||@current_company.entities.first.id)
+
     if request.post?
       @mandate = Mandate.new(params[:mandate])
       @mandate.company_id = @current_company.id
@@ -971,7 +971,7 @@ class RelationsController < ApplicationController
   end
   
   def mandate_update
-    @mandate = Mandate.find_by_id_and_company_id(params[:id], @current_company.id)
+    return unless @mandate = Mandate.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @mandate
       redirect_to :action=>:entity if @mandate.update_attributes(params[:mandate])
     end
@@ -980,7 +980,7 @@ class RelationsController < ApplicationController
   end
   
   def mandate_delete
-    @mandate = Mandate.find_by_id_and_company_id(params[:id] , @current_company.id )
+    return unless @mandate = Mandate.find_by_id_and_company_id(params[:id] , @current_company.id )
     if request.post? or request.delete?
       redirect_to :action=>:entity if @mandate.destroy
     end

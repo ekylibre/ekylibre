@@ -174,6 +174,8 @@ fr-FR:
         invoicing_numeration: Numéros de facture
         journals:
           bank: Journal de banque
+          sales: Journal des ventes
+          purchases: Journals des achats
           purchase_orders: 'Journal d''achats'
           sale_orders: Journal de ventes
         price_list_name: Tarif normal
@@ -392,6 +394,18 @@ fr-FR:
       natures:
         amount: Montant
         percent: Pourcentage
+    tax_declaration:
+      declaration_date_after_period: 'Vous devez faire votre déclaration après la période considérée.'
+      overlapped_period_declaration: 'La période de déclaration ne doit pas chevauchée une autre période.'
+      one_data_to_record_tax_declaration: 'Vous devez avoir au moins un montant non nul.'
+      other: 'Personnalisée'
+      monthly: 'Mensuelle'
+      quarterly: 'Trimestrielle'
+      yearly: 'Annuelle'
+      normal: 'Réel normal'
+      simplified: 'Réel simplifié'
+      deferment: 'Reporté'
+      payback: 'Remboursement'
     user:
       no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application : {{controller}}/{{action}}'
       no_right_defined_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'

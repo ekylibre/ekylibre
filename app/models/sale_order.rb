@@ -344,16 +344,28 @@ class SaleOrder < ActiveRecord::Base
   end
 
 
-  # this method saves the sale in the accountancy module.
-#   def to_accountancy
+   #this method saves the sale in the accountancy module.
+   def to_accountancy
 #     journal_bank =  self.company.journals.find(:first, :conditions => ['nature = ? AND closed_on < ?', 'bank', Date.today])
-#     financialyear = self.company.financialyears.find(:first, :conditions => ["code LIKE ? AND closed=?'", '%'+self.created_on.year.to_s+'%', false])
-#     payments = self.company.payments.find( ... # TODO
-#     record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>'sale', :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal_bank.id, :financialyear_id => financialyear.id)
-#     if self.client.client_account_id.nil?
-#       self.client.reload.update_attribute(:client_account_id, self.client.create_update_account(:client).id)
-#     end
-#     # if the sale contains a downpayment
+<<<<<<< .mine
+     journal_sale=  self.company.journals.find(:first, :conditions => ['nature = ? AND closed_on < ?', 'sale', Date.today])
+     
+     financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) AND closed=?'", '%'+self.created_on.year.to_s+'%', true])
+
+  
+#     payments = self.company.payments.find(:all, :conditions => "p.order_id = "+self.id.to_s, :joins => "inner join payment_parts as p on p.payment_id=payments.id inner join sale_orders as s on s.id=p.order_id")
+     
+ #     record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>'sale', :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal_bank.id, :financialyear_id => financialyear.id)
+
+
+     record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>'sale', :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal_sale.id, :financialyear_id => financialyear.id)
+     
+     
+     if self.client.client_account_id.nil?
+       self.client.reload.update_attribute(:client_account_id, self.client.create_update_account(:client).id)
+     end
+
+#      if the sale contains a downpayment
 #     if self.has_downpayment
 #       entry = self.company.entries.create!(:record_id=>record.id, :account_id=>payment_mode.bank_account.account_id, :name=>payment_mode.bank_account.label, :currency_debit=>self.downpayment_amount, :currency_credit=>0.0, :currency_id=>journal_bank.currency_id)
 #       account_downpayment = self.company.accounts.find(self.client.client_account_id).number
@@ -375,7 +387,20 @@ class SaleOrder < ActiveRecord::Base
 #     end
 #     entry = self.company.entries.create!(:record_id=>record.id, :account_id=>bank_account.account_id, :name=>bank_account.account.name, :currency_debit=>sum, :currency_credit=>0.0, :currency_id=>journal_bank.currency_id)
 #     entry = self.company.entries.create!(:record_id=>record.id, :account_id=>self.client.client_account_id, :name=>self.client.full_name, :currency_debit=>0.0, :currency_credit=>self.lines.sum(:amount_with_taxes)*self.lines.sum(:quantity), :currency_id=>journal_bank.currency_id)
-#   end
+  
+ 
+     entry = self.company.entries.create!(:record_id=>record.id, :account_id=>self.client.client_account_id, :name=>self.client.full_name, :currency_debit=>self.amount_with_taxes, :currency_credit=>0.0, :currency_id=>journal_bank.currency_id)
+     
+     self.lines.each do |line|
+       line_amount = (line.amount * line.quantity)
+       entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.product.product_account_id, :name=>'sale '+line.product.name.to_s, :currency_debit=>0.0, :currency_credit=>line_amount, :currency_id=>journal_sale.currency_id)
+       unless line.price.tax_id.nil?
+         entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.price.tax.account_collected_id, :name=>line.price.tax.name, :currency_debit=>0.0, :currency_credit=>line.price.tax.amount*line_amount, :currency_id=>journal_sale.currency_id)
+       end
+     end
+     
+  
+   end
 
 
 end

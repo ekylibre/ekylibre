@@ -59,7 +59,8 @@ module ApplicationHelper
              {:name=>:journal_close},
              {:name=>:financialyear_close} ] },
          {:name=>:documents, :list=>
-           [ {:name=>:document_prepare} ] },
+           [ {:name=>:document_prepare},
+             {:name=>:tax_declarations} ] },
          {:name=>:parameters, :list=>
            [ {:name=>:accounts},
              {:name=>:journals},

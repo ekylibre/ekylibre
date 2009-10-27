@@ -3,12 +3,20 @@ fr-FR:
     accountancy:
       default_journals:
         bank: 'Journal de banque par défaut'
+        purchases: 'Journal des achats par défaut'
+        sales: 'Journal des ventes par défaut'
         purchase_orders: 'Journal d''achats par défaut'
         sale_orders: 'Journal de ventes par défaut'
+        
       third_accounts:
         clients: 'Comptes clients'
         suppliers: 'Comptes fournisseurs'
         taxes: 'Comptes taxes'
+     
+      to_accountancy:
+        automatic: 'Bascule comptable des données automatique'
+
+ 
     general:
       language: 'Langue par défaut'
     management:

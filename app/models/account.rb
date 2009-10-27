@@ -39,12 +39,13 @@ class Account < ActiveRecord::Base
   has_many :purchase_order_lines
   acts_as_tree
   validates_format_of :number, :with=>/[0-9][0-9]?[0-9]?[0-9A-Z]*/
+ 
   # This method allows to create the parent accounts if it is necessary.
   def before_validation
     self.label = self.number.to_s+' - '+self.name.to_s
     index = -252
 #    raise Exception.new('a:'+self.number.to_s.length.to_s)
-    parent_account = Account.find(:last, :conditions => {:company_id => self.company_id, :number => self.number.to_s[0..index]})
+    parent_account = Account.find(:last, :conditions=> {:company_id => self.company_id, :number => self.number.to_s[0..index]})
    # raise Exception.new('p:'+parent_account.inspect)
     while parent_account.nil? and index.abs <= self.number.to_s.length do
       index += -1

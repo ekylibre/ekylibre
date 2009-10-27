@@ -60,6 +60,13 @@ accountancy      tax_delete                       manage_taxes
 accountancy      tax_update                       manage_taxes
 accountancy      taxes                            manage_taxes
 accountancy      taxes_dyta                       manage_taxes
+accountancy      tax_declaration_create           manage_taxes
+accountancy      tax_declaration_update           manage_taxes
+accountancy      tax_declaration_delete           manage_taxes
+accountancy      tax_declaration_period_search    manage_taxes
+accountancy      tax_declaration                  manage_taxes
+accountancy      tax_declarations                 manage_taxes
+accountancy      tax_declarations_dyta            manage_taxes
 accountancy      document_prepare                 print_accounting_document
 accountancy      document_print                   print_accounting_document
 accountancy      synthesis                        print_accounting_document

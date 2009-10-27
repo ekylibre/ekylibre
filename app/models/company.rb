@@ -91,6 +91,7 @@ class Company < ActiveRecord::Base
   has_many :subscription_natures
   has_many :subscriptions
   has_many :taxes
+  has_many :tax_declarations
   has_many :units
   has_many :users
   belongs_to :entity
@@ -700,5 +701,38 @@ class Company < ActiveRecord::Base
     
     company.subscriptions.create!(:nature_id=>company.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>company.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
   end
+<<<<<<< .mine
+
+  # this method allows to make operations (such as sum of credits) in the entries, according to a list of accounts.
+ def filtering_entries(field, list_accounts=[], period=[])
+   #list_accounts.match(//) 
+   # if not period.empty?
+#      period.each do |p|
+#        raise Exception.new("Invalid date "+p.to_s) unless p.class.eql? String
+#      end
+#    end
+   
+   
+   conditions = ""#"company_id = "+self.id.to_s
+   if not list_accounts.empty?
+     conditions += list_accounts.collect do |account|
+       "a.number LIKE '"+account.gsub('*', '%').gsub('?', '_').to_s+"'"
+     end.join(" OR ")
+   end  
+   
+   conditions += " AND CAST(r.created_on AS DATE) BETWEEN '"+period[0].to_s+"' AND '"+period[1].to_s+"'" if not period.empty?
   
+   if [:credit, :debit].include? field
+      result =  self.entries.sum(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=entries.account_id inner join journal_records r on r.id=entries.record_id")
+   end
+
+   if [:all, :first].include? field
+     result =  self.entries.find(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=entries.account_id inner join journal_records r on r.id=entries.record_id", :order=>"r.created_on ASC")
+   end
+
+   return result
+                            
+ end
+
+
 end

@@ -52,7 +52,7 @@ class Invoice < ActiveRecord::Base
                       '00000001'
                     end
     end
-    self.payment_on = self.payment_delay.compute(self.created_on) if self.payment_delay
+
     if self.credit
       self.amount = 0
       self.amount_with_taxes = 0
@@ -132,18 +132,18 @@ class Invoice < ActiveRecord::Base
     not self.credit and self.amount_with_taxes + self.credited_amount > 0
   end
 
-  # this method links the accountancy and management modules.
-  # def to_accountancy
-#     #unless self.lost or not self.paid 
-#       financialyear = self.company.financialyears.find(:first, :conditions => ["code LIKE ? and closed=?", '%'+self.payment_on.year.to_s+'%', false])
+  #this method saves the invoice in the accountancy module.
+  def to_accountancy
+     unless self.lost or not self.paid 
+       financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) and closed=?", '%'+self.payment_on.year.to_s+'%', true])
       
-#       journal_sale =  self.company.journals.find(:first, :conditions => ['nature = ? AND closed_on < ?', 'sale', self.payment_on.to_s])
+       journal_sale =  self.company.journals.find(:first, :conditions => ['nature = ? AND closed_on < ?', 'sale', self.created_on.to_s])
 
-#        if self.client.client_account_id.nil?
-#          self.client.client_account_id = self.client.create_update_account(:client).id
-#        end
+        if self.client.client_account_id.nil?
+          self.client.client_account_id = self.client.create_update_account(:client).id
+        end
 
-#        if self.credit
+#       if self.credit
 
 #          record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>tc(:asset), :created_on=>self.payment_on, :printed_on => self.created_on, :journal_id=>journal_sale.id, :financialyear_id => financialyear.id)
 
@@ -163,22 +163,18 @@ class Invoice < ActiveRecord::Base
 
 #       else
         
-#         record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>tc(:facture), :created_on=>self.payment_on, :printed_on => self.created_on, :journal_id=>journal_sale.id, :financialyear_id => financialyear.id)
-      
-#         entry = self.company.entries.create!(:record_id=>record.id, :account_id=> self.client.client_account_id, :name=> self.client.full_name, :currency_debit=>self.amount_with_taxes, :currency_credit=>0.0, :currency_id=>journal_sale.currency_id)
-        
-#         self.lines.each do |line|
-#           entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.product.product_account_id, :name=>'sale '+line.product.name.to_s, :currency_debit=>0.0, :currency_credit=>(line.amount*line.quantity), :currency_id=>journal_sale.currency_id)
-          
-#           unless line.price.tax_id.nil?
-#             entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.price.tax.account_collected_id, :name=>line.price.tax.name, :currency_debit=>0.0, :currency_credit=>line.taxes, :currency_id=>journal_sale.currency_id)
-#           end
-          
-#         end
-     
-#       end
-
-     
-  #end
+         record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>tc(:invoice), :created_on=>self.payment_on, :printed_on => self.created_on, :journal_id=>journal_sale.id, :financialyear_id => financialyear.id)
+       
+       entry = self.company.entries.create!(:record_id=>record.id, :account_id=> self.client.client_account_id, :name=> self.client.full_name, :currency_debit=>self.amount_with_taxes, :currency_credit=>0.0, :currency_id=>journal_sale.currency_id)
+       
+       self.lines.each do |line|
+        line_amount = (line.amount * line.quantity)
+        entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.product.product_account_id, :name=>'sale '+line.product.name.to_s, :currency_debit=>0.0, :currency_credit=>line_amount, :currency_id=>journal_sale.currency_id)
+        unless line.price.tax_id.nil?
+          entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.price.tax.account_collected_id, :name=>line.price.tax.name, :currency_debit=>0.0, :currency_credit=>line.price.tax.amount*line_amount, :currency_id=>journal_sale.currency_id)
+        end
+      end
+     end
+  end
   
 end

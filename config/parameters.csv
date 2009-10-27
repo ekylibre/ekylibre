@@ -4,7 +4,14 @@ accountancy.default_journals.purchases,record,journal
 accountancy.default_journals.bank,record,journal
 accountancy.third_accounts.clients,integer,411
 accountancy.third_accounts.suppliers,integer,401
-accountancy.third_accounts.taxes,integer,445
+accountancy.to_accountancy.automatic,boolean,0
+#accountancy.taxes_accounts.acquisition_taxes,integer, 4452
+#accountancy.taxes_accounts.collected_taxes, integer,44571
+#accountancy.taxes_accounts.paid_taxes, integer, 4456
+#accountancy.taxes_accounts.balance_taxes, integer, 44567
+#accountancy.taxes_accounts.assimilated_taxes, integer,447
+#accountancy.taxes_accounts.payback_taxes,integer,44583
+
 management.invoicing.numeration,record,sequence
 management.embankments.days_before_warning_undone,integer,15
 management.embankments.days_before_warning_unvalidated,integer,15
