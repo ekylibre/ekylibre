@@ -10,10 +10,11 @@
 %table.flex
   %tr
     %td
-      =evalue @purchase_order, :supplier
+      =evalue @purchase_order, :supplier, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
       =evalue @purchase_order, :planned_on
-    %td
       =evalue @purchase_order, :comment
+    %td
+      =evalue @purchase_order, :dest_contact, :label=>:address
 
 %h2=tc :lines 
 =toolbar do

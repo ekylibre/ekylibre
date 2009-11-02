@@ -1,2 +1,2 @@
 page['price_amount'].value=@price_amount
-page['price_tax_id'].selectedIndex=@tax_id-1 
+page['price_tax_id'].value=@tax_id 

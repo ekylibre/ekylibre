@@ -80,7 +80,7 @@ class Price < ActiveRecord::Base
   end
 
   def change(amount, tax_id)
-    conditions = {:product_id=>self.product_id,:amount=>amount, :tax_id=>tax_id, :active=>true, :entity_id=>self.entity_id, :currency_id=>self.currency_id}
+    conditions = {:product_id=>self.product_id,:amount=>amount, :tax_id=>tax_id, :active=>true, :entity_id=>self.entity_id, :currency_id=>self.currency_id, :category_id=>self.category_id}
     price = self.company.prices.find(:first, :conditions=>conditions)
     if price.nil?
       self.update_attribute(:active, false)

@@ -327,9 +327,9 @@ class Company < ActiveRecord::Base
     journal_id
   end
 
-  def usable_payments
-    self.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0)"], :order=>"created_at desc")
-  end
+  #def usable_payments
+   # self.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0)"], :order=>"created_at desc")
+  #end
 
   def backup(creator, with_prints=true)
     version = (ActiveRecord::Migrator.current_version rescue 0)
@@ -701,7 +701,6 @@ class Company < ActiveRecord::Base
     
     company.subscriptions.create!(:nature_id=>company.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>company.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
   end
-<<<<<<< .mine
 
   # this method allows to make operations (such as sum of credits) in the entries, according to a list of accounts.
  def filtering_entries(field, list_accounts=[], period=[])

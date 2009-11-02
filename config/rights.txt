@@ -139,6 +139,7 @@ management       all_contacts_dyli                administrate_management
 management       critic_product_stocks_dyta       administrate_management
 management       index                            administrate_management
 management       payment_sale_orders_dyta         administrate_management
+management       payment_purchase_orders_dyta     administrate_management
 management       sale_lines_dyta                  administrate_management
 management       sale_order_deliveries_dyta       administrate_management
 management       sale_order_lines_dyta            administrate_management
@@ -162,6 +163,7 @@ management       invoice_lines_dyta               consult_invoices
 management       prices                           consult_prices
 management       purchase_order_lines_dyta        consult_purchases
 management       purchase_orders                  consult_purchases
+management       purchase_order                   consult_purchases
 management       purchase_orders_dyta             consult_purchases
 management       sale_order                       consult_sales
 management       sale_order_invoices_dyta         consult_sales
@@ -182,6 +184,7 @@ management       sale_order_update                create_estimates
 management       sum_calculate                    create_estimates
 management       contacts_dyli                    create_purchases
 management       purchase_order_create            create_purchases
+management       purchase_order_delete            create_purchases
 management       purchase_order_update            create_purchases
 management       purchase_order_line_create       create_purchases
 management       purchase_order_line_delete       create_purchases

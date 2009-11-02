@@ -23,5 +23,9 @@
       =evalue @payment, :check_number
 
 -if @payment.parts.size>0
-  %h2=tc(:sale_orders)
-  =dyta :payment_sale_orders
+  -if SaleOrder.find(:all, :conditions=>["sale_orders.company_id=? AND id IN (SELECT expense_id FROM payment_parts WHERE payment_id=? AND expense_type=?)", @current_company.id, session[:current_payment_id], SaleOrder.name]).size > 0
+    %h2=tc(:sale_orders)
+    =dyta :payment_sale_orders
+  -if PurchaseOrder.find(:all, :conditions=>["purchase_orders.company_id=? AND id IN (SELECT expense_id FROM payment_parts WHERE payment_id=? AND expense_type=?)", @current_company.id, session[:current_payment_id], PurchaseOrder.name]).size > 0
+    %h2=tc(:purchase_orders)
+    =dyta :payment_purchase_orders

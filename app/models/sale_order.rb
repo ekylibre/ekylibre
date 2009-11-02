@@ -332,6 +332,13 @@ class SaleOrder < ActiveRecord::Base
     self.amount_with_taxes - self.amount
   end
 
+  def payment_entity_id
+    self.client.id
+  end
+
+  def usable_payments
+    self.company.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0) AND entity_id = ?" , self.payment_entity_id], :order=>"created_at desc")
+  end
 
   # Build general sales condition for the sale order
   def sales_conditions
@@ -347,7 +354,6 @@ class SaleOrder < ActiveRecord::Base
    #this method saves the sale in the accountancy module.
    def to_accountancy
 #     journal_bank =  self.company.journals.find(:first, :conditions => ['nature = ? AND closed_on < ?', 'bank', Date.today])
-<<<<<<< .mine
      journal_sale=  self.company.journals.find(:first, :conditions => ['nature = ? AND closed_on < ?', 'sale', Date.today])
      
      financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) AND closed=?'", '%'+self.created_on.year.to_s+'%', true])

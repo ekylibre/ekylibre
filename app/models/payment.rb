@@ -36,6 +36,7 @@ class Payment < ActiveRecord::Base
   has_many :parts, :class_name=>PaymentPart.name
   has_many :orders, :through=>:parts, :source=>:expense, :source_type=>'SaleOrder'
   has_many :sale_orders, :through=>:parts, :source=>:expense, :source_type=>'SaleOrder'
+  has_many :purchase_orders, :through=>:parts, :source=>:expense, :source_type=>'PurchaseOrder'
   has_many :transfers, :through=>:parts, :source=>:expense, :source_type=>'Transfer'
 
   attr_readonly :company_id, :entity_id
@@ -92,7 +93,7 @@ class Payment < ActiveRecord::Base
     end
     return true
   end
-
+  
  #this method saves the payment in the accountancy module.
   def to_accountancy
     financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) and closed=?", '%'+self.payment_on.year.to_s+'%', true])
@@ -115,9 +116,9 @@ class Payment < ActiveRecord::Base
         
         
     end
-
+    
   end
-
+  
         
 
 
@@ -136,7 +137,7 @@ class Payment < ActiveRecord::Base
 #   end
 
 
-end
+#end
 
 
 

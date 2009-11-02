@@ -987,7 +987,7 @@ fr-FR:
         created_at: 'Créé le'
         creator_id: 'Créateur'
         downpayment: 'Acompte'
-        embanker_id: 'Encaisseur'
+        embanker_id: 'Responsable'
         embankment_id: 'Encaissement'
         entity_id: 'Client'
         id: 'ID'

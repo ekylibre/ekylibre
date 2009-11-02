@@ -162,9 +162,30 @@ class PurchaseOrder < ActiveRecord::Base
     if self.amount_with_taxes == 0 
       return true
     else
-      return self.payments_sum != self.amount_with_taxes
+      return self.payments_sum < self.amount_with_taxes
     end
   end
 
+  def last_payment
+    self.company.payments.find(:first, :conditions=>{:entity_id=>self.company.entity_id}, :order=>"paid_on desc")
+  end
+
+  def unpaid_amount(all=true)
+    self.amount_with_taxes - self.payments_sum
+  end
+
+  def payment_entity_id
+    self.company.entity.id
+  end
+
+  def usable_payments
+    self.company.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0) AND entity_id = ?" , self.payment_entity_id], :order=>"created_at desc")
+  end
+
+  def status
+    status = ""
+    status = "critic" if self.payments_sum < self.amount_with_taxes
+    status
+  end
 
 end

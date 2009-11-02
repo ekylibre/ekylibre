@@ -31,12 +31,15 @@ class PurchaseOrderLine < ActiveRecord::Base
   belongs_to :price
   belongs_to :location, :class_name=>StockLocation.to_s
   belongs_to :unit
+
+  validates_presence_of :amount
   
   def before_validation
     check_reservoir = true
-    self.account_id = self.price.product.charge_account_id
-    self.unit_id = self.price.product.unit_id
     if self.price
+      self.account_id = self.price.product.charge_account_id 
+      self.unit_id = self.price.product.unit_id
+      self.product_id = self.price.product_id
       self.amount = (self.price.amount*self.quantity).round(2)
       self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2)
     end
