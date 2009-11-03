@@ -86,6 +86,18 @@ fr-FR:
 
   views:
     management:
+      _csv_statistics: 
+        amount: 'Montants HT'
+        amount_with_taxes: 'Montants TTC'
+        csv_statistics: 'Statistiques à exporter au format CSV'
+        data_to_export: 'Données à exporter :'
+        nb_years: 'Nb d''années dans l''historique'
+        quantity: 'Quantités'
+        invoice: 'Factures'
+        product: 'Produit'
+        sale_order: 'Commandes'
+        source: 'Source de données :'
+        sales: 'Exporter un tableau des ventes au format CSV'
       delay:
         delay_update: 'Modifier le délai'
         title: 'Délai : {{value}}'
@@ -153,6 +165,9 @@ fr-FR:
           other: '{{count}} chèques à encaisser'
           zero: 'Aucun chèque à encaisser'
         title: 'Remises de chèques'
+      _graph_statistics:
+        nb_years: 'Nombre d''années dans l''historique'
+        product: 'Produit'
       index:
         delays: 'Délais'
         delivery_modes: 'Types de livraison'
@@ -556,17 +571,9 @@ fr-FR:
         shelf_create: 'Ajouter une nouvelle catégorie de produits'
         title: 'Gérer les catégories de produits'
       statistics:
-        amount: 'Montants HT'
-        amount_with_taxes: 'Montants TTC'
-        data_to_export: 'Données à exporter :'
+        csv_statistics: 'Statistiques à exporter au format CSV'
         go: 'Valider'
-        invoice: 'Factures'
-        nb_years: 'Nombre d''années dans l''historique'
-        product: 'Produit'
-        quantity: 'Quantités'
-        sale_order: 'Commandes'
-        sales: 'Exporter un tableau des ventes au format CSV'
-        source: 'Source de données :'
+        graph_statistics: 'Statistiques graphiques'
         title: 'Statistiques'
       _stock_indicator:
         critic_stock_min: 'Stock minimum critique'

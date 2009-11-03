@@ -6,6 +6,7 @@
 #  comment      :string(255)   
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
+#  created_on   :date          
 #  creator_id   :integer       
 #  id           :integer       not null, primary key
 #  label        :string(255)   
@@ -23,7 +24,10 @@ class Transfer < ActiveRecord::Base
   attr_readonly :company_id, :comment
   has_many :payment_parts, :as=>:expense
 
+  validates_presence_of :created_on
+
   def before_validation
+    self.created_on ||= Date.today
     self.parts_amount = self.payment_parts.sum(:amount)||0
   end
 

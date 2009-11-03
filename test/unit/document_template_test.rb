@@ -9,12 +9,14 @@
 #  country      :string(2)     
 #  created_at   :datetime      not null
 #  creator_id   :integer       
+#  default      :boolean       default(TRUE), not null
 #  deleted      :boolean       not null
 #  family       :string(32)    
 #  id           :integer       not null, primary key
 #  language_id  :integer       
 #  lock_version :integer       default(0), not null
 #  name         :string(255)   not null
+#  nature       :string(20)    
 #  source       :text          
 #  to_archive   :boolean       
 #  updated_at   :datetime      not null

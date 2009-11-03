@@ -9,6 +9,7 @@
 #  check_number   :string(255)   
 #  company_id     :integer       not null
 #  created_at     :datetime      not null
+#  created_on     :date          
 #  creator_id     :integer       
 #  embanker_id    :integer       
 #  embankment_id  :integer       

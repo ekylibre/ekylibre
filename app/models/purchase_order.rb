@@ -7,6 +7,7 @@
 #  comment           :text          
 #  company_id        :integer       not null
 #  created_at        :datetime      not null
+#  created_on        :date          
 #  creator_id        :integer       
 #  dest_contact_id   :integer       
 #  id                :integer       not null, primary key
@@ -28,12 +29,16 @@ class PurchaseOrder < ActiveRecord::Base
   has_many :lines, :class_name=>PurchaseOrderLine.name, :foreign_key=>:order_id
   has_many :payment_parts, :as=>:expense
 
-  validates_presence_of :planned_on
+  validates_presence_of :planned_on, :created_on
   attr_readonly :company_id
 
+  ## shipped used as received
+
   def before_validation
+    self.created_on ||= Date.today
     if self.number.blank?
-      last = self.supplier.purchase_orders.find(:first, :order=>"number desc")
+      #last = self.supplier.purchase_orders.find(:first, :order=>"number desc")
+      last = self.company.purchase_orders.find(:first, :order=>"number desc")
       self.number = if last
                       last.number.succ!
                     else
@@ -73,6 +78,7 @@ class PurchaseOrder < ActiveRecord::Base
       StockMove.create!(:name=>tc(:purchase)+"  "+line.order.number, :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>Date.today, :company_id=>line.company_id, :virtual=>false, :input=>true, :origin_type=>PurchaseOrder.to_s, :origin_id=>self.id, :generated=>true)
     end
     self.moved_on = Date.today if self.moved_on.nil?
+    self.shipped = true
     self.save
   end
 
@@ -162,7 +168,7 @@ class PurchaseOrder < ActiveRecord::Base
     if self.amount_with_taxes == 0 
       return true
     else
-      return self.payments_sum < self.amount_with_taxes
+      return (self.payments_sum < self.amount_with_taxes and not self.shipped)
     end
   end
 

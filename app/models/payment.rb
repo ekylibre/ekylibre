@@ -9,6 +9,7 @@
 #  check_number   :string(255)   
 #  company_id     :integer       not null
 #  created_at     :datetime      not null
+#  created_on     :date          
 #  creator_id     :integer       
 #  embanker_id    :integer       
 #  embankment_id  :integer       
@@ -43,9 +44,10 @@ class Payment < ActiveRecord::Base
   attr_protected :parts_amount, :account_id
 
   validates_numericality_of :amount, :greater_than=>0
-  validates_presence_of :to_bank_on, :entity_id
+  validates_presence_of :to_bank_on, :entity_id, :created_on
 
   def before_validation_on_create
+    self.created_on ||= Date.today
     specific_numeration = self.company.parameter("management.payments.numeration")
     if specific_numeration and specific_numeration.value
       self.number = specific_numeration.value.next_value

@@ -133,8 +133,10 @@ class Entity < ActiveRecord::Base
     end
   end
   
-
-
+  def before_destroy
+    raise Exception.new "Can't delete entity of the company" if self.id == self.company.entity.id
+  end
+  
   #
   def destroy_bank_account
     self.bank_accounts.find(:all).each do |bank_account|

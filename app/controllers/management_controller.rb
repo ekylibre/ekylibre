@@ -795,10 +795,12 @@ class ManagementController < ApplicationController
 
   dyta(:purchase_orders, :conditions=>{:company_id=>['@current_company.id']}, :line_class=>'RECORD.status') do |t|
     t.column :number ,:url=>{:action=>:purchase_order}
+    t.column :created_on
+    t.column :moved_on
     t.column :full_name, :through=>:supplier, :url=>{:controller=>:relations, :action=>:entity}
     t.column :address, :through=>:dest_contact
     t.column :shipped
-    t.column :invoiced
+    #t.column :invoiced
     t.column :amount
     t.column :amount_with_taxes
     t.action :purchase_order_print
@@ -821,7 +823,7 @@ class ManagementController < ApplicationController
   end
 
   def purchase_order_print
-    @order    = find_and_check(:purchase_order, params[:id])
+    return unless @order = find_and_check(:purchase_order, params[:id])
     @supplier = @order.supplier
     @client   = @current_company.entity
     print(@order, :archive=>false)
@@ -882,7 +884,7 @@ class ManagementController < ApplicationController
     t.column :downpayment
     #t.column :paid_on, :through=>:payment, :label=>tc('paid_on'), :datatype=>:date
     t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
-    t.action :payment_part_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :payment_part_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.expense.shipped == false'
   end
   
   def price_find
@@ -1979,8 +1981,7 @@ class ManagementController < ApplicationController
     return unless @sale_order   = find_and_check(:sale_order, session[:current_sale_order])
     return unless @payment_part = find_and_check(:payment_part, params[:id])
     if request.post? or request.delete?
-      @payment_part.destroy
-      redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
+      redirect_to_current if @payment_part.destroy #:action=>:sale_order_summary, :id=>@sale_order.id
     end
   end
   

@@ -1,3 +1,30 @@
+# == Schema Information
+#
+# Table name: tax_declarations
+#
+#  acquisition_amount       :decimal(16, 2 
+#  address                  :string(255)   
+#  amount                   :decimal(16, 2 
+#  assimilated_taxes_amount :decimal(16, 2 
+#  balance_amount           :decimal(16, 2 
+#  collected_amount         :decimal(16, 2 
+#  company_id               :integer       not null
+#  created_at               :datetime      not null
+#  creator_id               :integer       
+#  declared_on              :date          
+#  deferred_payment         :boolean       
+#  financialyear_id         :integer       
+#  id                       :integer       not null, primary key
+#  lock_version             :integer       default(0), not null
+#  nature                   :string(255)   default("normal"), not null
+#  paid_amount              :decimal(16, 2 
+#  paid_on                  :date          
+#  started_on               :date          
+#  stopped_on               :date          
+#  updated_at               :datetime      not null
+#  updater_id               :integer       
+#
+
 class TaxDeclaration < ActiveRecord::Base
   belongs_to :company
   belongs_to :financialyear

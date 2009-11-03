@@ -36,6 +36,7 @@ class PurchaseOrderLine < ActiveRecord::Base
   
   def before_validation
     check_reservoir = true
+    self.location_id = self.company.stock_locations.first.id if self.company.stock_locations.size == 1
     if self.price
       self.account_id = self.price.product.charge_account_id 
       self.unit_id = self.price.product.unit_id

@@ -6,6 +6,7 @@
 #  comment      :string(255)   
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
+#  created_on   :date          
 #  creator_id   :integer       
 #  id           :integer       not null, primary key
 #  label        :string(255)   

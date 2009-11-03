@@ -396,6 +396,8 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :code
     t.column :family_label
+    t.column :nature_label
+    t.column :default
     t.column :to_archive
     t.column :native_name, :through=>:language
     t.column :country
@@ -413,16 +415,17 @@ class CompanyController < ApplicationController
     prints_dir = "#{RAILS_ROOT}/app/views/prints"
  
     families = {}
-    families[:management] ={'sale_order'=>{:to_archive=>false}, 'invoice'=>{:to_archive=>true}}
-    families[:accountancy] ={'journal'=>{:to_archive=>false}, 'journal_by_id'=>{:to_archive=>false}}
+    families[:management] ={'sale_order'=>{:to_archive=>false, :nature=>'sale_order'}, 'invoice'=>{:to_archive=>true, :nature=>'invoice'}}
+    families[:accountancy] ={'journal'=>{:to_archive=>false, :nature=>'other'}, 'journal_by_id'=>{:to_archive=>false, :nature=>'other'}}
   
     families.each do |family, templates|
       templates.each do |template, options|
         File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
-          @current_company.document_templates.create(:active=>true, :name=>t('models.company.default.document_templates.'+template.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read, :to_archive=>options[:to_archive], :family=>family.to_s, :code=>template)
+          @current_company.document_templates.create(:active=>true, :name=>t('models.company.default.document_templates.'+template.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read, :to_archive=>options[:to_archive], :family=>family.to_s, :code=>template, :nature=>options[:nature] )
         end
       end
     end
+    redirect_to :action=>:document_templates
   end
  
   def document_template_create

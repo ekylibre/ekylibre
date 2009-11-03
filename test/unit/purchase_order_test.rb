@@ -7,6 +7,7 @@
 #  comment           :text          
 #  company_id        :integer       not null
 #  created_at        :datetime      not null
+#  created_on        :date          
 #  creator_id        :integer       
 #  dest_contact_id   :integer       
 #  id                :integer       not null, primary key

@@ -279,7 +279,7 @@ class RelationsController < ApplicationController
     t.column :line_6, :through=>:default_contact, :url=>{:action=>:entity_contact_update}
     t.action :entity_print
     t.action :entity_update
-    t.action :entity_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :entity_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.id != RECORD.company.entity.id'
   end
 
   dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
@@ -596,12 +596,12 @@ class RelationsController < ApplicationController
     if request.post? or request.delete?
       @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
       @id = params[:id]
-      unless @entity.invoices.size > 0
+      unless (@entity.invoices.size > 0 or @entity.id == @current_company.entity.id)
         @id = params[:id]
         Entity.destroy(@id) if @entity
         #        Entity.delete(@id) if @entity
       else
-        flash[:warning]=lc(:entity_delete_permission)
+        flash[:warning]=tc(:entity_delete_permission)
       end
     end
     redirect_to :action=>:entities

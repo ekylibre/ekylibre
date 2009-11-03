@@ -237,6 +237,11 @@ fr-FR:
         management: Commerce
         resources: Ressources
         production: Production
+      natures:
+        invoice: 'Facture de vente'
+        other: 'Autres'
+        purchase_order: 'Commande d''achat'
+        sale_order: 'Devis / Commande'
     entity:
       client: 'Client'
       supplier: 'Fournisseur'

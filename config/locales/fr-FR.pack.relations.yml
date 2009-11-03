@@ -21,6 +21,7 @@ fr-FR:
       entities_natures_delete_permission: 'Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches'
       entity_code: 'Code'
       entity_comment: 'Commentaire'
+      entity_delete_permission: 'Vous ne pouvez pas supprimer cette fiche : elle est liée à des factures'
       entity_first_name: 'Prénom'
       entity_id: 'Fiche'
       entity_name: 'Nom'
