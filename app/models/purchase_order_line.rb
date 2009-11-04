@@ -67,4 +67,8 @@ class PurchaseOrderLine < ActiveRecord::Base
     self.product.name
   end
 
+  def taxes
+    self.amount_with_taxes - self.amount
+  end
+  
 end

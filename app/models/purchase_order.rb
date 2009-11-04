@@ -194,4 +194,20 @@ class PurchaseOrder < ActiveRecord::Base
     status
   end
 
+  def supplier_address
+    a = self.supplier.full_name+"\n"
+    a += (self.supplier.default_contact.address).gsub(/\s*\,\s*/, "\n") if self.supplier.default_contact
+    a
+  end
+
+  def client_address
+    a = self.company.entity.full_name+"\n"
+    a += (self.dest_contact.address).gsub(/\s*\,\s*/, "\n") if self.dest_contact
+    a
+  end
+
+  def taxes
+    self.amount_with_taxes - self.amount
+  end
+  
 end

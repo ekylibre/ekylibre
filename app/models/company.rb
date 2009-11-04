@@ -596,11 +596,14 @@ class Company < ActiveRecord::Base
       template = options[:template] if options[:template].is_a? DocumentTemplate
       template = self.document_templates.find_by_id(options[:template]) if options[:template].is_a? Integer
       template = self.document_templates.find_by_code(options[:template]) if options[:template].is_a? String
-    elsif
-      template = self.document_templates.find_by_code(object.class.to_s.underscore)
+    elsif options[:nature]
+      template = self.document_templates.find_by_code(options[:nature]) if options[:nature].is_a? String
+      #raise Exception.new "ok "+template.inspect+options[:nature].inspect
+    else
+      template = self.document_templates.find_by_nature_and_default(object.class.to_s.underscore, true)
     end
+    #raise Exception.new "ok "+template.inspect+" mmmm "+options[:nature].inspect
     return DocumentTemplate.error_document("Can't find any template to print") unless template
-      
     # Printing
     # TODO: Cache printing method
     return template.print(object)

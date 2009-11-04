@@ -86,6 +86,8 @@ class ApplicationController < ActionController::Base
     record
   end
 
+
+
   private
   
   def historize()
@@ -148,7 +150,6 @@ class ApplicationController < ActionController::Base
     session[:help_history] << @article if @article != session[:help_history].last
     session[:help]=true
   end
-
 
   def print(object, options={})
     if @current_company

@@ -1,6 +1,7 @@
 =toolbar do |t|
   -t.link :sale_order_lines, :id=>@sale_order.id
-  -t.link :sale_order_print, :id=>@sale_order.id
+  -#t.link :sale_order_print, :id=>@sale_order.id
+  -t.print :sale_order, :id=>@sale_order.id
 
 %h2= tc 'general_informations'
 %table

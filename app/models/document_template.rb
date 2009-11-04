@@ -34,7 +34,7 @@ class DocumentTemplate < ActiveRecord::Base
 
   @@families = [:company, :relations, :accountancy, :management, :resources, :production]
 
-  @@document_natures = [:invoice, :sale_order, :purchase_order, :other] 
+  @@document_natures = [:invoice, :sale_order, :purchase_order, :inventory, :transport, :embankment, :entity, :other] 
 
   include ActionView::Helpers::NumberHelper
 
@@ -46,7 +46,12 @@ class DocumentTemplate < ActiveRecord::Base
 #     rescue => e
 #       errors.add(:source, e.inspect)
 #     end  
-    DocumentTemplate.update_all({:default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id||0, self.nature]) if self.default
+
+    #while self.company.document_templates.find(:first, :conditions=>["code=? AND id!=?", self.code, self.id||0])
+     # self.code.succ!
+    #end
+
+    DocumentTemplate.update_all({:default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id||0, self.nature]) if self.default and self.nature != 'other'
   end
 
   def validate
@@ -77,7 +82,6 @@ class DocumentTemplate < ActiveRecord::Base
     # Analyze parameters
     object = args[0]
     raise Exception.new("Must be an activerecord") unless object.class.ancestors.include?(ActiveRecord::Base)
-
     # Try to find an existing archive
     if self.to_archive
       # document = self.documents.find(:first, :conditions=>["owner_id = ? and owner_type = ?", object.id, object.class.name], :order=>"created_at DESC")
@@ -88,7 +92,7 @@ class DocumentTemplate < ActiveRecord::Base
 
     # Build the PDF data
     pdf = eval(self.cache)
-
+    #raise Exception.new "ok klxssssss,kl,541514"+pdf.inspect
     # Archive the document if necessary
     if self.to_archive
       document = self.archive(object, pdf, :extension=>'pdf')

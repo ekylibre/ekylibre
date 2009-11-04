@@ -503,6 +503,7 @@ module ApplicationHelper
       for tool in toolbar.tools
         nature, args = tool[0], tool[1]
         if nature == :link
+          #raise Exception.new "ok"
           name = args[0]
           args[1] ||= {}
           args[2] ||= {}
@@ -515,6 +516,24 @@ module ApplicationHelper
           end
           
           code += li_link_to(*args)
+        elsif nature == :print
+          #raise Exception.new "ok"+args.inspect
+          name = args[0].to_s
+          object_id = args[1][:id].to_i
+          args[2] ||= {}
+          args[1] = {}
+          args[1][:controller] = "company"
+          args[1][:action] = "print"
+          args[1][:source_type] = name
+          args[1][:source_id] = object_id
+          args[2][:class] = "print"
+          #          raise Exception.new "ok"+args.inspect
+          for dc in @current_company.document_templates.find_all_by_nature_and_active(name, true)
+            args[0] = tc(:print)+" ("+dc.name+")"
+            args[1][:code] = dc.code
+            #raise Exception.new "ok"
+            code += li_link_to(*args)
+          end
         elsif nature == :mail
           args[2] ||= {}
           args[2][:class] = :mail
@@ -545,6 +564,10 @@ module ApplicationHelper
 
     def mail(*args)
       @tools << [:mail, args]
+    end
+    
+    def print(*args)
+      @tools << [:print, args]
     end
   end
 

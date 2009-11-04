@@ -81,7 +81,6 @@ class Product < ActiveRecord::Base
         last = self.company.products.find(:first, :order=>'number DESC')
         self.number = last.nil? ? 1 : last.number+1 
       end
-      puts "gggglllll"
       while self.company.products.find(:first, :conditions=>["code=? AND id!=?", self.code, self.id||0])
         self.code.succ!
       end

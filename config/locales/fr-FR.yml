@@ -164,10 +164,15 @@ fr-FR:
           journals: Journaux
           sale_order: Vente
         document_templates:
-          invoice: Facture de vente
+          embankment: 'Remise de chèques'
+          entity: 'Fiche relations'
+          inventory: 'Inventaire'
+          invoice: Facture client
           journal: Journal
           journals: Journaux
+          purchase_order: 'Commande fournisseur'
           sale_order: 'Devis/Commande'
+          transport: 'Transport'
         entities_numeration: Numérotation des relations
         establishment_name: Établissement principal
         financialyear_code: 1A2
@@ -238,10 +243,14 @@ fr-FR:
         resources: Ressources
         production: Production
       natures:
-        invoice: 'Facture de vente'
+        embankment: 'Remise de chèques'
+        entity: 'Fiche relations'
+        inventory: 'Inventaire'
+        invoice: 'Facture client'
         other: 'Autres'
-        purchase_order: 'Commande d''achat'
+        purchase_order: 'Commande fournisseur'
         sale_order: 'Devis / Commande'
+        transport: 'Transport'
     entity:
       client: 'Client'
       supplier: 'Fournisseur'

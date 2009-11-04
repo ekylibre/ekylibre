@@ -415,13 +415,19 @@ class CompanyController < ApplicationController
     prints_dir = "#{RAILS_ROOT}/app/views/prints"
  
     families = {}
-    families[:management] ={'sale_order'=>{:to_archive=>false, :nature=>'sale_order'}, 'invoice'=>{:to_archive=>true, :nature=>'invoice'}}
-    families[:accountancy] ={'journal'=>{:to_archive=>false, :nature=>'other'}, 'journal_by_id'=>{:to_archive=>false, :nature=>'other'}}
+    families[:management] = {'sale_order'=>{:to_archive=>false, :nature=>'sale_order'}, 'invoice'=>{:to_archive=>true, :nature=>'invoice'}, 'inventory'=>{:to_archive=>false, :nature=>'inventory'}, 'transport'=>{:to_archive=>false, :nature=>'transport'}, 'embankment'=>{:to_archive=>false, :nature=>'embankment'}, 'purchase_order'=>{:to_archive=>false, :nature=>'purchase_order'} }
+    families[:relations] = {'entity'=>{:to_archive=>false, :nature=>'entity'}}
+    families[:accountancy] = {'journal'=>{:to_archive=>false, :nature=>'other'}, 'journal_by_id'=>{:to_archive=>false, :nature=>'other'}}
   
     families.each do |family, templates|
       templates.each do |template, options|
         File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
-          @current_company.document_templates.create(:active=>true, :name=>t('models.company.default.document_templates.'+template.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read, :to_archive=>options[:to_archive], :family=>family.to_s, :code=>template, :nature=>options[:nature] )
+          if template == "entity"
+            @current_company.document_templates.create(:active=>true, :name=>t('models.company.default.document_templates.'+template.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read, :to_archive=>options[:to_archive], :family=>family.to_s, :code=>t('models.company.default.document_templates.'+template).codeize, :nature=>options[:nature] )
+          else
+            @current_company.document_templates.create(:active=>true, :name=>t('models.company.default.document_templates.'+template.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read, :to_archive=>options[:to_archive], :family=>family.to_s, :code=>t('models.company.default.document_templates.'+template).codeize, :nature=>options[:nature] )
+          end
+          #raise Exception.new f.read.inspect
         end
       end
     end
@@ -660,5 +666,17 @@ class CompanyController < ApplicationController
     end
     redirect_to_back
   end
-
+  
+  def print #(code,source_type, source_id)
+    #raise Exception.new "in ! "+params.inspect
+    begin
+      return unless object = find_and_check(params[:source_type], params[:source_id])
+      result = @current_company.print(object, :nature=>params[:code])
+      send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>object.id.to_s)
+    rescue
+      flash[:error]=tc(:object_to_print_no_found)
+      redirect_to_back
+    end
+  end
+  
 end

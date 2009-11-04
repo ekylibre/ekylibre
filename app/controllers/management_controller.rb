@@ -823,10 +823,10 @@ class ManagementController < ApplicationController
   end
 
   def purchase_order_print
-    return unless @order = find_and_check(:purchase_order, params[:id])
-    @supplier = @order.supplier
-    @client   = @current_company.entity
-    print(@order, :archive=>false)
+    return unless @purchase_order = find_and_check(:purchase_order, params[:id])
+#    @supplier = @order.supplier
+#    @client   = @current_company.entity
+    print(@purchase_order, :file_name=>tc('purchase_order')+' '+@purchase_order.created_on.to_s)
   end
 
   def purchases_new

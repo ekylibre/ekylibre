@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<template title="Example" lang="fr" version="2.0">
+  <infos>
+    <info name="authors">Thibaud Mérigon, Brice Texier</info>
+  </infos>
+  <parameters>
+    <parameter name="entity" nature="entity">Fiche relation</parameter>
+  </parameters>
+  <document unit="mm" size="10" title="entity.label">
+    <page orientation="portrait" format="A4" margin="10mm">
+
+      <part height="20mm">
+	<set>
+	</set>
+      </part>
+      
+
+      <table if="entity.contacts.size> 0" collection="entity.contacts">
+	<column label="Adresse" property="address" width="100mm"/>
+      </table>
+
+    </page>
+  </document>
+</template>

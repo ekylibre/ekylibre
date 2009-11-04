@@ -70,6 +70,7 @@ accountancy      tax_declarations_dyta            manage_taxes
 accountancy      document_prepare                 print_accounting_document
 accountancy      document_print                   print_accounting_document
 accountancy      synthesis                        print_accounting_document
+application      print                            print
 authentication   index                            __minimum__
 authentication   login                            __minimum__
 authentication   logout                           __minimum__
@@ -83,6 +84,7 @@ company          unknown_action                   __minimum__
 company          user_statistics                  __minimum__
 company          welcome                          __minimum__
 company          backups                          backup_company
+company          print                            print
 company          configure                        configure_company
 company          sequence_create                  configure_company
 company          sequence_delete                  configure_company
@@ -233,7 +235,7 @@ management       payment_delete                   manage_invoicing
 management       payment                          manage_invoicing
 management       payment_part_create              manage_invoicing
 management       payment_part_delete              manage_invoicing
-management       sale_order_payment_parts_dyta               manage_invoicing
+management       sale_order_payment_parts_dyta    manage_invoicing
 management       payment_update                   manage_invoicing
 management       payments                         manage_invoicing
 management       sale_order_summary               manage_invoicing
