@@ -524,12 +524,12 @@ module ApplicationHelper
           args[1] = {}
           args[1][:controller] = "company"
           args[1][:action] = "print"
-          args[1][:source_type] = name
-          args[1][:source_id] = object_id
+          args[1][:type] = name
+          args[1][:id] = object_id
           args[2][:class] = "print"
           #          raise Exception.new "ok"+args.inspect
           for dc in @current_company.document_templates.find_all_by_nature_and_active(name, true)
-            args[0] = tc(:print)+" ("+dc.name+")"
+            args[0] = tc(:print, :name=>dc.name)
             args[1][:code] = dc.code
             #raise Exception.new "ok"
             code += li_link_to(*args)

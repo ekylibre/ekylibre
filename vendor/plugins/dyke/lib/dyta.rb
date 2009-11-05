@@ -588,8 +588,14 @@ module Ekylibre
 
             code = "if "+cases.join("elsif ")+"end"
           else
+            url = @options[:url] ||= {}
+            url[:controller] ||= @options[:controller]
+            url[:action] ||= @name
+            url.delete(:id)
             code  = "link_to(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
-            code += ", {"+(@options[:controller] ? ':controller=>:'+@options[:controller].to_s+', ' : '')+":action=>:"+@name.to_s+", :id=>"+record+".id"+format+"}"
+            #code += ", {"+(@options[:controller] ? ':controller=>:'+@options[:controller].to_s+', ' : '')+":action=>:"+@name.to_s+", :id=>"+record+".id"+format+"}"
+            code += ", "+url.inspect[0..-2]+", :id=>"+record+".id"+format+"}"
+            #+"}"+{"+(@options[:controller] ? ':controller=>:'+@options[:controller].to_s+', ' : '')+":action=>:"+@name.to_s
             code += ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :alt=>::I18n.t('general.#{verb}'), :title=>::I18n.t('general.#{verb}')}"
             code += ")"
           end

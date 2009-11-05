@@ -159,7 +159,8 @@ class ManagementController < ApplicationController
     t.column :changes_reflected, :label=>tc('changes_reflected')
     t.column :label, :through=>:employee
     t.column :comment
-    t.action :inventory_print
+    #t.action :inventory_print
+    t.action :print, :url=>{:controller=>:company, :type=>:inventory}
     t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and RECORD.changes_reflected == false'
     t.action :inventory_update,  :if=>'RECORD.changes_reflected == false'
     t.action :inventory_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.changes_reflected == false'
@@ -222,10 +223,10 @@ class ManagementController < ApplicationController
     end
   end
 
-  def inventory_print
-    return unless @inventory = find_and_check(:inventories, params[:id])
-    print(@inventory, :filename=>tc('inventory')+" "+@inventory.date.to_s)
-  end
+#   def inventory_print
+#     return unless @inventory = find_and_check(:inventories, params[:id])
+#     print(@inventory, :filename=>tc('inventory')+" "+@inventory.date.to_s)
+#   end
 
   
   def self.invoices_conditions
@@ -251,8 +252,8 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.column :credit
     #t.action :invoice_to_accountancy
-    
-    t.action :invoice_print
+    #t.action :invoice_print
+    t.action :print, :url=>{:controller=>:company, :type=>:invoice}
     
     t.action :invoice_cancel, :if=>"RECORD.creditable\?"
   end
@@ -384,10 +385,10 @@ class ManagementController < ApplicationController
     @title = {:nature=>@invoice.credit ? tc(:credit) : tc(:invoice), :number=>@invoice.number}
   end
 
-  def invoice_print
-    return unless invoice = find_and_check(:invoice, params[:id])
-    print(invoice, :filename=>invoice.label)
-  end
+#   def invoice_print
+#     return unless invoice = find_and_check(:invoice, params[:id])
+#     print(invoice, :filename=>invoice.label)
+#   end
 
 
   def self.prices_conditions(options={})
@@ -803,7 +804,7 @@ class ManagementController < ApplicationController
     #t.column :invoiced
     t.column :amount
     t.column :amount_with_taxes
-    t.action :purchase_order_print
+    t.action :print, :url=>{:controller=>:company, :type=>:purchase_order}
     t.action :purchase_order_lines, :image=>:update#, :if=>'RECORD.editable'
     t.action :purchase_order_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.editable'
   end
@@ -818,16 +819,16 @@ class ManagementController < ApplicationController
 
   def purchase_order
     return unless @purchase_order = find_and_check(:purchase_order, params[:id])
-    session[:current_purchase_order] = @purchase_order.id
+    session[:current_purchase] = @purchase_order.id
     @title = {:number=>@purchase_order.number, :supplier=>@purchase_order.supplier.full_name}
   end
 
-  def purchase_order_print
-    return unless @purchase_order = find_and_check(:purchase_order, params[:id])
+ # def purchase_order_print
+  #  return unless @purchase_order = find_and_check(:purchase_order, params[:id])
 #    @supplier = @order.supplier
 #    @client   = @current_company.entity
-    print(@purchase_order, :file_name=>tc('purchase_order')+' '+@purchase_order.created_on.to_s)
-  end
+   # print(@purchase_order, :file_name=>tc('purchase_order')+' '+@purchase_order.created_on.to_s)
+  #end
 
   def purchases_new
     redirect_to :action=>:purchase_order_create
@@ -875,7 +876,7 @@ class ManagementController < ApplicationController
     @title = {:value=>@purchase_order.number,:name=>@purchase_order.supplier.full_name}
   end
 
-  dyta(:purchase_order_payment_parts, :model=>:payment_parts, :conditions=>["company_id=? AND expense_id=? AND expense_type=?", ['@current_company.id'], ['session[:current_purchase_order]'], PurchaseOrder.name]) do |t|
+  dyta(:purchase_order_payment_parts, :model=>:payment_parts, :conditions=>["company_id=? AND expense_id=? AND expense_type=?", ['@current_company.id'], ['session[:current_purchase]'], PurchaseOrder.name]) do |t|
     t.column :number, :through=>:payment, :url=>{:action=>:payment}
     t.column :amount, :through=>:payment, :label=>tc('payment_amount'), :url=>{:action=>:payment}
     t.column :amount
@@ -1006,7 +1007,7 @@ class ManagementController < ApplicationController
     t.column :text_state
     t.column :amount
     t.column :amount_with_taxes
-    t.action :sale_order_print
+    t.action :print, :url=>{:controller=>:company, :type=>:sale_order}
     t.action :sale_order_delete , :method=>:post, :if=>'RECORD.estimate? ', :confirm=>tc(:are_you_sure)
   end
   
@@ -1251,16 +1252,16 @@ class ManagementController < ApplicationController
   end
 
 
-  def sale_order_print
-    @sale_order = find_and_check(:sale_order, params[:id])
-    if @current_company.default_contact.nil? || @sale_order.client.contacts.size == 0
-      entity = @current_company.default_contact.nil? ? @current_company.name : @sale_order.client.full_name
-      flash[:warning]=tc(:no_contacts, :name=>entity)
-      redirect_to_back
-    else
-      print(@sale_order, :filename=>@sale_order.label)
-    end
-  end
+#   def sale_order_print
+#     @sale_order = find_and_check(:sale_order, params[:id])
+#     if @current_company.default_contact.nil? || @sale_order.client.contacts.size == 0
+#       entity = @current_company.default_contact.nil? ? @current_company.name : @sale_order.client.full_name
+#       flash[:warning]=tc(:no_contacts, :name=>entity)
+#       redirect_to_back
+#     else
+#       print(@sale_order, :filename=>@sale_order.label)
+#     end
+#   end
 
   def sale_order_duplicate
     return unless sale_order = find_and_check(:sale_order, params[:id])
@@ -1576,7 +1577,8 @@ class ManagementController < ApplicationController
     t.column :created_on, :children=>false
     t.column :amount
     t.column :amount_with_taxes
-    t.action :invoice_print
+    #t.action :invoice_print
+    t.action :print, :url=>{:controller=>:company, :type=>:invoice}
   end
   
   
@@ -1587,7 +1589,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:bank_account
     t.column :label, :through=>:embanker
     t.column :created_on
-    t.action :embankment_print
+    t.action :print, :url=>{:controller=>:company, :type=>:embankment}
     t.action :embankment_update, :if=>'RECORD.locked == false'
     t.action :embankment_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.locked == false'
   end
@@ -1624,23 +1626,23 @@ class ManagementController < ApplicationController
     @title = {:date=>@embankment.created_on}
   end
   
-  def embankment_print
-    return unless embankment = find_and_check(:embankment, params[:id])
-    print(embankment, :filename=>tc('embankment', :creation=>::I18n.localize(embankment.created_on)))
-#     if @current_company.default_contact.nil? || @embankment.bank_account.address.nil?
-#       entity = @current_company.default_contact.nil? ? @current_company.name : @embankment.bank_account.name
-#       flash[:warning]=tc(:no_contacts, :name=>entity)
-#       redirect_to_back
-#     else
-#       @payments = @current_company.payments.find_all_by_embankment_id(@embankment.id)
-#       @lines = []
-#       @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-#       @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
-#       #raise Exception.new @embankment.bank_account.bank_name.inspect
-#       @account_address = @embankment.bank_account.address.split("\n")
-#       print(@embankment, :archive=>false, :filename=>tc('embankment')+" "+@embankment.created_on.to_s)
-#     end
-  end
+#   def embankment_print
+#     return unless embankment = find_and_check(:embankment, params[:id])
+#     print(embankment, :filename=>tc('embankment', :creation=>::I18n.localize(embankment.created_on)))
+# #     if @current_company.default_contact.nil? || @embankment.bank_account.address.nil?
+# #       entity = @current_company.default_contact.nil? ? @current_company.name : @embankment.bank_account.name
+# #       flash[:warning]=tc(:no_contacts, :name=>entity)
+# #       redirect_to_back
+# #     else
+# #       @payments = @current_company.payments.find_all_by_embankment_id(@embankment.id)
+# #       @lines = []
+# #       @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
+# #       @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
+# #       #raise Exception.new @embankment.bank_account.bank_name.inspect
+# #       @account_address = @embankment.bank_account.address.split("\n")
+# #       print(@embankment, :archive=>false, :filename=>tc('embankment')+" "+@embankment.created_on.to_s)
+# #     end
+#   end
 
   def embankment_create
     mode = PaymentMode.find_by_id_and_company_id(params[:mode_id], @current_company.id)
@@ -2541,7 +2543,8 @@ class ManagementController < ApplicationController
     t.column :transport_on, :children=>false
     t.column :full_name, :through=>:transporter, :children=>:contact_address
     t.column :weight
-    t.action :transport_print
+    #t.action :transport_print
+    t.action :print, :url=>{:controller=>:company, :type=>:transport}
     t.action :transport_update
     t.action :transport_delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -2609,9 +2612,9 @@ class ManagementController < ApplicationController
   end
  
 
-  def transport_print
-    return unless @transport = find_and_check(:transports, params[:id])
-    print(@transport, :filename=>tc('transport')+" "+@transport.created_on.to_s)
-  end
+#   def transport_print
+#     return unless @transport = find_and_check(:transports, params[:id])
+#     print(@transport, :filename=>tc('transport')+" "+@transport.created_on.to_s)
+#   end
 
 end

@@ -12,6 +12,7 @@
 #  default      :boolean       default(TRUE), not null
 #  deleted      :boolean       not null
 #  family       :string(32)    
+#  filename     :string(255)   
 #  id           :integer       not null, primary key
 #  language_id  :integer       
 #  lock_version :integer       default(0), not null
@@ -56,6 +57,8 @@ class DocumentTemplate < ActiveRecord::Base
 
   def validate
     errors.add(:source, 'est invalide') if self.cache.blank?
+    syntax_errors = self.filename_errors
+    errors.add_to_base(syntax_errors) unless syntax_errors.empty?
   end
 
   def destroyable?
@@ -98,14 +101,43 @@ class DocumentTemplate < ActiveRecord::Base
       document = self.archive(object, pdf, :extension=>'pdf')
     end
     
-    return pdf
+    return pdf, self.compute_filename(object)+".pdf"
   end
 
-#   def print_in_file(*args)
-#     dataprint(args)
-    
-#   end
-
+  def filename_errors
+    errors = []
+    begin
+      columns = self.nature.classify.constantize.content_columns.collect{|x| x.name.to_s}.sort
+      #self.filename.split.each do |word|
+      # if  word.match(/\[\w+\]/)
+      self.filename.gsub(/\[\w+\]/) do |word|
+        unless columns.include?(word[1..-2])
+          errors << tc(:error_attribute, :value=>word, :possibilities=>columns.collect { |column| column+" ("+I18n::t('activerecord.attributes.'+self.nature+'.'+column)+")" }.join(", "))
+        end
+        "*"
+      end
+    rescue
+      errors << tc(:nature_do_not_allow_to_use_attributes)
+    end
+    #self.filename.gsub(/\[\w+\]/) do |word|
+    # errors << word unless columns.include?(word[1..-2])
+    # "*"
+    #end
+    return errors
+  end
+  
+  def compute_filename(object)
+   # raise Exception.new "1"+self.filename_errors.inspect
+    if self.filename_errors.empty?
+      filename = self.filename.gsub(/\[\w+\]/) do |word|
+        #raise Exception.new "2"+filename.inspect
+        object.send(word[1..-2])
+      end
+    else
+      return tc(:invalid_filename)
+    end
+    return filename
+  end
 
   def archive(owner, data, attributes={})
     document = self.documents.new(attributes.merge(:company_id=>owner.company_id, :owner_id=>owner.id, :owner_type=>owner.class.name))
@@ -178,7 +210,7 @@ class DocumentTemplate < ActiveRecord::Base
     code << "end\n"
     code << "doc.generate"
 
-    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+#    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     # return '('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
     return '('+code+')'
   end

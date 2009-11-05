@@ -11,7 +11,6 @@
 #  creator_id        :integer       
 #  dest_contact_id   :integer       
 #  id                :integer       not null, primary key
-#  invoiced          :boolean       not null
 #  lock_version      :integer       default(0), not null
 #  moved_on          :date          
 #  number            :string(64)    not null

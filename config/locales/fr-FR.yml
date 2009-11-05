@@ -173,6 +173,12 @@ fr-FR:
           purchase_order: 'Commande fournisseur'
           sale_order: 'Devis/Commande'
           transport: 'Transport'
+        document_templates_filenames:
+          embankment: 'Remise de chèques du [created_on]'
+          entity: 'Fiche de [full_name]'
+          purchase_order: 'Achat [number]'
+          sale_order: 'Vente [number]'
+          transport: 'Transport du [created_on]'
         entities_numeration: Numérotation des relations
         establishment_name: Établissement principal
         financialyear_code: 1A2
@@ -235,6 +241,7 @@ fr-FR:
       error_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité commandée'
       sale: 'Vente {{number}}'
     document_template:
+      error_attribute: 'Le champ {{value}} est incorrect. Les possibilités sont : {{possibilities}}'
       families:
         company: Société
         relations: Relations
@@ -242,6 +249,8 @@ fr-FR:
         management: Commerce
         resources: Ressources
         production: Production
+      invalid_filename: 'Fichier'
+      nature_do_not_allow_to_use_attributes : 'La nature du modèle ne permet pas d''utiliser d''attributs'
       natures:
         embankment: 'Remise de chèques'
         entity: 'Fiche relations'

@@ -12,6 +12,7 @@
 #  default      :boolean       default(TRUE), not null
 #  deleted      :boolean       not null
 #  family       :string(32)    
+#  filename     :string(255)   
 #  id           :integer       not null, primary key
 #  language_id  :integer       
 #  lock_version :integer       default(0), not null

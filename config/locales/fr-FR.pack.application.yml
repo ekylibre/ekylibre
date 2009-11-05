@@ -12,7 +12,7 @@ fr-FR:
       all_journals: '--- Tous les journaux ---'
       exit: 'Se déconnecter'
       false: 'non'
-      print: 'Imprimer'
+      print: 'Imprimer {{name}}'
       true: 'oui'
 
   views:

@@ -31,6 +31,7 @@ fr-FR:
       account: 'Compte'
       account_balance: 'Balance de compte'
       address_: 'Élément de noeud d''extraction'
+      entity: 'Fiche'
       mandate: 'Responsabilité'
       observation: 'Observation'
       parameter: 'Paramètre'
@@ -484,6 +485,7 @@ fr-FR:
         deleted: (((DELETED)))
         family: 'Module'
         family_label: 'Module'
+        filename: 'Nom de fichier'
         id: 'ID'
         language_id: 'Langue'
         lock_version: 'Version'
