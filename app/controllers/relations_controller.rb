@@ -63,14 +63,7 @@ class RelationsController < ApplicationController
   end
   
   #
-  def self.areas_conditions(options={})
-    code = ""
-    code += "conditions=['company_id=? AND (postcode ILIKE ? OR name ILIKE ?)', @current_company.id, '%'+session[:area_key].to_s+'%', '%'+session[:area_key].to_s+'%'] \n"
-    code
-  end
- 
-  #
-  dyta(:areas, :conditions=>areas_conditions) do |t| 
+  dyta(:areas, :conditions=>search_conditions(:areas, :areas=>[:postcode, :name])) do |t| 
     t.column :name
     t.column :postcode
     t.column :city
@@ -123,14 +116,7 @@ class RelationsController < ApplicationController
     render_form
   end
 
-  #
-  def self.districts_conditions(options={})
-    code = ""
-    code += "conditions=['company_id=? AND (code ILIKE ? OR name ILIKE ?)', @current_company.id, '%'+session[:district_key].to_s+'%', '%'+session[:district_key].to_s+'%'] \n"
-    code
-  end
-
-  dyta(:districts, :children=>:areas, :conditions=>districts_conditions) do |t| 
+  dyta(:districts, :children=>:areas, :conditions=>search_conditions(:districts, :districts=>[:code, :name])) do |t| 
     t.column :name
     t.column :code
     t.action :area_create

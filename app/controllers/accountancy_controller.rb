@@ -71,7 +71,7 @@ class AccountancyController < ApplicationController
     t.column :number, :label=>"Compte" , :through=>:account
     t.column :debit
     t.column :credit
-    t.action :entry_update, :if => '!RECORD.close?'  
+    t.action :entry_update, :if => '!RECORD.close?', :url=>{:action=>:entry_update, :accountize=>true}   
     t.action :entry_delete, :method => :post, :confirm=>:are_you_sure, :if => '!RECORD.close? and !RECORD.letter?'
   end
  
@@ -158,20 +158,20 @@ class AccountancyController < ApplicationController
     
     if request.post? or request.xhr?
       #all the invoices are accountized.
-     # @invoices = @current_company.invoices.find(373007)
-       @invoices = @current_company.invoices.find(:all, :conditions=>["created_on < ? and accounted = ?", session[:limit_period].to_s, false])
-       @invoices.each do |invoice|
-        @invoices.to_accountancy
-       end
+      # @invoices = @current_company.invoices.find(:first, :conditions=>{:id=>373007})
+      @invoices = @current_company.invoices.find(:all, :conditions=>["created_on < ? and accounted = ?", session[:limit_period].to_s, false],:limit=>2)
+      @invoices.each do |invoice|
+        invoice.to_accountancy
+      end
       
       # all the purchases are accountized.
-      @purchases = @current_company.purchase_orders.find(:all, :conditions=>["planned_on < ? and accounted = ? ", session[:limit_period].to_s, false],:limit=>2)                                                         
+      @purchases = @current_company.purchase_orders.find(:all, :conditions=>["planned_on < ? and accounted = ? ", session[:limit_period].to_s, false], :limit=>2)                                                         
       @purchases.each do |purchase|
         purchase.to_accountancy
       end
       
       # all the transfers are accountized.
-      @transfers = @current_company.transfers.find(:all, :conditions=>["stopped_on < ? and accounted = ? ", session[:limit_period].to_s, false],:limit=>2)                                                         
+      @transfers = @current_company.transfers.find(:all, :conditions=>["stopped_on < ? and accounted = ? ", session[:limit_period].to_s, false], :limit=>2)                                                         
       @transfers.each do |transfer|
         transfer.to_accountancy
       end
@@ -185,7 +185,7 @@ class AccountancyController < ApplicationController
       end
 
       # the sales are comptabilized if the matching payments and invoices have been already accountized.  
-        @sales = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted = ? and p.accounted=? and i.accounted=?", session[:limit_period].to_s, false, true, true], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id", :limit=>2)    
+      @sales = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted = ? and p.accounted=? and i.accounted=?", session[:limit_period].to_s, false, true, true], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id", :limit=>2)    
       @sales.each do |sale|
         sale.to_accountancy
       end
@@ -765,10 +765,16 @@ class AccountancyController < ApplicationController
 
   # this method updates an entry with a form.
   def entry_update
+    session[:accountize] ||= params[:accountize] if params[:accountize]
     @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
       @entry.update_attributes(params[:entry]) 
-      redirect_to_back  #:action => "entries" 
+      unless session[:accountize].nil?
+        session[:accountize]=nil
+        redirect_to :action=>:draft_entries, :method=>:post
+      else
+        redirect_to_back
+      end
     end
     render_form
   end

@@ -105,9 +105,9 @@ fr-FR:
         all_districts: '--- Tous les districts ---'
         city_name: 'Ville'
         district_x: '{{name}} ({{code}})'
-        district_create: 'Ajouter un district'
+        district_create: 'Ajouter une zone administrative'
         select_district: 'District'
-        title: 'Districts'
+        title: 'Zones administratives'
       entities:
         entities_export: 'Tout exporter au format CSV'
         entities_import: 'Importer un fichier CSV'
