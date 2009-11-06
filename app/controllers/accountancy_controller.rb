@@ -159,7 +159,7 @@ class AccountancyController < ApplicationController
     if request.post? or request.xhr?
       #all the invoices are accountized.
      # @invoices = @current_company.invoices.find(373007)
-       @invoices = @current_company.invoices.find(:all, :conditions=>["created_on < ? and accounted = ?", session[:limit_period].to_s, false],:limit=>2)
+       @invoices = @current_company.invoices.find(:all, :conditions=>["created_on < ? and accounted = ?", session[:limit_period].to_s, false])
        @invoices.each do |invoice|
         @invoices.to_accountancy
        end
