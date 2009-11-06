@@ -86,7 +86,7 @@ class RelationsController < ApplicationController
   def areas
     session[:area_key] ||= {}
     @key = params[:key] || session[:area_key] 
-    @areas = @current_company.areas.find(:all,:limit=>5)
+    @areas = @current_company.areas
     if request.post?
       session[:area_key] = @key
     end
@@ -145,7 +145,7 @@ class RelationsController < ApplicationController
     session[:district_key] ||= {}
     @districts_count = @current_company.districts.count
     @key = params[:key] || session[:district_key] 
-    @districts = @current_company.districts.find(:all,:limit=>5)
+    @districts = @current_company.districts
     if request.post?
       session[:district_key] = @key
     end
@@ -227,7 +227,6 @@ class RelationsController < ApplicationController
     @title = {:value=>@complement.name}
     render_form
   end
-
 
 
   dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['session[:current_complement_id]']}, :default_order=>'position') do |t| 

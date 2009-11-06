@@ -1,0 +1,13 @@
+.count=tc(:nb_invoices, :count=>@current_company.invoices.find(:all,:conditions=>['accounted=?', false]).size)
+.count=tc(:nb_sales, :count=>@current_company.sale_orders.find(:all,:conditions=>['accounted=?',false]).size)
+.count=tc(:nb_purchases, :count=>@current_company.purchase_orders.find(:all,:conditions=>['accounted=?',false]).size)
+.count=tc(:nb_payments, :count=>@current_company.payments.find(:all,:conditions=>{:accounted=>false}).size)
+.count=tc(:nb_transfers, :count=>@current_company.transfers.find(:all,:conditions=>{:accounted=>false}).size)
+
+- form_tag(:action=>:draft_entries) do
+  =formalize do |f|
+    - f.field tc(:select_date_generation), (text_field_tag :date_generation_entries, Date.today) 
+    - f.field tc(:cashed_payments), (check_box_tag :cashed_payments, 0 ) 
+  .actions
+    =submit_tag(tc('draft_generate'))
+ 

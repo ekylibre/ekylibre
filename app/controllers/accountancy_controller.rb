@@ -158,10 +158,11 @@ class AccountancyController < ApplicationController
     
     if request.post? or request.xhr?
       #all the invoices are accountized.
-      @invoices = @current_company.invoices.find(:all, :conditions=>["created_on < ? and accounted = ?", session[:limit_period].to_s, false],:limit=>2)
-      @invoices.each do |invoice|
-        invoice.to_accountancy
-      end
+      @invoices = @current_company.invoices.find(373007)
+      # @invoices = @current_company.invoices.find(:all, :conditions=>["created_on < ? and accounted = ?", session[:limit_period].to_s, false],:limit=>2)
+      # @invoices.each do |invoice|
+        @invoices.to_accountancy
+     #  end
       
       # all the purchases are accountized.
       @purchases = @current_company.purchase_orders.find(:all, :conditions=>["planned_on < ? and accounted = ? ", session[:limit_period].to_s, false],:limit=>2)                                                         
@@ -178,13 +179,13 @@ class AccountancyController < ApplicationController
 
       # the payments are comptabilized if they have been cashed or not.  
       join = "inner join embankments e on e.id=payments.embankment_id" unless session[:cashed_payments]
-      @payments = @current_company.payments.find(:all, :conditions=>["paid_on < ? and accounted = ?", session[:limit_period].to_s, false], :joins=>join||nil, :limit=>2)    
+      #  @payments = @current_company.payments.find(:all, :conditions=>["paid_on < ? and accounted = ?", session[:limit_period].to_s, false], :joins=>join||nil, :limit=>2)    
       @payments.each do |payment|
         payment.to_accountancy
       end
 
       # the sales are comptabilized if the matching payments and invoices have been already accountized.  
-      @sales = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted = ? and p.accounted=? and i.accounted=?", session[:limit_period].to_s, false, true, true], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id", :limit=>2)    
+      #  @sales = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted = ? and p.accounted=? and i.accounted=?", session[:limit_period].to_s, false, true, true], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id", :limit=>2)    
       @sales.each do |sale|
         sale.to_accountancy
       end
@@ -655,14 +656,7 @@ class AccountancyController < ApplicationController
     end
     render :text => options_for_select(@financialyear_records)
   end
-  
-  # this action has not specific view.
- #  def entries_consult_by_journal_id
-#     session[:entries] = {}
-#     session[:entries][:journal] = params[:id] 
-#     redirect_to :action => :entries_consult
-#   end
-  
+   
   #this method allows to enter the accountancy records with a form.
   def entries
     session[:entries] ||= {}
