@@ -62,8 +62,21 @@ class RelationsController < ApplicationController
     render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.title)) })%>"
   end
   
-  
-  dyta(:areas, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+  #
+  def self.areas_conditions(options={})
+    code = ""
+    code += "conditions=['areas.company_id=?', @current_company.id.to_s] \n"
+    code += "unless session[:area].blank? \n" 
+    code += "area=@current_company.areas.find(:first, :conditions=>{:id=>session[:area]})\n" 
+    code += "conditions[0] += ' AND areas.id=?' \n"
+    code += "conditions << area.id \n"
+    code += "end \n"
+      
+    code
+  end
+ 
+  #
+  dyta(:areas, :conditions=>areas_conditions) do |t| 
     t.column :name
     t.column :postcode
     t.column :city
@@ -75,8 +88,13 @@ class RelationsController < ApplicationController
   end
 
 
-  #
+  #this method lists all the areas.
   def areas
+    session[:area] ||= {}
+    @areas = @current_company.areas.find(:all,:limit=>5)
+    if request.post?
+      session[:area] = params[:area_id] if params[:area_id]
+    end
   end
 
   #
@@ -110,8 +128,21 @@ class RelationsController < ApplicationController
     render_form
   end
 
+  # 
+  def self.districts_conditions(options={})
+    code = ""
+    code += "conditions=['districts.company_id=?', @current_company.id.to_s] \n"
+    code += "unless session[:district].blank? \n" 
+    code += "district=@current_company.districts.find(:first, :conditions=>{:id=>session[:district]})\n" 
+    code += "conditions[0] += ' AND districts.id=?' \n"
+    code += "conditions << district.id \n"
+    code += "end \n"
+      
+    code
+  end
 
-  dyta(:districts, :children=>:areas, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+
+  dyta(:districts, :children=>:areas, :conditions=>districts_conditions) do |t| 
     t.column :name
     t.column :code
     t.action :area_create
@@ -123,7 +154,12 @@ class RelationsController < ApplicationController
   
   #
   def districts
+    session[:district] ||= {}
     @districts_count = @current_company.districts.count
+    @districts = @current_company.districts.find(:all, :limit=>5)
+    if request.post?
+      session[:district] = params[:district_id] if params[:district_id]
+    end
   end
 
   #

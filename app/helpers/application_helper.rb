@@ -52,12 +52,12 @@ module ApplicationHelper
      {:name=>:accountancy, :list=>
        [ {:name=>:works, :list=>
            [ {:name=>:entries},
-             {:name=>:entries_consult},
              {:name=>:statements},
              {:name=>:lettering},
-             # {:name=>:report},
+             #{:name=>:report},
              {:name=>:journal_close},
-             {:name=>:financialyear_close} ] },
+             {:name=>:financialyear_close},
+             {:name=>:accountize} ] },
          {:name=>:documents, :list=>
            [ {:name=>:document_prepare},
              {:name=>:tax_declarations} ] },

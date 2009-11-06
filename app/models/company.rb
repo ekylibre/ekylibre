@@ -92,6 +92,7 @@ class Company < ActiveRecord::Base
   has_many :subscriptions
   has_many :taxes
   has_many :tax_declarations
+  has_many :transfers
   has_many :units
   has_many :users
   belongs_to :entity
@@ -705,6 +706,7 @@ class Company < ActiveRecord::Base
     company.subscriptions.create!(:nature_id=>company.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>company.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
   end
 
+
   # this method allows to make operations (such as sum of credits) in the entries, according to a list of accounts.
  def filtering_entries(field, list_accounts=[], period=[])
    #list_accounts.match(//) 
@@ -714,9 +716,9 @@ class Company < ActiveRecord::Base
 #      end
 #    end
    
-   
-   conditions = ""#"company_id = "+self.id.to_s
+   conditions = "draft=false "
    if not list_accounts.empty?
+     conditions += "AND "
      conditions += list_accounts.collect do |account|
        "a.number LIKE '"+account.gsub('*', '%').gsub('?', '_').to_s+"'"
      end.join(" OR ")

@@ -29,6 +29,8 @@ class TaxDeclaration < ActiveRecord::Base
   belongs_to :company
   belongs_to :financialyear
 
+  attr_readonly :company_id
+
   NB_DAYS_MONTH=30.42
 
  #
@@ -112,8 +114,7 @@ class TaxDeclaration < ActiveRecord::Base
    @journal_od = self.company.journals.find(:last, :conditions => ["nature = ? AND closed_on < ?", :various.to_s, Date.today.to_s])
    
    @record = self.company.journal_records.create!({:financialyear_id=> self.financialyear_id, :created_on=> self.financialyear.created_on, :printed_on=>self.financialyear.stopped_on, :journal_id=> @journal_od.id})
-   
-   
+      
    unless self.collected_amount.zero?
      @entry = self.company.entries.create!({:record_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.parameter('accountancy.taxes_accounts.collected_taxes').value.to_s, :name => '', :currency_debit => self.collected_amount})
    end
@@ -152,7 +153,7 @@ class TaxDeclaration < ActiveRecord::Base
    [:other, :monthly, :quarterly, :yearly].collect{|x| [tc(x.to_s), x] }
  end
 
- #
+ #virtual method.
  def period=
  end
 

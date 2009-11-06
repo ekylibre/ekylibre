@@ -16,6 +16,8 @@ fr-FR:
         closed_financialyears: 'Exercice clôturé'
         need_balanced_journal_to_tax_declaration: 'Tous vos journaux doivent être équilibrées à cette date.'
         need_bank_account_to_record_statements: 'Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte.'
+        need_commercial_transactions_for_generate_entries: 'Vous devez avoir réalisé au moins une opération commerciale.'
+        need_closed_financialyear_to_declaration: 'Vous devez avoir un exercice clôturé pour créer une déclaration de TVA.'
         need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
         need_entries_to_letter: 'Vous devez avoir des écritures verrouillées enregistrées au compte client et fournisseur.'
         need_entries_to_point: 'Aucune écriture n''a été trouvé pour la période du relevé bancaire {{value}}.'
@@ -71,6 +73,32 @@ fr-FR:
       accounts_letter_launch:
         select_account: 'Sélectionnez un compte:'
         title: 'Lettrage de compte'
+      accountize:
+        title: 'Comptabiliser vos opérations commerciales'
+        select_date_generation: "Date limite d''intégration"
+        draft_generate: 'Enregistrer dans le brouillon'
+        cashed_payments: 'Inclure les règlements non encaissés'
+        nb_invoices:
+          one: '1 facture enregistrée'
+          other: '{{count}} factures enregistrées'
+          zero: 'Aucune facture enregistrée'
+        nb_sales:
+          one: '1 vente enregistrée'
+          other: '{{count}} ventes enregistrées'
+          zero: 'Aucune vente enregistrée'
+        nb_purchases:
+          one: '1 achat enregistrée'
+          other: '{{count}} achats enregistrés'
+          zero: 'Aucun achat enregistré'
+        nb_payments:
+          one: '1 règlement enregistrée'
+          other: '{{count}} règlements enregistrés'
+          zero: 'Aucun règlement enregistré'
+        nb_transfers:
+          one: '1 transfert enregistrée'
+          other: '{{count}} transferts enregistrés'
+          zero: 'Aucun transfert enregistré'
+      
       bank_account_create:
         title: 'Créer un nouveau compte bancaire'
       _bank_account_form:
@@ -128,21 +156,19 @@ fr-FR:
       document_print:
         print: 'Impression'
         title: 'Impression du document : {{value}}'
+      draft_entries:
+        title: 'Listing des écritures du brouillard'
+        accountize: 'Comptabiliser les écritures'
       entries:
+        all_financialyears: '--- Tous les exercices ---'
+        all_journals: '--- Tous les journaux ---'
         journal_x: '{{name}} (clôturé le {{closed_on}})'
         number_records: 'Nombre des dernières pièces à afficher'
-        select_financialyear: 'Comptabiliser les écritures pour l''exercice comptable'
-        select_journal: 'Saisir les écritures dans le journal'
+        select_financialyear: 'Exercice comptable'
+        select_journal: 'Journal'
         subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
-        title: 'Saisie des écritures'
-        update_params: 'Changer de journal et/ou d''exercice...'
-      _entries:
+        title: 'Consultation et saisie des écritures'
         account_number: 'N°Compte'
-        balanced_entries: 'Vert : pièce équilibrée'
-        confirm: 'Êtes-vous sûr de vouloir supprimer cette écriture ?'
-        confirmation: 'Êtes-vous sûr de votre saisie ?'
-        delete: 'Supprimer'
-        entry_letter: 'Lettrage'
         entry_validate: 'OK'
         label: 'Libellé'
         record_created: 'Crée le'
@@ -150,21 +176,6 @@ fr-FR:
         record_debit: 'Débit'
         record_number: 'N°Pièce'
         record_printed: 'Datée du'
-        title: 'Saisie des écritures'
-        unbalanced_entries: 'Rouge : pièce non équilibrée'
-        update: 'Modifier'
-      entries_consult:
-        all_financialyears: '--- Tous les exercices ---'
-        all_journals: '--- Tous les journaux ---'
-        journal_x: '{{name}} (clôturé le {{closed_on}})'
-        nb_entries:
-          one: '1 écriture enregistrée'
-          other: '{{count}} écritures enregistrées'
-          zero: 'Aucune écriture enregistrée'
-        select_financialyear: 'Pour l''exercice comptable'
-        select_journal: 'Consulter les écritures du journal'
-        subtitle: 'Ecritures de l''exercice {{financialyear}} pour le journal {{journal}}'
-        title: 'Consultation des écritures'
       entry_update:
         title: 'Modification de l''écriture'
       financialyear_close:
@@ -181,11 +192,11 @@ fr-FR:
         title: 'Exercices comptables'
       index:
         accounts: 'Comptes comptables'
+        accountize: 'Bascule comptable'
         bank_accounts: 'Comptes bancaires (RIB)'
         document_prepare: 'Impression des documents'
         documents: 'Documents comptables'
-        entries: 'Saisir des écritures'
-        entries_consult: 'Consulter des écritures'
+        entries: 'Ecritures'
         financialyear_close: 'Clôture d''exercice'
         financialyears: 'Exercices comptables'
         journal_close: 'Clôture de journal'

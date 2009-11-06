@@ -61,7 +61,7 @@ class Journal < ActiveRecord::Base
   #
   def balance?
     self.records.each do |record|
-      unless record.balanced
+      unless record.balanced and record.normalized
         #errors.add_to_base tc(:error_unbalanced_record_journal)
         return false 
       end

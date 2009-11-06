@@ -54,14 +54,14 @@ class Embankment < ActiveRecord::Base
     Payment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
   end
 
-  def validate_payments
-    for check in self.checks
-     # record = JournalRecord.find(:first, :conditions=>{:resource_id=>self.invoice_id, :resource_type=>Invoice.to_s, :company_id=>self.company_id})
+  # this method valids the embankment and accountizes the matching payments.
+  # def confirm
+#     payments = Payment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
+#     payments.each do |payment|
+#       payment.to_accountancy
       
-      #record = JournalRecord.create!(:company_id=>self.company_id, :resource_id=>self.invoice_id, :resource_type=>Invoice.to_s, :created_on=>Date.today, :printed_on=>Date.today, :financialyear_id=>self.company.financialyears.find_by_closed(false), :journal_id=>self.company.find_sales_journal) if record.nil?
-      
-    end
-  end
+#     end
+#   end
 
-
+  
 end

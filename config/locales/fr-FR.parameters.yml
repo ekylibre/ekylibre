@@ -7,7 +7,15 @@ fr-FR:
         sales: 'Journal des ventes par défaut'
         purchase_orders: 'Journal d''achats par défaut'
         sale_orders: 'Journal de ventes par défaut'
-        
+      
+      taxes_accounts:
+        acquisition_taxes: 'Compte des taxes d''acquisitions intracommunautaires' 
+        collected_taxes: 'Compte des taxes collectées'
+        balance_taxes: 'Compte de taxe net '
+        paid_taxes: 'Compte des taxes déductibles' 
+        payback_taxes:  'Compte de taxes de remboursement'
+        assimilated_taxes: 'Compte des taxes assimilées'
+  
       third_accounts:
         clients: 'Comptes clients'
         suppliers: 'Comptes fournisseurs'

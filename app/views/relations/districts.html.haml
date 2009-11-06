@@ -1,3 +1,11 @@
+.search
+  - form_tag do
+    %table
+      %tr
+        %td.label=tc(:searlect_district)
+        %td.field=select_tag("district_id", options_for_select([tc(:all_districts)]+@districts.collect{|d| [tc(:district_x, :name=>d.name, :code=>d.code.to_s), d.id]}, session[:district]))
+        %td.submit=submit_tag tg("apply")
+
 =toolbar do
   -link :district_create
 =dyta :districts

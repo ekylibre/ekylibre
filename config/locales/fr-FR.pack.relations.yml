@@ -65,6 +65,9 @@ fr-FR:
       areas:
         area_create: 'Ajouter une zone postale'
         title: 'Zones postales'
+        all_areas: '--- Toutes les zones postales ---'
+        select_area: 'Zone postale'
+        area_x: '{{name}} ({{postcode}})'
       complement_choice_create:
         title: ' Création d''une option pour la liste déroulante : {{value}}'
       _complement_choice_form:
@@ -96,8 +99,11 @@ fr-FR:
         title: 'Modification de la zone {{value}}'
       districts:
         area_create: 'Ajouter une ville'
+        all_districts: '--- Tous les districts ---'
         city_name: 'Ville'
+        district_x: '{{name}} ({{code}})'
         district_create: 'Ajouter un district'
+        select_district: 'District'
         title: 'Districts'
       entities:
         entities_export: 'Tout exporter au format CSV'

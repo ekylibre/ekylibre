@@ -87,4 +87,10 @@ class JournalRecord < ActiveRecord::Base
     end
   end
 
+  #this method tests if all the entries matching to the record does not edited in draft mode.
+  def normalized
+    return (not self.entries.exists?(:draft=>true))
+  end
+
+  
 end

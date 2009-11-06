@@ -194,7 +194,6 @@ class Account < ActiveRecord::Base
   end
 
 
-
   # this method loads all the entries having the given letter for the account.
   def balanced_letter?(letter) 
     entries = self.company.entries.find(:all, :conditions => ["letter = ?", letter.to_s], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")

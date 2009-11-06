@@ -11,10 +11,12 @@
 #management      embankment_payment_create        manage_embankments
 #management      embankment_payment_update        manage_embankments
 #management      sales_invoices                   manage_invoicing
+accountancy      accountize                       administrate_accountancy
+accountancy      draft_entries                    administrate_accountancy
 accountancy      index                            administrate_accountancy
-accountancy      entries_consult                  consult_entries
 accountancy      entries_consult_by_journal_id    consult_entries
 accountancy      entries_dyta                     consult_entries
+accountancy      entries_draft_dyta               consult_entries
 accountancy      account_create                   manage_accounts
 accountancy      account_delete                   manage_accounts
 accountancy      account_update                   manage_accounts
@@ -28,11 +30,11 @@ accountancy      bank_accounts_dyta               manage_bank_accounts
 accountancy      account_dyli                     manage_entries
 accountancy      account_letter                   manage_entries
 accountancy      entries                          manage_entries
+accountancy      entry_create                     manage_entries
 accountancy      entry_delete                     manage_entries
 accountancy      entry_letter                     manage_entries
 accountancy      entry_update                     manage_entries
 accountancy      lettering                        manage_entries
-accountancy      params_entries                   manage_entries
 accountancy      financialyear_close              manage_financialyears
 accountancy      financialyear_create             manage_financialyears
 accountancy      financialyear_delete             manage_financialyears
@@ -53,7 +55,7 @@ accountancy      bank_account_statement_delete    manage_statements
 accountancy      bank_account_statement_point     manage_statements
 accountancy      bank_account_statement_update    manage_statements
 accountancy      bank_account_statements_dyta     manage_statements
-accountancy      entries_statement_dyta           manage_statements
+accountancy      statements_entries_dyta           manage_statements
 accountancy      statements                       manage_statements
 accountancy      tax_create                       manage_taxes
 accountancy      tax_delete                       manage_taxes

@@ -62,6 +62,7 @@ class Entry < ActiveRecord::Base
   
   #
   def validate
+   # raise Exception.new(self.currency_debit.to_s+':'+self.currency_credit.to_s+':'+self.debit.to_s+':'+self.credit.to_s)
     errors.add_to_base tc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?
     errors.add_to_base tc(:error_amount_balance2) unless self.debit + self.credit >= 0  
      
@@ -72,7 +73,7 @@ class Entry < ActiveRecord::Base
     end
   end
   
-  # this method tests if the entry is .
+  # this method tests if the entry is locked or not.
   def close?
     return (not self.editable)
   end
@@ -104,4 +105,24 @@ class Entry < ActiveRecord::Base
     self.account.balanced_letter?(letter)
   end
 
- end
+  #this method allows to fix a display color if the entry is in draft mode.
+  def mode
+    mode=""
+    mode="warning" if self.draft
+    mode
+  end
+  
+  #this method returns the name of journal which the records are saved.
+  def journal_name
+    return self.record.journal.name
+  end
+  
+  #this method allows to fix a display color if the record containing the entry is balanced or not.
+  def balanced_record 
+    balanced=""
+    balanced=(self.record.balanced ? "balanced":"unbalanced")
+    balanced
+  end
+
+end
+

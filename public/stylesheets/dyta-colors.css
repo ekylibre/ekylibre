@@ -110,6 +110,10 @@ table.dyta tr.minimum.odd td {background:#FFEDD4}
 table.dyta tr.minimum.odd td.act {background:#FFDFB8}
 table.dyta tr.minimum.odd td.sorted {background:#EFDFCF}
 
+/* Mode */
+/* table.dyta tr.draft.even td {background:#AFC1B5} */
+/* table.dyta tr.draft.odd td {background:#AFD1B2} */
+
 /* Notice */
 table.dyta tr.notice td {background:#D8FFA3}
 table.dyta tr.notice td.act {background:#DDEE8D}
