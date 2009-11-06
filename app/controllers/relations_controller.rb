@@ -65,13 +65,7 @@ class RelationsController < ApplicationController
   #
   def self.areas_conditions(options={})
     code = ""
-    code += "conditions=['areas.company_id=?', @current_company.id.to_s] \n"
-    code += "unless session[:area].blank? \n" 
-    code += "area=@current_company.areas.find(:first, :conditions=>{:id=>session[:area]})\n" 
-    code += "conditions[0] += ' AND areas.id=?' \n"
-    code += "conditions << area.id \n"
-    code += "end \n"
-      
+    code += "conditions=['company_id=? AND (postcode ILIKE ? OR name ILIKE ?)', @current_company.id, '%'+session[:area_key].to_s+'%', '%'+session[:area_key].to_s+'%'] \n"
     code
   end
  
@@ -90,10 +84,11 @@ class RelationsController < ApplicationController
 
   #this method lists all the areas.
   def areas
-    session[:area] ||= {}
+    session[:area_key] ||= {}
+    @key = params[:key] || session[:area_key] 
     @areas = @current_company.areas.find(:all,:limit=>5)
     if request.post?
-      session[:area] = params[:area_id] if params[:area_id]
+      session[:area_key] = @key
     end
   end
 
@@ -128,19 +123,12 @@ class RelationsController < ApplicationController
     render_form
   end
 
-  # 
+  #
   def self.districts_conditions(options={})
     code = ""
-    code += "conditions=['districts.company_id=?', @current_company.id.to_s] \n"
-    code += "unless session[:district].blank? \n" 
-    code += "district=@current_company.districts.find(:first, :conditions=>{:id=>session[:district]})\n" 
-    code += "conditions[0] += ' AND districts.id=?' \n"
-    code += "conditions << district.id \n"
-    code += "end \n"
-      
+    code += "conditions=['company_id=? AND (code ILIKE ? OR name ILIKE ?)', @current_company.id, '%'+session[:district_key].to_s+'%', '%'+session[:district_key].to_s+'%'] \n"
     code
   end
-
 
   dyta(:districts, :children=>:areas, :conditions=>districts_conditions) do |t| 
     t.column :name
@@ -154,11 +142,12 @@ class RelationsController < ApplicationController
   
   #
   def districts
-    session[:district] ||= {}
+    session[:district_key] ||= {}
     @districts_count = @current_company.districts.count
-    @districts = @current_company.districts.find(:all, :limit=>5)
+    @key = params[:key] || session[:district_key] 
+    @districts = @current_company.districts.find(:all,:limit=>5)
     if request.post?
-      session[:district] = params[:district_id] if params[:district_id]
+      session[:district_key] = @key
     end
   end
 
@@ -313,10 +302,9 @@ class RelationsController < ApplicationController
     t.column :name, :url=>{:action=>:entity}
     t.column :first_name, :url=>{:action=>:entity}
     t.column :line_6, :through=>:default_contact, :url=>{:action=>:entity_contact_update}
-    #t.action :entity_print
-    t.action :print, :url=>{:controller=>:company, :type=>:entity}
+    t.action :entity_print
     t.action :entity_update
-    t.action :entity_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.id != RECORD.company.entity.id'
+    t.action :entity_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
@@ -328,11 +316,11 @@ class RelationsController < ApplicationController
 
 
   #
-#   def entity_print
-#     @entity = find_and_check(:entity, params[:id])
-#     return if @entity.nil?
-#     print(@entity, :nature=>'entity', :filename=>@entity.full_name)
-#   end 
+  def entity_print
+    @entity = find_and_check(:entity, params[:id])
+    return if @entity.nil?
+    print(@entity, :archive=>false, :filename=>@entity.code)
+  end 
 
   #dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
   dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON  entity_link_natures.propagate_contacts = true AND entity_links.nature_id = entity_link_natures.id  AND stopped_on IS NULL WHERE (entity1_id = ? OR entity2_id = ?)) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_link_natures.propagate_contacts = true AND entity_links.nature_id = entity_link_natures.id  AND stopped_on IS NULL WHERE  (entity1_id = ? OR entity2_id = ?) ) )', ['@current_company.id'],['session[:current_entity]'],['session[:current_entity]'],['session[:current_entity]'],['session[:current_entity]'], ['session[:current_entity]'] ]) do |t|
@@ -348,7 +336,7 @@ class RelationsController < ApplicationController
     t.action :entity_contact_update  
     t.action :entity_contact_delete, :method=>:post, :confirm=>:are_you_sure
   end
- 
+
   dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions, :default_order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
 #  dyta(:entity_subscriptions, :joins=>"JOIN subscription_natures AS sn ON (sn.id=subscriptions.nature_id) LEFT JOIN entity_links AS el ON (sn.entity_link_nature_id=el.nature_id AND COALESCE(el.stopped_on,CURRENT_DATE) <= CURRENT_DATE AND entity_id IN (entity1_id, entity2_id))", :conditions=>["subscriptions.company_id = ? AND ? IN (entity_id, COALESCE(entity1_id,0), COALESCE(entity2_id,0))", ['@current_company.id'], ['session[:current_entity]']], :model=>:subscriptions, :order=>{'sort'=>'stopped_on DESC, first_number', 'dir'=>'DESC'}, :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
     t.column :name, :through=>:nature
@@ -371,8 +359,7 @@ class RelationsController < ApplicationController
     t.column :text_state, :children=>false
     t.column :amount
     t.column :amount_with_taxes
-    #t.action :sale_order_print, :controller=>:management
-    t.action :print, :url=>{:controller=>:company, :type=>:sale_order}
+    t.action :sale_order_print, :controller=>:management
     t.action :sale_order_duplicate, :controller=>:management, :method=>:post
     t.action :sale_order_lines, :image=>:update, :controller=>:management, :if=>"not RECORD.complete\?"
     t.action :sale_order_delete, :controller=>:management, :if=>"RECORD.estimate\?", :method=>:delete, :confirm=>:are_you_sure
@@ -406,8 +393,7 @@ class RelationsController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     # t.column :credit
-    #t.action :invoice_print, :controller=>:management
-    t.action :print, :url=>{:controller=>:company, :type=>:invoice}
+    t.action :invoice_print, :controller=>:management
     # t.action :controller=>:management, :invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
     # t.action :controller=>:management, :invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
   end
@@ -635,12 +621,12 @@ class RelationsController < ApplicationController
     if request.post? or request.delete?
       @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
       @id = params[:id]
-      unless (@entity.invoices.size > 0 or @entity.id == @current_company.entity.id)
+      unless @entity.invoices.size > 0
         @id = params[:id]
         Entity.destroy(@id) if @entity
         #        Entity.delete(@id) if @entity
       else
-        flash[:warning]=tc(:entity_delete_permission)
+        flash[:warning]=lc(:entity_delete_permission)
       end
     end
     redirect_to :action=>:entities

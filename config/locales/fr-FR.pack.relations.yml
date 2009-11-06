@@ -21,7 +21,6 @@ fr-FR:
       entities_natures_delete_permission: 'Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches'
       entity_code: 'Code'
       entity_comment: 'Commentaire'
-      entity_delete_permission: 'Vous ne pouvez pas supprimer cette fiche : elle est liée à des factures'
       entity_first_name: 'Prénom'
       entity_id: 'Fiche'
       entity_name: 'Nom'
@@ -58,6 +57,8 @@ fr-FR:
 
   views:
     relations:
+      _areas_search:
+        search: 'Rechercher une zone'
       area_create:
         title: 'Ajouter une zone postale'
       area_update:
@@ -97,6 +98,8 @@ fr-FR:
         title: 'Ajouter une zone'
       district_update:
         title: 'Modification de la zone {{value}}'
+      _districts_search:
+        search: 'Rechercher une zone'
       districts:
         area_create: 'Ajouter une ville'
         all_districts: '--- Tous les districts ---'

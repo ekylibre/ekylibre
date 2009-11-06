@@ -1,10 +1,5 @@
-.search
-  - form_tag do
-    %table
-      %tr
-        %td.label=tc(:search)
-        %td.field=text_field_tag :key, @key
-        %td.submit=submit_tag tg("apply")
+
+=render :partial=>'areas_search'
 
 =toolbar do
   -link :area_create
