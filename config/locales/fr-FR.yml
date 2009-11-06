@@ -169,13 +169,18 @@ fr-FR:
           inventory: 'Inventaire'
           invoice: Facture client
           journal: Journal
+          journal_by_id: 'Journal'
           journals: Journaux
+          other: 'Autres'
           purchase_order: 'Commande fournisseur'
           sale_order: 'Devis/Commande'
           transport: 'Transport'
         document_templates_filenames:
           embankment: 'Remise de chèques du [created_on]'
           entity: 'Fiche de [full_name]'
+          inventory: 'Inventaire du [date]'
+          invoice: 'Facture [number]'
+          other: 'Fichier'
           purchase_order: 'Achat [number]'
           sale_order: 'Vente [number]'
           transport: 'Transport du [created_on]'
@@ -323,8 +328,11 @@ fr-FR:
         notice: Faible
     payment_mode:
       modes:
+        card: 'Carte Bleue'
+        cash: 'Espèces'
         check: Chèque
         other: Autre
+        transfer: 'Transfert'
     payment_part:
       error_sale_order_already_paid: 'Il n''y a pas de factures à régler. Si vous voulez enregistrer un acompte, n''oubliez pas de le préciser.'
     price:

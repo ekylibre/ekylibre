@@ -1,5 +1,6 @@
 =toolbar do |t|
-  -t.link :invoice_print, :id=>@invoice.id
+  -#t.link :invoice_print, :id=>@invoice.id
+  -t.print :invoice, :id=>@invoice.id
   -t.link :invoice_cancel, :id=>@invoice.id if @invoice.creditable?
 
 %table

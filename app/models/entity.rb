@@ -68,7 +68,7 @@ class Entity < ActiveRecord::Base
   has_many :events
   has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity1_id
   has_many :indirect_links, :class_name=>EntityLink.name, :foreign_key=>:entity2_id
-  has_many :invoices, :foreign_key=>:client_id
+  has_many :invoices, :foreign_key=>:client_id, :order=>"created_on desc"
   has_many :mandates
   has_many :observations
   has_many :payments

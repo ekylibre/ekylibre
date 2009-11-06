@@ -61,6 +61,7 @@ class Invoice < ActiveRecord::Base
         self.amount_with_taxes += line.amount_with_taxes
       end
     end
+    self.payment_on ||= Date.today
   end
   
   def before_validation_on_create

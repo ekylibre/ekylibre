@@ -11,13 +11,37 @@
 
       <part height="20mm">
 	<set>
+	  <text value="{{entity/full_name}}"  left="50%" align="center" bold="true" size="14"/>
 	</set>
       </part>
       
-
+      
+      <part if="entity.contacts.size> 0" height="10mm">
+	<set top="5mm">
+	  <text value="{{entity.contacts.size.to_s}} contact(s)" bold="true" left="50%" align="center"/>
+	</set>
+      </part>
       <table if="entity.contacts.size> 0" collection="entity.contacts">
 	<column label="Adresse" property="address" width="100mm"/>
       </table>
+      
+      <part if="entity.invoices.size> 0" height="10mm">
+	<set top="5mm">
+	  <text value="{{entity.invoices.size.to_s}} facture(s)" bold="true" left="50%" align="center"/>
+	</set>
+      </part>
+      <iteration variable="invoice" collection="entity.invoices">
+	<part height="10mm">
+	  <set top="5mm">
+	    <text value="Facture du {{invoice.created_on}} d'un montant de {{invoice.amount_with_taxes}} "/>
+	  </set>
+	</part>
+	<table collection="invoice.lines">
+	  <column label="Produit" property="product.name" width="100mm"/>
+	  <column label="Montant HT" property="amount" width="30mm"/>
+	  <column label="Montant TTC" property="amount_with_taxes" width="30mm"/>
+	</table>
+      </iteration>
 
     </page>
   </document>

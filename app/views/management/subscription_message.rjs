@@ -1,7 +1,7 @@
 if @product.nature == "subscrip"
   if @product.subscription_nature.nature == "period"
     page['subscription_line'].show
-    delay = Delay.new(:expression=>@product.subscription_period, :name=>"temp_two")
+    delay = Delay.new(:expression=>@product.subscription_period.blank? ? '1 year, 1 day ago' : @product.subscription_period, :name=>"temp_two")
     contact = @current_company.contacts.find(:first, :conditions=>{:active=>true, :entity_id=>session[:current_entity]})||@current_company.contacts.find(:first)
     page.replace_html 'sub_line', tc('from_date')+" "+Date.today.to_s+" "+tc('to_date')+" "+delay.compute(Date.today).to_s+" "+tc('contact')+" "+contact.entity.full_name+" "+contact.address
   elsif @product.subscription_nature.nature == "quantity"

@@ -57,8 +57,10 @@ class DocumentTemplate < ActiveRecord::Base
 
   def validate
     errors.add(:source, 'est invalide') if self.cache.blank?
-    syntax_errors = self.filename_errors
-    errors.add_to_base(syntax_errors) unless syntax_errors.empty?
+    if self.nature != "other"
+      syntax_errors = self.filename_errors
+      errors.add_to_base(syntax_errors) unless syntax_errors.empty?
+    end
   end
 
   def destroyable?
@@ -128,7 +130,9 @@ class DocumentTemplate < ActiveRecord::Base
   
   def compute_filename(object)
    # raise Exception.new "1"+self.filename_errors.inspect
-    if self.filename_errors.empty?
+    if self.nature == "other"
+      filename = self.filename
+    elsif self.filename_errors.empty?
       filename = self.filename.gsub(/\[\w+\]/) do |word|
         #raise Exception.new "2"+filename.inspect
         object.send(word[1..-2])

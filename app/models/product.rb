@@ -76,7 +76,6 @@ class Product < ActiveRecord::Base
     self.code = self.name.codeize.upper if self.code.blank?
     self.code = self.code[0..7]
     if self.company_id
-
       if self.number.blank?
         last = self.company.products.find(:first, :order=>'number DESC')
         self.number = last.nil? ? 1 : last.number+1 
@@ -87,6 +86,9 @@ class Product < ActiveRecord::Base
       puts "jjj"
     end
     self.catalog_name = self.name if self.catalog_name.blank?
+    self.subscription_nature_id = nil if self.nature != "subscrip"
+    self.service_coeff = nil if self.nature != "service"
+    
   end
  
   def to

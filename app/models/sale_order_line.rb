@@ -126,7 +126,7 @@ class SaleOrderLine < ActiveRecord::Base
   
   def after_destroy
     self.reduction.delete if self.reduction
-    self.order.reload.refresh
+    self.order.reload.refresh 
   end
 
   def validate

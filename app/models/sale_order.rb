@@ -350,7 +350,7 @@ class SaleOrder < ActiveRecord::Base
     c << tc('sales_conditions.downpayment', :percent=>100*self.nature.downpayment_rate, :amount=>(self.nature.downpayment_rate*self.amount_with_taxes).round(2)) if self.amount_with_taxes>self.nature.downpayment_minimum
     c << tc('sales_conditions.validity', :expiration=>::I18n.localize(self.expired_on, :format=>:legal))
     c += self.company.sales_conditions.to_s.split(/\s*\n\s*/)
-    c += self.responsible.department.sales_conditions.to_s.split(/\s*\n\s*/)
+    c += self.responsible.department.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible
     c
   end
   

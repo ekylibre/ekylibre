@@ -9,7 +9,8 @@
   -# if @sale_order.estimate?
     -# t.link(:sale_order_update, {:id=>@sale_order.id})
     -# t.link(:sale_order_line_create)
-  - t.link :sale_order_print, :id=>@sale_order.id
+  -# t.link :sale_order_print, :id=>@sale_order.id
+  -t.print :sale_order, :id=>@sale_order.id
 
 %h2=tc :general
 = toolbar do |t|

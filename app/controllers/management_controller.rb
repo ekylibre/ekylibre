@@ -751,7 +751,6 @@ class ManagementController < ApplicationController
       saved = false
       ActiveRecord::Base.transaction do
         saved = @product.update_attributes(params[:product])
-        ## @product_stock.  id.  nil?
         if saved
           if @product_stock.id.nil? and params[:product][:manage_stocks] == "1"
             @product_stock = ProductStock.new(params[:product_stock])
@@ -1382,7 +1381,7 @@ class ManagementController < ApplicationController
     if request.post? or request.delete?
        @sale_order_line.destroy
     end
-    redirect_to_back
+    redirect_to_current
   end
 
   dyta(:sale_order_deliveries, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|

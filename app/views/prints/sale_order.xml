@@ -18,10 +18,10 @@
       </part>
       <part height="11mm">
         <set>
-          <text value="À Bordeaux, le {{sale_order/created_on?format=month_letter}}" left="100%" align="right"/>
+          <text value="À {{sale_order.company.default_contact.area/city_name?capitalize=true}}, le {{sale_order/created_on?format=month_letter}}" left="100%" align="right"/>
           <text value="Devis N°{{sale_order/number}}" bold="true"/>
         </set>
-        <set top="4mm">
+        <set if="sale_order.responsible" top="4mm">
           <text value="Entre {{sale_order.company/name}}, {{sale_order.responsible/label}} et {{sale_order.client/full_name}}."/>
         </set>
       </part>

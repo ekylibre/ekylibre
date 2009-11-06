@@ -151,11 +151,11 @@ class Company < ActiveRecord::Base
     firm = self.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>self.name)
     self.entity_id = firm.id
     self.save ## TODO default_contact to create
-    self.entity.contacts.create!(:company_id=>self.id, :line_2=>"XXXXXXXXXXXXXXXXXXX", :line_3=>"XXXXXXXXXXXXXXXXXXXX", :line_5=>"XXXXXXXXXXXXXXXXXXXX", :norm_id=>self.address_norms.first.id, :default=>true)
+    self.entity.contacts.create!(:company_id=>self.id, :line_2=>"XXXXXXXXXXXXXXXXXXX", :line_3=>"XXXXXXXXXXXXXXXXXXXX", :line_5=>"XXXXXXXXXXXXXXXXXXXX", :line_6=>'0000 XXXX', :norm_id=>self.address_norms.first.id, :default=>true)
     
     # loading of all the templates
-    #load_prints
-
+    load_prints
+    
     self.payment_modes.create!(:name=>tc('default.check'), :company_id=>self.id)
     delays = []
     ['expiration', 'standard', 'immediate'].each do |d|
@@ -633,17 +633,18 @@ class Company < ActiveRecord::Base
   
   # this method loads all the templates existing.
   def load_prints
-    language = @current_company.entity.language
+    language = self.entity.language
     prints_dir = "#{RAILS_ROOT}/app/views/prints"
  
     families = {}
-    families[:management] ={'sale_order'=>{:to_archive=>false}, 'invoice'=>{:to_archive=>true}}
-    families[:accountancy] ={'journal'=>{:to_archive=>false}, 'journal_by_id'=>{:to_archive=>false}}
+    families[:management] = {'sale_order'=>{:to_archive=>false, :nature=>'sale_order', :filename=>I18n::t('models.company.default.document_templates_filenames.sale_order')}, 'invoice'=>{:to_archive=>true, :nature=>'invoice', :filename=>I18n::t('models.company.default.document_templates_filenames.invoice')}, 'inventory'=>{:to_archive=>false, :nature=>'inventory', :filename=>I18n::t('models.company.default.document_templates_filenames.inventory')}, 'transport'=>{:to_archive=>false, :nature=>'transport', :filename=>I18n::t('models.company.default.document_templates_filenames.transport')}, 'embankment'=>{:to_archive=>false, :nature=>'embankment', :filename=>I18n::t('models.company.default.document_templates_filenames.embankment')}, 'purchase_order'=>{:to_archive=>false, :nature=>'purchase_order', :filename=>I18n::t('models.company.default.document_templates_filenames.purchase_order')} }
+    families[:relations] = {'entity'=>{:to_archive=>false, :nature=>'entity', :filename=>I18n::t('models.company.default.document_templates_filenames.entity')}}
+    families[:accountancy] = {'journal'=>{:to_archive=>false, :nature=>'other', :filename=>I18n::t('models.company.default.document_templates_filenames.other')}, 'journal_by_id'=>{:to_archive=>false, :nature=>'other', :filename=>I18n::t('models.company.default.document_templates_filenames.other')}}
   
     families.each do |family, templates|
       templates.each do |template, options|
         File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
-          @current_company.document_templates.create(:active=>true, :name=>t('models.company.default.document_templates.'+template.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read, :to_archive=>options[:to_archive], :family=>family.to_s, :code=>template)
+          self.document_templates.create(:active=>true, :name=>I18n::t('models.company.default.document_templates.'+template.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read, :to_archive=>options[:to_archive], :family=>family.to_s, :code=>I18n::t('models.company.default.document_templates.'+template).codeize, :nature=>options[:nature], :filename=>options[:filename] )
         end
       end
     end

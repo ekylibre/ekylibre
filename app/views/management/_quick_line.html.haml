@@ -13,3 +13,4 @@
   #subscription_line{:style=>'display:none'}
     %p{:id=>:sub_line}=""
   =observe_field("sale_order_line_price_id", :url=>{:action => :subscription_message}, :frequency => 0.25, :with=>"sale_order_line_price_id")
+ 

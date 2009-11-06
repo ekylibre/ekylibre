@@ -41,7 +41,7 @@ class DeliveryLine < ActiveRecord::Base
     # raise Exception.new self.undelivered_quantity.to_s+" "+self.quantity.to_s
     # test = self.undelivered_quantity >= self.quantity 
     if self.product
-      errors.add_to_base(tc(:error_undelivered_quantity), :product=>self.product_name) if (self.undelivered_quantity < self.quantity)
+      errors.add_to_base(tc(:error_undelivered_quantity, :product=>self.product_name)) if (self.undelivered_quantity < self.quantity)
     end
   end
   

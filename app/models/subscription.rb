@@ -54,11 +54,20 @@ class Subscription < ActiveRecord::Base
   def before_validation_on_create
     if self.nature
       if self.nature.nature == "period"
-        period = (self.product ? self.product.subscription_period : nil)||'1 year'
+        if self.product
+          period = (self.product.subscription_period.blank? ? '1 year' : self.product.subscription_period)||'1 year'
+        else
+          period = '1 year'
+        end
+        #raise Exception.new "ok"+period.inspect+self.product.subscription_period.inspect
         self.started_on ||= Date.today
         self.stopped_on ||= Delay.compute(period+", 1 day ago", self.started_on)
       else
-        period = (self.product ? self.product.subscription_quantity : nil)||1
+        if self.product
+          period = (self.product.subscription_quantity.blank? ? 1 : self.product.subscription_quantity)||1
+        else
+          period = 1
+        end
         self.first_number ||= self.nature.actual_number
         self.last_number  ||= self.first_number+period-1
       end

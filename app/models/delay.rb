@@ -59,7 +59,7 @@ class Delay < ActiveRecord::Base
         when "moi", "month"
           if sign > 0
             stopped_on = stopped_on >> words[0].to_i   ## date = date - x months
-          else
+          else 
             stopped_on = stopped_on << words[0].to_i   ## date = date + x months
           end
         when "an", "annee", "année", "year"
@@ -73,6 +73,7 @@ class Delay < ActiveRecord::Base
         return nil
       end
     end
+    #raise Exception.new stopped_on.inspect
     stopped_on
   end
 
