@@ -126,7 +126,7 @@ class RelationsController < ApplicationController
 
   dyli(:districts, [:name, :code])
   
-  #
+  ##
   def districts
     session[:district_key] ||= {}
     @districts_count = @current_company.districts.count
