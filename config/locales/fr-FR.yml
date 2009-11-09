@@ -165,7 +165,7 @@ fr-FR:
           sale_order: Vente
         document_templates:
           embankment: 'Remise de chèques'
-          entity: 'Fiche relations'
+          entity: 'Fiche relation'
           inventory: 'Inventaire'
           invoice: Facture client
           journal: Journal

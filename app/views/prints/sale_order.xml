@@ -24,7 +24,8 @@
         <set if="sale_order.responsible" top="4mm">
           <text value="Entre {{sale_order.company/name}}, {{sale_order.responsible/label}} et {{sale_order.client/full_name}}."/>
         </set>
-      </part>
+      </part> 
+
       <part if="sale_order/letter?" height="4mm">
         <set>
           <text value="{{sale_order.function_title}}" bold="true" left="10mm"/>
@@ -45,7 +46,7 @@
         <column label="Montant T.V.A." property="taxes" width="20mm" numeric="money"/>
         <column label="Taux T.V.A." property="price.tax/amount" width="15mm" align="center"/>
       </table>
-
+      
       
       <part height="14mm">
         <set right="90mm" top="1mm">

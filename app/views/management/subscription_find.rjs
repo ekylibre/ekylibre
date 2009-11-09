@@ -10,9 +10,7 @@ if @subscription
     page['subscription_date'].hide
     page['subscription_number'].show
   end
-  page['subscriptions'].show
 else
-  page['subscriptions'].hide
   page['subscription_date'].hide 
   page['subscription_number'].hide   
 end

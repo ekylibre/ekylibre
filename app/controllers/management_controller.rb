@@ -845,6 +845,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
+
   def purchase_order_delete
     return unless @purchase_order = find_and_check(:purchase_order, params[:id])
     if request.post? or request.delete?
@@ -1322,7 +1323,11 @@ class ManagementController < ApplicationController
     @stock_locations = @current_company.stock_locations
     @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
     @sale_order_line = SaleOrderLine.new(:price_amount=>0.0)
-    @subscription = Subscription.new
+    if @current_company.available_prices.size > 0
+      @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id).init
+    else
+      @subscription = Subscription.new()
+    end
     if @stock_locations.empty? 
       flash[:warning]=tc(:need_stock_location_to_create_sale_order_line)
       redirect_to :action=>:stock_location_create

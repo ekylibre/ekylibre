@@ -51,6 +51,8 @@ class DocumentTemplate < ActiveRecord::Base
     #while self.company.document_templates.find(:first, :conditions=>["code=? AND id!=?", self.code, self.id||0])
      # self.code.succ!
     #end
+    self.default = true if self.company.document_templates.find_all_by_nature(self.nature).size == 0
+  
 
     DocumentTemplate.update_all({:default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id||0, self.nature]) if self.default and self.nature != 'other'
   end
@@ -130,7 +132,15 @@ class DocumentTemplate < ActiveRecord::Base
   
   def compute_filename(object)
    # raise Exception.new "1"+self.filename_errors.inspect
-    if self.nature == "other"
+    #if self.nature == "other" #||"card"
+     # filename = self.filename
+    #elsif self.filename_errors.empty?
+     # filename = self.filename.gsub(/\[\w+\]/) do |word|
+        #raise Exception.new "2"+filename.inspect
+      #  object.send(word[1..-2])
+      #end
+    #end
+    if self.nature == "other" #||"card"
       filename = self.filename
     elsif self.filename_errors.empty?
       filename = self.filename.gsub(/\[\w+\]/) do |word|
@@ -293,7 +303,7 @@ class DocumentTemplate < ActiveRecord::Base
         "'"+v.gsub(/\//, '.')+"'"
       when :resize, :fixed, :bold, :italic then
         v.lower == "true" ? "true" : "false"
-      when :value
+      when :value, :label
         v = v.inspect.gsub(/\{\{[^\}]+\}\}/) do |m|
           data = m[2..-3].to_s.split('?')
           datum = data[0].gsub('/', '.')

@@ -64,6 +64,7 @@ class Invoice < ActiveRecord::Base
         self.amount_with_taxes += line.amount_with_taxes
       end
     end
+    self.currency_id ||= self.sale_order.currency_id if self.sale_order
     self.payment_on ||= Date.today
   end
   
