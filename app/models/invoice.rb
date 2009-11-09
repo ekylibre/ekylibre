@@ -2,6 +2,7 @@
 #
 # Table name: invoices
 #
+#  accounted          :boolean       not null
 #  amount             :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes  :decimal(16, 2 default(0.0), not null
 #  annotation         :text          
@@ -39,6 +40,8 @@ class Invoice < ActiveRecord::Base
   has_many :deliveries
   has_many :lines, :class_name=>InvoiceLine.name
   has_many :credits, :class_name=>Invoice.name, :foreign_key=>:origin_id
+
+  validates_presence_of :currency_id
 
   attr_readonly :company_id, :number, :sale_order_id, :client_id, :contact_id, :currency_id, :annotation # , :amount, :amount_with_taxes
 
@@ -140,57 +143,58 @@ class Invoice < ActiveRecord::Base
   def to_accountancy
      #unless self.lost or not self.paid 
     unless self.amount.zero?
-      financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) and closed=?", '%'+Date.today.to_s+'%', false])
-       
-      journal_sale =  self.company.journals.find(:first, :conditions => ['nature = ?', 'sale'], :order=>:id)
-      
-      if self.client.client_account_id.nil?
-        self.client.client_account_id = self.client.create_update_account(:client).id
-      end
+      financialyear = self.company.financialyears.find(:first, :conditions => ["? BETWEEN started_on AND stopped_on AND closed=?", Date.today, false])
+      journal =  self.company.journals.find(:first, :conditions =>{:nature=>'sale', :currency_id=>self.currency_id}, :order=>:id)
+      client_account = self.client.account(:client)
+#       if self.client.client_account_id.nil?
+#         self.client.client_account_id = self.client.create_update_account(:client).id
+#       end
       #raise Exception.new(financialyear.inspect)
-      record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>(self.credit ? tc(:asset) : tc(:invoice)), :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal_sale.id, :financialyear_id => financialyear.id)
+      record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal.id, :financialyear_id => financialyear.id)
       
-      if self.has_downpayment
-        account_downpayment = self.company.accounts.find(self.client.client_account_id).number
-        account = self.company.accounts.find(:first, :conditions =>{:number=>account_downpayment.insert(2, '9').to_s})
-        if account.nil?
-          account = self.company.accounts.create!(:name=>"Clients, avances et acomptes reçus", :number=>account_downpayment, :company_id=>self.company.id)
-        end
+#       if self.has_downpayment
+#         account_downpayment = self.company.accounts.find(self.client.client_account_id).number
+#         account = self.company.accounts.find(:first, :conditions =>{:number=>account_downpayment.insert(2, '9').to_s})
+#         if account.nil?
+#           account = self.company.accounts.create!(:name=>"Clients, avances et acomptes reçus", :number=>account_downpayment, :company_id=>self.company.id)
+#         end
         
-        entry = self.company.entries.create!(:record_id=>record_id, :account_id=>account.id, :name=>account.name, :currency_debit=>0.0, :currency_credit=>self.downpayment_amount, :currency_id=>currency_id)
-      end
+#         entry = self.company.entries.create!(:record_id=>record_id, :account_id=>account.id, :name=>account.name, :currency_debit=>0.0, :currency_credit=>self.downpayment_amount, :currency_id=>currency_id)
+#       end
             
       # if the invoice has a credit.
       if self.credit
-        
-        entry = self.company.entries.create!(:record_id=>record.id, :account_id=> self.client.client_account_id, :name=> self.client.full_name, :currency_debit=>0.0, :currency_credit=>self.amount_with_taxes, :currency_id=>journal_sale.currency_id,:draft=>true)
-        
+        # entry = self.company.entries.create!(:record_id=>record.id, :account_id=> self.client.client_account_id, :name=> self.client.full_name, :currency_debit=>0.0, :currency_credit=>self.amount_with_taxes, :currency_id=>journal.currency_id,:draft=>true)
+        record.add_debit(self.client.full_name, client_account.id, self.amount_with_taxes, :draft=>true)
+
+        record.entries.create!(:account_id=>client_account.id, :name=>self.client.full_name, :currency_debit=>0.0, :currency_credit=>self.amount_with_taxes, :currency_id=>self.currency_id, :draft=>true)
         self.lines.each do |line|
-          line_amount = (line.amount * line.quantity)
-          entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.product.product_account_id, :name=>'sale '+line.product.name.to_s, :currency_debit=>line_amount, :currency_credit=>0.0, :currency_id=>journal_sale.currency_id,:draft=>true)
-          
-          entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.price.tax.account_collected_id, :name=>line.price.tax.name, :currency_credit=>0.0, :currency_debit=>line.price.tax.amount*line_amount, :currency_id=>journal_sale.currency_id,:draft=>true) unless line.price.tax_id.nil?
-          
+          # line_amount = (line.amount * line.quantity)
+          # entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.product.product_account_id, :name=>'sale '+line.product.name.to_s, :currency_debit=>line_amount, :currency_credit=>0.0, :currency_id=>journal.currency_id,:draft=>true)
+          # entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.price.tax.account_collected_id, :name=>line.price.tax.name, :currency_credit=>0.0, :currency_debit=>line.price.tax.amount*line_amount, :currency_id=>journal.currency_id,:draft=>true) unless line.price.tax_id.nil?
+          record.entries.create!(:account_id=>line.product.product_account_id, :name=>line.product.name.to_s, :currency_debit=>line.amount, :currency_credit=>0.0, :currency_id=>self.currency_id, :draft=>true)
+          record.entries.create!(:account_id=>line.price.tax.account_collected_id, :name=>line.price.tax.name, :currency_debit=>line.taxes, :currency_credit=>0.0, :currency_id=>self.currency_id,:draft=>true) unless line.price.tax_id.nil?
         end
       
       else
         
-        entry = self.company.entries.create!(:record_id=>record.id, :account_id=> self.client.client_account_id, :name=> self.client.full_name, :currency_debit=>self.amount_with_taxes, :currency_credit=>0.0, :currency_id=>journal_sale.currency_id,:draft=>true)
+        # entry = self.company.entries.create!(:record_id=>record.id, :account_id=> self.client.client_account_id, :name=> self.client.full_name, :currency_debit=>self.amount_with_taxes, :currency_credit=>0.0, :currency_id=>journal.currency_id,:draft=>true)
+        record.entries.create!(:account_id=> client_account.id, :name=>self.client.full_name, :currency_debit=>self.amount_with_taxes, :currency_credit=>0.0, :currency_id=>journal.currency_id,:draft=>true)
         
         self.lines.each do |line|
           line_amount = (line.amount * line.quantity)
-          entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.product.product_account_id, :name=>'sale '+line.product.name.to_s, :currency_debit=>0.0, :currency_credit=>line_amount, :currency_id=>journal_sale.currency_id,:draft=>true)
+          entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.product.product_account_id, :name=>'sale '+line.product.name.to_s, :currency_debit=>0.0, :currency_credit=>line_amount, :currency_id=>journal.currency_id,:draft=>true)
           
           unless line.price.tax_id.nil?
             line_amount_tax = (line.price.tax.amount*line_amount)
-            entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.price.tax.account_collected_id, :name=>line.price.tax.name, :currency_debit=>0.0, :currency_credit=>line_amount_tax, :currency_id=>journal_sale.currency_id, :draft=>true) unless line_amount_tax.zero?
+            entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.price.tax.account_collected_id, :name=>line.price.tax.name, :currency_debit=>0.0, :currency_credit=>line_amount_tax, :currency_id=>journal.currency_id, :draft=>true) unless line_amount_tax.zero?
           end
         end
         
       end
     
       self.update_attribute(:accounted, true)
-     # self.sale_order.to_accountancy #(record.id, journal_sale.currency_id)
+     # self.sale_order.to_accountancy #(record.id, journal.currency_id)
     end
   end
   

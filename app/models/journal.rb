@@ -28,6 +28,8 @@ class Journal < ActiveRecord::Base
 
   before_destroy :empty?
 
+  @@natures = [:sale, :purchase, :bank, :renew, :various]
+
   # this method is called before creation or validation method.
   def before_validation
     if self.closed_on == Date.civil(1970,12,31) 
@@ -41,6 +43,11 @@ class Journal < ActiveRecord::Base
     self.code = self.code[0..3]
   end
 
+
+  # Provides a translation for the nature of the journal
+  def nature_label
+    tc('natures.'+self.nature.to_s)
+  end
 
 
   # tests if the record contains entries.
@@ -115,7 +122,7 @@ class Journal < ActiveRecord::Base
 
   # this method returns an array .
   def self.natures
-    [:sale, :purchase, :bank, :renew, :various].collect{|x| [tc('natures.'+x.to_s), x] }
+    @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
 end

@@ -84,7 +84,7 @@ class AuthenticationController < ApplicationController
   protected
   
   def init_session(user)
-    session[:expiration]   = 3600
+    session[:expiration]   = 3600*5
     session[:help]         = true
     session[:help_history] = []
     session[:history]      = []

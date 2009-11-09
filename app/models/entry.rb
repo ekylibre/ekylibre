@@ -13,6 +13,7 @@
 #  currency_id     :integer       not null
 #  currency_rate   :decimal(16, 6 not null
 #  debit           :decimal(16, 2 default(0.0), not null
+#  draft           :boolean       not null
 #  editable        :boolean       default(TRUE)
 #  expired_on      :date          
 #  id              :integer       not null, primary key
@@ -51,6 +52,7 @@ class Entry < ActiveRecord::Base
     # for debit and credit.
     self.currency_debit  ||= 0
     self.currency_credit ||= 0
+    self.company_id ||= self.record.company_id if self.record
     unless self.currency.nil?
       self.currency_rate = self.currency.rate
       if self.editable 

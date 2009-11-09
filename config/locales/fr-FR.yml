@@ -312,7 +312,7 @@ fr-FR:
         purchase: Achats
         sale: Ventes
         bank: Banque
-        renew: Des à nouveaux
+        renew: À nouveaux
         various: Opérations diverses
     journal_record:
       error_format_number: 'Le format de numéro de la pièce n''est pas bon.'

@@ -2,6 +2,7 @@
 #
 # Table name: transfers
 #
+#  accounted    :boolean       not null
 #  amount       :decimal(16, 2 default(0.0), not null
 #  comment      :string(255)   
 #  company_id   :integer       not null

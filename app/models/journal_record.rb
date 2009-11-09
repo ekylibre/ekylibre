@@ -92,5 +92,35 @@ class JournalRecord < ActiveRecord::Base
     return (not self.entries.exists?(:draft=>true))
   end
 
+  # Adds an entry with the minimum informations. It computes debit and credit withe the "amount".
+  # If the amount is negative, the amount is put in the other column (debit or credit). Example: 
+  #   record.add_debit("blabla", account, -65) # will put +65 in +credit+ column
+  def add_debit(name, account, amount, options={})
+    add(name, account, amount, options)
+  end
+
+  def add_credit(name, account, amount, options={})
+    add(name, account, amount, options.merge(:credit=>true))
+  end
+
+  private
+
+  def add(name, account, amount, options={})
+    return if amount == 0
+    attributes = options.merge(:name=>name)
+    attributes[:account] = account.is_a?(Integer) ? account : account.id
+    attributes[:currency_id] = self.journal.currency_id
+    credit = options.delete(:credit) ? true : false
+    credit = not credit if amount < 0
+    if credit
+      attributes[:currency_credit] = amount
+      attributes[:currency_debit]  = 0.0
+    else
+      attributes[:currency_credit] = 0.0
+      attributes[:currency_debit]  = amount
+    end
+    record.entries.create!(attributes)
+  end
+
   
 end

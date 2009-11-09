@@ -1,16 +1,6 @@
 class AccountancyController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
   
-  dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:code) do |t|
-    t.column :name
-    t.column :code
-    t.column :name, :through=>:currency
-    t.column :closed_on
-    t.action :journal_close, :if => 'RECORD.closable?(Date.today)'
-    t.action :journal_update
-    t.action :journal_delete, :method=>:post, :confirm=>:are_you_sure
-  end
-  
   dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"number ASC") do |t|
     t.column :number
     t.column :name
@@ -158,36 +148,36 @@ class AccountancyController < ApplicationController
     
     if request.post? or request.xhr?
       #all the invoices are accountized.
-      # @invoices = @current_company.invoices.find(:first, :conditions=>{:id=>373007})
-      @invoices = @current_company.invoices.find(:all, :conditions=>["created_on < ? and accounted = ?", session[:limit_period].to_s, false],:limit=>2)
-      @invoices.each do |invoice|
+     # @invoices = @current_company.invoices.find(373007)
+       @invoices = @current_company.invoices.find(:all, :conditions=>["created_on < ? and accounted = ?", session[:limit_period].to_s, false])
+       @invoices.each do |invoice|
         invoice.to_accountancy
-      end
+       end
       
-      # all the purchases are accountized.
-      @purchases = @current_company.purchase_orders.find(:all, :conditions=>["planned_on < ? and accounted = ? ", session[:limit_period].to_s, false], :limit=>2)                                                         
-      @purchases.each do |purchase|
-        purchase.to_accountancy
+      # all the purchase_orders are accountized.
+      @purchase_orders = @current_company.purchase_orders.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false],:limit=>2)                                                         
+      @purchase_orders.each do |purchase_order|
+        purchase_order.to_accountancy
       end
       
       # all the transfers are accountized.
-      @transfers = @current_company.transfers.find(:all, :conditions=>["stopped_on < ? and accounted = ? ", session[:limit_period].to_s, false], :limit=>2)                                                         
+      @transfers = @current_company.transfers.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false],:limit=>2)
       @transfers.each do |transfer|
         transfer.to_accountancy
       end
       
       
-      # the payments are comptabilized if they have been cashed or not.  
+      # the payments are comptabilized if they have been embanked or not.  
       join = "inner join embankments e on e.id=payments.embankment_id" unless session[:cashed_payments]
-      @payments = @current_company.payments.find(:all, :conditions=>["paid_on < ? and accounted = ?", session[:limit_period].to_s, false], :joins=>join||nil, :limit=>2)    
+      @payments = @current_company.payments.find(:all, :conditions=>["created_on < ? and accounted = ?", session[:limit_period].to_s, false], :joins=>join||nil, :limit=>2)    
       @payments.each do |payment|
         payment.to_accountancy
       end
 
-      # the sales are comptabilized if the matching payments and invoices have been already accountized.  
-      @sales = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted = ? and p.accounted=? and i.accounted=?", session[:limit_period].to_s, false, true, true], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id", :limit=>2)    
-      @sales.each do |sale|
-        sale.to_accountancy
+      # the sale_orders are comptabilized if the matching payments and invoices have been already accountized.  
+      @sale_orders = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted = ? and p.accounted=? and i.accounted=?", session[:limit_period].to_s, false, true, true], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id", :limit=>2)    
+      @sale_orders.each do |sale_order|
+        sale_order.to_accountancy
       end
 
     elsif request.put?
@@ -787,6 +777,19 @@ class AccountancyController < ApplicationController
       redirect_to :action => "entries"
     end
   end
+
+
+  dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:code) do |t|
+    t.column :name
+    t.column :code
+    t.column :nature_label
+    t.column :name, :through=>:currency
+    t.column :closed_on
+    t.action :journal_close, :if => 'RECORD.closable?(Date.today)'
+    t.action :journal_update
+    t.action :journal_delete, :method=>:post, :confirm=>:are_you_sure
+  end
+  
 
   # lists all the transactions established on the accounts, sorted by date.
   def journals

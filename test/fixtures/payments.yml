@@ -4,6 +4,7 @@
 #
 #  account_id     :integer       
 #  account_number :string(255)   
+#  accounted      :boolean       not null
 #  amount         :decimal(16, 2 not null
 #  bank           :string(255)   
 #  check_number   :string(255)   

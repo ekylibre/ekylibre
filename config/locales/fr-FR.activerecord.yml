@@ -63,7 +63,7 @@ fr-FR:
       subscription: 'Abonnement'
       subscription_nature: 'Type d''abonnement'
       tax: 'Taxe'
-      transport: (((TRANSPORT)))
+      transport: Transport
       unit: 'Unité'
       user: 'Utilisateur'
 
@@ -839,6 +839,7 @@ fr-FR:
         lock_version: 'Version'
         name: 'Nom'
         nature: 'Nature'
+        nature_label: 'Nature'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 

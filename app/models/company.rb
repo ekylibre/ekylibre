@@ -356,7 +356,7 @@ class Company < ActiveRecord::Base
       rows_count = rows.size
       n += rows_count
       root << table = XML::Node.new('rows')
-      {'reflection'=>name.pluralize, 'records-count'=>rows_count.to_s}.each{|k,v| table[k]=v}
+      {'reflection'=>name.to_s.pluralize, 'records-count'=>rows_count.to_s}.each{|k,v| table[k]=v}
       #table = root.add_element('rows', )
       rows_count.times do |i|
         # puts i if i%200==0

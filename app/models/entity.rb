@@ -180,38 +180,48 @@ class Entity < ActiveRecord::Base
 #     end
 #   end
 
+
+  # this method creates automatically an account for the entity
+  def account(nature=:client, suffix=nil)
+    nature = :supplier if nature != :client
+    a = nil
+    a = self.send(nature.to_s+'_account') unless self.send(nature.to_s+'_account_id').nil?
+    if a.nil?
+      prefix = (nature == :client ? 411 : 401)
+      suffix ||= self.code
+      suffix = suffix.upper_ascii[0..5].rjust(6,'0')
+      account = 1
+      while not account.nil? do
+        account = self.company.accounts.find(:first, :conditions => ["number LIKE ?", prefix.to_s+suffix.to_s])
+        suffix.succ! unless account.nil?
+      end    
+      a = self.company.accounts.create(:number=>prefix.to_s+suffix.to_s, :name=>self.full_name)
+    end
+    return a
+  end
+
+
   
   # this method creates automatically an account for the entity
   def create_update_account(nature = :client, suffix = nil)
-    prefix = nature == :client ? 411 : 401
-    suffix ||= self.code
-    suffix = suffix.upper_ascii[0..5].rjust(6,'0')
-    account = 1
-    
-    while not account.nil? do
-      number = prefix
-      account = self.company.accounts.find(:first, :conditions => ["number LIKE ?", prefix.to_s+suffix.to_s])
-      suffix.succ! unless account.nil?
-    end
-    
-    self.company.accounts.create({:number => prefix.to_s+suffix.to_s, :name=>self.full_name})
+    self.account(nature, suffix)
   end
 
-  def find_or_create_account(nature = :client)
-    prefix = nature == :client ? 411 : 401
-    if self.client and self.client_account_id.nil?
+#   def find_or_create_account(nature = :client)
+#     prefix = nature == :client ? 411 : 401
+#     if self.client and self.client_account_id.nil?
       
-      #last = self.company.accounts.find(:first, :conditions=>["number like ?",'%411'],:order=>"number desc")
-      #account = self.company.create!(:number=>last.number.succ, :name=>self.full_name).id
-      #raise Exception.new self.inspect
-      account = self.create_update_account(:client).id
-      self.client_account_id = account
-      self.save
-    else
-      account = self.client_account_id
-    end
-    account
-  end
+#       #last = self.company.accounts.find(:first, :conditions=>["number like ?",'%411'],:order=>"number desc")
+#       #account = self.company.create!(:number=>last.number.succ, :name=>self.full_name).id
+#       #raise Exception.new self.inspect
+#       account = self.create_update_account(:client).id
+#       self.client_account_id = account
+#       self.save
+#     else
+#       account = self.client_account_id
+#     end
+#     account
+#   end
 
   def warning
     count = self.observations.find_all_by_importance("important").size
