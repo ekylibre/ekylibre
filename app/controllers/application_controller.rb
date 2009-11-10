@@ -97,11 +97,11 @@ class ApplicationController < ActionController::Base
       session[:history].insert(0,request.url)
       session[:history].delete_at(127)
     end
-    session[:last_page][self.controller_name] = request.url unless request.url.match(/(print|dyta|extract)(\/\d+(\.\w+)?)?$/)
+    session[:last_page][self.controller_name] = request.url unless (request.url.match(/_(print|dyta|extract)(\/\d+(\.\w+)?)?$/) or (controller_name == "company" and action_name == "print")) or params[:format] 
   end
-
+  
   def authorize()
-
+    
     response.headers["Last-Modified"] = Time.now.httpdate
     response.headers["Expires"] = '0'
     # HTTP 1.0
@@ -149,21 +149,6 @@ class ApplicationController < ActionController::Base
     @article = article
     session[:help_history] << @article if @article != session[:help_history].last
     session[:help]=true
-  end
-
-  def print(object, options={})
-    if @current_company
-      # options[:view] = self
-      filename = options.delete(:filename)
-      filename += '.pdf' if filename and not filename.to_s.match(/\./)
-      result = @current_company.print(object, options)
-      send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename)
-#       if result.is_a? Document
-#         send_file(result.file_path, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename||result.original_name)
-#       else
-#         send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename)
-#       end
-    end
   end
 
   def redirect_to_login()

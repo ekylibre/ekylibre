@@ -2,7 +2,7 @@ fr-FR:
 
   controllers:
     company:
-      object_to_print_no_found: 'Impossible d''imprimer'
+      object_to_print_no_found: 'Impossible d''imprimer classe : {{class}} erreur : {{error}}'
       restoration_finished: 'La restauration de la sauvegarde s''est terminée (en {{value}} secondes)'
       role: 'Rôle'
       title: 'Société'

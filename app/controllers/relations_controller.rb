@@ -287,7 +287,6 @@ class RelationsController < ApplicationController
     t.column :name, :url=>{:action=>:entity}
     t.column :first_name, :url=>{:action=>:entity}
     t.column :line_6, :through=>:default_contact, :url=>{:action=>:entity_contact_update}
-    #t.action :entity_print
     t.action :print, :url=>{:controller=>:company, :type=>:entity}
     t.action :entity_update
     t.action :entity_delete, :method=>:post, :confirm=>:are_you_sure
@@ -300,13 +299,6 @@ class RelationsController < ApplicationController
     session[:entity_key] = params[:key]||session[:entity_key]
   end
 
-
-  #
-  def entity_print
-    @entity = find_and_check(:entity, params[:id])
-    return if @entity.nil?
-    print(@entity, :archive=>false, :filename=>@entity.code)
-  end 
 
   #dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
   dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON  entity_link_natures.propagate_contacts = true AND entity_links.nature_id = entity_link_natures.id  AND stopped_on IS NULL WHERE (entity1_id = ? OR entity2_id = ?)) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_link_natures.propagate_contacts = true AND entity_links.nature_id = entity_link_natures.id  AND stopped_on IS NULL WHERE  (entity1_id = ? OR entity2_id = ?) ) )', ['@current_company.id'],['session[:current_entity]'],['session[:current_entity]'],['session[:current_entity]'],['session[:current_entity]'], ['session[:current_entity]'] ]) do |t|
@@ -345,7 +337,7 @@ class RelationsController < ApplicationController
     t.column :text_state, :children=>false
     t.column :amount
     t.column :amount_with_taxes
-    t.action :sale_order_print, :controller=>:management
+    t.action :print, :url=>{:controller=>:company, :type=>:sale_order}
     t.action :sale_order_duplicate, :controller=>:management, :method=>:post
     t.action :sale_order_lines, :image=>:update, :controller=>:management, :if=>"not RECORD.complete\?"
     t.action :sale_order_delete, :controller=>:management, :if=>"RECORD.estimate\?", :method=>:delete, :confirm=>:are_you_sure
@@ -379,7 +371,7 @@ class RelationsController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     # t.column :credit
-    t.action :invoice_print, :controller=>:management
+    t.action :print, :url=>{:controller=>:company, :type=>:invoice}
     # t.action :controller=>:management, :invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
     # t.action :controller=>:management, :invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
   end

@@ -659,8 +659,8 @@ class CompanyController < ApplicationController
       #raise Exception.new filename.inspect+"in ! "+params.inspect
       #send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>t('activerecord.models.'+object.class.name.underscore))
       send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename)
-    rescue
-      flash[:error]=tc(:object_to_print_no_found)
+    rescue Exception=>e
+      flash[:error]=tc(:object_to_print_no_found, :class=>e.class, :error=>e)
       redirect_to_back
     end
   end

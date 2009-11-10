@@ -159,7 +159,6 @@ class ManagementController < ApplicationController
     t.column :changes_reflected, :label=>tc('changes_reflected')
     t.column :label, :through=>:employee
     t.column :comment
-    #t.action :inventory_print
     t.action :print, :url=>{:controller=>:company, :type=>:inventory}
     t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and RECORD.changes_reflected == false'
     t.action :inventory_update,  :if=>'RECORD.changes_reflected == false'
@@ -222,12 +221,6 @@ class ManagementController < ApplicationController
       redirect_to_back if @inventory.destroy
     end
   end
-
-#   def inventory_print
-#     return unless @inventory = find_and_check(:inventories, params[:id])
-#     print(@inventory, :filename=>tc('inventory')+" "+@inventory.date.to_s)
-#   end
-
   
   def self.invoices_conditions
     code = ""
@@ -2547,7 +2540,6 @@ class ManagementController < ApplicationController
     t.column :transport_on, :children=>false
     t.column :full_name, :through=>:transporter, :children=>:contact_address
     t.column :weight
-    #t.action :transport_print
     t.action :print, :url=>{:controller=>:company, :type=>:transport}
     t.action :transport_update
     t.action :transport_delete, :method=>:post, :confirm=>:are_you_sure
@@ -2615,10 +2607,4 @@ class ManagementController < ApplicationController
     end
   end
  
-
-#   def transport_print
-#     return unless @transport = find_and_check(:transports, params[:id])
-#     print(@transport, :filename=>tc('transport')+" "+@transport.created_on.to_s)
-#   end
-
 end
