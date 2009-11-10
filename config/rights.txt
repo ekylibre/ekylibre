@@ -375,7 +375,7 @@ relations        area_delete                      manage_areas
 relations        area_update                      manage_areas
 relations        areas                            manage_areas
 relations        areas_dyta                       manage_areas
-relations        districts_dyli                   manage_areas
+relations        districts_dyli                   manage_districts
 relations        complement_choice_create         manage_complements
 relations        complement_choice_down           manage_complements
 relations        complement_choice_up             manage_complements

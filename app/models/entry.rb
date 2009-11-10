@@ -114,6 +114,11 @@ class Entry < ActiveRecord::Base
     mode
   end
   
+  #
+  def resource
+    return self.record.resource_type
+  end
+
   #this method returns the name of journal which the records are saved.
   def journal_name
     return self.record.journal.name

@@ -43,11 +43,16 @@ class Transfer < ActiveRecord::Base
     
     financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) AND closed=?'", '%'+Date.today.to_s+'%', false])
     
-    record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>tc(:transfer), :created_on=>Date.today, :printed_on => self.started_on, :journal_id=>journal_purchase.id, :financialyear_id => financialyear.id)
+    record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.started_on, :journal_id=>journal_purchase.id, :financialyear_id => financialyear.id)
+  
+    supplier_account = self.supplier.account(:supplier)
+  
+    record.add_debit(self.supplier.full_name, supplier_account.id, self.amount, :draft=>true)
     
-    entry = self.company.entries.create!(:record_id=>record.id, :account_id=>self.supplier.supplier_account_id, :name=>self.supplier.full_name, :currency_debit=>self.amount, :currency_credit=>0.0, :currency_id=>journal_purchase.currency_id,:draft=>true)
-    
-    entry = self.company.entries.create!(:record_id=>record.id, :account_id=>("compte Effets à payer"), :name=>("Effets à payer"), :currency_debit=>0.0, :currency_credit=>self.amount, :currency_id=>journal_purchase.currency_id,:draft=>true)
+    #entry = self.company.entries.create!(:record_id=>record.id, :account_id=>self.supplier.supplier_account_id, :name=>self.supplier.full_name, :currency_debit=>self.amount, :currency_credit=>0.0, :currency_id=>journal_purchase.currency_id,:draft=>true)
+   
+    record.add_credit(tc(:payable_bills), "Compte effets à payer", self.amount, :draft=>true)
+    #entry = self.company.entries.create!(:record_id=>record.id, :account_id=>("compte Effets à payer"), :name=>("Effets à payer"), :currency_debit=>0.0, :currency_credit=>self.amount, :currency_id=>journal_purchase.currency_id,:draft=>true)
 
     # all the payments matching to this transfer are looked for and comptabilized.
    #  payments = self.company.payments.find(:all, :conditions => ["p.expense_id = ? and payments.accounted=?", self.id, false] , :joins=>"inner join payment_parts p on p.payment_id=payments.id and p.expense_type=#{Transfer.name}")

@@ -106,23 +106,30 @@ class PurchaseOrder < ActiveRecord::Base
   #this method saves the purchase in the accountancy module.
   def to_accountancy
     journal_purchase=  self.company.journals.find(:first, :conditions => ['nature = ?', 'purchase'],:order=>:id)
-
+    
     financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) AND closed=?'", '%'+Date.today.to_s+'%', false])
     
-    record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>tc(:purchase), :created_on=>Date.today, :printed_on => self.planned_on, :journal_id=>journal_purchase.id, :financialyear_id => financialyear.id)
-     
-     
-     if self.supplier.supplier_account_id.nil?
-       self.supplier.reload.update_attribute(:supplier_account_id, self.supplier.create_update_account(:supplier).id)
-     end
-        
-     entry = self.company.entries.create!(:record_id=>record.id, :account_id=>self.supplier.supplier_account_id, :name=>self.supplier.full_name, :currency_debit=>0.0, :currency_credit=>self.amount_with_taxes, :currency_id=>journal_purchase.currency_id,:draft=>true)
-     
-     self.lines.each do |line|
-       line_amount = (line.amount * line.quantity)
-       entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.product.product_account_id, :name=>'sale '+line.product.name.to_s, :currency_debit=>line_amount, :currency_credit=>0.0, :currency_id=>journal_purchase.currency_id,:draft=>true)
+    record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.planned_on, :journal_id=>journal_purchase.id, :financialyear_id => financialyear.id)
+    
+    
+    supplier_account = self.supplier.account(:supplier)
+    
+    # if self.supplier.supplier_account_id.nil?
+#       self.supplier.reload.update_attribute(:supplier_account_id, self.supplier.create_update_account(:supplier).id)
+    #     end
+    
+    record.add_credit(self.supplier.full_name, supplier_account.id, self.amount_with_taxes, :draft=>true)
+     #entry = self.company.entries.create!(:record_id=>record.id, :account_id=>self.supplier.supplier_account_id, :name=>self.supplier.full_name, :currency_debit=>0.0, :currency_credit=>self.amount_with_taxes, :currency_id=>journal_purchase.currency_id,:draft=>true)
+    
+    self.lines.each do |line|
+      line_amount = (line.amount * line.quantity)
+      
+      record.add_debit('sale '+line.product.name, line.product.product_account_id, line_amount, :draft=>true)
+      
+      #entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.product.product_account_id, :name=>'sale '+line.product.name.to_s, :currency_debit=>line_amount, :currency_credit=>0.0, :currency_id=>journal_purchase.currency_id,:draft=>true)
        unless line.price.tax_id.nil?
-         entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.price.tax.account_collected_id, :name=>line.price.tax.name, :currency_debit=>line.price.tax.amount*line_amount, :currency_credit=>0.0, :currency_id=>journal_purchase.currency_id,:draft=>true)
+         record.add_debit(line.price.tax.name, line.price.tax.account_paid_id, line.price.tax.amount*line_amount, :draft=>true)
+         #entry = self.company.entries.create!(:record_id=>record.id, :account_id=>line.price.tax.account_collected_id, :name=>line.price.tax.name, :currency_debit=>line.price.tax.amount*line_amount, :currency_credit=>0.0, :currency_id=>journal_purchase.currency_id,:draft=>true)
        end
      end
     

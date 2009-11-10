@@ -27,6 +27,8 @@ class Tax < ActiveRecord::Base
   has_many :prices
 
   validates_inclusion_of :nature, :in=>%w( amount percent )
+  validates_presence_of :account_collected_id
+  validates_presence_of :account_paid_id
 
   attr_readonly :amount, :nature, :company_id
 
