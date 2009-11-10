@@ -102,7 +102,7 @@
           <text value="Dans l'attente de votre réponse,"/>
           <text value="Veuillez agréer, {{sale_order.function_title}}, l'expression de mes salutations distinguées." top="4mm"/>
         </set>
-        <set left="145mm" top="12mm"> 
+        <set if="sale_order.responsible" left="145mm" top="12mm"> 
           <text value="{{sale_order.responsible/label}}" bold="true" align="center"/>
           <text value="Service {{sale_order.responsible.department/name}}" align="center" top="4mm"/>
         </set>
