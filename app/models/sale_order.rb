@@ -354,6 +354,10 @@ class SaleOrder < ActiveRecord::Base
     c += self.responsible.department.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible
     c
   end
+
+  def last_payment
+    self.client.payments.find(:first, :order=>"paid_on desc")
+  end
   
   #this method accountizes the sale.
   def to_accountancy #(record_id, currency_id)
