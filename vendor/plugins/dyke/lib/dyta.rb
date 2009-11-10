@@ -24,7 +24,7 @@ module Ekylibre
           PAGINATION = {
             :will_paginate=>{
               :find_method=>'paginate',
-              :find_params=>':page=>params[:page], :per_page=>@@LENGTH@@'
+              :find_params=>':page=>page, :per_page=>@@LENGTH@@'
             },
             :default=>{
               :find_method=>'find',
@@ -77,6 +77,11 @@ module Ekylibre
 
             order_definition  = ''
             order_definition += "  options = params||{}\n"
+            order_definition += "  session[:dyta] ||= {}\n"
+            order_definition += "  session[:dyta][:#{name}] ||= {}\n"
+            order_definition += "  page = params[:page]||session[:dyta][:#{name}][:page]\n"
+            # order_definition += "  page = params[:page]||session[:dyta][:#{name}][:page]\n"
+            order_definition += "  session[:dyta][:#{name}][:page] = page\n"
             order_definition += "  order = nil\n"
             order_definition += "  unless options['#{name}_sort'].blank?\n"
             order_definition += "    options['#{name}_dir'] ||= 'asc'\n"
@@ -87,7 +92,7 @@ module Ekylibre
 
             builder  = order_definition
             builder += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
-            builder += ", :select=>'DISTINCT #{model.table_name}.*'" unless options[:distinct]
+            builder += ", :select=>'DISTINCT #{model.table_name}.*'" if options[:distinct]
             builder += ", :conditions=>"+conditions unless conditions.blank?
             builder += ", "+PAGINATION[options[:pagination]][:find_params].gsub('@@LENGTH@@', "options['#{name}_per_page']||"+(options[:per_page]||25).to_s) unless PAGINATION[options[:pagination]][:find_params].blank?
             builder += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
@@ -188,7 +193,7 @@ module Ekylibre
             code += "  return text\n"
             code += "end\n"
 
-            # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+            list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
 
             ActionView::Base.send :class_eval, code
 
@@ -225,7 +230,7 @@ module Ekylibre
                 code += "+\n      " unless code.blank?
                 header_title = "'"+h(column.header).gsub('\'','\\\\\'')+"'"
                 if column.sortable?
-                  header_title = "link_to_remote("+header_title+", {:update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:#{list_method_name}, '#{options[:id]}_sort'=>'"+column.name.to_s+"', '#{options[:id]}_dir'=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>params[:page]}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
+                  header_title = "link_to_remote("+header_title+", {:update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:#{list_method_name}, '#{options[:id]}_sort'=>'"+column.name.to_s+"', '#{options[:id]}_dir'=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>page}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
                 end
                 code += "content_tag(:th, "+header_title+", :class=>'"+(column.action? ? 'act' : 'col')+"'"+column_sort+")"
               else
