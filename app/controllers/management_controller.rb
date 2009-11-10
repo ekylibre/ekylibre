@@ -2221,8 +2221,7 @@ class ManagementController < ApplicationController
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity, :controller=>:relations}
 #    t.column :line_2, :through=>:contact, :label=>"Dest-Serv"
 #    t.column :line_3, :through=>:contact, :label=>"Bat./Rés."
-#    t.column :line_4_number, :through=>:contact, :label=>"N° voie"
-#    t.column :line_4_street, :through=>:contact, :label=>"Libelle voie"
+#    t.column :line_4, :through=>:contact, :label=>"N°/voie"
 #    t.column :line_5, :through=>:contact, :label=>"Lieu dit"
 #    t.column :line_6_code, :through=>:contact, :label=>"Code postal"
 #    t.column :line_6_city, :through=>:contact, :label=>"Ville"

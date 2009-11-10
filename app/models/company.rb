@@ -20,8 +20,6 @@
 class Company < ActiveRecord::Base
   has_many :accounts
   has_many :account_balances
-  has_many :address_norms
-  has_many :address_norm_items
   has_many :areas
   has_many :bank_accounts
   has_many :bank_account_statements
@@ -614,15 +612,15 @@ class Company < ActiveRecord::Base
   def export_entities(find_options={})
     entities = self.entities.find(:all, find_options)
     csv_string = FasterCSV.generate do |csv|
-      csv << ["Code", "Type", "Nom", "Prénom","Dest-Service","Bat.-Res.-ZI","N° voie","Libelle voie","Lieu dit","Code Postal","Ville",  "Téléphone", "Mobile", "Fax","Email","Site Web", "Taux de réduction", "Commentaire" ]
+      csv << ["Code", "Type", "Nom", "Prénom","Dest-Service","Bat.-Res.-ZI","N° et voie","Lieu dit","Code Postal","Ville",  "Téléphone", "Mobile", "Fax","Email","Site Web", "Taux de réduction", "Commentaire" ]
       entities.each do |entity|
         contact = self.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :default=>true, :deleted=>false})
         line = []
         line << [entity.code, entity.nature.name, entity.name, entity.first_name]
         if !contact.nil?
-          line << [contact.line_2, contact.line_3, contact.line_4_number, contact.line_4_street, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
+          line << [contact.line_2, contact.line_3, contact.line_4, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
         else
-          line << [ "", "", "", "", "", "", "", "", "", "", "", ""]
+          line << [ "", "", "", "", "", "", "", "", "", "", ""]
         end
         line << [ entity.reduction_rate.to_s.gsub(/\./,","), entity.comment]
         csv << line.flatten
@@ -681,7 +679,7 @@ class Company < ActiveRecord::Base
       entity.supplier = (rand() > 0.75 or x == 0)
       entity.transporter = rand() > 0.9
       entity.save! 
-      contact = entity.contacts.create!(:company_id=>company.id, :line_4_number=>rand(100), :line_4_street=>streets[rand(streets.size)], :norm_id=>entity.company.address_norms.first.id, :line_6=>cities[rand(cities.size)], :default=>true)
+      contact = entity.contacts.create!(:company_id=>company.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :norm_id=>entity.company.address_norms.first.id, :line_6=>cities[rand(cities.size)], :default=>true)
     end
     company.entity_link_natures.create!(:name=>"Gérant - Société", :name_1_to_2=>"gère la société", :name_2_to_1=>"est une société qui a pour associé", :propagate_contacts=>true, :symmetric=>false)
     company.subscription_natures.create!(:name=>"Abonement annuel", :nature=>"period", :reduction_rate=>0.1)

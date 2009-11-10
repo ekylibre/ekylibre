@@ -2,45 +2,42 @@
 #
 # Table name: contacts
 #
-#  active        :boolean       not null
-#  address       :string(280)   
-#  area_id       :integer       
-#  closed_on     :date          
-#  code          :string(4)     
-#  company_id    :integer       not null
-#  country       :string(2)     
-#  created_at    :datetime      not null
-#  creator_id    :integer       
-#  default       :boolean       not null
-#  deleted       :boolean       not null
-#  email         :string(255)   
-#  entity_id     :integer       not null
-#  fax           :string(32)    
-#  id            :integer       not null, primary key
-#  latitude      :float         
-#  line_2        :string(38)    
-#  line_3        :string(38)    
-#  line_4_number :string(38)    
-#  line_4_street :string(38)    
-#  line_5        :string(38)    
-#  line_6        :string(255)   
-#  lock_version  :integer       default(0), not null
-#  longitude     :float         
-#  mobile        :string(32)    
-#  norm_id       :integer       not null
-#  phone         :string(32)    
-#  started_at    :datetime      
-#  stopped_at    :datetime      
-#  updated_at    :datetime      not null
-#  updater_id    :integer       
-#  website       :string(255)   
+#  active       :boolean       not null
+#  address      :string(280)   
+#  area_id      :integer       
+#  closed_on    :date          
+#  code         :string(4)     
+#  company_id   :integer       not null
+#  country      :string(2)     
+#  created_at   :datetime      not null
+#  creator_id   :integer       
+#  default      :boolean       not null
+#  deleted      :boolean       not null
+#  email        :string(255)   
+#  entity_id    :integer       not null
+#  fax          :string(32)    
+#  id           :integer       not null, primary key
+#  latitude     :float         
+#  line_2       :string(38)    
+#  line_3       :string(38)    
+#  line_4       :string(48)    
+#  line_5       :string(38)    
+#  line_6       :string(255)   
+#  lock_version :integer       default(0), not null
+#  longitude    :float         
+#  mobile       :string(32)    
+#  phone        :string(32)    
+#  started_at   :datetime      
+#  stopped_at   :datetime      
+#  updated_at   :datetime      not null
+#  updater_id   :integer       
+#  website      :string(255)   
 #
 
 class Contact < ActiveRecord::Base
   belongs_to :area
   belongs_to :company
   belongs_to :entity
-  belongs_to :norm, :class_name=>AddressNorm.name
   has_many :deliveries
   has_many :invoices
   has_many :purchase_orders
@@ -48,8 +45,8 @@ class Contact < ActiveRecord::Base
   has_many :subscriptions
 
   # belongs_to :element, :polymorphic=> true
-  attr_readonly :entity_id, :company_id, :norm_id
-  attr_readonly :name, :code, :line_2, :line_3, :line_4_number, :line_4_street, :line_5, :line_6, :address, :phone, :fax, :mobile, :email, :website
+  attr_readonly :entity_id, :company_id
+  attr_readonly :name, :code, :line_2, :line_3, :line_4, :line_5, :line_6, :address, :phone, :fax, :mobile, :email, :website
 
   def before_validation
     if self.entity
@@ -106,7 +103,7 @@ class Contact < ActiveRecord::Base
   end
 
   def lines(sep=', ', with_city=true, with_country=true)
-    lines = [self.line_2, self.line_3, (self.line_4_number.to_s+' '+self.line_4_street.to_s).strip, self.line_5]
+    lines = [self.line_2, self.line_3, self.line_4, self.line_5]
     lines << self.line_6.to_s if with_city
     lines << (self.country.blank? ? '' : I18n.t("countries.#{self.country}")) if with_country
     lines = lines.compact.collect{|x| x.gsub(sep,' ')}

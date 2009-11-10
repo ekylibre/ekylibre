@@ -61,8 +61,7 @@ fr-FR:
     manage_transports: (((MANAGE_TRANSPORTS)))
     manage_users: 'Gérer les utilisateurs'
     merge_entities: 'Fusionner les fiches clients/fournisseurs'
+    print: (((PRINT)))
     print_accounting_document: 'Imprimer les documents comptables'
-    print_entities: 'Imprimer les fiches clients/fournisseurs'
-    print_sales: 'Imprimer les documents de vente (devis, factures...)'
     search_and_consult_invoices: 'Rechercher et consulter des factures'
     search_and_consult_products: 'Rechercher et consulter des produits'

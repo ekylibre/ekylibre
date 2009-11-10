@@ -391,7 +391,7 @@ class CompanyController < ApplicationController
     redirect_to_current
   end
 
-  dyta(:document_templates, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:name) do |t|
+  dyta(:document_templates, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"nature, name") do |t|
     t.column :active
     t.column :name
     t.column :code
