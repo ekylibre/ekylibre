@@ -38,7 +38,7 @@ fr-FR:
     manage_entries: 'Gérer les écritures'
     manage_events: 'Gérer les évènements'
     manage_financialyears: 'Gérer les exercices'
-    manage_inventories: (((MANAGE_INVENTORIES)))
+    manage_inventories: 'Gérer les inventaires'
     manage_invoicing: 'Gérer la facturation et les règlements'
     manage_journals: 'Gérer les journaux'
     manage_listings: 'Gérer les extractions'

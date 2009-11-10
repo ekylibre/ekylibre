@@ -165,7 +165,7 @@ class ManagementController < ApplicationController
     t.action :inventory_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.changes_reflected == false'
   end
 
-  dyta(:inventory_lines_create, :model=>:product_stocks, :conditions=>{:company_id=>['@current_company.id'] }, :per_page=>1000, :order=>{'sort'=>'location_id', 'dir'=>'asc'}) do |t|
+  dyta(:inventory_lines_create, :model=>:product_stocks, :conditions=>{:company_id=>['@current_company.id'] }, :per_page=>1000, :order=>'location_id') do |t|
     t.column :name, :through=>:location
     t.column :name, :through=>:product
     t.column :shelf_name, :through=>:product, :label=>tc('shelf')
@@ -173,7 +173,7 @@ class ManagementController < ApplicationController
     t.textbox :current_real_quantity
   end
 
-  dyta(:inventory_lines_update, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['session[:current_inventory]'] }, :per_page=>1000,:order=>{ 'sort'=>'location_id', 'dir'=>'asc'}) do |t|
+  dyta(:inventory_lines_update, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['session[:current_inventory]'] }, :per_page=>1000,:order=>'location_id') do |t|
     t.column :name, :through=>:location
     t.column :name, :through=>:product
     t.column :shelf_name, :through=>:product, :label=>tc('shelf')
@@ -236,7 +236,7 @@ class ManagementController < ApplicationController
     code
   end
   
-  dyta(:invoices, :conditions=>invoices_conditions, :line_class=>'RECORD.status', :joins=>"LEFT JOIN entities e ON e.id = invoices.client_id LEFT JOIN sale_orders s ON s.id = invoices.sale_order_id", :default_order=>"created_on DESC, number DESC") do |t|
+  dyta(:invoices, :conditions=>invoices_conditions, :line_class=>'RECORD.status', :joins=>"LEFT JOIN entities e ON e.id = invoices.client_id LEFT JOIN sale_orders s ON s.id = invoices.sale_order_id", :order=>"created_on DESC, number DESC") do |t|
     t.column :number, :url=>{:action=>:invoice}
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
     t.column :number, :through=>:sale_order, :url=>{:action=>:sale_order}
@@ -991,7 +991,7 @@ class ManagementController < ApplicationController
     code
   end
 
-  dyta(:sale_orders, :conditions=>sale_orders_conditions, :joins=>"JOIN entities ON entities.id = sale_orders.client_id", :order=>{'sort'=>'created_on','dir'=>'desc'}, :line_class=>'RECORD.status' ) do |t|
+  dyta(:sale_orders, :conditions=>sale_orders_conditions, :joins=>"JOIN entities ON entities.id = sale_orders.client_id", :order=>'created_on desc', :line_class=>'RECORD.status' ) do |t|
     t.column :number, :url=>{:action=>:sale_order_lines}
     #t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_nature}
     t.column :created_on
@@ -1580,7 +1580,7 @@ class ManagementController < ApplicationController
   
   
   
-  dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"created_at DESC") do |t|
+  dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}, :order=>"created_at DESC") do |t|
     t.column :amount, :url=>{:action=>:embankment}
     t.column :payments_count
     t.column :name, :through=>:bank_account
@@ -1602,7 +1602,7 @@ class ManagementController < ApplicationController
     t.column :amount, :url=>{:action=>:payment}
   end
 
-  dyta(:embankable_payments, :model=>:payments, :conditions=>["company_id=? AND (embankment_id=? OR (mode_id=? AND embankment_id IS NULL))", ['@current_company.id'], ['session[:embankment_id]'], ['session[:payment_mode_id]']], :per_page=>100, :default_order=>"created_at DESC", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
+  dyta(:embankable_payments, :model=>:payments, :conditions=>["company_id=? AND (embankment_id=? OR (mode_id=? AND embankment_id IS NULL))", ['@current_company.id'], ['session[:embankment_id]'], ['session[:payment_mode_id]']], :per_page=>100, :order=>"created_at DESC", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
     t.column :full_name, :through=>:entity
     t.column :bank
     t.column :account_number
@@ -1838,8 +1838,8 @@ class ManagementController < ApplicationController
     code
   end
  
-  # dyta(:payments, :conditions=>search_conditions(:payments, :payments=>[:amount], :e=>[:full_name, :code]), :joins=>"LEFT JOIN entities e ON e.id = payments.entity_id", :default_order=>"to_bank_on DESC") do |t|
-  dyta(:payments, :conditions=>payments_conditions, :joins=>"LEFT JOIN entities ON entities.id = payments.entity_id", :default_order=>"to_bank_on DESC") do |t|
+  # dyta(:payments, :conditions=>search_conditions(:payments, :payments=>[:amount], :e=>[:full_name, :code]), :joins=>"LEFT JOIN entities e ON e.id = payments.entity_id", :order=>"to_bank_on DESC") do |t|
+  dyta(:payments, :conditions=>payments_conditions, :joins=>"LEFT JOIN entities ON entities.id = payments.entity_id", :order=>"to_bank_on DESC") do |t|
     t.column :number, :url=>{:action=>:payment}
     t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :paid_on
@@ -2341,7 +2341,7 @@ class ManagementController < ApplicationController
   
   
   
-  dyta :undelivered_sales, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :line_class=>'RECORD.moment.to_s' do |t| # ,:order=>{'sort'=>"planned_on", 'dir'=>"ASC"}
+  dyta :undelivered_sales, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :line_class=>'RECORD.moment.to_s' do |t|
     t.column :label, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :quantity, :datatype=>:decimal
@@ -2364,7 +2364,7 @@ class ManagementController < ApplicationController
   end
   
 
-  dyta(:unexecuted_transfers, :model=>:stock_transfers, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>{'sort'=>"planned_on", 'dir'=>"ASC"}) do |t| 
+  dyta(:unexecuted_transfers, :model=>:stock_transfers, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t| 
     t.column :text_nature
     t.column :name, :through=>:product
     t.column :quantity, :datatype=>:decimal
@@ -2392,7 +2392,7 @@ class ManagementController < ApplicationController
     end
   end
   
-  dyta(:unreceived_purchases, :model=>:purchase_orders, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>{'sort'=>"planned_on", 'dir'=>"ASC"}) do |t| 
+  dyta(:unreceived_purchases, :model=>:purchase_orders, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t| 
     t.column :label, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :quantity, :datatype=>:decimal

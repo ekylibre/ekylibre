@@ -4,7 +4,7 @@ class ResourcesController < ApplicationController
     @employees = @current_company.employees
   end
 
-  dyta(:employees, :conditions=>search_conditions(:employees, :employees=>[:id, :title, :first_name, :last_name]), :default_order=>:last_name, :empty=>true) do |t|
+  dyta(:employees, :conditions=>search_conditions(:employees, :employees=>[:id, :title, :first_name, :last_name]), :order=>:last_name, :empty=>true) do |t|
     t.column :title 
     t.column :first_name 
     t.column :last_name 
@@ -21,7 +21,7 @@ class ResourcesController < ApplicationController
 
   manage :employees
 
-  dyta(:professions, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:name, :empty=>true) do |t|
+  dyta(:professions, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name, :empty=>true) do |t|
     t.column :name 
     t.column :code 
     t.column :rome 

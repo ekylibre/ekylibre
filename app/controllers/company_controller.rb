@@ -130,7 +130,7 @@ class CompanyController < ApplicationController
   end
 
 
-  dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:nic) do |t|
+  dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}, :order=>:nic) do |t|
     t.column :name
     t.column :nic
     t.column :siret
@@ -173,7 +173,7 @@ class CompanyController < ApplicationController
 
 
 
-  dyta(:departments, :conditions=>{:company_id=>['@current_company.id']},:default_order=>:name) do |t| 
+  dyta(:departments, :conditions=>{:company_id=>['@current_company.id']},:order=>:name) do |t| 
     t.column :name
     t.column :comment
     t.action :department_update
@@ -213,7 +213,7 @@ class CompanyController < ApplicationController
   end
 
 
-  dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:name, :children=>:users) do |t| 
+  dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name, :children=>:users) do |t| 
     t.column :name, :children=>:label
     t.column :diff_more, :class=>'rights more'
     t.column :diff_less, :class=>'rights less'
@@ -297,7 +297,7 @@ class CompanyController < ApplicationController
   def users
   end
 
-  dyta(:users, :conditions=>['company_id= ? AND deleted=?', ['@current_company.id'], false], :default_order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')") do |t| 
+  dyta(:users, :conditions=>['company_id= ? AND deleted=?', ['@current_company.id'], false], :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')") do |t| 
     t.column :name
     t.column :first_name
     t.column :last_name
@@ -391,7 +391,7 @@ class CompanyController < ApplicationController
     redirect_to_current
   end
 
-  dyta(:document_templates, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"nature, name") do |t|
+  dyta(:document_templates, :conditions=>{:company_id=>['@current_company.id']}, :order=>"nature, name") do |t|
     t.column :active
     t.column :name
     t.column :code
@@ -501,7 +501,7 @@ class CompanyController < ApplicationController
   end
 
 
-  dyta(:listings, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:name) do |t|
+  dyta(:listings, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name
     t.column :root_model_name
     t.column :comment
@@ -603,7 +603,7 @@ class CompanyController < ApplicationController
   end
 
 
-  dyta(:listing_nodes, :conditions=>{:company_id=>['@current_company.id'], :listing_id=>['session[:current_listing_id]']}, :default_order => :name) do |t|
+  dyta(:listing_nodes, :conditions=>{:company_id=>['@current_company.id'], :listing_id=>['session[:current_listing_id]']}, :order => :name) do |t|
     t.column :name
     t.column :label
     t.action :listing_update

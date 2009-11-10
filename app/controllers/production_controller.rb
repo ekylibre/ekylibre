@@ -6,7 +6,7 @@ class ProductionController < ApplicationController
   end
 
 
-  dyta(:productions, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"planned_on ASC") do |t|
+  dyta(:productions, :conditions=>{:company_id=>['@current_company.id']}, :order=>"planned_on ASC") do |t|
     t.column :name, :through=>:product
     t.column :quantity
     #t.column :label, :through=>[:product,:unit]
@@ -107,7 +107,7 @@ class ProductionController < ApplicationController
   end
 
   
-  dyta(:shapes, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"name") do |t|
+  dyta(:shapes, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
     t.column :name
     t.column :polygon
     t.column :description
@@ -121,7 +121,7 @@ class ProductionController < ApplicationController
   manage :shapes
   
 
-  dyta(:shape_operations, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"planned_on ASC") do |t|
+  dyta(:shape_operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>"planned_on ASC") do |t|
     t.column :name
     t.column :name, :through=>:nature
     t.column :full_name, :through=>:employee # , :url=>{:controller=>:resources, :action=>:employee}
@@ -139,7 +139,7 @@ class ProductionController < ApplicationController
 
 
 
-  dyta(:shape_operation_natures, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"name" ) do |t|
+  dyta(:shape_operation_natures, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
     t.column :name
     t.column :description
     t.action :shape_operation_nature_update

@@ -32,13 +32,12 @@ module Ekylibre
             }
           }
           
+          OPTIONS = [:model, :distinct, :conditions, :order, :joins, :empty, :per_page, :pagination, :export, :children, :line_class]
 
           # Add methods to display a dynamic table
           def dyta(name, new_options={}, &block)
             name = name.to_s
             # Don't forget the View module if you change the names
-            # list_method_name = 'dyta_'+name
-            # tag_method_name  = 'dyta_'+name+'_tag'
             list_method_name = name+'_dyta'
             tag_method_name  = list_method_name+'_tag'
 
@@ -49,9 +48,16 @@ module Ekylibre
               end
             end
 
+
             options = {:pagination=>:default, :empty=>true, :export=>'general.export'}
             options[:pagination] = :will_paginate if Ekylibre::Dyke::Dyta.will_paginate
             options.merge! new_options
+
+            options.keys.each do |k|
+              raise ArgumentError.new("Unvalid option for the dyta '#{name}': #{k.inspect}") unless OPTIONS.include?(k)
+            end
+
+
             model = (options[:model]||name).to_s.classify.constantize
             begin
               model.columns_hash["id"]
@@ -67,17 +73,11 @@ module Ekylibre
             conditions = ''
             conditions = conditions_to_code(options[:conditions]) if options[:conditions]
 
-            default_order = (options[:default_order] ? '||'+options[:default_order].inspect : '')
+            default_order = (options[:order] ? '||'+options[:order].inspect : '')
 
             order_definition  = ''
             order_definition += "  options = params||{}\n"
             order_definition += "  order = nil\n"
-            unless options[:order].nil?
-              raise Exception.new("options[:order] must be an Hash. Example: {:sort=>'column', 'dir'=>'asc'}") unless options[:order].is_a? Hash
-              raise Exception.new("options[:order]['sort'] must be completed (#{options[:order].inspect}).") if options[:order]['sort'].nil?
-              order_definition += "  options['#{name}_sort'] = #{options[:order]['sort'].to_s.inspect}\n"
-              order_definition += "  options['#{name}_dir'] = #{options[:order]['dir'].to_s.inspect}\n"
-            end
             order_definition += "  unless options['#{name}_sort'].blank?\n"
             order_definition += "    options['#{name}_dir'] ||= 'asc'\n"
             order_definition += "    order  = options['#{name}_sort']\n"
@@ -97,7 +97,7 @@ module Ekylibre
             bottom = "  #{bottom_var}=''\n"
             # Export link
             if options[:export]
-              bottom += '  '+bottom_var+"+='"+content_tag(:div, "'+link_to('"+::I18n.t(options[:export]).gsub(/\'/,'&apos;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir']}, {:method=>:post})+'", :class=>'export')+"'\n"
+              bottom += '  '+bottom_var+"+='"+content_tag(:div, "'+link_to('"+::I18n.t(options[:export]).gsub(/\'/,'&apos;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'csv'}, {:method=>:post})+'", :class=>'export')+"'\n"
             end
             # Pages link
             bottom += if options[:pagination] == :will_paginate
@@ -110,13 +110,13 @@ module Ekylibre
             # Bottom tag
             bottom += "  text+='"+content_tag(:tr, content_tag(:td, "'+"+bottom_var+"+'", :class=>:bottom, :colspan=>definition.columns.size))+"' unless text.blank? "+(options[:export] ? "" : " or "+bottom_var+".blank?")+"\n"
 
-            if options[:order].nil?
-              sorter  = "    sort = options['#{name}_sort']\n"
-              sorter += "    dir = options['#{name}_dir']\n"
-            else
-              sorter  = "    sort = #{options[:order]['sort'].to_s.inspect}\n"
-              sorter += "    dir = #{(options[:order]['dir']||'asc').to_s.inspect}\n"
-            end
+            #if options[:order].nil?
+            sorter  = "    sort = options['#{name}_sort']\n"
+            sorter += "    dir = options['#{name}_dir']\n"
+            #else
+            #  sorter  = "    sort = #{options[:order]['sort'].to_s.inspect}\n"
+            #  sorter += "    dir = #{(options[:order]['dir']||'asc').to_s.inspect}\n"
+            #end
 
             record = 'r'
             child  = 'c'
@@ -147,8 +147,8 @@ module Ekylibre
             module_eval(code)
 
             
-            header = columns_to_td(definition, :header, :method=>list_method_name, :order=>options[:order], :id=>name)
-            body = columns_to_td(definition, :body, :record=>record, :order=>options[:order])
+            header = columns_to_td(definition, :header, :method=>list_method_name, :id=>name)
+            body = columns_to_td(definition, :body, :record=>record)
             if options[:children].is_a? Symbol
               children = options[:children].to_s
               child_body = columns_to_td(definition, :children, :record=>child, :order=>options[:order])
@@ -216,16 +216,15 @@ module Ekylibre
             code = ''
             record = options[:record]||'RECORD'
             list_method_name = options[:method]||'dyta_list'
-            order = options[:order]
             for column in columns
               column_sort = ''
-              if column.sortable? and order.nil?
+              if column.sortable?
                 column_sort = "+(sort=='"+column.name.to_s+"' ? ' sorted' : '')"
               end
               if nature==:header
                 code += "+\n      " unless code.blank?
                 header_title = "'"+h(column.header).gsub('\'','\\\\\'')+"'"
-                if column.sortable? and order.nil?
+                if column.sortable?
                   header_title = "link_to_remote("+header_title+", {:update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:#{list_method_name}, '#{options[:id]}_sort'=>'"+column.name.to_s+"', '#{options[:id]}_dir'=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>params[:page]}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
                 end
                 code += "content_tag(:th, "+header_title+", :class=>'"+(column.action? ? 'act' : 'col')+"'"+column_sort+")"

@@ -1,14 +1,14 @@
 class AccountancyController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
   
-  dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"number ASC") do |t|
+  dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}, :order=>"number ASC") do |t|
     t.column :number
     t.column :name
     t.action :account_update
     t.action :account_delete, :method=>:post, :confirm=>:are_you_sure
   end
   
-  dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:name) do |t|
+  dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name
     t.column :iban_label
     t.column :name, :through=>:journal
@@ -18,7 +18,7 @@ class AccountancyController < ApplicationController
     t.action :bank_account_delete, :method=>:post, :confirm=>:are_you_sure
   end
   
-  dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>"started_on ASC") do |t|
+  dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on ASC") do |t|
     t.column :started_on
     t.column :stopped_on
     t.column :number
@@ -41,7 +41,7 @@ class AccountancyController < ApplicationController
     code
   end
 
-  dyta(:statement_entries, :model =>:entries, :conditions=>statements_entries_conditions, :default_order=>:record_id) do |t|
+  dyta(:statement_entries, :model =>:entries, :conditions=>statements_entries_conditions, :order=>:record_id) do |t|
     t.column :journal_name, :label=>'Journal'
     t.column :number, :label=>"Numéro", :through=>:record
     t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
@@ -52,7 +52,7 @@ class AccountancyController < ApplicationController
     t.column :credit
   end
   
-  dyta(:entries_draft, :model=>:entries, :conditions=>{:company_id=>['@current_company.id'], :draft=>true}, :default_order=>:record_id, :line_class=>'RECORD.mode') do |t|
+  dyta(:entries_draft, :model=>:entries, :conditions=>{:company_id=>['@current_company.id'], :draft=>true}, :order=>:record_id, :line_class=>'RECORD.mode') do |t|
     t.column :journal_name, :label=>'Journal'
     t.column :resource, :label=>'Type'
     t.column :number, :label=>"Numéro", :through=>:record
@@ -92,7 +92,7 @@ class AccountancyController < ApplicationController
     
   end
  
-  dyta(:entries, :conditions=>entries_journal_consult_conditions, :default_order=>'record_id DESC', :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id", :line_class=>'RECORD.balanced_record') do |t|
+  dyta(:entries, :conditions=>entries_journal_consult_conditions, :order=>'record_id DESC', :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id", :line_class=>'RECORD.balanced_record') do |t|
     t.column :journal_name, :label=>"Journal"
     t.column :number, :label=>"Numéro", :through=>:record
     t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
@@ -105,7 +105,7 @@ class AccountancyController < ApplicationController
     t.action :entry_delete, :method => :post, :confirm=>:are_you_sure, :if => '!RECORD.close? and !RECORD.letter?'
   end
   
-  dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:started_on) do |t|
+  dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}, :order=>:started_on) do |t|
     t.column :code
     t.column :closed
     t.column :started_on
@@ -784,7 +784,7 @@ class AccountancyController < ApplicationController
   end
 
 
-  dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:code) do |t|
+  dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}, :order=>:code) do |t|
     t.column :name
     t.column :code
     t.column :nature_label
@@ -1101,7 +1101,7 @@ class AccountancyController < ApplicationController
   end
  
   #
-  dyta(:tax_declarations, :conditions=>{:company_id=>['@current_company.id']}, :default_order=>:declared_on) do |t|
+  dyta(:tax_declarations, :conditions=>{:company_id=>['@current_company.id']}, :order=>:declared_on) do |t|
     t.column :nature, :label=>"Régime"
     t.column :address
     t.column :declared_on, :datatype=>:date
