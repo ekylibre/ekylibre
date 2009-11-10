@@ -329,6 +329,7 @@ management       transport_deliveries_dyta        manage_transports
 management       transport_delivery_delete        manage_transports
 management       transport_update                 manage_transports
 management       transports                       manage_transports
+management       transport                        manage_transports
 management       transports_dyta                  manage_transports
 management       invoice                          search_and_consult_invoices
 management       invoices                         search_and_consult_invoices

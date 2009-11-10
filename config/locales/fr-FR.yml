@@ -171,6 +171,7 @@ fr-FR:
           journal: Journal
           journal_by_id: 'Journal'
           journals: Journaux
+          order_preparation: 'Préparation de commande'
           other: 'Autres'
           purchase_order: 'Commande fournisseur'
           sale_order: 'Devis/Commande'
@@ -180,6 +181,7 @@ fr-FR:
           entity: 'Fiche de [full_name]'
           inventory: 'Inventaire du [date]'
           invoice: 'Facture [number]'
+          order_preparation: 'Préparation de commande du [created_on]'
           other: 'Fichier'
           purchase_order: 'Achat [number]'
           sale_order: 'Vente [number]'

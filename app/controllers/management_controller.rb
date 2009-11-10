@@ -245,7 +245,6 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.column :credit
     #t.action :invoice_to_accountancy
-    #t.action :invoice_print
     t.action :print, :url=>{:controller=>:company, :type=>:invoice}
     
     t.action :invoice_cancel, :if=>"RECORD.creditable\?"
@@ -377,12 +376,6 @@ class ManagementController < ApplicationController
     session[:current_invoice] = @invoice.id
     @title = {:nature=>@invoice.credit ? tc(:credit) : tc(:invoice), :number=>@invoice.number}
   end
-
-#   def invoice_print
-#     return unless invoice = find_and_check(:invoice, params[:id])
-#     print(invoice, :filename=>invoice.label)
-#   end
-
 
   def self.prices_conditions(options={})
     code = ""
@@ -815,13 +808,6 @@ class ManagementController < ApplicationController
     @title = {:number=>@purchase_order.number, :supplier=>@purchase_order.supplier.full_name}
   end
 
- # def purchase_order_print
-  #  return unless @purchase_order = find_and_check(:purchase_order, params[:id])
-#    @supplier = @order.supplier
-#    @client   = @current_company.entity
-   # print(@purchase_order, :file_name=>tc('purchase_order')+' '+@purchase_order.created_on.to_s)
-  #end
-
   def purchases_new
     redirect_to :action=>:purchase_order_create
   end
@@ -1244,18 +1230,6 @@ class ManagementController < ApplicationController
     redirect_to :action=>:sale_order_lines, :id=>@sale_order.id
   end
 
-
-#   def sale_order_print
-#     @sale_order = find_and_check(:sale_order, params[:id])
-#     if @current_company.default_contact.nil? || @sale_order.client.contacts.size == 0
-#       entity = @current_company.default_contact.nil? ? @current_company.name : @sale_order.client.full_name
-#       flash[:warning]=tc(:no_contacts, :name=>entity)
-#       redirect_to_back
-#     else
-#       print(@sale_order, :filename=>@sale_order.label)
-#     end
-#   end
-
   def sale_order_duplicate
     return unless sale_order = find_and_check(:sale_order, params[:id])
     if request.post?
@@ -1574,7 +1548,6 @@ class ManagementController < ApplicationController
     t.column :created_on, :children=>false
     t.column :amount
     t.column :amount_with_taxes
-    #t.action :invoice_print
     t.action :print, :url=>{:controller=>:company, :type=>:invoice}
   end
   
@@ -1622,25 +1595,7 @@ class ManagementController < ApplicationController
     session[:embankment_id] = @embankment.id
     @title = {:date=>@embankment.created_on}
   end
-  
-#   def embankment_print
-#     return unless embankment = find_and_check(:embankment, params[:id])
-#     print(embankment, :filename=>tc('embankment', :creation=>::I18n.localize(embankment.created_on)))
-# #     if @current_company.default_contact.nil? || @embankment.bank_account.address.nil?
-# #       entity = @current_company.default_contact.nil? ? @current_company.name : @embankment.bank_account.name
-# #       flash[:warning]=tc(:no_contacts, :name=>entity)
-# #       redirect_to_back
-# #     else
-# #       @payments = @current_company.payments.find_all_by_embankment_id(@embankment.id)
-# #       @lines = []
-# #       @lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-# #       @lines <<  @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
-# #       #raise Exception.new @embankment.bank_account.bank_name.inspect
-# #       @account_address = @embankment.bank_account.address.split("\n")
-# #       print(@embankment, :archive=>false, :filename=>tc('embankment')+" "+@embankment.created_on.to_s)
-# #     end
-#   end
-
+ 
   def embankment_create
     mode = PaymentMode.find_by_id_and_company_id(params[:mode_id], @current_company.id)
     if mode.nil?
@@ -2535,9 +2490,9 @@ class ManagementController < ApplicationController
   end
 
   dyta(:transports, :children=>:deliveries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :created_on, :children=>:planned_on
-    t.column :transport_on, :children=>false
-    t.column :full_name, :through=>:transporter, :children=>:contact_address
+    t.column :created_on, :children=>:planned_on, :url=>{:action=>:transport}
+    t.column :transport_on, :children=>false, :url=>{:action=>:transport}
+    t.column :full_name, :through=>:transporter, :children=>:contact_address, :url=>{:controller=>:relations, :action=>:entity}
     t.column :weight
     t.action :print, :url=>{:controller=>:company, :type=>:transport}
     t.action :transport_update
@@ -2557,6 +2512,12 @@ class ManagementController < ApplicationController
   end
   
   def transports
+  end
+
+  def transport
+    return unless @transport = find_and_check(:transports, params[:id])
+    session[:current_transport] = @transport.id
+    @title = {:value=>@transport.created_on}
   end
   
   def transport_create

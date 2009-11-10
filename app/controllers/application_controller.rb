@@ -121,7 +121,11 @@ class ApplicationController < ActionController::Base
     session[:expiration] ||= 0
     if session[:last_query].to_i<Time.now.to_i-session[:expiration]
       flash[:error] = tc :expired_session
-      redirect_to_login
+      if request.xhr?
+        render :text=>"<script>window.location.replace('#{url_for(:controller=>:authentication, :action=>:login)}')</script>"
+      else
+        redirect_to_login
+      end
       return
     else
       session[:last_query] = Time.now.to_i

@@ -659,6 +659,9 @@ fr-FR:
         select_number_or_date: 'Entrez un numéro ou une date'
         subscription_nature: 'Type d''abonnement'
         title: 'Abonnements'
+      transport:
+        deliveries: 'Livraisons'
+        title: 'Transport du {{value}}'
       transport_create:
         info: 'Renseignez les informations du transport'
         title: 'Ajout d''un nouveau transport'

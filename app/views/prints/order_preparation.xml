@@ -35,6 +35,17 @@
 	<column label="Lieu de stockage" property="order_line.location/name" wifth="50mm"/>
       </table>
 
+
+      <iteration variable="delivery" collection="transport.deliveries">
+	<table collection="delivery.lines">
+	  <column label="Produit" property="product.name" width="60mm"/>
+	  <column label="Quantité" property="quantity" width="20mm"/>
+	  <column label="Prix HT" property="price/amount" width="20mm"/>
+	  <column label="Montant HT" property="amount" width="20mm"/>
+	  <column label="Montant TTC" property="amount_with_taxes" width="20mm"/>
+	</table>
+      </iteration>
+
     </page>
   </document>
 </template>

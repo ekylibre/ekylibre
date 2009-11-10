@@ -1,3 +1,5 @@
+=toolbar do |t|
+  -t.print :embankment, :id=>@embankment.id
 %h3{:style=>' padding: 10px 30px; font-size:20px;'}=@current_company.name
 
 %p{:style=>' text-align:center; padding:35px 0 0 0; font-size:20px;'}=tc('embankment')+" "+I18n.localize(@embankment.created_on)
