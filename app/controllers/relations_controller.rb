@@ -63,7 +63,7 @@ class RelationsController < ApplicationController
   end
   
   #
-  dyta(:areas, :conditions=>search_conditions(:areas, :areas=>[:postcode, :name])) do |t| 
+  dyta(:areas, :conditions=>search_conditions(:areas, :areas=>[:postcode, :name]), :order=>:name) do |t| 
     t.column :name
     t.column :postcode
     t.column :city
@@ -116,7 +116,7 @@ class RelationsController < ApplicationController
     render_form
   end
 
-  dyta(:districts, :children=>:areas, :conditions=>search_conditions(:districts, :districts=>[:code, :name])) do |t| 
+  dyta(:districts, :children=>:areas, :conditions=>search_conditions(:districts, :districts=>[:code, :name]), :order=>:name) do |t| 
     t.column :name
     t.column :code
     t.action :area_create
@@ -168,7 +168,7 @@ class RelationsController < ApplicationController
   end
 
 
-  dyta(:complements, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:complements, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name
     t.column :nature_label
     t.column :required

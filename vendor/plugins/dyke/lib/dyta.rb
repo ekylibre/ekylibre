@@ -54,7 +54,7 @@ module Ekylibre
             options.merge! new_options
 
             options.keys.each do |k|
-              raise ArgumentError.new("Unvalid option for the dyta '#{name}': #{k.inspect}") unless OPTIONS.include?(k)
+              raise ArgumentError.new("Unvalid option for the dyta :#{name} (#{k.inspect})") unless OPTIONS.include?(k)
             end
 
 
@@ -67,6 +67,18 @@ module Ekylibre
             definition = Dyta.new(name, model, options)
             yield definition
 
+
+
+            if options[:pagination] == :will_paginate and not options.keys.include?(:order)
+              cols = definition.table_columns
+              if cols.size > 0
+                options[:order] = cols[0].name
+              else
+                raise ArgumentError.new("Option :order is needed for the dyta :#{name}")
+              end
+            end
+
+
             code = ""
 
             # List method
@@ -76,11 +88,10 @@ module Ekylibre
             default_order = (options[:order] ? '||'+options[:order].inspect : '')
 
             order_definition  = ''
-            order_definition += "  options = params||{}\n"
+            order_definition += "  options = (params||{}).merge(options)\n"
             order_definition += "  session[:dyta] ||= {}\n"
             order_definition += "  session[:dyta][:#{name}] ||= {}\n"
-            order_definition += "  page = params[:page]||session[:dyta][:#{name}][:page]\n"
-            # order_definition += "  page = params[:page]||session[:dyta][:#{name}][:page]\n"
+            order_definition += "  page = (options[:page]||session[:dyta][:#{name}][:page]||1).to_i\n"
             order_definition += "  session[:dyta][:#{name}][:page] = page\n"
             order_definition += "  order = nil\n"
             order_definition += "  unless options['#{name}_sort'].blank?\n"
@@ -91,12 +102,15 @@ module Ekylibre
 
 
             builder  = order_definition
-            builder += "  @"+name.to_s+"="+model.to_s+"."+PAGINATION[options[:pagination]][:find_method]+"(:all"
+            builder += "  @#{name}=#{model}."+PAGINATION[options[:pagination]][:find_method]+"(:all"
             builder += ", :select=>'DISTINCT #{model.table_name}.*'" if options[:distinct]
             builder += ", :conditions=>"+conditions unless conditions.blank?
             builder += ", "+PAGINATION[options[:pagination]][:find_params].gsub('@@LENGTH@@', "options['#{name}_per_page']||"+(options[:per_page]||25).to_s) unless PAGINATION[options[:pagination]][:find_params].blank?
             builder += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
             builder += ", :order=>order#{default_order})||{}\n"
+            if options[:pagination] == :will_paginate
+              builder += "  return #{tag_method_name}(options.merge(:page=>1)) if page>1 and @#{name}.out_of_bounds?\n"
+            end
 
             bottom_var = 'bottom'
             bottom = "  #{bottom_var}=''\n"
@@ -193,7 +207,7 @@ module Ekylibre
             code += "  return text\n"
             code += "end\n"
 
-            list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+            # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
 
             ActionView::Base.send :class_eval, code
 
@@ -416,6 +430,12 @@ module Ekylibre
           @columns = []
           @procedures = []
         end
+
+        def table_columns
+          cols = @model.columns.collect{|c| c.name}
+          @columns.select{|c| c.nature == :column and cols.include? c.name.to_s}
+        end
+
         
         def column(name, options={})
           @columns << DytaElement.new(model, :column, name, options)
