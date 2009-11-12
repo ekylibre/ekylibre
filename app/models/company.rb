@@ -125,6 +125,19 @@ class Company < ActiveRecord::Base
   end
 
   def after_create
+    tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
+      begin
+        account = self.accounts.find_by_number(a[0].to_s)
+        if account 
+          account.update_attributes!(:name=>a[1])
+        else
+          self.accounts.create!(:number=>a[0].to_s, :name=>a[1])
+        end
+      rescue Exception
+        
+      end
+    end
+
     language = self.languages.create!(:name=>'Français', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
     self.set_parameter('general.language', language)
     self.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
@@ -136,11 +149,13 @@ class Company < ActiveRecord::Base
     for unit in Unit.default_units
       self.units.create(:name=>unit[0].to_s, :label=>tc('default.unit_'+unit[0].to_s), :base=>unit[1][:base], :quantity=>unit[1][:quantity])
     end
-    self.address_norms.create!(:name=>'Norme AFNOR ZX110', :company_id=> self.id)
-    self.taxes.create!(:name=>tc('default.tva000'), :nature=>'percent', :amount=>0.00)
-    self.taxes.create!(:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021)
-    self.taxes.create!(:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055)
-    self.taxes.create!(:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196)
+    
+    taxes = []
+    taxes = {:name=>tc('default.tva000'),  :nature=>'percent', :amount=>0.00}, {:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021}, {:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055}, {:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196} 
+    taxes.each do |tax|
+      self.taxes.create!(:name=>tax[:name], :nature=>tax[:nature], :amount=>tax[:amount], :account_collected_id=>self.account(tax[:amount],tax[:name],true), :account_paid_id=>self.account(tax[:amount], tax[:name],false) )
+    end
+    
     self.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
     self.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
     self.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
@@ -148,8 +163,8 @@ class Company < ActiveRecord::Base
     category = self.entity_categories.create!(:name=>'user')
     firm = self.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>self.name)
     self.entity_id = firm.id
-    self.save ## TODO default_contact to create
-    self.entity.contacts.create!(:company_id=>self.id, :line_2=>"XXXXXXXXXXXXXXXXXXX", :line_3=>"XXXXXXXXXXXXXXXXXXXX", :line_5=>"XXXXXXXXXXXXXXXXXXXX", :line_6=>'0000 XXXX', :norm_id=>self.address_norms.first.id, :default=>true)
+    self.save
+    self.entity.contacts.create!(:company_id=>self.id, :line_2=>"XXXXXXXXXXXXXXXXXXX", :line_3=>"XXXXXXXXXXXXXXXXXXXX", :line_5=>"XXXXXXXXXXXXXXXXXXXX", :line_6=>'0000 XXXX', :default=>true)
     
     # loading of all the templates
     load_prints
@@ -168,23 +183,31 @@ class Company < ActiveRecord::Base
     self.set_parameter('accountancy.default_journals.bank', self.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
     self.set_parameter('management.invoicing.numeration', self.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
     self.set_parameter('relations.entities.numeration', self.sequences.create!(:name=>tc('default.entities_numeration'), :format=>'[number|8]', :period=>'number'))
+    self.set_parameter('management.embankments.numeration', self.sequences.create!(:name=>tc('default.embankment_numeration'), :format=>'[number|4]', :period=>'year'))
     
-    tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
-      begin
-        account = self.accounts.find_by_number(a[0].to_s)
-        if account 
-          account.update_attributes!(:name=>a[1])
-        else
-          self.accounts.create!(:number=>a[0].to_s, :name=>a[1])
-        end
-      rescue Exception
-        
-      end
-    end
     self.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>self.accounts.find(:first, :conditions=>["number ILIKE ?", '3%' ], :order=>:number).id)
     self.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))
   end
   
+  def account(tax_amount, tax_name, collected)
+    if collected
+      if tax_amount == 0.0210
+        account = self.accounts.find_by_number("445711") || self.accounts.create!(:number=>"445711", :name=>tax_name) 
+      elsif tax_amount == 0.0550
+        account = self.accounts.find_by_number("445712") || self.accounts.create!(:number=>"445712", :name=>tax_name) 
+      elsif tax_amount == 0.1960
+        account = self.accounts.find_by_number("445713") || self.accounts.create!(:number=>"445713", :name=>tax_name)
+      else
+        tax = Tax.find(:first, :conditions=>["company_id = ? and amount = ? and account_collected_id IS NOT NULL", self.id, tax_amount])
+        last = self.accounts.find(:first, :conditions=>["number like ?",'4457%'], :order=>"created_at desc")||self.accounts.create!(:number=>4457, :name=>tc(:taxes))
+        account = tax.nil? ? Account.create!(:company_id=>self.id, :number=>last.number.succ, :name=>tax_name) : tax.account 
+      end
+    else
+      account = self.accounts.find_by_number("44566") || self.accounts.create!(:number=>"44566", :name=>tc(:paid_taxes))
+    end
+    account.id
+  end
+
   def parameter(name)
     parameter = self.parameters.find_by_name(name)
     if parameter.nil? and Parameter.reference.keys.include? name
@@ -679,7 +702,8 @@ class Company < ActiveRecord::Base
       entity.supplier = (rand() > 0.75 or x == 0)
       entity.transporter = rand() > 0.9
       entity.save! 
-      contact = entity.contacts.create!(:company_id=>company.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :norm_id=>entity.company.address_norms.first.id, :line_6=>cities[rand(cities.size)], :default=>true)
+      #contact = entity.contacts.create!(:company_id=>company.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :norm_id=>entity.company.address_norms.first.id, :line_6=>cities[rand(cities.size)], :default=>true)
+      contact = entity.contacts.create!(:company_id=>company.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :line_6=>cities[rand(cities.size)], :default=>true)
     end
     company.entity_link_natures.create!(:name=>"Gérant - Société", :name_1_to_2=>"gère la société", :name_2_to_1=>"est une société qui a pour associé", :propagate_contacts=>true, :symmetric=>false)
     company.subscription_natures.create!(:name=>"Abonement annuel", :nature=>"period", :reduction_rate=>0.1)

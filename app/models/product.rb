@@ -72,8 +72,8 @@ class Product < ActiveRecord::Base
   validates_presence_of :subscription_period, :if=>Proc.new{|u| u.nature=="sub_date"}
   validates_presence_of :subscription_numbers, :actual_number, :if=>Proc.new{|u| u.nature=="sub_numb"}
 
-  validates_presence_of :product_account_id
-  validates_presence_of :charge_account_id
+  #validates_presence_of :product_account_id
+  #validates_presence_of :charge_account_id
 
   def before_validation
     self.code = self.name.codeize.upper if self.code.blank?

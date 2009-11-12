@@ -26,7 +26,7 @@ class Embankment < ActiveRecord::Base
   belongs_to :mode, :class_name=>PaymentMode.to_s
   has_many :payments, :dependent=>:nullify, :order=>"created_at"
 
-  validates_presence_of :embanker_id
+  validates_presence_of :embanker_id, :number
 
   attr_readonly :company_id
 
@@ -36,6 +36,15 @@ class Embankment < ActiveRecord::Base
       self.payments_count = payments.size
       self.amount = payments.sum{|p| p.amount}
     end
+
+    specific_numeration = self.company.parameter("management.embankments.numeration")
+    if specific_numeration and specific_numeration.value
+      self.number = specific_numeration.value.next_value
+    else
+      last = self.company.embankments.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
+      self.number = last ? last.number.succ : '000000'
+    end
+
   end
 
   

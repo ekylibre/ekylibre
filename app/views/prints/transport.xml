@@ -19,7 +19,9 @@
 	  <text value="{{transport/address}}"  top="5mm" left="130mm"  size="9"/>
 	</set>
       </part>
+
       
+
       <part height="20mm">
 	<set>
 	  <text value="Poids (kg) : {{transport.deliveries.first.weight}}"/>

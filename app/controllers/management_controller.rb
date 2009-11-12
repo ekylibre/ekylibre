@@ -1554,6 +1554,7 @@ class ManagementController < ApplicationController
   
   
   dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}, :order=>"created_at DESC") do |t|
+    t.column :number, :url=>{:action=>:embankment}
     t.column :amount, :url=>{:action=>:embankment}
     t.column :payments_count
     t.column :name, :through=>:bank_account
@@ -1583,7 +1584,7 @@ class ManagementController < ApplicationController
     t.column :paid_on
     t.column :label, :through=>:embanker
     t.column :amount
-    t.check :to_embank, :value=>'(session[:embankment_id].nil? ? (RECORD.embanker.nil? or RECORD.embanker_id==@current_user.id) : (RECORD.embankment_id==session[:embankment_id]))'
+    t.check :to_embank, :value=>'(session[:embankment_id].nil? ? (RECORD.embanker.nil? or RECORD.embanker_id==@current_user.id) : (RECORD.embankment_id==session[:embankment_id]))', :label=>tc(:to_embank)
   end
 
 
@@ -1591,9 +1592,9 @@ class ManagementController < ApplicationController
   end
 
   def embankment
-    @embankment = find_and_check(:embankment, params[:id])
+    return unless @embankment = find_and_check(:embankment, params[:id])
     session[:embankment_id] = @embankment.id
-    @title = {:date=>@embankment.created_on}
+    @title = {:date=>I18n.localize(@embankment.created_on), :number=>@embankment.number}
   end
  
   def embankment_create
@@ -1803,7 +1804,7 @@ class ManagementController < ApplicationController
     t.column :check_number
     t.column :to_bank_on
     t.column :label, :through=>:embanker
-    t.column :amount, :through=>:embankment, :url=>{:action=>:embankment}
+    t.column :number, :through=>:embankment, :url=>{:action=>:embankment}
     t.action :payment_update, :if=>"RECORD.embankment.nil\?"
     t.action :payment_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.parts_amount.to_f<=0"
   end

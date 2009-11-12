@@ -34,20 +34,20 @@ class Tax < ActiveRecord::Base
 
   def before_validation
     
-    if self.account_collected_id.nil?
-      if self.amount == 0.0210
-        account = Account.find_by_company_id_and_number(self.company_id, "445711") || Account.create!(:company_id=>self.company_id, :number=>"445711", :name=>self.name) 
-      elsif self.amount == 0.0550
-        account = Account.find_by_company_id_and_number(self.company_id, "445712") || Account.create!(:company_id=>self.company_id, :number=>"445712", :name=>self.name) 
-      elsif self.amount == 0.1960
-        account = Account.find_by_company_id_and_number(self.company_id, "445713") || Account.create!(:company_id=>self.company_id, :number=>"445713", :name=>self.name)
-      else
-        tax = Tax.find(:first, :conditions=>["company_id = ? and amount = ? and account_collected_id IS NOT NULL", self.company_id, self.amount])
-        last = self.company.accounts.find(:first, :conditions=>["number like ?",'4457%'], :order=>"created_at desc")||self.company.accounts.create(:number=>4457, :name=>"Taxes")
-        account = tax.nil? ? Account.create!(:company_id=>self.company_id, :number=>last.number.succ, :name=>self.name) : tax.account 
-      end
-      self.account_collected_id = account.id
-    end
+#     if self.account_collected_id.nil?
+#       if self.amount == 0.0210
+#         account = Account.find_by_company_id_and_number(self.company_id, "445711") || Account.create!(:company_id=>self.company_id, :number=>"445711", :name=>self.name) 
+#       elsif self.amount == 0.0550
+#         account = Account.find_by_company_id_and_number(self.company_id, "445712") || Account.create!(:company_id=>self.company_id, :number=>"445712", :name=>self.name) 
+#       elsif self.amount == 0.1960
+#         account = Account.find_by_company_id_and_number(self.company_id, "445713") || Account.create!(:company_id=>self.company_id, :number=>"445713", :name=>self.name)
+#       else
+#         tax = Tax.find(:first, :conditions=>["company_id = ? and amount = ? and account_collected_id IS NOT NULL", self.company_id, self.amount])
+#         last = self.company.accounts.find(:first, :conditions=>["number like ?",'4457%'], :order=>"created_at desc")||self.company.accounts.create(:number=>4457, :name=>"Taxes")
+#         account = tax.nil? ? Account.create!(:company_id=>self.company_id, :number=>last.number.succ, :name=>self.name) : tax.account 
+#       end
+#       self.account_collected_id = account.id
+#    end
   end
 
 

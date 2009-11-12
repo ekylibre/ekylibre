@@ -7,5 +7,7 @@
     -f.field t('activerecord.attributes.tax.nature'), @tax.nature_label
     -f.field t('activerecord.attributes.tax.amount'), @tax.amount.to_s
   -f.field :tax, :name
+  -f.field :tax, :account_collected_id, :choices=>:account_collected, :resize=>true
+  -f.field :tax, :account_paid_id, :choices=>:account_paid, :resize=>true
   -f.field :tax, :included
   -f.field :tax, :reductible

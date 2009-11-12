@@ -387,7 +387,7 @@ class RelationsController < ApplicationController
     t.column :check_number
     t.column :parts_amount
     t.column :amount, :url=>{:controller=>:management, :action=>:payment}
-    t.column :created_on, :through=>:embankment, :url=>{:controller=>:management, :action=>:embankment}, :datatype=>:date
+    t.column :number, :through=>:embankment, :url=>{:controller=>:management, :action=>:embankment}
     t.action :payment_update, :controller=>:management, :if=>"RECORD.embankment.nil\?"
     t.action :payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.parts_amount.to_f<=0"
   end

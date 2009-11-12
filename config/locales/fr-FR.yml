@@ -186,6 +186,7 @@ fr-FR:
           purchase_order: 'Achat [number]'
           sale_order: 'Vente [number]'
           transport: 'Transport du [created_on]'
+        embankment_numeration: 'Numérotation des remises de chèques'
         entities_numeration: Numérotation des relations
         establishment_name: Établissement principal
         financialyear_code: 1A2
@@ -196,6 +197,7 @@ fr-FR:
           purchases: Journals des achats
           purchase_orders: 'Journal d''achats'
           sale_orders: Journal de ventes
+        paid_tax: 'TVA DÉDUCTIBLE'
         price_list_name: Tarif normal
         role:
           name:
@@ -205,6 +207,7 @@ fr-FR:
         sample_product_name: Produit Exemple
         shelf_name: Sans catégorie
         stock_location: Lieu de stockage par défaut
+        taxes: 'Taxes'
         tva000: TVA 0,00%
         tva210: TVA 2,10%
         tva550: TVA 5,50%

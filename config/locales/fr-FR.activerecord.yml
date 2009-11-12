@@ -510,6 +510,7 @@ fr-FR:
         lock_version: 'Version'
         locked: 'Verrouillé'
         mode_id: 'Type de paiement'
+        number: 'Numéro'
         payments_count: 'Nb. règlements'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -1555,8 +1556,8 @@ fr-FR:
 
       # Taxe
       tax:
-        account_collected_id: (((ACCOUNT_COLLECTED_ID)))
-        account_paid_id: (((ACCOUNT_PAID_ID)))
+        account_collected_id: 'TVA collectée'
+        account_paid_id: 'TVA déductible'
         amount: 'Valeur'
         company_id: 'Société'
         created_at: 'Créé le'

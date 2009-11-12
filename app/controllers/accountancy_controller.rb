@@ -127,6 +127,8 @@ class AccountancyController < ApplicationController
   end
   
   dyli(:account, [:number, :name], :conditions => {:company_id=>['@current_company.id']})
+  dyli(:account_collected, [:number, :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
+  dyli(:account_paid, [:number, :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
   
   # 
   def index

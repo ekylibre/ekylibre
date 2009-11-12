@@ -63,6 +63,7 @@ fr-FR:
       theoric_quantity: 'Quantité théorique'
       title: 'Commerce'
       to_bank_on: 'À encaisser le'
+      to_embank: 'À encaisser'
       transport: 'Transport'
       unvalid_date: 'Date incorrecte'
       you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
@@ -125,7 +126,7 @@ fr-FR:
         embankment: 'Remise de chèques du'
         on_account: 'À remettre sur le compte'
         print_on: 'Le'
-        title: 'Remise de chèques du {{date}}'
+        title: 'Remise de chèques {{number}} du {{date}}'
       embankment_create:
         title: 'Créer une remise : {{mode}}'
       _embankment_form:

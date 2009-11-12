@@ -42,6 +42,8 @@ accountancy      bank_account_delete              manage_bank_accounts
 accountancy      bank_account_update              manage_bank_accounts
 accountancy      bank_accounts                    manage_bank_accounts
 accountancy      bank_accounts_dyta               manage_bank_accounts
+accountancy      account_paid_dyli                manage_taxes
+accountancy      account_collected_dyli           manage_taxes
 accountancy      account_dyli                     manage_entries
 accountancy      account_letter                   manage_entries
 accountancy      entries                          manage_entries

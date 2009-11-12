@@ -1,5 +1,6 @@
 h1. Le suivi des règlements 
 
-Vous avez accès à la liste des règlements pour lesquels il y a une échéance de paiement. 
+Vous avez accès à la liste des règlements.
+
 
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>

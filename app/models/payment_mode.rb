@@ -26,7 +26,7 @@ class PaymentMode < ActiveRecord::Base
   attr_readonly :company_id
   @@modes = [:card, :cash, :check, :other, :transfer] 
 
-  validates_presence_of :account_id
+  #validates_presence_of :account_id
 
   def self.modes
     @@modes.collect{|x| [tc('modes.'+x.to_s), x]}
