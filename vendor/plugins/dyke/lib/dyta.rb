@@ -94,11 +94,15 @@ module Ekylibre
             order_definition += "  page = (options[:page]||session[:dyta][:#{name}][:page]||1).to_i\n"
             order_definition += "  session[:dyta][:#{name}][:page] = page\n"
             order_definition += "  order = nil\n"
+            order_definition += "  options['#{name}_sort'] ||= session[:dyta][:#{name}][:sort]\n"
+            order_definition += "  options['#{name}_dir']  ||= session[:dyta][:#{name}][:dir]\n"
             order_definition += "  unless options['#{name}_sort'].blank?\n"
             order_definition += "    options['#{name}_dir'] ||= 'asc'\n"
             order_definition += "    order  = options['#{name}_sort']\n"
             order_definition += "    order += options['#{name}_dir']=='desc' ? ' DESC' : ' ASC'\n"
             order_definition += "  end\n"
+            order_definition += "  session[:dyta][:#{name}][:sort] = options['#{name}_sort']\n"
+            order_definition += "  session[:dyta][:#{name}][:dir]  = options['#{name}_dir']\n"
 
 
             builder  = order_definition
