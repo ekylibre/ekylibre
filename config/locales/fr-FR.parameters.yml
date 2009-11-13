@@ -38,6 +38,8 @@ fr-FR:
         numeration: 'Numérotation des règlements'
       sale_orders:
         numeration: 'Numérotation des ventes'
+      subscriptions:
+        numeration: 'Numérotation des abonements'
       impressions:
         natures:
           delivery: 'Type de document pour les devis' 

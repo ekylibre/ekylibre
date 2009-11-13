@@ -1176,6 +1176,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:sale_order_subscriptions, :conditions=>{:company_id=>['@current_company.id'], :sale_order_id=>['session[:current_sale_order]']}, :model=>:subscriptions) do |t|
+    t.column :number
     t.column :name, :through=>:nature
     t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :address, :through=>:contact
