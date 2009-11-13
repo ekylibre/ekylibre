@@ -13,6 +13,7 @@ fr-FR:
     production:
       index:
         indicator: 'Tableau de bord'
+        materials: 'Matériel'
         nb_operations:
           one: '1 traitement à réaliser'
           other: '{{count}} traitements à réaliser'
@@ -24,6 +25,9 @@ fr-FR:
         shape_operations: 'Traitements'
         shapes: 'Îlots'
         title: 'Gestion de la production'
+      materials:
+        material_create: 'Ajouter une machine'
+        title: 'Matériel'
       production_create:
         title: 'Créer une nouvelle production'
       _production_form:
@@ -45,6 +49,9 @@ fr-FR:
         production_create: 'Enregistrer un nouvelle production'
         productions: 'Productions'
         title: 'Productions'
+      shape:  
+        operations: 'Traitements'
+        title: 'Îlot {{name}}'
       shape_create:
         title: 'Ajouter un nouvel îlot'
       _shape_form:

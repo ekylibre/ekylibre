@@ -14,6 +14,7 @@
 #  last_number   :integer       
 #  lock_version  :integer       default(0), not null
 #  nature_id     :integer       
+#  number        :string(255)   
 #  product_id    :integer       
 #  quantity      :decimal(, )   
 #  sale_order_id :integer       

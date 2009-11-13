@@ -117,6 +117,7 @@ module ApplicationHelper
             ] },
           {:name=>:parameters, :list=>
             [ {:name=>:shapes},
+              {:name=>:materials},
               {:name=>:shape_operation_natures}
             ] }
        ] }

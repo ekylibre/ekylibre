@@ -14,6 +14,7 @@
 #  lock_version    :integer       default(0), not null
 #  locked          :boolean       not null
 #  mode_id         :integer       not null
+#  number          :string(255)   
 #  payments_count  :integer       default(0), not null
 #  updated_at      :datetime      not null
 #  updater_id      :integer       

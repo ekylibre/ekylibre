@@ -5,9 +5,17 @@ class ProductionController < ApplicationController
     #raise Exception.new @shape_operations.inspect
   end
 
+  def materials
+  end
+
+  dyta(:materials,  :conditions=>{:company_id=>['@current_company.id']}, :order=>"name desc") do |t|
+    t.column :name
+  end
+
+  manage :materials
 
   dyta(:productions, :conditions=>{:company_id=>['@current_company.id']}, :order=>"planned_on ASC") do |t|
-    t.column :name, :through=>:product
+    t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
     t.column :quantity
     #t.column :label, :through=>[:product,:unit]
     t.column :moved_on
@@ -108,14 +116,30 @@ class ProductionController < ApplicationController
 
   
   dyta(:shapes, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
-    t.column :name
+    t.column :name, :url=>{:action=>:shape}
     t.column :polygon
     t.column :description
     t.action :shape_update
     t.action :shape_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
+  dyta(:operations, :model=>:shape_operations, :conditions=>{:company_id=>['@current_company.id'], :shape_id=>['session[:current_shape]']}, :order=>"planned_on ASC") do |t|
+    t.column :name
+    t.column :name, :through=>:nature
+    t.column :full_name, :through=>:employee # , :url=>{:controller=>:resources, :action=>:employee}
+    t.column :planned_on
+    t.column :moved_on
+    t.action :shape_operation_update, :image=>:update
+    t.action :shape_operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+  end
+
   def shapes
+  end
+
+  def shape
+    return unless @shape = find_and_check(:shapes, params[:id])
+    session[:current_shape] = @shape.id
+    @title = {:name=>@shape.name}
   end
 
   manage :shapes
@@ -167,8 +191,6 @@ class ProductionController < ApplicationController
     if request.post?
       for id, values in params[:unvalidated_operations]
         operation = ShapeOperation.find_by_id_and_company_id(id, @current_company.id)
-        #raise Exception.new params[:unvalidated_operations].inspect+id.inspect+values.inspect+operation.inspect
-        #raise Exception.new values[:validated].to_i.inspect
         operation.update_attributes!(:moved_on=>Date.today) if operation and values[:validated].to_i == 1
       end
       redirect_to :action=>:unvalidated_operations
