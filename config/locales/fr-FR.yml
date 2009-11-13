@@ -207,6 +207,7 @@ fr-FR:
         sample_product_name: Produit Exemple
         shelf_name: Sans catégorie
         stock_location: Lieu de stockage par défaut
+        subscription_numeration: 'Numérotation des abonnements'
         taxes: 'Taxes'
         tva000: TVA 0,00%
         tva210: TVA 2,10%

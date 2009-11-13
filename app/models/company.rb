@@ -184,6 +184,7 @@ class Company < ActiveRecord::Base
     self.set_parameter('management.invoicing.numeration', self.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
     self.set_parameter('relations.entities.numeration', self.sequences.create!(:name=>tc('default.entities_numeration'), :format=>'[number|8]', :period=>'number'))
     self.set_parameter('management.embankments.numeration', self.sequences.create!(:name=>tc('default.embankment_numeration'), :format=>'[number|4]', :period=>'year'))
+    self.set_parameter('management.subscriptions.numeration', self.sequences.create!(:name=>tc('default.subscription_numeration'), :format=>'[number|6]', :period=>'year'))
     
     self.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>self.accounts.find(:first, :conditions=>["number ILIKE ?", '3%' ], :order=>:number).id)
     self.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))

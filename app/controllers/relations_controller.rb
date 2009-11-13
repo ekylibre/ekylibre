@@ -317,6 +317,7 @@ class RelationsController < ApplicationController
 
   dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
 #  dyta(:entity_subscriptions, :joins=>"JOIN subscription_natures AS sn ON (sn.id=subscriptions.nature_id) LEFT JOIN entity_links AS el ON (sn.entity_link_nature_id=el.nature_id AND COALESCE(el.stopped_on,CURRENT_DATE) <= CURRENT_DATE AND entity_id IN (entity1_id, entity2_id))", :conditions=>["subscriptions.company_id = ? AND ? IN (entity_id, COALESCE(entity1_id,0), COALESCE(entity2_id,0))", ['@current_company.id'], ['session[:current_entity]']], :model=>:subscriptions, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
+    t.column :number
     t.column :name, :through=>:nature
     t.column :start
     t.column :finish

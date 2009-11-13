@@ -1527,6 +1527,7 @@ fr-FR:
         last_number: 'Dernier numéro'
         lock_version: 'Version'
         nature_id: 'Type'
+        number: 'Numéro'
         product_id: 'Produit'
         quantity: 'Quantité'
         sale_order_id: 'Vente'
