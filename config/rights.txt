@@ -339,8 +339,11 @@ management       product                          search_and_consult_products
 management       products                         search_and_consult_products
 management       products_search                  search_and_consult_products
 production       index                            administrate_production
-production       materials                        manage_materials
-production       material_create                  manage_materials
+production       equipment                        manage_equipment
+production       equipment_dyta                   manage_equipment
+production       equipment_create                 manage_equipments
+production       equipment_update                 manage_equipments
+production       equipment_delete                 manage_equipments
 production       production_create                manage_productions
 production       production_delete                manage_productions
 production       production_line_create           manage_productions

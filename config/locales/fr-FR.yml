@@ -282,6 +282,11 @@ fr-FR:
       error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'
       error_amount_rate: 'Le taux de conversion n''existe pas.'        
       error_closed_entry: 'L''écriture {{value}} est verrouillée.'
+    equipment:
+      natures:
+        other: 'Autres'
+        towed: 'Tracté'
+        tractor: 'Tracteur'
     event_nature:
       usages:
         invoice: 'Création d''une facture'

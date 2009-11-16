@@ -5,14 +5,19 @@ class ProductionController < ApplicationController
     #raise Exception.new @shape_operations.inspect
   end
 
-  def materials
-  end
-
-  dyta(:materials,  :conditions=>{:company_id=>['@current_company.id']}, :order=>"name desc") do |t|
+ 
+  dyta(:equipment,  :conditions=>{:company_id=>['@current_company.id']}, :order=>"name desc") do |t|
     t.column :name
+    t.column :text_nature
+    t.column :consumption
+    t.action :equipment_update
+    t.action :equipment_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
-  manage :materials
+  def equipment
+  end
+  
+  manage :equipment
 
   dyta(:productions, :conditions=>{:company_id=>['@current_company.id']}, :order=>"planned_on ASC") do |t|
     t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}

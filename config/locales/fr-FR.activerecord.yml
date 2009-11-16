@@ -682,6 +682,13 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
+      # Matériel
+      equipment:
+        consumption: 'Consommation (litres/heure)'
+        name: 'Nom'
+        nature: 'Nature'
+        text_nature: 'Nature'
+
       # Établissement
       establishment:
         comment: 'Commentaire'

@@ -12,8 +12,8 @@ fr-FR:
   views:
     production:
       index:
+        equipment: 'Matériel'
         indicator: 'Tableau de bord'
-        materials: 'Matériel'
         nb_operations:
           one: '1 traitement à réaliser'
           other: '{{count}} traitements à réaliser'
@@ -25,9 +25,11 @@ fr-FR:
         shape_operations: 'Traitements'
         shapes: 'Îlots'
         title: 'Gestion de la production'
-      materials:
-        material_create: 'Ajouter une machine'
+      equipment:
+        equipment_create: 'Ajouter un matériel'
         title: 'Matériel'
+      equipment_create: 
+        title: 'Ajouter un matériel'
       production_create:
         title: 'Créer une nouvelle production'
       _production_form:
