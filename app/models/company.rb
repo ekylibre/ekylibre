@@ -90,6 +90,7 @@ class Company < ActiveRecord::Base
   has_many :subscriptions
   has_many :taxes
   has_many :tax_declarations
+  has_many :tools
   has_many :transfers
   has_many :units
   has_many :users

@@ -13,7 +13,7 @@ class AddMaterialProduction < ActiveRecord::Migration
     add_column :shape_operations, :duration,      :decimal
     add_column :shape_operations, :consumption,   :decimal        
 
-    create_table :shape_operations_tools do |t|
+    create_table :tool_uses do |t|
       t.column :shape_operation_id,  :integer,  :null=>false, :references=>:shape_operations, :on_delete=>:cascade, :on_update=>:cascade
       t.column :tool_id,             :integer,  :null=>false, :references=>:tools, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,          :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
@@ -23,7 +23,7 @@ class AddMaterialProduction < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :shape_operations_tools
+    drop_table :tool_uses
     remove_column :shape_operations, :consumption
     remove_column :shape_operations, :duration
     remove_column :shape_operations, :min_duration

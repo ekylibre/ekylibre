@@ -57,6 +57,7 @@ fr-FR:
         title: 'Créer un nouveau traitement'
       _shape_operation_form:
         infos: 'Renseignez les caractéristiques du traitement'
+        tools: 'Sélectionnez le matériel utilisé'
       shape_operation_nature_create:
         title: 'Créer un nouveau type de traitement'
       shape_operation_nature_update:

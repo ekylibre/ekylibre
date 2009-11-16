@@ -164,8 +164,22 @@ class ProductionController < ApplicationController
   def shape_operations
   end
 
-  manage :shape_operations, :planned_on=>"Date.today", :employee_id=>"@current_user.employee_id"
-
+  #manage :shape_operations, :planned_on=>"Date.today", :employee_id=>"@current_user.employee_id"
+  
+  def shape_operation_create
+    if request.post?
+      @shape_operation = ShapeOperation.new(params[:shape_operation])
+      @shape_operation.company_id = @current_company.id
+      #raise Exception.new params[:tools].inspect
+      if @shape_operation.save
+        @shape_operation.add_tools(params[:tools])
+        redirect_to_back
+      end
+    else
+      @shape_operation = ShapeOperation.new(:planned_on=>Date.today, :employee_id=>@current_user.employee_id)
+    end
+    render_form
+  end
 
 
   dyta(:shape_operation_natures, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
