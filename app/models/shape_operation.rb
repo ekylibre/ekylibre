@@ -29,7 +29,8 @@ class ShapeOperation < ActiveRecord::Base
   belongs_to :shape
   belongs_to :employee
   belongs_to :nature, :class_name=>ShapeOperationNature.to_s
-  
+  #has_many_and_belongs :shape_operations_natures
+
   attr_readonly :company_id
  
   def before_validation_on_create

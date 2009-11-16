@@ -156,7 +156,7 @@ class ProductionController < ApplicationController
     t.column :full_name, :through=>:employee # , :url=>{:controller=>:resources, :action=>:employee}
     t.column :planned_on
     t.column :moved_on
-    t.column :name, :through=>:shape
+    t.column :name, :through=>:shape, :url=>{:action=>:shape}
     t.action :shape_operation_update, :image=>:update
     t.action :shape_operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
