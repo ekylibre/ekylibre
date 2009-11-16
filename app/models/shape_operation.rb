@@ -28,8 +28,9 @@ class ShapeOperation < ActiveRecord::Base
   belongs_to :company
   belongs_to :shape
   belongs_to :employee
-  belongs_to :nature, :class_name=>ShapeOperationNature.to_s
-  has_and_belongs_to_many :shape_operations_tools
+  belongs_to :nature, :class_name=>ShapeOperationNature.name
+  has_many :tool_uses
+  has_many :tools, :through=>:tool_uses
 
   attr_readonly :company_id
  
@@ -40,7 +41,7 @@ class ShapeOperation < ActiveRecord::Base
   def add_tools(tools)
     unless tools.nil?
       tools.each do |tool|
-        self.company.shape_operations_tools.create!(:shape_operation_id=>self.id, :tool_id=>tool[0].to_i)
+        self.company.tool_uses.create!(:shape_operation_id=>self.id, :tool_id=>tool[0].to_i)
         #raise Exception.new tool.inspect
       end
     end

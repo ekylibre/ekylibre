@@ -1,6 +1,7 @@
 class Tool < ActiveRecord::Base
 
-  has_and_belongs_to_many :shape_operations
+  belongs_to :company
+  has_many :uses, :class_name=>ToolUse.name
 
   attr_readonly :company_id
   

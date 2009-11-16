@@ -164,6 +164,10 @@ class ProductionController < ApplicationController
   def shape_operations
   end
 
+  def shape_operation
+    return unless @shape_operation = find_and_check(:shape_operation, params[:id])
+    @title = {:name=>@shape_operation.name}
+  end
   #manage :shape_operations, :planned_on=>"Date.today", :employee_id=>"@current_user.employee_id"
   
   def shape_operation_create
