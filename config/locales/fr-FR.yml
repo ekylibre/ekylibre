@@ -282,11 +282,6 @@ fr-FR:
       error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'
       error_amount_rate: 'Le taux de conversion n''existe pas.'        
       error_closed_entry: 'L''écriture {{value}} est verrouillée.'
-    equipment:
-      natures:
-        other: 'Autres'
-        towed: 'Tracté'
-        tractor: 'Tracteur'
     event_nature:
       usages:
         invoice: 'Création d''une facture'
@@ -448,6 +443,11 @@ fr-FR:
       simplified: 'Réel simplifié'
       deferment: 'Reporté'
       payback: 'Remboursement'
+    tool:
+      natures:
+        other: 'Autres'
+        towed: 'Tracté'
+        tractor: 'Tracteur'
     user:
       no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application : {{controller}}/{{action}}'
       no_right_defined_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'

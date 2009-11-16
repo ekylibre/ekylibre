@@ -682,13 +682,6 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # Matériel
-      equipment:
-        consumption: 'Consommation (litres/heure)'
-        name: 'Nom'
-        nature: 'Nature'
-        text_nature: 'Nature'
-
       # Établissement
       establishment:
         comment: 'Commentaire'
@@ -1599,6 +1592,13 @@ fr-FR:
         paid_amount: 'TVA déductible'
         deferred_payment: 'Crédit à reporter'
         assimilated_taxes_amount: 'Montant des taxes assimilées'
+
+      # Matériel
+      tool:
+        consumption: 'Consommation (litres/heure)'
+        name: 'Nom'
+        nature: 'Nature'
+        text_nature: 'Nature'
 
       # (((TRANSPORT)))
       transport:

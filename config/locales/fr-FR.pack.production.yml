@@ -12,7 +12,6 @@ fr-FR:
   views:
     production:
       index:
-        equipment: 'Matériel'
         indicator: 'Tableau de bord'
         nb_operations:
           one: '1 traitement à réaliser'
@@ -25,11 +24,7 @@ fr-FR:
         shape_operations: 'Traitements'
         shapes: 'Îlots'
         title: 'Gestion de la production'
-      equipment:
-        equipment_create: 'Ajouter un matériel'
-        title: 'Matériel'
-      equipment_create: 
-        title: 'Ajouter un matériel'
+        tools: 'Matériel'
       production_create:
         title: 'Créer une nouvelle production'
       _production_form:
@@ -80,6 +75,11 @@ fr-FR:
         shape_create: 'Créer un nouvel îlot'
         shapes: 'Îlots'
         title: 'Îlots'
+      tools:
+        tool_create: 'Ajouter un matériel'
+        title: 'Matériel'
+      tool_create: 
+        title: 'Ajouter un matériel'
       unvalidated_operations:
         employee_name: 'Employé'
         executed: 'Éffectué'

@@ -6,18 +6,18 @@ class ProductionController < ApplicationController
   end
 
  
-  dyta(:equipment,  :conditions=>{:company_id=>['@current_company.id']}, :order=>"name desc") do |t|
+  dyta(:tools,  :conditions=>{:company_id=>['@current_company.id']}, :order=>"name desc") do |t|
     t.column :name
     t.column :text_nature
     t.column :consumption
-    t.action :equipment_update
-    t.action :equipment_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :tool_update
+    t.action :tool_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
-  def equipment
+  def tools
   end
   
-  manage :equipment
+  manage :tools
 
   dyta(:productions, :conditions=>{:company_id=>['@current_company.id']}, :order=>"planned_on ASC") do |t|
     t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
