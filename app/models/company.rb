@@ -705,7 +705,6 @@ class Company < ActiveRecord::Base
       entity.supplier = (rand() > 0.75 or x == 0)
       entity.transporter = rand() > 0.9
       entity.save! 
-      #contact = entity.contacts.create!(:company_id=>company.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :norm_id=>entity.company.address_norms.first.id, :line_6=>cities[rand(cities.size)], :default=>true)
       contact = entity.contacts.create!(:company_id=>company.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :line_6=>cities[rand(cities.size)], :default=>true)
     end
     company.entity_link_natures.create!(:name=>"Gérant - Société", :name_1_to_2=>"gère la société", :name_2_to_1=>"est une société qui a pour associé", :propagate_contacts=>true, :symmetric=>false)

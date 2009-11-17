@@ -297,7 +297,7 @@ class CompanyController < ApplicationController
   def users
   end
 
-  dyta(:users, :conditions=>['company_id= ? AND deleted=?', ['@current_company.id'], false], :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')") do |t| 
+  dyta(:users, :conditions=>['company_id= ? AND deleted=?', ['@current_company.id'], false], :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t| 
     t.column :name
     t.column :first_name
     t.column :last_name

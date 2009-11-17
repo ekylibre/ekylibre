@@ -451,8 +451,6 @@ class RelationsController < ApplicationController
 
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
-      @contact.norm = @current_company.address_norms[0]
-    
            
       for complement in @complements
         attributes = params[:complement_datum][complement.id.to_s]||{}
@@ -528,7 +526,7 @@ class RelationsController < ApplicationController
     
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
-    @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})||Contact.new(:entity_id=>@entity.id,:company_id=>@current_company.id, :norm_id=>@current_company.address_norms[0].id)
+    @contact = Contact.find(:first, :conditions=>{:company_id=>@current_company.id, :entity_id=>@entity.id, :default=>true})||Contact.new(:entity_id=>@entity.id,:company_id=>@current_company.id)
     
     @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '411%'])
     @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '401%'])
@@ -689,7 +687,6 @@ class RelationsController < ApplicationController
     if request.post?
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
-      @contact.norm = @current_company.address_norms[0]
       @contact.entity_id = @entity.id  
       redirect_to_back if @contact.save
     else
@@ -1129,7 +1126,7 @@ class RelationsController < ApplicationController
           @entity = Entity.find_by_company_id_and_code(@current_company.id, row[indices[:entity_code]])
           if @entity.nil?
             @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>language.id, :nature_id=>@current_company.entity_natures[0])
-            @contact = Contact.new(:default=>true, :company_id=>@current_company.id, :entity_id=>0, :norm_id=>@current_company.address_norms[0], :country=>'fr')
+            @contact = Contact.new(:default=>true, :company_id=>@current_company.id, :entity_id=>0, :country=>'fr')
           else
             @contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>@entity.id, :default=>true, :deleted=>false})
           end
