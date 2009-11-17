@@ -2174,8 +2174,7 @@ class ManagementController < ApplicationController
     code
   end
 
-  dyta(:subscriptions, :conditions=>subscriptions_conditions, :order=>"id") do |t|
-    t.column :number
+  dyta(:subscriptions, :conditions=>subscriptions_conditions, :order=> "id DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity, :controller=>:relations}
 #    t.column :line_2, :through=>:contact, :label=>"Dest-Serv"
 #    t.column :line_3, :through=>:contact, :label=>"Bat./Rés."

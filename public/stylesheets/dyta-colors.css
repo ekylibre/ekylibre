@@ -1,192 +1,341 @@
-/* Auto-generated from Ekylibre */
+/* Auto-generated from Ekylibre (rake dytacolor) */
 
 /* _Default_ */
 table.dyta tr td {background:#D1DAFF}
+table.dyta tr:hover td {background:#A9BDE5}
 table.dyta tr td.act {background:#D7CEDD}
+table.dyta tr:hover td.act {background:#AEB4C9}
 table.dyta tr td.sorted {background:#C3CDF7}
+table.dyta tr:hover td.sorted {background:#9FB3DF}
 table.dyta tr.even td {background:#DCE3FF}
+table.dyta tr.even:hover td {background:#B3C5E5}
 table.dyta tr.even td.act {background:#E1D6DD}
+table.dyta tr.even:hover td.act {background:#B6BBC9}
 table.dyta tr.even td.sorted {background:#CED6F7}
+table.dyta tr.even:hover td.sorted {background:#A7BADF}
 table.dyta tr.odd td {background:#E5EAFF}
+table.dyta tr.odd:hover td {background:#BACAE5}
 table.dyta tr.odd td.act {background:#E8DCDD}
+table.dyta tr.odd:hover td.act {background:#BCC0C9}
 table.dyta tr.odd td.sorted {background:#D6DCF7}
+table.dyta tr.odd:hover td.sorted {background:#AEBFDF}
 
 /* Advance */
 table.dyta tr.advance td {background:#D8FFA3}
+table.dyta tr.advance:hover td {background:#AFDB9A}
 table.dyta tr.advance td.act {background:#DDEE8D}
+table.dyta tr.advance:hover td.act {background:#B3CE89}
 table.dyta tr.advance td.sorted {background:#CAF0A1}
+table.dyta tr.advance:hover td.sorted {background:#A4CF99}
 table.dyta tr.advance.even td {background:#E1FFBA}
+table.dyta tr.advance.even:hover td {background:#B7DBAD}
 table.dyta tr.advance.even td.act {background:#E5EEA1}
+table.dyta tr.advance.even:hover td.act {background:#BACE99}
 table.dyta tr.advance.even td.sorted {background:#D3F0B6}
+table.dyta tr.advance.even:hover td.sorted {background:#ABCFAA}
 table.dyta tr.advance.odd td {background:#E9FFCB}
+table.dyta tr.advance.odd:hover td {background:#BDDBBB}
 table.dyta tr.advance.odd td.act {background:#ECEEB0}
+table.dyta tr.advance.odd:hover td.act {background:#BFCEA5}
 table.dyta tr.advance.odd td.sorted {background:#DAF0C6}
+table.dyta tr.advance.odd:hover td.sorted {background:#B1CFB7}
 
 /* Balanced */
 table.dyta tr.balanced td {background:#D8FFA3}
+table.dyta tr.balanced:hover td {background:#AFDB9A}
 table.dyta tr.balanced td.act {background:#DDEE8D}
+table.dyta tr.balanced:hover td.act {background:#B3CE89}
 table.dyta tr.balanced td.sorted {background:#CAF0A1}
+table.dyta tr.balanced:hover td.sorted {background:#A4CF99}
 table.dyta tr.balanced.even td {background:#E1FFBA}
+table.dyta tr.balanced.even:hover td {background:#B7DBAD}
 table.dyta tr.balanced.even td.act {background:#E5EEA1}
+table.dyta tr.balanced.even:hover td.act {background:#BACE99}
 table.dyta tr.balanced.even td.sorted {background:#D3F0B6}
+table.dyta tr.balanced.even:hover td.sorted {background:#ABCFAA}
 table.dyta tr.balanced.odd td {background:#E9FFCB}
+table.dyta tr.balanced.odd:hover td {background:#BDDBBB}
 table.dyta tr.balanced.odd td.act {background:#ECEEB0}
+table.dyta tr.balanced.odd:hover td.act {background:#BFCEA5}
 table.dyta tr.balanced.odd td.sorted {background:#DAF0C6}
+table.dyta tr.balanced.odd:hover td.sorted {background:#B1CFB7}
 
 /* Critic */
 table.dyta tr.critic td {background:#FFAD87}
+table.dyta tr.critic:hover td {background:#CF9983}
 table.dyta tr.critic td.act {background:#FFA775}
+table.dyta tr.critic:hover td.act {background:#CF9575}
 table.dyta tr.critic td.sorted {background:#EFA386}
+table.dyta tr.critic:hover td.sorted {background:#C29183}
 table.dyta tr.critic.even td {background:#FFC1A5}
+table.dyta tr.critic.even:hover td {background:#CFA99C}
 table.dyta tr.critic.even td.act {background:#FFB98F}
+table.dyta tr.critic.even:hover td.act {background:#CFA38A}
 table.dyta tr.critic.even td.sorted {background:#EFB6A3}
+table.dyta tr.critic.even:hover td.sorted {background:#C2A09A}
 table.dyta tr.critic.odd td {background:#FFD1BB}
+table.dyta tr.critic.odd:hover td {background:#CFB6AE}
 table.dyta tr.critic.odd td.act {background:#FFC7A2}
+table.dyta tr.critic.odd:hover td.act {background:#CFAE9A}
 table.dyta tr.critic.odd td.sorted {background:#EFC5B8}
+table.dyta tr.critic.odd:hover td.sorted {background:#C2ACAB}
 
 /* Enough */
 table.dyta tr.enough td {background:#D8FFA3}
+table.dyta tr.enough:hover td {background:#AFDB9A}
 table.dyta tr.enough td.act {background:#DDEE8D}
+table.dyta tr.enough:hover td.act {background:#B3CE89}
 table.dyta tr.enough td.sorted {background:#CAF0A1}
+table.dyta tr.enough:hover td.sorted {background:#A4CF99}
 table.dyta tr.enough.even td {background:#E1FFBA}
+table.dyta tr.enough.even:hover td {background:#B7DBAD}
 table.dyta tr.enough.even td.act {background:#E5EEA1}
+table.dyta tr.enough.even:hover td.act {background:#BACE99}
 table.dyta tr.enough.even td.sorted {background:#D3F0B6}
+table.dyta tr.enough.even:hover td.sorted {background:#ABCFAA}
 table.dyta tr.enough.odd td {background:#E9FFCB}
+table.dyta tr.enough.odd:hover td {background:#BDDBBB}
 table.dyta tr.enough.odd td.act {background:#ECEEB0}
+table.dyta tr.enough.odd:hover td.act {background:#BFCEA5}
 table.dyta tr.enough.odd td.sorted {background:#DAF0C6}
+table.dyta tr.enough.odd:hover td.sorted {background:#B1CFB7}
 
 /* Error */
 table.dyta tr.error td {background:#FFAD87}
+table.dyta tr.error:hover td {background:#CF9983}
 table.dyta tr.error td.act {background:#FFA775}
+table.dyta tr.error:hover td.act {background:#CF9575}
 table.dyta tr.error td.sorted {background:#EFA386}
+table.dyta tr.error:hover td.sorted {background:#C29183}
 table.dyta tr.error.even td {background:#FFC1A5}
+table.dyta tr.error.even:hover td {background:#CFA99C}
 table.dyta tr.error.even td.act {background:#FFB98F}
+table.dyta tr.error.even:hover td.act {background:#CFA38A}
 table.dyta tr.error.even td.sorted {background:#EFB6A3}
+table.dyta tr.error.even:hover td.sorted {background:#C2A09A}
 table.dyta tr.error.odd td {background:#FFD1BB}
+table.dyta tr.error.odd:hover td {background:#CFB6AE}
 table.dyta tr.error.odd td.act {background:#FFC7A2}
+table.dyta tr.error.odd:hover td.act {background:#CFAE9A}
 table.dyta tr.error.odd td.sorted {background:#EFC5B8}
+table.dyta tr.error.odd:hover td.sorted {background:#C2ACAB}
 
 /* Late */
 table.dyta tr.late td {background:#FFE0B3}
+table.dyta tr.late:hover td {background:#CFC2A7}
 table.dyta tr.late td.act {background:#FFD49B}
+table.dyta tr.late:hover td.act {background:#CFB894}
 table.dyta tr.late td.sorted {background:#EFD3B0}
+table.dyta tr.late:hover td.sorted {background:#C2B8A5}
 table.dyta tr.late.even td {background:#FFE7C6}
+table.dyta tr.late.even:hover td {background:#CFC8B7}
 table.dyta tr.late.even td.act {background:#FFDAAB}
+table.dyta tr.late.even:hover td.act {background:#CFBEA1}
 table.dyta tr.late.even td.sorted {background:#EFDAC1}
+table.dyta tr.late.even:hover td.sorted {background:#C2BEB3}
 table.dyta tr.late.odd td {background:#FFEDD4}
+table.dyta tr.late.odd:hover td {background:#CFCDC2}
 table.dyta tr.late.odd td.act {background:#FFDFB8}
+table.dyta tr.late.odd:hover td.act {background:#CFC2AB}
 table.dyta tr.late.odd td.sorted {background:#EFDFCF}
+table.dyta tr.late.odd:hover td.sorted {background:#C2C2BE}
 
 /* Letter */
 table.dyta tr.letter td {background:#D8FFA3}
+table.dyta tr.letter:hover td {background:#AFDB9A}
 table.dyta tr.letter td.act {background:#DDEE8D}
+table.dyta tr.letter:hover td.act {background:#B3CE89}
 table.dyta tr.letter td.sorted {background:#CAF0A1}
+table.dyta tr.letter:hover td.sorted {background:#A4CF99}
 table.dyta tr.letter.even td {background:#E1FFBA}
+table.dyta tr.letter.even:hover td {background:#B7DBAD}
 table.dyta tr.letter.even td.act {background:#E5EEA1}
+table.dyta tr.letter.even:hover td.act {background:#BACE99}
 table.dyta tr.letter.even td.sorted {background:#D3F0B6}
+table.dyta tr.letter.even:hover td.sorted {background:#ABCFAA}
 table.dyta tr.letter.odd td {background:#E9FFCB}
+table.dyta tr.letter.odd:hover td {background:#BDDBBB}
 table.dyta tr.letter.odd td.act {background:#ECEEB0}
+table.dyta tr.letter.odd:hover td.act {background:#BFCEA5}
 table.dyta tr.letter.odd td.sorted {background:#DAF0C6}
+table.dyta tr.letter.odd:hover td.sorted {background:#B1CFB7}
 
 /* Letter-unbalanced */
 table.dyta tr.letter-unbalanced td {background:#FFE0B3}
+table.dyta tr.letter-unbalanced:hover td {background:#CFC2A7}
 table.dyta tr.letter-unbalanced td.act {background:#FFD49B}
+table.dyta tr.letter-unbalanced:hover td.act {background:#CFB894}
 table.dyta tr.letter-unbalanced td.sorted {background:#EFD3B0}
+table.dyta tr.letter-unbalanced:hover td.sorted {background:#C2B8A5}
 table.dyta tr.letter-unbalanced.even td {background:#FFE7C6}
+table.dyta tr.letter-unbalanced.even:hover td {background:#CFC8B7}
 table.dyta tr.letter-unbalanced.even td.act {background:#FFDAAB}
+table.dyta tr.letter-unbalanced.even:hover td.act {background:#CFBEA1}
 table.dyta tr.letter-unbalanced.even td.sorted {background:#EFDAC1}
+table.dyta tr.letter-unbalanced.even:hover td.sorted {background:#C2BEB3}
 table.dyta tr.letter-unbalanced.odd td {background:#FFEDD4}
+table.dyta tr.letter-unbalanced.odd:hover td {background:#CFCDC2}
 table.dyta tr.letter-unbalanced.odd td.act {background:#FFDFB8}
+table.dyta tr.letter-unbalanced.odd:hover td.act {background:#CFC2AB}
 table.dyta tr.letter-unbalanced.odd td.sorted {background:#EFDFCF}
+table.dyta tr.letter-unbalanced.odd:hover td.sorted {background:#C2C2BE}
 
 /* Minimum */
 table.dyta tr.minimum td {background:#FFE0B3}
+table.dyta tr.minimum:hover td {background:#CFC2A7}
 table.dyta tr.minimum td.act {background:#FFD49B}
+table.dyta tr.minimum:hover td.act {background:#CFB894}
 table.dyta tr.minimum td.sorted {background:#EFD3B0}
+table.dyta tr.minimum:hover td.sorted {background:#C2B8A5}
 table.dyta tr.minimum.even td {background:#FFE7C6}
+table.dyta tr.minimum.even:hover td {background:#CFC8B7}
 table.dyta tr.minimum.even td.act {background:#FFDAAB}
+table.dyta tr.minimum.even:hover td.act {background:#CFBEA1}
 table.dyta tr.minimum.even td.sorted {background:#EFDAC1}
+table.dyta tr.minimum.even:hover td.sorted {background:#C2BEB3}
 table.dyta tr.minimum.odd td {background:#FFEDD4}
+table.dyta tr.minimum.odd:hover td {background:#CFCDC2}
 table.dyta tr.minimum.odd td.act {background:#FFDFB8}
+table.dyta tr.minimum.odd:hover td.act {background:#CFC2AB}
 table.dyta tr.minimum.odd td.sorted {background:#EFDFCF}
-
-/* Mode */
-/* table.dyta tr.draft.even td {background:#AFC1B5} */
-/* table.dyta tr.draft.odd td {background:#AFD1B2} */
+table.dyta tr.minimum.odd:hover td.sorted {background:#C2C2BE}
 
 /* Notice */
 table.dyta tr.notice td {background:#D8FFA3}
+table.dyta tr.notice:hover td {background:#AFDB9A}
 table.dyta tr.notice td.act {background:#DDEE8D}
+table.dyta tr.notice:hover td.act {background:#B3CE89}
 table.dyta tr.notice td.sorted {background:#CAF0A1}
+table.dyta tr.notice:hover td.sorted {background:#A4CF99}
 table.dyta tr.notice.even td {background:#E1FFBA}
+table.dyta tr.notice.even:hover td {background:#B7DBAD}
 table.dyta tr.notice.even td.act {background:#E5EEA1}
+table.dyta tr.notice.even:hover td.act {background:#BACE99}
 table.dyta tr.notice.even td.sorted {background:#D3F0B6}
+table.dyta tr.notice.even:hover td.sorted {background:#ABCFAA}
 table.dyta tr.notice.odd td {background:#E9FFCB}
+table.dyta tr.notice.odd:hover td {background:#BDDBBB}
 table.dyta tr.notice.odd td.act {background:#ECEEB0}
+table.dyta tr.notice.odd:hover td.act {background:#BFCEA5}
 table.dyta tr.notice.odd td.sorted {background:#DAF0C6}
+table.dyta tr.notice.odd:hover td.sorted {background:#B1CFB7}
 
 /* Pointable */
 table.dyta tr.pointable td {background:#D8FFA3}
+table.dyta tr.pointable:hover td {background:#AFDB9A}
 table.dyta tr.pointable td.act {background:#DDEE8D}
+table.dyta tr.pointable:hover td.act {background:#B3CE89}
 table.dyta tr.pointable td.sorted {background:#CAF0A1}
+table.dyta tr.pointable:hover td.sorted {background:#A4CF99}
 table.dyta tr.pointable.even td {background:#E1FFBA}
+table.dyta tr.pointable.even:hover td {background:#B7DBAD}
 table.dyta tr.pointable.even td.act {background:#E5EEA1}
+table.dyta tr.pointable.even:hover td.act {background:#BACE99}
 table.dyta tr.pointable.even td.sorted {background:#D3F0B6}
+table.dyta tr.pointable.even:hover td.sorted {background:#ABCFAA}
 table.dyta tr.pointable.odd td {background:#E9FFCB}
+table.dyta tr.pointable.odd:hover td {background:#BDDBBB}
 table.dyta tr.pointable.odd td.act {background:#ECEEB0}
+table.dyta tr.pointable.odd:hover td.act {background:#BFCEA5}
 table.dyta tr.pointable.odd td.sorted {background:#DAF0C6}
+table.dyta tr.pointable.odd:hover td.sorted {background:#B1CFB7}
 
 /* Unbalanced */
 table.dyta tr.unbalanced td {background:#FFAD87}
+table.dyta tr.unbalanced:hover td {background:#CF9983}
 table.dyta tr.unbalanced td.act {background:#FFA775}
+table.dyta tr.unbalanced:hover td.act {background:#CF9575}
 table.dyta tr.unbalanced td.sorted {background:#EFA386}
+table.dyta tr.unbalanced:hover td.sorted {background:#C29183}
 table.dyta tr.unbalanced.even td {background:#FFC1A5}
+table.dyta tr.unbalanced.even:hover td {background:#CFA99C}
 table.dyta tr.unbalanced.even td.act {background:#FFB98F}
+table.dyta tr.unbalanced.even:hover td.act {background:#CFA38A}
 table.dyta tr.unbalanced.even td.sorted {background:#EFB6A3}
+table.dyta tr.unbalanced.even:hover td.sorted {background:#C2A09A}
 table.dyta tr.unbalanced.odd td {background:#FFD1BB}
+table.dyta tr.unbalanced.odd:hover td {background:#CFB6AE}
 table.dyta tr.unbalanced.odd td.act {background:#FFC7A2}
+table.dyta tr.unbalanced.odd:hover td.act {background:#CFAE9A}
 table.dyta tr.unbalanced.odd td.sorted {background:#EFC5B8}
+table.dyta tr.unbalanced.odd:hover td.sorted {background:#C2ACAB}
 
 /* Unpointable */
 table.dyta tr.unpointable td {background:#FFAD87}
+table.dyta tr.unpointable:hover td {background:#CF9983}
 table.dyta tr.unpointable td.act {background:#FFA775}
+table.dyta tr.unpointable:hover td.act {background:#CF9575}
 table.dyta tr.unpointable td.sorted {background:#EFA386}
+table.dyta tr.unpointable:hover td.sorted {background:#C29183}
 table.dyta tr.unpointable.even td {background:#FFC1A5}
+table.dyta tr.unpointable.even:hover td {background:#CFA99C}
 table.dyta tr.unpointable.even td.act {background:#FFB98F}
+table.dyta tr.unpointable.even:hover td.act {background:#CFA38A}
 table.dyta tr.unpointable.even td.sorted {background:#EFB6A3}
+table.dyta tr.unpointable.even:hover td.sorted {background:#C2A09A}
 table.dyta tr.unpointable.odd td {background:#FFD1BB}
+table.dyta tr.unpointable.odd:hover td {background:#CFB6AE}
 table.dyta tr.unpointable.odd td.act {background:#FFC7A2}
+table.dyta tr.unpointable.odd:hover td.act {background:#CFAE9A}
 table.dyta tr.unpointable.odd td.sorted {background:#EFC5B8}
+table.dyta tr.unpointable.odd:hover td.sorted {background:#C2ACAB}
 
 /* Unpointabled */
 table.dyta tr.unpointabled td {background:#FFE0B3}
+table.dyta tr.unpointabled:hover td {background:#CFC2A7}
 table.dyta tr.unpointabled td.act {background:#FFD49B}
+table.dyta tr.unpointabled:hover td.act {background:#CFB894}
 table.dyta tr.unpointabled td.sorted {background:#EFD3B0}
+table.dyta tr.unpointabled:hover td.sorted {background:#C2B8A5}
 table.dyta tr.unpointabled.even td {background:#FFE7C6}
+table.dyta tr.unpointabled.even:hover td {background:#CFC8B7}
 table.dyta tr.unpointabled.even td.act {background:#FFDAAB}
+table.dyta tr.unpointabled.even:hover td.act {background:#CFBEA1}
 table.dyta tr.unpointabled.even td.sorted {background:#EFDAC1}
+table.dyta tr.unpointabled.even:hover td.sorted {background:#C2BEB3}
 table.dyta tr.unpointabled.odd td {background:#FFEDD4}
+table.dyta tr.unpointabled.odd:hover td {background:#CFCDC2}
 table.dyta tr.unpointabled.odd td.act {background:#FFDFB8}
+table.dyta tr.unpointabled.odd:hover td.act {background:#CFC2AB}
 table.dyta tr.unpointabled.odd td.sorted {background:#EFDFCF}
+table.dyta tr.unpointabled.odd:hover td.sorted {background:#C2C2BE}
 
 /* Verylate */
 table.dyta tr.verylate td {background:#FFAD87}
+table.dyta tr.verylate:hover td {background:#CF9983}
 table.dyta tr.verylate td.act {background:#FFA775}
+table.dyta tr.verylate:hover td.act {background:#CF9575}
 table.dyta tr.verylate td.sorted {background:#EFA386}
+table.dyta tr.verylate:hover td.sorted {background:#C29183}
 table.dyta tr.verylate.even td {background:#FFC1A5}
+table.dyta tr.verylate.even:hover td {background:#CFA99C}
 table.dyta tr.verylate.even td.act {background:#FFB98F}
+table.dyta tr.verylate.even:hover td.act {background:#CFA38A}
 table.dyta tr.verylate.even td.sorted {background:#EFB6A3}
+table.dyta tr.verylate.even:hover td.sorted {background:#C2A09A}
 table.dyta tr.verylate.odd td {background:#FFD1BB}
+table.dyta tr.verylate.odd:hover td {background:#CFB6AE}
 table.dyta tr.verylate.odd td.act {background:#FFC7A2}
+table.dyta tr.verylate.odd:hover td.act {background:#CFAE9A}
 table.dyta tr.verylate.odd td.sorted {background:#EFC5B8}
+table.dyta tr.verylate.odd:hover td.sorted {background:#C2ACAB}
 
 /* Warning */
 table.dyta tr.warning td {background:#FFE0B3}
+table.dyta tr.warning:hover td {background:#CFC2A7}
 table.dyta tr.warning td.act {background:#FFD49B}
+table.dyta tr.warning:hover td.act {background:#CFB894}
 table.dyta tr.warning td.sorted {background:#EFD3B0}
+table.dyta tr.warning:hover td.sorted {background:#C2B8A5}
 table.dyta tr.warning.even td {background:#FFE7C6}
+table.dyta tr.warning.even:hover td {background:#CFC8B7}
 table.dyta tr.warning.even td.act {background:#FFDAAB}
+table.dyta tr.warning.even:hover td.act {background:#CFBEA1}
 table.dyta tr.warning.even td.sorted {background:#EFDAC1}
+table.dyta tr.warning.even:hover td.sorted {background:#C2BEB3}
 table.dyta tr.warning.odd td {background:#FFEDD4}
+table.dyta tr.warning.odd:hover td {background:#CFCDC2}
 table.dyta tr.warning.odd td.act {background:#FFDFB8}
+table.dyta tr.warning.odd:hover td.act {background:#CFC2AB}
 table.dyta tr.warning.odd td.sorted {background:#EFDFCF}
+table.dyta tr.warning.odd:hover td.sorted {background:#C2C2BE}

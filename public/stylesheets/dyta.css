@@ -15,7 +15,7 @@ table.dyta tr.odd  td {background: #E1E6FF;}
 table.dyta tr.even td {background: #F0F2FF;}
 */
 table.dyta tr.root td {font-weight: bold; }
-table.dyta tr      td {padding: 0px 2px;color: #007;}
+table.dyta tr      td {padding: 0px 2px;color: #007; height:22px;}
 table.dyta tr      td.chk { text-align:center}
 table.dyta tr      td.act { padding: 1px; width:16px;}
 table.dyta tr      td.act a {padding: 0; margin: 0;}
@@ -30,17 +30,17 @@ table.dyta tr.child td:first-child { padding-left:20px; }
 table.dyta td.empty { text-align:center; color: #777; padding:4px; background: #EEF; }
 table.dyta th, table.dyta td.empty, table.dyta td.procedures { border-top: 1px solid #BACFE6; }
 table.dyta th, table.dyta td { border-left: 1px solid #BACFE6; border-right: 1px solid #BACFE6; }
-table.dyta tr      td.bottom { clear:both; border-top:1px solid #BACFE6; padding: 0px 3px; background: #e9f3fe url(../images/template/table_head.png) repeat-x bottom; }
-table.dyta tr      td.bottom div.export { padding: 2px; float:left;}
-table.dyta tr      td.bottom div.export a { padding: 0 0 0 14px; background: url(../images/buttons/export.png) left center no-repeat;}
-table.dyta tr      td.bottom div.pagination { padding: 2px; float:right;}
-table.dyta tr      td.bottom div.pagination * { padding:2px 4px; }
-table.dyta tr      td.bottom div.pagination span.current { font-weight:bold; color: black; }
-table.dyta tr      td.bottom div.pagination span.disabled { color: #88A; }
-table.dyta tr      td.bottom div.pagination .prev_page { padding:2px 4px 2px 10px; background: url(../images/buttons/previous2.png) no-repeat left;}
-table.dyta tr      td.bottom div.pagination .prev_page.disabled { padding:2px 4px 2px 10px; background: url(../images/buttons/previous2-dis.png) no-repeat left;}
-table.dyta tr      td.bottom div.pagination .next_page { padding:2px 10px 2px 4px; background: url(../images/buttons/next2.png) no-repeat right;}
-table.dyta tr      td.bottom div.pagination .next_page.disabled { padding:2px 10px 2px 4px; background: url(../images/buttons/next2-dis.png) no-repeat right;}
+table.dyta tr      th.bottom { clear:both; border-top:1px solid #BACFE6; padding: 0px 3px; background: #e9f3fe url(../images/template/table_head.png) repeat-x bottom; }
+table.dyta tr      th.bottom div.export { padding: 2px; float:left;}
+table.dyta tr      th.bottom div.export a { padding: 0 0 0 14px; background: url(../images/buttons/export.png) left center no-repeat;}
+table.dyta tr      th.bottom div.pagination { padding: 2px; float:right;}
+table.dyta tr      th.bottom div.pagination * { padding:2px 4px; }
+table.dyta tr      th.bottom div.pagination span.current { font-weight:bold; color: black; }
+table.dyta tr      th.bottom div.pagination span.disabled { color: #88A; }
+table.dyta tr      th.bottom div.pagination .prev_page { padding:2px 4px 2px 10px; background: url(../images/buttons/previous2.png) no-repeat left;}
+table.dyta tr      th.bottom div.pagination .prev_page.disabled { padding:2px 4px 2px 10px; background: url(../images/buttons/previous2-dis.png) no-repeat left;}
+table.dyta tr      th.bottom div.pagination .next_page { padding:2px 10px 2px 4px; background: url(../images/buttons/next2.png) no-repeat right;}
+table.dyta tr      th.bottom div.pagination .next_page.disabled { padding:2px 10px 2px 4px; background: url(../images/buttons/next2-dis.png) no-repeat right;}
 table.dyta tr      td.decimal { text-align: right; }
 table.dyta tr      td.float   { text-align: right; }
 table.dyta tr      td.integer { text-align: right; }

@@ -131,7 +131,7 @@ module Ekylibre
                       end
 
             # Bottom tag
-            bottom += "  text+='"+content_tag(:tr, content_tag(:td, "'+"+bottom_var+"+'", :class=>:bottom, :colspan=>definition.columns.size))+"' unless text.blank? "+(options[:export] ? "" : " or "+bottom_var+".blank?")+"\n"
+            bottom += "  text+='"+content_tag(:tr, content_tag(:th, "'+"+bottom_var+"+'", :class=>:bottom, :colspan=>definition.columns.size))+"' unless text.blank? "+(options[:export] ? "" : " or "+bottom_var+".blank?")+"\n"
 
             #if options[:order].nil?
             sorter  = "    sort = options['#{name}_sort']\n"
@@ -620,6 +620,7 @@ module Ekylibre
             url[:controller] ||= @options[:controller]
             url[:action] ||= @name
             url.delete(:id)
+            url.delete_if{|k, v| v.nil?}
             code  = "link_to(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
             #code += ", {"+(@options[:controller] ? ':controller=>:'+@options[:controller].to_s+', ' : '')+":action=>:"+@name.to_s+", :id=>"+record+".id"+format+"}"
             code += ", "+url.inspect[0..-2]+", :id=>"+record+".id"+format+"}"

@@ -62,6 +62,7 @@ task :dytacolor do
           {:__default__=>"FFFFFF00", :act=>"FF860022", :sorted=>"00128410"} # td
           #                                 FFDDDD60             1410FF20 00128fff
          ]
+  hover = color_to_array("00447730")
   dims[0][:advance]     = dims[0][:notice]
   dims[0][:late]        = dims[0][:warning]
   dims[0][:verylate]    = dims[0][:error]
@@ -92,6 +93,7 @@ task :dytacolor do
         dim2 = (k2==:__default__ ? '' : '.'+k2.to_s)
         last = color_merge(inter, color_to_array(v2))
         code += "table.dyta tr#{dim0}#{dim1} td#{dim2} {background:#{array_to_css(last)}}\n"
+        code += "table.dyta tr#{dim0}#{dim1}:hover td#{dim2} {background:#{array_to_css(color_merge(last, hover))}}\n"
       end
     end
   end
