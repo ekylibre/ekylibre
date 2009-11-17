@@ -344,7 +344,8 @@ class SaleOrder < ActiveRecord::Base
   end
 
   def usable_payments
-    self.company.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0) AND entity_id = ?" , self.payment_entity_id], :order=>"created_at desc")
+    # self.company.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0) AND entity_id = ?" , self.payment_entity_id], :order=>"created_at desc")
+    self.company.payments.find(:all, :conditions=>["COALESCE(parts_amount, 0)<COALESCE(amount,0)"], :order=>"amount")
   end
 
   # Build general sales condition for the sale order
