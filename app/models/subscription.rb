@@ -112,8 +112,9 @@ class Subscription < ActiveRecord::Base
   end
 
   # Initialize default parameters
-  def init
-    self.before_validation
+  def compute_period
+    #self.before_validation
+    self.nature_id ||= self.product.subscription_nature_id if self.product
     self.before_validation_on_create if self.new_record?
     self
   end

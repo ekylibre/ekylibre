@@ -1274,7 +1274,7 @@ class ManagementController < ApplicationController
     price = find_and_check(:prices, params[:sale_order_line_price_id])
     product = find_and_check(:products, price.product_id)
     if product.nature == "subscrip"
-      @subscription = Subscription.new(:product_id=>product.id).init
+      @subscription = Subscription.new(:product_id=>product.id, :company_id=>@current_company.id).compute_period
     end
     #puts @product.inspect
     # raise Exception.new @price.product.inspect
@@ -1292,7 +1292,7 @@ class ManagementController < ApplicationController
     @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
     @sale_order_line = SaleOrderLine.new(:price_amount=>0.0)
     if @current_company.available_prices.size > 0
-      @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id, :company_id=>@current_company.id).init
+      @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id, :company_id=>@current_company.id).compute_period
     else
       @subscription = Subscription.new()
     end
