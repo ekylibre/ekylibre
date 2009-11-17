@@ -403,7 +403,7 @@ class CompanyController < ApplicationController
     t.column :country
     t.action :document_template_print
     t.action :document_template_update
-    t.action :document_template_duplicate
+    t.action :document_template_duplicate, :method=>:post
     t.action :document_template_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
@@ -432,8 +432,20 @@ class CompanyController < ApplicationController
   end
 
   def document_template_duplicate
-    return unless  @document_template = DocumentTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
-    render :text=>'<pre>'+DocumentTemplate.compile(@document_template.source)+'</pre>'
+    if request.post?
+      @document_template = DocumentTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
+      if @document_template 
+        attrs = @document_template.attributes.dup
+        attrs.delete("id")
+        attrs.delete("lock_version")
+        attrs.delete_if{|k,v| k.match(/...ate.._../) }
+        while @current_company.document_templates.find(:first, :conditions=>{:code=>attrs["code"]})
+          attrs["code"].succ!
+        end
+        DocumentTemplate.create(attrs)
+      end
+    end
+    redirect_to_current    
   end
 
   def document_template_update

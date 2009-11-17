@@ -88,7 +88,7 @@ module Ekylibre
             default_order = (options[:order] ? '||'+options[:order].inspect : '')
 
             order_definition  = ''
-            order_definition += "  options = (params||{}).merge(options)\n"
+            order_definition += "  options = (params||{}).merge(options||{})\n"
             order_definition += "  session[:dyta] ||= {}\n"
             order_definition += "  session[:dyta][:#{name}] ||= {}\n"
             order_definition += "  page = (options[:page]||session[:dyta][:#{name}][:page]||1).to_i\n"
@@ -165,7 +165,7 @@ module Ekylibre
             code += "  end\n"
             code += "end\n"
             
-            # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+            list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
 
             module_eval(code)
 
