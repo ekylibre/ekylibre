@@ -48,14 +48,21 @@ fr-FR:
         title: 'Productions'
       shape:  
         operations: 'Traitements'
+        shape_update: 'Modifier l''îlot'
+        shapes: 'Liste des îlots'
         title: 'Îlot {{name}}'
       shape_create:
         title: 'Ajouter un nouvel îlot'
       _shape_form:
         infos: 'Renseignez les caractéristiques de l''îlot'
+      shape_operation:
+        shape_operation_update: 'Modifier le traitement'
+        shape_operations: 'Liste des traitements'
+        title: 'Détails du traitement {{name}}'
       shape_operation_create:
         title: 'Créer un nouveau traitement'
       _shape_operation_form:
+        duration: 'Durée'
         infos: 'Renseignez les caractéristiques du traitement'
         tools: 'Sélectionnez le matériel utilisé'
       shape_operation_nature_create:

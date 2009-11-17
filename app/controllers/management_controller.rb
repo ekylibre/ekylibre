@@ -1292,7 +1292,7 @@ class ManagementController < ApplicationController
     @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
     @sale_order_line = SaleOrderLine.new(:price_amount=>0.0)
     if @current_company.available_prices.size > 0
-      @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id).init
+      @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id, :company_id=>@current_company.id).init
     else
       @subscription = Subscription.new()
     end

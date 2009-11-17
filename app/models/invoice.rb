@@ -76,6 +76,7 @@ class Invoice < ActiveRecord::Base
       self.nature = "C"
       self.payment_delay_id = self.origin.payment_delay_id
       self.sale_order_id = self.origin.sale_order_id
+      self.currency_id = self.origin.currency_id
     end
   end
   

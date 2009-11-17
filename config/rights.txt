@@ -360,6 +360,7 @@ production       shape_operation_natures          manage_shape_operations
 production       shape_operation_natures_dyta     manage_shape_operations
 production       shape_operation_update           manage_shape_operations
 production       shape_operations                 manage_shape_operations
+production       shape_operation                  manage_shape_operations
 production       shape_operations_dyta            manage_shape_operations
 production       unvalidated_operations           manage_shape_operations
 production       unvalidated_operations_dyta      manage_shape_operations

@@ -1,2 +1,15 @@
+=toolbar do |t|
+  -t.link :shapes
+  -t.link :shape_update, :id=>@shape.id
+
+%table
+  %tr
+    %td
+      =evalue @shape, :name
+      =evalue @shape, :polygon
+    %td
+      =evalue @shape, :description
+      =evalue @shape, :master
+
 %h2=tc :operations
 =dyta(:operations)

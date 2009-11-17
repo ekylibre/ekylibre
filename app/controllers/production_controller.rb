@@ -129,11 +129,12 @@ class ProductionController < ApplicationController
   end
 
   dyta(:operations, :model=>:shape_operations, :conditions=>{:company_id=>['@current_company.id'], :shape_id=>['session[:current_shape]']}, :order=>"planned_on ASC") do |t|
-    t.column :name
+    t.column :name, :url=>{:action=>:shape_operation}
     t.column :name, :through=>:nature
     t.column :full_name, :through=>:employee # , :url=>{:controller=>:resources, :action=>:employee}
     t.column :planned_on
     t.column :moved_on
+    t.column :tools_list
     t.action :shape_operation_update, :image=>:update
     t.action :shape_operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
@@ -150,13 +151,15 @@ class ProductionController < ApplicationController
   manage :shapes
   
 
-  dyta(:shape_operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>"planned_on ASC") do |t|
-    t.column :name
+  dyta(:shape_operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>" planned_on desc, name asc") do |t|
+    t.column :name, :url=>{:action=>:shape_operation}
     t.column :name, :through=>:nature
     t.column :full_name, :through=>:employee # , :url=>{:controller=>:resources, :action=>:employee}
     t.column :planned_on
     t.column :moved_on
+    t.column :tools_list
     t.column :name, :through=>:shape, :url=>{:action=>:shape}
+    t.column :duration
     t.action :shape_operation_update, :image=>:update
     t.action :shape_operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
@@ -174,7 +177,7 @@ class ProductionController < ApplicationController
     if request.post?
       @shape_operation = ShapeOperation.new(params[:shape_operation])
       @shape_operation.company_id = @current_company.id
-      #raise Exception.new params[:tools].inspect
+      #raise Exception.new params.inspect
       if @shape_operation.save
         @shape_operation.add_tools(params[:tools])
         redirect_to_back
@@ -182,6 +185,23 @@ class ProductionController < ApplicationController
     else
       @shape_operation = ShapeOperation.new(:planned_on=>Date.today, :employee_id=>@current_user.employee_id)
     end
+    render_form
+  end
+
+  def shape_operation_update
+    return unless @shape_operation = find_and_check(:shape_operations, params[:id])
+    session[:tool_ids] = []
+    for tool in @shape_operation.tools
+      session[:tool_ids] << tool.id.to_s
+    end
+    #raise Exception.new session[:tool_ids].inspect
+    if request.post?
+      if @shape_operation.update_attributes(params[:shape_operation])
+        @shape_operation.add_tools(params[:tools])
+        redirect_to_back
+      end
+    end
+    @title = {:name=>@shape_operation.name}
     render_form
   end
 

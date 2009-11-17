@@ -1383,9 +1383,12 @@ fr-FR:
         created_at: 'Créé le'
         creator_id: 'Créateur'
         description: 'Description'
+        duration: 'Durée'
         employee_id: 'Employé'
+        hour_duration: 'Heure(s)'
         id: 'ID'
         lock_version: 'Version'
+        min_duration: 'Minute(s)'
         moved_on: 'Fait le'
         name: 'Nom'
         nature_id: 'Type'
@@ -1393,6 +1396,7 @@ fr-FR:
         shape_id: 'Îlot'
         started_at: (((STARTED_AT)))
         stopped_at: (((STOPPED_AT)))
+        tools_list: 'Matériel'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
         validated: 'Effectué'

@@ -38,13 +38,23 @@ class ShapeOperation < ActiveRecord::Base
     self.started_at = Time.now if self.started_at.nil?
   end
 
+  def before_validation
+    self.duration = (self.min_duration.to_i + (self.hour_duration.to_i)*60 )
+  end
+
   def add_tools(tools)
+    self.tool_uses.destroy_all if self.tool_uses
     unless tools.nil?
       tools.each do |tool|
         self.company.tool_uses.create!(:shape_operation_id=>self.id, :tool_id=>tool[0].to_i)
-        #raise Exception.new tool.inspect
       end
     end
+    self.reload
+    self.tools_list = ""
+    for tool in self.tools
+      self.tools_list += tool.name+" -- "
+    end
+    self.save
   end
 
 
