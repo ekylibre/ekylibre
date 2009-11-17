@@ -134,7 +134,7 @@ class Entity < ActiveRecord::Base
   end
   
   def before_destroy
-    raise Exception.new "Can't delete entity of the company" if self.id == self.company.entity.id
+    raise Exception.new("Can't delete entity of the company") if self.id == self.company.entity.id
   end
   
   #
@@ -191,11 +191,16 @@ class Entity < ActiveRecord::Base
       suffix ||= self.code
       suffix = suffix.upper_ascii[0..5].rjust(6,'0')
       account = 1
+      #x=Time.now
+      i = 0
       while not account.nil? do
         account = self.company.accounts.find(:first, :conditions => ["number LIKE ?", prefix.to_s+suffix.to_s])
         suffix.succ! unless account.nil?
+        i=i+1
       end    
+      #puts "Find entity (#{x-Time.now}s) :"+i.to_s
       a = self.company.accounts.create(:number=>prefix.to_s+suffix.to_s, :name=>self.full_name)
+      self.update_attribute(nature.to_s+'_account_id', a.id)
     end
     return a
   end
@@ -241,10 +246,6 @@ class Entity < ActiveRecord::Base
   def contact
     self.default_contact ? self.default_contact.address : '[NoDefaultContactError]'
   end
-
-  
-
-
 
   def max_reduction_rate(computed_on=Date.today)
     # Subscription.count_by_sql(["SELECT max(reduction_rate) FROM subscriptions AS s JOIN subscription_natures ON (s.nature_id = subscription_natures.id) WHERE s.entity_id = ? AND s.company_id = ? AND ? BETWEEN s.started_on AND s.stopped_on", self.id, self.company_id, computed_on]).to_f

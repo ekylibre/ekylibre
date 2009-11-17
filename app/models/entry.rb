@@ -28,7 +28,6 @@
 #  updater_id      :integer       
 #
 
-
 class Entry < ActiveRecord::Base
   belongs_to :account
   belongs_to :company
@@ -114,14 +113,25 @@ class Entry < ActiveRecord::Base
     mode
   end
   
+
   #
   def resource
-    return self.record.resource_type
+    if self.record
+      return self.record.resource_type
+    else
+      'rien'
+    end
   end
+
+
 
   #this method returns the name of journal which the records are saved.
   def journal_name
-    return self.record.journal.name
+    if self.record
+      return self.record.journal.name
+    else
+      'rien'
+    end
   end
   
   #this method allows to fix a display color if the record containing the entry is balanced or not.

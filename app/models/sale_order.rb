@@ -363,58 +363,10 @@ class SaleOrder < ActiveRecord::Base
   end
   
   #this method accountizes the sale.
-  def to_accountancy #(record_id, currency_id)
-    self.update_attribute(:accounted, true)
-    #journal_sale=  self.company.journals.find(:first, :conditions => ['nature = ?', 'sale'], :order=>:id)
-    
-    #financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) and closed=?", '%'+Date.today.to_s+'%', false])
-
-    #financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) AND closed=?", '%'+Date.today.to_s+'%', true])
-    
-    
-    #record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>'sale', :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal_sale.id, :financialyear_id => financialyear.id)
-    
-    
-    #if self.client.client_account_id.nil?
-     #  self.client.reload.update_attribute(:client_account_id, self.client.create_update_account(:client).id)
-    #end
-
-    # if the sale contains a downpayment
-    # if self.has_downpayment
-#       account_downpayment = self.company.accounts.find(self.client.client_account_id).number
-#       account = self.company.accounts.find(:first, :conditions =>{:number=>account_downpayment.insert(2, '9').to_s})
-#       if account.nil?
-#         account = self.company.accounts.create!(:name=>"Clients, avances et acomptes reçus", :number=>account_downpayment, :company_id=>self.company.id)
-#       end
-          
-#       entry = self.company.entries.create!(:record_id=>record_id, :account_id=>account.id, :name=>account.name, :currency_debit=>0.0, :currency_credit=>self.downpayment_amount, :currency_id=>currency_id)
-#     end
-      
-    #entry = self.company.entries.create!(:record_id=>record_id, :account_id=>self.client.client_account_id, :name=>self.client.full_name, :currency_debit=>self.amount_with_taxes, :currency_credit=>0.0, :currency_id=>currency_id,:draft=>true)
-    
-    # self.lines.each do |line|
-#       line_amount = (line.amount * line.quantity)
-#       entry = self.company.entries.create!(:record_id=>record_id, :account_id=>line.product.product_account_id, :name=>'sale '+line.product.name.to_s, :currency_debit=>0.0, :currency_credit=>line_amount, :currency_id=>currency_id,:draft=>true)
-#       unless line.price.tax_id.nil?
-#         line_amount_tax = line.price.tax.amount*line_amount
-#         entry = self.company.entries.create!(:record_id=>record_id, :account_id=>line.price.tax.account_collected_id, :name=>line.price.tax.name, :currency_debit=>0.0, :currency_credit=>line_amount_tax, :currency_id=>currency_id,:draft=>true) unless line_amount_tax.zero?
-#       end
-#      end
-    
-    
-    # all payments of the company matching to this sale and comptabilization.
-   #  payments = self.company.payments.find(:all, :conditions => ["i.sale_order_id = ? and payments.accounted=?", self.id, false] , :joins=>"inner join payment_parts p on p.payment_id=payments.id and p.expense_type='#{SaleOrder.name}' inner join invoices i on i.id=p.invoice_id")
-    
-
-#     payments.each do |payment|
-#       if payment.embankment
-#         payment.to_accountancy 
-#         payment.update_attribute(:accounted, true)
-#       end
-#     end
-    
+  def to_accountancy
+    self.reload
+    self.update_attribute(:accounted, true) unless self.amount.zero?
   end
-  
 
 end
 

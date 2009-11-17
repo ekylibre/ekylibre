@@ -66,7 +66,6 @@ class Payment < ActiveRecord::Base
     self.parts_amount = self.parts.sum(:amount)
   end
 
-
   def validate
     errors.add(:amount, ::I18n.t('activerecord.errors.messages.greater_than_or_equal_to', :count=>self.parts_amount)) if self.amount < self.parts_amount
   end
@@ -101,66 +100,44 @@ class Payment < ActiveRecord::Base
  #this method accountizes the payment.
   def to_accountancy
     financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) and closed=?", '%'+Date.today.to_s+'%', false])
-      
-    journal_bank =  self.company.journals.find(:first, :conditions => ['nature = ?', 'bank'])
     
-    record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.paid_on, :journal_id=>journal_bank.id, :financialyear_id => financialyear.id)
-
-    mode_account_id = self.mode.account_id
-    mode_account = self.mode.account.name
+    journal_bank =  self.company.journals.find(:first, :conditions => ['nature = ?', 'bank'])
+   
+    unless financialyear.nil? or journal_bank.nil?
+      record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal_bank.id, :financialyear_id => financialyear.id)
       
-    self.parts.each do |part|
-     #  entry = self.company.entries.create!(:record_id=>record.id, :account_id=> part.order.client.client_account_id, :name=> part.order.client.full_name, :currency_credit=>part.amount, :currency_debit=>0.0, :currency_id=>journal_bank.currency_id)
-
-#       entry = self.company.entries.create!(:record_id=>record.id, :account_id=>self.account_id, :name=>self.bank, :currency_debit=>part.amount, :currency_credit=>0.0, :currency_id=>journal_bank.currency_id)
-
-#       entry = self.company.entries.create!(:record_id=>record.id, :account_id=>mode_account_id, :name=>mode_account, :currency_credit=>0.0, :currency_debit=>part_amount, :currency_id=>journal_bank.currency_id)
-
-#       entry = self.company.entries.create!(:record_id=>record.id, :account_id=>mode_account_id, :name=>mode_account, :currency_debit=>0.0, :currency_credit=>part_amount, :currency_id=>journal_bank.currency_id)
-        
-     # part.to_accountancy(record.id, journal_bank.currency_id)
+      mode_account_id = self.mode.account_id
+      mode_account = self.mode.account.name
       
-      client_id =  self.entity.account(:client).id if part.expense_type.to_s == SaleOrder.name    
-      supplier_id =  self.entity.account(:supplier).id if part.expense_type.to_s == PurchaseOrder.name
-      transfer_id = part.transfer.account(:supplier).id if part.expense_type.to_s == Transfer.name
+      account_bank_id = self.company.accounts.find(:first, :conditions=>["number LIKE ?", '512%']).id
+      bank_name = (self.mode.bank_account_id ? (self.mode.bank_account.bank_name || 'Banque') : 'Banque')
       
-      if part.downpayment
-        if client_id
-          record.add_debit(mode_account, mode_account_id, part.amount, :draft=>true) 
-          record.add_credit(self.entity.full_name, client_id, part.amount, :draft=>true)
-        end
-        if supplier_id
-          record.add_credit(mode_account, mode_account_id, part.amount, :draft=>true) 
-          record.add_debit(self.entity.full_name, client_id, part.amount, :draft=>true)
+      self.parts.each do |part|
+            
+        if [:SaleOrder].include? part.expense_type.to_sym
+          client_id =  self.entity.client_account_id || self.entity.reload.update_attribute(:client_account_id, self.entity.create_update_account(:client).id)
         end
         
-        #record.add_debit(self.entity.full_name, client_id, part.amount, :draft=>true) if client_id
-        #record.add_credit(self.entity.full_name, supplier_id, part.amount, :draft=>true) if supplier_id
-        #entry = self.company.entries.create!(:record_id=>record.id, :account_id=>(client_id || supplier_id), :name=> self.entity.full_name, :currency_debit=>(client_id ? part.amount : 0.0), :currency_credit=>(supplier_id ? part.amount : 0.0), :currency_id=>journal_bank.currency_id,:draft=>true)
-      else      
-        if client_id
-          record.add_credit(self.entity.full_name, client_id, part.amount, :draft=>true)
-          record.add_debit(mode_account, mode_account_id, part.amount, :draft=>true) 
+        if [:PurchaseOrder].include? part.expense_type.to_sym
+          supplier_id =  self.entity.supplier_account_id || self.entity.reload.update_attribute(:supplier_account_id, self.entity.create_update_account(:supplier).id) 
         end
-        if supplier_id
-          record.add_credit(mode_account, mode_account_id, part.amount, :draft=>true) 
-          record.add_debit(self.entity.full_name, supplier_id, part.amount, :draft=>true) 
+        
+        if [:Transfer].include? part.expense_type.to_sym
+          transfer_id = part.transfer.supplier.supplier_account_id || self.entity.reload.update_attribute(:supplier_account_id, self.entity.create_update_account(:supplier).id) 
         end
+        
+        record.add_credit(self.entity.full_name, client_id, part.amount, :draft=>true) if client_id
+        record.add_debit(self.entity.full_name, supplier_id, part.amount, :draft=>true) if supplier_id
+                
+        record.add_debit(bank_name, (self.account_id.nil? ? account_bank_id : self.account_id), part.amount, :draft=>true) if client_id
+        record.add_credit(bank_name, (self.account_id.nil? ? account_bank_id : self.account_id), part.amount, :draft=>true) if supplier_id
+        
+        record.add_debit(mode_account, mode_account_id, part.amount, :draft=>true)
+        record.add_credit(mode_account, mode_account_id, part.amount, :draft=>true)
       end
-      
-      #entry = self.company.entries.create!(:record_id=>record.id, :account_id=>(client_id || supplier_id), :name=> self.entity.full_name, :currency_credit=>(client_id ? part.amount : 0.0), :currency_debit=>(supplier_id ? part.amount : 0.0), :currency_id=>journal_bank.currency_id,:draft=>true) unless transfer_id 
-
-     #entry = self.company.entries.create!(:record_id=>record.id, :account_id=>(self.account_id.nil? ? account_bank_id : self.account_id), :name=>'Banque', :currency_debit=>(client_id ? part.amount : 0.0), :currency_credit=>((supplier_id || transfer_id) ? part.amount : 0.0), :currency_id=>journal_bank.currency_id,:draft=>true)
-      
-      #record.add_credit(mode_account, mode_account_id, part.amount, :draft=>true) unless [:transfer].include? self.mode.mode.to_sym
-      #if supplier_id
-      
-      #entry = self.company.entries.create!(:record_id=>record.id, :account_id=>mode_account_id, :name=>mode_account, :currency_debit=>0.0, :currency_credit=>part.amount, :currency_id=>journal_bank.currency_id,:draft=>true)
-      
+   
+      self.update_attribute(:accounted, true)
     end
-
-    self.update_attribute(:accounted, true)
-
   end
   
         

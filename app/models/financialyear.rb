@@ -22,6 +22,8 @@ class Financialyear < ActiveRecord::Base
 
   has_many :records,  :class_name=>"JournalRecord"
 
+  validates_presence_of :started_on, :stopped_on
+
   #
   def before_validation
     self.stopped_on = self.started_on+1.year if self.stopped_on.blank? and self.started_on

@@ -55,6 +55,7 @@ class AccountancyController < ApplicationController
   dyta(:entries_draft, :model=>:entries, :conditions=>{:company_id=>['@current_company.id'], :draft=>true}, :order=>:record_id, :line_class=>'RECORD.mode') do |t|
     t.column :journal_name, :label=>'Journal'
     t.column :resource, :label=>'Type'
+    t.column :resource_id, :label=>'Id', :through=>:record
     t.column :number, :label=>"Numéro", :through=>:record
     t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
     t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
@@ -137,15 +138,11 @@ class AccountancyController < ApplicationController
     
   #this method displays the form to choose the journal and financialyear.
   def accountize
-    unless @current_company.invoices or @current_company.sale_orders or @current_company.purchase_orders or @current_company.payments or @current_company.transfers
-      flash[:message] = tc('messages.need_commercial_transactions_for_generate_entries')
-      redirect_to :controller=>:management_controller, :action=>:index
-      return
-    end
-  
-    
-
-
+   #  unless @current_company.invoices or @current_company.sale_orders or @current_company.purchase_orders or @current_company.payments or @current_company.transfers
+#       flash[:message] = tc('messages.need_commercial_transactions_for_generate_entries')
+#       redirect_to :controller=>:management_controller, :action=>:index
+#       return
+#     end
   end
   
   #this method lists all the entries generated in draft mode.
@@ -156,39 +153,39 @@ class AccountancyController < ApplicationController
     if request.post? or request.xhr?
       
       #all the invoices are accountized.
-      @invoices = @current_company.invoices.find(:all, :conditions=>["created_on < ? and accounted = ?", session[:limit_period].to_s, false], :order=>"created_on DESC")
+      @invoices = @current_company.invoices.find(:all, :conditions=>["accounted = ? and amount != 0 AND CAST(created_on AS DATE) BETWEEN \'2007-01-01\' AND ?", false, session[:limit_period].to_s], :limit=>5)
       @invoices.each do |invoice|
         invoice.to_accountancy
       end
-
+      
       # all the purchase_orders are accountized.
       @purchase_orders = @current_company.purchase_orders.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false], :order=>"created_on DESC")                                                         
       @purchase_orders.each do |purchase_order|
         purchase_order.to_accountancy
       end
-
-      # all the transfers are accountized.
+      
+     # all the transfers are accountized.
       @transfers = @current_company.transfers.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false],:order=>"created_on DESC")
       @transfers.each do |transfer|
         transfer.to_accountancy
       end
-
       
-      # the payments are comptabilized if they have been embanked or not.  
+      
+      # all the payments are comptabilized if they have been embanked or not.  
       join = "inner join embankments e on e.id=payments.embankment_id" unless session[:cashed_payments]
-      @payments = @current_company.payments.find(:all, :conditions=>["payments.created_on < ? and payments.accounted = ?", session[:limit_period].to_s, false], :joins=>join||nil, :order=>"created_on DESC")    
+      @payments = @current_company.payments.find(:all, :conditions=>["payments.created_on < ? and payments.accounted = ? and payments.amount!=0", session[:limit_period].to_s, false], :joins=>join||nil, :order=>"created_on DESC", :limit=>5)    
       @payments.each do |payment|
         payment.to_accountancy
       end
-
+         
       # the sale_orders are comptabilized if the matching payments and invoices have been already accountized.  
-      @sale_orders = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted = ? and p.accounted=? and i.accounted=?", session[:limit_period].to_s, false, true, true], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id",:order=>"created_on DESC")    
-      @sale_orders.each do |sale_order|
-        sale_order.to_accountancy
+      @sale_orders = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted = ? and p.accounted=? and i.accounted=?", session[:limit_period].to_s, false, true, true], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id",:order=>"created_on DESC", :limit=>5)    
+       @sale_orders.each do |sale_order|
+        sale_order.to_accountancy 
       end
-
+      
     elsif request.put?
-      Entry.update_all({:draft=> false}, {:company_id=>@current_company.id, :draft=> true}, :joins=>"inner join journal_records r on r.id=entries.record_id and r.created_on < #{session[:limit_period]}",:order=>"created_on DESC")
+      Entry.update_all({:draft=> false}, {:company_id=>@current_company.id, :draft=> true}, :joins=>"inner join journal_records r on r.id=entries.record_id and r.created_on < #{session[:limit_period]}")
       redirect_to :action=>:accountize
     end
     
@@ -239,13 +236,10 @@ class AccountancyController < ApplicationController
     redirect_to :action => "bank_accounts"
   end
 
-
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
-  
   end
- 
-  
+   
   # this action creates an account with a form.
   def account_create
     if request.post?
@@ -268,7 +262,6 @@ class AccountancyController < ApplicationController
     @title = {:value=>@account.label}
     render_form
   end
-
 
   # this action deletes or hides an existing account.
   def account_delete
@@ -296,14 +289,14 @@ class AccountancyController < ApplicationController
     end
   end
   
-  #  this method prints the document
+  #  this method prints the document.
   def document_print
     for print in PRINTS
       @print = print if print[0].to_s == session[:mode]
     end
     @financialyears =  @current_company.financialyears.find(:all, :order => :stopped_on)
     if @financialyears.nil?
-      flash[:message]=tc(:no_financialyear)
+      flash[:message]=tc('messages.no_financialyear')
       redirect_to :action => :document_prepare
       return      
     end
@@ -335,7 +328,7 @@ class AccountancyController < ApplicationController
         
         journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Journaux"})
         if journal_template.nil?
-          flash[:message]=tc(:no_template_journal)
+          flash[:message]=tc('messages.no_template_journal')
           redirect_to :action=>:document_print
           return
         end
@@ -360,7 +353,7 @@ class AccountancyController < ApplicationController
         journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Journal"})
      
          if journal_template.nil?
-           flash[:message]=tc(:no_template_journal_by_id, :value=>journal.name)
+           flash[:message]=tc('messages.no_template_journal_by_id', :value=>journal.name)
            redirect_to :action=>:document_print
            return
          end

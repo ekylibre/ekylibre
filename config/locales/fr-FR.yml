@@ -267,6 +267,7 @@ fr-FR:
         entity: 'Fiche relations'
         inventory: 'Inventaire'
         invoice: 'Facture client'
+        journal: 'Journal'
         other: 'Autres'
         purchase_order: 'Commande fournisseur'
         sale_order: 'Devis / Commande'

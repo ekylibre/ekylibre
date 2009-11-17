@@ -35,7 +35,7 @@ class DocumentTemplate < ActiveRecord::Base
 
   @@families = [:company, :relations, :accountancy, :management, :resources, :production]
 
-  @@document_natures = [:invoice, :sale_order, :purchase_order, :inventory, :transport, :embankment, :entity, :other] 
+  @@document_natures = [:invoice, :sale_order, :purchase_order, :inventory, :transport, :embankment, :entity, :journal, :other] 
 
   include ActionView::Helpers::NumberHelper
 

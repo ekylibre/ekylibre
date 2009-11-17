@@ -32,6 +32,4 @@ class PaymentMode < ActiveRecord::Base
     @@modes.collect{|x| [tc('modes.'+x.to_s), x]}
   end
 
-
-
 end

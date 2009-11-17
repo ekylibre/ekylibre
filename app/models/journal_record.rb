@@ -32,7 +32,8 @@ class JournalRecord < ActiveRecord::Base
   acts_as_list :scope=>:financialyear
 
   validates_format_of :number, :with => /^[\dA-Z][\dA-Z]*$/
-  validates_length_of :number, :is =>  4
+  validates_length_of :number, :is => 6
+  validates_presence_of :created_on, :printed_on
 
   #
   def before_validation
@@ -46,8 +47,7 @@ class JournalRecord < ActiveRecord::Base
         self.number = '1'
       end
     end
-    self.number = self.number.rjust(4, "0")
-    
+    self.number = self.number.rjust(6, "0")
   end 
   
   #
@@ -109,7 +109,6 @@ class JournalRecord < ActiveRecord::Base
     return if amount == 0
     attributes = options.merge(:name=>name)
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
-     #raise Exception.new(attributes[:account].to_s)
     attributes[:currency_id] = self.journal.currency_id
     credit = options.delete(:credit) ? true : false
     credit = (not credit) if amount < 0
@@ -120,8 +119,8 @@ class JournalRecord < ActiveRecord::Base
       attributes[:currency_credit] = 0.0
       attributes[:currency_debit]  = amount.abs
     end
-   #  raise Exception.new(attributes.inspect)
-    self.entries.create!(attributes)
+    e = self.entries.create!(attributes)
+    return e
   end
 
   

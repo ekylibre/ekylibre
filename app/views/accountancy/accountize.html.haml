@@ -1,4 +1,4 @@
-.count=tc(:nb_invoices, :count=>@current_company.invoices.find(:all,:conditions=>['accounted=?', false]).size)
+.count=tc(:nb_invoices, :count=>@current_company.invoices.find(:all,:conditions=>['accounted=? and amount!=0', false]).size)
 .count=tc(:nb_sales, :count=>@current_company.sale_orders.find(:all,:conditions=>['accounted=?',false]).size)
 .count=tc(:nb_purchases, :count=>@current_company.purchase_orders.find(:all,:conditions=>['accounted=?',false]).size)
 .count=tc(:nb_payments, :count=>@current_company.payments.find(:all,:conditions=>{:accounted=>false}).size)

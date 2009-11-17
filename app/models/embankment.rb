@@ -25,7 +25,7 @@ class Embankment < ActiveRecord::Base
   belongs_to :company
   belongs_to :embanker, :class_name=>User.name
   belongs_to :mode, :class_name=>PaymentMode.to_s
-  has_many :payments, :dependent=>:nullify, :order=>"created_at"
+  has_many   :payments, :dependent=>:nullify, :order=>"created_at"
 
   validates_presence_of :embanker_id, :number
 

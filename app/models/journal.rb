@@ -26,6 +26,8 @@ class Journal < ActiveRecord::Base
   has_many :bank_accounts
   has_many :records, :class_name=>"JournalRecord", :foreign_key=>:journal_id
 
+  validates_presence_of :closed_on
+
   before_destroy :empty?
 
   @@natures = [:sale, :purchase, :bank, :renew, :various]
