@@ -185,7 +185,9 @@ class SaleOrder < ActiveRecord::Base
       invoice.lines.create!(:company_id=>line.company_id, :order_line_id=>line.id, :amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes, :quantity=>line.quantity)
     end
     # accountize the matching invoice.
-    invoice.to_accountancy if self.company.parameter('accountancy.to_accountancy.automatic').value == 'true'
+    if self.company.parameter('accountancy.to_accountancy.automatic')
+      invoice.to_accountancy if self.company.parameter('accountancy.to_accountancy.automatic').value == 'true'
+    end
     
     self.invoiced = true
     self.save!
