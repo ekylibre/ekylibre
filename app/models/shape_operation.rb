@@ -42,6 +42,10 @@ class ShapeOperation < ActiveRecord::Base
     self.duration = (self.min_duration.to_i + (self.hour_duration.to_i)*60 )
   end
 
+  def before_destroy
+    self.tool_uses.destroy_all if self.tool_uses
+  end
+
   def add_tools(tools)
     self.tool_uses.destroy_all if self.tool_uses
     unless tools.nil?
@@ -56,6 +60,7 @@ class ShapeOperation < ActiveRecord::Base
     end
     self.save
   end
+
 
 
 end

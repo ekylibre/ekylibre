@@ -135,6 +135,7 @@ class ProductionController < ApplicationController
     t.column :planned_on
     t.column :moved_on
     t.column :tools_list
+    t.column :duration
     t.action :shape_operation_update, :image=>:update
     t.action :shape_operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
@@ -203,6 +204,13 @@ class ProductionController < ApplicationController
     end
     @title = {:name=>@shape_operation.name}
     render_form
+  end
+
+  def shape_operation_delete
+    return unless @shape_operation = find_and_check(:shape_operations, params[:id])
+    if request.post? or request.delete?
+      redirect_to_current if @shape_operation.destroy
+    end
   end
 
 
