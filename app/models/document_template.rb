@@ -41,7 +41,7 @@ class DocumentTemplate < ActiveRecord::Base
 
 
   def before_validation
-    self.cache = self.class.compile(self.source) rescue nil
+    self.cache = self.class.compile(self.source) #rescue nil
 #     begin
 #       self.cache = self.class.compile(self.source) # rescue nil
 #     rescue => e

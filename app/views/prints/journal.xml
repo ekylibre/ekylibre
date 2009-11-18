@@ -16,7 +16,7 @@
       </part>
       <part height="10mm">
 	<set>
-	  <text value="Journal {{journal.name}} pour la période du {{I18n.localize(started_on.to_date, :format=> :month_letter)}} au {{I18n.localize(stopped_on.to_date, :format=> :month_letter)}}" left="50%" align="center" bold="true"/>
+	  <text value="Journal {{journal.name}} pour la période du {{started_on}} au {{stopped_on}}" left="50%" align="center" bold="true"/>
 	</set>
       </part>
       

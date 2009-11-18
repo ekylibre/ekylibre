@@ -154,12 +154,14 @@ class AccountancyController < ApplicationController
       
       #all the invoices are accountized.
       @invoices = @current_company.invoices.find(:all, :conditions=>["accounted = ? and amount != 0 AND CAST(created_on AS DATE) BETWEEN \'2007-01-01\' AND ?", false, session[:limit_period].to_s], :limit=>5)
+
       @invoices.each do |invoice|
         invoice.to_accountancy
       end
       
       # all the purchase_orders are accountized.
       @purchase_orders = @current_company.purchase_orders.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false], :order=>"created_on DESC")                                                         
+      
       @purchase_orders.each do |purchase_order|
         purchase_order.to_accountancy
       end
@@ -302,7 +304,7 @@ class AccountancyController < ApplicationController
     end
       
     @partial = 'print_'+@print[1][:partial]
-    started_on = Date.today.year.to_s+"-"+"01-01"
+    started_on = Date.today.year.to_s+"-01-01"
     stopped_on = Date.today.year.to_s+"-12-31"
     
     if request.post? 
@@ -351,12 +353,12 @@ class AccountancyController < ApplicationController
         end
 
         journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Journal"})
-     
-         if journal_template.nil?
-           flash[:message]=tc('messages.no_template_journal_by_id', :value=>journal.name)
-           redirect_to :action=>:document_print
-           return
-         end
+
+        if journal_template.nil?
+          flash[:message]=tc('messages.no_template_journal_by_id', :value=>journal.name)
+          redirect_to :action=>:document_print
+          return
+        end
         
         pdf = journal_template.print(journal,  params[:printed][:from],  params[:printed][:to], entries, sum)
         
@@ -647,7 +649,7 @@ class AccountancyController < ApplicationController
     render :text => options_for_select(@financialyear_records)
   end
    
-  #this method allows to enter the accountancy records with a form.
+  #this method allows to enter the accountancy records within a form.
   def entries
     session[:entries] ||= {}
     
@@ -688,13 +690,12 @@ class AccountancyController < ApplicationController
     if @valid
       @record = JournalRecord.new
       @entry = Entry.new 
-      
+     
       @records = @journal.records.find(:all, :conditions => {:financialyear_id => @financialyear.id, :company_id => @current_company.id }, :order=>"number DESC") 
       
       unless session[:entries][:error_balance_or_new_record]
         @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0) AND financialyear_id = ?", @financialyear.id], :order=>:id) if @record.balanced or @record.new_record?
-        
-        end
+      end
       
       unless @record.nil?
         if (@record.balance > 0) 
@@ -719,8 +720,7 @@ class AccountancyController < ApplicationController
   #this method allows to create an entry.
   def entry_create
     if request.xhr? 
-       @record = @current_company.journal_records.find(:first,:conditions=>["journal_id = ? AND number = ? AND financialyear_id = ?", session[:entries][:journal].to_s, params[:record][:number].rjust(4,"0"), session[:entries][:financialyear].to_s])
-       
+       @record = @current_company.journal_records.find(:first,:conditions=>["journal_id = ? AND number = ? AND financialyear_id = ?", session[:entries][:journal].to_s, params[:record][:number].rjust(4,"0"), session[:entries][:financialyear].to_s])       
       created_on = params[:record][:created_on].gsub('/','-').to_date.strftime
       printed_on = params[:record][:printed_on].gsub('/', '-').to_date.strftime
 
@@ -748,12 +748,12 @@ class AccountancyController < ApplicationController
         session[:entries][:error_balance_or_new_record] = true if @record.balanced or @record.new_record?
         @entry = Entry.new
       end
-    
+          
       render :action=>"entry_create.rjs" 
     end
   end
 
-  # this method updates an entry with a form.
+  # this method updates an entry within a form.
   def entry_update
     session[:accountize] ||= params[:accountize] if params[:accountize]
     @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
