@@ -141,5 +141,17 @@ class Entry < ActiveRecord::Base
     balanced
   end
 
+  #this method creates a next entry with an initialized value matching to the previous record. 
+  def next(balance)
+    if balance > 0
+      Entry.new({:currency_credit=>balance.abs})
+    elsif balance < 0
+      Entry.new({:currency_debit=>balance.abs})
+    else
+      Entry.new
+    end
+  end
+
+
 end
 

@@ -352,8 +352,8 @@ class AccountancyController < ApplicationController
           sum[:balance] = sum[:debit] - sum[:credit]
         end
 
-        journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Journal"})
-
+        journal_template = @current_company.document_templates.find(:first, :conditions =>["name=?", 'Journal'])
+        raise Exception.new journal_template.to_s
         if journal_template.nil?
           flash[:message]=tc('messages.no_template_journal_by_id', :value=>journal.name)
           redirect_to :action=>:document_print
@@ -714,13 +714,14 @@ class AccountancyController < ApplicationController
           @record.printed_on = @records.size>0 ? @records.last.printed_on : @financialyear.started_on
         end
       end
+      
     end  
   end
 
   #this method allows to create an entry.
   def entry_create
     if request.xhr? 
-       @record = @current_company.journal_records.find(:first,:conditions=>["journal_id = ? AND number = ? AND financialyear_id = ?", session[:entries][:journal].to_s, params[:record][:number].rjust(4,"0"), session[:entries][:financialyear].to_s])       
+      @record = @current_company.journal_records.find(:first,:conditions=>["journal_id = ? AND number = ? AND financialyear_id = ?", session[:entries][:journal].to_s, params[:record][:number].rjust(6,"0"), session[:entries][:financialyear].to_s])       
       created_on = params[:record][:created_on].gsub('/','-').to_date.strftime
       printed_on = params[:record][:printed_on].gsub('/', '-').to_date.strftime
 
@@ -730,7 +731,7 @@ class AccountancyController < ApplicationController
           @record.printed_on = printed_on
         end
       end
-        
+  
       if @record.nil?
         @record = JournalRecord.create!(params[:record].merge({:financialyear_id => session[:entries][:financialyear].to_s, :journal_id => session[:entries][:journal].to_s, :company_id => @current_company.id, :created_on => created_on, :printed_on => printed_on}))
       end 
@@ -742,13 +743,15 @@ class AccountancyController < ApplicationController
         @entry.currency_id = find_and_check(:journal, session[:entries][:journal]).currency_id
         if @entry.save
           @record.reload
-          @entry  = Entry.new
+          @record = @record.next if @record.balanced
+          @entry = @entry.next(@record.balance)
         end
+        
       else
         session[:entries][:error_balance_or_new_record] = true if @record.balanced or @record.new_record?
         @entry = Entry.new
       end
-          
+     
       render :action=>"entry_create.rjs" 
     end
   end

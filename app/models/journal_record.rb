@@ -100,12 +100,28 @@ class JournalRecord < ActiveRecord::Base
     add(name, account, amount, options)
   end
 
+  #
   def add_credit(name, account, amount, options={})
     add(name, account, amount, options.merge({:credit=>true}))
   end
 
+  #this method creates a next record with an initialized value matching to the previous record. 
+  def next
+    record = self.journal.records.find(:first, :conditions=>["debit!=credit OR (debit=0 AND credit=0) AND financialyear_id = ?", self.financialyear_id], :order=>"number DESC")
+
+    if record.nil?
+     
+      records= self.journal.records.find(:all, :conditions=>{:financialyear_id => self.financialyear_id, :company_id => self.company_id},:order=>"number DESC")
+      JournalRecord.new({:number=>(records.nil? ? 1 : records.first.number.succ), :created_on=>(records.nil? ? self.financialyear.started_on : records.first.created_on), :printed_on=>(records.nil? ? self.financialyear.started_on : records.first.printed_on), :company_id=>self.company.id, :financialyear_id=>self.financialyear.id, :journal_id=>self.journal.id})
+    else
+      record
+    end
+  end
+
+
   private
 
+  #
   def add(name, account, amount, options={})
     return if amount == 0
     attributes = options.merge(:name=>name)
