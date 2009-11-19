@@ -10,7 +10,7 @@ class RelationsController < ApplicationController
     t.column :name, :through=>:nature
     t.column :duration
     t.column :location
-    t.column :full_name, :through=>:employee
+    t.column :full_name, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee}
     t.column :started_at
   end
 
@@ -347,7 +347,7 @@ class RelationsController < ApplicationController
   dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :order=>"created_at DESC") do |t|
     t.column :name, :through=>:nature
     t.column :reason
-    t.column :full_name, :through=>:employee
+    t.column :full_name, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee}
     t.column :duration
     t.column :location
     t.column :started_at
@@ -1028,7 +1028,7 @@ class RelationsController < ApplicationController
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location
-    t.column :full_name, :through=>:employee
+    t.column :full_name, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee} 
     t.column :name, :through=>:nature
     t.column :started_at
     t.action :event_update

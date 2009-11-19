@@ -28,7 +28,6 @@ class Production < ActiveRecord::Base
     self.moved_on = Date.today
     stock_locations = StockLocation.find_all_by_company_id(self.company_id)
     self.location_id = stock_locations[0].id if stock_locations.size == 1 and self.location_id.nil?
-    #raise Exception.new
   end
 
   def validate

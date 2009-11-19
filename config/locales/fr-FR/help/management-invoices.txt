@@ -2,9 +2,9 @@ h1. Comment gérer ses factures ?
 
 h2. La recherche d'une facture
 Par défaut, toutes vos factures sont affichées.
-La barre de recherche d'une facture vous permet de trouver toutes vos *factures* enregistrées ainsi que vos *avoirs*. Cette *recherche s'effectue sur le numéro* de la facture.
+La barre de recherche d'une facture vous permet de trouver toutes vos *factures* enregistrées ainsi que vos *avoirs*. Cette *recherche s'effectue* sur des informations telles que le *numéro de la facture*, son *montant HT et TTC*, *nom et code du client* ...
 
-Vous pouvez saisir dans le champ de recherche tout ou seulement une partie du numéro de la facture.
+Vous pouvez *rechercher une facture en fonction de son statut*: un *avoir* ou une *facture classique*.
 
 h2. Passage en avoir
 

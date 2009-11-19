@@ -1,0 +1,29 @@
+=toolbar do |t|
+  - t.link :employee_update, :id=>@employee.id
+
+%table
+  %tr
+    %td
+      =evalue @employee, :last_name
+      =evalue @employee, :first_name
+      =evalue @employee, :title
+    %td
+      =evalue @employee, :profession, :label=>:name
+      =evalue @employee, :establishment, :label=>:name
+      =evalue @employee, :department, :label=>:name
+    %td
+      =evalue @employee, :commercial
+      =evalue @employee, :user, :label=>:label
+
+
+
+=tabbox(:entities) do |tb|
+  -tb.tab(tc(:events, :count=>@employee.events.count)) do |c|
+    -c << toolbar do
+      -link(:event_create, :controller=>:relations)
+    -c << dyta(:employee_events)
+  -tb.tab(tc(:sale_orders, :count=>@employee.sale_orders.count)) do |c|
+    -c << toolbar do 
+      -link(:sale_order_create, :controller=>:management)
+    -c << dyta(:employee_sale_orders)
+

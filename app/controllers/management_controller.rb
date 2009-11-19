@@ -157,7 +157,7 @@ class ManagementController < ApplicationController
   dyta(:inventories, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :date
     t.column :changes_reflected, :label=>tc('changes_reflected')
-    t.column :label, :through=>:employee
+    t.column :label, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee}
     t.column :comment
     t.action :print, :url=>{:controller=>:company, :type=>:inventory}
     t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and RECORD.changes_reflected == false'
@@ -998,7 +998,7 @@ class ManagementController < ApplicationController
       else
         flash[:warning]=tc('sale_order_can_not_be_deleted')
       end
-      redirect_to_back
+      redirect_to_current
     end
   end
   

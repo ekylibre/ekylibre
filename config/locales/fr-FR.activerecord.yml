@@ -1603,6 +1603,10 @@ fr-FR:
         name: 'Nom'
         nature: 'Nature'
         text_nature: 'Nature'
+     
+      tool_use:
+        created_at: 'Crée le'
+        shape_operation_id: 'Traitement'
 
       # (((TRANSPORT)))
       transport:

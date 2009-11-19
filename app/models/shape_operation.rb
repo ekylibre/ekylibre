@@ -20,6 +20,7 @@
 #  shape_id      :integer       not null
 #  started_at    :datetime      not null
 #  stopped_at    :datetime      
+#  tools_list    :string(255)   
 #  updated_at    :datetime      not null
 #  updater_id    :integer       
 #
@@ -54,10 +55,7 @@ class ShapeOperation < ActiveRecord::Base
       end
     end
     self.reload
-    self.tools_list = ""
-    for tool in self.tools
-      self.tools_list += tool.name+" -- "
-    end
+    self.tools_list = self.tools.collect{|t| t.name}.join(", ")
     self.save
   end
 

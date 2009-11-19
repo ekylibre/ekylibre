@@ -2,6 +2,7 @@ fr-FR:
 
   controllers:
     resources:
+      client_code: 'Code client'
       title: 'Ressources'
 
   helpers:
@@ -9,6 +10,19 @@ fr-FR:
 
   views:
     resources:
+      employee:
+        employee_update: 'Modifier la fiche'
+        event_create: 'Ajouter un événement'
+        events:
+          one: '1 événement'
+          other: '{{count}} événements'
+          zero: 'Aucun événement'
+        sale_order_create: 'Créer un nouveau devis'
+        sale_orders:
+          one: '1 vente'
+          other: '{{count}} ventes'
+          zero: 'Aucune vente'
+        title: 'Employé : {{label}}'
       employee_create:
         title: 'Création d''un nouvel employé'
       _employee_form:

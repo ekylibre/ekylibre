@@ -2,9 +2,14 @@ fr-FR:
 
   controllers:
     production:
+      duration: 'Durée (min.)'
       mistake_on_quantities_sum: 'La somme des quantités n''est pas égale à la quantité totale produite'
+      moved_on: 'Fait le'
+      name: 'Nom'
       need_stock_location_to_create_production: 'Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions'
+      planned_on: 'Prévu le'
       title: 'Production'
+      tools_list: 'Matériel'
 
   helpers:
     production:
@@ -83,11 +88,23 @@ fr-FR:
         shape_create: 'Créer un nouvel îlot'
         shapes: 'Îlots'
         title: 'Îlots'
+      tool: 
+        hour_duration: 
+          one: 'Temps d''utilisation total : 1 heure'
+          other: 'Temps d''utilisation total : {{count}} heures'
+          zero: ''
+        shape_operations:
+          one: '1 traitement'
+          other: '{{count}} traitements'
+          zero: 'Aucun traitement'
+        title: 'Matériel {{name}}'
       tools:
         tool_create: 'Ajouter un matériel'
         title: 'Matériel'
       tool_create: 
         title: 'Ajouter un matériel'
+      tool_update:
+        title: 'Modification du matériel {{name}}'
       unvalidated_operations:
         employee_name: 'Employé'
         executed: 'Éffectué'

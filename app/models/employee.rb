@@ -32,7 +32,7 @@ class Employee < ActiveRecord::Base
   belongs_to :user
   has_many :clients, :class_name=>Entity.to_s
   has_many :events
-  has_many :sale_orders
+  has_many :sale_orders, :foreign_key=>:responsible_id
   has_many :shape_operations
   has_many :transports
 

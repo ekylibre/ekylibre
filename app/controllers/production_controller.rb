@@ -7,14 +7,28 @@ class ProductionController < ApplicationController
 
  
   dyta(:tools,  :conditions=>{:company_id=>['@current_company.id']}, :order=>"name desc") do |t|
-    t.column :name
+    t.column :name, :url=>{:action=>:tool}
     t.column :text_nature
     t.column :consumption
     t.action :tool_update
-    t.action :tool_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :tool_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.uses.size == 0'
   end
 
   def tools
+  end
+
+  dyta(:tool_shape_operations, :model=>:tool_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool]']}, :order=>"created_at ASC") do |t|
+    t.column :name, :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:name)
+    t.column :planned_on, :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:planned_on)
+    t.column :moved_on, :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:moved_on)
+    t.column :tools_list, :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:tools_list)
+    t.column :duration, :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:duration)
+  end
+  
+  def tool
+    return unless @tool = find_and_check(:tools, params[:id])
+    session[:current_tool] = @tool.id
+    @title = {:name=>@tool.name}
   end
   
   manage :tools
@@ -131,7 +145,7 @@ class ProductionController < ApplicationController
   dyta(:operations, :model=>:shape_operations, :conditions=>{:company_id=>['@current_company.id'], :shape_id=>['session[:current_shape]']}, :order=>"planned_on ASC") do |t|
     t.column :name, :url=>{:action=>:shape_operation}
     t.column :name, :through=>:nature
-    t.column :full_name, :through=>:employee # , :url=>{:controller=>:resources, :action=>:employee}
+    t.column :full_name, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee}
     t.column :planned_on
     t.column :moved_on
     t.column :tools_list
@@ -155,7 +169,7 @@ class ProductionController < ApplicationController
   dyta(:shape_operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>" planned_on desc, name asc") do |t|
     t.column :name, :url=>{:action=>:shape_operation}
     t.column :name, :through=>:nature
-    t.column :full_name, :through=>:employee # , :url=>{:controller=>:resources, :action=>:employee}
+    t.column :full_name, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee}
     t.column :planned_on
     t.column :moved_on
     t.column :tools_list
@@ -172,13 +186,11 @@ class ProductionController < ApplicationController
     return unless @shape_operation = find_and_check(:shape_operation, params[:id])
     @title = {:name=>@shape_operation.name}
   end
-  #manage :shape_operations, :planned_on=>"Date.today", :employee_id=>"@current_user.employee_id"
   
   def shape_operation_create
     if request.post?
       @shape_operation = ShapeOperation.new(params[:shape_operation])
       @shape_operation.company_id = @current_company.id
-      #raise Exception.new params.inspect
       if @shape_operation.save
         @shape_operation.add_tools(params[:tools])
         redirect_to_back
@@ -195,7 +207,6 @@ class ProductionController < ApplicationController
     for tool in @shape_operation.tools
       session[:tool_ids] << tool.id.to_s
     end
-    #raise Exception.new session[:tool_ids].inspect
     if request.post?
       if @shape_operation.update_attributes(params[:shape_operation])
         @shape_operation.add_tools(params[:tools])
@@ -231,7 +242,7 @@ class ProductionController < ApplicationController
   dyta(:unvalidated_operations, :model=>:shape_operations, :conditions=>{:moved_on=>nil, :company_id=>['@current_company.id']}) do |t|
     t.column :name 
     t.column :name, :through=>:nature
-    t.column :full_name, :through=>:employee
+    t.column :full_name, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee}
     t.column :name, :through=>:shape
     t.column :planned_on
     t.check :validated, :value=>'RECORD.planned_on<=Date.today'

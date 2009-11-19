@@ -340,6 +340,7 @@ management       products                         search_and_consult_products
 management       products_search                  search_and_consult_products
 production       index                            administrate_production
 production       tools                            manage_tools
+production       tool                             manage_tools
 production       tools_dyta                       manage_tools
 production       tool_create                      manage_tools
 production       tool_update                      manage_tools
@@ -468,6 +469,7 @@ resources        employee_create                  administrate_resources
 resources        employee_delete                  administrate_resources
 resources        employee_update                  administrate_resources
 resources        employees                        administrate_resources
+resources        employee                         administrate_resources
 resources        employees_dyta                   administrate_resources
 resources        index                            administrate_resources
 resources        profession_create                administrate_resources

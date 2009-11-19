@@ -447,7 +447,7 @@ fr-FR:
     tool:
       natures:
         other: 'Autres'
-        towed: 'Tracté'
+        towed: 'Attelage'
         tractor: 'Tracteur'
     user:
       no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application : {{controller}}/{{action}}'
