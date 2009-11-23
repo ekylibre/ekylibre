@@ -522,7 +522,6 @@ class ManagementController < ApplicationController
         FasterCSV.foreach("#{RAILS_ROOT}/#{name}") do |row|
           if i == 0
             x = 2
-            #raise Exception.new row.inspect
             while !row[x].nil?
               entity_category = EntityCategory.find_by_code_and_company_id(row[x], @current_company.id)
               entity_category = EntityCategory.create!(:code=>row[x], :name=>row[x+1], :company_id=>@current_company.id) if entity_category.nil?
@@ -534,7 +533,7 @@ class ManagementController < ApplicationController
           if i > 1
             puts i.to_s+"hhhhhhhhhhhhhhh"
             x = 2
-            @product = Product.find_by_code_and_company_id(row[0], @current_company.id) ## Cas ou pdt existe pas
+            @product = Product.find_by_code_and_company_id(row[0], @current_company.id)
             for category in @entity_categories
               blank = true
               tax = Tax.find(:first, :conditions=>{:company_id=>@current_company.id, :amount=>row[x+2].to_s.gsub(/\,/,".").to_f})
@@ -566,7 +565,7 @@ class ManagementController < ApplicationController
           #raise Exception.new @unavailable_prices.inspect if i == 12
           i += 1
         end
-        ##Fin boucle FasterCSV
+
         if @unavailable_prices.empty?
           for price in @available_prices
             if price.id.nil?

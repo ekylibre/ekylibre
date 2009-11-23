@@ -1,6 +1,6 @@
 h1. Comment gérer ses catégories de fiches ?
 
-* Une catégorie de fiche est attribuée à une fiche client et permet de *rassembler ses clients en différents groupes*.
+* Une catégorie de fiche est attribuée à une fiche (client ou fournisseur) et permet de *rassembler ses clients en différents groupes*.
 
 * À *chaque catégorie* de fiche *est associée une <<relations-entity_categories_display|grille de tarifs>>* applicables uniquement à cette catégorie.
 

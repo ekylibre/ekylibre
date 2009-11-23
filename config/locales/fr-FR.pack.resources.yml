@@ -22,6 +22,10 @@ fr-FR:
           one: '1 vente'
           other: '{{count}} ventes'
           zero: 'Aucune vente'
+        shape_operations:
+          one: '1 traitement'
+          other: '{{count}} traitements'
+          zero: 'Aucun traitement'
         title: 'Employé : {{label}}'
       employee_create:
         title: 'Création d''un nouvel employé'

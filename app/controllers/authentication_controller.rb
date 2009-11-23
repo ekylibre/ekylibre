@@ -46,27 +46,32 @@ class AuthenticationController < ApplicationController
         return
       end
       
-      @company = Company.new(params[:company])
-      @user = User.new(params[:user])
-      saved = true
+      # @company = Company.new(params[:company])
+      # @user = User.new(params[:user])
+      # saved = true
      
-      ActiveRecord::Base.transaction do
-        saved = @company.save
-        if saved
-          @user.company_id = @company.id
-          @user.role_id = @company.admin_role.id
-          saved = false unless @user.save
-        end
-        if params[:demo] and saved 
-          Company.load_demo_data("fr-FR", @company) 
-        end
-        raise ActiveRecord::Rollback unless saved            
-      end
-      if saved
+      #ActiveRecord::Base.transaction do
+        
+       # saved = @company.save
+       # if saved
+       #   @user.company_id = @company.id
+       #   @user.role_id = @company.admin_role.id
+       #   saved = false unless @user.save
+       # end
+       # if params[:demo] and saved 
+       #   Company.load_demo_data("fr-FR", @company) 
+       # end
+       # raise ActiveRecord::Rollback unless saved            
+      #end
+      #if saved
+      @user, @company = Company.create_with_data(params[:company], params[:user])
+      #raise Exception.new @company.inspect
+      if @user.id and @company.id
+        Company.load_demo_data("fr-FR", @company) if params[:demo]
         init_session(@user)
         redirect_to :controller=>:company, :action=>:welcome
       end
-  
+      
     else
       @company = Company.new
       @user = User.new

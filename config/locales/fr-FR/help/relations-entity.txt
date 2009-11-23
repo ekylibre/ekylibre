@@ -1,30 +1,7 @@
 h1. L'affichage d'une fiche
 
-h2. Informations concernant la fiche 
-Vous avez ici accès à toutes les informations relatives à votre client ou votre fournisseur:
-* les informations saisies lors de sa création, auxquelles s'ajoutent éventuellement les différents champs personnalisés
-* ses coordonnées, ses adresses. Un client ou fournisseur peut en posséder plusieurs.
+Vous avez accès au récapitulatif des *informations* de votre fiche (nom, code...) ainsi qu'un tableau vous permettant de consulter les dernières factures de votre client/fournisseur, ses contacts,... 
 
-Vous avez également la possibilité de :
-* créer un nouveau contact
-* le modifier : <<relations-entities_contacts_update|{{buttons/update.png|modifier}}>> 
-* le supprimer :   {{buttons/delete.png|supprimer}}
-
-Mais aussi de:
-* créer un nouveau compte bancaire
-* le modifier : <<accountancy-bank_accounts_update|{{buttons/update.png|modifier}}>> 
-* le supprimer :   {{buttons/delete.png|supprimer}}
-
-Mais aussi de:
-* créer une nouvelle responsabilité
-* la modifier : <<relation-mandates_update|{{buttons/update.png|modifier}}>> 
-* la supprimer :   {{buttons/delete.png|supprimer}}
-
-
-
-Vous ne pouvez pas supprimer une option de liste déroulante.
-
-h2. Informations concernant les ventes
-Si votre fiche concerne un client, vous avez accès au récapitulatif des *dernières ventes* effectuées à ce client, ainsi qu'au *nombre total de vente* pour ce client. En cliquant sur le numéro de la vente, vous pourrez consulter le récapitulatif détaillé de cette vente.
+Ce *tableau* vous permet de *naviguer instantanément* entre *toutes les données* relatives à votre fiche.
 
 <<relations-index|Revenir à l'aide de gestion des relations >>

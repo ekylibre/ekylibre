@@ -43,10 +43,6 @@ class Employee < ActiveRecord::Base
     self.first_name ||= self.user.first_name  
   end
 
-  def validate
-#    raise Exception.new('probleme:'+self.inspect)
-  end
-
   def full_name
     (self.last_name.to_s+" "+self.first_name.to_s).strip
   end

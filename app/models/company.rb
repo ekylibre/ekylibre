@@ -126,72 +126,95 @@ class Company < ActiveRecord::Base
     self.id
   end
 
-  def after_create
-    tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
-      begin
-        account = self.accounts.find_by_number(a[0].to_s)
-        if account 
-          account.update_attributes!(:name=>a[1])
-        else
-          self.accounts.create!(:number=>a[0].to_s, :name=>a[1])
-        end
-      rescue Exception
-        
+  def self.create_with_data(company_attr=nil, user_attr=nil, demo=nil)
+    company = Company.new(company_attr)
+    user = User.new(user_attr)
+    @saved = true
+
+    ActiveRecord::Base.transaction do
+      @saved = company.save
+      #raise Exception.new company.admin_role.inspect
+      if @saved
+        company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
+        company.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
+        user.company_id = company.id
+        user.role_id = company.admin_role.id
+        @saved = false unless user.save
       end
+      raise ActiveRecord::Rollback unless @saved      
     end
-
-    language = self.languages.create!(:name=>'Français', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
-    self.set_parameter('general.language', language)
-    self.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
-    self.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
-    self.departments.create!(:name=>tc('default.department_name'))
-    self.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
-    currency = self.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
-    self.shelves.create(:name=>tc('default.shelf_name'))
-    for unit in Unit.default_units
-      self.units.create(:name=>unit[0].to_s, :label=>tc('default.unit_'+unit[0].to_s), :base=>unit[1][:base], :quantity=>unit[1][:quantity])
+    if @saved
+      tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
+        begin
+          account = company.accounts.find_by_number(a[0].to_s)
+          if account 
+            account.update_attributes!(:name=>a[1])
+          else
+            company.accounts.create!(:number=>a[0].to_s, :name=>a[1])
+          end
+        rescue Exception
+          
+        end
+      end
+      
+      language = company.languages.create!(:name=>'Français', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
+      company.set_parameter('general.language', language)
+      company.departments.create!(:name=>tc('default.department_name'))
+      company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
+      currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
+      company.shelves.create(:name=>tc('default.shelf_name'))
+      for unit in Unit.default_units
+        company.units.create(:name=>unit[0].to_s, :label=>tc('default.unit_'+unit[0].to_s), :base=>unit[1][:base], :quantity=>unit[1][:quantity])
+      end
+      
+      taxes = []
+      taxes = {:name=>tc('default.tva000'),  :nature=>'percent', :amount=>0.00}, {:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021}, {:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055}, {:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196} 
+      taxes.each do |tax|
+        company.taxes.create!(:name=>tax[:name], :nature=>tax[:nature], :amount=>tax[:amount], :account_collected_id=>company.account(tax[:amount],tax[:name],true), :account_paid_id=>company.account(tax[:amount], tax[:name],false) )
+      end
+      
+      company.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
+      company.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
+      company.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
+      undefined_nature = company.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false)
+      category = company.entity_categories.create!(:name=>'user')
+      firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>company.name)
+      company.entity_id = firm.id
+      company.save
+      company.entity.contacts.create!(:company_id=>company.id, :line_2=>"XXXXXXXXXXXXXXXXXXX", :line_3=>"XXXXXXXXXXXXXXXXXXXX", :line_5=>"XXXXXXXXXXXXXXXXXXXX", :line_6=>'0000 XXXX', :default=>true)
+      
+      # loading of all the templates
+      company.load_prints
+      
+      company.payment_modes.create!(:name=>tc('default.check'), :company_id=>company.id)
+      delays = []
+      ['expiration', 'standard', 'immediate'].each do |d|
+        delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
+      end
+      company.entity_categories.create!(:name=>tc('default.category'))
+      company.financialyears.create!(:started_on=>Date.today)
+      company.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
+      
+      company.set_parameter('accountancy.default_journals.sales', company.journals.create!(:name=>tc('default.journals.sales'), :nature=>"sale", :currency_id=>currency.id))
+      company.set_parameter('accountancy.default_journals.purchases', company.journals.create!(:name=>tc('default.journals.purchases'), :nature=>"purchase", :currency_id=>currency.id))
+      company.set_parameter('accountancy.default_journals.bank', company.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
+      company.set_parameter('management.invoicing.numeration', company.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
+      company.set_parameter('relations.entities.numeration', company.sequences.create!(:name=>tc('default.entities_numeration'), :format=>'[number|8]', :period=>'number'))
+      company.set_parameter('management.embankments.numeration', company.sequences.create!(:name=>tc('default.embankment_numeration'), :format=>'[number|4]', :period=>'year'))
+      company.set_parameter('management.subscriptions.numeration', company.sequences.create!(:name=>tc('default.subscription_numeration'), :format=>'[number|6]', :period=>'number'))
+      
+      company.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>company.accounts.find(:first, :conditions=>["number ILIKE ?", '3%' ], :order=>:number).id)
+      company.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))
+      company.event_natures.create!(:duration=>10, :usage=>"invoice", :name=>tc(:invoice_creation))
+      company.event_natures.create!(:duration=>10, :usage=>"purchase_order", :name=>tc(:purchase_order_creation))
+      
+      company.employees.create!(:user_id=>user.id, :commercial=>false, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :first_name=>user.first_name, :last_name=>user.last_name, :title=>tc('default.admin'))
     end
-    
-    taxes = []
-    taxes = {:name=>tc('default.tva000'),  :nature=>'percent', :amount=>0.00}, {:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021}, {:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055}, {:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196} 
-    taxes.each do |tax|
-      self.taxes.create!(:name=>tax[:name], :nature=>tax[:nature], :amount=>tax[:amount], :account_collected_id=>self.account(tax[:amount],tax[:name],true), :account_paid_id=>self.account(tax[:amount], tax[:name],false) )
-    end
-    
-    self.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
-    self.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
-    self.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
-    undefined_nature = self.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false)
-    category = self.entity_categories.create!(:name=>'user')
-    firm = self.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>self.name)
-    self.entity_id = firm.id
-    self.save
-    self.entity.contacts.create!(:company_id=>self.id, :line_2=>"XXXXXXXXXXXXXXXXXXX", :line_3=>"XXXXXXXXXXXXXXXXXXXX", :line_5=>"XXXXXXXXXXXXXXXXXXXX", :line_6=>'0000 XXXX', :default=>true)
-    
-    # loading of all the templates
-    load_prints
-    
-    self.payment_modes.create!(:name=>tc('default.check'), :company_id=>self.id)
-    delays = []
-    ['expiration', 'standard', 'immediate'].each do |d|
-      delays << self.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
-    end
-    self.entity_categories.create!(:name=>tc('default.category'))
-    self.financialyears.create!(:started_on=>Date.today)
-    self.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
-
-    self.set_parameter('accountancy.default_journals.sales', self.journals.create!(:name=>tc('default.journals.sales'), :nature=>"sale", :currency_id=>currency.id))
-    self.set_parameter('accountancy.default_journals.purchases', self.journals.create!(:name=>tc('default.journals.purchases'), :nature=>"purchase", :currency_id=>currency.id))
-    self.set_parameter('accountancy.default_journals.bank', self.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
-    self.set_parameter('management.invoicing.numeration', self.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
-    self.set_parameter('relations.entities.numeration', self.sequences.create!(:name=>tc('default.entities_numeration'), :format=>'[number|8]', :period=>'number'))
-    self.set_parameter('management.embankments.numeration', self.sequences.create!(:name=>tc('default.embankment_numeration'), :format=>'[number|4]', :period=>'year'))
-    self.set_parameter('management.subscriptions.numeration', self.sequences.create!(:name=>tc('default.subscription_numeration'), :format=>'[number|6]', :period=>'number'))
-    
-    self.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>self.accounts.find(:first, :conditions=>["number ILIKE ?", '3%' ], :order=>:number).id)
-    self.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))
+    return user, company
   end
   
+
+
   def account(tax_amount, tax_name, collected)
     if collected
       if tax_amount == 0.0210

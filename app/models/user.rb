@@ -198,7 +198,7 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+   
   
   User.initialize_rights
 end
