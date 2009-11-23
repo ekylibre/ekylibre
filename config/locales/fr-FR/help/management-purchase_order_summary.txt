@@ -3,6 +3,6 @@ h1. Les règlements
 
 Vous avez accès à un *récapitulatif* des *paiements* relatifs à l'achat ainsi que des *produits* associés à cet achat.
 
-Vous *ne pouvez plus ajouter, modifier ou supprimer des produits à votre achat à partir du moment ou celui-ci est entièrement réglé ou que la réception a été confirmée* (achats en attente).
+Vous *ne pouvez plus ajouter, modifier ou supprimer des produits à votre achat à partir du moment ou celui-ci est entièrement réglé ou que la réception a été confirmée (Achats en attente, Tableau de bord).*
 
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>

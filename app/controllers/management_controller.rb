@@ -942,7 +942,7 @@ class ManagementController < ApplicationController
     @price = find_and_check(:price, @purchase_order_line.price_id)
     if request.post?
       params[:purchase_order_line][:company_id] = @current_company.id
-      if @purchase_order_line.update_attributes!(params[:purchase_order_line])  
+      if @purchase_order_line.update_attributes(params[:purchase_order_line])  
         @update = false
         redirect_to :action=>:purchase_order_lines, :id=>@purchase_order_line.order_id  
       end
@@ -964,8 +964,7 @@ class ManagementController < ApplicationController
 
   def self.sale_orders_conditions
     code = ""
-    code = search_conditions(:sale_order, :sale_orders=>[:amount, :number], :entities=>[:code, :full_name])+"||=[]\n"
-    #code += "conditions = ['company_id = ? ', @current_company.id ] \n "
+    code = search_conditions(:sale_order, :sale_orders=>[:amount, :amount_with_taxes, :number], :entities=>[:code, :full_name])+"||=[]\n"
     code += "unless session[:sale_order_state].blank? \n "
     code += "  if session[:sale_order_state] == 'current' \n "
     code += "    c[0] += \" AND state != 'C' \" \n " 
@@ -1543,7 +1542,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:sale_order_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
-    t.column :number, :children=>:designation
+    t.column :number, :children=>:designation, :url=>{:action=>:invoice}
     # t.column :address, :through=>:contact, :children=>:product_name
     t.column :full_name, :through=>:client, :children=>false, :url=>{:controller=>:relations, :action=>:entity}
     t.column :created_on, :children=>false

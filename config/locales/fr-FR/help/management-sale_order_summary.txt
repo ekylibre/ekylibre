@@ -6,6 +6,6 @@ Vous avez accès à un récapitulatif des paiements relatifs à la vente. Vous p
 * *Supprimer* un paiement : {{buttons/delete.png|supprimer}}
 
  
-Le tableau "État de la vente" récapitule les différents règlements et factures relatifs à la vente et le montant total de ceux-ci.
+Le tableau "État de la vente" récapitule les informations financières liées à la vente.
 
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>

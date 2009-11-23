@@ -128,10 +128,10 @@ class ProductionController < ApplicationController
     render_form
   end
 
-  def test_svg()
-    response.headers['Content-type'] = 'text/xml; charset=utf-8'
-    @path = "310 200"
-  end
+  # def test_svg()
+   # response.headers['Content-type'] = 'text/xml; charset=utf-8'
+   # @path = "310 200"
+  # end
 
   
   dyta(:shapes, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
@@ -165,7 +165,6 @@ class ProductionController < ApplicationController
 
   manage :shapes
   
-
   dyta(:shape_operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>" planned_on desc, name asc") do |t|
     t.column :name, :url=>{:action=>:shape_operation}
     t.column :name, :through=>:nature

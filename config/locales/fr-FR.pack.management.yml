@@ -605,7 +605,7 @@ fr-FR:
         accountancy: 'Comptabilité'
         description: 'Description générale'
         localization: 'Localisation géographique'
-        reservoir_informations: 'Informations sur la cuve'
+        reservoir_informations: 'Informations sur le réservoir'
       stock_location_update:
         title: 'Modification d''un lieu de stockage'
       stock_move_create:

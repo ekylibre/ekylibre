@@ -10,7 +10,7 @@ h2. Comment gérer ses achats et ses ventes ?
 * Vous avez également la possibilité de *rechercher des factures* et éventuellement de les *passer en avoir*, ainsi que de *créer des remises de chèques* afin d'imprimer un *bordereau de remise de chèques*.
 
 h2. Comment gérer ses stocks ?
-* La première étape consiste à enregistrer ses *lieux de stockage*. L'affichage d'un lieu de stockage permet d'enregistrer des *mouvements de stocks*.
+* La première étape consiste à enregistrer ses *lieux de stockage*. L'affichage d'un lieu de stockage permet de consulter des *mouvements de stocks*.
 * Les mouvements de stocks permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks permettant de connaître de façon constante, en cours d'exercice, les *existants chiffrés* en quantités et en valeur. Les mouvements de stocks sont *créés automatiquement* lors d'*achats*, de *ventes*, expéditions de *livraisons*, receptions de *commandes*.
 * Vous avez également la possibilité de paramétrer des informations telles que les types de *délais*, de *vente* ou de *paiement*, ou les *catégories de produits*. Autant de paramètres qui vous permettent d'affiner et de *personnaliser* votre gestion commerciale.
 

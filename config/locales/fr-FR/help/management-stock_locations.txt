@@ -1,6 +1,8 @@
 h1. Comment gérer ses stocks ?
 
-Vous avez accès au récapitulatif de certaines informations concernant vos lieux de stockage. L'affichage <<management-stocks_locations_display|{{buttons/show.png|afficher}}>>  d'un lieu de stockage permet d'enregistrer des mouvements de stocks.Les *mouvements de stocks* permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks  permettant de connaître de façon constante, en cours d'exercice, les existants chiffrés en quantités et en valeur.
+Vous avez accès au récapitulatif de certaines informations concernant vos lieux de stockage. *Un réservoir est un lieu de stockage ne pouvant contenir qu'un seul produit à la fois* (ex: une cuve de carburant, de vin)
+
+L'affichage <<management-stocks_locations_display|{{buttons/show.png|afficher}}>>  d'un lieu de stockage/réservoir permet de consulter les mouvements de stocks.Les *mouvements de stocks* permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks  permettant de connaître de façon constante, en cours d'exercice, les existants chiffrés en quantités et en valeur.
 
 Vous pouvez également : 
 * ajouter un lieu de stockage 

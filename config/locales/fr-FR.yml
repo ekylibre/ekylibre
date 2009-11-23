@@ -499,6 +499,7 @@ fr-FR:
     print: Imprimer
     record_has_been_correctly_removed: 'L''enregistrement a été supprimé correctement.'
     record_has_not_been_removed: 'L''enregistrement n''a pu être supprimé.'
+    reflect: 'Refléter'
     search: Rechercher
     search_go: Lancer la recherche
     submit: Envoyer
