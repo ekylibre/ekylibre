@@ -123,8 +123,6 @@ class Entry < ActiveRecord::Base
     end
   end
 
-
-
   #this method returns the name of journal which the records are saved.
   def journal_name
     if self.record
@@ -151,7 +149,6 @@ class Entry < ActiveRecord::Base
       Entry.new
     end
   end
-
 
 end
 

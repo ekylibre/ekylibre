@@ -20,7 +20,7 @@
 	</set>
       </part>
       
-      <!-- Tableau des écritures du journal pour la période considérée -->
+      <!-- Array of entries of the journal for the matching period -->
       <table collection="entries" fixed="true">
 	<column label="Numéro" property="record/number" width="35mm" align="left"/>
 	<column label="Crée le" property="record/created_on" width="30mm"/>
@@ -30,7 +30,7 @@
 	<column label="Crédit" property="credit" width="20mm"/>
       </table>
       
-      <!-- Totaux -->
+      <!-- Sum -->
       <part height="10mm">
 	<set left="130mm" top="4mm">
 	  <text value="Totaux" top="6mm" left="10mm"/>

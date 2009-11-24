@@ -25,7 +25,7 @@ class Journal < ActiveRecord::Base
   
   has_many :bank_accounts
   has_many :records, :class_name=>"JournalRecord", :foreign_key=>:journal_id
-
+  has_many :entries, :through=>:records
   validates_presence_of :closed_on
 
   before_destroy :empty?
@@ -89,34 +89,6 @@ class Journal < ActiveRecord::Base
     #end
   end
   
-  # this method displays all the records matching to a given period.
-  def self.records(company, from, to, id=nil)
-    records = []
-    if id.nil?
-      journals = Journal.find(:all, :conditions => {:company_id => company} )
-    else
-      journal = Journal.find(id)
-    end
-   
-    if journals
-      journals.each do |j|
-        records << j.records.find(:all, :conditions => ["created_on BETWEEN ? AND ?", from, to])
-      end
-      
-      records.flatten!
-    end
-   
-    if journal
-      records = journal.records.find(:all, :conditions => ["created_on BETWEEN ? AND ?", from, to])
-    end
-   
-    entries = []
-    records.each do |record|
-      entries << record.entries
-     end
-    entries.flatten
-  end
-
   # this method searches the last records according to a number.  
   def last_records(period, number_record=:all)
     period.records.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_record)

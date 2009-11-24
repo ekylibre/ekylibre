@@ -627,11 +627,7 @@ class Company < ActiveRecord::Base
     return true
   end
 
-
-
-
-
-
+  #
   def print(object, options={})
     unless object.class.ancestors.include?(ActiveRecord::Base)
       raise Exception.new("The parameter object must be an ActiveRecord::Base descendant object")
@@ -653,6 +649,14 @@ class Company < ActiveRecord::Base
     return DocumentTemplate.error_document("Can't find any template to print") unless template
     # Printing
     # TODO: Cache printing method
+   # raise Exception.new template.inspect+':'+options.size.to_s
+    #args=[]
+    #args << object
+    #if options
+    #  args << options 
+      #raise Exception.new 'v:'+args.inspect
+    #end
+    
     return template.print(object)
   end
 
@@ -785,5 +789,14 @@ class Company < ActiveRecord::Base
                             
  end
 
+  # this method displays all the records matching to a given period.
+  def records(from, to, id=nil)
+    conditions = ["r.created_on between ? and ?", from, to]
+    if id
+      conditions[0] += " and r.journal_id = ?"
+      conditions << id.to_s
+    end
+    return self.entries.find(:all, :conditions=>conditions, :joins=>"inner join journal_records r on r.id=entries.record_id")
+  end
 
 end

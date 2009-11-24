@@ -1551,8 +1551,7 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :type=>:invoice}
   end
-  
-  
+    
   
   dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}, :order=>"created_at DESC") do |t|
     t.column :number, :url=>{:action=>:embankment}

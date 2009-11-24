@@ -149,8 +149,8 @@ fr-FR:
       document_prepare:
         balance: 'Balance'
         general_ledger: 'Grand livre'
-        journal: 'Journal général'
-        journal_by_id: 'Journal'
+        journals: 'Journal général'
+        journal: 'Journal'
         synthesis: 'Documents de synthèse'
         title: 'Choisissez le type de document à imprimer'
       document_print:

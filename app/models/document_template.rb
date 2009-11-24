@@ -53,7 +53,6 @@ class DocumentTemplate < ActiveRecord::Base
     #end
     self.default = true if self.company.document_templates.find_all_by_nature(self.nature).size == 0
   
-
     DocumentTemplate.update_all({:default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id||0, self.nature]) if self.default and self.nature != 'other'
   end
 
@@ -96,15 +95,15 @@ class DocumentTemplate < ActiveRecord::Base
       pdf = document.data rescue nil
       return pdf if pdf
     end
-
+    
     # Build the PDF data
     pdf = eval(self.cache)
+  
     #raise Exception.new "ok klxssssss,kl,541514"+pdf.inspect
     # Archive the document if necessary
     if self.to_archive
       document = self.archive(object, pdf, :extension=>'pdf')
     end
-    
     return pdf, self.compute_filename(object)+".pdf"
   end
 
@@ -205,6 +204,7 @@ class DocumentTemplate < ActiveRecord::Base
   def self.compile(source, mode=:normal)
     xml = XML::Parser.io(StringIO.new(source.to_s)).parse
     template = xml.root
+    puts 'XML:'+template.inspect
     code = ''
     i = 0
     unless mode == :debug
@@ -222,8 +222,8 @@ class DocumentTemplate < ActiveRecord::Base
     code << "doc = Ibeh.document(Hebi::Document.new, self) do |_document_|\n"
     code << compile_children(document, '_document_', mode)
     code << "end\n"
-    code << "doc.generate"
-
+    code << "x = doc.generate\n"
+  
 #    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     # return '('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
     return '('+code+')'
@@ -330,8 +330,6 @@ class DocumentTemplate < ActiveRecord::Base
     end
 
 
-
-
     def parameters(element, variable, mode)
       name = element.name.to_sym
       attributes, parameters = {}, []
@@ -371,9 +369,10 @@ class DocumentTemplate < ActiveRecord::Base
       else
         nvar = '_r'+depth.to_s+'_'
         children = compile_children(element, nvar, mode, depth+1)
-        code = "#{variable}.#{name}(#{params})"
+        code += "#{variable}.#{name}(#{params})"
         code += " do |#{nvar}|\n"+children+"end" unless children.blank?
       end
+
       # Encapsulation si condition
       code = "if #{element.attributes['if'].gsub(/\//,'.')}\n#{code.gsub(/^/,'  ')}\nend" if element.attributes['if']
       code += "\n"

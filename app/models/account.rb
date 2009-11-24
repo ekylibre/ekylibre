@@ -153,7 +153,7 @@ class Account < ActiveRecord::Base
           
       balance << compute
     end
-   #raise Exception.new("solde2: "+solde.to_s)
+  
     balance.each do |account| 
        if account[:number].to_s.match /^12/
          account[:debit] = 0

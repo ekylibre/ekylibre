@@ -153,24 +153,22 @@ class AccountancyController < ApplicationController
     if request.post? or request.xhr?
       
       #all the invoices are accountized.
-      @invoices = @current_company.invoices.find(:all, :conditions=>["accounted = ? and amount != 0 AND CAST(created_on AS DATE) BETWEEN \'2007-01-01\' AND ?", false, session[:limit_period].to_s], :limit=>5)
-
-      @invoices.each do |invoice|
-        invoice.to_accountancy
-      end
+       @invoices = @current_company.invoices.find(:all, :conditions=>["accounted = ? and amount != 0 AND CAST(created_on AS DATE) BETWEEN \'2007-01-01\' AND ?", false, session[:limit_period].to_s], :limit=>5)
+       @invoices.each do |invoice|
+         invoice.to_accountancy
+       end
       
-      # all the purchase_orders are accountized.
-      @purchase_orders = @current_company.purchase_orders.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false], :order=>"created_on DESC")                                                         
+       # all the purchase_orders are accountized.
+       @purchase_orders = @current_company.purchase_orders.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false], :order=>"created_on DESC")                                                         
+       @purchase_orders.each do |purchase_order|
+         purchase_order.to_accountancy
+       end
       
-      @purchase_orders.each do |purchase_order|
-        purchase_order.to_accountancy
-      end
-      
-     # all the transfers are accountized.
-      @transfers = @current_company.transfers.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false],:order=>"created_on DESC")
-      @transfers.each do |transfer|
-        transfer.to_accountancy
-      end
+#      # all the transfers are accountized.
+       @transfers = @current_company.transfers.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false],:order=>"created_on DESC")
+       @transfers.each do |transfer|
+         transfer.to_accountancy
+       end
       
       
       # all the payments are comptabilized if they have been embanked or not.  
@@ -278,8 +276,8 @@ class AccountancyController < ApplicationController
   
   PRINTS=[[:balance, {:partial=>"balance"}],
           [:general_ledger, {:partial=>"ledger"}],
-          [:journal_by_id, {:partial=>"journal"}],
-          [:journal, {:partial=>"journals"}],
+          [:journal, {:partial=>"journal"}],
+          [:journals, {:partial=>"journals"}],
           [:synthesis, {:partial=>"synthesis"}]]
 
   # this method prepares the print of document.
@@ -316,10 +314,10 @@ class AccountancyController < ApplicationController
       end
        
       sum = {:debit=> 0, :credit=> 0, :balance=> 0}
+          
+      if session[:mode] == "journals"
+        entries = @current_company.records(params[:printed][:from], params[:printed][:to])
       
-      if session[:mode] == "journal"
-        entries = Journal.records(@current_company.id,  params[:printed][:from],  params[:printed][:to])
-
         if entries.size > 0
           entries.each do |entry|
             sum[:debit] += entry.debit
@@ -328,22 +326,22 @@ class AccountancyController < ApplicationController
           sum[:balance] = sum[:debit] - sum[:credit]
         end
         
-        journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Journaux"})
+        journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Journal général"})
         if journal_template.nil?
           flash[:message]=tc('messages.no_template_journal')
           redirect_to :action=>:document_print
           return
         end
         
-        pdf = journal_template.print(@current_company,  params[:printed][:from],  params[:printed][:to], entries, sum)
-        
+        pdf, filename = journal_template.print(@current_company, params[:printed][:from],  params[:printed][:to], entries, sum)
         send_data pdf, :type=>:pdf
       end
       
-      if session[:mode] == "journal_by_id"
+      if session[:mode] == "journal"
         journal = Journal.find_by_id_and_company_id(params[:printed][:name], @current_company.id)
         id = @current_company.journals.find(:first, :conditions => {:name => journal.name }).id
-        entries = Journal.records(@current_company.id,  params[:printed][:from],  params[:printed][:to], id)
+        entries = @current_company.records(params[:printed][:from], params[:printed][:to], id)
+    
         if entries.size > 0
           entries.each do |entry|
             sum[:debit] += entry.debit
@@ -351,19 +349,17 @@ class AccountancyController < ApplicationController
           end
           sum[:balance] = sum[:debit] - sum[:credit]
         end
-
-        journal_template = @current_company.document_templates.find(:first, :conditions =>["name=?", 'Journal'])
-        raise Exception.new journal_template.to_s
+       
+        journal_template = @current_company.document_templates.find(:first, :conditions=>["name like ?", '%Journal auxiliaire%'])
         if journal_template.nil?
           flash[:message]=tc('messages.no_template_journal_by_id', :value=>journal.name)
           redirect_to :action=>:document_print
           return
         end
-        
-        pdf = journal_template.print(journal,  params[:printed][:from],  params[:printed][:to], entries, sum)
-        
-        send_data pdf, :type=>:pdf
-        
+
+        pdf, filename = journal_template.print(journal, params[:printed][:from], params[:printed][:to], entries, sum)
+
+        send_data pdf, :type=>Mime::PDF, :filename=>filename
       end
       
       if session[:mode] == "balance"
@@ -375,7 +371,7 @@ class AccountancyController < ApplicationController
         end
         sum[:balance] = sum[:debit] - sum[:credit]
      
-        balance_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Balance comptabilité"})
+        balance_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Balance"})
         if balance_template.nil?
           flash[:message]=tc(:no_balance)
           redirect_to :action=>:balance
@@ -788,6 +784,7 @@ class AccountancyController < ApplicationController
     t.column :nature_label
     t.column :name, :through=>:currency
     t.column :closed_on
+    t.action :print, :url=>{:controller=>:company, :type=>:journal}
     t.action :journal_close, :if => 'RECORD.closable?(Date.today)'
     t.action :journal_update
     t.action :journal_delete, :method=>:post, :confirm=>:are_you_sure
