@@ -133,7 +133,6 @@ class Company < ActiveRecord::Base
 
     ActiveRecord::Base.transaction do
       @saved = company.save
-      #raise Exception.new company.admin_role.inspect
       if @saved
         company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
         company.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')

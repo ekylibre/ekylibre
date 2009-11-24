@@ -3,19 +3,20 @@
 =formalize do |f|
   -f.error :delivery
   -f.title :infos
-  -f.field :delivery, :contact_id, :choices=>@contacts.collect{|x| [x.address, x.id]}, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@sale_order.client_id} 
+  -#f.field :delivery, :contact_id, :choices=>@contacts.collect{|x| [x.address, x.id]}, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@sale_order.client_id} 
+  -f.field :delivery, :contact_id, :choices=>:delivery_contacts, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@sale_order.client_id} 
   -f.field :delivery, :mode_id, :choices=>@current_company.delivery_modes.collect{|x| [x.name, x.id]}, :new=>{:action=>:delivery_mode_create}
   -f.field :delivery, :planned_on
   -f.field :delivery, :transporter_id, :choices=>@current_company.entities.find_all_by_active_and_transporter(true,true).collect{|t| [t.full_name,t.id]}, :options=>{:include_blank=>"--Aucun--"}
 %table.dyta 
   %tr
-    %th Produit
-    %th PU HT
-    %th PU TTC
-    %th Unité
-    %th Quantité totale
-    %th Quantité restante
-    %th Quantité
+    %th=tc(:product)
+    %th=tc(:line_amount)
+    %th=tc(:line_amount_with_taxes)
+    %th=tc(:unit)
+    %th=tc(:total_quantity)
+    %th=tc(:quantity_rest)
+    %th=tc(:quantity)
   -for @line in @delivery_lines
     %tr{:class=>cycle('odd','even')}
       %td=@line.order_line.label

@@ -1425,7 +1425,10 @@ class ManagementController < ApplicationController
     @delivery.amount = @delivery.amount.round(2)
     @delivery.amount_with_taxes = @delivery.amount_with_taxes.round(2)
   end
-
+  
+  dyli(:delivery_contacts, ['entities.full_name', :address], :conditions => { :company_id=>['@current_company.id'], :active=>true},:joins=>"JOIN entities ON (entity_id=entities.id)", :model=>:contacts)
+  
+  
   def sale_order_delivery_create
     @delivery_form = "delivery_form"
     @sale_order = find_and_check(:sale_orders,session[:current_sale_order])
@@ -1439,10 +1442,9 @@ class ManagementController < ApplicationController
       redirect_to_back
     end
     @delivery_lines =  @sale_order_lines.find_all_by_reduction_origin_id(nil).collect{|x| DeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
-    @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :planned_on=>Date.today, :transporter_id=>@sale_order.transporter_id)
+    @delivery = Delivery.new(:amount=>@sale_order.undelivered("amount"), :amount_with_taxes=>@sale_order.undelivered("amount_with_taxes"), :planned_on=>Date.today, :transporter_id=>@sale_order.transporter_id, :contact_id=>@sale_order.delivery_contact_id||@sale_order.client.default_contact)
     session[:current_delivery] = @delivery.id
-    @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :active=>true, :entity_id=>@sale_order.client_id})
-    
+  
     if request.post?
       @delivery = Delivery.new(params[:delivery])
       @delivery.order_id = @sale_order.id
@@ -1453,11 +1455,11 @@ class ManagementController < ApplicationController
         if saved
           for line in @sale_order_lines.find_all_by_reduction_origin_id(nil)
             if params[:delivery_line][line.id.to_s][:quantity].to_f > 0
-            delivery_line = DeliveryLine.new(:order_line_id=>line.id, :delivery_id=>@delivery.id, :quantity=>params[:delivery_line][line.id.to_s][:quantity].to_f, :company_id=>@current_company.id)
-            saved = false unless delivery_line.save
-            delivery_line.errors.each_full do |msg|
-              @delivery.errors.add_to_base(msg)
-            end
+              delivery_line = DeliveryLine.new(:order_line_id=>line.id, :delivery_id=>@delivery.id, :quantity=>params[:delivery_line][line.id.to_s][:quantity].to_f, :company_id=>@current_company.id)
+              saved = false unless delivery_line.save
+              delivery_line.errors.each_full do |msg|
+                @delivery.errors.add_to_base(msg)
+              end
             end
           end
         end

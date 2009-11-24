@@ -463,6 +463,13 @@ fr-FR:
         amount: 'Total de la livraison HT'
         amount_with_taxes: 'Total de la livraison TTC'
         infos: 'Renseignez les caractéristiques de la livraison'
+        line_amount: 'PU HT'
+        line_amount_with_taxes: 'PU TTC' 
+        product: 'Produit'
+        quantity: 'Quantité'
+        quantity_rest: 'Quantité restante'
+        total_quantity: 'Quantité totale'
+        unit: 'Unité'
       sale_order_delivery_update:
         title: 'Modification de la livraison'
       _sale_order_form:

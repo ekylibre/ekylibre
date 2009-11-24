@@ -255,6 +255,7 @@ management       delivery_delete                  manage_orders
 management       sale_order_confirm               manage_orders
 management       sale_order_delete                manage_orders
 management       sale_order_deliveries            manage_orders
+management       delivery_contacts_dyli           manage_orders
 management       sale_order_delivery_create       manage_orders
 management       sale_order_delivery_update       manage_orders
 management       sale_order_invoice               manage_orders

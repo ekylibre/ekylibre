@@ -294,6 +294,7 @@ class RelationsController < ApplicationController
 
   dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
 
+
   #
   def entities
     session[:entity_key] = params[:key]||session[:entity_key]

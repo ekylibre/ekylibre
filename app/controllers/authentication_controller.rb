@@ -65,7 +65,6 @@ class AuthenticationController < ApplicationController
       #end
       #if saved
       @user, @company = Company.create_with_data(params[:company], params[:user])
-      #raise Exception.new @company.inspect
       if @user.id and @company.id
         Company.load_demo_data("fr-FR", @company) if params[:demo]
         init_session(@user)
