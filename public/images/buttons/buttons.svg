@@ -4477,7 +4477,7 @@
        x2="192.125"
        y2="-35.84375"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.9448819,0,0,0.9486166,9.9645669,-1.4683794)" />
+       gradientTransform="matrix(0.9448819,0,0,0.9486166,-6.0354331,-1.4683794)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3987"
@@ -4487,7 +4487,7 @@
        x2="190"
        y2="-24"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1,0,0,1.2,0,6.8)" />
+       gradientTransform="matrix(1,0,0,1.2,-16,6.8)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3995"
@@ -4497,7 +4497,7 @@
        x2="183.53384"
        y2="-29.704102"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.0105263,0,0,1.007874,-1.9368421,2.0629921)"
+       gradientTransform="matrix(1.0105263,0,0,1.007874,-17.936842,2.0629921)"
        spreadMethod="reflect" />
     <filter
        inkscape:collect="always"
@@ -4520,8 +4520,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="205.40147"
-     inkscape:cy="66.809432"
+     inkscape:cx="192.85477"
+     inkscape:cy="54.560547"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -6318,7 +6318,7 @@
        id="rect3975"
        width="15"
        height="15"
-       x="176.5"
+       x="160.5"
        y="-35.5"
        inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/image.png"
        inkscape:export-xdpi="90"
@@ -6328,22 +6328,68 @@
        id="rect3191"
        width="12"
        height="12"
-       x="178"
+       x="162"
        y="-34" />
     <path
        sodipodi:type="arc"
-       style="opacity:1;fill:#fad600;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.85624999999999984;filter:url(#filter4013)"
+       style="opacity:1;fill:#fad600;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.85625;filter:url(#filter4013)"
        id="path4003"
        sodipodi:cx="187.6875"
        sodipodi:cy="-27.625"
        sodipodi:rx="1.75"
        sodipodi:ry="1.8125"
        d="M 189.4375,-27.625 A 1.75,1.8125 0 1 1 185.9375,-27.625 A 1.75,1.8125 0 1 1 189.4375,-27.625 z"
-       transform="translate(-0.75,-3.375)" />
+       transform="translate(-16.75,-3.375)" />
     <path
        style="fill:url(#linearGradient4001);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 178,-22 L 178,-28.535433 C 178,-28.535433 179.6536,-30.092758 181.03158,-30 C 184.69463,-29.753425 187,-25.051417 190,-25.448819 L 190,-22 L 178,-22 z"
+       d="M 162,-22 L 162,-28.535433 C 162,-28.535433 163.6536,-30.092758 165.03158,-30 C 168.69463,-29.753425 171,-25.051417 174,-25.448819 L 174,-22 L 162,-22 z"
        id="path3985"
        sodipodi:nodetypes="ccsccc" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 164.59961,-81.810547 L 172,-81.810547 L 172,-80.814453 L 168.89454,-80.814453 L 168.89454,-73.0625 L 167.70508,-73.0625 L 167.70508,-80.814453 L 164.59961,-80.814453 L 164.59961,-81.810547"
+       id="text3209" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#c82116;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 176,-36.000002 L 184,-36.000002 L 184,-34.178165 L 180.64293,-34.178165 L 180.64293,-20.000002 L 179.35709,-20.000002 L 179.35709,-34.178165 L 176,-34.178165 L 176,-36.000002"
+       id="path3214"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/h1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#1d2d7e;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 185.22835,-21.821837 L 187.82677,-21.821837 L 187.82677,-34.028131 L 185,-33.256531 L 185,-35.228399 L 187.81103,-36 L 189.40158,-36 L 189.40158,-21.821837 L 192,-21.821837 L 192,-20.000001 L 185.22835,-20.000001 L 185.22835,-21.821837"
+       id="path3216"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/h1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#1d2d7e;fill-opacity:1;stroke:none;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 202.79429,-21.789473 L 208,-21.789473 L 208,-20 L 201,-20 L 201,-21.789473 C 201.5661,-22.624558 202.33649,-23.743855 203.31117,-25.147367 C 204.29078,-26.557888 204.90611,-27.466659 205.15717,-27.873683 C 205.63467,-28.638587 205.96695,-29.284202 206.154,-29.810526 C 206.34599,-30.343849 206.44198,-30.866654 206.44199,-31.378946 C 206.44198,-32.214021 206.23523,-32.894722 205.82173,-33.421051 C 205.41314,-33.947354 204.87904,-34.21051 204.2194,-34.210525 C 203.75176,-34.21051 203.25703,-34.094721 202.73523,-33.863156 C 202.21835,-33.631564 201.66455,-33.280688 201.07383,-32.810524 L 201.07383,-34.957893 C 201.67439,-35.301739 202.23558,-35.561387 202.75738,-35.736842 C 203.27918,-35.912263 203.75667,-35.999983 204.18987,-35.999999 C 205.33192,-35.999983 206.24262,-35.592965 206.92194,-34.778945 C 207.60125,-33.964898 207.94092,-32.87718 207.94093,-31.515788 C 207.94092,-30.870164 207.85477,-30.256131 207.6825,-29.673684 C 207.51512,-29.098236 207.20744,-28.417534 206.75949,-27.631579 C 206.63643,-27.428061 206.24507,-26.838589 205.58545,-25.863157 C 204.92581,-24.894732 203.99543,-23.536838 202.79429,-21.789473"
+       id="path4008"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/h2.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#1d2d7e;fill-opacity:1;stroke:none;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 221.8067,-28.614589 C 222.49506,-28.401111 223.03151,-27.956954 223.41607,-27.282118 C 223.80534,-26.607267 223.99997,-25.774043 224,-24.78244 C 223.99997,-23.260596 223.63918,-22.083062 222.91758,-21.249838 C 222.19598,-20.416612 221.17056,-20 219.84129,-20 C 219.39504,-20 218.93456,-20.065419 218.45981,-20.196255 C 217.98982,-20.320207 217.50323,-20.509576 217,-20.764365 L 217,-22.778566 C 217.39878,-22.441143 217.83553,-22.186353 218.31028,-22.014201 C 218.785,-21.842047 219.2811,-21.755969 219.79857,-21.755972 C 220.70057,-21.755969 221.38655,-22.0142 221.85656,-22.530664 C 222.33128,-23.047124 222.56866,-23.797715 222.56866,-24.78244 C 222.56866,-25.691408 222.3479,-26.400682 221.9064,-26.910264 C 221.46963,-27.42672 220.85962,-27.68495 220.07628,-27.684957 L 218.83722,-27.684957 L 218.83722,-29.399611 L 220.13326,-29.399611 C 220.8406,-29.399603 221.38181,-29.602743 221.75686,-30.009036 C 222.13188,-30.422198 222.31941,-31.014407 222.31942,-31.785667 C 222.31941,-32.577564 222.12478,-33.183545 221.7355,-33.603614 C 221.35095,-34.030544 220.79789,-34.244013 220.07628,-34.244027 C 219.68226,-34.244013 219.25973,-34.182037 218.80875,-34.058101 C 218.35775,-33.934137 217.86165,-33.741324 217.32044,-33.479662 L 217.32044,-35.338928 C 217.86639,-35.559268 218.37674,-35.724537 218.85147,-35.834731 C 219.33096,-35.944895 219.78196,-35.999984 220.20447,-35.999999 C 221.29635,-35.999984 222.16037,-35.63846 222.79653,-34.915428 C 223.43267,-34.199253 223.75073,-33.228305 223.75075,-32.002582 C 223.75073,-31.148686 223.5822,-30.425641 223.24515,-29.833439 C 222.90809,-29.248108 222.42861,-28.841823 221.8067,-28.614589"
+       id="path4010"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/h3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#c82116;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 192,-36 L 200,-36 L 200,-34.178163 L 196.64293,-34.178163 L 196.64293,-20.000001 L 195.35709,-20.000001 L 195.35709,-34.178163 L 192,-34.178163 L 192,-36"
+       id="path4012"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/h2.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#c82116;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 208,-36 L 216,-36 L 216,-34.178163 L 212.64293,-34.178163 L 212.64293,-20.000001 L 211.35709,-20.000001 L 211.35709,-34.178163 L 208,-34.178163 L 208,-36"
+       id="path4014"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/h3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

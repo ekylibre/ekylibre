@@ -165,7 +165,7 @@ module Ekylibre
             code += "  end\n"
             code += "end\n"
             
-            list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+            # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
 
             module_eval(code)
 
@@ -277,7 +277,7 @@ module Ekylibre
                     elsif column.options[:mode] == :download# and !datum.nil?
                       datum = "("+datum+".blank? ? '' : link_to("+value_image(:download)+", url_for_file_column("+record+",'#{column.name}')))"
                       style += 'text-align:center;'
-                      css_class += ' act'
+                      # css_class += ' act'
                     elsif column.options[:mode]||column.name == :email
                       # datum = 'link_to('+datum+', "mailto:#{'+datum+'}")'
                       datum = "("+datum+".blank? ? '' : link_to("+datum+", \"mailto:\#\{"+datum+"\}\"))"
@@ -594,6 +594,7 @@ module Ekylibre
           format = @options[:format] ? ", :format=>'#{@options[:format]}'" : ""
           if @options[:remote] 
             remote_options = @options.dup
+            remote_options[:confirm] = ::I18n.translate('general.'+@options[:confirm].to_s) unless @options[:confirm].nil?
             remote_options.delete :remote
             remote_options.delete :image
             remote_options = remote_options.inspect.to_s
