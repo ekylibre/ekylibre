@@ -334,7 +334,7 @@ class AccountancyController < ApplicationController
         end
         
         pdf, filename = journal_template.print(@current_company, params[:printed][:from],  params[:printed][:to], entries, sum)
-        send_data pdf, :type=>:pdf
+        send_data pdf, :type=>Mime::PDF, :filename=>filename
       end
       
       if session[:mode] == "journal"
@@ -365,6 +365,9 @@ class AccountancyController < ApplicationController
       if session[:mode] == "balance"
         accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
         accounts_balance.delete_if {|account| account[:credit].zero? and account[:debit].zero?}
+        
+        #raise Exception.new accounts_balance.inspect
+
         for account in accounts_balance
           sum[:debit] += account[:debit]
           sum[:credit] += account[:credit]
@@ -377,12 +380,15 @@ class AccountancyController < ApplicationController
           redirect_to :action=>:balance
           return
         end
+       
+        pdf, filename = balance_template.print(@current_company, accounts_balance,  params[:printed][:from],  params[:printed][:to], sum)
         
-        pdf = balance_template.print(@current_company, accounts_balance,  params[:printed][:from],  params[:printed][:to], sum)
         File.open('tmp/balance.pdf', 'wb') do |f|
           f.write(pdf)
         end
-      
+        
+        send_data pdf, :type=>Mime::PDF, :filename=>filename
+     
       end
 
       if session[:mode] == "synthesis"
@@ -420,14 +426,13 @@ class AccountancyController < ApplicationController
       end
       
       if session[:mode] == "general_ledger"
-       #  ledger = Account.ledger(@current_company.id, params[:printed][:from], params[:printed][:to])
+        ledger = Account.ledger(@current_company.id, params[:printed][:from], params[:printed][:to])
        
-#         ledger_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Grand livre comptabilité"})
-#         pdf = ledger_template.print(@current_company, ledger,  params[:printed][:from],  params[:printed][:to], sum)
-#         File.open('tmp/ledger.pdf', 'wb') do |f|
-#           f.write(pdf)
-#         end
-           
+        raise Exception.new ledger.inspect
+        ledger_template = @current_company.document_templates.find(:first, :conditions=>{:name=>"Grand livre"})
+        
+        pdf = ledger_template.print(@current_company, ledger,  params[:printed][:from],  params[:printed][:to])
+        
       end
       
     end

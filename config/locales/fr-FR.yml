@@ -167,6 +167,7 @@ fr-FR:
           journals: Journaux
           sale_order: Vente
         document_templates:
+          
           embankment: 'Remise de chèques'
           entity: 'Fiche relation'
           inventory: 'Inventaire'
@@ -266,8 +267,10 @@ fr-FR:
       invalid_filename: 'Fichier'
       nature_do_not_allow_to_use_attributes : 'La nature du modèle ne permet pas d''utiliser d''attributs'
       natures:
+        balance: 'Balance'
         embankment: 'Remise de chèques'
         entity: 'Fiche relations'
+        ledger: 'Grand livre'
         inventory: 'Inventaire'
         invoice: 'Facture client'
         journal: 'Journal'

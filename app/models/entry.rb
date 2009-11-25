@@ -113,7 +113,6 @@ class Entry < ActiveRecord::Base
     mode
   end
   
-
   #
   def resource
     if self.record

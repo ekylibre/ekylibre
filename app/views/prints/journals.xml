@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <template title="Example" lang="fr" version="2.0">
+   <infos>
+    <info name="authors">Vincent Mauget</info>
+  </infos>
   <parameters>
     <parameter name="company" nature="company"/>
     <parameter name="started_on" nature="date"/>
@@ -16,7 +19,7 @@
       </part>
       <part height="10mm">
 	<set>
-	  <text value="Journaux pour la période du {{I18n.localize(started_on.to_date, :format=> :month_letter)}} au {{I18n.localize(stopped_on.to_date, :format=> :month_letter)}}" left="50%" align="center" bold="true"/>
+	  <text value="Journaux pour la période du {{started_on}} au {{stopped_on}}" left="50%" align="center" bold="true"/>
 	</set>
       </part>
       

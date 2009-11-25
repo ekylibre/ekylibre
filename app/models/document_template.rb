@@ -35,7 +35,7 @@ class DocumentTemplate < ActiveRecord::Base
 
   @@families = [:company, :relations, :accountancy, :management, :resources, :production]
 
-  @@document_natures = [:invoice, :sale_order, :purchase_order, :inventory, :transport, :embankment, :entity, :journal, :other] 
+  @@document_natures = [:balance, :invoice, :sale_order, :purchase_order, :inventory, :transport, :embankment, :entity, :journal, :ledger, :other] 
 
   include ActionView::Helpers::NumberHelper
 
@@ -98,8 +98,8 @@ class DocumentTemplate < ActiveRecord::Base
     
     # Build the PDF data
     pdf = eval(self.cache)
-  
-    #raise Exception.new "ok klxssssss,kl,541514"+pdf.inspect
+    puts pdf.to_s
+
     # Archive the document if necessary
     if self.to_archive
       document = self.archive(object, pdf, :extension=>'pdf')
@@ -217,7 +217,6 @@ class DocumentTemplate < ActiveRecord::Base
         end
       end
     end
-    
     document = template.find('document')[0]
     code << "doc = Ibeh.document(Hebi::Document.new, self) do |_document_|\n"
     code << compile_children(document, '_document_', mode)
@@ -228,7 +227,6 @@ class DocumentTemplate < ActiveRecord::Base
     # return '('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
     return '('+code+')'
   end
-
 
 
   private
@@ -370,7 +368,7 @@ class DocumentTemplate < ActiveRecord::Base
         nvar = '_r'+depth.to_s+'_'
         children = compile_children(element, nvar, mode, depth+1)
         code += "#{variable}.#{name}(#{params})"
-        code += " do |#{nvar}|\n"+children+"end" unless children.blank?
+        code += "do |#{nvar}|\n"+children+"end" unless children.blank?
       end
 
       # Encapsulation si condition

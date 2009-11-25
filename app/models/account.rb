@@ -40,6 +40,8 @@ class Account < ActiveRecord::Base
   acts_as_tree
   validates_format_of :number, :with=>/[0-9][0-9]?[0-9]?[0-9A-Z]*/
  
+  attr_accessor :sum_debit, :sum_credit
+
   # This method allows to create the parent accounts if it is necessary.
   def before_validation
     self.label = self.number.to_s+' - '+self.name.to_s
@@ -121,12 +123,12 @@ class Account < ActiveRecord::Base
     end  
     accounts = Account.find(:all, :conditions => conditions, :order => "number ASC")
     solde = 0
-    #raise Exception.new("solde2: "+accounts.inspect) 
+
     accounts.each do |account| 
       debit = account.entries.sum(:debit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
       credit = account.entries.sum(:credit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
       
-      compute={}
+      compute=HashWithIndifferentAccess.new
       compute[:id] = account.id.to_i
       compute[:number] = account.number.to_i
       compute[:name] = account.name.to_s
@@ -170,15 +172,15 @@ class Account < ActiveRecord::Base
     ledger = []
     accounts = Account.find(:all, :conditions => {:company_id => company})
     accounts.each do |account|
-      compute={}
+      compute=HashWithIndifferentAccess.new
       compute[:number] = account.number.to_i
       compute[:name] = account.name.to_s
-      entries = account.entries.find(:all, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id")
+      entries = account.entries.find(:all, :conditions=>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins=>"INNER JOIN journal_records r ON r.id=entries.record_id")
       compute[:entries] = []
-
+      
       if entries.size > 0
         entries.each do |e|
-          entry ={}
+          entry =HashWithIndifferentAccess.new
           entry[:date] = e.record.created_on
           entry[:name] = e.name.to_s
           entry[:number_record] = e.record.number
@@ -188,8 +190,10 @@ class Account < ActiveRecord::Base
           compute[:entries] << entry
         end
       end
+      
       ledger << compute
     end
+
     ledger.compact
   end
 
