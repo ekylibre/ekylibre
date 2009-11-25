@@ -2,6 +2,10 @@ h1. Liste des séquences
 
 Les séquences permettent de *préciser le format des numéros apparaissant sur les pièces justificatives* reçues ou produites par la société. Ce format pourra être une année, un mois ou une semaine suivant la périodicité choisie pour l'évolution de ce numéro.
 
+Le lien *Charger les séquences manquantes* vous permet de générer automatiquement les séquences que vous ne possédez pas ou plus et de les *associer au bon paramètre de configuration* de votre société.
+
+Vous ne pouvez pas supprimer une séquence à partir du moment ou celle-ci est utilisée
+
 NB: cela s'avérera *utile lors d'opérations de traçabilité de la société* telles que l'archivage et la classification de documents en comptabilité.
 
 

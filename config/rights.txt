@@ -103,6 +103,7 @@ company          welcome                          __minimum__
 company          backups                          backup_company
 company          configure                        configure_company
 company          sequence_create                  configure_company
+company          sequences_load                   configure_company
 company          sequence_delete                  configure_company
 company          sequence_update                  configure_company
 company          sequences_dyta                   configure_company

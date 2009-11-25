@@ -70,3 +70,4 @@ class Sequence < ActiveRecord::Base
   end
 
 end
+

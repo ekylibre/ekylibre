@@ -18,4 +18,5 @@ management.embankments.numeration,record,sequence
 management.subscriptions.numeration,record,sequence
 management.payments.numeration,record,sequence
 management.sale_orders.numeration,record,sequence
+management.purchase_orders.numeration,record,sequence
 relations.entities.numeration,record,sequence

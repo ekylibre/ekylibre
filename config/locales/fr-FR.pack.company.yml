@@ -34,6 +34,7 @@ fr-FR:
         general: 'Paramètres généraux'
         management: 'Gestion commerciale'
         relations: 'Relations clients/fournisseurs'
+        sequences_load: 'Charger les séquences manquantes'
         title: 'Configuration de {{value}}'
       department_create:
         title: 'Ajout d''un nouveau service'
@@ -166,6 +167,7 @@ fr-FR:
         title: 'Modification de la séquence {{value}}'
       sequences:
         sequence_create: 'Ajouter une séquence'
+        sequences_load: 'Charger les séquences manquantes'
         title: 'Liste des séquences'
       user:
         change_password: 'Changer de mot de passe'

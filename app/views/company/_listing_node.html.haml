@@ -1,0 +1,12 @@
+-form_remote_tag(:url=>{:action=>:listing_node_create}, :update=>:listing_nodes, :position=>:bottom) do
+
+  -#for child in @listing_node.children
+    -#if children.nature == "" or ""
+      =#render :partial=>"listing_node"
+    -#else
+      =#children.name
+  %p=#@listing_node.name
+
+
+  =select(:listing_node, :name, @listing.root_model.classify.constantize.content_columns.collect{|x| x.name}.sort)
+  =submit_tag("Ajouter", :url=>{:action=>:listing_node_create}, :update=>:listing_nodes, :position=>:bottom)

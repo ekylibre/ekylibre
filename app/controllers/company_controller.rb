@@ -479,6 +479,23 @@ class CompanyController < ApplicationController
     t.action :sequence_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
+  def sequences_load
+    for parameter in @current_company.parameters.find(:all, :conditions=>["record_value_type = 'Sequence' AND record_value_id IS NULL"])
+      #raise Exception.new parameter.inspect
+      if parameter.name.include?("sale_orders")
+        seq = @current_company.sequences.create!(:format=>'[year][month][number|4]', :period=>'month', :name=>I18n::t('parameters.'+parameter.name) )
+      elsif parameter.name.include?("invoicing")
+        seq = @current_company.sequences.create!(:format=>'[year][number|5]', :period=>'year', :name=>I18n::t('parameters.'+parameter.name) )
+      else
+        seq = @current_company.sequences.create!(:format=>'[number|8]', :name=>I18n::t('parameters.'+parameter.name) )
+      end
+      puts seq.inspect
+      parameter.update_attributes!(:record_value_id=>seq.id)
+      puts parameter.inspect
+    end
+    redirect_to_back
+  end
+
   def sequences
   end
 
@@ -511,7 +528,6 @@ class CompanyController < ApplicationController
     end
     redirect_to_current
   end
-
 
   dyta(:listings, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name
@@ -588,7 +604,8 @@ class CompanyController < ApplicationController
     if request.post?
       @listing = Listing.new(params[:listing])
       @listing.company_id = @current_company.id
-      redirect_to_back if @listing.save
+      #redirect_to_back if @listing.save
+      redirect_to :action=>:listing_nodes, :id=>@listing.id if @listing.save
     else
       @listing = Listing.new
     end
@@ -624,21 +641,40 @@ class CompanyController < ApplicationController
   
   def listing_nodes
     @listing = find_and_check(:listing, params[:id])
+    session[:current_listing_id] = @listing.id
+    #raise Exception.new @listing.root_model.classify.constantize.content_columns.collect{|x| [x.name, x.id]}.inspect
     if @listing
       session[:current_listing_id] = @listing.id
     end
+    #render :partial=>"listing_nodes"
   end
 
+
+  def listing_node
+    #raise Exception.new params.inspect
+    render :partial=>"listing_node"
+  end
+
+
   def listing_node_create
+    #raise Exception.new params.inspect
+    @listing = find_and_check(:listing, session[:current_listing_id])
     if request.post?
+      #raise Exception.new params.inspect
       @listing_node = ListingNode.new(params[:listing_node])
       @listing_node.company_id = @current_company.id
       @listing_node.listing_id = session[:current_listing_id]
-      redirect_to_back if @listing_node.save
+
+      @listing_node.nature = "integer" ## temp
+      @listing_node.label= "--"
+
+      #redirect_to_back if @listing_node.save
+      @listing_node.save
     else
       @listing_node = ListingNode.new
     end
-    render_form
+    render :partial=>"listing_node"
+    #render_form
   end
   
   def listing_node_update
