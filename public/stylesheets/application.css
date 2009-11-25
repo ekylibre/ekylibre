@@ -314,3 +314,20 @@ input.dyli { background: #FFF url(../images/buttons/previous2.png) right center 
 .tabbox > .tabpanels {background: url(../images/template/columns.png) repeat-x scroll center top; border: 1px solid #95b0e4; padding:8px; }
 .tabbox > .tabpanels > .tabpanel { display: none; }
 .tabbox > .tabpanels > .tabpanel.current { display: block; }
+
+
+.branches { margin-left: 18px; border-left: 1px dotted #AAA; }
+.branch { clear: both;  }
+.branch .shift { height: 10px; width:10px; border-bottom: 1px dotted #AAA; float:left;}
+.branch .tools { float:right; padding: 1px 4px;}
+/*.branch .icon  { width: 16px; height:16px; background: url(../images/buttons/increment.png) no-repeat center left; float: left; margin: 2px 0 0;}*/
+.branch .item  { padding: 0 0 0 16px; background: url(../images/buttons/increment.png) no-repeat center left;  margin: 0 0 0 10px;   }
+.branch .item .content { border-bottom:1px dotted #79F; padding: 2px 4px; }
+.branch .item .attribute { color: #888; font-style: italic; }
+.branch.reflection .item { color: #008; background: url(../images/buttons/table.png) no-repeat center left; }
+.branch.column     .item { background: url(../images/buttons/complete.png) no-repeat center left; }
+/*
+.branch.reflection .icon { background: url(../images/buttons/table.png) no-repeat center left; }
+.branch.column     .icon { background: url(../images/buttons/complete.png) no-repeat center left; }
+*/
+.branch:hover { background-color: #DEF; }

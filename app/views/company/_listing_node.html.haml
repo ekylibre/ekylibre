@@ -1,12 +1,12 @@
--form_remote_tag(:url=>{:action=>:listing_node_create}, :update=>:listing_nodes, :position=>:bottom) do
+.branch{:class=>(listing_node.reflection? ? " reflection" : " column")}
+  .shift
+  .tools
+    -unless listing_node.root?
+      =link_to_remote("Supprimer", :url=>{:action=>:listing_node_delete, :id=>listing_node.id}, :update=>listing_node.parent.key)
+  .item
+    .content
+      %span{:onclick=>"toggleElement('#{listing_node.key}')"}=listing_node.label
+      %span.attribute=listing_node.name
 
-  -#for child in @listing_node.children
-    -#if children.nature == "" or ""
-      =#render :partial=>"listing_node"
-    -#else
-      =#children.name
-  %p=#@listing_node.name
-
-
-  =select(:listing_node, :name, @listing.root_model.classify.constantize.content_columns.collect{|x| x.name}.sort)
-  =submit_tag("Ajouter", :url=>{:action=>:listing_node_create}, :update=>:listing_nodes, :position=>:bottom)
+-if listing_node.reflection?
+  .branches{:id=>listing_node.key}=render(:partial=>"listing_reflection", :object=>listing_node)

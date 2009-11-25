@@ -385,3 +385,13 @@ function initTab() {
   //  addAutoTab($$('.day_field', '.month_field', '.hour_field', '.minute_field', '.second_field', '.year_field'));
 }
 
+function toggleElement(element) {
+  var dom;
+  dom = $(element);
+  if (dom.style.display == "none") {
+    dom.blindDown();
+  } else {
+    dom.blindUp();
+  }
+  return false;
+}

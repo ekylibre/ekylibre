@@ -41,7 +41,40 @@ class ListingNode < ActiveRecord::Base
     hash
   end
 
-  
+  def before_validation
+    self.listing_id = self.parent.listing_id if self.parent
+    self.company_id = self.listing.company_id if self.listing
+  end
 
+  def reflection?
+    ["belongs_to", "has_many", "root"].include? self.nature.to_s
+  end
+
+  def root?
+    self.parent_id.nil?
+  end
+
+  def key
+    "ln#{self.id}"
+  end
+
+  def model
+    if self.root?
+      self.listing.root_model
+    else
+      self.parent.model.reflections[self.reflection_name.to_sym].class_name
+    end.classify.constantize
+  end
+
+  def available_nodes
+    nodes = []
+    return nodes unless self.reflection?
+    model = self.model
+    # Columns
+    nodes += model.content_columns.collect{|x| "column-"+x.name}.sort
+    # Reflections
+    nodes += model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| b.macro.to_s+"-"+a.to_s}
+    return nodes.sort
+  end
   
 end

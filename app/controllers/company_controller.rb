@@ -657,24 +657,32 @@ class CompanyController < ApplicationController
 
 
   def listing_node_create
+    @listing_node = find_and_check(:listing_node, params[:parent_id])
+    render :text=>"[UnfoundListingNode]" unless @listing_node
+    desc = params[:nature].split("-")
+    ln = @listing_node.children.new(:nature=>desc[0], :name=>desc[1], :label=>t("activerecord.attributes.#{@listing_node.model.to_s.underscore}.#{desc[1]}"))
+    ln.reflection_name = desc[1] if ln.reflection?
+    ln.save!
+    # raise Exception.new(ln.inspect)
+    render(:partial=>"listing_reflection", :object=>@listing_node)
     #raise Exception.new params.inspect
-    @listing = find_and_check(:listing, session[:current_listing_id])
-    if request.post?
-      #raise Exception.new params.inspect
-      @listing_node = ListingNode.new(params[:listing_node])
-      @listing_node.company_id = @current_company.id
-      @listing_node.listing_id = session[:current_listing_id]
+#     # @listing = find_and_check(:listing, session[:current_listing_id])
+#     if request.post?
+#       #raise Exception.new params.inspect
+#       @listing_node = ListingNode.new(params[:listing_node])
+#       @listing_node.company_id = @current_company.id
+#       @listing_node.listing_id = session[:current_listing_id]
 
-      @listing_node.nature = "integer" ## temp
-      @listing_node.label= "--"
+#       @listing_node.nature = "integer" ## temp
+#       @listing_node.label= "--"
 
-      #redirect_to_back if @listing_node.save
-      @listing_node.save
-    else
-      @listing_node = ListingNode.new
-    end
-    render :partial=>"listing_node"
-    #render_form
+#       #redirect_to_back if @listing_node.save
+#       @listing_node.save
+#     else
+#       @listing_node = ListingNode.new
+#     end
+#     render :partial=>"listing_node"
+#     #render_form
   end
   
   def listing_node_update
@@ -689,11 +697,14 @@ class CompanyController < ApplicationController
   end
 
   def listing_node_delete
-    if request.post? or request.delete?
+    if request.xhr?
       @listing_node = find_and_check(:listing_node, params[:id])
-      ListingNode.destroy(@listing_node.id) if @listing_node
+      if @listing_node
+        parent = @listing_node.parent
+        ListingNode.destroy(@listing_node.id) 
+        render(:partial=>"listing_reflection", :object=>parent)
+      end
     end
-    redirect_to_back
   end
   
   def print
