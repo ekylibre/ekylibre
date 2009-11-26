@@ -664,6 +664,7 @@ class CompanyController < ApplicationController
     ln.reflection_name = desc[1] if ln.reflection?
     ln.save!
     # raise Exception.new(ln.inspect)
+    
     render(:partial=>"listing_reflection", :object=>@listing_node)
     #raise Exception.new params.inspect
 #     # @listing = find_and_check(:listing, session[:current_listing_id])

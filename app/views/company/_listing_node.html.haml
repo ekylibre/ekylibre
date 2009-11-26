@@ -7,6 +7,7 @@
     .content
       %span{:onclick=>"toggleElement('#{listing_node.key}')"}=listing_node.label
       %span.attribute=listing_node.name
+      =#puts listing_node.parent.model.inspect if listing_node.parent
 
 -if listing_node.reflection?
   .branches{:id=>listing_node.key}=render(:partial=>"listing_reflection", :object=>listing_node)

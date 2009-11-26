@@ -27,12 +27,66 @@ class Listing < ActiveRecord::Base
     ::I18n.t("activerecord.models."+self.root_model.underscore)
   end
 
+  def before_validation
+    #self.query == self.generate if self.id
+  end
+
   def after_create
-    # self.nodes.create!(:nature=>"string", :label=>"racine", :name=>self.root_model, :company_id=>self.company_id)
+    self.query = ""
   end
 
   def root
     self.nodes.find_by_parent_id(nil)||self.nodes.create!(:label=>self.root_model_name, :name=>self.root_model, :nature=>"root")
   end
+
+  def generate
+    root = self.root
+    self.query = "SELECT #{self.selected_attr} FROM #{root.model.table_name} AS #{root.key}"
+    self.query += root.complete_query(root.key)
+    self.query += self.conditions
+    #raise Exception.new "okkjj"+self.query.inspect
+    self.save
+  end
+
+  def selected_attr
+    #attrs = []
+    #for node in self.columns
+    #  attrs << "#{node.parent.key}.#{node.name} "
+    #end
+    #attrs = attrs.join(", ")
+    
+    attrs = []
+    for node in self.columns
+      name = I18n::t('activerecord.attributes.'+node.parent.name.singularize+'.'+node.name)
+     # raise Exception.new name.inspect
+      attrs << "#{node.parent.key}.#{node.name} AS \"#{name}\" "
+    end
+    attrs = attrs.join(", ")
+  end
+  
+  def conditions
+    if self.reflections.size > 0
+      c = "WHERE  "
+      cs = []
+      for node in self.reflections
+        if node.name == "company"
+          cs << "COALESCE(#{node.key}.id, CURRENT_COMPANY) = CURRENT_COMPANY" 
+        else
+          cs << "COALESCE(#{node.key}.company_id, CURRENT_COMPANY) = CURRENT_COMPANY"
+        end
+      end
+      c += cs.join(" AND ")
+      return c
+    end
+  end
+
+  def reflections
+    self.nodes.find(:all, :conditions=>["nature IN (?)", ["belongs_to", "has_many", "root"]])
+  end
+
+  def columns
+    self.nodes.find_all_by_nature("column")
+  end
+
 
 end
