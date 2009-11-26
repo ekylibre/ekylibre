@@ -28,7 +28,7 @@ class Listing < ActiveRecord::Base
   end
 
   def after_create
-    self.nodes.create!(:nature=>"string", :label=>"racine", :name=>self.root_model, :company_id=>self.company_id)
+    # self.nodes.create!(:nature=>"string", :label=>"racine", :name=>self.root_model, :company_id=>self.company_id)
   end
 
   def root
