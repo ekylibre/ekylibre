@@ -709,6 +709,7 @@ class CompanyController < ApplicationController
   end
   
   def print
+    headers['no-cache'] = ''
     #object = find_and_check(params[:type], params[:id])
     #raise Exception.new "in ! "+params.inspect+object.class.name.underscore.inspect+object.inspect
     #result, filename = @current_company.print(object, :nature=>params[:code])
