@@ -1,7 +1,7 @@
 h1. Les taxes
 
 * Vous avez accès au récapitulatif de toutes les taxes dont vous disposez.
-* Vous pouvez   ajouter <<accountancy-tax_create|{{buttons/create.png|ajouter}}>>, modifier <<accountancy-tax_update|{{buttons/update.png|modifier}}>>, ou supprimer {{buttons/delete.png|supprimer}} des taxes.
+* Vous pouvez ajouter <<accountancy-tax_create|{{buttons/create.png|ajouter}}>>, modifier <<accountancy-tax_update|{{buttons/update.png|modifier}}>>, ou supprimer <<accountancy-tax_delete|{{buttons/delete.png|supprimer}}>> des taxes.
 * Les taxes sont *utilisées au moment de définir vos tarifs*. 
 
 <<accountancy-index|Retour à l'aide sur la Comptabilité>>

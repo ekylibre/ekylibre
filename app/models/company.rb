@@ -796,7 +796,7 @@ class Company < ActiveRecord::Base
       conditions[0] += " and r.journal_id = ?"
       conditions << id.to_s
     end
-    return self.entries.find(:all, :conditions=>conditions, :joins=>"inner join journal_records r on r.id=entries.record_id")
+    return self.entries.find(:all, :conditions=>conditions, :joins=>"inner join journal_records r on r.id=entries.record_id", :order=>"r.number ASC")
   end
 
 end

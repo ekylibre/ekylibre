@@ -3,20 +3,20 @@
 - tangible_accounts = @balance.select {|account| account[:number].to_s.match /^(21|22|23)/}
 - financial_accounts = @balance.select {|account| account[:number].to_s.match /^(26|27)/}
 - inventory_accounts = @balance.select {|account| account[:number].to_s.match /^3/ and account[:balance] <= 0}
-- claim_accounts = @balance.select {|account| account[:number].to_s.match /^4/ and account[:balance] <= 0}
-- other_accounts = @balance.select {|account| account[:number].to_s.match /^5/ and account[:balance] <= 0}
+- claim_accounts = @balance.select {|account| account[:number].to_s.match /^4/ and account[:balance] > 0}
+- other_accounts = @balance.select {|account| account[:number].to_s.match /^5/ and account[:balance] > 0}
 - accrual_accounts = @balance.select {|account| account[:number].to_s.match /^486/ and account[:balance] <= 0}
 - capital_accounts = @balance.select {|account| account[:number].to_s.match /^1[^5]/}
 - stock_accounts = @balance.select {|account| account[:number].to_s.match /^15/}
-- debt_accounts = @balance.select {|account| account[:number].to_s.match /^4/ and account[:balance] >= 0}
+- debt_accounts = @balance.select {|account| account[:number].to_s.match /^4/ and account[:balance] < 0}
 - cost_accounts = @balance.select {|account| account[:number].to_s.match /^(6)/}
 - finished_accounts = @balance.select {|account| account[:number].to_s.match /^7/}
 
 %table.dyta
   %tr{:align=>'center'}
     %th{:colspan=>3}=tc :active_balance_sheet 
-    %th=tc :account_value 
-    %th=tc :account_value if session[:previous_financialyear]													
+    %th=tc(:account_value_current) 
+    %th=tc(:account_value_previous) if session[:previous_financialyear]													
   %tr 
     %th{:rowspan => untangible_accounts.size+tangible_accounts.size+financial_accounts.size+1}=tc :account_fixed_assets
     %th{:rowspan => untangible_accounts.size}=tc  :account_untangible_fixed_assets
@@ -78,9 +78,11 @@
     %td=claim_accounts.first[:name]
     %td=claim_accounts.first[:balance].abs
     %td=claim_accounts.first[:previous_balance].abs if session[:previous_financialyear]
+  - res = claim_accounts.first[:balance].abs
   - claim_accounts.shift
   - claim_accounts.each do |account| 
     - attr = cycle("even","odd") 
+    - res = res + account[:balance].abs
     %tr{:class=> attr} 
       %td=account[:name]
       %td=account[:balance].abs 
@@ -122,8 +124,8 @@
   %tr
   %tr{:align=>'center'}
     %th{:colspan=>3}=tc :passive_balance_sheet
-    %th=tc :account_value 
-    %th=tc :account_value if session[:previous_financialyear]
+    %th=tc :account_value_current 
+    %th=tc :account_value_previous if session[:previous_financialyear]
 
   %tr
     %th{:rowspan => capital_accounts.size+1, :colspan=>2}=tc :account_equity
@@ -139,8 +141,8 @@
       %td=account[:previous_balance].abs if session[:previous_financialyear] 
   %tr
     %th=tc :passive_capital_sum 
-    %th=@passive_capital_sum   
-    %th=@previous_passive_capital_sum if session[:previous_financialyear]   
+    %th=@passive_capital_sum.abs  
+    %th=@previous_passive_capital_sum.abs if session[:previous_financialyear]   
   %tr
     %th{:rowspan => stock_accounts.size+1, :colspan=>2}=tc :account_provision
     %td=stock_accounts.first[:name]
@@ -155,8 +157,8 @@
       %td=account[:previous_balance].abs if session[:previous_financialyear] 
   %tr
     %th=tc :passive_stock_sum
-    %th=@passive_stock_sum
-    %th=@previous_passive_stock_sum if session[:previous_financialyear]   
+    %th=@passive_stock_sum.abs
+    %th=@previous_passive_stock_sum.abs if session[:previous_financialyear]   
   %tr
     %th{:rowspan => debt_accounts.size+1, :colspan=>2}=tc :account_debt
     %td=debt_accounts.first[:name]
@@ -167,18 +169,18 @@
     - attr = cycle("even","odd")
     %tr{:class=> attr} 
       %td=account[:name] 
-      %td=account[:balance] 
+      %td=account[:balance].abs 
       %td=account[:previous_balance].abs if session[:previous_financialyear] 
   %tr
     %th=tc :passive_debt_sum
-    %th=@passive_debt_sum
-    %th=@previous_passive_debt_sum if session[:previous_financialyear]   
+    %th=@passive_debt_sum.abs
+    %th=@previous_passive_debt_sum.abs if session[:previous_financialyear]   
   %tr
     %th
     %th
     %th=tc :passive_sum 
-    %th=@passive_debt_sum+@passive_stock_sum+@passive_capital_sum
-    %th=@previous_passive_debt_sum+@previous_passive_stock_sum+@previous_passive_capital_sum if session[:previous_financialyear]
+    %th=@passive_debt_sum.abs+@passive_stock_sum.abs+@passive_capital_sum.abs
+    %th=@previous_passive_debt_sum.abs+@previous_passive_stock_sum.abs+@previous_passive_capital_sum.abs if session[:previous_financialyear]
 
 
 
@@ -193,13 +195,13 @@
     - attr = cycle("even","odd")  
     %tr{:class=> attr} 
       %td=account[:name]
-      %td=account[:balance].abs 
-      %td=account[:previous_balance].abs if session[:previous_financialyear]
+      %td=account[:balance] 
+      %td=account[:previous_balance] if session[:previous_financialyear]
   %tr
     %th
     %th=tc :cost_sum
-    %th=@cost_sum.abs
-    %th=@previous_cost_sum.abs if session[:previous_financialyear]
+    %th=@cost_sum
+    %th=@previous_cost_sum if session[:previous_financialyear]
   %tr 
     %th{:rowspan =>finished_accounts.size+1}=tc :running_finished
     %td=finished_accounts.first[:name]
@@ -209,15 +211,15 @@
     - attr = cycle("even","odd") 
     %tr{:class=> attr} 
       %td=account[:name]
-      %td=account[:balance].abs
-      %td=account[:previous_balance].abs if session[:previous_financialyear]
+      %td=account[:balance]
+      %td=account[:previous_balance] if session[:previous_financialyear]
   %tr
     %th
     %th=tc :finished_sum
     %th=@finished_sum
-    %th=@previous_finished_sum.abs if session[:previous_financialyear]
+    %th=@previous_finished_sum if session[:previous_financialyear]
   %tr 
     %th=tc :result 
     %th
-    %th=@result 
+    %th=(@finished_sum+@cost_sum) 
     %th=@previous_result if session[:previous_financialyear]

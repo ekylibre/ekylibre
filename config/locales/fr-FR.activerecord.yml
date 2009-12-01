@@ -100,7 +100,10 @@ fr-FR:
       subscription: 'Abonnement'
       subscription_nature: 'Type d''abonnement'
       tax: 'Taxe'
-      transport: Transport
+      tax_declaration: 'Déclaration de taxes'
+      tool: 'Outils'
+      transfer: 'Transfert'
+      transport: 'Transport'
       unit: 'Unité'
       user: 'Utilisateur'
 

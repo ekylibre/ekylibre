@@ -120,7 +120,7 @@ class PurchaseOrder < ActiveRecord::Base
        self.lines.each do |line|
         line_amount = (line.amount * line.quantity)
         
-        record.add_debit('sale '+line.product.name, line.product.product_account_id, line_amount, :draft=>true)
+        record.add_debit('sale '+line.product.name, line.product.charge_account_id, line_amount, :draft=>true)
         
         unless line.price.tax_id.nil?
           record.add_debit(line.price.tax.name, line.price.tax.account_paid_id, line.price.tax.amount*line_amount, :draft=>true)

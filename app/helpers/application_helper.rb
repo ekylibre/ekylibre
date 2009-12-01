@@ -326,7 +326,6 @@ module ApplicationHelper
     link_to_remote(code, {:url=>{:controller=>:help, :action=>:side}, :loading=>"onLoading(); openSide();", :loaded=>"onLoaded();"}, :id=>"side-"+operation, :class=>"side-link")
   end
 
-
   def flash_tag(mode)
     content_tag(:div, flash[mode], :class=>'flash '+mode.to_s) unless flash[mode].blank?
   end
@@ -334,7 +333,6 @@ module ApplicationHelper
   def link_to_submit(form_name, label=:submit, options={})
     link_to_function(l(label), "document."+form_name+".submit()", options.merge({:class=>:button}))
   end
-
 
 
   def wikize(content, options={})
@@ -473,14 +471,6 @@ module ApplicationHelper
     end
 
   end
-
-
-
-
-
-
-
-
 
 
 

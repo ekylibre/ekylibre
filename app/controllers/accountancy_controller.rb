@@ -138,7 +138,7 @@ class AccountancyController < ApplicationController
     
   #this method displays the form to choose the journal and financialyear.
   def accountize
-   #  unless @current_company.invoices or @current_company.sale_orders or @current_company.purchase_orders or @current_company.payments or @current_company.transfers
+   # unless @current_company.invoices or @current_company.sale_orders or @current_company.purchase_orders or @current_company.payments or @current_company.transfers
 #       flash[:message] = tc('messages.need_commercial_transactions_for_generate_entries')
 #       redirect_to :controller=>:management_controller, :action=>:index
 #       return
@@ -151,36 +151,34 @@ class AccountancyController < ApplicationController
     session[:cashed_payments] ||= params[:cashed_payments].to_s
     
     if request.post? or request.xhr?
-      
       #all the invoices are accountized.
-       @invoices = @current_company.invoices.find(:all, :conditions=>["accounted = ? and amount != 0 AND CAST(created_on AS DATE) BETWEEN \'2007-01-01\' AND ?", false, session[:limit_period].to_s], :limit=>5)
-       @invoices.each do |invoice|
-         invoice.to_accountancy
-       end
+      @invoices = @current_company.invoices.find(:all, :conditions=>["accounted = ? and amount != 0 AND CAST(created_on AS DATE) BETWEEN \'2007-01-01\' AND ?", false, session[:limit_period].to_s], :limit=>1000)
+      @invoices.each do |invoice|
+        invoice.to_accountancy
+      end
       
-       # all the purchase_orders are accountized.
-       @purchase_orders = @current_company.purchase_orders.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false], :order=>"created_on DESC")                                                         
+      # all the purchase_orders are accountized.
+      @purchase_orders = @current_company.purchase_orders.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false], :order=>"created_on DESC")                                                         
        @purchase_orders.each do |purchase_order|
-         purchase_order.to_accountancy
-       end
+        purchase_order.to_accountancy
+      end
       
 #      # all the transfers are accountized.
-       @transfers = @current_company.transfers.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false],:order=>"created_on DESC")
+      @transfers = @current_company.transfers.find(:all, :conditions=>["created_on < ? and accounted = ? ", session[:limit_period].to_s, false],:order=>"created_on DESC")
        @transfers.each do |transfer|
-         transfer.to_accountancy
-       end
-      
+        transfer.to_accountancy
+      end
       
       # all the payments are comptabilized if they have been embanked or not.  
       join = "inner join embankments e on e.id=payments.embankment_id" unless session[:cashed_payments]
-      @payments = @current_company.payments.find(:all, :conditions=>["payments.created_on < ? and payments.accounted = ? and payments.amount!=0", session[:limit_period].to_s, false], :joins=>join||nil, :order=>"created_on DESC", :limit=>5)    
+      @payments = @current_company.payments.find(:all, :conditions=>["payments.created_on < ? and payments.accounted = ? and payments.amount!=0", session[:limit_period].to_s, false], :joins=>join||nil, :order=>"created_on DESC", :limit=>1000)    
       @payments.each do |payment|
         payment.to_accountancy
       end
          
       # the sale_orders are comptabilized if the matching payments and invoices have been already accountized.  
-      @sale_orders = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted = ? and p.accounted=? and i.accounted=?", session[:limit_period].to_s, false, true, true], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id",:order=>"created_on DESC", :limit=>5)    
-       @sale_orders.each do |sale_order|
+      @sale_orders = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted = ? and p.accounted=? and i.accounted=?", session[:limit_period].to_s, false, true, true], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id",:order=>"created_on DESC", :limit=>1000)    
+      @sale_orders.each do |sale_order|
         sale_order.to_accountancy 
       end
       
@@ -366,8 +364,6 @@ class AccountancyController < ApplicationController
         accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
         accounts_balance.delete_if {|account| account[:credit].zero? and account[:debit].zero?}
         
-        #raise Exception.new accounts_balance.inspect
-
         for account in accounts_balance
           sum[:debit] += account[:debit]
           sum[:credit] += account[:credit]
@@ -382,11 +378,7 @@ class AccountancyController < ApplicationController
         end
        
         pdf, filename = balance_template.print(@current_company, accounts_balance,  params[:printed][:from],  params[:printed][:to], sum)
-        
-        File.open('tmp/balance.pdf', 'wb') do |f|
-          f.write(pdf)
-        end
-        
+                
         send_data pdf, :type=>Mime::PDF, :filename=>filename
      
       end
@@ -417,8 +409,10 @@ class AccountancyController < ApplicationController
           end
           session[:previous_financialyear] = true
         end
-
-        session[:lines] = @lines
+        
+        #raise Exception.new lines.inspect
+        
+        session[:lines] = lines
         session[:printed] = params[:printed]
         session[:balance] = @balance
         
@@ -428,11 +422,13 @@ class AccountancyController < ApplicationController
       if session[:mode] == "general_ledger"
         ledger = Account.ledger(@current_company.id, params[:printed][:from], params[:printed][:to])
        
-        raise Exception.new ledger.inspect
+        #raise Exception.new ledger.inspect
+        
         ledger_template = @current_company.document_templates.find(:first, :conditions=>{:name=>"Grand livre"})
         
-        pdf = ledger_template.print(@current_company, ledger,  params[:printed][:from],  params[:printed][:to])
-        
+        pdf, filename = ledger_template.print(@current_company, ledger,  params[:printed][:from],  params[:printed][:to])
+     
+        send_data pdf, :type=>Mime::PDF, :filename=>filename
       end
       
     end
@@ -475,7 +471,7 @@ class AccountancyController < ApplicationController
       @active_current_sum += account[:balance] if account[:number].to_s.match /^(3|4|5)/ and account[:balance] >= 0
       @passive_capital_sum += account[:balance] if account[:number].to_s.match /^(1[^5])/
       @passive_stock_sum += account[:balance] if account[:number].to_s.match /^15/ 
-      @passive_debt_sum += account[:balance] if account[:number].to_s.match /^4/
+      @passive_debt_sum += account[:balance] if account[:number].to_s.match /^4/ and account[:balance] < 0
       @cost_sum += account[:balance] if account[:number].to_s.match /^6/
       @finished_sum += account[:balance] if account[:number].to_s.match /^7/
       if session[:previous_financialyear] == true
@@ -485,13 +481,13 @@ class AccountancyController < ApplicationController
         @previous_active_current_sum += account[:previous_balance] if account[:number].to_s.match /^(3|4|5)/ and account[:balance] >= 0
         @previous_passive_capital_sum += account[:previous_balance] if account[:number].to_s.match /^(1[^5])/
         @previous_passive_stock_sum += account[:previous_balance] if account[:number].to_s.match /^15/ 
-        @previous_passive_debt_sum += account[:previous_balance] if account[:number].to_s.match /^4/
+        @previous_passive_debt_sum += account[:previous_balance] if account[:number].to_s.match /^4/ and account[:balance] < 0
         @previous_cost_sum += account[:previous_balance] if account[:number].to_s.match /^6/
         @previous_finished_sum += account[:previous_balance] if account[:number].to_s.match /^7/
       end
     end
 
-    @title = {:value=>"la période du "+@printed[:from].to_s+"au "+@printed[:to].to_s}
+    @title={:value=>"la période du "+@printed[:from].to_s+" au "+@printed[:to].to_s}
   end
 
   # this method orders sale.

@@ -122,8 +122,12 @@ class Account < ActiveRecord::Base
       end.join(" OR ")
     end  
     accounts = Account.find(:all, :conditions => conditions, :order => "number ASC")
-    solde = 0
+    #solde = 0
 
+    res_debit = 0
+    res_credit = 0
+    res_balance = 0
+    
     accounts.each do |account| 
       debit = account.entries.sum(:debit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
       credit = account.entries.sum(:credit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
@@ -141,57 +145,78 @@ class Account < ActiveRecord::Base
         compute[:credit] = credit
       end
       
-      if not debit.zero? and not credit.zero?
-        if compute[:balance] > 0  
-          compute[:debit] = compute[:balance]
-          compute[:credit] = 0
-        else
-          compute[:debit] = 0
-          compute[:credit] = compute[:balance].abs
-        end
-      end
-      
-      solde += compute[:balance] if account.number.to_s.match /^(6|7)/
-          
+      # if not debit.zero? and not credit.zero?
+#         if compute[:balance] > 0  
+#           compute[:debit] = compute[:balance]
+#           compute[:credit] = 0
+#         else
+#           compute[:debit] = 0
+#           compute[:credit] = compute[:balance].abs
+#         end
+#       end
+     
+      #if account.number.match /^12/
+       # raise Exception.new compute[:balance].to_s
+      #end
+   
+       if account.number.match /^(6|7)/
+         res_debit += compute[:debit]
+         res_credit += compute[:credit]
+         res_balance += compute[:balance]
+       end
+
+      #solde += compute[:balance] if account.number.match /^(6|7)/
+#      raise Exception.new solde.to_s if account.number.match /^(6|7)/    
       balance << compute
     end
-  
+    #raise Exception.new res_balance.to_s
     balance.each do |account| 
-       if account[:number].to_s.match /^12/
-         account[:debit] = 0
-         account[:credit] = 0
-         account[:balance] = solde
-       end
+      if res_balance > 0
+        if account[:number].to_s.match /^12/
+          account[:debit] += res_debit
+          account[:credit] += res_credit
+          account[:balance] += res_balance #solde
+        end
+      elsif res_balance < 0
+         if account[:number].to_s.match /^129/
+          account[:debit] += res_debit
+          account[:credit] += res_credit
+          account[:balance] += res_balance #solde
+        end
+      end
     end
-   #raise Exception.new(balance.inspect)
+  # raise Exception.new(balance.inspect)
     balance.compact
   end
   
   # this method loads the general ledger for all the accounts.
   def self.ledger(company, from, to)
     ledger = []
-    accounts = Account.find(:all, :conditions => {:company_id => company})
+    accounts = Account.find(:all, :conditions => {:company_id => company}, :order=>"r.number ASC")
     accounts.each do |account|
-      compute=HashWithIndifferentAccess.new
-      compute[:number] = account.number.to_i
-      compute[:name] = account.name.to_s
-      entries = account.entries.find(:all, :conditions=>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins=>"INNER JOIN journal_records r ON r.id=entries.record_id")
-      compute[:entries] = []
+      compute=[] #HashWithIndifferentAccess.new
       
+      entries = account.entries.find(:all, :conditions=>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins=>"INNER JOIN journal_records r ON r.id=entries.record_id", :order=>"r.number ASC")
+            
       if entries.size > 0
+        records = []
+        compute << account.number.to_i
+        compute << account.name.to_s
         entries.each do |e|
-          entry =HashWithIndifferentAccess.new
+          entry = HashWithIndifferentAccess.new
           entry[:date] = e.record.created_on
           entry[:name] = e.name.to_s
           entry[:number_record] = e.record.number
           entry[:journal] = e.record.journal.name.to_s
           entry[:credit] = e.credit
           entry[:debit] = e.debit
-          compute[:entries] << entry
+          records << entry
+          # compute[:entries] << entry
         end
+        compute << records
+        ledger << compute
       end
       
-      ledger << compute
     end
 
     ledger.compact
