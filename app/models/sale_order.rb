@@ -61,6 +61,8 @@ class SaleOrder < ActiveRecord::Base
 
   attr_readonly :company_id, :created_on, :number
 
+  validates_presence_of :client_id
+
   @@natures = [:estimate, :order, :invoice]
   
   def before_validation
@@ -69,7 +71,7 @@ class SaleOrder < ActiveRecord::Base
       last = self.company.sale_orders.find(:first, :order=>"number desc")
       self.number = last ? last.number.succ! : '00000001'
     end
-    if self.contact.nil?
+    if self.contact.nil? and self.client
       dc = self.client.default_contact
       self.contact_id = dc.id if dc
     end

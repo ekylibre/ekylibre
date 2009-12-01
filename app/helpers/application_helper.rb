@@ -249,14 +249,16 @@ module ApplicationHelper
   end
 
   def top_tag
-    return '' if @current_user.blank?
+    #return content_tag(:div, ' ', :style=>'display:none;') if @current_user.blank?
+    #return '' if @current_user.blank?
+    session[:last_page] ||= {}
     code = ''
     # Modules Tag
     tag = ''
     for m in MENUS
       # tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"),{:controller=>m[:name]})+" "
       tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"), last_page(m[:name].to_s))+" "  if controller.accessible?({:controller=>m[:name]})
-    end
+    end if @current_user
     
     tag = content_tag(:nobr, tag)
     code += content_tag(:div, tag, :id=>:modules, :class=>:menu)
@@ -267,10 +269,11 @@ module ApplicationHelper
     
     # User Tag
     tag = ''
-
-    tag += content_tag(:span, @current_user.label)+" "
-    tag += content_tag(:span, @current_company.name)+" "
-    tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout}, :class=>:logout)+" "
+    if @current_user
+      tag += content_tag(:span, @current_user.label)+" "
+      tag += content_tag(:span, @current_company.name)+" "
+      tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout}, :class=>:logout)+" "
+    end
     tag = content_tag(:nobr, tag)
     code += content_tag(:div, tag, :id=>:user, :class=>:menu, :align=>:right)
     

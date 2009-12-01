@@ -530,12 +530,12 @@ class CompanyController < ApplicationController
   end
 
   dyta(:listings, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
-    t.column :name, :url=>{:action=>:listing_nodes}
+    t.column :name, :url=>{:action=>:listing_update}
     t.column :root_model_name
     t.column :comment
     t.action :listing_extract, :format=>'csv', :image=>:action
     t.action :listing_mail
-    t.action :listing_update, :url=>{:action=>:listing_nodes}
+    t.action :listing_update#, :url=>{:action=>:listing_nodes}
     t.action :listing_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
@@ -605,7 +605,8 @@ class CompanyController < ApplicationController
       @listing = Listing.new(params[:listing])
       @listing.company_id = @current_company.id
       #redirect_to_back if @listing.save
-      redirect_to :action=>:listing_nodes, :id=>@listing.id if @listing.save
+      #redirect_to :action=>:listing_nodes, :id=>@listing.id if @listing.save
+      redirect_to :action=>:listing_update, :id=>@listing.id if @listing.save
     else
       @listing = Listing.new
     end
@@ -620,7 +621,7 @@ class CompanyController < ApplicationController
       end
     end
     @title ={:value=>@listing.name}
-    render_form
+    #render_form
   end
 
   def listing_delete

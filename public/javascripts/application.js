@@ -113,6 +113,8 @@ var xulElementMethods = {
   resize: function(element,width,height) {
     var children = element.childElements();
     var children_length = children.length;
+    //    alert(element.id+' '+children_length);
+    // if (width === )
     if (children_length>0) {
       element.makePositioned();
       var horizontal = element.isHorizontal();
