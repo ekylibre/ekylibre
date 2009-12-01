@@ -712,8 +712,8 @@ class CompanyController < ApplicationController
     #headers['no-cache'] = ''
     #headers['Cache-Control'] = 'no-cache'
     #raise Exception.new "ok"
-    @action_view.controller.headers["Cache-Control"] = 'maxage=3600'  
-    @action_view.controller.headers["Pragma"] = 'public'  
+    headers["Cache-Control"] = 'maxage=3600'  
+    headers["Pragma"] = 'public'  
     #object = find_and_check(params[:type], params[:id])
     #raise Exception.new "in ! "+params.inspect+object.class.name.underscore.inspect+object.inspect
     #result, filename = @current_company.print(object, :nature=>params[:code])
