@@ -44,7 +44,7 @@ class ListingNode < ActiveRecord::Base
   end  
 
   def after_save
-    self.listing.generate 
+    self.listing.generate if self.listing.created_at.to_date >= Date.civil(2009,12,01)
   end
 
   def self.natures
