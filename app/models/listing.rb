@@ -49,12 +49,6 @@ class Listing < ActiveRecord::Base
   end
 
   def selected_attr
-    #attrs = []
-    #for node in self.columns
-    #  attrs << "#{node.parent.key}.#{node.name} "
-    #end
-    #attrs = attrs.join(", ")
-    
     attrs = []
     for node in self.columns
       name = I18n::t('activerecord.attributes.'+node.parent.name.singularize+'.'+node.name)

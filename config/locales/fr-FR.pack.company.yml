@@ -138,6 +138,8 @@ fr-FR:
         send: Envoyer le mail
         send_test: Envoyer un mail de test
         title: 'Envoyer un mail pour "{{listing}}"'
+      listing_nodes: 
+        title: 'Choisissez les informations à extraire'
       listing_update:
         title: 'Modification de l''extraction {{value}}'
       listings:

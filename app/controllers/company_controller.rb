@@ -530,12 +530,12 @@ class CompanyController < ApplicationController
   end
 
   dyta(:listings, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
-    t.column :name
+    t.column :name, :url=>{:action=>:listing_nodes}
     t.column :root_model_name
     t.column :comment
     t.action :listing_extract, :format=>'csv', :image=>:action
     t.action :listing_mail
-    t.action :listing_update
+    t.action :listing_update, :url=>{:action=>:listing_nodes}
     t.action :listing_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
