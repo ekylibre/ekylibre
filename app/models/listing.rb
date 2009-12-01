@@ -40,12 +40,14 @@ class Listing < ActiveRecord::Base
   end
 
   def generate
-    root = self.root
-    self.query = "SELECT #{self.selected_attr} FROM #{root.model.table_name} AS #{root.key}"
-    self.query += root.complete_query(root.key)
-    self.query += self.conditions
-    #raise Exception.new "okkjj"+self.query.inspect
-    self.save
+    if self.created_at.to_date >= Date.civil(2009,12,01)
+      root = self.root
+      self.query = "SELECT #{self.selected_attr} FROM #{root.model.table_name} AS #{root.key}"
+      self.query += root.complete_query(root.key)
+      self.query += self.conditions
+      #raise Exception.new "okkjj"+self.query.inspect
+      self.save
+    end
   end
 
   def selected_attr

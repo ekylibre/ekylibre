@@ -43,12 +43,16 @@ var xulElementMethods = {
   getNumericalStyle: function(element, style) {
     element = $(element);
     var reg = new RegExp("[^\\.0-9]", "ig");
-    if (element !== null && style !== null) {
-        var value = element.getStyle(style).replace(reg, "");
-      }
-    return Math.floor(new Number(value));
+    var value = element.getStyle(style);
+    if (value === null) {
+      value = "0";
+    }
+    return Math.floor(new Number(value.replace(reg, "")));
+    /*if (value !== null) {
+      return Math.floor(new Number(value.replace(reg, "")));
+      }*/
   },
-
+  
   xul: function(element) {
     element = $(element);
     return element.getAttribute('xul');
