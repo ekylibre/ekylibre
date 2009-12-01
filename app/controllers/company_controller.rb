@@ -711,7 +711,7 @@ class CompanyController < ApplicationController
   def print
     #headers['no-cache'] = ''
     #headers['Cache-Control'] = 'no-cache'
-    raise Exception.new "ok"
+    #raise Exception.new "ok"
     @action_view.controller.headers["Cache-Control"] = 'maxage=3600'  
     @action_view.controller.headers["Pragma"] = 'public'  
     #object = find_and_check(params[:type], params[:id])
