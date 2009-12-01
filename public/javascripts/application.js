@@ -43,7 +43,7 @@ var xulElementMethods = {
   getNumericalStyle: function(element, style) {
     element = $(element);
     var reg = new RegExp("[^\\.0-9]", "ig");
-    if element {
+    if (element!=null) {
         var value = element.getStyle(style).replace(reg, "");
       }
     return Math.floor(new Number(value));
