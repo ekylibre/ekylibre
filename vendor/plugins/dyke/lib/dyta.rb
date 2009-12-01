@@ -198,7 +198,7 @@ module Ekylibre
               code += "      end\n"
             end
             code += "    end\n"
-            code += "    text = header+content_tag(:tbody,body)\n"
+            code += "    text = content_tag(:thead, header)+content_tag(:tbody, body)\n"
             code += "  else\n"
             if options[:empty]
               code += "    text = ''\n"
@@ -207,7 +207,9 @@ module Ekylibre
             end
             code += "  end\n"
             code += bottom;
-            code += "  text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"') unless request.xhr?\n"
+            # code += "  text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"') unless request.xhr?\n"
+            code += "  text = content_tag(:table, text, :class=>:dyta)\n"
+            code += "  text = content_tag(:div, text, :class=>:dyta, :id=>'"+name.to_s+"') unless request.xhr?\n"
             code += "  return text\n"
             code += "end\n"
 

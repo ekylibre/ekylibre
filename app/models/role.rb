@@ -40,7 +40,7 @@ class Role < ActiveRecord::Base
     
     users = User.find_all_by_role_id_and_company_id_and_admin(self.id, self.company_id, false)
     for user in users
-      puts user.rights.inspect
+      # puts user.rights.inspect
       user_rights_array = []
       for right in user.rights.split(/\s+/)
         user_rights_array << right.to_sym
@@ -56,7 +56,7 @@ class Role < ActiveRecord::Base
           user.rights += right.to_s+" "
         end
       user.save
-      puts user.rights.inspect
+      # puts user.rights.inspect
     end
   end
 

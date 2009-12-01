@@ -98,7 +98,6 @@ class DocumentTemplate < ActiveRecord::Base
     
     # Build the PDF data
     pdf = eval(self.cache)
-    puts pdf.to_s
 
     # Archive the document if necessary
     if self.to_archive
@@ -204,7 +203,6 @@ class DocumentTemplate < ActiveRecord::Base
   def self.compile(source, mode=:normal)
     xml = XML::Parser.io(StringIO.new(source.to_s)).parse
     template = xml.root
-    puts 'XML:'+template.inspect
     code = ''
     i = 0
     unless mode == :debug

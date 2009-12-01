@@ -7,14 +7,23 @@ fieldset nobr { margin: 0 8px; vertical-align: middle; }
 td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:focus { color:#00C; }
 a:hover { color: #000; }
+/*
 .stocks { padding: 5px 0 15px 0; }
 .paymentpart{ text-align:center; padding: 5px 0 5px 0; }
 .payments { text-align:center ; color:#000088;}
 .entity { text-align:right; }
+*/
+
+table#master  { margin-top:30px; }
+table#master > tbody > tr > td { vertical-align: top;  }
+table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
+
+
+
 #loading { padding: 2px; text-align: center; }
-#main { overflow: auto; border-top: 1px solid #95b0e4; }
+#main { overflow: auto; border-top: 1px solid #95b0e4; background: #C9D7F1; padding-bottom: 8px;}
 #content { overflow: auto; border-right:8px solid #C9D7F1; border-left:8px solid #C9D7F1; }
-#legals { margin:0; padding:4px 8px; background: #C9D7F1; font-size:13px; color: #047; text-align: center; }
+/*#legals { margin:0; padding:4px 8px; height: 0px; background: #C9D7F1; font-size:13px; color: #047; text-align: center; }*/
 
 .nav { height: 32px; }
 .nav .title { color: #750; font-size: 20px;  height: 24px; padding:4px 8px; font-weight: normal; overflow:hidden; margin:0; }

@@ -44,7 +44,7 @@ var xulElementMethods = {
     element = $(element);
     var reg = new RegExp("[^\\.0-9]", "ig");
     var value = element.getStyle(style).replace(reg, "");
-    return Math.floor(value*1);
+    return Math.floor(new Number(value));
   },
 
   xul: function(element) {
@@ -52,18 +52,15 @@ var xulElementMethods = {
     return element.getAttribute('xul');
   },
 
-  flex: function(element,def) {
+  getFlex: function(element) {
     element = $(element);
-    var flex = element.getAttribute('flex');
-    if (isNaN(flex) || flex === null) {
-      if (isNaN(def) || def === null) {
-        return 0;
-      } else {
-        return def;
-      }
+    var f = element.getAttribute("flex");
+    if (isNaN(f) || f === null) {
+      return 0;
     } else {
-      return flex*1;
+      return new Number(f);
     }
+    return 0;
   },
   
   isXUL: function(element) {
@@ -121,19 +118,28 @@ var xulElementMethods = {
       var lengths = [], flexes = [], borders = [];
       for (index=0;index<children_length;index++) {
         child = children[index];
+        // alert("Child: "+child.id+" ("+child.getStyle('display')+")");
         if (child.getStyle('display') !== 'none') {
           borders[index] = child.getBorderDimensions();
-          flexes[index] = child.flex();
+          // alert("Child border : "+borders[index]);
+          flexes[index] = child.getFlex();
+          //alert("Child flex : "+flexes[index]);
           lengths[index] = 0;
+          //alert("B>>"+index+" - "+flexes[index]);
           if (flexes[index] !== 0) {
+            //alert("C>>"+index);
             flexsum += flexes[index];
           } else {
+            //alert("D>>"+index);
             dims = child.getDimensions();
             lengths[index] = (horizontal ? dims.width : dims.height);
             fixedsum += lengths[index];
           }
+          // alert("E>>"+index);
         }
       }
+
+      // alert("FIN");
 
       // Redimensioning
       var w,h,l=0,t=0,s=0,x=0,o;

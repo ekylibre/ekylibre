@@ -121,31 +121,57 @@ class ManagementController < ApplicationController
       start = (Date.today - params[:nb_years].to_i.year).beginning_of_month
       finish = Date.today.end_of_month
       date = start
-      header = [t('activerecord.models.product')]
-      puts [start, finish].inspect
+      months = [] # [::I18n.t('activerecord.models.product')]
+      # puts [start, finish].inspect
       while date <= finish
         # puts date.inspect
         # raise Exception.new(t('date.month_names').inspect)
         # period = '="'+t('date.month_names')[date.month]+" "+date.year.to_s+'"'
         period = '="'+date.year.to_s+" "+date.month.to_s+'"'
-        header << period
+        months << period
         for product in @current_company.products.find(:all, :select=>"products.*, total", :joins=>ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order=>"product_id")
-          data[product.name] ||= {}
-          data[product.name][period] = product.total
+          data[product.id.to_s] ||= {}
+          data[product.id.to_s][period] = product.total if product.total.to_f!=0
         end
         date += 1.month
       end
 
+#       # Remove unused lines
+#       for product in @current_company.products.find(:all, :conditions=>{:active=>false})
+#         valid = false
+#         data[product.id.to_s].collect do |k,v|
+#           valid = true unless v.nil? and  v != 0
+#         end
+#         data.delete(product.id.to_s) unless product.active or valid
+#       end
+
+#       csv_data = FasterCSV.generate do |csv|
+#         csv << months
+#         for k in data.keys.sort
+#           row = [k]
+#           months.size.times {|i| row << number_to_currency(data[k][months[i+1]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2) }
+#           csv << row
+#         end
+#       end
+
+
+
       csv_data = FasterCSV.generate do |csv|
-        csv << header
-        for k in data.keys.sort
-          row = [k]
-          header.size.times {|i| row << number_to_currency(data[k][header[i+1]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2) }
-          csv << row
+        csv << [::I18n.t('activerecord.models.product'), ::I18n.t('activerecord.attributes.product.product_account_id')]+months
+        for product in @current_company.products.find(:all, :order=>"active DESC, name")
+          valid = false
+          data[product.id.to_s].collect do |k,v|
+            valid = true unless v.nil? and  v != 0
+          end
+          if product.active or valid
+            row = [product.name, (product.product_account ? product.product_account.number : "?")]
+            months.size.times {|i| row << number_to_currency(data[product.id.to_s][months[i]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2) }
+            csv << row
+          end
         end
       end
       
-      send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>::I18n.translate('activerecord.models.product')+'.csv'
+      send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>::I18n.translate("activerecord.models.#{source}")+'.csv'
     end
 
 

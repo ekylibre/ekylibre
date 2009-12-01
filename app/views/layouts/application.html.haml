@@ -30,8 +30,6 @@
               .message=flash[:message]
             =yield
             .end{:style=>'height:1px'}
-        #legals{:flexy=>'true'}
-          =#link_to 'www.ekylibre.org', 'http://www.ekylibre.org'
       #help{:flex=>3, :style=>(session[:help] ? "" : "display:none")}
         = render :partial=>'help/search' if session[:help]
    
