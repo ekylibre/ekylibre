@@ -116,22 +116,22 @@ module Ekylibre
               builder += "  return #{tag_method_name}(options.merge(:page=>1)) if page>1 and @#{name}.out_of_bounds?\n"
             end
 
-            bottom_var = 'bottom'
-            bottom = "  #{bottom_var}=''\n"
+            footer_var = 'footer'
+            footer = "#{footer_var}=''\n"
             # Export link
             if options[:export]
-              bottom += '  '+bottom_var+"+='"+content_tag(:div, "'+link_to('"+::I18n.t(options[:export]).gsub(/\'/,'&apos;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'csv'}, {:method=>:post})+'", :class=>'export')+"'\n"
+              footer += footer_var+"+='"+content_tag(:div, "'+link_to('"+::I18n.t(options[:export]).gsub(/\'/,'&apos;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'csv'}, {:method=>:post})+'", :class=>'export')+"'\n"
             end
             # Pages link
-            bottom += if options[:pagination] == :will_paginate
-                        '  '+bottom_var+"+=will_paginate(@"+name.to_s+", :renderer=>ActionController::RemoteLinkRenderer, :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], '#{name}_per_page'=>params['#{name}_per_page'], :action=>:#{list_method_name}}).to_s\n"
-                        #                           bottom_var+"='"+content_tag(:tr, content_tag(:td, "'+"+bottom_var+"+'", :class=>:paginate, :colspan=>definition.columns.size))+"' unless "+bottom_var+".nil?\n"
+            footer += if options[:pagination] == :will_paginate
+                        footer_var+"+=will_paginate(@"+name.to_s+", :renderer=>ActionController::RemoteLinkRenderer, :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], '#{name}_per_page'=>params['#{name}_per_page'], :action=>:#{list_method_name}}).to_s\n"
+                        # footer_var+"='"+content_tag(:tr, content_tag(:td, "'+"+footer_var+"+'", :class=>:paginate, :colspan=>definition.columns.size))+"' unless "+footer_var+".nil?\n"
                       else
                         ''
                       end
 
-            # Bottom tag
-            bottom += "  text+='"+content_tag(:tr, content_tag(:th, "'+"+bottom_var+"+'", :class=>:bottom, :colspan=>definition.columns.size))+"' unless text.blank? "+(options[:export] ? "" : " or "+bottom_var+".blank?")+"\n"
+            # Footer tag
+            footer += footer_var+"='"+content_tag(:tr, content_tag(:th, "'+"+footer_var+"+'", :class=>:footer, :colspan=>definition.columns.size))+"' unless body.blank? "+(options[:export] ? "" : " or "+footer_var+".blank?")+"\n"
 
             #if options[:order].nil?
             sorter  = "    sort = options['#{name}_sort']\n"
@@ -198,7 +198,8 @@ module Ekylibre
               code += "      end\n"
             end
             code += "    end\n"
-            code += "    text = content_tag(:thead, header)+content_tag(:tbody, body)\n"
+            code += footer.gsub(/^/, '    ')
+            code += "    text = content_tag(:thead, header)+content_tag(:tfoot, #{footer_var})+content_tag(:tbody, body)\n"
             code += "  else\n"
             if options[:empty]
               code += "    text = ''\n"
@@ -206,7 +207,7 @@ module Ekylibre
               code += "    text = '"+content_tag(:tr,content_tag(:td, ::I18n.translate('dyta.no_records').gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
             end
             code += "  end\n"
-            code += bottom;
+            code += footer;
             # code += "  text = content_tag(:table, text, :class=>:dyta, :id=>'"+name.to_s+"') unless request.xhr?\n"
             code += "  text = content_tag(:table, text, :class=>:dyta)\n"
             code += "  text = content_tag(:div, text, :class=>:dyta, :id=>'"+name.to_s+"') unless request.xhr?\n"
