@@ -15,11 +15,11 @@
     .actions
       =link_to(tc(:register), {:action=>:register}, :class=>"register") if register
       =link_to(tc(:download_firefox), "http://www.mozilla-europe.org/fr/firefox/", :class=>"firefox") if download_firefox
-#nojavascript.login
+#noj.login
   .logoban
   .message=tc('no_javascript')
 :javascript
-  $('nojavascript').hide();
+  $('noj').hide();
   $('login').show();
   $('user_name').select();
   $('user_name').focus(); 
