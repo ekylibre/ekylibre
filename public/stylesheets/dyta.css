@@ -1,5 +1,5 @@
 /*h3.dyta {padding:4px;color: #139; font-size: 16px; }*/
-div.dyta { margin: 0; padding: 0; width:100%-30px; height:1%; }
+div.dyta { margin: 0; padding: 0; width:100%-30px; }
 table.dyta { border-collapse: collapse; width:100%;  padding:0; margin: 0; border-bottom: 1px solid #BACFE6;}
 /*table.dyta th { background: #e9f3fe url(../images/template/table_head.png) repeat-x bottom; padding:1px 3px; color: #336; font-weight: bold; font-size:13px; text-align:left; }*/
 table.dyta th { background: #e9f3fe url(../images/template/table_head.png) repeat-x bottom; padding:1px 3px; color: #000; font-weight: normal; text-align:left; }
