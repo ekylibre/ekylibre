@@ -94,7 +94,6 @@ class Entity < ActiveRecord::Base
     self.name = self.name.to_s.strip
     self.full_name = (self.name.to_s+" "+self.first_name.to_s).strip
     unless self.nature.nil?
-      self.first_name = '' unless self.nature.physical
       self.full_name = self.nature.abbreviation+' '+self.full_name unless self.nature.in_name
     end
     
@@ -125,10 +124,14 @@ class Entity < ActiveRecord::Base
 
   #
   def validate
+    #raise Exception.new self.nature.physical.inspect+self.first_name.blank?.inspect
     if self.nature
       #raise Exception.new self.nature.in_name.inspect
       if self.nature.in_name
         errors.add(:name, tc(:error_missing_title,:title=>self.nature.abbreviation)) unless self.name.match(/( |^)#{self.nature.abbreviation}( |$)/i)
+      end
+      if not self.nature.physical
+        errors.add_to_base tc(:error_nature_do_not_allow_a_first_name, :nature=>self.nature.name) unless self.first_name.blank?
       end
     end
   end

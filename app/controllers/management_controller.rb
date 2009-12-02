@@ -2245,7 +2245,6 @@ class ManagementController < ApplicationController
     session[:subscriptions][:instant] = instant||@subscription_nature.now
   end
 
-  # dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity]'], :active=>true, :company_id=>['@current_company.id']})
   dyli(:subscription_contacts,  ['entities.full_name', :address] ,:model=>:contact, :joins=>"JOIN entities ON (entity_id=entities.id)", :conditions=>{:active=>true, :company_id=>['@current_company.id']})
   
   def subscription_create

@@ -173,7 +173,7 @@ class Company < ActiveRecord::Base
         company.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
         company.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
         company.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
-        undefined_nature = company.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false)
+        undefined_nature = company.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false, :physical=>true)
         category = company.entity_categories.create!(:name=>'user')
         firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>company.name)
         company.entity_id = firm.id

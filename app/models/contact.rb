@@ -110,7 +110,7 @@ class Contact < ActiveRecord::Base
     lines.delete ""
     lines.join(sep)
   end
-
+ 
   def print_address
     a = self.entity.full_name+"\n"
     a += self.address.gsub(/\s*\,\s*/, "\n")
