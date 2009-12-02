@@ -1,4 +1,4 @@
-class Sep1b9 < ActiveRecord::Migration
+class UpdateSaleOrdersState < ActiveRecord::Migration
   def self.up
     execute "UPDATE sale_orders SET state='C' WHERE state='F'"
     execute "UPDATE sale_orders SET state='E' WHERE state='P'"

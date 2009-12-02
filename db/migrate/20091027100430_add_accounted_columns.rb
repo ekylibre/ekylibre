@@ -1,4 +1,4 @@
-class Nov1v1 < ActiveRecord::Migration
+class AddAccountedColumns < ActiveRecord::Migration
   def self.up
     add_column :entries, :draft, :boolean, :null=>false, :default=>false
 

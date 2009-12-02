@@ -1,4 +1,4 @@
-class Nov1t1 < ActiveRecord::Migration
+class AddCreatedOn < ActiveRecord::Migration
   def self.up
 
     add_column :purchase_orders, :created_on, :date

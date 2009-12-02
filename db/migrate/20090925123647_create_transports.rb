@@ -1,4 +1,4 @@
-class Sep2t2 < ActiveRecord::Migration
+class CreateTransports < ActiveRecord::Migration
   def self.up
 
     create_table :transports do |t|

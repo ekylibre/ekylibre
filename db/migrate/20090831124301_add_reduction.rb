@@ -1,4 +1,4 @@
-class Sep1t10 < ActiveRecord::Migration
+class AddReduction < ActiveRecord::Migration
   def self.up
 
     add_column :subscription_natures, :reduction_rate, :decimal, :precision=>8, :scale=>2

@@ -1,4 +1,4 @@
-class Nov1t2 < ActiveRecord::Migration
+class AddDocumentTemplatesFilename < ActiveRecord::Migration
   def self.up
 
     add_column :document_templates, :filename, :string

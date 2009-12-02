@@ -1,4 +1,4 @@
-class Oct1v1 < ActiveRecord::Migration
+class CreateTaxDeclarations < ActiveRecord::Migration
   def self.up
     create_table :tax_declarations do |t|
       t.column :nature, :string, :null=>false, :default=>"normal"

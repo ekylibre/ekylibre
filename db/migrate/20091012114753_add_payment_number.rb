@@ -1,4 +1,4 @@
-class Oct2t1 < ActiveRecord::Migration
+class AddPaymentNumber < ActiveRecord::Migration
   def self.up
 
     add_column :payments, :number, :string
