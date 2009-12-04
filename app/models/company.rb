@@ -103,7 +103,7 @@ class Company < ActiveRecord::Base
   
   @@rhm = Company.reflections.collect{|r,v| v.name.to_s.singularize.to_sym if v.macro==:has_many}.compact
   @@ehm = EKYLIBRE_MODELS.delete_if{|x| x==:company}
-#  raise Exception.new("Models and has_many are not corresponding in Company !!!\nUnwanted: #{(@@rhm-@@ehm).inspect}\nMissing:  #{(@@ehm-@@rhm).inspect}\n") if @@rhm-@@ehm!=@@ehm-@@rhm
+  #  raise Exception.new("Models and has_many are not corresponding in Company !!!\nUnwanted: #{(@@rhm-@@ehm).inspect}\nMissing:  #{(@@ehm-@@rhm).inspect}\n") if @@rhm-@@ehm!=@@ehm-@@rhm
 
   def before_validation_on_create
     self.code = self.name.to_s[0..7].simpleize if self.code.blank?
@@ -145,15 +145,15 @@ class Company < ActiveRecord::Base
         tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
           begin
             account = company.accounts.find_by_number(a[0].to_s)
-          if account 
-            account.update_attributes!(:name=>a[1])
-          else
-            company.accounts.create!(:number=>a[0].to_s, :name=>a[1])
-          end
+            if account 
+              account.update_attributes!(:name=>a[1])
+            else
+              company.accounts.create!(:number=>a[0].to_s, :name=>a[1])
+            end
           rescue Exception
             
           end
-      end
+        end
         
         company.set_parameter('general.language', language)
         company.departments.create!(:name=>tc('default.department_name'))
@@ -316,28 +316,28 @@ class Company < ActiveRecord::Base
     nature.id
   end 
 
-#   def checks_to_embank_on_update(embankment)
-#     checks = []
-#     for payment in self.payments
-#       checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == embankment.mode_id) and (payment.embankment_id.nil? or payment.embankment_id == embankment.id) ) 
-#     end
-#     checks
-#   end
+  #   def checks_to_embank_on_update(embankment)
+  #     checks = []
+  #     for payment in self.payments
+  #       checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == embankment.mode_id) and (payment.embankment_id.nil? or payment.embankment_id == embankment.id) ) 
+  #     end
+  #     checks
+  #   end
   
- #  def checks_to_embank(mode_id)
-#     checks = []
-#     #raise Exception.new self.payments.inspect
-#     for payment in self.payments
-#       if mode_id == 0
-#         checks << payment if ((payment.mode.mode == "check") and payment.embankment_id.nil?)
-#       elsif mode_id == -1
-#         checks << payment if ((payment.mode.mode == "check") and (payment.embankment_id.nil?) and Date.today >= (payment.to_bank_on+(15)) )
-#       else
-#         checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == mode_id) and payment.embankment_id.nil?)
-#       end
-#     end
-#     checks
-#   end
+  #  def checks_to_embank(mode_id)
+  #     checks = []
+  #     #raise Exception.new self.payments.inspect
+  #     for payment in self.payments
+  #       if mode_id == 0
+  #         checks << payment if ((payment.mode.mode == "check") and payment.embankment_id.nil?)
+  #       elsif mode_id == -1
+  #         checks << payment if ((payment.mode.mode == "check") and (payment.embankment_id.nil?) and Date.today >= (payment.to_bank_on+(15)) )
+  #       else
+  #         checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == mode_id) and payment.embankment_id.nil?)
+  #       end
+  #     end
+  #     checks
+  #   end
 
   def checks_to_embank(mode_id=0)
     checks = []
@@ -375,7 +375,7 @@ class Company < ActiveRecord::Base
   end
 
   #def usable_payments
-   # self.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0)"], :order=>"created_at desc")
+  # self.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0)"], :order=>"created_at desc")
   #end
 
   def backup(creator, with_prints=true)
@@ -528,36 +528,36 @@ class Company < ActiveRecord::Base
       File.open("/tmp/restore-1.rb", "wb") {|f| f.write(code)}
       eval(code)
 
-#       data = {}
-#       root.each_element do |table|
-#         reflection = self.class.reflections[table.attributes['reflection'].to_sym]
-#         start = Time.now.to_i
-#         puts('R> - '+reflection.name.to_s+' ('+table.attributes['records-count'].to_s+')')
-#         klass = reflection.class_name.constantize
-#         foreign_keys = keys[reflection.class_name].collect{|key| ":#{key}=>record.#{key}"}
-#         code =  "x = 0\n"
-#         code += "data[:#{reflection.name}] = []\n" if foreign_keys.size>0
-#         code += "table.each_element do |r|\n"
-#         code += "  x += 1\n"
-#         code += "  puts x.to_s if x.modulo(1000)==0\n"
-#         code += "  attributes = r.attributes\n"
-#         code += "  id = attributes['id']\n"
-#         unbuildable = (['company_id', 'id']+klass.protected_attributes.to_a)
-#         code += "  record = self.#{reflection.name}.build("+klass.columns_hash.keys.delete_if{|x| unbuildable.include? x.to_s}.collect do |col|
-#           ":#{col}=>attributes['#{col}']"
-#         end.join(", ")+")\n"
-#         klass.protected_attributes.to_a.each do |attr|
-#           code += "  record.#{attr} = attributes['#{attr}']\n"
-#         end
-#         code += "  record.send(:create_without_callbacks)\n"
-#         code += "  ids[#{reflection.class_name.inspect}][id] = record.id\n"
-#         code += "  data[:#{reflection.name}] << {:id=>record.id#{foreign_keys}}\n" if foreign_keys.size>0
-#         code += "end"
-#         puts code
-#         eval(code)
-#         duration = Time.now.to_i-start
-#         puts duration.to_s+' secondes' if duration > 5
-#       end
+      #       data = {}
+      #       root.each_element do |table|
+      #         reflection = self.class.reflections[table.attributes['reflection'].to_sym]
+      #         start = Time.now.to_i
+      #         puts('R> - '+reflection.name.to_s+' ('+table.attributes['records-count'].to_s+')')
+      #         klass = reflection.class_name.constantize
+      #         foreign_keys = keys[reflection.class_name].collect{|key| ":#{key}=>record.#{key}"}
+      #         code =  "x = 0\n"
+      #         code += "data[:#{reflection.name}] = []\n" if foreign_keys.size>0
+      #         code += "table.each_element do |r|\n"
+      #         code += "  x += 1\n"
+      #         code += "  puts x.to_s if x.modulo(1000)==0\n"
+      #         code += "  attributes = r.attributes\n"
+      #         code += "  id = attributes['id']\n"
+      #         unbuildable = (['company_id', 'id']+klass.protected_attributes.to_a)
+      #         code += "  record = self.#{reflection.name}.build("+klass.columns_hash.keys.delete_if{|x| unbuildable.include? x.to_s}.collect do |col|
+      #           ":#{col}=>attributes['#{col}']"
+      #         end.join(", ")+")\n"
+      #         klass.protected_attributes.to_a.each do |attr|
+      #           code += "  record.#{attr} = attributes['#{attr}']\n"
+      #         end
+      #         code += "  record.send(:create_without_callbacks)\n"
+      #         code += "  ids[#{reflection.class_name.inspect}][id] = record.id\n"
+      #         code += "  data[:#{reflection.name}] << {:id=>record.id#{foreign_keys}}\n" if foreign_keys.size>0
+      #         code += "end"
+      #         puts code
+      #         eval(code)
+      #         duration = Time.now.to_i-start
+      #         puts duration.to_s+' secondes' if duration > 5
+      #       end
       
 
       # Réorganisation des clés étrangères
@@ -580,26 +580,26 @@ class Company < ActiveRecord::Base
           end
         end
 
-#         new_ids = "'"+fkeys[klass].collect do |key|
-#           class_name = keys[klass][key]
-#           "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
-#         end.join("+', ")
+        #         new_ids = "'"+fkeys[klass].collect do |key|
+        #           class_name = keys[klass][key]
+        #           "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
+        #         end.join("+', ")
         #         new_ids = "'"+keys[klass].collect do |key, class_name|
         #           "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
         #         end.join("+', ")
         code += "for record in data['#{reflection}']\n"
         code += "  #{klass}.update_all(#{new_ids}, 'id='+record[0].to_s)\n"
         code += "end\n"
-#        klass = Company.reflections[reflection].class_name
-#        new_ids = "'"+keys[klass].collect do |key, class_name|
-#          "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
-#        end.join("+', ")
-#        code += "for record in data[:#{reflection}]\n"
-#        code += "  #{klass}.update_all(#{new_ids}, 'id='+record.id.to_s)\n"
-#        code += "end\n"
+        #        klass = Company.reflections[reflection].class_name
+        #        new_ids = "'"+keys[klass].collect do |key, class_name|
+        #          "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
+        #        end.join("+', ")
+        #        code += "for record in data[:#{reflection}]\n"
+        #        code += "  #{klass}.update_all(#{new_ids}, 'id='+record.id.to_s)\n"
+        #        code += "end\n"
       end
       File.open("/tmp/restore-2.rb", "wb") {|f| f.write(code)}      
-#      raise Exception.new
+      #      raise Exception.new
       start = Time.now
       eval(code)
       puts "R> Total: #{(Time.now-start)}s"
@@ -649,12 +649,12 @@ class Company < ActiveRecord::Base
     return DocumentTemplate.error_document("Can't find any template to print") unless template
     # Printing
     # TODO: Cache printing method
-   # raise Exception.new template.inspect+':'+options.size.to_s
+    # raise Exception.new template.inspect+':'+options.size.to_s
     #args=[]
     #args << object
     #if options
     #  args << options 
-      #raise Exception.new 'v:'+args.inspect
+    #raise Exception.new 'v:'+args.inspect
     #end
     
     return template.print(object)
@@ -685,12 +685,12 @@ class Company < ActiveRecord::Base
   def load_prints
     language = self.entity.language
     prints_dir = "#{RAILS_ROOT}/app/views/prints"
- 
+    
     families = {}
     families[:management] = {'sale_order'=>{:to_archive=>false, :nature=>'sale_order', :filename=>I18n::t('models.company.default.document_templates_filenames.sale_order')}, 'invoice'=>{:to_archive=>true, :nature=>'invoice', :filename=>I18n::t('models.company.default.document_templates_filenames.invoice')}, 'inventory'=>{:to_archive=>false, :nature=>'inventory', :filename=>I18n::t('models.company.default.document_templates_filenames.inventory')}, 'transport'=>{:to_archive=>false, :nature=>'transport', :filename=>I18n::t('models.company.default.document_templates_filenames.transport')}, 'embankment'=>{:to_archive=>false, :nature=>'embankment', :filename=>I18n::t('models.company.default.document_templates_filenames.embankment')}, 'purchase_order'=>{:to_archive=>false, :nature=>'purchase_order', :filename=>I18n::t('models.company.default.document_templates_filenames.purchase_order')} }#, 'order_preparation'=>{:to_archive=>false, :nature=>'transport', :filename=>I18n::t('models.company.default.document_templates_filenames.order_preparation')}   }
     families[:relations] = {'entity'=>{:to_archive=>false, :nature=>'entity', :filename=>I18n::t('models.company.default.document_templates_filenames.entity')}}
     #families[:accountancy] = {'journal'=>{:to_archive=>false, :nature=>'other', :filename=>I18n::t('models.company.default.document_templates_filenames.other')}, 'journal_by_id'=>{:to_archive=>false, :nature=>'other', :filename=>I18n::t('models.company.default.document_templates_filenames.other')}}
-  
+    
     families.each do |family, templates|
       templates.each do |template, options|
         File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
@@ -725,7 +725,7 @@ class Company < ActiveRecord::Base
       entity = company.entities.new(indifferent_attributes)
       entity.name = last_name[rand(last_name.size)]
       entity.first_name = first_name[rand(first_name.size)] if 
-      entity.nature_id = entity_natures[rand(entity_natures.size).to_i]
+        entity.nature_id = entity_natures[rand(entity_natures.size).to_i]
       entity.name = entity.nature.abbreviation+" "+entity.name if entity.nature.in_name 
       entity.client = (rand() > 0.5 or rand() > 0.8)
       entity.supplier = (rand() > 0.75 or x == 0)
@@ -760,35 +760,35 @@ class Company < ActiveRecord::Base
 
 
   # this method allows to make operations (such as sum of credits) in the entries, according to a list of accounts.
- def filtering_entries(field, list_accounts=[], period=[])
-   #list_accounts.match(//) 
-   # if not period.empty?
-#      period.each do |p|
-#        raise Exception.new("Invalid date "+p.to_s) unless p.class.eql? String
-#      end
-#    end
-   
-   conditions = "draft=false "
-   if not list_accounts.empty?
-     conditions += "AND "
-     conditions += list_accounts.collect do |account|
-       "a.number LIKE '"+account.gsub('*', '%').gsub('?', '_').to_s+"'"
-     end.join(" OR ")
-   end  
-   
-   conditions += " AND CAST(r.created_on AS DATE) BETWEEN '"+period[0].to_s+"' AND '"+period[1].to_s+"'" if not period.empty?
-  
-   if [:credit, :debit].include? field
+  def filtering_entries(field, list_accounts=[], period=[])
+    #list_accounts.match(//) 
+    # if not period.empty?
+    #      period.each do |p|
+    #        raise Exception.new("Invalid date "+p.to_s) unless p.class.eql? String
+    #      end
+    #    end
+    
+    conditions = "draft=false "
+    if not list_accounts.empty?
+      conditions += "AND "
+      conditions += list_accounts.collect do |account|
+        "a.number LIKE '"+account.gsub('*', '%').gsub('?', '_').to_s+"'"
+      end.join(" OR ")
+    end  
+    
+    conditions += " AND CAST(r.created_on AS DATE) BETWEEN '"+period[0].to_s+"' AND '"+period[1].to_s+"'" if not period.empty?
+    
+    if [:credit, :debit].include? field
       result =  self.entries.sum(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=entries.account_id inner join journal_records r on r.id=entries.record_id")
-   end
+    end
 
-   if [:all, :first].include? field
-     result =  self.entries.find(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=entries.account_id inner join journal_records r on r.id=entries.record_id", :order=>"r.created_on ASC")
-   end
+    if [:all, :first].include? field
+      result =  self.entries.find(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=entries.account_id inner join journal_records r on r.id=entries.record_id", :order=>"r.created_on ASC")
+    end
 
-   return result
-                            
- end
+    return result
+    
+  end
 
   # this method displays all the records matching to a given period.
   def records(from, to, id=nil)

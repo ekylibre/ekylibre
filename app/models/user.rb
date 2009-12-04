@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
   validates_confirmation_of :password
   validates_inclusion_of :reduction_percent, :in=>0..100
-  # validates_uniqueness_of :name, :scope=>:company_id
+  validates_uniqueness_of :name # , :scope=>:company_id
 
   # cattr_accessor :current_user
   attr_accessor :password_confirmation, :old_password
