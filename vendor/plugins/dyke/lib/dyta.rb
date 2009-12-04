@@ -72,7 +72,7 @@ module Ekylibre
             if options[:pagination] == :will_paginate and not options.keys.include?(:order)
               cols = definition.table_columns
               if cols.size > 0
-                options[:order] = '"'+cols[0].name+'"'
+                options[:order] = '"'+cols[0].name.to_s+'"'
               else
                 raise ArgumentError.new("Option :order is needed for the dyta :#{name}")
               end
