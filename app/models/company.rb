@@ -724,12 +724,13 @@ class Company < ActiveRecord::Base
     for x in 0..30
       entity = company.entities.new(indifferent_attributes)
       entity.name = last_name[rand(last_name.size)]
-      entity.first_name = first_name[rand(first_name.size)]
+      entity.first_name = first_name[rand(first_name.size)] if 
       entity.nature_id = entity_natures[rand(entity_natures.size).to_i]
       entity.name = entity.nature.abbreviation+" "+entity.name if entity.nature.in_name 
       entity.client = (rand() > 0.5 or rand() > 0.8)
       entity.supplier = (rand() > 0.75 or x == 0)
       entity.transporter = rand() > 0.9
+      entity.first_name = '' unless entity.nature.physical
       entity.save! 
       contact = entity.contacts.create!(:company_id=>company.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :line_6=>cities[rand(cities.size)], :default=>true)
     end
