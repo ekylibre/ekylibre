@@ -1292,6 +1292,3 @@ class AccountancyController < ApplicationController
   end
   
 end
-
-
-

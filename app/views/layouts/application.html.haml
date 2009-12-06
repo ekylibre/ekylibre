@@ -16,7 +16,7 @@
       -unless side.blank?
         #side{:flexy=>'true', :orient=>:vertical, :style=>''+(session[:side] ? "" : "display:none")}
           =side      
-      #main{:flex=>9, :orient=>:vertical}
+      #main{:flex=>9, :orient=>:vertical, :style=>"position: absolute; top: 0px;"}
         #content{:flex=>3, :orient=>:vertical}
           .nav{:flexy=>'true'}
             =help_link_tag
@@ -30,6 +30,6 @@
               .message=flash[:message]
             =yield
             .end{:style=>'height:1px'}
-      #help{:flex=>3, :style=>(session[:help] ? "" : "display:none")}
+      #help{:flex=>3, :style=>(session[:help] ? "" : "display:none; ")+"position: absolute; top: 0px;"}
         = render :partial=>'help/search' if session[:help]
    

@@ -7,6 +7,7 @@ fieldset nobr { margin: 0 8px; vertical-align: middle; }
 td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:focus { color:#00C; }
 a:hover { color: #000; }
+input[type="submit"] { padding:2px 8px; }
 /*
 .stocks { padding: 5px 0 15px 0; }
 .paymentpart{ text-align:center; padding: 5px 0 5px 0; }

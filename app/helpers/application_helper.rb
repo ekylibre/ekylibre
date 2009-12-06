@@ -64,9 +64,9 @@ module ApplicationHelper
          {:name=>:parameters, :list=>
            [ {:name=>:accounts},
              {:name=>:journals},
+             {:name=>:financialyears},
              {:name=>:bank_accounts},
-             {:name=>:taxes},
-             {:name=>:financialyears} ] }
+             {:name=>:taxes} ] }
        ] },
      # ManagementController
      {:name=>:management, :list=>
