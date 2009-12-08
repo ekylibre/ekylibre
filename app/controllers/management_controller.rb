@@ -408,7 +408,7 @@ class ManagementController < ApplicationController
     code += " if session[:entity_id] == 0 \n " 
     code += " conditions = ['company_id = ? AND active = ?', @current_company.id, true] \n "
     code += " else \n "
-    code += " conditions = ['company_id = ? AND entity_id = ?  AND active = ?', @current_company.id,session[:entity_id], true]"
+    code += " conditions = ['company_id = ? AND entity_id = ?  AND active = ?', @current_company.id, session[:entity_id], true]"
     code += " end \n "
     code += " conditions \n "
     code
@@ -2245,6 +2245,7 @@ class ManagementController < ApplicationController
     session[:subscriptions][:instant] = instant||@subscription_nature.now
   end
 
+  # dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity]'], :active=>true, :company_id=>['@current_company.id']})
   dyli(:subscription_contacts,  ['entities.full_name', :address] ,:model=>:contact, :joins=>"JOIN entities ON (entity_id=entities.id)", :conditions=>{:active=>true, :company_id=>['@current_company.id']})
   
   def subscription_create

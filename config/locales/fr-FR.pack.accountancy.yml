@@ -14,7 +14,7 @@ fr-FR:
         create: 'Créer un nouveau journal comptable'
       messages:
         closed_financialyears: 'Exercice clôturé'
-        need_balanced_journal_to_tax_declaration: 'Tous vos journaux doivent être équilibrées à cette date.'
+        need_balanced_journal_to_tax_declaration: 'Tous vos journaux doivent être clôturés et équilibrés à cette date.'
         need_bank_account_to_record_statements: 'Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte.'
         need_commercial_transactions_for_generate_entries: 'Vous devez avoir réalisé au moins une opération commerciale.'
         need_closed_financialyear_to_declaration: 'Vous devez avoir un exercice clôturé pour créer une déclaration de TVA.'

@@ -107,7 +107,7 @@ class PurchaseOrder < ActiveRecord::Base
   def to_accountancy
     journal_purchase=  self.company.journals.find(:first, :conditions => ['nature = ?', 'purchase'],:order=>:id)
     
-    financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) AND closed=?'", '%'+Date.today.to_s+'%', false])
+    financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) AND closed=?", '%'+Date.today.to_s+'%', false])
     
      unless financialyear.nil? or journal_purchase.nil?
        

@@ -473,7 +473,6 @@ module ApplicationHelper
   end
 
 
-
   # TOOLBAR
 
   def toolbar(options={}, &block)

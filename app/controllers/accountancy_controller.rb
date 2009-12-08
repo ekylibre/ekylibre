@@ -152,7 +152,7 @@ class AccountancyController < ApplicationController
     
     if request.post? or request.xhr?
       #all the invoices are accountized.
-      @invoices = @current_company.invoices.find(:all, :conditions=>["accounted = ? and amount != 0 AND CAST(created_on AS DATE) BETWEEN \'2007-01-01\' AND ?", false, session[:limit_period].to_s], :limit=>1000)
+      @invoices = @current_company.invoices.find(:all, :conditions=>["accounted = ? and amount != 0 AND CAST(created_on AS DATE) BETWEEN \'2007-01-01\' AND ?", false, session[:limit_period].to_s], :limit=>100)
       @invoices.each do |invoice|
         invoice.to_accountancy
       end
@@ -170,17 +170,17 @@ class AccountancyController < ApplicationController
       end
       
       # all the payments are comptabilized if they have been embanked or not.  
-      join = "inner join embankments e on e.id=payments.embankment_id" unless session[:cashed_payments]
-      @payments = @current_company.payments.find(:all, :conditions=>["payments.created_on < ? and payments.accounted = ? and payments.amount!=0", session[:limit_period].to_s, false], :joins=>join||nil, :order=>"created_on DESC", :limit=>1000)    
-      @payments.each do |payment|
-        payment.to_accountancy
-      end
+    #   join = "inner join embankments e on e.id=payments.embankment_id" unless session[:cashed_payments]
+#       @payments = @current_company.payments.find(:all, :conditions=>["payments.created_on < ? and payments.accounted = ? and payments.amount!=0", session[:limit_period].to_s, false], :joins=>join||nil, :order=>"created_on DESC", :limit=>100)    
+#       @payments.each do |payment|
+#         payment.to_accountancy
+#       end
          
-      # the sale_orders are comptabilized if the matching payments and invoices have been already accountized.  
-      @sale_orders = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted = ? and p.accounted=? and i.accounted=?", session[:limit_period].to_s, false, true, true], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id",:order=>"created_on DESC", :limit=>1000)    
-      @sale_orders.each do |sale_order|
-        sale_order.to_accountancy 
-      end
+#       # the sale_orders are comptabilized if the matching payments and invoices have been already accountized.  
+#       @sale_orders = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted = ? and p.accounted=? and i.accounted=?", session[:limit_period].to_s, false, true, true], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id",:order=>"created_on DESC", :limit=>100)    
+#       @sale_orders.each do |sale_order|
+#         sale_order.to_accountancy 
+#       end
       
     elsif request.put?
       Entry.update_all({:draft=> false}, {:company_id=>@current_company.id, :draft=> true}, :joins=>"inner join journal_records r on r.id=entries.record_id and r.created_on < #{session[:limit_period]}")

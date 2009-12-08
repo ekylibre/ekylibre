@@ -111,7 +111,8 @@ class Payment < ActiveRecord::Base
       
       account_bank_id = self.company.accounts.find(:first, :conditions=>["number LIKE ?", '512%']).id
       bank_name = (self.mode.bank_account_id ? (self.mode.bank_account.bank_name || 'Banque') : 'Banque')
-      
+
+     
       self.parts.each do |part|
             
         if [:SaleOrder].include? part.expense_type.to_sym

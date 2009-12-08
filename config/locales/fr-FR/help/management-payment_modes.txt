@@ -1,10 +1,10 @@
-h1. Les types de paiements
+h1. Les types de règlements
 
-Les types de paiement vous servent à définir un *moyen de paiement* et sont utilisés lors des règlements des ventes.
+Les types de règlement vous servent à définir un *moyen de paiement* et sont utilisés lors des règlements des ventes.
 
 Vous pouvez :
-* *Ajouter* un nouveau type de paiement
-* *Modifier* un type de paiement :  <<management-payments_update|{{buttons/update.png|modifier}}>>
-* *Supprimer* un type de paiement : {{buttons/delete.png|supprimer}}
+* *Ajouter* un nouveau type de règlement
+* *Modifier* un type de règlement :  <<management-payments_update|{{buttons/update.png|modifier}}>>
+* *Supprimer* un type de règlement : {{buttons/delete.png|supprimer}}
 
 <<management-index|Retour à l'aide sur la Gestion Commerciale>>
