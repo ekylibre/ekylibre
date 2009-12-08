@@ -24,6 +24,17 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient4002">
+      <stop
+         style="stop-color:#1b8bfd;stop-opacity:1;"
+         offset="0"
+         id="stop4004" />
+      <stop
+         style="stop-color:#024891;stop-opacity:1;"
+         offset="1"
+         id="stop4006" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3995">
       <stop
          style="stop-color:#093b0e;stop-opacity:1;"
@@ -4511,6 +4522,17 @@
          stdDeviation="0.178125"
          id="feGaussianBlur4015" />
     </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4002"
+       id="radialGradient4008"
+       cx="22.529427"
+       cy="22.942734"
+       fx="22.529427"
+       fy="22.942734"
+       r="7.2770527"
+       gradientTransform="matrix(1,0,0,1.1889501,0,-4.7887047)"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -4567,7 +4589,7 @@
        id="guide8460" />
     <sodipodi:guide
        orientation="horizontal"
-       position="313.125,-0.125"
+       position="24.8125,0"
        id="guide1533" />
     <sodipodi:guide
        orientation="vertical"
@@ -6391,5 +6413,23 @@
        inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/h3.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#radialGradient4008);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9916054;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3217"
+       sodipodi:cx="24.28125"
+       sodipodi:cy="25.34375"
+       sodipodi:rx="6.78125"
+       sodipodi:ry="8.15625"
+       d="M 31.0625,25.34375 A 6.78125,8.15625 0 1 1 17.5,25.34375 A 6.78125,8.15625 0 1 1 31.0625,25.34375 z"
+       transform="matrix(1.1797235,0,0,0.9808429,-4.6451613,-0.8582375)"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/help.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.44375"
+       d="M 24.25,17.5 C 22.696226,17.517789 20.269077,17.979111 19.375,19.25 C 18.857154,19.986095 18.74513,21.607144 19.375,22.25 C 20.018126,22.906385 21.781115,22.955626 22.4375,22.3125 C 22.866071,21.892587 22.013236,20.736764 22.4375,20.3125 C 23.073896,19.676104 24.801104,19.676104 25.4375,20.3125 C 26.034121,20.909121 25.881086,21.907263 25.4375,22.625 C 24.908493,23.480951 22.966507,23.269049 22.4375,24.125 C 22.053059,24.747038 21.920428,26.045428 22.4375,26.5625 C 23.073896,27.198896 24.801104,27.198896 25.4375,26.5625 C 25.821989,26.178011 25.133483,25.200819 25.4375,24.75 C 25.968954,23.961919 27.843546,24.350581 28.375,23.5625 C 29.245117,22.272225 29.284955,20.137496 28.375,18.875 C 27.612281,17.816784 25.554354,17.485067 24.25,17.5 z M 25.4375,28.1875 C 24.794371,27.55763 23.06737,27.606871 22.4375,28.25 C 22.017678,28.67866 22.013236,29.825736 22.4375,30.25 C 23.073896,30.886396 24.801104,30.886396 25.4375,30.25 C 25.875022,29.812478 25.879555,28.620442 25.4375,28.1875 z"
+       id="path4011"
+       sodipodi:nodetypes="cssssssssssssscssss" />
   </g>
 </svg>

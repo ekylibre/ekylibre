@@ -95,7 +95,8 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 #top #modules { float:left; height:24px; margin-top:4px; }
 
 .help-link { float:right; padding: 8px 4px;}
-.help-link a:link { padding: 4px; font-size: 13px; color: #750; background: #e9e9a8; }
+.help-link a:link { padding: 4px; font-size: 13px; }
+#help .help-link a:link { color: #750; background: #e9e9a8; }
 .help-link a:hover { color:black; }
 #help-open a { background: url(../images/buttons/help.png) no-repeat scroll left center; padding-left:20px; }
 #help-close a { background: url(../images/buttons/close.png) no-repeat scroll left center; padding-left:20px; }
