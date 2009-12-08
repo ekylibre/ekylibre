@@ -29,6 +29,14 @@ class CompanyController < ApplicationController
     redirect_to :action=>:index
   end
   
+
+  def side
+    @parameter = @current_user.parameter("interface.side.#{params[:id]}.opened", true, :boolean)
+    @parameter.set !@parameter.value
+    @parameter.save!
+  end
+
+
   def about
     File.open("#{RAILS_ROOT}/VERSION") {|f| @version = f.read.split(',')}
     begin

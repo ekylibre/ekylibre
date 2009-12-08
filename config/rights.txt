@@ -96,6 +96,7 @@ company          about                            __minimum__
 company          change_password                  __minimum__
 company          help                             __minimum__
 company          index                            __minimum__
+company          side                            __minimum__
 company          tabbox_index                     __minimum__
 company          unknown_action                   __minimum__
 company          user_statistics                  __minimum__

@@ -6431,5 +6431,43 @@
        d="M 24.25,17.5 C 22.696226,17.517789 20.269077,17.979111 19.375,19.25 C 18.857154,19.986095 18.74513,21.607144 19.375,22.25 C 20.018126,22.906385 21.781115,22.955626 22.4375,22.3125 C 22.866071,21.892587 22.013236,20.736764 22.4375,20.3125 C 23.073896,19.676104 24.801104,19.676104 25.4375,20.3125 C 26.034121,20.909121 25.881086,21.907263 25.4375,22.625 C 24.908493,23.480951 22.966507,23.269049 22.4375,24.125 C 22.053059,24.747038 21.920428,26.045428 22.4375,26.5625 C 23.073896,27.198896 24.801104,27.198896 25.4375,26.5625 C 25.821989,26.178011 25.133483,25.200819 25.4375,24.75 C 25.968954,23.961919 27.843546,24.350581 28.375,23.5625 C 29.245117,22.272225 29.284955,20.137496 28.375,18.875 C 27.612281,17.816784 25.554354,17.485067 24.25,17.5 z M 25.4375,28.1875 C 24.794371,27.55763 23.06737,27.606871 22.4375,28.25 C 22.017678,28.67866 22.013236,29.825736 22.4375,30.25 C 23.073896,30.886396 24.801104,30.886396 25.4375,30.25 C 25.875022,29.812478 25.879555,28.620442 25.4375,28.1875 z"
        id="path4011"
        sodipodi:nodetypes="cssssssssssssscssss" />
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#001122;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.05606031;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.2442;stroke-opacity:0.53191457"
+       id="path3222"
+       sodipodi:sides="3"
+       sodipodi:cx="196.25"
+       sodipodi:cy="4.625"
+       sodipodi:r1="15.780353"
+       sodipodi:r2="7.8901763"
+       sodipodi:arg1="0.80500349"
+       sodipodi:arg2="-2.0742343"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 207.1875,16 L 180.93021,8.4096529 L 200.63229,-10.534653 L 207.1875,16 z"
+       transform="matrix(0.1731665,-0.3191888,0.1833398,0.3014794,276.18863,101.21556)"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/next2.png"
+       inkscape:export-xdpi="90.044426"
+       inkscape:export-ydpi="90.044426" />
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#001122;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.05606031;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.2442;stroke-opacity:0.53191457"
+       id="path4015"
+       sodipodi:sides="3"
+       sodipodi:cx="196.25"
+       sodipodi:cy="4.625"
+       sodipodi:r1="15.780353"
+       sodipodi:r2="7.8901763"
+       sodipodi:arg1="0.80500349"
+       sodipodi:arg2="-2.0742343"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 207.1875,16 L 180.93021,8.4096529 L 200.63229,-10.534653 L 207.1875,16 z"
+       transform="matrix(0.3191888,0.1731665,-0.3014794,0.1833398,266.78444,4.188629)"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/next2.png"
+       inkscape:export-xdpi="90.044426"
+       inkscape:export-ydpi="90.044426" />
   </g>
 </svg>

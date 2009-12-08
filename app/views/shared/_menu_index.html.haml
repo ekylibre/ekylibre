@@ -5,6 +5,6 @@
   - if display
     %div{:class=>"menu"+(list[:class].nil? ? "" : " "+list[:class].to_s)}
       %h2=t("views.#{self.controller.controller_name}.index.#{list[:name].to_s}")
-      %ul
+      %ul{:id=>"menu_#{self.controller.controller_name}_#{list[:name]}_actions"}
         - for action in list[:list]
           =li_link_to t("views.#{self.controller.controller_name}.index.#{action[:name].to_s}"), action[:url]||{:action=>action[:name]}

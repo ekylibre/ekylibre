@@ -79,6 +79,14 @@ class User < ActiveRecord::Base
     end
   end
   
+
+  def parameter(name, value=nil, nature=:string)
+    p = self.parameters.find(:first, :order=>:id, :conditions=>{:name=>name})
+    p = self.parameters.create!(:name=>name, :company_id=>self.company_id, :nature=>nature.to_s, :value=>value) if p.nil?
+    return p
+  end
+
+
   def rights_array
     self.rights.to_s.split(" ").collect{|x| x.to_sym}
   end

@@ -89,7 +89,7 @@ class AuthenticationController < ApplicationController
   
   def init_session(user)
     session[:expiration]   = 3600*5
-    session[:help]         = true
+    session[:help]         = user.parameter("interface.help.opened", true, :boolean).value
     session[:help_history] = []
     session[:history]      = []
     session[:last_page]    = {}

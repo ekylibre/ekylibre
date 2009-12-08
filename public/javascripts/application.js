@@ -409,3 +409,21 @@ function toggleElement(element) {
   }
   return false;
 }
+
+
+
+function toggleMenu(element) {
+  var actions = $(element+'_actions');
+  var title = $(element+'_title');
+  var state;
+  if (actions.style.display == "none") {
+    actions.blindDown();
+    title.removeClassName('closed');
+    state = "true";
+  } else {
+    actions.blindUp();
+    title.addClassName('closed');
+    state = "false";
+  }
+  return state;
+}

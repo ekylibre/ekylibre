@@ -31,6 +31,10 @@ class Parameter < ActiveRecord::Base
   cattr_reader :reference
   attr_readonly :company_id, :user_id, :name, :nature
 
+  def before_validation
+    self.company_id = self.user.company_id if self.user
+  end
+
   def value
     self.send(self.nature+'_value')
   end
@@ -49,6 +53,11 @@ class Parameter < ActiveRecord::Base
     else
       self.send(self.nature.to_s+'_value=', object)
     end
+  end
+
+  def set(object)
+    self.value = object
+    self.save
   end
 
   def record?
