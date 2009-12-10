@@ -42,10 +42,16 @@
     -c << toolbar do
       -link(:entity_contact_create, :id=>@entity.id)
     -c << dyta(:contacts)
-  -tb.tab(tc(:sale_orders_number , :count=>@sale_orders_number)) do |c|
-    -c << toolbar do |t|
-      -t.link(:sale_order_create, :controller=>:management, :client_id=>@entity.id)
-    -c << dyta(:entity_sale_orders)
+  -if @entity.client
+    -tb.tab(tc(:sale_orders_number , :count=>@sale_orders_number)) do |c|
+      -c << toolbar do |t|
+        -t.link(:sale_order_create, :controller=>:management, :client_id=>@entity.id)
+      -c << dyta(:entity_sale_orders)
+  -if @entity.supplier
+    -tb.tab(tc(:purchase_orders_number , :count=>@purchase_orders_number)) do |c|
+      -c << toolbar do |t|
+        -t.link(:purchase_order_create, :controller=>:management, :supplier_id=>@entity.id)
+      -c << dyta(:entity_purchase_orders)
   -if @invoices_count>0
     -tb.tab(tc(:invoices, :count=>@invoices_count)) do |c|
       -c << dyta(:entity_invoices)

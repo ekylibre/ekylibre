@@ -1304,6 +1304,11 @@ class ManagementController < ApplicationController
     # raise Exception.new @price.product.inspect
   end
 
+  def sale_order_line_stocks
+    price = find_and_check(:prices, params[:sale_order_line_price_id])
+    @product = find_and_check(:products, price.product_id)
+  end
+
   def subscription_message
     price = find_and_check(:prices, params[:sale_order_line_price_id])
     @product = find_and_check(:products, price.product_id)
@@ -1317,6 +1322,7 @@ class ManagementController < ApplicationController
     @sale_order_line = SaleOrderLine.new(:price_amount=>0.0)
     if @current_company.available_prices.size > 0
       @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id, :company_id=>@current_company.id).compute_period
+      @product = @current_company.available_prices.first.product
     else
       @subscription = Subscription.new()
     end
@@ -2225,6 +2231,9 @@ class ManagementController < ApplicationController
 
   def subscription_options
     @subscription_nature = find_and_check(:subscription_nature, params[:nature])
+    #instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant]) rescue nil 
+    #session[:subscriptions][:instant] = instant||@subscription_nature.now
+    session[:subscriptions][:instant] = @subscription_nature.now
     render :partial=>'subscription_options'
   end
 
@@ -2235,8 +2244,21 @@ class ManagementController < ApplicationController
       redirect_to :action=>:subscription_natures
       return
     end
+    session[:numbers] = []
+    session[:dates] = []
     if params[:nature]
       return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature])
+      intervals = []
+      if @subscription_nature.nature == "quantity"
+        for i in params[:start].to_i..params[:stop].to_i
+          intervals << i.to_i if i.to_i%2==0 
+        end
+        session[:numbers] = intervals
+        session[:dates] = []
+      else
+        session[:dates] = intervals
+        session[:numbers] = []
+      end
     end
     @subscription_nature ||= @current_company.subscription_natures.first
     session[:subscriptions] ||= {}

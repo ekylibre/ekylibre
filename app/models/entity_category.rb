@@ -30,7 +30,7 @@ class EntityCategory < ActiveRecord::Base
 
     EntityCategory.update_all({:default=>false}, ["company_id=? AND id!=?", self.company_id, self.id||0]) if self.default
   end
-
+ 
 
   def before_destroy
     EntityCategory.create!(self.attributes.merge({:deleted=>true, :code=>self.code.to_s+" ", :company_id=>self.company_id})) 

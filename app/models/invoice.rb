@@ -65,11 +65,11 @@ class Invoice < ActiveRecord::Base
       end
     end
     self.currency_id ||= self.sale_order.currency_id if self.sale_order
-    self.payment_on ||= Date.today
   end
   
   def before_validation_on_create
     self.payment_on ||= self.payment_delay.compute if self.payment_delay
+    self.payment_on ||= Date.today
     if self.credit and self.origin
       self.payment_on = Date.today if self.payment_on.nil?
       self.contact_id = self.origin.contact_id

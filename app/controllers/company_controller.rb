@@ -542,12 +542,13 @@ class CompanyController < ApplicationController
     t.column :root_model_name
     t.column :comment
     t.action :listing_extract, :format=>'csv', :image=>:action
-    t.action :listing_mail
+    t.action :listing_mail, :if=>'RECORD.mail_columns.size > 0'
     t.action :listing_update#, :url=>{:action=>:listing_nodes}
     t.action :listing_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   def listings
+    session[:listing_mail_column] = nil
   end
 
   def listing_extract
@@ -575,34 +576,56 @@ class CompanyController < ApplicationController
   
   def listing_mail
     @listing = find_and_check(:listing, params[:id])
-    query = @listing.query
-    query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
-    full_results = ActiveRecord::Base.connection.select_all(@listing.query)
-    results = full_results.select{|c| !c["email"].blank? }
-    @mails = results.collect{|c| c["email"] }
-    @columns = results[0].keys.sort
-    session[:mail] ||= {}
+    if @listing.mail_columns.size == 0
+      flash[:warning] = tc(:you_must_have_an_email_column)
+      redirect_to_back
+    else
+      if session[:listing_mail_column] or @listing.mail_columns.size ==  1
+        query = @listing.query
+        query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
+        full_results = ActiveRecord::Base.connection.select_all(@listing.query)
+        listing_mail_column = @listing.mail_columns.size == 1 ? @listing.mail_columns[0] : find_and_check(:listing_nodes, session[:listing_mail_column])
+        #raise Exception.new listing_mail_column.inspect
+        results = full_results.select{|c| !c[listing_mail_column.label].blank? }
+        @mails = results.collect{|c| c[listing_mail_column.label] }
+        @mails.uniq! ### CHECK ????????
+        @columns = results[0].keys.sort
+        session[:mail] ||= {}
+      end
+    end
     if request.post?
-      session[:mail] = params.dup
-      session[:mail].delete(:attachment)
-      texts = [params[:subject], params[:body]]
-      attachment = params[:attachment]
-      if attachment
-        # file = "#{RAILS_ROOT}/tmp/uploads/attachment_#{attachment.original_filename.gsub(/\W/,'_')}"
-        # File.open(file, "wb") { |f| f.write(attachment.read)}
-        attachment = {:filename=>attachment.original_filename, :content_type=>attachment.content_type, :body=>attachment.read.dup}
-      end
-      if params[:send_test]
-        results = [results[0]]
-        results[0]["email"] = params[:from]
-      end
-      for result in results
-        ts = texts.collect do |t|
-          r = t.to_s.dup
-          @columns.each{|c| r.gsub!(/\{\{#{c}\}\}/, result[c].to_s)}
-          r
+      if params[:node]
+        session[:listing_mail_column] = ListingNode.find_by_company_id_and_key(@current_company.id, params[:node][:mail]).id
+         #raise Exception.new  session[:listing_mail_column].inspect
+        redirect_to_current
+      else
+        session[:mail] = params.dup
+        session[:mail].delete(:attachment)
+        texts = [params[:subject], params[:body]]
+        attachment = params[:attachment]
+        if attachment
+          # file = "#{RAILS_ROOT}/tmp/uploads/attachment_#{attachment.original_filename.gsub(/\W/,'_')}"
+          # File.open(file, "wb") { |f| f.write(attachment.read)}
+          attachment = {:filename=>attachment.original_filename, :content_type=>attachment.content_type, :body=>attachment.read.dup}
         end
-        Mailman.deliver_message(params[:from], result["email"], ts[0], ts[1], attachment)
+        if params[:send_test]
+          results = [results[0]]
+          results[0][listing_mail_column.label] = params[:from]
+        end
+        for result in results
+          ts = texts.collect do |t|
+            r = t.to_s.dup
+            @columns.each{|c| r.gsub!(/\{\{#{c}\}\}/, result[c].to_s)}
+            r
+          end
+          Mailman.deliver_message(params[:from], result[listing_mail_column.label], ts[0], ts[1], attachment)
+        end
+        nature = @current_company.event_natures.find(:first, :conditions=>{:usage=>"mailing"}).nil? ? @current_company.event_natures.create!(:name=>tc(:mailing), :duration=>5, :usage=>"mailing").id : @current_company.event_natures.find(:first, :conditions=>{:usage=>"mailing"})
+        #raise Exception.new nature.inspect
+        for contact in @current_company.contacts.find(:all, :conditions=>["email IN (?) AND active = true", @mails])
+          @current_company.events.create!(:entity_id=>contact.entity_id, :started_at=>Time.now, :duration=>5, :nature_id=>nature.id, :employee_id=>@current_user.employee)
+        end
+        session[:listing_mail_column] = nil
       end
     end
     @title = {:listing => @listing.name}
@@ -625,7 +648,7 @@ class CompanyController < ApplicationController
     @listing = find_and_check(:listing, params[:id])
     if request.post? and @listing
       if @listing.update_attributes(params[:listing])
-        redirect_to_back
+        redirect_to_current
       end
     end
     @title ={:value=>@listing.name}
@@ -669,8 +692,10 @@ class CompanyController < ApplicationController
     @listing_node = find_and_check(:listing_node, params[:parent_id])
     render :text=>"[UnfoundListingNode]" unless @listing_node
     desc = params[:nature].split("-")
-    ln = @listing_node.children.new(:nature=>desc[0], :name=>desc[1], :label=>t("activerecord.attributes.#{@listing_node.model.to_s.underscore}.#{desc[1]}"))
-    ln.reflection_name = desc[1] if ln.reflection?
+   # raise Exception.new desc.inspect
+    ln = @listing_node.children.new(:nature=>desc[0], :attribute_name=>desc[1], :label=>t("activerecord.attributes.#{@listing_node.model.to_s.underscore}.#{desc[1]}"))
+    #ln.reflection_name = desc[1] if ln.reflection?
+    #ln.attribute_name = ln.reflection? ? desc[1]
     ln.save!
     # raise Exception.new(ln.inspect)
     
@@ -697,13 +722,30 @@ class CompanyController < ApplicationController
   
   def listing_node_update
     @listing_node = find_and_check(:listing_node, params[:id])
-    if request.post? and @listing_node
-      if @listing_node.update_attributes(params[:listing_node])
-        redirect_to_back
+    puts params.inspect+"!!!!!!!!!!!!!!!!!!!!!"+@listing_node.inspect if request.xhr?
+    if request.xhr? and @listing_node
+      if params[:type] == "hide" or params[:type] == "show"
+        puts "7777777777777777777777777777777"
+        @listing_node.exportable = !@listing_node.exportable
+        render :text=>""
+      elsif params[:type] == "column_label"
+        #puts "8888888888888888888888888888888888888888888888888"
+        @listing_node.label = params[:label]
+        render(:partial=>"listing_node_column_label", :object=>@listing_node)
+      elsif params[:type] == "comparison"
+        puts "-----------------------------------"
+        @listing_node.condition_operator = params[:comparator]
+        @listing_node.condition_value = params[:comparison_value]
+        render(:partial=>"listing_node_comparison", :object=>@listing_node)
+        #render(:partial=>"listing_node", :object=>@listing_node)
+        #render :text=>""
       end
+      @listing_node.save
+    else
+      redirect_to :action=>:listings
     end
-    @title ={:value=>@listing_node.name}
-    render_form
+    
+    
   end
 
   def listing_node_delete

@@ -283,7 +283,7 @@ fr-FR:
       supplier: 'Fournisseur'
       error_missing_title: 'doit contenir la dénomination sociale "{{title}}"'
       error_client_account_already_used: 'Le compte comptable client est déjà utilisé.'
-      error_nature_do_not_allow_a_first_name: 'Le type "{{nature}}" sélectionné ne permet de renseigné un prénom'
+      error_nature_do_not_allow_a_first_name: 'Le type "{{nature}}" sélectionné ne permet de renseigner un prénom'
       error_supplier_account_already_used: 'Le compte comptable fournisseur est déjà utilisé.'
     entry:
       error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
@@ -293,6 +293,7 @@ fr-FR:
     event_nature:
       usages:
         invoice: 'Création d''une facture'
+        mailing: 'Mailing'
         manual: 'Manuelle'
         purchase_order: 'Création d''un achat'
         sale_order: 'Création d''un devis'
@@ -335,6 +336,34 @@ fr-FR:
       error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus créer, modifier  ou supprimer de pièces.' 
       error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
       error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
+    listing_nodes:
+      comparators:
+        any: 'Aucune condition'
+        begins: 'Commence par'
+        begins_cs: 'Commence par (sensible à la casse)'
+        contains: 'Contient'
+        contains_cs: 'Contient (sensible à la casse)'
+        eq: '='
+        equal: 'Est égal à'
+        equal_cs: 'Est égal (sensible à la casse)'
+        finishes: 'Se termine par'
+        finishes_cs: 'Se termine par (sensible à la casse)'
+        ge: '≥'
+        gt: '>' 
+        in: 'Est égal à l''un des éléments suivants'
+        is_false: 'Est faux'
+        is_true: 'Est vrai'
+        le: '≤'
+        lt: '<' 
+        neq: 'Est différent de' 
+        not_begins: 'Ne commence pas par'
+        not_begins_cs: 'Ne commence pas par (sensible à la casse)'
+        not_contains: 'Ne contient pas'
+        not_contains_cs: 'Ne contient pas (sensible à la casse)'
+        not_equal: 'N''est pas égal à'
+        not_equal_cs: 'N''est pas égal à (sensible à la casse)'
+        not_finishes: 'Ne se termine pas par'
+        not_finishes_cs: 'Ne se termine pas par (sensible à la casse)'
     observation:
       importances:
         important: Importante

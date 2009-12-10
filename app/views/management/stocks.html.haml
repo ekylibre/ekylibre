@@ -1,3 +1,6 @@
-=render :partial=>"location_choice"
-=render :partial=>"stocks"
+-if @current_company.product_stocks.size > 0
+  =render :partial=>"location_choice"
+  =render :partial=>"stocks"
+-else
+  %h2{:style=>'text-align: center;'}=tc(:no_product_stocks)
 

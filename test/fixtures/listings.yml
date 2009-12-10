@@ -4,10 +4,12 @@
 #
 #  comment      :text          
 #  company_id   :integer       not null
+#  conditions   :text          
 #  created_at   :datetime      not null
 #  creator_id   :integer       
 #  id           :integer       not null, primary key
 #  lock_version :integer       default(0), not null
+#  mail         :text          
 #  name         :string(255)   not null
 #  query        :text          
 #  root_model   :string(255)   not null

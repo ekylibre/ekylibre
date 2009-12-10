@@ -402,6 +402,21 @@ class RelationsController < ApplicationController
     t.action :observation_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
+
+  dyta(:entity_purchase_orders, :model=>:purchase_order,:conditions=>{:company_id=>['@current_company.id'], :supplier_id=>['session[:current_entity]']}, :line_class=>'RECORD.status') do |t|
+    t.column :number ,:url=>{:controller=>:management, :action=>:purchase_order}
+    t.column :created_on
+    t.column :moved_on
+    t.column :address, :through=>:dest_contact
+    t.column :shipped
+    #t.column :invoiced
+    t.column :amount
+    t.column :amount_with_taxes
+    t.action :print, :url=>{:controller=>:company, :type=>:purchase_order}
+    t.action :purchase_order_lines, :controller=>:management, :image=>:update#, :if=>'RECORD.editable'
+    t.action :purchase_order_delete, :controller=>:management,:method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.editable'
+  end
+
   def entity
     @entity = find_and_check(:entity, params[:id])
     return if @entity.nil?
@@ -412,7 +427,8 @@ class RelationsController < ApplicationController
     #       return
     #     end
     session[:current_entity] = @entity.id
-    @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})
+    @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]}) if @entity.client 
+    @purchase_orders_number = PurchaseOrder.count(:conditions=>{:company_id=>@current_company.id, :supplier_id=>params[:id]}) if @entity.supplier
     @key = ""
     @invoices_count = @entity.invoices.size
     @payments_count = @entity.payments.size
@@ -1075,6 +1091,7 @@ class RelationsController < ApplicationController
 
   @@exchange_format = [ {:name=>:entity_code, :null=>false}, 
                         {:name=>:entity_nature_name, :null=>false},
+                        {:name=>:entity_category_name, :null=>false},
                         {:name=>:entity_name, :null=>false},
                         {:name=>:entity_first_name, :null=>true},
                         {:name=>:contact_line_2, :null=>true},
@@ -1126,14 +1143,16 @@ class RelationsController < ApplicationController
         FasterCSV.foreach(file) do |row|
           @entity = Entity.find_by_company_id_and_code(@current_company.id, row[indices[:entity_code]])
           if @entity.nil?
+#            raise Exception.new "nok"+row[indices[:entity_code]].inspect if i != 0 and  i!= 1
             @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>language.id, :nature_id=>@current_company.entity_natures[0])
             @contact = Contact.new(:default=>true, :company_id=>@current_company.id, :entity_id=>0, :country=>'fr')
           else
+            #raise Exception.new "ok"+row[indices[:entity_code]].inspect
             @contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>@entity.id, :default=>true, :deleted=>false})
           end
           
           if i!=0 
-            @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[indices[:entity_nature_name]]), :name=>row[indices[:entity_name]], :first_name=>row[indices[:entity_first_name]], :reduction_rate=>row[indices[:entity_reduction_rate]].to_s.gsub(/\,/,"."), :comment=>row[indices[:entity_comment]]}
+            @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[indices[:entity_nature_name]]), :category_id=>@current_company.imported_entity_category(row[indices[:entity_category_name]]), :name=>row[indices[:entity_name]], :first_name=>row[indices[:entity_first_name]], :reduction_rate=>row[indices[:entity_reduction_rate]].to_s.gsub(/\,/,"."), :comment=>row[indices[:entity_comment]]}
             @contact.attributes = {:line_2=>row[indices[:contact_line_2]], :line_3=>row[indices[:contact_line_3]], :line_4=>row[indices[:contact_line_4]], :line_5=>row[indices[:contact_line_5]], :line_6=>row[indices[:contact_line_6_code]].to_s+' '+row[indices[:contact_line_6_city]].to_s, :phone=>row[indices[:contact_phone]], :mobile=>row[indices[:contact_mobile]], :fax=>row[indices[:contact_fax]] ,:email=>row[indices[:contact_email]], :website=>row[indices[:contact_website]] } if !@contact.nil?
             if !@contact.nil? 
               if !@contact.valid? or !@entity.valid?
@@ -1145,13 +1164,14 @@ class RelationsController < ApplicationController
               @available_entities << [@entity, nil]
             end
           end 
-          puts i if i % 100 == 0
+          #puts i if i % 100 == 0
           i += 1
         end 
         # Fin boucle FasterCSV -- Début traitement données recueillies
         if @unavailable_entities.empty?        
           for entity_contact in @available_entities
             entity = Entity.find_by_company_id_and_code(@current_company.id, entity_contact[0].code)
+            #raise Exception.new entity_contact[0].code.inspect
             if entity.nil?
               en = Entity.create!(entity_contact[0].attributes)
               ct = Contact.new( entity_contact[1].attributes) 

@@ -923,6 +923,7 @@ fr-FR:
       listing:
         comment: 'Commentaire'
         company_id: 'Société'
+        conditions: 'Conditions'
         created_at: 'Créé le'
         creator_id: 'Créateur'
         id: 'ID'

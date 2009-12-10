@@ -3,6 +3,7 @@ fr-FR:
   controllers:
     relations:
       begins: 'Commence par'
+      category_name: 'Catégorie'
       check_fields: 'Vous devez cocher au moins une case pour effectuer la modification'
       client: 'Compte client'
       contact_email: 'Email'
@@ -18,6 +19,7 @@ fr-FR:
       contact_website: 'Site web'
       contains: 'Contient'
       entities_natures_delete_permission: 'Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches'
+      entity_category_name: 'Catégorie'
       entity_code: 'Code'
       entity_comment: 'Commentaire'
       entity_first_name: 'Prénom'
@@ -188,6 +190,11 @@ fr-FR:
           one: '1 réglement'
           other: '{{count}} réglements'
           zero: 'Aucun réglement'
+        purchase_order_create: 'Ajouter un nouvel achat'
+        purchase_orders_number:
+          one: '1 achat'
+          other: '{{count}} achats'
+          zero: 'Aucun achat'
         sale_order_create: 'Ajouter une nouvelle vente'
         sale_orders_number:
           one: '1 vente '

@@ -4,10 +4,12 @@
 #
 #  comment      :text          
 #  company_id   :integer       not null
+#  conditions   :text          
 #  created_at   :datetime      not null
 #  creator_id   :integer       
 #  id           :integer       not null, primary key
 #  lock_version :integer       default(0), not null
+#  mail         :text          
 #  name         :string(255)   not null
 #  query        :text          
 #  root_model   :string(255)   not null
@@ -28,7 +30,7 @@ class Listing < ActiveRecord::Base
   end
 
   def before_validation
-    #self.query == self.generate if self.id
+    self.query == self.generate if self.id
   end
 
   def after_create
@@ -42,38 +44,59 @@ class Listing < ActiveRecord::Base
   def generate
     if self.created_at.to_date >= Date.civil(2009,12,01)
       root = self.root
-      self.query = "SELECT #{self.selected_attr} FROM #{root.model.table_name} AS #{root.key}"
-      self.query += root.complete_query(root.key)
-      self.query += self.conditions
+      self.query = "SELECT #{self.selected_attr} FROM #{root.model.table_name} AS #{root.name}"
+      self.query += root.complete_query(root.name)
+      self.query += self.query_conditions
       #raise Exception.new "okkjj"+self.query.inspect
-      self.save
+      #self.save unless not_to_save
     end
   end
 
   def selected_attr
     attrs = []
-    for node in self.columns
-      name = I18n::t('activerecord.attributes.'+node.parent.name.singularize+'.'+node.name)
-     # raise Exception.new name.inspect
-      attrs << "#{node.parent.key}.#{node.name} AS \"#{name}\" "
+    for node in self.exportable_columns
+      #name = I18n::t('activerecord.attributes.'+node.name)
+      #attrs << "#{node.parent.key}.#{node.name} AS \"#{name}\" "
+      
+      name = node.label
+      #name = I18n::t('activerecord.attributes.'+node.model.name.underscore+'.'+node.name) ## delete what is after "_" ex: company_0
+      attrs << "#{node.name} AS \"#{name}\" "
     end
     attrs = attrs.join(", ")
   end
   
-  def conditions
+  def query_conditions
+    c = " WHERE "
     if self.reflections.size > 0
-      c = "WHERE  "
       cs = []
       for node in self.reflections
-        if node.name == "company"
-          cs << "COALESCE(#{node.key}.id, CURRENT_COMPANY) = CURRENT_COMPANY" 
+        if node.name.match("company")
+          cs << "COALESCE(#{node.name}.id, CURRENT_COMPANY) = CURRENT_COMPANY" 
         else
-          cs << "COALESCE(#{node.key}.company_id, CURRENT_COMPANY) = CURRENT_COMPANY"
+          cs << "COALESCE(#{node.name}.company_id, CURRENT_COMPANY) = CURRENT_COMPANY"
         end
       end
       c += cs.join(" AND ")
-      return c
+      #return c
     end
+
+    cs = []
+    has_conditions = false
+    for node in self.columns
+      if node.condition_operator and node.condition_value and node.condition_operator != "any"
+        has_conditions = true
+        if node.sql_type == "boolean" 
+          cs << "#{node.condition}"
+        else
+          cs << "#{node.name} #{node.condition}"
+        end
+      end
+    end
+    c += " AND " if self.reflections.size > 0 and has_conditions
+    c += cs.join(" AND ")
+    c += " AND ("+self.conditions+")" unless self.conditions.blank?
+    #raise Exception.new self.conditions.blank?
+    return c
   end
 
   def reflections
@@ -84,5 +107,13 @@ class Listing < ActiveRecord::Base
     self.nodes.find_all_by_nature("column")
   end
 
+  def exportable_columns
+    self.nodes.find_all_by_nature_and_exportable("column", true)
+  end
+
+  def mail_columns
+   
+    self.nodes.find(:all, :conditions=>["name LIKE ? ", '%.email'])
+  end
 
 end

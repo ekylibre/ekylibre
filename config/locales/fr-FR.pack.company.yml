@@ -2,12 +2,14 @@ fr-FR:
 
   controllers:
     company:
+      mailing: 'Mailing'
       object_to_print_no_found: 'Impossible d''imprimer classe : {{class}} erreur : {{error}}'
       restoration_finished: 'La restauration de la sauvegarde s''est terminée (en {{value}} secondes)'
       role: 'Rôle'
       title: 'Société'
       unknown_action: 'La page que vous demandez n''est pas disponible. ({{value}})'
       unvalid_version_for_restore: 'La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel'
+      you_must_have_an_email_column: 'Vous devez avoir une colonne Email dans votre extraction'
 
   helpers:
     company:
@@ -123,7 +125,9 @@ fr-FR:
       _listing_form:
         subtitle: 'Renseignez les informations concernant l''extraction'
       listing_mail:
+        are_you_sure_to_send_mails: 'Êtes-vous sûr(e) de vouloir envoyer les mails ?'
         attachment: 'Pièce jointe'
+        choose_mail_column: 'Veuillez choisir la colonne à utiliser pour le mailing'
         click_to_mail: 'Cliquez ici pour écrire votre message'
         personalized_mail: 'Envoyer un mail personnalisé'
         available_columns: 'Champs disponibles : {{columns}}'

@@ -2,8 +2,10 @@
 #
 # Table name: listing_nodes
 #
+#  attribute_name       :string(255)   
 #  company_id           :integer       not null
-#  comparator           :string(16)    
+#  condition_operator   :string(255)   
+#  condition_value      :string(255)   
 #  created_at           :datetime      not null
 #  creator_id           :integer       
 #  exportable           :boolean       default(TRUE), not null
@@ -12,6 +14,7 @@
 #  item_listing_node_id :integer       
 #  item_nature          :string(8)     
 #  item_value           :text          
+#  key                  :string(255)   
 #  label                :string(255)   not null
 #  listing_id           :integer       not null
 #  lock_version         :integer       default(0), not null
@@ -19,7 +22,7 @@
 #  nature               :string(255)   not null
 #  parent_id            :integer       
 #  position             :integer       
-#  reflection_name      :string(255)   
+#  sql_type             :string(255)   
 #  updated_at           :datetime      not null
 #  updater_id           :integer       
 #
@@ -30,21 +33,47 @@ class ListingNode < ActiveRecord::Base
   belongs_to :item_listing, :class_name=>Listing.name
   belongs_to :item_listing_node, :class_name=>ListingNode.name
   has_many :items, :class_name=>ListingNodeItem.name
-  #has_many :joins, :class_name=>ListingNode.name, :conditions=>{:nature=>["belongs_to", "has_many"]}
   acts_as_list :scope=>:listing_id
   acts_as_tree
   attr_readonly :company_id, :listing_id, :nature
+  validates_uniqueness_of :key
+
   @@natures = [:datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
 
-  @@comparators = {:numeric=>{"gt", "ge", "lt", "le", "equal", "between"}, :datetime=>{"gt", "ge"}}
+  @@comparators = {:numeric=>["any", "gt", "lt", "ge", "le", "eq", "neq"], :string=>["any", "begins", "finishes", "contains", "equal", "in","not_begins", "not_finishes", "not_contains", "not_equal", "begins_cs", "finishes_cs", "contains_cs", "equal_cs", "not_begins_cs", "not_finishes_cs", "not_contains_cs", "not_equal_cs"], :date=>["any","gt", "lt", "ge", "le", "eq", "neq"], :boolean=>["is_true", "is_false"], :unknown=>["--"]}
+  @@corresponding_comparators = {:gt=>">", :lt=>"<", :ge=>">=", :le=>"<=", :eq=>"=", :neq=>"!=", :begins=>"ILIKE '{{value}}%'", :finishes=>"ILIKE '%{{value}}'", :contains=>"ILIKE '%{{value}}%'", :equal=>"=", :begins_cs=>"LIKE '{{value}}%'", :finishes_cs=>"LIKE '%{{value}}'", :contains_cs=>"LIKE '%{{value}}%'", :equal_cs=>"LIKE '{{value}}'", :not_begins=>"NOT ILIKE '{{value}}%'", :not_finishes=>"NOT ILIKE '%{{value}}'", :not_contains=>"NOT ILIKE '%{{value}}%'", :not_equal=>"!=", :not_begins_cs=>"NOT LIKE '{{value}}%'", :not_finishes_cs=>"NOT LIKE '%{{value}}'", :not_contains_cs=>"NOT LIKE '%{{value}}%'", :not_equal_cs=>"NOT LIKE '{{value}}'", :is_true=>"true", :is_false=>"false", :in=>""  }
   
   def before_validation
     self.listing_id = self.parent.listing_id if self.parent
     self.company_id = self.listing.company_id if self.listing
-  end  
+
+    self.key = 'k'+User.send(:generate_password, 31, :normal) if self.key.nil? ## bef_val_on_cr
+    if self.root?
+      self.name = self.listing.root_model
+    elsif self.reflection?
+      self.name = self.attribute_name.to_s+"_0"
+    else
+      self.sql_type = self.convert_sql_type(self.parent.model.class_name.constantize.columns_hash[self.attribute_name].type.to_s)
+      #raise Exception.new self.attribute_name.inspect
+      self.name = self.parent.name.underscore+"."+self.attribute_name
+    end
+  end 
+
+  def before_validation_on_create
+    if self.reflection?
+      for node in listing.nodes
+        if node = self.listing.nodes.find(:first, :conditions=>{:name=>self.name})
+          self.name = node.name.succ
+        end
+      end
+    end
+  end
 
   def after_save
-    self.listing.generate if self.listing.created_at.to_date >= Date.civil(2009,12,01)
+    if self.listing.created_at.to_date >= Date.civil(2009,12,01)
+      self.listing.generate
+      self.listing.save
+    end
   end
 
   def self.natures
@@ -58,11 +87,11 @@ class ListingNode < ActiveRecord::Base
     for child in self.joins
       parent = sql_alias||child.parent.model.table_name
       if child.nature == "has_many" #or child.nature == "belongs_to"
-        conditions += " LEFT JOIN #{child.reflection.class_name.constantize.table_name} AS #{child.key} ON (#{child.key}.#{child.reflection.primary_key_name} = #{parent}.id) "
+        conditions += " LEFT JOIN #{child.reflection.class_name.constantize.table_name} AS #{child.name} ON (#{child.name}.#{child.reflection.primary_key_name} = #{parent}.id) "
       elsif child.nature == "belongs_to"
-        conditions += " LEFT JOIN #{child.reflection.class_name.constantize.table_name} AS #{child.key} ON (#{parent}.#{child.reflection.primary_key_name} = #{child.key}.id) "
+        conditions += " LEFT JOIN #{child.reflection.class_name.constantize.table_name} AS #{child.name} ON (#{parent}.#{child.reflection.primary_key_name} = #{child.name}.id) "
       end
-      conditions += child.complete_query(child.key)
+      conditions += child.complete_query(child.name)
     end
     conditions
   end
@@ -70,9 +99,38 @@ class ListingNode < ActiveRecord::Base
   def joins
     self.children.find(:all, :conditions=>["nature = ? OR nature = ? AND company_id = ?", 'belongs_to', 'has_many', self.company_id])
   end
-
+  
   def comparators
-#    @@comparators[self.nature.to_sym]
+    #raise Exception.new self.sql_type.inspect 
+    #return @@comparators[self.sql_type.to_sym] if self.sql_type
+    @@comparators[self.sql_type.to_sym].collect{|x| [I18n::t('models.listing_nodes.comparators.'+x),x]} if self.sql_type
+  end
+
+  def sql_format_comparator
+    @@corresponding_comparators[self.condition_operator.to_sym]||" = "
+  end
+
+  def condition
+    operator =  @@corresponding_comparators[self.condition_operator.to_sym]||"="
+    if self.condition_operator == "in"
+      c = " IN (#{self.compute_condition}) "
+    elsif operator.include? "{{value}}"
+      #c = operator.gsub(/\{\{value\}\}/i, self.condition_value)+"'"
+      c = operator.gsub(/\{\{value\}\}/i, self.condition_value)
+    else
+      if self.sql_type == "date"
+        c = " #{self.sql_format_comparator} CAST('#{self.condition_value.to_date}' AS date) "
+      elsif self.sql_type == "boolean"
+        c = " CAST(#{self.name} AS boolean) IS #{self.sql_format_comparator} "
+      else
+        c = " #{self.sql_format_comparator} #{self.condition_value} "
+      end
+    end
+    c
+  end
+
+  def compute_condition
+    self.condition_value.to_s.split("||").collect{|x| "'"+x.gsub(/\'/,"''")+"'"}.join(", ")
   end
 
   def reflection?
@@ -83,15 +141,13 @@ class ListingNode < ActiveRecord::Base
     self.parent_id.nil?
   end
 
-  def key
-    "ln#{self.id}"
-  end
-
   def model
     if self.root?
+    #if not self.nature == "root"
       self.listing.root_model
     else
-      self.parent.model.reflections[self.reflection_name.to_sym].class_name
+      #self.parent.model.reflections[self.reflection_name.to_sym].class_name
+      self.parent.model.reflections[self.attribute_name.to_sym].class_name
     end.classify.constantize
   end
 
@@ -100,7 +156,8 @@ class ListingNode < ActiveRecord::Base
     if self.root?
       return nil
     else
-      return self.parent.model.reflections[self.reflection_name.to_sym]
+      #return self.parent.model.reflections[self.reflection_name.to_sym]
+      return self.parent.model.reflections[self.attribute_name.to_sym]
     end
   end
 
@@ -109,10 +166,47 @@ class ListingNode < ActiveRecord::Base
     return nodes unless self.reflection?
     model = self.model
     # Columns
-    nodes += model.content_columns.collect{|x| "column-"+x.name}.sort
+    #nodes += model.content_columns.collect{|x| "column-"+x.name}.sort
+    nodes += model.content_columns.collect{|x| [I18n::t('activerecord.attributes.'+model.name.underscore+'.'+x.name.to_s).to_s, "column-"+x.name]}.sort
     # Reflections
-    nodes += model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| b.macro.to_s+"-"+a.to_s}
+    #nodes += model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| b.macro.to_s+"-"+a.to_s}
+    nodes += model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [I18n::t('activerecord.attributes.'+model.name.underscore+'.'+a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}
     return nodes.sort
   end
   
+  def convert_sql_type(type)
+    #raise Exception.new type.inspect
+    if type == "decimal" or type == "integer"
+      return 'numeric'
+    elsif type == "string" or type == "text"
+      return "string"
+    elsif type == "date" or type == "datetime"
+      return "date"
+    elsif type == "boolean"
+      return type
+    else
+      return 'unknown'
+    end
+  end
+
+  def default_comparison_value
+    if self.sql_type == "numeric"
+      return 0
+    elsif self.sql_type == "string" or self.sql_type == "text"
+      return ""
+    elsif self.sql_type == "date" or self.sql_type == "datetime"
+      return Date.today
+    else
+      return ""
+    end
+  end
+
+  def comparison
+    if self.condition_operator and self.condition_value and self.condition_operator != "any"
+      return I18n::t('models.listing_nodes.comparators.'+self.condition_operator)+" "+self.condition_value
+    else 
+      return "+++"
+    end
+  end
+
 end

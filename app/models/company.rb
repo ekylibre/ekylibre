@@ -316,6 +316,17 @@ class Company < ActiveRecord::Base
     nature.id
   end 
 
+  def imported_entity_category(row)
+    if row.blank?
+      nature = self.entity_categories.first
+    else
+      nature = EntityCategory.find(:first, :conditions=>['company_id = ? AND name ILIKE ? ',self.id, row])
+      #nature = EntityCategory.find(:first, :conditions=>['company_id = ? AND abbreviation ILIKE ?', self.id, row]) if nature.nil?
+      nature = EntityCategory.create!(:name=>row, :default=>false, :company_id=>self.id) if nature.nil? 
+    end
+    nature.id
+  end 
+
   #   def checks_to_embank_on_update(embankment)
   #     checks = []
   #     for payment in self.payments
@@ -664,11 +675,11 @@ class Company < ActiveRecord::Base
   def export_entities(find_options={})
     entities = self.entities.find(:all, find_options)
     csv_string = FasterCSV.generate do |csv|
-      csv << ["Code", "Type", "Nom", "Prénom","Dest-Service","Bat.-Res.-ZI","N° et voie","Lieu dit","Code Postal","Ville",  "Téléphone", "Mobile", "Fax","Email","Site Web", "Taux de réduction", "Commentaire" ]
+      csv << ["Code", "Type","Catégorie", "Nom", "Prénom","Dest-Service","Bat.-Res.-ZI","N° et voie","Lieu dit","Code Postal","Ville",  "Téléphone", "Mobile", "Fax","Email","Site Web", "Taux de réduction", "Commentaire" ]
       entities.each do |entity|
         contact = self.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :default=>true, :deleted=>false})
         line = []
-        line << [entity.code, entity.nature.name, entity.name, entity.first_name]
+        line << ["'"+entity.code, entity.nature.name, entity.category.name,entity.name, entity.first_name]
         if !contact.nil?
           line << [contact.line_2, contact.line_3, contact.line_4, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
         else

@@ -481,6 +481,8 @@ fr-FR:
       _sale_order_line_form:
         free_price: 'Renseignez ces champs si vous souhaitez appliquer un autre prix'
         infos: 'Choississez le produit et la quantité'
+      _sale_order_line_stocks:
+        line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
       sale_order_line_update:
         title: 'Modifier une ligne de produit'
       sale_order_lines:
@@ -635,6 +637,7 @@ fr-FR:
         current_real_quantity: 'Quantité réelle'
         current_virtual_quantity: 'Quantité virtuelle'
         name: 'Nom'
+        no_product_stocks: 'Vous ne gérez aucun stock. Si vous désirez gérer le stock d''un produit, veuillez cocher l''option "Gérer les stocks" lors de la création modification de votre produit.'
         select_stock_location: 'Sélectionnez un lieu de stockage'
         stock_max: 'Stock maximum'
         stock_min: 'Stock minimum'
@@ -661,6 +664,7 @@ fr-FR:
         select_number: 'Entrez un numéro'
         subscription_natures_down: 'Décrémenter le numéro actuel (-1)'
         subscription_natures_up: 'Incrémenter le numéro actuel (+1)'
+        stop: 'Jusqu''au'
       subscription_update:
         title: 'Modification de "{{value}}" du {{start}} au {{finish}}'
       subscriptions:
