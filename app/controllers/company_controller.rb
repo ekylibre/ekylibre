@@ -19,6 +19,15 @@ class CompanyController < ApplicationController
     @title = {:user=>@current_user.label, :company=>@current_company.name}
   end
 
+
+  def tabbox_index
+    session[:tabbox] ||= {}
+    session[:tabbox][params['id']] = params['index']
+    render :text=>nil
+  end
+
+
+
   def welcome
     index
     render :action=>:index
@@ -302,6 +311,8 @@ class CompanyController < ApplicationController
   end
 
 
+
+
   def users
   end
 
@@ -318,14 +329,6 @@ class CompanyController < ApplicationController
     t.action :user_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.id!=@current_user.id'
   end
 
-
-  def tabbox_index
-    session[:tabbox] ||= {}
-    session[:tabbox][params['id']] = params['index']
-    render :text=>nil
-  end
-
-
   def user_create
     if request.xhr?
       role = find_and_check(:role, params[:user_role_id])
@@ -339,7 +342,8 @@ class CompanyController < ApplicationController
         @rights = @user.rights_array
         if @user.save
           unless params[:create_employee].nil?
-            @employee = Employee.create!(params[:employee].merge({:user_id=>@user.id, :company_id=>@current_company.id }))           end
+            @employee = Employee.create!(params[:employee].merge({:user_id=>@user.id, :company_id=>@current_company.id })) 
+          end
           redirect_to_back 
         end
       else
@@ -361,7 +365,8 @@ class CompanyController < ApplicationController
       @rights = @user.rights_array
       if @user.save
         if !params[:create_employee].nil? and @user.employee.nil?
-          @employee = Employee.create!(params[:employee].merge({:user_id=>@user.id, :company_id=>@current_company.id }))           end
+          @employee = Employee.create!(params[:employee].merge({:user_id=>@user.id, :company_id=>@current_company.id }))     
+        end
         redirect_to_back 
       end
     else

@@ -58,7 +58,7 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 
 #side { width: 192px; padding: 0 0 8px 8px; background: #c9d7f1; overflow: auto;  border-top: 1px solid #95b0e4;}
 #side .menu { background: #FFF; padding:0px; margin:8px 0px 0px; border: 2px solid #95b0e4; }
-#side .menu h2 { font-size : 13px; color: #012; padding: 2px 4px 2px 20px; background: #95b0e4 url(../images/buttons/down4.png) no-repeat left center; text-align: left; cursor: pointer; }
+#side .menu h2 { font-size : 13px; color: #012; padding: 2px 4px 2px 18px; background: #95b0e4 url(../images/buttons/down4.png) no-repeat left center; text-align: left; cursor: pointer; font-weight: bold;}
 #side .menu h2.closed { background: #95b0e4 url(../images/buttons/next4.png) no-repeat left center; }
 #side .menu ul { padding: 0 0px 0 0px; }
 #side .menu ul li:first-child { border-top: none; }
