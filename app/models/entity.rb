@@ -92,10 +92,11 @@ class Entity < ActiveRecord::Base
     self.soundex = self.name.soundex2 if !self.name.nil?
     self.first_name = self.first_name.to_s.strip
     self.name = self.name.to_s.strip
-    self.full_name = (self.name.to_s+" "+self.first_name.to_s).strip
+    self.full_name = (self.name.to_s+" "+self.first_name.to_s)
     unless self.nature.nil?
-      self.full_name = self.nature.abbreviation+' '+self.full_name unless self.nature.in_name
+      self.full_name = self.nature.abbreviation+' '+self.full_name unless (self.nature.in_name or self.nature.abbreviation == "-")
     end
+    self.full_name.strip!
     
     #if self.client
     #  self.client_account_id

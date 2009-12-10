@@ -593,7 +593,7 @@ class CompanyController < ApplicationController
         #raise Exception.new listing_mail_column.inspect
         results = full_results.select{|c| !c[listing_mail_column.label].blank? }
         @mails = results.collect{|c| c[listing_mail_column.label] }
-        @mails.uniq! ### CHECK ????????
+        # @mails.uniq! ### CHECK ????????
         @columns = results[0].keys.sort
         session[:mail] ||= {}
       end
@@ -601,7 +601,6 @@ class CompanyController < ApplicationController
     if request.post?
       if params[:node]
         session[:listing_mail_column] = ListingNode.find_by_company_id_and_key(@current_company.id, params[:node][:mail]).id
-         #raise Exception.new  session[:listing_mail_column].inspect
         redirect_to_current
       else
         session[:mail] = params.dup

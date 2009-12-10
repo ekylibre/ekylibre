@@ -173,12 +173,12 @@ class Company < ActiveRecord::Base
         company.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
         company.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
         company.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
-        undefined_nature = company.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false, :physical=>true)
+        undefined_nature = company.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false, :physical=>false)
         category = company.entity_categories.create!(:name=>'user')
         firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>company.name)
         company.entity_id = firm.id
         company.save
-        company.entity.contacts.create!(:company_id=>company.id, :line_2=>"XXXXXXXXXXXXXXXXXXX", :line_3=>"XXXXXXXXXXXXXXXXXXXX", :line_5=>"XXXXXXXXXXXXXXXXXXXX", :line_6=>'0000 XXXX', :default=>true)
+        company.entity.contacts.create!(:company_id=>company.id, :line_2=>"", :line_3=>"", :line_5=>"", :line_6=>'12345 MAVILLE', :default=>true)
         
         # loading of all the templates
         company.load_prints

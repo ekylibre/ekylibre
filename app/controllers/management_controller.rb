@@ -1300,8 +1300,6 @@ class ManagementController < ApplicationController
     if product.nature == "subscrip"
       @subscription = Subscription.new(:product_id=>product.id, :company_id=>@current_company.id).compute_period
     end
-    #puts @product.inspect
-    # raise Exception.new @price.product.inspect
   end
 
   def sale_order_line_stocks

@@ -1,1 +1,1 @@
-page.replace_html 'stocks', :partial => 'sale_order_line_stocks'
+page.replace_html 'stocks', :partial => 'sale_order_line_stocks' 
