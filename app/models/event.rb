@@ -26,7 +26,7 @@ class Event < ActiveRecord::Base
   belongs_to :entity
   belongs_to :nature, :class_name=>EventNature.to_s
     
-  validates_presence_of :employee_id
+  validates_presence_of :employee_id, :nature_id
   attr_readonly :company_id
 
   def before_validation

@@ -14,3 +14,6 @@
     %p{:id=>:sub_line}=""
   =observe_field("sale_order_line_price_id", :url=>{:action => :subscription_message}, :frequency => 0.25, :with=>"sale_order_line_price_id")
  
+  #stocks=render :partial=>"sale_order_line_stocks"
+
+=observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_stocks}, :frequency => 0.25, :with=>"sale_order_line_price_id")

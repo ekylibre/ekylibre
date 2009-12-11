@@ -70,10 +70,10 @@ class ListingNode < ActiveRecord::Base
   end
 
   def after_save
-    if self.listing.created_at.to_date >= Date.civil(2009,12,01)
-      self.listing.generate
-      self.listing.save
-    end
+    #if self.listing.created_at.to_date >= Date.civil(2009,12,01)
+    self.listing.generate
+    self.listing.save
+    #end
   end
 
   def self.natures
@@ -205,7 +205,7 @@ class ListingNode < ActiveRecord::Base
     if self.condition_operator and self.condition_value and self.condition_operator != "any"
       return I18n::t('models.listing_nodes.comparators.'+self.condition_operator)+" "+self.condition_value
     else 
-      return "+++"
+      return tc(:add_filter)
     end
   end
 

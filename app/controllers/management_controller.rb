@@ -696,7 +696,7 @@ class ManagementController < ApplicationController
   end
   
   def product
-    @product = find_and_check(:product, params[:id])
+    return unless @product = find_and_check(:product, params[:id])
     session[:product_id] = @product.id
     all_product_stocks = ProductStock.find(:all, :conditions=>{:company_id=>@current_company.id})
     @product_stocks = []
@@ -1215,6 +1215,7 @@ class ManagementController < ApplicationController
     return unless @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
     session[:category] = @sale_order.client.category
+    @product = @current_company.available_prices.first.product
     @stock_locations = @current_company.stock_locations
     @entity = @sale_order.client
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
@@ -1366,6 +1367,7 @@ class ManagementController < ApplicationController
     @stock_locations = @current_company.stock_locations
     @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
     @sale_order_line = find_and_check(:sale_order_line, params[:id])
+    @product = @sale_order_line.product
     @subscription = @current_company.subscriptions.find(:first, :conditions=>{:sale_order_id=>@sale_order.id}) || Subscription.new
     #raise Exception.new @subscription.inspect
     if request.post?

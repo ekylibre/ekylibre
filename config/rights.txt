@@ -168,6 +168,7 @@ management       sale_order_deliveries_dyta       administrate_management
 management       sale_order_lines_dyta            administrate_management
 management       sale_order_natures_dyta          administrate_management
 management       sale_order_payments_dyta         administrate_management
+management       unpaid_sale_orders_export        administrate_management
 management       sale_orders_dyta                 administrate_management
 management       subscription_contacts_dyli       administrate_management
 management       undelivered_quantities_dyta      administrate_management

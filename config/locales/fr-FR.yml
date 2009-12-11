@@ -336,7 +336,9 @@ fr-FR:
       error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus créer, modifier  ou supprimer de pièces.' 
       error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
       error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
-    listing_nodes:
+    listing_node: 
+      add_filter: ' Ajouter un filtre '
+    listing_nodes: 
       comparators:
         any: 'Aucune condition'
         begins: 'Commence par'

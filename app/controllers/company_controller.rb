@@ -560,16 +560,10 @@ class CompanyController < ApplicationController
     @listing = find_and_check(:listing, params[:id])
     query = @listing.query
     query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
-#     result = ActiveRecord::Base.connection.select_all(@listing.query)
-#     columns = result[0].keys.sort
-#     csv_string = FasterCSV.generate do |csv|
-#       csv << columns
-#       for line in result
-#         csv << columns.collect{|column| line[column]}
-#       end
-#     end
-
+    first_line = []
+    @listing.exportable_columns.each {|line| first_line << line.label}
     result = ActiveRecord::Base.connection.select_rows(@listing.query)
+    result.insert(0,first_line)
     csv_string = FasterCSV.generate do |csv|
       for line in result
         csv << line
@@ -729,20 +723,18 @@ class CompanyController < ApplicationController
     puts params.inspect+"!!!!!!!!!!!!!!!!!!!!!"+@listing_node.inspect if request.xhr?
     if request.xhr? and @listing_node
       if params[:type] == "hide" or params[:type] == "show"
-        puts "7777777777777777777777777777777"
         @listing_node.exportable = !@listing_node.exportable
         render :text=>""
       elsif params[:type] == "column_label"
-        #puts "8888888888888888888888888888888888888888888888888"
         @listing_node.label = params[:label]
         render(:partial=>"listing_node_column_label", :object=>@listing_node)
       elsif params[:type] == "comparison"
-        puts "-----------------------------------"
         @listing_node.condition_operator = params[:comparator]
         @listing_node.condition_value = params[:comparison_value]
         render(:partial=>"listing_node_comparison", :object=>@listing_node)
-        #render(:partial=>"listing_node", :object=>@listing_node)
-        #render :text=>""
+      elsif params[:type] == "position"
+        @listing_node.position = params[:position]
+        render(:partial=>"listing_node_position", :object=>@listing_node)
       end
       @listing_node.save
     else

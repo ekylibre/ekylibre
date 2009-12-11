@@ -23,7 +23,8 @@ class Listing < ActiveRecord::Base
   has_many :nodes, :class_name=>ListingNode.name
   attr_readonly :company_id
 
-  #validates_format_of :query, :with=>/\s*SELECT\s+[^\;]*/i
+#  validates_format_of :query, :with=>/\s*SELECT\s+[^\;]*/
+  validates_format_of :query,:conditions, :with=>/^[^\;]*$/
 
   def root_model_name
     ::I18n.t("activerecord.models."+self.root_model.underscore)
@@ -108,7 +109,8 @@ class Listing < ActiveRecord::Base
   end
 
   def exportable_columns
-    self.nodes.find_all_by_nature_and_exportable("column", true)
+    #self.nodes.find_all_by_nature_and_exportable("column", true)
+    self.nodes.find(:all, :conditions=>{:nature=>"column", :exportable=>true}, :order=>"position")
   end
 
   def mail_columns

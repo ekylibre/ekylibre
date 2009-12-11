@@ -1,4 +1,6 @@
 .count=#tc(:nb_sales, :count=>@current_company.sale_orders.size)
+=#toolbar do 
+  -#link :unpaid_sale_orders_export
 .search
   - form_tag do
     %table

@@ -427,8 +427,8 @@ class RelationsController < ApplicationController
     #       return
     #     end
     session[:current_entity] = @entity.id
-    @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]}) if @entity.client 
-    @purchase_orders_number = PurchaseOrder.count(:conditions=>{:company_id=>@current_company.id, :supplier_id=>params[:id]}) if @entity.supplier
+    @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})  
+    @purchase_orders_number = PurchaseOrder.count(:conditions=>{:company_id=>@current_company.id, :supplier_id=>params[:id]}) 
     @key = ""
     @invoices_count = @entity.invoices.size
     @payments_count = @entity.payments.size
