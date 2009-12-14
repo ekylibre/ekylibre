@@ -646,6 +646,13 @@ class AccountancyController < ApplicationController
     render :text => options_for_select(@financialyear_records)
   end
    
+  def auto_complete_for_entry_account
+    #puts params.inspect
+    pattern = '%'+params[:entry][:account].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+    @accounts = @current_company.accounts.find(:all, :conditions => [ 'LOWER(number) LIKE ? ', pattern], :order => "name ASC", :limit=>10)
+    render :inline => "<%=content_tag(:ul, @accounts.map { |account| content_tag(:li, h(account.label)) })%>"
+  end
+
   #this method allows to enter the accountancy records within a form.
   def entries
     session[:entries] ||= {}
@@ -683,6 +690,7 @@ class AccountancyController < ApplicationController
     @journal = find_and_check(:journal, session[:entries][:journal]) unless session[:entries][:journal].blank?
     @financialyear = find_and_check(:financialyear, session[:entries][:financialyear]) unless session[:entries][:financialyear].blank?
     @valid = (!@journal.nil? and !@financialyear.nil?)
+    #raise Exception.new @financialyear.inspect
     
     if @valid
       @record = JournalRecord.new
@@ -732,7 +740,10 @@ class AccountancyController < ApplicationController
       if @record.nil?
         @record = JournalRecord.create!(params[:record].merge({:financialyear_id => session[:entries][:financialyear].to_s, :journal_id => session[:entries][:journal].to_s, :company_id => @current_company.id, :created_on => created_on, :printed_on => printed_on}))
       end 
-        
+      
+      params[:entry][:account] = @current_company.accounts.find(:first, :conditions=>["number ILIKE ? ",params[:entry][:account].strip.split(/[^0-9A-Z]/)[0] ])
+    
+      #raise Exception.new account.inspect
       @entry = @current_company.entries.build(params[:entry])
         
       if @record.save

@@ -37,6 +37,7 @@ accountancy      account_delete                   manage_accounts
 accountancy      account_update                   manage_accounts
 accountancy      accounts                         manage_accounts
 accountancy      accounts_dyta                    manage_accounts
+accountancy      auto_complete_for_entry_account  manage_accounts
 accountancy      bank_account_create              manage_bank_accounts
 accountancy      bank_account_delete              manage_bank_accounts
 accountancy      bank_account_update              manage_bank_accounts

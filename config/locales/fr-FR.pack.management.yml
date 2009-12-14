@@ -2,11 +2,17 @@ fr-FR:
 
   controllers:
     management:
+      address: 'Adresse'
+      amount: 'Montant HT'
+      amount_with_taxes: 'Montant TTC'
       are_you_sure_to_delete_delivery: 'Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?'
       category: 'Catégorie'
       changes_reflected: 'Changements répercutés'
       choose_one_check_at_less: 'Sélectionnez au moins un chèque'
       client_code: 'Code cl.'
+      client_phone: 'Téléphone'
+      code: 'Code client'
+      created_on: 'Créée le'
       credit: 'Avoir'
       email: 'Email: '
       embankment: 'Remise de chèques'
@@ -15,11 +21,16 @@ fr-FR:
         sale_order_cannot_be_updated: 'Le devis n''est plus modifiable.'
       estimate: 'Devis'
       fax: 'Fax'
+      full_name: 'Client'
       import_succeed: 'Vos données ont été correctement importées'
       impossible_to_add_lines: 'Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande'
       impossible_to_add_lines_to_purchase: 'Vous ne pouvez plus ajouter de produits à votre achat'
       inventory: 'Inventaire'
       invoice: 'Facture'
+      invoice_number: 'Numéro de facture'
+      last_payment_amount: 'Montant du dernier réglement'
+      last_payment_date: 'Date du dernier réglement'
+      mobile: 'Portable'
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
         need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
@@ -35,8 +46,10 @@ fr-FR:
       no_contacts: 'Aucune adresse définie pour {{name}}'
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
       no_stock_location: 'Veuillez créer un lieu de stockage'
+      number: 'Numéro vente'
       order: 'Commande'
       paid_on: 'Réglé le'
+      parts_amount: 'Montant réglé'
       payment_amount: 'Montant du réglement'
       phone: 'Tél.'
       price: 'Prix'
@@ -56,6 +69,7 @@ fr-FR:
       sale_order: 'Vente'
       sale_order_lines:
         sale_order_line_create: 'Ajouter un produit au devis'
+      sale_order_products: 'Produits commandés'
       scheduled: 'Échéance'
       shelf: 'Catégorie'
       stock_locations:
@@ -65,7 +79,10 @@ fr-FR:
       to_bank_on: 'À encaisser le'
       to_embank: 'À encaisser'
       transport: 'Transport'
+      unpaid_amount: 'Montant impayé'
       unvalid_date: 'Date incorrecte'
+      unpaid_days: 'À payer depuis (jours)'
+      unpaid_sale_orders: 'Ventes impayées'
       you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
       you_should_lock_your_old_inventories: 'Attention: il est conseillé de supprimer les inventaires non verouillés ou de les verouiller avant d''en créer un nouveau'
 
@@ -554,6 +571,7 @@ fr-FR:
         search_sales: 'Rechercher des ventes'
         title: 'Liste des devis/commandes'
         unpaid: 'Impayées'
+        unpaid_sale_orders_export: 'Exporter la liste des ventes impayées au format csv'
       sales_invoices:
         address: 'Livraison'
         amount: 'Montant HT'

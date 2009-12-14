@@ -44,6 +44,7 @@ class Entry < ActiveRecord::Base
 
   attr_readonly :company_id, :record_id
   
+  validates_presence_of :account_id
 
   #
   def before_validation 

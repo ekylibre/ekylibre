@@ -1026,6 +1026,28 @@ class ManagementController < ApplicationController
     end
   end
   
+  def unpaid_sale_orders_export
+    sale_orders = @current_company.sale_orders.find(:all, :conditions=>["state NOT IN('C','E') AND parts_amount < amount_with_taxes"], :order=>"created_on desc")
+    csv_string = FasterCSV.generate do |csv|
+      csv << [tc(:invoice_number), tc(:unpaid_days),  tc(:unpaid_amount), tc(:code), tc(:full_name),tc(:address), tc(:client_phone), tc(:mobile), tc(:email), tc(:number), tc(:created_on), tc(:amount), tc(:amount_with_taxes), tc(:parts_amount), tc(:last_payment_date), tc(:last_payment_amount) , tc(:sale_order_products)]
+
+      sale_orders.each do |sale_order|
+        contact = sale_order.client.default_contact
+        line = []
+        line << [sale_order.invoices.first ? "'"+sale_order.invoices.first.number : "", sale_order.unpaid_days,sale_order.unpaid_amount(false,false), sale_order.client.code, sale_order.client.full_name]
+        if contact
+          line << [contact.address, "'"+contact.phone, "'"+contact.mobile, contact.email]
+        else
+          line << ["","","",""]
+        end
+        line << [sale_order.number, sale_order.created_on, sale_order.amount, sale_order.amount_with_taxes, sale_order.parts_amount, sale_order.last_payment ? sale_order.last_payment.created_on : "", sale_order.last_payment ? sale_order.last_payment.amount : "", sale_order.products]
+        csv << line.flatten
+      end
+      
+    end
+    send_data csv_string, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment", :filename=>tc(:unpaid_sale_orders)+'.csv'
+  end
+  
   def sale_orders
     #raise Exception.new session[:sale_order_state].inspect
     session[:sale_order_state] ||= "all"

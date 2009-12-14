@@ -75,10 +75,11 @@
       %td=account[:previous_balance].abs if session[:previous_financialyear]
   %tr
     %th{:rowspan => claim_accounts.size}=tc :account_claims_assets 
-    %td=claim_accounts.first[:name]
-    %td=claim_accounts.first[:balance].abs
-    %td=claim_accounts.first[:previous_balance].abs if session[:previous_financialyear]
-  - res = claim_accounts.first[:balance].abs
+    -if claim_accounts.first
+      %td=claim_accounts.first[:name]
+      %td=claim_accounts.first[:balance].abs
+      %td=claim_accounts.first[:previous_balance].abs if session[:previous_financialyear]
+      - res = claim_accounts.first[:balance].abs
   - claim_accounts.shift
   - claim_accounts.each do |account| 
     - attr = cycle("even","odd") 
@@ -89,9 +90,10 @@
       %td=account[:previous_balance].abs if session[:previous_financialyear] 
   %tr
     %th{:rowspan => other_accounts.size}=tc :account_others_assets 
-    %td=other_accounts.first[:name]
-    %td=other_accounts.first[:balance].abs
-    %td=other_accounts.first[:previous_balance].abs if session[:previous_financialyear]
+    -if other_accounts.first
+      %td=other_accounts.first[:name]
+      %td=other_accounts.first[:balance].abs
+      %td=other_accounts.first[:previous_balance].abs if session[:previous_financialyear]
   - other_accounts.shift
   - other_accounts.each do |account|
     - attr = cycle("even","odd")  
@@ -160,10 +162,11 @@
     %th=@passive_stock_sum.abs
     %th=@previous_passive_stock_sum.abs if session[:previous_financialyear]   
   %tr
-    %th{:rowspan => debt_accounts.size+1, :colspan=>2}=tc :account_debt
-    %td=debt_accounts.first[:name]
-    %td=debt_accounts.first[:balance].abs
-    %td=debt_accounts.first[:previous_balance].abs if session[:previous_financialyear]
+    -if debt_accounts.first
+      %th{:rowspan => debt_accounts.size+1, :colspan=>2}=tc :account_debt
+      %td=debt_accounts.first[:name]
+      %td=debt_accounts.first[:balance].abs
+      %td=debt_accounts.first[:previous_balance].abs if session[:previous_financialyear]
   - debt_accounts.shift
   - debt_accounts.each do |account|
     - attr = cycle("even","odd")

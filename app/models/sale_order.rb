@@ -364,6 +364,19 @@ class SaleOrder < ActiveRecord::Base
     self.client.payments.find(:first, :order=>"paid_on desc")
   end
   
+  def unpaid_days
+    #(self.invoices.first.created_on - self.last_payment.paid_on) if self.last_payment and self.invoices.first
+    (Date.today - self.invoices.first.created_on) if self.invoices.first
+  end
+
+  def products
+    p = []
+    for line in self.lines
+      p << line.product.name
+    end
+    ps = p.join(", ")
+  end
+
   #this method accountizes the sale.
   def to_accountancy
     self.reload
