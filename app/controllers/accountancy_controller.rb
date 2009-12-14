@@ -298,7 +298,7 @@ class AccountancyController < ApplicationController
       redirect_to :action => :document_prepare
       return      
     end
-      
+    
     @partial = 'print_'+@print[1][:partial]
     started_on = Date.today.year.to_s+"-01-01"
     stopped_on = Date.today.year.to_s+"-12-31"
@@ -1292,3 +1292,6 @@ class AccountancyController < ApplicationController
   end
   
 end
+
+
+
