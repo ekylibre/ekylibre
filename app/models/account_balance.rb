@@ -54,5 +54,8 @@ class AccountBalance < ActiveRecord::Base
      
    end
 
+   def self.sum(accounts, period)
+   end
+
    
 end

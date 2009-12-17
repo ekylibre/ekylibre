@@ -465,7 +465,8 @@ class CompanyController < ApplicationController
     @document_template = DocumentTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
     if request.post? and @document_template
       if @document_template.update_attributes(params[:document_template])
-        redirect_to_back
+        #redirect_to_back
+        redirect_to_current
       end
     end
     @title = {:value=>@document_template.name}

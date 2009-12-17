@@ -475,7 +475,7 @@ class AccountancyController < ApplicationController
       @cost_sum += account[:balance] if account[:number].to_s.match /^6/
       @finished_sum += account[:balance] if account[:number].to_s.match /^7/
       if session[:previous_financialyear] == true
-        @previous_solde += account[:previous_balance]
+        @previous_solde += account[:previous_balance] 
         @previous_result = account[:previous_balance] if account[:number].to_s.match /^12/
         @previous_active_fixed_sum += account[:previous_balance] if account[:number].to_s.match /^(20|21|22|23|26|27)/
         @previous_active_current_sum += account[:previous_balance] if account[:number].to_s.match /^(3|4|5)/ and account[:balance] >= 0
@@ -690,6 +690,13 @@ class AccountancyController < ApplicationController
     @journal = find_and_check(:journal, session[:entries][:journal]) unless session[:entries][:journal].blank?
     @financialyear = find_and_check(:financialyear, session[:entries][:financialyear]) unless session[:entries][:financialyear].blank?
     @valid = (!@journal.nil? and !@financialyear.nil?)
+    @financialyear.compute_balances
+    @financialyear.balance("51D,53,54,^5181,^519")
+    @financialyear.balance("707 ")
+    template = @current_company.document_templates.find(:first, :conditions=>["name like ?", '%Bilan%'])
+    pdf, filename = template.print(@financialyear)
+
+    send_data pdf, :type=>Mime::PDF, :filename=>filename
     #raise Exception.new @financialyear.inspect
     
     if @valid
