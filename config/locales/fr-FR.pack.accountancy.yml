@@ -178,6 +178,9 @@ fr-FR:
         record_printed: 'Datée du'
       entry_update:
         title: 'Modification de l''écriture'
+      financialyear:
+        general_informations: 'Informations générales'
+        title: 'Exercice comptable {{code}}'
       financialyear_close:
         close: 'Clôturer l''exercice'
         save_renew: 'Souhaitez-vous reporter les à nouveaux ? '

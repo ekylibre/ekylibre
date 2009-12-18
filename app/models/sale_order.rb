@@ -188,7 +188,7 @@ class SaleOrder < ActiveRecord::Base
     end
     # accountize the matching invoice.
     if self.company.parameter('accountancy.to_accountancy.automatic')
-      invoice.to_accountancy if self.company.parameter('accountancy.to_accountancy.automatic').value == 'true'
+      invoice.to_accountancy if self.company.parameter('accountancy.to_accountancy.automatic').value == true
     end
     
     self.invoiced = true

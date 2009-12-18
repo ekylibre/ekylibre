@@ -155,13 +155,13 @@ class Invoice < ActiveRecord::Base
         
         record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal.id, :financialyear_id => financialyear.id)
              
-        record.add_debit(self.client.full_name, client_account.id, self.amount_with_taxes, :draft=>true)
+        record.add_debit(self.client.full_name, client_account.id, self.amount_with_taxes, :draft=>false)
       
         self.lines.each do |line|
       
-          record.add_credit(line.product.name, line.product.product_account_id, line.amount, :draft=>true)
+          record.add_credit(line.product.name, line.product.product_account_id, line.amount, :draft=>false)
        
-          record.add_credit(line.price.tax.name, line.price.tax.account_collected_id, line.taxes, :draft=>true)
+          record.add_credit(line.price.tax.name, line.price.tax.account_collected_id, line.taxes, :draft=>false)
       
         end
           

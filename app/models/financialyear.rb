@@ -47,7 +47,10 @@ class Financialyear < ActiveRecord::Base
       errors.add_to_base tc(:error_stopped2_financialyear) unless self.stopped_on == self.stopped_on.end_of_month
       errors.add_to_base tc(:error_period_financialyear) unless self.started_on < self.stopped_on
     end
-  
+    if self.company.financialyears.size > 0
+#      raise Exception.new self.stopped_on - self.started_on
+      errors.add_to_base tc(:error_period_too_long) if self.stopped_on - self.started_on > 366
+    end
   end
   
   # tests if the financialyear can be closed.
@@ -59,7 +62,7 @@ class Financialyear < ActiveRecord::Base
         #   return false unless record.closed
       end
     end
-    return true
+    return (true and self.stopped_on < Date.today)
     #else
     #  return false
   end
@@ -111,6 +114,7 @@ class Financialyear < ActiveRecord::Base
         end
         not_in_query = not_in_query.empty? ? "" : "AND "+not_in_query.join(" OR ")
         balance = ActiveRecord::Base.connection.select_all("SELECT sum(account_balances.local_credit) as sum_credit , sum(account_balances.local_debit) as sum_debit FROM account_balances LEFT JOIN accounts ON (accounts.id = account_balances.account_id  AND account_balances.financialyear_id = #{self.id}) WHERE #{in_query.join(' OR ')} #{not_in_query} AND account_balances.company_id = #{self.company_id}")
+        #raise Exception.new balance.inspect if accounts_number == "707,708,7097"
       else
         balance = ActiveRecord::Base.connection.select_all("SELECT sum(account_balances.local_credit) as sum_credit, sum(account_balances.local_debit) as sum_debit FROM account_balances LEFT JOIN accounts ON (accounts.id = account_balances.account_id  AND account_balances.financialyear_id = #{self.id}) WHERE accounts.number LIKE '#{accounts_number.strip.upcase}%' AND account_balances.company_id = #{self.company_id}")
       end

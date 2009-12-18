@@ -57,6 +57,7 @@ accountancy      financialyear_close              manage_financialyears
 accountancy      financialyear_create             manage_financialyears
 accountancy      financialyear_delete             manage_financialyears
 accountancy      financialyear_update             manage_financialyears
+accountancy      financialyear                   manage_financialyears
 accountancy      financialyears                   manage_financialyears
 accountancy      financialyears_dyta              manage_financialyears
 accountancy      financialyears_records           manage_financialyears

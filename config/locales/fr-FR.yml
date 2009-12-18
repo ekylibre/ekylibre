@@ -167,9 +167,10 @@ fr-FR:
           journals: Journaux
           sale_order: Vente
         document_templates:
-          
+          balance_sheet: 'Bilan'
           embankment: 'Remise de chèques'
           entity: 'Fiche relation'
+          income_statement: 'Compte de résultat'
           inventory: 'Inventaire'
           invoice: Facture client
           journal: Journal
@@ -181,8 +182,10 @@ fr-FR:
           sale_order: 'Devis/Commande'
           transport: 'Transport'
         document_templates_filenames:
+          balance_sheet: 'Bilan de l''exercice [code]'          
           embankment: 'Remise de chèques du [created_on]'
           entity: 'Fiche de [full_name]'
+          income_statement: 'Compte de résultat de l''exercice [code]'
           inventory: 'Inventaire du [date]'
           invoice: 'Facture [number]'
           order_preparation: 'Préparation de commande du [created_on]'
@@ -270,6 +273,7 @@ fr-FR:
         balance: 'Balance'
         embankment: 'Remise de chèques'
         entity: 'Fiche relations'
+        financialyear: 'Documents de synthèse'
         ledger: 'Grand livre'
         inventory: 'Inventaire'
         invoice: 'Facture client'
@@ -300,6 +304,7 @@ fr-FR:
     financialyear:
       error_stopped2_financialyear: 'La date de fin d''exercice doit être une date de fin de mois.'
       error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'
+      error_period_too_long: 'La durée de l''exercice ne doit pas excéder 1 an'
       error_written_financialyear: 'La date butoir de création des journaux doit être inférieure à la date de clôture.'
       error_overlap_financialyear: 'La période de l''exercice se chevauche.'
       error_unclosed_record_financialyear: 'Cet exercice contient des journaux qui n''ont pas encore été clôturé.'

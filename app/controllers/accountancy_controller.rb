@@ -107,10 +107,10 @@ class AccountancyController < ApplicationController
   end
   
   dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}, :order=>:started_on) do |t|
-    t.column :code
+    t.column :code, :url=>{:action=>:financialyear}
     t.column :closed
-    t.column :started_on
-    t.column :stopped_on
+    t.column :started_on,:url=>{:action=>:financialyear}
+    t.column :stopped_on,:url=>{:action=>:financialyear}
     t.action :financialyear_close, :if => '!RECORD.closed and RECORD.closable?'
     t.action :financialyear_update, :if => '!RECORD.closed'  
     t.action :financialyear_delete, :method => :post, :confirm=>:are_you_sure, :if => '!RECORD.closed'  
@@ -498,6 +498,12 @@ class AccountancyController < ApplicationController
   # lists all the bank_accounts with the mainly characteristics. 
   def financialyears
   end
+
+  def financialyear
+    return unless @financialyear = find_and_check(:financialyears, params[:id])
+    @financialyear.compute_balances
+    @title = {:code=>@financialyear.code}
+  end
   
   # this action creates a financialyear with a form.
   def financialyear_create
@@ -690,13 +696,13 @@ class AccountancyController < ApplicationController
     @journal = find_and_check(:journal, session[:entries][:journal]) unless session[:entries][:journal].blank?
     @financialyear = find_and_check(:financialyear, session[:entries][:financialyear]) unless session[:entries][:financialyear].blank?
     @valid = (!@journal.nil? and !@financialyear.nil?)
-    @financialyear.compute_balances
-    @financialyear.balance("51D,53,54,^5181,^519")
-    @financialyear.balance("707 ")
-    template = @current_company.document_templates.find(:first, :conditions=>["name like ?", '%Bilan%'])
-    pdf, filename = template.print(@financialyear)
+   # @financialyear.compute_balances
+   # @financialyear.balance("51D,53,54,^5181,^519")
+   # @financialyear.balance("707 ")
+   # template = @current_company.document_templates.find(:first, :conditions=>["name like ?", '%Bilan%'])
+   # pdf, filename = template.print(@financialyear)
 
-    send_data pdf, :type=>Mime::PDF, :filename=>filename
+#    send_data pdf, :type=>Mime::PDF, :filename=>filename
     #raise Exception.new @financialyear.inspect
     
     if @valid
