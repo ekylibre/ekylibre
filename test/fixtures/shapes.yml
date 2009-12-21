@@ -10,6 +10,7 @@
 #  lock_version :integer       default(0), not null
 #  master       :boolean       default(TRUE), not null
 #  name         :string(255)   not null
+#  number       :string(255)   
 #  parent_id    :integer       
 #  polygon      :string(255)   not null
 #  updated_at   :datetime      not null

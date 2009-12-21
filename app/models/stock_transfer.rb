@@ -15,6 +15,7 @@
 #  product_id         :integer       not null
 #  quantity           :float         not null
 #  second_location_id :integer       
+#  tracking_id        :integer       
 #  updated_at         :datetime      not null
 #  updater_id         :integer       
 #

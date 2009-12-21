@@ -12,6 +12,7 @@
 #  planned_on   :date          not null
 #  product_id   :integer       not null
 #  quantity     :decimal(16, 2 default(0.0), not null
+#  shape_id     :integer       
 #  updated_at   :datetime      not null
 #  updater_id   :integer       
 #

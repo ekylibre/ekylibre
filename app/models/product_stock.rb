@@ -11,9 +11,12 @@
 #  id                       :integer       not null, primary key
 #  location_id              :integer       not null
 #  lock_version             :integer       default(0), not null
+#  origin_id                :integer       
+#  origin_type              :string(255)   
 #  product_id               :integer       not null
 #  quantity_max             :decimal(16, 2 default(0.0), not null
 #  quantity_min             :decimal(16, 2 default(1.0), not null
+#  tracking_id              :integer       
 #  updated_at               :datetime      not null
 #  updater_id               :integer       
 #

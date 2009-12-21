@@ -32,6 +32,7 @@
 #  subscription_period    :string(255)   
 #  subscription_quantity  :integer       
 #  supply_method          :string(8)     not null
+#  to_produce             :boolean       not null
 #  to_purchase            :boolean       not null
 #  to_rent                :boolean       not null
 #  to_sale                :boolean       default(TRUE), not null

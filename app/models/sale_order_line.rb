@@ -23,6 +23,7 @@
 #  quantity            :decimal(16, 2 default(1.0), not null
 #  reduction_origin_id :integer       
 #  tax_id              :integer       
+#  tracking_id         :integer       
 #  unit_id             :integer       not null
 #  updated_at          :datetime      not null
 #  updater_id          :integer       

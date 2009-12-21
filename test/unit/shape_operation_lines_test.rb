@@ -1,25 +1,23 @@
 # == Schema Information
 #
-# Table name: inventory_lines
+# Table name: shape_operation_lines
 #
 #  company_id         :integer       not null
 #  created_at         :datetime      not null
 #  creator_id         :integer       
 #  id                 :integer       not null, primary key
-#  inventory_id       :integer       not null
-#  location_id        :integer       not null
 #  lock_version       :integer       default(0), not null
-#  product_id         :integer       not null
-#  theoric_quantity   :decimal(16, 2 not null
-#  tracking_id        :integer       
+#  product_id         :integer       
+#  quantity           :decimal(, )   
+#  shape_operation_id :integer       not null
+#  surface_unit_id    :integer       
 #  updated_at         :datetime      not null
 #  updater_id         :integer       
-#  validated_quantity :decimal(16, 2 not null
 #
 
 require 'test_helper'
 
-class InventoryLineTest < ActiveSupport::TestCase
+class ShapeOperationLinesTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

@@ -16,6 +16,7 @@
 #  price_id          :integer       not null
 #  product_id        :integer       not null
 #  quantity          :decimal(16, 2 default(1.0), not null
+#  tracking_id       :integer       
 #  unit_id           :integer       not null
 #  updated_at        :datetime      not null
 #  updater_id        :integer       

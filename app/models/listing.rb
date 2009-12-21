@@ -24,14 +24,14 @@ class Listing < ActiveRecord::Base
   attr_readonly :company_id
 
 #  validates_format_of :query, :with=>/\s*SELECT\s+[^\;]*/
-  validates_format_of :query,:conditions, :with=>/^[^\;]*$/
+  validates_format_of :query, :conditions, :with=>/^[^\;]*$/
 
   def root_model_name
     ::I18n.t("activerecord.models."+self.root_model.underscore)
   end
 
-  def before_validation
-    self.query == self.generate if self.id
+  def before_validation_on_update
+    self.query = self.generate
   end
 
   def after_create

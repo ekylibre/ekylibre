@@ -11,6 +11,7 @@
 #  lock_version       :integer       default(0), not null
 #  product_id         :integer       not null
 #  theoric_quantity   :decimal(16, 2 not null
+#  tracking_id        :integer       
 #  updated_at         :datetime      not null
 #  updater_id         :integer       
 #  validated_quantity :decimal(16, 2 not null
