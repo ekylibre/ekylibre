@@ -7,11 +7,13 @@ class CreateTrackingSupport < ActiveRecord::Migration
     add_column :product_stocks,  :origin_id,   :integer
     add_column :product_stocks,  :origin_type, :string   ## productions || purchase_orders || stock_transfers
 
-    add_column :productions, :shape_id, :integer, :references=>:shapes, :on_update=>:cascade, :on_delete=>:cascade
+    add_column :productions, :shape_id, :integer, :references=>:shapes
     
     add_column :products, :to_produce, :boolean, :null=>false, :default=>false
 
     add_column :shapes, :number, :string
+    add_column :shapes, :area,   :decimal, :null=>false, :default=>0
+#    add_column :shapes, :area_unit_id, :integer, :references=>:units
 
     add_column :sale_order_lines,     :tracking_id,     :integer,  :references=>:stock_trackings, :on_delete=>:cascade, :on_update=>:cascade
     add_column :purchase_order_lines, :tracking_id,     :integer,  :references=>:stock_trackings, :on_delete=>:cascade, :on_update=>:cascade
@@ -22,9 +24,9 @@ class CreateTrackingSupport < ActiveRecord::Migration
     
     create_table :shape_operation_lines do |t|
       t.column :shape_operation_id,     :integer,   :null=>false, :references=>:shape_operations, :on_delete=>:cascade, :on_update=>:cascade
-      t.column :product_id,             :integer,   :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :product_id,             :integer,   :references=>:products
       t.column :quantity,               :decimal
-      t.column :surface_unit_id,        :integer,   :references=>:units, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :surface_unit_id,        :integer,   :references=>:units
       t.column :company_id,             :integer,   :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
 

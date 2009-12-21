@@ -18,12 +18,16 @@
 #
 
 class Shape < ActiveRecord::Base
+  acts_as_tree
+  attr_readonly :company_id
   belongs_to :company
   has_many :operations, :class_name=>ShapeOperation.name
   has_many :shapes
+  # acts_as_measure :area
 
-  acts_as_tree
-
-  attr_readonly :company_id
+  def before_validation
+    self.master = false if self.master.nil?
+    self.polygon ||= "[NotUsed]"
+  end
 
 end
