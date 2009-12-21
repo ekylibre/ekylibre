@@ -24,7 +24,7 @@ class Tracking < ActiveRecord::Migration
       t.column :shape_operation_id,     :integer,   :null=>false, :references=>:shape_operations, :on_delete=>:cascade, :on_update=>:cascade
       t.column :product_id,             :integer,   :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
       t.column :quantity,               :decimal
-      t.column :surface_unit_id,        
+      t.column :surface_unit_id,        :integer,   :references=>:units, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,   :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
 
