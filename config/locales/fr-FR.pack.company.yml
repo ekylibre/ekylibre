@@ -118,6 +118,7 @@ fr-FR:
         sequences: 'Séquences'
         title: 'Bonjour, {{user}}'
         tools: 'Outils'
+        units: "Unités de mesure"
         user_statistics: 'Mes statistiques'
         users: 'Utilisateurs'
       listing_create:
@@ -179,6 +180,13 @@ fr-FR:
         sequence_create: 'Ajouter une séquence'
         sequences_load: 'Charger les séquences manquantes'
         title: 'Liste des séquences'
+      units:
+        title: 'Unités de mesure'
+        unit_create: 'Ajouter une nouvelle unité de mesure'
+      unit_create:
+        title: 'Ajout d''une nouvelle unité de mesure'
+      unit_update:
+        title: 'Modification de l''unité {{label}}'
       user:
         change_password: 'Changer de mot de passe'
         title: 'Informations sur l''utilisateur : {{value}}'

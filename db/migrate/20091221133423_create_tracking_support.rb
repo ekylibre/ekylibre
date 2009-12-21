@@ -11,6 +11,17 @@ class CreateTrackingSupport < ActiveRecord::Migration
     
     add_column :products, :to_produce, :boolean, :null=>false, :default=>false
 
+
+    add_column :units, :expression, :string
+    add_column :units, :normalized_expression, :string
+    execute "UPDATE units SET quantity=quantity/1000, base='kg' WHERE base='g'"
+    execute "UPDATE units SET expression=CAST(quantity AS VARCHAR)||' '||base"
+    for unit in Unit.all
+      unit.save
+    end
+    remove_column :units, :quantity
+    remove_column :units, :base
+
     add_column :shapes, :number, :string
     add_column :shapes, :area,   :decimal, :null=>false, :default=>0
 #    add_column :shapes, :area_unit_id, :integer, :references=>:units
@@ -40,6 +51,14 @@ class CreateTrackingSupport < ActiveRecord::Migration
     remove_column :product_stocks,       :tracking_id
     remove_column :purchase_order_lines, :tracking_id
     remove_column :sale_order_lines,     :tracking_id
+    
+    add_column :units, :base,     :string
+    add_column :units, :quantity, :decimal, :null=>false, :default=>1
+    execute "UPDATE units SET base=expression, quantity=1"
+    remove_column :units, :expression
+    remove_column :units, :normalized_expression
+
+    remove_column :shapes, :area
     remove_column :shapes, :number
     remove_column :products, :to_produce
     remove_column :productions, :shape_id

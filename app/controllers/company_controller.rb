@@ -778,4 +778,21 @@ class CompanyController < ApplicationController
     end
   end
   
+
+  dyta(:units, :conditions=>{:company_id=>["@current_company.id"]}, :order=>:name) do |t|
+    t.column :label
+    t.column :name
+    t.column :expression
+    t.column :normalized_expression
+    t.action :unit_update
+    t.action :unit_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+  end
+
+  def units
+  end
+
+  manage :units
+
+
+
 end

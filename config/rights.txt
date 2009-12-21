@@ -153,6 +153,11 @@ company          user_unlock                      manage_users
 company          user_update                      manage_users
 company          users                            manage_users
 company          users_dyta                       manage_users
+company units manage_units
+company units_dyta manage_units
+company unit_create manage_units
+company unit_update manage_units
+company unit_delete manage_units
 company          print                            print
 help             close                            __minimum__
 help             previous                         __minimum__

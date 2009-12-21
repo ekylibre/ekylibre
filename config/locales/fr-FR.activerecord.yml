@@ -1667,15 +1667,15 @@ fr-FR:
 
       # Unité
       unit:
-        base: (((BASE)))
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
+        expression: Expression
+        normalized_expression: Expression normalisée
         id: 'ID'
-        label: (((LABEL)))
+        label: Libellé
         lock_version: 'Version'
-        name: (((NAME)))
-        quantity: (((QUANTITY)))
+        name: Symbole
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
