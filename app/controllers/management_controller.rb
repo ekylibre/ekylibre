@@ -876,6 +876,7 @@ class ManagementController < ApplicationController
     if request.post?
       @purchase_order.stocks_moves_create
       @purchase_order.update_attributes(:shipped=>true)
+      redirect_to :action=>:purchase_order_summary, :id=>@purchase_order.id
     end
     @title = {:value=>@purchase_order.number,:name=>@purchase_order.supplier.full_name}
   end
@@ -938,7 +939,7 @@ class ManagementController < ApplicationController
       @price = Price.new(:amount=>0.0)
       if request.post?
         @purchase_order_line = @current_company.purchase_order_lines.find(:first, :conditions=>{:price_id=>params[:purchase_order_line][:price_id].to_i||0, :order_id=>session[:current_purchase]})
-        if @purchase_order_line
+        if @purchase_order_line and @purchase_order_line.tracking_id.nil?
           @purchase_order_line.quantity += params[:purchase_order_line][:quantity].to_d
         else
           @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
@@ -950,6 +951,11 @@ class ManagementController < ApplicationController
             price.reload
             @purchase_order_line.product_id = price.product_id
             @purchase_order_line.price_id = price.id
+          end
+          if not params[:purchase_order_line][:tracking_id].strip.blank?
+            st = StockTracking.find_by_company_id_and_serial(@current_company.id, params[:purchase_order_line][:tracking_id].strip)||@current_company.stock_trackings.create!(:serial=>params[:purchase_order_line][:tracking_id].strip, :name=>params[:purchase_order_line][:tracking_id].strip, :product_id=>@purchase_order_line.product_id, :producer_id=>@purchase_order.supplier_id)
+            #raise Exception.new "olll"+st.inspect
+            @purchase_order_line.tracking_id = st.id
           end
         end
         redirect_to :action=>:purchase_order_lines, :id=>session[:current_purchase] if @purchase_order_line.save
@@ -965,8 +971,12 @@ class ManagementController < ApplicationController
     @update = true
     return unless @purchase_order_line = find_and_check(:purchase_order_line, params[:id])
     @price = find_and_check(:price, @purchase_order_line.price_id)
+    @purchase_order_line.tracking_id = @purchase_order_line.tracking.serial if @purchase_order_line.tracking
     if request.post?
       params[:purchase_order_line][:company_id] = @current_company.id
+      st = StockTracking.find_by_company_id_and_serial(@current_company.id, params[:purchase_order_line][:tracking_id].strip)||@current_company.stock_trackings.create!(:serial=>params[:purchase_order_line][:tracking_id].strip, :name=>params[:purchase_order_line][:tracking_id].strip, :product_id=>@purchase_order_line.product_id, :producer_id=>@purchase_order.supplier_id)
+      #raise Exception.new "olll"+st.inspect
+      @purchase_order_line.tracking_id = st.id
       if @purchase_order_line.update_attributes(params[:purchase_order_line])  
         @update = false
         redirect_to :action=>:purchase_order_lines, :id=>@purchase_order_line.order_id  
@@ -1239,9 +1249,11 @@ class ManagementController < ApplicationController
     session[:category] = @sale_order.client.category
     @product = @current_company.available_prices.first.product
     @stock_locations = @current_company.stock_locations
+    # @subscription = Subscription.new(:product_id=>@product.id, :company_id=>@current_company.id).compute_period
     @entity = @sale_order.client
     session[:current_product] = @product.id
-    session[:current_stock_location] = @current_company.stock_locations.first.id if @current_company.stock_locations.size > 0
+    @stock_location = @current_company.stock_locations.first if @current_company.stock_locations.size > 0
+    session[:current_stock_location] = @stock_location.id
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
   end
 
@@ -1332,6 +1344,16 @@ class ManagementController < ApplicationController
     @product = find_and_check(:products, price.product_id)
   end
 
+  def sale_order_line_tracking
+    price = find_and_check(:prices, params[:sale_order_line_price_id]) if params[:sale_order_line_price_id]
+    @product = find_and_check(:products, price.nil? ? session[:current_product] : price.product_id)
+    session[:current_product] = @product.id
+    @stock_location = find_and_check(:stock_locations, params[:sale_order_line_location_id]||session[:current_stock_location])
+    #puts "okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"+params[:sale_order_line_location_id].inspect+session[:current_stock_location].inspect+@stock_location.inspect
+    session[:current_stock_location] = @stock_location.id
+    @sale_order_line = SaleOrderLine.new
+  end
+
   def sale_order_line_informations
     #raise Exception.new "okkkkk"
     price = find_and_check(:prices, params[:sale_order_line_price_id]) if params[:sale_order_line_price_id]
@@ -1339,8 +1361,9 @@ class ManagementController < ApplicationController
     @product = find_and_check(:products, price.nil? ? session[:current_product] : price.product_id)
     session[:current_product] = @product.id
     @stock_location = find_and_check(:stock_locations, params[:sale_order_line_location_id]||session[:current_stock_location])
+    #puts "okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"+params[:sale_order_line_location_id].inspect+session[:current_stock_location].inspect+@stock_location.inspect
     session[:current_stock_location] = @stock_location.id
-    puts "okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+    #puts "okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
   end
 
   def subscription_message
@@ -1357,6 +1380,9 @@ class ManagementController < ApplicationController
     if @current_company.available_prices.size > 0
       @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id, :company_id=>@current_company.id).compute_period
       @product = @current_company.available_prices.first.product
+      @stock_location = @stock_locations.first
+      session[:current_product] = @product.id
+      session[:current_stock_location] = @stock_location.id
     else
       @subscription = Subscription.new()
     end
@@ -1369,9 +1395,9 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sale_order_lines, :id=>@sale_order.id
       return
     elsif request.post? 
-      raise Exception.new params.inspect
+      #raise Exception.new params.inspect
       @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
-      if @sale_order_line and params[:sale_order_line][:price_amount].to_d <= 0
+      if @sale_order_line and params[:sale_order_line][:price_amount].to_d <= 0 and @sale_order_line.tracking_id.nil?
         @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
       else
         @sale_order_line = @sale_order.lines.build(params[:sale_order_line])
@@ -2438,18 +2464,20 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.check :received, :value=>'RECORD.planned_on<=Date.today'
+   # t.action :validate_purchase
   end
 
+  # def validate_purchase
+#     return unless @purchase_order = find_and_check(:purchase_orders, params[:id])
+#     if request.post?
+#       redirect_to :action=>:unreceived_purchases
+#     end
+#     @title = {:number, @purchase_order.number, :supplier=>@purchase_order.supplier.name}
+#   end
 
   def unreceived_purchases
     @purchase_orders = PurchaseOrder.find(:all, :conditions=>{:company_id=>@current_company.id, :moved_on=>nil}, :order=>"planned_on ASC")
     if request.post?
-      #    purchases = params[:purchase].collect{|x| PurchaseOrder.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:purchase].nil?
-      #       if !purchases.nil?
-      #         for purchase in purchases
-      #           purchase.real_stocks_moves_create
-      #         end
-      #      end
       for id, values in params[:unreceived_purchases]
         purchase = PurchaseOrder.find_by_id_and_company_id(id, @current_company.id)
         purchase.real_stocks_moves_create if purchase and values[:received].to_i == 1
@@ -2488,6 +2516,7 @@ class ManagementController < ApplicationController
 
   dyta(:product_stocks, :conditions=>stocks_conditions, :line_class=>'RECORD.state') do |t|
     t.column :name, :through=>:product,:url=>{:action=>:product}
+    t.column :name, :through=>:tracking
     t.column :weight, :through=>:product, :label=>"Poids"
     t.column :quantity_max
     t.column :quantity_min

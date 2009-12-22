@@ -45,8 +45,8 @@ class StockMove < ActiveRecord::Base
   end
 
   def before_create
-    product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id})
-    product_stock = ProductStock.create!(:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id) if product_stock.nil?
+    product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id})
+    product_stock = ProductStock.create!(:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id) if product_stock.nil?
     product_stock.increment!(column, direction*self.quantity)
 ##    product_stock.update_attribute(column, product_stock.send(column) + direction*self.quantity)
 #     if self.virtual and self.input

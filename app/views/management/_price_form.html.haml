@@ -3,7 +3,7 @@
   - f.error 'price_tax'
   - f.title :general
   - f.field :price, :product_id, :choices=>@products.collect{|x| [x.name, x.id]}, :new=>{:action=>:product_create} 
-  - if @mode != :sales
+  - if @mode != :sale_orders
     -f.field :price, :entity_id, :choices=>:entities
   - f.field :price, :amount
   - f.field :price, :category_id, :choices=>@current_company.entity_categories.find_all_by_deleted(false).collect{|x| [x.name, x.id]}

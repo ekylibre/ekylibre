@@ -208,6 +208,7 @@ management       sale_order_create                create_estimates
 management       sale_order_duplicate             create_estimates
 management       sale_order_line_create           create_estimate
 management       sale_order_line_informations     create_estimates
+management       sale_order_line_tracking         create_estimates
 management       sale_order_line_stocks           create_estimates
 management       sale_order_line_delete           create_estimates
 management       sale_order_line_update           create_estimates
@@ -224,6 +225,7 @@ management       purchase_order_lines             create_purchases
 management       purchase_order_summary           create_purchases
 management       purchases_new                    create_purchases
 management       unreceived_purchases             create_purchases
+management       validate_purchase                create_purchases
 management       delay                            manage_delays
 management       delay_create                     manage_delays
 management       delay_delete                     manage_delays

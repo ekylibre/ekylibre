@@ -141,11 +141,11 @@ class SaleOrder < ActiveRecord::Base
   def move_real_stocks
     if self.deliveries.size > 0
       for line in self.lines
-        line.product.take_stock_out(line.undelivered_quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self)
+        line.product.take_stock_out(line.undelivered_quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self, :tracking_id=>line.tracking_id)
       end
     else
       for line in self.lines
-        line.product.take_stock_out(line.quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self)
+        line.product.take_stock_out(line.quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self, :tracking_id=>line.tracking_id)
       end
     end
   end

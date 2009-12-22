@@ -1199,6 +1199,7 @@ fr-FR:
         product_id: 'Produit'
         quantity_max: 'Quantité maximum'
         quantity_min: 'Quantité minimum'
+        tracking_id: 'Lot'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1272,6 +1273,7 @@ fr-FR:
         price_id: 'Prix'
         product_id: 'Produit'
         quantity: 'Quantité'
+        tracking_id: 'Numéro de lot'
         unit_id: 'Unité'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -1357,6 +1359,7 @@ fr-FR:
         quantity: 'Quantité'
         reduction_origin_id: (((REDUCTION_ORIGIN_ID)))
         tax_id: 'Taxe'
+        tracking_id: 'Lot'
         undelivered_quantity: 'Reste à livrer'
         unit_id: 'Unité'
         updated_at: 'Mis à jour le'

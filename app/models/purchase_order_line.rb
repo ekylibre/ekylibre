@@ -31,6 +31,7 @@ class PurchaseOrderLine < ActiveRecord::Base
   belongs_to :order, :class_name=>PurchaseOrder.to_s
   belongs_to :price
   belongs_to :location, :class_name=>StockLocation.to_s
+  belongs_to :tracking, :class_name=>StockTracking.name
   belongs_to :unit
 
   validates_presence_of :amount, :price_id

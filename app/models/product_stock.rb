@@ -45,7 +45,7 @@ class ProductStock < ActiveRecord::Base
   end
 
   def label
-    if self.tracking_id
+    if self.tracking
       return tc(:label, :tracking=>self.tracking.name, :quantity=>self.current_virtual_quantity)
     else
       return tc(:no_tracking)

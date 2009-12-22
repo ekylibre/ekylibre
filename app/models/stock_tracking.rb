@@ -19,5 +19,6 @@
 
 class StockTracking < ActiveRecord::Base
   belongs_to :company
+  has_many :sale_order_lines
   has_many :stock_moves
 end

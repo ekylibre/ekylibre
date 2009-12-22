@@ -500,6 +500,10 @@ fr-FR:
         from_date: 'Du '
         to_date: 'Au '
       _sale_order_line_informations:
+        no_tracking: 'Aucun lot'
+        tracking: 'Lot '
+      _sale_order_line_tracking:
+        no_tracking: 'Aucun lot'
         tracking: 'Lot '
       _sale_order_line_form:
         free_price: 'Renseignez ces champs si vous souhaitez appliquer un autre prix'
