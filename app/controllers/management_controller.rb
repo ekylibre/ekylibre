@@ -1240,6 +1240,8 @@ class ManagementController < ApplicationController
     @product = @current_company.available_prices.first.product
     @stock_locations = @current_company.stock_locations
     @entity = @sale_order.client
+    session[:current_product] = @product.id
+    session[:current_stock_location] = @current_company.stock_locations.first.id if @current_company.stock_locations.size > 0
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
   end
 
@@ -1330,6 +1332,17 @@ class ManagementController < ApplicationController
     @product = find_and_check(:products, price.product_id)
   end
 
+  def sale_order_line_informations
+    #raise Exception.new "okkkkk"
+    price = find_and_check(:prices, params[:sale_order_line_price_id]) if params[:sale_order_line_price_id]
+    puts session[:current_product].inspect+"!!!!!!!!"+price.inspect
+    @product = find_and_check(:products, price.nil? ? session[:current_product] : price.product_id)
+    session[:current_product] = @product.id
+    @stock_location = find_and_check(:stock_locations, params[:sale_order_line_location_id]||session[:current_stock_location])
+    session[:current_stock_location] = @stock_location.id
+    puts "okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+  end
+
   def subscription_message
     price = find_and_check(:prices, params[:sale_order_line_price_id])
     @product = find_and_check(:products, price.product_id)
@@ -1356,7 +1369,7 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sale_order_lines, :id=>@sale_order.id
       return
     elsif request.post? 
-      #raise Exception.new params.inspect
+      raise Exception.new params.inspect
       @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
       if @sale_order_line and params[:sale_order_line][:price_amount].to_d <= 0
         @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d

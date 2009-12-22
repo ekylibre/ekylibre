@@ -417,7 +417,8 @@ fr-FR:
     product_component:
       of_product: 'du produit'
     product_stock:
-      error_azz_z: 'hghhjj {{location}}'
+      label: 'Lot {{tracking}} quantité disponible {{quantity}}'
+      no_tracking: 'Aucun lot'
     production: 
       stock_location_can_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
       production: Production

@@ -1,0 +1,4 @@
+-if @product and @stock_location
+  -if @current_company.product_stocks.find(:all, :conditions=>["location_id = ? AND product_id = ? AND tracking_id IS NOT NULL ",@stock_location.id, @product.id]).size > 0
+    =tc(:tracking)+select(:sale_order_line, :tracking_id, @current_company.product_stocks.find(:all, :conditions=>{:location_id=>@stock_location.id, :product_id=>@product.id}).collect{|p| [p.label, p.tracking_id]} )
+

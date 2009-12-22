@@ -28,7 +28,6 @@ class CreateTrackingSupport < ActiveRecord::Migration
     add_column :purchase_order_lines, :tracking_id,     :integer,  :references=>:stock_trackings, :on_delete=>:cascade, :on_update=>:cascade
     add_column :product_stocks,       :tracking_id,     :integer,  :references=>:stock_trackings, :on_update=>:cascade, :on_delete=>:cascade 
     add_column :stock_transfers,      :tracking_id,     :integer,  :references=>:stock_trackings, :on_update=>:cascade, :on_delete=>:cascade 
-    add_column :stock_moves,          :tracking_id,     :integer,  :references=>:stock_trackings, :on_update=>:cascade, :on_delete=>:cascade 
     add_column :inventory_lines,      :tracking_id,     :integer,  :references=>:stock_trackings, :on_update=>:cascade, :on_delete=>:cascade 
     add_column :delivery_lines,       :tracking_id,     :integer,  :references=>:stock_trackings, :on_update=>:cascade, :on_delete=>:cascade 
     
@@ -46,7 +45,6 @@ class CreateTrackingSupport < ActiveRecord::Migration
     drop_table :shape_operation_lines
     remove_column :delivery_lines,       :tracking_id
     remove_column :inventory_lines,      :tracking_id
-    remove_column :stock_moves,          :tracking_id
     remove_column :stock_transfers,      :tracking_id
     remove_column :product_stocks,       :tracking_id
     remove_column :purchase_order_lines, :tracking_id

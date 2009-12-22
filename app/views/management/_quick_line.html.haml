@@ -7,13 +7,19 @@
       %nobr=tc('location')+" "+select(:sale_order_line, :location_id, @current_company.stock_locations.collect{|x| [x.name, x.id]})
     #price_amount{:style=>'display:none'}
       =text_field(:sale_order_line, :price_amount, :value=>0.0)
+  
+    #subscription
+
+    #subscription_line{:style=>'display:none'}
+      %p{:id=>:sub_line}=""
+   
+    #stocks=#render :partial=>"sale_order_line_stocks"
+
+    #informations=render :partial=>"sale_order_line_informations"
     =submit_tag(tc('valid'), :action=>:sale_order_line_create)
-  #subscription
+=#observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_stocks}, :frequency => 0.25, :with=>"sale_order_line_price_id")
 
-  #subscription_line{:style=>'display:none'}
-    %p{:id=>:sub_line}=""
-  =observe_field("sale_order_line_price_id", :url=>{:action => :subscription_message}, :frequency => 0.25, :with=>"sale_order_line_price_id")
- 
-  #stocks=render :partial=>"sale_order_line_stocks"
 
-=observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_stocks}, :frequency => 0.25, :with=>"sale_order_line_price_id")
+=observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_informations}, :frequency => 0.25, :with=>"sale_order_line_price_id")
+-if @current_company.stock_locations.size > 1
+  =observe_field("sale_order_line_location_id", :url=>{:action => :sale_order_line_informations}, :frequency => 0.25, :with=>"sale_order_line_location_id")

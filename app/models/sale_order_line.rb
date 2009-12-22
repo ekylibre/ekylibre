@@ -133,6 +133,7 @@ class SaleOrderLine < ActiveRecord::Base
   def validate
     if self.location
       errors.add_to_base(tc(:stock_location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) unless self.location.can_receive?(self.product_id)
+     # errors.add_to_base(tc(:aaa), :location=>self.location.name, :product=>self.product.name) if self.tracking and self.quantity > self.
     end
     if self.price
       errors.add_to_base(tc(:currency_is_not_sale_order_currency)) if self.price.currency_id != self.order.currency_id

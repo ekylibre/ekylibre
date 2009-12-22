@@ -25,6 +25,8 @@ class ProductStock < ActiveRecord::Base
   belongs_to :company
   belongs_to :location, :class_name=>StockLocation.to_s
   belongs_to :product
+
+  belongs_to :tracking, :class_name=>StockTracking.name
   
   attr_readonly :company_id
   
@@ -39,6 +41,14 @@ class ProductStock < ActiveRecord::Base
   def validate 
     if self.location
       errors.add_to_base(tc(:error_azz_z, :location=>self.location.name)) unless self.location.can_receive(self.product_id)
+    end
+  end
+
+  def label
+    if self.tracking_id
+      return tc(:label, :tracking=>self.tracking.name, :quantity=>self.current_virtual_quantity)
+    else
+      return tc(:no_tracking)
     end
   end
   

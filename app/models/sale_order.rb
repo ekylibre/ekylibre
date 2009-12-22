@@ -131,7 +131,7 @@ class SaleOrder < ActiveRecord::Base
   def confirm(validated_on=Date.today)
     if self.estimate? and self.confirmed_on.nil?
       for line in self.lines.find(:all, :conditions=>["quantity>0"])
-        line.product.reserve_stock(line.quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self)
+        line.product.reserve_stock(line.quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self, :tracking_id=>line.tracking_id)
       end
       self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today, :state=>"A")
     end
