@@ -160,9 +160,7 @@ class Company < ActiveRecord::Base
         company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
         currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
         company.shelves.create(:name=>tc('default.shelf_name'))
-        for unit in Unit.default_units
-          company.units.create(:name=>unit[0].to_s, :label=>tc('default.unit_'+unit[0].to_s), :base=>unit[1][:base], :quantity=>unit[1][:quantity])
-        end
+        company.load_units
         
         taxes = []
         taxes = {:name=>tc('default.tva000'),  :nature=>'percent', :amount=>0.00}, {:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021}, {:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055}, {:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196} 
@@ -708,6 +706,15 @@ class Company < ActiveRecord::Base
         File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
           self.document_templates.create(:active=>true, :name=>I18n::t('models.company.default.document_templates.'+template.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read, :to_archive=>options[:to_archive], :family=>family.to_s, :code=>I18n::t('models.company.default.document_templates.'+template).codeize[0..7], :nature=>options[:nature], :filename=>options[:filename], :default=>false )
         end
+      end
+    end
+  end
+
+  def load_units
+    for name, desc in Unit.default_units
+      unit = self.units.find_by_base_and_coefficient_and_start(desc[:base], desc[:coefficient], desc[:start])
+      unless unit
+        self.units.create(:name=>name.to_s, :label=>tc('default.units.'+name.to_s), :base=>desc[:base], :coefficient=>desc[:coefficient], :start=>desc[:start])
       end
     end
   end

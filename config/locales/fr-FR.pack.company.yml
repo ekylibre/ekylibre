@@ -183,6 +183,7 @@ fr-FR:
       units:
         title: 'Unités de mesure'
         unit_create: 'Ajouter une nouvelle unité de mesure'
+        units_load: 'Charger les unités de base manquantes'
       unit_create:
         title: 'Ajout d''une nouvelle unité de mesure'
       unit_update:

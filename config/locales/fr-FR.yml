@@ -220,17 +220,18 @@ fr-FR:
         tva210: TVA 2,10%
         tva550: TVA 5,50%
         tva1960: TVA 19,60%
-        unit_u: Unité
-        unit_kg: Kilogramme
-        unit_t: Tonne
-        unit_m: Mètre
-        unit_km: Kilomètre
-        unit_ha: Hectare
-        unit_a: Are
-        unit_ca: Centiare (m²)
-        unit_l: Litre
-        unit_hl: Hectolitre
-        unit_m3: Mètre cube
+        units:
+          u: Unité
+          kg: Kilogramme
+          t: Tonne
+          m: Mètre
+          km: Kilomètre
+          ha: Hectare
+          a: Are
+          ca: Centiare (m²)
+          l: Litre
+          hl: Hectolitre
+          m3: Mètre cube
     complement:
       natures:
         boolean: Case à cocher

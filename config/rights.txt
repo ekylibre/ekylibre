@@ -158,6 +158,7 @@ company units_dyta manage_units
 company unit_create manage_units
 company unit_update manage_units
 company unit_delete manage_units
+company units_load manage_units
 company          print                            print
 help             close                            __minimum__
 help             previous                         __minimum__

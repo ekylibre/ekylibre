@@ -2,6 +2,7 @@
 #
 # Table name: shapes
 #
+#  area         :decimal(, )   default(0.0), not null
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  creator_id   :integer       

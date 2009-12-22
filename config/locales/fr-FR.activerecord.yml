@@ -1667,11 +1667,12 @@ fr-FR:
 
       # Unité
       unit:
+        base: Base
+        coefficient: Coefficient
+        start: 'Valeur à l''origine'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        expression: Expression
-        normalized_expression: Expression normalisée
         id: 'ID'
         label: Libellé
         lock_version: 'Version'

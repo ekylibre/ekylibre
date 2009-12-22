@@ -782,13 +782,19 @@ class CompanyController < ApplicationController
   dyta(:units, :conditions=>{:company_id=>["@current_company.id"]}, :order=>:name) do |t|
     t.column :label
     t.column :name
-    t.column :expression
-    t.column :normalized_expression
+    t.column :coefficient
+    t.column :base
+    t.column :start
     t.action :unit_update
     t.action :unit_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
   def units
+  end
+
+  def units_load
+    @current_company.load_units
+    redirect_to :action=>:units
   end
 
   manage :units
