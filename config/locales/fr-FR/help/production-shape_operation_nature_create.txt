@@ -1,4 +1,4 @@
-h1. Comment créer un type de traitement ?
+h1. Comment créer un type de travail ?
 
 Il vous suffit de lui attribuer un nom et éventuellement une description.
 

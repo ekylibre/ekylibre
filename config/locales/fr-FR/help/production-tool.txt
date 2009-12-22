@@ -1,6 +1,6 @@
 h1. Détails d'un matériel
 
-Vous avez la liste des traitements qui ont été effectués grâce a ce matériel.
+Vous avez la liste des travaux qui ont été effectués grâce a ce matériel.
 
 
 <<production-index|Retour à l'aide sur la Gestion de la production>>

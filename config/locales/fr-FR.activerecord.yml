@@ -90,8 +90,8 @@ fr-FR:
       sale_order_nature: 'Type de vente'
       sequence: 'Séquence'
       shape: 'Îlot'
-      shape_operation: 'Traitement'
-      shape_operation_nature: 'Type de Traitement'
+      shape_operation: 'Travail'
+      shape_operation_nature: 'Type de travail'
       shelf: 'Catégorie de produit'
       stock_location: 'Lieu de stockage'
       stock_move: 'Mouvement de stock'
@@ -1404,6 +1404,7 @@ fr-FR:
 
       # Îlot
       shape:
+        area: 'Superficie (m²)'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
@@ -1412,13 +1413,14 @@ fr-FR:
         lock_version: 'Version'
         master: 'Îlot maître'
         name: 'Nom'
+        number: 'Numéro PAC ou numéro de parcelle'
         parent_id: (((PARENT_ID)))
         polygon: 'Coordonnées'
         shape_id: 'Îlot maître'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # Traitement
+      # Travail
       shape_operation:
         company_id: 'Société'
         created_at: 'Créé le'
@@ -1442,7 +1444,7 @@ fr-FR:
         updater_id: 'Modificateur'
         validated: 'Effectué'
 
-      # Type de Traitement
+      # Type de Travail
       shape_operation_nature:
         company_id: 'Société'
         created_at: 'Créé le'
@@ -1647,7 +1649,7 @@ fr-FR:
      
       tool_use:
         created_at: 'Crée le'
-        shape_operation_id: 'Traitement'
+        shape_operation_id: 'Travail'
 
       # (((TRANSPORT)))
       transport:

@@ -1,5 +1,5 @@
-h1. Détails d'un traitement
+h1. Détails d'un travail
 
-Les différentes informations concernant le traitement vous sont présentées.
+Les différentes informations concernant le travail vous sont présentées.
 
 <<production-index|Retour à l'aide sur la Gestion de la production>>

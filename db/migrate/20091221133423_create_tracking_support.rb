@@ -22,20 +22,32 @@ class CreateTrackingSupport < ActiveRecord::Migration
     end
 
     add_column :shapes, :number, :string
-    add_column :shapes, :area,   :decimal, :null=>false, :default=>0 # stocked in m2
+    add_column :shapes, :area_measure,   :decimal, :null=>false, :default=>0
+    add_column :shapes, :area_unit_id,   :integer, :references=>:units
+    for company in Company.all
+      unit = company.units.find_by_base_and_coefficient_and_start('m2', 1, 0)
+      unless unit
+        company.load_units
+        unit = company.units.find_by_base_and_coefficient_and_start('m2', 1, 0)
+      end
+      execute "UPDATE shapes SET area_unit_id=#{unit.id} WHERE company_id=#{company.id}"
+    end
 
-    add_column :sale_order_lines,     :tracking_id,     :integer,  :references=>:stock_trackings, :on_delete=>:cascade, :on_update=>:cascade
-    add_column :purchase_order_lines, :tracking_id,     :integer,  :references=>:stock_trackings, :on_delete=>:cascade, :on_update=>:cascade
-    add_column :product_stocks,       :tracking_id,     :integer,  :references=>:stock_trackings, :on_update=>:cascade, :on_delete=>:cascade 
-    add_column :stock_transfers,      :tracking_id,     :integer,  :references=>:stock_trackings, :on_update=>:cascade, :on_delete=>:cascade 
-    add_column :inventory_lines,      :tracking_id,     :integer,  :references=>:stock_trackings, :on_update=>:cascade, :on_delete=>:cascade 
-    add_column :delivery_lines,       :tracking_id,     :integer,  :references=>:stock_trackings, :on_update=>:cascade, :on_delete=>:cascade 
+    add_column :sale_order_lines,     :tracking_id,     :integer,  :references=>:stock_trackings
+    add_column :purchase_order_lines, :tracking_id,     :integer,  :references=>:stock_trackings
+    add_column :product_stocks,       :tracking_id,     :integer,  :references=>:stock_trackings
+    add_column :stock_transfers,      :tracking_id,     :integer,  :references=>:stock_trackings
+    add_column :inventory_lines,      :tracking_id,     :integer,  :references=>:stock_trackings
+    add_column :delivery_lines,       :tracking_id,     :integer,  :references=>:stock_trackings
     
     create_table :shape_operation_lines do |t|
       t.column :shape_operation_id,     :integer,   :null=>false, :references=>:shape_operations, :on_delete=>:cascade, :on_update=>:cascade
       t.column :product_id,             :integer,   :references=>:products
-      t.column :quantity,               :decimal
-      t.column :surface_unit_id,        :integer,   :references=>:units
+      t.column :unit_quantity,          :decimal,   :null=>false, :default=>0
+      t.column :quantity,               :decimal,   :null=>false, :default=>0
+      t.column :product_unit_id,        :integer,   :references=>:units
+      t.column :area_unit_id,           :integer,   :references=>:units
+      t.column :tracking_id,            :integer,   :references=>:stock_trackings
       t.column :company_id,             :integer,   :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
 
@@ -55,7 +67,8 @@ class CreateTrackingSupport < ActiveRecord::Migration
     rename_column :units, :coefficient, :quantity
     remove_column :units, :start
 
-    remove_column :shapes, :area
+    remove_column :shapes, :area_unit_id
+    remove_column :shapes, :area_measure
     remove_column :shapes, :number
     remove_column :products, :to_produce
     remove_column :productions, :shape_id

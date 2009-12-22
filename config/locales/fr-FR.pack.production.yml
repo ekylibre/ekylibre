@@ -19,14 +19,14 @@ fr-FR:
       index:
         indicator: 'Tableau de bord'
         nb_operations:
-          one: '1 traitement à réaliser'
-          other: '{{count}} traitements à réaliser'
-          zero: 'Aucun traitement à réaliser'
+          one: '1 travail à réaliser'
+          other: '{{count}} travaux à réaliser'
+          zero: 'Aucun travail à réaliser'
         parameters: 'Paramètres'
         production: 'Productions'
         productions: 'Productions'
-        shape_operation_natures: 'Types de traitement'
-        shape_operations: 'Traitements'
+        shape_operation_natures: 'Types de travail'
+        shape_operations: 'Travaux'
         shapes: 'Îlots'
         title: 'Gestion de la production'
         tools: 'Matériel'
@@ -52,7 +52,7 @@ fr-FR:
         productions: 'Productions'
         title: 'Productions'
       shape:  
-        operations: 'Traitements'
+        operations: 'Travaux'
         shape_update: 'Modifier l''îlot'
         shapes: 'Liste des îlots'
         title: 'Îlot {{name}}'
@@ -61,27 +61,27 @@ fr-FR:
       _shape_form:
         infos: 'Renseignez les caractéristiques de l''îlot'
       shape_operation:
-        shape_operation_update: 'Modifier le traitement'
-        shape_operations: 'Liste des traitements'
-        title: 'Détails du traitement {{name}}'
+        shape_operation_update: 'Modifier le travail'
+        shape_operations: 'Liste des travaux'
+        title: 'Détails du travail {{name}}'
       shape_operation_create:
-        title: 'Créer un nouveau traitement'
+        title: 'Créer un nouveau travail'
       _shape_operation_form:
         duration: 'Durée'
-        infos: 'Renseignez les caractéristiques du traitement'
+        infos: 'Renseignez les caractéristiques du travail'
         tools: 'Sélectionnez le matériel utilisé'
       shape_operation_nature_create:
-        title: 'Créer un nouveau type de traitement'
+        title: 'Créer un nouveau type de travail'
       shape_operation_nature_update:
-        title: 'Modification du type de traitement "{{name}}"'
+        title: 'Modification du type de travail "{{name}}"'
       shape_operation_natures:
-        shape_operation_nature_create: 'Créer un nouveau type de traitement'
-        title: 'Types de traitement'
+        shape_operation_nature_create: 'Créer un nouveau type de travail'
+        title: 'Types de travail'
       shape_operation_update:
-        title: 'Modification du traitement {{name}}'
+        title: 'Modification du travail {{name}}'
       shape_operations:
-        shape_operation_create: 'Créer un nouveau traitement'
-        title: 'Traitements'
+        shape_operation_create: 'Créer un nouveau travail'
+        title: 'Travaux'
       shape_update:
         title: 'Modification de l'' îlot {{name}}'
       shapes:
@@ -94,9 +94,9 @@ fr-FR:
           other: 'Temps d''utilisation total : {{count}} heures'
           zero: ''
         shape_operations:
-          one: '1 traitement'
-          other: '{{count}} traitements'
-          zero: 'Aucun traitement'
+          one: '1 travail'
+          other: '{{count}} travaux'
+          zero: 'Aucun travail'
         title: 'Matériel {{name}}'
       tools:
         tool_create: 'Ajouter un matériel'
@@ -111,8 +111,8 @@ fr-FR:
         index: 'Retour à l''index de la production'
         name: 'Nom'
         nature: 'Type'
-        no_operations: 'Aucun traitement à réaliser'
+        no_operations: 'Aucun travail à réaliser'
         planned_on: 'Prévu le'
         shape_name: 'Îlot'
-        title: 'Traitements à réaliser'
+        title: 'Travaux à réaliser'
         validate: 'Valider'

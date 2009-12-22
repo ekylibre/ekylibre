@@ -18,11 +18,11 @@ class ProductionController < ApplicationController
   end
 
   dyta(:tool_shape_operations, :model=>:tool_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool]']}, :order=>"created_at ASC") do |t|
-    t.column :name, :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:name)
+    t.column :name,       :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:name)
     t.column :planned_on, :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:planned_on)
-    t.column :moved_on, :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:moved_on)
+    t.column :moved_on,   :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:moved_on)
     t.column :tools_list, :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:tools_list)
-    t.column :duration, :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:duration)
+    t.column :duration,   :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:duration)
   end
   
   def tool
@@ -136,7 +136,8 @@ class ProductionController < ApplicationController
   
   dyta(:shapes, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
     t.column :name, :url=>{:action=>:shape}
-    t.column :polygon
+    t.column :number
+    t.column :area, :datatype=>:decimal
     t.column :description
     t.action :shape_update
     t.action :shape_delete, :method=>:delete, :confirm=>:are_you_sure

@@ -2,7 +2,8 @@
 #
 # Table name: shapes
 #
-#  area         :decimal(, )   default(0.0), not null
+#  area_measure :decimal(, )   default(0.0), not null
+#  area_unit_id :integer       
 #  company_id   :integer       not null
 #  created_at   :datetime      not null
 #  creator_id   :integer       
@@ -24,7 +25,6 @@ class Shape < ActiveRecord::Base
   belongs_to :company
   has_many :operations, :class_name=>ShapeOperation.name
   has_many :shapes
-  # acts_as_measure :area
 
   def before_validation
     self.master = false if self.master.nil?

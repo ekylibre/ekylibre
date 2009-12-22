@@ -1,6 +1,6 @@
-h1. Traitements à réaliser
+h1. Travaux à réaliser
 
-Vous avez un récapitulatif des traitements que vous avez à réaliser. Si un traitement à effectivement été réaliser, cochez la case "effectué" et validez. 
+Vous avez un récapitulatif des travaux que vous avez à réaliser. Si un travail a effectivement été réalisé, cochez la case "Effectué" et validez. 
 
 
 <<production-index|Retour à l'aide sur la Gestion de la production>>

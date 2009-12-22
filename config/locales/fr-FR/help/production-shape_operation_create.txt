@@ -1,5 +1,5 @@
-h1. Comment créer un nouveau traitement ?
+h1. Comment créer un nouveau travail ?
 
-Sélectionnez l'îlot, l'employé et le type de traitement et veillez à renseigner tous les champs obligatoires (encadrés bleus).
+Sélectionnez l'îlot, l'employé et le type de travail et veillez à renseigner tous les champs obligatoires (encadrés bleus).
 
 <<production-index|Retour à l'aide sur la Gestion de la production>>
