@@ -77,8 +77,8 @@ class PurchaseOrder < ActiveRecord::Base
     for line in self.lines
       StockMove.create!(:name=>tc(:purchase)+"  "+line.order.number, :quantity=>line.quantity, :location_id=>line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>Date.today, :company_id=>line.company_id, :virtual=>false, :input=>true, :origin_type=>PurchaseOrder.to_s, :origin_id=>self.id, :generated=>true, :tracking_id=>line.tracking_id)
     end
-    self.moved_on = Date.today if self.moved_on.nil?
-    self.shipped = true
+    #self.moved_on = Date.today if self.moved_on.nil?
+    #self.shipped = true
     self.save
   end
 

@@ -62,6 +62,7 @@ class PurchaseOrderLine < ActiveRecord::Base
   
   def after_destroy
     #raise Exception.new "yyy"
+    self.tracking.destroy if self.tracking
     self.order.refresh
   end
 

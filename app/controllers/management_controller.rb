@@ -864,8 +864,8 @@ class ManagementController < ApplicationController
     t.column :amount, :through=>:price
     t.column :amount
     t.column :amount_with_taxes
-    t.action :purchase_order_line_update, :if=>'RECORD.order.editable'
-    t.action :purchase_order_line_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.editable'
+    t.action :purchase_order_line_update, :if=>'RECORD.order.moved_on.nil? '
+    t.action :purchase_order_line_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.moved_on.nil? '
   end
 
   #def purchase_order_lines
@@ -875,7 +875,8 @@ class ManagementController < ApplicationController
     #purchase_order_lines_list params
     if request.post?
       @purchase_order.stocks_moves_create
-      @purchase_order.update_attributes(:shipped=>true)
+      @purchase_order.real_stocks_moves_create
+      @purchase_order.update_attributes(:shipped=>true, :moved_on=>Date.today)
       redirect_to :action=>:purchase_order_summary, :id=>@purchase_order.id
     end
     @title = {:value=>@purchase_order.number,:name=>@purchase_order.supplier.full_name}
@@ -890,7 +891,7 @@ class ManagementController < ApplicationController
     t.column :downpayment
     #t.column :paid_on, :through=>:payment, :label=>tc('paid_on'), :datatype=>:date
     t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
-    t.action :payment_part_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.expense.shipped == false'
+    t.action :payment_part_delete, :method=>:delete, :confirm=>:are_you_sure#, :if=>'RECORD.expense.shipped == false'
   end
   
   def price_find
@@ -954,7 +955,6 @@ class ManagementController < ApplicationController
           end
           if not params[:purchase_order_line][:tracking_id].strip.blank?
             st = StockTracking.find_by_company_id_and_serial(@current_company.id, params[:purchase_order_line][:tracking_id].strip)||@current_company.stock_trackings.create!(:serial=>params[:purchase_order_line][:tracking_id].strip, :name=>params[:purchase_order_line][:tracking_id].strip, :product_id=>@purchase_order_line.product_id, :producer_id=>@purchase_order.supplier_id)
-            #raise Exception.new "olll"+st.inspect
             @purchase_order_line.tracking_id = st.id
           end
         end
@@ -975,7 +975,6 @@ class ManagementController < ApplicationController
     if request.post?
       params[:purchase_order_line][:company_id] = @current_company.id
       st = StockTracking.find_by_company_id_and_serial(@current_company.id, params[:purchase_order_line][:tracking_id].strip)||@current_company.stock_trackings.create!(:serial=>params[:purchase_order_line][:tracking_id].strip, :name=>params[:purchase_order_line][:tracking_id].strip, :product_id=>@purchase_order_line.product_id, :producer_id=>@purchase_order.supplier_id)
-      #raise Exception.new "olll"+st.inspect
       @purchase_order_line.tracking_id = st.id
       if @purchase_order_line.update_attributes(params[:purchase_order_line])  
         @update = false
@@ -988,7 +987,7 @@ class ManagementController < ApplicationController
   def purchase_order_line_delete
     @purchase_order_line = find_and_check(:purchase_order_line, params[:id])
     if request.post? or request.delete?
-      redirect_to :back  if @purchase_order_line.destroy
+      redirect_to_current  if @purchase_order_line.destroy
     end
   end
 

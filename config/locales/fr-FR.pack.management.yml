@@ -408,6 +408,7 @@ fr-FR:
       purchase_order:
         general_informations: 'Informations générales'
         lines: 'Lignes d''achat'
+        payment_part_create: 'Ajouter un règlement à l''achat'
         payment_parts: 'Règlements'
         purchase_order_lines: 'Modifier l''achat'
         purchase_order_print: 'Imprimer la commande fournisseur'
