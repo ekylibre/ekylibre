@@ -19,11 +19,12 @@
   - f.field :product, :duration
 
 =formalize do |f|
-  - f.field :product, :supply_method, :field=>:radio, :choices=>Product.supply_methods
+  -# f.field :product, :supply_method, :field=>:radio, :choices=>Product.supply_methods
   - f.field :product, :reduction_submissive
   - f.field :product, :active
   - f.field :product, :to_purchase
   - f.field :product, :to_sale
+  - f.field :product, :to_produce
   -# f.field :product, :without_stocks
   - f.field :product, :manage_stocks
 =formalize(:id=>:stocks) do |f|

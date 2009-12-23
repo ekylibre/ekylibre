@@ -23,6 +23,7 @@ class Shape < ActiveRecord::Base
   acts_as_tree
   attr_readonly :company_id
   belongs_to :company
+  belongs_to :area_unit, :class_name=>Unit.name
   has_many :operations, :class_name=>ShapeOperation.name
   has_many :shapes
 

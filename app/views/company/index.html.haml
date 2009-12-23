@@ -10,7 +10,5 @@
 .menu
   %h2=tc(:modules)
   %ul
-    -for controller in [:relations, :accountancy, :management, :resources, :production]
+    -for controller in menus[1..-1].collect{|x| x[:name]}
       =li_link_to tc(controller), :controller=>controller, :action=>:index
-
-=h Unit.normalize("kg.m3.s-1 s").inspect

@@ -10,6 +10,9 @@ class CreateTrackingSupport < ActiveRecord::Migration
     add_column :productions, :shape_id, :integer, :references=>:shapes
     
     add_column :products, :to_produce, :boolean, :null=>false, :default=>false
+    execute "UPDATE products SET to_purchase=CAST('true' AS BOOLEAN) WHERE supply_method='buy'"
+    execute "UPDATE products SET to_produce=CAST('true' AS BOOLEAN) WHERE supply_method='produce'"
+    remove_column :products, :supply_method
 
     
     add_column :units, :start, :decimal, :null=>false, :default=>0.0
@@ -62,18 +65,24 @@ class CreateTrackingSupport < ActiveRecord::Migration
     remove_column :purchase_order_lines, :tracking_id
     remove_column :sale_order_lines,     :tracking_id
     
+    remove_column :shapes, :area_unit_id
+    remove_column :shapes, :area_measure
+    remove_column :shapes, :number
+
     execute "UPDATE units SET label=label||' (ERROR)' WHERE start != 0"
     execute "UPDATE units SET base='u' WHERE LENGTH(TRIM(base))=0"
     rename_column :units, :coefficient, :quantity
     remove_column :units, :start
 
-    remove_column :shapes, :area_unit_id
-    remove_column :shapes, :area_measure
-    remove_column :shapes, :number
+    add_column :products, :supply_method, :string, :null=>false, :default=>'buy'
+    execute "UPDATE products SET supply_method='produce' WHERE to_produce"
     remove_column :products, :to_produce
+
     remove_column :productions, :shape_id
+
     remove_column :product_stocks, :origin_type
     remove_column :product_stocks, :origin_id
+
     add_column :stock_trackings, :begun_at, :datetime
     remove_column :stock_trackings, :producer_id
     remove_column :stock_trackings, :product_id

@@ -1156,9 +1156,10 @@ fr-FR:
         subscription_quantity: 'Quantité'
         supply_method: 'Moyen d''approvisionnement'
         to: 'Pour'
-        to_purchase: 'Produit destiné à l''achat'
-        to_rent: 'Produit destiné à la location'
-        to_sale: 'Produit destiné à la vente'
+        to_purchase: 'Produit acheté'
+        to_rent: 'Produit loué'
+        to_sale: 'Produit vendu'
+        to_produce: 'Produit récolté'
         unit_id: 'Unité de mesure'
         unquantifiable: (((UNQUANTIFIABLE)))
         updated_at: 'Mis à jour le'
@@ -1407,7 +1408,8 @@ fr-FR:
 
       # Îlot
       shape:
-        area: 'Superficie (m²)'
+        area_measure: 'Superficie'
+        area_unit_id: 'Unité de superficie'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'

@@ -78,7 +78,7 @@ class Company < ActiveRecord::Base
   has_many :sale_order_lines
   has_many :sale_order_natures
   has_many :sequences
-  has_many :shapes
+  has_many :shapes, :order=>:name
   has_many :shape_operation_natures
   has_many :shape_operations
   has_many :shelves
@@ -298,7 +298,8 @@ class Company < ActiveRecord::Base
   end
 
   def productable_products
-    Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (supply_method = 'produce' OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
+    #Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (supply_method = 'produce' OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
+    Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (to_produce OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
   end
 
   def imported_entity_nature(row)

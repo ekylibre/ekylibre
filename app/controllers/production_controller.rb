@@ -1,3 +1,22 @@
+# ##### BEGIN LICENSE BLOCK #####
+# Ekylibre - Simple ERP
+# Copyright (C) 2009 Brice Texier, Thibaud Mérigon
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# ##### END LICENSE BLOCK #####
+
 class ProductionController < ApplicationController
 
   def index
@@ -36,7 +55,7 @@ class ProductionController < ApplicationController
   dyta(:productions, :conditions=>{:company_id=>['@current_company.id']}, :order=>"planned_on ASC") do |t|
     t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
     t.column :quantity
-    #t.column :label, :through=>[:product,:unit]
+    # t.column :label, :through=>[:product,:unit]
     t.column :moved_on
     t.action :production_update, :image=>:update
     t.action :production_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
@@ -137,11 +156,17 @@ class ProductionController < ApplicationController
   dyta(:shapes, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
     t.column :name, :url=>{:action=>:shape}
     t.column :number
-    t.column :area, :datatype=>:decimal
+    t.column :area_measure, :datatype=>:decimal
+    t.column :name, :through=>:area_unit
     t.column :description
     t.action :shape_update
     t.action :shape_delete, :method=>:delete, :confirm=>:are_you_sure
   end
+
+  def shapes
+  end
+
+  manage :shapes
 
   dyta(:operations, :model=>:shape_operations, :conditions=>{:company_id=>['@current_company.id'], :shape_id=>['session[:current_shape]']}, :order=>"planned_on ASC") do |t|
     t.column :name, :url=>{:action=>:shape_operation}
@@ -155,8 +180,6 @@ class ProductionController < ApplicationController
     t.action :shape_operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
 
-  def shapes
-  end
 
   def shape
     return unless @shape = find_and_check(:shapes, params[:id])
@@ -164,7 +187,6 @@ class ProductionController < ApplicationController
     @title = {:name=>@shape.name}
   end
 
-  manage :shapes
   
   dyta(:shape_operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>" planned_on desc, name asc") do |t|
     t.column :name, :url=>{:action=>:shape_operation}

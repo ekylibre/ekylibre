@@ -4,7 +4,8 @@
   - f.field :shape, :name
   - f.field :shape, :number
   -#f.field :shape, :polygon
-  - f.field :shape, :area
+  - f.field :shape, :area_measure
+  - f.field :shape, :area_unit_id, :choices=>@current_company.units.find(:all, :conditions=>{:base=>"m2"}, :order=>"coefficient, name").collect{|x| [x.label, x.id]}
   -#f.field :shape, :master
 = formalize(:id=>:master_select) do |f|
   -# f.field :shape, :parent_id, :choices=>@current_company.shapes.collect{|x| [x.name+" ( "+x.polygon+" )", x.id]}
