@@ -18,6 +18,7 @@ class CreateTrackingSupport < ActiveRecord::Migration
     add_column :units, :start, :decimal, :null=>false, :default=>0.0
     rename_column :units, :quantity, :coefficient
     change_column :units, :coefficient, :decimal, :null=>false, :default=>1
+    change_column :units, :base, :string, :null=>true
     execute "UPDATE units SET coefficient=coefficient/1000, base='kg' WHERE base='g'"
     execute "UPDATE units SET base='' WHERE base='u'"
     for unit in Unit.all

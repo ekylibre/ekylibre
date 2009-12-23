@@ -462,9 +462,9 @@ class ManagementController < ApplicationController
   end
   
   def price_create
-    @mode = (params[:mode]||"sales").to_sym 
-
-    if @mode == :sales
+    @mode = (params[:mode]||"sale_orders").to_sym 
+    
+    if @mode == :sale_orders
       @products = Product.find(:all, :conditions=>{:to_sale=>true, :company_id=>@current_company.id}, :order=>:name)
     else 
       @products = Product.find(:all, :conditions=>{:to_purchase=>true, :company_id=>@current_company.id}, :order=>:name)
@@ -679,7 +679,7 @@ class ManagementController < ApplicationController
 
   def self.products_conditions(options={})
     code = ""
-    code += "conditions = [ \" company_id = ? AND (code ILIKE ? OR name ILIKE ?) AND active = ? \" , @current_company.id, '%'+session[:product_key]+'%', '%'+session[:product_key]+'%', session[:product_active]] \n"
+    code += "conditions = [ \" company_id = ? AND (LOWER(code) LIKE ?  OR LOWER (name) LIKE ?) AND active = ? \" , @current_company.id, '%'+session[:product_key].lower+'%', '%'+session[:product_key].lower+'%', session[:product_active]] \n"
     code += "if session[:product_shelf_id].to_i != 0 \n"
     code += "conditions[0] += \" AND shelf_id = ?\" \n" 
     code += "conditions << session[:product_shelf_id].to_i \n"
@@ -762,7 +762,7 @@ class ManagementController < ApplicationController
     else 
       @product = Product.new
       @product.nature = Product.natures.first[1]
-      @product.supply_method = Product.supply_methods.first[1]
+      # @product.supply_method = Product.supply_methods.first[1]
       @product_stock = ProductStock.new
     end
     render_form
@@ -891,7 +891,6 @@ class ManagementController < ApplicationController
   def purchase_order_lines
     @purchase_order = find_and_check(:purchase_order, params[:id])
     session[:current_purchase] = @purchase_order.id
-    #purchase_order_lines_list params
     if request.post?
       @purchase_order.stocks_moves_create
       @purchase_order.real_stocks_moves_create
@@ -908,7 +907,6 @@ class ManagementController < ApplicationController
     t.column :payment_way
     t.column :scheduled, :through=>:payment, :datatype=>:boolean, :label=>tc('scheduled')
     t.column :downpayment
-    #t.column :paid_on, :through=>:payment, :label=>tc('paid_on'), :datatype=>:date
     t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
     t.action :payment_part_delete, :method=>:delete, :confirm=>:are_you_sure#, :if=>'RECORD.expense.shipped == false'
   end
@@ -1265,11 +1263,11 @@ class ManagementController < ApplicationController
     return unless @sale_order = find_and_check(:sale_order, params[:id])
     session[:current_sale_order] = @sale_order.id
     session[:category] = @sale_order.client.category
-    @product = @current_company.available_prices.first.product
+    @product = @current_company.available_prices.first.product if @current_company.available_prices.first
     @stock_locations = @current_company.stock_locations
     # @subscription = Subscription.new(:product_id=>@product.id, :company_id=>@current_company.id).compute_period
     @entity = @sale_order.client
-    session[:current_product] = @product.id
+    session[:current_product] = @product.id if @product
     @stock_location = @current_company.stock_locations.first if @current_company.stock_locations.size > 0
     session[:current_stock_location] = @stock_location.id
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}

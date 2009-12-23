@@ -20,7 +20,7 @@ class Unit < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   has_many :products
-  validates_format_of :name, :with=>/^[a-zA-Z]+$/
+  validates_format_of :name, :with=>/^[a-zA-Z][a-zA-Z0-9]*$/
 
   @@units = ["m", "kg", "s", "A", "K", "mol", "cd"]
 

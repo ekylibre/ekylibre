@@ -773,7 +773,7 @@ class AccountancyController < ApplicationController
         @record = JournalRecord.create!(params[:record].merge({:financialyear_id => session[:entries][:financialyear].to_s, :journal_id => session[:entries][:journal].to_s, :company_id => @current_company.id, :created_on => created_on, :printed_on => printed_on}))
       end 
       
-      params[:entry][:account] = @current_company.accounts.find(:first, :conditions=>["number ILIKE ? ",params[:entry][:account].strip.split(/[^0-9A-Z]/)[0] ])
+      params[:entry][:account] = @current_company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ? ",params[:entry][:account].strip.split(/[^0-9A-Z]/)[0].lower ])
     
       #raise Exception.new account.inspect
       @entry = @current_company.entries.build(params[:entry])

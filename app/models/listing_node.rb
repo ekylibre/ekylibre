@@ -116,7 +116,7 @@ class ListingNode < ActiveRecord::Base
       c = " IN (#{self.compute_condition}) "
     elsif operator.include? "{{value}}"
       #c = operator.gsub(/\{\{value\}\}/i, self.condition_value)+"'"
-      c = operator.gsub(/\{\{value\}\}/i, self.condition_value)
+      c = operator.gsub(/\{\{value\}\}/i, self.condition_value.lower)
     else
       if self.sql_type == "date"
         c = " #{self.sql_format_comparator} CAST('#{self.condition_value.to_date}' AS date) "

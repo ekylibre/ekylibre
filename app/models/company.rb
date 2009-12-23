@@ -198,7 +198,7 @@ class Company < ActiveRecord::Base
         company.set_parameter('management.embankments.numeration', company.sequences.create!(:name=>tc('default.embankment_numeration'), :format=>'[number|4]', :period=>'year'))
         company.set_parameter('management.subscriptions.numeration', company.sequences.create!(:name=>tc('default.subscription_numeration'), :format=>'[number|6]', :period=>'number'))
         
-        company.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>company.accounts.find(:first, :conditions=>["number ILIKE ?", '3%' ], :order=>:number).id)
+        company.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id)
         company.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))
         company.event_natures.create!(:duration=>10, :usage=>"invoice", :name=>tc(:invoice_creation))
         company.event_natures.create!(:duration=>10, :usage=>"purchase_order", :name=>tc(:purchase_order_creation))
@@ -306,10 +306,10 @@ class Company < ActiveRecord::Base
     if row.blank?
       nature = self.entity_natures.find_by_abbreviation("-")
     else
-      nature = EntityNature.find(:first, :conditions=>['company_id = ? AND name ILIKE ? ',self.id, row])
+      nature = EntityNature.find(:first, :conditions=>['company_id = ? AND LOWER(name) LIKE ? ',self.id, row.lower])
       #raise Exception.new nature.empty?.inspect
       #raise Exception.new nature.inspect if row == "SCEA"
-      nature = EntityNature.find(:first, :conditions=>['company_id = ? AND abbreviation ILIKE ?', self.id, row]) if nature.nil?
+      nature = EntityNature.find(:first, :conditions=>['company_id = ? AND LOWER(abbreviation) LIKE ?', self.id, row.lower]) if nature.nil?
       nature = EntityNature.create!(:name=>row, :abbreviation=>row[0..1], :in_name=>false, :physical=>true, :company_id=>self.id) if nature.nil? 
     end
     nature.id
@@ -319,8 +319,7 @@ class Company < ActiveRecord::Base
     if row.blank?
       nature = self.entity_categories.first
     else
-      nature = EntityCategory.find(:first, :conditions=>['company_id = ? AND name ILIKE ? ',self.id, row])
-      #nature = EntityCategory.find(:first, :conditions=>['company_id = ? AND abbreviation ILIKE ?', self.id, row]) if nature.nil?
+      nature = EntityCategory.find(:first, :conditions=>['company_id = ? AND LOWER(name) LIKE ? ',self.id, row.lower])
       nature = EntityCategory.create!(:name=>row, :default=>false, :company_id=>self.id) if nature.nil? 
     end
     nature.id
@@ -737,7 +736,7 @@ class Company < ActiveRecord::Base
     indifferent_attributes = {:category_id=>company.entity_categories.first.id, :language_id=>company.languages.first.id}
     products = ["Salades","Bouteille en verre 75 cl","Bouchon liège","Capsule CRD", "Capsule", "Étiquette", "Vin Saint-Emilion 2005", "Caisse Bois 6 btles", "Bouteille Saint-Emilion 2005 75 cl", "Caisse 6 b. Saint-Emilion 2005", "patates", "Séjour 1 nuit", "Séjour 1 semaine 1/2 pension", "Fongicide", "Insecticide"]
     shelf_id = company.shelves.first.id
-    unit_id  = company.units.find(:first, :conditions=>{:label=>"Unité"}).id
+    unit_id  = company.units.find(:first, :conditions=>{:name=>"u"}).id
     category_id = company.entity_categories.first.id
     taxes = company.taxes.collect{|x| x.id.to_s}
     
@@ -759,7 +758,7 @@ class Company < ActiveRecord::Base
     company.event_natures.create!(:name=>"Conversation téléphonique", :duration=>10, :usage=>"manual")
     
     for product_name in products
-      product = company.products.create(:nature=>"product", :name=>product_name, :to_sale=>true, :supply_method=>"produce", :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true, :weight=>rand(3)) 
+      product = company.products.create(:nature=>"product", :name=>product_name, :to_sale=>true, :to_produce=>true, :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true, :weight=>rand(3)) 
       product.reload
       product.prices.create!(:amount=>rand(100), :company_id=>company.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size).to_i], :category_id=>category_id, :entity_id=>product.name.include?("icide") ? company.entities.find(:first, :conditions=>{:supplier=>true}).id : company.entity_id)
     end

@@ -159,7 +159,6 @@ class SaleOrder < ActiveRecord::Base
     for line in self.lines.find_all_by_reduction_origin_id(nil)
       if quantity = line.undelivered_quantity > 0
         #raise Exception.new quantity.inspect+line.inspect
-        #lines << {:order_line_id=>line.id, :quantity=>quantity, :company_id=>self.company_id}
         lines << {:order_line_id=>line.id, :quantity=>line.quantity, :company_id=>self.company_id}
       end
     end

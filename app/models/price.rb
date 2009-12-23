@@ -72,7 +72,7 @@ class Price < ActiveRecord::Base
   end
 
   def after_save
-    Price.update_all('"default"=false', ["product_id=? AND company_id=? AND id!=?", self.product_id, self.company_id, self.id||0]) if self.default
+    Price.update_all('"default"=CAST("false" AS BOOLEAN)', ["product_id=? AND company_id=? AND id!=?", self.product_id, self.company_id, self.id||0]) if self.default
   end
   
   def refresh
@@ -91,7 +91,7 @@ class Price < ActiveRecord::Base
 
   def all_taxes(company, options={})
     if self.new_record?
-      options[:select] = "taxes.*, false AS used"      
+      options[:select] = "taxes.*, CAST('false' AS BOOLEAN) AS used"      
     else
       options[:select] = "taxes.*, (pt.id IS NOT NULL)::boolean AS used"
       options[:joins]  = " LEFT JOIN price_taxes AS pt ON (taxes.id=tax_id)"
