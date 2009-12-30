@@ -2,7 +2,7 @@
 #
 # Table name: sale_orders
 #
-#  accounted           :boolean       not null
+#  accounted_at        :datetime      
 #  amount              :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes   :decimal(16, 2 default(0.0), not null
 #  annotation          :text          
@@ -379,7 +379,7 @@ class SaleOrder < ActiveRecord::Base
   #this method accountizes the sale.
   def to_accountancy
     self.reload
-    self.update_attribute(:accounted, true) unless self.amount.zero?
+    self.update_attribute(:accounted_at, Time.now) #  unless self.amount.zero?
   end
 
 end

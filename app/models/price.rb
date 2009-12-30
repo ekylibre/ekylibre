@@ -72,7 +72,7 @@ class Price < ActiveRecord::Base
   end
 
   def after_save
-    Price.update_all('"default"=CAST("false" AS BOOLEAN)', ["product_id=? AND company_id=? AND id!=?", self.product_id, self.company_id, self.id||0]) if self.default
+    Price.update_all("\"default\"=CAST('false' AS BOOLEAN)", ["product_id=? AND company_id=? AND id!=?", self.product_id, self.company_id, self.id||0]) if self.default
   end
   
   def refresh

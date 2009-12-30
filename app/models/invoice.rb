@@ -2,7 +2,7 @@
 #
 # Table name: invoices
 #
-#  accounted          :boolean       not null
+#  accounted_at       :datetime      
 #  amount             :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes  :decimal(16, 2 default(0.0), not null
 #  annotation         :text          
@@ -144,29 +144,17 @@ class Invoice < ActiveRecord::Base
   #this method accountizes the invoice.
   def to_accountancy
     unless self.amount.zero?
-      
       financialyear = self.company.financialyears.find(:first, :conditions => ["? BETWEEN started_on AND stopped_on AND closed=?", Date.today, false])
-      
       journal =  self.company.journals.find(:first, :conditions =>{:nature=>'sale'}, :order=>:id)
-      
       unless journal.nil? or financialyear.nil?
-        
         client_account = self.client.account(:client)
-        
         record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal.id, :financialyear_id => financialyear.id)
-             
         record.add_debit(self.client.full_name, client_account.id, self.amount_with_taxes, :draft=>false)
-      
         self.lines.each do |line|
-      
           record.add_credit(line.product.name, line.product.product_account_id, line.amount, :draft=>false)
-       
           record.add_credit(line.price.tax.name, line.price.tax.account_collected_id, line.taxes, :draft=>false)
-      
         end
-          
-        self.update_attribute(:accounted, true)
-           
+        self.update_attribute(:accounted_at, Time.now)
       end
     end
   end

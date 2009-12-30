@@ -30,8 +30,8 @@ fr-FR:
       errors:
         cannot_merge_an_entity_with_itself: 'Il n''est pas possible de fusionner une fiche avec elle-même'
         cannot_merge_entities: 'Une erreur est survenue. Il n''est pas possible de fusionner ces fiches.'
-        specify_updates: 'Vous devez spécifier au moins un champ à modifier'
         select_filter: 'Vous choisir appliquer au moins un filtre de recherche'
+        specify_updates: 'Vous devez spécifier au moins un champ à modifier'
       finishes: 'Termine par'
       first_contact: 'Adresse principale'
       import_succeed: 'Vos données ont été correctement importées '
@@ -49,7 +49,7 @@ fr-FR:
       second_contact: 'Adresse secondaire'
       supplier: 'Compte fournisseur'
       title: 'Relations'
-      unfound_entity: 'La fiche que vous recherchez est introuvable' 
+      unfound_entity: 'La fiche que vous recherchez est introuvable'
       usage: 'Utilisation'
       you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
 
@@ -58,18 +58,18 @@ fr-FR:
 
   views:
     relations:
-      _areas_search:
-        search: 'Rechercher une zone'
       area_create:
         title: 'Ajouter une zone postale'
       area_update:
         title: 'Modification de la zone postale {{value}}'
       areas:
-        area_create: 'Ajouter une zone postale'
-        title: 'Zones postales'
         all_areas: '--- Toutes les zones postales ---'
-        select_area: 'Zone postale'
+        area_create: 'Ajouter une zone postale'
         area_x: '{{name}} ({{postcode}})'
+        select_area: 'Zone postale'
+        title: 'Zones postales'
+      _areas_search:
+        search: 'Rechercher une zone'
       complement_choice_create:
         title: ' Création d''une option pour la liste déroulante : {{value}}'
       _complement_choice_form:
@@ -99,16 +99,16 @@ fr-FR:
         title: 'Ajouter une zone'
       district_update:
         title: 'Modification de la zone {{value}}'
-      _districts_search:
-        search: 'Rechercher une zone'
       districts:
-        area_create: 'Ajouter une ville'
         all_districts: '--- Tous les districts ---'
+        area_create: 'Ajouter une ville'
         city_name: 'Ville'
-        district_x: '{{name}} ({{code}})'
         district_create: 'Ajouter une zone administrative'
+        district_x: '{{name}} ({{code}})'
         select_district: 'District'
         title: 'Zones administratives'
+      _districts_search:
+        search: 'Rechercher une zone'
       entities:
         entities_export: 'Tout exporter au format CSV'
         entities_import: 'Importer un fichier CSV'

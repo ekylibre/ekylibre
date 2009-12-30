@@ -30,12 +30,12 @@ fr-FR:
       invoice_number: 'Numéro de facture'
       last_payment_amount: 'Montant du dernier réglement'
       last_payment_date: 'Date du dernier réglement'
-      mobile: 'Portable'
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
         need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
         need_quantities_to_cancel_an_invoice: 'Vous devez spécifier une quantité pour pouvoir faire un avoir'
         need_stock_location_to_record_stock_moves: 'Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage.'
+      mobile: 'Portable'
       need_product_stocks_to_create_inventories: 'Vous devez gérer les stocks d''au moins un produit pour pouvoir créer un inventaire'
       need_stock_location_to_create_purchase_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser un achat'
       need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
@@ -65,8 +65,8 @@ fr-FR:
       purchase_order_lines:
         purchase_order_line_create: 'Ajouter un produit à la commande'
       reservoir: 'Réservoir'
-      sale_order_already_invoiced: 'La vente a déjà été facturée: vous ne pouvez pas définir de livraison'
       sale_order: 'Vente'
+      sale_order_already_invoiced: 'La vente a déjà été facturée: vous ne pouvez pas définir de livraison'
       sale_order_lines:
         sale_order_line_create: 'Ajouter un produit au devis'
       sale_order_products: 'Produits commandés'
@@ -80,9 +80,9 @@ fr-FR:
       to_embank: 'À encaisser'
       transport: 'Transport'
       unpaid_amount: 'Montant impayé'
-      unvalid_date: 'Date incorrecte'
       unpaid_days: 'À payer depuis (jours)'
       unpaid_sale_orders: 'Ventes impayées'
+      unvalid_date: 'Date incorrecte'
       you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
       you_should_lock_your_old_inventories: 'Attention: il est conseillé de supprimer les inventaires non verouillés ou de les verouiller avant d''en créer un nouveau'
 
@@ -104,18 +104,18 @@ fr-FR:
 
   views:
     management:
-      _csv_statistics: 
+      _csv_statistics:
         amount: 'Montants HT'
         amount_with_taxes: 'Montants TTC'
         csv_statistics: 'Statistiques à exporter au format CSV'
         data_to_export: 'Données à exporter :'
-        nb_years: 'Nb d''années dans l''historique'
-        quantity: 'Quantités'
         invoice: 'Factures'
+        nb_years: 'Nb d''années dans l''historique'
         product: 'Produit'
+        quantity: 'Quantités'
         sale_order: 'Commandes'
-        source: 'Source de données :'
         sales: 'Exporter un tableau des ventes au format CSV'
+        source: 'Source de données :'
       delay:
         delay_update: 'Modifier le délai'
         title: 'Délai : {{value}}'
@@ -292,19 +292,9 @@ fr-FR:
         title: 'Réglement n°{{number}} de {{entity}}'
       payment_create:
         title: 'Ajout d''un nouveau règlement'
-      payment_part_create:
-        title: 'Ajouter un nouveau réglement : {{type}} {{value}}'
       _payment_form:
         check: 'Pour les réglements de type chèque'
         title: 'Renseignez les conditions du réglement'
-      _payment_part_form:
-        downpayment: 'Acompte'
-        new_payment: 'Enregistrer un nouveau réglement'
-        select_existing_payment: 'Sélectionner un réglement existant'
-        existing_part: 'Utiliser un réglement non affecté'
-        new: 'Créer un nouveau réglement'
-        payment_label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} de {{entity}}'
-        unused_payment: 'Réglement à utiliser'
       payment_mode_create:
         title: 'Créer un nouveau type de réglement'
       payment_mode_update:
@@ -312,6 +302,16 @@ fr-FR:
       payment_modes:
         payment_mode_create: 'Créer un nouveau type de réglement'
         title: 'Types de réglement'
+      payment_part_create:
+        title: 'Ajouter un nouveau réglement : {{type}} {{value}}'
+      _payment_part_form:
+        downpayment: 'Acompte'
+        existing_part: 'Utiliser un réglement non affecté'
+        new: 'Créer un nouveau réglement'
+        new_payment: 'Enregistrer un nouveau réglement'
+        payment_label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} de {{entity}}'
+        select_existing_payment: 'Sélectionner un réglement existant'
+        unused_payment: 'Réglement à utiliser'
       payment_update:
         title: 'Modification du réglement n°{{number}}'
       payments:
@@ -397,14 +397,6 @@ fr-FR:
         search: 'Rechercher un produit'
         shelf: 'Catégorie'
         title: 'Recherche'
-      purchase_order_create:
-        title: 'Nouvel achat'
-      _purchase_order_form:
-        infos: 'Renseignez les caractéristiques de l''achat '
-      purchase_order_line_create:
-        title: 'Ajouter un produit à la commande'
-      purchase_order_line_update:
-        title: 'Modifier une ligne de la commande'
       purchase_order:
         general_informations: 'Informations générales'
         lines: 'Lignes d''achat'
@@ -413,12 +405,14 @@ fr-FR:
         purchase_order_lines: 'Modifier l''achat'
         purchase_order_print: 'Imprimer la commande fournisseur'
         title: 'Détails de l''achat {{number}} au fournisseur {{supplier}} '
-      purchase_orders:
-        nb_purchases:
-          one: '1 achat'
-          other: '{{count}} achats'
-          zero: 'Aucun achat'
-        title: 'Liste des achats'
+      purchase_order_create:
+        title: 'Nouvel achat'
+      _purchase_order_form:
+        infos: 'Renseignez les caractéristiques de l''achat '
+      purchase_order_line_create:
+        title: 'Ajouter un produit à la commande'
+      purchase_order_line_update:
+        title: 'Modifier une ligne de la commande'
       purchase_order_lines:
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
@@ -426,16 +420,22 @@ fr-FR:
         lines: 'Lignes de la commande'
         order_print: 'Imprimer la commande'
         purchase_order_line_create: 'Ajouter un produit à la commande'
+        purchase_order_print: 'Imprimer la commande d''achat'
         purchase_order_update: 'Modifier les informations de la commande'
         purchase_orders: 'Consulter la liste des achats'
-        purchase_order_print: 'Imprimer la commande d''achat'
         title: 'Produits de la commande {{value}} chez {{name}}'
         validate: 'Valider la commande'
       purchase_order_summary:
         payment_part_create: 'Ajouter un règlement'
-        payments: 'Règlements' 
+        payments: 'Règlements'
         products: 'Produits de la commande'
         title: 'Règlements'
+      purchase_orders:
+        nb_purchases:
+          one: '1 achat'
+          other: '{{count}} achats'
+          zero: 'Aucun achat'
+        title: 'Liste des achats'
       _quick_line:
         from: 'Du numéro'
         location: 'Lieu de stockage'
@@ -482,7 +482,7 @@ fr-FR:
         amount_with_taxes: 'Total de la livraison TTC'
         infos: 'Renseignez les caractéristiques de la livraison'
         line_amount: 'PU HT'
-        line_amount_with_taxes: 'PU TTC' 
+        line_amount_with_taxes: 'PU TTC'
         product: 'Produit'
         quantity: 'Quantité'
         quantity_rest: 'Quantité restante'
@@ -496,21 +496,21 @@ fr-FR:
         letter: 'Lettre'
       sale_order_line_create:
         title: 'Ajout d''une ligne de produit'
-      sale_order_line_informations: 
-        contact: 'à l''adresse'
-        from_date: 'Du '
-        to_date: 'Au '
-      _sale_order_line_informations:
-        no_tracking: 'Aucun lot'
-        tracking: 'Lot '
-      _sale_order_line_tracking:
-        no_tracking: 'Aucun lot'
-        tracking: 'Lot '
       _sale_order_line_form:
         free_price: 'Renseignez ces champs si vous souhaitez appliquer un autre prix'
         infos: 'Choississez le produit et la quantité'
+      _sale_order_line_informations:
+        no_tracking: 'Aucun lot'
+        tracking: 'Lot '
+      sale_order_line_informations:
+        contact: 'à l''adresse'
+        from_date: 'Du '
+        to_date: 'Au '
       _sale_order_line_stocks:
         line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
+      _sale_order_line_tracking:
+        no_tracking: 'Aucun lot'
+        tracking: 'Lot '
       sale_order_line_update:
         title: 'Modifier une ligne de produit'
       sale_order_lines:
@@ -552,16 +552,16 @@ fr-FR:
         client_balance: 'Solde du client'
         close_sale: 'Clôturer la vente'
         financial_state: 'État de la vente'
-        invoiced_amount: 'Montant facturé'
         invoice: 'Facture'
+        invoiced_amount: 'Montant facturé'
         invoices_total: 'Total factures'
         number: 'Numéro'
         order_amount_with_taxes: 'Montant de la commande'
         paid_amount: 'Montant réglé'
         paid_on: 'Règlé le'
-        payment_part_create: 'Ajouter un nouveau réglement'
         payment_mode: 'Mode de réglement'
         payment_on: 'Payé le'
+        payment_part_create: 'Ajouter un nouveau réglement'
         payments: 'Règlements'
         payments_amount: 'Montant réglé'
         payments_total: 'Total règlements'
@@ -633,10 +633,6 @@ fr-FR:
         stock_location_update: 'Modifier le lieu de stockage'
         stock_move_create: 'Ajouter un mouvement de stock'
         title: 'Détail du lieu de stockage : {{value}}'
-      stock_locations:
-        reservoirs_create: 'Ajouter un réservoir'
-        stock_location_create: 'Ajouter un lieu de stockage'
-        title: 'Lieux de stockage'
       stock_location_create:
         title: 'Ajout d''un lieu de stockage'
       _stock_location_form:
@@ -646,6 +642,10 @@ fr-FR:
         reservoir_informations: 'Informations sur le réservoir'
       stock_location_update:
         title: 'Modification d''un lieu de stockage'
+      stock_locations:
+        reservoirs_create: 'Ajouter un réservoir'
+        stock_location_create: 'Ajouter un lieu de stockage'
+        title: 'Lieux de stockage'
       stock_move_create:
         title: 'Enregistrement d''un mouvement de stock'
       _stock_move_form:
@@ -691,9 +691,9 @@ fr-FR:
       _subscription_options:
         select_date: 'Entrez une date'
         select_number: 'Entrez un numéro'
+        stop: 'Jusqu''au'
         subscription_natures_down: 'Décrémenter le numéro actuel (-1)'
         subscription_natures_up: 'Incrémenter le numéro actuel (+1)'
-        stop: 'Jusqu''au'
       subscription_update:
         title: 'Modification de "{{value}}" du {{start}} au {{finish}}'
       subscriptions:
@@ -706,13 +706,13 @@ fr-FR:
       transport_create:
         info: 'Renseignez les informations du transport'
         title: 'Ajout d''un nouveau transport'
-      transport_deliveries:
-        title: 'Livraisons du transport'
       _transport_deliveries:
         add: 'Ajouter la livraison au transport'
         add_delivery: 'Ajouter une livraison'
         back: 'Valider et revenir à la liste des transports'
         delivery: 'Livraison'
+      transport_deliveries:
+        title: 'Livraisons du transport'
       transport_update:
         info: 'Renseignez les informations du transport'
         title: 'Modification du transport'

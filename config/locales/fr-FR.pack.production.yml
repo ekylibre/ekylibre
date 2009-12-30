@@ -51,7 +51,7 @@ fr-FR:
         production_create: 'Enregistrer un nouvelle production'
         productions: 'Productions'
         title: 'Productions'
-      shape:  
+      shape:
         operations: 'Travaux'
         shape_update: 'Modifier l''îlot'
         shapes: 'Liste des îlots'
@@ -88,8 +88,8 @@ fr-FR:
         shape_create: 'Créer un nouvel îlot'
         shapes: 'Îlots'
         title: 'Îlots'
-      tool: 
-        hour_duration: 
+      tool:
+        hour_duration:
           one: 'Temps d''utilisation total : 1 heure'
           other: 'Temps d''utilisation total : {{count}} heures'
           zero: ''
@@ -98,13 +98,13 @@ fr-FR:
           other: '{{count}} travaux'
           zero: 'Aucun travail'
         title: 'Matériel {{name}}'
-      tools:
-        tool_create: 'Ajouter un matériel'
-        title: 'Matériel'
-      tool_create: 
+      tool_create:
         title: 'Ajouter un matériel'
       tool_update:
         title: 'Modification du matériel {{name}}'
+      tools:
+        title: 'Matériel'
+        tool_create: 'Ajouter un matériel'
       unvalidated_operations:
         employee_name: 'Employé'
         executed: 'Éffectué'

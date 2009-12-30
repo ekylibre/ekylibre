@@ -2,7 +2,7 @@
 #
 # Table name: purchase_orders
 #
-#  accounted         :boolean       not null
+#  accounted_at      :datetime      
 #  amount            :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes :decimal(16, 2 default(0.0), not null
 #  comment           :text          
@@ -49,10 +49,10 @@ class PurchaseOrder < ActiveRecord::Base
 
     self.amount = 0
     self.amount_with_taxes = 0
-     for line in self.lines
-       self.amount += line.amount
-       self.amount_with_taxes += line.amount_with_taxes
-     end
+    for line in self.lines
+      self.amount += line.amount
+      self.amount_with_taxes += line.amount_with_taxes
+    end
   end
 
   def after_create
@@ -83,7 +83,7 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def label 
-     tc('label', :supplier=>self.supplier.full_name.to_s, :address=>self.dest_contact.address.to_s)
+    tc('label', :supplier=>self.supplier.full_name.to_s, :address=>self.dest_contact.address.to_s)
   end
 
   def quantity 
@@ -109,15 +109,15 @@ class PurchaseOrder < ActiveRecord::Base
     
     financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) AND closed=?", '%'+Date.today.to_s+'%', false])
     
-     unless financialyear.nil? or journal_purchase.nil?
-       
-       record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.planned_on, :journal_id=>journal_purchase.id, :financialyear_id => financialyear.id)
-       
-       supplier_account = self.supplier.account(:supplier)
-            
-       record.add_credit(self.supplier.full_name, supplier_account.id, self.amount_with_taxes, :draft=>true)
-            
-       self.lines.each do |line|
+    unless financialyear.nil? or journal_purchase.nil?
+      
+      record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.planned_on, :journal_id=>journal_purchase.id, :financialyear_id => financialyear.id)
+      
+      supplier_account = self.supplier.account(:supplier)
+      
+      record.add_credit(self.supplier.full_name, supplier_account.id, self.amount_with_taxes, :draft=>true)
+      
+      self.lines.each do |line|
         line_amount = (line.amount * line.quantity)
         
         record.add_debit('sale '+line.product.name, line.product.charge_account_id, line_amount, :draft=>true)
@@ -126,8 +126,8 @@ class PurchaseOrder < ActiveRecord::Base
           record.add_debit(line.price.tax.name, line.price.tax.account_paid_id, line.price.tax.amount*line_amount, :draft=>true)
         end
       end
-       self.update_attribute(:accounted, true)
-     end
+      self.update_attribute(:accounted_at, Time.now)
+    end
   end
 
   def editable

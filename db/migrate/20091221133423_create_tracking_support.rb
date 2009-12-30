@@ -1,5 +1,14 @@
 class CreateTrackingSupport < ActiveRecord::Migration
+  ACCOUNTED_TABLES = [:invoices, :payments, :purchase_orders, :sale_orders, :transfers]
+
   def self.up
+    for table in ACCOUNTED_TABLES
+      add_column table, :accounted_at, :datetime
+      add_index table, :accounted_at
+      execute "UPDATE #{table} SET accounted_at=updated_at WHERE accounted"
+      remove_column table, :accounted
+    end
+
     add_column :stock_trackings, :product_id,  :integer, :references=>:products, :on_update=>:cascade, :on_delete=>:cascade
     add_column :stock_trackings, :producer_id, :integer, :references=>:entities, :on_update=>:cascade, :on_delete=>:cascade
     remove_column :stock_trackings, :begun_at
@@ -14,7 +23,6 @@ class CreateTrackingSupport < ActiveRecord::Migration
     execute "UPDATE products SET to_produce=CAST('true' AS BOOLEAN) WHERE supply_method='produce'"
     remove_column :products, :supply_method
 
-    
     add_column :units, :start, :decimal, :null=>false, :default=>0.0
     rename_column :units, :quantity, :coefficient
     change_column :units, :coefficient, :decimal, :null=>false, :default=>1
@@ -87,5 +95,13 @@ class CreateTrackingSupport < ActiveRecord::Migration
     add_column :stock_trackings, :begun_at, :datetime
     remove_column :stock_trackings, :producer_id
     remove_column :stock_trackings, :product_id
+
+
+    for table in ACCOUNTED_TABLES.reverse
+      add_column table, :accounted, :boolean, :null=>false, :default=>false
+      add_index table, :accounted
+      execute "UPDATE #{table} SET accounted=CAST('true' AS BOOLEAN) WHERE accounted_at IS NOT NULL"
+      remove_column table, :accounted_at
+    end
   end
 end

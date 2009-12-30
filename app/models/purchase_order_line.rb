@@ -34,13 +34,13 @@ class PurchaseOrderLine < ActiveRecord::Base
   belongs_to :tracking, :class_name=>StockTracking.name
   belongs_to :unit
 
-  validates_presence_of :amount, :price_id
+  validates_presence_of :amount, :price_id, :account_id
   
   def before_validation
     check_reservoir = true
     self.location_id = self.company.stock_locations.first.id if self.company.stock_locations.size == 1
     if self.price
-      self.account_id = self.price.product.charge_account_id 
+      self.account_id = self.price.product.charge_account_id
       self.unit_id = self.price.product.unit_id
       self.product_id = self.price.product_id
       self.amount = (self.price.amount*self.quantity).round(2)

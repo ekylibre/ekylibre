@@ -31,7 +31,6 @@
 #  subscription_nature_id :integer       
 #  subscription_period    :string(255)   
 #  subscription_quantity  :integer       
-#  supply_method          :string(8)     not null
 #  to_produce             :boolean       not null
 #  to_purchase            :boolean       not null
 #  to_rent                :boolean       not null
@@ -72,6 +71,7 @@ class Product < ActiveRecord::Base
 
   validates_presence_of :subscription_period, :if=>Proc.new{|u| u.nature=="sub_date"}
   validates_presence_of :subscription_numbers, :actual_number, :if=>Proc.new{|u| u.nature=="sub_numb"}
+  validates_presence_of :product_account_id, :charge_account_id
 
   #validates_presence_of :product_account_id
   #validates_presence_of :charge_account_id

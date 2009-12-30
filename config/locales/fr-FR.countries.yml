@@ -1,249 +1,248 @@
 fr-FR:
   countries:
-    af: Afghanistan
-    za: Afrique Du Sud
-    ax: Åland, Îles
-    al: Albanie
-    dz: Algérie
-    de: Allemagne
-    ad: Andorre
-    ao: Angola
-    ai: Anguilla
-    aq: Antarctique
-    ag: Antigua-Et-Barbuda
-    an: Antilles Néerlandaises
-    sa: Arabie Saoudite
-    ar: Argentine
-    am: Arménie
-    aw: Aruba
-    au: Australie
-    at: Autriche
-    az: Azerbaïdjan
-    bs: Bahamas
-    bh: Bahreïn
-    bd: Bangladesh
-    bb: Barbade
-    by: Bélarus
-    be: Belgique
-    bz: Belize
-    bj: Bénin
-    bm: Bermudes
-    bt: Bhoutan
-    bo: Bolivie
-    ba: Bosnie-Herzégovine
-    bw: Botswana
-    bv: Bouvet, Île
-    br: Brésil
-    bn: Brunéi Darussalam
-    bg: Bulgarie
-    bf: Burkina Faso
-    bi: Burundi
-    ky: Caïmanes, Îles
-    kh: Cambodge
-    cm: Cameroun
-    ca: Canada
-    cv: Cap-Vert
-    cf: Centrafricaine, République
-    cl: Chili
-    cn: Chine
-    cx: Christmas, Île
-    cy: Chypre
-    cc: Cocos (Keeling), Îles
-    co: Colombie
-    km: Comores
-    cg: Congo
-    cd: Congo, La République Démocratique Du
-    ck: Cook, Îles
-    kr: Corée, République De
-    kp: Corée, République Populaire Démocratique De
-    cr: Costa Rica
+    af: 'Afghanistan'
+    za: 'Afrique Du Sud'
+    ax: 'Åland, Îles'
+    al: 'Albanie'
+    dz: 'Algérie'
+    de: 'Allemagne'
+    ad: 'Andorre'
+    ao: 'Angola'
+    ai: 'Anguilla'
+    aq: 'Antarctique'
+    ag: 'Antigua-Et-Barbuda'
+    an: 'Antilles Néerlandaises'
+    sa: 'Arabie Saoudite'
+    ar: 'Argentine'
+    am: 'Arménie'
+    aw: 'Aruba'
+    au: 'Australie'
+    at: 'Autriche'
+    az: 'Azerbaïdjan'
+    bs: 'Bahamas'
+    bh: 'Bahreïn'
+    bd: 'Bangladesh'
+    bb: 'Barbade'
+    by: 'Bélarus'
+    be: 'Belgique'
+    bz: 'Belize'
+    bj: 'Bénin'
+    bm: 'Bermudes'
+    bt: 'Bhoutan'
+    bo: 'Bolivie'
+    ba: 'Bosnie-Herzégovine'
+    bw: 'Botswana'
+    bv: 'Bouvet, Île'
+    br: 'Brésil'
+    bn: 'Brunéi Darussalam'
+    bg: 'Bulgarie'
+    bf: 'Burkina Faso'
+    bi: 'Burundi'
+    ky: 'Caïmanes, Îles'
+    kh: 'Cambodge'
+    cm: 'Cameroun'
+    ca: 'Canada'
+    cv: 'Cap-Vert'
+    cf: 'Centrafricaine, République'
+    cl: 'Chili'
+    cn: 'Chine'
+    cx: 'Christmas, Île'
+    cy: 'Chypre'
+    cc: 'Cocos (Keeling), Îles'
+    co: 'Colombie'
+    km: 'Comores'
+    cg: 'Congo'
+    cd: 'Congo, La République Démocratique Du'
+    ck: 'Cook, Îles'
+    kr: 'Corée, République De'
+    kp: 'Corée, République Populaire Démocratique De'
+    cr: 'Costa Rica'
     ci: 'Côte D''Ivoire'
-    hr: Croatie
-    cu: Cuba
-    dk: Danemark
-    dj: Djibouti
-    do: Dominicaine, République
-    dm: Dominique
-    eg: Égypte
-    sv: El Salvador
-    ae: Émirats Arabes Unis
-    ec: Équateur
-    er: Érythrée
-    es: Espagne
-    ee: Estonie
-    us: États-Unis
-    et: Éthiopie
-    fk: Falkland, Îles (Malvinas)
-    fo: Féroé, Îles
-    fj: Fidji
-    fi: Finlande
-    fr: France
-    ga: Gabon
-    gm: Gambie
-    ge: Géorgie
-    gs: Géorgie Du Sud Et Les Îles Sandwich Du Sud
-    gh: Ghana
-    gi: Gibraltar
-    gr: Grèce
-    gd: Grenade
-    gl: Groenland
-    gp: Guadeloupe
-    gu: Guam
-    gt: Guatemala
-    gg: Guernesey
-    gn: Guinée
-    gw: Guinée-Bissau
-    gq: Guinée Équatoriale
-    gy: Guyana
-    gf: Guyane Française
-    ht: Haïti
-    hm: Heard, Île Et Mcdonald, Îles
-    hn: Honduras
-    hk: Hong-Kong
-    hu: Hongrie
-    im: Île De Man
-    um: Îles Mineures Éloignées Des États-Unis
-    vg: Îles Vierges Britanniques
-    vi: Îles Vierges Des États-Unis
-    in: Inde
-    id: Indonésie
-    ir: Iran, République Islamique D'
-    iq: Iraq
-    ie: Irlande
-    is: Islande
-    il: Israël
-    it: Italie
-    jm: Jamaïque
-    jp: Japon
-    je: Jersey
-    jo: Jordanie
-    kz: Kazakhstan
-    ke: Kenya
-    kg: Kirghizistan
-    ki: Kiribati
-    kw: Koweït
-    la: Lao, République Démocratique Populaire
-    ls: Lesotho
-    lv: Lettonie
-    lb: Liban
-    lr: Libéria
-    ly: Libyenne, Jamahiriya Arabe
-    li: Liechtenstein
-    lt: Lituanie
-    lu: Luxembourg
-    mo: Macao
-    mk: Macédoine, L'Ex-République Yougoslave De
-    mg: Madagascar
-    my: Malaisie
-    mw: Malawi
-    mv: Maldives
-    ml: Mali
-    mt: Malte
-    mp: Mariannes Du Nord, Îles
-    ma: Maroc
-    mh: Marshall, Îles
-    mq: Martinique
-    mu: Maurice
-    mr: Mauritanie
-    yt: Mayotte
-    mx: Mexique
-    fm: Micronésie, États Fédérés De
-    md: Moldova, République De
-    mc: Monaco
-    mn: Mongolie
-    me: Monténégro
-    ms: Montserrat
-    mz: Mozambique
-    mm: Myanmar
-    na: Namibie
-    nr: Nauru
-    np: Népal
-    ni: Nicaragua
-    ne: Niger
-    ng: Nigéria
-    nu: Niué
-    nf: Norfolk, Île
-    no: Norvège
-    nc: Nouvelle-Calédonie
-    nz: Nouvelle-Zélande
-    io: Océan Indien, Territoire Britannique De L'
-    om: Oman
-    ug: Ouganda
-    uz: Ouzbékistan
-    pk: Pakistan
-    pw: Palaos
-    ps: Palestinien Occupé, Territoire
-    pa: Panama
-    pg: Papouasie-Nouvelle-Guinée
-    py: Paraguay
-    nl: Pays-Bas
-    pe: Pérou
-    ph: Philippines
-    pn: Pitcairn
-    pl: Pologne
-    pf: Polynésie Française
-    pr: Porto Rico
-    pt: Portugal
-    qa: Qatar
-    re: Réunion
-    ro: Roumanie
-    gb: Royaume-Uni
-    ru: Russie, Fédération De
-    rw: Rwanda
-    eh: Sahara Occidental
-    bl: Saint-Barthélemy
-    sh: Sainte-Hélène
-    lc: Sainte-Lucie
-    kn: Saint-Kitts-Et-Nevis
-    sm: Saint-Marin
-    mf: Saint-Martin
-    pm: Saint-Pierre-Et-Miquelon
-    va: Saint-Siège (État De La Cité Du Vatican)
-    vc: Saint-Vincent-Et-Les Grenadines
-    sb: Salomon, Îles
-    ws: Samoa
-    as: Samoa Américaines
-    st: Sao Tomé-Et-Principe
-    sn: Sénégal
-    rs: Serbie
-    sc: Seychelles
-    sl: Sierra Leone
-    sg: Singapour
-    sk: Slovaquie
-    si: Slovénie
-    so: Somalie
-    sd: Soudan
-    lk: Sri Lanka
-    se: Suède
-    ch: Suisse
-    sr: Suriname
-    sj: Svalbard Et Île Jan Mayen
-    sz: Swaziland
-    sy: Syrienne, République Arabe
-    tj: Tadjikistan
-    tw: Taïwan, Province De Chine
-    tz: Tanzanie, République-Unie De
-    td: Tchad
-    cz: Tchèque, République
-    tf: Terres Australes Françaises
-    th: Thaïlande
-    tl: Timor-Leste
-    tg: Togo
-    tk: Tokelau
-    to: Tonga
-    tt: Trinité-Et-Tobago
-    tn: Tunisie
-    tm: Turkménistan
-    tc: Turks Et Caïques, Îles
-    tr: Turquie
-    tv: Tuvalu
-    ua: Ukraine
-    uy: Uruguay
-    vu: Vanuatu
-    ve: Venezuela
-    vn: Viet Nam
-    wf: Wallis Et Futuna
-    ye: Yémen
-    zm: Zambie
-    zw: Zimbabwe
-
+    hr: 'Croatie'
+    cu: 'Cuba'
+    dk: 'Danemark'
+    dj: 'Djibouti'
+    do: 'Dominicaine, République'
+    dm: 'Dominique'
+    eg: 'Égypte'
+    sv: 'El Salvador'
+    ae: 'Émirats Arabes Unis'
+    ec: 'Équateur'
+    er: 'Érythrée'
+    es: 'Espagne'
+    ee: 'Estonie'
+    us: 'États-Unis'
+    et: 'Éthiopie'
+    fk: 'Falkland, Îles (Malvinas)'
+    fo: 'Féroé, Îles'
+    fj: 'Fidji'
+    fi: 'Finlande'
+    fr: 'France'
+    ga: 'Gabon'
+    gm: 'Gambie'
+    ge: 'Géorgie'
+    gs: 'Géorgie Du Sud Et Les Îles Sandwich Du Sud'
+    gh: 'Ghana'
+    gi: 'Gibraltar'
+    gr: 'Grèce'
+    gd: 'Grenade'
+    gl: 'Groenland'
+    gp: 'Guadeloupe'
+    gu: 'Guam'
+    gt: 'Guatemala'
+    gg: 'Guernesey'
+    gn: 'Guinée'
+    gw: 'Guinée-Bissau'
+    gq: 'Guinée Équatoriale'
+    gy: 'Guyana'
+    gf: 'Guyane Française'
+    ht: 'Haïti'
+    hm: 'Heard, Île Et Mcdonald, Îles'
+    hn: 'Honduras'
+    hk: 'Hong-Kong'
+    hu: 'Hongrie'
+    im: 'Île De Man'
+    um: 'Îles Mineures Éloignées Des États-Unis'
+    vg: 'Îles Vierges Britanniques'
+    vi: 'Îles Vierges Des États-Unis'
+    in: 'Inde'
+    id: 'Indonésie'
+    ir: 'Iran, République Islamique D'''
+    iq: 'Iraq'
+    ie: 'Irlande'
+    is: 'Islande'
+    il: 'Israël'
+    it: 'Italie'
+    jm: 'Jamaïque'
+    jp: 'Japon'
+    je: 'Jersey'
+    jo: 'Jordanie'
+    kz: 'Kazakhstan'
+    ke: 'Kenya'
+    kg: 'Kirghizistan'
+    ki: 'Kiribati'
+    kw: 'Koweït'
+    la: 'Lao, République Démocratique Populaire'
+    ls: 'Lesotho'
+    lv: 'Lettonie'
+    lb: 'Liban'
+    lr: 'Libéria'
+    ly: 'Libyenne, Jamahiriya Arabe'
+    li: 'Liechtenstein'
+    lt: 'Lituanie'
+    lu: 'Luxembourg'
+    mo: 'Macao'
+    mk: 'Macédoine, L''Ex-République Yougoslave De'
+    mg: 'Madagascar'
+    my: 'Malaisie'
+    mw: 'Malawi'
+    mv: 'Maldives'
+    ml: 'Mali'
+    mt: 'Malte'
+    mp: 'Mariannes Du Nord, Îles'
+    ma: 'Maroc'
+    mh: 'Marshall, Îles'
+    mq: 'Martinique'
+    mu: 'Maurice'
+    mr: 'Mauritanie'
+    yt: 'Mayotte'
+    mx: 'Mexique'
+    fm: 'Micronésie, États Fédérés De'
+    md: 'Moldova, République De'
+    mc: 'Monaco'
+    mn: 'Mongolie'
+    me: 'Monténégro'
+    ms: 'Montserrat'
+    mz: 'Mozambique'
+    mm: 'Myanmar'
+    na: 'Namibie'
+    nr: 'Nauru'
+    np: 'Népal'
+    ni: 'Nicaragua'
+    ne: 'Niger'
+    ng: 'Nigéria'
+    nu: 'Niué'
+    nf: 'Norfolk, Île'
+    no: 'Norvège'
+    nc: 'Nouvelle-Calédonie'
+    nz: 'Nouvelle-Zélande'
+    io: 'Océan Indien, Territoire Britannique De L'''
+    om: 'Oman'
+    ug: 'Ouganda'
+    uz: 'Ouzbékistan'
+    pk: 'Pakistan'
+    pw: 'Palaos'
+    ps: 'Palestinien Occupé, Territoire'
+    pa: 'Panama'
+    pg: 'Papouasie-Nouvelle-Guinée'
+    py: 'Paraguay'
+    nl: 'Pays-Bas'
+    pe: 'Pérou'
+    ph: 'Philippines'
+    pn: 'Pitcairn'
+    pl: 'Pologne'
+    pf: 'Polynésie Française'
+    pr: 'Porto Rico'
+    pt: 'Portugal'
+    qa: 'Qatar'
+    re: 'Réunion'
+    ro: 'Roumanie'
+    gb: 'Royaume-Uni'
+    ru: 'Russie, Fédération De'
+    rw: 'Rwanda'
+    eh: 'Sahara Occidental'
+    bl: 'Saint-Barthélemy'
+    sh: 'Sainte-Hélène'
+    lc: 'Sainte-Lucie'
+    kn: 'Saint-Kitts-Et-Nevis'
+    sm: 'Saint-Marin'
+    mf: 'Saint-Martin'
+    pm: 'Saint-Pierre-Et-Miquelon'
+    va: 'Saint-Siège (État De La Cité Du Vatican)'
+    vc: 'Saint-Vincent-Et-Les Grenadines'
+    sb: 'Salomon, Îles'
+    ws: 'Samoa'
+    as: 'Samoa Américaines'
+    st: 'Sao Tomé-Et-Principe'
+    sn: 'Sénégal'
+    rs: 'Serbie'
+    sc: 'Seychelles'
+    sl: 'Sierra Leone'
+    sg: 'Singapour'
+    sk: 'Slovaquie'
+    si: 'Slovénie'
+    so: 'Somalie'
+    sd: 'Soudan'
+    lk: 'Sri Lanka'
+    se: 'Suède'
+    ch: 'Suisse'
+    sr: 'Suriname'
+    sj: 'Svalbard Et Île Jan Mayen'
+    sz: 'Swaziland'
+    sy: 'Syrienne, République Arabe'
+    tj: 'Tadjikistan'
+    tw: 'Taïwan, Province De Chine'
+    tz: 'Tanzanie, République-Unie De'
+    td: 'Tchad'
+    cz: 'Tchèque, République'
+    tf: 'Terres Australes Françaises'
+    th: 'Thaïlande'
+    tl: 'Timor-Leste'
+    tg: 'Togo'
+    tk: 'Tokelau'
+    to: 'Tonga'
+    tt: 'Trinité-Et-Tobago'
+    tn: 'Tunisie'
+    tm: 'Turkménistan'
+    tc: 'Turks Et Caïques, Îles'
+    tr: 'Turquie'
+    tv: 'Tuvalu'
+    ua: 'Ukraine'
+    uy: 'Uruguay'
+    vu: 'Vanuatu'
+    ve: 'Venezuela'
+    vn: 'Viet Nam'
+    wf: 'Wallis Et Futuna'
+    ye: 'Yémen'
+    zm: 'Zambie'
+    zw: 'Zimbabwe'

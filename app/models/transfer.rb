@@ -2,7 +2,7 @@
 #
 # Table name: transfers
 #
-#  accounted    :boolean       not null
+#  accounted_at :datetime      
 #  amount       :decimal(16, 2 default(0.0), not null
 #  comment      :string(255)   
 #  company_id   :integer       not null
@@ -39,25 +39,16 @@ class Transfer < ActiveRecord::Base
 
   #this method saves the transfer in the accountancy module.
   def to_accountancy
-    journal_purchase=  self.company.journals.find(:first, :conditions => ['nature = ?', 'purchase'],:order=>:id)
-    
+    journal_purchase = self.company.journals.find(:first, :conditions => ['nature = ?', 'purchase'],:order=>:id)
     financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) AND closed=?", '%'+Date.today.to_s+'%', false])
-    
     unless financialyear.nil? or journal_purchase.nil?
-
       record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.started_on, :journal_id=>journal_purchase.id, :financialyear_id => financialyear.id)
-      
       supplier_account = self.supplier.account(:supplier)
-      
       record.add_debit(self.supplier.full_name, supplier_account.id, self.amount, :draft=>true)
-       
       record.add_credit(tc(:payable_bills), "Compte effets à payer", self.amount, :draft=>true)
-       
-      self.update_attribute(:accounted, true)
+      self.update_attribute(:accounted_at, Time.now)
     end
   end
-
-
 
 
 end

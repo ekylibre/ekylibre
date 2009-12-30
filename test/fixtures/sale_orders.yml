@@ -2,7 +2,7 @@
 #
 # Table name: sale_orders
 #
-#  accounted           :boolean       not null
+#  accounted_at        :datetime      
 #  amount              :decimal(16, 2 default(0.0), not null
 #  amount_with_taxes   :decimal(16, 2 default(0.0), not null
 #  annotation          :text          

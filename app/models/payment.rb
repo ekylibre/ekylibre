@@ -4,7 +4,7 @@
 #
 #  account_id     :integer       
 #  account_number :string(255)   
-#  accounted      :boolean       not null
+#  accounted_at   :datetime      
 #  amount         :decimal(16, 2 not null
 #  bank           :string(255)   
 #  check_number   :string(255)   
@@ -137,7 +137,7 @@ class Payment < ActiveRecord::Base
         record.add_credit(mode_account, mode_account_id, part.amount, :draft=>true)
       end
    
-      self.update_attribute(:accounted, true)
+      self.update_attribute(:accounted_at, Time.now)
     end
   end
   

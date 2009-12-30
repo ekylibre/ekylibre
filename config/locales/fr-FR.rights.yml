@@ -43,7 +43,6 @@ fr-FR:
     manage_journals: 'Gérer les journaux'
     manage_listings: 'Gérer les extractions'
     manage_mandates: 'Gérer les responsabilités'
-    manage_materials: 'Gérer le matériel de production'
     manage_observations: 'Gérer les observations'
     manage_orders: 'Gérer les commandes et livraisons'
     manage_payment_modes: 'Gérer les modes de paiments'
@@ -59,10 +58,12 @@ fr-FR:
     manage_stock_moves: 'Gérer les mouvements de stocks'
     manage_subscriptions: 'Gérer les abonnements'
     manage_taxes: 'Gérer les taxes'
-    manage_transports: (((MANAGE_TRANSPORTS)))
+    manage_tools: 'Gérer les outils de production'
+    manage_transports: 'Gérer les transports'
+    manage_units: 'Gérer les unités de mesure'
     manage_users: 'Gérer les utilisateurs'
     merge_entities: 'Fusionner les fiches clients/fournisseurs'
-    print: (((PRINT)))
+    print: 'Imprimer'
     print_accounting_document: 'Imprimer les documents comptables'
     search_and_consult_invoices: 'Rechercher et consulter des factures'
     search_and_consult_products: 'Rechercher et consulter des produits'

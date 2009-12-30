@@ -242,25 +242,31 @@ namespace :clean do
     models_attributes = ""
     attrs_count, static_attrs_count = 0, 0
     for model in models
-      models_names += "      #{model}: "+::I18n.pretranslate("activerecord.models.#{model}")+"\n"
-      models_attributes += "\n      # #{::I18n.t("activerecord.models.#{model}")}\n"
-      models_attributes += "      #{model}:\n"
-      attributes = {}
-      for k, v in ::I18n.translate("activerecord.attributes.#{model}")||{}
-        attributes[k] = "'"+v.gsub("'","''")+"'" if v
+      class_name = model.sub(/\.rb$/,'').camelize
+      klass = class_name.split('::').inject(Object){ |klass,part| klass.const_get(part) }
+      if klass < ActiveRecord::Base && !klass.abstract_class?
+        models_names += "      #{model}: "+::I18n.pretranslate("activerecord.models.#{model}")+"\n"
+        models_attributes += "\n      # #{::I18n.t("activerecord.models.#{model}")}\n"
+        models_attributes += "      #{model}:\n"
+        attributes = {}
+        for k, v in ::I18n.translate("activerecord.attributes.#{model}")||{}
+          attributes[k] = "'"+v.gsub("'","''")+"'" if v
+        end
+        static_attrs_count += model.camelcase.constantize.columns.size
+        for column in model.camelcase.constantize.columns
+          attribute = column.name.to_sym
+          trans = classicals[::I18n.locale.to_s][attribute]
+          trans = trans.nil? ? ::I18n.pretranslate("activerecord.attributes.#{model}.#{attribute}") : "'"+trans.gsub("'","''")+"'"
+          attributes[attribute] = trans
+        end
+        # raise Exception.new attributes.inspect
+        for attribute, trans in attributes.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
+          models_attributes += "        #{attribute}: "+trans+"\n"
+        end
+        attrs_count += attributes.size
+      else
+        puts "Skipping #{class_name}"
       end
-      static_attrs_count += model.camelcase.constantize.columns.size
-      for column in model.camelcase.constantize.columns
-        attribute = column.name.to_sym
-        trans = classicals[::I18n.locale.to_s][attribute]
-        trans = trans.nil? ? ::I18n.pretranslate("activerecord.attributes.#{model}.#{attribute}") : "'"+trans.gsub("'","''")+"'"
-        attributes[attribute] = trans
-      end
-      # raise Exception.new attributes.inspect
-      for attribute, trans in attributes.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
-        models_attributes += "        #{attribute}: "+trans+"\n"
-      end
-      attrs_count += attributes.size
     end
     activerecord = ::I18n.translate('activerecord').delete_if{|k,v| k.to_s.match(/^models|attributes$/)}
     translation  = ::I18n.locale.to_s+":\n"

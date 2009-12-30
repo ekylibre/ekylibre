@@ -16,15 +16,14 @@ fr-FR:
         closed_financialyears: 'Exercice clôturé'
         need_balanced_journal_to_tax_declaration: 'Tous vos journaux doivent être clôturés et équilibrés à cette date.'
         need_bank_account_to_record_statements: 'Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte.'
-        need_commercial_transactions_for_generate_entries: 'Vous devez avoir réalisé au moins une opération commerciale.'
         need_closed_financialyear_to_declaration: 'Vous devez avoir un exercice clôturé pour créer une déclaration de TVA.'
+        need_commercial_transactions_for_generate_entries: 'Vous devez avoir réalisé au moins une opération commerciale.'
         need_empty_journal_to_delete: 'Ce journal contient des écritures et ne peut donc être effacé.'
         need_entries_to_letter: 'Vous devez avoir des écritures verrouillées enregistrées au compte client et fournisseur.'
         need_entries_to_point: 'Aucune écriture n''a été trouvé pour la période du relevé bancaire {{value}}.'
         need_financialyear_to_consult_entries: 'Vous devez avoir un exercice ouvert pour pouvoir consulter des écritures.'
         need_financialyear_to_record_entries: 'Vous devez avoir au moins un exercice pour pouvoir saisir des écritures à l''intérieur.'
         need_financialyear_to_report: 'Vous devez avoir un exercice cloturé pour cette opération.'
-        
         need_journal_to_consult_entries: 'Vous devez créer un journal pour pouvoir consulter des écritures à l''intérieur.'
         need_journal_to_record_entries: 'Vous devez avoir au moins un journal pour pouvoir saisir des écritures à l''intérieur.'
         need_journal_to_record_tax_declaration: 'Vous devez avoir au moins un journal des opérations diverses et un journal de vente ou d''achat pour pouvoir enregistrer des déclarations de taxes.'
@@ -60,6 +59,31 @@ fr-FR:
         title: 'Lettrage du compte N° {{value1}}'
       account_update:
         title: 'Modifier le compte : {{value}}'
+      accountize:
+        cashed_payments: 'Inclure les règlements non encaissés'
+        draft_generate: 'Enregistrer dans le brouillon'
+        nb_invoices:
+          one: '1 facture enregistrée'
+          other: '{{count}} factures enregistrées'
+          zero: 'Aucune facture enregistrée'
+        nb_payments:
+          one: '1 règlement enregistrée'
+          other: '{{count}} règlements enregistrés'
+          zero: 'Aucun règlement enregistré'
+        nb_purchases:
+          one: '1 achat enregistrée'
+          other: '{{count}} achats enregistrés'
+          zero: 'Aucun achat enregistré'
+        nb_sales:
+          one: '1 vente enregistrée'
+          other: '{{count}} ventes enregistrées'
+          zero: 'Aucune vente enregistrée'
+        nb_transfers:
+          one: '1 transfert enregistrée'
+          other: '{{count}} transferts enregistrés'
+          zero: 'Aucun transfert enregistré'
+        select_date_generation: 'Date limite d''''intégration'
+        title: 'Comptabiliser vos opérations commerciales'
       accounts:
         account_create: 'Enregistrer un nouveau compte'
         delete: 'Supprimer un compte'
@@ -73,32 +97,6 @@ fr-FR:
       accounts_letter_launch:
         select_account: 'Sélectionnez un compte:'
         title: 'Lettrage de compte'
-      accountize:
-        title: 'Comptabiliser vos opérations commerciales'
-        select_date_generation: "Date limite d''intégration"
-        draft_generate: 'Enregistrer dans le brouillon'
-        cashed_payments: 'Inclure les règlements non encaissés'
-        nb_invoices:
-          one: '1 facture enregistrée'
-          other: '{{count}} factures enregistrées'
-          zero: 'Aucune facture enregistrée'
-        nb_sales:
-          one: '1 vente enregistrée'
-          other: '{{count}} ventes enregistrées'
-          zero: 'Aucune vente enregistrée'
-        nb_purchases:
-          one: '1 achat enregistrée'
-          other: '{{count}} achats enregistrés'
-          zero: 'Aucun achat enregistré'
-        nb_payments:
-          one: '1 règlement enregistrée'
-          other: '{{count}} règlements enregistrés'
-          zero: 'Aucun règlement enregistré'
-        nb_transfers:
-          one: '1 transfert enregistrée'
-          other: '{{count}} transferts enregistrés'
-          zero: 'Aucun transfert enregistré'
-      
       bank_account_create:
         title: 'Créer un nouveau compte bancaire'
       _bank_account_form:
@@ -149,33 +147,33 @@ fr-FR:
       document_prepare:
         balance: 'Balance'
         general_ledger: 'Grand livre'
-        journals: 'Journal général'
         journal: 'Journal'
+        journals: 'Journal général'
         synthesis: 'Documents de synthèse'
         title: 'Choisissez le type de document à imprimer'
       document_print:
         print: 'Impression'
         title: 'Impression du document : {{value}}'
       draft_entries:
-        title: 'Listing des écritures du brouillard'
         accountize: 'Comptabiliser les écritures'
+        title: 'Listing des écritures du brouillard'
       entries:
+        account_number: 'N°Compte'
         all_financialyears: '--- Tous les exercices ---'
         all_journals: '--- Tous les journaux ---'
-        journal_x: '{{name}} (clôturé le {{closed_on}})'
-        number_records: 'Nombre des dernières pièces à afficher'
-        select_financialyear: 'Exercice comptable'
-        select_journal: 'Journal'
-        subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
-        title: 'Consultation et saisie des écritures'
-        account_number: 'N°Compte'
         entry_validate: 'OK'
+        journal_x: '{{name}} (clôturé le {{closed_on}})'
         label: 'Libellé'
+        number_records: 'Nombre des dernières pièces à afficher'
         record_created: 'Crée le'
         record_credit: 'Crédit'
         record_debit: 'Débit'
         record_number: 'N°Pièce'
         record_printed: 'Datée du'
+        select_financialyear: 'Exercice comptable'
+        select_journal: 'Journal'
+        subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
+        title: 'Consultation et saisie des écritures'
       entry_update:
         title: 'Modification de l''écriture'
       financialyear:
@@ -194,8 +192,8 @@ fr-FR:
         financialyear_create: 'Enregister un nouvel exercice comptable'
         title: 'Exercices comptables'
       index:
-        accounts: 'Comptes comptables'
         accountize: 'Bascule comptable'
+        accounts: 'Comptes comptables'
         bank_accounts: 'Comptes bancaires (RIB)'
         document_prepare: 'Impression des documents'
         documents: 'Documents comptables'
@@ -213,9 +211,9 @@ fr-FR:
         parameters: 'Paramètres'
         report: 'Reprise des à nouveaux'
         statements: 'Pointer un relevé de compte'
+        tax_declarations: 'Déclaration de TVA'
         taxes: 'Taxes'
         title: 'Comptabilité générale'
-        tax_declarations: 'Déclaration de TVA'
         works: 'Travaux comptables'
       journal_close:
         close: 'Clôturer le journal'
@@ -241,12 +239,12 @@ fr-FR:
         dates: 'Saisissez les dates de début et de fin de la période'
         from: 'Période du'
         to: 'Au'
-      print_balance_sheet:
-        period: 'Période'
-        title: 'Impression du bilan'
       _print_balance_sheet:
         balance_sheet: 'Sélectionnez l''exercice'
         select_financialyear: 'Exercice'
+      print_balance_sheet:
+        period: 'Période'
+        title: 'Impression du bilan'
       print_by_financial_year:
         financial_id: 'Exercice comptable'
         financial_year_select: 'Sélectionnez l''''exercice comptable'
@@ -311,62 +309,60 @@ fr-FR:
         total: 'Total'
       tax_create:
         title: 'Ajouter une nouvelle taxe'
+      tax_declaration:
+        amount: 'Total TVA à payer'
+        amount_to_add: 'Sommes à ajouter, exprimées en euros, y compris acompte congés'
+        amount_to_reduce: 'Sommes à imputer, exprimées en euros, y compris acompte congés'
+        assessable_operations: 'Opérations imposables (H.T)'
+        assimilated_tax: 'Taxes assimilées calculées sur annexe n°3310A'
+        balance: 'Crédit de TVA'
+        code: 'Code'
+        delivery_natural_gas_and_electricity_assessable: 'Livraisons de gaz naturel ou d''électricité imposables en France'
+        delivery_natural_gas_and_electricity_not_assessable: 'Livraisons de gaz naturel ou d''électricité non imposables en France'
+        establish_capital_goods: 'Biens constituant des immobilisations'
+        europe_out_export: 'Exportations hors CE'
+        free_purchases: 'Achats en franchise'
+        international_normal_vat_collected: 'Taux normal à 8,5%'
+        international_reduce_vat_collected: 'Taux réduit à 2,1%'
+        international_vat_collected: 'Opérations réalisées dans les DOM'
+        left_balance_amount: 'Report du crédit antérieur non imputé et non remboursé'
+        national_deliveries: 'Livraisons intracommunautaires'
+        national_normal_vat_collected: 'Taux normal à 19,6%'
+        national_reduce_vat_collected: 'Taux réduit à 5,5%'
+        national_vat_collected: 'Opérations réalisées en France métropolitaine'
+        net_vat_amount: 'TVA nette due'
+        normal: 'Régime du réel normal'
+        not_assessable_operations: 'Opérations non imposables'
+        others: 'Autre TVA à déduire'
+        others_assessable_operations: 'Autres opérations imposables'
+        others_not_assessable_operations: 'Autres opérations non imposables'
+        others_services: 'Autres biens et services'
+        out_vat_amount: 'Base hors taxe'
+        overflow: 'CREDIT OU EXCEDENT'
+        payback: 'Remboursement demandée'
+        reported_balance: 'Crédit à reporter'
+        simplified: 'Régime du réel simplifié'
+        title: '{{nature}} pour la période du {{started_on}} au {{stopped_on}}'
+        vat: 'Taxe à payer'
+        vat_acquisitions: 'Acquisitions intracommunautaires'
+        vat_amount: 'Taxe due'
+        vat_collected: 'TVA BRUTE'
+        vat_paid: 'TVA DEDUCTIBLE'
+      tax_declaration_create:
+        title: 'Créer une déclaration'
+      _tax_declaration_form:
+        monthly: 'Mensuelle'
+        period: 'Intervalle de période'
+        quarterly: 'Trimestrielle'
+        report: 'Informations communes'
+        yearly: 'Annuelle'
+      tax_declaration_update:
+        title: 'Créer une déclaration'
+      tax_declarations:
+        tax_declaration_create: 'Ajouter une nouvelle déclaration'
+        title: 'Déclaration de TVA'
       tax_update:
         title: 'Modification de la taxe : {{name}}'
       taxes:
         tax_create: 'Ajouter une nouvelle taxe'
         title: 'Taxes'
-      tax_declarations:
-        title: 'Déclaration de TVA'
-        tax_declaration_create: 'Ajouter une nouvelle déclaration'
-                 
-      tax_declaration_create: 
-        title: 'Créer une déclaration'
-      tax_declaration_update: 
-        title: 'Créer une déclaration'
-      tax_declaration_delete:
-      _tax_declaration_form:
-        period: 'Intervalle de période'  
-        report: 'Informations communes'
-        monthly: 'Mensuelle'
-        quarterly: 'Trimestrielle'
-        yearly: 'Annuelle'
-      tax_declaration:
-        simplified: 'Régime du réel simplifié'
-        normal: 'Régime du réel normal'
-        amount: 'Total TVA à payer'
-        amount_to_reduce: 'Sommes à imputer, exprimées en euros, y compris acompte congés'
-        amount_to_add: 'Sommes à ajouter, exprimées en euros, y compris acompte congés'
-        code: 'Code' 
-        delivery_natural_gas_and_electricity_assessable: 'Livraisons de gaz naturel ou d''électricité imposables en France'
-        delivery_natural_gas_and_electricity_not_assessable: 'Livraisons de gaz naturel ou d''électricité non imposables en France'
-        vat_collected: 'TVA BRUTE'
-        vat_paid: 'TVA DEDUCTIBLE'
-        vat_acquisitions: 'Acquisitions intracommunautaires'
-        out_vat_amount: 'Base hors taxe'
-        vat_amount: 'Taxe due'
-        national_vat_collected: 'Opérations réalisées en France métropolitaine'
-        international_vat_collected: 'Opérations réalisées dans les DOM'
-        national_normal_vat_collected: 'Taux normal à 19,6%'
-        national_reduce_vat_collected: 'Taux réduit à 5,5%'
-        international_normal_vat_collected: 'Taux normal à 8,5%'
-        international_reduce_vat_collected: 'Taux réduit à 2,1%'
-        establish_capital_goods: 'Biens constituant des immobilisations'
-        others_services: 'Autres biens et services'
-        others: 'Autre TVA à déduire'
-        free_purchases: 'Achats en franchise'
-        left_balance_amount: 'Report du crédit antérieur non imputé et non remboursé'
-        others_assessable_operations: 'Autres opérations imposables'
-        others_not_assessable_operations: 'Autres opérations non imposables'
-        national_deliveries: 'Livraisons intracommunautaires'
-        europe_out_export: 'Exportations hors CE'
-        balance: 'Crédit de TVA'
-        reported_balance: 'Crédit à reporter'
-        net_vat_amount: 'TVA nette due'
-        overflow: 'CREDIT OU EXCEDENT'
-        payback: 'Remboursement demandée'
-        assimilated_tax: 'Taxes assimilées calculées sur annexe n°3310A'
-        assessable_operations: 'Opérations imposables (H.T)'
-        not_assessable_operations: 'Opérations non imposables'
-        vat: 'Taxe à payer'
-        title: '{{nature}} pour la période du {{started_on}} au {{stopped_on}}'
