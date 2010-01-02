@@ -410,7 +410,7 @@ fr-FR:
         price_id: (((PRICE_ID)))
         product_id: (((PRODUCT_ID)))
         quantity: (((QUANTITY)))
-        tracking_id: (((TRACKING_ID)))
+        tracking_id: 'Lot'
         unit_id: (((UNIT_ID)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -777,7 +777,7 @@ fr-FR:
         lock_version: 'Version'
         product_id: 'Produit'
         theoric_quantity: 'Quantité théorique'
-        tracking_id: (((TRACKING_ID)))
+        tracking_id: 'Lot'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
         validated_quantity: 'Quantité constatée'
@@ -785,7 +785,7 @@ fr-FR:
       # Facture
       invoice:
         accounted: 'Comptabilisé(e)'
-        accounted_at: Comptabilisé(e) le
+        accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
         annotation: 'Annotation'
@@ -1006,7 +1006,7 @@ fr-FR:
         account_id: 'Compte associé'
         account_number: 'Numéro de compte'
         accounted: 'Comptabilisé(e)'
-        accounted_at: Comptabilisé(e) le
+        accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant'
         bank: 'Banque'
         check_number: 'N°Chèque'
@@ -1203,6 +1203,8 @@ fr-FR:
         product_id: 'Produit'
         quantity: 'Quantité'
         shape_id: (((SHAPE_ID)))
+        tracking_id: 'Lot'
+        tracking_serial: 'Numéro de lot'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1223,7 +1225,7 @@ fr-FR:
       # Achat
       purchase_order:
         accounted: 'Comptabilisé(e)'
-        accounted_at: Comptabilisé(e) le
+        accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
         client_id: 'Fournisseur'
@@ -1232,6 +1234,7 @@ fr-FR:
         created_at: 'Créé le'
         created_on: 'Créé le'
         creator_id: 'Créateur'
+        currency_id: (((CURRENCY_ID)))
         dest_contact_id: 'Adresse de livraison'
         id: 'ID'
         invoiced: 'Facturé'
@@ -1252,6 +1255,7 @@ fr-FR:
         account_id: 'Compte de charge utilisé'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
+        annotation: (((ANNOTATION)))
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
@@ -1260,10 +1264,11 @@ fr-FR:
         lock_version: 'Version'
         order_id: 'Achat'
         position: 'Position'
-        price_id: 'Prix'
+        price_id: 'Prix unitaire'
         product_id: 'Produit'
         quantity: 'Quantité'
         tracking_id: 'Numéro de lot'
+        tracking_serial: 'Numéro de lot'
         unit_id: 'Unité'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -1285,7 +1290,7 @@ fr-FR:
       # Vente
       sale_order:
         accounted: 'Comptabilisé(e)'
-        accounted_at: Comptabilisé(e) le
+        accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
         annotation: 'Annotation'
@@ -1453,7 +1458,7 @@ fr-FR:
         product_unit_id: (((PRODUCT_UNIT_ID)))
         quantity: (((QUANTITY)))
         shape_operation_id: (((SHAPE_OPERATION_ID)))
-        tracking_id: (((TRACKING_ID)))
+        tracking_id: 'Lot'
         unit_quantity: (((UNIT_QUANTITY)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -1530,7 +1535,7 @@ fr-FR:
         quantity: 'Quantité'
         second_location_id: (((SECOND_LOCATION_ID)))
         second_move_id: (((SECOND_MOVE_ID)))
-        tracking_id: (((TRACKING_ID)))
+        tracking_id: 'Lot'
         unit_id: 'Unité'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -1538,18 +1543,17 @@ fr-FR:
 
       # Lot traçable
       stock_tracking:
-        active: (((ACTIVE)))
-        begun_at: '(((BEGUN_AT)))'
+        active: 'Utilisé'
         comment: 'Commentaire'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
-        name: (((NAME)))
-        producer_id: (((PRODUCER_ID)))
-        product_id: (((PRODUCT_ID)))
-        serial: (((SERIAL)))
+        name: 'Nom'
+        producer_id: 'Producteur'
+        product_id: 'Produit'
+        serial: 'N°Lot'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1570,7 +1574,7 @@ fr-FR:
         quantity: 'Quantité'
         second_location_id: 'Entrée du lieu de stockage'
         text_nature: 'Type'
-        tracking_id: (((TRACKING_ID)))
+        tracking_id: 'Lot'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1695,7 +1699,7 @@ fr-FR:
       # Transfert
       transfer:
         accounted: 'Comptabilisé(e)'
-        accounted_at: Comptabilisé(e) le
+        accounted_at: 'Comptabilisé(e) le'
         amount: (((AMOUNT)))
         comment: 'Commentaire'
         company_id: 'Société'

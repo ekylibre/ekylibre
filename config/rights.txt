@@ -196,7 +196,6 @@ management       purchase_order_line_delete       create_purchases
 management       purchase_order_line_update       create_purchases
 management       purchase_order_lines             create_purchases
 management       purchase_order_summary           create_purchases
-management       purchases_new                    create_purchases
 management       unreceived_purchases             create_purchases
 management       delay                            manage_delays
 management       delay_create                     manage_delays

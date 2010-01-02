@@ -45,12 +45,23 @@ class CreateTrackingSupport < ActiveRecord::Migration
       execute "UPDATE shapes SET area_unit_id=#{unit.id} WHERE company_id=#{company.id}"
     end
 
+    add_column :purchase_order_lines, :annotation,      :text
+    add_column :purchase_orders,      :currency_id,     :integer
+    for c in Company.all
+      PurchaseOrder.update_all({:currency_id=>c.currencies.first.id}, {:company_id=>c.id})
+    end
+
+    
     add_column :sale_order_lines,     :tracking_id,     :integer,  :references=>:stock_trackings
     add_column :purchase_order_lines, :tracking_id,     :integer,  :references=>:stock_trackings
     add_column :product_stocks,       :tracking_id,     :integer,  :references=>:stock_trackings
     add_column :stock_transfers,      :tracking_id,     :integer,  :references=>:stock_trackings
     add_column :inventory_lines,      :tracking_id,     :integer,  :references=>:stock_trackings
     add_column :delivery_lines,       :tracking_id,     :integer,  :references=>:stock_trackings
+    add_column :productions,          :tracking_id,     :integer,  :references=>:stock_trackings
+
+    add_column :purchase_order_lines, :tracking_serial, :string
+    add_column :productions,          :tracking_serial, :string
     
     create_table :shape_operation_lines do |t|
       t.column :shape_operation_id,     :integer,   :null=>false, :references=>:shape_operations, :on_delete=>:cascade, :on_update=>:cascade
@@ -67,12 +78,21 @@ class CreateTrackingSupport < ActiveRecord::Migration
 
   def self.down
     drop_table :shape_operation_lines
+
+    remove_column :productions,          :tracking_serial
+    remove_column :purchase_order_lines, :tracking_serial
+
+    remove_column :productions,          :tracking_id
     remove_column :delivery_lines,       :tracking_id
     remove_column :inventory_lines,      :tracking_id
     remove_column :stock_transfers,      :tracking_id
     remove_column :product_stocks,       :tracking_id
     remove_column :purchase_order_lines, :tracking_id
     remove_column :sale_order_lines,     :tracking_id
+
+    remove_column :purchase_orders,      :currency_id
+    remove_column :purchase_order_lines, :annotation
+
     
     remove_column :shapes, :area_unit_id
     remove_column :shapes, :area_measure

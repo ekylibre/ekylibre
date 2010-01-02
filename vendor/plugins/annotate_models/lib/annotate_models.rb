@@ -6,7 +6,7 @@ UNIT_DIR = File.join(RAILS_ROOT, "test/unit")
 
 module AnnotateModels
 
-  PREFIX = "== Schema Information"
+  PREFIX = "= Informations"
   
   # Simple quoting for the default column value
   def self.quote(value)
@@ -27,8 +27,9 @@ module AnnotateModels
   # each column. The line contains the column name,
   # the type (and length), and any optional attributes
   def self.get_schema_info(klass, header)
-    info = "# #{header}\n#\n"
-    info << "# Table name: #{klass.table_name}\n#\n"
+    info = header.gsub(/^/, '# ') # "# #{header}\n#\n"
+    info << "# == Table: #{klass.table_name}\n#\n"
+    #    info << "# Table name: #{klass.table_name}\n#\n"
     
     max_size = klass.column_names.collect{|name| name.size}.max + 1
     klass.columns.sort{|a,b| a.name<=>b.name}.each do |col|
@@ -49,7 +50,7 @@ module AnnotateModels
       else
         col_type << "(#{col.limit})" if col.limit
       end 
-      info << sprintf("#  %-#{max_size}.#{max_size}s:%-13.13s %s\n", col.name, col_type, attrs.join(", "))
+      info << sprintf("#  %-#{max_size}.#{max_size}s:%-16.16s %s\n", col.name, col_type, attrs.join(", "))
     end
 
     info << "#\n\n"
@@ -65,8 +66,10 @@ module AnnotateModels
     end
     if File.exist?(file_name)
       content = File.read(file_name)
-
+      
       # Remove old schema info
+      old_prefix = "== Schema Information"
+      content.sub!(/^# #{old_prefix}.*?\n(#.*\n)*\n/, '')
       content.sub!(/^# #{PREFIX}.*?\n(#.*\n)*\n/, '')
 
       # Write it back
@@ -116,6 +119,10 @@ module AnnotateModels
 
   def self.do_annotations
     header = PREFIX.dup
+
+    header << "\n\n== License\n\n"
+    header << "Ekylibre - Simple ERP\nCopyright (C) 2009-#{Date.today.year} Brice Texier, Thibaud Mérigon\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\nany later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see http://www.gnu.org/licenses.\n\n"
+
     version = ActiveRecord::Migrator.current_version rescue 0
 #    if version > 0
 #      header << "\n# Schema version: #{version}"

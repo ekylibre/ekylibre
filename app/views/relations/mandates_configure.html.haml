@@ -4,7 +4,7 @@
     %tr
       %th=tc(:column)
       %th{:colspan=>2}=tc :filter
-      %th{:colspan=>2}=tc :mandate_new_value
+      %th{:colspan=>2}=tc :new_value
     -for column in [:family, :organization, :title]
       %tr{:class=>cycle('odd', 'even')}
         %td=tc "column_#{column}"

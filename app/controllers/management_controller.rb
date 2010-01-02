@@ -1,4 +1,4 @@
-# ##### BEGIN LICENSE BLOCK #####
+# == License
 # Ekylibre - Simple ERP
 # Copyright (C) 2009 Brice Texier, Thibaud Mérigon
 #
@@ -15,10 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# ##### END LICENSE BLOCK #####
+
 
 class ManagementController < ApplicationController
-
   
   include ActionView::Helpers::FormOptionsHelper
   include ActionView::Helpers::NumberHelper
@@ -35,44 +34,6 @@ class ManagementController < ApplicationController
     @stock_transfers = @current_company.stock_transfers.find(:all, :conditions=>{:moved_on=>nil}) 
     @payments_to_embank = @current_company.checks_to_embank(-1)
     @embankments_to_lock = @current_company.embankments_to_lock
-
-#     sn = @current_company.subscription_natures.find(:first, :order=>"COALESCE(reduction_rate, 0) DESC")
-#     g = Gruff::Line.new(800,200)
-#     g.title = sn.name
-#     start, finish  = 700, sn.actual_number
-#     for x in 0..2
-#       months = []
-#       f = finish-22*x+1
-#       s = f-21
-#       for i in s..f
-#         months << sn.subscriptions.count(:conditions=>["? between first_number AND last_number", i])
-#       end
-#       g.data "Du #{s} au #{f}", months
-#     end
-#     g.write("#{RAILS_ROOT}/public/images/gruff/#{@current_company.id}-test.png")
-
-#     g = Gruff::Line.new(800,200)
-#     g.title = sn.name
-#     start, finish  = 700, sn.actual_number
-#     months = []
-#     for i in start..finish
-#       months << sn.subscriptions.count(:conditions=>["? between first_number AND last_number", i])
-#     end
-#     g.data "Du #{start} au #{finish}", months
-#     g.write("#{RAILS_ROOT}/public/images/gruff/#{@current_company.id}-test.png")
-    
-
-#     g = Gruff::Line.new(800,200)
-#     sn = @current_company.subscription_natures.find(:first, :order=>"COALESCE(reduction_rate, 0) DESC")
-#     g.title = sn.name
-#     for x in 2007..2009
-#       months = []
-#       12.times do |i|
-#         months << sn.subscriptions.count(:conditions=>["started_on BETWEEN ? AND ?", Date.civil(x,i+1,1), Date.civil(x,i+1,1).end_of_month])
-#       end
-#       g.data x.to_s, months
-#     end
-#     g.write("#{RAILS_ROOT}/public/images/gruff/#{@current_company.id}-test.png")
   end
   
   
@@ -852,10 +813,6 @@ class ManagementController < ApplicationController
     @title = {:number=>@purchase_order.number, :supplier=>@purchase_order.supplier.full_name}
   end
 
-  def purchases_new
-    redirect_to :action=>:purchase_order_create
-  end
-
   def purchase_order_create
     if request.post?
       @purchase_order = PurchaseOrder.new(params[:purchase_order])
@@ -878,6 +835,7 @@ class ManagementController < ApplicationController
 
   dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_purchase]']}) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:product}
+    t.column :tracking_serial
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :amount, :through=>:price
@@ -887,7 +845,6 @@ class ManagementController < ApplicationController
     t.action :purchase_order_line_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.moved_on.nil? '
   end
 
-  #def purchase_order_lines
   def purchase_order_lines
     @purchase_order = find_and_check(:purchase_order, params[:id])
     session[:current_purchase] = @purchase_order.id
@@ -914,7 +871,7 @@ class ManagementController < ApplicationController
   def price_find
     if !params[:purchase_order_line_price_id].blank?
       price = find_and_check(:price, params[:purchase_order_line_price_id])
-      @tax_id = price.tax_id
+      @price_tax_id = price.tax_id
       @price_amount = price.amount
       # @price_amount = Price.find_by_id(price.id).amount
       #       if price.tax.amount == 0.0210
@@ -927,8 +884,14 @@ class ManagementController < ApplicationController
       #     else
       #       @price_amount = 0 
       #      @tax_id = 3
+    elsif params[:purchase_order_line_product_id]
+      return unless product = find_and_check(:product, params[:purchase_order_line_product_id])
+      if price = product.prices.find_by_active_and_default_and_entity_id(true, true, params[:entity_id]||@current_company.entity_id)
+        @price_tax_id = price.tax_id
+        @price_amount = price.amount
+      end
     else
-      @tax_id = 0
+      @price_tax_id = 0
       @price_amount = 0
     end
   end
@@ -946,39 +909,33 @@ class ManagementController < ApplicationController
 
 
   def purchase_order_line_create
-    @purchase_order = PurchaseOrder.find_by_id_and_company_id(session[:current_purchase], @current_company.id)
+    return unless @purchase_order = find_and_check(:purchase_order, session[:current_purchase])
     if @current_company.stock_locations.size <= 0
       flash[:warning]=tc(:need_stock_location_to_create_purchase_order_line)
       redirect_to :action=>:stock_location_create
-    elsif @purchase_order.shipped == true
+    elsif @purchase_order.shipped
       flash[:warning]=tc(:impossible_to_add_lines_to_purchase)
       redirect_to :action=>:purchase_order_lines, :id=>@purchase_order.id
     else
       @price = Price.new(:amount=>0.0)
       if request.post?
-        @purchase_order_line = @current_company.purchase_order_lines.find(:first, :conditions=>{:price_id=>params[:purchase_order_line][:price_id].to_i||0, :order_id=>session[:current_purchase]})
-        if @purchase_order_line and @purchase_order_line.tracking_id.nil?
+        return unless product = find_and_check(:product, params[:purchase_order_line][:product_id].to_i)
+        serial = params[:purchase_order_line][:tracking_serial].to_s.strip
+        serial = nil if serial.blank?
+        price = @current_company.prices.find(:first, :conditions=>{:product_id=>product.id, :entity_id=>@purchase_order.supplier_id, :amount=>params[:price][:amount], :tax_id=>params[:price][:tax_id].to_i})
+        price = product.prices.create!(:entity_id=>@purchase_order.supplier_id, :amount=>params[:price][:amount], :tax_id=>params[:price][:tax_id].to_i, :active=>true) if price.nil?
+        existing_purchase_order_line = @purchase_order.lines.find(:first, :conditions=>{:price_id=>price.id, :tracking_serial=>serial})
+        if existing_purchase_order_line
+          @purchase_order_line = existing_purchase_order_line
           @purchase_order_line.quantity += params[:purchase_order_line][:quantity].to_d
+          @purchase_order_line.annotation = @purchase_order_line.annotation.to_s+params[:purchase_order_line][:annotation].to_s
         else
-          @purchase_order_line = PurchaseOrderLine.new(params[:purchase_order_line])
-          @purchase_order_line.company_id = @current_company.id
-          @purchase_order_line.order_id = session[:current_purchase]      
-          price = Price.find_by_company_id_and_id(@current_company.id,params[:purchase_order_line][:price_id].to_i||0)
-          if price
-            price = price.change(params[:price][:amount], params[:price][:tax_id])
-            price.reload
-            @purchase_order_line.product_id = price.product_id
-            @purchase_order_line.price_id = price.id
-          end
-          if not params[:purchase_order_line][:tracking_id].strip.blank?
-            st = StockTracking.find_by_company_id_and_serial(@current_company.id, params[:purchase_order_line][:tracking_id].strip)||@current_company.stock_trackings.create!(:serial=>params[:purchase_order_line][:tracking_id].strip, :name=>params[:purchase_order_line][:tracking_id].strip, :product_id=>@purchase_order_line.product_id, :producer_id=>@purchase_order.supplier_id)
-            @purchase_order_line.tracking_id = st.id
-          end
+          params[:purchase_order_line][:price_id] = price.id
+          @purchase_order_line = @purchase_order.lines.new(params[:purchase_order_line])
         end
         redirect_to :action=>:purchase_order_lines, :id=>session[:current_purchase] if @purchase_order_line.save
       else
-        @purchase_order_line = PurchaseOrderLine.new
-        @purchase_order_line.order_id = session[:current_purchase] 
+        @purchase_order_line = @purchase_order.lines.new
       end
       render_form
     end
@@ -1238,6 +1195,7 @@ class ManagementController < ApplicationController
   dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     #t.column :name, :through=>:product
     t.column :label
+    t.column :serial, :through=>:tracking
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :amount, :through=>:price, :label=>tc('price')

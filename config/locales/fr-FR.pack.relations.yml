@@ -323,10 +323,10 @@ fr-FR:
         column_organization: 'Organisation'
         column_title: 'Titre'
         filter: 'Filtre'
-        mandate_new_value: 'Nouvelle valeur'
         new_family: 'Nouvelle famille'
         new_organization: 'Nouvelle organisation'
         new_title: 'Nouveau titre'
+        new_value: 'Nouvelle valeur'
         title: 'Configuration des responsabilités'
         validate: 'Modifier'
       observation_create:

@@ -1,25 +1,45 @@
-# == Schema Information
+# = Informations
+# 
+# == License
+# 
+# Ekylibre - Simple ERP
+# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+# 
+# == Table: purchase_order_lines
 #
-# Table name: purchase_order_lines
-#
-#  account_id        :integer       not null
-#  amount            :decimal(16, 2 default(0.0), not null
-#  amount_with_taxes :decimal(16, 2 default(0.0), not null
-#  company_id        :integer       not null
-#  created_at        :datetime      not null
-#  creator_id        :integer       
-#  id                :integer       not null, primary key
-#  location_id       :integer       
-#  lock_version      :integer       default(0), not null
-#  order_id          :integer       not null
-#  position          :integer       
-#  price_id          :integer       not null
-#  product_id        :integer       not null
-#  quantity          :decimal(16, 2 default(1.0), not null
-#  tracking_id       :integer       
-#  unit_id           :integer       not null
-#  updated_at        :datetime      not null
-#  updater_id        :integer       
+#  account_id        :integer          not null
+#  amount            :decimal(16, 2)   default(0.0), not null
+#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
+#  annotation        :text             
+#  company_id        :integer          not null
+#  created_at        :datetime         not null
+#  creator_id        :integer          
+#  id                :integer          not null, primary key
+#  location_id       :integer          
+#  lock_version      :integer          default(0), not null
+#  order_id          :integer          not null
+#  position          :integer          
+#  price_id          :integer          not null
+#  product_id        :integer          not null
+#  quantity          :decimal(16, 2)   default(1.0), not null
+#  tracking_id       :integer          
+#  tracking_serial   :string(255)      
+#  unit_id           :integer          not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 
 class PurchaseOrderLine < ActiveRecord::Base
@@ -27,16 +47,19 @@ class PurchaseOrderLine < ActiveRecord::Base
 
   belongs_to :account
   belongs_to :company
-  belongs_to :product
-  belongs_to :order, :class_name=>PurchaseOrder.to_s
+  belongs_to :order, :class_name=>PurchaseOrder.name
   belongs_to :price
-  belongs_to :location, :class_name=>StockLocation.to_s
+  belongs_to :product
+  belongs_to :location, :class_name=>StockLocation.name
   belongs_to :tracking, :class_name=>StockTracking.name
   belongs_to :unit
 
   validates_presence_of :amount, :price_id, :account_id
+  validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
+  validates_uniqueness_of :tracking_serial, :scope=>:price_id
   
   def before_validation
+    self.company_id = self.order.company_id if self.order
     check_reservoir = true
     self.location_id = self.company.stock_locations.first.id if self.company.stock_locations.size == 1
     if self.price
@@ -52,9 +75,17 @@ class PurchaseOrderLine < ActiveRecord::Base
         errors.add_to_base(tc(:stock_location_can_not_receive_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) 
       end
     end
+
+    self.tracking_serial = self.tracking_serial.strip
+    unless self.tracking_serial.blank?
+      tracking = self.company.stock_trackings.find_by_serial(self.tracking_serial.upper)
+      tracking = self.company.stock_trackings.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>self.order.supplier_id) if tracking.nil?
+      self.tracking_id = tracking.id
+      self.tracking_serial.upper!
+    end
+
     check_reservoir
-  end
-  
+  end  
   
   def after_save
     self.order.refresh

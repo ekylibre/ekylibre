@@ -1,25 +1,44 @@
-# == Schema Information
+# = Informations
+# 
+# == License
+# 
+# Ekylibre - Simple ERP
+# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+# 
+# == Table: purchase_orders
 #
-# Table name: purchase_orders
-#
-#  accounted_at      :datetime      
-#  amount            :decimal(16, 2 default(0.0), not null
-#  amount_with_taxes :decimal(16, 2 default(0.0), not null
-#  comment           :text          
-#  company_id        :integer       not null
-#  created_at        :datetime      not null
-#  created_on        :date          
-#  creator_id        :integer       
-#  dest_contact_id   :integer       
-#  id                :integer       not null, primary key
-#  lock_version      :integer       default(0), not null
-#  moved_on          :date          
-#  number            :string(64)    not null
-#  planned_on        :date          
-#  shipped           :boolean       not null
-#  supplier_id       :integer       not null
-#  updated_at        :datetime      not null
-#  updater_id        :integer       
+#  accounted_at      :datetime         
+#  amount            :decimal(16, 2)   default(0.0), not null
+#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
+#  comment           :text             
+#  company_id        :integer          not null
+#  created_at        :datetime         not null
+#  created_on        :date             
+#  creator_id        :integer          
+#  currency_id       :integer          
+#  dest_contact_id   :integer          
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  moved_on          :date             
+#  number            :string(64)       not null
+#  planned_on        :date             
+#  shipped           :boolean          not null
+#  supplier_id       :integer          not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 
 class PurchaseOrder < ActiveRecord::Base
@@ -106,22 +125,14 @@ class PurchaseOrder < ActiveRecord::Base
   #this method saves the purchase in the accountancy module.
   def to_accountancy
     journal_purchase=  self.company.journals.find(:first, :conditions => ['nature = ?', 'purchase'],:order=>:id)
-    
     financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) AND closed=?", '%'+Date.today.to_s+'%', false])
-    
     unless financialyear.nil? or journal_purchase.nil?
-      
       record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.planned_on, :journal_id=>journal_purchase.id, :financialyear_id => financialyear.id)
-      
       supplier_account = self.supplier.account(:supplier)
-      
       record.add_credit(self.supplier.full_name, supplier_account.id, self.amount_with_taxes, :draft=>true)
-      
       self.lines.each do |line|
         line_amount = (line.amount * line.quantity)
-        
         record.add_debit('sale '+line.product.name, line.product.charge_account_id, line_amount, :draft=>true)
-        
         unless line.price.tax_id.nil?
           record.add_debit(line.price.tax.name, line.price.tax.account_paid_id, line.price.tax.amount*line_amount, :draft=>true)
         end

@@ -1,4 +1,4 @@
-# ##### BEGIN LICENSE BLOCK #####
+# == License
 # Ekylibre - Simple ERP
 # Copyright (C) 2009 Brice Texier, Thibaud Mérigon
 #
@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# ##### END LICENSE BLOCK #####
 
 require "digest/sha2"
 

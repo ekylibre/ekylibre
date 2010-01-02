@@ -101,7 +101,7 @@ module ApplicationHelper
              {:name=>:statistics}
            ] },
          {:name=>:purchase_orders, :list=>
-           [ {:name=>:purchases_new},
+           [ {:name=>:purchase_order_create},
              {:name=>:purchases_consult, :url=>{:action=>:purchase_orders}},
              {:name=>:payments, :url=>{:action=>:payments, :mode=>:purchase}} ] },
          {:name=>:stocks, :list=>
