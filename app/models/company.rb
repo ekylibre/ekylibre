@@ -99,6 +99,7 @@ class Company < ActiveRecord::Base
   has_many :shapes, :order=>:name
   has_many :shape_operation_natures
   has_many :shape_operations
+  has_many :shape_operation_lines
   has_many :shelves
   has_many :stock_locations
   has_many :stock_moves
@@ -114,6 +115,10 @@ class Company < ActiveRecord::Base
   has_many :units
   has_many :users
   belongs_to :entity
+
+
+  # Specifics
+  has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
 
   attr_readonly :code
 
@@ -315,10 +320,10 @@ class Company < ActiveRecord::Base
     self.financialyears.find(:last, :conditions => "closed = false", :order=>"started_on ASC")
   end
 
-  def productable_products
-    #Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (supply_method = 'produce' OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
-    Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (to_produce OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
-  end
+#   def productable_products
+#     #Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (supply_method = 'produce' OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
+#     Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (to_produce OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
+#   end
 
   def imported_entity_nature(row)
     if row.blank?

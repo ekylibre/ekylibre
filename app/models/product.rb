@@ -62,13 +62,13 @@
 
 class Product < ActiveRecord::Base
 
-  belongs_to :product_account, :class_name=>Account.to_s
   belongs_to :charge_account, :class_name=>Account.to_s
   belongs_to :company
+  belongs_to :product_account, :class_name=>Account.to_s
   belongs_to :subscription_nature
   belongs_to :shelf
   belongs_to :unit
-  has_many :components, :class_name=>ProductComponent.to_s
+  has_many :components, :class_name=>ProductComponent.name, :conditions=>{:active=>true}
   has_many :delivery_lines
   has_many :invoice_lines
   has_many :prices
@@ -107,6 +107,7 @@ class Product < ActiveRecord::Base
       end
       puts "jjj"
     end
+    self.to_produce = true if self.has_components?
     self.catalog_name = self.name if self.catalog_name.blank?
     self.subscription_nature_id = nil if self.nature != "subscrip"
     self.service_coeff = nil if self.nature != "service"
@@ -131,33 +132,27 @@ class Product < ActiveRecord::Base
     @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
-  def self.supply_methods
-    [:buy, :produce].collect{|x| [tc('supply_methods.'+x.to_s), x] }
+#   def self.supply_methods
+#     [:buy, :produce].collect{|x| [tc('supply_methods.'+x.to_s), x] }
+#   end
+
+  def has_components?
+    # products = ProductComponent.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.id})
+    # !products.empty?
+    self.components.size > 0
   end
 
-  def has_components
-    products = ProductComponent.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.id})
-    !products.empty?
-  end
-
-  def components
-    products = ProductComponent.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.id})
-    products
-  end
+#   def components
+#     products = ProductComponent.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.id})
+#     products
+#   end
 
   def default_price(category_id)
     self.prices.find(:first, :conditions=>{:category_id=>category_id, :active=>true, :default=>true})
   end
 
-  def informations
-#     if self.has_components
-#       # name = self.name+" ( "+self.unit.label+" ) "+tc('components_number')+self.components.size.to_s
-#       tc('informations.with_components', :product=>self.name, :unit=>self.unit.label, :size=>self.components.size)
-#     else
-#       # name = self.name+" ( "+self.unit.label+" ) "+tc('raw_material')
-#       tc('informations.without_components', :product=>self.name, :unit=>self.unit.label, :size=>self.components.size)
-#     end
-    tc('informations.with'+(self.has_components ? '' : 'out')+'_components', :product=>self.name, :unit=>self.unit.label, :size=>self.components.size)
+  def informations    
+    tc('informations.'+(self.has_components? ? 'with' : 'without')+'_components', :product=>self.name, :unit=>self.unit.label, :size=>self.components.size)
   end
 
   def duration

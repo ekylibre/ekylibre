@@ -39,12 +39,11 @@
 #
 
 class ProductComponent < ActiveRecord::Base
-
   attr_readonly :company_id, :quantity, :content_id, :package_id, :name, :comment
   belongs_to :company
-  belongs_to :product
   belongs_to :component, :class_name=>Product.to_s
   belongs_to :location, :class_name=>StockLocation.to_s
+  belongs_to :product
 
   def before_validation
     if self.quantity >= 2
@@ -64,6 +63,10 @@ class ProductComponent < ActiveRecord::Base
     ProductComponent.create!(self.attributes.merge({:started_at=>self.stopped_at, :stopped_at=>nil, :active=>true, :company_id=>self.company_id})) if self.active
     self.active = false
     true
+  end
+
+  def after_save
+    self.product.save
   end
   
   def check_quantities(params, production_quantity)

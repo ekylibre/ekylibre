@@ -73,9 +73,9 @@ class Unit < ActiveRecord::Base
     flat = expression.split(/[\.\s]+/).collect do |x|
       if x.match(/[a-z]+(\-\d+)?/i)
         name = x.gsub(/[0-9\-]+/, '')
-        raise Exception.new "Unknown unit #{name.inspect} (only base units #{@@units.join(', ')} are accepted)" unless @@units.include? name
+        raise Exception.new("Unknown unit #{name.inspect} (only base units #{@@units.join(', ')} are accepted)") unless @@units.include? name
       else  
-        raise Exception.new "Bad expression: error on #{x.inspect}"
+        raise Exception.new("Bad expression: error on #{x.inspect}")
       end
       x
     end.join(".")
@@ -84,7 +84,7 @@ class Unit < ActiveRecord::Base
     exps = {}
     flat.split(/[\.\s]+/).each do |x|
       name = x.gsub(/[0-9\-]+/,'')
-      exps[name] = (exps[name]||0)+(x == name ? 1 : x.gsub(/[a-z]+/i,'').to_i) 
+      exps[name] = (exps[name]||0)+(x == name ? 1 : x.gsub(/[a-z]+/i, '').to_i) 
     end
 
     # magnify

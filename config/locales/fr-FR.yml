@@ -82,6 +82,8 @@ fr-FR:
     array:
       sentence_connector: "et" 
       two_words_connector: ', '
+      words_connector: ', '
+      last_word_connector: ' et '
 
 
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
@@ -397,8 +399,8 @@ fr-FR:
       error_range_overlap_detected: 'Des plages de prix se chevauchent pour le même produit. Ceci est normalement impossible. Veuillez signaler l''incident à votre administrateur système.'
     product:
       informations:
-        with_components: '{{product}} ({{unit}}) NC'
-        without_components: '{{product}} ({{unit}}) MP'
+        with_components: '{{product}} ({{unit}}) (produit transformé)'
+        without_components: '{{product}} ({{unit}}) (matière première)'
       natures:
         product: Produit
         service: Service
@@ -411,6 +413,7 @@ fr-FR:
         produce: Production
       to:
         sale: Vente
+        produce: Production
         purchase: Achat
         rent: Location
       unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'

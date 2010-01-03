@@ -38,7 +38,6 @@
 #
 
 class Production < ActiveRecord::Base
-
   attr_readonly :company_id, :product_id
   belongs_to :company
   belongs_to :product
@@ -49,9 +48,26 @@ class Production < ActiveRecord::Base
     self.moved_on = Date.today
     stock_locations = StockLocation.find_all_by_company_id(self.company_id)
     self.location_id = stock_locations[0].id if stock_locations.size == 1 and self.location_id.nil?
+
+    self.tracking_serial = self.tracking_serial.strip
+    unless self.tracking_serial.blank?
+      producer = self.company.entity
+      unless producer.has_another_tracking?(self.tracking_serial, self.product_id)
+        tracking = self.company.stock_trackings.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
+        tracking = self.company.stock_trackings.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
+        self.tracking_id = tracking.id
+      end
+      self.tracking_serial.upper!
+    end
+
   end
 
   def validate
+    # Validate that tracking serial is not used for a different product
+    producer = self.company.entity
+    unless self.tracking_serial.blank?
+      errors.add(:tracking_serial, tc(:is_already_used_with_an_other_product)) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
+    end
     errors.add_to_base(tc(:stock_location_can_receive_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name)) unless self.location.can_receive(self.product_id)
   end
 

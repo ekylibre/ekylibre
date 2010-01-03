@@ -83,8 +83,8 @@ class Entity < ActiveRecord::Base
   has_many :bank_accounts
   has_many :complement_data
   has_many :contacts, :conditions=>{:active=>true}
-  has_many :events
   has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity1_id
+  has_many :events
   has_many :indirect_links, :class_name=>EntityLink.name, :foreign_key=>:entity2_id
   has_many :invoices, :foreign_key=>:client_id, :order=>"created_on desc"
   has_many :mandates
@@ -92,9 +92,10 @@ class Entity < ActiveRecord::Base
   has_many :payments
   has_many :prices
   has_many :purchase_orders, :foreign_key=>:supplier_id
-  has_many :usable_payments, :conditions=>["parts_amount<amount"], :class_name=>Payment.name
   has_many :sale_orders, :foreign_key=>:client_id, :order=>"created_on desc"
+  has_many :stock_trackings, :foreign_key=>:producer_id
   has_many :subscriptions
+  has_many :usable_payments, :conditions=>["parts_amount<amount"], :class_name=>Payment.name
   has_one :default_contact, :class_name=>Contact.name, :conditions=>{:default=>true, :active=>true}
   
  # validates_presence_of :category_id, :if=>Proc.new{|u| u.client}
@@ -201,6 +202,10 @@ class Entity < ActiveRecord::Base
 #       nil
 #     end
 #   end
+
+  def has_another_tracking?(serial, product_id)
+    self.stock_trackings.find(:all, :conditions=>["serial=? AND product_id!=? ", serial, product_id]).size > 0
+  end
 
 
   # this method creates automatically an account for the entity

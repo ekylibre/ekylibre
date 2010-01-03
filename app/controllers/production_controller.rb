@@ -77,7 +77,7 @@ class ProductionController < ApplicationController
       @production = Production.new(params[:production])
       @production.company_id = @current_company.id
       if @production.save
-        if @production.product.has_components
+        if @production.product.has_components?
           redirect_to :action=>:production_line_create, :id=>@production.id
         else
           @production.move_stocks
@@ -92,7 +92,7 @@ class ProductionController < ApplicationController
     @production = find_and_check(:production,(params[:id]))
     if request.post?
       if @production.update_attributes(params[:production])
-        if @production.product.has_components
+        if @production.product.has_components?
           redirect_to :action=>:production_line_update, :id=>@production.id
         else
           redirect_to :action=>:productions

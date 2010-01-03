@@ -78,14 +78,25 @@ class PurchaseOrderLine < ActiveRecord::Base
 
     self.tracking_serial = self.tracking_serial.strip
     unless self.tracking_serial.blank?
-      tracking = self.company.stock_trackings.find_by_serial(self.tracking_serial.upper)
-      tracking = self.company.stock_trackings.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>self.order.supplier_id) if tracking.nil?
-      self.tracking_id = tracking.id
+      producer = self.order.supplier
+      unless producer.has_another_tracking?(self.tracking_serial, self.product_id)
+        tracking = self.company.stock_trackings.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
+        tracking = self.company.stock_trackings.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
+        self.tracking_id = tracking.id
+      end
       self.tracking_serial.upper!
     end
 
     check_reservoir
   end  
+
+  def validate
+    # Validate that tracking serial is not used for a different product
+    producer = self.order.supplier
+    unless self.tracking_serial.blank?
+      errors.add(:tracking_serial, tc(:is_already_used_with_an_other_product)) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
+    end
+  end
   
   def after_save
     self.order.refresh

@@ -37,6 +37,8 @@
 
 class StockTracking < ActiveRecord::Base
   belongs_to :company
+  belongs_to :producer, :class_name=>Entity.name
+  belongs_to :product
   has_many :delivery_lines
   has_many :inventory_lines
   has_many :product_stocks
@@ -49,6 +51,7 @@ class StockTracking < ActiveRecord::Base
   attr_readonly :company_id
 
   validates_presence_of :name, :serial
+  validates_uniqueness_of :serial, :scope=>:producer_id
 
   def before_validation
     # the name is the serial number but it leave the possibility to put a name different from the serial
