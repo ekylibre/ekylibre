@@ -598,6 +598,7 @@ fr-FR:
       shelf:
         shelf_update: 'Modifier la catégorie'
         shelves: 'Voir la liste des catégories de produit'
+        products: 'Produits de la catégorie'
         title: 'Détail de la catégorie : {{value}}'
       shelf_create:
         title: 'Ajout d''une nouvelle catégorie de produits'

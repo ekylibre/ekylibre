@@ -653,9 +653,8 @@ class ManagementController < ApplicationController
     t.column :number
     t.column :name, :through=>:shelf, :url=>{:action=>:shelf}
     t.column :name, :url=>{:action=>:product}
-    t.column :code
+    t.column :code, :url=>{:action=>:product}
     t.column :description
-    t.action :product, :image=>:show
     t.action :product_update
     t.action :product_delete, :method=>:delete, :confirm=>:are_you_sure
   end
@@ -2022,8 +2021,19 @@ class ManagementController < ApplicationController
    # shelves_list params
   end
 
+  dyta(:shelf_products, :model=>:products, :conditions=>{:company_id=>['@current_company.id'], :shelf_id=>['session[:current_shelf_id]']}, :order=>'active DESC, name') do |t|
+    t.column :number
+    t.column :name, :url=>{:action=>:product}
+    t.column :code, :url=>{:action=>:product}
+    t.column :description
+    t.column :active
+    t.action :product_update
+    t.action :product_delete, :method=>:delete, :confirm=>:are_you_sure
+  end
+
   def shelf
     return unless @shelf = find_and_check(:shelf, params[:id])
+    session[:current_shelf_id] = @shelf.id
     @title = {:value=>@shelf.name}
   end
 

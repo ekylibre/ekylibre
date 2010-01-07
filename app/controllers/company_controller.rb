@@ -589,7 +589,7 @@ class CompanyController < ApplicationController
       end
     end
 
-    send_data csv_string, :filename=>@listing.name.simpleize+'.csv', :type=>Mime::CSV, :disposition=>"inline"
+    send_data csv_string, :filename=>@listing.name.simpleize+'.csv', :type=>Mime::CSV
   end
   
   def listing_mail
