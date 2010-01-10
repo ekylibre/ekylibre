@@ -24,12 +24,6 @@ class ApplicationController < ActionController::Base
   before_filter :authorize, :except=>[:login, :logout, :register]
   attr_accessor :current_user
   attr_accessor :current_company
-  # after_filter :reset_stamper
-
-
-  # def reset_stamper
-  #    User.reset_stamper
-  #  end
 
   include Userstamp
   include ExceptionNotifiable

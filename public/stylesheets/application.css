@@ -272,12 +272,14 @@ h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1
 
 .login { width:512px; border: 1px solid #95b0e4; margin:64px auto; background:#c9d7f1; z-index: 1000;}
 .login .logoban { height:80px; background: url(../images/ekylong.png) no-repeat center; margin: 16px;}
-.login h2 { background: url(../images/template/gradient.png) repeat-x top; color:white; padding: 2px; text-align:center; font-size:18px;}
+.login h2 { color:red !important; padding: 2px; text-align:center; font-size:18px;}
+.login p { margin:8px; }
 .login table { border-collapse: collapse;  margin:16px auto; margin-left:auto; margin-right:auto;}
 .login table tr td { padding: 2px 4px;}
 .login table tr td.label { text-align:right;}
 .login table tr td.input, .login table tr td.input input { text-align:left; width:128px;}
 .login table tr td.button {text-align:center; padding:6px 6px 16px;}
+.login table.browsers tr td { padding: 8px 16px;}
 /*div.flash-error {text-align:center; color:red; font-style:italic;height:20px;padding: 16px; margin-top: 64px;}*/
 
 .window { padding:4px; background: #EEE; border: 1px solid #AAA; margin: 8px;}

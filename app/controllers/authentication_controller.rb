@@ -19,14 +19,14 @@
 require "digest/sha2"
 
 class AuthenticationController < ApplicationController
-  
+
   def index
     redirect_to :action=>:login
   end
   
   def login
     if request.post?
-      puts "POST : "+session[:last_session].inspect+" jhbjbjb"+session.inspect+" all !!! "+session.inspect
+      # puts "POST : "+session[:last_session].inspect+" jhbjbjb"+session.inspect+" all !!! "+session.inspect
       name = params[:user][:name]
       company = nil
       sep = /[^a-z0-9\.\_]+/i
@@ -67,19 +67,19 @@ class AuthenticationController < ApplicationController
       # @company = Company.new(params[:company])
       # @user = User.new(params[:user])
       # saved = true
-     
+      
       #ActiveRecord::Base.transaction do
-        
-       # saved = @company.save
-       # if saved
-       #   @user.company_id = @company.id
-       #   @user.role_id = @company.admin_role.id
-       #   saved = false unless @user.save
-       # end
-       # if params[:demo] and saved 
-       #   Company.load_demo_data("fr-FR", @company) 
-       # end
-       # raise ActiveRecord::Rollback unless saved            
+      
+      # saved = @company.save
+      # if saved
+      #   @user.company_id = @company.id
+      #   @user.role_id = @company.admin_role.id
+      #   saved = false unless @user.save
+      # end
+      # if params[:demo] and saved 
+      #   Company.load_demo_data("fr-FR", @company) 
+      # end
+      # raise ActiveRecord::Rollback unless saved            
       #end
       #if saved
       @user, @company = Company.create_with_data(params[:company], params[:user])
@@ -95,7 +95,7 @@ class AuthenticationController < ApplicationController
     end
   end
   
-   def logout
+  def logout
     session[:user_id] = nil    
     session[:last_controller] = nil
     session[:last_action] = nil
@@ -116,5 +116,5 @@ class AuthenticationController < ApplicationController
     session[:side]         = true
     session[:user_id]      = user.id
   end
-  
+
 end
