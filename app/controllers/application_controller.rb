@@ -29,6 +29,12 @@ class ApplicationController < ActionController::Base
   include ExceptionNotifiable
   local_addresses.clear
 
+  for k, v in EKYLIBRE_REFERENCES
+    for c, t in v
+      raise Exception.new("#{k}.#{c} is not filled.") if t.blank?
+      t.to_s.classify.constantize if t.is_a? Symbol
+    end
+  end
   
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store

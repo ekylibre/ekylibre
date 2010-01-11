@@ -1,7 +1,6 @@
 fr-FR:
   models:
     company:
-
       mini_accounting_system:
         1: "COMPTES DE CAPITAUX"
         101: "Capital"
@@ -117,8 +116,6 @@ fr-FR:
         809: "Contrepartie des engagements*"
         88: "Résultat en instance d'affectation*"
         89: "Bilan*"
-
-
       accounting_system:
         1: "COMPTES DE CAPITAUX"
         10: "Capital et réserves"
@@ -586,4 +583,3 @@ fr-FR:
         8092: "Contrepartie 802*"
         88: "Résultat en instance d'affectation*"
         89: "Bilan*"
-         

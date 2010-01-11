@@ -298,7 +298,7 @@ class RelationsController < ApplicationController
     redirect_to_current
   end
    
-  dyta(:entities, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)", :order=>"LPAD(entities.code, 16, '0')") do |t|
+  dyta(:entities, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)", :order=>"entities.code") do |t|
     t.column :active, :label=>'♦'
     t.column :code, :url=>{:action=>:entity}
     t.column :abbreviation, :through=>:nature
@@ -311,7 +311,6 @@ class RelationsController < ApplicationController
   end
 
   dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
-
 
   #
   def entities

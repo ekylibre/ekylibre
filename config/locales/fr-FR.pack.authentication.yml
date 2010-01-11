@@ -13,15 +13,15 @@ fr-FR:
     authentication:
       login:
         bad_browser:
-          title: 'Il semblerai que vous utilisiez un navigateur obsolète'
           explanation: 'Cette version de navigateur n''est pas supportée par Ekylibre. En utilisant ce navigateur, les pages ne seraient pas affichées correctement et des fonctionnalités seraient manquantes.'
           proposal: 'S''il vous plait, envisagez de vous mettre à jour avec l''un de ces navigateurs récents :'
+          title: 'Il semblerai que vous utilisiez un navigateur obsolète'
           wb:
-            firefox: Firefox
-            chrome: Chrome
-            safari: Safari
-            opera: Opéra
-            ie: Internet Explorer
+            chrome: 'Chrome'
+            firefox: 'Firefox'
+            ie: 'Internet Explorer'
+            opera: 'Opéra'
+            safari: 'Safari'
         connect: 'Entrer'
         download_firefox: 'Télécharger Mozilla Firefox...'
         lost_login: 'Nom d''utilisateur oublié ?'

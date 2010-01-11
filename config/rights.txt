@@ -137,6 +137,7 @@ help             close                            __minimum__
 help             previous                         __minimum__
 help             search                           __minimum__
 help             side                             __minimum__
+management       shelf_products_dyta              [new_right]
 management       all_contacts_dyli                administrate_management
 management       critic_product_stocks_dyta       administrate_management
 management       index                            administrate_management

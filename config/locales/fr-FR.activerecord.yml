@@ -1199,10 +1199,10 @@ fr-FR:
         location_id: 'Lieu de stockage'
         lock_version: 'Version'
         moved_on: 'Fait le'
-        planned_on: Prévu le
+        planned_on: 'Prévu le'
         product_id: 'Produit'
         quantity: 'Quantité'
-        shape_id: Parcelle
+        shape_id: 'Parcelle'
         tracking_id: 'Lot'
         tracking_serial: 'Numéro de lot'
         updated_at: 'Mis à jour le'

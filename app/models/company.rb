@@ -149,90 +149,7 @@ class Company < ActiveRecord::Base
     self.id
   end
 
-  def self.create_with_data(company_attr=nil, user_attr=nil, demo=nil)
-    company = Company.new(company_attr)
-    user = User.new(user_attr)
-    @saved = true
 
-    ActiveRecord::Base.transaction do
-      @saved = company.save
-      if @saved
-        language = company.languages.create!(:name=>'Français', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
-        company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
-        company.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
-        user.company_id = company.id
-        user.role_id = company.admin_role.id
-        @saved = false unless user.save
-      end
-      if @saved
-        tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
-          begin
-            account = company.accounts.find_by_number(a[0].to_s)
-            if account 
-              account.update_attributes!(:name=>a[1])
-            else
-              company.accounts.create!(:number=>a[0].to_s, :name=>a[1])
-            end
-          rescue Exception
-            
-          end
-        end
-        
-        company.set_parameter('general.language', language)
-        company.departments.create!(:name=>tc('default.department_name'))
-        company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
-        currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
-        company.shelves.create(:name=>tc('default.shelf_name'))
-        company.load_units
-        
-        taxes = []
-        taxes = {:name=>tc('default.tva000'),  :nature=>'percent', :amount=>0.00}, {:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021}, {:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055}, {:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196} 
-        taxes.each do |tax|
-          company.taxes.create!(:name=>tax[:name], :nature=>tax[:nature], :amount=>tax[:amount], :account_collected_id=>company.account(tax[:amount],tax[:name],true), :account_paid_id=>company.account(tax[:amount], tax[:name],false) )
-        end
-        
-        company.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
-        company.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
-        company.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
-        undefined_nature = company.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false, :physical=>false)
-        category = company.entity_categories.create!(:name=>'user')
-        firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>company.name)
-        company.entity_id = firm.id
-        company.save
-        company.entity.contacts.create!(:company_id=>company.id, :line_2=>"", :line_3=>"", :line_5=>"", :line_6=>'12345 MAVILLE', :default=>true)
-        
-        # loading of all the templates
-        company.load_prints
-        
-        company.payment_modes.create!(:name=>tc('default.check'), :company_id=>company.id)
-        delays = []
-        ['expiration', 'standard', 'immediate'].each do |d|
-          delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
-        end
-        company.entity_categories.create!(:name=>tc('default.category'))
-        company.financialyears.create!(:started_on=>Date.today)
-        company.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
-        
-        company.set_parameter('accountancy.default_journals.sales', company.journals.create!(:name=>tc('default.journals.sales'), :nature=>"sale", :currency_id=>currency.id))
-        company.set_parameter('accountancy.default_journals.purchases', company.journals.create!(:name=>tc('default.journals.purchases'), :nature=>"purchase", :currency_id=>currency.id))
-        company.set_parameter('accountancy.default_journals.bank', company.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
-        company.set_parameter('management.invoicing.numeration', company.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
-        company.set_parameter('relations.entities.numeration', company.sequences.create!(:name=>tc('default.entities_numeration'), :format=>'[number|8]', :period=>'number'))
-        company.set_parameter('management.embankments.numeration', company.sequences.create!(:name=>tc('default.embankment_numeration'), :format=>'[number|4]', :period=>'year'))
-        company.set_parameter('management.subscriptions.numeration', company.sequences.create!(:name=>tc('default.subscription_numeration'), :format=>'[number|6]', :period=>'number'))
-        
-        company.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id)
-        company.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))
-        company.event_natures.create!(:duration=>10, :usage=>"invoice", :name=>tc(:invoice_creation))
-        company.event_natures.create!(:duration=>10, :usage=>"purchase_order", :name=>tc(:purchase_order_creation))
-        
-        company.employees.create!(:user_id=>user.id, :commercial=>false, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :first_name=>user.first_name, :last_name=>user.last_name, :title=>tc('default.admin'))
-      end
-      raise ActiveRecord::Rollback unless @saved      
-    end
-    return user, company
-  end
-  
 
 
   def account(tax_amount, tax_name, collected)
@@ -288,6 +205,7 @@ class Company < ActiveRecord::Base
   end
 
   def available_products(options={})
+    options[:conditions] ||= {}
     options[:conditions].merge!(:active=>true)
     options[:order] ||= 'name'
     self.products.find(:all, options)
@@ -320,10 +238,10 @@ class Company < ActiveRecord::Base
     self.financialyears.find(:last, :conditions => "closed = false", :order=>"started_on ASC")
   end
 
-#   def productable_products
-#     #Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (supply_method = 'produce' OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
-#     Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (to_produce OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
-#   end
+  #   def productable_products
+  #     #Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (supply_method = 'produce' OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
+  #     Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (to_produce OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
+  #   end
 
   def imported_entity_nature(row)
     if row.blank?
@@ -424,20 +342,13 @@ class Company < ActiveRecord::Base
     n = 0
     start = Time.now.to_i
     models = EKYLIBRE_MODELS.delete_if{|x| x==:company}
-    #reflections = self.class.reflections
-
-    for name in models # reflections.keys.collect{|x| x.to_s}.sort
-      # reflection = reflections[name.to_sym]
-      # if reflection.macro==:has_many
-      # rows = self.send(name.to_sym).find(:all, :order=>:id)
-      rows = name.to_s.camelcase.constantize.find(:all, :conditions=>{:company_id=>self.id}, :order=>:id)
+    for model in models
+      rows = model.to_s.classify.constantize.find(:all, :conditions=>{:company_id=>self.id}, :order=>:id)
       rows_count = rows.size
       n += rows_count
       root << table = XML::Node.new('rows')
-      {'reflection'=>name.to_s.pluralize, 'records-count'=>rows_count.to_s}.each{|k,v| table[k]=v}
-      #table = root.add_element('rows', )
+      {'model'=>model.to_s, 'records-count'=>rows_count.to_s}.each{|k,v| table[k]=v}
       rows_count.times do |i|
-        # puts i if i%200==0
         table << row = XML::Node.new('row')
         rows[i].attributes.each{|k,v| row[k] = v.to_s}
       end
@@ -496,153 +407,101 @@ class Company < ActiveRecord::Base
       # Suppression des données
       puts "R> Removing existing data..."
       ids  = {}
-      keys = {}
-      fkeys = {}
-      reflections = self.class.reflections
-      for name in reflections.keys.collect{|x| x.to_s}.sort
-        reflection = reflections[name.to_sym]
-        if reflection.macro==:has_many
-          other = reflection.class_name
-          other_class = other.constantize
-          ids[other] = keys[other] = {}
-          fkeys[other] = []
-          for name, ref in other_class.reflections
-            # Ex. : keys["User"]["role_id"] = "Role"
-            keys[other][ref.primary_key_name] = (ref.options[:polymorphic] ? ref.options[:foreign_type].to_sym : ref.class_name) if ref.macro==:belongs_to and ref.class_name!=self.class.name
-            fkeys[other] << ref.primary_key_name if ref.macro==:belongs_to and ref.class_name!=self.class.name
-          end
-          other_class.delete_all(:company_id=>self.id)
-        elsif reflection.macro==:belongs_to
-          keys[self.class.name] ||= {}
-          keys[self.class.name][reflection.primary_key_name] = reflection.class_name
-        end
+      models = EKYLIBRE_MODELS # .delete_if{|x| x==:company}
+      for model in models
+        other_class = model.to_s.classify.constantize
+        other_class.delete_all(:company_id=>self.id) if other_class != self.class
       end
 
 
       # Chargement des données sauvegardées
       puts "R> Loading backup data..."
       data = {}
+      keys = {}
       children = root.children
       elements = []
       children.size.times{|i| elements << {:index=>i, :attributes=>children[i].attributes} if children[i].element? }
       code = ''
+      timed = false
       for element in elements
-        reflection = self.class.reflections[element[:attributes]['reflection'].to_sym]
-        klass = reflection.class_name.constantize
-        foreign_keys = keys[reflection.class_name].collect{|key, v| ":#{key}=>record.#{key}"}
-        code += "puts('R> - #{reflection.name.to_s} (#{element[:attributes]['records-count']})')\n" 
-        code += "start, tdb1, tdb2p = Time.now, 0, 0\n"
-        code += "data['#{reflection.class_name}'] ||= []\n" if foreign_keys.size>0
+        model_name = nil
+        if element[:attributes]['reflection']
+          model_name = element[:attributes]['reflection'].singularize.to_sym
+        elsif EKYLIBRE_MODELS.include? element[:attributes]['model'].to_sym
+          model_name = element[:attributes]['model'].to_sym
+        else
+          raise Exception.new("Unknown model #{element.inspect}")
+        end
+        model = model_name.to_s.classify.constantize
+        keys[model.name] = EKYLIBRE_REFERENCES[model_name].select{|k,v| v != :company}.to_a
+        code += "puts('R> - #{model.name} (#{element[:attributes]['records-count']})')\n"
+        code += "start, tdb1, tdb2p = Time.now, 0, 0\n" if timed
+        code += "data['#{model.name}'] = []\n"
+        code += "ids['#{model.name}'] = {}\n"
         code += "children[#{element[:index]}].each_element do |r|\n"
         code += "  attributes = r.attributes.to_h\n"
         code += "  id = attributes['id']\n"
-        code += "  dstart = Time.now\n"
+        code += "  dstart = Time.now\n" if timed
 
-        code += "  record = self.#{reflection.name}.new\n"
-        klass.columns_hash.keys.delete_if{|k| k=='id' or k=='company_id'}.each do |attr|
+        code += "  record = #{model.name}.new(:company_id=>#{self.id})\n"
+        model.columns_hash.keys.delete_if{|k| k=='id' or k=='company_id'}.each do |attr|
           code += "  record.#{attr} = attributes['#{attr}']\n"
         end
 
-        code += "  tdb1 += Time.now-dstart\n"
+        code += "  tdb1 += Time.now-dstart\n" if timed
         code += "  record.send(:create_without_callbacks)\n"
-        code += "  tdb2p += Time.now-dstart\n"
-        code += "  ids['#{reflection.class_name}'][id] = record.id\n"
-        code += "  data['#{reflection.class_name}'] << [record.id, #{fkeys[reflection.class_name].collect{|f| keys[reflection.class_name][f].is_a?(Symbol) ? '[record.'+keys[reflection.class_name][f].to_s+', record.'+f.to_s+']' : 'record.'+f.to_s}.join(', ')}]\n" if fkeys[reflection.class_name].size>0
-        #code += "  data['#{reflection.class_name}'][record.id] = {#{foreign_keys.join(', ')}}\n" if foreign_keys.size>0
+        code += "  tdb2p += Time.now-dstart\n" if timed
+        code += "  ids['#{model.name}'][id] = record.id\n"
+        # Load initial value of the keys to be renamed easily after.
+        code += "  data['#{model.name}'] << [record.id, #{keys[model.name].collect{|key, target| target.is_a?(Symbol) ? 'record.'+key.to_s : '[record.'+target.to_s+', record.'+key.to_s+']'}.join(', ')}]\n"
         code += "end\n"
-        if element[:attributes]['records-count'].to_i>30
+        if element[:attributes]['records-count'].to_i>30 and timed
           code += "duration, tdb2 = Time.now-start, tdb2p-tdb1\n"
           code += "duration = Time.now-start\n"
           code += "puts 'R>     T: '+duration.to_s[0..6]+' | TDB1: '+tdb1.to_s[0..6]+' | TDB2: '+tdb2.to_s[0..6]+' | RS: '+(duration-tdb2p).to_s[0..6]+' | AVG(TDB1): '+(tdb1/#{element[:attributes]['records-count']}).to_s[0..6]+' | AVG(TDB2): '+(tdb2/#{element[:attributes]['records-count']}).to_s[0..6]\n"
-          # code += "puts 'R>     *****************************' if (tdb1>tdb2)\n" 
         end
       end
       File.open("/tmp/restore-1.rb", "wb") {|f| f.write(code)}
       eval(code)
-
-      #       data = {}
-      #       root.each_element do |table|
-      #         reflection = self.class.reflections[table.attributes['reflection'].to_sym]
-      #         start = Time.now.to_i
-      #         puts('R> - '+reflection.name.to_s+' ('+table.attributes['records-count'].to_s+')')
-      #         klass = reflection.class_name.constantize
-      #         foreign_keys = keys[reflection.class_name].collect{|key| ":#{key}=>record.#{key}"}
-      #         code =  "x = 0\n"
-      #         code += "data[:#{reflection.name}] = []\n" if foreign_keys.size>0
-      #         code += "table.each_element do |r|\n"
-      #         code += "  x += 1\n"
-      #         code += "  puts x.to_s if x.modulo(1000)==0\n"
-      #         code += "  attributes = r.attributes\n"
-      #         code += "  id = attributes['id']\n"
-      #         unbuildable = (['company_id', 'id']+klass.protected_attributes.to_a)
-      #         code += "  record = self.#{reflection.name}.build("+klass.columns_hash.keys.delete_if{|x| unbuildable.include? x.to_s}.collect do |col|
-      #           ":#{col}=>attributes['#{col}']"
-      #         end.join(", ")+")\n"
-      #         klass.protected_attributes.to_a.each do |attr|
-      #           code += "  record.#{attr} = attributes['#{attr}']\n"
-      #         end
-      #         code += "  record.send(:create_without_callbacks)\n"
-      #         code += "  ids[#{reflection.class_name.inspect}][id] = record.id\n"
-      #         code += "  data[:#{reflection.name}] << {:id=>record.id#{foreign_keys}}\n" if foreign_keys.size>0
-      #         code += "end"
-      #         puts code
-      #         eval(code)
-      #         duration = Time.now.to_i-start
-      #         puts duration.to_s+' secondes' if duration > 5
-      #       end
       
-
+      # raise Exception.new(data.inspect)
       # Réorganisation des clés étrangères
       puts "R> Redifining primary keys..."
       code  = ''
-      for reflection in data.keys
-        # klass = Company.reflections[reflection].class_name
-        klass = reflection
 
+      for model_name in EKYLIBRE_MODELS
+        model = model_name.to_s.classify.constantize
 
         new_ids = "'"
-        for i in 1..fkeys[klass].size
-          key = fkeys[klass][i-1]
-          class_name = keys[klass][key]
-          new_ids += (i>1 ? "+', " : "")+"#{key}='+"
-          if class_name.is_a? Symbol
-            new_ids += "((ids[record[#{i}][0]][record[#{i}][1].to_s])||record[#{i}][1]||'NULL').to_s"
-          else
-            new_ids += "((ids['#{class_name}'][record[#{i}].to_s])||record[#{i}]||'NULL').to_s"
+        for i in 1..keys[model.name].size
+          reference = keys[model.name][i-1]
+          target = reference[1]
+          new_ids += (i>1 ? "+', " : "")+"#{reference[0]}='+"
+          if target.is_a? String # Polymorphic
+            new_ids += "((ids[record[#{i}][0]] ? (ids[record[#{i}][0]][record[#{i}][1].to_s]) : nil)||record[#{i}][1]||'NULL').to_s"
+          else # Classic reference
+            new_ids += "((ids['#{target.to_s.classify}'][record[#{i}].to_s])||record[#{i}]||'NULL').to_s"
           end
         end
-
-        #         new_ids = "'"+fkeys[klass].collect do |key|
-        #           class_name = keys[klass][key]
-        #           "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
-        #         end.join("+', ")
-        #         new_ids = "'"+keys[klass].collect do |key, class_name|
-        #           "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
-        #         end.join("+', ")
-        code += "for record in data['#{reflection}']\n"
-        code += "  #{klass}.update_all(#{new_ids}, 'id='+record[0].to_s)\n"
+        code += "for record in data['#{model.name}']\n"
+        code += "  #{model.name}.update_all(#{new_ids}, 'company_id=#{self.id} AND id='+record[0].to_s)\n"
         code += "end\n"
-        #        klass = Company.reflections[reflection].class_name
-        #        new_ids = "'"+keys[klass].collect do |key, class_name|
-        #          "#{key}='+((ids[#{class_name.is_a?(Symbol) ? 'record[\''+class_name.to_s+'\']' : class_name.inspect}][record['#{key}'].to_s])||record['#{key}']||'NULL').to_s"
-        #        end.join("+', ")
-        #        code += "for record in data[:#{reflection}]\n"
-        #        code += "  #{klass}.update_all(#{new_ids}, 'id='+record.id.to_s)\n"
-        #        code += "end\n"
       end
+
       File.open("/tmp/restore-2.rb", "wb") {|f| f.write(code)}      
-      #      raise Exception.new
       start = Time.now
       eval(code)
       puts "R> Total: #{(Time.now-start)}s"
+
+
 
       # Chargement des paramètres de la société
       puts "R> Loading company data..."
       attrs = root.attributes.each do |attr|
         self.send(attr.name+'=', attr.value) unless ['id', 'lock_version', 'code'].include? attr.name
       end
-      for key, class_name in keys[self.class.name]
-        v = ids[class_name][self[key].to_s]
+      for key, target in EKYLIBRE_REFERENCES[self.class.name.underscore.to_sym]
+        v = ids[target.to_s.classify][self[key].to_s]
         self[key] = v unless v.nil?
       end
       self.send(:update_without_callbacks)
@@ -713,6 +572,189 @@ class Company < ActiveRecord::Base
     return csv_string
   end
   
+
+
+
+
+
+
+
+
+  def self.create_with_data(company_attr=nil, user_attr=nil, demo_language_code=nil)
+    company = Company.new(company_attr)
+    user = User.new(user_attr)
+
+    ActiveRecord::Base.transaction do
+      company.save!
+      language = company.languages.create!(:name=>'Français', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
+      company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
+      company.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
+      user.company_id = company.id
+      user.role_id = company.admin_role.id
+      user.save!
+      tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
+        begin
+          account = company.accounts.find_by_number(a[0].to_s)
+          if account 
+            account.update_attributes!(:name=>a[1])
+          else
+            company.accounts.create!(:number=>a[0].to_s, :name=>a[1])
+          end
+        rescue Exception
+          
+        end
+      end
+
+      company.set_parameter('general.language', language)
+      company.departments.create!(:name=>tc('default.department_name'))
+      company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
+      currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
+      company.shelves.create(:name=>tc('default.shelf_name'))
+      company.load_units
+      
+      taxes = []
+      taxes = {:name=>tc('default.tva000'),  :nature=>'percent', :amount=>0.00}, {:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021}, {:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055}, {:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196} 
+      taxes.each do |tax|
+        company.taxes.create!(:name=>tax[:name], :nature=>tax[:nature], :amount=>tax[:amount], :account_collected_id=>company.account(tax[:amount],tax[:name],true), :account_paid_id=>company.account(tax[:amount], tax[:name],false) )
+      end
+      
+      company.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
+      company.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
+      company.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
+      undefined_nature = company.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false, :physical=>false)
+      category = company.entity_categories.create!(:name=>'user')
+      firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>company.name)
+      company.entity_id = firm.id
+      company.save
+      company.entity.contacts.create!(:company_id=>company.id, :line_2=>"", :line_3=>"", :line_5=>"", :line_6=>'12345 MAVILLE', :default=>true)
+      
+      # loading of all the templates
+      company.load_prints
+      
+      company.payment_modes.create!(:name=>tc('default.check'), :company_id=>company.id)
+      delays = []
+      ['expiration', 'standard', 'immediate'].each do |d|
+        delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
+      end
+      company.entity_categories.create!(:name=>tc('default.category'))
+      company.financialyears.create!(:started_on=>Date.today)
+      company.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
+      
+      company.set_parameter('accountancy.default_journals.sales', company.journals.create!(:name=>tc('default.journals.sales'), :nature=>"sale", :currency_id=>currency.id))
+      company.set_parameter('accountancy.default_journals.purchases', company.journals.create!(:name=>tc('default.journals.purchases'), :nature=>"purchase", :currency_id=>currency.id))
+      company.set_parameter('accountancy.default_journals.bank', company.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
+      company.set_parameter('management.invoicing.numeration', company.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
+      company.set_parameter('relations.entities.numeration', company.sequences.create!(:name=>tc('default.entities_numeration'), :format=>'[number|8]', :period=>'number'))
+      company.set_parameter('management.embankments.numeration', company.sequences.create!(:name=>tc('default.embankment_numeration'), :format=>'[number|4]', :period=>'year'))
+      company.set_parameter('management.subscriptions.numeration', company.sequences.create!(:name=>tc('default.subscription_numeration'), :format=>'[number|6]', :period=>'number'))
+      
+      company.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id)
+      company.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))
+      company.event_natures.create!(:duration=>10, :usage=>"invoice", :name=>tc(:invoice_creation))
+      company.event_natures.create!(:duration=>10, :usage=>"purchase_order", :name=>tc(:purchase_order_creation))
+      
+      company.employees.create!(:user_id=>user.id, :commercial=>false, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :first_name=>user.first_name, :last_name=>user.last_name, :title=>tc('default.admin'))
+
+      # Add complementary data to test
+      company.load_demo_data unless demo_language_code.blank?
+    end
+    return company, user
+  end
+  
+
+
+
+
+
+  #   def self.create_with_data(company_attr=nil, user_attr=nil, demo=nil)
+  #     company = Company.new(company_attr)
+  #     user = User.new(user_attr)
+  #     @saved = true
+
+  #     ActiveRecord::Base.transaction do
+  #       @saved = company.save
+  #       if @saved
+  #         language = company.languages.create!(:name=>'Français', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
+  #         company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
+  #         company.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
+  #         user.company_id = company.id
+  #         user.role_id = company.admin_role.id
+  #         @saved = false unless user.save
+  #       end
+  #       if @saved
+  #         tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
+  #           begin
+  #             account = company.accounts.find_by_number(a[0].to_s)
+  #             if account 
+  #               account.update_attributes!(:name=>a[1])
+  #             else
+  #               company.accounts.create!(:number=>a[0].to_s, :name=>a[1])
+  #             end
+  #           rescue Exception
+  
+  #           end
+  #         end
+  
+  #         company.set_parameter('general.language', language)
+  #         company.departments.create!(:name=>tc('default.department_name'))
+  #         company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
+  #         currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
+  #         company.shelves.create(:name=>tc('default.shelf_name'))
+  #         company.load_units
+  
+  #         taxes = []
+  #         taxes = {:name=>tc('default.tva000'),  :nature=>'percent', :amount=>0.00}, {:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021}, {:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055}, {:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196} 
+  #         taxes.each do |tax|
+  #           company.taxes.create!(:name=>tax[:name], :nature=>tax[:nature], :amount=>tax[:amount], :account_collected_id=>company.account(tax[:amount],tax[:name],true), :account_paid_id=>company.account(tax[:amount], tax[:name],false) )
+  #         end
+  
+  #         company.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
+  #         company.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
+  #         company.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
+  #         undefined_nature = company.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false, :physical=>false)
+  #         category = company.entity_categories.create!(:name=>'user')
+  #         firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>company.name)
+  #         company.entity_id = firm.id
+  #         company.save
+  #         company.entity.contacts.create!(:company_id=>company.id, :line_2=>"", :line_3=>"", :line_5=>"", :line_6=>'12345 MAVILLE', :default=>true)
+  
+  #         # loading of all the templates
+  #         company.load_prints
+  
+  #         company.payment_modes.create!(:name=>tc('default.check'), :company_id=>company.id)
+  #         delays = []
+  #         ['expiration', 'standard', 'immediate'].each do |d|
+  #           delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
+  #         end
+  #         company.entity_categories.create!(:name=>tc('default.category'))
+  #         company.financialyears.create!(:started_on=>Date.today)
+  #         company.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
+  
+  #         company.set_parameter('accountancy.default_journals.sales', company.journals.create!(:name=>tc('default.journals.sales'), :nature=>"sale", :currency_id=>currency.id))
+  #         company.set_parameter('accountancy.default_journals.purchases', company.journals.create!(:name=>tc('default.journals.purchases'), :nature=>"purchase", :currency_id=>currency.id))
+  #         company.set_parameter('accountancy.default_journals.bank', company.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
+  #         company.set_parameter('management.invoicing.numeration', company.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
+  #         company.set_parameter('relations.entities.numeration', company.sequences.create!(:name=>tc('default.entities_numeration'), :format=>'[number|8]', :period=>'number'))
+  #         company.set_parameter('management.embankments.numeration', company.sequences.create!(:name=>tc('default.embankment_numeration'), :format=>'[number|4]', :period=>'year'))
+  #         company.set_parameter('management.subscriptions.numeration', company.sequences.create!(:name=>tc('default.subscription_numeration'), :format=>'[number|6]', :period=>'number'))
+  
+  #         company.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id)
+  #         company.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))
+  #         company.event_natures.create!(:duration=>10, :usage=>"invoice", :name=>tc(:invoice_creation))
+  #         company.event_natures.create!(:duration=>10, :usage=>"purchase_order", :name=>tc(:purchase_order_creation))
+  
+  #         company.employees.create!(:user_id=>user.id, :commercial=>false, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :first_name=>user.first_name, :last_name=>user.last_name, :title=>tc('default.admin'))
+  #       end
+  #       raise ActiveRecord::Rollback unless @saved      
+  #     end
+  #     return user, company
+  #   end
+  
+
+
+
+
+
   # this method loads all the templates existing.
   def load_prints
     language = self.entity.language
@@ -745,26 +787,26 @@ class Company < ActiveRecord::Base
   def import_entities
   end
 
-  def self.load_demo_data(locale="fr-FR", company=nil)
-    company.load_demo_data(company) if company
-  end
+#   def self.load_demo_data(locale="fr-FR", company=nil)
+#     company.load_demo_data(company) if company
+#   end
   
-  def load_demo_data(company)
-    company.entity_natures.create!(:name=>"Société A Responsabilité Limitée", :abbreviation=>"SARL", :in_name=>true)
-    last_name = ["MARTIN","DUPONT","DURAND","CHIRAC", "LABAT", "VILLENEUVE", "SICARD", "FRERET", "FOUCAULT", "DUPEYRON", "BORGÈS", "DUBOIS", "LEROY", "MOREL", "GUERIN", "MORIN", "ROUSSEAU", "LEMAIRE", "DUVAL", "BRUN", "FERNANDEZ", "BRETON", "LEBLANC", "DA SILVA", "CORDIER", "BRIAND", "CAMUS", "VOISIN", "LELIEVRE", "GONZALEZ"]
-    first_name = ["Benoit", "Stéphane", "Marine", "Roger", "Céline", "Bertrand", "Julie", "Kévin", "Maxime", "Vincent", "Claire", "Marie-France", "Jean-Marie", "Anne-Marie", "Dominique", "Alain", "Daniel", "Sylvie", "Fabrice", "Nathalie", "Véronique", "Jeanine", "Edouard", "Colette", "Sébastien", "Rémi", "Joseph", "Baptiste", "Martine", "Guy"]
+  def load_demo_data(language_code=nil)
+    self.entity_natures.create!(:name=>"Société A Responsabilité Limitée", :abbreviation=>"SARL", :in_name=>true)
+    last_name = ["MARTIN", "DUPONT", "DURAND", "LABAT", "VILLENEUVE", "SICARD", "FRERET", "FOUCAULT", "DUPEYRON", "BORGÈS", "DUBOIS", "LEROY", "MOREL", "GUERIN", "MORIN", "ROUSSEAU", "LEMAIRE", "DUVAL", "BRUN", "FERNANDEZ", "BRETON", "LEBLANC", "DA SILVA", "CORDIER", "BRIAND", "CAMUS", "VOISIN", "LELIEVRE", "GONZALEZ"]
+    first_name = ["Benoît", "Stéphane", "Marine", "Roger", "Céline", "Bertrand", "Camille", "Dominique", "Julie", "Kévin", "Maxime", "Vincent", "Claire", "Marie-France", "Jean-Marie", "Anne-Marie", "Dominique", "Hakim", "Alain", "Daniel", "Sylvie", "Fabrice", "Nathalie", "Véronique", "Jeanine", "Edouard", "Colette", "Sébastien", "Rémi", "Joseph", "Baptiste", "Manuel", "Sofia", "Indira", "Martine", "Guy"]
     streets = ["Cours Xavier Arnozan", "Cours du général de Gaulle", "Route pavée", "Avenue Thiers", "Rue Gambetta", "5th Avenue", "rue Louis La Brocante", "Rue Léon Blum", "Avenue François Mittérand", "Cours de la marne"]
     cities = ["33000 Bordeaux", "33170 Gradignan", "40600 Biscarosse", "33400 Talence", "75001 Paris", "13000 Marseille", "33600 Pessac", "47000 Agen", "33710 Pugnac", "33700 Mérignac", "40000 Mont de Marsan"]
-    entity_natures = company.entity_natures.collect{|x| x.id.to_s}
-    indifferent_attributes = {:category_id=>company.entity_categories.first.id, :language_id=>company.languages.first.id}
+    entity_natures = self.entity_natures.collect{|x| x.id.to_s}
+    indifferent_attributes = {:category_id=>self.entity_categories.first.id, :language_id=>self.languages.first.id}
     products = ["Salades","Bouteille en verre 75 cl","Bouchon liège","Capsule CRD", "Capsule", "Étiquette", "Vin Saint-Emilion 2005", "Caisse Bois 6 btles", "Bouteille Saint-Emilion 2005 75 cl", "Caisse 6 b. Saint-Emilion 2005", "patates", "Séjour 1 nuit", "Séjour 1 semaine 1/2 pension", "Fongicide", "Insecticide"]
-    shelf_id = company.shelves.first.id
-    unit_id  = company.units.find(:first, :conditions=>{:name=>"u"}).id
-    category_id = company.entity_categories.first.id
-    taxes = company.taxes.collect{|x| x.id.to_s}
+    shelf_id = self.shelves.first.id
+    unit_id  = self.units.find(:first, :conditions=>{:name=>"u"}).id
+    category_id = self.entity_categories.first.id
+    taxes = self.taxes.collect{|x| x.id.to_s}
     
-    for x in 0..30
-      entity = company.entities.new(indifferent_attributes)
+    for x in 0..60
+      entity = self.entities.new(indifferent_attributes)
       entity.name = last_name[rand(last_name.size)]
       entity.first_name = first_name[rand(first_name.size)] if 
         entity.nature_id = entity_natures[rand(entity_natures.size).to_i]
@@ -774,30 +816,33 @@ class Company < ActiveRecord::Base
       entity.transporter = rand() > 0.9
       entity.first_name = '' unless entity.nature.physical
       entity.save! 
-      contact = entity.contacts.create!(:company_id=>company.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :line_6=>cities[rand(cities.size)], :default=>true)
+      contact = entity.contacts.create!(:company_id=>self.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :line_6=>cities[rand(cities.size)], :default=>true)
     end
-    company.entity_link_natures.create!(:name=>"Gérant - Société", :name_1_to_2=>"gère la société", :name_2_to_1=>"est une société qui a pour associé", :propagate_contacts=>true, :symmetric=>false)
-    company.subscription_natures.create!(:name=>"Abonement annuel", :nature=>"period", :reduction_rate=>0.1)
-    company.event_natures.create!(:name=>"Conversation téléphonique", :duration=>10, :usage=>"manual")
+    self.entity_link_natures.create!(:name=>"Gérant - Société", :name_1_to_2=>"gère la société", :name_2_to_1=>"est une société qui a pour associé", :propagate_contacts=>true, :symmetric=>false)
+    self.subscription_natures.create!(:name=>"Abonement annuel", :nature=>"period", :reduction_rate=>0.1)
+    self.event_natures.create!(:name=>"Conversation téléphonique", :duration=>10, :usage=>"manual")
     
+    # charge_account  = self.accounts.find_by_number("60")
+    product_account = self.accounts.find_by_number("7")
+    # raise Exception.new(self.accounts.size.inspect+ product_account.inspect)
     for product_name in products
-      product = company.products.create(:nature=>"product", :name=>product_name, :to_sale=>true, :to_produce=>true, :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true, :weight=>rand(3)) 
+      product = self.products.create!(:nature=>"product", :name=>product_name, :to_sale=>true, :to_produce=>true, :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true, :weight=>rand(3), :product_account_id=>product_account.id)
       product.reload
-      product.prices.create!(:amount=>rand(100), :company_id=>company.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size).to_i], :category_id=>category_id, :entity_id=>product.name.include?("icide") ? company.entities.find(:first, :conditions=>{:supplier=>true}).id : company.entity_id)
+      product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size).to_i], :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
     end
     
-    product = company.products.find_by_name("Caisse 6 b. Saint-Emilion 2005")
-    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Bouteille Saint-Emilion 2005 75 cl").id, :quantity=>6, :location_id=>company.stock_locations.first.id)
-    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Caisse Bois 6 btles").id, :quantity=>1, :location_id=>company.stock_locations.first.id)
+    product = self.products.find_by_name("Caisse 6 b. Saint-Emilion 2005")
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille Saint-Emilion 2005 75 cl").id, :quantity=>6, :location_id=>self.stock_locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Caisse Bois 6 btles").id, :quantity=>1, :location_id=>self.stock_locations.first.id)
 
-    product = company.products.find_by_name("Bouteille Saint-Emilion 2005 75 cl")
-    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Bouchon liège").id, :quantity=>1, :location_id=>company.stock_locations.first.id)
-    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Étiquette").id, :quantity=>1, :location_id=>company.stock_locations.first.id)
-    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Bouteille en verre 75 cl").id, :quantity=>1, :location_id=>company.stock_locations.first.id)
-    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Vin Saint-Emilion 2005").id, :quantity=>0.75, :location_id=>company.stock_locations.first.id)
-    company.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>company.products.find_by_name("Capsule CRD").id, :quantity=>1, :location_id=>company.stock_locations.first.id)
+    product = self.products.find_by_name("Bouteille Saint-Emilion 2005 75 cl")
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouchon liège").id, :quantity=>1, :location_id=>self.stock_locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Étiquette").id, :quantity=>1, :location_id=>self.stock_locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille en verre 75 cl").id, :quantity=>1, :location_id=>self.stock_locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Vin Saint-Emilion 2005").id, :quantity=>0.75, :location_id=>self.stock_locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Capsule CRD").id, :quantity=>1, :location_id=>self.stock_locations.first.id)
     
-    company.subscriptions.create!(:nature_id=>company.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>company.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
+    self.subscriptions.create!(:nature_id=>self.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>self.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
   end
 
 
