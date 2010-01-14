@@ -1219,7 +1219,7 @@ class AccountancyController < ApplicationController
         last_declaration = @current_company.tax_declarations.find(:last, :select=>"DISTINCT id, started_on, stopped_on, nature")
         if last_declaration.nil?
           @tax_declaration.nature = "normal"
-          last_financialyear = @current_company.financialyears.find(:last, :conditions=>["closed = 't'"])
+          last_financialyear = @current_company.financialyears.find(:last, :conditions=>{:closed => true})
           @tax_declaration.started_on = last_financialyear.started_on
           @tax_declaration.stopped_on = last_financialyear.started_on.end_of_month
         else

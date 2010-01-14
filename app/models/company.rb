@@ -212,12 +212,14 @@ class Company < ActiveRecord::Base
   end
 
   def available_prices(category_id=nil)
-    conditions = ["entity_id=? AND p.active AND prices.active", self.entity_id]
+    #conditions = ["entity_id=? AND p.active AND prices.active", self.entity_id]
+    conditions = {:entity_id=>self.entity_id, "p.active"=>true, "prices.active"=>true}
     if category_id
-      conditions[0] += " AND category_id=?"
-      conditions << category_id
+      conditions[:category_id] = category_id
+      #conditions[0] += " AND category_id=?"
+      #conditions << category_id
     end
-    self.prices.find(:all, :joins=>"JOIN products p ON (p.id=product_id)", :conditions=>conditions, :order=>"p.name, prices.amount")
+    self.prices.find(:all, :joins=>"JOIN products AS p ON (p.id=product_id)", :conditions=>conditions, :order=>"p.name, prices.amount")
   end
 
   def available_taxes(options={})

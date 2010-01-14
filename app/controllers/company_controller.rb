@@ -334,7 +334,7 @@ class CompanyController < ApplicationController
   def users
   end
 
-  dyta(:users, :conditions=>['company_id= ? AND deleted=?', ['@current_company.id'], false], :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t| 
+  dyta(:users, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}, :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t| 
     t.column :name
     t.column :first_name
     t.column :last_name
@@ -639,7 +639,7 @@ class CompanyController < ApplicationController
         end
         nature = @current_company.event_natures.find(:first, :conditions=>{:usage=>"mailing"}).nil? ? @current_company.event_natures.create!(:name=>tc(:mailing), :duration=>5, :usage=>"mailing").id : @current_company.event_natures.find(:first, :conditions=>{:usage=>"mailing"})
         #raise Exception.new nature.inspect
-        for contact in @current_company.contacts.find(:all, :conditions=>["email IN (?) AND active = true", @mails])
+        for contact in @current_company.contacts.find(:all, :conditions=>["email IN (?) AND active = ? ", @mails, true])
           @current_company.events.create!(:entity_id=>contact.entity_id, :started_at=>Time.now, :duration=>5, :nature_id=>nature.id, :employee_id=>@current_user.employee)
         end
         session[:listing_mail_column] = nil
