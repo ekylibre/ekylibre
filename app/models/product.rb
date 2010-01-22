@@ -30,7 +30,7 @@
 #  company_id             :integer          not null
 #  created_at             :datetime         not null
 #  creator_id             :integer          
-#  critic_quantity_min    :decimal(16, 2)   default(1.0)
+#  critic_quantity_min    :decimal(, )      default(1.0)
 #  description            :text             
 #  ean13                  :string(13)       
 #  id                     :integer          not null, primary key
@@ -39,10 +39,10 @@
 #  name                   :string(255)      not null
 #  nature                 :string(8)        not null
 #  number                 :integer          not null
-#  price                  :decimal(16, 2)   default(0.0)
+#  price                  :decimal(, )      default(0.0)
 #  product_account_id     :integer          
-#  quantity_max           :decimal(16, 2)   default(0.0)
-#  quantity_min           :decimal(16, 2)   default(0.0)
+#  quantity_max           :decimal(, )      default(0.0)
+#  quantity_min           :decimal(, )      default(0.0)
 #  reduction_submissive   :boolean          not null
 #  service_coeff          :float            
 #  shelf_id               :integer          not null
@@ -57,7 +57,7 @@
 #  unquantifiable         :boolean          not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer          
-#  weight                 :decimal(16, 3)   
+#  weight                 :decimal(, )      
 #
 
 class Product < ActiveRecord::Base
@@ -78,7 +78,7 @@ class Product < ActiveRecord::Base
   has_many :sale_order_lines
   has_many :stock_moves
   has_many :stock_transfers
-  has_many :stocks, :class_name=>ProductStock.to_s
+  has_many :stocks
   has_many :subscriptions
 
   @@natures = [:product, :service, :subscrip, :transfer]
@@ -184,32 +184,52 @@ class Product < ActiveRecord::Base
     self.subscription_nature.nature == "period" ? Delay.compute(period+", 1 day ago", Date.today) : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
   end
 
-  # Create virtual stock moves to reserve the products
-  def reserve_stock(quantity, options={})
-    add_stock_move(quantity, true, false, options)
-  end
-
-  # Create real stocks moves to update the real state of stocks
-  def take_stock_out(quantity, options={})
-    add_stock_move(quantity, false, false, options)
-  end
-
   def shelf_name
     self.shelf.name
   end
 
+
+  # Create real stocks moves to update the real state of stocks
+  def move_outgoing_stock(options={})
+    add_stock_move(false, false, options)
+  end
+
+  def move_incoming_stock(options={})
+    add_stock_move(false, true, options)
+  end
+
+  # Create virtual stock moves to reserve the products
+  def reserve_outgoing_stock(options={})
+    add_stock_move(true, false, options)
+  end
+
+  def reserve_incoming_stock(options={})
+    add_stock_move(true, true, options)
+  end
+
+
+
   private
   
-  def add_stock_move(quantity, virtual, input, options={})
-    if self.manage_stocks and quantity>0
-      attributes = options.merge(:quantity=>quantity, :virtual=>virtual, :input=>input, :generated=>true, :company_id=>self.company_id)
-      origin = options[:origin]
+  # Generic method to add stock move in product's stock
+  def add_stock_move(virtual, incoming, options={})
+    return true unless self.manage_stocks
+      # :quantity=>quantity, 
+    attributes = options.merge(:virtual=>virtual, :generated=>true, :company_id=>self.company_id)
+    origin = options[:origin]
+    if origin.is_a? ActiveRecord::Base
       code = [:number, :code, :name, :id].detect{|x| origin.respond_to? x}
-      attributes[:name] = tc('stock_move', :origin=>(origin ? tc("activerecord.models.#{origin.class.name.underscore}") : "*"), :code=>(origin ? origin.send(code) : "*"))
-      attributes[:location_id] ||= self.locations.first.id
-      attributes[:planned_on] ||= Date.today
-      self.stock_moves.create!(attributes)      
-    end    
+      attributes[:name] = tc('stock_move', :origin=>(origin ? ::I18n.t("activerecord.models.#{origin.class.name.underscore}") : "*"), :code=>(origin ? origin.send(code) : "*"))
+      for attribute in [:quantity, :unit_id, :tracking_id, :location_id, :product_id]
+        unless attributes.keys.include? attribute
+          attributes[attribute] ||= origin.send(attribute) rescue nil
+        end
+      end
+    end
+    attributes[:location_id] ||= self.locations.first.id
+    attributes[:planned_on] ||= Date.today
+    attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on
+    self.stock_moves.create!(attributes)
   end
 
   

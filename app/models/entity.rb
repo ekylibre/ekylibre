@@ -35,9 +35,8 @@
 #  creator_id                :integer          
 #  dead_on                   :date             
 #  deliveries_conditions     :string(60)       
-#  discount_rate             :decimal(8, 2)    
+#  discount_rate             :decimal(, )      
 #  ean13                     :string(13)       
-#  employee_id               :integer          
 #  excise                    :string(15)       
 #  first_met_on              :date             
 #  first_name                :string(255)      
@@ -53,8 +52,9 @@
 #  payment_mode_id           :integer          
 #  photo                     :string(255)      
 #  proposer_id               :integer          
-#  reduction_rate            :decimal(8, 2)    
+#  reduction_rate            :decimal(, )      
 #  reflation_submissive      :boolean          not null
+#  responsible_id            :integer          
 #  siren                     :string(9)        
 #  soundex                   :string(4)        
 #  supplier                  :boolean          not null
@@ -72,13 +72,12 @@ class Entity < ActiveRecord::Base
   belongs_to :client_account, :class_name=>Account.to_s
   belongs_to :category, :class_name=>EntityCategory.to_s
   belongs_to :company
-  belongs_to :employee
   belongs_to :language
   belongs_to :nature, :class_name=>EntityNature.to_s
-  #belongs_to :origin, :class_name=>MeetingLocation.to_s
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :payment_mode
   belongs_to :proposer, :class_name=>Entity.to_s
+  belongs_to :responsible, :class_name=>User.name
   belongs_to :supplier_account, :class_name=>Account.to_s
   has_many :bank_accounts
   has_many :complement_data
@@ -93,7 +92,7 @@ class Entity < ActiveRecord::Base
   has_many :prices
   has_many :purchase_orders, :foreign_key=>:supplier_id
   has_many :sale_orders, :foreign_key=>:client_id, :order=>"created_on desc"
-  has_many :stock_trackings, :foreign_key=>:producer_id
+  has_many :trackings, :foreign_key=>:producer_id
   has_many :subscriptions
   has_many :usable_payments, :conditions=>["parts_amount<amount"], :class_name=>Payment.name
   has_one :default_contact, :class_name=>Contact.name, :conditions=>{:default=>true, :active=>true}
@@ -204,7 +203,7 @@ class Entity < ActiveRecord::Base
 #   end
 
   def has_another_tracking?(serial, product_id)
-    self.stock_trackings.find(:all, :conditions=>["serial=? AND product_id!=? ", serial, product_id]).size > 0
+    self.trackings.find(:all, :conditions=>["serial=? AND product_id!=? ", serial, product_id]).size > 0
   end
 
 
@@ -261,11 +260,11 @@ class Entity < ActiveRecord::Base
   end
 
   def add_event(nature, user_id)
-    employee = self.company.employees.find_by_user_id(user_id)
-    if employee
+    user = self.company.users.find_by_id(user_id)
+    if user
       event_natures = self.company.event_natures.find_all_by_usage(nature.to_s)
       event_natures.each do |event_nature|
-        self.company.events.create!(:started_at=>Time.now, :nature_id => event_nature.id, :duration=>event_nature.duration, :entity_id=>self.id, :employee_id=>employee.id)
+        self.company.events.create!(:started_at=>Time.now, :nature_id => event_nature.id, :duration=>event_nature.duration, :entity_id=>self.id, :user_id=>user.id)
       end
     end
   end

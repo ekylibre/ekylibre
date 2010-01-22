@@ -21,12 +21,20 @@
 # == Table: users
 #
 #  admin             :boolean          default(TRUE), not null
+#  arrived_on        :date             
+#  comment           :text             
+#  commercial        :boolean          
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  credits           :boolean          default(TRUE), not null
-#  deleted           :boolean          not null
+#  deleted_at        :datetime         
+#  departed_on       :date             
+#  department_id     :integer          
 #  email             :string(255)      
+#  employed          :boolean          not null
+#  employment        :string(255)      
+#  establishment_id  :integer          
 #  first_name        :string(255)      not null
 #  free_price        :boolean          default(TRUE), not null
 #  hashed_password   :string(64)       
@@ -36,6 +44,8 @@
 #  lock_version      :integer          default(0), not null
 #  locked            :boolean          not null
 #  name              :string(32)       not null
+#  office            :string(255)      
+#  profession_id     :integer          
 #  reduction_percent :decimal(, )      default(5.0), not null
 #  rights            :text             
 #  role_id           :integer          not null
@@ -48,10 +58,19 @@ require "digest/sha2"
 
 class User < ActiveRecord::Base
   belongs_to :company
+  belongs_to :department
+  belongs_to :establishment
   belongs_to :language
+  belongs_to :profession
   belongs_to :role
+  has_many :clients, :class_name=>Entity.to_s, :foreign_key=>:responsible_id
+  has_many :events
   has_many :parameters
-  has_one :employee
+  has_many :sale_orders, :foreign_key=>:responsible_id
+  has_many :shape_operations, :foreign_key=>:responsible_id
+  has_many :transports, :foreign_key=>:responsible_id
+  
+
 
   validates_presence_of :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
   validates_confirmation_of :password
@@ -60,7 +79,7 @@ class User < ActiveRecord::Base
 
   # cattr_accessor :current_user
   attr_accessor :password_confirmation, :old_password
-  attr_protected :hashed_password, :salt, :locked, :deleted, :rights
+  attr_protected :hashed_password, :salt, :locked, :deleted_at, :rights
   attr_readonly :company_id
 
   # Needed to stamp all records
@@ -87,16 +106,6 @@ class User < ActiveRecord::Base
   def label
     self.first_name+' '+self.last_name
   end
-
-  def toto(nature, entity)
-    if self.employee
-      event_natures = self.company.event_natures.find_all_by_usage(nature.to_s)
-      event_natures.each do |event_nature|
-#        self.company.events.create!(:started_at=>Time.now, :nature_id => event_nature.id, :duration=>event_nature.duration, :entity_id=>entity.id, :employee_id=>self.employee.id)
-      end
-    end
-  end
-  
 
   def parameter(name, value=nil, nature=:string)
     p = self.parameters.find(:first, :order=>:id, :conditions=>{:name=>name})
@@ -145,7 +154,7 @@ class User < ActiveRecord::Base
       user = self.find_by_name_and_company_id(name.downcase, company.id)
     end
     if user
-      user = nil if user.locked or user.deleted or !user.authenticated?(password)
+      user = nil if user.locked or user.deleted_at or !user.authenticated?(password)
     end
     user
   end
@@ -172,11 +181,6 @@ class User < ActiveRecord::Base
     self.hashed_password == User.encrypted_password(password, self.salt)
   end
 
-  def employee_id
-    return self.employee.id if self.employee
-    nil
-  end
-  
   # Used for generic password creation
   def self.give_password(length=8, mode=:complex)
     User.generate_password(length, mode)
@@ -228,3 +232,33 @@ class User < ActiveRecord::Base
   
   User.initialize_rights
 end
+
+
+# class Emmployee < ActiveRecord::Base
+#   belongs_to :company
+#   belongs_to :department
+#   belongs_to :establishment
+#   belongs_to :profession
+#   belongs_to :user
+#   has_many :clients, :class_name=>Entity.to_s
+#   has_many :events
+#   has_many :sale_orders, :foreign_key=>:responsible_id
+#   has_many :shape_operations
+#   has_many :transports
+
+#   attr_readonly :company_id
+
+#   def before_validation
+#     self.last_name ||= self.user.last_name  
+#     self.first_name ||= self.user.first_name  
+#   end
+
+#   def full_name
+#     (self.last_name.to_s+" "+self.first_name.to_s).strip
+#   end
+
+#   def label
+#     (self.first_name.to_s+" "+self.last_name.to_s).strip
+#   end  
+
+# end

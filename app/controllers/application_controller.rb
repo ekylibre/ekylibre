@@ -221,7 +221,7 @@ class ApplicationController < ActionController::Base
     end
     
     if operations.include? :update
-      # this action updates an existing employee with a form.
+      # this action updates an existing record with a form.
       code += "def #{methods_prefix}_update\n"
       code += "  return unless @#{record_name} = find_and_check(:#{record_name}, params[:id])\n"
       code += "  if request.post? or request.put?\n"
@@ -239,7 +239,7 @@ class ApplicationController < ActionController::Base
     end
 
     if operations.include? :delete
-      # this action deletes or hides an existing employee.
+      # this action deletes or hides an existing record.
       code += "def #{methods_prefix}_delete\n"
       code += "  return unless @#{record_name} = find_and_check(:#{record_name}, params[:id])\n"
       code += "  if request.delete?\n"

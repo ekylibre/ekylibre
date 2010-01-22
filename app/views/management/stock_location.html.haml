@@ -1,6 +1,6 @@
 = toolbar do
   - link :stock_location_update, :id=>@stock_location.id
-  - link :stock_location
+  - link :stock_locations
 
 %table
   %tr
@@ -18,7 +18,6 @@
         =evalue @stock_location, :number
         =evalue @stock_location, :quantity_max
 
-%h2=tc :moves
-=toolbar do
-  -link :stock_move_create
-=dyta :stock_moves
+=tabbox(:location) do |tb|
+  -tb.tab :stocks, :content=>dyta(:stock_location_stocks)
+  -tb.tab :stock_moves, :content=>dyta(:stock_location_stock_moves)

@@ -9,15 +9,10 @@
   -f.field :user, :password
   -f.field :user, :password_confirmation
   -f.field :user, :admin
-  -if !@user.new_record?
-    -if @user.employee.nil?
-      -f.field  t("views.company._users_form.employee"), check_box_tag(:create_employee)
-  -else
-    -f.field  t("views.company._users_form.employee"), check_box_tag(:create_employee) 
+  -f.field :user, :employed
 
--if !@user.new_record?
-  -if @user.employee.nil?
-    #employee=render :partial=>"resources/employee_form", :locals=>{:create_user=>true}
+#employee{:style=>"display: #{@user.employed ? 'block' : 'none'}"}
+  =render :partial=>"resources/employee_form", :locals=>{:create_user=>true}
  
 =formalize(:id=>:show_rights) do |f|
   -f.title :rights
@@ -38,15 +33,17 @@
       $('rights').show();}
   }
   
-  function create_employee(){
-    if($('create_employee').checked){
-      $('employee').show();}
-    else{
-      $('employee').hide();}
+  function toggle_employee() {
+    if($('user_employed').checked) {
+      $('employee').slideDown();
+    } else {
+      $('employee').slideUp();
+    }
+    return false;
   }
   display_rights();
   create_employee();
 
-=observe_field("create_employee", :frequency=>0.25, :function=>"create_employee();" )
+=observe_field("user_employed", :frequency=>0.25, :function=>"toggle_employee();" )
 =observe_field("user_admin", :frequency=>0.25, :function=>"display_rights();" )
 =observe_field("user_role_id", :url=>{:action=>:user_create}, :update=>:rights, :frequency => 0.25 , :with=>"user_role_id")

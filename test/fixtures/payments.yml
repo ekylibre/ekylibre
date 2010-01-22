@@ -23,7 +23,7 @@
 #  account_id     :integer          
 #  account_number :string(255)      
 #  accounted_at   :datetime         
-#  amount         :decimal(16, 2)   not null
+#  amount         :decimal(, )      not null
 #  bank           :string(255)      
 #  check_number   :string(255)      
 #  company_id     :integer          not null
@@ -38,7 +38,7 @@
 #  mode_id        :integer          not null
 #  number         :string(255)      
 #  paid_on        :date             
-#  parts_amount   :decimal(16, 2)   
+#  parts_amount   :decimal(, )      
 #  received       :boolean          default(TRUE), not null
 #  scheduled      :boolean          not null
 #  to_bank_on     :date             default(CURRENT_DATE), not null

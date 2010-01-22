@@ -8,7 +8,7 @@
   - f.title :infos
   - f.field :shape_operation, :name
   - f.field :shape_operation, :shape_id, :choices=>@current_company.shapes.collect{|x| [x.name+" ( "+x.polygon+" )", x.id]}, :new=>{:action=>:shape_create}
-  - f.field :shape_operation, :employee_id, :choices=>@current_company.employees.collect{|x| [x.last_name+" "+x.first_name, x.id]}, :new=>{:controller=>:resources, :action=>:employee_create}
+  - f.field :shape_operation, :responsible_id, :choices=>@current_company.employees.collect{|x| [x.last_name+" "+x.first_name, x.id]}, :new=>{:controller=>:resources, :action=>:employee_create}
   - f.field :shape_operation, :nature_id, :choices=>@current_company.shape_operation_natures.collect{|x| [x.name, x.id]}, :new=>{:action=>:shape_operation_nature_create}
   - f.field :shape_operation, :planned_on
   - f.field :shape_operation, :description, :field=>:textarea

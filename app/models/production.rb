@@ -27,9 +27,10 @@
 #  location_id     :integer          not null
 #  lock_version    :integer          default(0), not null
 #  moved_on        :date             not null
+#  name            :string(255)      
 #  planned_on      :date             not null
 #  product_id      :integer          not null
-#  quantity        :decimal(16, 2)   default(0.0), not null
+#  quantity        :decimal(, )      default(0.0), not null
 #  shape_id        :integer          
 #  tracking_id     :integer          
 #  tracking_serial :string(255)      
@@ -42,6 +43,9 @@ class Production < ActiveRecord::Base
   belongs_to :company
   belongs_to :product
   belongs_to :location, :class_name=>StockLocation.to_s
+  belongs_to :tracking
+  has_one :real_stock_move, :class_name=>StockMove.name,  :conditions=>{:virtual=>false,  :input=>true}
+  has_one :virtual_stock_move, :class_name=>StockMove.name, :conditions=>{:virtual=>true, :input=>true}
 
   def before_validation
     self.planned_on = Date.today
@@ -53,8 +57,8 @@ class Production < ActiveRecord::Base
     unless self.tracking_serial.blank?
       producer = self.company.entity
       unless producer.has_another_tracking?(self.tracking_serial, self.product_id)
-        tracking = self.company.stock_trackings.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
-        tracking = self.company.stock_trackings.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
+        tracking = self.company.trackings.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
+        tracking = self.company.trackings.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
         self.tracking_id = tracking.id
       end
       self.tracking_serial.upper!
@@ -73,10 +77,14 @@ class Production < ActiveRecord::Base
 
  
   def before_update
-    old_real_move = StockMove.find(:first, :conditions=>{:company_id=>self.company_id, :origin_type=>Production.to_s, :origin_id=>self.id, :product_id=>self.product_id, :input=>true, :virtual=>false})
-    old_virtual_move = StockMove.find(:first, :conditions=>{:company_id=>self.company_id, :origin_type=>Production.to_s, :origin_id=>self.id, :product_id=>self.product_id, :input=>true, :virtual=>true})
-    old_real_move.update_attributes!(:quantity=>self.quantity, :location_id=>self.location_id)
-    old_virtual_move.update_attributes!(:quantity=>self.quantity, :location_id=>self.location_id)
+#     old_real_move = StockMove.find(:first, :conditions=>{:company_id=>self.company_id, :origin_type=>Production.to_s, :origin_id=>self.id, :product_id=>self.product_id, :input=>true, :virtual=>false})
+#     old_virtual_move = StockMove.find(:first, :conditions=>{:company_id=>self.company_id, :origin_type=>Production.to_s, :origin_id=>self.id, :product_id=>self.product_id, :input=>true, :virtual=>true})
+#     old_real_move.update_attributes!(:quantity=>self.quantity, :location_id=>self.location_id)
+#     old_virtual_move.update_attributes!(:quantity=>self.quantity, :location_id=>self.location_id)
+    self.real_stock_move.update_attributes!(:quantity=>self.quantity, :location_id=>self.location_id)
+    self.virtual_stock_move.update_attributes!(:quantity=>self.quantity, :location_id=>self.location_id)    
+
+    # self.product.move_to_stock
   end
 
 

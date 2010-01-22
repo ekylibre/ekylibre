@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: product_stocks
+# == Table: stocks
 #
 #  company_id               :integer          not null
 #  created_at               :datetime         not null
@@ -29,6 +29,7 @@
 #  id                       :integer          not null, primary key
 #  location_id              :integer          not null
 #  lock_version             :integer          default(0), not null
+#  name                     :string(255)      
 #  origin_id                :integer          
 #  origin_type              :string(255)      
 #  product_id               :integer          not null
@@ -39,12 +40,11 @@
 #  updater_id               :integer          
 #
 
-class ProductStock < ActiveRecord::Base
+class Stock < ActiveRecord::Base
   belongs_to :company
   belongs_to :location, :class_name=>StockLocation.to_s
   belongs_to :product
-
-  belongs_to :tracking, :class_name=>StockTracking.name
+  belongs_to :tracking
   
   attr_readonly :company_id
   

@@ -4,7 +4,7 @@
     - f.field :inventory, :changes_reflected
   =dyta :inventory_lines_create
   =formalize do |f|
-    - f.field :inventory, :employee_id, :choices=>@current_company.employees.collect{|e| [e.label, e.id]}
+    - f.field :inventory, :responsible_id, :choices=>@current_company.users.collect{|e| [e.label, e.id]}
     - f.field :inventory, :comment, :field=>:textarea
   .actions
     =link_to tg(:previous), :action=>:inventories

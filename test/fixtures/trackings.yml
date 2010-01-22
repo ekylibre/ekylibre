@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: stock_trackings
+# == Table: trackings
 #
 #  active       :boolean          default(TRUE), not null
 #  comment      :text             
@@ -35,35 +35,10 @@
 #  updater_id   :integer          
 #
 
-class StockTracking < ActiveRecord::Base
-  belongs_to :company
-  belongs_to :producer, :class_name=>Entity.name
-  belongs_to :product
-  has_many :delivery_lines
-  has_many :inventory_lines
-  has_many :product_stocks
-  has_many :productions
-  has_many :purchase_order_lines
-  has_many :sale_order_lines
-  has_many :shape_operation_lines
-  has_many :stock_moves
-  has_many :stock_transfers
-  attr_readonly :company_id
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-  validates_presence_of :name, :serial
-  validates_uniqueness_of :serial, :scope=>:producer_id
-
-  def before_validation
-    # the name is the serial number but it leave the possibility to put a name different from the serial
-    self.serial ||= self.name
-    self.name ||= self.serial
-    self.serial = self.serial.strip.upper
-  end
-
-  def after_update
-    # Update tracking_serial columns through all the database
-    Production.update_all({:tracking_serial=>self.serial}, {:tracking_id=>self.id})
-    PurchaseOrderLine.update_all({:tracking_serial=>self.serial}, {:tracking_id=>self.id})
-  end
-
-end
+# one:
+#   column: value
+#
+# two:
+#   column: value

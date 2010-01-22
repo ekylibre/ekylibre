@@ -1,32 +1,28 @@
 =toolbar do |t|
-  - t.link :employee_update, :id=>@employee.id
+  - t.link :user_update, :id=>@user.id, :controller=>:company
 
 %table
   %tr
     %td
-      =evalue @employee, :last_name
-      =evalue @employee, :first_name
-      =evalue @employee, :title
+      =evalue @user, :last_name
+      =evalue @user, :first_name
+      =evalue @user, :employment
+      =evalue @user, :commercial
     %td
-      =evalue @employee, :profession, :label=>:name
-      =evalue @employee, :establishment, :label=>:name
-      =evalue @employee, :department, :label=>:name
-    %td
-      =evalue @employee, :commercial
-      =evalue @employee, :user, :label=>:label
-
-
+      =evalue @user, :profession, :label=>:name
+      =evalue @user, :establishment, :label=>:name
+      =evalue @user, :department, :label=>:name
 
 =tabbox(:entities) do |tb|
-  -tb.tab(tc(:events, :count=>@employee.events.count)) do |c|
+  -tb.tab(tc(:events, :count=>@user.events.count)) do |c|
     -c << toolbar do
       -link(:event_create, :controller=>:relations)
     -c << dyta(:employee_events)
-  -tb.tab(tc(:sale_orders, :count=>@employee.sale_orders.count)) do |c|
+  -tb.tab(tc(:sale_orders, :count=>@user.sale_orders.count)) do |c|
     -c << toolbar do 
       -link(:sale_order_create, :controller=>:management)
     -c << dyta(:employee_sale_orders)
-  -if @employee.shape_operations.size > 0
-    -tb.tab(tc(:shape_operations, :count=>@employee.shape_operations.count)) do |c|
+  -if @user.shape_operations.size > 0
+    -tb.tab(tc(:shape_operations, :count=>@user.shape_operations.count)) do |c|
       -c << dyta(:employee_shape_operations) 
         

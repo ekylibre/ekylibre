@@ -22,14 +22,36 @@ fr-FR:
           one: '1 travail à réaliser'
           other: '{{count}} travaux à réaliser'
           zero: 'Aucun travail à réaliser'
+        operation_natures: 'Types de travail'
+        operations: 'Travaux'
         parameters: 'Paramètres'
         production: 'Productions'
         productions: 'Productions'
-        shape_operation_natures: 'Types de travail'
-        shape_operations: 'Travaux'
         shapes: 'Îlots'
         title: 'Gestion de la production'
         tools: 'Matériel'
+      operation:
+        operation_update: 'Modifier le travail'
+        operations: 'Liste des travaux'
+        title: 'Détails du travail {{name}}'
+      operation_create:
+        title: 'Créer un nouveau travail'
+      _operation_form:
+        duration: 'Durée'
+        infos: 'Renseignez les caractéristiques du travail'
+        tools: 'Sélectionnez le matériel utilisé'
+      operation_nature_create:
+        title: 'Créer un nouveau type de travail'
+      operation_nature_update:
+        title: 'Modification du type de travail "{{name}}"'
+      operation_natures:
+        operation_nature_create: 'Créer un nouveau type de travail'
+        title: 'Types de travail'
+      operation_update:
+        title: 'Modification du travail {{name}}'
+      operations:
+        operation_create: 'Créer un nouveau travail'
+        title: 'Travaux'
       production_create:
         title: 'Enregistrer une nouvelle production'
       _production_form:
@@ -60,28 +82,6 @@ fr-FR:
         title: 'Ajouter un nouvel îlot'
       _shape_form:
         infos: 'Renseignez les caractéristiques de l''îlot'
-      shape_operation:
-        shape_operation_update: 'Modifier le travail'
-        shape_operations: 'Liste des travaux'
-        title: 'Détails du travail {{name}}'
-      shape_operation_create:
-        title: 'Créer un nouveau travail'
-      _shape_operation_form:
-        duration: 'Durée'
-        infos: 'Renseignez les caractéristiques du travail'
-        tools: 'Sélectionnez le matériel utilisé'
-      shape_operation_nature_create:
-        title: 'Créer un nouveau type de travail'
-      shape_operation_nature_update:
-        title: 'Modification du type de travail "{{name}}"'
-      shape_operation_natures:
-        shape_operation_nature_create: 'Créer un nouveau type de travail'
-        title: 'Types de travail'
-      shape_operation_update:
-        title: 'Modification du travail {{name}}'
-      shape_operations:
-        shape_operation_create: 'Créer un nouveau travail'
-        title: 'Travaux'
       shape_update:
         title: 'Modification de l'' îlot {{name}}'
       shapes:
@@ -93,7 +93,7 @@ fr-FR:
           one: 'Temps d''utilisation total : 1 heure'
           other: 'Temps d''utilisation total : {{count}} heures'
           zero: ''
-        shape_operations:
+        operations:
           one: '1 travail'
           other: '{{count}} travaux'
           zero: 'Aucun travail'

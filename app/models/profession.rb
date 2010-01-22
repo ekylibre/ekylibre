@@ -35,8 +35,8 @@
 
 class Profession < ActiveRecord::Base
   belongs_to :company
-  has_many :employees
+  has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}
+  has_many :users
 
   attr_readonly :company_id
-
 end

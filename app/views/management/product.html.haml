@@ -24,20 +24,7 @@
     %td
       =evalue @product, :manage_stocks
 
-- if @product_stocks.size > 0
-  %h2= tc('stocks')
-  =dyta :uniq_critic_product_stocks
-
--if @product.to_sale or @product.to_purchase
-  %h2=tc :prices
-  =toolbar do |t|
-    -t.link(:sale_price_create, {:action=>:price_create, :mode=>:sales, :product_id=>session[:product_id]}) if @product.to_sale
-    -t.link(:purchase_price_create, {:action=>:price_create, :mode=>:purchases, :product_id=>session[:product_id]}) if @product.to_purchase
-
-  =dyta :product_prices
-
-%h2=tc :components
-=toolbar do
-  -link :product_component_create
-
-=dyta :product_components
+=tabbox(:product) do |tb|
+  -tb.tab :stocks, :content=>dyta(:product_stocks)
+  -tb.tab :prices
+  -tb.tab :components 

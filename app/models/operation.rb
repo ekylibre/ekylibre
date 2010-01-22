@@ -18,36 +18,37 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: shape_operations
+# == Table: operations
 #
-#  company_id    :integer          not null
-#  consumption   :decimal(, )      
-#  created_at    :datetime         not null
-#  creator_id    :integer          
-#  description   :text             
-#  duration      :decimal(, )      
-#  employee_id   :integer          not null
-#  hour_duration :decimal(, )      
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  min_duration  :decimal(, )      
-#  moved_on      :date             
-#  name          :string(255)      not null
-#  nature_id     :integer          
-#  planned_on    :date             not null
-#  shape_id      :integer          not null
-#  started_at    :datetime         not null
-#  stopped_at    :datetime         
-#  tools_list    :string(255)      
-#  updated_at    :datetime         not null
-#  updater_id    :integer          
+#  company_id     :integer          not null
+#  consumption    :decimal(, )      
+#  created_at     :datetime         not null
+#  creator_id     :integer          
+#  description    :text             
+#  duration       :decimal(, )      
+#  hour_duration  :decimal(, )      
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  min_duration   :decimal(, )      
+#  moved_on       :date             
+#  name           :string(255)      not null
+#  nature_id      :integer          
+#  planned_on     :date             not null
+#  responsible_id :integer          not null
+#  started_at     :datetime         not null
+#  stopped_at     :datetime         
+#  target_id      :integer          
+#  target_type    :string(255)      
+#  tools_list     :string(255)      
+#  updated_at     :datetime         not null
+#  updater_id     :integer          
 #
 
-class ShapeOperation < ActiveRecord::Base
+class Operation < ActiveRecord::Base
   belongs_to :company
   belongs_to :shape
-  belongs_to :employee
-  belongs_to :nature, :class_name=>ShapeOperationNature.name
+  belongs_to :nature, :class_name=>OperationNature.name
+  belongs_to :responsible, :class_name=>User.name
   has_many :tool_uses
   has_many :tools, :through=>:tool_uses
 

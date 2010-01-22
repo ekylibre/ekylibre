@@ -51,7 +51,7 @@ class PurchaseOrderLine < ActiveRecord::Base
   belongs_to :price
   belongs_to :product
   belongs_to :location, :class_name=>StockLocation.name
-  belongs_to :tracking, :class_name=>StockTracking.name
+  belongs_to :tracking
   belongs_to :unit
 
   validates_presence_of :amount, :price_id, :account_id
@@ -80,8 +80,8 @@ class PurchaseOrderLine < ActiveRecord::Base
     unless self.tracking_serial.blank?
       producer = self.order.supplier
       unless producer.has_another_tracking?(self.tracking_serial, self.product_id)
-        tracking = self.company.stock_trackings.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
-        tracking = self.company.stock_trackings.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
+        tracking = self.company.trackings.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
+        tracking = self.company.trackings.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
         self.tracking_id = tracking.id
       end
       self.tracking_serial.upper!

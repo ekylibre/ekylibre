@@ -18,23 +18,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: shape_operation_natures
+# == Table: trackings
 #
+#  active       :boolean          default(TRUE), not null
+#  comment      :text             
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  description  :text             
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
+#  producer_id  :integer          
+#  product_id   :integer          
+#  serial       :string(255)      
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+require 'test_helper'
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+class TrackingTest < ActiveSupport::TestCase
+  # Replace this with your real tests.
+  def test_truth
+    assert true
+  end
+end

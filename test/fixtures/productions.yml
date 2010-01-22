@@ -27,9 +27,10 @@
 #  location_id     :integer          not null
 #  lock_version    :integer          default(0), not null
 #  moved_on        :date             not null
+#  name            :string(255)      
 #  planned_on      :date             not null
 #  product_id      :integer          not null
-#  quantity        :decimal(16, 2)   default(0.0), not null
+#  quantity        :decimal(, )      default(0.0), not null
 #  shape_id        :integer          
 #  tracking_id     :integer          
 #  tracking_serial :string(255)      

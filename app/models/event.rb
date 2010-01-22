@@ -24,7 +24,6 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  duration     :integer          
-#  employee_id  :integer          not null
 #  entity_id    :integer          not null
 #  id           :integer          not null, primary key
 #  location     :string(255)      
@@ -35,16 +34,16 @@
 #  started_sec  :integer          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
+#  user_id      :integer          not null
 #
 
 class Event < ActiveRecord::Base
-
   belongs_to :company
-  belongs_to :employee
   belongs_to :entity
   belongs_to :nature, :class_name=>EventNature.to_s
+  belongs_to :user
     
-  validates_presence_of :employee_id, :nature_id
+  validates_presence_of :user_id, :nature_id
   attr_readonly :company_id
 
   def before_validation

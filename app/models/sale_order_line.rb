@@ -21,8 +21,8 @@
 # == Table: sale_order_lines
 #
 #  account_id          :integer          not null
-#  amount              :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes   :decimal(16, 2)   default(0.0), not null
+#  amount              :decimal(, )      default(0.0), not null
+#  amount_with_taxes   :decimal(, )      default(0.0), not null
 #  annotation          :text             
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
@@ -38,7 +38,7 @@
 #  price_amount        :decimal(16, 2)   
 #  price_id            :integer          not null
 #  product_id          :integer          not null
-#  quantity            :decimal(16, 2)   default(1.0), not null
+#  quantity            :decimal(, )      default(1.0), not null
 #  reduction_origin_id :integer          
 #  tax_id              :integer          
 #  tracking_id         :integer          
@@ -57,7 +57,7 @@ class SaleOrderLine < ActiveRecord::Base
   belongs_to :product
   belongs_to :reduction_origin, :class_name=>SaleOrderLine.to_s
   belongs_to :tax
-  belongs_to :tracking, :class_name=>StockTracking.name
+  belongs_to :tracking
   belongs_to :unit
   has_one :reduction, :class_name=>SaleOrderLine.to_s, :foreign_key=>:reduction_origin_id
   has_many :delivery_lines, :foreign_key=>:order_line_id
@@ -153,8 +153,8 @@ class SaleOrderLine < ActiveRecord::Base
     if self.location
       errors.add_to_base(tc(:stock_location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name)) unless self.location.can_receive?(self.product_id)
       if self.tracking
-        ps = self.company.product_stocks.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :tracking_id=>self.tracking_id})
-        errors.add_to_base(tc(:can_not_use_this_tracking, :name=>self.tracking.name)) if ps and ps.current_virtual_quantity < self.quantity
+        stock = self.company.stocks.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :tracking_id=>self.tracking_id})
+        errors.add_to_base(tc(:can_not_use_this_tracking, :name=>self.tracking.name)) if stock and stock.current_virtual_quantity < self.quantity
       end
     end
     if self.price

@@ -20,7 +20,7 @@
 # 
 # == Table: payment_parts
 #
-#  amount       :decimal(16, 2)   
+#  amount       :decimal(, )      
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          

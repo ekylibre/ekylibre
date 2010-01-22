@@ -20,8 +20,8 @@
 # 
 # == Table: deliveries
 #
-#  amount            :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
+#  amount            :decimal(, )      default(0.0), not null
+#  amount_with_taxes :decimal(, )      default(0.0), not null
 #  comment           :text             
 #  company_id        :integer          not null
 #  contact_id        :integer          

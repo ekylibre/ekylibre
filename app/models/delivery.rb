@@ -20,8 +20,8 @@
 # 
 # == Table: deliveries
 #
-#  amount            :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
+#  amount            :decimal(, )      default(0.0), not null
+#  amount_with_taxes :decimal(, )      default(0.0), not null
 #  comment           :text             
 #  company_id        :integer          not null
 #  contact_id        :integer          
@@ -94,7 +94,7 @@ class Delivery < ActiveRecord::Base
   def ship(shipped_on=Date.today)
     for line in self.lines.find(:all, :conditions=>["quantity>0"])
       # self.stock_moves.create!(:name=>tc(:sale, :number=>self.order.number), :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>shipped_on, :company_id=>line.company_id, :virtual=>false, :input=>false, :origin_type=>Delivery.to_s, :origin_id=>self.id, :generated=>true)
-      line.product.take_stock_out(line.quantity, :location_id=>line.order_line.location_id, :planned_on=>self.planned_on, :moved_on=>shipped_on)
+      line.product.move_outgoing_stock(:origin=>line, :location_id=>line.order_line.location_id, :planned_on=>self.planned_on, :moved_on=>shipped_on)
     end
     self.moved_on = shipped_on if self.moved_on.nil?
     self.save

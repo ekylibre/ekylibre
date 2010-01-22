@@ -21,12 +21,20 @@
 # == Table: users
 #
 #  admin             :boolean          default(TRUE), not null
+#  arrived_on        :date             
+#  comment           :text             
+#  commercial        :boolean          
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  credits           :boolean          default(TRUE), not null
-#  deleted           :boolean          not null
+#  deleted_at        :datetime         
+#  departed_on       :date             
+#  department_id     :integer          
 #  email             :string(255)      
+#  employed          :boolean          not null
+#  employment        :string(255)      
+#  establishment_id  :integer          
 #  first_name        :string(255)      not null
 #  free_price        :boolean          default(TRUE), not null
 #  hashed_password   :string(64)       
@@ -36,6 +44,8 @@
 #  lock_version      :integer          default(0), not null
 #  locked            :boolean          not null
 #  name              :string(32)       not null
+#  office            :string(255)      
+#  profession_id     :integer          
 #  reduction_percent :decimal(, )      default(5.0), not null
 #  rights            :text             
 #  role_id           :integer          not null

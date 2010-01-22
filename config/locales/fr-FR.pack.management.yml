@@ -362,6 +362,10 @@ fr-FR:
       product:
         components: 'Composants'
         prices: 'Prix du produit'
+        product:
+          components: 'Composants'
+          prices: 'Prix'
+          stocks: 'Stocks'
         product_component_create: 'Ajouter un nouveau composant'
         product_update: 'Modifier la fiche du produit'
         products: 'Voir la liste de produits'
@@ -375,6 +379,8 @@ fr-FR:
         title: 'Ajouter un composant au produit {{value}} '
       product_component_update:
         title: 'Modification d''un composant du produit {{product}} '
+      _product_components:
+        product_component_create: 'Ajouter un nouveau composant'
       product_create:
         title: 'Ajouter un nouveau produit'
       _product_form:
@@ -383,6 +389,9 @@ fr-FR:
         identification: 'Nom et codes du produit'
         nature: 'Type de produit'
         stocks: 'Gestion des stocks'
+      _product_prices:
+        purchase_price_create: 'Créer un prix d''achat'
+        sale_price_create: 'Créer un prix de vente'
       product_update:
         title: 'Modification du produit : {{value}}'
       products:
@@ -629,9 +638,12 @@ fr-FR:
         weight: 'Poids'
       stock_location:
         establishment: 'Établissement'
+        location:
+          stock_moves: 'Mouvements de stocks'
+          stocks: 'État des stocks'
         moves: 'Mouvements de stocks'
-        stock_location: 'Voir la liste des lieux de stockage'
         stock_location_update: 'Modifier le lieu de stockage'
+        stock_locations: 'Voir la liste des lieux de stockage'
         stock_move_create: 'Ajouter un mouvement de stock'
         title: 'Détail du lieu de stockage : {{value}}'
       stock_location_create:
@@ -701,6 +713,12 @@ fr-FR:
         select_number_or_date: 'Entrez un numéro ou une date'
         subscription_nature: 'Type d''abonnement'
         title: 'Abonnements'
+      tracking:
+        operations: 'Opérations'
+        productions: 'Productions'
+        purchases: 'Achats'
+        sales: 'Ventes'
+        title: 'Lot {{name}}'
       transport:
         deliveries: 'Livraisons'
         title: 'Transport du {{value}}'

@@ -313,15 +313,11 @@ class CompanyController < ApplicationController
   def user_statistics
     session[:statistics_start] ||= Date.today << 12
     session[:statistics_end]   ||= Date.today
-    if @current_user.employee
-      @sale_orders_count = SaleOrder.count_by_sql ["SELECT  count(*) FROM sale_orders WHERE company_id = ? AND state != 'P' AND responsible_id = ? AND created_on BETWEEN ? AND ? ", @current_company.id, @current_user.employee.id, session[:statistics_start], session[:statistics_end] ]
-      @sale_orders_amount = SaleOrder.count_by_sql ["SELECT sum(amount) FROM sale_orders WHERE company_id = ? AND state != 'P' AND responsible_id = ? AND created_on BETWEEN ? AND ? ", @current_company.id, @current_user.employee.id, session[:statistics_start], session[:statistics_end] ]
-      @invoiced_amount = Invoice.count_by_sql ["SELECT sum(invoices.amount) FROM invoices INNER JOIN sale_orders ON sale_orders.responsible_id = ? AND invoices.sale_order_id = sale_orders.id WHERE invoices.company_id = ? AND invoices.payment_on BETWEEN ? AND ? ", @current_user.employee.id,  @current_company.id,session[:statistics_start], session[:statistics_end] ]
-      @event_natures = EventNature.find_by_sql ["SELECT en.*, ecount, esum FROM event_natures as en LEFT JOIN (SELECT nature_id , count(id) as ecount , sum(duration) as esum FROM events WHERE CAST(started_at AS date) BETWEEN ? AND ? AND employee_id = ? GROUP BY nature_id) as stats ON id = nature_id  WHERE company_id = ? ORDER BY name ",session[:statistics_start], session[:statistics_end], @current_user.employee.id, @current_company.id]
-    end
-    # @embanked_amount = PaymentPart.count_by_sql []
+    @sale_orders_count = SaleOrder.count_by_sql ["SELECT  count(*) FROM sale_orders WHERE company_id = ? AND state != 'P' AND responsible_id = ? AND created_on BETWEEN ? AND ? ", @current_company.id, @current_user.id, session[:statistics_start], session[:statistics_end] ]
+    @sale_orders_amount = SaleOrder.count_by_sql ["SELECT sum(amount) FROM sale_orders WHERE company_id = ? AND state != 'P' AND responsible_id = ? AND created_on BETWEEN ? AND ? ", @current_company.id, @current_user.id, session[:statistics_start], session[:statistics_end] ]
+    @invoiced_amount = Invoice.count_by_sql ["SELECT sum(invoices.amount) FROM invoices INNER JOIN sale_orders ON sale_orders.responsible_id = ? AND invoices.sale_order_id = sale_orders.id WHERE invoices.company_id = ? AND invoices.payment_on BETWEEN ? AND ? ", @current_user.id,  @current_company.id,session[:statistics_start], session[:statistics_end] ]
+    @event_natures = EventNature.find_by_sql ["SELECT en.*, ecount, esum FROM event_natures as en LEFT JOIN (SELECT nature_id , count(id) as ecount , sum(duration) as esum FROM events WHERE CAST(started_at AS date) BETWEEN ? AND ? AND user_id = ? GROUP BY nature_id) as stats ON id = nature_id  WHERE company_id = ? ORDER BY name ",session[:statistics_start], session[:statistics_end], @current_user.id, @current_company.id]
     if request.post?
-      #raise Exception.new params.inspect
       session[:statistics_start] = params[:start].to_date
       session[:statistics_end] = params[:end].to_date
       redirect_to_current
@@ -334,7 +330,7 @@ class CompanyController < ApplicationController
   def users
   end
 
-  dyta(:users, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}, :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t| 
+  dyta(:users, :conditions=>{:company_id=>['@current_company.id'], :deleted_at=>nil}, :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t| 
     t.column :name
     t.column :first_name
     t.column :last_name
@@ -342,6 +338,7 @@ class CompanyController < ApplicationController
     # t.column :reduction_percent
     t.column :email
     t.column :admin
+    t.column :employed
     t.action :locked, :actions=>{"true"=>{:action=>:user_unlock},"false"=>{:action=>:user_lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
     t.action :user_update 
     t.action :user_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.id!=@current_user.id'
@@ -357,17 +354,11 @@ class CompanyController < ApplicationController
         @user = User.new(params[:user])
         @user.company_id = @current_company.id
         @user.rights_array = (params[:rights]||{}).keys
-        @rights = @user.rights_array
-        if @user.save
-          unless params[:create_employee].nil?
-            @employee = Employee.create!(params[:employee].merge({:user_id=>@user.id, :company_id=>@current_company.id })) 
-          end
-          redirect_to_back 
-        end
+        @rights = @user.rights_array        
+        redirect_to_back if @user.save
       else
         role = @current_company.roles.first
         @user = @current_company.users.new(:admin=>false, :role=>role)
-        @employee = @current_company.employees.new
         @rights = role ? role.rights_array : []
       end
     end
@@ -376,17 +367,11 @@ class CompanyController < ApplicationController
 
   def user_update
     @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
-    @employee = Employee.find_by_user_id(@user.id) || @current_company.employees.new
     if request.post?
       @user.attributes = params[:user]
       @user.rights_array = (params[:rights]||{}).keys
       @rights = @user.rights_array
-      if @user.save
-        if !params[:create_employee].nil? and @user.employee.nil?
-          @employee = Employee.create!(params[:employee].merge({:user_id=>@user.id, :company_id=>@current_company.id }))     
-        end
-        redirect_to_back 
-      end
+      redirect_to_back if @user.save
     else
       @rights = @user.rights_array
     end
@@ -640,7 +625,7 @@ class CompanyController < ApplicationController
         nature = @current_company.event_natures.find(:first, :conditions=>{:usage=>"mailing"}).nil? ? @current_company.event_natures.create!(:name=>tc(:mailing), :duration=>5, :usage=>"mailing").id : @current_company.event_natures.find(:first, :conditions=>{:usage=>"mailing"})
         #raise Exception.new nature.inspect
         for contact in @current_company.contacts.find(:all, :conditions=>["email IN (?) AND active = ? ", @mails, true])
-          @current_company.events.create!(:entity_id=>contact.entity_id, :started_at=>Time.now, :duration=>5, :nature_id=>nature.id, :employee_id=>@current_user.employee)
+          @current_company.events.create!(:entity_id=>contact.entity_id, :started_at=>Time.now, :duration=>5, :nature_id=>nature.id, :user_id=>@current_user.id)
         end
         session[:listing_mail_column] = nil
       end

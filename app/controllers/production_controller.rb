@@ -19,8 +19,7 @@
 class ProductionController < ApplicationController
 
   def index
-    @shape_operations = @current_company.shape_operations.find(:all, :conditions=>{:moved_on=>nil})
-    #raise Exception.new @shape_operations.inspect
+    @operations = @current_company.operations.find(:all, :conditions=>{:moved_on=>nil})
   end
 
  
@@ -35,12 +34,12 @@ class ProductionController < ApplicationController
   def tools
   end
 
-  dyta(:tool_shape_operations, :model=>:tool_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool]']}, :order=>"created_at ASC") do |t|
-    t.column :name,       :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:name)
-    t.column :planned_on, :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:planned_on)
-    t.column :moved_on,   :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:moved_on)
-    t.column :tools_list, :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:tools_list)
-    t.column :duration,   :through=>:shape_operation, :url=>{:action=>:shape_operation}, :label=>tc(:duration)
+  dyta(:tool_operations, :model=>:tool_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool]']}, :order=>"created_at ASC") do |t|
+    t.column :name,       :through=>:operation, :url=>{:action=>:operation}, :label=>tc(:name)
+    t.column :planned_on, :through=>:operation, :url=>{:action=>:operation}, :label=>tc(:planned_on)
+    t.column :moved_on,   :through=>:operation, :url=>{:action=>:operation}, :label=>tc(:moved_on)
+    t.column :tools_list, :through=>:operation, :url=>{:action=>:operation}, :label=>tc(:tools_list)
+    t.column :duration,   :through=>:operation, :url=>{:action=>:operation}, :label=>tc(:duration)
   end
   
   def tool
@@ -56,6 +55,8 @@ class ProductionController < ApplicationController
     t.column :quantity
     # t.column :label, :through=>[:product,:unit]
     t.column :moved_on
+    t.column :name, :through=>:location, :url=>{:controller=>:management, :action=>:stock_location}
+    t.column :serial, :through=>:tracking
     t.action :production_update, :image=>:update
     t.action :production_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -167,16 +168,16 @@ class ProductionController < ApplicationController
 
   manage :shapes
 
-  dyta(:operations, :model=>:shape_operations, :conditions=>{:company_id=>['@current_company.id'], :shape_id=>['session[:current_shape]']}, :order=>"planned_on ASC") do |t|
-    t.column :name, :url=>{:action=>:shape_operation}
+  dyta(:shape_operations, :model=>:operations,  :conditions=>{:company_id=>['@current_company.id'], :target_type=>Shape.name, :target_id=>['session[:current_shape]']}, :order=>"planned_on ASC") do |t|
+    t.column :name, :url=>{:action=>:operation}
     t.column :name, :through=>:nature
-    t.column :full_name, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee}
+    t.column :label, :through=>:responsible, :url=>{:controller=>:resources, :action=>:employee}
     t.column :planned_on
     t.column :moved_on
     t.column :tools_list
     t.column :duration
-    t.action :shape_operation_update, :image=>:update
-    t.action :shape_operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :operation_update, :image=>:update
+    t.action :operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
 
 
@@ -187,90 +188,90 @@ class ProductionController < ApplicationController
   end
 
   
-  dyta(:shape_operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>" planned_on desc, name asc") do |t|
-    t.column :name, :url=>{:action=>:shape_operation}
+  dyta(:operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>" planned_on desc, name asc") do |t|
+    t.column :name, :url=>{:action=>:operation}
     t.column :name, :through=>:nature
-    t.column :full_name, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee}
+    t.column :label, :through=>:responsible, :url=>{:controller=>:resources, :action=>:employee}
     t.column :planned_on
     t.column :moved_on
     t.column :tools_list
     t.column :name, :through=>:shape, :url=>{:action=>:shape}
     t.column :duration
-    t.action :shape_operation_update, :image=>:update
-    t.action :shape_operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :operation_update, :image=>:update
+    t.action :operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
   end
 
-  def shape_operations
+  def operations
   end
 
-  def shape_operation
-    return unless @shape_operation = find_and_check(:shape_operation, params[:id])
-    @title = {:name=>@shape_operation.name}
+  def operation
+    return unless @operation = find_and_check(:operation, params[:id])
+    @title = {:name=>@operation.name}
   end
   
-  def shape_operation_create
+  def operation_create
     if request.post?
-      @shape_operation = ShapeOperation.new(params[:shape_operation])
-      @shape_operation.company_id = @current_company.id
-      if @shape_operation.save
-        @shape_operation.add_tools(params[:tools])
+      @operation = ShapeOperation.new(params[:operation])
+      @operation.company_id = @current_company.id
+      if @operation.save
+        @operation.add_tools(params[:tools])
         redirect_to_back
       end
     else
-      @shape_operation = ShapeOperation.new(:planned_on=>Date.today, :employee_id=>@current_user.employee_id)
+      @operation = ShapeOperation.new(:planned_on=>Date.today, :responsible_id=>@current_user.id)
     end
     render_form
   end
 
-  def shape_operation_update
-    return unless @shape_operation = find_and_check(:shape_operations, params[:id])
+  def operation_update
+    return unless @operation = find_and_check(:operations, params[:id])
     session[:tool_ids] = []
-    for tool in @shape_operation.tools
+    for tool in @operation.tools
       session[:tool_ids] << tool.id.to_s
     end
     if request.post?
-      if @shape_operation.update_attributes(params[:shape_operation])
-        @shape_operation.add_tools(params[:tools])
+      if @operation.update_attributes(params[:operation])
+        @operation.add_tools(params[:tools])
         redirect_to_back
       end
     end
-    @title = {:name=>@shape_operation.name}
+    @title = {:name=>@operation.name}
     render_form
   end
 
-  def shape_operation_delete
-    return unless @shape_operation = find_and_check(:shape_operations, params[:id])
+  def operation_delete
+    return unless @operation = find_and_check(:operations, params[:id])
     if request.post? or request.delete?
-      redirect_to_current if @shape_operation.destroy
+      redirect_to_current if @operation.destroy
     end
   end
 
 
-  dyta(:shape_operation_natures, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
+  dyta(:operation_natures, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
     t.column :name
     t.column :description
-    t.action :shape_operation_nature_update
-    t.action :shape_operation_nature_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :operation_nature_update
+    t.action :operation_nature_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
-  def shape_operation_natures
+  def operation_natures
   end
 
-  manage :shape_operation_natures
+  manage :operation_natures
 
 
 
-  dyta(:unvalidated_operations, :model=>:shape_operations, :conditions=>{:moved_on=>nil, :company_id=>['@current_company.id']}) do |t|
+  dyta(:unvalidated_operations, :model=>:operations, :conditions=>{:moved_on=>nil, :company_id=>['@current_company.id']}) do |t|
     t.column :name 
     t.column :name, :through=>:nature
-    t.column :full_name, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee}
+    t.column :label, :through=>:responsible, :url=>{:controller=>:resources, :action=>:employee}
     t.column :name, :through=>:shape
     t.column :planned_on
     t.check :validated, :value=>'RECORD.planned_on<=Date.today'
   end
 
   def unvalidated_operations
-    @shape_operations = @current_company.shape_operations.find(:all, :conditions=>{:moved_on=>nil})
+    @operations = @current_company.operations.find(:all, :conditions=>{:moved_on=>nil})
     if request.post?
       for id, values in params[:unvalidated_operations]
         operation = ShapeOperation.find_by_id_and_company_id(id, @current_company.id)

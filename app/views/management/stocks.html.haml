@@ -1,6 +1,6 @@
--if @current_company.product_stocks.size > 0
+-if @current_company.stocks.size > 0
   =render :partial=>"location_choice"
-  =render :partial=>"stocks"
+  =dyta :stocks
 -else
   %h2{:style=>'text-align: center;'}=tc(:no_product_stocks)
 

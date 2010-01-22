@@ -28,7 +28,7 @@ class RelationsController < ApplicationController
     t.column :name, :through=>:nature
     t.column :duration
     t.column :location
-    t.column :full_name, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee}
+    t.column :label, :through=>:user, :url=>{:controller=>:resources, :action=>:employee}
     t.column :started_at
   end
 
@@ -365,7 +365,7 @@ class RelationsController < ApplicationController
   dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :order=>"created_at DESC") do |t|
     t.column :name, :through=>:nature
     t.column :reason
-    t.column :full_name, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee}
+    t.column :label, :through=>:user, :url=>{:controller=>:resources, :action=>:employee}
     t.column :duration
     t.column :location
     t.column :started_at
@@ -1062,7 +1062,7 @@ class RelationsController < ApplicationController
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location
-    t.column :full_name, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee} 
+    t.column :label, :through=>:user, :url=>{:controller=>:resources, :action=>:employee} 
     t.column :name, :through=>:nature
     t.column :started_at
     t.action :event_update
@@ -1080,7 +1080,7 @@ class RelationsController < ApplicationController
     @entity = find_and_check(:entity, params[:entity_id]) if params[:entity_id]
     @entity = find_and_check(:entity, session[:current_entity]) if @entity.nil? && session[:current_entity]
     @event = Event.new(:entity_id=>(@entity ? @entity.id : nil), :duration=>(@current_company.event_natures.size>0 ? @current_company.event_natures.find(:first).duration : 0), :started_at=>Time.now)
-    @event.employee = @current_user.employee
+    @event.user_id = @current_user.id
     if request.post?
       @event = Event.new(params[:event])
       @event.company_id = @current_company.id

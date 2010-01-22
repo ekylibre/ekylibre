@@ -25,11 +25,11 @@ class ManagementController < ApplicationController
   def index
     @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
     @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})
-    all_product_stocks = ProductStock.find(:all, :conditions=>{:company_id=>@current_company.id})
+    all_stocks = Stock.find(:all, :conditions=>{:company_id=>@current_company.id})
     @stock_locations = @current_company.stock_locations
-    @product_stocks = []
-    for product_stock in all_product_stocks
-      @product_stocks << product_stock if product_stock.state == "critic"
+    @stocks = []
+    for product_stock in all_stocks
+      @stocks << product_stock if product_stock.state == "critic"
     end
     @stock_transfers = @current_company.stock_transfers.find(:all, :conditions=>{:moved_on=>nil}) 
     @payments_to_embank = @current_company.checks_to_embank(-1)
@@ -163,7 +163,7 @@ class ManagementController < ApplicationController
   dyta(:inventories, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :date
     t.column :changes_reflected, :label=>tc('changes_reflected')
-    t.column :label, :through=>:employee, :url=>{:controller=>:resources, :action=>:employee}
+    t.column :label, :through=>:responsible, :url=>{:controller=>:resources, :action=>:employee}
     t.column :comment
     t.action :print, :url=>{:controller=>:company, :type=>:inventory}
     t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and RECORD.changes_reflected == false'
@@ -171,7 +171,7 @@ class ManagementController < ApplicationController
     t.action :inventory_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.changes_reflected == false'
   end
 
-  dyta(:inventory_lines_create, :model=>:product_stocks, :conditions=>{:company_id=>['@current_company.id'] }, :per_page=>1000, :order=>'location_id') do |t|
+  dyta(:inventory_lines_create, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'] }, :per_page=>1000, :order=>'location_id') do |t|
     t.column :name, :through=>:location
     t.column :name, :through=>:product
     t.column :shelf_name, :through=>:product, :label=>tc('shelf')
@@ -191,17 +191,17 @@ class ManagementController < ApplicationController
   end
   
   def inventory_create
-    if @current_company.product_stocks.size <= 0
+    if @current_company.stocks.size <= 0
       flash[:warning] = tc(:need_product_stocks_to_create_inventories)
       redirect_to_back
     end
     flash[:notice] = tc(:you_should_lock_your_old_inventories) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
-    @inventory = Inventory.new(:employee_id=>@current_user.employee.nil? ? 0 : @current_user.employee.id)
+    @inventory = Inventory.new(:responsible_id=>@current_user.id)
     if request.post?
       @inventory = Inventory.new(params[:inventory])
       @inventory.company_id = @current_company.id
       @inventory.save
-      params[:inventory_lines_create].collect{|x| ProductStock.find_by_id_and_company_id(x[0], @current_company.id).to_inventory_line(x[1][:current_real_quantity].to_f, @inventory.id) }
+      params[:inventory_lines_create].collect{|x| Stock.find_by_id_and_company_id(x[0], @current_company.id).to_inventory_line(x[1][:current_real_quantity].to_f, @inventory.id) }
       redirect_to :action=>:inventories
     end
   end
@@ -589,9 +589,8 @@ class ManagementController < ApplicationController
   end
   
   dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}, :model=>:prices) do |t|
-    t.column :name, :through=>:entity
+    t.column :name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :name, :through=>:category, :url=>{:controller=>:relations, :action=>:entity_category}
-
     t.column :amount
     t.column :amount_with_taxes
     t.column :default
@@ -673,23 +672,29 @@ class ManagementController < ApplicationController
       session[:product_shelf_id] = params[:product].nil? ? 0 : params[:product][:shelf_id].to_i
     end
   end
+
+
+  # dyta(:product_stocks, :model=>:stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min  AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state') do |t|
+  dyta(:product_stocks, :model=>:stocks, :conditions=>['company_id = ? AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
+    t.column :name, :through=>:location, :url=>{:action=>:stock_location}
+    t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
+    #t.column :quantity_max
+    #t.column :quantity_min
+    #t.column :critic_quantity_min
+    t.column :current_virtual_quantity
+    t.column :current_real_quantity
+  end
   
   def product
     return unless @product = find_and_check(:product, params[:id])
     session[:product_id] = @product.id
-    all_product_stocks = ProductStock.find(:all, :conditions=>{:company_id=>@current_company.id})
-    @product_stocks = []
-    @stock_locations = @current_company.stock_locations
-    for product_stock in all_product_stocks
-      @product_stocks << product_stock if ((product_stock.product_id == @product.id) and product_stock.current_virtual_quantity <= product_stock.critic_quantity_min) 
-    end
     @title = {:value=>@product.name}
   end
 
   def change_quantities
-    @location = ProductStock.find(:first, :conditions=>{:location_id=>params[:product_stock_location_id], :company_id=>@current_company.id, :product_id=>session[:product_id]} ) 
+    @location = Stock.find(:first, :conditions=>{:location_id=>params[:product_stock_location_id], :company_id=>@current_company.id, :product_id=>session[:product_id]} ) 
     if @location.nil?
-      @location = ProductStock.new(:quantity_min=>1, :quantity_max=>0, :critic_quantity_min=>0)
+      @location = Stock.new(:quantity_min=>1, :quantity_max=>0, :critic_quantity_min=>0)
     end
   end
 
@@ -700,7 +705,7 @@ class ManagementController < ApplicationController
       @product = Product.new(params[:product])
       @product.duration = params[:product][:duration]
       @product.company_id = @current_company.id
-      @product_stock = ProductStock.new(params[:product_stock])
+      @product_stock = Stock.new(params[:product_stock])
       ActiveRecord::Base.transaction do
         saved = @product.save
         if params[:product][:manage_stocks] == "1"
@@ -723,7 +728,7 @@ class ManagementController < ApplicationController
       @product = Product.new
       @product.nature = Product.natures.first[1]
       # @product.supply_method = Product.supply_methods.first[1]
-      @product_stock = ProductStock.new
+      @product_stock = Stock.new
     end
     render_form
   end
@@ -733,9 +738,9 @@ class ManagementController < ApplicationController
     session[:product_id] = @product.id
     @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
     if !@product.manage_stocks
-      @product_stock = ProductStock.new
+      @product_stock = Stock.new
     else
-      @product_stock = ProductStock.find(:first, :conditions=>{:company_id=>@current_company.id ,:product_id=>@product.id} )||ProductStock.new 
+      @product_stock = Stock.find(:first, :conditions=>{:company_id=>@current_company.id ,:product_id=>@product.id} )||Stock.new 
     end
     if request.post?
       saved = false
@@ -743,7 +748,7 @@ class ManagementController < ApplicationController
         saved = @product.update_attributes(params[:product])
         if saved
           if @product_stock.id.nil? and params[:product][:manage_stocks] == "1"
-            @product_stock = ProductStock.new(params[:product_stock])
+            @product_stock = Stock.new(params[:product_stock])
             @product_stock.product_id = @product.id
             @product_stock.company_id = @current_company.id 
             save = false unless @product_stock.save
@@ -848,9 +853,10 @@ class ManagementController < ApplicationController
     @purchase_order = find_and_check(:purchase_order, params[:id])
     session[:current_purchase] = @purchase_order.id
     if request.post?
-      @purchase_order.stocks_moves_create
-      @purchase_order.real_stocks_moves_create
-      @purchase_order.update_attributes(:shipped=>true, :moved_on=>Date.today)
+      @purchase_order.finish
+      #       @purchase_order.stocks_moves_create
+      #       @purchase_order.real_stocks_moves_create
+      #       @purchase_order.update_attributes(:shipped=>true, :moved_on=>Date.today)
       redirect_to :action=>:purchase_order_summary, :id=>@purchase_order.id
     end
     @title = {:value=>@purchase_order.number,:name=>@purchase_order.supplier.full_name}
@@ -941,16 +947,15 @@ class ManagementController < ApplicationController
   end
   
   def purchase_order_line_update
-    @update = true
     return unless @purchase_order_line = find_and_check(:purchase_order_line, params[:id])
-    @price = find_and_check(:price, @purchase_order_line.price_id)
-    @purchase_order_line.tracking_id = @purchase_order_line.tracking.serial if @purchase_order_line.tracking
+#    @price = find_and_check(:price, @purchase_order_line.price_id)
+#    @purchase_order_line.tracking_id = @purchase_order_line.tracking.serial if @purchase_order_line.tracking
     if request.post?
-      params[:purchase_order_line][:company_id] = @current_company.id
-      st = StockTracking.find_by_company_id_and_serial(@current_company.id, params[:purchase_order_line][:tracking_id].strip)||@current_company.stock_trackings.create!(:serial=>params[:purchase_order_line][:tracking_id].strip, :name=>params[:purchase_order_line][:tracking_id].strip, :product_id=>@purchase_order_line.product_id, :producer_id=>@purchase_order.supplier_id)
-      @purchase_order_line.tracking_id = st.id
+#       params[:purchase_order_line][:company_id] = @current_company.id
+#       st = Tracking.find_by_company_id_and_serial(@current_company.id, params[:purchase_order_line][:tracking_id].strip)||@current_company.trackings.create!(:serial=>params[:purchase_order_line][:tracking_id].strip, :name=>params[:purchase_order_line][:tracking_id].strip, :product_id=>@purchase_order_line.product_id, :producer_id=>@purchase_order.supplier_id)
+#       @purchase_order_line.tracking_id = st.id
       if @purchase_order_line.update_attributes(params[:purchase_order_line])  
-        @update = false
+        #        @update = false
         redirect_to :action=>:purchase_order_lines, :id=>@purchase_order_line.order_id  
       end
     end
@@ -1161,7 +1166,7 @@ class ManagementController < ApplicationController
       @sale_order = SaleOrder.new if @sale_order.nil?
       client = @current_company.entities.find_by_id(session[:current_entity])
       session[:current_entity] = (client ? client.id : nil)
-      @sale_order.responsible_id = @current_user.employee.id if !@current_user.employee.nil?
+      @sale_order.responsible_id = @current_user.id
       @sale_order.client_id = session[:current_entity]
       @sale_order.letter_format = false
       @sale_order.function_title = tg('letter_function_title')
@@ -1268,7 +1273,7 @@ class ManagementController < ApplicationController
   def sale_order_duplicate
     return unless sale_order = find_and_check(:sale_order, params[:id])
     if request.post?
-      if copy = sale_order.duplicate(:responsible_id=>@current_user.employee_id)
+      if copy = sale_order.duplicate(:responsible_id=>@current_user.id)
         redirect_to :action=>:sale_order_lines, :id=>copy.id
         return
       end
@@ -2076,7 +2081,18 @@ class ManagementController < ApplicationController
     #t.action :stock_location_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
-  dyta(:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :location_id=>['session[:current_stock_location_id]']}) do |t|
+
+  def stock_locations
+    unless @current_company.stock_locations.size>0
+      flash[:message] = tc('messages.need_stock_location_to_record_stock_moves')
+      redirect_to :action=>:stock_location_create
+      return
+    end
+  end
+
+
+
+  dyta(:stock_location_stock_moves, :model=>:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :location_id=>['session[:current_stock_location_id]']}) do |t|
     t.column :name
     t.column :planned_on
     t.column :moved_on
@@ -2088,13 +2104,18 @@ class ManagementController < ApplicationController
     t.action :stock_move_delete, :method=>:delete, :confirm=>:are_you_sure,:if=>'RECORD.generated != true' 
   end
   
-  def stock_locations
-    unless @current_company.stock_locations.size>0
-      flash[:message] = tc('messages.need_stock_location_to_record_stock_moves')
-      redirect_to :action=>:stock_location_create
-      return
-    end
+
+  dyta(:stock_location_stocks, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'], :location_id=>['session[:current_stock_location_id]']}, :order=>"current_real_quantity DESC") do |t|
+    t.column :name, :through=>:product,:url=>{:action=>:product}
+    t.column :name, :through=>:tracking
+    t.column :weight, :through=>:product, :label=>"Poids"
+    t.column :quantity_max
+    t.column :quantity_min
+    t.column :critic_quantity_min
+    t.column :current_virtual_quantity
+    t.column :current_real_quantity
   end
+  
 
   def stock_location
     @stock_location = find_and_check(:stock_location, params[:id])
@@ -2441,34 +2462,26 @@ class ManagementController < ApplicationController
     end
   end
   
-  dyta(:unreceived_purchases, :model=>:purchase_orders, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t| 
-    t.column :label, :children=>:product_name
-    t.column :planned_on, :children=>false
-    t.column :quantity, :datatype=>:decimal
-    t.column :amount
-    t.column :amount_with_taxes
-    t.check :received, :value=>'RECORD.planned_on<=Date.today'
-   # t.action :validate_purchase
-  end
-
-  # def validate_purchase
-#     return unless @purchase_order = find_and_check(:purchase_orders, params[:id])
-#     if request.post?
-#       redirect_to :action=>:unreceived_purchases
-#     end
-#     @title = {:number, @purchase_order.number, :supplier=>@purchase_order.supplier.name}
+#   dyta(:unreceived_purchases, :model=>:purchase_orders, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t| 
+#     t.column :label, :children=>:product_name
+#     t.column :planned_on, :children=>false
+#     t.column :quantity, :datatype=>:decimal
+#     t.column :amount
+#     t.column :amount_with_taxes
+#     t.check :received, :value=>'RECORD.planned_on<=Date.today'
+#    # t.action :validate_purchase
 #   end
 
-  def unreceived_purchases
-    @purchase_orders = PurchaseOrder.find(:all, :conditions=>{:company_id=>@current_company.id, :moved_on=>nil}, :order=>"planned_on ASC")
-    if request.post?
-      for id, values in params[:unreceived_purchases]
-        purchase = PurchaseOrder.find_by_id_and_company_id(id, @current_company.id)
-        purchase.real_stocks_moves_create if purchase and values[:received].to_i == 1
-      end
-      redirect_to :action=>:unreceived_purchases
-    end
-  end
+#   def unreceived_purchases
+#     @purchase_orders = PurchaseOrder.find(:all, :conditions=>{:company_id=>@current_company.id, :moved_on=>nil}, :order=>"planned_on ASC")
+#     if request.post?
+#       for id, values in params[:unreceived_purchases]
+#         purchase = PurchaseOrder.find_by_id_and_company_id(id, @current_company.id)
+#         purchase.real_stocks_moves_create if purchase and values[:received].to_i == 1
+#       end
+#       redirect_to :action=>:unreceived_purchases
+#     end
+#   end
 
  dyta(:unvalidated_embankments, :model=>:embankments, :conditions=>{:locked=>false, :company_id=>['@current_company.id']}) do |t|
     t.column :created_on
@@ -2498,7 +2511,7 @@ class ManagementController < ApplicationController
     code
   end
 
-  dyta(:product_stocks, :conditions=>stocks_conditions, :line_class=>'RECORD.state') do |t|
+  dyta(:stocks, :conditions=>stocks_conditions, :line_class=>'RECORD.state') do |t|
     t.column :name, :through=>:product,:url=>{:action=>:product}
     t.column :name, :through=>:tracking
     t.column :weight, :through=>:product, :label=>"Poids"
@@ -2509,7 +2522,7 @@ class ManagementController < ApplicationController
     t.column :current_real_quantity
   end
 
-  dyta(:critic_product_stocks, :model=>:product_stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
+  dyta(:critic_stocks, :model=>:stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
     t.column :name, :through=>:product,:url=>{:action=>:product}
     #t.column :name, :through=>:location, :label=>"Lieu de stockage"
     t.column :quantity_max
@@ -2519,19 +2532,8 @@ class ManagementController < ApplicationController
     t.column :current_real_quantity
   end
 
-
-  dyta(:uniq_critic_product_stocks, :model=>:product_stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min  AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state') do |t|
-    t.column :name, :through=>:product,:url=>{:action=>:product}
-    t.column :name, :through=>:location, :label=>"Lieu de stockage"
-    t.column :quantity_max
-    t.column :quantity_min
-    t.column :critic_quantity_min
-    t.column :current_virtual_quantity
-    t.column :current_real_quantity
-  end
-
   def stocks
-    @stock_locations = StockLocation.find_all_by_company_id(@current_company.id)
+    @stock_locations = @current_company.stock_locations
     if @stock_locations.size == 0
       flash[:warning]=tc('no_stock_location')
       redirect_to :action=>:stock_location_create
@@ -2539,7 +2541,7 @@ class ManagementController < ApplicationController
       if request.post?
         session[:location_id] = params[:product_stock][:location_id]
       end
-      @product_stock = ProductStock.new(:location_id=>session[:location_id]||StockLocation.find(:first, :conditions=>{:company_id=>@current_company.id} ).id)
+      @product_stock = Stock.new(:location_id=>session[:location_id]||StockLocation.find(:first, :conditions=>{:company_id=>@current_company.id}).id)
     end
   end
 
@@ -2619,7 +2621,7 @@ class ManagementController < ApplicationController
   
   def transport_create
     @transport = Transport.new(:transport_on=>Date.today)
-    @transport.responsible_id = @current_user.employee.id if !@current_user.employee.nil?
+    @transport.responsible_id = @current_user.id
     session[:current_transport] = 0
     if request.post?
       @transport = Transport.new(params[:transport])
@@ -2663,5 +2665,21 @@ class ManagementController < ApplicationController
       redirect_to :action=>:transports if @transport.destroy
     end
   end
+
+
+  dyta(:tracking_purchase_order_lines, :model=>:purchase_order_lines, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :order=>'order_id') do |t|
+    t.column :number, :through=>:order, :url=>{:action=>:purchase_order}    
+    t.column :name, :through=>:product, :url=>{:action=>:product}
+    t.column :quantity
+    t.column :label, :through=>:unit
+    t.column :name, :through=>:location, :url=>{:action=>:stock_location}
+  end
+
+  def tracking
+    return unless @tracking = find_and_check(:trackings, params[:id])
+    session[:current_tracking_id] = @tracking.id
+    @title = {:serial=>@tracking.serial, :name=>@tracking.name}
+  end
+
  
 end

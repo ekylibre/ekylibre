@@ -18,64 +18,36 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: transports
+# == Table: operations
 #
-#  comment        :text             
 #  company_id     :integer          not null
+#  consumption    :decimal(, )      
 #  created_at     :datetime         not null
-#  created_on     :date             
 #  creator_id     :integer          
+#  description    :text             
+#  duration       :decimal(, )      
+#  hour_duration  :decimal(, )      
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
-#  responsible_id :integer          
-#  transport_on   :date             
-#  transporter_id :integer          not null
+#  min_duration   :decimal(, )      
+#  moved_on       :date             
+#  name           :string(255)      not null
+#  nature_id      :integer          
+#  planned_on     :date             not null
+#  responsible_id :integer          not null
+#  started_at     :datetime         not null
+#  stopped_at     :datetime         
+#  target_id      :integer          
+#  target_type    :string(255)      
+#  tools_list     :string(255)      
 #  updated_at     :datetime         not null
 #  updater_id     :integer          
-#  weight         :decimal(, )      
 #
 
-class Transport < ActiveRecord::Base
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-  belongs_to :company
-  belongs_to :responsible, :class_name=>User.name
-  belongs_to :transporter, :class_name=>Entity.name
-  has_many :deliveries
-
-  attr_readonly :company_id
-
-  def before_validation_on_create
-    self.created_on ||= Date.today
-  end
-
-  def before_validation
-    self.weight = 0
-    for delivery in self.deliveries
-      self.weight += delivery.weight
-    end
-  end
-
-  def refresh
-    self.save
-  end
-
-  def before_destroy
-    for delivery in self.deliveries
-      delivery.update_attributes(:transport_id=>nil)
-    end
-  end
-
-  def address
-    a = self.transporter.full_name+"\n"
-    a += self.transporter.default_contact.address.gsub(/\s*\,\s*/, "\n") if !self.transporter.default_contact.nil?
-    a
-  end
-  
-
-
-
-
-
-
-
-end
+# one:
+#   column: value
+#
+# two:
+#   column: value

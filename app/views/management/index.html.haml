@@ -6,10 +6,9 @@
     =li_link_to tc('nb_transfers', :count=>@stock_transfers.size), :action=>:unexecuted_transfers
     =li_link_to tc('nb_payments', :count=>@payments_to_embank.size), :action=>:embankments
     =li_link_to tc('nb_enbankments', :count=>@embankments_to_lock.size), :action=>:unvalidated_embankments
-- if @product_stocks.size > 0
+- if @stocks.size > 0
   %h2= tc('low_stocks')
-  .stocks 
-    =render :partial=>"stock_indicator"
+  .stocks=dyta :critic_stocks
 
 
 =# image_tag("gruff/#{@current_company.id}-test.png")

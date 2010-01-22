@@ -55,7 +55,6 @@ class Company < ActiveRecord::Base
   has_many :documents
   has_many :document_templates
   has_many :embankments
-  has_many :employees
   has_many :entities
   has_many :entity_categories
   has_many :entity_link_natures
@@ -78,6 +77,9 @@ class Company < ActiveRecord::Base
   has_many :listing_node_items
   has_many :mandates
   has_many :observations
+  has_many :operation_natures
+  has_many :operations
+  has_many :operation_lines
   has_many :parameters
   has_many :payments
   has_many :payment_modes
@@ -87,7 +89,6 @@ class Company < ActiveRecord::Base
   has_many :productions
   has_many :products
   has_many :product_components
-  has_many :product_stocks
   has_many :professions
   has_many :purchase_orders
   has_many :purchase_order_lines
@@ -97,13 +98,10 @@ class Company < ActiveRecord::Base
   has_many :sale_order_natures
   has_many :sequences
   has_many :shapes, :order=>:name
-  has_many :shape_operation_natures
-  has_many :shape_operations
-  has_many :shape_operation_lines
   has_many :shelves
+  has_many :stocks
   has_many :stock_locations
   has_many :stock_moves
-  has_many :stock_trackings
   has_many :stock_transfers
   has_many :subscription_natures
   has_many :subscriptions
@@ -111,6 +109,7 @@ class Company < ActiveRecord::Base
   has_many :tax_declarations
   has_many :tool_uses
   has_many :tools
+  has_many :trackings
   has_many :transfers
   has_many :units
   has_many :users
@@ -118,6 +117,7 @@ class Company < ActiveRecord::Base
 
 
   # Specifics
+  has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
 
   attr_readonly :code
@@ -613,6 +613,10 @@ class Company < ActiveRecord::Base
       currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
       company.shelves.create(:name=>tc('default.shelf_name'))
       company.load_units
+
+      user.reload
+      user.attributes = {:employed=>true, :commercial=>true, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :employment=>'-'}
+      user.save!
       
       taxes = []
       taxes = {:name=>tc('default.tva000'),  :nature=>'percent', :amount=>0.00}, {:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021}, {:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055}, {:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196} 
@@ -655,8 +659,6 @@ class Company < ActiveRecord::Base
       company.event_natures.create!(:duration=>10, :usage=>"invoice", :name=>tc(:invoice_creation))
       company.event_natures.create!(:duration=>10, :usage=>"purchase_order", :name=>tc(:purchase_order_creation))
       
-      company.employees.create!(:user_id=>user.id, :commercial=>false, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :first_name=>user.first_name, :last_name=>user.last_name, :title=>tc('default.admin'))
-
       # Add complementary data to test
       company.load_demo_data unless demo_language_code.blank?
     end
@@ -665,93 +667,6 @@ class Company < ActiveRecord::Base
   
 
 
-
-
-
-  #   def self.create_with_data(company_attr=nil, user_attr=nil, demo=nil)
-  #     company = Company.new(company_attr)
-  #     user = User.new(user_attr)
-  #     @saved = true
-
-  #     ActiveRecord::Base.transaction do
-  #       @saved = company.save
-  #       if @saved
-  #         language = company.languages.create!(:name=>'Français', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
-  #         company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
-  #         company.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
-  #         user.company_id = company.id
-  #         user.role_id = company.admin_role.id
-  #         @saved = false unless user.save
-  #       end
-  #       if @saved
-  #         tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
-  #           begin
-  #             account = company.accounts.find_by_number(a[0].to_s)
-  #             if account 
-  #               account.update_attributes!(:name=>a[1])
-  #             else
-  #               company.accounts.create!(:number=>a[0].to_s, :name=>a[1])
-  #             end
-  #           rescue Exception
-  
-  #           end
-  #         end
-  
-  #         company.set_parameter('general.language', language)
-  #         company.departments.create!(:name=>tc('default.department_name'))
-  #         company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
-  #         currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
-  #         company.shelves.create(:name=>tc('default.shelf_name'))
-  #         company.load_units
-  
-  #         taxes = []
-  #         taxes = {:name=>tc('default.tva000'),  :nature=>'percent', :amount=>0.00}, {:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021}, {:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055}, {:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196} 
-  #         taxes.each do |tax|
-  #           company.taxes.create!(:name=>tax[:name], :nature=>tax[:nature], :amount=>tax[:amount], :account_collected_id=>company.account(tax[:amount],tax[:name],true), :account_paid_id=>company.account(tax[:amount], tax[:name],false) )
-  #         end
-  
-  #         company.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
-  #         company.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
-  #         company.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
-  #         undefined_nature = company.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false, :physical=>false)
-  #         category = company.entity_categories.create!(:name=>'user')
-  #         firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>company.name)
-  #         company.entity_id = firm.id
-  #         company.save
-  #         company.entity.contacts.create!(:company_id=>company.id, :line_2=>"", :line_3=>"", :line_5=>"", :line_6=>'12345 MAVILLE', :default=>true)
-  
-  #         # loading of all the templates
-  #         company.load_prints
-  
-  #         company.payment_modes.create!(:name=>tc('default.check'), :company_id=>company.id)
-  #         delays = []
-  #         ['expiration', 'standard', 'immediate'].each do |d|
-  #           delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
-  #         end
-  #         company.entity_categories.create!(:name=>tc('default.category'))
-  #         company.financialyears.create!(:started_on=>Date.today)
-  #         company.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
-  
-  #         company.set_parameter('accountancy.default_journals.sales', company.journals.create!(:name=>tc('default.journals.sales'), :nature=>"sale", :currency_id=>currency.id))
-  #         company.set_parameter('accountancy.default_journals.purchases', company.journals.create!(:name=>tc('default.journals.purchases'), :nature=>"purchase", :currency_id=>currency.id))
-  #         company.set_parameter('accountancy.default_journals.bank', company.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
-  #         company.set_parameter('management.invoicing.numeration', company.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
-  #         company.set_parameter('relations.entities.numeration', company.sequences.create!(:name=>tc('default.entities_numeration'), :format=>'[number|8]', :period=>'number'))
-  #         company.set_parameter('management.embankments.numeration', company.sequences.create!(:name=>tc('default.embankment_numeration'), :format=>'[number|4]', :period=>'year'))
-  #         company.set_parameter('management.subscriptions.numeration', company.sequences.create!(:name=>tc('default.subscription_numeration'), :format=>'[number|6]', :period=>'number'))
-  
-  #         company.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id)
-  #         company.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))
-  #         company.event_natures.create!(:duration=>10, :usage=>"invoice", :name=>tc(:invoice_creation))
-  #         company.event_natures.create!(:duration=>10, :usage=>"purchase_order", :name=>tc(:purchase_order_creation))
-  
-  #         company.employees.create!(:user_id=>user.id, :commercial=>false, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :first_name=>user.first_name, :last_name=>user.last_name, :title=>tc('default.admin'))
-  #       end
-  #       raise ActiveRecord::Rollback unless @saved      
-  #     end
-  #     return user, company
-  #   end
-  
 
 
 

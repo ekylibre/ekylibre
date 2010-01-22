@@ -48,7 +48,6 @@ fr-FR:
       document: 'Document'
       document_template: 'Modèle de document'
       embankment: 'Encaissement'
-      employee: 'Employé'
       entity: 'Relation'
       entity_category: 'Catégorie de relation'
       entity_link: 'Lien de relation'
@@ -71,6 +70,9 @@ fr-FR:
       listing_node_item: 'Élément de noeud d''extraction'
       mandate: 'Responsabilité'
       observation: 'Observation'
+      operation: 'Travail'
+      operation_line: 'Produit de travaux agricoles'
+      operation_nature: 'Type de travail'
       parameter: 'Paramètre'
       payment: 'Réglement'
       payment_mode: 'Mode de réglement'
@@ -79,7 +81,6 @@ fr-FR:
       price_tax: 'Taxe de prix'
       product: 'Produit'
       product_component: 'Composant de produit'
-      product_stock: 'Stock de produit'
       production: 'Production'
       profession: 'Profession'
       purchase_order: 'Achat'
@@ -90,13 +91,10 @@ fr-FR:
       sale_order_nature: 'Type de vente'
       sequence: 'Séquence'
       shape: 'Îlot'
-      shape_operation: 'Travail'
-      shape_operation_line: 'Produit de travaux agricoles'
-      shape_operation_nature: 'Type de travail'
       shelf: 'Catégorie de produit'
+      stock: 'Stock de produit'
       stock_location: 'Lieu de stockage'
       stock_move: 'Mouvement de stock'
-      stock_tracking: 'Lot traçable'
       stock_transfer: 'Transfert ou perte de Stock'
       subscription: 'Abonnement'
       subscription_nature: 'Type d''abonnement'
@@ -104,6 +102,7 @@ fr-FR:
       tax_declaration: 'Déclaration de taxes'
       tool: 'Outil'
       tool_use: 'Utilisation d''outil'
+      tracking: 'Lot traçable'
       transfer: 'Transfert'
       transport: 'Transport'
       unit: 'Unité'
@@ -524,29 +523,6 @@ fr-FR:
         updater_id: 'Modificateur'
         validated: 'Valider'
 
-      # Employé
-      employee:
-        arrived_on: (((ARRIVED_ON)))
-        comment: 'Commentaire'
-        commercial: 'Activité commerciale'
-        company_id: 'Société'
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        departed_on: (((DEPARTED_ON)))
-        department_id: 'Département'
-        establishment_id: 'Etablissement'
-        first_name: 'Prénom'
-        id: 'ID'
-        last_name: 'Nom'
-        lock_version: 'Version'
-        office: (((OFFICE)))
-        profession_id: 'Profession'
-        role: (((ROLE)))
-        title: 'Fonction'
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
-        user_id: 'Utilisateur'
-
       # Relation
       entity:
         active: 'Actif'
@@ -587,6 +563,7 @@ fr-FR:
         proposer_id: 'Parrain'
         reduction_rate: 'Taux de réduction'
         reflation_submissive: 'Soumis à la relance'
+        responsible_id: (((RESPONSIBLE_ID)))
         siren: 'Code SIREN'
         soundex: 'Soundex'
         supplier: 'Fournisseur'
@@ -722,6 +699,7 @@ fr-FR:
         started_sec: (((STARTED_SEC)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
+        user_id: (((USER_ID)))
 
       # Type d'évènement
       event_nature:
@@ -763,6 +741,7 @@ fr-FR:
         employee_id: 'Responsable'
         id: 'ID'
         lock_version: 'Version'
+        responsible_id: (((RESPONSIBLE_ID)))
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -982,6 +961,64 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
+      # Travail
+      operation:
+        company_id: 'Société'
+        consumption: (((CONSUMPTION)))
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        description: 'Description'
+        duration: 'Durée'
+        employee_id: 'Employé'
+        hour_duration: 'Heure(s)'
+        id: 'ID'
+        lock_version: 'Version'
+        min_duration: 'Minute(s)'
+        moved_on: 'Fait le'
+        name: 'Nom'
+        nature_id: 'Type'
+        planned_on: 'Prévu le'
+        responsible_id: (((RESPONSIBLE_ID)))
+        shape_id: 'Îlot'
+        started_at: (((STARTED_AT)))
+        stopped_at: (((STOPPED_AT)))
+        target_id: (((TARGET_ID)))
+        target_type: (((TARGET_TYPE)))
+        tools_list: 'Matériel'
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+        validated: 'Effectué'
+
+      # Produit de travaux agricoles
+      operation_line:
+        area_unit_id: (((AREA_UNIT_ID)))
+        company_id: 'Société'
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        id: 'ID'
+        lock_version: 'Version'
+        operation_id: (((OPERATION_ID)))
+        product_id: (((PRODUCT_ID)))
+        product_unit_id: (((PRODUCT_UNIT_ID)))
+        quantity: (((QUANTITY)))
+        tracking_id: 'Lot'
+        unit_quantity: (((UNIT_QUANTITY)))
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+
+      # Type de travail
+      operation_nature:
+        company_id: 'Société'
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        description: 'Description'
+        id: 'ID'
+        lock_version: 'Version'
+        name: 'Nom'
+        target_type: (((TARGET_TYPE)))
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+
       # Paramètre
       parameter:
         boolean_value: (((BOOLEAN_VALUE)))
@@ -1170,26 +1207,6 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # Stock de produit
-      product_stock:
-        company_id: 'Société'
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        critic_quantity_min: 'Quantité minimum critique'
-        current_real_quantity: 'Stock réel'
-        current_virtual_quantity: 'Stock virtuel'
-        id: 'ID'
-        location_id: 'Pour le lieu de stockage'
-        lock_version: 'Version'
-        origin_id: (((ORIGIN_ID)))
-        origin_type: (((ORIGIN_TYPE)))
-        product_id: 'Produit'
-        quantity_max: 'Quantité maximum'
-        quantity_min: 'Quantité minimum'
-        tracking_id: 'Lot'
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
-
       # Production
       production:
         company_id: 'Société'
@@ -1199,6 +1216,7 @@ fr-FR:
         location_id: 'Lieu de stockage'
         lock_version: 'Version'
         moved_on: 'Fait le'
+        name: (((NAME)))
         planned_on: 'Prévu le'
         product_id: 'Produit'
         quantity: 'Quantité'
@@ -1421,60 +1439,6 @@ fr-FR:
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
-      # Travail
-      shape_operation:
-        company_id: 'Société'
-        consumption: (((CONSUMPTION)))
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        description: 'Description'
-        duration: 'Durée'
-        employee_id: 'Employé'
-        hour_duration: 'Heure(s)'
-        id: 'ID'
-        lock_version: 'Version'
-        min_duration: 'Minute(s)'
-        moved_on: 'Fait le'
-        name: 'Nom'
-        nature_id: 'Type'
-        planned_on: 'Prévu le'
-        shape_id: 'Îlot'
-        started_at: (((STARTED_AT)))
-        stopped_at: (((STOPPED_AT)))
-        tools_list: 'Matériel'
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
-        validated: 'Effectué'
-
-      # Produit de travaux agricoles
-      shape_operation_line:
-        area_unit_id: (((AREA_UNIT_ID)))
-        company_id: 'Société'
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        id: 'ID'
-        lock_version: 'Version'
-        product_id: (((PRODUCT_ID)))
-        product_unit_id: (((PRODUCT_UNIT_ID)))
-        quantity: (((QUANTITY)))
-        shape_operation_id: (((SHAPE_OPERATION_ID)))
-        tracking_id: 'Lot'
-        unit_quantity: (((UNIT_QUANTITY)))
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
-
-      # Type de travail
-      shape_operation_nature:
-        company_id: 'Société'
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        description: 'Description'
-        id: 'ID'
-        lock_version: 'Version'
-        name: 'Nom'
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
-
       # Catégorie de produit
       shelf:
         catalog_description: 'Description'
@@ -1488,6 +1452,27 @@ fr-FR:
         name: 'Nom'
         parent: 'Sur-catégorie'
         parent_id: 'Sur-catégorie'
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+
+      # Stock de produit
+      stock:
+        company_id: 'Société'
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        critic_quantity_min: 'Quantité minimum critique'
+        current_real_quantity: 'Stock réel'
+        current_virtual_quantity: 'Stock virtuel'
+        id: 'ID'
+        location_id: 'Pour le lieu de stockage'
+        lock_version: 'Version'
+        name: (((NAME)))
+        origin_id: (((ORIGIN_ID)))
+        origin_type: (((ORIGIN_TYPE)))
+        product_id: 'Produit'
+        quantity_max: 'Quantité maximum'
+        quantity_min: 'Quantité minimum'
+        tracking_id: 'Lot'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1535,27 +1520,12 @@ fr-FR:
         quantity: 'Quantité'
         second_location_id: (((SECOND_LOCATION_ID)))
         second_move_id: (((SECOND_MOVE_ID)))
+        stock_id: (((STOCK_ID)))
         tracking_id: 'Lot'
         unit_id: 'Unité'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
         virtual: 'Virtuel'
-
-      # Lot traçable
-      stock_tracking:
-        active: 'Utilisé'
-        comment: 'Commentaire'
-        company_id: 'Société'
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        id: 'ID'
-        lock_version: 'Version'
-        name: 'Nom'
-        producer_id: 'Producteur'
-        product_id: 'Produit'
-        serial: 'N°Lot'
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
 
       # Transfert ou perte de Stock
       stock_transfer:
@@ -1691,8 +1661,24 @@ fr-FR:
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
-        shape_operation_id: 'Travail'
+        operation_id: 'Travail'
         tool_id: (((TOOL_ID)))
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+
+      # Lot traçable
+      tracking:
+        active: 'Utilisé'
+        comment: 'Commentaire'
+        company_id: 'Société'
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        id: 'ID'
+        lock_version: 'Version'
+        name: 'Nom'
+        producer_id: 'Producteur'
+        product_id: 'Produit'
+        serial: 'N°Lot'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1750,12 +1736,21 @@ fr-FR:
       # Utilisateur
       user:
         admin: 'Administrateur'
+        arrived_on: 'Arrivé le'
+        comment: 'Commentaire'
+        commercial: 'Activité commerciale'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
         credits: 'Création d''avoirs'
         deleted: 'Effacé'
+        deleted_at: (((DELETED_AT)))
+        departed_on: 'Parti le'
+        department_id: 'Département'
         email: 'E-mail'
+        employed: 'Employé par la société'
+        employment: 'Emploi/Rôle'
+        establishment_id: 'Établissement'
         first_name: 'Prénom'
         free_price: 'Prix libres'
         full_name: 'Nom complet'
@@ -1766,9 +1761,11 @@ fr-FR:
         lock_version: 'Version'
         locked: 'Compte verrouillé'
         name: 'Nom d''utilisateur'
+        office: 'Bureau/Atelier'
         old_password: 'Mot de passe actuel'
         password: 'Mot de passe'
         password_confirmation: 'Confirmation du mot de passe'
+        profession_id: 'Profession'
         reduction_percent: 'Taux de réduction autorisé (%)'
         rights: 'Droits'
         role_id: 'À partir du rôle'

@@ -33,7 +33,7 @@
         =evalue datum.complement.name, datum.value.to_s
 
  
-=tabbox(:entities) do |tb|
+=tabbox(:entity) do |tb|
   -tb.tab(tc(:subscriptions, :count=>@entity.subscriptions.count)) do |c|
     -c << toolbar do
       -link(:subscription_create, :controller=>:management, :entity_id=>@entity.id)

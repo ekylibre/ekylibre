@@ -22,22 +22,22 @@ class ResourcesController < ApplicationController
     @employees = @current_company.employees
   end
 
-  dyta(:employees, :conditions=>search_conditions(:employees, :employees=>[:id, :title, :first_name, :last_name]), :order=>:last_name, :empty=>true) do |t|
-    t.column :title 
-    t.column :first_name, :url=>{:action=>:employee}
+  # search_conditions(:users, [:id, :title, :first_name, :last_name])
+  dyta(:employees, :model=>:users, :conditions=>{:employed=>true}, :order=>:last_name) do |t|
     t.column :last_name , :url=>{:action=>:employee}
-    t.column :name, :through=>:user  
-    t.action :employee_update
+    t.column :first_name, :url=>{:action=>:employee}
+    t.column :employment
+    t.column :arrived_on
+    t.column :departed_on
+    t.action :user_update, :url=>{:controller=>:company}
     t.action :employee_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
   # Lists all the employees with main informations for each of them.
   def employees
-    @key = params[:key]||session[:employee_key]
-    session[:employee_key] = @key
   end
-
-  dyta(:employee_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :employee_id=>['session[:current_employee]']}, :order=>'started_at desc') do |t|
+  
+  dyta(:employee_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :user_id=>['session[:current_employee]']}, :order=>'started_at desc') do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location
@@ -59,7 +59,7 @@ class ResourcesController < ApplicationController
     t.action :sale_order_delete ,:controller=>:management,  :method=>:post, :if=>'RECORD.estimate? ', :confirm=>:are_you_sure
   end
 
-   dyta(:employee_shape_operations, :model=>:shape_operations, :conditions=>{:company_id=>['@current_company.id'], :employee_id=>['session[:current_employee]']}, :order=>'planned_on desc, name asc') do |t|
+   dyta(:employee_shape_operations, :model=>:shape_operations, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'planned_on desc, name asc') do |t|
     t.column :name, :url=>{:action=>:shape_operation, :controller=>:production}
     t.column :name, :through=>:nature
     t.column :planned_on
@@ -72,12 +72,24 @@ class ResourcesController < ApplicationController
   end
   
   def employee
-    return unless @employee = find_and_check(:employees, params[:id])
-    session[:current_employee] = @employee.id
-    @title = {:label=>@employee.label}
+    return unless @user = find_and_check(:users, params[:id])
+    session[:current_employee] = @user.id
+    @title = {:label=>@user.label}
   end
 
-  manage :employees
+  def employee_delete
+    return unless @user = find_and_check(:users, params[:id])
+    if request.post? or request.delete?
+      @user.employed = false
+      @user.save
+    end
+    redirect_to_current
+  end
+
+
+
+
+  # manage :employees
 
   dyta(:professions, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name, :empty=>true) do |t|
     t.column :name 

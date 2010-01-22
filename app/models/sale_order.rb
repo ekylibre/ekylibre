@@ -21,8 +21,8 @@
 # == Table: sale_orders
 #
 #  accounted_at        :datetime         
-#  amount              :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes   :decimal(16, 2)   default(0.0), not null
+#  amount              :decimal(, )      default(0.0), not null
+#  amount_with_taxes   :decimal(, )      default(0.0), not null
 #  annotation          :text             
 #  client_id           :integer          not null
 #  comment             :text             
@@ -35,7 +35,7 @@
 #  creator_id          :integer          
 #  currency_id         :integer          
 #  delivery_contact_id :integer          
-#  downpayment_amount  :decimal(16, 2)   default(0.0), not null
+#  downpayment_amount  :decimal(, )      default(0.0), not null
 #  expiration_id       :integer          not null
 #  expired_on          :date             not null
 #  function_title      :string(255)      
@@ -48,7 +48,7 @@
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer          not null
 #  number              :string(64)       not null
-#  parts_amount        :decimal(16, 2)   
+#  parts_amount        :decimal(, )      
 #  payment_delay_id    :integer          not null
 #  responsible_id      :integer          
 #  state               :string(1)        default("O"), not null
@@ -69,7 +69,7 @@ class SaleOrder < ActiveRecord::Base
   belongs_to :invoice_contact, :class_name=>Contact.to_s
   belongs_to :nature, :class_name=>SaleOrderNature.to_s
   belongs_to :payment_delay, :class_name=>Delay.to_s
-  belongs_to :responsible, :class_name=>Employee.name
+  belongs_to :responsible, :class_name=>User.name
   belongs_to :transporter, :class_name=>Entity.name
   has_many :deliveries, :foreign_key=>:order_id
   has_many :invoices
@@ -150,7 +150,7 @@ class SaleOrder < ActiveRecord::Base
   def confirm(validated_on=Date.today)
     if self.estimate? and self.confirmed_on.nil?
       for line in self.lines.find(:all, :conditions=>["quantity>0"])
-        line.product.reserve_stock(line.quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self, :tracking_id=>line.tracking_id)
+        line.product.reserve_outgoing_stock(:origin=>self, :planned_on=>self.created_on)
       end
       self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today, :state=>"A")
     end
@@ -160,11 +160,11 @@ class SaleOrder < ActiveRecord::Base
   def move_real_stocks
     if self.deliveries.size > 0
       for line in self.lines
-        line.product.take_stock_out(line.undelivered_quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self, :tracking_id=>line.tracking_id)
+        line.product.move_outgoing_stock(:origin=>self, :quantity=>line.undelivered_quantity, :planned_on=>self.created_on)
       end
     else
       for line in self.lines
-        line.product.take_stock_out(line.quantity, :location_id=>line.location_id, :planned_on=>self.created_on, :origin=>self, :tracking_id=>line.tracking_id)
+        line.product.move_outgoing_stock(:origin=>self, :planned_on=>self.created_on)
       end
     end
   end
