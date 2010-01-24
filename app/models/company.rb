@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 # 
 # == License
@@ -174,7 +175,9 @@ class Company < ActiveRecord::Base
   def parameter(name)
     parameter = self.parameters.find_by_name(name)
     if parameter.nil? and Parameter.reference.keys.include? name
-      parameter = self.parameters.create!(:name=>name, :value=>Parameter.reference[name][:default])
+      parameter = self.parameters.new(:name=>name)
+      parameter.value = Parameter.reference[name][:default]
+      parameter.save!
     end
     parameter
   end

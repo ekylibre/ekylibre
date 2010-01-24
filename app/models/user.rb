@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 # 
 # == License
@@ -72,7 +73,7 @@ class User < ActiveRecord::Base
   
 
 
-  validates_presence_of :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
+  validates_presence_of :company_id, :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
   validates_confirmation_of :password
   validates_inclusion_of :reduction_percent, :in=>0..100
   validates_uniqueness_of :name # , :scope=>:company_id
@@ -109,7 +110,11 @@ class User < ActiveRecord::Base
 
   def parameter(name, value=nil, nature=:string)
     p = self.parameters.find(:first, :order=>:id, :conditions=>{:name=>name})
-    p = self.parameters.create!(:name=>name, :company_id=>self.company_id, :nature=>nature.to_s, :value=>value) if p.nil?
+    if p.nil?
+      p = self.parameters.new(:name=>name, :company_id=>self.company_id, :nature=>nature.to_s)
+      p.value = value
+      p.save!
+    end
     return p
   end
 

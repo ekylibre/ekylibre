@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 # 
 # == License
@@ -69,7 +70,8 @@ class Parameter < ActiveRecord::Base
         self.record_value_id = nil
       end
     else
-      self.send(self.nature.to_s+'_value=', object)
+      raise Exception.new([self, object.inspect]) unless @@natures.include? self.nature
+      self.send(self[:nature].to_s+'_value=', object)
     end
   end
 
