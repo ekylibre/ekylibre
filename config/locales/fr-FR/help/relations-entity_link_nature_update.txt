@@ -1,0 +1,10 @@
+h1. Comment modifier un nouveau type de lien ?
+
+Le nom du lien sert à titre informatif, ce sont les champs *Fiche1  ⇒ Fiche 2* et *Fiche2  ⇒ Fiche1* qui apparaitront dans la description du lien.
+
+Le champ *"symétrique"* permet de savoir si le nom du lien unissant les deux fiches est le même dans les deux sens. 
+
+
+Le champ *"propager les contacts"* permet de faire apparaitre les contacts de la première fiche au niveau du détail de la seconde fiche et inversement.
+
+<<relations-index|Revenir à l'aide de gestion des relations >>

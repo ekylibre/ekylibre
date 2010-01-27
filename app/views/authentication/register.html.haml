@@ -1,0 +1,23 @@
+.formalize
+  - form_tag do
+    .fields
+      =formalize do |f|
+        - f.error 'company'
+        - f.error 'user'
+        - f.title :my_company
+        - f.field :company, :name, {:example=>tc(:company_name_example)}
+        - f.title :my_self
+        - f.field :user, :last_name
+        - f.field :user, :first_name, :example=>tc(:user_first_name_example)
+        - f.field :user, :name, :example=>tc(:user_name_example), :info=>tc(:user_name_info)
+        - f.field :user, :password, :null=>false, :hint=>tc(:user_password_hint)
+        - f.field :user, :password_confirmation, :null=>false, :info=>tc(:user_password_confirmation_info)
+      %table.formalize
+        %tr.field
+          %td.label=tc(:load_demo_data)
+          %td.input=check_box_tag(:demo, :load_data, :checked=>true)
+      .actions
+        -if defined?(Ekylibre::DONT_REGISTER)
+          =text_field_tag :register_password
+        =submit_tag(tg(:create))
+        =link_to(tg(:cancel), :action=>:login)

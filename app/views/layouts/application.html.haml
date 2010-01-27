@@ -1,0 +1,35 @@
+!!! XML utf-8
+!!! strict-svg
+%html{:xmlns=>'http://www.w3.org/1999/xhtml'}
+  %head
+    %meta{'http-equiv' => 'Content-Type', :content => 'text/html;charset=UTF-8'}
+    %link{:rel=>"icon", :type=>"image/png", :href=>image_path("favicon.png")}
+    %title=(@current_company ? @current_company.code : 'Ekylibre')+' - '+t("controllers.#{controller.controller_name.to_s}.title")+' - '+t("views.#{controller.controller_name}.#{action_name}.title", @title||{})
+    = stylesheet_link_tag 'application', 'dyta', 'dyta-colors'
+    = stylesheet_link_tag 'print', :media=>'print'
+    = calendar_link_tag
+    = javascript_include_tag :defaults
+  %body{:id=>:body, :orient=>:vertical, :onload=>"resize();", :onresize=>'resize();'}
+    = top_tag
+    #columns{:orient=>:horizontal, :flex=>1}
+      -side=side_tag
+      -unless side.blank?
+        #side{:flexy=>'true', :orient=>:vertical, :style=>''+(session[:side] ? "" : "display:none")}
+          =side      
+      #main{:flex=>9, :orient=>:vertical, :style=>"position: absolute; top: 0px;"}
+        #content{:flex=>3, :orient=>:vertical}
+          .nav{:flexy=>'true'}
+            =help_link_tag
+            =side_link_tag
+            %h1.title=title
+          #yield{:flex=>50, :orient=>:vertical}
+            = flash_tag :error
+            = flash_tag :warning
+            = flash_tag :notice
+            - unless flash[:message].blank?
+              .message=flash[:message]
+            =yield
+            .end{:style=>'height:1px'}
+      #help{:flex=>3, :style=>(session[:help] ? "" : "display:none; ")+"position: absolute; top: 0px;"}
+        = render :partial=>'help/search' if session[:help]
+   

@@ -1,0 +1,13 @@
+=purchase_steps
+
+=formalize do |f|
+  -f.error :purchase_order
+  -f.title :infos
+  -#f.field :purchase_order, :supplier_id, :choices=>:suppliers, :new=>{:controller=>:relations, :action=>:entity_create}
+  -f.field :purchase_order, :supplier_id, :choices=>@current_company.entities.find_all_by_supplier(true).collect{|x| [x.label, x.id]}, :new=>{:controller=>:relations, :action=>:entity_create}
+  -#f.field :purchase_order, :dest_contact_id, :choices=>:contacts, :resize=>true
+  -f.field :purchase_order, :dest_contact_id, :choices=>@current_company.entity.contacts.collect{|x| [x.address, x.id]}, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@current_company.entity_id}
+  -f.field :purchase_order, :planned_on
+  -f.field :purchase_order, :comment, :field=>:textarea
+
+

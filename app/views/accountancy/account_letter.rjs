@@ -1,0 +1,1 @@
+page.replace_html 'lettering', :partial => 'accounts_letter'

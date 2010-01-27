@@ -1,0 +1,3 @@
+h1. Comment modifier un compte comptable
+Remplisser le formulaire de modification de compte en renseignant bien le champ correspondant.
+

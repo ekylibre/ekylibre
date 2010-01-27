@@ -1,0 +1,46 @@
+- register = !defined?(Ekylibre::DONT_REGISTER)
+- download_firefox = !request.env["HTTP_USER_AGENT"].match(/mozilla/i)
+- if request.env["HTTP_USER_AGENT"].to_s.match(/MSIE (\d+\.\d+);/)
+  - bad_browser = ($1.to_f <= 6)
+#login.login{:style=>"display:none"}
+  .logoban
+  - form_tag do
+    %table
+      %tr
+        %td.label=tc :username
+        %td.input=text_field :user, :name, {:value=>session[:user_name], :tabindex=>1}
+      %tr
+        %td.label=tc :password
+        %td.input=password_field :user, :password, :tabindex=>2
+      %tr
+        %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3)
+  - if register or download_firefox
+    .actions
+      =link_to(tc(:register), {:action=>:register}, :class=>"register") if register
+      =link_to(tc(:download_firefox), "http://www.mozilla.com/", :class=>"firefox") if download_firefox
+
+- if bad_browser
+  #bad_browser.login
+    .logoban
+    %h2=tc("bad_browser.title")
+    %p=tc("bad_browser.explanation")
+    %p=tc("bad_browser.proposal")
+    %table.browsers.actions
+      %tr
+        %td=link_to(tc("bad_browser.wb.firefox"), "http://www.mozilla.com/")
+        %td=link_to(tc("bad_browser.wb.chrome"), "http://www.google.com/chrome")
+        %td=link_to(tc("bad_browser.wb.safari"), "http://www.apple.com/fr/safari/")
+        %td=link_to(tc("bad_browser.wb.opera"), "http://www.opera.com/browser/")
+        %td=link_to(tc("bad_browser.wb.ie"), "http://www.microsoft.com/france/windows/ie/")
+- else
+  #nojavascript.login
+    .logoban
+    .message=tc('no_javascript')
+  :javascript
+    $('nojavascript').hide();
+    $('login').show();
+
+:javascript
+  $('user_name').select();
+  $('user_name').focus(); 
+

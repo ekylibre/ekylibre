@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<template title="Example" lang="fr" version="2.0">
+  <infos>
+    <info name="authors">Thibaud Mérigon, Brice Texier</info>
+  </infos>
+  <parameters>
+    <parameter name="purchase_order" nature="purchase_order">Commande fournisseur</parameter>
+  </parameters>
+  <document unit="mm" size="10" title="supplier.label">
+    <page orientation="portrait" format="A4" margin="10mm">
+
+      <part height="70mm">
+	<set>
+	  <text value="{{purchase_order/supplier_address}}"/>
+	  <text value="{{purchase_order/client_address}}" align="left" font="helvetica" top="40mm" left="100mm"/>
+	</set>
+      </part>
+
+
+      <part height="15mm">
+	<set>
+	  <text value="Commande N°{{purchase_order/number}}" bold="true" left="50%" align="center" top="7mm" size="12"/>
+	  <text value="À {{purchase_order.company.default_contact.area/city_name?capitalize=true}}, le {{purchase_order/created_on?format=month_letter}}" left="100%" align="right"/>
+	</set>      
+      </part>
+
+      <table collection="purchase_order.lines" fixed="true">
+	<column label="Produit" property="product/name" width="100mm"/>
+	<column label="Qté." property="quantity" width="13mm" numeric="money"/>
+	<column label="Prix Unitaire HT" property="price/amount" width="22mm" numeric="money"/>
+	<column label="Montant HT" property="amount" width="20mm" numeric="money"/>
+	<column label="Montant TVA" property="taxes" width="20mm" numeric="money"/>
+	<column label="Taux T.V.A." property="price.tax/amount" width="15mm" align="center"/>
+      </table>
+
+
+      <part height="14mm">
+        <set right="90mm" top="1mm">
+          <text value="Totaux ({{purchase_order.lines[0].price.currency.code}})" top="0.5mm" left="34mm" align="right" bold="true"/>
+          <text value="Net à payer ({{purchase_order.lines[0].price.currency.code}})" top="6mm" left="34mm" align="right" bold="true" size="11.5"/>
+          <text value="{{purchase_order.amount_with_taxes?numeric}}" top="6mm" left="55mm" align="center" bold="true" size="12"/>
+          <text value="{{purchase_order.amount?numeric}}" top="0.5mm" left="54.5mm" align="right"/>
+          <text value="{{purchase_order.taxes?numeric}}" top="0.5mm" left="74.5mm" align="right"/>
+          <rectangle width="75mm" height="4mm" border="0.5 solid #000"/>
+          <rectangle width="75mm" height="7mm" border="0.5 solid #000" top="4mm"/>
+          <line path="35mm,0 ; 35mm,11mm" border="0.5 solid #000"/>
+          <line path="55mm,0 ; 55mm,4mm"  border="0.5 solid #000"/>
+        </set>
+      </part>
+      
+      <part height="15mm" bottom="true">
+        <set>
+	  <line path="0,1mm ; 100%,1mm" border="0.5 solid #000"/>
+	  <set top="2.5mm">
+	    <text value="Commande n°{{purchase_order/number}}" size="10" align="left"/>
+	    <text value="{{purchase_order/created_on?format=month_letter}}" size="10" left="50%" align="center"/>
+	    <text value="Paraphe" size="10" right="20mm" align="right" bold="true"/>
+	    <rectangle width="18mm" height="8mm" right="18mm" border="0.5 solid #000"/>
+	  </set>
+	</set>
+      </part>
+      
+    </page>
+  </document>
+</template>

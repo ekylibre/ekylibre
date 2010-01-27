@@ -1,0 +1,13 @@
+page.replace_html 'entries', :inline=>"<%=dyta :entries-%>"
+page.replace_html 'errors',  :partial=>'errors'
+
+page['record_number'].focus()
+page['record_number'].value = @record.number
+page['record_created_on'].value =  I18n.localize(@record.created_on)
+page['record_printed_on'].value = I18n.localize(@record.printed_on)
+page['entry_name'].value = @entry.name
+
+page['entry_currency_debit'].value = @entry.currency_debit
+page['entry_currency_credit'].value = @entry.currency_credit
+
+

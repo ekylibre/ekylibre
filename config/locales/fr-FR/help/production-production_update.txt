@@ -1,0 +1,5 @@
+h1. Comment modifier une production ?
+
+Il suffit de modifier la quantité produite.
+
+<<production-index|Retour à l'aide sur la Gestion de la production>>

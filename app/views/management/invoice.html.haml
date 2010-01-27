@@ -1,0 +1,26 @@
+=toolbar do |t|
+  -#t.link :invoice_print, :id=>@invoice.id
+  -t.print :invoice, :id=>@invoice.id
+  -t.link :invoice_cancel, :id=>@invoice.id if @invoice.creditable?
+
+%table
+  %tr
+    %td
+      = evalue @invoice, :number
+      = evalue @invoice, :client, :label=>:full_name
+      = evalue @invoice, :contact, :label=>:address
+      = evalue @invoice, :payment_on
+    %td
+      = evalue @invoice, :amount
+      = evalue @invoice, :amount_with_taxes
+      = evalue @invoice, :credit
+      = evalue @invoice, :sale_order, :label=>:number, :url=>{:action=>:sale_order}
+      = evalue @invoice, :origin, :label=>:number, :url=>{:action=>:invoice} if !@invoice.origin.nil?
+
+%h2= tc(:invoice_lines) 
+=dyta :invoice_credit_lines
+
+
+- if !@invoice.credit and @invoice.credits.size > 0
+  %h2= tc(:credits)
+  =dyta :credits

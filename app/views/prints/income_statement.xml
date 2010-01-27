@@ -1,0 +1,360 @@
+<?xml version="1.0"?>
+<template title="Example" lang="fr" version="2.0">
+  <infos>
+    <info name="authors">Thibaud Mérigon, Brice Texier</info>
+  </infos>
+  <parameters>
+    <parameter name="financialyear" nature="financialyear">Compte de résultat</parameter>
+  </parameters>
+  <document unit="mm" size="10" title="">
+    <page orientation="portrait" format="A4" margin="10mm">
+      
+      <part height="20mm">
+	<set >
+	  <text value="Compte de résultat de la société {{financialyear.company.name}} pour la période du {{financialyear/started_on?format=month_letter}} au {{financialyear/stopped_on?format=month_letter}}" left="50%" size="14" align="center" bold="true" resize="true" width="100%"/>
+	</set>
+      </part>
+      
+      <part height="10mm">
+	<set left="4mm">
+	  <text value="CHARGES (hors taxes)" align="center" left="60mm" top="4mm"/>
+	   <text value="Exercice N" left="135mm" align="center" top="4mm"/>
+	   <text value="Excercice N-1" left="165mm" align="center" top="4mm"/>
+	   <rectangle width="181mm" height="10mm"  border="0.5 solid #000" size="8mm"/>
+	   <line path="0mm,10mm ; 0,148mm" width="0.5"  border="0.5 solid #000"/>
+	   <line path="121mm,0 ; 121mm,10mm" width="0.5"  border="0.5 solid #000"/>
+	   <line path="151mm,0 ; 151mm,10mm" width="0.5"  border="0.5 solid #000"/>
+	</set>
+      </part>
+
+      <part>
+	<set left="5mm">
+	  <line path="120mm,0 ; 120mm,138mm" width="0.5"  border="0.5 solid #000"/>
+	  <line path="150mm,0 ; 150mm,138mm" width="0.5"  border="0.5 solid #000"/>
+	  <line path="180mm,0 ; 180mm,138mm" width="0.5"  border="0.5 solid #000"/>
+	  <line path="-1mm,138mm ; 180mm,138mm" width="0.5"  border="0.5 solid #000"/>
+          <text value="Charges d'exploitation" size="8" top="1mm" bold="true" />
+	  <set top="5mm">
+	    <text value="Achats de marchandises" left="5mm" size="8"/>
+	    <text value="{{financialyear.balance('607,6087,6097')}}" left="148mm" align="right" size="8"/>
+	    <text if="financialyear.previous" value="{{financialyear.previous.balance('607,6087,6097')}}" left="178mm" align="right" size="8"/>
+	    <set top="4mm">
+	      <text value="Variation des stocks" left="5mm" size="8"/>
+	      <text value="{{financialyear.balance('6037')}}" left="148mm" align="right" size="8"/>
+	      <text if="financialyear.previous" value="{{financialyear.previous.balance('6037')}}" left="178mm" align="right" size="8"/>
+	      <set top="4mm">
+		<text value="Achats de matières premières et autres approvisionnements" left="5mm" size="8" />
+		<text value="{{financialyear.balance('601,602,6081,6082,6091,6092')}}" left="148mm" align="right" size="8"/>
+		<text if="financialyear.previous" value="{{financialyear.previous.balance('601,602,6081,6082,6091,6092')}}" left="178mm" align="right" size="8"/>
+		<set top="4mm">
+		  <text value="Variation de stock" left="5mm" size="8" />
+		  <text value="{{financialyear.balance('6031,6032')}}" left="148mm" align="right" size="8"/>
+		  <text if="financialyear.previous" value="{{financialyear.previous.balance('6031,6032')}}" left="178mm" align="right" size="8"/>
+		  <set top="4mm">
+		    <text value="Autres achats et charges externes" left="5mm" size="8" />
+		    <text value="{{financialyear.balance('604,605,606,6084,6085,6086,6094,6095,6096,61,62')}}" left="148mm" align="right" size="8"/>
+		    <text if="financialyear.previous" value="{{financialyear.previous.balance('604,605,606,6084,6085,6086,6094,6095,6096,61,62')}}" left="178mm" align="right" size="8"/>
+		    <set top="4mm">
+		      <text value="Impôts, taxes et versements assimilés" left="5mm" size="8" />
+		      <text value="{{financialyear.balance('63')}}" left="148mm" align="right" size="8"/>
+		      <text if="financialyear.previous" value="{{financialyear.previous.balance('63')}}" left="178mm" align="right" size="8"/>
+		      <set top="4mm">
+			<text value="Salaires et traitements" left="5mm" size="8" />
+			<text value="{{financialyear.balance('641,644,648')}}" left="148mm" align="right" size="8"/>
+			<text if="financialyear.previous" value="{{financialyear.previous.balance('641,644,648')}}" left="178mm" align="right" size="8"/>
+			<set top="4mm">
+			  <text value="Charges sociales" left="5mm" size="8" />
+			  <text value="{{financialyear.balance('645,646,647,648')}}" left="148mm" align="right" size="8"/>
+			  <text if="financialyear.previous" value="{{financialyear.previous.balance('645,646,647,648')}}" left="178mm" align="right" size="8"/>
+			  <set top="4mm">
+			    <text value="Dotations aux amortissements et aux provisions" left="5mm" size="8" />
+			    <set top="4mm">
+			      <text value="Sur immobilisations : dotations aux amortissements" left="10mm" size="8" />
+			      <text value="{{financialyear.balance('6811,6812')}}" left="148mm" align="right" size="8"/>
+			      <text if="financialyear.previous" value="{{financialyear.previous.balance('6811,6812')}}" left="178mm" align="right" size="8"/>
+			      <set top="4mm">
+				<text value="Sur immobilisations : dotations aux provisions" left="10mm" size="8" />
+				<text value="{{financialyear.balance('6816')}}" left="148mm" align="right" size="8"/>
+				<text if="financialyear.previous" value="{{financialyear.previous.balance('6816')}}" left="178mm" align="right" size="8"/>
+				<set top="4mm">
+				  <text value="Sur actif circulant : dotations aux provisions" left="10mm" size="8" />
+				  <text value="{{financialyear.balance('6817')}}" left="148mm" align="right" size="8"/>
+				  <text if="financialyear.previous" value="{{financialyear.previous.balance('6817')}}" left="178mm" align="right" size="8"/>
+				  <set top="4mm">
+				    <text value="Pour risques et charges : dotations aux provisions" left="10mm" size="8" />
+				    <text value="{{financialyear.balance('6815')}}" left="148mm" align="right" size="8"/>
+				    <text if="financialyear.previous" value="{{financialyear.previous.balance('6815')}}" left="178mm" align="right" size="8"/>
+				    <set top="4mm">
+				      <text value="Autres charges" left="5mm" size="8" />
+				      <text value="{{financialyear.balance('65,^655')}}" left="148mm" align="right" size="8"/>
+				      <text if="financialyear.previous" value="{{financialyear.previous.balance('65,^655')}}" left="178mm" align="right" size="8"/>
+				      <set top="4mm">
+					<text value="Total I" bold="true" size="8" />
+					<text value="{{financialyear.balance('607,6087,6097,6037,601,602,6081,6082,6091,6092,6031,6032,604,605,606,6084,6085,6086,6094,6095,6096,61,62,63,641,644,648,645,646,647,648,6811,6812,6816,6817,6815,65,^655')}}" bold="true" left="148mm" align="right" size="8"/>
+					<text if="financialyear.previous" value="{{financialyear.previous.balance('607,6087,6097,6037,601,602,6081,6082,6091,6092,6031,6032,604,605,606,6084,6085,6086,6094,6095,6096,61,62,63,641,644,648,645,646,647,648,6811,6812,6816,6817,6815,65,^655')}}" bold="true" left="178mm" align="right" size="8"/>
+					<set top="4mm">
+					  <text value="Quotes-parts de résultat sur opérations faites en commun (II)" bold="true" size="8" />
+					  <text value="{{financialyear.balance('655')}}" bold="true" left="148mm" align="right" size="8"/>
+					  <text if="financialyear.previous" value="{{financialyear.previous.balance('655')}}" bold="true" left="178mm" align="right" size="8"/>
+					  <set top="4mm">
+					    <text value="Charges financières" bold="true" size="8" />
+					    <set top="4mm">
+					      <text value="Dotations aux amortissements et aux provisions" left="5mm" size="8" />
+					      <text value="{{financialyear.balance('686')}}" left="148mm" align="right" size="8"/>
+					      <text if="financialyear.previous" value="{{financialyear.previous.balance('686')}}" left="178mm" align="right" size="8"/>
+					      <set top="4mm">
+						<text value="Intérêts et charges assimilées" left="5mm" size="8" />
+						<text value="{{financialyear.balance('661,664,665,668')}}" left="148mm" align="right" size="8"/>
+						<text if="financialyear.previous" value="{{financialyear.previous.balance('661,664,665,668')}}" left="178mm" align="right" size="8"/>
+						<set top="4mm">
+						  <text value="Différences négatives de change" left="5mm" size="8" />
+						  <text value="{{financialyear.balance('666')}}" left="148mm" align="right" size="8"/>
+						  <text if="financialyear.previous" value="{{financialyear.previous.balance('666')}}" left="178mm" align="right" size="8"/>
+						  <set top="4mm">
+						    <text value="Charges nettes sur cessions de valeurs mobilières de placement" left="5mm" size="8" />
+						    <text value="{{financialyear.balance('667')}}" left="148mm" align="right" size="8"/>
+						    <text if="financialyear.previous" value="{{financialyear.previous.balance('667')}}" left="178mm" align="right" size="8"/>
+						    <set top="4mm">
+						      <text value="Total III" bold="true" size="8" />
+						      <text value="{{financialyear.balance('686,661,664,665,668,666,667')}}" bold="true" left="148mm" align="right" size="8"/>
+						      <text if="financialyear.previous" value="{{financialyear.previous.balance('686,661,664,665,668,666,667')}}" bold="true" left="178mm" align="right" size="8"/>
+						      <set top="4mm">
+							<text value="Charges exceptionnelles" bold="true" size="8" />
+							<set top="4mm">
+							  <text value="Sur opérations de gestion" left="5mm"  size="8" />
+							  <text value="{{financialyear.balance('671')}}" left="148mm" align="right" size="8"/>
+							  <text if="financialyear.previous" value="{{financialyear.previous.balance('671')}}" left="178mm" align="right" size="8"/>
+							  <set top="4mm">
+							    <text value="Sur opérations en capital" left="5mm"  size="8" />
+							    <text value="{{financialyear.balance('675,678')}}" left="148mm" align="right" size="8"/>
+							    <text if="financialyear.previous" value="{{financialyear.previous.balance('675,678')}}" left="178mm" align="right" size="8"/>
+							    <set top="4mm">
+							      <text value="Dotations aux amortissements et aux provisions" left="5mm"  size="8" />
+							      <text value="{{financialyear.balance('687')}}" left="148mm" align="right" size="8"/>
+							      <text if="financialyear.previous" value="{{financialyear.previous.balance('687')}}" left="178mm" align="right" size="8"/>
+							      <set top="4mm">
+								<text value="Total IV" bold="true" size="8" />
+								<text value="{{financialyear.balance('671,675,678,687')}}" bold="true" left="148mm" align="right" size="8"/>
+								<text if="financialyear.previous" value="{{financialyear.previous.balance('671,675,678,687')}}" bold="true" left="178mm" align="right" size="8"/>
+								<set top="4mm">
+								  <text value="Participation des salariés aux résultats (V)" bold="true" size="8" />
+								  <text value="{{financialyear.balance('691')}}" bold="true" left="148mm" align="right" size="8"/>
+								  <text if="financialyear.previous" value="{{financialyear.previous.balance('691')}}" bold="true" left="178mm" align="right" size="8"/>
+								  <set top="4mm">
+								    <text value="Impôts sur les bénéfices (VI)" bold="true" size="8" />
+								    <text value="{{financialyear.balance('695,697,689,698,699,789')}}" bold="true" left="148mm" align="right" size="8"/>
+								    <text if="financialyear.previous" value="{{financialyear.previous.balance('695,697,689,698,699,789')}}" bold="true" left="178mm" align="right" size="8"/>
+								    <set top="4mm">
+								      <text value="Total des charges (I + II + III + IV + V + VI)" bold="true" size="8" />
+								      <text value="{{financialyear.balance('607,6087,6097,6037,601,602,6081,6082,6091,6092,6031,6032,604,605,606,6084,6085,6086,6094,6095,6096,61,62,63,641,644,648,645,646,647,648,6811,6812,6816,6817,6815,65,686,661,664,665,668,666,667,655,671,675,678,687,691,695,697,689,698,699,789')}}" bold="true" left="148mm" align="right" size="8"/>
+								      <text if="financialyear.previous" value="{{financialyear.previous.balance('607,6087,6097,6037,601,602,6081,6082,6091,6092,6031,6032,604,605,606,6084,6085,6086,6094,6095,6096,61,62,63,641,644,648,645,646,647,648,6811,6812,6816,6817,6815,65,686,661,664,665,668,666,667,655,671,675,678,687,691,695,697,689,698,699,789')}}" bold="true" left="178mm" align="right" size="8"/>
+								      <set top="4mm">
+									<text value="solde créditeur = bénéfice" size="8" />
+									<text value="{{financialyear.balance('')}}" left="148mm" align="right" size="8"/>
+									<text if="financialyear.previous" value="{{financialyear.previous.balance('')}}" left="178mm" align="right" size="8"/>
+									<set top="4mm">
+									  <text value="TOTAL GÉNÉRAL" bold="true" size="8" />
+									  <text value="{{financialyear.balance('')}}"  bold="true" left="148mm" align="right" size="8"/>
+									  <text if="financialyear.previous" value="{{financialyear.previous.balance('')}}"  bold="true" left="178mm" align="right" size="8"/>
+									</set>
+								      </set>
+								    </set>
+								  </set>
+								</set>
+							      </set>
+							    </set>
+							  </set>
+							</set>
+						      </set>
+						    </set>
+						  </set>
+						</set>
+					      </set>
+					    </set>
+					  </set>
+					</set>
+				      </set>
+				    </set>
+				  </set>
+				</set>
+			      </set>
+			    </set>
+			  </set>
+			</set>
+		      </set>
+		    </set>
+		  </set>
+		</set>
+	      </set>
+	    </set>
+	  </set>
+	</set>
+      </part>
+      
+      <page_break/>
+       
+      <part height="20mm">
+	<set>
+	  <text value="Compte de résultat de la société {{financialyear.company.name}} pour la période du {{financialyear/started_on?format=month_letter}} au {{financialyear/stopped_on?format=month_letter}} (suite)" left="50%" size="14" align="center" bold="true" resize="true" width="100%"/>
+	</set>
+      </part>
+
+      <part height="10mm">
+	<set left="4mm">
+	  <text value="PRODUITS (hors taxes)" align="center" left="60mm" top="4mm"/>
+	  <text value="Exercice N" left="135mm" align="center" top="4mm"/>
+	  <text value="Excercice N-1" left="165mm" align="center" top="4mm"/>
+	  <rectangle width="181mm" height="10mm"  border="0.5 solid #000" size="8mm"/>
+	  <line path="0mm,10mm ; 0,138mm" width="0.5"  border="0.5 solid #000"/>
+	  <line path="121mm,0 ; 121mm,10mm" width="0.5"  border="0.5 solid #000"/>
+	  <line path="151mm,0 ; 151mm,10mm" width="0.5"  border="0.5 solid #000"/>
+	</set>
+      </part>
+      
+      <part>
+	<set left="5mm">
+	  <line path="120mm,0 ; 120mm,128mm" width="0.5"  border="0.5 solid #000"/>
+	  <line path="150mm,0 ; 150mm,128mm" width="0.5"  border="0.5 solid #000"/>
+	  <line path="180mm,0 ; 180mm,128mm" width="0.5"  border="0.5 solid #000"/>
+	  <line path="-1mm,128mm ; 180mm,128mm" width="0.5"  border="0.5 solid #000"/>
+          <text value="Produits d'exploitation" size="8" top="1mm" bold="true" />
+	  <set top="5mm">
+	    <text value="Ventes de marchandises" left="5mm" size="8"/>
+	    <text value="{{financialyear.balance('707,708,7097')}}" left="148mm" align="right" size="8"/>
+	    <text if="financialyear.previous" value="{{financialyear.previous.balance('707,708,7097')}}" left="178mm" align="right" size="8"/>
+	    <set top="4mm">
+	      <text value="Production vendue (biens et services)" left="5mm" size="8"/>
+	      <text value="{{financialyear.balance('70,^707,^708,^7097')}}" left="148mm" align="right" size="8"/>
+	      <text if="financialyear.previous" value="{{financialyear.previous.balance('70,^707,^708,^7097')}}" left="178mm" align="right" size="8"/>
+	      <set top="4mm">
+		<text value="Sous-total A - Montant net du chiffre d'affaires" bold="true" size="8"/>
+		<text value="{{financialyear.balance('')}}" bold="true" left="148mm" align="right" size="8"/>
+		<text if="financialyear.previous" value="{{financialyear.previous.balance('')}}" bold="true" left="178mm" align="right" size="8"/>
+		<set top="4mm">
+		  <text value="Dont à l'exportation" size="8"/>
+		  <set top="4mm">
+		    <text value="Production stockée" size="8" left="5mm"/>
+		    <text value="{{financialyear.balance('713')}}" left="148mm" align="right" size="8"/>
+		    <text if="financialyear.previous" value="{{financialyear.previous.balance('713')}}" left="178mm" align="right" size="8"/>
+		    <set top="4mm">
+		      <text value="Production immobilisée" size="8" left="5mm"/>
+		      <text value="{{financialyear.balance('72,73')}}" left="148mm" align="right" size="8"/>
+		      <text if="financialyear.previous" value="{{financialyear.previous.balance('72,73')}}" left="178mm" align="right" size="8"/>
+		      <set top="4mm">
+			<text value="Subventions d'exploitation" size="8" left="5mm"/>
+			<text value="{{financialyear.balance('74')}}" left="148mm" align="right" size="8"/>
+			<text if="financialyear.previous" value="{{financialyear.previous.balance('74')}}" left="178mm" align="right" size="8"/>
+			<set top="4mm">
+			  <text value="Reprises sur provisions (et amortissements), transferts et charges" size="8" left="5mm"/>
+			  <text value="{{financialyear.balance('781,791')}}" left="148mm" align="right" size="8"/>
+			  <text if="financialyear.previous" value="{{financialyear.previous.balance('781,791')}}" left="178mm" align="right" size="8"/>
+			  <set top="4mm">
+			    <text value="Autres produits" size="8"/>
+			    <text value="{{financialyear.balance('75, ^755')}}" left="148mm" align="right" size="8"/>
+			    <text if="financialyear.previous" value="{{financialyear.previous.balance('75,^755')}}" left="178mm" align="right" size="8"/>
+			    <set top="4mm">
+			      <text value="Sous-total B" bold="true" size="8"/>
+			      <text value="{{financialyear.balance('713,72,73,74,781,791,75,^755')}}" bold="true" left="148mm" align="right" size="8"/>
+			      <text if="financialyear.previous" value="{{financialyear.previous.balance('713,72,73,74,781,791,75,^755')}}" bold="true" left="178mm" align="right" size="8"/>
+			      <set top="4mm">
+				<text value="Total (A + B) I" bold="true" size="8"/>
+				<text value="{{financialyear.balance('713,72,73,74,781,791,75,^755')}}" bold="true" left="148mm" align="right" size="8"/>
+				<text if="financialyear.previous" value="{{financialyear.previous.balance('713,72,73,74,781,791,75,^755')}}" bold="true" left="178mm" align="right" size="8"/>
+				<set top="4mm">
+				  <text value="Quotes-parts de résultat sur opérations faites en commun (II)" bold="true" size="8"/>
+				  <text value="{{financialyear.balance('755')}}" bold="true" left="148mm" align="right" size="8"/>
+				  <text if="financialyear.previous" value="{{financialyear.previous.balance('755')}}" bold="true" left="178mm" align="right" size="8"/>
+				  <set top="4mm">
+				    <text value="Produits financiers" bold="true" size="8"/>
+				    <set top="4mm">
+				      <text value="De participation" left="5mm" size="8"/>
+				      <text value="{{financialyear.balance('761')}}" left="148mm" align="right" size="8"/>
+				      <text if="financialyear.previous" value="{{financialyear.previous.balance('761')}}" left="178mm" align="right" size="8"/>
+				      <set top="4mm">
+					<text value="D'autres valeurs mobilières et créances de l'actif immobilisé" left="5mm" size="8"/>
+					<text value="{{financialyear.balance('762')}}" left="148mm" align="right" size="8"/>
+					<text if="financialyear.previous" value="{{financialyear.previous.balance('762')}}" left="178mm" align="right" size="8"/>
+					<set top="4mm">
+					  <text value="Autres intérêts et produits assimilés" left="5mm" size="8"/>
+					  <text value="{{financialyear.balance('763,764,765,768')}}" left="148mm" align="right" size="8"/>
+					  <text if="financialyear.previous" value="{{financialyear.previous.balance('763,764,765,768')}}"  left="178mm" align="right" size="8"/>
+					  <set top="4mm">
+					    <text value="Reprises sur provisions et transferts de change" left="5mm" size="8"/>
+					    <text value="{{financialyear.balance('786,796')}}" left="148mm" align="right" size="8"/>
+					    <text if="financialyear.previous" value="{{financialyear.previous.balance('786,796')}}"  left="178mm" align="right" size="8"/>
+					    <set top="4mm">
+					      <text value="Différences positives de change" left="5mm" size="8"/>
+					      <text value="{{financialyear.balance('766')}}" left="148mm" align="right" size="8"/>
+					      <text if="financialyear.previous" value="{{financialyear.previous.balance('766')}}" left="178mm" align="right" size="8"/>
+					      <set top="4mm">
+						<text value="Produits nets sur cessions de valeurs mobilières de placement" left="5mm" size="8"/>
+						<text value="{{financialyear.balance('767')}}" left="148mm" align="right" size="8"/>
+						<text if="financialyear.previous" value="{{financialyear.previous.balance('767')}}"  left="178mm" align="right" size="8"/>
+						<set top="4mm">
+						  <text value="Total III" bold="true" size="8"/>
+						  <text value="{{financialyear.balance('761,762,763,764,765,766,767,768,786,796')}}" bold="true" left="148mm" align="right" size="8"/>
+						  <text if="financialyear.previous" value="{{financialyear.previous.balance('761,762,763,764,765,766,767,768,786,796')}}" bold="true" left="178mm" align="right" size="8"/>
+						  <set top="4mm">
+						    <text value="Produits exceptionnels" bold="true" size="8"/>
+						    <set top="4mm">
+						      <text value="Sur opérations de gestion" left="5mm" size="8"/>
+						      <text value="{{financialyear.balance('771')}}" left="148mm" align="right" size="8"/>
+						      <text if="financialyear.previous" value="{{financialyear.previous.balance('771')}}"  left="178mm" align="right" size="8"/>
+						      <set top="4mm">
+							<text value="Sur opérations en capital" left="5mm" size="8"/>
+							<text value="{{financialyear.balance('775,777,778')}}" left="148mm" align="right" size="8"/>
+							<text if="financialyear.previous" value="{{financialyear.previous.balance('775,777,778')}}"  left="178mm" align="right" size="8"/>
+							<set top="4mm">
+							  <text value="Reprises sur provisions et transferts de charges" left="5mm" size="8"/>
+							  <text value="{{financialyear.balance('787,797')}}" left="148mm" align="right" size="8"/>
+							  <text if="financialyear.previous" value="{{financialyear.previous.balance('787,797')}}"  left="178mm" align="right" size="8"/>
+							  <set top="4mm">
+							    <text value="Total IV" bold="true" size="8"/>
+							    <text value="{{financialyear.balance('771,775,777,778,787,797')}}" bold="true" left="148mm" align="right" size="8"/>
+							    <text if="financialyear.previous" value="{{financialyear.previous.balance('771,775,777,778,787,797')}}" bold="true" left="178mm" align="right" size="8"/>
+							    <set top="4mm">
+							      <text value="Total des produits (I + II + III + IV)" bold="true" size="8"/>
+							      <text value="{{financialyear.balance('761,762,763,764,765,766,767,768,786,796,755,713,72,73,74,75,781,791,75,771,775,777,778,787,797')}}" bold="true" left="148mm" align="right" size="8"/>
+							      <text if="financialyear.previous" value="{{financialyear.previous.balance('761,762,763,764,765,766,767,768,786,796,755,713,72,73,74,75,781,791,75,771,775,777,778,787,797')}}" bold="true" left="178mm" align="right" size="8"/>
+							      <set top="4mm">
+								<text value="solde débiteur = perte"  size="8"/>
+								<text value="{{financialyear.balance('')}}" left="148mm" align="right" size="8"/>
+								<text value="{{financialyear.balance('')}}" if="financialyear.previous"  left="178mm" align="right" size="8"/>
+								<set top="4mm">
+								  <text value="TOTAL GÉNÉRAL" bold="true" size="8"/>
+								  <text value="{{financialyear.balance('')}}" bold="true" left="148mm" align="right" size="8"/>
+								  <text if="financialyear.previous" value="{{financialyear.balance('')}}" bold="true" left="178mm" align="right" size="8"/>
+								</set>
+							      </set>
+							    </set>
+							  </set>
+							</set>
+						      </set>
+						    </set>
+						  </set>
+						</set>
+					      </set>
+					    </set>
+					  </set>
+					</set>
+				      </set>
+				    </set>
+				  </set>
+				</set>
+			      </set>
+			    </set>
+			  </set>
+			</set>
+		      </set>
+		    </set>
+		  </set>
+		</set>
+	      </set>
+	    </set>
+	  </set>
+	</set>
+      </part>
+      
+    </page>
+  </document>
+</template>

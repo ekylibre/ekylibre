@@ -1,0 +1,25 @@
+=link_to_back
+%table.dyta
+  %tr
+    %th=tc(:recorded_on)
+    %th=tc(:journal_name)
+    %th=tc(:entry_name)
+    %th=tc(:record_number)
+    %th=tc(:entry_debit)
+    %th=tc(:entry_credit)
+    %th=tc(:entry_letter)
+  - if @entries
+    - @entries.each do |entry|
+      - attr = cycle("even", "odd")
+      %tr{:class => attr+" "+((entry.letter.to_s != "") ? "letter"+((entry.balanced_letter?.to_s == "true") ?  "" : "-unbalanced ") : ""), :id=> 'e'+entry.id.to_s}
+        %td=I18n.localize(entry.record.created_on)
+        %td=entry.record.journal.name
+        %td=entry.name
+        %td=entry.record.number
+        %td.decimal=entry.debit
+        %td.decimal=entry.credit
+        %td{:id => 'entry_letter_'+entry.id.to_s, :onclick => remote_function(:url => {:action => 'entry_letter', :id => entry.id })}=entry.letter    
+      
+%br  
+#lettering=render :partial => 'account_letter'
+

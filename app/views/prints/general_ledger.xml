@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<template title="General ledger" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="10">
+  <title query="select current_user">Grand livre du {LOCAL:from} au {LOCAL:to}</title>
+  <infos>
+    <info type="created-on">04/09/2008</info>
+  </infos>
+  <loop name="loop0">
+    <block type="footer" height="17">
+      <line x1="10" y1="0" x2="200" y2="0" border-color="#000" />
+      <text x="10" y="2" width="100" height="5" align="L" size="7"> {CURRENT_TIMESTAMP:%e %B %Y à %H %M } </text>
+      <text x="10" y="5" width="100" height="5" align="L" size="7"> Grand Livre </text>
+      <text x="10" y="8" width="100" height="5" align="L" size="7"> Période du {LOCAL:from} au {LOCAL:to} </text>
+      <text x="180" y="3" width="30" height="5" align="L">Page {PAGENO}/{PAGENB}</text>
+      <text x="90" y="2" width="20" height="5" align="C">   {LOCAL:company_name}  </text>
+      <text x="90" y="6" width="20" height="5" align="C" size="7"> SIREN : {LOCAL:siren} </text>
+    </block>
+    <block name="company">
+      <text x="10" y="10" width="100" height="15" align="L" size="15"> {LOCAL:company_name} </text>
+      <text x="10" y="15" width="50" height="15" align="L" size="10">  SIREN : {LOCAL:siren} </text>
+      <text x="65" y="25" width="70" height="15" align="C" size="15"> Grand Livre </text>
+      <text x="65" y="35" width="70" height="15" align="C" size="15" weight="bold"> Période du {LOCAL:from} au {LOCAL:to} </text>
+      <text x="65" y="50" width="200" height="10" align="C" >    </text>
+    </block>
+    <block type="header" height="7"/>
+    <loop name="ledger" query="SELECT id , number , name FROM accounts ORDER BY number">
+      <block name="test">
+	<text x="10" y="0" width="40" height="7" align="L" border-width="0.2" vertices="134" weight="bold" background-color="#DDF"> #{ledger.number} </text>
+	<text x="50" y="0" width="150" height="7" align="L" border-width="0.2" vertices="123" weight="bold" background-color="#DDF">  #{ledger.name} </text>
+      </block>
+      <loop name="subsum" query="SELECT debit , credit , count, 1 FROM (SELECT sum(entries.debit) as debit , sum(entries.credit) as credit, count(entries.id) AS count FROM entries JOIN journal_records ON (entries.record_id=journal_records.id) WHERE entries.company_id = {LOCAL:current_company} AND account_id = #{ledger.id}  AND created_on BETWEEN '{LOCAL:from}' AND '{LOCAL:to}') as subsum"/>
+
+      <block name="titles" if="#{subsum.count}>0" >
+	<text x="10" y="0" width="23" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000">Créée le</text>
+	<text x="33" y="0" width="112" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000">  Libellé  </text>
+	<text x="145" y="0" width="27.5" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000"> Débit </text>
+	<text x="172.5" y="0" width="27.5" height="5" align="C" border-width="0.2" background-color="#CCC" color="#000" > Crédit </text>
+      </block>
+      <loop name="entries" query="SELECT name , debit , credit, created ,1 FROM(SELECT entries.name as name , entries.debit as debit , entries.credit as credit , journal_records.created_on as created FROM entries INNER JOIN journal_records ON entries.record_id = journal_records.id WHERE journal_records.created_on BETWEEN CAST ('{LOCAL:from}' AS date) AND CAST ('{LOCAL:to}' AS date) AND entries.account_id = #{ledger.id} ORDER BY journal_records.created_on) as entries ">
+	<block name="numeric">
+	  <text x="10" y="0" width="23" height="5" align="L" border-width="0.2">#{entries.created}</text>
+	  <text x="33" y="0" width="112" height="5" align="L" border-width="0.2">#{entries.name}</text>
+	  <text x="145" y="0" width="27.5" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{entries.debit},''),'0') AS numeric) > 0">#{entries.debit}</text>
+	  <text x="145" y="0" width="27.5" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{entries.debit},''),'0') AS numeric) = 0">   </text>
+	  <text x="172.5" y="0" width="27.5" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{entries.credit},''),'0') AS numeric) = 0" >  </text>
+	  <text x="172.5" y="0" width="27.5" height="5" align="R" border-width="0.2" if="CAST(COALESCE(NULLIF(#{entries.credit},''),'0') AS numeric) > 0" >#{entries.credit}</text>
+        </block>
+      </loop>
+      <block name="space" if="#{subsum.count}>0" >
+	<text x="117.5" y="0" width="27.5" height="5" align="C" border-width="0.2">Totaux</text>
+	<text x="145" y="0" width="27.5" height="5" align="R" border-width="0.2">#{subsum.debit}</text>
+	<text x="172.5" y="0" width="27.5" height="5" align="R" border-width="0.2">#{subsum.credit}</text>
+      </block>
+      <block name="account_end" height="2"/>
+    </loop>
+    <loop name="sum" query="SELECT sum_debit , sum_credit , 1 FROM(SELECT sum(debit) as sum_debit , sum(credit) as sum_credit FROM entries WHERE entries.record_id  IN (SELECT id  FROM journal_records WHERE company_id = {LOCAL:current_company} AND created_on BETWEEN '{LOCAL:from}' AND '{LOCAL:to}')) as sum">
+      <block name="solde">
+        <text x="117.5" y="0" width="27.5" height="5" align="C" border-width="0.2" weight="bold">Totaux</text>
+        <text x="145" y="0" width="27.5" height="5" align="R" border-width="0.2"> #{sum.sum_debit} </text>
+        <text x="172.5" y="0" width="27.5" height="5" align="R" border-width="0.2"> #{sum.sum_credit} </text>
+      </block>
+    </loop>
+  </loop>
+</template>

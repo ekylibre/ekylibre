@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<template title="Example" orientation="portrait" format="210x297" unit="mm" query-standard="sql" size="10">
+  <title query="select current_user">The Book of #{title.current_user}</title>
+  <infos>
+    <info type="created-on">04/09/2008</info>
+  </infos>
+  <loop name="loop0">
+    <block type="header" mode="even">
+      <text x="2" y="2" width="206" height="15" align="L">En-tête paire {KEY}</text>
+    </block>
+    <block type="header" mode="odd">
+      <text x="2" y="2" width="206" height="15" align="R" radius="2">En-tête impaire {KEY}</text>
+    </block>
+    <block type="footer">
+      <line x1="5" y1="0" x2="200" y2="0" border-color="#F00" />
+      <text x="5" y="2" width="200" height="5" align="C" decoration="underline">Page {PAGENO}/{PAGENB}</text>
+    </block>
+    <block name="titre">
+      <text x="65" y="3" width="300" height="15" align="L" decoration="underline" size="25">  Bilan Comptable  </text>
+    </block>
+    <block name="actif-passif">
+      	<rectangle x="5" y="2" width="200" height="10" radius="10" border-color="#007" border-width="0.2"/>
+	<text x="32" y="3" width="100" height="5" align="L">   ACTIF  </text>
+	<text x="60" y="3" width="100" height="5" align="R">   PASSIF  </text>
+    </block>
+    <loop name="loop1" query="SELECT usename, usesuper, usesysid FROM pg_user">
+      <block type="header">
+        <text x="5" y="2" width="200" height="5" align="C">Utilisateur #{loop1.usename}</text>
+        <line x1="5" y1="10" x2="200" y2="10" border-color="#00F" />
+      </block>
+    </loop>
+    <loop name="passif" query="SELECT number, alpha, name FROM accounts WHERE company_id = 12 AND number LIKE '1%' OR number LIKE '2%' OR number LIKE '3%' OR number LIKE '4%' OR number LIKE '5%' AND is_debit IS FALSE">
+      <block name="test2">
+	<rectangle x="5" y="5" width="200" height="40" radius="5" border-color="#007" border-width="0.2"/>
+	<text x="5" y="7" width="100" height="5" align="L"> numero de compte: #{passif.number}</text>
+	<text x="8" y="15" width="100" height="5" align="L"> nom de compte  : #{passif.name} </text>
+	<text x="11" y="23" width="100" height="5" align="L"> alpha              : #{passif.alpha}</text>
+      </block>
+    </loop>
+    <page-break/>
+    <block name="conclusion">
+      <text x="15" y="2" width="180" height="50" align="C" color="#F40" weight="bold" decoration="underline" style="italic" size="18">The End</text>
+    </block>
+  </loop>
+</template>
+

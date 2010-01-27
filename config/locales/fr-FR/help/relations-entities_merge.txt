@@ -1,0 +1,3 @@
+h1. Fusion de fiches
+
+Permet de fusionner 2 fiches entre elles et de récupérer l'historique de l'une sur l'autre.

@@ -1,0 +1,21 @@
+%table.dyta
+  %tr
+    %th=tc(:recorded_on)
+    %th=tc(:journal_name)
+    %th=tc(:entry_name)
+    %th=tc(:record_number)
+    %th=tc(:entry_debit)
+    %th=tc(:entry_credit)
+    %th=tc(:entry_letter)
+  - if @entries
+    - @entries.each do |entry|
+      -# attr = cycle("even", "odd")
+      %tr
+        %td=I18n.localize(entry.record.created_on)
+        %td=entry.record.journal.name
+        %td=entry.name
+        %td=entry.record.number
+        %td.decimal=entry.debit
+        %td.decimal=entry.credit
+        %td.decimal=entry.letter.inspect
+

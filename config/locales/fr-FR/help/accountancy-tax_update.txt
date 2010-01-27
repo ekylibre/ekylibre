@@ -1,0 +1,5 @@
+h1. Comment modifier une taxe ?
+
+* Vous ne pouvez ni modifier la nature ni la valeur d-une taxe.
+
+<<accountancy-index|Retour à l'aide sur la Comptabilité>>

@@ -1,0 +1,7 @@
+.search
+  - form_tag(:controller=>:relations, :action=>:entities) do
+    %table
+      %tr
+        %td.label=tc("search")
+        %td.field=text_field_tag :key ,session[:entity_key]
+        %td.submit=submit_tag tg("search_go")

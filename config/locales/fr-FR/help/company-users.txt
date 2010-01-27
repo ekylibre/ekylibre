@@ -1,0 +1,4 @@
+h1. Comment consulter la liste des utilisateurs ?
+
+Vous avez accès aux différentes informations relatives à tous les utilisateurs rattachés à votre société.
+

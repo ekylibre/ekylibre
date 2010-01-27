@@ -1,0 +1,10 @@
+=tabbox(:entit) do |tb|
+  -if defined?(Gruff)
+    -tb.tab(tc(:graph_statistics)) do |c|
+      -c << render(:partial=>"graph_statistics")
+  -tb.tab(tc(:csv_statistics)) do |c|
+    -c << render(:partial=>"csv_statistics")
+   
+
+
+

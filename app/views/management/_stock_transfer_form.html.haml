@@ -1,0 +1,29 @@
+=formalize do |f|
+  - f.error :stock_transfer 
+=formalize(:id=>:transfer_choices) do |f|
+  - f.field :stock_transfer, :nature, :choices=>StockTransfer.natures, :field=>:radio
+=formalize do |f|
+  - f.field :stock_transfer, :product_id, :choices=>@current_company.available_products.collect{|x| [x.name, x.id]}
+  - f.field :stock_transfer, :location_id, :choices=>@current_company.stock_locations.collect{|x| [x.name, x.id]}
+  - f.field :stock_transfer, :quantity
+=formalize(:id=>:transfer) do |f|
+  - f.field :stock_transfer, :second_location_id, :choices=>@current_company.stock_locations.collect{|x| [x.name, x.id]}
+=formalize do |f|
+  - f.field :stock_transfer, :planned_on
+  - f.field :stock_transfer, :comment, :field=>:textarea
+
+:javascript
+  function transfer_type(){
+    if($('stock_transfer_nature_transfer').checked) 
+      $('transfer').show();
+    else 
+      $('transfer').hide(); 
+  }
+  transfer_type();
+
+- if request.url.include? "update"
+  :javascript
+    $('transfer_choices').hide();
+  
+
+=observe_field "stock_transfer_nature_transfer", :function=>"transfer_type();", :frequency=>0.25

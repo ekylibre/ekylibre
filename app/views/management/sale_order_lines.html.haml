@@ -1,0 +1,56 @@
+=sale_steps
+
+= toolbar do |t|
+  - if @sale_order.lines.size>0
+    - if (@sale_order.estimate? and @sale_order.deliveries.size <= 0)
+      - t.link :sale_order_confirm, {:id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_confirm)
+    - if (@sale_order.amount_with_taxes > @sale_order.invoiced_amount and @sale_order.deliveries.size <= 0)
+      - t.link :sale_order_invoice, {:id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_invoice)
+  -# if @sale_order.estimate?
+    -# t.link(:sale_order_update, {:id=>@sale_order.id})
+    -# t.link(:sale_order_line_create)
+  -# t.link :sale_order_print, :id=>@sale_order.id
+  -t.print :sale_order, :id=>@sale_order.id
+
+%h2=tc :general
+= toolbar do |t|
+  - if @sale_order.estimate?
+    - t.link(:sale_order_update, {:id=>@sale_order.id})
+%table.flex
+  %tr
+    %td
+      =evalue @sale_order, :client, :label=>:label
+      =evalue @sale_order, :responsible, :label=>:full_name
+      =evalue @sale_order, :nature
+      =evalue @sale_order, :currency
+      =evalue @sale_order, :comment
+    %td
+      =evalue @sale_order, :contact, :label=>:address
+      =evalue @sale_order, :delivery_contact, :label=>:address
+      =evalue @sale_order, :invoice_contact, :label=>:address
+    -if @sale_order.letter_format?
+      %td
+        =evalue @sale_order, :subject
+        =evalue @sale_order, :function_title
+        =evalue @sale_order, :introduction, :field=>:textarea
+        =evalue @sale_order, :conclusion, :field=>:textarea
+
+%h2=tc :lines
+= toolbar do |t|
+  - if @sale_order.estimate?
+    - t.link(:sale_order_line_create)
+=render :partial=>"quick_line" if @sale_order.estimate?
+=dyta :sale_order_lines
+.total
+  %table.dyta
+    %tr
+      %th=tc :amount
+      %td=@sale_order.amount
+    %tr.important
+      %th=tc :amount_with_taxes
+      %td=@sale_order.amount_with_taxes
+
+-if @sale_order.subscriptions.size>0
+  %h2=tc :subscriptions
+  =dyta :sale_order_subscriptions
+

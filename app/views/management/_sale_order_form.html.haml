@@ -1,0 +1,45 @@
+=sale_steps
+
+=formalize do |f| 
+  - f.error 'sale_order'
+  - f.title :client
+  - f.field :sale_order, :client_id, :choices=>:clients, :new=>{:controller=>:relations, :action=>:entity_create}
+  - f.title :conditions
+  - f.field :sale_order, :nature_id, :choices=>@current_company.sale_order_natures.collect{|x| [x.name, x.id]}
+  - f.field :sale_order, :currency_id, :choices=>@current_company.currencies.collect{|c| [c.name, c.id]}
+  - f.field :sale_order, :responsible_id, :choices=>@current_company.employees.find(:all, :order=>:last_name).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:resources, :action=>:employee_create}
+  - f.field :sale_order, :contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@current_company.entity_id}
+  - f.field :sale_order, :delivery_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@current_company.entity_id}
+  - f.field :sale_order, :invoice_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@current_company.entity_id}
+  - f.field :sale_order, :transporter_id, :choices=>@current_company.entities.find_all_by_active_and_transporter(true,true).collect{|t| [t.full_name,t.id]}, :options=>{:include_blank=>"--Aucun--"}
+  - f.field :sale_order, :comment, :field=>:textarea
+  - f.field :sale_order, :letter_format
+=formalize(:id=>:letter_format) do |f|
+  - f.title :letter
+  - f.field :sale_order, :subject
+  - f.field :sale_order, :function_title
+  - f.field :sale_order, :introduction, :field=>:textarea
+  - f.field :sale_order, :conclusion, :field=>:textarea
+
+:javascript
+  function update_contacts(value) {
+    new Ajax.Request('#{url_for(:controller=>:management, :action => :sale_order_contacts)}', {asynchronous:true, evalScripts:true, parameters:'client_id=' + encodeURIComponent(value), onSuccess: function(resp) {
+      $('sale_order_contact_id').update(resp.responseText);
+      $('sale_order_delivery_contact_id').update(resp.responseText); 
+      $('sale_order_invoice_contact_id').update(resp.responseText);  
+     }});
+  } 
+  /*update_contacts($('sale_order_client_id').value); */
+
+:javascript
+  function letter_informations(){
+    if($('sale_order_letter_format').checked)
+      $('letter_format').show();
+    else
+      $('letter_format').hide();
+   }
+  letter_informations();
+
+=observe_field "sale_order_client_id", :frequency => 0.25, :function=>"update_contacts(value)"
+
+=observe_field("sale_order_letter_format", :frequency=>0.25, :function=> "letter_informations();")

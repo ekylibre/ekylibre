@@ -1,0 +1,14 @@
+=render :partial=>"shared/entities_search"
+
+.menu.indicator
+  %h2= tg('indicator')
+  %ul
+    =li_link_to tc('nb_entities',:count=>@entities.size), :controller=>:relations, :action=>:entities
+    =li_link_to tc('nb_sales', :count=>@deliveries.size), :controller=>:management, :action=>:undelivered_sales
+    =#li_link_to tc('nb_purchases', :count=>@purchases.size), :controller=>:management, :action=>:unreceived_purchases
+
+.menu
+  %h2=tc(:modules)
+  %ul
+    -for controller in menus[1..-1].collect{|x| x[:name]}
+      =li_link_to tc(controller), :controller=>controller, :action=>:index

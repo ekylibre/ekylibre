@@ -1,0 +1,19 @@
+h1. Les champs personnalisés
+
+h2. A quoi sert un champ personnalisé~?
+Les champs personnalisés vous permettent de saisir lors de la création, modification d'une fiche client fournisseur des informations supplémentaires à celles initialement proposées par le formulaire. 
+
+h2. Comment utiliser les champs personnalisés~? 
+Une fois un champ personnalisé créé, celui-ci ne peut être supprimé car certains enregistrements peuvent être liés à ce champ.
+En revanche, si vous ne voulez plus que celui-ci n'apparaisse dans les formulaires de création ou modification d'une fiche, il vous suffit de décocher les cases "actif" et "obligatoire" pour le champ considéré.
+
+Vous pouvez également~: 
+* créer un nouveau champ personnalisé
+* le modifier~: <<relations-complements_update|{{buttons/update.png|modifier}}>> 
+* le supprimer~: {{buttons/delete.png|supprimer}}
+* ajouter une option à votre liste déroulante : <<relations-complement_choices|{{buttons/menulist.png|options}}>>
+
+h2. Évolution 
+Le système de champs personnalisés est amené à être généralisé à toute l'application. En effet, pour l'instant, il est uniquement possible de créer des champs personnalisés applicables aux fiches clients / fournisseurs.
+
+<<relations-index|Revenir à l'aide de gestion des relations >>

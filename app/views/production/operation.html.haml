@@ -1,0 +1,15 @@
+=toolbar do |t|
+  -t.link :shape_operations
+  -t.link :shape_operation_update, :id=>@shape_operation.id
+
+%table
+  %tr
+    %td
+      =evalue @shape_operation, :name
+      =evalue @shape_operation, :nature, :label=>:name
+      =evalue @shape_operation, :responsible, :label=>:label
+      =evalue @shape_operation, :shape, :label=>:name, :url=>{:action=>:shape}
+    %td
+      =evalue @shape_operation, :planned_on
+      =evalue @shape_operation, :moved_on
+      =evalue @shape_operation, :tools_list

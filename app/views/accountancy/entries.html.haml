@@ -1,0 +1,37 @@
+.search
+  - form_tag do
+    %table
+      %tr
+        %td.label=tc(:select_journal)
+        %td.field=select_tag("journal_id", options_for_select([tc(:all_journals)]+@journals.collect{|j| [tc(:journal_x, :name=>j.name, :closed_on=>j.closed_on.to_s), j.id]}, session[:entries][:journal].to_i))
+        %td.label=tc(:select_financialyear)
+        %td.field=select_tag("financialyear_id", options_for_select([tc(:all_financialyears)]+@financialyears.collect{|f| [f.code.to_s, f.id.to_s]}, session[:entries][:financialyear].to_s))
+        %td.submit=submit_tag tg("apply")
+
+- if @valid 
+  #errors=render :partial=>'errors'
+  - form_remote_tag (:url=>{:action=>:entry_create}, :loading=>"onLoading();", :loaded=>"onLoaded();") do 
+    %table.dyta
+      %tr
+        %th=tc :record_number
+        %th=tc :record_created
+        %th=tc :record_printed
+        %th=tc :label
+        %th=tc :account_number
+        %th=tc :record_debit
+        %th=tc :record_credit
+        %th
+      %tr
+        %td=text_field :record, :number, {:size=>5}
+        %td=text_field_tag 'record[created_on]', I18n.localize(@record.created_on), :size=>10
+        %td=text_field_tag 'record[printed_on]', I18n.localize(@record.printed_on), :size=>10
+        %td=text_field :entry,  :name, {:size=>16}
+        -#%td=#dyli_tag 'entry[account_id]', :account, :resize=>true 
+        %td=text_field_with_auto_complete(:entry, :account)
+        %td=text_field :entry, :currency_debit, {:size=>7}
+        %td=text_field :entry, :currency_credit, {:size=>7}
+        %td=submit_tag tc(:entry_validate) 
+ 
+=dyta :entries
+
+  

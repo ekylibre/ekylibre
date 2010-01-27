@@ -1,0 +1,13 @@
+%h2=tc :export
+-form_tag({}) do
+  =formalize do |f|
+    -f.field content_tag(:label, tc(:with_prints), :for=>:with_prints), check_box_tag(:with_prints)
+  .actions
+    =submit_tag tc(:backup), :name=>'backup'
+
+%h2=tc :import
+-form_tag({}, :multipart=>true) do
+  =formalize do |f|
+    -f.field tc(:upload), file_field(:file, :path)
+  .actions
+    =submit_tag tc(:restore), :name=>'restore'

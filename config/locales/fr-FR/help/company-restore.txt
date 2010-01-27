@@ -1,0 +1,4 @@
+h1. Recharger les données provenant d'une sauvegarde
+
+Lors de la récupération, *toutes les anciennes données sont effacées*. 
+*Il est vivement recommendé de faire une sauvegarde avant* de remettre en place une ancienne sauvegarde.

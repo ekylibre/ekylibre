@@ -1,0 +1,226 @@
+fr-FR:
+
+  controllers:
+    company:
+      mailing: 'Mailing'
+      object_to_print_no_found: 'Impossible d''imprimer classe : {{class}} erreur : {{error}}'
+      restoration_finished: 'La restauration de la sauvegarde s''est terminée (en {{value}} secondes)'
+      role: 'Rôle'
+      title: 'Société'
+      unknown_action: 'La page que vous demandez n''est pas disponible. ({{value}})'
+      unvalid_version_for_restore: 'La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel'
+      you_must_have_an_email_column: 'Vous devez avoir une colonne Email dans votre extraction'
+
+  helpers:
+    company:
+
+  views:
+    company:
+      about:
+        title: 'À propos d''Ekylibre'
+      backups:
+        backup: 'Sauvegarder'
+        export: 'Export d''un fichier de sauvegarde'
+        import: 'Import de fichier de sauvegarde'
+        restore: 'Restaurer'
+        title: 'Créer et recharger des sauvegardes'
+        upload: 'Sélectionner le fichier de sauvegarde à télécharger'
+        with_prints: 'Inclure les impressions (factures, commandes...)'
+        your_new_code_is: 'Votre nouveau code société est : {{value}}'
+      change_password:
+        insert_actual_password: 'Saisissez votre mot de passe actuel'
+        insert_password: 'Saisissez votre nouveau mot de passe'
+        title: 'Changer son mot de passe'
+      configure:
+        accountancy: 'Comptabilité'
+        general: 'Paramètres généraux'
+        management: 'Gestion commerciale'
+        relations: 'Relations clients/fournisseurs'
+        sequences_load: 'Charger les séquences manquantes'
+        title: 'Configuration de {{value}}'
+      department_create:
+        title: 'Ajout d''un nouveau service'
+      _department_form:
+        subtitle: 'Renseignez les différentes caractéristiques du service'
+      department_update:
+        title: 'Modification du service'
+      departments:
+        department_create: 'Ajouter un nouveau service'
+        title: 'Liste des services de la société'
+      document_nature_create:
+        title: 'Création d''un type de document'
+      document_nature_update:
+        title: 'Modification du type de document "{{value}}"'
+      document_natures:
+        document_nature_create: 'Créer un type de document'
+        title: 'Liste des types de document'
+      document_template_create:
+        title: 'Création d''un modèle de document'
+      document_template_update:
+        title: 'Modification du modèle de document "{{value}}"'
+      document_templates:
+        document_template_create: 'Créer un modèle de document'
+        document_templates_load: 'Charger les modèles par défaut'
+        title: 'Liste des modèles de document'
+      establishment_create:
+        title: 'Ajout d''un nouvel etablissement'
+      _establishment_form:
+        subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
+      establishment_update:
+        title: 'Modification de l''établissement'
+      establishments:
+        establishment_create: 'Ajouter un nouvel établissement'
+        title: 'Liste des établissements'
+      help:
+        other_results: 'Autres résultats...'
+        results:
+          one: '1 résultat'
+          other: '{{count}} résultats'
+          zero: 'Aucun résultat'
+        search: 'Rechercher un article dans l''aide'
+        title: 'Rubriques d''aide'
+      _help_result:
+        pertinence: '{{value}}%'
+      index:
+        about: 'À propos d''Ekylibre'
+        accountancy: 'Comptabilité générale'
+        backups: 'Sauvegardes'
+        change_password: 'Modifier mon mot de passe'
+        configure: 'Configuration'
+        departments: 'Services'
+        document_natures: 'Types de documents'
+        document_templates: 'Modèles de documents'
+        establishments: 'Établissements'
+        general: 'Autres paramètres'
+        help: 'Aide'
+        informations: 'Informations'
+        listings: 'Extractions de données'
+        management: 'Gestion commerciale (ventes, achats et stocks)'
+        modules: 'Modules'
+        my_account: 'Mon compte'
+        nb_entities:
+          one: '1 fiche client/fournisseur'
+          other: '{{count}} fiches clients/fournisseurs'
+          zero: 'Aucune fiche clients/fournisseurs'
+        nb_purchases:
+          one: '1 achat en attente de reception'
+          other: '{{count}} achats en attente de reception'
+          zero: 'Aucun achat en attente de reception'
+        nb_sales:
+          one: '1 livraison en attente'
+          other: '{{count}} livraisons en attente '
+          zero: 'Aucune livraison en attente'
+        parameters: 'Paramètres'
+        production: 'Gestion de la production'
+        relations: 'Gestion des relations clients/fournisseurs'
+        resources: 'Gestion des ressources humaines'
+        roles: 'Rôles'
+        sequences: 'Séquences'
+        title: 'Bonjour, {{user}}'
+        tools: 'Outils'
+        units: 'Unités de mesure'
+        user_statistics: 'Mes statistiques'
+        users: 'Utilisateurs'
+      listing_create:
+        title: 'Création d''une nouvelle extraction'
+      _listing_form:
+        subtitle: 'Renseignez les informations concernant l''extraction'
+      listing_mail:
+        are_you_sure_to_send_mails: 'Êtes-vous sûr(e) de vouloir envoyer les mails ?'
+        attachment: 'Pièce jointe'
+        available_columns: 'Champs disponibles : {{columns}}'
+        body: 'Corps du message'
+        choose_mail_column: 'Veuillez choisir la colonne à utiliser pour le mailing'
+        click_to_mail: 'Cliquez ici pour écrire votre message'
+        default_subject: '[{{company}}]'
+        from: 'Expéditeur'
+        mails:
+          one: '1 e-mail'
+          other: '{{count}} e-mails'
+          zero: 'Aucun e-mail'
+        personalized_mail: 'Envoyer un mail personnalisé'
+        send: 'Envoyer le mail'
+        send_test: 'Envoyer un mail de test'
+        subject: 'Sujet'
+        title: 'Envoyer un mail pour "{{listing}}"'
+      listing_nodes:
+        title: 'Choisissez les informations à extraire'
+      listing_update:
+        data_to_extract: 'Données à extraire'
+        listing_extract: 'Éxécuter l''extraction'
+        query: 'Requête: '
+        subtitle: 'Vous pouvez modifier les informations générales de l''extraction'
+        title: 'Modification de l''extraction {{value}}'
+      listings:
+        listing_create: 'Créer une nouvelle extraction'
+        title: 'Extractions de données'
+      _rights_form:
+        accountancy_rights: 'Droits module Comptabilité'
+        company_rights: 'Droits module Société'
+        management_rights: 'Droits module Commerce'
+        production_rights: 'Droits module Production'
+        relations_rights: 'Droits module Relations'
+        resources_rights: 'Droits module Ressources'
+      role_create:
+        title: 'Ajouter un rôle'
+      _role_form:
+        role_name: 'Entrez le nom du rôle puis attribuez lui ses droits'
+      role_update:
+        title: 'Modification du rôle {{value}}'
+      roles:
+        role_create: 'Ajouter un rôle'
+        title: 'Liste des rôles'
+      sequence_create:
+        title: 'Création d''une nouvelle séquence'
+      _sequence_form:
+        subtitle: 'Caractéristiques de la séquence'
+      sequence_update:
+        title: 'Modification de la séquence {{value}}'
+      sequences:
+        sequence_create: 'Ajouter une séquence'
+        sequences_load: 'Charger les séquences manquantes'
+        title: 'Liste des séquences'
+      unit_create:
+        title: 'Ajout d''une nouvelle unité de mesure'
+      unit_update:
+        title: 'Modification de l''unité {{label}}'
+      units:
+        title: 'Unités de mesure'
+        unit_create: 'Ajouter une nouvelle unité de mesure'
+        units_load: 'Charger les unités de base manquantes'
+      user:
+        change_password: 'Changer de mot de passe'
+        title: 'Informations sur l''utilisateur : {{value}}'
+      user_create:
+        create_employee: 'Employee'
+        title: 'Création d''un nouvel utilisateur'
+      _user_form:
+        employee: 'Créer automatiquement un employé'
+        rights: 'Droits'
+        subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
+        title: 'Gestion des employés'
+      user_statistics:
+        during: 'pour une durée'
+        end: ' au '
+        events:
+          one: ' 1 évènement de type {{nature}} d''une durée de {{duration}} minutes'
+          other: ' {{count}} évènements de type {{nature}} pour une durée totale de {{duration}} minutes'
+          zero: ' Aucun événement de type {{nature}}'
+        nb_sales:
+          one: '1 commande'
+          other: '{{count}} commandes'
+          zero: 'Aucune commande'
+        no_employee: 'Vous n''avez pas fiche employé, donc pas de statistiques.'
+        start: 'Du'
+        title: 'Mes statistiques'
+        total_amount: ' Total montant HT '
+        total_invoiced_amount: 'Total montant facturé '
+      user_update:
+        title: 'Modification de l''utilisateur'
+      users:
+        title: 'Liste des utilisateurs'
+        user_create: 'Ajouter un nouvel utilisateur'
+      _users_form:
+        employee: 'Créer automatiquement une fiche employé'
+      welcome:
+        title: 'Bienvenue dans Ekylibre, {{user}}'

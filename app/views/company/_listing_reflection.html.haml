@@ -1,0 +1,8 @@
+=render(:partial=>"listing_node", :collection=>listing_reflection.children.find(:all, :order=>:position)) 
+.branch
+  .shift
+  .icon
+  .item
+    -form_remote_tag(:url=>{:action=>:listing_node_create, :parent_id=>listing_reflection.id}, :update=>listing_reflection.key, :loading=>"onLoading();", :loaded=>"onLoaded();", :class=>:content) do
+      =select_tag(:nature, options_for_select(listing_reflection.available_nodes.collect{|x| [x[0],x[1]]}))
+      =submit_tag(tg(:add))

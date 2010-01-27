@@ -1,0 +1,13 @@
+-form_tag do
+  =formalize do |f|
+    - i = 1
+    -for print in @prints
+      - if i==1
+        - options = {:checked => true} 
+      - else
+        - options = {:checked => false} 
+      - f.field radio_button(:print , :mode , print[0], options), content_tag(:label, tc(print[0].to_sym), {:for=>'print_mode_'+print[0].to_s})
+      - i = i + 1
+  .actions
+    =submit_tag tg"next"
+

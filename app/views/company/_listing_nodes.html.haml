@@ -1,0 +1,20 @@
+=#dyta :listing_nodes
+
+=render :partial=>"listing_node"
+
+.node{:id=>listing_node.key}
+  -for child in listing_node.children
+    .branch
+      .shift
+      %div{:class=>"node-bar"+(child.reflection? ? " reflection" : " column")}
+        %span=child.label
+        %span.attribute=child.name
+    =render(:partial=>"listing_node", :object=>child) if child.reflection?
+  .branch
+    .shift
+    .node-bar
+      -form_remote_tag(:url=>{:action=>:listing_node_create, :parent_id=>listing_node.id}, :update=>listing_node.key) do
+        =select_tag(:nature, options_for_select(listing_node.available_nodes.collect{|x| [x,x]}))
+        =submit_tag("Ajouter")
+
+

@@ -1,0 +1,9 @@
+.search
+  - form_tag(:action=>:payments) do
+    %table
+      %tr
+        %td.label=tc(:search)
+        %td.field=text_field_tag :key, session[:payment_key]
+        -[:all, :embanked, :waiting].each do |state|
+          %td=radio_button(:payment, :state, state, :checked=>(state.to_s == session[:payment_state] ? true : false))+"&nbsp;"+content_tag(:label, tc(state), :for=>'sale_order_'+state.to_s)
+        %td.submit=submit_tag tg(:search_go)

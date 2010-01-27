@@ -1,0 +1,9 @@
+h1. Les livraisons
+
+Vous avez accès au  *récapitulatif des livraisons effectuées* et à ce qu'il vous *reste* comme quantités possibles à livrer si tel est le cas.
+
+
+Si vous décidez de *facturer la vente vous ne pourrez plus ajouter, modifier ou supprimer une livraison.*
+
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

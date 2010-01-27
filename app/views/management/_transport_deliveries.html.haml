@@ -1,0 +1,15 @@
+=dyta :transport_deliveries
+-form_tag(:action=>:transport_deliveries) do 
+  %table.formalize
+    %tr.title
+      %th{:colspan=>2}=tc(:add_delivery)
+    %tr.field
+      %td.label=tc(:delivery)
+      %td.input=dyli_tag('delivery[id]', :deliveries, :resize=>true)
+  .actions
+    =link_to(tc(:back), :action=>:transports)
+    =submit_tag(tc(:add), :action=>:transport_deliveries)
+   
+
+
+ 

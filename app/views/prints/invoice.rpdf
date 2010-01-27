@@ -1,0 +1,102 @@
+page :a4, :margin=>[10.mm] do
+  part 95.mm do
+    set do
+      text "Ne pas envoyer à qui que ce soit! En cours de construction. Merci.", :size=>100, :width=>190.mm, :color=>"#F00"
+    end
+    set  do
+      text @current_company.name, :size=>7.mm
+      set 0, 5.mm do
+        top = 10
+        for line in @lines
+          text line, :size=>10, :top=>top
+          top += 12
+        end
+      end
+      set 100.mm, 35.mm do
+        text @invoice.client.full_name, :size=>11, :font=>"courier"
+        top2 = 12
+        for address in  @client_address
+          text address, :size=>11, :top=>top2, :font=>"courier"
+          top2 += 12
+        end
+      end
+    end
+  end
+
+  
+  part 40.mm do
+    set do
+      if @current_company.default_contact.line_6_city.nil?
+        text "Le "+I18n.localize(@invoice.created_on, :format=>:month_letter)
+      else
+        text "À "+@current_company.default_contact.line_6_city+", le "+I18n.localize(@invoice.created_on, :format=>:month_letter)
+      end
+    end
+    
+    set do
+      if @invoice.credit
+        text "Avoir n° "+@invoice.number, :left=>width/2, :align=>:center, :bold=>:bold, :size=>14, :top=>15.mm
+        text "de la facture n° "+@invoice.origin.number ,:left=>width/2, :align=>:center, :size=>14, :top=>25.mm
+      else
+        text "Facture n° "+@invoice.number, :left=>width/2, :align=>:center, :bold=>:bold, :size=>14, :top=>15.mm
+      end
+    end
+    
+  end 
+
+  table @invoice.lines do 
+    column "Produit", 'product.name', 3
+    column "Qté.", 'quantity', 0.75, :align=>:right
+    column "PU HT", 'price.amount',1, :align=>:right
+    column "Montant HT", 'amount', 1, :align=>:right
+    column "Montant T.V.A.", 'amount_with_taxes-amount', 1, :align=>:right
+    column "T.V.A.", '(price.tax.amount*100).to_s+" %"', 0.75, :align=>:center
+  end
+  
+  part 25.mm do
+    set 76.mm do
+      text "Net à payer ("+@invoice.lines[0].price.currency.code+")", :top=>9.3.mm, :left=>4.mm, :bold=>:bold
+      text "Totaux ("+@invoice.lines[0].price.currency.code+")", :top=>1.5.mm, :left=>4.mm, :bold=>:bold, :size=>9
+      text @invoice.amount.to_s, :top=>1.5.mm, :left=>69.5.mm,  :align=>:right, :size=>10
+      text (@invoice.amount_with_taxes - @invoice.amount).to_s, :top=>1.5.mm, :left=>94.5.mm,  :align=>:right, :size=>10
+      text @invoice.amount_with_taxes.to_s, :top=>9.3.mm, :left=>70.mm, :bold=>:bold, :align=>:center
+      line [[0, 0], [95.mm, 0]],  :width=>0.3
+      line [[0, 6.mm], [95.mm, 6.mm]],  :width=>0.3
+      line [[0, 0], [0, 16.mm]],  :width=>0.3
+      line [[70.mm, 0], [70.mm, 6.mm]], :width=>0.3
+      line [[95.mm, 0], [95.mm, 16.mm]],  :width=>0.3
+      line [[0, 16.mm], [95.mm, 16.mm]],  :width=>0.3
+      line [[45.mm, 0], [45.mm, 16.mm]],  :width=>0.3
+
+    end
+  end
+  
+  part 10.mm do
+    set do
+      text "La facture est à régler au plus tard le "+I18n.localize(@invoice.payment_delay.compute(@invoice.created_on), :format=>:month_letter), :left=>width/2, :align=>:center, :bold=>:bold, :size=>12
+    end
+  end
+
+
+  part 50.mm do
+    set 0 , 30.mm do
+      string = @invoice.credit ? "Avoir n° " : "Facture n° "
+      line [[0,0], [width,0]], :width=>0.5
+      text string+@invoice.number, :size=>10, :align=>:left, :top=>4.mm
+      text I18n.localize(@invoice.created_on, :format=>:month_letter), :size=>10, :left=>width/2, :align=>:center, :top=>4.mm
+      text "SIREN "+@current_company.siren.to_s+"    N° TVA intra-communautaire "+@current_company.entity.vat_number.to_s, :size=>8, :left=>width/2, :align=>:center, :top=>10.mm
+      text "Paraphe",:size=>10, :left=>width-20.mm, :align=>:right, :top=>4.mm
+    end
+    
+    set 0, 50.mm do 
+      line [[0, 0], [width, 0]],  :width=>0.3, :style=>:dashed
+      text "À découper et à joindre à votre règlement", :left=>width/2, :align=>:center, :bold=>:bold, :size=>10, :top=>3.5.mm
+      text "N° de facture "+@invoice.number.to_s, :top=>13.mm, :size=>10
+      text "Code client "+@invoice.client.code, :top=>16.5.mm, :left=>width/2, :align=>:center, :size=>10
+      text @invoice.client.full_name, :top=>10.5.mm, :left=>width/2, :align=>:center, :size=>10
+      text "Reste à payer ("+@invoice.lines[0].price.currency.code+") "+(@invoice.client.balance*-1).to_s, :top=>13.mm, :left=>width, :align=>:right, :size=>10
+    end
+  end
+  
+  
+end  

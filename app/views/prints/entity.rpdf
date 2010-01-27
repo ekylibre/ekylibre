@@ -1,0 +1,84 @@
+page :a4, :margin=>[10.mm] do
+  part 52.mm do
+    set do
+      image "#{RAILS_ROOT}/vendor/plugins/xil/tasks/images/graph.png", 35.mm, 48.mm
+      line [[0,0], [35.mm,0], [35.mm,48.mm], [0,48.mm], [0,0]], :color=>'#789', :width=>1
+    end
+    set 40.mm do
+      text @entity.full_name.strip, :left=>width/2, :size=>28, :align=>:center
+    end
+    set 40.mm, 11.mm do
+      set 0, 0, :color=>'#E7E7E7', :font_size=>20 do
+        cell 150.mm, 35.mm, @entity.full_name, :valign=>:bottom
+        cell 150.mm, 35.mm, @entity.full_name, :align=>:center, :valign=>:middle
+        cell 150.mm, 35.mm, @entity.full_name, :align=>:right, :valign=>:top
+      end
+      set 0, 0, :color=>'#777' do
+        text "Nom"
+        text "Prénom", :top=>5.mm
+        text "Code", :top=>10.mm
+        text "Créé le", :top=>15.mm
+        text "Pays", :top=>20.mm
+      end
+      set 22.mm do
+        text @entity.name
+        text @entity.first_name, :top=>5.mm
+        text @entity.code, :top=>10.mm, :font=>"Courier"
+        text I18n.localize(@entity.created_on), :top=>15.mm
+	unless @entity.country.blank?
+          image "#{RAILS_ROOT}/public/images/countries/"+@entity.country+".png", 16, 12, :top=>19.5.mm
+	  text ::I18n.t("countries."+@entity.country), :left=>18, :top=>20.mm
+        end
+      end
+    end
+  end
+
+  part 10.mm do
+    set do
+      text "Contacts", :size=>14, :top=>5.mm
+      # rectangle 50.mm, 10.mm, :left=>120.mm
+    end
+  end
+  table @entity.contacts do
+    column "Adresse", 'lines', 3.5
+    column "Téléphone", 'phone'
+    column "Fax", 'fax'
+    column "Mobile", 'mobile'
+    column "E-mail", 'email', 2.5
+  end
+
+  part 10.mm do
+    set do
+      text "Ventes", :size=>14, :top=>5.mm
+    end
+  end
+  table @entity.sale_orders do
+    column "N°", 'number'
+    column "Date", 'created_at.to_date',1, :align=>:center
+    column "Montant HT", 'amount', 1,  :align=>:right
+    column "Montant TTC", 'amount_with_taxes', 1, :align=>:right
+  end
+
+  part 10.mm do
+    set do
+      text "Rencontres", :size=>14, :top=>5.mm
+    end
+  end
+  table @entity.events do
+    column "Date", 'duration'
+    column "Lieu", 'location', 2
+    column "Avec", 'employee.full_name', 2
+    column "Type", 'nature.name'
+  end
+
+  part 10.mm do
+    set do
+      text "Comptes bancaires", :size=>14, :top=>5.mm
+    end
+  end
+  table @entity.bank_accounts do
+    column "Intitulé", 'name', 2
+    column "IBAN", 'iban_label', 4
+    column "BIC/SWIFT", 'bic'
+  end
+end

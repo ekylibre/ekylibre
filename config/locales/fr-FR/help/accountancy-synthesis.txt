@@ -1,0 +1,3 @@
+h1. Documents de synthèse annuels
+
+Le Bilan et le Compte de résultat pour l'exercice considéré sont représentés dans un tableau. Dans le cas où il existe des documents annuels correspondant à un exercice précédent, les résultats sont indiqués dans une nouvelle colonne.

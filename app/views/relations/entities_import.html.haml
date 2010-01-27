@@ -1,0 +1,28 @@
+%h2=tc('file_to_download')
+=toolbar do
+  -link :entities_export
+  
+
+%h2=tc('file_to_upload')
+
+-if !@unavailable_entities.nil?
+  -if !@unavailable_entities.empty?
+    .errorExplanation
+      %h2=@unavailable_entities.size.to_s+" erreur(s) ont empéché l'import"
+      %p Il y a eu des problèmes avec les lignes suivantes :
+      %ul
+        -for error in @unavailable_entities
+          %li="ligne "+error[0].to_s+" :  "+ error[1].to_s+" "+error[2].to_s
+
+-form_tag({}, :multipart=>true) do
+  =formalize do |f|
+    -f.field tc('csv_file'), file_field(:csv_file, :path)
+  .actions
+    =submit_tag(tc(:import),:action=>:entities_import) 
+
+%p{:style=>'padding:5px;'}=tc('defined_columns')
+%ol{:style=>'text-align:left; padding: 0px 50px; '}
+  -for field in @model
+    %li=field[:label]
+%p{:style=>'padding:5px;'}=tc('please_consult_help_to_have_more_informations')
+ 

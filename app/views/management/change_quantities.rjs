@@ -1,0 +1,3 @@
+page['product_stock_quantity_min'].value=@location.quantity_min
+page['product_stock_quantity_max'].value=@location.quantity_max
+page['product_stock_critic_quantity_min'].value=@location.critic_quantity_min

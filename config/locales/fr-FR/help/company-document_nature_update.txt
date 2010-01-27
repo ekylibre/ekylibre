@@ -1,0 +1,3 @@
+h1. Modification d'un type de document
+
+Remplissez le formulaire en renseignant bien tous les champs. *La liste Module* permet de spécifier la nature du document.

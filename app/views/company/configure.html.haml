@@ -1,0 +1,19 @@
+-if @company.parameters.find(:all, :conditions=>["record_value_type = 'Sequence' AND record_value_id IS NULL"]).size > 0
+  =toolbar do
+    -link :sequences_load
+=error_messages_for 'company'
+-form_tag do
+  =formalize do |f|
+    -f.title tc(:general)
+    -f.field :company, :name
+    -f.field t("activerecord.attributes.company.code"), content_tag(:strong, @company.code)
+    -f.field t("activerecord.attributes.company.entity_id"), link_to(@company.entity.full_name, {:controller=>:relations, :action=>:entity_update, :id=>@company.entity_id})
+    -f.field :company, :sales_conditions, :field=>:textarea, :options=>{:cols=>60, :rows=>8}
+    -for name, options in @tree
+      -f.title tc(name)
+      -for key in options.keys.sort
+        -f.field t("parameters."+key), {:datatype=>options[key][:nature].to_sym, :model=>options[key][:model], :value=>options[key][:value], :name=>"parameter[#{key}][value]"}
+  .actions
+    =submit_tag tg(:update)
+    =link_to tg(:cancel), :back
+ 

@@ -1,0 +1,5 @@
+=formalize do |f|
+  - f.error :observation
+  - f.field :observation, :importance,:field=>:radio, :choices=>Observation.importances
+  - f.field :observation, :description, :field=>:textarea
+  

@@ -1,0 +1,261 @@
+page :a4, :margin=>[10.mm] do # , :debug=>true do
+
+  @order = @sale_order.state != "P" 
+
+  @lines = []
+  # @lines =  @sale_order.company.default_contact.address.split(",").collect{ |x| x.strip}
+  @lines =  @sale_order.company.default_contact.lines(",",true,false).split(",").collect{ |x| x.strip}
+  @lines <<  "Tél. "+@sale_order.company.default_contact.phone if !@sale_order.company.default_contact.phone.blank?
+  @lines <<  "Fax "+@sale_order.company.default_contact.fax if !@sale_order.company.default_contact.fax.blank?
+  @lines <<  "Email : "+@sale_order.company.default_contact.email if !@sale_order.company.default_contact.email.blank?
+
+  if @sale_order.company.entity.default_contact.country != @sale_order.contact.country
+    @client_address = @sale_order.contact.address.split(",").collect{ |x| x.strip}
+  else
+    @client_address = @sale_order.contact.lines(",",true,false).split(",").collect{ |x| x.strip}
+  end
+  
+  part 65.mm do
+    set  do
+      logo =  @sale_order.company.entity.website.split('#')
+      if File.exist?(logo[0])
+        dims = logo[1].split('x').collect{|c| c.to_f.mm}
+        dims = [] unless dims.size == 2
+        image logo[0], dims[0]||30.mm, dims[1]||48.mm
+      else
+        text @sale_order.company.entity.full_name, :size=>16
+      end
+      set  do
+        top = 0
+        for line in @lines
+          text line,:size=>9, :top=>top, :left=>width, :align=>:right
+          top += 11
+        end
+      end
+      set 100.mm, 35.mm do
+        text @sale_order.client.full_name, :size=>11, :font=>"helvetica"
+        top2 = 12
+        for address in  @client_address
+          text address, :size=>11, :top=>top2, :font=>"helvetica"
+          top2 += 12
+        end
+      end
+    end
+  end
+
+  part 11.mm do    
+    set do
+      if @sale_order.company.default_contact.area.nil?
+        text "Le "+I18n.localize(@sale_order.created_on, :format=>:month_letter), :left=>width, :align=>:right
+      else
+        text "À "+@sale_order.company.default_contact.area.city_name.capitalize+", le "+I18n.localize(@sale_order.created_on, :format=>:month_letter),  :left=>width, :align=>:right
+      end
+    end
+    state = @sale_order.state == "P" ? "Devis n°" : "Commande n°"
+    set do
+      text state+@sale_order.number, :align=>:left, :bold=>:bold
+    end
+
+    set do 
+      # abbreviation = @sale_order.client.nature.abbreviation == "-" ? "" : @sale_order.client.nature.abbreviation 
+      text "Entre "+@sale_order.company.name+", "+@sale_order.responsible.label+" et "+@sale_order.client.full_name+".", :top=>4.mm
+    end
+  end 
+
+  if !@order and @sale_order.letter_format and !@sale_order.function_title.blank?
+    part 4.mm do 
+      set do 
+        text @sale_order.function_title, :bold=>:bold, :left=>10.mm
+      end
+    end
+  end
+
+  if !@order and @sale_order.letter_format and !@sale_order.introduction.blank?
+    part 7.mm do 
+      set do 
+        part.resize_to(text(@sale_order.introduction, :width=>width))
+      end
+    end
+  end
+
+  table @sale_order.lines, :fixed=>true do 
+    column "Code", "product.code", 21.mm, :align=>:center
+    column "Désignation", 'product.name', 80.mm
+    column "Qté.", 'quantity', 13.mm
+    column "Prix unitaire Hors Taxes", 'price.amount', 22.mm, :numeric=>:money
+    column "Montant Hors Taxes", 'amount', 20.mm, :numeric=>:money
+    column "Montant T.V.A. ", '(amount_with_taxes-amount)', 20.mm
+    column "Taux T.V.A.", '(price.tax.amount*100).to_s+" %"', 15.mm, :align=>:center
+  end
+
+  part 14.mm do
+    set 101.mm do
+      text "Net à payer ("+@sale_order.lines[0].price.currency.code+")", :top=>6.mm, :left=>33.mm,:align=>:right, :bold=>:bold, :size=>11.5
+      text "Totaux ("+@sale_order.lines[0].price.currency.code+")", :top=>0.5.mm, :left=>33.mm, :align=>:right, :bold=>:bold
+      text @sale_order.amount_with_taxes.to_s, :top=>6.mm, :left=>55.mm, :align=>:center, :bold=>:bold, :size=>12
+      text @sale_order.amount.to_s, :top=>0.5.mm, :left=>54.5.mm,  :align=>:right
+      text (@sale_order.amount_with_taxes - @sale_order.amount).to_s, :top=>0.5.mm, :left=>74.5.mm,  :align=>:right
+      rectangle 75.mm, 4.mm, :width=>3.mm
+      rectangle 75.mm, 7.mm, :width=>3.mm, :top=>4.mm
+      line [[35.mm,0],[35.mm,11.mm]], :width=>0.5
+      line [[55.mm,0],[55.mm,4.mm]], :width=>0.5
+    end
+  end
+
+  if @sale_order.nature.payment_type == "check" and !@order
+    part 6.mm do
+      set do
+        text "Mode de paiement : ", :bold=>:bold
+        text "Chèque bancaire à l'ordre ", :left=>31.mm
+        text @sale_order.company.name, :bold=>:bold,  :left=>68.mm
+      end
+    end
+  end
+  
+  ### Conditions générales
+  if !@order
+    conditions = []
+    conditions << "Ce devis et ses conditions générales sont valables jusqu'au "+I18n.localize(@sale_order.expired_on, :format=>:month_letter) if !@sale_order.nature.expiration.nil?
+    conditions << "Un acompte de "+(@sale_order.nature.downpayment_rate*100).to_s+"% (soit "+(@sale_order.nature.downpayment_rate*@sale_order.amount_with_taxes).round(2).to_s+" "+@sale_order.company.currencies.find(:first).code+") sera réglé à la signature de présent devis" if @sale_order.nature.downpayment_rate > 0 and @sale_order.nature.downpayment_minimum<=@sale_order.amount_with_taxes
+    conditions += @sale_order.company.entity.comment.split("\n").collect{|c| c.strip.gsub(/\s+/, ' ')}
+    part 5.mm do
+      set do
+        text "Conditions générales :", :bold=>:bold
+      end
+
+      set 0.mm, 5.mm do
+        nb_columns = 2
+        col_width = 190.mm/nb_columns
+        total_height = 0
+        font("Times", 7)
+        conditions.each{|s|  total_height += string_height(s, col_width-10.mm)+1.mm; }
+        col_height = total_height.to_f/nb_columns
+        left = 0
+        walked = 0
+        max = 0
+        indice = 0
+        for condition in conditions
+          text((indice+=1).to_s+".",  :left=>left+6.mm, :top=>walked, :align=>:right)
+          walked += text(condition, :left=>left+7.mm, :top=>walked, :width=>col_width-10.mm)+1.mm
+          puts "WALKED: #{total_height*0.35} / #{max*0.35} / #{walked*0.35}"
+          if walked>=col_height
+            max = walked if walked > max
+            left += col_width
+            walked = 0
+          end
+        end
+        puts "************"
+        part.resize_to(max+7.mm)
+      end
+
+    end
+
+#     indice = 1
+#     for condition in conditions
+#       part 1.mm do
+#         set do
+#           text(indice.to_s+".", :size=>7, :left=>6.mm, :align=>:right)
+#           part.resize_to(text(condition, :size=>7, :left=>7.mm, :width=>80.mm)+1.mm)
+#         end
+#       end
+#       indice += 1
+#     end
+    part 1.mm do
+    end
+  end
+  
+  #   if !@order
+#     part 40.mm do
+#       set  do 
+#         text "Conditions générales :", :bold=>:bold
+#         text "1.  Ce devis et ses conditions générales sont valables jusqu'au "+I18n.localize(@sale_order.expired_on, :format=>:month_letter), :size=>7, :bold=>:bold, :top=>4.mm, :left=>5.mm
+#         if @sale_order.nature.downpayment_rate > 0
+#           text "2.  Un acompte de "+(@sale_order.nature.downpayment_rate*100).to_s+"% (soit "+(@sale_order.nature.downpayment_rate*@sale_order.amount_with_taxes).round(2).to_s+" "+@sale_order.company.currencies.find(:first).code+") sera réglé à la signature de présent devis", :size=>7, :bold=>:bold, :top=>7.mm, :left=>5.mm
+#         end
+#         text "3.  Toute intervention supplémentaire nécessaire à la bonne conduite du dossier fera l'objet d'un devis supplémentaire.", :size=>7, :top=>10.mm, :left=>5.mm
+#         text "4.  Nos factures sont payables 30 jours après leur émission.", :size=>7, :top=>13.mm, :left=>5.mm
+#         text "5.  Les prestations ne pourront débuter qu'après acceptation du présent contrat.", :size=>7, :top=>16.mm, :left=>5.mm
+#         text "6.  Dans le cas ou la mission s'arrête avant son terme pour des raisons indépendantes de "+@sale_order.company.name+", le temps consacré sur le dossier sera facturé.", :size=>7, :top=>19.mm, :left=>5.mm
+#         text "7.  "+@sale_order.company.name+" s'engage à respecter le secret professionnel et à ne délivrer à un tiers informations ou documents qu'après accord du client.", :size=>7, :top=>22.mm, :left=>5.mm
+#         text "8.  "+@sale_order.company.name+" n'effectue aucune estimation de valeur de biens, de créances et de tous éléments nécessaires au dossier, objet du présent ordre de mission.", :size=>7, :top=>25.mm, :left=>5.mm
+#         text "9.  La qualité des prestations ou leur règlement ne sauraient être conditionnés par les décisions des organismes bancaires, administratifs ou professionnels en prolongement des études produites.", :size=>7, :top=>28.mm, :left=>5.mm
+#         text "10.  La validité de ce devis est conditionnée par la délivrance des documents et informations nécessaires à l'ouverture du dossier dans le délai d'un mois à compter de l'acceptation du devis par le signataire.", :size=>7, :top=>31.mm, :left=>5.mm
+#       end
+#     end
+#   end
+
+
+  ### Signature 
+  
+  if !@order and @sale_order.letter_format
+    part 25.mm do 
+      set do 
+        text "Dans la case ci-contre, veuillez dater, porter la mention \"Bon pour accord\" et apposer votre signature.", :bold=>:bold, :top=>3.mm, :left=>97.mm, :width=>60.mm, :align=>:right
+        #        text "Dans la case ci-contre, veuillez dater, porter la mention ", :bold=>:bold
+        #        text "''Bon pour accord'' et apposer votre signature.", :bold=>:bold, :top=>6.mm, :left=>7.5.mm
+        rectangle 75.mm, 20.mm, :left=>100.mm, :width=>0.7
+      end
+    end
+  end
+  
+  ### Conclusion
+  
+  if !@order and @sale_order.letter_format and !@sale_order.conclusion.blank?
+    part 7.mm do 
+      set do 
+        part.resize_to(text(@sale_order.conclusion, :width=>width))
+      end
+    end
+  end
+  
+  if !@order and @sale_order.letter_format
+    part 15.mm do 
+      set 145.mm, 3.mm do 
+        text @sale_order.responsible.label, :bold=>:bold, :align=>:center
+        text "Service "+@sale_order.responsible.department.name, :align=>:center, :top=>4.mm
+      end
+    end
+  end
+
+  if @order
+    part 20.mm do
+      set do
+       text ::I18n.t("views.relations.sales_print.deliveries_number", :count=>@sale_order.deliveries.size), :left=>width/2, :align=>:center, :bold=>:bold, :size=>14, :top=>15.mm
+      end
+    end
+    
+    for delivery in @sale_order.deliveries
+      part 13.mm do
+        set  0, 7.mm do
+          text "Le "+I18n.localize(delivery.planned_on, :format=>:month_letter)+" à l'adresse "+delivery.contact.address, :size=>10, :bold=>:bold
+        end
+      end
+      table delivery.lines, :fixed=>false , :left=>7.mm do
+        column "Produit", "product.name", 80.mm
+        column "Qté.", "quantity", 20.mm
+        column "Prix HT",  "price.amount", 25.mm
+        column "Montant HT", "amount", 25.mm
+        column "Montant TVA", "amount_with_taxes-amount", 25.mm
+        column "T.V.A.", '(price.tax.amount*100).to_s+" %"', 15.mm,  :align=>:center
+      end
+    end
+  end
+
+  
+  part 15.mm, :bottom=>true do
+    set do
+      line [[0,1.mm], [width,1.mm]], :width=>0.5
+      set 0, 2.5.mm do 
+        text "Devis n°"+@sale_order.number, :size=>10, :align=>:left
+        text "Réf. Client : "+@sale_order.client.code, :top=>4.mm, :align=>:left
+        text "Page 1 sur 1", :top=>8.mm, :align=>:left
+        text I18n.localize(@sale_order.created_on, :format=>:month_letter), :size=>10, :left=>width/2, :align=>:center
+        text "N° TVA Intracommunautaire : "+@sale_order.company.entity.vat_number.to_s+" - SIREN : "+@sale_order.company.siren.to_s+" - Code APE : "+@sale_order.company.entity.ean13.to_s, :size=>7, :left=>width/2, :align=>:center, :top=>6.mm
+        text "Paraphe",:size=>10, :left=>width-20.mm, :align=>:right, :bold=>true
+        rectangle 18.mm, 8.mm, :left=>width-18.mm, :width=>0.2
+      end
+    end
+  end
+
+  
+end 

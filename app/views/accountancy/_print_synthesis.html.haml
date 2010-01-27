@@ -1,0 +1,8 @@
+=formalize do |f|
+  -f.title tc(:synthesis)
+  -f.field tc(:select_financialyear), select(:printed, :financialyear, @financialyears.collect {|f| [f.code.to_s, f.id.to_s]}, :new => {:action => :financialyear_create})
+
+  
+
+       
+ 

@@ -1,0 +1,13 @@
+=formalize do |f|
+  -f.error 'document_template'
+  -f.field :document_template, :name
+  -f.field :document_template, :code
+  -f.field :document_template, :family, :choices=>DocumentTemplate.families
+  -f.field :document_template, :nature, :choices=>DocumentTemplate.natures
+  -f.field :document_template, :to_archive
+  -f.field :document_template, :default
+  -f.field :document_template, :active
+  -f.field :document_template, :language_id, :choices=>@current_company.languages.collect{|x| [x.native_name, x.id]}
+  -f.field :document_template, :country, :choices=>countries
+  -f.field :document_template, :filename
+  -f.field :document_template, :source, :field=>:textarea, :options=>{:cols=>80, :rows=>30}, :class=>:code

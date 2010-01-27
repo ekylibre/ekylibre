@@ -1,0 +1,16 @@
+if @subscription
+  if @subscription.nature.nature == "period"
+    page['subscription_started_on'].value = @subscription.started_on
+    page['subscription_stopped_on'].value = @subscription.stopped_on
+    page['subscription_number'].hide
+    page['subscription_date'].show
+  elsif @subscription.nature.nature == "quantity"
+    page['subscription_first_number'].value = @subscription.first_number
+    page['subscription_last_number'].value  = @subscription.last_number
+    page['subscription_date'].hide
+    page['subscription_number'].show
+  end
+else
+  page['subscription_date'].hide 
+  page['subscription_number'].hide   
+end

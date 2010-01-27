@@ -1,0 +1,14 @@
+h1. Comment ajouter un produit au devis?
+
+h2. Sélection du produit 
+
+Il vous suffit de sélectionner le produit dans la liste déroulante correspondante et de renseigner la quantité. Si le produit n'a pas encore été créé, vous pouvez le faire grâce au lien "nouveau" qui vous redirigera vers le formulaire de création d'un produit. Ce champ récapitule le nom du produit, son prix hors taxes et sa devise.
+ 
+h2. Prix libres
+Vous aurez accès à un sous formulaire vous permettant d'*appliquer le prix ainsi que la taxe que vous souhaitez* pour le produit choisit. Ce prix ne sera *pas enregistré* dans une grille de tarifs.
+
+h2. Le lieu de stockage
+* Ce champ n'apparaît que dans le cas ou vous disposez de plusieurs lieux de stockage.
+* Sélectionner le lieu de stockage permet de savoir à quel lieu de stockage seront liés les mouvements de stocks liés à cette vente. 
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

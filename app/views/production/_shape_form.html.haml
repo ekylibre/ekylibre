@@ -1,0 +1,23 @@
+= formalize do |f|
+  - f.title :infos
+  - f.error :shape
+  - f.field :shape, :name
+  - f.field :shape, :number
+  -#f.field :shape, :polygon
+  - f.field :shape, :area_measure
+  - f.field :shape, :area_unit_id, :choices=>@current_company.units.find(:all, :conditions=>{:base=>"m2"}, :order=>"coefficient, name").collect{|x| [x.label, x.id]}
+  -#f.field :shape, :master
+= formalize(:id=>:master_select) do |f|
+  -# f.field :shape, :parent_id, :choices=>@current_company.shapes.collect{|x| [x.name+" ( "+x.polygon+" )", x.id]}
+= formalize do |f|
+  - f.field :shape, :description, :field=>:textarea
+
+:javascript
+  function master(){
+    if($('shape_master').checked)
+      $('master_select').hide();
+    else
+      $('master_select').show();
+  }
+  master();
+=observe_field("shape_master", :frequency=>0.25, :function=> "master();")

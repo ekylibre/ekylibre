@@ -1,0 +1,7 @@
+h1. Comment ajouter un matériel ?
+
+Définissez son nom ainsi que sa nature. Un attelage est utilisé par un tracteur lors d'un travail (ex: girobroyeur).
+
+Vous avez également la possibilité de définir sa *consommation*, ce qui permettra d'établir les *coûts des travaux* ainsi que de gérer le carburant.
+
+<<production-index|Retour à l'aide sur la Gestion de la production>>

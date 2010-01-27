@@ -1,0 +1,5 @@
+h1. Comment consulter une fiche employé ?
+
+Vous avez le détail des *caractéristiques* de l'employé (Nom, profession,...) ainsi que la *liste des ventes* réalisées par celui-ci, *les événements* qui lui sont liés.
+
+À ces informations peuvent s'ajouter la liste des travaux (production), si l'employé en a effectué.

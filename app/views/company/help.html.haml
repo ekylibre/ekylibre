@@ -1,0 +1,22 @@
+.search
+  - form_tag do
+    %table
+      %tr
+        %td.label=tc(:search)
+        %td.field=text_field_tag :key, @key
+        %td.submit=submit_tag tg(:search_go)
+%table.flex
+  %tr
+    -if @results
+      %td.results{:valign=>:top}
+        %h2=tc(:results, :count=>@results.size)
+        -if @results.size>0
+          %ul
+            -for r in @results[0..@per_page-1]
+              %li=render :partial=>'help_result', :locals=>{:result=>r}
+          -if @results.size>@per_page
+            =link_to_function(tc(:other_results), "var list=$('other_results'); if (list.style.display=='none') {list.show();} else {list.hide();}", :class=>:more)
+            %ul#other_results{:style=>'display:none'}
+              -for r in @results[@per_page..-1]
+                %li=render :partial=>'help_result', :locals=>{:result=>r}
+    %td#helpage.content{:valign=>:top}

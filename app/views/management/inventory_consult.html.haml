@@ -1,0 +1,22 @@
+-form_tag() do
+  -for stock_location in @current_company.stock_locations
+    -if stock_location.reservoir
+      %h2= stock_location.name+" : "+tc('reservoir')
+    -else 
+      %h2= stock_location.name
+    %table.dyta 
+      %tr
+        %th= tc('product')
+        %th= tc('unit')
+        %th= tc('theoric_quantity')
+        %th= tc('validated_quantity')
+      - for product_stock in stock_location.product_stocks
+        %tr
+          %td= product_stock.product.name
+          %td= product_stock.product.unit.label
+          %td= product_stock.current_real_quantity
+          %td= text_field_tag "product_stock[#{product_stock.id}]", product_stock.current_real_quantity, :id=>"product_stock__#{product_stock.id}_quantity"
+
+  .actions
+    =link_to tg(:previous), :action=>:inventories
+    =submit_tag(tc('validate_and_reflect_changes'), :action=>:inventory_consult)

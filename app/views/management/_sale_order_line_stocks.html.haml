@@ -1,0 +1,7 @@
+-if @product and not @product.stocks.empty?
+  %table.formalize
+    -for ps in @product.stocks
+      %tr
+        %td=#ps.inspect
+        %td=tc(:line_stock, :location=>ps.location.name, :virtual_q=>ps.current_virtual_quantity)
+  

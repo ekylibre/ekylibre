@@ -1,0 +1,19 @@
+h1. Comment modifier votre transport ?
+
+h2. Caractéristiques d'un transport
+
+Vous pouvez *modifier* le *transporteur*, le commentaire ainsi qu'*ajouter ou supprimer de livraisons à votre transport*.
+
+Vous pouvez *rechercher une livraison par sa date ainsi que par l'addresse de livraison*.
+
+Le bouton "Valider" permet de modifier les caractéristiques du transport.
+
+Si votre livraison est correctement définie, validez en cliquant sur "Valider et revenir à la liste des transports".
+
+h2. Poids des livraisons
+
+Si *le poids de votre livraison est incorrect*, *vérifiez le poids des produits qui composent cette livraison*. Si vous n'avez pas défini de poids à vos produits, le poids de votre livraison sera nul. 
+
+Vous pouvez *définir le poids de vos produits* par le biais du *formulaire de modification* d'un produit.
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

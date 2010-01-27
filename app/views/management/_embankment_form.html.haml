@@ -1,0 +1,11 @@
+=formalize do |f|
+  - f.error :embankment
+  - f.title :infos
+  - f.field :embankment, :bank_account_id, :choices=>@current_company.bank_accounts.find_all_by_entity_id(@current_company.entity_id).collect{|x| [x.name, x.id]}, :new=>{:controller=>:accountancy, :action=>:bank_account_create}
+  - f.field :embankment, :embanker_id, :choices=>@current_company.available_users.collect{|x| [x.label, x.id]}
+  - f.field :embankment, :created_on
+
+=hidden_field_tag :mode_id, @embankment.mode_id
+
+%h2=tc :payments
+=dyta :embankable_payments

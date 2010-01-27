@@ -1,0 +1,9 @@
+h1. Zones administratives
+
+h2. Qu'est-ce qu'une zone administrative ?
+Il s'agit d'une des divisions du territoire national (région, département, arrondissement, canton, commune).
+
+h2. Gestion d'une zone administrative 
+Pour utiliser une zone administrative, commencer par la <<relations-districts_create|créer>>. La zone crée apparaîtra dans le tableau des zones administratives. Par la suite, il vous sera possible de la <<relations-districts_update|modifier>>{{buttons/update.png|modifier}} ou même de la <<relations-districts_delete|supprimer>>{{buttons/delete.png|supprimer}}. Dans ce cas, l'ensemble des villes rattachées à cette zone seront aussi supprimées.
+De même, vous disposez d'un système de recherche classique pour filtrer la zone administrative qui vous intéresse.
+

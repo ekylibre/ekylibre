@@ -1,0 +1,1 @@
+page.replace_html 'stopped_period', :partial=>'tax_declaration_period_search'

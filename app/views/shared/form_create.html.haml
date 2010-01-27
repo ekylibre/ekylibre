@@ -1,0 +1,6 @@
+- form_tag(nil, {:id=>@options[:id]}) do
+  =render :partial=>@partial
+  .actions
+    =submit_tag(tg(@options[:submit]||:create))
+    =link_to_back :label=>@options[:cancel]||:cancel
+

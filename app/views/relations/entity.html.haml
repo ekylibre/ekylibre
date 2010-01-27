@@ -1,0 +1,80 @@
+=render :partial=>"shared/entities_search"
+= toolbar do
+  - link :entity_update, :id=>@entity.id
+  -# link :entity_print, :id=>@entity.id
+  - print :entity, :id=>@entity.id
+
+%table
+  %tr
+    %td
+      =evalue @entity, :name
+      =evalue @entity, :first_name unless @entity.first_name.blank?
+      =evalue @entity, :code
+      =evalue @entity, :born_on unless @entity.born_on.blank?
+      =evalue @entity, :dead_on unless @entity.dead_on.blank?
+      =evalue @entity, :active
+      =evalue @entity, :website unless @entity.website.blank?
+      =evalue t('activerecord.attributes.entity.country'), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) unless @entity.country.blank?
+    -if @entity.client
+      %td
+        =evalue @entity, :category, :label=>:name, :url=>{:action=>:entity_category}
+        =evalue @entity, :first_met_on unless @entity.first_met_on.blank?
+        =evalue @entity, :proposer, :label=>:full_name unless @entity.proposer_id.blank?
+        =evalue @entity, :vat_number unless @entity.vat_number.blank?
+        =evalue @entity, :vat_submissive
+        =evalue @entity, :reflation_submissive 
+        =#evalue @entity, :max_reduction_rate
+        =#evalue @entity, :discount_rate unless @entity.discount_rate.blank?
+        =evalue @entity, :reduction_rate unless @entity.reduction_rate.blank?
+        =evalue @entity, :authorized_payments_count unless @entity.authorized_payments_count.blank?
+        =#evalue @entity, :deliveries_conditions unless @entity.deliveries_conditions.blank?
+    %td
+      -for datum in @entity.complement_data.find(:all, :joins=>"JOIN complements ON (complements.id=complement_id)", :order=>"position")
+        =evalue datum.complement.name, datum.value.to_s
+
+ 
+=tabbox(:entity) do |tb|
+  -tb.tab(tc(:subscriptions, :count=>@entity.subscriptions.count)) do |c|
+    -c << toolbar do
+      -link(:subscription_create, :controller=>:management, :entity_id=>@entity.id)
+    -c << dyta(:entity_subscriptions)
+  -tb.tab(tc(:contacts, :count=>@contacts_count)) do |c|
+    -c << toolbar do
+      -link(:entity_contact_create, :id=>@entity.id)
+    -c << dyta(:contacts)
+  -tb.tab(tc(:sale_orders_number , :count=>@sale_orders_number)) do |c|
+    -c << toolbar do |t|
+      -t.link(:sale_order_create, :controller=>:management, :client_id=>@entity.id)
+    -c << dyta(:entity_sale_orders)
+  -tb.tab(tc(:purchase_orders_number , :count=>@purchase_orders_number)) do |c|
+    -c << toolbar do |t|
+      -t.link(:purchase_order_create, :controller=>:management, :supplier_id=>@entity.id)
+    -c << dyta(:entity_purchase_orders)
+  -if @invoices_count>0
+    -tb.tab(tc(:invoices, :count=>@invoices_count)) do |c|
+      -c << dyta(:entity_invoices)
+  -#if @payments_count>0
+  -tb.tab(tc(:payments, :count=>@payments_count)) do |c|
+    -c << toolbar do
+      -link :payment_create,{:controller=>:management, :entity_id=>@entity.id}
+    -c << dyta(:entity_payments)
+  -tb.tab(tc(:events, :count=>@events_count)) do |c|
+    -c << toolbar do
+      -link :event_create, :entity_id=>@entity.id
+    -c << dyta(:entity_events)
+  -tb.tab(tc(:entity_links, :count=>@entity_links)) do |c|
+    -c << toolbar do
+      -link :entity_link_create, {:entity_id=>@entity.id}
+    -c << dyta(:entity_links)
+  -tb.tab(tc(:observations, :count=>@observations_count)) do |c|
+    -c << toolbar do
+      -link :observation_create, {:entity_id=>@entity.id}
+    -c << dyta(:observations)
+  -tb.tab(tc(:mandates, :count=>@mandates_count)) do |c|
+    -c << toolbar do
+      -link :mandate_create, {:entity_id=>@entity.id}
+    -c << dyta(:entity_mandates)
+  -tb.tab(tc(:bank_accounts, :count=>@bank_accounts_count)) do |c|
+    -c << toolbar do
+      -link :bank_account_create, {:controller =>:accountancy, :entity_id=>@entity.id}
+    -c << dyta(:entity_bank_accounts)

@@ -1,0 +1,20 @@
+= formalize do |f|
+  - tools = @current_company.tools
+  - f.error :shape_operation
+  - if tools.size > 0 
+    - f.title :tools
+    - @current_company.tools.each do |tool|
+      - f.field content_tag(:label, tool.name, :for=>"tools_#{tool.id}"), check_box_tag("tools[#{tool.id}]" ,"1", @shape_operation.new_record? ? false : (session[:tool_ids].include?(tool.id.to_s)), :id=>"tools_#{tools.id}")
+  - f.title :infos
+  - f.field :shape_operation, :name
+  - f.field :shape_operation, :shape_id, :choices=>@current_company.shapes.collect{|x| [x.name+" ( "+x.polygon+" )", x.id]}, :new=>{:action=>:shape_create}
+  - f.field :shape_operation, :responsible_id, :choices=>@current_company.employees.collect{|x| [x.last_name+" "+x.first_name, x.id]}, :new=>{:controller=>:resources, :action=>:employee_create}
+  - f.field :shape_operation, :nature_id, :choices=>@current_company.shape_operation_natures.collect{|x| [x.name, x.id]}, :new=>{:action=>:shape_operation_nature_create}
+  - f.field :shape_operation, :planned_on
+  - f.field :shape_operation, :description, :field=>:textarea
+  - f.title :duration
+  - f.field :shape_operation, :hour_duration
+  - f.field :shape_operation, :min_duration
+  - f.title :products
+  
+

@@ -1,0 +1,25 @@
+.branch{:class=>(listing_node.reflection? ? " reflection" : " column")}
+  .shift
+  .tools{:style=>"width: 20em; clear: both;"}
+    -unless listing_node.reflection?
+      .pos{:id=>"#{listing_node.key}_position", :style=>"width:4em;float:right; color:#00C; text-decoration:underline;"}=render(:partial=>"listing_node_position", :object=>listing_node)
+      .toto{:style=>"width:10em; float:right;"}
+        =check_box_tag(:listing_node, :exportable, listing_node.exportable, :onclick=>remote_function(:url=>{:action=>:listing_node_update, :id=>listing_node.id, :type=>listing_node.exportable ? "hide" : "show"}) )
+        -unless listing_node.root?
+          =link_to_remote("Supprimer", :url=>{:action=>:listing_node_delete, :id=>listing_node.id}, :update=>listing_node.parent.key)
+  .item
+    .content
+      %table
+        %tr
+          -if listing_node.reflection?
+            %td{:onclick=>"toggleElement('#{listing_node.key}')"}=listing_node.label
+          -else
+            %td{:id=>"#{listing_node.key}_label", :style=>'color:#00C; text-decoration:underline;'}=render(:partial=>"listing_node_column_label", :object=>listing_node)
+            %td{:style=>'font-style: italic; color: #808080;'}="("+listing_node.name+")"
+            %td{:id=>"#{listing_node.key}_comparator", :style=>'color:#00C; text-decoration:underline;'}=render(:partial=>"listing_node_comparison", :object=>listing_node)
+            
+            
+     
+
+-if listing_node.reflection?
+  .branches{:id=>listing_node.key}=render(:partial=>"listing_reflection", :object=>listing_node)

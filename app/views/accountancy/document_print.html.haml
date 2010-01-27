@@ -1,0 +1,5 @@
+-form_tag do
+  =render :partial=>@partial 
+  .actions
+    =link_to tg("previous"), :action=>:document_prepare
+    =submit_tag tg("print")

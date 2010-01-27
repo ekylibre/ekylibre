@@ -1,0 +1,2 @@
+page['price_amount'].value=@price_amount
+page['price_tax_id'].value=@price_tax_id 

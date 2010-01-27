@@ -1,0 +1,17 @@
+.search 
+  - form_tag do
+    %table
+      %tr
+        %td.label=tc(:start)
+        %td=text_field_tag(:start, session[:statistics_start], :size=>8)
+        %td.label=tc(:end)
+        %td=text_field_tag(:end, session[:statistics_end], :size=>8)
+        %td=submit_tag tg(:search_go)
+.menu
+  %ul
+    %li=tc(:nb_sales, :count=>@sale_orders_count)
+    -if @sale_orders_count > 0
+      %li=tc(:total_amount)+@sale_orders_amount.to_s
+      %li=tc(:total_invoiced_amount)+@invoiced_amount.to_s
+    -for event_nature in @event_natures
+      %li=h tc(:events, :count=>event_nature['ecount'].to_i, :nature=>event_nature.name, :duration=>event_nature['esum'].to_i)

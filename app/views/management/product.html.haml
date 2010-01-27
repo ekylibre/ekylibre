@@ -1,0 +1,30 @@
+=toolbar do
+  -link :product_update, :id=>@product.id
+  -link :products
+
+%table
+  %tr
+    %td
+      =evalue @product, :name
+      =evalue @product, :price
+      =evalue @product, :code
+      =evalue @product, :code2
+      =evalue @product, :ean13
+    %td
+      =evalue @product, :shelf, :url=>{:action=>:shelf}
+      =evalue @product, :unit, :label=>:label
+      =evalue @product, :weight
+      =evalue @product, :active
+    %td
+      =evalue @product, :to if @product.to_sale or @product.to_purchase
+      =#evalue @product, :catalog_name
+      =#evalue @product, :catalog_description
+      =evalue @product, :description
+      =evalue @product, :comment
+    %td
+      =evalue @product, :manage_stocks
+
+=tabbox(:product) do |tb|
+  -tb.tab :stocks, :content=>dyta(:product_stocks)
+  -tb.tab :prices
+  -tb.tab :components 

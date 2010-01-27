@@ -1,0 +1,7 @@
+h1. Comment sélectionner vos chèques ?
+
+Par défaut, tous les chèques dont la date d'encaissement est inférieure ou égale à la date du jour sont cochés, donc sélectionnés pour cette remise de chèques. Vous pouvez *choisir de cocher ou décocher des chèques*.
+L'encaisseur est la personne qui a enregistré le paiement.
+
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

@@ -1,0 +1,18 @@
+h1. La création du devis
+
+h2. Comment ajouter un produit au devis ?
+Vous avez deux possibilités:
+
+La *saisie rapide*, qui permet en *un simple clic* de sélectionner votre produit et de définir sa quantité, voire le lieu de stockage si vous en possédez plusieurs.
+
+Le *mode complet* qui permet notamment d'appliquer un *prix libre* à votre produit, d'ajouter une *annotation* qui apparaitra lors de l'impression du devis et dans le cas d'un *abonnement* de modifier les dates, numéros et adresses.
+
+h2. Facturation
+À partir du moment ou vous avez ajouté au moins un produit, vous avez la possibilité de *Passer le devis en commande* ou *Facturer le devis*.
+
+La première solution vous permet de définir une ou plusieurs livraisons pour votre vente. Celles-ci vous permettent de gérer de manière plus fine vos stocks, ainsi que de définir des *transports* (envois groupés grâce à un transporteur) qui se basent sur vos livraisons. Il est ensuite possible de facturer le devis.
+
+*Facturer directement le devis* ignore l'étape des livraisons et génére votre facture. Vous accédez directement à l'étape *"Factures et règlements"*
+
+
+<<management-index|Retour à l'aide sur la Gestion Commerciale>>

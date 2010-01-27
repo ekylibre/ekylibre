@@ -1,0 +1,11 @@
+.search
+  -form_tag do
+    %table
+      %tr
+        %td.label=tc("product")
+        %td.input=select_tag(:product_id, options_for_select(@current_company.available_products.collect{|x| [x.name, x.id]}, session[:product_id]))
+        %td.label=tc("nb_years")
+        %td.input=text_field_tag(:nb_year, session[:nb_year].to_s, :size=>2)
+        %td=submit_tag tg("search_go")
+
+=image_tag "gruff/#{@current_company.code}/#{@graph}" unless @graph.nil?

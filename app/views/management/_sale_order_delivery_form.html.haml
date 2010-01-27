@@ -1,0 +1,40 @@
+=sale_steps
+
+=formalize do |f|
+  -f.error :delivery
+  -f.title :infos
+  -#f.field :delivery, :contact_id, :choices=>@contacts.collect{|x| [x.address, x.id]}, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@sale_order.client_id} 
+  -f.field :delivery, :contact_id, :choices=>:delivery_contacts, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@sale_order.client_id} 
+  -f.field :delivery, :mode_id, :choices=>@current_company.delivery_modes.collect{|x| [x.name, x.id]}, :new=>{:action=>:delivery_mode_create}
+  -f.field :delivery, :planned_on
+  -f.field :delivery, :transporter_id, :choices=>@current_company.entities.find_all_by_active_and_transporter(true,true).collect{|t| [t.full_name,t.id]}, :options=>{:include_blank=>"--Aucun--"}
+%table.dyta 
+  %tr
+    %th=tc(:product)
+    %th=tc(:line_amount)
+    %th=tc(:line_amount_with_taxes)
+    %th=tc(:unit)
+    %th=tc(:total_quantity)
+    %th=tc(:quantity_rest)
+    %th=tc(:quantity)
+  -for @line in @delivery_lines
+    %tr{:class=>cycle('odd','even')}
+      %td=@line.order_line.label
+      %td=@line.order_line.price.amount
+      %td=@line.order_line.price.amount_with_taxes
+      %td=@line.order_line.unit.name
+      %td{:style=>'text-align:center'}=@line.order_line.quantity
+      %td{:style=>'text-align:center'}=@line.quantity
+      %td{:style=>'text-align:center'}
+        =text_field_tag "delivery_line[#{@line.order_line_id}][quantity]", @line.quantity, :id=>"delivery_line_#{@line.order_line_id}_quantity"
+        =observe_field "delivery_line_#{@line.order_line.id}_quantity", :url=>{:action => :sum_calculate}, :frequency => 0.25, :with=>"Form.serialize('#{@delivery_form}')"
+.total
+  %table.dyta
+    %tr
+      %th=tc :amount
+      %td#sum_total_ht=@delivery.amount
+    %tr.important
+      %th=tc :amount_with_taxes
+      %td#sum_total=@delivery.amount_with_taxes
+
+

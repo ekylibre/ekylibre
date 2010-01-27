@@ -1,0 +1,340 @@
+fr-FR:
+
+  controllers:
+    relations:
+      begins: 'Commence par'
+      category_name: 'Catégorie'
+      check_fields: 'Vous devez cocher au moins une case pour effectuer la modification'
+      client: 'Compte client'
+      contact_email: 'Email'
+      contact_fax: 'Fax'
+      contact_line_2: 'Dest-Service'
+      contact_line_3: 'Bat.-Rés.-ZI'
+      contact_line_4: 'Numéro et voie'
+      contact_line_5: 'Lieu dit'
+      contact_line_6_city: 'Ville'
+      contact_line_6_code: 'Code Postal'
+      contact_mobile: 'Portable'
+      contact_phone: 'Téléphone'
+      contact_website: 'Site web'
+      contains: 'Contient'
+      entities_natures_delete_permission: 'Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches'
+      entity_category_name: 'Catégorie'
+      entity_code: 'Code'
+      entity_comment: 'Commentaire'
+      entity_first_name: 'Prénom'
+      entity_id: 'Fiche'
+      entity_name: 'Nom'
+      entity_nature_name: 'Type'
+      entity_reduction_rate: 'Taux de réduction'
+      errors:
+        cannot_merge_an_entity_with_itself: 'Il n''est pas possible de fusionner une fiche avec elle-même'
+        cannot_merge_entities: 'Une erreur est survenue. Il n''est pas possible de fusionner ces fiches.'
+        select_filter: 'Vous choisir appliquer au moins un filtre de recherche'
+        specify_updates: 'Vous devez spécifier au moins un champ à modifier'
+      finishes: 'Termine par'
+      first_contact: 'Adresse principale'
+      import_succeed: 'Vos données ont été correctement importées '
+      is: 'Est'
+      mandates_fields: 'Vous devez saisir au moins une valeur dans l''un des champs'
+      mandates_filters: 'Vous devez saisir au moins une valeur de recherche pour un des champs'
+      mandates_new_fields: 'Vous devez saisir au moins une valeur dans l''un des champs de modification'
+      need_entities_to_consult_mandates: 'Vous devez créer des fiches clients/fournisseurs avant'
+      need_to_create_mandates_before: 'Vous devez créer des mandats avant'
+      no_filters: '--- Pas de filtre ---'
+      not_begins: 'Ne commence pas par'
+      not_contains: 'Ne contient pas'
+      not_finishes: 'Ne termine pas par'
+      not_is: 'N''est pas'
+      second_contact: 'Adresse secondaire'
+      supplier: 'Compte fournisseur'
+      title: 'Relations'
+      unfound_entity: 'La fiche que vous recherchez est introuvable'
+      usage: 'Utilisation'
+      you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
+
+  helpers:
+    relations:
+
+  views:
+    relations:
+      area_create:
+        title: 'Ajouter une zone postale'
+      area_update:
+        title: 'Modification de la zone postale {{value}}'
+      areas:
+        all_areas: '--- Toutes les zones postales ---'
+        area_create: 'Ajouter une zone postale'
+        area_x: '{{name}} ({{postcode}})'
+        select_area: 'Zone postale'
+        title: 'Zones postales'
+      _areas_search:
+        search: 'Rechercher une zone'
+      complement_choice_create:
+        title: ' Création d''une option pour la liste déroulante : {{value}}'
+      _complement_choice_form:
+        title: 'Renseignez les caractéristiques de l''option'
+      complement_choice_update:
+        title: 'Modification de l''option "{{choice}}" du champ {{complement}} '
+      complement_choices:
+        complement_choice_create: 'Ajouter un nouveau choix à la liste'
+        complement_choices_sort: 'Trier les choix par nom'
+        complement_update: 'Modifier le champ personnalisé'
+        title: ' Options pour la liste déroulante : {{value}}'
+      complement_create:
+        title: 'Création d''un champ personnalisé'
+      _complement_form:
+        decimal_case: 'Options pour un décimal'
+        general: 'Général'
+        string_case: 'Options pour le texte'
+      complement_update:
+        title: 'Modification du champ personnalisé : {{value}}'
+      complements:
+        complement_create: 'Créer un nouveau champ personnalisé'
+        title: 'Champs complémentaires personnalisés'
+      _coordinates_form:
+        address: 'Adresse'
+        canals: 'Coordonnées'
+      district_create:
+        title: 'Ajouter une zone'
+      district_update:
+        title: 'Modification de la zone {{value}}'
+      districts:
+        all_districts: '--- Tous les districts ---'
+        area_create: 'Ajouter une ville'
+        city_name: 'Ville'
+        district_create: 'Ajouter une zone administrative'
+        district_x: '{{name}} ({{code}})'
+        select_district: 'District'
+        title: 'Zones administratives'
+      _districts_search:
+        search: 'Rechercher une zone'
+      entities:
+        entities_export: 'Tout exporter au format CSV'
+        entities_import: 'Importer un fichier CSV'
+        entities_merge: 'Fusionner des fiches'
+        entity_create: 'Créer une nouvelle fiche'
+        nb_entities:
+          one: '1 fiche enregistrée'
+          other: '{{count}} fiches enregistrées'
+          zero: 'Aucune fiche enregistrée'
+        title: 'Fiches des relations'
+      entities_contact_delete:
+        title: 'Caractéristiques du contact à supprimer'
+      entities_import:
+        csv_file: 'Fichier CSV à importer'
+        defined_columns: 'Voici le format à respecter des colonnes du fichier csv à importer :'
+        entities_export: 'Exporter vos fiches clients / fournisseurs au format CSV'
+        file_to_download: 'Export de la liste des clients/fournisseurs'
+        file_to_upload: 'Import de la liste des clients/fournisseurs'
+        import: 'Importer'
+        please_consult_help_to_have_more_informations: 'Veuillez consulter l''aide pour avoir plus d''informations sur l''import'
+        title: 'Import/Export des fiches clients et fournisseurs au format CSV'
+      entities_merge:
+        entity_to_delete: 'Doublon à fusionner (et faire disparaitre)'
+        entity_to_update: 'Fiche à mettre à jour avec les éléments du doublon'
+        merge: 'Fusionner'
+        title: 'Fusionner un doublon à sa fiche d''origine'
+      entities_natures:
+        entity_nature_create: 'Ajouter un nouveau type de fiche'
+        title: 'Liste des types de fiches'
+      _entities_search:
+        search: 'Rechercher une fiche'
+      entity:
+        amount: 'Montant HT'
+        amount_with_taxes: 'Montant TTC'
+        bank_account_create: 'Ajouter un nouveau compte bancaire'
+        bank_accounts:
+          one: '1 compte bancaire'
+          other: '{{count}} comptes bancaires'
+          zero: 'Aucun compte bancaire'
+        client: 'Client'
+        client_balance: 'Solde du client'
+        confirmed_on: 'Confirmée le'
+        contacts:
+          one: '1 contact'
+          other: '{{count}} contacts'
+          zero: 'Aucun contact'
+        entity_contact_create: 'Ajouter un nouveau contact'
+        entity_link_create: 'Ajouter un nouveau lien'
+        entity_links:
+          one: '1 lien'
+          other: '{{count}} liens'
+          zero: 'Aucun lien'
+        entity_print: 'Imprimer la fiche'
+        entity_update: 'Modifier la fiche'
+        event_create: 'Ajouter un évènement'
+        events:
+          one: '1 évènement'
+          other: '{{count}} évènements '
+          zero: 'Aucun évènement'
+        invoices:
+          one: '1 facture'
+          other: '{{count}} factures'
+          zero: 'Aucune facture'
+        mandate_create: 'Ajouter une responsabilité'
+        mandates:
+          one: '1 responsabilité'
+          other: '{{count}} responsabilités '
+          zero: 'Aucune responsabilité'
+        nature: 'Nature'
+        new_sale: 'Nouvelle vente'
+        number: 'Numéro'
+        observation_create: 'Ajouter une observation'
+        observations:
+          one: '1 observation'
+          other: '{{count}} observations'
+          zero: 'Aucune observation'
+        payment_create: 'Ajouter un règlement'
+        payments:
+          one: '1 réglement'
+          other: '{{count}} réglements'
+          zero: 'Aucun réglement'
+        purchase_order_create: 'Ajouter un nouvel achat'
+        purchase_orders_number:
+          one: '1 achat'
+          other: '{{count}} achats'
+          zero: 'Aucun achat'
+        sale_order_create: 'Ajouter une nouvelle vente'
+        sale_orders_number:
+          one: '1 vente '
+          other: '{{count}} ventes'
+          zero: 'Aucune vente'
+        state: 'État'
+        subscription_create: 'Ajouter un abonnement'
+        subscriptions:
+          one: '1 abonnement'
+          other: '{{count}} abonnements'
+          zero: 'Aucun abonnement'
+        title: 'Fiche : {{value}}'
+      entity_categories:
+        entity_category_create: 'Ajouter une catégorie de fiche'
+        title: 'Catégories de fiche'
+      entity_category:
+        entity_category_update: 'Modifier la catégorie de fiche'
+        price_create: 'Ajouter un tarif à cette catégorie'
+        prices:
+          one: '1 tarif rattaché à cette catégorie'
+          other: '{{count}} tarifs rattachés à cette catégorie'
+          zero: 'Aucun tarif rattaché à cette catégorie'
+        title: 'Catégorie de fiche : {{value}}'
+      entity_category_create:
+        title: 'Ajout d''une nouvelle catégorie de fiche'
+      entity_category_update:
+        title: 'Modification de la catégorie de fiche : {{value}}'
+      entity_contact_create:
+        title: 'Ajout d''un contact à la fiche de : {{value}}'
+      _entity_contact_form:
+        address: 'Adresse'
+        canals: 'Coordonnées'
+        general: 'Général'
+        title: 'Description générale'
+      entity_contact_update:
+        title: 'Modification de l''adresse de "{{entity}}"'
+      entity_create:
+        title: 'Création d''une nouvelle fiche client/fournisseur'
+      _entity_form:
+        account_client_to_create: '--Créer automatiquement un compte client--'
+        account_supplier_to_create: '--Créer automatiquement un compte fournisseur--'
+        client: 'Informations client'
+        complements: 'Champs personnalisés'
+        details: 'Informations complémentaires'
+        meeting: 'Lieu(x) de rencontre'
+        no_commercial: ' -- Sans commercial --'
+        no_origin: ' -- Sans origine --'
+        no_proposer: ' -- Sans parrain ni marraine --'
+        supplier: 'Informations fournisseur'
+        title: 'Renseignez les différentes caractéristiques de la fiche'
+      entity_link_create:
+        title: 'Ajout d''un nouveau lien à {{name}}'
+      _entity_link_form:
+        entity_name: 'La fiche'
+      entity_link_nature_create:
+        title: 'Ajout d''un nouveau type de lien'
+      entity_link_nature_update:
+        title: 'Modification du type de lien {{value}}'
+      entity_link_natures:
+        entity_link_nature_create: 'Ajouter un nouveau type de lien'
+        title: 'Types de lien'
+      entity_link_update:
+        title: 'Modification du lien'
+      entity_nature_create:
+        title: 'Ajouter un nouveau type de fiche'
+      entity_nature_update:
+        title: 'Modifier le type de fiche : {{value}}'
+      entity_update:
+        title: 'Modification de la fiche : {{value}}'
+      event_create:
+        title: 'Ajout d''un évènement'
+      event_nature_create:
+        title: 'Ajouter un type d''évènement'
+      event_nature_update:
+        title: 'Modification du type d''évènement "{{value}}"'
+      event_natures:
+        event_nature_create: 'Ajout d''un type d''évènement'
+        title: 'Types d''évènements'
+      event_update:
+        title: 'Modification d''un évènement'
+      events:
+        event_create: 'Ajouter un évènement'
+        title: 'Évènements'
+      _general_description_form:
+        title: 'Description générale'
+      index:
+        areas: 'Zones postales'
+        complements: 'Champs personnalisés'
+        districts: 'Zones administratives'
+        entities: 'Fiches'
+        entities_managing: 'Clients et fournisseurs'
+        entities_natures: 'Types de fiches'
+        entity_categories: 'Catégories de fiches'
+        entity_create: 'Créer une nouvelle fiche'
+        entity_link_natures: 'Types de liens'
+        event_natures: 'Types d''évènements'
+        events: 'Évènements'
+        import_export: 'Import/Export de fiches'
+        last_events: 'Derniers événements'
+        mandates: 'Responsabilités'
+        mandates_configure: 'Configurer les responsabilités'
+        nb_entities:
+          one: '1 fiche client/fournisseur'
+          other: '{{count}} fiches clients/fournisseurs'
+          zero: 'Aucune fiche clients/fournisseurs'
+        parameters: 'Paramètres'
+        title: 'Gestion des relations clients et fournisseurs'
+      mandate_create:
+        title: 'Créer une responsabilité'
+      mandate_update:
+        title: 'Modification de la responsabilité de l''entité {{entity}}'
+      mandates:
+        include_blank: '--- Aucune organisation ---'
+        mandate_create: 'Créer une responsabilité'
+        nb_mandates:
+          one: '1 responsabilité enregistrée'
+          other: '{{count}} responsabilités enregistrées'
+          zero: 'Aucune responsabilité enregistrée'
+        select_date: 'Date'
+        select_organization: 'Organisation'
+        title: 'Responsabilités'
+        update_params: 'Modifier la recherche'
+      mandates_configure:
+        column: 'Donnée'
+        column_family: 'Famille'
+        column_organization: 'Organisation'
+        column_title: 'Titre'
+        filter: 'Filtre'
+        new_family: 'Nouvelle famille'
+        new_organization: 'Nouvelle organisation'
+        new_title: 'Nouveau titre'
+        new_value: 'Nouvelle valeur'
+        title: 'Configuration des responsabilités'
+        validate: 'Modifier'
+      observation_create:
+        title: 'Ajouter une observation'
+      observation_update:
+        title: 'Modifier une observation'
+      sales_print:
+        deliveries_number:
+          one: '1 livraison'
+          other: '{{count}} livraisons'
+          zero: 'Aucune livraison'

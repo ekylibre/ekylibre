@@ -1,0 +1,11 @@
+-# for controller, rights in (User.useful_rights||{}).sort{|a,b| a.to_s<=>b.to_s}
+=#puts @rights.inspect
+=formalize do |f|
+  - for controller in menus.collect{|m| m[:name]}
+    - rights = User.useful_rights[controller]
+    - f.title tc("#{controller}_rights")
+    - for right in rights.sort{|a,b| a.to_s<=>b.to_s}
+      - if not @rights.nil?
+        - f.field content_tag(:label, t("rights.#{right}"), :for=>"rights_#{right}"), check_box_tag("rights[#{right}]", "1", @rights.include?(right.to_sym), :id=>"rights_#{right}")
+
+
