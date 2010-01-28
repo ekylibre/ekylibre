@@ -62,6 +62,7 @@ class ManagementController < ApplicationController
   def statistics
     session[:nb_year] = params[:nb_year]||2
     if request.post?
+      return unless defined?(Gruff)
       return unless product = find_and_check(:product, params[:product_id])
       session[:product_id] = product.id
 
