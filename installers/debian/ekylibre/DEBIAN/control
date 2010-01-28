@@ -1,9 +1,0 @@
-Package: aquitan
-Version: 1.0
-Section: base
-Priority: optional
-Architecture: all
-Depends: bash, apache2 (>=2.2.4)
-Maintainer: M <MrX@saceaa.fr>
-Description: aquitan
-

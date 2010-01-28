@@ -1,9 +1,0 @@
-
-
-
-
-
-%.exe: %.nsi
-	makensis $^
-
-
