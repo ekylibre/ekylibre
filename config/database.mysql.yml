@@ -23,6 +23,7 @@ development:
   username: __username__
   password: __password__
   host: localhost
+  port: 3306
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -36,6 +37,7 @@ test:
   username: __username__
   password: __password__
   host: localhost
+  port: 3306
 
 production:
   adapter: mysql
@@ -46,3 +48,4 @@ production:
   username: __username__
   password: __password__
   host: localhost
+  port: 3306
