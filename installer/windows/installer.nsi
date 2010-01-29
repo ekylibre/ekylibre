@@ -15,7 +15,7 @@ SetCompressor zlib
 ;--------------------------------
 ;General
 
-  !define NAME "Ekylibre"
+  !define APP "Ekylibre"
   !define WSPORT 4064
   !define DBMSPORT 4032
 
@@ -115,6 +115,7 @@ Section
   ; Mise en place du programme
   File /r ${RESOURCES}/ruby
   File /r ${RESOURCES}/mysql
+  File /r /x .svn ${RESOURCES}/apps
   !insertmacro ReplaceInFile "$INSTDIR\mysql\my.ini" "__INSTDIR__" "$INSTDIR"
   !insertmacro ReplaceInFile "$INSTDIR\mysql\my.ini" "__DATADIR__" "${DATADIR}"
   !insertmacro ReplaceInFile "$INSTDIR\mysql\my.ini" "3306" "${DBMSPORT}"

@@ -19,8 +19,8 @@ class CreateTrackingSupport < ActiveRecord::Migration
     add_column :productions, :shape_id, :integer, :references=>:shapes
     
     add_column :products, :to_produce, :boolean, :null=>false, :default=>false
-    execute "UPDATE products SET to_purchase=CAST('true' AS BOOLEAN) WHERE supply_method='buy'"
-    execute "UPDATE products SET to_produce=CAST('true' AS BOOLEAN) WHERE supply_method='produce'"
+    execute "UPDATE products SET to_purchase=#{quoted_true} WHERE supply_method='buy'"
+    execute "UPDATE products SET to_produce=#{quoted_true} WHERE supply_method='produce'"
     remove_column :products, :supply_method
 
     add_column :units, :start, :decimal, :null=>false, :default=>0.0
@@ -120,7 +120,7 @@ class CreateTrackingSupport < ActiveRecord::Migration
     for table in ACCOUNTED_TABLES.reverse
       add_column table, :accounted, :boolean, :null=>false, :default=>false
       add_index table, :accounted
-      execute "UPDATE #{table} SET accounted=CAST('true' AS BOOLEAN) WHERE accounted_at IS NOT NULL"
+      execute "UPDATE #{table} SET accounted=#{quoted_true} WHERE accounted_at IS NOT NULL"
       remove_column table, :accounted_at
     end
   end

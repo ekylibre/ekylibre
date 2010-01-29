@@ -5,7 +5,8 @@ class MergeAndRemoveDocumentNatures < ActiveRecord::Migration
     add_column :document_templates, :to_archive, :boolean
 
     for nature in select_all("SELECT * FROM document_natures")
-      execute "UPDATE document_templates SET code='#{nature['code'].gsub('\'','\'\'')}', family='#{nature['family'].gsub('\'','\'\'')}', to_archive=CAST('#{nature['to_archive']}' AS BOOLEAN) WHERE nature_id=#{nature['id']}"
+      to_archive = ["f", "false", "0", ""].include?(nature['to_archive'].to_s) ? quoted_false : quoted_true
+      execute "UPDATE document_templates SET code='#{nature['code'].gsub('\'','\'\'')}', family='#{nature['family'].gsub('\'','\'\'')}', to_archive=#{to_archive} WHERE nature_id=#{nature['id']}"
     end
 
     remove_column :document_templates, :nature_id
@@ -24,7 +25,8 @@ class MergeAndRemoveDocumentNatures < ActiveRecord::Migration
     add_column :document_templates, :nature_id, :integer
     
     for nature in select_all("SELECT * FROM document_templates")
-      id = insert "INSERT INTO document_natures (created_at, updated_at, company_id, name, code, family, to_archive) SELECT CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{nature['company_id']}, '#{nature['name'].gsub('\'','\'\'')}', '#{nature['code'].gsub('\'','\'\'')}', '#{nature['family'].gsub('\'','\'\'')}', CAST('#{nature['to_archive']}' AS BOOLEAN)"
+      to_archive = ["f", "false", "0", ""].include?(nature['to_archive'].to_s) ? quoted_false : quoted_true
+      id = insert "INSERT INTO document_natures (created_at, updated_at, company_id, name, code, family, to_archive) SELECT CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{nature['company_id']}, '#{nature['name'].gsub('\'','\'\'')}', '#{nature['code'].gsub('\'','\'\'')}', '#{nature['family'].gsub('\'','\'\'')}', #{to_archive}"
       execute "UPDATE document_templates SET nature_id=#{id} WHERE id=#{nature['id']}"
     end
 
