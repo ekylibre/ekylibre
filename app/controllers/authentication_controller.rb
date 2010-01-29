@@ -67,7 +67,7 @@ class AuthenticationController < ApplicationController
       
       # Test validity
       @company = Company.new(params[:company])
-      @user = User.new(params[:user].merge(:company_id=>0))
+      @user = User.new(params[:user].merge(:company_id=>0, :role_id=>0, :language_id=>0))
       return unless @company.valid? and @user.valid?
 
       @company, @user = Company.create_with_data(params[:company], params[:user], params[:demo])

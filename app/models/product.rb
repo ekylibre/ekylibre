@@ -106,7 +106,6 @@ class Product < ActiveRecord::Base
       while self.company.products.find(:first, :conditions=>["code=? AND id!=?", self.code, self.id||0])
         self.code.succ!
       end
-      puts "jjj"
     end
     self.to_produce = true if self.has_components?
     self.catalog_name = self.name if self.catalog_name.blank?

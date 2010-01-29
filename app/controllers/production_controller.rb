@@ -211,14 +211,14 @@ class ProductionController < ApplicationController
   
   def operation_create
     if request.post?
-      @operation = ShapeOperation.new(params[:operation])
+      @operation = Operation.new(params[:operation])
       @operation.company_id = @current_company.id
       if @operation.save
         @operation.add_tools(params[:tools])
         redirect_to_back
       end
     else
-      @operation = ShapeOperation.new(:planned_on=>Date.today, :responsible_id=>@current_user.id)
+      @operation = Operation.new(:planned_on=>Date.today, :responsible_id=>@current_user.id)
     end
     render_form
   end
@@ -274,7 +274,7 @@ class ProductionController < ApplicationController
     @operations = @current_company.operations.find(:all, :conditions=>{:moved_on=>nil})
     if request.post?
       for id, values in params[:unvalidated_operations]
-        operation = ShapeOperation.find_by_id_and_company_id(id, @current_company.id)
+        operation = Operation.find_by_id_and_company_id(id, @current_company.id)
         operation.update_attributes!(:moved_on=>Date.today) if operation and values[:validated].to_i == 1
       end
       redirect_to :action=>:unvalidated_operations

@@ -11,11 +11,10 @@ release=${app}-${latest}
 
 datadir=$HOME/Public/${app}
 tmpdir=/tmp/${release}
-resdir=${current_dir}/windows/resources/${app}
+resdir=${current_dir}/windows/resources
 
 help_message() {
     name=`basename $0` 
-    # echo "Usage: $name [-d dbname] [-r relative_root_url] [-c database.yml] [-t] APP SVN TARGET"
     echo "$name create installers for ${app}"
     echo ""
     echo "Usage:"
@@ -85,7 +84,7 @@ resources=${tmpdir}/win32
 rm -fr ${resources}
 mkdir -p ${resources}/apps
 ln -s ${tmpdir}/${app} ${resources}/apps/${app}
-ln -s ${resdir}/* ${resources}
+ln -s ${resdir}/* ${resources}/
 echo "-- Win32 --------------------------------------------------------------------" > $log/nsi.log
 date >> $log/nsi.log
 makensis -DRELEASE=${release} -DVERSION=${version} -DRESOURCES=${resources} ${current_dir}/windows/installer.nsi >> $log/nsi.log

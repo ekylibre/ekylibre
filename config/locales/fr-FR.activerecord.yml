@@ -1768,7 +1768,7 @@ fr-FR:
         profession_id: 'Profession'
         reduction_percent: 'Taux de réduction autorisé (%)'
         rights: 'Droits'
-        role_id: 'À partir du rôle'
+        role_id: 'Rôle de base'
         salt: 'Sel'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'

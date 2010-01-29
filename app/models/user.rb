@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
     if self.company
       self.language = self.company.parameter('general.language').value if self.language.nil?
     end
-    self.language = Language.find(:first, :order=>:name) if self.language.nil?
+    self.language_id ||= 0
     self.admin = true if self.rights.nil?
     self.rights_array=self.rights_array # Clean the rights
   end
