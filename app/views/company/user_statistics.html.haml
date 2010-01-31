@@ -3,9 +3,9 @@
     %table
       %tr
         %td.label=tc(:start)
-        %td=text_field_tag(:start, session[:statistics_start], :size=>8)
+        %td=calendar_field_tag(:start, session[:statistics_start], :size=>8)
         %td.label=tc(:end)
-        %td=text_field_tag(:end, session[:statistics_end], :size=>8)
+        %td=calendar_field_tag(:end, session[:statistics_end], :size=>8)
         %td=submit_tag tg(:search_go)
 .menu
   %ul

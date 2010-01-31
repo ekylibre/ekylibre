@@ -20,7 +20,7 @@
 # 
 # == Table: price_taxes
 #
-#  amount       :decimal(, )      default(0.0), not null
+#  amount       :decimal(16, 4)   default(0.0), not null
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          

@@ -527,6 +527,8 @@ module Ekylibre
         def datatype
           @options[:datatype]||begin
                                  case @column.sql_type
+                                 when /^(boolean|tinyint\(1\))$/i 
+                                   :boolean
                                  when /int/i
                                    :integer
                                  when /float|double/i
@@ -549,8 +551,6 @@ module Ekylibre
                                    :binary
                                  when /char/i, /string/i
                                    :string
-                                 when /boolean/i
-                                   :boolean
                                  end
                                rescue
                                  nil

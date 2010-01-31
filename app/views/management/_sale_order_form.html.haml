@@ -7,11 +7,11 @@
   - f.title :conditions
   - f.field :sale_order, :nature_id, :choices=>@current_company.sale_order_natures.collect{|x| [x.name, x.id]}
   - f.field :sale_order, :currency_id, :choices=>@current_company.currencies.collect{|c| [c.name, c.id]}
-  - f.field :sale_order, :responsible_id, :choices=>@current_company.employees.find(:all, :order=>:last_name).collect{|x| [x.full_name, x.id]}, :new=>{:controller=>:resources, :action=>:employee_create}
+  - f.field :sale_order, :responsible_id, :choices=>@current_company.employees.find(:all, :order=>:last_name).collect{|x| [x.label, x.id]}, :new=>{:controller=>:resources, :action=>:employee_create}
   - f.field :sale_order, :contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@current_company.entity_id}
   - f.field :sale_order, :delivery_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@current_company.entity_id}
   - f.field :sale_order, :invoice_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@current_company.entity_id}
-  - f.field :sale_order, :transporter_id, :choices=>@current_company.entities.find_all_by_active_and_transporter(true,true).collect{|t| [t.full_name,t.id]}, :options=>{:include_blank=>"--Aucun--"}
+  - f.field :sale_order, :transporter_id, :choices=>@current_company.entities.find_all_by_active_and_transporter(true,true).collect{|t| [t.label,t.id]}, :options=>{:include_blank=>"--Aucun--"}
   - f.field :sale_order, :comment, :field=>:textarea
   - f.field :sale_order, :letter_format
 =formalize(:id=>:letter_format) do |f|

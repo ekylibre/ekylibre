@@ -34,7 +34,7 @@
 #  position          :integer          
 #  price_id          :integer          not null
 #  product_id        :integer          not null
-#  quantity          :decimal(16, 2)   default(1.0), not null
+#  quantity          :decimal(16, 4)   default(1.0), not null
 #  tracking_id       :integer          
 #  tracking_serial   :string(255)      
 #  unit_id           :integer          not null

@@ -28,7 +28,7 @@ class RelationsController < ApplicationController
     t.column :name, :through=>:nature
     t.column :duration
     t.column :location
-    t.column :label, :through=>:user, :url=>{:controller=>:resources, :action=>:employee}
+    t.column :label, :through=>:user, :url=>{:controller=>:company, :action=>:user}
     t.column :started_at
   end
 
@@ -299,7 +299,7 @@ class RelationsController < ApplicationController
   end
    
   dyta(:entities, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.active)", :order=>"entities.code") do |t|
-    t.column :active, :label=>'♦'
+    t.column :active, :label=>'♦', :datatype=>:boolean
     t.column :code, :url=>{:action=>:entity}
     t.column :abbreviation, :through=>:nature
     t.column :name, :url=>{:action=>:entity}
@@ -365,7 +365,7 @@ class RelationsController < ApplicationController
   dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :order=>"created_at DESC") do |t|
     t.column :name, :through=>:nature
     t.column :reason
-    t.column :label, :through=>:user, :url=>{:controller=>:resources, :action=>:employee}
+    t.column :label, :through=>:user, :url=>{:controller=>:company, :action=>:user}
     t.column :duration
     t.column :location
     t.column :started_at
@@ -961,7 +961,7 @@ class RelationsController < ApplicationController
   
   # this method configures mandates
   def mandates_configure
-    flash[:message]=tc(:need_to_create_mandates_before) if @current_company.mandates.size == 0
+    # flash[:message]=tc(:need_to_create_mandates_before) if @current_company.mandates.size == 0
    
     filters = { :no_filters => '', :contains => '%X%', :is => 'X', :begins => 'X%', :finishes => '%X', :not_contains => '%X%', :not_is  => 'X', :not_begins => 'X%', :not_finishes => '%X' }
     shortcuts = { :fam => :family, :org => :organization, :tit => :title } 
@@ -1062,7 +1062,7 @@ class RelationsController < ApplicationController
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location
-    t.column :label, :through=>:user, :url=>{:controller=>:resources, :action=>:employee} 
+    t.column :label, :through=>:user, :url=>{:controller=>:company, :action=>:user} 
     t.column :name, :through=>:nature
     t.column :started_at
     t.action :event_update

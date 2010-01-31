@@ -44,7 +44,7 @@ module Ekylibre
             code += "    words.size.times do |index|\n"
             code += "      word = #{(options[:filter]||'%X%').inspect}.gsub('X', words[index])\n"
             code += "      conditions[0] += ' OR ' if index>0\n"
-            code += "      conditions[0] += "+attributes.collect{|key| "LOWER(CAST(#{model.to_s.pluralize}.#{key} AS VARCHAR)) LIKE ?"}.join(' OR ').inspect+"\n"
+            code += "      conditions[0] += "+attributes.collect{|key| "LOWER(CAST(#{model.to_s.pluralize}.#{key} AS TEXT)) LIKE ?"}.join(' OR ').inspect+"\n"
             code += "      conditions += ["+(["word"]*attributes.size).join(", ")+"]\n"
             code += "    end\n"
             code += "    conditions[0] += ')'\n"

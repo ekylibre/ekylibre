@@ -30,7 +30,7 @@
 #  company_id             :integer          not null
 #  created_at             :datetime         not null
 #  creator_id             :integer          
-#  critic_quantity_min    :decimal(, )      default(1.0)
+#  critic_quantity_min    :decimal(16, 4)   default(1.0)
 #  description            :text             
 #  ean13                  :string(13)       
 #  id                     :integer          not null, primary key
@@ -39,10 +39,10 @@
 #  name                   :string(255)      not null
 #  nature                 :string(8)        not null
 #  number                 :integer          not null
-#  price                  :decimal(, )      default(0.0)
+#  price                  :decimal(16, 2)   default(0.0)
 #  product_account_id     :integer          
-#  quantity_max           :decimal(, )      default(0.0)
-#  quantity_min           :decimal(, )      default(0.0)
+#  quantity_max           :decimal(16, 4)   default(0.0)
+#  quantity_min           :decimal(16, 4)   default(0.0)
 #  reduction_submissive   :boolean          not null
 #  service_coeff          :float            
 #  shelf_id               :integer          not null
@@ -57,7 +57,7 @@
 #  unquantifiable         :boolean          not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer          
-#  weight                 :decimal(, )      
+#  weight                 :decimal(16, 3)   
 #
 
 class Product < ActiveRecord::Base
@@ -80,6 +80,7 @@ class Product < ActiveRecord::Base
   has_many :stock_transfers
   has_many :stocks
   has_many :subscriptions
+  has_many :trackings
 
   @@natures = [:product, :service, :subscrip, :transfer]
 
@@ -135,6 +136,10 @@ class Product < ActiveRecord::Base
 #   def self.supply_methods
 #     [:buy, :produce].collect{|x| [tc('supply_methods.'+x.to_s), x] }
 #   end
+
+  def units
+    self.company.units.find(:all, :conditions=>{:base=>self.unit.base})
+  end
 
   def has_components?
     # products = ProductComponent.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.id})

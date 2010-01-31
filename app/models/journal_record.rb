@@ -25,8 +25,8 @@
 #  created_at       :datetime         not null
 #  created_on       :date             not null
 #  creator_id       :integer          
-#  credit           :decimal(, )      default(0.0), not null
-#  debit            :decimal(, )      default(0.0), not null
+#  credit           :decimal(16, 2)   default(0.0), not null
+#  debit            :decimal(16, 2)   default(0.0), not null
 #  financialyear_id :integer          
 #  id               :integer          not null, primary key
 #  journal_id       :integer          not null

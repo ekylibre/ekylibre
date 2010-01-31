@@ -40,7 +40,7 @@ fr-FR:
       need_stock_location_to_create_purchase_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser un achat'
       need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
       need_stocks_location_to_create_products: 'Vous devez créer un lieu de stockage pour pouvoir créer un produit'
-      need_to_create_subscription_nature: 'Vous devez créer un type d''abonement pour pouvoir gérer vos abonnements'
+      need_to_create_subscription_nature: 'Vous devez créer un type d''abonnement pour pouvoir gérer vos abonnements'
       new_actual_number: 'Le nouveau numéro en cours est {{value}}'
       no_check_to_embank: 'Aucun chèque à encaisser'
       no_contacts: 'Aucune adresse définie pour {{name}}'
@@ -245,13 +245,13 @@ fr-FR:
       inventory_create:
         inventory: 'Complétez l''inventaire'
         product: 'Produit'
+        quantity: 'Quantité constatée'
         reservoir: 'Réservoir'
         shelf: 'Catégorie'
         theoric_quantity: 'Quantité théorique'
         title: 'Inventaire'
         unit: 'Unité'
         validate: 'Valider '
-        validated_quantity: 'Quantité constatée'
       inventory_update:
         inventory: 'Mofifiez votre inventaire'
         title: 'Modification de l''inventaire'
@@ -508,13 +508,13 @@ fr-FR:
       _sale_order_line_form:
         free_price: 'Renseignez ces champs si vous souhaitez appliquer un autre prix'
         infos: 'Choississez le produit et la quantité'
+      _sale_order_line_informations:
+        no_tracking: 'Aucun lot'
+        tracking: 'Lot '
       sale_order_line_informations:
         contact: 'à l''adresse'
         from_date: 'Du '
         to_date: 'Au '
-      _sale_order_line_informations:
-        no_tracking: 'Aucun lot'
-        tracking: 'Lot '
       _sale_order_line_stocks:
         line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
       _sale_order_line_tracking:
@@ -626,15 +626,15 @@ fr-FR:
         title: 'Statistiques'
       _stock_indicator:
         critic_stock_min: 'Stock minimum critique'
-        current_real_quantity: 'Quantité réelle'
-        current_virtual_quantity: 'Quantité virtuelle'
         location: 'Lieu de stockage'
         name: 'Nom'
+        quantity: 'Quantité réelle'
         select_stock_location: 'Sélectionnez un lieu de stockage'
         stock_max: 'Stock maximum'
         stock_min: 'Stock minimum'
         title: 'État des stocks'
         unit: 'Unité'
+        virtual_quantity: 'Quantité virtuelle'
         weight: 'Poids'
       stock_location:
         establishment: 'Établissement'
@@ -676,15 +676,15 @@ fr-FR:
         title: 'Transferts et pertes de stocks'
       stocks:
         critic_stock_min: 'Stock minimum critique'
-        current_real_quantity: 'Quantité réelle'
-        current_virtual_quantity: 'Quantité virtuelle'
         name: 'Nom'
         no_product_stocks: 'Vous ne gérez aucun stock. Si vous désirez gérer le stock d''un produit, veuillez cocher l''option "Gérer les stocks" lors de la création modification de votre produit.'
+        quantity: 'Quantité réelle'
         select_stock_location: 'Sélectionnez un lieu de stockage'
         stock_max: 'Stock maximum'
         stock_min: 'Stock minimum'
         title: 'État des stocks'
         unit: 'Unité'
+        virtual_quantity: 'Quantité virtuelle'
         weight: 'Poids'
       subscription_create:
         title: 'Création d''un abonnement'

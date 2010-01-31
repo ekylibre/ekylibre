@@ -20,7 +20,7 @@
 # 
 # == Table: shapes
 #
-#  area_measure :decimal(, )      default(0.0), not null
+#  area_measure :decimal(16, 4)   default(0.0), not null
 #  area_unit_id :integer          
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
@@ -44,6 +44,7 @@ class Shape < ActiveRecord::Base
   belongs_to :area_unit, :class_name=>Unit.name
   has_many :operations, :as=>:target
   has_many :shapes
+  validates_presence_of :area_unit
 
   def before_validation
     self.master = false if self.master.nil?

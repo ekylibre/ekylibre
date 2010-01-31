@@ -37,10 +37,9 @@ class AccountancyController < ApplicationController
   end
   
   dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on ASC") do |t|
+    t.column :number, :url=>{:action=>:bank_account_statement}
     t.column :started_on
     t.column :stopped_on
-    t.column :number
-    t.action :bank_account_statement, :image=>:show
     t.action :bank_account_statement_update
     t.action :bank_account_statement_delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -298,7 +297,7 @@ class AccountancyController < ApplicationController
 
   # this method prepares the print of document.
   def document_prepare
-    @prints = PRINTS
+    @prints = PRINTS.select{|x| @current_company.document_templates.find_by_nature(x[0])}
     if request.post?
       session[:mode] = params[:print][:mode]
       redirect_to :action=>:document_print
@@ -390,8 +389,8 @@ class AccountancyController < ApplicationController
         
         balance_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Balance"})
         if balance_template.nil?
-          flash[:message]=tc(:no_balance)
-          redirect_to :action=>:balance
+          flash[:error]=tc("messages.no_balance_template")
+          redirect_to :action=>:document_prepare
           return
         end
         
@@ -443,6 +442,8 @@ class AccountancyController < ApplicationController
         #raise Exception.new ledger.inspect
         
         ledger_template = @current_company.document_templates.find(:first, :conditions=>{:name=>"Grand livre"})
+
+        
         
         pdf, filename = ledger_template.print(@current_company, ledger,  params[:printed][:from],  params[:printed][:to])
         
@@ -451,7 +452,7 @@ class AccountancyController < ApplicationController
       
     end
 
-    @title = {:value=>t("views.#{self.controller_name}.document_prepare.#{@print[0].to_s}")}
+    @title = {:value=>::I18n.t("views.#{self.controller_name}.document_prepare.#{@print[0]}")}
   end
   
   # this method displays the income statement and the balance sheet.

@@ -50,8 +50,8 @@
       
       <part height="14mm">
         <set right="90mm" top="1mm">
-          <text value="Totaux ({{sale_order.lines[0].price.currency.code}})" top="0.5mm" left="34mm" align="right" bold="true"/>
-          <text value="Net à payer ({{sale_order.lines[0].price.currency.code}})" top="6mm" left="34mm" align="right" bold="true" size="11.5"/>
+          <text value="Totaux ({{sale_order.currency.code}})" top="0.5mm" left="34mm" align="right" bold="true"/>
+          <text value="Net à payer ({{sale_order.currency.code}})" top="6mm" left="34mm" align="right" bold="true" size="11.5"/>
           <text value="{{sale_order.amount_with_taxes?numeric}}" top="6mm" left="55mm" align="center" bold="true" size="12"/>
           <text value="{{sale_order.amount?numeric}}" top="0.5mm" left="54.5mm" align="right"/>
           <text value="{{sale_order.taxes?numeric}}" top="0.5mm" left="74.5mm" align="right"/>

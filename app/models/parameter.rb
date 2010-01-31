@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # = Informations
 # 
 # == License
@@ -25,7 +24,7 @@
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer          
-#  decimal_value     :decimal(, )      
+#  decimal_value     :decimal(16, 4)   
 #  id                :integer          not null, primary key
 #  integer_value     :integer          
 #  lock_version      :integer          default(0), not null
@@ -39,6 +38,7 @@
 #  user_id           :integer          
 #
 
+# -*- coding: utf-8 -*-
 class Parameter < ActiveRecord::Base
   @@natures = Parameter.columns_hash.keys.select{|x| x.match(/_value(_id)?$/)}.collect{|x| x.split(/_value/)[0] }
   @@conversions = {:float=>'decimal', :true_class=>'boolean', :false_class=>'boolean', :fixnum=>'integer'}

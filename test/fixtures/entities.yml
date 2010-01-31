@@ -35,7 +35,7 @@
 #  creator_id                :integer          
 #  dead_on                   :date             
 #  deliveries_conditions     :string(60)       
-#  discount_rate             :decimal(, )      
+#  discount_rate             :decimal(8, 2)    
 #  ean13                     :string(13)       
 #  excise                    :string(15)       
 #  first_met_on              :date             
@@ -52,7 +52,7 @@
 #  payment_mode_id           :integer          
 #  photo                     :string(255)      
 #  proposer_id               :integer          
-#  reduction_rate            :decimal(, )      
+#  reduction_rate            :decimal(8, 2)    
 #  reflation_submissive      :boolean          not null
 #  responsible_id            :integer          
 #  siren                     :string(9)        

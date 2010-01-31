@@ -7,11 +7,11 @@
     .content{:flex=>1, :style=>'overflow:auto;'}
       - doc=article(@article)
       - if doc.blank?
-        .help-error
-          =tc(:error_no_file, :value=>@article)
-          =@article.to_s
-        %ul
-          %li=link_to_remote(tc("home"), :url=>{:controller=>:help, :action=>:search, :article=>"company-index"}, :update=>:help, :complete=>"resize2();", :loading=>"onLoading();", :loaded=>"onLoaded();")
+        %h1=tc("missing_help")
+        .help-error=tc(:error_no_file, :article=>@article)
       - else
         =doc
+      %ul
+        %li=link_to_remote(tc("home"), :url=>{:controller=>:help, :action=>:search, :article=>"company-index"}, :update=>:help, :complete=>"resize2();", :loading=>"onLoading();", :loaded=>"onLoaded();")
+        %li=link_to(tc("ekylibre"), "http://www.ekylibre.org")
       .text-end &nbsp;

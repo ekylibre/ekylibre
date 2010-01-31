@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # = Informations
 # 
 # == License
@@ -36,6 +35,7 @@
 #  updater_id       :integer          
 #
 
+# -*- coding: utf-8 -*-
 class Company < ActiveRecord::Base
   has_many :accounts
   has_many :account_balances
@@ -87,7 +87,6 @@ class Company < ActiveRecord::Base
   has_many :payment_parts
   has_many :prices
   has_many :price_taxes
-  has_many :productions
   has_many :products
   has_many :product_components
   has_many :professions
@@ -560,7 +559,7 @@ class Company < ActiveRecord::Base
   def export_entities(find_options={})
     entities = self.entities.find(:all, find_options)
     csv_string = FasterCSV.generate do |csv|
-      csv << ["Code", "Type","Catégorie", "Nom", "Prénom","Dest-Service","Bat.-Res.-ZI","N° et voie","Lieu dit","Code Postal","Ville",  "Téléphone", "Mobile", "Fax","Email","Site Web", "Taux de réduction", "Commentaire" ]
+      csv << ["Code", "Type", "Catégorie", "Nom", "Prénom", "Dest-Service", "Bat.-Res.-ZI", "N° et voie", "Lieu dit", "Code Postal", "Ville", "Téléphone", "Mobile", "Fax", "Email", "Site Web", "Taux de réduction", "Commentaire"]
       entities.each do |entity|
         contact = self.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :default=>true, :deleted=>false})
         line = []
@@ -631,10 +630,11 @@ class Company < ActiveRecord::Base
       company.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
       company.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
       undefined_nature = company.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false, :physical=>false)
-      category = company.entity_categories.create!(:name=>'user')
+      category = company.entity_categories.create!(:name=>tc('default.category'))
       firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>company.name)
+      company.reload
       company.entity_id = firm.id
-      company.save
+      company.save!
       company.entity.contacts.create!(:company_id=>company.id, :line_2=>"", :line_3=>"", :line_5=>"", :line_6=>'12345 MAVILLE', :default=>true)
       
       # loading of all the templates
@@ -645,7 +645,6 @@ class Company < ActiveRecord::Base
       ['expiration', 'standard', 'immediate'].each do |d|
         delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
       end
-      company.entity_categories.create!(:name=>tc('default.category'))
       company.financialyears.create!(:started_on=>Date.today)
       company.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
       
@@ -739,7 +738,7 @@ class Company < ActiveRecord::Base
       contact = entity.contacts.create!(:company_id=>self.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :line_6=>cities[rand(cities.size)], :default=>true)
     end
     self.entity_link_natures.create!(:name=>"Gérant - Société", :name_1_to_2=>"gère la société", :name_2_to_1=>"est une société qui a pour associé", :propagate_contacts=>true, :symmetric=>false)
-    self.subscription_natures.create!(:name=>"Abonement annuel", :nature=>"period", :reduction_rate=>0.1)
+    self.subscription_natures.create!(:name=>"Abonnement annuel", :nature=>"period", :reduction_rate=>0.1)
     self.event_natures.create!(:name=>"Conversation téléphonique", :duration=>10, :usage=>"manual")
     
     # charge_account  = self.accounts.find_by_number("60")

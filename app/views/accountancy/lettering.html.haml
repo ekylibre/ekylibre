@@ -1,4 +1,4 @@
-%table
+%table.flex
   %tr
     %td
       - form_tag do
@@ -8,7 +8,8 @@
           - f.field tc(:select_financialyear), select_tag("financialyear_id", options_for_select(@financialyears.collect{|f| [f.code.to_s, f.id.to_s]}) )
         .actions
           =submit_tag tg('apply')
-          =link_to_back
+          =#link_to_back
+    %td{:style=>"width:4px;"}
     %td
       - form_tag do
         =formalize do |f|
@@ -17,6 +18,6 @@
           - f.field tc(:select_financialyear), select_tag("financialyear_id", options_for_select(@financialyears.collect{|f| [f.code.to_s, f.id.to_s]}) )
         .actions
           =submit_tag tg('apply')
-          =link_to_back
+          =#link_to_back
 
 

@@ -34,6 +34,7 @@
 #  quantity           :float            not null
 #  second_location_id :integer          
 #  tracking_id        :integer          
+#  unit_id            :integer          
 #  updated_at         :datetime         not null
 #  updater_id         :integer          
 #

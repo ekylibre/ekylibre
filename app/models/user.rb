@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # = Informations
 # 
 # == License
@@ -47,7 +46,7 @@
 #  name              :string(32)       not null
 #  office            :string(255)      
 #  profession_id     :integer          
-#  reduction_percent :decimal(, )      default(5.0), not null
+#  reduction_percent :decimal(16, 4)   default(5.0), not null
 #  rights            :text             
 #  role_id           :integer          not null
 #  salt              :string(64)       
@@ -68,10 +67,8 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :parameters
   has_many :sale_orders, :foreign_key=>:responsible_id
-  has_many :shape_operations, :foreign_key=>:responsible_id
+  has_many :operations, :foreign_key=>:responsible_id
   has_many :transports, :foreign_key=>:responsible_id
-  
-
 
   validates_presence_of :company_id, :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
   validates_confirmation_of :password
@@ -87,7 +84,7 @@ class User < ActiveRecord::Base
   model_stamper
 
   class << self
-    def rights_file; "#{RAILS_ROOT}/config/rights.txt"; end
+    def rights_file; "#{RAILS_ROOT}/config/rights.conf"; end
     def minimum_right; :__minimum__; end
     def rights; @@rights; end
     def rights_list; @@rights_list; end
@@ -107,6 +104,8 @@ class User < ActiveRecord::Base
   def label
     self.first_name+' '+self.last_name
   end
+  alias :full_name :label
+  
 
   def parameter(name, value=nil, nature=:string)
     p = self.parameters.find(:first, :order=>:id, :conditions=>{:name=>name})
@@ -130,11 +129,13 @@ class User < ActiveRecord::Base
   end
 
   def diff_more(right_markup = 'div', separator='')
+    return '<div>&infin;</div>' if self.admin?
     (self.rights_array-self.role.rights_array).collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator)
   end
 
 
   def diff_less(right_markup = 'div', separator='')
+    return '' if self.admin?
     (self.role.rights_array-self.rights_array).collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator)
   end
 
@@ -248,7 +249,7 @@ end
 #   has_many :clients, :class_name=>Entity.to_s
 #   has_many :events
 #   has_many :sale_orders, :foreign_key=>:responsible_id
-#   has_many :shape_operations
+#   has_many :operations
 #   has_many :transports
 
 #   attr_readonly :company_id

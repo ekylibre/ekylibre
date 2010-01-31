@@ -105,6 +105,7 @@ class CompanyController < ApplicationController
 
   def configure
     @company = @current_company
+    # Default treatment
     @tree = Parameter.tree_reference.sort
     for k, v in @tree
       for name, options in v
@@ -302,7 +303,10 @@ class CompanyController < ApplicationController
       if @user.authenticated? params[:user][:old_password]
         @user.password = params[:user][:password]
         @user.password_confirmation = params[:user][:password_confirmation]
-        redirect_to :action=>:index if @user.save
+        if @user.save
+          flash[:notice] = tc("notices.password_successfully_changed")
+          redirect_to :action=>:index 
+        end
         @user.password = @user.password_confirmation = ''
       else
         @user.errors.add(:old_password, ::I18n.t('activerecord.errors.messages.invalid')) 
@@ -331,9 +335,9 @@ class CompanyController < ApplicationController
   end
 
   dyta(:users, :conditions=>{:company_id=>['@current_company.id'], :deleted_at=>nil}, :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t| 
-    t.column :name
-    t.column :first_name
-    t.column :last_name
+    t.column :name, :url=>{:action=>:user}
+    t.column :first_name, :url=>{:action=>:user}
+    t.column :last_name, :url=>{:action=>:user}
     t.column :name, :through=>:role, :label=>tc(:role), :url=>{:action=>:role_update}
     # t.column :reduction_percent
     t.column :email
@@ -342,6 +346,11 @@ class CompanyController < ApplicationController
     t.action :locked, :actions=>{"true"=>{:action=>:user_unlock},"false"=>{:action=>:user_lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
     t.action :user_update 
     t.action :user_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.id!=@current_user.id'
+  end
+
+  def user
+    return unless @user = find_and_check(:user, params[:id])
+    t3e @user.attributes
   end
 
   def user_create

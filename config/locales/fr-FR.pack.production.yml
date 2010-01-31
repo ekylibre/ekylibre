@@ -31,6 +31,8 @@ fr-FR:
         title: 'Gestion de la production'
         tools: 'Matériel'
       operation:
+        operation:
+          lines: 'Intrants et sortants'
         operation_update: 'Modifier le travail'
         operations: 'Liste des travaux'
         title: 'Détails du travail {{name}}'
@@ -38,7 +40,10 @@ fr-FR:
         title: 'Créer un nouveau travail'
       _operation_form:
         duration: 'Durée'
+        in_line_create: 'Ajouter un produit intrant'
         infos: 'Renseignez les caractéristiques du travail'
+        out_line_create: 'Ajouter un produit sortant'
+        products: 'Produits intrants et sortants'
         tools: 'Sélectionnez le matériel utilisé'
       operation_nature_create:
         title: 'Créer un nouveau type de travail'
@@ -74,6 +79,7 @@ fr-FR:
         productions: 'Productions'
         title: 'Productions'
       shape:
+        operation_create: 'Ajouter un travail'
         operations: 'Travaux'
         shape_update: 'Modifier l''îlot'
         shapes: 'Liste des îlots'

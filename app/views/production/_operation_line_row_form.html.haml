@@ -1,0 +1,22 @@
+-id='e'+rand.to_s[2..-1].to_i.to_s(36)
+-after_update = 'function(e, v, h, m) {'
+-after_update += remote_function(:update=>"lines_#{id}_unit_id", :url=>{:controller=>:management, :action=>:product_units}, :with=>"'id='+h.value")+';'
+-if @mode == :in
+  -after_update += remote_function(:update=>"lines_#{id}_tracking_id", :url=>{:controller=>:management, :action=>:product_trackings}, :with=>"'id='+h.value")+';'
+-after_update += '}'
+%tr{:id=>id, :class=>(@mode==:in ? 'odd' : 'even')}
+  %td
+    %strong=@mode.inspect
+    =hidden_field_tag("lines[#{id}][direction]", @mode)
+  %td=dyli_tag("lines[#{id}][product_id]", "operation_products", :after_update_element=>after_update, :no_resize=>true)
+  %td
+    %nobr
+      =text_field_tag("lines[#{id}][quantity]", 0, :size=>8)
+      =select_tag("lines[#{id}][unit_id]", nil, :id=>"lines_#{id}_unit_id")
+  %td
+    -if @mode==:in
+      =select_tag("lines[#{id}][tracking_id]", nil, :id=>"lines_#{id}_tracking_id")
+    -else
+      =text_field_tag("lines[#{id}][tracking_serial]")
+  %td=select_tag("lines[#{id}][location_id]", options_for_select(@current_company.stock_locations.collect{|x| [x.name, x.id]}))
+  %td.act=link_to_function(image_tag("buttons/delete.png", :border=>0), "$('#{id}').remove()")

@@ -125,23 +125,22 @@ module ApplicationHelper
      # ProductionController
      {:name=>:production, :list=>
        [  {:name=>:production, :list=>
-            [ {:name=>:productions},
-              {:name=>:operations}
+            [ {:name=>:operations},
+              {:name=>:shapes}
             ] },
           {:name=>:parameters, :list=>
-            [ {:name=>:shapes},
-              {:name=>:tools},
+            [ {:name=>:tools},
               {:name=>:operation_natures}
             ] }
-       ] },
-
-     # ResourcesController
-     {:name=>:resources, :list=>
-       [ {:name=>:human, :list=>
-           [ {:name=>:employees} ] },
-         {:name=>:parameters, :list=>
-           [ {:name=>:professions} ] }
        ] }
+     #  ,
+     # # ResourcesController
+     # {:name=>:resources, :list=>
+     #   [ {:name=>:human, :list=>
+     #       [ {:name=>:employees} ] },
+     #     {:name=>:parameters, :list=>
+     #       [ {:name=>:professions} ] }
+     #   ] }
      
     ]
 
@@ -198,7 +197,7 @@ module ApplicationHelper
   end
   
   def countries
-    t('countries').to_a.sort{|a,b| a[1].ascii.to_s<=>b[1].ascii.to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
+    [[]]+t('countries').to_a.sort{|a,b| a[1].ascii.to_s<=>b[1].ascii.to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
   end
 
   def link_to_back(options={})
@@ -263,10 +262,16 @@ module ApplicationHelper
     # <input id="issue_start_date" name="issue[start_date]" size="10" type="text" value="2009-09-18" />
     # <img alt="Calendar" class="calendar-trigger" id="issue_start_date_trigger" src="/red/images/calendar.png" />
     # <script type="text/javascript">//<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>
-    id = object_name.to_s+'_'+method.to_s
+    name = object_name.to_s+'_'+method.to_s
     text_field(object_name, method, {:size=>10}.merge(options))+
-      image_tag('buttons/calendar.png', :class=>'calendar-trigger', :id=>id+'_trigger')+
-      javascript_tag("Calendar.setup({inputField : '#{id}', ifFormat : '%Y-%m-%d', button : '#{id}_trigger' });")
+      image_tag('buttons/calendar.png', :class=>'calendar-trigger', :id=>name+'_trigger')+
+      javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
+  end
+
+  def calendar_field_tag(name, value, options={})
+    text_field_tag(name, value, {:size=>10}.merge(options))+
+      image_tag('buttons/calendar.png', :class=>'calendar-trigger', :id=>name.to_s+'_trigger')+
+      javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
   end
 
   def top_tag
@@ -576,19 +581,26 @@ module ApplicationHelper
       for tool in toolbar.tools
         nature, args = tool[0], tool[1]
         if nature == :link
-          #raise Exception.new "ok"
           name = args[0]
+          args[0] = t(call+name.to_s)
           args[1] ||= {}
           args[2] ||= {}
-          if name.is_a? Symbol and name!=:back
-            args[0] = t(call+name.to_s)
-            args[1][:action] ||= name
-            args[2][:class] = name.to_s.split('_')[-1]
+          args[2][:class] ||= name.to_s.split('_')[-1]
+          if args[1].is_a? Hash and args[1][:remote]
+            args[1].delete(:remote)
+            args[1][:url] ||= {}
+            args[1][:url][:action] ||= name
+            if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(args[1][:url]))
+              code += content_tag(:li, link_to_remote(*args))
+            end
           else
-            args[2][:class] = args[1][:action].to_s.split('_')[-1] if args[1][:action]
+            if name.is_a? Symbol and name!=:back
+              args[1][:action] ||= name
+            else
+              args[2][:class] = args[1][:action].to_s.split('_')[-1] if args[1][:action]
+            end
+            code += li_link_to(*args)
           end
-          
-          code += li_link_to(*args)
         elsif nature == :print
           #raise Exception.new "ok"+args.inspect
           name = args[0].to_s
@@ -681,7 +693,7 @@ module ApplicationHelper
       line_code = ''
       case line[:nature]
       when :error
-        line_code += content_tag(:td,error_messages_for(line[:params]),:class=>"error", :colspan=>xcn)
+        line_code += content_tag(:td, error_messages_for(line[:params]),:class=>"error", :colspan=>xcn)
       when :title
         #        reset_cycle "parity"
         if line[:value].is_a? Symbol

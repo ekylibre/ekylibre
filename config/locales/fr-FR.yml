@@ -200,7 +200,7 @@ fr-FR:
         entities_numeration: Numérotation des relations
         establishment_name: Établissement principal
         financialyear_code: 1A2
-        invoicing_numeration: Numéros de facture
+        invoicing_numeration: Numérotation des factures
         journals:
           bank: Journal de banque
           sales: Journal des ventes
@@ -380,6 +380,8 @@ fr-FR:
         important: Importante
         normal: Normale
         notice: Faible
+    operation_line:
+      density_label: "{{value}} {{product_unit}}/{{area_unit}}"
     payment_mode:
       modes:
         card: 'Carte Bleue'

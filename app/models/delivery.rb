@@ -20,8 +20,8 @@
 # 
 # == Table: deliveries
 #
-#  amount            :decimal(, )      default(0.0), not null
-#  amount_with_taxes :decimal(, )      default(0.0), not null
+#  amount            :decimal(16, 2)   default(0.0), not null
+#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
 #  comment           :text             
 #  company_id        :integer          not null
 #  contact_id        :integer          
@@ -39,7 +39,7 @@
 #  transporter_id    :integer          
 #  updated_at        :datetime         not null
 #  updater_id        :integer          
-#  weight            :decimal(, )      
+#  weight            :decimal(16, 4)   
 #
 
 class Delivery < ActiveRecord::Base

@@ -3,7 +3,9 @@ fr-FR:
   controllers:
     company:
       mailing: 'Mailing'
-      object_to_print_no_found: 'Impossible d''imprimer classe : {{class}} erreur : {{error}}'
+      notices:
+        password_successfully_changed: 'Votre mot de passe a été mis à jour avec succès'
+      object_to_print_no_found: 'Impossible d''imprimer. {{class}}: {{error}}'
       restoration_finished: 'La restauration de la sauvegarde s''est terminée (en {{value}} secondes)'
       role: 'Rôle'
       title: 'Société'
@@ -190,7 +192,8 @@ fr-FR:
         units_load: 'Charger les unités de base manquantes'
       user:
         change_password: 'Changer de mot de passe'
-        title: 'Informations sur l''utilisateur : {{value}}'
+        title: 'Utilisateur : {{first_name}} {{last_name}} ({{name}})'
+        user_update: 'Modifier les informations de l''utilisateur'
       user_create:
         create_employee: 'Employee'
         title: 'Création d''un nouvel utilisateur'

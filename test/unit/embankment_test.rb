@@ -20,7 +20,7 @@
 # 
 # == Table: embankments
 #
-#  amount          :decimal(, )      default(0.0), not null
+#  amount          :decimal(16, 4)   default(0.0), not null
 #  bank_account_id :integer          not null
 #  comment         :text             
 #  company_id      :integer          not null

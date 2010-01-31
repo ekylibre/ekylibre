@@ -21,7 +21,7 @@
 # == Table: units
 #
 #  base         :string(255)      
-#  coefficient  :decimal(, )      default(1.0), not null
+#  coefficient  :decimal(16, 4)   default(1.0), not null
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
@@ -29,7 +29,7 @@
 #  label        :string(255)      not null
 #  lock_version :integer          default(0), not null
 #  name         :string(8)        not null
-#  start        :decimal(, )      default(0.0), not null
+#  start        :decimal(16, 4)   default(0.0), not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
@@ -38,7 +38,7 @@ class Unit < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   has_many :products
-  validates_format_of :name, :with=>/^[a-zA-Z][a-zA-Z0-9]*$/
+  validates_format_of :name, :with=>/^[a-zA-Z][a-zA-Z0-9]*([\.\/][a-zA-Z][a-zA-Z0-9]*)?$/
 
   @@units = ["m", "kg", "s", "A", "K", "mol", "cd"]
 
@@ -62,6 +62,21 @@ class Unit < ActiveRecord::Base
     self.name.strip!
     self.coefficient ||= 1
     self.start ||= 0
+    true
+  end
+
+  def validate
+    self.base.to_s.split(/[\.\s]+/).each do |x|
+      if x.match(/[a-z]+(\-\d+)?/i)
+        name = x.gsub(/[0-9\-]+/, '')
+        errors.add(:base, :invalid_token, :error=>x.inspect, :accepted=>@@units.to_sentence) unless @@units.include? name
+      else  
+        errors.add(:base, :invalid_at, :error=>x.inspect)
+      end
+    end
+  end
+
+  def before_save
     self.base = self.class.normalize(self.base)
   end
 

@@ -210,7 +210,7 @@ class Account < ActiveRecord::Base
   # this method loads the general ledger for all the accounts.
   def self.ledger(company, from, to)
     ledger = []
-    accounts = Account.find(:all, :conditions => {:company_id => company}, :order=>"r.number ASC")
+    accounts = Account.find(:all, :conditions => {:company_id => company}, :order=>"number ASC")
     accounts.each do |account|
       compute=[] #HashWithIndifferentAccess.new
       

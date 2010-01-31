@@ -21,8 +21,8 @@
 # == Table: sale_orders
 #
 #  accounted_at        :datetime         
-#  amount              :decimal(, )      default(0.0), not null
-#  amount_with_taxes   :decimal(, )      default(0.0), not null
+#  amount              :decimal(16, 2)   default(0.0), not null
+#  amount_with_taxes   :decimal(16, 2)   default(0.0), not null
 #  annotation          :text             
 #  client_id           :integer          not null
 #  comment             :text             
@@ -35,7 +35,7 @@
 #  creator_id          :integer          
 #  currency_id         :integer          
 #  delivery_contact_id :integer          
-#  downpayment_amount  :decimal(, )      default(0.0), not null
+#  downpayment_amount  :decimal(16, 2)   default(0.0), not null
 #  expiration_id       :integer          not null
 #  expired_on          :date             not null
 #  function_title      :string(255)      
@@ -48,7 +48,7 @@
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer          not null
 #  number              :string(64)       not null
-#  parts_amount        :decimal(, )      
+#  parts_amount        :decimal(16, 2)   
 #  payment_delay_id    :integer          not null
 #  responsible_id      :integer          
 #  state               :string(1)        default("O"), not null

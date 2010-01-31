@@ -42,6 +42,7 @@
 #  updater_id   :integer          
 #
 
+# -*- coding: utf-8 -*-
 class DocumentTemplate < ActiveRecord::Base
   belongs_to :company
   belongs_to :language
@@ -51,7 +52,7 @@ class DocumentTemplate < ActiveRecord::Base
 
   attr_readonly :company_id
 
-  @@families = [:company, :relations, :accountancy, :management, :resources, :production]
+  @@families = [:company, :relations, :accountancy, :management, :production] # :resources, 
 
   @@document_natures = [:balance, :invoice, :sale_order, :purchase_order, :inventory, :transport, :embankment, :entity, :journal, :ledger, :other] 
 
@@ -240,8 +241,8 @@ class DocumentTemplate < ActiveRecord::Base
     code << "x = doc.generate\n"
   
 #    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    # return '('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
-    return '('+code+')'
+    return '('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
+    #return '('+code+')'
   end
 
 
@@ -381,7 +382,7 @@ class DocumentTemplate < ActiveRecord::Base
         code += compile_children(element, variable, mode, depth)
         code += "end"
       else
-        nvar = '_r'+depth.to_s+'_'
+        nvar = "_#{depth}"
         children = compile_children(element, nvar, mode, depth+1)
         code += "#{variable}.#{name}(#{params})"
         code += "do |#{nvar}|\n"+children+"end" unless children.blank?

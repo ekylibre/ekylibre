@@ -21,7 +21,7 @@
 # == Table: tools
 #
 #  company_id   :integer          not null
-#  consumption  :decimal(, )      
+#  consumption  :decimal(16, 4)   
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
@@ -50,7 +50,7 @@ class Tool < ActiveRecord::Base
   def usage_duration_sum
     sum = 0
     self.uses.each do |usage|
-      sum += usage.shape_operation.duration
+      sum += usage.operation.duration
     end
     sum/60
   end

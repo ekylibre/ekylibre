@@ -5,10 +5,10 @@
   - f.field :bank_account, :bank_name
   - f.field :bank_account, :mode, :field=>:radio, :choices=>BankAccount.modes  
 =formalize(:id=>:bban) do |f|
-  - f.field :bank_account, :bank_code  
-  - f.field :bank_account, :agency_code
+  - f.field :bank_account, :bank_code, :size=>10
+  - f.field :bank_account, :agency_code, :size=>10
   - f.field :bank_account, :number
-  - f.field :bank_account, :key   
+  - f.field :bank_account, :key, :size=>4
 =formalize(:id=>:iban) do |f|  
   - f.field :bank_account, :iban
   - f.field :bank_account, :bic

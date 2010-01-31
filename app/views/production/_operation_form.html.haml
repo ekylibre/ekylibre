@@ -1,20 +1,36 @@
 = formalize do |f|
-  - tools = @current_company.tools
-  - f.error :shape_operation
-  - if tools.size > 0 
-    - f.title :tools
-    - @current_company.tools.each do |tool|
-      - f.field content_tag(:label, tool.name, :for=>"tools_#{tool.id}"), check_box_tag("tools[#{tool.id}]" ,"1", @shape_operation.new_record? ? false : (session[:tool_ids].include?(tool.id.to_s)), :id=>"tools_#{tools.id}")
+  - f.error :operation
   - f.title :infos
-  - f.field :shape_operation, :name
-  - f.field :shape_operation, :shape_id, :choices=>@current_company.shapes.collect{|x| [x.name+" ( "+x.polygon+" )", x.id]}, :new=>{:action=>:shape_create}
-  - f.field :shape_operation, :responsible_id, :choices=>@current_company.employees.collect{|x| [x.last_name+" "+x.first_name, x.id]}, :new=>{:controller=>:resources, :action=>:employee_create}
-  - f.field :shape_operation, :nature_id, :choices=>@current_company.shape_operation_natures.collect{|x| [x.name, x.id]}, :new=>{:action=>:shape_operation_nature_create}
-  - f.field :shape_operation, :planned_on
-  - f.field :shape_operation, :description, :field=>:textarea
+  - f.field :operation, :name
+  -# f.field :operation, :target_id, :choices=>@current_company.shapes.collect{|x| [x.name, x.id]}, :new=>{:action=>:shape_create}
+  - f.field :operation, :responsible_id, :choices=>@current_company.employees.collect{|x| [x.last_name+" "+x.first_name, x.id]}, :new=>{:controller=>:resources, :action=>:employee_create}
+  - f.field :operation, :nature_id, :choices=>@current_company.operation_natures.collect{|x| [x.name, x.id]}, :new=>{:action=>:operation_nature_create}
+  - f.field :operation, :target_id, :choices=>@current_company.shapes.collect{|x| [x.name, x.id]}, :new=>{:action=>:shape_create}
+  - f.field :operation, :planned_on
+  - f.field :operation, :description, :field=>:textarea
   - f.title :duration
-  - f.field :shape_operation, :hour_duration
-  - f.field :shape_operation, :min_duration
+  - f.field :operation, :hour_duration
+  - f.field :operation, :min_duration
   - f.title :products
+=hidden_field_tag "operation[target_type]", Shape.name
+=toolbar do |t|
+  -t.link :in_line_create,  :remote=>true, :url=>{:action=>:operation_line_create, :mode=>:in},  :update=>:lines, :position=>:bottom
+  -t.link :out_line_create, :remote=>true, :url=>{:action=>:operation_line_create, :mode=>:out}, :update=>:lines, :position=>:bottom
+%table.dyta
+  %thead
+    %tr
+      %th=OperationLine.human_attribute_name("direction")
+      %th=OperationLine.human_attribute_name("product_id")
+      %th=OperationLine.human_attribute_name("quantity")
+      %th=OperationLine.human_attribute_name("tracking_id")
+      %th=OperationLine.human_attribute_name("location_id")
+      %th.act
+  %tbody#lines
   
 
+= formalize do |f|
+  - tools = @current_company.tools
+  - if tools.size > 0 
+    - f.title :tools
+    - tools.each do |tool|
+      - f.field content_tag(:label, tool.name, :for=>"tools_#{tool.id}"), check_box_tag("tools[#{tool.id}]" ,"1", @operation.new_record? ? false : (session[:tool_ids].include?(tool.id.to_s)), :id=>"tools_#{tools.id}")

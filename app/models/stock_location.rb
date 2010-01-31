@@ -71,7 +71,7 @@ class StockLocation < ActiveRecord::Base
    #  if self.reservoir
 #       product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.id}) 
 #       if !product_stock.nil?
-#         self.product_id = nil if product_stock.current_real_quantity == 0
+#         self.product_id = nil if product_stock.quantity == 0
 #       end
    # end
   end
@@ -82,11 +82,11 @@ class StockLocation < ActiveRecord::Base
     if self.reservoir 
       product_stock = ProductStock.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.id}) 
       if !product_stock[0].nil?
-        reception = (self.product_id == product_id || product_stock[0].current_real_quantity <= 0)
-        self.update_attributes!(:product_id=>product_id) if product_stock[0].current_real_quantity <= 0
-        #if product_stock[0].current_real_quantity <= 0
+        reception = (self.product_id == product_id || product_stock[0].quantity <= 0)
+        self.update_attributes!(:product_id=>product_id) if product_stock[0].quantity <= 0
+        #if product_stock[0].quantity <= 0
         for ps in product_stock
-          ps.destroy if ps.product_id != product_id and ps.current_real_quantity <=0
+          ps.destroy if ps.product_id != product_id and ps.quantity <=0
         end
         #end
       else

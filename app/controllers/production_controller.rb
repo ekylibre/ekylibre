@@ -50,106 +50,101 @@ class ProductionController < ApplicationController
   
   manage :tools
 
-  dyta(:productions, :conditions=>{:company_id=>['@current_company.id']}, :order=>"planned_on ASC") do |t|
-    t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
-    t.column :quantity
-    # t.column :label, :through=>[:product,:unit]
-    t.column :moved_on
-    t.column :name, :through=>:location, :url=>{:controller=>:management, :action=>:stock_location}
-    t.column :serial, :through=>:tracking
-    t.action :production_update, :image=>:update
-    t.action :production_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-  end
+  # dyta(:productions, :conditions=>{:company_id=>['@current_company.id']}, :order=>"planned_on ASC") do |t|
+  #   t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
+  #   t.column :quantity
+  #   # t.column :label, :through=>[:product,:unit]
+  #   t.column :moved_on
+  #   t.column :name, :through=>:location, :url=>{:controller=>:management, :action=>:stock_location}
+  #   t.column :serial, :through=>:tracking
+  #   t.action :production_update, :image=>:update
+  #   t.action :production_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+  # end
 
-  def productions
-  end
+  # def productions
+  # end
   
 
-  def production_create
-    if @current_company.stock_locations.empty?
-      flash[:warning]=tc(:need_stock_location_to_create_production)
-      redirect_to :controller=>:management, :action=>:stock_location_create
-    end
-    @production = Production.new
+  # def production_create
+  #   if @current_company.stock_locations.empty?
+  #     flash[:warning]=tc(:need_stock_location_to_create_production)
+  #     redirect_to :controller=>:management, :action=>:stock_location_create
+  #   end
+  #   @production = Production.new
 
-    @productable_products = @current_company.productable_products
+  #   @productable_products = @current_company.productable_products
     
-    if request.post?
-      @production = Production.new(params[:production])
-      @production.company_id = @current_company.id
-      if @production.save
-        if @production.product.has_components?
-          redirect_to :action=>:production_line_create, :id=>@production.id
-        else
-          @production.move_stocks
-          redirect_to :action=>:productions 
-        end
-      end
-    end
-    render_form
-  end
+  #   if request.post?
+  #     @production = Production.new(params[:production])
+  #     @production.company_id = @current_company.id
+  #     if @production.save
+  #       if @production.product.has_components?
+  #         redirect_to :action=>:production_line_create, :id=>@production.id
+  #       else
+  #         @production.move_stocks
+  #         redirect_to :action=>:productions 
+  #       end
+  #     end
+  #   end
+  #   render_form
+  # end
 
-  def production_update
-    @production = find_and_check(:production,(params[:id]))
-    if request.post?
-      if @production.update_attributes(params[:production])
-        if @production.product.has_components?
-          redirect_to :action=>:production_line_update, :id=>@production.id
-        else
-          redirect_to :action=>:productions
-        end
-      end
-    end
-    @title = {:value=>@production.product.name, :moved=>@production.moved_on}
-    render_form
-  end
+  # def production_update
+  #   @production = find_and_check(:production,(params[:id]))
+  #   if request.post?
+  #     if @production.update_attributes(params[:production])
+  #       if @production.product.has_components?
+  #         redirect_to :action=>:production_line_update, :id=>@production.id
+  #       else
+  #         redirect_to :action=>:productions
+  #       end
+  #     end
+  #   end
+  #   @title = {:value=>@production.product.name, :moved=>@production.moved_on}
+  #   render_form
+  # end
 
-  def production_delete
-    @production = find_and_check(:production,(params[:id]))   
-    if request.delete? or request.post?
-      redirect_to :action=>:productions if @production.destroy
-    end
-  end
+  # def production_delete
+  #   @production = find_and_check(:production,(params[:id]))   
+  #   if request.delete? or request.post?
+  #     redirect_to :action=>:productions if @production.destroy
+  #   end
+  # end
 
-  def production_line_create
-    @production = find_and_check(:production, params[:id])
-    @components = @production.product.components    
-    if request.post?
-      quantities_mistake = false
-      for component in @components
-        quantities_mistake = true if !component.check_quantities(params[:component],@production.quantity)
-      end
-      if quantities_mistake
-        @production.errors.add_to_base(tc('mistake_on_quantities_sum'))
-      else
-        @production.move_stocks(params[:component])
-        redirect_to :action=>:productions
-      end
-    end
-    render_form
-  end
+  # def production_line_create
+  #   @production = find_and_check(:production, params[:id])
+  #   @components = @production.product.components    
+  #   if request.post?
+  #     quantities_mistake = false
+  #     for component in @components
+  #       quantities_mistake = true if !component.check_quantities(params[:component],@production.quantity)
+  #     end
+  #     if quantities_mistake
+  #       @production.errors.add_to_base(tc('mistake_on_quantities_sum'))
+  #     else
+  #       @production.move_stocks(params[:component])
+  #       redirect_to :action=>:productions
+  #     end
+  #   end
+  #   render_form
+  # end
 
-  def production_line_update
-    @production = find_and_check(:production, params[:id])
-    @components = @production.product.components   
-    if request.post?
-      quantities_mistake = false
-      for component in @components
-        quantities_mistake = true if !component.check_quantities(params[:component],@production.quantity)
-      end
-      if quantities_mistake
-        @production.errors.add_to_base(tc('mistake_on_quantities_sum'))
-      else
-        @production.move_stocks(params[:component], update=true)
-        redirect_to :action=>:productions
-      end
-    end
-    render_form
-  end
-
-  # def test_svg()
-   # response.headers['Content-type'] = 'text/xml; charset=utf-8'
-   # @path = "310 200"
+  # def production_line_update
+  #   @production = find_and_check(:production, params[:id])
+  #   @components = @production.product.components   
+  #   if request.post?
+  #     quantities_mistake = false
+  #     for component in @components
+  #       quantities_mistake = true if !component.check_quantities(params[:component],@production.quantity)
+  #     end
+  #     if quantities_mistake
+  #       @production.errors.add_to_base(tc('mistake_on_quantities_sum'))
+  #     else
+  #       @production.move_stocks(params[:component], update=true)
+  #       redirect_to :action=>:productions
+  #     end
+  #   end
+  #   render_form
   # end
 
   
@@ -171,7 +166,7 @@ class ProductionController < ApplicationController
   dyta(:shape_operations, :model=>:operations,  :conditions=>{:company_id=>['@current_company.id'], :target_type=>Shape.name, :target_id=>['session[:current_shape]']}, :order=>"planned_on ASC") do |t|
     t.column :name, :url=>{:action=>:operation}
     t.column :name, :through=>:nature
-    t.column :label, :through=>:responsible, :url=>{:controller=>:resources, :action=>:employee}
+    t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
     t.column :planned_on
     t.column :moved_on
     t.column :tools_list
@@ -191,11 +186,11 @@ class ProductionController < ApplicationController
   dyta(:operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>" planned_on desc, name asc") do |t|
     t.column :name, :url=>{:action=>:operation}
     t.column :name, :through=>:nature
-    t.column :label, :through=>:responsible, :url=>{:controller=>:resources, :action=>:employee}
+    t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
     t.column :planned_on
     t.column :moved_on
     t.column :tools_list
-    t.column :name, :through=>:shape, :url=>{:action=>:shape}
+    t.column :name, :through=>:target
     t.column :duration
     t.action :operation_update, :image=>:update
     t.action :operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
@@ -204,16 +199,28 @@ class ProductionController < ApplicationController
   def operations
   end
 
+  dyta(:operation_lines, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"direction") do |t|
+    t.column :direction
+    t.column :name, :through=>:location, :url=>{:controller=>:management, :action=>:stock_location}
+    t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
+    t.column :quantity
+    t.column :label, :through=>:unit
+    t.column :name, :through=>:tracking, :url=>{:controller=>:management, :action=>:tracking}
+    t.column :density_label
+  end
+
   def operation
     return unless @operation = find_and_check(:operation, params[:id])
+    session[:current_operation_id] = @operation.id
     @title = {:name=>@operation.name}
   end
   
   def operation_create
     if request.post?
-      @operation = Operation.new(params[:operation])
-      @operation.company_id = @current_company.id
+      @operation = @current_company.operations.new(params[:operation])
       if @operation.save
+        @operation.reload
+        @operation.add_lines(params[:lines])
         @operation.add_tools(params[:tools])
         redirect_to_back
       end
@@ -246,6 +253,18 @@ class ProductionController < ApplicationController
     end
   end
 
+  dyli(:operation_products, [:code, :name], :model=>:products, :conditions => {:company_id=>['@current_company.id'], :active=>true, :to_produce=>true})
+  # dyli(:operation_out_products, [:code, :name], :model=>:products, :conditions => {:company_id=>['@current_company.id'], :active=>true, :to_produce=>true})
+
+  def operation_line_create
+    if request.xhr?
+      @mode = (params[:mode]||"in").to_sym
+      render :partial=>'operation_line_row_form'
+    else
+      redirect_to :action=>:index
+    end
+  end
+
 
   dyta(:operation_natures, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
     t.column :name
@@ -264,8 +283,8 @@ class ProductionController < ApplicationController
   dyta(:unvalidated_operations, :model=>:operations, :conditions=>{:moved_on=>nil, :company_id=>['@current_company.id']}) do |t|
     t.column :name 
     t.column :name, :through=>:nature
-    t.column :label, :through=>:responsible, :url=>{:controller=>:resources, :action=>:employee}
-    t.column :name, :through=>:shape
+    t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
+    t.column :name, :through=>:target
     t.column :planned_on
     t.check :validated, :value=>'RECORD.planned_on<=Date.today'
   end

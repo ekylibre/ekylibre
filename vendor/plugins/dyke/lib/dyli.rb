@@ -53,13 +53,13 @@ module Ekylibre
             code += "  conditions = [#{query.join(' AND ').inspect+parameters}]\n"
             # code += "  raise Exception.new(params.inspect)\n"
             code += "  search = params[:#{name_db}][:search]||\"\"\n"
-            code += "  words = search.lower.split(/\\s+/)\n"
+            code += "  words = search.lower.split(/[\\s\\,]+/)\n"
             code += "  if words.size>0\n"
             code += "    conditions[0] += '#{' AND ' if query.size>0}('\n"
             code += "    words.size.times do |index|\n"
             code += "      word = #{(options[:filter]||'%X%').inspect}.gsub('X', words[index])\n"
             code += "      conditions[0] += ') AND (' if index>0\n"
-            code += "      conditions[0] += "+attributes.collect{|key| "LOWER(CAST(#{key} AS VARCHAR)) LIKE ?"}.join(' OR ').inspect+"\n"
+            code += "      conditions[0] += "+attributes.collect{|key| "LOWER(#{key}) LIKE ?"}.join(' OR ').inspect+"\n"
             code += "      conditions += ["+(["word"]*attributes.size).join(", ")+"]\n"
             code += "    end\n"
             code += "    conditions[0] += ')'\n"
@@ -176,12 +176,12 @@ module Ekylibre
           determine_completion_options(hf_id, tf_id, options, completion_options)
      
           return <<-HTML
-       #{dyli_complete_stylesheet unless completion_options[:skip_style]}    
-       #{hidden_field_tag(hf_name, hf_value, :id => hf_id)}
-       #{text_field_tag(tf_name, tf_value, tag_options)}
-       #{content_tag("div", " ", :id => "#{tf_id}_dyli_complete", :class => "dyli_complete")}
-       #{dyli_complete_field tf_id, completion_options}
-     HTML
+          #{dyli_complete_stylesheet unless completion_options[:skip_style]}    
+          #{hidden_field_tag(hf_name, hf_value, :id => hf_id)}
+          #{text_field_tag(tf_name, tf_value, tag_options)}
+          #{content_tag("div", " ", :id => "#{tf_id}_dyli_complete", :class => "dyli_complete")}
+          #{dyli_complete_field(tf_id, completion_options)}
+          HTML
         end
         
         #
@@ -207,8 +207,8 @@ module Ekylibre
           end
 
           function << (', ' + options_for_javascript(js_options) + ')')
-
-          javascript_tag(function)
+          
+          return javascript_tag(function)
         end
         
         
@@ -272,18 +272,20 @@ module Ekylibre
         def determine_completion_options(hf_id, tf_id, options, completion_options) #:nodoc:
           # model_auto_completer does most of its work in the afterUpdateElement hook of the
           # standard autocompletion mechanism. Here we generate the JavaScript that goes there.
-          resize = completion_options[:no_resize] ? "" : "element.size = (element.dyli_cache.length > 64 ? 64 : element.dyli_cache.length);"
+          resize = options[:no_resize] ? "" : "element.size = (element.dyli_cache.length > 64 ? 64 : element.dyli_cache.length);"
           completion_options[:after_update_element] = <<-JS.gsub(/\s+/, ' ')
           function(element, value) {
             var model_id = /#{options[:regexp_for_id]}/.exec(value.id)[1];
             $("#{hf_id}").value = model_id;
             element.dyli_cache = element.value;
-            #{resize}(#{options[:after_update_element]})(element, value, $("#{hf_id}"), model_id);
+            #{resize}
+            (#{options[:after_update_element]})(element, value, $("#{hf_id}"), model_id);
           }
           JS
           
           # :url has higher priority than :action and :controller.
           completion_options[:url] = options[:url] || url_for(:controller => options[:controller], :action => options[:action])
+          completion_options
         end
         
       end

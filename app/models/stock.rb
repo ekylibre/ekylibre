@@ -20,24 +20,25 @@
 # 
 # == Table: stocks
 #
-#  company_id               :integer          not null
-#  created_at               :datetime         not null
-#  creator_id               :integer          
-#  critic_quantity_min      :decimal(16, 2)   default(0.0), not null
-#  current_real_quantity    :decimal(16, 2)   default(0.0), not null
-#  current_virtual_quantity :decimal(16, 2)   default(0.0), not null
-#  id                       :integer          not null, primary key
-#  location_id              :integer          not null
-#  lock_version             :integer          default(0), not null
-#  name                     :string(255)      
-#  origin_id                :integer          
-#  origin_type              :string(255)      
-#  product_id               :integer          not null
-#  quantity_max             :decimal(16, 2)   default(0.0), not null
-#  quantity_min             :decimal(16, 2)   default(1.0), not null
-#  tracking_id              :integer          
-#  updated_at               :datetime         not null
-#  updater_id               :integer          
+#  company_id          :integer          not null
+#  created_at          :datetime         not null
+#  creator_id          :integer          
+#  critic_quantity_min :decimal(16, 4)   default(0.0), not null
+#  id                  :integer          not null, primary key
+#  location_id         :integer          not null
+#  lock_version        :integer          default(0), not null
+#  name                :string(255)      
+#  origin_id           :integer          
+#  origin_type         :string(255)      
+#  product_id          :integer          not null
+#  quantity            :decimal(16, 4)   default(0.0), not null
+#  quantity_max        :decimal(16, 4)   default(0.0), not null
+#  quantity_min        :decimal(16, 4)   default(1.0), not null
+#  tracking_id         :integer          
+#  unit_id             :integer          
+#  updated_at          :datetime         not null
+#  updater_id          :integer          
+#  virtual_quantity    :decimal(16, 4)   default(0.0), not null
 #
 
 class Stock < ActiveRecord::Base
@@ -64,16 +65,16 @@ class Stock < ActiveRecord::Base
 
   def label
     if self.tracking
-      return tc(:label, :tracking=>self.tracking.name, :quantity=>self.current_virtual_quantity)
+      return tc(:label, :tracking=>self.tracking.name, :quantity=>self.virtual_quantity)
     else
       return tc(:no_tracking)
     end
   end
   
   def state
-    if self.current_virtual_quantity <= self.critic_quantity_min
+    if self.virtual_quantity <= self.critic_quantity_min
       "critic"
-    elsif self.current_virtual_quantity <= self.quantity_min
+    elsif self.virtual_quantity <= self.quantity_min
       "minimum"
     else
       "enough"
@@ -92,24 +93,24 @@ class Stock < ActiveRecord::Base
   end
 
   #   def reflect_changes(quantity)
-  #     old_current_real_quantity = self.current_real_quantity 
-  #     if quantity.to_i != old_current_real_quantity
-  #       input = old_current_real_quantity < quantity.to_i ? false : true
+  #     old_quantity = self.quantity 
+  #     if quantity.to_i != old_quantity
+  #       input = old_quantity < quantity.to_i ? false : true
   #       #raise Exception.new input.inspect
   #       if input 
-  #         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(quantity.to_i - old_current_real_quantity), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true, :input=>input, :origin_type=>InventoryLine.to_s)
-  #         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(quantity.to_i - old_current_real_quantity), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false, :input=>input, :origin_type=>InventoryLine.to_s)
+  #         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(quantity.to_i - old_quantity), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true, :input=>input, :origin_type=>InventoryLine.to_s)
+  #         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(quantity.to_i - old_quantity), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false, :input=>input, :origin_type=>InventoryLine.to_s)
   #       else
-  #         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(old_current_real_quantity - quantity.to_i), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true, :input=>input, :origin_type=>InventoryLine.to_s)
-  #         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(old_current_real_quantity - quantity.to_i), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false, :input=>input, :origin_type=>InventoryLine.to_s)
+  #         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(old_quantity - quantity.to_i), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true, :input=>input, :origin_type=>InventoryLine.to_s)
+  #         StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(old_quantity - quantity.to_i), :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false, :input=>input, :origin_type=>InventoryLine.to_s)
   #       end
   #     end
   #   end
 
   def to_inventory_line(quantity, inventory_id)
-    result = (self.current_real_quantity.to_f == quantity.to_f)
-    puts self.current_real_quantity.to_f.inspect+quantity.to_f.inspect+result.inspect
-    InventoryLine.create!(:product_id=>self.product_id, :location_id=>self.location_id, :inventory_id=>inventory_id, :theoric_quantity=>self.current_real_quantity, :validated_quantity=>quantity, :company_id=>self.company_id)
+    result = (self.quantity.to_f == quantity.to_f)
+    puts self.quantity.to_f.inspect+quantity.to_f.inspect+result.inspect
+    InventoryLine.create!(:product_id=>self.product_id, :location_id=>self.location_id, :inventory_id=>inventory_id, :theoric_quantity=>self.quantity, :quantity=>quantity, :company_id=>self.company_id)
   end
   
 end

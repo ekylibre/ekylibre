@@ -38,11 +38,10 @@ class ManagementController < ApplicationController
   
   
   dyta(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name
+    t.column :name, :url=>{:action=>:delay}
     t.column :active
     t.column :expression
     t.column :comment
-    t.action :delay, :image=>:show
     t.action :delay_update
     t.action :delay_delete, :method=>:delete, :confirm=>:are_you_sure
   end
@@ -161,10 +160,27 @@ class ManagementController < ApplicationController
     
   #
 
+  # Generic method to produce units of product
+  def product_units
+    if request.xhr?
+      return unless @product = find_and_check(:product, params[:id])
+      render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.label, x.id]})-%>"
+    end
+  end
+
+  def product_trackings
+    if request.xhr?
+      return unless @product = find_and_check(:product, params[:id])
+      render :inline=>"<%=options_for_select([['---', '']]+@product.trackings.collect{|x| [x.label, x.id]})-%>"
+    end
+  end
+
+
+
   dyta(:inventories, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :date
     t.column :changes_reflected, :label=>tc('changes_reflected')
-    t.column :label, :through=>:responsible, :url=>{:controller=>:resources, :action=>:employee}
+    t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
     t.column :comment
     t.action :print, :url=>{:controller=>:company, :type=>:inventory}
     t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and RECORD.changes_reflected == false'
@@ -176,8 +192,8 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:location
     t.column :name, :through=>:product
     t.column :shelf_name, :through=>:product, :label=>tc('shelf')
-    t.column :current_real_quantity, :label=>tc('theoric_quantity')
-    t.textbox :current_real_quantity
+    t.column :quantity, :label=>tc('theoric_quantity')
+    t.textbox :quantity
   end
 
   dyta(:inventory_lines_update, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['session[:current_inventory]'] }, :per_page=>1000,:order=>'location_id') do |t|
@@ -185,7 +201,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:product
     t.column :shelf_name, :through=>:product, :label=>tc('shelf')
     t.column :theoric_quantity
-    t.textbox :validated_quantity
+    t.textbox :quantity
   end
 
   def inventories
@@ -202,7 +218,7 @@ class ManagementController < ApplicationController
       @inventory = Inventory.new(params[:inventory])
       @inventory.company_id = @current_company.id
       @inventory.save
-      params[:inventory_lines_create].collect{|x| Stock.find_by_id_and_company_id(x[0], @current_company.id).to_inventory_line(x[1][:current_real_quantity].to_f, @inventory.id) }
+      params[:inventory_lines_create].collect{|x| Stock.find_by_id_and_company_id(x[0], @current_company.id).to_inventory_line(x[1][:quantity].to_f, @inventory.id) }
       redirect_to :action=>:inventories
     end
   end
@@ -216,7 +232,7 @@ class ManagementController < ApplicationController
     return unless @inventory = find_and_check(:inventories, params[:id])
     session[:current_inventory] = @inventory.id
     if request.post? and !@inventory.changes_reflected
-      params[:inventory_lines_update].collect{|x| InventoryLine.find_by_id_and_company_id(x[0], @current_company.id).update_attributes!(:validated_quantity=>x[1][:validated_quantity].to_f) }
+      params[:inventory_lines_update].collect{|x| InventoryLine.find_by_id_and_company_id(x[0], @current_company.id).update_attributes!(:quantity=>x[1][:quantity].to_f) }
       @inventory.update_attributes(params[:inventory])
       redirect_to :action=>:inventories
     end
@@ -675,15 +691,15 @@ class ManagementController < ApplicationController
   end
 
 
-  # dyta(:product_stocks, :model=>:stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min  AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state') do |t|
+  # dyta(:product_stocks, :model=>:stocks, :conditions=>['company_id = ? AND virtual_quantity <= critic_quantity_min  AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state') do |t|
   dyta(:product_stocks, :model=>:stocks, :conditions=>['company_id = ? AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
     t.column :name, :through=>:location, :url=>{:action=>:stock_location}
     t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
     #t.column :quantity_max
     #t.column :quantity_min
     #t.column :critic_quantity_min
-    t.column :current_virtual_quantity
-    t.column :current_real_quantity
+    t.column :virtual_quantity
+    t.column :quantity
   end
   
   def product
@@ -2072,11 +2088,10 @@ class ManagementController < ApplicationController
 
 
   dyta(:stock_locations, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name
+    t.column :name, :url=>{:action=>:stock_location}
     t.column :name, :through=>:establishment
     t.column :name, :through=>:parent
     t.column :reservoir, :label=>tc(:reservoir)
-    t.action :stock_location, :image=>:show
     #t.action :stock_location_update, :mode=>:reservoir, :if=>'RECORD.reservoir == true'
     t.action :stock_location_update
     #t.action :stock_location_delete, :method=>:delete, :confirm=>:are_you_sure
@@ -2106,15 +2121,15 @@ class ManagementController < ApplicationController
   end
   
 
-  dyta(:stock_location_stocks, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'], :location_id=>['session[:current_stock_location_id]']}, :order=>"current_real_quantity DESC") do |t|
+  dyta(:stock_location_stocks, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'], :location_id=>['session[:current_stock_location_id]']}, :order=>"quantity DESC") do |t|
     t.column :name, :through=>:product,:url=>{:action=>:product}
     t.column :name, :through=>:tracking
     t.column :weight, :through=>:product, :label=>"Poids"
     t.column :quantity_max
     t.column :quantity_min
     t.column :critic_quantity_min
-    t.column :current_virtual_quantity
-    t.column :current_real_quantity
+    t.column :virtual_quantity
+    t.column :quantity
   end
   
 
@@ -2519,18 +2534,18 @@ class ManagementController < ApplicationController
     t.column :quantity_max
     t.column :quantity_min
     t.column :critic_quantity_min
-    t.column :current_virtual_quantity
-    t.column :current_real_quantity
+    t.column :virtual_quantity
+    t.column :quantity
   end
 
-  dyta(:critic_stocks, :model=>:stocks, :conditions=>['company_id = ? AND current_virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
+  dyta(:critic_stocks, :model=>:stocks, :conditions=>['company_id = ? AND virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
     t.column :name, :through=>:product,:url=>{:action=>:product}
     #t.column :name, :through=>:location, :label=>"Lieu de stockage"
     t.column :quantity_max
     t.column :quantity_min
     t.column :critic_quantity_min
-    t.column :current_virtual_quantity
-    t.column :current_real_quantity
+    t.column :virtual_quantity
+    t.column :quantity
   end
 
   def stocks

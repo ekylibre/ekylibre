@@ -20,18 +20,19 @@
 # 
 # == Table: delivery_lines
 #
-#  amount            :decimal(, )      default(0.0), not null
-#  amount_with_taxes :decimal(, )      default(0.0), not null
+#  amount            :decimal(16, 2)   default(0.0), not null
+#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  delivery_id       :integer          not null
 #  id                :integer          not null, primary key
+#  location_id       :integer          
 #  lock_version      :integer          default(0), not null
 #  order_line_id     :integer          not null
 #  price_id          :integer          not null
 #  product_id        :integer          not null
-#  quantity          :decimal(, )      default(1.0), not null
+#  quantity          :decimal(16, 4)   default(1.0), not null
 #  tracking_id       :integer          
 #  unit_id           :integer          not null
 #  updated_at        :datetime         not null
@@ -45,13 +46,18 @@ class DeliveryLine < ActiveRecord::Base
   belongs_to :product
   belongs_to :order_line, :class_name=>SaleOrderLine.name
   belongs_to :unit
- 
+
+  validates_presence_of :product_id, :unit_id
+
   attr_readonly :company_id, :order_line_id, :product_id, :price_id, :unit_id
 
   def before_validation
-    self.product_id = self.order_line.product_id
-    self.price_id = self.order_line.price.id
-    self.unit_id = self.order_line.unit_id
+    if self.order_line
+      self.product_id  = self.order_line.product_id
+      self.price_id    = self.order_line.price.id
+      self.unit_id     = self.order_line.unit_id
+      self.location_id = self.order_line.location_id
+    end
     self.amount = self.order_line.price.amount*self.quantity
     self.amount_with_taxes = self.order_line.price.amount_with_taxes*self.quantity
   end

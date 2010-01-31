@@ -1,4 +1,4 @@
-* {margin:0; padding:0; font-family: helvetica, sans-serif;}
+* {margin:0; padding:0; font-family: sans-serif;}
 /* BLUE EKYLIBRE : #3060FF */
 html {background: #FFF;}
 fieldset { border:1px solid #DDD; padding: 4px; margin: 1px 1px 4px; }
@@ -54,7 +54,7 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 .content a img { border: 1px solid #00C; padding: 1px;}
 .content p { margin: 8px 0px;}
 .content .text-end { height: 1px; }
-.content .help-error { color: red; text-align: center; padding: 8px; background:#F5EAD7; }
+.content .help-error { color: #977; text-align: center; padding: 8px;  margin: 16px 0; background:#F5EAD7; border: 1px solid #977;}
 
 #side { width: 192px; padding: 0 0 8px 8px; background: #c9d7f1; overflow: auto;  border-top: 1px solid #95b0e4;}
 #side .menu { background: #FFF; padding:0px; margin:8px 0px 0px; border: 2px solid #95b0e4; }
@@ -89,7 +89,7 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 
 #top {height: 24px;}
 #top .menu * { padding: 4px 4px 5px;}
-#top .menu strong { background: #E4EBF8;}
+/*#top .menu strong { background: #E4EBF8;}*/
 #top .menu a.logout {padding: 2px 2px 2px 20px; height:16px; background: url(../images/buttons/logout.png) no-repeat center left;}
 #top #user span { padding-right: 10px; }
 #top #user { float:right; height:24px; margin:4px 0; text-align:right;}
@@ -217,19 +217,20 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 .toolbar ul {padding: 1px;}
 .toolbar ul > li {padding: 2px 0; list-style-type: none; height:16px; margin:2px 0;}
 .toolbar ul > li > a {padding: 2px 2px 2px 20px; height:16px; background: url(../images/template/round.png) no-repeat center left;}
-.toolbar ul > li > a.update    {background: url(../images/buttons/update.png) no-repeat center left;}
-.toolbar ul > li > a.create    {background: url(../images/buttons/create.png) no-repeat center left;}
-.toolbar ul > li > a.sort      {background: url(../images/buttons/sort.png) no-repeat center left;}
-.toolbar ul > li > a.print     {background: url(../images/buttons/print.png) no-repeat center left;}
 .toolbar ul > li > a.backup    {background: url(../images/buttons/right.png) no-repeat center left;}
-.toolbar ul > li > a.export    {background: url(../images/buttons/right.png) no-repeat center left;}
-.toolbar ul > li > a.restore   {background: url(../images/buttons/left.png) no-repeat center left;}
-.toolbar ul > li > a.import    {background: url(../images/buttons/left.png) no-repeat center left;}
+.toolbar ul > li > a.cancel    {background: url(../images/buttons/cancel.png) no-repeat center left;}
 .toolbar ul > li > a.configure {background: url(../images/buttons/configure.png) no-repeat center left;}
+.toolbar ul > li > a.create    {background: url(../images/buttons/create.png) no-repeat center left;}
+.toolbar ul > li > a.export    {background: url(../images/buttons/right.png) no-repeat center left;}
 .toolbar ul > li > a.extract   {background: url(../images/buttons/complete.png) no-repeat center left;}
+.toolbar ul > li > a.import    {background: url(../images/buttons/left.png) no-repeat center left;}
+.toolbar ul > li > a.load      {background: url(../images/buttons/load.png) no-repeat center left;}
 .toolbar ul > li > a.mail      {background: url(../images/buttons/mail.png) no-repeat center left;}
 .toolbar ul > li > a.merge     {background: url(../images/buttons/merge.png) no-repeat center left;}
-.toolbar ul > li > a.cancel    {background: url(../images/buttons/cancel.png) no-repeat center left;}
+.toolbar ul > li > a.print     {background: url(../images/buttons/print.png) no-repeat center left;}
+.toolbar ul > li > a.restore   {background: url(../images/buttons/left.png) no-repeat center left;}
+.toolbar ul > li > a.sort      {background: url(../images/buttons/sort.png) no-repeat center left;}
+.toolbar ul > li > a.update    {background: url(../images/buttons/update.png) no-repeat center left;}
 
 a.more {padding: 2px 2px 2px 16px; height:16px; background: url(../images/buttons/down2.png) no-repeat center left;}
 

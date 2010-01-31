@@ -9,55 +9,16 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
     :profession_id=>:integer, 
     :commercial=>:boolean
   }
-
   def self.change_ids(table, column, conv)
     # Build of CASE WHEN which register all employee_id=>user_id conversion
     casewhen =  "CASE "+conv.collect{|k, v| "WHEN #{column}=#{k} THEN #{v}"}.join(" ")+ " END"
     execute "UPDATE #{table} SET #{column}=#{casewhen}"
   end
   
-  def self.sqlint(val)
-    if val.nil?
-      return " IS NULL"
-    else
-      return "="+val.to_s
-    end
-  end
-
   def self.up
     add_column :users, :deleted_at, :timestamp
     execute "UPDATE users SET deleted_at = updated_at WHERE deleted = #{quoted_true}"
     remove_column :users, :deleted
-
-    add_column :productions, :name, :string
-    execute "UPDATE productions SET name=COALESCE(tracking_serial, 'Production')"
-
-    #rename table product_stocks to stocks
-    rename_table :product_stocks,          :stocks 
-    rename_table :shape_operations,        :operations
-    rename_table :shape_operation_natures, :operation_natures
-    rename_table :shape_operation_lines,   :operation_lines
-    rename_table :stock_trackings,         :trackings
-
-    add_column :stocks,             :name,        :string
-    add_column :operations,         :target_type, :string
-    add_column :operations,         :target_id,   :integer 
-    execute "UPDATE operations SET target_type='Shape', target_id=shape_id"
-    remove_column :operations,      :shape_id
-    rename_column :operation_lines, :shape_operation_id, :operation_id
-    rename_column :tool_uses,       :shape_operation_id, :operation_id
-    add_column :operation_natures, :target_type,  :string
-    execute "UPDATE operation_natures SET target_type='Shape'"
-    
-    add_column :stock_moves, :stock_id, :integer
-    for stock in select_all("SELECT id, location_id AS lid, product_id AS pid, tracking_id AS tid, company_id AS cid FROM stocks")
-      execute "UPDATE stock_moves SET stock_id=#{stock['id']} WHERE location_id#{sqlint(stock['lid'])} AND product_id#{sqlint(stock['pid'])} AND tracking_id#{sqlint(stock['pid'])} AND company_id#{sqlint(stock['cid'])}"
-    end
-    change_column :stock_moves, :quantity, :decimal
-    execute "UPDATE stock_moves SET quantity = CASE WHEN input THEN quantity ELSE -quantity END"
-    remove_column :stock_moves, :input
-      
-
 
     for k, v in COLUMNS.stringify_keys.sort
       add_column :users, k, v
@@ -96,22 +57,28 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
       change_ids(:events,           :employee_id,    employees)
       change_ids(:inventories,      :employee_id,    employees)
       change_ids(:sale_orders,      :responsible_id, employees)
-      change_ids(:operations,       :employee_id,    employees)
+      change_ids(:shape_operations,       :employee_id,    employees)
       change_ids(:transports,       :responsible_id, employees)
     end
+
+    remove_index(:employees, :name => "index_employees_on_company_id")
+    remove_index(:employees, :name => "index_employees_on_updater_id")
+    remove_index(:employees, :name => "index_employees_on_creator_id")
+    remove_index(:employees, :name => "index_employees_on_updated_at")
+    remove_index(:employees, :name => "index_employees_on_created_at")
 
     drop_table :employees
 
     rename_column :entities,    :employee_id, :responsible_id
     rename_column :events,      :employee_id, :user_id    
     rename_column :inventories, :employee_id, :responsible_id
-    rename_column :operations,  :employee_id, :responsible_id
+    rename_column :shape_operations,  :employee_id, :responsible_id
     
     # raise Exception.new("Stop")
   end
 
   def self.down
-    rename_column :operations,  :responsible_id, :employee_id
+    rename_column :shape_operations,  :responsible_id, :employee_id
     rename_column :inventories, :responsible_id, :employee_id
     rename_column :events,      :user_id, :employee_id
     rename_column :entities,    :responsible_id, :employee_id
@@ -137,18 +104,17 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
       t.integer  "profession_id"
       t.boolean  "commercial",                     :default => false, :null => false
     end
-    
-    add_index(:employees, :company_id, :name => "index_employees_on_company_id") rescue nil
-    add_index(:employees, :updater_id, :name => "index_employees_on_updater_id") rescue nil
-    add_index(:employees, :creator_id, :name => "index_employees_on_creator_id") rescue nil
-    add_index(:employees, :updated_at, :name => "index_employees_on_updated_at") rescue nil
-    add_index(:employees, :created_at, :name => "index_employees_on_created_at") rescue nil
+
+    add_index(:employees, :company_id, :name => "index_employees_on_company_id")
+    #add_index(:employees, :updater_id, :name => "index_employees_on_updater_id")
+    #add_index(:employees, :creator_id, :name => "index_employees_on_creator_id")
+    #add_index(:employees, :updated_at, :name => "index_employees_on_updated_at")
+    #add_index(:employees, :created_at, :name => "index_employees_on_created_at")
 
     # Add employees
-    execute "INSERT INTO employees (department_id, establishment_id, user_id, title, last_name, first_name, arrived_on, departed_on, role, office, comment, company_id, created_at, updated_at, profession_id, commercial) "+
-      "SELECT COALESCE(department_id,0), COALESCE(establishment_id,0), id, SUBSTR(COALESCE(employment, '-'), 1, 32), COALESCE(last_name, '-'), COALESCE(first_name, '-'), arrived_on, departed_on, employment, office, comment, company_id, COALESCE(created_at, CURRENT_TIMESTAMP), COALESCE(updated_at, CURRENT_TIMESTAMP), profession_id, commercial FROM users WHERE employed = #{quoted_true}"
+    execute "INSERT INTO employees (department_id, establishment_id, user_id, title, last_name, first_name, arrived_on, departed_on, role, office, comment, company_id, created_at, updated_at, profession_id, commercial) SELECT COALESCE(department_id, 0), COALESCE(establishment_id, 0), id, SUBSTR(COALESCE(employment, '-'), 1, 32), COALESCE(last_name, '-'), COALESCE(first_name, '-'), arrived_on, departed_on, COALESCE(employment, '-'), COALESCE(office, '-'), comment, company_id, COALESCE(created_at, CURRENT_TIMESTAMP), COALESCE(updated_at, CURRENT_TIMESTAMP), profession_id, commercial FROM users WHERE employed = #{quoted_true}"
 
-    puts select_one("SELECT count(*) AS 'x' from employees").inspect
+    puts select_one("SELECT count(*) AS x from employees").inspect
 
     # Get conversion ids
     employees = {}
@@ -162,7 +128,7 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
       change_ids(:events,           :employee_id,    employees)
       change_ids(:inventories,      :employee_id,    employees)
       change_ids(:sale_orders,      :responsible_id, employees)
-      change_ids(:operations,       :employee_id,    employees)
+      change_ids(:shape_operations,       :employee_id,    employees)
       change_ids(:transports,       :responsible_id, employees)
     end
     
@@ -171,29 +137,6 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
     for k, v in COLUMNS.stringify_keys.sort.reverse
       remove_column :users, k
     end
-
-
-    add_column :stock_moves, :input, :boolean, :null=>false, :default=>false
-    execute "UPDATE stock_moves SET input=(quantity>=0), quantity = ABS(quantity)"
-    remove_column :stock_moves, :stock_id
-    
-    remove_column :operation_natures, :target_type
-    rename_column :tool_uses,       :operation_id, :shape_operation_id
-    rename_column :operation_lines, :operation_id, :shape_operation_id
-    add_column    :operations, :shape_id
-    execute "UPDATE operations SET shape_id=target_id WHERE target_type='Shape'"
-    execute "DELETE FROM operations WHERE shape_id IS NULL"
-    remove_column :operations, :target_id
-    remove_column :operations, :target_type
-    remove_column :stocks,     :name
-    
-    rename_table :trackings,         :stock_trackings
-    rename_table :operation_lines,   :shape_operation_lines
-    rename_table :operation_natures, :shape_operation_natures
-    rename_table :operations,        :shape_operations
-    rename_table :stocks,            :product_stocks 
-
-    remove_column :productions, :name
 
     add_column :users, :deleted, :boolean , :null=>false, :default=>false
     execute "UPDATE users SET deleted = #{quoted_true} WHERE deleted_at IS NOT NULL"

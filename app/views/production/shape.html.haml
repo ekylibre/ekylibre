@@ -1,5 +1,4 @@
 =toolbar do |t|
-  -t.link :shapes
   -t.link :shape_update, :id=>@shape.id
 
 %table
@@ -12,4 +11,6 @@
       =evalue @shape, :master
 
 %h2=tc :operations
+=toolbar do |t|
+  -t.link :operation_create, :target_id=>@shape.id, :target_type=>Shape.name
 =dyta(:shape_operations)

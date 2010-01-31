@@ -16,15 +16,15 @@ fr-FR:
           one: '1 événement'
           other: '{{count}} événements'
           zero: 'Aucun événement'
+        operations:
+          one: '1 travail'
+          other: '{{count}} travaux'
+          zero: 'Aucun travail'
         sale_order_create: 'Créer un nouveau devis'
         sale_orders:
           one: '1 vente'
           other: '{{count}} ventes'
           zero: 'Aucune vente'
-        shape_operations:
-          one: '1 traitement'
-          other: '{{count}} traitements'
-          zero: 'Aucun traitement'
         title: 'Employé : {{label}}'
         user_update: 'Modifier la fiche'
       employee_create:

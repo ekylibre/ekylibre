@@ -1,0 +1,15 @@
+=toolbar do |t|
+  - t.link :user_update, :id=>@user.id, :controller=>:company
+
+%table
+  %tr
+    %td
+      =evalue @user, :last_name
+      =evalue @user, :first_name
+      =evalue @user, :name
+      =evalue @user, :commercial
+    %td
+      =evalue @user, :employment
+      =#evalue @user, :profession, :label=>:name
+      =evalue @user, :establishment, :label=>:name
+      =evalue @user, :department, :label=>:name

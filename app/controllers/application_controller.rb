@@ -69,11 +69,11 @@ class ApplicationController < ActionController::Base
   
   def render_form(options={})
     a = action_name.split '_'
-    @operation    = a[-1].to_sym
+    @_operation  = a[-1].to_sym
     @partial = options[:partial]||a[0..-2].join('_')+'_form'
     @options = options
     begin
-      render :template=>options[:template]||'shared/form_'+@operation.to_s
+      render :template=>options[:template]||'shared/form_'+@_operation.to_s
     rescue ActionController::DoubleRenderError
     end
   end
@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
     code = ""
     code+="c=['#{model.table_name}.company_id=?', @current_company.id]\n"
     code+="session[:#{model.name.underscore}_key].to_s.lower.split(/\\s+/).each{|kw| kw='%'+kw+'%';"
-    code+="c[0]+=' AND (#{columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'}.join(' OR ')})';c+=[#{(['kw']*columns.size).join(',')}]}\n"
+    code+="c[0]+=' AND (#{columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS TEXT)) LIKE ?'}.join(' OR ')})';c+=[#{(['kw']*columns.size).join(',')}]}\n"
     code+="c"
     code
   end
@@ -104,6 +104,11 @@ class ApplicationController < ActionController::Base
     record
   end
 
+  # For title I18n : t3e :)
+  def t3e(hash)
+    @title ||= {}
+    hash.each{|k,v| @title[k.to_sym] = v}
+  end
 
 
   private
