@@ -44,7 +44,7 @@
 #  quantity_max           :decimal(16, 4)   default(0.0)
 #  quantity_min           :decimal(16, 4)   default(0.0)
 #  reduction_submissive   :boolean          not null
-#  service_coeff          :float            
+#  service_coeff          :decimal(16, 4)   
 #  shelf_id               :integer          not null
 #  subscription_nature_id :integer          
 #  subscription_period    :string(255)      

@@ -1,5 +1,5 @@
 class CompleteTrackingChain < ActiveRecord::Migration
-  QTY_COLUMNS = [ [:complement_data, :decimal_value], [:deliveries, :weight], [:delivery_lines, :quantity], [:inventory_lines, :quantity], [:inventory_lines, :theoric_quantity], [:invoice_lines, :quantity], [:operations, :consumption], [:operations, :duration], [:operations, :hour_duration], [:operations, :min_duration], [:operation_lines, :quantity], [:operation_lines, :unit_quantity], [:parameters, :decimal_value], [:prices, :quantity_max], [:prices, :quantity_min], [:products, :critic_quantity_min], [:products, :quantity_max], [:products, :quantity_min], [:product_components, :quantity], [:productions, :quantity], [:purchase_order_lines, :quantity], [:sale_order_lines, :quantity], [:shapes, :area_measure], [:stocks, :critic_quantity_min], [:stocks, :quantity], [:stocks, :quantity_max], [:stocks, :quantity_min], [:stocks, :virtual_quantity], [:stock_moves, :quantity], [:subscriptions, :quantity], [:tools, :consumption], [:transports, :weight], [:units, :coefficient], [:units, :start], [:users, :reduction_percent] ]
+  QTY_COLUMNS = [ [:complement_data, :decimal_value], [:deliveries, :weight], [:delivery_lines, :quantity], [:inventory_lines, :quantity], [:inventory_lines, :theoric_quantity], [:invoice_lines, :quantity], [:locations, :quantity_max], [:operations, :consumption], [:operations, :duration], [:operations, :hour_duration], [:operations, :min_duration], [:operation_lines, :quantity], [:operation_lines, :unit_quantity], [:parameters, :decimal_value], [:prices, :quantity_max], [:prices, :quantity_min], [:products, :critic_quantity_min], [:products, :quantity_max], [:products, :quantity_min], [:products, :service_coeff], [:product_components, :quantity], [:productions, :quantity], [:purchase_order_lines, :quantity], [:sale_order_lines, :quantity], [:shapes, :area_measure], [:stocks, :critic_quantity_min], [:stocks, :quantity], [:stocks, :quantity_max], [:stocks, :quantity_min], [:stocks, :virtual_quantity], [:stock_moves, :quantity], [:stock_transfers, :quantity], [:subscriptions, :quantity], [:tools, :consumption], [:transports, :weight], [:units, :coefficient], [:units, :start], [:users, :reduction_percent] ]
 
   def self.sqlint(val)
     if val.nil?
@@ -82,9 +82,13 @@ class CompleteTrackingChain < ActiveRecord::Migration
     end
 
     drop_table :productions
+
+    execute "UPDATE parameters SET name='management.invoices.numeration' where name='management.invoicing.numeration'"
   end
 
   def self.down
+    execute "UPDATE parameters SET name='management.invoicing.numeration' where name='management.invoices.numeration'"
+
     create_table :productions do |t|
       t.integer  "product_id",                                                      :null => false
       t.decimal  "quantity",        :precision => 16, :scale => 4, :default => 0.0, :null => false

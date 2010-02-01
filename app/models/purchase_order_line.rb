@@ -54,7 +54,7 @@ class PurchaseOrderLine < ActiveRecord::Base
   belongs_to :tracking
   belongs_to :unit
 
-  validates_presence_of :amount, :price_id, :account_id
+  validates_presence_of :amount, :price_id
   validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
   validates_uniqueness_of :tracking_serial, :scope=>:price_id
   

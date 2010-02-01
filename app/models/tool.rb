@@ -38,9 +38,11 @@ class Tool < ActiveRecord::Base
   has_many :uses, :class_name=>ToolUse.name
 
   attr_readonly :company_id
+
+  @@natures = [:tractor, :towed, :other] 
   
   def self.natures
-    [:tractor, :towed, :other].collect{|x| [tc('natures.'+x.to_s), x] }
+    @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
   end
   
   def text_nature

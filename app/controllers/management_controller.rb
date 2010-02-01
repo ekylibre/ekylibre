@@ -193,6 +193,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:product
     t.column :shelf_name, :through=>:product, :label=>tc('shelf')
     t.column :quantity, :label=>tc('theoric_quantity')
+    t.column :label, :through=>:unit
     t.textbox :quantity
   end
 
@@ -2545,8 +2546,9 @@ class ManagementController < ApplicationController
     t.column :quantity_max
     t.column :quantity_min
     t.column :critic_quantity_min
-    t.column :virtual_quantity
-    t.column :quantity
+    t.column :virtual_quantity, :precision=>3
+    t.column :quantity, :precision=>3
+    t.column :label, :through=>:unit
   end
 
   dyta(:critic_stocks, :model=>:stocks, :conditions=>['company_id = ? AND virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
@@ -2574,10 +2576,11 @@ class ManagementController < ApplicationController
 
   dyta(:stock_transfers, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :text_nature
-    t.column :name, :through=>:product
+    t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :quantity
-    t.column :name, :through=>:location
-    t.column :name, :through=>:second_location
+    t.column :label, :through=>:unit
+    t.column :name, :through=>:location, :url=>{:action=>:location}
+    t.column :name, :through=>:second_location, :url=>{:action=>:location}
     t.column :planned_on
     t.column :moved_on
     t.action :stock_transfer_update

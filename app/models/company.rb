@@ -611,10 +611,11 @@ class Company < ActiveRecord::Base
 
       company.set_parameter('general.language', language)
       company.departments.create!(:name=>tc('default.department_name'))
-      company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
+      establishment = company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
       currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
       company.shelves.create(:name=>tc('default.shelf_name'))
       company.load_units
+      company.load_sequences
 
       user.reload
       user.attributes = {:employed=>true, :commercial=>true, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :employment=>'-'}
@@ -652,12 +653,9 @@ class Company < ActiveRecord::Base
       company.set_parameter('accountancy.default_journals.purchases', company.journals.create!(:name=>tc('default.journals.purchases'), :nature=>"purchase", :currency_id=>currency.id))
       company.set_parameter('accountancy.default_journals.bank', company.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
 
-      company.set_parameter('management.invoicing.numeration', company.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
-      company.set_parameter('relations.entities.numeration', company.sequences.create!(:name=>tc('default.entities_numeration'), :format=>'[number|8]', :period=>'number'))
-      company.set_parameter('management.embankments.numeration', company.sequences.create!(:name=>tc('default.embankment_numeration'), :format=>'[number|4]', :period=>'year'))
-      company.set_parameter('management.subscriptions.numeration', company.sequences.create!(:name=>tc('default.subscription_numeration'), :format=>'[number|6]', :period=>'number'))
+      company.load_sequences
       
-      company.locations.create!(:name=>tc('default.location'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id)
+      company.locations.create!(:name=>tc('default.location'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id, :establishment_id=>establishment.id)
       company.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))
       company.event_natures.create!(:duration=>10, :usage=>"invoice", :name=>tc(:invoice_creation))
       company.event_natures.create!(:duration=>10, :usage=>"purchase_order", :name=>tc(:purchase_order_creation))
@@ -705,8 +703,14 @@ class Company < ActiveRecord::Base
   end
 
   def load_sequences
-    
-    
+    for part, sequences in tc('default.sequences')
+      for sequence, attributes in sequences
+        if self.parameter("#{part}.#{sequence}.numeration").value.nil?
+          seq = self.sequences.create(attributes)
+          self.set_parameter("#{part}.#{sequence}.numeration", seq) if seq
+        end
+      end
+    end
   end
   
   def import_entities
@@ -720,15 +724,13 @@ class Company < ActiveRecord::Base
     self.entity_natures.create!(:name=>"Société A Responsabilité Limitée", :abbreviation=>"SARL", :in_name=>true)
     last_name = ["MARTIN", "DUPONT", "DURAND", "LABAT", "VILLENEUVE", "SICARD", "FRERET", "FOUCAULT", "DUPEYRON", "BORGÈS", "DUBOIS", "LEROY", "MOREL", "GUERIN", "MORIN", "ROUSSEAU", "LEMAIRE", "DUVAL", "BRUN", "FERNANDEZ", "BRETON", "LEBLANC", "DA SILVA", "CORDIER", "BRIAND", "CAMUS", "VOISIN", "LELIEVRE", "GONZALEZ"]
     first_name = ["Benoît", "Stéphane", "Marine", "Roger", "Céline", "Bertrand", "Camille", "Dominique", "Julie", "Kévin", "Maxime", "Vincent", "Claire", "Marie-France", "Jean-Marie", "Anne-Marie", "Dominique", "Hakim", "Alain", "Daniel", "Sylvie", "Fabrice", "Nathalie", "Véronique", "Jeanine", "Edouard", "Colette", "Sébastien", "Rémi", "Joseph", "Baptiste", "Manuel", "Sofia", "Indira", "Martine", "Guy"]
-    streets = ["Cours Xavier Arnozan", "Cours du général de Gaulle", "Route pavée", "Avenue Thiers", "Rue Gambetta", "5th Avenue", "rue Louis La Brocante", "Rue Léon Blum", "Avenue François Mittérand", "Cours de la marne"]
+    streets = ["Cours Xavier Arnozan", "Cours du général de Gaulle", "Route pavée", "Avenue Thiers", "Rue Gambetta", "5th Avenue", "rue Louis La Brocante", "Rue Léon Blum", "Avenue des Champs Élysées", "Cours de la marne"]
     cities = ["33000 Bordeaux", "33170 Gradignan", "40600 Biscarosse", "33400 Talence", "75001 Paris", "13000 Marseille", "33600 Pessac", "47000 Agen", "33710 Pugnac", "33700 Mérignac", "40000 Mont de Marsan"]
     entity_natures = self.entity_natures.collect{|x| x.id.to_s}
     indifferent_attributes = {:category_id=>self.entity_categories.first.id, :language_id=>self.languages.first.id}
-    products = ["Salades","Bouteille en verre 75 cl","Bouchon liège","Capsule CRD", "Capsule", "Étiquette", "Vin Saint-Emilion 2005", "Caisse Bois 6 btles", "Bouteille Saint-Emilion 2005 75 cl", "Caisse 6 b. Saint-Emilion 2005", "patates", "Séjour 1 nuit", "Séjour 1 semaine 1/2 pension", "Fongicide", "Insecticide"]
+    products = ["Salades","Bouteille en verre 75 cl","Bouchon liège","Capsule CRD", "Capsule", "Étiquette", "Vin Quillet-Bont 2005", "Caisse Bois 6 btles", "Bouteille Quillet-Bont 2005 75 cl", "Caisse 6 b. Quillet-Bont 2005", "patates", "Séjour 1 nuit", "Séjour 1 semaine 1/2 pension", "Fongicide", "Insecticide"]
     shelf_id = self.shelves.first.id
-    unit_id  = self.units.find(:first, :conditions=>{:name=>"u"}).id
     category_id = self.entity_categories.first.id
-    taxes = self.taxes.collect{|x| x.id.to_s}
     
     for x in 0..60
       entity = self.entities.new(indifferent_attributes)
@@ -749,25 +751,49 @@ class Company < ActiveRecord::Base
     
     # charge_account  = self.accounts.find_by_number("60")
     product_account = self.accounts.find_by_number("7")
-    # raise Exception.new(self.accounts.size.inspect+ product_account.inspect)
+    units = self.units.find(:all, :conditions=>"base IS NULL OR base in ('', 'kg', 'm3')")
     for product_name in products
-      product = self.products.create!(:nature=>"product", :name=>product_name, :to_sale=>true, :to_produce=>true, :shelf_id=>shelf_id, :unit_id=>unit_id, :manage_stocks=>true, :weight=>rand(3), :product_account_id=>product_account.id)
+      product = self.products.create!(:nature=>"product", :name=>product_name, :to_sale=>true, :to_produce=>true, :shelf_id=>shelf_id, :unit_id=>units.rand.id, :manage_stocks=>true, :weight=>rand(3), :product_account_id=>product_account.id)
       product.reload
-      product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size).to_i], :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
+      product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>self.taxes.rand.id, :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
     end
     
-    product = self.products.find_by_name("Caisse 6 b. Saint-Emilion 2005")
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille Saint-Emilion 2005 75 cl").id, :quantity=>6, :location_id=>self.locations.first.id)
+    product = self.products.find_by_name("Caisse 6 b. Quillet-Bont 2005")
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille Quillet-Bont 2005 75 cl").id, :quantity=>6, :location_id=>self.locations.first.id)
     self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Caisse Bois 6 btles").id, :quantity=>1, :location_id=>self.locations.first.id)
 
-    product = self.products.find_by_name("Bouteille Saint-Emilion 2005 75 cl")
+    product = self.products.find_by_name("Bouteille Quillet-Bont 2005 75 cl")
     self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouchon liège").id, :quantity=>1, :location_id=>self.locations.first.id)
     self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Étiquette").id, :quantity=>1, :location_id=>self.locations.first.id)
     self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille en verre 75 cl").id, :quantity=>1, :location_id=>self.locations.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Vin Saint-Emilion 2005").id, :quantity=>0.75, :location_id=>self.locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Vin Quillet-Bont 2005").id, :quantity=>0.75, :location_id=>self.locations.first.id)
     self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Capsule CRD").id, :quantity=>1, :location_id=>self.locations.first.id)
     
     self.subscriptions.create!(:nature_id=>self.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>self.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
+    
+    product = self.products.find_by_name("Vin Quillet-Bont 2005")
+    self.locations.create!(:name=>"Cuve Jupiter", :product_id=>product.id, :quantity_max=>1000, :number=>1, :reservoir=>true, :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id, :establishment_id=>self.establishments.first.id)
+
+
+    units = self.units.find(:all, :conditions=>{:base =>'m2'})
+    for shape in ["Milou", "Rantanplan", "Idéfix", "Cubitus", "Snoopy"]
+      self.shapes.create!(:name=>shape, :area_measure=>rand(1000)+10, :area_unit_id=>units.rand.id)
+    end
+    for nature in ["Palissage", "Récolte", "Traitements", "Labour", "Vendange", "Épandange", "Éclaircissage"]
+      self.operation_natures.create!(:name=>nature, :target_type=>"Shape")
+    end
+    for nature in ["Fabrication", "Transformation", "Ouillage"]
+      self.operation_natures.create!(:name=>nature, :target_type=>"Stock")
+    end
+    for tool in ["Tracteur MF", "Renault 50"]
+      self.tools.create!(:name=>tool, :nature=>"tractor")
+    end
+    for tool in ["Semoire en ligne", "Pulvérisateur porté", "Herse rotative", "Charrue"]
+      self.tools.create!(:name=>tool, :nature=>"towed")
+    end
+    for tool in ["Embouteilleuse", "Pétrin"]
+      self.tools.create!(:name=>tool, :nature=>"other")
+    end
   end
 
 

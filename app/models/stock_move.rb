@@ -54,7 +54,7 @@ class StockMove < ActiveRecord::Base
   belongs_to :tracking
   belongs_to :unit
 
-  attr_readonly :company_id
+  attr_readonly :company_id, :virtual
   
   validates_presence_of :generated, :stock_id, :company_id, :product_id, :location_id, :stock_id, :quantity, :unit_id
 
@@ -63,20 +63,24 @@ class StockMove < ActiveRecord::Base
     self.stock = Stock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id})
     self.stock = Stock.create!(:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id) if stock.nil?
     self.unit_id ||= self.product.unit_id if self.product
+    # Add validation on unit correspondance
   end
   
   def before_update
     old_self = self.class.find_by_id(self.id)
     old_stock = Stock.find_by_id(old_self.stock_id)
-    old_stock.decrement!(quantity_column, old_self.quantity)
+    #old_stock.decrement(quantity_column, old_self.quantity)
+    move(-old_self.quantity, old_stock, old_self.unit)
   end
 
   def after_save
-    self.stock.increment!(quantity_column, self.quantity)
+    # self.stock.increment(quantity_column, self.quantity)
+    move
   end
 
   def after_destroy  
-    self.stock.decrement!(quantity_column, self.quantity)
+    # self.stock.decrement(quantity_column, self.quantity)
+    move(-self.quantity)
   end
   
   def self.natures
@@ -92,6 +96,15 @@ class StockMove < ActiveRecord::Base
   end
 
   private
+
+  def move(quantity=nil, stock=nil, unit=nil)
+    quantity ||= self.quantity
+    stock ||= self.stock
+    unit ||= self.unit
+    # Convert to stock unit
+    stock[quantity_column] += quantity * unit.coefficient / stock.unit.coefficient
+    stock.save!
+  end
 
   # Column to use in the product stock can be +:current_virtual_stock+ or +:current_real_stock+
   def quantity_column

@@ -23,7 +23,7 @@ class ProductionController < ApplicationController
   end
 
  
-  dyta(:tools,  :conditions=>{:company_id=>['@current_company.id']}, :order=>"name desc") do |t|
+  dyta(:tools,  :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
     t.column :name, :url=>{:action=>:tool}
     t.column :text_nature
     t.column :consumption

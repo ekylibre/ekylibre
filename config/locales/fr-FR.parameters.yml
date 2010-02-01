@@ -36,7 +36,7 @@ fr-FR:
         days_before_warning_undone: 'Nombre de jours avant de prévenir pour les encaissements non effectués'
         days_before_warning_unvalidated: 'Nombre de jours nécessaire pour pour pouvoir valider une remise de chèque'
         numeration: 'Numérotation des remises de chèques'
-      invoicing:
+      invoices:
         numeration: 'Numérotation des factures'
       payments:
         numeration: 'Numérotation des règlements'

@@ -506,19 +506,7 @@ class CompanyController < ApplicationController
   end
 
   def sequences_load
-    for parameter in @current_company.parameters.find(:all, :conditions=>["record_value_type = 'Sequence' AND record_value_id IS NULL"])
-      #raise Exception.new parameter.inspect
-      if parameter.name.include?("sale_orders")
-        seq = @current_company.sequences.create!(:format=>'[year][month][number|4]', :period=>'month', :name=>I18n::t('parameters.'+parameter.name) )
-      elsif parameter.name.include?("invoicing")
-        seq = @current_company.sequences.create!(:format=>'[year][number|5]', :period=>'year', :name=>I18n::t('parameters.'+parameter.name) )
-      else
-        seq = @current_company.sequences.create!(:format=>'[number|8]', :name=>I18n::t('parameters.'+parameter.name) )
-      end
-      puts seq.inspect
-      parameter.update_attributes!(:record_value_id=>seq.id)
-      puts parameter.inspect
-    end
+    @current_company.load_sequences
     redirect_to_back
   end
 

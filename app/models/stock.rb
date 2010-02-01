@@ -49,8 +49,10 @@ class Stock < ActiveRecord::Base
   belongs_to :unit
   
   attr_readonly :company_id
+  validates_presence_of :unit_id
   
   def before_validation
+    self.unit_id ||= self.product.unit_id
     self.quantity_min = self.product.quantity_min if self.quantity_min.nil?
     self.critic_quantity_min = self.product.critic_quantity_min if self.critic_quantity_min.nil?
     self.quantity_max = self.product.quantity_max if self.quantity_max.nil?

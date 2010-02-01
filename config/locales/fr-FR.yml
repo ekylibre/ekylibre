@@ -196,18 +196,16 @@ fr-FR:
           purchase_order: 'Achat [number]'
           sale_order: 'Vente [number]'
           transport: 'Transport du [created_on]'
-        embankment_numeration: 'Numérotation des remises de chèques'
-        entities_numeration: Numérotation des relations
         establishment_name: Établissement principal
         financialyear_code: 1A2
-        invoicing_numeration: Numérotation des factures
         journals:
           bank: Journal de banque
           sales: Journal des ventes
           purchases: Journals des achats
           purchase_orders: 'Journal d''achats'
           sale_orders: Journal de ventes
-        paid_tax: 'TVA DÉDUCTIBLE'
+        location: Réserve
+        paid_tax: 'TVA déductible'
         price_list_name: Tarif normal
         role:
           name:
@@ -215,9 +213,36 @@ fr-FR:
             public: Public
         sale_order_nature_name: Vente standard
         sample_product_name: Produit Exemple
+        sequences:
+          relations:
+            entities: 
+              name: 'Numérotation des relations'
+              format: '[number|8]'
+          management:
+            invoices:
+              name: 'Numérotation des factures'
+              format: 'F[year|4][number|6]'
+              period: 'year'
+            embankments:
+              name: 'Numérotation des remises de chèques'
+              format: 'B[year|4][number|4]'
+              period: 'year'
+            subscriptions:
+              name: 'Numérotation des abonnements'
+              format: 'ABO[number|8]'
+            payments:
+              name: 'Numérotation des réglements'
+              format: 'R[year|4][number|6]'
+              period: 'year'
+            sale_orders:
+              name: 'Numérotation des ventes'
+              format: 'V[year|4][month|2][number|6]'
+              period: 'month'
+            purchase_orders:
+              name: 'Numérotation des achats'
+              format: 'A[year|4][month|2][number|6]'
+              period: 'month'
         shelf_name: Sans catégorie
-        location: Lieu de stockage par défaut
-        subscription_numeration: 'Numérotation des abonnements'
         taxes: 'Taxes'
         tva000: TVA 0,00%
         tva210: TVA 2,10%
@@ -472,6 +497,7 @@ fr-FR:
       location_can_not_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
       location_can_not_transfer_product: 'Vous ne pouvez pas tranférer le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
       location_can_not_waste_product: 'Vous ne pouvez pas enregistrer de perte pour  le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
+      locations_can_not_be_identical: 'Les lieux de stockage (départ et arrivée) ne peuvent pas être identiques'
       natures:
         transfer: Transfert 
         waste: Perte  

@@ -48,7 +48,7 @@ class Shape < ActiveRecord::Base
 
   def before_validation
     self.master = false if self.master.nil?
-    self.polygon ||= "[NotUsed]"
+    self.polygon ||= "-"
   end
 
 end
