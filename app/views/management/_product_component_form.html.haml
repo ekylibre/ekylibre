@@ -1,4 +1,4 @@
 =formalize do |f|
   - f.field :product_component, :component_id, :choices=>@current_company.available_products.collect{|x| [x.name+" ( "+x.unit.label+" )", x.id]}, :new=>{:action=>:product_create}
   - f.field :product_component, :quantity
-  - f.field :product_component, :location_id, :choices=>@current_company.stock_locations.collect{|x| [x.name, x.id]}
+  - f.field :product_component, :location_id, :choices=>@current_company.locations.collect{|x| [x.name, x.id]}

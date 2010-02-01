@@ -1,6 +1,10 @@
 fr-FR:
   parameters:
     accountancy:
+      major_accounts:
+        charges: Comptes de charges
+        products: Comptes de produits
+
       default_journals:
         bank: 'Journal de banque par défaut'
         purchases: 'Journal des achats par défaut'

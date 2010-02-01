@@ -55,7 +55,7 @@ class ProductionController < ApplicationController
   #   t.column :quantity
   #   # t.column :label, :through=>[:product,:unit]
   #   t.column :moved_on
-  #   t.column :name, :through=>:location, :url=>{:controller=>:management, :action=>:stock_location}
+  #   t.column :name, :through=>:location, :url=>{:controller=>:management, :action=>:location}
   #   t.column :serial, :through=>:tracking
   #   t.action :production_update, :image=>:update
   #   t.action :production_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
@@ -66,9 +66,9 @@ class ProductionController < ApplicationController
   
 
   # def production_create
-  #   if @current_company.stock_locations.empty?
-  #     flash[:warning]=tc(:need_stock_location_to_create_production)
-  #     redirect_to :controller=>:management, :action=>:stock_location_create
+  #   if @current_company.locations.empty?
+  #     flash[:warning]=tc(:need_location_to_create_production)
+  #     redirect_to :controller=>:management, :action=>:location_create
   #   end
   #   @production = Production.new
 
@@ -201,7 +201,7 @@ class ProductionController < ApplicationController
 
   dyta(:operation_lines, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"direction") do |t|
     t.column :direction
-    t.column :name, :through=>:location, :url=>{:controller=>:management, :action=>:stock_location}
+    t.column :name, :through=>:location, :url=>{:controller=>:management, :action=>:location}
     t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
     t.column :quantity
     t.column :label, :through=>:unit
@@ -219,9 +219,8 @@ class ProductionController < ApplicationController
     if request.post?
       @operation = @current_company.operations.new(params[:operation])
       if @operation.save
-        @operation.reload
-        @operation.add_lines(params[:lines])
-        @operation.add_tools(params[:tools])
+        @operation.set_lines(params[:lines].values)
+        @operation.set_tools(params[:tools])
         redirect_to_back
       end
     else
@@ -238,7 +237,8 @@ class ProductionController < ApplicationController
     end
     if request.post?
       if @operation.update_attributes(params[:operation])
-        @operation.add_tools(params[:tools])
+        @operation.set_lines(params[:lines].values)
+        @operation.set_tools(params[:tools])
         redirect_to_back
       end
     end
@@ -258,7 +258,6 @@ class ProductionController < ApplicationController
 
   def operation_line_create
     if request.xhr?
-      @mode = (params[:mode]||"in").to_sym
       render :partial=>'operation_line_row_form'
     else
       redirect_to :action=>:index
@@ -293,8 +292,9 @@ class ProductionController < ApplicationController
     @operations = @current_company.operations.find(:all, :conditions=>{:moved_on=>nil})
     if request.post?
       for id, values in params[:unvalidated_operations]
-        operation = Operation.find_by_id_and_company_id(id, @current_company.id)
-        operation.update_attributes!(:moved_on=>Date.today) if operation and values[:validated].to_i == 1
+        operation = @current_company.operations.find_by_id(id)
+        operation.make(Date.today) if operation and values[:validated].to_i == 1
+        #operation.update_attributes!(:moved_on=>Date.today) if operation and values[:validated].to_i == 1
       end
       redirect_to :action=>:unvalidated_operations
     end

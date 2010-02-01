@@ -1,21 +1,21 @@
 -form_tag() do
-  -for stock_location in @current_company.stock_locations
-    -if stock_location.reservoir
-      %h2= stock_location.name+" : "+tc('reservoir')
+  -for location in @current_company.locations
+    -if location.reservoir
+      %h2= location.name+" : "+tc('reservoir')
     -else 
-      %h2= stock_location.name
+      %h2= location.name
     %table.dyta 
       %tr
         %th= tc('product')
         %th= tc('unit')
         %th= tc('theoric_quantity')
         %th= tc('quantity')
-      - for product_stock in stock_location.product_stocks
+      - for stock in location.stocks
         %tr
-          %td= product_stock.product.name
-          %td= product_stock.product.unit.label
-          %td= product_stock.quantity
-          %td= text_field_tag "product_stock[#{product_stock.id}]", product_stock.quantity, :id=>"product_stock__#{product_stock.id}_quantity"
+          %td= stock.product.name
+          %td= stock.product.unit.label
+          %td= stock.quantity
+          %td= text_field_tag "stock[#{stock.id}]", stock.quantity, :id=>"stock__#{stock.id}_quantity"
 
   .actions
     =link_to tg(:previous), :action=>:inventories

@@ -1,0 +1,22 @@
+= toolbar do
+  - link :location_update, :id=>@location.id
+
+%table
+  %tr
+    %td
+      =evalue @location, :name
+      =evalue @location, :comment
+    %td
+      =evalue @location, :establishment
+      =evalue @location, :x
+      =evalue @location, :y
+      =evalue @location, :z
+    -if @location.reservoir
+      %td
+        =evalue @location, :product, :label=>:name, :url=>{:action=>:product, :id=>@location.product_id}
+        =evalue @location, :number
+        =evalue @location, :quantity_max
+
+=tabbox(:location) do |tb|
+  -tb.tab :stocks, :content=>dyta(:location_stocks)
+  -tb.tab :stock_moves, :content=>dyta(:location_stock_moves)

@@ -215,7 +215,7 @@ module Ekylibre
             code += "end\n"
 
             # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-
+            
             ActionView::Base.send :class_eval, code
 
           end

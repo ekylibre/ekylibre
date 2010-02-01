@@ -1,0 +1,24 @@
+%table
+  %tr
+    %td
+      =evalue @tracking, :name
+      =evalue @tracking, :serial
+    %td
+      =evalue @tracking, :producer, :url=>{:action=>:entity, :controller=>:relations}
+      =evalue @tracking, :product, :url=>{:action=>:product}
+
+-if @tracking.stocks.size > 0
+  %h2=tc(:stocks)
+  =dyta :tracking_stocks
+
+-if @tracking.purchase_order_lines.size > 0
+  %h2=tc(:purchases)
+  =dyta :tracking_purchase_order_lines
+
+-if @tracking.operation_lines.size > 0
+  %h2=tc(:operations)
+  =dyta :tracking_operation_lines
+
+-if @tracking.sale_order_lines.size > 0
+  %h2=tc(:sales)
+  =dyta :tracking_sale_order_lines

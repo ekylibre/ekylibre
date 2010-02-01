@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: stock_locations
+# == Table: locations
 #
 #  account_id       :integer          not null
 #  comment          :text             
@@ -45,7 +45,7 @@
 
 require 'test_helper'
 
-class StockLocationTest < ActiveSupport::TestCase
+class LocationTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   def test_truth
     assert true

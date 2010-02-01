@@ -1,0 +1,20 @@
+=formalize do |f|
+  - f.error :location
+  - f.title :description
+  - f.field :location, :name
+  - locations = @current_company.locations.find(:all, :conditions=>["id!=COALESCE(?,0)", @location.id], :order=>:name)
+  - if locations.size>0
+    - f.field :location, :parent_id, :choices=>locations.collect{|x| [x.name, x.id]}, :options=>{:include_blank=>true}
+  - f.field :location, :comment, :field=>:textarea
+  -if @mode == :reservoir
+    - f.title :reservoir_informations
+    - f.field :location, :product_id, :choices=>@current_company.available_products.collect{|x| [x.name, x.id]}, :new=>{:action=>:product_create}
+    - f.field :location, :quantity_max  
+    - f.field :location, :number
+  - f.title :localization
+  - f.field :location, :establishment_id, :choices=>@current_company.establishments.find(:all, :order=>:name).collect{|x| [x.name, x.id]}
+  - f.field :location, :x
+  - f.field :location, :y
+  - f.field :location, :z
+  - f.title :accountancy
+  - f.field :location, :account_id, :choices=>@current_company.accounts.find(:all, :conditions=>['number LIKE ?','3%'], :order=>:number).collect{|x| [x.label, x.id]}, :options=>{:include_blank_____=>true}

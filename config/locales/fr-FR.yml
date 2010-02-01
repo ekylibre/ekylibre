@@ -216,7 +216,7 @@ fr-FR:
         sale_order_nature_name: Vente standard
         sample_product_name: Produit Exemple
         shelf_name: Sans catégorie
-        stock_location: Lieu de stockage par défaut
+        location: Lieu de stockage par défaut
         subscription_numeration: 'Numérotation des abonnements'
         taxes: 'Taxes'
         tva000: TVA 0,00%
@@ -422,17 +422,17 @@ fr-FR:
       stock_move: '{{origin}} ({{code}})'
     product_component:
       of_product: 'du produit'
-    product_stock:
+    stock:
       label: 'Lot {{tracking}} quantité disponible {{quantity}}'
       no_tracking: 'Aucun lot'
     production: 
-      stock_location_can_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
+      location_can_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
       production: Production
     purchase_order: 
       label: '{{supplier}} à {{address}}' 
       purchase: Achat
     purchase_order_line: 
-      stock_location_can_not_receive_product : 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
+      location_can_not_receive_product : 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
     sale_order:
       label:
         estimate: 'Devis N°{{number}}'
@@ -461,7 +461,7 @@ fr-FR:
       currency_is_not_sale_order_currency: 'Le prix du produit ne correspond pas à la monnaie définie pour la vente'
       error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
       reduction_on: 'Remise de {{percent}}% sur : {{product}}'
-      stock_location_can_not_transfer_product : 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}} '
+      location_can_not_transfer_product : 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}} '
     sequence:
       periods:
         cweek: Semaine
@@ -469,9 +469,9 @@ fr-FR:
         month: Mois
         year: Année
     stock_transfer:
-      stock_location_can_not_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
-      stock_location_can_not_transfer_product: 'Vous ne pouvez pas tranférer le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
-      stock_location_can_not_waste_product: 'Vous ne pouvez pas enregistrer de perte pour  le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
+      location_can_not_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
+      location_can_not_transfer_product: 'Vous ne pouvez pas tranférer le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
+      location_can_not_waste_product: 'Vous ne pouvez pas enregistrer de perte pour  le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
       natures:
         transfer: Transfert 
         waste: Perte  

@@ -100,7 +100,7 @@ class Company < ActiveRecord::Base
   has_many :shapes, :order=>:name
   has_many :shelves
   has_many :stocks
-  has_many :stock_locations
+  has_many :locations
   has_many :stock_moves
   has_many :stock_transfers
   has_many :subscription_natures
@@ -656,7 +656,7 @@ class Company < ActiveRecord::Base
       company.set_parameter('management.embankments.numeration', company.sequences.create!(:name=>tc('default.embankment_numeration'), :format=>'[number|4]', :period=>'year'))
       company.set_parameter('management.subscriptions.numeration', company.sequences.create!(:name=>tc('default.subscription_numeration'), :format=>'[number|6]', :period=>'number'))
       
-      company.stock_locations.create!(:name=>tc('default.stock_location'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id)
+      company.locations.create!(:name=>tc('default.location'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id)
       company.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))
       company.event_natures.create!(:duration=>10, :usage=>"invoice", :name=>tc(:invoice_creation))
       company.event_natures.create!(:duration=>10, :usage=>"purchase_order", :name=>tc(:purchase_order_creation))
@@ -751,15 +751,15 @@ class Company < ActiveRecord::Base
     end
     
     product = self.products.find_by_name("Caisse 6 b. Saint-Emilion 2005")
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille Saint-Emilion 2005 75 cl").id, :quantity=>6, :location_id=>self.stock_locations.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Caisse Bois 6 btles").id, :quantity=>1, :location_id=>self.stock_locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille Saint-Emilion 2005 75 cl").id, :quantity=>6, :location_id=>self.locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Caisse Bois 6 btles").id, :quantity=>1, :location_id=>self.locations.first.id)
 
     product = self.products.find_by_name("Bouteille Saint-Emilion 2005 75 cl")
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouchon liège").id, :quantity=>1, :location_id=>self.stock_locations.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Étiquette").id, :quantity=>1, :location_id=>self.stock_locations.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille en verre 75 cl").id, :quantity=>1, :location_id=>self.stock_locations.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Vin Saint-Emilion 2005").id, :quantity=>0.75, :location_id=>self.stock_locations.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Capsule CRD").id, :quantity=>1, :location_id=>self.stock_locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouchon liège").id, :quantity=>1, :location_id=>self.locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Étiquette").id, :quantity=>1, :location_id=>self.locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille en verre 75 cl").id, :quantity=>1, :location_id=>self.locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Vin Saint-Emilion 2005").id, :quantity=>0.75, :location_id=>self.locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Capsule CRD").id, :quantity=>1, :location_id=>self.locations.first.id)
     
     self.subscriptions.create!(:nature_id=>self.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>self.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
   end

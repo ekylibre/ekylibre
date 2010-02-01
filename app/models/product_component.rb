@@ -42,7 +42,7 @@ class ProductComponent < ActiveRecord::Base
   attr_readonly :company_id, :quantity, :content_id, :package_id, :name, :comment
   belongs_to :company
   belongs_to :component, :class_name=>Product.to_s
-  belongs_to :location, :class_name=>StockLocation.to_s
+  belongs_to :location
   belongs_to :product
 
   def before_validation

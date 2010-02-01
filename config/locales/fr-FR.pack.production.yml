@@ -6,7 +6,7 @@ fr-FR:
       mistake_on_quantities_sum: 'La somme des quantités n''est pas égale à la quantité totale produite'
       moved_on: 'Fait le'
       name: 'Nom'
-      need_stock_location_to_create_production: 'Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions'
+      need_location_to_create_production: 'Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions'
       planned_on: 'Prévu le'
       title: 'Production'
       tools_list: 'Matériel'

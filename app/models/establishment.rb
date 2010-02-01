@@ -36,7 +36,7 @@
 class Establishment < ActiveRecord::Base
   belongs_to :company
   has_many :users
-  has_many :stock_locations
+  has_many :locations
 
   def before_validation
     self.siret = self.company.siren.to_s+self.nic.to_s if self.company

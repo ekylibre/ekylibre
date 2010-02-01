@@ -70,10 +70,11 @@ fr-FR:
       listing: 'Extraction'
       listing_node: 'Noeud d''extraction'
       listing_node_item: 'Élément de noeud d''extraction'
+      location: 'Lieu de stockage'
       mandate: 'Responsabilité'
       observation: 'Observation'
       operation: 'Travail'
-      operation_line: 'Produit de travaux agricoles'
+      operation_line: 'Intrant/sortant'
       operation_nature: 'Type de travail'
       parameter: 'Paramètre'
       payment: 'Réglement'
@@ -94,7 +95,6 @@ fr-FR:
       shape: 'Îlot'
       shelf: 'Catégorie de produit'
       stock: 'Stock de produit'
-      stock_location: 'Lieu de stockage'
       stock_move: 'Mouvement de stock'
       stock_transfer: 'Transfert ou perte de Stock'
       subscription: 'Abonnement'
@@ -119,22 +119,22 @@ fr-FR:
         created_at: 'Créé le'
         creator_id: 'Créateur'
         deleted: 'Effacé'
-        groupable: (((GROUPABLE)))
+        groupable: 'Groupable'
         id: 'ID'
-        is_debit: (((IS_DEBIT)))
-        keep_entries: (((KEEP_ENTRIES)))
+        is_debit: 'Débit'
+        keep_entries: 'Garder les ecritures'
         label: 'Label'
-        last_letter: (((LAST_LETTER)))
+        last_letter: 'Dernière lettre'
         letterable: 'Lettrable'
         lock_version: 'Version'
-        name: 'Intitulé'
+        name: 'Nom'
         number: 'Numéro'
-        parent_id: (((PARENT_ID)))
+        parent_id: 'Parent'
         pointable: 'Pointable'
-        transferable: (((TRANSFERABLE)))
+        transferable: 'Transferable'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
-        usable: (((USABLE)))
+        usable: 'Utilisable'
 
       # Balance de compte
       account_balance:
@@ -143,15 +143,15 @@ fr-FR:
         created_at: 'Créé le'
         creator_id: 'Créateur'
         financialyear_id: 'Exercice'
-        global_balance: (((GLOBAL_BALANCE)))
-        global_count: (((GLOBAL_COUNT)))
-        global_credit: (((GLOBAL_CREDIT)))
-        global_debit: (((GLOBAL_DEBIT)))
+        global_balance: 'Solde global'
+        global_count: 'Population globale'
+        global_credit: 'Crédit global'
+        global_debit: 'Débit global'
         id: 'ID'
-        local_balance: (((LOCAL_BALANCE)))
-        local_count: (((LOCAL_COUNT)))
-        local_credit: (((LOCAL_CREDIT)))
-        local_debit: (((LOCAL_DEBIT)))
+        local_balance: 'Solde'
+        local_count: 'Population'
+        local_credit: 'Crédit'
+        local_debit: 'Débit'
         lock_version: 'Version'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -168,7 +168,7 @@ fr-FR:
         district_id: 'Zone administrative'
         id: 'ID'
         lock_version: 'Version'
-        name: 'Zone Postale'
+        name: 'Nom'
         postcode: 'Code postal'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -199,7 +199,7 @@ fr-FR:
         key: 'Clé RIB'
         lock_version: 'Version'
         mode: 'Mode'
-        name: 'Intitulé'
+        name: 'Nom'
         number: 'Numéro de compte bancaire'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -213,7 +213,7 @@ fr-FR:
         credit: 'Crédit'
         debit: 'Débit'
         id: 'ID'
-        intermediate: (((INTERMEDIATE)))
+        intermediate: 'Intermédiaire'
         lock_version: 'Version'
         number: 'Numéro du relevé de compte'
         started_on: 'Du'
@@ -327,21 +327,21 @@ fr-FR:
         name: 'Nom (interne)'
         nature: 'Type'
         phone: 'Téléphone'
-        started_at: (((STARTED_AT)))
-        stopped_at: (((STOPPED_AT)))
+        started_at: 'Du'
+        stopped_at: 'Au'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
         website: 'Site web'
 
       # Devise
       currency:
-        active: (((ACTIVE)))
+        active: 'Actif'
         code: 'Code'
         comment: 'Commentaire'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        format: (((FORMAT)))
+        format: 'Format'
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
@@ -397,21 +397,21 @@ fr-FR:
 
       # Ligne de livraison
       delivery_line:
-        amount: (((AMOUNT)))
-        amount_with_taxes: (((AMOUNT_WITH_TAXES)))
+        amount: 'Montant HT'
+        amount_with_taxes: 'Montant TTC'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        delivery_id: (((DELIVERY_ID)))
+        delivery_id: 'Livraison'
         id: 'ID'
-        location_id: (((LOCATION_ID)))
+        location_id: 'Lieu de stockage'
         lock_version: 'Version'
-        order_line_id: (((ORDER_LINE_ID)))
-        price_id: (((PRICE_ID)))
+        order_line_id: 'Ligne de vente'
+        price_id: 'Prix'
         product_id: 'Produit'
-        quantity: (((QUANTITY)))
+        quantity: 'Quantité'
         tracking_id: 'Lot'
-        unit_id: (((UNIT_ID)))
+        unit_id: 'Unité'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -437,8 +437,8 @@ fr-FR:
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
-        parent_id: (((PARENT_ID)))
-        sales_conditions: (((SALES_CONDITIONS)))
+        parent_id: 'Parent'
+        sales_conditions: 'Conditions de vente'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -459,37 +459,36 @@ fr-FR:
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        crypt_key: (((CRYPT_KEY)))
-        crypt_mode: (((CRYPT_MODE)))
+        crypt_key: 'Clé de cryptage'
+        crypt_mode: 'Mode de cryptage'
         extension: 'Extension'
-        filename: (((FILENAME)))
-        filesize: (((FILESIZE)))
+        filename: 'Fichier'
+        filesize: 'Taille du fichier'
         id: 'ID'
-        key: '(((KEY)))'
         lock_version: 'Version'
-        nature_code: (((NATURE_CODE)))
-        original_name: (((ORIGINAL_NAME)))
+        nature_code: 'Code'
+        original_name: 'Nom original'
         owner_id: 'Propriétaire'
         owner_type: 'Nature du propriétaire'
-        printed_at: (((PRINTED_AT)))
-        sha256: (((SHA256)))
+        printed_at: 'Imprimé le'
+        sha256: 'SHA256'
         subdir: 'Sous-répertoire'
         template: 'Modèle'
-        template_id: (((TEMPLATE_ID)))
+        template_id: 'Modèle'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
       # Modèle de document
       document_template:
         active: 'Actif'
-        cache: (((CACHE)))
+        cache: 'Cache'
         code: 'Code'
         company_id: 'Société'
         country: 'Pays'
         created_at: 'Créé le'
         creator_id: 'Créateur'
         default: 'Par défaut'
-        deleted: (((DELETED)))
+        deleted: 'Supprimé'
         family: 'Module'
         family_label: 'Module'
         filename: 'Nom de fichier'
@@ -527,7 +526,7 @@ fr-FR:
       # Relation
       entity:
         active: 'Actif'
-        activity_code: (((ACTIVITY_CODE)))
+        activity_code: 'Code d''activité'
         authorized_payments_count: 'Nombre de règlements autorisés'
         born_on: 'Date de naissance'
         category_id: 'Catégorie'
@@ -550,15 +549,15 @@ fr-FR:
         first_name: 'Prénom'
         full_name: 'Nom complet'
         id: 'ID'
-        invoices_count: (((INVOICES_COUNT)))
+        invoices_count: 'Nombre de factures'
         language_id: 'Langue'
         lock_version: 'Version'
         max_reduction_rate: 'Taux de réduction'
         name: 'Nom'
         nature_id: 'Type'
         origin: 'Lieu de la première rencontre'
-        payment_delay_id: (((PAYMENT_DELAY_ID)))
-        payment_mode_id: (((PAYMENT_MODE_ID)))
+        payment_delay_id: 'Délai de paiement'
+        payment_mode_id: 'Mode de réglement'
         payments_number: 'Nombre de paiements'
         photo: 'Photo'
         proposer_id: 'Parrain'
@@ -574,7 +573,7 @@ fr-FR:
         updater_id: 'Modificateur'
         vat_number: 'Numéro de TVA intra-communautaire'
         vat_submissive: 'Soumis à la TVA'
-        webpass: (((WEBPASS)))
+        webpass: 'Mot de passe web'
         website: 'Site Web'
 
       # Catégorie de relation
@@ -603,8 +602,8 @@ fr-FR:
         id: 'ID'
         lock_version: 'Version'
         nature_id: 'Lien'
-        started_on: 'Début'
-        stopped_on: (((STOPPED_ON)))
+        started_on: 'Débute le'
+        stopped_on: 'Fini le'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -635,7 +634,7 @@ fr-FR:
         id: 'ID'
         in_name: 'Abréviation incluse dans le nom de la fiche'
         lock_version: 'Version'
-        name: 'Nom (interne)'
+        name: 'Nom'
         physical: 'Personne physique'
         title: 'Titre'
         updated_at: 'Mis à jour le'
@@ -652,20 +651,20 @@ fr-FR:
         currency_credit: 'Crédit'
         currency_debit: 'Débit'
         currency_id: 'Monnaie'
-        currency_rate: (((CURRENCY_RATE)))
+        currency_rate: 'Taux de change'
         debit: 'Débit'
-        draft: (((DRAFT)))
-        editable: (((EDITABLE)))
-        expired_on: (((EXPIRED_ON)))
+        draft: 'Brouillon'
+        editable: 'Éditable'
+        expired_on: 'Expire le'
         id: 'ID'
-        intermediate_id: (((INTERMEDIATE_ID)))
-        letter: (((LETTER)))
+        intermediate_id: 'Relevé de compte intermédiaire'
+        letter: 'Lettre'
         lock_version: 'Version'
-        name: 'Libellé'
+        name: 'Nom'
         number_account: 'Nber'
-        position: (((POSITION)))
+        position: 'Position'
         record_id: 'Numéro'
-        statement_id: (((STATEMENT_ID)))
+        statement_id: 'Relevé de compte'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -696,14 +695,14 @@ fr-FR:
         nature_id: 'Type'
         reason: 'Motif'
         started_at: 'A débuté le'
-        started_sec: (((STARTED_SEC)))
+        started_sec: 'A débuté le (en secondes)'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
         user_id: 'Intervenant'
 
       # Type d'évènement
       event_nature:
-        active: (((ACTIVE)))
+        active: 'Active'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
@@ -751,14 +750,14 @@ fr-FR:
         created_at: 'Créé le'
         creator_id: 'Créateur'
         id: 'ID'
-        inventory_id: (((INVENTORY_ID)))
+        inventory_id: 'Inventaire'
         location_id: 'Lieu de stockage'
         lock_version: 'Version'
         product_id: 'Produit'
         quantity: 'Quantité constatée'
         theoric_quantity: 'Quantité théorique'
         tracking_id: 'Lot'
-        unit_id: (((UNIT_ID)))
+        unit_id: 'Unité'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -805,19 +804,19 @@ fr-FR:
         created_at: 'Créé le'
         creator_id: 'Créateur'
         credited_quantity: 'Quantité déjà passée en avoir'
-        entity_id: (((ENTITY_ID)))
+        entity_id: 'Relation'
         id: 'ID'
         invoice_id: 'Facture'
-        location_id: (((LOCATION_ID)))
+        location_id: 'Lieu de stockage'
         lock_version: 'Version'
-        order_line_id: (((ORDER_LINE_ID)))
-        origin_id: (((ORIGIN_ID)))
-        position: (((POSITION)))
+        order_line_id: 'Ligne de vente'
+        origin_id: 'Ligne d''origine'
+        position: 'Position'
         price_id: 'Prix HT'
         product_id: 'Produit'
         quantity: 'Quantité'
-        tracking_id: (((TRACKING_ID)))
-        unit_id: (((UNIT_ID)))
+        tracking_id: 'Lot traçable'
+        unit_id: 'Unité'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -826,7 +825,7 @@ fr-FR:
         closed_on: 'Date de clôture'
         code: 'Code'
         company_id: 'Société'
-        counterpart_id: (((COUNTERPART_ID)))
+        counterpart_id: 'Contre-partie'
         created_at: 'Créé le'
         creator_id: 'Créateur'
         currency_id: 'Devise'
@@ -841,23 +840,23 @@ fr-FR:
 
       # Pièce comptable
       journal_record:
-        closed: (((CLOSED)))
+        closed: 'Fermé'
         company_id: 'Société'
         created_at: 'Créé le'
-        created_on: (((CREATED_ON)))
+        created_on: 'Créé le'
         creator_id: 'Créateur'
-        credit: (((CREDIT)))
-        debit: (((DEBIT)))
+        credit: 'Crédit'
+        debit: 'Débit'
         financialyear_id: 'Exercice'
         id: 'ID'
         journal_id: 'Journal'
         lock_version: 'Version'
-        number: (((NUMBER)))
-        position: (((POSITION)))
-        printed_on: (((PRINTED_ON)))
-        resource_id: (((RESOURCE_ID)))
-        resource_type: (((RESOURCE_TYPE)))
-        status: (((STATUS)))
+        number: 'Numéro'
+        position: 'Position'
+        printed_on: 'Datée du'
+        resource_id: 'Origine'
+        resource_type: 'Origine'
+        status: 'État'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -867,11 +866,11 @@ fr-FR:
         created_at: 'Créé le'
         creator_id: 'Créateur'
         id: 'ID'
-        iso2: (((ISO2)))
-        iso3: (((ISO3)))
+        iso2: 'Code ISO 2'
+        iso3: 'Code ISO 3'
         lock_version: 'Version'
-        name: (((NAME)))
-        native_name: (((NATIVE_NAME)))
+        name: 'Nom'
+        native_name: 'Nom natif'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -884,7 +883,7 @@ fr-FR:
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
-        mail: (((MAIL)))
+        mail: 'E-mail'
         name: 'Nom'
         query: 'Requête'
         root_model: 'Racine'
@@ -895,29 +894,27 @@ fr-FR:
 
       # Noeud d'extraction
       listing_node:
-        attribute_name: (((ATTRIBUTE_NAME)))
+        attribute_name: 'Nom de l''attribut'
         company_id: 'Société'
-        comparator: '(((COMPARATOR)))'
-        condition_operator: (((CONDITION_OPERATOR)))
-        condition_value: (((CONDITION_VALUE)))
+        condition_operator: 'Comparateur'
+        condition_value: 'Valeur comparée'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        exportable: (((EXPORTABLE)))
+        exportable: 'Exportable'
         id: 'ID'
-        item_listing_id: (((ITEM_LISTING_ID)))
-        item_listing_node_id: (((ITEM_LISTING_NODE_ID)))
-        item_nature: (((ITEM_NATURE)))
-        item_value: (((ITEM_VALUE)))
-        key: (((KEY)))
-        label: (((LABEL)))
+        item_listing_id: 'Noeud de l''extraction'
+        item_listing_node_id: 'Noeud de l''élément'
+        item_nature: 'Nature de l''élément'
+        item_value: 'Valeur de l''élément'
+        key: 'Clé'
+        label: 'Libellé'
         listing_id: 'Extraction'
         lock_version: 'Version'
         name: 'Nom'
         nature: 'Nature'
-        parent_id: (((PARENT_ID)))
+        parent_id: 'Parent'
         position: 'Position'
-        reflection_name: '(((REFLECTION_NAME)))'
-        sql_type: (((SQL_TYPE)))
+        sql_type: 'Type SQL'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -928,11 +925,35 @@ fr-FR:
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
-        nature: (((NATURE)))
-        node_id: (((NODE_ID)))
+        nature: 'Nature'
+        node_id: 'Noeud'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
-        value: (((VALUE)))
+        value: 'Valeur'
+
+      # Lieu de stockage
+      location:
+        account_id: 'Compte comptable'
+        comment: 'Commentaire'
+        company_id: 'Société'
+        contact_id: 'Adresse'
+        created_at: 'Créé le'
+        creator_id: 'Créateur'
+        establishment_id: 'Établissement'
+        id: 'ID'
+        lock_version: 'Version'
+        name: 'Nom'
+        number: 'Numéro'
+        parent_id: 'Parent'
+        product_id: 'Produit contenu'
+        quantity_max: 'Quantité maximum'
+        reservoir: 'Réservoir'
+        unit_id: 'Unité'
+        updated_at: 'Mis à jour le'
+        updater_id: 'Modificateur'
+        x: 'Position X'
+        y: 'Position Y'
+        z: 'Position Z'
 
       # Responsabilité
       mandate:
@@ -968,7 +989,7 @@ fr-FR:
       # Travail
       operation:
         company_id: 'Société'
-        consumption: (((CONSUMPTION)))
+        consumption: 'Consommation'
         created_at: 'Créé le'
         creator_id: 'Créateur'
         description: 'Description'
@@ -993,9 +1014,9 @@ fr-FR:
         updater_id: 'Modificateur'
         validated: 'Effectué'
 
-      # Produit de travaux agricoles
+      # Intrant/sortant
       operation_line:
-        area_unit_id: (((AREA_UNIT_ID)))
+        area_unit_id: 'Unité de surface'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
@@ -1023,28 +1044,28 @@ fr-FR:
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
-        target_type: (((TARGET_TYPE)))
+        target_type: 'Type de cible'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
       # Paramètre
       parameter:
-        boolean_value: (((BOOLEAN_VALUE)))
+        boolean_value: 'Valeur booléenne'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        decimal_value: (((DECIMAL_VALUE)))
+        decimal_value: 'Valeur décimale'
         id: 'ID'
-        integer_value: (((INTEGER_VALUE)))
+        integer_value: 'Valeur entière'
         lock_version: 'Version'
-        name: (((NAME)))
-        nature: (((NATURE)))
-        record_value_id: (((RECORD_VALUE_ID)))
-        record_value_type: (((RECORD_VALUE_TYPE)))
-        string_value: (((STRING_VALUE)))
+        name: 'Nom'
+        nature: 'Nature'
+        record_value_id: 'Enregistrement'
+        record_value_type: 'Type d''''enregistrement'
+        string_value: 'Valeur textuelle'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
-        user_id: (((USER_ID)))
+        user_id: 'Utilisateur'
 
       # Réglement
       payment:
@@ -1057,7 +1078,7 @@ fr-FR:
         check_number: 'N°Chèque'
         company_id: 'Société'
         created_at: 'Créé le'
-        created_on: (((CREATED_ON)))
+        created_on: 'Créé le'
         creator_id: 'Créateur'
         downpayment: 'Acompte'
         embanker_id: 'Responsable'
@@ -1078,7 +1099,7 @@ fr-FR:
       # Mode de réglement
       payment_mode:
         account_id: 'Compte associé'
-        bank_account_id: (((BANK_ACCOUNT_ID)))
+        bank_account_id: 'Compte bancaire'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
@@ -1086,7 +1107,7 @@ fr-FR:
         lock_version: 'Version'
         mode: 'Mode'
         name: 'Nom'
-        nature: (((NATURE)))
+        nature: 'Nature'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1097,10 +1118,10 @@ fr-FR:
         created_at: 'Créé le'
         creator_id: 'Créateur'
         downpayment: 'Acompte'
-        expense_id: (((EXPENSE_ID)))
-        expense_type: (((EXPENSE_TYPE)))
+        expense_id: 'Dépense'
+        expense_type: 'Type de dépense'
         id: 'ID'
-        invoice_id: (((INVOICE_ID)))
+        invoice_id: 'Facture'
         lock_version: 'Version'
         order_id: 'Vente'
         payment_id: 'Réglement'
@@ -1110,7 +1131,7 @@ fr-FR:
 
       # Prix
       price:
-        active: (((ACTIVE)))
+        active: 'Actif'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
         category_id: 'Catégorie de fiche associée'
@@ -1128,8 +1149,8 @@ fr-FR:
         quantity_max: 'Quantité maximale'
         quantity_min: 'Quantité minimale'
         range: 'Intervalle'
-        started_at: (((STARTED_AT)))
-        stopped_at: (((STOPPED_AT)))
+        started_at: 'Débuté à'
+        stopped_at: 'Fini à'
         tax_id: 'Taxe'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -1137,14 +1158,14 @@ fr-FR:
 
       # Taxe de prix
       price_tax:
-        amount: (((AMOUNT)))
+        amount: 'Montant'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
         id: 'ID'
         lock_version: 'Version'
-        price_id: (((PRICE_ID)))
-        tax_id: (((TAX_ID)))
+        price_id: 'Prix'
+        tax_id: 'Taxe'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1152,7 +1173,6 @@ fr-FR:
       product:
         active: 'Utilisable'
         actual_number: 'Numéro en cours'
-        amount: '(((AMOUNT)))'
         catalog_description: 'Description pour le catalogue'
         catalog_name: 'Nom pour le catalogue'
         charge_account_id: 'Compte comptable de charges'
@@ -1190,7 +1210,7 @@ fr-FR:
         to_rent: 'Produit loué'
         to_sale: 'Produit vendu'
         unit_id: 'Unité de mesure'
-        unquantifiable: (((UNQUANTIFIABLE)))
+        unquantifiable: 'Non quantifiable'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
         weight: 'Poids (kg)'
@@ -1198,7 +1218,7 @@ fr-FR:
 
       # Composant de produit
       product_component:
-        active: (((ACTIVE)))
+        active: 'Actif'
         comment: 'Commentaire'
         company_id: 'Société'
         component_id: 'Produit contenu'
@@ -1210,8 +1230,8 @@ fr-FR:
         name: 'Nom'
         product_id: 'Produit'
         quantity: 'Quantité'
-        started_at: (((STARTED_AT)))
-        stopped_at: (((STOPPED_AT)))
+        started_at: 'Débuté à'
+        stopped_at: 'Fini à'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1262,7 +1282,7 @@ fr-FR:
         account_id: 'Compte de charge utilisé'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
-        annotation: (((ANNOTATION)))
+        annotation: 'Annotation'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
@@ -1290,7 +1310,7 @@ fr-FR:
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
-        rights: (((RIGHTS)))
+        rights: 'Droits'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1321,19 +1341,19 @@ fr-FR:
         id: 'ID'
         introduction: 'Introduction'
         invoice_contact_id: 'Adresse pour la facture'
-        invoiced: (((INVOICED)))
+        invoiced: 'Facturée'
         letter_format: 'Devis au format lettre'
         lock_version: 'Version'
         nature: 'Nature'
         nature_id: 'Nature'
         number: 'Numéro'
-        parts_amount: (((PARTS_AMOUNT)))
+        parts_amount: 'Montant payé'
         payment_delay_id: 'Délai de paiement'
         responsible_id: 'Responsable'
         sale: 'Vente'
         state: 'État'
         subject: 'Objet'
-        sum_method: (((SUM_METHOD)))
+        sum_method: 'Méthode de calcul'
         text_state: 'État'
         transporter_id: 'Transporteur'
         updated_at: 'Mis à jour le'
@@ -1341,27 +1361,27 @@ fr-FR:
 
       # Ligne de vente
       sale_order_line:
-        account_id: (((ACCOUNT_ID)))
+        account_id: 'Compte'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
         annotation: 'Annotation'
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        entity_id: (((ENTITY_ID)))
+        entity_id: 'Relation'
         id: 'ID'
-        invoiced: (((INVOICED)))
+        invoiced: 'Facturée'
         label: 'Produit'
         location_id: 'Lieu de stockage'
         lock_version: 'Version'
-        order_id: (((ORDER_ID)))
-        position: (((POSITION)))
+        order_id: 'Vente'
+        position: 'Position'
         price_amount: 'Montant HT'
         price_id: 'Produit tarifé'
         price_list_id: 'Tarif'
         product_id: 'Produit'
         quantity: 'Quantité'
-        reduction_origin_id: (((REDUCTION_ORIGIN_ID)))
+        reduction_origin_id: 'Ligne soumise à réduction'
         tax_id: 'Taxe'
         tracking_id: 'Lot'
         undelivered_quantity: 'Reste à livrer'
@@ -1396,10 +1416,10 @@ fr-FR:
         creator_id: 'Créateur'
         format: 'Format'
         id: 'ID'
-        last_cweek: (((LAST_CWEEK)))
-        last_month: (((LAST_MONTH)))
+        last_cweek: 'Dernière semaine'
+        last_month: 'Dernier mois'
         last_number: 'Dernier numéro'
-        last_year: (((LAST_YEAR)))
+        last_year: 'Dernière année'
         lock_version: 'Version'
         name: 'Nom'
         number_increment: 'Incrément'
@@ -1422,7 +1442,7 @@ fr-FR:
         master: 'Îlot maître'
         name: 'Nom'
         number: 'Numéro PAC ou numéro de parcelle'
-        parent_id: (((PARENT_ID)))
+        parent_id: 'Parent'
         polygon: 'Coordonnées'
         shape_id: 'Îlot maître'
         updated_at: 'Mis à jour le'
@@ -1440,7 +1460,7 @@ fr-FR:
         lock_version: 'Version'
         name: 'Nom'
         parent: 'Sur-catégorie'
-        parent_id: 'Sur-catégorie'
+        parent_id: 'Parent'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1451,44 +1471,20 @@ fr-FR:
         creator_id: 'Créateur'
         critic_quantity_min: 'Quantité minimum critique'
         id: 'ID'
-        location_id: 'Pour le lieu de stockage'
+        location_id: 'Lieu de stockage'
         lock_version: 'Version'
-        name: (((NAME)))
-        origin_id: (((ORIGIN_ID)))
-        origin_type: (((ORIGIN_TYPE)))
+        name: 'Nom'
+        origin_id: 'Origine'
+        origin_type: 'Type de l''origine'
         product_id: 'Produit'
         quantity: 'Stock réel'
         quantity_max: 'Quantité maximum'
         quantity_min: 'Quantité minimum'
         tracking_id: 'Lot'
-        unit_id: (((UNIT_ID)))
+        unit_id: 'Unité'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
         virtual_quantity: 'Stock virtuel'
-
-      # Lieu de stockage
-      stock_location:
-        account_id: 'Compte comptable'
-        comment: 'Commentaire'
-        company_id: 'Société'
-        contact_id: 'Adresse'
-        created_at: 'Créé le'
-        creator_id: 'Créateur'
-        establishment_id: 'Établissement'
-        id: 'ID'
-        lock_version: 'Version'
-        name: 'Nom'
-        number: 'Numéro'
-        parent_id: 'Lieu de stockage parent'
-        product_id: 'Produit contenu'
-        quantity_max: 'Quantité maximum'
-        reservoir: 'Réservoir'
-        unit_id: (((UNIT_ID)))
-        updated_at: 'Mis à jour le'
-        updater_id: 'Modificateur'
-        x: 'Position X'
-        y: 'Position Y'
-        z: 'Position Z'
 
       # Mouvement de stock
       stock_move:
@@ -1496,21 +1492,21 @@ fr-FR:
         company_id: 'Société'
         created_at: 'Créé le'
         creator_id: 'Créateur'
-        generated: (((GENERATED)))
+        generated: 'Généré'
         id: 'ID'
         input: 'Entrée'
         location_id: 'Lieu de stockage'
         lock_version: 'Version'
         moved_on: 'Fait le'
         name: 'Nom'
-        origin_id: (((ORIGIN_ID)))
-        origin_type: (((ORIGIN_TYPE)))
+        origin_id: 'Origine'
+        origin_type: 'Type de l''origine'
         planned_on: 'Prévu le'
         product_id: 'Produit'
         quantity: 'Quantité'
-        second_location_id: (((SECOND_LOCATION_ID)))
-        second_move_id: (((SECOND_MOVE_ID)))
-        stock_id: (((STOCK_ID)))
+        second_location_id: 'Lieu de stockage du second mouvement'
+        second_move_id: 'Second mouvement'
+        stock_id: 'Stock de produit'
         tracking_id: 'Lot'
         unit_id: 'Unité'
         updated_at: 'Mis à jour le'
@@ -1535,7 +1531,7 @@ fr-FR:
         second_location_id: 'Entrée du lieu de stockage'
         text_nature: 'Type'
         tracking_id: 'Lot'
-        unit_id: (((UNIT_ID)))
+        unit_id: 'Unité'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1593,7 +1589,7 @@ fr-FR:
         created_at: 'Créé le'
         creator_id: 'Créateur'
         deleted: 'Effacé'
-        description: (((DESCRIPTION)))
+        description: 'Description'
         group_name: 'Groupe'
         id: 'ID'
         included: 'Incluse'
@@ -1607,11 +1603,11 @@ fr-FR:
 
       # Déclaration de taxes
       tax_declaration:
-        acquisition_amount: (((ACQUISITION_AMOUNT)))
+        acquisition_amount: 'Montant des acquisition'
         address: 'Adresse du service destinataire'
         amount: 'TVA totale'
         assimilated_taxes_amount: 'Montant des taxes assimilées'
-        balance_amount: (((BALANCE_AMOUNT)))
+        balance_amount: 'Solde'
         collected_amount: 'TVA brute'
         company_id: 'Société'
         created_at: 'Créé le'
@@ -1653,7 +1649,7 @@ fr-FR:
         id: 'ID'
         lock_version: 'Version'
         operation_id: 'Travail'
-        tool_id: (((TOOL_ID)))
+        tool_id: 'Outil'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1677,19 +1673,19 @@ fr-FR:
       transfer:
         accounted: 'Comptabilisé(e)'
         accounted_at: 'Comptabilisé(e) le'
-        amount: (((AMOUNT)))
+        amount: 'Montant'
         comment: 'Commentaire'
         company_id: 'Société'
         created_at: 'Créé le'
-        created_on: (((CREATED_ON)))
+        created_on: 'Créé le'
         creator_id: 'Créateur'
         id: 'ID'
-        label: (((LABEL)))
+        label: 'Libellé'
         lock_version: 'Version'
-        parts_amount: (((PARTS_AMOUNT)))
-        started_on: (((STARTED_ON)))
-        stopped_on: (((STOPPED_ON)))
-        supplier_id: (((SUPPLIER_ID)))
+        parts_amount: 'Montant payé'
+        started_on: 'Débuté le'
+        stopped_on: 'Fini le'
+        supplier_id: 'Fournisseur'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
 
@@ -1719,7 +1715,7 @@ fr-FR:
         id: 'ID'
         label: 'Libellé'
         lock_version: 'Version'
-        name: 'Symbole'
+        name: 'Nom'
         start: 'Valeur à l''origine'
         updated_at: 'Mis à jour le'
         updater_id: 'Modificateur'
@@ -1735,7 +1731,7 @@ fr-FR:
         creator_id: 'Créateur'
         credits: 'Création d''avoirs'
         deleted: 'Effacé'
-        deleted_at: (((DELETED_AT)))
+        deleted_at: 'Supprimé à'
         departed_on: 'Parti le'
         department_id: 'Département'
         email: 'E-mail'
@@ -1751,7 +1747,7 @@ fr-FR:
         last_name: 'Nom'
         lock_version: 'Version'
         locked: 'Compte verrouillé'
-        name: 'Nom d''utilisateur'
+        name: 'Nom'
         office: 'Bureau/Atelier'
         old_password: 'Mot de passe actuel'
         password: 'Mot de passe'

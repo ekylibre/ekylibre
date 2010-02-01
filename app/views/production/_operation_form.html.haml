@@ -14,8 +14,8 @@
   - f.title :products
 =hidden_field_tag "operation[target_type]", Shape.name
 =toolbar do |t|
-  -t.link :in_line_create,  :remote=>true, :url=>{:action=>:operation_line_create, :mode=>:in},  :update=>:lines, :position=>:bottom
-  -t.link :out_line_create, :remote=>true, :url=>{:action=>:operation_line_create, :mode=>:out}, :update=>:lines, :position=>:bottom
+  -t.link :in_line_create,  :remote=>true, :url=>{:action=>:operation_line_create, :direction=>:in},  :update=>:lines, :position=>:bottom
+  -t.link :out_line_create, :remote=>true, :url=>{:action=>:operation_line_create, :direction=>:out}, :update=>:lines, :position=>:bottom
 %table.dyta
   %thead
     %tr
@@ -26,6 +26,9 @@
       %th=OperationLine.human_attribute_name("location_id")
       %th.act
   %tbody#lines
+    -for line in (params[:lines] ? params[:lines].values : @operation.lines)
+      =render :partial=>'operation_line_row_form', :object=>line
+  
   
 
 = formalize do |f|

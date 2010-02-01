@@ -106,7 +106,7 @@ module ApplicationHelper
              {:name=>:payments, :url=>{:action=>:payments, :mode=>:purchase}} ] },
          {:name=>:stocks, :list=>
            [{:name=>:stocks_consult, :url=>{:action=>:stocks}},
-            {:name=>:stock_location, :url=>{:action=>:stock_locations}},
+            {:name=>:location, :url=>{:action=>:locations}},
             {:name=>:stock_transfers},
             {:name=>:inventories}  ] },
          {:name=>:parameters, :list=>
@@ -693,7 +693,7 @@ module ApplicationHelper
       line_code = ''
       case line[:nature]
       when :error
-        line_code += content_tag(:td, error_messages_for(line[:params]),:class=>"error", :colspan=>xcn)
+        line_code += content_tag(:td, error_messages_for(line[:params].to_s),:class=>"error", :colspan=>xcn)
       when :title
         #        reset_cycle "parity"
         if line[:value].is_a? Symbol

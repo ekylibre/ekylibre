@@ -36,13 +36,11 @@
 #
 
 class Transport < ActiveRecord::Base
-
+  attr_readonly :company_id
   belongs_to :company
   belongs_to :responsible, :class_name=>User.name
   belongs_to :transporter, :class_name=>Entity.name
   has_many :deliveries
-
-  attr_readonly :company_id
 
   def before_validation_on_create
     self.created_on ||= Date.today
@@ -71,11 +69,5 @@ class Transport < ActiveRecord::Base
     a
   end
   
-
-
-
-
-
-
 
 end

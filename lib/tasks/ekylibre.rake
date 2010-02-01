@@ -342,7 +342,7 @@ namespace :clean do
 
   desc "Update and sort translation files"
   task :locales => :environment do
-    classicals = {'fr-FR'=>{:company_id=>'Société', :id=>'ID', :lock_version=>'Version', :updated_at=>'Mis à jour le', :updater_id=>'Modificateur', :created_at=>'Créé le', :creator_id=>'Créateur', :comment=>'Commentaire' } }
+    classicals = {'fr-FR'=>{:company_id=>'Société', :id=>'ID', :lock_version=>'Version', :updated_at=>'Mis à jour le', :updater_id=>'Modificateur', :created_at=>'Créé le', :creator_id=>'Créateur', :comment=>'Commentaire', :position=>'Position', :name=>'Nom', :parent_id=>'Parent' } }
     models = Dir["#{RAILS_ROOT}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
     models_names = ''
     models_attributes = ""
@@ -362,7 +362,11 @@ namespace :clean do
         for column in model.camelcase.constantize.columns
           attribute = column.name.to_sym
           trans = classicals[::I18n.locale.to_s][attribute]
-          trans = trans.nil? ? ::I18n.pretranslate("activerecord.attributes.#{model}.#{attribute}") : "'"+trans.gsub("'","''")+"'"
+          pretrans = ::I18n.pretranslate("activerecord.attributes.#{model}.#{attribute}")
+          if trans.nil? and pretrans.match(/^\(\(\(/)
+            trans = attribute.to_s[0..-4].classify.constantize.human_name rescue nil
+          end
+          trans = trans.nil? ? pretrans : "'"+trans.gsub("'","''")+"'"
           attributes[attribute] = trans
         end
         # raise Exception.new attributes.inspect

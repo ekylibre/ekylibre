@@ -4,6 +4,8 @@ accountancy.default_journals.purchases,record,journal
 accountancy.default_journals.bank,record,journal
 accountancy.third_accounts.clients,integer,411
 accountancy.third_accounts.suppliers,integer,401
+accountancy.major_accounts.charges,integer,6
+accountancy.major_accounts.products,integer,7
 accountancy.to_accountancy.automatic,boolean,0
 accountancy.taxes_accounts.acquisition_taxes,integer,4452
 accountancy.taxes_accounts.collected_taxes,integer,44571

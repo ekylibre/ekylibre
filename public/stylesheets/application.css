@@ -327,7 +327,7 @@ input.dyli { background: #FFF url(../images/buttons/previous2.png) right center 
 .tabbox > .tabs > .tab { line-height: 24px; background: #DEF; padding: 4px 6px 3px; margin: 0 4px 0 0; border: 1px solid #AAA; border-bottom: none;}
 .tabbox > .tabs > .tab.current { color: #000; padding: 4px 6px; text-decoration: none; background: #F0F7FF; font-weight: bold;}
 .tabbox > .tabpanels {background: url(../images/template/columns.png) repeat-x scroll center top; border: 1px solid #95b0e4; padding:8px; }
-.tabbox > .tabpanels > .tabpanel { display: none; }
+.tabbox > .tabpanels > .tabpanel { display: none; min-height: 200px; }
 .tabbox > .tabpanels > .tabpanel.current { display: block; }
 
 

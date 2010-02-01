@@ -4,10 +4,10 @@
   - f.field :stock_transfer, :nature, :choices=>StockTransfer.natures, :field=>:radio
 =formalize do |f|
   - f.field :stock_transfer, :product_id, :choices=>@current_company.available_products.collect{|x| [x.name, x.id]}
-  - f.field :stock_transfer, :location_id, :choices=>@current_company.stock_locations.collect{|x| [x.name, x.id]}
+  - f.field :stock_transfer, :location_id, :choices=>@current_company.locations.collect{|x| [x.name, x.id]}
   - f.field :stock_transfer, :quantity
 =formalize(:id=>:transfer) do |f|
-  - f.field :stock_transfer, :second_location_id, :choices=>@current_company.stock_locations.collect{|x| [x.name, x.id]}
+  - f.field :stock_transfer, :second_location_id, :choices=>@current_company.locations.collect{|x| [x.name, x.id]}
 =formalize do |f|
   - f.field :stock_transfer, :planned_on
   - f.field :stock_transfer, :comment, :field=>:textarea

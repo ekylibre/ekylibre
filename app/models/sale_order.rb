@@ -150,22 +150,9 @@ class SaleOrder < ActiveRecord::Base
   def confirm(validated_on=Date.today)
     if self.estimate? and self.confirmed_on.nil?
       for line in self.lines.find(:all, :conditions=>["quantity>0"])
-        line.product.reserve_outgoing_stock(:origin=>self, :planned_on=>self.created_on)
+        line.product.reserve_outgoing_stock(:origin=>line, :planned_on=>self.created_on)
       end
       self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today, :state=>"A")
-    end
-  end
-
-  ## Create the real stock moves when no deliveries are defined (invoice directly)
-  def move_real_stocks
-    if self.deliveries.size > 0
-      for line in self.lines
-        line.product.move_outgoing_stock(:origin=>self, :quantity=>line.undelivered_quantity, :planned_on=>self.created_on)
-      end
-    else
-      for line in self.lines
-        line.product.move_outgoing_stock(:origin=>self, :planned_on=>self.created_on)
-      end
     end
   end
   
@@ -196,19 +183,20 @@ class SaleOrder < ActiveRecord::Base
   def invoice
     self.confirm
     self.reload
-    puts self.undelivered(:amount).inspect+"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
-    #return false if self.undelivered(:amount) > 0
-   # raise Exception.new "3"
-    
+    # Create invoice
     invoice = self.invoices.create!(:company_id=>self.company_id, :nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
     for line in self.lines
       invoice.lines.create!(:company_id=>line.company_id, :order_line_id=>line.id, :amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes, :quantity=>line.quantity)
     end
-    # accountize the matching invoice.
+    # Move real stocks
+    for line in self.lines
+      line.product.move_outgoing_stock(:origin=>line, :quantity=>line.undelivered_quantity, :planned_on=>self.created_on)
+    end
+    # Accountize the invoice
     if self.company.parameter('accountancy.to_accountancy.automatic')
       invoice.to_accountancy if self.company.parameter('accountancy.to_accountancy.automatic').value == true
     end
-    
+    # Update sale_order state
     self.invoiced = true
     self.save!
   end

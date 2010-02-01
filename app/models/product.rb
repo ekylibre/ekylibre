@@ -74,7 +74,7 @@ class Product < ActiveRecord::Base
   has_many :prices
   has_many :purchase_order_lines
   # TODO rename locations to reservoirs
-  has_many :locations, :class_name=>StockLocation.to_s, :conditions=>{:reservoir=>true}
+  has_many :locations, :conditions=>{:reservoir=>true}
   has_many :sale_order_lines
   has_many :stock_moves
   has_many :stock_transfers
@@ -138,7 +138,7 @@ class Product < ActiveRecord::Base
 #   end
 
   def units
-    self.company.units.find(:all, :conditions=>{:base=>self.unit.base})
+    self.company.units.find(:all, :conditions=>{:base=>self.unit.base}, :order=>"coefficient, label")
   end
 
   def has_components?
@@ -195,31 +195,38 @@ class Product < ActiveRecord::Base
 
   # Create real stocks moves to update the real state of stocks
   def move_outgoing_stock(options={})
-    add_stock_move(false, false, options)
+    add_stock_move(options.merge(:virtual=>false, :incoming=>false))
   end
 
   def move_incoming_stock(options={})
-    add_stock_move(false, true, options)
+    add_stock_move(options.merge(:virtual=>false, :incoming=>true))
   end
 
   # Create virtual stock moves to reserve the products
   def reserve_outgoing_stock(options={})
-    add_stock_move(true, false, options)
+    add_stock_move(options.merge(:virtual=>true, :incoming=>false))
   end
 
   def reserve_incoming_stock(options={})
-    add_stock_move(true, true, options)
+    add_stock_move(options.merge(:virtual=>true, :incoming=>true))
+  end
+
+  # Create real stocks moves to update the real state of stocks
+  def move_stock(options={})
+    add_stock_move(options.merge(:virtual=>false))
+  end
+
+  # Create virtual stock moves to reserve the products
+  def reserve_stock(options={})
+    add_stock_move(options.merge(:virtual=>true))
   end
 
 
-
-  private
-  
   # Generic method to add stock move in product's stock
-  def add_stock_move(virtual, incoming, options={})
+  def add_stock_move(options={})
     return true unless self.manage_stocks
-      # :quantity=>quantity, 
-    attributes = options.merge(:virtual=>virtual, :generated=>true, :company_id=>self.company_id)
+    incoming = options.delete(:incoming)
+    attributes = options.merge(:generated=>true, :company_id=>self.company_id)
     origin = options[:origin]
     if origin.is_a? ActiveRecord::Base
       code = [:number, :code, :name, :id].detect{|x| origin.respond_to? x}
@@ -230,6 +237,7 @@ class Product < ActiveRecord::Base
         end
       end
     end
+    attributes[:quantity] = -attributes[:quantity] unless incoming
     attributes[:location_id] ||= self.locations.first.id
     attributes[:planned_on] ||= Date.today
     attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on

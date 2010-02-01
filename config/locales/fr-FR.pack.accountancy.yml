@@ -240,12 +240,12 @@ fr-FR:
         dates: 'Saisissez les dates de début et de fin de la période'
         from: 'Période du'
         to: 'Au'
-      _print_balance_sheet:
-        balance_sheet: 'Sélectionnez l''exercice'
-        select_financialyear: 'Exercice'
       print_balance_sheet:
         period: 'Période'
         title: 'Impression du bilan'
+      _print_balance_sheet:
+        balance_sheet: 'Sélectionnez l''exercice'
+        select_financialyear: 'Exercice'
       print_by_financial_year:
         financial_id: 'Exercice comptable'
         financial_year_select: 'Sélectionnez l''''exercice comptable'

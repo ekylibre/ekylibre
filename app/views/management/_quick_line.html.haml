@@ -3,8 +3,8 @@
   -form_tag(:action=>:sale_order_line_create) do 
     %nobr=tc('product')+" "+select(:sale_order_line, :price_id, @current_company.available_prices.collect{|x| [x.label, x.id]})
     %nobr=tc('quantity')+" "+text_field(:sale_order_line, :quantity, :size=>5, :value=>1.0)
-    -if @current_company.stock_locations.size > 1
-      %nobr=tc('location')+" "+select(:sale_order_line, :location_id, @current_company.stock_locations.collect{|x| [x.name, x.id]})
+    -if @current_company.locations.size > 1
+      %nobr=tc('location')+" "+select(:sale_order_line, :location_id, @current_company.locations.collect{|x| [x.name, x.id]})
     #price_amount{:style=>'display:none'}
       =text_field(:sale_order_line, :price_amount, :value=>0.0)
   
@@ -21,5 +21,5 @@
 
 
 =observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_informations}, :frequency => 0.25, :with=>"sale_order_line_price_id")
--if @current_company.stock_locations.size > 1
+-if @current_company.locations.size > 1
   =observe_field("sale_order_line_location_id", :url=>{:action => :sale_order_line_informations}, :frequency => 0.25, :with=>"sale_order_line_location_id")

@@ -15,6 +15,7 @@ class CompleteTrackingChain < ActiveRecord::Migration
     rename_table :shape_operation_natures, :operation_natures
     rename_table :shape_operation_lines,   :operation_lines
     rename_table :stock_trackings,         :trackings
+    rename_table :stock_locations,         :locations
 
     add_column    :delivery_lines,    :location_id,              :integer
     rename_column :inventory_lines,   :validated_quantity,       :quantity
@@ -75,8 +76,9 @@ class CompleteTrackingChain < ActiveRecord::Migration
     end
 
     for production in select_all("SELECT * from productions")
-      operation_id = insert("INSERT INTO operations (company_id, created_at, creator_id, moved_on, name, planned_on, target_type, target_id, updated_at, updater_id) SELECT company_id, created_at, creator_id, moved_on, COALESCE(tracking_serial, 'Production'), planned_on, 'Shape', shape_id, updated_at, updater_id FROM productions WHERE id=#{id}")
-      insert("INSERT INTO operation_lines (company_id, created_at, creator_id, direction, location_id, operation_id, product_id, quantity, tracking_id, tracking_serial, unit_id, updated_at, updater_id) SELECT company_id, created_at, creator_id, 'out', location_id, #{operation_id}, product_id, quantity, tracking_id, tracking_serial, unit_id, updated_at, updater_id FROM productions WHERE id=#{id}")
+      id = production['id']
+      operation_id = insert("INSERT INTO operations (company_id, created_at, creator_id, moved_on, name, planned_on, responsible_id, started_at, target_type, target_id, updated_at, updater_id) SELECT company_id, created_at, creator_id, moved_on, COALESCE(tracking_serial, 'Production'), planned_on, creator_id, created_at, 'Shape', shape_id, updated_at, updater_id FROM productions WHERE id=#{id}")
+      insert("INSERT INTO operation_lines (company_id, created_at, creator_id, direction, location_id, operation_id, product_id, quantity, tracking_id, tracking_serial, unit_id, updated_at, updater_id) SELECT p.company_id, p.created_at, p.creator_id, 'out', p.location_id, #{operation_id}, p.product_id, p.quantity, p.tracking_id, p.tracking_serial, pc.unit_id, p.updated_at, p.updater_id FROM productions AS p LEFT JOIN products AS pc ON (product_id=p.id) WHERE p.id=#{id}")
     end
 
     drop_table :productions
@@ -88,7 +90,7 @@ class CompleteTrackingChain < ActiveRecord::Migration
       t.decimal  "quantity",        :precision => 16, :scale => 4, :default => 0.0, :null => false
       t.integer  "location_id",                                                     :null => false
       t.date     "planned_on",                                                      :null => false
-      t.date     "moved_on",                                                        :null => false
+      t.date     "moved_on"
       t.integer  "company_id",                                                      :null => false
       t.datetime "created_at",                                                      :null => false
       t.datetime "updated_at",                                                      :null => false
@@ -131,6 +133,7 @@ class CompleteTrackingChain < ActiveRecord::Migration
     rename_column :inventory_lines,   :quantity,         :validated_quantity
     remove_column :delivery_lines,    :location_id
 
+    rename_table :locations,         :stock_locations
     rename_table :trackings,         :stock_trackings
     rename_table :operation_lines,   :shape_operation_lines
     rename_table :operation_natures, :shape_operation_natures

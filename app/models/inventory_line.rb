@@ -40,7 +40,7 @@ class InventoryLine < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :inventory
-  belongs_to :location, :class_name=>StockLocation.name
+  belongs_to :location, :class_name=>Location.name
   belongs_to :product
 
   attr_readonly :company_id

@@ -30,22 +30,24 @@ fr-FR:
       invoice_number: 'Numéro de facture'
       last_payment_amount: 'Montant du dernier réglement'
       last_payment_date: 'Date du dernier réglement'
+      locations:
+        location_create: 'Ajouter un nouveau lieu de stockage'
       messages:
         invoice_already_created: 'La facture de cette livraison a déjà été créée'
+        need_location_to_record_stock_moves: 'Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage.'
         need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
         need_quantities_to_cancel_an_invoice: 'Vous devez spécifier une quantité pour pouvoir faire un avoir'
-        need_stock_location_to_record_stock_moves: 'Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage.'
       mobile: 'Portable'
+      need_location_to_create_purchase_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser un achat'
+      need_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
       need_product_stocks_to_create_inventories: 'Vous devez gérer les stocks d''au moins un produit pour pouvoir créer un inventaire'
-      need_stock_location_to_create_purchase_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser un achat'
-      need_stock_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
       need_stocks_location_to_create_products: 'Vous devez créer un lieu de stockage pour pouvoir créer un produit'
       need_to_create_subscription_nature: 'Vous devez créer un type d''abonnement pour pouvoir gérer vos abonnements'
       new_actual_number: 'Le nouveau numéro en cours est {{value}}'
       no_check_to_embank: 'Aucun chèque à encaisser'
       no_contacts: 'Aucune adresse définie pour {{name}}'
       no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
-      no_stock_location: 'Veuillez créer un lieu de stockage'
+      no_location: 'Veuillez créer un lieu de stockage'
       number: 'Numéro vente'
       order: 'Commande'
       paid_on: 'Réglé le'
@@ -72,8 +74,6 @@ fr-FR:
       sale_order_products: 'Produits commandés'
       scheduled: 'Échéance'
       shelf: 'Catégorie'
-      stock_locations:
-        stock_location_create: 'Ajouter un nouveau lieu de stockage'
       theoric_quantity: 'Quantité théorique'
       title: 'Commerce'
       to_bank_on: 'À encaisser le'
@@ -194,6 +194,7 @@ fr-FR:
         inventories: 'Inventaires'
         invoices: 'Factures'
         invoicing_parameters: 'Facturation'
+        location: 'Lieux de stockage'
         low_stocks: 'Stocks sous le seuil critique'
         nb_enbankments:
           one: '1 remise de chèques à valider'
@@ -229,7 +230,6 @@ fr-FR:
         sales_consult: 'Devis / Commandes'
         shelves: 'Catégories de produit'
         statistics: 'Statistiques'
-        stock_location: 'Lieux de stockage'
         stock_transfers: 'Transferts et pertes'
         stocks: 'Stocks'
         stocks_consult: 'Stocks'
@@ -283,8 +283,31 @@ fr-FR:
         cancelled: 'Passées en avoir'
         credits: 'Avoirs'
         search: 'Rechercher une facture'
+      location:
+        establishment: 'Établissement'
+        location:
+          stock_moves: 'Mouvements de stocks'
+          stocks: 'État des stocks'
+        location_update: 'Modifier le lieu de stockage'
+        locations: 'Voir la liste des lieux de stockage'
+        moves: 'Mouvements de stocks'
+        stock_move_create: 'Ajouter un mouvement de stock'
+        title: 'Détail du lieu de stockage : {{value}}'
       _location_choice:
-        select_stock_location: 'Choississez un lieu de stockage'
+        select_location: 'Choississez un lieu de stockage'
+      location_create:
+        title: 'Ajout d''un lieu de stockage'
+      _location_form:
+        accountancy: 'Comptabilité'
+        description: 'Description générale'
+        localization: 'Localisation géographique'
+        reservoir_informations: 'Informations sur le réservoir'
+      location_update:
+        title: 'Modification d''un lieu de stockage'
+      locations:
+        location_create: 'Ajouter un lieu de stockage'
+        reservoirs_create: 'Ajouter un réservoir'
+        title: 'Lieux de stockage'
       payment:
         payment_update: 'Modifier le réglement'
         purchase_orders: 'Achats liés au réglement'
@@ -365,6 +388,7 @@ fr-FR:
         product:
           components: 'Composants'
           prices: 'Prix'
+          stock_moves: 'Mouvements de stock'
           stocks: 'Stocks'
         product_component_create: 'Ajouter un nouveau composant'
         product_update: 'Modifier la fiche du produit'
@@ -508,13 +532,13 @@ fr-FR:
       _sale_order_line_form:
         free_price: 'Renseignez ces champs si vous souhaitez appliquer un autre prix'
         infos: 'Choississez le produit et la quantité'
-      _sale_order_line_informations:
-        no_tracking: 'Aucun lot'
-        tracking: 'Lot '
       sale_order_line_informations:
         contact: 'à l''adresse'
         from_date: 'Du '
         to_date: 'Au '
+      _sale_order_line_informations:
+        no_tracking: 'Aucun lot'
+        tracking: 'Lot '
       _sale_order_line_stocks:
         line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
       _sale_order_line_tracking:
@@ -629,36 +653,13 @@ fr-FR:
         location: 'Lieu de stockage'
         name: 'Nom'
         quantity: 'Quantité réelle'
-        select_stock_location: 'Sélectionnez un lieu de stockage'
+        select_location: 'Sélectionnez un lieu de stockage'
         stock_max: 'Stock maximum'
         stock_min: 'Stock minimum'
         title: 'État des stocks'
         unit: 'Unité'
         virtual_quantity: 'Quantité virtuelle'
         weight: 'Poids'
-      stock_location:
-        establishment: 'Établissement'
-        location:
-          stock_moves: 'Mouvements de stocks'
-          stocks: 'État des stocks'
-        moves: 'Mouvements de stocks'
-        stock_location_update: 'Modifier le lieu de stockage'
-        stock_locations: 'Voir la liste des lieux de stockage'
-        stock_move_create: 'Ajouter un mouvement de stock'
-        title: 'Détail du lieu de stockage : {{value}}'
-      stock_location_create:
-        title: 'Ajout d''un lieu de stockage'
-      _stock_location_form:
-        accountancy: 'Comptabilité'
-        description: 'Description générale'
-        localization: 'Localisation géographique'
-        reservoir_informations: 'Informations sur le réservoir'
-      stock_location_update:
-        title: 'Modification d''un lieu de stockage'
-      stock_locations:
-        reservoirs_create: 'Ajouter un réservoir'
-        stock_location_create: 'Ajouter un lieu de stockage'
-        title: 'Lieux de stockage'
       stock_move_create:
         title: 'Enregistrement d''un mouvement de stock'
       _stock_move_form:
@@ -679,7 +680,7 @@ fr-FR:
         name: 'Nom'
         no_product_stocks: 'Vous ne gérez aucun stock. Si vous désirez gérer le stock d''un produit, veuillez cocher l''option "Gérer les stocks" lors de la création modification de votre produit.'
         quantity: 'Quantité réelle'
-        select_stock_location: 'Sélectionnez un lieu de stockage'
+        select_location: 'Sélectionnez un lieu de stockage'
         stock_max: 'Stock maximum'
         stock_min: 'Stock minimum'
         title: 'État des stocks'
@@ -714,10 +715,11 @@ fr-FR:
         subscription_nature: 'Type d''abonnement'
         title: 'Abonnements'
       tracking:
-        operations: 'Opérations'
+        operations: 'Travaux'
         productions: 'Productions'
         purchases: 'Achats'
         sales: 'Ventes'
+        stocks: 'État actuel des stocks'
         title: 'Lot {{name}}'
       transport:
         deliveries: 'Livraisons'

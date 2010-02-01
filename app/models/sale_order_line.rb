@@ -51,7 +51,7 @@ class SaleOrderLine < ActiveRecord::Base
   belongs_to :account
   belongs_to :company
   belongs_to :entity
-  belongs_to :location, :class_name=>StockLocation.to_s
+  belongs_to :location
   belongs_to :order, :class_name=>SaleOrder.to_s
   belongs_to :price
   belongs_to :product
@@ -126,7 +126,7 @@ class SaleOrderLine < ActiveRecord::Base
     
     #     if self.location.reservoir && self.location.product_id != self.product_id
     #       check_reservoir = false
-    #       errors.add_to_base(tc(:stock_location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name, :account_id=>0, :unit_id=>self.unit_id) 
+    #       errors.add_to_base(tc(:location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name, :account_id=>0, :unit_id=>self.unit_id) 
     #     end
     #     check_reservoir
   end
@@ -151,7 +151,7 @@ class SaleOrderLine < ActiveRecord::Base
 
   def validate
     if self.location
-      errors.add_to_base(tc(:stock_location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name)) unless self.location.can_receive?(self.product_id)
+      errors.add_to_base(tc(:location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name)) unless self.location.can_receive?(self.product_id)
       if self.tracking
         stock = self.company.stocks.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :tracking_id=>self.tracking_id})
         errors.add_to_base(tc(:can_not_use_this_tracking, :name=>self.tracking.name)) if stock and stock.virtual_quantity < self.quantity

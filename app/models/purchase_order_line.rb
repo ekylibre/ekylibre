@@ -50,7 +50,7 @@ class PurchaseOrderLine < ActiveRecord::Base
   belongs_to :order, :class_name=>PurchaseOrder.name
   belongs_to :price
   belongs_to :product
-  belongs_to :location, :class_name=>StockLocation.name
+  belongs_to :location, :class_name=>Location.name
   belongs_to :tracking
   belongs_to :unit
 
@@ -61,9 +61,16 @@ class PurchaseOrderLine < ActiveRecord::Base
   def before_validation
     self.company_id = self.order.company_id if self.order
     check_reservoir = true
-    self.location_id = self.company.stock_locations.first.id if self.company.stock_locations.size == 1
+    self.location_id = self.company.locations.first.id if self.company.locations.size == 1
     if self.price
-      self.account_id = self.price.product.charge_account_id
+      product = self.price.product
+      if product.charge_account.nil?
+        account_number = self.company.parameter("accountancy.major_accounts.charges").value
+        product.charge_account = self.company.accounts.find_by_number(account_number.to_s)
+        product.charge_account = self.company.accounts.create!(:number=>account_number.to_s, :name=>::I18n.t('parameters.accountancy.major_accounts.charges')) if product.charge_account.nil?
+        product.save!
+      end
+      self.account_id = product.charge_account_id
       self.unit_id = self.price.product.unit_id
       self.product_id = self.price.product_id
       self.amount = (self.price.amount*self.quantity).round(2)
@@ -72,7 +79,7 @@ class PurchaseOrderLine < ActiveRecord::Base
     if self.location
       if self.location.reservoir && self.location.product_id != self.product_id
         check_reservoir = false
-        errors.add_to_base(tc(:stock_location_can_not_receive_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) 
+        errors.add_to_base(tc(:location_can_not_receive_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) 
       end
     end
 

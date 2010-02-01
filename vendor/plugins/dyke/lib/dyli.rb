@@ -110,9 +110,8 @@ module Ekylibre
         # Acts like select_tag
         def dyli_tag(name_html, name_db, options={}, tag_options={}, completion_options={})
           tf_name  = "#{name_db}[search]"
-          tf_value = nil
           hf_name  = "#{name_html}"
-          hf_value = nil
+          tf_value, hf_value = nil, nil
           options  = {:action => "#{name_db}_dyli"}.merge(options)
           if options[:value].is_a? ActiveRecord::Base
             foreign = options[:value]

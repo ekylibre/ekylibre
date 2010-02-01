@@ -42,19 +42,20 @@
 class OperationLine < ActiveRecord::Base
   belongs_to :area_unit, :class_name=>Unit.name
   belongs_to :company
-  belongs_to :location, :class_name=>StockLocation.name
+  belongs_to :location, :class_name=>Location.name
   belongs_to :operation
   belongs_to :product
   belongs_to :tracking
   belongs_to :unit
 
+  # IN operation.target or OUT of operation.target
   @@directions = ["in", "out"]
   validates_inclusion_of :direction, :in => @@directions
 
   def before_validation
     self.direction = @@directions[0] unless @@directions.include? self.direction
     self.quantity = self.quantity.to_f
-    self.unit_id ||= self.product.unit_id
+    self.unit_id ||= self.product.unit_id if self.product
 
     if self.operation
       self.company_id = self.operation.company_id
@@ -82,11 +83,40 @@ class OperationLine < ActiveRecord::Base
     end
   end
 
+  # Cancel last stock_move
+  def before_update
+    old_self = self.class.find(self.id)
+    # self.product.add_stock_move(:virtual=>true, :incoming=>!self.out?, :origin=>old_self)
+    self.product.reserve_stock(:incoming=>!self.out?, :origin=>old_self)
+  end
+
+  # Add virtual move
+  def after_save
+    # self.product.add_stock_move(:virtual=>true, :incoming=>self.out?, :origin=>self)
+    self.product.reserve_stock(:incoming=>self.out?, :origin=>self)
+  end
+
+  def after_destroy
+    # self.product.add_stock_move(:virtual=>true, :incoming=>!self.out?, :origin=>self)
+    self.product.reserve_stock(:incoming=>!self.out?, :origin=>self)
+  end
+
+
+  # Classic methods
+
+  def in?
+    self.direction == "in"
+  end
+
+  def out?
+    self.direction == "out"
+  end
+
   def density_label
     if self.unit_quantity.nil? or self.area_unit.nil?
       "-"
     else
-      tc("density_label", :value=>self.unit_quantity, :area_unit=>self.area_unit.label, :product_unit=>self.unit.label)
+      tc("density_label", :value=>self.unit_quantity, :area_unit=>self.area_unit.name, :product_unit=>self.unit.name)
     end
   end
 

@@ -59,7 +59,7 @@ class Contact < ActiveRecord::Base
   has_many :deliveries
   has_many :invoices
   has_many :purchase_orders
-  has_many :stock_locations
+  has_many :locations
   has_many :subscriptions
 
   # belongs_to :element, :polymorphic=> true

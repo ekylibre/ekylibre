@@ -13,12 +13,12 @@
       %td= @component.component.unit.label
       %td= @component.quantity
       %td= @component.quantity*@production.quantity
-      -for @stock_location in @current_company.stock_locations
+      -for @location in @current_company.locations
         %tr
           %td{:style=>'width:20px'}
-          %td{:colspan=>3}= @stock_location.name
+          %td{:colspan=>3}= @location.name
           %td
-            -if @component.location_id == @stock_location.id
-              =text_field_tag "component[#{@component.id}][#{@stock_location.id}]",@component.quantity*@production.quantity , :id=>"component_#{@component.id}_#{@stock_location.id}"
+            -if @component.location_id == @location.id
+              =text_field_tag "component[#{@component.id}][#{@location.id}]",@component.quantity*@production.quantity , :id=>"component_#{@component.id}_#{@location.id}"
             -else
-              =text_field_tag "component[#{@component.id}][#{@stock_location.id}]", 0 , :id=>"component_#{@component.id}_#{@stock_location.id}"
+              =text_field_tag "component[#{@component.id}][#{@location.id}]", 0 , :id=>"component_#{@component.id}_#{@location.id}"

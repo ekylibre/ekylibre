@@ -47,64 +47,55 @@
 
 class StockMove < ActiveRecord::Base
   belongs_to :company
-  belongs_to :location, :class_name=>StockLocation.to_s
+  belongs_to :location
   belongs_to :origin, :polymorphic=>true
   belongs_to :product
   belongs_to :stock
   belongs_to :tracking
   belongs_to :unit
 
-  attr_readonly :company_id, :product_id, :location_id, :tracking_id, :stock_id, :quantity
+  attr_readonly :company_id
   
-  validates_presence_of :generated, :stock_id
+  validates_presence_of :generated, :stock_id, :company_id, :product_id, :location_id, :stock_id, :quantity, :unit_id
 
   def before_validation
+    self.generated = false if self.generated.nil?
     self.stock = Stock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id})
     self.stock = Stock.create!(:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id) if stock.nil?
-    self.generated = false if self.generated.nil?
-    self.unit_id = self.product.unit_id if self.product and self.unit.nil?
-  end
-
-  def before_create
-    self.stock.increment!(column, self.quantity)
+    self.unit_id ||= self.product.unit_id if self.product
   end
   
-
   def before_update
-    old_move = StockMove.find_by_id_and_company_id(self.id, self.company_id)
-    old_product_stock = ProductStock.find(:first,:conditions=>{:product_id=>old_move.product_id, :location_id=>old_move.location_id, :company_id=>self.company_id})
-    product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id})
-    product_stock = ProductStock.create!(:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id) if product_stock.nil?
-    if old_move.location_id != self.location_id
-      product_stock.increment!(column, direction*self.quantity)
-      old_product_stock.decrement!(column, direction*old_move.quantity)
-    else
-      #raise Exception.new self.quantity.to_s+"  "+old_move.inspect+"  "+old_move.quantity.to_s+"                 "+product_stock.inspect
-      product_stock.increment!(column, direction*(self.quantity - old_move.quantity))
-    end
+    old_self = self.class.find_by_id(self.id)
+    old_stock = Stock.find_by_id(old_self.stock_id)
+    old_stock.decrement!(quantity_column, old_self.quantity)
   end
 
-  def before_destroy  
-    product_stock = ProductStock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id})
-    product_stock.decrement!(column, direction*self.quantity)
+  def after_save
+    self.stock.increment!(quantity_column, self.quantity)
   end
-  
+
+  def after_destroy  
+    self.stock.decrement!(quantity_column, self.quantity)
+  end
   
   def self.natures
     [:virtual, :real].collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
+  def state
+    if self.quantity > 0
+      "notice"
+    elsif self.quantity < 0
+      "error"
+    end
+  end
 
   private
 
   # Column to use in the product stock can be +:current_virtual_stock+ or +:current_real_stock+
-  def column
-    "current_"+(self.virtual ? 'virtual' : 'real')+"_quantity"
-  end
-
-  # Returns 1 if the stock move is an input and -1 if the stock move is an output.
-  def direction
-    (self.input ? 1 : -1)
+  def quantity_column
+    (self.virtual ? 'virtual_' : '')+"quantity"
   end
 
 end

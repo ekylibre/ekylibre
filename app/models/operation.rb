@@ -49,8 +49,8 @@ class Operation < ActiveRecord::Base
   belongs_to :nature, :class_name=>OperationNature.name
   belongs_to :responsible, :class_name=>User.name
   belongs_to :target, :polymorphic=>true
-  has_many :tool_uses
-  has_many :lines, :class_name=>OperationLine.name
+  has_many :tool_uses, :dependent=>:destroy
+  has_many :lines, :class_name=>OperationLine.name, :dependent=>:destroy
   has_many :tools, :through=>:tool_uses
 
   attr_readonly :company_id
@@ -63,12 +63,10 @@ class Operation < ActiveRecord::Base
     self.duration = (self.min_duration.to_i + (self.hour_duration.to_i)*60 )
   end
 
-  def before_destroy
-    self.tool_uses.destroy_all if self.tool_uses
-  end
-
-  def add_tools(tools)
-    self.tool_uses.destroy_all if self.tool_uses
+  def set_tools(tools)
+    # Reinit tool uses
+    self.tool_uses.clear
+    # Add new tools
     unless tools.nil?
       tools.each do |tool|
         self.company.tool_uses.create!(:operation_id=>self.id, :tool_id=>tool[0].to_i)
@@ -79,13 +77,27 @@ class Operation < ActiveRecord::Base
     self.save
   end
 
-  def add_lines(lines)
-    for key, attributes in lines
-      self.lines.create!(attributes)
+
+  # Set all the lines in one time 
+  def set_lines(lines)
+    # Reinit stock if existing lines
+    self.lines.clear
+    # Reload (new) values
+    for line in lines
+      self.lines.create!(line)
     end
     return true
   end
 
+  def make(made_on)
+    ActiveRecord::Base.transaction do
+      for line in lines
+        # line.product.add_stock_move(:virtual=>false, :incoming=>line.out?, :origin=>line)
+        line.product.move_stock(:incoming=>line.out?, :origin=>line)
+      end
+      self.update_attributes!(:moved_on=>made_on) 
+    end
+  end
 
 end
 
@@ -96,7 +108,7 @@ end
 #   attr_readonly :company_id, :product_id
 #   belongs_to :company
 #   belongs_to :product
-#   belongs_to :location, :class_name=>StockLocation.to_s
+#   belongs_to :location
 #   belongs_to :tracking
 #   has_one :real_stock_move, :class_name=>StockMove.name,  :conditions=>{:virtual=>false,  :input=>true}
 #   has_one :virtual_stock_move, :class_name=>StockMove.name, :conditions=>{:virtual=>true, :input=>true}
@@ -104,8 +116,8 @@ end
 #   def before_validation
 #     self.planned_on = Date.today
 #     self.moved_on = Date.today
-#     stock_locations = StockLocation.find_all_by_company_id(self.company_id)
-#     self.location_id = stock_locations[0].id if stock_locations.size == 1 and self.location_id.nil?
+#     locations = Location.find_all_by_company_id(self.company_id)
+#     self.location_id = locations[0].id if locations.size == 1 and self.location_id.nil?
 
 #     self.tracking_serial = self.tracking_serial.strip
 #     unless self.tracking_serial.blank?
@@ -126,7 +138,7 @@ end
 #     unless self.tracking_serial.blank?
 #       errors.add(:tracking_serial, tc(:is_already_used_with_an_other_product)) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
 #     end
-#     errors.add_to_base(tc(:stock_location_can_receive_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name)) unless self.location.can_receive(self.product_id)
+#     errors.add_to_base(tc(:location_can_receive_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name)) unless self.location.can_receive(self.product_id)
 #   end
 
  

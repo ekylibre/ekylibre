@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: stock_locations
+# == Table: locations
 #
 #  account_id       :integer          not null
 #  comment          :text             
@@ -43,16 +43,16 @@
 #  z                :string(255)      
 #
 
-class StockLocation < ActiveRecord::Base
+class Location < ActiveRecord::Base
   belongs_to :account
   belongs_to :company
   belongs_to :contact
   belongs_to :establishment
   belongs_to :product
-  has_many :product_stocks, :foreign_key=>:location_id
+  has_many :stocks, :foreign_key=>:location_id
   has_many :purchase_order_lines
   has_many :sale_order_lines
-  has_many :stock_locations
+  has_many :locations
   has_many :stock_moves
   has_many :stock_transfers
 
@@ -66,26 +66,17 @@ class StockLocation < ActiveRecord::Base
   def before_validation_on_create
     self.reservoir = true if !self.product_id.nil?
   end
-
-  def before_validation
-   #  if self.reservoir
-#       product_stock = ProductStock.find(:first, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.id}) 
-#       if !product_stock.nil?
-#         self.product_id = nil if product_stock.quantity == 0
-#       end
-   # end
-  end
   
   def can_receive?(product_id)
     #raise Exception.new product_id.inspect+self.reservoir.inspect
     reception = true
     if self.reservoir 
-      product_stock = ProductStock.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.id}) 
-      if !product_stock[0].nil?
-        reception = (self.product_id == product_id || product_stock[0].quantity <= 0)
-        self.update_attributes!(:product_id=>product_id) if product_stock[0].quantity <= 0
-        #if product_stock[0].quantity <= 0
-        for ps in product_stock
+      stock = Stock.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :location_id=>self.id}) 
+      if !stock[0].nil?
+        reception = (self.product_id == product_id || stock[0].quantity <= 0)
+        self.update_attributes!(:product_id=>product_id) if stock[0].quantity <= 0
+        #if stock[0].quantity <= 0
+        for ps in stock
           ps.destroy if ps.product_id != product_id and ps.quantity <=0
         end
         #end

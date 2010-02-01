@@ -1,6 +1,6 @@
 =formalize do |f|
   - f.error :product
-  - f.error :product_stock
+  - f.error :stock
   - f.title :identification
   - f.field :product, :name
   - f.field :product, :code
@@ -29,11 +29,11 @@
   - f.field :product, :manage_stocks
 =formalize(:id=>:stocks) do |f|
   - f.title :stocks
-  - f.field :product_stock, :quantity_min
-  - f.field :product_stock, :critic_quantity_min
-  - f.field :product_stock, :quantity_max
-  - if @stock_locations.size > 1
-    - f.field :product_stock, :location_id, :choices=>@stock_locations.collect{|x| [x.name, x.id]}
+  - f.field :stock, :quantity_min
+  - f.field :stock, :critic_quantity_min
+  - f.field :stock, :quantity_max
+  - if @locations.size > 1
+    - f.field :stock, :location_id, :choices=>@locations.collect{|x| [x.name, x.id]}
 =formalize do |f|
   -# f.field :product, :comment
 =formalize do |f|
@@ -45,7 +45,7 @@
 =#observe_field("product_name", :frequency =>0.25, :function => "var cn = $('product_catalog_name'); cn.value = value;")
 =observe_field("product_nature_service", :frequency =>0.25, :function => "display_service_coeff(element);" )
 -if request.url.to_s.include? "update"
-  =observe_field("product_stock_location_id", :url=>{:action=>:change_quantities}, :frequency=>0.25, :with=>"product_stock_location_id")
+  =observe_field("location_id", :url=>{:action=>:change_quantities}, :frequency=>0.25, :with=>"location_id")
 
 :javascript
   function subscription(){

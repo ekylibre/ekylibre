@@ -42,7 +42,6 @@ class Tracking < ActiveRecord::Base
   has_many :delivery_lines
   has_many :inventory_lines
   has_many :stocks
-  has_many :productions
   has_many :purchase_order_lines
   has_many :sale_order_lines
   has_many :operation_lines
@@ -62,7 +61,7 @@ class Tracking < ActiveRecord::Base
 
   def after_update
     # Update tracking_serial columns through all the database
-    Production.update_all({:tracking_serial=>self.serial}, {:tracking_id=>self.id})
+    OperationLine.update_all({:tracking_serial=>self.serial}, {:tracking_id=>self.id})
     PurchaseOrderLine.update_all({:tracking_serial=>self.serial}, {:tracking_id=>self.id})
   end
 

@@ -33,5 +33,5 @@
 - form_tag do
   .actions
     =link_to tg(:previous), :action=>:purchase_orders
-    - if @purchase_order.shipped == false
+    - unless @purchase_order.shipped
       =submit_tag(tc('validate'), :action=>:purchase_order_lines) if @purchase_order.lines.size>0
