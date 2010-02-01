@@ -76,6 +76,7 @@ class Company < ActiveRecord::Base
   has_many :listings
   has_many :listing_nodes
   has_many :listing_node_items
+  has_many :locations
   has_many :mandates
   has_many :observations
   has_many :operation_natures
@@ -100,7 +101,6 @@ class Company < ActiveRecord::Base
   has_many :shapes, :order=>:name
   has_many :shelves
   has_many :stocks
-  has_many :locations
   has_many :stock_moves
   has_many :stock_transfers
   has_many :subscription_natures
@@ -651,6 +651,7 @@ class Company < ActiveRecord::Base
       company.set_parameter('accountancy.default_journals.sales', company.journals.create!(:name=>tc('default.journals.sales'), :nature=>"sale", :currency_id=>currency.id))
       company.set_parameter('accountancy.default_journals.purchases', company.journals.create!(:name=>tc('default.journals.purchases'), :nature=>"purchase", :currency_id=>currency.id))
       company.set_parameter('accountancy.default_journals.bank', company.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
+
       company.set_parameter('management.invoicing.numeration', company.sequences.create!(:name=>tc('default.invoicing_numeration'), :format=>'F[year][month|2][number|6]', :period=>'month'))
       company.set_parameter('relations.entities.numeration', company.sequences.create!(:name=>tc('default.entities_numeration'), :format=>'[number|8]', :period=>'number'))
       company.set_parameter('management.embankments.numeration', company.sequences.create!(:name=>tc('default.embankment_numeration'), :format=>'[number|4]', :period=>'year'))
@@ -701,6 +702,11 @@ class Company < ActiveRecord::Base
         self.units.create(:name=>name.to_s, :label=>tc('default.units.'+name.to_s), :base=>desc[:base], :coefficient=>desc[:coefficient], :start=>desc[:start])
       end
     end
+  end
+
+  def load_sequences
+    
+    
   end
   
   def import_entities
