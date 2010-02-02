@@ -43,12 +43,24 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
 
     employees = {}
     for employee in select_all("SELECT * FROM employees")
+      updates = []
       hash = {}
-      COLUMNS.each{|k,v| hash[k] = employee[k.to_s]}
-      hash[:employed] = true
-      hash[:employment] = employee['role']
+      COLUMNS.each do |k,v| 
+        updates << k.to_s+"="+if v == :boolean
+                                ['1', 't', 'T', 'true'].include?(employee[k]) ? quoted_true : quoted_false
+                              elsif v == :integer
+                                employee[k].to_s
+                              else 
+                                quote(employee[k])
+                              end
+        # hash[k] = employee[k.to_s]}
+      end
+      updates << "employed=#{quoted_true}"
+      updates << "employment="+quote(employee['role'])
+      #hash[:employed] = true
+      #hash[:employment] = employee['role']
       # puts hash.inspect
-      User.update_all(hash, {:id=>employee['user_id']})
+      execute "UPDATE users SET #{updates.join(', ')} WHERE id=#{employee['user_id']}"
       employees[employee['id'].to_s] = employee['user_id']
     end
 
