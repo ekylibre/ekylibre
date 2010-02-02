@@ -119,6 +119,7 @@ class Company < ActiveRecord::Base
   # Specifics
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
+  has_many :embankable_payments, :class_name=>Payment.name, :conditions=>{:embankment_id=>nil}
 
   attr_readonly :code
 
@@ -772,7 +773,7 @@ class Company < ActiveRecord::Base
     self.subscriptions.create!(:nature_id=>self.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>self.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
     
     product = self.products.find_by_name("Vin Quillet-Bont 2005")
-    self.locations.create!(:name=>"Cuve Jupiter", :product_id=>product.id, :quantity_max=>1000, :number=>1, :reservoir=>true, :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id, :establishment_id=>self.establishments.first.id)
+    self.locations.create!(:name=>"Cuve Jupiter", :product_id=>product.id, :quantity_max=>1000, :number=>1, :reservoir=>true, :account_id=>self.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id, :establishment_id=>self.establishments.first.id)
 
 
     units = self.units.find(:all, :conditions=>{:base =>'m2'})

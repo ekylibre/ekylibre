@@ -129,34 +129,26 @@ class Product < ActiveRecord::Base
   end
 
   def self.natures
-    #[:product, :service, :sub_date, :sub_numb].collect{|x| [tc('natures.'+x.to_s), x] }
     @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
   end
-
-#   def self.supply_methods
-#     [:buy, :produce].collect{|x| [tc('supply_methods.'+x.to_s), x] }
-#   end
 
   def units
     self.company.units.find(:all, :conditions=>{:base=>self.unit.base}, :order=>"coefficient, label")
   end
 
   def has_components?
-    # products = ProductComponent.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.id})
-    # !products.empty?
     self.components.size > 0
   end
-
-#   def components
-#     products = ProductComponent.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.id})
-#     products
-#   end
 
   def default_price(category_id)
     self.prices.find(:first, :conditions=>{:category_id=>category_id, :active=>true, :default=>true})
   end
 
-  def informations    
+  def label
+    tc('label', :product=>self.name, :unit=>self.unit.label)
+  end
+
+  def informations
     tc('informations.'+(self.has_components? ? 'with' : 'without')+'_components', :product=>self.name, :unit=>self.unit.label, :size=>self.components.size)
   end
 

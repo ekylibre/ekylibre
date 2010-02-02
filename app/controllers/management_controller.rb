@@ -903,29 +903,11 @@ class ManagementController < ApplicationController
   
   def price_find
     if !params[:purchase_order_line_price_id].blank?
-      price = find_and_check(:price, params[:purchase_order_line_price_id])
-      @price_tax_id = price.tax_id
-      @price_amount = price.amount
-      # @price_amount = Price.find_by_id(price.id).amount
-      #       if price.tax.amount == 0.0210
-      #         @tax_id = 1
-      #       elsif price.tax.amount == 0.0550
-      #         @tax_id = 2
-      #       else 
-      #         @tax_id = 3
-      #       end
-      #     else
-      #       @price_amount = 0 
-      #      @tax_id = 3
+      @price = find_and_check(:price, params[:purchase_order_line_price_id])
+      @product = @price.product if @price
     elsif params[:purchase_order_line_product_id]
-      return unless product = find_and_check(:product, params[:purchase_order_line_product_id])
-      if price = product.prices.find_by_active_and_default_and_entity_id(true, true, params[:entity_id]||@current_company.entity_id)
-        @price_tax_id = price.tax_id
-        @price_amount = price.amount
-      end
-    else
-      @price_tax_id = 0
-      @price_amount = 0
+      @product = find_and_check(:product, params[:purchase_order_line_product_id])
+      @price = @product.prices.find_by_active_and_default_and_entity_id(true, true, params[:entity_id]||@current_company.entity_id) if @product
     end
   end
   
@@ -1689,6 +1671,9 @@ class ManagementController < ApplicationController
 
 
   def embankments
+    if @current_company.embankable_payments.size <= 0
+      flash.now[:notice] = tc('messages.no_embankable_payments')
+    end
   end
 
   def embankment
@@ -2301,13 +2286,14 @@ class ManagementController < ApplicationController
 
   dyta(:subscriptions, :conditions=>subscriptions_conditions, :order=> "id DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity, :controller=>:relations}
-#    t.column :line_2, :through=>:contact, :label=>"Dest-Serv"
-#    t.column :line_3, :through=>:contact, :label=>"Bat./Rés."
-#    t.column :line_4, :through=>:contact, :label=>"N°/voie"
-#    t.column :line_5, :through=>:contact, :label=>"Lieu dit"
-#    t.column :line_6_code, :through=>:contact, :label=>"Code postal"
-#    t.column :line_6_city, :through=>:contact, :label=>"Ville"
+    t.column :line_2, :through=>:contact, :label=>"Dest-Serv"
+    t.column :line_3, :through=>:contact, :label=>"Bat./Rés."
+    t.column :line_4, :through=>:contact, :label=>"N°/voie"
+    t.column :line_5, :through=>:contact, :label=>"Lieu dit"
+    t.column :line_6_code, :through=>:contact, :label=>"Code postal"
+    t.column :line_6_city, :through=>:contact, :label=>"Ville"
     t.column :name, :through=>:product
+    t.column :quantity
     #t.column :started_on
     #t.column :finished_on
     #t.column :first_number
@@ -2716,7 +2702,7 @@ class ManagementController < ApplicationController
   end
 
   dyta(:tracking_operation_lines, :model=>:operation_lines, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :order=>'operation_id') do |t|
-    t.column :name, :through=>:operation, :url=>{:action=>:operation}
+    t.column :name, :through=>:operation, :url=>{:action=>:operation, :controller=>:production}
     t.column :direction
     t.column :quantity
     t.column :label, :through=>:unit

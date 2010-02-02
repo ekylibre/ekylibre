@@ -74,13 +74,11 @@ module ApplicationHelper
            [ {:name=>:entries},
              {:name=>:statements},
              {:name=>:lettering},
-             #{:name=>:report},
+             # {:name=>:report},
+             {:name=>:tax_declarations},
              {:name=>:journal_close},
              {:name=>:financialyear_close},
              {:name=>:accountize} ] },
-         {:name=>:documents, :list=>
-           [ {:name=>:document_prepare},
-             {:name=>:tax_declarations} ] },
          {:name=>:parameters, :list=>
            [ {:name=>:accounts},
              {:name=>:journals},
@@ -107,8 +105,9 @@ module ApplicationHelper
          {:name=>:stocks, :list=>
            [{:name=>:stocks_consult, :url=>{:action=>:stocks}},
             {:name=>:location, :url=>{:action=>:locations}},
-            {:name=>:stock_transfers},
-            {:name=>:inventories}  ] },
+            {:name=>:stock_transfers}
+            #, {:name=>:inventories}  
+           ] },
          {:name=>:parameters, :list=>
            [ {:name=>:products},
              {:name=>:prices},

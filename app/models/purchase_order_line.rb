@@ -71,7 +71,7 @@ class PurchaseOrderLine < ActiveRecord::Base
         product.save!
       end
       self.account_id = product.charge_account_id
-      self.unit_id = self.price.product.unit_id
+      self.unit_id ||= self.price.product.unit_id
       self.product_id = self.price.product_id
       self.amount = (self.price.amount*self.quantity).round(2)
       self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2)

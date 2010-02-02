@@ -1,2 +1,7 @@
-page['price_amount'].value=@price_amount
-page['price_tax_id'].value=@price_tax_id 
+if @price
+  page['price_amount'].value=@price.amount
+  page['price_tax_id'].value=@price.tax_id
+end
+if @product
+  page['purchase_order_line_unit_id'].innerHTML=options_for_select(@product.units.collect{|x| [x.label, x.id]}, @product.unit_id)
+end

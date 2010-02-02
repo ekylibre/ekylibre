@@ -428,6 +428,7 @@ fr-FR:
       informations:
         with_components: '{{product}} ({{unit}}) (produit transformé)'
         without_components: '{{product}} ({{unit}}) (matière première)'
+      label: "{{product}} ({{unit}})"
       natures:
         product: Produit
         service: Service

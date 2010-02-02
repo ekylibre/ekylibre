@@ -2,7 +2,7 @@
   - f.error :stock_transfer 
   -if @stock_transfer.new_record?
     - f.field :stock_transfer, :nature, :choices=>StockTransfer.natures, :field=>:radio
-  - f.field :stock_transfer, :product_id, :choices=>@current_company.available_products.collect{|x| [x.name, x.id]}
+  - f.field :stock_transfer, :product_id, :choices=>@current_company.available_products.collect{|x| [x.label, x.id]}
   - f.field :stock_transfer, :quantity
   - f.field :stock_transfer, :location_id, :choices=>@current_company.locations.collect{|x| [x.name, x.id]}
   -if @stock_transfer.new_record? or @stock_transfer.nature == "transfer"

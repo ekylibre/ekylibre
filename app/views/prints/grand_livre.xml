@@ -27,7 +27,7 @@
 	<text x="155" y="10" width="27.5" height="10" align="R" border-width="0.2" >Debit</text>
 	<text x="182.5" y="10" width="27.5" height="10" align="R" border-width="0.2"  >Credit</text>
       </block>
-      <loop name="livre" query="SELECT number , name FROM accounts">
+      <loop name="livre" query="SELECT number, name FROM accounts">
 	<block name="test">
 	  <text x="5" y="0" width="20" height="10" align="L" border-width="0.2">#{balance.number}</text>
 	  <text x="25" y="0" width="130" height="10" align="L" border-width="0.2">#{balance.name}</text>

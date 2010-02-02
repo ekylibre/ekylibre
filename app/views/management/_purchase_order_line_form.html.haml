@@ -3,6 +3,7 @@
   -# f.field :purchase_order_line, :price_id, :choices=>@current_company.prices.find(:all, :conditions=>{:entity_id=>@purchase_order_line.order.supplier_id, :default=>true}).collect{|x| [x.product.name+" "+x.amount.to_s+" "+x.currency.code, x.id]},:options=>{:include_blank=>true}, :new=>{:action=>:price_create,:mode=>:purchase_orders, :entity_id=>@purchase_order_line.order.supplier_id}
   -f.field :purchase_order_line, :product_id, :choices=>@current_company.available_products.collect{|x| [x.name, x.id]}, :options=>{:include_blank=>true}
   -f.field :purchase_order_line, :quantity
+  -f.field :purchase_order_line, :unit_id, :choices=>[]
   -if @price
     -f.field :price, :amount 
     -f.field :price, :tax_id ,:choices=>Tax.find(:all, :conditions=>{:company_id=>@current_company.id},:order=>:id).collect{|x| [x.name, x.id]}
