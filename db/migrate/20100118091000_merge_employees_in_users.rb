@@ -26,29 +26,43 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
     add_column :users, :employed,   :boolean, :null=>false, :default=>false
     add_column :users, :employment, :string
 
-    puts "#{User.all.size} users"
+    # puts "#{User.all.size} users"
     execute "INSERT INTO users (company_id, created_at, updated_at, first_name, last_name, language_id, name, role_id, office, admin) "+
       "SELECT company_id, created_at, updated_at, first_name, last_name, 0, LOWER(first_name||'.'||last_name), 0, id, #{quoted_false} FROM employees WHERE user_id IS NULL"
-    puts "#{User.all.size} users"
-    for user in User.find(:all, :conditions=>{:language_id=>0})
-      user.password = ([0]*(rand*10+3).to_i).collect{|x| rand.to_s[2..-1].to_i.to_s(36)}.join
-      user.password_confirmation = user.password
-      user.language = user.company.entity.language
-      user.role = user.company.roles.find(:first, :order=>"LENGTH(rights)")
-      user.name = user.name.lower_ascii.gsub(/\W/, "")
-      user.save!
-      execute "UPDATE employees SET user_id = #{user.id} WHERE id = #{user.office}"
+    # puts "#{User.all.size} users"
+    for user in select_all("SELECT * FROM users WHERE language_id=0")
+#      user.password = ([0]*(rand*10+3).to_i).collect{|x| rand.to_s[2..-1].to_i.to_s(36)}.join
+#      user.password_confirmation = user.password
+#      user.language = user.company.entity.language
+#      user.role = user.company.roles.find(:first, :order=>"LENGTH(rights)")
+#      user.name = user.name.lower_ascii.gsub(/\W/, "")
+#      user.save!
+      execute "UPDATE employees SET user_id = #{user['id']} WHERE id = #{user['office']}"
       # puts user.inspect
     end
 
     employees = {}
     for employee in select_all("SELECT * FROM employees")
+      updates = []
       hash = {}
-      COLUMNS.each{|k,v| hash[k] = employee[k.to_s]}
-      hash[:employed] = true
-      hash[:employment] = employee['role']
+      COLUMNS.each do |k,v| 
+        updates << k.to_s+"="+if v == :boolean
+                                ['1', 't', 'T', 'true'].include?(employee[k]) ? quoted_true : quoted_false
+                              elsif v == :integer
+                                (employee[k]||0).to_s
+                              elsif v == :date
+                                quote(employee[k]||Date.civil(1970,1,1))
+                              else 
+                                quote(employee[k])
+                              end
+        # hash[k] = employee[k.to_s]}
+      end
+      updates << "employed=#{quoted_true}"
+      updates << "employment="+quote(employee['role'].to_s)
+      #hash[:employed] = true
+      #hash[:employment] = employee['role']
       # puts hash.inspect
-      User.update_all(hash, {:id=>employee['user_id']})
+      execute "UPDATE users SET #{updates.join(', ')} WHERE id=#{employee['user_id']}"
       employees[employee['id'].to_s] = employee['user_id']
     end
 
@@ -62,10 +76,10 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
     end
 
     remove_index(:employees, :name => "index_employees_on_company_id")
-    remove_index(:employees, :name => "index_employees_on_updater_id")
-    remove_index(:employees, :name => "index_employees_on_creator_id")
-    remove_index(:employees, :name => "index_employees_on_updated_at")
-    remove_index(:employees, :name => "index_employees_on_created_at")
+#     remove_index(:employees, :name => "index_employees_on_updater_id")
+#     remove_index(:employees, :name => "index_employees_on_creator_id")
+#     remove_index(:employees, :name => "index_employees_on_updated_at")
+#     remove_index(:employees, :name => "index_employees_on_created_at")
 
     drop_table :employees
 
