@@ -441,13 +441,14 @@ class ManagementController < ApplicationController
   end
   
   def price_create
-    @mode = (params[:mode]||"sale_orders").to_sym 
+    @mode = (params[:mode]||"sales").to_sym 
     
-    if @mode == :sale_orders
-      @products = Product.find(:all, :conditions=>{:to_sale=>true, :company_id=>@current_company.id}, :order=>:name)
-    else 
-      @products = Product.find(:all, :conditions=>{:to_purchase=>true, :company_id=>@current_company.id}, :order=>:name)
-    end
+    @products = @current_company.products.find(:all, :order=>:name)
+#     if @mode == :sale_orders
+#       @products = Product.find(:all, :conditions=>{:to_sale=>true, :company_id=>@current_company.id}, :order=>:name)
+#     else 
+#       @products = Product.find(:all, :conditions=>{:to_purchase=>true, :company_id=>@current_company.id}, :order=>:name)
+#     end
 
     if request.post? 
       @price = Price.new(params[:price])
@@ -657,7 +658,7 @@ class ManagementController < ApplicationController
 
   def self.products_conditions(options={})
     code = ""
-    code += "conditions = [ \" company_id = ? AND (LOWER(code) LIKE ?  OR LOWER (name) LIKE ?) AND active = ? \" , @current_company.id, '%'+session[:product_key].lower+'%', '%'+session[:product_key].lower+'%', session[:product_active]] \n"
+    code += "conditions = [ \" company_id = ? AND (LOWER(code) LIKE ?  OR LOWER(name) LIKE ?) AND active = ? \" , @current_company.id, '%'+session[:product_key].lower+'%', '%'+session[:product_key].lower+'%', session[:product_active]] \n"
     code += "if session[:product_shelf_id].to_i != 0 \n"
     code += "conditions[0] += \" AND shelf_id = ?\" \n" 
     code += "conditions << session[:product_shelf_id].to_i \n"
