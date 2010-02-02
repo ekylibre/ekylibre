@@ -49,14 +49,14 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
         updates << k.to_s+"="+if v == :boolean
                                 ['1', 't', 'T', 'true'].include?(employee[k]) ? quoted_true : quoted_false
                               elsif v == :integer
-                                employee[k].to_s
+                                (employee[k]||0).to_s
                               else 
                                 quote(employee[k])
                               end
         # hash[k] = employee[k.to_s]}
       end
       updates << "employed=#{quoted_true}"
-      updates << "employment="+quote(employee['role'])
+      updates << "employment="+quote(employee['role'].to_s)
       #hash[:employed] = true
       #hash[:employment] = employee['role']
       # puts hash.inspect
