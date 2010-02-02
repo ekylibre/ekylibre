@@ -76,10 +76,10 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
     end
 
     remove_index(:employees, :name => "index_employees_on_company_id")
-    remove_index(:employees, :name => "index_employees_on_updater_id")
-    remove_index(:employees, :name => "index_employees_on_creator_id")
-    remove_index(:employees, :name => "index_employees_on_updated_at")
-    remove_index(:employees, :name => "index_employees_on_created_at")
+#     remove_index(:employees, :name => "index_employees_on_updater_id")
+#     remove_index(:employees, :name => "index_employees_on_creator_id")
+#     remove_index(:employees, :name => "index_employees_on_updated_at")
+#     remove_index(:employees, :name => "index_employees_on_created_at")
 
     drop_table :employees
 
