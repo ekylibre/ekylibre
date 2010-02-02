@@ -65,7 +65,6 @@ class ResourcesController < ApplicationController
     t.column :planned_on
     t.column :moved_on
     t.column :tools_list
-    t.column :name, :through=>:shape, :url=>{:action=>:shape, :controller=>:production}
     t.column :duration
     t.action :operation_update, :image=>:update,:controller=>:production
     t.action :operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure,:controller=>:production

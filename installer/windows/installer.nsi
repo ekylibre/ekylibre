@@ -157,6 +157,7 @@ Section
   ; Write the installation path and uninstall keys into the registry
   WriteUninstaller "${INSTAPP}\uninstall.exe"   ; build uninstall program
   WriteRegStr HKLM "Software\${APP}" ""             "${INSTAPP}"
+  WriteRegStr HKLM "Software\${APP}" "InstallDir"   "$INSTDIR"
   WriteRegStr HKLM "Software\${APP}" "Version"      "${VERSION}"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP}" "DisplayName" "${APP} (Supprimer seulement)"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP}" "UninstallString" '"${INSTAPP}\uninstall.exe"'
