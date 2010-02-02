@@ -50,6 +50,8 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
                                 ['1', 't', 'T', 'true'].include?(employee[k]) ? quoted_true : quoted_false
                               elsif v == :integer
                                 (employee[k]||0).to_s
+                              elsif v == :date
+                                quote(employee[k]||Date.civil(1970,1,1))
                               else 
                                 quote(employee[k])
                               end
