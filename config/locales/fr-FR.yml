@@ -372,6 +372,8 @@ fr-FR:
       error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
     listing_node: 
       add_filter: ' Ajouter un filtre '
+      columns: Colonnes
+      reflections: Tables liées
     listing_nodes: 
       comparators:
         any: 'Aucune condition'

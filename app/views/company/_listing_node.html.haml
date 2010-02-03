@@ -1,6 +1,6 @@
 .branch{:class=>(listing_node.reflection? ? " reflection" : " column")}
   .shift
-  .tools{:style=>"width: 20em; clear: both;"}
+  .tools{:style=>"width: 20em; float:right;"}
     -unless listing_node.reflection?
       .pos{:id=>"#{listing_node.key}_position", :style=>"width:4em;float:right; color:#00C; text-decoration:underline;"}=render(:partial=>"listing_node_position", :object=>listing_node)
       .toto{:style=>"width:10em; float:right;"}
@@ -13,10 +13,11 @@
         %tr
           -if listing_node.reflection?
             %td{:onclick=>"toggleElement('#{listing_node.key}')"}=listing_node.label
+            %td{:style=>"font-style: italic; color: #808080;"}="(#{listing_node.name})"
           -else
-            %td{:id=>"#{listing_node.key}_label", :style=>'color:#00C; text-decoration:underline;'}=render(:partial=>"listing_node_column_label", :object=>listing_node)
-            %td{:style=>'font-style: italic; color: #808080;'}="("+listing_node.name+")"
-            %td{:id=>"#{listing_node.key}_comparator", :style=>'color:#00C; text-decoration:underline;'}=render(:partial=>"listing_node_comparison", :object=>listing_node)
+            %td{:id=>"#{listing_node.key}_label", :style=>"color:#00C; text-decoration:underline; cursor:pointer;"}=render(:partial=>"listing_node_column_label", :object=>listing_node)
+            %td{:style=>"font-style: italic; color: #808080;"}="("+listing_node.name+")"
+            %td{:id=>"#{listing_node.key}_comparator", :style=>"color:#00C; text-decoration:underline; cursor:pointer;"}=render(:partial=>"listing_node_comparison", :object=>listing_node)
             
             
      

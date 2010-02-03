@@ -6,8 +6,10 @@ current_dir=`dirname $p`
 line=`cat ${current_dir}/../VERSION`
 name=`echo ${line} | cut -d',' -f1`
 version=`echo ${line} | cut -d',' -f2`
-latest=${version}-${name}
-release=${app}-${latest}
+#latest=${version}-${name}
+latest=${version}
+# release=${app}-${latest}
+release=${app}-${version}
 
 datadir=$HOME/Public/${app}
 tmpdir=/tmp/${release}

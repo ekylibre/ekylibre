@@ -27,10 +27,12 @@ SetCompressor zlib
   InstallDir "$PROGRAMFILES\${APP}"
   
   ;Get installation folder from registry if available
-  InstallDirRegKey HKLM "$INSTDIR" "" 
+  InstallDirRegKey HKLM "Software\${APP}" "" 
 
-  ;Request application privileges for Windows Vista
-  RequestExecutionLevel user
+  BrandingText "${APP} ${VERSION}"
+
+  ;Request application privileges for Windows Vista/7
+  RequestExecutionLevel highest
 
   ;Interface Settings
   !define MUI_PAGE_HEADER_TEXT "Installation d'${APP} (${VERSION})"
@@ -88,10 +90,11 @@ SetCompressor zlib
 
 
 Section 
-  !define INSTAPP "$INSTDIR\Stack"
+  !define INSTAPP "$INSTDIR\${APP}-${VERSION}"
   !define BACKUP  "$INSTDIR\backup-${VERSION}"
   !define DATADIR "${INSTAPP}\data"
 
+  SetOutPath $INSTDIR
 
   SetShellVarContext all
 
@@ -105,13 +108,13 @@ Section
   Var /GLOBAL app_dir
   Var /GLOBAL password
   Var /GLOBAL username
-  ReadRegStr $app_dir  HKLM Software\${APP} ""
+  ReadRegStr $app_dir HKLM Software\${APP} "AppDir"
   StrCpy $username "ekylibre"
   pwgen::GeneratePassword 32
   Pop $password
 
-  IfFileExists ${INSTAPP} 0 +2
-    StrCpy $app_dir ${INSTAPP}
+  ; IfFileExists ${INSTAPP} 0 +2
+  ;   StrCpy $app_dir ${INSTAPP}
 
   ; Copie de sauvegarde de la base de données si le fichier existe
   ${If} $app_dir != ""
@@ -153,14 +156,6 @@ Section
     Rename ${BACKUP}\documents ${INSTAPP}\apps\ekylibre\private
     RMDir /r ${BACKUP}
   ${EndIf}
-   
-  ; Write the installation path and uninstall keys into the registry
-  WriteUninstaller "${INSTAPP}\uninstall.exe"   ; build uninstall program
-  WriteRegStr HKLM "Software\${APP}" ""             "${INSTAPP}"
-  WriteRegStr HKLM "Software\${APP}" "InstallDir"   "$INSTDIR"
-  WriteRegStr HKLM "Software\${APP}" "Version"      "${VERSION}"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP}" "DisplayName" "${APP} (Supprimer seulement)"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP}" "UninstallString" '"${INSTAPP}\uninstall.exe"'
 
   ; Mise à jour de la variable PATH
   ${EnvVarUpdate} $0 "PATH" "A" "HKLM" "${INSTAPP}\ruby\bin" 
@@ -191,12 +186,22 @@ Section
   ${EndIf}
   SimpleSC::StartService "EkyService" ""
 
+  SetOutPath $INSTDIR
+  ; Write the installation path and uninstall keys into the registry
+  WriteUninstaller "${INSTAPP}\uninstall.exe"   ; build uninstall program
+  WriteRegStr HKLM "Software\${APP}" ""             "$INSTDIR"
+  WriteRegStr HKLM "Software\${APP}" "AppDir"       "${INSTAPP}"
+  WriteRegStr HKLM "Software\${APP}" "Version"      "${VERSION}"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP}" "DisplayName" "${APP} (Supprimer seulement)"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP}" "UninstallString" '"${INSTAPP}\uninstall.exe"'
+
   ; Mise en place des raccourcis
+  RMDir /r $SMPROGRAMS\${APP}
   CreateDirectory "$SMPROGRAMS\${APP}"
   CreateShortCut  "$SMPROGRAMS\${APP}\Licence publique générale GNU 3.lnk" "${INSTAPP}\apps\ekylibre\doc\license.txt"
   CreateShortCut  "$SMPROGRAMS\${APP}\Désinstaller ${APP}.lnk" "${INSTAPP}\uninstall.exe"     
   ; File ${RESOURCES}\${APP}.url
-  FileOpen $1 "$SMPROGRAMS\${APP}\${APP}.url" "w"
+  FileOpen $1 "$SMPROGRAMS\${APP}\${APP} ${VERSION}.url" "w"
   FileWrite $1 "[InternetShortcut]$\r$\n"
   FileWrite $1 "URL=http://localhost:${WSPORT}/$\r$\n"
   FileWrite $1 "IconFile=${INSTAPP}\apps\ekylibre\public\images\ekone.ico$\r$\n"

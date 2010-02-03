@@ -88,7 +88,9 @@ class ApplicationController < ActionController::Base
     code = ""
     code+="c=['#{model.table_name}.company_id=?', @current_company.id]\n"
     code+="session[:#{model.name.underscore}_key].to_s.lower.split(/\\s+/).each{|kw| kw='%'+kw+'%';"
-    code+="c[0]+=' AND (#{columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS TEXT)) LIKE ?'}.join(' OR ')})';c+=[#{(['kw']*columns.size).join(',')}]}\n"
+    # This line is incompatible with MySQL...
+    # code+="c[0]+=' AND (#{columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS TEXT)) LIKE ?'}.join(' OR ')})';c+=[#{(['kw']*columns.size).join(',')}]}\n"
+    code+="c[0]+=' AND (#{columns.collect{|x| 'LOWER('+x.to_s+') LIKE ?'}.join(' OR ')})';c+=[#{(['kw']*columns.size).join(',')}]}\n"
     code+="c"
     code
   end

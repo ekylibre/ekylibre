@@ -149,15 +149,16 @@ class CompanyController < ApplicationController
       if params['backup']
         # Création d'une sauvegarde
         send_file(@current_company.backup(@current_user, params[:with_prints]))
-      elsif params['restore']
+      elsif params['restore'] and params[:file] and params[:file][:path]
         # Récupération d'une sauvegarde
         backup = params[:file][:path]
         file = "#{RAILS_ROOT}/tmp/uploads/#{backup.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
-        File.open(file, "w") { |f| f.write(backup.read)}
-        start = Time.now.to_i
+        File.open(file, "wb") { |f| f.write(backup.read)}
+        start = Time.now
         if @current_company.restore(file)
-          flash.now[:notice] = tc(:restoration_finished, :value=>(Time.now.to_i-start).to_s)
-        else
+          @current_company.reload
+          flash.now[:notice] = tc(:restoration_finished, :value=>(Time.now-start).to_s, :code=>@current_company.code)
+          else
           flash.now[:error] = tc(:unvalid_version_for_restore)
         end
       end
@@ -692,7 +693,7 @@ class CompanyController < ApplicationController
     render :text=>"[UnfoundListingNode]" unless @listing_node
     desc = params[:nature].split("-")
    # raise Exception.new desc.inspect
-    ln = @listing_node.children.new(:nature=>desc[0], :attribute_name=>desc[1], :label=>t("activerecord.attributes.#{@listing_node.model.to_s.underscore}.#{desc[1]}"))
+    ln = @listing_node.children.new(:nature=>desc[0], :attribute_name=>desc[1], :label=>::I18n.t("activerecord.attributes.#{@listing_node.model.to_s.underscore}.#{desc[1]}"))
     #ln.reflection_name = desc[1] if ln.reflection?
     #ln.attribute_name = ln.reflection? ? desc[1]
     ln.save!

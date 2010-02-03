@@ -1,5 +1,6 @@
 -if @locations.size > 1
   .search
     -form_tag do
-      = tc('select_location'), select(:stock, :location_id, @locations.collect{|x| [x.name, x.id]})
-      = submit_tag(tg('filter'), :action=>:undelivered_sales)
+      =tc('select_location')
+      =select(:stock, :location_id, @locations.collect{|x| [x.name, x.id]})
+      =submit_tag(tg('filter'), :action=>:undelivered_sales)

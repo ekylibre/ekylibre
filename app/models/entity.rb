@@ -285,4 +285,8 @@ class Entity < ActiveRecord::Base
     desc
   end
 
+  def destroyable?
+    self.id != self.company.entity_id
+  end
+
 end 

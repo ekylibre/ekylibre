@@ -1,5 +1,5 @@
 -listing_node = listing_node_column_label
--form_remote_tag(:url=>{:action=>:listing_node_update, :id=>listing_node.id, :type=>"column_label"}, :update=>"#{listing_node.key}_label") do
-  %span{:onclick=>"this.hide(); $('#{listing_node.key}_validate_label').show(); var tf = $('#{listing_node.key}_label_tf'); tf.show(); tf.focus();"}=listing_node.label
-  =text_field_tag("label", listing_node.label, :size=>listing_node.label.size, :id=>listing_node.key+"_label_tf", :style=>'display: none;')
+-form_remote_tag(:url=>{:action=>:listing_node_update, :id=>listing_node.id, :type=>"column_label"}, :update=>"#{listing_node.key}_label", :loading=>"onLoading()", :loaded=>"onLoaded();") do
+  %span{:id=>"#{listing_node.key}_label_lb", :onclick=>"this.hide(); var tf = $('#{listing_node.key}_label_tf'); tf.show(); tf.select(); tf.focus();"}=listing_node.label
+  =text_field_tag("label", listing_node.label, :size=>listing_node.label.size, :id=>listing_node.key+"_label_tf", :style=>'display: none;', :onblur=>"$('#{listing_node.key}_label_lb').show(); this.hide();")
   %span{:style=>'display: none;', :id=>listing_node.key+"_validate_label"}=submit_tag(tg(:validate))

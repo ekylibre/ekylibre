@@ -307,7 +307,7 @@ class RelationsController < ApplicationController
     t.column :line_6, :through=>:default_contact, :url=>{:action=>:entity_contact_update}
     t.action :print, :url=>{:controller=>:company, :type=>:entity}
     t.action :entity_update
-    t.action :entity_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :entity_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
   dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})

@@ -44,6 +44,11 @@ module ::I18n
     end
   end
 
+  def self.hardtranslate(*args)
+    result = translate(*args)
+    return (result.match(/translation\ missing|\(\(\(/) ? nil : result)
+  end
+
 end
 
 
