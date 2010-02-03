@@ -18,7 +18,7 @@ module Ekylibre
         app_dirs = '(helpers|controllers|views|models)'
         latest_app_file = caller.detect { |level| level =~ /.*\/app\/#{app_dirs}\/[^\.\.]/ }
         return 'eval' unless latest_app_file
-        latest_app_file.split(/(\/app\/|\.)/)[2].gsub('/','.').gsub(/(_controller$|_helper$|_observer$)/,'')
+        latest_app_file.split(/\/app\//)[1].split(/\./)[0].gsub('/','.').gsub(/(_controller$|_helper$|_observer$)/,'')
       end
 
     end
