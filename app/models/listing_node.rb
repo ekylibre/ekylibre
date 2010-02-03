@@ -179,7 +179,7 @@ class ListingNode < ActiveRecord::Base
     end
   end
 
-  def available_nodes
+  def available_nodes2
     nodes = []
     return nodes unless self.reflection?
     model = self.model
@@ -190,6 +190,17 @@ class ListingNode < ActiveRecord::Base
     #nodes += model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| b.macro.to_s+"-"+a.to_s}
     nodes += model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [I18n::t('activerecord.attributes.'+model.name.underscore+'.'+a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}
     return nodes.sort
+  end
+  
+  def available_nodes
+    nodes = []
+    return nodes unless self.reflection?
+    model = self.model
+    # Columns
+    nodes << [tc(:columns), model.content_columns.collect{|x| [I18n::t('activerecord.attributes.'+model.name.underscore+'.'+x.name.to_s).to_s, "column-"+x.name]}.sort ]
+    # Reflections
+    nodes << [tc(:reflections), model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [I18n::t('activerecord.attributes.'+model.name.underscore+'.'+a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}.sort ]
+    return nodes
   end
   
   def convert_sql_type(type)

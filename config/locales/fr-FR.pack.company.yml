@@ -6,7 +6,7 @@ fr-FR:
       notices:
         password_successfully_changed: 'Votre mot de passe a été mis à jour avec succès'
       object_to_print_no_found: 'Impossible d''imprimer. {{class}}: {{error}}'
-      restoration_finished: 'La restauration de la sauvegarde s''est terminée (en {{value}} secondes)'
+      restoration_finished: 'La restauration de la sauvegarde s''est terminée (en {{value}} secondes). Votre code société est {{code}}'
       role: 'Rôle'
       title: 'Société'
       unknown_action: 'La page que vous demandez n''est pas disponible. ({{value}})'

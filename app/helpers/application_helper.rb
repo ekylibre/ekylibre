@@ -576,7 +576,7 @@ module ApplicationHelper
       toolbar.link :back if options[:back]
       # To HTML
       code = ''
-      call = 'views.'+caller.detect{|x| x.match(/\/app\/views\//)}.split(/(\/app\/views\/|\.)/)[2].gsub(/\//,'.')+'.'
+      call = 'views.'+caller.detect{|x| x.match(/\/app\/views\//)}.split(/\/app\/views\//)[1].split('.')[0].gsub(/\//,'.')+'.'
       for tool in toolbar.tools
         nature, args = tool[0], tool[1]
         if nature == :link

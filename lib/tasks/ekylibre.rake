@@ -342,24 +342,26 @@ namespace :clean do
 
   desc "Update and sort translation files"
   task :locales => :environment do
-    classicals = {'fr-FR'=>{:company_id=>'Société', :id=>'ID', :lock_version=>'Version', :updated_at=>'Mis à jour le', :updater_id=>'Modificateur', :created_at=>'Créé le', :creator_id=>'Créateur', :comment=>'Commentaire', :position=>'Position', :name=>'Nom', :parent_id=>'Parent' } }
+    classicals = {'fr-FR'=>{:company_id=>'Société', :company=>'Société', :id=>'ID', :lock_version=>'Version', :updated_at=>'Mis à jour le', :updater_id=>'Modificateur', :updater=>'Modificateur', :created_at=>'Créé le', :creator_id=>'Créateur', :creator=>'Créateur', :comment=>'Commentaire', :position=>'Position', :name=>'Nom', :parent_id=>'Parent', :parent=>'Parent' } }
     models = Dir["#{RAILS_ROOT}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
     models_names = ''
+    plurals_names = ''
     models_attributes = ""
     attrs_count, static_attrs_count = 0, 0
     for model in models
       class_name = model.sub(/\.rb$/,'').camelize
       klass = class_name.split('::').inject(Object){ |klass,part| klass.const_get(part) }
       if klass < ActiveRecord::Base && !klass.abstract_class?
-        models_names += "      #{model}: "+::I18n.pretranslate("activerecord.models.#{model}")+"\n"
+        models_names  += "      #{model}: "+::I18n.pretranslate("activerecord.models.#{model}")+"\n"
+        plurals_names += "      #{model}: "+::I18n.pretranslate("activerecord.models_plurals.#{model}")+"\n"
         models_attributes += "\n      # #{::I18n.t("activerecord.models.#{model}")}\n"
         models_attributes += "      #{model}:\n"
         attributes = {}
         for k, v in ::I18n.translate("activerecord.attributes.#{model}")||{}
           attributes[k] = "'"+v.gsub("'","''")+"'" if v
         end
-        static_attrs_count += model.camelcase.constantize.columns.size
-        for column in model.camelcase.constantize.columns
+        static_attrs_count += klass.columns.size
+        for column in klass.columns
           attribute = column.name.to_sym
           trans = classicals[::I18n.locale.to_s][attribute]
           pretrans = ::I18n.pretranslate("activerecord.attributes.#{model}.#{attribute}")
@@ -369,7 +371,21 @@ namespace :clean do
           trans = trans.nil? ? pretrans : "'"+trans.gsub("'","''")+"'"
           attributes[attribute] = trans
         end
-        # raise Exception.new attributes.inspect
+        # Add reflections in attributes
+        #raise Exception.new klass.reflections.inspect
+        for reflection, details in klass.reflections
+          attribute = reflection.to_sym
+          trans   = ::I18n.hardtranslate("activerecord.attributes.#{model}.#{attribute}")
+          trans ||= ::I18n.hardtranslate("activerecord.attributes.#{model}.#{attribute}_id")
+          trans ||= ::I18n.hardtranslate("activerecord.models_plurals.#{attribute.to_s.singularize}")
+          trans ||= ::I18n.hardtranslate("activerecord.models_plurals.#{model}_#{attribute.to_s.singularize}")
+          attributes[attribute] = (trans.nil? ? "(((#{attribute.to_s.upper})))" : "'"+trans.gsub("'","''")+"'")
+        end
+        for x in [:creator, :updater]
+          attributes[x] ||= "'"+classicals[::I18n.locale.to_s][x].gsub("'","''")+"'"
+        end
+
+        # Sort attributes and build yaml
         for attribute, trans in attributes.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
           models_attributes += "        #{attribute}: "+trans+"\n"
         end
@@ -384,6 +400,8 @@ namespace :clean do
     translation += hash_to_yaml(activerecord,2)
     translation += "\n    models:\n"
     translation += models_names
+    translation += "\n    models_plurals:\n"
+    translation += plurals_names
     translation += "\n    attributes:\n"
     translation += models_attributes
     File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.activerecord.yml", "wb") do |file|

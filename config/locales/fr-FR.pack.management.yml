@@ -37,7 +37,7 @@ fr-FR:
         need_location_to_record_stock_moves: 'Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage.'
         need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
         need_quantities_to_cancel_an_invoice: 'Vous devez spécifier une quantité pour pouvoir faire un avoir'
-        no_embankable_payments: 'Il n''y a pas de réglements à remttre en banque'
+        no_embankable_payments: 'Il n''y a pas de réglements à remettre en banque'
       mobile: 'Portable'
       need_location_to_create_purchase_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser un achat'
       need_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
@@ -125,7 +125,7 @@ fr-FR:
       _delay_form:
         general: 'Général'
       delay_update:
-        title: 'Modification du délai : {{value}}'
+        title: 'Modification du délai : {{name}}'
       delays:
         delay_create: 'Ajouter un nouveau délai'
         title: 'Liste des délais'

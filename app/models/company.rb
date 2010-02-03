@@ -363,8 +363,8 @@ class Company < ActiveRecord::Base
 
     Zip::ZipFile.open(file, Zip::ZipFile::CREATE) do |zile|
       zile.get_output_stream("backup.xml") { |f| f.puts(stream) }
-      if with_prints
-        prints_dir = "#{RAILS_ROOT}/private/#{self.code}"
+      prints_dir = "#{RAILS_ROOT}/private/#{self.code}"
+      if with_prints and File.exist?(prints_dir)
         Dir.chdir(prints_dir) do
           for document in Dir["*/*/*.pdf"]
             zile.add("prints/"+document, prints_dir+'/'+document)
@@ -466,7 +466,7 @@ class Company < ActiveRecord::Base
           code += "puts 'R>     T: '+duration.to_s[0..6]+' | TDB1: '+tdb1.to_s[0..6]+' | TDB2: '+tdb2.to_s[0..6]+' | RS: '+(duration-tdb2p).to_s[0..6]+' | AVG(TDB1): '+(tdb1/#{element[:attributes]['records-count']}).to_s[0..6]+' | AVG(TDB2): '+(tdb2/#{element[:attributes]['records-count']}).to_s[0..6]\n"
         end
       end
-      File.open("/tmp/restore-1.rb", "wb") {|f| f.write(code)}
+      File.open("#{RAILS_ROOT}/tmp/restore-1.rb", "wb") {|f| f.write(code)}
       eval(code)
       
       # raise Exception.new(data.inspect)
@@ -493,7 +493,7 @@ class Company < ActiveRecord::Base
         code += "end\n"
       end
 
-      File.open("/tmp/restore-2.rb", "wb") {|f| f.write(code)}      
+      File.open("#{RAILS_ROOT}/tmp/restore-2.rb", "wb") {|f| f.write(code)}      
       start = Time.now
       eval(code)
       puts "R> Total: #{(Time.now-start)}s"

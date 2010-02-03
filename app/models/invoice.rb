@@ -99,7 +99,7 @@ class Invoice < ActiveRecord::Base
   end
   
   def after_validation_on_create
-    specific_numeration = self.company.parameter("management.invoicing.numeration").value
+    specific_numeration = self.company.parameter("management.invoices.numeration").value
     if not specific_numeration.nil?
       self.number = specific_numeration.next_value
     end
