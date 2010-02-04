@@ -19,6 +19,14 @@ SetCompressor /SOLID /FINAL zlib
   !define WSPORT 4064
   !define DBMSPORT 4032
 
+  VIAddVersionKey "ProductName" "${APP}"
+  VIAddVersionKey "Comments" "Le logiciel de gestion des petites entreprises"
+  VIAddVersionKey "CompanyName" "www.ekylibre.org"
+  VIAddVersionKey "FileDescription" "Installateur du logiciel ${APP} ${VERSION}"
+  VIAddVersionKey "FileVersion" "${VERSION}"
+  VIProductVersion "${VERSION}.0"
+
+
   ; Name and file
   Name "${APP}"
   OutFile "${RELEASE}.exe"
@@ -33,6 +41,8 @@ SetCompressor /SOLID /FINAL zlib
 
   ;Request application privileges for Windows Vista/7
   RequestExecutionLevel highest
+
+
 
   ;Interface Settings
   !define MUI_ICON "${IMAGES}\install.ico"   
