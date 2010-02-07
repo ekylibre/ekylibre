@@ -38,7 +38,7 @@ class AuthenticationController < ApplicationController
         name = lname[-1]
       else
         if User.count(:conditions=>{:name=>name})>1
-          flash.now[:warning] = tc(:need_company_code_to_login)
+          notify(:need_company_code_to_login, :warning, :now)
           return
         end
         session[:user_name] = name
@@ -51,7 +51,7 @@ class AuthenticationController < ApplicationController
           redirect_to session[:last_url]||{:controller=>:company, :action=>:index}
         end
       else
-        flash.now[:error] = tc(:no_authenticated)
+        notify(:no_authenticated, :error, :now)
       end
     end
   end

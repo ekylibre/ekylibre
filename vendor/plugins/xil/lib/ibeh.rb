@@ -83,7 +83,7 @@ module Ibeh
     def initialize(writer, format, options)
       super writer
       @options = options
-      format = FORMATS[format.to_s.lower.gsub(/[^\w]/,'').to_sym] unless format.is_a? Array
+      format = FORMATS[format.to_s.lower.gsub(/[^\w]/, '').to_sym] unless format.is_a? Array
       format[0], format[1] = format[1], format[0] if @options[:orientation] == :landscape
       @format = format
       @margin = @options[:margin]||[]

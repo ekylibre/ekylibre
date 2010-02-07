@@ -206,14 +206,17 @@ class ManagementController < ApplicationController
   end
 
   def inventories
+    if @current_company.stocks.size <= 0
+      notify(:need_stocks_to_create_inventories, :now)
+    end    
   end
   
   def inventory_create
     if @current_company.stocks.size <= 0
-      flash[:warning] = tc(:need_stocks_to_create_inventories)
+      notify(:need_stocks_to_create_inventories, :warning)
       redirect_to_back
     end
-    flash[:notice] = tc(:you_should_lock_your_old_inventories) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
+    notify(:validates_old_inventories, :warning, :now) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
     @inventory = Inventory.new(:responsible_id=>@current_user.id)
     if request.post?
       @inventory = Inventory.new(params[:inventory])
@@ -316,14 +319,6 @@ class ManagementController < ApplicationController
       ActiveRecord::Base.transaction do
         # session[:errors] = []
         params[:credit_lines] ||= {}
-#         empty = true
-#         for l, attrs in params[:credit_lines]
-#           empty = false if attrs[:quantity].to_f>0
-#         end
-#         if empty
-#           flash[:error] = tc('messages.need_quantities_to_cancel_an_invoice')
-#           return
-#         end
         @credit = Invoice.new(:origin_id=>@invoice.id, :client_id=>@invoice.client_id, :credit=>true, :company_id=>@current_company.id)
         saved = @credit.save
         if saved
@@ -351,7 +346,7 @@ class ManagementController < ApplicationController
           
           if @credit.reload.amount_with_taxes == 0
             puts @credit.inspect
-            flash[:error] = tc('messages.need_quantities_to_cancel_an_invoice')
+            notify(:need_quantities_to_cancel_an_invoice, :error)
             raise ActiveRecord::Rollback 
           end
 
@@ -467,7 +462,7 @@ class ManagementController < ApplicationController
       end
     else
       if @current_company.available_products.size<=0
-        flash[:message] = tc('messages.need_product_to_create_price')
+        notify(:need_product_to_create_price)
         redirect_to :action=> :product_create
       elsif !params[:product_id].nil?
    
@@ -534,7 +529,7 @@ class ManagementController < ApplicationController
     
     if request.post?
       if params[:csv_file].nil?
-        flash[:warning]=tc(:you_must_select_a_file_to_import)
+        notify(:you_must_select_a_file_to_import, :warning)
         redirect_to :action=>:prices_import
       else
         file = params[:csv_file][:path]
@@ -599,7 +594,7 @@ class ManagementController < ApplicationController
             else
               price.update_attributes(price.attributes)
             end
-            flash[:notice]=tc(:import_succeed)
+            notify(:prices_import_succeeded, :now)
           end
         end
       end
@@ -681,7 +676,7 @@ class ManagementController < ApplicationController
     @locations = Location.find_all_by_company_id(@current_company.id)
     session[:product_active] = true if session[:product_active].nil?
     if @locations.size < 1
-      flash[:warning]=tc('need_stocks_location_to_create_products')
+      notify(:need_stocks_location_to_create_products, :warning)
       redirect_to :action=>:location_create
     end
     @key = params[:key]||session[:product_key]||""
@@ -927,10 +922,10 @@ class ManagementController < ApplicationController
   def purchase_order_line_create
     return unless @purchase_order = find_and_check(:purchase_order, session[:current_purchase])
     if @current_company.locations.size <= 0
-      flash[:warning]=tc(:need_location_to_create_purchase_order_line)
+      notify(:need_location_to_create_purchase_order_line, :warning)
       redirect_to :action=>:location_create
     elsif @purchase_order.shipped
-      flash[:warning]=tc(:impossible_to_add_lines_to_purchase)
+      notify(:impossible_to_add_lines_to_purchase, :warning)
       redirect_to :action=>:purchase_order_lines, :id=>@purchase_order.id
     else
       @price = Price.new(:amount=>0.0)
@@ -1018,7 +1013,7 @@ class ManagementController < ApplicationController
       if @sale_order.estimate?
         @sale_order.destroy
       else
-        flash[:warning]=tc('sale_order_can_not_be_deleted')
+        notify(:sale_order_cant_be_deleted, :error)
       end
       redirect_to_current
     end
@@ -1190,7 +1185,7 @@ class ManagementController < ApplicationController
   def sale_order_update
     return unless @sale_order = find_and_check(:sale_order, params[:id])
     unless @sale_order.estimate?
-      flash[:error] = tc('errors.sale_order_cannot_be_updated')
+      notify(:sale_order_cannot_be_updated, :error)
       redirect_to :action=>:sale_order_lines, :id=>@sale_order.id
       return
     end
@@ -1377,11 +1372,11 @@ class ManagementController < ApplicationController
       @subscription = Subscription.new()
     end
     if @locations.empty? 
-      flash[:warning]=tc(:need_location_to_create_sale_order_line)
+      notify(:need_location_to_create_sale_order_line, :warning)
       redirect_to :action=>:location_create
       return
     elsif @sale_order.active?
-      flash[:warning]=tc(:impossible_to_add_lines)
+      notify(:impossible_to_add_lines, :error)
       redirect_to :action=>:sale_order_lines, :id=>@sale_order.id
       return
     elsif request.post? 
@@ -1483,10 +1478,9 @@ class ManagementController < ApplicationController
     if @sale_order.deliveries.size <= 0 and not @sale_order.invoiced
       redirect_to :action=>:sale_order_delivery_create
     elsif @sale_order.deliveries.size <= 0 and @sale_order.invoiced
-      flash[:notice] =  tc(:sale_order_already_invoiced)
-      #redirect_to_back
+      notify(:sale_order_already_invoiced)
     elsif @sale_order.lines.size <= 0
-      flash[:warning]=tc(:no_lines_found)
+      notify(:no_lines_found, :warning)
       redirect_to :action=>:sale_order_lines, :id=>session[:current_sale_order]
     else
       @undelivered_amount = @sale_order.undelivered :amount_with_taxes
@@ -1516,12 +1510,12 @@ class ManagementController < ApplicationController
     @delivery_form = "delivery_form"
     @sale_order = find_and_check(:sale_orders,session[:current_sale_order])
     if @sale_order.invoiced
-      flash[:notice] = tc(:sale_order_already_invoiced)
+      notify(:sale_order_already_invoiced, :warning)
       redirect_to_back
     end
     @sale_order_lines = @sale_order.lines
     if @sale_order_lines.empty?
-      flash[:warning]=tc(:no_lines_found)
+      notify(:no_lines_found, :warning)
       redirect_to_back
     end
     @delivery_lines =  @sale_order_lines.find_all_by_reduction_origin_id(nil).collect{|x| DeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
@@ -1672,9 +1666,7 @@ class ManagementController < ApplicationController
 
 
   def embankments
-    if @current_company.embankable_payments.size <= 0
-      flash.now[:notice] = tc('messages.no_embankable_payments')
-    end
+    notify(:no_embankable_payments, :now) if @current_company.embankable_payments.size <= 0
   end
 
   def embankment
@@ -1686,12 +1678,12 @@ class ManagementController < ApplicationController
   def embankment_create
     mode = PaymentMode.find_by_id_and_company_id(params[:mode_id], @current_company.id)
     if mode.nil?
-      flash[:warning] = tc('messages.need_payment_mode_to_create_embankment')
+      notify(:need_payment_mode_to_create_embankment, :warning)
       redirect_to :action=>:embankments
       return
     end
     if mode.embankable_payments.size <= 0
-      flash[:warning]=tc(:no_check_to_embank)
+      notify(:no_payment_to_embank, :warning)
       redirect_to :action=>:embankments
       return
     end
@@ -1736,14 +1728,6 @@ class ManagementController < ApplicationController
     render_form
   end
   
-#   def embankment_update
-#     @embankment = find_and_check(:embankment, params[:id])
-#     if request.post?
-#       redirect_to :action=>:embankment_payment_update, :id=>@embankment.id if @embankment.update_attributes(params[:embankment])
-#     end
-#     @title = {:date=>@embankment.created_on}
-#     render_form
-#   end
 
   def embankment_delete
     @embankment = find_and_check(:embankment, params[:id])
@@ -1751,47 +1735,6 @@ class ManagementController < ApplicationController
       redirect_to_current if @embankment.destroy
     end
   end
-
-#   def embankment_payment_create
-#     @embankment = find_and_check(:embankment, params[:id])
-#     @checks = @current_company.checks_to_embank(@embankment.mode_id)
-#  #   raise Exception.new @checks[0].inspect
-#     if request.post?
-#       payments = params[:check].collect{|x| Payment.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:check].nil?
-#       if !payments.nil?
-#         for payment in payments
-#           payment.update_attributes!(:embankment_id=>@embankment.id)
-#         end
-#       end
-#       redirect_to :action=>:embankments
-#     end
-#   end
-
-#   def embankment_payment_update
-#     @embankment = find_and_check(:embankment, params[:id])
-#     @checks = @current_company.checks_to_embank_on_update(@embankment)
-#     if request.post?
-#       if params[:check].nil?
-#         flash[:warning]=tc(:choose_one_check_at_less)
-#         redirect_to_current
-#       else
-
-#         for check in @embankment.checks
-#           if params[:check][check.id.to_s].nil?
-#             check.update_attributes(:embankment_id=>nil) 
-#             @embankment.save
-#           end
-#         end
-#         payments = params[:check].collect{|x| Payment.find_by_id_and_company_id(x[0],@current_company.id)} if !params[:check].nil?
-#         for payment in payments
-#           payment.update_attributes(:embankment_id=>@embankment.id) if payment.embankment_id.nil?
-#         end
-#         redirect_to :action=>:embankments
-#       end
-      
-#     end
-    
-#   end
   
   dyta(:payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
@@ -1949,39 +1892,6 @@ class ManagementController < ApplicationController
     end
   end
   
-  #dyli(:usable_payments, :conditions=>["parts_amount<amount"])
-
-#   def payment_part_create
-#     return unless @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
-#     if @sale_order.unpaid_amount <= 0 and @sale_order.invoices.size > 0
-#       flash[:notice]=tc(:error_sale_order_already_paid)
-#       redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
-#       return
-#     end
-#     @payment_part = PaymentPart.new
-#     if request.post?
-#       if params[:new_payment]
-#         @payment = Payment.new(params[:payment])
-#         @payment.company_id = @current_company.id
-#         @payment.entity_id = @sale_order.client_id
-#         @payment.save
-#       else
-#         @payment = find_and_check(:payment, params[:pay][:part])
-#       end
-#       if @payment.errors.size <= 0
-#         if @payment.pay(@sale_order, :downpayment=>params[:payment_part][:downpayment])
-#           redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
-#         end
-#       end
-#     else
-#       last_payment = @sale_order.client.payments.find(:first, :order=>"paid_on desc")
-#       #raise Exception.new last_payment.inspect
-#       has_invoices = (@sale_order.invoices.size>0)
-#       @payment = Payment.new(:paid_on=>Date.today, :to_bank_on=>Date.today, :amount=>@sale_order.unpaid_amount(has_invoices), :embanker_id=>@current_user.id, :bank=>last_payment.nil? ? "" : last_payment.bank, :account_number=>last_payment.nil? ? "" : last_payment.account_number)
-#     end
-#     @title = {:value=>@sale_order.number}
-#     render_form
-#  end
   
   def payment_part_create
     return unless @expense = find_and_check(params[:expense_type]||session[:expense_type], params[:expense_id]||session[:expense_id])
@@ -2098,7 +2008,7 @@ class ManagementController < ApplicationController
 
   def locations
     unless @current_company.locations.size>0
-      flash[:message] = tc('messages.need_location_to_record_stock_moves')
+      notify(:need_location_to_record_stock_moves)
       redirect_to :action=>:location_create
       return
     end
@@ -2254,7 +2164,7 @@ class ManagementController < ApplicationController
     return unless @subscription_nature = find_and_check(:subscription_nature, params[:id])
     if request.post?
       @subscription_nature.increment!(:actual_number)
-      flash[:notice]=tc('new_actual_number', :value=>@subscription_nature.actual_number)
+      notify(:new_actual_number, :success, :actual_number=>@subscription_nature.actual_number)
       redirect_to_current
     end
   end
@@ -2263,7 +2173,7 @@ class ManagementController < ApplicationController
     return unless @subscription_nature = find_and_check(:subscription_nature, params[:id])
     if request.post?
       @subscription_nature.decrement!(:actual_number)
-      flash[:notice]=tc('new_actual_number', :value=>@subscription_nature.actual_number)
+      notify(:new_actual_number, :success, :actual_number=>@subscription_nature.actual_number)
       redirect_to_current
     end
   end
@@ -2321,7 +2231,7 @@ class ManagementController < ApplicationController
 
   def subscriptions
     if @current_company.subscription_natures.size == 0
-      flash[:warning]=tc(:need_to_create_subscription_nature)
+      notify(:need_to_create_subscription_nature)
       redirect_to :action=>:subscription_natures
       return
     end
@@ -2384,45 +2294,6 @@ class ManagementController < ApplicationController
     @subscription = Subscription.new(:nature=>SubscriptionNature.find_by_company_id_and_id(@current_company.id, params[:subscription_nature_id].to_i))
     render :partial=>'subscriptions_period_form'
   end
-
-
-
-  # TO DELETE
-#   def subscriptions2()
-#     if @current_company.subscription_natures.size == 0
-#       flash[:warning]=tc(:need_to_create_subscription_nature)
-#       redirect_to :action=>:subscription_natures
-#     else 
-#       session[:sub_is_date] = 0 
-#       if not params[:nature].nil?
-#         @subscription_nature = find_and_check(:subscription_nature, params[:nature])
-#         session[:subscription_instant] = @subscription_nature.nature == "quantity" ? @subscription_nature.actual_number : Date.today
-#         session[:sub_is_date] = @subscription_nature.nature == "quantity" ? 2 : 1
-#       else
-#         @subscription_nature = session[:subscription_nature]||@current_company.subscription_natures.find(:first)
-#       end
-#       session[:subscription_nature] = @subscription_nature
-#     end
-#     if request.post?
-#       @subscription_nature = find_and_check(:subscription_nature, params[:subscription_nature][:id])
-#       if @subscription_nature
-#         session[:subscription] = 
-#         if @subscription_nature.nature == "quantity"
-#           session[:subscription_instant]= params[:subscription][:value].to_i > 0 ? params[:subscription][:value].to_i : 0
-#           session[:sub_is_date] = 2
-#         elsif @subscription_nature.nature == "period" and !params[:subscription][:value].nil?
-#           begin
-#             params_to_date = params[:subscription][:value].to_date
-#             session[:subscription_instant] = params_to_date
-#           rescue
-#             session[:subscription_instant] = Date.today
-#             flash[:warning]=tc(:unvalid_date)
-#           end
-#           session[:sub_is_date] = 1
-#         end
-#       end
-#     end
-#   end
   
   
   
@@ -2551,7 +2422,7 @@ class ManagementController < ApplicationController
   def stocks
     @locations = @current_company.locations
     if @locations.size == 0
-      flash[:warning]=tc('no_location')
+      notify(:no_location, :warning)
       redirect_to :action=>:location_create
     else
       if request.post?

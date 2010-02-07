@@ -52,7 +52,7 @@ class CompanyController < ApplicationController
   end
 
   def unknown_action
-    flash[:error] = tc(:unknown_action, :value=>request.url.inspect)
+    notify(:unknown_action, :error, :url=>request.url.inspect)
     redirect_to :action=>:index
   end
   
@@ -157,9 +157,9 @@ class CompanyController < ApplicationController
         start = Time.now
         if @current_company.restore(file)
           @current_company.reload
-          flash.now[:notice] = tc(:restoration_finished, :value=>(Time.now-start).to_s, :code=>@current_company.code)
-          else
-          flash.now[:error] = tc(:unvalid_version_for_restore)
+          notify(:restoration_finished, :success, :now, :value=>(Time.now-start).to_s, :code=>@current_company.code)
+        else
+          notify(:unvalid_version_for_restore, :error, :now)
         end
       end
     end
@@ -305,7 +305,7 @@ class CompanyController < ApplicationController
         @user.password = params[:user][:password]
         @user.password_confirmation = params[:user][:password_confirmation]
         if @user.save
-          flash[:notice] = tc("notices.password_successfully_changed")
+          notify(:password_successfully_changed)
           redirect_to :action=>:index 
         end
         @user.password = @user.password_confirmation = ''
@@ -578,7 +578,7 @@ class CompanyController < ApplicationController
   def listing_mail
     @listing = find_and_check(:listing, params[:id])
     if @listing.mail_columns.size == 0
-      flash[:warning] = tc(:you_must_have_an_email_column)
+      notify(:you_must_have_an_email_column, :warning)
       redirect_to_back
     else
       if session[:listing_mail_column] or @listing.mail_columns.size ==  1
@@ -774,7 +774,7 @@ class CompanyController < ApplicationController
       #send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>t('activerecord.models.'+object.class.name.underscore))
       send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename)
     rescue Exception=>e
-      flash[:error]=tc(:object_to_print_no_found, :class=>e.class, :error=>e)
+      notify(:print_failure, :error, :class=>e.class, :error=>e)
       redirect_to_back
     end
   end

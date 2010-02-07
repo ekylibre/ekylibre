@@ -23,11 +23,10 @@
             =side_link_tag
             %h1.title=title
           #yield{:flex=>50, :orient=>:vertical}
-            = flash_tag :error
-            = flash_tag :warning
-            = flash_tag :notice
-            - unless flash[:message].blank?
-              .message=flash[:message]
+            =notification_tag :error
+            =notification_tag :warning
+            =notification_tag :success
+            =notification_tag :information
             =yield
             .end{:style=>'height:1px'}
       #help{:flex=>3, :style=>(session[:help] ? "" : "display:none; ")+"position: absolute; top: 0px;"}

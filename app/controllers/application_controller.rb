@@ -98,10 +98,11 @@ class ApplicationController < ActionController::Base
 
   def find_and_check(model, id, options={})
     model = model.to_s
-    record = model.classify.constantize.find_by_id_and_company_id(id, @current_company.id)
+    klass = model.classify.constantize
+    record = klass.find_by_id_and_company_id(id.to_s.to_i, @current_company.id)
     if record.nil?
-      flash[:error] = tg("unavailable.#{model.to_s}", :value=>id)
-      redirect_to_back # :action=>options[:url]||model.pluralize
+      notify(:unavailable_model, :error, :model=>klass.human_name, :id=>id)
+      redirect_to_back
     end
     record
   end
@@ -113,8 +114,31 @@ class ApplicationController < ActionController::Base
   end
 
 
+  def notify(message, nature=:information, mode=:next, options={})
+    options = mode if mode.is_a? Hash
+    mode = :now if nature == :now
+    nature = :information if !nature.is_a? Symbol or nature == :now
+    notistore = ((mode==:now or nature==:now) ? flash.now : flash)
+    notistore[:notifications] = {} unless notistore[:notifications].is_a? Hash
+    notistore[:notifications][nature] = [] unless notistore[:notifications][nature].is_a? Array
+    notistore[:notifications][nature] << ::I18n.t("notifications."+message.to_s, options)
+  end
+ 
+  def has_notifications?(nature=nil)
+    return false unless flash[:notifications].is_a? Hash
+    if nature.nil?
+      for nature, messages in flash[:notifications]
+        return true if messages.size > 0
+      end
+    elsif flash[:notifications][nature].is_a?(Array)
+      return true if flash[:notifications][nature].size > 0
+    end
+    return false
+  end
+
+
   private
-  
+ 
   def historize()
     if request.url == session[:history][1]
       session[:history].delete_at(0)
@@ -145,7 +169,7 @@ class ApplicationController < ActionController::Base
     session[:last_query] ||= 0
     session[:expiration] ||= 0
     if session[:last_query].to_i<Time.now.to_i-session[:expiration]
-      flash[:error] = tc :expired_session
+      notify(:expired_session, :error)
       if request.xhr?
         render :text=>"<script>window.location.replace('#{url_for(:controller=>:authentication, :action=>:login)}')</script>"
       else
@@ -169,7 +193,7 @@ class ApplicationController < ActionController::Base
     # Check rights before allowing access
     message = @current_user.authorization(session[:rights], controller_name, action_name)
     if message
-      flash[:error] = message+request.url.inspect
+      notify(:access_denied, :error, :reason=>message, :url=>request.url.inspect)
       redirect_to_back unless @current_user.admin
     end
   end
@@ -251,9 +275,9 @@ class ApplicationController < ActionController::Base
       code += "  return unless @#{record_name} = find_and_check(:#{record_name}, params[:id])\n"
       code += "  if request.delete?\n"
       code += "    #{model.name}.destroy(@#{record_name}.id)\n"
-      code += "    flash[:notice]=tg(:record_has_been_correctly_removed)\n"
+      code += "    notify(:record_has_been_correctly_removed, :success)\n"
       code += "  else\n"
-      code += "    flash[:error]=tg(:record_has_not_been_removed)\n"
+      code += "    notify(:record_has_not_been_removed, :error)\n"
       code += "  end\n"
       code += "  redirect_to_current\n"
       code += "end\n"

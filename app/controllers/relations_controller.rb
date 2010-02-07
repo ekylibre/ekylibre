@@ -435,14 +435,7 @@ class RelationsController < ApplicationController
   end
 
   def entity
-    @entity = find_and_check(:entity, params[:id])
-    return if @entity.nil?
-    #     @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id) 
-    #     if @entity.nil?
-    #       flash[:error] = tc('unfound_entity')
-    #       redirect_to :action=>:entities
-    #       return
-    #     end
+    return unless @entity = find_and_check(:entity, params[:id])
     session[:current_entity] = @entity.id
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})  
     @purchase_orders_number = PurchaseOrder.count(:conditions=>{:company_id=>@current_company.id, :supplier_id=>params[:id]}) 
@@ -635,9 +628,8 @@ class RelationsController < ApplicationController
       unless @entity.invoices.size > 0
         @id = params[:id]
         Entity.destroy(@id) if @entity
-        #        Entity.delete(@id) if @entity
       else
-        flash[:warning]=lc(:entity_delete_permission)
+        notify(:cannot_delete_entity, :error)
       end
     end
     redirect_to :action=>:entities
@@ -645,16 +637,16 @@ class RelationsController < ApplicationController
 
   def entities_merge
     if request.post?
-      @master = find_and_check(:entity, params[:merge][:master])
-      @double = find_and_check(:entity, params[:merge][:double])
+      return unless @master = find_and_check(:entity, params[:merge][:master])
+      return unless @double = find_and_check(:entity, params[:merge][:double])
       if @master.id == @double.id
-        flash[:error] = tc 'errors.cannot_merge_an_entity_with_itself'
+        notify(:cannot_merge_an_entity_with_itself, :error, :now)
         return
       end
-      @master.merge(@double, true)
       begin
+        @master.merge(@double, true)
       rescue
-        flash[:error] = tc('errors.cannot_merge_entities')
+        notify(:cannot_merge_entities, :error, :now)
       end
     end
   end
@@ -799,7 +791,7 @@ class RelationsController < ApplicationController
       unless @entity_nature.entities.size > 0
         @entity_nature.destroy
       else
-        flash[:warning]=tc(:entity_nature_delete_permission)
+        notify(:cannot_delete_entity_nature, :warning)
       end
     end
     redirect_to :action=>:entities_natures
@@ -928,25 +920,11 @@ class RelationsController < ApplicationController
     if mandate = Mandate.find_by_company_id_and_id(@current_company.id, params[:id])
       params[:organization] = mandate.organization
     end
-
-     @entities = @current_company.entities
-#     unless @entities.size > 0 
-#       flash[:message] = tc(:need_entities_to_consult_mandates)
-#       redirect_to :action => :entity_create
-#       return
-#     end
-    
-     @organizations = @current_company.mandates.find(:all, :select=>' DISTINCT organization ')
-#     unless @organizations.size > 0 
-#       flash[:message] = tc(:need_to_create_mandates_before)
-     #  redirect_to :action => :mandate_create
-#       return
-#     end
-    
+    @entities = @current_company.entities    
+    @organizations = @current_company.mandates.find(:all, :select=>' DISTINCT organization ')
     session[:mandates] ||= {}
     session[:mandates][:organization] = params[:organization]||session[:mandates][:organization]||''
     session[:mandates][:date] = params[:date]||session[:mandates][:date]||Date.today
-  
   end
   
   dyta(:entity_mandates, :model=>:mandates, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
@@ -961,20 +939,16 @@ class RelationsController < ApplicationController
   
   # this method configures mandates
   def mandates_configure
-    # flash[:message]=tc(:need_to_create_mandates_before) if @current_company.mandates.size == 0
+    notify(:no_existing_mandates, :now) if @current_company.mandates.size == 0
    
     filters = { :no_filters => '', :contains => '%X%', :is => 'X', :begins => 'X%', :finishes => '%X', :not_contains => '%X%', :not_is  => 'X', :not_begins => 'X%', :not_finishes => '%X' }
     shortcuts = { :fam => :family, :org => :organization, :tit => :title } 
     @filters = filters.collect{|f,k| [tc(f), f]}.sort
 
     if request.post?
-      flash[:error] = ''
-      flash[:error] += tc('errors.specify_updates') unless params[:columns].detect{|k,v| !v[:update].blank?}
-      flash[:error] += tc('errors.select_filter') unless params[:columns].detect{|k,v| !v[:filter].blank?}
-      unless flash[:error].blank?
-        redirect_to :action=>:mandates_configure
-        return
-      end
+      notify(:specify_updates, :error, :now) unless params[:columns].detect{|k,v| !v[:update].blank?}
+      notify(:specify_filter, :error, :now)  unless params[:columns].detect{|k,v| !v[:filter].blank?}
+      return if has_notifications?
       
       conditions = ["company_id = ?", @current_company.id]
       updates = "updated_at = CURRENT_TIMESTAMP"
@@ -1147,7 +1121,7 @@ class RelationsController < ApplicationController
 
     if request.post?
       if params[:csv_file].nil?
-        flash[:warning]=tc(:you_must_select_a_file_to_import)
+        notify(:you_must_select_a_file_to_import, :warning)
         redirect_to :action=>:entities_import
       else
         data = params[:csv_file][:path]
@@ -1200,7 +1174,7 @@ class RelationsController < ApplicationController
               contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>entity_contact[0].id, :default=>true, :deleted=>false}) 
               contact.update_attributes(entity_contact[1].attributes) if !contact.nil?
             end
-            flash[:notice]=tc(:import_succeed)
+            notify(:import_succeeded)
           end
         end
       end

@@ -3,15 +3,8 @@ fr-FR:
   controllers:
     company:
       mailing: 'Mailing'
-      notices:
-        password_successfully_changed: 'Votre mot de passe a été mis à jour avec succès'
-      object_to_print_no_found: 'Impossible d''imprimer. {{class}}: {{error}}'
-      restoration_finished: 'La restauration de la sauvegarde s''est terminée (en {{value}} secondes). Votre code société est {{code}}'
       role: 'Rôle'
       title: 'Société'
-      unknown_action: 'La page que vous demandez n''est pas disponible. ({{value}})'
-      unvalid_version_for_restore: 'La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel'
-      you_must_have_an_email_column: 'Vous devez avoir une colonne Email dans votre extraction'
 
   helpers:
     company:

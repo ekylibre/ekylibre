@@ -576,6 +576,11 @@ fr-FR:
     next: Suivant
     new: Nouveau...
     no_records: 'Pas d''enregistrements'
+    notifications:
+      information: 'Information'
+      success: 'Opération réalisée avec succès'
+      warning: 'Attention!'
+      error:  'Erreur'
     previous: Précédent
     print: Imprimer
     record_has_been_correctly_removed: 'L''enregistrement a été supprimé correctement.'

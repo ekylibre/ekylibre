@@ -155,11 +155,6 @@ class AccountancyController < ApplicationController
   
   #this method displays the form to choose the journal and financialyear.
   def accountize
-    # unless @current_company.invoices or @current_company.sale_orders or @current_company.purchase_orders or @current_company.payments or @current_company.transfers
-    #       flash[:message] = tc('messages.need_commercial_transactions_for_generate_entries')
-    #       redirect_to :controller=>:management_controller, :action=>:index
-    #       return
-    #     end
   end
   
   #this method lists all the entries generated in draft mode.
@@ -311,7 +306,7 @@ class AccountancyController < ApplicationController
     end
     @financialyears =  @current_company.financialyears.find(:all, :order => :stopped_on)
     if @financialyears.nil?
-      flash[:message]=tc('messages.no_financialyear')
+      notify(:no_financialyear, :error)
       redirect_to :action => :document_prepare
       return      
     end
@@ -343,7 +338,7 @@ class AccountancyController < ApplicationController
         
         journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Journal général"})
         if journal_template.nil?
-          flash[:message]=tc('messages.no_template_journal')
+          notify(:no_template_journal, :error)
           redirect_to :action=>:document_print
           return
         end
@@ -367,7 +362,7 @@ class AccountancyController < ApplicationController
         
         journal_template = @current_company.document_templates.find(:first, :conditions=>["name like ?", '%Journal auxiliaire%'])
         if journal_template.nil?
-          flash[:message]=tc('messages.no_template_journal_by_id', :value=>journal.name)
+          notify(:no_template_journal_by_id, :error)
           redirect_to :action=>:document_print
           return
         end
@@ -389,7 +384,7 @@ class AccountancyController < ApplicationController
         
         balance_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Balance"})
         if balance_template.nil?
-          flash[:error]=tc("messages.no_balance_template")
+          notify(:no_balance_template, :error)
           redirect_to :action=>:document_prepare
           return
         end
@@ -575,7 +570,7 @@ class AccountancyController < ApplicationController
     end
     
     if @financialyears.empty? 
-      flash[:message]=tc(:no_closable_financialyear)
+      notify(:no_closable_financialyear, :error)
       redirect_to :action => :financialyears
       return
     end
@@ -596,7 +591,7 @@ class AccountancyController < ApplicationController
         @new_financialyear = @financialyear.next(@current_company.id)
         
         if @new_financialyear.nil?
-          flash[:message]=tc(:next_illegal_period_financialyear)
+          notify(:next_illegal_period_financialyear, :error)
           redirect_to :action => :financialyears
           return
         end
@@ -633,7 +628,7 @@ class AccountancyController < ApplicationController
         end
       end
       @financialyear.close(params[:financialyear][:stopped_on])
-      flash[:message] = tc('messages.closed_financialyears')
+      notify(:closed_financialyears, :success)
       redirect_to :action => :financialyears
       
     else
@@ -686,12 +681,12 @@ class AccountancyController < ApplicationController
     @financialyears = @current_company.financialyears.find(:all, :conditions => {:closed => false}, :order=>:code)
     
     unless @financialyears.size>0
-      flash[:message] = tc('messages.need_financialyear_to_consult_record_entries')
+      notify(:need_financialyear_to_consult_record_entries, :info)
       redirect_to :action=>:financialyear_create
       return
     end
     unless @journals.size>0
-      flash[:message] = tc('messages.need_journal_to_consult_record_entries')
+      notify(:need_journal_to_consult_record_entries, :info)
       redirect_to :action=>:journal_create
       return
     end
@@ -869,8 +864,8 @@ class AccountancyController < ApplicationController
     if request.post? or request.delete?
       @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id)  
       if @journal.records.size > 0
-        flash[:message]=tc(:messages, :need_empty_journal_to_delete)
-        @journal.update_attribute(:deleted, true)
+        notify(:cannot_delete_journal, :error)
+        # @journal.update_attribute(:deleted, true)
       else
         Journal.destroy(@journal)
       end
@@ -890,16 +885,12 @@ class AccountancyController < ApplicationController
     end
     
     if @journals.empty?
-      flash[:message]=tc(:no_closable_journal)
+      notify(:no_closable_journal)
       redirect_to :action => :journals
     end
     
     if params[:id]  
       @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id) 
-      # unless @journal.closable?(Date.today)
-      #         flash[:message]=tc(:unclosable_journal)
-      #         redirect_to :action => :journals 
-      #       end
     else
       @journal = @current_company.journals.find(:first, :conditions=> ["closed_on < ?", Date.today.to_s]) 
     end
@@ -912,13 +903,8 @@ class AccountancyController < ApplicationController
       end
     end
     
-    if request.post?
-      @journal = Journal.find_by_id_and_company_id(params[:journal][:id], @current_company.id)
-      
-      if @journal.nil?
-        flash[:error] = tc(:unavailable_journal)
-      end  
-      
+    if request.post?      
+      return unless @journal = find_and_check(:journal, params[:journal][:id])
       if @journal.close(params[:journal][:closed_on])
         redirect_to_back
       end
@@ -954,7 +940,7 @@ class AccountancyController < ApplicationController
     @entries =  @current_company.entries.find(:all, :conditions => ["editable = ? AND draft=? AND (a.number LIKE ? OR a.number LIKE ?)", false, false,clients_account+'%', suppliers_account+'%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
 
     unless @entries.size > 0
-      flash[:message] = tc('messages.need_entries_to_letter')
+      notify(:need_entries_to_letter, :now)
       return
     end
 
@@ -1037,7 +1023,7 @@ class AccountancyController < ApplicationController
     @bank_accounts = @current_company.bank_accounts
     @valid = @current_company.bank_accounts.empty?
     unless @bank_accounts.size>0
-      flash[:message] = tc('messages.need_bank_account_to_record_statements')
+      notify(:need_bank_account_to_record_statements)
       redirect_to :action=>:bank_account_create
       return
     end
@@ -1053,7 +1039,7 @@ class AccountancyController < ApplicationController
       @statement.company_id = @current_company.id
       
       if BankAccount.find_by_id_and_company_id(params[:statement][:bank_account_id], @current_company.id).account.entries.find(:all, :conditions => "statement_id is NULL").size.zero?
-        flash[:message]=tc('messages.no_entries_pointable_for_bank_account')
+        notify(:no_entries_pointable_for_bank_account, :now)
       else
         
         if @statement.save
@@ -1098,7 +1084,7 @@ class AccountancyController < ApplicationController
     @entries=@current_company.entries.find(:all, :conditions =>["account_id = ? AND editable = ? AND draft=? AND CAST(j.created_on AS DATE) BETWEEN ? AND ?", @bank_account.account_id, true, false,  @bank_account_statement.started_on, @bank_account_statement.stopped_on], :joins => "INNER JOIN journal_records j ON j.id = entries.record_id", :order => "statement_id DESC")
     
     unless @entries.size > 0
-      flash[:message] = tc('messages.need_entries_to_point', :value=>@bank_account_statement.number)
+      notify(:need_entries_to_point, :warning)
       redirect_to :action=>'statements'
     end
 
@@ -1164,13 +1150,13 @@ class AccountancyController < ApplicationController
     @journals  =  @current_company.journals.find(:all, :conditions => ["nature = ? OR nature = ?", :sale.to_s,  :purchase.to_s])
     
     if @journals.nil?
-      flash[:message] = tc('messages.need_journal_to_record_tax_declaration')
+      notify(:need_journal_to_record_tax_declaration)
       redirect_to :action=>:journal_create
       return
     else
       @journals.each do |journal|
         unless journal.closable?(Date.today)
-          flash[:message] = tc('messages.need_balanced_journal_to_tax_declaration')
+          notify(:need_balanced_journal_to_tax_declaration)
           redirect_to :action=>:entries
           return
         end
@@ -1186,7 +1172,7 @@ class AccountancyController < ApplicationController
     @financialyears = @current_company.financialyears.find(:all, :conditions => ["closed = 't'"])
     
     unless @financialyears.size > 0
-      flash[:message] = tc('messages.need_closed_financialyear_to_declaration')
+      notify(:need_closed_financialyear_to_declaration)
       redirect_to :action=>:tax_declarations
       return
     end

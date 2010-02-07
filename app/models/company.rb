@@ -35,7 +35,6 @@
 #  updater_id       :integer          
 #
 
-# -*- coding: utf-8 -*-
 class Company < ActiveRecord::Base
   has_many :accounts
   has_many :account_balances
@@ -215,14 +214,9 @@ class Company < ActiveRecord::Base
   end
 
   def available_prices(category_id=nil)
-    #conditions = ["entity_id=? AND p.active AND prices.active", self.entity_id]
-    conditions = {:entity_id=>self.entity_id, "p.active"=>true, "prices.active"=>true}
-    if category_id
-      conditions[:category_id] = category_id
-      #conditions[0] += " AND category_id=?"
-      #conditions << category_id
-    end
-    self.prices.find(:all, :joins=>"JOIN products AS p ON (p.id=product_id)", :conditions=>conditions, :order=>"p.name, prices.amount")
+    conditions = {"prices.entity_id"=>self.entity_id, "products.active"=>true, "prices.active"=>true}
+    conditions[:category_id] = category_id if category_id
+    self.prices.find(:all, :joins=>"JOIN products ON (products.id=product_id)", :conditions=>conditions, :order=>"products.name, prices.amount")
   end
 
   def available_taxes(options={})

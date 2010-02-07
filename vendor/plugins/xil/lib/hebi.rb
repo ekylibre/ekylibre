@@ -159,20 +159,15 @@ module Hebi
 
 
 
-
-
-
-
-
-
     
 
     def new_page(format=[], rotate=0)
       # format = Xil::StyleFORMATS[format.to_s.lower.gsub(/[^\w]/,'').to_sym] unless format.is_a? Array
-      error('Parameter format must be an array') unless format.is_a? Array
-      format[0] ||= 1000.0
-      error('Parameter format can only contains numeric values') unless format[0].is_a? Numeric
-      format[1] ||= format[0]*1.414
+      error("Parameter format must be an array (#{format.inspect})") unless format.is_a? Array
+      error("Parameter format must be an array with 2 values (#{format.inspect})") unless format[0].is_a? Numeric and format[1].is_a? Numeric
+      #format[0] ||= 1000.0
+      #error('Parameter format can only contains numeric values') unless format[0].is_a? Numeric
+      # format[1] ||= format[0]*1.414
       rotate = 90*(rotate.to_f/90).round
       @current_page = @pages.size
       @pages << {:format=>format, :operations=>[], :rotate=>rotate}

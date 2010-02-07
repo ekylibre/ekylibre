@@ -117,7 +117,6 @@ fr-FR:
         index: 'Retour à l''index de la production'
         name: 'Nom'
         nature: 'Type'
-        no_operations: 'Aucun travail à réaliser'
         planned_on: 'Prévu le'
         shape_name: 'Îlot'
         title: 'Travaux à réaliser'

@@ -2,8 +2,6 @@ fr-FR:
 
   controllers:
     authentication:
-      need_company_code_to_login: 'Vous devez saisir votre nom d''utilisateur accompagné de votre code société. Exemple : SOCIETE\jean'
-      no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
       title: 'Authentification'
 
   helpers:

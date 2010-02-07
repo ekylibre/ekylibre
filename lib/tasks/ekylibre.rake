@@ -410,6 +410,7 @@ namespace :clean do
 
     puts "#{models.size} models, #{static_attrs_count} static attributes, #{attrs_count-static_attrs_count} virtual attributes, #{(attrs_count.to_f/models.size).round(1)} attributes/models"
 
+    # Packs
     controllers = Dir["#{RAILS_ROOT}/app/controllers/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
     for controller in controllers
       controller_name = controller.split("_")[0..-2]
@@ -424,7 +425,28 @@ namespace :clean do
       end
     end
 
-    puts "#{controllers.size} controllers"
+    # Notifications
+    notifications = ::I18n.t("notifications")
+    deleted_notifs = ::I18n.t("notifications").keys
+    for controller in Dir["#{RAILS_ROOT}/app/controllers/*.rb"]
+      file = File.open(controller, "r")
+      file.each_line do |line|
+        if line.match(/([\s\W]+|^)notify\(\s*\:\w+/)
+          key = line.split(/notify\(\s*\:/)[1].split(/\W/)[0]
+          deleted_notifs.delete(key.to_sym)
+          notifications[key.to_sym] = "" if notifications[key.to_sym].nil? or notifications[key.to_sym].match(/\(\(\(/)
+        end
+      end
+    end
+    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.notifications.yml", "wb") do |file|
+      file.write ::I18n.locale.to_s+":\n"
+      file.write "  notifications:\n"
+      for key, translation in notifications.sort{|a,b| a[0].to_s<=>b[0].to_s}
+        file.write "    #{key}: #{translation.blank? ? '((('+key.to_s.upper+')))' : '\''+translation.gsub(/\'/, '\'\'')+'\''} #{deleted_notifs.include?(key) ? '# NOT USED !!!' : ''}\n"
+      end
+    end
+
+    puts "#{controllers.size} controllers, #{notifications.size} notifications"
 
   end
   

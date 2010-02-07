@@ -144,12 +144,19 @@ div.td { display: table-cell; }
 #company div.side .label {color:#777; width: 160px; text-align:right; padding: 2px;}
 #company div.side .value {color:#227;  padding: 2px;}
 
-.flash { padding: 4px 6px; text-align:center; margin-bottom: 8px; border: 1px solid black; background: white; font-weight:bold; }
-.flash.error { color: red; border-color: red; background: #FDD;}
-.flash.warning { color: #FA0; border-color: #FA0; background: #FEC; }
-.flash.notice { color: #4a1; border-color: #7c3; background: #EFC; }
+.flash { padding: 8px; margin-bottom: 8px; background: #FFF; color: black; border: 1px solid black; -moz-border-radius: 8px; }
+.flash > div h3 { font-size: 13px; }
+.flash > div { padding: 0 0 0 40px; vertical-align: middle; height:32px; }
+html>body .flash > div { height:auto; min-height:32px; }
+.flash.error   {border-color: #F00; background: #FDD;}
+.flash.error > div   {background: url(../images/template/notification-error.png) left center no-repeat; color: #F00}
+.flash.warning {border-color: #F80; background: #FEC;}
+.flash.warning > div {background: url(../images/template/notification-warning.png) left center no-repeat; color: #F80}
+.flash.success  {border-color: #7c3; background: #EFC;}
+.flash.success > div  {background: url(../images/template/notification-success.png) left center no-repeat; color: #4A1}
+.flash.information {border-color: #777; background: #F5F5F5; }
+.flash.information > div {background: url(../images/template/notification-info.png) left center no-repeat; color: #777}
 
-.message { padding: 8px 12px; margin: 0; background: #FFD; border: 1px solid #EDA; font-size: 13px; font-weight: bold; color: #530; text-align: center; }
 .count { margin: 0 0 4px; color:#777; }
 
 .contact { padding: 5px 0 8px 4px; border:0.2px solid; border-color:#C9D7F1; background-color:#FEB;}

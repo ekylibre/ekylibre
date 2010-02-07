@@ -17,14 +17,9 @@ fr-FR:
       email: 'Email: '
       embankment: 'Remise de chèques'
       error_sale_order_already_paid: 'La vente a déjà été payée en totalité'
-      errors:
-        sale_order_cannot_be_updated: 'Le devis n''est plus modifiable.'
       estimate: 'Devis'
       fax: 'Fax'
       full_name: 'Client'
-      import_succeed: 'Vos données ont été correctement importées'
-      impossible_to_add_lines: 'Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande'
-      impossible_to_add_lines_to_purchase: 'Vous ne pouvez plus ajouter de produits à votre achat'
       inventory: 'Inventaire'
       invoice: 'Facture'
       invoice_number: 'Numéro de facture'
@@ -32,23 +27,8 @@ fr-FR:
       last_payment_date: 'Date du dernier réglement'
       locations:
         location_create: 'Ajouter un nouveau lieu de stockage'
-      messages:
-        invoice_already_created: 'La facture de cette livraison a déjà été créée'
-        need_location_to_record_stock_moves: 'Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage.'
-        need_product_to_create_price: 'Pour pouvoir ajouter un prix, il vous faut d''abord enregistrer un produit à tarifer.'
-        need_quantities_to_cancel_an_invoice: 'Vous devez spécifier une quantité pour pouvoir faire un avoir'
-        no_embankable_payments: 'Il n''y a pas de réglements à remettre en banque'
       mobile: 'Portable'
-      need_location_to_create_purchase_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser un achat'
-      need_location_to_create_sale_order_line: 'Vous devez créer un lieu de stockage pour pouvoir réaliser une vente'
-      need_product_stocks_to_create_inventories: 'Vous devez gérer les stocks d''au moins un produit pour pouvoir créer un inventaire'
-      need_stocks_location_to_create_products: 'Vous devez créer un lieu de stockage pour pouvoir créer un produit'
-      need_to_create_subscription_nature: 'Vous devez créer un type d''abonnement pour pouvoir gérer vos abonnements'
-      new_actual_number: 'Le nouveau numéro en cours est {{value}}'
-      no_check_to_embank: 'Aucun chèque à encaisser'
       no_contacts: 'Aucune adresse définie pour {{name}}'
-      no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
-      no_location: 'Veuillez créer un lieu de stockage'
       number: 'Numéro vente'
       order: 'Commande'
       paid_on: 'Réglé le'
@@ -69,7 +49,6 @@ fr-FR:
         purchase_order_line_create: 'Ajouter un produit à la commande'
       reservoir: 'Réservoir'
       sale_order: 'Vente'
-      sale_order_already_invoiced: 'La vente a déjà été facturée: vous ne pouvez pas définir de livraison'
       sale_order_lines:
         sale_order_line_create: 'Ajouter un produit au devis'
       sale_order_products: 'Produits commandés'
@@ -84,8 +63,6 @@ fr-FR:
       unpaid_days: 'À payer depuis (jours)'
       unpaid_sale_orders: 'Ventes impayées'
       unvalid_date: 'Date incorrecte'
-      you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
-      you_should_lock_your_old_inventories: 'Attention: il est conseillé de supprimer les inventaires non verouillés ou de les verouiller avant d''en créer un nouveau'
 
   helpers:
     management:
@@ -728,13 +705,13 @@ fr-FR:
       transport_create:
         info: 'Renseignez les informations du transport'
         title: 'Ajout d''un nouveau transport'
+      transport_deliveries:
+        title: 'Livraisons du transport'
       _transport_deliveries:
         add: 'Ajouter la livraison au transport'
         add_delivery: 'Ajouter une livraison'
         back: 'Valider et revenir à la liste des transports'
         delivery: 'Livraison'
-      transport_deliveries:
-        title: 'Livraisons du transport'
       transport_update:
         info: 'Renseignez les informations du transport'
         title: 'Modification du transport'

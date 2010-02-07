@@ -59,8 +59,6 @@ module ApplicationHelper
            [ {:name=>:entities_natures},
              {:name=>:entity_link_natures},
              {:name=>:entity_categories},
-             # {:name=>:meeting_locations},
-             # {:name=>:meeting_modes},
              {:name=>:event_natures},
              {:name=>:complements},
              {:name=>:mandates_configure},
@@ -74,7 +72,6 @@ module ApplicationHelper
            [ {:name=>:entries},
              {:name=>:statements},
              {:name=>:lettering},
-             # {:name=>:report},
              {:name=>:tax_declarations},
              {:name=>:journal_close},
              {:name=>:financialyear_close},
@@ -105,8 +102,8 @@ module ApplicationHelper
          {:name=>:stocks, :list=>
            [{:name=>:stocks_consult, :url=>{:action=>:stocks}},
             {:name=>:location, :url=>{:action=>:locations}},
-            {:name=>:stock_transfers}
-            #, {:name=>:inventories}  
+            {:name=>:stock_transfers},
+            {:name=>:inventories}  
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:products},
@@ -351,8 +348,15 @@ module ApplicationHelper
     link_to_remote(code, {:url=>{:controller=>:help, :action=>:side}, :loading=>"onLoading(); openSide();", :loaded=>"onLoaded();"}, :id=>"side-"+operation, :class=>"side-link")
   end
 
-  def flash_tag(mode)
-    content_tag(:div, flash[mode], :class=>'flash '+mode.to_s) unless flash[mode].blank?
+  def notification_tag(mode)
+    # content_tag(:div, flash[mode], :class=>'flash '+mode.to_s) unless flash[mode].blank?
+    code = ''
+    if flash[:notifications].is_a?(Hash) and flash[:notifications][mode].is_a?(Array)
+      for message in flash[:notifications][mode]
+        code += "<div class='flash #{mode}'><div><h3>#{tg('notifications.'+mode.to_s)}</h3><p>#{h(message)}</p></div></div>"
+      end
+    end
+    code
   end
 
   def link_to_submit(form_name, label=:submit, options={})

@@ -2,8 +2,6 @@ fr-FR:
 
   controllers:
     application:
-      access_denied: 'Vous n''avez pas le droit d''accéder à cette fonctionnalité'
-      expired_session: 'Session expirée. Veuillez vous reconnecter.'
       title: 'Application'
 
   helpers:

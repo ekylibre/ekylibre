@@ -11,7 +11,7 @@
        
       <part height="40mm">
 	<set>
-	  <text value="Inventaire du {{inventory.date}} effectué par {{inventory.employee.label}}" left="50%" align="center" bold="true"/>
+	  <text value="Inventaire du {{inventory.date}} effectué par {{inventory.responsible.label}}" left="50%" align="center" bold="true"/>
 	</set>
       </part>
       
@@ -20,7 +20,7 @@
 	<column label="Produit" property="product/name" width="60mm"/>
 	<column label="Catégorie" property="product/shelf_name" width="30mm"/>
 	<column label="Quantité théorique" property="theoric_quantity"  width="30mm"/>
-	<column label="Quantité constatée" property="validated_quantity" width="30mm"/>
+	<column label="Quantité constatée" property="quantity" width="30mm"/>
       </table>
     </page>
   </document>

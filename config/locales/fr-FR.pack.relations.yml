@@ -18,7 +18,6 @@ fr-FR:
       contact_phone: 'Téléphone'
       contact_website: 'Site web'
       contains: 'Contient'
-      entities_natures_delete_permission: 'Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches'
       entity_category_name: 'Catégorie'
       entity_code: 'Code'
       entity_comment: 'Commentaire'
@@ -27,20 +26,13 @@ fr-FR:
       entity_name: 'Nom'
       entity_nature_name: 'Type'
       entity_reduction_rate: 'Taux de réduction'
-      errors:
-        cannot_merge_an_entity_with_itself: 'Il n''est pas possible de fusionner une fiche avec elle-même'
-        cannot_merge_entities: 'Une erreur est survenue. Il n''est pas possible de fusionner ces fiches.'
-        select_filter: 'Vous choisir appliquer au moins un filtre de recherche'
-        specify_updates: 'Vous devez spécifier au moins un champ à modifier'
       finishes: 'Termine par'
       first_contact: 'Adresse principale'
-      import_succeed: 'Vos données ont été correctement importées '
       is: 'Est'
       mandates_fields: 'Vous devez saisir au moins une valeur dans l''un des champs'
       mandates_filters: 'Vous devez saisir au moins une valeur de recherche pour un des champs'
       mandates_new_fields: 'Vous devez saisir au moins une valeur dans l''un des champs de modification'
       need_entities_to_consult_mandates: 'Vous devez créer des fiches clients/fournisseurs avant'
-      need_to_create_mandates_before: 'Vous devez créer des mandats avant'
       no_filters: '--- Pas de filtre ---'
       not_begins: 'Ne commence pas par'
       not_contains: 'Ne contient pas'
@@ -51,7 +43,6 @@ fr-FR:
       title: 'Relations'
       unfound_entity: 'La fiche que vous recherchez est introuvable'
       usage: 'Utilisation'
-      you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
 
   helpers:
     relations:

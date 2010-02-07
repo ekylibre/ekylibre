@@ -50,103 +50,6 @@ class ProductionController < ApplicationController
   
   manage :tools
 
-  # dyta(:productions, :conditions=>{:company_id=>['@current_company.id']}, :order=>"planned_on ASC") do |t|
-  #   t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
-  #   t.column :quantity
-  #   # t.column :label, :through=>[:product,:unit]
-  #   t.column :moved_on
-  #   t.column :name, :through=>:location, :url=>{:controller=>:management, :action=>:location}
-  #   t.column :serial, :through=>:tracking
-  #   t.action :production_update, :image=>:update
-  #   t.action :production_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
-  # end
-
-  # def productions
-  # end
-  
-
-  # def production_create
-  #   if @current_company.locations.empty?
-  #     flash[:warning]=tc(:need_location_to_create_production)
-  #     redirect_to :controller=>:management, :action=>:location_create
-  #   end
-  #   @production = Production.new
-
-  #   @productable_products = @current_company.productable_products
-    
-  #   if request.post?
-  #     @production = Production.new(params[:production])
-  #     @production.company_id = @current_company.id
-  #     if @production.save
-  #       if @production.product.has_components?
-  #         redirect_to :action=>:production_line_create, :id=>@production.id
-  #       else
-  #         @production.move_stocks
-  #         redirect_to :action=>:productions 
-  #       end
-  #     end
-  #   end
-  #   render_form
-  # end
-
-  # def production_update
-  #   @production = find_and_check(:production,(params[:id]))
-  #   if request.post?
-  #     if @production.update_attributes(params[:production])
-  #       if @production.product.has_components?
-  #         redirect_to :action=>:production_line_update, :id=>@production.id
-  #       else
-  #         redirect_to :action=>:productions
-  #       end
-  #     end
-  #   end
-  #   @title = {:value=>@production.product.name, :moved=>@production.moved_on}
-  #   render_form
-  # end
-
-  # def production_delete
-  #   @production = find_and_check(:production,(params[:id]))   
-  #   if request.delete? or request.post?
-  #     redirect_to :action=>:productions if @production.destroy
-  #   end
-  # end
-
-  # def production_line_create
-  #   @production = find_and_check(:production, params[:id])
-  #   @components = @production.product.components    
-  #   if request.post?
-  #     quantities_mistake = false
-  #     for component in @components
-  #       quantities_mistake = true if !component.check_quantities(params[:component],@production.quantity)
-  #     end
-  #     if quantities_mistake
-  #       @production.errors.add_to_base(tc('mistake_on_quantities_sum'))
-  #     else
-  #       @production.move_stocks(params[:component])
-  #       redirect_to :action=>:productions
-  #     end
-  #   end
-  #   render_form
-  # end
-
-  # def production_line_update
-  #   @production = find_and_check(:production, params[:id])
-  #   @components = @production.product.components   
-  #   if request.post?
-  #     quantities_mistake = false
-  #     for component in @components
-  #       quantities_mistake = true if !component.check_quantities(params[:component],@production.quantity)
-  #     end
-  #     if quantities_mistake
-  #       @production.errors.add_to_base(tc('mistake_on_quantities_sum'))
-  #     else
-  #       @production.move_stocks(params[:component], update=true)
-  #       redirect_to :action=>:productions
-  #     end
-  #   end
-  #   render_form
-  # end
-
   
   dyta(:shapes, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
     t.column :name, :url=>{:action=>:shape}
@@ -290,6 +193,7 @@ class ProductionController < ApplicationController
 
   def unvalidated_operations
     @operations = @current_company.operations.find(:all, :conditions=>{:moved_on=>nil})
+    notify(:no_unvalidated_operations)  if @operations.size <= 0
     if request.post?
       for id, values in params[:unvalidated_operations]
         operation = @current_company.operations.find_by_id(id)

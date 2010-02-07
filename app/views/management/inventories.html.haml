@@ -1,5 +1,5 @@
-=toolbar do
-  -link :inventory_create
+=toolbar do |t|
+  -t.link(:inventory_create) if @current_company.stocks.size>0
  
 =dyta :inventories
 
