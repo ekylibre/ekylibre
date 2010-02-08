@@ -81,18 +81,7 @@ class DocumentTemplate < ActiveRecord::Base
 
   def before_validation
     self.cache = self.class.compile(self.source) # rescue nil
-#     begin
-#       self.cache = self.class.compile(self.source) # rescue nil
-#     rescue => e
-#       errors.add(:source, e.inspect)
-#     end  
-
-    #while self.company.document_templates.find(:first, :conditions=>["code=? AND id!=?", self.code, self.id||0])
-     # self.code.succ!
-    #end
-    self.default = true if self.company.document_templates.find_all_by_nature(self.nature).size == 0
-  
-    DocumentTemplate.update_all({:default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id||0, self.nature]) if self.default and self.nature != 'other'
+    self.default = true if self.company.document_templates.find_all_by_nature_and_default(self.nature, true).size <= 0
   end
 
   def validate
@@ -101,6 +90,10 @@ class DocumentTemplate < ActiveRecord::Base
       syntax_errors = self.filename_errors
       errors.add_to_base(syntax_errors) unless syntax_errors.empty?
     end
+  end
+
+  def after_save
+    DocumentTemplate.update_all({:default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id, self.nature]) if self.default and self.nature != 'other'
   end
 
   def destroyable?
