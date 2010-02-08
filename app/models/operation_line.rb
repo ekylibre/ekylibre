@@ -24,7 +24,7 @@
 #  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
-#  direction       :string(4)        default("in")
+#  direction       :string(4)        default("in"), not null
 #  id              :integer          not null, primary key
 #  location_id     :integer          
 #  lock_version    :integer          default(0), not null

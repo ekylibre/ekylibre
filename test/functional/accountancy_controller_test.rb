@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AccountancyControllerTest < ActionController::TestCase
   # Replace this with your real tests.
-  def test_truth
+  test "the truth" do
     assert true
   end
 end

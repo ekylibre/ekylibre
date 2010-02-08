@@ -36,12 +36,3 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-kilo:
-  id: 1
-  company_id: 1
-  label: Kilo
-  name: kg
-  quantity: 1000
-  base: g
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
