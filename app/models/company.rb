@@ -517,37 +517,20 @@ class Company < ActiveRecord::Base
     return true
   end
 
-  #
-  def print(object, options={})
-    unless object.class.ancestors.include?(ActiveRecord::Base)
-      raise Exception.new("The parameter object must be an ActiveRecord::Base descendant object")
-    end
 
-    # Finding template
-    template = nil
-    if options[:template]
-      template = options[:template] if options[:template].is_a? DocumentTemplate
-      template = self.document_templates.find_by_id(options[:template]) if options[:template].is_a? Integer
-      template = self.document_templates.find_by_code(options[:template]) if options[:template].is_a? String
-    elsif options[:nature]
-      template = self.document_templates.find_by_code(options[:nature]) if options[:nature].is_a? String
-      #raise Exception.new "ok "+template.inspect+options[:nature].inspect
-    else
-      template = self.document_templates.find_by_nature_and_default(object.class.to_s.underscore, true)
-    end
-    #raise Exception.new "ok "+template.inspect+" mmmm "+options[:nature].inspect
-    return DocumentTemplate.error_document("Can't find any template to print") unless template
-    # Printing
-    # TODO: Cache printing method
-    # raise Exception.new template.inspect+':'+options.size.to_s
-    #args=[]
-    #args << object
-    #if options
-    #  args << options 
-    #raise Exception.new 'v:'+args.inspect
-    #end
-    
-    return template.print(object)
+  # Search a document template and use it to compile document using parameters
+  # options[:id] permits to identify the template 
+  def print(options={})
+    id = options.delete(:id)
+    template = if id.is_a? DocumentTemplate
+                 id
+               elsif id.is_a? Integer
+                 self.document_templates.find_by_id(id)
+               elsif id.is_a? String
+                 self.document_templates.find_by_code(id) || self.document_templates.find_by_nature_and_default(id, true)
+               end
+    raise Exception.new(tc(:cant_find_document_template)) unless template
+    return template.print!(options)
   end
 
 
@@ -672,20 +655,46 @@ class Company < ActiveRecord::Base
   def load_prints
     language = self.entity.language
     prints_dir = "#{RAILS_ROOT}/app/views/prints"
-    
-    families = {}
-    families[:management] = {'sale_order'=>{:to_archive=>false, :nature=>'sale_order', :filename=>I18n::t('models.company.default.document_templates_filenames.sale_order')}, 'invoice'=>{:to_archive=>true, :nature=>'invoice', :filename=>I18n::t('models.company.default.document_templates_filenames.invoice')}, 'inventory'=>{:to_archive=>false, :nature=>'inventory', :filename=>I18n::t('models.company.default.document_templates_filenames.inventory')}, 'transport'=>{:to_archive=>false, :nature=>'transport', :filename=>I18n::t('models.company.default.document_templates_filenames.transport')}, 'embankment'=>{:to_archive=>false, :nature=>'embankment', :filename=>I18n::t('models.company.default.document_templates_filenames.embankment')}, 'purchase_order'=>{:to_archive=>false, :nature=>'purchase_order', :filename=>I18n::t('models.company.default.document_templates_filenames.purchase_order')} }#, 'order_preparation'=>{:to_archive=>false, :nature=>'transport', :filename=>I18n::t('models.company.default.document_templates_filenames.order_preparation')}   }
-    families[:relations] = {'entity'=>{:to_archive=>false, :nature=>'entity', :filename=>I18n::t('models.company.default.document_templates_filenames.entity')}}
-    #families[:accountancy] = {'balance_sheet'=>{:to_archive=>false, :nature=>'balance_sheet', :filename=>I18n::t('models.company.default.document_templates_filenames.other')}}#, 'journal_by_id'=>{:to_archive=>false, :nature=>'other', :filename=>I18n::t('models.company.default.document_templates_filenames.other')}}
-    families[:accountancy] = {'balance_sheet'=>{:to_archive=>false, :nature=>'financialyear', :filename=>I18n::t('models.company.default.document_templates_filenames.balance_sheet')}, 'income_statement'=>{:to_archive=>false, :nature=>'financialyear', :filename=>I18n::t('models.company.default.document_templates_filenames.income_statement') }}
-    
-    families.each do |family, templates|
-      templates.each do |template, options|
-        File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
-          self.document_templates.create(:active=>true, :name=>I18n::t('models.company.default.document_templates.'+template.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read, :to_archive=>options[:to_archive], :family=>family.to_s, :code=>I18n::t('models.company.default.document_templates.'+template).codeize[0..7], :nature=>options[:nature], :filename=>options[:filename], :default=>false )
-        end
+    for family, templates in ::I18n.translate('models.company.default.document_templates')
+      for template, attributes in templates
+        #begin
+          File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
+          attributes[:name] ||= I18n::t('models.document_template.natures.'+template.to_s)
+          attributes[:name] = attributes[:name].to_s
+          attributes[:nature] ||= template.to_s
+          attributes[:filename] ||= "File"
+            attributes[:to_archive] = true if attributes[:to_archive] == "true"
+            self.document_templates.create({:active=>true, :language_id=>language.id, :country=>'fr', :source=>f.read, :family=>family.to_s, :code=>attributes[:name].to_s.codeize[0..7], :default=>false}.merge(attributes))
+          end
+        #rescue
+        #end
       end
     end
+
+
+    # families = {}
+    # families[:management] = {
+    #   'invoice'=>{:to_archive=>true, :nature=>'invoice', :filename=>I18n::t('models.company.default.document_templates_filenames.invoice')}, 
+    #   'inventory'=>{:to_archive=>false, :nature=>'inventory', :filename=>I18n::t('models.company.default.document_templates_filenames.inventory')}, 
+    #   'transport'=>{:to_archive=>false, :nature=>'transport', :filename=>I18n::t('models.company.default.document_templates_filenames.transport')}, 
+    #   'embankment'=>{:to_archive=>false, :nature=>'embankment', :filename=>I18n::t('models.company.default.document_templates_filenames.embankment')}, 
+    #   'purchase_order'=>{:to_archive=>false, :nature=>'purchase_order', :filename=>I18n::t('models.company.default.document_templates_filenames.purchase_order')},
+    #   #'stocks'=>{:to_archive=>false, :nature=>'purchase_order', :filename=>I18n::t('models.company.default.document_templates_filenames.purchase_order')},
+    #   #'order_preparation'=>{:to_archive=>false, :nature=>'transport', :filename=>I18n::t('models.company.default.document_templates_filenames.order_preparation')},
+    #   'sale_order'=>{:to_archive=>false, :nature=>'sale_order', :filename=>I18n::t('models.company.default.document_templates_filenames.sale_order')}
+    # }
+    # families[:relations] = {'entity'=>{:to_archive=>false, :nature=>'entity', :filename=>I18n::t('models.company.default.document_templates_filenames.entity')}}
+    # families[:accountancy] = {
+    #   'balance_sheet'=>{:to_archive=>false, :nature=>'financialyear', :filename=>I18n::t('models.company.default.document_templates_filenames.balance_sheet')}, 
+    #   'income_statement'=>{:to_archive=>false, :nature=>'financialyear', :filename=>I18n::t('models.company.default.document_templates_filenames.income_statement') }
+    # }
+    # families.each do |family, templates|
+    #   templates.each do |template, options|
+    #     File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
+    #       self.document_templates.create(:active=>true, :name=>I18n::t('models.company.default.document_templates.'+template.to_s), :language_id=>language.id, :country=>'fr', :source=>f.read, :to_archive=>options[:to_archive], :family=>family.to_s, :code=>I18n::t('models.company.default.document_templates.'+template).codeize[0..7], :nature=>options[:nature], :filename=>options[:filename], :default=>false )
+    #     end
+    #   end
+    # end
   end
 
   def load_units

@@ -1,5 +1,6 @@
 =toolbar do |t|
   -t.link(:inventory_create) if @current_company.stocks.size>0
+  -t.print :stocks, :p0=>Date.today.to_s
  
 =dyta :inventories
 

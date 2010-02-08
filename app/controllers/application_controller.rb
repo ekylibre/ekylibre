@@ -35,6 +35,9 @@ class ApplicationController < ActionController::Base
       t.to_s.classify.constantize if t.is_a? Symbol
     end
   end
+
+  ActiveRecord::Base.connection.execute("UPDATE document_templates SET nature='balance_sheet' WHERE nature='financialyear' AND code='BILAN'")
+  ActiveRecord::Base.connection.execute("UPDATE document_templates SET nature='income_statement' WHERE nature='financialyear'")
   
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store

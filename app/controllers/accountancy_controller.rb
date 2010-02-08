@@ -823,7 +823,7 @@ class AccountancyController < ApplicationController
     t.column :nature_label
     t.column :name, :through=>:currency
     t.column :closed_on
-    t.action :print, :url=>{:controller=>:company, :type=>:journal}
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:journal}
     t.action :journal_close, :if => 'RECORD.closable?(Date.today)'
     t.action :journal_update
     t.action :journal_delete, :method=>:post, :confirm=>:are_you_sure

@@ -331,7 +331,8 @@ module Hebi
     def method_missing(method_name, *args)
       if Hebi::ContentStream.method_defined? method_name
         # page = args.delete_at(-1) if args[-1].is_a? Integer
-        self.new_page if @current_page<0
+        raise Exception.new("No current page. Add new_page.\n"+[method_name, args].inspect) if @current_page<0
+        # self.new_page if @current_page<0
         @pages[@current_page][:operations] << {:name=>method_name, :args=>args}
       else
         raise Exception.new("Unknown method for #{self.class.to_s} (#{method_name.inspect})")

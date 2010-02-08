@@ -353,7 +353,7 @@ module ApplicationHelper
     code = ''
     if flash[:notifications].is_a?(Hash) and flash[:notifications][mode].is_a?(Array)
       for message in flash[:notifications][mode]
-        code += "<div class='flash #{mode}'><div><h3>#{tg('notifications.'+mode.to_s)}</h3><p>#{h(message)}</p></div></div>"
+        code += "<div class='flash #{mode}'><div><h3>#{tg('notifications.'+mode.to_s)}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div></div>"
       end
     end
     code
@@ -607,18 +607,18 @@ module ApplicationHelper
         elsif nature == :print
           #raise Exception.new "ok"+args.inspect
           name = args[0].to_s
-          object_id = args[1][:id].to_i
           args[2] ||= {}
           args[1] = {}
           args[1][:controller] = "company"
           args[1][:action] = "print"
-          args[1][:type] = name
-          args[1][:id] = object_id
+          args[1][:p0] ||= args[1][:id]
+          args[1][:id] = name
+          args[1][:format] = "pdf"
           args[2][:class] = "print"
           #          raise Exception.new "ok"+args.inspect
           for dc in @current_company.document_templates.find_all_by_nature_and_active(name, true)
             args[0] = tc(:print, :name=>dc.name)
-            args[1][:code] = dc.code
+            args[1][:id] = dc.code
             #raise Exception.new "ok"
             code += li_link_to(*args)
           end

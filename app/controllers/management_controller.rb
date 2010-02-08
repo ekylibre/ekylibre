@@ -182,8 +182,8 @@ class ManagementController < ApplicationController
     t.column :changes_reflected, :label=>tc('changes_reflected')
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
     t.column :comment
-    t.action :print, :url=>{:controller=>:company, :type=>:inventory}
-    t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and RECORD.changes_reflected == false'
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:inventory}
+    t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and RECORD.changes_reflected == false', :image=>"action"
     t.action :inventory_update,  :if=>'RECORD.changes_reflected == false'
     t.action :inventory_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.changes_reflected == false'
   end
@@ -220,24 +220,33 @@ class ManagementController < ApplicationController
     @inventory = Inventory.new(:responsible_id=>@current_user.id)
     if request.post?
       @inventory = Inventory.new(params[:inventory])
+      params[:inventory_lines_create].each{|k,v| v[:stock_id]=k}
+      # raise Exception.new(params[:inventory_lines_create].inspect)
       @inventory.company_id = @current_company.id
-      @inventory.save
-      params[:inventory_lines_create].collect{|x| Stock.find_by_id_and_company_id(x[0], @current_company.id).to_inventory_line(x[1][:quantity].to_f, @inventory.id) }
+      if @inventory.save
+        @inventory.set_lines(params[:inventory_lines_create].values)
+      end
+      # params[:inventory_lines_create].collect{|x| Stock.find_by_id_and_company_id(x[0], @current_company.id).to_inventory_line(x[1][:quantity].to_f, @inventory.id) }
       redirect_to :action=>:inventories
     end
   end
 
   def inventory_reflect
     return unless @inventory = find_and_check(:inventories, params[:id])
-    redirect_to :action=>:inventories if @inventory.update_attributes(:changes_reflected=>true)
+    redirect_to :action=>:inventories if @inventory.reflect_changes
   end
 
   def inventory_update
     return unless @inventory = find_and_check(:inventories, params[:id])
     session[:current_inventory] = @inventory.id
     if request.post? and !@inventory.changes_reflected
-      params[:inventory_lines_update].collect{|x| InventoryLine.find_by_id_and_company_id(x[0], @current_company.id).update_attributes!(:quantity=>x[1][:quantity].to_f) }
-      @inventory.update_attributes(params[:inventory])
+      # params[:inventory_lines_update].collect{|x| InventoryLine.find_by_id_and_company_id(x[0], @current_company.id).update_attributes!(:quantity=>x[1][:quantity].to_f) }
+      if @inventory.update_attributes(params[:inventory])
+        # @inventory.set_lines(params[:inventory_lines_create].values)
+        for id, attributes in params[:inventory_lines_update]
+          il = @current_company.inventory_lines.find_by_id(id).update_attributes!(attributes) 
+        end
+      end
       redirect_to :action=>:inventories
     end
   end
@@ -245,7 +254,7 @@ class ManagementController < ApplicationController
   def inventory_delete
     return unless @inventory = find_and_check(:inventories, params[:id])
     if request.post? and !@inventory.changes_reflected
-      redirect_to_back if @inventory.destroy
+      redirect_to_current if @inventory.destroy
     end
   end
   
@@ -272,7 +281,7 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.column :credit
     #t.action :invoice_to_accountancy
-    t.action :print, :url=>{:controller=>:company, :type=>:invoice}
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:invoice}
     
     t.action :invoice_cancel, :if=>"RECORD.creditable\?"
   end
@@ -822,7 +831,7 @@ class ManagementController < ApplicationController
     #t.column :invoiced
     t.column :amount
     t.column :amount_with_taxes
-    t.action :print, :url=>{:controller=>:company, :type=>:purchase_order}
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:purchase_order}
     t.action :purchase_order_lines, :image=>:update#, :if=>'RECORD.editable'
     t.action :purchase_order_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.editable'
   end
@@ -1003,7 +1012,7 @@ class ManagementController < ApplicationController
     t.column :text_state
     t.column :amount
     t.column :amount_with_taxes
-    t.action :print, :url=>{:controller=>:company, :type=>:sale_order}
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sale_order}
     t.action :sale_order_delete , :method=>:post, :if=>'RECORD.estimate? ', :confirm=>tc(:are_you_sure)
   end
   
@@ -1626,7 +1635,7 @@ class ManagementController < ApplicationController
     t.column :created_on, :children=>false
     t.column :amount
     t.column :amount_with_taxes
-    t.action :print, :url=>{:controller=>:company, :type=>:invoice}
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:invoice}
   end
     
   
@@ -1637,7 +1646,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:bank_account
     t.column :label, :through=>:embanker
     t.column :created_on
-    t.action :print, :url=>{:controller=>:company, :type=>:embankment}
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:embankment}
     t.action :embankment_update, :if=>'RECORD.locked == false'
     t.action :embankment_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.locked == false'
   end
@@ -2481,7 +2490,7 @@ class ManagementController < ApplicationController
     t.column :transport_on, :children=>false, :url=>{:action=>:transport}
     t.column :full_name, :through=>:transporter, :children=>:contact_address, :url=>{:controller=>:relations, :action=>:entity}
     t.column :weight
-    t.action :print, :url=>{:controller=>:company, :type=>:transport}
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:transport}
     t.action :transport_update
     t.action :transport_delete, :method=>:post, :confirm=>:are_you_sure
   end

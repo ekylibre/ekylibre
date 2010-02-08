@@ -84,6 +84,10 @@ class Stock < ActiveRecord::Base
     end
   end
 
+  def tracking_name
+    return self.tracking ? self.tracking.name : ""
+  end
+
 
   def add_or_update(params, product_id)
     stock = Stock.find(:first, :conditions=>{:company_id=>self.company_id, :location_id=>params[:location_id], :product_id=>product_id})
@@ -110,11 +114,11 @@ class Stock < ActiveRecord::Base
   #     end
   #   end
 
-  def to_inventory_line(quantity, inventory_id)
-    result = (self.quantity.to_f == quantity.to_f)
-    puts self.quantity.to_f.inspect+quantity.to_f.inspect+result.inspect
-    InventoryLine.create!(:product_id=>self.product_id, :location_id=>self.location_id, :inventory_id=>inventory_id, :theoric_quantity=>self.quantity, :quantity=>quantity, :company_id=>self.company_id)
-  end
+  # def to_inventory_line(quantity, inventory_id)
+  #   result = (self.quantity.to_f == quantity.to_f)
+  #   puts self.quantity.to_f.inspect+quantity.to_f.inspect+result.inspect
+  #   InventoryLine.create!(:product_id=>self.product_id, :location_id=>self.location_id, :inventory_id=>inventory_id, :theoric_quantity=>self.quantity, :quantity=>quantity, :company_id=>self.company_id)
+  # end
   
 end
  

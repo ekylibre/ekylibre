@@ -210,7 +210,7 @@ fr-FR:
         statistics: 'Statistiques'
         stock_transfers: 'Transferts et pertes'
         stocks: 'Stocks'
-        stocks_consult: 'Stocks'
+        stocks_consult: 'État des stocks'
         subscription_natures: 'Types d''abonnement'
         subscriptions: 'Abonnements'
         title: 'Gestion commerciale'

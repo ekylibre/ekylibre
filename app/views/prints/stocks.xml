@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<template title="État des stocks" lang="fr" nature="stocks" version="2.0">
+  <infos>
+    <info name="authors">Thibaud Mérigon, Brice Texier</info>
+  </infos>
+  <parameters>
+    <parameter name="established_on" nature="date">Inventaire</parameter>
+  </parameters>
+  <document unit="mm" size="10">
+    <page orientation="portrait" format="A4" margin="10mm">
+       
+      <part height="20mm">
+	<set>
+	  <text value="État actuel des stocks" left="50%" align="center" bold="true" size="14"/>
+	</set>
+      </part>
+      
+      <table collection="company.stocks" fixed="true">
+	<column label="Lieu de stockage" property="location/name" width="50mm"/>
+	<column label="Produit" property="product/name" width="60mm"/>
+	<column label="N°Lot" property="tracking_name" width="50mm"/>
+	<column label="Quantité" property="quantity" numeric="money" width="23mm"/>
+	<column label="U." property="unit/name" width="7mm"/>
+      </table>
+    </page>
+  </document>
+</template>

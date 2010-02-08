@@ -46,6 +46,7 @@
 class DocumentTemplate < ActiveRecord::Base
   belongs_to :company
   belongs_to :language
+  
   has_many :documents, :foreign_key=>:template_id
 
   validates_uniqueness_of :code, :scope=>:company_id
@@ -54,13 +55,32 @@ class DocumentTemplate < ActiveRecord::Base
 
   @@families = [:company, :relations, :accountancy, :management, :production] # :resources, 
 
-  @@document_natures = [:balance, :invoice, :sale_order, :purchase_order, :inventory, :transport, :embankment, :entity, :journal, :ledger, :other] 
+  PREAMBLE = "#1.1\n"
+
+
+  # id is forbidden names for parameters
+  @@document_natures = {
+    :balance_sheet =>    [ [:financialyear, Financialyear] ],
+    :entity =>           [ [:entity, Entity] ], 
+    :embankment =>       [ [:embankment, Embankment] ],
+    :income_statement => [ [:financialyear, Financialyear] ],
+    :inventory =>        [ [:inventory, Inventory] ], 
+    :invoice =>          [ [:invoice, Invoice] ],
+    :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ],
+    :purchase_order =>   [ [:sale_order, PurchaseOrder] ], 
+    :sale_order =>       [ [:sale_order, SaleOrder] ],
+    :stocks =>           [ [:established_on, Date] ],
+    # :synthesis =>        [ [:financialyear, Financialyear] ],
+    :transport =>        [ [:transport, Transport] ]
+  }
+
+    #[:balance, :invoice, :sale_order, :purchase_order, :inventory, :transport, :embankment, :entity, :journal, :ledger, :other] 
 
   include ActionView::Helpers::NumberHelper
 
 
   def before_validation
-    self.cache = self.class.compile(self.source) #rescue nil
+    self.cache = self.class.compile(self.source) # rescue nil
 #     begin
 #       self.cache = self.class.compile(self.source) # rescue nil
 #     rescue => e
@@ -76,7 +96,7 @@ class DocumentTemplate < ActiveRecord::Base
   end
 
   def validate
-    errors.add(:source, 'est invalide') if self.cache.blank?
+    errors.add(:source, :invalid) if self.cache.blank?
     if self.nature != "other"
       syntax_errors = self.filename_errors
       errors.add_to_base(syntax_errors) unless syntax_errors.empty?
@@ -92,7 +112,7 @@ class DocumentTemplate < ActiveRecord::Base
   end
 
   def self.natures
-    @@document_natures.collect{|x| [tc('natures.'+x.to_s), x.to_s]}
+    @@document_natures.keys.collect{|x| [tc('natures.'+x.to_s), x.to_s]}.sort{|a,b| a[0].ascii<=>b[0].ascii}
   end
 
   def family_label
@@ -103,66 +123,78 @@ class DocumentTemplate < ActiveRecord::Base
     tc('natures.'+self.nature) if self.nature
   end
 
-  def print(*args)
-    # Analyze parameters
-    object = args[0]
-    raise Exception.new("Must be an activerecord") unless object.class.ancestors.include?(ActiveRecord::Base)
+  # Print document raising Exceptions if necessary
+  def print!(*args)
+    # Refresh cache if needed
+    self.save! unless self.cache.starts_with?(PREAMBLE)
+
+    # Analyze and cleans parameters
+    parameters = @@document_natures[self.nature.to_sym]
+    raise StandardError.new(tc(:unvalid_nature)) if parameters.nil?
+    raise ArgumentError.new("Bad number of arguments, #{args.size} for #{parameters.size}") if args.size != parameters.size
+    if args[0].is_a? Hash
+      hash = args[0]
+      parameters.each_index do |i|
+        args[i] = hash[parameters[i][0]]||hash["p"+i.to_s]
+      end
+    end
+
+    parameters.each_index do |i|
+      args[i] = parameters[i][1].find_by_id_and_company_id(args[i].to_s.to_i, self.company_id) if parameters[i][1].ancestors.include?(ActiveRecord::Base) and not args[i].is_a? parameters[i][1]
+      raise ArgumentError.new("#{parameters[i].name} expected, got #{args[i].inspect}") unless args[i].class != parameters[i]
+    end
+
     # Try to find an existing archive
+    owner = args[0].class.ancestors.include?(ActiveRecord::Base) ? args[0] : self.company
     if self.to_archive
-      # document = self.documents.find(:first, :conditions=>["owner_id = ? and owner_type = ?", object.id, object.class.name], :order=>"created_at DESC")
-      document = self.company.documents.find(:first, :conditions=>{:nature_code=>self.code, :owner_id=>object.id, :owner_type=>object.class.name}, :order=>"created_at DESC")
-      pdf = document.data rescue nil
-      return pdf if pdf
+      document = self.company.documents.find(:first, :conditions=>{:nature_code=>self.code, :owner_id=>owner.id, :owner_type=>owner.class.name}, :order=>"created_at DESC")
+      return document.data, document.original_name if document
     end
     
     # Build the PDF data
     pdf = eval(self.cache)
 
     # Archive the document if necessary
-    if self.to_archive
-      document = self.archive(object, pdf, :extension=>'pdf')
-    end
-    return pdf, self.compute_filename(object)+".pdf"
+    document = self.archive(owner, pdf, :extension=>'pdf') if self.to_archive
+
+    return pdf, self.compute_filename(owner)+".pdf"
   end
+
+
+  # Print document or exception if necessary
+  def print(*args)
+    begin
+      self.print!(*args)
+    rescue Exception=>e
+      return self.class.error_document(e)
+    end
+  end
+
 
   def filename_errors
     errors = []
     begin
-      columns = self.nature.classify.constantize.content_columns.collect{|x| x.name.to_s}.sort
-      #self.filename.split.each do |word|
-      # if  word.match(/\[\w+\]/)
+      klass = @@document_natures[self.nature.to_sym][0][1]
+      columns = klass.content_columns.collect{|x| x.name.to_s}.sort
       self.filename.gsub(/\[\w+\]/) do |word|
         unless columns.include?(word[1..-2])
-          errors << tc(:error_attribute, :value=>word, :possibilities=>columns.collect { |column| column+" ("+I18n::t('activerecord.attributes.'+self.nature+'.'+column)+")" }.join(", "))
+          errors << tc(:error_attribute, :value=>word, :possibilities=>columns.collect { |column| column+" ("+I18n::t('activerecord.attributes.'+klass.name.underscore+'.'+column)+")" }.join(", "))
         end
         "*"
       end
     rescue
-      errors << tc(:nature_do_not_allow_to_use_attributes)
+      #   errors << tc(:nature_do_not_allow_to_use_attributes)
     end
-    #self.filename.gsub(/\[\w+\]/) do |word|
-    # errors << word unless columns.include?(word[1..-2])
-    # "*"
-    #end
     return errors
   end
   
   def compute_filename(object)
-   # raise Exception.new "1"+self.filename_errors.inspect
-    #if self.nature == "other" #||"card"
-     # filename = self.filename
-    #elsif self.filename_errors.empty?
-     # filename = self.filename.gsub(/\[\w+\]/) do |word|
-        #raise Exception.new "2"+filename.inspect
-      #  object.send(word[1..-2])
-      #end
-    #end
     if self.nature == "other" #||"card"
       filename = self.filename
     elsif self.filename_errors.empty?
       filename = self.filename.gsub(/\[\w+\]/) do |word|
         #raise Exception.new "2"+filename.inspect
-        object.send(word[1..-2])
+        object.attributes[word[1..-2]].to_s rescue ""
       end
     else
       return tc(:invalid_filename)
@@ -192,8 +224,10 @@ class DocumentTemplate < ActiveRecord::Base
 
 
   def sample
+    self.save!
     code = self.class.compile(self.source, :debug)
     pdf = nil
+    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     begin 
       pdf = eval(code)
     rescue Exception=>e
@@ -203,9 +237,9 @@ class DocumentTemplate < ActiveRecord::Base
   end
 
   def self.error_document(e)
-    Ibeh.document(Hebi::Document.new, self) do |ibeh|
+    Ibeh.document(Hebi::Document.new) do |ibeh|
       ibeh.page(:a4, :margin=>[15.mm]) do |p|
-        p.part 200.mm do |x|
+        p.part(200.mm) do |x|
           x.set do |s|
             if e.is_a? Exception
               s.text "Exception : "+e.inspect+"\n"+e.backtrace[0..25].join("\n")+"..."
@@ -235,14 +269,13 @@ class DocumentTemplate < ActiveRecord::Base
       end
     end
     document = template.find('document')[0]
-    code << "doc = Ibeh.document(Hebi::Document.new, self) do |_document_|\n"
-    code << compile_children(document, '_document_', mode)
+    code << "doc = Ibeh.document(Hebi::Document.new) do |__d|\n"
+    code << compile_children(document, '__d', mode)
     code << "end\n"
     code << "x = doc.generate\n"
-  
-#    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    return '('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
-    #return '('+code+')'
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    
+    return PREAMBLE+'('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
   end
 
 
@@ -389,7 +422,7 @@ class DocumentTemplate < ActiveRecord::Base
       end
 
       # Encapsulation si condition
-      code = "if #{element.attributes['if'].gsub(/\//,'.')}\n#{code.gsub(/^/,'  ')}\nend" if element.attributes['if']
+      code = "if #{element.attributes['if'].gsub(/\//,'.')}\n#{code.gsub(/^/,'  ')}\nend" if element.attributes['if'] and mode != :debug
       code += "\n"
       code.gsub(/^/, '  ')
     end

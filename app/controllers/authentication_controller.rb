@@ -45,6 +45,7 @@ class AuthenticationController < ApplicationController
       end
       user = User.authenticate(name, params[:user][:password], company)
       if user
+        user.company.load_prints
         init_session(user)
         #raise Exception.new session[:rights].inspect
         unless session[:user_id].blank?

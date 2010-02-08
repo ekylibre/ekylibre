@@ -594,6 +594,7 @@ module Ekylibre
           image_title = @options[:title]||@name.to_s.humanize
           image_file = "buttons/"+(@options[:image]||verb).to_s+".png"
           image_file = "buttons/unknown.png" unless File.file? "#{RAILS_ROOT}/public/images/"+image_file
+          image = "image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
           format = @options[:format] ? ", :format=>'#{@options[:format]}'" : ""
           if @options[:remote] 
             remote_options = @options.dup
@@ -602,7 +603,7 @@ module Ekylibre
             remote_options.delete :image
             remote_options = remote_options.inspect.to_s
             remote_options = remote_options[1..-2]
-            code  = "link_to_remote(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
+            code  = "link_to_remote(#{image}"
             code += ", {:url=>{:action=>:"+@name.to_s+", :id=>"+record+".id"+format+"}"
             code += ", "+remote_options+"}"
             code += ", {:alt=>::I18n.t('general.#{verb}'), :title=>::I18n.t('general.#{verb}')}"
@@ -623,14 +624,11 @@ module Ekylibre
             url = @options[:url] ||= {}
             url[:controller] ||= @options[:controller]
             url[:action] ||= @name
-            url.delete(:id)
+            url[:id] ||= "RECORD.id"
             url.delete_if{|k, v| v.nil?}
-            code  = "link_to(image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
-            #code += ", {"+(@options[:controller] ? ':controller=>:'+@options[:controller].to_s+', ' : '')+":action=>:"+@name.to_s+", :id=>"+record+".id"+format+"}"
-            code += ", "+url.inspect[0..-2]+", :id=>"+record+".id"+format+"}"
-            #+"}"+{"+(@options[:controller] ? ':controller=>:'+@options[:controller].to_s+', ' : '')+":action=>:"+@name.to_s
-            code += ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :alt=>::I18n.t('general.#{verb}'), :title=>::I18n.t('general.#{verb}')}"
-            code += ")"
+            url = "{"+url.collect{|k, v| ":#{k}=>"+(v.is_a?(String) ? v.gsub(/RECORD/, record) : v.inspect)}.join(", ")+format+"}"
+            code = "{:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :alt=>::I18n.t('general.#{verb}'), :title=>::I18n.t('general.#{verb}')}"
+            code = "link_to("+image+", "+url+", "+code+")"
           end
           code = "if ("+@options[:if].gsub('RECORD', record)+")\n"+code+"\n end" if @options[:if]
           code

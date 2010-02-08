@@ -7,14 +7,9 @@ end
 module Ibeh
 
 
-  def self.document(writer, view=nil, &block)
+  def self.document(writer, &block)
     doc = Document.new(writer)
-    if view
-      view.instance_values.each do |k,v|
-        doc.instance_variable_set("@"+k.to_s, v)
-      end
-    end
-    doc.call(doc, block)
+    yield doc if block_given?
     doc.writer
   end
 
@@ -22,45 +17,50 @@ module Ibeh
   class Element
     include ActionView::Helpers::NumberHelper
     attr_reader :writer
-
-    @@testing = false
     
-    def initialize(writer)
+    def initialize(writer, testing=false)
       @writer = writer
+      @testing = testing
     end
 
     def testing?
-      @@testing
+      @testing
     end
     
     def testing!(test=true)
-      @@testing = test
+      @testing = test
     end
 
     def write(method, *args)
       @writer.send(method, *args) unless testing?
     end
 
-    def call(element, block=nil)
-      # puts self.class.to_s+' > '+element.class.to_s
-      if self!=element
-        self.instance_values.each do |k,v|
-          element.instance_variable_set("@"+k, v) unless element.instance_variable_defined? "@"+k
-        end
-      end
-      if block
-        block.arity < 1 ? element.instance_eval(&block) : block[element]
-      end
-    end
+    # def call0(element, block=nil)
+    #   # puts self.class.to_s+' > '+element.class.to_s
+    #   if self!=element
+    #     self.instance_values.each do |k,v|
+    #       element.instance_variable_set("@"+k, v) unless element.instance_variable_defined? "@"+k
+    #     end
+    #   end
+    #   if block
+    #     block.arity < 1 ? element.instance_eval(&block) : block[element]
+    #   end
+    # end
+
+    # def call(element, block=nil)
+    #   block[element]
+    # end
   end
 
 
 
   # Represents a <document>
   class Document < Element
+
     def page(format=:a4, options={}, &block)
-      page = Page.new(@writer, format, options)
-      call(page, block)
+      page = Page.new(@writer, @testing, format, options)
+      # call(page, block)
+      yield(page) if block_given?
     end
   end
 
@@ -80,8 +80,8 @@ module Ibeh
 
     attr_reader :y, :env, :margin
 
-    def initialize(writer, format, options)
-      super writer
+    def initialize(writer, testing, format, options)
+      super writer, testing
       @options = options
       format = FORMATS[format.to_s.lower.gsub(/[^\w]/, '').to_sym] unless format.is_a? Array
       format[0], format[1] = format[1], format[0] if @options[:orientation] == :landscape
@@ -92,9 +92,9 @@ module Ibeh
       @margin[2] ||= @margin[0]
       @margin[3] ||= @margin[1]
       @env = {}
-      variable(:font_size, 10)
-      variable(:font_name, "Times")
-      page_break
+      self.variable(:font_size, 10)
+      self.variable(:font_name, "Times")
+      self.page_break
     end
     
     def debug?
@@ -108,17 +108,17 @@ module Ibeh
 
     def part(height=nil, options={}, &block)
       # Testing height of part
-      part = Part.new(@writer, self, height||(@format[1]-@margin[0]-@margin[2]))
+      part = Part.new(@writer, @testing, self, height||(@format[1]-@margin[0]-@margin[2]))
       part.testing!
-      call(part, block)
+      yield part if block_given?
       part.testing! false
       # Writing part
       page_break if @y-part.height-@margin[2]<0
       if options[:bottom]
         part(@y-@margin[2]-part.height)
       end
-      part = Part.new(@writer, self, part.height)
-      call(part, block)
+      part = Part.new(@writer, @testing, self, part.height)
+      yield part if block_given?
       @y -= part.height
     end
 
@@ -126,7 +126,7 @@ module Ibeh
     def table(collection, options={}, &block)
       if block_given?
         table = Table.new
-        call(table, block)
+        yield table if block_given?
         columns = table.columns
         table_left = options[:left]||0
         fixed = options[:fixed]||false
@@ -141,22 +141,20 @@ module Ibeh
           l += c[:width]
         end
         part(1.mm)
-        part(options[:header_height]||4.mm) do
-          # set table_left, 0, :font_size=>10 do
-          set :left=>table_left, :font_size=>10 do
-            line [[0, 0], [table_width, 0]], :border=>{:color=>'#000', :width=>0.5}
+        part(options[:header_height]||4.mm) do |p|
+          p.set :left=>table_left, :font_size=>10 do |s|
+            s.line [[0, 0], [table_width, 0]], :border=>{:color=>'#000', :width=>0.5}
             for c in columns
-              part.resize_to(textbox(c[:title].to_s, c[:width], part.height, :left=>c[:offset], :top=>0.5.mm, :bold=>true, :align=>:center, :valign=>:middle))
-              line([[c[:offset],0], [c[:offset], part.height]], :border=>{:color=>'#000', :width=>0.5})
+              p.resize_to(s.textbox(c[:title].to_s, c[:width], p.height, :left=>c[:offset], :top=>0.5.mm, :bold=>true, :align=>:center, :valign=>:middle))
+              s.line([[c[:offset],0], [c[:offset], p.height]], :border=>{:color=>'#000', :width=>0.5})
             end
-            line [[table_width, 0], [table_width, part.height]], :border=>{:color=>'#000', :width=>0.5}
-            line [[0, part.height], [table_width, part.height]], :border=>{:color=>'#000', :width=>0.5}
+            s.line [[table_width, 0], [table_width, p.height]], :border=>{:color=>'#000', :width=>0.5}
+            s.line [[0, p.height], [table_width, p.height]], :border=>{:color=>'#000', :width=>0.5}
           end
         end
         for x in collection
-          part(options[:row_height]||4.mm) do
-            # set table_left, 0, :font_size=>10 do
-            set :left=>table_left, :font_size=>10 do
+          part(options[:row_height]||4.mm) do |p|
+            p.set :left=>table_left, :font_size=>10 do |s|
               for c in columns
                 options = c[:options]||{}
                 value = (x.is_a?(Hash) ? x[c[:value]] : x.instance_eval(c[:value]))
@@ -167,12 +165,12 @@ module Ibeh
                   value = number_to_currency(value, :separator=>options[:separator]||',', :delimiter=>options[:delimiter]||' ', :unit=>options[:unit]||'', :precision=>options[:precision]||2) if options[:numeric]==:money
                   options[:align] ||= :right
                 end                
-                part.resize_to(textbox(value.to_s, c[:width], part.height, :left=>c[:offset], :top=>0.5.mm, :align=>options[:align]))
+                p.resize_to(s.textbox(value.to_s, c[:width], p.height, :left=>c[:offset], :top=>0.5.mm, :align=>options[:align]))
               end
               for c in columns
-                line([[c[:offset],0], [c[:offset], part.height]], :border=>{:color=>'#000', :width=>0.5})
+                s.line([[c[:offset],0], [c[:offset], p.height]], :border=>{:color=>'#000', :width=>0.5})
               end
-              line [[table_left, part.height], [table_width, part.height], [table_width, 0], [0,0]], :border=>{:color=>'#000', :width=>0.5}
+              s.line [[table_left, p.height], [table_width, p.height], [table_width, 0], [0,0]], :border=>{:color=>'#000', :width=>0.5}
             end
           end
         end
@@ -214,10 +212,10 @@ module Ibeh
 
   # Represents a <part>
   class Part < Element
-    attr_accessor :height, :top
+    attr_accessor :height, :top, :page
 
-    def initialize(writer, page, height)
-      super writer
+    def initialize(writer, testing, page, height)
+      super writer, testing
       @page   = page
       @height = height
       @top    = @page.y
@@ -243,8 +241,8 @@ module Ibeh
       #left, top = options[:left]||0, options[:top]||0
       left += @page.margin[3]
       write(:save_graphics_state)
-      set = Set.new(@writer, @page.env.dup.merge(env), left, @top-top, self)
-      call(set, block)
+      set = Set.new(@writer, @testing, @page.env.dup.merge(env), left, @top-top, self)
+      yield set if block_given?
       write(:restore_graphics_state)
     end
 
@@ -265,12 +263,13 @@ module Ibeh
   class Set < Element
     attr_accessor :part
 
-    def initialize(writer, env, left, top, part)
-      super writer
+    def initialize(writer, testing, env, left, top, part)
+      super writer, testing
       @env  = env
       @left = left
       @top  = top
       @part = part
+      @page = part.page
     end
 
     def variable(name, value=nil)
@@ -292,9 +291,9 @@ module Ibeh
       top  = options[:top]||0
       #left, top = options[:left]||0, options[:top]||0
       write(:save_graphics_state)
-      set = Set.new(@writer, @env.dup.merge(env), @left+left, @top-top, @part)
+      set = Set.new(@writer, @testing, @env.dup.merge(env), @left+left, @top-top, @part)
       set.font
-      call(set, block)
+      yield set if block_given?
       write(:restore_graphics_state)
     end
 

@@ -305,7 +305,7 @@ class RelationsController < ApplicationController
     t.column :name, :url=>{:action=>:entity}
     t.column :first_name, :url=>{:action=>:entity}
     t.column :line_6, :through=>:default_contact, :url=>{:action=>:entity_contact_update}
-    t.action :print, :url=>{:controller=>:company, :type=>:entity}
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:entity}
     t.action :entity_update
     t.action :entity_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
@@ -356,7 +356,7 @@ class RelationsController < ApplicationController
     t.column :text_state, :children=>false
     t.column :amount
     t.column :amount_with_taxes
-    t.action :print, :url=>{:controller=>:company, :type=>:sale_order}
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sale_order}
     t.action :sale_order_duplicate, :controller=>:management, :method=>:post
     t.action :sale_order_lines, :image=>:update, :controller=>:management, :if=>"not RECORD.complete\?"
     t.action :sale_order_delete, :controller=>:management, :if=>"RECORD.estimate\?", :method=>:delete, :confirm=>:are_you_sure
@@ -390,7 +390,7 @@ class RelationsController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     # t.column :credit
-    t.action :print, :url=>{:controller=>:company, :type=>:invoice}
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:invoice}
     # t.action :controller=>:management, :invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
     # t.action :controller=>:management, :invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
   end
@@ -429,7 +429,7 @@ class RelationsController < ApplicationController
     #t.column :invoiced
     t.column :amount
     t.column :amount_with_taxes
-    t.action :print, :url=>{:controller=>:company, :type=>:purchase_order}
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:purchase_order}
     t.action :purchase_order_lines, :controller=>:management, :image=>:update#, :if=>'RECORD.editable'
     t.action :purchase_order_delete, :controller=>:management,:method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.editable'
   end

@@ -145,6 +145,7 @@ fr-FR:
       error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
       error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'                                   
     company:
+      cant_find_document_template: 'Impossible de trouver le modèle de document correspondant'
       invoice_creation: 'Création d''une facture'
       purchase_order_creation: 'Création d''un achat'
       sale_order_creation: 'Création d''un devis'
@@ -170,20 +171,44 @@ fr-FR:
           journals: Journaux
           sale_order: Vente
         document_templates:
-          balance_sheet: 'Bilan'
-          embankment: 'Remise de chèques'
-          entity: 'Fiche relation'
-          income_statement: 'Compte de résultat'
-          inventory: 'Inventaire'
-          invoice: Facture client
-          journal: Journal
-          journal_by_id: 'Journal'
-          journals: Journaux
-          order_preparation: 'Préparation de commande'
-          other: 'Autres'
-          purchase_order: 'Commande fournisseur'
-          sale_order: 'Devis/Commande'
-          transport: 'Transport'
+          accountancy:
+            balance_sheet:
+              filename: 'Bilan de l''exercice [code]'
+            income_statement:
+              filename: 'Compte de résultat de l''exercice [code]'
+          management:
+            sale_order:
+              filename: 'Vente [number]'
+            invoice:
+              to_archive: true
+              filename: 'Facture [number]'
+            inventory:
+              filename: 'Inventaire du [date]'
+            transport:
+              filename: 'Transport du [created_on]'
+            embankment:
+              filename: 'Remise de chèques du [created_on]'
+            purchase_order:
+              filename: 'Achat [number]'
+            stocks: 
+              filename: 'État des stocks'
+          relations:
+            entity:
+              filename: 'Fiche de [full_name]'
+          # balance_sheet: 'Bilan'
+          # embankment: 'Remise de chèques'
+          # entity: 'Fiche relation'
+          # income_statement: 'Compte de résultat'
+          # inventory: 'Inventaire'
+          # invoice: Facture client
+          # journal: Journal
+          # journal_by_id: 'Journal'
+          # journals: Journaux
+          # order_preparation: 'Préparation de commande'
+          # other: 'Autres'
+          # purchase_order: 'Commande fournisseur'
+          # sale_order: 'Devis/Commande'
+          # transport: 'Transport'
         document_templates_filenames:
           balance_sheet: 'Bilan de l''exercice [code]'          
           embankment: 'Remise de chèques du [created_on]'
@@ -289,6 +314,7 @@ fr-FR:
       sale: 'Vente {{number}}'
     document_template:
       error_attribute: 'Le champ {{value}} est incorrect. Les possibilités sont : {{possibilities}}'
+      unvalid_nature: 'Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller.'
       families:
         company: Société
         relations: Relations
@@ -300,16 +326,19 @@ fr-FR:
       nature_do_not_allow_to_use_attributes : 'La nature du modèle ne permet pas d''utiliser d''attributs'
       natures:
         balance: 'Balance'
+        balance_sheet: 'Bilan comptable'
         embankment: 'Remise de chèques'
         entity: 'Fiche relations'
         financialyear: 'Documents de synthèse'
         ledger: 'Grand livre'
+        income_statement: 'Compte de résultat'
         inventory: 'Inventaire'
         invoice: 'Facture client'
         journal: 'Journal'
         other: 'Autres'
         purchase_order: 'Commande fournisseur'
         sale_order: 'Devis / Commande'
+        stocks: 'État des stocks'
         transport: 'Transport'
     entity:
       client: 'Client'

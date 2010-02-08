@@ -42,29 +42,28 @@ class InventoryLine < ActiveRecord::Base
   belongs_to :inventory
   belongs_to :location, :class_name=>Location.name
   belongs_to :product
+  has_many :stock_moves, :as=>:origin, :dependent=>:destroy
 
   attr_readonly :company_id
 
-  def after_save
-    if self.inventory.changes_reflected
-      self.reflect_changes
-    end
+  def before_validation
+    self.company_id = self.inventory.company_id if self.inventory
   end
-  
-  def reflect_changes
-    if self.quantity != self.theoric_quantity
-      rslt =  (self.quantity.to_f != self.theoric_quantity.to_f)
-      puts rslt
-      input = self.quantity < self.theoric_quantity ? false : true
-      #raise Exception.new self.theoric_quantity.to_s+" "+self.quantity.to_s+"   "+input.to_s
-      if input
-        StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(self.quantity - self.theoric_quantity) , :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true ,:input=>input, :origin_type=>InventoryLine.to_s, :origin_id=>self.id, :generated=>true)
-        StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(self.quantity - self.theoric_quantity) , :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false ,:input=>input, :origin_type=>InventoryLine.to_s, :origin_id=>self.id ,:generated=>true)
-      else
-        StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(self.theoric_quantity - self.quantity) , :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true ,:input=>input, :origin_type=>InventoryLine.to_s, :origin_id=>self.id ,:generated=>true)
-        StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(self.theoric_quantity - self.quantity) , :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false ,:input=>input, :origin_type=>InventoryLine.to_s, :origin_id=>self.id ,:generated=>true)
-      end
+
+  def stock_id=(id)
+    if s = Stock.find_by_id_and_company_id(id, self.company_id)
+      self.product_id  = s.product_id
+      self.location_id = s.location_id
+      self.tracking_id = s.tracking_id
+      self.theoric_quantity = s.quantity||0
+      self.unit_id     = s.unit_id
     end
   end
 
+  # def after_save
+  #   if self.inventory.changes_reflected
+  #     self.reflect_changes
+  #   end
+  # end
+  
 end

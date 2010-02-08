@@ -758,23 +758,14 @@ class CompanyController < ApplicationController
   end
   
   def print
-    #headers['no-cache'] = ''
-    #headers['Cache-Control'] = 'no-cache'
-    #raise Exception.new "ok"
     headers["Cache-Control"] = 'maxage=3600'  
     headers["Pragma"] = 'public'  
-    #object = find_and_check(params[:type], params[:id])
-    #raise Exception.new "in ! "+params.inspect+object.class.name.underscore.inspect+object.inspect
-    #result, filename = @current_company.print(object, :nature=>params[:code])
-    #raise Exception.new filename.inspect+"in ! "+params.inspect
     begin
-      return unless object = find_and_check(params[:type], params[:id])
-      result, filename = @current_company.print(object, :nature=>params[:code])
-      #raise Exception.new filename.inspect+"in ! "+params.inspect
-      #send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>t('activerecord.models.'+object.class.name.underscore))
-      send_data(result, :type=>Mime::PDF, :disposition=>'inline', :filename=>filename)
+      data, filename = @current_company.print(params)
+      send_data(data, :filename=>filename, :type=>Mime::PDF, :disposition=>'inline')
     rescue Exception=>e
-      notify(:print_failure, :error, :class=>e.class, :error=>e)
+      notify(:print_failure, :error, :class=>e.class.to_s, :error=>e.message)
+      # (RAILS_ENV=="development" ? e.inspect+e.backtrace.join("\n") :
       redirect_to_back
     end
   end
