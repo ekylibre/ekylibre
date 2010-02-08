@@ -123,4 +123,12 @@ class PurchaseOrderLine < ActiveRecord::Base
     self.amount_with_taxes - self.amount
   end
   
+  def designation
+    d  = self.product_name
+    d += "\n"+self.annotation.to_s unless self.annotation.blank?
+    d += "\n"+tc(:tracking, :serial=>self.tracking.serial.to_s) if self.tracking
+    d
+  end
+
+
 end

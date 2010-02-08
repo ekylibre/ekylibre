@@ -494,6 +494,7 @@ fr-FR:
       purchase: Achat
     purchase_order_line: 
       location_can_not_receive_product : 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
+      tracking: 'N°Lot : {{serial}}'
     sale_order:
       label:
         estimate: 'Devis N°{{number}}'
@@ -523,6 +524,7 @@ fr-FR:
       error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
       reduction_on: 'Remise de {{percent}}% sur : {{product}}'
       location_can_not_transfer_product : 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}} '
+      tracking: 'N°Lot : {{serial}}'
     sequence:
       periods:
         cweek: Semaine

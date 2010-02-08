@@ -40,7 +40,7 @@ class PaymentMode < ActiveRecord::Base
   belongs_to :company
   has_many :entities
   has_many :payments, :foreign_key=>:mode_id
-  has_many :embankable_payments, :class_name=>Payment.name, :foreign_key=>:mode_id, :conditions=>["embankment_id IS NULL"]
+  # has_many :embankable_payments, :class_name=>Payment.name, :foreign_key=>:mode_id, :conditions=>["embankment_id IS NULL AND "]
   attr_readonly :company_id
   @@modes = [:card, :cash, :check, :other, :transfer] 
 
@@ -48,6 +48,10 @@ class PaymentMode < ActiveRecord::Base
 
   def self.modes
     @@modes.collect{|x| [tc('modes.'+x.to_s), x]}
+  end
+  
+  def embankable_payments
+    self.payments.find(:all, :conditions=>["embankment_id IS NULL AND entity_id!=?", self.company.entity_id])
   end
 
 end

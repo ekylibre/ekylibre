@@ -11,5 +11,5 @@
     -f.field :purchase_order_line, :location_id, :choices=>@current_company.locations.collect{|x| [x.name, x.id]}
   -f.field :purchase_order_line, :tracking_serial
 
-=observe_field "purchase_order_line_product_id", :url=>{:action => :price_find, :entity_id=>@purchase_order_line.order.supplier_id}, :frequency => 0.25, :with=>"purchase_order_line_product_id"
+=observe_field "purchase_order_line_product_id", :url=>{:action => :price_find, :entity_id=>@purchase_order_line.order.supplier_id}, :frequency => 0.25, :with=>"purchase_order_line_product_id", :loading=>"onLoading()", :loaded=>"onLoaded()"
 =#observe_field "purchase_order_line_price_id", :url=>{:action => :price_find}, :frequency => 0.25, :with=>"purchase_order_line_price_id"

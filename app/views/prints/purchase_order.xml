@@ -25,7 +25,7 @@
       </part>
 
       <table collection="purchase_order.lines" fixed="true">
-	<column label="Produit" property="product/name" width="100mm"/>
+	<column label="Produit" property="designation" width="100mm"/>
 	<column label="Qté." property="quantity" width="13mm" numeric="money"/>
 	<column label="Prix Unitaire HT" property="price/amount" width="22mm" numeric="money"/>
 	<column label="Montant HT" property="amount" width="20mm" numeric="money"/>

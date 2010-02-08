@@ -1219,7 +1219,7 @@ class ManagementController < ApplicationController
   dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
     #t.column :name, :through=>:product
     t.column :label
-    t.column :serial, :through=>:tracking
+    t.column :serial, :through=>:tracking, :url=>{:action=>:tracking}
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :amount, :through=>:price, :label=>tc('price')
@@ -1667,7 +1667,7 @@ class ManagementController < ApplicationController
     t.column :amount, :url=>{:action=>:payment}
   end
 
-  dyta(:embankable_payments, :model=>:payments, :conditions=>["company_id=? AND (embankment_id=? OR (mode_id=? AND embankment_id IS NULL))", ['@current_company.id'], ['session[:embankment_id]'], ['session[:payment_mode_id]']], :per_page=>100, :order=>"created_at DESC", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
+  dyta(:embankable_payments, :model=>:payments, :conditions=>["company_id=? AND (embankment_id=? OR (mode_id=? AND embankment_id IS NULL)) AND entity_id!=?", ['@current_company.id'], ['session[:embankment_id]'], ['session[:payment_mode_id]'], ['@current_company.entity_id']], :per_page=>100, :order=>"created_at DESC", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
     t.column :full_name, :through=>:entity
     t.column :bank
     t.column :account_number
@@ -1675,7 +1675,7 @@ class ManagementController < ApplicationController
     t.column :paid_on
     t.column :label, :through=>:embanker
     t.column :amount
-    t.check :to_embank, :value=>'(session[:embankment_id].nil? ? (RECORD.embanker.nil? or RECORD.embanker_id==@current_user.id) : (RECORD.embankment_id==session[:embankment_id]))', :label=>tc(:to_embank)
+    t.check :to_embank, :value=>'(RECORD.to_bank_on<=Date.today and (session[:embankment_id].nil? ? (RECORD.embanker.nil? or RECORD.embanker_id==@current_user.id) : (RECORD.embankment_id==session[:embankment_id])))', :label=>tc(:to_embank)
   end
 
 
@@ -2045,7 +2045,7 @@ class ManagementController < ApplicationController
 
   dyta(:location_stocks, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'], :location_id=>['session[:current_location_id]']}, :order=>"quantity DESC") do |t|
     t.column :name, :through=>:product,:url=>{:action=>:product}
-    t.column :name, :through=>:tracking
+    t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
     t.column :weight, :through=>:product, :label=>"Poids"
     t.column :quantity_max
     t.column :quantity_min

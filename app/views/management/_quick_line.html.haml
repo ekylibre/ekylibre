@@ -20,6 +20,6 @@
 =#observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_stocks}, :frequency => 0.25, :with=>"sale_order_line_price_id")
 
 
-=observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_informations}, :frequency => 0.25, :with=>"sale_order_line_price_id")
+=observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_informations}, :frequency => 0.25, :with=>"sale_order_line_price_id", :loading=>"onLoading()", :loaded=>"onLoaded()")
 -if @current_company.locations.size > 1
   =observe_field("sale_order_line_location_id", :url=>{:action => :sale_order_line_informations}, :frequency => 0.25, :with=>"sale_order_line_location_id")

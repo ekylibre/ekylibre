@@ -173,6 +173,7 @@ class SaleOrderLine < ActiveRecord::Base
   def designation
     d  = self.label
     d += "\n"+self.annotation.to_s unless self.annotation.blank?
+    d += "\n"+tc(:tracking, :serial=>self.tracking.serial.to_s) if self.tracking
     d
   end
 
