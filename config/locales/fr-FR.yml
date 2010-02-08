@@ -401,6 +401,7 @@ fr-FR:
       error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
     listing_node: 
       add_filter: ' Ajouter un filtre '
+      all_columns: '--- Toutes les colonnes ---'
       columns: Colonnes
       reflections: Tables liées
     listing_nodes: 
@@ -438,6 +439,9 @@ fr-FR:
         notice: Faible
     operation_line:
       density_label: "{{value}} {{product_unit}}/{{area_unit}}"
+      direction_label:
+        in: Intrant
+        out: Sortant
     payment_mode:
       modes:
         card: 'Carte Bleue'
@@ -572,7 +576,8 @@ fr-FR:
   general:
     add: Ajouter
     apply: Appliquer
-    are_you_sure: 'Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?'
+    are_you_sure: 'Êtes-vous sûr(e) de vouloir faire cela ?'
+    are_you_sure_to_delete: 'Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?'
     are_you_sure_to_delete_delivery: 'Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?'
     back: 'Revenir à la page précédente'
     cancel: 'Annuler'

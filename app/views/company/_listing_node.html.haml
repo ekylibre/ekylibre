@@ -1,12 +1,11 @@
 .branch{:class=>(listing_node.reflection? ? " reflection" : " column")}
   .shift
   .tools{:style=>"width: 20em; float:right;"}
+    -unless listing_node.root?
+      .delete{:style=>"float:right;"}=link_to_remote(tg(:delete), :url=>{:action=>:listing_node_delete, :id=>listing_node.id}, :update=>listing_node.parent.key, :loading=>"onLoading();", :loaded=>"onLoaded();")
     -unless listing_node.reflection?
-      .pos{:id=>"#{listing_node.key}_position", :style=>"width:4em;float:right; color:#00C; text-decoration:underline;"}=render(:partial=>"listing_node_position", :object=>listing_node)
-      .toto{:style=>"width:10em; float:right;"}
-        =check_box_tag(:listing_node, :exportable, listing_node.exportable, :onclick=>remote_function(:url=>{:action=>:listing_node_update, :id=>listing_node.id, :type=>listing_node.exportable ? "hide" : "show"}) )
-        -unless listing_node.root?
-          =link_to_remote("Supprimer", :url=>{:action=>:listing_node_delete, :id=>listing_node.id}, :update=>listing_node.parent.key)
+      .position{:id=>"#{listing_node.key}_position", :style=>"width:4em;float:right; color:#00C; text-decoration:underline;"}=render(:partial=>"listing_node_position", :object=>listing_node)
+      .export{:style=>"width:5em; float:right;"}=check_box_tag(:listing_node, :exportable, listing_node.exportable, :onclick=>remote_function(:url=>{:action=>:listing_node_update, :id=>listing_node.id, :type=>listing_node.exportable ? "hide" : "show"}) )
   .item
     .content
       %table
@@ -14,8 +13,12 @@
           -if listing_node.reflection?
             %td{:onclick=>"toggleElement('#{listing_node.key}')"}=listing_node.label
             %td{:style=>"font-style: italic; color: #808080;"}="(#{listing_node.name})"
+            %td
+              -form_remote_tag(:url=>{:action=>:listing_node_create, :parent_id=>listing_node.id}, :update=>listing_node.key, :loading=>"onLoading();", :loaded=>"onLoaded();", :class=>:content) do
+                =select_tag(:nature, grouped_options_for_select(listing_node.available_nodes))
+                =submit_tag(tg(:add))
           -else
-            %td{:id=>"#{listing_node.key}_label", :style=>"color:#00C; text-decoration:underline; cursor:pointer;"}=render(:partial=>"listing_node_column_label", :object=>listing_node)
+            %td{:id=>"#{listing_node.key}_label", :style=>"color:#00C; text-decoration:underline; cursor:pointer; min-width: 10em;"}=render(:partial=>"listing_node_column_label", :object=>listing_node)
             %td{:style=>"font-style: italic; color: #808080;"}="("+listing_node.name+")"
             %td{:id=>"#{listing_node.key}_comparator", :style=>"color:#00C; text-decoration:underline; cursor:pointer;"}=render(:partial=>"listing_node_comparison", :object=>listing_node)
             

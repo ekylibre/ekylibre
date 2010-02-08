@@ -99,7 +99,7 @@ class Company < ActiveRecord::Base
   has_many :sequences
   has_many :shapes, :order=>:name
   has_many :shelves
-  has_many :stocks
+  has_many :stocks, :order=>"location_id, product_id, tracking_id"
   has_many :stock_moves
   has_many :stock_transfers
   has_many :subscription_natures
@@ -658,14 +658,18 @@ class Company < ActiveRecord::Base
     for family, templates in ::I18n.translate('models.company.default.document_templates')
       for template, attributes in templates
         #begin
-          File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
+        File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
           attributes[:name] ||= I18n::t('models.document_template.natures.'+template.to_s)
           attributes[:name] = attributes[:name].to_s
           attributes[:nature] ||= template.to_s
           attributes[:filename] ||= "File"
-            attributes[:to_archive] = true if attributes[:to_archive] == "true"
-            self.document_templates.create({:active=>true, :language_id=>language.id, :country=>'fr', :source=>f.read, :family=>family.to_s, :code=>attributes[:name].to_s.codeize[0..7], :default=>false}.merge(attributes))
+          attributes[:to_archive] = true if attributes[:to_archive] == "true"
+          code = attributes[:name].to_s.codeize[0..7]
+          if doc = self.document_templates.find_by_code(code)
+            doc.destroy 
           end
+          self.document_templates.create({:active=>true, :language_id=>language.id, :country=>'fr', :source=>f.read, :family=>family.to_s, :code=>code, :default=>true}.merge(attributes))
+        end
         #rescue
         #end
       end

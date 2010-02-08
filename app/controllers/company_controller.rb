@@ -692,32 +692,21 @@ class CompanyController < ApplicationController
     @listing_node = find_and_check(:listing_node, params[:parent_id])
     render :text=>"[UnfoundListingNode]" unless @listing_node
     desc = params[:nature].split("-")
-   # raise Exception.new desc.inspect
-    ln = @listing_node.children.new(:nature=>desc[0], :attribute_name=>desc[1], :label=>::I18n.t("activerecord.attributes.#{@listing_node.model.to_s.underscore}.#{desc[1]}"))
-    #ln.reflection_name = desc[1] if ln.reflection?
-    #ln.attribute_name = ln.reflection? ? desc[1]
-    ln.save!
-    # raise Exception.new(ln.inspect)
+    # raise Exception.new desc.inspect
+    if desc[0] == "special"
+      if desc[1] == "all_columns"
+        model = @listing_node.model
+        for column in model.content_columns.sort{|a,b| model.human_attribute_name(a.name.to_s)<=>model.human_attribute_name(b.name.to_s)}
+          ln = @listing_node.children.new(:nature=>"column", :attribute_name=>column.name, :label=>::I18n.t("activerecord.attributes.#{@listing_node.model.to_s.underscore}.#{column.name}"))
+          ln.save!
+        end
+      end
+    else
+      ln = @listing_node.children.new(:nature=>desc[0], :attribute_name=>desc[1], :label=>::I18n.t("activerecord.attributes.#{@listing_node.model.to_s.underscore}.#{desc[1]}"))
+      ln.save!
+    end
     
     render(:partial=>"listing_reflection", :object=>@listing_node)
-    #raise Exception.new params.inspect
-#     # @listing = find_and_check(:listing, session[:current_listing_id])
-#     if request.post?
-#       #raise Exception.new params.inspect
-#       @listing_node = ListingNode.new(params[:listing_node])
-#       @listing_node.company_id = @current_company.id
-#       @listing_node.listing_id = session[:current_listing_id]
-
-#       @listing_node.nature = "integer" ## temp
-#       @listing_node.label= "--"
-
-#       #redirect_to_back if @listing_node.save
-#       @listing_node.save
-#     else
-#       @listing_node = ListingNode.new
-#     end
-#     render :partial=>"listing_node"
-#     #render_form
   end
   
   def listing_node_update

@@ -40,8 +40,10 @@ class InventoryLine < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :inventory
-  belongs_to :location, :class_name=>Location.name
+  belongs_to :location
   belongs_to :product
+  belongs_to :tracking
+  belongs_to :unit
   has_many :stock_moves, :as=>:origin, :dependent=>:destroy
 
   attr_readonly :company_id
@@ -65,5 +67,9 @@ class InventoryLine < ActiveRecord::Base
   #     self.reflect_changes
   #   end
   # end
+
+  def tracking_name
+    return self.tracking ? self.tracking.name : ""
+  end
   
 end

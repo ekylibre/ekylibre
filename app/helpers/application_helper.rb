@@ -585,7 +585,7 @@ module ApplicationHelper
         nature, args = tool[0], tool[1]
         if nature == :link
           name = args[0]
-          args[0] = t(call+name.to_s)
+          args[0] = t(call+name.to_s) if name.is_a? Symbol
           args[1] ||= {}
           args[2] ||= {}
           args[2][:class] ||= name.to_s.split('_')[-1]
@@ -608,7 +608,7 @@ module ApplicationHelper
           #raise Exception.new "ok"+args.inspect
           name = args[0].to_s
           args[2] ||= {}
-          args[1] = {}
+          args[1] ||= {}
           args[1][:controller] = "company"
           args[1][:action] = "print"
           args[1][:p0] ||= args[1][:id]

@@ -103,7 +103,7 @@ class ProductionController < ApplicationController
   end
 
   dyta(:operation_lines, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"direction") do |t|
-    t.column :direction
+    t.column :direction_label
     t.column :name, :through=>:location, :url=>{:controller=>:management, :action=>:location}
     t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
     t.column :quantity
@@ -122,7 +122,7 @@ class ProductionController < ApplicationController
     if request.post?
       @operation = @current_company.operations.new(params[:operation])
       if @operation.save
-        @operation.set_lines(params[:lines].values)
+        @operation.set_lines(params[:lines].values) if params[:lines]
         @operation.set_tools(params[:tools])
         redirect_to_back
       end
@@ -140,7 +140,7 @@ class ProductionController < ApplicationController
     end
     if request.post?
       if @operation.update_attributes(params[:operation])
-        @operation.set_lines(params[:lines].values)
+        @operation.set_lines(params[:lines].values) if params[:lines]
         @operation.set_tools(params[:tools])
         redirect_to_back
       end
@@ -188,16 +188,17 @@ class ProductionController < ApplicationController
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
     t.column :name, :through=>:target
     t.column :planned_on
+    t.textbox :moved_on, :value=>'Date.today', :size=>10
     t.check :validated, :value=>'RECORD.planned_on<=Date.today'
   end
 
   def unvalidated_operations
     @operations = @current_company.operations.find(:all, :conditions=>{:moved_on=>nil})
-    notify(:no_unvalidated_operations)  if @operations.size <= 0
+    notify(:no_unvalidated_operations, :now) if @operations.size <= 0
     if request.post?
       for id, values in params[:unvalidated_operations]
         operation = @current_company.operations.find_by_id(id)
-        operation.make(Date.today) if operation and values[:validated].to_i == 1
+        operation.make((values[:moved_on].to_date rescue Date.today)) if operation and values[:validated].to_i == 1
         #operation.update_attributes!(:moved_on=>Date.today) if operation and values[:validated].to_i == 1
       end
       redirect_to :action=>:unvalidated_operations

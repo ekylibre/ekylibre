@@ -183,25 +183,25 @@ class ManagementController < ApplicationController
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
     t.column :comment
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:inventory}
-    t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and RECORD.changes_reflected == false', :image=>"action"
-    t.action :inventory_update,  :if=>'RECORD.changes_reflected == false'
+    t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and !RECORD.changes_reflected', :image=>"action"
+    t.action :inventory_update,  :if=>'!RECORD.changes_reflected'
     t.action :inventory_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.changes_reflected == false'
   end
 
   dyta(:inventory_lines_create, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'] }, :per_page=>1000, :order=>'location_id') do |t|
-    t.column :name, :through=>:location
-    t.column :name, :through=>:product
-    t.column :shelf_name, :through=>:product, :label=>tc('shelf')
-    t.column :quantity, :label=>tc('theoric_quantity')
+    t.column :name, :through=>:location, :url=>{:action=>:location}
+    t.column :name, :through=>:product, :url=>{:action=>:product}
+    t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
+    t.column :quantity, :label=>tc('theoric_quantity'), :precision=>3
     t.column :label, :through=>:unit
     t.textbox :quantity
   end
 
   dyta(:inventory_lines_update, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['session[:current_inventory]'] }, :per_page=>1000,:order=>'location_id') do |t|
-    t.column :name, :through=>:location
-    t.column :name, :through=>:product
-    t.column :shelf_name, :through=>:product, :label=>tc('shelf')
-    t.column :theoric_quantity
+    t.column :name, :through=>:location, :url=>{:action=>:location}
+    t.column :name, :through=>:product, :url=>{:action=>:product}
+    t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
+    t.column :theoric_quantity, :precision=>3
     t.textbox :quantity
   end
 
@@ -233,7 +233,12 @@ class ManagementController < ApplicationController
 
   def inventory_reflect
     return unless @inventory = find_and_check(:inventories, params[:id])
-    redirect_to :action=>:inventories if @inventory.reflect_changes
+    if @inventory.reflect_changes
+      notify(:changes_have_been_reflected, :success)
+    else
+      notify(:changes_have_not_been_reflected, :error)
+    end
+    redirect_to :action=>:inventories 
   end
 
   def inventory_update
@@ -2439,6 +2444,7 @@ class ManagementController < ApplicationController
       end
       @stock = Stock.new(:location_id=>session[:location_id]||Location.find(:first, :conditions=>{:company_id=>@current_company.id}).id)
     end
+    notify(:no_stocks, :now) if @current_company.stocks.size <= 0
   end
 
   dyta(:stock_transfers, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -2584,7 +2590,7 @@ class ManagementController < ApplicationController
 
   dyta(:tracking_operation_lines, :model=>:operation_lines, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :order=>'operation_id') do |t|
     t.column :name, :through=>:operation, :url=>{:action=>:operation, :controller=>:production}
-    t.column :direction
+    t.column :direction_label
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :name, :through=>:location, :url=>{:action=>:location}

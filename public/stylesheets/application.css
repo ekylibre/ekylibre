@@ -340,7 +340,7 @@ input.dyli { background: #FFF url(../images/buttons/previous2.png) right center 
 
 .branches { margin-left: 18px; border-left: 1px dotted #AAA; }
 .branch { clear: both;  }
-.branch .shift { height: 10px; width:10px; border-bottom: 1px dotted #AAA; float:left;}
+.branch .shift { height: 14px; width:10px; border-bottom: 1px dotted #AAA; float:left;}
 .branch .tools { float:right; padding: 1px 4px;}
 /*.branch .icon  { width: 16px; height:16px; background: url(../images/buttons/increment.png) no-repeat center left; float: left; margin: 2px 0 0;}*/
 .branch .item  { padding: 0 0 0 16px; background: url(../images/buttons/increment.png) no-repeat center left;  margin: 0 0 0 10px;   }

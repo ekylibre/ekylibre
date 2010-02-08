@@ -9,7 +9,7 @@
 -product = line[:product_id].blank? ?  nil : @current_company.products.find_by_id(line[:product_id])
 %tr{:id=>id, :class=>(direction==:in ? 'odd' : 'even')}
   %td
-    %strong{:title=>h(line.inspect)}=direction.inspect
+    %strong{:title=>h(line.inspect)}=::I18n.t("models.operation_line.direction_label."+direction.to_s)
     =hidden_field_tag("lines[#{id}][direction]", direction)
   %td=dyli_tag("lines[#{id}][product_id]", "operation_products", :value=>product, :after_update_element=>after_update, :no_resize=>true)
   %td

@@ -9,18 +9,20 @@
   <document unit="mm" size="10" title="employee.label">
     <page orientation="portrait" format="A4" margin="10mm">
        
-      <part height="40mm">
+      <part height="20mm">
 	<set>
-	  <text value="Inventaire du {{inventory.date}} effectué par {{inventory.responsible.label}}" left="50%" align="center" bold="true"/>
+	  <text value="Inventaire du {{inventory.date?format=month_letter}} effectué par {{inventory.responsible.label}}" left="50%" align="center" bold="true" size="14"/>
 	</set>
       </part>
       
       <table collection="inventory.lines" fixed="true">
 	<column label="Lieu de stockage" property="location/name" width="40mm"/>
-	<column label="Produit" property="product/name" width="60mm"/>
-	<column label="Catégorie" property="product/shelf_name" width="30mm"/>
-	<column label="Quantité théorique" property="theoric_quantity"  width="30mm"/>
+	<column label="Produit" property="product/name" width="53mm"/>
+	<!--<column label="Catégorie" property="product/shelf_name" width="30mm"/>-->
+	<column label="N°Lot" property="tracking_name" width="30mm"/>
+	<column label="Quantité théorique" property="theoric_quantity" width="30mm"/>
 	<column label="Quantité constatée" property="quantity" width="30mm"/>
+	<column label="U." property="unit/name" width="7mm"/>
       </table>
     </page>
   </document>

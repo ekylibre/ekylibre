@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
 
   ActiveRecord::Base.connection.execute("UPDATE document_templates SET nature='balance_sheet' WHERE nature='financialyear' AND code='BILAN'")
   ActiveRecord::Base.connection.execute("UPDATE document_templates SET nature='income_statement' WHERE nature='financialyear'")
+  # ActiveRecord::Base.connection.execute("UPDATE document_templates SET source=REPLACE(source, 'employee', 'responsible'), cache=REPLACE(cache, 'employee', 'responsible')")
   
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store

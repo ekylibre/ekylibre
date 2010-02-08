@@ -104,6 +104,11 @@ class OperationLine < ActiveRecord::Base
 
   # Classic methods
 
+  # Translate direction
+  def direction_label
+    tc('direction_label.'+self.direction.to_s)
+  end
+
   def in?
     self.direction == "in"
   end
