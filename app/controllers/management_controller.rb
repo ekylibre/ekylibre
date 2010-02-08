@@ -43,7 +43,7 @@ class ManagementController < ApplicationController
     t.column :expression
     t.column :comment
     t.action :delay_update
-    t.action :delay_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :delay_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def delays
@@ -183,9 +183,9 @@ class ManagementController < ApplicationController
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
     t.column :comment
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:inventory}
-    t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and !RECORD.changes_reflected', :image=>"action"
+    t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and !RECORD.changes_reflected', :image=>"action", :confirm=>:are_you_sure
     t.action :inventory_update,  :if=>'!RECORD.changes_reflected'
-    t.action :inventory_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.changes_reflected == false'
+    t.action :inventory_delete, :method=>:post, :confirm=>:are_you_sure_to_delete, :if=>'RECORD.changes_reflected == false'
   end
 
   dyta(:inventory_lines_create, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'] }, :per_page=>1000, :order=>'location_id') do |t|
@@ -429,7 +429,7 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.column :default
     t.column :range
-    t.action :price_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :price_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
   
   
@@ -623,13 +623,13 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.column :default
     t.column :range
-    t.action :price_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :price_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   dyta(:product_components, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}) do |t|
     t.column :name
     t.action :product_component_update
-    t.action :product_component_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :product_component_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def product_component_create
@@ -683,7 +683,7 @@ class ManagementController < ApplicationController
     t.column :code, :url=>{:action=>:product}
     t.column :description
     t.action :product_update
-    t.action :product_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :product_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
     
   def products
@@ -838,7 +838,7 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:purchase_order}
     t.action :purchase_order_lines, :image=>:update#, :if=>'RECORD.editable'
-    t.action :purchase_order_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.editable'
+    t.action :purchase_order_delete, :method=>:post, :confirm=>:are_you_sure_to_delete, :if=>'RECORD.editable'
   end
 
 
@@ -884,7 +884,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :purchase_order_line_update, :if=>'RECORD.order.moved_on.nil? '
-    t.action :purchase_order_line_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.order.moved_on.nil? '
+    t.action :purchase_order_line_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure_to_delete, :if=>'RECORD.order.moved_on.nil? '
   end
 
   def purchase_order_lines
@@ -908,7 +908,7 @@ class ManagementController < ApplicationController
     t.column :scheduled, :through=>:payment, :datatype=>:boolean, :label=>tc('scheduled')
     t.column :downpayment
     t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
-    t.action :payment_part_delete, :method=>:delete, :confirm=>:are_you_sure#, :if=>'RECORD.expense.shipped == false'
+    t.action :payment_part_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete#, :if=>'RECORD.expense.shipped == false'
   end
   
   def price_find
@@ -1018,7 +1018,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sale_order}
-    t.action :sale_order_delete , :method=>:post, :if=>'RECORD.estimate? ', :confirm=>tc(:are_you_sure)
+    t.action :sale_order_delete , :method=>:post, :if=>'RECORD.estimate? ', :confirm=>tc(:are_you_sure_to_delete)
   end
   
   def sale_order_delete
@@ -1116,7 +1116,7 @@ class ManagementController < ApplicationController
     t.column :downpayment_rate
     t.column :comment
     t.action :sale_order_nature_update
-    t.action :sale_order_nature_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :sale_order_nature_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def sale_order_natures
@@ -1226,7 +1226,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :sale_order_line_update, :if=>'RECORD.order.estimate? and RECORD.reduction_origin_id.nil? '
-    t.action :sale_order_line_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.order.estimate? and RECORD.reduction_origin_id.nil? '
+    t.action :sale_order_line_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>'RECORD.order.estimate? and RECORD.reduction_origin_id.nil? '
   end
 
   dyta(:sale_order_subscriptions, :conditions=>{:company_id=>['@current_company.id'], :sale_order_id=>['session[:current_sale_order]']}, :model=>:subscriptions) do |t|
@@ -1238,7 +1238,7 @@ class ManagementController < ApplicationController
     t.column :finish
     t.column :quantity
     t.action :subscription_update
-    t.action :subscription_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :subscription_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def sale_order_lines
@@ -1457,8 +1457,8 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     #t.action :sale_order_delivery_update, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? '
     t.action :sale_order_delivery_update, :if=>'!RECORD.order.invoiced'
-    #t.action :delivery_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>:are_you_sure
-    t.action :delivery_delete, :if=>'!RECORD.order.invoiced', :method=>:delete, :confirm=>:are_you_sure
+    #t.action :delivery_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>:are_you_sure_to_delete
+    t.action :delivery_delete, :if=>'!RECORD.order.invoiced', :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   
@@ -1601,7 +1601,7 @@ class ManagementController < ApplicationController
     t.column :code
     t.column :comment
     t.action :delivery_mode_update
-    t.action :delivery_mode_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :delivery_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def delivery_modes
@@ -1653,7 +1653,7 @@ class ManagementController < ApplicationController
     t.column :created_on
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:embankment}
     t.action :embankment_update, :if=>'RECORD.locked == false'
-    t.action :embankment_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.locked == false'
+    t.action :embankment_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>'RECORD.locked == false'
   end
 
 #  dyli(:bank_account, :attributes => [:name], :conditions => {:company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
@@ -1754,7 +1754,7 @@ class ManagementController < ApplicationController
     t.column :name
     t.column :label, :through=>:account
     t.action :payment_mode_update
-    t.action :payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
   
   dyli(:account, :label, :conditions =>{:company_id=>['@current_company.id']})
@@ -1797,7 +1797,7 @@ class ManagementController < ApplicationController
     t.column :downpayment
     #t.column :paid_on, :through=>:payment, :label=>tc('paid_on'), :datatype=>:date
     t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
-    t.action :payment_part_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :payment_part_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   
@@ -1849,7 +1849,7 @@ class ManagementController < ApplicationController
     t.column :label, :through=>:embanker
     t.column :number, :through=>:embankment, :url=>{:action=>:embankment}
     t.action :payment_update, :if=>"RECORD.embankment.nil\?"
-    t.action :payment_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.parts_amount.to_f<=0"
+    t.action :payment_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.parts_amount.to_f<=0"
   end
 
   def payments
@@ -1958,7 +1958,7 @@ class ManagementController < ApplicationController
     t.column :catalog_description
     t.column :name, :through=>:parent
     t.action :shelf_update
-    t.action :shelf_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :shelf_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def shelves
@@ -1972,7 +1972,7 @@ class ManagementController < ApplicationController
     t.column :description
     t.column :active
     t.action :product_update
-    t.action :product_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :product_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def shelf
@@ -2016,7 +2016,7 @@ class ManagementController < ApplicationController
     t.column :reservoir, :label=>tc(:reservoir)
     #t.action :location_update, :mode=>:reservoir, :if=>'RECORD.reservoir == true'
     t.action :location_update
-    #t.action :location_delete, :method=>:delete, :confirm=>:are_you_sure
+    #t.action :location_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
 
@@ -2039,7 +2039,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :virtual
     t.action :stock_move_update, :if=>'RECORD.generated != true'
-    t.action :stock_move_delete, :method=>:delete, :confirm=>:are_you_sure,:if=>'RECORD.generated != true' 
+    t.action :stock_move_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete,:if=>'RECORD.generated != true' 
   end
   
 
@@ -2457,7 +2457,7 @@ class ManagementController < ApplicationController
     t.column :planned_on
     t.column :moved_on
     t.action :stock_transfer_update
-    t.action :stock_transfer_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :stock_transfer_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def stock_transfers
@@ -2498,7 +2498,7 @@ class ManagementController < ApplicationController
     t.column :weight
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:transport}
     t.action :transport_update
-    t.action :transport_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :transport_delete, :method=>:post, :confirm=>:are_you_sure_to_delete
   end
 
   dyta(:transport_deliveries, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :transport_id=>['session[:current_transport]']}) do |t|
