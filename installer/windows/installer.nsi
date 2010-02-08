@@ -20,9 +20,9 @@ SetCompressor /SOLID /FINAL zlib
   !define DBMSPORT 4032
 
   VIAddVersionKey "ProductName" "${APP}"
-  VIAddVersionKey "Comments" "Le logiciel de gestion des petites entreprises"
+  ; VIAddVersionKey "Comments" "Le logiciel de gestion des petites entreprises"
   VIAddVersionKey "CompanyName" "www.ekylibre.org"
-  VIAddVersionKey "FileDescription" "Installateur du logiciel ${APP} ${VERSION}"
+  VIAddVersionKey "FileDescription" "${APP} ${VERSION} Installer"
   VIAddVersionKey "FileVersion" "${VERSION}"
   VIProductVersion "${VERSION}.0"
 
@@ -127,6 +127,11 @@ Section
 
   ; Initialisation de quelques valeurs
   ReadRegStr $AppDir HKLM Software\${APP} "AppDir"
+  ${If} $AppDir == ""
+    IfFileExists $InstApp 0 +2
+      StrCpy $AppDir $InstApp
+
+  ${EndIf}
   StrCpy $username "ekylibre"
   pwgen::GeneratePassword 32
   Pop $password
