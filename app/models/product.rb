@@ -230,7 +230,7 @@ class Product < ActiveRecord::Base
       end
     end
     attributes[:quantity] = -attributes[:quantity] unless incoming
-    attributes[:location_id] ||= self.locations.first.id
+    attributes[:location_id] ||= self.stocks.first.location_id if self.stocks.size > 0
     attributes[:planned_on] ||= Date.today
     attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on
     self.stock_moves.create!(attributes)

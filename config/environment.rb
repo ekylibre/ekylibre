@@ -23,6 +23,7 @@ Rails::Initializer.run do |config|
   config.gem "fastercsv"
   config.gem "libxml-ruby", :lib=>'libxml'
   config.gem "rubyzip", :lib=>"zip/zip"
+  config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
   # config.gem "RedCloth", :lib=>"redcloth"
   # config.gem "measure"
 

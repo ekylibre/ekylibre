@@ -37,9 +37,14 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
-
+companies_001:
+  code: FERSTIVA
+  deleted: false
+  id: 1
+  locked: false
+  name: Ferstivall LTD
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  updated_at: 2006-07-19 19:13:59 +02:00
+  updater_id: 1
+   

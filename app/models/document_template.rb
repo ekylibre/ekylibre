@@ -44,18 +44,19 @@
 
 # -*- coding: utf-8 -*-
 class DocumentTemplate < ActiveRecord::Base
+  attr_readonly :company_id
+  cattr_reader :families, :document_natures
   belongs_to :company
-  belongs_to :language
-  
+  belongs_to :language  
   has_many :documents, :foreign_key=>:template_id
-
+  validates_presence_of :filename
   validates_uniqueness_of :code, :scope=>:company_id
 
-  attr_readonly :company_id
+  PREAMBLE = "#1.1\n"
+
 
   @@families = [:company, :relations, :accountancy, :management, :production] # :resources, 
 
-  PREAMBLE = "#1.1\n"
 
 
   # id is forbidden names for parameters
@@ -67,7 +68,7 @@ class DocumentTemplate < ActiveRecord::Base
     :inventory =>        [ [:inventory, Inventory] ], 
     :invoice =>          [ [:invoice, Invoice] ],
     :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ],
-    :purchase_order =>   [ [:sale_order, PurchaseOrder] ], 
+    :purchase_order =>   [ [:purchase_order, PurchaseOrder] ], 
     :sale_order =>       [ [:sale_order, SaleOrder] ],
     :stocks =>           [ [:established_on, Date] ],
     # :synthesis =>        [ [:financialyear, Financialyear] ],
@@ -80,6 +81,7 @@ class DocumentTemplate < ActiveRecord::Base
 
 
   def before_validation
+    self.filename ||= 'document'
     self.cache = self.class.compile(self.source) # rescue nil
     self.default = true if self.company.document_templates.find_all_by_nature_and_default(self.nature, true).size <= 0
   end
@@ -124,17 +126,18 @@ class DocumentTemplate < ActiveRecord::Base
     # Analyze and cleans parameters
     parameters = @@document_natures[self.nature.to_sym]
     raise StandardError.new(tc(:unvalid_nature)) if parameters.nil?
-    raise ArgumentError.new("Bad number of arguments, #{args.size} for #{parameters.size}") if args.size != parameters.size
     if args[0].is_a? Hash
       hash = args[0]
       parameters.each_index do |i|
         args[i] = hash[parameters[i][0]]||hash["p"+i.to_s]
       end
     end
+    raise ArgumentError.new("Bad number of arguments, #{args.size} for #{parameters.size}") if args.size != parameters.size
 
     parameters.each_index do |i|
       args[i] = parameters[i][1].find_by_id_and_company_id(args[i].to_s.to_i, self.company_id) if parameters[i][1].ancestors.include?(ActiveRecord::Base) and not args[i].is_a? parameters[i][1]
-      raise ArgumentError.new("#{parameters[i].name} expected, got #{args[i].inspect}") unless args[i].class != parameters[i]
+      # args[i] = parameters[i][1].find_by_id_and_company_id(args[i].to_s.to_i, self.company_id) if parameters[i][1].ancestors.include?(ActiveRecord::Base) and [Integer, String].include? args[i].class
+      raise ArgumentError.new("#{parameters[i][1].name} expected, got #{args[i].inspect}") unless args[i].class == parameters[i][1]
     end
 
     # Try to find an existing archive
@@ -220,7 +223,7 @@ class DocumentTemplate < ActiveRecord::Base
     self.save!
     code = self.class.compile(self.source, :debug)
     pdf = nil
-    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     begin 
       pdf = eval(code)
     rescue Exception=>e

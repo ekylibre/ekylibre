@@ -47,13 +47,13 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
       hash = {}
       COLUMNS.each do |k,v| 
         updates << k.to_s+"="+if v == :boolean
-                                ['1', 't', 'T', 'true'].include?(employee[k]) ? quoted_true : quoted_false
+                                ['1', 't', 'T', 'true'].include?(employee[k.to_s]) ? quoted_true : quoted_false
                               elsif v == :integer
-                                (employee[k]||0).to_s
+                                (employee[k.to_s]||0).to_s
                               elsif v == :date
-                                quote(employee[k]||Date.civil(1970,1,1))
+                                quote(employee[k.to_s]||Date.civil(1970,1,1))
                               else 
-                                quote(employee[k])
+                                quote(employee[k.to_s])
                               end
         # hash[k] = employee[k.to_s]}
       end

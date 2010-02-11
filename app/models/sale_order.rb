@@ -60,6 +60,7 @@
 #
 
 class SaleOrder < ActiveRecord::Base
+  attr_readonly :company_id, :created_on, :number
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :company
   belongs_to :contact
@@ -77,14 +78,14 @@ class SaleOrder < ActiveRecord::Base
   has_many :payment_parts, :as=>:expense
   has_many :stock_moves, :as=>:origin
   has_many :subscriptions, :class_name=>Subscription.to_s
+  validates_presence_of :client_id, :currency_id
 
-  attr_readonly :company_id, :created_on, :number
-
-  validates_presence_of :client_id
 
   @@natures = [:estimate, :order, :invoice]
   
   def before_validation
+    self.currency_id ||= self.company.currencies.first.id if self.currency.nil? and self.company.currencies.count == 1
+
     self.parts_amount = self.payment_parts.sum(:amount)||0
     if self.number.blank?
       last = self.company.sale_orders.find(:first, :order=>"number desc")
@@ -97,6 +98,7 @@ class SaleOrder < ActiveRecord::Base
     self.delivery_contact_id ||= self.contact_id
     self.invoice_contact_id  ||= self.delivery_contact_id
     self.created_on ||= Date.today
+    self.nature ||= self.company.sale_order_natures.first if self.nature.nil? and self.company.sale_order_natures.count == 1
     if self.nature
       self.expiration_id ||= self.nature.expiration_id 
       self.expired_on ||= self.expiration.compute(self.created_on)
@@ -181,24 +183,29 @@ class SaleOrder < ActiveRecord::Base
 
   # Invoice all the products creating the delivery if necessary. 
   def invoice
-    self.confirm
-    self.reload
-    # Create invoice
-    invoice = self.invoices.create!(:company_id=>self.company_id, :nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
-    for line in self.lines
-      invoice.lines.create!(:company_id=>line.company_id, :order_line_id=>line.id, :amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes, :quantity=>line.quantity)
+    return false if self.lines.count <= 0
+    ActiveRecord::Base.transaction do
+      self.confirm
+      self.reload
+      # Create invoice
+      invoice = self.invoices.create!(:company_id=>self.company_id, :nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
+      for line in self.lines
+        invoice.lines.create!(:company_id=>line.company_id, :order_line_id=>line.id, :amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes, :quantity=>line.quantity)
+      end
+      # Move real stocks
+      for line in self.lines
+        line.product.move_outgoing_stock(:origin=>line, :quantity=>line.undelivered_quantity, :planned_on=>self.created_on)
+      end
+      # Accountize the invoice
+      if self.company.parameter('accountancy.to_accountancy.automatic')
+        invoice.to_accountancy if self.company.parameter('accountancy.to_accountancy.automatic').value == true
+      end
+      # Update sale_order state
+      self.invoiced = true
+      self.save!
+      return true
     end
-    # Move real stocks
-    for line in self.lines
-      line.product.move_outgoing_stock(:origin=>line, :quantity=>line.undelivered_quantity, :planned_on=>self.created_on)
-    end
-    # Accountize the invoice
-    if self.company.parameter('accountancy.to_accountancy.automatic')
-      invoice.to_accountancy if self.company.parameter('accountancy.to_accountancy.automatic').value == true
-    end
-    # Update sale_order state
-    self.invoiced = true
-    self.save!
+    return false
   end
 
 
@@ -362,7 +369,7 @@ class SaleOrder < ActiveRecord::Base
     c << tc('sales_conditions.downpayment', :percent=>100*self.nature.downpayment_rate, :amount=>(self.nature.downpayment_rate*self.amount_with_taxes).round(2)) if self.amount_with_taxes>self.nature.downpayment_minimum
     c << tc('sales_conditions.validity', :expiration=>::I18n.localize(self.expired_on, :format=>:legal))
     c += self.company.sales_conditions.to_s.split(/\s*\n\s*/)
-    c += self.responsible.department.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible
+    c += self.responsible.department.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible and self.responsible.department
     c
   end
 

@@ -400,7 +400,7 @@ module Ibeh
 
 
 
-
+    # FIXME probleme
     def list(collection, options={})
       nb_columns = (options[:columns]||1).to_i
       width = options[:width]||self.width

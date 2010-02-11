@@ -48,6 +48,8 @@
 #
 
 class SaleOrderLine < ActiveRecord::Base
+  acts_as_list :scope=>:order
+  attr_readonly :company_id, :order_id
   belongs_to :account
   belongs_to :company
   belongs_to :entity
@@ -59,14 +61,11 @@ class SaleOrderLine < ActiveRecord::Base
   belongs_to :tax
   belongs_to :tracking
   belongs_to :unit
-  has_one :reduction, :class_name=>SaleOrderLine.to_s, :foreign_key=>:reduction_origin_id
   has_many :delivery_lines, :foreign_key=>:order_line_id
   has_many :invoice_lines
-  acts_as_list :scope=>:order
-  
+  has_one :reduction, :class_name=>SaleOrderLine.to_s, :foreign_key=>:reduction_origin_id
   validates_presence_of :price_id
 
-  attr_readonly :company_id, :order_id
   
   def before_validation
     # check_reservoir = true
@@ -81,7 +80,7 @@ class SaleOrderLine < ActiveRecord::Base
       self.account_id = self.product.product_account_id 
       self.unit_id = self.product.unit_id
       if self.product.manage_stocks
-        self.location_id ||= self.product.stocks.first.location_id
+        self.location_id ||= self.product.stocks.first.location_id if self.product.stocks.size > 0
       else
         self.location_id = nil
       end
@@ -131,6 +130,20 @@ class SaleOrderLine < ActiveRecord::Base
     #     check_reservoir
   end
 
+
+  def validate
+    if self.location
+      errors.add_to_base(tc(:location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name)) unless self.location.can_receive?(self.product_id)
+      if self.tracking
+        stock = self.company.stocks.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :tracking_id=>self.tracking_id})
+        errors.add_to_base(tc(:can_not_use_this_tracking, :name=>self.tracking.name)) if stock and stock.virtual_quantity < self.quantity
+      end
+    end
+    if self.price
+      errors.add_to_base(tc(:currency_is_not_sale_order_currency)) if self.price.currency_id != self.order.currency_id
+    end
+  end
+  
   
   def after_save
     reduction_rate = self.order.client.max_reduction_rate
@@ -149,19 +162,6 @@ class SaleOrderLine < ActiveRecord::Base
     self.order.reload.refresh 
   end
 
-  def validate
-    if self.location
-      errors.add_to_base(tc(:location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name)) unless self.location.can_receive?(self.product_id)
-      if self.tracking
-        stock = self.company.stocks.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :tracking_id=>self.tracking_id})
-        errors.add_to_base(tc(:can_not_use_this_tracking, :name=>self.tracking.name)) if stock and stock.virtual_quantity < self.quantity
-      end
-    end
-    if self.price
-      errors.add_to_base(tc(:currency_is_not_sale_order_currency)) if self.price.currency_id != self.order.currency_id
-    end
-  end
-  
   def undelivered_quantity
     self.quantity - self.delivery_lines.sum(:quantity)
   end

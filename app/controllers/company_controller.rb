@@ -148,7 +148,7 @@ class CompanyController < ApplicationController
     if request.post?
       if params['backup']
         # Création d'une sauvegarde
-        send_file(@current_company.backup(@current_user, params[:with_prints]))
+        send_file(@current_company.backup(:creator=>@current_user.label, :with_prints=>params[:with_prints]))
       elsif params['restore'] and params[:file] and params[:file][:path]
         # Récupération d'une sauvegarde
         backup = params[:file][:path]
@@ -753,7 +753,7 @@ class CompanyController < ApplicationController
       data, filename = @current_company.print(params)
       send_data(data, :filename=>filename, :type=>Mime::PDF, :disposition=>'inline')
     rescue Exception=>e
-      notify(:print_failure, :error, :class=>e.class.to_s, :error=>e.message)
+      notify(:print_failure, :error, :class=>e.class.to_s, :error=>e.message.to_s)
       # (RAILS_ENV=="development" ? e.inspect+e.backtrace.join("\n") :
       redirect_to_back
     end

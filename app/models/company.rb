@@ -327,15 +327,14 @@ class Company < ActiveRecord::Base
   # self.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0)"], :order=>"created_at desc")
   #end
 
-  def backup(creator, with_prints=true)
+  def backup(options={})
+    creator, with_prints = options[:creator], options[:with_prints]
     version = (ActiveRecord::Migrator.current_version rescue 0)
     filename = "backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")
     file = "#{RAILS_ROOT}/tmp/#{filename}.zip"
     doc = LibXML::XML::Document.new
-    # doc << REXML::XMLDecl.new
     doc.root = backup = XML::Node.new('backup')
-    {'version'=>version, 'creation-date'=>Date.today, 'creator'=>creator.label}.each{|k,v| backup[k]=v.to_s}
-    # backup = doc.add_element 'backup', 'version'=>version, 'creation-date'=>Date.today.to_s, 'creator'=>creator.label
+    {'version'=>version, 'creation-date'=>Date.today, 'creator'=>creator}.each{|k,v| backup[k]=v.to_s}
     backup << root = XML::Node.new('company')
     self.attributes.each{|k,v| root[k] = v.to_s}
     n = 0
@@ -366,17 +365,18 @@ class Company < ActiveRecord::Base
         end
       end
     end
-    # Zlib::GzipWriter.open(file) { |gz| gz.write(stream) }
     return file
   end
 
 
   # Restore database
   # with printed arhived documents if requested
-  def restore(file)
+  def restore(file, options={})
+    raise ArgumentError.new("Expecting String, #{file.class.name} instead") unless file.is_a? String
+    verbose = options[:verbose]
     prints_dir = "#{RAILS_ROOT}/private/#{self.code}"
     # Décompression
-    puts "R> Uncompressing backup..."
+    puts "R> Uncompressing backup..." if verbose
     backup = "#{RAILS_ROOT}/tmp/uncompressed-backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")+".xml"
     stream = nil
     FileUtils.rm_rf(prints_dir+'.prints')
@@ -395,7 +395,7 @@ class Company < ActiveRecord::Base
     
     # Parsing
     version = (ActiveRecord::Migrator.current_version rescue 0)
-    puts "R> Parsing backup.xml (#{version})..."
+    puts "R> Parsing backup.xml (#{version})..."  if verbose
     doc = LibXML::XML::Document.file(backup)
     backup = doc.root
     attr_version = backup.attributes['version']
@@ -404,7 +404,7 @@ class Company < ActiveRecord::Base
     root = backup.children[1]
     ActiveRecord::Base.transaction do
       # Suppression des données
-      puts "R> Removing existing data..."
+      puts "R> Removing existing data..."  if verbose
       ids  = {}
       models = EKYLIBRE_MODELS # .delete_if{|x| x==:company}
       for model in models
@@ -414,7 +414,7 @@ class Company < ActiveRecord::Base
 
 
       # Chargement des données sauvegardées
-      puts "R> Loading backup data..."
+      puts "R> Loading backup data..."  if verbose
       data = {}
       keys = {}
       children = root.children
@@ -433,7 +433,7 @@ class Company < ActiveRecord::Base
         end
         model = model_name.to_s.classify.constantize
         keys[model.name] = EKYLIBRE_REFERENCES[model_name].select{|k,v| v != :company}.to_a
-        code += "puts('R> - #{model.name} (#{element[:attributes]['records-count']})')\n"
+        code += "puts('R> - #{model.name} (#{element[:attributes]['records-count']})')\n"  if verbose
         code += "start, tdb1, tdb2p = Time.now, 0, 0\n" if timed
         code += "data['#{model.name}'] = []\n"
         code += "ids['#{model.name}'] = {}\n"
@@ -457,15 +457,15 @@ class Company < ActiveRecord::Base
         if element[:attributes]['records-count'].to_i>30 and timed
           code += "duration, tdb2 = Time.now-start, tdb2p-tdb1\n"
           code += "duration = Time.now-start\n"
-          code += "puts 'R>     T: '+duration.to_s[0..6]+' | TDB1: '+tdb1.to_s[0..6]+' | TDB2: '+tdb2.to_s[0..6]+' | RS: '+(duration-tdb2p).to_s[0..6]+' | AVG(TDB1): '+(tdb1/#{element[:attributes]['records-count']}).to_s[0..6]+' | AVG(TDB2): '+(tdb2/#{element[:attributes]['records-count']}).to_s[0..6]\n"
+          code += "puts 'R>     T: '+duration.to_s[0..6]+' | TDB1: '+tdb1.to_s[0..6]+' | TDB2: '+tdb2.to_s[0..6]+' | RS: '+(duration-tdb2p).to_s[0..6]+' | AVG(TDB1): '+(tdb1/#{element[:attributes]['records-count']}).to_s[0..6]+' | AVG(TDB2): '+(tdb2/#{element[:attributes]['records-count']}).to_s[0..6]\n"  if verbose
         end
       end
-      File.open("#{RAILS_ROOT}/tmp/restore-1.rb", "wb") {|f| f.write(code)}
+      File.open("#{RAILS_ROOT}/tmp/restore-1.rb", "wb") {|f| f.write(code)}  if verbose
       eval(code)
       
       # raise Exception.new(data.inspect)
       # Réorganisation des clés étrangères
-      puts "R> Redifining primary keys..."
+      puts "R> Redifining primary keys..."  if verbose
       code  = ''
 
       for model_name in EKYLIBRE_MODELS
@@ -487,15 +487,15 @@ class Company < ActiveRecord::Base
         code += "end\n"
       end
 
-      File.open("#{RAILS_ROOT}/tmp/restore-2.rb", "wb") {|f| f.write(code)}      
+      File.open("#{RAILS_ROOT}/tmp/restore-2.rb", "wb") {|f| f.write(code)} if verbose
       start = Time.now
       eval(code)
-      puts "R> Total: #{(Time.now-start)}s"
+      puts "R> Total: #{(Time.now-start)}s" if verbose
 
 
 
       # Chargement des paramètres de la société
-      puts "R> Loading company data..."
+      puts "R> Loading company data..." if verbose
       attrs = root.attributes.each do |attr|
         self.send(attr.name+'=', attr.value) unless ['id', 'lock_version', 'code'].include? attr.name
       end
@@ -504,15 +504,17 @@ class Company < ActiveRecord::Base
         self[key] = v unless v.nil?
       end
       self.send(:update_without_callbacks)
+      self.reload
       # raise Active::Record::Rollback
 
       if File.exist?(prints_dir+".prints")
-        puts "R> Replacing prints..."
+        puts "R> Replacing prints..." if verbose
         File.move prints_dir, prints_dir+'.old'
         File.move prints_dir+'.prints', prints_dir
         FileUtils.rm_rf(prints_dir+'.old')
       end
     end
+
 
     return true
   end
@@ -526,8 +528,8 @@ class Company < ActiveRecord::Base
                  id
                elsif id.is_a? Integer
                  self.document_templates.find_by_id(id)
-               elsif id.is_a? String
-                 self.document_templates.find_by_code(id) || self.document_templates.find_by_nature_and_default(id, true)
+               elsif id.is_a? String or id.is_a? Symbol
+                 self.document_templates.find_by_code(id.to_s) || self.document_templates.find_by_nature_and_default(id.to_s, true)
                end
     raise Exception.new(tc(:cant_find_document_template)) unless template
     return template.print!(options)
@@ -718,8 +720,8 @@ class Company < ActiveRecord::Base
     for x in 0..60
       entity = self.entities.new(indifferent_attributes)
       entity.name = last_name[rand(last_name.size)]
-      entity.first_name = first_name[rand(first_name.size)] if 
-        entity.nature_id = entity_natures[rand(entity_natures.size).to_i]
+      entity.first_name = first_name[rand(first_name.size)]
+      entity.nature_id = entity_natures[rand(entity_natures.size).to_i]
       entity.name = entity.nature.abbreviation+" "+entity.name if entity.nature.in_name 
       entity.client = (rand() > 0.5 or rand() > 0.8)
       entity.supplier = (rand() > 0.75 or x == 0)
