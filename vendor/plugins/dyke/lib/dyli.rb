@@ -145,7 +145,8 @@ module Ekylibre
           options  = { :action => "#{name}_dyli"}.merge(options)
           options[:real_object] = real_object.send(foreign_key) unless real_object.new_record?
           options[:field_id] = "#{object}_#{foreign_key}"
-           
+          tag_options[:class] = tag_options[:class].to_s+' invalid' if real_object.errors.invalid?(association.to_s+"_id")
+
           completion_options[:skip_style] = true;
           
           dyli_completer(tf_name, tf_value, hf_name, hf_value, options, tag_options, completion_options)
@@ -263,7 +264,7 @@ module Ekylibre
           unless options[:submit_on_return]
             tag_options[:onkeypress] = 'return event.keyCode == Event.KEY_RETURN ? false : true'
           end
-          tag_options[:class] = 'dyli'
+          tag_options[:class] = (tag_options[:class].to_s+' dyli').strip
         end
         
         # Determines the actual completion options, taken into account the ones from

@@ -166,7 +166,7 @@ fr-FR:
       financialyear_update:
         title: 'Modifier un nouvel exercice'
       financialyears:
-        financialyear_create: 'Enregister un nouvel exercice comptable'
+        financialyear_create: 'Enregistrer un nouvel exercice comptable'
         title: 'Exercices comptables'
       index:
         accountize: 'Bascule comptable'

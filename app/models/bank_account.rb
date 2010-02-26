@@ -47,17 +47,20 @@
 #
 
 class BankAccount < ActiveRecord::Base
-  belongs_to :journal
-  belongs_to :currency
+  attr_readonly :company_id
   belongs_to :account
   belongs_to :company
+  belongs_to :currency
   belongs_to :entity
-  
-  has_many :statements, :class_name=>"BankAccountStatement", :foreign_key=>:bank_account_id 
+  belongs_to :journal
   has_many :embankments
+  has_many :statements, :class_name=>BankAccountStatement.name
+  validates_inclusion_of :mode, :in=>%w( bban iban )
 
   #validates_presence_of :bank_name
     
+  @@bban_translations = {:fr=>["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]}
+  
   TABLE_BBAN = {:A=>1,:B=>2,:C=>3,:D=>4,:E=>5,:F=>6,:G=>7,:H=>8,:I=>9,:J=>1,:K=>2,:L=>3,:M=>4,:N=>5,
     :O=>6, :P=>7, :Q=>8, :R=>9, :S=>2, :T=>3, :U=>4, :V=>5, :W=>6, :X=>7, :Y=>8, :Z=>9}
   
@@ -66,43 +69,43 @@ class BankAccount < ActiveRecord::Base
 
   # before create a bank account, this computes automatically code iban.
   def before_validation
-    if self.mode=="IBAN" 
-      self.iban.delete!(' ')
-      self.iban.delete!('-')
-    else #BBAN
-     self.iban=BankAccount.generate_iban(COUNTRY_CODE_FR, self.bank_code+self.agency_code+self.number+self.key)
+    if self.use_mode?
+      self.iban = self.iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
+    else
+      self.iban = self.class.generate_iban(COUNTRY_CODE_FR, self.bank_code+self.agency_code+self.number+self.key)
     end
     self.iban_label = self.iban.split(/(\w\w\w\w)/).delete_if{|k| k.empty?}.join(" ") 
-  #  self.entity_id = self.company.entity_id
   end  
   
   # IBAN have to be checked before saved.
   def validate
-    if self.mode=="bban"
-      errors.add_to_base tc(:bban_unvalid_key) unless BankAccount.check_bban?(COUNTRY_CODE_FR, self.attributes) 
+    if self.use_mode?(:bban)
+      errors.add_to_base(:unvalid_bban) unless self.class.valid_bban?(COUNTRY_CODE_FR, self.attributes)
     end
-    errors.add_to_base tc(:iban_unvalid_key) unless BankAccount.check_iban?(self.iban) 
+    errors.add(:iban, :invalid) unless self.class.valid_iban?(self.iban) 
+  end
+
+  def use_mode?(value=:iban)
+    self.mode.to_s.lower == value.to_s.lower
   end
 
   # this method returns an array .
   def self.modes
-    [:iban, :bban].collect{|x| [tc(x.to_s), x] }
+    ["iban", "bban"].collect{|x| [tc(x.to_s), x] }
   end
 
   
   #this method checks if the BBAN is valid.
-  def self.check_bban?(country_code,options={})
-    str=options["bank_code"]+options["agency_code"]+options["number"]
-   
-    # test the bban key
-    str.each_char do |c|
-      if c=~/\D/
-        str.gsub!(c, TABLE_BBAN[c.to_sym].to_s)
-        
-      end
+  def self.valid_bban?(country_code, options={})
+    case cc = country_code.lower.to_sym
+    when :fr
+      ban = (options["bank_code"].to_s.lower.tr(*@@bban_translations[cc]).to_i*89+
+             options["agency_code"].to_s.lower.tr(*@@bban_translations[cc]).to_i*15+
+             options["number"].to_s.lower.tr(*@@bban_translations[cc]).to_i*3)
+      return (options["key"].to_i+ban.modulo(97)-97).zero?
+    else
+      raise ArgumentError.new("Unknown country code #{country_code.inspect}")
     end
-
-    return ( (str+options["key"]).to_i.modulo 97 ).zero? 
   end
 
   #this method generates the IBAN key.
@@ -117,7 +120,7 @@ class BankAccount < ActiveRecord::Base
   end
   
   #this method checks if the IBAN is valid.
-  def self.check_iban?(iban) 
+  def self.valid_iban?(iban) 
     str = iban[4..iban.length]+iban[0..1]+"00" 
         
     # test the iban key

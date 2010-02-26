@@ -56,8 +56,8 @@ fr-FR:
         title: 'Modification du travail {{name}}'
       operations:
         operation_create: 'Créer un nouveau travail'
-        unvalidated_operations: 'Travaux non validés'
         title: 'Travaux'
+        unvalidated_operations: 'Travaux non validés'
       production_create:
         title: 'Enregistrer une nouvelle production'
       _production_form:

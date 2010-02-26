@@ -60,7 +60,6 @@ class Company < ActiveRecord::Base
   has_many :entity_link_natures
   has_many :entity_links
   has_many :entity_natures  
-  has_many :entries
   has_many :establishments
   has_many :event_natures
   has_many :events
@@ -70,6 +69,7 @@ class Company < ActiveRecord::Base
   has_many :invoices
   has_many :invoice_lines
   has_many :journals
+  has_many :journal_entries
   has_many :journal_records
   has_many :languages
   has_many :listings
@@ -802,11 +802,11 @@ class Company < ActiveRecord::Base
     conditions += " AND CAST(r.created_on AS DATE) BETWEEN '"+period[0].to_s+"' AND '"+period[1].to_s+"'" if not period.empty?
     
     if [:credit, :debit].include? field
-      result =  self.entries.sum(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=entries.account_id inner join journal_records r on r.id=entries.record_id")
+      result =  self.journal_entries.sum(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=journal_entries.account_id inner join journal_records r on r.id=journal_entries.record_id")
     end
 
     if [:all, :first].include? field
-      result =  self.entries.find(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=entries.account_id inner join journal_records r on r.id=entries.record_id", :order=>"r.created_on ASC")
+      result =  self.journal_entries.find(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=journal_entries.account_id inner join journal_records r on r.id=journal_entries.record_id", :order=>"r.created_on ASC")
     end
 
     return result
@@ -820,7 +820,7 @@ class Company < ActiveRecord::Base
       conditions[0] += " and r.journal_id = ?"
       conditions << id.to_s
     end
-    return self.entries.find(:all, :conditions=>conditions, :joins=>"inner join journal_records r on r.id=entries.record_id", :order=>"r.number ASC")
+    return self.journal_entries.find(:all, :conditions=>conditions, :joins=>"inner join journal_records r on r.id=journal_entries.record_id", :order=>"r.number ASC")
   end
 
 end

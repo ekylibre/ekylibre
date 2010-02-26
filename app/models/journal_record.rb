@@ -42,15 +42,16 @@
 #
 
 class JournalRecord < ActiveRecord::Base
+  attr_readonly :company_id, :journal_id
   belongs_to :company
   belongs_to :journal
   belongs_to :financialyear, :class_name=>Financialyear.name
   belongs_to :resource, :polymorphic=>true
-  has_many :entries, :foreign_key=>:record_id, :dependent=>:destroy 
+  has_many :entries, :foreign_key=>:record_id, :dependent=>:destroy, :class_name=>JournalEntry.name
   acts_as_list :scope=>:financialyear
 
   validates_format_of :number, :with => /^[\dA-Z][\dA-Z]*$/
-  validates_length_of :number, :is => 6
+  # validates_length_of :number, :is => 6
   validates_presence_of :created_on, :printed_on
 
   #

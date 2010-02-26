@@ -40,8 +40,8 @@ class BankAccountStatement < ActiveRecord::Base
   belongs_to :bank_account
   belongs_to :company
 
-  has_many :entries, :class_name=>"Entry", :foreign_key=>:intermediate_id
-  has_many :entries, :class_name=>"Entry", :foreign_key=>:statement_id
+  has_many :intermediate_entries, :class_name=>JournalEntry.name, :foreign_key=>:intermediate_id
+  has_many :entries, :class_name=>JournalEntry.name, :foreign_key=>:statement_id
 
   before_destroy :statement_entry
 

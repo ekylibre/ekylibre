@@ -85,7 +85,7 @@ class Payment < ActiveRecord::Base
   end
 
   def validate
-    errors.add(:amount, ::I18n.t('activerecord.errors.messages.greater_than_or_equal_to', :count=>self.parts_amount)) if self.amount < self.parts_amount
+    errors.add(:amount, :greater_than_or_equal_to, :count=>self.parts_amount) if self.amount < self.parts_amount
   end
   
   def after_update

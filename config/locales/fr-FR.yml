@@ -348,10 +348,7 @@ fr-FR:
       error_nature_do_not_allow_a_first_name: 'Le type "{{nature}}" sélectionné ne permet de renseigner un prénom'
       error_supplier_account_already_used: 'Le compte comptable fournisseur est déjà utilisé.'
     entry:
-      error_amount_balance1: 'L''écriture doit être renseignée soit au débit, soit au crédit.' 
-      error_amount_balance2: 'Les montants utilisés dans les écritures doivent toujours être positifs.'
       error_amount_rate: 'Le taux de conversion n''existe pas.'        
-      error_closed_entry: 'L''écriture {{value}} est verrouillée.'
     event_nature:
       usages:
         invoice: 'Création d''une facture'

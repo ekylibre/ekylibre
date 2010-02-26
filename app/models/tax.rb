@@ -40,37 +40,18 @@
 
 class Tax < ActiveRecord::Base
   belongs_to :company
-  belongs_to :account_collected, :class_name=>Account.to_s
-  belongs_to :account_paid, :class_name=>Account.to_s
+  belongs_to :account_collected, :class_name=>Account.name
+  belongs_to :account_paid, :class_name=>Account.name
   has_many :prices
 
   validates_inclusion_of :nature, :in=>%w( amount percent )
   validates_presence_of :account_collected_id
   validates_presence_of :account_paid_id
 
-  attr_readonly :amount, :nature, :company_id
-
-  def before_validation
-    
-#     if self.account_collected_id.nil?
-#       if self.amount == 0.0210
-#         account = Account.find_by_company_id_and_number(self.company_id, "445711") || Account.create!(:company_id=>self.company_id, :number=>"445711", :name=>self.name) 
-#       elsif self.amount == 0.0550
-#         account = Account.find_by_company_id_and_number(self.company_id, "445712") || Account.create!(:company_id=>self.company_id, :number=>"445712", :name=>self.name) 
-#       elsif self.amount == 0.1960
-#         account = Account.find_by_company_id_and_number(self.company_id, "445713") || Account.create!(:company_id=>self.company_id, :number=>"445713", :name=>self.name)
-#       else
-#         tax = Tax.find(:first, :conditions=>["company_id = ? and amount = ? and account_collected_id IS NOT NULL", self.company_id, self.amount])
-#         last = self.company.accounts.find(:first, :conditions=>["number like ?",'4457%'], :order=>"created_at desc")||self.company.accounts.create(:number=>4457, :name=>"Taxes")
-#         account = tax.nil? ? Account.create!(:company_id=>self.company_id, :number=>last.number.succ, :name=>self.name) : tax.account 
-#       end
-#       self.account_collected_id = account.id
-#    end
-  end
-
+  attr_readonly :nature, :company_id #, :amount
 
   def validate
-    errors.add(:amount, tc(:amount_must_be_included_between_0_and_1)) if (self.amount < 0 || self.amount > 1) && self.nature=="percent"
+    errors.add(:amount, :included_in, :minimum=>0.to_s, :maximum=>1.to_s) if (self.amount < 0 or self.amount > 1) and self.percent?
   end
 
   def before_destroy
@@ -88,7 +69,7 @@ class Tax < ActiveRecord::Base
   end
 
   def percent?
-    self.nature == "percent"
+    return (self.nature == "percent")
   end
   
   def amount?

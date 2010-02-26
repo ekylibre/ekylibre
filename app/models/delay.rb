@@ -51,7 +51,7 @@ class Delay < ActiveRecord::Base
   end
 
   def validate
-    errors.add(:expression, I18n.t('activerecord.errors.messages.invalid')) if self.compute(Date.today).nil?
+    errors.add(:expression, :invalid) if self.compute(Date.today).nil?
   end
 
   def compute(started_on=Date.today)

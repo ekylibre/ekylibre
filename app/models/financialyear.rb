@@ -34,19 +34,17 @@
 #
 
 class Financialyear < ActiveRecord::Base
+  attr_readonly :company_id, :code
   belongs_to :company
-
-  has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financialyear_id
-
-  has_many :records,  :class_name=>"JournalRecord"
-
+  has_many :account_balances, :class_name=>AccountBalance.name, :foreign_key=>:financialyear_id
+  has_many :records,  :class_name=>JournalRecord.name
   validates_presence_of :started_on, :stopped_on
 
   #
   def before_validation
     self.stopped_on = self.started_on+1.year if self.stopped_on.blank? and self.started_on
     self.stopped_on = self.stopped_on.end_of_month unless self.stopped_on.blank?
-    if self.started_on
+    if self.started_on and code.blank?
       self.code = self.started_on.year.to_s
       self.code += "/"+self.stopped_on.year.to_s if self.started_on.year!=self.stopped_on.year
       self.code += "EX"

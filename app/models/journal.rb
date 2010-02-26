@@ -37,16 +37,14 @@
 #
 
 class Journal < ActiveRecord::Base
+  before_destroy :empty?
   belongs_to :company
   belongs_to :currency
-  belongs_to :counterpart, :class_name=>"Account"
-  
+  belongs_to :counterpart, :class_name=>Account.name  
   has_many :bank_accounts
-  has_many :records, :class_name=>"JournalRecord", :foreign_key=>:journal_id
-  has_many :entries, :through=>:records
+  has_many :entries, :class_name=>JournalEntry.name
+  has_many :records, :class_name=>JournalRecord.name
   validates_presence_of :closed_on
-
-  before_destroy :empty?
 
   @@natures = [:sale, :purchase, :bank, :renew, :various]
 
@@ -76,16 +74,6 @@ class Journal < ActiveRecord::Base
   end
 
   #
-  def closable?(closed_on)
-    if closed_on < self.closed_on #or
-      #errors.add_to_base tc(:error_already_closed_journal)
-      return false
-    else
-      return self.balance?
-    end
- end
-
-  #
   def balance?
     self.records.each do |record|
       unless record.balanced and record.normalized
@@ -95,16 +83,36 @@ class Journal < ActiveRecord::Base
     end
     return true
   end
-
   
+  #
+  def closable?(closed_on)
+    return false
+#     if closed_on < self.closed_on or 
+#         self.records.sum("(debit-credit)") != 0 or 
+#         self.records.find(:all, :conditions)
+#       return false
+#     end
+#     return true
+  end
+
+  def closures(noticed_on=nil)
+    noticed_on ||= Date.today
+    array, date = [], self.closed_on
+    while date.end_of_month < noticed_on
+      date = (date+1).end_of_month
+      array << date
+    end
+    return array
+  end
+
   # this method closes a journal.
   def close(closed_on)
-    #if self.closable?(closed_on)
+    if self.closable?(closed_on)
       self.update_attribute(:closed_on, closed_on)
       self.records.each do |record|
         record.close
       end
-    #end
+    end
   end
   
   # this method searches the last records according to a number.  

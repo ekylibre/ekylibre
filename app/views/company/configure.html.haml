@@ -1,7 +1,7 @@
 -if @company.parameters.find(:all, :conditions=>["record_value_type = 'Sequence' AND record_value_id IS NULL"]).size > 0
   =toolbar do
     -link :sequences_load
-=error_messages_for 'company'
+=error_messages 'company'
 -form_tag do
   =formalize do |f|
     -f.title tc(:general)

@@ -52,6 +52,66 @@ module ::I18n
 end
 
 
+module ActiveRecord
+  class Errors
+
+    # allow a proc as a user defined message
+    def add(attribute, message = nil, options = {})
+      message ||= :invalid
+      raise ArgumentError.new("Symbol expected, #{message.inspect} received.") unless message.is_a?(Symbol)
+      message = generate_message(attribute, message, options)
+      # message = generate_message(attribute, message, options) if message.is_a?(Symbol)
+      @errors[attribute.to_s] ||= []
+      @errors[attribute.to_s] << message
+    end
+
+    # Generate only full translated messages
+    def generate_message(attribute, message = :invalid, options = {})
+      message, options[:default] = options[:default], message if options[:default].is_a?(Symbol)
+
+      defaults = @base.class.self_and_descendants_from_active_record.map do |klass|
+         [ "models.#{klass.name.underscore}.attributes.#{attribute}.#{message}".to_sym, 
+           "models.#{klass.name.underscore}.#{message}".to_sym ]
+      end
+      
+      defaults << options.delete(:default)
+      defaults = defaults.compact.flatten << "messages.#{message}".to_sym
+
+      key = defaults.shift
+      value = @base.respond_to?(attribute) ? @base.send(attribute) : nil
+
+      options = { :default => defaults,
+        :model => @base.class.human_name,
+        :attribute => @base.class.human_attribute_name(attribute.to_s),
+        :value => value,
+        :scope => [:activerecord, :errors]
+      }.merge(options)
+
+      I18n.translate(key, options)
+    end
+
+    def full_messages(options = {})
+      full_messages = []
+      
+      @errors.each_key do |attr|
+        @errors[attr].each do |message|
+          next unless message
+          full_messages << message
+          #           if attr == "base"
+          #             full_messages << message            
+          #           else
+          #             attr_name = @base.class.human_attribute_name(attr)
+          #             full_messages << attr_name + I18n.t('activerecord.errors.format.separator', :default => ' ') + message
+          #           end
+        end
+      end
+      full_messages
+    end 
+
+  end
+end
+
+
 ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
   msg = instance.error_message
   error_class = 'invalid'

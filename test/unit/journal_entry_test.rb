@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: entries
+# == Table: journal_entries
 #
 #  account_id      :integer          not null
 #  comment         :text             
@@ -36,6 +36,7 @@
 #  expired_on      :date             
 #  id              :integer          not null, primary key
 #  intermediate_id :integer          
+#  journal_id      :integer          
 #  letter          :string(8)        
 #  lock_version    :integer          default(0), not null
 #  name            :string(255)      not null
@@ -48,9 +49,19 @@
 
 require 'test_helper'
 
-class EntryTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+class JournalEntryTest < ActiveSupport::TestCase
+
+  fixtures :journal_entries
+
+  test "the validity of entries" do
+    entry = journal_entries(:entry_1)
+    assert !entry.valid?
+    entry.debit = 5
+    assert entry.valid?, entry.inspect+"\n"+entry.errors.full_messages.to_sentence
+    entry.credit = 17
+    assert !entry.valid?
+    entry.debit = 0
+    assert entry.valid?, entry.inspect+"\n"+entry.errors.full_messages.to_sentence
   end
+
 end

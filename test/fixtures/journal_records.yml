@@ -41,10 +41,15 @@
 #  updater_id       :integer          
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
-#
-# two:
-#   column: value
+record_1:
+  closed: false
+  company_id: 1
+  created_on: '2009-01-05'
+  credit: 125
+  debit: 0
+  id: 1
+  journal_id: 1
+  number: '00001'
+  position: 1
+  printed_on: '2009-01-02'
+  

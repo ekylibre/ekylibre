@@ -77,15 +77,14 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 #yield { padding: 8px; overflow: auto; background: #F7F7FF; border: 1px solid #95b0e4; }
 #yield h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: normal;}
 #yield h2 { margin: 16px 0px 4px; font-size:16px; color: #06A;}
-#yield .menu, .errorExplanation { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px;}
-#yield .menu h2, .errorExplanation h2 { font-size : 16px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }
-#yield .menu ul, .errorExplanation ul { padding: 4px 4px 4px 18px; }
-#yield .menu li, .errorExplanation li { list-style-type: square; padding: 1px;}
+#yield .menu { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px;}
+#yield .menu h2 { font-size : 16px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }
+#yield .menu ul { padding: 4px 4px 4px 18px; }
+#yield .menu li { list-style-type: square; padding: 1px;}
 #yield .menu li { color:#047; }
 #yield .menu.special { background: #FE9; }
 #yield .menu.special a:link, #yield .menu.special a:visited { color: #A60; }
 #yield .menu.indicator { background: #FD8; } /*#FA3;*/
-.errorExplanation { background: #ECA; color: #543; margin: 8px; }
 
 #top {height: 24px;}
 #top .menu * { padding: 4px 4px 5px;}
@@ -144,18 +143,21 @@ div.td { display: table-cell; }
 #company div.side .label {color:#777; width: 160px; text-align:right; padding: 2px;}
 #company div.side .value {color:#227;  padding: 2px;}
 
-.flash { padding: 8px; margin-bottom: 8px; background: #FFF; color: black; border: 1px solid black; -moz-border-radius: 8px; }
-.flash > div h3 { font-size: 13px; }
-.flash > div { padding: 0 0 0 40px; vertical-align: middle; height:32px; }
-html>body .flash > div { height:auto; min-height:32px; }
-.flash.error   {border-color: #F00; background: #FDD;}
-.flash.error > div   {background: url(../images/template/notification-error.png) left center no-repeat; color: #F00}
-.flash.warning {border-color: #F80; background: #FEC;}
-.flash.warning > div {background: url(../images/template/notification-warning.png) left center no-repeat; color: #F80}
-.flash.success  {border-color: #7c3; background: #EFC;}
-.flash.success > div  {background: url(../images/template/notification-success.png) left center no-repeat; color: #4A1}
-.flash.information {border-color: #777; background: #F5F5F5; }
-.flash.information > div {background: url(../images/template/notification-info.png) left center no-repeat; color: #777}
+.flash { padding: 8px 8px 8px 48px; margin-bottom: 8px; vertical-align: middle; height:32px; background-position: 8px center; background-repeat: no-repeat; background-color: #FFF; color: black; border: 1px solid black; -moz-border-radius: 8px;}
+.flash h3 { font-size: 13px; font-weight: bold; padding: 0 0 2px; margin-bottom: 2px; border-bottom: 1px dotted #999;}
+.flash ul { padding-left: 20px; }
+.flash ul li { list-style-type: square; }
+html>body .flash { height:auto; min-height:32px; } 
+.flash.error       { border-color: #D10; color: #D10; background-color: #FFDFD0; background-image: url(../images/template/notification-error.png); }
+.flash.warning     { border-color: #E60; color: #E60; background-color: #FFEECC; background-image: url(../images/template/notification-warning.png); }
+.flash.success     { border-color: #5A1; color: #5A1; background-color: #EEFFCC; background-image: url(../images/template/notification-success.png); }
+.flash.information { border-color: #777; color: #777; background-color: #F5F5F5; background-image: url(../images/template/notification-info.png); }
+
+/*.errorExplanation { background: #ECA; color: #543; margin: 8px; }
+.errorExplanation { padding: 0 0 0 40px; border: 1px solid #F00; vertical-align: middle; min-height:32px; background: #FDD url(../images/template/notification-error.png) left center no-repeat; }
+.errorExplanation h2 { color: #F00;  font-size: 13px; }
+*/
+
 
 .count { margin: 0 0 4px; color:#777; }
 
@@ -210,7 +212,7 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 input[type="text"], input[type="password"], textarea, select { margin:1px; border-width: 1px; }
 input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border:2px solid #79e !important; margin: 0px;}
 input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea.invalid:focus, select.invalid:focus { border-color: red !important; }
-.invalid { border: 1px solid red !important; background: #FDD !important; } 
+.invalid { border: 1px solid red !important; background-color: #FDD !important; } 
 
 
 .fore { border: 1px solid #C9D7F1; margin: 8px 0; background: #EFE; }
@@ -310,6 +312,8 @@ div.dyli_complete ul {position: fixed; border:1px solid #888; margin:0; padding:
 div.dyli_complete ul li {background-color: #EEF; margin:0; padding:3px;} /*#C9D7F1*/
 div.dyli_complete ul li.selected {background-color: #B1D1F9;}
 div.dyli_complete ul strong.highlight {color: #800; margin:0; padding:0;}
+input.dyli { background: #FFF url(../images/buttons/dyli.png) right center no-repeat; }
+
 
 fieldset.itemize { border: 1px solid #777; -moz-border-radius: 8px; float: left; margin:8px;}
 fieldset.itemize legend { color: blue; margin: 0 8px; padding:2px;}
@@ -324,7 +328,6 @@ fieldset.quick-add { margin: 4px 0; border: 1px solid #95b0e4; -moz-border-radiu
 fieldset.quick-add legend { margin: 0 4px; padding: 0 2px; color: #002}
 
 
-input.dyli { background: #FFF url(../images/buttons/previous2.png) right center no-repeat; }
 
 /*
 .tabbox > .tabs  { clear: both; height: 20px;}

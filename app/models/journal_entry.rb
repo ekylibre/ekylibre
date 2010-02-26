@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: entries
+# == Table: journal_entries
 #
 #  account_id      :integer          not null
 #  comment         :text             
@@ -36,6 +36,7 @@
 #  expired_on      :date             
 #  id              :integer          not null, primary key
 #  intermediate_id :integer          
+#  journal_id      :integer          
 #  letter          :string(8)        
 #  lock_version    :integer          default(0), not null
 #  name            :string(255)      not null
@@ -46,23 +47,20 @@
 #  updater_id      :integer          
 #
 
-class Entry < ActiveRecord::Base
+class JournalEntry < ActiveRecord::Base
+  acts_as_list :scope=>:record
+  after_create  :update_record
+  after_destroy :update_record
+  after_update  :update_record
+  attr_readonly :company_id, :record_id, :journal_id
   belongs_to :account
   belongs_to :company
   belongs_to :currency
-  belongs_to :record, :class_name=>"JournalRecord"
-  belongs_to :intermediate, :class_name=>"BankAccountStatement"
-  belongs_to :statement, :class_name=>"BankAccountStatement"
-
-  acts_as_list :scope=>:record
-
-  after_destroy  :update_record
-  after_create   :update_record
-  after_update   :update_record
-
-  attr_readonly :company_id, :record_id
-  
+  belongs_to :record, :class_name=>JournalRecord.name
+  belongs_to :intermediate, :class_name=>BankAccountStatement.name
+  belongs_to :statement, :class_name=>BankAccountStatement.name
   validates_presence_of :account_id
+  
 
   #
   def before_validation 
@@ -70,7 +68,11 @@ class Entry < ActiveRecord::Base
     # for debit and credit.
     self.currency_debit  ||= 0
     self.currency_credit ||= 0
-    self.company_id ||= self.record.company_id if self.record
+    if self.record
+      self.editable = false if self.record.closed?
+      self.company_id ||= self.record.company_id 
+      self.journal_id ||= self.record.journal_id
+    end
     unless self.currency.nil?
       self.currency_rate = self.currency.rate
       if self.editable 
@@ -82,14 +84,15 @@ class Entry < ActiveRecord::Base
   
   #
   def validate
-   # raise Exception.new(self.currency_debit.to_s+':'+self.currency_credit.to_s+':'+self.debit.to_s+':'+self.credit.to_s)
-    errors.add_to_base tc(:error_amount_balance1) unless self.debit.zero? ^ self.credit.zero?
-    errors.add_to_base tc(:error_amount_balance2) unless self.debit + self.credit >= 0  
-     
-    if self.record.closed
-      self.record.entries.each do |entry|
-        errors.add_to_base tc(:error_closed_entry, entry.name) unless entry.close? 
-      end
+    unless self.editable?
+      errors.add_to_base :closed_entry 
+      return
+    end
+    if self.debit.zero? ^ self.credit.zero?
+      errors.add(:debit,  :greater_than, :count=>0) if self.debit<=0 and self.credit.zero?
+      errors.add(:credit, :greater_than, :count=>0) if self.credit<=0 and self.debit.zero?
+    else
+      errors.add_to_base :empty_amounts
     end
   end
   
@@ -102,7 +105,6 @@ class Entry < ActiveRecord::Base
   # updates the amounts to the debit and the credit 
   # for the matching record.
   def update_record
-    # raise Exception.new(self.record)
     self.record.refresh
   end
 
@@ -110,7 +112,6 @@ class Entry < ActiveRecord::Base
   # this method allows to lock the entry. 
   def close
     self.update_attribute(:editable, false)
-    #Entry.update_all("editable = false", {:record_id => self.record.id})
   end
   
   # this method allows to verify if the entry is lettered or not.
@@ -157,15 +158,15 @@ class Entry < ActiveRecord::Base
     balanced
   end
 
-  #this method creates a next entry with an initialized value matching to the previous record. 
+  # this method creates a next entry with an initialized value matching to the previous record. 
   def next(balance)
+    entry = JournalEntry.new
     if balance > 0
-      Entry.new({:currency_credit=>balance.abs})
+      entry.currency_credit = balance.abs
     elsif balance < 0
-      Entry.new({:currency_debit=>balance.abs})
-    else
-      Entry.new
+      entry.currency_debit  = balance.abs
     end
+    return entry
   end
 
 end

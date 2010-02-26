@@ -47,10 +47,10 @@
 class Account < ActiveRecord::Base
   belongs_to :company
   has_many :account_balances
-  has_many :balances, :class_name=>AccountBalance.to_s
+  has_many :balances, :class_name=>AccountBalance.name
   has_many :bank_accounts
-  has_many :entries
-  has_many :journals, :class_name=>"Journal", :foreign_key=>:counterpart_id
+  has_many :entries, :class_name=>JournalEntry.name
+  has_many :journals, :class_name=>Journal.name, :foreign_key=>:counterpart_id
   has_many :payments
   has_many :payment_modes
   has_many :products
@@ -88,7 +88,7 @@ class Account < ActiveRecord::Base
   
   # This method allows to delete the account only if it has any sub-accounts.
   def before_destroy
-    errors.add_to_base tc('error_account_children') if self.children.size > 0
+    return false if self.children.size > 0
   end
 
   # This method allows to find all the parent accounts.
@@ -243,7 +243,7 @@ class Account < ActiveRecord::Base
 
   # this method loads all the entries having the given letter for the account.
   def balanced_letter?(letter) 
-    entries = self.company.entries.find(:all, :conditions => ["letter = ?", letter.to_s], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
+    entries = self.company.journal_entries.find(:all, :conditions => ["letter = ?", letter.to_s], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
     
     if entries.size > 0
       sum_debit = 0

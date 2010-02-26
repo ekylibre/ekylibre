@@ -353,7 +353,7 @@ module ApplicationHelper
     code = ''
     if flash[:notifications].is_a?(Hash) and flash[:notifications][mode].is_a?(Array)
       for message in flash[:notifications][mode]
-        code += "<div class='flash #{mode}'><div><h3>#{tg('notifications.'+mode.to_s)}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div></div>"
+        code += "<div class='flash #{mode}'><h3>#{tg('notifications.'+mode.to_s)}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div>"
       end
     end
     code
@@ -662,6 +662,19 @@ module ApplicationHelper
 
 
 
+  def error_messages(*params)
+    params << {} unless params[-1].is_a? Hash
+    params[-1][:class] = "flash error"
+    params[-1][:header_tag] = "h3"
+    error_messages_for(*params)
+  end
+
+
+
+
+
+
+
 
   #
   #
@@ -696,7 +709,7 @@ module ApplicationHelper
       line_code = ''
       case line[:nature]
       when :error
-        line_code += content_tag(:td, error_messages_for(line[:params].to_s),:class=>"error", :colspan=>xcn)
+        line_code += content_tag(:td, error_messages(line[:params].to_s), :class=>"error", :colspan=>xcn)
       when :title
         #        reset_cycle "parity"
         if line[:value].is_a? Symbol
@@ -725,7 +738,6 @@ module ApplicationHelper
       
     end
     code = content_tag(:table, code, :class=>'formalize',:id=>form_options[:id])
-    # code += 'error_messages_for ' ?
   end
 
 

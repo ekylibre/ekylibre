@@ -704,13 +704,13 @@ fr-FR:
       transport_create:
         info: 'Renseignez les informations du transport'
         title: 'Ajout d''un nouveau transport'
+      transport_deliveries:
+        title: 'Livraisons du transport'
       _transport_deliveries:
         add: 'Ajouter la livraison au transport'
         add_delivery: 'Ajouter une livraison'
         back: 'Valider et revenir à la liste des transports'
         delivery: 'Livraison'
-      transport_deliveries:
-        title: 'Livraisons du transport'
       transport_update:
         info: 'Renseignez les informations du transport'
         title: 'Modification du transport'

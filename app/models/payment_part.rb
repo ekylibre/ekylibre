@@ -94,16 +94,16 @@ class PaymentPart < ActiveRecord::Base
 #     transfer_id = self.transfer.supplier.supplier_account_id if [:Transfer].include? self.expense_type.to_sym
 
 #     if self.downpayment
-#       entry = self.company.entries.create!(:record_id=>record_id, :account_id=>(client_id || supplier_id), :name=> self.payment.entity.full_name, :currency_debit=>(client_id ? self.amount : 0.0), :currency_credit=>(supplier_id ? self.amount : 0.0), :currency_id=>currency_id,:draft=>true)
+#       entry = self.company.journal_entries.create!(:record_id=>record_id, :account_id=>(client_id || supplier_id), :name=> self.payment.entity.full_name, :currency_debit=>(client_id ? self.amount : 0.0), :currency_credit=>(supplier_id ? self.amount : 0.0), :currency_id=>currency_id,:draft=>true)
 #     end
 
-#     entry = self.company.entries.create!(:record_id=>record_id, :account_id=>(client_id || supplier_id), :name=> self.payment.entity.full_name, :currency_credit=>(client_id ? self.amount : 0.0), :currency_debit=>(supplier_id ? self.amount : 0.0), :currency_id=>currency_id,:draft=>true) unless transfer_id 
+#     entry = self.company.journal_entries.create!(:record_id=>record_id, :account_id=>(client_id || supplier_id), :name=> self.payment.entity.full_name, :currency_credit=>(client_id ? self.amount : 0.0), :currency_debit=>(supplier_id ? self.amount : 0.0), :currency_id=>currency_id,:draft=>true) unless transfer_id 
 
 #     account_bank_id = self.company.accounts.find(:first, :conditions=>["number LIKE ?", '512%'])
 # #    raise Exception.new(self.payment.bank.to_s)
-#     entry = self.company.entries.create!(:record_id=>record_id, :account_id=>self.payment.account_id || account_bank_id, :name=>'Banque', :currency_debit=>(client_id ? self.amount : 0.0), :currency_credit=>((supplier_id || transfer_id) ? self.amount : 0.0), :currency_id=>currency_id,:draft=>true)
+#     entry = self.company.journal_entries.create!(:record_id=>record_id, :account_id=>self.payment.account_id || account_bank_id, :name=>'Banque', :currency_debit=>(client_id ? self.amount : 0.0), :currency_credit=>((supplier_id || transfer_id) ? self.amount : 0.0), :currency_id=>currency_id,:draft=>true)
     
-#     entry = self.company.entries.create!(:record_id=>record_id, :account_id=>mode_account_id, :name=>mode_account, :currency_debit=>0.0, :currency_credit=>self.amount, :currency_id=>currency_id,:draft=>true)
+#     entry = self.company.journal_entries.create!(:record_id=>record_id, :account_id=>mode_account_id, :name=>mode_account, :currency_debit=>0.0, :currency_credit=>self.amount, :currency_id=>currency_id,:draft=>true)
     
   #end
   

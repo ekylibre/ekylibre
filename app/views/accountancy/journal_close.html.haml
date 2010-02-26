@@ -2,7 +2,7 @@
   =formalize do |f|
     - f.error :journal
     - f.field :journal, :id, :choices => @journals.collect {|j| [j.name, j.id]}
-    - f.field :journal, :closed_on, :choices => @journal_records
+    - f.field :journal, :closed_on, :choices => @journal.closures
   .actions
     =submit_tag(tc('close'))
     =link_to_back

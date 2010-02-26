@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +13,7 @@
    height="16"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.47pre4 r22446"
+   inkscape:version="0.46"
    version="1.0"
    inkscape:export-filename="/home/brice/pygmalion/projets/images/boutons24.png"
    inkscape:export-xdpi="90"
@@ -23,6 +22,21 @@
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs4">
+    <linearGradient
+       id="linearGradient4040">
+      <stop
+         style="stop-color:#1440d3;stop-opacity:0;"
+         offset="0"
+         id="stop4042" />
+      <stop
+         id="stop4048"
+         offset="0.5"
+         style="stop-color:#1440d3;stop-opacity:0.86559141;" />
+      <stop
+         style="stop-color:#1440d3;stop-opacity:0;"
+         offset="1"
+         id="stop4044" />
+    </linearGradient>
     <linearGradient
        id="linearGradient4489">
       <stop
@@ -4602,6 +4616,15 @@
        x2="128"
        y2="-19"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4040"
+       id="linearGradient4046"
+       x1="192"
+       y1="52"
+       x2="192"
+       y2="116"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -4790,7 +4813,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
       <cc:Work
          rdf:about="">
@@ -6556,6 +6579,13 @@
        id="path3019-6"
        sodipodi:nodetypes="cccczczcc"
        inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/load.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:0.48208468999999998;fill:url(#linearGradient4046);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.44374999999999998"
+       d="M 176 52 L 176 116 L 192 116 L 192 52 L 176 52 z M 190 81.875 L 184.09375 87.875 L 178 81.9375 L 190 81.875 z "
+       id="rect3249"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/images/buttons/dyli.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
   </g>

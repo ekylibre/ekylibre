@@ -72,7 +72,7 @@ module RedHillConsulting::SchemaValidations::ActiveRecord
             # Work-around for a "feature" of the way validates_presence_of handles boolean fields
             # See http://dev.rubyonrails.org/ticket/5090 and http://dev.rubyonrails.org/ticket/3334
             if column.type == :boolean
-              validates_inclusion_of name, :on => column.required_on, :in => [true, false], :message => I18n.translate('activerecord.errors.messages.blank')
+              validates_inclusion_of name, :on => column.required_on, :in => [true, false], :message => "activerecord.errors.messages.blank".to_sym
             else
               validates_presence_of name, :on => column.required_on
             end

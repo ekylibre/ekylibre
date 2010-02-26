@@ -305,12 +305,12 @@ class CompanyController < ApplicationController
         @user.password = params[:user][:password]
         @user.password_confirmation = params[:user][:password_confirmation]
         if @user.save
-          notify(:password_successfully_changed)
+          notify(:password_successfully_changed, :success)
           redirect_to :action=>:index 
         end
         @user.password = @user.password_confirmation = ''
       else
-        @user.errors.add(:old_password, ::I18n.t('activerecord.errors.messages.invalid')) 
+        @user.errors.add(:old_password, :invalid) 
       end      
     end
   end
