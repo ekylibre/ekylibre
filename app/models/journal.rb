@@ -77,7 +77,6 @@ class Journal < ActiveRecord::Base
   def balance?
     self.records.each do |record|
       unless record.balanced and record.normalized
-        #errors.add_to_base tc(:error_unbalanced_record_journal)
         return false 
       end
     end
@@ -85,7 +84,8 @@ class Journal < ActiveRecord::Base
   end
   
   #
-  def closable?(closed_on)
+  def closable?(closed_on=nil)
+    closed_on ||= Date.today
     return false
 #     if closed_on < self.closed_on or 
 #         self.records.sum("(debit-credit)") != 0 or 

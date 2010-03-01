@@ -38,34 +38,26 @@
 #
 
 class ComplementDatum < ActiveRecord::Base
+  attr_readonly :company_id, :complement_id, :entity_id
   belongs_to :choice_value, :class_name=>ComplementChoice.to_s
   belongs_to :company
   belongs_to :complement
   belongs_to :entity
-  attr_readonly :company_id, :complement_id, :entity_id
-
-  #  def after_initialize
-  #   if self.complement
-  #    if self.complement.nature == "choice"
-  #     self.
-  #  end
-  # end
-  # end
 
   def validate
     complement = self.complement
-    errors.add_to_base(tc('error_field_required', :field=>complement.name)) if complement.required and self.value.blank?
+    errors.add_to_base(:required, :field=>complement.name) if complement.required and self.value.blank?
     unless self.value.blank?
       if complement.nature == 'string'
         unless complement.length_max.blank? or complement.length_max<=0
-          errors.add_to_base(tc('error_too_long', :field=>complement.name, :length=>complement.length_max)) if self.string_value.length>complement.length_max
+          errors.add_to_base(:too_long, :field=>complement.name, :length=>complement.length_max) if self.string_value.length>complement.length_max
         end
       elsif complement.nature =='decimal'
         unless complement.decimal_min.blank?
-          errors.add_to_base(tc('error_less_than', :field=>complement.name, :minimum=>complement.decimal_min)) if self.decimal_value<complement.decimal_min
+          errors.add_to_base(:less_than, :field=>complement.name, :minimum=>complement.decimal_min) if self.decimal_value<complement.decimal_min
         end
         unless complement.decimal_max.blank?
-          errors.add_to_base(tc('error_greater_than', :field=>complement.name, :maximum=>complement.decimal_max)) if self.decimal_value>complement.decimal_max
+          errors.add_to_base(:greater_than, :field=>complement.name, :maximum=>complement.decimal_max) if self.decimal_value>complement.decimal_max
         end
       end
     end

@@ -42,21 +42,20 @@
 #
 
 class JournalRecord < ActiveRecord::Base
+  acts_as_list :scope=>:financialyear
   attr_readonly :company_id, :journal_id
   belongs_to :company
   belongs_to :journal
   belongs_to :financialyear, :class_name=>Financialyear.name
   belongs_to :resource, :polymorphic=>true
   has_many :entries, :foreign_key=>:record_id, :dependent=>:destroy, :class_name=>JournalEntry.name
-  acts_as_list :scope=>:financialyear
 
-  validates_format_of :number, :with => /^[\dA-Z][\dA-Z]*$/
-  # validates_length_of :number, :is => 6
+  validates_format_of :number, :with => /^[\dA-Z]+$/
   validates_presence_of :created_on, :printed_on
 
   #
   def before_validation
-    self.debit = self.entries.sum(:debit)
+    self.debit  = self.entries.sum(:debit)
     self.credit = self.entries.sum(:credit)
     unless self.number
       record = self.company.journal_records.find(:last, :conditions => ["EXTRACT(MONTH FROM created_on)=? AND financialyear_id=? AND journal_id=?", self.created_on.month, self.financialyear_id, self.journal_id], :order=>:number)
@@ -71,15 +70,20 @@ class JournalRecord < ActiveRecord::Base
   
   #
   def validate
-    errors.add :number, tc(:error_format_number) unless self.number=~/^[\dA-Z][\dA-Z]*$/
-    errors.add :printed_on, tc(:error_printed_date) if self.printed_on > self.created_on
-    if self.financialyear
-      errors.add :created_on, tc(:error_created_date_current_financialyear) if self.created_on < self.financialyear.started_on or self.created_on > self.financialyear.stopped_on
-    end
     if self.journal
-      errors.add :created_on, tc(:error_closed_journal, [self.journal.closed_on.to_formatted_s]) if self.created_on < self.journal.closed_on 
+      errors.add_o_base(:closed_journal, :on=>self.journal.closed_on.to_formatted_s) if self.created_on <= self.journal.closed_on 
+      return
+    end
+    errors.add(:created_on, :posterior, :to=>self.printed_on) if self.printed_on > self.created_on
+    if self.financialyear
+      errors.add(:created_on, :out_of_financialyear, :from=>self.financialyear.started_on, :to=>self.financialyear.stopped_on) if self.created_on < self.financialyear.started_on or self.created_on > self.financialyear.stopped_on
     end
   end
+  
+  def before_destroy
+    return false if self.created_on < self.journal.closed_on 
+  end
+
   
   # this method computes the debit and the credit of the record.
   def refresh

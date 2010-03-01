@@ -1,6 +1,6 @@
 # == License
 # Ekylibre - Simple ERP
-# Copyright (C) 2009 Brice Texier, Thibaud Mérigon
+# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -120,7 +120,7 @@ class AccountancyController < ApplicationController
       @bank_account.entity_id = session[:entity_id] 
       redirect_to_back if @bank_account.save
     else
-      @bank_account = BankAccount.new
+      @bank_account = BankAccount.new(:mode=>"bban")
       session[:entity_id] = params[:entity_id]||@current_company.entity_id
       @valid_account = @current_company.accounts.empty?
       @valid_journal = @current_company.journals.empty?  
@@ -603,7 +603,7 @@ class AccountancyController < ApplicationController
   #
   def self.entries_journal_consult_conditions(options={})
     code = ""
-    code += "conditions=['entries.company_id=?', @current_company.id.to_s] \n"
+    code += "conditions=['journal_entries.company_id=?', @current_company.id] \n"
     code += "unless session[:entries][:journal].blank? \n" 
     code += "journal=@current_company.journals.find(:first, :conditions=>{:id=>session[:entries][:journal]})\n" 
     code += "if journal\n"
@@ -626,7 +626,7 @@ class AccountancyController < ApplicationController
     
   end
   
-  dyta(:entries, :model=>:journal_entries, :conditions=>entries_journal_consult_conditions, :order=>'record_id DESC', :joins=>"INNER JOIN journal_records r ON r.id = entries.record_id", :line_class=>'RECORD.balanced_record') do |t|
+  dyta(:entries, :model=>:journal_entries, :conditions=>entries_journal_consult_conditions, :order=>'record_id DESC', :joins=>"INNER JOIN journal_records r ON r.id = journal_entries.record_id", :line_class=>'RECORD.balanced_record') do |t|
     t.column :journal_name, :label=>"Journal"
     t.column :number, :label=>"Numéro", :through=>:record
     t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
@@ -688,7 +688,7 @@ class AccountancyController < ApplicationController
     
     if @valid
       @record = JournalRecord.new
-      @entry = Entry.new 
+      @entry = JournalEntry.new 
       
       @records = @journal.records.find(:all, :conditions => {:financialyear_id => @financialyear.id, :company_id => @current_company.id }, :order=>"number DESC") 
       
@@ -751,7 +751,7 @@ class AccountancyController < ApplicationController
         
       else
         session[:entries][:error_balance_or_new_record] = true if @record.balanced or @record.new_record?
-        @entry = Entry.new
+        @entry = JournalEntry.new
       end
       
       render :action=>"entry_create.rjs" 
@@ -761,7 +761,7 @@ class AccountancyController < ApplicationController
   # this method updates an entry within a form.
   def entry_update
     session[:accountize] ||= params[:accountize] if params[:accountize]
-    @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id)  
+    @entry = JournalEntry.find_by_id_and_company_id(params[:id], @current_company.id)  
     if request.post? or request.put?
       @entry.update_attributes(params[:entry]) 
       unless session[:accountize].nil?
@@ -777,8 +777,8 @@ class AccountancyController < ApplicationController
   # this method deletes an entry with a form.
   def entry_delete
     if request.post? or request.delete?
-      @entry = Entry.find_by_id_and_company_id(params[:id], @current_company.id) 
-      Entry.destroy(@entry.id)
+      return unless @entry = find_and_check(:journal_entry, params[:id])
+      @entry.destroy
       redirect_to :action => "entries"
     end
   end
@@ -797,7 +797,7 @@ class AccountancyController < ApplicationController
   end
   
 
-  # lists all the transactions established on the accounts, sorted by date.
+  # 
   def journals
   end
 
@@ -858,15 +858,7 @@ class AccountancyController < ApplicationController
     else
       @journal = @current_company.journals.find(:first, :conditions=> ["closed_on < ?", Date.today.to_s]) 
     end
-    
-    if @journal
-      d = @journal.closed_on
-      while d.end_of_month < Date.today
-        d=(d+1).end_of_month
-        @journal_records << d.to_s(:attributes)
-      end
-    end
-    
+        
     if request.post?      
       return unless @journal = find_and_check(:journal, params[:journal][:id])
       redirect_to_back if @journal.close(params[:journal][:closed_on])
@@ -1066,7 +1058,7 @@ class AccountancyController < ApplicationController
 
     if request.xhr?
       
-      @entry=Entry.find(params[:id]) 
+      @entry=JournalEntry.find(params[:id]) 
 
       if @entry.statement_id.eql? session[:statement].to_i
         

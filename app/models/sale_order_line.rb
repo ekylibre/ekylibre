@@ -125,7 +125,7 @@ class SaleOrderLine < ActiveRecord::Base
     
     #     if self.location.reservoir && self.location.product_id != self.product_id
     #       check_reservoir = false
-    #       errors.add_to_base(tc(:location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name, :account_id=>0, :unit_id=>self.unit_id) 
+    #       errors.add_to_base(:location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name, :account_id=>0, :unit_id=>self.unit_id) 
     #     end
     #     check_reservoir
   end
@@ -133,14 +133,14 @@ class SaleOrderLine < ActiveRecord::Base
 
   def validate
     if self.location
-      errors.add_to_base(tc(:location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name)) unless self.location.can_receive?(self.product_id)
+      errors.add_to_base(:location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) unless self.location.can_receive?(self.product_id)
       if self.tracking
         stock = self.company.stocks.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :tracking_id=>self.tracking_id})
-        errors.add_to_base(tc(:can_not_use_this_tracking, :name=>self.tracking.name)) if stock and stock.virtual_quantity < self.quantity
+        errors.add_to_base(:can_not_use_this_tracking, :tracking=>self.tracking.name) if stock and stock.virtual_quantity < self.quantity
       end
     end
     if self.price
-      errors.add_to_base(tc(:currency_is_not_sale_order_currency)) if self.price.currency_id != self.order.currency_id
+      errors.add_to_base(:currency_is_not_sale_order_currency) if self.price.currency_id != self.order.currency_id
     end
   end
   

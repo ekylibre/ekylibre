@@ -59,13 +59,16 @@ class Financialyear < ActiveRecord::Base
 
   #
   def validate
-    unless self.stopped_on.blank? 
-      errors.add_to_base tc(:error_stopped2_financialyear) unless self.stopped_on == self.stopped_on.end_of_month
-      errors.add_to_base tc(:error_period_financialyear) unless self.started_on < self.stopped_on
-    end
-    if self.company.financialyears.size > 0
-#      raise Exception.new self.stopped_on - self.started_on
-      errors.add_to_base tc(:error_period_too_long) if self.stopped_on - self.started_on > 366
+    unless self.stopped_on.blank? or self.started_on.blank?
+      errors.add(:stopped_on, :end_of_month) unless self.stopped_on == self.stopped_on.end_of_month
+      errors.add(:stopped_on, :posterior, :to=>::I18n.localize(self.started_on)) unless self.started_on < self.stopped_on
+      # If some financial years are already present
+      if self.company.financialyears.size > 0
+        errors.add(:stopped_on, :too_far) if self.stopped_on - self.started_on > 366
+        errors.add(:started_on, :consecutive) unless self.class.find_by_stopped_on(self.started_on-1)
+        errors.add(:started_on, :overlap) if self.class.find(:all, :conditions=>["? BETWEEN started_on AND stopped_on", self.started_on])
+        errors.add(:stopped_on, :overlap) if self.class.find(:all, :conditions=>["? BETWEEN started_on AND stopped_on", self.stopped_on])
+      end
     end
   end
   

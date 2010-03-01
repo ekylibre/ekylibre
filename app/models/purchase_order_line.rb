@@ -44,7 +44,6 @@
 
 class PurchaseOrderLine < ActiveRecord::Base
   attr_readonly :company_id, :order_id
-
   belongs_to :account
   belongs_to :company
   belongs_to :order, :class_name=>PurchaseOrder.name
@@ -53,7 +52,6 @@ class PurchaseOrderLine < ActiveRecord::Base
   belongs_to :location, :class_name=>Location.name
   belongs_to :tracking
   belongs_to :unit
-
   validates_presence_of :amount, :price_id
   validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
   validates_uniqueness_of :tracking_serial, :scope=>:price_id
@@ -79,7 +77,7 @@ class PurchaseOrderLine < ActiveRecord::Base
     if self.location
       if self.location.reservoir && self.location.product_id != self.product_id
         check_reservoir = false
-        errors.add_to_base(tc(:location_can_not_receive_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) 
+        errors.add_to_base(:location_can_not_receive_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) 
       end
     end
 
@@ -101,7 +99,7 @@ class PurchaseOrderLine < ActiveRecord::Base
     # Validate that tracking serial is not used for a different product
     producer = self.order.supplier
     unless self.tracking_serial.blank?
-      errors.add(:tracking_serial, tc(:is_already_used_with_an_other_product)) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
+      errors.add(:tracking_serial, :serial_already_used_with_an_other_product) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
     end
   end
   

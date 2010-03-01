@@ -101,18 +101,11 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def validates
+  def validate
     if self.contact and self.entity
-      errors.add(:entity_id, tc('errors.entity_must_be_the_same_as_the_contact_entity')) if self.contact.entity_id!=self.entity_id
-    end
-    if self.invoice and self.entity
-      errors.add(:entity_id, tc('errors.entity_must_be_the_same_as_the_invoice_client')) if self.invoice.client_id!=self.entity_id
-    end
-    if self.sale_order and self.entity
-      errors.add(:entity_id, tc('errors.entity_must_be_the_same_as_the_sale_order_client')) if self.sale_order.client_id!=self.entity_id
+      errors.add(:entity_id, :entity_must_be_the_same_as_the_contact_entity) if self.contact.entity_id!=self.entity_id
     end
   end
-  
   
 
   def entity_name

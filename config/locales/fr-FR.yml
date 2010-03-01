@@ -293,11 +293,6 @@ fr-FR:
         datetime: Date et heure
         decimal: Décimal
         string: Texte
-    complement_datum:
-      error_field_required: "{{field}} doit être renseigné"
-      error_too_long: "{{field}} est trop long ({{length}} caractères)"
-      error_less_than: "{{field}} est trop petit ({{minimum}} minimum)"
-      error_greater_than: "{{field}} est trop grand ({{maximum}} maximum)"
     contact:
       error_modify_contact: 'Impossible de modifier un contact'
     delay:
@@ -310,7 +305,6 @@ fr-FR:
         cip: Livraison avec assurance
       sale: "Vente {{number}}"
     delivery_line: 
-      error_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité commandée'
       sale: 'Vente {{number}}'
     document_template:
       error_attribute: 'Le champ {{value}} est incorrect. Les possibilités sont : {{possibilities}}'
@@ -343,10 +337,6 @@ fr-FR:
     entity:
       client: 'Client'
       supplier: 'Fournisseur'
-      error_missing_title: 'doit contenir la dénomination sociale "{{title}}"'
-      error_client_account_already_used: 'Le compte comptable client est déjà utilisé.'
-      error_nature_do_not_allow_a_first_name: 'Le type "{{nature}}" sélectionné ne permet de renseigner un prénom'
-      error_supplier_account_already_used: 'Le compte comptable fournisseur est déjà utilisé.'
     entry:
       error_amount_rate: 'Le taux de conversion n''existe pas.'        
     event_nature:
@@ -357,12 +347,6 @@ fr-FR:
         purchase_order: 'Création d''un achat'
         sale_order: 'Création d''un devis'
     financialyear:
-      error_stopped2_financialyear: 'La date de fin d''exercice doit être une date de fin de mois.'
-      error_period_financialyear: 'La période de l''exercice comptable est incorrecte.'
-      error_period_too_long: 'La durée de l''exercice ne doit pas excéder 1 an'
-      error_written_financialyear: 'La date butoir de création des journaux doit être inférieure à la date de clôture.'
-      error_overlap_financialyear: 'La période de l''exercice se chevauche.'
-      error_unclosed_record_financialyear: 'Cet exercice contient des journaux qui n''ont pas encore été clôturé.'
     idea:
       status:
         all: TOUTES
@@ -380,8 +364,6 @@ fr-FR:
     invoice_line:
       no_product: '[Pas de produit]'
     journal:
-      error_limited_period: '.'
-      error_limited_financialyear: 'Le journal ne peut être crée au-delà d''une certaine date de l''année.'             
       error_unbalanced_record_journal: 'Le journal contient des enregistrements non équilibrés.'
       natures:
         purchase: Achats
@@ -389,13 +371,6 @@ fr-FR:
         bank: Banque
         renew: À nouveaux
         various: Opérations diverses
-    journal_record:
-      error_format_number: 'Le format de numéro de la pièce n''est pas bon.'
-      error_printed_date: 'La date de reçu de la pièce doit être antérieure ou égale à la date d''enregistrement de la pièce.'
-      error_created_date_current_financialyear: 'La date d''enregistrement de la pièce ne correspond pas à la période de l''exercice.'
-      error_closed_journal: 'Le journal est clôturé donc vous ne pouvez plus créer, modifier  ou supprimer de pièces.' 
-      error_limited_financialyear: 'L''ajout de pièce est limité à une année financière donnée.'
-      error_limited_period: 'L''ajout de pièce est limité à une période donnée.'
     listing_node: 
       add_filter: ' Ajouter un filtre '
       all_columns: '--- Toutes les colonnes ---'
@@ -446,11 +421,7 @@ fr-FR:
         check: Chèque
         other: Autre
         transfer: 'Transfert'
-    payment_part:
-      error_sale_order_already_paid: 'Il n''y a pas de factures à régler. Si vous voulez enregistrer un acompte, n''oubliez pas de le préciser.'
     price:
-      error_range_overlap: 'L''intervalle de quantité en chevauche un autre (de {{min}} à {{max}})'
-      error_already_defined: 'Un prix a déjà été défini pour cette liste de prix et ce produit'
       range: 'De {{min}} à {{max}}'
       no_range: 'Pas d''intervalle'
       label: '{{product}} / {{amount}} {{currency}}'
@@ -490,7 +461,6 @@ fr-FR:
       label: '{{supplier}} à {{address}}' 
       purchase: Achat
     purchase_order_line: 
-      location_can_not_receive_product : 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
       tracking: 'N°Lot : {{serial}}'
     sale_order:
       label:
@@ -529,13 +499,9 @@ fr-FR:
         month: Mois
         year: Année
     stock_transfer:
-      location_can_not_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
-      location_can_not_transfer_product: 'Vous ne pouvez pas tranférer le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
-      location_can_not_waste_product: 'Vous ne pouvez pas enregistrer de perte pour  le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
-      locations_can_not_be_identical: 'Les lieux de stockage (départ et arrivée) ne peuvent pas être identiques'
       natures:
         transfer: Transfert 
-        waste: Perte  
+        waste: Perte
     subscription_nature: 
       natures:
         period: Abonnement par date
@@ -546,9 +512,6 @@ fr-FR:
         amount: Montant
         percent: Pourcentage
     tax_declaration:
-      declaration_date_after_period: 'Vous devez faire votre déclaration après la période considérée.'
-      overlapped_period_declaration: 'La période de déclaration ne doit pas chevauchée une autre période.'
-      one_data_to_record_tax_declaration: 'Vous devez avoir au moins un montant non nul.'
       other: 'Personnalisée'
       monthly: 'Mensuelle'
       quarterly: 'Trimestrielle'

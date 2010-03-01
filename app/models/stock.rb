@@ -62,7 +62,7 @@ class Stock < ActiveRecord::Base
 
   def validate 
     if self.location
-      errors.add_to_base(tc(:error_azz_z, :location=>self.location.name)) unless self.location.can_receive(self.product_id)
+      errors.add_to_base(:product_cannot_be_in_location, :location=>self.location.name) unless self.location.can_receive(self.product_id)
     end
   end
 

@@ -82,14 +82,14 @@ class TaxDeclaration < ActiveRecord::Base
 
  # this method allows to verify the different characteristics of the tax declaration.
  def validate
-   errors.add_to_base tc(:one_data_to_record_tax_declaration)  if self.collected_amount.zero? and self.acquisition_amount.zero? and self.assimilated_taxes_amount.zero? and self.paid_amount.zero? and self.balance_amount.zero?
+   errors.add_to_base(:one_data_to_record_tax_declaration)  if self.collected_amount.zero? and self.acquisition_amount.zero? and self.assimilated_taxes_amount.zero? and self.paid_amount.zero? and self.balance_amount.zero?
  
-   errors.add(:started_on, tc(:overlapped_period_declaration)) if self.company.tax_declarations.find(:first, :conditions=>["? BETWEEN started_on AND stopped_on", self.started_on]) 
+   errors.add(:started_on, :overlapped_period_declaration) if self.company.tax_declarations.find(:first, :conditions=>["? BETWEEN started_on AND stopped_on", self.started_on]) 
    
-   errors.add(:stopped_on, tc(:overlapped_period_declaration)) if self.company.tax_declarations.find(:first, :conditions=>["? BETWEEN started_on AND stopped_on", self.started_on]) 
+   errors.add(:stopped_on, :overlapped_period_declaration) if self.company.tax_declarations.find(:first, :conditions=>["? BETWEEN started_on AND stopped_on", self.started_on]) 
 
    unless self.financialyear.nil?
-     errors.add(:declared_on, tc(:declaration_date_after_period)) if self.declared_on < self.financialyear.stopped_on 
+     errors.add(:declared_on, :declaration_date_after_period) if self.declared_on < self.financialyear.stopped_on 
    end
  
  end

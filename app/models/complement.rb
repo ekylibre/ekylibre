@@ -38,14 +38,13 @@
 #
 
 class Complement < ActiveRecord::Base
+  NATURES = ['string', 'decimal', 'boolean', 'date', 'datetime', 'choice']
+  acts_as_list
+  attr_readonly :company_id, :nature
   belongs_to :company
   has_many :choices, :class_name=>ComplementChoice.to_s
   has_many :data, :class_name=>ComplementDatum.to_s
-  acts_as_list
-
-  attr_readonly :company_id, :nature
-
-  NATURES = ['string', 'decimal', 'boolean', 'date', 'datetime', 'choice']
+  validates_inclusion_of :nature, :in=>NATURES
    
   def self.natures
     NATURES.collect{|x| [tc('natures.'+x), x] }

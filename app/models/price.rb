@@ -44,6 +44,7 @@
 #
 
 class Price < ActiveRecord::Base
+  attr_readonly :company_id, :started_at, :amount, :amount_with_taxes
   belongs_to :category, :class_name=>EntityCategory.to_s
   belongs_to :company
   belongs_to :currency
@@ -55,13 +56,11 @@ class Price < ActiveRecord::Base
   has_many :taxes
   has_many :purchase_order_lines
   has_many :sale_order_lines
-
   validates_presence_of :category_id, :if=>Proc.new{|price| price.entity_id == price.company.entity_id}
   validates_presence_of :currency_id, :product_id
   validates_numericality_of :amount, :greater_than_or_equal_to=>0
   validates_numericality_of :amount_with_taxes, :greater_than_or_equal_to=>0
 
-  attr_readonly :company_id, :started_at, :amount, :amount_with_taxes
 
 
   def before_validation
@@ -84,11 +83,10 @@ class Price < ActiveRecord::Base
   def validate
     #   if self.use_range
     #       price = self.company.prices.find(:first, :conditions=>["(? BETWEEN quantity_min AND quantity_max OR ? BETWEEN quantity_min AND quantity_max) AND product_id=? AND list_id=? AND id!=?", self.quantity_min, self.quantity_max, self.product_id, self.list_id, self.id])
-    #       errors.add_to_base tc(:error_range_overlap, :min=>price.quantity_min, :max=>price.quantity_max) unless price.nil?
+    #       errors.add_to_base(:range_overlap, :min=>price.quantity_min, :max=>price.quantity_max) unless price.nil?
     #     else
-    #       errors.add_to_base tc(:error_already_defined) unless self.company.prices.find(:first, :conditions=>["NOT use_range AND product_id=? AND stopped_on IS NULL AND list_id=? AND id!=COALESCE(?,0)", self.product_id, self.list_id, self.id]).nil?
+    #       errors.add_to_base(:already_defined) unless self.company.prices.find(:first, :conditions=>["NOT use_range AND product_id=? AND stopped_on IS NULL AND list_id=? AND id!=COALESCE(?,0)", self.product_id, self.list_id, self.id]).nil?
     #     end
-    # errors.add(:price) if self.amount.to_f <= 0 and self.amount_with_taxes.to_f <= 0 
   end
 
   def after_save

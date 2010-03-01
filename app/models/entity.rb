@@ -69,6 +69,7 @@
 #
 
 class Entity < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :client_account, :class_name=>Account.to_s
   belongs_to :category, :class_name=>EntityCategory.to_s
   belongs_to :company
@@ -79,7 +80,7 @@ class Entity < ActiveRecord::Base
   belongs_to :proposer, :class_name=>Entity.to_s
   belongs_to :responsible, :class_name=>User.name
   belongs_to :supplier_account, :class_name=>Account.to_s
-  has_many :bank_accounts
+  has_many :bank_accounts, :dependent=>:destroy
   has_many :complement_data
   has_many :contacts, :conditions=>{:active=>true}
   has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity1_id
@@ -96,15 +97,9 @@ class Entity < ActiveRecord::Base
   has_many :subscriptions
   has_many :usable_payments, :conditions=>["parts_amount<amount"], :class_name=>Payment.name
   has_one :default_contact, :class_name=>Contact.name, :conditions=>{:default=>true, :active=>true}
-  
- # validates_presence_of :category_id, :if=>Proc.new{|u| u.client}
-  attr_readonly :company_id
-  
   validates_presence_of :category_id
 
-  before_destroy :destroy_bank_account
- 
-  #has_many :contact
+
   def before_validation
     self.webpass = User.give_password(8, :normal) if self.webpass.blank?
     self.soundex = self.name.soundex2 if !self.name.nil?
@@ -116,18 +111,8 @@ class Entity < ActiveRecord::Base
     end
     self.full_name.strip!
     
-    #if self.client
-    #  self.client_account_id
     self.code = self.full_name.codeize if self.code.blank?
     self.code = self.code[0..15]
-    #raise Exception.new self.inspect
-    #    while Entity.find(:first, :conditions=>["company_id=? AND code=? AND id!=?",self.company_id, self.code, self.id||0])
-    #      self.code.succ!
-    #    end
-
-    #self.active = false  unless self.dead_on.blank?
-    
-   # raise Exception.new('acc:'+self.inspect)
   end
 
   def after_validation_on_create
@@ -138,25 +123,22 @@ class Entity < ActiveRecord::Base
       end
     end
   end
-  
-  
 
   #
   def validate
-    #raise Exception.new self.nature.physical.inspect+self.first_name.blank?.inspect
-    if self.nature
-      #raise Exception.new self.nature.in_name.inspect
-      if self.nature.in_name
-        errors.add(:name, tc(:error_missing_title,:title=>self.nature.abbreviation)) unless self.name.match(/( |^)#{self.nature.abbreviation}( |$)/i)
+    if self.nature 
+      if self.nature.in_name and not self.name.match(/( |^)#{self.nature.abbreviation}( |$)/i)
+        errors.add(:name, :error_missing_title, :title=>self.nature.abbreviation) 
       end
-      if not self.nature.physical
-        errors.add_to_base tc(:error_nature_do_not_allow_a_first_name, :nature=>self.nature.name) unless self.first_name.blank?
+      if not self.nature.physical and not self.first_name.blank?
+        errors.add(:first_name, :nature_do_not_allow_a_first_name, :nature=>self.nature.name) 
       end
     end
   end
   
   def before_destroy
     raise Exception.new("Can't delete entity of the company") if self.id == self.company.entity.id
+    return false if self.id == self.company.entity.id
   end
   
   #

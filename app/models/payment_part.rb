@@ -36,11 +36,11 @@
 #
 
 class PaymentPart < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :company
   belongs_to :payment
   belongs_to :expense, :polymorphic=>true
   belongs_to :invoice # TODEL
-  attr_readonly :company_id
 
   cattr_reader :expense_types
   @@expense_types = [PurchaseOrder.name, SaleOrder.name, Transfer.name]
@@ -55,8 +55,8 @@ class PaymentPart < ActiveRecord::Base
   end
 
   def validate
-    errors.add(:expense_type, tc(:invalid)) unless @@expense_types.include? self.expense_type
-    errors.add_to_base tc(:error_sale_order_already_paid) if self.amount <= 0 and self.downpayment == false
+    errors.add(:expense_type, :invalid) unless @@expense_types.include? self.expense_type
+    errors.add_to_base(:nothing_to_pay) if self.amount <= 0 and self.downpayment == false
   end
 
   def after_save

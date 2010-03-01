@@ -40,16 +40,15 @@
 #
 
 class DeliveryLine < ActiveRecord::Base
+  attr_readonly :company_id, :order_line_id, :product_id, :price_id, :unit_id
   belongs_to :company
   belongs_to :delivery
   belongs_to :price
   belongs_to :product
   belongs_to :order_line, :class_name=>SaleOrderLine.name
   belongs_to :unit
-
   validates_presence_of :product_id, :unit_id
 
-  attr_readonly :company_id, :order_line_id, :product_id, :price_id, :unit_id
 
   def before_validation
     if self.order_line
@@ -63,29 +62,20 @@ class DeliveryLine < ActiveRecord::Base
   end
   
   def validate_on_create
-    # raise Exception.new self.undelivered_quantity.to_s+" "+self.quantity.to_s
-    # test = self.undelivered_quantity >= self.quantity 
     if self.product
-      errors.add_to_base(tc(:error_undelivered_quantity, :product=>self.product_name)) if (self.undelivered_quantity < self.quantity)
+      maximum = self.undelivered_quantity
+      errors.add_to_base(:greater_than_undelivered_quantity, :maximum=>maximum, :unit=>self.product.unit.name, :product=>self.product_name) if (self.quantity > maximum)
     end
   end
-  
-  def before_update
-    line = DeliveryLine.find_by_id_and_company_id(self.id, self.company_id)
-    errors.add_to_base tc(:error_undelivered_quantity, :product=>self.product.name) if (self.undelivered_quantity < ( self.quantity - line.quantity ))
-    #test = (self.undelivered_quantity < ( self.quantity - line.quantity))
-    #test = (self.undelivered_quantity < ( self.quantity - line.quantity))
-    
-    #raise Exception.new self.undelivered_quantity.to_s+" "+self.quantity.to_s+" - "+line.quantity.to_s+test.to_s
+
+  def validate_on_update
+    old_self = self.class.find(self.id)
+    maximum = self.undelivered_quantity - old_self.quantity
+    errors.add_to_base(:greater_than_undelivered_quantity, :maximum=>maximum, :unit=>self.product.unit.name, :product=>self.product_name) if (self.quantity > maximum)
   end
 
   def after_save
     self.delivery.save
-  end
-
-  def after_destroy
-   # raise Exception.new self.inspect
-    #self.delivery.save
   end
 
   def undelivered_quantity

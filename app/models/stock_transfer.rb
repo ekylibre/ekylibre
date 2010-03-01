@@ -40,16 +40,13 @@
 #
 
 class StockTransfer < ActiveRecord::Base
-
+  attr_readonly :company_id, :nature
   belongs_to :company
   belongs_to :product
   belongs_to :location
   belongs_to :second_location, :class_name=>Location.to_s
   belongs_to :unit
   has_many :stock_moves, :as=>:origin, :dependent=>:destroy
-
-  attr_readonly :company_id, :nature
-  
   validates_presence_of :unit_id
   validates_presence_of :second_location_id, :if=>Proc.new{|x| x.transfer?}
 
@@ -60,15 +57,14 @@ class StockTransfer < ActiveRecord::Base
   end
 
   def validate
-    #raise Exception.new self.location.can_receive(self.product_id).inspect+self.product.name.to_s+self.location.product.name.to_s
     if !self.second_location.nil?
-      errors.add_to_base(tc(:location_can_not_receive_product), :location=>self.second_location.name, :product=>self.product.name, :contained_product=>self.second_location.product.name) unless self.second_location.can_receive(self.product_id)
+      errors.add_to_base(:location_can_not_receive_product, :location=>self.second_location.name, :product=>self.product.name, :contained_product=>self.second_location.product.name) unless self.second_location.can_receive(self.product_id)
     end
     unless self.location.can_receive(self.product_id)
-      errors.add_to_base(tc(:location_can_not_transfer_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) if self.nature=="transfer"
-      errors.add_to_base(tc(:location_can_not_waste_product), :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) if self.nature=="waste"
+      errors.add_to_base(:location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) if self.nature=="transfer"
+      errors.add_to_base(:location_can_not_waste_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) if self.nature=="waste"
     end
-    errors.add_to_base(tc(:locations_can_not_be_identical)) if self.location_id == self.second_location_id 
+    errors.add_to_base(:locations_can_not_be_identical) if self.location_id == self.second_location_id 
       
   end
   
