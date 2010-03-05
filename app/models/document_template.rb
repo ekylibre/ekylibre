@@ -238,9 +238,9 @@ class DocumentTemplate < ActiveRecord::Base
         p.part(200.mm) do |x|
           x.set do |s|
             if e.is_a? Exception
-              s.text "Exception : "+e.inspect+"\n"+e.backtrace[0..25].join("\n")+"..."
+              s.text "Exception : "+e.inspect+"\n"+e.backtrace[0..25].join("\n")+"...", :width=>180.mm
             else
-              s.text "Erreur : "+e.inspect
+              s.text "Erreur : "+e.inspect, :width=>180.mm
             end
           end
         end
@@ -401,9 +401,9 @@ class DocumentTemplate < ActiveRecord::Base
       name = element.name.to_sym
       params, p, attrs = parameters(element, variable, mode)
       if name == :iteration
-        code += "for #{p[0]} in #{p[1]}\n"
+        code += "for #{p[0]} in #{p[1]}\n" unless mode == :debug
         code += compile_children(element, variable, mode, depth)
-        code += "end"
+        code += "end" unless mode == :debug
       elsif name == :image
         code += "if File.exist?((#{p[0]}).to_s)\n"
         code += "  #{variable}.#{name}(#{params})\n"

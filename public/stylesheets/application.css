@@ -230,7 +230,7 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 .toolbar ul > li > a.cancel    {background: url(../images/buttons/cancel.png) no-repeat center left;}
 .toolbar ul > li > a.configure {background: url(../images/buttons/configure.png) no-repeat center left;}
 .toolbar ul > li > a.create    {background: url(../images/buttons/create.png) no-repeat center left;}
-.toolbar ul > li > a.export    {background: url(../images/buttons/right.png) no-repeat center left;}
+.toolbar ul > li > a.export    {background: url(../images/buttons/spreadsheet.png) no-repeat center left;}
 .toolbar ul > li > a.extract   {background: url(../images/buttons/complete.png) no-repeat center left;}
 .toolbar ul > li > a.import    {background: url(../images/buttons/left.png) no-repeat center left;}
 .toolbar ul > li > a.load      {background: url(../images/buttons/load.png) no-repeat center left;}

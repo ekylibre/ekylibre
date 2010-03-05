@@ -49,7 +49,7 @@ module Ekylibre
             end
 
 
-            options = {:pagination=>:default, :empty=>true, :export=>'general.export'}
+            options = {:pagination=>:default, :empty=>true, :export=>'general.dyta.export'}
             options[:pagination] = :will_paginate if Ekylibre::Dyke::Dyta.will_paginate
             options.merge! new_options
 
@@ -120,7 +120,13 @@ module Ekylibre
             footer = "#{footer_var}=''\n"
             # Export link
             if options[:export]
-              footer += footer_var+"+='"+content_tag(:div, "'+link_to('"+::I18n.t(options[:export]).gsub(/\'/,'&apos;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'csv'}, {:method=>:post})+'", :class=>'export')+"'\n"
+              # footer += footer_var+"+='"+content_tag(:div, "'+link_to('"+::I18n.t(options[:export]).gsub(/\'/,'&apos;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'csv'}, {:method=>:post})+'", :class=>'export')+"'\n"
+              
+              export = content_tag(:span, ::I18n.t(options[:export].to_s+".title"))+"'"
+              for format in [:csv, :xcsv]
+                export += "+' '+link_to('"+::I18n.t(options[:export].to_s+".#{format}").gsub(/\'/,'&apos;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'#{format}'}, {:method=>:post})"
+              end
+              footer += footer_var+"+='"+content_tag(:div, export+"+'", :class=>'export')+"'\n"
             end
             # Pages link
             footer += if options[:pagination] == :will_paginate
@@ -151,13 +157,26 @@ module Ekylibre
             if options[:export]
               code += "  elsif request.post?\n"
               code += order_definition.gsub(/^/,'  ')
-              code += "    data = FasterCSV.generate do |csv|\n"
-              code += "      csv << #{columns_to_csv(definition, :header)}\n"
-              code += "      for #{record} in #{model}.find(:all"
+              code += "    if params[:format] == 'xcsv'\n"
+              code += "      ic = Iconv.new('cp1252', 'utf-8')\n"
+              code += "      data = FasterCSV.generate(:col_sep=>';') do |csv|\n"
+              code += "        csv << #{columns_to_csv(definition, :header, :iconv=>'ic')}\n"
+              code += "        for #{record} in #{model}.find(:all"
               code += ", :conditions=>"+conditions unless conditions.blank?
               code += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
               code += ", :order=>order#{default_order})||{}\n"            
-              code += "        csv << #{columns_to_csv(definition, :body, :record=>record)}\n"
+              code += "          csv << #{columns_to_csv(definition, :body, :record=>record, :iconv=>'ic')}\n"
+              code += "        end\n"
+              code += "      end\n"
+              code += "    else\n"
+              code += "      data = FasterCSV.generate do |csv|\n"
+              code += "        csv << #{columns_to_csv(definition, :header)}\n"
+              code += "        for #{record} in #{model}.find(:all"
+              code += ", :conditions=>"+conditions unless conditions.blank?
+              code += ", :joins=>#{options[:joins].inspect}" unless options[:joins].blank?
+              code += ", :order=>order#{default_order})||{}\n"            
+              code += "          csv << #{columns_to_csv(definition, :body, :record=>record)}\n"
+              code += "        end\n"
               code += "      end\n"
               code += "    end\n"
               code += "    send_data(data, :type=>Mime::CSV, :disposition=>'inline', :filename=>'#{::I18n.translate('activerecord.models.'+model.name.underscore.to_s).gsub(/[^a-z0-9]/i,'_')}.csv')\n"
@@ -343,7 +362,7 @@ module Ekylibre
             for column in columns
               if column.nature==:column
                 if nature==:header
-                  array << column.header.inspect
+                  datum = column.header.inspect
                 else
                   datum = column.data(record)
                   if column.datatype == :boolean
@@ -358,11 +377,11 @@ module Ekylibre
                   if column.name==:country and  column.datatype == :string and column.limit == 2
                     datum = "(#{datum}.nil? ? '' : ::I18n.translate('countries.'+#{datum}))"
                   end
-                  array << datum
                 end
+                array << (options[:iconv] ? "#{options[:iconv]}.iconv("+datum+".to_s)" : datum)
               end
             end
-            '['+array.join(', ')+']'
+            return '['+array.join(', ')+']'
           end
 
 

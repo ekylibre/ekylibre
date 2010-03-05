@@ -72,7 +72,7 @@ fr-FR:
           location_can_not_transfer_product: 'Vous ne pouvez pas tranférer le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
           location_can_not_waste_product: 'Vous ne pouvez pas enregistrer de perte pour  le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
           locations_can_not_be_identical: 'Les lieux de stockage (départ et arrivée) ne peuvent pas être identiques'
-        subscriptions:
+        subscription:
           entity_must_be_the_same_as_the_contact_entity: "La relation de l'abonnement doit être la même que celle du contact"
         tax_declaration:
           declaration_date_after_period: 'Vous devez faire votre déclaration après la période considérée.'
@@ -2264,9 +2264,9 @@ fr-FR:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        entity: 'Relation'
-        entity_id: 'Relation'
-        entity_name: 'Abonné'
+        entity: 'Abonné'
+        entity_id: 'Abonné'
+        entity_name: 'Nom de l''abonné'
         finish: 'Fin'
         first_number: 'Premier numéro'
         id: 'ID'

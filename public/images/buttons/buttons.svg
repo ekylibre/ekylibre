@@ -23,6 +23,28 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient4155">
+      <stop
+         id="stop4157"
+         offset="0"
+         style="stop-color:#121848;stop-opacity:1;" />
+      <stop
+         id="stop4159"
+         offset="1"
+         style="stop-color:#4a58d2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4037">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop4039" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop4041" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient4040">
       <stop
          style="stop-color:#1440d3;stop-opacity:0;"
@@ -4625,6 +4647,55 @@
        x2="192"
        y2="116"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient4035"
+       x1="291.5625"
+       y1="31.3125"
+       x2="291.5"
+       y2="22.375"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3910"
+       id="linearGradient4043"
+       x1="288.125"
+       y1="18.625"
+       x2="291.5625"
+       y2="26.1875"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       id="filter4180"
+       x="-0.24"
+       width="1.48"
+       y="-0.24"
+       height="1.48">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.375"
+         id="feGaussianBlur4182" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4002"
+       id="linearGradient4191"
+       x1="287.1875"
+       y1="18.375"
+       x2="291.9375"
+       y2="18.375"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4155"
+       id="linearGradient4203"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,6.25e-2)"
+       x1="286.69965"
+       y1="30.125"
+       x2="286.34903"
+       y2="20.6875" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -4634,8 +4705,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="136.89009"
-     inkscape:cy="42.060547"
+     inkscape:cx="275.9826"
+     inkscape:cy="-2.939453"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -4643,10 +4714,10 @@
      inkscape:showpageshadow="false"
      gridtolerance="0.4px"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1434"
-     inkscape:window-height="826"
+     inkscape:window-width="1679"
+     inkscape:window-height="1003"
      inkscape:window-x="0"
-     inkscape:window-y="25"
+     inkscape:window-y="0"
      inkscape:window-maximized="0">
     <sodipodi:guide
        orientation="vertical"
@@ -4710,10 +4781,6 @@
        id="guide1777" />
     <sodipodi:guide
        orientation="vertical"
-       position="288"
-       id="guide1779" />
-    <sodipodi:guide
-       orientation="vertical"
        position="272"
        id="guide1789" />
     <sodipodi:guide
@@ -4758,7 +4825,7 @@
        id="guide3558" />
     <sodipodi:guide
        orientation="vertical"
-       position="296"
+       position="296.1875,-6.9375"
        id="guide7977" />
     <sodipodi:guide
        orientation="vertical"
@@ -6588,5 +6655,27 @@
        inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/images/buttons/dyli.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <path
+       style="fill:url(#linearGradient4043);fill-opacity:1;fill-rule:nonzero;stroke:url(#linearGradient4035);stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 280.5,16.5 L 288,16.5 L 291.5,20 L 291.5,31.499999 L 280.5,31.499999 L 280.5,16.5 z"
+       id="rect3245"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/images/buttons/spreadsheet.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:0.42019546000000002;fill:url(#linearGradient4203);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 285.625 16.71875 L 285.625 18.0625 L 283.9375 18.0625 L 283.9375 16.75 L 282.9375 16.75 L 282.9375 18.0625 L 280 18.0625 L 280 19.0625 L 282.9375 19.0625 L 282.9375 20.0625 L 280 20.0625 L 280 21.0625 L 282.9375 21.0625 L 282.9375 22.0625 L 280 22.0625 L 280 23.0625 L 282.9375 23.0625 L 282.9375 24.0625 L 280 24.0625 L 280 25.0625 L 282.9375 25.0625 L 282.9375 26.0625 L 280 26.0625 L 280 27.0625 L 282.9375 27.0625 L 282.9375 28.0625 L 280 28.0625 L 280 29.0625 L 282.9375 29.0625 L 282.9375 31.1875 L 283.9375 31.1875 L 283.9375 29.0625 L 285.625 29.0625 L 285.625 31.15625 L 286.625 31.15625 L 286.625 29.0625 L 291.9375 29.0625 L 291.9375 28.0625 L 286.625 28.0625 L 286.625 27.0625 L 291.9375 27.0625 L 291.9375 26.0625 L 286.625 26.0625 L 286.625 25.0625 L 291.9375 25.0625 L 291.9375 24.0625 L 286.625 24.0625 L 286.625 23.0625 L 291.9375 23.0625 L 291.9375 22.0625 L 286.625 22.0625 L 286.625 21.0625 L 291.9375 21.0625 L 291.9375 20.0625 L 286.625 20.0625 L 286.625 19.0625 L 289.9375 19.0625 L 289.9375 18.0625 L 286.625 18.0625 L 286.625 16.71875 L 285.625 16.71875 z M 283.9375 19.0625 L 285.625 19.0625 L 285.625 20.0625 L 283.9375 20.0625 L 283.9375 19.0625 z M 283.9375 21.0625 L 285.625 21.0625 L 285.625 22.0625 L 283.9375 22.0625 L 283.9375 21.0625 z M 283.9375 23.0625 L 285.625 23.0625 L 285.625 24.0625 L 283.9375 24.0625 L 283.9375 23.0625 z M 283.9375 25.0625 L 285.625 25.0625 L 285.625 26.0625 L 283.9375 26.0625 L 283.9375 25.0625 z M 283.9375 27.0625 L 285.625 27.0625 L 285.625 28.0625 L 283.9375 28.0625 L 283.9375 27.0625 z "
+       id="path4046" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1;filter:url(#filter4180)"
+       d="M 287.25,16.875 L 287.1875,20.625 L 290.6875,20.6875 L 287.25,16.875 z"
+       id="path4174"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient4191);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1;opacity:1"
+       d="M 287.5625,16.5 L 287.9375,19.9375 L 291.5,20.3125 L 287.5625,16.5 z"
+       id="path4172"
+       sodipodi:nodetypes="cccc" />
   </g>
 </svg>

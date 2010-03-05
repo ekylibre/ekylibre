@@ -34,7 +34,7 @@ class AccountancyController < ApplicationController
     t.column :resource, :label=>'Type'
     t.column :resource_id, :label=>'Id', :through=>:record
     t.column :number, :label=>"Numéro", :through=>:record
-    t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
+    t.column :created_on, :label=>"Créée le", :through=>:record, :datatype=>:date
     t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
     t.column :name
     t.column :number, :label=>"Compte" , :through=>:account
@@ -88,7 +88,7 @@ class AccountancyController < ApplicationController
       
     elsif request.put?
       # FIXME: Won't work with SQLite !!!
-      JournalEntry.update_all({:draft=> false}, {:company_id=>@current_company.id, :draft=> true}, :joins=>"inner join journal_records r on r.id=entries.record_id and r.created_on < #{session[:limit_period]}")
+      JournalEntry.update_all({:draft=> false}, {:company_id=>@current_company.id, :draft=> true}, :joins=>"inner join journal_records r on r.id=journal_entries.record_id and r.created_on < #{session[:limit_period]}")
       redirect_to :action=>:accountize
     end
     
@@ -425,8 +425,6 @@ class AccountancyController < ApplicationController
   # render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:key=>params[:id])
   #end
   
-
-  
   dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}, :order=>:started_on) do |t|
     t.column :code, :url=>{:action=>:financialyear}
     t.column :closed
@@ -495,7 +493,7 @@ class AccountancyController < ApplicationController
     end
     
     if @financialyears.empty? 
-      notify(:no_closable_financialyear, :error)
+      notify(:no_closable_financialyear)
       redirect_to :action => :financialyears
       return
     end
@@ -629,7 +627,7 @@ class AccountancyController < ApplicationController
   dyta(:entries, :model=>:journal_entries, :conditions=>entries_journal_consult_conditions, :order=>'record_id DESC', :joins=>"INNER JOIN journal_records r ON r.id = journal_entries.record_id", :line_class=>'RECORD.balanced_record') do |t|
     t.column :journal_name, :label=>"Journal"
     t.column :number, :label=>"Numéro", :through=>:record
-    t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
+    t.column :created_on, :label=>"Créée le", :through=>:record, :datatype=>:date
     t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
     t.column :name
     t.column :number, :label=>"Compte" , :through=>:account
@@ -893,7 +891,7 @@ class AccountancyController < ApplicationController
     
     @financialyears = @current_company.financialyears.find(:all)
     
-    @entries =  @current_company.journal_entries.find(:all, :conditions => ["editable = ? AND draft=? AND (a.number LIKE ? OR a.number LIKE ?)", false, false,clients_account+'%', suppliers_account+'%'], :joins => "LEFT JOIN accounts a ON a.id = entries.account_id")
+    @entries =  @current_company.journal_entries.find(:all, :conditions => ["editable = ? AND draft=? AND (a.number LIKE ? OR a.number LIKE ?)", false, false,clients_account+'%', suppliers_account+'%'], :joins => "LEFT JOIN accounts a ON a.id = journal_entries.account_id")
 
     unless @entries.size > 0
       notify(:need_entries_to_letter, :now)
@@ -909,7 +907,7 @@ class AccountancyController < ApplicationController
 
   # this method displays the array for make lettering.
   def account_letter
-    @entries = @current_company.journal_entries.find(:all, :conditions => { :account_id => params[:id]}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
+    @entries = @current_company.journal_entries.find(:all, :conditions => { :account_id => params[:id]}, :joins => "INNER JOIN journal_records r ON r.id = journal_entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
 
     session[:letter]='AAAA'
     
@@ -926,7 +924,7 @@ class AccountancyController < ApplicationController
       
       @entry = @current_company.journal_entries.find(params[:id])
       
-      @entries = @current_company.journal_entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
+      @entries = @current_company.journal_entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = journal_entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
       
       @letters = []
       @entries.each do |entry|
@@ -935,7 +933,7 @@ class AccountancyController < ApplicationController
       @letters.uniq!
       
       if @entry.letter != ""
-        @entries_letter = @current_company.journal_entries.find(:all, :conditions => ["letter = ? AND account_id = ?", @entry.letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
+        @entries_letter = @current_company.journal_entries.find(:all, :conditions => ["letter = ? AND account_id = ?", @entry.letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = journal_entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
 
         @entry.update_attribute("letter", '')
         
@@ -945,7 +943,7 @@ class AccountancyController < ApplicationController
           
           @letters.each do |letter|
             
-            @entries_letter = @current_company.journal_entries.find(:all, :conditions => ["letter = ? AND account_id = ?", letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
+            @entries_letter = @current_company.journal_entries.find(:all, :conditions => ["letter = ? AND account_id = ?", letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = journal_entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
             
             if @entries_letter.size > 0
               sum_debit = 0
@@ -967,7 +965,7 @@ class AccountancyController < ApplicationController
         @entry.update_attribute("letter", session[:letter].to_s)
       end
       
-      @entries = @current_company.journal_entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
+      @entries = @current_company.journal_entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = journal_entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
       
       render :action => "account_letter.rjs"
     end
@@ -1049,7 +1047,7 @@ class AccountancyController < ApplicationController
     @bank_account_statement=BankAccountStatement.find(session[:statement])
     @bank_account=BankAccount.find(@bank_account_statement.bank_account_id)
     
-    @entries=@current_company.journal_entries.find(:all, :conditions =>["account_id = ? AND editable = ? AND draft=? AND CAST(j.created_on AS DATE) BETWEEN ? AND ?", @bank_account.account_id, true, false,  @bank_account_statement.started_on, @bank_account_statement.stopped_on], :joins => "INNER JOIN journal_records j ON j.id = entries.record_id", :order => "statement_id DESC")
+    @entries=@current_company.journal_entries.find(:all, :conditions =>["account_id = ? AND editable = ? AND draft=? AND CAST(j.created_on AS DATE) BETWEEN ? AND ?", @bank_account.account_id, true, false,  @bank_account_statement.started_on, @bank_account_statement.stopped_on], :joins => "INNER JOIN journal_records j ON j.id = journal_entries.record_id", :order => "statement_id DESC")
     
     unless @entries.size > 0
       notify(:need_entries_to_point, :warning)
@@ -1090,7 +1088,7 @@ class AccountancyController < ApplicationController
   #
   def self.statements_entries_conditions(options={})
     code = ""
-    code += "conditions = ['entries.company_id=? AND draft=?', @current_company.id, false] \n"
+    code += "conditions = ['journal_entries.company_id=? AND draft=?', @current_company.id, false] \n"
 
     code += "unless session[:statement].blank? \n"
     code += "statement = @current_company.bank_account_statements.find(:first, :conditions=>{:id=>session[:statement]})\n"
@@ -1104,7 +1102,7 @@ class AccountancyController < ApplicationController
   dyta(:statement_entries, :model =>:journal_entries, :conditions=>statements_entries_conditions, :order=>:record_id) do |t|
     t.column :journal_name, :label=>'Journal'
     t.column :number, :label=>"Numéro", :through=>:record
-    t.column :created_on, :label=>"Crée le", :through=>:record, :datatype=>:date
+    t.column :created_on, :label=>"Créée le", :through=>:record, :datatype=>:date
     t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
     t.column :name
     t.column :number, :label=>"Compte", :through=>:account
@@ -1117,8 +1115,8 @@ class AccountancyController < ApplicationController
 
   # displays in details the statement choosen with its mainly characteristics.
   def bank_account_statement
-    @bank_account_statement = BankAccountStatement.find(params[:id])
-    session[:statement]=params[:id]
+    return unless @bank_account_statement = find_and_check(:bank_account_statement, params[:id])
+    session[:statement] = @bank_account_statement.id
     @title = {:value => @bank_account_statement.number}
   end
   
@@ -1133,6 +1131,7 @@ class AccountancyController < ApplicationController
     t.action :tax_update
     t.action :tax_delete, :method=>:delete, :confirm=>:are_you_sure
   end
+
   #   
   def taxes
     

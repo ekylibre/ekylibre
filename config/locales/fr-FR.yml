@@ -551,6 +551,11 @@ fr-FR:
     display: 'Afficher'
     down: 'Descendre'
     duplicate: 'Dupliquer'
+    dyta:
+      export:
+        title: Export
+        csv: CSV
+        xcsv: CSV pour Excel
     dyta_false: 'FAUX'
     dyta_true: 'VRAI'
     edit: 'Modifier'

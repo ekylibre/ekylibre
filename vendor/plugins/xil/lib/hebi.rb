@@ -51,6 +51,11 @@ end
 # Hebi is a "japanese" snake (weighty but fast and nibble)
 module Hebi
 
+  # Default standard exception
+  class StandardError < Exception
+  end
+
+
   # Reference to en object
   class Reference
     def initialize(id, complement=0)
@@ -161,12 +166,12 @@ module Hebi
 
     
 
-    def new_page(format=[], rotate=0)
+    def new_page(format, rotate=0)
       # format = Xil::StyleFORMATS[format.to_s.lower.gsub(/[^\w]/,'').to_sym] unless format.is_a? Array
-      error("Parameter format must be an array (#{format.inspect})") unless format.is_a? Array
-      error("Parameter format must be an array with 2 values (#{format.inspect})") unless format[0].is_a? Numeric and format[1].is_a? Numeric
+      raise StandardError.new("Parameter format must be an array (#{format.inspect})") unless format.is_a? Array
+      raise StandardError.new("Parameter format must be an array with 2 values (#{format.inspect})") unless format[0].is_a? Numeric and format[1].is_a? Numeric
       #format[0] ||= 1000.0
-      #error('Parameter format can only contains numeric values') unless format[0].is_a? Numeric
+      #raise StandardError.new('Parameter format can only contains numeric values') unless format[0].is_a? Numeric
       # format[1] ||= format[0]*1.414
       rotate = 90*(rotate.to_f/90).round
       @current_page = @pages.size
@@ -184,7 +189,7 @@ module Hebi
     def image(file, x, y, w=nil, h=nil, params={})
       self.new_page if @current_page<0
       if @images[file].nil?
-        error("File does not exists (#{file.inspect})") unless File.exists? file
+        raise StandardError.new("File does not exists (#{file.inspect})") unless File.exists? file
         @images[file] = Hebi::Image.new(file, ('Image'+@images.size.to_s).to_sym)
       end
       w = nil if w == 0
@@ -208,8 +213,8 @@ module Hebi
 
     def line(points, params={})
       self.new_page if @current_page<0
-      error("Unvalid list of point") unless points.is_a? Array
-      points.each{|p| error("Unvalid point: #{p.inspect}") unless is_a_point? p}
+      raise StandardError.new("Unvalid list of point") unless points.is_a? Array
+      points.each{|p| raise StandardError.new("Unvalid point: #{p.inspect}") unless is_a_point? p}
       border = params[:border]||{}
       self.set_line(border)
       self.move_to(points[0])
@@ -266,7 +271,7 @@ module Hebi
       self.new_page if @current_page<0
       label = name.downcase+(options[:bold] ? '-bold' : '')+(options[:italic] ? '-italic' : '')
       if @fonts[label].nil?
-        error("Unavailable font: #{label}") if @available_fonts[label].nil?
+        raise StandardError.new("Unavailable font: #{label}") if @available_fonts[label].nil?
         @fonts[label] = @available_fonts[label]
         @fonts[label][:name] = ('F'+@fonts.size.to_s).to_sym
       end
@@ -279,7 +284,7 @@ module Hebi
       label = font_name.downcase+(options[:bold] ? '-bold' : '')+(options[:italic] ? '-italic' : '')
       font = available_fonts[label]
       cw = font[:char_widths]
-      error('Char widths must be an Array: '+cw.inspect+' '+font_name.inspect+' '+available_fonts.inspect) unless cw.is_a? Array
+      raise StandardError.new('Char widths must be an Array: '+cw.inspect+' '+font_name.inspect+' '+available_fonts.inspect) unless cw.is_a? Array
       s = ic ? ic.iconv(string) : string
       width = 0
       s.to_s.pdfize.each_byte { |char| width += cw[char] }
@@ -342,7 +347,7 @@ module Hebi
 
     def generate(options={})
       yield self if block_given?
-      self.new_page if @current_page<0
+      self.new_page([595.275, 841.89]) if @current_page<0
       pdf_data = build
       if options[:file]
         open(options[:file],'wb') do |f|
@@ -354,7 +359,7 @@ module Hebi
     end
 
     def error(message, nature=nil)
-      raise Exception.new("#{self.class.to_s} error: #{message}")
+      raise StandardError.new("#{self.class.to_s} error: #{message}")
     end
 
     def escape(string)
@@ -436,7 +441,7 @@ module Hebi
           dict[:BaseFont] = font[:base]
           dict[:Encoding] = font[:encoding] if font[:encoding]
         else
-          error("Unsupported type of font: #{font[:type].inspect}")
+          raise StandardError.new("Unsupported type of font: #{font[:type].inspect}")
         end
         fonts[font[:name]] = new_object(dict)
       end
@@ -570,7 +575,7 @@ module Hebi
     def initialize(file, name)
       extensions = {'jpeg'=>'jpeg', 'jpg'=>'jpeg', 'png'=>'png'}    
       extension = file.split('.')[-1]
-      error("Image type not supported: #{extension}, (Supported: #{extensions.keys.join(', ')})") unless extensions.keys.include? extension
+      raise StandardError.new("Image type not supported: #{extension}, (Supported: #{extensions.keys.join(', ')})") unless extensions.keys.include? extension
       @nature = extensions[extension]
       @name = name
       send("initialize_"+@nature, file)
@@ -615,19 +620,19 @@ module Hebi
     # Initialize a PNG file
     def initialize_png(file)
       f=open(file,'rb')
-      error('Not a PNG file: '+file) unless f.read(8)==137.chr+'PNG'+13.chr+10.chr+26.chr+10.chr
+      raise StandardError.new('Not a PNG file: '+file) unless f.read(8)==137.chr+'PNG'+13.chr+10.chr+26.chr+10.chr
       f.read(4)
-      error('Incorrect PNG file: '+file) if f.read(4)!='IHDR'
+      raise StandardError.new('Incorrect PNG file: '+file) if f.read(4)!='IHDR'
       @width  = freadint(f)
       @height = freadint(f)
       @bits   = f.read(1)[0]
-      error('16-bit depth not supported: '+file) if @bits>8
+      raise StandardError.new('16-bit depth not supported: '+file) if @bits>8
       @pixel_bytes=f.read(1)[0]
       @color_space = PNG_COLOR_SPACES[@pixel_bytes]
-      error('Alpha channel not supported: '+file) unless @color_space
-      error('Unknown compression method: '+file) if f.read(1)[0]!=0
-      error('Unknown filter method: '+file) if f.read(1)[0]!=0
-      error('Interlacing not supported: '+file) if f.read(1)[0]!=0
+      raise StandardError.new('Alpha channel not supported: '+file) unless @color_space
+      raise StandardError.new('Unknown compression method: '+file) if f.read(1)[0]!=0
+      raise StandardError.new('Unknown filter method: '+file) if f.read(1)[0]!=0
+      raise StandardError.new('Interlacing not supported: '+file) if f.read(1)[0]!=0
       f.read(4)
       # @parms='<</Predictor 15 /Colors '+(@pixel_bytes==2 ? '3' : '1')+' /BitsPerComponent '+@bits.to_s+' /Columns '+@width].to_s+'>>'
       @parms={:Predictor=>15, :Colors=>(@pixel_bytes==2 ? 3 : 1), :BitsPerComponent=>@bits, :Columns=>@width}
@@ -666,7 +671,7 @@ module Hebi
         end
       end while n
       f.close
-      error('Missing palette in '+file) if @color_space==:Indexed and @palette==''
+      raise StandardError.new('Missing palette in '+file) if @color_space==:Indexed and @palette==''
       if @transparency.is_a?(Array)
         mask=''
         @transparency.length.times { |i| mask += (@transparency[i].to_s+' ')*2 }
