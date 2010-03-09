@@ -1,10 +1,10 @@
-h1. Consulter des écritures
+====== Consulter des écritures ======
 
 
-h2. Choisir son journal et son exercice
+===== Choisir son journal et son exercice =====
 Sélectionner l'exercice comptable et/ou le journal dont vous souhaitez consulter les écritures.
 
-h2. La liste des écritures
+===== La liste des écritures =====
 Un listing des écritures correspondant à votre demande apparaît dans le cas où des écritures ont été trouvé.
 
 

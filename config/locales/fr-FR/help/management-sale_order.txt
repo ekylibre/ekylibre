@@ -1,5 +1,5 @@
-h1. Comment consulter le détail d'une vente ?
+====== Comment consulter le détail d'une vente ? ======
 
-Vous avez accès à un *récapitulatif détaillé* de toutes les informations concernant une vente. Vous retrouvez *toutes les étapes* de votre vente: des *produits* sélectionnés avec leur quantités respectives aux *règlements* en passant par les *livraisons* et les *factures* pour lesquels vous pouvez consulter les différentes lignes.
+Vous avez accès à un **récapitulatif détaillé** de toutes les informations concernant une vente. Vous retrouvez **toutes les étapes** de votre vente: des **produits** sélectionnés avec leur quantités respectives aux **règlements** en passant par les **livraisons** et les **factures** pour lesquels vous pouvez consulter les différentes lignes.
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

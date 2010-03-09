@@ -248,12 +248,13 @@ module ApplicationHelper
   # Permits to use templates for Ekylibre
   #  stylesheet_link_tag 'application', 'dyta', 'dyta-colors'
   #  stylesheet_link_tag 'print', :media=>'print'
-  def template_link_tag(name='tekyla')
+  def template_link_tag(name=nil)
+    name ||= 'tekyla'
     code = ""
     for sheet, media in ["screen", "print", "dyta", "dyta-colors"]
       media = (sheet == "print" ? :print : :screen)
-      if File.exists?("#{RAILS_ROOT}/public/templates/#{name}/#{sheet}.css")
-        code += stylesheet_link_tag("/templates/#{name}/#{sheet}.css", :media=>media)
+      if File.exists?("#{RAILS_ROOT}/public/templates/#{name}/stylesheets/#{sheet}.css")
+        code += stylesheet_link_tag("/templates/#{name}/stylesheets/#{sheet}.css", :media=>media)
       end
     end
     return code
@@ -370,28 +371,70 @@ module ApplicationHelper
 
   def wikize(content, options={})
     without_paragraph = options.delete(:without_paragraph)
-    options = {:url => {:controller=>:help, :action=>"search", :article=>'\1'}, :update => :help, :complete=>'resize2();'}.merge(options)
+    options = {:url => {:controller=>:help, :action=>"search"}, :update => :help, :complete=>'resize2();'}.merge(options)
     
+    # {{:buttons/update.png|Label}}
     # {{buttons/update.png|Label}}
-    url = url_for(:controller=>:images)
-    content = content.gsub(/\{\{([^\}]+)((\|)([^}]+))\}\}/, '!'+url+'/\1(\4)!')
-    content = content.gsub(/\{\{([^\}]+)\}\}/, '!'+url+'/\1!' )
-    # <<controller-action|Label>>
-    ltr = link_to_remote('\4', options).gsub('%5C',"\\")
-    content = content.gsub(/<<([\w\-]+)((\|)([^>]+))>>/ , ltr )
-    # <<controller-action>>
-    ltr = link_to_remote('\1', options).gsub('%5C',"\\")
-    content = content.gsub(/<<([\w\-]+)>>/ , ltr )
-    # content = content.squeeze(' ') # useless
-    #      content = content.gsub(/(\ *)(\:|\?)/ , '~\2' )
+    #url = url_for(:controller=>:images)
+    #content = content.gsub(/\{\{([^\}]+)\|([^}]+)\}\}/, '!'+url+'/\1(\2)!')
+    # content = content.gsub(/\{\{([^\}]+)((\|)([^}]+))\}\}/, '!'+url+'/\1(\4)!')
+    #content = content.gsub(/\{\{([^\}]+)\}\}/, '!'+url+'/\1!' )
+
     content.gsub!(/(\w)(\?|\:)([\s$])/ , '\1~\2\3' )
     content.gsub!(/[\s\~]+(\?|\:)/ , '~\1' )
     content.gsub!(/\~/ , '&nbsp;' )
-    # Puts 2 EOL after a title
-    content.gsub!(/(^h[0-9]\.\ [^\n]*\n)/ , "\\1\n")
-    # raise Exception.new(content)
-    content = without_paragraph ? textilize_without_paragraph(content) : textilize(content)
-    content
+
+    content.gsub!(/^  \* (.*)$/ , '<ul><li>\1</li></ul>')
+    content.gsub!(/<\/ul>\n<ul>/ , '')
+    content.gsub!(/^  \- (.*)$/ , '<ol><li>\1</li></ol>')
+    content.gsub!(/<\/ol>\n<ol>/ , '')
+
+    content.gsub!(/\{\{\ *[^\}\|]+\ *(\|[^\}]+)?\}\}/) do |data|
+      data = data.squeeze(' ')[2..-3].split('|')
+      align = {'  '=>'center', ' x'=>'right', 'x '=>'left', 'xx'=>''}[(data[0][0..0]+data[0][-1..-1]).gsub(/[^\ ]/,'x')]
+      title = data[1]||data[0].split(/[\:\\\/]+/)[-1].humanize
+      src = data[0].strip
+      if src.match(/^template:/)
+        src = compute_public_path(src.split(':')[1], "templates/#{@current_template}/images") 
+      else
+        src = compute_public_path(src, "images") 
+      end
+      '<img class="md md-'+align+'" alt="'+title+'" title="'+title+'" src="'+src+'"/>'
+    end
+
+
+
+    content = content.gsub(/\[\[[\w\-]+\|[^\]]*\]\]/) do |link|
+      link = link[2..-3].split('|')
+      options[:url][:article] = link[0]
+      link_to_remote(link[1], options)
+    end
+
+    content = content.gsub(/\[\[[\w\-]+\]\]/) do |link|
+      link = link[2..-3]
+      options[:url][:article] = link
+      link_to_remote(link, options)
+    end
+
+    for x in 1..6
+      n = 7-x
+      content.gsub!(/^\s*\={#{n}}([^\=]+)\={#{n}}/, "<h#{x}>\\1</h#{x}>")
+    end
+
+    content.gsub!(/^\ \ (.+)$/, '  <pre>\1</pre>')
+
+    content.gsub!(/([^\:])\/\/([^\s][^\/]+)\/\//, '\1<em>\2</em>')
+    content.gsub!(/\'\'([^\s][^\']+)\'\'/, '<code>\1</code>')
+    content.gsub!(/(^)([^\s\<][^\s].*)($)/, '<p>\2</p>')
+
+    content.gsub!(/\*\*([^\s\*]+)\*\*/, '<strong>\1</strong>')
+    content.gsub!(/\*\*([^\s\*][^\*]*[^\s\*])\*\*/, '<strong>\1</strong>')
+    content.gsub!(/(^|[^\*])\*([^\*]|$)/, '\1&lowast;\2')
+    content.gsub!("</p>\n<p>", "\n")
+
+
+    #raise Exception.new content
+    return content
   end
 
 
@@ -404,6 +447,7 @@ module ApplicationHelper
         content = file.read
       end
       content = wikize(content, options)
+     # raise Exception.new(content)
     end
     return content
   end
@@ -1097,32 +1141,4 @@ end
 
 # ActiveRecord::Base.send(:include, NewMethodsActiveRecord)
 
-
-
-# Hack to clean textilize
-
-module ActionView
-  module Helpers #:nodoc:
-    # The TextHelper module provides a set of methods for filtering, formatting
-    # and transforming strings, which can reduce the amount of inline Ruby code in
-    # your views. These helper methods extend ActionView making them callable
-    # within your template files.
-    module TextHelper
-      begin
-        require_library_or_gem "redcloth" unless Object.const_defined?(:RedCloth)
-        def textilize(text, *rules)
-          if text.blank?
-            ""
-          else
-            rc = RedCloth.new(text, rules)
-            rc.no_span_caps = true
-            rc.to_html
-          end
-        end
-      rescue LoadError
-        # We can't really help what's not there
-      end
-    end
-  end
-end
 

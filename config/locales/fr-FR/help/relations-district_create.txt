@@ -1,2 +1,2 @@
-h1. Comment créer une zone administrative
+====== Comment créer une zone administrative ======
 Remplisser le formulaire de création de la zone en renseignant bien tous les champs.

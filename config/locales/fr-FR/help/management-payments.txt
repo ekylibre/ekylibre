@@ -1,8 +1,8 @@
-h1. Le suivi des règlements 
+====== Le suivi des règlements  ======
 
-Vous avez accès à la *liste des règlements*. Cette action est accessible par deux sous-modules : *Achats* et *Ventes*. *En fonction du lien* par lequel vous avez accédé à cet action, seront affichés des règlements *payant vos achats ou vos ventes*.
+Vous avez accès à la **liste des règlements**. Cette action est accessible par deux sous-modules : **Achats** et **Ventes**. **En fonction du lien** par lequel vous avez accédé à cet action, seront affichés des règlements **payant vos achats ou vos ventes**.
 
-Vous avez également la possibilité de *rechercher* vos règlements par le *montant*, le *numéro de chèque*, le *numéro du règlement*, le *nom et le code du client*.
+Vous avez également la possibilité de **rechercher** vos règlements par le **montant**, le **numéro de chèque**, le **numéro du règlement**, le **nom et le code du client**.
 
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

@@ -1,2 +1,2 @@
-h1. Comment modifier un évènement
+====== Comment modifier un évènement ======
 Remplisser le formulaire de modification en précisant bien les acteurs, le type et la date de l'évènement. Les renseignements relatifs à la durée et l'espace sont facultatifs de même que le motif qui a présidé à sa réalisation.  

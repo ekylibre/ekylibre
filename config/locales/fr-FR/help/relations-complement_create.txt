@@ -1,11 +1,11 @@
-h1. Comment créer un champ personnalisé ?
+====== Comment créer un champ personnalisé ? ======
 
-h2. La création
-* Le nom est le nom qui sera attribué à votre champ. 
-* Le champ "obligatoire" permet de savoir si la valeur du champ personnalisé créé est à saisir obligatoirement lors de la création/modification d'une fiche client/fournisseur ou si celle-ci peut ne pas être renseignée.
-* Le type de donnée liste de choix correspond à une liste déroulante qui va contenir différentes valeurs qu'il est possible de paramétrer dans la partie <<relations-complement_choices|Options pour la liste déroulante >>
+===== La création =====
+  * Le nom est le nom qui sera attribué à votre champ. 
+  * Le champ "obligatoire" permet de savoir si la valeur du champ personnalisé créé est à saisir obligatoirement lors de la création/modification d'une fiche client/fournisseur ou si celle-ci peut ne pas être renseignée.
+  * Le type de donnée liste de choix correspond à une liste déroulante qui va contenir différentes valeurs qu'il est possible de paramétrer dans la partie [[relations-complement_choices|Options pour la liste déroulante ]]
 
-h2. Les options
+===== Les options =====
 Dans le cas ou vous créez un champ qui est du type texte ou décimal, vous avez la possibilité de rajouter des options à ce champ: un nombre maximum de caractère pour le texte ou des intervalles pour un décimal. Les intervalles permettent de rajouter des options de validation lors de la création/modification d'une fiche. Si la valeur est inférieure à l'intervalle bas ou supérieure à l'intervalle haut, alors une erreur est signalée est la validation du formulaire est impossible.
 
-<<relations-index|Revenir à l'aide de gestion des relations >>
+[[relations-index|Revenir à l'aide de gestion des relations ]]

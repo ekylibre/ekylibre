@@ -1,4 +1,4 @@
-h1. Comment mofifier une option pour la liste déroulante ?
+====== Comment mofifier une option pour la liste déroulante ? ======
 Il vous suffit de modifier le nom ou la valeur de votre liste déroulante.
 
-<<relations-index|Revenir à l'aide de gestion des relations >>
+[[relations-index|Revenir à l'aide de gestion des relations ]]

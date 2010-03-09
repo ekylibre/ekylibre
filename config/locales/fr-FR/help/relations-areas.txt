@@ -1,6 +1,6 @@
-h1. Villes
+====== Villes ======
 
-Ici, vous pouvez <<relations-cities_create|créer>>, <<relations-cities_update|modifier>>{{buttons/update.png|modifier}} ou même <<relations-cities_delete|supprimer>>{{buttons/delete.png|supprimer}} des villes.
+Ici, vous pouvez [[relations-cities_create|créer]], [[relations-cities_update|modifier]]{{template:buttons/update.png|modifier}} ou même [[relations-cities_delete|supprimer]]{{template:buttons/delete.png|supprimer}} des villes.
 De même, vous disposez d'un système de recherche classique pour filtrer la zone postale qui vous intéresse.
 
 

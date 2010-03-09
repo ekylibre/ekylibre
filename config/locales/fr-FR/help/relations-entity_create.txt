@@ -1,6 +1,6 @@
-h1. Comment créer une nouvelle fiche ?
+====== Comment créer une nouvelle fiche ? ======
 
 Pour créer une nouvelle fiche, il vous suffit de renseigner les différents paramètres qui vous sont demandés. Certains sont obligatoires (encadrés en bleu) et d'autres sont facultatifs (encadrés en gris). La création ne s'effectue uniquement que si tous les champs obligatoires ont été correctement renseignés.
 
-À ces renseignements de base peuvent s'ajouter des champs personnalisés que vous pourrez créer en allant sur la page *Champs personnalisés*.
+À ces renseignements de base peuvent s'ajouter des champs personnalisés que vous pourrez créer en allant sur la page **Champs personnalisés**.
  

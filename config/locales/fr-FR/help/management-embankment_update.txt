@@ -1,6 +1,6 @@
-h1. Comment modifier une remise de chèques ?
+====== Comment modifier une remise de chèques ? ======
 
 Vous pouvez modifier la date de création ainsi que le compte bancaire à créditer.
 En revanche, le mode de paiement, si vous avez eu besoin de le renseigner ne peut être modifié.
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

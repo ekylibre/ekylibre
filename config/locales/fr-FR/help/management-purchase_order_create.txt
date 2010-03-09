@@ -1,8 +1,8 @@
-h1. Comment créer un nouvel achat ?
+====== Comment créer un nouvel achat ? ======
 
 Il vous suffit de sélectionner votre fournisseur dans la liste déroulante présentant vos différents fournisseurs et éventuellement d'ajouter une description à l'achat. Si le fournisseur de votre achat n'a pas encore été créé, vous pouvez le faire grâce au lien "nouveau" qui vous redirigera vers le formulaire de création d'un nouveau fournisseur. 
 
 
 
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

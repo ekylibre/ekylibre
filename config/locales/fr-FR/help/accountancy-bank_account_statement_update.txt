@@ -1,5 +1,5 @@
-h1. Comment modifier un relevé bancaire
-Remplisser le formulaire de modification du relevé bancaire en renseignant bien tous les champs. Les liens **Nouveau...** situés en face de la zone de sélection permettent de créer un <<accountancy-bank_accounts_create|nouveau compte bancaire>>à référencer. 
+====== Comment modifier un relevé bancaire ======
+Remplisser le formulaire de modification du relevé bancaire en renseignant bien tous les champs. Les liens **Nouveau...** situés en face de la zone de sélection permettent de créer un [[accountancy-bank_accounts_create|nouveau compte bancaire]]à référencer. 
  
 
 

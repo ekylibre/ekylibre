@@ -1,5 +1,5 @@
-h1. Comment modifier les quantités utilisées ?
+====== Comment modifier les quantités utilisées ? ======
 
 Il suffit de ré-ajuster les quantités relatives à un lieu de stockage.
 
-<<production-index|Retour à l'aide sur la Gestion de la production>>
+[[production-index|Retour à l'aide sur la Gestion de la production]]

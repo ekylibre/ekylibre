@@ -1,2 +1,2 @@
-h1. Comment modifier une profession
+====== Comment modifier une profession ======
 Remplisser le formulaire de modification de la profession en renseignant bien tous les champs. Par défaut, la profession n'est pas considérée comme commerciale. Faites attention à ce que le **Nom de la profession soit renseignée** sinon une erreur sera levée après validation du formulaire. 

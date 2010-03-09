@@ -1,6 +1,6 @@
-h1. Comment ajouter une nouvelle liste de prix ?
+====== Comment ajouter une nouvelle liste de prix ? ======
 
 Pour créer une nouvelle liste de prix, il vous suffit de renseigner les différents paramètres qui vous sont demandés. Certains sont obligatoires (encadrés bleux) et d'autres sont facultatifs (encadrés gris). La création ne peut s'effectuer uniquement si tous les champs obligatoires ont été correctement renseignés. De plus, le nom doit être différent pour chaque liste de prix.
 
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

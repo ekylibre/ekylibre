@@ -1,18 +1,18 @@
-h1. Comment importer un fichier CSV ?
+====== Comment importer un fichier CSV ? ======
  
-* Afin d'importer un fichier csv qui corresponde au format Ekylibre, il est conseillé de *préalablement exporter un fichier csv clients/fournisseurs* afin d'avoir *un fichier défini selon le format Ekylibre* et qu'il sera ensuite possible d'importer.
+  * Afin d'importer un fichier csv qui corresponde au format Ekylibre, il est conseillé de **préalablement exporter un fichier csv clients/fournisseurs** afin d'avoir **un fichier défini selon le format Ekylibre** et qu'il sera ensuite possible d'importer.
 
-* Sélectionnez le fichier à télécharger. Ceci va modifier votre base de données de fiches clients et fournisseurs. En effet, si vous avez *modifié ou ajouté des fiches* dans votre fichier csv qui ne l'étaient pas dans la base de données du logiciel, celles-ci le seront grâce à l'import.
+  * Sélectionnez le fichier à télécharger. Ceci va modifier votre base de données de fiches clients et fournisseurs. En effet, si vous avez **modifié ou ajouté des fiches** dans votre fichier csv qui ne l'étaient pas dans la base de données du logiciel, celles-ci le seront grâce à l'import.
 
-* Pour *ajouter une fiche client ou fournisseur à votre base de données Ekylibre*, vous n'avez qu'à *ajouter une ligne au fichier* csv en veillant à respecter les contraintes relatives à chaque champ (ex: le nom ne peut être vide ...).
+  * Pour **ajouter une fiche client ou fournisseur à votre base de données Ekylibre**, vous n'avez qu'à **ajouter une ligne au fichier** csv en veillant à respecter les contraintes relatives à chaque champ (ex: le nom ne peut être vide ...).
 
-* Vous pouvez donc *générer automatiquement des fiches clients fournisseurs ainsi que des types de fiche*. En effet si le type de fiche du fichier csv n'existe pas, celui-ci sera également créé. 
+  * Vous pouvez donc **générer automatiquement des fiches clients fournisseurs ainsi que des types de fiche**. En effet si le type de fiche du fichier csv n'existe pas, celui-ci sera également créé. 
 
-* Veillez à bien *respecter le format des colonnes* présenté sur la page afin que l'import puisse s'effectuer correctement.
+  * Veillez à bien **respecter le format des colonnes** présenté sur la page afin que l'import puisse s'effectuer correctement.
 
-* *La première ligne du fichier ne sera jamais exploitée* car elle représente le titre de la colonne.
+  * **La première ligne du fichier ne sera jamais exploitée** car elle représente le titre de la colonne.
 
-* Les colonnes 5 à 11 servent à former l'adresse principale de la fiche.
+  * Les colonnes 5 à 11 servent à former l'adresse principale de la fiche.
 
-<<relations-index|Revenir à l'aide de gestion des relations >>
+[[relations-index|Revenir à l'aide de gestion des relations ]]
  

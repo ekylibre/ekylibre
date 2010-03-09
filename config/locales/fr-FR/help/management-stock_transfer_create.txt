@@ -1,6 +1,6 @@
-h1. Comment créer un transfert ou une perte de stocks ?
+====== Comment créer un transfert ou une perte de stocks ? ======
 
 Sélectionnez le type, la quantité, le(s) lieu(x) de stockage concerné(s)...
-Dans le ces d'une perte, un seul lieu de stockage est concerné tandis que dans le cas d'un transfert, *un lieu de stockage se verra augmenter (entrée du lieu de stockage) de la quantité* du transfert alors que *l'autre verra sa quantité diminuer (sortie du lieu de stockage)* pour le produit et la quantité du transfert.
+Dans le ces d'une perte, un seul lieu de stockage est concerné tandis que dans le cas d'un transfert, **un lieu de stockage se verra augmenter (entrée du lieu de stockage) de la quantité** du transfert alors que **l'autre verra sa quantité diminuer (sortie du lieu de stockage)** pour le produit et la quantité du transfert.
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

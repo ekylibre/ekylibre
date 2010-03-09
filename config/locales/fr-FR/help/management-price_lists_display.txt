@@ -1,5 +1,5 @@
-h1. L'affichage d'une liste de prix
+====== L'affichage d'une liste de prix ======
 
 L'affichage d'une liste de prix récapitule les informations de cette liste ainsi que les différents prix rattachés à cette liste. Vous pouvez également ajouter ou supprimer un prix à cette liste.
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

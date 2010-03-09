@@ -1,27 +1,27 @@
-h1. La liste des délais
+====== La liste des délais ======
 
-h2. Comment exprimer un délai ?
+===== Comment exprimer un délai ? =====
 
 Les délais permettent de calculer automatiquement des dates d'échéances.
 Un délai peut s'écrire sous la forme de petites expressions séparées par des virgules. Exemple : 
-* 1 jour, fin de mois, 10 jours
+  * 1 jour, fin de mois, 10 jours
 
 L'expression **fin de mois** spécifie que l'on doit aller à la fin du mois. (L'expression **fin de mois** peut être remplacé par **fdm**, **end of month** ou **eom**).
 Il est possible de faire suivre autant d'expressions que voulu. Exemples :
-* 10 jours
-* 10 jours, fin de mois
-* 10 jours, fin de mois, 45 jours
+  * 10 jours
+  * 10 jours, fin de mois
+  * 10 jours, fin de mois, 45 jours
 
 Vous pouvez : 
-* *créer*
-* *afficher* : <<management-delays_update|{{buttons/show.png|modifier}}>>
-* *modifier* : <<management-delays_update|{{buttons/update.png|modifier}}>>
-* *supprimer* : {{buttons/delete.png|supprimer}}
+  * **créer**
+  * **afficher** : [[management-delays_update|{{template:buttons/show.png|modifier}}]]
+  * **modifier** : [[management-delays_update|{{template:buttons/update.png|modifier}}]]
+  * **supprimer** : {{template:buttons/delete.png|supprimer}}
 
 un délai.
 
 
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]
 
   

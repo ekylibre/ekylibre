@@ -1,6 +1,6 @@
-h1. Comment gérer les types d'évènement ?
+====== Comment gérer les types d'évènement ? ======
 
 Les types d'évènements vous permettent d'attribuer un type à votre évènement lors de sa création ou de sa modification.
 
 
-<<relations-index|Revenir à l'aide de gestion des relations >>
+[[relations-index|Revenir à l'aide de gestion des relations ]]

@@ -19,8 +19,8 @@ fr-FR:
         less_than: '{{attribute}} doit être inférieur à {{count}}'
         less_than_or_equal_to: '{{attribute}} doit être inférieur ou égal à {{count}}'
         not_a_number: '{{attribute}} n''est pas un nombre'
-        posterior: 'La date {{attribute}} doit être postérieure à {{to}}'
         odd: '{{attribute}} doit être pair'
+        posterior: 'La date {{attribute}} doit être postérieure à {{to}}'
         taken: '{{attribute}} a déjà été pris'
         too_long: '{{attribute}} est trop long ({{count}} caractères maximum)'
         too_short: '{{attribute}} est trop court ({{count}} caractères minimum)'
@@ -28,43 +28,43 @@ fr-FR:
       models:
         bank_account:
           unvalid_bban: 'Un ou plusieurs éléments du RIB sont incorrects.'
-        journal_entry:
-          closed_entry: 'L''écriture est verrouillée. Il n''est pas possible de la modifier.'
-          empty_amounts: 'L''écriture doit être renseignée soit au débit, soit au crédit.'
         complement_datum:
-          required: "{{field}} doit être renseigné"
-          too_long: "{{field}} est trop long ({{length}} caractères)"
-          less_than: "{{field}} est trop petit ({{minimum}} minimum)"
-          greater_than: "{{field}} est trop grand ({{maximum}} maximum)"
+          greater_than: '{{field}} est trop grand ({{maximum}} maximum)'
+          less_than: '{{field}} est trop petit ({{minimum}} minimum)'
+          required: '{{field}} doit être renseigné'
+          too_long: '{{field}} est trop long ({{length}} caractères)'
         delivery_line:
           greater_than_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité non livrée ({{maximum}}{{unit}})'
         entity:
           missing_title: 'doit contenir la dénomination sociale "{{title}}"'
           nature_do_not_allow_a_first_name: 'Le type "{{nature}}" sélectionné ne permet de renseigner un prénom'
         financialyear:
-          overlap: '{{attribute}} se trouve sur un exercice existant'
           attributes:
+            started_on:
+              consecutive: 'L''exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent.'
             stopped_on:
               end_of_month: '{{attribute}} doit être un date de fin de mois'
               too_far: 'La durée de l''exercice ne doit pas excéder 12 mois'
-            started_on:
-              consecutive: 'L''exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent.'
+          overlap: '{{attribute}} se trouve sur un exercice existant'
+        journal_entry:
+          closed_entry: 'L''écriture est verrouillée. Il n''est pas possible de la modifier.'
+          empty_amounts: 'L''écriture doit être renseignée soit au débit, soit au crédit.'
         journal_record:
-          out_of_financialyear: 'La pièce doit être saisie durant l''exercice'
           closed_journal: 'Le journal est clôturé au {{on}} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu''à cette date-là.'
+          out_of_financialyear: 'La pièce doit être saisie durant l''exercice'
         payment_part:
           nothing_to_pay: 'Il n''y a rien à payer. Si vous voulez enregistrer un acompte, n''oubliez pas de le préciser.'
         price:
-          range_overlap: 'L''intervalle de quantité en chevauche un autre (de {{min}} à {{max}})'
           already_defined: 'Un prix a déjà été défini pour cette liste de prix et ce produit'
+          range_overlap: 'L''intervalle de quantité en chevauche un autre (de {{min}} à {{max}})'
         purchase_order_line:
+          location_can_not_receive_product: 'Le réservoir {{location}} ne peut pas recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}.'
           serial_already_used_with_an_other_product: '{{attribute}} a déjà été utilisé pour un autre type de produit du même fournisseur'
-          location_can_not_receive_product : 'Le réservoir {{location}} ne peut pas recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}.'
         sale_order_line:
           can_not_use_this_tracking: 'Vous ne  pouvez pas utiliser le lot {{tracking}}, la quantité commandée est supérieure à la quantité disponible'
           currency_is_not_sale_order_currency: 'La monnaie du prix du produit ne correspond pas celle définie pour la vente'
           error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
-          location_can_not_transfer_product : 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}}.'
+          location_can_not_transfer_product: 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}}.'
         stock:
           product_cannot_be_in_location: 'Le produit ne peu pas être stocké dans le réservoir {{location}}'
         stock_transfer:
@@ -73,12 +73,11 @@ fr-FR:
           location_can_not_waste_product: 'Vous ne pouvez pas enregistrer de perte pour  le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
           locations_can_not_be_identical: 'Les lieux de stockage (départ et arrivée) ne peuvent pas être identiques'
         subscription:
-          entity_must_be_the_same_as_the_contact_entity: "La relation de l'abonnement doit être la même que celle du contact"
+          entity_must_be_the_same_as_the_contact_entity: 'La relation de l''abonnement doit être la même que celle du contact'
         tax_declaration:
           declaration_date_after_period: 'Vous devez faire votre déclaration après la période considérée.'
-          overlapped_period_declaration: 'La période de déclaration ne doit pas chevaucher une autre période.'
           one_data_to_record_tax_declaration: 'Vous devez avoir au moins un montant non nul.'
-
+          overlapped_period_declaration: 'La période de déclaration ne doit pas chevaucher une autre période.'
       template:
         body: 'Il y a eu des problèmes avec les champs suivants :'
         header:
@@ -414,6 +413,7 @@ fr-FR:
         creator: 'Créateur'
         creator_id: 'Créateur'
         currencies: 'Devises'
+        current_financialyear: (((CURRENT_FINANCIALYEAR)))
         delays: 'Délais'
         deleted: 'Effacé'
         deliveries: 'Livraisons'
@@ -2531,10 +2531,10 @@ fr-FR:
         id: 'ID'
         language: 'Langue'
         language_id: 'Langue'
-        last_name: 'Nom'
+        last_name: 'Nom de famille'
         lock_version: 'Version'
         locked: 'Compte verrouillé'
-        name: 'Nom'
+        name: 'Nom d''utilisateur'
         office: 'Bureau/Atelier'
         old_password: 'Mot de passe actuel'
         operations: 'Travaux'

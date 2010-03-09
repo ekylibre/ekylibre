@@ -1,8 +1,8 @@
-h1. Comment consulter la liste des achats?
+====== Comment consulter la liste des achats? ======
 
-* La liste des achats répertorie tous les achats effectués a vos différents fournisseurs.
-* Le numéro est celui de l'achat et est un lien vous redirigeant vers le récapitulatif de la commande vous permettant de la consulter et éventuellement de la modifier.
-* Le nom du fournisseur est un lien vous redirigeant vers la fiche fournisseur considérée.
+  * La liste des achats répertorie tous les achats effectués a vos différents fournisseurs.
+  * Le numéro est celui de l'achat et est un lien vous redirigeant vers le récapitulatif de la commande vous permettant de la consulter et éventuellement de la modifier.
+  * Le nom du fournisseur est un lien vous redirigeant vers la fiche fournisseur considérée.
 
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

@@ -1,10 +1,10 @@
-h1. Les transports
+====== Les transports ======
 
-*Un transport est une livraison groupée effectuée grâce à un transporteur.*
+**Un transport est une livraison groupée effectuée grâce à un transporteur.**
 
 Vous pouvez définir vos transporteurs de la même manière qu'un client, en veillant à cocher l'option "transporteur" dans le formulaire.
 
-*Un transport regroupe une ou plusieurs livraisons* et permet d'établir le bordereau de préparation de commande ansi que le bordereau de remise de commande à délivrer au transporteur.
+**Un transport regroupe une ou plusieurs livraisons** et permet d'établir le bordereau de préparation de commande ansi que le bordereau de remise de commande à délivrer au transporteur.
 
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

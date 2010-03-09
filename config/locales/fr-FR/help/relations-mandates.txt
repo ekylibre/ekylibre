@@ -1,8 +1,8 @@
-h1. Les responsabilités 
+====== Les responsabilités  ======
 
-h2. La recherche d'une responsabilité
+===== La recherche d'une responsabilité =====
 La barre de recherche vous permet de **filtrer les responsabilités aussi bien par organisation que par date**.
 Dans le cas de la date, la recherche s'effectue sur l'ensemble des responsabilités dont l'intervalle de période encadre celle-ci. 
 
-h2. L'ajout d'une responsabilité
-Pour  <<relations-entity|ajouter>> une responsabilité, vous devez passer par la fiche entité.
+===== L'ajout d'une responsabilité =====
+Pour  [[relations-entity|ajouter]] une responsabilité, vous devez passer par la fiche entité.

@@ -1,5 +1,5 @@
-h1. Délai
+====== Délai ======
 
 L'affichage d'un délai récapitule les différentes informations liées à ce délai.
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

@@ -1,6 +1,6 @@
-h1. Modification d'une extraction
+====== Modification d'une extraction ======
 
 Pour modifier une extraction, il vous suffit de renseigner les différents champs qui vous sont demandés. 
-La requête doit être saisie en respectant *le format SQL*.
-Si vous ne précisez aucune requête, l'extraction se fera sur *l'ensemble des données de la table choisie* sans filtre de
+La requête doit être saisie en respectant **le format SQL**.
+Si vous ne précisez aucune requête, l'extraction se fera sur **l'ensemble des données de la table choisie** sans filtre de
 sélection.

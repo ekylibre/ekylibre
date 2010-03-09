@@ -1,15 +1,15 @@
-h1. Comment gérer les types de fiche ?
+====== Comment gérer les types de fiche ? ======
 Les types de fiches vous permettent d'attribuer un type à votre client ou fournisseur lors de sa création ou de sa modification.
 
 Vous disposez de 3 types prédéfinis auxquels vous pouvez ajouter les types de votre choix.
 
 
 Vous pouvez également : 
-* créer un nouveau type de fiche
-* le modifier : <<relations-entities_natures_update|{{buttons/update.png|modifier}}>> 
-* le supprimer : {{buttons/delete.png|supprimer}}
+  * créer un nouveau type de fiche
+  * le modifier : [[relations-entities_natures_update|{{template:buttons/update.png|modifier}}]] 
+  * le supprimer : {{template:buttons/delete.png|supprimer}}
 
 
 
 
-<<relations-index|Revenir à l'aide de gestion des relations >>
+[[relations-index|Revenir à l'aide de gestion des relations ]]

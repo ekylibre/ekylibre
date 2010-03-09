@@ -1,3 +1,3 @@
-h1. Comment crééer un nouveau service ?
+====== Comment crééer un nouveau service ? ======
 
 Pour créer une nouveau service, il vous suffit de renseigner les différents paramètres qui vous sont demandés. Certains sont obligatoires (encadrés en bleu) et d'autres sont facultatifs (encadrés en gris). La création ne s'effectue uniquement que si tous les champs obligatoires ont été correctement renseignés.

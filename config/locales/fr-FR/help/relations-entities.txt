@@ -1,23 +1,23 @@
-h1. Comment gérer ses fiches de relations ?
+====== Comment gérer ses fiches de relations ? ======
 
-h2. La recherche d'une fiche
-La barre de recherche d'une fiche vous permet de trouver des fiches client ou fournisseur. Cette recherche s'effectue sur *tous les champs*, c'est à dire sur toutes les informations concernant la fiche. 
+===== La recherche d'une fiche =====
+La barre de recherche d'une fiche vous permet de trouver des fiches client ou fournisseur. Cette recherche s'effectue sur **tous les champs**, c'est à dire sur toutes les informations concernant la fiche. 
 
 Vous pouvez saisir dans le champ de recherche tout ou seulement une partie d'un mot.
 
-h2. L'affichage des fiches
+===== L'affichage des fiches =====
 Une fois votre recherche effectuée, vous avez accès à un tableau vous récapitulant toutes les informations concernant la ou les fiches trouvées.
 
 La liste des colonnes du tableau n'est actuellement pas paramétrable.
 
 Vous pouvez :
-* créer une nouvelle fiche  
-* l'afficher :  <<relations-entities_display|{{buttons/show.png|afficher}}>>
-* la modifier : <<relations-entities_update|{{buttons/update.png|modifier}}>> 
-* la supprimer : {{buttons/delete.png|supprimer}}
+  * créer une nouvelle fiche  
+  * l'afficher :  [[relations-entities_display|{{template:buttons/show.png|afficher}}]]
+  * la modifier : [[relations-entities_update|{{template:buttons/update.png|modifier}}]] 
+  * la supprimer : {{template:buttons/delete.png|supprimer}}
 
-h2. Import Export CSV
-* *Exporter vos fiches* au format csv vous permet d'enregistrer un fichier csv au <<relations-entities_import|format ekylibre>>, rassemblant l'ensemble de vos fiches clients fournisseurs et leurs informations. Vous pouvez ensuite *travailler sur ce fichier en modifiant ou en ajoutant des fiches* clients fournisseurs. Pour *répercuter dans le logiciel ces changements*, vous n'avez plus qu'à *<<relations-entities_import|importer>> votre fichier* csv modifié.
+===== Import Export CSV =====
+  * **Exporter vos fiches** au format csv vous permet d'enregistrer un fichier csv au [[relations-entities_import|format ekylibre]], rassemblant l'ensemble de vos fiches clients fournisseurs et leurs informations. Vous pouvez ensuite **travailler sur ce fichier en modifiant ou en ajoutant des fiches** clients fournisseurs. Pour **répercuter dans le logiciel ces changements**, vous n'avez plus qu'à **[[relations-entities_import|importer]] votre fichier** csv modifié.
 
    
-<<relations-index|Revenir à l'aide de gestion des relations >>
+[[relations-index|Revenir à l'aide de gestion des relations ]]

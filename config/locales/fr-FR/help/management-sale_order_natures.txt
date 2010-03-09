@@ -1,11 +1,11 @@
-h1. Types de vente
+====== Types de vente ======
 
-Les types de vente permettent de *définir des caractéristiques des vente*, telles que~: le délai d'expiration, le délai de paiement, les accomptes...
+Les types de vente permettent de **définir des caractéristiques des vente**, telles que~: le délai d'expiration, le délai de paiement, les accomptes...
 
 Vous pouvez
-* *créer* un type de vente
-* le *modifier* :  <<management-sale_order_natures_update|{{buttons/update.png|modifier}}>>  
-* le *supprimer* : {{buttons/delete.png|supprimer}}
+  * **créer** un type de vente
+  * le **modifier** :  [[management-sale_order_natures_update|{{template:buttons/update.png|modifier}}]]  
+  * le **supprimer** : {{template:buttons/delete.png|supprimer}}
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]
  

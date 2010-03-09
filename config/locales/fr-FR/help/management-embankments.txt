@@ -1,16 +1,16 @@
-h1. Remises de chèques
+====== Remises de chèques ======
 
-h2. Utilisation
+===== Utilisation =====
 
-Créer une remise de chèque consiste à *sélectionner un ou plusieurs chèques à déposer sur un compte*. Vous pourrez ensuite imprimer le *bordereau de remise de chèques* que vous pourrez envoyer, accompagnés des chèques, directement à votre banque.
+Créer une remise de chèque consiste à **sélectionner un ou plusieurs chèques à déposer sur un compte**. Vous pourrez ensuite imprimer le **bordereau de remise de chèques** que vous pourrez envoyer, accompagnés des chèques, directement à votre banque.
 
-Vous avez le récapitulatif du nombre de chèque à encaisser ainsi que des remises de chèques précédemment effectuées. Si un chèque aurait du être encaissé depuis *plus de 15 jours*, vous en serez informés au niveau du tableau de bord de la gestion commerciale. 
+Vous avez le récapitulatif du nombre de chèque à encaisser ainsi que des remises de chèques précédemment effectuées. Si un chèque aurait du être encaissé depuis **plus de 15 jours**, vous en serez informés au niveau du tableau de bord de la gestion commerciale. 
 
-h2. Validation 
+===== Validation  =====
 
-Ce tableau de bord vous permet également de *confirmer les remises de chèques* effectuées, c'est à dire que les montants enregistrés ont bien été virés sur le compte en question, ce qui permet de mettre à jour des informations telles que la comptabilité.
+Ce tableau de bord vous permet également de **confirmer les remises de chèques** effectuées, c'est à dire que les montants enregistrés ont bien été virés sur le compte en question, ce qui permet de mettre à jour des informations telles que la comptabilité.
 
 Si une remise de chèque à été validée, vous ne pouvez plus ni la modifier, ni la supprimer, ses informations sont définitivement enregistrées.
 
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

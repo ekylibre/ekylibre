@@ -1,9 +1,9 @@
-h1. L'affichage d'une catégorie de fiche
+====== L'affichage d'une catégorie de fiche ======
 
-* Vous avez accès aux *différentes informations* concernant la catégorie ainsi qu'à la grille de tarifs lui étant associée.
+  * Vous avez accès aux **différentes informations** concernant la catégorie ainsi qu'à la grille de tarifs lui étant associée.
 
-* Une *grille de tarifs* représente un *ensemble de tarifs applicables uniquement à une catégorie de clients*. Ces grilles vous permettent donc de *gérer* différents *tarifs* en *fonction de la catégorie du client*.
+  * Une **grille de tarifs** représente un **ensemble de tarifs applicables uniquement à une catégorie de clients**. Ces grilles vous permettent donc de **gérer** différents **tarifs** en **fonction de la catégorie du client**.
 
-* Vous pouvez ajouter <<relations-entity_categories_create|{{buttons/create.png|ajouter}}>> ou supprimer {{buttons/delete.png|supprimer}} des tarifs à cette catégorie.
+  * Vous pouvez ajouter [[relations-entity_categories_create|{{template:buttons/create.png|ajouter}}]] ou supprimer {{template:buttons/delete.png|supprimer}} des tarifs à cette catégorie.
 
-<<relations-index|Revenir à l'aide de gestion des relations >> 
+[[relations-index|Revenir à l'aide de gestion des relations ]] 

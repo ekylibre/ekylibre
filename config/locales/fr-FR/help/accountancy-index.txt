@@ -1,14 +1,14 @@
-h1. Comptabilité générale
+====== Comptabilité générale ======
 
-h2. Qu'est ce que la comptabilité ?
+===== Qu'est ce que la comptabilité ? =====
 La comptabilité est le recensement et la mesure économique de l'activité et du patrimoine d'une entité économique (entreprise, collectivité, association,  État, administration publique, etc.).
 
-h2. Comment gérer sa comptabilité ?
+===== Comment gérer sa comptabilité ? =====
 Vous trouverez ici les différents outils nécéssaires à la gestion de votre comptabilité :
-* les **travaux comptables**, c'est à dire les opérations comptables faites au cours de l'exercice (saisie des écritures, pointage des relevés de compte ...)
+  * les **travaux comptables**, c'est à dire les opérations comptables faites au cours de l'exercice (saisie des écritures, pointage des relevés de compte ...)
  
-* les **documents comptables** (journaux, grand livre...) retraçant sous forme mensuelle ou annuelle les activités de l'entreprise. 
+  * les **documents comptables** (journaux, grand livre...) retraçant sous forme mensuelle ou annuelle les activités de l'entreprise. 
 
-* les **paramètres** qui permettent d'enregistrer les informations de base de la comptabilité (création de comptes, journaux, exercices, comptes bancaires).
+  * les **paramètres** qui permettent d'enregistrer les informations de base de la comptabilité (création de comptes, journaux, exercices, comptes bancaires).
 
 

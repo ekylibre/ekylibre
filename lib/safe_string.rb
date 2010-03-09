@@ -174,18 +174,6 @@ class ::String
     word.squeeze!
     steps += word +" / "
     word[0..3].strip.upcase.ljust(4," ")#+":: "+steps.dump
-  end
-
-  begin
-    require_library_or_gem "redcloth" unless Object.const_defined?(:RedCloth)
-    
-    def textilize(*rules)
-      self.blank? ? "" : RedCloth.new(self, rules).to_html
-    end
-    
-  rescue LoadError
-    # We can't really help what's not there
-  end
-  
+  end  
   
 end

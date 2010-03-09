@@ -1,7 +1,7 @@
-h1. Employées
+====== Employées ======
 
-h2. Qu'est ce qu'un employé ?
+===== Qu'est ce qu'un employé ? =====
 Un employé désigne une personne rétribuée pour produire un travail au sein d’une entreprise ou d'une administration.
 
-h2. Fiches des employés
-Pour considérer un salarié comme intermédiaire commercial dans une opération de vente par-exemple, il faut avant tout <<resources-employees_create|enregistrer>> son profil. La personne ainsi créée apparaîtra dans le listing des employés ou bien, à l'issue d'une recherche par nom ou par fonction. Par la suite, il vous sera possible de modifier <<resources-employees_update|{{buttons/update.png|modifier}}>> son profil ou même de le supprimer <<resources-employees_delete|{{buttons/delete.png|supprimer}}>>.
+===== Fiches des employés =====
+Pour considérer un salarié comme intermédiaire commercial dans une opération de vente par-exemple, il faut avant tout [[resources-employees_create|enregistrer]] son profil. La personne ainsi créée apparaîtra dans le listing des employés ou bien, à l'issue d'une recherche par nom ou par fonction. Par la suite, il vous sera possible de modifier [[resources-employees_update|{{template:buttons/update.png|modifier}}]] son profil ou même de le supprimer [[resources-employees_delete|{{template:buttons/delete.png|supprimer}}]].

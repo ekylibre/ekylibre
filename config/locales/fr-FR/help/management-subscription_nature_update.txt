@@ -1,7 +1,7 @@
-h1. Comment modifier un type d'abonnement ?
+====== Comment modifier un type d'abonnement ? ======
 
 Vous ne pouvez modifier que le nom et le commentaire
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>	
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]	
 
 

@@ -1,6 +1,6 @@
-h1. Comment gérer les quantités utilisées?
+====== Comment gérer les quantités utilisées? ======
 
-Vous avez un récapitulatif des composants du produit, ainsi que la *quantité utilisée pour produire le composé*.
-Si vous possédez plusieurs lieux de stockage, vérifiez que le produit a bien été prélevé dans le *lieu de stockage* indiqué et en *quantité correspondante*. Dans le cas contraire, corrigez ces valeurs afin d'assurer une *gestion des stocks cohérente*.
+Vous avez un récapitulatif des composants du produit, ainsi que la **quantité utilisée pour produire le composé**.
+Si vous possédez plusieurs lieux de stockage, vérifiez que le produit a bien été prélevé dans le **lieu de stockage** indiqué et en **quantité correspondante**. Dans le cas contraire, corrigez ces valeurs afin d'assurer une **gestion des stocks cohérente**.
 
-<<production-index|Retour à l'aide sur la Gestion de la production>>
+[[production-index|Retour à l'aide sur la Gestion de la production]]

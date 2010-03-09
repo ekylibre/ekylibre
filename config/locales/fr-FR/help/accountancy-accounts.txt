@@ -1,11 +1,11 @@
-h1. Comptes comptables
+====== Comptes comptables ======
 
-h2. Qu'est-ce qu'un compte comptable~?
+===== Qu'est-ce qu'un compte comptable~? =====
 Il s'agit d'un compte (bancaire ou autres ...) dans lequel sont enregistrés les évènements économiques et 
 financiers de l'entreprise. Un compte comptable est défini par un numéro et un intitulé en conformité avec le plan comptable général.
 
-h2. Gestion d'un compte comptable 
-Pour utiliser un compte comptable (durant la <<accountancy-entries|Gestion des écritures>> par-exemple), commencer par le <<accountancy-accounts_create|créer>>. Le compte créé apparaîtra dans le tableau des comptes. Par la suite, il vous sera possible de le <<accountancy-accounts_update|modifier>>{{buttons/update.png|modifier}} ou même de le <<accountancy-accounts_delete|supprimer{{buttons/delete.png|supprimer}}>>, sous condition qu'il n'existe aucune écriture relative à ce compte.
+===== Gestion d'un compte comptable  =====
+Pour utiliser un compte comptable (durant la [[accountancy-entries|Gestion des écritures]] par-exemple), commencer par le [[accountancy-accounts_create|créer]]. Le compte créé apparaîtra dans le tableau des comptes. Par la suite, il vous sera possible de le [[accountancy-accounts_update|modifier]]{{template:buttons/update.png|modifier}} ou même de le [[accountancy-accounts_delete|supprimer{{template:buttons/delete.png|supprimer}}]], sous condition qu'il n'existe aucune écriture relative à ce compte.
 
-h2. Suppression de comptes comptables 
-*ATTENTION* : Actuellement, la suppression d'un compte qui possède des sous-comptes entraîne une erreur. 
+===== Suppression de comptes comptables  =====
+**ATTENTION** : Actuellement, la suppression d'un compte qui possède des sous-comptes entraîne une erreur. 

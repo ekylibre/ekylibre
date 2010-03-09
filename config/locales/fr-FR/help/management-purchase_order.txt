@@ -1,5 +1,5 @@
-h1. Comment consulter un achat ?
+====== Comment consulter un achat ? ======
 
-Cette vue répertorie les *informations générales* (fournisseur, adresse de livraison,...), les différents *produits* commandés et les *règlements* associés à l'achat.
+Cette vue répertorie les **informations générales** (fournisseur, adresse de livraison,...), les différents **produits** commandés et les **règlements** associés à l'achat.
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

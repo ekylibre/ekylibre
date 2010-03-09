@@ -1,2 +1,2 @@
-h1. Comment supprimer une zone administrative
+====== Comment supprimer une zone administrative ======
 Après avoir cliqué sur **la croix**, une boîte de dialogue apparaît vous permettant de confirmer la suppression de la zone administrative.

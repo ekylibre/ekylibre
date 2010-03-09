@@ -1,4 +1,4 @@
-h1. Liste des établissements
+====== Liste des établissements ======
 
 Vous avez accés aux différentes informations relatives à tous les établissements rattachés à votre société.
 

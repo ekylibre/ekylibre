@@ -1,7 +1,7 @@
-h1. Le matériel
+====== Le matériel ======
 
-Vous avez le récapitulatif de tout *le matériel de production* que vous avez enregistré.
+Vous avez le récapitulatif de tout **le matériel de production** que vous avez enregistré.
 
-Vous avez la possibilité d'accéder au *détail* d'un matériel (temps d'utilisation, usages...) en cliquant sur son nom.
+Vous avez la possibilité d'accéder au **détail** d'un matériel (temps d'utilisation, usages...) en cliquant sur son nom.
 
-<<production-index|Retour à l'aide sur la Gestion de la production>>
+[[production-index|Retour à l'aide sur la Gestion de la production]]

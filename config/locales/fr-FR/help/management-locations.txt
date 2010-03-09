@@ -1,13 +1,13 @@
-h1. Comment gérer ses stocks ?
+====== Comment gérer ses stocks ? ======
 
-Vous avez accès au récapitulatif de certaines informations concernant vos lieux de stockage. *Un réservoir est un lieu de stockage ne pouvant contenir qu'un seul produit à la fois* (ex: une cuve de carburant, de vin)
+Vous avez accès au récapitulatif de certaines informations concernant vos lieux de stockage. **Un réservoir est un lieu de stockage ne pouvant contenir qu'un seul produit à la fois** (ex: une cuve de carburant, de vin)
 
-L'affichage <<management-stocks_locations_display|{{buttons/show.png|afficher}}>>  d'un lieu de stockage/réservoir permet de consulter les mouvements de stocks.Les *mouvements de stocks* permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks  permettant de connaître de façon constante, en cours d'exercice, les existants chiffrés en quantités et en valeur.
+L'affichage [[management-stocks_locations_display|{{template:buttons/show.png|afficher}}]]  d'un lieu de stockage/réservoir permet de consulter les mouvements de stocks.Les **mouvements de stocks** permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks  permettant de connaître de façon constante, en cours d'exercice, les existants chiffrés en quantités et en valeur.
 
 Vous pouvez également : 
-* ajouter un lieu de stockage 
-* le modifier : <<management-stocks_move__update|{{buttons/update.png|modifier}}>> 
-* le supprimer : {{buttons/delete.png|supprimer}}
+  * ajouter un lieu de stockage 
+  * le modifier : [[management-stocks_move__update|{{template:buttons/update.png|modifier}}]] 
+  * le supprimer : {{template:buttons/delete.png|supprimer}}
 
 
-<<management-index|Retour à l'aide sur la Gestion Commerciale>>
+[[management-index|Retour à l'aide sur la Gestion Commerciale]]

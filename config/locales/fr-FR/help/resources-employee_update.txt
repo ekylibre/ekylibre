@@ -1,2 +1,2 @@
-h1. Comment modifier un employé
+====== Comment modifier un employé ======
 Modifier le profil de la personne en renseignant bien son identité, sa profession et fonction dans l'entreprise, si elle exerce ou non une activité commerciale, son identifiant de connexion.

@@ -342,7 +342,7 @@ namespace :clean do
 
   desc "Update and sort translation files"
   task :locales => :environment do
-    classicals = {'fr-FR'=>{:company_id=>'Société', :company=>'Société', :id=>'ID', :lock_version=>'Version', :updated_at=>'Mis à jour le', :updater_id=>'Modificateur', :updater=>'Modificateur', :created_at=>'Créé le', :creator_id=>'Créateur', :creator=>'Créateur', :comment=>'Commentaire', :position=>'Position', :name=>'Nom', :parent_id=>'Parent', :parent=>'Parent' } }
+    classicals = {'fr-FR'=>{:company_id=>'Société', :company=>'Société', :id=>'ID', :lock_version=>'Version', :updated_at=>'Mis à jour le', :updater_id=>'Modificateur', :updater=>'Modificateur', :created_at=>'Créé le', :creator_id=>'Créateur', :creator=>'Créateur', :comment=>'Commentaire', :position=>'Position', :parent_id=>'Parent', :parent=>'Parent' } }
     models = Dir["#{RAILS_ROOT}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
     models_names = ''
     plurals_names = ''

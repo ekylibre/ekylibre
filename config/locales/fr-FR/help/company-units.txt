@@ -1,4 +1,4 @@
-h1. Unités de mesure
+====== Unités de mesure ======
 
 Elles sont dans les différents modules de l'application. Elles se basent sur le **Système International**. 
 

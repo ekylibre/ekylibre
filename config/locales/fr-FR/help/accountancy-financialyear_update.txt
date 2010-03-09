@@ -1,4 +1,4 @@
-h1. Comment modifier un exercice comptable ?
+====== Comment modifier un exercice comptable ? ======
 Remplisser le formulaire de modification de l'exercice en renseignant bien tous les champs. Pour les dates, vous pouvez aussi bien les saisir à la main ou sélectionner la date dans un mini-calendrier à l'aide du petit icône situé à côté des champs correspondants.
 
 
