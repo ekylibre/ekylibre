@@ -154,6 +154,7 @@ class ApplicationController < ActionController::Base
   end
   
   def authorize()
+
     
     response.headers["Last-Modified"] = Time.now.httpdate
     response.headers["Expires"] = '0'
@@ -193,6 +194,9 @@ class ApplicationController < ActionController::Base
     end
     @current_company = @current_user.company
     # User.stamper = @current_user
+
+    # TODO: Dynamic template choosing
+    @current_template = "tekyla"
 
     # Check rights before allowing access
     message = @current_user.authorization(session[:rights], controller_name, action_name)

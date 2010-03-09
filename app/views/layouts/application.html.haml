@@ -5,10 +5,9 @@
     %meta{'http-equiv' => 'Content-Type', :content => 'text/html;charset=UTF-8'}
     %link{:rel=>"icon", :type=>"image/png", :href=>image_path("favicon.png")}
     %title=(@current_company ? @current_company.code : 'Ekylibre')+' - '+t("controllers.#{controller.controller_name.to_s}.title")+' - '+t("views.#{controller.controller_name}.#{action_name}.title", @title||{})
-    = stylesheet_link_tag 'application', 'dyta', 'dyta-colors'
-    = stylesheet_link_tag 'print', :media=>'print'
-    = calendar_link_tag
-    = javascript_include_tag :defaults
+    =template_link_tag(@current_template)
+    =calendar_link_tag
+    =javascript_include_tag :defaults
   %body{:id=>:body, :orient=>:vertical, :onload=>"resize();", :onresize=>'resize();'}
     = top_tag
     #columns{:orient=>:horizontal, :flex=>1}

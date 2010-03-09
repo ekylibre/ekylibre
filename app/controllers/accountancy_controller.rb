@@ -425,7 +425,7 @@ class AccountancyController < ApplicationController
   # render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:key=>params[:id])
   #end
   
-  dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}, :order=>:started_on) do |t|
+  dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on DESC") do |t|
     t.column :code, :url=>{:action=>:financialyear}
     t.column :closed
     t.column :started_on,:url=>{:action=>:financialyear}

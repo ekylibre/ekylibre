@@ -120,6 +120,8 @@ class Company < ActiveRecord::Base
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
   has_many :embankable_payments, :class_name=>Payment.name, :conditions=>{:embankment_id=>nil}
 
+  has_one :current_financialyear, :class_name=>Financialyear.name, :conditions=>{:closed=>false}
+
   attr_readonly :code
 
   require "#{RAILS_ROOT}/lib/models" unless defined?(EKYLIBRE_MODELS)

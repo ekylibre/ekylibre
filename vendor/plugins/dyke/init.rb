@@ -7,6 +7,7 @@ ActionController::Base.send(:include, ActionView::Helpers::AssetTagHelper)
 ActionController::Base.send(:include, ActionView::Helpers::TextHelper)
 ActionController::Base.send(:include, ActionView::Helpers::TagHelper)
 ActionController::Base.send(:include, ActionView::Helpers::UrlHelper)
+ActionController::Base.send(:include, ActionView::Helpers::NumberHelper)
 ActionController::Base.send(:include, WillPaginate::ViewHelpers) if Ekylibre::Dyke::Dyta.will_paginate
 
 # Initialization of the feature Dyta.

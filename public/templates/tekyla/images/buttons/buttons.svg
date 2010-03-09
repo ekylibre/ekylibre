@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,7 +14,7 @@
    height="16"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.47pre4 r22446"
    version="1.0"
    inkscape:export-filename="/home/brice/pygmalion/projets/images/boutons24.png"
    inkscape:export-xdpi="90"
@@ -22,6 +23,17 @@
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs4">
+    <linearGradient
+       id="linearGradient4477">
+      <stop
+         id="stop4479"
+         offset="0"
+         style="stop-color:#6f82d1;stop-opacity:1;" />
+      <stop
+         id="stop4481"
+         offset="1"
+         style="stop-color:#b9c6f2;stop-opacity:1;" />
+    </linearGradient>
     <linearGradient
        id="linearGradient4155">
       <stop
@@ -4649,7 +4661,7 @@
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient3856"
+       xlink:href="#linearGradient4477"
        id="linearGradient4035"
        x1="291.5625"
        y1="31.3125"
@@ -4679,12 +4691,12 @@
     </filter>
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient4002"
+       xlink:href="#linearGradient3772"
        id="linearGradient4191"
-       x1="287.1875"
-       y1="18.375"
-       x2="291.9375"
-       y2="18.375"
+       x1="288.78125"
+       y1="19.15625"
+       x2="290.78125"
+       y2="17.03125"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
@@ -4705,7 +4717,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="275.9826"
+     inkscape:cx="266.7951"
      inkscape:cy="-2.939453"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -4714,10 +4726,10 @@
      inkscape:showpageshadow="false"
      gridtolerance="0.4px"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1679"
-     inkscape:window-height="1003"
+     inkscape:window-width="1434"
+     inkscape:window-height="826"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="25"
      inkscape:window-maximized="0">
     <sodipodi:guide
        orientation="vertical"
@@ -4880,7 +4892,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
       <cc:Work
          rdf:about="">
@@ -6665,16 +6677,17 @@
        inkscape:export-ydpi="90" />
     <path
        style="opacity:0.42019546000000002;fill:url(#linearGradient4203);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 285.625 16.71875 L 285.625 18.0625 L 283.9375 18.0625 L 283.9375 16.75 L 282.9375 16.75 L 282.9375 18.0625 L 280 18.0625 L 280 19.0625 L 282.9375 19.0625 L 282.9375 20.0625 L 280 20.0625 L 280 21.0625 L 282.9375 21.0625 L 282.9375 22.0625 L 280 22.0625 L 280 23.0625 L 282.9375 23.0625 L 282.9375 24.0625 L 280 24.0625 L 280 25.0625 L 282.9375 25.0625 L 282.9375 26.0625 L 280 26.0625 L 280 27.0625 L 282.9375 27.0625 L 282.9375 28.0625 L 280 28.0625 L 280 29.0625 L 282.9375 29.0625 L 282.9375 31.1875 L 283.9375 31.1875 L 283.9375 29.0625 L 285.625 29.0625 L 285.625 31.15625 L 286.625 31.15625 L 286.625 29.0625 L 291.9375 29.0625 L 291.9375 28.0625 L 286.625 28.0625 L 286.625 27.0625 L 291.9375 27.0625 L 291.9375 26.0625 L 286.625 26.0625 L 286.625 25.0625 L 291.9375 25.0625 L 291.9375 24.0625 L 286.625 24.0625 L 286.625 23.0625 L 291.9375 23.0625 L 291.9375 22.0625 L 286.625 22.0625 L 286.625 21.0625 L 291.9375 21.0625 L 291.9375 20.0625 L 286.625 20.0625 L 286.625 19.0625 L 289.9375 19.0625 L 289.9375 18.0625 L 286.625 18.0625 L 286.625 16.71875 L 285.625 16.71875 z M 283.9375 19.0625 L 285.625 19.0625 L 285.625 20.0625 L 283.9375 20.0625 L 283.9375 19.0625 z M 283.9375 21.0625 L 285.625 21.0625 L 285.625 22.0625 L 283.9375 22.0625 L 283.9375 21.0625 z M 283.9375 23.0625 L 285.625 23.0625 L 285.625 24.0625 L 283.9375 24.0625 L 283.9375 23.0625 z M 283.9375 25.0625 L 285.625 25.0625 L 285.625 26.0625 L 283.9375 26.0625 L 283.9375 25.0625 z M 283.9375 27.0625 L 285.625 27.0625 L 285.625 28.0625 L 283.9375 28.0625 L 283.9375 27.0625 z "
-       id="path4046" />
+       d="m 287,18.0625 -2,0 -1,0 -2.0625,0 0,1 2.0625,0 0,1 -2.0625,0 0,1 2.0625,0 0,1 -2.0625,0 0,1 2.0625,0 0,1 -2.0625,0 0,1 2.0625,0 0,1 -2.0625,0 0,1 2.0625,0 0,1 -2.0625,0 0,1 2.0625,0 0,0.9375 1,0 0,-0.9375 2,0 0,0.90625 1,0 0,-0.90625 2.0625,0 0,-1 -2.0625,0 0,-1 2.0625,0 0,-1 -2.0625,0 0,-1 2.0625,0 0,-1 -2.0625,0 0,-1 2.0625,0 0,-1 -2.0625,0 0,-1 2.0625,0 0,-1 -2.0625,0 0,-1 2.0625,0 0,-1 -2.0625,0 -1,0 z m -2,1 2,0 0,1 -2,0 0,-1 z m 0,2 2,0 0,1 -2,0 0,-1 z m 0,2 2,0 0,1 -2,0 0,-1 z m 0,2 2,0 0,1 -2,0 0,-1 z m 0,2 2,0 0,1 -2,0 0,-1 z"
+       id="path4046"
+       sodipodi:nodetypes="cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" />
     <path
-       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1;filter:url(#filter4180)"
-       d="M 287.25,16.875 L 287.1875,20.625 L 290.6875,20.6875 L 287.25,16.875 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1;filter:url(#filter4180);opacity:0.41891892"
+       d="m 287.9375,16 c -1.33449,1.138362 -2.01419,2.101183 -1.5625,6 3.3102,0.01426 4.90977,-0.331116 5.0625,-1.8125 L 287.9375,16 z"
        id="path4174"
        sodipodi:nodetypes="cccc" />
     <path
        style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient4191);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1;opacity:1"
-       d="M 287.5625,16.5 L 287.9375,19.9375 L 291.5,20.3125 L 287.5625,16.5 z"
+       d="m 288.5,16.5 0,3 3,0 -3,-3 z"
        id="path4172"
        sodipodi:nodetypes="cccc" />
   </g>

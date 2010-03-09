@@ -239,23 +239,6 @@ module Ekylibre
 
           end
 
-          def value_image(value)
-            value = :unknown if value.blank?
-            if value.is_a? Symbol
-              "image_tag('buttons/"+value.to_s+".png', :border=>0, :alt=>t('"+value.to_s+"'))"
-            elsif value.is_a? String
-              image = "image_tag('buttons/'+"+value.to_s+"+'.png', :border=>0, :alt=>t("+value.to_s+"))"
-              "("+value+".nil? ? '' : "+image+")"
-            else
-              ''
-            end
-          end
-
-          def value_image2(value=nil, dir='buttons')
-            "image_tag('"+dir.to_s+"/'+("+value.to_s+"||:false).to_s+'.png', :border=>0, :alt=>t(("+value.to_s+"||:false).to_s))"
-          end
-          
-          
           def columns_to_td(definition, nature, options={})
             columns = definition.columns
             code = ''
@@ -284,8 +267,7 @@ module Ekylibre
                   if nature!=:children or (not column.options[:children].is_a? FalseClass and nature==:children)
                     datum = column.data(record, nature==:children)
                     if column.datatype == :boolean
-                      datum = value_image2(datum)
-                      style += 'text-align:center;'
+                      datum = "content_tag(:div, '', :class=>'checkbox-'+("+datum.to_s+"||false).to_s)"
                     end
                     if [:date, :datetime, :timestamp].include? column.datatype
                       datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
@@ -297,9 +279,8 @@ module Ekylibre
                     datum = "("+datum+".blank? ? '' : link_to("+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id}))))'
                       css_class += ' url'
                     elsif column.options[:mode] == :download# and !datum.nil?
-                      datum = "("+datum+".blank? ? '' : link_to("+value_image(:download)+", url_for_file_column("+record+",'#{column.name}')))"
-                      style += 'text-align:center;'
-                      # css_class += ' act'
+                      datum = "("+datum+".blank? ? '' : link_to(tg('download'), url_for_file_column("+record+",'#{column.name}')))"
+                      css_class += ' download'
                     elsif column.options[:mode]||column.name == :email
                       # datum = 'link_to('+datum+', "mailto:#{'+datum+'}")'
                       datum = "("+datum+".blank? ? '' : link_to("+datum+", \"mailto:\#\{"+datum+"\}\"))"
@@ -311,7 +292,7 @@ module Ekylibre
                       css_class += ' color'
                       style += "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
                     elsif column.name==:country and  column.datatype == :string and column.limit <= 8
-                      datum = "(#{datum}.nil? ? '' : '<nobr>'+#{value_image2(datum,'countries')}+'&nbsp;'+::I18n.translate('countries.'+#{datum}))+'</nobr>'"
+                      datum = "(#{datum}.nil? ? '' : '<nobr>'+image_tag('countries/'+#{datum}.to_s+'.png')+'&nbsp;'+::I18n.translate('countries.'+#{datum}))+'</nobr>'"
                     elsif column.datatype == :string
                       datum = "h("+datum+")"
                     end
@@ -611,9 +592,9 @@ module Ekylibre
           link_options = link_options[1..-2]
           verb = @name.to_s.split('_')[-1]
           image_title = @options[:title]||@name.to_s.humanize
-          image_file = "buttons/"+(@options[:image]||verb).to_s+".png"
-          image_file = "buttons/unknown.png" unless File.file? "#{RAILS_ROOT}/public/images/"+image_file
-          image = "image_tag('"+image_file+"', :border=>0, :alt=>'"+image_title+"')"
+          # image_file = "buttons/"+(@options[:image]||verb).to_s+".png"
+          # image_file = "buttons/unknown.png" unless File.file? "#{RAILS_ROOT}/public/images/"+image_file
+          image = "image_tag(template_button('#{@options[:image]||verb}'), :border=>0, :alt=>'"+image_title+"')"
           format = @options[:format] ? ", :format=>'#{@options[:format]}'" : ""
           if @options[:remote] 
             remote_options = @options.dup
@@ -632,7 +613,7 @@ module Ekylibre
             cases = []
             for a in @options[:actions]
               v = a[1][:action].to_s.split('_')[-1]
-              cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag('buttons/"+v+".png', :border=>0, :alt=>'"+a[0].to_s+"')"+
+              cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag(template_button('#{v}'), :border=>0, :alt=>'"+a[0].to_s+"')"+
                 ", {"+(a[1][:controller] ? ':controller=>:'+a[1][:controller].to_s+', ' : '')+":action=>'"+a[1][:action].to_s+"', :id=>"+record+".id"+format+"}"+
                 ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :alt=>::I18n.t('general.#{v}'), :title=>::I18n.t('general.#{v}')}"+
                 ")\n"

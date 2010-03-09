@@ -230,7 +230,7 @@ module ApplicationHelper
       value_class += ' code' if attribute.to_s == "code"
     end
     if [TrueClass, FalseClass].include? value.class
-      value = image_tag('buttons/checkbox_'+value.to_s+'.png')
+      value = content_tag(:div, "", :class=>"checkbox-#{value}")
     end
 
     value = link_to(value.to_s, options[:url]) if options[:url]
@@ -243,6 +243,27 @@ module ApplicationHelper
   def last_page(controller)
     session[:last_page][controller]||url_for(:controller=>controller, :action=>:index)
   end
+
+
+  # Permits to use templates for Ekylibre
+  #  stylesheet_link_tag 'application', 'dyta', 'dyta-colors'
+  #  stylesheet_link_tag 'print', :media=>'print'
+  def template_link_tag(name='tekyla')
+    code = ""
+    for sheet, media in ["screen", "print", "dyta", "dyta-colors"]
+      media = (sheet == "print" ? :print : :screen)
+      if File.exists?("#{RAILS_ROOT}/public/templates/#{name}/#{sheet}.css")
+        code += stylesheet_link_tag("/templates/#{name}/#{sheet}.css", :media=>media)
+      end
+    end
+    return code
+  end
+
+
+  def template_button(name, template='tekyla')
+    compute_public_path("#{name}.png", "templates/#{template}/images/buttons")
+  end
+
 
   def calendar_link_tag(lang='fr')
     # <script src="/red/javascripts/calendar/calendar.js" type="text/javascript"></script>
@@ -286,7 +307,7 @@ module ApplicationHelper
     code += content_tag(:div, tag, :id=>:modules, :class=>:menu)
     # Fix
     tag = ''
-    tag += image_tag('template/ajax-loader-3.gif', :id=>:loading, :style=>'display:none;')
+    tag += content_tag(:div, "", :id=>:loading, :style=>'display:none;')
     code += content_tag(:div, tag, :style=>'text-align:center;', :align=>:center, :flex=>1)
     
     # User Tag
@@ -303,23 +324,6 @@ module ApplicationHelper
     code = content_tag(:div, code, :id=>:top, :orient=>:horizontal, :flexy=>true)
     code
   end
-
-#   def modules_tag
-#     tag = ''
-#     for m in MENUS
-#       tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"),{:controller=>m[:name]})+" "
-#     end
-#     tag += image_tag('template/ajax-loader-3.gif', :id=>:loading, :style=>'display:none;')
-#   end
-
-#   def user_tag
-#     tag = ''
-#     tag += content_tag(:span, @current_user.label)+" "
-#     tag += content_tag(:span, @current_company.name)+" "
-#     tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout}, :class=>:logout)+" "
-#   end
-
-
 
 
   def side_tag(controller = self.controller.controller_name.to_sym)
