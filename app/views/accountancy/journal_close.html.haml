@@ -1,9 +1,8 @@
 - form_tag do
   =formalize do |f|
     - f.error :journal
-    - f.field :journal, :id, :choices => @journals.collect {|j| [j.name, j.id]}
-    - f.field :journal, :closed_on, :choices => @journal.closures
+    - f.title :select_closure_date
+    - f.field :journal, :closed_on, :choices => @journal.closures.collect{|d| [::I18n.l(d), d]}
   .actions
     =submit_tag(tc('close'))
-    =link_to_back
-=observe_field "journal_id", :frequency => 0.25, :url=>{:action=>:journals_records}, :update=>:journal_closed_on, :with => "'journal_select=' + escape(value)"
+    =link_to_back(:label=>:cancel)

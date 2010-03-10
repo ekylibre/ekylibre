@@ -46,6 +46,10 @@ fr-FR:
               end_of_month: '{{attribute}} doit être un date de fin de mois'
               too_far: 'La durée de l''exercice ne doit pas excéder 12 mois'
           overlap: '{{attribute}} se trouve sur un exercice existant'
+        journal:
+          attributes:
+            closed_on: 
+              end_of_month: '{{attribute}} doit correspondre à une date de fin de mois ({{closed_on}})'
         journal_entry:
           closed_entry: 'L''écriture est verrouillée. Il n''est pas possible de la modifier.'
           empty_amounts: 'L''écriture doit être renseignée soit au débit, soit au crédit.'

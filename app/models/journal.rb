@@ -61,6 +61,10 @@ class Journal < ActiveRecord::Base
     self.code = self.code[0..3]
   end
 
+  def validate
+    errors.add(:closed_on, :end_of_month) unless self.closed_on != self.closed_on.end_of_month
+  end
+
 
   # Provides a translation for the nature of the journal
   def nature_label
@@ -83,24 +87,24 @@ class Journal < ActiveRecord::Base
     return true
   end
   
+
+  def reopenable?
+    true
+  end
+
   #
   def closable?(closed_on=nil)
     closed_on ||= Date.today
+    return true if (closed_on>>1).end_of_month > self.closed_on
     return false
-#     if closed_on < self.closed_on or 
-#         self.records.sum("(debit-credit)") != 0 or 
-#         self.records.find(:all, :conditions)
-#       return false
-#     end
-#     return true
   end
 
   def closures(noticed_on=nil)
     noticed_on ||= Date.today
-    array, date = [], self.closed_on
-    while date.end_of_month < noticed_on
-      date = (date+1).end_of_month
+    array, date = [], (self.closed_on+1).end_of_month
+    while date < noticed_on
       array << date
+      date = (date+1).end_of_month
     end
     return array
   end
@@ -108,11 +112,18 @@ class Journal < ActiveRecord::Base
   # this method closes a journal.
   def close(closed_on)
     if self.closable?(closed_on)
-      self.update_attribute(:closed_on, closed_on)
-      self.records.each do |record|
-        record.close
+      errors.add(:closed_on, :end_of_month) if self.closed_on != self.closed_on.end_of_month
+      errors.add_to_base(:draft_entries) if self.entries.find(:all, :joins=>"JOIN journal_records ON (record_id=journal_records.id)", :conditions=>["draft=? AND created_on BETWEEN ? AND ? ", true, self.closed_on+1, closed_on ]).size > 0
+      return false unless errors.empty?
+      ActiveRecord::Base.transaction do
+        for record in self.records.find(:all, :conditions=>["created_on BETWEEN ? AND ? ", self.closed_on+1, closed_on])
+          record.close
+        end
+        self.update_attribute(:closed_on, closed_on)
       end
+      return true
     end
+    return false
   end
   
   # this method searches the last records according to a number.  

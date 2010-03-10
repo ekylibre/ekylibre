@@ -73,7 +73,7 @@ module ApplicationHelper
              {:name=>:statements},
              {:name=>:lettering},
              {:name=>:tax_declarations},
-             {:name=>:journal_close},
+            # {:name=>:journal_close},
              {:name=>:financialyear_close},
              {:name=>:accountize} ] },
          {:name=>:parameters, :list=>
@@ -282,13 +282,13 @@ module ApplicationHelper
     # <script type="text/javascript">//<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>
     name = object_name.to_s+'_'+method.to_s
     text_field(object_name, method, {:size=>10}.merge(options))+
-      image_tag('buttons/calendar.png', :class=>'calendar-trigger', :id=>name+'_trigger')+
+      image_tag(template_button(:calendar), :class=>'calendar-trigger', :id=>name+'_trigger')+
       javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
   end
 
   def calendar_field_tag(name, value, options={})
     text_field_tag(name, value, {:size=>10}.merge(options))+
-      image_tag('buttons/calendar.png', :class=>'calendar-trigger', :id=>name.to_s+'_trigger')+
+      image_tag(template_button(:calendar), :class=>'calendar-trigger', :id=>name.to_s+'_trigger')+
       javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
   end
 

@@ -1,19 +1,13 @@
-* {margin:0; padding:0; font-family: sans-serif;}
+* {margin:0; padding:0; font-family: Arial, sans-serif;}
 /* BLUE EKYLIBRE : #3060FF */
 html {background: #FFF;}
-fieldset { border:1px solid #DDD; padding: 4px; margin: 1px 1px 4px; }
-fieldset legend { padding: 0 2px; color: #047; }
+fieldset { border:1px solid #CCC; padding:  8px 0px 0px; margin: 1px 1px 8px; background: url(../images/columns.png) repeat-x top; }
+fieldset legend { padding: 0 4px; color: #123; margin: 0 4px;}
 fieldset nobr { margin: 0 8px; vertical-align: middle; }
 td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:focus { color:#00C; }
 a:hover { color: #000; }
-input[type="submit"] { padding: 1px 5px; }
-/*
-.stocks { padding: 5px 0 15px 0; }
-.paymentpart{ text-align:center; padding: 5px 0 5px 0; }
-.payments { text-align:center ; color:#000088;}
-.entity { text-align:right; }
-*/
+input[type="submit"] { padding: 1px 4px; }
 
 table#master  { margin-top:30px; }
 table#master > tbody > tr > td { vertical-align: top;  }
@@ -196,7 +190,8 @@ table.formalize a.fastadd { margin: 0px 8px; }
 .day_field, .month_field, .hour_field, .minute_field, .second_field { width: 2.5ex; }
 .year_field { width: 4.5ex; }
 
-.actions { text-align:center; padding:4px !important; background: #CEC; margin: 8px 0 0; }
+/*.actions { text-align:center; padding:4px !important; background: #CEC; margin: 8px 0 0; }*/
+.actions { text-align:center; padding:4px !important; background: url(../images/actions.png) repeat-y bottom; margin: 8px 0 0; }
 .actions * { margin: 0px 8px; }
 .actions a { padding: 4px; margin: 4px;}
 .actions a:link, .actions a:visited, .actions a:hover { color:#080;}

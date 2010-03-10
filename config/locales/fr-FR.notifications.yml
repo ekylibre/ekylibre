@@ -71,3 +71,4 @@ fr-FR:
     validates_old_inventories: 'Il est conseillé de supprimer ou de valider les inventaires non validés avant d''en faire un nouveau' 
     you_must_have_an_email_column: 'Vous devez avoir une colonne Email dans votre extraction' 
     you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer' 
+    journal_closed_on: 'Le {{journal}} a été clôturé au {{closed_on}} correctement.'

@@ -104,8 +104,8 @@ class JournalRecord < ActiveRecord::Base
   def close
     self.update_attribute(:closed, true)
     if self.entries.size > 0
-      self.entries.each do |entrie|
-        entrie.close
+      for entry in self.entries
+        entry.close
       end
     end
   end

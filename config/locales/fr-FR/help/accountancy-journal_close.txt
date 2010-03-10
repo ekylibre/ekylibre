@@ -1,4 +1,7 @@
-====== Comment clore un journal comptable ? ======
-Sélectionner le journal à clore ainsi que la date de clôture puis confirmer l'opération à l'aide du bouton **Clore le journal**.
+====== Comment cloturer un journal comptable ? ======
+
+Sélectionnez la date de clôture puis confirmer l'opération à l'aide du bouton **Cloturer le journal**. La clôture entraine le verrouillage de toutes les pièces et écritures comptables du journal jusqu'à la date sélectionnée.
+
+Une fois la clotûre effectuée, il est possible d'effectuer de nouvelles opérations (déclaration de TVA, cloture d'exercice...)
 
   

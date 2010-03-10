@@ -194,11 +194,14 @@ fr-FR:
         works: 'Travaux comptables'
       journal_close:
         close: 'Clôturer le journal'
-        title: 'Clôture du journal'
+        select_closure_date: Choisissez la date de clôture
+        title: 'Clôture du {{name}}'
       journal_create:
         title: 'Créer un nouveau journal'
       journal_update:
         title: 'Modifier le journal'
+      journal:
+        title: '{{name}} ({{code}})'
       journals:
         journal_create: 'Enregistrer un nouveau journal'
         title: 'Journaux'

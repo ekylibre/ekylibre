@@ -783,20 +783,27 @@ class AccountancyController < ApplicationController
 
 
   dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}, :order=>:code) do |t|
-    t.column :name
-    t.column :code
+    t.column :name, :url=>{:action=>:journal}
+    t.column :code, :url=>{:action=>:journal}
     t.column :nature_label
     t.column :name, :through=>:currency
     t.column :closed_on
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:journal}
-    t.action :journal_close, :if => 'RECORD.closable?(Date.today)'
+    t.action :journal_close, :if=>'RECORD.closable?(Date.today)'
+    t.action :journal_reopen, :if=>"RECORD.reopenable\?"
     t.action :journal_update
-    t.action :journal_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :journal_delete, :method=>:delete, :confirm=>:are_you_sure
   end
   
 
   # 
   def journals
+  end
+
+
+  def journal
+    return unless @journal = find_and_check(:journal, params[:id])
+    t3e @journal.attributes
   end
 
 
@@ -840,43 +847,20 @@ class AccountancyController < ApplicationController
 
   # This method allows to close the journal.
   def journal_close
-    @journals = []
-    
-    for journal in @current_company.journals.find(:all, :conditions=> ["closed_on < ?", Date.today]) 
-      @journals << journal if journal.closable?
-    end
-    
-    if @journals.empty?
+    return unless @journal = find_and_check(:journal, params[:id])
+    unless @journal.closable?
       notify(:no_closable_journal)
       redirect_to :action => :journals
+    end    
+    if request.post?   
+      if @journal.close(params[:journal][:closed_on].to_date)
+        notify(:journal_closed_on, :success, :closed_on=>::I18n.l(@journal.closed_on), :journal=>@journal.name)
+        redirect_to_back 
+      end
     end
-    
-    if params[:id]  
-      @journal = Journal.find_by_id_and_company_id(params[:id], @current_company.id) 
-    else
-      @journal = @current_company.journals.find(:first, :conditions=> ["closed_on < ?", Date.today.to_s]) 
-    end
-        
-    if request.post?      
-      return unless @journal = find_and_check(:journal, params[:journal][:id])
-      redirect_to_back if @journal.close(params[:journal][:closed_on])
-    else
-      
-    end
+    t3e @journal.attributes
   end
 
-  # This method allows to build the table of the periods.
-  def journals_records
-    @journals_records=[]
-    @journal = Journal.find(params[:journal_select])
-    d = @journal.closed_on
-    while d.end_of_month < Date.today
-      d=(d+1).end_of_month
-      @journals_records << d.to_s(:attributes)
-    end
-    render :text => options_for_select(@journals_records) 
-  end
-  
 
   # This method allows to make lettering for the client and supplier accounts.
   def lettering

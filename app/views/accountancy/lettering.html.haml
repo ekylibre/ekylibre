@@ -2,22 +2,22 @@
   %tr
     %td
       - form_tag do
-        =formalize do |f|
-          - f.title :lettering_account_client
-          - f.field tc(:select_account_client), select_tag("account_client_id", options_for_select(@accounts_client.collect{|a| [a.label.to_s, a.id.to_s]}) )
-          - f.field tc(:select_financialyear), select_tag("financialyear_id", options_for_select(@financialyears.collect{|f| [f.code.to_s, f.id.to_s]}) )
-        .actions
-          =submit_tag tg('apply')
-          =#link_to_back
+        %fieldset
+          %legend=tc(:lettering_account_client)
+          =formalize do |f|
+            -#f.title :lettering_account_client
+            - f.field tc(:select_account_client), select_tag("account_client_id", options_for_select(@accounts_client.collect{|a| [a.label.to_s, a.id.to_s]}) )
+            - f.field tc(:select_financialyear), select_tag("financialyear_id", options_for_select(@financialyears.collect{|f| [f.code.to_s, f.id.to_s]}) )
+          .actions=submit_tag tg('apply')
     %td{:style=>"width:4px;"}
     %td
       - form_tag do
-        =formalize do |f|
-          - f.title :lettering_account_supplier
-          - f.field tc(:select_account_supplier), select_tag("account_supplier_id", options_for_select(@accounts_supplier.collect{|a| [a.label.to_s, a.id.to_s]}) )
-          - f.field tc(:select_financialyear), select_tag("financialyear_id", options_for_select(@financialyears.collect{|f| [f.code.to_s, f.id.to_s]}) )
-        .actions
-          =submit_tag tg('apply')
-          =#link_to_back
+        %fieldset
+          %legend=tc(:lettering_account_supplier)
+          =formalize do |f|
+            -#f.title :lettering_account_supplier
+            - f.field tc(:select_account_supplier), select_tag("account_supplier_id", options_for_select(@accounts_supplier.collect{|a| [a.label.to_s, a.id.to_s]}) )
+            - f.field tc(:select_financialyear), select_tag("financialyear_id", options_for_select(@financialyears.collect{|f| [f.code.to_s, f.id.to_s]}) )
+          .actions=submit_tag tg('apply')
 
 

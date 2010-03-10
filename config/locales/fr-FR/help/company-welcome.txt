@@ -1,6 +1,6 @@
 ====== Bienvenue dans l'aide d'Ekylibre ======
 
-**Ekylibre** est un _logiciel de gestion intégrée_. Il comprend différents modules qui permettent de traiter plusieurs aspects de la gestion d'une entreprise.
+**Ekylibre** est un //logiciel de gestion intégrée//. Il comprend différents modules qui permettent de traiter plusieurs aspects de la gestion d'une entreprise.
 
 ===== Présentation de la page =====
 Vous trouverez en haut le menu principal :

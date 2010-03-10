@@ -226,9 +226,7 @@ fr-FR:
         journals:
           bank: Journal de banque
           sales: Journal des ventes
-          purchases: Journals des achats
-          purchase_orders: 'Journal d''achats'
-          sale_orders: Journal de ventes
+          purchases: Journal des achats
         location: Réserve
         paid_tax: 'TVA déductible'
         price_list_name: Tarif normal
