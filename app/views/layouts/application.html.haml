@@ -5,7 +5,7 @@
     %meta{'http-equiv' => 'Content-Type', :content => 'text/html;charset=UTF-8'}
     %link{:rel=>"icon", :type=>"image/png", :href=>image_path("favicon.png")}
     %title=(@current_company ? @current_company.code : 'Ekylibre')+' - '+t("controllers.#{controller.controller_name.to_s}.title")+' - '+t("views.#{controller.controller_name}.#{action_name}.title", @title||{})
-    =template_link_tag(@current_template)
+    =theme_link_tag(@current_theme)
     =calendar_link_tag
     =javascript_include_tag :defaults
   %body{:id=>:body, :orient=>:vertical, :onload=>"resize();", :onresize=>'resize();'}

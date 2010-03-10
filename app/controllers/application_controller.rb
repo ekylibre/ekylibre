@@ -195,8 +195,8 @@ class ApplicationController < ActionController::Base
     @current_company = @current_user.company
     # User.stamper = @current_user
 
-    # TODO: Dynamic template choosing
-    @current_template = "tekyla"
+    # TODO: Dynamic theme choosing
+    @current_theme = "tekyla"
 
     # Check rights before allowing access
     message = @current_user.authorization(session[:rights], controller_name, action_name)

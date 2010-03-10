@@ -244,24 +244,24 @@ module ApplicationHelper
   end
 
 
-  # Permits to use templates for Ekylibre
+  # Permits to use themes for Ekylibre
   #  stylesheet_link_tag 'application', 'dyta', 'dyta-colors'
   #  stylesheet_link_tag 'print', :media=>'print'
-  def template_link_tag(name=nil)
+  def theme_link_tag(name=nil)
     name ||= 'tekyla'
     code = ""
     for sheet, media in ["screen", "print", "dyta", "dyta-colors"]
       media = (sheet == "print" ? :print : :screen)
-      if File.exists?("#{RAILS_ROOT}/public/templates/#{name}/stylesheets/#{sheet}.css")
-        code += stylesheet_link_tag("/templates/#{name}/stylesheets/#{sheet}.css", :media=>media)
+      if File.exists?("#{RAILS_ROOT}/public/themes/#{name}/stylesheets/#{sheet}.css")
+        code += stylesheet_link_tag("/themes/#{name}/stylesheets/#{sheet}.css", :media=>media)
       end
     end
     return code
   end
 
 
-  def template_button(name, template='tekyla')
-    compute_public_path("#{name}.png", "templates/#{template}/images/buttons")
+  def theme_button(name, theme='tekyla')
+    compute_public_path("#{name}.png", "themes/#{theme}/images/buttons")
   end
 
 
@@ -281,13 +281,13 @@ module ApplicationHelper
     # <script type="text/javascript">//<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>
     name = object_name.to_s+'_'+method.to_s
     text_field(object_name, method, {:size=>10}.merge(options))+
-      image_tag(template_button(:calendar), :class=>'calendar-trigger', :id=>name+'_trigger')+
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name+'_trigger')+
       javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
   end
 
   def calendar_field_tag(name, value, options={})
     text_field_tag(name, value, {:size=>10}.merge(options))+
-      image_tag(template_button(:calendar), :class=>'calendar-trigger', :id=>name.to_s+'_trigger')+
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name.to_s+'_trigger')+
       javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
   end
 
@@ -393,8 +393,8 @@ module ApplicationHelper
       align = {'  '=>'center', ' x'=>'right', 'x '=>'left', 'xx'=>''}[(data[0][0..0]+data[0][-1..-1]).gsub(/[^\ ]/,'x')]
       title = data[1]||data[0].split(/[\:\\\/]+/)[-1].humanize
       src = data[0].strip
-      if src.match(/^template:/)
-        src = compute_public_path(src.split(':')[1], "templates/#{@current_template}/images") 
+      if src.match(/^theme:/)
+        src = compute_public_path(src.split(':')[1], "themes/#{@current_theme}/images") 
       else
         src = compute_public_path(src, "images") 
       end
