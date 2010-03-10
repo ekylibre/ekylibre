@@ -7,6 +7,7 @@ fra:
     administrate_relations: 'Accéder au module Relations clients/fournisseurs'
     backup_company: 'Effectuer/Recharger des sauvegardes'
     cancel_invoices: 'Faire des avoirs'
+    close_journals: (((CLOSE_JOURNALS)))
     configure_company: 'Configurer les options de la société'
     consult_entities: 'Consulter les fiches clients/fournisseurs'
     consult_entries: 'Consulter les écritures'

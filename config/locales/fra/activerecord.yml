@@ -48,7 +48,7 @@ fra:
           overlap: '{{attribute}} se trouve sur un exercice existant'
         journal:
           attributes:
-            closed_on: 
+            closed_on:
               end_of_month: '{{attribute}} doit correspondre à une date de fin de mois ({{closed_on}})'
         journal_entry:
           closed_entry: 'L''écriture est verrouillée. Il n''est pas possible de la modifier.'

@@ -88,15 +88,11 @@ class Journal < ActiveRecord::Base
   end
   
 
-  def reopenable?
-    true
-  end
-
   #
   def closable?(closed_on=nil)
     closed_on ||= Date.today
-    return true if (closed_on>>1).end_of_month > self.closed_on
-    return false
+    return false unless (closed_on << 1).end_of_month > self.closed_on
+    return true
   end
 
   def closures(noticed_on=nil)
@@ -111,21 +107,47 @@ class Journal < ActiveRecord::Base
 
   # this method closes a journal.
   def close(closed_on)
-    if self.closable?(closed_on)
-      errors.add(:closed_on, :end_of_month) if self.closed_on != self.closed_on.end_of_month
-      errors.add_to_base(:draft_entries) if self.entries.find(:all, :joins=>"JOIN journal_records ON (record_id=journal_records.id)", :conditions=>["draft=? AND created_on BETWEEN ? AND ? ", true, self.closed_on+1, closed_on ]).size > 0
-      return false unless errors.empty?
-      ActiveRecord::Base.transaction do
-        for record in self.records.find(:all, :conditions=>["created_on BETWEEN ? AND ? ", self.closed_on+1, closed_on])
-          record.close
-        end
-        self.update_attribute(:closed_on, closed_on)
+    errors.add(:closed_on, :end_of_month) if self.closed_on != self.closed_on.end_of_month
+    errors.add_to_base(:draft_entries) if self.entries.find(:all, :joins=>"JOIN journal_records ON (record_id=journal_records.id)", :conditions=>["draft=? AND created_on BETWEEN ? AND ? ", true, self.closed_on+1, closed_on ]).size > 0
+    return false unless errors.empty?
+    ActiveRecord::Base.transaction do
+      for record in self.records.find(:all, :conditions=>["created_on BETWEEN ? AND ? ", self.closed_on+1, closed_on])
+        record.close
       end
-      return true
+      self.update_attribute(:closed_on, closed_on)
     end
-    return false
+    return true
   end
-  
+
+
+  def reopenable?
+    return false unless self.reopenings.size > 0
+    return true
+  end
+
+  def reopenings
+    year = self.company.current_financialyear
+    return [] if year.nil?
+    array, date = [], year.started_on-1
+    while date < self.closed_on
+      array << date
+      date = (date+1).end_of_month
+    end
+    return array
+  end
+
+  def reopen(closed_on)
+    ActiveRecord::Base.transaction do
+      for record in self.records.find(:all, :conditions=>["created_on BETWEEN ? AND ? ", closed_on+1, self.closed_on])
+        record.reopen
+      end
+      self.update_attribute(:closed_on, closed_on)
+    end
+    return true
+  end
+
+
+
   # this method searches the last records according to a number.  
   def last_records(period, number_record=:all)
     period.records.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_record)

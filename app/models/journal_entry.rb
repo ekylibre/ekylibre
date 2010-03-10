@@ -114,6 +114,10 @@ class JournalEntry < ActiveRecord::Base
     self.update_attribute(:editable, false)
   end
   
+  def reopen
+    self.update_attribute(:editable, true)
+  end
+  
   # this method allows to verify if the entry is lettered or not.
   def letter?
     return (not self.letter.blank?)

@@ -110,6 +110,15 @@ class JournalRecord < ActiveRecord::Base
     end
   end
 
+  def reopen
+    if self.entries.size > 0
+      for entry in self.entries
+        entry.reopen
+      end
+    end    
+    self.update_attribute(:closed, false)
+  end
+
   
   #this method tests if all the entries matching to the record does not edited in draft mode.
   def normalized

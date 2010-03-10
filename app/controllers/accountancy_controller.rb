@@ -789,8 +789,8 @@ class AccountancyController < ApplicationController
     t.column :name, :through=>:currency
     t.column :closed_on
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:journal}
-    t.action :journal_close, :if=>'RECORD.closable?(Date.today)'
-    t.action :journal_reopen, :if=>"RECORD.reopenable\?"
+    t.action :journal_close, :if=>'RECORD.closable?(Date.today)', :image=>:unlock
+    t.action :journal_reopen, :if=>"RECORD.reopenable\?", :image=>:lock
     t.action :journal_update
     t.action :journal_delete, :method=>:delete, :confirm=>:are_you_sure
   end
@@ -851,6 +851,7 @@ class AccountancyController < ApplicationController
     unless @journal.closable?
       notify(:no_closable_journal)
       redirect_to :action => :journals
+      return
     end    
     if request.post?   
       if @journal.close(params[:journal][:closed_on].to_date)
@@ -860,6 +861,24 @@ class AccountancyController < ApplicationController
     end
     t3e @journal.attributes
   end
+
+  
+  def journal_reopen
+    return unless @journal = find_and_check(:journal, params[:id])
+    unless @journal.reopenable?
+      notify(:no_reopenable_journal)
+      redirect_to :action => :journals
+      return
+    end    
+    if request.post?
+      if @journal.reopen(params[:journal][:closed_on].to_date)
+        notify(:journal_reopened_on, :success, :closed_on=>::I18n.l(@journal.closed_on), :journal=>@journal.name)
+        redirect_to_back 
+      end
+    end
+    t3e @journal.attributes    
+  end
+  
 
 
   # This method allows to make lettering for the client and supplier accounts.

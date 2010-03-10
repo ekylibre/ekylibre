@@ -70,15 +70,14 @@ module ApplicationHelper
      {:name=>:accountancy, :list=>
        [ {:name=>:works, :list=>
            [ {:name=>:entries},
+             {:name=>:journals},
              {:name=>:statements},
              {:name=>:lettering},
              {:name=>:tax_declarations},
-            # {:name=>:journal_close},
              {:name=>:financialyear_close},
              {:name=>:accountize} ] },
          {:name=>:parameters, :list=>
            [ {:name=>:accounts},
-             {:name=>:journals},
              {:name=>:financialyears},
              {:name=>:bank_accounts},
              {:name=>:taxes} ] }
@@ -342,7 +341,7 @@ module ApplicationHelper
     url = {:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name}
     content = content_tag(:div, '&nbsp;')
     options[:style] = "display:none" if session[:help]
-    code = content_tag(:div, link_to_remote("Afficher l'aide", :update=>:help,  :url=>url, :complete=>"openHelp();", :loading=>"onLoading();", :loaded=>"onLoaded();"), {:id=>"help-open"}.merge(options))
+    code = content_tag(:div, link_to_remote(tg(:display_help), :update=>:help,  :url=>url, :complete=>"openHelp();", :loading=>"onLoading();", :loaded=>"onLoaded();"), {:id=>"help-open"}.merge(options))
   end
 
   def side_link_tag

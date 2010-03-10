@@ -547,6 +547,7 @@ fra:
     create: 'Créer'
     delete: 'Supprimer'
     display: 'Afficher'
+    display_help: 'Afficher l''aide'
     down: 'Descendre'
     duplicate: 'Dupliquer'
     dyta:
@@ -584,6 +585,7 @@ fra:
     print: Imprimer
     record_has_been_correctly_removed: 'L''enregistrement a été supprimé correctement.'
     record_has_not_been_removed: 'L''enregistrement n''a pu être supprimé.'
+    reopen: Déclôturer
     reflect: 'Refléter'
     search: Rechercher
     search_go: Lancer la recherche
