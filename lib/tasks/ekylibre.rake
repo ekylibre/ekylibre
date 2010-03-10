@@ -332,7 +332,7 @@ namespace :clean do
     for right in rights_list
       translation += "    #{right}: "+::I18n.pretranslate("rights.#{right}")+"\n"
     end
-    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.rights.yml", "wb") do |file|
+    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}/rights.yml", "wb") do |file|
       file.write translation
     end
 
@@ -342,7 +342,7 @@ namespace :clean do
 
   desc "Update and sort translation files"
   task :locales => :environment do
-    classicals = {'fr-FR'=>{:company_id=>'Société', :company=>'Société', :id=>'ID', :lock_version=>'Version', :updated_at=>'Mis à jour le', :updater_id=>'Modificateur', :updater=>'Modificateur', :created_at=>'Créé le', :creator_id=>'Créateur', :creator=>'Créateur', :comment=>'Commentaire', :position=>'Position', :parent_id=>'Parent', :parent=>'Parent' } }
+    classicals = {'fra'=>{:company_id=>'Société', :company=>'Société', :id=>'ID', :lock_version=>'Version', :updated_at=>'Mis à jour le', :updater_id=>'Modificateur', :updater=>'Modificateur', :created_at=>'Créé le', :creator_id=>'Créateur', :creator=>'Créateur', :comment=>'Commentaire', :position=>'Position', :parent_id=>'Parent', :parent=>'Parent' } }
     models = Dir["#{RAILS_ROOT}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
     models_names = ''
     plurals_names = ''
@@ -404,7 +404,7 @@ namespace :clean do
     translation += plurals_names
     translation += "\n    attributes:\n"
     translation += models_attributes
-    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.activerecord.yml", "wb") do |file|
+    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}/activerecord.yml", "wb") do |file|
       file.write translation
     end
 
@@ -420,7 +420,7 @@ namespace :clean do
         translation += "    #{controller_name}:\n"
         translation += hash_to_yaml(::I18n.translate("#{part}.#{controller_name}"),3)
       end
-      File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.pack.#{controller_name}.yml", "wb") do |file|
+      File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}/pack.#{controller_name}.yml", "wb") do |file|
         file.write translation
       end
     end
@@ -438,7 +438,7 @@ namespace :clean do
         end
       end
     end
-    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}.notifications.yml", "wb") do |file|
+    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}/notifications.yml", "wb") do |file|
       file.write ::I18n.locale.to_s+":\n"
       file.write "  notifications:\n"
       for key, translation in notifications.sort{|a,b| a[0].to_s<=>b[0].to_s}

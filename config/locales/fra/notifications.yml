@@ -1,4 +1,4 @@
-fr-FR:
+fra:
   notifications:
     access_denied: 'Vous n''avez pas le droit d''accéder à cette page. {{reason}} ({{url}})' 
     cannot_delete_entity: 'Il n''est pas possible de supprimer cette fiche car elle possède un historique comptable' 
