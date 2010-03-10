@@ -45,7 +45,6 @@ class CompanyTest < ActiveSupport::TestCase
   context "A generated company" do
 
     setup do
-      # company, user = Company.create_with_data({:name=>"Generated LTD"}, {:first_name=>"Gendo", :last_name=>"IKARI", :name=>"gendo", :password=>"12345678", :password_confirmation=>"12345678"}, "fr-FR")
       @company, @user = Company.create_with_data({:name=>"Generated LTD"}, {:first_name=>"Gendo", :last_name=>"IKARI", :name=>"gendo", :password=>"12345678", :password_confirmation=>"12345678"}, "fr-FR")
       assert_operator @company.id, :> , 0
       assert_equal @company.currencies.size, 1

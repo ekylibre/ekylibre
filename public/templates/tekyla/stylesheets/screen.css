@@ -1,8 +1,8 @@
 * {margin:0; padding:0; font-family: sans-serif;}
 /* BLUE EKYLIBRE : #3060FF */
 html {background: #FFF;}
-fieldset { border:1px solid #CCC; padding:  8px 0px 0px; margin: 1px 1px 8px; background: url(../images/columns.png) repeat-x top; }
-fieldset legend { padding: 0 4px; color: #123; margin: 0 4px;}
+fieldset { border:1px solid #95b0e4; -moz-border-radius: 4px; padding:  8px 0px 0px; margin: 1px 1px 8px; background: url(../images/columns.png) repeat-x top; }
+fieldset legend { padding: 0 4px;  margin: 0 4px; color: #002;}
 fieldset nobr { margin: 0 8px; vertical-align: middle; }
 td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:focus { color:#00C; }
@@ -172,7 +172,7 @@ table.formalize tr.field td { border-bottom:  1px dotted #CCC; }
 table.formalize td.label { text-align:right; padding:1px 4px; color: #008; width: 50%; border-right: 0px dotted #CCC;  }
 table.formalize td.input { padding:2px 6px 2px 2px; }
 table.formalize td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: 11px; border-left:1px dashed #CCC;}
-table.formalize td .notnull { border: 1px solid #33F; background: #eeF }
+table.formalize td .notnull { border: 1px solid #33F; background-color: #EEF }
 table.formalize td .info         { color: #007;  background:#CDF; padding:2px; }
 table.formalize td .info span    { color: #55C; }
 table.formalize td .example      { color: #040;  background:#CFC; padding:2px; }
@@ -327,9 +327,11 @@ fieldset.itemize legend { color: blue; margin: 0 8px; padding:2px;}
 .center-line { text-align: center; color:#000088; padding: 0 0 5px 0; } 
 .quick-add { text-align: center;  padding: 0 0 5px 0; color:#004477; font-size:13px; font-weight:bold; }
 */
-
+/*
 fieldset.quick-add { margin: 4px 0; border: 1px solid #95b0e4; -moz-border-radius: 4px; padding:4px; text-align: center; color: #008; }
 fieldset.quick-add legend { margin: 0 4px; padding: 0 2px; color: #002}
+*/
+fieldset.quick-add { text-align: center; color: #008; }
 
 
 

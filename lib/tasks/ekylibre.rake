@@ -120,7 +120,7 @@ def color_merge(c1, c2)
   r
 end
 
-desc "Create public/stylesheets/dyta-colors.css"
+desc "Create dyta-colors.css for the default theme"
 task :dytacolor do
   
   dims = [
@@ -167,7 +167,7 @@ task :dytacolor do
     end
   end
 
-  File.open("#{RAILS_ROOT}/public/stylesheets/dyta-colors.css", "wb") do |f|
+  File.open("#{RAILS_ROOT}/public/templates/tekyla/stylesheets/dyta-colors.css", "wb") do |f|
     f.write("/* Auto-generated from Ekylibre (rake dytacolor) */\n")
     f.write(code)
   end
@@ -225,8 +225,8 @@ namespace :clean do
   end
 
 
-  desc "Update and sort rights list"
-  task :rights => :environment do
+  desc "Update and sort rights list (Old version)"
+  task :rights_old => :environment do
     new_right = '[new_right]'
 
     # Chargement des actions des controllers
@@ -315,7 +315,7 @@ namespace :clean do
     rights.sort!{|a, b| a[0]+':'+a[2]+':'+a[1]<=>b[0]+':'+b[2]+':'+b[1]}
 
     # Enregistrement du nouveau fichier
-    file = File.open(User.rights_file, "wb") 
+    file = File.open(User.rights_file+".conf", "wb") 
     max = []
     rights.each do |right|
       3.times { |i| max[i] = right[i].length if right[i].length>max[i].to_i }
@@ -324,6 +324,26 @@ namespace :clean do
     max[1] = 32
     file.write rights.collect{|x| [0,1,2].collect{|i| x[i].ljust(max[i])}.join(" ").strip}.join("\n")
     file.close
+
+    # YML
+    hash = {}
+    for line in rights.select{|a| !a[0].match(/\#/)}
+      action, right = line[0]+"::"+line[1], line[2]
+      hash[right] ||= {}
+      hash[right][:actions] ||= []
+      hash[right][:actions] << action
+    end
+    File.open("#{RAILS_ROOT}/config/rights-0.yml", "wb") do |file|
+      for right in hash.keys.sort
+        file.write "#{right}:\n"
+        unless hash[right][:actions].empty?
+          file.write "  actions:\n"
+          for action in hash[right][:actions]
+            file.write "  - #{action}\n"          
+          end
+        end
+      end
+    end
 
     # Fichier de traduction
     rights_list = rights.collect{|r| r[2].to_s if r[2].match(/^\w+$/) and not r[0].match(/\#/)}.compact.uniq.sort
@@ -338,6 +358,95 @@ namespace :clean do
 
     puts "#{deleted} deleted actions, #{created} created actions, #{to_update} actions to update, #{doubles} doubles"
   end
+
+
+  desc "Update and sort rights list"
+  task :rights => :environment do
+    new_right = '__not_used__'
+
+    # Chargement des actions des controllers
+    ref = {}
+    Dir.glob("#{RAILS_ROOT}/app/controllers/*_controller.rb") do |x|
+      controller_name = x.split("/")[-1].split("_controller")[0]
+      actions = []
+      file = File.open(x, "r")
+      file.each_line do |line|
+        line = line.gsub(/(^\s*|\s*$)/,'')
+        if line.match(/^\s*def\s+\w+\s*$/)
+          actions << line.split(/def\s/)[1].gsub(/\s/,'') 
+        elsif line.match(/^\s*dy(li|ta)[\s\(]+\:\w+/)
+          dyxx = line.split(/[\s\(\)\,\:]+/)
+          actions << dyxx[1]+'_'+dyxx[0]
+        elsif line.match(/^\s*manage[\s\(]+\:\w+/)
+          prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
+          actions << prefix+'_create'
+          actions << prefix+'_update'
+          actions << prefix+'_delete'
+        end
+      end
+      ref[controller_name] = actions.sort
+    end
+
+    # Lecture du fichier existant
+    rights = YAML.load_file(User.rights_file)
+    rights_list  = rights.keys.sort
+    actions_list = rights.values.collect{|x| x["actions"]||[]}.flatten.uniq.sort
+
+    # Ajout des nouvelles actions
+    created = 0
+    for controller, actions in ref
+      for action in actions
+        uniq_action = controller+"::"+action
+        unless actions_list.include?(uniq_action)
+          rights[new_right] ||= {}
+          rights[new_right]["actions"] ||= []
+          rights[new_right]["actions"] << uniq_action
+          created += 1
+        end
+      end
+    end
+
+    # Commentaire des actions supprimées
+    deleted = 0
+    for right, attributes in rights
+      for uniq_action in attributes["actions"]||[]
+        controller, action = uniq_action.split(/\W+/)[0..1]
+        unless ref[controller].include?(action)
+          rights[right]["actions"].delete(uniq_action)
+          rights[right]["actions"] << uniq_action+" # UNEXISTENT ACTION !!!"
+          deleted += 1
+        end
+      end
+    end
+
+    # Enregistrement du nouveau fichier
+    code = ""
+    for right in rights.keys.sort
+      code += "#{right}:\n"
+      unless rights[right]["actions"].empty?
+        code += "  actions:\n"
+        for action in rights[right]["actions"].sort
+          code += "  - #{action}\n"
+        end
+      end
+    end
+    File.open(User.rights_file, "wb") do |file|
+      file.write code
+    end
+
+    # Fichier de traduction
+    translation  = ::I18n.locale.to_s+":\n"
+    translation += "  rights:\n"
+    for right in rights_list
+      translation += "    #{right}: "+::I18n.pretranslate("rights.#{right}")+"\n"
+    end
+    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}/rights.yml", "wb") do |file|
+      file.write translation
+    end
+
+    puts "#{deleted} deleted actions, #{created} created actions"
+  end
+
 
 
   desc "Update and sort translation files"

@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
   model_stamper
 
   class << self
-    def rights_file; "#{RAILS_ROOT}/config/rights.conf"; end
+    def rights_file; "#{RAILS_ROOT}/config/rights.yml"; end
     def minimum_right; :__minimum__; end
     def rights; @@rights; end
     def rights_list; @@rights_list; end
@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
 
 
   def rights_array
-    self.rights.to_s.split(" ").collect{|x| x.to_sym}
+    self.rights.to_s.split(/\s+/).collect{|x| x.to_sym}
   end
 
   def rights_array=(array)
@@ -215,26 +215,22 @@ class User < ActiveRecord::Base
 
 
   def self.initialize_rights
+    definition = YAML.load_file(User.rights_file)
+    definition.delete_if{|k, v| k == "__not_used__" }
+    @@rights_list = definition.keys.sort.collect{|x| x.to_sym}.delete_if{|k, v| k == User.minimum_right.to_s}
     @@rights = {}
-    @@rights_list = []
-    @@useful_rights = {}
-    file = File.open(User.rights_file, "rb") 
-    file.each_line do |line|
-      line = line.strip.split(/[\:\t\,\;\s]+/)
-      unless line[0].match(/\#/) or line[2].to_s.match(/^\w+$/).nil?
-        @@rights[line[0].to_sym] ||= {}
-        @@rights[line[0].to_sym][line[1].to_sym] = line[2].to_sym 
-        @@rights_list << line[2].to_sym 
+    for right, attributes in definition
+      for uniq_action in attributes["actions"]||[]
+        controller, action = uniq_action.split(/\W+/)[0..1].collect{|x| x.to_sym}
+        @@rights[controller] ||= {}
+        @@rights[controller][action] = right.to_sym
       end
     end
-    @@rights_list.uniq!
-    for controller, actions in @@rights
-      unless [:authentication, :help].include? controller
-        @@useful_rights[controller] = actions.values.uniq.delete_if{|x| x == User.minimum_right }
-      end
+    @@useful_rights = {}
+    for controller, actions in @@rights.select{|k,v| ![:authentication, :help].include?(k)}
+      @@useful_rights[controller] = actions.values.uniq.delete_if{|x| x == User.minimum_right }
     end
   end
-   
   
   User.initialize_rights
 end

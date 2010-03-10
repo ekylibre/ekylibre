@@ -57,8 +57,16 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  
+  test "the validity of rights.yml" do
+    rights = nil
+    assert_nothing_raised do
+      rights = YAML.load_file(User.rights_file)
+    end
+    all_actions = rights.collect{|k,v| v["actions"]||[]}.flatten.sort
+    assert_equal(all_actions.uniq, all_actions, (all_actions-all_actions.uniq).join(",")+" are duplicated in rights.yml")
   end
+
+
+
 end

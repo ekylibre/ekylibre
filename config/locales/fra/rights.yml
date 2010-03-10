@@ -1,13 +1,14 @@
 fra:
   rights:
     __minimum__: 'Accéder au minimum vital'
+    __not_used__: 'Droit par défaut (inaccessible)'
     administrate_accountancy: 'Accéder au module Comptabilité'
     administrate_management: 'Accéder au module Commerce'
     administrate_production: 'Accéder au module Production'
     administrate_relations: 'Accéder au module Relations clients/fournisseurs'
     backup_company: 'Effectuer/Recharger des sauvegardes'
     cancel_invoices: 'Faire des avoirs'
-    close_journals: (((CLOSE_JOURNALS)))
+    close_journals: 'Clôturer et déclôturer des journaux'
     configure_company: 'Configurer les options de la société'
     consult_entities: 'Consulter les fiches clients/fournisseurs'
     consult_entries: 'Consulter les écritures'

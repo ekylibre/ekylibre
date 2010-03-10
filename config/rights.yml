@@ -1,0 +1,612 @@
+__minimum__:
+  actions:
+  - authentication::index
+  - authentication::login
+  - authentication::logout
+  - authentication::register
+  - company::about
+  - company::change_password
+  - company::help
+  - company::index
+  - company::side
+  - company::tabbox_index
+  - company::unknown_action
+  - company::user_statistics
+  - company::welcome
+  - help::close
+  - help::previous
+  - help::search
+  - help::side
+  - management::product_trackings
+  - management::product_units
+__not_used__:
+  actions:
+  - resources::employee
+  - resources::employee_delete
+  - resources::employee_events_dyta
+  - resources::employee_sale_orders_dyta
+  - resources::employee_shape_operations_dyta
+  - resources::employees
+  - resources::employees_dyta
+  - resources::index
+  - resources::profession_create
+  - resources::profession_delete
+  - resources::profession_update
+  - resources::professions
+  - resources::professions_dyta
+administrate_accountancy:
+  actions:
+  - accountancy::accountize
+  - accountancy::draft_entries
+  - accountancy::index
+administrate_management:
+  actions:
+  - management::all_contacts_dyli
+  - management::critic_stocks_dyta
+  - management::index
+  - management::payment_purchase_orders_dyta
+  - management::payment_sale_orders_dyta
+  - management::payments_dyta
+  - management::purchase_order_payment_parts_dyta
+  - management::sale_lines_dyta
+  - management::sale_order_deliveries_dyta
+  - management::sale_order_lines_dyta
+  - management::sale_order_natures_dyta
+  - management::sale_order_payments_dyta
+  - management::sale_orders_dyta
+  - management::subscription_contacts_dyli
+  - management::undelivered_quantities_dyta
+  - management::undelivered_sales_dyta
+  - management::unexecuted_transfers_dyta
+  - management::unpaid_sale_orders_export
+  - management::unvalidated_embankments_dyta
+administrate_production:
+  actions:
+  - production::index
+administrate_relations:
+  actions:
+  - management::entities_dyli
+  - relations::auto_complete_for_contact_line_6
+  - relations::change_minutes
+  - relations::entities_dyli
+  - relations::index
+  - relations::recent_events_dyta
+backup_company:
+  actions:
+  - company::backups
+cancel_invoices:
+  actions:
+  - management::credit_lines_dyta
+  - management::invoice_cancel
+close_journals:
+  actions:
+  - accountancy::journal_close
+  - accountancy::journal_reopen
+configure_company:
+  actions:
+  - company::configure
+  - company::sequence_create
+  - company::sequence_delete
+  - company::sequence_update
+  - company::sequences_dyta
+  - company::sequences_load
+consult_entities:
+  actions:
+  - relations::entities
+  - relations::entities_dyta
+  - relations::entity
+  - relations::entity_bank_accounts_dyta
+  - relations::entity_invoices_dyta
+  - relations::entity_payments_dyta
+  - relations::entity_sale_orders_dyta
+consult_entries:
+  actions:
+  - accountancy::entries_draft_dyta
+  - accountancy::entries_dyta
+consult_invoices:
+  actions:
+  - management::invoice_credit_lines_dyta
+  - management::invoice_lines_dyta
+  - management::invoices_dyta
+consult_prices:
+  actions:
+  - management::prices
+consult_purchases:
+  actions:
+  - management::purchase_order
+  - management::purchase_order_lines_dyta
+  - management::purchase_orders
+  - management::purchase_orders_dyta
+consult_sales:
+  actions:
+  - management::sale_order
+  - management::sale_order_invoices_dyta
+  - management::sale_orders
+  - management::statistics
+consult_stocks:
+  actions:
+  - management::stocks
+  - management::stocks_dyta
+consult_tracking:
+  actions:
+  - management::tracking
+  - management::tracking_operation_lines_dyta
+  - management::tracking_purchase_order_lines_dyta
+  - management::tracking_sale_order_lines_dyta
+  - management::tracking_stocks_dyta
+create_estimates:
+  actions:
+  - management::clients_dyli
+  - management::price_find
+  - management::sale_order_contacts
+  - management::sale_order_create
+  - management::sale_order_duplicate
+  - management::sale_order_line_create
+  - management::sale_order_line_delete
+  - management::sale_order_line_informations
+  - management::sale_order_line_stocks
+  - management::sale_order_line_tracking
+  - management::sale_order_line_update
+  - management::sale_order_lines
+  - management::sale_order_subscriptions_dyta
+  - management::sale_order_update
+  - management::sum_calculate
+create_purchases:
+  actions:
+  - management::purchase_order_create
+  - management::purchase_order_delete
+  - management::purchase_order_line_create
+  - management::purchase_order_line_delete
+  - management::purchase_order_line_update
+  - management::purchase_order_lines
+  - management::purchase_order_summary
+extract_listings:
+  actions:
+  - company::listing_extract
+import_export_entities:
+  actions:
+  - relations::entities_export
+  - relations::entities_import
+mail_listings:
+  actions:
+  - company::listing_mail
+manage_accounts:
+  actions:
+  - accountancy::account_create
+  - accountancy::account_delete
+  - accountancy::account_update
+  - accountancy::accounts
+  - accountancy::accounts_dyta
+  - accountancy::auto_complete_for_entry_account
+manage_areas:
+  actions:
+  - relations::area_create
+  - relations::area_delete
+  - relations::area_update
+  - relations::areas
+  - relations::areas_dyta
+manage_bank_accounts:
+  actions:
+  - accountancy::bank_account_create
+  - accountancy::bank_account_delete
+  - accountancy::bank_account_update
+  - accountancy::bank_accounts
+  - accountancy::bank_accounts_dyta
+manage_company:
+  actions:
+  - company::department_create
+  - company::department_delete
+  - company::department_update
+  - company::departments
+  - company::departments_dyta
+  - company::establishment_create
+  - company::establishment_delete
+  - company::establishment_update
+  - company::establishments
+  - company::establishments_dyta
+  - company::sequences
+manage_complements:
+  actions:
+  - relations::complement_choice_create
+  - relations::complement_choice_down
+  - relations::complement_choice_up
+  - relations::complement_choice_update
+  - relations::complement_choices
+  - relations::complement_choices_dyta
+  - relations::complement_choices_sort
+  - relations::complement_create
+  - relations::complement_update
+  - relations::complements
+  - relations::complements_dyta
+manage_delays:
+  actions:
+  - management::delay
+  - management::delay_create
+  - management::delay_delete
+  - management::delay_update
+  - management::delays
+  - management::delays_dyta
+manage_delivery_modes:
+  actions:
+  - management::delivery_mode_create
+  - management::delivery_mode_delete
+  - management::delivery_mode_update
+  - management::delivery_modes
+  - management::delivery_modes_dyta
+manage_districts:
+  actions:
+  - relations::district_create
+  - relations::district_delete
+  - relations::district_update
+  - relations::districts
+  - relations::districts_dyli
+  - relations::districts_dyta
+manage_document_templates:
+  actions:
+  - company::document_template_create
+  - company::document_template_delete
+  - company::document_template_duplicate
+  - company::document_template_print
+  - company::document_template_update
+  - company::document_templates
+  - company::document_templates_dyta
+  - company::document_templates_load
+manage_embankments:
+  actions:
+  - management::credits_dyta
+  - management::embankable_payments_dyta
+  - management::embankment
+  - management::embankment_create
+  - management::embankment_delete
+  - management::embankment_payments_dyta
+  - management::embankment_update
+  - management::embankments
+  - management::embankments_dyta
+  - management::unvalidated_embankments
+manage_entities:
+  actions:
+  - relations::auto_complete_for_entity_origin
+  - relations::client_informations
+  - relations::contacts_dyta
+  - relations::entity_contact_create
+  - relations::entity_contact_delete
+  - relations::entity_contact_update
+  - relations::entity_create
+  - relations::entity_delete
+  - relations::entity_events_dyta
+  - relations::entity_purchase_orders_dyta
+  - relations::entity_subscriptions_dyta
+  - relations::entity_update
+manage_entities_natures:
+  actions:
+  - relations::entities_natures
+  - relations::entity_nature_create
+  - relations::entity_nature_delete
+  - relations::entity_nature_update
+  - relations::entity_natures_dyta
+manage_entity_categories:
+  actions:
+  - relations::category_prices_dyta
+  - relations::entity_categories
+  - relations::entity_categories_dyta
+  - relations::entity_category
+  - relations::entity_category_create
+  - relations::entity_category_delete
+  - relations::entity_category_update
+manage_entity_links:
+  actions:
+  - relations::entity_link_create
+  - relations::entity_link_delete
+  - relations::entity_link_nature_create
+  - relations::entity_link_nature_update
+  - relations::entity_link_natures
+  - relations::entity_link_natures_dyta
+  - relations::entity_link_update
+  - relations::entity_links_dyta
+manage_entries:
+  actions:
+  - accountancy::account_dyli
+  - accountancy::account_letter
+  - accountancy::entries
+  - accountancy::entry_create
+  - accountancy::entry_delete
+  - accountancy::entry_letter
+  - accountancy::entry_update
+  - accountancy::lettering
+  - management::account_dyli
+manage_events:
+  actions:
+  - relations::auto_complete_for_event_location
+  - relations::event_create
+  - relations::event_delete
+  - relations::event_nature_create
+  - relations::event_nature_delete
+  - relations::event_nature_update
+  - relations::event_natures
+  - relations::event_natures_dyta
+  - relations::event_update
+  - relations::events
+  - relations::events_dyta
+manage_financialyears:
+  actions:
+  - accountancy::financialyear
+  - accountancy::financialyear_close
+  - accountancy::financialyear_create
+  - accountancy::financialyear_delete
+  - accountancy::financialyear_update
+  - accountancy::financialyears
+  - accountancy::financialyears_dyta
+  - accountancy::financialyears_records
+manage_inventories:
+  actions:
+  - management::inventories
+  - management::inventories_dyta
+  - management::inventory_create
+  - management::inventory_delete
+  - management::inventory_lines_create_dyta
+  - management::inventory_lines_update_dyta
+  - management::inventory_reflect
+  - management::inventory_update
+manage_invoicing:
+  actions:
+  - management::payment
+  - management::payment_create
+  - management::payment_delete
+  - management::payment_part_create
+  - management::payment_part_delete
+  - management::payment_update
+  - management::payments
+  - management::sale_order_payment_parts_dyta
+  - management::sale_order_summary
+manage_journals:
+  actions:
+  - accountancy::journal
+  - accountancy::journal_create
+  - accountancy::journal_delete
+  - accountancy::journal_update
+  - accountancy::journals
+  - accountancy::journals_dyta
+manage_listings:
+  actions:
+  - company::listing_create
+  - company::listing_delete
+  - company::listing_node
+  - company::listing_node_create
+  - company::listing_node_delete
+  - company::listing_node_update
+  - company::listing_nodes
+  - company::listing_nodes_dyta
+  - company::listing_update
+  - company::listings
+  - company::listings_dyta
+manage_locations:
+  actions:
+  - management::location
+  - management::location_create
+  - management::location_delete
+  - management::location_stock_moves_dyta
+  - management::location_stocks_dyta
+  - management::location_update
+  - management::locations
+  - management::locations_dyta
+manage_mandates:
+  actions:
+  - relations::auto_complete_for_mandate
+  - relations::auto_complete_for_mandate_family
+  - relations::auto_complete_for_mandate_organization
+  - relations::auto_complete_for_mandate_title
+  - relations::entity_mandates_dyta
+  - relations::mandate_create
+  - relations::mandate_delete
+  - relations::mandate_update
+  - relations::mandates
+  - relations::mandates_configure
+  - relations::mandates_dyta
+manage_observations:
+  actions:
+  - relations::observation_create
+  - relations::observation_delete
+  - relations::observation_update
+  - relations::observations_dyta
+manage_operations:
+  actions:
+  - production::operation
+  - production::operation_create
+  - production::operation_delete
+  - production::operation_line_create
+  - production::operation_lines_dyta
+  - production::operation_nature_create
+  - production::operation_nature_delete
+  - production::operation_nature_update
+  - production::operation_natures
+  - production::operation_natures_dyta
+  - production::operation_products_dyli
+  - production::operation_update
+  - production::operations
+  - production::operations_dyta
+  - production::unvalidated_operations
+  - production::unvalidated_operations_dyta
+manage_orders:
+  actions:
+  - management::deliveries_dyta
+  - management::delivery_contacts_dyli
+  - management::delivery_delete
+  - management::sale_order_confirm
+  - management::sale_order_delete
+  - management::sale_order_deliveries
+  - management::sale_order_delivery_create
+  - management::sale_order_delivery_update
+  - management::sale_order_invoice
+  - management::undelivered_sales
+manage_payment_modes:
+  actions:
+  - management::payment_mode_create
+  - management::payment_mode_delete
+  - management::payment_mode_update
+  - management::payment_modes
+  - management::payment_modes_dyta
+manage_prices:
+  actions:
+  - management::price_create
+  - management::price_delete
+  - management::prices_dyta
+  - management::prices_export
+  - management::prices_import
+manage_products:
+  actions:
+  - management::change_quantities
+  - management::product_component_create
+  - management::product_component_delete
+  - management::product_component_update
+  - management::product_components_dyta
+  - management::product_create
+  - management::product_delete
+  - management::product_prices_dyta
+  - management::product_stock_moves_dyta
+  - management::product_stocks_dyta
+  - management::product_update
+  - management::products_dyta
+manage_sale_order_natures:
+  actions:
+  - management::sale_order_nature
+  - management::sale_order_nature_create
+  - management::sale_order_nature_delete
+  - management::sale_order_nature_update
+  - management::sale_order_natures
+manage_shapes:
+  actions:
+  - production::shape
+  - production::shape_create
+  - production::shape_delete
+  - production::shape_operations_dyta
+  - production::shape_update
+  - production::shapes
+  - production::shapes_dyta
+manage_shelves:
+  actions:
+  - management::shelf
+  - management::shelf_create
+  - management::shelf_delete
+  - management::shelf_products_dyta
+  - management::shelf_update
+  - management::shelves
+  - management::shelves_dyta
+manage_statements:
+  actions:
+  - accountancy::bank_account_statement
+  - accountancy::bank_account_statement_create
+  - accountancy::bank_account_statement_delete
+  - accountancy::bank_account_statement_point
+  - accountancy::bank_account_statement_update
+  - accountancy::bank_account_statements_dyta
+  - accountancy::statement_entries_dyta
+  - accountancy::statements
+manage_stock_moves:
+  actions:
+  - management::stock_move_create
+  - management::stock_move_delete
+  - management::stock_move_update
+  - management::stock_transfer_create
+  - management::stock_transfer_delete
+  - management::stock_transfer_update
+  - management::stock_transfers
+  - management::stock_transfers_dyta
+  - management::unexecuted_transfers
+manage_subscriptions:
+  actions:
+  - management::subscription_create
+  - management::subscription_delete
+  - management::subscription_find
+  - management::subscription_message
+  - management::subscription_nature
+  - management::subscription_nature_create
+  - management::subscription_nature_decrement
+  - management::subscription_nature_increment
+  - management::subscription_nature_update
+  - management::subscription_natures
+  - management::subscription_natures_dyta
+  - management::subscription_options
+  - management::subscription_update
+  - management::subscriptions
+  - management::subscriptions_dyta
+  - management::subscriptions_period
+manage_taxes:
+  actions:
+  - accountancy::account_collected_dyli
+  - accountancy::account_paid_dyli
+  - accountancy::tax_create
+  - accountancy::tax_declaration
+  - accountancy::tax_declaration_create
+  - accountancy::tax_declaration_delete
+  - accountancy::tax_declaration_period_search
+  - accountancy::tax_declaration_update
+  - accountancy::tax_declarations
+  - accountancy::tax_declarations_dyta
+  - accountancy::tax_delete
+  - accountancy::tax_update
+  - accountancy::taxes
+  - accountancy::taxes_dyta
+manage_tools:
+  actions:
+  - production::tool
+  - production::tool_create
+  - production::tool_delete
+  - production::tool_operations_dyta
+  - production::tool_update
+  - production::tools
+  - production::tools_dyta
+manage_transports:
+  actions:
+  - management::deliveries_dyli
+  - management::transport
+  - management::transport_create
+  - management::transport_delete
+  - management::transport_deliveries
+  - management::transport_deliveries_dyta
+  - management::transport_delivery_delete
+  - management::transport_update
+  - management::transports
+  - management::transports_dyta
+manage_units:
+  actions:
+  - company::unit_create
+  - company::unit_delete
+  - company::unit_update
+  - company::units
+  - company::units_dyta
+  - company::units_load
+manage_users:
+  actions:
+  - company::role_create
+  - company::role_delete
+  - company::role_update
+  - company::roles
+  - company::roles_dyta
+  - company::user
+  - company::user_create
+  - company::user_delete
+  - company::user_lock
+  - company::user_unlock
+  - company::user_update
+  - company::users
+  - company::users_dyta
+merge_entities:
+  actions:
+  - relations::entities_merge
+print:
+  actions:
+  - company::print
+print_accounting_document:
+  actions:
+  - accountancy::document_prepare
+  - accountancy::document_print
+  - accountancy::synthesis
+search_and_consult_invoices:
+  actions:
+  - management::invoice
+  - management::invoices
+search_and_consult_products:
+  actions:
+  - management::product
+  - management::products
+  - management::products_search
