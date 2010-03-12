@@ -58,8 +58,7 @@ class ApplicationController < ActionController::Base
     end
     if @current_user
       raise Exception.new(url.inspect) if url[:controller].blank? or url[:action].blank?
-      #if @current_user.admin or session[:rights].include?((User.rights[url[:controller].to_sym]||{})[url[:action].to_sym])
-      if @current_user.authorization(session[:rights], url[:controller], url[:action]).nil?
+      if @current_user.authorization(url[:controller], url[:action], session[:rights]).nil?
         true
       else
         false
@@ -199,7 +198,7 @@ class ApplicationController < ActionController::Base
     @current_theme = "tekyla"
 
     # Check rights before allowing access
-    message = @current_user.authorization(session[:rights], controller_name, action_name)
+    message = @current_user.authorization(controller_name, action_name, session[:rights])
     if message
       notify(:access_denied, :error, :reason=>message, :url=>request.url.inspect)
       redirect_to_back unless @current_user.admin

@@ -389,6 +389,15 @@ namespace :clean do
 
     # Lecture du fichier existant
     rights = YAML.load_file(User.rights_file)
+
+    # Expand actions
+    for right, attributes in rights
+      attributes['actions'].each_index do |index|
+        unless attributes['actions'][index].match(/\:\:/)
+          attributes['actions'][index] = attributes['controller'].to_s+"::"+attributes['actions'][index] 
+        end
+      end if attributes['actions'].is_a? Array
+    end
     rights_list  = rights.keys.sort
     actions_list = rights.values.collect{|x| x["actions"]||[]}.flatten.uniq.sort
 
@@ -409,24 +418,34 @@ namespace :clean do
     # Commentaire des actions supprimées
     deleted = 0
     for right, attributes in rights
-      for uniq_action in attributes["actions"]||[]
+      attributes['actions'].each_index do |index|
+        uniq_action = attributes["actions"][index]
         controller, action = uniq_action.split(/\W+/)[0..1]
         unless ref[controller].include?(action)
-          rights[right]["actions"].delete(uniq_action)
-          rights[right]["actions"] << uniq_action+" # UNEXISTENT ACTION !!!"
+          attributes["actions"][index] += " # UNEXISTENT ACTION !!!"
           deleted += 1
         end
-      end
+      end if attributes['actions'].is_a?(Array)
     end
 
     # Enregistrement du nouveau fichier
     code = ""
     for right in rights.keys.sort
+      code += "# #{::I18n.translate('rights.'+right.to_s)}\n"
       code += "#{right}:\n"
-      unless rights[right]["actions"].empty?
-        code += "  actions:\n"
-        for action in rights[right]["actions"].sort
-          code += "  - #{action}\n"
+      controller, actions = rights[right]['controller'], []
+      code += "  controller: #{controller}\n" unless controller.blank?
+      if rights[right]["actions"].is_a?(Array)
+        actions = rights[right]['actions'].sort
+        actions = actions.collect{|x| x.match(/^#{controller}\:\:/) ? x.split('::')[1] : x}.sort unless controller.blank?
+        line = "  actions: [#{actions.join(', ')}]"
+        if line.length > 80 or line.match(/\#/)
+          code += "  actions:\n"
+          for action in actions
+            code += "  - #{action}\n"
+          end
+        else
+          code += line+"\n"
         end
       end
     end

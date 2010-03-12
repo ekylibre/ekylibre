@@ -417,7 +417,7 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         currencies: 'Devises'
-        current_financialyear: (((CURRENT_FINANCIALYEAR)))
+        current_financialyear: 'Exercice comptable en cours'
         delays: 'Délais'
         deleted: 'Effacé'
         deliveries: 'Livraisons'
@@ -935,7 +935,7 @@ fra:
         sale_orders: 'Ventes'
         siren: 'Code SIREN'
         soundex: 'Soundex'
-        subscriptions: 'Abonnement'
+        subscriptions: 'Abonnements'
         supplier: 'Fournisseur'
         supplier_account: 'Compte fournisseur associé'
         supplier_account_id: 'Compte fournisseur associé'

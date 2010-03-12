@@ -1,35 +1,36 @@
 =sale_steps
 
 = formalize do |f|
-  - f.error :sale_order_line
-  - f.error :subscription
-  - f.title :infos
-  -#f.field :sale_order_line, :price_id, :choices=>Price.find(:all,:conditions=>{:company_id=>@current_company.id,:entity_id=>@current_company.entity_id, :active=>true, :category_id=>@sale_order.client.category.id}).collect{|x| [x.product.name+" "+x.amount.to_s+" "+x.currency.code, x.id]}, :new=>{:action=>:price_create, :mode=>:sale_orders}
-  - f.field :sale_order_line, :price_id, :choices=>@current_company.available_prices.collect{|x| [x.label, x.id]}, :new=>{:action=>:price_create, :mode=>:sales}
+  -f.error :sale_order_line
+  -f.error :subscription
+  -f.title :infos
+  -f.field :sale_order_line, :price_id, :choices=>@current_company.available_prices.collect{|x| [x.label, x.id]}, :new=>{:action=>:price_create, :mode=>:sales}
+  -f.field :sale_order_line, :location_id, :choices=>@locations.collect{|x| [x.name, x.id]} if @locations.size > 1
+  -f.field :sale_order_line, :quantity
+  -f.field :sale_order_line, :annotation, :field=>:textarea
 #stocks=#render :partial=>"sale_order_line_stocks"
-
-=formalize do |f|
-  - f.field :sale_order_line, :location_id, :choices=>@locations.collect{|x| [x.name, x.id]} if @locations.size > 1
-  - f.field :sale_order_line, :quantity
-  - f.field :sale_order_line, :annotation, :field=>:textarea
 #tracking=render :partial=>"sale_order_line_tracking"
+#subscription_number=render :partial=>"subscription_number"
+#subscription_date=render :partial=>"subscription_period"
 
-#subscription_number=render :partial=>'subscription_number'
-  
-#subscription_date=render :partial=>'subscription_period'
+-if @current_user.can?(:give_discounts_on_sale) and false
+  =formalize do |f|
+    -f.title :give_discount
+    -f.field tc("discount.mode"), "[:none, :percent, :amount, :amount_with_taxes]"
+    -f.field tc("discount.size"), ":discount_size"
+    -f.field tc("discount.percent_difference"), "456"
+    -f.field tc("discount.amount_difference"), ""
+    -f.field tc("discount.amount_with_taxes_difference"), ""
 
--#if @current_user.free_price
-=formalize do |f|
-  -f.title :free_price
-  -f.field :sale_order_line, :price_amount
-  -f.field :sale_order_line, :tax_id, :choices=>@current_company.taxes.find_all_by_deleted(false).collect{|x| [x.name, x.id]}
+-if @current_user.can?(:change_prices_on_sale) and false
+  =formalize do |f|
+    -f.title :change_price
+    -f.field :sale_order_line, :price_amount
+    -f.field :sale_order_line, :tax_id, :choices=>@current_company.taxes.find_all_by_deleted(false).collect{|x| [x.name, x.id]}
 
 
 =observe_field("sale_order_line_price_id", :url=>{:action => :subscription_find}, :frequency => 0.25, :with=>"sale_order_line_price_id")
-
-=#observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_stocks}, :frequency => 0.25, :with=>"sale_order_line_price_id")
-  
- 
+=#observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_stocks}, :frequency => 0.25, :with=>"sale_order_line_price_id") 
 =observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_tracking}, :frequency => 0.25, :with=>"sale_order_line_price_id")
 -if @current_company.locations.size > 1
   =observe_field("sale_order_line_location_id", :url=>{:action => :sale_order_line_tracking}, :frequency => 0.25, :with=>"sale_order_line_location_id")

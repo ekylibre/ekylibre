@@ -508,8 +508,9 @@ fra:
       sale_order_line_create:
         title: 'Ajout d''une ligne de produit'
       _sale_order_line_form:
-        free_price: 'Renseignez ces champs si vous souhaitez appliquer un autre prix'
-        infos: 'Choississez le produit et la quantité'
+        give_discount: 'Octroyer une remise'
+        change_price: 'Changer le prix unitaire'
+        infos: 'Choisissez le produit et la quantité'
       _sale_order_line_informations:
         no_tracking: 'Aucun lot'
         tracking: 'Lot '

@@ -63,8 +63,6 @@ class UserTest < ActiveSupport::TestCase
     assert_nothing_raised do
       rights = YAML.load_file(User.rights_file)
     end
-    all_actions = rights.collect{|k,v| v["actions"]||[]}.flatten.sort
-    assert_equal(all_actions.uniq, all_actions, (all_actions-all_actions.uniq).join(",")+" are duplicated in rights.yml")
   end
 
 

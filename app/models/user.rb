@@ -165,16 +165,21 @@ class User < ActiveRecord::Base
     user
   end
 
-  def authorization(rights_list, controller_name, action_name)
+  def authorization(controller_name, action_name, rights_list=nil)
+    rights_list = self.rights_array if rights_list.blank?
     message = nil
     if User.rights[controller_name.to_sym].nil?
       message = tc(:no_right_defined_for_this_part_of_the_application, :controller=>controller_name, :action=>action_name)
-    elsif (right = User.rights[controller_name.to_sym][action_name.to_sym]).nil?
+    elsif (rights = User.rights[controller_name.to_sym][action_name.to_sym]).nil?
       message = tc(:no_right_defined_for_this_part_of_the_application, :controller=>controller_name, :action=>action_name)
-    elsif not right == User.minimum_right and not rights_list.include?(right) and not self.admin
+    elsif not rights.include?(User.minimum_right) and (rights_list & rights).size <= 0 and not self.admin?
       message = tc(:no_right_defined_for_this_part_of_the_application_and_this_user)
     end
     return message
+  end
+
+  def can?(right)
+    self.admin? or self.rights.match(/(^|\s)#{right}(\s|$)/)
   end
   
   def after_destroy
@@ -182,6 +187,8 @@ class User < ActiveRecord::Base
       raise "Impossible to destroy the last user"
     end
   end
+
+
 
   def authenticated?(password)
     self.hashed_password == User.encrypted_password(password, self.salt)
@@ -216,19 +223,34 @@ class User < ActiveRecord::Base
 
   def self.initialize_rights
     definition = YAML.load_file(User.rights_file)
+    # Expand actions
+    for right, attributes in definition
+      if attributes
+        attributes['actions'].each_index do |index|
+          unless attributes['actions'][index].match(/\:\:/)
+            attributes['actions'][index] = attributes['controller'].to_s+"::"+attributes['actions'][index] 
+          end
+        end if attributes['actions'].is_a? Array
+      end
+    end
     definition.delete_if{|k, v| k == "__not_used__" }
     @@rights_list = definition.keys.sort.collect{|x| x.to_sym}.delete_if{|k, v| k == User.minimum_right.to_s}
     @@rights = {}
-    for right, attributes in definition
-      for uniq_action in attributes["actions"]||[]
-        controller, action = uniq_action.split(/\W+/)[0..1].collect{|x| x.to_sym}
-        @@rights[controller] ||= {}
-        @@rights[controller][action] = right.to_sym
-      end
-    end
     @@useful_rights = {}
-    for controller, actions in @@rights.select{|k,v| ![:authentication, :help].include?(k)}
-      @@useful_rights[controller] = actions.values.uniq.delete_if{|x| x == User.minimum_right }
+    for right, attributes in definition
+      if attributes.is_a? Hash
+        unless attributes["controller"].blank?
+          controller = attributes["controller"].to_sym
+          @@useful_rights[controller] ||= []
+          @@useful_rights[controller] << right.to_sym
+        end
+        for uniq_action in attributes["actions"]
+          controller, action = uniq_action.split(/\W+/)[0..1].collect{|x| x.to_sym}
+          @@rights[controller] ||= {}
+          @@rights[controller][action] ||= []
+          @@rights[controller][action] << right.to_sym
+        end if attributes["actions"].is_a? Array
+      end
     end
   end
   

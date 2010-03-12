@@ -594,7 +594,7 @@ module Ekylibre
           image_title = @options[:title]||@name.to_s.humanize
           # image_file = "buttons/"+(@options[:image]||verb).to_s+".png"
           # image_file = "buttons/unknown.png" unless File.file? "#{RAILS_ROOT}/public/images/"+image_file
-          image = "image_tag(template_button('#{@options[:image]||verb}'), :border=>0, :alt=>'"+image_title+"')"
+          image = "image_tag(theme_button('#{@options[:image]||verb}'), :border=>0, :alt=>'"+image_title+"')"
           format = @options[:format] ? ", :format=>'#{@options[:format]}'" : ""
           if @options[:remote] 
             remote_options = @options.dup
@@ -613,7 +613,7 @@ module Ekylibre
             cases = []
             for a in @options[:actions]
               v = a[1][:action].to_s.split('_')[-1]
-              cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag(template_button('#{v}'), :border=>0, :alt=>'"+a[0].to_s+"')"+
+              cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag(theme_button('#{v}'), :border=>0, :alt=>'"+a[0].to_s+"')"+
                 ", {"+(a[1][:controller] ? ':controller=>:'+a[1][:controller].to_s+', ' : '')+":action=>'"+a[1][:action].to_s+"', :id=>"+record+".id"+format+"}"+
                 ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :alt=>::I18n.t('general.#{v}'), :title=>::I18n.t('general.#{v}')}"+
                 ")\n"
