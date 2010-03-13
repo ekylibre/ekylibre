@@ -34,11 +34,12 @@
 #
 
 class Financialyear < ActiveRecord::Base
-  attr_readonly :company_id, :code
+  attr_readonly :company_id
   belongs_to :company
   has_many :account_balances, :class_name=>AccountBalance.name, :foreign_key=>:financialyear_id
   has_many :records,  :class_name=>JournalRecord.name
   validates_presence_of :started_on, :stopped_on
+  validates_uniqueness_of :code, :scope=>:company_id
 
   #
   def before_validation

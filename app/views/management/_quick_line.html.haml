@@ -3,19 +3,22 @@
   -form_tag(:action=>:sale_order_line_create) do 
     %nobr=tc('product')+" "+select(:sale_order_line, :price_id, @current_company.available_prices.collect{|x| [x.label, x.id]})
     %nobr=tc('quantity')+" "+text_field(:sale_order_line, :quantity, :size=>5, :value=>1.0)
+    -if @current_user.can?(:give_discounts_on_sale)
+      %nobr=tc('discount')+" "+text_field(:sale_order_line, :discount, :size=>5)
+
     -if @current_company.locations.size > 1
       %nobr=tc('location')+" "+select(:sale_order_line, :location_id, @current_company.locations.collect{|x| [x.name, x.id]})
-    #price_amount{:style=>'display:none'}
+    %nobr#price_amount{:style=>'display:none'}
       =text_field(:sale_order_line, :price_amount, :value=>0.0)
   
-    #subscription
+    %nobr#subscription
 
-    #subscription_line{:style=>'display:none'}
+    %nobr#subscription_line{:style=>'display:none'}
       %p{:id=>:sub_line}=""
    
-    #stocks=#render :partial=>"sale_order_line_stocks"
+    %nobr#stocks=#render :partial=>"sale_order_line_stocks"
 
-    #informations=render :partial=>"sale_order_line_informations"
+    %nobr#informations=render :partial=>"sale_order_line_informations"
     =submit_tag(tc('valid'), :action=>:sale_order_line_create)
 =#observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_stocks}, :frequency => 0.25, :with=>"sale_order_line_price_id")
 

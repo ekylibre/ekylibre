@@ -121,6 +121,7 @@ class Company < ActiveRecord::Base
   has_many :embankable_payments, :class_name=>Payment.name, :conditions=>{:embankment_id=>nil}
 
   has_one :current_financialyear, :class_name=>Financialyear.name, :conditions=>{:closed=>false}
+  validates_uniqueness_of :code
 
   attr_readonly :code
 

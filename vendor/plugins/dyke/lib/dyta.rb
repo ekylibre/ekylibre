@@ -353,7 +353,7 @@ module Ekylibre
                     datum = "::I18n.localize(#{datum})"
                   end
                   if column.datatype == :decimal
-                    datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&nbsp;', :unit=>'', :precision=>#{column.options[:precision]||2}))"
+                    datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'', :unit=>'', :precision=>#{column.options[:precision]||2}))"
                   end
                   if column.name==:country and  column.datatype == :string and column.limit == 2
                     datum = "(#{datum}.nil? ? '' : ::I18n.translate('countries.'+#{datum}))"

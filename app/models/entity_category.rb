@@ -35,12 +35,12 @@
 #
 
 class EntityCategory < ActiveRecord::Base
-
+  attr_readonly :company_id
   belongs_to :company
   has_many :entities, :foreign_key=>:category
   has_many :prices, :foreign_key=>:category
+  validates_uniqueness_of :code, :scope=>:company_id
 
-  attr_readonly :company_id
 
   def before_validation
     self.code = self.name.codeize if self.code.blank?

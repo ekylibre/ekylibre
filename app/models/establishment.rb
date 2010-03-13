@@ -34,9 +34,12 @@
 #
 
 class Establishment < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :company
-  has_many :users
   has_many :locations
+  has_many :users
+  validates_uniqueness_of :name,  :scope=>:company_id
+  validates_uniqueness_of :siret, :scope=>:company_id
 
   def before_validation
     self.siret = self.company.siren.to_s+self.nic.to_s if self.company

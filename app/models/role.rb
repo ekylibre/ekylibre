@@ -32,10 +32,10 @@
 #
 
 class Role < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :company
   has_many :users
-
-  attr_readonly :company_id
+  validates_uniqueness_of :name, :scope=>:company_id
 
   def before_validation
     self.rights_array=self.rights_array # Clean the rights

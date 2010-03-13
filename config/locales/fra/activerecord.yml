@@ -2029,6 +2029,7 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
+        discount: 'Réduction (en %)'
         delivery_lines: 'Lignes de livraison'
         entity: 'Relation'
         entity_id: 'Relation'

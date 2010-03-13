@@ -37,8 +37,10 @@
 #
 
 class EntityNature < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :company
   has_many :entities, :foreign_key=>:nature_id 
+  validates_uniqueness_of :name, :scope=>:company_id
 
 
   def before_validation

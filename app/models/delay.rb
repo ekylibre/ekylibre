@@ -33,15 +33,14 @@
 #  updater_id   :integer          
 #
 
-class Delay < ActiveRecord::Base
- 
+class Delay < ActiveRecord::Base 
+  attr_readonly :company_id
   belongs_to :company
   has_many :entities
   has_many :invoices
   has_many :sale_orders
   has_many :sale_order_natures
-
-  attr_readonly :company_id
+  validates_uniqueness_of :name, :scope=>:company_id
 
   DELAY_SEPARATOR = ', '
 

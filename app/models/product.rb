@@ -61,7 +61,8 @@
 #
 
 class Product < ActiveRecord::Base
-
+  @@natures = [:product, :service, :subscrip, :transfer]
+  attr_readonly :company_id
   belongs_to :charge_account, :class_name=>Account.to_s
   belongs_to :company
   belongs_to :product_account, :class_name=>Account.to_s
@@ -81,17 +82,12 @@ class Product < ActiveRecord::Base
   has_many :stocks
   has_many :subscriptions
   has_many :trackings
-
-  @@natures = [:product, :service, :subscrip, :transfer]
-
-  attr_readonly :company_id
-
-  validates_uniqueness_of :code, :scope=>:company_id
-
   validates_presence_of :subscription_period, :if=>Proc.new{|u| u.nature=="sub_date"}
   validates_presence_of :subscription_numbers, :actual_number, :if=>Proc.new{|u| u.nature=="sub_numb"}
   validates_presence_of :product_account_id, :if=>Proc.new{|p| p.to_sale}
   validates_presence_of  :charge_account_id, :if=>Proc.new{|p| p.to_purchase}
+  validates_uniqueness_of :code, :scope=>:company_id
+  validates_uniqueness_of :name, :scope=>:company_id
 
   #validates_presence_of :product_account_id
   #validates_presence_of :charge_account_id

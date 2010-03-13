@@ -43,6 +43,8 @@ class Currency < ActiveRecord::Base
   has_many :journals
   has_many :prices
 
+  validates_uniqueness_of :code, :scope=>:company_id
+
   def symbol
     return "€" 
   end

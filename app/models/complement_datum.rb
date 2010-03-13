@@ -43,6 +43,7 @@ class ComplementDatum < ActiveRecord::Base
   belongs_to :company
   belongs_to :complement
   belongs_to :entity
+  validates_uniqueness_of :complement_id, :scope=>[:company_id, :entity_id]
 
   def validate
     complement = self.complement

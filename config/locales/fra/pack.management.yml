@@ -448,6 +448,7 @@ fra:
           zero: 'Aucun achat'
         title: 'Liste des achats'
       _quick_line:
+        discount: 'Réduction (en %)'
         from: 'Du numéro'
         location: 'Lieu de stockage'
         product: 'Produit'
@@ -508,6 +509,7 @@ fra:
       sale_order_line_create:
         title: 'Ajout d''une ligne de produit'
       _sale_order_line_form:
+        discount: 'Remise (en %)'
         give_discount: 'Octroyer une remise'
         change_price: 'Changer le prix unitaire'
         infos: 'Choisissez le produit et la quantité'

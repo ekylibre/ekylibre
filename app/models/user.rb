@@ -69,7 +69,6 @@ class User < ActiveRecord::Base
   has_many :sale_orders, :foreign_key=>:responsible_id
   has_many :operations, :foreign_key=>:responsible_id
   has_many :transports, :foreign_key=>:responsible_id
-
   validates_presence_of :company_id, :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
   validates_confirmation_of :password
   validates_inclusion_of :reduction_percent, :in=>0..100

@@ -39,16 +39,16 @@
 #
 
 class Tax < ActiveRecord::Base
+  attr_readonly :nature, :company_id #, :amount
   belongs_to :company
   belongs_to :account_collected, :class_name=>Account.name
   belongs_to :account_paid, :class_name=>Account.name
   has_many :prices
-
   validates_inclusion_of :nature, :in=>%w( amount percent )
   validates_presence_of :account_collected_id
   validates_presence_of :account_paid_id
+  validates_uniqueness_of :name, :scope=>:company_id
 
-  attr_readonly :nature, :company_id #, :amount
 
   def validate
     errors.add(:amount, :included_in, :minimum=>0.to_s, :maximum=>1.to_s) if (self.amount < 0 or self.amount > 1) and self.percent?

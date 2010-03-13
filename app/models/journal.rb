@@ -45,6 +45,8 @@ class Journal < ActiveRecord::Base
   has_many :entries, :class_name=>JournalEntry.name
   has_many :records, :class_name=>JournalRecord.name
   validates_presence_of :closed_on
+  validates_uniqueness_of :code, :scope=>:company_id
+  validates_uniqueness_of :name, :scope=>:company_id
 
   @@natures = [:sale, :purchase, :bank, :renew, :various]
 

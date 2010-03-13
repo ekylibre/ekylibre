@@ -1,4 +1,4 @@
-# = Informations
+1# = Informations
 # 
 # == License
 # 
@@ -39,6 +39,7 @@ class Unit < ActiveRecord::Base
   belongs_to :company
   has_many :products
   validates_format_of :name, :with=>/^[a-zA-Z][a-zA-Z0-9]*([\.\/][a-zA-Z][a-zA-Z0-9]*)?$/
+  validates_uniqueness_of :name, :scope=>:company_id
 
   @@units = ["m", "kg", "s", "A", "K", "mol", "cd"]
 

@@ -57,6 +57,7 @@ class Account < ActiveRecord::Base
   has_many :purchase_order_lines
   acts_as_tree
   validates_format_of :number, :with=>/[0-9][0-9]?[0-9]?[0-9A-Z]*/
+  validates_uniqueness_of :number, :scope=>:company_id
   
   attr_accessor :sum_debit, :sum_credit
 

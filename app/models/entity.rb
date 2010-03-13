@@ -98,6 +98,7 @@ class Entity < ActiveRecord::Base
   has_many :usable_payments, :conditions=>["parts_amount<amount"], :class_name=>Payment.name
   has_one :default_contact, :class_name=>Contact.name, :conditions=>{:default=>true, :active=>true}
   validates_presence_of :category_id
+  validates_uniqueness_of :code, :scope=>:company_id
 
 
   def before_validation

@@ -1216,7 +1216,8 @@ class ManagementController < ApplicationController
 
 
 
-  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}) do |t|
+  # dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]'], :reduction_origin_id=>nil}, :children=>:reductions) do |t|
+  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :order=>:id) do |t|
     #t.column :name, :through=>:product
     t.column :label
     t.column :serial, :through=>:tracking, :url=>{:action=>:tracking}
@@ -1252,6 +1253,7 @@ class ManagementController < ApplicationController
     session[:current_product] = @product.id if @product
     @location = @current_company.locations.first if @current_company.locations.size > 0
     session[:current_location] = @location.id
+    @sale_order_line = @sale_order.lines.new
     @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
   end
 
@@ -1263,26 +1265,11 @@ class ManagementController < ApplicationController
     end
   end
 
-#   def sale_order_invoice
-#     return unless @sale_order = find_and_check(:sale_orders, params[:id])
-#     if request.post?
-#       ActiveRecord::Base.transaction do
-#         # raise Exception.new(@sale_order.deliver_and_invoice.errors.inspect)
-#         raise ActiveRecord::Rollback unless @sale_order.deliver_and_invoice
-#         redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
-#         return
-#       end
-#     end
-#     redirect_to :action=>:sale_order_lines, :id=>@sale_order.id
-#   end
 
   def sale_order_invoice 
     return unless @sale_order = find_and_check(:sale_orders, params[:id])
     if request.post?
       ActiveRecord::Base.transaction do
-       # saved = @sale_order.confirm unless params[:has_deliveries]
-
-        #saved = @sale_order.move_real_stocks
         raise ActiveRecord::Rollback unless @sale_order.invoice
         redirect_to :action=>:sale_order_summary, :id=>@sale_order.id
         return
@@ -1302,22 +1289,6 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
-
-#   def add_lines
-#     @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
-#     if @sale_order_line
-#       @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
-#       @sale_order_line.save
-#     else
-#       @sale_order_line = SaleOrderLine.new(params[:sale_order_line])
-#       @sale_order_line.company_id = @current_company.id 
-#       @sale_order_line.order_id = session[:current_sale_order]
-#       @sale_order_line.product_id = find_and_check(:prices,params[:sale_order_line][:price_id]).product_id
-#       @sale_order_line.location_id = @locations[0].id if @locations.size == 1
-#     end
-#     redirect_to :action=>:sale_order_lines, :id=>session[:current_sale_order]
-#     #raise Exception.new @sale_order_line.inspect
-#   end
   
   def calculate_sales_price(exist)
     if exist
@@ -1375,7 +1346,7 @@ class ManagementController < ApplicationController
   def sale_order_line_create
     @locations = @current_company.locations
     @sale_order = SaleOrder.find(:first, :conditions=>{:company_id=>@current_company.id, :id=>session[:current_sale_order]})
-    @sale_order_line = SaleOrderLine.new(:price_amount=>0.0)
+    @sale_order_line = @sale_order.lines.new(:price_amount=>0.0)
     if @current_company.available_prices.size > 0
       @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id, :company_id=>@current_company.id).compute_period
       @product = @current_company.available_prices.first.product
@@ -1394,17 +1365,22 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sale_order_lines, :id=>@sale_order.id
       return
     elsif request.post? 
-      #raise Exception.new params.inspect
-      @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
-      if @sale_order_line and params[:sale_order_line][:price_amount].to_d <= 0 and @sale_order_line.tracking_id.nil?
-        @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
-      else
-        @sale_order_line = @sale_order.lines.build(params[:sale_order_line])
-        @sale_order_line.location_id = @locations[0].id if @locations.size == 1
-        # @sale_order_line.company_id  = @current_company.id
-        # @sale_order_line.order_id    = session[:current_sale_order]
-        # @sale_order_line.product_id  = find_and_check(:prices,params[:sale_order_line][:price_id]).product_id
-      end
+      
+      # #raise Exception.new params.inspect
+      # @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order]})
+      # if @sale_order_line and params[:sale_order_line][:price_amount].to_d <= 0 and @sale_order_line.tracking_id.nil?
+      #   @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
+      # else
+      #   @sale_order_line = @sale_order.lines.build(params[:sale_order_line])
+      #   @sale_order_line.location_id = @locations[0].id if @locations.size == 1
+      #   # @sale_order_line.company_id  = @current_company.id
+      #   # @sale_order_line.order_id    = session[:current_sale_order]
+      #   # @sale_order_line.product_id  = find_and_check(:prices,params[:sale_order_line][:price_id]).product_id
+      # end
+
+      @sale_order_line = @sale_order.lines.build(params[:sale_order_line])
+      @sale_order_line.location_id = @locations[0].id if @locations.size == 1
+
       ActiveRecord::Base.transaction do
         saved = @sale_order_line.save
         if saved 

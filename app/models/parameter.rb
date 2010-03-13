@@ -42,13 +42,14 @@
 class Parameter < ActiveRecord::Base
   @@natures = Parameter.columns_hash.keys.select{|x| x.match(/_value(_id)?$/)}.collect{|x| x.split(/_value/)[0] }
   @@conversions = {:float=>'decimal', :true_class=>'boolean', :false_class=>'boolean', :fixnum=>'integer'}
+  attr_readonly :company_id, :user_id, :name, :nature
   belongs_to :company
   belongs_to :user
   belongs_to :record_value, :polymorphic=>true
-  validates_inclusion_of :nature, :in => @@natures
-
   cattr_reader :reference
-  attr_readonly :company_id, :user_id, :name, :nature
+  validates_inclusion_of :nature, :in => @@natures
+  validates_uniqueness_of :name, :scope=>[:company_id, :user_id]
+
 
   def before_validation
     self.company_id = self.user.company_id if self.user
