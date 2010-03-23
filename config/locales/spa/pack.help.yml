@@ -1,0 +1,14 @@
+spa:
+  controllers:
+    help:
+      title: 'Ayuda'
+  helpers:
+    help:
+  views:
+    help:
+      _search:
+        ekylibre: 'www.ekylibre.org'
+        #>error_no_file: 'Aucune aide n''est disponible pour cette partie de l''application ({{article}}). L''aide n''a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d''informations.'
+        #>home: 'Retour à l''accueil de l''aide'
+        missing_help: 'La página no existe'
+        title: 'Ayuda'

@@ -6,12 +6,8 @@ fra:
 
   helpers:
     application:
-      all_financialyears: '--- Tous les exercices ---'
-      all_journals: '--- Tous les journaux ---'
       exit: 'Se déconnecter'
-      false: 'non'
       print: 'Imprimer {{name}}'
-      true: 'oui'
 
   views:
     application:

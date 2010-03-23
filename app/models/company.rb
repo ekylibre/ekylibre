@@ -580,12 +580,13 @@ class Company < ActiveRecord::Base
       user.role_id = company.admin_role.id
       user.save!
       tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
+        number = a[0].to_s[1..-1]
         begin
-          account = company.accounts.find_by_number(a[0].to_s)
+          account = company.accounts.find_by_number(number)
           if account 
             account.update_attributes!(:name=>a[1])
           else
-            company.accounts.create!(:number=>a[0].to_s, :name=>a[1])
+            company.accounts.create!(:number=>number, :name=>a[1])
           end
         rescue Exception
           

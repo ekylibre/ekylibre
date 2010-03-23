@@ -153,6 +153,11 @@ module ApplicationHelper
   end
 
 
+  def locale_selector
+    select_tag("locale", options_for_select(::I18n.active_locales.sort{|a,b| a.to_s<=>b.to_s}.collect{|l| [::I18n.translate(l, :locale=>:languages), l]}, :selected=>::I18n.locale), :onchange=>remote_function(:url=>{:controller=>:application, :action=>:i18nize}, :with=>"'locale='+this.value", :success=>"window.location.replace('#{request.url}')"))
+  end
+
+
   def link_to(*args, &block)
     if block_given?
       options      = args.first || {}

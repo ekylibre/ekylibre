@@ -7,7 +7,7 @@ Les options de la liste déroulante correspondent aux différents choix que cell
 
 Vous pouvez également :
   * créer une nouvelle option pour votre liste déroulante
-  * la modifier : [[relations-complement_choices|{{template:buttons/update.png|modifier}}]] 
+  * la modifier : [[relations-complement_choices|{{theme:buttons/update.png|modifier}}]] 
 
 [[relations-index|Revenir à l'aide de gestion des relations ]]
 

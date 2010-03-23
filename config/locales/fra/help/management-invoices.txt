@@ -8,7 +8,7 @@ Vous pouvez **rechercher une facture en fonction de son statut**: un **avoir** o
 
 ===== Passage en avoir =====
 
-Vous pouvez **passer une facture en avoir** (total ou partiel) grâce à l'action {{template:buttons/cancel.png|avoir}}.L'avoir sera enregistré en tant que facture mais avec des quantités négatives. En tant qu'avoir partiel ou total, elle sera **surlignée** dans le tableau **respectivement en orange ou en rouge**. 
+Vous pouvez **passer une facture en avoir** (total ou partiel) grâce à l'action {{theme:buttons/cancel.png|avoir}}.L'avoir sera enregistré en tant que facture mais avec des quantités négatives. En tant qu'avoir partiel ou total, elle sera **surlignée** dans le tableau **respectivement en orange ou en rouge**. 
 
 
 [[management-index|Retour à l'aide sur la Gestion Commerciale]]

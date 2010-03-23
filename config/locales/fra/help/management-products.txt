@@ -7,9 +7,9 @@ Vous pouvez saisir dans le champ de recherche tout ou seulement une partie d'un 
 
 ===== L'affichage des produits =====
 Une fois votre recherche effectuée, vous avez accès à un tableau vous récapitulant toutes les informations concernant le ou les produits trouvés. Depuis ce tableau, vous pouvez également:
-  * afficher un produit :  [[management-products_display|{{template:buttons/show.png|afficher}}]]
-  * le modifier : [[management-products_update|{{template:buttons/update.png|modifier}}]] 
-  * le supprimer : {{template:buttons/delete.png|supprimer}}
+  * afficher un produit :  [[management-products_display|{{theme:buttons/show.png|afficher}}]]
+  * le modifier : [[management-products_update|{{theme:buttons/update.png|modifier}}]] 
+  * le supprimer : {{theme:buttons/delete.png|supprimer}}
 
 Dans le tableau, le nom du prix est un lien vous redirigeant vers l'affichage de votre produit récapitulant toutes les informations correspondantes au produit et d'ou vous pouvez également ajouter ou supprimer un prix pour ce produit.
 

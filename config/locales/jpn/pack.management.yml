@@ -1,0 +1,766 @@
+jpn:
+  controllers:
+    management:
+      #>address: 'Adresse'
+      #>amount: 'Montant HT'
+      #>amount_with_taxes: 'Montant TTC'
+      #>are_you_sure_to_delete_delivery: 'Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?'
+      #>category: 'Catégorie'
+      #>changes_reflected: 'Changements répercutés'
+      #>choose_one_check_at_less: 'Sélectionnez au moins un chèque'
+      #>client_code: 'Code cl.'
+      #>client_phone: 'Téléphone'
+      #>code: 'Code client'
+      #>created_on: 'Créée le'
+      #>credit: 'Avoir'
+      #>email: 'Email: '
+      #>embankment: 'Remise de chèques'
+      #>error_sale_order_already_paid: 'La vente a déjà été payée en totalité'
+      #>estimate: 'Devis'
+      #>fax: 'Fax'
+      #>full_name: 'Client'
+      #>inventory: 'Inventaire'
+      #>invoice: 'Facture'
+      #>invoice_number: 'Numéro de facture'
+      #>last_payment_amount: 'Montant du dernier réglement'
+      #>last_payment_date: 'Date du dernier réglement'
+      locations:
+        #>location_create: 'Ajouter un nouveau lieu de stockage'
+      #>mobile: 'Portable'
+      #>no_contacts: 'Aucune adresse définie pour {{name}}'
+      #>number: 'Numéro vente'
+      #>order: 'Commande'
+      #>paid_on: 'Réglé le'
+      #>parts_amount: 'Montant réglé'
+      #>payment_amount: 'Montant du réglement'
+      #>phone: 'Tél.'
+      #>price: 'Prix'
+      #>price_amount_with_taxes: 'Prix TTC'
+      prices:
+        #>purchases_price_create: 'Enregistrer un nouveau prix d''achat'
+        #>sales_price_create: 'Enregistrer un nouveau prix de vente'
+      #>product: 'Produit'
+      product_prices:
+        #>purchases_price_create: 'Créer un nouveau prix d''achat'
+        #>sales_price_create: 'Créer un nouveau prix de vente'
+      #>purchase_order: 'Achat'
+      purchase_order_lines:
+        #>purchase_order_line_create: 'Ajouter un produit à la commande'
+      #>reservoir: 'Réservoir'
+      #>sale_order: 'Vente'
+      sale_order_lines:
+        #>sale_order_line_create: 'Ajouter un produit au devis'
+      #>sale_order_products: 'Produits commandés'
+      #>scheduled: 'Échéance'
+      #>shelf: 'Catégorie'
+      #>theoric_quantity: 'Quantité théorique'
+      title: '商業の管理'
+      #>to_bank_on: 'À encaisser le'
+      #>to_embank: 'À encaisser'
+      #>transport: 'Transport'
+      #>unpaid_amount: 'Montant impayé'
+      #>unpaid_days: 'À payer depuis (jours)'
+      #>unpaid_sale_orders: 'Ventes impayées'
+      #>unvalid_date: 'Date incorrecte'
+  helpers:
+    management:
+      purchase_steps:
+        #>active: 'Création de l''achat'
+        #>summary: 'Règlements'
+      sale_steps:
+        #>deliveries: 'Planification des livraisons'
+        #>estimate: 'Création du devis'
+        #>general: 'Description'
+        #>products: 'Produits'
+        #>summary: 'Facture et réglement(s)'
+      #>sales_step_1: 'Description'
+      #>sales_step_2: 'Produits'
+      #>sales_step_3: 'Livraisons'
+      #>sales_step_4: 'Règlements'
+  views:
+    management:
+      _csv_statistics:
+        #>amount: 'Montants HT'
+        #>amount_with_taxes: 'Montants TTC'
+        #>csv_statistics: 'Statistiques à exporter au format CSV'
+        #>data_to_export: 'Données à exporter :'
+        #>invoice: 'Factures'
+        #>nb_years: 'Nb d''années dans l''historique'
+        #>product: 'Produit'
+        #>quantity: 'Quantités'
+        #>sale_order: 'Commandes'
+        #>sales: 'Exporter un tableau des ventes au format CSV'
+        #>source: 'Source de données :'
+      delay:
+        #>delay_update: 'Modifier le délai'
+        #>title: 'Délai : {{value}}'
+      delay_create:
+        #>title: 'Ajout d''un nouveau délai'
+      _delay_form:
+        #>general: 'Général'
+      delay_update:
+        #>title: 'Modification du délai : {{name}}'
+      delays:
+        #>delay_create: 'Ajouter un nouveau délai'
+        #>title: 'Liste des délais'
+      delivery_mode_create:
+        #>title: 'Ajout d''un nouveau type de livraison'
+      delivery_mode_update:
+        #>title: 'Modification du type de livraison "{{value}}"'
+      delivery_modes:
+        #>delivery_mode_create: 'Ajouter un type livraison'
+        #>title: 'Types de livraison'
+      _delivery_update:
+        #>title: 'Modification de la livraison'
+      embankment:
+        #>amount: 'Montant total'
+        #>check_number: 'Nombre de chèques'
+        #>embankment: 'Remise de chèques du'
+        #>on_account: 'À remettre sur le compte'
+        #>print_on: 'Le'
+        #>title: 'Remise de chèques {{number}} du {{date}}'
+      embankment_create:
+        #>title: 'Créer une remise : {{mode}}'
+      _embankment_form:
+        #>infos: 'Renseignez les informations suivantes'
+        #>payments: 'Règlements'
+      embankment_payment_create:
+        #>amount: 'Montant'
+        #>back: 'Retour'
+        #>embank: 'Encaisser'
+        #>embanker: 'Encaisseur'
+        #>entity_name: 'Client'
+        #>mode_name: 'Type'
+        #>no_checks: 'Aucun chèque à encaisser pour ce type de chèque'
+        #>title: 'Sélection des chèques'
+        #>to_bank_on: 'À encaisser le'
+        #>validate: 'Valider'
+      embankment_payment_update:
+        #>amount: 'Montant'
+        #>back: 'Retour'
+        #>embank: 'Encaisser'
+        #>embanker: 'Encaisseur'
+        #>entity_name: 'Client'
+        #>mode_name: 'Type'
+        #>no_checks: 'Aucun chèque à encaisser'
+        #>title: 'Sélection des chèques'
+        #>to_bank_on: 'À encaisser le'
+        #>validate: 'Valider'
+      embankment_update:
+        #>title: 'Modification de la remise de chèque du {{date}}'
+      embankments:
+        embankment_create:
+          #>one: 'Ajouter une remise : {{mode}} (1 règlement)'
+          #>other: 'Ajouter une remise : {{mode}} ({{count}} règlements)'
+          #>zero: 'Ajouter une remise : {{mode}} (Pas de règlement)'
+        nb_checks:
+          #>one: '1 chèque à encaisser'
+          #>other: '{{count}} chèques à encaisser'
+          #>zero: 'Aucun chèque à encaisser'
+        #>title: 'Remises de chèques'
+      _graph_statistics:
+        #>nb_years: 'Nombre d''années dans l''historique'
+        #>product: 'Produit'
+      index:
+        #>delays: 'Délais'
+        #>delivery_modes: 'Types de livraison'
+        #>embankments: 'Remises de chèques'
+        #>indicator: 'Tableau de bord'
+        #>inventories: 'Inventaires'
+        #>invoices: 'Factures'
+        #>invoicing_parameters: 'Facturation'
+        #>location: 'Lieux de stockage'
+        #>low_stocks: 'Stocks sous le seuil critique'
+        nb_enbankments:
+          #>one: '1 remise de chèques à valider'
+          #>other: '{{count}} remises de chèques à valider'
+          #>zero: 'Aucune remise de chèques à valider'
+        nb_payments:
+          #>one: '1 chèque à encaisser depuis au moins 15 j.'
+          #>other: '{{count}} chèques à encaisser depuis au moins 15 j.'
+          #>zero: 'Aucun chèque à encaisser depuis au moins 15 j.'
+        nb_purchases:
+          #>one: '1 achat en attente de reception'
+          #>other: '{{count}} achats en attente de reception'
+          #>zero: 'Aucun achat en attente de reception'
+        nb_sales:
+          #>one: '1 livraison en attente'
+          #>other: '{{count}} livraisons en attente '
+          #>zero: 'Aucune livraison en attente'
+        nb_transfers:
+          #>one: '1 transfert à effectuer'
+          #>other: '{{count}} transferts à effectuer'
+          #>zero: 'Aucun transfert à effectuer'
+        #>parameters: 'Paramètres'
+        #>payment_modes: 'Types de réglement'
+        #>payments: 'Règlements'
+        #>prices: 'Prix'
+        #>products: 'Produits'
+        #>purchase_order_create: 'Nouvel achat'
+        #>purchase_orders: 'Achats'
+        #>purchases_consult: 'Achats'
+        #>sale_order_create: 'Nouveau devis'
+        #>sale_order_natures: 'Types de vente'
+        #>sale_orders: 'Ventes'
+        #>sales_consult: 'Devis / Commandes'
+        #>shelves: 'Catégories de produit'
+        #>statistics: 'Statistiques'
+        #>stock_transfers: 'Transferts et pertes'
+        #>stocks: 'Stocks'
+        #>stocks_consult: 'État des stocks'
+        #>subscription_natures: 'Types d''abonnement'
+        #>subscriptions: 'Abonnements'
+        #>title: 'Gestion commerciale'
+        #>transports: 'Transports'
+        #>units: 'Unités de mesure'
+      inventories:
+        #>inventory_create: 'Faire un nouvel inventaire'
+        #>inventory_print: 'Imprimer l''inventaire'
+        #>title: 'Inventaires'
+      inventory_create:
+        #>inventory: 'Complétez l''inventaire'
+        #>product: 'Produit'
+        #>quantity: 'Quantité constatée'
+        #>reservoir: 'Réservoir'
+        #>shelf: 'Catégorie'
+        #>theoric_quantity: 'Quantité théorique'
+        #>title: 'Inventaire'
+        #>unit: 'Unité'
+        #>validate: 'Valider '
+      inventory_update:
+        #>inventory: 'Mofifiez votre inventaire'
+        #>title: 'Modification de l''inventaire'
+        #>validate: 'Valider les changements'
+      invoice:
+        #>credits: 'Avoirs'
+        #>invoice_cancel: 'Faire un avoir sur la facture'
+        #>invoice_lines: 'Lignes de la facture'
+        #>invoice_print: 'Imprimer la facture'
+        #>title: '{{nature}} {{number}}'
+      invoice_cancel:
+        #>already_credited_quantity: 'Qté. déjà passée en avoir'
+        #>price_amount: 'Prix HT'
+        #>price_amount_with_taxes: 'Prix TTC'
+        #>product: 'Produit'
+        #>quantity_to_credit: 'Qté. à passer en avoir'
+        #>title: 'Passage en avoir de la facture {{value}}'
+        #>total_quantity: 'Qté. totale'
+        #>unit: 'Unité'
+        #>validate: 'Valider'
+      invoices:
+        nb_invoices:
+          #>one: '1 facture enregistrée'
+          #>other: '{{count}} factures enregistrées'
+          #>zero: 'Aucune facture enregistrée'
+        #>title: 'Factures'
+      _invoices_search:
+        #>all: 'Toutes'
+        #>cancelled: 'Passées en avoir'
+        #>credits: 'Avoirs'
+        #>search: 'Rechercher une facture'
+      location:
+        #>establishment: 'Établissement'
+        location:
+          #>stock_moves: 'Mouvements de stocks'
+          #>stocks: 'État des stocks'
+        #>location_update: 'Modifier le lieu de stockage'
+        #>locations: 'Voir la liste des lieux de stockage'
+        #>moves: 'Mouvements de stocks'
+        #>stock_move_create: 'Ajouter un mouvement de stock'
+        #>title: 'Détail du lieu de stockage : {{value}}'
+      _location_choice:
+        #>select_location: 'Choississez un lieu de stockage'
+      location_create:
+        #>title: 'Ajout d''un lieu de stockage'
+      _location_form:
+        #>accountancy: 'Comptabilité'
+        #>description: 'Description générale'
+        #>localization: 'Localisation géographique'
+        #>reservoir_informations: 'Informations sur le réservoir'
+      location_update:
+        #>title: 'Modification d''un lieu de stockage'
+      locations:
+        #>location_create: 'Ajouter un lieu de stockage'
+        #>reservoirs_create: 'Ajouter un réservoir'
+        #>title: 'Lieux de stockage'
+      payment:
+        #>payment_update: 'Modifier le réglement'
+        #>purchase_orders: 'Achats liés au réglement'
+        #>sale_orders: 'Ventes liées au règlement'
+        #>title: 'Réglement n°{{number}} de {{entity}}'
+      payment_create:
+        #>title: 'Ajout d''un nouveau règlement'
+      _payment_form:
+        #>check: 'Pour les réglements de type chèque'
+        #>title: 'Renseignez les conditions du réglement'
+      payment_mode_create:
+        #>title: 'Créer un nouveau type de réglement'
+      payment_mode_update:
+        #>title: 'Modifier un type de réglement'
+      payment_modes:
+        #>payment_mode_create: 'Créer un nouveau type de réglement'
+        #>title: 'Types de réglement'
+      payment_part_create:
+        #>title: 'Ajouter un nouveau réglement : {{type}} {{value}}'
+      _payment_part_form:
+        #>downpayment: 'Acompte'
+        #>existing_part: 'Utiliser un réglement non affecté'
+        #>new: 'Créer un nouveau réglement'
+        #>new_payment: 'Enregistrer un nouveau réglement'
+        #>payment_label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} de {{entity}}'
+        #>select_existing_payment: 'Sélectionner un réglement existant'
+        #>unused_payment: 'Réglement à utiliser'
+      payment_update:
+        #>title: 'Modification du réglement n°{{number}}'
+      payments:
+        nb_payments:
+          #>one: '1 règlement en attente'
+          #>other: '{{count}} règlements en attente'
+          #>zero: 'Aucun règlement en attente'
+        #>title: 'Suivi des règlements'
+      _payments_search:
+        #>all: 'Tous'
+        #>embanked: 'Encaissés'
+        #>search: 'Rechercher des règlements'
+        #>waiting: 'Échéances'
+      price_create:
+        #>title: 'Ajout d''un nouveau prix'
+      _price_form:
+        #>general: 'Général'
+        #>taxes: 'Taxes'
+      price_lists:
+        #>price_lists_create: 'Ajouter une nouvelle liste de prix'
+        #>title: 'Gérer les listes de prix'
+      price_lists_create:
+        #>title: 'Ajouter une nouvelle liste de prix'
+      price_lists_display:
+        #>price_create: 'Ajouter un nouveau prix'
+        #>price_lists: 'Voir les listes de prix'
+        #>price_lists_update: 'Modifier le détail de la liste de prix'
+        #>prices: 'Produits et prix de la liste'
+        #>title: 'Liste de prix : {{value}}'
+      _price_lists_form:
+        #>general: 'Description générale'
+      price_lists_update:
+        #>title: 'Modifier la liste de prix : {{value}}'
+      prices:
+        #>all: 'Tous les prix'
+        #>client: 'Les prix de vente'
+        #>display: 'Afficher :'
+        #>prices_export: 'Tout exporter au format CSV'
+        #>prices_import: 'Importer un fichier CSV'
+        #>purchase_order_price_create: 'Ajouter un prix d''achat '
+        #>sale_order_price_create: 'Ajouter un prix de vente'
+        #>supplier: 'Les prix d''achat du fournisseur'
+        #>title: 'Liste des prix'
+      prices_import:
+        #>file_to_download: 'Fichier à importer'
+        #>prices_export: 'Exporter vos tarifs au format CSV'
+        #>title: 'Importer un fichier CSV de tarifs'
+      product:
+        #>components: 'Composants'
+        #>prices: 'Prix du produit'
+        product:
+          #>components: 'Composants'
+          #>prices: 'Prix'
+          #>stock_moves: 'Mouvements de stock'
+          #>stocks: 'Stocks'
+        #>product_component_create: 'Ajouter un nouveau composant'
+        #>product_update: 'Modifier la fiche du produit'
+        #>products: 'Voir la liste de produits'
+        #>purchase_price_create: 'Créer un prix d''achat'
+        #>purchases_price_create: 'Ajouter un prix d''achat'
+        #>sale_price_create: 'Créer un prix de vente'
+        #>sales_price_create: 'Ajouter un prix de vente'
+        #>stocks: 'État des stocks'
+        #>title: 'Fiche du produit : {{value}}'
+      product_component_create:
+        #>title: 'Ajouter un composant au produit {{value}} '
+      product_component_update:
+        #>title: 'Modification d''un composant du produit {{product}} '
+      _product_components:
+        #>product_component_create: 'Ajouter un nouveau composant'
+      product_create:
+        #>title: 'Ajouter un nouveau produit'
+      _product_form:
+        #>accountancy: 'Comptabilité'
+        #>description: 'Descriptions'
+        #>identification: 'Nom et codes du produit'
+        #>nature: 'Type de produit'
+        #>stocks: 'Gestion des stocks'
+      _product_prices:
+        #>purchase_price_create: 'Créer un prix d''achat'
+        #>sale_price_create: 'Créer un prix de vente'
+      product_update:
+        #>title: 'Modification du produit : {{value}}'
+      products:
+        nb_products:
+          #>one: '1 produit enregistré'
+          #>other: '{{count}} produits enregistrés'
+          #>zero: 'Aucun produit enregistré'
+        #>product_create: 'Ajout d''un nouveau produit'
+        #>title: 'Gérer les produits'
+      _products_search:
+        #>active: 'Actif'
+        #>search: 'Rechercher un produit'
+        #>shelf: 'Catégorie'
+        #>title: 'Recherche'
+      purchase_order:
+        #>general_informations: 'Informations générales'
+        #>lines: 'Lignes d''achat'
+        #>payment_part_create: 'Ajouter un règlement à l''achat'
+        #>payment_parts: 'Règlements'
+        #>purchase_order_lines: 'Modifier l''achat'
+        #>purchase_order_print: 'Imprimer la commande fournisseur'
+        #>title: 'Détails de l''achat {{number}} au fournisseur {{supplier}} '
+      purchase_order_create:
+        #>title: 'Nouvel achat'
+      _purchase_order_form:
+        #>infos: 'Renseignez les caractéristiques de l''achat '
+      purchase_order_line_create:
+        #>title: 'Ajouter un produit à la commande'
+      purchase_order_line_update:
+        #>title: 'Modifier une ligne de la commande'
+      purchase_order_lines:
+        #>amount: 'Montant HT'
+        #>amount_with_taxes: 'Montant TTC'
+        #>general: 'Informations générales'
+        #>lines: 'Lignes de la commande'
+        #>order_print: 'Imprimer la commande'
+        #>purchase_order_line_create: 'Ajouter un produit à la commande'
+        #>purchase_order_print: 'Imprimer la commande d''achat'
+        #>purchase_order_update: 'Modifier les informations de la commande'
+        #>purchase_orders: 'Consulter la liste des achats'
+        #>title: 'Produits de la commande {{value}} chez {{name}}'
+        #>validate: 'Valider la commande'
+      purchase_order_summary:
+        #>payment_part_create: 'Ajouter un règlement'
+        #>payments: 'Règlements'
+        #>products: 'Produits de la commande'
+        #>title: 'Règlements'
+      purchase_orders:
+        nb_purchases:
+          #>one: '1 achat'
+          #>other: '{{count}} achats'
+          #>zero: 'Aucun achat'
+        #>title: 'Liste des achats'
+      _quick_line:
+        #>discount: 'Réduction (en %)'
+        #>from: 'Du numéro'
+        #>location: 'Lieu de stockage'
+        #>product: 'Produit'
+        #>quantity: 'Quantité'
+        #>title: 'Saisie rapide'
+        #>to: 'au'
+        #>valid: 'Valider'
+      sale_order:
+        #>deliveries: 'Livraisons'
+        #>general_informations: 'Informations générales'
+        #>invoices: 'Factures'
+        #>lines: 'Lignes de vente'
+        #>payment_part_create: 'Ajouter un règlement'
+        #>payments: 'Règlements'
+        #>sale_order_lines: 'Modifier la vente'
+        #>sale_order_print: 'Imprimer la vente'
+        #>subscriptions: 'Abonnements'
+        #>title: 'Détails de la vente {{value}} au client {{name}}'
+      sale_order_create:
+        #>title: 'Création de la vente'
+      sale_order_deliveries:
+        #>address: 'Adresse de livraison'
+        #>amount: 'Montant HT'
+        #>amount_with_taxes: 'Montant TTC'
+        #>are_you_sure_to_invoice: 'Êtes-vous sûr(e) de vouloir facturer la vente ?'
+        #>deliver: 'Faite le  '
+        #>deliveries: 'Livraisons'
+        #>invoice: 'Facturation'
+        #>invoice_number: 'Facture n°'
+        #>no_deliveries_for_this_sale_order: 'Cette vente n''est associée à aucune livraison '
+        #>quantity: 'Quantité'
+        #>sale_order_delivery_create: 'Ajouter une livraison'
+        #>sale_order_invoice: 'Facturer la vente'
+        #>sale_order_print: 'Imprimer la commande'
+        #>ship: 'Prévue le  '
+        #>supply: 'Livraison'
+        #>title: 'Livraisons'
+        #>undelivered: 'Reste à livrer'
+      sale_order_delivery_create:
+        #>title: 'Ajouter une livraison'
+      _sale_order_delivery_form:
+        #>amount: 'Total de la livraison HT'
+        #>amount_with_taxes: 'Total de la livraison TTC'
+        #>infos: 'Renseignez les caractéristiques de la livraison'
+        #>line_amount: 'PU HT'
+        #>line_amount_with_taxes: 'PU TTC'
+        #>product: 'Produit'
+        #>quantity: 'Quantité'
+        #>quantity_rest: 'Quantité restante'
+        #>total_quantity: 'Quantité totale'
+        #>unit: 'Unité'
+      sale_order_delivery_update:
+        #>title: 'Modification de la livraison'
+      _sale_order_form:
+        #>client: 'Sélection du client'
+        #>conditions: 'Conditions de vente'
+        #>letter: 'Lettre'
+      sale_order_line_create:
+        #>title: 'Ajout d''une ligne de produit'
+      _sale_order_line_form:
+        #>change_price: 'Changer le prix unitaire'
+        #>discount: 'Remise (en %)'
+        #>give_discount: 'Octroyer une remise'
+        #>infos: 'Choisissez le produit et la quantité'
+      _sale_order_line_informations:
+        #>no_tracking: 'Aucun lot'
+        #>tracking: 'Lot '
+      sale_order_line_informations:
+        #>contact: 'à l''adresse'
+        #>from_date: 'Du '
+        #>to_date: 'Au '
+      _sale_order_line_stocks:
+        #>line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
+      _sale_order_line_tracking:
+        #>no_tracking: 'Aucun lot'
+        #>tracking: 'Lot '
+      sale_order_line_update:
+        #>title: 'Modifier une ligne de produit'
+      sale_order_lines:
+        #>amount: 'Montant HT'
+        #>amount_with_taxes: 'Montant TTC'
+        #>are_you_sure_to_confirm: 'Êtes-vous sûr(e) de vouloir passer la vente en commande ?'
+        #>are_you_sure_to_invoice: 'Êtes-vous sûr(e) de vouloir facturer directement la vente ?'
+        #>deliveries: 'Livraisons'
+        #>estimate_to_order: 'Passer le devis en commande'
+        #>general: 'Informations générales'
+        #>invoice_sale_order: 'Facturer la vente'
+        #>lines: 'Lignes du devis'
+        #>sale_order_confirm: 'Passer le devis en commande et aller aux livraisons'
+        #>sale_order_deliveries: 'Livraisons'
+        #>sale_order_invoice: 'Facturer directement tout le devis'
+        #>sale_order_line_create: 'Ajouter un produit au devis (Mode complet)'
+        #>sale_order_print: 'Imprimer le devis'
+        #>sale_order_update: 'Modifier les informations du devis'
+        #>subscriptions: 'Abonnements'
+        #>title: 'Sélection des produits pour le devis {{sale_order}} de : {{client}}'
+        #>total: 'Total'
+      sale_order_nature_create:
+        #>title: 'Ajout d''un type de vente'
+      _sale_order_nature_form:
+        #>conditions: 'Conditions de réglement'
+        #>delays: 'Délais'
+        #>downpayment: 'Options pour l''acompte'
+        #>general: 'Général'
+      sale_order_nature_update:
+        #>title: 'Modification d''un type de vente'
+      sale_order_natures:
+        #>sale_order_nature_create: 'Créer un nouveau type de vente'
+        #>title: 'Types de ventes'
+      sale_order_print:
+        #>deliveries_number: 'jjkjj'
+      sale_order_summary:
+        #>amount_wt: 'Montant TTC'
+        #>balance_amount: 'Solde du client'
+        #>client_balance: 'Solde du client'
+        #>close_sale: 'Clôturer la vente'
+        #>financial_state: 'État de la vente'
+        #>invoice: 'Facture'
+        #>invoiced_amount: 'Montant facturé'
+        #>invoices_total: 'Total factures'
+        #>number: 'Numéro'
+        #>order_amount_with_taxes: 'Montant de la commande'
+        #>paid_amount: 'Montant réglé'
+        #>paid_on: 'Règlé le'
+        #>payment_mode: 'Mode de réglement'
+        #>payment_on: 'Payé le'
+        #>payment_part_create: 'Ajouter un nouveau réglement'
+        #>payments: 'Règlements'
+        #>payments_amount: 'Montant réglé'
+        #>payments_total: 'Total règlements'
+        #>rest_to_pay: 'Reste à payer'
+        #>title: 'Facture et règlement(s) de la vente {{number}}'
+        #>total_amount: 'Montant de la commande'
+        #>uninvoiced_amount: 'Montant non facturé'
+        #>unpaid_amount: 'Montant restant à payer'
+      sale_order_update:
+        #>title: 'Modification de la vente N°{{number}}'
+      sale_orders:
+        #>all: 'Toutes'
+        #>current: 'En cours'
+        nb_sales:
+          #>one: '1 vente'
+          #>other: '{{count}} ventes'
+          #>zero: 'Aucune vente'
+        #>search_sales: 'Rechercher des ventes'
+        #>title: 'Liste des devis/commandes'
+        #>unpaid: 'Impayées'
+        #>unpaid_sale_orders_export: 'Exporter la liste des ventes impayées au format csv'
+      sales_invoices:
+        #>address: 'Livraison'
+        #>amount: 'Montant HT'
+        #>amount_with_taxes: 'Montant TTC'
+        #>deliver: 'Reçu le'
+        #>invoices: 'Factures'
+        #>payments: 'Réglements'
+        #>quantity: 'Quantité'
+        #>rest_to_invoice: 'À facturer'
+        #>ship: 'Expédié le'
+        #>title: 'Facturation'
+        #>to_invoice: 'Facturer'
+      shelf:
+        #>products: 'Produits de la catégorie'
+        #>shelf_update: 'Modifier la catégorie'
+        #>shelves: 'Voir la liste des catégories de produit'
+        #>title: 'Détail de la catégorie : {{value}}'
+      shelf_create:
+        #>title: 'Ajout d''une nouvelle catégorie de produits'
+      _shelf_form:
+        #>catalog: 'Description pour catalogue'
+        #>general: 'Informations générales'
+      shelf_update:
+        #>title: 'Ajout d''une nouvelle catégorie de produits'
+      shelves:
+        #>shelf_create: 'Ajouter une nouvelle catégorie de produits'
+        #>title: 'Gérer les catégories de produits'
+      statistics:
+        #>csv_statistics: 'Statistiques à exporter au format CSV'
+        #>go: 'Valider'
+        #>graph_statistics: 'Statistiques graphiques'
+        #>title: 'Statistiques'
+      _stock_indicator:
+        #>critic_stock_min: 'Stock minimum critique'
+        #>location: 'Lieu de stockage'
+        #>name: 'Nom'
+        #>quantity: 'Quantité réelle'
+        #>select_location: 'Sélectionnez un lieu de stockage'
+        #>stock_max: 'Stock maximum'
+        #>stock_min: 'Stock minimum'
+        #>title: 'État des stocks'
+        #>unit: 'Unité'
+        #>virtual_quantity: 'Quantité virtuelle'
+        #>weight: 'Poids'
+      stock_move_create:
+        #>title: 'Enregistrement d''un mouvement de stock'
+      _stock_move_form:
+        #>description: 'Description'
+        #>nature: 'Opération'
+        #>product: '{{product}} ({{unit}})'
+      stock_move_update:
+        #>title: 'Modifier le mouvement de stock : {{value}}'
+      stock_transfer_create:
+        #>title: 'Ajouter un transfert ou une perte de stocks'
+      stock_transfer_update:
+        #>title: 'Modification d''un transfert de stock'
+      stock_transfers:
+        #>stock_transfer_create: 'Ajouter un transfert ou une perte de stocks'
+        #>title: 'Transferts et pertes de stocks'
+      stocks:
+        #>critic_stock_min: 'Stock minimum critique'
+        #>name: 'Nom'
+        #>quantity: 'Quantité réelle'
+        #>select_location: 'Sélectionnez un lieu de stockage'
+        #>stock_max: 'Stock maximum'
+        #>stock_min: 'Stock minimum'
+        #>title: 'État des stocks'
+        #>unit: 'Unité'
+        #>virtual_quantity: 'Quantité virtuelle'
+        #>weight: 'Poids'
+      subscription_create:
+        #>title: 'Création d''un abonnement'
+      subscription_message:
+        #>contact: 'à l''adresse'
+        #>from: 'Du numéro'
+        #>from_date: 'Du'
+        #>to: 'au numéro'
+        #>to_date: 'Au'
+      subscription_nature_create:
+        #>title: 'Ajouter un type d''abonnement'
+      subscription_nature_update:
+        #>title: 'Modification du type d''abonnement {{value}}'
+      subscription_natures:
+        #>subscription_nature_create: 'Ajouter un type d''abonnement'
+        #>title: 'Types d''abonnements'
+      _subscription_options:
+        #>select_date: 'Entrez une date'
+        #>select_number: 'Entrez un numéro'
+        #>stop: 'Jusqu''au'
+        #>subscription_natures_down: 'Décrémenter le numéro actuel (-1)'
+        #>subscription_natures_up: 'Incrémenter le numéro actuel (+1)'
+      subscription_update:
+        #>title: 'Modification de "{{value}}" du {{start}} au {{finish}}'
+      subscriptions:
+        #>select_number_or_date: 'Entrez un numéro ou une date'
+        #>subscription_nature: 'Type d''abonnement'
+        #>title: 'Abonnements'
+      tracking:
+        #>operations: 'Travaux'
+        #>productions: 'Productions'
+        #>purchases: 'Achats'
+        #>sales: 'Ventes'
+        #>stocks: 'État actuel des stocks'
+        #>title: 'Lot {{name}}'
+      transport:
+        #>deliveries: 'Livraisons'
+        #>title: 'Transport du {{value}}'
+      transport_create:
+        #>info: 'Renseignez les informations du transport'
+        #>title: 'Ajout d''un nouveau transport'
+      _transport_deliveries:
+        #>add: 'Ajouter la livraison au transport'
+        #>add_delivery: 'Ajouter une livraison'
+        #>back: 'Valider et revenir à la liste des transports'
+        #>delivery: 'Livraison'
+      transport_deliveries:
+        #>title: 'Livraisons du transport'
+      transport_update:
+        #>info: 'Renseignez les informations du transport'
+        #>title: 'Modification du transport'
+        #>transport_deliveries: 'Livraisons du transport'
+      transports:
+        #>title: 'Transports'
+        #>transport_create: 'Ajouter un nouveau transport'
+      undelivered_sales:
+        #>amount: 'Montant HT'
+        #>amount_with_taxes: 'Montant TTC'
+        #>client: ' Client '
+        #>deliver: 'Valider l''envoi des livraisons'
+        #>delivery: 'Livraison'
+        #>management_index: 'Index de la gestion commerciale'
+        #>no_deliveries: 'Aucune livraison en attente'
+        #>planned_on: 'Prévue le'
+        #>quantity: 'Quantité'
+        #>title: 'Livraisons en attente'
+        #>to: ' à l''adresse '
+        #>to_deliver: 'Livrer'
+      unexecuted_transfers:
+        #>executed: 'Réalisé'
+        #>index: 'Retour à l''index de la gestion_commerciale'
+        #>location_name: 'Sortie de'
+        #>nature: 'Type'
+        #>no_transfers: 'Aucun transfert à réaliser'
+        #>planned_on: 'Prévu le'
+        #>product_name: 'Produit'
+        #>quantity: 'Quantité'
+        #>second_location_name: 'Entrée de'
+        #>title: 'Transferts à réaliser'
+        #>transfer: 'Effectuer les transferts'
+      unreceived_purchases:
+        #>amount: 'Montant HT'
+        #>amount_with_taxes: 'Montant TTC'
+        #>management_index: 'Index de la gestion commerciale'
+        #>no_purchases: 'Aucun achat en attente de reception'
+        #>planned_on: 'Prévue le'
+        #>purchase: 'Commande'
+        #>quantity: 'Quantité'
+        #>received: 'Reçue'
+        #>title: 'Achats en attente de réception'
+        #>to: ' à l''adresse '
+        #>validate: 'Valider'
+      unvalidated_embankments:
+        #>bank_account: 'Compte bancaire'
+        #>created_on: 'Créée le'
+        #>management_index: 'Index de la gestion commerciale'
+        #>no_embankments: 'Aucune remise de chèque à valider'
+        #>payments_number: 'Nombre de chèques'
+        #>title: 'Remises de chèques à valider'
+        #>total_amount: 'Montant total'
+        #>validate: 'Valider'

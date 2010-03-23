@@ -1,6 +1,7 @@
 # Accéder au minimum vital
 __minimum__:
   actions:
+  - application::i18nize
   - authentication::index
   - authentication::login
   - authentication::logout
@@ -86,6 +87,9 @@ backup_company:
 cancel_invoices:
   controller: management
   actions: [credit_lines_dyta, invoice_cancel]
+# Changer les prix au moment des ventes
+change_prices_on_sale:
+  controller: management
 # Clôturer et déclôturer des journaux
 close_journals:
   controller: accountancy
@@ -185,8 +189,6 @@ extract_listings:
   actions: [listing_extract, listings]
 # Octroyer des réductions commerciales lors des ventes
 give_discounts_on_sale:
-  controller: management
-change_prices_on_sale:
   controller: management
 # Importer, exporter des fiches clients/fournisseurs
 import_export_entities:

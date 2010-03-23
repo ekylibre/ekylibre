@@ -6,6 +6,64 @@ def hash_to_yaml(hash, depth=0)
   code
 end
 
+def yaml_to_hash(filename)
+  hash = YAML::load(IO.read(filename).gsub(/^(\s*)no:(.*)$/, '\1__no_is_not__false__:\2'))
+  return deep_symbolize_keys(hash)
+end
+  
+def deep_symbolize_keys(hash)
+  hash.inject({}) { |result, (key, value)|
+    value = deep_symbolize_keys(value) if value.is_a? Hash
+    key = :no if key.to_s == "__no_is_not__false__"
+    result[(key.to_sym rescue key) || key] = value
+    result
+  }
+end
+
+
+def yaml_value(value, depth=0)
+  if value.is_a?(Array)
+    "["+value.collect{|x| yaml_value(x)}.join(", ")+"]"
+  elsif value.is_a?(Symbol)
+    ":"+value.to_s
+  elsif value.is_a?(Hash)
+    "\n"+hash_to_yaml(value, depth+1)
+  else
+    "'"+value.to_s.gsub("'", "''")+"'"
+  end
+end
+
+def hash_diff(hash, ref, depth=0)
+  hash ||= {}
+  ref ||= {}
+  keys = (ref.keys+hash.keys).uniq.sort{|a,b| a.to_s.gsub("_"," ").strip<=>b.to_s.gsub("_"," ").strip}
+  code, count, total = "", 0, 0
+  for key in keys
+    h, r = hash[key], ref[key]
+    total += 1 if r.is_a? String
+    if r.is_a?(Hash) and (h.is_a?(Hash) or h.nil?)
+      scode, scount, stotal = hash_diff(h, r, depth+1)
+      code  += "  "*depth+key.to_s+":\n"+scode
+      count += scount
+      total += stotal
+    elsif r and h.nil?
+      code  += "  "*depth+"#>"+key.to_s+": "+yaml_value(r)+"\n"
+      count += 1
+    elsif r and h and r.class == h.class
+      code  += "  "*depth+key.to_s+": "+yaml_value(h)+"\n"
+    elsif r and h and r.class != h.class
+      puts [h,r].inspect
+      code  += "  "*depth+key.to_s+": "+(yaml_value(h)+"\n").gsub(/\n/, " #! #{r.class.name} excepted (#{h.class.name+':'+h.inspect})\n")
+    elsif h and r.nil?
+      code  += "  "*depth+key.to_s+": "+(yaml_value(h)+"\n").to_s.gsub(/\n/, " #!\n")
+    elsif r.nil?
+      code  += "  "*depth+key.to_s+":\n"
+    end
+  end  
+  return code, count, total
+end
+
+
 
 desc "Create schema_hash.rb"
 task :shash => :environment do
@@ -42,9 +100,9 @@ def annotate_one_file(file_name, info_block)
     
     content.gsub!(/\#\n\#\n\s*\n\s*(\n\s*)?\#\n\#/, "#")
     content.gsub!(/\#\n\#\n\s*\n\s*(\n\s*)?\#\n\#/, "#")
-#    content.gsub!(/\#\s+\#/, "#")
-#    content.gsub!(/\#\s+\#/, "#")
-#    content.gsub!(/\#\s+\#/, "#")
+    #    content.gsub!(/\#\s+\#/, "#")
+    #    content.gsub!(/\#\s+\#/, "#")
+    #    content.gsub!(/\#\s+\#/, "#")
 
     # puts content
     # Remove old schema info
@@ -69,22 +127,22 @@ task :lig do
     class_name = m.sub(/\.rb$/,'').camelize
     begin
       
-#      klass = class_name.split('::').inject(Object){ |klass,part| klass.const_get(part) }
-#      if klass < ActiveRecord::Base && !klass.abstract_class?
-        puts "Annotating #{class_name}"
-        
+      #      klass = class_name.split('::').inject(Object){ |klass,part| klass.const_get(part) }
+      #      if klass < ActiveRecord::Base && !klass.abstract_class?
+      puts "Annotating #{class_name}"
+      
       model_file_name = File.join("app/models", cn + ".rb")
       annotate_one_file(model_file_name, info)
-        
-        fixture_file_name = File.join("test/fixtures", cn.pluralize + ".yml")
-        annotate_one_file(fixture_file_name, info)
+      
+      fixture_file_name = File.join("test/fixtures", cn.pluralize + ".yml")
+      annotate_one_file(fixture_file_name, info)
 
-        unit_file_name = File.join("test/unit", cn + "_test.rb")
-        annotate_one_file(unit_file_name, info)
+      unit_file_name = File.join("test/unit", cn + "_test.rb")
+      annotate_one_file(unit_file_name, info)
 
-#      else
-#        puts "Skipping #{class_name}"
-#      end
+      #      else
+      #        puts "Skipping #{class_name}"
+      #      end
     rescue Exception => e
       puts "Unable to annotate #{class_name}: #{e.message}"
     end
@@ -211,7 +269,7 @@ namespace :clean do
       end
       refs_code += "\n  :#{m} => {\n"+cols.join(",\n")+"\n  },"
     end
-    puts "#{errors} errors"
+    puts " - Models: #{errors} errors"
     refs_code = "EKYLIBRE_REFERENCES = {"+refs_code[0..-2]+"\n}\n"
 
     File.open("#{RAILS_ROOT}/lib/models.rb", "wb") do |f|
@@ -223,142 +281,6 @@ namespace :clean do
     end
 
   end
-
-
-  desc "Update and sort rights list (Old version)"
-  task :rights_old => :environment do
-    new_right = '[new_right]'
-
-    # Chargement des actions des controllers
-    ref = {}
-    Dir.glob("#{RAILS_ROOT}/app/controllers/*_controller.rb") do |x|
-      controller_name = x.split("/")[-1].split("_controller")[0]
-      actions = []
-      file = File.open(x, "r")
-      file.each_line do |line|
-        line = line.gsub(/(^\s*|\s*$)/,'')
-        actions << line.split(/def\s/)[1].gsub(/\s/,'') if line.match(/^\s*def\s+\w+\s*$/)
-        # actions << line.gsub(/\s/,'').gsub(/\(?:/,"_").split(/(\,|\))/)[0] if line.match(/^\s*dy(ta|li)[\s\(]+\:\w+/)
-        if line.match(/^\s*dy(li|ta)[\s\(]+\:\w+/)
-          dyxx = line.split(/[\s\(\)\,\:]+/)
-          actions << dyxx[1]+'_'+dyxx[0]
-        end
-        if line.match(/^\s*manage[\s\(]+\:\w+/)
-          prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
-          actions << prefix+'_create'
-          actions << prefix+'_update'
-          actions << prefix+'_delete'
-        end
-      end
-      ref[controller_name] = actions
-    end
-
-    # Lecture du fichier existant
-    file = File.open(User.rights_file, "rb")
-    rights = []
-    file.each_line do |line|
-      unless line.match(/\<\<\<|\=\=\=|\>\>\>/)
-        right = line.strip.split(/[\:\t\,\;\s]+/).collect{|x| x.strip.lower}
-        right[2] = new_right if right.size==2
-        rights << right if right.size==3
-      end
-    end
-    file.close
-
-    # Mise en commentaire des actions supprimées
-    deleted = 0
-    for right in rights
-      if right[1].to_s.match(/_dy(ta|li)$/)
-        on = right[1].gsub(/^(.*)_(dy(ta|li))$/,'\2_\1')
-        r = rights.detect{|x| x[1]==on}
-        right[2] = r[2] if r
-      end
-      unless right[0].match(/^\#/)
-        unless ref[right[0]].include?(right[1])
-          right[0] = '#'+right[0] 
-          deleted += 1
-        end
-      end
-    end
-
-    # Ajout des nouvelles actions
-    created = 0
-    for controller_name, actions in ref
-      for a in actions
-        unless rights.select{|r| r[0].gsub(/(\#|\s)/,'')==controller_name and r[1]==a}.size>0
-          rights << [controller_name, a, new_right] 
-          created += 1
-        end
-      end
-    end
-
-    # Droits non définis et doublons
-    to_update = 0
-    doubles = 0
-    rights.size.times do |i|
-      unless rights[i][0].match(/\#/)
-        if File.exists?("#{RAILS_ROOT}/app/views/#{rights[i][0]}/#{rights[i][1]}.html.haml") or (File.exists?("#{RAILS_ROOT}/app/views/#{rights[i][0]}/_#{rights[i][1].split("_")[0..-2].join('_')}_form.html.haml") and rights[i][1].split("_")[-1].match(/create|update/))
-          help = "#{RAILS_ROOT}/config/locales/#{::I18n.locale}/help/#{rights[i][0]}-#{rights[i][1]}.txt"
-          puts "Help file missing: #{help}" unless File.exists?(help) or rights[i][1].match /dy(li|ta)|delete/ or rights[i][0].match /authentication|help/
-        end
-        to_update += 1 if rights[i][2].to_s.match(/^\w+$/).nil?
-        for j in i+1..rights.size-1
-          if rights[i][0]==rights[j][0] and rights[i][1]==rights[j][1]
-            rights[j][0] = '# '+rights[j][0] 
-            doubles += 1
-          end
-        end
-      end
-    end
-
-    # Tri
-    rights.sort!{|a, b| a[0]+':'+a[2]+':'+a[1]<=>b[0]+':'+b[2]+':'+b[1]}
-
-    # Enregistrement du nouveau fichier
-    file = File.open(User.rights_file+".conf", "wb") 
-    max = []
-    rights.each do |right|
-      3.times { |i| max[i] = right[i].length if right[i].length>max[i].to_i }
-    end
-    max[0] = 16
-    max[1] = 32
-    file.write rights.collect{|x| [0,1,2].collect{|i| x[i].ljust(max[i])}.join(" ").strip}.join("\n")
-    file.close
-
-    # YML
-    hash = {}
-    for line in rights.select{|a| !a[0].match(/\#/)}
-      action, right = line[0]+"::"+line[1], line[2]
-      hash[right] ||= {}
-      hash[right][:actions] ||= []
-      hash[right][:actions] << action
-    end
-    File.open("#{RAILS_ROOT}/config/rights-0.yml", "wb") do |file|
-      for right in hash.keys.sort
-        file.write "#{right}:\n"
-        unless hash[right][:actions].empty?
-          file.write "  actions:\n"
-          for action in hash[right][:actions]
-            file.write "  - #{action}\n"          
-          end
-        end
-      end
-    end
-
-    # Fichier de traduction
-    rights_list = rights.collect{|r| r[2].to_s if r[2].match(/^\w+$/) and not r[0].match(/\#/)}.compact.uniq.sort
-    translation  = ::I18n.locale.to_s+":\n"
-    translation += "  rights:\n"
-    for right in rights_list
-      translation += "    #{right}: "+::I18n.pretranslate("rights.#{right}")+"\n"
-    end
-    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}/rights.yml", "wb") do |file|
-      file.write translation
-    end
-
-    puts "#{deleted} deleted actions, #{created} created actions, #{to_update} actions to update, #{doubles} doubles"
-  end
-
 
   desc "Update and sort rights list"
   task :rights => :environment do
@@ -453,28 +375,37 @@ namespace :clean do
       file.write code
     end
 
-    # Fichier de traduction
-    translation  = ::I18n.locale.to_s+":\n"
-    translation += "  rights:\n"
-    for right in rights_list
-      translation += "    #{right}: "+::I18n.pretranslate("rights.#{right}")+"\n"
-    end
-    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}/rights.yml", "wb") do |file|
-      file.write translation
-    end
-
-    puts "#{deleted} deleted actions, #{created} created actions"
+    puts " - Rights: #{deleted} deleted actions, #{created} created actions"
   end
 
 
 
   desc "Update and sort translation files"
   task :locales => :environment do
-    classicals = {'fra'=>{:company_id=>'Société', :company=>'Société', :id=>'ID', :lock_version=>'Version', :updated_at=>'Mis à jour le', :updater_id=>'Modificateur', :updater=>'Modificateur', :created_at=>'Créé le', :creator_id=>'Créateur', :creator=>'Créateur', :comment=>'Commentaire', :position=>'Position', :parent_id=>'Parent', :parent=>'Parent' } }
+    log = File.open("#{RAILS_ROOT}/config/locales/translations.log", "wb")
+
+    # Load of actions
+    all_actions = {}
+    for right, attributes in YAML.load_file(User.rights_file)
+      for full_action in attributes['actions']
+        controller, action = (full_action.match(/\:\:/) ? full_action.split(/\W+/)[0..1] : [attributes['controller'].to_s, full_action])
+        all_actions[controller] ||= []
+        all_actions[controller] << action unless action.match /dy(li|ta)|delete/
+      end if attributes['actions'].is_a? Array
+    end
+    all_actions.delete("authentication")
+    all_actions.delete("help")
+
+    locale = ::I18n.locale = ::I18n.default_locale
+    locale_dir = "#{RAILS_ROOT}/config/locales/#{locale}"
+    File.makedirs(locale_dir) unless File.makedirs(locale_dir)
+    File.makedirs(locale_dir+"/help") unless File.makedirs(locale_dir+"/help")
+    log.write("- Locale #{::I18n.locale_label}:\n")
+
+    # Activerecord
     models = Dir["#{RAILS_ROOT}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
-    models_names = ''
-    plurals_names = ''
-    models_attributes = ""
+    default_attributes = ::I18n.translate("activerecord.default_attributes")
+    models_names, plurals_names, models_attributes = '', '', ''
     attrs_count, static_attrs_count = 0, 0
     for model in models
       class_name = model.sub(/\.rb$/,'').camelize
@@ -491,7 +422,7 @@ namespace :clean do
         static_attrs_count += klass.columns.size
         for column in klass.columns
           attribute = column.name.to_sym
-          trans = classicals[::I18n.locale.to_s][attribute]
+          trans = default_attributes[attribute]
           pretrans = ::I18n.pretranslate("activerecord.attributes.#{model}.#{attribute}")
           if trans.nil? and pretrans.match(/^\(\(\(/)
             trans = attribute.to_s[0..-4].classify.constantize.human_name rescue nil
@@ -510,7 +441,7 @@ namespace :clean do
           attributes[attribute] = (trans.nil? ? "(((#{attribute.to_s.upper})))" : "'"+trans.gsub("'","''")+"'")
         end
         for x in [:creator, :updater]
-          attributes[x] ||= "'"+classicals[::I18n.locale.to_s][x].gsub("'","''")+"'"
+          attributes[x] ||= "'"+default_attributes[x].gsub("'","''")+"'"
         end
 
         # Sort attributes and build yaml
@@ -519,40 +450,51 @@ namespace :clean do
         end
         attrs_count += attributes.size
       else
-        puts "Skipping #{class_name}"
+        # puts "Skipping #{class_name}"
       end
     end
     activerecord = ::I18n.translate('activerecord').delete_if{|k,v| k.to_s.match(/^models|attributes$/)}
-    translation  = ::I18n.locale.to_s+":\n"
+    translation  = locale.to_s+":\n"
     translation += "  activerecord:\n"
-    translation += hash_to_yaml(activerecord,2)
+    translation += hash_to_yaml(activerecord, 2)
     translation += "\n    models:\n"
     translation += models_names
     translation += "\n    models_plurals:\n"
     translation += plurals_names
+    translation += "\n    default_attributes:\n"
+    translation += hash_to_yaml(default_attributes, 3)
     translation += "\n    attributes:\n"
     translation += models_attributes
-    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}/activerecord.yml", "wb") do |file|
+    File.open("#{RAILS_ROOT}/config/locales/#{locale}/activerecord.yml", "wb") do |file|
       file.write translation
     end
-
-    puts "#{models.size} models, #{static_attrs_count} static attributes, #{attrs_count-static_attrs_count} virtual attributes, #{(attrs_count.to_f/models.size).round(1)} attributes/models"
+    log.write "  - Models (#{models.size}, #{static_attrs_count} static attributes, #{attrs_count-static_attrs_count} virtual attributes, #{(attrs_count.to_f/models.size).round(1)} attributes/models)\n"
 
     # Packs
     controllers = Dir["#{RAILS_ROOT}/app/controllers/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
     for controller in controllers
       controller_name = controller.split("_")[0..-2]
-      translation  = ::I18n.locale.to_s+":\n"
+      translation  = locale.to_s+":\n"
       for part in [:controllers, :helpers, :views] 
         translation += "\n  #{part}:\n"
         translation += "    #{controller_name}:\n"
         translation += hash_to_yaml(::I18n.translate("#{part}.#{controller_name}"),3)
       end
-      File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}/pack.#{controller_name}.yml", "wb") do |file|
+      File.open("#{RAILS_ROOT}/config/locales/#{locale}/pack.#{controller_name}.yml", "wb") do |file|
         file.write translation
       end
     end
+    log.write "  - Packs (#{controllers.size})\n"
 
+    # Parameters
+    translation  = locale.to_s+":\n"
+    translation += "  parameters:\n"
+    translation += hash_to_yaml(::I18n.translate("parameters"), 2)
+    File.open("#{RAILS_ROOT}/config/locales/#{locale}/parameters.yml", "wb") do |file|
+      file.write(translation)
+    end
+    log.write "  - Parameters\n"
+    
     # Notifications
     notifications = ::I18n.t("notifications")
     deleted_notifs = ::I18n.t("notifications").keys
@@ -566,33 +508,90 @@ namespace :clean do
         end
       end
     end
-    File.open("#{RAILS_ROOT}/config/locales/#{::I18n.locale}/notifications.yml", "wb") do |file|
-      file.write ::I18n.locale.to_s+":\n"
+    File.open("#{RAILS_ROOT}/config/locales/#{locale}/notifications.yml", "wb") do |file|
+      file.write locale.to_s+":\n"
       file.write "  notifications:\n"
       for key, translation in notifications.sort{|a,b| a[0].to_s<=>b[0].to_s}
         file.write "    #{key}: #{translation.blank? ? '((('+key.to_s.upper+')))' : '\''+translation.gsub(/\'/, '\'\'')+'\''} #{deleted_notifs.include?(key) ? '# NOT USED !!!' : ''}\n"
       end
     end
+    log.write "  - Notifications (#{notifications.size}, #{deleted_notifs.size} bad notifications)\n"
 
-    puts "#{controllers.size} controllers, #{notifications.size} notifications"
+    # Rights
+    rights = YAML.load_file(User.rights_file)
+    translation  = locale.to_s+":\n"
+    translation += "  rights:\n"
+    for right in rights.keys.sort
+      translation += "    #{right}: "+::I18n.pretranslate("rights.#{right}")+"\n"
+    end
+    File.open("#{RAILS_ROOT}/config/locales/#{locale}/rights.yml", "wb") do |file|
+      file.write translation
+    end
+    log.write "  - Rights (#{rights.keys.size})\n"
+
+    log.write "  - help: # Missing files\n"
+    for controller, actions in all_actions
+      for action in actions
+        if File.exists?("#{RAILS_ROOT}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{RAILS_ROOT}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
+          help = "#{RAILS_ROOT}/config/locales/#{locale}/help/#{controller}-#{action}.txt"
+          log.write "    - #{help.gsub(RAILS_ROOT,'.')}\n" unless File.exists?(help)
+        end
+      end
+    end
+    
+    puts " - Locale: #{::I18n.locale_label} (Default)"
+
+
+
+
+    for locale in ::I18n.available_locales.delete_if{|l| l==::I18n.default_locale or l.to_s.size!=3}.sort{|a,b| a.to_s<=>b.to_s}
+      ::I18n.locale = locale
+      locale_dir = "#{RAILS_ROOT}/config/locales/#{locale}"
+      File.makedirs(locale_dir) unless File.makedirs(locale_dir)
+      File.makedirs(locale_dir+"/help") unless File.makedirs(locale_dir+"/help")
+      log.write "- Locale #{::I18n.locale_label}:\n"
+      total, count = 0, 0
+      for reference_path in Dir.glob("#{RAILS_ROOT}/config/locales/#{::I18n.default_locale}/*.yml").sort
+        file_name = reference_path.split(/[\/\\]+/)[-1]
+        target_path = "#{RAILS_ROOT}/config/locales/#{locale}/#{file_name}"
+        unless File.exist?(target_path)
+          File.open(target_path, "wb") do |file|
+            file.write("#{locale}:\n")
+          end
+        end
+        target = yaml_to_hash(target_path)
+        reference = yaml_to_hash(reference_path)
+        translation, scount, stotal = hash_diff(target[locale], reference[::I18n.default_locale], 1)
+        count += scount
+        total += stotal
+        log.write "  - #{file_name}: #{(100*(stotal-scount)/stotal).round}% (#{stotal-scount}/#{stotal})\n"
+        File.open(target_path, "wb") do |file|
+          file.write("#{locale}:\n")
+          file.write(translation)
+        end
+      end
+      log.write "  - total: #{(100*(total-count)/total).round}% (#{total-count}/#{total}) done.\n"
+      # Missing help files
+      log.write "  - help: # Missing files\n"
+      for controller, actions in all_actions
+        for action in actions
+          if File.exists?("#{RAILS_ROOT}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{RAILS_ROOT}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
+            help = "#{RAILS_ROOT}/config/locales/#{locale}/help/#{controller}-#{action}.txt"
+            log.write "    - #{help.gsub(RAILS_ROOT,'.')}\n" unless File.exists?(help)
+          end
+        end
+      end
+      puts " - Locale: #{::I18n.locale_label} #{(100*(total-count)/total).round}% translated"
+    end
+
+    log.close
+    
 
   end
   
 
   desc "Clean all files as possible"
-  task :all => [:environment, :rights, :locales, :models]
+  task :all => [:environment, :rights, :models, :locales]
 
-
-#   desc "Zip test"
-#   task :zip => [:environment] do
-#     Zip::ZipFile.open("#{RAILS_ROOT}/my.zip", Zip::ZipFile::CREATE) do |zipfile|
-#       zipfile.get_output_stream("backup.xml") { |f| f.puts "Hello from ZipFile" }
-#       Dir.chdir("#{RAILS_ROOT}/private/NERV") do
-#         for file in Dir["*/*/*.pdf"]
-#           zipfile.add("prints/"+file,"#{RAILS_ROOT}/private/NERV/#{file}")
-#         end
-#       end
-#     end
-#   end
   
 end

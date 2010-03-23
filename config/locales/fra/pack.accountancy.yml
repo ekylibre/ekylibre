@@ -2,16 +2,6 @@ fra:
 
   controllers:
     accountancy:
-      accounts:
-        create: 'Créer un nouveau compte comptable'
-      bank_account_statements:
-        create: 'Créer un nouveau relevé de compte bancaire'
-      bank_accounts:
-        create: 'Créer un nouveau compte bancaire'
-      financialyears:
-        create: 'Créer un nouvel exercice comptable '
-      journals:
-        create: 'Créer un nouveau journal comptable'
       normal: 'Régime du réel normal'
       simplified: 'Régime du réel simplifié'
       title: 'Comptabilité'

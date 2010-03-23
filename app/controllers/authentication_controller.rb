@@ -90,6 +90,7 @@ class AuthenticationController < ApplicationController
     redirect_to :action=>:login
   end
   
+
   protected
   
   def init_session(user)

@@ -6,6 +6,10 @@
   .logoban
   - form_tag do
     %table
+      -if ::I18n.active_locales.size > 1
+        %tr
+          %td.label=tc(:locale)
+          %td.value=locale_selector
       %tr
         %td.label=tc :username
         %td.input=text_field :user, :name, {:value=>session[:user_name], :tabindex=>1}
@@ -18,7 +22,6 @@
     .actions
       =link_to(tc(:register), {:action=>:register}, :class=>"register") if register
       =link_to(tc(:download_firefox), "http://www.mozilla.com/", :class=>"firefox") if download_firefox
-
 - if bad_browser
   #bad_browser.login
     .logoban

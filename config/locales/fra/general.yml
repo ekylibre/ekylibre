@@ -555,8 +555,8 @@ fra:
         title: Export
         csv: CSV
         xcsv: CSV pour Excel
-    dyta_false: 'FAUX'
-    dyta_true: 'VRAI'
+        false_value: 'FAUX'
+        true_value: 'VRAI'
     edit: 'Modifier'
     export: 'Exporter'
     employee: 'Informations employé'

@@ -12,9 +12,9 @@ La liste des colonnes du tableau n'est actuellement pas paramétrable.
 
 Vous pouvez :
   * créer une nouvelle fiche  
-  * l'afficher :  [[relations-entities_display|{{template:buttons/show.png|afficher}}]]
-  * la modifier : [[relations-entities_update|{{template:buttons/update.png|modifier}}]] 
-  * la supprimer : {{template:buttons/delete.png|supprimer}}
+  * l'afficher :  [[relations-entities_display|{{theme:buttons/show.png|afficher}}]]
+  * la modifier : [[relations-entities_update|{{theme:buttons/update.png|modifier}}]] 
+  * la supprimer : {{theme:buttons/delete.png|supprimer}}
 
 ===== Import Export CSV =====
   * **Exporter vos fiches** au format csv vous permet d'enregistrer un fichier csv au [[relations-entities_import|format ekylibre]], rassemblant l'ensemble de vos fiches clients fournisseurs et leurs informations. Vous pouvez ensuite **travailler sur ce fichier en modifiant ou en ajoutant des fiches** clients fournisseurs. Pour **répercuter dans le logiciel ces changements**, vous n'avez plus qu'à **[[relations-entities_import|importer]] votre fichier** csv modifié.

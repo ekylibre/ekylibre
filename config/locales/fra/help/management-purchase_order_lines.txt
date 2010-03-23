@@ -5,8 +5,8 @@ Vous avez ici accès à un **récapitulatif** de votre commande vous en détaill
 **Si vous validez votre achat, vous ne pourrez plus le modifier par la suite**. De plus, les mouvements de stocks relatifs à l'achat seront créés.
 
   * **Ajouter** un produit à la commande.
-  * **Modifier** une ligne de commande~:   [[management-purchase_order_lines_update|{{template:buttons/update.png|modifier}}]]
-  * **Supprimer** une ligne de commande~:  {{template:buttons/delete.png|supprimer}}
+  * **Modifier** une ligne de commande~:   [[management-purchase_order_lines_update|{{theme:buttons/update.png|modifier}}]]
+  * **Supprimer** une ligne de commande~:  {{theme:buttons/delete.png|supprimer}}
   * **Imprimer** la commande (à venir) 
 
 [[management-index|Retour à l'aide sur la Gestion Commerciale]]

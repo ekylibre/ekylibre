@@ -4,6 +4,6 @@
 
   * Une **grille de tarifs** représente un **ensemble de tarifs applicables uniquement à une catégorie de clients**. Ces grilles vous permettent donc de **gérer** différents **tarifs** en **fonction de la catégorie du client**.
 
-  * Vous pouvez ajouter [[relations-entity_categories_create|{{template:buttons/create.png|ajouter}}]] ou supprimer {{template:buttons/delete.png|supprimer}} des tarifs à cette catégorie.
+  * Vous pouvez ajouter [[relations-entity_categories_create|{{theme:buttons/create.png|ajouter}}]] ou supprimer {{theme:buttons/delete.png|supprimer}} des tarifs à cette catégorie.
 
 [[relations-index|Revenir à l'aide de gestion des relations ]] 

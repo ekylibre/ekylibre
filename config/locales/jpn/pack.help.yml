@@ -1,0 +1,14 @@
+jpn:
+  controllers:
+    help:
+      title: '手伝い'
+  helpers:
+    help:
+  views:
+    help:
+      _search:
+        ekylibre: 'www.ekylibre.org'
+        error_no_file: 'ページ({{article}})はありません。'
+        home: '持て成しの手伝いに帰り'
+        missing_help: '無意味なページ'
+        title: '手伝い'

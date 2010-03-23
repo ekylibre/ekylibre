@@ -1,0 +1,10 @@
+spa:
+  controllers:
+    application:
+      title: 'Aplicación'
+  helpers:
+    application:
+      exit: 'Salir'
+      print: 'Imprimir {{name}}'
+  views:
+    application:

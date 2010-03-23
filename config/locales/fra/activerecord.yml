@@ -248,6 +248,8 @@ fra:
       unit: 'Unités'
       user: 'Utilisateurs'
 
+    default_attributes:
+
     attributes:
 
       # Compte
@@ -2029,8 +2031,8 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        discount: 'Réduction (en %)'
         delivery_lines: 'Lignes de livraison'
+        discount: 'Réduction (en %)'
         entity: 'Relation'
         entity_id: 'Relation'
         id: 'ID'
@@ -2053,6 +2055,7 @@ fra:
         reduction: 'Ligne de réduction'
         reduction_origin: 'Ligne soumise à réduction'
         reduction_origin_id: 'Ligne soumise à réduction'
+        reductions: (((REDUCTIONS)))
         tax: 'Taxe'
         tax_id: 'Taxe'
         tracking: 'Lot'

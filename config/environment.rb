@@ -52,6 +52,9 @@ Rails::Initializer.run do |config|
   config.i18n.default_locale = :fra
 end
 
+
+::I18n.active_locales = [:fra]
+
 #Xil.options[:features] += [:template,:document]
 #Xil.options[:subdir_size] = 4
 if defined? WillPaginate

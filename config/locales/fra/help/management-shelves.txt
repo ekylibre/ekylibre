@@ -2,8 +2,8 @@
 
 Vous pouvez :
   * **créer**
-  * **modifier** : [[management-shelves_update|{{template:buttons/update.png|modifier}}]]
-  * **supprimer** : {{template:buttons/delete.png|supprimer}}
+  * **modifier** : [[management-shelves_update|{{theme:buttons/update.png|modifier}}]]
+  * **supprimer** : {{theme:buttons/delete.png|supprimer}}
 
 des **catégories de produits** qui seront rattachées à tous vos différents produits.
 

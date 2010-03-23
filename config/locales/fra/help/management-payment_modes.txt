@@ -4,7 +4,7 @@ Les types de règlement vous servent à définir un **moyen de paiement** et son
 
 Vous pouvez :
   * **Ajouter** un nouveau type de règlement
-  * **Modifier** un type de règlement :  [[management-payments_update|{{template:buttons/update.png|modifier}}]]
-  * **Supprimer** un type de règlement : {{template:buttons/delete.png|supprimer}}
+  * **Modifier** un type de règlement :  [[management-payments_update|{{theme:buttons/update.png|modifier}}]]
+  * **Supprimer** un type de règlement : {{theme:buttons/delete.png|supprimer}}
 
 [[management-index|Retour à l'aide sur la Gestion Commerciale]]

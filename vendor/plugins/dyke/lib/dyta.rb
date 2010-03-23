@@ -122,11 +122,11 @@ module Ekylibre
             if options[:export]
               # footer += footer_var+"+='"+content_tag(:div, "'+link_to('"+::I18n.t(options[:export]).gsub(/\'/,'&apos;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'csv'}, {:method=>:post})+'", :class=>'export')+"'\n"
               
-              export = content_tag(:span, ::I18n.t(options[:export].to_s+".title"))+"'"
+              export = "content_tag(:span, ::I18n.t('#{options[:export]}.title'))"
               for format in [:csv, :xcsv]
-                export += "+' '+link_to('"+::I18n.t(options[:export].to_s+".#{format}").gsub(/\'/,'&apos;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'#{format}'}, {:method=>:post})"
+                export += "+' '+link_to(::I18n.t('#{options[:export]}.#{format}').gsub(/\'/,'&apos;'), {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'#{format}'}, {:method=>:post})"
               end
-              footer += footer_var+"+='"+content_tag(:div, export+"+'", :class=>'export')+"'\n"
+              footer += footer_var+"+=content_tag(:div, #{export}, :class=>'export')\n"
             end
             # Pages link
             footer += if options[:pagination] == :will_paginate
@@ -251,7 +251,8 @@ module Ekylibre
               end
               if nature==:header
                 code += "+\n      " unless code.blank?
-                header_title = "'"+h(column.header).gsub('\'','\\\\\'')+"'"
+                # header_title = "'"+h(column.header).gsub('\'','\\\\\'')+"'"
+                header_title = column.compile_header
                 if column.sortable?
                   header_title = "link_to_remote("+header_title+", {:update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{:action=>:#{list_method_name}, '#{options[:id]}_sort'=>'"+column.name.to_s+"', '#{options[:id]}_dir'=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>page}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted')})"
                 end
@@ -343,11 +344,11 @@ module Ekylibre
             for column in columns
               if column.nature==:column
                 if nature==:header
-                  datum = column.header.inspect
+                  datum = column.compile_header
                 else
                   datum = column.data(record)
                   if column.datatype == :boolean
-                    datum = "(#{datum} ? ::I18n.translate('general.dyta_true') : ::I18n.translate('general.dyta_false'))"
+                    datum = "(#{datum} ? ::I18n.translate('general.dyta.export.true_value') : ::I18n.translate('general.dyta.export.false_value'))"
                   end
                   if column.datatype == :date
                     datum = "::I18n.localize(#{datum})"
@@ -519,6 +520,52 @@ module Ekylibre
             @options[:label].to_s
           end
         end
+
+
+
+        def compile_header
+          if @options[:label].blank?
+            case @nature
+            when :column
+              if @options[:through] and @options[:through].is_a?(Symbol)
+                reflection = @model.reflections[@options[:through]]
+                raise Exception.new("Unknown reflection :#{@options[:through].to_s} for the ActiveRecord: "+@model.to_s) if reflection.nil?
+                if reflection.macro == :has_one
+                  "::I18n.t('activerecord.attributes.#{reflection.class_name.underscore}.#{@name}')"
+                else
+                  "::I18n.t('activerecord.attributes.#{@model.name.underscore}.#{@model.reflections[@options[:through]].primary_key_name.to_s}')"
+                end
+              elsif @options[:through] and @options[:through].is_a?(Array)
+                model = @model
+                (@options[:through].size-1).times do |x|
+                  model = model.reflections[@options[:through][x]].options[:class_name].constantize
+                end
+                reflection = @options[:through][@options[:through].size-1].to_sym
+                # model.columns_hash[model.reflections[reflection].primary_key_name].human_name
+                # "#{model.name}.human_attribute_name('#{model.reflections[reflection].primary_key_name}')"
+                "::I18n.t('activerecord.attributes.#{model.name.underscore}.#{model.reflections[reflection].primary_key_name}')"
+              else
+                # "#{@model.name}.human_attribute_name('#{@name}')"
+                "::I18n.t('activerecord.attributes.#{@model.name.underscore}.#{@name}')"
+              end;
+            when :action
+              "'ƒ'"
+            when :check, :textbox then
+              # @model.human_attribute_name(@name.to_s)
+              "::I18n.t('activerecord.attributes.#{@model.name.underscore}.#{@name}')"
+            else 
+              "'-'"
+            end
+          else
+            "'"+h(@options[:label].to_s.gsub("'","''"))+"'"
+          end
+        end
+
+
+
+
+
+
         
         def limit
           @column.limit if @column

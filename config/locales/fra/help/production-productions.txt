@@ -1,6 +1,6 @@
 ====== Les productions ======
 
-  * Vous avez accès aux détails des diffèrentes productions réalisées et la possibilité de créer, modifier [[production-productions_update|{{template:buttons/update.png|modifier}}]] ou suppprimer {{template:buttons/delete.png|supprimer}} une production.
+  * Vous avez accès aux détails des diffèrentes productions réalisées et la possibilité de créer, modifier [[production-productions_update|{{theme:buttons/update.png|modifier}}]] ou suppprimer {{theme:buttons/delete.png|supprimer}} une production.
 
   * Vous pouvez produire des **matières premières** ou des **produits transformés**.
 

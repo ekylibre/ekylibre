@@ -21,7 +21,8 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  before_filter :authorize, :except=>[:login, :logout, :register]
+  before_filter :i18nize, :except=>[:i18nize]
+  before_filter :authorize, :except=>[:login, :logout, :register, :i18nize]
   attr_accessor :current_user
   attr_accessor :current_company
 
@@ -67,6 +68,30 @@ class ApplicationController < ActionController::Base
       true
     end
   end
+
+
+  def i18nize
+    locale = params[:locale]
+    if locale.is_a? String
+      if locale.size == 3
+        if ::I18n.active_locales.include?(locale.to_sym)
+          session[:locale] = locale.to_sym
+        end
+      end
+    end
+    # Initialize locale
+    session[:locale] ||= ::I18n.locale
+    ::I18n.locale = session[:locale]
+    if action_name.to_s == "i18nize"
+      if request.xhr?
+        render :text=>'' 
+      else
+        redirect_to_current
+      end
+    end
+  end
+
+
   
   protected  
   
@@ -140,6 +165,7 @@ class ApplicationController < ActionController::Base
   end
 
 
+
   private
  
   def historize()
@@ -152,16 +178,16 @@ class ApplicationController < ActionController::Base
     session[:last_page][self.controller_name] = request.url unless (request.url.match(/_(print|dyta|extract)(\/\d+(\.\w+)?)?$/) or (controller_name == "company" and action_name == "print")) or params[:format] 
   end
   
-  def authorize()
 
-    
+
+
+  def authorize()
     response.headers["Last-Modified"] = Time.now.httpdate
     response.headers["Expires"] = '0'
     # HTTP 1.0
     response.headers["Pragma"] = "no-cache"
     # HTTP 1.1 'pre-check=0, post-check=0' (IE specific)
     response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
-
 
     session[:last_page] ||= {}
     session[:help_history] ||= []

@@ -5,7 +5,7 @@ Il s'agit d'un compte (bancaire ou autres ...) dans lequel sont enregistrés les
 financiers de l'entreprise. Un compte comptable est défini par un numéro et un intitulé en conformité avec le plan comptable général.
 
 ===== Gestion d'un compte comptable  =====
-Pour utiliser un compte comptable (durant la [[accountancy-entries|Gestion des écritures]] par-exemple), commencer par le [[accountancy-accounts_create|créer]]. Le compte créé apparaîtra dans le tableau des comptes. Par la suite, il vous sera possible de le [[accountancy-accounts_update|modifier]]{{template:buttons/update.png|modifier}} ou même de le [[accountancy-accounts_delete|supprimer{{template:buttons/delete.png|supprimer}}]], sous condition qu'il n'existe aucune écriture relative à ce compte.
+Pour utiliser un compte comptable (durant la [[accountancy-entries|Gestion des écritures]] par-exemple), commencer par le [[accountancy-accounts_create|créer]]. Le compte créé apparaîtra dans le tableau des comptes. Par la suite, il vous sera possible de le [[accountancy-accounts_update|modifier]]{{theme:buttons/update.png|modifier}} ou même de le [[accountancy-accounts_delete|supprimer{{theme:buttons/delete.png|supprimer}}]], sous condition qu'il n'existe aucune écriture relative à ce compte.
 
 ===== Suppression de comptes comptables  =====
 **ATTENTION** : Actuellement, la suppression d'un compte qui possède des sous-comptes entraîne une erreur. 

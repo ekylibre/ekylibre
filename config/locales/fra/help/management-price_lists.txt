@@ -8,9 +8,9 @@ Le tableau récapitulant vos différentes listes de prix vous informe sur le nom
 
 Pour les listes de prix, il est possible de les :
   * **créer**
-  * **afficher** : [[management-price_lists_display|{{template:buttons/show.png|afficher}}]]
-  * **modifier** : [[management-price_lists_update|{{template:buttons/update.png|modifier}}]]
-  * **supprimer** : {{template:buttons/delete.png|supprimer}}
+  * **afficher** : [[management-price_lists_display|{{theme:buttons/show.png|afficher}}]]
+  * **modifier** : [[management-price_lists_update|{{theme:buttons/update.png|modifier}}]]
+  * **supprimer** : {{theme:buttons/delete.png|supprimer}}
 
 ===== Création automatique =====
 

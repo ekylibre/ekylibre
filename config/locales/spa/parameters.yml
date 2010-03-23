@@ -1,0 +1,54 @@
+spa:
+  parameters:
+    accountancy:
+      default_journals:
+        #>bank: 'Journal de banque par défaut'
+        #>purchase_orders: 'Journal d''achats par défaut'
+        #>purchases: 'Journal des achats par défaut'
+        #>sale_orders: 'Journal de ventes par défaut'
+        #>sales: 'Journal des ventes par défaut'
+      major_accounts:
+        #>charges: 'Comptes de charges'
+        #>products: 'Comptes de produits'
+      taxes_accounts:
+        #>acquisition_taxes: 'Compte des taxes d''acquisitions intracommunautaires'
+        #>assimilated_taxes: 'Compte des taxes assimilées'
+        #>balance_taxes: 'Compte de taxe net '
+        #>collected_taxes: 'Compte des taxes collectées'
+        #>paid_taxes: 'Compte des taxes déductibles'
+        #>payback_taxes: 'Compte de taxes de remboursement'
+      third_accounts:
+        #>clients: 'Comptes clients'
+        #>suppliers: 'Comptes fournisseurs'
+        #>taxes: 'Comptes taxes'
+      to_accountancy:
+        #>automatic: 'Bascule comptable des données automatique'
+    general:
+      #>language: 'Langue par défaut'
+    management:
+      embankments:
+        #>days_before_warning_undone: 'Nombre de jours avant de prévenir pour les encaissements non effectués'
+        #>days_before_warning_unvalidated: 'Nombre de jours nécessaire pour pour pouvoir valider une remise de chèque'
+        #>numeration: 'Numérotation des remises de chèques'
+      impressions:
+        natures:
+          #>delivery: 'Type de document pour les devis'
+          #>invoice: 'Type de document  pour les factures'
+          #>purchase_order: 'Type de document pour les achats'
+          #>sale_order: 'Type de document pour les ventes'
+      invoices:
+        #>numeration: 'Numérotation des factures'
+      payments:
+        #>numeration: 'Numérotation des règlements'
+      purchase_orders:
+        #>numeration: 'Numérotation des achats'
+      sale_orders:
+        #>numeration: 'Numérotation des ventes'
+      subscriptions:
+        #>numeration: 'Numérotation des abonnements'
+    relations:
+      entities:
+        #>numeration: 'Numérotation des fiches clients/fournisseurs'
+      impressions:
+        natures:
+          #>entity: 'Type de document pour les fiches clients/fournisseur'

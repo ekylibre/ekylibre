@@ -6,8 +6,8 @@ Vous disposez de 3 types prédéfinis auxquels vous pouvez ajouter les types de 
 
 Vous pouvez également : 
   * créer un nouveau type de fiche
-  * le modifier : [[relations-entities_natures_update|{{template:buttons/update.png|modifier}}]] 
-  * le supprimer : {{template:buttons/delete.png|supprimer}}
+  * le modifier : [[relations-entities_natures_update|{{theme:buttons/update.png|modifier}}]] 
+  * le supprimer : {{theme:buttons/delete.png|supprimer}}
 
 
 

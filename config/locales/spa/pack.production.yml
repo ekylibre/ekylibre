@@ -1,0 +1,121 @@
+spa:
+  controllers:
+    production:
+      #>duration: 'Durée (min.)'
+      #>mistake_on_quantities_sum: 'La somme des quantités n''est pas égale à la quantité totale produite'
+      #>moved_on: 'Fait le'
+      #>name: 'Nom'
+      #>need_location_to_create_production: 'Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions'
+      #>planned_on: 'Prévu le'
+      title: 'Producción'
+      #>tools_list: 'Matériel'
+  helpers:
+    production:
+  views:
+    production:
+      index:
+        #>indicator: 'Tableau de bord'
+        nb_operations:
+          #>one: '1 travail à réaliser'
+          #>other: '{{count}} travaux à réaliser'
+          #>zero: 'Aucun travail à réaliser'
+        #>operation_natures: 'Types de travail'
+        #>operations: 'Travaux'
+        #>parameters: 'Paramètres'
+        #>production: 'Productions'
+        #>productions: 'Productions'
+        #>shapes: 'Îlots'
+        #>title: 'Gestion de la production'
+        #>tools: 'Matériel'
+      operation:
+        operation:
+          #>lines: 'Intrants et sortants'
+        #>operation_update: 'Modifier le travail'
+        #>operations: 'Liste des travaux'
+        #>title: 'Détails du travail {{name}}'
+      operation_create:
+        #>title: 'Créer un nouveau travail'
+      _operation_form:
+        #>duration: 'Durée'
+        #>in_line_create: 'Ajouter un produit intrant'
+        #>infos: 'Renseignez les caractéristiques du travail'
+        #>out_line_create: 'Ajouter un produit sortant'
+        #>products: 'Produits intrants et sortants'
+        #>tools: 'Sélectionnez le matériel utilisé'
+      operation_nature_create:
+        #>title: 'Créer un nouveau type de travail'
+      operation_nature_update:
+        #>title: 'Modification du type de travail "{{name}}"'
+      operation_natures:
+        #>operation_nature_create: 'Créer un nouveau type de travail'
+        #>title: 'Types de travail'
+      operation_update:
+        #>title: 'Modification du travail {{name}}'
+      operations:
+        #>operation_create: 'Créer un nouveau travail'
+        #>title: 'Travaux'
+        #>unvalidated_operations: 'Travaux non validés'
+      production_create:
+        #>title: 'Enregistrer une nouvelle production'
+      _production_form:
+        #>infos: 'Renseignez les caractéristiques de la production'
+        #>production_legend_one: ' mp : matières premières'
+        #>production_legend_two: ' nc : nombre de composants '
+      production_line_create:
+        #>title: 'Gérer les quantités utilisées '
+      _production_line_form:
+        #>name: 'Nom'
+        #>quantity: 'Quantité'
+        #>total_quantity: 'Quantité totale produite'
+        #>unit: 'Unité'
+      production_line_update:
+        #>title: 'Modifier les quantités utilisées'
+      production_update:
+        #>title: 'Modification de la production {{value}} du {{moved}}'
+      productions:
+        #>production_create: 'Enregistrer un nouvelle production'
+        #>productions: 'Productions'
+        #>title: 'Productions'
+      shape:
+        #>operation_create: 'Ajouter un travail'
+        #>operations: 'Travaux'
+        #>shape_update: 'Modifier l''îlot'
+        #>shapes: 'Liste des îlots'
+        #>title: 'Îlot {{name}}'
+      shape_create:
+        #>title: 'Ajouter un nouvel îlot'
+      _shape_form:
+        #>infos: 'Renseignez les caractéristiques de l''îlot'
+      shape_update:
+        #>title: 'Modification de l'' îlot {{name}}'
+      shapes:
+        #>shape_create: 'Créer un nouvel îlot'
+        #>shapes: 'Îlots'
+        #>title: 'Îlots'
+      tool:
+        hour_duration:
+          #>one: 'Temps d''utilisation total : 1 heure'
+          #>other: 'Temps d''utilisation total : {{count}} heures'
+          #>zero: ''
+        operations:
+          #>one: '1 travail'
+          #>other: '{{count}} travaux'
+          #>zero: 'Aucun travail'
+        #>title: 'Matériel {{name}}'
+      tool_create:
+        #>title: 'Ajouter un matériel'
+      tool_update:
+        #>title: 'Modification du matériel {{name}}'
+      tools:
+        #>title: 'Matériel'
+        #>tool_create: 'Ajouter un matériel'
+      unvalidated_operations:
+        #>employee_name: 'Employé'
+        #>executed: 'Éffectué'
+        #>index: 'Retour à l''index de la production'
+        #>name: 'Nom'
+        #>nature: 'Type'
+        #>planned_on: 'Prévu le'
+        #>shape_name: 'Îlot'
+        #>title: 'Travaux à réaliser'
+        #>validate: 'Valider'

@@ -9,9 +9,9 @@ En revanche, si vous ne voulez plus que celui-ci n'apparaisse dans les formulair
 
 Vous pouvez également~: 
   * créer un nouveau champ personnalisé
-  * le modifier~: [[relations-complements_update|{{template:buttons/update.png|modifier}}]] 
-  * le supprimer~: {{template:buttons/delete.png|supprimer}}
-  * ajouter une option à votre liste déroulante : [[relations-complement_choices|{{template:buttons/menulist.png|options}}]]
+  * le modifier~: [[relations-complements_update|{{theme:buttons/update.png|modifier}}]] 
+  * le supprimer~: {{theme:buttons/delete.png|supprimer}}
+  * ajouter une option à votre liste déroulante : [[relations-complement_choices|{{theme:buttons/menulist.png|options}}]]
 
 ===== Évolution  =====
 Le système de champs personnalisés est amené à être généralisé à toute l'application. En effet, pour l'instant, il est uniquement possible de créer des champs personnalisés applicables aux fiches clients / fournisseurs.

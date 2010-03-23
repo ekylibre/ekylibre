@@ -1,0 +1,10 @@
+jpn:
+  controllers:
+    application:
+      title: '一般的な車掌'
+  helpers:
+    application:
+      exit: '出る'
+      print: '{{name}}の印刷する'
+  views:
+    application:

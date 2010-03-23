@@ -45,16 +45,11 @@ class AccountancyController < ApplicationController
   end
   
 
-  #this method displays the form to choose the journal and financialyear.
+  # this method displays the form to choose the journal and financialyear.
   def accountize
-  end
-  
-  #this method lists all the entries generated in draft mode.
-  def draft_entries
-    session[:limit_period] ||= params[:date_generation_entries].to_s
-    session[:cashed_payments] ||= params[:cashed_payments].to_s
-    
-    if request.post? or request.xhr?
+
+    if request.post?
+
       #all the invoices are accountized.
       @invoices = @current_company.invoices.find(:all, :conditions=>["accounted_at IS NULL and amount != 0 AND CAST(created_on AS DATE) BETWEEN \'2007-01-01\' AND ?", session[:limit_period].to_s], :limit=>100)
       @invoices.each do |invoice|
@@ -91,7 +86,13 @@ class AccountancyController < ApplicationController
       JournalEntry.update_all({:draft=> false}, {:company_id=>@current_company.id, :draft=> true}, :joins=>"inner join journal_records r on r.id=journal_entries.record_id and r.created_on < #{session[:limit_period]}")
       redirect_to :action=>:accountize
     end
-    
+
+  end
+  
+  #this method lists all the entries generated in draft mode.
+  def draft_entries
+    session[:limit_period] ||= params[:date_generation_entries].to_s
+    session[:cashed_payments] ||= params[:cashed_payments].to_s
   end
   
 

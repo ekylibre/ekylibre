@@ -1,0 +1,10 @@
+eng:
+  controllers:
+    application:
+      title: 'Application'
+  helpers:
+    application:
+      exit: 'Exit'
+      print: 'Print {{name}}'
+  views:
+    application:

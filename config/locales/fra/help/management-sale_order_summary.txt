@@ -2,8 +2,8 @@
 
 Vous avez accès à un récapitulatif des paiements relatifs à la vente. Vous pouvez :
   * **Ajouter** un paiement à la vente
-  * **Modifier** un paiment:  [[management-payments_update|{{template:buttons/update.png|modifier}}]]
-  * **Supprimer** un paiement : {{template:buttons/delete.png|supprimer}}
+  * **Modifier** un paiment:  [[management-payments_update|{{theme:buttons/update.png|modifier}}]]
+  * **Supprimer** un paiement : {{theme:buttons/delete.png|supprimer}}
 
  
 Le tableau "État de la vente" récapitule les informations financières liées à la vente.

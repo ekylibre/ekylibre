@@ -14,9 +14,9 @@ Il est possible de faire suivre autant d'expressions que voulu. Exemples :
 
 Vous pouvez : 
   * **créer**
-  * **afficher** : [[management-delays_update|{{template:buttons/show.png|modifier}}]]
-  * **modifier** : [[management-delays_update|{{template:buttons/update.png|modifier}}]]
-  * **supprimer** : {{template:buttons/delete.png|supprimer}}
+  * **afficher** : [[management-delays_update|{{theme:buttons/show.png|modifier}}]]
+  * **modifier** : [[management-delays_update|{{theme:buttons/update.png|modifier}}]]
+  * **supprimer** : {{theme:buttons/delete.png|supprimer}}
 
 un délai.
 

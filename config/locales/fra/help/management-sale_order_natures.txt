@@ -4,8 +4,8 @@ Les types de vente permettent de **définir des caractéristiques des vente**, t
 
 Vous pouvez
   * **créer** un type de vente
-  * le **modifier** :  [[management-sale_order_natures_update|{{template:buttons/update.png|modifier}}]]  
-  * le **supprimer** : {{template:buttons/delete.png|supprimer}}
+  * le **modifier** :  [[management-sale_order_natures_update|{{theme:buttons/update.png|modifier}}]]  
+  * le **supprimer** : {{theme:buttons/delete.png|supprimer}}
 
 [[management-index|Retour à l'aide sur la Gestion Commerciale]]
  
