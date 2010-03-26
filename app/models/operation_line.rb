@@ -47,6 +47,7 @@ class OperationLine < ActiveRecord::Base
   belongs_to :product
   belongs_to :tracking
   belongs_to :unit
+  validates_presence_of :product_id
 
   # IN operation.target or OUT of operation.target
   @@directions = ["in", "out"]

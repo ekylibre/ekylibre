@@ -660,7 +660,7 @@ class Company < ActiveRecord::Base
   # this method loads all the templates existing.
   def load_prints
     language = self.entity.language
-    prints_dir = "#{RAILS_ROOT}/app/views/prints"
+    prints_dir = "#{RAILS_ROOT}/config/locales/#{::I18n.locale}/prints"
     for family, templates in ::I18n.translate('models.company.default.document_templates')
       for template, attributes in templates
         #begin
