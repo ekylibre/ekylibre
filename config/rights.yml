@@ -358,13 +358,19 @@ manage_entries:
   controller: accountancy
   actions:
   - account_dyli
-  - account_dyli
   - account_letter
   - entries
   - entry_create
   - entry_delete
   - entry_letter
   - entry_update
+  - journal_entry_create
+  - journal_record
+  - journal_record_create
+  - journal_record_delete # UNEXISTENT ACTION !!!
+  - journal_record_entries_dyta
+  - journal_record_update
+  - journal_records_dyta
   - lettering
 # Gérer les évènements
 manage_events:
@@ -586,9 +592,9 @@ manage_statements:
   - bank_account_statement_delete
   - bank_account_statement_point
   - bank_account_statement_update
+  - bank_account_statements
   - bank_account_statements_dyta
   - statement_entries_dyta
-  - statements
 # Gérer les mouvements de stocks
 manage_stock_moves:
   controller: management

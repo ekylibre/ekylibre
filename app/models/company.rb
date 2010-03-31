@@ -68,7 +68,7 @@ class Company < ActiveRecord::Base
   has_many :inventory_lines
   has_many :invoices
   has_many :invoice_lines
-  has_many :journals, :order=>:name
+  has_many :journals, :order=>:name, :conditions=>{:deleted=>false}
   has_many :journal_entries
   has_many :journal_records
   has_many :languages

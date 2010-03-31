@@ -10,7 +10,7 @@
     <page orientation="portrait" format="A4" margin="10mm">
       <part height="20mm">
 	<set >
-	  <text value="Bilan {{financialyear.company.name}} pour la période du {{financialyear/started_on?format=month_letter}} au {{financialyear/stopped_on?format=month_letter}}" left="50%" size="14" align="center" bold="true"/>
+	  <text value="Bilan {{financialyear.company.name}} pour la période du {{financialyear/started_on?format=month_letter}} au {{financialyear/stopped_on?format=month_letter}}" left="50%" size="14" align="center" bold="true" width="100%"/>
 	</set>
 	
       </part>
@@ -335,7 +335,7 @@
        
        <part height="20mm">
 	 <set >
-	   <text value="Bilan {{financialyear.company.name}} pour la période du {{financialyear/started_on?format=month_letter}} au {{financialyear/stopped_on?format=month_letter}} (suite)" left="50%" size="14" align="center" bold="true"/>
+	   <text value="Bilan {{financialyear.company.name}} pour la période du {{financialyear/started_on?format=month_letter}} au {{financialyear/stopped_on?format=month_letter}} (suite)" left="50%" size="14" align="center" bold="true" width="100%"/>
 	 </set>
 	
       </part>

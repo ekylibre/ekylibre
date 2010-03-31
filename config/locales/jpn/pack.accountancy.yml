@@ -9,8 +9,6 @@ jpn:
       #>normal: 'Régime du réel normal'
       #>simplified: 'Régime du réel simplifié'
       title: '会計'
-      #>unclosable_financialyear: 'L''exercice ne peut être clôturé.'
-      #>unclosable_journal: 'Le journal ne peut être clôturé.'
   helpers:
     accountancy:
   views:
@@ -25,7 +23,7 @@ jpn:
         #>journal_name: 'Journal'
         #>record_number: 'Pièce'
         #>recorded_on: 'Date'
-        #>title: 'Lettrage du compte N° {{value1}}'
+        #>title: 'Lettrage du compte {{number}}'
       account_update:
         #>title: 'Modifier le compte : {{value}}'
       accountize:
@@ -75,6 +73,7 @@ jpn:
         #>iban: 'Numéro de compte bancaire internationale (IBAN)'
         #>rib: 'Description générale'
       bank_account_statement:
+        #>bank_account_statements: 'Tableau des relevés de compte'
         #>cancel: 'Annuler'
         #>entry_credit: 'Crédit'
         #>entry_debit: 'Dédit'
@@ -83,19 +82,18 @@ jpn:
         #>statement_credit: 'Crédit'
         #>statement_debit: 'Débit'
         #>statement_number: 'Numéro du relevé de compte'
-        #>statements: 'Tableau des relevés de compte'
         #>title: 'Détail du relevé de compte {{value}}'
       bank_account_statement_create:
-        #>title: 'Enregistrer un nouveau relevé de compte'
+        #>title: 'Pointer un nouveau relevé de compte'
       bank_account_statement_point:
         #>bank_account_statement: 'Détail du relevé de compte'
+        #>bank_account_statements: 'Tableau des relevés de compte'
         #>entry_credit: 'Crédit'
         #>entry_currency_rate: 'Devise'
         #>entry_debit: 'Débit'
         #>entry_name: 'Intitulé de l''écriture'
         #>recorded_on: 'Enregistrée le'
         #>statement_number: 'N° Relevé'
-        #>statements: 'Tableau des relevés de compte'
         #>title: 'Pointage du relevé bancaire {{value1}} du compte bancaire {{value2}}'
         #>total: 'Total pour le compte bancaire :'
         #>total_credit: 'Crédit'
@@ -103,6 +101,12 @@ jpn:
         #>validate: 'Valider'
       bank_account_statement_update:
         #>title: 'Modifier un relevé'
+      bank_account_statements:
+        #>create_bank_account: 'Vous devez d''abord créer un compte bancaire.'
+        #>credit: 'Total crédit'
+        #>debit: 'Total débit'
+        #>select_bank_account: 'Sélectionnez un compte bancaire:'
+        #>title: 'Pointage des relevés de comptes bancaires'
       bank_account_update:
         #>title: 'Modifier le compte bancaire'
       bank_accounts:
@@ -163,6 +167,7 @@ jpn:
       index:
         #>accountize: 'Bascule comptable'
         #>accounts: 'Comptes comptables'
+        #>bank_account_statements: 'Relevés de compte'
         #>bank_accounts: 'Comptes bancaires (RIB)'
         #>document_prepare: 'Impression des documents'
         #>documents: 'Documents comptables'
@@ -171,7 +176,7 @@ jpn:
         #>financialyears: 'Exercices comptables'
         #>journal_close: 'Clôture de journal'
         #>journals: 'Journaux'
-        #>lettering: 'Lettrer des comptes de tiers'
+        #>lettering: 'Rapprochement bancaire'
         nb_entries:
           #>one: '1 écriture'
           #>other: '{{count}} écritures'
@@ -179,12 +184,15 @@ jpn:
         #>operations: 'Opérations de vérification et de clôture'
         #>parameters: 'Paramètres'
         #>report: 'Reprise des à nouveaux'
-        #>statements: 'Pointer un relevé de compte'
         #>tax_declarations: 'Déclaration de TVA'
         #>taxes: 'Taxes'
         #>title: 'Comptabilité générale'
         #>works: 'Travaux comptables'
       journal:
+        #>end: 'au'
+        #>journal_update: 'Modifier le journal'
+        #>search: 'Rechercher des pièces/écritures'
+        #>start: 'du'
         #>title: '{{name}} ({{code}})'
       journal_close:
         #>close: 'Clôturer le journal'
@@ -192,15 +200,27 @@ jpn:
         #>title: 'Clôture du {{name}}'
       journal_create:
         #>title: 'Créer un nouveau journal'
+      journal_entry_create:
+        #>title: 'Ajouter une écriture'
+      journal_record:
+        #>entries: 'Écritures'
+        #>journal_record_update: 'Modifier la pièce'
+        #>title: 'Pièce comptable {{number}} du {{created_on}}'
+      journal_record_create:
+        #>title: 'Ajouter une pièce'
+      journal_record_update:
+        #>title: 'Modifier la pièce {{number}} du {{created_on}}'
       journal_reopen:
         #>reopen: 'Déclôturer le journal'
         #>select_closure_date: 'Choisissez la date de clôture'
         #>title: 'Déclôture du {{name}}'
       journal_update:
-        #>title: 'Modifier le journal'
+        #>title: 'Modifier le journal : {{name}}'
       journals:
-        #>journal_create: 'Enregistrer un nouveau journal'
         #>title: 'Journaux'
+      _journals:
+        #>journal_detail: 'Cloturé au {{closed_on}}'
+        #>journal_name: '{{name}}'
       _journals_find:
         #>journal_id: 'Numéro de journal'
         #>journal_name: 'Nom du journal'
@@ -215,12 +235,12 @@ jpn:
         #>dates: 'Saisissez les dates de début et de fin de la période'
         #>from: 'Période du'
         #>to: 'Au'
-      _print_balance_sheet:
-        #>balance_sheet: 'Sélectionnez l''exercice'
-        #>select_financialyear: 'Exercice'
       print_balance_sheet:
         #>period: 'Période'
         #>title: 'Impression du bilan'
+      _print_balance_sheet:
+        #>balance_sheet: 'Sélectionnez l''exercice'
+        #>select_financialyear: 'Exercice'
       print_by_financial_year:
         #>financial_id: 'Exercice comptable'
         #>financial_year_select: 'Sélectionnez l''''exercice comptable'
@@ -242,13 +262,6 @@ jpn:
         #>synthesis: 'Sélectionnez l''exercice'
       report:
         #>title: 'Reprise des à nouveaux'
-      statements:
-        #>bank_account_statement_create: 'Enregistrer un nouveau relevé de compte'
-        #>create_bank_account: 'Vous devez d''abord créer un compte bancaire.'
-        #>credit: 'Total crédit'
-        #>debit: 'Total débit'
-        #>select_bank_account: 'Sélectionnez un compte bancaire:'
-        #>title: 'Pointage des relevés de comptes bancaires'
       synthesis:
         #>account_accruals: 'Comptes de régularisation'
         #>account_claims_assets: 'Créances'

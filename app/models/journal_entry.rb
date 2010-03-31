@@ -56,6 +56,7 @@ class JournalEntry < ActiveRecord::Base
   belongs_to :account
   belongs_to :company
   belongs_to :currency
+  belongs_to :journal
   belongs_to :record, :class_name=>JournalRecord.name
   belongs_to :intermediate, :class_name=>BankAccountStatement.name
   belongs_to :statement, :class_name=>BankAccountStatement.name
@@ -73,6 +74,7 @@ class JournalEntry < ActiveRecord::Base
       self.company_id ||= self.record.company_id 
       self.journal_id ||= self.record.journal_id
     end
+    self.currency_id ||= self.journal.currency_id if self.journal
     unless self.currency.nil?
       self.currency_rate = self.currency.rate
       if self.editable 
@@ -157,9 +159,7 @@ class JournalEntry < ActiveRecord::Base
   
   #this method allows to fix a display color if the record containing the entry is balanced or not.
   def balanced_record 
-    balanced=""
-    balanced=(self.record.balanced ? "balanced":"unbalanced")
-    balanced
+    return (self.record.balanced? ? "balanced" : "unbalanced")
   end
 
   # this method creates a next entry with an initialized value matching to the previous record. 

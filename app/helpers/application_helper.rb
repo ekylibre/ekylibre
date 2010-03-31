@@ -69,11 +69,11 @@ module ApplicationHelper
      # AccountancyController
      {:name=>:accountancy, :list=>
        [ {:name=>:works, :list=>
-           [ {:name=>:entries},
+           [ # {:name=>:entries},
              {:name=>:journals},
-             {:name=>:statements},
+             {:name=>:bank_account_statements},
              {:name=>:lettering},
-             {:name=>:tax_declarations},
+             # {:name=>:tax_declarations},
              {:name=>:financialyear_close},
              {:name=>:accountize} ] },
          {:name=>:parameters, :list=>
@@ -235,6 +235,8 @@ module ApplicationHelper
     end
     if [TrueClass, FalseClass].include? value.class
       value = content_tag(:div, "", :class=>"checkbox-#{value}")
+    elsif value.is_a? Date
+      value = ::I18n.localize(value)
     end
 
     value = link_to(value.to_s, options[:url]) if options[:url]
@@ -637,7 +639,6 @@ module ApplicationHelper
         nature, args = tool[0], tool[1]
         if nature == :link
           name = args[0]
-          args[0] = t(call+name.to_s) if name.is_a? Symbol
           args[1] ||= {}
           args[2] ||= {}
           args[2][:class] ||= name.to_s.split('_')[-1]
@@ -645,10 +646,12 @@ module ApplicationHelper
             args[1].delete(:remote)
             args[1][:url] ||= {}
             args[1][:url][:action] ||= name
+            args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["views.#{args[1][:url][:controller]||controller_name}.#{name}.title".to_sym]) if name.is_a? Symbol
             if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(args[1][:url]))
               code += content_tag(:li, link_to_remote(*args))
             end
           else
+            args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["views.#{args[1][:controller]||controller_name}.#{name}.title".to_sym]) if name.is_a? Symbol
             if name.is_a? Symbol and name!=:back
               args[1][:action] ||= name
             else
@@ -978,7 +981,7 @@ module ApplicationHelper
     if options[nature].nil? and id
       t = lh(controller.controller_name.to_sym, controller.action_name.to_sym, (id+'_'+nature.to_s).to_sym)
     elsif options[nature].is_a? Symbol
-      t = lc(options[nature])
+      t = tc(options[nature])
     elsif options[nature].is_a? String
       t = options[nature]
     end

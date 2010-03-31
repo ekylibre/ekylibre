@@ -52,7 +52,7 @@ module ::I18n
 
   def self.locale_label(locale=nil)
     locale ||= self.locale
-    ::I18n.t(locale, :locale=>:languages)+" (#{locale})"
+    "#{locale} ("+::I18n.t(locale, :locale=>:languages)+")"
   end
 
   def self.pretranslate(*args)

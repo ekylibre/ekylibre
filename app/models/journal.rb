@@ -64,7 +64,13 @@ class Journal < ActiveRecord::Base
   end
 
   def validate
-    errors.add(:closed_on, :end_of_month) unless self.closed_on != self.closed_on.end_of_month
+    valid = false
+    for financialyear in self.company.financialyears
+      valid = true if self.closed_on == financialyear.started_on-1
+    end
+    unless valid
+      errors.add(:closed_on, :end_of_month, :closed_on=>::I18n.localize(self.closed_on)) if self.closed_on != self.closed_on.end_of_month
+    end
   end
 
 
@@ -147,6 +153,12 @@ class Journal < ActiveRecord::Base
     end
     return true
   end
+
+  def last_number
+    record = self.records.find(:first, :order=>"created_on DESC, number DESC")
+    return record ? record.number : "000000"
+  end
+
 
 
 

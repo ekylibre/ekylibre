@@ -137,6 +137,7 @@ class DocumentTemplate < ActiveRecord::Base
     parameters.each_index do |i|
       args[i] = parameters[i][1].find_by_id_and_company_id(args[i].to_s.to_i, self.company_id) if parameters[i][1].ancestors.include?(ActiveRecord::Base) and not args[i].is_a? parameters[i][1]
       # args[i] = parameters[i][1].find_by_id_and_company_id(args[i].to_s.to_i, self.company_id) if parameters[i][1].ancestors.include?(ActiveRecord::Base) and [Integer, String].include? args[i].class
+      args[i] = args[i].to_date if args[i].class == String and parameters[i][1] == Date
       raise ArgumentError.new("#{parameters[i][1].name} expected, got #{args[i].inspect}") unless args[i].class == parameters[i][1]
     end
 

@@ -138,7 +138,13 @@ class ApplicationController < ActionController::Base
   # For title I18n : t3e :)
   def t3e(hash)
     @title ||= {}
-    hash.each{|k,v| @title[k.to_sym] = v}
+    hash.each do |k,v| 
+      @title[k.to_sym] = if [Date, DateTime, Time].include? v.class
+                           ::I18n.localize(v)
+                         else
+                           v
+                         end
+    end
   end
 
 

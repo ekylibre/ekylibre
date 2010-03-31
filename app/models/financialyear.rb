@@ -78,7 +78,7 @@ class Financialyear < ActiveRecord::Base
     records = self.records
     if records.size > 0
       records.each do |record|
-        return false unless record.balanced
+        return false unless record.balanced?
         #   return false unless record.closed
       end
     end
@@ -149,8 +149,8 @@ class Financialyear < ActiveRecord::Base
   end
 
   def compute_balances
-    ## entries.all group_by account_id =>refresh account_balance corresponding
-    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(entries.debit) as sum_debit, sum(entries.credit) as sum_credit FROM entries LEFT JOIN journal_records as jr ON jr.id = entries.record_id AND jr.financialyear_id = #{self.id} WHERE entries.company_id =  #{self.company_id} AND draft is false GROUP BY account_id")
+    ## journal_entries.all group_by account_id =>refresh account_balance corresponding
+    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(journal_entries.debit) as sum_debit, sum(journal_entries.credit) as sum_credit FROM journal_entries LEFT JOIN journal_records as jr ON jr.id = journal_entries.record_id AND jr.financialyear_id = #{self.id} WHERE journal_entries.company_id =  #{self.company_id} AND draft is false GROUP BY account_id")
     results.each do |result|
       if account_balance = self.company.account_balances.find_by_financialyear_id_and_account_id(self.id, result["account_id"].to_i)
         account_balance.update_attributes!(:local_credit=>result["sum_credit"].to_d, :local_debit=>result["sum_debit"].to_d)

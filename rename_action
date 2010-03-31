@@ -35,11 +35,12 @@ rename() {
     replace "app/controllers/*.rb" ":${old}(\W|$)" ":${new}\1"
     replace "app/views/*/*.haml" ":${old}(\W|$)" ":${new}\1"
     replace "app/helpers/*.rb" ":${old}(\W|$)" ":${new}\1"
-    replace "config/locales/*.yml" "(\W|^)${old}:" "\1${new}:"
-    replace "config/rights?txt" " ${old} " " ${new} "
+    replace "config/locales/*/*.yml" "(\W|^)${old}:" "\1${new}:"
+    replace "config/rights.yml" " ${old}" " ${new}"
+    replace "config/rights.yml" "::${old}" "::${new}"
     move "app/views/$controller/$old.html.haml" "app/views/$controller/$new.html.haml"
     move "app/views/$controller/$old.rjs" "app/views/$controller/$new.rjs"
-    move "config/locales/fr-FR/help/$controller-$old.txt" "config/locales/fr-FR/help/$controller-$new.txt"
+    move "config/locales/fra/help/$controller-$old.txt" "config/locales/fra/help/$controller-$new.txt"
 }
 
 rename $controller $old $new

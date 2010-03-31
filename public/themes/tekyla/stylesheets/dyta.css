@@ -1,16 +1,22 @@
 /*h3.dyta {padding:4px;color: #139; font-size: 16px; }*/
 div.dyta { margin: 0; padding: 0; width:100%-30px; }
-table.dyta { border-collapse: collapse; width:100%;  padding:0; margin: 0; border-bottom: 1px solid #BACFE6;}
+/*table.dyta { border-collapse: collapse; width:100%;  padding:0; margin: 0; border-bottom: 1px solid #BACFE6;}*/
+table.dyta { border-collapse: collapse; width:100%;  padding:0; margin: 0; }
+table.dyta tbody { border-bottom: 1px solid #BACFE6;}
 /*table.dyta th { background: #e9f3fe url(../images/table_head.png) repeat-x bottom; padding:1px 3px; color: #336; font-weight: bold; font-size:13px; text-align:left; }*/
 table.dyta th { background: #e9f3fe url(../images/table_head.png) repeat-x bottom; padding:1px 3px; color: #000; font-weight: normal; text-align:left; }
 table.dyta th:hover { background: #e9f3fe url(../images/table_head_hover.png) repeat-x bottom; }
 table.dyta th.sorted { background: #C9D3E2 url(../images/table_head_sorted.png) repeat-x bottom; padding:2px 3px; color: #000; font-weight: normal; text-align:left;}
+/*
 table.dyta th a.sort { display:block; margin-right:18px; text-decoration:none; padding: 1px; color: #336; }
-table.dyta th a.sort:active { padding:2px 0 0 2px;}
+table.dyta th a.sort { display:block; width: 100%;}
+*/
+table.dyta th a.sort { display:block; text-decoration:none; padding: 1px 14px 1px 1px; color: #336; }
+/*table.dyta th a.sort:active { padding:2px 0 0 2px;}*/
+table.dyta th a.sort:active { padding:2px 13px 0px 2px;}
 table.dyta th a.sort.unsorted { background: url(../images/buttons/center.png) right center no-repeat; }
 table.dyta th a.sort.desc { background: url(../images/buttons/down3.png) right center no-repeat; }
 table.dyta th a.sort.asc { background: url(../images/buttons/up3.png) right center no-repeat; }
-table.dyta th a.sort { display:block; width: 100%;}
 /*
 table.dyta tr.odd  td {background: #E1E6FF;}
 table.dyta tr.even td {background: #F0F2FF;}
@@ -31,7 +37,10 @@ table.dyta tr.child td:first-child { padding-left:20px; }
 table.dyta td.empty { text-align:center; color: #777; padding:4px; background: #EEF; }
 table.dyta th, table.dyta td.empty, table.dyta td.procedures { border-top: 1px solid #BACFE6; }
 table.dyta th, table.dyta td { border-left: 1px solid #BACFE6; border-right: 1px solid #BACFE6; }
-table.dyta tr      th.footer { clear:both; border-top:1px solid #BACFE6; padding: 0px 3px; background: #e9f3fe url(../images/table_head.png) repeat-x bottom; }
+/*table.dyta tr      th.footer { clear:both; border-top:1px solid #BACFE6; padding: 0px 3px; background: #e9f3fe url(../images/table_head.png) repeat-x bottom; }*/
+table.dyta tr      th.footer { clear:both; border:none; background: #EEEFFA; }
+
+
 table.dyta tr      th.footer div.export { padding: 2px; float:left;}
 table.dyta tr      th.footer div.export a { padding: 0 2px 0 14px; margin: 0 2px; background: url(../images/buttons/spreadsheet.png) left center no-repeat;}
 table.dyta tr      th.footer div.pagination { padding: 2px; float:right;}
@@ -62,7 +71,7 @@ table.dyta tr.details td.comment { padding: 10px; font-size:15px; }
 .balance { text-align:center;margin-left:600px; margin-right:700px; margin-top:20px; padding:20px;border: 1px solid #BACFE6;}
 .total { text-align: right; }
 .total table { border-collapse: collapse; width: 100%; }
-.total table.dyta td { font-weight: bold; border: 1px solid #BACFE6; padding: 4px 8px; font-size: 17px; background:#FFF0E0;}
+.total table.dyta td { font-weight: bold; border: 1px solid #BACFE6; padding: 4px 8px; font-size: 16px; background:#FFF0E0;}
 .total table.dyta tr.important td { font-weight: bold; padding: 4px 8px; font-size: 20px !important; }
 
 table.dyta tr.total{background:#D28830;}

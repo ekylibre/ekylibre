@@ -86,6 +86,7 @@ spa:
         #>account_id: 'Compte comptable référencé'
         #>address: 'Adresse'
         #>agency_code: 'Code guichet'
+        #>bank_account_statements: 'Relevés de compte bancaire'
         #>bank_code: 'Code banque'
         #>bank_name: 'Nom de la banque'
         #>bban: 'RIB'
@@ -969,6 +970,7 @@ spa:
         #>id: 'ID'
         #>intermediate: 'Relevé de compte intermédiaire'
         #>intermediate_id: 'Relevé de compte intermédiaire'
+        #>journal: 'Journal'
         #>journal_id: 'Journal'
         #>letter: 'Lettre'
         #>lock_version: 'Version'
@@ -987,7 +989,7 @@ spa:
         company: 'Compañía'
         company_id: 'Compañía'
         #>created_at: 'Créé le'
-        #>created_on: 'Créé le'
+        #>created_on: 'Créée le'
         #>creator: 'Créateur'
         #>creator_id: 'Créateur'
         #>credit: 'Crédit'
@@ -2212,6 +2214,7 @@ spa:
         journal_record:
           #>closed_journal: 'Le journal est clôturé au {{on}} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu''à cette date-là.'
           #>out_of_financialyear: 'La pièce doit être saisie durant l''exercice'
+          #>unbalanced: 'La pièce n''est pas équilibrée'
         payment_part:
           #>nothing_to_pay: 'Il n''y a rien à payer. Si vous voulez enregistrer un acompte, n''oubliez pas de le préciser.'
         price:

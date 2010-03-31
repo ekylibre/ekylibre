@@ -1,6 +1,7 @@
 fra:
   notifications:
     access_denied: 'Vous n''avez pas le droit d''accéder à cette page. {{reason}} ({{url}})' 
+    be_aware_of_accountize_restrictions: 'La bascule en comptabilité ne peut se faire actuellement que pour les factures.' 
     cannot_delete_entity: 'Il n''est pas possible de supprimer cette fiche car elle possède un historique comptable' 
     cannot_delete_entity_nature: 'Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches' 
     cannot_delete_journal: 'Ce journal contient des écritures et ne peut donc être effacé.' 

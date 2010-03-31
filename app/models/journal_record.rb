@@ -51,12 +51,17 @@ class JournalRecord < ActiveRecord::Base
   has_many :entries, :foreign_key=>:record_id, :dependent=>:destroy, :class_name=>JournalEntry.name
 
   validates_format_of :number, :with => /^[\dA-Z]+$/
-  validates_presence_of :created_on, :printed_on
+  # validates_presence_of :created_on, :printed_on
+
+  def before_validation_on_create
+    self.company_id = self.journal.company_id if self.journal
+  end
 
   #
   def before_validation
     self.debit  = self.entries.sum(:debit)
     self.credit = self.entries.sum(:credit)
+    self.created_on ||= Date.today
     unless self.number
       record = self.company.journal_records.find(:last, :conditions => ["EXTRACT(MONTH FROM created_on)=? AND financialyear_id=? AND journal_id=?", self.created_on.month, self.financialyear_id, self.journal_id], :order=>:number)
       if record
@@ -70,11 +75,16 @@ class JournalRecord < ActiveRecord::Base
   
   #
   def validate
+    return unless self.created_on
     if self.journal
-      errors.add_o_base(:closed_journal, :on=>self.journal.closed_on.to_formatted_s) if self.created_on <= self.journal.closed_on 
-      return
+      if self.created_on <= self.journal.closed_on
+        errors.add_to_base(:closed_journal, :on=>self.journal.closed_on.to_formatted_s) 
+        return false
+      end
     end
-    errors.add(:created_on, :posterior, :to=>self.printed_on) if self.printed_on > self.created_on
+    if self.printed_on
+      errors.add(:created_on, :posterior, :to=>self.printed_on) if self.printed_on > self.created_on
+    end
     if self.financialyear
       errors.add(:created_on, :out_of_financialyear, :from=>self.financialyear.started_on, :to=>self.financialyear.stopped_on) if self.created_on < self.financialyear.started_on or self.created_on > self.financialyear.stopped_on
     end
@@ -87,12 +97,12 @@ class JournalRecord < ActiveRecord::Base
   
   # this method computes the debit and the credit of the record.
   def refresh
-    self.save
+    self.save!
   end
   
   #determines if the record is balanced or not.
-  def balanced
-    self.debit == self.credit and self.debit != 0
+  def balanced?
+    self.debit == self.credit and self.debit > 0
   end
 
   #determines the difference between the debit and the credit from the record.
@@ -118,6 +128,31 @@ class JournalRecord < ActiveRecord::Base
     end    
     self.update_attribute(:closed, false)
   end
+
+
+
+  def save_with_entries(entries)
+    ActiveRecord::Base.transaction do
+      saved = self.save
+      self.entries.clear
+      entries.each_index do |index|
+        entries[index] = self.entries.build(entries[index])
+        saved = false unless entries[index].save
+      end
+      self.reload if saved
+      unless self.balanced?
+        self.errors.add_to_base(:unbalanced) 
+        saved = false
+      end
+      if saved
+        return true
+      else
+        raise ActiveRecord::Rollback
+      end
+    end
+    return false
+  end
+
 
   
   #this method tests if all the entries matching to the record does not edited in draft mode.

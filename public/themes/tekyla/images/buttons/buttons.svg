@@ -24,6 +24,17 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient4482">
+      <stop
+         style="stop-color:#cceecc;stop-opacity:1;"
+         offset="0"
+         id="stop4484" />
+      <stop
+         style="stop-color:#cceecc;stop-opacity:0;"
+         offset="1"
+         id="stop4486" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient4477">
       <stop
          id="stop4479"
@@ -4708,6 +4719,24 @@
        y1="30.125"
        x2="286.34903"
        y2="20.6875" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3772"
+       id="linearGradient4488"
+       x1="282.125"
+       y1="35.25"
+       x2="296"
+       y2="40"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4002"
+       id="linearGradient4496"
+       x1="280"
+       y1="40"
+       x2="296"
+       y2="40"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -4717,8 +4746,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="266.7951"
-     inkscape:cy="-2.939453"
+     inkscape:cx="278.57312"
+     inkscape:cy="-27.939453"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -6691,5 +6720,13 @@
        d="m 288.5,16.5 0,3 3,0 -3,-3 z"
        id="path4172"
        sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:url(#linearGradient4488);stroke:url(#linearGradient4496);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       d="m 280.5,34.925532 6.0625,6.446809 0,6.127659 2.9375,0 0,-6.127659 6,-6.446809 0,-2.425532 -15,0 0,2.425532 z"
+       id="path3696"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/filter.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

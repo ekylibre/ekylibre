@@ -1,4 +1,28 @@
-=evalue @journal, :name
-=evalue @journal, :code
-=evalue @journal, :nature_label
+=render :partial=>"journals"
+=toolbar do |t|
+  -t.link :journal_update, :id=>@journal.id
+  -t.link :journal_record_create, :id=>@journal.id
+%table
+  %tr
+    %td
+      =evalue @journal, :name
+      =evalue @journal, :code
+      =evalue @journal, :closed_on
+    %td
+      =evalue @journal, :nature_label
+      =evalue @journal, :currency
 
+%h2=Journal.human_attribute_name("records")
+.search
+  - form_tag(:action=>:journal, :id=>@journal.id) do
+    %table
+      %tr
+        -#%td.label=tc(:search)
+        -#%td.field=text_field_tag :key, session[:journal_record_key]
+        %td.label=tc(:start)
+        %td.field=calendar_field_tag(:start, session[:journal_record_start], :size=>8)
+        %td.label=tc(:end)
+        %td.field=calendar_field_tag(:end, session[:journal_record_end], :size=>8)
+        %td.submit=submit_tag tg(:search_go)
+
+=dyta(:journal_records)

@@ -1,7 +1,6 @@
 -listing_node = object
 -form_remote_tag(:url=>{:action=>:listing_node_update, :id=>listing_node.id, :type=>"comparison"}, :update=>"#{listing_node.key}_comparator") do
-  =#check_box_tag(:comparison, :display, false , :onclick=>"display_comparison('#{listing_node.key}');", :id=>listing_node.key+"_status")
-  %span{:onclick=>"this.hide(); $('#{listing_node.key}_comparator_tf').show(); $('#{listing_node.key}_comparators').show(); $('#{listing_node.key}_validate').show();"}=listing_node.comparison 
+  =link_to_function(listing_node.comparison, "this.hide(); $('#{listing_node.key}_comparator_tf').show(); $('#{listing_node.key}_comparators').show(); $('#{listing_node.key}_validate').show();")
   =select_tag("comparator", options_for_select(listing_node.comparators, listing_node.condition_operator), :id=>listing_node.key+"_comparators", :style=>'display: none;')
   =text_field_tag("comparison_value", listing_node.condition_value||listing_node.default_comparison_value, :size=>15, :id=>listing_node.key+"_comparator_tf", :style=>'display: none;')
   =submit_tag(tg(:validate),:id=>listing_node.key+"_validate", :style=>'display: none;')
