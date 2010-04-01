@@ -1,0 +1,15 @@
+=toolbar do |t|
+  -t.link(:journal_record_update, :id=>@journal_record.id) unless @journal_record.closed?
+%table
+  %tr
+    %td
+      =evalue @journal_record, :number
+      =evalue @journal_record, :created_on
+      =evalue @journal_record, :printed_on
+    %td
+      =evalue @journal_record, :journal, :url=>{:action=>:journal}
+      =evalue @journal_record, :debit
+      =evalue @journal_record, :credit
+
+%h2=tc(:entries)
+=dyta(:journal_record_entries)

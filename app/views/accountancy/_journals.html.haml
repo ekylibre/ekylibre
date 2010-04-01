@@ -1,0 +1,14 @@
+-journals = @current_company.journals
+-if journals.size > 1
+  .journals
+    %table
+      %tr
+        -for journal in journals
+          %td.journal{:class=>journal.nature}
+            -attributes = {:name=>journal.name, :code=>journal.code, :nature_label=>journal.nature_label, :nature=>journal.nature, :closed_on=>::I18n.localize(journal.closed_on), :currency_code=>journal.currency.code, :currency_name=>journal.currency.name}
+            .journal-name
+              -if action_name=="journal" and journal.id==@journal.id
+                %strong=tc('journal_name', attributes)
+              -else
+                =link_to(tc('journal_name', attributes), :action=>:journal, :controller=>:accountancy, :id=>journal.id)
+            .journal-detail=tc('journal_detail', attributes)
