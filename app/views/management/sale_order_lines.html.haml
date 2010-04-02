@@ -41,14 +41,13 @@
     - t.link(:sale_order_line_create)
 =render :partial=>"quick_line" if @sale_order.estimate?
 =dyta :sale_order_lines
-.total
-  %table.dyta
-    %tr
-      %th=tc :amount
-      %td=@sale_order.amount
-    %tr.important
-      %th=tc :amount_with_taxes
-      %td=@sale_order.amount_with_taxes
+%table.dyta
+  %tr.total
+    %th=tc :amount
+    %td=@sale_order.amount
+  %tr.important.total
+    %th=tc :amount_with_taxes
+    %td=@sale_order.amount_with_taxes
 
 -if @sale_order.subscriptions.size>0
   %h2=tc :subscriptions

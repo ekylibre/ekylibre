@@ -19,7 +19,7 @@
 class AccountancyController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
 
-  dyli(:account, [:number, :name], :conditions => {:company_id=>['@current_company.id']})
+  dyli(:account, ["number:X%", :name], :conditions => {:company_id=>['@current_company.id']})
   dyli(:account_collected, [:number, :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
   dyli(:account_paid, [:number, :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
   
@@ -28,8 +28,73 @@ class AccountancyController < ApplicationController
     @entries = @current_company.journal_entries
   end
 
+  # this method displays the form to choose the journal and financialyear.
+  def accountize
+    notify(:accountizing_works_only_with_sales_invoices, :now)
 
-  dyta(:entries_draft, :model=>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :draft=>true}, :order=>:record_id, :line_class=>'RECORD.mode') do |t|
+    params[:finish_accountization_on] = (params[:finish_accountization_on]||Date.today).to_date rescue Date.today
+
+    if request.get?
+      @step = 1
+    elsif request.put?
+      @step = 2
+    elsif request.post?
+      @step = 3
+    end
+
+    if @step >= 2
+      session[:finish_accountization_on] = params[:finish_accountization_on]
+      @invoices = @current_company.invoices.find(:all, :conditions=>["accounted_at IS NULL and amount != 0 AND CAST(created_on AS DATE) <= ?", session[:finish_accountization_on]])
+
+      if @step == 3
+        no_draft = (params[:dont_save_in_draft] == "1" ? true : false)
+        #all the invoices are accountized.
+        for invoice in @invoices
+          invoice.to_accountancy(:no_draft=>no_draft)
+        end
+      
+        #       # all the purchase_orders are accountized.
+        #       @purchase_orders = @current_company.purchase_orders.find(:all, :conditions=>["accounted_at IS NULL AND created_on < ? ", session[:limit_period].to_s], :order=>"created_on DESC")                                                         
+        #       @purchase_orders.each do |purchase_order|
+        #         purchase_order.to_accountancy
+        #       end
+        
+        #       #      # all the transfers are accountized.
+        #       @transfers = @current_company.transfers.find(:all, :conditions=>["accounted_at IS NULL AND created_on < ? ", session[:limit_period].to_s],:order=>"created_on DESC")
+        #       @transfers.each do |transfer|
+        #         transfer.to_accountancy
+        #       end
+        
+        #       # all the payments are comptabilized if they have been embanked or not.  
+        #       #   join = "inner join embankments e on e.id=payments.embankment_id" unless session[:cashed_payments]
+        #       #       @payments = @current_company.payments.find(:all, :conditions=>["payments.created_on < ? and payments.accounted_at IS NULL and payments.amount!=0", session[:limit_period].to_s], :joins=>join||nil, :order=>"created_on DESC", :limit=>100)    
+        #       #       @payments.each do |payment|
+        #       #         payment.to_accountancy
+        #       #       end
+        
+        #       #       # the sale_orders are comptabilized if the matching payments and invoices have been already accountized.  
+        #       #       @sale_orders = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted_at IS NULL and p.accounted_at IS NOT NULL and i.accounted_at IS NOT NULL", session[:limit_period].to_s], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id",:order=>"created_on DESC", :limit=>100)    
+        #       #       @sale_orders.each do |sale_order|
+        #       #         sale_order.to_accountancy 
+        #       #       end
+
+        notify(:accountizing_is_finished, :success)
+        if no_draft
+          redirect_to :action=>:accountize
+        else
+          redirect_to :action=>:draft_entries
+        end
+      end
+    end
+    
+
+  end
+  
+
+
+
+
+  dyta(:draft_entries, :model=>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :draft=>true}, :order=>:record_id, :line_class=>'RECORD.mode') do |t|
     t.column :journal_name, :label=>'Journal'
     t.column :resource, :label=>'Type'
     t.column :resource_id, :label=>'Id', :through=>:record
@@ -45,55 +110,8 @@ class AccountancyController < ApplicationController
   end
   
 
-  # this method displays the form to choose the journal and financialyear.
-  def accountize
-    notify(:be_aware_of_accountize_restrictions, :now)
-
-    if request.post?
-
-      #all the invoices are accountized.
-      @invoices = @current_company.invoices.find(:all, :conditions=>["accounted_at IS NULL and amount != 0 AND CAST(created_on AS DATE) BETWEEN \'2007-01-01\' AND ?", session[:limit_period].to_s], :limit=>100)
-      @invoices.each do |invoice|
-        invoice.to_accountancy
-      end
-      
-      # all the purchase_orders are accountized.
-      @purchase_orders = @current_company.purchase_orders.find(:all, :conditions=>["accounted_at IS NULL AND created_on < ? ", session[:limit_period].to_s], :order=>"created_on DESC")                                                         
-      @purchase_orders.each do |purchase_order|
-        purchase_order.to_accountancy
-      end
-      
-      #      # all the transfers are accountized.
-      @transfers = @current_company.transfers.find(:all, :conditions=>["accounted_at IS NULL AND created_on < ? ", session[:limit_period].to_s],:order=>"created_on DESC")
-      @transfers.each do |transfer|
-        transfer.to_accountancy
-      end
-      
-      # all the payments are comptabilized if they have been embanked or not.  
-      #   join = "inner join embankments e on e.id=payments.embankment_id" unless session[:cashed_payments]
-      #       @payments = @current_company.payments.find(:all, :conditions=>["payments.created_on < ? and payments.accounted_at IS NULL and payments.amount!=0", session[:limit_period].to_s], :joins=>join||nil, :order=>"created_on DESC", :limit=>100)    
-      #       @payments.each do |payment|
-      #         payment.to_accountancy
-      #       end
-      
-      #       # the sale_orders are comptabilized if the matching payments and invoices have been already accountized.  
-      #       @sale_orders = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted_at IS NULL and p.accounted_at IS NOT NULL and i.accounted_at IS NOT NULL", session[:limit_period].to_s], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id",:order=>"created_on DESC", :limit=>100)    
-      #       @sale_orders.each do |sale_order|
-      #         sale_order.to_accountancy 
-      #       end
-      
-    elsif request.put?
-      # FIXME: Won't work with SQLite !!!
-      JournalEntry.update_all({:draft=> false}, {:company_id=>@current_company.id, :draft=> true}, :joins=>"inner join journal_records r on r.id=journal_entries.record_id and r.created_on < #{session[:limit_period]}")
-      redirect_to :action=>:accountize
-    end
-
-  end
-  
   #this method lists all the entries generated in draft mode.
   def draft_entries
-    session[:limit_period] ||= params[:date_generation_entries].to_s
-    session[:cashed_payments] ||= params[:cashed_payments].to_s
   end
   
 
@@ -939,7 +957,8 @@ class AccountancyController < ApplicationController
     if request.post?
       @journal_entries = (params[:entries]||{}).values
       if @journal_record.save_with_entries(@journal_entries)
-        redirect_to_back
+        notify(:journal_record_has_been_saved, :success, :number=>@journal_record.number)
+        redirect_to :action=>:journal_record_create, :id=>@journal.id
       end
     else
       @journal_record.printed_on = Date.today
@@ -964,11 +983,6 @@ class AccountancyController < ApplicationController
     t3e @journal_record.attributes
     render_form
   end
-
-
-
-
-
 
 
   def journal_entry_create
@@ -1081,151 +1095,106 @@ class AccountancyController < ApplicationController
 
   
   dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on ASC") do |t|
+    t.column :name, :through=>:bank_account
     t.column :number, :url=>{:action=>:bank_account_statement}
     t.column :started_on
     t.column :stopped_on
     t.column :debit
     t.column :credit
+    t.action :bank_account_statement_point
     t.action :bank_account_statement_update
     t.action :bank_account_statement_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
   # lists all the statements in details for a precise account.
   def bank_account_statements  
-    @bank_accounts = @current_company.bank_accounts
-    @valid = @current_company.bank_accounts.empty?
-    unless @bank_accounts.size>0
+    bank_accounts = @current_company.bank_accounts
+    unless bank_accounts.size>0
       notify(:need_bank_account_to_record_statements)
       redirect_to :action=>:bank_account_create
       return
     end
-  end
-
-  # This method creates a statement.
-  def bank_account_statement_create
-    @bank_accounts = @current_company.bank_accounts  
-    
-    if request.post?
-      @statement = BankAccountStatement.new(params[:statement])
-      @statement.bank_account_id = params[:statement][:bank_account_id]
-      @statement.company_id = @current_company.id
-      
-      if BankAccount.find_by_id_and_company_id(params[:statement][:bank_account_id], @current_company.id).account.entries.find(:all, :conditions => "statement_id is NULL").size.zero?
-        notify(:no_entries_pointable_for_bank_account, :now)
-      else
-        
-        if @statement.save
-          redirect_to :action => "bank_account_statement_point", :id => @statement.id 
-        end
-      end
-    else
-      @statement = BankAccountStatement.new(:started_on=>Date.today-1.month-2.days, :stopped_on=>Date.today-2.days)
-    end
-    render_form 
+    notify(:x_unpointed_journal_entries, :now, :count=>@current_company.journal_entries.count(:conditions=>["statement_id IS NULL and account_id IN (?)", bank_accounts.collect{|ba| ba.account_id}]))
   end
 
 
-  # This method updates a statement.
-  def bank_account_statement_update
-    @bank_accounts = BankAccount.find(:all,:conditions=>"company_id = "+@current_company.id.to_s)  
-    @statement = BankAccountStatement.find_by_id_and_company_id(params[:id], @current_company.id)  
-    if request.post? or request.put?
-      @statement.update_attributes(params[:statement]) 
-      redirect_to :action => :bank_account_statement_point, :id => @statement.id if @statement.save 
-    end
-    render_form
-  end
 
 
-  # This method deletes a statement.
-  def bank_account_statement_delete
-    if request.post? or request.delete?
-      @statement = BankAccountStatement.find_by_id_and_company_id(params[:id], @current_company.id)  
-      BankAccountStatement.destroy @statement
-      redirect_to :action=>:bank_account_statements
-    end
-  end
-
-
-  # This method displays the list of entries recording to the bank account for the given statement.
-  def bank_account_statement_point
-    session[:statement] = params[:id]  if request.get? 
-    @bank_account_statement=BankAccountStatement.find(session[:statement])
-    @bank_account=BankAccount.find(@bank_account_statement.bank_account_id)
-    
-    @entries=@current_company.journal_entries.find(:all, :conditions =>["account_id = ? AND editable = ? AND draft=? AND CAST(j.created_on AS DATE) BETWEEN ? AND ?", @bank_account.account_id, true, false,  @bank_account_statement.started_on, @bank_account_statement.stopped_on], :joins => "INNER JOIN journal_records j ON j.id = journal_entries.record_id", :order => "statement_id DESC")
-    
-    unless @entries.size > 0
-      notify(:need_entries_to_point, :warning)
-      redirect_to :action=>'statements'
-    end
-
-    if request.xhr?
-      
-      @entry=JournalEntry.find(params[:id]) 
-
-      if @entry.statement_id.eql? session[:statement].to_i
-        
-        @entry.update_attribute("statement_id", nil)
-        @bank_account_statement.credit -= @entry.debit
-        @bank_account_statement.debit  -= @entry.credit
-        @bank_account_statement.save
-        
-      elsif @entry.statement_id.nil?
-        @entry.update_attribute("statement_id", session[:statement])
-        @bank_account_statement.credit += @entry.debit
-        @bank_account_statement.debit  += @entry.credit
-        @bank_account_statement.save
-        
-      else
-        @entry.statement.debit  -= @entry.credit
-        @entry.statement.credit -= @entry.debit
-        @entry.statement.save
-        @entry.update_attribute("statement_id", nil)
-      end
-      
-      render :action => "bank_account_statements.rjs" 
-      
-    end
-    @title = {:value1 => @bank_account_statement.number, :value2 => @bank_account.name }
-  end
-
-
-  #
-  def self.statements_entries_conditions(options={})
-    code = ""
-    code += "conditions = ['journal_entries.company_id=? AND draft=?', @current_company.id, false] \n"
-
-    code += "unless session[:statement].blank? \n"
-    code += "statement = @current_company.bank_account_statements.find(:first, :conditions=>{:id=>session[:statement]})\n"
-    code += "conditions[0] += ' AND statement_id = ? '\n"
-    code += "conditions << statement.id \n"
-    code += "end \n"
-    code += "conditions \n"
-    code
-  end
-
-  dyta(:statement_entries, :model =>:journal_entries, :conditions=>statements_entries_conditions, :order=>:record_id) do |t|
-    t.column :journal_name, :label=>'Journal'
-    t.column :number, :label=>"Numéro", :through=>:record
-    t.column :created_on, :label=>"Créée le", :through=>:record, :datatype=>:date
-    t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
+  dyta(:bank_account_statement_entries, :model =>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :statement_id=>['session[:current_bank_account_statement_id]']}, :order=>"record_id") do |t|
+    t.column :name, :through=>:journal, :url=>{:action=>:journal}
+    t.column :number, :through=>:record, :url=>{:action=>:journal_record}
+    t.column :created_on, :through=>:record, :datatype=>:date
     t.column :name
-    t.column :number, :label=>"Compte", :through=>:account
+    t.column :number, :through=>:account # , :url=>{:action=>:account}
     t.column :debit
     t.column :credit
   end
-  
-
-
 
   # displays in details the statement choosen with its mainly characteristics.
   def bank_account_statement
     return unless @bank_account_statement = find_and_check(:bank_account_statement, params[:id])
-    session[:statement] = @bank_account_statement.id
-    @title = {:value => @bank_account_statement.number}
+    session[:current_bank_account_statement_id] = @bank_account_statement.id
+    t3e @bank_account_statement.attributes
   end
   
+
+  # This method creates a statement.
+  def bank_account_statement_create
+    if request.post?
+      @bank_account_statement = BankAccountStatement.new(params[:bank_account_statement])
+      if @bank_account_statement.save
+        redirect_to :action => :bank_account_statement_point, :id => @bank_account_statement.id 
+      end
+    else
+      @bank_account_statement = BankAccountStatement.new(:started_on=>Date.today-1.month-2.days, :stopped_on=>Date.today-2.days)
+    end
+    render_form 
+  end
+
+  # This method updates a statement.
+  def bank_account_statement_update
+    return unless @bank_account_statement = find_and_check(:bank_account_statement, params[:id])
+    if request.post? or request.put?
+      if @bank_account_statement.update_attributes(params[:bank_account_statement])
+        redirect_to :action => :bank_account_statement_point, :id => @bank_account_statement.id 
+      end
+    end
+    t3e @bank_account_statement.attributes
+    render_form
+  end
+
+  # This method displays the list of entries recording to the bank account for the given statement.
+  def bank_account_statement_point
+    session[:statement] = params[:id]  if request.get? 
+    return unless @bank_account_statement = find_and_check(:bank_account_statement, params[:id])
+    if request.post?
+      # raise Exception.new(params[:journal_entry].inspect)
+      @bank_account_statement.entries.clear
+      @bank_account_statement.entry_ids = params[:journal_entry].select{|k, v| v[:checked]=="1" and @current_company.journal_entries.find_by_id(k)}.collect{|k, v| k.to_i}
+      if @bank_account_statement.save
+        redirect_to :action=>:bank_account_statements
+        return
+      end
+    end
+    @journal_entries = @bank_account_statement.eligible_entries
+    unless @journal_entries.size > 0
+      notify(:need_entries_to_point, :warning)
+      redirect_to :action=>:bank_account_statements
+    end    
+    t3e :number => @bank_account_statement.number, :bank_account => @bank_account_statement.bank_account.name
+  end
+
+  # This method deletes a statement.
+  def bank_account_statement_delete
+    if request.post? or request.delete?
+      return unless @bank_account_statement = find_and_check(:bank_account_statement, params[:id])
+      BankAccountStatement.destroy @bank_account_statement
+    end
+    redirect_to :action=>:bank_account_statements
+  end
+
+
+
 
   
   dyta(:taxes, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}) do |t|
@@ -1238,13 +1207,10 @@ class AccountancyController < ApplicationController
     t.action :tax_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
-  #   
   def taxes
-    
   end
   
   manage :taxes, :nature=>":percent"
-
 
 
   #

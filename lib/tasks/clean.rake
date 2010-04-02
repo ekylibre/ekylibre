@@ -150,7 +150,7 @@ namespace :clean do
         views << file.gsub(RAILS_ROOT, '.') unless valid
       end
     end
-    puts " - Views: #{views.count} potentially bad views"
+    puts " - Views: #{views.size} potentially bad views"
     for view in views
       puts "   #{view}"
     end
@@ -231,6 +231,7 @@ namespace :clean do
     for right in rights.keys.sort
       code += "# #{::I18n.translate('rights.'+right.to_s)}\n"
       code += "#{right}:\n"
+      # code += "#{right}: # #{::I18n.translate('rights.'+right.to_s)}\n"
       controller, actions = rights[right]['controller'], []
       code += "  controller: #{controller}\n" unless controller.blank?
       if rights[right]["actions"].is_a?(Array)
@@ -238,6 +239,7 @@ namespace :clean do
         actions = actions.collect{|x| x.match(/^#{controller}\:\:/) ? x.split('::')[1] : x}.sort unless controller.blank?
         line = "  actions: [#{actions.join(', ')}]"
         if line.length > 80 or line.match(/\#/)
+        # if line.match(/\#/)
           code += "  actions:\n"
           for action in actions
             code += "  - #{action}\n"
@@ -251,7 +253,7 @@ namespace :clean do
       file.write code
     end
 
-    puts " - Rights: #{deleted} deleted actions, #{created} created actions"
+    puts " - Rights: #{deleted} deletable actions, #{created} created actions"
   end
 
 
@@ -380,16 +382,20 @@ namespace :clean do
         if line.match(/([\s\W]+|^)notify\(\s*\:\w+/)
           key = line.split(/notify\(\s*\:/)[1].split(/\W/)[0]
           deleted_notifs.delete(key.to_sym)
-          notifications[key.to_sym] = "" if notifications[key.to_sym].nil? or notifications[key.to_sym].match(/\(\(\(/)
+          notifications[key.to_sym] = "" if notifications[key.to_sym].nil? or (notifications[key.to_sym].is_a? String and notifications[key.to_sym].match(/\(\(\(/))
         end
       end
     end
-    File.open("#{RAILS_ROOT}/config/locales/#{locale}/notifications.yml", "wb") do |file|
-      file.write locale.to_s+":\n"
-      file.write "  notifications:\n"
-      for key, translation in notifications.sort{|a,b| a[0].to_s<=>b[0].to_s}
-        file.write "    #{key}: #{translation.blank? ? '((('+key.to_s.upper+')))' : '\''+translation.gsub(/\'/, '\'\'')+'\''} #{deleted_notifs.include?(key) ? '# NOT USED !!!' : ''}\n"
+
+    translation = locale.to_s+":\n"
+    translation += "  notifications:\n"
+    for key, trans in notifications.sort{|a,b| a[0].to_s<=>b[0].to_s}
+      line = "    #{key}: "+(trans.blank? ? '((('+key.to_s.upper+')))' : yaml_value(trans, 2))
+      line.gsub!(/$/, "# NOT USED !!!") if deleted_notifs.include?(key)
+      translation += line+"\n"
       end
+    File.open("#{RAILS_ROOT}/config/locales/#{locale}/notifications.yml", "wb") do |file|
+      file.write translation
     end
     log.write "  - Notifications (#{notifications.size}, #{deleted_notifs.size} bad notifications)\n"
 
@@ -415,7 +421,7 @@ namespace :clean do
       end
     end
     
-    puts " - Locale: #{::I18n.locale_label} (Default)"
+    puts " - Locale: #{::I18n.locale_label} (Reference)"
 
 
 

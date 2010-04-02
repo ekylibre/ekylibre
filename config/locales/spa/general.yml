@@ -100,9 +100,11 @@ spa:
     #>record_has_not_been_removed: 'L''enregistrement n''a pu être supprimé.'
     #>reflect: 'Refléter'
     #>reopen: 'Déclôturer'
+    #>save: 'Enregistrer'
     #>search: 'Rechercher'
     #>search_go: 'Lancer la recherche'
     #>submit: 'Envoyer'
+    #>total: 'Total'
     unavailable:
       #>entity: 'La fiche demandée est indisponible'
       #>financialyear: 'L''exercice comptable est indisponible {{value}}'

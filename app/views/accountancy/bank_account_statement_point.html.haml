@@ -1,38 +1,40 @@
-=toolbar do
-  - link :bank_account_statement, :id=>@bank_account_statement.id
-  - link :bank_account_statements
-
-%table.dyta
-  %tr
-    %th="&nbsp"
-    %th=tc(:statement_number)
-    %th=tc(:recorded_on)
-    %th=tc(:entry_name)
-    %th=tc(:entry_debit)
-    %th=tc(:entry_credit)
-  - @entries.each do |entry|
-    - attr = cycle("even", "odd")
-    - check = entry.statement_id.nil? ? false : true  
-    %tr{:class => (entry.statement_id ? ((entry.statement_id.eql? session[:statement].to_i) ? "pointable" : "pointabled") : "unpointable")+" "+attr, :id=> 'e'+entry.id.to_s}
-      %td=check_box("entry", "statement_id", :checked=>check, :onclick => remote_function(:after => "var element=$('e"+entry.id.to_s+"'); if (element.hasClassName('pointable "+attr+"')) { element.removeClassName('pointable "+attr+"'); element.addClassName('unpointable "+attr+"'); } else if (element.hasClassName('unpointable "+attr+"')) { element.removeClassName('unpointable "+attr+"'); element.addClassName('pointable "+attr+"'); } else { element.removeClassName('pointabled "+attr+"'); element.addClassName('unpointable "+attr+"'); }", :url => { :action => 'statements_point', :id => entry.id}))
-      %td{:id => 'entry_number_'+entry.id.to_s}=entry.statement.nil? ? "&nbsp" : link_to(entry.statement.number, :action=>:bank_account_statement, :id=>entry.statement.id) 
-      %td=I18n.localize(entry.record.created_on)
-      %td=entry.name
-      %td.decimal=entry.debit
-      %td.decimal=entry.credit
-  
-.total
+=toolbar do |t|
+  - t.link :bank_account_statement_update, :id=>@bank_account_statement.id
+=evalue(@bank_account_statement, :started_on)
+=evalue(@bank_account_statement, :stopped_on)
+%h2=tc(:entries_to_point)
+-form_tag do
   %table.dyta
     %tr
-      %th=tc(:total)
-      %td#total_debit=@bank_account_statement.credit || 0
-      %td#total_credit=@bank_account_statement.debit || 0
-  
-%br
-#total=render :partial=>'statements'
-
-
-
-
-
-
+      %th
+      %th=JournalRecord.human_attribute_name("number")
+      %th=JournalRecord.human_attribute_name("created_on")
+      %th=JournalEntry.human_attribute_name("name")
+      %th=JournalEntry.human_attribute_name("debit")
+      %th=JournalEntry.human_attribute_name("credit")
+    - for @journal_entry in @journal_entries
+      -attr = cycle("even", "odd")
+      -checked = (@journal_entry.statement_id==@bank_account_statement.id)
+      -trid = "e#{@journal_entry.id}"
+      %tr{:id=>trid, :class=>(checked ? "notice " : "")+attr}
+        %td.chk
+          -if @journal_entry.statement_id.nil? or checked
+            =check_box_tag("journal_entry[#{@journal_entry.id}][checked]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t1();" ) 
+          -else
+            =link_to(@journal_entry.statement.number, :action=>:bank_account_statement, :id=>@journal_entry.statement.id)
+        %td=link_to(@journal_entry.record.number, :action=>:journal_record, :id=>@journal_entry.record_id)
+        %td=I18n.localize(@journal_entry.record.created_on)
+        %td=@journal_entry.name
+        %td.decimal.debit=@journal_entry.debit
+        %td.decimal.credit=@journal_entry.credit
+    %tr.total
+      %th{:colspan=>4}=tg(:total)
+      %td#total-debit=@bank_account_statement.debit || 0
+      %td#total-credit=@bank_account_statement.credit || 0
+  .actions=submit_tag(tg(:save))
+:javascript
+  function t1() {
+    var sd = sum_all('tr.notice .debit',  'total-debit');
+    var sc = sum_all('tr.notice .credit', 'total-credit');
+  }
+  t1();

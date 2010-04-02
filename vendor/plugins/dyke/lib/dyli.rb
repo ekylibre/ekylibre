@@ -20,12 +20,13 @@ module Ekylibre
             model = (options[:model]||name_db).to_s.singularize.camelize.constantize
             attributes = [attributes] unless attributes.is_a? Array
             attributes_hash = {}
-            0..attributes.size.times do |i|
+            attributes.each_index do |i|
               attribute = attributes[i]
-              attributes[i] = attribute.is_a?(Symbol) ? model.table_name+'.'+attribute.to_s : attribute.to_s
-              attributes_hash['att'+i.to_s] = attributes[i]
+              attributes[i] = []
+              attributes[i] << (attribute.to_s.match(/\./) ? attribute.to_s : model.table_name+'.'+attribute.to_s.split(/\:/)[0])
+              attributes[i] << (attribute.to_s.match(/\:/) ? attribute.to_s.split(/\:/)[1] : (options[:filter]||'%X%'))
+              attributes_hash['att'+i.to_s] = attributes[i][0]
             end
-            
             query = []
             parameters = ''
             if options[:conditions].is_a? Hash
@@ -56,16 +57,18 @@ module Ekylibre
             code += "  words = search.lower.split(/[\\s\\,]+/)\n"
             code += "  if words.size>0\n"
             code += "    conditions[0] += '#{' AND ' if query.size>0}('\n"
-            code += "    words.size.times do |index|\n"
-            code += "      word = #{(options[:filter]||'%X%').inspect}.gsub('X', words[index])\n"
+            code += "    words.each_index do |index|\n"
+            code += "      word = words[index]\n"
+            # code += "      word = #{(options[:filter]||'%X%').inspect}.gsub('X', words[index])\n"
             code += "      conditions[0] += ') AND (' if index>0\n"
-            code += "      conditions[0] += "+attributes.collect{|key| "LOWER(#{key}) LIKE ?"}.join(' OR ').inspect+"\n"
-            code += "      conditions += ["+(["word"]*attributes.size).join(", ")+"]\n"
+            code += "      conditions[0] += "+attributes.collect{|key| "LOWER(#{key[0]}) LIKE ?"}.join(' OR ').inspect+"\n"
+            # code += "      conditions += ["+(["word"]*attributes.size).join(", ")+"]\n"
+            code += "      conditions += ["+attributes.collect{|key| key[1].inspect.gsub('X', '"+words[index].to_s+"').gsub(/(^\"\"\+|\+\"\"\+|\+\"\")/, '')}.join(", ")+"]\n"
             code += "    end\n"
             code += "    conditions[0] += ')'\n"
             code += "  end\n"
             select = (model.table_name+".id AS id, "+attributes_hash.collect{|k,v| v+" AS "+k}.join(", ")).inspect
-            order = ", :order=>"+attributes.collect{|key| "#{key} ASC"}.join(', ').inspect
+            order = ", :order=>"+attributes.collect{|key| "#{key[0]} ASC"}.join(', ').inspect
             limit = ", :limit=>"+(options[:limit]||12).to_s
             joins = options[:joins] ? ", :joins=>"+options[:joins].inspect : ""
             partial = options[:partial]
@@ -81,6 +84,8 @@ module Ekylibre
             code += "  end\n"
             code += "  render :text=>'<ul>'+list+'</ul>'\n"
             code += "end\n"
+
+            # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
 
             module_eval(code)
           end

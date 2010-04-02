@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +13,7 @@
    height="16"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.47pre4 r22446"
+   inkscape:version="0.46"
    version="1.0"
    inkscape:export-filename="/home/brice/pygmalion/projets/images/boutons24.png"
    inkscape:export-xdpi="90"
@@ -4737,6 +4736,61 @@
        x2="296"
        y2="40"
        gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient12041"
+       id="radialGradient3271"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9617188,-7.0948195e-8,7.3787481e-8,0.9431655,-9.263606,27.182699)"
+       cx="30.79882"
+       cy="17.45047"
+       fx="30.798824"
+       fy="17.450474"
+       r="8.6001797" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient23668"
+       id="radialGradient3273"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.676463,0.1096014,-0.1083049,0.6684057,6.5437881,25.100224)"
+       cx="24.223862"
+       cy="23.767302"
+       fx="24.223862"
+       fy="23.767302"
+       r="11.99962" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3877"
+       id="radialGradient3279"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1.3256642e-2,1.1003787,-1.073786,-1.293627e-2,-21.206758,-313.1514)"
+       cx="321"
+       cy="-39.375"
+       fx="321"
+       fy="-39.375"
+       r="6" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3745"
+       id="linearGradient3281"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.7,0,0,0.7,-209.24997,36.649997)"
+       x1="322"
+       y1="16.1875"
+       x2="321.875"
+       y2="4.5" />
+    <filter
+       inkscape:collect="always"
+       id="filter4207"
+       x="-0.32462006"
+       width="1.6492401"
+       y="-0.32462006"
+       height="1.6492401">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.1158815"
+         id="feGaussianBlur4209" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -4921,7 +4975,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
       <cc:Work
          rdf:about="">
@@ -6728,5 +6782,39 @@
        inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/filter.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <rect
+       y="40.5"
+       x="16.5"
+       height="7"
+       width="6.9999995"
+       id="rect3275"
+       style="fill:url(#radialGradient3279);fill-opacity:1;fill-rule:nonzero;stroke:url(#linearGradient3281);stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/point.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="ccccccc"
+       style="fill:#1fbf06;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3277"
+       d="M 17.454545,42.727272 L 19.363636,44.636363 L 22.545493,41.454545 L 22.545493,43.363636 L 19.363636,46.545454 L 17.454545,44.636363 L 17.454545,42.727272 z"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/point.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4207)"
+       d="M 26,43.875 L 19,45 L 21,37.375 L 27.125,36.75 L 26,43.875 z"
+       id="path3283"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/point.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="opacity:0.9;fill:url(#radialGradient3271);fill-opacity:1;fill-rule:evenodd;stroke:url(#radialGradient3273);stroke-width:0.98056048;stroke-linecap:round;stroke-linejoin:round;marker-start:none;marker-mid:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 29,32.490271 L 22.203607,38.864499 L 20.491805,43.509717 L 25.177052,41.573546 L 31.511244,35.071833 C 31.330578,33.653568 30.452473,32.793047 29,32.490271 z"
+       id="path3269"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/point.png" />
   </g>
 </svg>

@@ -229,7 +229,7 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 .toolbar h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
 .toolbar ul {padding: 1px;}
 .toolbar ul > li {padding: 2px 0; list-style-type: none; height:16px; margin:2px 0;}
-.toolbar ul > li > a {padding: 2px 2px 2px 20px; height:16px; background: url(../images/round.png) no-repeat center left;}
+.toolbar ul > li > a {padding: 2px 2px 2px 20px; height:16px; background: url(../images/round-blue.png) no-repeat 5px center;}
 .toolbar ul > li > a.backup    {background: url(../images/buttons/right.png) no-repeat center left;}
 .toolbar ul > li > a.cancel    {background: url(../images/buttons/cancel.png) no-repeat center left;}
 .toolbar ul > li > a.configure {background: url(../images/buttons/configure.png) no-repeat center left;}
@@ -240,6 +240,7 @@ input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea
 .toolbar ul > li > a.load      {background: url(../images/buttons/load.png) no-repeat center left;}
 .toolbar ul > li > a.mail      {background: url(../images/buttons/mail.png) no-repeat center left;}
 .toolbar ul > li > a.merge     {background: url(../images/buttons/merge.png) no-repeat center left;}
+.toolbar ul > li > a.point     {background: url(../images/buttons/point.png) no-repeat center left;}
 .toolbar ul > li > a.print     {background: url(../images/buttons/print.png) no-repeat center left;}
 .toolbar ul > li > a.restore   {background: url(../images/buttons/left.png) no-repeat center left;}
 .toolbar ul > li > a.sort      {background: url(../images/buttons/sort.png) no-repeat center left;}
@@ -368,7 +369,7 @@ fieldset.quick-add { text-align: center; color: #008; }
 .branch:hover { background-color: #DEF; }
 
 
-.journals { height: 64px; overflow: auto; margin-bottom: 8px; }
+.journals { height: 84px; overflow: auto; margin-bottom: 8px; }
 .journals table { height: 58px; }
 .journals .journal { padding: 4px 8px; height: 48px; background: #EEE; border: 1px solid #DDD; overflow: auto;}
 .journals .journal .journal-detail { font-size: 11px; color: #777}
@@ -379,5 +380,5 @@ fieldset.quick-add { text-align: center; color: #008; }
 
 tbody.lines td input { width:100%; }
 
-table.dyta #entries-total .decimal { font-size: 16px; font-weight:bold; color: red; background: #EEF; border-bottom: 2px solid black; }  
-table.dyta #entries-total.valid .decimal { color: #090; }  
+table.dyta tr#total td { color: red; }  
+table.dyta tr#total.valid td { color: #090; }  

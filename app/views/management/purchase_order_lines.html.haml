@@ -21,14 +21,14 @@
   -link :purchase_order_line_create if @purchase_order.editable
 =dyta :purchase_order_lines
 
-.total
-  %table.dyta
-    %tr
-      %th=tc :amount
-      %td=@purchase_order.amount
-    %tr.important
-      %th=tc :amount_with_taxes
-      %td=@purchase_order.amount_with_taxes
+
+%table.dyta
+  %tr.total
+    %th=tc :amount
+    %td=@purchase_order.amount
+  %tr.important.total
+    %th=tc :amount_with_taxes
+    %td=@purchase_order.amount_with_taxes
 
 - form_tag do
   .actions

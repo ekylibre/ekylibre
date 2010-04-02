@@ -135,7 +135,7 @@ jpn:
         #>intermediate: 'Intermédiaire'
         #>intermediate_entries: 'Écritures en tant que relevé intermédiaire'
         lock_version: '修正の番号'
-        #>number: 'Numéro du relevé de compte'
+        #>number: 'Numéro'
         #>started_on: 'Du'
         #>stopped_on: 'Au'
         #>updated_at: 'Mis à jour le'

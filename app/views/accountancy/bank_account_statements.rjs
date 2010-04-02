@@ -1,2 +1,0 @@
-page.replace_html 'total', :partial => 'statements'
-

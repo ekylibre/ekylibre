@@ -160,20 +160,20 @@ class Invoice < ActiveRecord::Base
   end
 
   #this method accountizes the invoice.
-  def to_accountancy
-    unless self.amount.zero?
-      financialyear = self.company.financialyears.find(:first, :conditions => ["? BETWEEN started_on AND stopped_on AND closed=?", Date.today, false])
-      journal =  self.company.journals.find(:first, :conditions =>{:nature=>'sale'}, :order=>:id)
-      unless journal.nil? or financialyear.nil?
-        client_account = self.client.account(:client)
-        record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal.id, :financialyear_id => financialyear.id)
-        record.add_debit(self.client.full_name, client_account.id, self.amount_with_taxes, :draft=>false)
-        self.lines.each do |line|
-          record.add_credit(line.product.name, line.product.product_account_id, line.amount, :draft=>false)
-          record.add_credit(line.price.tax.name, line.price.tax.account_collected_id, line.taxes, :draft=>false)
-        end
-        self.update_attribute(:accounted_at, Time.now)
+  def to_accountancy(options={})
+    return if self.amount.zero?
+    draft = options[:no_draft] ? false : true
+    financialyear = self.company.financialyears.find(:first, :conditions => ["? BETWEEN started_on AND stopped_on AND closed=?", Date.today, false])
+    journal =  self.company.journals.find(:first, :conditions =>{:nature=>'sale'}, :order=>:id)
+    unless journal.nil? or financialyear.nil?
+      client_account = self.client.account(:client)
+      record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal.id, :financialyear_id => financialyear.id)
+      record.add_debit(self.client.full_name, client_account.id, self.amount_with_taxes, :draft=>draft)
+      self.lines.each do |line|
+        record.add_credit(line.product.name, line.product.product_account_id, line.amount, :draft=>draft)
+        record.add_credit(line.price.tax.name, line.price.tax.account_collected_id, line.taxes, :draft=>draft)
       end
+      self.update_attribute(:accounted_at, Time.now)
     end
   end
   

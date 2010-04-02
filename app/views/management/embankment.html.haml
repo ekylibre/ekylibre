@@ -1,15 +1,13 @@
 =toolbar do |t|
   -t.print :embankment, :p0=>@embankment.id
 
-
-%p{:style=>'padding: 20px 0 0 0;'}=dyta :embankment_payments
-.total
-  %table.dyta
-    %tr
-      %th=tc(:check_number)
-      %td=@embankment.payments_count 
-    %tr.important
-      %th=tc(:amount)
-      %td=@embankment.amount.to_s+" "+@embankment.bank_account.currency.code
+=dyta :embankment_payments
+%table.dyta
+  %tr.total
+    %th=tc(:check_number)
+    %td=@embankment.payments_count 
+  %tr.total.important
+    %th=tc(:amount)
+    %td=@embankment.amount.to_s+" "+@embankment.bank_account.currency.code
 
 

@@ -41,22 +41,25 @@ class BankAccountStatement < ActiveRecord::Base
   belongs_to :company
 
   has_many :intermediate_entries, :class_name=>JournalEntry.name, :foreign_key=>:intermediate_id
-  has_many :entries, :class_name=>JournalEntry.name, :foreign_key=>:statement_id
+  has_many :entries, :class_name=>JournalEntry.name, :foreign_key=>:statement_id, :dependent=>:nullify
 
-  before_destroy :statement_entry
+
+  def before_validation
+    self.company_id = self.bank_account.company_id if self.bank_account
+    self.debit  = self.entries.sum(:debit)
+    self.credit = self.entries.sum(:credit)
+  end
 
   # A bank account statement has to contain all the planned records.
   def validate    
     errors.add_to_base tc(:error_period_statement) if self.started_on >= self.stopped_on
   end
 
-  #
-  def statement_entry
-    if self.entries.size > 0
-      self.entries.each do |entry|
-        entry.update_attribute(:statement_id, nil)
-      end
-    end
+  def eligible_entries
+    self.company.journal_entries.find(:all, 
+                                      :conditions =>["account_id = ? AND draft=? AND (statement_id IS NULL OR statement_id = ? OR journal_records.created_on BETWEEN ? AND ?)", self.bank_account.account_id, false, self.id, self.started_on, self.stopped_on], 
+                                      :joins => "INNER JOIN journal_records ON journal_records.id = journal_entries.record_id", 
+                                      :order => "statement_id DESC, journal_entries.created_at DESC")
   end
 
 end

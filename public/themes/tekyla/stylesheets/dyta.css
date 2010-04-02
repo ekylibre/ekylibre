@@ -69,13 +69,15 @@ table.dyta tr.details td { padding: 8px; text-align:center;}
 table.dyta tr.details td.comment { padding: 10px; font-size:15px; }
 
 .balance { text-align:center;margin-left:600px; margin-right:700px; margin-top:20px; padding:20px;border: 1px solid #BACFE6;}
+/*
 .total { text-align: right; }
 .total table { border-collapse: collapse; width: 100%; }
 .total table.dyta td { font-weight: bold; border: 1px solid #BACFE6; padding: 4px 8px; font-size: 16px; background:#FFF0E0;}
 .total table.dyta tr.important td { font-weight: bold; padding: 4px 8px; font-size: 20px !important; }
-
-table.dyta tr.total{background:#D28830;}
-table.dyta tr.total td{color:RED;font-family:monospace;}
-
 .total table.dyta tr.separated * { border-top: 1px solid red !important;}
 .total table.dyta  th  { text-align:right; }
+*/
+table.dyta tr.total th {text-align: right;}
+table.dyta tr.total td {font-size: 18px; font-weight:bold; background:#FFD !important; padding: 2px 4px; text-align: right; border:1px solid #BACFE6; }  
+table.dyta tr.total td.important {font-size: 20px; } 
+

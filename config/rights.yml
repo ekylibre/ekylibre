@@ -590,11 +590,11 @@ manage_statements:
   - bank_account_statement
   - bank_account_statement_create
   - bank_account_statement_delete
+  - bank_account_statement_entries_dyta
   - bank_account_statement_point
   - bank_account_statement_update
   - bank_account_statements
   - bank_account_statements_dyta
-  - statement_entries_dyta
 # Gérer les mouvements de stocks
 manage_stock_moves:
   controller: management

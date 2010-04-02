@@ -135,7 +135,7 @@ eng:
         #>intermediate: 'Intermédiaire'
         #>intermediate_entries: 'Écritures en tant que relevé intermédiaire'
         lock_version: 'Version'
-        #>number: 'Numéro du relevé de compte'
+        #>number: 'Numéro'
         #>started_on: 'Du'
         #>stopped_on: 'Au'
         updated_at: 'Updated at'

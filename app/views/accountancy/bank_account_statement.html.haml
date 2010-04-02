@@ -1,9 +1,14 @@
-=toolbar do
-  -link :bank_account_statements
+=toolbar do |t|
+  -t.link :bank_account_statement_update, :id=>@bank_account_statement.id
+  -t.link :bank_account_statement_point, :id=>@bank_account_statement.id
 
 =evalue(@bank_account_statement, :number)
-=evalue(@bank_account_statement.bank_account, :name)
+=evalue(@bank_account_statement, :bank_account)
 =evalue(@bank_account_statement, :credit)
 =evalue(@bank_account_statement, :debit)
-=dyta(:statement_entries)
+=evalue(@bank_account_statement, :started_on)
+=evalue(@bank_account_statement, :stopped_on)
+
+%h2=tc(:journal_entries)
+=dyta(:bank_account_statement_entries)
 

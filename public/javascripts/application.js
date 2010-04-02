@@ -427,3 +427,23 @@ function toggleMenu(element) {
   }
   return state;
 }
+
+
+/* 
+   Sum all the value in corresponding elements and update a target with its ID 
+   Returns target
+*/
+function sum_all(css_rule, target_id) {
+  var target = $(target_id);
+  var sum = 0;
+  $$(css_rule).each(function(element, index) { 
+      var val;
+      if (element.tagName.toLowerCase() == "input") {val = element.value; } 
+      else { val = element.innerHTML; }
+      if (!isNaN(val)) {sum += val*1;} 
+    });
+  sum = Math.round(sum*100)/100;
+  if (target.tagName.toLowerCase() == "input") { target.value = sum; }
+  else { target.innerHTML = sum; }
+  return target;
+}

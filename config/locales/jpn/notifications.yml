@@ -1,7 +1,8 @@
 jpn:
   notifications:
     #>access_denied: 'Vous n''avez pas le droit d''accéder à cette page. {{reason}} ({{url}})'
-    #>be_aware_of_accountize_restrictions: 'La bascule en comptabilité ne peut se faire actuellement que pour les factures.'
+    #>accountizing_is_finished: 'La bascule en comptabilité est finie.'
+    #>accountizing_works_only_with_sales_invoices: 'La bascule en comptabilité ne peut se faire actuellement que pour les factures de vente.'
     #>cannot_delete_entity: 'Il n''est pas possible de supprimer cette fiche car elle possède un historique comptable'
     #>cannot_delete_entity_nature: 'Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches'
     #>cannot_delete_journal: 'Ce journal contient des écritures et ne peut donc être effacé.'
@@ -15,6 +16,7 @@ jpn:
     #>impossible_to_add_lines: 'Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande'
     #>impossible_to_add_lines_to_purchase: 'Vous ne pouvez plus ajouter de produits à votre achat'
     #>journal_closed_on: 'Le {{journal}} a été clôturé au {{closed_on}} correctement.'
+    #>journal_record_has_been_saved: 'La pièce N°{{number}} a été enregistrée correctement'
     #>journal_reopened_on: 'Le {{journal}} a été déclôturé au {{closed_on}} correctement.'
     #>need_balanced_journal_to_tax_declaration: 'Tous vos journaux doivent être clôturés et équilibrés à cette date.'
     #>need_bank_account_to_record_statements: 'Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte.'
@@ -67,5 +69,9 @@ jpn:
     #>unknown_action: 'La page demandée est indisponible ({{url}})'
     #>unvalid_version_for_restore: 'La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel'
     #>validates_old_inventories: 'Il est conseillé de supprimer ou de valider les inventaires non validés avant d''en faire un nouveau'
+    x_unpointed_journal_entries:
+      #>one: 'Il y a une écriture à pointer'
+      #>other: 'Il y a {{count}} écritures à pointer'
+      #>zero: 'Il n''y a pas d''écritures à pointer pour l''instant'
     #>you_must_have_an_email_column: 'Vous devez avoir une colonne Email dans votre extraction'
     #>you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'

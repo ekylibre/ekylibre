@@ -1,6 +1,8 @@
+=toolbar do |t|
+  -t.link :journal_entry_create, :remote=>true, :url=>{:controller=>:accountancy}, :update=>:entries, :position=>:bottom
 =formalize do |f|
   -f.error :journal_record
-  -f.field JournalRecord.human_attribute_name("journal"), content_tag(:strong, @journal_record.journal.name)
+  -f.field JournalRecord.human_attribute_name("journal"), link_to(@journal_record.journal.name, :action=>:journal, :id=>@journal.id)
   -f.field :journal_record, :number
   -f.field :journal_record, :printed_on
 %table.dyta{:style=>"margin-bottom: 8px;"}
@@ -12,29 +14,20 @@
       %th=JournalEntry.human_attribute_name("credit")
       %th.act
   %tfoot
-    %tr#entries-total
-      %td{:colspan=>2, :style=>"background: transparent; border: none;"}
-      %td#total_debit.decimal=@journal_record.debit
-      %td#total_credit.decimal=@journal_record.credit
+    %tr#total.total
+      %th{:colspan=>2}=tg(:total)
+      %td#total-debit.decimal=@journal_record.debit
+      %td#total-credit.decimal=@journal_record.credit
   %tbody#entries.lines
     -entries = @journal_entries || @journal_record.entries
     =render :partial=>"journal_entry_row_form", :collection=>entries
     =render :partial=>"journal_entry_row_form", :object=>@journal_record.entries.new if entries.empty?
-=toolbar do |t|
-  -t.link :journal_entry_create, :remote=>true, :url=>{:controller=>:accountancy}, :update=>:entries, :position=>:bottom
 :javascript
-  function sum_all(css_rule, id) {
-    var sum = 0;
-    var elem = $(id);
-    $$(css_rule).each(function(element, index){ if (!isNaN(element.value)) {sum += element.value*1;} });
-    elem.innerHTML = Math.round(sum*100)/100;
-    return elem;
-  }
   var balanced = false;
   function t0() {
-    var sd = sum_all('input.debit', 'total_debit');
-    var sc = sum_all('input.credit', 'total_credit');
-    var total = $('entries-total');
+    var sd = sum_all('input.debit',  'total-debit');
+    var sc = sum_all('input.credit', 'total-credit');
+    var total = $('total');
     if (sd.innerHTML*1 == sc.innerHTML*1) {
       total.addClassName("valid");
       balanced = true;

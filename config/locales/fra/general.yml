@@ -587,9 +587,11 @@ fra:
     record_has_not_been_removed: 'L''enregistrement n''a pu être supprimé.'
     reopen: Déclôturer
     reflect: 'Refléter'
+    save: Enregistrer
     search: Rechercher
     search_go: Lancer la recherche
     submit: Envoyer
+    total: Total
     unavailable:
       entity: 'La fiche demandée est indisponible'
       journal: 'Le journal demandé est indisponible ({{value}})'
