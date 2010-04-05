@@ -1,6 +1,8 @@
 -if @account
   =formalize do |f|
-    - f.error :account
-    - f.field :account, :name
-    -# f.field :account, :label
-    - f.field :account, :number if @account.new_record?
+    -f.error :account
+    -if @account.new_record?
+      -f.field :account, :number
+    -else
+      -f.field Account.human_attribute_name("number"), @account.number
+    -f.field :account, :name

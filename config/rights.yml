@@ -24,6 +24,7 @@ __minimum__:
 # Droit par défaut (inaccessible)
 __not_used__:
   actions:
+  - accountancy::draft_entries_dyta # UNEXISTENT ACTION !!!
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_dyta
@@ -40,7 +41,10 @@ __not_used__:
 # Accéder au module Comptabilité
 administrate_accountancy:
   controller: accountancy
-  actions: [accountize, draft_entries, index]
+  actions:
+  - accountize
+  - draft_entries # UNEXISTENT ACTION !!!
+  - index
 # Accéder au module Commerce
 administrate_management:
   controller: management
@@ -119,7 +123,9 @@ consult_entities:
 # Consulter les écritures
 consult_entries:
   controller: accountancy
-  actions: [entries_draft_dyta, entries_dyta]
+  actions:
+  - entries_draft_dyta # UNEXISTENT ACTION !!!
+  - entries_dyta # UNEXISTENT ACTION !!!
 # Consulter les écritures
 consult_invoices:
   controller: management
@@ -207,7 +213,7 @@ manage_accounts:
   - account_update
   - accounts
   - accounts_dyta
-  - auto_complete_for_entry_account
+  - auto_complete_for_entry_account # UNEXISTENT ACTION !!!
 # Gérer les zones
 manage_areas:
   controller: relations
@@ -325,10 +331,10 @@ manage_entities:
 manage_entities_natures:
   controller: relations
   actions:
-  - entities_natures
   - entity_nature_create
   - entity_nature_delete
   - entity_nature_update
+  - entity_natures
   - entity_natures_dyta
 # Gérer les catégories de fiche
 manage_entity_categories:
@@ -359,11 +365,12 @@ manage_entries:
   actions:
   - account_dyli
   - account_letter
-  - entries
-  - entry_create
-  - entry_delete
-  - entry_letter
-  - entry_update
+  - account_unletter
+  - entries # UNEXISTENT ACTION !!!
+  - entry_create # UNEXISTENT ACTION !!!
+  - entry_delete # UNEXISTENT ACTION !!!
+  - entry_letter # UNEXISTENT ACTION !!!
+  - entry_update # UNEXISTENT ACTION !!!
   - journal_entry_create
   - journal_record
   - journal_record_create
@@ -398,7 +405,7 @@ manage_financialyears:
   - financialyear_update
   - financialyears
   - financialyears_dyta
-  - financialyears_records
+  - financialyears_records # UNEXISTENT ACTION !!!
 # Gérer les inventaires
 manage_inventories:
   controller: management
@@ -635,13 +642,13 @@ manage_taxes:
   - account_collected_dyli
   - account_paid_dyli
   - tax_create
-  - tax_declaration
-  - tax_declaration_create
-  - tax_declaration_delete
-  - tax_declaration_period_search
-  - tax_declaration_update
-  - tax_declarations
-  - tax_declarations_dyta
+  - tax_declaration # UNEXISTENT ACTION !!!
+  - tax_declaration_create # UNEXISTENT ACTION !!!
+  - tax_declaration_delete # UNEXISTENT ACTION !!!
+  - tax_declaration_period_search # UNEXISTENT ACTION !!!
+  - tax_declaration_update # UNEXISTENT ACTION !!!
+  - tax_declarations # UNEXISTENT ACTION !!!
+  - tax_declarations_dyta # UNEXISTENT ACTION !!!
   - tax_delete
   - tax_update
   - taxes
@@ -709,7 +716,10 @@ print:
 # Imprimer les documents comptables
 print_accounting_document:
   controller: accountancy
-  actions: [document_prepare, document_print, synthesis]
+  actions:
+  - document_prepare # UNEXISTENT ACTION !!!
+  - document_print # UNEXISTENT ACTION !!!
+  - synthesis # UNEXISTENT ACTION !!!
 # Rechercher et consulter des factures
 search_and_consult_invoices:
   controller: management

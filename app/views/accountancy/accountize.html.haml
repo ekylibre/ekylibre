@@ -16,7 +16,7 @@
     =formalize do |f|
       -f.field tc(:select_date_generation), ::I18n.localize(params[:finish_accountization_on])
       -f.field tc(:invoices_count), @invoices.size
-      -f.field tc(:dont_save_in_draft), check_box_tag("dont_save_in_draft")
+      -#f.field tc(:dont_save_in_draft), check_box_tag("dont_save_in_draft")
     .actions
       =submit_tag(tg(:save))
       =link_to tg(:back), :action=>:accountize, :finish_accountization_on=>params[:finish_accountization_on]

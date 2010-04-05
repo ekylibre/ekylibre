@@ -266,11 +266,27 @@ fra:
               format: 'A[year|4][month|2][number|6]'
               period: 'month'
         shelf_name: Sans catégorie
-        taxes: 'Taxes'
-        tva000: TVA 0,00%
-        tva210: TVA 2,10%
-        tva550: TVA 5,50%
-        tva1960: TVA 19,60%
+        taxes:
+          tva0000:
+            name: 'TVA 0,00%'
+            amount: 0.000
+            paid: 445660
+            collected: 445710
+          tva0210:
+            name: 'TVA 2,10%'
+            amount: 0.021
+            paid: 445661
+            collected: 445711
+          tva0550: 
+            name: 'TVA 5,50%'
+            amount: 0.055
+            paid: 445662
+            collected: 445712
+          tva1960: 
+            name: 'TVA 19,60%'
+            amount: 0.196
+            paid: 445663
+            collected: 445713
         units:
           u: Unité
           kg: Kilogramme
@@ -345,6 +361,9 @@ fra:
         purchase_order: 'Création d''un achat'
         sale_order: 'Création d''un devis'
     financialyear:
+      code:
+        single: 'EX{{first_year}}'
+        double: 'EX{{first_year}}/{{second_year}}'
     idea:
       status:
         all: TOUTES
@@ -531,6 +550,24 @@ fra:
     shared:
       _entities_search:
         search: Rechercher une relation
+      _menu:
+        informations: 'Informations'
+        my_account: 'Mon compte'
+        parameters: 'Paramètres'
+        company_tasks: 'Outils'
+        import_export: 'Import/Export de fiches'
+        relations_tasks: Clients et fournisseurs
+        accountancy_tasks: Travaux comptables
+        accountize: 'Bascule comptable'
+        bank_account_statements: 'Relevés de compte'
+        sales: Ventes
+        purchases: Achats
+        stocks_tasks: 'Stocks'
+        stock_transfers: 'Transferts et pertes'
+        production: 'Production'
+
+
+
   
   # General words and expression through the all app
   general:
@@ -565,9 +602,11 @@ fra:
     finish: Terminer
     format_date:
       iso: "(AAAA-MM-JJ)"
+    from: "À partir du"
     hint: 'Astuce&nbsp;: {{value}}'
     indicator: 'Tableau de bord'
     info: 'Information&nbsp;: {{value}}'
+    letter: 'Lettrer'
     letter_conclusion: ' Veuillez agréer, Chère Madame, Cher Monsieur, l''expression de mes salutations distinguées.'
     letter_function_title: 'Chère Madame, Cher Monsieur'
     letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
@@ -591,6 +630,7 @@ fra:
     search: Rechercher
     search_go: Lancer la recherche
     submit: Envoyer
+    to: "Au"
     total: Total
     unavailable:
       entity: 'La fiche demandée est indisponible'

@@ -50,6 +50,7 @@ class Account < ActiveRecord::Base
   has_many :balances, :class_name=>AccountBalance.name
   has_many :bank_accounts
   has_many :entries, :class_name=>JournalEntry.name
+  has_many :journal_entries
   has_many :journals, :class_name=>Journal.name, :foreign_key=>:counterpart_id
   has_many :payments
   has_many :payment_modes
@@ -102,10 +103,31 @@ class Account < ActiveRecord::Base
     Account.find_all_by_parent_id(self.id)||{}
   end
 
+  def letterable_entries(started_on, stopped_on)
+    self.journal_entries.find(:all, :joins=>"JOIN journal_records ON (record_id=journal_records.id)", :conditions=>["journal_records.created_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"letter DESC, journal_records.number DESC")
+  end
+
+  def new_letter
+    entry = self.journal_entries.find(:first, :conditions=>["LENGTH(TRIM(letter)) > 0"], :order=>"letter DESC")
+    return (entry ? entry.letter.succ : "AAA")
+  end
+
+  def letter_entries(journal_entries_id, letter = nil)
+    letter ||= self.new_letter
+    self.journal_entries.update_all({:letter=>letter}, {:id=>journal_entries_id})
+  end
+
+  def unletter_entries(letter)
+    self.journal_entries.update_all({:letter=>""}, {:letter=>letter})
+  end
+
+
+
+
   # computes the balance for a given financialyear.
   #  def compute(company, financialyear)
-  #     debit = self.entries.sum(:debit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
-  #     credit = self.entries.sum(:credit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
+  #     debit = self.journal_entries.sum(:debit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=journal_entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
+  #     credit = self.journal_entries.sum(:credit, :conditions => {:company_id => company}, :joins => "INNER JOIN journal_records r ON r.id=journal_entries.record_id AND r.financialyear_id ="+financialyear.to_s).to_f
   
   #     balance = {}
   #     unless (debit.zero? and credit.zero?) and not self.number.to_s.match /^12/
@@ -148,8 +170,8 @@ class Account < ActiveRecord::Base
     res_balance = 0
     
     accounts.each do |account| 
-      debit = account.entries.sum(:debit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
-      credit = account.entries.sum(:credit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=entries.record_id").to_f
+      debit = account.journal_entries.sum(:debit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=journal_entries.record_id").to_f
+      credit = account.journal_entries.sum(:credit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_records r ON r.id=journal_entries.record_id").to_f
       
       compute=HashWithIndifferentAccess.new
       compute[:id] = account.id.to_i
@@ -215,13 +237,13 @@ class Account < ActiveRecord::Base
     accounts.each do |account|
       compute=[] #HashWithIndifferentAccess.new
       
-      entries = account.entries.find(:all, :conditions=>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins=>"INNER JOIN journal_records r ON r.id=entries.record_id", :order=>"r.number ASC")
+      journal_entries = account.journal_entries.find(:all, :conditions=>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins=>"INNER JOIN journal_records r ON r.id=journal_entries.record_id", :order=>"r.number ASC")
       
-      if entries.size > 0
+      if journal_entries.size > 0
         records = []
         compute << account.number.to_i
         compute << account.name.to_s
-        entries.each do |e|
+        journal_entries.each do |e|
           entry = HashWithIndifferentAccess.new
           entry[:date] = e.record.created_on
           entry[:name] = e.name.to_s
@@ -230,7 +252,7 @@ class Account < ActiveRecord::Base
           entry[:credit] = e.credit
           entry[:debit] = e.debit
           records << entry
-          # compute[:entries] << entry
+          # compute[:journal_entries] << entry
         end
         compute << records
         ledger << compute
@@ -242,14 +264,14 @@ class Account < ActiveRecord::Base
   end
 
 
-  # this method loads all the entries having the given letter for the account.
+  # this method loads all the journal_entries having the given letter for the account.
   def balanced_letter?(letter) 
-    entries = self.company.journal_entries.find(:all, :conditions => ["letter = ?", letter.to_s], :joins => "INNER JOIN journal_records r ON r.id = entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
+    journal_entries = self.company.journal_journal_entries.find(:all, :conditions => ["letter = ?", letter.to_s], :joins => "INNER JOIN journal_records r ON r.id = journal_entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
     
-    if entries.size > 0
+    if journal_entries.size > 0
       sum_debit = 0
       sum_credit = 0
-      entries.each do |entry|
+      journal_entries.each do |entry|
         sum_debit += entry.debit
         sum_credit += entry.credit
       end

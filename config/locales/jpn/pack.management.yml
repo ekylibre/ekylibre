@@ -102,7 +102,7 @@ jpn:
         #>title: 'Modification du délai : {{name}}'
       delays:
         #>delay_create: 'Ajouter un nouveau délai'
-        #>title: 'Liste des délais'
+        #>title: 'Délais'
       delivery_mode_create:
         #>title: 'Ajout d''un nouveau type de livraison'
       delivery_mode_update:
@@ -162,14 +162,6 @@ jpn:
         #>nb_years: 'Nombre d''années dans l''historique'
         #>product: 'Produit'
       index:
-        #>delays: 'Délais'
-        #>delivery_modes: 'Types de livraison'
-        #>embankments: 'Remises de chèques'
-        #>indicator: 'Tableau de bord'
-        #>inventories: 'Inventaires'
-        #>invoices: 'Factures'
-        #>invoicing_parameters: 'Facturation'
-        #>location: 'Lieux de stockage'
         #>low_stocks: 'Stocks sous le seuil critique'
         nb_enbankments:
           #>one: '1 remise de chèques à valider'
@@ -191,28 +183,7 @@ jpn:
           #>one: '1 transfert à effectuer'
           #>other: '{{count}} transferts à effectuer'
           #>zero: 'Aucun transfert à effectuer'
-        #>parameters: 'Paramètres'
-        #>payment_modes: 'Types de réglement'
-        #>payments: 'Règlements'
-        #>prices: 'Prix'
-        #>products: 'Produits'
-        #>purchase_order_create: 'Nouvel achat'
-        #>purchase_orders: 'Achats'
-        #>purchases_consult: 'Achats'
-        #>sale_order_create: 'Nouveau devis'
-        #>sale_order_natures: 'Types de vente'
-        #>sale_orders: 'Ventes'
-        #>sales_consult: 'Devis / Commandes'
-        #>shelves: 'Catégories de produit'
-        #>statistics: 'Statistiques'
-        #>stock_transfers: 'Transferts et pertes'
-        #>stocks: 'Stocks'
-        #>stocks_consult: 'État des stocks'
-        #>subscription_natures: 'Types d''abonnement'
-        #>subscriptions: 'Abonnements'
         #>title: 'Gestion commerciale'
-        #>transports: 'Transports'
-        #>units: 'Unités de mesure'
       inventories:
         #>inventory_create: 'Faire un nouvel inventaire'
         #>inventory_print: 'Imprimer l''inventaire'
@@ -352,7 +323,7 @@ jpn:
         #>purchase_order_price_create: 'Ajouter un prix d''achat '
         #>sale_order_price_create: 'Ajouter un prix de vente'
         #>supplier: 'Les prix d''achat du fournisseur'
-        #>title: 'Liste des prix'
+        #>title: 'Prix'
       prices_import:
         #>file_to_download: 'Fichier à importer'
         #>prices_export: 'Exporter vos tarifs au format CSV'
@@ -399,7 +370,7 @@ jpn:
           #>other: '{{count}} produits enregistrés'
           #>zero: 'Aucun produit enregistré'
         #>product_create: 'Ajout d''un nouveau produit'
-        #>title: 'Gérer les produits'
+        #>title: 'Produits'
       _products_search:
         #>active: 'Actif'
         #>search: 'Rechercher un produit'
@@ -443,7 +414,7 @@ jpn:
           #>one: '1 achat'
           #>other: '{{count}} achats'
           #>zero: 'Aucun achat'
-        #>title: 'Liste des achats'
+        #>title: 'Achats'
       _quick_line:
         #>discount: 'Réduction (en %)'
         #>from: 'Du numéro'
@@ -465,7 +436,7 @@ jpn:
         #>subscriptions: 'Abonnements'
         #>title: 'Détails de la vente {{value}} au client {{name}}'
       sale_order_create:
-        #>title: 'Création de la vente'
+        #>title: 'Nouvelle vente'
       sale_order_deliveries:
         #>address: 'Adresse de livraison'
         #>amount: 'Montant HT'
@@ -510,13 +481,13 @@ jpn:
         #>discount: 'Remise (en %)'
         #>give_discount: 'Octroyer une remise'
         #>infos: 'Choisissez le produit et la quantité'
-      _sale_order_line_informations:
-        #>no_tracking: 'Aucun lot'
-        #>tracking: 'Lot '
       sale_order_line_informations:
         #>contact: 'à l''adresse'
         #>from_date: 'Du '
         #>to_date: 'Au '
+      _sale_order_line_informations:
+        #>no_tracking: 'Aucun lot'
+        #>tracking: 'Lot '
       _sale_order_line_stocks:
         #>line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
       _sale_order_line_tracking:
@@ -591,7 +562,7 @@ jpn:
           #>other: '{{count}} ventes'
           #>zero: 'Aucune vente'
         #>search_sales: 'Rechercher des ventes'
-        #>title: 'Liste des devis/commandes'
+        #>title: 'Devis et commandes'
         #>unpaid: 'Impayées'
         #>unpaid_sale_orders_export: 'Exporter la liste des ventes impayées au format csv'
       sales_invoices:
@@ -620,7 +591,7 @@ jpn:
         #>title: 'Ajout d''une nouvelle catégorie de produits'
       shelves:
         #>shelf_create: 'Ajouter une nouvelle catégorie de produits'
-        #>title: 'Gérer les catégories de produits'
+        #>title: 'Catégories de produits'
       statistics:
         #>csv_statistics: 'Statistiques à exporter au format CSV'
         #>go: 'Valider'
@@ -704,13 +675,13 @@ jpn:
       transport_create:
         #>info: 'Renseignez les informations du transport'
         #>title: 'Ajout d''un nouveau transport'
+      transport_deliveries:
+        #>title: 'Livraisons du transport'
       _transport_deliveries:
         #>add: 'Ajouter la livraison au transport'
         #>add_delivery: 'Ajouter une livraison'
         #>back: 'Valider et revenir à la liste des transports'
         #>delivery: 'Livraison'
-      transport_deliveries:
-        #>title: 'Livraisons du transport'
       transport_update:
         #>info: 'Renseignez les informations du transport'
         #>title: 'Modification du transport'

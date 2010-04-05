@@ -63,12 +63,7 @@ class JournalRecord < ActiveRecord::Base
     self.credit = self.entries.sum(:credit)
     self.created_on ||= Date.today
     unless self.number
-      record = self.company.journal_records.find(:last, :conditions => ["EXTRACT(MONTH FROM created_on)=? AND financialyear_id=? AND journal_id=?", self.created_on.month, self.financialyear_id, self.journal_id], :order=>:number)
-      if record
-        self.number = record.number.succ
-      else
-        self.number = '1'
-      end
+      self.number = self.journal.last_number.succ if self.journal
     end
     self.number = self.number.rjust(6, "0")
   end 
@@ -78,15 +73,15 @@ class JournalRecord < ActiveRecord::Base
     return unless self.created_on
     if self.journal
       if self.created_on <= self.journal.closed_on
-        errors.add_to_base(:closed_journal, :on=>self.journal.closed_on.to_formatted_s) 
+        errors.add_to_base(:closed_journal, :on=>::I18n.localize(self.journal.closed_on))
         return false
       end
     end
     if self.printed_on
-      errors.add(:created_on, :posterior, :to=>self.printed_on) if self.printed_on > self.created_on
+      errors.add(:created_on, :posterior, :to=>::I18n.localize(self.printed_on)) if self.printed_on > self.created_on
     end
     if self.financialyear
-      errors.add(:created_on, :out_of_financialyear, :from=>self.financialyear.started_on, :to=>self.financialyear.stopped_on) if self.created_on < self.financialyear.started_on or self.created_on > self.financialyear.stopped_on
+      errors.add(:created_on, :out_of_financialyear, :from=>::I18n.localize(self.financialyear.started_on), :to=>::I18n.localize(self.financialyear.stopped_on)) if self.created_on < self.financialyear.started_on or self.created_on > self.financialyear.stopped_on
     end
   end
   
@@ -137,10 +132,12 @@ class JournalRecord < ActiveRecord::Base
       self.entries.clear
       entries.each_index do |index|
         entries[index] = self.entries.build(entries[index])
-        saved = false unless entries[index].save
+        if saved
+          saved = false unless entries[index].save
+        end
       end
       self.reload if saved
-      unless self.balanced?
+      if saved and not self.balanced?
         self.errors.add_to_base(:unbalanced) 
         saved = false
       end

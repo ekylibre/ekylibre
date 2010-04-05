@@ -1,25 +1,57 @@
-=link_to_back
-%table.dyta
-  %tr
-    %th=tc(:recorded_on)
-    %th=tc(:journal_name)
-    %th=tc(:entry_name)
-    %th=tc(:record_number)
-    %th=tc(:entry_debit)
-    %th=tc(:entry_credit)
-    %th=tc(:entry_letter)
-  - if @entries
-    - @entries.each do |entry|
-      - attr = cycle("even", "odd")
-      %tr{:class => attr+" "+((entry.letter.to_s != "") ? "letter"+((entry.balanced_letter?.to_s == "true") ?  "" : "-unbalanced ") : ""), :id=> 'e'+entry.id.to_s}
-        %td=I18n.localize(entry.record.created_on)
-        %td=entry.record.journal.name
-        %td=entry.name
-        %td=entry.record.number
-        %td.decimal=entry.debit
-        %td.decimal=entry.credit
-        %td{:id => 'entry_letter_'+entry.id.to_s, :onclick => remote_function(:url => {:action => 'entry_letter', :id => entry.id })}=entry.letter    
-      
-%br  
-#lettering=render :partial => 'account_letter'
+.search
+  - form_tag({}, :method=>:get) do
+    %table
+      %tr
+        %td.label=tg(:from)
+        %td.field=calendar_field_tag :started_on, params[:started_on]
+        %td.label=tg(:to)
+        %td.field=calendar_field_tag :stopped_on, params[:stopped_on]
+        %td.submit=submit_tag(tg(:filter), :name=>nil)
+=evalue @account, :name
+=evalue @account, :number
+
+%h2=tc(:current_letter, :letter=>@letter)
+
+=error_messages "account"
+
+-form_tag() do
+  %table.dyta
+    %tr
+      %th=JournalEntry.human_attribute_name("letter")
+      %th=JournalRecord.human_attribute_name("created_on")
+      %th=Journal.human_name
+      %th=JournalRecord.human_name
+      %th=JournalEntry.human_name
+      %th=JournalEntry.human_attribute_name("debit")
+      %th=JournalEntry.human_attribute_name("credit")
+    -for @journal_entry in @journal_entries
+      -checked = (@journal_entry.letter == @letter)
+      -trid = "e#{@journal_entry.id}"
+      %tr{:id=>trid, :class=>(checked ? "notice " :  (@journal_entry.letter.blank? ? "" : ""))+cycle("even", "odd")}
+        %td.chk
+          -if @journal_entry.letter.blank? or checked
+            =check_box_tag("journal_entry[#{@journal_entry.id}][to_letter]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t2();" )
+          -else
+            =@journal_entry.letter
+            =link_to(image_tag(theme_button(:unletter), :border=>0), {:action=>:account_unletter, :id=>@account.id, :letter=>@journal_entry.letter}, :method=>:post, :confirm=>tg(:are_you_sure))
+        %td.date=I18n.localize(@journal_entry.record.created_on)
+        %td=link_to(@journal_entry.journal.name, {:action=>:journal, :id=>@journal_entry.journal_id}, :keep=>true)
+        %td.code=link_to(@journal_entry.record.number, {:action=>:journal_record, :id=>@journal_entry.record_id}, :keep=>true)
+        %td=@journal_entry.name
+        %td.decimal.debit=@journal_entry.debit
+        %td.decimal.credit=@journal_entry.credit
+    %tr#total.total
+      %th{:colspan=>5}=tg(:total)
+      %td#total-debit=0
+      %td#total-credit=0
+  .actions=submit_tag tg(:save)
+
+:javascript
+  function t2() {
+    var sd = sum_all('tr.notice .debit',  'total-debit');
+    var sc = sum_all('tr.notice .credit', 'total-credit');
+    var total = set_state('total', (sd.innerHTML*1 === sc.innerHTML*1));
+    return total;
+  }
+  t2();
 

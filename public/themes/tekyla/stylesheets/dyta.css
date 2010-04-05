@@ -6,7 +6,7 @@ table.dyta tbody { border-bottom: 1px solid #BACFE6;}
 /*table.dyta th { background: #e9f3fe url(../images/table_head.png) repeat-x bottom; padding:1px 3px; color: #336; font-weight: bold; font-size:13px; text-align:left; }*/
 table.dyta th { background: #e9f3fe url(../images/table_head.png) repeat-x bottom; padding:1px 3px; color: #000; font-weight: normal; text-align:left; }
 table.dyta th:hover { background: #e9f3fe url(../images/table_head_hover.png) repeat-x bottom; }
-table.dyta th.sorted { background: #C9D3E2 url(../images/table_head_sorted.png) repeat-x bottom; padding:2px 3px; color: #000; font-weight: normal; text-align:left;}
+table.dyta th.sorted { background: #C9D3E2 url(../images/table_head_sorted.png) repeat-x bottom; padding:2px 3px; color: #000; font-weight: normal; text-align:left; }
 /*
 table.dyta th a.sort { display:block; margin-right:18px; text-decoration:none; padding: 1px; color: #336; }
 table.dyta th a.sort { display:block; width: 100%;}

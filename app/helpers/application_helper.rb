@@ -27,7 +27,7 @@ module ApplicationHelper
            [{:name=>:user_statistics}, 
             {:name=>:change_password}
            ] },
-         {:name=>:tools, :list=>
+         {:name=>:company_tasks, :list=>
            [ {:name=>:backups},
              {:name=>:listings}
            ] },
@@ -49,16 +49,16 @@ module ApplicationHelper
 
      # RelationsController
      {:name=>:relations, :list=>
-       [ {:name=>:entities_managing, :list=>
+       [ {:name=>:relations_tasks, :list=>
            [ {:name=>:entities},
              {:name=>:import_export, :url=>{:action=>:entities_import}},
              {:name=>:events},
              {:name=>:mandates}
            ] },
          {:name=>:parameters, :list=>
-           [ {:name=>:entities_natures},
+           [ {:name=>:entity_categories},
+             {:name=>:entity_natures},
              {:name=>:entity_link_natures},
-             {:name=>:entity_categories},
              {:name=>:event_natures},
              {:name=>:complements},
              {:name=>:mandates_configure},
@@ -68,14 +68,14 @@ module ApplicationHelper
        ] },
      # AccountancyController
      {:name=>:accountancy, :list=>
-       [ {:name=>:works, :list=>
-           [ # {:name=>:entries},
-             {:name=>:journals},
+       [ {:name=>:accountancy_tasks, :list=>
+           [ {:name=>:journals},
              {:name=>:bank_account_statements},
              {:name=>:lettering},
              # {:name=>:tax_declarations},
-             {:name=>:financialyear_close},
-             {:name=>:accountize} ] },
+             {:name=>:accountize},
+             {:name=>:financialyear_close}
+           ] },
          {:name=>:parameters, :list=>
            [ {:name=>:accounts},
              {:name=>:financialyears},
@@ -84,9 +84,9 @@ module ApplicationHelper
        ] },
      # ManagementController
      {:name=>:management, :list=>
-       [ {:name=>:sale_orders, :list=>
+       [ {:name=>:sales, :list=>
            [ {:name=>:sale_order_create},
-             {:name=>:sales_consult, :url=>{:action=>:sale_orders}},
+             {:name=>:sale_orders},
              {:name=>:invoices},
              {:name=>:payments, :url=>{:action=>:payments, :mode=>:sale_order}},
              {:name=>:embankments},
@@ -94,13 +94,14 @@ module ApplicationHelper
              {:name=>:subscriptions},
              {:name=>:statistics}
            ] },
-         {:name=>:purchase_orders, :list=>
+         {:name=>:purchases, :list=>
            [ {:name=>:purchase_order_create},
-             {:name=>:purchases_consult, :url=>{:action=>:purchase_orders}},
-             {:name=>:payments, :url=>{:action=>:payments, :mode=>:purchase}} ] },
-         {:name=>:stocks, :list=>
-           [{:name=>:stocks_consult, :url=>{:action=>:stocks}},
-            {:name=>:location, :url=>{:action=>:locations}},
+             {:name=>:purchase_orders},
+             {:name=>:payments, :url=>{:action=>:payments, :mode=>:purchase}} 
+           ] },
+         {:name=>:stocks_tasks, :list=>
+           [{:name=>:stocks},
+            {:name=>:locations},
             {:name=>:stock_transfers},
             {:name=>:inventories}  
            ] },
@@ -166,10 +167,10 @@ module ApplicationHelper
     else
       name         = args.first
       options      = args.second || {}
-      html_options = args.third
+      html_options = args.third || {}
 
       if options.is_a? Hash
-        return "" unless controller.accessible?(options) 
+        return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>" : "") unless controller.accessible?(options) 
       end
 
       url = url_for(options)
@@ -338,8 +339,18 @@ module ApplicationHelper
     render(:partial=>'shared/menu', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
   end
 
-  def title
-    t("views."+controller.controller_name+'.'+action_name+'.title', @title||{})
+
+  def action_title
+    return t("views.#{controller.controller_name}.#{action_name}.title", @title||{})
+  end
+
+  def title_tag
+    title = if @current_company
+              tc(:title, :company_code=>@current_company.code, :company_name=>@current_company.name, :controller=>t("controllers.#{controller.controller_name}.title"), :action=>action_title)
+            else
+              tc(:default_title, :controller=>t("controllers.#{controller.controller_name}.title"), :action=>action_title)
+            end
+    return content_tag(:title, title)
   end
 
   def help_link_tag

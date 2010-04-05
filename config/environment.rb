@@ -53,7 +53,7 @@ Rails::Initializer.run do |config|
 end
 
 
-::I18n.active_locales = [:fra]
+# ::I18n.active_locales = [:fra]
 
 #Xil.options[:features] += [:template,:document]
 #Xil.options[:subdir_size] = 4

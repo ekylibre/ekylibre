@@ -22,7 +22,7 @@ fra:
     need_bank_account_to_record_statements: 'Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte.'
     need_closed_financialyear_to_declaration: 'Vous devez avoir un exercice clôturé pour créer une déclaration de TVA.'
     need_company_code_to_login: 'Vous devez saisir votre nom d''utilisateur accompagné de votre code société. Exemple : SOCIETE\jean'
-    need_entries_to_letter: 'Vous devez avoir des écritures verrouillées enregistrées au compte client et fournisseur.'
+    need_entries_to_letter: 'Vous devez avoir des écritures verrouillées enregistrées au compte client et fournisseur.'# NOT USED !!!
     need_entries_to_point: 'Aucune écriture n''a été trouvé pour la période du relevé bancaire.'
     need_financialyear_to_consult_record_entries: 'Vous devez avoir un exercice ouvert pour pouvoir consulter des écritures.'
     need_journal_to_consult_record_entries: 'Vous devez créer un journal pour pouvoir consulter des écritures à l''intérieur.'
@@ -37,7 +37,7 @@ fra:
     need_stocks_to_create_inventories: 'Vous devez gérer les stocks d''au moins un produit pour pouvoir faire un inventaire'
     need_to_create_subscription_nature: 'Vous devez créer un type d''abonnement pour pouvoir gérer vos abonnements'
     new_actual_number: 'Le nouveau numéro en cours est {{actual_number}}'
-    next_illegal_period_financialyear: 'Le prochain exercice ne démarre pas directement après.'
+    next_illegal_period_financialyear: 'Le prochain exercice ne démarre pas directement après.'# NOT USED !!!
     no_authenticated: 'Vous n''avez pas pu être identifié. Le nom d''utilisateur ou le mot de passe doit être incorrect.'
     no_balance_template: 'Pas de modèle de document pour la balance'
     no_closable_financialyear: 'Vous n''avez aucun exercice à clôturer.'

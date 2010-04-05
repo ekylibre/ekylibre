@@ -6,6 +6,8 @@ accountancy.third_accounts.clients,integer,411
 accountancy.third_accounts.suppliers,integer,401
 accountancy.major_accounts.charges,integer,6
 accountancy.major_accounts.products,integer,7
+accountancy.minor_accounts.gains,integer,120
+accountancy.minor_accounts.losses,integer,129
 accountancy.to_accountancy.automatic,boolean,0
 accountancy.taxes_accounts.acquisition_taxes,integer,4452
 accountancy.taxes_accounts.collected_taxes,integer,44571

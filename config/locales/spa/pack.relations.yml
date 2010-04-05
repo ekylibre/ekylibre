@@ -79,7 +79,7 @@ spa:
         #>title: 'Modification du champ personnalisé : {{value}}'
       complements:
         #>complement_create: 'Créer un nouveau champ personnalisé'
-        #>title: 'Champs complémentaires personnalisés'
+        #>title: 'Champs personnalisés'
       _coordinates_form:
         #>address: 'Adresse'
         #>canals: 'Coordonnées'
@@ -123,9 +123,6 @@ spa:
         #>entity_to_update: 'Fiche à mettre à jour avec les éléments du doublon'
         #>merge: 'Fusionner'
         #>title: 'Fusionner un doublon à sa fiche d''origine'
-      entities_natures:
-        #>entity_nature_create: 'Ajouter un nouveau type de fiche'
-        #>title: 'Liste des types de fiches'
       _entities_search:
         #>search: 'Rechercher une fiche'
       entity:
@@ -250,6 +247,9 @@ spa:
         #>title: 'Ajouter un nouveau type de fiche'
       entity_nature_update:
         #>title: 'Modifier le type de fiche : {{value}}'
+      entity_natures:
+        #>entity_nature_create: 'Ajouter un nouveau type de fiche'
+        #>title: 'Types de fiches'
       entity_update:
         #>title: 'Modification de la fiche : {{value}}'
       event_create:
@@ -269,26 +269,11 @@ spa:
       _general_description_form:
         #>title: 'Description générale'
       index:
-        #>areas: 'Zones postales'
-        #>complements: 'Champs personnalisés'
-        #>districts: 'Zones administratives'
-        #>entities: 'Fiches'
-        #>entities_managing: 'Clients et fournisseurs'
-        #>entities_natures: 'Types de fiches'
-        #>entity_categories: 'Catégories de fiches'
-        #>entity_create: 'Créer une nouvelle fiche'
-        #>entity_link_natures: 'Types de liens'
-        #>event_natures: 'Types d''évènements'
-        #>events: 'Évènements'
-        #>import_export: 'Import/Export de fiches'
         #>last_events: 'Derniers événements'
-        #>mandates: 'Responsabilités'
-        #>mandates_configure: 'Configurer les responsabilités'
         nb_entities:
           #>one: '1 fiche client/fournisseur'
           #>other: '{{count}} fiches clients/fournisseurs'
           #>zero: 'Aucune fiche clients/fournisseurs'
-        #>parameters: 'Paramètres'
         #>title: 'Gestion des relations clients et fournisseurs'
       mandate_create:
         #>title: 'Créer une responsabilité'
@@ -322,7 +307,3 @@ spa:
       observation_update:
         #>title: 'Modifier une observation'
       sales_print:
-        deliveries_number:
-          #>one: '1 livraison'
-          #>other: '{{count}} livraisons'
-          #>zero: 'Aucune livraison'

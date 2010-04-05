@@ -447,3 +447,20 @@ function sum_all(css_rule, target_id) {
   else { target.innerHTML = sum; }
   return target;
 }
+
+/*
+  
+ */
+function set_state(total_id, condition) {
+  var total = $(total_id);
+  if (condition) {
+    total.addClassName("valid");
+    total.removeClassName("invalid");
+    balanced = true;
+  } else {
+    total.addClassName("invalid");
+    total.removeClassName("valid");
+    balanced = false;
+  }
+  return total;
+}

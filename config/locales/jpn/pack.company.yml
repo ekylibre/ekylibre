@@ -15,21 +15,20 @@ jpn:
         #>export: 'Export d''un fichier de sauvegarde'
         #>import: 'Import de fichier de sauvegarde'
         #>restore: 'Restaurer'
-        #>title: 'Créer et recharger des sauvegardes'
+        #>title: 'Sauvegardes'
         #>upload: 'Sélectionner le fichier de sauvegarde à télécharger'
         #>with_prints: 'Inclure les impressions (factures, commandes...)'
-        #>your_new_code_is: 'Votre nouveau code société est : {{value}}'
       change_password:
         #>insert_actual_password: 'Saisissez votre mot de passe actuel'
         #>insert_password: 'Saisissez votre nouveau mot de passe'
-        #>title: 'Changer son mot de passe'
+        #>title: 'Changer de mot de passe'
       configure:
         #>accountancy: 'Comptabilité'
         #>general: 'Paramètres généraux'
         #>management: 'Gestion commerciale'
         #>relations: 'Relations clients/fournisseurs'
         #>sequences_load: 'Charger les séquences manquantes'
-        #>title: 'Configuration de {{value}}'
+        #>title: 'Configuration'
       department_create:
         #>title: 'Ajout d''un nouveau service'
       _department_form:
@@ -38,14 +37,10 @@ jpn:
         #>title: 'Modification du service'
       departments:
         #>department_create: 'Ajouter un nouveau service'
-        #>title: 'Liste des services de la société'
+        #>title: 'Services de la société'
       document_nature_create:
-        #>title: 'Création d''un type de document'
       document_nature_update:
-        #>title: 'Modification du type de document "{{value}}"'
       document_natures:
-        #>document_nature_create: 'Créer un type de document'
-        #>title: 'Liste des types de document'
       document_template_create:
         #>title: 'Création d''un modèle de document'
       document_template_update:
@@ -53,7 +48,7 @@ jpn:
       document_templates:
         #>document_template_create: 'Créer un modèle de document'
         #>document_templates_load: 'Charger les modèles par défaut'
-        #>title: 'Liste des modèles de document'
+        #>title: 'Modèles de document'
       establishment_create:
         #>title: 'Ajout d''un nouvel etablissement'
       _establishment_form:
@@ -62,7 +57,7 @@ jpn:
         #>title: 'Modification de l''établissement'
       establishments:
         #>establishment_create: 'Ajouter un nouvel établissement'
-        #>title: 'Liste des établissements'
+        #>title: 'Établissements'
       help:
         #>other_results: 'Autres résultats...'
         results:
@@ -70,26 +65,21 @@ jpn:
           #>other: '{{count}} résultats'
           #>zero: 'Aucun résultat'
         #>search: 'Rechercher un article dans l''aide'
-        #>title: 'Rubriques d''aide'
+        #>title: 'Aide'
       _help_result:
         #>pertinence: '{{value}}%'
       index:
-        #>about: 'À propos d''Ekylibre'
         #>accountancy: 'Comptabilité générale'
         #>backups: 'Sauvegardes'
-        #>change_password: 'Modifier mon mot de passe'
-        #>configure: 'Configuration'
         #>departments: 'Services'
         #>document_natures: 'Types de documents'
         #>document_templates: 'Modèles de documents'
         #>establishments: 'Établissements'
         #>general: 'Autres paramètres'
         #>help: 'Aide'
-        #>informations: 'Informations'
         #>listings: 'Extractions de données'
         #>management: 'Gestion commerciale (ventes, achats et stocks)'
         #>modules: 'Modules'
-        #>my_account: 'Mon compte'
         nb_entities:
           #>one: '1 fiche client/fournisseur'
           #>other: '{{count}} fiches clients/fournisseurs'
@@ -102,17 +92,12 @@ jpn:
           #>one: '1 livraison en attente'
           #>other: '{{count}} livraisons en attente '
           #>zero: 'Aucune livraison en attente'
-        #>parameters: 'Paramètres'
         #>production: 'Gestion de la production'
         #>relations: 'Gestion des relations clients/fournisseurs'
         #>resources: 'Gestion des ressources humaines'
         #>roles: 'Rôles'
         #>sequences: 'Séquences'
         #>title: 'Bonjour, {{user}}'
-        #>tools: 'Outils'
-        #>units: 'Unités de mesure'
-        #>user_statistics: 'Mes statistiques'
-        #>users: 'Utilisateurs'
       listing_create:
         #>title: 'Création d''une nouvelle extraction'
       _listing_form:
@@ -146,6 +131,7 @@ jpn:
       listings:
         #>listing_create: 'Créer une nouvelle extraction'
         #>title: 'Extractions de données'
+      _menu:
       _rights_form:
         #>accountancy_rights: 'Droits module Comptabilité'
         #>company_rights: 'Droits module Société'
@@ -161,7 +147,7 @@ jpn:
         #>title: 'Modification du rôle {{value}}'
       roles:
         #>role_create: 'Ajouter un rôle'
-        #>title: 'Liste des rôles'
+        #>title: 'Rôles'
       sequence_create:
         #>title: 'Création d''une nouvelle séquence'
       _sequence_form:
@@ -171,7 +157,7 @@ jpn:
       sequences:
         #>sequence_create: 'Ajouter une séquence'
         #>sequences_load: 'Charger les séquences manquantes'
-        #>title: 'Liste des séquences'
+        #>title: 'Séquences'
       unit_create:
         #>title: 'Ajout d''une nouvelle unité de mesure'
       unit_update:
@@ -181,19 +167,15 @@ jpn:
         #>unit_create: 'Ajouter une nouvelle unité de mesure'
         #>units_load: 'Charger les unités de base manquantes'
       user:
-        #>change_password: 'Changer de mot de passe'
         #>title: 'Utilisateur : {{first_name}} {{last_name}} ({{name}})'
         #>user_update: 'Modifier les informations de l''utilisateur'
       user_create:
-        #>create_employee: 'Employee'
         #>title: 'Création d''un nouvel utilisateur'
       _user_form:
-        #>employee: 'Créer automatiquement un employé'
         #>rights: 'Droits'
         #>subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
         #>title: 'Gestion des employés'
       user_statistics:
-        #>during: 'pour une durée'
         #>end: ' au '
         events:
           #>one: ' 1 évènement de type {{nature}} d''une durée de {{duration}} minutes'
@@ -203,7 +185,6 @@ jpn:
           #>one: '1 commande'
           #>other: '{{count}} commandes'
           #>zero: 'Aucune commande'
-        #>no_employee: 'Vous n''avez pas fiche employé, donc pas de statistiques.'
         #>start: 'Du'
         #>title: 'Mes statistiques'
         #>total_amount: ' Total montant HT '
@@ -211,9 +192,8 @@ jpn:
       user_update:
         #>title: 'Modification de l''utilisateur'
       users:
-        #>title: 'Liste des utilisateurs'
+        #>title: 'Utilisateurs'
         #>user_create: 'Ajouter un nouvel utilisateur'
       _users_form:
-        #>employee: 'Créer automatiquement une fiche employé'
       welcome:
         #>title: 'Bienvenue dans Ekylibre, {{user}}'

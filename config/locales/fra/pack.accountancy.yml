@@ -1,138 +1,107 @@
 fra:
-
   controllers:
     accountancy:
       normal: 'Régime du réel normal'
       simplified: 'Régime du réel simplifié'
       title: 'Comptabilité'
-
   helpers:
     accountancy:
-
   views:
     accountancy:
       account_create:
         title: 'Créer un nouveau compte'
       account_letter:
-        entry_credit: 'Crédit'
-        entry_debit: 'Débit'
-        entry_letter: 'Lettre'
-        entry_name: 'Libellé opération'
-        journal_name: 'Journal'
-        record_number: 'Pièce'
-        recorded_on: 'Date'
-        title: 'Lettrage du compte {{number}}'
+        current_letter: 'Lettre en cours : {{letter}}'
+        title: 'Lettrage du compte N°{{number}} du {{started_on}} au {{stopped_on}}'
       account_update:
-        title: 'Modifier le compte : {{value}}'
+        title: 'Modifier le compte {{number}} - {{name}}'
       accountize:
-        cashed_payments: 'Inclure les règlements non encaissés'
+        cashed_payments: 'Inclure les règlements non encaissés' #!
         dont_save_in_draft: 'Ne pas sauvegarder dans le brouillard'
-        draft_generate: 'Enregistrer dans le brouillon'
+        draft_generate: 'Enregistrer dans le brouillon' #!
         invoices_count: 'Nombre de factures de vente à comptabiliser'
-        nb_invoices:
+        nb_invoices: 
           one: '1 facture enregistrée'
           other: '{{count}} factures enregistrées'
           zero: 'Aucune facture enregistrée'
-        nb_payments:
+        nb_payments: 
           one: '1 règlement enregistrée'
           other: '{{count}} règlements enregistrés'
           zero: 'Aucun règlement enregistré'
-        nb_purchases:
+        nb_purchases: 
           one: '1 achat enregistrée'
           other: '{{count}} achats enregistrés'
           zero: 'Aucun achat enregistré'
-        nb_sales:
+        nb_sales: 
           one: '1 vente enregistrée'
           other: '{{count}} ventes enregistrées'
           zero: 'Aucune vente enregistrée'
-        nb_transfers:
+        nb_transfers: 
           one: '1 transfert enregistrée'
           other: '{{count}} transferts enregistrés'
           zero: 'Aucun transfert enregistré'
         select_date_generation: 'Date limite d''intégration'
-        title: 'Comptabiliser vos opérations commerciales'
+        title: 'Comptabiliser les opérations commerciales'
       accounts:
         account_create: 'Enregistrer un nouveau compte'
-        delete: 'Supprimer un compte'
-        title: 'Comptes'
-        update: 'Modifier un compte'
+        delete: 'Supprimer un compte' #!
+        title: 'Plan de comptes'
+        update: 'Modifier un compte' #!
+      # Unfound view ./app/views/accountancy/_accounts_find
       _accounts_find:
         account_create: 'Créer un nouveau compte comptable'
         account_name: 'Nom du compte '
         account_number: 'Numéro de compte '
         no_accounts: 'Il n''existe pas de compte commençant par ce numéro.'
-      accounts_letter_launch:
-        select_account: 'Sélectionnez un compte:'
-        title: 'Lettrage de compte'
       bank_account_create:
         title: 'Créer un nouveau compte bancaire'
       _bank_account_form:
         accountancy: 'Comptabilité'
-        create_account: 'Vous devez d''abord créer un compte comptable.'
-        create_journal: 'Vous devez d''abord créer un journal.'
-        iban: 'Numéro de compte bancaire internationale (IBAN)'
+        create_account: 'Vous devez d''abord créer un compte comptable.' #!
+        create_journal: 'Vous devez d''abord créer un journal.' #!
+        iban: 'Numéro de compte bancaire internationale (IBAN)' #!
         rib: 'Description générale'
       bank_account_statement:
         bank_account_statement_point: 'Pointer le relevé'
         bank_account_statement_update: 'Modifier le relevé'
-        bank_account_statements: 'Tableau des relevés de compte'
-        cancel: 'Annuler'
-        entry_credit: 'Crédit'
-        entry_debit: 'Dédit'
-        entry_name: 'Libellé'
         journal_entries: 'Écritures'
-        statement_bank_account_name: 'Nom du compte bancaire'
-        statement_credit: 'Crédit'
-        statement_debit: 'Débit'
-        statement_number: 'Numéro du relevé de compte'
         title: 'Relevé de compte N°{{number}}'
       bank_account_statement_create:
         title: 'Pointer un nouveau relevé de compte'
       bank_account_statement_point:
         bank_account_statement_update: 'Modifier le relevé'
         entries_to_point: 'Écritures à pointer'
-        entry_credit: 'Crédit'
-        entry_currency_rate: 'Devise'
-        entry_debit: 'Débit'
-        entry_name: 'Intitulé de l''écriture'
-        recorded_on: 'Enregistrée le'
-        statement_number: 'N° Relevé'
         title: 'Pointer le relevé N°{{number}} du {{bank_account}}'
-        total: 'Total pour le compte bancaire :'
-        total_credit: 'Crédit'
-        total_debit: 'Débit'
-        validate: 'Valider'
       bank_account_statement_update:
         title: 'Modifier le relevé N°{{number}}'
       bank_account_statements:
-        create_bank_account: 'Vous devez d''abord créer un compte bancaire.'
-        credit: 'Total crédit'
-        debit: 'Total débit'
-        select_bank_account: 'Sélectionnez un compte bancaire :'
         title: 'Relevés de compte bancaire'
+        #>bank_account_statement_create: # Potentially missing translation
       bank_account_update:
         title: 'Modifier le compte bancaire'
       bank_accounts:
         bank_account_create: 'Créer un nouveau compte bancaire'
         title: 'Comptes bancaires'
+      # Unfound view ./app/views/accountancy/_currencies_find
       _currencies_find:
         currency_code: 'Code de devise'
         currency_id: 'Numéro de devise'
         currency_name: 'Nom de devise'
         currency_rate: 'Taux de devise'
       document_prepare:
-        balance: 'Balance'
-        general_ledger: 'Grand livre'
-        journal: 'Journal'
-        journals: 'Journal général'
-        synthesis: 'Documents de synthèse'
+        balance: 'Balance' #!
+        general_ledger: 'Grand livre' #!
+        journal: 'Journal' #!
+        journals: 'Journal général' #!
+        synthesis: 'Documents de synthèse' #!
         title: 'Choisissez le type de document à imprimer'
       document_print:
-        print: 'Impression'
+        print: 'Impression' #!
         title: 'Impression : {{value}}'
       draft_entries:
-        accountize: 'Comptabiliser les écritures'
+        accountize: 'Comptabiliser les écritures' #!
         title: 'Listing des écritures du brouillard'
+      # Unfound view ./app/views/accountancy/entries
       entries:
         account_number: 'N°Compte'
         all_financialyears: '--- Tous les exercices ---'
@@ -150,6 +119,7 @@ fra:
         select_journal: 'Journal'
         subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
         title: 'Consultation et saisie des écritures'
+      # Unfound view ./app/views/accountancy/entry_update
       entry_update:
         title: 'Modification de l''écriture'
       financialyear:
@@ -157,9 +127,11 @@ fra:
         title: 'Exercice comptable {{code}}'
       financialyear_close:
         close: 'Clôturer l''exercice'
-        save_renew: 'Souhaitez-vous reporter les à nouveaux ? '
-        select_renew_journal: 'Sélectionner un journal '
+        create_journal: '-- Créer le journal --'
+        dont_use_journal: '-- Ne pas utiliser de journal --'
+        select_renew_journal: 'Journal utilisé pour les reports à nouveaux'
         title: 'Clôture d''exercice'
+        use_renew: 'Sélectionnez un journal pour reporter les à nouveaux'
       financialyear_create:
         title: 'Créer un nouvel exercice'
       financialyear_update:
@@ -168,62 +140,48 @@ fra:
         financialyear_create: 'Ouvrir un nouvel exercice comptable'
         title: 'Exercices comptables'
       index:
-        accountize: 'Bascule comptable'
-        accounts: 'Comptes comptables'
-        bank_account_statements: 'Relevés de compte'
-        bank_accounts: 'Comptes bancaires (RIB)'
-        document_prepare: 'Impression des documents'
-        documents: 'Documents comptables'
-        entries: 'Écritures'
-        financialyear_close: 'Clôture d''exercice'
-        financialyears: 'Exercices comptables'
-        journal_close: 'Clôture de journal'
-        journals: 'Journaux'
-        lettering: 'Rapprochement bancaire'
-        nb_entries:
+        nb_entries: 
           one: '1 écriture'
           other: '{{count}} écritures'
           zero: 'Aucune écriture'
-        operations: 'Opérations de vérification et de clôture'
-        parameters: 'Paramètres'
-        report: 'Reprise des à nouveaux'
-        tax_declarations: 'Déclaration de TVA'
-        taxes: 'Taxes'
         title: 'Comptabilité générale'
-        works: 'Travaux comptables'
       journal:
         end: 'au'
         journal_update: 'Modifier le journal'
         search: 'Rechercher des pièces/écritures'
         start: 'du'
         title: '{{name}} ({{code}})'
+        #>journal_record_create: # Potentially missing translation
       journal_close:
         close: 'Clôturer le journal'
         select_closure_date: 'Choisissez la date de clôture'
         title: 'Clôture du {{name}}'
       journal_create:
         title: 'Créer un nouveau journal'
+      # Unfound view ./app/views/accountancy/journal_entry_create
       journal_entry_create:
         title: 'Ajouter une écriture'
       journal_record:
         entries: 'Écritures'
         journal_record_update: 'Modifier la pièce'
-        title: 'Pièce comptable {{number}} du {{created_on}}'
+        title: 'Pièce comptable N°{{number}} du {{created_on}}'
       journal_record_create:
         title: 'Ajouter une pièce'
       journal_record_update:
-        title: 'Modifier la pièce {{number}} du {{created_on}}'
+        title: 'Modifier la pièce N°{{number}} du {{created_on}}'
       journal_reopen:
         reopen: 'Déclôturer le journal'
         select_closure_date: 'Choisissez la date de clôture'
         title: 'Déclôture du {{name}}'
       journal_update:
         title: 'Modifier le journal : {{name}}'
-      journals:
-        title: 'Journaux'
       _journals:
         journal_detail: 'Cloturé au {{closed_on}}'
         journal_name: '{{name}}'
+      journals:
+        title: 'Journaux'
+        #>journal_create: # Potentially missing translation
+      # Unfound view ./app/views/accountancy/_journals_find
       _journals_find:
         journal_id: 'Numéro de journal'
         journal_name: 'Nom du journal'
@@ -232,21 +190,26 @@ fra:
         lettering_account_supplier: 'Lettrage des comptes fournisseurs'
         select_account_client: 'Compte à lettrer'
         select_account_supplier: 'Compte à lettrer'
-        select_financialyear: 'Exercice'
+        select_financialyear: 'Exercice' #!
         title: 'Lettrage de comptes'
       _print_balance:
         dates: 'Saisissez les dates de début et de fin de la période'
         from: 'Période du'
         to: 'Au'
-      print_balance_sheet:
-        period: 'Période'
-        title: 'Impression du bilan'
+      # Unfound view ./app/views/accountancy/_print_balance_sheet
       _print_balance_sheet:
         balance_sheet: 'Sélectionnez l''exercice'
         select_financialyear: 'Exercice'
+      # No defined action for this view !!!
+      print_balance_sheet:
+        period: 'Période' #!
+        title: 'Impression du bilan'
+      # No defined action for this view !!!
+      # Unfound view ./app/views/accountancy/print_by_financial_year
       print_by_financial_year:
         financial_id: 'Exercice comptable'
-        financial_year_select: 'Sélectionnez l''''exercice comptable'
+        financial_year_select: 'Sélectionnez l'' exercice comptable'
+      # Unfound view ./app/views/accountancy/_print_journal
       _print_journal:
         dates: 'Saisissez les dates ainsi que le journal'
         from: 'Période du'
@@ -263,8 +226,6 @@ fra:
       _print_synthesis:
         select_financialyear: 'Exercice'
         synthesis: 'Sélectionnez l''exercice'
-      report:
-        title: 'Reprise des à nouveaux'
       synthesis:
         account_accruals: 'Comptes de régularisation'
         account_claims_assets: 'Créances'
@@ -284,11 +245,11 @@ fra:
         active_current_sum: 'Total actifs circulants'
         active_fixed_sum: 'Total actifs immobilisés'
         active_sum: 'Total actifs'
-        cost_income_statement: 'Charges'
+        cost_income_statement: 'Charges' #!
         cost_sum: 'Total charges d''exploitation'
-        finished_income_statement: 'Produits'
+        finished_income_statement: 'Produits' #!
         finished_sum: 'Total produits d''exploitation'
-        income_statement: 'Comptes de résultats'
+        income_statement: 'Comptes de résultats' #!
         passive_balance_sheet: 'Bilan passif'
         passive_capital_sum: 'Total capitaux'
         passive_debt_sum: 'Total dettes'
@@ -298,7 +259,7 @@ fra:
         running_cost: 'Charges d''exploitation'
         running_finished: 'Produits d''exploitation'
         title: 'Documents annuels pour {{value}}'
-        total: 'Total'
+        total: 'Total' #!
       tax_create:
         title: 'Ajouter une nouvelle taxe'
       tax_declaration:
@@ -323,7 +284,7 @@ fra:
         national_reduce_vat_collected: 'Taux réduit à 5,5%'
         national_vat_collected: 'Opérations réalisées en France métropolitaine'
         net_vat_amount: 'TVA nette due'
-        normal: 'Régime du réel normal'
+        normal: 'Régime du réel normal' #!
         not_assessable_operations: 'Opérations non imposables'
         others: 'Autre TVA à déduire'
         others_assessable_operations: 'Autres opérations imposables'
@@ -333,21 +294,23 @@ fra:
         overflow: 'CREDIT OU EXCEDENT'
         payback: 'Remboursement demandée'
         reported_balance: 'Crédit à reporter'
-        simplified: 'Régime du réel simplifié'
+        simplified: 'Régime du réel simplifié' #!
         title: '{{nature}} pour la période du {{started_on}} au {{stopped_on}}'
         vat: 'Taxe à payer'
         vat_acquisitions: 'Acquisitions intracommunautaires'
         vat_amount: 'Taxe due'
         vat_collected: 'TVA BRUTE'
         vat_paid: 'TVA DEDUCTIBLE'
+        #>vat_acquisition: # Potentially missing translation
+        #>delivery_natural_gas_and_electricity: # Potentially missing translation
       tax_declaration_create:
         title: 'Créer une déclaration'
       _tax_declaration_form:
-        monthly: 'Mensuelle'
-        period: 'Intervalle de période'
-        quarterly: 'Trimestrielle'
+        monthly: 'Mensuelle' #!
+        period: 'Intervalle de période' #!
+        quarterly: 'Trimestrielle' #!
         report: 'Informations communes'
-        yearly: 'Annuelle'
+        yearly: 'Annuelle' #!
       tax_declaration_update:
         title: 'Créer une déclaration'
       tax_declarations:

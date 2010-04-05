@@ -64,7 +64,7 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 #side .menu ul li:first-child { border-top: none; }
 #side .menu li { list-style-type: none; background: url(../images/round-blue.png) no-repeat 4px center; border-top: 1px dotted #95b0e4; }
 #side .menu li:hover { background: #DBE4F6 url(../images/round-black.png) no-repeat 4px center; }
-#side .menu li a { display:block; padding: 2px 4px 4px 16px;}
+#side .menu li a { display:block; padding: 2px 4px 4px 15px;}
 /*#side .menu li a { font-size: 11px; }*/
 /*#side .index { display:block; padding: 2px; font-size: 11px; text-align:center; background: #FFF; border: 2px solid #95b0e4; margin: 2px;}*/
 #side .indicator { border-color: #8ad4c0 }
@@ -216,7 +216,7 @@ input[type="text"], input[type="password"], textarea, select { border:1px solid 
 input[type="text"], input[type="password"], textarea, select { margin:1px; border-width: 1px; }
 input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border:2px solid #79e !important; margin: 0px;}
 input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea.invalid:focus, select.invalid:focus { border-color: red !important; }
-.invalid { border: 1px solid red !important; background-color: #FDD !important; } 
+input.invalid, textarea.invalid, select.invalid { border: 1px solid red !important; background-color: #FDD !important; } 
 
 
 .fore { border: 1px solid #C9D7F1; margin: 8px 0; background: #EFE; }
@@ -317,7 +317,7 @@ div.dyli_complete ul {position: fixed; border:1px solid #888; margin:0; padding:
 div.dyli_complete ul li {background-color: #EEF; margin:0; padding:3px;} /*#C9D7F1*/
 div.dyli_complete ul li.selected {background-color: #B1D1F9;}
 div.dyli_complete ul strong.highlight {color: #800; margin:0; padding:0;}
-input.dyli { background: #FFF url(../images/buttons/dyli.png) right center no-repeat; }
+input.dyli { background: #FFF url(../images/buttons/dyli.png) right center no-repeat; padding-right: 18px;}
 
 /*
 fieldset.itemize { border: 1px solid #777; -moz-border-radius: 8px; float: left; margin:8px;}
@@ -378,7 +378,7 @@ fieldset.quick-add { text-align: center; color: #008; }
 .journals .journal.purchase { background: #FED; }
 
 
-tbody.lines td input { width:100%; }
+tbody.lines td input { width: 95%; }
 
-table.dyta tr#total td { color: red; }  
-table.dyta tr#total.valid td { color: #090; }  
+table.dyta tr.total.invalid td { color: #D20; }  
+table.dyta tr.total.valid   td { color: #090; }  

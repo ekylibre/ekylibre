@@ -154,25 +154,12 @@ class Company < ActiveRecord::Base
 
 
 
-
-  def account(tax_amount, tax_name, collected)
-    if collected
-      if tax_amount == 0.0210
-        account = self.accounts.find_by_number("445711") || self.accounts.create!(:number=>"445711", :name=>tax_name) 
-      elsif tax_amount == 0.0550
-        account = self.accounts.find_by_number("445712") || self.accounts.create!(:number=>"445712", :name=>tax_name) 
-      elsif tax_amount == 0.1960
-        account = self.accounts.find_by_number("445713") || self.accounts.create!(:number=>"445713", :name=>tax_name)
-      else
-        tax = Tax.find(:first, :conditions=>["company_id = ? and amount = ? and account_collected_id IS NOT NULL", self.id, tax_amount])
-        last = self.accounts.find(:first, :conditions=>["number like ?",'4457%'], :order=>"created_at desc")||self.accounts.create!(:number=>4457, :name=>tc(:taxes))
-        account = tax.nil? ? Account.create!(:company_id=>self.id, :number=>last.number.succ, :name=>tax_name) : tax.account 
-      end
-    else
-      account = self.accounts.find_by_number("44566") || self.accounts.create!(:number=>"44566", :name=>tc(:paid_taxes))
-    end
-    account.id
+  def account(number, name=nil)
+    number = number.to_s
+    a = self.accounts.find_by_number(number)
+    return a||self.accounts.create!(:number=>number, :name=>name||number.to_s)
   end
+
 
   def parameter(name)
     parameter = self.parameters.find_by_name(name)
@@ -227,6 +214,7 @@ class Company < ActiveRecord::Base
     self.taxes.find(:all, options)
   end
 
+
   def available_users(options={})
     self.users.find(:all, :order=>:last_name, :conditions=>{:locked=>false})
   end
@@ -234,6 +222,10 @@ class Company < ActiveRecord::Base
   def invoice(records)
     puts records.inspect+"                          ddddddddddddddddddddddddd "
     Invoice.generate(self.id,records)
+  end
+
+  def closable_financialyear
+    return self.financialyears.find(:all, :order=>"started_on").select{|y| y.closable?}[0]
   end
 
   def current_financialyear
@@ -605,10 +597,8 @@ class Company < ActiveRecord::Base
       user.attributes = {:employed=>true, :commercial=>true, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :employment=>'-'}
       user.save!
       
-      taxes = []
-      taxes = {:name=>tc('default.tva000'),  :nature=>'percent', :amount=>0.00}, {:name=>tc('default.tva210'), :nature=>'percent', :amount=>0.021}, {:name=>tc('default.tva550'), :nature=>'percent', :amount=>0.055}, {:name=>tc('default.tva1960'),:nature=>'percent', :amount=>0.196} 
-      taxes.each do |tax|
-        company.taxes.create!(:name=>tax[:name], :nature=>tax[:nature], :amount=>tax[:amount], :account_collected_id=>company.account(tax[:amount],tax[:name],true), :account_paid_id=>company.account(tax[:amount], tax[:name],false) )
+      for code, tax in tc("default.taxes")
+        company.taxes.create!(:name=>tax[:name], :nature=>(tax[:nature]||"percent"), :amount=>tax[:amount].to_f, :account_collected_id=>company.account(tax[:collected], tax[:name]).id, :account_paid_id=>company.account(tax[:paid], tax[:name]).id)
       end
       
       company.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)

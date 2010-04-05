@@ -78,9 +78,11 @@ spa:
     #>finish: 'Terminer'
     format_date:
       iso: '(AAAA-MM-JJ)'
+    #>from: 'À partir du'
     #>hint: 'Astuce&nbsp;: {{value}}'
     #>indicator: 'Tableau de bord'
     #>info: 'Information&nbsp;: {{value}}'
+    #>letter: 'Lettrer'
     #>letter_conclusion: ' Veuillez agréer, Chère Madame, Cher Monsieur, l''expression de mes salutations distinguées.'
     #>letter_function_title: 'Chère Madame, Cher Monsieur'
     #>letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
@@ -104,6 +106,7 @@ spa:
     #>search: 'Rechercher'
     #>search_go: 'Lancer la recherche'
     #>submit: 'Envoyer'
+    #>to: 'Au'
     #>total: 'Total'
     unavailable:
       #>entity: 'La fiche demandée est indisponible'
@@ -234,11 +237,27 @@ spa:
               #>format: '[number|8]'
               #>name: 'Numérotation des relations'
         #>shelf_name: 'Sans catégorie'
-        #>taxes: 'Taxes'
-        #>tva000: 'TVA 0,00%'
-        #>tva1960: 'TVA 19,60%'
-        #>tva210: 'TVA 2,10%'
-        #>tva550: 'TVA 5,50%'
+        taxes:
+          tva0000:
+            #>amount: '0.0'
+            #>collected: '445710'
+            #>name: 'TVA 0,00%'
+            #>paid: '445660'
+          tva0210:
+            #>amount: '0.021'
+            #>collected: '445711'
+            #>name: 'TVA 2,10%'
+            #>paid: '445661'
+          tva0550:
+            #>amount: '0.055'
+            #>collected: '445712'
+            #>name: 'TVA 5,50%'
+            #>paid: '445662'
+          tva1960:
+            #>amount: '0.196'
+            #>collected: '445713'
+            #>name: 'TVA 19,60%'
+            #>paid: '445663'
         units:
           #>a: 'Are'
           #>ca: 'Centiare (m²)'
@@ -317,6 +336,9 @@ spa:
         #>purchase_order: 'Création d''un achat'
         #>sale_order: 'Création d''un devis'
     financialyear:
+      code:
+        #>double: 'EX{{first_year}}/{{second_year}}'
+        #>single: 'EX{{first_year}}'
     idea:
       status:
         #>aborted: 'abandonée'
@@ -538,3 +560,18 @@ spa:
     shared:
       _entities_search:
         #>search: 'Rechercher une relation'
+      _menu:
+        #>accountancy_tasks: 'Travaux comptables'
+        #>accountize: 'Bascule comptable'
+        #>bank_account_statements: 'Relevés de compte'
+        #>company_tasks: 'Outils'
+        #>import_export: 'Import/Export de fiches'
+        #>informations: 'Informations'
+        #>my_account: 'Mon compte'
+        #>parameters: 'Paramètres'
+        #>production: 'Production'
+        #>purchases: 'Achats'
+        #>relations_tasks: 'Clients et fournisseurs'
+        #>sales: 'Ventes'
+        #>stock_transfers: 'Transferts et pertes'
+        #>stocks_tasks: 'Stocks'

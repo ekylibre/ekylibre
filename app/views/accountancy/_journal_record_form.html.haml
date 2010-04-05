@@ -5,6 +5,7 @@
   -f.field JournalRecord.human_attribute_name("journal"), link_to(@journal_record.journal.name, :action=>:journal, :id=>@journal.id)
   -f.field :journal_record, :number
   -f.field :journal_record, :printed_on
+  -f.field :journal_record, :created_on
 %table.dyta{:style=>"margin-bottom: 8px;"}
   %thead
     %tr
@@ -27,14 +28,9 @@
   function t0() {
     var sd = sum_all('input.debit',  'total-debit');
     var sc = sum_all('input.credit', 'total-credit');
-    var total = $('total');
-    if (sd.innerHTML*1 == sc.innerHTML*1) {
-      total.addClassName("valid");
-      balanced = true;
-    } else {
-      total.removeClassName("valid");
-      balanced = false;
-    }
+    balanced = (sd.innerHTML*1 === sc.innerHTML*1);
+    var total = set_state('total', balanced);
     return total;
   }
   t0();
+  $('journal_record_number').focus();

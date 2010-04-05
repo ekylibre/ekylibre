@@ -1,5 +1,4 @@
 fra:
-
   controllers:
     production:
       duration: 'Durée (min.)'
@@ -10,31 +9,23 @@ fra:
       planned_on: 'Prévu le'
       title: 'Production'
       tools_list: 'Matériel'
-
   helpers:
     production:
-
   views:
     production:
       index:
         indicator: 'Tableau de bord'
-        nb_operations:
+        nb_operations: 
           one: '1 travail à réaliser'
           other: '{{count}} travaux à réaliser'
           zero: 'Aucun travail à réaliser'
-        operation_natures: 'Types de travail'
-        operations: 'Travaux'
-        parameters: 'Paramètres'
-        production: 'Productions'
-        productions: 'Productions'
-        shapes: 'Îlots'
         title: 'Gestion de la production'
-        tools: 'Matériel'
       operation:
-        operation:
-          lines: 'Intrants et sortants'
+        operation:  #!
+          lines: 'Intrants et sortants' #!
+ #!
         operation_update: 'Modifier le travail'
-        operations: 'Liste des travaux'
+        operations: 'Liste des travaux' #!
         title: 'Détails du travail {{name}}'
       operation_create:
         title: 'Créer un nouveau travail'
@@ -58,23 +49,35 @@ fra:
         operation_create: 'Créer un nouveau travail'
         title: 'Travaux'
         unvalidated_operations: 'Travaux non validés'
+      # No defined action for this view !!!
+      # Unfound view ./app/views/production/production_create
       production_create:
         title: 'Enregistrer une nouvelle production'
+      # Unfound view ./app/views/production/_production_form
       _production_form:
         infos: 'Renseignez les caractéristiques de la production'
         production_legend_one: ' mp : matières premières'
         production_legend_two: ' nc : nombre de composants '
+      # No defined action for this view !!!
+      # Unfound view ./app/views/production/production_line_create
       production_line_create:
         title: 'Gérer les quantités utilisées '
+      # Unfound view ./app/views/production/_production_line_form
       _production_line_form:
         name: 'Nom'
         quantity: 'Quantité'
         total_quantity: 'Quantité totale produite'
         unit: 'Unité'
+      # No defined action for this view !!!
+      # Unfound view ./app/views/production/production_line_update
       production_line_update:
         title: 'Modifier les quantités utilisées'
+      # No defined action for this view !!!
+      # Unfound view ./app/views/production/production_update
       production_update:
         title: 'Modification de la production {{value}} du {{moved}}'
+      # No defined action for this view !!!
+      # Unfound view ./app/views/production/productions
       productions:
         production_create: 'Enregistrer un nouvelle production'
         productions: 'Productions'
@@ -83,7 +86,7 @@ fra:
         operation_create: 'Ajouter un travail'
         operations: 'Travaux'
         shape_update: 'Modifier l''îlot'
-        shapes: 'Liste des îlots'
+        shapes: 'Liste des îlots' #!
         title: 'Îlot {{name}}'
       shape_create:
         title: 'Ajouter un nouvel îlot'
@@ -93,14 +96,14 @@ fra:
         title: 'Modification de l'' îlot {{name}}'
       shapes:
         shape_create: 'Créer un nouvel îlot'
-        shapes: 'Îlots'
+        shapes: 'Îlots' #!
         title: 'Îlots'
       tool:
-        hour_duration:
+        hour_duration: 
           one: 'Temps d''utilisation total : 1 heure'
           other: 'Temps d''utilisation total : {{count}} heures'
           zero: ''
-        operations:
+        operations: 
           one: '1 travail'
           other: '{{count}} travaux'
           zero: 'Aucun travail'
@@ -113,12 +116,12 @@ fra:
         title: 'Matériel'
         tool_create: 'Ajouter un matériel'
       unvalidated_operations:
-        employee_name: 'Employé'
-        executed: 'Éffectué'
-        index: 'Retour à l''index de la production'
-        name: 'Nom'
-        nature: 'Type'
-        planned_on: 'Prévu le'
-        shape_name: 'Îlot'
+        employee_name: 'Employé' #!
+        executed: 'Éffectué' #!
+        index: 'Retour à l''index de la production' #!
+        name: 'Nom' #!
+        nature: 'Type' #!
+        planned_on: 'Prévu le' #!
+        shape_name: 'Îlot' #!
         title: 'Travaux à réaliser'
         validate: 'Valider'

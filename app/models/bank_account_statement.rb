@@ -57,7 +57,8 @@ class BankAccountStatement < ActiveRecord::Base
 
   def eligible_entries
     self.company.journal_entries.find(:all, 
-                                      :conditions =>["account_id = ? AND draft=? AND (statement_id IS NULL OR statement_id = ? OR journal_records.created_on BETWEEN ? AND ?)", self.bank_account.account_id, false, self.id, self.started_on, self.stopped_on], 
+                                      :conditions =>["statement_id = ? OR (account_id = ? AND (statement_id IS NULL OR journal_records.created_on BETWEEN ? AND ?))", self.id, self.bank_account.account_id, self.started_on, self.stopped_on], 
+                                      # :conditions =>["account_id = ? AND draft=? AND (statement_id IS NULL OR statement_id = ? OR journal_records.created_on BETWEEN ? AND ?)", self.bank_account.account_id, false, self.id, self.started_on, self.stopped_on], 
                                       :joins => "INNER JOIN journal_records ON journal_records.id = journal_entries.record_id", 
                                       :order => "statement_id DESC, journal_entries.created_at DESC")
   end

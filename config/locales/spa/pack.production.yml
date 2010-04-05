@@ -19,14 +19,7 @@ spa:
           #>one: '1 travail à réaliser'
           #>other: '{{count}} travaux à réaliser'
           #>zero: 'Aucun travail à réaliser'
-        #>operation_natures: 'Types de travail'
-        #>operations: 'Travaux'
-        #>parameters: 'Paramètres'
-        #>production: 'Productions'
-        #>productions: 'Productions'
-        #>shapes: 'Îlots'
         #>title: 'Gestion de la production'
-        #>tools: 'Matériel'
       operation:
         operation:
           #>lines: 'Intrants et sortants'

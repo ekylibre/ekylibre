@@ -13,10 +13,9 @@
       %th=JournalEntry.human_attribute_name("debit")
       %th=JournalEntry.human_attribute_name("credit")
     - for @journal_entry in @journal_entries
-      -attr = cycle("even", "odd")
       -checked = (@journal_entry.statement_id==@bank_account_statement.id)
       -trid = "e#{@journal_entry.id}"
-      %tr{:id=>trid, :class=>(checked ? "notice " : "")+attr}
+      %tr{:id=>trid, :class=>(checked ? "notice " : "")+cycle("even", "odd")}
         %td.chk
           -if @journal_entry.statement_id.nil? or checked
             =check_box_tag("journal_entry[#{@journal_entry.id}][checked]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t1();" ) 

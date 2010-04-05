@@ -36,6 +36,8 @@ ActionView::Base.send :include, Ekylibre::I18n::ContextualHelpers
 module ::I18n
 
   def self.valid_locales
+    return [:fra]
+    # FIXME Call to active_locales fails during migrate
     self.available_locales.select{|x| x.to_s.size == 3}
   end
 
@@ -84,6 +86,11 @@ module ActiveRecord
       @errors[attribute.to_s] ||= []
       @errors[attribute.to_s] << message
     end
+    
+    def add_to_base(msg, options = {})
+      add(:base, msg, options)
+    end
+
 
     # Generate only full translated messages
     def generate_message(attribute, message = :invalid, options = {})

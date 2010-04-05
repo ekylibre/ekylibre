@@ -136,14 +136,17 @@ class ApplicationController < ActionController::Base
   end
 
   # For title I18n : t3e :)
-  def t3e(hash)
+  def t3e(*args)
     @title ||= {}
-    hash.each do |k,v| 
-      @title[k.to_sym] = if [Date, DateTime, Time].include? v.class
-                           ::I18n.localize(v)
-                         else
-                           v
-                         end
+    for arg in args
+      raise ArgumentError.new("Hash expected, got #{arg.class.name}:#{arg.inspect}") unless arg.is_a? Hash
+      arg.each do |k,v| 
+        @title[k.to_sym] = if [Date, DateTime, Time].include? v.class
+                             ::I18n.localize(v)
+                           else
+                             v
+                           end
+      end
     end
   end
 

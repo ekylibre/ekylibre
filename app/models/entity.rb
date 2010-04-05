@@ -197,7 +197,7 @@ class Entity < ActiveRecord::Base
     a = self.send(nature.to_s+'_account') unless self.send(nature.to_s+'_account_id').nil?
     if a.nil?
       prefix = (nature == :client ? 411 : 401)
-      suffix ||= self.code
+      suffix ||= "1" # self.code
       suffix = suffix.upper_ascii[0..5].rjust(6,'0')
       account = 1
       #x=Time.now

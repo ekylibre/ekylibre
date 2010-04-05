@@ -656,7 +656,6 @@ class RelationsController < ApplicationController
     t.column :name
     t.column :description
     t.column :default
-    t.action :entity_category
     t.action :entity_category_update
     t.action :entity_category_delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -761,7 +760,7 @@ class RelationsController < ApplicationController
     t.action :entity_nature_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
-  def entities_natures
+  def entity_natures
   end
 
   def entity_nature_create
@@ -794,7 +793,7 @@ class RelationsController < ApplicationController
         notify(:cannot_delete_entity_nature, :warning)
       end
     end
-    redirect_to :action=>:entities_natures
+    redirect_to :action=>:entity_natures
   end
   
   dyta(:entity_link_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|

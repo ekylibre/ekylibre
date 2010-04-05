@@ -61,6 +61,7 @@ class JournalEntry < ActiveRecord::Base
   belongs_to :intermediate, :class_name=>BankAccountStatement.name
   belongs_to :statement, :class_name=>BankAccountStatement.name
   validates_presence_of :account_id
+  validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
   
 
   #

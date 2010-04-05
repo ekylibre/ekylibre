@@ -16,6 +16,7 @@ eng:
       account_create:
         #>title: 'Créer un nouveau compte'
       account_letter:
+        #>current_letter: 'Lettre en cours : {{letter}}'
         #>entry_credit: 'Crédit'
         #>entry_debit: 'Débit'
         #>entry_letter: 'Lettre'
@@ -23,9 +24,9 @@ eng:
         #>journal_name: 'Journal'
         #>record_number: 'Pièce'
         #>recorded_on: 'Date'
-        #>title: 'Lettrage du compte {{number}}'
+        #>title: 'Lettrage du compte N°{{number}} du {{started_on}} au {{stopped_on}}'
       account_update:
-        #>title: 'Modifier le compte : {{value}}'
+        #>title: 'Modifier le compte {{number}} - {{name}}'
       accountize:
         #>cashed_payments: 'Inclure les règlements non encaissés'
         #>dont_save_in_draft: 'Ne pas sauvegarder dans le brouillard'
@@ -52,11 +53,11 @@ eng:
           #>other: '{{count}} transferts enregistrés'
           #>zero: 'Aucun transfert enregistré'
         #>select_date_generation: 'Date limite d''intégration'
-        #>title: 'Comptabiliser vos opérations commerciales'
+        #>title: 'Comptabiliser les opérations commerciales'
       accounts:
         #>account_create: 'Enregistrer un nouveau compte'
         #>delete: 'Supprimer un compte'
-        #>title: 'Comptes'
+        #>title: 'Plan de comptes'
         #>update: 'Modifier un compte'
       _accounts_find:
         #>account_create: 'Créer un nouveau compte comptable'
@@ -64,8 +65,6 @@ eng:
         #>account_number: 'Numéro de compte '
         #>no_accounts: 'Il n''existe pas de compte commençant par ce numéro.'
       accounts_letter_launch:
-        #>select_account: 'Sélectionnez un compte:'
-        #>title: 'Lettrage de compte'
       bank_account_create:
         #>title: 'Créer un nouveau compte bancaire'
       _bank_account_form:
@@ -77,40 +76,17 @@ eng:
       bank_account_statement:
         #>bank_account_statement_point: 'Pointer le relevé'
         #>bank_account_statement_update: 'Modifier le relevé'
-        #>bank_account_statements: 'Tableau des relevés de compte'
-        #>cancel: 'Annuler'
-        #>entry_credit: 'Crédit'
-        #>entry_debit: 'Dédit'
-        #>entry_name: 'Libellé'
         #>journal_entries: 'Écritures'
-        #>statement_bank_account_name: 'Nom du compte bancaire'
-        #>statement_credit: 'Crédit'
-        #>statement_debit: 'Débit'
-        #>statement_number: 'Numéro du relevé de compte'
         #>title: 'Relevé de compte N°{{number}}'
       bank_account_statement_create:
         #>title: 'Pointer un nouveau relevé de compte'
       bank_account_statement_point:
         #>bank_account_statement_update: 'Modifier le relevé'
         #>entries_to_point: 'Écritures à pointer'
-        #>entry_credit: 'Crédit'
-        #>entry_currency_rate: 'Devise'
-        #>entry_debit: 'Débit'
-        #>entry_name: 'Intitulé de l''écriture'
-        #>recorded_on: 'Enregistrée le'
-        #>statement_number: 'N° Relevé'
         #>title: 'Pointer le relevé N°{{number}} du {{bank_account}}'
-        #>total: 'Total pour le compte bancaire :'
-        #>total_credit: 'Crédit'
-        #>total_debit: 'Débit'
-        #>validate: 'Valider'
       bank_account_statement_update:
         #>title: 'Modifier le relevé N°{{number}}'
       bank_account_statements:
-        #>create_bank_account: 'Vous devez d''abord créer un compte bancaire.'
-        #>credit: 'Total crédit'
-        #>debit: 'Total débit'
-        #>select_bank_account: 'Sélectionnez un compte bancaire :'
         #>title: 'Relevés de compte bancaire'
       bank_account_update:
         #>title: 'Modifier le compte bancaire'
@@ -159,9 +135,11 @@ eng:
         #>title: 'Exercice comptable {{code}}'
       financialyear_close:
         #>close: 'Clôturer l''exercice'
-        #>save_renew: 'Souhaitez-vous reporter les à nouveaux ? '
-        #>select_renew_journal: 'Sélectionner un journal '
+        #>create_journal: '-- Créer le journal --'
+        #>dont_use_journal: '-- Ne pas utiliser de journal --'
+        #>select_renew_journal: 'Journal utilisé pour les reports à nouveaux'
         #>title: 'Clôture d''exercice'
+        #>use_renew: 'Sélectionnez un journal pour reporter les à nouveaux'
       financialyear_create:
         #>title: 'Créer un nouvel exercice'
       financialyear_update:
@@ -170,29 +148,11 @@ eng:
         #>financialyear_create: 'Ouvrir un nouvel exercice comptable'
         #>title: 'Exercices comptables'
       index:
-        #>accountize: 'Bascule comptable'
-        #>accounts: 'Comptes comptables'
-        #>bank_account_statements: 'Relevés de compte'
-        #>bank_accounts: 'Comptes bancaires (RIB)'
-        #>document_prepare: 'Impression des documents'
-        #>documents: 'Documents comptables'
-        #>entries: 'Écritures'
-        #>financialyear_close: 'Clôture d''exercice'
-        #>financialyears: 'Exercices comptables'
-        #>journal_close: 'Clôture de journal'
-        #>journals: 'Journaux'
-        #>lettering: 'Rapprochement bancaire'
         nb_entries:
           #>one: '1 écriture'
           #>other: '{{count}} écritures'
           #>zero: 'Aucune écriture'
-        #>operations: 'Opérations de vérification et de clôture'
-        #>parameters: 'Paramètres'
-        #>report: 'Reprise des à nouveaux'
-        #>tax_declarations: 'Déclaration de TVA'
-        #>taxes: 'Taxes'
         #>title: 'Comptabilité générale'
-        #>works: 'Travaux comptables'
       journal:
         #>end: 'au'
         #>journal_update: 'Modifier le journal'
@@ -248,7 +208,7 @@ eng:
         #>select_financialyear: 'Exercice'
       print_by_financial_year:
         #>financial_id: 'Exercice comptable'
-        #>financial_year_select: 'Sélectionnez l''''exercice comptable'
+        #>financial_year_select: 'Sélectionnez l'' exercice comptable'
       _print_journal:
         #>dates: 'Saisissez les dates ainsi que le journal'
         #>from: 'Période du'
@@ -266,7 +226,6 @@ eng:
         #>select_financialyear: 'Exercice'
         #>synthesis: 'Sélectionnez l''exercice'
       report:
-        #>title: 'Reprise des à nouveaux'
       synthesis:
         #>account_accruals: 'Comptes de régularisation'
         #>account_claims_assets: 'Créances'

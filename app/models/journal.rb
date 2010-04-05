@@ -52,6 +52,8 @@ class Journal < ActiveRecord::Base
 
   # this method is called before creation or validation method.
   def before_validation
+    self.name = self.nature_label if self.name.blank? and self.nature
+    self.currency_id ||= self.company.currencies.find(:first, :order=>:id).id
     if self.closed_on == Date.civil(1970,12,31) 
       if Financialyear.exists?(:company_id=>self.company_id)
         self.closed_on = Financialyear.find(:first, :conditions => {:company_id => self.company_id}).started_on-1 
@@ -75,8 +77,8 @@ class Journal < ActiveRecord::Base
 
 
   # Provides a translation for the nature of the journal
-  def nature_label
-    tc('natures.'+self.nature.to_s)
+  def nature_label(nature=nil)
+    tc('natures.'+(nature||self.nature).to_s)
   end
 
 
@@ -155,7 +157,7 @@ class Journal < ActiveRecord::Base
   end
 
   def last_number
-    record = self.records.find(:first, :order=>"created_on DESC, number DESC")
+    record = self.records.find(:first, :conditions=>["created_on>=?", self.closed_on], :order=>"number DESC")
     return record ? record.number : "000000"
   end
 
