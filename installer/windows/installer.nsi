@@ -30,12 +30,12 @@ SetCompressor /SOLID /FINAL zlib
   ; Name and file
   Name "${APP}"
   OutFile "${RELEASE}.exe"
-  
+
   ;Default installation folder
   InstallDir "$PROGRAMFILES\${APP}"
   
   ;Get installation folder from registry if available
-  InstallDirRegKey HKLM "Software\${APP}" "InstallDir" 
+  InstallDirRegKey HKLM "Software\${APP}" "InstallDir"
 
   BrandingText "${APP} ${VERSION}"
 
@@ -45,14 +45,14 @@ SetCompressor /SOLID /FINAL zlib
 
 
   ;Interface Settings
-  !define MUI_ICON "${IMAGES}\install.ico"   
-  ; !define MUI_UNICON "${IMAGES}\uninstall.ico"   
+  !define MUI_ICON "${IMAGES}\install.ico"
+  ; !define MUI_UNICON "${IMAGES}\uninstall.ico"
   !define MUI_HEADERIMAGE
   !define MUI_HEADERIMAGE_RIGHT
-  !define MUI_HEADERIMAGE_BITMAP "${IMAGES}\header.bmp"   
-  !define MUI_HEADERIMAGE_UNBITMAP "${IMAGES}\header.bmp"   
-  !define MUI_WELCOMEFINISHPAGE_BITMAP "${IMAGES}\welcome.bmp"   
-  !define MUI_UNWELCOMEFINISHPAGE_BITMAP "${IMAGES}\welcome.bmp"   
+  !define MUI_HEADERIMAGE_BITMAP "${IMAGES}\header.bmp"
+  !define MUI_HEADERIMAGE_UNBITMAP "${IMAGES}\header.bmp"
+  !define MUI_WELCOMEFINISHPAGE_BITMAP "${IMAGES}\welcome.bmp"
+  !define MUI_UNWELCOMEFINISHPAGE_BITMAP "${IMAGES}\welcome.bmp"
 
   !define MUI_PAGE_HEADER_TEXT "Installation d'${APP} ${VERSION}"
 
@@ -67,22 +67,22 @@ SetCompressor /SOLID /FINAL zlib
 ;Pages
   !define MUI_WELCOMEPAGE_TITLE "Bienvenue dans le programme d'installation d'${APP}"
   !insertmacro MUI_PAGE_WELCOME
-  
+
   ; !define MUI_LICENSEPAGE_RADIOBUTTONS
   ; !define MUI_LICENSEPAGE_RADIOBUTTONS_TEXT_ACCEPT "J'accepte les termes du contrat de licence"
   ; !define MUI_LICENSEPAGE_RADIOBUTTONS_TEXT_DECLINE "Je n'accepte pas les termes du contrat de licence"
   !insertmacro MUI_PAGE_LICENSE "${RESOURCES}\apps\ekylibre\doc\license.txt"
 
-  !define MUI_DIRECTORYPAGE_TEXT_DESTINATION "$INSTDIR"  
+  !define MUI_DIRECTORYPAGE_TEXT_DESTINATION "$INSTDIR"
   !define MUI_DIRECTORYPAGE_VERIFYONLEAVE
   !insertmacro MUI_PAGE_DIRECTORY
 
-  ; !define MUI_INSTFILESPAGE_FINISHHEADER_TEXT "Bravo !"  
-  ; !define MUI_INSTFILESPAGE_ABORTHEADER_TEXT  "Désolé !"  
+  ; !define MUI_INSTFILESPAGE_FINISHHEADER_TEXT "Bravo !"
+  ; !define MUI_INSTFILESPAGE_ABORTHEADER_TEXT  "DÃ©solÃ© !"
   !insertmacro MUI_PAGE_INSTFILES
-  
+
   ;!define MUI_FINISHPAGE_NOAUTOCLOSE
-  ; !define MUI_FINISHPAGE_TEXT_REBOOT "Vous devez redémarrer l'ordinateur pour que l'installation se termine."
+  ; !define MUI_FINISHPAGE_TEXT_REBOOT "Vous devez redÃ©marrer l'ordinateur pour que l'installation se termine."
   !define MUI_FINISHPAGE_LINK "Aller sur www.ekylibre.org"
   !define MUI_FINISHPAGE_LINK_LOCATION "http://www.ekylibre.org"
   !insertmacro MUI_PAGE_FINISH
@@ -109,7 +109,7 @@ Var InstApp
 Var Backup
 Var DataDir
 
-Section 
+Section
   SetOutPath $INSTDIR
 
   StrCpy $InstApp "$INSTDIR\${APP}-${VERSION}"
@@ -138,15 +138,15 @@ Section
   ; IfFileExists $InstApp 0 +2
   ;   StrCpy $AppDir $InstApp
 
-  ; Copie de sauvegarde de la base de données si le fichier existe
+  ; Copie de sauvegarde de la base de donnÃ©es si le fichier existe
   ${If} $AppDir != ""
-    DetailPrint "Sauvegarde des données présentes"
+    DetailPrint "Sauvegarde des donnÃ©es prÃ©sentes"
     RMDir /r $Backup
     Rename $AppDir $Backup
   ${Else}
-    DetailPrint "Pas de données présentes"
+    DetailPrint "Pas de donnÃ©es prÃ©sentes"
   ${EndIf}
-  
+
   ; Mise en place du programme
   CreateDirectory $InstApp
   SetOutPath $InstApp
@@ -161,7 +161,7 @@ Section
   FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
   FileClose $1
 
-  ; Mise en place de la copie de sauvegarde de la base de données  
+  ; Mise en place de la copie de sauvegarde de la base de donnÃ©es
   Delete $InstApp\apps\ekylibre\config\database.yml
   Rename $InstApp\apps\ekylibre\config\database.mysql.yml $InstApp\apps\ekylibre\config\database.yml
   !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__username__" "$username"
@@ -172,26 +172,26 @@ Section
     DetailPrint "Mise en place d'une nouvelle base"
     Rename $InstApp\mysql\data $DataDir
   ${Else}
-    DetailPrint "Récupération de la sauvegarde"
+    DetailPrint "RÃ©cupÃ©ration de la sauvegarde"
     Rename $Backup\data $DataDir
     RMDir /r $InstApp\apps\ekylibre\private
     Rename $Backup\documents $InstApp\apps\ekylibre\private
     RMDir /r $Backup
   ${EndIf}
 
-  ; Mise à jour de la variable PATH
-  ${EnvVarUpdate} $0 "PATH" "A" "HKLM" "$InstApp\ruby\bin" 
+  ; Mise Ã  jour de la variable PATH
+  ${EnvVarUpdate} $0 "PATH" "A" "HKLM" "$InstApp\ruby\bin"
 
-  ; Lancement de la base de données
+  ; Lancement de la base de donnÃ©es
   SimpleSC::InstallService "EkyMySQL" "${APP} DBMS" "16" "2" '"$InstApp\mysql\bin\mysqld.exe" --defaults-file="$InstApp\mysql\my.ini" EkyMySQL'  "" "" ""
   Pop $0
   ${If} $0 <> 0
-    MessageBox MB_OK "Installation du service EkyMySQL impossible"  
+    MessageBox MB_OK "Installation du service EkyMySQL impossible"
   ${EndIf}
-  SimpleSC::SetServiceDescription "EkyMySQL" "Service Base de Données d'Ekylibre"
+  SimpleSC::SetServiceDescription "EkyMySQL" "Service Base de DonnÃ©es d'Ekylibre"
   SimpleSC::StartService "EkyMySQL" ""
 
-  ; (Ré-)Initialisation et migration
+  ; (RÃ©-)Initialisation et migration
   ${If} $AppDir == ""
     ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "CREATE DATABASE ekylibre_production"'
     ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "CREATE USER $username@localhost IDENTIFIED BY $\'$password$\'"'
@@ -205,7 +205,7 @@ Section
   SimpleSC::InstallService "EkyService" "${APP} WS" "16" "2"  '"$InstApp\ruby\bin\mongrel_service.exe" single -e production -p ${WSPORT} -a 0.0.0.0 -l "log\mongrel.log" -P "log\mongrel.pid" -c "$InstApp/apps/ekylibre" -t 0 -r "public" -n 1024' "EkyMySQL" "" ""
   Pop $0
   ${If} $0 <> 0
-    MessageBox MB_OK "Installation du service EkyService impossible"  
+    MessageBox MB_OK "Installation du service EkyService impossible"
   ${EndIf}
   SimpleSC::SetServiceDescription "EkyService" "Service Web d'Ekylibre"
   SimpleSC::StartService "EkyService" ""
@@ -222,8 +222,8 @@ Section
   ; Mise en place des raccourcis
   RMDir /r $SMPROGRAMS\${APP}
   CreateDirectory "$SMPROGRAMS\${APP}"
-  CreateShortCut  "$SMPROGRAMS\${APP}\Licence publique générale GNU 3.lnk" "$InstApp\apps\ekylibre\doc\license.txt"
-  CreateShortCut  "$SMPROGRAMS\${APP}\Désinstaller ${APP}.lnk" "$InstApp\uninstall.exe"     
+  CreateShortCut  "$SMPROGRAMS\${APP}\Licence publique gÃ©nÃ©rale GNU 3.lnk" "$InstApp\apps\ekylibre\doc\license.txt"
+  CreateShortCut  "$SMPROGRAMS\${APP}\DÃ©sinstaller ${APP}.lnk" "$InstApp\uninstall.exe"
   ; File ${RESOURCES}\${APP}.url
   FileOpen $1 "$SMPROGRAMS\${APP}\${APP} ${VERSION}.url" "w"
   FileWrite $1 "[InternetShortcut]$\r$\n"
@@ -242,8 +242,8 @@ SectionEnd
 Section "Uninstall"
   ReadRegStr $InstApp HKLM Software\${APP} "AppDir"
   SetShellVarContext all
- 
-  ; Mise à jour de la base de registre
+
+  ; Mise Ã  jour de la base de registre
   SimpleSC::StopService   "EkyService"
   SimpleSC::RemoveService "EkyService"
   SimpleSC::StopService   "EkyMySQL"
@@ -252,9 +252,9 @@ Section "Uninstall"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP}"
   DeleteRegKey HKLM "Software\${APP}"
 
-  ; Mise à jour de la variable PATH
-  ${un.EnvVarUpdate} $0 "PATH" "R" "HKLM" "$InstApp\ruby\bin" 
-  
+  ; Mise Ã  jour de la variable PATH
+  ${un.EnvVarUpdate} $0 "PATH" "R" "HKLM" "$InstApp\ruby\bin"
+
   ; Suppression des programmes
   RMDir /r $SMPROGRAMS\${APP}
   RMDir /r $InstApp\mysql
@@ -262,6 +262,6 @@ Section "Uninstall"
   Delete $InstApp\migrate.cmd
   Delete $InstApp\uninstall.exe
 
-  DetailPrint "Les fichiers ont été conservés dans $InstApp"
+  DetailPrint "Les fichiers ont Ã©tÃ© conservÃ©s dans $InstApp"
 SectionEnd
  
