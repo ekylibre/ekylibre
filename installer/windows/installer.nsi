@@ -127,11 +127,10 @@ Section
 
   ; Initialisation de quelques valeurs
   ReadRegStr $AppDir HKLM Software\${APP} "AppDir"
-  ${If} $AppDir == ""
-    IfFileExists $InstApp 0 +2
-      StrCpy $AppDir $InstApp
-
-  ${EndIf}
+  ;${If} $AppDir == ""
+  ;  IfFileExists $InstApp 0 +2
+  ;    StrCpy $AppDir $InstApp
+  ;${EndIf}
   StrCpy $username "ekylibre"
   pwgen::GeneratePassword 32
   Pop $password
