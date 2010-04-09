@@ -62,7 +62,6 @@ class Financialyear < ActiveRecord::Base
     unless self.stopped_on.blank? or self.started_on.blank?
       errors.add(:stopped_on, :end_of_month) unless self.stopped_on == self.stopped_on.end_of_month
       errors.add(:stopped_on, :posterior, :to=>::I18n.localize(self.started_on)) unless self.started_on < self.stopped_on
-      errors.add(:stopped_on, :too_far) if (self.stopped_on - self.started_on > 366) and self.company.financialyears.find(:first, :conditions=>["stopped_on < ?", self.started_on])
       # If some financial years are already present
       id = self.id || 0
       if self.company.financialyears.find(:all, :conditions=>["id!=?", id]).size > 0

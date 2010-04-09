@@ -17,13 +17,6 @@ jpn:
         #>title: 'Créer un nouveau compte'
       account_letter:
         #>current_letter: 'Lettre en cours : {{letter}}'
-        #>entry_credit: 'Crédit'
-        #>entry_debit: 'Débit'
-        #>entry_letter: 'Lettre'
-        #>entry_name: 'Libellé opération'
-        #>journal_name: 'Journal'
-        #>record_number: 'Pièce'
-        #>recorded_on: 'Date'
         #>title: 'Lettrage du compte N°{{number}} du {{started_on}} au {{stopped_on}}'
       account_update:
         #>title: 'Modifier le compte {{number}} - {{name}}'
@@ -170,22 +163,22 @@ jpn:
       journal_record:
         #>entries: 'Écritures'
         #>journal_record_update: 'Modifier la pièce'
-        #>title: 'Pièce comptable {{number}} du {{created_on}}'
+        #>title: 'Pièce comptable N°{{number}} du {{created_on}}'
       journal_record_create:
         #>title: 'Ajouter une pièce'
       journal_record_update:
-        #>title: 'Modifier la pièce {{number}} du {{created_on}}'
+        #>title: 'Modifier la pièce N°{{number}} du {{created_on}}'
       journal_reopen:
         #>reopen: 'Déclôturer le journal'
         #>select_closure_date: 'Choisissez la date de clôture'
         #>title: 'Déclôture du {{name}}'
       journal_update:
         #>title: 'Modifier le journal : {{name}}'
-      journals:
-        #>title: 'Journaux'
       _journals:
         #>journal_detail: 'Cloturé au {{closed_on}}'
         #>journal_name: '{{name}}'
+      journals:
+        #>title: 'Journaux'
       _journals_find:
         #>journal_id: 'Numéro de journal'
         #>journal_name: 'Nom du journal'
@@ -200,12 +193,12 @@ jpn:
         #>dates: 'Saisissez les dates de début et de fin de la période'
         #>from: 'Période du'
         #>to: 'Au'
-      print_balance_sheet:
-        #>period: 'Période'
-        #>title: 'Impression du bilan'
       _print_balance_sheet:
         #>balance_sheet: 'Sélectionnez l''exercice'
         #>select_financialyear: 'Exercice'
+      print_balance_sheet:
+        #>period: 'Période'
+        #>title: 'Impression du bilan'
       print_by_financial_year:
         #>financial_id: 'Exercice comptable'
         #>financial_year_select: 'Sélectionnez l'' exercice comptable'

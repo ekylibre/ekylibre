@@ -175,12 +175,12 @@ fra:
         title: 'Déclôture du {{name}}'
       journal_update:
         title: 'Modifier le journal : {{name}}'
-      _journals:
-        journal_detail: 'Cloturé au {{closed_on}}'
-        journal_name: '{{name}}'
       journals:
         title: 'Journaux'
         #>journal_create: # Potentially missing translation
+      _journals:
+        journal_detail: 'Cloturé au {{closed_on}}'
+        journal_name: '{{name}}'
       # Unfound view ./app/views/accountancy/_journals_find
       _journals_find:
         journal_id: 'Numéro de journal'
@@ -196,14 +196,14 @@ fra:
         dates: 'Saisissez les dates de début et de fin de la période'
         from: 'Période du'
         to: 'Au'
-      # Unfound view ./app/views/accountancy/_print_balance_sheet
-      _print_balance_sheet:
-        balance_sheet: 'Sélectionnez l''exercice'
-        select_financialyear: 'Exercice'
       # No defined action for this view !!!
       print_balance_sheet:
         period: 'Période' #!
         title: 'Impression du bilan'
+      # Unfound view ./app/views/accountancy/_print_balance_sheet
+      _print_balance_sheet:
+        balance_sheet: 'Sélectionnez l''exercice'
+        select_financialyear: 'Exercice'
       # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/print_by_financial_year
       print_by_financial_year:

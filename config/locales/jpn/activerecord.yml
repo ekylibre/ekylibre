@@ -2204,7 +2204,6 @@ jpn:
               #>consecutive: 'L''exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent.'
             stopped_on:
               #>end_of_month: '{{attribute}} doit être un date de fin de mois'
-              #>too_far: 'La durée de l''exercice ne doit pas excéder 12 mois'
           #>overlap: '{{attribute}} se trouve sur un exercice existant'
         journal:
           attributes:
