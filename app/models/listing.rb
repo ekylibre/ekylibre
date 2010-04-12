@@ -119,8 +119,15 @@ class Listing < ActiveRecord::Base
   end
 
   def mail_columns
-   
     self.nodes.find(:all, :conditions=>["name LIKE ? ", '%.email'])
+  end
+
+  def duplicate
+    listing = self.class.create!(self.attributes.merge(:name=>tg(:copy_of, :source=>self.name)))
+    self.root.duplicate(listing)
+    listing.reload
+    listing.save
+    return listing
   end
 
 end

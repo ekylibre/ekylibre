@@ -583,6 +583,7 @@ fra:
     choices: 'Choix'
     close: 'Fermer'
     consult: 'Consulter'
+    copy_of: 'Copie de {{source}}'
     create: 'Créer'
     delete: 'Supprimer'
     display: 'Afficher'
@@ -613,6 +614,7 @@ fra:
     letter_function_title: 'Chère Madame, Cher Monsieur'
     letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
     lock: 'Verrouiller'
+    mail: 'Envoyer un e-mail'
     n: non
     next: Suivant
     new: Nouveau...

@@ -428,8 +428,8 @@ class CompanyController < ApplicationController
     t.column :native_name, :through=>:language
     t.column :country
     t.action :document_template_print
-    t.action :document_template_update
     t.action :document_template_duplicate, :method=>:post
+    t.action :document_template_update
     t.action :document_template_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
@@ -550,6 +550,7 @@ class CompanyController < ApplicationController
     t.column :comment
     t.action :listing_extract, :format=>'csv', :image=>:action
     t.action :listing_mail, :if=>'RECORD.mail_columns.size > 0'
+    t.action :listing_duplicate, :method=>:post
     t.action :listing_update
     t.action :listing_delete, :method=>:post, :confirm=>:are_you_sure
   end
@@ -584,19 +585,19 @@ class CompanyController < ApplicationController
     if @listing.mail_columns.size == 0
       notify(:you_must_have_an_email_column, :warning)
       redirect_to_back
-    else
-      if session[:listing_mail_column] or @listing.mail_columns.size ==  1
-        query = @listing.query
-        query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
-        full_results = ActiveRecord::Base.connection.select_all(@listing.query)
-        listing_mail_column = @listing.mail_columns.size == 1 ? @listing.mail_columns[0] : find_and_check(:listing_nodes, session[:listing_mail_column])
-        #raise Exception.new listing_mail_column.inspect
-        results = full_results.select{|c| !c[listing_mail_column.label].blank? }
-        @mails = results.collect{|c| c[listing_mail_column.label] }
-        # @mails.uniq! ### CHECK ????????
-        @columns = results[0].keys.sort
-        session[:mail] ||= {}
-      end
+      return
+    end
+    if session[:listing_mail_column] or @listing.mail_columns.size ==  1
+      query = @listing.query
+      query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
+      full_results = ActiveRecord::Base.connection.select_all(@listing.query)
+      listing_mail_column = @listing.mail_columns.size == 1 ? @listing.mail_columns[0] : find_and_check(:listing_nodes, session[:listing_mail_column])
+      #raise Exception.new listing_mail_column.inspect
+      results = full_results.select{|c| !c[listing_mail_column.label].blank? }
+      @mails = results.collect{|c| c[listing_mail_column.label] }
+      # @mails.uniq! ### CHECK ????????
+      @columns = results[0].keys.sort
+      session[:mail] ||= {}
     end
     if request.post?
       if params[:node]
@@ -605,7 +606,7 @@ class CompanyController < ApplicationController
       else
         session[:mail] = params.dup
         session[:mail].delete(:attachment)
-        texts = [params[:subject], params[:body]]
+        texts = [params[:mail_subject], params[:mail_body]]
         attachment = params[:attachment]
         if attachment
           # file = "#{RAILS_ROOT}/tmp/uploads/attachment_#{attachment.original_filename.gsub(/\W/,'_')}"
@@ -623,6 +624,7 @@ class CompanyController < ApplicationController
             r
           end
           Mailman.deliver_message(params[:from], result[listing_mail_column.label], ts[0], ts[1], attachment)
+          notify(:mails_are_sent, :success, :now)
         end
         nature = @current_company.event_natures.find(:first, :conditions=>{:usage=>"mailing"}).nil? ? @current_company.event_natures.create!(:name=>tc(:mailing), :duration=>5, :usage=>"mailing").id : @current_company.event_natures.find(:first, :conditions=>{:usage=>"mailing"})
         #raise Exception.new nature.inspect
@@ -632,7 +634,7 @@ class CompanyController < ApplicationController
         session[:listing_mail_column] = nil
       end
     end
-    @title = {:listing => @listing.name}
+    t3e :listing => @listing.name
   end
 
   def listing_create
@@ -659,13 +661,8 @@ class CompanyController < ApplicationController
 
   def listing_duplicate
     return unless @listing = find_and_check(:listing, params[:id])
-    if request.post? and @listing
-      if @listing.update_attributes(params[:listing])
-        redirect_to_current
-      end
-    end
-    @title ={:value=>@listing.name}
-    #render_form
+    @listing.duplicate if request.post?
+    redirect_to :action=>:listings
   end
 
   def listing_delete
@@ -673,7 +670,7 @@ class CompanyController < ApplicationController
     if request.post? or request.delete?
       Listing.destroy(@listing.id) if @listing
     end
-    redirect_to_back
+    redirect_to :action=>:listings
   end
 
 

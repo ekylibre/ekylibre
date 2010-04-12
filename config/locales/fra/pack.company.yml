@@ -105,18 +105,20 @@ fra:
         available_columns: 'Champs disponibles : {{columns}}'
         body: 'Corps du message'
         choose_mail_column: 'Veuillez choisir la colonne à utiliser pour le mailing'
-        click_to_mail: 'Cliquez ici pour écrire votre message'
+        click_to_mail: 'Écrire votre message avec votre propre messagerie électronique'
         default_subject: '[{{company}}]'
         from: 'Expéditeur'
         mails: 
-          one: '1 e-mail'
-          other: '{{count}} e-mails'
-          zero: 'Aucun e-mail'
+          one: '1 courriel'
+          other: '{{count}} courriels'
+          zero: 'Aucun courriels'
         personalized_mail: 'Envoyer un mail personnalisé'
         send: 'Envoyer le mail'
         send_test: 'Envoyer un mail de test'
         subject: 'Sujet'
         title: 'Envoyer un mail pour "{{listing}}"'
+      # No defined action for this view !!!
+      # Unfound view ./app/views/company/listing_nodes
       listing_nodes:
         title: 'Choisissez les informations à extraire'
       listing_update:

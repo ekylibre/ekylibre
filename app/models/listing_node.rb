@@ -267,4 +267,15 @@ class ListingNode < ActiveRecord::Base
     end
   end
 
+  def duplicate(listing, parent=nil)
+    attributes = self.attributes
+    attributes[:listing_id] = listing.id
+    attributes[:parent_id]  = (parent ? parent.id : nil)
+    attributes.delete("key")
+    node = self.class.create!(attributes)
+    for child in self.children.find(:all, :order=>:position)
+      child.duplicate(listing, node)
+    end
+  end
+
 end

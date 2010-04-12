@@ -203,7 +203,7 @@ import_export_entities:
 # Gérer l'envoi et la réception d'e-mails
 mail_listings:
   controller: company
-  actions: [listing_mail]
+  actions: [listing_mail, listings]
 # Gérer les comptes comptables
 manage_accounts:
   controller: accountancy
@@ -447,12 +447,11 @@ manage_listings:
   actions:
   - listing_create
   - listing_delete
+  - listing_duplicate
   - listing_node
   - listing_node_create
   - listing_node_delete
   - listing_node_update
-  - listing_nodes
-  - listing_nodes_dyta
   - listing_update
   - listings
   - listings_dyta
