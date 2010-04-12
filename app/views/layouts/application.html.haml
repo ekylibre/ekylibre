@@ -13,15 +13,15 @@
     #columns{:orient=>:horizontal, :flex=>1}
       -side=side_tag
       -unless side.blank?
-        #side{:flexy=>'true', :orient=>:vertical, :style=>''+(session[:side] ? "" : "display:none")}
+        #side{:style=>''+(session[:side] ? "" : "display:none")}
           =side      
       #main{:flex=>9, :orient=>:vertical, :style=>"position: absolute; top: 0px;"}
         #content{:flex=>3, :orient=>:vertical}
-          .nav{:flexy=>'true'}
+          .nav
             =help_link_tag
             =side_link_tag
             %h1.title=action_title
-          #yield{:flex=>50, :orient=>:vertical}
+          #yield{:flex=>1, :orient=>:vertical}
             =notification_tag :error
             =notification_tag :warning
             =notification_tag :success

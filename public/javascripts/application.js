@@ -2,43 +2,12 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-var XUL_ELEMENTS = ['box', 'vbox', 'hbox', 'splitter'];
-var XUL_FLEX_ELEMENTS = ['box', 'vbox', 'hbox'];
-
 function trace(text) {
   $('side').innerHTML += text;
 }
 
 
-var xulElementMethods = {
-  getOuterDimensions: function(element) {
-    element = $(element);
-    var w = element.getWidth();
-    var h = element.getHeight();
-    alert(element.getNumericalStyle('padding-left')+','+
-          element.getNumericalStyle('padding-right')+','+
-          element.getNumericalStyle('padding')+','+
-          element.getNumericalStyle('paddingLeft')+','+
-          '-');
-    /*
-    w += element.getNumericalStyle('padding-left')+element.getNumericalStyle('padding-right');
-    w += element.getNumericalStyle('margin-left')+element.getNumericalStyle('margin-right');
-    w += element.getNumericalStyle('border-left-width')+element.getNumericalStyle('border-right-width');
-    h += element.getNumericalStyle('padding-top')+element.getNumericalStyle('padding-bottom');
-    h += element.getNumericalStyle('margin-top')+element.getNumericalStyle('margin-bottom');
-    h += element.getNumericalStyle('border-top-width')+element.getNumericalStyle('border-bottom-width');
-    */
-    return {width: w, height: h};
-  },
-  
-  getBorderDimensions: function(element) {
-    element = $(element);
-    var t = element.getNumericalStyle('padding-top')+element.getNumericalStyle('margin-top')+element.getNumericalStyle('border-top-width');
-    var r = element.getNumericalStyle('padding-right')+element.getNumericalStyle('margin-right')+element.getNumericalStyle('border-right-width');
-    var b = element.getNumericalStyle('padding-bottom')+element.getNumericalStyle('margin-bottom')+element.getNumericalStyle('border-bottom-width');
-    var l = element.getNumericalStyle('padding-left')+element.getNumericalStyle('margin-left')+element.getNumericalStyle('border-left-width');
-    return {horizontal: l+r, vertical: t+b};
-  },
+var resizeElementMethods = {
   
   getNumericalStyle: function(element, style) {
     element = $(element);
@@ -48,16 +17,17 @@ var xulElementMethods = {
       value = "0";
     }
     return Math.floor(new Number(value.replace(reg, "")));
-    /*if (value !== null) {
-      return Math.floor(new Number(value.replace(reg, "")));
-      }*/
-  },
-  
-  xul: function(element) {
-    element = $(element);
-    return element.getAttribute('xul');
   },
 
+  getBorderDimensions: function(element) {
+    element = $(element);
+    var t = element.getNumericalStyle('padding-top')+element.getNumericalStyle('margin-top')+element.getNumericalStyle('border-top-width');
+    var r = element.getNumericalStyle('padding-right')+element.getNumericalStyle('margin-right')+element.getNumericalStyle('border-right-width');
+    var b = element.getNumericalStyle('padding-bottom')+element.getNumericalStyle('margin-bottom')+element.getNumericalStyle('border-bottom-width');
+    var l = element.getNumericalStyle('padding-left')+element.getNumericalStyle('margin-left')+element.getNumericalStyle('border-left-width');
+    return {horizontal: l+r, vertical: t+b};
+  },
+  
   getFlex: function(element) {
     element = $(element);
     var f = element.getAttribute("flex");
@@ -69,56 +39,30 @@ var xulElementMethods = {
     return 0;
   },
   
-  isXUL: function(element) {
-    element = $(element);
-    var xul = element.getAttribute('xul');
-    var inArray = false;
-    for(var i=0;i<XUL_ELEMENTS.length;i++) {
-      if (xul === XUL_ELEMENTS[i]) {
-        inArray = true;
-      }
-    }
-    return inArray;
-  },
-  
-  isFlexible: function(element) {
-    element = $(element);
-    var xul = element.getAttribute('xul');
-    var inArray = false;
-    if (element.tagName !== 'DIV' && element.tagName !== 'BODY') {
-      return false;
-    }
-    for(var i=0;i<XUL_FLEX_ELEMENTS.length;i++) {
-      if (xul === XUL_FLEX_ELEMENTS[i]) {
-        inArray = true;
-      }
-    }
-    return inArray;
-  },
-
   isHorizontal: function(element) {
     element = $(element);
     var h = true;
-    if (element.xul() === 'vbox') {
-      h = false;
-    } else if (element.xul() === 'hbox') {
-      h = true;
-    } else if (element.getAttribute('orient') === 'vertical') {
+    if (element.getAttribute('orient') === 'vertical') {
       h = false;
     }
     return h;
   },
   
 
-  resize: function(element,width,height) {
+  resize: function(element, width, height) {
     var children = element.childElements();
     var children_length = children.length;
-    //    alert(element.id+' '+children_length);
-    // if (width === )
+    if (width === undefined) { 
+      var parent = element.ancestors()[0].getDimensions();
+      width = parent.width; 
+      if (height === undefined) { height = parent.height; }
+      alert(width+"x"+height);
+    }
+
     if (children_length>0) {
       element.makePositioned();
       var horizontal = element.isHorizontal();
-      var length = (horizontal ? width : height);
+      var element_length = (horizontal ? width : height);
 
       // Preprocessing dimensions values
       var child, index, border;
@@ -126,69 +70,52 @@ var xulElementMethods = {
       var lengths = [], flexes = [], borders = [];
       for (index=0;index<children_length;index++) {
         child = children[index];
-        // alert("Child: "+child.id+" ("+child.getStyle('display')+")");
         if (child.getStyle('display') !== 'none') {
           borders[index] = child.getBorderDimensions();
-          // alert("Child border : "+borders[index]);
-          flexes[index] = child.getFlex();
-          //alert("Child flex : "+flexes[index]);
-          lengths[index] = 0;
-          //alert("B>>"+index+" - "+flexes[index]);
-          if (flexes[index] !== 0) {
-            //alert("C>>"+index);
-            flexsum += flexes[index];
-          } else {
-            //alert("D>>"+index);
+          flexes[index]  = child.getFlex();
+          if (flexes[index] === 0) {
             dims = child.getDimensions();
             lengths[index] = (horizontal ? dims.width : dims.height);
             fixedsum += lengths[index];
+          } else {
+            lengths[index] = 0;
+            flexsum += flexes[index];
           }
-          // alert("E>>"+index);
         }
       }
 
-      // alert("FIN");
-
       // Redimensioning
-      var w,h,l=0,t=0,s=0,x=0,o;
-      var k = (length-fixedsum)/flexsum;
+      var w, h, child_left=0, child_top=0, child_length=0, x=0, o;
+      var flex_unit = (element_length-fixedsum)/flexsum;
       for (index=0;index<children_length;index++) {
         child = children[index];
         if (child.getStyle('display') !== 'none') {
-          w = width-borders[index].horizontal;
-          h = height-borders[index].vertical;
           if (flexes[index]>0) {
-            s = Math.floor(k*flexes[index]);
+            child_length = Math.floor(flex_unit*flexes[index]);
           } else {
-            s = lengths[index];
+            child_length = lengths[index];
           }
-          if (horizontal) {
-            w = s-borders[index].horizontal*1;
-            t = 0; 
-            l = x;
-          } else {
-            h = s-borders[index].vertical*1;
-            t = x; 
-            l = 0;
-          }
-          /*
-          child.setStyle({width: w+'px', height: h+'px', overflow: 'auto', position: 'absolute', top: t+'px', left: l+'px'});
-          child.setAttribute('test',x+' '+s+' '+lengths[index]+' ');
-          */
-          
-          if (flexes[index]>0 || child.getAttribute('flexy') === 'true') {
+          if (flexsum>0) {
+            if (horizontal) {
+              w = child_length-borders[index].horizontal*1;
+              h = height-borders[index].vertical;
+              child_top  = 0; 
+              child_left = x;
+            } else {
+              w = width-borders[index].horizontal;
+              h = child_length-borders[index].vertical*1;
+              child_top  = x; 
+              child_left = 0;
+            }
             o=child.getStyle('overflow');
             if (null === o) {
               o = 'auto';
             }
-            child.setStyle({width: w+'px', height: h+'px', overflow: o, position: 'absolute', top: t+'px', left: l+'px'});
+            child.setStyle({width: w+'px', height: h+'px', overflow: o, position: 'absolute', top: child_top+'px', left: child_left+'px'});
             child.resize(w,h);
             /* child.setAttribute('resized', 'true'); */
-          } else {
-            /* child.setStyle({position: 'absolute', top: t+'px', left: l+'px'}); */
           }
-          
-          x += s;
+          x += child_length;
         }
       }
     }
@@ -201,14 +128,14 @@ var xulElementMethods = {
 
 };
 
-Element.addMethods(xulElementMethods);
+Element.addMethods(resizeElementMethods);
 
 
 
 
 function _resize() {
   var dims   = document.viewport.getDimensions();
-  var height = dims.height; /*-25;*/
+  var height = dims.height; 
   var width  = dims.width;
   $('body').resize(width,height);
 }

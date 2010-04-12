@@ -863,12 +863,6 @@ module ApplicationHelper
         if column.type==:date
           options[:field] = :date 
           html_options[:size] = 10
-
-
-
-# <p><label for="issue_start_date">Début</label><input id="issue_start_date" name="issue[start_date]" size="10" type="text" value="2009-09-18" /><img alt="Calendar" class="calendar-trigger" id="issue_start_date_trigger" src="/red/images/calendar.png" /><script type="text/javascript">
-# //<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>
-
         end
       end
       
@@ -914,6 +908,7 @@ module ApplicationHelper
       if [:select, :dyli].include?(options[:field]) and options[:new].is_a? Hash
         label = tg(options[:new].delete(:label)||:new)
         input += link_to(label, options[:new], :class=>:fastadd)
+        #input += link_to_function(label, "openVirtualPopup()", :class=>:fastadd)
       end
       # input += " "+tg("format_date.iso")+" " if options[:field] == :date
 
@@ -1037,54 +1032,6 @@ module ApplicationHelper
 end
 
 
-
-module SetColumnActiveRecord #:nodoc:
-  def self.included(base) #:nodoc:
-    base.extend(ClassMethods)
-  end
-
-  module ClassMethods
-
-    def set_column(column, reference)
-      code = ''
-      col = column.to_s
-      reflist = "#{col}_keys".upcase
-      if reference.is_a? Hash
-        #        code += "#{reflist} = {"+reference.collect{|x| ":"+x[0].to_s+"=>\""+x[1].to_s+"\""}.join(",")+"}\n"
-        code += "#{reflist} = ["+reference.collect{|x| ":"+x[0].to_s}.join(",")+"]\n"
-      elsif reference.is_a? Array
-        #        code += "#{reflist} = {"+reference.collect{|x| ":"+x.to_s+"=>nil"}.join(",")+"}\n"
-        code += "#{reflist} = ["+reference.collect{|x| ":"+x.to_s}.join(",")+"]\n"
-      else
-        reflist = reference.to_s
-      end
-      code << <<-"end_eval"
-        def #{col}_include?(key)
-          key = key.to_sym unless key.is_a?(Symbol)
-          return false unless #{reflist}.include?(key)
-            #          return !self.#{col}.to_s.match("(\ |^)"+key.to_s+"(\ |$)").nil?
-            return #{col}_array.include?(key)
-        end
-        def #{col}_set(key,add=true)
-          raise(Exception.new("Only Symbol are accepted")) unless key.is_a?(Symbol)
-          return self.#{col} unless #{reflist}.include?(key)
-            self.#{col}_array = (add ? self.#{col}_array << key : self.#{col}_array - [key])
-            return self.#{col}
-        end
-        def #{col}_array
-          self.#{col}.to_s.split(" ").collect{|key| key.to_sym if #{reflist}.include?(key.to_sym)}.compact
-        end
-        def #{col}_array=(array)
-          self.#{col} = " "+array.flatten.uniq.collect{|key| key.to_sym if #{reflist}.include?(key.to_sym)}.compact.join(" ")+" "
-        end
-        end_eval
-        #      ActionController::Base.logger.error(code)
-        module_eval(code)
-    end
-  end
-end
-
-ActiveRecord::Base.send(:include, SetColumnActiveRecord)
 
 
 
