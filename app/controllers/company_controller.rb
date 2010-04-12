@@ -548,7 +548,8 @@ class CompanyController < ApplicationController
     t.column :name, :url=>{:action=>:listing_update}
     t.column :root_model_name
     t.column :comment
-    t.action :listing_extract, :format=>'csv', :image=>:action
+    t.action :listing_extract, :url=>{:format=>:csv}, :image=>:action
+    t.action :listing_extract, :url=>{:format=>:csv, :mode=>:no_mail}, :if=>'RECORD.mail_columns.size > 0', :image=>:nomail
     t.action :listing_mail, :if=>'RECORD.mail_columns.size > 0'
     t.action :listing_duplicate, :method=>:post
     t.action :listing_update
@@ -562,11 +563,12 @@ class CompanyController < ApplicationController
   def listing_extract
     return unless @listing = find_and_check(:listing, params[:id])
     query = @listing.query.to_s
+    query += " AND "+@listing.mail_columns.collect{|c| "#{c.name} NOT LIKE '%@%.%'" }.join(" AND ") if params[:mode] == "no_mail"
     query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
     first_line = []
     @listing.exportable_columns.each {|line| first_line << line.label}
     begin
-      result = ActiveRecord::Base.connection.select_rows(@listing.query)
+      result = ActiveRecord::Base.connection.select_rows(query)
       result.insert(0, first_line)
       csv_string = FasterCSV.generate do |csv|
         for line in result

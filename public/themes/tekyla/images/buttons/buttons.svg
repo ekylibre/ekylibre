@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +13,7 @@
    height="16"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.47pre4 r22446"
+   inkscape:version="0.46"
    version="1.0"
    inkscape:export-filename="/home/brice/pygmalion/projets/images/boutons24.png"
    inkscape:export-xdpi="90"
@@ -5158,6 +5157,28 @@
        fx="40.900215"
        fy="69.910202"
        r="4.90625" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3941"
+       id="radialGradient3365"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1,-4.2861756e-8,5.9604638e-8,-1.3906252,79.999999,55.966152)"
+       cx="40"
+       cy="15.166668"
+       fx="40"
+       fy="15.166668"
+       r="7.9999995" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3941"
+       id="radialGradient4158"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1,-4.2861756e-8,5.9604638e-8,-1.3906252,79.999999,55.966152)"
+       cx="40"
+       cy="15.166668"
+       fx="40"
+       fy="15.166668"
+       r="7.9999995" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -5342,7 +5363,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
       <cc:Work
          rdf:about="">
@@ -7283,6 +7304,46 @@
          id="path4669"
          d="M 41.4375,70.0625 40.25,74.8125 47,67.0625 48,63 41.4375,70.0625 z"
          style="fill:#9e9e9e;fill-opacity:0.34285715;stroke:none" />
+    </g>
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#e92525;stroke-width:1.51938283;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4160"
+       sodipodi:cx="41.375"
+       sodipodi:cy="38.1875"
+       sodipodi:rx="7.375"
+       sodipodi:ry="7.3125"
+       d="M 48.75,38.1875 A 7.375,7.3125 0 1 1 34,38.1875 A 7.375,7.3125 0 1 1 48.75,38.1875 z"
+       transform="matrix(0.9830509,0,0,0.991453,-0.6737306,-1.8611115)"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/nomail.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#e92525;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 43.990237,42.195182 L 36.447263,30.554818"
+       id="path4162" />
+    <g
+       id="g4154"
+       transform="matrix(0.6015625,0,0,0.6015625,16.012695,11.828125)"
+       style="opacity:0.85667752">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/mail.png"
+         y="34.5"
+         x="32.5"
+         height="11.000001"
+         width="14.999999"
+         id="rect3361"
+         style="opacity:1;fill:url(#radialGradient4158);fill-opacity:1;fill-rule:nonzero;stroke:#0e77c2;stroke-width:1.66233765999999994;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/mail.png"
+         id="path3363"
+         d="M 47.5,34.625 L 32.75,34.625 L 39.875,41.5 L 47.5,34.625 z"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#0e77c2;stroke-width:1.66233765999999994px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1" />
     </g>
   </g>
 </svg>

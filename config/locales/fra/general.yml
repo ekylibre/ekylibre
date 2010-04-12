@@ -599,8 +599,8 @@ fra:
         true_value: 'VRAI'
     edit: 'Modifier'
     export: 'Exporter'
-    employee: 'Informations employé'
     example: 'Exemple&nbsp;: {{value}}'
+    extract: 'Extraire'
     filter: Filtrer
     finish: Terminer
     format_date:
@@ -614,7 +614,7 @@ fra:
     letter_function_title: 'Chère Madame, Cher Monsieur'
     letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
     lock: 'Verrouiller'
-    mail: 'Envoyer un e-mail'
+    mail: 'Envoyer un courriel'
     n: non
     next: Suivant
     new: Nouveau...
