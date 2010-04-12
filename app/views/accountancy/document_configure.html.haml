@@ -1,0 +1,10 @@
+-form_tag do
+  =formalize do |f|
+    -f.title :document_nature
+    -f.field tc("document"), select_tag("document", options_for_select(@documents))
+  #document_options=render(:partial=>'document_options')
+  .actions
+    =submit_tag tg(:print)
+=observe_field "document", :update=>:document_options, :url=>{:action=>:document_configure}, :with=>"'document=' + value"
+
+

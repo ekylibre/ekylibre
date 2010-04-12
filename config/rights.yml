@@ -716,6 +716,7 @@ print:
 print_accounting_document:
   controller: accountancy
   actions:
+  - document_configure
   - document_prepare # UNEXISTENT ACTION !!!
   - document_print # UNEXISTENT ACTION !!!
   - synthesis # UNEXISTENT ACTION !!!

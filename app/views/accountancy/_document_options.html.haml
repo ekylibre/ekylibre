@@ -1,0 +1,18 @@
+-document ||= @document
+-if document == :balance_sheet
+  =formalize do |f|
+    -f.title :print_options 
+    -f.field "klms", "123"
+-elsif document == :income_statement
+  =formalize do |f|
+    -f.title :print_options 
+    -f.field "klms", "123"   
+-elsif document == :journal
+  =formalize do |f|
+    -f.title :print_options 
+    -f.field Journal.human_name, select_tag("journal_id", options_for_select(@current_company.journals.collect{|x| [x.name, x.id]}))
+-if [:journal, :journals, :general_ledger].include?(document)
+  =formalize do |f|
+    -f.title :period_options 
+    -f.field tg("from"), calendar_field_tag(:started_on, params[:started_on]||(Date.today-1.month))
+    -f.field tg("to"),   calendar_field_tag(:stopped_on, params[:started_on]||(Date.today-1.month))

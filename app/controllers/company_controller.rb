@@ -191,7 +191,7 @@ class CompanyController < ApplicationController
   end
   
   def establishment_update
-    @establishment = Establishment.find_by_id_and_company_id(params[:id], @current_company.id)
+    return unless @establishment = find_and_check(:establishment)
     if request.post? and @establishment
       if @establishment.update_attributes(params[:establishment])
         redirect_to_back
@@ -202,7 +202,7 @@ class CompanyController < ApplicationController
 
   def establishment_delete
     if request.post? or request.delete?
-      @establishment = Establishment.find_by_id_and_company_id(params[:id], @current_company.id)
+      return unless @establishment = find_and_check(:establishment)
       Establishment.destroy(params[:id]) if @establishment
     end
     redirect_to_back
@@ -221,18 +221,16 @@ class CompanyController < ApplicationController
   end
 
   def department_create
+    @department = Department.new(params[:department])
     if request.post? 
-      @department = Department.new(params[:department])
       @department.company_id = @current_company.id
       redirect_to_back if @department.save
-    else
-      @department = Department.new
     end
     render_form
   end
 
   def department_update
-    @department = Department.find_by_id_and_company_id(params[:id], @current_company.id)
+    return unless @department = find_and_check(:department)
     if request.post? and @department
       if @department.update_attributes(params[:department])
         redirect_to_back
@@ -243,7 +241,7 @@ class CompanyController < ApplicationController
 
   def department_delete
     if request.post? or request.delete?
-      @department= Department.find_by_id_and_company_id(params[:id], @current_company.id)
+      return unless @department = find_and_check(:department)
       Department.destroy(params[:id]) if @department
     end
     redirect_to_back
@@ -276,7 +274,7 @@ class CompanyController < ApplicationController
   end
 
   def role_update
-    return unless @role = find_and_check(:role, params[:id])
+    return unless @role = find_and_check(:role)
     if request.post?
       @role.attributes = params[:role]
       @role.rights_array = (params[:rights]||{}).keys
@@ -291,7 +289,7 @@ class CompanyController < ApplicationController
 
   def role_delete
     if request.post? or request.delete?
-      @role = Role.find_by_id_and_company_id(params[:id], @current_company.id)
+      return unless @role = find_and_check(:role)
       Role.destroy(@role.id) if @role and @role.destroyable?
     end
     redirect_to_current
@@ -376,7 +374,7 @@ class CompanyController < ApplicationController
   end
 
   def user_update
-    @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
+    return unless @user = find_and_check(:user)
     if request.post?
       @user.attributes = params[:user]
       @user.rights_array = (params[:rights]||{}).keys
@@ -390,7 +388,7 @@ class CompanyController < ApplicationController
   
   def user_delete
     if request.post? or request.delete?
-      @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
+      return unless @user = find_and_check(:user)
       if @user
         @user.deleted = true
         @user.save 
@@ -400,7 +398,7 @@ class CompanyController < ApplicationController
   end
   
   def user_lock
-    @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
+    return unless @user = find_and_check(:user)
     if @user
       @user.locked = true
       @user.save
@@ -409,7 +407,7 @@ class CompanyController < ApplicationController
   end
   
   def user_unlock
-    @user = User.find_by_id_and_company_id(params[:id], @current_company.id)
+    return unless @user = find_and_check(:user)
     if @user
       @user.locked = false
       @user.save
@@ -453,13 +451,13 @@ class CompanyController < ApplicationController
   end
 
   def document_template_print
-    return unless @document_template = find_and_check(:document_template, params[:id])
+    return unless @document_template = find_and_check(:document_template)
     send_data @document_template.sample, :filename=>@document_template.name.simpleize, :type=>Mime::PDF, :disposition=>'inline'
   end
 
   def document_template_duplicate
     if request.post?
-      @document_template = DocumentTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
+      return unless @document_template = find_and_check(:document_template)
       if @document_template 
         attrs = @document_template.attributes.dup
         attrs.delete("id")
@@ -475,7 +473,7 @@ class CompanyController < ApplicationController
   end
 
   def document_template_update
-    @document_template = DocumentTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
+    return unless @document_template = find_and_check(:document_template)
     if request.post? and @document_template
       if @document_template.update_attributes(params[:document_template])
         redirect_to_back
@@ -488,7 +486,7 @@ class CompanyController < ApplicationController
 
   def document_template_delete
     if request.post? or request.delete?
-      @document_template = DocumentTemplate.find_by_id_and_company_id(params[:id], @current_company.id)
+      return unless @document_template = find_and_check(:document_template)
       DocumentTemplate.destroy(@document_template.id) if @document_template and @document_template.destroyable?
     end
     redirect_to_current
@@ -526,7 +524,7 @@ class CompanyController < ApplicationController
   end
 
   def sequence_update
-    @sequence = Sequence.find_by_id_and_company_id(params[:id], @current_company.id)
+    return unless @sequence = find_and_check(:sequence)
     if request.post? and @sequence
       if @sequence.update_attributes(params[:sequence])
         redirect_to_back
@@ -538,7 +536,7 @@ class CompanyController < ApplicationController
 
   def sequence_delete
     if request.post? or request.delete?
-      @sequence = Sequence.find_by_id_and_company_id(params[:id], @current_company.id)
+      return unless @sequence = find_and_check(:sequence)
       Sequence.destroy(@sequence.id) if @sequence and @sequence.destroyable?
     end
     redirect_to_current
@@ -561,7 +559,7 @@ class CompanyController < ApplicationController
   end
 
   def listing_extract
-    return unless @listing = find_and_check(:listing, params[:id])
+    return unless @listing = find_and_check(:listing)
     query = @listing.query.to_s
     query += " AND "+@listing.mail_columns.collect{|c| "#{c.name} NOT LIKE '%@%.%'" }.join(" AND ") if params[:mode] == "no_mail"
     query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
@@ -583,7 +581,7 @@ class CompanyController < ApplicationController
   end
   
   def listing_mail
-    @listing = find_and_check(:listing, params[:id])
+    return unless @listing = find_and_check(:listing)
     if @listing.mail_columns.size == 0
       notify(:you_must_have_an_email_column, :warning)
       redirect_to_back
@@ -651,7 +649,7 @@ class CompanyController < ApplicationController
   end
   
   def listing_update
-    return unless @listing = find_and_check(:listing, params[:id])
+    return unless @listing = find_and_check(:listing)
     if request.post? and @listing
       if @listing.update_attributes(params[:listing])
         redirect_to_current
@@ -662,13 +660,13 @@ class CompanyController < ApplicationController
   end
 
   def listing_duplicate
-    return unless @listing = find_and_check(:listing, params[:id])
+    return unless @listing = find_and_check(:listing)
     @listing.duplicate if request.post?
     redirect_to :action=>:listings
   end
 
   def listing_delete
-    return unless @listing = find_and_check(:listing, params[:id])
+    return unless @listing = find_and_check(:listing)
     if request.post? or request.delete?
       Listing.destroy(@listing.id) if @listing
     end
@@ -703,7 +701,7 @@ class CompanyController < ApplicationController
   end
   
   def listing_node_update
-    @listing_node = find_and_check(:listing_node, params[:id])
+    return unless @listing_node = find_and_check(:listing_node)
     puts params.inspect+"!!!!!!!!!!!!!!!!!!!!!"+@listing_node.inspect if request.xhr?
     if request.xhr? and @listing_node
       if params[:type] == "hide" or params[:type] == "show"
@@ -730,7 +728,7 @@ class CompanyController < ApplicationController
 
   def listing_node_delete
     if request.xhr?
-      @listing_node = find_and_check(:listing_node, params[:id])
+      return unless @listing = find_and_check(:listing)
       if @listing_node
         parent = @listing_node.parent
         ListingNode.destroy(@listing_node.id) 

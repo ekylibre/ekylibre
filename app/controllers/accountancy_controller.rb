@@ -262,6 +262,19 @@ class AccountancyController < ApplicationController
     redirect_to_current
   end
   
+
+  def document_configure
+    redirect_to :action=>:index
+    if request.xhr?
+      @document = (params[:document].blank? ? :unknown : params[:document].to_sym)
+      render :partial=>'document_options'
+      return
+    end
+    @documents = [:balance_sheet, :income_statement, :journal, :journals, :general_ledger]
+    @document = @documents[0]
+    
+  end
+
   # PRINTS=[[:balance, {:partial=>"balance"}],
   #         [:general_ledger, {:partial=>"ledger"}],
   #         [:journal, {:partial=>"journal"}],
