@@ -1,10 +1,13 @@
--form_tag do
+=toolbar do |t|
+  -t.link :document_templates_load, :controller=>:company
+
+-form_tag({:controller=>:company, :action=>:print}) do
   =formalize do |f|
-    -f.title :document_nature
-    -f.field tc("document"), select_tag("document", options_for_select(@documents))
+    -f.title DocumentTemplate.human_name
+    -f.field DocumentTemplate.human_name, select_tag("id", options_for_select(@document_templates.collect{|d| [d.name, d.code]}, params[:code]), :id=>"template_code")
   #document_options=render(:partial=>'document_options')
   .actions
-    =submit_tag tg(:print)
-=observe_field "document", :update=>:document_options, :url=>{:action=>:document_configure}, :with=>"'document=' + value"
+    =submit_tag tg(:print), :name=>nil
+=observe_field "template_code", :update=>:document_options, :url=>{:action=>:document_configure}, :with=>"code"
 
 

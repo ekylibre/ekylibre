@@ -174,5 +174,18 @@ class Journal < ActiveRecord::Base
     @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
+  def entries_between(started_on, stopped_on)
+    self.entries.find(:all, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"created_on, journal_records.id, journal_entries.id")
+  end
+
+  def entries_calculate(column, started_on, stopped_on)
+    if column == :balance
+      column = "currency_debit - currency_credit" 
+    else
+      column = "currency_#{column}"
+    end
+    self.entries.sum(column, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+  end
+
 end
 

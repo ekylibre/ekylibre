@@ -72,9 +72,9 @@ eng:
         true_value: 'TRUE'
         xcsv: 'Excel CSV'
     edit: 'Edit'
-    #>employee: 'Informations employé'
     #>example: 'Exemple&nbsp;: {{value}}'
     #>export: 'Exporter'
+    #>extract: 'Extraire'
     #>filter: 'Filtrer'
     #>finish: 'Terminer'
     format_date:
@@ -88,7 +88,7 @@ eng:
     #>letter_function_title: 'Chère Madame, Cher Monsieur'
     #>letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
     #>lock: 'Verrouiller'
-    #>mail: 'Envoyer un e-mail'
+    #>mail: 'Envoyer un courriel'
     #>n: 'non'
     new: 'New...'
     next: 'Next'
@@ -163,6 +163,8 @@ eng:
               #>filename: 'Bilan de l''exercice [code]'
             income_statement:
               #>filename: 'Compte de résultat de l''exercice [code]'
+            journal:
+              #>filename: '[name] (Journal)'
           management:
             embankment:
               #>filename: 'Remise de chèques du [created_on]'

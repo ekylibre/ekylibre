@@ -200,7 +200,7 @@ give_discounts_on_sale:
 import_export_entities:
   controller: relations
   actions: [entities_export, entities_import]
-# Gérer l'envoi et la réception d'e-mails
+# Gérer l'envoi de courriels
 mail_listings:
   controller: company
   actions: [listing_mail, listings]

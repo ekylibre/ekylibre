@@ -176,6 +176,8 @@ fra:
               filename: 'Bilan de l''exercice [code]'
             income_statement:
               filename: 'Compte de résultat de l''exercice [code]'
+            journal:
+              filename: '[name] (Journal)'
           management:
             sale_order:
               filename: 'Vente [number]'

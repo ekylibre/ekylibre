@@ -72,9 +72,9 @@ jpn:
         true_value: 'true'
         xcsv: 'Excel CSV'
     #>edit: 'Modifier'
-    #>employee: 'Informations employé'
     #>example: 'Exemple&nbsp;: {{value}}'
     #>export: 'Exporter'
+    #>extract: 'Extraire'
     #>filter: 'Filtrer'
     #>finish: 'Terminer'
     format_date:
@@ -88,7 +88,7 @@ jpn:
     #>letter_function_title: 'Chère Madame, Cher Monsieur'
     #>letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
     #>lock: 'Verrouiller'
-    #>mail: 'Envoyer un e-mail'
+    #>mail: 'Envoyer un courriel'
     #>n: 'non'
     #>new: 'Nouveau...'
     #>next: 'Suivant'
@@ -163,6 +163,8 @@ jpn:
               #>filename: 'Bilan de l''exercice [code]'
             income_statement:
               #>filename: 'Compte de résultat de l''exercice [code]'
+            journal:
+              #>filename: '[name] (Journal)'
           management:
             embankment:
               #>filename: 'Remise de chèques du [created_on]'

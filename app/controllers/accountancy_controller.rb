@@ -264,15 +264,18 @@ class AccountancyController < ApplicationController
   
 
   def document_configure
-    redirect_to :action=>:index
+    # redirect_to :action=>:index
+    @document_templates = @current_company.document_templates.find(:all, :conditions=>{:family=>"accountancy"}, :order=>:name)
+    @document_template = @current_company.document_templates.find_by_family_and_code("accountancy", params[:code])
     if request.xhr?
-      @document = (params[:document].blank? ? :unknown : params[:document].to_sym)
       render :partial=>'document_options'
       return
     end
-    @documents = [:balance_sheet, :income_statement, :journal, :journals, :general_ledger]
-    @document = @documents[0]
-    
+    if request.post?
+      raise Exception.new(params.inspect)
+      @current_company.print(params[:document])
+    end
+    @document_template ||= @document_templates[0]
   end
 
   # PRINTS=[[:balance, {:partial=>"balance"}],

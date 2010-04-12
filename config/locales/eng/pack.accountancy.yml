@@ -91,6 +91,10 @@ eng:
         #>currency_id: 'Numéro de devise'
         #>currency_name: 'Nom de devise'
         #>currency_rate: 'Taux de devise'
+      document_configure:
+        #>title: 'Impression de documents comptables'
+      _document_options:
+        #>period: 'Période'
       document_prepare:
         #>balance: 'Balance'
         #>general_ledger: 'Grand livre'
@@ -174,11 +178,11 @@ eng:
         #>title: 'Déclôture du {{name}}'
       journal_update:
         #>title: 'Modifier le journal : {{name}}'
+      journals:
+        #>title: 'Journaux'
       _journals:
         #>journal_detail: 'Cloturé au {{closed_on}}'
         #>journal_name: '{{name}}'
-      journals:
-        #>title: 'Journaux'
       _journals_find:
         #>journal_id: 'Numéro de journal'
         #>journal_name: 'Nom du journal'
@@ -193,12 +197,12 @@ eng:
         #>dates: 'Saisissez les dates de début et de fin de la période'
         #>from: 'Période du'
         #>to: 'Au'
-      _print_balance_sheet:
-        #>balance_sheet: 'Sélectionnez l''exercice'
-        #>select_financialyear: 'Exercice'
       print_balance_sheet:
         #>period: 'Période'
         #>title: 'Impression du bilan'
+      _print_balance_sheet:
+        #>balance_sheet: 'Sélectionnez l''exercice'
+        #>select_financialyear: 'Exercice'
       print_by_financial_year:
         #>financial_id: 'Exercice comptable'
         #>financial_year_select: 'Sélectionnez l'' exercice comptable'

@@ -63,7 +63,7 @@ class Company < ActiveRecord::Base
   has_many :establishments
   has_many :event_natures
   has_many :events
-  has_many :financialyears
+  has_many :financialyears, :order=>"started_on DESC"
   has_many :inventories
   has_many :inventory_lines
   has_many :invoices

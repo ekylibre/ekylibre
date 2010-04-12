@@ -22,7 +22,7 @@ jpn:
     #>extract_listings: 'Effectuer des extractions (sans pouvoir les concevoir)'
     #>give_discounts_on_sale: 'Octroyer des réductions commerciales lors des ventes'
     #>import_export_entities: 'Importer, exporter des fiches clients/fournisseurs'
-    #>mail_listings: 'Gérer l''envoi et la réception d''e-mails'
+    #>mail_listings: 'Gérer l''envoi de courriels'
     #>manage_accounts: 'Gérer les comptes comptables'
     #>manage_areas: 'Gérer les zones'
     #>manage_bank_accounts: 'Gérer les comptes bancaires'

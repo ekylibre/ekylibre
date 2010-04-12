@@ -44,8 +44,11 @@ fra:
         title: 'Modification du modèle de document "{{value}}"'
       document_templates:
         document_template_create: 'Créer un modèle de document'
-        document_templates_load: 'Charger les modèles par défaut'
         title: 'Modèles de document'
+        #>document_templates_load: # Potentially missing translation
+      # Unfound view ./app/views/company/document_templates_load
+      document_templates_load:
+        title: 'Charger les modèles de document par défaut'
       establishment_create:
         title: 'Ajout d''un nouvel etablissement'
       _establishment_form:
