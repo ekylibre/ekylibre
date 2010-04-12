@@ -61,14 +61,12 @@ class Listing < ActiveRecord::Base
   end
 
   def generate
-    if self.created_at.to_date >= Date.civil(2009,12,01)
-      root = self.root
-      self.query = "SELECT #{self.selected_attr} FROM #{root.model.table_name} AS #{root.name}"
-      self.query += root.complete_query(root.name)
-      self.query += self.query_conditions
-      #raise Exception.new "okkjj"+self.query.inspect
-      #self.save unless not_to_save
-    end
+    root = self.root
+    self.query = "SELECT #{self.selected_attr} FROM #{root.model.table_name} AS #{root.name}"
+    self.query += root.complete_query(root.name)
+    self.query += self.query_conditions
+    # raise Exception.new "okkjj"+self.query.inspect
+    # self.save unless not_to_save
   end
 
   def selected_attr
@@ -89,31 +87,20 @@ class Listing < ActiveRecord::Base
     if self.reflections.size > 0
       cs = []
       for node in self.reflections
-        if node.name.match("company")
-          cs << "COALESCE(#{node.name}.id, CURRENT_COMPANY) = CURRENT_COMPANY" 
-        else
-          cs << "COALESCE(#{node.name}.company_id, CURRENT_COMPANY) = CURRENT_COMPANY"
-        end
+        cs << "COALESCE(#{node.name}.#{node.name.match("company") ? '' : 'company_'}id, CURRENT_COMPANY) = CURRENT_COMPANY"
       end
       c += cs.join(" AND ")
       #return c
     end
 
     cs = []
-    has_conditions = false
     for node in self.columns
       if node.condition_operator and node.condition_value and node.condition_operator != "any"
-        has_conditions = true
-        if node.sql_type == "boolean" 
-          cs << "#{node.condition}"
-        else
-          cs << "#{node.name} #{node.condition}"
-        end
+        cs << node.condition
       end
     end
-    c += " AND " if self.reflections.size > 0 and has_conditions
-    c += cs.join(" AND ")
-    c += " AND ("+self.conditions+")" unless self.conditions.blank?
+    c += " AND "+cs.join(" AND ") if self.reflections.size > 0 and cs.size > 0
+    c += " AND ("+self.conditions.gsub(/\r\n/, '')+")" unless self.conditions.blank?
     #raise Exception.new self.conditions.blank?
     return c
   end

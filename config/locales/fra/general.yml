@@ -390,12 +390,14 @@ fra:
         various: Opérations diverses
     listing_node: 
       add_filter: ' Ajouter un filtre '
-      all_columns: '--- Toutes les colonnes ---'
+      all_columns: '-- Toutes les colonnes --'
       columns: Colonnes
       reflections: Tables liées
-    listing_nodes: 
+      comparison:
+        with_value: '{{comparator}} {{value}}'
+        without_value: '{{comparator}}'
       comparators:
-        any: 'Aucune condition'
+        any: '-- Aucune condition --'
         begins: 'Commence par'
         begins_cs: 'Commence par (sensible à la casse)'
         contains: 'Contient'

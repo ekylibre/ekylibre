@@ -56,10 +56,43 @@ class ListingNode < ActiveRecord::Base
   attr_readonly :company_id, :listing_id, :nature
   validates_uniqueness_of :key
 
+
   @@natures = [:datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
 
-  @@comparators = {:numeric=>["any", "gt", "lt", "ge", "le", "eq", "neq"], :string=>["any", "begins", "finishes", "contains", "equal", "in","not_begins", "not_finishes", "not_contains", "not_equal", "begins_cs", "finishes_cs", "contains_cs", "equal_cs", "not_begins_cs", "not_finishes_cs", "not_contains_cs", "not_equal_cs"], :date=>["any","gt", "lt", "ge", "le", "eq", "neq"], :boolean=>["is_true", "is_false"], :unknown=>["--"]}
-  @@corresponding_comparators = {:gt=>">", :lt=>"<", :ge=>">=", :le=>"<=", :eq=>"=", :neq=>"!=", :begins=>"ILIKE '{{value}}%'", :finishes=>"ILIKE '%{{value}}'", :contains=>"ILIKE '%{{value}}%'", :equal=>"=", :begins_cs=>"LIKE '{{value}}%'", :finishes_cs=>"LIKE '%{{value}}'", :contains_cs=>"LIKE '%{{value}}%'", :equal_cs=>"LIKE '{{value}}'", :not_begins=>"NOT ILIKE '{{value}}%'", :not_finishes=>"NOT ILIKE '%{{value}}'", :not_contains=>"NOT ILIKE '%{{value}}%'", :not_equal=>"!=", :not_begins_cs=>"NOT LIKE '{{value}}%'", :not_finishes_cs=>"NOT LIKE '%{{value}}'", :not_contains_cs=>"NOT LIKE '%{{value}}%'", :not_equal_cs=>"NOT LIKE '{{value}}'", :is_true=>"true", :is_false=>"false", :in=>""  }
+  @@comparators = {
+    :numeric=>["any", "gt", "lt", "ge", "le", "eq", "neq"], 
+    :string=>["any", "begins", "finishes", "contains", "equal", "in", "not_begins", "not_finishes", "not_contains", "not_equal", "begins_cs", "finishes_cs", "contains_cs", "equal_cs", "not_begins_cs", "not_finishes_cs", "not_contains_cs", "not_equal_cs"], 
+    :date=>["any", "gt", "lt", "ge", "le", "eq", "neq"], 
+    :boolean=>["any", "is_true", "is_false"], 
+    :unknown=>["--"]
+  }
+  @@corresponding_comparators = {
+    :eq=> "{{COLUMN}} = {{VALUE}}", 
+    :neq=>"{{COLUMN}} != {{VALUE}}", 
+    :gt=> "{{COLUMN}} > {{VALUE}}", 
+    :lt=> "{{COLUMN}} < {{VALUE}}", 
+    :ge=> "{{COLUMN}} >= {{VALUE}}", 
+    :le=> "{{COLUMN}} <= {{VALUE}}", 
+    :begins=>  "LOWER({{COLUMN}}) LIKE {{VALUE%}}", 
+    :finishes=>"LOWER({{COLUMN}}) LIKE {{%VALUE}}", 
+    :contains=>"LOWER({{COLUMN}}) LIKE {{%VALUE%}}'", 
+    :equal=>   "LOWER({{COLUMN}}) = {{VALUE}}",
+    :begins_cs=>  "{{COLUMN}} LIKE {{VALUE%}}", 
+    :finishes_cs=>"{{COLUMN}} LIKE {{%VALUE}}", 
+    :contains_cs=>"{{COLUMN}} LIKE {{%VALUE%}}", 
+    :equal_cs=>   "{{COLUMN}} = {{VALUE}}", 
+    :not_begins=>  "LOWER({{COLUMN}}) NOT LIKE {{VALUE%}}", 
+    :not_finishes=>"LOWER({{COLUMN}}) NOT LIKE {{%VALUE}}", 
+    :not_contains=>"LOWER({{COLUMN}}) NOT LIKE {{%VALUE%}}", 
+    :not_equal=>   "LOWER({{COLUMN}}) != {{VALUE}}", 
+    :not_begins_cs=>  "{{COLUMN}} NOT LIKE {{VALUE%}}", 
+    :not_finishes_cs=>"{{COLUMN}} NOT LIKE {{%VALUE}}", 
+    :not_contains_cs=>"{{COLUMN}} NOT LIKE {{%VALUE%}}", 
+    :not_equal_cs=>   "{{COLUMN}} != {{VALUE}}", 
+    :is_true=> "{{COLUMN}} IS TRUE", 
+    :is_false=>"{{COLUMN}} IS FALSE", 
+    :in=>"{{COLUMN}} IN {{LIST}}" 
+  }
   
   def before_validation
     self.listing_id = self.parent.listing_id if self.parent
@@ -94,6 +127,10 @@ class ListingNode < ActiveRecord::Base
     #end
   end
 
+  def after_destroy
+    self.listing.reload.save
+  end
+
   def self.natures
     hash = {}
     @@natures.each{|n| hash[n] = tc('natures.'+n.to_s) }
@@ -121,7 +158,7 @@ class ListingNode < ActiveRecord::Base
   def comparators
     #raise Exception.new self.sql_type.inspect 
     #return @@comparators[self.sql_type.to_sym] if self.sql_type
-    @@comparators[self.sql_type.to_sym].collect{|x| [I18n::t('models.listing_nodes.comparators.'+x),x]} if self.sql_type
+    @@comparators[self.sql_type.to_sym].collect{|x| [I18n::t('models.listing_node.comparators.'+x),x]} if self.sql_type
   end
 
   def sql_format_comparator
@@ -129,26 +166,27 @@ class ListingNode < ActiveRecord::Base
   end
 
   def condition
-    operator =  @@corresponding_comparators[self.condition_operator.to_sym]||"="
-    if self.condition_operator == "in"
-      c = " IN (#{self.compute_condition}) "
-    elsif operator.include? "{{value}}"
-      #c = operator.gsub(/\{\{value\}\}/i, self.condition_value)+"'"
-      c = operator.gsub(/\{\{value\}\}/i, self.condition_value.lower)
-    else
+    operator =  @@corresponding_comparators[self.condition_operator.to_sym]||@@corresponding_comparators[:equal]
+    case_sensitive = self.condition_operator.to_s.match(/_cs$/)
+    c = operator.gsub("{{COLUMN}}", self.name)
+    c.gsub!("{{LIST}}", "("+self.condition_value.to_s.split("||").collect{|x| connection.quote_string(x)}.join(", ")+")")
+    c.gsub!(/\{\{[^\}]*VALUE[^\}]*\}\}/) do |m|
+      n = m[2..-3].gsub("VALUE", self.condition_value.send(case_sensitive ? "lower" : "to_s"))
       if self.sql_type == "date"
-        c = " #{self.sql_format_comparator} CAST('#{self.condition_value.to_date}' AS date) "
+        "'"+connection.quoted_date(self.condition_value.to_date)+"'"
       elsif self.sql_type == "boolean"
-        c = " CAST(#{self.name} AS boolean) IS #{self.sql_format_comparator} "
+        self.condition_value == "true" ? connection.quoted_true : connection.quoted_false
+      elsif self.sql_type == "numeric"
+        n
       else
-        c = " #{self.sql_format_comparator} #{self.condition_value} "
+        "'"+connection.quote_string(n)+"'"
       end
     end
-    c
+    return c
   end
 
   def compute_condition
-    self.condition_value.to_s.split("||").collect{|x| "'"+x.gsub(/\'/,"''")+"'"}.join(", ")
+    
   end
 
   def reflection?
@@ -177,19 +215,6 @@ class ListingNode < ActiveRecord::Base
       #return self.parent.model.reflections[self.reflection_name.to_sym]
       return self.parent.model.reflections[self.attribute_name.to_sym]
     end
-  end
-
-  def available_nodes2
-    nodes = []
-    return nodes unless self.reflection?
-    model = self.model
-    # Columns
-    #nodes += model.content_columns.collect{|x| "column-"+x.name}.sort
-    nodes += model.content_columns.collect{|x| [I18n::t('activerecord.attributes.'+model.name.underscore+'.'+x.name.to_s).to_s, "column-"+x.name]}.sort
-    # Reflections
-    #nodes += model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| b.macro.to_s+"-"+a.to_s}
-    nodes += model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [I18n::t('activerecord.attributes.'+model.name.underscore+'.'+a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}
-    return nodes.sort
   end
   
   def available_nodes
@@ -231,8 +256,12 @@ class ListingNode < ActiveRecord::Base
   end
 
   def comparison
-    if self.condition_operator and self.condition_value and self.condition_operator != "any"
-      return I18n::t('models.listing_nodes.comparators.'+self.condition_operator)+" "+self.condition_value
+    if self.condition_operator and self.condition_operator != "any"
+      if self.condition_value
+        return tc('comparison.with_value', :comparator=>tc('comparators.'+self.condition_operator), :value=>(self.sql_type=="date" ? I18n.localize(self.condition_value.to_date) : self.condition_value.to_s))
+      else
+        return tc('comparison.without_value', :comparator=>tc('comparators.'+self.condition_operator))
+      end
     else 
       return tc(:add_filter)
     end

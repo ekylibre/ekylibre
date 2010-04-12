@@ -12,6 +12,7 @@ fra:
     changes_have_not_been_reflected: 'Les changements n''ont pas pu être correctement répercutés sur l''état des stocks actuel'
     closed_financialyears: 'L''exercice a été correctement clôturé'
     expired_session: 'Session expirée. Veuillez vous reconnecter.'
+    fails_to_extract_listing: 'L''extraction n''a pas pu s''effectuer : {{message}}'
     import_succeeded: 'Vos données ont été correctement importées '
     impossible_to_add_lines: 'Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande'
     impossible_to_add_lines_to_purchase: 'Vous ne pouvez plus ajouter de produits à votre achat'

@@ -550,7 +550,7 @@ class CompanyController < ApplicationController
     t.column :comment
     t.action :listing_extract, :format=>'csv', :image=>:action
     t.action :listing_mail, :if=>'RECORD.mail_columns.size > 0'
-    t.action :listing_update#, :url=>{:action=>:listing_nodes}
+    t.action :listing_update
     t.action :listing_delete, :method=>:post, :confirm=>:are_you_sure
   end
 
@@ -559,20 +559,24 @@ class CompanyController < ApplicationController
   end
 
   def listing_extract
-    @listing = find_and_check(:listing, params[:id])
-    query = @listing.query
+    return unless @listing = find_and_check(:listing, params[:id])
+    query = @listing.query.to_s
     query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
     first_line = []
     @listing.exportable_columns.each {|line| first_line << line.label}
-    result = ActiveRecord::Base.connection.select_rows(@listing.query)
-    result.insert(0,first_line)
-    csv_string = FasterCSV.generate do |csv|
-      for line in result
-        csv << line
+    begin
+      result = ActiveRecord::Base.connection.select_rows(@listing.query)
+      result.insert(0, first_line)
+      csv_string = FasterCSV.generate do |csv|
+        for line in result
+          csv << line
+        end
       end
+      send_data(csv_string, :filename=>@listing.name.simpleize+'.csv', :type=>Mime::CSV)
+    rescue Exception=>e
+      notify(:fails_to_extract_listing, :error, :message=>e.message)
+      redirect_to_back
     end
-
-    send_data csv_string, :filename=>@listing.name.simpleize+'.csv', :type=>Mime::CSV
   end
   
   def listing_mail
@@ -635,8 +639,6 @@ class CompanyController < ApplicationController
     if request.post?
       @listing = Listing.new(params[:listing])
       @listing.company_id = @current_company.id
-      #redirect_to_back if @listing.save
-      #redirect_to :action=>:listing_nodes, :id=>@listing.id if @listing.save
       redirect_to :action=>:listing_update, :id=>@listing.id if @listing.save
     else
       @listing = Listing.new
@@ -645,7 +647,18 @@ class CompanyController < ApplicationController
   end
   
   def listing_update
-    @listing = find_and_check(:listing, params[:id])
+    return unless @listing = find_and_check(:listing, params[:id])
+    if request.post? and @listing
+      if @listing.update_attributes(params[:listing])
+        redirect_to_current
+      end
+    end
+    @title ={:value=>@listing.name}
+    #render_form
+  end
+
+  def listing_duplicate
+    return unless @listing = find_and_check(:listing, params[:id])
     if request.post? and @listing
       if @listing.update_attributes(params[:listing])
         redirect_to_current
@@ -656,34 +669,15 @@ class CompanyController < ApplicationController
   end
 
   def listing_delete
+    return unless @listing = find_and_check(:listing, params[:id])
     if request.post? or request.delete?
-      @listing = find_and_check(:listing, params[:id])
       Listing.destroy(@listing.id) if @listing
     end
     redirect_to_back
   end
 
 
-  dyta(:listing_nodes, :conditions=>{:company_id=>['@current_company.id'], :listing_id=>['session[:current_listing_id]']}, :order => :name) do |t|
-    t.column :name
-    t.column :label
-    t.action :listing_update
-    t.action :listing_delete, :method=>:post, :confirm=>:are_you_sure
-  end
-  
-  def listing_nodes
-    @listing = find_and_check(:listing, params[:id])
-    session[:current_listing_id] = @listing.id
-    #raise Exception.new @listing.root_model.classify.constantize.content_columns.collect{|x| [x.name, x.id]}.inspect
-    if @listing
-      session[:current_listing_id] = @listing.id
-    end
-    #render :partial=>"listing_nodes"
-  end
-
-
   def listing_node
-    #raise Exception.new params.inspect
     render :partial=>"listing_node"
   end
 
