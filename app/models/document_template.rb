@@ -68,6 +68,8 @@ class DocumentTemplate < ActiveRecord::Base
     :inventory =>        [ [:inventory, Inventory] ], 
     :invoice =>          [ [:invoice, Invoice] ],
     :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ],
+    :general_journal =>  [ [:started_on, Date], [:stopped_on, Date] ],
+    :general_ledger =>   [ [:started_on, Date], [:stopped_on, Date] ],
     :purchase_order =>   [ [:purchase_order, PurchaseOrder] ], 
     :sale_order =>       [ [:sale_order, SaleOrder] ],
     :stocks =>           [ [:established_on, Date] ],
@@ -148,6 +150,7 @@ class DocumentTemplate < ActiveRecord::Base
       return document.data, document.original_name if document
     end
     
+    company = self.company
     # Build the PDF data
     pdf = eval(self.cache)
 

@@ -175,16 +175,12 @@ class Journal < ActiveRecord::Base
   end
 
   def entries_between(started_on, stopped_on)
-    self.entries.find(:all, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"created_on, journal_records.id, journal_entries.id")
+    self.entries.find(:all, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_records.id, journal_entries.id")
   end
 
-  def entries_calculate(column, started_on, stopped_on)
-    if column == :balance
-      column = "currency_debit - currency_credit" 
-    else
-      column = "currency_#{column}"
-    end
-    self.entries.sum(column, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+  def entries_calculate(column, started_on, stopped_on, operation=:sum)
+    column = (column == :balance ? "currency_debit - currency_credit" : "currency_#{column}")
+    self.entries.calculate(operation, column, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 
 end

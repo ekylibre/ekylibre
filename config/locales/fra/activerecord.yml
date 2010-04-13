@@ -36,7 +36,7 @@ fra:
         delivery_line:
           greater_than_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité non livrée ({{maximum}}{{unit}})'
         entity:
-          missing_title: 'doit contenir la dénomination sociale "{{title}}"'
+          missing_title: '{{attribute}} doit contenir la dénomination sociale "{{title}}"'
           nature_do_not_allow_a_first_name: 'Le type "{{nature}}" sélectionné ne permet de renseigner un prénom'
         financialyear:
           attributes:

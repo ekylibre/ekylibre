@@ -436,6 +436,7 @@ class CompanyController < ApplicationController
 
   def document_templates_load
     @current_company.load_prints
+    notify(:update_is_done, :success, :now)
     redirect_to :action=>:document_templates
   end
  

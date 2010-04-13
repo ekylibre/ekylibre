@@ -129,7 +129,7 @@ class Entity < ActiveRecord::Base
   def validate
     if self.nature 
       if self.nature.in_name and not self.name.match(/( |^)#{self.nature.abbreviation}( |$)/i)
-        errors.add(:name, :error_missing_title, :title=>self.nature.abbreviation) 
+        errors.add(:name, :missing_title, :title=>self.nature.abbreviation) 
       end
       if not self.nature.physical and not self.first_name.blank?
         errors.add(:first_name, :nature_do_not_allow_a_first_name, :nature=>self.nature.name) 

@@ -123,6 +123,17 @@ class Account < ActiveRecord::Base
 
 
 
+  def journal_entries_between(started_on, stopped_on)
+    self.journal_entries.find(:all, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_records.id, journal_entries.id")
+  end
+
+  def journal_entries_calculate(column, started_on, stopped_on, operation=:sum)
+    column = (column == :balance ? "currency_debit - currency_credit" : "currency_#{column}")
+    self.journal_entries.calculate(operation, column, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+  end
+
+
+
 
   # computes the balance for a given financialyear.
   #  def compute(company, financialyear)

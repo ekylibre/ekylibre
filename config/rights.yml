@@ -716,9 +716,8 @@ print:
 print_accounting_document:
   controller: accountancy
   actions:
-  - document_configure
   - document_prepare # UNEXISTENT ACTION !!!
-  - document_print # UNEXISTENT ACTION !!!
+  - document_print
   - synthesis # UNEXISTENT ACTION !!!
 # Rechercher et consulter des factures
 search_and_consult_invoices:

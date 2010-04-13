@@ -4,7 +4,6 @@
     <info name="authors">Brice Texier</info>
   </infos>
   <parameters>
-    <parameter name="journal" nature="journal"/>
     <parameter name="started_on" nature="date"/>
     <parameter name="stopped_on" nature="date"/>
   </parameters>
@@ -12,37 +11,38 @@
     <page orientation="portrait" format="A4" margin="10mm">
       <part height="30mm">
 	<set>
-          <image value="{{journal.company.entity/photo}}" height="30mm">
-            <text value="{{journal.company.entity/full_name}}" size="16"/>
+          <image value="{{company.entity/photo}}" height="30mm">
+            <text value="{{company.entity/full_name}}" size="16"/>
           </image>
 	</set>
       </part>
       <part height="14mm">
 	<set>
-	  <text value="{{journal.name}}" left="50%" align="center" width="150mm" bold="true" size="12"/>
-	  <text value="Du {{started_on?format=month_letter}} au {{stopped_on?format=month_letter}} (en {{journal/currency/name}})" left="50%" align="center" width="150mm" top="7mm" size="12"/>
+	  <text value="Journal général" left="50%" align="center" width="150mm" bold="true" size="12"/>
+	  <text value="Du {{started_on?format=month_letter}} au {{stopped_on?format=month_letter}}" left="50%" align="center" width="150mm" top="7mm" size="12"/>
 	</set>
       </part>
       
       <!-- Array of entries of the journal for the matching period -->
-      <table collection="journal.entries_between(started_on, stopped_on)" fixed="true">
+      <table collection="company.journal_entries_between(started_on, stopped_on)" fixed="true">
 	<column label="Date" property="record/printed_on" width="20mm"/>
 	<column label="Créée le" property="record/created_on" width="20mm"/>
 	<column label="Numéro" property="record/number" width="15mm" align="left"/>
-	<column label="Libellé de l'écriture" property="name" width="75mm"/>
+	<column label="Journal" property="record/journal/code" width="15mm" align="center" font="courrier"/>
+	<column label="Libellé de l'écriture" property="name" width="60mm"/>
 	<column label="N°Compte" property="account/number" width="20mm"/>
-	<column label="Débit" property="currency_debit" width="20mm" numeric="money"/>
-	<column label="Crédit" property="currency_credit" width="20mm" numeric="money"/>
+	<column label="Débit" property="debit" width="20mm" numeric="money"/>
+	<column label="Crédit" property="credit" width="20mm" numeric="money"/>
       </table>
       
       <!-- Sum -->
       <part height="14mm">
         <set left="130mm">
           <text value="Totaux" top="0.5mm" left="19mm" align="right" bold="true"/>
-          <text value="{{journal.entries_calculate(:debit, started_on, stopped_on)?numeric}}" top="0.5mm" left="39.5mm" align="right" bold="true"/>
-          <text value="{{journal.entries_calculate(:credit, started_on, stopped_on)?numeric}}" top="0.5mm" left="59.5mm" align="right" bold="true"/>
+          <text value="{{company.journal_entries_calculate(:debit, started_on, stopped_on)?numeric}}" top="0.5mm" left="39.5mm" align="right" bold="true"/>
+          <text value="{{company.journal_entries_calculate(:credit, started_on, stopped_on)?numeric}}" top="0.5mm" left="59.5mm" align="right" bold="true"/>
           <text value="Solde" top="4.5mm" left="19mm" align="right" bold="true"/>
-          <text value="{{journal.entries_calculate(:balance, started_on, stopped_on)?numeric}}" top="4.5mm" left="40mm" align="center" bold="true"/>
+          <text value="{{company.journal_entries_calculate(:balance, started_on, stopped_on)?numeric}}" top="4.5mm" left="40mm" align="center" bold="true"/>
           <rectangle width="60mm" height="4mm" border="0.5 solid #000"/>
           <rectangle width="60mm" height="4mm" border="0.5 solid #000" top="4mm"/>
           <line path="20mm,0 ; 20mm,8mm" border="0.5 solid #000"/>

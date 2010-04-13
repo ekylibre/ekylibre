@@ -7,7 +7,7 @@
   =formalize do |f|
     -f.title Journal.human_name
     -f.field Journal.human_name, select_tag("journal", options_for_select(@current_company.journals.collect{|x| [x.name, x.id.to_s]}, params[:journal]))
--if [:journal, :journals, :general_ledger].include?(nature)
+-if [:journal, :general_journal, :general_ledger].include?(nature)
   =formalize do |f|
     -f.title :period
     -f.field tg("from"), calendar_field_tag(:started_on, params[:started_on]||(Date.today-1.month))

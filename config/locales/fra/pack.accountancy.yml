@@ -88,9 +88,6 @@ fra:
         currency_id: 'Numéro de devise'
         currency_name: 'Nom de devise'
         currency_rate: 'Taux de devise'
-      document_configure:
-        title: 'Impression de documents comptables'
-        #>document_templates_load: # Potentially missing translation
       _document_options:
         period: 'Période'
       document_prepare:
@@ -101,8 +98,7 @@ fra:
         synthesis: 'Documents de synthèse' #!
         title: 'Choisissez le type de document à imprimer'
       document_print:
-        print: 'Impression' #!
-        title: 'Impression : {{value}}'
+        title: 'Impression de documents'
       draft_entries:
         accountize: 'Comptabiliser les écritures' #!
         title: 'Listing des écritures du brouillard'
@@ -180,12 +176,12 @@ fra:
         title: 'Déclôture du {{name}}'
       journal_update:
         title: 'Modifier le journal : {{name}}'
-      journals:
-        title: 'Journaux'
-        #>journal_create: # Potentially missing translation
       _journals:
         journal_detail: 'Cloturé au {{closed_on}}'
         journal_name: '{{name}}'
+      journals:
+        title: 'Journaux'
+        #>journal_create: # Potentially missing translation
       # Unfound view ./app/views/accountancy/_journals_find
       _journals_find:
         journal_id: 'Numéro de journal'
@@ -201,14 +197,14 @@ fra:
         dates: 'Saisissez les dates de début et de fin de la période'
         from: 'Période du'
         to: 'Au'
-      # No defined action for this view !!!
-      print_balance_sheet:
-        period: 'Période' #!
-        title: 'Impression du bilan'
       # Unfound view ./app/views/accountancy/_print_balance_sheet
       _print_balance_sheet:
         balance_sheet: 'Sélectionnez l''exercice'
         select_financialyear: 'Exercice'
+      # No defined action for this view !!!
+      print_balance_sheet:
+        period: 'Période' #!
+        title: 'Impression du bilan'
       # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/print_by_financial_year
       print_by_financial_year:

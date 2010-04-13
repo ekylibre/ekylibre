@@ -263,7 +263,7 @@ class AccountancyController < ApplicationController
   end
   
 
-  def document_configure
+  def document_print
     # redirect_to :action=>:index
     @document_templates = @current_company.document_templates.find(:all, :conditions=>{:family=>"accountancy"}, :order=>:name)
     @document_template = @current_company.document_templates.find_by_family_and_code("accountancy", params[:code])
@@ -272,8 +272,7 @@ class AccountancyController < ApplicationController
       return
     end
     if request.post?
-      raise Exception.new(params.inspect)
-      @current_company.print(params[:document])
+      redirect_to params.merge(:action=>:print, :controller=>:company)
     end
     @document_template ||= @document_templates[0]
   end
@@ -845,7 +844,7 @@ class AccountancyController < ApplicationController
     t.column :nature_label
     t.column :name, :through=>:currency
     t.column :closed_on
-    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:journal}
+    t.action :document_print, :url=>{:code=>:JOURNAL, :journal=>"RECORD.id"}
     t.action :journal_close, :if=>'RECORD.closable?(Date.today)', :image=>:unlock
     t.action :journal_reopen, :if=>"RECORD.reopenable\?", :image=>:lock
     t.action :journal_update

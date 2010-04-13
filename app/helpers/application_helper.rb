@@ -72,6 +72,7 @@ module ApplicationHelper
            [ {:name=>:journals},
              {:name=>:bank_account_statements},
              {:name=>:lettering},
+             {:name=>:document_print},
              # {:name=>:tax_declarations},
              {:name=>:accountize},
              {:name=>:financialyear_close}
