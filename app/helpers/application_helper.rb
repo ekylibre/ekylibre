@@ -406,6 +406,10 @@ module ApplicationHelper
     content.gsub!(/<\/ul>\n<ul>/ , '')
     content.gsub!(/^  \- (.*)$/ , '<ol><li>\1</li></ol>')
     content.gsub!(/<\/ol>\n<ol>/ , '')
+    content.gsub!(/^>>> (.*)$/ , '<p class="notice">\1</p>')
+    content.gsub!(/<\/p>\n<p class="notice">/ , '<br/>')
+    content.gsub!(/^!!! (.*)$/ , '<p class="warning">\1</p>')
+    content.gsub!(/<\/p>\n<p class="warning">/ , '<br/>')
 
     content.gsub!(/\{\{\ *[^\}\|]+\ *(\|[^\}]+)?\}\}/) do |data|
       data = data.squeeze(' ')[2..-3].split('|')
@@ -418,6 +422,14 @@ module ApplicationHelper
         src = compute_public_path(src, "images") 
       end
       '<img class="md md-'+align+'" alt="'+title+'" title="'+title+'" src="'+src+'"/>'
+    end
+
+
+    content = content.gsub(/\[\[>[^\|]+\|[^\]]*\]\]/) do |link|
+      link = link[3..-3].split('|')
+      url = link[0].split(/[\/\?\&]+/)
+      url = {:controller=>url[0], :action=>url[1]}
+      (controller.accessible?(url) ? link_to(link[1], url) : link[1])
     end
 
 

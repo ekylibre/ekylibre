@@ -1,3 +1,5 @@
 ====== Comment créer un compte comptable ======
-Remplisser le formulaire de création de compte en renseignant bien tous les champs. Faites attention à ce que le **Numéro du compte soit unique** sinon une erreur sera levée après validation du formulaire. 
 
+Remplissez le formulaire de création de compte en renseignant tous les champs. 
+
+!!! Après enregistrement, le **numéro du compte ne pourra plus être modifié**. Si vous faites une erreur, vous pourrez toujours supprimer le compte aussitôt et le recréer à nouveau.

@@ -1,4 +1,0 @@
-====== Comment ajouter un type de fiche ? ======
-
-
-[[relations-index|Revenir à l'aide de gestion des relations ]]

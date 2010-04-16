@@ -49,12 +49,14 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 .content ol li { list-style-type: decimal; }
 .content a img { border: 1px solid #00C; padding: 1px;}
 .content p { margin: 8px 0px;}
+.content p.notice { border-left: 10px solid #7A4; background: #CE8; padding: 4px 8px;}
+.content p.warning { border-left: 10px solid #FA0; background: #FD9; padding: 4px 8px;}
 .content .text-end { height: 1px; }
 .content .help-error { color: #977; text-align: center; padding: 8px;  margin: 16px 0; background:#F5EAD7; border: 1px solid #977;}
-.content .md {  margin: 2px; }
+.content .md { }
 .content .md.md-center { display:block; margin: 2px auto; }
-.content .md.md-left   { display:block; float: left; }
-.content .md.md-right  { display:block; float: right; }
+.content .md.md-left   { display:block; margin: 2px; float: left; }
+.content .md.md-right  { display:block; margin: 2px; float: right; }
 
 #side { width: 192px; padding: 0 0 8px 8px; background: #c9d7f1; overflow: auto;  border-top: 1px solid #95b0e4;}
 #side .menu { background: #FFF; padding:0px; margin:8px 0px 0px; border: 2px solid #95b0e4; }

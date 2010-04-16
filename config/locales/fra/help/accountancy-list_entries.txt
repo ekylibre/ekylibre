@@ -1,8 +1,0 @@
-====== Consulter des écritures ======
-
-===== Choisir son journal et son exercice =====
-Valider le formulaire en sélectionnant le journal et l'exercice comptable à considérer.
-
-===== La liste des écritures  =====
-
-

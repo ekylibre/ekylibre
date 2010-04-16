@@ -1,6 +1,11 @@
 ====== Comment lettrer des écritures ? ======
-Vous avez un tableau répertoriant les différentes écritures relatives au compte choisi pour l'exercice considéré. Pour chacune d'elles, sont indiqués les montants au débit et au crédit. Le repère consiste ici **en une lettre** dont la valeur varie si l'ensemble des écritures de même lettre sont **équilibrées**. En cliquant sur une écriture, vous l'a lettré.    
-**Un jeu de couleurs** vous permet de savoir où vous en êtes dans l'équilibrage du lettrage:
-  * **rouge** si l'écriture est non lettrée
-  * **vert** si l'écriture est lettrée et équilibrée  
-  * **brun** si l'écriture est lettrée mais non équilibrée
+
+Vous avez un tableau répertoriant les différentes écritures relatives au compte choisi pour la période sélectionnée. Vous pouvez en permanence modifier la période.
+
+===== Lettrer =====
+
+Pour lettrer, vous devez cocher toutes les écritures à lettrer puis valider. La lettre en cours sera appliquée à toutes les écritures sélectionnées. 
+Le somme des débits/crédits des écritures cochées est affichées en bas du tableau.
+
+===== Délettrer =====
+Si vous vous êtes trompé et que vous souhaitez délettrer, il faut cliquer sur le bouton {{theme:buttons/unletter.png}} à coté de la lettre. Toutes les écritures correspondant à la lettre en question seront délettrées et à nouveau disponibles.
