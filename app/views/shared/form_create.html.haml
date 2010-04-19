@@ -1,7 +1,14 @@
 -form_id = @options[:id]||"f"+rand.to_s[2..-1]
--form_tag(nil, {:id=>form_id}) do
-  .fields=render :partial=>@partial
-  .actions
-    =submit_tag(tg(@options[:submit]||:create))
-    =link_to_back :label=>@options[:cancel]||:cancel
+-if request.xhr?
+  -form_remote_tag(:update=>params[:dialog], :html=>{:id=>form_id}, :loaded=>"resizeDialog('#{params[:dialog]}')") do
+    .fields=render :partial=>@partial
+    .actions
+      =submit_tag(tg(@options[:submit]||:create))
+      =link_to_function(tg(@options[:cancel]||:cancel), "closeDialog('#{params[:dialog]}')")
+-else
+  -form_tag(nil, {:id=>form_id}) do
+    .fields=render :partial=>@partial
+    .actions
+      =submit_tag(tg(@options[:submit]||:create))
+      =link_to_back :label=>@options[:cancel]||:cancel
 

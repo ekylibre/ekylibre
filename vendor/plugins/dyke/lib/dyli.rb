@@ -22,10 +22,11 @@ module Ekylibre
             attributes_hash = {}
             attributes.each_index do |i|
               attribute = attributes[i]
-              attributes[i] = []
-              attributes[i] << (attribute.to_s.match(/\./) ? attribute.to_s : model.table_name+'.'+attribute.to_s.split(/\:/)[0])
-              attributes[i] << (attribute.to_s.match(/\:/) ? attribute.to_s.split(/\:/)[1] : (options[:filter]||'%X%'))
-              attributes_hash['att'+i.to_s] = attributes[i][0]
+              attributes[i] = [
+                               (attribute.to_s.match(/\./) ? attribute.to_s : model.table_name+'.'+attribute.to_s.split(/\:/)[0]),
+                               (attribute.to_s.match(/\:/) ? attribute.to_s.split(/\:/)[1] : (options[:filter]||'%X%')),
+                               '_a'+i.to_s]
+              attributes_hash[attributes[i][2]] = attributes[i][0]
             end
             query = []
             parameters = ''
@@ -73,8 +74,8 @@ module Ekylibre
             joins = options[:joins] ? ", :joins=>"+options[:joins].inspect : ""
             partial = options[:partial]
             code += "  list = ''\n"
-            code += "  for item in "+model.to_s+".find(:all, :select=>#{select}, :conditions=>conditions"+joins+order+limit+")\n"
-            code += "    content = "+attributes_hash.collect{|attribute, v| "item.#{attribute}.to_s"}.join('+", "+')+"\n"
+            code += "  for item in "+model.name.to_s+".find(:all, :select=>#{select}, :conditions=>conditions"+joins+order+limit+")\n"
+            code += "    content = "+attributes.collect{|key| "item.#{key[2]}.to_s"}.join('+", "+')+"\n"
             if partial
               display = "render(:partial=>#{partial.inspect}, :locals =>{:record=>item, :content=>content, :search=>search})"
             else
@@ -85,6 +86,7 @@ module Ekylibre
             code += "  render :text=>'<ul>'+list+'</ul>'\n"
             code += "end\n"
 
+            File.open("/tmp/test.rb", "wb") {|f| f.write(code)}
             # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
 
             module_eval(code)

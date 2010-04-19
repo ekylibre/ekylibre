@@ -131,38 +131,95 @@ var resizeElementMethods = {
 Element.addMethods(resizeElementMethods);
 
 
+var overlays = 0;
+
 
 
 function _resize() {
   var dims   = document.viewport.getDimensions();
   var height = dims.height; 
   var width  = dims.width;
+  var overlay = $('overlay');
+  if (overlay != null) { 
+    //   alert(overlay);
+    overlay.setStyle({'width': width+'px', 'height': height+'px'});
+  }
   $('body').resize(width,height);
 }
 
 function resize() {
   window.setTimeout('_resize()',300);
-  _resize();
-  /*  _resize();*/
+  return _resize();
 }
 
 function resize2() {
   window.setTimeout('_resize()',350);
-  _resize();
-  /*  _resize();*/
+  return _resize();
 }
+
+
+function openDialog(url) {
+  var body   = document.getElementsByTagName("BODY")[0];
+  var dims   = document.viewport.getDimensions();
+  var height = dims.height; 
+  var width  = dims.width;
+  var overlay = $('overlay');
+  if (overlay == null) {
+    overlay = new Element('div', {id: 'overlay', style: 'z-index:1; position:absolute; top:0; left 0; width:'+width+'px; height: '+height+'px; opacity: 0.8'});
+    body.appendChild(overlay);
+  }
+
+  overlays += 1;
+  var w = 0.8*width;
+  var h = 0.9*height;
+  var form_id = 'f'+overlays;
+  var form = new Element('div', {id: form_id, flex: 1, 'class': 'dialog', style: ' z-index:2; position:absolute; left:'+((width-w)/2)+'px; top:'+((height-h)/2)+'px; width:'+w+'px; height: '+h+'px; opacity: 1'});
+  body.appendChild(form);
+  
+  new Ajax.Request(url, {
+      method: 'get',
+        parameters: {dialog: form_id},
+        onSuccess: function(response) {
+        var form = $(form_id);
+        form.innerHTML = response.responseText;
+        return form.resize(w, h);
+      }
+  })
+  return overlay;
+}
+
+
+function closeDialog(dialog) {
+  dialog = $(dialog);
+  dialog.remove();
+  overlays -= 1;
+  if (overlays == 0) {
+    var overlay = $('overlay');
+    if (overlay != null) {
+      overlay.remove();
+    }
+  }
+  return true;
+}
+
+function resizeDialog(dialog) {
+  dialog = $(dialog);
+  dialog.resize(dialog.getWidth(), dialog.getHeight());
+}
+
+
 
 function openHelp() {
   $('help-open').setStyle({display: 'none'});
   $('help').setStyle({display:'block'});
-  resize();
+  return resize();
 }
 
 
 function closeHelp() {
   $('help-open').setStyle({display: 'block'});
   $('help').setStyle({display:'none'});
-  resize();
+  return resize();
 }
 
 function openSide() {
@@ -173,25 +230,9 @@ function openSide() {
     $('side').setStyle({display:'none'});
     $('side-close').setAttribute('id', 'side-open');
   }
-  resize();
+  return resize();
 }
 
-
-
-
-function windowResize() {
-  var dims   = document.viewport.getDimensions();
-  var body   = getBody();
-  var height = dims.height;
-  var width  = dims.width;
-  trace('<br/><strong>'+width+' x '+height+'</strong><br/>');
-  body.resizeTo(width,height);
-  //  elementResize(body,width,height);
-}
-
-function getBody() {
-  return document.getElementsByTagName("BODY")[0];
-}
 
 function onLoading() {
   $('loading').setStyle({display: 'block'});
@@ -451,5 +492,6 @@ function insert_into(input, repdeb, repfin, middle) {
 	input.value = input.value.substr(0, pos) + repdeb + insText + repfin + input.value.substr(pos);
   }
 }
+
 
 

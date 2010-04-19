@@ -13,11 +13,13 @@ table#master  { margin-top:30px; }
 table#master > tbody > tr > td { vertical-align: top;  }
 table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 
+#overlay { background: black url(../images/ajax-loader-4.gif) center center no-repeat;; }
 
 
 #loading { padding: 2px; text-align: center; }
-#main { overflow: auto; border-top: 1px solid #95b0e4; background: #C9D7F1; padding-bottom: 8px;}
-#content { overflow: auto; border-right:8px solid #C9D7F1; border-left:8px solid #C9D7F1; }
+.main { overflow: auto; border-top: 1px solid #95b0e4; background: #C9D7F1; padding-bottom: 8px;}
+.dialog .main { border: 1px solid #95b0e4; }
+.page { overflow: auto; border-right:8px solid #C9D7F1; border-left:8px solid #C9D7F1; }
 /*#legals { margin:0; padding:4px 8px; height: 0px; background: #C9D7F1; font-size:13px; color: #047; text-align: center; }*/
 
 .nav { height: 32px; }
@@ -31,8 +33,8 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 
 #about_us a img { border:none; }
 
-#main .nav { background: #C9D7F1; }
-#main .title { color: #047; }
+.main .nav { background: #C9D7F1; }
+.main .title { color: #047; }
 
 
 #help { width: 256px; border-left: 1px solid #BEBEBB; border-top: 1px solid #BEBEBB; background: #fefef9 url(../images/help.png) repeat-x top;}
@@ -76,17 +78,17 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 
 
 /*#yield { padding: 8px; overflow: auto; background: url(../images/columns.png) repeat-x top; border: 1px solid #95b0e4; }*/
-#yield { padding: 8px; overflow: auto; background: #F7F7FF; border: 1px solid #95b0e4; }
-#yield h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: normal;}
-#yield h2 { margin: 16px 0px 4px; font-size:15px; color: #047; }
-#yield .menu { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px;}
-#yield .menu h2 { font-size : 15px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }
-#yield .menu ul { padding: 4px 4px 4px 18px; }
-#yield .menu li { list-style-type: square; padding: 1px;}
-#yield .menu li { color:#047; }
-#yield .menu.special { background: #FE9; }
-#yield .menu.special a:link, #yield .menu.special a:visited { color: #A60; }
-#yield .menu.indicator { background: #FD8; } /*#FA3;*/
+.yield { padding: 8px; overflow: auto; background: #F7F7FF; border: 1px solid #95b0e4; }
+.yield h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: normal;}
+.yield h2 { margin: 16px 0px 4px; font-size:15px; color: #047; }
+.yield .menu { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px;}
+.yield .menu h2 { font-size : 15px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }
+.yield .menu ul { padding: 4px 4px 4px 18px; }
+.yield .menu li { list-style-type: square; padding: 1px;}
+.yield .menu li { color:#047; }
+.yield .menu.special { background: #FE9; }
+.yield .menu.special a:link, .yield .menu.special a:visited { color: #A60; }
+.yield .menu.indicator { background: #FD8; } /*#FA3;*/
 
 #top {height: 24px;}
 #top .menu * { padding: 4px 4px 5px;}

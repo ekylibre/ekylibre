@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
   before_filter :authorize, :except=>[:login, :logout, :register, :i18nize]
   attr_accessor :current_user
   attr_accessor :current_company
+  layout :xhr_or_not
 
   include Userstamp
   include ExceptionNotifiable
@@ -183,6 +184,10 @@ class ApplicationController < ActionController::Base
 
 
   private
+
+  def xhr_or_not
+    (request.xhr? ? "dialog" : "application")
+  end
  
   def historize()
     if request.url == session[:history][1]

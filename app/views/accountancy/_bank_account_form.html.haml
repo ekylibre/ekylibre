@@ -4,6 +4,7 @@
   - f.field :bank_account, :name
   - f.field :bank_account, :bank_name
   - f.field :bank_account, :address, :field=>:textarea
+  - f.title BankAccount.human_name
   - f.field :bank_account, :mode, :field=>:radio, :choices=>BankAccount.modes  
 =formalize(:id=>:bban) do |f|
   - f.field :bank_account, :bank_code, :size=>10
@@ -15,14 +16,10 @@
   - f.field :bank_account, :bic
 =formalize do |f|  
   - f.title :accountancy
-  - f.field :bank_account, :account_id,  :choices => @current_company.accounts.find(:all, :conditions=>['number LIKE ?','51%'], :order=>:number).collect {|b| [b.label, b.id]}, :new => {:action => :account_create}
-  - f.field :bank_account, :currency_id, :choices => @current_company.currencies.find(:all).collect {|c| [c.name, c.id]}
-  - f.field :bank_account, :journal_id,  :choices => @current_company.journals.find(:all).collect {|j| [j.name, j.id]}, :new => {:action => :journal_create}
+  - f.field :bank_account, :account_id,  :choices => @current_company.accounts.find(:all, :conditions=>['number LIKE ?', '51%'], :order=>:number).collect {|b| [b.label, b.id]}, :new => {:action => :account_create}
+  - f.field :bank_account, :currency_id, :choices => @current_company.currencies.all.collect {|c| [c.name, c.id]}
+  - f.field :bank_account, :journal_id,  :choices => @current_company.journals.all.collect {|j| [j.name, j.id]}, :new => {:action => :journal_create}
  
-#currency
-=observe_field "bank_account_currency_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_currency_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'currency', :url => { :action => 'currencies_find'}, :with => "'currency=' + escape(value)")+"}"
-#journal
-=observe_field "bank_account_journal_id", :frequency => 0.25, :function =>"if ( (document.getElementById('bank_account_journal_id').value).indexOf('*','g') > -1 ) {"+remote_function(:update => 'journal', :url => { :action => 'journals_find'}, :with => "'journal=' + escape(value)")+"}"
 =observe_field "bank_account_mode_iban", :frequency => 0.25, :function =>"banToggle(element)"
 
 :javascript

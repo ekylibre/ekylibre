@@ -8,26 +8,26 @@
     =theme_link_tag(@current_theme)
     =calendar_link_tag
     =javascript_include_tag :defaults
-  %body{:id=>:body, :orient=>:vertical, :onload=>"resize();", :onresize=>'resize();'}
-    = top_tag
-    #columns{:orient=>:horizontal, :flex=>1}
-      -side=side_tag
-      -unless side.blank?
-        #side{:style=>''+(session[:side] ? "" : "display:none")}
-          =side      
-      #main{:flex=>9, :orient=>:vertical, :style=>"position: absolute; top: 0px;"}
-        #content{:flex=>3, :orient=>:vertical}
-          .nav
-            =help_link_tag
-            =side_link_tag
-            %h1.title=action_title
-          #yield{:flex=>1, :orient=>:vertical}
-            =notification_tag :error
-            =notification_tag :warning
-            =notification_tag :success
-            =notification_tag :information
-            =yield
-            .end{:style=>'height:1px'}
-      #help{:flex=>3, :style=>(session[:help] ? "" : "display:none; ")+"position: absolute; top: 0px;"}
-        = render :partial=>'help/search' if session[:help]
+  %body{:onload=>"resize();", :onresize=>"resize();"}
+    #body{:orient=>:vertical, :flex=>1}
+      =top_tag
+      #columns{:orient=>:horizontal, :flex=>1}
+        -side=side_tag
+        -unless side.blank?
+          #side{:style=>''+(session[:side] ? "" : "display:none")}=side      
+        .main{:flex=>9, :orient=>:vertical, :style=>"position: absolute; top: 0px;"}
+          .page{:flex=>3, :orient=>:vertical}
+            .nav
+              =help_link_tag
+              =side_link_tag
+              %h1.title=action_title
+            .yield{:flex=>1, :orient=>:vertical}
+              =notification_tag :error
+              =notification_tag :warning
+              =notification_tag :success
+              =notification_tag :information
+              =yield
+              .end{:style=>'height:1px'}
+        #help{:flex=>3, :style=>(session[:help] ? "" : "display:none; ")+"position: absolute; top: 0px;"}
+          =render :partial=>'help/search' if session[:help]
    

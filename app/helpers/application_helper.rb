@@ -921,6 +921,7 @@ module ApplicationHelper
       if [:select, :dyli].include?(options[:field]) and options[:new].is_a? Hash
         label = tg(options[:new].delete(:label)||:new)
         input += link_to(label, options[:new], :class=>:fastadd)
+        # input += link_to_function("TEST", "openDialog('#{url_for(options[:new])}')")
         #input += link_to_function(label, "openVirtualPopup()", :class=>:fastadd)
       end
       # input += " "+tg("format_date.iso")+" " if options[:field] == :date

@@ -1,9 +1,14 @@
 ====== Comptes bancaires ======
 
 ===== Qu'est ce qu'un compte bancaire ? =====
-Il s'agit d'un compte ouvert par une banque au nom d'un particulier ou d'un commerce pour permettre à ce dernier de faire diverses opérations financières telles que déposer, retirer ou emprunter de l'argent, faire des chèques, etc. Un compte bancaire se caractérise par un intitulé, un **IBAN** ou bien un **BBAN**(RIB en France), un compte comptable référencé ainsi que le journal contenant les enregistrements à considérer. L'IBAN servira à une identification du compte lors d'opérations de virements transfontalières et devra être suivi du **BIC** (Code bancaire international) permettant d'identifier la banque sur le territoire international. Au contraire, le RIB (Relevé d'identité bancaire) sera utilisé lors d'opérations bancaires à l'échelle nationale.   
+Il s'agit d'un compte ouvert par une banque au nom d'un particulier ou d'un commerce pour permettre à ce dernier de faire diverses opérations financières telles que déposer, retirer ou emprunter de l'argent, faire des chèques... 
 
+Pour renseigner vos informations concernant vos compte bancaires, il vous suffit de vous munir de vos //Relevés d'Identité Bancaire//.
+
+Sous Ekylibre, ils servent à effectuer des rapprochements bancaires (pointage) ainsi que faciliter les remises en banque.
 
 ===== Gestion d'un compte bancaire =====
-Pour utiliser un compte bancaire (création d'un [[accountancy-statements|relevé de comptes]]), commencer par le créer [[accountancy-bank_accounts_create|{{theme:buttons/create.png|créer}}]]. Le compte bancaire créé apparaîtra dans le tableau des comptes bancaires. Par la suite, il vous sera possible de le modifier [[accountancy-bank_accounts_update|{{theme:buttons/update.png|modifier}}]] ou même de le supprimer [[accountancy-bank_accounts_delete|{{theme:buttons/delete.png|supprimer}}]], sous réserve qu'il n'existe aucun [[accountancy-statements|relevé de compte]] relatif à ce compte bancaire.
+Les comptes sont modifiables à volonté et  et supprimables tant qu'aucun relevés de compte bancaire n'a été pointé pour ce dernier.
 
+
+!!! Ne pas confondre les comptes bancaires et les comptes comptables. Si le premier concerne un dépôt d'argent à la banque, le deuxième ne concerne qu'une partie de la comptabilité de votre société.

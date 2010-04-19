@@ -274,7 +274,6 @@ class ManagementController < ApplicationController
     code += "  end\n "
     code += "end\n "
     code += "c \n"
-    puts code
     code
   end
   
