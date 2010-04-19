@@ -26,6 +26,7 @@ class AuthenticationController < ApplicationController
   end
   
   def login
+    ActiveRecord::SessionStore::Session.delete_all(["updated_at <= ?", Date.today-1.month])
     if request.post?
       # puts "POST : "+session[:last_session].inspect+" jhbjbjb"+session.inspect+" all !!! "+session.inspect
       name = params[:user][:name]

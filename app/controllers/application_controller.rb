@@ -206,9 +206,10 @@ class ApplicationController < ActionController::Base
     end
     help_search(self.controller_name+'-'+self.action_name) if session[:help] and not [:authentication, :help, :search].include?(controller_name.to_sym)
 
-    session[:last_query] ||= 0
-    session[:expiration] ||= 0
-    if session[:last_query].to_i<Time.now.to_i-session[:expiration]
+    if !session[:last_query].is_a?(Integer)
+      redirect_to_login
+      return
+    elsif session[:last_query].to_i<Time.now.to_i-session[:expiration]
       notify(:expired_session, :error)
       if request.xhr?
         render :text=>"<script>window.location.replace('#{url_for(:controller=>:authentication, :action=>:login)}')</script>"
