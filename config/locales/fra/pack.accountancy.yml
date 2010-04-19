@@ -90,12 +90,13 @@ fra:
         currency_rate: 'Taux de devise'
       _document_options:
         period: 'Période'
+      # Unfound view ./app/views/accountancy/document_prepare
       document_prepare:
-        balance: 'Balance' #!
-        general_ledger: 'Grand livre' #!
-        journal: 'Journal' #!
-        journals: 'Journal général' #!
-        synthesis: 'Documents de synthèse' #!
+        balance: 'Balance'
+        general_ledger: 'Grand livre'
+        journal: 'Journal'
+        journals: 'Journal général'
+        synthesis: 'Documents de synthèse'
         title: 'Choisissez le type de document à imprimer'
       document_print:
         title: 'Impression de documents'
@@ -202,8 +203,9 @@ fra:
         balance_sheet: 'Sélectionnez l''exercice'
         select_financialyear: 'Exercice'
       # No defined action for this view !!!
+      # Unfound view ./app/views/accountancy/print_balance_sheet
       print_balance_sheet:
-        period: 'Période' #!
+        period: 'Période'
         title: 'Impression du bilan'
       # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/print_by_financial_year
@@ -216,10 +218,12 @@ fra:
         from: 'Période du'
         journal: 'Journal'
         to: 'Au'
+      # Unfound view ./app/views/accountancy/_print_journals
       _print_journals:
         dates: 'Saisissez les dates'
         from: 'Période du'
         to: 'Au'
+      # Unfound view ./app/views/accountancy/_print_ledger
       _print_ledger:
         dates: 'Saisissez les dates de début et de fin de la période'
         from: 'Période du'

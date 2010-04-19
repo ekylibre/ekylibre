@@ -1,8 +1,0 @@
-=formalize do |f|
-  -f.title tc("dates")
-  -f.field tc("from"), text_field(:printed, :from, :size=>10, :value=>1)
-  -f.field tc("to"), text_field(:printed, :to, :size=>10,:value=>Date.today)
-  -f.field tc("journal"), select(:printed, :name, @current_company.journals.collect{|p| [p.name, p.id]})
-  
-       
- 

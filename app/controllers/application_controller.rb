@@ -118,7 +118,13 @@ class ApplicationController < ActionController::Base
     code+="session[:#{model.name.underscore}_key].to_s.lower.split(/\\s+/).each{|kw| kw='%'+kw+'%';"
     # This line is incompatible with MySQL...
     # code+="c[0]+=' AND (#{columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS TEXT)) LIKE ?'}.join(' OR ')})';c+=[#{(['kw']*columns.size).join(',')}]}\n"
-    code+="c[0]+=' AND (#{columns.collect{|x| 'LOWER('+x.to_s+') LIKE ?'}.join(' OR ')})';c+=[#{(['kw']*columns.size).join(',')}]}\n"
+    if ActiveRecord::Base.connection.adapter_name == "MySQL"
+      code+="c[0]+=' AND ("+columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS CHAR)) LIKE ?'}.join(' OR ')+")';\n"
+    else
+      code+="c[0]+=' AND ("+columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'}.join(' OR ')+")';\n"
+    end
+    code+="c+=[#{(['kw']*columns.size).join(',')}]"
+    code+="}\n"
     code+="c"
     code
   end

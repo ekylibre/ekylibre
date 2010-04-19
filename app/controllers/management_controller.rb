@@ -274,10 +274,11 @@ class ManagementController < ApplicationController
     code += "  end\n "
     code += "end\n "
     code += "c \n"
+    puts code
     code
   end
   
-  dyta(:invoices, :conditions=>invoices_conditions, :line_class=>'RECORD.status', :joins=>"LEFT JOIN entities e ON e.id = invoices.client_id LEFT JOIN sale_orders s ON s.id = invoices.sale_order_id", :order=>"created_on DESC, number DESC") do |t|
+  dyta(:invoices, :conditions=>invoices_conditions, :line_class=>'RECORD.status', :joins=>"LEFT JOIN entities e ON e.id = invoices.client_id LEFT JOIN sale_orders s ON s.id = invoices.sale_order_id", :order=>"invoices.created_on DESC, invoices.number DESC") do |t|
     t.column :number, :url=>{:action=>:invoice}
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
     t.column :number, :through=>:sale_order, :url=>{:action=>:sale_order}
