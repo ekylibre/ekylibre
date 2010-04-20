@@ -19,7 +19,7 @@ jpn:
         #>current_letter: 'Lettre en cours : {{letter}}'
         #>title: 'Lettrage du compte N°{{number}} du {{started_on}} au {{stopped_on}}'
       account_update:
-        #>title: 'Modifier le compte {{number}} - {{name}}'
+        #>title: 'Modifier le compte : {{number}} - {{name}}'
       accountize:
         #>cashed_payments: 'Inclure les règlements non encaissés'
         #>dont_save_in_draft: 'Ne pas sauvegarder dans le brouillard'
@@ -176,11 +176,11 @@ jpn:
         #>title: 'Déclôture du {{name}}'
       journal_update:
         #>title: 'Modifier le journal : {{name}}'
+      journals:
+        #>title: 'Journaux'
       _journals:
         #>journal_detail: 'Cloturé au {{closed_on}}'
         #>journal_name: '{{name}}'
-      journals:
-        #>title: 'Journaux'
       _journals_find:
         #>journal_id: 'Numéro de journal'
         #>journal_name: 'Nom du journal'
@@ -310,7 +310,7 @@ jpn:
         #>tax_declaration_create: 'Ajouter une nouvelle déclaration'
         #>title: 'Déclaration de TVA'
       tax_update:
-        #>title: 'Modification de la taxe : {{name}}'
+        #>title: 'Modifier la taxe : {{name}}'
       taxes:
         #>tax_create: 'Ajouter une nouvelle taxe'
         #>title: 'Taxes'

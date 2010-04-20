@@ -14,7 +14,7 @@ fra:
         current_letter: 'Lettre en cours : {{letter}}'
         title: 'Lettrage du compte N°{{number}} du {{started_on}} au {{stopped_on}}'
       account_update:
-        title: 'Modifier le compte {{number}} - {{name}}'
+        title: 'Modifier le compte : {{number}} - {{name}}'
       accountize:
         cashed_payments: 'Inclure les règlements non encaissés' #!
         dont_save_in_draft: 'Ne pas sauvegarder dans le brouillard'
@@ -198,15 +198,15 @@ fra:
         dates: 'Saisissez les dates de début et de fin de la période'
         from: 'Période du'
         to: 'Au'
-      # Unfound view ./app/views/accountancy/_print_balance_sheet
-      _print_balance_sheet:
-        balance_sheet: 'Sélectionnez l''exercice'
-        select_financialyear: 'Exercice'
       # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/print_balance_sheet
       print_balance_sheet:
         period: 'Période'
         title: 'Impression du bilan'
+      # Unfound view ./app/views/accountancy/_print_balance_sheet
+      _print_balance_sheet:
+        balance_sheet: 'Sélectionnez l''exercice'
+        select_financialyear: 'Exercice'
       # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/print_by_financial_year
       print_by_financial_year:
@@ -322,7 +322,7 @@ fra:
         tax_declaration_create: 'Ajouter une nouvelle déclaration'
         title: 'Déclaration de TVA'
       tax_update:
-        title: 'Modification de la taxe : {{name}}'
+        title: 'Modifier la taxe : {{name}}'
       taxes:
         tax_create: 'Ajouter une nouvelle taxe'
         title: 'Taxes'

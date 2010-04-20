@@ -34,12 +34,14 @@
 #
 
 class EventNature < ActiveRecord::Base
-  
+  attr_readonly :company_id, :name 
   belongs_to :company
-  has_many :events
+  has_many :events, :foreign_key=>:nature_id
 
-  attr_readonly :company_id, :name
- 
+  def destroyable?
+    self.events.size <= 0 
+  end
+
   def self.usages
     [:manual, :sale_order, :purchase_order, :invoice].collect{|x| [tc('usages.'+x.to_s), x] }
   end

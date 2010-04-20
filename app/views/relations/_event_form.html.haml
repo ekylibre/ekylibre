@@ -1,7 +1,7 @@
 =formalize do |f|
   -f.error :event
-  -f.field :event, :entity_id, :choices=>:entities
-  -f.field :event, :user_id, :choices=>@current_company.users.collect{|x| [x.label, x.id]}, :new=>{:controller=>:company, :action=>:user_create}
+  -f.field :event, :entity_id, :choices=>:entities, :new=>{:action=>:entity_create}
+  -f.field :event, :user_id,   :choices=>{:reflection=>:users, :label=>:label, :order=>:name}, :new=>{:controller=>:company, :action=>:user_create}
   -f.field :event, :nature_id, :choices=>{:reflection=>:event_natures, :label=>:name, :order=>:name}, :new=>{:action=>:event_nature_create}
   -f.field :event, :duration
   -f.field  t("activerecord.attributes.event.location"), text_field_with_auto_complete(:event, :location)

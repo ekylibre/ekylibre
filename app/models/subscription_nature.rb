@@ -36,6 +36,7 @@
 #
 
 class SubscriptionNature < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :company
   belongs_to :entity_link_nature
   has_many :products
@@ -45,6 +46,10 @@ class SubscriptionNature < ActiveRecord::Base
 
   def before_validation
     self.reduction_rate ||= 0
+  end
+
+  def destroyable?
+    self.subscriptions.size <= 0
   end
 
   def self.natures

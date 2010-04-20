@@ -92,8 +92,8 @@ fra:
         sales: 'Exporter un tableau des ventes au format CSV' #!
         source: 'Source de données :'
       delay:
-        delay_update: 'Modifier le délai'
-        title: 'Délai : {{value}}'
+        title: 'Délai : {{name}}'
+        #>delay_update: # Potentially missing translation
       delay_create:
         title: 'Ajout d''un nouveau délai'
       _delay_form:
@@ -106,10 +106,10 @@ fra:
       delivery_mode_create:
         title: 'Ajout d''un nouveau type de livraison'
       delivery_mode_update:
-        title: 'Modification du type de livraison "{{value}}"'
+        title: 'Modification du type de livraison : {{name}}'
       delivery_modes:
-        delivery_mode_create: 'Ajouter un type livraison'
         title: 'Types de livraison'
+        #>delivery_mode_create: # Potentially missing translation
       # Unfound view ./app/views/management/_delivery_update
       _delivery_update:
         title: 'Modification de la livraison'
@@ -125,32 +125,6 @@ fra:
       _embankment_form:
         infos: 'Renseignez les informations suivantes'
         payments: 'Règlements'
-      # No defined action for this view !!!
-      # Unfound view ./app/views/management/embankment_payment_create
-      embankment_payment_create:
-        amount: 'Montant'
-        back: 'Retour'
-        embank: 'Encaisser'
-        embanker: 'Encaisseur'
-        entity_name: 'Client'
-        mode_name: 'Type'
-        no_checks: 'Aucun chèque à encaisser pour ce type de chèque'
-        title: 'Sélection des chèques'
-        to_bank_on: 'À encaisser le'
-        validate: 'Valider'
-      # No defined action for this view !!!
-      # Unfound view ./app/views/management/embankment_payment_update
-      embankment_payment_update:
-        amount: 'Montant'
-        back: 'Retour'
-        embank: 'Encaisser'
-        embanker: 'Encaisseur'
-        entity_name: 'Client'
-        mode_name: 'Type'
-        no_checks: 'Aucun chèque à encaisser'
-        title: 'Sélection des chèques'
-        to_bank_on: 'À encaisser le'
-        validate: 'Valider'
       embankment_update:
         title: 'Modification de la remise de chèque du {{date}}'
       embankments:
@@ -274,7 +248,7 @@ fra:
       payment_mode_create:
         title: 'Créer un nouveau type de réglement'
       payment_mode_update:
-        title: 'Modifier un type de réglement'
+        title: 'Modifier le type de réglement : {{name}}'
       payment_modes:
         payment_mode_create: 'Créer un nouveau type de réglement'
         title: 'Types de réglement'
@@ -306,30 +280,6 @@ fra:
       _price_form:
         general: 'Général'
         taxes: 'Taxes' #!
-      # No defined action for this view !!!
-      # Unfound view ./app/views/management/price_lists
-      price_lists:
-        price_lists_create: 'Ajouter une nouvelle liste de prix'
-        title: 'Gérer les listes de prix'
-      # No defined action for this view !!!
-      # Unfound view ./app/views/management/price_lists_create
-      price_lists_create:
-        title: 'Ajouter une nouvelle liste de prix'
-      # No defined action for this view !!!
-      # Unfound view ./app/views/management/price_lists_display
-      price_lists_display:
-        price_create: 'Ajouter un nouveau prix'
-        price_lists: 'Voir les listes de prix'
-        price_lists_update: 'Modifier le détail de la liste de prix'
-        prices: 'Produits et prix de la liste'
-        title: 'Liste de prix : {{value}}'
-      # Unfound view ./app/views/management/_price_lists_form
-      _price_lists_form:
-        general: 'Description générale'
-      # No defined action for this view !!!
-      # Unfound view ./app/views/management/price_lists_update
-      price_lists_update:
-        title: 'Modifier la liste de prix : {{value}}'
       prices:
         all: 'Tous les prix' #!
         client: 'Les prix de vente' #!
@@ -542,14 +492,10 @@ fra:
         downpayment: 'Options pour l''acompte' #!
         general: 'Général'
       sale_order_nature_update:
-        title: 'Modification d''un type de vente'
+        title: 'Modification du type de vente : {{name}}'
       sale_order_natures:
         sale_order_nature_create: 'Créer un nouveau type de vente'
         title: 'Types de ventes'
-      # No defined action for this view !!!
-      # Unfound view ./app/views/management/sale_order_print
-      sale_order_print:
-        deliveries_number: 'jjkjj'
       sale_order_summary:
         amount_wt: 'Montant TTC' #!
         balance_amount: 'Solde du client' #!
@@ -587,20 +533,6 @@ fra:
         title: 'Devis et commandes'
         unpaid: 'Impayées' #!
         unpaid_sale_orders_export: 'Exporter la liste des ventes impayées au format csv'
-      # No defined action for this view !!!
-      # Unfound view ./app/views/management/sales_invoices
-      sales_invoices:
-        address: 'Livraison'
-        amount: 'Montant HT'
-        amount_with_taxes: 'Montant TTC'
-        deliver: 'Reçu le'
-        invoices: 'Factures'
-        payments: 'Réglements'
-        quantity: 'Quantité'
-        rest_to_invoice: 'À facturer'
-        ship: 'Expédié le'
-        title: 'Facturation'
-        to_invoice: 'Facturer'
       shelf:
         products: 'Produits de la catégorie'
         shelf_update: 'Modifier la catégorie'
@@ -612,7 +544,7 @@ fra:
         catalog: 'Description pour catalogue'
         general: 'Informations générales'
       shelf_update:
-        title: 'Ajout d''une nouvelle catégorie de produits'
+        title: 'Modification de la catégorie de produits : {{name}}'
       shelves:
         shelf_create: 'Ajouter une nouvelle catégorie de produits'
         title: 'Catégories de produits'
@@ -671,7 +603,7 @@ fra:
       subscription_nature_create:
         title: 'Ajouter un type d''abonnement'
       subscription_nature_update:
-        title: 'Modification du type d''abonnement {{value}}'
+        title: 'Modification du type d''abonnement : {{name}}'
       subscription_natures:
         subscription_nature_create: 'Ajouter un type d''abonnement'
         title: 'Types d''abonnements'
@@ -682,7 +614,7 @@ fra:
         subscription_natures_down: 'Décrémenter le numéro actuel (-1)' #!
         subscription_natures_up: 'Incrémenter le numéro actuel (+1)' #!
       subscription_update:
-        title: 'Modification de "{{value}}" du {{start}} au {{finish}}'
+        title: 'Modification de l''abonnement : N°{{number}} du {{start}} au {{finish}}'
       subscriptions:
         select_number_or_date: 'Entrez un numéro ou une date' #!
         subscription_nature: 'Type d''abonnement'

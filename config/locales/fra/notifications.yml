@@ -4,8 +4,8 @@ fra:
     accountizing_is_finished: 'La bascule en comptabilité est finie.'
     accountizing_works_only_with_sales_invoices: 'La bascule en comptabilité ne peut se faire actuellement que pour les factures de vente.'
     cannot_delete_entity: 'Il n''est pas possible de supprimer cette fiche car elle possède un historique comptable'
-    cannot_delete_entity_nature: 'Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches'
-    cannot_delete_journal: 'Ce journal contient des écritures et ne peut donc être effacé.'
+    cannot_delete_entity_nature: 'Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches'# NOT USED !!!
+    cannot_delete_journal: 'Ce journal contient des écritures et ne peut donc être effacé.'# NOT USED !!!
     cannot_merge_an_entity_with_itself: 'Il n''est pas possible de fusionner une fiche avec elle-même'
     cannot_merge_entities: 'Une erreur est survenue. Il n''est pas possible de fusionner ces fiches.'
     changes_have_been_reflected: 'Les changements ont été correctement répercutés sur l''état des stocks actuel'
@@ -59,6 +59,7 @@ fra:
     password_successfully_changed: 'Votre mot de passe a été mis à jour avec succès'
     prices_import_succeeded: 'Vos données ont été correctement importées'
     print_failure: 'Impossible d''imprimer. Essayer de recharger les modèles de documents pour corriger le problème. {{error}} ({{class}}).'
+    record_cannot_be_removed: (((RECORD_CANNOT_BE_REMOVED)))
     record_has_been_correctly_removed: 'L''enregistrement a été supprimé correctement'
     record_has_not_been_removed: 'L''enregistrement n''a pas être supprimé correctement'
     restoration_finished: 'La restauration de la sauvegarde s''est terminée (en {{value}} secondes). Votre code société est {{code}}'
@@ -79,4 +80,4 @@ fra:
 
     you_must_have_an_email_column: 'Vous devez avoir une colonne Email dans votre extraction'
     you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
-    you_will_lose_all_your_current_data: 'Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre ?'
+    you_will_lose_all_your_current_data: 'Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre ?'# NOT USED !!!

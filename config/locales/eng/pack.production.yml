@@ -38,7 +38,7 @@ eng:
       operation_nature_create:
         #>title: 'Créer un nouveau type de travail'
       operation_nature_update:
-        #>title: 'Modification du type de travail "{{name}}"'
+        #>title: 'Modification du type de travail : {{name}}'
       operation_natures:
         #>operation_nature_create: 'Créer un nouveau type de travail'
         #>title: 'Types de travail'
@@ -49,26 +49,12 @@ eng:
         #>title: 'Travaux'
         #>unvalidated_operations: 'Travaux non validés'
       production_create:
-        #>title: 'Enregistrer une nouvelle production'
       _production_form:
-        #>infos: 'Renseignez les caractéristiques de la production'
-        #>production_legend_one: ' mp : matières premières'
-        #>production_legend_two: ' nc : nombre de composants '
       production_line_create:
-        #>title: 'Gérer les quantités utilisées '
       _production_line_form:
-        #>name: 'Nom'
-        #>quantity: 'Quantité'
-        #>total_quantity: 'Quantité totale produite'
-        #>unit: 'Unité'
       production_line_update:
-        #>title: 'Modifier les quantités utilisées'
       production_update:
-        #>title: 'Modification de la production {{value}} du {{moved}}'
       productions:
-        #>production_create: 'Enregistrer un nouvelle production'
-        #>productions: 'Productions'
-        #>title: 'Productions'
       shape:
         #>operation_create: 'Ajouter un travail'
         #>operations: 'Travaux'
@@ -80,7 +66,7 @@ eng:
       _shape_form:
         #>infos: 'Renseignez les caractéristiques de l''îlot'
       shape_update:
-        #>title: 'Modification de l'' îlot {{name}}'
+        #>title: 'Modification de l'' îlot : {{name}}'
       shapes:
         #>shape_create: 'Créer un nouvel îlot'
         #>shapes: 'Îlots'
@@ -98,7 +84,7 @@ eng:
       tool_create:
         #>title: 'Ajouter un matériel'
       tool_update:
-        #>title: 'Modification du matériel {{name}}'
+        #>title: 'Modification du matériel : {{name}}'
       tools:
         #>title: 'Matériel'
         #>tool_create: 'Ajouter un matériel'

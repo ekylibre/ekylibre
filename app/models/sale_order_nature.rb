@@ -39,7 +39,7 @@
 #
 
 class SaleOrderNature < ActiveRecord::Base
-
+  attr_readonly :company_id
   belongs_to :company
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :expiration, :class_name=>Delay.to_s

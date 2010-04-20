@@ -36,10 +36,14 @@
 #
 
 class EntityLinkNature < ActiveRecord::Base
-  belongs_to :company
-  has_many   :entity_links
-
   attr_readonly :company_id
+  belongs_to :company
+  has_many   :entity_links, :foreign_key=>:nature_id
+
+  def destroyable?
+    self.entity_links.size <= 0
+  end
+
 
 end
  

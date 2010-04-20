@@ -49,7 +49,7 @@ fra:
       area_create:
         title: 'Ajouter une zone postale'
       area_update:
-        title: 'Modification de la zone postale {{value}}'
+        title: 'Modification de la zone postale : {{name}}'
       areas:
         all_areas: '--- Toutes les zones postales ---' #!
         area_create: 'Ajouter une zone postale'
@@ -86,14 +86,12 @@ fra:
       district_create:
         title: 'Ajouter une zone'
       district_update:
-        title: 'Modification de la zone {{value}}'
+        title: 'Modification de la zone : {{name}}'
       districts:
-        all_districts: '--- Tous les districts ---' #!
         area_create: 'Ajouter une ville' #!
         city_name: 'Ville' #!
         district_create: 'Ajouter une zone administrative'
         district_x: '{{name}} ({{code}})' #!
-        select_district: 'District' #!
         title: 'Zones administratives'
       _districts_search:
         search: 'Rechercher une zone'
@@ -108,10 +106,6 @@ fra:
           zero: 'Aucune fiche enregistrée' #!
  #!
         title: 'Fiches des relations'
-      # No defined action for this view !!!
-      # Unfound view ./app/views/relations/entities_contact_delete
-      entities_contact_delete:
-        title: 'Caractéristiques du contact à supprimer'
       entities_import:
         csv_file: 'Fichier CSV à importer'
         defined_columns: 'Voici le format à respecter des colonnes du fichier csv à importer :'
@@ -210,7 +204,7 @@ fra:
       entity_category_create:
         title: 'Ajout d''une nouvelle catégorie de fiche'
       entity_category_update:
-        title: 'Modification de la catégorie de fiche : {{value}}'
+        title: 'Modification de la catégorie de fiche : {{name}}'
       entity_contact_create:
         title: 'Ajout d''un contact à la fiche de : {{value}}'
       _entity_contact_form:
@@ -241,7 +235,7 @@ fra:
       entity_link_nature_create:
         title: 'Ajout d''un nouveau type de lien'
       entity_link_nature_update:
-        title: 'Modification du type de lien {{value}}'
+        title: 'Modification du type de lien : {{name}}'
       entity_link_natures:
         entity_link_nature_create: 'Ajouter un nouveau type de lien'
         title: 'Types de lien'
@@ -250,7 +244,7 @@ fra:
       entity_nature_create:
         title: 'Ajouter un nouveau type de fiche'
       entity_nature_update:
-        title: 'Modifier le type de fiche : {{value}}'
+        title: 'Modifier le type de fiche : {{name}}'
       entity_natures:
         entity_nature_create: 'Ajouter un nouveau type de fiche'
         title: 'Types de fiches'
@@ -282,7 +276,7 @@ fra:
       mandate_create:
         title: 'Créer une responsabilité'
       mandate_update:
-        title: 'Modification de la responsabilité de l''entité {{entity}}'
+        title: 'Modification de la responsabilité'
       mandates:
         include_blank: '--- Aucune organisation ---' #!
         mandate_create: 'Créer une responsabilité' #!

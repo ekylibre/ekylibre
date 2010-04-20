@@ -276,8 +276,10 @@ module Ekylibre
                     if column.datatype == :decimal
                       datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&nbsp;', :unit=>'', :precision=>#{column.options[:precision]||2}))"
                     end
-                    if column.options[:url] and nature==:body
-                    datum = "("+datum+".blank? ? '' : link_to("+datum+', url_for('+column.options[:url].inspect+'.merge({:id=>'+column.record(record)+'.id}))))'
+                    if column.options[:url].is_a?(Hash) and nature==:body
+                      column.options[:url][:id] ||= column.record(record)+'.id'
+                      url = column.options[:url].collect{|k, v| ":#{k}=>"+(v.is_a?(String) ? v.gsub(/RECORD/, record) : v.inspect)}.join(", ")
+                      datum = "("+datum+".blank? ? '' : link_to("+datum+', url_for('+url+')))'
                       css_class += ' url'
                     elsif column.options[:mode] == :download# and !datum.nil?
                       datum = "("+datum+".blank? ? '' : link_to(tg('download'), url_for_file_column("+record+",'#{column.name}')))"

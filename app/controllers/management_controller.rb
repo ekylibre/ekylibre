@@ -50,8 +50,8 @@ class ManagementController < ApplicationController
   end
 
   def delay
-    @delay = find_and_check(:delay, params[:id])
-    @title = {:value=>@delay.name}
+    return @delay = find_and_check(:delay, params[:id])
+    t3e @delay.attributes
   end
 
   manage :delays
@@ -1123,38 +1123,11 @@ class ManagementController < ApplicationController
   end
 
   def sale_order_nature
-    @sale_order_nature = find_and_check(:sale_order_nature, params[:id])
-    @title = {:value=>@sale_order_nature.name}
+    return @sale_order_nature = find_and_check(:sale_order_nature, params[:id])
+    t3e :value=>@sale_order_nature.name
   end
 
-  def sale_order_nature_create
-    if request.post? 
-      @sale_order_nature = SaleOrderNature.new(params[:sale_order_nature])
-      @sale_order_nature.company_id = @current_company.id
-      redirect_to_back if @sale_order_nature.save
-    else
-      @sale_order_nature = SaleOrderNature.new
-    end
-    render_form
-  end
-
-  def sale_order_nature_update
-    @sale_order_nature = find_and_check(:sale_order_nature, params[:id])
-    if request.post?
-      params[:sale_order_nature][:company_id] = @current_company.id
-      redirect_to_back if @sale_order_nature.update_attributes(params[:sale_order_nature])
-    end
-    @title = {:value=>@sale_order_nature.name}
-    render_form
-  end
-
-  def sale_order_nature_delete
-    @sale_order_nature = find_and_check(:sale_order_nature, params[:id])
-    if request.post? or request.delete?
-      redirect_to :back if @sale_order_nature.destroy
-    end
- end
-
+  manage :sale_order_natures
 
 
   def sale_order_contacts
@@ -1566,7 +1539,7 @@ class ManagementController < ApplicationController
  
 
   def delivery_delete
-    @delivery = find_and_check(:deliveries, params[:id])
+    return unless @delivery = find_and_check(:deliveries, params[:id])
     if request.post? or request.delete?
       redirect_to_back if @delivery.destroy
     end
@@ -1582,32 +1555,8 @@ class ManagementController < ApplicationController
 
   def delivery_modes
   end
-
-  def delivery_mode_create
-    @delivery_mode = DeliveryMode.new
-    if request.post?
-      @delivery_mode = DeliveryMode.new(params[:delivery_mode])
-      @delivery_mode.company_id = @current_company.id
-      redirect_to_back if @delivery_mode.save
-    end
-    render_form
-  end
-
-  def delivery_mode_update
-    @delivery_mode = find_and_check(:delivery_mode, params[:id])
-    if request.post?
-      redirect_to_back if @delivery_mode.update_attributes(params[:delivery_mode])
-    end
-    @title = {:value=>@delivery_mode.name}
-    render_form
-  end
-   
-  def delivery_mode_delete
-    @delivery_mode = find_and_check(:delivery_mode, params[:id])
-    if request.post? or request.delete?
-      redirect_to_back if @delivery_mode.destroy
-    end
-  end
+  
+  manage :delivery_modes
 
   dyta(:sale_order_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
     t.column :number, :children=>:designation, :url=>{:action=>:invoice}
@@ -1738,31 +1687,8 @@ class ManagementController < ApplicationController
   def payment_modes
   end
 
-  def payment_mode_create
-    if request.post?
-      @payment_mode = PaymentMode.new(params[:payment_mode])
-      @payment_mode.company_id = @current_company.id
-      redirect_to_back if @payment_mode.save
-    else
-      @payment_mode = PaymentMode.new(:mode=>"other")
-    end
-    render_form
-  end
+  manage :payment_modes, :mode=>"'other'"
 
-  def payment_mode_update
-    @payment_mode = find_and_check(:payment_modes, params[:id])
-    if request.post?
-      redirect_to_back if @payment_mode.update_attributes(params[:payment_mode])
-    end
-    render_form
-  end
-
-  def payment_mode_delete
-    @payment_mode = find_and_check(:payment_modes, params[:id])
-    if request.post? or request.delete?
-      redirect_to_back if @payment_mode.destroy
-    end
-  end
 
   dyta(:sale_order_payment_parts, :model=>:payment_parts, :conditions=>["company_id=? AND expense_id=? AND expense_type=?", ['@current_company.id'], ['session[:current_sale_order]'], SaleOrder.name]) do |t|
     t.column :number, :through=>:payment, :url=>{:action=>:payment}
@@ -1954,36 +1880,10 @@ class ManagementController < ApplicationController
   def shelf
     return unless @shelf = find_and_check(:shelf, params[:id])
     session[:current_shelf_id] = @shelf.id
-    @title = {:value=>@shelf.name}
+    t3e :value=>@shelf.name
   end
 
-  def shelf_create
-    if request.post? 
-      @shelf = Shelf.new(params[:shelf])
-      @shelf.company_id = @current_company.id
-      redirect_to_back if @shelf.save
-    else
-      @shelf = Shelf.new
-    end
-    render_form
-  end
-
-  def shelf_update
-    return unless @shelf = find_and_check(:shelf, params[:id])
-    if request.post?
-      params[:shelf][:company_id] = @current_company.id
-      redirect_to_back if @shelf.update_attributes(params[:shelf])
-    end
-    render_form(:label=>@shelf.name)
-  end
-
-  def shelf_delete
-    @shelf = find_and_check(:shelf, params[:id])
-    if request.post? or request.delete?
-      redirect_to :back if @shelf.destroy
-    end
-  end
-
+  manage :shelves
 
   dyta(:locations, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name, :url=>{:action=>:location}
@@ -2109,45 +2009,25 @@ class ManagementController < ApplicationController
   end
 
   dyta(:subscription_natures, :conditions=>{:company_id=>['@current_company.id']}, :children=>:products) do |t|
-    t.column :name
+    t.column :name, :url=>{:id=>'nil', :action=>:subscriptions, :nature=>"RECORD.id"}
     t.column :nature_label, :children=>false
     t.column :actual_number, :children=>false
     t.column :reduction_rate, :children=>false
     t.action :subscription_nature_increment, :method=>:post, :if=>"RECORD.nature=='quantity'"
     t.action :subscription_nature_decrement, :method=>:post, :if=>"RECORD.nature=='quantity'"
-    t.action :subscription_nature
     t.action :subscription_nature_update
+    t.action :subscription_nature_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   def subscription_natures
   end
 
+  manage :subscription_natures, :nature=>"SubscriptionNature.natures.first[1]"
 
   def subscription_nature
-    @subscription_nature = find_and_check(:subscription_nature, params[:id])
+    return unless @subscription_nature = find_and_check(:subscription_nature)
     session[:subscription_nature] = @subscription_nature
     redirect_to :action=>:subscriptions, :nature=>@subscription_nature.id
-  end
-
-
-  def subscription_nature_create
-    @subscription_nature = SubscriptionNature.new
-    @subscription_nature.nature = SubscriptionNature.natures.first[1]
-    if request.post?
-      @subscription_nature = SubscriptionNature.new(params[:subscription_nature])
-      @subscription_nature.company_id = @current_company.id
-      redirect_to_back if @subscription_nature.save
-    end
-    render_form
-  end
-
-  def subscription_nature_update
-    @subscription_nature = find_and_check(:subscription_nature, params[:id])
-    if request.post?
-      redirect_to_back if @subscription_nature.update_attributes(params[:subscription_nature])
-    end
-    @title = {:value=>@subscription_nature.name}
-    render_form
   end
 
   def subscription_nature_increment
@@ -2211,7 +2091,7 @@ class ManagementController < ApplicationController
 #   end
 
   def subscription_options
-    @subscription_nature = find_and_check(:subscription_nature, params[:nature])
+    return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature])
     #instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant]) rescue nil 
     #session[:subscriptions][:instant] = instant||@subscription_nature.now
     session[:subscriptions][:instant] = @subscription_nature.now
@@ -2251,34 +2131,9 @@ class ManagementController < ApplicationController
   # dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity]'], :active=>true, :company_id=>['@current_company.id']})
   dyli(:subscription_contacts,  ['entities.full_name', :address] ,:model=>:contact, :joins=>"JOIN entities ON (entity_id=entities.id)", :conditions=>{:active=>true, :company_id=>['@current_company.id']})
   
-  def subscription_create
-    if request.post?
-      @subscription = Subscription.new(params[:subscription])
-      @subscription.company_id = @current_company.id
-      redirect_to_back if @subscription.save
-    else
-      @subscription = Subscription.new(:entity_id=>params[:entity_id])
-    end
-    @subscription_nature = @subscription.nature
-    render_form
-  end
-  
 
-  def subscription_update
-    return unless @subscription = find_and_check(:subscription, params[:id])
-    if request.post?
-      redirect_to_back if @subscription.update_attributes!(params[:subscription])
-    end
-    @title = {:value=>@subscription.nature.name, :start=>@subscription.start, :finish=>@subscription.finish}
-    render_form
-  end
+  manage :subscriptions, :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :t3e=>{:nature=>"@subscription.nature.name", :start=>"@subscription.start", :finish=>"@subscription.finish"}
 
-  def subscription_delete
-    return unless @subscription = find_and_check(:subscription, params[:id])
-    if request.post? or request.delete?
-      redirect_to_current if @subscription.destroy
-    end    
-  end
   
   def subscriptions_period    
     @subscription = Subscription.new(:nature=>SubscriptionNature.find_by_company_id_and_id(@current_company.id, params[:subscription_nature_id].to_i))
@@ -2580,9 +2435,9 @@ class ManagementController < ApplicationController
   end
 
   def tracking
-    return unless @tracking = find_and_check(:trackings, params[:id])
+    return unless @tracking = find_and_check(:trackings)
     session[:current_tracking_id] = @tracking.id
-    @title = {:serial=>@tracking.serial, :name=>@tracking.name}
+    t3e @tracking.attributes
   end
 
  

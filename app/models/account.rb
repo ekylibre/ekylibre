@@ -45,6 +45,9 @@
 #
 
 class Account < ActiveRecord::Base
+  acts_as_tree
+  attr_accessor :sum_debit, :sum_credit
+  attr_readonly :company_id, :number
   belongs_to :company
   has_many :account_balances
   has_many :balances, :class_name=>AccountBalance.name
@@ -56,11 +59,9 @@ class Account < ActiveRecord::Base
   has_many :payment_modes
   has_many :products
   has_many :purchase_order_lines
-  acts_as_tree
   validates_format_of :number, :with=>/[0-9][0-9]?[0-9]?[0-9A-Z]*/
   validates_uniqueness_of :number, :scope=>:company_id
   
-  attr_accessor :sum_debit, :sum_credit
 
   # This method allows to create the parent accounts if it is necessary.
   def before_validation
@@ -90,7 +91,11 @@ class Account < ActiveRecord::Base
   
   # This method allows to delete the account only if it has any sub-accounts.
   def before_destroy
-    return false if self.children.size > 0
+    return false unless self.destroyable?
+  end
+
+  def destroyable?
+    self.journal_entries.size <= 0 and self.balances.size <= 0
   end
 
   # This method allows to find all the parent accounts.

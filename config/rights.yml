@@ -8,6 +8,7 @@ __minimum__:
   - authentication::register
   - company::about
   - company::change_password
+  - company::formalize
   - company::help
   - company::index
   - company::side
@@ -15,7 +16,6 @@ __minimum__:
   - company::unknown_action
   - company::user_statistics
   - company::welcome
-  - company::formalize
   - help::close
   - help::previous
   - help::search
@@ -355,6 +355,7 @@ manage_entity_links:
   - entity_link_create
   - entity_link_delete
   - entity_link_nature_create
+  - entity_link_nature_delete
   - entity_link_nature_update
   - entity_link_natures
   - entity_link_natures_dyta
@@ -626,6 +627,7 @@ manage_subscriptions:
   - subscription_nature
   - subscription_nature_create
   - subscription_nature_decrement
+  - subscription_nature_delete
   - subscription_nature_increment
   - subscription_nature_update
   - subscription_natures

@@ -1,5 +1,6 @@
 =formalize do |f|
-  - f.error :observation
-  - f.field :observation, :importance,:field=>:radio, :choices=>Observation.importances
-  - f.field :observation, :description, :field=>:textarea
+  -f.error :observation
+  -f.field :observation, :entity_id, :choices=>:entities, :new=>{:action=>:entity_create}
+  -f.field :observation, :importance,:field=>:radio, :choices=>Observation.importances
+  -f.field :observation, :description, :field=>:textarea
   

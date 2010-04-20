@@ -186,36 +186,8 @@ class CompanyController < ApplicationController
 
   def establishments
   end
-  
-  def establishment_create
-    if request.post?
-      @establishment = Establishment.new(params[:establishment])
-      @establishment.company_id = @current_company.id
-      redirect_to_back if @establishment.save
-    else
-      @establishment = Establishment.new
-    end
-    render_form
-  end
-  
-  def establishment_update
-    return unless @establishment = find_and_check(:establishment)
-    if request.post? and @establishment
-      if @establishment.update_attributes(params[:establishment])
-        redirect_to_back
-      end
-    end
-    render_form
-  end
 
-  def establishment_delete
-    if request.post? or request.delete?
-      return unless @establishment = find_and_check(:establishment)
-      Establishment.destroy(params[:id]) if @establishment
-    end
-    redirect_to_back
-  end
-
+  manage :establishments
 
 
   dyta(:departments, :conditions=>{:company_id=>['@current_company.id']},:order=>:name) do |t| 
@@ -228,33 +200,7 @@ class CompanyController < ApplicationController
   def departments
   end
 
-  def department_create
-    @department = Department.new(params[:department])
-    if request.post? 
-      @department.company_id = @current_company.id
-      redirect_to_back if @department.save
-    end
-    render_form
-  end
-
-  def department_update
-    return unless @department = find_and_check(:department)
-    if request.post? and @department
-      if @department.update_attributes(params[:department])
-        redirect_to_back
-      end
-    end
-    render_form
-  end
-
-  def department_delete
-    if request.post? or request.delete?
-      return unless @department = find_and_check(:department)
-      Department.destroy(params[:id]) if @department
-    end
-    redirect_to_back
-  end
-
+  manage :departments
 
   dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name, :children=>:users) do |t| 
     t.column :name, :children=>:label
@@ -274,7 +220,7 @@ class CompanyController < ApplicationController
       @role.company_id = @current_company.id
       @role.rights_array = (params[:rights]||{}).keys
       @rights = @role.rights_array
-      redirect_to_back if @role.save
+      return if save_and_redirect(@role)
     else
       @rights = User.rights_list      
     end
@@ -287,7 +233,7 @@ class CompanyController < ApplicationController
       @role.attributes = params[:role]
       @role.rights_array = (params[:rights]||{}).keys
       @rights = @role.rights_array
-      redirect_to_back if @role.save
+      return if save_and_redirect(@role)
     else
       @rights = @role.rights_array
     end
@@ -371,7 +317,7 @@ class CompanyController < ApplicationController
         @user.company_id = @current_company.id
         @user.rights_array = (params[:rights]||{}).keys
         @rights = @user.rights_array        
-        redirect_to_back if @user.save
+        return if save_and_redirect(@user)
       else
         role = @current_company.roles.first
         @user = @current_company.users.new(:admin=>false, :role=>role)
@@ -387,7 +333,7 @@ class CompanyController < ApplicationController
       @user.attributes = params[:user]
       @user.rights_array = (params[:rights]||{}).keys
       @rights = @user.rights_array
-      redirect_to_back if @user.save
+      return if save_and_redirect(@user)
     else
       @rights = @user.rights_array
     end
@@ -442,21 +388,12 @@ class CompanyController < ApplicationController
   def document_templates
   end
 
+  manage :document_templates, :country=>"@current_company.entity.country", :language_id=>"@current_company.entity.language_id"
+
   def document_templates_load
     @current_company.load_prints
     notify(:update_is_done, :success, :now)
     redirect_to :action=>:document_templates
-  end
- 
-  def document_template_create
-    if request.post? 
-      @document_template = DocumentTemplate.new(params[:document_template])
-      @document_template.company_id = @current_company.id
-      redirect_to_back if @document_template.save
-    else
-      @document_template = DocumentTemplate.new :country=>@current_company.entity.country, :language_id=>@current_company.entity.language_id
-    end
-    render_form
   end
 
   def document_template_print
@@ -481,25 +418,6 @@ class CompanyController < ApplicationController
     redirect_to_current    
   end
 
-  def document_template_update
-    return unless @document_template = find_and_check(:document_template)
-    if request.post? and @document_template
-      if @document_template.update_attributes(params[:document_template])
-        redirect_to_back
-        #redirect_to_current
-      end
-    end
-    @title = {:value=>@document_template.name}
-    render_form    
-  end
-
-  def document_template_delete
-    if request.post? or request.delete?
-      return unless @document_template = find_and_check(:document_template)
-      DocumentTemplate.destroy(@document_template.id) if @document_template and @document_template.destroyable?
-    end
-    redirect_to_current
-  end
 
 
 
@@ -521,35 +439,7 @@ class CompanyController < ApplicationController
   def sequences
   end
 
-  def sequence_create
-    if request.post? 
-      @sequence = Sequence.new(params[:sequence])
-      @sequence.company_id = @current_company.id
-      redirect_to_back if @sequence.save
-    else
-      @sequence = Sequence.new :format=>'[number|8]', :last_number=>0
-    end
-    render_form
-  end
-
-  def sequence_update
-    return unless @sequence = find_and_check(:sequence)
-    if request.post? and @sequence
-      if @sequence.update_attributes(params[:sequence])
-        redirect_to_back
-      end
-    end
-    @title = {:value=>@sequence.name}
-    render_form
-  end
-
-  def sequence_delete
-    if request.post? or request.delete?
-      return unless @sequence = find_and_check(:sequence)
-      Sequence.destroy(@sequence.id) if @sequence and @sequence.destroyable?
-    end
-    redirect_to_current
-  end
+  manage :sequences, :format=>"'[number|8]'", :last_number=>"0"
 
   dyta(:listings, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name, :url=>{:action=>:listing_update}

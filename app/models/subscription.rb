@@ -140,7 +140,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def finish
-    self.nature.nature == "quantity" ? self.last_number : ::I18n.localize(self.stopped_on  )
+    self.nature.nature == "quantity" ? self.last_number : ::I18n.localize(self.stopped_on)
   end
 
   def active?(instant=nil)

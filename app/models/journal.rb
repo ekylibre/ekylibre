@@ -37,6 +37,7 @@
 #
 
 class Journal < ActiveRecord::Base
+  attr_readonly :company_id
   before_destroy :empty?
   belongs_to :company
   belongs_to :currency
@@ -73,6 +74,11 @@ class Journal < ActiveRecord::Base
     unless valid
       errors.add(:closed_on, :end_of_month, :closed_on=>::I18n.localize(self.closed_on)) if self.closed_on != self.closed_on.end_of_month
     end
+  end
+
+
+  def destroyable?
+    @journal.records.size <= 0 and @journal.entries.size <= 0
   end
 
 

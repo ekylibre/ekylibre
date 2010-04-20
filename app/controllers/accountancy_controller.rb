@@ -137,7 +137,7 @@ class AccountancyController < ApplicationController
       @bank_account = BankAccount.new(params[:bank_account])
       @bank_account.company_id = @current_company.id
       @bank_account.entity_id = session[:entity_id] 
-      redirect_to_back if @bank_account.save
+      return if save_and_redirect(@bank_account)
     else
       @bank_account = BankAccount.new(:mode=>"bban")
       session[:entity_id] = params[:entity_id]||@current_company.entity_id
@@ -151,9 +151,8 @@ class AccountancyController < ApplicationController
   def bank_account_update
     return unless @bank_account = find_and_check(:bank_account, params[:id])
     if request.post? or request.put?
-      if @bank_account.update_attributes(params[:bank_account])
-        redirect_to :action => :bank_accounts
-      end
+      @bank_account.attributes = params[:bank_account]
+      return if save_and_redirect(@bank_account)
     end
     render_form
   end
@@ -185,28 +184,7 @@ class AccountancyController < ApplicationController
   def accounts
   end
   
-  # this action creates an account with a form.
-  def account_create
-    if request.post?
-      @account = Account.new(params[:account])
-      @account.company_id = @current_company.id
-      redirect_to_back if @account.save
-    else
-      @account = Account.new
-    end
-    render_form
-  end
-
-  # this action updates an existing account with a form.
-  def account_update
-    return unless @account = find_and_check(:account, params[:id])
-    if request.post? or request.put?
-      params[:account].delete :number
-      redirect_to_back if @account.update_attributes(params[:account])
-    end
-    t3e @account.attributes
-    render_form
-  end
+  manage :accounts
 
 
   # This method allows to make lettering for the client and supplier accounts.
@@ -250,18 +228,6 @@ class AccountancyController < ApplicationController
   end
 
 
-
-  # this action deletes or hides an existing account.
-  def account_delete
-    return unless @account = find_and_check(:account, params[:id])
-    if request.post? or request.delete?
-      unless @account.entries.size > 0 or @account.balances.size > 0
-        Account.destroy(@account.id) 
-      end
-    end
-    redirect_to_current
-  end
-  
 
   def document_print
     # redirect_to :action=>:index
@@ -527,7 +493,7 @@ class AccountancyController < ApplicationController
     if request.post? 
       @financialyear = Financialyear.new(params[:financialyear])
       @financialyear.company_id = @current_company.id
-      redirect_to_back if @financialyear.save
+      return if save_and_redirect(@financialyear)
     else
       @financialyear = Financialyear.new
       f = @current_company.financialyears.find(:first, :order=>"stopped_on DESC")
@@ -545,7 +511,8 @@ class AccountancyController < ApplicationController
   def financialyear_update
     return unless @financialyear = find_and_check(:financialyears, params[:id])
     if request.post? or request.put?
-      redirect_to :action => :financialyears  if @financialyear.update_attributes(params[:financialyear])
+      @financialyear.attributes = params[:financialyear]
+      return if save_and_redirect(@financialyear)
     end
     t3e @financialyear.attributes
     render_form
@@ -890,29 +857,7 @@ class AccountancyController < ApplicationController
     t3e @journal.attributes
   end
 
-
-  #this method creates a journal with a form. 
-  def journal_create
-    @journal = Journal.new(params[:journal])
-    if request.post?
-      @journal.company_id = @current_company.id
-      redirect_to_back if @journal.save
-    else
-      @journal.nature = Journal.natures[0][1]
-    end
-    render_form
-  end
-
-  #this method updates a journal with a form. 
-  def journal_update
-    return unless @journal = find_and_check(:journal, params[:id])  
-    if request.post? or request.put?
-      redirect_to_back if @journal.update_attributes(params[:journal]) 
-    end
-    t3e @journal.attributes
-    render_form
-  end
-
+  manage :journals, :nature=>"Journal.natures[0][1]"
 
 
   # This method allows to close the journal.
@@ -947,20 +892,6 @@ class AccountancyController < ApplicationController
       end
     end
     t3e @journal.attributes    
-  end
-
-  # this action deletes or hides an existing journal.
-  def journal_delete
-    if request.post? or request.delete?
-      return unless @journal = find_and_check(:journal, params[:id])  
-      if @journal.records.size > 0
-        notify(:cannot_delete_journal, :error)
-        # @journal.update_attribute(:deleted, true)
-      else
-        Journal.destroy(@journal)
-      end
-    end
-    redirect_to :action => "journals"
   end
 
 
@@ -1292,7 +1223,7 @@ class AccountancyController < ApplicationController
       
   #     @tax_declaration = TaxDeclaration.new(params[:tax_declaration].merge!({:collected_amount=>vat_collected_amount, :paid_amount=>vat_deductible_amount, :balance_amount=>vat_balance_amount, :assimilated_taxes_amount=>vat_assimilated_amount, :acquisition_amount=>vat_acquisitions_amount, :started_on=>started_on, :stopped_on=>stopped_on}))
   #     @tax_declaration.company_id = @current_company.id
-  #     redirect_to_back if  @tax_declaration.save
+  #     return if save_and_redirect(@tax_declaration)
       
   #   else
   #     @tax_declaration = TaxDeclaration.new
