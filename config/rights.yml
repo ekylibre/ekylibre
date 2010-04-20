@@ -15,6 +15,7 @@ __minimum__:
   - company::unknown_action
   - company::user_statistics
   - company::welcome
+  - company::formalize
   - help::close
   - help::previous
   - help::search

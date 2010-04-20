@@ -2,7 +2,8 @@
   -f.error :entity
   -f.error :datum
   -f.title :title
-  -f.field :entity, :nature_id, :choices=>@current_company.entity_natures.find(:all, :order=>:name).collect {|x| [x.name, x.id]}, :new=>{:action=>:entity_nature_create}
+  -f.field :entity, :nature_id, :choices=>{:reflection=>:entity_natures, :label=>:name, :order=>:name}, :new=>{:action=>:entity_nature_create}
+  -#f.field :entity, :nature_id, :choices=>@current_company.entity_natures.find(:all, :order=>:name).collect {|x| [x.name, x.id]}, :new=>{:action=>:entity_nature_create}
   -f.field :entity, :language_id, :choices=>@current_company.languages.find(:all, :order=>:native_name).collect {|x| [x.native_name, x.id]}
   -f.field :entity, :name
   -f.field :entity, :first_name

@@ -45,6 +45,14 @@ class CompanyController < ApplicationController
   end
 
 
+  def formalize
+    @options = {}
+    for x in [:reflection, :order, :label, :include_blank]
+      @options[x] = params[x]
+    end
+    render :inline=>'<%=options_for_select(@current_company.reflection_options(@options), params[:selected].to_i)-%>'
+  end
+
 
   def welcome
     index

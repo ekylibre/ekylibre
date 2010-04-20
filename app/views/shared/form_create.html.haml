@@ -1,6 +1,7 @@
 -form_id = @options[:id]||"f"+rand.to_s[2..-1]
--if request.xhr?
-  -form_remote_tag(:update=>params[:dialog], :html=>{:id=>form_id}, :loaded=>"resizeDialog('#{params[:dialog]}')") do
+-if params[:dialog]
+  -jsaction = params[:formalize] ? Marshal.load(ActiveSupport::Base64.decode64(params[:formalize])) : nil
+  -form_remote_tag(:url=>{:dialog=>params[:dialog], :formalize=>params[:formalize]}, 250=>"#{jsaction}; closeDialog('#{params[:dialog]}')", 200=>"$('#{params[:dialog]}').innerHTML=request.responseText", :html=>{:id=>form_id}, :loaded=>"resizeDialog('#{params[:dialog]}')") do
     .fields=render :partial=>@partial
     .actions
       =submit_tag(tg(@options[:submit]||:create))

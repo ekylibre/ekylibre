@@ -260,6 +260,18 @@ class Company < ActiveRecord::Base
     nature.id
   end 
 
+
+  def reflection_options(options={})
+    label = options[:label]||:name
+    find_options = {}
+    find_options[:order] = options[:order] if options[:order]
+    list = self.send(options[:reflection]).find(:all, find_options).collect do |record|
+      [record.send(label), record.id]
+    end
+    list.insert(0, [options[:include_blank], '']) if options[:include_blank].is_a? String
+    return list
+  end
+
   #   def checks_to_embank_on_update(embankment)
   #     checks = []
   #     for payment in self.payments

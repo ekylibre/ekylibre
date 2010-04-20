@@ -767,7 +767,8 @@ class RelationsController < ApplicationController
     if request.post?
       @entity_nature = EntityNature.new(params[:entity_nature])
       @entity_nature.company_id = @current_company.id
-      redirect_to_back if @entity_nature.save
+      return if save_and_redirect(@entity_nature, :back)
+      # redirect_to_back if @entity_nature.save
     else
       @entity_nature = EntityNature.new
     end
@@ -1010,7 +1011,7 @@ class RelationsController < ApplicationController
     if request.post?
       @event_nature = EventNature.new(params[:event_nature])
       @event_nature.company_id = @current_company.id
-      redirect_to_back if @event_nature.save
+      return if save_and_redirect(@event_nature)
     end
     render_form
   end
@@ -1057,7 +1058,7 @@ class RelationsController < ApplicationController
     if request.post?
       @event = Event.new(params[:event])
       @event.company_id = @current_company.id
-      redirect_to_back if @event.save
+      return if save_and_redirect(@event, :back)
     end
     render_form
   end

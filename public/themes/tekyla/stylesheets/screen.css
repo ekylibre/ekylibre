@@ -13,12 +13,17 @@ table#master  { margin-top:30px; }
 table#master > tbody > tr > td { vertical-align: top;  }
 table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 
-#overlay { background: black url(../images/ajax-loader-4.gif) center center no-repeat;; }
-
-
 #loading { padding: 2px; text-align: center; }
+
+#overlay { background: black; }
+#overlay.loading { background: black url(../images/ajax-loader-4.gif) center center no-repeat; }
+
+.dialog { background: black; }
+
+.dialog .main { border: 4px solid #95b0e4; }
+
 .main { overflow: auto; border-top: 1px solid #95b0e4; background: #C9D7F1; padding-bottom: 8px;}
-.dialog .main { border: 1px solid #95b0e4; }
+
 .page { overflow: auto; border-right:8px solid #C9D7F1; border-left:8px solid #C9D7F1; }
 /*#legals { margin:0; padding:4px 8px; height: 0px; background: #C9D7F1; font-size:13px; color: #047; text-align: center; }*/
 

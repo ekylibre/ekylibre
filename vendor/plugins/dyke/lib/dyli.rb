@@ -39,10 +39,10 @@ module Ekylibre
               conditions = options[:conditions]
               case conditions[0]
               when String  # SQL
-#               query << '["'+conditions[0].to_s+'"'
+                #               query << '["'+conditions[0].to_s+'"'
                 query << conditions[0].to_s
                 parameters += ', '+conditions[1..-1].collect{|p| sanitize_conditions(p)}.join(', ') if conditions.size>1
-#                query << ')'
+                #                query << ')'
               else
                 raise Exception.new("First element of an Array can only be String or Symbol.")
               end
@@ -50,43 +50,52 @@ module Ekylibre
             
             method_name = name_db.to_s+'_dyli'
 
+            select = (model.table_name+".id AS id, "+attributes_hash.collect{|k,v| v+" AS "+k}.join(", ")).inspect
+
             code  = ""
             code += "def #{method_name}\n"
             code += "  conditions = [#{query.join(' AND ').inspect+parameters}]\n"
-            # code += "  raise Exception.new(params.inspect)\n"
-            code += "  search = params[:#{name_db}][:search]||\"\"\n"
-            code += "  words = search.lower.split(/[\\s\\,]+/)\n"
-            code += "  if words.size>0\n"
-            code += "    conditions[0] += '#{' AND ' if query.size>0}('\n"
-            code += "    words.each_index do |index|\n"
-            code += "      word = words[index]\n"
-            # code += "      word = #{(options[:filter]||'%X%').inspect}.gsub('X', words[index])\n"
-            code += "      conditions[0] += ') AND (' if index>0\n"
-            code += "      conditions[0] += "+attributes.collect{|key| "LOWER(#{key[0]}) LIKE ?"}.join(' OR ').inspect+"\n"
-            # code += "      conditions += ["+(["word"]*attributes.size).join(", ")+"]\n"
-            code += "      conditions += ["+attributes.collect{|key| key[1].inspect.gsub('X', '"+words[index].to_s+"').gsub(/(^\"\"\+|\+\"\"\+|\+\"\")/, '')}.join(", ")+"]\n"
+            code += "  if request.get? and params[:id]\n"
+            code += "    conditions[0] += '#{' AND ' if query.size>0}#{model.table_name}.id=?'\n"
+            code += "    conditions << params[:id]\n"
+            code += "    record = "+model.name.to_s+".find(:first, :select=>#{select}, :conditions=>conditions)\n"
+            code += "    if record\n"
+            code += "      render :json=>{:tf_value=>"+attributes.collect{|key| "item.#{key[2]}.to_s"}.join('+", "+')+", :hf_value=>record.id}\n"
+            code += "    else\n"
+            code += "      render :text=>''\n"
             code += "    end\n"
-            code += "    conditions[0] += ')'\n"
-            code += "  end\n"
-            select = (model.table_name+".id AS id, "+attributes_hash.collect{|k,v| v+" AS "+k}.join(", ")).inspect
+            code += "  elsif request.post?\n"
+            code += "    search = params[:#{name_db}][:search]||\"\"\n"
+            code += "    words = search.lower.split(/[\\s\\,]+/)\n"
+            code += "    if words.size>0\n"
+            code += "      conditions[0] += '#{' AND ' if query.size>0}('\n"
+            code += "      words.each_index do |index|\n"
+            code += "        word = words[index]\n"
+            code += "        conditions[0] += ') AND (' if index>0\n"
+            code += "        conditions[0] += "+attributes.collect{|key| "LOWER(#{key[0]}) LIKE ?"}.join(' OR ').inspect+"\n"
+            code += "        conditions += ["+attributes.collect{|key| key[1].inspect.gsub('X', '"+words[index].to_s+"').gsub(/(^\"\"\+|\+\"\"\+|\+\"\")/, '')}.join(", ")+"]\n"
+            code += "      end\n"
+            code += "      conditions[0] += ')'\n"
+            code += "    end\n"
             order = ", :order=>"+attributes.collect{|key| "#{key[0]} ASC"}.join(', ').inspect
             limit = ", :limit=>"+(options[:limit]||12).to_s
             joins = options[:joins] ? ", :joins=>"+options[:joins].inspect : ""
             partial = options[:partial]
-            code += "  list = ''\n"
-            code += "  for item in "+model.name.to_s+".find(:all, :select=>#{select}, :conditions=>conditions"+joins+order+limit+")\n"
-            code += "    content = "+attributes.collect{|key| "item.#{key[2]}.to_s"}.join('+", "+')+"\n"
+            code += "    list = ''\n"
+            code += "    for item in "+model.name.to_s+".find(:all, :select=>#{select}, :conditions=>conditions"+joins+order+limit+")\n"
+            code += "      content = "+attributes.collect{|key| "item.#{key[2]}.to_s"}.join('+", "+')+"\n"
             if partial
               display = "render(:partial=>#{partial.inspect}, :locals =>{:record=>item, :content=>content, :search=>search})"
             else
               display = "highlight(content, search)"
             end
-            code += "    list += \"<li id=\\\"#{name_db}_\#\{item.id\}\\\">\"+#{display}+\"<input type=\\\"hidden\\\" value=\#\{content.inspect\} id=\\\"record_\#\{item.id\}\\\"/></li>\"\n"
+            code += "      list += \"<li id=\\\"#{name_db}_\#\{item.id\}\\\">\"+#{display}+\"<input type=\\\"hidden\\\" value=\#\{content.inspect\} id=\\\"record_\#\{item.id\}\\\"/></li>\"\n"
+            code += "    end\n"
+            code += "    render :text=>'<ul>'+list+'</ul>'\n"
             code += "  end\n"
-            code += "  render :text=>'<ul>'+list+'</ul>'\n"
             code += "end\n"
 
-            File.open("/tmp/test.rb", "wb") {|f| f.write(code)}
+            # File.open("/tmp/test.rb", "wb") {|f| f.write(code)}
             # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
 
             module_eval(code)
@@ -113,7 +122,7 @@ module Ekylibre
       
       
       module View
- 
+        
         # Acts like select_tag
         def dyli_tag(name_html, name_db, options={}, tag_options={}, completion_options={})
           tf_name  = "#{name_db}[search]"
@@ -126,13 +135,13 @@ module Ekylibre
             hf_value = foreign.id
           end
 
-          options[:field_id] = name_html.gsub(/[\[\]]/,'_').gsub(/(^\_+|\_+$)/, '')
+          options[:field_id] ||= name_html.gsub(/[\[\]]+/,'_').gsub(/(^\_+|\_+$)/, '')
           completion_options[:skip_style] = true;
           
           dyli_completer(tf_name, tf_value, hf_name, hf_value, options, tag_options, completion_options)
         end
- 
-       
+        
+        
         # Acts like select
         def dyli(object, association, name_db, options={}, tag_options={}, completion_options={})
           real_object = instance_variable_get("@#{object}")
@@ -140,7 +149,7 @@ module Ekylibre
           reflection  = real_object.class.reflect_on_association(association)
           raise Exception.new("Unknown reflection #{association} for #{real_object.class}") if reflection.nil?
           foreign_key = reflection.primary_key_name
-                    
+          
           name = name_db || association.to_s
           
           foreign = real_object.send(association)
@@ -151,7 +160,7 @@ module Ekylibre
           hf_value = (real_object.send(foreign_key) rescue nil)
           options  = { :action => "#{name}_dyli"}.merge(options)
           options[:real_object] = real_object.send(foreign_key) unless real_object.new_record?
-          options[:field_id] = "#{object}_#{foreign_key}"
+          options[:field_id] ||= "#{object}_#{foreign_key}"
           tag_options[:class] = tag_options[:class].to_s+' invalid' if real_object.errors.invalid?(association.to_s+"_id")
 
           completion_options[:skip_style] = true;
@@ -174,17 +183,17 @@ module Ekylibre
           
           options[:submit_on_return] = options[:send_on_return] if options[:send_on_return]
           
-          hf_id = options[:field_id]
-          tf_id = "tf_"+hf_id
-          #hf_id, tf_id = determine_field_ids(options)
+          hf_id = options[:field_id]||"x"+rand.to_s[2..-1]
+          tf_id = hf_id+"_tf"
+          # hf_id, tf_id = determine_field_ids(options)
           # determine_tag_options(tf_name, tf_value, hf_id, tf_id, options, tag_options)
           # determine_completion_options(tf_id, hf_id, options, completion_options)
           determine_tag_options(hf_id, tf_id, options, tag_options)
           determine_completion_options(hf_id, tf_id, options, completion_options)
-     
+          
           return <<-HTML
-          #{dyli_complete_stylesheet unless completion_options[:skip_style]}    
-          #{hidden_field_tag(hf_name, hf_value, :id => hf_id)}
+          #{dyli_complete_stylesheet unless completion_options[:skip_style]}
+          #{hidden_field_tag(hf_name, hf_value, :id => hf_id, :href=>url_for(completion_options[:url]))}
           #{text_field_tag(tf_name, tf_value, tag_options)}
           #{content_tag("div", " ", :id => "#{tf_id}_dyli_complete", :class => "dyli_complete")}
           #{dyli_complete_field(tf_id, completion_options)}
@@ -196,7 +205,7 @@ module Ekylibre
           
           function =  "var #{field_id}_dyli_completer = new Ajax.Autocompleter("
           function << "'#{field_id}', "
-          function << "'" + (options[:update] || "#{field_id}_dyli_complete") + "',"
+          function << "'" + (options[:update] || "#{field_id}_dyli_complete") + "', "
           function << "'#{url_for(options[:url])}'"
           
           js_options = {}
@@ -224,11 +233,11 @@ module Ekylibre
         #
         def dyli_complete_stylesheet
           content_tag('style', <<-EOT, :type => Mime::CSS)
-        div.dyse_complete { width: 350px; }
-        div.dyse_complete ul { position: fixed; margin:0; padding:0; width:30%; list-style-type:none; }
-        div.dyse_complete ul li { background-color: #B1D1F9; margin:0; padding:3px; }
-        div.dyse_complete ul li.selected { background-color: #C9D7F1; }
-        div.dyse_complete ul strong.highlight { color: #800; margin:0; padding:0; }
+        div.dyli_complete { width: 350px; }
+        div.dyli_complete ul { position: fixed; margin:0; padding:0; width:30%; list-style-type:none; }
+        div.dyli_complete ul li { background-color: #B1D1F9; margin:0; padding:3px; }
+        div.dyli_complete ul li.selected { background-color: #C9D7F1; }
+        div.dyli_complete ul strong.highlight { color: #800; margin:0; padding:0; }
       EOT
         end
         
@@ -242,7 +251,7 @@ module Ekylibre
             hf_id << "_#{random_suffix}"
             tf_id << "_#{random_suffix}"
           end
-         return hf_id, tf_id
+          return hf_id, tf_id
         end
         
 

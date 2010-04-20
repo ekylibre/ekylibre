@@ -143,6 +143,21 @@ class ApplicationController < ActionController::Base
     record
   end
 
+  def save_and_redirect(record, url=:back, options={})
+    if record.save
+      if params[:dialog]
+        render :json=>{:id=>record.id}, :status=>250
+      else
+        # TODO: notif
+        if url == :back
+          redirect_to_back
+        else
+          redirect_to(url) 
+        end
+      end
+    end
+  end
+
   # For title I18n : t3e :)
   def t3e(*args)
     @title ||= {}
@@ -221,7 +236,7 @@ class ApplicationController < ActionController::Base
       redirect_to_login
       return
     elsif session[:last_query].to_i<Time.now.to_i-session[:expiration]
-      notify(:expired_session, :error)
+      notify(:expired_session)
       if request.xhr?
         render :text=>"<script>window.location.replace('#{url_for(:controller=>:authentication, :action=>:login)}')</script>"
       else

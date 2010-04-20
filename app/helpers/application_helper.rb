@@ -878,9 +878,15 @@ module ApplicationHelper
           html_options[:size] = 10
         end
       end
+
+      options[:options] ||= {}
       
       if options[:choices].is_a? Hash
-        options[:choices] = options[:choices].to_a.sort{|a,b| a[1]<=>b[1]}.collect{|x| x.reverse}
+        # options[:choices] = options[:choices].to_a.sort{|a,b| a[1]<=>b[1]}.collect{|x| x.reverse}
+        options[:field] = :dyselect
+        html_options.delete :size
+        html_options.delete :maxlength
+        html_options[:id] = "dyse"+rand.to_s[2..-1].to_i.to_s(36)
       end
       if options[:choices].is_a? Array
         options[:field] = :select if options[:field]!=:radio
@@ -891,43 +897,47 @@ module ApplicationHelper
         options[:field] = :dyli
         html_options.delete :size
         html_options.delete :maxlength
+        options[:options][:field_id] = "dyli"+rand.to_s[2..-1].to_i.to_s(36)
       end
 
-      options[:options] ||= {}
       input = case options[:field]
               when :password
-                password_field record, method, html_options
+                password_field(record, method, html_options)
               when :label
                 record.send(method)
               when :checkbox
-                check_box record, method, html_options
+                check_box(record, method, html_options)
               when :select
                 options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
-                select record, method, options[:choices], options[:options], html_options
-                #select " ", options[:choices], options[:options], html_options
+                select(record, method, options[:choices], options[:options], html_options)
+              when :dyselect
+                select(record, method, @current_company.reflection_options(options[:choices]), options[:options], html_options)
               when :dyli
-                dyli record, method, options[:choices], options[:options], html_options
+                dyli(record, method, options[:choices], options[:options], html_options)
               when :radio
-                options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s)}.join " "
+                options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s)}.join(" ")
               when :textarea
-                text_area record, method, :cols => options[:options][:cols]||30, :rows => options[:options][:rows]||3, :class=>(options[:options][:cols]==80 ? :code : nil)
+                text_area(record, method, :cols => options[:options][:cols]||30, :rows => options[:options][:rows]||3, :class=>(options[:options][:cols]==80 ? :code : nil))
               when :date
-                # date_text_field record, method, :order => [:day, :month, :year], :date_separator=>''
-                calendar_field record, method
+                calendar_field(record, method)
               else
-                text_field record, method, html_options
+                text_field(record, method, html_options)
               end
-      #      input += content_tag(:strong, options[:field].to_s)
-      if [:select, :dyli].include?(options[:field]) and options[:new].is_a? Hash
+
+      if options[:new].is_a?(Hash) and [:select, :dyselect, :dyli].include?(options[:field])
         label = tg(options[:new].delete(:label)||:new)
-        input += link_to(label, options[:new], :class=>:fastadd)
-        # input += link_to_function("TEST", "openDialog('#{url_for(options[:new])}')")
-        #input += link_to_function(label, "openVirtualPopup()", :class=>:fastadd)
+        if options[:field] == :select
+          input += link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data'))          
+        else
+          if options[:field] == :dyselect
+            data = "refreshList('#{html_options[:id]}', '#{url_for(options[:choices].merge(:controller=>:company, :action=>:formalize))}', request);"
+          else
+            data = "refreshAutoList('#{options[:options][:field_id]}', request);"
+          end
+          data = ActiveSupport::Base64.encode64(Marshal.dump(data))
+          input += link_to_function(label, "openDialog('#{url_for(options[:new].merge(:formalize=>data))}')", :href=>url_for(options[:new]), :class=>:fastadd)
+        end
       end
-      # input += " "+tg("format_date.iso")+" " if options[:field] == :date
-
-
-      #      input += content_tag(:h6,options[:field].to_s+' '+options[:choices].class.to_s+' '+options.inspect)
       
       label = t("activerecord.attributes.#{object.class.name.underscore}.#{method.to_s}")
       label = " " if options[:options][:hide_label] 

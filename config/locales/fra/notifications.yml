@@ -79,3 +79,4 @@ fra:
 
     you_must_have_an_email_column: 'Vous devez avoir une colonne Email dans votre extraction'
     you_must_select_a_file_to_import: 'Vous devez sélectionner un fichier à importer'
+    you_will_lose_all_your_current_data: 'Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre ?'
