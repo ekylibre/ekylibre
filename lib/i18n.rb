@@ -90,6 +90,13 @@ module ActiveRecord
     def add_to_base(msg, options = {})
       add(:base, msg, options)
     end
+    
+    def add_from_record(record)
+      record.errors.each do |attribute, message|
+        @errors[attribute.to_s] ||= []
+        @errors[attribute.to_s] << message
+      end
+    end
 
 
     # Generate only full translated messages

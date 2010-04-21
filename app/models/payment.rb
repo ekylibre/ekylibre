@@ -109,7 +109,7 @@ class Payment < ActiveRecord::Base
     part_amount = [expense.unpaid_amount(!downpayment), self.unused_amount].min
     part = self.parts.create(:amount=>part_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>downpayment)
     if part.errors.size > 0
-      part.errors.each_full { |msg| self.errors.add_to_base(msg) }
+      errors.add_from_record(part)
       return false
     end
     return true

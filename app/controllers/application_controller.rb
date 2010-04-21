@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  ActiveRecord::Base.connection.execute("UPDATE document_templates SET nature='balance_sheet' WHERE nature='financialyear' AND code='BILAN'")
+  ActiveRecord::Base.connection.execute("UPDATE document_templates SET nature='balance_sheet' WHERE nature='financialyear' AND code LIKE 'BILAN%'")
   ActiveRecord::Base.connection.execute("UPDATE document_templates SET nature='income_statement' WHERE nature='financialyear'")
   # ActiveRecord::Base.connection.execute("UPDATE document_templates SET source=REPLACE(source, 'employee', 'responsible'), cache=REPLACE(cache, 'employee', 'responsible')")
   
@@ -143,8 +143,9 @@ class ApplicationController < ActionController::Base
     record
   end
 
-  def save_and_redirect(record, url=:back, options={})
-    if record.save
+  def save_and_redirect(record, options={})
+    url = options[:url] || :back
+    if record.save or options[:saved]
       if params[:dialog]
         render :json=>{:id=>record.id}, :status=>250
       else

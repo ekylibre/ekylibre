@@ -420,18 +420,14 @@ class RelationsController < ApplicationController
   def entity_create
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
-    
     @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", @current_company.parameter('accountancy.third_accounts.clients').value.to_s+'%'])
     @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", @current_company.parameter('accountancy.third_accounts.suppliers').value.to_s+'%'])
     
     if request.post?
-      
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
-
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
-           
       for complement in @complements
         attributes = params[:complement_datum][complement.id.to_s]||{}
         attributes[:complement_id] = complement.id
@@ -440,10 +436,7 @@ class RelationsController < ApplicationController
       end
 
       ActiveRecord::Base.transaction do
-        saved = @entity.save
-
-        if saved
-          
+        if saved = @entity.save
           unless params[:entity][:client].to_i.zero?
             if params[:entity][:client_account_id].to_i.zero?
               account = @entity.create_update_account(:client) 
@@ -455,7 +448,7 @@ class RelationsController < ApplicationController
           
           unless params[:entity][:supplier].to_i.zero?
             if params[:entity][:supplier_account_id].to_i.zero?
-              account =@entity.create_update_account(:supplier)
+              account=@entity.create_update_account(:supplier)
               @entity.supplier_account_id = account.id
             else
               @entity.supplier_account_id = params[:entity][:supplier_account_id]
@@ -465,42 +458,31 @@ class RelationsController < ApplicationController
           for datum in @complement_data
             datum.entity_id = @entity.id
             saved = false unless datum.save
-            datum.errors.each_full do |msg|
-              @entity.errors.add_to_base(msg)
-            end
+            @entity.errors.add_from_record(datum)
           end
 
           @contact.entity_id = @entity.id
           saved = false unless @contact.save
-          @contact.errors.each_full do |msg|
-            @entity.errors.add_to_base(msg)
-          end
-                    
+          @entity.errors.add_from_record(@contact)
         end
 
         raise ActiveRecord::Rollback unless saved
-        if session[:history][1].to_s.include? "relations"
-          redirect_to :action=>:entity, :id=>@entity.id
-        else
-          redirect_to_back
-        end
+        return if save_and_redirect(@entity, :saved=>saved)
       end
 
     else
-      @contact = @current_company.contacts.new(:country=>'fr', :default=>true)
-      @entity = @current_company.entities.new(:country=>'fr')
+      @contact = @current_company.contacts.new(:country=>@current_company.entity.country)
+      @entity = @current_company.entities.new(:country=>@current_company.entity.country)
       for complement in @complements
         @complement_data << @current_company.complement_data.new(:entity_id=>@entity.id, :complement_id=>complement.id)
       end
     end
-    
-    
     render_form
   end
 
   #
   def entity_update
-    return @entity = find_and_check(:entity)
+    return unless @entity = find_and_check(:entity)
     session[:current_entity] = @entity.id
    
     
@@ -546,16 +528,12 @@ class RelationsController < ApplicationController
           for datum in @complement_data
             datum.entity_id = @entity.id
             saved = false unless datum.save
-            datum.errors.each_full do |msg|
-              @entity.errors.add_to_base(msg)
-            end
+            @entity.errors.add_from_record(datum)
           end
         end
         
         saved = false unless @contact.update_attributes(params[:contact])
-        @contact.errors.each_full do |msg|
-          @entity.errors.add_to_base(msg)
-        end
+        @entity.errors.add_from_record(@contact)
         raise ActiveRecord::Rollback unless saved
         redirect_to_back
       end
@@ -570,7 +548,7 @@ class RelationsController < ApplicationController
         end
       end
     end
-    @title = {:value=>@entity.full_name}
+    t3e :value=>@entity.full_name
     render_form
   end
 

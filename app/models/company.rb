@@ -119,7 +119,7 @@ class Company < ActiveRecord::Base
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
   has_many :embankable_payments, :class_name=>Payment.name, :conditions=>{:embankment_id=>nil}
-
+  has_many :client_accounts, :class_name=>Account.name, :finder_sql=>'SELECT accounts.* FROM accounts WHERE company_id=#{id} AND number LIKE \'#{parameter(\'accountancy.third_accounts.clients\').value}%\'', :order=>:label
   has_one :current_financialyear, :class_name=>Financialyear.name, :conditions=>{:closed=>false}
   validates_uniqueness_of :code
 
@@ -170,6 +170,7 @@ class Company < ActiveRecord::Base
     end
     parameter
   end
+
 
   def set_parameter(name, value)
     parameter = self.parameters.find_by_name(name)
@@ -262,10 +263,15 @@ class Company < ActiveRecord::Base
 
 
   def reflection_options(options={})
-    label = options[:label]||:name
-    find_options = {}
+    reflection = self.class.reflections[options[:reflection]]
+    raise ArgumentError.new("Need :reflection option with an existing reflection") unless reflection
+    unless label = options[:label]
+      methods = reflection.class_name.constantize.instance_methods
+      label = [:label, :name, :code, :inspect].detect{|x| methods.include?(x)}
+    end
+    find_options = {:conditions=>"true"}
     find_options[:order] = options[:order] if options[:order]
-    list = self.send(options[:reflection]).find(:all, find_options).collect do |record|
+    list = (self.send(reflection.name).find(:all, find_options)||[]).collect do |record|
       [record.send(label), record.id]
     end
     list.insert(0, [options[:include_blank], '']) if options[:include_blank].is_a? String

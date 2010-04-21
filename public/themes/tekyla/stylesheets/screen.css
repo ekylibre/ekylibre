@@ -18,9 +18,9 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 #overlay { background: black; }
 #overlay.loading { background: black url(../images/ajax-loader-4.gif) center center no-repeat; }
 
-.dialog { background: black; }
-
-.dialog .main { border: 4px solid #95b0e4; }
+/*.dialog { background: black; }*/
+.dialog .main { border: 4px solid #95b0e4; -moz-border-radius: 8px;}
+.dialog .main .page { -moz-border-radius: 4px;}
 
 .main { overflow: auto; border-top: 1px solid #95b0e4; background: #C9D7F1; padding-bottom: 8px;}
 

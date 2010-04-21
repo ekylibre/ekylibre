@@ -60,7 +60,7 @@ module Ekylibre
             code += "    conditions << params[:id]\n"
             code += "    record = "+model.name.to_s+".find(:first, :select=>#{select}, :conditions=>conditions)\n"
             code += "    if record\n"
-            code += "      render :json=>{:tf_value=>"+attributes.collect{|key| "item.#{key[2]}.to_s"}.join('+", "+')+", :hf_value=>record.id}\n"
+            code += "      render :json=>{:tf_value=>"+attributes.collect{|key| "record.#{key[2]}.to_s"}.join('+", "+')+", :hf_value=>record.id}\n"
             code += "    else\n"
             code += "      render :text=>''\n"
             code += "    end\n"

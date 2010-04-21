@@ -1,7 +1,7 @@
 require 'dyta'
 require 'dyli'
 # require 'manage'
-
+require 'formalize'
 
 ActionController::Base.send(:include, ActionView::Helpers::AssetTagHelper)
 ActionController::Base.send(:include, ActionView::Helpers::TextHelper)
@@ -24,3 +24,4 @@ ActionView::Base.send(:include, Ekylibre::Dyke::Dyli::View)
 #ActionController::Base.send(:include, Ekylibre::Dyke::Dyse::Controller)
 #ActionView::Base.send(:include, Ekylibre::Dyke::Dyse::View)
 
+ActionView::Base.send :include, FormalizeHelper
