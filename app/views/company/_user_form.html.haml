@@ -13,10 +13,11 @@
 
 #employee{:style=>"display: #{@user.employed ? 'block' : 'none'}"}
   =render :partial=>"resources/employee_form", :locals=>{:create_user=>true}
- 
+
+-user_role_id = nil 
 =formalize(:id=>:show_rights) do |f|
   -f.title :rights
-  -f.field :user, :role_id, :choices=>@current_company.roles.find(:all, :order=>:name).collect{|x| [x.name, x.id]}, :new=>{:action=>:role_create}
+  -user_role_id = f.field :user, :role_id, :choices=>{:reflection=>:roles}, :new=>{:action=>:role_create}
   -#f.field :user, :reduction_percent
   -#f.field :user, :free_price
   -#f.field :user, :credits
@@ -46,4 +47,4 @@
 
 =observe_field("user_employed", :frequency=>0.25, :function=>"toggle_employee();" )
 =observe_field("user_admin", :frequency=>0.25, :function=>"display_rights();" )
-=observe_field("user_role_id", :url=>{:action=>:user_create}, :update=>:rights, :frequency => 0.25 , :with=>"user_role_id")
+=observe_field(user_role_id, :url=>{:action=>:user_create}, :update=>:rights, :frequency => 0.25 , :with=>"user_role_id")

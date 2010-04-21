@@ -50,6 +50,7 @@ class CompanyController < ApplicationController
     for x in [:reflection, :order, :label, :include_blank]
       @options[x] = params[x]
     end
+    puts @options.inspect
     render :inline=>'<%=options_for_select(@current_company.reflection_options(@options), params[:selected].to_i)-%>'
   end
 
@@ -136,9 +137,7 @@ class CompanyController < ApplicationController
             parameter.value = data[:value]
             unless parameter.save
               saved = false
-              parameter.errors.each_full do |msg|
-                @company.errors.add_to_base(msg)
-              end
+              @company.errors.add_from_record(parameter)
               raise ActiveRecord::Rollback
             end
           end

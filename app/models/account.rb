@@ -59,7 +59,7 @@ class Account < ActiveRecord::Base
   has_many :payment_modes
   has_many :products
   has_many :purchase_order_lines
-  validates_format_of :number, :with=>/[0-9][0-9]?[0-9]?[0-9A-Z]*/
+  validates_format_of :number, :with=>/^\d(\d(\d[0-9A-Z]*)?)?$/
   validates_uniqueness_of :number, :scope=>:company_id
   
 

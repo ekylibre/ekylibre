@@ -23,10 +23,10 @@
   -f.field :entity, :ean13
   -for datum in @complement_data
     -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_value", :name=>"complement_datum[#{datum.complement_id}][value]", :value=>datum.value, :size=>datum.complement.length_max, :options=>{:include_blank=>(datum.complement.required ? nil : '')}, :choices=>datum.complement.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
-
+- clients_id, suppliers_id = nil, nil
 =formalize(:id=>:client_form) do |f|
   -f.title :client
-  -f.field :entity, :client_account_id, :choices=>{:reflection=>:client_accounts, :include_blank=>tc(:account_client_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create}
+  -f.field(:entity, :client_account_id, :choices=>{:reflection=>:client_accounts, :include_blank=>tc(:account_client_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create})
   -f.field :entity, :category_id, :choices=>@current_company.entity_categories.find_all_by_deleted(false).collect{|x| [x.name, x.id]}
   -f.field Entity.human_attribute_name("origin"), text_field_with_auto_complete(:entity, :origin)
   -f.field :entity, :first_met_on

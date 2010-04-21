@@ -119,7 +119,7 @@ class Company < ActiveRecord::Base
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
   has_many :embankable_payments, :class_name=>Payment.name, :conditions=>{:embankment_id=>nil}
-  has_many :client_accounts, :class_name=>Account.name, :finder_sql=>'SELECT accounts.* FROM accounts WHERE company_id=#{id} AND number LIKE \'#{parameter(\'accountancy.third_accounts.clients\').value}%\'', :order=>:label
+  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.third_accounts.clients\').value.to_s+\'%\')}' 
   has_one :current_financialyear, :class_name=>Financialyear.name, :conditions=>{:closed=>false}
   validates_uniqueness_of :code
 
@@ -263,13 +263,16 @@ class Company < ActiveRecord::Base
 
 
   def reflection_options(options={})
-    reflection = self.class.reflections[options[:reflection]]
-    raise ArgumentError.new("Need :reflection option with an existing reflection") unless reflection
+    raise ArgumentError.new("Need :reflection option (#{options.inspect})") unless options[:reflection].to_s.size > 0
+    reflection = self.class.reflections[options[:reflection].to_sym]
+    raise ArgumentError.new("Unknown :reflection option with an existing reflection (#{reflection.class.name}:#{reflection.inspect})") unless reflection
     unless label = options[:label]
-      methods = reflection.class_name.constantize.instance_methods
-      label = [:label, :name, :code, :inspect].detect{|x| methods.include?(x)}
+      model = reflection.class_name.constantize
+      available_methods = model.instance_methods+model.columns_hash.keys
+      label = [:label, :name, :code, :inspect].detect{|x| available_methods.include?(x.to_s)}
+      raise ArgumentError.new(":label option is needed (#{options.inspect})") if label.nil?
     end
-    find_options = {:conditions=>"true"}
+    find_options = {} # :conditions=>"true"}
     find_options[:order] = options[:order] if options[:order]
     list = (self.send(reflection.name).find(:all, find_options)||[]).collect do |record|
       [record.send(label), record.id]

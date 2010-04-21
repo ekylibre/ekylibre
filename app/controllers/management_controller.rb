@@ -348,9 +348,7 @@ class ManagementController < ApplicationController
                   unless credit_line.save
                     saved = false
                     # session[:errors] << credit_line.errors.full_messages
-                    credit_line.errors.each_full do |msg|
-                      @credit.errors.add_to_base(msg)
-                    end
+                    @credit.errors.add_from_record(credit_line)
                   end
                   puts ">>>>>>>>>>>>>>>>><>>>>>>>>>>>>>>>>>>>>>> "+@credit.inspect
                 end
@@ -751,9 +749,7 @@ class ManagementController < ApplicationController
             @stock.product_id = @product.id
             @stock.company_id = @current_company.id
             saved = false unless @stock.save!
-            @stock.errors.each_full do |msg|
-              @product.errors.add_to_base(msg)
-            end
+            @product.errors.add_from_record(@stock)
           end
         end 
         if saved
@@ -797,9 +793,7 @@ class ManagementController < ApplicationController
             #save = false unless @stock.update_attributes(params[:stock])
             save = true
           end
-          @stock.errors.each_full do |msg|
-            @product.errors.add_to_base(msg)
-          end
+          @product.errors.add_from_record(@stock)
         end
         raise ActiveRecord::Rollback unless saved  
       end
@@ -1360,9 +1354,7 @@ class ManagementController < ApplicationController
           if @sale_order_line.subscription?
             @subscription = @sale_order_line.new_subscription(params[:subscription])
             saved = false unless @subscription.save
-              @sale_order_line.errors.each_full do |msg|
-              @subscription.errors.add_to_base(msg)
-            end
+            @subscription.errors.add_from_record(@sale_order_line)
           end
           raise ActiveRecord::Rollback unless saved
           redirect_to :action=>:sale_order_lines, :id=>@sale_order.id 
@@ -1497,9 +1489,7 @@ class ManagementController < ApplicationController
             if params[:delivery_line][line.id.to_s][:quantity].to_f > 0
               delivery_line = DeliveryLine.new(:order_line_id=>line.id, :delivery_id=>@delivery.id, :quantity=>params[:delivery_line][line.id.to_s][:quantity].to_f, :company_id=>@current_company.id)
               saved = false unless delivery_line.save
-              delivery_line.errors.each_full do |msg|
-                @delivery.errors.add_to_base(msg)
-              end
+              @delivery.errors.add_from_record(delivery_line)
             end
           end
         end
@@ -1525,9 +1515,7 @@ class ManagementController < ApplicationController
         if saved
           for line in @delivery.lines
             saved = false unless line.update_attributes!(:quantity=>params[:delivery_line][line.order_line.id.to_s][:quantity])
-            line.errors.each_full do |msg|
-              @delivery.errors.add_to_base(msg)
-            end
+            @delivery.errors.add_from_record(line)
           end
         end
         raise ActiveRecord::Rollback unless saved

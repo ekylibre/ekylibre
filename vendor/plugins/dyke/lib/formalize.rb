@@ -12,6 +12,7 @@ class Formalize
 
   def field(*params)
     line = params[2]||{}
+    id = line[:id]||"ff"+rand.to_s[2..-1].to_i.to_s(36)+Time.now.to_i.to_s(36)
     if params[1].is_a? Symbol
       line[:model] = params[0]
       line[:attribute] = params[1]
@@ -20,7 +21,9 @@ class Formalize
       line[:field] = params[1]
     end
     line[:nature] = :field
+    line[:id] = id
     @lines << line
+    return id
   end
 
   def error(*params)
@@ -146,23 +149,25 @@ module FormalizeHelper
 
       options[:options] ||= {}
       
-      if options[:choices].is_a? Hash
-        # options[:choices] = options[:choices].to_a.sort{|a,b| a[1]<=>b[1]}.collect{|x| x.reverse}
-        options[:field] = :dyselect
+      if options[:choices]
         html_options.delete :size
         html_options.delete :maxlength
-        html_options[:id] = "dyse"+rand.to_s[2..-1].to_i.to_s(36)
-      end
-      if options[:choices].is_a? Array
-        options[:field] = :select if options[:field]!=:radio
-        html_options.delete :size
-        html_options.delete :maxlength
-      end
-      if options[:choices].is_a? Symbol
-        options[:field] = :dyli
-        html_options.delete :size
-        html_options.delete :maxlength
-        options[:options][:field_id] = "dyli"+rand.to_s[2..-1].to_i.to_s(36)
+        if options[:choices].is_a? Array
+          options[:field] = :select if options[:field]!=:radio
+        elsif [Hash, Symbol].include?(options[:choices].class)
+          rlid = options[:id]
+          # html_options[:class] ||= ""
+          # html_options[:class] += " "+rlid
+          if options[:choices].is_a?(Hash)
+            options[:field] = :dyselect
+            html_options[:id] = rlid
+          else
+            options[:field] = :dyli
+            options[:options][:field_id] = rlid
+          end
+        else
+          raise ArgumentError.new("Option :choices must be Array, Symbol or Hash (got #{options[:choices].class.name})")
+        end
       end
 
       input = case options[:field]
@@ -191,13 +196,13 @@ module FormalizeHelper
 
       if options[:new].is_a?(Hash) and [:select, :dyselect, :dyli].include?(options[:field])
         label = tg(options[:new].delete(:label)||:new)
-        if options[:field] == :select
+        if options[:field] == :select and not request.xhr?
           input += link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data'))          
         else
           if options[:field] == :dyselect
-            data = "refreshList('#{html_options[:id]}', '#{url_for(options[:choices].merge(:controller=>:company, :action=>:formalize))}', request);"
+            data = "refreshList('#{rlid}', '#{url_for(options[:choices].merge(:controller=>:company, :action=>:formalize))}', request);"
           else
-            data = "refreshAutoList('#{options[:options][:field_id]}', request);"
+            data = "refreshAutoList('#{rlid}', request);"
           end
           data = ActiveSupport::Base64.encode64(Marshal.dump(data))
           input += link_to_function(label, "openDialog('#{url_for(options[:new].merge(:formalize=>data))}')", :href=>url_for(options[:new]), :class=>:fastadd)
