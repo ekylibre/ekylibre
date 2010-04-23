@@ -1,70 +1,61 @@
 =formalize do |f|
-  - f.error :product
-  - f.error :stock
-  - f.title :identification
-  - f.field :product, :name
-  - f.field :product, :code
-  - f.field :product, :code2
-  - f.field :product, :ean13
-  - f.field :product, :catalog_name
-  - f.title :nature
-  - f.field :product, :shelf_id, :choices=>@current_company.shelves.find(:all, :order=>:name).collect{|x| [x.name, x.id]}, :new=>{:action=>:shelf_create}
-  - f.field :product, :unit_id, :choices=>@current_company.units.find(:all, :order=>:label).collect{|x| [x.label, x.id]}
-  - f.field :product, :weight
-  - f.field :product, :price
-  - f.field :product, :nature, :field=>:radio, :choices=>Product.natures
-  - f.field :product, :service_coeff, :html_options=>{ :id=>:service_coeff }
+  -f.error :product
+  -f.error :stock
+  -f.title :identification
+  -f.field :product, :name
+  -f.field :product, :code
+  -f.field :product, :code2
+  -f.field :product, :ean13
+  -f.field :product, :catalog_name
+  -f.title :nature
+  -f.field :product, :shelf_id, :choices=>{:reflection=>:shelves}, :new=>{:action=>:shelf_create}
+  -f.field :product, :unit_id, :choices=>{:reflection=>:units}, :new=>{:controller=>:company, :action=>:unit_create}
+  -f.field :product, :weight
+  -f.field :product, :price
+  -f.field :product, :nature, :field=>:radio, :choices=>Product.natures
+  -f.field :product, :service_coeff, :html_options=>{:id=>:service_coeff}
 =formalize(:id=>:subscriptions) do |f|
-  - f.field :product, :subscription_nature_id,  :choices=>@current_company.subscription_natures.collect{|x| [x.name, x.id]}, :new=>{:action=>:subscription_nature_create} 
-  - f.field :product, :duration
+  -f.field :product, :subscription_nature_id,  :choices=>{:reflection=>:subscription_natures}, :new=>{:action=>:subscription_nature_create} 
+  -f.field :product, :duration
 
 =formalize do |f|
-  -# f.field :product, :supply_method, :field=>:radio, :choices=>Product.supply_methods
-  - f.field :product, :reduction_submissive
-  - f.field :product, :active
-  - f.field :product, :to_purchase
-  - f.field :product, :to_sale
-  - f.field :product, :to_produce
-  -# f.field :product, :without_stocks
-  - f.field :product, :manage_stocks
+  -f.field :product, :reduction_submissive
+  -f.field :product, :active
+  -f.field :product, :to_purchase
+  -f.field :product, :to_sale
+  -f.field :product, :to_produce
+  -f.field :product, :manage_stocks
 =formalize(:id=>:stocks) do |f|
-  - f.title :stocks
-  - f.field :stock, :quantity_min
-  - f.field :stock, :critic_quantity_min
-  - f.field :stock, :quantity_max
-  - if @locations.size > 1
-    - f.field :stock, :location_id, :choices=>@locations.collect{|x| [x.name, x.id]}
+  -f.title :stocks
+  -f.field :stock, :quantity_min
+  -f.field :stock, :critic_quantity_min
+  -f.field :stock, :quantity_max
+  -if @locations.size > 1
+    -f.field :stock, :location_id, :choices=>{:reflection=>:locations}, :new=>{:action=>:location_create}
 =formalize do |f|
-  -# f.field :product, :comment
+  -#f.field :product, :comment
 =formalize do |f|
-  - f.title :accountancy
-  -# f.field :product, :account_id, :choices=>@current_company.accounts.find(:all, :conditions=>['deleted=? AND number LIKE ?', false, '7%'], :order=>:number).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:account_create}
-  - f.field :product, :product_account_id, :choices=>@current_company.accounts.find(:all, :conditions=>['deleted=? AND number LIKE ?', false, '7%'], :order=>:number).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:account_create}
-  -f .field :product, :charge_account_id, :choices=>@current_company.accounts.find(:all, :conditions=>['deleted=? AND number LIKE ?',false, '6%'], :order=>:number).collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:account_create}
-=javascript_tag("function display_service_coeff(element) { var sc=$('service_coeff'); if (element.checked) { sc.style.display=''; } else { sc.style.display='none'; }; return false; }\ndisplay_service_coeff($('product_nature_service'));")
-=#observe_field("product_name", :frequency =>0.25, :function => "var cn = $('product_catalog_name'); cn.value = value;")
-=observe_field("product_nature_service", :frequency =>0.25, :function => "display_service_coeff(element);" )
--if request.url.to_s.include? "update"
-  =observe_field("location_id", :url=>{:action=>:change_quantities}, :frequency=>0.25, :with=>"location_id")
+  -f.title :accountancy
+  -f.field :product, :product_account_id, :choices=>{:reflection=>:products_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create}
+  -f.field :product, :charge_account_id, :choices=>{:reflection=>:charges_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create}
 
 :javascript
-  function subscription(){
-    if($('product_nature_subscrip').checked)
-      $('subscriptions').show();
-    else
-      $('subscriptions').hide();
+  window.display_service_coeff = function(element) { 
+    toggleElement('service_coeff', $(element).checked);
+  }
+  display_service_coeff('product_nature_service');
+  window.subscription = function() {
+    toggleElement('subscriptions', $('product_nature_subscrip').checked);
   }
   subscription();
-
-  function stocks(){
-    if($('product_manage_stocks').checked)
-      $('stocks').show();
-    else
-      $('stocks').hide();
+  window.stocks = function() {
+    toggleElement('stocks', $('product_manage_stocks').checked);
   }
   stocks();
 
+=javascript_tag("")
+=observe_field("product_nature_service", :frequency =>0.25, :function => "display_service_coeff(element);" )
+-if request.url.to_s.include? "update"
+  =observe_field("location_id", :url=>{:action=>:change_quantities}, :frequency=>0.25, :with=>"location_id")
 =observe_field("product_manage_stocks", :frequency=>0.25, :function=> "stocks();")
-
-
 =observe_field("product_nature_subscrip", :frequency=>0.25, :function=>"subscription();")

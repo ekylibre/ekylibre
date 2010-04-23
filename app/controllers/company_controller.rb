@@ -306,8 +306,8 @@ class CompanyController < ApplicationController
   end
 
   def user_create
-    if request.xhr?
-      role = find_and_check(:role, params[:user_role_id])
+    if request.xhr? and params[:mode] == "rights"
+      role = @current_company.roles.find(params[:user_role_id]) rescue nil
       @rights = role.rights_array if role
       render :partial=>"rights_form"
     else
@@ -319,7 +319,7 @@ class CompanyController < ApplicationController
         return if save_and_redirect(@user)
       else
         role = @current_company.roles.first
-        @user = @current_company.users.new(:admin=>false, :role=>role)
+        @user = @current_company.users.new(:admin=>false, :role=>role, :employed=>params[:employed])
         @rights = role ? role.rights_array : []
       end
     end
@@ -336,6 +336,7 @@ class CompanyController < ApplicationController
     else
       @rights = @user.rights_array
     end
+    t3e @user.attributes
     render_form
   end
   
@@ -539,7 +540,8 @@ class CompanyController < ApplicationController
     if request.post?
       @listing = Listing.new(params[:listing])
       @listing.company_id = @current_company.id
-      redirect_to :action=>:listing_update, :id=>@listing.id if @listing.save
+      @listing.save
+      return if save_and_redirect(@listing, :url=>{:action=>:listing_update, :id=>@listing.id})
     else
       @listing = Listing.new
     end
@@ -549,11 +551,10 @@ class CompanyController < ApplicationController
   def listing_update
     return unless @listing = find_and_check(:listing)
     if request.post? and @listing
-      if @listing.update_attributes(params[:listing])
-        redirect_to_current
-      end
+      @listing.attributes = params[:listing]
+      return if save_and_redirect(@listing, :url=>{:action=>:listing_update, :id=>@listing.id})
     end
-    @title ={:value=>@listing.name}
+    t3e :value=>@listing.name
     #render_form
   end
 
@@ -667,8 +668,6 @@ class CompanyController < ApplicationController
     redirect_to :action=>:units
   end
 
-  manage :units
-
-
+  manage :units, :base=>"params[:base]"
 
 end

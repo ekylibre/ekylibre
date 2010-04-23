@@ -4,6 +4,7 @@ accountancy.default_journals.purchases,record,journal
 accountancy.default_journals.bank,record,journal
 accountancy.third_accounts.clients,integer,411
 accountancy.third_accounts.suppliers,integer,401
+accountancy.minor_accounts.banks,integer,51
 accountancy.major_accounts.charges,integer,6
 accountancy.major_accounts.products,integer,7
 accountancy.minor_accounts.gains,integer,120

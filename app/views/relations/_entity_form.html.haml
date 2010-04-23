@@ -3,12 +3,12 @@
   -f.error :datum
   -f.title :title
   -f.field :entity, :nature_id, :choices=>{:reflection=>:entity_natures, :label=>:name, :order=>:name}, :new=>{:action=>:entity_nature_create}
-  -f.field :entity, :language_id, :choices=>@current_company.languages.find(:all, :order=>:native_name).collect {|x| [x.native_name, x.id]}
+  -f.field :entity, :language_id, :choices=>{:reflection=>:languages}
   -f.field :entity, :name
   -f.field :entity, :first_name
   -f.field :entity, :active
-  -f.field :entity, :client
-  -f.field :entity, :supplier
+  -f.field :entity, :client, :onchange=>"displayFields()"
+  -f.field :entity, :supplier, :onchange=>"displayFields()"
   -f.field :entity, :transporter
   -f.title :details
   -f.field :entity, :country,:choices=>countries
@@ -23,15 +23,15 @@
   -f.field :entity, :ean13
   -for datum in @complement_data
     -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_value", :name=>"complement_datum[#{datum.complement_id}][value]", :value=>datum.value, :size=>datum.complement.length_max, :options=>{:include_blank=>(datum.complement.required ? nil : '')}, :choices=>datum.complement.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
-- clients_id, suppliers_id = nil, nil
+
 =formalize(:id=>:client_form) do |f|
   -f.title :client
   -f.field(:entity, :client_account_id, :choices=>{:reflection=>:client_accounts, :include_blank=>tc(:account_client_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create})
-  -f.field :entity, :category_id, :choices=>@current_company.entity_categories.find_all_by_deleted(false).collect{|x| [x.name, x.id]}
+  -f.field :entity, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>{:action=>:entity_category_create}
   -f.field Entity.human_attribute_name("origin"), text_field_with_auto_complete(:entity, :origin)
   -f.field :entity, :first_met_on
   -f.field :entity, :proposer_id, :choices=>:entities
-  -f.field :entity, :responsible_id, :choices=>@current_company.users.find(:all, :conditions=>{:commercial=>'true'}, :order=>:last_name).collect{|p| [p.last_name, p.id]}, :new=>{:controller=>:resources, :action=>:employee_create}, :options=>{:include_blank=>tc(:no_commercial)}
+  -f.field :entity, :responsible_id, :choices=>{:reflection=>:users, :include_blank=>tc(:no_commercial)}, :new=>{:controller=>:company, :action=>:user_create}
   -f.field :entity, :vat_submissive
   -f.field :entity, :reflation_submissive
   -f.field :entity, :discount_rate
@@ -41,23 +41,13 @@
 
 =formalize(:id=>:supplier_form) do |f|
   -f.title :supplier
-  -f.field :entity, :supplier_account_id, :choices=>@supplier_accounts.collect{|x| [x.label, x.id]}, :new=>{:controller=>:accountancy, :action=>:account_create}, :options=>{:include_blank=>tc(:account_supplier_to_create)} 
+  -f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>tc(:account_supplier_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create}
 
 :javascript
-  function displayFields(){
-    if ($('entity_client').checked) {
-      $('client_form').show();
-    } else {
-      $('client_form').hide(); 
-    }
-    if ($('entity_supplier').checked) {
-      $('supplier_form').show();
-    } else {
-      $('supplier_form').hide(); 
-    }
+  window.displayFields = function(){
+    toggleElement('client_form', $('entity_client').checked);
+    toggleElement('supplier_form', $('entity_supplier').checked);
   }
   displayFields();
   
-=observe_field "entity_client", :function=>"displayFields();", :frequency => 0.25
-=observe_field "entity_supplier", :function=>"displayFields();", :frequency => 0.25
 =render :partial=>"coordinates_form", :locals => {:company => @current_company}

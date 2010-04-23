@@ -1,11 +1,12 @@
 /* -*- Mode: Java; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 2; coding: latin-1 -*- */
+/*jslint browser: true */
 
 function _resize() {
   var dims   = document.viewport.getDimensions();
   var height = dims.height; 
   var width  = dims.width;
   var overlay = $('overlay');
-  if (overlay != null) { 
+  if (overlay !== null) { 
     overlay.setStyle({'width': width+'px', 'height': height+'px'});
   }
   $('body').resize(width,height);
@@ -56,17 +57,24 @@ function onLoaded() {
   $('loading').setStyle({display: 'none'});
 }
 
-function toggleElement(element) {
-  var dom;
-  dom = $(element);
-  if (dom.style.display == "none") {
-    dom.blindDown();
+function toggleElement(element, show, reverse_element) {
+  element = $(element);
+  if (show === null) { 
+    show = (element.style.display == "none"); 
+  }
+  if (show) {
+    element.show();
+    if (reverse_element !== undefined) {
+      $(reverse_element).hide();
+    }
   } else {
-    dom.blindUp();
+    element.hide();
+    if (reverse_element !== undefined) {
+      $(reverse_element).show();
+    }
   }
   return false;
 }
-
 
 
 function toggleMenu(element) {
@@ -130,16 +138,18 @@ function insert_into(input, repdeb, repfin, middle) {
   if(repfin == 'undefined') {repfin=' ';}
   if(middle == 'undefined') {middle=' ';}
   input.focus();
+  var insText;
+  var pos;
   /* pour l'Explorer Internet */
   if(typeof document.selection != 'undefined') {
 	/* Insertion du code de formatage */
 	var range = document.selection.createRange();
-	var insText = range.text;
+	insText = range.text;
     if (insText.length <= 0) { insText = middle; }
 	range.text = repdeb + insText + repfin;
 	/* Ajustement de la position du curseur */
 	range = document.selection.createRange();
-	if (insText.length == 0) {
+	if (insText.length === 0) {
       range.move('character', -repfin.length);
 	} else {
       range.moveStart('character', repdeb.length + insText.length + repfin.length);
@@ -151,12 +161,11 @@ function insert_into(input, repdeb, repfin, middle) {
 	/* Insertion du code de formatage */
 	var start = input.selectionStart;
 	var end = input.selectionEnd;
-	var insText = input.value.substring(start, end);
+	insText = input.value.substring(start, end);
     if (insText.length <= 0) { insText = middle; }
 	input.value = input.value.substr(0, start) + repdeb + insText + repfin + input.value.substr(end);
 	/* Ajustement de la position du curseur */
-	var pos;
-	if (insText.length == 0) {
+	if (insText.length === 0) {
       pos = start + repdeb.length;
 	} else {
       pos = start + repdeb.length + insText.length + repfin.length;
@@ -167,7 +176,6 @@ function insert_into(input, repdeb, repfin, middle) {
   /* pour les autres navigateurs */
   else {
 	/* requête de la position d'insertion */
-	var pos;
 	var re = new RegExp('^[0-9]{0,3}$');
 	while(!re.test(pos)) {
       pos = prompt("Insertion à la position (0.." + input.value.length + ") :", "0");
@@ -176,7 +184,7 @@ function insert_into(input, repdeb, repfin, middle) {
       pos = input.value.length;
 	}
 	/* Insertion du code de formatage */
-	var insText = prompt("Veuillez entrer le texte à formater :");
+	insText = prompt("Veuillez entrer le texte à formater :");
     if (insText.length <= 0) { insText = middle; }
 	input.value = input.value.substr(0, pos) + repdeb + insText + repfin + input.value.substr(pos);
   }

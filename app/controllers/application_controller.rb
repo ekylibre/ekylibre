@@ -145,6 +145,7 @@ class ApplicationController < ActionController::Base
 
   def save_and_redirect(record, options={})
     url = options[:url] || :back
+    record.attributes = options[:attributes] if options[:attributes]
     if record.save or options[:saved]
       if params[:dialog]
         render :json=>{:id=>record.id}, :status=>250

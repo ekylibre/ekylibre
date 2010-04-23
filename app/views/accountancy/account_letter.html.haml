@@ -47,7 +47,7 @@
   .actions=submit_tag tg(:save)
 
 :javascript
-  function t2() {
+  window.t2 = function() {
     var sd = sum_all('tr.notice .debit',  'total-debit');
     var sc = sum_all('tr.notice .credit', 'total-credit');
     var total = set_state('total', (sd.innerHTML*1 === sc.innerHTML*1));

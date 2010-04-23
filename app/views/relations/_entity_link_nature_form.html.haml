@@ -9,12 +9,7 @@
 
 
 :javascript
-  function symmetric(){
-    if($('entity_link_nature_symmetric').checked)
-      $('optional_field').hide();
-    else
-      $('optional_field').show();
-  }
+  window.symmetric = function(){ toggleElement('optional_field', $('entity_link_nature_symmetric').checked); };
   symmetric();
 
 =observe_field("entity_link_nature_symmetric", :frequency=>0.25, :function=>"symmetric();")

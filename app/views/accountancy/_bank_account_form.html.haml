@@ -16,19 +16,15 @@
   - f.field :bank_account, :bic
 =formalize do |f|  
   - f.title :accountancy
-  - f.field :bank_account, :account_id,  :choices => @current_company.accounts.find(:all, :conditions=>['number LIKE ?', '51%'], :order=>:number).collect {|b| [b.label, b.id]}, :new => {:action => :account_create}
-  - f.field :bank_account, :currency_id, :choices => @current_company.currencies.all.collect {|c| [c.name, c.id]}
-  - f.field :bank_account, :journal_id,  :choices => @current_company.journals.all.collect {|j| [j.name, j.id]}, :new => {:action => :journal_create}
+  - f.field :bank_account, :account_id,  :choices=>{:reflection=>:banks_accounts}, :new=>{:action => :account_create}
+  - f.field :bank_account, :currency_id, :choices=>{:reflection=>:currencies}
+  - f.field :bank_account, :journal_id,  :choices=>{:reflection=>:journals}, :new => {:action => :journal_create}
  
-=observe_field "bank_account_mode_iban", :frequency => 0.25, :function =>"banToggle(element)"
 
 :javascript
-  function banToggle(element) {
-    if (element.checked) { 
-      $('iban').show(); $('bban').hide();
-    } else { 
-      $('bban').show(); $('iban').hide();
-    }
+  window.banToggle = function() {
+    toggleElement('iban', $('bank_account_mode_iban').checked, 'bban');
   }
-  banToggle($('bank_account_mode_iban'))
--#  $('bank_account_mode_iban').checked = "checked"
+  banToggle()
+
+=observe_field "bank_account_mode_iban", :frequency => 0.25, :function =>"banToggle()"

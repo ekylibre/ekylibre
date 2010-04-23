@@ -2,16 +2,16 @@
   - f.error :stock_transfer 
   -if @stock_transfer.new_record?
     - f.field :stock_transfer, :nature, :choices=>StockTransfer.natures, :field=>:radio
-  - f.field :stock_transfer, :product_id, :choices=>@current_company.available_products.collect{|x| [x.label, x.id]}
+  - f.field :stock_transfer, :product_id, :choices=>{:reflection=>:available_products}, :new=>{:action=>:product_create}
   - f.field :stock_transfer, :quantity
-  - f.field :stock_transfer, :location_id, :choices=>@current_company.locations.collect{|x| [x.name, x.id]}
+  - f.field :stock_transfer, :location_id, :choices=>{:reflection=>:locations}, :new=>{:action=>:location_create}
   -if @stock_transfer.new_record? or @stock_transfer.nature == "transfer"
-    - f.field :stock_transfer, :second_location_id, :choices=>@current_company.locations.collect{|x| [x.name, x.id]}, :html_options=>{:id=>:transfer}
+    - f.field :stock_transfer, :second_location_id, :choices=>{:reflection=>:locations}, :html_options=>{:id=>:transfer}, :new=>{:action=>:location_create}
   - f.field :stock_transfer, :planned_on
   - f.field :stock_transfer, :comment, :field=>:textarea
 
 -if @stock_transfer.new_record?
   :javascript
-    function transfer_type(){if($('stock_transfer_nature_transfer').checked) {$('transfer').show();} else {$('transfer').hide();}};
+    window.transfer_type=function(){toggleElement('transfer', $('stock_transfer_nature_transfer').checked);};
     transfer_type();  
   =observe_field "stock_transfer_nature_transfer", :function=>"transfer_type();", :frequency=>0.25

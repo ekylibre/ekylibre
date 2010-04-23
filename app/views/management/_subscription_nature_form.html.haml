@@ -6,20 +6,15 @@
     - f.field t('activerecord.attributes.subscription_nature.nature'), @subscription_nature.nature_label
   - f.field :subscription_nature, :name
   - f.field :subscription_nature, :reduction_rate
-  - f.field :subscription_nature, :entity_link_nature_id, :choices=>@current_company.entity_link_natures.collect{|x| [x.name, x.id]}, :options=>{:include_blank=>true}
+  - f.field :subscription_nature, :entity_link_nature_id, :choices=>{:reflection=>:entity_link_natures, :include_blank=>true}, :new=>{:controller=>:relations, :action=>:entity_link_nature_create}
   - f.field :subscription_nature, :comment, :field=>:textarea
 =formalize(:id=>:number) do |f|
   - f.field :subscription_nature, :actual_number
 
 
 :javascript
-  function display_number(){
-    if($('subscription_nature_nature_quantity').checked)
-      $('number').show();
-    else
-      $('number').hide();
-  }
-  display_number();
+  window.displayNumber = function(){ toggleElement('number', $('subscription_nature_nature_quantity').checked); };
+  displayNumber();
 
 
-=observe_field("subscription_nature_nature_quantity", :frequency=>0.25, :function=> "display_number();")
+=observe_field("subscription_nature_nature_quantity", :frequency=>0.25, :function=> "displayNumber();")

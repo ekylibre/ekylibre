@@ -354,13 +354,13 @@ module ApplicationHelper
     return content_tag(:title, title)
   end
 
-  def help_link_tag
+  def help_link_tag(options={})
     return '' if @current_user.blank?
-    options = {:class=>"help-link"} 
+    options[:class] ||= "help-link"
     url = {:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name}
     content = content_tag(:div, '&nbsp;')
-    options[:style] = "display:none" if session[:help]
-    code = content_tag(:div, link_to_remote(tg(:display_help), :update=>:help,  :url=>url, :complete=>"openHelp();", :loading=>"onLoading();", :loaded=>"onLoaded();"), {:id=>"help-open"}.merge(options))
+    options[:style] = "display:none" if session[:help] and not options[:show]
+    code = content_tag(:div, link_to_remote(tg(:display_help), :update=>(options[:id]||:help), :url=>url, :complete=>"openHelp();", :loading=>"onLoading();", :loaded=>"onLoaded();"), {:id=>"help-open"}.merge(options))
   end
 
   def side_link_tag
@@ -477,7 +477,7 @@ module ApplicationHelper
         content = file.read
       end
       content = wikize(content, options)
-     # raise Exception.new(content)
+      # raise Exception.new(content)
     end
     return content
   end
@@ -596,49 +596,6 @@ module ApplicationHelper
   end
 
 
-#   def tabbox(id)
-#     tb = Tabbox.new(id)
-#     yield tb
-#     tablabels = tabpanels = js = ''
-#     tabs = tb.tabs
-#     jsmethod = tb.id+'c'
-#     js += "function #{jsmethod}(id) {"
-#     tabs.size.times do |i|
-#       tab = tabs[i]
-#       js += "$('tp#{tab[:id]}').removeClassName('current');"
-#       js += "$('tl#{tab[:id]}').removeClassName('current');"
-#       tablabels += link_to_function(tab[:name].gsub(/\s+/,'&nbsp;'), "#{jsmethod}('#{tab[:id]}')", :class=>:tab, :id=>'tl'+tab[:id])+' '
-#       tabpanels += content_tag(:div, tab[:content], :class=>:tabpanel, :id=>'tp'+tab[:id])
-#     end
-#     js += "$('tp'+id).addClassName('current');"
-#     js += "$('tl'+id).addClassName('current');"
-#     js += "new Ajax.Request('#{url_for(:controller=>:company, :action=>:tabbox_index, :id=>tb.id)}?index='+id);"
-#     js += "return true;};"
-#     js += "#{jsmethod}('#{(session[:tabbox] ? session[:tabbox][tb.id] : nil)||tabs[0][:id]}');"
-#     code  = content_tag(:div, tablabels, :class=>:tabs)+content_tag(:div, tabpanels, :class=>:tabpanels)
-#     code += javascript_tag(js)
-#     content_tag(:div, code, :class=>:tabbox, :id=>tb.id)
-#   end
-
-
-#   class Tabbox
-#     attr_accessor :tabs, :id, :generated
-
-#     def initialize(id)
-#       @tabs = []
-#       @id = id.to_s
-#       @sequence = 0
-#     end
-
-#     def tab(name)
-#       content = []
-#       yield content if block_given?
-#       @tabs << {:name=>name, :content=>content.join, :id=>@id+(@sequence+=1).to_s}
-#     end
-
-#   end
-
-
   # TOOLBAR
 
   def toolbar(options={}, &block)
@@ -701,6 +658,12 @@ module ApplicationHelper
             #raise Exception.new "ok"
             code += li_link_to(*args)
           end
+        elsif nature == :javascript
+          name = args[0]
+          args[0] = ::I18n.t("#{call}#{name}".to_sym) if name.is_a? Symbol
+          args[2] ||= {}
+          args[2][:class] ||= name.to_s.split('_')[-1]
+          code += content_tag(:li, link_to_function(*args).to_s)
         elsif nature == :mail
           args[2] ||= {}
           args[2][:class] = :mail
@@ -729,6 +692,10 @@ module ApplicationHelper
       @tools << [:link, args]
     end
 
+    def javascript(*args)
+      @tools << [:javascript, args]
+    end
+
     def mail(*args)
       @tools << [:mail, args]
     end
@@ -739,8 +706,6 @@ module ApplicationHelper
   end
 
 
-
-
   def error_messages(*params)
     params << {} unless params[-1].is_a? Hash
     params[-1][:class] = "flash error"
@@ -748,6 +713,290 @@ module ApplicationHelper
     error_messages_for(*params)
   end
 
+
+
+
+  class Formalize
+    attr_reader :lines
+
+    def initialize()
+      @lines = []
+    end
+
+    def title(value, options={})
+      @lines << options.merge({:nature=>:title, :value=>value})
+    end
+
+    def field(*params)
+      line = params[2]||{}
+      id = line[:id]||"ff"+Time.now.to_i.to_s(36)+rand.to_s[2..-1].to_i.to_s(36)
+      if params[1].is_a? Symbol
+        line[:model] = params[0]
+        line[:attribute] = params[1]
+      else
+        line[:label] = params[0]
+        line[:field] = params[1]
+      end
+      line[:nature] = :field
+      line[:id] = id
+      @lines << line
+      return id
+    end
+
+    def error(*params)
+      @lines << {:nature=>:error, :params=>params}
+    end
+  end
+
+
+  def formalize(options={})
+    if block_given?
+      form = Formalize.new
+      yield form
+      formalize_lines(form, options)
+    else
+      '[EmptyFormalizeError]'
+    end
+  end
+
+
+  protected
+
+  # This methods build a form line after line
+  def formalize_lines(form, form_options)
+    code = ''
+    controller = self.controller
+    xcn = 2
+    
+    # build HTML
+    for line in form.lines
+      css_class = line[:nature].to_s
+      
+      # line
+      line_code = ''
+      case line[:nature]
+      when :error
+        line_code += content_tag(:td, error_messages(line[:params].to_s), :class=>"error", :colspan=>xcn)
+      when :title
+        if line[:value].is_a? Symbol
+          calls = caller
+          file = calls[3].split(/\:\d+\:/)[0].split('/')[-1].split('.')[0]
+          line[:value] = t("views.#{controller.controller_name}.#{file}.#{line[:value]}") 
+        end
+        line_code += content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>xcn)
+      when :field
+        fragments = line_fragments(line)
+        line_code += content_tag(:td, fragments[:label], :class=>"label")
+        line_code += content_tag(:td, fragments[:input], :class=>"input")
+        # line_code += content_tag(:td, fragments[:help],  :class=>"help")
+      end
+      unless line_code.blank?
+        html_options = line[:html_options]||{}
+        html_options[:class] = css_class
+        code += content_tag(:tr, line_code, html_options)
+      end
+      
+    end
+    code = content_tag(:table, code, :class=>'formalize',:id=>form_options[:id])
+    return code
+  end
+
+
+
+  def line_fragments(line)
+    fragments = {}
+
+
+    #     help_tags = [:info, :example, :hint]
+    #     help = ''
+    #     for hs in help_tags
+    #       line[hs] = translate_help(line, hs)
+    #       #      help += content_tag(:div,l(hs, [content_tag(:span,line[hs].to_s)]), :class=>hs) if line[hs]
+    #       help += content_tag(:div,t(hs), :class=>hs) if line[hs]
+    #     end
+    #     fragments[:help] = help
+
+    #          help_options = {:class=>"help", :id=>options[:help_id]}
+    #          help_options[:colspan] = 1+xcn-xcn*col if c==col-1 and xcn*col<xcn
+    #label = content_tag(:td, label, :class=>"label", :id=>options[:label_id])
+    #input = content_tag(:td, input, :class=>"input", :id=>options[:input_id])
+    #help  = content_tag(:td, help,  :class=>"help",  :id=>options[:help_id])
+
+    if line[:model] and line[:attribute]
+      record  = line[:model]
+      method  = line[:attribute]
+      options = line
+
+      record.to_sym if record.is_a?(String)
+      object = record.is_a?(Symbol) ? instance_variable_get('@'+record.to_s) : record
+      raise Exception.new('NilError on object: '+object.inspect) if object.nil?
+      model = object.class
+      raise Exception.new('ModelError on object (not an ActiveRecord): '+object.class.to_s) unless model.methods.include? "create"
+
+      #      record = model.name.underscore.to_sym
+      column = model.columns_hash[method.to_s]
+      
+      options[:field] = :password if method.to_s.match /password/
+      
+      input_id = object.class.name.tableize.singularize+'_'+method.to_s
+
+      html_options = {}
+      html_options[:size] = 24
+      html_options[:onchange] = options[:onchange] if options[:onchange]
+      html_options[:class] = options[:class].to_s
+      if column.nil?
+        html_options[:class] += ' notnull' if options[:null]==false
+        if method.to_s.match /password/
+          html_options[:size] = 12
+          options[:field] = :password if options[:field].nil?
+        end
+      else
+        html_options[:class] += ' notnull' unless column.null
+        unless column.limit.nil?
+          html_options[:size] = column.limit if column.limit<html_options[:size]
+          html_options[:maxlength] = column.limit
+        end
+        options[:field] = :checkbox if column.type==:boolean
+        if column.type==:date
+          options[:field] = :date 
+          html_options[:size] = 10
+        end
+      end
+
+      options[:options] ||= {}
+      
+      if options[:choices]
+        html_options.delete :size
+        html_options.delete :maxlength
+        rlid = options[:id]
+        if options[:choices].is_a? Array
+          options[:field] = :select if options[:field]!=:radio
+        elsif options[:choices].is_a? Hash
+          options[:field] = :dyselect
+          html_options[:id] = rlid
+        elsif options[:choices].is_a? Symbol
+          options[:field] = :dyli
+          options[:options][:field_id] = rlid
+        else
+          raise ArgumentError.new("Option :choices must be Array, Symbol or Hash (got #{options[:choices].class.name})")
+        end
+      end
+
+      input = case options[:field]
+              when :password
+                password_field(record, method, html_options)
+              when :label
+                record.send(method)
+              when :checkbox
+                check_box(record, method, html_options)
+              when :select
+                options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
+                select(record, method, options[:choices], options[:options], html_options)
+              when :dyselect
+                select(record, method, @current_company.reflection_options(options[:choices]), options[:options], html_options)
+              when :dyli
+                dyli(record, method, options[:choices], options[:options], html_options)
+              when :radio
+                options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s)}.join(" ")
+              when :textarea
+                text_area(record, method, :cols => options[:options][:cols]||30, :rows => options[:options][:rows]||3, :class=>(options[:options][:cols]==80 ? :code : nil))
+              when :date
+                calendar_field(record, method)
+              else
+                text_field(record, method, html_options)
+              end
+
+      if options[:new].is_a?(Hash) and [:select, :dyselect, :dyli].include?(options[:field])
+        label = tg(options[:new].delete(:label)||:new)
+        if options[:field] == :select
+          input += link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
+        else
+          if options[:field] == :dyselect
+            data = "refreshList('#{rlid}', request, '#{url_for(options[:choices].merge(:controller=>:company, :action=>:formalize))}');"
+          else
+            data = "refreshAutoList('#{rlid}', request);"
+          end
+          data = ActiveSupport::Base64.encode64(Marshal.dump(data))
+          input += link_to_function(label, "openDialog('#{url_for(options[:new].merge(:formalize=>data))}')", :href=>url_for(options[:new]), :class=>:fastadd)
+        end
+      end
+      
+      label = t("activerecord.attributes.#{object.class.name.underscore}.#{method.to_s}")
+      label = " " if options[:options][:hide_label] 
+      
+      #      label = if object.class.methods.include? "human_attribute_name"
+      #                object.class.human_attribute_name(method.to_s)
+      #              elsif record.is_a? Symbol
+      #                t("activerecord.attributes.#{object.class.name.underscore}.#{method.to_s}")
+      #              else
+      #                tg(method.to_s)
+      #              end          
+      label = content_tag(:label, label, :for=>input_id) if object!=record
+    elsif line[:field]
+      label = line[:label]||'[NoLabel]'
+      if line[:field].is_a? Hash
+        options = line[:field].dup
+        options[:options]||={}
+        datatype = options.delete(:datatype)
+        name  = options.delete(:name)
+        value = options.delete(:value)
+        input = case datatype
+                when :boolean
+                  hidden_field_tag(name, "0")+check_box_tag(name, "1", value, options)
+                when :string
+                  size = (options[:size]||0).to_i
+                  if size>64
+                    text_area_tag(name, value, :id=>options[:id], :maxlength=>size, :cols => 30, :rows => 3)
+                  else
+                    text_field_tag(name, value, :id=>options[:id], :maxlength=>size, :size=>size)
+                  end
+                when :radio
+                  options[:choices].collect{ |x| radio_button_tag('radio', (x[1].eql? true) ? 1 : 0, false, :id=>'radio_'+x[1].to_s)+"&nbsp;"+content_tag(:label,x[0]) }.join(" ")
+                when :choice
+                  options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
+                  content = select_tag(name, options_for_select(options[:choices], value), :id=>options[:id])
+                  if options[:new].is_a? Hash
+                    content += link_to(tg(options[:new].delete(:label)||:new), options[:new], :class=>:fastadd)
+                  end
+                  content
+                when :record
+                  model = options[:model]
+                  instance = model.new
+                  method_name = [:label, :native_name, :name, :to_s, :inspect].detect{|x| instance.respond_to?(x)}
+                  choices = model.find_all_by_company_id(@current_company.id).collect{|x| [x.send(method_name), x.id]}
+                  select_tag(name, options_for_select([""]+choices, value), :id=>options[:id])
+                when :date
+                  date_select(name, value, :start_year=>1980)
+                when :datetime
+                  datetime_select(name, value, :default=>Time.now, :start_year=>1980)
+                else
+                  text_field_tag(name, value, :id=>options[:id])
+                end
+        
+      else
+        input = line[:field].to_s
+      end
+    else
+      raise Exception.new("Unable to build fragments without :model/:attribute or :field")
+    end
+    fragments[:label] = label
+    fragments[:input] = input
+    return fragments
+  end
+  
+
+  def translate_help(options,nature,id=nil)
+    t = nil
+    if options[nature].nil? and id
+      t = lh(controller.controller_name.to_sym, controller.action_name.to_sym, (id+'_'+nature.to_s).to_sym)
+    elsif options[nature].is_a? Symbol
+      t = tc(options[nature])
+    elsif options[nature].is_a? String
+      t = options[nature]
+    end
+    return t
+  end
+  
 
 end
 

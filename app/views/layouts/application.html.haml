@@ -15,7 +15,7 @@
         -side=side_tag
         -unless side.blank?
           #side{:style=>''+(session[:side] ? "" : "display:none")}=side      
-        .main{:flex=>9, :orient=>:vertical, :style=>"position: absolute; top: 0px;"}
+        .main{:flex=>9, :orient=>:vertical, :style=>"position: absolute; top: 0px; overflow: visible;"}
           .page{:flex=>3, :orient=>:vertical}
             .nav
               =help_link_tag
@@ -27,7 +27,6 @@
               =notification_tag :success
               =notification_tag :information
               =yield
-              .end{:style=>'height:1px'}
         #help{:flex=>3, :style=>(session[:help] ? "" : "display:none; ")+"position: absolute; top: 0px;"}
           =render :partial=>'help/search' if session[:help]
    

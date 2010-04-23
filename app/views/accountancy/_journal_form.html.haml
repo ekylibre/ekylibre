@@ -2,5 +2,5 @@
   - f.error :journal
   - f.field :journal, :name
   - f.field :journal, :code
-  - f.field :journal, :currency_id, :choices=>@current_company.currencies.find(:all, :order=>:name).collect{|x| [x.name, x.id]}
+  - f.field :journal, :currency_id, :choices=>{:reflection=>:currencies}
   - f.field :journal, :nature, :field=>:radio, :choices=>Journal.natures

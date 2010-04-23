@@ -2,10 +2,9 @@
   - f.error :operation
   - f.title :infos
   - f.field :operation, :name
-  -# f.field :operation, :target_id, :choices=>@current_company.shapes.collect{|x| [x.name, x.id]}, :new=>{:action=>:shape_create}
-  - f.field :operation, :responsible_id, :choices=>@current_company.employees.collect{|x| [x.last_name+" "+x.first_name, x.id]}, :new=>{:controller=>:resources, :action=>:employee_create}
-  - f.field :operation, :nature_id, :choices=>@current_company.operation_natures.collect{|x| [x.name, x.id]}, :new=>{:action=>:operation_nature_create}
-  - f.field :operation, :target_id, :choices=>@current_company.shapes.collect{|x| [x.name, x.id]}, :new=>{:action=>:shape_create}
+  - f.field :operation, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:controller=>:company, :action=>:user_create, :employed=>1}
+  - f.field :operation, :nature_id, :choices=>{:reflection=>:operation_natures}, :new=>{:action=>:operation_nature_create}
+  - f.field :operation, :target_id, :choices=>{:reflection=>:shapes}, :new=>{:action=>:shape_create}
   - f.field :operation, :planned_on
   - f.field :operation, :description, :field=>:textarea
   - f.title :duration

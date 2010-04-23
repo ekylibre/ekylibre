@@ -8,5 +8,5 @@
   - f.title :catalog
   - f.field :shelf, :catalog_name
   - f.field :shelf, :catalog_description, :field=>:textarea
-=observe_field("shelf_name", :frequency =>0.25, :function => "var cn = $('shelf_catalog_name'); cn.value = value;")
+=observe_field("shelf_name", :frequency =>0.25, :function => "$('shelf_catalog_name').value = value;")
 

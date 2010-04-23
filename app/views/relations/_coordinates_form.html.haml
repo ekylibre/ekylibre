@@ -5,7 +5,6 @@
   -f.field :contact, :line_4
   -f.field :contact, :line_5
   -f.field  t("activerecord.attributes.contact.line_6"), text_field_with_auto_complete(:contact, :line_6)
-  -#f.field :contact, :country, :choices=>t("countries"), :options=>{:include_blank=>true}
   -f.field :contact, :country, :choices=>countries, :options=>{:include_blank=>true}
   -f.title :canals
   -f.field :contact, :phone

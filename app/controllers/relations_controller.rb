@@ -147,14 +147,8 @@ class RelationsController < ApplicationController
     if request.post?
       @complement = Complement.new(params[:complement])
       @complement.company_id = @current_company.id
-      if @complement.save 
-        if @complement.nature=='choice'
-          redirect_to :action=>:complement_choices , :id=>@complement.id
-        else
-          redirect_to_back
-        end
-        #        redirect_to_back 
-      end
+      @complement.save # Permits to get ID if saved
+      return if save_and_redirect(@complement, :url=>(@complement.nature=='choice' ? {:action=>:complement_choices , :id=>@complement.id} : :back))
     else
       @complement = Complement.new
     end
@@ -162,16 +156,12 @@ class RelationsController < ApplicationController
   end
   
   def complement_update
-    @complement = find_and_check(:complement, params[:id])
+    return unless @complement = find_and_check(:complement)
     if request.post?
-      redirect_to_back if @complement.update_attributes(params[:complement])
-      #      if @complement.nature == 'choice'
-      #        redirect_to :action=>:complement_choices , :id=>@complement.id
-      #      elsif  @complement
-      #        redirect_to_back if @complement.update_attributes(params[:complement])
-      #      end
+      @complement.attributes = params[:complement]
+      return if save_and_redirect(@complement)
     end
-    @title = {:value=>@complement.name}
+    t3e :value=>@complement.name
     render_form
   end
 
@@ -186,20 +176,18 @@ class RelationsController < ApplicationController
   
 
   def complement_choices
-    @complement = find_and_check(:complement , params[:id])
+    return unless @complement = find_and_check(:complement)
     session[:current_complement_id] = @complement.id
     @title = {:value=>@complement.name}
   end
 
   def complement_choice_create
-    @complement = find_and_check(:complement, session[:current_complement_id])
+    return unless @complement = find_and_check(:complement, session[:current_complement_id])
     if request.post?
       @complement_choice = ComplementChoice.new(params[:complement_choice])
       @complement_choice.company_id = @current_company.id
       @complement_choice.complement_id = @complement.id
-      if @complement_choice.save 
-        redirect_to_back
-      end
+      return if save_and_redirect(@complement_choice)
     else
       @complement_choice = ComplementChoice.new
     end
@@ -208,33 +196,34 @@ class RelationsController < ApplicationController
   end
 
   def complement_choice_update
-    @complement_choice = find_and_check(:complement_choice, params[:id])
+    return unless @complement_choice = find_and_check(:complement_choice)
     if request.post? and @complement_choice
-      redirect_to_back if @complement_choice.update_attributes(params[:complement_choice])
+      @complement_choice.attributes = params[:complement_choice]
+      return if save_and_redirect(@complement_choice)
     end
     @complement = find_and_check(:complement, @complement_choice.complement_id)
     @title = {:choice=>@complement_choice.name, :complement=>@complement.name}
     render_form
   end
   
+  def complement_choices_sort
+    return unless @complement = find_and_check(:complement, session[:current_complement_id])
+    if request.post? and @complement
+      @complement.sort_choices
+    end
+    redirect_to_current
+  end
+  
   def complement_choice_up
-    @complement_choice = find_and_check(:complement_choice, params[:id])
+    return unless @complement_choice = find_and_check(:complement_choice)
     if request.post? and @complement_choice
       @complement_choice.move_higher
     end
     redirect_to_current
   end
   
-  def complement_choices_sort
-    @complement = find_and_check(:complement, session[:current_complement_id])
-    if request.post? and @complement
-      @complement.sort_choices
-    end
-    redirect_to :action=>:complement_choices, :id=>@complement.id
-  end
-  
   def complement_choice_down
-    @complement_choice = find_and_check(:complement_choice, params[:id])
+    return unless @complement_choice = find_and_check(:complement_choice)
     if request.post? and @complement_choice
       @complement_choice.move_lower
     end
@@ -613,13 +602,13 @@ class RelationsController < ApplicationController
 
 
   def entity_contact_create
-    @entity = find_and_check(:entity, params[:id]||session[:current_entity])
+    return unless @entity = find_and_check(:entity, params[:id]||session[:current_entity])
     #raise Exception.new(@entity.id.to_s)
     if request.post?
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
       @contact.entity_id = @entity.id  
-      redirect_to_back if @contact.save
+      return if save_and_redirect(@contact)
     else
       # this line has been added temporarly.
       @contact = Contact.new
@@ -632,13 +621,12 @@ class RelationsController < ApplicationController
   end
 
   def entity_contact_update
-    @contact = Contact.find_by_id_and_company_id(params[:id], @current_company.id)
-    @entity = @contact.entity # Entity.find_by_id_and_company_id(session[:current_entity], @current_company.id)
+    return unless @contact = find_and_check(:contact)
+    @entity = @contact.entity
     @id = @contact.entity_id
-    
-    #    raise Exception.new('entity:'+@contact.entity.inspect)
     if request.post? and @contact
-      redirect_to_back if @contact.update_attributes(params[:contact]) # @contact.update_attributes(params[:contact])
+      @contact.attributes = params[:contact]
+      return if save_and_redirect(@contact)
     end
     @title = {:entity=>@entity.full_name}
     render_form
@@ -696,51 +684,9 @@ class RelationsController < ApplicationController
   end
   
 
-  def entity_link_create
-    if request.post?
-      @entity_link = EntityLink.new(:comment=>params[:entity_link][:comment], :nature_id=>params[:entity_link][:nature_id].to_i)
-      if params[:entity_link][:nature_id].include?("-R")
-        @entity_link.entity2_id = session[:current_entity]
-        @entity_link.entity1_id = params[:entity_link][:entity2_id]
-      else
-        @entity_link.entity2_id = params[:entity_link][:entity2_id]
-        @entity_link.entity1_id = session[:current_entity]
-      end
-      @entity_link.company_id = @current_company.id
-      redirect_to_back if @entity_link.save
-    else
-      @entity_link = EntityLink.new
-      @entity = find_and_check(:entity, session[:current_entity])
-    end
-    @entity = find_and_check(:entity, session[:current_entity])
-    @title = {:name=>@entity.full_name}
-    render_form
-  end
+  manage :entity_links, :entity1_id=>'@current_company.entities.find(params[:entity_id]).id rescue 0'
 
-
-  def entity_link_update
-    return unless @entity_link = find_and_check(:entity_link, params[:id])
-    @entity = find_and_check(:entity, @entity_link.entity1_id)
-    if request.post?
-      if params[:entity_link][:nature_id].include?("-R") 
-        params[:entity_link][:entity1_id] = params[:entity_link][:entity2_id]
-        params[:entity_link][:entity2_id] = session[:current_entity].to_i == params[:entity_link][:entity2_id].to_i ? @entity.id : session[:current_entity]
-      end
-      #raise Exception.new params[:entity_link].inspect+params.inspect+params[:entity_link][:entity2_id].inspect
-      redirect_to_back if @entity_link.update_attributes(params[:entity_link])
-    end
-    render_form
-  end
-
-  def entity_link_delete
-    @entity_link = find_and_check(:entity_link, params[:id])
-    if request.post?
-      redirect_to_current if @entity_link.update_attributes(:stopped_on=>Date.today)
-    end
-  end
-
-
-   #
+  #
   def self.mandates_conditions(options={}) 
     code = ""
     code += "conditions = ['mandates.company_id=?', @current_company.id.to_s]\n"

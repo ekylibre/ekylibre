@@ -193,7 +193,7 @@ module Ekylibre
           
           return <<-HTML
           #{dyli_complete_stylesheet unless completion_options[:skip_style]}
-          #{hidden_field_tag(hf_name, hf_value, :id => hf_id, :href=>url_for(completion_options[:url]))}
+          #{hidden_field_tag(hf_name, hf_value, :id => hf_id, :href=>url_for(completion_options[:url]), :text_field_id=>tf_id)}
           #{text_field_tag(tf_name, tf_value, tag_options)}
           #{content_tag("div", " ", :id => "#{tf_id}_dyli_complete", :class => "dyli_complete")}
           #{dyli_complete_field(tf_id, completion_options)}

@@ -25,7 +25,7 @@
     =render :partial=>"journal_entry_row_form", :object=>@journal_record.entries.new if entries.empty?
 :javascript
   var balanced = false;
-  function t0() {
+  window.t0 = function() {
     var sd = sum_all('input.debit',  'total-debit');
     var sc = sum_all('input.credit', 'total-credit');
     balanced = (sd.innerHTML*1 === sc.innerHTML*1);

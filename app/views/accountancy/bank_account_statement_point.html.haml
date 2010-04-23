@@ -32,7 +32,7 @@
       %td#total-credit=@bank_account_statement.credit || 0
   .actions=submit_tag(tg(:save))
 :javascript
-  function t1() {
+  window.t1 = function() {
     var sd = sum_all('tr.notice .debit',  'total-debit');
     var sc = sum_all('tr.notice .credit', 'total-credit');
   }

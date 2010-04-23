@@ -56,7 +56,7 @@ class Company < ActiveRecord::Base
   has_many :document_templates
   has_many :embankments
   has_many :entities
-  has_many :entity_categories
+  has_many :entity_categories, :conditions=>{:deleted=>false}
   has_many :entity_link_natures
   has_many :entity_links
   has_many :entity_natures  
@@ -87,7 +87,7 @@ class Company < ActiveRecord::Base
   has_many :payment_parts
   has_many :prices
   has_many :price_taxes
-  has_many :products
+  has_many :products, :order=>'active DESC, name'
   has_many :product_components
   has_many :professions
   has_many :purchase_orders
@@ -98,29 +98,43 @@ class Company < ActiveRecord::Base
   has_many :sale_order_natures
   has_many :sequences
   has_many :shapes, :order=>:name
-  has_many :shelves
+  has_many :shelves, :order=>:name
   has_many :stocks, :order=>"location_id, product_id, tracking_id"
   has_many :stock_moves
   has_many :stock_transfers
-  has_many :subscription_natures
+  has_many :subscription_natures, :order=>:name
   has_many :subscriptions
-  has_many :taxes
+  has_many :taxes, :order=>'amount'
   has_many :tax_declarations
   has_many :tool_uses
   has_many :tools
   has_many :trackings
   has_many :transfers
-  has_many :units
-  has_many :users
+  has_many :units, :order=>'base, coefficient, name'
+  has_many :users, :order=>'last_name, first_name'
   belongs_to :entity
 
 
   # Specifics
-  has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}
+  has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
+  has_many :available_products, :class_name=>Product.name, :conditions=>{:active=>true}, :order=>:name
+  has_many :available_prices, :class_name=>Price.name, :conditions=>'prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM products WHERE company_id=#{id} AND active=#{connection.quoted_true})', :order=>"prices.amount"
+  has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
   has_many :embankable_payments, :class_name=>Payment.name, :conditions=>{:embankment_id=>nil}
-  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.third_accounts.clients\').value.to_s+\'%\')}' 
+  has_many :self_bank_accounts, :class_name=>BankAccount.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
+  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.third_accounts.clients\').value.to_s+\'%\')}'
+  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.third_accounts.suppliers\').value.to_s+\'%\')}'
+  has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.major_accounts.charges\').value.to_s+\'%\')}'
+  has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.major_accounts.products\').value.to_s+\'%\')}'
+  has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.minor_accounts.banks\').value.to_s+\'%\')}'
+  has_many :self_contacts, :class_name=>Contact.name, :conditions=>'active = #{connection.quoted_true} AND entity_id = #{self.entity_id}', :order=>'active DESC, address'
+  has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, name, first_name'
+  has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, name, first_name'
+
   has_one :current_financialyear, :class_name=>Financialyear.name, :conditions=>{:closed=>false}
+
+
   validates_uniqueness_of :code
 
   attr_readonly :code
@@ -197,18 +211,18 @@ class Company < ActiveRecord::Base
     array
   end
 
-  def available_products(options={})
-    options[:conditions] ||= {}
-    options[:conditions].merge!(:active=>true)
-    options[:order] ||= 'name'
-    self.products.find(:all, options)
-  end
+#   def available_products(options={})
+#     options[:conditions] ||= {}
+#     options[:conditions].merge!(:active=>true)
+#     options[:order] ||= 'name'
+#     self.products.find(:all, options)
+#   end
 
-  def available_prices(category_id=nil)
-    conditions = {"prices.entity_id"=>self.entity_id, "products.active"=>true, "prices.active"=>true}
-    conditions[:category_id] = category_id if category_id
-    self.prices.find(:all, :joins=>"JOIN products ON (products.id=product_id)", :conditions=>conditions, :order=>"products.name, prices.amount")
-  end
+#   def available_prices(category_id=nil)
+#     conditions = {"prices.entity_id"=>self.entity_id, "products.active"=>true, "prices.active"=>true}
+#     conditions[:category_id] = category_id if category_id
+#     self.prices.find(:all, :joins=>"JOIN products ON (products.id=product_id)", :conditions=>conditions, :order=>"products.name, prices.amount")
+#   end
 
   def available_taxes(options={})
     #    options[:conditions]={:deleted=>false}
@@ -265,15 +279,19 @@ class Company < ActiveRecord::Base
   def reflection_options(options={})
     raise ArgumentError.new("Need :reflection option (#{options.inspect})") unless options[:reflection].to_s.size > 0
     reflection = self.class.reflections[options[:reflection].to_sym]
-    raise ArgumentError.new("Unknown :reflection option with an existing reflection (#{reflection.class.name}:#{reflection.inspect})") unless reflection
+    raise ArgumentError.new("Unknown :reflection option with an existing reflection (#{options[:reflection].inspect})") unless reflection
+    model = reflection.class_name.constantize
+    available_methods = model.instance_methods+model.columns_hash.keys
     unless label = options[:label]
-      model = reflection.class_name.constantize
-      available_methods = model.instance_methods+model.columns_hash.keys
-      label = [:label, :name, :code, :inspect].detect{|x| available_methods.include?(x.to_s)}
+      label = [:label, :native_name, :name, :code, :inspect].detect{|x| available_methods.include?(x.to_s)}
       raise ArgumentError.new(":label option is needed (#{options.inspect})") if label.nil?
     end
     find_options = {} # :conditions=>"true"}
-    find_options[:order] = options[:order] if options[:order]
+    if options[:order]
+      find_options[:order] = options[:order] 
+    elsif model.columns_hash.keys.include?(options[:label].to_s)
+      find_options[:order] = options[:label]
+    end
     list = (self.send(reflection.name).find(:all, find_options)||[]).collect do |record|
       [record.send(label), record.id]
     end

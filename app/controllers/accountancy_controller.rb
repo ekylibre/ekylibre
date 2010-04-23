@@ -20,8 +20,8 @@ class AccountancyController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
 
   dyli(:account, ["number:X%", :name], :conditions => {:company_id=>['@current_company.id']})
-  dyli(:account_collected, [:number, :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
-  dyli(:account_paid, [:number, :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
+  dyli(:account_collected, ["number:X%", :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
+  dyli(:account_paid, ["number:X%", :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
   
   # 
   def index
@@ -184,7 +184,7 @@ class AccountancyController < ApplicationController
   def accounts
   end
   
-  manage :accounts
+  manage :accounts, :number=>"params[:number]"
 
 
   # This method allows to make lettering for the client and supplier accounts.

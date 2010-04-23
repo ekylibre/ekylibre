@@ -630,8 +630,9 @@ fra:
         deliveries: 'Livraisons'
         title: 'Transport du {{value}}'
       transport_create:
-        info: 'Renseignez les informations du transport'
         title: 'Ajout d''un nouveau transport'
+      _transport_form:
+        info: 'Renseignez les informations du transport'
       transport_deliveries:
         title: 'Livraisons du transport'
       _transport_deliveries:
@@ -640,7 +641,6 @@ fra:
         back: 'Valider et revenir à la liste des transports'
         delivery: 'Livraison'
       transport_update:
-        info: 'Renseignez les informations du transport'
         title: 'Modification du transport'
         transport_deliveries: 'Livraisons du transport'
       transports:

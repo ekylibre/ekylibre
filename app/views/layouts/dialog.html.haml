@@ -1,6 +1,8 @@
 .main{:flex=>9, :orient=>:vertical}
   .page{:flex=>3, :orient=>:vertical}
     .nav
+      #help-close.help-link=link_to_function(tg(:close), "closeDialog('#{params[:dialog]}');")
+      -#=help_link_tag :show=>true
       %h1.title=action_title
     .yield{:flex=>1, :orient=>:vertical}
       =notification_tag :error
@@ -8,4 +10,3 @@
       =notification_tag :success
       =notification_tag :information
       =yield
-      .end{:style=>'height:1px'}

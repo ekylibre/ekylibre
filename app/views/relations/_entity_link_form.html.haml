@@ -1,7 +1,24 @@
+-e1, e2 = 0, 0
 =formalize do |f|
-  - f.error :entity_link
-  - f.field tc(:entity_name), @entity.full_name
-  - f.field :entity_link, :nature_id,  :choices=>@current_company.available_link_natures
-  -# f.field :entity_link, :entity2_id, :choices=>@current_company.available_entities.collect{|x| [x.full_name, x.id]}
-  - f.field :entity_link, :entity2_id, :choices=>:entities
-  - f.field :entity_link, :comment, :field=>:textarea
+  -f.error :entity_link
+  -e1 = f.field :entity_link, :entity1_id, :choices=>:entities, :new=>{:action=>:entity_create}
+  -f.field :entity_link, :nature_id,  :choices=>{:reflection=>:entity_link_natures, :label=>:name_1_to_2}, :new=>{:action=>:entity_link_nature_create}
+  -e2 = f.field :entity_link, :entity2_id, :choices=>:entities, :new=>{:action=>:entity_create}
+  -f.field :entity_link, :comment, :field=>:textarea
+=toolbar do |t|
+  - t.javascript :permute, "permuteEntities('#{e1}', '#{e2}')"
+:javascript
+  window.permuteEntities = function(e1_hf, e2_hf) {
+    e1_hf=$(e1_hf); e2_hf=$(e2_hf); 
+    var e1_tf = $(e1_hf.readAttribute('text_field_id'));
+    var e2_tf = $(e2_hf.readAttribute('text_field_id'));
+    var hf_value=e2_hf.value; 
+    var tf_value=e2_tf.value; 
+    var tf_size =e2_tf.readAttribute('size'); 
+    e2_hf.value = e1_hf.value;
+    e2_tf.value = e1_tf.value;
+    e2_tf.writeAttribute('size', e1_tf.readAttribute('size'));
+    e1_hf.value = hf_value;
+    e1_tf.value = tf_value;
+    e1_tf.writeAttribute('size',  tf_size);
+  }

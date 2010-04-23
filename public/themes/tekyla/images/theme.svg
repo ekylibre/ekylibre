@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,9 +13,9 @@
    height="237.14285"
    id="svg2415"
    sodipodi:version="0.32"
-   inkscape:version="0.47pre4 r22446"
+   inkscape:version="0.46"
    version="1.0"
-   sodipodi:docname="menu.svg"
+   sodipodi:docname="theme.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs2417">
@@ -717,6 +716,14 @@
          stdDeviation="16.858407"
          id="feGaussianBlur3961-6" />
     </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3401">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="4.41"
+         id="feGaussianBlur3403" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -786,6 +793,10 @@
        orientation="1,0"
        position="254,-46.75"
        id="guide3281" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="-232.75,0"
+       id="guide3363" />
   </sodipodi:namedview>
   <metadata
      id="metadata2420">
@@ -795,7 +806,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1250,5 +1261,12 @@
        x="187.78571"
        y="595.47345"
        transform="matrix(1.0601619,0,0,0.91658784,-41.903205,52.21519)" />
+    <rect
+       style="opacity:0.18769231;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.50000000000000000;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3401)"
+       id="rect2575"
+       width="188"
+       height="106"
+       x="-79.714287"
+       y="320.93359" />
   </g>
 </svg>

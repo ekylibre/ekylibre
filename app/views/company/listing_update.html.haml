@@ -19,17 +19,6 @@
 
 =render :partial=>"listing_node", :object=>@listing.root
 
-:javascript
-  function display_comparison(ln) {
-    if($(ln+"_status").checked) {
-     
-      $(ln+"_comparison").show(); }
-    else {
-      $(ln+"_comparison").hide();
-     
-    }
-  }
-
 .actions 
   =link_to tg(:previous), :action=>:listings
 

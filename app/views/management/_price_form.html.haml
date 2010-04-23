@@ -1,18 +1,22 @@
 =formalize do |f|
-  - f.error 'price'
-  - f.error 'price_tax'
-  - f.title :general
-  - f.field :price, :product_id, :choices=>@products.collect{|x| [x.name, x.id]}, :new=>{:action=>:product_create} 
-  - if @mode != :sales
-    -f.field :price, :entity_id, :choices=>:entities
-  - f.field :price, :amount
-  - f.field :price, :tax_id, :choices=>@price.all_taxes(@current_company, :order=>"taxes.amount").collect{|x| [x.name, x.id]}
-  - f.field :price, :category_id, :choices=>@current_company.entity_categories.find_all_by_deleted(false).collect{|x| [x.name, x.id]}
-  - f.field :price, :default
-  - f.field :price, :currency_id, :choices=>Currency.find(:all, :conditions=>{:company_id=>@current_company.id}).collect{|x| [x.name, x.id]}
-  - f.field :price, :use_range
-  - f.field :price, :quantity_min, :html_options=>{:id=>:price_qmin}
-  - f.field :price, :quantity_max, :html_options=>{:id=>:price_qmax}
+  -f.error 'price'
+  -f.error 'price_tax'
+  -f.title :general
+  -f.field :price, :product_id, :choices=>{:reflection=>:products}, :new=>{:action=>:product_create} 
+  -if @mode != :sales
+    -f.field :price, :entity_id, :choices=>:entities, :new=>{:controller=>:relations, :action=>:entity_create} 
+  -f.field :price, :amount
+  -f.field :price, :tax_id, :choices=>{:reflection=>:taxes}, :new=>{:controller=>:accountancy, :action=>:tax_create}
+  -f.field :price, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>{:controller=>:relations, :action=>:entity_category_create}
+  -f.field :price, :default
+  -f.field :price, :currency_id, :choices=>{:reflection=>:currencies}
+  -f.field :price, :use_range
 
-=javascript_tag("function display_quantities(element) { var qmin=$('price_qmin'); var qmax=$('price_qmax');  if (element.checked) { qmin.show(); qmax.show(); } else { qmin.hide(); qmax.hide(); }; return false; }\ndisplay_quantities($('price_use_range'));")
-=observe_field("price_use_range", :frequency =>0.25, :function => "display_quantities(element);")
+#interval=formalize do |f|
+  -f.field :price, :quantity_min
+  -f.field :price, :quantity_max
+
+:javascript
+  window.displayInterval = function() { toggleElement('interval', $('price_use_range').checked); };
+  displayInterval();
+=observe_field("price_use_range", :frequency =>0.25, :function => "displayInterval();")
