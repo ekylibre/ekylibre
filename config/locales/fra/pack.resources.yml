@@ -28,7 +28,7 @@ fra:
       employee_create:
         title: 'Création d''un nouvel employé'
       _employee_form:
-        select_user: '-- Sans utilisateur --'
+        select_user: '-- Sans utilisateur --' #!
       # No defined action for this view !!!
       employee_update:
         title: 'Modification d''un employé'

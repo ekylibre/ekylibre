@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,7 +14,7 @@
    height="16"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.47pre4 r22446"
    version="1.0"
    inkscape:export-filename="/home/brice/pygmalion/projets/images/boutons24.png"
    inkscape:export-xdpi="90"
@@ -5179,6 +5180,66 @@
        fx="40"
        fy="15.166668"
        r="7.9999995" />
+    <inkscape:perspective
+       id="perspective3805"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3833-7"
+       id="linearGradient3839-7"
+       x1="130.25"
+       y1="88"
+       x2="111.49999"
+       y2="88"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient3833-7">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0.83703703;"
+         offset="0"
+         id="stop3835-6" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3837-4" />
+    </linearGradient>
+    <inkscape:perspective
+       id="perspective4634"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <filter
+       inkscape:collect="always"
+       id="filter4676"
+       x="-0.42794824"
+       width="1.8558965"
+       y="-0.20379638"
+       height="1.4075928">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.7832183"
+         id="feGaussianBlur4678" />
+    </filter>
+    <inkscape:perspective
+       id="perspective4688"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4710"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -5188,8 +5249,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="38.510314"
-     inkscape:cy="-55.439453"
+     inkscape:cx="93.988608"
+     inkscape:cy="-83.956189"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -5363,7 +5424,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
       <cc:Work
          rdf:about="">
@@ -7345,5 +7406,29 @@
          d="M 47.5,34.625 L 32.75,34.625 L 39.875,41.5 L 47.5,34.625 z"
          style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#0e77c2;stroke-width:1.66233765999999994px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1" />
     </g>
+    <path
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#95b0e4;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.99996805px;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Andale Mono;-inkscape-font-specification:Andale Mono"
+       d="m 80,74.065476 0,0.982143 0,19.904762 L 80,96 l 0.947309,0 7.696883,0 c 0,0 2.361388,-0.05975 4.706941,-1.473214 C 95.696685,93.113318 98.059283,90.260165 97.998865,85 97.937751,79.678824 95.549669,76.837246 93.203116,75.440476 90.856562,74.043707 88.525779,74 88.525779,74 L 80.947309,74 80,74.065476 z"
+       id="path3052-0"
+       sodipodi:nodetypes="ccccccsssccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/close4.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#004477;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="m 92.062504,78.031248 1.9375,1.5 -4.90625,5.46875 4.65625,5.437502 -1.6875,1.59375 -6.0625,-7.031252 6.0625,-6.96875 z m -6,0 1.9375,1.5 -4.90625,5.46875 4.65625,5.437502 -1.6875,1.59375 -6.0625,-7.031252 6.0625,-6.96875 z"
+       id="path3855-3" />
+    <path
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#95b0e4;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.99996805px;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Andale Mono;-inkscape-font-specification:Andale Mono"
+       d="m 80,96.065476 0,0.982143 0,19.904761 0,1.04762 0.947309,0 7.696883,0 c 0,0 2.361388,-0.0597 4.706938,-1.47321 2.34556,-1.41347 4.70815,-4.26662 4.64774,-9.52679 -0.0611,-5.32118 -2.4492,-8.162754 -4.79575,-9.559524 C 90.856562,96.043707 88.525779,96 88.525779,96 L 80.947309,96 80,96.06548 z"
+       id="path3052-0-6"
+       sodipodi:nodetypes="ccccccsssccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/open4.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#004477;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 82.9375,100 81,101.5 85.90625,106.96875 81.25,112.40625 82.9375,114 89,106.96875 82.9375,100 z m 6,0 L 87,101.5 91.90625,106.96875 87.25,112.40625 88.9375,114 95,106.96875 88.9375,100 z"
+       id="path3849-2" />
   </g>
 </svg>

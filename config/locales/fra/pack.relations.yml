@@ -225,13 +225,13 @@ fra:
         meeting: 'Lieu(x) de rencontre' #!
         no_commercial: ' -- Sans commercial --'
         no_origin: ' -- Sans origine --' #!
-        no_proposer: ' -- Sans parrain ni marraine --'
+        no_proposer: ' -- Sans parrain ni marraine --' #!
         supplier: 'Informations fournisseur'
         title: 'Renseignez les différentes caractéristiques de la fiche'
       entity_link_create:
         title: 'Ajout d''un nouveau lien'
       _entity_link_form:
-        permute: Permuter les fiches
+        permute: 'Permuter les fiches' #!
       entity_link_nature_create:
         title: 'Ajout d''un nouveau type de lien'
       entity_link_nature_update:
@@ -264,6 +264,7 @@ fra:
       events:
         event_create: 'Ajouter un évènement'
         title: 'Évènements'
+      # Unfound view ./app/views/relations/_general_description_form
       _general_description_form:
         title: 'Description générale'
       index:

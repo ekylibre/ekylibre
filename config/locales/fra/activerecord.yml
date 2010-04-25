@@ -345,15 +345,15 @@ fra:
         account_id: 'Compte comptable référencé'
         address: 'Adresse'
         agency_code: 'Code guichet'
-        bank_account_statements: 'Relevés de compte bancaire'
+        bank_account_statements: 'Relevés de compte bancaire' #?
         bank_code: 'Code banque'
         bank_name: 'Nom de la banque'
-        bban: 'RIB'
-        bban_unvalid_key: 'La clé du BBAN n''est pas correcte.'
+        bban: 'RIB' #?
+        bban_unvalid_key: 'La clé du BBAN n''est pas correcte.' #?
         bic: 'BIC'
         company: 'Société'
         company_id: 'Société'
-        country_code: 'Code pays'
+        country_code: 'Code pays' #?
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
@@ -366,7 +366,7 @@ fra:
         entity_id: 'Personne'
         iban: 'IBAN'
         iban_label: 'IBAN'
-        iban_label2: 'IBAN'
+        iban_label2: 'IBAN' #?
         id: 'ID'
         journal: 'Journal utilisé'
         journal_id: 'Journal utilisé'
@@ -408,10 +408,15 @@ fra:
         account_balances: 'Balances de compte'
         accounts: 'Comptes'
         areas: 'Zones postales'
+        available_prices: 'Prix disponibles'
+        available_products: 'Produits disponibles'
         bank_account_statements: 'Relevés de compte bancaire'
         bank_accounts: 'Comptes bancaires'
-        bank_journal: 'Journal de banque'
+        bank_journal: 'Journal de banque' #?
+        banks_accounts: 'Comptes comptables de banque'
         born_on: 'Créée le'
+        charges_accounts: 'Comptes de charge'
+        client_accounts: 'Comptes clients'
         code: 'Code interne'
         complement_choices: 'Choix de champ complémentaire'
         complement_data: 'Données complémentaires de fiche'
@@ -441,7 +446,7 @@ fra:
         entity_link_natures: 'Natures de lien entre relations'
         entity_links: 'Liens de relation'
         entity_natures: 'Types de relation'
-        entries: 'Écritures'
+        entries: 'Écritures' #?
         establishments: 'Établissements'
         event_natures: 'Types d''évènement'
         events: 'Évènements'
@@ -450,7 +455,7 @@ fra:
         inventories: 'Inventaires'
         inventory_lines: 'Lignes d''inventaire'
         invoice_lines: 'Lignes de facture'
-        invoice_sequence_id: 'Séquence de facturation'
+        invoice_sequence_id: 'Séquence de facturation' #?
         invoices: 'Factures'
         journal_entries: 'Écritures'
         journal_records: 'Pièces comptables'
@@ -477,16 +482,19 @@ fra:
         product_components: 'Composants de produit'
         productable_products: 'Produits produisibles'
         products: 'Produits'
+        products_accounts: 'Comptes produits'
         professions: 'Professions'
         purchase_order_lines: 'Lignes d''achat'
         purchase_orders: 'Achats'
-        purchases_journal: 'Journal d''achats'
+        purchases_journal: 'Journal d''achats' #?
         roles: 'Rôles'
         sale_order_lines: 'Lignes de vente'
         sale_order_natures: 'Types de vente'
         sale_orders: 'Ventes'
         sales_conditions: 'Conditions Générales de Vente'
-        sales_journal: 'Journal de Ventes'
+        sales_journal: 'Journal de Ventes' #?
+        self_bank_accounts: 'Comptes bancaires en propre'
+        self_contacts: 'Contacts en propre'
         sequences: 'Séquences'
         shapes: 'Îlots'
         shelves: 'Catégories de produit'
@@ -496,12 +504,16 @@ fra:
         stocks: 'Stocks de produit'
         subscription_natures: 'Types d''abonnement'
         subscriptions: 'Abonnement'
+        supplier_accounts: 'Comptes fournisseurs'
+        suppliers: 'Fournisseurs'
+        surface_units: 'Unités de surface'
         tax_declarations: 'Déclarations de taxes'
         taxes: 'Taxes'
         tool_uses: 'Utilisations d''outil'
         tools: 'Outils'
         trackings: 'Lots traçables'
         transfers: 'Transferts'
+        transporters: 'Transporteurs'
         units: 'Unités'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
@@ -611,8 +623,8 @@ fra:
         lock_version: 'Version'
         longitude: 'Longitude'
         mobile: 'Portable'
-        name: 'Nom (interne)'
-        nature: 'Type'
+        name: 'Nom (interne)' #?
+        nature: 'Type' #?
         phone: 'Téléphone'
         purchase_orders: 'Achats'
         started_at: 'Du'
@@ -680,24 +692,24 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         currency_id: 'Monnaie'
-        delivered: 'Livré'
-        delivered_on: 'Reçu le'
+        delivered: 'Livré' #?
+        delivered_on: 'Reçu le' #?
         id: 'ID'
         invoice: 'Facture'
         invoice_id: 'Facture'
-        invoiceable: 'À facturer'
+        invoiceable: 'À facturer' #?
         label: 'Libellé'
         lines: 'Lignes de livraison'
         lock_version: 'Version'
         mode: 'Type'
         mode_id: 'Type'
         moved_on: 'Faite le'
-        nature: 'Type'
+        nature: 'Type' #?
         order: 'Vente'
         order_id: 'Vente'
         planned_on: 'Prévue le'
         quantity: 'Quantité'
-        shipped_on: 'Envoyé le'
+        shipped_on: 'Envoyé le' #?
         stock_moves: 'Mouvements de stock'
         text_nature: 'Type'
         transport: 'Transport'
@@ -870,7 +882,7 @@ fra:
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-        validated: 'Valider'
+        validated: 'Valider' #?
 
       # Relation
       entity:
@@ -901,7 +913,7 @@ fra:
         direct_links: 'Liens directs'
         discount_rate: 'Taux d''escompte'
         ean13: 'Ean13'
-        employee_id: 'Représentant'
+        employee_id: 'Représentant' #?
         events: 'Évènements'
         excise: 'Numéro d''accises'
         first_met_on: 'Date de la première rencontre'
@@ -926,7 +938,7 @@ fra:
         payment_mode: 'Mode de réglement'
         payment_mode_id: 'Mode de réglement'
         payments: 'Réglements'
-        payments_number: 'Nombre de paiements'
+        payments_number: 'Nombre de paiements' #?
         photo: 'Photo'
         prices: 'Prix'
         proposer: 'Parrain'
@@ -1117,7 +1129,7 @@ fra:
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-        written_on: 'Autoriser l''écriture jusqu''au'
+        written_on: 'Autoriser l''écriture jusqu''au' #?
 
       # Inventaire
       inventory:
@@ -1129,7 +1141,7 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         date: 'Créé le'
-        employee_id: 'Responsable'
+        employee_id: 'Responsable' #?
         id: 'ID'
         lines: 'Lignes d''inventaire'
         lock_version: 'Version'
@@ -1167,7 +1179,7 @@ fra:
 
       # Facture
       invoice:
-        accounted: 'Comptabilisé(e)'
+        accounted: 'Comptabilisé(e)' #?
         accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
@@ -1187,7 +1199,7 @@ fra:
         currency_id: 'Devise'
         deliveries: 'Livraisons'
         downpayment_amount: 'Montant de l''acompte'
-        facture: 'Facture'
+        facture: 'Facture' #?
         has_downpayment: 'A un acompte'
         id: 'ID'
         lines: 'Lignes de facture'
@@ -1201,7 +1213,7 @@ fra:
         payment_delay: 'Délai de paiement'
         payment_delay_id: 'Délai de paiement'
         payment_on: 'A régler au plus tard le'
-        sale: 'Vente'
+        sale: 'Vente' #?
         sale_order: 'Vente'
         sale_order_id: 'Vente'
         updated_at: 'Mis à jour le'
@@ -1297,7 +1309,7 @@ fra:
         letter: 'Lettre'
         lock_version: 'Version'
         name: 'Nom'
-        number_account: 'Nber'
+        number_account: 'Nber' #?
         position: 'Position'
         record: 'Numéro'
         record_id: 'Numéro'
@@ -1479,7 +1491,7 @@ fra:
         entity: 'Fiche'
         entity_id: 'Fiche'
         family: 'Famille'
-        group: 'Groupe'
+        group: 'Groupe' #?
         id: 'ID'
         lock_version: 'Version'
         organization: 'Organisation'
@@ -1518,7 +1530,7 @@ fra:
         creator_id: 'Créateur'
         description: 'Description'
         duration: 'Durée'
-        employee_id: 'Employé'
+        employee_id: 'Employé' #?
         hour_duration: 'Heure(s)'
         id: 'ID'
         lines: 'Intrants/sortants'
@@ -1531,7 +1543,7 @@ fra:
         planned_on: 'Prévu le'
         responsible: 'Responsable'
         responsible_id: 'Responsable'
-        shape_id: 'Îlot'
+        shape_id: 'Îlot' #?
         started_at: 'Du'
         stopped_at: 'Au'
         target: 'Cible'
@@ -1543,7 +1555,7 @@ fra:
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-        validated: 'Effectué'
+        validated: 'Effectué' #?
 
       # Intrant/sortant
       operation_line:
@@ -1622,7 +1634,7 @@ fra:
         account: 'Compte associé'
         account_id: 'Compte associé'
         account_number: 'Numéro de compte'
-        accounted: 'Comptabilisé(e)'
+        accounted: 'Comptabilisé(e)' #?
         accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant'
         bank: 'Banque'
@@ -1633,7 +1645,7 @@ fra:
         created_on: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        downpayment: 'Acompte'
+        downpayment: 'Acompte' #?
         embanker: 'Responsable'
         embanker_id: 'Responsable'
         embankment: 'Encaissement'
@@ -1698,7 +1710,7 @@ fra:
         invoice: 'Facture'
         invoice_id: 'Facture'
         lock_version: 'Version'
-        order_id: 'Vente'
+        order_id: 'Vente' #?
         payment: 'Réglement'
         payment_id: 'Réglement'
         payment_way: 'Moyen de paiement'
@@ -1726,9 +1738,9 @@ fra:
         entity_id: 'Fournisseur'
         id: 'ID'
         invoice_lines: 'Lignes de facture'
-        list_id: 'Liste de prix'
+        list_id: 'Liste de prix' #?
         lock_version: 'Version'
-        price: 'Prix'
+        price: 'Prix' #?
         product: 'Produit'
         product_id: 'Produit'
         purchase_order_lines: 'Lignes d''achat'
@@ -1767,7 +1779,7 @@ fra:
       # Produit
       product:
         active: 'Utilisable'
-        actual_number: 'Numéro en cours'
+        actual_number: 'Numéro en cours' #?
         catalog_description: 'Description pour le catalogue'
         catalog_name: 'Nom pour le catalogue'
         charge_account: 'Compte comptable de charges'
@@ -1811,11 +1823,11 @@ fra:
         stocks: 'Stocks de produit'
         subscription_nature: 'Type'
         subscription_nature_id: 'Type'
-        subscription_numbers: 'Nombre de numéros'
+        subscription_numbers: 'Nombre de numéros' #?
         subscription_period: 'Période'
         subscription_quantity: 'Quantité'
         subscriptions: 'Abonnement'
-        supply_method: 'Moyen d''approvisionnement'
+        supply_method: 'Moyen d''approvisionnement' #?
         to: 'Pour'
         to_produce: 'Produit fabriqué ou récolté'
         to_purchase: 'Produit acheté'
@@ -1829,7 +1841,7 @@ fra:
         updater: 'Modificateur'
         updater_id: 'Modificateur'
         weight: 'Poids (kg)'
-        without_stocks: 'Ne nécessite pas de gestion de stocks'
+        without_stocks: 'Ne nécessite pas de gestion de stocks' #?
 
       # Composant de produit
       product_component:
@@ -1877,11 +1889,11 @@ fra:
 
       # Achat
       purchase_order:
-        accounted: 'Comptabilisé(e)'
+        accounted: 'Comptabilisé(e)' #?
         accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
-        client_id: 'Fournisseur'
+        client_id: 'Fournisseur' #?
         comment: 'Commentaire'
         company: 'Société'
         company_id: 'Société'
@@ -1893,7 +1905,7 @@ fra:
         dest_contact: 'Adresse de livraison'
         dest_contact_id: 'Adresse de livraison'
         id: 'ID'
-        invoiced: 'Facturé'
+        invoiced: 'Facturé' #?
         label: 'Commande'
         lines: 'Lignes d''achat'
         lock_version: 'Version'
@@ -1902,7 +1914,7 @@ fra:
         payment_parts: 'Parties de réglement'
         planned_on: 'Réception prévue le'
         quantity: 'Quantité'
-        received: 'Reçue'
+        received: 'Reçue' #?
         shipped: 'Reçu'
         supplier: 'Fournisseur'
         supplier_id: 'Fournisseur'
@@ -1963,7 +1975,7 @@ fra:
 
       # Vente
       sale_order:
-        accounted: 'Comptabilisé(e)'
+        accounted: 'Comptabilisé(e)' #?
         accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
@@ -2010,7 +2022,7 @@ fra:
         payment_parts: 'Parties de réglement'
         responsible: 'Responsable'
         responsible_id: 'Responsable'
-        sale: 'Vente'
+        sale: 'Vente' #?
         state: 'État'
         stock_moves: 'Mouvements de stock'
         subject: 'Objet'
@@ -2052,14 +2064,14 @@ fra:
         price: 'Produit tarifé'
         price_amount: 'Montant HT'
         price_id: 'Produit tarifé'
-        price_list_id: 'Tarif'
+        price_list_id: 'Tarif' #?
         product: 'Produit'
         product_id: 'Produit'
         quantity: 'Quantité'
         reduction: 'Ligne de réduction'
         reduction_origin: 'Ligne soumise à réduction'
         reduction_origin_id: 'Ligne soumise à réduction'
-        reductions: (((REDUCTIONS)))
+        reductions: 'Lignes de réductions'
         tax: 'Taxe'
         tax_id: 'Taxe'
         tracking: 'Lot'
@@ -2142,7 +2154,7 @@ fra:
         parent: 'Parent'
         parent_id: 'Parent'
         polygon: 'Coordonnées'
-        shape_id: 'Îlot maître'
+        shape_id: 'Îlot maître' #?
         shapes: 'Îlots'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
@@ -2209,7 +2221,7 @@ fra:
         creator_id: 'Créateur'
         generated: 'Généré'
         id: 'ID'
-        input: 'Entrée'
+        input: 'Entrée' #?
         location: 'Lieu de stockage'
         location_id: 'Lieu de stockage'
         lock_version: 'Version'
@@ -2243,7 +2255,7 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        executed: 'Réalisé'
+        executed: 'Réalisé' #?
         id: 'ID'
         location: 'Lieu de stockage de départ'
         location_id: 'Lieu de stockage de départ'
@@ -2267,7 +2279,7 @@ fra:
 
       # Abonnement
       subscription:
-        beginning: 'Débute le'
+        beginning: 'Débute le' #?
         comment: 'Commentaire'
         company: 'Société'
         company_id: 'Société'
@@ -2339,7 +2351,7 @@ fra:
         creator_id: 'Créateur'
         deleted: 'Effacé'
         description: 'Description'
-        group_name: 'Groupe'
+        group_name: 'Groupe' #?
         id: 'ID'
         included: 'Incluse'
         lock_version: 'Version'
@@ -2372,7 +2384,7 @@ fra:
         id: 'ID'
         lock_version: 'Version'
         nature: 'Régime de la déclaration'
-        normal: 'Réel normal'
+        normal: 'Réel normal' #?
         paid_amount: 'TVA déductible'
         paid_on: ''
         period: 'Période'
@@ -2448,7 +2460,7 @@ fra:
 
       # Transfert
       transfer:
-        accounted: 'Comptabilisé(e)'
+        accounted: 'Comptabilisé(e)' #?
         accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant'
         comment: 'Commentaire'
@@ -2525,7 +2537,7 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         credits: 'Création d''avoirs'
-        deleted: 'Effacé'
+        deleted: 'Effacé' #?
         deleted_at: 'Supprimé à'
         departed_on: 'Parti le'
         department: 'Département'

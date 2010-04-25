@@ -571,7 +571,7 @@ fra:
       _stock_move_form:
         description: 'Description'
         nature: 'Opération'
-        product: '{{product}} ({{unit}})'
+        product: '{{product}} ({{unit}})' #!
       stock_move_update:
         title: 'Modifier le mouvement de stock : {{value}}'
       stock_transfer_create:
@@ -631,8 +631,7 @@ fra:
         title: 'Transport du {{value}}'
       transport_create:
         title: 'Ajout d''un nouveau transport'
-      _transport_form:
-        info: 'Renseignez les informations du transport'
+        #>info: # Potentially missing translation
       transport_deliveries:
         title: 'Livraisons du transport'
       _transport_deliveries:
@@ -640,6 +639,9 @@ fra:
         add_delivery: 'Ajouter une livraison'
         back: 'Valider et revenir à la liste des transports'
         delivery: 'Livraison'
+      # Unfound view ./app/views/management/_transport_form
+      _transport_form:
+        info: 'Renseignez les informations du transport'
       transport_update:
         title: 'Modification du transport'
         transport_deliveries: 'Livraisons du transport'

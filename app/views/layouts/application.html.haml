@@ -11,22 +11,17 @@
   %body{:onload=>"resize();", :onresize=>"resize();"}
     #body{:orient=>:vertical, :flex=>1}
       =top_tag
-      #columns{:orient=>:horizontal, :flex=>1}
+      #columns.columns{:orient=>:horizontal, :flex=>1}
         -side=side_tag
         -unless side.blank?
-          #side{:style=>''+(session[:side] ? "" : "display:none")}=side      
-        .main{:flex=>9, :orient=>:vertical, :style=>"position: absolute; top: 0px; overflow: visible;"}
-          .page{:flex=>3, :orient=>:vertical}
-            .nav
-              =help_link_tag
-              =side_link_tag
-              %h1.title=action_title
-            .yield{:flex=>1, :orient=>:vertical}
-              =notification_tag :error
-              =notification_tag :warning
-              =notification_tag :success
-              =notification_tag :information
-              =yield
-        #help{:flex=>3, :style=>(session[:help] ? "" : "display:none; ")+"position: absolute; top: 0px;"}
-          =render :partial=>'help/search' if session[:help]
+          #side{:orient=>:vertical, :style=>"overflow: visible"+(session[:side] ? "" : "; display:none")}=side      
+        #main.main{:flex=>9, :orient=>:vertical, :class=>("with-side" unless side.blank?), :style=>"position: absolute; top: 0px; overflow: visible;"}
+          .nav
+            =help_link_tag
+            =side_link_tag
+            %h1.title=action_title
+          .yield{:flex=>1, :orient=>:vertical}
+            =notifications_tag
+            =yield
+        =help_tag(:flex=>3)
    

@@ -356,11 +356,21 @@ module ApplicationHelper
 
   def help_link_tag(options={})
     return '' if @current_user.blank?
-    options[:class] ||= "help-link"
-    url = {:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name}
-    content = content_tag(:div, '&nbsp;')
-    options[:style] = "display:none" if session[:help] and not options[:show]
-    code = content_tag(:div, link_to_remote(tg(:display_help), :update=>(options[:id]||:help), :url=>url, :complete=>"openHelp();", :loading=>"onLoading();", :loaded=>"onLoaded();"), {:id=>"help-open"}.merge(options))
+    options[:class] ||= ""
+    options[:class] += " help-link help-open"
+    options[:style] = "display:none" if session[:help]
+    url = (options[:url]||{}).merge(:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name)
+    url[:dialog] = params[:dialog] if params[:dialog]
+    update = (options.delete(:update)||:help).to_s
+    return link_to_remote(tg(:display_help), {:update=>update, :url=>url, :complete=>"toggleHelp('#{update}', true#{', \''+options[:resize].to_s+'\'' if options[:resize]});", :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:id=>"#{update}-open"}.merge(options))
+  end
+
+  def help_tag(html_options={})
+    code = ''
+    if session[:help]
+      code = render(:partial=>'help/search')
+    end
+    return content_tag(:div, code, {:id=>"help", :class=>"help", :style=>"#{'display:none;' unless session[:help]}position: absolute; top: 0px;"}.merge(html_options))
   end
 
   def side_link_tag
@@ -382,15 +392,22 @@ module ApplicationHelper
     code
   end
 
+  def notifications_tag
+    return notification_tag(:error)+
+      notification_tag(:warning)+
+      notification_tag(:success)+
+      notification_tag(:information)
+  end
+
   def link_to_submit(form_name, label=:submit, options={})
     link_to_function(l(label), "document."+form_name+".submit()", options.merge({:class=>:button}))
   end
 
 
   def wikize(content, options={})
-    without_paragraph = options.delete(:without_paragraph)
-    options = {:url => {:controller=>:help, :action=>"search"}, :update => :help, :complete=>'resize2();'}.merge(options)
-    
+    #without_paragraph = options.delete(:without_paragraph)
+
+    # options = {:url => {:controller=>:help, :action=>"search"}, :update=>(options[:update]||:help), :complete=>'resize2();'}.merge(options)
     # {{:buttons/update.png|Label}}
     # {{buttons/update.png|Label}}
     #url = url_for(:controller=>:images)
@@ -432,7 +449,7 @@ module ApplicationHelper
       (controller.accessible?(url) ? link_to(link[1], url) : link[1])
     end
 
-
+    options[:url] ||= {}
 
     content = content.gsub(/\[\[[\w\-]+\|[^\]]*\]\]/) do |link|
       link = link[2..-3].split('|')

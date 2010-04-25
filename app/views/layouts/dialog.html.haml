@@ -1,12 +1,11 @@
-.main{:flex=>9, :orient=>:vertical}
-  .page{:flex=>3, :orient=>:vertical}
+-help_id = "#{params[:dialog]}-help"
+.columns{:orient=>:horizontal, :flex=>1}
+  .main{:flex=>9, :orient=>:vertical}
     .nav
-      #help-close.help-link=link_to_function(tg(:close), "closeDialog('#{params[:dialog]}');")
-      -#=help_link_tag :show=>true
+      =link_to_function(tg(:close), "closeDialog('#{params[:dialog]}')", :class=>"help-close help-link")
+      =help_link_tag(:update=>help_id, :resize=>params[:dialog], :url=>{:dialog=>params[:dialog]})
       %h1.title=action_title
     .yield{:flex=>1, :orient=>:vertical}
-      =notification_tag :error
-      =notification_tag :warning
-      =notification_tag :success
-      =notification_tag :information
+      =notifications_tag
       =yield
+  =help_tag(:id=>help_id)

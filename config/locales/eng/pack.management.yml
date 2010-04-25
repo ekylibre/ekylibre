@@ -444,13 +444,13 @@ eng:
         #>discount: 'Remise (en %)'
         #>give_discount: 'Octroyer une remise'
         #>infos: 'Choisissez le produit et la quantité'
-      _sale_order_line_informations:
-        #>no_tracking: 'Aucun lot'
-        #>tracking: 'Lot '
       sale_order_line_informations:
         #>contact: 'à l''adresse'
         #>from_date: 'Du '
         #>to_date: 'Au '
+      _sale_order_line_informations:
+        #>no_tracking: 'Aucun lot'
+        #>tracking: 'Lot '
       _sale_order_line_stocks:
         #>line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
       _sale_order_line_tracking:
@@ -624,7 +624,6 @@ eng:
         #>deliveries: 'Livraisons'
         #>title: 'Transport du {{value}}'
       transport_create:
-        #>info: 'Renseignez les informations du transport'
         #>title: 'Ajout d''un nouveau transport'
       _transport_deliveries:
         #>add: 'Ajouter la livraison au transport'
@@ -633,8 +632,9 @@ eng:
         #>delivery: 'Livraison'
       transport_deliveries:
         #>title: 'Livraisons du transport'
-      transport_update:
+      _transport_form:
         #>info: 'Renseignez les informations du transport'
+      transport_update:
         #>title: 'Modification du transport'
         #>transport_deliveries: 'Livraisons du transport'
       transports:

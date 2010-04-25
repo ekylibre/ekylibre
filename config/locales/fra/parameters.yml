@@ -11,6 +11,7 @@ fra:
         charges: 'Comptes de charges'
         products: 'Comptes de produits'
       minor_accounts:
+        banks: 'Comptes de banque'
         gains: 'Résultat de l''exercice (bénéfice)'
         losses: 'Résultat de l''exercice (perte)'
       taxes_accounts:

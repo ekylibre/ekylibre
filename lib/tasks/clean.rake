@@ -277,8 +277,8 @@ namespace :clean do
 
     locale = ::I18n.locale = ::I18n.default_locale
     locale_dir = "#{RAILS_ROOT}/config/locales/#{locale}"
-    File.makedirs(locale_dir) unless File.makedirs(locale_dir)
-    File.makedirs(locale_dir+"/help") unless File.makedirs(locale_dir+"/help")
+    File.makedirs(locale_dir) unless File.exist?(locale_dir)
+    File.makedirs(locale_dir+"/help") unless File.exist?(locale_dir+"/help")
     log.write("Locale #{::I18n.locale_label}:\n")
 
     # Activerecord
@@ -324,8 +324,11 @@ namespace :clean do
         end
 
         # Sort attributes and build yaml
+        methods = klass.instance_methods+klass.columns_hash.keys+["creator", "updater"]
         for attribute, trans in attributes.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
-          models_attributes += "        #{attribute}: "+trans+"\n"
+          models_attributes += "        #{attribute}: "+trans
+          models_attributes += " #?" unless methods.include?(attribute.to_s)
+          models_attributes += "\n"
         end
         attrs_count += attributes.size
       else

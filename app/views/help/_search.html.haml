@@ -1,17 +1,22 @@
+-update, complete, resize = "help", "resize2()", nil
+-if params[:dialog]
+  -update, complete, resize = "#{params[:dialog]}-help", "$('#{params[:dialog]}').resize()", params[:dialog]
+-base_url = {:controller=>:help}
+-base_url[:dialog] = params[:dialog] if params[:dialog]
 %div{:orient=>:vertical, :flex=>1}
   .nav
-    #help-close.help-link=link_to_remote(tg(:close), :url=>{:controller=>:help, :action=>:close}, :loading=>"closeHelp(); onLoading();", :loaded=>"onLoaded();")
-    #help-previous.help-link=link_to_remote(tg(:previous), :url=>{:controller=>:help, :action=>:previous }, :update=>:help, :complete=>"resize2();", :loading=>"onLoading();", :loaded=>"onLoaded();" ) if session[:help_history].size>1
+    =link_to_remote(tg(:close), {:url=>base_url.merge(:action=>:close), :loading=>"toggleHelp('#{update}', false#{', \''+resize.to_s+'\'' if resize}); onLoading();", :loaded=>"onLoaded();"}, {:class=>"help-close help-link"})
+    =link_to_remote(tg(:previous), {:url=>base_url.merge(:action=>:previous), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:class=>"help-previous help-link"} ) if session[:help_history].size>1
     %h1.title=tc :title
   -cache(:action=>"help", :id=>@article) do
     .content{:flex=>1, :style=>'overflow:auto;'}
-      - doc=article(@article)
+      - doc=article(@article, :update=>update, :complete=>complete, :url=>base_url.merge(:action=>"search"))
       - if doc.blank?
         %h1=tc("missing_help")
         .help-error=tc(:error_no_file, :article=>@article)
       - else
         =doc
       %ul
-        %li=link_to_remote(tc("home"), :url=>{:controller=>:help, :action=>:search, :article=>"company-index"}, :update=>:help, :complete=>"resize2();", :loading=>"onLoading();", :loaded=>"onLoaded();")
+        %li=link_to_remote(tc("home"), :url=>base_url.merge(:action=>:search, :article=>"company-index"), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();")
         %li=link_to(tc("ekylibre"), "http://www.ekylibre.org")
       .text-end &nbsp;

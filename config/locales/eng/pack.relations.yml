@@ -228,9 +228,9 @@ eng:
         #>supplier: 'Informations fournisseur'
         #>title: 'Renseignez les différentes caractéristiques de la fiche'
       entity_link_create:
-        #>title: 'Ajout d''un nouveau lien à {{name}}'
+        #>title: 'Ajout d''un nouveau lien'
       _entity_link_form:
-        #>entity_name: 'La fiche'
+        #>permute: 'Permuter les fiches'
       entity_link_nature_create:
         #>title: 'Ajout d''un nouveau type de lien'
       entity_link_nature_update:

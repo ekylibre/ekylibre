@@ -9,6 +9,12 @@ function _resize() {
   if (overlay !== null) { 
     overlay.setStyle({'width': width+'px', 'height': height+'px'});
   }
+  $$('.dialog').each(function(element, index) { 
+      var w = 0.9*width;
+      var h = 0.9*height;
+      element.setStyle({left: ((width-w)/2)+'px', top: ((height-h)/2)+'px'});
+      element.resize(w, h);
+    });
   $('body').resize(width,height);
 }
 
@@ -23,6 +29,14 @@ function resize2() {
 }
 
 
+function toggleHelp(help, show, resized) {
+  toggleElement(help, show, help+'-open');
+  if (resized === undefined) {
+    return resize();
+  } else {
+    return $(resized).resize();
+  }
+}
 
 function openHelp() {
   $('help-open').setStyle({display: 'none'});
@@ -41,9 +55,11 @@ function openSide() {
   if ($('side').style.display=='none') {
     $('side').setStyle({display:'block'});
     $('side-open').setAttribute('id', 'side-close');
+    $('main').addClassName('with-side');
   } else {
     $('side').setStyle({display:'none'});
     $('side-close').setAttribute('id', 'side-open');
+    $('main').removeClassName('with-side');
   }
   return resize();
 }

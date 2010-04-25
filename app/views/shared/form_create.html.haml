@@ -2,18 +2,18 @@
 -if params[:dialog]
   -jsaction = params[:formalize] ? Marshal.load(ActiveSupport::Base64.decode64(params[:formalize])) : nil
   -form_remote_tag(:url=>{:dialog=>params[:dialog], :formalize=>params[:formalize]}, 250=>"#{jsaction}; closeDialog('#{params[:dialog]}')", 200=>"$('#{params[:dialog]}').update(request.responseText).resize();", :html=>{:id=>form_id, :flex=>1, :orient=>:vertical, :style=>'overflow:none'}, :loaded=>"resizeDialog('#{params[:dialog]}')") do
-    .fields{:flex=>10, :style=>"overflow: auto"}
+    .fields{:flex=>10}
       =render :partial=>@partial
       .end
-    .actions{:style=>"margin: 0"}
+    .actions
       =submit_tag(tg(@options[:submit]||:create))
       =link_to_function(tg(@options[:cancel]||:cancel), "closeDialog('#{params[:dialog]}')")
 -else
   -form_tag(nil, {:id=>form_id, :flex=>1, :orient=>:vertical, :style=>'overflow:none'}) do
-    .fields{:flex=>10, :style=>"overflow: auto"}
+    .fields{:flex=>10}
       =render :partial=>@partial
       .end
-    .actions{:style=>"margin: 0"}
+    .actions
       =submit_tag(tg(@options[:submit]||:create))
       =link_to_back :label=>@options[:cancel]||:cancel
 

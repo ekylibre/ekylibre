@@ -85,7 +85,7 @@ class CompanyController < ApplicationController
   end
 
   def help
-    @per_page = 15
+    @per_page = 10
     if request.xhr?
       render :text=>article(params[:article], :url=>{:controller=>:company, :action=>:help, :article=>'\1'}, :update=>:helpage)
     else
