@@ -44,6 +44,7 @@
 #
 
 class Location < ActiveRecord::Base
+  attr_readonly :company_id, :reservor
   belongs_to :account
   belongs_to :company
   belongs_to :contact

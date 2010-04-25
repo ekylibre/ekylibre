@@ -28,7 +28,7 @@ class ProductionController < ApplicationController
     t.column :text_nature
     t.column :consumption
     t.action :tool_update
-    t.action :tool_delete, :method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.uses.size == 0'
+    t.action :tool_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.uses.size == 0'
   end
 
   def tools
@@ -43,7 +43,7 @@ class ProductionController < ApplicationController
   end
   
   def tool
-    return unless @tool = find_and_check(:tools, params[:id])
+    return unless @tool = find_and_check(:tools)
     session[:current_tool] = @tool.id
     @title = {:name=>@tool.name}
   end
@@ -75,12 +75,12 @@ class ProductionController < ApplicationController
     t.column :tools_list
     t.column :duration
     t.action :operation_update, :image=>:update
-    t.action :operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :operation_delete, :method=>:delete, :image=>:delete, :confirm=>:are_you_sure
   end
 
 
   def shape
-    return unless @shape = find_and_check(:shapes, params[:id])
+    return unless @shape = find_and_check(:shapes)
     session[:current_shape] = @shape.id
     @title = {:name=>@shape.name}
   end
@@ -96,7 +96,7 @@ class ProductionController < ApplicationController
     t.column :name, :through=>:target
     t.column :duration
     t.action :operation_update, :image=>:update
-    t.action :operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure
+    t.action :operation_delete, :method=>:delete, :image=>:delete, :confirm=>:are_you_sure
   end
 
   def operations
@@ -113,7 +113,7 @@ class ProductionController < ApplicationController
   end
 
   def operation
-    return unless @operation = find_and_check(:operation, params[:id])
+    return unless @operation = find_and_check(:operation)
     session[:current_operation_id] = @operation.id
     @title = {:name=>@operation.name}
   end
@@ -133,7 +133,7 @@ class ProductionController < ApplicationController
   end
 
   def operation_update
-    return unless @operation = find_and_check(:operations, params[:id])
+    return unless @operation = find_and_check(:operations)
     session[:tool_ids] = []
     for tool in @operation.tools
       session[:tool_ids] << tool.id.to_s
@@ -150,7 +150,7 @@ class ProductionController < ApplicationController
   end
 
   def operation_delete
-    return unless @operation = find_and_check(:operations, params[:id])
+    return unless @operation = find_and_check(:operations)
     if request.post? or request.delete?
       redirect_to_current if @operation.destroy
     end

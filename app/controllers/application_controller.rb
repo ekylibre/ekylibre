@@ -154,6 +154,11 @@ class ApplicationController < ActionController::Base
         if url == :back
           redirect_to_back
         else
+          if url.is_a? Hash
+            url0 = {}
+            url.each{|k,v| url0[k] = (v.is_a?(String) ? record.send(v) : v)}
+            url = url0
+          end
           redirect_to(url) 
         end
       end
@@ -305,6 +310,7 @@ class ApplicationController < ActionController::Base
     operations = [:create, :update, :delete]
 
     t3e = defaults.delete(:t3e)
+    url = defaults.delete(:redirect_to)
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
     code = ''
@@ -315,7 +321,7 @@ class ApplicationController < ActionController::Base
       code += "  if request.post?\n"
       code += "    @#{record_name} = #{model.name}.new(params[:#{record_name}])\n"
       code += "    @#{record_name}.company_id = @current_company.id\n"
-      code += "    return if save_and_redirect(@#{record_name})\n"
+      code += "    return if save_and_redirect(@#{record_name}#{',  :url=>'+url if url})\n"
       code += "  else\n"
       values = defaults.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")
       code += "    @#{record_name} = #{model.name}.new(#{values})\n"
@@ -327,11 +333,11 @@ class ApplicationController < ActionController::Base
     if operations.include? :update
       # this action updates an existing record with a form.
       code += "def #{methods_prefix}_update\n"
-      code += "  return unless @#{record_name} = find_and_check(:#{record_name}, params[:id])\n"
+      code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
       code += "  if request.post? or request.put?\n"
       raise Exception.new("You must put :company_id in attr_readonly of #{model.name}") if model.readonly_attributes.nil? or not model.readonly_attributes.include?("company_id")
       code += "    @#{record_name}.attributes = params[:#{record_name}]\n"
-      code += "    return if save_and_redirect(@#{record_name})\n"
+      code += "    return if save_and_redirect(@#{record_name}#{', :url=>('+url+')' if url})\n"
       code += "  end\n"
       code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
       code += "  render_form\n"
@@ -341,8 +347,8 @@ class ApplicationController < ActionController::Base
     if operations.include? :delete
       # this action deletes or hides an existing record.
       code += "def #{methods_prefix}_delete\n"
-      code += "  return unless @#{record_name} = find_and_check(:#{record_name}, params[:id])\n"
-      code += "  if request.delete?\n"
+      code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+      code += "  if request.delete? or request.post?\n"
       if model.instance_methods.include?("destroyable?")
         code += "    if @#{record_name}.destroyable?\n"
         code += "      #{model.name}.destroy(@#{record_name}.id)\n"

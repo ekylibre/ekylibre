@@ -6,15 +6,25 @@
   -if locations.size>0
     -f.field :location, :parent_id, :choices=>locations.collect{|x| [x.name, x.id]}, :options=>{:include_blank=>true}
   -f.field :location, :comment, :field=>:textarea
-  -if @mode == :reservoir
+  -if @location.new_record?
+    -f.field :location, :reservoir, :onchange=>"displayReservoir();"
+-if (@location.reservoir? and not @location.new_record?) or @location.new_record?
+  =formalize(:id=>:reservoir) do |f|
     -f.title :reservoir_informations
     -f.field :location, :product_id, :choices=>{:reflection=>:available_products}, :new=>{:action=>:product_create}
     -f.field :location, :quantity_max  
     -f.field :location, :number
+=formalize do |f|
   -f.title :localization
   -f.field :location, :establishment_id, :choices=>{:reflection=>:establishments}, :new=>{:controller=>:company, :action=>:establishment_create}
   -f.field :location, :x
   -f.field :location, :y
   -f.field :location, :z
   -f.title :accountancy
-  -f.field :location, :account_id, :choices=>{:reflection=>:accounts}
+  -f.field :location, :account_id, :choices=>:account
+-if @location.new_record?
+  :javascript
+    window.displayReservoir = function() {
+      toggleElement('reservoir', $('location_reservoir').checked);
+    }
+    displayReservoir();

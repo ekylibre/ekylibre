@@ -122,7 +122,7 @@ class AccountancyController < ApplicationController
     t.column :name, :through=>:currency
     t.column :number, :through=>:account
     t.action :bank_account_update
-    t.action :bank_account_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :bank_account_delete, :method=>:delete, :confirm=>:are_you_sure
   end
   
 
@@ -149,7 +149,7 @@ class AccountancyController < ApplicationController
 
   # this method updates a bank_account with a form.
   def bank_account_update
-    return unless @bank_account = find_and_check(:bank_account, params[:id])
+    return unless @bank_account = find_and_check(:bank_account)
     if request.post? or request.put?
       @bank_account.attributes = params[:bank_account]
       return if save_and_redirect(@bank_account)
@@ -159,7 +159,7 @@ class AccountancyController < ApplicationController
   
   # this method deletes a bank_account.
   def bank_account_delete
-    return unless @bank_account = find_and_check(:bank_account, params[:id])
+    return unless @bank_account = find_and_check(:bank_account)
     if request.post? or request.delete?
       if @bank_account.statements.size > 0
         @bank_account.update_attribute(:deleted, true)
@@ -177,7 +177,7 @@ class AccountancyController < ApplicationController
     t.column :number
     t.column :name
     t.action :account_update
-    t.action :account_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure
   end
   
   # lists all the accounts with the credit, the debit and the balance for each of them.
@@ -206,7 +206,7 @@ class AccountancyController < ApplicationController
 
   # this method displays the array for make lettering.
   def account_letter
-    return unless @account = find_and_check(:account, params[:id])
+    return unless @account = find_and_check(:account)
     params[:stopped_on] = (params[:stopped_on]||Date.today).to_date
     params[:started_on] = (params[:started_on]||params[:stopped_on]-1.month+1.day).to_date
     if request.post?
@@ -220,7 +220,7 @@ class AccountancyController < ApplicationController
 
   # this method displays the array for make lettering.
   def account_unletter
-    return unless @account = find_and_check(:account, params[:id])
+    return unless @account = find_and_check(:account)
     if request.post? and params[:letter]
       @account.unletter_entries(params[:letter])
     end
@@ -483,7 +483,7 @@ class AccountancyController < ApplicationController
   end
 
   def financialyear
-    return unless @financialyear = find_and_check(:financialyears, params[:id])
+    return unless @financialyear = find_and_check(:financialyears)
     @financialyear.compute_balances
     t3e @financialyear.attributes
   end
@@ -509,7 +509,7 @@ class AccountancyController < ApplicationController
   
   # this action updates a financialyear with a form.
   def financialyear_update
-    return unless @financialyear = find_and_check(:financialyears, params[:id])
+    return unless @financialyear = find_and_check(:financialyears)
     if request.post? or request.put?
       @financialyear.attributes = params[:financialyear]
       return if save_and_redirect(@financialyear)
@@ -520,7 +520,7 @@ class AccountancyController < ApplicationController
   
   # this action deletes a financialyear.
   def financialyear_delete
-    return unless @financialyear = find_and_check(:financialyears, params[:id])
+    return unless @financialyear = find_and_check(:financialyears)
     if request.post? or request.delete?
       Financialyear.destroy @financialyear unless @financialyear.records.size > 0 
     end
@@ -540,7 +540,7 @@ class AccountancyController < ApplicationController
       end
     else
       # Launch close process
-      return unless @financialyear = find_and_check(:financialyear, params[:id])
+      return unless @financialyear = find_and_check(:financialyear)
       if request.post?
         params[:journal_id]=@current_company.journals.create!(:nature=>"renew").id if params[:journal_id]=="0"
         if @financialyear.close(params[:financialyear][:stopped_on].to_date, :renew_id=>params[:journal_id])
@@ -553,257 +553,6 @@ class AccountancyController < ApplicationController
       end    
     end
   end
-  
-  # #
-  # def auto_complete_for_entry_account
-  #   #puts params.inspect
-  #   pattern = '%'+params[:entry][:account].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-  #   @accounts = @current_company.accounts.find(:all, :conditions => [ 'LOWER(number) LIKE ? ', pattern], :order => "name ASC", :limit=>10)
-  #   render :inline => "<%=content_tag(:ul, @accounts.map { |account| content_tag(:li, h(account.label)) })%>"
-  # end
-
-
-
-  # #
-  # def self.entries_journal_consult_conditions(options={})
-  #   code = ""
-  #   code += "conditions=['journal_entries.company_id=?', @current_company.id] \n"
-  #   code += "unless session[:entries][:journal].blank? \n" 
-  #   code += "journal=@current_company.journals.find(:first, :conditions=>{:id=>session[:entries][:journal]})\n" 
-  #   code += "if journal\n"
-  #   code += "conditions[0] += ' AND r.journal_id=? AND r.created_on > ?' \n"
-  #   code += "conditions << journal.id \n"
-  #   code += "conditions << journal.closed_on \n"
-  #   code += "end \n"
-  #   code+="end\n"
-    
-  #   code +="unless session[:entries][:financialyear].blank? \n"
-  #   code += "financialyear = @current_company.financialyears.find(:first, :conditions=>{:id=>session[:entries][:financialyear]}) \n"
-  #   code += "if financialyear \n"
-  #   code += "conditions[0] += ' AND r.financialyear_id=?' \n"
-  #   code += "conditions << financialyear.id \n"
-  #   code += "end \n"
-  #   code+="end\n"
-  #   code += "conditions \n"
-    
-  #   code
-    
-  # end
-  
-  # dyta(:entries, :model=>:journal_entries, :conditions=>entries_journal_consult_conditions, :order=>'record_id DESC', :joins=>"INNER JOIN journal_records r ON r.id = journal_entries.record_id", :line_class=>'RECORD.balanced_record') do |t|
-  #   t.column :journal_name, :label=>"Journal"
-  #   t.column :number, :label=>"Numéro", :through=>:record
-  #   t.column :created_on, :label=>"Créée le", :through=>:record, :datatype=>:date
-  #   t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
-  #   t.column :name
-  #   t.column :number, :label=>"Compte" , :through=>:account
-  #   t.column :debit
-  #   t.column :credit
-  #   t.action :entry_update, :if => '!RECORD.close?'  
-  #   t.action :entry_delete, :method => :post, :confirm=>:are_you_sure, :if => '!RECORD.close? and !RECORD.letter?'
-  # end
-
-
-  # #this method allows to enter the accountancy records within a form.
-  # def entries
-  #   session[:entries] ||= {}
-    
-  #   @journals = @current_company.journals.find(:all, :order=>:name)
-  #   @financialyears = @current_company.financialyears.find(:all, :conditions => {:closed => false}, :order=>:code)
-    
-  #   unless @financialyears.size>0
-  #     notify(:need_financialyear_to_consult_record_entries, :info)
-  #     redirect_to :action=>:financialyear_create
-  #     return
-  #   end
-  #   unless @journals.size>0
-  #     notify(:need_journal_to_consult_record_entries, :info)
-  #     redirect_to :action=>:journal_create
-  #     return
-  #   end
-
-  #   if params[:journal_id] and params[:financialyear_id]
-  #     if not params[:journal_id].match /---/
-  #       session[:entries][:journal] = params[:journal_id] 
-  #     else
-  #       session[:entries][:journal] = ' '
-  #     end
-  #     if not params[:financialyear_id].match /---/
-  #       session[:entries][:financialyear] = params[:financialyear_id]
-  #     else
-  #       session[:entries][:financialyear] = ' '
-  #     end
-  #   end
-
-  #   session[:entries][:error_balance_or_new_record] = false
-
-  #   @records=[]
-  #   @journal = find_and_check(:journal, session[:entries][:journal]) unless session[:entries][:journal].blank?
-  #   @financialyear = find_and_check(:financialyear, session[:entries][:financialyear]) unless session[:entries][:financialyear].blank?
-  #   @valid = (!@journal.nil? and !@financialyear.nil?)
-  #   # @financialyear.compute_balances
-  #   # @financialyear.balance("51D,53,54,^5181,^519")
-  #   # @financialyear.balance("707 ")
-  #   # template = @current_company.document_templates.find(:first, :conditions=>["name like ?", '%Bilan%'])
-  #   # pdf, filename = template.print(@financialyear)
-
-  #   #    send_data pdf, :type=>Mime::PDF, :filename=>filename
-  #   #raise Exception.new @financialyear.inspect
-    
-  #   if @valid
-  #     @record = JournalRecord.new
-  #     @entry = JournalEntry.new 
-      
-  #     @records = @journal.records.find(:all, :conditions => {:financialyear_id => @financialyear.id, :company_id => @current_company.id }, :order=>"number DESC") 
-      
-  #     unless session[:entries][:error_balance_or_new_record]
-  #       @record = @journal.records.find(:first, :conditions => ["debit!=credit OR (debit=0 AND credit=0) AND financialyear_id = ?", @financialyear.id], :order=>:id) if @record.balanced? or @record.new_record?
-  #     end
-      
-  #     unless @record.nil?
-  #       if (@record.balance > 0) 
-  #         @entry.currency_credit=@record.balance.abs 
-  #       else
-  #         @entry.currency_debit=@record.balance.abs  
-  #       end
-  #     end
-      
-  #     unless session[:entries][:error_balance_or_new_record]
-  #       @record = JournalRecord.new(params[:record]) if @record.nil? 
-        
-  #       if @record.new_record?
-  #         @record.number = @records.size>0 ? @records.first.number.succ : 1
-  #         @record.created_on = @records.size>0 ? @records.last.created_on : @financialyear.started_on
-  #         @record.printed_on = @records.size>0 ? @records.last.printed_on : @financialyear.started_on
-  #       end
-  #     end
-      
-  #   end  
-  # end
-
-  # #this method allows to create an entry.
-  # def entry_create
-  #   if request.xhr? 
-  #     @record = @current_company.journal_records.find(:first,:conditions=>["journal_id = ? AND number = ? AND financialyear_id = ?", session[:entries][:journal].to_s, params[:record][:number].rjust(6,"0"), session[:entries][:financialyear].to_s])       
-  #     created_on = params[:record][:created_on].gsub('/','-').to_date.strftime
-  #     printed_on = params[:record][:printed_on].gsub('/', '-').to_date.strftime
-
-  #     if @record
-  #       if @record.created_on > @record.journal.closed_on
-  #         @record.created_on = created_on
-  #         @record.printed_on = printed_on
-  #       end
-  #     end
-      
-  #     if @record.nil?
-  #       @record = JournalRecord.create!(params[:record].merge({:financialyear_id => session[:entries][:financialyear].to_s, :journal_id => session[:entries][:journal].to_s, :company_id => @current_company.id, :created_on => created_on, :printed_on => printed_on}))
-  #     end 
-      
-  #     params[:entry][:account] = @current_company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ? ",params[:entry][:account].strip.split(/[^0-9A-Z]/)[0].lower ])
-      
-  #     #raise Exception.new account.inspect
-  #     @entry = @current_company.journal_entries.build(params[:entry])
-      
-  #     if @record.save
-  #       @entry.record_id = @record.id
-  #       @entry.currency_id = find_and_check(:journal, session[:entries][:journal]).currency_id
-  #       if @entry.save
-  #         @record.reload
-  #         @record = @record.next if @record.balanced?
-  #         @entry = @entry.next(@record.balance)
-  #       end
-        
-  #     else
-  #       session[:entries][:error_balance_or_new_record] = true if @record.balanced? or @record.new_record?
-  #       @entry = JournalEntry.new
-  #     end
-      
-  #     render :action=>"entry_create.rjs" 
-  #   end
-  # end
-
-  # # this method updates an entry within a form.
-  # def entry_update
-  #   session[:accountize] ||= params[:accountize] if params[:accountize]
-  #   @entry = JournalEntry.find_by_id_and_company_id(params[:id], @current_company.id)  
-  #   if request.post? or request.put?
-  #     @entry.update_attributes(params[:entry]) 
-  #     unless session[:accountize].nil?
-  #       session[:accountize]=nil
-  #       redirect_to :action=>:draft_entries, :method=>:post
-  #     else
-  #       redirect_to_back
-  #     end
-  #   end
-  #   render_form
-  # end
-
-  # # this method makes the lettering.
-  # def entry_letter
-
-  #   if request.xhr?
-      
-  #     @entry = @current_company.journal_entries.find(params[:id])
-      
-  #     @entries = @current_company.journal_entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = journal_entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
-      
-  #     @letters = []
-  #     @entries.each do |entry|
-  #       @letters << entry.letter unless entry.letter.blank?  
-  #     end
-  #     @letters.uniq!
-      
-  #     if @entry.letter != ""
-  #       @entries_letter = @current_company.journal_entries.find(:all, :conditions => ["letter = ? AND account_id = ?", @entry.letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = journal_entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
-
-  #       @entry.update_attribute("letter", '')
-        
-  #     else
-        
-  #       if not @letters.empty? 
-          
-  #         @letters.each do |letter|
-            
-  #           @entries_letter = @current_company.journal_entries.find(:all, :conditions => ["letter = ? AND account_id = ?", letter.to_s, @entry.account_id], :joins => "INNER JOIN journal_records r ON r.id = journal_entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id")
-            
-  #           if @entries_letter.size > 0
-  #             sum_debit = 0
-  #             sum_credit = 0
-  #             @entries_letter.each do |entry|
-  #               sum_debit += entry.debit
-  #               sum_credit += entry.credit
-  #             end
-              
-  #             if sum_debit != sum_credit
-  #               session[:letter] = letter
-  #               break
-  #             else
-  #               session[:letter] = letter.succ
-  #             end
-  #           end
-  #         end
-  #       end
-  #       @entry.update_attribute("letter", session[:letter].to_s)
-  #     end
-      
-  #     @entries = @current_company.journal_entries.find(:all, :conditions => { :account_id => @entry.account_id}, :joins => "INNER JOIN journal_records r ON r.id = journal_entries.record_id INNER JOIN financialyears f ON f.id = r.financialyear_id", :order => "id ASC")
-      
-  #     render :action => "account_letter.rjs"
-  #   end
-
-  # end
-  
-
-
-  # # this method deletes an entry with a form.
-  # def entry_delete
-  #   if request.post? or request.delete?
-  #     return unless @entry = find_and_check(:journal_entry, params[:id])
-  #     @entry.destroy
-  #     redirect_to :action => "entries"
-  #   end
-  # end
-
 
   dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}, :order=>:code) do |t|
     t.column :name, :url=>{:action=>:journal}
@@ -850,7 +599,7 @@ class AccountancyController < ApplicationController
   
 
   def journal
-    return unless @journal = find_and_check(:journal, params[:id])
+    return unless @journal = find_and_check(:journal)
     session[:current_journal_id]   = @journal.id
     session[:journal_record_start] = params[:start]||Date.today-6
     session[:journal_record_end]   = params[:end]||Date.today
@@ -862,7 +611,7 @@ class AccountancyController < ApplicationController
 
   # This method allows to close the journal.
   def journal_close
-    return unless @journal = find_and_check(:journal, params[:id])
+    return unless @journal = find_and_check(:journal)
     unless @journal.closable?
       notify(:no_closable_journal)
       redirect_to :action => :journals
@@ -879,7 +628,7 @@ class AccountancyController < ApplicationController
 
   
   def journal_reopen
-    return unless @journal = find_and_check(:journal, params[:id])
+    return unless @journal = find_and_check(:journal)
     unless @journal.reopenable?
       notify(:no_reopenable_journal)
       redirect_to :action => :journals
@@ -908,7 +657,7 @@ class AccountancyController < ApplicationController
 
 
   def journal_record
-    return unless @journal_record = find_and_check(:journal_record, params[:id])
+    return unless @journal_record = find_and_check(:journal_record)
     session[:current_journal_record_id] = @journal_record.id
     t3e @journal_record.attributes
   end
@@ -917,7 +666,7 @@ class AccountancyController < ApplicationController
 
   # Permits to write records and entries in journal
   def journal_record_create
-    return unless @journal = find_and_check(:journal, params[:id])  
+    return unless @journal = find_and_check(:journal)  
     session[:current_journal_id] = @journal.id
     @journal_record = @journal.records.build(params[:journal_record])
     if request.post?
@@ -936,7 +685,7 @@ class AccountancyController < ApplicationController
   end
 
   def journal_record_update
-    return unless @journal_record = find_and_check(:journal_record, params[:id])  
+    return unless @journal_record = find_and_check(:journal_record)  
     @journal = @journal_record.journal
     if request.post?
       @journal_record.attributes = params[:journal_record]
@@ -977,7 +726,7 @@ class AccountancyController < ApplicationController
     t.column :credit
     t.action :bank_account_statement_point
     t.action :bank_account_statement_update
-    t.action :bank_account_statement_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :bank_account_statement_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
   # lists all the statements in details for a precise account.
@@ -1006,41 +755,18 @@ class AccountancyController < ApplicationController
 
   # displays in details the statement choosen with its mainly characteristics.
   def bank_account_statement
-    return unless @bank_account_statement = find_and_check(:bank_account_statement, params[:id])
+    return unless @bank_account_statement = find_and_check(:bank_account_statement)
     session[:current_bank_account_statement_id] = @bank_account_statement.id
     t3e @bank_account_statement.attributes
   end
   
+  manage :bank_account_statements, :started_on=>"Date.today-1.month-2.days", :stopped_on=>"Date.today-2.days", :redirect_to=>'{:action => :bank_account_statement_point, :id =>"id"}'
 
-  # This method creates a statement.
-  def bank_account_statement_create
-    if request.post?
-      @bank_account_statement = BankAccountStatement.new(params[:bank_account_statement])
-      if @bank_account_statement.save
-        redirect_to :action => :bank_account_statement_point, :id => @bank_account_statement.id 
-      end
-    else
-      @bank_account_statement = BankAccountStatement.new(:started_on=>Date.today-1.month-2.days, :stopped_on=>Date.today-2.days)
-    end
-    render_form 
-  end
-
-  # This method updates a statement.
-  def bank_account_statement_update
-    return unless @bank_account_statement = find_and_check(:bank_account_statement, params[:id])
-    if request.post? or request.put?
-      if @bank_account_statement.update_attributes(params[:bank_account_statement])
-        redirect_to :action => :bank_account_statement_point, :id => @bank_account_statement.id 
-      end
-    end
-    t3e @bank_account_statement.attributes
-    render_form
-  end
 
   # This method displays the list of entries recording to the bank account for the given statement.
   def bank_account_statement_point
     session[:statement] = params[:id]  if request.get? 
-    return unless @bank_account_statement = find_and_check(:bank_account_statement, params[:id])
+    return unless @bank_account_statement = find_and_check(:bank_account_statement)
     if request.post?
       # raise Exception.new(params[:journal_entry].inspect)
       @bank_account_statement.entries.clear
@@ -1056,15 +782,6 @@ class AccountancyController < ApplicationController
       redirect_to :action=>:bank_account_statements
     end    
     t3e :number => @bank_account_statement.number, :bank_account => @bank_account_statement.bank_account.name
-  end
-
-  # This method deletes a statement.
-  def bank_account_statement_delete
-    if request.post? or request.delete?
-      return unless @bank_account_statement = find_and_check(:bank_account_statement, params[:id])
-      BankAccountStatement.destroy @bank_account_statement
-    end
-    redirect_to :action=>:bank_account_statements
   end
 
 

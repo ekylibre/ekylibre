@@ -37,6 +37,7 @@
 #
 
 class BankAccountStatement < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :bank_account
   belongs_to :company
 

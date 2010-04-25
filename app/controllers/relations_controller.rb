@@ -201,7 +201,7 @@ class RelationsController < ApplicationController
       @complement_choice.attributes = params[:complement_choice]
       return if save_and_redirect(@complement_choice)
     end
-    @complement = find_and_check(:complement, @complement_choice.complement_id)
+    @complement = @complement_choice.complement
     @title = {:choice=>@complement_choice.name, :complement=>@complement.name}
     render_form
   end
@@ -239,7 +239,7 @@ class RelationsController < ApplicationController
     t.column :line_6, :through=>:default_contact, :url=>{:action=>:entity_contact_update}
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:entity}
     t.action :entity_update
-    t.action :entity_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :entity_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
   dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
@@ -262,7 +262,7 @@ class RelationsController < ApplicationController
     t.column :default
     t.column :code, :through=>:entity, :url=>{:action=>:entity}, :label=>tc(:entity_id)
     t.action :entity_contact_update  
-    t.action :entity_contact_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :entity_contact_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
   dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
@@ -302,7 +302,7 @@ class RelationsController < ApplicationController
     t.column :location
     t.column :started_at
     t.action :event_update
-    t.action :event_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :event_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
   dyta(:entity_bank_accounts, :model => :bank_accounts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
@@ -358,7 +358,7 @@ class RelationsController < ApplicationController
     t.column :description
     t.column :text_importance
     t.action :observation_update
-    t.action :observation_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :observation_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
 
@@ -542,12 +542,10 @@ class RelationsController < ApplicationController
   end
 
   def entity_delete
+    return unless @entity = find_and_check(:entity)
     if request.post? or request.delete?
-      @entity = Entity.find_by_id_and_company_id(params[:id], @current_company.id)
-      @id = params[:id]
       unless @entity.invoices.size > 0
-        @id = params[:id]
-        Entity.destroy(@id) if @entity
+        @entity.destroy
       else
         notify(:cannot_delete_entity, :error)
       end
@@ -577,7 +575,7 @@ class RelationsController < ApplicationController
     t.column :description
     t.column :default
     t.action :entity_category_update
-    t.action :entity_category_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :entity_category_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
   def entity_categories
@@ -592,7 +590,7 @@ class RelationsController < ApplicationController
   end
     
   def entity_category
-    @entity_category = find_and_check(:entity_category, params[:id])
+    return unless @entity_category = find_and_check(:entity_category)
     session[:category] = @entity_category.id
     @category_prices_count = @current_company.prices.find(:all, :conditions=>{:active=>true, :category_id=>@entity_category.id}).size
     @title = {:value=>@entity_category.name}
@@ -633,8 +631,8 @@ class RelationsController < ApplicationController
   end
   
   def entity_contact_delete
+    return unless @contact = find_and_check(:contact)
     if request.post? or request.delete?
-      @contact = Contact.find_by_id_and_company_id(params[:id] , @current_company.id )
       if @contact
         @contact.active = false
         @contact.save
@@ -651,7 +649,7 @@ class RelationsController < ApplicationController
     t.column :physical
     t.column :in_name
     t.action :entity_nature_update
-    t.action :entity_nature_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :entity_nature_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
   def entity_natures
@@ -666,7 +664,7 @@ class RelationsController < ApplicationController
     t.column :propagate_contacts
     t.column :symmetric
     t.action :entity_link_nature_update
-    t.action :entity_link_nature_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :entity_link_nature_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
   def entity_link_natures
@@ -680,7 +678,7 @@ class RelationsController < ApplicationController
     t.column :description, :through=>:entity2, :url=>{:action=>:entity}
     t.column :comment
     t.action :entity_link_update
-    t.action :entity_link_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :entity_link_delete, :method=>:delete, :confirm=>:are_you_sure
   end
   
 
@@ -718,9 +716,6 @@ class RelationsController < ApplicationController
   
   #
   def mandates
-    if mandate = Mandate.find_by_company_id_and_id(@current_company.id, params[:id])
-      params[:organization] = mandate.organization
-    end
     @entities = @current_company.entities    
     @organizations = @current_company.mandates.find(:all, :select=>' DISTINCT organization ')
     session[:mandates] ||= {}
@@ -762,7 +757,7 @@ class RelationsController < ApplicationController
     t.column :text_usage, :label=>tc(:usage)
     t.column :duration
     t.action :event_nature_update
-    t.action :event_nature_delete, :method=>:post, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :event_nature_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
   def event_natures
@@ -779,7 +774,7 @@ class RelationsController < ApplicationController
     t.column :name, :through=>:nature
     t.column :started_at
     t.action :event_update
-    t.action :event_delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :event_delete, :method=>:delete, :confirm=>:are_you_sure
   end
   
   def events
@@ -788,7 +783,7 @@ class RelationsController < ApplicationController
   manage :events, :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now"
 
   def change_minutes
-    @event_nature = find_and_check(:event_nature, params[:event_nature_id])
+    return unless @event_nature = find_and_check(:event_nature, params[:event_nature_id])
   end
   
 
