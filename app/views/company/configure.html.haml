@@ -1,10 +1,10 @@
--if @company.parameters.find(:all, :conditions=>["record_value_type = 'Sequence' AND record_value_id IS NULL"]).size > 0
-  =toolbar do
-    -link :sequences_load
-=error_messages 'company'
 -form_tag(nil, {:flex=>1, :orient=>:vertical, :style=>'overflow:none'}) do
   .fields{:flex=>10}
+    -if @company.parameters.find(:all, :conditions=>["record_value_type = 'Sequence' AND record_value_id IS NULL"]).size > 0
+      =toolbar do
+        -link :sequences_load
     =formalize do |f|
+      -f.error 'company'
       -f.title tc(:general)
       -f.field :company, :name
       -f.field t("activerecord.attributes.company.code"), content_tag(:strong, @company.code)
