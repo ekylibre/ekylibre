@@ -78,7 +78,7 @@ a.help-previous { background: url(../images/buttons/previous.png) no-repeat scro
 #side { width: 200px; padding: 0; overflow: auto; background: #c9d7f1 url(../../../images/ekylibre-mini.png) no-repeat 8px 8px; border-top: 1px solid #95b0e4;   /*#c9d7f1;*/ } /* border-right: 1px solid #95b0e4;*/
 /*#side .nav { background: #95b0e4; }
 #side .nav .title { color: #012; }*/
-#side .menus { /*background: #fefef9 url(../images/help.png) repeat-x top;*/ padding: 0 8px 0;}
+#side .menus { /*background: #fefef9 url(../images/help.png) repeat-x top;*/ padding: 0 8px;}
 #side .nav { height: 64px; }
 #side .menu { background: #FFF; padding:0px; margin:0px 0px 8px; border: 2px solid #95b0e4; }
 #side .menu h2 { font-size : 13px; color: #012; padding: 2px 4px 2px 18px; background: #95b0e4 url(../images/buttons/down4.png) no-repeat left center; text-align: left; cursor: pointer; font-weight: bold;}
@@ -133,17 +133,12 @@ a.help-previous { background: url(../images/buttons/previous.png) no-repeat scro
 table.invex, table.invisible { border-collapse: collapse; }
 table.invex, table.flex { width: 100% }
 
-.evalue { display:table; border-collapse: collapse; border-bottom: 1px dotted #CCC; margin: 0px 4px;}
-.evalue > div { display:table-row; }
-.evalue .label, .evalue .value { display:table-cell; padding:1px 4px;  vertical-align: middle; }
+.evalue { border-collapse: collapse; border-bottom: 1px dotted #CCC; margin: 0px 4px;}
+.evalue .label, .evalue .value { padding:1px 4px;  vertical-align: middle; }
 .evalue .label { width:176px; text-align:right; color: #777; }
-.evalue .value { width:164px;}
+.evalue .value { width:164px; }
 .evalue .code { font-family: monospace; }
 
-table.evalue { border-collapse: collapse; margin: 0 auto;}
-table.evalue td { border-bottom: 1px dotted #CCC; margin: 0px 4px; padding:1px 4px; }
-table.evalue .label { text-align:right; color: #777; }
-table.evalue .value { text-align:left; }
 
 div.tr { display: table-row; }
 div.td { display: table-cell; }

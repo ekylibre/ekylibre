@@ -242,9 +242,9 @@ module ApplicationHelper
     end
 
     value = link_to(value.to_s, options[:url]) if options[:url]
-    code  = content_tag(:div, label.to_s, :class=>:label)
-    code += content_tag(:div, value.to_s, :class=>value_class)
-    content_tag(:div, content_tag(:div,code), :class=>:evalue)
+    code  = content_tag(:td, label.to_s, :class=>:label)
+    code += content_tag(:td, value.to_s, :class=>value_class)
+    content_tag(:table, content_tag(:tr, code), :class=>:evalue)
   end
 
   
