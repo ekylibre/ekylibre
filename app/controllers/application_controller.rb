@@ -218,7 +218,9 @@ class ApplicationController < ActionController::Base
       session[:history].insert(0,request.url)
       session[:history].delete_at(127)
     end
-    session[:last_page][self.controller_name] = request.url unless (request.url.match(/_(print|dyta|extract)(\/\d+(\.\w+)?)?$/) or (controller_name == "company" and action_name == "print")) or params[:format] 
+    unless (request.url.match(/_(print|dyta|extract|create|update)(\/\d+(\.\w+)?)?$/) or (controller_name == "company" and ["print", "configure"].include?(action_name))) or params[:format] 
+      session[:last_page][self.controller_name] = request.url
+    end
   end
   
 

@@ -377,7 +377,7 @@ class RelationsController < ApplicationController
   end
 
   def entity
-    return unless @entity = find_and_check(:entity, params[:id])
+    return unless @entity = find_and_check(:entity)
     session[:current_entity] = @entity.id
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})  
     @purchase_orders_number = PurchaseOrder.count(:conditions=>{:company_id=>@current_company.id, :supplier_id=>params[:id]}) 
@@ -389,8 +389,8 @@ class RelationsController < ApplicationController
     session[:my_entity] = params[:id]
     @contact = Contact.new
     @contacts_count = @entity.contacts.find(:all, :conditions=>{:active=>true}).size
-    @bank_accounts_count = @entity.bank_accounts.find(:all,:conditions=>{:company_id=>@current_company.id}).size
-    @observations_count = @entity.observations.find(:all,:conditions=>{:company_id=>@current_company.id}).size
+    @bank_accounts_count = @entity.bank_accounts.size
+    @observations_count = @entity.observations.size
     @mandates_count = @entity.mandates.count(:conditions=>{:company_id=>@current_company.id})
     @entity_links = @current_company.entity_links.find(:all, :conditions=>["stopped_on IS NULL AND (entity1_id = ? OR entity2_id = ?)",@entity.id, @entity.id]).size
     @title = {:value=>@entity.full_name}

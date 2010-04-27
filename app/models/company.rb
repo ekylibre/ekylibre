@@ -610,17 +610,15 @@ class Company < ActiveRecord::Base
       user.company_id = company.id
       user.role_id = company.admin_role.id
       user.save!
-      tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |a|
-        number = a[0].to_s[1..-1]
-        begin
-          account = company.accounts.find_by_number(number)
-          if account 
-            account.update_attributes!(:name=>a[1])
+      tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |num, name|
+        raise Exception.new("Shiiiitt (#{[num, name].inspect})") unless num.to_s.match(/^n_/) or num.to_s == "name"
+        if num.to_s.match(/^n_/)
+          number = num.to_s[2..-1]
+          if account = company.accounts.find_by_number(number)
+            account.update_attributes!(:name=>name)
           else
-            company.accounts.create!(:number=>number, :name=>a[1])
+            company.accounts.create!(:number=>number, :name=>name)
           end
-        rescue Exception
-          
         end
       end
 

@@ -25,7 +25,7 @@ class ManagementController < ApplicationController
   def index
     @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
     @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})
-    all_stocks = Stock.find(:all, :conditions=>{:company_id=>@current_company.id})
+    all_stocks = @current_company.stocks
     @locations = @current_company.locations
     @stocks = []
     for stock in all_stocks
@@ -497,8 +497,8 @@ class ManagementController < ApplicationController
   
 
   def prices_export
-    @products = Product.find(:all, :conditions=>{:company_id=>@current_company.id, :active=>true})
-    @entity_categories = EntityCategory.find(:all, :conditions=>{:company_id=>@current_company.id, :deleted=>false})
+    @products = @current_company.available_products
+    @entity_categories = @current_company.entity_categories
     
     csv = ["",""]
     csv2 = ["Code Produit", "Nom"]
@@ -727,9 +727,9 @@ class ManagementController < ApplicationController
   end
 
   def change_quantities
-    @location = Stock.find(:first, :conditions=>{:location_id=>params[:location_id], :company_id=>@current_company.id, :product_id=>session[:product_id]} ) 
-    if @location.nil?
-      @location = Stock.new(:quantity_min=>1, :quantity_max=>0, :critic_quantity_min=>0)
+    @stock = Stock.find(:first, :conditions=>{:location_id=>params[:location_id], :company_id=>@current_company.id, :product_id=>session[:product_id]} ) 
+    if @stock.nil?
+      @stock = Stock.new(:quantity_min=>1, :quantity_max=>0, :critic_quantity_min=>0)
     end
   end
 

@@ -71,13 +71,13 @@ class ResourcesController < ApplicationController
   end
   
   def employee
-    return unless @user = find_and_check(:users, params[:id])
+    return unless @user = find_and_check(:users)
     session[:current_employee] = @user.id
     @title = {:label=>@user.label}
   end
 
   def employee_delete
-    return unless @user = find_and_check(:users, params[:id])
+    return unless @user = find_and_check(:users)
     if request.post? or request.delete?
       @user.employed = false
       @user.save

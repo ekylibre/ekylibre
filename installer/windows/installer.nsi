@@ -78,11 +78,11 @@ SetCompressor /SOLID /FINAL zlib
   !insertmacro MUI_PAGE_DIRECTORY
 
   ; !define MUI_INSTFILESPAGE_FINISHHEADER_TEXT "Bravo !"
-  ; !define MUI_INSTFILESPAGE_ABORTHEADER_TEXT  "DÃ©solÃ© !"
+  ; !define MUI_INSTFILESPAGE_ABORTHEADER_TEXT  "Désolé !"
   !insertmacro MUI_PAGE_INSTFILES
 
   ;!define MUI_FINISHPAGE_NOAUTOCLOSE
-  ; !define MUI_FINISHPAGE_TEXT_REBOOT "Vous devez redÃ©marrer l'ordinateur pour que l'installation se termine."
+  ; !define MUI_FINISHPAGE_TEXT_REBOOT "Vous devez redémarrer l'ordinateur pour que l'installation se termine."
   !define MUI_FINISHPAGE_LINK "Aller sur www.ekylibre.org"
   !define MUI_FINISHPAGE_LINK_LOCATION "http://www.ekylibre.org"
   !insertmacro MUI_PAGE_FINISH
@@ -138,13 +138,13 @@ Section
   ; IfFileExists $InstApp 0 +2
   ;   StrCpy $AppDir $InstApp
 
-  ; Copie de sauvegarde de la base de donnÃ©es si le fichier existe
+  ; Copie de sauvegarde de la base de données si le fichier existe
   ${If} $AppDir != ""
-    DetailPrint "Sauvegarde des donnÃ©es prÃ©sentes"
+    DetailPrint "Sauvegarde des données présentes"
     RMDir /r $Backup
     Rename $AppDir $Backup
   ${Else}
-    DetailPrint "Pas de donnÃ©es prÃ©sentes"
+    DetailPrint "Pas de données présentes"
   ${EndIf}
 
   ; Mise en place du programme
@@ -161,7 +161,7 @@ Section
   FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
   FileClose $1
 
-  ; Mise en place de la copie de sauvegarde de la base de donnÃ©es
+  ; Mise en place de la copie de sauvegarde de la base de données
   Delete $InstApp\apps\ekylibre\config\database.yml
   Rename $InstApp\apps\ekylibre\config\database.mysql.yml $InstApp\apps\ekylibre\config\database.yml
   !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__username__" "$username"
@@ -172,26 +172,26 @@ Section
     DetailPrint "Mise en place d'une nouvelle base"
     Rename $InstApp\mysql\data $DataDir
   ${Else}
-    DetailPrint "RÃ©cupÃ©ration de la sauvegarde"
+    DetailPrint "Récupération de la sauvegarde"
     Rename $Backup\data $DataDir
     RMDir /r $InstApp\apps\ekylibre\private
     Rename $Backup\documents $InstApp\apps\ekylibre\private
     RMDir /r $Backup
   ${EndIf}
 
-  ; Mise Ã  jour de la variable PATH
+  ; Mise à jour de la variable PATH
   ${EnvVarUpdate} $0 "PATH" "A" "HKLM" "$InstApp\ruby\bin"
 
-  ; Lancement de la base de donnÃ©es
+  ; Lancement de la base de données
   SimpleSC::InstallService "EkyMySQL" "${APP} DBMS" "16" "2" '"$InstApp\mysql\bin\mysqld.exe" --defaults-file="$InstApp\mysql\my.ini" EkyMySQL'  "" "" ""
   Pop $0
   ${If} $0 <> 0
     MessageBox MB_OK "Installation du service EkyMySQL impossible"
   ${EndIf}
-  SimpleSC::SetServiceDescription "EkyMySQL" "Service Base de DonnÃ©es d'Ekylibre"
+  SimpleSC::SetServiceDescription "EkyMySQL" "Service Base de Données d'Ekylibre"
   SimpleSC::StartService "EkyMySQL" ""
 
-  ; (RÃ©-)Initialisation et migration
+  ; (Ré-)Initialisation et migration
   ${If} $AppDir == ""
     ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "CREATE DATABASE ekylibre_production"'
     ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "CREATE USER $username@localhost IDENTIFIED BY $\'$password$\'"'
@@ -222,8 +222,8 @@ Section
   ; Mise en place des raccourcis
   RMDir /r $SMPROGRAMS\${APP}
   CreateDirectory "$SMPROGRAMS\${APP}"
-  CreateShortCut  "$SMPROGRAMS\${APP}\Licence publique gÃ©nÃ©rale GNU 3.lnk" "$InstApp\apps\ekylibre\doc\license.txt"
-  CreateShortCut  "$SMPROGRAMS\${APP}\DÃ©sinstaller ${APP}.lnk" "$InstApp\uninstall.exe"
+  CreateShortCut  "$SMPROGRAMS\${APP}\Licence publique générale GNU 3.lnk" "$InstApp\apps\ekylibre\doc\license.txt"
+  CreateShortCut  "$SMPROGRAMS\${APP}\Désinstaller ${APP}.lnk" "$InstApp\uninstall.exe"
   ; File ${RESOURCES}\${APP}.url
   FileOpen $1 "$SMPROGRAMS\${APP}\${APP} ${VERSION}.url" "w"
   FileWrite $1 "[InternetShortcut]$\r$\n"
@@ -243,7 +243,7 @@ Section "Uninstall"
   ReadRegStr $InstApp HKLM Software\${APP} "AppDir"
   SetShellVarContext all
 
-  ; Mise Ã  jour de la base de registre
+  ; Mise à jour de la base de registre
   SimpleSC::StopService   "EkyService"
   SimpleSC::RemoveService "EkyService"
   SimpleSC::StopService   "EkyMySQL"
@@ -252,7 +252,7 @@ Section "Uninstall"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP}"
   DeleteRegKey HKLM "Software\${APP}"
 
-  ; Mise Ã  jour de la variable PATH
+  ; Mise à jour de la variable PATH
   ${un.EnvVarUpdate} $0 "PATH" "R" "HKLM" "$InstApp\ruby\bin"
 
   ; Suppression des programmes
@@ -262,6 +262,6 @@ Section "Uninstall"
   Delete $InstApp\migrate.cmd
   Delete $InstApp\uninstall.exe
 
-  DetailPrint "Les fichiers ont Ã©tÃ© conservÃ©s dans $InstApp"
+  DetailPrint "Les fichiers ont été conservés dans $InstApp"
 SectionEnd
  
