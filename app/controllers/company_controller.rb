@@ -626,13 +626,14 @@ class CompanyController < ApplicationController
   end
 
   def listing_node_delete
+    return unless @listing_node = find_and_check(:listing_node)
+    parent = nil
+    if request.post?
+      parent = @listing_node.parent
+      @listing_node.destroy 
+    end
     if request.xhr?
-      return unless @listing = find_and_check(:listing)
-      if @listing_node
-        parent = @listing_node.parent
-        ListingNode.destroy(@listing_node.id) 
-        render(:partial=>"listing_reflection", :object=>parent)
-      end
+      render(:partial=>"listing_reflection", :object=>parent)
     end
   end
   

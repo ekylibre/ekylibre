@@ -927,7 +927,7 @@ module ApplicationHelper
         label = tg(options[:new].delete(:label)||:new)
         if options[:field] == :select
           input += link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
-        else
+        elsif controller.accessible?(options[:new])
           if options[:field] == :dyselect
             data = "refreshList('#{rlid}', request, '#{url_for(options[:choices].merge(:controller=>:company, :action=>:formalize))}');"
           else
