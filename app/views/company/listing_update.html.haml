@@ -1,6 +1,6 @@
 =toolbar do
-  -link :listing_extract, :id=>@listing.id
-  -link :listing_mail, :id=>@listing.id
+  -link(:listing_extract, :id=>@listing.id)
+  -link(:listing_mail, :id=>@listing.id) if @listing.mail_columns.size > 0
 
 -form_tag do
   =formalize do |f|
