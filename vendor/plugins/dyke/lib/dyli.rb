@@ -72,7 +72,14 @@ module Ekylibre
             code += "      words.each_index do |index|\n"
             code += "        word = words[index]\n"
             code += "        conditions[0] += ') AND (' if index>0\n"
-            code += "        conditions[0] += "+attributes.collect{|key| "LOWER(#{key[0]}) LIKE ?"}.join(' OR ').inspect+"\n"
+
+            if ActiveRecord::Base.connection.adapter_name == "MySQL"
+              code += "        conditions[0] += "+attributes.collect{|key| "LOWER(CAST(#{key[0]} AS CHAR)) LIKE ?"}.join(' OR ').inspect+"\n"
+            else
+              code += "        conditions[0] += "+attributes.collect{|key| "LOWER(CAST(#{key[0]} AS VARCHAR)) LIKE ?"}.join(' OR ').inspect+"\n"
+            end
+
+            # code += "        conditions[0] += "+attributes.collect{|key| "LOWER(#{key[0]}) LIKE ?"}.join(' OR ').inspect+"\n"
             code += "        conditions += ["+attributes.collect{|key| key[1].inspect.gsub('X', '"+words[index].to_s+"').gsub(/(^\"\"\+|\+\"\"\+|\+\"\")/, '')}.join(", ")+"]\n"
             code += "      end\n"
             code += "      conditions[0] += ')'\n"

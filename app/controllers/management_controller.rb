@@ -1309,6 +1309,7 @@ class ManagementController < ApplicationController
   end
 
   dyli(:all_contacts, [:address], :model=>:contacts, :conditions => {:company_id=>['@current_company.id'], :active=>true})
+  dyli(:available_prices, ["products.name", "prices.amount", "prices.amount_with_taxes"], :model=>:prices, :joins=>"JOIN products ON (product_id=products.id)", :conditions=>["prices.company_id=? AND prices.active=? AND products.active=?", ['@current_company.id'], true, true], :order=>"products.name, prices.amount")
   
   def sale_order_line_create
     return unless @sale_order = find_and_check(:sale_order, session[:current_sale_order])
@@ -1363,9 +1364,10 @@ class ManagementController < ApplicationController
     render_form
   end
   
+
   def sale_order_line_update
     return unless @sale_order_line = find_and_check(:sale_order_line)
-    @sale_order = @sale_order_line.sale_order 
+    @sale_order = @sale_order_line.order 
     @locations = @current_company.locations
     @product = @sale_order_line.product
     @subscription = @current_company.subscriptions.find(:first, :conditions=>{:sale_order_id=>@sale_order.id}) || Subscription.new
@@ -2239,10 +2241,10 @@ class ManagementController < ApplicationController
     @title = {:value=>@transport.created_on}
   end
   
-  manage :transports, :transport_on=>'Date.today', :redirect_to=>'{:action=>:transport_deliveries, :id=>"id"}'
+  # manage :transports, :transport_on=>'Date.today', :responsible_id=>'@current_user.id', :redirect_to=>'{:action=>:transport_deliveries, :id=>"id"}'
 
   def transport_create
-    @transport = Transport.new(:transport_on=>Date.today)
+    @transport = Transport.new(:transport_on=>Date.today, :responsible_id=>@current_user.id)
     @transport.responsible_id = @current_user.id
     session[:current_transport] = 0
     if request.post?

@@ -123,6 +123,7 @@ class ListingNode < ActiveRecord::Base
   def after_save
     #if self.listing.created_at.to_date >= Date.civil(2009,12,01)
     self.listing.generate
+    self.listing.reload
     self.listing.save
     #end
   end

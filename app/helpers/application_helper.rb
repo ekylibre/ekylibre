@@ -247,10 +247,16 @@ module ApplicationHelper
     content_tag(:table, content_tag(:tr, code), :class=>:evalue)
   end
 
+
+#   def sessany
+#     return (@current_company ? session[@current_company.code] ||= {} : session)
+#   end
   
   def last_page(controller)
     session[:last_page][controller]||url_for(:controller=>controller, :action=>:index)
   end
+
+
 
 
   # Permits to use themes for Ekylibre

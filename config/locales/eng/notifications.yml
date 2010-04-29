@@ -70,6 +70,7 @@ eng:
     #>specify_updates: 'Vous devez spécifier au moins un champ à modifier'
     #>unavailable_model: '{{model}} indisponible ou inexistante ({{id}})'
     #>unknown_action: 'La page demandée est indisponible ({{url}})'
+    #>unknown_company: '(((UNKNOWN_COMPANY)))'
     #>unvalid_version_for_restore: 'La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel'
     #>update_is_done: 'La mise à jour a été effectuée'
     #>validates_old_inventories: 'Il est conseillé de supprimer ou de valider les inventaires non validés avant d''en faire un nouveau'

@@ -164,6 +164,7 @@ consult_tracking:
 create_estimates:
   controller: management
   actions:
+  - available_prices_dyli
   - clients_dyli
   - price_find
   - sale_order_contacts

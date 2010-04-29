@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   attr_accessor :current_user
   attr_accessor :current_company
   layout :xhr_or_not
+  
 
   include Userstamp
   include ExceptionNotifiable
@@ -95,7 +96,12 @@ class ApplicationController < ActionController::Base
 
   
   protected  
-  
+
+#   # 1 Session by company
+#   def sessany
+#     return (@current_company ? session[@current_company.code] ||= {} : session)
+#   end
+
   def render_form(options={})
     a = action_name.split '_'
     @_operation  = a[-1].to_sym
@@ -154,6 +160,7 @@ class ApplicationController < ActionController::Base
         if url == :back
           redirect_to_back
         else
+          record.reload
           if url.is_a? Hash
             url0 = {}
             url.each{|k,v| url0[k] = (v.is_a?(String) ? record.send(v) : v)}
@@ -234,6 +241,12 @@ class ApplicationController < ActionController::Base
     # HTTP 1.1 'pre-check=0, post-check=0' (IE specific)
     response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
 
+    @current_company = Company.find_by_code(params[:company])
+    unless @current_company
+      notify(:unknown_company, :error)
+      return redirect_to_login 
+    end
+
     session[:last_page] ||= {}
     session[:help_history] ||= []
     if request.get? and not request.xhr? and not [:authentication, :help].include?(controller_name.to_sym)
@@ -249,7 +262,7 @@ class ApplicationController < ActionController::Base
       if request.xhr?
         render :text=>"<script>window.location.replace('#{url_for(:controller=>:authentication, :action=>:login)}')</script>"
       else
-        redirect_to_login
+        redirect_to_login(request.url)
       end
       return
     else
@@ -257,13 +270,14 @@ class ApplicationController < ActionController::Base
       historize if request.get? and not request.xhr?
     end
 
+
     # Load @current_user and @current_company
-    @current_user = User.find_by_id(session[:user_id]) # User.current_user
+    @current_user =  @current_company.users.find_by_id(session[:user_id])
     unless @current_user
       redirect_to_login 
       return
     end
-    @current_company = @current_user.company
+    # @current_company = @current_user.company
     # User.stamper = @current_user
 
     # TODO: Dynamic theme choosing
@@ -283,9 +297,9 @@ class ApplicationController < ActionController::Base
     session[:help]=true
   end
 
-  def redirect_to_login()
+  def redirect_to_login(url=nil)
     session[:help] = false
-    redirect_to :controller=>:authentication, :action=>:login
+    redirect_to :controller=>:authentication, :action=>:login, :url=>url, :company=>params[:company]
   end
   
   def redirect_to_back(options={})

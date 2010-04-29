@@ -540,8 +540,7 @@ class CompanyController < ApplicationController
     if request.post?
       @listing = Listing.new(params[:listing])
       @listing.company_id = @current_company.id
-      @listing.save
-      return if save_and_redirect(@listing, :url=>{:action=>:listing_update, :id=>@listing.id})
+      return if save_and_redirect(@listing, :url=>{:action=>:listing_update, :id=>"id"})
     else
       @listing = Listing.new
     end
@@ -552,7 +551,7 @@ class CompanyController < ApplicationController
     return unless @listing = find_and_check(:listing)
     if request.post? and @listing
       @listing.attributes = params[:listing]
-      return if save_and_redirect(@listing, :url=>{:action=>:listing_update, :id=>@listing.id})
+      return if save_and_redirect(@listing, :url=>{:action=>:listing_update, :id=>"id"})
     end
     t3e :value=>@listing.name
     #render_form

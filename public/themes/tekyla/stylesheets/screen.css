@@ -340,7 +340,7 @@ fieldset.itemize legend { color: blue; margin: 0 8px; padding:2px;}
 fieldset.quick-add { margin: 4px 0; border: 1px solid #95b0e4; -moz-border-radius: 4px; padding:4px; text-align: center; color: #008; }
 fieldset.quick-add legend { margin: 0 4px; padding: 0 2px; color: #002}
 */
-fieldset.quick-add { text-align: center; color: #008; }
+fieldset.quick-add { color: #008; }
 
 
 

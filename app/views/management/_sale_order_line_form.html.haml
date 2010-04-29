@@ -5,7 +5,8 @@
   -f.error :sale_order_line
   -f.error :subscription
   -f.title :infos
-  -price_id    = f.field :sale_order_line, :price_id, :choices=>{:reflection=>:available_prices}, :new=>{:action=>:price_create, :mode=>:sales}
+  -#price_id    = f.field :sale_order_line, :price_id, :choices=>{:reflection=>:available_prices}, :new=>{:action=>:price_create, :mode=>:sales}
+  -price_id    = f.field :sale_order_line, :price_id, :choices=>:available_prices, :new=>{:action=>:price_create, :mode=>:sales}
   -location_id = f.field :sale_order_line, :location_id, :choices=>{:reflection=>:locations}, :new=>{:action=>:location_create} if @locations.size > 1
   -f.field :sale_order_line, :quantity
   -f.field :sale_order_line, :annotation, :field=>:textarea

@@ -126,6 +126,7 @@ jpn:
       listing_update:
         #>data_to_extract: 'Données à extraire'
         #>listing_extract: 'Éxécuter l''extraction'
+        #>listing_mail: 'Envoyer un courriel'
         #>query: 'Requête: '
         #>subtitle: 'Vous pouvez modifier les informations générales de l''extraction'
         #>title: 'Modification de l''extraction {{value}}'

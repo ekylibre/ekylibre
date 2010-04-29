@@ -21,6 +21,8 @@ require "digest/sha2"
 
 class AuthenticationController < ApplicationController
 
+  before_filter :companize
+
   def index
     redirect_to :action=>:login
   end
@@ -28,29 +30,15 @@ class AuthenticationController < ApplicationController
   def login
     ActiveRecord::SessionStore::Session.delete_all(["updated_at <= ?", Date.today-1.month])
     if request.post?
-      # puts "POST : "+session[:last_session].inspect+" jhbjbjb"+session.inspect+" all !!! "+session.inspect
-      name = params[:user][:name]
-      company = nil
-      sep = /[^a-z0-9\.\_]+/i
-      if name.match sep
-        lname = name.split(sep)
-        session[:user_name] = lname[0].upper+'-'+lname[-1]
-        company = Company.find_by_code(lname[0].upper)
-        name = lname[-1]
-      else
-        if User.count(:conditions=>{:name=>name})>1
-          notify(:need_company_code_to_login, :warning, :now)
-          return
-        end
-        session[:user_name] = name
-      end
-      user = User.authenticate(name, params[:user][:password], company)
-      if user
+      if user = User.authenticate(params[:name], params[:password], @current_company)
         init_session(user)
-        #raise Exception.new session[:rights].inspect
         unless session[:user_id].blank?
-          redirect_to session[:last_url]||{:controller=>:company, :action=>:index}
+          # redirect_to (session[:last_url]||{:controller=>:company, :action=>:index}).merge(:company=>params[:company])
+          redirect_to params[:url]||({:controller=>:company, :action=>:index}.merge(:company=>user.company.code))
         end
+      elsif User.count(:conditions=>{:name=>params[:name]}) > 1
+        @users = User.find(:all, :conditions=>{:name=>params[:name]}, :joins=>"JOIN companies ON (companies.id=company_id)",  :order=>"companies.name")
+        notify(:need_company_code_to_login, :warning, :now)
       else
         notify(:no_authenticated, :error, :now)
       end
@@ -88,7 +76,7 @@ class AuthenticationController < ApplicationController
     session[:last_controller] = nil
     session[:last_action] = nil
     reset_session
-    redirect_to :action=>:login
+    redirect_to :action=>:login, :company=>params[:company]
   end
   
 
@@ -104,6 +92,16 @@ class AuthenticationController < ApplicationController
     session[:rights]       = user.rights.to_s.split(" ").collect{|x| x.to_sym}
     session[:side]         = true
     session[:user_id]      = user.id
+  end
+
+  def companize()
+    if params[:company]
+      @current_company = Company.find_by_code(params[:company])
+      unless @current_company
+        notify(:unknown_company, :error)
+        return redirect_to_login 
+      end
+    end
   end
 
 end

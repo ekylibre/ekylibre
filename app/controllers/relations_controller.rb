@@ -780,7 +780,7 @@ class RelationsController < ApplicationController
   def events
   end
   
-  manage :events, :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now"
+  manage :events, :user_id=>'@current_user.id', :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now"
 
   def change_minutes
     return unless @event_nature = find_and_check(:event_nature, params[:event_nature_id])
