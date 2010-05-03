@@ -4,9 +4,9 @@ spa:
       title: 'Aplicación'
   helpers:
     application:
-      #>default_title: 'Ekylibre - {{controller}} - {{action}}'
+      default_title: 'Ekylibre - {{controller}} - {{action}}'
       exit: 'Salir'
       print: 'Imprimir {{name}}'
-      #>title: '{{company_code}} - {{controller}} - {{action}}'
+      title: '{{company_code}} - {{controller}} - {{action}}'
   views:
     application:

@@ -62,9 +62,8 @@ class AuthenticationController < ApplicationController
       @company, @user = Company.create_with_data(params[:company], params[:user], params[:demo])
       if @company.id and @user.id
         init_session(@user)
-        redirect_to :controller=>:company, :action=>:welcome        
-      end
-      
+        redirect_to :controller=>:company, :action=>:welcome, :company=>@company.code
+      end      
     else
       @company = Company.new
       @user = User.new
@@ -95,7 +94,7 @@ class AuthenticationController < ApplicationController
   end
 
   def companize()
-    if params[:company]
+    if params[:company].is_a? String
       @current_company = Company.find_by_code(params[:company])
       unless @current_company
         notify(:unknown_company, :error)

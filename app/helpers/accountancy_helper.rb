@@ -18,4 +18,26 @@
 # ##### END LICENSE BLOCK #####
 
 module AccountancyHelper
+
+
+  def major_accounts_tag
+    majors = []
+    majors << if params[:prefix].blank?
+                content_tag(:strong, tc(:all_accounts))
+              else
+                link_to(tc(:all_accounts), :action=>:accounts, :prefix=>nil)
+              end
+    majors += @current_company.major_accounts.collect do |account| 
+      if params[:prefix] == account.number.to_s
+        content_tag(:strong, account.label)
+      else
+        link_to(account.label, :action=>:accounts, :prefix=>account.number)
+      end
+    end
+    if majors.size>1
+      return content_tag(:div, majors.to_sentence, :class=>'menu major_accounts')
+    end
+    return ""
+  end
+
 end

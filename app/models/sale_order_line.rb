@@ -85,6 +85,7 @@ class SaleOrderLine < ActiveRecord::Base
       else
         self.location_id = nil
       end
+      self.label ||= self.product.catalog_name
     end
     self.account_id ||= 0
     self.price_amount ||= 0
@@ -120,7 +121,7 @@ class SaleOrderLine < ActiveRecord::Base
       end
     end
 
-    self.label ||= self.product.catalog_name
+    
     #     if self.location.reservoir && self.location.product_id != self.product_id
     #       check_reservoir = false
     #       errors.add_to_base(:location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name, :account_id=>0, :unit_id=>self.unit_id) 

@@ -6,8 +6,16 @@ fra:
       title: 'Comptabilité'
   helpers:
     accountancy:
+      all_accounts: 'Tous les comptes'
   views:
     accountancy:
+      account:
+        account:  #!
+          children: 'Sous-comptes' #!
+          journal_entries: 'Écritures' #!
+ #!
+        account_update: 'Modifier le compte'
+        title: 'Compte : {{number}} - {{name}}'
       account_create:
         title: 'Créer un nouveau compte'
       account_letter:
@@ -44,9 +52,8 @@ fra:
         title: 'Comptabiliser les opérations commerciales'
       accounts:
         account_create: 'Enregistrer un nouveau compte'
-        delete: 'Supprimer un compte' #!
         title: 'Plan de comptes'
-        update: 'Modifier un compte' #!
+        used_accounts: 'Comptes utilisés seulement'
       # Unfound view ./app/views/accountancy/_accounts_find
       _accounts_find:
         account_create: 'Créer un nouveau compte comptable'
@@ -99,7 +106,7 @@ fra:
         synthesis: 'Documents de synthèse'
         title: 'Choisissez le type de document à imprimer'
       document_print:
-        title: 'Impression de documents'
+        title: 'Documents comptables'
       draft_entries:
         accountize: 'Comptabiliser les écritures' #!
         title: 'Listing des écritures du brouillard'
@@ -177,12 +184,12 @@ fra:
         title: 'Déclôture du {{name}}'
       journal_update:
         title: 'Modifier le journal : {{name}}'
-      journals:
-        title: 'Journaux'
-        #>journal_create: # Potentially missing translation
       _journals:
         journal_detail: 'Cloturé au {{closed_on}}'
         journal_name: '{{name}}'
+      journals:
+        title: 'Journaux'
+        #>journal_create: # Potentially missing translation
       # Unfound view ./app/views/accountancy/_journals_find
       _journals_find:
         journal_id: 'Numéro de journal'
@@ -198,15 +205,15 @@ fra:
         dates: 'Saisissez les dates de début et de fin de la période'
         from: 'Période du'
         to: 'Au'
+      # Unfound view ./app/views/accountancy/_print_balance_sheet
+      _print_balance_sheet:
+        balance_sheet: 'Sélectionnez l''exercice'
+        select_financialyear: 'Exercice'
       # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/print_balance_sheet
       print_balance_sheet:
         period: 'Période'
         title: 'Impression du bilan'
-      # Unfound view ./app/views/accountancy/_print_balance_sheet
-      _print_balance_sheet:
-        balance_sheet: 'Sélectionnez l''exercice'
-        select_financialyear: 'Exercice'
       # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/print_by_financial_year
       print_by_financial_year:

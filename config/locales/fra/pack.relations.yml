@@ -255,7 +255,7 @@ fra:
       event_nature_create:
         title: 'Ajouter un type d''évènement'
       event_nature_update:
-        title: 'Modification du type d''évènement "{{value}}"'
+        title: 'Modification du type d''évènement : {{name}}'
       event_natures:
         event_nature_create: 'Ajout d''un type d''évènement'
         title: 'Types d''évènements'

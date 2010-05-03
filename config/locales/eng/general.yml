@@ -124,6 +124,7 @@ eng:
     account:
       #>default_account_name: 'Compte comptable {{number}}'
       #>error_delete: 'Le compte ne peut être effacé car il contient des sous-comptes.'
+      #>label: '{{number}} - {{name}}'
     bank_account:
       #>bban: 'Relevé d''identité bancaire (RIB)'
       #>bban_unvalid_key: 'Un ou plusieurs éléments du RIB sont incorrects.'

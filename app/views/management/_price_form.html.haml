@@ -12,7 +12,7 @@
   -f.field :price, :currency_id, :choices=>{:reflection=>:currencies}
   -f.field :price, :use_range
 
-#interval=formalize do |f|
+=formalize(:id=>:interval) do |f|
   -f.field :price, :quantity_min
   -f.field :price, :quantity_max
 

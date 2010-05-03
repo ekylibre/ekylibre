@@ -210,8 +210,11 @@ mail_listings:
 manage_accounts:
   controller: accountancy
   actions:
+  - account
+  - account_children_dyta
   - account_create
   - account_delete
+  - account_journal_entries_dyta
   - account_update
   - accounts
   - accounts_dyta

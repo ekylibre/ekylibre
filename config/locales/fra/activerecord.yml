@@ -467,6 +467,7 @@ fra:
         locations: 'Lieux de stockage'
         lock_version: 'Version'
         locked: 'Verrouillée'
+        major_accounts: (((MAJOR_ACCOUNTS)))
         mandates: 'Responsabilités'
         name: 'Nom'
         observations: 'Observations'
@@ -1311,8 +1312,8 @@ fra:
         name: 'Nom'
         number_account: 'Nber' #?
         position: 'Position'
-        record: 'Numéro'
-        record_id: 'Numéro'
+        record: 'Pièce comptable'
+        record_id: 'Pièce comptable'
         statement: 'Relevé de compte'
         statement_id: 'Relevé de compte'
         updated_at: 'Mis à jour le'

@@ -133,6 +133,7 @@ fra:
     account:
       error_delete: Le compte ne peut être effacé car il contient des sous-comptes.        
       default_account_name: 'Compte comptable {{number}}'
+      label: '{{number}} - {{name}}'
     bank_account:
       iban: 'IBAN'
       bban: 'Relevé d''identité bancaire (RIB)'

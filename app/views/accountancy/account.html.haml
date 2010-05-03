@@ -1,0 +1,10 @@
+=toolbar do |t|
+  -t.link :account_update, :id=>@account.id
+=evalue @account, :number
+=evalue @account, :name
+=evalue @account, :parent, :url=>{:action=>:account}
+=evalue @account, :comment
+
+=tabbox(:account) do |tb|
+  -tb.tab(:journal_entries, :content=>dyta(:account_journal_entries))
+  -tb.tab(:children, :content=>dyta(:account_children))

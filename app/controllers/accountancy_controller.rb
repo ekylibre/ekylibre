@@ -172,19 +172,59 @@ class AccountancyController < ApplicationController
 
 
 
+  def self.accounts_conditions
+    code  = "c=['company_id = ? AND number LIKE ?', @current_company.id, session[:account_prefix]]\n"
+    code += "if (session[:used_accounts])\n"
+    code += "  c[0]+=' AND id IN (SELECT account_id FROM journal_entries JOIN journal_records ON (record_id=journal_records.id) WHERE created_on BETWEEN ? AND ? AND journal_entries.company_id = ?)'\n"
+    code += "  c+=[(params[:started_on].to_date rescue Date.civil(1901,1,1)), (params[:stopped_on].to_date rescue Date.civil(1901,1,1)), @current_company.id]\n"
+    code += "end\n"
+    code += "c"
+    return code
+  end
 
-  dyta(:accounts, :conditions=>{:company_id=>['@current_company.id']}, :order=>"number ASC") do |t|
-    t.column :number
-    t.column :name
+  dyta(:accounts, :conditions=>accounts_conditions, :order=>"number ASC") do |t|
+    t.column :number, :url=>{:action=>:account}
+    t.column :name, :url=>{:action=>:account}
     t.action :account_update
     t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure
   end
   
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
+    session[:account_prefix] = params[:prefix].to_s+'%'
+    if request.post?
+      session[:used_accounts] = params[:used_accounts]
+      session[:started_on] = params[:started_on]
+      session[:stopped_on] = params[:stopped_on]
+    end
+    params[:used_accounts] = session[:used_accounts]
+    params[:started_on] = session[:started_on]
+    params[:stopped_on] = session[:stopped_on]
   end
-  
+
   manage :accounts, :number=>"params[:number]"
+
+  dyta(:account_journal_entries, :model=>:journal_entries, :conditions=>["company_id = ? AND account_id = ?", ['@current_company.id'], ['session[:account_id]']], :order=>"created_at DESC") do |t|
+    t.column :name, :through=>:journal, :url=>{:action=>:journal}
+    t.column :number, :through=>:record, :url=>{:action=>:journal_record}
+    t.column :created_on, :through=>:record, :datatype=>:date, :label=>JournalRecord.human_attribute_name("created_on")
+    t.column :name
+    t.column :debit
+    t.column :credit
+  end
+
+  dyta(:account_children, :model=>:accounts, :conditions=>["company_id = ? AND parent_id = ?", ['@current_company.id'], ['session[:account_id]']], :order=>"number ASC") do |t|
+    t.column :number, :url=>{:action=>:account}
+    t.column :name, :url=>{:action=>:account}
+    t.action :account_update
+    t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure
+  end
+
+  def account
+    return unless @account = find_and_check(:account)
+    session[:account_id] = @account.id
+    t3e @account.attributes
+  end
 
 
   # This method allows to make lettering for the client and supplier accounts.
@@ -647,8 +687,8 @@ class AccountancyController < ApplicationController
 
   dyta(:journal_record_entries, :model=>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :record_id=>['session[:current_journal_record_id]']}) do |t|
     t.column :name
-    t.column :number, :through=>:account
-    t.column :name, :through=>:account
+    t.column :number, :through=>:account, :url=>{:action=>:account}
+    t.column :name, :through=>:account, :url=>{:action=>:account}
     t.column :letter
     t.column :number, :through=>:statement
     t.column :currency_debit
@@ -746,9 +786,9 @@ class AccountancyController < ApplicationController
   dyta(:bank_account_statement_entries, :model =>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :statement_id=>['session[:current_bank_account_statement_id]']}, :order=>"record_id") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:record, :url=>{:action=>:journal_record}
-    t.column :created_on, :through=>:record, :datatype=>:date
+    t.column :created_on, :through=>:record, :datatype=>:date, :label=>JournalRecord.human_attribute_name("created_on")
     t.column :name
-    t.column :number, :through=>:account # , :url=>{:action=>:account}
+    t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :debit
     t.column :credit
   end

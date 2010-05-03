@@ -4,9 +4,9 @@ jpn:
       title: '一般的な車掌'
   helpers:
     application:
-      #>default_title: 'Ekylibre - {{controller}} - {{action}}'
+      default_title: 'Ekylibre - {{controller}} - {{action}}'
       exit: '出る'
       print: '{{name}}の印刷する'
-      #>title: '{{company_code}} - {{controller}} - {{action}}'
+      title: '{{company_code}} - {{controller}} - {{action}}'
   views:
     application:

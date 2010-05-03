@@ -300,7 +300,7 @@ module ApplicationHelper
       javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
   end
 
-  def calendar_field_tag(name, value, options={})
+  def calendar_field_tag(name, value=Date.today, options={})
     text_field_tag(name, value, {:size=>10}.merge(options))+
       image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name.to_s+'_trigger')+
       javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
@@ -348,7 +348,8 @@ module ApplicationHelper
 
 
   def action_title
-    return t("views.#{controller.controller_name}.#{action_name}.title", @title||{})
+    options = @title||{}
+    return I18n.t("views.#{controller.controller_name}.#{action_name}.#{options[:title]||:title}", options)
   end
 
   def title_tag

@@ -11,8 +11,15 @@ eng:
       title: 'Accountancy'
   helpers:
     accountancy:
+      #>all_accounts: 'Tous les comptes'
   views:
     accountancy:
+      account:
+        account:
+          #>children: 'Sous-comptes'
+          #>journal_entries: 'Écritures'
+        #>account_update: 'Modifier le compte'
+        #>title: 'Compte : {{number}} - {{name}}'
       account_create:
         #>title: 'Créer un nouveau compte'
       account_letter:
@@ -49,9 +56,8 @@ eng:
         #>title: 'Comptabiliser les opérations commerciales'
       accounts:
         #>account_create: 'Enregistrer un nouveau compte'
-        #>delete: 'Supprimer un compte'
         #>title: 'Plan de comptes'
-        #>update: 'Modifier un compte'
+        #>used_accounts: 'Comptes utilisés seulement'
       _accounts_find:
         #>account_create: 'Créer un nouveau compte comptable'
         #>account_name: 'Nom du compte '
@@ -102,7 +108,7 @@ eng:
         #>synthesis: 'Documents de synthèse'
         #>title: 'Choisissez le type de document à imprimer'
       document_print:
-        #>title: 'Impression de documents'
+        #>title: 'Documents comptables'
       draft_entries:
         #>accountize: 'Comptabiliser les écritures'
         #>title: 'Listing des écritures du brouillard'
@@ -176,11 +182,11 @@ eng:
         #>title: 'Déclôture du {{name}}'
       journal_update:
         #>title: 'Modifier le journal : {{name}}'
-      journals:
-        #>title: 'Journaux'
       _journals:
         #>journal_detail: 'Cloturé au {{closed_on}}'
         #>journal_name: '{{name}}'
+      journals:
+        #>title: 'Journaux'
       _journals_find:
         #>journal_id: 'Numéro de journal'
         #>journal_name: 'Nom du journal'

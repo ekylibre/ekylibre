@@ -179,7 +179,7 @@ fra:
         unit: 'Unité' #!
         validate: 'Valider '
       inventory_update:
-        inventory: 'Mofifiez votre inventaire'
+        inventory: 'Modifiez votre inventaire'
         title: 'Modification de l''inventaire'
         validate: 'Valider les changements'
       invoice:
@@ -573,7 +573,7 @@ fra:
         nature: 'Opération'
         product: '{{product}} ({{unit}})' #!
       stock_move_update:
-        title: 'Modifier le mouvement de stock : {{value}}'
+        title: 'Modifier le mouvement de stock : {{name}}'
       stock_transfer_create:
         title: 'Ajouter un transfert ou une perte de stocks'
       stock_transfer_update:

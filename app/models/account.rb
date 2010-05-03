@@ -65,27 +65,20 @@ class Account < ActiveRecord::Base
 
   # This method allows to create the parent accounts if it is necessary.
   def before_validation
-    self.label = self.number.to_s+' - '+self.name.to_s
-    index = -252
-    #    raise Exception.new('a:'+self.number.to_s.length.to_s)
-    parent_account = Account.find(:last, :conditions=> {:company_id => self.company_id, :number => self.number.to_s[0..index]})
-    # raise Exception.new('p:'+parent_account.inspect)
-    while parent_account.nil? and index.abs <= self.number.to_s.length do
-      index += -1
-      parent_account = Account.find(:last, :conditions => {:company_id => self.company_id, :number => self.number.to_s[0..index]})
+    self.label = tc(:label, :number=>self.number.to_s, :name=>self.name.to_s)
+    if self.company
+      num = self.number.to_s
+      num.size.downto(1) do |i|
+        break if self.parent = self.company.accounts.find_by_number(num[0..i-1])
+      end
+      self.parent_id ||= 0
     end
-    #    raise Exception.new('p_account: '+parent_account.inspect+':'+index.abs.to_s+':'+self.number.to_s)
-    self.update_attribute(:parent_id, parent_account.id) unless parent_account.nil? 
-
   end
 
   # This method is called after the account is created or updated.
   def after_save
-    sub_accounts = Account.find(:all, :conditions => ["id <> ? AND company_id = ? AND parent_id = ? AND number LIKE ?", self.id, self.company_id, self.parent_id, self.number.to_s+'%'])
-    if sub_accounts.size > 0
-      sub_accounts.each do |sub_account|
-        sub_account.update_attribute(:parent_id, self.id)
-      end
+    for account in self.company.accounts.find(:all, :conditions=>["parent_id = ? AND number LIKE ?", self.parent_id, self.number.to_s+'_%'])
+      account.update_attribute(:parent_id, self.id)
     end
   end
   
@@ -93,6 +86,7 @@ class Account < ActiveRecord::Base
   def before_destroy
     return false unless self.destroyable?
   end
+
 
   def destroyable?
     self.journal_entries.size <= 0 and self.balances.size <= 0

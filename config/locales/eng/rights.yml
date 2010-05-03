@@ -1,7 +1,6 @@
 eng:
   rights:
-    #>administrate_accountancy: 'Accéder au module Comptabilité'
-    #>administrate_management: 'Accéder au module Commerce'
+    administrate_accountancy: 'Access accountancy module'
     #>administrate_production: 'Accéder au module Production'
     #>administrate_relations: 'Accéder au module Relations clients/fournisseurs'
     #>backup_company: 'Effectuer/Recharger des sauvegardes'

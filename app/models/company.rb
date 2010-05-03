@@ -131,6 +131,7 @@ class Company < ActiveRecord::Base
   has_many :self_contacts, :class_name=>Contact.name, :conditions=>'active = #{connection.quoted_true} AND entity_id = #{self.entity_id}', :order=>'active DESC, address'
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, name, first_name'
   has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, name, first_name'
+  has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
 
   has_one :current_financialyear, :class_name=>Financialyear.name, :conditions=>{:closed=>false}
 
