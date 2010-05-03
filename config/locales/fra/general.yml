@@ -564,7 +564,6 @@ fra:
         informations: 'Informations'
         my_account: 'Mon compte'
         parameters: 'Paramètres'
-        company_tasks: 'Outils'
         import_export: 'Import/Export de fiches'
         relations_tasks: Clients et fournisseurs
         accountancy_tasks: Travaux comptables
@@ -575,6 +574,7 @@ fra:
         stocks_tasks: 'Stocks'
         stock_transfers: 'Transferts et pertes'
         production: 'Production'
+        tools: 'Outils'
 
 
 
@@ -615,6 +615,7 @@ fra:
       iso: "(AAAA-MM-JJ)"
     from: "À partir du"
     hint: 'Astuce&nbsp;: {{value}}'
+    import: 'Importer'
     indicator: 'Tableau de bord'
     info: 'Information&nbsp;: {{value}}'
     letter: 'Lettrer'

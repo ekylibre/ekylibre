@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 # 
 # == License
@@ -66,19 +67,18 @@ class Account < ActiveRecord::Base
   # This method allows to create the parent accounts if it is necessary.
   def before_validation
     self.label = tc(:label, :number=>self.number.to_s, :name=>self.name.to_s)
-    if self.company
-      num = self.number.to_s
-      num.size.downto(1) do |i|
-        break if self.parent = self.company.accounts.find_by_number(num[0..i-1])
-      end
-      self.parent_id ||= 0
-    end
+    self.parent_id ||= 0
   end
 
   # This method is called after the account is created or updated.
   def after_save
-    for account in self.company.accounts.find(:all, :conditions=>["parent_id = ? AND number LIKE ?", self.parent_id, self.number.to_s+'_%'])
-      account.update_attribute(:parent_id, self.id)
+    # for account in self.company.accounts # .find(:all, :conditions=>["id != ?", self.id])
+    #   Account.update_all({:parent_id=>account.compute_parent_id}, {:id=>account.id})
+    # end
+    if self.parent
+      for account in self.parent.children # .find(:all, :conditions=>["id != ?", self.id])
+        Account.update_all({:parent_id=>account.compute_parent_id}, {:id=>account.id})
+      end
     end
   end
   
@@ -87,20 +87,28 @@ class Account < ActiveRecord::Base
     return false unless self.destroyable?
   end
 
-
   def destroyable?
     self.journal_entries.size <= 0 and self.balances.size <= 0
   end
 
-  # This method allows to find all the parent accounts.
-  def parent
-    Account.find_by_id(self.parent_id)
+  def compute_parent_id
+    parent = nil
+    num = self.number.to_s
+    num.size.downto(2) do |i|
+      break if parent = self.company.accounts.find_by_number(num[0..i-2])
+    end
+    return (parent ? parent.id : 0)
   end
+
+  # # This method allows to find all the parent accounts.
+  # def parent
+  #   Account.find_by_id(self.parent_id)
+  # end
   
-  # This method allows to find all the sub-accounts.
-  def childrenz
-    Account.find_all_by_parent_id(self.id)||{}
-  end
+  # # This method allows to find all the sub-accounts.
+  # def childrenz
+  #   Account.find_all_by_parent_id(self.id)||{}
+  # end
 
   def letterable_entries(started_on, stopped_on)
     self.journal_entries.find(:all, :joins=>"JOIN journal_records ON (record_id=journal_records.id)", :conditions=>["journal_records.created_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"letter DESC, journal_records.number DESC")

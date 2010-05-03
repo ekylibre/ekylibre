@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # ##### BEGIN LICENSE BLOCK #####
 # Ekylibre - Simple ERP
 # Copyright (C) 2009 Brice Texier, Thibaud Mérigon
@@ -27,9 +28,10 @@ module ApplicationHelper
            [{:name=>:user_statistics}, 
             {:name=>:change_password}
            ] },
-         {:name=>:company_tasks, :list=>
+         {:name=>:tools, :list=>
            [ {:name=>:backups},
-             {:name=>:listings}
+             {:name=>:listings},
+             {:name=>:import}
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:configure},

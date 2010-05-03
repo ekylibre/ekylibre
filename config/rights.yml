@@ -206,6 +206,9 @@ import_export_entities:
 mail_listings:
   controller: company
   actions: [listing_mail, listings]
+import_data:
+  controller: company
+  actions: [import]
 # Gérer les comptes comptables
 manage_accounts:
   controller: accountancy

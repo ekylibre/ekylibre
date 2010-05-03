@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 # 
 # == License
@@ -42,6 +43,7 @@ class Journal < ActiveRecord::Base
   belongs_to :company
   belongs_to :currency
   belongs_to :counterpart, :class_name=>Account.name  
+  # cattr_accessor :natures
   has_many :bank_accounts
   has_many :entries, :class_name=>JournalEntry.name
   has_many :records, :class_name=>JournalRecord.name

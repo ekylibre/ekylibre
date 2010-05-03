@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
@@ -197,6 +198,11 @@ class AccountancyController < ApplicationController
       session[:started_on] = params[:started_on]
       session[:stopped_on] = params[:stopped_on]
     end
+    # if params[:clean]
+    #   for account in @current_company.accounts.find(:all, :order=>"number DESC")
+    #     account.save
+    #   end
+    # end
     params[:used_accounts] = session[:used_accounts]
     params[:started_on] = session[:started_on]
     params[:stopped_on] = session[:stopped_on]
@@ -1036,6 +1042,11 @@ class AccountancyController < ApplicationController
   #   end    
   #   redirect_to :action => "tax_declarations"
   # end
+
+
+  def import
+    
+  end
 
 end
 
