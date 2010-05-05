@@ -55,7 +55,7 @@ class JournalEntryTest < ActiveSupport::TestCase
 
   test "the validity of entries" do
     entry = journal_entries(:entry_1)
-    assert !entry.valid?
+    assert entry.valid?
     entry.debit = 5
     assert entry.valid?, entry.inspect+"\n"+entry.errors.full_messages.to_sentence
     entry.credit = 17

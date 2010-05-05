@@ -199,7 +199,7 @@ table.formalize a.fastadd { margin: 0px 8px; }
 .year_field { width: 4.5ex; }
 
 /*.actions { text-align:center; padding:4px !important; background: #e9e9a8; border-top: 1px solid #BEBEBB; margin: 8px 0 0; }*/
-.actions { text-align:center; padding:4px !important; background: #CEC; border-top: 1px solid #ACA; margin: 0; }
+.actions { text-align:center; padding:4px !important; background: #CEC; border: 1px solid #ACA; margin: 0; }
 .actions * { margin: 0px 8px; }
 .actions a { padding: 4px; margin: 4px;}
 .actions a:link, .actions a:visited, .actions a:hover { color:#080;} /* 080 */

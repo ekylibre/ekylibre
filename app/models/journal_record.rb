@@ -187,7 +187,7 @@ class JournalRecord < ActiveRecord::Base
 
   #
   def add(name, account, amount, options={})
-    return if amount == 0
+    # return if amount == 0
     attributes = options.merge(:name=>name)
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
     attributes[:currency_id] = self.journal.currency_id

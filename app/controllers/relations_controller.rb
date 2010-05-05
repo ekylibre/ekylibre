@@ -818,7 +818,95 @@ class RelationsController < ApplicationController
 
 
   def entities_import
+    @formats = [["CSV", :csv]] # , ["CSV Excel", :xcsv], ["XLS Excel", :xls], ["OpenDocument", :ods]]
+    # @formats = Spreet.formats.collect{|f| [tg("formats.#{f}"), f]}
+    @step = 0
+    if request.post?
+      if params[:upload]
+        data = params[:upload]
+        file = "#{RAILS_ROOT}/tmp/uploads/entities_import_#{data.original_filename.gsub(/[^\w]/,'_')}"
+        File.open(file, "wb") { |f| f.write(data.read)}
+        FasterCSV.foreach(file) do |row|
+          @columns = row
+          break
+        end
+        @options = []
+        @options << ["-- DONT USE --", :dont_use]
+        @options << ["-- GENERATE COMPLEMENT --", :generate_complement]
+        columns = Entity.content_columns.delete_if{|c| [:active, :full_name, :soundex, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
+        @options += columns.collect{|c| [Entity.human_name+"/"+Entity.human_attribute_name(c), "entity-"+c]}
+        columns = Contact.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["line_6_city", "line_6_code"]
+        @options += columns.collect{|c| [Contact.human_name+"/"+Contact.human_attribute_name(c), "contact-"+c]}
+        # @options += Contact.content_columns.collect{|c| [Contact.human_name+"/"+Contact.human_attribute_name(c.name), "contact-"+c.name]}
+        @options += @current_company.complements.collect{|c| [c.name, "complement-"+c.id.to_s]}
+        @options.sort!
+        @step = 2
+      elsif params[:columns]
+        # Analyze columns (check uniqueness...)
+        # Add entities
+        
+        
+      end
+    end
+  end
 
+
+
+
+
+
+
+#           @entity = Entity.find_by_company_id_and_code(@current_company.id, row[indices[:entity_code]])
+#           if @entity.nil?
+# #            raise Exception.new "nok"+row[indices[:entity_code]].inspect if i != 0 and  i!= 1
+#             @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>language.id, :nature_id=>@current_company.entity_natures[0])
+#             @contact = Contact.new(:default=>true, :company_id=>@current_company.id, :entity_id=>0, :country=>'fr')
+#           else
+#             #raise Exception.new "ok"+row[indices[:entity_code]].inspect
+#             @contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>@entity.id, :default=>true, :deleted=>false})
+#           end
+          
+#           if i!=0 
+#             @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[indices[:entity_nature_name]]), :category_id=>@current_company.imported_entity_category(row[indices[:entity_category_name]]), :name=>row[indices[:entity_name]], :first_name=>row[indices[:entity_first_name]], :reduction_rate=>row[indices[:entity_reduction_rate]].to_s.gsub(/\,/,"."), :comment=>row[indices[:entity_comment]]}
+#             #raise Exception.new row[indices[:entity_reduction_rate]].inspect
+#             @contact.attributes = {:line_2=>row[indices[:contact_line_2]], :line_3=>row[indices[:contact_line_3]], :line_4=>row[indices[:contact_line_4]], :line_5=>row[indices[:contact_line_5]], :line_6=>row[indices[:contact_line_6_code]].to_s+' '+row[indices[:contact_line_6_city]].to_s, :phone=>row[indices[:contact_phone]], :mobile=>row[indices[:contact_mobile]], :fax=>row[indices[:contact_fax]] ,:email=>row[indices[:contact_email]], :website=>row[indices[:contact_website]] } if !@contact.nil?
+#             if !@contact.nil? 
+#               if !@contact.valid? or !@entity.valid?
+#                 @unavailable_entities << [i+1, @entity.errors.full_messages, @contact.errors.full_messages]
+#               else
+#                 @available_entities << [@entity, @contact]
+#               end
+#             elsif @entity.valid?
+#               @available_entities << [@entity, nil]
+#             end
+#           end 
+#           #puts i if i % 100 == 0
+#           i += 1
+#         end 
+#         # Fin boucle FasterCSV -- Début traitement données recueillies
+#         if @unavailable_entities.empty?        
+#           for entity_contact in @available_entities
+#             entity = Entity.find_by_company_id_and_code(@current_company.id, entity_contact[0].code)
+#             #raise Exception.new entity_contact[0].code.inspect
+#             if entity.nil?
+#               en = Entity.create!(entity_contact[0].attributes)
+#               ct = Contact.new( entity_contact[1].attributes) 
+#               ct.entity_id = en.id
+#               ct.save
+#             else
+#               entity.update_attributes(entity_contact[0].attributes)
+#               contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>entity_contact[0].id, :default=>true, :deleted=>false}) 
+#               contact.update_attributes(entity_contact[1].attributes) if !contact.nil?
+#             end
+#             notify(:import_succeeded)
+#           end
+#         end
+#       end
+
+
+
+
+  def tototo
     @model = @@exchange_format
     indices = {}
 

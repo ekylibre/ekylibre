@@ -170,7 +170,7 @@ class ListingNode < ActiveRecord::Base
     operator =  @@corresponding_comparators[self.condition_operator.to_sym]||@@corresponding_comparators[:equal]
     case_sensitive = self.condition_operator.to_s.match(/_cs$/)
     c = operator.gsub("{{COLUMN}}", self.name)
-    c.gsub!("{{LIST}}", "("+self.condition_value.to_s.split("||").collect{|x| connection.quote_string(x)}.join(", ")+")")
+    c.gsub!("{{LIST}}", "("+self.condition_value.to_s.split("||").collect{|x| connection.quote(x)}.join(", ")+")")
     c.gsub!(/\{\{[^\}]*VALUE[^\}]*\}\}/) do |m|
       n = m[2..-3].gsub("VALUE", self.condition_value.send(case_sensitive ? "lower" : "to_s"))
       if self.sql_type == "date"
@@ -180,7 +180,7 @@ class ListingNode < ActiveRecord::Base
       elsif self.sql_type == "numeric"
         n
       else
-        "'"+connection.quote_string(n)+"'"
+        "'"+connection.quote(n)+"'"
       end
     end
     return c

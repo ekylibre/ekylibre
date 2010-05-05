@@ -100,7 +100,7 @@ class Listing < ActiveRecord::Base
       end
     end
     c += " AND "+cs.join(" AND ") if self.reflections.size > 0 and cs.size > 0
-    c += " AND ("+self.conditions.gsub(/\r\n/, '')+")" unless self.conditions.blank?
+    c += " AND ("+self.conditions+")" unless self.conditions.blank?
     #raise Exception.new self.conditions.blank?
     return c
   end
