@@ -98,7 +98,7 @@ module Ekylibre
             order_definition += "  options['#{name}_dir']  ||= session[:dyta][:#{name}][:dir]\n"
             order_definition += "  unless options['#{name}_sort'].blank?\n"
             order_definition += "    options['#{name}_dir'] ||= 'asc'\n"
-            order_definition += "    order  = options['#{name}_sort']\n"
+            order_definition += "    order  = ActiveRecord::Base.connection.quote_column_name(options['#{name}_sort'])\n"
             order_definition += "    order += options['#{name}_dir']=='desc' ? ' DESC' : ' ASC'\n"
             order_definition += "  end\n"
             order_definition += "  session[:dyta][:#{name}][:sort] = options['#{name}_sort']\n"
