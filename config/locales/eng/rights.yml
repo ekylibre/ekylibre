@@ -1,6 +1,7 @@
 eng:
   rights:
     administrate_accountancy: 'Access accountancy module'
+    #>administrate_management: 'Accéder au module Commerce'
     #>administrate_production: 'Accéder au module Production'
     #>administrate_relations: 'Accéder au module Relations clients/fournisseurs'
     #>backup_company: 'Effectuer/Recharger des sauvegardes'
@@ -20,6 +21,7 @@ eng:
     #>create_purchases: 'Créer, modifier des achats'
     #>extract_listings: 'Effectuer des extractions (sans pouvoir les concevoir)'
     #>give_discounts_on_sale: 'Octroyer des réductions commerciales lors des ventes'
+    #>import_data: 'Importer des données d''autres logiciels'
     #>import_export_entities: 'Importer, exporter des fiches clients/fournisseurs'
     #>mail_listings: 'Gérer l''envoi de courriels'
     #>manage_accounts: 'Gérer les comptes comptables'

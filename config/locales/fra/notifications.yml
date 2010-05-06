@@ -3,6 +3,7 @@ fra:
     access_denied: 'Vous n''avez pas le droit d''accéder à cette page. {{reason}} ({{url}})'
     accountizing_is_finished: 'La bascule en comptabilité est finie.'
     accountizing_works_only_with_sales_invoices: 'La bascule en comptabilité ne peut se faire actuellement que pour les factures de vente.'
+    bad_file: (((BAD_FILE)))
     cannot_delete_entity: 'Il n''est pas possible de supprimer cette fiche car elle possède un historique comptable'
     cannot_delete_entity_nature: 'Vous ne pouvez pas supprimer ce type de fiche, il est rattaché à une ou plusieurs fiches'# NOT USED !!!
     cannot_delete_journal: 'Ce journal contient des écritures et ne peut donc être effacé.'# NOT USED !!!
@@ -16,6 +17,7 @@ fra:
     import_succeeded: 'Vos données ont été correctement importées '
     impossible_to_add_lines: 'Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande'
     impossible_to_add_lines_to_purchase: 'Vous ne pouvez plus ajouter de produits à votre achat'
+    invalid_file_nature: (((INVALID_FILE_NATURE)))
     journal_closed_on: 'Le {{journal}} a été clôturé au {{closed_on}} correctement.'
     journal_record_has_been_saved: 'La pièce N°{{number}} a été enregistrée correctement'
     journal_reopened_on: 'Le {{journal}} a été déclôturé au {{closed_on}} correctement.'
@@ -66,6 +68,7 @@ fra:
     sale_order_already_invoiced: 'La vente a déjà été facturée: vous ne pouvez pas définir de livraison'
     sale_order_cannot_be_updated: 'Le devis n''est plus modifiable.'
     sale_order_cant_be_deleted: 'La vente ne peut plus être supprimée'
+    select_entries_to_letter_together: 'Sélectionnez des écritures à lettrer ensemble'
     specify_filter: 'Vous choisir appliquer au moins un filtre de recherche'
     specify_updates: 'Vous devez spécifier au moins un champ à modifier'
     unavailable_model: '{{model}} indisponible ou inexistante ({{id}})'

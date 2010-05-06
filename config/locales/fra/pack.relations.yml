@@ -107,14 +107,17 @@ fra:
  #!
         title: 'Fiches des relations'
       entities_import:
-        csv_file: 'Fichier CSV à importer'
-        defined_columns: 'Voici le format à respecter des colonnes du fichier csv à importer :'
-        entities_export: 'Exporter vos fiches clients / fournisseurs au format CSV'
-        file_to_download: 'Export de la liste des clients/fournisseurs'
-        file_to_upload: 'Import de la liste des clients/fournisseurs'
+        csv_file: 'Fichier CSV à importer' #!
+        defined_columns: 'Voici le format à respecter des colonnes du fichier csv à importer :' #!
+        entities_export: 'Exporter vos fiches clients / fournisseurs au format CSV' #!
+        file_to_download: 'Export de la liste des clients/fournisseurs' #!
+        file_to_upload: 'Import de la liste des clients/fournisseurs' #!
         import: 'Importer'
-        please_consult_help_to_have_more_informations: 'Veuillez consulter l''aide pour avoir plus d''informations sur l''import'
+        please_consult_help_to_have_more_informations: 'Veuillez consulter l''aide pour avoir plus d''informations sur l''import' #!
         title: 'Import/Export des fiches clients et fournisseurs au format CSV'
+        #>upload: # Potentially missing translation
+        #>first_line_as_title: # Potentially missing translation
+        #>file_nature: # Potentially missing translation
       entities_merge:
         entity_to_delete: 'Doublon à fusionner (et faire disparaitre)'
         entity_to_update: 'Fiche à mettre à jour avec les éléments du doublon'

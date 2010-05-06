@@ -256,8 +256,12 @@ class AccountancyController < ApplicationController
     params[:stopped_on] = (params[:stopped_on]||Date.today).to_date
     params[:started_on] = (params[:started_on]||params[:stopped_on]-1.month+1.day).to_date
     if request.post?
-      journal_entries = params[:journal_entry].collect{|k,v| ((v[:to_letter]=="1" and @current_company.journal_entries.find_by_id(k)) ? k.to_i : nil)}.compact
-      @account.letter_entries(journal_entries)
+      if params[:journal_entry]
+        journal_entries = params[:journal_entry].collect{|k,v| ((v[:to_letter]=="1" and @current_company.journal_entries.find_by_id(k)) ? k.to_i : nil)}.compact
+        @account.letter_entries(journal_entries)
+      else
+        notify(:select_entries_to_letter_together, :warning, :now)
+      end
     end
     @journal_entries = @account.letterable_entries(params[:started_on], params[:stopped_on])
     @letter = @account.new_letter

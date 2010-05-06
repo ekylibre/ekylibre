@@ -69,6 +69,10 @@ jpn:
         #>title: 'Aide'
       _help_result:
         #>pertinence: '{{value}}%'
+      import:
+        #>file_nature: 'Type de fichier'
+        #>file_to_import: 'Fichier à importer'
+        #>title: 'Importation'
       index:
         #>accountancy: 'Comptabilité générale'
         #>backups: 'Sauvegardes'
@@ -132,7 +136,7 @@ jpn:
         #>title: 'Modification de l''extraction {{value}}'
       listings:
         #>listing_create: 'Créer une nouvelle extraction'
-        #>title: 'Extractions de données'
+        #>title: 'Exportations et mailings'
       _menu:
       _rights_form:
         #>accountancy_rights: 'Droits module Comptabilité'

@@ -69,9 +69,9 @@ fra:
       _help_result:
         pertinence: '{{value}}%'
       import:
+        file_nature: 'Type de fichier'
+        file_to_import: 'Fichier à importer'
         title: 'Importation'
-        file_to_import: Fichier à importer
-        file_nature: Type de fichier
       index:
         accountancy: 'Comptabilité générale' #!
         backups: 'Sauvegardes' #!

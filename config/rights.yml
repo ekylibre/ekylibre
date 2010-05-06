@@ -26,6 +26,8 @@ __minimum__:
 __not_used__:
   actions:
   - accountancy::draft_entries_dyta # UNEXISTENT ACTION !!!
+  - accountancy::import
+  - relations::tototo
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_dyta
@@ -198,6 +200,10 @@ extract_listings:
 # Octroyer des réductions commerciales lors des ventes
 give_discounts_on_sale:
   controller: management
+# Importer des données d'autres logiciels
+import_data:
+  controller: company
+  actions: [import]
 # Importer, exporter des fiches clients/fournisseurs
 import_export_entities:
   controller: relations
@@ -206,9 +212,6 @@ import_export_entities:
 mail_listings:
   controller: company
   actions: [listing_mail, listings]
-import_data:
-  controller: company
-  actions: [import]
 # Gérer les comptes comptables
 manage_accounts:
   controller: accountancy

@@ -336,7 +336,7 @@ jpn:
         #>default: 'Par défaut'
         #>deleted: 'Effacé'
         #>deliveries: 'Livraisons'
-        #>email: 'Email'
+        #>email: 'Adresse e-mail'
         #>entity: 'Fiche'
         #>entity_id: 'Fiche'
         #>fax: 'Fax'
@@ -2137,7 +2137,7 @@ jpn:
         #>departed_on: 'Parti le'
         #>department: 'Département'
         #>department_id: 'Département'
-        #>email: 'E-mail'
+        #>email: 'Adresse e-mail'
         #>employed: 'Employé par la société'
         #>employment: 'Emploi/Rôle'
         #>establishment: 'Établissement'
@@ -2225,6 +2225,7 @@ jpn:
         journal_entry:
           #>closed_entry: 'L''écriture est verrouillée. Il n''est pas possible de la modifier.'
           #>empty_amounts: 'L''écriture doit être renseignée soit au débit, soit au crédit.'
+          #>unvalid_amounts: 'L''écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps.'
         journal_record:
           #>closed_journal: 'Le journal est clôturé au {{on}} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu''à cette date-là.'
           #>out_of_financialyear: 'La pièce doit être saisie durant l''exercice'
