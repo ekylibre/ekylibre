@@ -1,5 +1,5 @@
 -register = !defined?(Ekylibre::DONT_REGISTER)
--download_firefox = !request.env["HTTP_USER_AGENT"].match(/mozilla/i)
+-download_firefox = !request.env["HTTP_USER_AGENT"].to_s.match(/mozilla/i)
 -if request.env["HTTP_USER_AGENT"].to_s.match(/MSIE (\d+\.\d+);/)
   -bad_browser = ($1.to_f <= 6)
 #login.login{:style=>"display:none"}

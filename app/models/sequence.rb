@@ -74,6 +74,7 @@ class Sequence < ActiveRecord::Base
   end
 
   def next_value
+    self.reload
     period = self.period
     if self.last_number.nil?
       self.last_number  = self.number_start

@@ -137,7 +137,7 @@ fra:
         title: 'Modification de l''extraction {{value}}'
       listings:
         listing_create: 'Créer une nouvelle extraction'
-        title: 'Exportation, mailing'
+        title: 'Exportations et mailings'
       _rights_form:
         accountancy_rights: 'Droits module Comptabilité' #!
         company_rights: 'Droits module Société' #!
