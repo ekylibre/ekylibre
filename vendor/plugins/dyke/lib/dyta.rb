@@ -154,6 +154,8 @@ module Ekylibre
             code += "def #{list_method_name}\n"
             code += "  if request.xhr?\n"
             code += "    render(:inline=>'<%=#{tag_method_name}-%>')\n"
+            code += "  elsif request.get?\n"
+            code += "    render(:inline=>'<%=#{tag_method_name}-%>', :layout=>true)\n"
             if options[:export]
               code += "  elsif request.post?\n"
               code += order_definition.gsub(/^/,'  ')

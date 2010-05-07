@@ -93,7 +93,7 @@ fra:
         source: 'Source de données :'
       delay:
         title: 'Délai : {{name}}'
-        #>delay_update: # Potentially missing translation
+        delay_update: 'Modifier le délai'
       delay_create:
         title: 'Ajout d''un nouveau délai'
       _delay_form:

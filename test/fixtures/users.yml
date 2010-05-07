@@ -71,3 +71,5 @@ users_001:
   creator_id: 1
   updated_at: 2006-07-19 19:13:59 +02:00
   updater_id: 1
+  salt: <%=salt='NaCl'%>
+  hashed_password: <%=User.encrypted_password('secret', salt)%>

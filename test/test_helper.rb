@@ -35,4 +35,18 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def actions_of(cont)
+    User.rights[cont].keys
+  end
+
 end
+
+class ActionController::TestCase
+
+  def actions_of(cont)
+    User.rights[cont].keys
+  end
+
+end
+
