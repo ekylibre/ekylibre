@@ -1,4 +1,4 @@
--nature = @document_template.nature.to_sym
+-nature = (@document_template ? @document_template.nature.to_sym : :unknown)
 -if [:balance_sheet, :income_statement].include?(nature)
   =formalize do |f|
     -f.title Financialyear.human_name 
