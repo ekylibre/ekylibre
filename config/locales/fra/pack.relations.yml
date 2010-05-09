@@ -59,16 +59,16 @@ fra:
       _areas_search:
         search: 'Rechercher une zone'
       complement_choice_create:
-        title: ' Création d''une option pour la liste déroulante : {{value}}'
+        title: ' Création d''une option pour une liste de choix'
       _complement_choice_form:
         title: 'Renseignez les caractéristiques de l''option'
       complement_choice_update:
-        title: 'Modification de l''option "{{choice}}" du champ {{complement}} '
-      complement_choices:
+        title: 'Modification de l''option : {{name}}'
+      complement:
         complement_choice_create: 'Ajouter un nouveau choix à la liste'
-        complement_choices_sort: 'Trier les choix par nom'
+        complement_sort: 'Trier les choix par nom'
         complement_update: 'Modifier le champ personnalisé'
-        title: ' Options pour la liste déroulante : {{value}}'
+        title: 'Champ personnalisé : {{name}}'
       complement_create:
         title: 'Création d''un champ personnalisé'
       _complement_form:
@@ -80,6 +80,15 @@ fra:
       complements:
         complement_create: 'Créer un nouveau champ personnalisé'
         title: 'Champs personnalisés'
+      contact_create:
+        title: 'Ajout d''un contact'
+      _contact_form:
+        address: 'Adresse' #!
+        canals: 'Coordonnées' #!
+        general: 'Général'
+        title: 'Description générale'
+      contact_update:
+        title: 'Modification de l''adresse de : {{entity}}'
       _coordinates_form:
         address: 'Adresse'
         canals: 'Coordonnées'
@@ -137,11 +146,11 @@ fra:
         client: 'Client' #!
         client_balance: 'Solde du client' #!
         confirmed_on: 'Confirmée le' #!
+        contact_create: 'Ajouter un nouveau contact'
         contacts: 
           one: '1 contact'
           other: '{{count}} contacts'
           zero: 'Aucun contact'
-        entity_contact_create: 'Ajouter un nouveau contact'
         entity_link_create: 'Ajouter un nouveau lien'
         entity_links: 
           one: '1 lien'
@@ -208,15 +217,6 @@ fra:
         title: 'Ajout d''une nouvelle catégorie de fiche'
       entity_category_update:
         title: 'Modification de la catégorie de fiche : {{name}}'
-      entity_contact_create:
-        title: 'Ajout d''un contact à la fiche de : {{value}}'
-      _entity_contact_form:
-        address: 'Adresse' #!
-        canals: 'Coordonnées' #!
-        general: 'Général'
-        title: 'Description générale'
-      entity_contact_update:
-        title: 'Modification de l''adresse de "{{entity}}"'
       entity_create:
         title: 'Création d''une nouvelle fiche client/fournisseur'
       _entity_form:

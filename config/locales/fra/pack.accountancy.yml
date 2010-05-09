@@ -97,6 +97,7 @@ fra:
         currency_rate: 'Taux de devise'
       _document_options:
         period: 'Période'
+      # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/document_prepare
       document_prepare:
         balance: 'Balance'
@@ -107,9 +108,11 @@ fra:
         title: 'Choisissez le type de document à imprimer'
       document_print:
         title: 'Documents comptables'
+      # No defined action for this view !!!
       draft_entries:
         accountize: 'Comptabiliser les écritures' #!
         title: 'Listing des écritures du brouillard'
+      # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/entries
       entries:
         account_number: 'N°Compte'
@@ -128,6 +131,7 @@ fra:
         select_journal: 'Journal'
         subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
         title: 'Consultation et saisie des écritures'
+      # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/entry_update
       entry_update:
         title: 'Modification de l''écriture'
@@ -238,6 +242,7 @@ fra:
       _print_synthesis:
         select_financialyear: 'Exercice'
         synthesis: 'Sélectionnez l''exercice'
+      # No defined action for this view !!!
       synthesis:
         account_accruals: 'Comptes de régularisation'
         account_claims_assets: 'Créances'
@@ -274,6 +279,7 @@ fra:
         total: 'Total' #!
       tax_create:
         title: 'Ajouter une nouvelle taxe'
+      # No defined action for this view !!!
       tax_declaration:
         amount: 'Total TVA à payer'
         amount_to_add: 'Sommes à ajouter, exprimées en euros, y compris acompte congés'
@@ -315,6 +321,7 @@ fra:
         vat_paid: 'TVA DEDUCTIBLE'
         #>vat_acquisition: # Potentially missing translation
         #>delivery_natural_gas_and_electricity: # Potentially missing translation
+      # No defined action for this view !!!
       tax_declaration_create:
         title: 'Créer une déclaration'
       _tax_declaration_form:
@@ -323,8 +330,10 @@ fra:
         quarterly: 'Trimestrielle' #!
         report: 'Informations communes'
         yearly: 'Annuelle' #!
+      # No defined action for this view !!!
       tax_declaration_update:
         title: 'Créer une déclaration'
+      # No defined action for this view !!!
       tax_declarations:
         tax_declaration_create: 'Ajouter une nouvelle déclaration'
         title: 'Déclaration de TVA'

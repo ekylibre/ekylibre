@@ -51,7 +51,6 @@ class CompanyController < ApplicationController
     for x in [:reflection, :order, :label, :include_blank]
       @options[x] = params[x]
     end
-    puts @options.inspect
     render :inline=>'<%=options_for_select(@current_company.reflection_options(@options), params[:selected].to_i)-%>'
   end
 
@@ -573,9 +572,10 @@ class CompanyController < ApplicationController
   end
 
 
-  def listing_node
-    render :partial=>"listing_node"
-  end
+#   def listing_node
+#     return unless @listing_node = find_and_check(:listing_node)
+#     render :partial=>"listing_node"
+#   end
 
 
   def listing_node_create
@@ -601,7 +601,7 @@ class CompanyController < ApplicationController
   
   def listing_node_update
     return unless @listing_node = find_and_check(:listing_node)
-    puts params.inspect+"!!!!!!!!!!!!!!!!!!!!!"+@listing_node.inspect if request.xhr?
+    # puts params.inspect+"!!!!!!!!!!!!!!!!!!!!!"+@listing_node.inspect if request.xhr?
     if request.xhr? and @listing_node
       if params[:type] == "hide" or params[:type] == "show"
         @listing_node.exportable = !@listing_node.exportable

@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class RelationsControllerTest < ActionController::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
+  fixtures :companies, :users
+  test_all_actions :complement_sort=>:delete, :complement_choice_up=>:delete, :complement_choice_down=>:delete, :change_minutes=>:select
 end

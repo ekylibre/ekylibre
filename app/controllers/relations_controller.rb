@@ -34,50 +34,75 @@ class RelationsController < ApplicationController
 
   #
   def auto_complete_for_contact_line_6
-    pattern = '%'+params[:contact][:line_6].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-    @areas = @current_company.areas.find(:all, :conditions => [ 'LOWER(name) LIKE ? ', pattern], :order => "name ASC", :limit=>12)
-    render :inline => "<%=content_tag(:ul, @areas.map { |area| content_tag(:li, h(area.name)) })%>"
+    if params[:contact] and request.xhr?
+      pattern = '%'+params[:contact][:line_6].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+      @areas = @current_company.areas.find(:all, :conditions => [ 'LOWER(name) LIKE ? ', pattern], :order => "name ASC", :limit=>12)
+      render :inline => "<%=content_tag(:ul, @areas.map { |area| content_tag(:li, h(area.name)) })%>"
+    else
+      render :text=>'', :layout=>true
+    end
   end
   
   def auto_complete_for_entity_origin
-    pattern = '%'+params[:entity][:origin].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-    @entities = @current_company.entities.find(:all, :conditions=> [ 'LOWER(origin) LIKE ?', pattern ], :order=>"origin ASC", :limit=>12)
-    render :inline => "<%=content_tag(:ul, @entities.map { |entity| content_tag(:li, h(entity.origin)) })%>"
+    if params[:entity] and request.xhr?
+      pattern = '%'+params[:entity][:origin].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+      @entities = @current_company.entities.find(:all, :conditions=> [ 'LOWER(origin) LIKE ?', pattern ], :order=>"origin ASC", :limit=>12)
+      render :inline => "<%=content_tag(:ul, @entities.map { |entity| content_tag(:li, h(entity.origin)) })%>"
+    else
+      render :text=>'', :layout=>true
+    end
   end
 
   def auto_complete_for_event_location
-    pattern = '%'+params[:event][:location].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-    @events = @current_company.events.find(:all, :conditions=> [ 'LOWER(location) LIKE ?', pattern ], :order=>"location ASC", :limit=>12)
-    render :inline => "<%=content_tag(:ul, @events.map { |event| content_tag(:li, h(event.location)) })%>"
+    if params[:event] and request.xhr?
+      pattern = '%'+params[:event][:location].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+      @events = @current_company.events.find(:all, :conditions=> [ 'LOWER(location) LIKE ?', pattern ], :order=>"location ASC", :limit=>12)
+      render :inline => "<%=content_tag(:ul, @events.map { |event| content_tag(:li, h(event.location)) })%>"
+    else
+      render :text=>'', :layout=>true
+    end
   end
-
 
   def auto_complete_for_mandate
-    column = params[:column]||'family'
-    pattern = '%'+params[:columns][column][:search].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-    @mandates = @current_company.mandates.find(:all, :conditions => [ "LOWER(#{column}) LIKE ? ", pattern], :order=>column, :select => "DISTINCT #{column}")
-    render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.#{column})) })-%>"
+    if params[:columns] and request.xhr?
+      column = params[:column]||'family'
+      pattern = '%'+params[:columns][column][:search].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+      @mandates = @current_company.mandates.find(:all, :conditions => [ "LOWER(#{column}) LIKE ? ", pattern], :order=>column, :select => "DISTINCT #{column}")
+      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.#{column})) })-%>"
+    else
+      render :text=>'', :layout=>true
+    end
   end
 
-  #
   def auto_complete_for_mandate_family
-    pattern = '%'+params[:mandate][:family].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-    @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(family) LIKE ? ', pattern], :order => "family ASC", :select => 'DISTINCT family')
-    render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.family)) })%>"
+    if params[:mandate] and request.xhr?
+      pattern = '%'+params[:mandate][:family].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+      @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(family) LIKE ? ', pattern], :order => "family ASC", :select => 'DISTINCT family')
+      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.family)) })%>"
+    else
+      render :text=>'', :layout=>true
+    end
   end
-   
-   #
+  
   def auto_complete_for_mandate_organization
-    pattern = '%'+params[:mandate][:organization].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-    @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(organization) LIKE ? ', pattern], :order => "organization ASC", :select => 'DISTINCT organization')
-    render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.organization)) })%>"
+    if params[:mandate] and request.xhr?
+      pattern = '%'+params[:mandate][:organization].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+      @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(organization) LIKE ? ', pattern], :order => "organization ASC", :select => 'DISTINCT organization')
+      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.organization)) })%>"
+    else
+      render :text=>'', :layout=>true
+    end
   end
   
   #
   def auto_complete_for_mandate_title
-    pattern = '%'+params[:mandate][:title].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-    @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(title) LIKE ? ', pattern], :order => "title ASC", :select => 'DISTINCT title')
-    render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.title)) })%>"
+    if params[:mandate] and request.xhr?
+      pattern = '%'+params[:mandate][:title].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
+      @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(title) LIKE ? ', pattern], :order => "title ASC", :select => 'DISTINCT title')
+      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.title)) })%>"
+    else
+      render :text=>'', :layout=>true
+    end
   end
   
   #
@@ -136,7 +161,7 @@ class RelationsController < ApplicationController
     t.column :active
     t.column :choices_count, :datatype=>:integer
     t.action :complement_update
-    t.action :complement_choices, :image=>:menulist, :if=>'RECORD.nature == "choice"'
+    t.action :complement, :image=>:menulist, :if=>'RECORD.nature == "choice"'
   end
 
 
@@ -148,7 +173,7 @@ class RelationsController < ApplicationController
       @complement = Complement.new(params[:complement])
       @complement.company_id = @current_company.id
       @complement.save # Permits to get ID if saved
-      return if save_and_redirect(@complement, :url=>(@complement.nature=='choice' ? {:action=>:complement_choices , :id=>@complement.id} : :back))
+      return if save_and_redirect(@complement, :url=>(@complement.nature=='choice' ? {:action=>:complement , :id=>@complement.id} : :back))
     else
       @complement = Complement.new
     end
@@ -175,23 +200,23 @@ class RelationsController < ApplicationController
   end
   
 
-  def complement_choices
+  def complement
     return unless @complement = find_and_check(:complement)
     session[:current_complement_id] = @complement.id
-    @title = {:value=>@complement.name}
+    t3e @complement.attributes
   end
 
   def complement_choice_create
-    return unless @complement = find_and_check(:complement, session[:current_complement_id])
+    complement  = @current_company.complements.find_by_id(params[:id])
     if request.post?
       @complement_choice = ComplementChoice.new(params[:complement_choice])
       @complement_choice.company_id = @current_company.id
-      @complement_choice.complement_id = @complement.id
+      # @complement_choice.complement_id = @complement.id
       return if save_and_redirect(@complement_choice)
     else
-      @complement_choice = ComplementChoice.new
+      @complement_choice = ComplementChoice.new(:complement_id=>params[:complement_id])
     end
-    @title = {:value=>@complement.name}
+    # @title = {:complement=>complement.name rescue } 
     render_form
   end
 
@@ -202,12 +227,12 @@ class RelationsController < ApplicationController
       return if save_and_redirect(@complement_choice)
     end
     @complement = @complement_choice.complement
-    @title = {:choice=>@complement_choice.name, :complement=>@complement.name}
+    t3e @complement_choice.attributes
     render_form
   end
   
-  def complement_choices_sort
-    return unless @complement = find_and_check(:complement, session[:current_complement_id])
+  def complement_sort
+    return unless @complement = find_and_check(:complement)
     if request.post? and @complement
       @complement.sort_choices
     end
@@ -236,7 +261,7 @@ class RelationsController < ApplicationController
     t.column :abbreviation, :through=>:nature
     t.column :name, :url=>{:action=>:entity}
     t.column :first_name, :url=>{:action=>:entity}
-    t.column :line_6, :through=>:default_contact, :url=>{:action=>:entity_contact_update}
+    t.column :line_6, :through=>:default_contact, :url=>{:action=>:contact_update}
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:entity}
     t.action :entity_update
     t.action :entity_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
@@ -253,7 +278,7 @@ class RelationsController < ApplicationController
   #dyta(:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity1_id = ? OR entity2_id = ?   AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
   dyta(:contacts, :conditions=>['company_id = ? AND active = ? AND (entity_id = ? OR entity_id IN ( SELECT entity1_id FROM entity_links  INNER JOIN entity_link_natures ON (entity_link_natures.propagate_contacts = ? AND entity_links.nature_id = entity_link_natures.id AND stopped_on IS NULL) WHERE (entity1_id = ? OR entity2_id = ?)) OR entity_id IN  ( SELECT entity2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_link_natures.propagate_contacts = ? AND entity_links.nature_id = entity_link_natures.id  AND stopped_on IS NULL WHERE  (entity1_id = ? OR entity2_id = ?) ) )', ['@current_company.id'], true, ['session[:current_entity]'], true, ['session[:current_entity]'], ['session[:current_entity]'], true, ['session[:current_entity]'], ['session[:current_entity]'] ]) do |t|
 #  dyta(:contacts, :conditions=>{:entity_id=>['session[:current_entity]']}) do |t|
-    t.column :address, :url=>{:action=>:entity_contact_update}
+    t.column :address, :url=>{:action=>:contact_update}
     t.column :phone
     t.column :fax
     t.column :mobile
@@ -261,8 +286,8 @@ class RelationsController < ApplicationController
     t.column :website
     t.column :default
     t.column :code, :through=>:entity, :url=>{:action=>:entity}, :label=>tc(:entity_id)
-    t.action :entity_contact_update  
-    t.action :entity_contact_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :contact_update  
+    t.action :contact_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
   dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
@@ -397,14 +422,6 @@ class RelationsController < ApplicationController
   end
 
   
-  def client_informations
-    if params[:entity_client] == 1
-      @client = 1
-    else
-      @client = 0
-    end
-  end
-
   #
   def entity_create
     @complements = @current_company.complements.find(:all,:order=>:position)
@@ -598,48 +615,49 @@ class RelationsController < ApplicationController
   
   manage :entity_categories
 
+  manage :contacts, :entity_id=>"@current_company.entities.find(params[:entity_id]||session[:current_entity]).id rescue 0", :country=>"@current_company.entities.find(params[:entity_id]||session[:current_entity]).country rescue @current_company.entity.country", :t3e=>{:entity=>"@contact.entity.full_name"}
 
-  def entity_contact_create
-    return unless @entity = find_and_check(:entity, params[:id]||session[:current_entity])
-    #raise Exception.new(@entity.id.to_s)
-    if request.post?
-      @contact = Contact.new(params[:contact])
-      @contact.company_id = @current_company.id
-      @contact.entity_id = @entity.id  
-      return if save_and_redirect(@contact)
-    else
-      # this line has been added temporarly.
-      @contact = Contact.new
-      # @contact.name = (@entity.contacts.size>0 ? tc(:second_contact) : tc(:first_contact) )
-      @entity ||= @current_company.entity 
-      @contact.country = @entity.country
-    end
-    @title = {:value=>@entity.full_name}
-    render_form
-  end
+#   def contact_create
+#     return unless @entity = find_and_check(:entity, params[:id]||session[:current_entity])
+#     #raise Exception.new(@entity.id.to_s)
+#     if request.post?
+#       @contact = Contact.new(params[:contact])
+#       @contact.company_id = @current_company.id
+#       @contact.entity_id = @entity.id  
+#       return if save_and_redirect(@contact)
+#     else
+#       # this line has been added temporarly.
+#       @contact = Contact.new
+#       # @contact.name = (@entity.contacts.size>0 ? tc(:second_contact) : tc(:first_contact) )
+#       @entity ||= @current_company.entity 
+#       @contact.country = @entity.country
+#     end
+#     @title = {:value=>@entity.full_name}
+#     render_form
+#   end
 
-  def entity_contact_update
-    return unless @contact = find_and_check(:contact)
-    @entity = @contact.entity
-    @id = @contact.entity_id
-    if request.post? and @contact
-      @contact.attributes = params[:contact]
-      return if save_and_redirect(@contact)
-    end
-    @title = {:entity=>@entity.full_name}
-    render_form
-  end
+#   def contact_update
+#     return unless @contact = find_and_check(:contact)
+#     @entity = @contact.entity
+#     @id = @contact.entity_id
+#     if request.post? and @contact
+#       @contact.attributes = params[:contact]
+#       return if save_and_redirect(@contact)
+#     end
+#     @title = {:entity=>@entity.full_name}
+#     render_form
+#   end
   
-  def entity_contact_delete
-    return unless @contact = find_and_check(:contact)
-    if request.post? or request.delete?
-      if @contact
-        @contact.active = false
-        @contact.save
-      end
-      redirect_to_current
-    end
-  end
+#   def contact_delete
+#     return unless @contact = find_and_check(:contact)
+#     if request.post? or request.delete?
+#       if @contact
+#         @contact.active = false
+#         @contact.save
+#       end
+#       redirect_to_current
+#     end
+#   end
   
 
   dyta(:entity_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
@@ -687,18 +705,18 @@ class RelationsController < ApplicationController
   #
   def self.mandates_conditions(options={}) 
     code = ""
-    code += "conditions = ['mandates.company_id=?', @current_company.id.to_s]\n"
-    code += "unless session[:mandates][:organization].blank? \n"
-    code += "conditions[0] += ' AND organization = ?'\n"
-    code += "conditions << session[:mandates][:organization] \n"
-    code += "end \n"
-             
-    code += "unless session[:mandates][:date].blank? \n"
-    code += "conditions[0] += 'AND (? BETWEEN started_on AND stopped_on)'\n"
-    code += "conditions << session[:mandates][:date].to_s \n"
+    code += "conditions = ['mandates.company_id=?', @current_company.id]\n"
+    code += "if session[:mandates].is_a? Hash\n"
+    code += "  unless session[:mandates][:organization].blank? \n"
+    code += "    conditions[0] += ' AND organization = ?'\n"
+    code += "    conditions << session[:mandates][:organization] \n"
+    code += "  end \n"
+    code += "  unless session[:mandates][:date].blank? \n"
+    code += "    conditions[0] += 'AND (? BETWEEN started_on AND stopped_on)'\n"
+    code += "    conditions << session[:mandates][:date].to_s \n"
+    code += "  end \n"
     code += "end \n"
     code += "conditions \n"
-
     code
   end
 
@@ -765,6 +783,9 @@ class RelationsController < ApplicationController
 
   manage :event_natures
 
+  def change_minutes
+    return unless @event_nature = find_and_check(:event_nature)
+  end
   
   dyta(:events, :conditions=>{:company_id =>['@current_company.id']}, :order=>"started_at DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
@@ -782,10 +803,6 @@ class RelationsController < ApplicationController
   
   manage :events, :user_id=>'@current_user.id', :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now"
 
-  def change_minutes
-    return unless @event_nature = find_and_check(:event_nature, params[:event_nature_id])
-  end
-  
 
   @@exchange_format = [ {:name=>:entity_code, :null=>false}, 
                         {:name=>:entity_nature_name, :null=>false},
@@ -812,7 +829,9 @@ class RelationsController < ApplicationController
 
 
   def entities_export
-    send_data @current_company.export_entities, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment", :filename=>'Fiches_C-F.csv'
+    if request.post?
+      send_data @current_company.export_entities, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment", :filename=>'Fiches_C-F.csv'
+    end
   end
 
 
@@ -906,77 +925,77 @@ class RelationsController < ApplicationController
 
 
 
-  def tototo
-    @model = @@exchange_format
-    indices = {}
+#   def tototo
+#     @model = @@exchange_format
+#     indices = {}
 
-    @model.size.times do |index|
-      indices[@model[index][:name]] = index
-    end
+#     @model.size.times do |index|
+#       indices[@model[index][:name]] = index
+#     end
 
-    if request.post?
-      if params[:csv_file].nil?
-        notify(:you_must_select_a_file_to_import, :warning)
-        redirect_to :action=>:entities_import
-      else
-        data = params[:csv_file][:path]
-        file = "#{RAILS_ROOT}/tmp/uploads/entities_import_#{data.original_filename.gsub(/[^\w]/,'_')}"
-        File.open(file, "wb") { |f| f.write(data.read)}
-        i = 0
-        @available_entities = []
-        @unavailable_entities = []
-        language = @current_company.parameter('general.language')
-        FasterCSV.foreach(file) do |row|
-          @entity = Entity.find_by_company_id_and_code(@current_company.id, row[indices[:entity_code]])
-          if @entity.nil?
-#            raise Exception.new "nok"+row[indices[:entity_code]].inspect if i != 0 and  i!= 1
-            @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>language.id, :nature_id=>@current_company.entity_natures[0])
-            @contact = Contact.new(:default=>true, :company_id=>@current_company.id, :entity_id=>0, :country=>'fr')
-          else
-            #raise Exception.new "ok"+row[indices[:entity_code]].inspect
-            @contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>@entity.id, :default=>true, :deleted=>false})
-          end
+#     if request.post?
+#       if params[:csv_file].nil?
+#         notify(:you_must_select_a_file_to_import, :warning)
+#         redirect_to :action=>:entities_import
+#       else
+#         data = params[:csv_file][:path]
+#         file = "#{RAILS_ROOT}/tmp/uploads/entities_import_#{data.original_filename.gsub(/[^\w]/,'_')}"
+#         File.open(file, "wb") { |f| f.write(data.read)}
+#         i = 0
+#         @available_entities = []
+#         @unavailable_entities = []
+#         language = @current_company.parameter('general.language')
+#         FasterCSV.foreach(file) do |row|
+#           @entity = Entity.find_by_company_id_and_code(@current_company.id, row[indices[:entity_code]])
+#           if @entity.nil?
+# #            raise Exception.new "nok"+row[indices[:entity_code]].inspect if i != 0 and  i!= 1
+#             @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>language.id, :nature_id=>@current_company.entity_natures[0])
+#             @contact = Contact.new(:default=>true, :company_id=>@current_company.id, :entity_id=>0, :country=>'fr')
+#           else
+#             #raise Exception.new "ok"+row[indices[:entity_code]].inspect
+#             @contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>@entity.id, :default=>true, :deleted=>false})
+#           end
           
-          if i!=0 
-            @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[indices[:entity_nature_name]]), :category_id=>@current_company.imported_entity_category(row[indices[:entity_category_name]]), :name=>row[indices[:entity_name]], :first_name=>row[indices[:entity_first_name]], :reduction_rate=>row[indices[:entity_reduction_rate]].to_s.gsub(/\,/,"."), :comment=>row[indices[:entity_comment]]}
-            #raise Exception.new row[indices[:entity_reduction_rate]].inspect
-            @contact.attributes = {:line_2=>row[indices[:contact_line_2]], :line_3=>row[indices[:contact_line_3]], :line_4=>row[indices[:contact_line_4]], :line_5=>row[indices[:contact_line_5]], :line_6=>row[indices[:contact_line_6_code]].to_s+' '+row[indices[:contact_line_6_city]].to_s, :phone=>row[indices[:contact_phone]], :mobile=>row[indices[:contact_mobile]], :fax=>row[indices[:contact_fax]] ,:email=>row[indices[:contact_email]], :website=>row[indices[:contact_website]] } if !@contact.nil?
-            if !@contact.nil? 
-              if !@contact.valid? or !@entity.valid?
-                @unavailable_entities << [i+1, @entity.errors.full_messages, @contact.errors.full_messages]
-              else
-                @available_entities << [@entity, @contact]
-              end
-            elsif @entity.valid?
-              @available_entities << [@entity, nil]
-            end
-          end 
-          #puts i if i % 100 == 0
-          i += 1
-        end 
-        # Fin boucle FasterCSV -- Début traitement données recueillies
-        if @unavailable_entities.empty?        
-          for entity_contact in @available_entities
-            entity = Entity.find_by_company_id_and_code(@current_company.id, entity_contact[0].code)
-            #raise Exception.new entity_contact[0].code.inspect
-            if entity.nil?
-              en = Entity.create!(entity_contact[0].attributes)
-              ct = Contact.new( entity_contact[1].attributes) 
-              ct.entity_id = en.id
-              ct.save
-            else
-              entity.update_attributes(entity_contact[0].attributes)
-              contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>entity_contact[0].id, :default=>true, :deleted=>false}) 
-              contact.update_attributes(entity_contact[1].attributes) if !contact.nil?
-            end
-            notify(:import_succeeded)
-          end
-        end
-      end
+#           if i!=0 
+#             @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[indices[:entity_nature_name]]), :category_id=>@current_company.imported_entity_category(row[indices[:entity_category_name]]), :name=>row[indices[:entity_name]], :first_name=>row[indices[:entity_first_name]], :reduction_rate=>row[indices[:entity_reduction_rate]].to_s.gsub(/\,/,"."), :comment=>row[indices[:entity_comment]]}
+#             #raise Exception.new row[indices[:entity_reduction_rate]].inspect
+#             @contact.attributes = {:line_2=>row[indices[:contact_line_2]], :line_3=>row[indices[:contact_line_3]], :line_4=>row[indices[:contact_line_4]], :line_5=>row[indices[:contact_line_5]], :line_6=>row[indices[:contact_line_6_code]].to_s+' '+row[indices[:contact_line_6_city]].to_s, :phone=>row[indices[:contact_phone]], :mobile=>row[indices[:contact_mobile]], :fax=>row[indices[:contact_fax]] ,:email=>row[indices[:contact_email]], :website=>row[indices[:contact_website]] } if !@contact.nil?
+#             if !@contact.nil? 
+#               if !@contact.valid? or !@entity.valid?
+#                 @unavailable_entities << [i+1, @entity.errors.full_messages, @contact.errors.full_messages]
+#               else
+#                 @available_entities << [@entity, @contact]
+#               end
+#             elsif @entity.valid?
+#               @available_entities << [@entity, nil]
+#             end
+#           end 
+#           #puts i if i % 100 == 0
+#           i += 1
+#         end 
+#         # Fin boucle FasterCSV -- Début traitement données recueillies
+#         if @unavailable_entities.empty?        
+#           for entity_contact in @available_entities
+#             entity = Entity.find_by_company_id_and_code(@current_company.id, entity_contact[0].code)
+#             #raise Exception.new entity_contact[0].code.inspect
+#             if entity.nil?
+#               en = Entity.create!(entity_contact[0].attributes)
+#               ct = Contact.new( entity_contact[1].attributes) 
+#               ct.entity_id = en.id
+#               ct.save
+#             else
+#               entity.update_attributes(entity_contact[0].attributes)
+#               contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>entity_contact[0].id, :default=>true, :deleted=>false}) 
+#               contact.update_attributes(entity_contact[1].attributes) if !contact.nil?
+#             end
+#             notify(:import_succeeded)
+#           end
+#         end
+#       end
       
-    end
+#     end
     
-  end
+#   end
 
   manage :observations, :importance=>"'normal'", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0"
   

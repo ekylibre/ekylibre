@@ -41,4 +41,3 @@
 #  virtual_quantity    :decimal(16, 4)   default(0.0), not null
 #
 
-# Generated

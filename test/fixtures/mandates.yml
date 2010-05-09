@@ -34,5 +34,44 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
+#
+# == Fixture: mandates
+#
+# mandates_001:
+#   company_id: 1
+#   created_at: 2009-07-19 19:13:59 +02:00
+#   creator_id: 1
+#   entity_id: 1
+#   family: "Lorem ipsum"
+#   id: 1
+#   organization: "Lorem ipsum"
+#   title: "Lorem ipsum"
+#   updated_at: 2009-07-19 19:13:59 +02:00
+#   updater_id: 1
+#
 
-# Generated
+
+mandates_001:
+  entity_id: 1
+  family: activities
+  organization: my asso
+  title: president
+  id: 1
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  updated_at: 2006-07-19 19:13:59 +02:00
+  updater_id: 1
+  
+mandates_002:
+  entity_id: 1
+  family: activities
+  organization: my asso 2
+  title: president
+  id: 2
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  updated_at: 2006-07-19 19:13:59 +02:00
+  updater_id: 1
+  

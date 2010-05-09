@@ -92,6 +92,7 @@ eng:
         #>sales: 'Exporter un tableau des ventes au format CSV'
         #>source: 'Source de données :'
       delay:
+        #>delay_update: 'Modifier le délai'
         #>title: 'Délai : {{name}}'
       delay_create:
         #>title: 'Ajout d''un nouveau délai'

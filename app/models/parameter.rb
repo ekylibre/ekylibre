@@ -38,7 +38,6 @@
 #  user_id           :integer          
 #
 
-# -*- coding: utf-8 -*-
 class Parameter < ActiveRecord::Base
   @@natures = Parameter.columns_hash.keys.select{|x| x.match(/_value(_id)?$/)}.collect{|x| x.split(/_value/)[0] }
   @@conversions = {:float=>'decimal', :true_class=>'boolean', :false_class=>'boolean', :fixnum=>'integer'}

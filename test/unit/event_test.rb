@@ -37,4 +37,3 @@
 #  user_id      :integer          not null
 #
 
-# Generated

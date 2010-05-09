@@ -25,9 +25,8 @@ __minimum__:
 # Droit par défaut (inaccessible)
 __not_used__:
   actions:
-  - accountancy::draft_entries_dyta # UNEXISTENT ACTION !!!
   - accountancy::import
-  - relations::tototo
+  - relations::tototo # UNEXISTENT ACTION !!!
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_dyta
@@ -44,10 +43,7 @@ __not_used__:
 # Accéder au module Comptabilité
 administrate_accountancy:
   controller: accountancy
-  actions:
-  - accountize
-  - draft_entries # UNEXISTENT ACTION !!!
-  - index
+  actions: [accountize, index]
 # Accéder au module Commerce
 administrate_management:
   controller: management
@@ -126,9 +122,6 @@ consult_entities:
 # Consulter les écritures
 consult_entries:
   controller: accountancy
-  actions:
-  - entries_draft_dyta # UNEXISTENT ACTION !!!
-  - entries_dyta # UNEXISTENT ACTION !!!
 # Consulter les écritures
 consult_invoices:
   controller: management
@@ -224,7 +217,6 @@ manage_accounts:
   - account_update
   - accounts
   - accounts_dyta
-  - auto_complete_for_entry_account # UNEXISTENT ACTION !!!
 # Gérer les zones
 manage_areas:
   controller: relations
@@ -260,9 +252,9 @@ manage_complements:
   - complement_choice_down
   - complement_choice_up
   - complement_choice_update
-  - complement_choices
+  - complement
   - complement_choices_dyta
-  - complement_choices_sort
+  - complement_sort
   - complement_create
   - complement_update
   - complements
@@ -327,11 +319,10 @@ manage_entities:
   controller: relations
   actions:
   - auto_complete_for_entity_origin
-  - client_informations
+  - contact_create
+  - contact_delete
+  - contact_update
   - contacts_dyta
-  - entity_contact_create
-  - entity_contact_delete
-  - entity_contact_update
   - entity_create
   - entity_delete
   - entity_events_dyta
@@ -378,15 +369,9 @@ manage_entries:
   - account_dyli
   - account_letter
   - account_unletter
-  - entries # UNEXISTENT ACTION !!!
-  - entry_create # UNEXISTENT ACTION !!!
-  - entry_delete # UNEXISTENT ACTION !!!
-  - entry_letter # UNEXISTENT ACTION !!!
-  - entry_update # UNEXISTENT ACTION !!!
   - journal_entry_create
   - journal_record
   - journal_record_create
-  - journal_record_delete # UNEXISTENT ACTION !!!
   - journal_record_entries_dyta
   - journal_record_update
   - journal_records_dyta
@@ -417,7 +402,6 @@ manage_financialyears:
   - financialyear_update
   - financialyears
   - financialyears_dyta
-  - financialyears_records # UNEXISTENT ACTION !!!
 # Gérer les inventaires
 manage_inventories:
   controller: management
@@ -460,7 +444,6 @@ manage_listings:
   - listing_create
   - listing_delete
   - listing_duplicate
-  - listing_node
   - listing_node_create
   - listing_node_delete
   - listing_node_update
@@ -654,13 +637,6 @@ manage_taxes:
   - account_collected_dyli
   - account_paid_dyli
   - tax_create
-  - tax_declaration # UNEXISTENT ACTION !!!
-  - tax_declaration_create # UNEXISTENT ACTION !!!
-  - tax_declaration_delete # UNEXISTENT ACTION !!!
-  - tax_declaration_period_search # UNEXISTENT ACTION !!!
-  - tax_declaration_update # UNEXISTENT ACTION !!!
-  - tax_declarations # UNEXISTENT ACTION !!!
-  - tax_declarations_dyta # UNEXISTENT ACTION !!!
   - tax_delete
   - tax_update
   - taxes
@@ -728,10 +704,7 @@ print:
 # Imprimer les documents comptables
 print_accounting_document:
   controller: accountancy
-  actions:
-  - document_prepare # UNEXISTENT ACTION !!!
-  - document_print
-  - synthesis # UNEXISTENT ACTION !!!
+  actions: [document_print]
 # Rechercher et consulter des factures
 search_and_consult_invoices:
   controller: management

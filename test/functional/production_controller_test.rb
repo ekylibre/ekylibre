@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class ProductionControllerTest < ActionController::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
+  fixtures :companies, :users
+  test_all_actions
 end

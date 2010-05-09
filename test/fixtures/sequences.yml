@@ -37,11 +37,47 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
-
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
 #
-# two:
-#   column: value
+# == Fixture: sequences
+#
+# sequences_001:
+#   company_id: 1
+#   created_at: 2009-07-19 19:13:59 +02:00
+#   creator_id: 1
+#   format: "Lorem ipsum"
+#   id: 1
+#   name: "Lorem ipsum"
+#   number_increment: 0
+#   number_start: 0
+#   period: "Lorem ipsum"
+#   updated_at: 2009-07-19 19:13:59 +02:00
+#   updater_id: 1
+#
+
+sequences_001:
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  format: "Lorem ipsum"
+  id: 1
+  name: "Lorem ipsum"
+  number_increment: 1
+  number_start: 1
+  period: "Lorem ipsum"
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+
+sequences_002:
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  format: "Lorem ipsum"
+  id: 2
+  name: "Lorem ipsum"
+  number_increment: 1
+  number_start: 1
+  period: "Lorem ipsum"
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+

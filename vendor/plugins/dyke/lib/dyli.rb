@@ -99,6 +99,8 @@ module Ekylibre
             code += "      list += \"<li id=\\\"#{name_db}_\#\{item.id\}\\\">\"+#{display}+\"<input type=\\\"hidden\\\" value=\#\{content.inspect\} id=\\\"record_\#\{item.id\}\\\"/></li>\"\n"
             code += "    end\n"
             code += "    render :text=>'<ul>'+list+'</ul>'\n"
+            code += "  else\n"
+            code += "    render :text=>'', :layout=>true\n"
             code += "  end\n"
             code += "end\n"
 
@@ -142,7 +144,7 @@ module Ekylibre
             hf_value = foreign.id
           end
 
-          options[:field_id] ||= name_html.gsub(/[\[\]]+/,'_').gsub(/(^\_+|\_+$)/, '')
+          options[:field_id] ||= name_html.to_s.gsub(/[\[\]]+/,'_').gsub(/(^\_+|\_+$)/, '')
           completion_options[:skip_style] = true;
           
           dyli_completer(tf_name, tf_value, hf_name, hf_value, options, tag_options, completion_options)

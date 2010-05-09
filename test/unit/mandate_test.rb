@@ -35,4 +35,3 @@
 #  updater_id   :integer          
 #
 
-# Generated

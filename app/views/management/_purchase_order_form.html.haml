@@ -4,7 +4,7 @@
   -f.error :purchase_order
   -f.title :infos
   -f.field :purchase_order, :supplier_id, :choices=>{:reflection=>:suppliers}, :new=>{:controller=>:relations, :action=>:entity_create}
-  -f.field :purchase_order, :dest_contact_id, :choices=>{:reflection=>:self_contacts, :label=>:address}, :new=>{:controller=>:relations, :action=>:entity_contact_create, :id=>@current_company.entity_id}
+  -f.field :purchase_order, :dest_contact_id, :choices=>{:reflection=>:self_contacts, :label=>:address}, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@current_company.entity_id}
   -f.field :purchase_order, :planned_on
   -f.field :purchase_order, :comment, :field=>:textarea
 

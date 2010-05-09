@@ -44,11 +44,63 @@
 #  updated_at           :datetime         not null
 #  updater_id           :integer          
 #
-
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
 #
-# two:
-#   column: value
+# == Fixture: listing_nodes
+#
+# listing_nodes_001:
+#   company_id: 1
+#   created_at: 2009-07-19 19:13:59 +02:00
+#   creator_id: 1
+#   exportable: true
+#   id: 1
+#   label: "Lorem ipsum"
+#   listing_id: 1
+#   name: "Lorem ipsum"
+#   nature: "Lorem ipsum"
+#   updated_at: 2009-07-19 19:13:59 +02:00
+#   updater_id: 1
+#
+
+listing_nodes_001:
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  exportable: true
+  id: 1
+  label: "Lorem ipsum"
+  listing_id: 1
+  name: "entity"
+  nature: "root"
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+
+listing_nodes_002:
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  exportable: true
+  id: 2
+  parent_id: 1
+  label: "Lorem ipsum"
+  listing_id: 1
+  name: "contacts"
+  nature: "reflection"
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+
+listing_nodes_003:
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  parent_id: 2
+  exportable: true
+  id: 3
+  label: "Lorem ipsum"
+  listing_id: 1
+  name: "address"
+  nature: "column"
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+

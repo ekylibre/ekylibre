@@ -42,7 +42,6 @@
 #  updater_id   :integer          
 #
 
-# -*- coding: utf-8 -*-
 class DocumentTemplate < ActiveRecord::Base
   attr_readonly :company_id
   cattr_reader :families, :document_natures

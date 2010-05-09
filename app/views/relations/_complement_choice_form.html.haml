@@ -1,6 +1,7 @@
 =formalize do |f|
   -f.error :complement_choice
   -f.title :title
+  -f.field :complement_choice, :complement_id, :choices=>{:reflection=>:choice_complements}
   -f.field :complement_choice, :name
   -f.field :complement_choice, :value
    

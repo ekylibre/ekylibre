@@ -53,8 +53,41 @@ module AnnotateModels
       info << sprintf("#  %-#{max_size}.#{max_size}s:%-16.16s %s\n", col.name, col_type, attrs.join(", "))
     end
 
-    info << "#\n\n"
+    info << "#\n"
   end
+
+
+
+  # Use the column information in an ActiveRecord class
+  # to create a comment block containing a line for
+  # each column. The line contains the column name,
+  # the type (and length), and any optional attributes
+  def self.default_fixture(klass)
+    info  = "#\n# == Fixture: #{klass.table_name}\n#\n"
+    info += "# #{klass.table_name}_001:\n"
+    klass.columns.sort{|a,b| a.name<=>b.name}.each do |col|
+      if (!col.null and col.name != "lock_version") or [:creator_id, :updater_id].include?(col.name.to_sym)
+        info += "#   #{col.name}: "
+        if col.name.match(/_id$/) or col.name == "id"
+          info += '1'
+        elsif col.name.match(/_at$/)
+          info += '2009-07-19 19:13:59 +02:00'
+        elsif col.name.match(/_on$/)
+          info += '2009-07-19'
+        elsif col.type == :boolean
+          info += 'true'
+        elsif col.type == :decimal or col.type == :integer
+          info += "0"
+        else
+          info += '"Lorem ipsum"'
+        end
+        info += "\n"
+      end
+    end
+    info << "#\n"
+    return info
+  end
+
 
   # Add a schema block to a file. If the file already contains
   # a schema info block (a comment starting
@@ -68,12 +101,14 @@ module AnnotateModels
       content = File.read(file_name)
       
       # Remove old schema info
-      old_prefix = "== Schema Information"
-      content.sub!(/^# #{old_prefix}.*?\n(#.*\n)*\n/, '')
-      content.sub!(/^# #{PREFIX}.*?\n(#.*\n)*\n/, '')
+
+      # old_prefix = "== Schema Information"
+      content.gsub!(/^#\n\n#/, '#')
+      # content.sub!(/^# #{old_prefix}.*?\n(#.*\n)*\n/, '')
+      content.sub!(/^# #{PREFIX}.*?\n(#.*\n)*\n+/, '')
 
       # Write it back
-      File.open(file_name, "w") { |f| f.puts info_block + content }
+      File.open(file_name, "w") { |f| f.puts info_block.gsub(/\n\n/, "\n#\n") +"\n"+ content }
     end
   end
   
@@ -89,7 +124,7 @@ module AnnotateModels
     annotate_one_file(model_file_name, info)
 
     fixture_file_name = File.join(FIXTURE_DIR, klass.table_name + ".yml")
-    annotate_one_file(fixture_file_name, info)
+    annotate_one_file(fixture_file_name, info+default_fixture(klass))
 
     unit_file_name = File.join(UNIT_DIR, klass.name.underscore + "_test.rb")
     annotate_one_file(unit_file_name, info)

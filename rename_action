@@ -41,6 +41,9 @@ rename() {
     move "app/views/$controller/$old.html.haml" "app/views/$controller/$new.html.haml"
     move "app/views/$controller/$old.rjs" "app/views/$controller/$new.rjs"
     move "config/locales/fra/help/$controller-$old.txt" "config/locales/fra/help/$controller-$new.txt"
+    move "config/locales/eng/help/$controller-$old.txt" "config/locales/fra/help/$controller-$new.txt"
+    move "config/locales/spa/help/$controller-$old.txt" "config/locales/fra/help/$controller-$new.txt"
+    move "config/locales/jpn/help/$controller-$old.txt" "config/locales/fra/help/$controller-$new.txt"
 }
 
 rename $controller $old $new

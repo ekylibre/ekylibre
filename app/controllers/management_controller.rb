@@ -162,17 +162,13 @@ class ManagementController < ApplicationController
 
   # Generic method to produce units of product
   def product_units
-    if request.xhr?
-      return unless @product = find_and_check(:product)
-      render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.label, x.id]})-%>"
-    end
+    return unless @product = find_and_check(:product)
+    render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.label, x.id]})-%>"
   end
 
   def product_trackings
-    if request.xhr?
-      return unless @product = find_and_check(:product)
-      render :inline=>"<%=options_for_select([['---', '']]+@product.trackings.collect{|x| [x.name, x.id]})-%>"
-    end
+    return unless @product = find_and_check(:product)
+    render :inline=>"<%=options_for_select([['---', '']]+@product.trackings.collect{|x| [x.name, x.id]})-%>"
   end
 
 
@@ -664,7 +660,7 @@ class ManagementController < ApplicationController
 
   def self.products_conditions(options={})
     code = ""
-    code += "conditions = [ \" company_id = ? AND (LOWER(code) LIKE ?  OR LOWER(name) LIKE ?) AND active = ? \" , @current_company.id, '%'+session[:product_key].lower+'%', '%'+session[:product_key].lower+'%', session[:product_active]] \n"
+    code += "conditions = [ \" company_id = ? AND (LOWER(code) LIKE ?  OR LOWER(name) LIKE ?) AND active = ? \" , @current_company.id, '%'+session[:product_key].to_s.lower+'%', '%'+session[:product_key].to_s.lower+'%', session[:product_active]] \n"
     code += "if session[:product_shelf_id].to_i != 0 \n"
     code += "conditions[0] += \" AND shelf_id = ?\" \n" 
     code += "conditions << session[:product_shelf_id].to_i \n"
@@ -1131,7 +1127,7 @@ class ManagementController < ApplicationController
     session[:current_entity] = client_id
     contacts = Contact.find(:all, :conditions=>{:entity_id=> client_id, :company_id=>@current_company.id, :active=>true})  
     @contacts = contacts.collect{|x| [x.address, x.id]}
-    render :text=>options_for_select(@contacts) if request.xhr?
+    render :text=>options_for_select(@contacts) , :layout=>!request.xhr?
   end
 
   dyli(:clients, [:code, :full_name], :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :client=>true})
@@ -1294,7 +1290,7 @@ class ManagementController < ApplicationController
     if params[:sale_order_line_price_id]
       return unless price = find_and_check(:prices, params[:sale_order_line_price_id]) 
     end
-    puts session[:current_product].inspect+"!!!!!!!!"+price.inspect
+    # puts session[:current_product].inspect+"!!!!!!!!"+price.inspect
     return unless @product = find_and_check(:products, price.nil? ? session[:current_product] : price.product_id)
     session[:current_product] = @product.id
     return unless @location = find_and_check(:locations, params[:sale_order_line_location_id]||session[:current_location])
@@ -1807,7 +1803,11 @@ class ManagementController < ApplicationController
   
   
   def payment_part_create
-    return unless @expense = find_and_check(params[:expense_type]||session[:expense_type], params[:expense_id]||session[:expense_id])
+    unless expense_type = (params[:expense_type]||session[:expense_type])
+      redirect_to_back
+      return
+    end
+    return unless @expense = find_and_check(expense_type, params[:expense_id]||session[:expense_id])
     @payment_part = PaymentPart.new
     if request.post?
       if params[:new_payment]
@@ -1971,18 +1971,20 @@ class ManagementController < ApplicationController
 
   def self.subscriptions_conditions(options={})
     code = ""
-    code += "conditions = [ \" company_id = ? AND COALESCE(sale_order_id,0) NOT IN (SELECT id from sale_orders WHERE company_id = ? and state = 'P') \" , @current_company.id, @current_company.id] \n"
-    code += "if session[:subscriptions][:nature].is_a? Hash \n"
-    code += "conditions[0] += \" AND nature_id = ?\" \n "
-    code += "conditions << session[:subscriptions][:nature]['id'].to_i \n"
-    code += "end \n"
-    code += "if session[:subscriptions][:nature]['nature'] == 'quantity' \n"
-    code += "conditions[0] += \" AND ? BETWEEN first_number AND last_number\" \n"
-    code += "elsif session[:subscriptions][:nature]['nature'] == 'period' \n"
-    code += "conditions[0] += \" AND ? BETWEEN started_on AND stopped_on\" \n"
-    code += "end \n"
-    code += "conditions << session[:subscriptions][:instant] \n"
-    code += "conditions \n"
+    code += "conditions = [ \" company_id = ? AND COALESCE(sale_order_id,0) NOT IN (SELECT id from sale_orders WHERE company_id = ? and state = 'P') \" , @current_company.id, @current_company.id]\n"
+    code += "if session[:subscriptions].is_a? Hash\n"
+    code += "  if session[:subscriptions][:nature].is_a? Hash\n"
+    code += "    conditions[0] += \" AND nature_id = ?\" \n "
+    code += "    conditions << session[:subscriptions][:nature]['id'].to_i\n"
+    code += "  end\n"
+    code += "  if session[:subscriptions][:nature]['nature'] == 'quantity'\n"
+    code += "    conditions[0] += \" AND ? BETWEEN first_number AND last_number\"\n"
+    code += "  elsif session[:subscriptions][:nature]['nature'] == 'period'\n"
+    code += "    conditions[0] += \" AND ? BETWEEN started_on AND stopped_on\"\n"
+    code += "  end\n"
+    code += "  conditions << session[:subscriptions][:instant]\n"
+    code += "end\n"
+    code += "conditions\n"
     code
   end
 
@@ -2150,7 +2152,7 @@ class ManagementController < ApplicationController
   def self.stocks_conditions(options={})
     code = ""
     code += " conditions = {} \n "
-    code += "conditions[:company_id] = @current_company.id \n"
+    code += "conditions[:company_id] = @current_company.id\n"
     code += " conditions[:location_id] = session[:location_id] if !session[:location_id].nil? \n "
     code += " conditions \n "
     code

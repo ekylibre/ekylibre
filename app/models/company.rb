@@ -132,6 +132,7 @@ class Company < ActiveRecord::Base
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, name, first_name'
   has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, name, first_name'
   has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
+  has_many :choice_complements, :class_name=>Complement.name, :conditions=>{:nature=>"choice"}, :order=>"name"
 
   has_one :current_financialyear, :class_name=>Financialyear.name, :conditions=>{:closed=>false}
 
@@ -578,7 +579,7 @@ class Company < ActiveRecord::Base
       entities.each do |entity|
         contact = self.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :default=>true, :deleted=>false})
         line = []
-        line << ["'"+entity.code, entity.nature.name, entity.category.name,entity.name, entity.first_name]
+        line << ["'"+entity.code.to_s, entity.nature.name, entity.category.name, entity.name, entity.first_name]
         if !contact.nil?
           line << [contact.line_2, contact.line_3, contact.line_4, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
         else

@@ -92,8 +92,8 @@ fra:
         sales: 'Exporter un tableau des ventes au format CSV' #!
         source: 'Source de données :'
       delay:
-        title: 'Délai : {{name}}'
         delay_update: 'Modifier le délai'
+        title: 'Délai : {{name}}'
       delay_create:
         title: 'Ajout d''un nouveau délai'
       _delay_form:

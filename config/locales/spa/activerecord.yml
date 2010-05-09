@@ -156,7 +156,7 @@ spa:
         #>charges_accounts: 'Comptes de charge'
         #>client_accounts: 'Comptes clients'
         #>code: 'Code interne'
-        #>complement_choices: 'Choix de champ complémentaire'
+        #>complement: 'Choix de champ complémentaire'
         #>complement_data: 'Données complémentaires de fiche'
         #>complements: 'Champs complémentaires'
         #>contacts: 'Contacts'

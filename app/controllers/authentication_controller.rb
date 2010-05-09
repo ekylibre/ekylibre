@@ -98,7 +98,7 @@ class AuthenticationController < ApplicationController
       @current_company = Company.find_by_code(params[:company])
       unless @current_company
         notify(:unknown_company, :error)
-        return redirect_to_login 
+        redirect_to :action=>:login, :company=>nil
       end
     end
   end
