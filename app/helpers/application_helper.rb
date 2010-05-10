@@ -53,14 +53,14 @@ module ApplicationHelper
      {:name=>:relations, :list=>
        [ {:name=>:relations_tasks, :list=>
            [ {:name=>:entities},
-             # {:name=>:import_export, :url=>{:action=>:entities_import}},
+             {:name=>:import_export, :url=>{:action=>:entities_import}},
              {:name=>:events},
              {:name=>:mandates}
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:entity_categories},
              {:name=>:entity_natures},
-             {:name=>:entity_link_natures},
+             {:name=>:entity_link_natures},   
              {:name=>:event_natures},
              {:name=>:complements},
              {:name=>:mandates_configure},

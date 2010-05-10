@@ -837,36 +837,84 @@ class RelationsController < ApplicationController
 
 
   def entities_import
-    @formats = [["CSV", :csv]] # , ["CSV Excel", :xcsv], ["XLS Excel", :xls], ["OpenDocument", :ods]]
-    # @formats = Spreet.formats.collect{|f| [tg("formats.#{f}"), f]}
-    @step = 0
-    if request.post?
-      if params[:upload]
+    @step = params[:id].to_sym rescue :upload
+    if @step == :upload
+      # @formats = Spreet.formats.collect{|f| [tg("formats.#{f}"), f]}
+      @formats = [["CSV", :csv]] # , ["CSV Excel", :xcsv], ["XLS Excel", :xls], ["OpenDocument", :ods]]
+      if request.post? and params[:upload]
         data = params[:upload]
         file = "#{RAILS_ROOT}/tmp/uploads/entities_import_#{data.original_filename.gsub(/[^\w]/,'_')}"
         File.open(file, "wb") { |f| f.write(data.read)}
-        FasterCSV.foreach(file) do |row|
-          @columns = row
-          break
-        end
-        @options = []
-        @options << ["-- DONT USE --", :dont_use]
-        @options << ["-- GENERATE COMPLEMENT --", :generate_complement]
-        columns = Entity.content_columns.delete_if{|c| [:active, :full_name, :soundex, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
-        @options += columns.collect{|c| [Entity.human_name+"/"+Entity.human_attribute_name(c), "entity-"+c]}
-        columns = Contact.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["line_6_city", "line_6_code"]
-        @options += columns.collect{|c| [Contact.human_name+"/"+Contact.human_attribute_name(c), "contact-"+c]}
-        # @options += Contact.content_columns.collect{|c| [Contact.human_name+"/"+Contact.human_attribute_name(c.name), "contact-"+c.name]}
-        @options += @current_company.complements.collect{|c| [c.name, "complement-"+c.id.to_s]}
-        @options.sort!
-        @step = 2
-      elsif params[:columns]
-        # Analyze columns (check uniqueness...)
-        # Add entities
-        
-        
+        session[:entities_import] = file
+        redirect_to :action=>:entities_import, :id=>:columns
       end
+    elsif @step == :columns
+      unless File.exist?(session[:entities_import].to_s)
+        redirect_to :action=>:entities_import, :id=>:upload
+      end
+      csv = FasterCSV.open(session[:entities_import])
+      @columns = csv.shift
+      @first_line = csv.shift
+      @options = @current_company.importable_columns
+      if request.post?
+        columns = params[:columns].delete_if{|k,v| v.match(/^special-/) or v.blank?}
+        if (columns.values.size - columns.values.uniq.size) > 0
+          notify(:columns_are_already_uses, :error, :now)
+          return
+        end
+        cols = {}
+        for prefix in columns.values.collect{|x| x.split(/\-/)[0]}.uniq
+          cols[prefix.to_sym] = {}
+          columns.select{|k,v| v.match(/^#{prefix}-/)}.each{|k,v| cols[prefix.to_sym][v.split(/\-/)[1].to_sym] = k.to_i}
+        end
+        if (cols[:entity]||{}).keys.size <=0
+          notify(:entity_columns_are_needed, :error, :now)
+          return
+        end
+        # raise Exception.new columns.inspect+"\n"+cols.inspect
+
+        csv = FasterCSV.open(session[:entities_import])
+        @columns = csv.shift
+        code  = "ActiveRecord::Base.transaction do\n"
+        code += "  line_number = 1\n"
+        unless cols[:entity_nature].is_a? Hash
+          code += "  nature = @current_company.entity_natures.find(:first, :conditions=>['abbreviation=? OR name=?', '-', '-'])\n"
+          code += "  nature = @current_company.entity_natures.create!(:abbreviation=>'-', :name=>'-', :physical=>false, :in_name=>false, :active=>true) unless nature\n"
+        end
+        unless cols[:entity_category].is_a? Hash
+          code += "  category = @current_company.entity_categories.find(:first, :conditions=>['name=? or code=?', '-', '-'])\n"
+          code += "  category = @current_company.entity_categories.create!(:name=>'-', :deleted=>false, :default=>false) unless category\n"
+        end
+        code += "  while line = csv.shift\n"
+        code += "    line_number++\n"
+        if cols[:entity_nature].is_a? Hash
+          code += "    nature = @current_company.entity_natures.find(:first, :conditions=>{"+cols[:entity_nature].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+"})\n"
+          code += "    nature = @current_company.entity_natures.create!("+cols[:entity_nature].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+") unless nature\n"
+        end
+        if cols[:entity_category].is_a? Hash
+          code += "    category = @current_company.entity_categories.find(:first, :conditions=>{"+cols[:entity_category].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+"})\n"
+          code += "    category = @current_company.entity_categories.create!("+cols[:entity_category].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+") unless category\n"
+        end
+        code += "    entity = @current_company.entities.create!("+cols[:entity].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+", :nature_id=>nature.id, :category_id=>category.id)\n"
+        code += "    contact = entity.contacts.create!("+cols[:contact].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+")\n" if cols[:contact].is_a? Hash
+        for k, v in cols[:complement]||{}
+          if complement = @current_company.complements.find_by_id(k.to_s[2..-1].to_i)
+            if complement.nature == 'string'
+              code += "    entity.complement_data.create!(:complement_id=>#{complement.id}, :string_value=>line[#{v}])\n"
+              # elsif complement.nature == 'choice'
+              #   code += "    co = entity.contacts.create("+cols[:contact].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+")\n" if cols[:contact].is_a? Hash              
+            end
+          end
+        end
+        code += "  end\n"
+        code += "end\n"
+        raise Exception.new code
+        eval(code)
+        redirect_to :action=>:entities_import, :id=>:validate
+      end
+    elsif @step == :validate
     end
+
   end
 
 

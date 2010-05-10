@@ -114,7 +114,7 @@ fra:
           other: '{{count}} fiches enregistrées' #!
           zero: 'Aucune fiche enregistrée' #!
  #!
-        title: 'Fiches des relations'
+        title: 'Fiches des personnes'
       entities_import:
         csv_file: 'Fichier CSV à importer' #!
         defined_columns: 'Voici le format à respecter des colonnes du fichier csv à importer :' #!

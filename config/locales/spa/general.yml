@@ -245,7 +245,7 @@ spa:
           relations:
             entities:
               #>format: '[number|8]'
-              #>name: 'Numérotation des relations'
+              #>name: 'Numérotation des personnes'
         #>shelf_name: 'Sans catégorie'
         taxes:
           tva0000:
@@ -320,7 +320,7 @@ spa:
         #>balance: 'Balance'
         #>balance_sheet: 'Bilan comptable'
         #>embankment: 'Remise de chèques'
-        #>entity: 'Fiche relations'
+        #>entity: 'Fiche personnes'
         #>financialyear: 'Documents de synthèse'
         #>general_journal: 'Journal général'
         #>general_ledger: 'Grand livre'
@@ -573,7 +573,7 @@ spa:
   views:
     shared:
       _entities_search:
-        #>search: 'Rechercher une relation'
+        #>search: 'Rechercher une personne'
       _menu:
         #>accountancy_tasks: 'Travaux comptables'
         #>accountize: 'Bascule comptable'

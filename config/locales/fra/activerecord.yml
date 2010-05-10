@@ -78,7 +78,7 @@ fra:
           location_can_not_waste_product: 'Vous ne pouvez pas enregistrer de perte pour  le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
           locations_can_not_be_identical: 'Les lieux de stockage (départ et arrivée) ne peuvent pas être identiques'
         subscription:
-          entity_must_be_the_same_as_the_contact_entity: 'La relation de l''abonnement doit être la même que celle du contact'
+          entity_must_be_the_same_as_the_contact_entity: 'La personne de l''abonnement doit être la même que celle du contact'
         tax_declaration:
           declaration_date_after_period: 'Vous devez faire votre déclaration après la période considérée.'
           one_data_to_record_tax_declaration: 'Vous devez avoir au moins un montant non nul.'
@@ -110,11 +110,11 @@ fra:
       document: 'Document'
       document_template: 'Modèle de document'
       embankment: 'Encaissement'
-      entity: 'Relation'
-      entity_category: 'Catégorie de relation'
-      entity_link: 'Lien de relation'
-      entity_link_nature: 'Nature de lien entre relations'
-      entity_nature: 'Type de relation'
+      entity: 'Personne'
+      entity_category: 'Catégorie de personne'
+      entity_link: 'Lien de personne'
+      entity_link_nature: 'Nature de lien entre personnes'
+      entity_nature: 'Type de personne'
       establishment: 'Établissement'
       event: 'Évènement'
       event_nature: 'Type d''évènement'
@@ -190,11 +190,11 @@ fra:
       document: 'Documents'
       document_template: 'Modèles de document'
       embankment: 'Encaissements'
-      entity: 'Relations'
-      entity_category: 'Catégories de relation'
-      entity_link: 'Liens de relation'
-      entity_link_nature: 'Natures de lien entre relations'
-      entity_nature: 'Types de relation'
+      entity: 'Personnes'
+      entity_category: 'Catégories de personne'
+      entity_link: 'Liens de personne'
+      entity_link_nature: 'Natures de lien entre personnes'
+      entity_nature: 'Types de personne'
       establishment: 'Établissements'
       event: 'Évènements'
       event_nature: 'Types d''évènement'
@@ -441,13 +441,13 @@ fra:
         embankable_payments: 'Réglements encaissables'
         embankments: 'Encaissements'
         employees: 'employés'
-        entities: 'Relations'
-        entity: 'Fiche relation'
-        entity_categories: 'Catégories de relation'
-        entity_id: 'Fiche relation'
-        entity_link_natures: 'Natures de lien entre relations'
-        entity_links: 'Liens de relation'
-        entity_natures: 'Types de relation'
+        entities: 'Personnes'
+        entity: 'Fiche personne'
+        entity_categories: 'Catégories de personne'
+        entity_id: 'Fiche personne'
+        entity_link_natures: 'Natures de lien entre personnes'
+        entity_links: 'Liens de personne'
+        entity_natures: 'Types de personne'
         establishments: 'Établissements'
         event_natures: 'Types d''évènement'
         events: 'Évènements'
@@ -667,7 +667,7 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        entities: 'Relations'
+        entities: 'Personnes'
         expression: 'Expression'
         id: 'ID'
         invoices: 'Factures'
@@ -884,7 +884,7 @@ fra:
         updater_id: 'Modificateur'
         validated: 'Valider' #?
 
-      # Relation
+      # Personne
       entity:
         active: 'Actif'
         activity_code: 'Code d''activité'
@@ -966,7 +966,7 @@ fra:
         webpass: 'Mot de passe web'
         website: 'Site Web'
 
-      # Catégorie de relation
+      # Catégorie de personne
       entity_category:
         code: 'Code'
         company: 'Société'
@@ -977,7 +977,7 @@ fra:
         default: 'Par défaut'
         deleted: 'Effacé'
         description: 'Description'
-        entities: 'Relations'
+        entities: 'Personnes'
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
@@ -986,7 +986,7 @@ fra:
         updater: 'Modificateur'
         updater_id: 'Modificateur'
 
-      # Lien de relation
+      # Lien de personne
       entity_link:
         comment: 'Commentaire'
         company: 'Société'
@@ -1008,7 +1008,7 @@ fra:
         updater: 'Modificateur'
         updater_id: 'Modificateur'
 
-      # Nature de lien entre relations
+      # Nature de lien entre personnes
       entity_link_nature:
         comment: 'Commentaire'
         company: 'Société'
@@ -1016,7 +1016,7 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        entity_links: 'Liens de relation'
+        entity_links: 'Liens de personne'
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
@@ -1028,7 +1028,7 @@ fra:
         updater: 'Modificateur'
         updater_id: 'Modificateur'
 
-      # Type de relation
+      # Type de personne
       entity_nature:
         abbreviation: 'Abréviation'
         active: 'Actif'
@@ -1038,7 +1038,7 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         description: 'Description'
-        entities: 'Relations'
+        entities: 'Personnes'
         id: 'ID'
         in_name: 'Abréviation incluse dans le nom de la fiche'
         lock_version: 'Version'
@@ -1076,8 +1076,8 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         duration: 'Durée (en minutes)'
-        entity: 'Relation'
-        entity_id: 'Relation'
+        entity: 'Personne'
+        entity_id: 'Personne'
         id: 'ID'
         location: 'Lieu'
         lock_version: 'Version'
@@ -1232,8 +1232,8 @@ fra:
         creator_id: 'Créateur'
         credit_lines: 'Lignes d''avoir'
         credited_quantity: 'Quantité déjà passée en avoir'
-        entity: 'Relation'
-        entity_id: 'Relation'
+        entity: 'Personne'
+        entity_id: 'Personne'
         id: 'ID'
         invoice: 'Facture'
         invoice_id: 'Facture'
@@ -1356,7 +1356,7 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         document_templates: 'Modèles de document'
-        entities: 'Relations'
+        entities: 'Personnes'
         id: 'ID'
         iso2: 'Code ISO 2'
         iso3: 'Code ISO 3'
@@ -1683,7 +1683,7 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         embankable_payments: 'Réglements encaissables'
-        entities: 'Relations'
+        entities: 'Personnes'
         id: 'ID'
         lock_version: 'Version'
         mode: 'Mode'
@@ -2049,8 +2049,8 @@ fra:
         creator_id: 'Créateur'
         delivery_lines: 'Lignes de livraison'
         discount: 'Réduction (en %)'
-        entity: 'Relation'
-        entity_id: 'Relation'
+        entity: 'Personne'
+        entity_id: 'Personne'
         id: 'ID'
         invoice_lines: 'Lignes de facture'
         invoiced: 'Facturée'

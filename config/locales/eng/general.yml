@@ -245,7 +245,7 @@ eng:
           relations:
             entities:
               #>format: '[number|8]'
-              #>name: 'Numérotation des relations'
+              #>name: 'Numérotation des personnes'
         #>shelf_name: 'Sans catégorie'
         taxes:
           tva0000:
@@ -320,7 +320,7 @@ eng:
         #>balance: 'Balance'
         #>balance_sheet: 'Bilan comptable'
         #>embankment: 'Remise de chèques'
-        #>entity: 'Fiche relations'
+        #>entity: 'Fiche personnes'
         #>financialyear: 'Documents de synthèse'
         #>general_journal: 'Journal général'
         #>general_ledger: 'Grand livre'

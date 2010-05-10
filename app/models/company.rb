@@ -870,4 +870,20 @@ class Company < ActiveRecord::Base
     return self.journal_entries.find(:all, :conditions=>conditions, :joins=>"inner join journal_records r on r.id=journal_entries.record_id", :order=>"r.number ASC")
   end
 
+
+  def importable_columns
+    columns = []
+    columns << ["-- DONT USE --", "special-dont_use"]
+    # columns << ["-- GENERATE STRING COMPLEMENT --", "special-generate_string_complement"]
+    # columns << ["-- GENERATE CHOICE COMPLEMENT --", "special-generate_choice_complement"]
+    cols = Entity.content_columns.delete_if{|c| [:active, :full_name, :soundex, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
+    columns += cols.collect{|c| [Entity.human_name+"/"+Entity.human_attribute_name(c), "entity-"+c]}
+    cols = Contact.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["line_6_city", "line_6_code"]
+    columns += cols.collect{|c| [Contact.human_name+"/"+Contact.human_attribute_name(c), "contact-"+c]}
+    columns += ["name", "abbreviation"].collect{|c| [EntityNature.human_name+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}
+    columns += ["name"].collect{|c| [EntityCategory.human_name+"/"+EntityCategory.human_attribute_name(c), "entity_category-"+c]}
+    columns += self.complements.find(:all, :conditions=>["nature in ('string')"]).collect{|c| [Complement.human_name+"/"+c.name, "complement-id"+c.id.to_s]}
+    return columns.sort
+  end
+
 end

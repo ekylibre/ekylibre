@@ -12,6 +12,8 @@ fra:
     changes_have_been_reflected: 'Les changements ont été correctement répercutés sur l''état des stocks actuel'
     changes_have_not_been_reflected: 'Les changements n''ont pas pu être correctement répercutés sur l''état des stocks actuel'
     closed_financialyears: 'L''exercice a été correctement clôturé'
+    columns_are_already_uses: (((COLUMNS_ARE_ALREADY_USES)))
+    entity_columns_are_needed: (((ENTITY_COLUMNS_ARE_NEEDED)))
     expired_session: 'Session expirée. Veuillez vous reconnecter.'
     fails_to_extract_listing: 'L''extraction n''a pas pu s''effectuer : {{message}}'
     import_succeeded: 'Vos données ont été correctement importées '

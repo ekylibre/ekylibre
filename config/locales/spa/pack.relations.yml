@@ -113,7 +113,7 @@ spa:
           #>one: '1 fiche enregistrée'
           #>other: '{{count}} fiches enregistrées'
           #>zero: 'Aucune fiche enregistrée'
-        #>title: 'Fiches des relations'
+        #>title: 'Fiches des personnes'
       entities_contact_delete:
       entities_import:
         #>csv_file: 'Fichier CSV à importer'

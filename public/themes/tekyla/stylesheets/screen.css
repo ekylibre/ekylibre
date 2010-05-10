@@ -187,6 +187,7 @@ table.formalize td .example      { color: #040;  background:#CFC; padding:2px; }
 table.formalize td .example span { color: #4A5; }
 table.formalize td .hint         { color: #600;  background:#FDE; padding:2px;}
 table.formalize td .hint span    { color: #B54; }
+table.formalize td .note         { color: #777; }
 table.formalize tr.title th { padding: 16px 8px 2px; border-bottom: 0px dotted #012; color: #012; font-size:13px; border-bottom: 1px solid #CCC; font-weight:bold;}
 table.formalize td.input .code { font-family: monospace; }
 a.act img { border: none !important; }

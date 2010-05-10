@@ -108,7 +108,7 @@ class Entity < ActiveRecord::Base
     self.name = self.name.to_s.strip
     self.full_name = (self.name.to_s+" "+self.first_name.to_s)
     unless self.nature.nil?
-      self.full_name = self.nature.abbreviation+' '+self.full_name unless (self.nature.in_name or self.nature.abbreviation == "-")
+      self.full_name = (self.nature.title+' '+self.full_name).strip unless self.nature.in_name # or self.nature.abbreviation == "-")
     end
     self.full_name.strip!
     
@@ -271,5 +271,6 @@ class Entity < ActiveRecord::Base
   def destroyable?
     self.id != self.company.entity_id
   end
+
 
 end 
