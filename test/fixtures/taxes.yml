@@ -55,4 +55,31 @@
 #   updater_id: 1
 #
 
-# Generated
+taxes_001:
+  amount: 0.196
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  deleted: false
+  id: 1
+  included: false
+  name: "Lorem ipsum"
+  nature: "percent"
+  reductible: true
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+taxes_002:
+  amount: 0
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  deleted: false
+  id: 2
+  included: false
+  name: "LoremIpsum2"
+  nature: "percent"
+  reductible: true
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+

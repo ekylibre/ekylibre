@@ -52,4 +52,29 @@
 #   updater_id: 1
 #
 
-# Generated
+shapes_001:
+  area_measure: 17.12
+  area_unit_id: 3
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 1
+  master: true
+  name: "Lorem ipsum"
+  polygon: "***"
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+shapes_002:
+  area_measure: 15.2
+  area_unit_id: 3
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 2
+  master: true
+  name: "Lorem ipsum"
+  polygon: "***"
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+

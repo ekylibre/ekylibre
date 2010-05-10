@@ -71,4 +71,43 @@
 #   updater_id: 1
 #
 
-# Generated
+invoices_001:
+  amount: 0
+  amount_with_taxes: 0
+  client_id: 1
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  credit: false
+  downpayment_amount: 0
+  has_downpayment: false
+  id: 1
+  lost: true
+  nature: "I"
+  number: "F000001"
+  paid: true
+  payment_delay_id: 1
+  payment_on: 2009-07-19
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+invoices_002:
+  amount: 0
+  amount_with_taxes: 0
+  client_id: 1
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  credit: false
+  downpayment_amount: 0
+  has_downpayment: false
+  id: 2
+  lost: true
+  nature: "I"
+  number: "F000002"
+  paid: true
+  payment_delay_id: 1
+  payment_on: 2009-07-19
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+

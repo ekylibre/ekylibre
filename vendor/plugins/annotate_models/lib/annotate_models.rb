@@ -95,7 +95,7 @@ module AnnotateModels
 
   def self.annotate_one_file(file_name, info_block)
     unless File.exist?(file_name)
-      File.open(file_name, "w") { |f| f.puts "# Generated" }
+      File.open(file_name, "w") { |f| f.puts "" }
     end
     if File.exist?(file_name)
       content = File.read(file_name)

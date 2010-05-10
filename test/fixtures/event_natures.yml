@@ -46,7 +46,6 @@
 #   updater_id: 1
 #
 
-
 event_natures_001:
   active: true
   name: Default event nature

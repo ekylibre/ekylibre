@@ -91,8 +91,15 @@ class ActionController::TestCase
     except = options.delete(:except)||[]
     for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s}.delete_if{|x| except.include? x}
       code += "  should 'get #{action}' do\n"
-      if action.to_s.match(/_delete$/) or options[action]==:delete
+      if options[action].is_a? Hash
         code += "    get #{action.inspect}, :company=>@user.company.code\n"
+        code += "    assert_response :redirect\n"
+        code += "    get #{action.inspect}, :company=>@user.company.code, #{options[action].inspect[1..-2]}\n"
+        code += '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
+        code += "    assert_select('html body div#body', :count=>1)\n"        
+      elsif action.to_s.match(/_(delete|duplicate)$/) or options[action]==:delete
+        code += "    get #{action.inspect}, :company=>@user.company.code\n"
+        code += "    assert_not_nil flash[:notifications]\n"
         code += "    assert_response :redirect\n"
         code += "    get #{action.inspect}, :company=>@user.company.code, :id=>2\n"
         # code += "    assert_not_nil flash[:notifications]\n"

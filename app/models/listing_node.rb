@@ -153,7 +153,7 @@ class ListingNode < ActiveRecord::Base
   end
 
   def joins
-    self.children.find(:all, :conditions=>["nature = ? OR nature = ? AND company_id = ?", 'belongs_to', 'has_many', self.company_id])
+    self.children.find(:all, :conditions=>["(nature = ? OR nature = ?) AND company_id = ?", 'belongs_to', 'has_many', self.company_id])
   end
   
   def comparators

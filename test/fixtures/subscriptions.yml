@@ -55,4 +55,44 @@
 #   updater_id: 1
 #
 
-# Generated
+subscriptions_001:
+  contact_id: 1
+  entity_id: 1
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 1
+  suspended: true
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  first_number: 1
+  last_number: 50
+  nature_id: 1
+
+subscriptions_002:
+  contact_id: 1
+  entity_id: 1
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 2
+  suspended: true
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  first_number: 1
+  last_number: 50
+  nature_id: 1
+
+subscriptions_003:
+  contact_id: 1
+  entity_id: 1
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 3
+  suspended: true
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  started_on: 2001-01-01
+  stopped_on: 2002-12-31
+  nature_id: 3

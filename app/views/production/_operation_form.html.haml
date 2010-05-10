@@ -36,6 +36,6 @@
         -if tools.size>0
           %td
             =formalize do |f|
-              - f.title :tools
-              - tools.each do |tool|
-                - f.field content_tag(:label, tool.name, :for=>"tools_#{tool.id}"), check_box_tag("tools[#{tool.id}]" ,"1", @operation.new_record? ? false : (session[:tool_ids].include?(tool.id.to_s)), :id=>"tools_#{tools.id}")
+              -f.title :tools
+              -for tool in tools
+                -f.field content_tag(:label, tool.name, :for=>"tools_#{tool.id}"), check_box_tag("tools[#{tool.id}]" ,"1", (@operation.new_record? ? false : (session[:tool_ids].include?(tool.id.to_s))), :id=>"tools_#{tool.id}")

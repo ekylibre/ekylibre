@@ -26,7 +26,6 @@ __minimum__:
 __not_used__:
   actions:
   - accountancy::import
-  - relations::tototo # UNEXISTENT ACTION !!!
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_dyta
@@ -248,14 +247,14 @@ manage_company:
 manage_complements:
   controller: relations
   actions:
+  - complement
   - complement_choice_create
   - complement_choice_down
   - complement_choice_up
   - complement_choice_update
-  - complement
   - complement_choices_dyta
-  - complement_sort
   - complement_create
+  - complement_sort
   - complement_update
   - complements
   - complements_dyta
@@ -557,7 +556,6 @@ manage_products:
 manage_sale_order_natures:
   controller: management
   actions:
-  - sale_order_nature
   - sale_order_nature_create
   - sale_order_nature_delete
   - sale_order_nature_update
@@ -712,4 +710,4 @@ search_and_consult_invoices:
 # Rechercher et consulter des produits
 search_and_consult_products:
   controller: management
-  actions: [product, products, products_search]
+  actions: [product, products]

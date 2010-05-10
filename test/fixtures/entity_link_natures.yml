@@ -49,7 +49,6 @@
 #   updater_id: 1
 #
 
-
 entity_link_natures_001:
   name: Standard link
   propagate_contacts: false

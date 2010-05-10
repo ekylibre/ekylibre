@@ -151,9 +151,8 @@ class ProductionController < ApplicationController
 
   def operation_delete
     return unless @operation = find_and_check(:operations)
-    if request.post? or request.delete?
-      redirect_to_current if @operation.destroy
-    end
+    @operation.destroy if request.post? or request.delete?
+    redirect_to_current
   end
 
   dyli(:operation_products, [:code, :name], :model=>:products, :conditions => {:company_id=>['@current_company.id'], :active=>true})

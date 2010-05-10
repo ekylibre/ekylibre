@@ -67,7 +67,6 @@
 #   updater_id: 1
 #
 
-
 contacts_001:
   entity_id: 1
   code: AAAA

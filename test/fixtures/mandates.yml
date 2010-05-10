@@ -50,7 +50,6 @@
 #   updater_id: 1
 #
 
-
 mandates_001:
   entity_id: 1
   family: activities

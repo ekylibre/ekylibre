@@ -417,9 +417,10 @@ fra:
         banks_accounts: 'Comptes comptables de banque'
         born_on: 'Créée le'
         charges_accounts: 'Comptes de charge'
+        choice_complements: 'Chmaps complémentaires "liste de choix"'
         client_accounts: 'Comptes clients'
         code: 'Code interne'
-        complement: 'Choix de champ complémentaire'
+        complement_choices: 'Choix de champ complémentaire'
         complement_data: 'Données complémentaires de fiche'
         complements: 'Champs complémentaires'
         contacts: 'Contacts'
@@ -447,7 +448,6 @@ fra:
         entity_link_natures: 'Natures de lien entre relations'
         entity_links: 'Liens de relation'
         entity_natures: 'Types de relation'
-        entries: 'Écritures' #?
         establishments: 'Établissements'
         event_natures: 'Types d''évènement'
         events: 'Évènements'
@@ -456,7 +456,6 @@ fra:
         inventories: 'Inventaires'
         inventory_lines: 'Lignes d''inventaire'
         invoice_lines: 'Lignes de facture'
-        invoice_sequence_id: 'Séquence de facturation' #?
         invoices: 'Factures'
         journal_entries: 'Écritures'
         journal_records: 'Pièces comptables'
@@ -468,7 +467,7 @@ fra:
         locations: 'Lieux de stockage'
         lock_version: 'Version'
         locked: 'Verrouillée'
-        major_accounts: (((MAJOR_ACCOUNTS)))
+        major_accounts: 'Classes comptables'
         mandates: 'Responsabilités'
         name: 'Nom'
         observations: 'Observations'
@@ -502,7 +501,8 @@ fra:
         shelves: 'Catégories de produit'
         siren: 'Numéro SIREN'
         stock_moves: 'Mouvements de stock'
-        stock_transfers: 'Transferts ou perte de Stock'
+        stock_transfers: 'Transferts ou perte de stock'
+        stockable_products: 'Produits stockables'
         stocks: 'Stocks de produit'
         subscription_natures: 'Types d''abonnement'
         subscriptions: 'Abonnement'
@@ -625,8 +625,6 @@ fra:
         lock_version: 'Version'
         longitude: 'Longitude'
         mobile: 'Portable'
-        name: 'Nom (interne)' #?
-        nature: 'Type' #?
         phone: 'Téléphone'
         purchase_orders: 'Achats'
         started_at: 'Du'

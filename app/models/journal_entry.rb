@@ -91,7 +91,7 @@ class JournalEntry < ActiveRecord::Base
       errors.add_to_base :closed_entry 
       return
     end
-    errors.add_to_base :unvalid_amounts if self.debit > 0 and self.credit > 0
+    errors.add_to_base :unvalid_amounts if self.debit != 0 and self.credit != 0
     errors.add(:debit,  :greater_or_equal_than, :count=>0) if self.debit<0
     errors.add(:credit, :greater_or_equal_than, :count=>0) if self.credit<0
     #     errors.add(:debit,  :greater_than, :count=>0) if self.debit<=0 and self.credit.zero?

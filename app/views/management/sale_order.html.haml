@@ -20,7 +20,7 @@
       =evalue @sale_order, :amount_with_taxes
       =evalue @sale_order, :payment_delay, :label=>:name
       =evalue @sale_order, :confirmed_on
-    -if !@sale_order.comment.empty?
+    -unless @sale_order.comment.blank?
       %td
         =evalue @sale_order, :comment 
 

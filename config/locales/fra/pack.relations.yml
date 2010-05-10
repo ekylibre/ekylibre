@@ -58,17 +58,17 @@ fra:
         title: 'Zones postales'
       _areas_search:
         search: 'Rechercher une zone'
+      complement:
+        complement_choice_create: 'Ajouter un nouveau choix à la liste'
+        complement_sort: 'Trier les choix par nom'
+        complement_update: 'Modifier le champ personnalisé'
+        title: 'Champ personnalisé : {{name}}'
       complement_choice_create:
         title: ' Création d''une option pour une liste de choix'
       _complement_choice_form:
         title: 'Renseignez les caractéristiques de l''option'
       complement_choice_update:
         title: 'Modification de l''option : {{name}}'
-      complement:
-        complement_choice_create: 'Ajouter un nouveau choix à la liste'
-        complement_sort: 'Trier les choix par nom'
-        complement_update: 'Modifier le champ personnalisé'
-        title: 'Champ personnalisé : {{name}}'
       complement_create:
         title: 'Création d''un champ personnalisé'
       _complement_form:

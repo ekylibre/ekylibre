@@ -241,8 +241,8 @@ class CompanyController < ApplicationController
   end
 
   def role_delete
+    return unless @role = find_and_check(:role)
     if request.post? or request.delete?
-      return unless @role = find_and_check(:role)
       Role.destroy(@role.id) if @role and @role.destroyable?
     end
     redirect_to_current
@@ -341,12 +341,10 @@ class CompanyController < ApplicationController
   end
   
   def user_delete
+    return unless @user = find_and_check(:user)
     if request.post? or request.delete?
-      return unless @user = find_and_check(:user)
-      if @user
-        @user.deleted = true
-        @user.save 
-      end
+      @user.deleted = true
+      @user.save 
     end
     redirect_to_back
   end
@@ -402,8 +400,8 @@ class CompanyController < ApplicationController
   end
 
   def document_template_duplicate
+    return unless @document_template = find_and_check(:document_template)
     if request.post?
-      return unless @document_template = find_and_check(:document_template)
       if @document_template 
         attrs = @document_template.attributes.dup
         attrs.delete("id")
@@ -487,7 +485,10 @@ class CompanyController < ApplicationController
       return
     end
     if session[:listing_mail_column] or @listing.mail_columns.size ==  1
-      query = @listing.query
+      if (query = @listing.query).blank?
+        @listing.save 
+        query = @listing.query
+      end
       query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
       full_results = ActiveRecord::Base.connection.select_all(@listing.query)
       listing_mail_column = @listing.mail_columns.size == 1 ? @listing.mail_columns[0] : find_and_check(:listing_nodes, session[:listing_mail_column])
@@ -495,7 +496,7 @@ class CompanyController < ApplicationController
       results = full_results.select{|c| !c[listing_mail_column.label].blank? }
       @mails = results.collect{|c| c[listing_mail_column.label] }
       # @mails.uniq! ### CHECK ????????
-      @columns = results[0].keys.sort
+      @columns = (full_results.size > 0 ? full_results[0].keys.sort : [])
       session[:mail] ||= {}
     end
     if request.post?
@@ -601,8 +602,7 @@ class CompanyController < ApplicationController
   
   def listing_node_update
     return unless @listing_node = find_and_check(:listing_node)
-    # puts params.inspect+"!!!!!!!!!!!!!!!!!!!!!"+@listing_node.inspect if request.xhr?
-    if request.xhr? and @listing_node
+    if request.xhr?
       if params[:type] == "hide" or params[:type] == "show"
         @listing_node.exportable = !@listing_node.exportable
         render :text=>""
@@ -621,8 +621,6 @@ class CompanyController < ApplicationController
     else
       redirect_to :action=>:listings
     end
-    
-    
   end
 
   def listing_node_delete

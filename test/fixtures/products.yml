@@ -85,4 +85,69 @@
 #   updater_id: 1
 #
 
-# Generated
+products_001:
+  active: true
+  catalog_name: "Lorem ipsum"
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 1
+  manage_stocks: true
+  name: "Lorem ipsum"
+  nature: "product"
+  number: 0
+  reduction_submissive: true
+  shelf_id: 1
+  to_produce: true
+  to_purchase: true
+  to_rent: true
+  to_sale: true
+  unit_id: 1
+  unquantifiable: false
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+products_002:
+  active: true
+  catalog_name: "Lorem ipsum 2"
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 2
+  manage_stocks: true
+  name: "Lorem ipsum 2"
+  nature: "product"
+  number: 0
+  reduction_submissive: true
+  shelf_id: 1
+  to_produce: true
+  to_purchase: true
+  to_rent: true
+  to_sale: true
+  unit_id: 1
+  unquantifiable: false
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+products_003:
+  active: true
+  catalog_name: "Lorem ipsum 3"
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 3
+  manage_stocks: true
+  name: "Lorem ipsum 3"
+  nature: "product"
+  number: 0
+  reduction_submissive: true
+  shelf_id: 1
+  to_produce: true
+  to_purchase: true
+  to_rent: true
+  to_sale: true
+  unit_id: 1
+  unquantifiable: false
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+

@@ -136,11 +136,23 @@ class Subscription < ActiveRecord::Base
 #  end
 
   def start
-    self.nature.nature == "quantity" ? self.first_number : ::I18n.localize(self.started_on)
+    if self.nature.nature == "quantity"
+      self.first_number
+    elsif self.started_on.nil?
+      ''
+    else
+      ::I18n.localize(self.started_on)
+    end
   end
 
   def finish
-    self.nature.nature == "quantity" ? self.last_number : ::I18n.localize(self.stopped_on)
+    if self.nature.nature == "quantity"
+      self.last_number
+    elsif self.stopped_on.nil?
+      ''
+    else
+      ::I18n.localize(self.stopped_on)
+    end
   end
 
   def active?(instant=nil)

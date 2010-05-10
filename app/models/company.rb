@@ -118,6 +118,7 @@ class Company < ActiveRecord::Base
   # Specifics
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
+  has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
   has_many :available_products, :class_name=>Product.name, :conditions=>{:active=>true}, :order=>:name
   has_many :available_prices, :class_name=>Price.name, :conditions=>'prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM products WHERE company_id=#{id} AND active=#{connection.quoted_true})', :order=>"prices.amount"
   has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'

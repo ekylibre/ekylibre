@@ -54,14 +54,14 @@ class JournalEntryTest < ActiveSupport::TestCase
   fixtures :journal_entries
 
   test "the validity of entries" do
-    entry = journal_entries(:entry_1)
-    assert entry.valid?
-    entry.debit = 5
-    assert entry.valid?, entry.inspect+"\n"+entry.errors.full_messages.to_sentence
-    entry.credit = 17
-    assert !entry.valid?
-    entry.debit = 0
-    assert entry.valid?, entry.inspect+"\n"+entry.errors.full_messages.to_sentence
+    journal_entry = journal_entries(:journal_entries_001)
+    assert journal_entry.valid?
+    journal_entry.currency_debit = 5
+    assert journal_entry.valid?, journal_entry.inspect+"\n"+journal_entry.errors.full_messages.to_sentence
+    journal_entry.currency_credit = 17
+    assert !journal_entry.valid?, journal_entry.inspect+"\n"+journal_entry.errors.full_messages.to_sentence
+    journal_entry.currency_debit = 0
+    assert journal_entry.valid?, journal_entry.inspect+"\n"+journal_entry.errors.full_messages.to_sentence
   end
 
 end

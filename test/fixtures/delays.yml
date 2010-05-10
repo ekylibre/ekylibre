@@ -47,4 +47,25 @@
 #   updater_id: 1
 #
 
-# Generated
+delays_001:
+  active: true
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  expression: "1 an"
+  id: 1
+  name: "Lorem ipsum"
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+delays_002:
+  active: true
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  expression: "2 years"
+  id: 2
+  name: "Too long"
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+

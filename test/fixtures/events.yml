@@ -53,7 +53,6 @@
 #   user_id: 1
 #
 
-
 events_001:
   entity_id: 1
   nature_id: 1
