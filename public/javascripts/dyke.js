@@ -192,7 +192,7 @@ function refreshList(select, request, source_url) {
         parameters: {selected: request.responseJSON.id},
         onSuccess: function(response) {
         var list = $(select);
-        list.innerHTML = response.responseText;
+        list.update(response.responseText);
       }
   });
 }
