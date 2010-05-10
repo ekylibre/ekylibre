@@ -942,7 +942,6 @@ module ApplicationHelper
           else
             data = "refreshAutoList('#{rlid}', request);"
           end
-          data = ''
           data = ActiveSupport::Base64.encode64(Marshal.dump(data))
           input += link_to_function(label, "openDialog('#{url_for(options[:new].merge(:formalize=>data))}')", :href=>url_for(options[:new]), :class=>:fastadd)
         end

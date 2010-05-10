@@ -154,7 +154,7 @@ class ApplicationController < ActionController::Base
     record.attributes = options[:attributes] if options[:attributes]
     if record.save or options[:saved]
       if params[:dialog]
-        render :json=>{:id=>record.id}, :status=>250
+        render :json=>{:id=>record.id}
       else
         # TODO: notif
         if url == :back

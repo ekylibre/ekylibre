@@ -1,7 +1,8 @@
 -form_id = @options[:id]||"f"+rand.to_s[2..-1]
 -if params[:dialog]
   -jsaction = params[:formalize] ? Marshal.load(ActiveSupport::Base64.decode64(params[:formalize])) : nil
-  -form_remote_tag(:url=>{:dialog=>params[:dialog], :formalize=>params[:formalize]}, 250=>"#{jsaction}; closeDialog('#{params[:dialog]}')", 200=>"$('#{params[:dialog]}').update(request.responseText).resize();", :html=>{:id=>form_id, :flex=>1, :orient=>:vertical, :style=>'overflow:none'}, :loaded=>"resizeDialog('#{params[:dialog]}')") do
+  -#form_remote_tag(:url=>{:dialog=>params[:dialog], :formalize=>params[:formalize]}, 250=>"#{jsaction}; closeDialog('#{params[:dialog]}')", 200=>"$('#{params[:dialog]}').update(request.responseText).resize();", :html=>{:id=>form_id, :flex=>1, :orient=>:vertical, :style=>'overflow:none'}, :loaded=>"resizeDialog('#{params[:dialog]}')") do
+  -form_remote_tag(:url=>{:dialog=>params[:dialog], :formalize=>params[:formalize]}, :success=>"if (request.responseJSON===null) {$('#{params[:dialog]}').update(request.responseText).resize();} else { #{jsaction}; closeDialog('#{params[:dialog]}')}", :html=>{:id=>form_id, :flex=>1, :orient=>:vertical, :style=>'overflow:none'}, :loaded=>"resizeDialog('#{params[:dialog]}')") do
     .fields{:flex=>10}
       =render :partial=>@partial
       .end
