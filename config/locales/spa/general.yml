@@ -280,6 +280,9 @@ spa:
           #>m3: 'Mètre cube'
           #>t: 'Tonne'
           #>u: 'Unité'
+      import:
+        #>dont_use: '-- Ne pas utiliser --'
+        #>generate_string_complement: '-- Créer un champ personnalisé (texte) --'
       #>invoice_creation: 'Création d''une facture'
       #>purchase_order_creation: 'Création d''un achat'
       #>sale_order_creation: 'Création d''un devis'
@@ -578,7 +581,6 @@ spa:
         #>accountancy_tasks: 'Travaux comptables'
         #>accountize: 'Bascule comptable'
         #>bank_account_statements: 'Relevés de compte'
-        #>import_export: 'Import/Export de fiches'
         #>informations: 'Informations'
         #>my_account: 'Mon compte'
         #>parameters: 'Paramètres'

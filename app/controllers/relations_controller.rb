@@ -810,10 +810,39 @@ class RelationsController < ApplicationController
 
 
   def entities_export
-    @columns = @current_company.exportable_columns
-    # @prefixes = @columns.values.collect{|x| x.split(/\-/)[0]}.uniq
-    if request.post?
-      send_data @current_company.export_entities, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment", :filename=>'Fiches_C-F.csv'
+    if request.xhr?
+      render :partial=>'entities_export_condition'
+    else
+      @columns = @current_company.exportable_columns
+      @conditions = ["special-subscriber"] # , "special-buyer", "special-relation"]
+      @conditions += Entity.exportable_columns.collect{|c| "generic-entity-#{c.name}"}.sort
+      @conditions += Contact.exportable_columns.collect{|c| "generic-contact-#{c.name}"}.sort
+      @conditions += ["generic-area-postcode", "generic-area-city"]
+      @conditions += ["generic-district-name"]
+      # @prefixes = @columns.values.collect{|x| x.split(/\-/)[0]}.uniq
+      if request.post?
+        select = "SELECT "+params[:columns].select{|k,v| v.to_i == 1 and !k.match(/^complement\-/)}.collect{|x| x[0].split('-').collect{|x| x.inspect}.join(".")}.join(", ")
+        from = " FROM #{Entity.table_name} AS entity JOIN #{Contact.table_name} AS contact ON (contact.entity_id=entity.id AND contact.active)"
+        from += " LEFT JOIN #{Area.table_name} AS area ON (contact.area_id=area.id) LEFT JOIN #{District.table_name} AS district ON (area.district_id=district.id)"
+        for id in params[:columns].select{|k,v| v.to_i == 1 and k.match(/^complement\-/)}.collect{|k,v| k.split('-')[1][2..-1].to_i}
+          if complement = @current_company.complements.find_by_id(id)
+            from += ", complement_data AS _c#{id} ON (entity.id=_c#{id}.entity_id AND complement_id=#{id} AND _c#{id}.company_id=#{@current_company.id})"
+            if complement.nature == "choice"
+              select += ", _cc#{id}.value AS complement_#{id}"
+              from += " LEFT JOIN complement_choices AS _cc#{id} ON (_cc#{id}.id=_c#{id}.choice_value_id)"
+            else
+              select += ", _c#{id}.#{complement.nature}_value AS complement_#{id}"
+            end
+          end
+        end
+        where = " WHERE entity.active AND entity.company_id=#{@current_company.id} AND contact.company_id=#{@current_company.id}  AND area.company_id=#{@current_company.id} AND district.company_id=#{@current_company.id}"
+
+
+        query = select+"\n"+from+"\n"+where
+        raise query+"\n"+[params[:conditions]].inspect
+
+        send_data @current_company.export_entities, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment", :filename=>'Fiches_C-F.csv'
+      end
     end
   end
 

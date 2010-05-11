@@ -1,0 +1,45 @@
+-id = "c"+rand.to_s[2..-1].to_i.to_s(36)
+-condition = params[:condition]||'unknown'
+-params[:conditions] ||= {}
+-params[:conditions][id] ||= {}
+.condition{:id=>id}
+  .title
+    .right-menu=link_to_function(tg(:delete), "$('#{id}').remove();", :class=>"help-close")
+    .right-menu
+      =check_box_tag("conditions[#{id}][reverse]", "1", params[:conditions][id][:reverse], :id=>"conditions_#{id}_reverse")
+      %label{:for=>"conditions_#{id}_reverse"}=tc(:reverse)
+    %h3=condition_label(condition)
+  .parameters
+    =hidden_field_tag("conditions[#{id}][type]", condition)
+    -if condition == "special-subscriber"
+      -for nature in @current_company.subscription_natures
+        =radio_button_tag("conditions[#{id}][nature]", nature.id, params[:conditions][id][:nature] == nature.id.to_s, :id=>"conditions_#{id}_nature_#{nature.id}", :onchange=>"")
+        %label{:for=>"conditions_#{id}_nature_#{nature.id}"}=h(nature.name)
+        =observe_field("conditions_#{id}_nature_#{nature.id}", :frequency =>0.25, :function => "toggleElement('conditions_#{id}_nature_#{nature.id}_detail', element.checked);")
+      -for nature in @current_company.subscription_natures
+        .param{:id=>"conditions_#{id}_nature_#{nature.id}_detail", :style=>'display:none'}
+          =tc("subscriber_#{nature.nature}", :moment=>select_tag("conditions[#{id}][#{nature.id}][moment]", options_for_select([:now, :before, :after].collect{|x| [tc("moment.#{x}"),x]})), :subscribed_on=>(nature.period? ? calendar_field_tag("conditions[#{id}][#{nature.id}][subscribed_on]") : text_field_tag("conditions[#{id}][#{nature.id}][subscribed_on]", nil, :size=>8)))
+          .param
+            -for product in nature.products
+              =check_box_tag("conditions[#{id}][#{nature.id}][products][#{product.id}]", "1", true, :id=>"conditions_#{id}_#{nature.id}_products_#{product.id}")
+              %label{:for=>"conditions_#{id}_#{nature.id}_products_#{product.id}"}=product.name
+    -elsif condition == "special-buyer"
+    -elsif condition == "special-relation"
+    -elsif condition.match(/^generic/)
+      -klass, attribute = condition.split(/\-/)[1].classify.constantize, condition.split(/\-/)[2]
+      -column = klass.columns_hash[attribute]
+      .param
+        %label=klass.human_attribute_name(attribute)
+        -if column.type == :decimal
+          =select_tag("conditions[#{id}][comparator]", options_for_select([["est supérieur(e) à", :greater_than], ["est supérieur(e) ou égal(e) à", :greater_or_equal_to], ["est égal(e) à", :is], ["est inférieur(e) ou égal(e) à", :less_or_equal_to], ["est inférieur(e)", :less_than]]))
+          =text_field_tag("conditions[#{id}][comparated]")
+        -elsif column.type == :date
+          =select_tag("conditions[#{id}][comparator]", options_for_select([["est supérieur(e) à", :greater_than], ["est supérieur(e) ou égal(e) à", :greater_or_equal_to], ["est égal(e) à", :is], ["est inférieur(e) ou égal(e) à", :less_or_equal_to], ["est inférieur(e)", :less_than]]))
+          =calendar_field_tag("conditions[#{id}][comparated]")
+        -elsif column.type == :boolean
+          =select_tag("conditions[#{id}][comparator]", options_for_select([["est vrai", :is_true], ["est faux", :is_false]]))
+        -else
+          =select_tag("conditions[#{id}][comparator]", options_for_select([["contient", :contains], ["commence par", :starts_with], ["finit par", :finishes_with], ["est", :is]]))
+          =text_field_tag("conditions[#{id}][comparated]")
+    -else
+      =tc(:unknown_condition)

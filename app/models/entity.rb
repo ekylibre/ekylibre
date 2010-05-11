@@ -149,6 +149,11 @@ class Entity < ActiveRecord::Base
     end
   end
 
+  def self.exportable_columns
+    self.content_columns.delete_if{|c| [:active, :lock_version, :webpass, :soundex, :photo, :deliveries_conditions].include?(c.name.to_sym)}
+  end
+
+
   def label
     self.code+'. '+self.full_name
   end

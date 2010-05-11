@@ -17,9 +17,9 @@ fra:
     expired_session: 'Session expirée. Veuillez vous reconnecter.'
     fails_to_extract_listing: 'L''extraction n''a pas pu s''effectuer : {{message}}'
     import_succeeded: 'Vos données ont été correctement importées '
+    importation_finished: 'L''importation est terminée.'
     impossible_to_add_lines: 'Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande'
     impossible_to_add_lines_to_purchase: 'Vous ne pouvez plus ajouter de produits à votre achat'
-    importation_finished: 'L''importation est terminée.'
     invalid_file_nature: (((INVALID_FILE_NATURE)))
     journal_closed_on: 'Le {{journal}} a été clôturé au {{closed_on}} correctement.'
     journal_record_has_been_saved: 'La pièce N°{{number}} a été enregistrée correctement'

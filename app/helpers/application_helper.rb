@@ -155,6 +155,13 @@ module ApplicationHelper
     [ [::I18n.translate('general.y'), true], [I18n.t('general.n'), false] ]
   end
 
+  def radio_yes_no(name, value=nil)
+    radio_button_tag(name, 1, value.to_s=="1", id=>"#{name}_1")+
+      content_tag(:label, ::I18n.translate('general.y'), :for=>"#{name}_1")+
+      radio_button_tag(name, 0, value.to_s=="0", id=>"#{name}_0")+
+      content_tag(:label, ::I18n.translate('general.n'), :for=>"#{name}_0")
+  end
+
   def menus
     MENUS
   end
@@ -306,9 +313,10 @@ module ApplicationHelper
   end
 
   def calendar_field_tag(name, value=Date.today, options={})
+    trigger_id = name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')+'_trigger'
     text_field_tag(name, value, {:size=>10}.merge(options))+
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name.to_s+'_trigger')+
-      javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>trigger_id)+
+      javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{trigger_id}' });")
   end
 
   def top_tag
@@ -980,7 +988,7 @@ module ApplicationHelper
                     text_field_tag(name, value, :id=>options[:id], :maxlength=>size, :size=>size)
                   end
                 when :radio
-                  options[:choices].collect{ |x| radio_button_tag('radio', (x[1].eql? true) ? 1 : 0, false, :id=>'radio_'+x[1].to_s)+"&nbsp;"+content_tag(:label,x[0]) }.join(" ")
+                  options[:choices].collect{ |x| radio_button_tag(name, x[1], (value.to_s==x[1].to_s), :id=>"#{name}_#{x[1]}")+"&nbsp;"+content_tag(:label,x[0], :for=>"#{name}_#{x[1]}") }.join(" ")
                 when :choice
                   options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
                   content = select_tag(name, options_for_select(options[:choices], value), :id=>options[:id])

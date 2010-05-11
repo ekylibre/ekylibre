@@ -198,7 +198,7 @@ table.formalize tr.even td { background: #F0F8FF;}
 */
 table.formalize a.fastadd { margin: 0px 8px; }
 
-.form-column{ overflow: auto; padding:8px; }
+.form-column{ overflow: auto; padding:4px; }
 
 
 /*.actions { text-align:center; padding:4px !important; background: #e9e9a8; border-top: 1px solid #BEBEBB; margin: 8px 0 0; }*/
@@ -393,3 +393,12 @@ tbody.lines td input { width: 95%; }
 
 table.dyta tr.total.invalid td { color: #D20; }  
 table.dyta tr.total.valid   td { color: #090; }  
+
+div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; }
+
+#conditions .condition { background: #FD8; padding: 4px; margin-bottom: 8px;}
+#conditions .title { clear: both; background: #FEA; padding: 4px;}
+#conditions .title .right-menu { float: right; padding-left:8px;}
+#conditions .title a { background: url(../images/buttons/delete.png) no-repeat center left; padding: 2px 2px 2px 20px;}
+#conditions .title h3 { font-size: 13px }
+#conditions .parameters { padding-top: 4px; }

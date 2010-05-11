@@ -115,15 +115,34 @@ jpn:
           #>zero: 'Aucune fiche enregistrée'
         #>title: 'Fiches des personnes'
       entities_contact_delete:
+      entities_export:
+        #>add_condition: 'Ajouter la condition'
+        #>add_conditions: 'Ajoutez des conditions'
+        #>all_conditions: 'toutes les conditions'
+        #>check: 'Vérifier'
+        conditions:
+          #>filter_on_attribute_of_class: 'Filtre sur {{attribute}} ({{class}})'
+          #>special-subscriber: 'Filtre Abonné'
+        #>one_condition: 'au moins une condition'
+        #>select_columns: 'Cochez les colonnes que vous voulez voir apparaitre dans le tableau.'
+        #>title: 'Exportation de fiches'
+      _entities_export_condition:
+        moment:
+          #>after: 'après le'
+          #>before: 'avant le'
+          #>now: 'au'
+        #>reverse: 'Appliquer la condition inverse'
+        #>subscriber_period: 'Abonné(e) {{moment}} {{subscribed_on}}'
+        #>subscriber_quantity: 'Abonné(e) {{moment}} numéro {{subscribed_on}}'
       entities_import:
-        #>csv_file: 'Fichier CSV à importer'
-        #>defined_columns: 'Voici le format à respecter des colonnes du fichier csv à importer :'
-        #>entities_export: 'Exporter vos fiches clients / fournisseurs au format CSV'
-        #>file_to_download: 'Export de la liste des clients/fournisseurs'
-        #>file_to_upload: 'Import de la liste des clients/fournisseurs'
+        #>columns: 'Colonnes à importer'
+        #>errors_explanation: 'Il y a des erreurs dans le fichier. Si vous ne corrigez pas les problèmes, les lignes erronées ne seront pas prises en compte lors de l''importation'
+        #>file_nature: 'Type de fichier'
         #>import: 'Importer'
-        #>please_consult_help_to_have_more_informations: 'Veuillez consulter l''aide pour avoir plus d''informations sur l''import'
-        #>title: 'Import/Export des fiches clients et fournisseurs au format CSV'
+        #>importation_explanation: 'Pour confirmer l''importation, vous devez confirmer en cliquant sur Importer.'
+        #>line: 'Ligne n°{{index}} :'
+        #>title: 'Importation de fiches'
+        #>upload: 'Fichier à importer'
       entities_merge:
         #>entity_to_delete: 'Doublon à fusionner (et faire disparaitre)'
         #>entity_to_update: 'Fiche à mettre à jour avec les éléments du doublon'

@@ -4,10 +4,10 @@
       -params[:columns] ||= {}
       %p.hint=tc(:select_columns)
       %table.formalize
-        -for klass in [Entity, Contact, EntityNature, EntityCategory]
+        -for klass in [Entity, Contact]
           %tr.title
             %th=klass.human_name
-          -for c in klass.content_columns.sort{|a,b| a.name<=>b.name}
+          -for c in klass.exportable_columns.sort{|a,b| a.name<=>b.name}
             -code = klass.name.underscore+'-'+c.name
             %tr.field
               %td
@@ -26,10 +26,13 @@
             
       .end
     .form-column{:flex=>7}
-      =toolbar do |t|
-        -t.javascript(:add_condition)
+      =formalize do |f|
+        -f.title :add_conditions
+        -f.field tc('check'), {:choices=>[[tc(:all_conditions), :and],[tc(:one_condition), :or]], :datatype=>:radio, :name=>:check, :value=>params[:check]||:and}
+      .fastadd
+        =select_tag("condition", options_for_select(@conditions.collect{|x| [condition_label(x), x]}))
+        =link_to_remote(tc(:add_condition), :update=>:conditions, :position=>:bottom, :url=>{:action=>:entities_export}, :with=>"'condition='+$('condition').value")
       #conditions
-        
       .end
   .actions
     =submit_tag(tg(:export))
