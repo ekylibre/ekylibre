@@ -148,6 +148,9 @@ fra:
     company:
       cant_find_document_template: 'Impossible de trouver le modèle de document correspondant'
       invoice_creation: 'Création d''une facture'
+      import:
+        dont_use: '-- Ne pas utiliser --'
+        generate_string_complement: '-- Créer un champ personnalisé (texte) --'
       purchase_order_creation: 'Création d''un achat'
       sale_order_creation: 'Création d''un devis'
       sale_orders: Ventes
@@ -564,7 +567,6 @@ fra:
         informations: 'Informations'
         my_account: 'Mon compte'
         parameters: 'Paramètres'
-        import_export: 'Import/Export de fiches'
         relations_tasks: Clients et fournisseurs
         accountancy_tasks: Travaux comptables
         accountize: 'Bascule comptable'

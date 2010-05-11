@@ -573,26 +573,6 @@ class Company < ActiveRecord::Base
   end
 
 
-  def export_entities(find_options={})
-    entities = self.entities.find(:all, find_options)
-    csv_string = FasterCSV.generate do |csv|
-      csv << ["Code", "Type", "Catégorie", "Nom", "Prénom", "Dest-Service", "Bat.-Res.-ZI", "N° et voie", "Lieu dit", "Code Postal", "Ville", "Téléphone", "Mobile", "Fax", "Email", "Site Web", "Taux de réduction", "Commentaire"]
-      entities.each do |entity|
-        contact = self.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :default=>true, :deleted=>false})
-        line = []
-        line << ["'"+entity.code.to_s, entity.nature.name, entity.category.name, entity.name, entity.first_name]
-        if !contact.nil?
-          line << [contact.line_2, contact.line_3, contact.line_4, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
-        else
-          line << [ "", "", "", "", "", "", "", "", "", "", ""]
-        end
-        line << [ entity.reduction_rate.to_s.gsub(/\./,","), entity.comment]
-        csv << line.flatten
-      end
-    end
-    return csv_string
-  end
-  
 
 
 
@@ -732,8 +712,6 @@ class Company < ActiveRecord::Base
     end
   end
   
-  def import_entities
-  end
 
 #   def self.load_demo_data(locale="fr-FR", company=nil)
 #     company.load_demo_data(company) if company
@@ -873,17 +851,120 @@ class Company < ActiveRecord::Base
 
   def importable_columns
     columns = []
-    columns << ["-- DONT USE --", "special-dont_use"]
-    # columns << ["-- GENERATE STRING COMPLEMENT --", "special-generate_string_complement"]
-    # columns << ["-- GENERATE CHOICE COMPLEMENT --", "special-generate_choice_complement"]
+    columns << [tc("import.dont_use"), "special-dont_use"]
+    columns << [tc("import.generate_string_complement"), "special-generate_string_complement"]
+    # columns << [tc("import.generate_choice_complement"), "special-generate_choice_complement"]
     cols = Entity.content_columns.delete_if{|c| [:active, :full_name, :soundex, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
-    columns += cols.collect{|c| [Entity.human_name+"/"+Entity.human_attribute_name(c), "entity-"+c]}
+    columns += cols.collect{|c| [Entity.human_name+"/"+Entity.human_attribute_name(c), "entity-"+c]}.sort
     cols = Contact.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["line_6_city", "line_6_code"]
-    columns += cols.collect{|c| [Contact.human_name+"/"+Contact.human_attribute_name(c), "contact-"+c]}
-    columns += ["name", "abbreviation"].collect{|c| [EntityNature.human_name+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}
-    columns += ["name"].collect{|c| [EntityCategory.human_name+"/"+EntityCategory.human_attribute_name(c), "entity_category-"+c]}
-    columns += self.complements.find(:all, :conditions=>["nature in ('string')"]).collect{|c| [Complement.human_name+"/"+c.name, "complement-id"+c.id.to_s]}
-    return columns.sort
+    columns += cols.collect{|c| [Contact.human_name+"/"+Contact.human_attribute_name(c), "contact-"+c]}.sort
+    columns += ["name", "abbreviation"].collect{|c| [EntityNature.human_name+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
+    columns += ["name"].collect{|c| [EntityCategory.human_name+"/"+EntityCategory.human_attribute_name(c), "entity_category-"+c]}.sort
+    columns += self.complements.find(:all, :conditions=>["nature in ('string')"]).collect{|c| [Complement.human_name+"/"+c.name, "complement-id"+c.id.to_s]}.sort
+    return columns
   end
+
+
+  def exportable_columns
+    columns = []
+    columns += Entity.content_columns.collect{|c| [Entity.human_name+"/"+Entity.human_attribute_name(c.name), "entity-"+c.name]}.sort
+    columns += Contact.content_columns.collect{|c| [Contact.human_name+"/"+Contact.human_attribute_name(c.name), "contact-"+c.name]}.sort
+    columns += EntityNature.content_columns.collect{|c| [EntityNature.human_name+"/"+EntityNature.human_attribute_name(c.name), "entity_nature-"+c.name]}.sort
+    columns += EntityCategory.content_columns.collect{|c| [EntityCategory.human_name+"/"+EntityCategory.human_attribute_name(c.name), "entity_category-"+c.name]}.sort
+    columns += self.complements.collect{|c| [Complement.human_name+"/"+c.name, "complement-id"+c.id.to_s]}.sort
+    return columns
+  end
+
+
+  def import_entities(file, cols, options={})
+    csv = FasterCSV.open(file)
+    header = csv.shift # header
+    problems = {}
+    line_index = 1
+    code  = "ActiveRecord::Base.transaction do\n"
+    unless cols[:entity_nature].is_a? Hash
+      code += "  nature = self.entity_natures.find(:first, :conditions=>['abbreviation=? OR name=?', '-', '-'])\n"
+      code += "  nature = self.entity_natures.create!(:abbreviation=>'-', :name=>'-', :physical=>false, :in_name=>false, :active=>true) unless nature\n"
+    end
+    unless cols[:entity_category].is_a? Hash
+      code += "  category = self.entity_categories.find(:first, :conditions=>['name=? or code=?', '-', '-'])\n"
+      code += "  category = self.entity_categories.create!(:name=>'-', :deleted=>false, :default=>false) unless category\n"
+    end
+    for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_complement}
+      code += "  complement_#{k} = self.complements.create!(:name=>#{header[k.to_i].inspect}, :active=>true, :length_max=>65536, :nature=>'string', :required=>false)\n"
+    end
+    code += "  while line = csv.shift\n"
+    code += "    line_index += 1\n"
+    code += "    next if #{options[:ignore].collect{|x| x.to_i}.inspect}.include?(line_index)\n" if options[:ignore]
+    if cols[:entity_nature].is_a? Hash
+      code += "    nature = self.entity_natures.find(:first, :conditions=>{"+cols[:entity_nature].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+"})\n"
+      code += "    nature = self.entity_natures.create!("+cols[:entity_nature].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+") unless nature\n"
+    end
+    if cols[:entity_category].is_a? Hash
+      code += "    category = self.entity_categories.find(:first, :conditions=>{"+cols[:entity_category].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+"})\n"
+      code += "    category = self.entity_categories.create!("+cols[:entity_category].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+") unless category\n"
+    end
+    code += "    entity = self.entities.build("+cols[:entity].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+", :nature_id=>nature.id, :category_id=>category.id, :language_id=>#{self.entity.language_id}, :client=>true)\n"
+    code += "    if entity.save\n"
+    if cols[:contact].is_a? Hash
+      code += "      contact = entity.contacts.build("+cols[:contact].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n" 
+      code += "      unless contact.save\n" 
+      code += "        problems[line_index.to_s] ||= []\n"
+      code += "        problems[line_index.to_s] += contact.errors.full_messages\n"
+      code += "      end\n" 
+    end
+    for k, v in (cols[:special]||{}).select{|k,v| v == :generate_string_complement}
+      code += "      datum = entity.complement_data.build(:complement_id=>complement_#{k}.id, :string_value=>line[#{k}])\n"
+      code += "      unless datum.save\n" 
+      code += "        problems[line_index.to_s] ||= []\n"
+      code += "        problems[line_index.to_s] += datum.errors.full_messages\n"
+      code += "      end\n" 
+    end
+    for k, v in cols[:complement]||{}
+      if complement = self.complements.find_by_id(k.to_s[2..-1].to_i)
+        if complement.nature == 'string'
+          code += "      datum = entity.complement_data.build(:complement_id=>#{complement.id}, :string_value=>line[#{k}])\n"
+          code += "      unless datum.save\n" 
+          code += "        problems[line_index.to_s] ||= []\n"
+          code += "        problems[line_index.to_s] += datum.errors.full_messages\n"
+          code += "      end\n" 
+          # elsif complement.nature == 'choice'
+          #   code += "    co = entity.contacts.create("+cols[:contact].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n" if cols[:contact].is_a? Hash              
+        end
+      end
+    end
+    code += "    else\n"
+    code += "      problems[line_index.to_s] ||= []\n"
+    code += "      problems[line_index.to_s] += entity.errors.full_messages\n"
+    code += "    end\n"
+    code += "  end\n"
+    code += "  raise ActiveRecord::Rollback\n" unless options[:no_simulation]
+    code += "end\n"
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    eval(code)
+    return {:errors=>problems, :lines_count=>line_index-1}
+  end
+
+  def export_entities(find_options={})
+    entities = self.entities.find(:all, find_options)
+    csv_string = FasterCSV.generate do |csv|
+      csv << ["Code", "Type", "Catégorie", "Nom", "Prénom", "Dest-Service", "Bat.-Res.-ZI", "N° et voie", "Lieu dit", "Code Postal", "Ville", "Téléphone", "Mobile", "Fax", "Email", "Site Web", "Taux de réduction", "Commentaire"]
+      entities.each do |entity|
+        contact = self.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :default=>true, :deleted=>false})
+        line = []
+        line << ["'"+entity.code.to_s, entity.nature.name, entity.category.name, entity.name, entity.first_name]
+        if !contact.nil?
+          line << [contact.line_2, contact.line_3, contact.line_4, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
+        else
+          line << [ "", "", "", "", "", "", "", "", "", "", ""]
+        end
+        line << [ entity.reduction_rate.to_s.gsub(/\./,","), entity.comment]
+        csv << line.flatten
+      end
+    end
+    return csv_string
+  end
+  
+
 
 end

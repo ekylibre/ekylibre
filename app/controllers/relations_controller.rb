@@ -770,6 +770,10 @@ class RelationsController < ApplicationController
     
   end
   
+
+  manage :observations, :importance=>"'normal'", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0"
+ 
+
   dyta(:event_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :text_usage, :label=>tc(:usage)
@@ -804,31 +808,10 @@ class RelationsController < ApplicationController
   manage :events, :user_id=>'@current_user.id', :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now"
 
 
-  @@exchange_format = [ {:name=>:entity_code, :null=>false}, 
-                        {:name=>:entity_nature_name, :null=>false},
-                        {:name=>:entity_category_name, :null=>false},
-                        {:name=>:entity_name, :null=>false},
-                        {:name=>:entity_first_name, :null=>true},
-                        {:name=>:contact_line_2, :null=>true},
-                        {:name=>:contact_line_3, :null=>true},
-                        {:name=>:contact_line_4, :null=>true},
-                        {:name=>:contact_line_5, :null=>true},
-                        {:name=>:contact_line_6_code, :null=>true},
-                        {:name=>:contact_line_6_city, :null=>false},
-                        {:name=>:contact_phone, :null=>true},
-                        {:name=>:contact_mobile, :null=>true},
-                        {:name=>:contact_fax, :null=>true}, 
-                        {:name=>:contact_email, :null=>true},
-                        {:name=>:contact_website, :null=>true},
-                        {:name=>:entity_reduction_rate, :null=>true},
-                        {:name=>:entity_comment, :null=>true} ]
-  
-  @@exchange_format.each do |column|
-    column[:label] = tc(column[:name])
-  end
-
 
   def entities_export
+    @columns = @current_company.exportable_columns
+    # @prefixes = @columns.values.collect{|x| x.split(/\-/)[0]}.uniq
     if request.post?
       send_data @current_company.export_entities, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment", :filename=>'Fiches_C-F.csv'
     end
@@ -845,81 +828,78 @@ class RelationsController < ApplicationController
         data = params[:upload]
         file = "#{RAILS_ROOT}/tmp/uploads/entities_import_#{data.original_filename.gsub(/[^\w]/,'_')}"
         File.open(file, "wb") { |f| f.write(data.read)}
-        session[:entities_import] = file
+        session[:entities_import_file] = file
         redirect_to :action=>:entities_import, :id=>:columns
       end
     elsif @step == :columns
-      unless File.exist?(session[:entities_import].to_s)
+      unless File.exist?(session[:entities_import_file].to_s)
         redirect_to :action=>:entities_import, :id=>:upload
       end
-      csv = FasterCSV.open(session[:entities_import])
+      csv = FasterCSV.open(session[:entities_import_file])
       @columns = csv.shift
       @first_line = csv.shift
       @options = @current_company.importable_columns
       if request.post?
+        all_columns = params[:columns].dup.delete_if{|k,v| v.match(/^special-dont_use/) or v.blank?}
         columns = params[:columns].delete_if{|k,v| v.match(/^special-/) or v.blank?}
         if (columns.values.size - columns.values.uniq.size) > 0
           notify(:columns_are_already_uses, :error, :now)
           return
         end
         cols = {}
+        columns = all_columns
         for prefix in columns.values.collect{|x| x.split(/\-/)[0]}.uniq
           cols[prefix.to_sym] = {}
-          columns.select{|k,v| v.match(/^#{prefix}-/)}.each{|k,v| cols[prefix.to_sym][v.split(/\-/)[1].to_sym] = k.to_i}
+          columns.select{|k,v| v.match(/^#{prefix}-/)}.each{|k,v| cols[prefix.to_sym][k.to_s] = v.split(/\-/)[1].to_sym}
         end
-        if (cols[:entity]||{}).keys.size <=0
+        cols[:entity] ||= {}
+        if cols[:entity].keys.size <= 0 or not cols[:entity].values.detect{|x| x == :name}
           notify(:entity_columns_are_needed, :error, :now)
           return
         end
         # raise Exception.new columns.inspect+"\n"+cols.inspect
-
-        csv = FasterCSV.open(session[:entities_import])
-        @columns = csv.shift
-        code  = "ActiveRecord::Base.transaction do\n"
-        code += "  line_number = 1\n"
-        unless cols[:entity_nature].is_a? Hash
-          code += "  nature = @current_company.entity_natures.find(:first, :conditions=>['abbreviation=? OR name=?', '-', '-'])\n"
-          code += "  nature = @current_company.entity_natures.create!(:abbreviation=>'-', :name=>'-', :physical=>false, :in_name=>false, :active=>true) unless nature\n"
-        end
-        unless cols[:entity_category].is_a? Hash
-          code += "  category = @current_company.entity_categories.find(:first, :conditions=>['name=? or code=?', '-', '-'])\n"
-          code += "  category = @current_company.entity_categories.create!(:name=>'-', :deleted=>false, :default=>false) unless category\n"
-        end
-        code += "  while line = csv.shift\n"
-        code += "    line_number++\n"
-        if cols[:entity_nature].is_a? Hash
-          code += "    nature = @current_company.entity_natures.find(:first, :conditions=>{"+cols[:entity_nature].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+"})\n"
-          code += "    nature = @current_company.entity_natures.create!("+cols[:entity_nature].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+") unless nature\n"
-        end
-        if cols[:entity_category].is_a? Hash
-          code += "    category = @current_company.entity_categories.find(:first, :conditions=>{"+cols[:entity_category].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+"})\n"
-          code += "    category = @current_company.entity_categories.create!("+cols[:entity_category].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+") unless category\n"
-        end
-        code += "    entity = @current_company.entities.create!("+cols[:entity].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+", :nature_id=>nature.id, :category_id=>category.id)\n"
-        code += "    contact = entity.contacts.create!("+cols[:contact].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+")\n" if cols[:contact].is_a? Hash
-        for k, v in cols[:complement]||{}
-          if complement = @current_company.complements.find_by_id(k.to_s[2..-1].to_i)
-            if complement.nature == 'string'
-              code += "    entity.complement_data.create!(:complement_id=>#{complement.id}, :string_value=>line[#{v}])\n"
-              # elsif complement.nature == 'choice'
-              #   code += "    co = entity.contacts.create("+cols[:contact].collect{|k,v| ":#{k}=>line[#{v}]"}.join(', ')+")\n" if cols[:contact].is_a? Hash              
-            end
-          end
-        end
-        code += "  end\n"
-        code += "end\n"
-        raise Exception.new code
-        eval(code)
+        session[:entities_import_cols] = cols
         redirect_to :action=>:entities_import, :id=>:validate
       end
     elsif @step == :validate
+      file, cols = session[:entities_import_file], session[:entities_import_cols]
+      if request.post?
+        @report = @current_company.import_entities(file, cols, :no_simulation=>true, :ignore=>session[:entities_import_ignore])
+        notify(:importation_finished, :success)
+        redirect_to :action=>:entities_import, :id=>:upload
+      else
+        @report = @current_company.import_entities(file, cols)
+        session[:entities_import_ignore] = @report[:errors].keys
+      end
     end
-
   end
 
 
 
 
+
+#   @@exchange_format = [ {:name=>:entity_code, :null=>false}, 
+#                         {:name=>:entity_nature_name, :null=>false},
+#                         {:name=>:entity_category_name, :null=>false},
+#                         {:name=>:entity_name, :null=>false},
+#                         {:name=>:entity_first_name, :null=>true},
+#                         {:name=>:contact_line_2, :null=>true},
+#                         {:name=>:contact_line_3, :null=>true},
+#                         {:name=>:contact_line_4, :null=>true},
+#                         {:name=>:contact_line_5, :null=>true},
+#                         {:name=>:contact_line_6_code, :null=>true},
+#                         {:name=>:contact_line_6_city, :null=>false},
+#                         {:name=>:contact_phone, :null=>true},
+#                         {:name=>:contact_mobile, :null=>true},
+#                         {:name=>:contact_fax, :null=>true}, 
+#                         {:name=>:contact_email, :null=>true},
+#                         {:name=>:contact_website, :null=>true},
+#                         {:name=>:entity_reduction_rate, :null=>true},
+#                         {:name=>:entity_comment, :null=>true} ]
+  
+#   @@exchange_format.each do |column|
+#     column[:label] = tc(column[:name])
+#   end
 
 
 
@@ -1045,6 +1025,4 @@ class RelationsController < ApplicationController
     
 #   end
 
-  manage :observations, :importance=>"'normal'", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0"
-  
 end

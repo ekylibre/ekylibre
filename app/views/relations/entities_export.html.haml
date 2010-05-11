@@ -1,20 +1,35 @@
-%h2=tc('file_to_download')
-=toolbar do
-  -link :entities_export
-  
-
--if !@unavailable_entities.nil?
-  -if !@unavailable_entities.empty?
-    .errorExplanation
-      %h2=@unavailable_entities.size.to_s+" erreur(s) ont empéché l'import"
-      %p Il y a eu des problèmes avec les lignes suivantes :
-      %ul
-        -for error in @unavailable_entities
-          %li="ligne "+error[0].to_s+" :  "+ error[1].to_s+" "+error[2].to_s
-
-
-%p{:style=>'padding:5px;'}=tc('defined_columns')
-%ol{:style=>'text-align:left; padding: 0px 50px; '}
-  -#for field in @model
-  -#  %li=field[:label]
-%p{:style=>'padding:5px;'}=tc('please_consult_help_to_have_more_informations')
+-form_tag({:id=>@step}, :multipart=>true, :style=>'overflow:none', :flex=>1, :orient=>:vertical) do
+  .fields{:flex=>10, :orient=>:horizontal, :style=>'overflow:none'}
+    .form-column{:flex=>2}
+      -params[:columns] ||= {}
+      %p.hint=tc(:select_columns)
+      %table.formalize
+        -for klass in [Entity, Contact, EntityNature, EntityCategory]
+          %tr.title
+            %th=klass.human_name
+          -for c in klass.content_columns.sort{|a,b| a.name<=>b.name}
+            -code = klass.name.underscore+'-'+c.name
+            %tr.field
+              %td
+                =hidden_field_tag("columns[#{code}]", 0)
+                =check_box_tag("columns[#{code}]", "1", params[:columns][code]||(c.type==:string), :id=>"columns_#{code}")
+                =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}")
+        %tr.title
+          %th=Complement.human_name
+        -for c in @current_company.complements
+          -code = Complement.name.underscore+'-id'+c.id.to_s
+          %tr.field
+            %td
+              =hidden_field_tag("columns[#{code}]", 0)
+              =check_box_tag("columns[#{code}]", "1", params[:columns][code]||(c.type==:string), :id=>"columns_#{code}")
+              =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}")
+            
+      .end
+    .form-column{:flex=>7}
+      =toolbar do |t|
+        -t.javascript(:add_condition)
+      #conditions
+        
+      .end
+  .actions
+    =submit_tag(tg(:export))

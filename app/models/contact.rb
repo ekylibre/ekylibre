@@ -69,6 +69,7 @@ class Contact < ActiveRecord::Base
   def before_validation
     if self.entity
       self.default = true if self.entity.contacts.size <= 0
+      self.company_id = self.entity.company_id
     end
     if self.line_6
       self.line_6 = self.line_6.gsub(/\s+/,' ').strip
@@ -116,8 +117,18 @@ class Contact < ActiveRecord::Base
     self.area.postcode if self.area
   end
 
+  def line_6_code=(value)
+    self.line_6 ||= ""
+    self.line_6 = (value+" "+self.line_6).strip
+  end
+
   def line_6_city
     self.area.city if self.area
+  end
+
+  def line_6_city=(value)
+    self.line_6 ||= ""
+    self.line_6 = (self.line_6+" "+value).strip
   end
 
   def lines(sep=', ', with_city=true, with_country=true)

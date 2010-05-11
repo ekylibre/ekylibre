@@ -177,6 +177,7 @@ html>body .flash { height:auto; min-height:32px; }
 
 table.formalize { border-collapse: collapse; margin-left: auto; margin-right: auto; }
 table.formalize tr.field td { border-bottom:  1px dotted #CCC; }
+table.formalize tr.field td label { color: #008;}
 table.formalize td.label { text-align:right; padding:1px 4px; color: #008; width: 50%; border-right: 0px dotted #CCC;  }
 table.formalize td.input { padding:2px 6px 2px 2px; }
 table.formalize td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: 11px; border-left:1px dashed #CCC;}
@@ -196,8 +197,9 @@ table.formalize tr.odd  td { background: #E5ECF6;}
 table.formalize tr.even td { background: #F0F8FF;}
 */
 table.formalize a.fastadd { margin: 0px 8px; }
-.day_field, .month_field, .hour_field, .minute_field, .second_field { width: 2.5ex; }
-.year_field { width: 4.5ex; }
+
+.form-column{ overflow: auto; padding:8px; }
+
 
 /*.actions { text-align:center; padding:4px !important; background: #e9e9a8; border-top: 1px solid #BEBEBB; margin: 8px 0 0; }*/
 .actions { text-align:center; padding:4px !important; background: #CEC; border: 1px solid #ACA; margin: 0; }
