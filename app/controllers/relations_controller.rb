@@ -808,7 +808,6 @@ class RelationsController < ApplicationController
   manage :events, :user_id=>'@current_user.id', :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now"
 
 
-
   def entities_export
     if request.xhr?
       render :partial=>'entities_export_condition'
@@ -819,29 +818,73 @@ class RelationsController < ApplicationController
       @conditions += Contact.exportable_columns.collect{|c| "generic-contact-#{c.name}"}.sort
       @conditions += ["generic-area-postcode", "generic-area-city"]
       @conditions += ["generic-district-name"]
-      # @prefixes = @columns.values.collect{|x| x.split(/\-/)[0]}.uniq
       if request.post?
-        select = "SELECT "+params[:columns].select{|k,v| v.to_i == 1 and !k.match(/^complement\-/)}.collect{|x| x[0].split('-').collect{|x| x.inspect}.join(".")}.join(", ")
-        from = " FROM #{Entity.table_name} AS entity JOIN #{Contact.table_name} AS contact ON (contact.entity_id=entity.id AND contact.active)"
-        from += " LEFT JOIN #{Area.table_name} AS area ON (contact.area_id=area.id) LEFT JOIN #{District.table_name} AS district ON (area.district_id=district.id)"
-        for id in params[:columns].select{|k,v| v.to_i == 1 and k.match(/^complement\-/)}.collect{|k,v| k.split('-')[1][2..-1].to_i}
-          if complement = @current_company.complements.find_by_id(id)
-            from += ", complement_data AS _c#{id} ON (entity.id=_c#{id}.entity_id AND complement_id=#{id} AND _c#{id}.company_id=#{@current_company.id})"
-            if complement.nature == "choice"
-              select += ", _cc#{id}.value AS complement_#{id}"
-              from += " LEFT JOIN complement_choices AS _cc#{id} ON (_cc#{id}.id=_c#{id}.choice_value_id)"
-            else
-              select += ", _c#{id}.#{complement.nature}_value AS complement_#{id}"
+        from  = " FROM #{Entity.table_name} AS entity"
+        from += " LEFT JOIN #{Contact.table_name} AS contact ON (contact.entity_id=entity.id AND contact.active AND contact.company_id=#{@current_company.id})"
+        from += " LEFT JOIN #{Area.table_name} AS area ON (contact.area_id=area.id AND area.company_id=#{@current_company.id})"
+        from += " LEFT JOIN #{District.table_name} AS district ON (area.district_id=district.id AND district.company_id=#{@current_company.id})"
+        where = " WHERE entity.active AND entity.company_id=#{@current_company.id}"
+        select_array = []
+        for k, v in params[:columns].select{|k,v| v[:check].to_i == 1}.sort{|a,b| a[1][:order].to_i<=>b[1][:order].to_i}
+          if k.match(/^complement\-/)
+            id = k.split('-')[1][2..-1].to_i
+            if complement = @current_company.complements.find_by_id(id)
+              from += " LEFT JOIN complement_data AS _c#{id} ON (entity.id=_c#{id}.entity_id AND _c#{id}.complement_id=#{id} AND _c#{id}.company_id=#{@current_company.id})"
+              #from += ", complement_data AS _c#{id}"
+              #where += " AND (_c#{id}.entity_id=entity.id AND _c#{id}.complement_id=#{id} AND _c#{id}.company_id=#{@current_company.id})"
+              if complement.nature == "choice"
+              select_array << [ "_cc#{id}.value AS complement_#{id}", v[:label]]
+                # select += ", _cc#{id}.value AS complement_#{id}"
+                from += " LEFT JOIN complement_choices AS _cc#{id} ON (_cc#{id}.id=_c#{id}.choice_value_id)"
+              else
+                select_array << [ "_c#{id}.#{complement.nature}_value AS complement_#{id}", v[:label]]
+                # select += ", _c#{id}.#{complement.nature}_value AS complement_#{id}"
+              end
             end
+          else
+            select_array << [k.gsub('-', '.'), v[:label]]
           end
         end
-        where = " WHERE entity.active AND entity.company_id=#{@current_company.id} AND contact.company_id=#{@current_company.id}  AND area.company_id=#{@current_company.id} AND district.company_id=#{@current_company.id}"
-
-
+        if params[:conditions]
+          code = params[:conditions].collect do |id, parameters|
+            condition = parameters[:type]
+            expr = if condition == "special-subscriber"
+                     if nature = @current_company.subscription_natures.find_by_id(parameters[:nature])
+                       subn = parameters[parameters[:nature]]
+                       products = (subn[:products]||{}).select{|k,v| v.to_i==1 }.collect{|k,v| k}
+                       products_filter = subn[:no_products] ? "product_id IS NULL"+(products.size > 0 ? " OR " :"") : ""
+                       products_filter += "product_id IN (#{products.join(', ')})" if products.size > 0
+                       cursor = if nature.period? 
+                                  x = subn[:subscribed_on].to_date rescue Date.today
+                                  "'"+ActiveRecord::Base.connection.quoted_date(x)+"'"
+                                else
+                                  subn[:subscribed_on].to_i
+                                end
+                       "entity.id IN (SELECT entity_id FROM subscriptions WHERE nature_id=#{nature.id} AND company_id=#{@current_company.id} AND (#{products_filter})"+
+                         " AND (#{cursor} BETWEEN #{nature.start} AND #{nature.finish}))"
+                     else
+                       "true"
+                     end
+                   elsif condition.match(/^generic/)
+                     klass, attribute = condition.split(/\-/)[1].classify.constantize, condition.split(/\-/)[2]
+                     column = klass.columns_hash[attribute]
+                     ListingNode.condition(condition.split(/\-/)[1..2].join("."), parameters[:comparator], parameters[:comparated], column.sql_type)
+                   end
+            "\n"+(parameters[:reverse].to_i==1 ? "NOT " : "")+"(#{expr})"
+          end.join(params[:check] == "and" ? " AND " : " OR ")
+          where += " AND (#{code})"
+        end
+        select = "SELECT "+select_array.collect{|x| x[0]}.join(", ")
         query = select+"\n"+from+"\n"+where
-        raise query+"\n"+[params[:conditions]].inspect
 
-        send_data @current_company.export_entities, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment", :filename=>'Fiches_C-F.csv'
+        result = ActiveRecord::Base.connection.select_rows(query)
+        result.insert(0, select_array.collect{|x| x[1]})
+        csv_string = FasterCSV.generate do |csv|
+          for line in result
+            csv << line
+          end
+        end
+        send_data(csv_string, :filename=>'export.csv', :type=>Mime::CSV)
       end
     end
   end

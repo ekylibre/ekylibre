@@ -75,7 +75,7 @@ class ListingNode < ActiveRecord::Base
     :le=> "{{COLUMN}} <= {{VALUE}}", 
     :begins=>  "LOWER({{COLUMN}}) LIKE {{VALUE%}}", 
     :finishes=>"LOWER({{COLUMN}}) LIKE {{%VALUE}}", 
-    :contains=>"LOWER({{COLUMN}}) LIKE {{%VALUE%}}'", 
+    :contains=>"LOWER({{COLUMN}}) LIKE {{%VALUE%}}", 
     :equal=>   "LOWER({{COLUMN}}) = {{VALUE}}",
     :begins_cs=>  "{{COLUMN}} LIKE {{VALUE%}}", 
     :finishes_cs=>"{{COLUMN}} LIKE {{%VALUE}}", 
@@ -166,25 +166,52 @@ class ListingNode < ActiveRecord::Base
     @@corresponding_comparators[self.condition_operator.to_sym]||" = "
   end
 
+#   def condition
+#     operator =  @@corresponding_comparators[self.condition_operator.to_sym]||@@corresponding_comparators[:equal]
+#     case_sensitive = self.condition_operator.to_s.match(/_cs$/)
+#     c = operator.gsub("{{COLUMN}}", self.name)
+#     c.gsub!("{{LIST}}", "("+self.condition_value.to_s.split("||").collect{|x| connection.quote(x)}.join(", ")+")")
+#     c.gsub!(/\{\{[^\}]*VALUE[^\}]*\}\}/) do |m|
+#       n = m[2..-3].gsub("VALUE", self.condition_value.send(case_sensitive ? "lower" : "to_s"))
+#       if self.sql_type == "date"
+#         "'"+connection.quoted_date(self.condition_value.to_date)+"'"
+#       elsif self.sql_type == "boolean"
+#         self.condition_value == "true" ? connection.quoted_true : connection.quoted_false
+#       elsif self.sql_type == "numeric"
+#         n
+#       else
+#         "'"+connection.quote(n)+"'"
+#       end
+#     end
+#     return c
+#   end
+
   def condition
-    operator =  @@corresponding_comparators[self.condition_operator.to_sym]||@@corresponding_comparators[:equal]
-    case_sensitive = self.condition_operator.to_s.match(/_cs$/)
-    c = operator.gsub("{{COLUMN}}", self.name)
-    c.gsub!("{{LIST}}", "("+self.condition_value.to_s.split("||").collect{|x| connection.quote(x)}.join(", ")+")")
+    return self.class.condition(self.name, self.condition_operator, self.condition_value, self.sql_type)
+  end
+
+
+  def self.condition(column, operator, value, datatype="string")
+    operation =  @@corresponding_comparators[operator.to_sym]||@@corresponding_comparators[:equal]
+    case_sensitive = operator.to_s.match(/_cs$/)
+    c = operation.gsub("{{COLUMN}}", column)
+    c.gsub!("{{LIST}}", "("+value.to_s.gsub(/\,\,/, "\t").split(/\s*\,\s*/).collect{|x| connection.quote(x.gsub(/\t/, ','))}.join(", ")+")")
     c.gsub!(/\{\{[^\}]*VALUE[^\}]*\}\}/) do |m|
-      n = m[2..-3].gsub("VALUE", self.condition_value.send(case_sensitive ? "lower" : "to_s"))
-      if self.sql_type == "date"
-        "'"+connection.quoted_date(self.condition_value.to_date)+"'"
-      elsif self.sql_type == "boolean"
-        self.condition_value == "true" ? connection.quoted_true : connection.quoted_false
-      elsif self.sql_type == "numeric"
+      n = m[2..-3].gsub("VALUE", value.send(case_sensitive ? "lower" : "to_s"))
+      if datatype == "date"
+        "'"+connection.quoted_date(value.to_date)+"'"
+      elsif datatype == "boolean"
+        value == "true" ? connection.quoted_true : connection.quoted_false
+      elsif datatype == "numeric"
         n
       else
-        "'"+connection.quote(n)+"'"
+        # "'"+connection.quote(n)+"'"
+        connection.quote(n)
       end
     end
     return c
   end
+
 
   def compute_condition
     

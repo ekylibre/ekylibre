@@ -35,4 +35,9 @@ class District < ActiveRecord::Base
   belongs_to :company
   has_many :areas
   attr_readonly :company_id
+
+  def self.exportable_columns
+    self.content_columns.delete_if{|c| ![:name].include?(c.name.to_sym)}
+  end
+
 end

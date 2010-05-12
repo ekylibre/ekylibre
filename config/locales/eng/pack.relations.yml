@@ -128,12 +128,14 @@ eng:
         #>title: 'Exportation de fiches'
       _entities_export_condition:
         moment:
-          #>after: 'après le'
-          #>before: 'avant le'
-          #>now: 'au'
+          #>eq: 'au'
+          #>gt: 'après le'
+          #>lt: 'avant le'
+        #>no_products: 'Sans produit'
         #>reverse: 'Appliquer la condition inverse'
-        #>subscriber_period: 'Abonné(e) {{moment}} {{subscribed_on}}'
-        #>subscriber_quantity: 'Abonné(e) {{moment}} numéro {{subscribed_on}}'
+        #>subscriber_period: 'Abonné(e) le {{subscribed_on}}'
+        #>subscriber_quantity: 'Abonné(e) au numéro {{subscribed_on}}'
+        #>unknown_condition: 'Type de condition inconnue'
       entities_import:
         #>columns: 'Colonnes à importer'
         #>errors_explanation: 'Il y a des erreurs dans le fichier. Si vous ne corrigez pas les problèmes, les lignes erronées ne seront pas prises en compte lors de l''importation'

@@ -2,27 +2,36 @@
   .fields{:flex=>10, :orient=>:horizontal, :style=>'overflow:none'}
     .form-column{:flex=>2}
       -params[:columns] ||= {}
+      -index = 0
       %p.hint=tc(:select_columns)
       %table.formalize
-        -for klass in [Entity, Contact]
+        -for klass in [Entity, Contact, Area, District]
           %tr.title
             %th=klass.human_name
           -for c in klass.exportable_columns.sort{|a,b| a.name<=>b.name}
             -code = klass.name.underscore+'-'+c.name
+            -params[:columns][code] ||= {}
             %tr.field
               %td
-                =hidden_field_tag("columns[#{code}]", 0)
-                =check_box_tag("columns[#{code}]", "1", params[:columns][code]||(c.type==:string), :id=>"columns_#{code}")
-                =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}")
+                -label=klass.human_attribute_name(c.name)
+                =hidden_field_tag("columns[#{code}][label]", klass.human_attribute_name(c.name))
+                =hidden_field_tag("columns[#{code}][order]", index+=1)
+                =hidden_field_tag("columns[#{code}][check]", 0)
+                =check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.type==:string), :id=>"columns_#{code}_check_f")
+                =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}_check_f")
         %tr.title
           %th=Complement.human_name
         -for c in @current_company.complements
           -code = Complement.name.underscore+'-id'+c.id.to_s
+          -params[:columns][code] ||= {}
           %tr.field
             %td
-              =hidden_field_tag("columns[#{code}]", 0)
-              =check_box_tag("columns[#{code}]", "1", params[:columns][code]||(c.type==:string), :id=>"columns_#{code}")
-              =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}")
+              -label=klass.human_attribute_name(c.name)
+              =hidden_field_tag("columns[#{code}][label]", klass.human_attribute_name(c.name))
+              =hidden_field_tag("columns[#{code}][order]", index+=1)
+              =hidden_field_tag("columns[#{code}][check]", 0)
+              =check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.type==:string), :id=>"columns_#{code}_check_f")
+              =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}_check_f")
             
       .end
     .form-column{:flex=>7}

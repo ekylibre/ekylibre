@@ -59,6 +59,11 @@ class Area < ActiveRecord::Base
     end
   end
 
+  def self.exportable_columns
+    self.content_columns.delete_if{|c| ![:city, :postcode].include?(c.name.to_sym)}
+  end
+
+
 end
 
 

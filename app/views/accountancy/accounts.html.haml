@@ -21,7 +21,7 @@
 :javascript
   window.toggleInterval=function() { toggleElement('interval', $('used_accounts').checked); }
   toggleInterval();
-
-=major_accounts_tag
-
-=dyta(:accounts)
+%table.accounts.invex
+  %tr
+    %td.tabs{:valign=>:top}=major_accounts_tabs_tag
+    %td.list{:valign=>:top}=dyta(:accounts)

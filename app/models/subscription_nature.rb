@@ -77,6 +77,23 @@ class SubscriptionNature < ActiveRecord::Base
     end
   end
 
+  def start
+    if self.period?
+      return :started_on
+    else
+      return :first_number
+    end
+  end
+
+  def finish
+    if self.period?
+      return :stopped_on
+    else
+      return :last_number
+    end
+  end
+    
+
 
 end
 

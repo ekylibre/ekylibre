@@ -110,7 +110,7 @@ class Contact < ActiveRecord::Base
   end  
 
   def self.exportable_columns
-    self.content_columns.delete_if{|c| [:active, :started_at, :stopped_at, :closed_on, :deleted, :latitude, :longitude, :lock_version, :code, :created_at, :updated_at, :default].include?(c.name.to_sym)}
+    self.content_columns.delete_if{|c| [:active, :started_at, :stopped_at, :closed_on, :deleted, :latitude, :longitude, :lock_version, :code, :created_at, :updated_at].include?(c.name.to_sym)}
   end
 
   def label

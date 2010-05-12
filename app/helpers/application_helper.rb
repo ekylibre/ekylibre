@@ -313,10 +313,10 @@ module ApplicationHelper
   end
 
   def calendar_field_tag(name, value=Date.today, options={})
-    trigger_id = name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')+'_trigger'
+    options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
     text_field_tag(name, value, {:size=>10}.merge(options))+
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>trigger_id)+
-      javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{trigger_id}' });")
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id]+'_trigger')+
+      javascript_tag("Calendar.setup({inputField : '#{options[:id]}', ifFormat: '%Y-%m-%d', button : '#{options[:id]}_trigger' });")
   end
 
   def top_tag
