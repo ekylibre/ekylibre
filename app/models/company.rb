@@ -914,7 +914,7 @@ class Company < ActiveRecord::Base
       code += "      end\n" 
     end
     for k, v in (cols[:special]||{}).select{|k,v| v == :generate_string_complement}
-      code += "      datum = entity.complement_data.build(:complement_id=>complement_#{k}.id, :string_value=>line[#{k}])\n"
+      code += "      datum = entity.complement_data.build(:company_id=>#{self.id}, :complement_id=>complement_#{k}.id, :string_value=>line[#{k}])\n"
       code += "      unless datum.save\n" 
       code += "        problems[line_index.to_s] ||= []\n"
       code += "        problems[line_index.to_s] += datum.errors.full_messages\n"

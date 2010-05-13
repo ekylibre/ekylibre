@@ -1,15 +1,15 @@
 -form_tag(nil, {:flex=>1, :orient=>:vertical, :style=>'overflow:none'}) do
   .fields{:flex=>10}
-    -if @company.parameters.find(:all, :conditions=>["record_value_type = 'Sequence' AND record_value_id IS NULL"]).size > 0
+    -if @my_company.parameters.find(:all, :conditions=>["record_value_type = 'Sequence' AND record_value_id IS NULL"]).size > 0
       =toolbar do
         -link :sequences_load
     =formalize do |f|
-      -f.error 'company'
+      -f.error 'my_company'
       -f.title tc(:general)
-      -f.field :company, :name
-      -f.field t("activerecord.attributes.company.code"), content_tag(:strong, @company.code)
-      -f.field t("activerecord.attributes.company.entity_id"), link_to(@company.entity.full_name, {:controller=>:relations, :action=>:entity_update, :id=>@company.entity_id})
-      -f.field :company, :sales_conditions, :field=>:textarea, :options=>{:cols=>60, :rows=>8}
+      -f.field :my_company, :name
+      -f.field t("activerecord.attributes.company.code"), content_tag(:strong, @my_company.code)
+      -f.field t("activerecord.attributes.company.entity_id"), link_to(@my_company.entity.full_name, {:controller=>:relations, :action=>:entity_update, :id=>@my_company.entity_id})
+      -f.field :my_company, :sales_conditions, :field=>:textarea, :options=>{:cols=>60, :rows=>8}
       -for name, options in @tree
         -f.title tc(name)
         -for key in options.keys.sort

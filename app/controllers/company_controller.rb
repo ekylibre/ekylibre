@@ -113,12 +113,12 @@ class CompanyController < ApplicationController
   end
 
   def configure
-    @company = @current_company
+    @my_company = @current_company
     # Default treatment
     @tree = Parameter.tree_reference.sort
     for k, v in @tree
       for name, options in v
-        param = @company.parameter(name)
+        param = @my_company.parameter(name)
         if param
           options[:value] = param.value 
           options[:value] = options[:value].id if param.record? and options[:value]
@@ -129,15 +129,15 @@ class CompanyController < ApplicationController
     if request.post?
       saved = false
       ActiveRecord::Base.transaction do
-        saved = @company.update_attributes(params[:company])
+        saved = @my_company.update_attributes(params[:my_company])
         if saved
           for key, data in params[:parameter]
-            parameter = @company.parameters.find_by_name(key)
-            parameter = @company.parameters.build(:name=>key) if parameter.nil?
+            parameter = @my_company.parameters.find_by_name(key)
+            parameter = @my_company.parameters.build(:name=>key) if parameter.nil?
             parameter.value = data[:value]
             unless parameter.save
               saved = false
-              @company.errors.add_from_record(parameter)
+              @my_company.errors.add_from_record(parameter)
               raise ActiveRecord::Rollback
             end
           end
@@ -145,7 +145,7 @@ class CompanyController < ApplicationController
       end
       redirect_to_back if saved
     end
-    @title = {:value=>@company.name}
+    @title = {:value=>@my_company.name}
   end
 
 

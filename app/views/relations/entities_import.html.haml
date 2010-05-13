@@ -18,7 +18,7 @@
           %h3=tg('notifications.warning')
           %p=tc(:errors_explanation)
           %ul
-            -for index, errors in @report[:errors]
+            -for index, errors in @report[:errors].sort{|a,b| a[0].to_i<=>b[0].to_i}
               %li
                 %span=tc(:line, :index=>index)
                 %ul

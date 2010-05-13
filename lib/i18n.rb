@@ -80,7 +80,7 @@ module ActiveRecord
     # allow a proc as a user defined message
     def add(attribute, message = nil, options = {})
       message ||= :invalid
-      raise ArgumentError.new("Symbol expected, #{message.inspect} received.") unless message.is_a?(Symbol)
+      raise ArgumentError.new("Symbol expected, #{message.inspect} received.") unless options[:forced] or message.is_a?(Symbol)
       message = generate_message(attribute, message, options)
       # message = generate_message(attribute, message, options) if message.is_a?(Symbol)
       @errors[attribute.to_s] ||= []
