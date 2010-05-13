@@ -364,6 +364,10 @@ class ManagementController < ApplicationController
 #           end
         end
         if saved
+          if @current_company.parameter('accountancy.to_accountancy.automatic')
+            @credit.to_accountancy if @current_company.parameter('accountancy.to_accountancy.automatic').value == true
+          end
+
           redirect_to :action=>:invoice, :id=>@credit.id
         else
 #           session[:errors] = []
@@ -375,7 +379,7 @@ class ManagementController < ApplicationController
         end
       end
     end
-    @title = {:value=>@invoice.number}
+    t3e :value=>@invoice.number
   end
    
 
@@ -2018,7 +2022,7 @@ class ManagementController < ApplicationController
       instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant]) rescue nil 
       session[:subscriptions] ||= {}
       session[:subscriptions][:nature]  = @subscription_nature.attributes
-      session[:subscriptions][:instant] = instant||@subscription_nature.now
+      session[:subscriptions][:instant] = (instant.blank? ? @subscription_nature.now : instant)
     end
   end
 

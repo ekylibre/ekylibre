@@ -109,6 +109,37 @@ class Invoice < ActiveRecord::Base
     self.client.add_event(:invoice, self.updater_id) if self.updater
   end
   
+
+  def cancel(lines={})
+    return false unless lines.keys.size > 0
+    credit = Invoice.new(:origin_id=>self.id, :client_id=>self.client_id, :credit=>true, :company_id=>self.company_id)
+    ActiveRecord::Base.transaction do
+      if saved = credit.save
+        for line in self.lines
+          if lines[line.id.to_s]
+            if lines[line.id.to_s][:validated].to_i == 1
+              quantity = 0-lines[line.id.to_s][:quantity].to_f
+              if quantity != 0.0
+                credit_line = credit.lines.create(:quantity=>quantity, :origin_id=>line.id, :product_id=>line.product_id, :price_id=>line.price_id, :company_id=>line.company_id, :order_line_id=>line.order_line_id)
+                unless credit_line.save
+                  saved = false
+                  credit.errors.add_from_record(credit_line)
+                end
+              end
+            end
+          end
+        end
+      end
+      if saved
+        if self.company.parameter('accountancy.to_accountancy.automatic')
+          invoice.to_accountancy if self.company.parameter('accountancy.to_accountancy.automatic').value == true
+        end
+      else
+        raise ActiveRecord::Rollback
+      end
+    end
+    return credit
+  end
   
 
   def status
