@@ -126,14 +126,14 @@ module ApplicationHelper
 
      # ProductionController
      {:name=>:production, :list=>
-       [  {:name=>:production, :list=>
-            [ {:name=>:operations},
-              {:name=>:shapes}
-            ] },
-          {:name=>:parameters, :list=>
-            [ {:name=>:tools},
+       [ {:name=>:production, :list=>
+           [ {:name=>:operations},
+             {:name=>:shapes}
+           ] },
+         {:name=>:parameters, :list=>
+           [ {:name=>:tools},
               {:name=>:operation_natures}
-            ] }
+           ] }
        ] }
      #  ,
      # # ResourcesController

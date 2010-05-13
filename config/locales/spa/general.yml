@@ -591,3 +591,4 @@ spa:
         #>sales: 'Ventes'
         #>stock_transfers: 'Transferts et pertes'
         #>stocks_tasks: 'Stocks'
+        #>tools: 'Outils'

@@ -15,5 +15,6 @@
         %ul{:id=>"side_#{prefix}_actions", :style=>(parameter.value ? "" : "display: none") }
           -for action in list[:list]
             -action_name = action[:url] ? action[:url][:action] : nil
-            =li_link_to t("views.shared._menu.#{action[:name]}", :default=>["views.#{self.controller.controller_name}.#{action_name||action[:name]}.title".to_sym]), action[:url]||{:action=>action[:name]}
+            -#=li_link_to t("views.shared._menu.#{action[:name]}", :default=>["views.#{self.controller.controller_name}.#{action_name||action[:name]}.title".to_sym]), action[:url]||{:action=>action[:name]}
+            =li_link_to t("views.#{self.controller.controller_name}.#{action_name||action[:name]}.title"), action[:url]||{:action=>action[:name]}
 .end

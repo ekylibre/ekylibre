@@ -501,9 +501,9 @@ manage_operations:
   - operation_natures_dyta
   - operation_products_dyli
   - operation_update
+  - operation_uses_dyta
   - operations
   - operations_dyta
-  - production::operation_uses_dyta
   - tool_use_create
   - unvalidated_operations
   - unvalidated_operations_dyta

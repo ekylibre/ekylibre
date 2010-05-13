@@ -159,7 +159,7 @@ jpn:
         bank_accounts:
           #>one: '1 compte bancaire'
           #>other: '{{count}} comptes bancaires'
-          #>zero: 'Aucun compte bancaire'
+          #>zero: '0 compte bancaire'
         #>client: 'Client'
         #>client_balance: 'Solde du client'
         #>confirmed_on: 'Confirmée le'
@@ -167,28 +167,28 @@ jpn:
         contacts:
           #>one: '1 contact'
           #>other: '{{count}} contacts'
-          #>zero: 'Aucun contact'
+          #>zero: '0 contact'
         #>entity_link_create: 'Ajouter un nouveau lien'
         entity_links:
           #>one: '1 lien'
           #>other: '{{count}} liens'
-          #>zero: 'Aucun lien'
+          #>zero: '0 lien'
         #>entity_print: 'Imprimer la fiche'
         #>entity_update: 'Modifier la fiche'
         #>event_create: 'Ajouter un évènement'
         events:
           #>one: '1 évènement'
           #>other: '{{count}} évènements '
-          #>zero: 'Aucun évènement'
+          #>zero: '0 évènement'
         invoices:
           #>one: '1 facture'
           #>other: '{{count}} factures'
-          #>zero: 'Aucune facture'
+          #>zero: '0 facture'
         #>mandate_create: 'Ajouter une responsabilité'
         mandates:
           #>one: '1 responsabilité'
           #>other: '{{count}} responsabilités '
-          #>zero: 'Aucune responsabilité'
+          #>zero: '0 responsabilité'
         #>nature: 'Nature'
         #>new_sale: 'Nouvelle vente'
         #>number: 'Numéro'
@@ -196,28 +196,28 @@ jpn:
         observations:
           #>one: '1 observation'
           #>other: '{{count}} observations'
-          #>zero: 'Aucune observation'
+          #>zero: '0 observation'
         #>payment_create: 'Ajouter un règlement'
         payments:
           #>one: '1 réglement'
           #>other: '{{count}} réglements'
-          #>zero: 'Aucun réglement'
+          #>zero: '0 réglement'
         #>purchase_order_create: 'Ajouter un nouvel achat'
         purchase_orders_number:
           #>one: '1 achat'
           #>other: '{{count}} achats'
-          #>zero: 'Aucun achat'
+          #>zero: '0 achat'
         #>sale_order_create: 'Ajouter une nouvelle vente'
         sale_orders_number:
           #>one: '1 vente '
           #>other: '{{count}} ventes'
-          #>zero: 'Aucune vente'
+          #>zero: '0 vente'
         #>state: 'État'
         #>subscription_create: 'Ajouter un abonnement'
         subscriptions:
           #>one: '1 abonnement'
           #>other: '{{count}} abonnements'
-          #>zero: 'Aucun abonnement'
+          #>zero: '0 abonnement'
         #>title: 'Fiche : {{value}}'
       entity_categories:
         #>entity_category_create: 'Ajouter une catégorie de fiche'
@@ -228,7 +228,7 @@ jpn:
         prices:
           #>one: '1 tarif rattaché à cette catégorie'
           #>other: '{{count}} tarifs rattachés à cette catégorie'
-          #>zero: 'Aucun tarif rattaché à cette catégorie'
+          #>zero: '0 tarif rattaché à cette catégorie'
         #>title: 'Catégorie de fiche : {{value}}'
       entity_category_create:
         #>title: 'Ajout d''une nouvelle catégorie de fiche'

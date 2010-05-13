@@ -53,7 +53,7 @@ jpn:
           #>other: '{{count}} transferts enregistrés'
           #>zero: 'Aucun transfert enregistré'
         #>select_date_generation: 'Date limite d''intégration'
-        #>title: 'Comptabiliser les opérations commerciales'
+        #>title: 'Bascule comptable'
       accounts:
         #>account_create: 'Enregistrer un nouveau compte'
         #>title: 'Plan de comptes'
