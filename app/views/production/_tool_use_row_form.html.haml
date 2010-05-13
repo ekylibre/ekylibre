@@ -1,0 +1,10 @@
+-use = tool_use_row_form||{}
+-id='u'+Time.now.to_i.to_s(36)+rand.to_s[2..-1].to_i.to_s(36)
+-if use.respond_to? :errors
+  -if use.errors.size > 0
+    %tr{:id=>id+'-errors'}
+      %td{:colspan=>6, :style=>"background: transparent; padding:8px 4px 0; border-left:none; border-right:none;"}=error_messages 'tool_use', :object=>use
+%tr{:id=>id, :class=>cycle('odd', 'even')}
+  %td
+    =select_tag("uses[#{id}][tool_id]", options_for_select(@current_company.tools.collect{|t| [t.name, t.id]}, use[:tool_id].to_i))
+  %td.act=link_to_function(image_tag(theme_button("delete"), :border=>0), "$('#{id}').remove();$('#{id}-errors').remove();")

@@ -253,7 +253,7 @@ fra:
         payment_mode_create: 'Créer un nouveau type de réglement'
         title: 'Types de réglement'
       payment_part_create:
-        title: 'Ajouter un nouveau réglement : {{type}} {{value}}'
+        title: 'Ajouter un nouveau réglement : {{type}} N°{{number}}'
       _payment_part_form:
         downpayment: 'Acompte' #!
         existing_part: 'Utiliser un réglement non affecté' #!
@@ -449,15 +449,15 @@ fra:
         discount: 'Remise (en %)' #!
         give_discount: 'Octroyer une remise'
         infos: 'Choisissez le produit et la quantité'
-      _sale_order_line_informations:
-        no_tracking: 'Aucun lot'
-        tracking: 'Lot '
       sale_order_line_informations:
         contact: 'à l''adresse'
         from_date: 'Du '
         to_date: 'Au '
         #>from: # Potentially missing translation
         #>to: # Potentially missing translation
+      _sale_order_line_informations:
+        no_tracking: 'Aucun lot'
+        tracking: 'Lot '
       _sale_order_line_stocks:
         line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
       _sale_order_line_tracking:

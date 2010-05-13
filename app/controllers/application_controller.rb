@@ -169,7 +169,9 @@ class ApplicationController < ActionController::Base
           redirect_to(url) 
         end
       end
+      return true
     end
+    return false
   end
 
   # For title I18n : t3e :)
@@ -219,13 +221,15 @@ class ApplicationController < ActionController::Base
   end
  
   def historize()
-    if request.url == session[:history][1]
-      session[:history].delete_at(0)
-    elsif request.url != session[:history][0]
-      session[:history].insert(0,request.url)
-      session[:history].delete_at(127)
+    unless (request.url.match(/_(print|dyta|extract)(\/\d+(\.\w+)?)?$/) or (controller_name.to_s == "company" and ["print", "configure"].include?(action_name.to_s))) or params[:format]
+      if request.url == session[:history][1]
+        session[:history].delete_at(0)
+      elsif request.url != session[:history][0]
+        session[:history].insert(0,request.url)
+        session[:history].delete_at(127)
+      end
     end
-    unless (request.url.match(/_(print|dyta|extract|create|update)(\/\d+(\.\w+)?)?$/) or (controller_name == "company" and ["print", "configure"].include?(action_name))) or params[:format] 
+    unless (request.url.match(/_(print|dyta|extract|create|update)(\/\d+(\.\w+)?)?$/) or (controller_name.to_s == "company" and ["print", "configure"].include?(action_name.to_s))) or params[:format] 
       session[:last_page][self.controller_name] = request.url
     end
   end

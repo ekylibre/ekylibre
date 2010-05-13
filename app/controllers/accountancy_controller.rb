@@ -651,8 +651,9 @@ class AccountancyController < ApplicationController
   def journal
     return unless @journal = find_and_check(:journal)
     session[:current_journal_id]   = @journal.id
-    session[:journal_record_start] = params[:start]||Date.today-6
-    session[:journal_record_end]   = params[:end]||Date.today
+    fy = @current_company.current_financialyear
+    session[:journal_record_start] = params[:start]||fy.started_on
+    session[:journal_record_end]   = params[:end]||fy.stopped_on
     t3e @journal.attributes
   end
 

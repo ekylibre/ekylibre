@@ -251,7 +251,7 @@ jpn:
         #>payment_mode_create: 'Créer un nouveau type de réglement'
         #>title: 'Types de réglement'
       payment_part_create:
-        #>title: 'Ajouter un nouveau réglement : {{type}} {{value}}'
+        #>title: 'Ajouter un nouveau réglement : {{type}} N°{{number}}'
       _payment_part_form:
         #>downpayment: 'Acompte'
         #>existing_part: 'Utiliser un réglement non affecté'
@@ -634,13 +634,13 @@ jpn:
         #>title: 'Transport du {{value}}'
       transport_create:
         #>title: 'Ajout d''un nouveau transport'
+      transport_deliveries:
+        #>title: 'Livraisons du transport'
       _transport_deliveries:
         #>add: 'Ajouter la livraison au transport'
         #>add_delivery: 'Ajouter une livraison'
         #>back: 'Valider et revenir à la liste des transports'
         #>delivery: 'Livraison'
-      transport_deliveries:
-        #>title: 'Livraisons du transport'
       _transport_form:
         #>info: 'Renseignez les informations du transport'
       transport_update:

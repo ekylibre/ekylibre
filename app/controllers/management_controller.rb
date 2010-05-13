@@ -456,29 +456,20 @@ class ManagementController < ApplicationController
       @price = Price.new(params[:price])
       @price.company_id = @current_company.id
       @price.entity_id = params[:price][:entity_id]||@current_company.entity_id
-      if @price.save
-        all_safe = true
-        if params[:price_tax]
-          for tax in params[:price_tax]
-            return unless tax = find_and_check(:tax, tax[0])
-            @price_tax = @price.taxes.create(:tax_id=>tax.id)
-            all_safe = false unless @price_tax.save
-          end
-        end
-        redirect_to_back
-      end
+      return if save_and_redirect(@price)
+#       if @price.save
+#         all_safe = true
+#         if params[:price_tax]
+#           for tax in params[:price_tax]
+#             return unless tax = find_and_check(:tax, tax[0])
+#             @price_tax = @price.taxes.create(:tax_id=>tax.id)
+#             all_safe = false unless @price_tax.save
+#           end
+#         end
+#         redirect_to_back
+#       end
     else
-      if @current_company.available_products.size<=0
-        notify(:need_product_to_create_price)
-        redirect_to :action=> :product_create
-      elsif !params[:product_id].nil?
-   
-        @price = Price.new(:product_id=>params[:product_id])
-      else
-   
-        @price = Price.new(:category_id=>session[:category]||0)
-      end
-
+      @price = Price.new(:product_id=>params[:product_id], :category_id=>session[:category]||0)
       @price.entity_id = params[:entity_id] if params[:entity_id]
     end
     render_form    
@@ -1291,7 +1282,7 @@ class ManagementController < ApplicationController
 
   def subscription_message
     return unless price = find_and_check(:prices, params[:sale_order_line_price_id])
-    @product = fprice.product
+    @product = price.product
   end
 
   dyli(:all_contacts, [:address], :model=>:contacts, :conditions => {:company_id=>['@current_company.id'], :active=>true})
@@ -1673,7 +1664,7 @@ class ManagementController < ApplicationController
     t.column :scheduled, :through=>:payment, :datatype=>:boolean, :label=>tc('scheduled')
     t.column :downpayment
     #t.column :paid_on, :through=>:payment, :label=>tc('paid_on'), :datatype=>:date
-    t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
+    t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on'), :datatype=>:date
     t.action :payment_part_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
@@ -1761,7 +1752,7 @@ class ManagementController < ApplicationController
   def payment
     return unless @payment = find_and_check(:payments)
     session[:current_payment_id] = @payment.id
-    @title = {:number=>@payment.number, :entity=>@payment.entity.full_name}
+    t3e :number=>@payment.number, :entity=>@payment.entity.full_name
   end
 
   def payment_create
@@ -1781,7 +1772,7 @@ class ManagementController < ApplicationController
     if request.post?
       return if save_and_redirect(@payment, :attributes=>params[:payment])
     end
-    @title = {:number=>@payment.number}
+    t3e @payment.attributes
     render_form 
   end
 
@@ -1820,7 +1811,7 @@ class ManagementController < ApplicationController
       last_payment = @expense.last_payment
       @payment = Payment.new(:paid_on=>Date.today, :to_bank_on=>Date.today, :amount=>@expense.unpaid_amount, :embanker_id=>@current_user.id, :bank=>last_payment.nil? ? "" : last_payment.bank, :account_number=>last_payment.nil? ? "" : last_payment.account_number) 
     end
-    @title = {:type=>tc(params[:expense_type]), :value=>@expense.number}
+    t3e :type=>t("activerecord.models."+expense_type), :number=>@expense.number
     render_form
   end
 

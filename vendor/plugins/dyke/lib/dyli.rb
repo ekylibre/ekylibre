@@ -51,6 +51,7 @@ module Ekylibre
             method_name = name_db.to_s+'_dyli'
 
             select = (model.table_name+".id AS id, "+attributes_hash.collect{|k,v| v+" AS "+k}.join(", ")).inspect
+            joins = options[:joins] ? ", :joins=>"+options[:joins].inspect : ""
 
             code  = ""
             code += "def #{method_name}\n"
@@ -58,7 +59,7 @@ module Ekylibre
             code += "  if request.get? and params[:id]\n"
             code += "    conditions[0] += '#{' AND ' if query.size>0}#{model.table_name}.id=?'\n"
             code += "    conditions << params[:id]\n"
-            code += "    record = "+model.name.to_s+".find(:first, :select=>#{select}, :conditions=>conditions)\n"
+            code += "    record = "+model.name.to_s+".find(:first, :select=>#{select}, :conditions=>conditions#{joins})\n"
             code += "    if record\n"
             code += "      render :json=>{:tf_value=>"+attributes.collect{|key| "record.#{key[2]}.to_s"}.join('+", "+')+", :hf_value=>record.id}\n"
             code += "    else\n"
@@ -86,7 +87,6 @@ module Ekylibre
             code += "    end\n"
             order = ", :order=>"+attributes.collect{|key| "#{key[0]} ASC"}.join(', ').inspect
             limit = ", :limit=>"+(options[:limit]||12).to_s
-            joins = options[:joins] ? ", :joins=>"+options[:joins].inspect : ""
             partial = options[:partial]
             code += "    list = ''\n"
             code += "    for item in "+model.name.to_s+".find(:all, :select=>#{select}, :conditions=>conditions"+joins+order+limit+")\n"

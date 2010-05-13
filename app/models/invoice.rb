@@ -168,10 +168,10 @@ class Invoice < ActiveRecord::Base
     unless journal.nil? or financialyear.nil?
       client_account = self.client.account(:client)
       record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal.id, :financialyear_id => financialyear.id)
-      record.add_debit(self.client.full_name, client_account.id, self.amount_with_taxes, :draft=>draft)
+      record.add_debit(tc(:to_accountancy, :number=>self.number, :detail=>self.client.full_name), client_account.id, self.amount_with_taxes, :draft=>draft)
       self.lines.each do |line|
-        record.add_credit(line.product.name, line.product.product_account_id, line.amount, :draft=>draft)
-        record.add_credit(line.price.tax.name, line.price.tax.account_collected_id, line.taxes, :draft=>draft)
+        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>line.product.name), line.product.product_account_id, line.amount, :draft=>draft) unless line.amount.zero?
+        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_collected_id, line.taxes, :draft=>draft) unless line.taxes.zero?
       end
       self.update_attribute(:accounted_at, Time.now)
     end

@@ -251,7 +251,7 @@ eng:
         #>payment_mode_create: 'Créer un nouveau type de réglement'
         #>title: 'Types de réglement'
       payment_part_create:
-        #>title: 'Ajouter un nouveau réglement : {{type}} {{value}}'
+        #>title: 'Ajouter un nouveau réglement : {{type}} N°{{number}}'
       _payment_part_form:
         #>downpayment: 'Acompte'
         #>existing_part: 'Utiliser un réglement non affecté'

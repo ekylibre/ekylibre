@@ -1,0 +1,7 @@
+====== Ajouter une pièce comptable ======
+
+Pour aller le plus vite possible lors de la saisie de pièces comptables, 
+il est possible de tout saidir au clavier (sans la souris). 
+Grâce à la touche tabulation, vous pouvez changer de champ comme traditionnellement, 
+mais lorsque vous êtes en fin de ligne, 
+une nouvelle écriture vous sera proposée tant que la pièce n'est pas équilibrée.

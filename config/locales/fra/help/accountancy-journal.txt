@@ -1,0 +1,6 @@
+====== Journal comptable ======
+
+Un journal comptable représente l'ancien support papier tel qu'il a toujours été utilisé.
+Il contient toutes les pièces et écritures comptables qui sont la base de la comptabilité.
+
+

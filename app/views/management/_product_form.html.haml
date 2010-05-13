@@ -27,7 +27,7 @@
   -f.field :product, :to_purchase
   -f.field :product, :to_produce
   -f.field :product, :manage_stocks
-=formalize(:id=>:stocks) do |f|
+=formalize(:id=>:product_form_stocks) do |f|
   -f.title :stocks
   -f.field :stock, :quantity_min
   -f.field :stock, :critic_quantity_min
@@ -44,7 +44,7 @@
   toggleService();
   window.toggleSubscription = function() { toggleElement('subscriptions', $('product_nature_subscrip').checked); }
   toggleSubscription();
-  window.toggleStocks = function() { toggleElement('stocks', $('product_manage_stocks').checked); }
+  window.toggleStocks = function() { toggleElement('product_form_stocks', $('product_manage_stocks').checked); }
   toggleStocks();
   window.toggleChargeAccount = function() { toggleElement('charge_account', $('product_to_purchase').checked); }
   toggleChargeAccount();

@@ -389,6 +389,7 @@ fra:
       label:
         normal: 'Facture N°{{number}}'
         credit: 'Avoir N°{{number}}'
+      to_accountancy: '[{{number}}] {{detail}}'
     invoice_line:
       no_product: '[Pas de produit]'
     journal:

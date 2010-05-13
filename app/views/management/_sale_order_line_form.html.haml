@@ -5,7 +5,6 @@
   -f.error :sale_order_line
   -f.error :subscription
   -f.title :infos
-  -#price_id    = f.field :sale_order_line, :price_id, :choices=>{:reflection=>:available_prices}, :new=>{:action=>:price_create, :mode=>:sales}
   -price_id    = f.field :sale_order_line, :price_id, :choices=>:available_prices, :new=>{:action=>:price_create, :mode=>:sales}
   -location_id = f.field :sale_order_line, :location_id, :choices=>{:reflection=>:locations}, :new=>{:action=>:location_create} if @locations.size > 1
   -f.field :sale_order_line, :quantity
@@ -13,9 +12,6 @@
 #stocks=#render :partial=>"sale_order_line_stocks"
 #tracking=render :partial=>"sale_order_line_tracking"
 #subscription=render :partial=>"subscription_coordinates_form"
-
--#subscription_number=render :partial=>"subscription_number"
--#subscription_date=render :partial=>"subscription_period"
 
 -if @current_user.can?(:change_prices_on_sale)
   =formalize do |f|
