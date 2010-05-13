@@ -21,11 +21,11 @@ jpn:
           #>zero: 'Aucun travail à réaliser'
         #>title: 'Gestion de la production'
       operation:
+        #>lines: 'Intrants et sortants'
         operation:
-          #>lines: 'Intrants et sortants'
         #>operation_update: 'Modifier le travail'
-        #>operations: 'Liste des travaux'
         #>title: 'Détails du travail {{name}}'
+        #>uses: 'Matériel'
       operation_create:
         #>title: 'Créer un nouveau travail'
       _operation_form:
@@ -34,7 +34,8 @@ jpn:
         #>infos: 'Renseignez les caractéristiques du travail'
         #>out_line_create: 'Ajouter un produit sortant'
         #>products: 'Produits intrants et sortants'
-        #>tools: 'Sélectionnez le matériel utilisé'
+        #>tool_use_create: 'Ajouter un matériel'
+        #>tools: 'Matériel utilisé'
       operation_nature_create:
         #>title: 'Créer un nouveau type de travail'
       operation_nature_update:
@@ -80,7 +81,8 @@ jpn:
           #>one: '1 travail'
           #>other: '{{count}} travaux'
           #>zero: 'Aucun travail'
-        #>title: 'Matériel {{name}}'
+        #>title: 'Matériel : {{name}}'
+        #>tool_update: 'Modifier le matériel'
       tool_create:
         #>title: 'Ajouter un matériel'
       tool_update:

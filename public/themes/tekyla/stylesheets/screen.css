@@ -152,7 +152,7 @@ div.td { display: table-cell; }
 #company div.side .label {color:#777; width: 160px; text-align:right; padding: 2px;}
 #company div.side .value {color:#227;  padding: 2px;}
 
-.flash { padding: 8px 8px 8px 48px; margin-bottom: 8px; vertical-align: middle; height:32px; background-position: 8px center; background-repeat: no-repeat; background-color: #FFF; color: black; border: 1px solid black; -moz-border-radius: 8px;}
+.flash { padding: 8px 8px 8px 48px; margin-bottom: 8px; vertical-align: middle; background-position: 8px center; background-repeat: no-repeat; background-color: #FFF; color: black; border: 1px solid black; -moz-border-radius: 8px;}
 .flash h3 { font-size: 13px; font-weight: bold; padding: 0 0 2px; margin-bottom: 2px; border-bottom: 1px dotted #999;}
 .flash ul { padding-left: 20px; }
 .flash ul li { list-style-type: square; }

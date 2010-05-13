@@ -107,7 +107,7 @@ class Company < ActiveRecord::Base
   has_many :taxes, :order=>'amount'
   has_many :tax_declarations
   has_many :tool_uses
-  has_many :tools
+  has_many :tools, :order=>:name
   has_many :trackings
   has_many :transfers
   has_many :units, :order=>'base, coefficient, name'

@@ -199,7 +199,8 @@ module Ekylibre
           # determine_completion_options(tf_id, hf_id, options, completion_options)
           determine_tag_options(hf_id, tf_id, options, tag_options)
           determine_completion_options(hf_id, tf_id, options, completion_options)
-          
+          tag_options[:size] = (tf_value.length > 64 ? 64 : tf_value.length) unless options[:no_resize] or tf_value.nil?
+
           return <<-HTML
           #{dyli_complete_stylesheet unless completion_options[:skip_style]}
           #{hidden_field_tag(hf_name, hf_value, :id => hf_id, :href=>url_for(completion_options[:url]), :text_field_id=>tf_id)}

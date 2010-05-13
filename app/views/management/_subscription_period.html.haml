@@ -1,6 +1,0 @@
--if not @subscription.nature.nil?
-  -if @subscription.nature.nature == "period"
-    =formalize do |f|
-      -f.field :subscription, :started_on
-      -f.field :subscription, :stopped_on
-      -f.field :subscription, :contact_id, :choices=>:subscription_contacts

@@ -30,9 +30,9 @@
     .end
   .actions
     -if @step == :validate
-      =link_to(tg(:previous), :id=>:columns)
+      =link_to(tg(:previous), :action=>:entities_import, :id=>:columns)
       =submit_tag(tg(:import))
     -else
-      =link_to(tg(:previous), :id=>:upload) if @step == :columns
+      =link_to(tg(:previous), :action=>:entities_import, :id=>:upload) if @step == :columns
       =submit_tag(tg(:next))
  

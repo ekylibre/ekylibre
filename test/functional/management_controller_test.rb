@@ -22,6 +22,7 @@ class ManagementControllerTest < ActionController::TestCase
                    :product_component_create=>{:product_id=>1}, 
                    :payment_part_create=>{:expense_type=>"sale_order", :expense_id=>1},
                    :except=>[:change_quantities, 
+                             :subscription_coordinates,
                              :price_find, 
                              :unpaid_sale_orders_export,
                              :subscription_nature, 

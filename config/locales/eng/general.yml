@@ -64,6 +64,7 @@ eng:
     display_help: 'Display help'
     down: 'Down'
     duplicate: 'Duplicate'
+    #>duration: '{{hours}}h {{minutes}}min'
     dyta:
       export:
         csv: 'CSV'
@@ -590,4 +591,3 @@ eng:
         #>sales: 'Ventes'
         #>stock_transfers: 'Transferts et pertes'
         #>stocks_tasks: 'Stocks'
-        #>tools: 'Outils'

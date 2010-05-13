@@ -128,6 +128,10 @@ class Product < ActiveRecord::Base
     @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
+  def subscription?
+    self.nature.to_s == :subscrip.to_s
+  end
+
   def units
     self.company.units.find(:all, :conditions=>{:base=>self.unit.base}, :order=>"coefficient, label")
   end

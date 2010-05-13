@@ -64,6 +64,7 @@ spa:
     #>display_help: 'Afficher l''aide'
     #>down: 'Descendre'
     #>duplicate: 'Dupliquer'
+    #>duration: '{{hours}}h {{minutes}}min'
     dyta:
       export:
         csv: 'CSV'
@@ -590,4 +591,3 @@ spa:
         #>sales: 'Ventes'
         #>stock_transfers: 'Transferts et pertes'
         #>stocks_tasks: 'Stocks'
-        #>tools: 'Outils'

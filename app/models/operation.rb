@@ -50,6 +50,7 @@ class Operation < ActiveRecord::Base
   belongs_to :responsible, :class_name=>User.name
   belongs_to :target, :polymorphic=>true
   has_many :tool_uses, :dependent=>:destroy
+  has_many :uses,  :class_name=>ToolUse.name, :dependent=>:destroy
   has_many :lines, :class_name=>OperationLine.name, :dependent=>:destroy
   has_many :tools, :through=>:tool_uses
 
@@ -61,6 +62,53 @@ class Operation < ActiveRecord::Base
 
   def before_validation
     self.duration = (self.min_duration.to_i + (self.hour_duration.to_i)*60 )
+  end
+
+
+  def save_with_uses_and_lines(uses=[], lines=[])
+    ActiveRecord::Base.transaction do
+      saved = self.save
+      # Tools
+      self.uses.clear
+      uses.each_index do |index|
+        uses[index] = self.uses.build(uses[index])
+        #if saved
+          saved = false unless uses[index].save
+        #end
+      end
+      if saved
+        self.reload
+        self.update_attribute(:tools_list, self.tools.collect{|t| t.name}.to_sentence)
+      end
+      
+      # Lines
+      self.lines.clear
+      lines.each_index do |index|
+        lines[index] = self.lines.build(lines[index])
+        #if saved
+          saved = false unless lines[index].save
+        #end
+      end
+      self.reload if saved
+#       self.entries.clear
+#       entries.each_index do |index|
+#         entries[index] = self.entries.build(entries[index])
+#         if saved
+#           saved = false unless entries[index].save
+#         end
+#       end
+#       self.reload if saved
+#       if saved and not self.balanced?
+#         self.errors.add_to_base(:unbalanced) 
+#         saved = false
+#       end
+      if saved
+        return true
+      else
+        raise ActiveRecord::Rollback
+      end
+    end
+    return false
   end
 
   def set_tools(tools)

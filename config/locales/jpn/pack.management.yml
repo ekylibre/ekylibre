@@ -592,6 +592,8 @@ jpn:
         #>unit: 'Unité'
         #>virtual_quantity: 'Quantité virtuelle'
         #>weight: 'Poids'
+      _subscription_coordinates_form:
+        #>coordinates: 'Coordonnées de l''abonnement'
       subscription_create:
         #>title: 'Création d''un abonnement'
       subscription_message:
@@ -608,17 +610,18 @@ jpn:
         #>subscription_nature_create: 'Ajouter un type d''abonnement'
         #>title: 'Types d''abonnements'
       _subscription_options:
-        #>select_date: 'Entrez une date'
-        #>select_number: 'Entrez un numéro'
-        #>stop: 'Jusqu''au'
-        #>subscription_natures_down: 'Décrémenter le numéro actuel (-1)'
-        #>subscription_natures_up: 'Incrémenter le numéro actuel (+1)'
       subscription_update:
         #>title: 'Modification de l''abonnement : N°{{number}} du {{start}} au {{finish}}'
       subscriptions:
         #>select_number_or_date: 'Entrez un numéro ou une date'
         #>subscription_nature: 'Type d''abonnement'
         #>title: 'Abonnements'
+      _subscriptions_options:
+        #>select_date: 'Entrez une date'
+        #>select_number: 'Entrez un numéro'
+        #>stop: 'Jusqu''au'
+        #>subscription_natures_down: 'Décrémenter le numéro actuel (-1)'
+        #>subscription_natures_up: 'Incrémenter le numéro actuel (+1)'
       tracking:
         #>operations: 'Travaux'
         #>productions: 'Productions'

@@ -251,8 +251,15 @@ module ApplicationHelper
       value = content_tag(:div, "", :class=>"checkbox-#{value}")
     elsif value.is_a? Date
       value = ::I18n.localize(value)
+    elsif options[:duration]
+      duration = value
+      duration = duration*60 if options[:duration]==:minutes
+      duration = duration*3600 if options[:duration]==:hours
+      hours = (duration/3600).floor.to_i
+      minutes = (duration/60-60*hours).floor.to_i
+      seconds = (duration - 60*minutes - 3600*hours).round.to_i
+      value = tg(:duration, :hours=>hours, :minutes=>minutes, :seconds=>seconds)
     end
-
     value = link_to(value.to_s, options[:url]) if options[:url]
     code  = content_tag(:td, label.to_s, :class=>:label)
     code += content_tag(:td, value.to_s, :class=>value_class)
@@ -818,7 +825,9 @@ module ApplicationHelper
         if line[:value].is_a? Symbol
           calls = caller
           file = calls[3].split(/\:\d+\:/)[0].split('/')[-1].split('.')[0]
-          line[:value] = t("views.#{controller.controller_name}.#{file}.#{line[:value]}") 
+          options = line.dup
+          options.delete_if{|k,v| [:nature, :value].include?(k)}
+          line[:value] = t("views.#{controller.controller_name}.#{file}.#{line[:value]}", options) 
         end
         line_code += content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>xcn)
       when :field
@@ -889,6 +898,7 @@ module ApplicationHelper
         end
       else
         html_options[:class] += ' notnull' unless column.null
+        html_options[:size] = 16 if column.type==:integer
         unless column.limit.nil?
           html_options[:size] = column.limit if column.limit<html_options[:size]
           html_options[:maxlength] = column.limit
@@ -960,14 +970,6 @@ module ApplicationHelper
       
       label = t("activerecord.attributes.#{object.class.name.underscore}.#{method.to_s}")
       label = " " if options[:options][:hide_label] 
-      
-      #      label = if object.class.methods.include? "human_attribute_name"
-      #                object.class.human_attribute_name(method.to_s)
-      #              elsif record.is_a? Symbol
-      #                t("activerecord.attributes.#{object.class.name.underscore}.#{method.to_s}")
-      #              else
-      #                tg(method.to_s)
-      #              end          
       label = content_tag(:label, label, :for=>input_id) if object!=record
     elsif line[:field]
       label = line[:label]||'[NoLabel]'

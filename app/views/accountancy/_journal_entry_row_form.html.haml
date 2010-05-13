@@ -1,7 +1,7 @@
 -entry = journal_entry_row_form||{}
 -id='e'+Time.now.to_i.to_s(36)+rand.to_s[2..-1].to_i.to_s(36)
 -if entry.errors.size > 0
-  %tr
+  %tr{:id=>id+'-errors'}
     %td{:colspan=>5, :style=>"background: transparent; padding:8px 4px 0; border-left:none; border-right:none;"}=error_messages 'journal_entry', :object=>entry
 %tr{:id=>id}
   %td
@@ -10,4 +10,4 @@
   %td=dyli_tag "entries[#{id}][account_id]", "account", :value=>entry.account, :no_resize=>true # , :after_update_element=>after_update
   %td=text_field_tag "entries[#{id}][currency_debit]", (entry.currency_debit||0.0), :size=>10, :id=>"entries_#{id}_currency_debit", :class=>"debit", :onkeyup=>"t0();", :onblur=>"if (isNaN(this.value)) {return false;}; if (this.value!=0 && !balanced) {"+remote_function(:url=>{:controller=>:accountancy, :action=>:journal_entry_create}, :update=>:entries, :position=>:bottom)+";}; return false;"
   %td=text_field_tag "entries[#{id}][currency_credit]", (entry.currency_credit||0.0), :size=>10, :class=>"credit", :onkeyup=>"t0();", :onblur=>"if (isNaN(this.value)) {return false;}; if (this.value!=0 && !balanced) {"+remote_function(:url=>{:controller=>:accountancy, :action=>:journal_entry_create}, :update=>:entries, :position=>:bottom)+";}; return false;"
-  %td.act=link_to_function(image_tag(theme_button(:delete), :border=>0), "$('#{id}').remove(); t0();")
+  %td.act=link_to_function(image_tag(theme_button(:delete), :border=>0), "$('#{id}').remove(); t0(); $('#{id}-errors').remove();")

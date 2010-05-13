@@ -64,6 +64,7 @@ jpn:
     #>display_help: 'Afficher l''aide'
     #>down: 'Descendre'
     #>duplicate: 'Dupliquer'
+    #>duration: '{{hours}}h {{minutes}}min'
     dyta:
       export:
         csv: 'CSV'
@@ -590,4 +591,3 @@ jpn:
         #>sales: 'Ventes'
         #>stock_transfers: 'Transferts et pertes'
         #>stocks_tasks: 'Stocks'
-        #>tools: 'Outils'

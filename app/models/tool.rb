@@ -57,4 +57,14 @@ class Tool < ActiveRecord::Base
     sum/60
   end
 
+  def usage_duration
+    return Operation.sum(:duration, :conditions=>["moved_on IS NOT NULL AND id IN (SELECT operation_id FROM tool_uses WHERE tool_id=?)", self.id])
+  end
+
+  def remaining_duration
+    return Operation.sum(:duration, :conditions=>["moved_on IS NULL AND id IN (SELECT operation_id FROM tool_uses WHERE tool_id=?)", self.id])
+  end
+
+    
+
 end

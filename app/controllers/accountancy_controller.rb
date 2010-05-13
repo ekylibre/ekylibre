@@ -183,7 +183,7 @@ class AccountancyController < ApplicationController
     return code
   end
 
-  dyta(:accounts, :conditions=>accounts_conditions, :order=>"number ASC") do |t|
+  dyta(:accounts, :conditions=>accounts_conditions, :order=>"number ASC", :per_page=>20) do |t|
     t.column :number, :url=>{:action=>:account}
     t.column :name, :url=>{:action=>:account}
     t.action :account_update

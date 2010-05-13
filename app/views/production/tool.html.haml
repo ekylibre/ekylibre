@@ -1,13 +1,14 @@
+=toolbar do |t|
+  -t.link :tool_update
 %table
   %tr
     %td
       =evalue @tool, :text_nature
     %td
-      =evalue @tool, :consumption
-
+      -#=evalue @tool, :consumption
+      =evalue @tool, :usage_duration, :duration=>:minutes
+      =evalue @tool, :remaining_duration, :duration=>:minutes
+      
 
 %h2=tc(:operations, :count=>@tool.uses.count)
 =dyta(:tool_operations)
-
-
-%h2=tc(:hour_duration, :count=>@tool.usage_duration_sum)

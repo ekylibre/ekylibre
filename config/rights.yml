@@ -173,6 +173,7 @@ create_estimates:
   - sale_order_lines
   - sale_order_subscriptions_dyta
   - sale_order_update
+  - subscription_coordinates
   - sum_calculate
 # Créer, modifier des achats
 create_purchases:
@@ -502,6 +503,8 @@ manage_operations:
   - operation_update
   - operations
   - operations_dyta
+  - production::operation_uses_dyta
+  - tool_use_create
   - unvalidated_operations
   - unvalidated_operations_dyta
 # Gérer les commandes et livraisons
@@ -611,9 +614,9 @@ manage_stock_moves:
 manage_subscriptions:
   controller: management
   actions:
+  - subscription_coordinates
   - subscription_create
   - subscription_delete
-  - subscription_find
   - subscription_message
   - subscription_nature
   - subscription_nature_create
@@ -623,11 +626,9 @@ manage_subscriptions:
   - subscription_nature_update
   - subscription_natures
   - subscription_natures_dyta
-  - subscription_options
   - subscription_update
   - subscriptions
   - subscriptions_dyta
-  - subscriptions_period
 # Gérer les taxes
 manage_taxes:
   controller: accountancy

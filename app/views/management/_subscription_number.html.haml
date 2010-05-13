@@ -1,7 +1,0 @@
--#puts @subscription.inspect
--if not @subscription.nature.nil?
-  -if @subscription.nature.nature == "quantity"
-    =formalize do |f|
-      -f.field :subscription, :first_number
-      -f.field :subscription, :last_number
-      -f.field :subscription, :contact_id, :choices=>:subscription_contacts

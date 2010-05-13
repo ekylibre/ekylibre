@@ -4,38 +4,42 @@
   - f.field :operation, :name
   - f.field :operation, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:controller=>:company, :action=>:user_create, :employed=>1}
   - f.field :operation, :nature_id, :choices=>{:reflection=>:operation_natures}, :new=>{:action=>:operation_nature_create}
-  - f.field :operation, :target_id, :choices=>{:reflection=>:shapes}, :new=>{:action=>:shape_create}
+  - f.field :operation, :target_id, :choices=>{:reflection=>:shapes, :include_blank=>""}, :new=>{:action=>:shape_create}
   - f.field :operation, :planned_on
   - f.field :operation, :description, :field=>:textarea
   - f.title :duration
   - f.field :operation, :hour_duration
   - f.field :operation, :min_duration
-  - f.title :products
-=hidden_field_tag "operation[target_type]", Shape.name
-=toolbar do |t|
-  -t.link :in_line_create,  :remote=>true, :url=>{:action=>:operation_line_create, :direction=>:in},  :update=>:lines, :position=>:bottom
-  -t.link :out_line_create, :remote=>true, :url=>{:action=>:operation_line_create, :direction=>:out}, :update=>:lines, :position=>:bottom
-%table.dyta
-  %thead
-    %tr
-      %th=OperationLine.human_attribute_name("direction")
-      %th=OperationLine.human_attribute_name("product_id")
-      %th=OperationLine.human_attribute_name("quantity")
-      %th=OperationLine.human_attribute_name("tracking_id")
-      %th=OperationLine.human_attribute_name("location_id")
-      %th.act
-  %tbody#lines
-    -for line in (params[:lines] ? params[:lines].values : @operation.lines)
-      =render :partial=>'operation_line_row_form', :object=>line
-  
-- if @current_company.tools.size > 0 
-  %table.flex
-    %tr
-      -for nature in ["tractor", "towed", "other"]
-        -tools = @current_company.tools.find_all_by_nature(nature)
-        -if tools.size>0
-          %td
-            =formalize do |f|
-              -f.title :tools
-              -for tool in tools
-                -f.field content_tag(:label, tool.name, :for=>"tools_#{tool.id}"), check_box_tag("tools[#{tool.id}]" ,"1", (@operation.new_record? ? false : (session[:tool_ids].include?(tool.id.to_s))), :id=>"tools_#{tool.id}")
+%table.invex
+  %tr
+    %td{:valign=>:top}
+      = formalize do |f|
+        - f.title :products
+      =hidden_field_tag "operation[target_type]", Shape.name
+      %table.dyta
+        %thead
+          %tr
+            %th=OperationLine.human_attribute_name("direction")
+            %th=OperationLine.human_attribute_name("product_id")
+            %th=OperationLine.human_attribute_name("quantity")
+            %th=OperationLine.human_attribute_name("tracking_id")
+            %th=OperationLine.human_attribute_name("location_id")
+            %th.act
+        %tbody#lines=render :partial=>'operation_line_row_form', :collection=>(@operation_lines||@operation.lines)
+      =toolbar do |t|
+        -t.link :in_line_create,  :remote=>true, :url=>{:action=>:operation_line_create, :direction=>:in},  :update=>:lines, :position=>:bottom
+        -t.link :out_line_create, :remote=>true, :url=>{:action=>:operation_line_create, :direction=>:out}, :update=>:lines, :position=>:bottom
+        
+    %td{:style=>"width:8px"}
+
+    %td{:valign=>:top}
+      = formalize do |f|
+        - f.title :tools
+      %table.dyta
+        %thead
+          %tr
+            %th=ToolUse.human_attribute_name("tool_id")
+            %th.act
+        %tbody#uses=render :partial=>'tool_use_row_form', :collection=>(@operation_uses||@operation.uses)
+      =toolbar do |t|
+        -t.link :tool_use_create,  :remote=>true, :update=>:uses, :position=>:bottom # , :url=>{:action=>:tool_use_create}

@@ -1546,8 +1546,8 @@ fra:
         shape_id: 'Îlot' #?
         started_at: 'Du'
         stopped_at: 'Au'
-        target: 'Cible'
-        target_id: 'Cible'
+        target: 'Parcelle'
+        target_id: 'Parcelle'
         target_type: 'Type de cible'
         tool_uses: 'Utilisations d''outil'
         tools: 'Outils'
@@ -1555,6 +1555,7 @@ fra:
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
+        uses: (((USES)))
         validated: 'Effectué' #?
 
       # Intrant/sortant
@@ -2406,10 +2407,12 @@ fra:
         lock_version: 'Version'
         name: 'Nom'
         nature: 'Nature'
+        remaining_duration: 'Durée d''utilisation prévue (heures)'
         text_nature: 'Nature'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
+        usage_duration: 'Durée d''utilisation (heures)'
         uses: 'Utilisations d''outil'
 
       # Utilisation d'outil

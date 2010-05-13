@@ -181,7 +181,7 @@ class SaleOrderLine < ActiveRecord::Base
 
   # Returns percentage of discount using reduction line
   def discount
-    @discount ||= (self.reduction ? (reduction.amount/self.amount).abs*100 : self.order.client.max_reduction_rate||0.0)
+    @discount ||= (self.reduction ? (self.reduction.amount/self.amount).abs : self.order.client.max_reduction_rate||0.0)*100
     @discount
   end
 

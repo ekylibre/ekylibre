@@ -576,7 +576,6 @@ fra:
         stocks_tasks: 'Stocks'
         stock_transfers: 'Transferts et pertes'
         production: 'Production'
-        tools: 'Outils'
 
 
 
@@ -600,6 +599,7 @@ fra:
     display_help: 'Afficher l''aide'
     down: 'Descendre'
     duplicate: 'Dupliquer'
+    duration: '{{hours}}h {{minutes}}min'
     dyta:
       export:
         title: Export

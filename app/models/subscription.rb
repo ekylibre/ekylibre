@@ -51,7 +51,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :nature, :class_name=>SubscriptionNature.name
   belongs_to :product
   belongs_to :sale_order
-  #belongs_to :sale_order_line
+  #belongs_to :sale_order_line 
 
   attr_readonly :company_id
 

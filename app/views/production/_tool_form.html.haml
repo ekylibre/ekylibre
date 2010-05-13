@@ -1,4 +1,5 @@
 = formalize do |f|
-  - f.field :tool, :name
-  - f.field :tool, :nature, :field=>:radio, :choices=>Tool.natures
-  - f.field :tool, :consumption
+  -f.error 'tool'
+  -f.field :tool, :name
+  -f.field :tool, :nature, :field=>:radio, :choices=>Tool.natures
+  -# f.field :tool, :consumption

@@ -13,5 +13,9 @@
       =evalue @operation, :moved_on
       =evalue @operation, :tools_list
 
-=tabbox(:operation) do |tb|
-  -tb.tab(:lines, :content=>dyta(:operation_lines))
+
+%h2=tc(:lines)
+=dyta(:operation_lines)
+
+%h2=tc(:uses)
+=dyta(:operation_uses)

@@ -163,7 +163,7 @@ class ManagementController < ApplicationController
   # Generic method to produce units of product
   def product_units
     return unless @product = find_and_check(:product)
-    render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.label, x.id]})-%>"
+    render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.name, x.id]})-%>"
   end
 
   def product_trackings
@@ -1250,13 +1250,13 @@ class ManagementController < ApplicationController
     end
   end
 
-  def subscription_find
-    return unless price = find_and_check(:prices, params[:sale_order_line_price_id])
-    product = price.product
-    if product.nature == "subscrip"
-      @subscription = Subscription.new(:product_id=>product.id, :company_id=>@current_company.id).compute_period
-    end
-  end
+#   def subscription_find
+#     return unless price = find_and_check(:prices, params[:sale_order_line_price_id])
+#     product = price.product
+#     if product.nature == "subscrip"
+#       @subscription = Subscription.new(:product_id=>product.id, :company_id=>@current_company.id).compute_period
+#     end
+#   end
 
   def sale_order_line_stocks
     return unless price = find_and_check(:prices, params[:sale_order_line_price_id])
@@ -1302,13 +1302,13 @@ class ManagementController < ApplicationController
     @locations = @current_company.locations
     @sale_order_line = @sale_order.lines.new(:price_amount=>0.0)
     if @current_company.available_prices.size > 0
-      @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id, :company_id=>@current_company.id).compute_period
+      # @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id, :company_id=>@current_company.id).compute_period
       @product = @current_company.available_prices.first.product
       @location = @locations.first
       session[:current_product] = @product.id
       session[:current_location] = @location.id
     else
-      @subscription = Subscription.new()
+      # @subscription = Subscription.new()
     end
     if @locations.empty? 
       notify(:need_location_to_create_sale_order_line, :warning)
@@ -1963,7 +1963,7 @@ class ManagementController < ApplicationController
 
   def self.subscriptions_conditions(options={})
     code = ""
-    code += "conditions = [ \" company_id = ? AND COALESCE(sale_order_id,0) NOT IN (SELECT id from sale_orders WHERE company_id = ? and state = 'P') \" , @current_company.id, @current_company.id]\n"
+    code += "conditions = [ \" company_id = ? AND COALESCE(sale_order_id, 0) NOT IN (SELECT id from sale_orders WHERE company_id = ? and state = 'E') \" , @current_company.id, @current_company.id]\n"
     code += "if session[:subscriptions].is_a? Hash\n"
     code += "  if session[:subscriptions][:nature].is_a? Hash\n"
     code += "    conditions[0] += \" AND nature_id = ?\" \n "
@@ -1998,20 +1998,13 @@ class ManagementController < ApplicationController
     t.column :finish
   end
 
-#   def subscription_options_display
-    
-#     @subscription_nature = find_and_check(:subscription_nature, params[:subscription_nature_id])
-#     # raise Exception.new params.inspect+"kkkkkkkkkkkkkkkkkkkk"+@subscription_nature.inspect
-    
+#   def subscription_options
+#     return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature])
+#     #instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant]) rescue nil 
+#     #session[:subscriptions][:instant] = instant||@subscription_nature.now
+#     session[:subscriptions][:instant] = @subscription_nature.now
+#     render :partial=>'subscription_options'
 #   end
-
-  def subscription_options
-    return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature])
-    #instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant]) rescue nil 
-    #session[:subscriptions][:instant] = instant||@subscription_nature.now
-    session[:subscriptions][:instant] = @subscription_nature.now
-    render :partial=>'subscription_options'
-  end
 
 
   def subscriptions
@@ -2020,41 +2013,53 @@ class ManagementController < ApplicationController
       redirect_to :action=>:subscription_natures
       return
     end
-    session[:numbers] = []
-    session[:dates] = []
-    if params[:nature_id]
+
+    if request.xhr?
       return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature_id])
-      intervals = []
-      if @subscription_nature.nature == "quantity"
-        for i in params[:start].to_i..params[:stop].to_i
-          intervals << i.to_i if i.to_i%2==0 
-        end
-        session[:numbers] = intervals
-        session[:dates] = []
-      else
-        session[:dates] = intervals
-        session[:numbers] = []
+      session[:subscriptions][:instant] = @subscription_nature.now
+      render :partial=>'subscriptions_options'
+      return
+    else
+      if params[:nature_id]
+        return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature_id])
       end
+      @subscription_nature ||= @current_company.subscription_natures.first
+      instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant]) rescue nil 
+      session[:subscriptions] ||= {}
+      session[:subscriptions][:nature]  = @subscription_nature.attributes
+      session[:subscriptions][:instant] = instant||@subscription_nature.now
     end
-    @subscription_nature ||= @current_company.subscription_natures.first
-    session[:subscriptions] ||= {}
-    session[:subscriptions][:nature]  = @subscription_nature.attributes
-    instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant]) rescue nil 
-    session[:subscriptions][:instant] = instant||@subscription_nature.now
   end
 
   # dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity]'], :active=>true, :company_id=>['@current_company.id']})
   dyli(:subscription_contacts,  ['entities.full_name', :address] ,:model=>:contact, :joins=>"JOIN entities ON (entity_id=entities.id)", :conditions=>{:active=>true, :company_id=>['@current_company.id']})
   
+  manage :subscriptions, :contact_id=>"@current_company.contacts.find_by_entity_id(params[:entity_id]).id rescue 0", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :nature_id=>"@current_company.subscription_natures.first.id rescue 0", :t3e=>{:nature=>"@subscription.nature.name", :start=>"@subscription.start", :finish=>"@subscription.finish"}
 
-  manage :subscriptions, :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :t3e=>{:nature=>"@subscription.nature.name", :start=>"@subscription.start", :finish=>"@subscription.finish"}
-
+#   def subscriptions_period
+#     @subscription = Subscription.new(:nature=>@current_company.subscription_natures.find_by_id(params[:subscription_nature_id].to_i))
+#     render :partial=>'subscriptions_period_form'
+#   end
   
-  def subscriptions_period
-    @subscription = Subscription.new(:nature=>@current_company.subscription_natures.find_by_id(params[:subscription_nature_id].to_i))
-    render :partial=>'subscriptions_period_form'
+  def subscription_coordinates
+    nature, attributes = nil, {}
+    if params[:nature_id]
+      return unless nature = find_and_check(:subscription_nature, params[:nature_id])
+    elsif params[:price_id]
+      return unless price = find_and_check(:price, params[:price_id])
+      if price.product.subscription?
+        nature = price.product.subscription_nature 
+        attributes[:product_id] = price.product_id
+      end
+    end
+    if nature
+      attributes[:contact_id] = (@current_company.contacts.find_by_entity_id(params[:entity_id]).id rescue 0)
+      @subscription = nature.subscriptions.new(attributes)
+      @subscription.compute_period
+    end
+    mode = params[:mode]||:coordinates
+    render :partial=>"subscription_#{mode}_form"
   end
-  
   
   
   dyta :undelivered_sales, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :line_class=>'RECORD.moment.to_s' do |t|

@@ -36,10 +36,10 @@ class ProductionController < ApplicationController
 
   dyta(:tool_operations, :model=>:tool_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool]']}, :order=>"created_at ASC") do |t|
     t.column :name,       :through=>:operation, :url=>{:action=>:operation}, :label=>tc(:name)
-    t.column :planned_on, :through=>:operation, :url=>{:action=>:operation}, :label=>tc(:planned_on)
-    t.column :moved_on,   :through=>:operation, :url=>{:action=>:operation}, :label=>tc(:moved_on)
-    t.column :tools_list, :through=>:operation, :url=>{:action=>:operation}, :label=>tc(:tools_list)
-    t.column :duration,   :through=>:operation, :url=>{:action=>:operation}, :label=>tc(:duration)
+    t.column :planned_on, :through=>:operation, :label=>tc(:planned_on), :datatype=>:date
+    t.column :moved_on,   :through=>:operation, :label=>tc(:moved_on)
+    t.column :tools_list, :through=>:operation, :label=>tc(:tools_list)
+    t.column :duration,   :through=>:operation, :label=>tc(:duration)
   end
   
   def tool
@@ -112,6 +112,10 @@ class ProductionController < ApplicationController
     t.column :density_label
   end
 
+  dyta(:operation_uses, :model=>:tool_uses, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"id") do |t|
+    t.column :name, :through=>:tool, :url=>{:action=>:tool}
+  end
+
   def operation
     return unless @operation = find_and_check(:operation)
     session[:current_operation_id] = @operation.id
@@ -120,14 +124,18 @@ class ProductionController < ApplicationController
   
   def operation_create
     if request.post?
+      # raise params.inspect
       @operation = @current_company.operations.new(params[:operation])
-      if @operation.save
-        @operation.set_lines(params[:lines].values) if params[:lines]
-        @operation.set_tools(params[:tools])
-        redirect_to_back
-      end
+      @operation_lines = (params[:lines]||{}).values
+      @operation_uses = (params[:uses]||{}).values
+      redirect_to_back if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
+#       if @operation.save
+#         @operation.set_lines(params[:lines].values) if params[:lines]
+#         @operation.set_tools(params[:tools])
+#         redirect_to_back
+#       end
     else
-      @operation = Operation.new(:planned_on=>Date.today, :responsible_id=>@current_user.id)
+      @operation = Operation.new(:planned_on=>Date.today, :responsible_id=>@current_user.id, :hour_duration=>2, :min_duration=>0)
     end
     render_form
   end
@@ -139,11 +147,16 @@ class ProductionController < ApplicationController
       session[:tool_ids] << tool.id.to_s
     end
     if request.post?
-      if @operation.update_attributes(params[:operation])
-        @operation.set_lines(params[:lines].values) if params[:lines]
-        @operation.set_tools(params[:tools])
-        redirect_to_back
-      end
+      @operation.attributes = params[:operation]
+      @operation_lines = (params[:lines]||{}).values
+      @operation_uses = (params[:uses]||{}).values
+      redirect_to_back if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
+
+#       if @operation.update_attributes(params[:operation])
+#         @operation.set_lines(params[:lines].values) if params[:lines]
+#         @operation.set_tools(params[:tools])
+#         redirect_to_back
+#       end
     end
     @title = {:name=>@operation.name}
     render_form
@@ -161,6 +174,15 @@ class ProductionController < ApplicationController
   def operation_line_create
     if request.xhr?
       render :partial=>'operation_line_row_form'
+    else
+      redirect_to :action=>:index
+    end
+  end
+
+
+  def tool_use_create
+    if request.xhr?
+      render :partial=>'tool_use_row_form'
     else
       redirect_to :action=>:index
     end
