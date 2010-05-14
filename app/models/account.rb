@@ -66,6 +66,7 @@ class Account < ActiveRecord::Base
   # This method allows to create the parent accounts if it is necessary.
   def before_validation
     self.label = tc(:label, :number=>self.number.to_s, :name=>self.name.to_s)
+    self.parent_id = self.compute_parent_id
     self.parent_id ||= 0
   end
 
