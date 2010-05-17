@@ -425,7 +425,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.column :default
-    t.column :range
+    # t.column :range
     t.action :price_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
   
@@ -610,7 +610,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.column :default
-    t.column :range
+    # t.column :range
     t.action :price_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
@@ -729,28 +729,30 @@ class ManagementController < ApplicationController
     @locations = Location.find_all_by_company_id(@current_company.id)
     if request.post?
       #raise Exception.new params.inspect
-      @product = Product.new(params[:product])
+      @product = @current_company.products.new(params[:product])
       @product.duration = params[:product][:duration]
-      @product.company_id = @current_company.id
-      @stock = Stock.new(params[:stock])
+      @stock = @current_company.stocks.new(params[:stock])
+      # @price = @current_company.prices.new(params[:price])
       ActiveRecord::Base.transaction do
         saved = @product.save
-        if params[:product][:manage_stocks] == "1"
-          if saved
-            @stock.product_id = @product.id
-            @stock.company_id = @current_company.id
-            saved = false unless @stock.save!
-            @product.errors.add_from_record(@stock)
-          end
-        end 
+        if @product.manage_stocks and saved
+          @stock.product_id = @product.id
+          saved = false unless @stock.save
+          @product.errors.add_from_record(@stock)
+        end
+#         if @product.to_sale and saved
+#           @price.product_id = @product.id
+#           @price.entity_id = @current_company.id
+#           saved = false unless @price.save
+#           @product.errors.add_from_record(@price)          
+#         end
         raise ActiveRecord::Rollback unless saved
         return if save_and_redirect(@product, :saved=>saved)
       end
     else 
-      @product = Product.new
-      @product.nature = Product.natures.first[1]
-      # @product.supply_method = Product.supply_methods.first[1]
+      @product = Product.new(:nature=>Product.natures.first[1])
       @stock = Stock.new
+#      @price = Price.new
     end
     render_form
   end
@@ -786,7 +788,7 @@ class ManagementController < ApplicationController
       end
       return if save_and_redirect(@product, :saved=>saved)
     end
-    t3e :value=>@product.name
+    t3e @product.attributes
     render_form
   end
   

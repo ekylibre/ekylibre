@@ -1,0 +1,6 @@
+=formalize do |f|
+  -f.title :title
+  -f.field :price, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>{:controller=>:relations, :action=>:entity_category_create}
+  -f.field :price, :amount
+  -f.field :price, :tax_id, :choices=>{:reflection=>:taxes}, :new=>{:controller=>:accountancy, :action=>:tax_create}
+  -f.field :price, :currency_id, :choices=>{:reflection=>:currencies}

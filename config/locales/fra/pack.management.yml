@@ -279,7 +279,8 @@ fra:
         title: 'Ajout d''un nouveau prix'
       _price_form:
         general: 'Général'
-        taxes: 'Taxes' #!
+      _price_amount_form:
+        title: Tarif
       prices:
         all: 'Tous les prix' #!
         client: 'Les prix de vente' #!
@@ -330,7 +331,7 @@ fra:
         purchase_price_create: 'Créer un prix d''achat'
         sale_price_create: 'Créer un prix de vente'
       product_update:
-        title: 'Modification du produit : {{value}}'
+        title: 'Modification du produit : {{name}}'
       products:
         nb_products: 
           one: '1 produit enregistré'

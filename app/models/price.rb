@@ -45,7 +45,7 @@
 
 class Price < ActiveRecord::Base
   attr_readonly :company_id, :started_at, :amount, :amount_with_taxes
-  belongs_to :category, :class_name=>EntityCategory.to_s
+  belongs_to :category, :class_name=>EntityCategory.name
   belongs_to :company
   belongs_to :currency
   belongs_to :entity
@@ -57,7 +57,7 @@ class Price < ActiveRecord::Base
   has_many :purchase_order_lines
   has_many :sale_order_lines
   validates_presence_of :category_id, :if=>Proc.new{|price| price.entity_id == price.company.entity_id}
-  validates_presence_of :currency_id, :product_id
+  validates_presence_of :currency_id, :product_id, :entity_id
   validates_numericality_of :amount, :greater_than_or_equal_to=>0
   validates_numericality_of :amount_with_taxes, :greater_than_or_equal_to=>0
 
@@ -65,7 +65,10 @@ class Price < ActiveRecord::Base
 
   def before_validation
     self.company_id  ||= self.product.company_id if self.product
-    self.currency_id ||= self.company.currencies.first.id if self.company
+    if self.company
+      self.currency_id ||= self.company.currencies.first.id 
+      self.entity_id ||=  self.company.entity_id
+    end
     if self.amount_with_taxes.to_f > 0
       self.amount_with_taxes = self.amount_with_taxes.round(2)
       tax_amount = (self.tax ? self.tax.compute(self.amount_with_taxes, true) : 0)

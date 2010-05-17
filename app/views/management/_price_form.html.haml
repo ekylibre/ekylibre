@@ -5,16 +5,13 @@
   -f.field :price, :product_id, :choices=>{:reflection=>:products}, :new=>{:action=>:product_create} 
   -if @mode != :sales
     -f.field :price, :entity_id, :choices=>:entities, :new=>{:controller=>:relations, :action=>:entity_create} 
-  -f.field :price, :amount
-  -f.field :price, :tax_id, :choices=>{:reflection=>:taxes}, :new=>{:controller=>:accountancy, :action=>:tax_create}
-  -f.field :price, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>{:controller=>:relations, :action=>:entity_category_create}
   -f.field :price, :default
-  -f.field :price, :currency_id, :choices=>{:reflection=>:currencies}
-  -f.field :price, :use_range
+=render :partial=>'price_amount_form'
 
-=formalize(:id=>:interval) do |f|
-  -f.field :price, :quantity_min
-  -f.field :price, :quantity_max
+-#  -f.field :price, :use_range
+-#=formalize(:id=>:interval) do |f|
+-#  -f.field :price, :quantity_min
+-#  -f.field :price, :quantity_max
 
 :javascript
   window.displayInterval = function() { toggleElement('interval', $('price_use_range').checked); };
