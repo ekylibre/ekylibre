@@ -33,7 +33,10 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 .nav { height: 32px; }
 .nav .title { color: #750; font-size: 20px;  height: 24px; padding:4px 8px; font-weight: normal; overflow:hidden; margin:0; }
 
-#about_us a img { border:none; }
+#about-us div { padding: 64px; }
+#about-us div a { text-align: center; display: block;}
+#about-us div a img { border:none; }
+#about-us div table { margin: 0 auto; width: 500px; }
 
 .main .nav { background: #C9D7F1; }
 .main .nav .title { color: #012; }

@@ -44,8 +44,19 @@
 require 'test_helper'
 
 class JournalRecordTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+
+  context "A journal" do
+
+    should "forbids to write records before its closure date" do
+      @journal = journals(:journals_001)
+      assert_raise ActiveRecord::RecordInvalid do
+        record = @journal.records.create!(:printed_on=>@journal.closed_on-10)
+      end
+      assert_nothing_raised do
+        record = @journal.records.create!(:printed_on=>@journal.closed_on+1)
+      end
+    end
+    
   end
+
 end

@@ -43,7 +43,7 @@
 
 class JournalRecord < ActiveRecord::Base
   acts_as_list :scope=>:financialyear
-  attr_readonly :company_id, :journal_id
+  attr_readonly :company_id, :journal_id, :created_on
   belongs_to :company
   belongs_to :journal
   belongs_to :financialyear, :class_name=>Financialyear.name
@@ -51,28 +51,27 @@ class JournalRecord < ActiveRecord::Base
   has_many :entries, :foreign_key=>:record_id, :dependent=>:destroy, :class_name=>JournalEntry.name
 
   validates_format_of :number, :with => /^[\dA-Z]+$/
-  # validates_presence_of :created_on, :printed_on
-
-  def before_validation_on_create
-    self.company_id = self.journal.company_id if self.journal
-  end
+  validates_presence_of :financialyear
 
   #
   def before_validation
+    self.company_id = self.journal.company_id if self.journal
     self.debit  = self.entries.sum(:debit)
     self.credit = self.entries.sum(:credit)
-    self.created_on ||= Date.today
-    unless self.number
-      self.number = self.journal.last_number.succ if self.journal
+    unless self.financialyear
+      self.financialyear = self.company.financialyears.find(:first, :conditions=>["? BETWEEN started_on AND stopped_on", self.printed_on])
     end
-    self.number = self.number.rjust(6, "0")
+    self.created_on = Date.today
+    if self.journal and not self.number
+      self.number ||= self.journal.next_number 
+    end
   end 
   
   #
   def validate
     return unless self.created_on
     if self.journal
-      if self.created_on <= self.journal.closed_on
+      if self.printed_on <= self.journal.closed_on
         errors.add_to_base(:closed_journal, :on=>::I18n.localize(self.journal.closed_on))
         return false
       end
@@ -81,12 +80,14 @@ class JournalRecord < ActiveRecord::Base
       errors.add(:created_on, :posterior, :to=>::I18n.localize(self.printed_on)) if self.printed_on > self.created_on
     end
     if self.financialyear
-      errors.add(:created_on, :out_of_financialyear, :from=>::I18n.localize(self.financialyear.started_on), :to=>::I18n.localize(self.financialyear.stopped_on)) if self.created_on < self.financialyear.started_on or self.created_on > self.financialyear.stopped_on
+      if self.printed_on < self.financialyear.started_on or self.printed_on > self.financialyear.stopped_on
+        errors.add(:printed_on, :out_of_financialyear, :from=>::I18n.localize(self.financialyear.started_on), :to=>::I18n.localize(self.financialyear.stopped_on)) 
+      end
     end
   end
   
   def before_destroy
-    return false if self.created_on < self.journal.closed_on 
+    return false if self.printed_on < self.journal.closed_on 
   end
 
   
@@ -98,6 +99,10 @@ class JournalRecord < ActiveRecord::Base
   #determines if the record is balanced or not.
   def balanced?
     self.debit == self.credit and self.debit > 0
+  end
+
+  def updatable?
+    self.financialyear.started_on <= self.printed_on and self.printed_on <= self.financialyear.stopped_on and self.printed_on > self.journal.closed_on
   end
 
   #determines the difference between the debit and the credit from the record.
@@ -167,19 +172,6 @@ class JournalRecord < ActiveRecord::Base
   #
   def add_credit(name, account, amount, options={})
     add(name, account, amount, options.merge({:credit=>true}))
-  end
-
-  #this method creates a next record with an initialized value matching to the previous record. 
-  def next
-    record = self.journal.records.find(:first, :conditions=>["debit!=credit OR (debit=0 AND credit=0) AND financialyear_id = ?", self.financialyear_id], :order=>"number DESC")
-
-    if record.nil?
-     
-      records= self.journal.records.find(:all, :conditions=>{:financialyear_id => self.financialyear_id, :company_id => self.company_id},:order=>"number DESC")
-      JournalRecord.new({:number=>(records.nil? ? 1 : records.first.number.succ), :created_on=>(records.nil? ? self.financialyear.started_on : records.first.created_on), :printed_on=>(records.nil? ? self.financialyear.started_on : records.first.printed_on), :company_id=>self.company.id, :financialyear_id=>self.financialyear.id, :journal_id=>self.journal.id})
-    else
-      record
-    end
   end
 
 

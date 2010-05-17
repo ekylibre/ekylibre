@@ -87,7 +87,7 @@ class JournalEntry < ActiveRecord::Base
   
   #
   def validate
-    unless self.editable?
+    unless self.updatable?
       errors.add_to_base :closed_entry 
       return
     end
@@ -109,6 +109,9 @@ class JournalEntry < ActiveRecord::Base
     return (not self.editable)
   end
 
+  def updatable?
+    self.editable and self.record.updatable?
+  end
 
   # updates the amounts to the debit and the credit 
   # for the matching record.

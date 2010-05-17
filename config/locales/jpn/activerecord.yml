@@ -1216,7 +1216,7 @@ jpn:
         #>updated_at: 'Mis à jour le'
         updater: '修正の人'
         updater_id: '修正の人'
-        #>uses: '(((USES)))'
+        #>uses: 'Matériels utilisés'
         #>validated: 'Effectué'
       operation_line:
         #>area_unit: 'Unité de surface'
@@ -2147,7 +2147,7 @@ jpn:
         #>first_name: 'Prénom'
         #>free_price: 'Prix libres'
         #>full_name: 'Nom complet'
-        #>future_events: '(((FUTURE_EVENTS)))'
+        #>future_events: 'Evènements futurs'
         #>hashed_password: 'Mot de passe crypté'
         id: '唯一の番号'
         #>language: 'Langue'

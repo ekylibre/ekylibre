@@ -1555,7 +1555,7 @@ fra:
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-        uses: (((USES)))
+        uses: 'Matériels utilisés'
         validated: 'Effectué' #?
 
       # Intrant/sortant
@@ -2554,7 +2554,7 @@ fra:
         first_name: 'Prénom'
         free_price: 'Prix libres'
         full_name: 'Nom complet'
-        future_events: (((FUTURE_EVENTS)))
+        future_events: 'Evènements futurs'
         hashed_password: 'Mot de passe crypté'
         id: 'ID'
         language: 'Langue'

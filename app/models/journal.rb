@@ -57,8 +57,8 @@ class Journal < ActiveRecord::Base
     self.name = self.nature_label if self.name.blank? and self.nature
     self.currency_id ||= self.company.currencies.find(:first, :order=>:id).id
     if self.closed_on == Date.civil(1970,12,31) 
-      if Financialyear.exists?(:company_id=>self.company_id)
-        self.closed_on = Financialyear.find(:first, :conditions => {:company_id => self.company_id}).started_on-1 
+      if fy = self.company.financialyears.first
+        self.closed_on = fy.started_on-1 
       else
         self.closed_on = Date.civil(1970,12,31) 
       end
@@ -163,11 +163,12 @@ class Journal < ActiveRecord::Base
     return true
   end
 
-  def last_number
+  def next_number
     record = self.records.find(:first, :conditions=>["created_on>=?", self.closed_on], :order=>"number DESC")
-    return record ? record.number : "000000"
+    code = record ? record.number : self.code.to_s+"000000"
+    code.gsub!(/(9+)$/, '0\1') if code.match(/[^\d]9+$/)
+    return code.succ
   end
-
 
 
 

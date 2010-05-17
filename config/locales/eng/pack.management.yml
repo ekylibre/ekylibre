@@ -273,11 +273,12 @@ eng:
         #>embanked: 'Encaissés'
         #>search: 'Rechercher des règlements'
         #>waiting: 'Échéances'
+      _price_amount_form:
+        #>title: 'Tarif'
       price_create:
         #>title: 'Ajout d''un nouveau prix'
       _price_form:
         #>general: 'Général'
-        #>taxes: 'Taxes'
       prices:
         #>all: 'Tous les prix'
         #>client: 'Les prix de vente'
@@ -327,7 +328,7 @@ eng:
         #>purchase_price_create: 'Créer un prix d''achat'
         #>sale_price_create: 'Créer un prix de vente'
       product_update:
-        #>title: 'Modification du produit : {{value}}'
+        #>title: 'Modification du produit : {{name}}'
       products:
         nb_products:
           #>one: '1 produit enregistré'
@@ -445,13 +446,13 @@ eng:
         #>discount: 'Remise (en %)'
         #>give_discount: 'Octroyer une remise'
         #>infos: 'Choisissez le produit et la quantité'
+      _sale_order_line_informations:
+        #>no_tracking: 'Aucun lot'
+        #>tracking: 'Lot '
       sale_order_line_informations:
         #>contact: 'à l''adresse'
         #>from_date: 'Du '
         #>to_date: 'Au '
-      _sale_order_line_informations:
-        #>no_tracking: 'Aucun lot'
-        #>tracking: 'Lot '
       _sale_order_line_stocks:
         #>line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
       _sale_order_line_tracking:
@@ -629,13 +630,13 @@ eng:
         #>title: 'Transport du {{value}}'
       transport_create:
         #>title: 'Ajout d''un nouveau transport'
-      transport_deliveries:
-        #>title: 'Livraisons du transport'
       _transport_deliveries:
         #>add: 'Ajouter la livraison au transport'
         #>add_delivery: 'Ajouter une livraison'
         #>back: 'Valider et revenir à la liste des transports'
         #>delivery: 'Livraison'
+      transport_deliveries:
+        #>title: 'Livraisons du transport'
       _transport_form:
         #>info: 'Renseignez les informations du transport'
       transport_update:

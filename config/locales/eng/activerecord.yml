@@ -1216,7 +1216,7 @@ eng:
         updated_at: 'Updated at'
         updater: 'Updater'
         updater_id: 'Updater'
-        #>uses: '(((USES)))'
+        #>uses: 'Matériels utilisés'
         #>validated: 'Effectué'
       operation_line:
         #>area_unit: 'Unité de surface'
@@ -2147,7 +2147,7 @@ eng:
         #>first_name: 'Prénom'
         #>free_price: 'Prix libres'
         #>full_name: 'Nom complet'
-        #>future_events: '(((FUTURE_EVENTS)))'
+        #>future_events: 'Evènements futurs'
         #>hashed_password: 'Mot de passe crypté'
         id: 'ID'
         #>language: 'Langue'

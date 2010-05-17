@@ -728,7 +728,7 @@ class AccountancyController < ApplicationController
       end
     else
       @journal_record.printed_on = @journal_record.created_on = Date.today
-      @journal_record.number = @journal.last_number.succ
+      @journal_record.number = @journal.next_number
       @journal_entries = []
     end
     t3e @journal.attributes
