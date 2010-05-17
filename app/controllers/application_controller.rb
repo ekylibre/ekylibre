@@ -247,7 +247,7 @@ class ApplicationController < ActionController::Base
 
     @current_company = Company.find_by_code(params[:company])
     unless @current_company
-      notify(:unknown_company, :error)
+      notify(:unknown_company, :error) unless params[:company].blank?
       return redirect_to_login 
     end
 

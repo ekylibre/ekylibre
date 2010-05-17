@@ -17,19 +17,30 @@
 #
 
 class RelationsController < ApplicationController
- 
-  #
-  def index
-    @entities = @current_company.entities
-  end
+
+
+  dyta(:user_future_events, :model=>:events, :conditions=>['company_id = ? AND user_id = ? AND started_at >= CURRENT_TIMESTAMP', ['@current_company.id'], ['@current_user.id']], :order=>"started_at ASC", :per_page=>10) do |t|
+    t.column :started_at
+    t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
+    t.column :name, :through=>:nature
+    t.column :duration
+    t.column :location
+  end 
 
   dyta(:recent_events, :model=>:events, :conditions=>['company_id = ?',['@current_company.id']], :order=>"started_at DESC", :per_page=>10) do |t|
+    t.column :started_at
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :name, :through=>:nature
     t.column :duration
     t.column :location
     t.column :label, :through=>:user, :url=>{:controller=>:company, :action=>:user}
-    t.column :started_at
+  end
+
+
+
+  #
+  def index
+    @entities = @current_company.entities
   end
 
   #

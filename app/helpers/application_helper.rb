@@ -219,11 +219,6 @@ module ApplicationHelper
     link_to tg(options[:label]||'back'), session[:history][1]
   end
   #
-  def elink(condition,label,url)
-    link_to_if(condition,label,url) do |name| 
-      content_tag :strong, name
-    end
-  end
 
   #
   def evalue(object, attribute, options={})
@@ -326,6 +321,38 @@ module ApplicationHelper
       javascript_tag("Calendar.setup({inputField : '#{options[:id]}', ifFormat: '%Y-%m-%d', button : '#{options[:id]}_trigger' });")
   end
 
+
+
+
+  def date_field(object_name, method, options={})
+    name = object_name.to_s+'_'+method.to_s
+    text_field(object_name, method, {:size=>10}.merge(options))+
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name+'_trigger')+
+      javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
+  end
+
+  def date_field_tag(name, value=Date.today, options={})
+    options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
+    text_field_tag(name, value, {:size=>10}.merge(options))+
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id]+'_trigger')+
+      javascript_tag("Calendar.setup({inputField : '#{options[:id]}', ifFormat: '%Y-%m-%d', button : '#{options[:id]}_trigger' });")
+  end
+
+  def datetime_field(object_name, method, options={})
+    name = object_name.to_s+'_'+method.to_s
+    text_field(object_name, method, {:size=>18}.merge(options))+
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name+'_trigger')+
+      javascript_tag("Calendar.setup({inputField : '#{name}', showsTime : true, timeFormat : 24, ifFormat : '%Y-%m-%d %H:%M:%S', button : '#{name}_trigger' });")
+  end
+
+  def datetime_field_tag(name, value=Date.today, options={})
+    options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
+    text_field_tag(name, value, {:size=>18}.merge(options))+
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id]+'_trigger')+
+      javascript_tag("Calendar.setup({inputField : '#{options[:id]}', showsTime : true, timeFormat : 24, ifFormat: '%Y-%m-%d %H:%M:%S', button : '#{options[:id]}_trigger' });")
+  end
+
+
   def top_tag
     #return content_tag(:div, ' ', :style=>'display:none;') if @current_user.blank?
     #return '' if @current_user.blank?
@@ -334,8 +361,11 @@ module ApplicationHelper
     # Modules Tag
     tag = ''
     for m in MENUS
-      # tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"),{:controller=>m[:name]})+" "
-      tag += elink(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"), last_page(m[:name].to_s))+" "  if controller.accessible?({:controller=>m[:name]})
+      if controller.accessible?({:controller=>m[:name]})
+        tag += link_to_if(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"), last_page(m[:name].to_s)) do |name|
+          link_to(name, {:controller=>m[:name], :action=>:index}, :class=>:current)
+        end+" "
+      end
     end if @current_user
     
     tag = content_tag(:nobr, tag)
@@ -907,6 +937,8 @@ module ApplicationHelper
         if column.type==:date
           options[:field] = :date 
           html_options[:size] = 10
+        elsif column.type==:datetime or column.type==:timestamp
+          options[:field] = :datetime
         end
       end
 
@@ -948,7 +980,9 @@ module ApplicationHelper
               when :textarea
                 text_area(record, method, :cols => options[:options][:cols]||30, :rows => options[:options][:rows]||3, :class=>(options[:options][:cols]==80 ? :code : nil))
               when :date
-                calendar_field(record, method)
+                date_field(record, method)
+              when :datetime
+                datetime_field(record, method)
               else
                 text_field(record, method, html_options)
               end

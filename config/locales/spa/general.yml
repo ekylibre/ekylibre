@@ -214,8 +214,8 @@ spa:
         #>price_list_name: 'Tarif normal'
         role:
           name:
-            #>admin: 'Administrateur'
-            #>public: 'Public'
+            #>admin: 'Gérant'
+            #>public: 'Public (sans droits)'
         #>sale_order_nature_name: 'Vente standard'
         #>sample_product_name: 'Produit Exemple'
         sequences:

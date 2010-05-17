@@ -97,7 +97,7 @@ class AuthenticationController < ApplicationController
     if params[:company].is_a? String
       @current_company = Company.find_by_code(params[:company])
       unless @current_company
-        notify(:unknown_company, :error)
+        notify(:unknown_company, :error) unless params[:company].blank?
         redirect_to :action=>:login, :company=>nil
       end
     end

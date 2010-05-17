@@ -287,11 +287,12 @@ eng:
       _general_description_form:
         #>title: 'Description générale'
       index:
-        #>last_events: 'Derniers événements'
+        #>future_events: 'Futurs événements'
         nb_entities:
           #>one: '1 fiche client/fournisseur'
           #>other: '{{count}} fiches clients/fournisseurs'
           #>zero: 'Aucune fiche clients/fournisseurs'
+        #>recent_events: 'Derniers événements'
         #>title: 'Gestion des relations clients et fournisseurs'
       mandate_create:
         #>title: 'Créer une responsabilité'

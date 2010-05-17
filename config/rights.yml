@@ -81,6 +81,7 @@ administrate_relations:
   - entities_dyli
   - index
   - recent_events_dyta
+  - user_future_events_dyta
 # Effectuer/Recharger des sauvegardes
 backup_company:
   controller: company

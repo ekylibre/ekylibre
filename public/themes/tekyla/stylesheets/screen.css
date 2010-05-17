@@ -7,6 +7,8 @@ fieldset nobr { margin: 0 8px; vertical-align: middle; }
 td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:focus { color:#00C; }
 a:hover { color: #000; }
+a.current:link, a.current:visited, a.current:focus { color: #000; text-decoration: none; font-weight: bold}
+a.current:hover { color: #000; }
 input[type="submit"] { padding: 1px 4px; }
 
 table#master  { margin-top:30px; }

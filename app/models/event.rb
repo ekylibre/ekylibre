@@ -43,7 +43,7 @@ class Event < ActiveRecord::Base
   belongs_to :nature, :class_name=>EventNature.to_s
   belongs_to :user
     
-  validates_presence_of :user_id, :nature_id
+  validates_presence_of :user_id, :nature_id, :entity
   attr_readonly :company_id
 
   def before_validation

@@ -1084,8 +1084,8 @@ fra:
         nature: 'Type'
         nature_id: 'Type'
         reason: 'Motif'
-        started_at: 'A débuté le'
-        started_sec: 'A débuté le (en secondes)'
+        started_at: 'Date et heure'
+        started_sec: 'Date et heure (en secondes)'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
@@ -2529,7 +2529,7 @@ fra:
 
       # Utilisateur
       user:
-        admin: 'Administrateur'
+        admin: 'Administrateur système'
         arrived_on: 'Arrivé le'
         clients: 'Clients'
         comment: 'Commentaire'
@@ -2554,6 +2554,7 @@ fra:
         first_name: 'Prénom'
         free_price: 'Prix libres'
         full_name: 'Nom complet'
+        future_events: (((FUTURE_EVENTS)))
         hashed_password: 'Mot de passe crypté'
         id: 'ID'
         language: 'Langue'
