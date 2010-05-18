@@ -3,30 +3,28 @@ require 'spreadsheet'
 
 
 
-# Abstract SpreadSheet
+# Abstract Simple SpreadSheet
+# Take only the first sheet
 class Spreet
 
-  @@formats = {}
+  @@formats = [:csv, :xcsv]
 
-  def open(file, format)
-    unless @klass = @@formats[format.to_sym]
-      raise ArgumentError.new("Unknown format #{format.inspect} (accepts only #{@@formats.to_sentence})")
-    end
+  # Open a spreadsheet to read it
+  def open(file, format=:csv)
+    @format = format.to_sym
+    @handler = case @format
+               when :csv
+                 FasterCSV.open(file)
+               when :xcsv
+                 FasterCSV.open(file, :col_sep=>';', :encoding=>'cp1252')
+               else
+                 raise ArgumentError.new("Unknown format #{format.inspect} (accepts only #{@@formats.to_sentence})")                 
+               end
   end
 
-  def sheets
-    @klass.sheets
-  end
 
-  def rows(sheet=0, &block)
-  end
-
-  protected
-  
-  def self.register(code, klass)
-    code = code.to_s
-    raise ArgumentError.new("Unvalid code for Spreet engine") unless code.size > 0
-    @@formats[code.to_sym] = klass
+  def shift
+    @handler.shift
   end
 
 end

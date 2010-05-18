@@ -116,24 +116,24 @@ class Company < ActiveRecord::Base
 
 
   # Specifics
-  has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
-  has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
-  has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
-  has_many :available_products, :class_name=>Product.name, :conditions=>{:active=>true}, :order=>:name
   has_many :available_prices, :class_name=>Price.name, :conditions=>'prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM products WHERE company_id=#{id} AND active=#{connection.quoted_true})', :order=>"prices.amount"
-  has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
-  has_many :embankable_payments, :class_name=>Payment.name, :conditions=>{:embankment_id=>nil}
-  has_many :self_bank_accounts, :class_name=>BankAccount.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
-  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.third_accounts.clients\').value.to_s+\'%\')}'
-  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.third_accounts.suppliers\').value.to_s+\'%\')}'
-  has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.major_accounts.charges\').value.to_s+\'%\')}'
-  has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.major_accounts.products\').value.to_s+\'%\')}'
+  has_many :available_products, :class_name=>Product.name, :conditions=>{:active=>true}, :order=>:name
   has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.minor_accounts.banks\').value.to_s+\'%\')}'
-  has_many :self_contacts, :class_name=>Contact.name, :conditions=>'active = #{connection.quoted_true} AND entity_id = #{self.entity_id}', :order=>'active DESC, address'
-  has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, name, first_name'
-  has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, name, first_name'
-  has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
+  has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.major_accounts.charges\').value.to_s+\'%\')}'
   has_many :choice_complements, :class_name=>Complement.name, :conditions=>{:nature=>"choice"}, :order=>"name"
+  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.third_accounts.clients\').value.to_s+\'%\')}'
+  has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
+  has_many :embankable_payments, :class_name=>Payment.name, :conditions=>{:embankment_id=>nil}
+  has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
+  has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
+  has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.major_accounts.products\').value.to_s+\'%\')}'
+  has_many :self_bank_accounts, :class_name=>BankAccount.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
+  has_many :self_contacts, :class_name=>Contact.name, :conditions=>'active = #{connection.quoted_true} AND entity_id = #{self.entity_id}', :order=>'active DESC, address'
+  has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
+  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.third_accounts.suppliers\').value.to_s+\'%\')}'
+  has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, name, first_name'
+  has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
+  has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, name, first_name'
 
   has_one :current_financialyear, :class_name=>Financialyear.name, :conditions=>{:closed=>false}
 
@@ -877,8 +877,8 @@ class Company < ActiveRecord::Base
 
 
   def import_entities(file, cols, options={})
-    csv = FasterCSV.open(file)
-    header = csv.shift # header
+    sheet = FasterCSV.open(file)
+    header = sheet.shift # header
     problems = {}
     line_index = 1
     code  = "ActiveRecord::Base.transaction do\n"
@@ -893,7 +893,7 @@ class Company < ActiveRecord::Base
     for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_complement}
       code += "  complement_#{k} = self.complements.create!(:name=>#{header[k.to_i].inspect}, :active=>true, :length_max=>65536, :nature=>'string', :required=>false)\n"
     end
-    code += "  while line = csv.shift\n"
+    code += "  while line = sheet.shift\n"
     code += "    line_index += 1\n"
     code += "    next if #{options[:ignore].collect{|x| x.to_i}.inspect}.include?(line_index)\n" if options[:ignore]
     if cols[:entity_nature].is_a? Hash
@@ -944,6 +944,8 @@ class Company < ActiveRecord::Base
     eval(code)
     return {:errors=>problems, :lines_count=>line_index-1}
   end
+
+
 
   def export_entities(find_options={})
     entities = self.entities.find(:all, find_options)
