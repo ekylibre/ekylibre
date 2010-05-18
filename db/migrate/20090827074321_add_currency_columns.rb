@@ -1,4 +1,4 @@
-class Sep1t9 < ActiveRecord::Migration
+class AddCurrencyColumns < ActiveRecord::Migration
   def self.up    
     add_column :entities,    :activity_code, :string, :limit=>32
     add_column :entities,    :photo, :string
