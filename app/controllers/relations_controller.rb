@@ -863,16 +863,26 @@ class RelationsController < ApplicationController
                      if nature = @current_company.subscription_natures.find_by_id(parameters[:nature])
                        subn = parameters[parameters[:nature]]
                        products = (subn[:products]||{}).select{|k,v| v.to_i==1 }.collect{|k,v| k}
-                       products_filter = subn[:no_products] ? "product_id IS NULL"+(products.size > 0 ? " OR " :"") : ""
-                       products_filter += "product_id IN (#{products.join(', ')})" if products.size > 0
-                       cursor = if nature.period? 
-                                  x = subn[:subscribed_on].to_date rescue Date.today
-                                  "'"+ActiveRecord::Base.connection.quoted_date(x)+"'"
-                                else
-                                  subn[:subscribed_on].to_i
-                                end
-                       "entity.id IN (SELECT entity_id FROM subscriptions WHERE nature_id=#{nature.id} AND company_id=#{@current_company.id} AND (#{products_filter})"+
-                         " AND (#{cursor} BETWEEN #{nature.start} AND #{nature.finish}))"
+                       products = "product_id IN (#{products.join(', ')})" if products.size > 0
+                       products = "#{products+' OR ' if products.is_a? String}#{'product_id IS NULL' if subn[:no_products]}"
+                       products = " AND (#{products})" unless products.blank?
+                       subscribed_on = ""
+                       if subn[:use_subscribed_on]
+                         subscribed_on = " AND ("+
+                           if nature.period? 
+                             x = subn[:subscribed_on].to_date rescue Date.today
+                             "'"+ActiveRecord::Base.connection.quoted_date(x)+"'"
+                           else
+                             subn[:subscribed_on].to_i.to_s
+                           end+" BETWEEN #{nature.start} AND #{nature.finish})"
+                       end
+                       timestamp = ""
+                       if condition[:use_timestamp]
+                         x = condition[:timestamp][:started_on].to_date rescue Date.today
+                         y = condition[:timestamp][:stopped_on].to_date rescue Date.today
+                         timestamp = " AND (created_at BETWEEN '#{ActiveRecord::Base.connection.quoted_date(x)}' AND '#{ActiveRecord::Base.connection.quoted_date(y)}')"
+                       end
+                       "entity.id IN (SELECT entity_id FROM subscriptions WHERE nature_id=#{nature.id} AND company_id=#{@current_company.id}"+products+subscribed_on+timestamp+")"
                      else
                        "true"
                      end

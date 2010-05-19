@@ -37,7 +37,7 @@
     .form-column{:flex=>7}
       =formalize do |f|
         -f.title :add_conditions
-        -f.field tc('check'), {:choices=>[[tc(:all_conditions), :and],[tc(:one_condition), :or]], :datatype=>:radio, :name=>:check, :value=>params[:check]||:and}
+        -f.field tc('check'), {:choices=>[[tc(:all_conditions), :and], [tc(:one_condition), :or]], :datatype=>:radio, :name=>:check, :value=>params[:check]||:and}
       .fastadd
         =select_tag("condition", options_for_select(@conditions.collect{|x| [condition_label(x), x]}))
         =link_to_remote(tc(:add_condition), :update=>:conditions, :position=>:bottom, :url=>{:action=>:entities_export}, :with=>"'condition='+$('condition').value")
