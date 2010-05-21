@@ -52,7 +52,6 @@ class EntityNature < ActiveRecord::Base
     end
   end
 
-
   def destroyable?
     self.entities.size <= 0
   end

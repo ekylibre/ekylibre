@@ -197,9 +197,7 @@ class SaleOrder < ActiveRecord::Base
         line.product.move_outgoing_stock(:origin=>line, :quantity=>line.undelivered_quantity, :planned_on=>self.created_on)
       end
       # Accountize the invoice
-      if self.company.parameter('accountancy.to_accountancy.automatic')
-        invoice.to_accountancy if self.company.parameter('accountancy.to_accountancy.automatic').value == true
-      end
+      invoice.to_accountancy if self.company.accountizing?
       # Update sale_order state
       self.invoiced = true
       self.save!

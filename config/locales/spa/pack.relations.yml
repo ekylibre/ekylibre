@@ -127,10 +127,8 @@ spa:
         #>select_columns: 'Cochez les colonnes que vous voulez voir apparaitre dans le tableau.'
         #>title: 'Exportation de fiches'
       _entities_export_condition:
+        #>created_between: 'Enregistré entre le {{started_on}} et le {{stopped_on}}'
         moment:
-          #>eq: 'au'
-          #>gt: 'après le'
-          #>lt: 'avant le'
         #>no_products: 'Sans produit'
         #>reverse: 'Appliquer la condition inverse'
         #>subscriber_period: 'Abonné(e) le {{subscribed_on}}'

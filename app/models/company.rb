@@ -169,6 +169,13 @@ class Company < ActiveRecord::Base
     self.id
   end
 
+  def accountizing?
+    if parameter = self.parameter('accountancy.to_accountancy.automatic')
+      return true if parameter.value == true
+    end
+    return false
+  end
+
 
 
   def account(number, name=nil)
@@ -406,8 +413,13 @@ class Company < ActiveRecord::Base
   end
 
 
-  # Restore database
-  # with printed arhived documents if requested
+  # Restore backup with archived documents if requested
+  # This system requires a database with no foreign key constraints
+  # Steps of restoring
+  #   - Removes all existing data
+  #   - Add all backup records with bad IDs
+  #   - Update all records with new ID using a big hash containing all the new IDs
+  #   - Put in place the archived documents if present in backup
   def restore(file, options={})
     raise ArgumentError.new("Expecting String, #{file.class.name} instead") unless file.is_a? String
     verbose = options[:verbose]

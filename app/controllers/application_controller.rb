@@ -73,6 +73,7 @@ class ApplicationController < ActionController::Base
 
 
   def i18nize
+    # headers["Content-Type"] = "text/xml" 
     locale = params[:locale]
     if locale.is_a? String
       if locale.size == 3

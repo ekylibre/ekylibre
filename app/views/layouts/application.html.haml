@@ -1,10 +1,11 @@
 !!! XML utf-8
-!!! strict-svg
+-#!!! strict-svg
+="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN\" \"http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd\">"
+
 %html{:xmlns=>'http://www.w3.org/1999/xhtml'}
   %head
-    %meta{'http-equiv' => 'Content-Type', :content => 'text/html;charset=UTF-8'}
     %link{:rel=>"icon", :type=>"image/png", :href=>image_path("favicon.png")}
-    =title_tag
+    =title_tag # text/xml;charset=UTF-8
     =theme_link_tag(@current_theme)
     =calendar_link_tag
     =javascript_include_tag :defaults

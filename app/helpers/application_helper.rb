@@ -172,6 +172,10 @@ module ApplicationHelper
   end
 
 
+  def svg_test_tag
+    return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full"><g fill-opacity="0.7" stroke="black" stroke-width="0.1cm"><circle cx="6cm" cy="2cm" r="100" fill="red" transform="translate(0,50)" /><circle cx="6cm" cy="2cm" r="100" fill="blue" transform="translate(70,150)" /><circle cx="6cm" cy="2cm" r="100" fill="green" transform="translate(-70,150)" /></g></svg>'
+  end
+
   def link_to(*args, &block)
     if block_given?
       options      = args.first || {}

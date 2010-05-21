@@ -75,7 +75,7 @@ class Payment < ActiveRecord::Base
       last = self.company.payments.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
       self.number = last ? last.number.succ : '000000'
     end
-    self.scheduled = (self.to_bank_on>Date.today ? true : false) #if self.scheduled.nil?
+    self.scheduled = (self.to_bank_on>Date.today ? true : false) # if self.scheduled.nil?
     self.received = false if self.scheduled
     true
   end
@@ -87,17 +87,26 @@ class Payment < ActiveRecord::Base
   def validate
     errors.add(:amount, :greater_than_or_equal_to, :count=>self.parts_amount) if self.amount < self.parts_amount
   end
+
+  # Create initial journal record
+  def after_create
+    #self.to_accountancy if self.company.accountizing?
+  end
+
+  # Add journal records in order to correct accountancy
+  def before_update
+    #self.to_accountancy(:old=>self.class.find_by_id(self.id)) if self.company.accountizing?
+  end
   
   def after_update
     if !self.embankment_id.nil?
       self.embankment.refresh
     end
-  end  
+  end
 
   def unused_amount
     (self.amount||0)-(self.parts_amount||0)
   end
-
   
   # Use the minimum amount to pay the expense
   # If the payment is a downpayment, we look at the total unpaid amount
@@ -115,6 +124,29 @@ class Payment < ActiveRecord::Base
     return true
   end
   
+  # This method permits to add journal entries corresponding to the payment
+  # It depends on the parameter which permit to activate the "automatic accountizing"
+  # The options :old permits to cancel the old existing record by adding counter-entries
+  def to_accountancy2(options={})
+    # Add counter-entries
+    if options[:old]
+      
+    end
+    unless journal = self.company.journals.find(:first, :conditions =>{:nature=>'bank'}, :order=>:id)
+      record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :printed_on=>self.created_on, :journal_id=>journal.id)
+      if self.entity_id == self.company.entity_id
+        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.entity.full_name), client_account.id, self.amount)
+        record.add_debit(tc(:to_accountancy, :number=>self.number, :detail=>self.client.full_name), waiting_payments.id, self.amount)
+      else
+        client_account = self.client.account(:client)
+        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.client.full_name), client_account.id, self.amount)
+        record.add_debit(tc(:to_accountancy, :number=>self.number, :detail=>self.client.full_name), waiting_payments.id, self.amount)
+      end
+      self.update_attribute(:accounted_at, Time.now)      
+    end
+  end
+
+
  #this method accountizes the payment.
   def to_accountancy
     financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) and closed=?", '%'+Date.today.to_s+'%', false])
@@ -159,20 +191,6 @@ class Payment < ActiveRecord::Base
     end
   end
   
-        
-#   def pay(order, downpayment=false)
-#     PaymentPart.destroy(self.parts.find_all_by_order_id(order.id))
-#     self.reload
-#    # minimum = [order.unpaid_amount(!self.downpayment), self.amount-self.parts_amount].min
-#     minimum = [order.unpaid_amount(!downpayment), self.amount-self.parts_amount].min
-#     part = self.parts.create(:amount=>minimum, :order_id=>order.id, :company_id=>self.company_id, :downpayment=>downpayment)
-#     if part.errors.size>0
-#       part.errors.each_full { |msg| self.errors.add_to_base(msg) }
-#       return false
-#     else
-#       return true
-#     end
-#   end
 
 
 end
