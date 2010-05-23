@@ -1,5 +1,0 @@
-====== Comment modifier un type de travail ? ======
-
-Il vous suffit de lui attribuer un nom et éventuellement une description.
-
-[[production-index|Retour à l'aide sur la Gestion de la production]]

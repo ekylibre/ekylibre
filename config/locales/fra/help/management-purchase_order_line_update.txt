@@ -1,5 +1,0 @@
-====== Comment modifier une ligne de la commande ? ======
-
-Modifiez les informations souhaitées.
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

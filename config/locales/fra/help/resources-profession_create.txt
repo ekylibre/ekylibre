@@ -1,2 +1,0 @@
-====== Comment créer une profession ======
-Remplisser le formulaire de création de la profession en renseignant bien tous les champs. Par défaut, la profession n'est pas considérée comme commerciale. Faites attention à ce que le **Nom de la profession soit renseignée** sinon une erreur sera levée après validation du formulaire. 

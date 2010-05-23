@@ -1,10 +1,23 @@
 ====== Les transports ======
 
-**Un transport est une livraison groupée effectuée grâce à un transporteur.**
+Un transport est un groupement de livraisons effectué pour un transporteur donné.
 
-Vous pouvez définir vos transporteurs de la même manière qu'un client, en veillant à cocher l'option "transporteur" dans le formulaire.
+Vous pouvez définir vos transporteurs de la même manière qu'un client, en veillant à cocher l'option **transporteur** au niveau de sa fiche.
 
-**Un transport regroupe une ou plusieurs livraisons** et permet d'établir le bordereau de préparation de commande ansi que le bordereau de remise de commande à délivrer au transporteur.
+>>> Un transport permet d'établir le bordereau de préparation de commande ansi que le bordereau de remise de commande à délivrer au transporteur.
+
+
+===== Gestion des transports =====
+
+Pour définir votre transport vous devez regrouper toutes livraisons qui doient partir avec le même transporteur.
+Vous pouvez rechercher une livraison par sa date ainsi que par l'adresse de livraison.
+Le bouton "Valider" permet de modifier les caractéristiques du transport.
+Si votre livraison est correctement définie, validez en cliquant sur "Valider et revenir à la liste des transports".
+
+===== Poids des livraisons =====
+Si **le poids de votre livraison est incorrect**, **vérifiez le poids des produits qui composent cette livraison**. Si vous n'avez pas défini de poids à vos produits, le poids de votre livraison sera nul. 
+
+Vous pouvez **définir le poids de vos produits** directement sur la fiche de [[>management/products|vos produits]].
 
 
 [[management-index|Retour à l'aide sur la Gestion Commerciale]]

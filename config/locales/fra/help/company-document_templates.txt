@@ -1,6 +1,8 @@
-====== Liste des modèles de document ======
+====== Modèles de document ======
 
-Les modèles de document **contiennent les données** qui sont destinées à être archivés ou non sous forme de **fichier d'impression PDF**.
+Les modèles de document contiennent la définition de vos documents à imprimer (devis, factures, fiche client...). Il est possible d'archiver les impressions (au format PDF).
 
-NB: Il existe des modèles de document **par défaut comme la facture de vente ou le devis/commande**, lesquelles peuvent être chargés directement à l'aide du lien **Charger les modèles par défaut**.
+>>> Il existe des **modèles de document par défaut** comme la facture de vente ou le devis/commande, lesquels peuvent être (re)chargés à tout moment en utilisant le lien **Charger les modèles par défaut**.
 
+===== Gestion des modèles =====
+Pour l'instant, il faut directement manipuler les données au format XML pour personnaliser entièrement son modèle.

@@ -2,12 +2,19 @@
 
 Vous avez accès au récapitulatif de certaines informations concernant vos lieux de stockage. **Un réservoir est un lieu de stockage ne pouvant contenir qu'un seul produit à la fois** (ex: une cuve de carburant, de vin)
 
-L'affichage [[management-stocks_locations_display|{{theme:buttons/show.png|afficher}}]]  d'un lieu de stockage/réservoir permet de consulter les mouvements de stocks.Les **mouvements de stocks** permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks  permettant de connaître de façon constante, en cours d'exercice, les existants chiffrés en quantités et en valeur.
+L'affichage d'un lieu de stockage/réservoir permet de consulter les mouvements de stocks. Les **mouvements de stocks** permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks  permettant de connaître de façon constante, en cours d'exercice, les existants chiffrés en quantités et en valeur.
 
-Vous pouvez également : 
-  * ajouter un lieu de stockage 
-  * le modifier : [[management-stocks_move__update|{{theme:buttons/update.png|modifier}}]] 
-  * le supprimer : {{theme:buttons/delete.png|supprimer}}
+
+====== Détails d'un lieu de stockage ======
+
+Vous avez accès au récapitulatif de toutes les informations concernant votre lieu de stockage. Les **mouvements de stocks** permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks permettant de connaître de façon constante, en cours d'exercice, les existants chiffrés en quantités et en valeur.
+
+Lors de **ventes**, **d'achats**, d'**expeditions de livraisons**, de **réception d'achats**, des mouvements de stocks sont **créés automatiquement**.
+
+Pour créer un nouveau lieu de stockage, il vous suffit de renseigner les différents paramètres qui vous sont demandés. 
+
+**Si vous créez un réservoir, vous devrez également sélectionnez le produit contenu** ansi que sa quantité maximum.
+
 
 
 [[management-index|Retour à l'aide sur la Gestion Commerciale]]

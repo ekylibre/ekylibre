@@ -103,6 +103,8 @@ spa:
       delays:
         #>delay_create: 'Ajouter un nouveau délai'
         #>title: 'Délais'
+      delivery_create:
+        #>title: 'Ajouter une livraison'
       delivery_mode_create:
         #>title: 'Ajout d''un nouveau type de livraison'
       delivery_mode_update:
@@ -110,6 +112,8 @@ spa:
       delivery_modes:
         #>title: 'Types de livraison'
       _delivery_update:
+        #>title: 'Modification de la livraison'
+      delivery_update:
         #>title: 'Modification de la livraison'
       embankment:
         #>amount: 'Montant total'
@@ -414,19 +418,17 @@ spa:
         #>are_you_sure_to_invoice: 'Êtes-vous sûr(e) de vouloir facturer la vente ?'
         #>deliver: 'Faite le  '
         #>deliveries: 'Livraisons'
+        #>delivery_create: 'Ajouter une livraison'
         #>invoice: 'Facturation'
         #>invoice_number: 'Facture n°'
         #>no_deliveries_for_this_sale_order: 'Cette vente n''est associée à aucune livraison '
         #>quantity: 'Quantité'
-        #>sale_order_delivery_create: 'Ajouter une livraison'
         #>sale_order_invoice: 'Facturer la vente'
         #>sale_order_print: 'Imprimer la commande'
         #>ship: 'Prévue le  '
         #>supply: 'Livraison'
         #>title: 'Livraisons'
         #>undelivered: 'Reste à livrer'
-      sale_order_delivery_create:
-        #>title: 'Ajouter une livraison'
       _sale_order_delivery_form:
         #>amount: 'Total de la livraison HT'
         #>amount_with_taxes: 'Total de la livraison TTC'
@@ -438,8 +440,6 @@ spa:
         #>quantity_rest: 'Quantité restante'
         #>total_quantity: 'Quantité totale'
         #>unit: 'Unité'
-      sale_order_delivery_update:
-        #>title: 'Modification de la livraison'
       _sale_order_form:
         #>client: 'Sélection du client'
         #>conditions: 'Conditions de vente'
@@ -451,13 +451,13 @@ spa:
         #>discount: 'Remise (en %)'
         #>give_discount: 'Octroyer une remise'
         #>infos: 'Choisissez le produit et la quantité'
+      _sale_order_line_informations:
+        #>no_tracking: 'Aucun lot'
+        #>tracking: 'Lot '
       sale_order_line_informations:
         #>contact: 'à l''adresse'
         #>from_date: 'Du '
         #>to_date: 'Au '
-      _sale_order_line_informations:
-        #>no_tracking: 'Aucun lot'
-        #>tracking: 'Lot '
       _sale_order_line_stocks:
         #>line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
       _sale_order_line_tracking:

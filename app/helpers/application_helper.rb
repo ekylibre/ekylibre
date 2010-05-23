@@ -550,12 +550,17 @@ module ApplicationHelper
     name = name.to_s
     content = ''
     file_text = RAILS_ROOT+"/config/locales/"+I18n.locale.to_s+"/help/"+name+".txt"
-    if File.exists?(file_text)  # the file doesn't exist in the cache, but exits as a text file
+    unless File.exists?(file_text)
+      file_text = RAILS_ROOT+"/config/locales/"+I18n.locale.to_s+"/help/"+name.gsub(/_[a-z0-9]+$/, '').pluralize+".txt" 
+      unless File.exists?(file_text)
+        file_text = RAILS_ROOT+"/config/locales/"+I18n.locale.to_s+"/help/"+name.pluralize+".txt" 
+      end
+    end
+    if File.exists?(file_text)
       File.open(file_text, 'r') do |file|
         content = file.read
       end
       content = wikize(content, options)
-      # raise Exception.new(content)
     end
     return content
   end

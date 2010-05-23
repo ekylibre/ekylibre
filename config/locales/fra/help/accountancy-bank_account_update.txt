@@ -1,2 +1,0 @@
-====== Modifier un compte bancaire ======
-Remplissez le formulaire de modification du compte bancaire en renseignant bien tous les champs. Les liens **Nouveau** situés en face de chaque zone de sélection, permettent de créer un [[accountancy-accounts_create|nouveau compte comptable]] ou un [[accountancy-journals_create|nouveau journal]].

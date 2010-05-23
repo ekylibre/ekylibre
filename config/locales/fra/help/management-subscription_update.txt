@@ -1,5 +1,0 @@
-====== Comment modifier un abonnement ? ======
-
-Renseignez les informations demandées. Si le type d'abonnement est de date à date, vous devrez également renseigner les dates de début et de fin d'abonnement. 
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

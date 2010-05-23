@@ -4,5 +4,5 @@
 Les évènements équivalent à des mini-calendriers. Ils permettent de situer dans le temps et l'espace les contacts établis par telle personne avec tel employé.
 
 ===== Gestion d'un évènement =====
-Il est possible de créer [[relation-events_create|{{theme:buttons/create.png|créer}}]], modifier [[relation-events_update|{{theme:buttons/update.png|modifier}}]] ou même supprimer [[relation-events_delete|{{theme:buttons/delete.png|supprimer}}]].
+Il est possible de créer {{theme:buttons/create.png|créer}}, modifier {{theme:buttons/update.png|modifier}} ou même supprimer {theme:buttons/delete.png|supprimer}}.
 

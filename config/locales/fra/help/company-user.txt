@@ -1,3 +1,0 @@
-====== Informations sur l'utilisateur ======
-
-Vous avez ici accès aux différentes informations relatives à l'utilisateur sélectionné.

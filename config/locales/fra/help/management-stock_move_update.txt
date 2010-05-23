@@ -1,6 +1,0 @@
-====== Comment modifier un mouvement de stock ? ======
-
-  * Pour modifier un mouvement de stock, il vous suffit de renseigner les différents paramètres qui vous sont demandés. Certains sont obligatoires (encadrés bleux) et d'autres sont facultatifs (encadrés gris). La modification ne peut s'effectuer uniquement que si tous les champs obligatoires ont été correctement renseignés.
-
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

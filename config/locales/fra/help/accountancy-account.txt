@@ -1,5 +1,0 @@
-====== Compte comptable ======
-
-===== Définition =====
-Un compte est la plus petite unité retenue pour le classement et l'enregistrement des flux qui traversent l'entreprise (achats, ventes, dépenses, recettes...) (Source Wikipédia).
-

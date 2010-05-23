@@ -1,2 +1,0 @@
-====== Comment modifier une zone ======
-Remplisser le formulaire de modification de la zone en renseignant bien tous les champs.

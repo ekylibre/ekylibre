@@ -1,13 +1,6 @@
-====== Comment gérer les catégories de produit ? ======
+====== Catégories de produit ======
 
-Vous pouvez :
-  * **créer**
-  * **modifier** : [[management-shelves_update|{{theme:buttons/update.png|modifier}}]]
-  * **supprimer** : {{theme:buttons/delete.png|supprimer}}
-
-des **catégories de produits** qui seront rattachées à tous vos différents produits.
-
-
+Ces catégories permettent de "ranger" les produits pour les retrouver plus facilement.
 
 Les catégories peuvent être hierarchisées, c'est à dire que vous pouvez créer des sous-catégories et des sur-catégories.
 

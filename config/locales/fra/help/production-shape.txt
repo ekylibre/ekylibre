@@ -1,6 +1,0 @@
-====== Détails d'un îlot ======
-
-Vous avez accès à ses **informations** ainsi qu'à la **liste des travaux** qui ont été effectués sur cet îlot.
-
-
-[[production-index|Retour à l'aide sur la Gestion de la production]]

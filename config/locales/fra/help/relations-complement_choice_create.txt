@@ -1,7 +1,0 @@
-====== Comment créer une option pour la liste déroulante ? ======
-  * La création d'une option est relative à la liste déroulante à laquelle s'applique cette option.
-  * Dans le cadre de notre exemple sur la [[relations-complement_choices|distance]], le nom de notre première option serait donc: "0 à 50 kms".
-La valeur quand à elle, est destinée à être utilisée lors de l'export de données. C'est un moyen d'identifier plus rapidement notre option. Ici ce pourrait être: "proche".
-
-
-[[relations-index|Revenir à l'aide de gestion des relations ]]

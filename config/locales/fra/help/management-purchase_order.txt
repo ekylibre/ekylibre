@@ -1,5 +1,0 @@
-====== Comment consulter un achat ? ======
-
-Cette vue répertorie les **informations générales** (fournisseur, adresse de livraison,...), les différents **produits** commandés et les **règlements** associés à l'achat.
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

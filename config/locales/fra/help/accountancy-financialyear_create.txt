@@ -1,2 +1,0 @@
-====== Comment créer un exercice comptable ======
-Remplisser le formulaire de création de l'exercice en renseignant bien tous les champs. Le champ **Autoriser l'écriture jusqu'au** détermine une date limite au-delà de laquelle les écritures afférentes à l'exercice considéré ne seront pas produits sur les documents comptables propres à cet exercice. Faites attention à ce que **la valeur de ce champ soit supérieure à la Date de clôture de l'exercice** sinon une erreur sera levée après validation du formulaire.

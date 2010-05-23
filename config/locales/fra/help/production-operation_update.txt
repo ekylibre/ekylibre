@@ -1,5 +1,0 @@
-====== Comment modifier un travail ? ======
-    
-Il vous suffit de modifier les champs que vous désirez, vous pouvez le faire pour des champs déjà renseignés ou pour des champs qui ne le sont pas encore. La modification ne peut s’effectuer uniquement que si tous les champs obligatoires ont été correctement renseignés.
-
-[[production-index|Retour à l'aide sur la Gestion de la production]]

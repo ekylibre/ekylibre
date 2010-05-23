@@ -1,8 +1,0 @@
-====== Les règlements ======
-
-
-Vous avez accès à un **récapitulatif** des **paiements** relatifs à l'achat ainsi que des **produits** associés à cet achat.
-
-
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

@@ -1379,8 +1379,8 @@ class ManagementController < ApplicationController
     t.column :quantity
     t.column :amount
     t.column :amount_with_taxes
-    #t.action :sale_order_delivery_update, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? '
-    t.action :sale_order_delivery_update, :if=>'!RECORD.order.invoiced'
+    #t.action :delivery_update, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? '
+    t.action :delivery_update, :if=>'!RECORD.order.invoiced'
     #t.action :delivery_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>:are_you_sure_to_delete
     t.action :delivery_delete, :if=>'!RECORD.order.invoiced', :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
@@ -1414,7 +1414,7 @@ class ManagementController < ApplicationController
     return unless @sale_order = find_and_check(:sale_order)
     session[:current_sale_order] = @sale_order.id
     if @sale_order.deliveries.size <= 0 and not @sale_order.invoiced
-      redirect_to :action=>:sale_order_delivery_create
+      redirect_to :action=>:delivery_create
     elsif @sale_order.deliveries.size <= 0 and @sale_order.invoiced
       notify(:sale_order_already_invoiced)
     elsif @sale_order.lines.size <= 0
@@ -1444,7 +1444,7 @@ class ManagementController < ApplicationController
   dyli(:delivery_contacts, ['entities.full_name', :address], :conditions => { :company_id=>['@current_company.id'], :active=>true},:joins=>"JOIN entities ON (entity_id=entities.id)", :model=>:contacts)
   
   
-  def sale_order_delivery_create
+  def delivery_create
     return unless @sale_order = find_and_check(:sale_orders, params[:order_id]||session[:current_sale_order])
     @delivery_form = "delivery_form"
     if @sale_order.invoiced
@@ -1483,7 +1483,7 @@ class ManagementController < ApplicationController
     render_form(:id=>@delivery_form)
   end
   
-  def sale_order_delivery_update
+  def delivery_update
     return unless @delivery =  find_and_check(:delivery)
     @delivery_form = "delivery_form"
     session[:current_delivery] = @delivery.id

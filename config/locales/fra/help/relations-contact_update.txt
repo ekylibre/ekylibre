@@ -1,5 +1,0 @@
-====== Comment modifier un contact ? ======
-Il vous suffit de modifier les champs que vous désirez, vous pouvez le faire pour des champs déjà renseignés ou pour des champs qui ne le sont pas encore. 
-
-
-[[relations-index|Revenir à l'aide de gestion des relations ]]

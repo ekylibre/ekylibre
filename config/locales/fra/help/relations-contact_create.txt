@@ -1,5 +1,0 @@
-====== Comment créer un contact ? ======
-La création d'un contact est relative à la fiche à laquelle celui-ci est lié. Tous les champs sont facultatifs. Le champ "par défaut" précise si les renseignements enregistrés seront ceux utilisés par défaut lors de l'utilisation de ces champs. Par exemple, un fournisseur peut avoir plusieurs adresses, celle qui sera désignée par défaut est celle qui sera initialement utilisée lors de la création d'une commande ou d'une facture.
-
-
-[[relations-index|Revenir à l'aide de gestion des relations ]]

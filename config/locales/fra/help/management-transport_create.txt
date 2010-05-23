@@ -1,5 +1,0 @@
-====== Comment créer un transport ? ======
-
-Commencez par sélectionner le transporteur.
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

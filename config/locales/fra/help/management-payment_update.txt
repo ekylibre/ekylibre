@@ -1,5 +1,0 @@
-====== Comment modifier un paiement ? ======
-
-Il vous suffit de renseigner les informations correspondantes en veillant à ce que le montant du règlement ne dépasse le montant total de la vente ou de la part.
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

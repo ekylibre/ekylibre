@@ -1,4 +1,4 @@
-====== Les îlots ======
+====== Îlots ======
 
 Vous avez accès au récapitulatifs de tous les îlots, les parcelles que vous avez enregistrés.
 

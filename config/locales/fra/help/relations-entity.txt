@@ -1,7 +1,0 @@
-====== L'affichage d'une fiche ======
-
-Vous avez accès au récapitulatif des **informations** de votre fiche (nom, code...) ainsi qu'un tableau vous permettant de consulter les dernières factures de votre client/fournisseur, ses contacts,... 
-
-Ce **tableau** vous permet de **naviguer instantanément** entre **toutes les données** relatives à votre fiche.
-
-[[relations-index|Revenir à l'aide de gestion des relations ]]

@@ -1,4 +1,0 @@
-====== Modifier un compte comptable ======
-
-Il est seulement possible de modifier le nom du compte. Cela est nécessaire pour garantir la validité des données comptables.
-

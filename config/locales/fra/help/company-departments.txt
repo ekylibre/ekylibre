@@ -1,3 +1,7 @@
-====== Liste des services ======
+====== Services ======
 
-Vous avez accés aux différentes informations relatives à l'ensemble des services de votre société.
+===== Qu'est-ce qu'un service ? =====
+
+Un service représente une partie/atelier de l'entreprise.
+
+

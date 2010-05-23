@@ -1,8 +1,10 @@
-====== Comment consulter la liste des achats? ======
+====== Achats ======
 
-  * La liste des achats répertorie tous les achats effectués a vos différents fournisseurs.
-  * Le numéro est celui de l'achat et est un lien vous redirigeant vers le récapitulatif de la commande vous permettant de la consulter et éventuellement de la modifier.
-  * Le nom du fournisseur est un lien vous redirigeant vers la fiche fournisseur considérée.
+La liste des achats répertorie tous les achats effectués a vos différents fournisseurs.
+
+====== Comment créer un nouvel achat ? ======
+
+Il vous suffit de sélectionner votre fournisseur dans la liste déroulante présentant vos différents fournisseurs et éventuellement d'ajouter une description à l'achat. Si le fournisseur de votre achat n'a pas encore été créé, vous pouvez le faire grâce au lien "nouveau" qui vous redirigera vers le formulaire de création d'un nouveau fournisseur. 
 
 
 [[management-index|Retour à l'aide sur la Gestion Commerciale]]

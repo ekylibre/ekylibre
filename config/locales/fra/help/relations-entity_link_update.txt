@@ -1,3 +1,0 @@
-====== Modification d'un lien ======
-
-Il vous suffit de saisir le nom du client/fournisseur et de **sélectionner le lien** qui vous unit avec lui dans la liste déroulante.

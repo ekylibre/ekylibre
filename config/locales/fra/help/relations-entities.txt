@@ -5,19 +5,7 @@ La barre de recherche d'une fiche vous permet de trouver des fiches client ou fo
 
 Vous pouvez saisir dans le champ de recherche tout ou seulement une partie d'un mot.
 
-===== L'affichage des fiches =====
+===== Liste des fiches =====
 Une fois votre recherche effectuée, vous avez accès à un tableau vous récapitulant toutes les informations concernant la ou les fiches trouvées.
-
-La liste des colonnes du tableau n'est actuellement pas paramétrable.
-
-Vous pouvez :
-  * créer une nouvelle fiche  
-  * l'afficher :  [[relations-entities_display|{{theme:buttons/show.png|afficher}}]]
-  * la modifier : [[relations-entities_update|{{theme:buttons/update.png|modifier}}]] 
-  * la supprimer : {{theme:buttons/delete.png|supprimer}}
-
-===== Import Export CSV =====
-  * **Exporter vos fiches** au format csv vous permet d'enregistrer un fichier csv au [[relations-entities_import|format ekylibre]], rassemblant l'ensemble de vos fiches clients fournisseurs et leurs informations. Vous pouvez ensuite **travailler sur ce fichier en modifiant ou en ajoutant des fiches** clients fournisseurs. Pour **répercuter dans le logiciel ces changements**, vous n'avez plus qu'à **[[relations-entities_import|importer]] votre fichier** csv modifié.
-
    
 [[relations-index|Revenir à l'aide de gestion des relations ]]

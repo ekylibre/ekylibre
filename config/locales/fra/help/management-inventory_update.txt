@@ -1,5 +1,0 @@
-====== Comment mofifier votre inventaire ? ======
-
-Vous pouvez modifier les quantités constatées, c'est à dire le stock réel ansi que décider de refléter les changements en gestion des stocks, ce qui verouillera votre inventaire.
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

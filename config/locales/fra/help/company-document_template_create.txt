@@ -1,4 +1,0 @@
-====== Création d'un modèle de document ======
-
-Remplissez le formulaire en renseignant bien le nom du modèle de document ainsi que sa nature (journal, devis, facture...).
-Dans le champ source, vous copierez le **code XML** destiné à être traduit comme **contenu PDF du fichier d'impression**.

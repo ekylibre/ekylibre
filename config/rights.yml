@@ -514,12 +514,12 @@ manage_orders:
   actions:
   - deliveries_dyta
   - delivery_contacts_dyli
+  - delivery_create
   - delivery_delete
+  - delivery_update
   - sale_order_confirm
   - sale_order_delete
   - sale_order_deliveries
-  - sale_order_delivery_create
-  - sale_order_delivery_update
   - sale_order_invoice
   - undelivered_sales
 # Gérer les modes de paiments

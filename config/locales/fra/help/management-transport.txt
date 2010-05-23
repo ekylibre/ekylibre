@@ -1,5 +1,0 @@
-====== Détails d'un transport ======
-
-Vous avez le **récapitulatif détaillé** des livraisons associées à votre transport.
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]
