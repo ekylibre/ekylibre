@@ -105,6 +105,17 @@ fra:
         title: 'Délais'
       delivery_create:
         title: 'Ajouter une livraison'
+      _delivery_form:
+        amount: 'Total de la livraison HT'
+        amount_with_taxes: 'Total de la livraison TTC'
+        infos: 'Renseignez les caractéristiques de la livraison'
+        line_amount: 'PU HT'
+        line_amount_with_taxes: 'PU TTC'
+        product: 'Produit'
+        quantity: 'Quantité'
+        quantity_rest: 'Quantité restante'
+        total_quantity: 'Quantité totale'
+        unit: 'Unité'
       delivery_mode_create:
         title: 'Ajout d''un nouveau type de livraison'
       delivery_mode_update:
@@ -112,10 +123,10 @@ fra:
       delivery_modes:
         title: 'Types de livraison'
         #>delivery_mode_create: # Potentially missing translation
+      delivery_update:
+        title: 'Modification de la livraison'
       # Unfound view ./app/views/management/_delivery_update
       _delivery_update:
-        title: 'Modification de la livraison'
-      delivery_update:
         title: 'Modification de la livraison'
       embankment:
         amount: 'Montant total'
@@ -428,18 +439,6 @@ fra:
         supply: 'Livraison' #!
         title: 'Livraisons'
         undelivered: 'Reste à livrer'
-      # Unfound view ./app/views/management/_sale_order_delivery_form
-      _sale_order_delivery_form:
-        amount: 'Total de la livraison HT'
-        amount_with_taxes: 'Total de la livraison TTC'
-        infos: 'Renseignez les caractéristiques de la livraison'
-        line_amount: 'PU HT'
-        line_amount_with_taxes: 'PU TTC'
-        product: 'Produit'
-        quantity: 'Quantité'
-        quantity_rest: 'Quantité restante'
-        total_quantity: 'Quantité totale'
-        unit: 'Unité'
       _sale_order_form:
         client: 'Sélection du client'
         conditions: 'Conditions de vente'
@@ -636,13 +635,13 @@ fra:
       transport_create:
         title: 'Ajout d''un nouveau transport'
         #>info: # Potentially missing translation
+      transport_deliveries:
+        title: 'Livraisons du transport'
       _transport_deliveries:
         add: 'Ajouter la livraison au transport'
         add_delivery: 'Ajouter une livraison'
         back: 'Valider et revenir à la liste des transports'
         delivery: 'Livraison'
-      transport_deliveries:
-        title: 'Livraisons du transport'
       _transport_form:
         info: 'Renseignez les informations du transport'
       transport_update:

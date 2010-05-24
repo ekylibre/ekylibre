@@ -14,6 +14,7 @@ fra:
     closed_financialyears: 'L''exercice a été correctement clôturé'
     columns_are_already_uses: 'Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois'
     entity_columns_are_needed: 'Vous devez spécifier au moins une colonne pour la personne et notamment son nom.'
+    exception_raised: 'Une erreur est survenue durant le traitement : {{message}}'
     expired_session: 'Session expirée. Veuillez vous reconnecter.'
     fails_to_extract_listing: 'L''extraction n''a pas pu s''effectuer : {{message}}'
     import_succeeded: 'Vos données ont été correctement importées '

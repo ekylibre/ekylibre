@@ -107,6 +107,9 @@ fra:
         synthesis: 'Documents de synthèse'
         title: 'Choisissez le type de document à imprimer'
       document_print:
+        balance: 'Balance comptable'
+        export: 'Exportation de documents'
+        print: 'Impression de documents'
         title: 'Documents comptables'
       # No defined action for this view !!!
       draft_entries:

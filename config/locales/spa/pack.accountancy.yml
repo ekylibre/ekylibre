@@ -108,6 +108,9 @@ spa:
         #>synthesis: 'Documents de synthèse'
         #>title: 'Choisissez le type de document à imprimer'
       document_print:
+        #>balance: 'Balance comptable'
+        #>export: 'Exportation de documents'
+        #>print: 'Impression de documents'
         #>title: 'Documents comptables'
       draft_entries:
         #>accountize: 'Comptabiliser les écritures'

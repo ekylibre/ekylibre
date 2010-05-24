@@ -1,8 +1,8 @@
 .nav
   
 .menus{:flex=>1, :style=>"overflow: auto; "}
-  .menu
-    %ul=li_link_to tg('indicator'), :controller=>self.controller.controller_name
+  -#.menu
+  -#  %ul=li_link_to tg('indicator'), :controller=>self.controller.controller_name
   -for list in menu[:list]
     -display = false
     -list[:list].each do |action| 

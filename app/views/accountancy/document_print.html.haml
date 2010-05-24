@@ -1,10 +1,23 @@
 -form_tag({:controller=>:company, :action=>:print}) do
-  =formalize do |f|
-    -f.title DocumentTemplate.human_name
-    -f.field DocumentTemplate.human_name, select_tag("id", options_for_select(@document_templates.collect{|d| [d.name, d.code]}, params[:code]), :id=>"template_code")
-  #document_options=render(:partial=>'document_options')
-  .actions
-    =submit_tag tg(:print), :name=>nil
+  %fieldset
+    %legend=tc(:print)
+    =formalize do |f|
+      -f.title DocumentTemplate.human_name
+      -f.field DocumentTemplate.human_name, select_tag("id", options_for_select(@document_templates.collect{|d| [d.name, d.code]}, params[:code]), :id=>"template_code")
+    #document_options=render(:partial=>'document_options')
+    .actions=submit_tag tg(:print), :name=>nil
 =observe_field "template_code", :update=>:document_options, :url=>{:action=>:document_print}, :with=>"code"
+
+-form_tag do
+  %fieldset
+    %legend=tc(:export)
+    =formalize do |f|
+      -f.title tc(:balance)
+      -f.field tg(:from), date_field_tag("started_on", @current_company.current_financialyear.started_on)
+      -f.field tg(:to),   date_field_tag("stopped_on", @current_company.current_financialyear.stopped_on)
+    .actions=submit_tag tg(:export), :name=>:export
+=observe_field "template_code", :update=>:document_options, :url=>{:action=>:document_print}, :with=>"code"
+
+
 
 

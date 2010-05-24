@@ -288,7 +288,28 @@ class AccountancyController < ApplicationController
       return
     end
     if request.post?
-      redirect_to params.merge(:action=>:print, :controller=>:company)
+      if params[:export]
+        query  = "SELECT accounts.number, accounts.name, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0))"
+        query += " FROM journal_entries JOIN accounts ON (account_id=accounts.id) JOIN journal_records ON (record_id=journal_records.id)"
+        query += " WHERE printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
+        query += " GROUP BY accounts.name, accounts.number"
+        query += " ORDER BY accounts.number"
+        begin
+          result = ActiveRecord::Base.connection.select_rows(query)
+          result.insert(0, ["N°Compte", "Libellé du compte", "Débit", "Crédit", "Solde"])
+          result.insert(0, ["Balance du #{params[:started_on]} au #{params[:stopped_on]}"])
+          csv_string = FasterCSV.generate do |csv|
+            for line in result
+              csv << line
+            end
+          end
+          send_data(csv_string, :filename=>'export.csv', :type=>Mime::CSV)
+        rescue Exception => e 
+          notify(:exception_raised, :error, :now, :message=>e.message)
+        end
+      else
+        redirect_to params.merge(:action=>:print, :controller=>:company)
+      end
     end
     @document_template ||= @document_templates[0]
   end
