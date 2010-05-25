@@ -237,6 +237,7 @@ fra:
           bank: Journal de banque
           sales: Journal des ventes
           purchases: Journal des achats
+          various: Journal des opérations diverses
         location: Réserve
         paid_tax: 'TVA déductible'
         price_list_name: Tarif normal
@@ -362,8 +363,6 @@ fra:
     entity:
       client: 'Client'
       supplier: 'Fournisseur'
-    entry:
-      error_amount_rate: 'Le taux de conversion n''existe pas.'        
     event_nature:
       usages:
         invoice: 'Création d''une facture'
@@ -375,14 +374,6 @@ fra:
       code:
         single: 'EX{{first_year}}'
         double: 'EX{{first_year}}/{{second_year}}'
-    idea:
-      status:
-        all: TOUTES
-        waiting: en attente
-        aborted: abandonée
-        validated: validée
-        building: en construction
-        complete: terminée
     inventory_line:
       inventory: 'Inventaire '
     invoice:
@@ -393,13 +384,15 @@ fra:
     invoice_line:
       no_product: '[Pas de produit]'
     journal:
-      error_unbalanced_record_journal: 'Le journal contient des enregistrements non équilibrés.'
       natures:
-        purchase: Achats
-        sale: Ventes
         bank: Banque
-        renew: À nouveaux
+        cash: Caisse
+        forward: Report à nouveaux
+        purchases: Achats
+        sales: Ventes
         various: Opérations diverses
+    journal_entry:
+      error_amount_rate: 'Le taux de conversion n''existe pas.'        
     listing_node: 
       add_filter: ' Ajouter un filtre '
       all_columns: '-- Toutes les colonnes --'
@@ -456,8 +449,6 @@ fra:
       range: 'De {{min}} à {{max}}'
       no_range: 'Pas d''intervalle'
       label: '{{product}} / {{amount}} {{currency}}'
-    price_list:
-      error_range_overlap_detected: 'Des plages de prix se chevauchent pour le même produit. Ceci est normalement impossible. Veuillez signaler l''incident à votre administrateur système.'
     product:
       informations:
         with_components: '{{product}} ({{unit}}) (produit transformé)'
@@ -466,8 +457,6 @@ fra:
       natures:
         product: Produit
         service: Service
-        sub_date: Abonnement par date
-        sub_numb: Abonnement par numéros
         subscrip: Abonnement 
         transfer: Transfert
       supply_methods:
@@ -485,9 +474,6 @@ fra:
     stock:
       label: 'Lot {{tracking}} quantité disponible {{quantity}}'
       no_tracking: 'Aucun lot'
-    production: 
-      location_can_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
-      production: Production
     purchase_order: 
       label: '{{supplier}} à {{address}}' 
       purchase: Achat

@@ -429,6 +429,7 @@ fra:
         creator_id: 'Créateur'
         currencies: 'Devises'
         current_financialyear: 'Exercice comptable en cours'
+        default_currency: (((DEFAULT_CURRENCY)))
         delays: 'Délais'
         deleted: 'Effacé'
         deliveries: 'Livraisons'
@@ -1662,6 +1663,7 @@ fra:
         paid_on: 'Réglé le'
         parts: 'Parties de réglement'
         parts_amount: 'Montant utilisé'
+        payer: (((PAYER)))
         purchase_orders: 'Achats'
         received: 'Reçu'
         sale_orders: 'Ventes'

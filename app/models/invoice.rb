@@ -192,20 +192,18 @@ class Invoice < ActiveRecord::Base
 
   #this method accountizes the invoice.
   def to_accountancy(options={})
-    return if self.amount.zero?
-    draft = options[:no_draft] ? false : true
-    financialyear = self.company.financialyears.find(:first, :conditions => ["? BETWEEN started_on AND stopped_on AND closed=?", Date.today, false])
-    journal =  self.company.journals.find(:first, :conditions =>{:nature=>'sale'}, :order=>:id)
-    unless journal.nil? or financialyear.nil?
+    if self.lines.size > 0
+      draft = options[:no_draft] ? false : true
+      journal = self.company.journals(:sales)
       client_account = self.client.account(:client)
-      record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal.id, :financialyear_id => financialyear.id)
+      record = journal.records.create!(:printed_on=>self.created_on, :resource_id=>self.id, :resource_type=>self.class.name)
       record.add_debit(tc(:to_accountancy, :number=>self.number, :detail=>self.client.full_name), client_account.id, self.amount_with_taxes, :draft=>draft)
-      self.lines.each do |line|
+      for line in self.lines
         record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>line.product.name), line.product.product_account_id, line.amount, :draft=>draft) unless line.amount.zero?
         record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_collected_id, line.taxes, :draft=>draft) unless line.taxes.zero?
       end
-      self.update_attribute(:accounted_at, Time.now)
     end
+    self.update_attribute(:accounted_at, Time.now)
   end
   
 

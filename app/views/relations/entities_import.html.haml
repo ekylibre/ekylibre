@@ -13,6 +13,9 @@
         -@columns.each_index do |index|
           -f.field @columns[index], select_tag("columns[#{index}]", options_for_select(@options, params[:columns][index.to_s]||(@options.detect{|x| x[0].match(/#{@columns[index]}/)}[1] rescue nil)))+" "+content_tag(:span, @first_line[index], :class=>:note)
     -elsif @step == :validate
+      .flash.information
+        %h3=tg('notifications.information')
+        %p=tc(:importation_explanation)
       -if @report[:errors].keys.size > 0
         .flash.warning
           %h3=tg('notifications.warning')
@@ -24,9 +27,6 @@
                 %ul
                   -for error in errors
                     %li=error
-      .flash.information
-        %h3=tg('notifications.information')
-        %p=tc(:importation_explanation)
     .end
   .actions
     -if @step == :validate

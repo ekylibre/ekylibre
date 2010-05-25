@@ -1,4 +1,4 @@
-====== Ajouter une pièce comptable ======
+====== Ajout/modification de pièce comptable ======
 
 Pour aller le plus vite possible lors de la saisie de pièces comptables, 
 il est possible de tout saidir au clavier (sans la souris). 

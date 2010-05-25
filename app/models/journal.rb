@@ -50,7 +50,7 @@ class Journal < ActiveRecord::Base
   validates_uniqueness_of :code, :scope=>:company_id
   validates_uniqueness_of :name, :scope=>:company_id
 
-  @@natures = [:sale, :purchase, :bank, :renew, :various]
+  @@natures = [:sales, :purchases, :bank, :forward, :various, :cash]
 
   # this method is called before creation or validation method.
   def before_validation

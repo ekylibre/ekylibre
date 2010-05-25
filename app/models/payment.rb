@@ -52,6 +52,7 @@ class Payment < ActiveRecord::Base
   belongs_to :embanker, :class_name=>User.name
   belongs_to :embankment
   belongs_to :entity
+  belongs_to :payer, :class_name=>Entity.name, :foreign_key=>:entity_id
   belongs_to :mode, :class_name=>PaymentMode.name
   has_many :parts, :class_name=>PaymentPart.name
   has_many :orders, :through=>:parts, :source=>:expense, :source_type=>'SaleOrder'
@@ -95,7 +96,11 @@ class Payment < ActiveRecord::Base
 
   # Add journal records in order to correct accountancy
   def before_update
-    #self.to_accountancy(:old=>self.class.find_by_id(self.id)) if self.company.accountizing?
+    #self.to_accountancy(:update) if self.company.accountizing?
+  end
+
+  def before_destroy
+    #self.to_accountancy(:delete) if self.company.accountizing?
   end
   
   def after_update
@@ -127,23 +132,26 @@ class Payment < ActiveRecord::Base
   # This method permits to add journal entries corresponding to the payment
   # It depends on the parameter which permit to activate the "automatic accountizing"
   # The options :old permits to cancel the old existing record by adding counter-entries
-  def to_accountancy2(options={})
+  def to_accountancy2(mode=:create, options={})
+    raise Exception.new("Unvalid mode #{mode.inspect}") unless [:create, :update, :delete].include? mode
+    journal = self.company.journal(mode == :create ? :bank : :various)
+    record = journal.records.create!(:resource=>self, :printed_on=>self.created_on)
     # Add counter-entries
-    if options[:old]
-      
+    if mode != :create
+      old = self.class.find_by_id(self.id)      
     end
-    unless journal = self.company.journals.find(:first, :conditions =>{:nature=>'bank'}, :order=>:id)
-      record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :printed_on=>self.created_on, :journal_id=>journal.id)
-      if self.entity_id == self.company.entity_id
-        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.entity.full_name), client_account.id, self.amount)
-        record.add_debit(tc(:to_accountancy, :number=>self.number, :detail=>self.client.full_name), waiting_payments.id, self.amount)
+    # Add entries
+    if mode != :delete
+      if self.payer != self.company.entity
+        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id, self.amount)
+        record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.purchase_account_id, self.amount)
       else
-        client_account = self.client.account(:client)
-        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.client.full_name), client_account.id, self.amount)
-        record.add_debit(tc(:to_accountancy, :number=>self.number, :detail=>self.client.full_name), waiting_payments.id, self.amount)
-      end
-      self.update_attribute(:accounted_at, Time.now)      
+        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.entity.full_name), client_account.id, self.amount)
+        record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.client.full_name), self.mode.account_id, self.amount)
+      end    
     end
+
+    self.update_attribute(:accounted_at, Time.now)      
   end
 
 

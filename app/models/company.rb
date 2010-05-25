@@ -136,6 +136,7 @@ class Company < ActiveRecord::Base
   has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, name, first_name'
 
   has_one :current_financialyear, :class_name=>Financialyear.name, :conditions=>{:closed=>false}
+  has_one :default_currency, :class_name=>Currency.name, :conditions=>{:active=>true}, :order=>"id"
 
 
   validates_uniqueness_of :code
@@ -355,6 +356,22 @@ class Company < ActiveRecord::Base
 
   def default_contact
     self.entity.default_contact
+  end
+
+  # Returns the default journal from parameters
+  # Creates the journal if not exists
+  def journal(name)
+    name = name.to_s
+    param_name  = "accountancy.journals.#{name}"
+    raise Exception.new("Unvalid journal name : #{name.inspect}") unless Parameter.reference.keys.include? param_name
+    param = self.parameter(param_name)
+    if (journal = param.value).nil?
+      journal = self.journals.find_by_nature(name)
+      journal = self.journals.create!(:name=>tc("default.journals.#{name}"), :nature=>name, :currency_id=>self.default_currency.id) unless journal
+      param.value = journal
+      param.save
+    end
+    return param.value
   end
 
   def find_sales_journal
@@ -655,9 +672,10 @@ class Company < ActiveRecord::Base
       company.financialyears.create!(:started_on=>Date.today)
       company.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
       
-      company.set_parameter('accountancy.default_journals.sales', company.journals.create!(:name=>tc('default.journals.sales'), :nature=>"sale", :currency_id=>currency.id))
-      company.set_parameter('accountancy.default_journals.purchases', company.journals.create!(:name=>tc('default.journals.purchases'), :nature=>"purchase", :currency_id=>currency.id))
-      company.set_parameter('accountancy.default_journals.bank', company.journals.create!(:name=>tc('default.journals.bank'), :nature=>"bank", :currency_id=>currency.id))
+
+      for journal in [:sales, :purchases, :bank, :various]
+        company.set_parameter("accountancy.journals.#{journal}", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency_id=>currency.id))
+      end
 
       company.load_sequences
       
@@ -809,6 +827,7 @@ class Company < ActiveRecord::Base
 
 
 
+
   def journal_entries_between(started_on, stopped_on)
     self.journal_entries.find(:all, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_records.id, journal_entries.id")
   end
@@ -910,12 +929,25 @@ class Company < ActiveRecord::Base
     code += "    next if #{options[:ignore].collect{|x| x.to_i}.inspect}.include?(line_index)\n" if options[:ignore]
     if cols[:entity_nature].is_a? Hash
       code += "    nature = self.entity_natures.find(:first, :conditions=>{"+cols[:entity_nature].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+"})\n"
-      code += "    nature = self.entity_natures.create!("+cols[:entity_nature].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+") unless nature\n"
+      code += "    begin\n"
+      code += "      nature = self.entity_natures.create!("+cols[:entity_nature].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n"
+      code += "    rescue\n"
+      code += "      nature = self.entity_natures.find(:first, :conditions=>['abbreviation=? OR name=?', '-', '-'])\n"
+      code += "      nature = self.entity_natures.create!(:abbreviation=>'-', :name=>'-', :physical=>false, :in_name=>false, :active=>true) unless nature\n"
+      code += "    end unless nature\n"
     end
     if cols[:entity_category].is_a? Hash
       code += "    category = self.entity_categories.find(:first, :conditions=>{"+cols[:entity_category].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+"})\n"
-      code += "    category = self.entity_categories.create!("+cols[:entity_category].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+") unless category\n"
+      code += "    begin\n"
+      code += "      category = self.entity_categories.create!("+cols[:entity_category].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n"
+      code += "    rescue\n"
+      code += "      category = self.entity_categories.find(:first, :conditions=>['name=? or code=?', '-', '-'])\n"
+      code += "      category = self.entity_categories.create!(:name=>'-', :deleted=>false, :default=>false) unless category\n"
+      code += "    end unless category\n"
     end
+
+    code += "    puts [nature, category].inspect\n"
+
     code += "    entity = self.entities.build("+cols[:entity].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+", :nature_id=>nature.id, :category_id=>category.id, :language_id=>#{self.entity.language_id}, :client=>true)\n"
     code += "    if entity.save\n"
     if cols[:contact].is_a? Hash
@@ -952,7 +984,7 @@ class Company < ActiveRecord::Base
     code += "  end\n"
     code += "  raise ActiveRecord::Rollback\n" unless options[:no_simulation]
     code += "end\n"
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     eval(code)
     return {:errors=>problems, :lines_count=>line_index-1}
   end

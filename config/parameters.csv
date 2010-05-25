@@ -1,7 +1,8 @@
 general.language,record,language
-accountancy.default_journals.sales,record,journal
-accountancy.default_journals.purchases,record,journal
-accountancy.default_journals.bank,record,journal
+accountancy.journals.bank,record,journal
+accountancy.journals.purchases,record,journal
+accountancy.journals.sales,record,journal
+accountancy.journals.various,record,journal
 accountancy.third_accounts.clients,integer,411
 accountancy.third_accounts.suppliers,integer,401
 accountancy.minor_accounts.banks,integer,51

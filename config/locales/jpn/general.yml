@@ -209,6 +209,7 @@ jpn:
           #>bank: 'Journal de banque'
           #>purchases: 'Journal des achats'
           #>sales: 'Journal des ventes'
+          #>various: 'Journal des opérations diverses'
         #>location: 'Réserve'
         #>paid_tax: 'TVA déductible'
         #>price_list_name: 'Tarif normal'
@@ -342,7 +343,6 @@ jpn:
       #>client: 'Client'
       #>supplier: 'Fournisseur'
     entry:
-      #>error_amount_rate: 'Le taux de conversion n''existe pas.'
     event_nature:
       usages:
         #>invoice: 'Création d''une facture'
@@ -354,14 +354,8 @@ jpn:
       code:
         #>double: 'EX{{first_year}}/{{second_year}}'
         #>single: 'EX{{first_year}}'
-    idea:
-      status:
-        #>aborted: 'abandonée'
-        #>all: 'TOUTES'
-        #>building: 'en construction'
-        #>complete: 'terminée'
-        #>validated: 'validée'
-        #>waiting: 'en attente'
+    idea:  #!
+ #!
     inventory_line:
       #>inventory: 'Inventaire '
     invoice:
@@ -372,13 +366,15 @@ jpn:
     invoice_line:
       #>no_product: '[Pas de produit]'
     journal:
-      #>error_unbalanced_record_journal: 'Le journal contient des enregistrements non équilibrés.'
       natures:
         #>bank: 'Banque'
-        #>purchase: 'Achats'
-        #>renew: 'À nouveaux'
-        #>sale: 'Ventes'
+        #>cash: 'Caisse'
+        #>forward: 'Report à nouveaux'
+        #>purchases: 'Achats'
+        #>sales: 'Ventes'
         #>various: 'Opérations diverses'
+    journal_entry:
+      #>error_amount_rate: 'Le taux de conversion n''existe pas.'
     listing_node:
       #>add_filter: ' Ajouter un filtre '
       #>all_columns: '-- Toutes les colonnes --'
@@ -437,7 +433,6 @@ jpn:
       #>no_range: 'Pas d''intervalle'
       #>range: 'De {{min}} à {{max}}'
     price_list:
-      #>error_range_overlap_detected: 'Des plages de prix se chevauchent pour le même produit. Ceci est normalement impossible. Veuillez signaler l''incident à votre administrateur système.'
     product:
       informations:
         #>with_components: '{{product}} ({{unit}}) (produit transformé)'
@@ -446,8 +441,6 @@ jpn:
       natures:
         #>product: 'Produit'
         #>service: 'Service'
-        #>sub_date: 'Abonnement par date'
-        #>sub_numb: 'Abonnement par numéros'
         #>subscrip: 'Abonnement'
         #>transfer: 'Transfert'
       #>stock_move: '{{origin}} ({{code}})'
@@ -463,8 +456,6 @@ jpn:
     product_component:
       #>of_product: 'du produit'
     production:
-      #>location_can_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
-      #>production: 'Production'
     purchase_order:
       #>label: '{{supplier}} à {{address}}'
       #>purchase: 'Achat'

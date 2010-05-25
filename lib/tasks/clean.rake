@@ -487,8 +487,9 @@ namespace :clean do
     for controller, actions in useful_actions
       for action in actions
         if File.exists?("#{RAILS_ROOT}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{RAILS_ROOT}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
-          help = "#{RAILS_ROOT}/config/locales/#{locale}/help/#{controller}-#{action}.txt"
-          log.write "    - #{help.gsub(RAILS_ROOT,'.')}\n" unless File.exists?(help)
+          unless File.exist?("#{RAILS_ROOT}/config/locales/#{locale}/help/#{controller}-#{action}.txt") or File.exist?("#{RAILS_ROOT}/config/locales/#{locale}/help/#{controller}-#{action.to_s.split(/\_/)[0..-2].join('_').pluralize}.txt") or File.exist?("#{RAILS_ROOT}/config/locales/#{locale}/help/#{controller}-#{action.to_s.pluralize}.txt")
+            log.write "    - ./config/locales/#{locale}/help/#{controller}-#{action}.txt\n" 
+          end
         end
       end
     end

@@ -43,7 +43,7 @@ class EntityCategory < ActiveRecord::Base
 
 
   def before_validation
-    self.code = self.name.codeize if self.code.blank?
+    self.code = self.name.to_s.codeize if self.code.blank?
     self.code = self.code[0..7]
 
     EntityCategory.update_all({:default=>false}, ["company_id=? AND id!=?", self.company_id, self.id||0]) if self.default

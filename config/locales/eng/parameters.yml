@@ -2,11 +2,12 @@ eng:
   parameters:
     accountancy:
       default_journals:
+      journals:
         #>bank: 'Journal de banque par défaut'
-        #>purchase_orders: 'Journal d''achats par défaut'
+        #>forward: 'Journal des reports à nouveau par défaut'
         #>purchases: 'Journal des achats par défaut'
-        #>sale_orders: 'Journal de ventes par défaut'
         #>sales: 'Journal des ventes par défaut'
+        #>various: 'Journal des opérations diverses par défaut'
       major_accounts:
         #>charges: 'Comptes de charges'
         #>products: 'Comptes de produits'

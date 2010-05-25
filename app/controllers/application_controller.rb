@@ -41,6 +41,12 @@ class ApplicationController < ActionController::Base
 
   ActiveRecord::Base.connection.execute("UPDATE document_templates SET nature='balance_sheet' WHERE nature='financialyear' AND code LIKE 'BILAN%'")
   ActiveRecord::Base.connection.execute("UPDATE document_templates SET nature='income_statement' WHERE nature='financialyear'")
+  ActiveRecord::Base.connection.execute("UPDATE journals SET nature='sales' WHERE nature='sale'")
+  ActiveRecord::Base.connection.execute("UPDATE journals SET nature='purchases' WHERE nature='purchase'")
+  ActiveRecord::Base.connection.execute("UPDATE journals SET nature='forward' WHERE nature='renew'")
+  ActiveRecord::Base.connection.execute("UPDATE parameters SET name='accountancy.journals.sales' WHERE name='accountancy.default_journals.sales'")
+  ActiveRecord::Base.connection.execute("UPDATE parameters SET name='accountancy.journals.purchases' WHERE name='accountancy.default_journals.purchase'")
+  ActiveRecord::Base.connection.execute("UPDATE parameters SET name='accountancy.journals.bank' WHERE name='accountancy.default_journals.bank'")
   # ActiveRecord::Base.connection.execute("UPDATE document_templates SET source=REPLACE(source, 'employee', 'responsible'), cache=REPLACE(cache, 'employee', 'responsible')")
   
   # See ActionController::RequestForgeryProtection for details
@@ -289,8 +295,7 @@ class ApplicationController < ActionController::Base
     @current_theme = "tekyla"
 
     # Check rights before allowing access
-    message = @current_user.authorization(controller_name, action_name, session[:rights])
-    if message
+    if message = @current_user.authorization(controller_name, action_name, session[:rights])
       notify(:access_denied, :error, :reason=>message, :url=>request.url.inspect)
       redirect_to_back unless @current_user.admin
     end

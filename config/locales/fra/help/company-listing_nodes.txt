@@ -1,0 +1,3 @@
+====== Noeuds d'extraction ======
+
+Un noeud correspond à une colonne ou une table ossue de l'export. Ces noeuds sont organisés hierarchiquement et permettent de composer une //requête//.
