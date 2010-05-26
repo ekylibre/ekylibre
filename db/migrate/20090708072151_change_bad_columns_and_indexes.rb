@@ -20,15 +20,13 @@ class ChangeBadColumnsAndIndexes < ActiveRecord::Migration
     add_index :price_taxes, [:company_id, :price_id, :tax_id], :name => "index_price_taxes_on_price_id_and_tax_id", :unique=>true
     
     add_column :languages, :company_id, :integer
-    for language in Language.all
-      for company in Company.all
-        attrs = language.attributes.merge('company_id'=>company.id)
-        attrs.delete('id')
-        l = Language.create!(attrs)
-        Entity.update_all({:language_id=>l.id}, {:language_id=>language.id, :company_id=>company.id})
-      end
+    execute "DELETE FROM languages"
+    insert  "INSERT INTO languages(name, native_name, iso2, iso3, company_id) SELECT 'French', 'Français', 'fr', 'fra', id FROM companies"
+    languages = select_all("SELECT * FROM languages")
+    if languages.size > 0
+      languages = "CASE "+languages.collect{|l| "WHEN company_id=#{l['company_id']} THEN #{l['id']}"}.join(" ")+" ELSE 0 END"
+      execute "UPDATE entities SET language_id=#{languages}"
     end
-    Language.delete_all(["company_id IS NULL"])
   end
 
   def self.down

@@ -121,7 +121,7 @@ journal_records_004:
   financialyear_id: 1
   id: 4
   journal_id: 1
-  number: "XYZ0003"
+  number: "XYZ0004"
   position: 0
   printed_on: 2007-01-19
   status: "A"
