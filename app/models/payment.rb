@@ -112,6 +112,10 @@ class Payment < ActiveRecord::Base
   def unused_amount
     (self.amount||0)-(self.parts_amount||0)
   end
+
+  def given?
+    self[:type] == 'GivenPayment'
+  end
   
   # Use the minimum amount to pay the expense
   # If the payment is a downpayment, we look at the total unpaid amount
@@ -139,15 +143,22 @@ class Payment < ActiveRecord::Base
     # Add counter-entries
     if mode != :create
       old = self.class.find_by_id(self.id)      
+      if old.given?
+        record.add_debit( tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.mode.name), old.mode.account.id, old.amount)
+        record.add_credit(tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.entity.full_name), old.entity.account(:supplier).id, old.amount)
+      else
+        record.add_debit( tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.entity.full_name), old.entity.account(:client).id, old.amount)
+        record.add_credit(tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.mode.name), old.mode.account_id, old.amount)
+      end    
     end
     # Add entries
     if mode != :delete
-      if self.payer != self.company.entity
-        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id, self.amount)
-        record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.purchase_account_id, self.amount)
+      if self.given?
+        record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.entity.full_name), self.entity.account(:supplier).id, self.amount)
+        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.account.id, self.amount)
       else
-        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.entity.full_name), client_account.id, self.amount)
-        record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.client.full_name), self.mode.account_id, self.amount)
+        record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.account_id, self.amount)
+        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.entity.full_name), self.entity.account(:client).id, self.amount)
       end    
     end
 
