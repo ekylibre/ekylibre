@@ -20,32 +20,24 @@
 # 
 # == Table: accounts
 #
-#  alpha        :string(16)       
 #  comment      :text             
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  deleted      :boolean          not null
-#  groupable    :boolean          not null
+#  deleted_at   :datetime         
+#  deleter_id   :integer          
 #  id           :integer          not null, primary key
 #  is_debit     :boolean          not null
-#  keep_entries :boolean          not null
 #  label        :string(255)      not null
 #  last_letter  :string(8)        
-#  letterable   :boolean          not null
 #  lock_version :integer          default(0), not null
 #  name         :string(208)      not null
 #  number       :string(16)       not null
-#  parent_id    :integer          default(0), not null
-#  pointable    :boolean          not null
-#  transferable :boolean          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
-#  usable       :boolean          not null
 #
 
 class Account < ActiveRecord::Base
-  acts_as_tree
   attr_accessor :sum_debit, :sum_credit
   attr_readonly :company_id, :number
   belongs_to :company
@@ -66,22 +58,8 @@ class Account < ActiveRecord::Base
   # This method allows to create the parent accounts if it is necessary.
   def before_validation
     self.label = tc(:label, :number=>self.number.to_s, :name=>self.name.to_s)
-    self.parent_id = self.compute_parent_id
-    self.parent_id ||= 0
   end
 
-  # This method is called after the account is created or updated.
-  def after_save
-    # for account in self.company.accounts # .find(:all, :conditions=>["id != ?", self.id])
-    #   Account.update_all({:parent_id=>account.compute_parent_id}, {:id=>account.id})
-    # end
-    if self.parent
-      for account in self.parent.children # .find(:all, :conditions=>["id != ?", self.id])
-        Account.update_all({:parent_id=>account.compute_parent_id}, {:id=>account.id})
-      end
-    end
-  end
-  
   # This method allows to delete the account only if it has any sub-accounts.
   def before_destroy
     return false unless self.destroyable?
@@ -90,25 +68,6 @@ class Account < ActiveRecord::Base
   def destroyable?
     self.journal_entries.size <= 0 and self.balances.size <= 0
   end
-
-  def compute_parent_id
-    parent = nil
-    num = self.number.to_s
-    num.size.downto(2) do |i|
-      break if parent = self.company.accounts.find_by_number(num[0..i-2])
-    end
-    return (parent ? parent.id : 0)
-  end
-
-  # # This method allows to find all the parent accounts.
-  # def parent
-  #   Account.find_by_id(self.parent_id)
-  # end
-  
-  # # This method allows to find all the sub-accounts.
-  # def childrenz
-  #   Account.find_all_by_parent_id(self.id)||{}
-  # end
 
   def letterable_entries(started_on, stopped_on)
     self.journal_entries.find(:all, :joins=>"JOIN journal_records ON (record_id=journal_records.id)", :conditions=>["journal_records.created_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"letter DESC, journal_records.number DESC")

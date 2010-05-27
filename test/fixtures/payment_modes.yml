@@ -27,9 +27,9 @@
 #  creator_id      :integer          
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  mode            :string(5)        
 #  name            :string(50)       not null
-#  nature          :string(1)        default("U"), not null
+#  nature          :string(16)       
+#  type            :string(64)       default("ReceivedPaymentMode"), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer          
 #
@@ -42,7 +42,7 @@
 #   creator_id: 1
 #   id: 1
 #   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
+#   type: "Lorem ipsum"
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #

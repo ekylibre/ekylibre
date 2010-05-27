@@ -31,7 +31,7 @@
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  product_id   :integer          not null
-#  quantity     :decimal(16, 4)   not null
+#  quantity     :decimal(, )      not null
 #  started_at   :datetime         
 #  stopped_at   :datetime         
 #  updated_at   :datetime         not null

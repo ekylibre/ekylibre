@@ -21,18 +21,16 @@
 # == Table: journal_entries
 #
 #  account_id      :integer          not null
+#  closed          :boolean          not null
 #  comment         :text             
 #  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
-#  credit          :decimal(16, 2)   default(0.0), not null
-#  currency_credit :decimal(16, 2)   default(0.0), not null
-#  currency_debit  :decimal(16, 2)   default(0.0), not null
-#  currency_id     :integer          not null
-#  currency_rate   :decimal(16, 6)   not null
-#  debit           :decimal(16, 2)   default(0.0), not null
+#  credit          :decimal(, )      default(0.0), not null
+#  currency_credit :decimal(, )      default(0.0), not null
+#  currency_debit  :decimal(, )      default(0.0), not null
+#  debit           :decimal(, )      default(0.0), not null
 #  draft           :boolean          not null
-#  editable        :boolean          default(TRUE)
 #  expired_on      :date             
 #  id              :integer          not null, primary key
 #  intermediate_id :integer          
@@ -55,7 +53,6 @@ class JournalEntry < ActiveRecord::Base
   attr_readonly :company_id, :record_id, :journal_id
   belongs_to :account
   belongs_to :company
-  belongs_to :currency
   belongs_to :journal
   belongs_to :record, :class_name=>JournalRecord.name
   belongs_to :intermediate, :class_name=>BankAccountStatement.name
@@ -70,17 +67,17 @@ class JournalEntry < ActiveRecord::Base
     # for debit and credit.
     self.currency_debit  ||= 0
     self.currency_credit ||= 0
+    currency_rate = nil
     if self.record
       self.editable = false if self.record.closed?
       self.company_id ||= self.record.company_id 
       self.journal_id ||= self.record.journal_id
+      currency_rate = self.record.currency.rate
     end
-    self.currency_id ||= self.journal.currency_id if self.journal
-    unless self.currency.nil?
-      self.currency_rate = self.currency.rate
-      if self.editable 
-        self.debit  = self.currency_debit * self.currency_rate 
-        self.credit = self.currency_credit * self.currency_rate
+    unless currency_rate.nil?
+      unless self.closed
+        self.debit  = self.currency_debit * currency_rate 
+        self.credit = self.currency_credit * currency_rate
       end
     end
   end
@@ -106,11 +103,11 @@ class JournalEntry < ActiveRecord::Base
   
   # this method tests if the entry is locked or not.
   def close?
-    return (not self.editable)
+    return self.closed?
   end
 
   def updatable?
-    self.editable and self.record.updatable?
+    not self.closed? and self.record.updatable?
   end
 
   # updates the amounts to the debit and the credit 
@@ -122,11 +119,11 @@ class JournalEntry < ActiveRecord::Base
   
   # this method allows to lock the entry. 
   def close
-    self.update_attribute(:editable, false)
+    self.update_attribute(:closed, true)
   end
   
   def reopen
-    self.update_attribute(:editable, true)
+    self.update_attribute(:closed, false)
   end
   
   # this method allows to verify if the entry is lettered or not.

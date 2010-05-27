@@ -20,7 +20,7 @@
 # 
 # == Table: delivery_modes
 #
-#  code         :string(3)        not null
+#  code         :string(8)        not null
 #  comment      :text             
 #  company_id   :integer          not null
 #  created_at   :datetime         not null

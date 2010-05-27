@@ -21,8 +21,8 @@
 # == Table: purchase_order_lines
 #
 #  account_id        :integer          not null
-#  amount            :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
+#  amount            :decimal(, )      default(0.0), not null
+#  amount_with_taxes :decimal(, )      default(0.0), not null
 #  annotation        :text             
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
@@ -34,7 +34,7 @@
 #  position          :integer          
 #  price_id          :integer          not null
 #  product_id        :integer          not null
-#  quantity          :decimal(16, 4)   default(1.0), not null
+#  quantity          :decimal(, )      default(1.0), not null
 #  tracking_id       :integer          
 #  tracking_serial   :string(255)      
 #  unit_id           :integer          not null

@@ -35,26 +35,31 @@
 #  creator_id                :integer          
 #  dead_on                   :date             
 #  deliveries_conditions     :string(60)       
-#  discount_rate             :decimal(8, 2)    
+#  discount_rate             :decimal(, )      
 #  ean13                     :string(13)       
 #  excise                    :string(15)       
 #  first_met_on              :date             
 #  first_name                :string(255)      
 #  full_name                 :string(255)      not null
+#  hashed_password           :string(64)       
 #  id                        :integer          not null, primary key
 #  invoices_count            :integer          
-#  language_id               :integer          not null
+#  language                  :string(3)        
+#  last_name                 :string(255)      not null
 #  lock_version              :integer          default(0), not null
-#  name                      :string(255)      not null
+#  locked                    :boolean          not null
+#  name                      :string(32)       
 #  nature_id                 :integer          not null
 #  origin                    :string(255)      
 #  payment_delay_id          :integer          
 #  payment_mode_id           :integer          
 #  photo                     :string(255)      
 #  proposer_id               :integer          
-#  reduction_rate            :decimal(8, 2)    
+#  prospect                  :boolean          not null
+#  reduction_rate            :decimal(, )      
 #  reflation_submissive      :boolean          not null
 #  responsible_id            :integer          
+#  salt                      :string(64)       
 #  siren                     :string(9)        
 #  soundex                   :string(4)        
 #  supplier                  :boolean          not null
@@ -73,7 +78,6 @@ class Entity < ActiveRecord::Base
   belongs_to :client_account, :class_name=>Account.to_s
   belongs_to :category, :class_name=>EntityCategory.to_s
   belongs_to :company
-  belongs_to :language
   belongs_to :nature, :class_name=>EntityNature.to_s
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :payment_mode
@@ -82,7 +86,7 @@ class Entity < ActiveRecord::Base
   belongs_to :supplier_account, :class_name=>Account.to_s
   has_many :bank_accounts, :dependent=>:destroy
   has_many :complement_data
-  has_many :contacts, :conditions=>{:active=>true}
+  has_many :contacts, :conditions=>{:deleted_at=>nil}
   has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity1_id
   has_many :events
   has_many :indirect_links, :class_name=>EntityLink.name, :foreign_key=>:entity2_id
@@ -96,17 +100,17 @@ class Entity < ActiveRecord::Base
   has_many :trackings, :foreign_key=>:producer_id
   has_many :subscriptions
   has_many :usable_payments, :conditions=>["parts_amount<amount"], :class_name=>Payment.name
-  has_one :default_contact, :class_name=>Contact.name, :conditions=>{:default=>true, :active=>true}
+  has_one :default_contact, :class_name=>Contact.name, :conditions=>{:by_default=>true}
   validates_presence_of :category_id
   validates_uniqueness_of :code, :scope=>:company_id
 
 
   def before_validation
     self.webpass = User.give_password(8, :normal) if self.webpass.blank?
-    self.soundex = self.name.soundex2 if !self.name.nil?
+    self.soundex = self.last_name.soundex2 if !self.last_name.nil?
     self.first_name = self.first_name.to_s.strip
-    self.name = self.name.to_s.strip
-    self.full_name = (self.name.to_s+" "+self.first_name.to_s)
+    self.last_name  = self.last_name.to_s.strip
+    self.full_name = (self.last_name.to_s+" "+self.first_name.to_s)
     unless self.nature.nil?
       self.full_name = (self.nature.title+' '+self.full_name).strip unless self.nature.in_name # or self.nature.abbreviation == "-")
     end
@@ -128,8 +132,8 @@ class Entity < ActiveRecord::Base
   #
   def validate
     if self.nature 
-      if self.nature.in_name and not self.name.match(/( |^)#{self.nature.abbreviation}( |$)/i)
-        errors.add(:name, :missing_title, :title=>self.nature.abbreviation) 
+      if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
+        errors.add(:last_name, :missing_title, :title=>self.nature.title)
       end
       if not self.nature.physical and not self.first_name.blank?
         errors.add(:first_name, :nature_do_not_allow_a_first_name, :nature=>self.nature.name) 
@@ -150,7 +154,7 @@ class Entity < ActiveRecord::Base
   end
 
   def self.exportable_columns
-    self.content_columns.delete_if{|c| [:active, :lock_version, :webpass, :soundex, :photo, :deliveries_conditions].include?(c.name.to_sym)}
+    self.content_columns.delete_if{|c| [:active, :lock_version, :webpass, :soundex, :photo, :deliveries_conditions].include?(c.last_name.to_sym)}
   end
 
 
@@ -263,7 +267,7 @@ class Entity < ActiveRecord::Base
 
   def max_reduction_rate(computed_on=Date.today)
     # Subscription.count_by_sql(["SELECT max(reduction_rate) FROM subscriptions AS s JOIN subscription_natures ON (s.nature_id = subscription_natures.id) WHERE s.entity_id = ? AND s.company_id = ? AND ? BETWEEN s.started_on AND s.stopped_on", self.id, self.company_id, computed_on]).to_f
-    Subscription.maximum(:reduction_rate, :joins=>"JOIN subscription_natures AS sn ON (subscriptions.nature_id = sn.id) LEFT JOIN entity_links AS el ON (el.nature_id = sn.entity_link_nature_id AND subscriptions.entity_id IN (entity1_id, entity2_id))", :conditions=>["? IN (subscriptions.entity_id, entity1_id, entity2_id) AND ? BETWEEN subscriptions.started_on AND subscriptions.stopped_on AND subscriptions.company_id = ? AND COALESCE(subscriptions.sale_order_id, 0) NOT IN (SELECT id FROM sale_orders WHERE company_id=? AND state='E')", self.id, computed_on, self.company_id, self.company_id]).to_f
+    Subscription.maximum(:reduction_rate, :joins=>"JOIN subscription_natures AS sn ON (subscriptions.nature_id = sn.id) LEFT JOIN entity_links AS el ON (el.nature_id = sn.entity_link_nature_id AND subscriptions.entity_id IN (entity_1_id, entity_2_id))", :conditions=>["? IN (subscriptions.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN subscriptions.started_on AND subscriptions.stopped_on AND subscriptions.company_id = ? AND COALESCE(subscriptions.sale_order_id, 0) NOT IN (SELECT id FROM sale_orders WHERE company_id=? AND state='E')", self.id, computed_on, self.company_id, self.company_id]).to_f
   end
   
   def description

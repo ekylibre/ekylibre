@@ -20,47 +20,47 @@
 # 
 # == Table: journal_records
 #
-#  closed           :boolean          
-#  company_id       :integer          not null
-#  created_at       :datetime         not null
-#  created_on       :date             not null
-#  creator_id       :integer          
-#  credit           :decimal(16, 2)   default(0.0), not null
-#  debit            :decimal(16, 2)   default(0.0), not null
-#  financialyear_id :integer          
-#  id               :integer          not null, primary key
-#  journal_id       :integer          not null
-#  lock_version     :integer          default(0), not null
-#  number           :string(255)      not null
-#  position         :integer          not null
-#  printed_on       :date             not null
-#  resource_id      :integer          
-#  resource_type    :string(255)      
-#  status           :string(1)        default("A"), not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer          
+#  closed          :boolean          
+#  company_id      :integer          not null
+#  created_at      :datetime         not null
+#  created_on      :date             not null
+#  creator_id      :integer          
+#  credit          :decimal(, )      default(0.0), not null
+#  currency_credit :decimal(16, 2)   default(0.0), not null
+#  currency_debit  :decimal(16, 2)   default(0.0), not null
+#  currency_id     :integer          default(0), not null
+#  currency_rate   :decimal(16, 6)   default(0.0), not null
+#  debit           :decimal(, )      default(0.0), not null
+#  id              :integer          not null, primary key
+#  journal_id      :integer          not null
+#  lock_version    :integer          default(0), not null
+#  number          :string(255)      not null
+#  position        :integer          not null
+#  printed_on      :date             not null
+#  resource_id     :integer          
+#  resource_type   :string(255)      
+#  status          :string(1)        default("A"), not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer          
 #
 
 class JournalRecord < ActiveRecord::Base
-  acts_as_list :scope=>:financialyear
+  acts_as_list :scope=>:journal
   attr_readonly :company_id, :journal_id, :created_on
   belongs_to :company
+  belongs_to :currency
   belongs_to :journal
-  belongs_to :financialyear, :class_name=>Financialyear.name
   belongs_to :resource, :polymorphic=>true
   has_many :entries, :foreign_key=>:record_id, :dependent=>:destroy, :class_name=>JournalEntry.name
+  has_one :financialyear, :class_name=>Financialyear.name, :conditions=>'#{connection.quote(self.printed_on)} BETWEEN started_on AND stopped_on', :order=>"id"
 
   validates_format_of :number, :with => /^[\dA-Z]+$/
-  validates_presence_of :financialyear
 
   #
   def before_validation
     self.company_id = self.journal.company_id if self.journal
     self.debit  = self.entries.sum(:debit)
     self.credit = self.entries.sum(:credit)
-    unless self.financialyear
-      self.financialyear = self.company.financialyears.find(:first, :conditions=>["? BETWEEN started_on AND stopped_on", self.printed_on])
-    end
     self.created_on = Date.today
     if self.journal and not self.number
       self.number ||= self.journal.next_number 
@@ -80,9 +80,10 @@ class JournalRecord < ActiveRecord::Base
       errors.add(:created_on, :posterior, :to=>::I18n.localize(self.printed_on)) if self.printed_on > self.created_on
     end
     if self.financialyear
-      if self.printed_on < self.financialyear.started_on or self.printed_on > self.financialyear.stopped_on
-        errors.add(:printed_on, :out_of_financialyear, :from=>::I18n.localize(self.financialyear.started_on), :to=>::I18n.localize(self.financialyear.stopped_on)) 
-      end
+      errors.add(:printed_on, :out_of_financialyear, :from=>::I18n.localize(self.financialyear.started_on), :to=>::I18n.localize(self.financialyear.stopped_on)) if self.financialyear.closed?
+#       if self.printed_on < self.financialyear.started_on or self.printed_on > self.financialyear.stopped_on
+#         errors.add(:printed_on, :out_of_financialyear, :from=>::I18n.localize(self.financialyear.started_on), :to=>::I18n.localize(self.financialyear.stopped_on)) 
+#       end
     end
   end
   
@@ -102,12 +103,16 @@ class JournalRecord < ActiveRecord::Base
   end
 
   def updatable?
-    self.financialyear.started_on <= self.printed_on and self.printed_on <= self.financialyear.stopped_on and self.printed_on > self.journal.closed_on
+    self.printed_on > self.journal.closed_on
   end
 
   #determines the difference between the debit and the credit from the record.
   def balance
     self.debit - self.credit 
+  end
+
+  def financialyear
+    
   end
 
   # this method allows to lock the record.

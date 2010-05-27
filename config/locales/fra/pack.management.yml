@@ -123,10 +123,10 @@ fra:
       delivery_modes:
         title: 'Types de livraison'
         #>delivery_mode_create: # Potentially missing translation
-      delivery_update:
-        title: 'Modification de la livraison'
       # Unfound view ./app/views/management/_delivery_update
       _delivery_update:
+        title: 'Modification de la livraison'
+      delivery_update:
         title: 'Modification de la livraison'
       embankment:
         amount: 'Montant total'
@@ -635,13 +635,13 @@ fra:
       transport_create:
         title: 'Ajout d''un nouveau transport'
         #>info: # Potentially missing translation
-      transport_deliveries:
-        title: 'Livraisons du transport'
       _transport_deliveries:
         add: 'Ajouter la livraison au transport'
         add_delivery: 'Ajouter une livraison'
         back: 'Valider et revenir à la liste des transports'
         delivery: 'Livraison'
+      transport_deliveries:
+        title: 'Livraisons du transport'
       _transport_form:
         info: 'Renseignez les informations du transport'
       transport_update:

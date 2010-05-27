@@ -296,6 +296,8 @@ module Ekylibre
                     elsif column.name==:color
                       css_class += ' color'
                       style += "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
+                    elsif column.name==:language and  column.datatype == :string and column.limit <= 8
+                      datum = "(#{datum}.blank? ? '' : ::I18n.translate('languages.'+#{datum}))"
                     elsif column.name==:country and  column.datatype == :string and column.limit <= 8
                       datum = "(#{datum}.blank? ? '' : '<nobr>'+image_tag('countries/'+#{datum}.to_s+'.png')+'&nbsp;'+::I18n.translate('countries.'+#{datum})+'</nobr>')"
                     elsif column.datatype == :string

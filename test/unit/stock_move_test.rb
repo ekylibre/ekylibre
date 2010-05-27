@@ -34,7 +34,7 @@
 #  origin_type        :string(255)      
 #  planned_on         :date             not null
 #  product_id         :integer          not null
-#  quantity           :decimal(16, 4)   not null
+#  quantity           :decimal(, )      not null
 #  second_location_id :integer          
 #  second_move_id     :integer          
 #  stock_id           :integer          

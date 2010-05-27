@@ -21,10 +21,11 @@
 # == Table: companies
 #
 #  born_on          :date             
-#  code             :string(8)        not null
+#  code             :string(16)       not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
-#  deleted          :boolean          not null
+#  deleted_at       :datetime         
+#  deleter_id       :integer          
 #  entity_id        :integer          
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
@@ -52,7 +53,7 @@ class CompanyTest < ActiveSupport::TestCase
     
     should "not be locked" do
       assert !@company.locked
-      assert !@company.deleted
+      assert_nil @company.deleted_at
       assert !@user.locked
     end
 

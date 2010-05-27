@@ -21,10 +21,11 @@
 # == Table: companies
 #
 #  born_on          :date             
-#  code             :string(8)        not null
+#  code             :string(16)       not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
-#  deleted          :boolean          not null
+#  deleted_at       :datetime         
+#  deleter_id       :integer          
 #  entity_id        :integer          
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
@@ -56,7 +57,7 @@ class Company < ActiveRecord::Base
   has_many :document_templates
   has_many :embankments
   has_many :entities
-  has_many :entity_categories, :conditions=>{:deleted=>false}
+  has_many :entity_categories, :conditions=>{:deleted_at=>nil}
   has_many :entity_link_natures
   has_many :entity_links
   has_many :entity_natures  
@@ -68,10 +69,9 @@ class Company < ActiveRecord::Base
   has_many :inventory_lines
   has_many :invoices
   has_many :invoice_lines
-  has_many :journals, :order=>:name, :conditions=>{:deleted=>false}
+  has_many :journals, :order=>:name, :conditions=>{:deleted_at=>nil}
   has_many :journal_entries
   has_many :journal_records
-  has_many :languages
   has_many :listings
   has_many :listing_nodes
   has_many :listing_node_items
@@ -86,7 +86,6 @@ class Company < ActiveRecord::Base
   has_many :payment_modes
   has_many :payment_parts
   has_many :prices
-  has_many :price_taxes
   has_many :products, :order=>'active DESC, name'
   has_many :product_components
   has_many :professions
@@ -281,7 +280,7 @@ class Company < ActiveRecord::Base
       nature = self.entity_categories.first
     else
       nature = EntityCategory.find(:first, :conditions=>['company_id = ? AND LOWER(name) LIKE ? ',self.id, row.lower])
-      nature = EntityCategory.create!(:name=>row, :default=>false, :company_id=>self.id) if nature.nil? 
+      nature = EntityCategory.create!(:name=>row, :by_default=>false, :company_id=>self.id) if nature.nil? 
     end
     nature.id
   end 
@@ -595,7 +594,7 @@ class Company < ActiveRecord::Base
                elsif id.is_a? Integer
                  self.document_templates.find_by_id(id)
                elsif id.is_a? String or id.is_a? Symbol
-                 self.document_templates.find_by_code(id.to_s) || self.document_templates.find_by_nature_and_default(id.to_s, true)
+                 self.document_templates.find_by_code(id.to_s) || self.document_templates.find_by_nature_and_by_default(id.to_s, true)
                end
     raise Exception.new(tc(:cant_find_document_template)) unless template
     return template.print!(options)
@@ -616,7 +615,7 @@ class Company < ActiveRecord::Base
 
     ActiveRecord::Base.transaction do
       company.save!
-      language = company.languages.create!(:name=>'Français', :native_name=>'Français', :iso2=>'fr', :iso3=>'fra')
+      language = 'fra'
       company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
       company.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
       user.company_id = company.id
@@ -650,16 +649,16 @@ class Company < ActiveRecord::Base
         company.taxes.create!(:name=>tax[:name], :nature=>(tax[:nature]||"percent"), :amount=>tax[:amount].to_f, :account_collected_id=>company.account(tax[:collected], tax[:name]).id, :account_paid_id=>company.account(tax[:paid], tax[:name]).id)
       end
       
-      company.entity_natures.create!(:name=>'Monsieur', :abbreviation=>'M', :physical=>true)
-      company.entity_natures.create!(:name=>'Madame', :abbreviation=>'Mme', :physical=>true)
-      company.entity_natures.create!(:name=>'Société Anonyme', :abbreviation=>'SA', :physical=>false)
-      undefined_nature = company.entity_natures.create!(:name=>'Indéfini',:abbreviation=>'-', :in_name=>false, :physical=>false)
+      company.entity_natures.create!(:name=>'Monsieur', :title=>'M', :physical=>true)
+      company.entity_natures.create!(:name=>'Madame', :title=>'Mme', :physical=>true)
+      company.entity_natures.create!(:name=>'Société Anonyme', :title=>'SA', :physical=>false)
+      undefined_nature = company.entity_natures.create!(:name=>'Indéfini', :title=>'-', :in_name=>false, :physical=>false)
       category = company.entity_categories.create!(:name=>tc('default.category'))
-      firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language_id=>language.id, :name=>company.name)
+      firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language=>language, :last_name=>company.name)
       company.reload
       company.entity_id = firm.id
       company.save!
-      company.entity.contacts.create!(:company_id=>company.id, :line_2=>"", :line_3=>"", :line_5=>"", :line_6=>'12345 MAVILLE', :default=>true)
+      company.entity.contacts.create!(:company_id=>company.id, :line_2=>"", :line_3=>"", :line_5=>"", :line_6=>'12345 MAVILLE', :by_default=>true)
       
       # loading of all the templates
       company.load_prints
@@ -714,7 +713,7 @@ class Company < ActiveRecord::Base
           if doc = self.document_templates.find_by_code(code)
             doc.destroy
           end
-          self.document_templates.create({:active=>true, :language_id=>language.id, :country=>'fr', :source=>f.read, :family=>family.to_s, :code=>code, :default=>false}.merge(attributes))
+          self.document_templates.create({:active=>true, :language=>language, :country=>'fr', :source=>f.read, :family=>family.to_s, :code=>code, :by_default=>false}.merge(attributes))
         end
         #rescue
         #end
@@ -748,29 +747,28 @@ class Company < ActiveRecord::Base
 #   end
   
   def load_demo_data(language_code=nil)
-    self.entity_natures.create!(:name=>"Société A Responsabilité Limitée", :abbreviation=>"SARL", :in_name=>true)
+    self.entity_natures.create!(:name=>"Société A Responsabilité Limitée", :title=>"SARL", :in_name=>true)
     last_name = ["MARTIN", "DUPONT", "DURAND", "LABAT", "VILLENEUVE", "SICARD", "FRERET", "FOUCAULT", "DUPEYRON", "BORGÈS", "DUBOIS", "LEROY", "MOREL", "GUERIN", "MORIN", "ROUSSEAU", "LEMAIRE", "DUVAL", "BRUN", "FERNANDEZ", "BRETON", "LEBLANC", "DA SILVA", "CORDIER", "BRIAND", "CAMUS", "VOISIN", "LELIEVRE", "GONZALEZ"]
     first_name = ["Benoît", "Stéphane", "Marine", "Roger", "Céline", "Bertrand", "Camille", "Dominique", "Julie", "Kévin", "Maxime", "Vincent", "Claire", "Marie-France", "Jean-Marie", "Anne-Marie", "Dominique", "Hakim", "Alain", "Daniel", "Sylvie", "Fabrice", "Nathalie", "Véronique", "Jeanine", "Edouard", "Colette", "Sébastien", "Rémi", "Joseph", "Baptiste", "Manuel", "Sofia", "Indira", "Martine", "Guy"]
     streets = ["Cours Xavier Arnozan", "Cours du général de Gaulle", "Route pavée", "Avenue Thiers", "Rue Gambetta", "5th Avenue", "rue Louis La Brocante", "Rue Léon Blum", "Avenue des Champs Élysées", "Cours de la marne"]
     cities = ["33000 Bordeaux", "33170 Gradignan", "40600 Biscarosse", "33400 Talence", "75001 Paris", "13000 Marseille", "33600 Pessac", "47000 Agen", "33710 Pugnac", "33700 Mérignac", "40000 Mont de Marsan"]
     entity_natures = self.entity_natures.collect{|x| x.id.to_s}
-    indifferent_attributes = {:category_id=>self.entity_categories.first.id, :language_id=>self.languages.first.id}
+    indifferent_attributes = {:category_id=>self.entity_categories.first.id, :language=>self.entity.language}
     products = ["Salades","Bouteille en verre 75 cl","Bouchon liège","Capsule CRD", "Capsule", "Étiquette", "Vin Quillet-Bont 2005", "Caisse Bois 6 btles", "Bouteille Quillet-Bont 2005 75 cl", "Caisse 6 b. Quillet-Bont 2005", "patates", "Séjour 1 nuit", "Séjour 1 semaine 1/2 pension", "Fongicide", "Insecticide"]
     shelf_id = self.shelves.first.id
     category_id = self.entity_categories.first.id
     
     for x in 0..60
       entity = self.entities.new(indifferent_attributes)
-      entity.name = last_name[rand(last_name.size)]
-      entity.first_name = first_name[rand(first_name.size)]
       entity.nature_id = entity_natures[rand(entity_natures.size).to_i]
-      entity.name = entity.nature.abbreviation+" "+entity.name if entity.nature.in_name 
+      entity.last_name = last_name[rand(last_name.size)]
+      entity.last_name = entity.nature.title.to_s+" "+entity.last_name if entity.nature.in_name 
+      entity.first_name = first_name[rand(first_name.size)] if entity.nature.physical
       entity.client = (rand() > 0.5 or rand() > 0.8)
       entity.supplier = (rand() > 0.75 or x == 0)
       entity.transporter = rand() > 0.9
-      entity.first_name = '' unless entity.nature.physical
       entity.save! 
-      contact = entity.contacts.create!(:company_id=>self.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :line_6=>cities[rand(cities.size)], :default=>true)
+      contact = entity.contacts.create!(:company_id=>self.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :line_6=>cities[rand(cities.size)], :by_default=>true)
     end
     self.entity_link_natures.create!(:name=>"Gérant - Société", :name_1_to_2=>"gère la société", :name_2_to_1=>"est une société qui a pour associé", :propagate_contacts=>true, :symmetric=>false)
     self.subscription_natures.create!(:name=>"Abonnement annuel", :nature=>"period", :reduction_rate=>0.1)
@@ -780,7 +778,7 @@ class Company < ActiveRecord::Base
     product_account = self.accounts.find_by_number("7")
     units = self.units.find(:all, :conditions=>"base IS NULL OR base in ('', 'kg', 'm3')")
     for product_name in products
-      product = self.products.create!(:nature=>"product", :name=>product_name, :to_sale=>true, :to_produce=>true, :shelf_id=>shelf_id, :unit_id=>units.rand.id, :manage_stocks=>true, :weight=>rand(3), :product_account_id=>product_account.id)
+      product = self.products.create!(:nature=>"product", :name=>product_name, :for_sales=>true, :for_productions=>true, :shelf_id=>shelf_id, :unit_id=>units.rand.id, :manage_stocks=>true, :weight=>rand(3), :sales_account_id=>product_account.id)
       product.reload
       product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>self.taxes.rand.id, :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
     end
@@ -887,7 +885,7 @@ class Company < ActiveRecord::Base
     # columns << [tc("import.generate_choice_complement"), "special-generate_choice_complement"]
     cols = Entity.content_columns.delete_if{|c| [:active, :full_name, :soundex, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
     columns += cols.collect{|c| [Entity.human_name+"/"+Entity.human_attribute_name(c), "entity-"+c]}.sort
-    cols = Contact.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["line_6_city", "line_6_code"]
+    cols = Contact.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["line_6_city", "line_6_code"]
     columns += cols.collect{|c| [Contact.human_name+"/"+Contact.human_attribute_name(c), "contact-"+c]}.sort
     columns += ["name", "abbreviation"].collect{|c| [EntityNature.human_name+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
     columns += ["name"].collect{|c| [EntityCategory.human_name+"/"+EntityCategory.human_attribute_name(c), "entity_category-"+c]}.sort
@@ -919,7 +917,7 @@ class Company < ActiveRecord::Base
     end
     unless cols[:entity_category].is_a? Hash
       code += "  category = self.entity_categories.find(:first, :conditions=>['name=? or code=?', '-', '-'])\n"
-      code += "  category = self.entity_categories.create!(:name=>'-', :deleted=>false, :default=>false) unless category\n"
+      code += "  category = self.entity_categories.create!(:name=>'-', :by_default=>false) unless category\n"
     end
     for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_complement}
       code += "  complement_#{k} = self.complements.create!(:name=>#{header[k.to_i].inspect}, :active=>true, :length_max=>65536, :nature=>'string', :required=>false)\n"
@@ -942,13 +940,13 @@ class Company < ActiveRecord::Base
       code += "      category = self.entity_categories.create!("+cols[:entity_category].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n"
       code += "    rescue\n"
       code += "      category = self.entity_categories.find(:first, :conditions=>['name=? or code=?', '-', '-'])\n"
-      code += "      category = self.entity_categories.create!(:name=>'-', :deleted=>false, :default=>false) unless category\n"
+      code += "      category = self.entity_categories.create!(:name=>'-', :by_default=>false) unless category\n"
       code += "    end unless category\n"
     end
 
     code += "    puts [nature, category].inspect\n"
 
-    code += "    entity = self.entities.build("+cols[:entity].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+", :nature_id=>nature.id, :category_id=>category.id, :language_id=>#{self.entity.language_id}, :client=>true)\n"
+    code += "    entity = self.entities.build("+cols[:entity].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+", :nature_id=>nature.id, :category_id=>category.id, :language=>#{self.entity.language}, :client=>true)\n"
     code += "    if entity.save\n"
     if cols[:contact].is_a? Hash
       code += "      contact = entity.contacts.build("+cols[:contact].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n" 
@@ -996,7 +994,7 @@ class Company < ActiveRecord::Base
     csv_string = FasterCSV.generate do |csv|
       csv << ["Code", "Type", "Catégorie", "Nom", "Prénom", "Dest-Service", "Bat.-Res.-ZI", "N° et voie", "Lieu dit", "Code Postal", "Ville", "Téléphone", "Mobile", "Fax", "Email", "Site Web", "Taux de réduction", "Commentaire"]
       entities.each do |entity|
-        contact = self.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :default=>true, :deleted=>false})
+        contact = self.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :by_default=>true, :deleted_at=>nil})
         line = []
         line << ["'"+entity.code.to_s, entity.nature.name, entity.category.name, entity.name, entity.first_name]
         if !contact.nil?

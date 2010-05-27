@@ -20,12 +20,12 @@
 # 
 # == Table: entity_natures
 #
-#  abbreviation :string(255)      not null
 #  active       :boolean          default(TRUE), not null
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  description  :text             
+#  format       :string(255)      
 #  id           :integer          not null, primary key
 #  in_name      :boolean          default(TRUE), not null
 #  lock_version :integer          default(0), not null

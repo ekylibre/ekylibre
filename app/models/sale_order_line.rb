@@ -21,8 +21,8 @@
 # == Table: sale_order_lines
 #
 #  account_id          :integer          not null
-#  amount              :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes   :decimal(16, 2)   default(0.0), not null
+#  amount              :decimal(, )      default(0.0), not null
+#  amount_with_taxes   :decimal(, )      default(0.0), not null
 #  annotation          :text             
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
@@ -35,10 +35,10 @@
 #  lock_version        :integer          default(0), not null
 #  order_id            :integer          not null
 #  position            :integer          
-#  price_amount        :decimal(16, 2)   
+#  price_amount        :decimal(, )      
 #  price_id            :integer          not null
 #  product_id          :integer          not null
-#  quantity            :decimal(16, 4)   default(1.0), not null
+#  quantity            :decimal(, )      default(1.0), not null
 #  reduction_origin_id :integer          
 #  tax_id              :integer          
 #  tracking_id         :integer          
@@ -78,7 +78,7 @@ class SaleOrderLine < ActiveRecord::Base
     end
     self.product = self.price.product if self.price
     if self.product
-      self.account_id = self.product.product_account_id 
+      self.account_id = self.product.sales_account_id 
       self.unit_id = self.product.unit_id
       if self.product.manage_stocks
         self.location_id ||= self.product.stocks.first.location_id if self.product.stocks.size > 0

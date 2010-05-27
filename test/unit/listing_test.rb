@@ -31,6 +31,7 @@
 #  name         :string(255)      not null
 #  query        :text             
 #  root_model   :string(255)      not null
+#  source       :text             
 #  story        :text             
 #  updated_at   :datetime         not null
 #  updater_id   :integer          

@@ -27,21 +27,22 @@
 #  creator_id      :integer          
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  mode            :string(5)        
 #  name            :string(50)       not null
-#  nature          :string(1)        default("U"), not null
+#  nature          :string(16)       
+#  type            :string(64)       default("ReceivedPaymentMode"), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer          
 #
 
 class PaymentMode < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :account
   belongs_to :bank_account
   belongs_to :company
   has_many :entities
   has_many :payments, :foreign_key=>:mode_id
   # has_many :embankable_payments, :class_name=>Payment.name, :foreign_key=>:mode_id, :conditions=>["embankment_id IS NULL AND "]
-  attr_readonly :company_id
+  inheritance_column = "no_column"
   @@modes = [:card, :cash, :check, :other, :transfer] 
 
   # validates_presence_of :account_id

@@ -20,14 +20,16 @@
 # 
 # == Table: inventories
 #
+#  accounted_at      :datetime         
 #  changes_reflected :boolean          
 #  comment           :text             
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
+#  created_on        :date             not null
 #  creator_id        :integer          
-#  date              :date             not null
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
+#  number            :string(16)       
 #  responsible_id    :integer          
 #  updated_at        :datetime         not null
 #  updater_id        :integer          

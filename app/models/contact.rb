@@ -20,17 +20,16 @@
 # 
 # == Table: contacts
 #
-#  active       :boolean          not null
 #  address      :string(280)      
 #  area_id      :integer          
-#  closed_on    :date             
+#  by_default   :boolean          not null
 #  code         :string(4)        
 #  company_id   :integer          not null
 #  country      :string(2)        
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  default      :boolean          not null
-#  deleted      :boolean          not null
+#  deleted_at   :datetime         
+#  deleter_id   :integer          
 #  email        :string(255)      
 #  entity_id    :integer          not null
 #  fax          :string(32)       
@@ -45,8 +44,6 @@
 #  longitude    :float            
 #  mobile       :string(32)       
 #  phone        :string(32)       
-#  started_at   :datetime         
-#  stopped_at   :datetime         
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #  website      :string(255)      
@@ -68,7 +65,7 @@ class Contact < ActiveRecord::Base
 
   def before_validation
     if self.entity
-      self.default = true if self.entity.contacts.size <= 0
+      self.by_default = true if self.entity.contacts.size <= 0
       self.company_id = self.entity.company_id
     end
     if self.line_6
@@ -80,7 +77,7 @@ class Contact < ActiveRecord::Base
         self.area = self.company.areas.create!(:name=>self.line_6, :country=>self.country) if self.area.nil?
       end
     end
-    Contact.update_all({:default=>false}, ["entity_id=? AND company_id=? AND id!=?", self.entity_id,self.company_id, self.id||0]) if self.default
+    Contact.update_all({:by_default=>false}, ["entity_id=? AND company_id=? AND id!=?", self.entity_id,self.company_id, self.id||0]) if self.by_default
     self.address = self.lines
     self.website = "http://"+self.website unless self.website.blank? or self.website.match /^.+p.*\/\//
   end
@@ -92,20 +89,19 @@ class Contact < ActiveRecord::Base
       while Contact.count(:conditions=>["entity_id=? AND company_id=? AND code=?", self.entity_id, self.company_id, self.code])>0 do
         self.code.succ!
       end
-      self.active = true
-      self.started_at = Time.now
-      #self.norm_id ||= self.company.address_norms.find_by_default(true)
+      # self.active = true
+      # self.started_at = Time.now
     end
   end
 
   # A contact can not be modified.
   # Therefore a contact is created for each update
   def before_update
-    self.stopped_at = Time.now
-    if self.active
-      Contact.create!(self.attributes.merge({:code=>self.code, :active=>true, :started_at=>self.stopped_at, :stopped_at=>nil, :company_id=>self.company_id, :entity_id=>self.entity_id}))
-    end
-    self.active = false
+    self.deleted_at = Time.now
+    #if self.active
+    Contact.create!(self.attributes.merge({:code=>self.code, :company_id=>self.company_id, :entity_id=>self.entity_id}))
+    #end
+    #self.active = false
     true
   end  
 

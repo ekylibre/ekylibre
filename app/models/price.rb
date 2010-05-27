@@ -21,20 +21,20 @@
 # == Table: prices
 #
 #  active            :boolean          default(TRUE), not null
-#  amount            :decimal(16, 4)   not null
-#  amount_with_taxes :decimal(16, 4)   not null
+#  amount            :decimal(, )      not null
+#  amount_with_taxes :decimal(, )      not null
+#  by_default        :boolean          default(TRUE)
 #  category_id       :integer          
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  currency_id       :integer          
-#  default           :boolean          default(TRUE)
 #  entity_id         :integer          
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
 #  product_id        :integer          not null
-#  quantity_max      :decimal(16, 4)   default(0.0), not null
-#  quantity_min      :decimal(16, 4)   default(0.0), not null
+#  quantity_max      :decimal(, )      default(0.0), not null
+#  quantity_min      :decimal(, )      default(0.0), not null
 #  started_at        :datetime         
 #  stopped_at        :datetime         
 #  tax_id            :integer          not null
@@ -93,7 +93,7 @@ class Price < ActiveRecord::Base
   end
 
   def after_save
-    Price.update_all({:default=>false}, ["product_id=? AND company_id=? AND id!=? AND entity_id=?", self.product_id, self.company_id, self.id||0, self.company.entity_id]) if self.default
+    Price.update_all({:by_default=>false}, ["product_id=? AND company_id=? AND id!=? AND entity_id=?", self.product_id, self.company_id, self.id||0, self.company.entity_id]) if self.by_default
   end
   
   def refresh
@@ -110,16 +110,16 @@ class Price < ActiveRecord::Base
     price
   end
 
-  def all_taxes(company, options={})
-    if self.new_record?
-      options[:select] = "taxes.*, #{connection.quoted_false} AS used"      
-    else
-      options[:select] = "taxes.*, (pt.id IS NOT NULL) AS used"
-      options[:joins]  = " LEFT JOIN price_taxes AS pt ON (taxes.id=tax_id)"
-      options[:conditions]  = {:price_id=>self.id}
-    end
-    company.taxes.find(:all, options)
-  end
+#   def all_taxes(company, options={})
+#     if self.new_record?
+#       options[:select] = "taxes.*, #{connection.quoted_false} AS used"      
+#     else
+#       options[:select] = "taxes.*, (pt.id IS NOT NULL) AS used"
+#       options[:joins]  = " LEFT JOIN price_taxes AS pt ON (taxes.id=tax_id)"
+#       options[:conditions]  = {:price_id=>self.id}
+#     end
+#     company.taxes.find(:all, options)
+#   end
 
 
   def range

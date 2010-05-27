@@ -21,18 +21,19 @@
 # == Table: document_templates
 #
 #  active       :boolean          not null
+#  by_default   :boolean          default(TRUE), not null
 #  cache        :text             
 #  code         :string(32)       
 #  company_id   :integer          not null
 #  country      :string(2)        
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  default      :boolean          default(TRUE), not null
-#  deleted      :boolean          not null
+#  deleted_at   :datetime         
+#  deleter_id   :integer          
 #  family       :string(32)       
 #  filename     :string(255)      
 #  id           :integer          not null, primary key
-#  language_id  :integer          
+#  language     :string(3)        
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  nature       :string(20)       
@@ -46,7 +47,6 @@ class DocumentTemplate < ActiveRecord::Base
   attr_readonly :company_id
   cattr_reader :families, :document_natures
   belongs_to :company
-  belongs_to :language  
   has_many :documents, :foreign_key=>:template_id
   validates_presence_of :filename
   validates_uniqueness_of :code, :scope=>:company_id
@@ -84,7 +84,7 @@ class DocumentTemplate < ActiveRecord::Base
   def before_validation
     self.filename ||= 'document'
     self.cache = self.class.compile(self.source) # rescue nil
-    self.default = true if self.company.document_templates.find_all_by_nature_and_default(self.nature, true).size <= 0
+    self.by_default = true if self.company.document_templates.find_all_by_nature_and_by_default(self.nature, true).size <= 0
   end
 
   def validate
@@ -96,7 +96,7 @@ class DocumentTemplate < ActiveRecord::Base
   end
 
   def after_save
-    DocumentTemplate.update_all({:default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id, self.nature]) if self.default and self.nature != 'other'
+    DocumentTemplate.update_all({:by_default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id, self.nature]) if self.by_default and self.nature != 'other'
   end
 
   def destroyable?

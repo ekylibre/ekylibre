@@ -354,8 +354,7 @@ eng:
       code:
         #>double: 'EX{{first_year}}/{{second_year}}'
         #>single: 'EX{{first_year}}'
-    idea:  #!
- #!
+    idea:
     inventory_line:
       #>inventory: 'Inventaire '
     invoice:

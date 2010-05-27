@@ -122,9 +122,9 @@ jpn:
         #>title: 'Modification du type de livraison : {{name}}'
       delivery_modes:
         #>title: 'Types de livraison'
-      delivery_update:
-        #>title: 'Modification de la livraison'
       _delivery_update:
+        #>title: 'Modification de la livraison'
+      delivery_update:
         #>title: 'Modification de la livraison'
       embankment:
         #>amount: 'Montant total'

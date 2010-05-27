@@ -373,9 +373,9 @@ class CompanyController < ApplicationController
     t.column :code
     t.column :family_label
     t.column :nature_label
-    t.column :default
+    t.column :by_default
     t.column :to_archive
-    t.column :native_name, :through=>:language
+    t.column :language
     t.column :country
     t.action :document_template_print
     t.action :document_template_duplicate, :method=>:post

@@ -25,10 +25,11 @@
 #  comment           :text             
 #  commercial        :boolean          
 #  company_id        :integer          not null
+#  connected_at      :datetime         
 #  created_at        :datetime         not null
 #  creator_id        :integer          
-#  credits           :boolean          default(TRUE), not null
 #  deleted_at        :datetime         
+#  deleter_id        :integer          
 #  departed_on       :date             
 #  department_id     :integer          
 #  email             :string(255)      
@@ -36,17 +37,16 @@
 #  employment        :string(255)      
 #  establishment_id  :integer          
 #  first_name        :string(255)      not null
-#  free_price        :boolean          default(TRUE), not null
 #  hashed_password   :string(64)       
 #  id                :integer          not null, primary key
-#  language_id       :integer          not null
+#  language          :string(3)        
 #  last_name         :string(255)      not null
 #  lock_version      :integer          default(0), not null
 #  locked            :boolean          not null
 #  name              :string(32)       not null
 #  office            :string(255)      
 #  profession_id     :integer          
-#  reduction_percent :decimal(16, 4)   default(5.0), not null
+#  reduction_percent :decimal(, )      default(5.0), not null
 #  rights            :text             
 #  role_id           :integer          not null
 #  salt              :string(64)       
@@ -60,7 +60,6 @@ class User < ActiveRecord::Base
   belongs_to :company
   belongs_to :department
   belongs_to :establishment
-  belongs_to :language
   belongs_to :profession
   belongs_to :role
   has_many :clients, :class_name=>Entity.name, :foreign_key=>:responsible_id
@@ -94,9 +93,8 @@ class User < ActiveRecord::Base
   def before_validation
     self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
     if self.company
-      self.language = self.company.parameter('general.language').value if self.language.nil?
+      self.language = self.company.parameter('general.language').value if self.language.blank?
     end
-    self.language_id ||= 0
     self.admin = true if self.rights.nil?
     self.rights_array=self.rights_array # Clean the rights
   end

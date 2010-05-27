@@ -1,4 +1,4 @@
-general.language,record,language
+general.language,string,fra
 accountancy.journals.bank,record,journal
 accountancy.journals.purchases,record,journal
 accountancy.journals.sales,record,journal

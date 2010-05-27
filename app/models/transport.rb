@@ -32,7 +32,7 @@
 #  transporter_id :integer          not null
 #  updated_at     :datetime         not null
 #  updater_id     :integer          
-#  weight         :decimal(16, 4)   
+#  weight         :decimal(, )      
 #
 
 class Transport < ActiveRecord::Base

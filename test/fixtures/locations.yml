@@ -33,7 +33,7 @@
 #  number           :integer          
 #  parent_id        :integer          
 #  product_id       :integer          
-#  quantity_max     :decimal(16, 4)   
+#  quantity_max     :decimal(, )      
 #  reservoir        :boolean          
 #  unit_id          :integer          
 #  updated_at       :datetime         not null

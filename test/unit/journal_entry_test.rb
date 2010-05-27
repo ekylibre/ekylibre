@@ -21,18 +21,16 @@
 # == Table: journal_entries
 #
 #  account_id      :integer          not null
+#  closed          :boolean          not null
 #  comment         :text             
 #  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
-#  credit          :decimal(16, 2)   default(0.0), not null
-#  currency_credit :decimal(16, 2)   default(0.0), not null
-#  currency_debit  :decimal(16, 2)   default(0.0), not null
-#  currency_id     :integer          not null
-#  currency_rate   :decimal(16, 6)   not null
-#  debit           :decimal(16, 2)   default(0.0), not null
+#  credit          :decimal(, )      default(0.0), not null
+#  currency_credit :decimal(, )      default(0.0), not null
+#  currency_debit  :decimal(, )      default(0.0), not null
+#  debit           :decimal(, )      default(0.0), not null
 #  draft           :boolean          not null
-#  editable        :boolean          default(TRUE)
 #  expired_on      :date             
 #  id              :integer          not null, primary key
 #  intermediate_id :integer          

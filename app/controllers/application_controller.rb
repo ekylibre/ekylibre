@@ -38,16 +38,6 @@ class ApplicationController < ActionController::Base
       t.to_s.classify.constantize if t.is_a? Symbol
     end
   end
-
-  # ActiveRecord::Base.connection.execute("UPDATE document_templates SET source=REPLACE(source, 'employee', 'responsible'), cache=REPLACE(cache, 'employee', 'responsible')")
-  ActiveRecord::Base.connection.execute("UPDATE document_templates SET nature='balance_sheet' WHERE nature='financialyear' AND code LIKE 'BILAN%'")
-  ActiveRecord::Base.connection.execute("UPDATE document_templates SET nature='income_statement' WHERE nature='financialyear'")
-  ActiveRecord::Base.connection.execute("UPDATE journals SET nature='sales' WHERE nature='sale'")
-  ActiveRecord::Base.connection.execute("UPDATE journals SET nature='purchases' WHERE nature='purchase'")
-  ActiveRecord::Base.connection.execute("UPDATE journals SET nature='forward' WHERE nature='renew'")
-  ActiveRecord::Base.connection.execute("UPDATE parameters SET name='accountancy.journals.sales' WHERE name='accountancy.default_journals.sales'")
-  ActiveRecord::Base.connection.execute("UPDATE parameters SET name='accountancy.journals.purchases' WHERE name='accountancy.default_journals.purchase'")
-  ActiveRecord::Base.connection.execute("UPDATE parameters SET name='accountancy.journals.bank' WHERE name='accountancy.default_journals.bank'")
   
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store

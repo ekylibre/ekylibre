@@ -22,11 +22,12 @@
 #
 #  account_collected_id :integer          
 #  account_paid_id      :integer          
-#  amount               :decimal(16, 4)   default(0.0), not null
+#  amount               :decimal(, )      default(0.0), not null
 #  company_id           :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer          
-#  deleted              :boolean          not null
+#  deleted_at           :datetime         
+#  deleter_id           :integer          
 #  description          :text             
 #  id                   :integer          not null, primary key
 #  included             :boolean          not null
@@ -60,9 +61,9 @@ class Tax < ActiveRecord::Base
   
   def compute(amount, with_taxes=false)
     if self.percent? and with_taxes
-      amount.to_f / (1 + 1.0/self.amount.to_f)
+      amount.to_f / (1 + 100/self.amount.to_f)
     elsif self.percent?
-      amount.to_f*self.amount.to_f
+      amount.to_f*self.amount.to_f/100
     elsif self.amount?
       self.amount
     end

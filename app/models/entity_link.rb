@@ -24,8 +24,8 @@
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  entity1_id   :integer          not null
-#  entity2_id   :integer          not null
+#  entity_1_id  :integer          not null
+#  entity_2_id  :integer          not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  nature_id    :integer          not null

@@ -35,26 +35,31 @@
 #  creator_id                :integer          
 #  dead_on                   :date             
 #  deliveries_conditions     :string(60)       
-#  discount_rate             :decimal(8, 2)    
+#  discount_rate             :decimal(, )      
 #  ean13                     :string(13)       
 #  excise                    :string(15)       
 #  first_met_on              :date             
 #  first_name                :string(255)      
 #  full_name                 :string(255)      not null
+#  hashed_password           :string(64)       
 #  id                        :integer          not null, primary key
 #  invoices_count            :integer          
-#  language_id               :integer          not null
+#  language                  :string(3)        
+#  last_name                 :string(255)      not null
 #  lock_version              :integer          default(0), not null
-#  name                      :string(255)      not null
+#  locked                    :boolean          not null
+#  name                      :string(32)       
 #  nature_id                 :integer          not null
 #  origin                    :string(255)      
 #  payment_delay_id          :integer          
 #  payment_mode_id           :integer          
 #  photo                     :string(255)      
 #  proposer_id               :integer          
-#  reduction_rate            :decimal(8, 2)    
+#  prospect                  :boolean          not null
+#  reduction_rate            :decimal(, )      
 #  reflation_submissive      :boolean          not null
 #  responsible_id            :integer          
+#  salt                      :string(64)       
 #  siren                     :string(9)        
 #  soundex                   :string(4)        
 #  supplier                  :boolean          not null

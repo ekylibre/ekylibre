@@ -20,52 +20,54 @@
 # 
 # == Table: products
 #
-#  active                 :boolean          default(TRUE), not null
-#  catalog_description    :text             
-#  catalog_name           :string(255)      not null
-#  charge_account_id      :integer          
-#  code                   :string(8)        
-#  code2                  :string(64)       
-#  comment                :text             
-#  company_id             :integer          not null
-#  created_at             :datetime         not null
-#  creator_id             :integer          
-#  critic_quantity_min    :decimal(16, 4)   default(1.0)
-#  description            :text             
-#  ean13                  :string(13)       
-#  id                     :integer          not null, primary key
-#  lock_version           :integer          default(0), not null
-#  manage_stocks          :boolean          not null
-#  name                   :string(255)      not null
-#  nature                 :string(8)        not null
-#  number                 :integer          not null
-#  price                  :decimal(16, 2)   default(0.0)
-#  product_account_id     :integer          
-#  quantity_max           :decimal(16, 4)   default(0.0)
-#  quantity_min           :decimal(16, 4)   default(0.0)
-#  reduction_submissive   :boolean          not null
-#  service_coeff          :decimal(16, 4)   
-#  shelf_id               :integer          not null
-#  subscription_nature_id :integer          
-#  subscription_period    :string(255)      
-#  subscription_quantity  :integer          
-#  to_produce             :boolean          not null
-#  to_purchase            :boolean          not null
-#  to_rent                :boolean          not null
-#  to_sale                :boolean          default(TRUE), not null
-#  unit_id                :integer          not null
-#  unquantifiable         :boolean          not null
-#  updated_at             :datetime         not null
-#  updater_id             :integer          
-#  weight                 :decimal(16, 3)   
+#  active                     :boolean          default(TRUE), not null
+#  catalog_description        :text             
+#  catalog_name               :string(255)      not null
+#  code                       :string(16)       
+#  code2                      :string(64)       
+#  comment                    :text             
+#  company_id                 :integer          not null
+#  created_at                 :datetime         not null
+#  creator_id                 :integer          
+#  critic_quantity_min        :decimal(, )      default(1.0)
+#  description                :text             
+#  ean13                      :string(13)       
+#  for_immobilizations        :boolean          not null
+#  for_productions            :boolean          not null
+#  for_purchases              :boolean          not null
+#  for_sales                  :boolean          default(TRUE), not null
+#  id                         :integer          not null, primary key
+#  immobilizations_account_id :integer          
+#  lock_version               :integer          default(0), not null
+#  manage_stocks              :boolean          not null
+#  name                       :string(255)      not null
+#  nature                     :string(8)        not null
+#  number                     :integer          not null
+#  price                      :decimal(, )      default(0.0)
+#  published                  :boolean          not null
+#  purchases_account_id       :integer          
+#  quantity_max               :decimal(, )      default(0.0)
+#  quantity_min               :decimal(, )      default(0.0)
+#  reduction_submissive       :boolean          not null
+#  sales_account_id           :integer          
+#  service_coeff              :decimal(, )      
+#  shelf_id                   :integer          not null
+#  subscription_nature_id     :integer          
+#  subscription_period        :string(255)      
+#  subscription_quantity      :integer          
+#  unit_id                    :integer          not null
+#  unquantifiable             :boolean          not null
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer          
+#  weight                     :decimal(, )      
 #
 
 class Product < ActiveRecord::Base
   @@natures = [:product, :service, :subscrip, :transfer]
   attr_readonly :company_id
-  belongs_to :charge_account, :class_name=>Account.to_s
+  belongs_to :purchases_account, :class_name=>Account.to_s
   belongs_to :company
-  belongs_to :product_account, :class_name=>Account.to_s
+  belongs_to :sales_account, :class_name=>Account.to_s
   belongs_to :subscription_nature
   belongs_to :shelf
   belongs_to :unit
@@ -84,8 +86,8 @@ class Product < ActiveRecord::Base
   has_many :trackings
   validates_presence_of :subscription_period, :if=>Proc.new{|u| u.nature=="sub_date"}
   validates_presence_of :subscription_numbers, :actual_number, :if=>Proc.new{|u| u.nature=="sub_numb"}
-  validates_presence_of :product_account_id, :if=>Proc.new{|p| p.to_sale}
-  validates_presence_of  :charge_account_id, :if=>Proc.new{|p| p.to_purchase}
+  validates_presence_of :sales_account, :if=>Proc.new{|p| p.for_sales}
+  validates_presence_of  :purchases_account, :if=>Proc.new{|p| p.for_purchases}
   validates_uniqueness_of :code, :scope=>:company_id
   validates_uniqueness_of :name, :scope=>:company_id
 
@@ -104,7 +106,7 @@ class Product < ActiveRecord::Base
         self.code.succ!
       end
     end
-    self.to_produce = true if self.has_components?
+    self.for_productions = true if self.has_components?
     self.catalog_name = self.name if self.catalog_name.blank?
     self.subscription_nature_id = nil if self.nature != "subscrip"
     self.service_coeff = nil if self.nature != "service"
@@ -113,10 +115,9 @@ class Product < ActiveRecord::Base
  
   def to
     to = []
-    to << :sale if self.to_sale
-    to << :purchase if self.to_purchase
-    to << :rent if self.to_rent
-    to << :produce if self.to_produce
+    to << :sales if self.for_sales
+    to << :purchases if self.for_purchases
+    to << :produce if self.for_productions
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
 
@@ -141,7 +142,7 @@ class Product < ActiveRecord::Base
   end
 
   def default_price(category_id)
-    self.prices.find(:first, :conditions=>{:category_id=>category_id, :active=>true, :default=>true})
+    self.prices.find(:first, :conditions=>{:category_id=>category_id, :active=>true, :by_default=>true})
   end
 
   def label

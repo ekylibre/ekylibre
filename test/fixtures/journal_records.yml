@@ -20,25 +20,28 @@
 # 
 # == Table: journal_records
 #
-#  closed           :boolean          
-#  company_id       :integer          not null
-#  created_at       :datetime         not null
-#  created_on       :date             not null
-#  creator_id       :integer          
-#  credit           :decimal(16, 2)   default(0.0), not null
-#  debit            :decimal(16, 2)   default(0.0), not null
-#  financialyear_id :integer          
-#  id               :integer          not null, primary key
-#  journal_id       :integer          not null
-#  lock_version     :integer          default(0), not null
-#  number           :string(255)      not null
-#  position         :integer          not null
-#  printed_on       :date             not null
-#  resource_id      :integer          
-#  resource_type    :string(255)      
-#  status           :string(1)        default("A"), not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer          
+#  closed          :boolean          
+#  company_id      :integer          not null
+#  created_at      :datetime         not null
+#  created_on      :date             not null
+#  creator_id      :integer          
+#  credit          :decimal(, )      default(0.0), not null
+#  currency_credit :decimal(16, 2)   default(0.0), not null
+#  currency_debit  :decimal(16, 2)   default(0.0), not null
+#  currency_id     :integer          default(0), not null
+#  currency_rate   :decimal(16, 6)   default(0.0), not null
+#  debit           :decimal(, )      default(0.0), not null
+#  id              :integer          not null, primary key
+#  journal_id      :integer          not null
+#  lock_version    :integer          default(0), not null
+#  number          :string(255)      not null
+#  position        :integer          not null
+#  printed_on      :date             not null
+#  resource_id     :integer          
+#  resource_type   :string(255)      
+#  status          :string(1)        default("A"), not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer          
 #
 #
 # == Fixture: journal_records
@@ -49,6 +52,10 @@
 #   created_on: 2009-07-19
 #   creator_id: 1
 #   credit: 0
+#   currency_credit: 0
+#   currency_debit: 0
+#   currency_id: 1
+#   currency_rate: 0
 #   debit: 0
 #   id: 1
 #   journal_id: 1
@@ -67,7 +74,6 @@ journal_records_001:
   creator_id: 1
   credit: 0
   debit: 0
-  financialyear_id: 1
   id: 1
   journal_id: 1
   number: "XYZ0001"
@@ -76,6 +82,9 @@ journal_records_001:
   status: "A"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  currency_id: 1
+  currency_rate: 1
+
 
 journal_records_002:
   company_id: 1
@@ -84,7 +93,6 @@ journal_records_002:
   creator_id: 1
   credit: 0
   debit: 0
-  financialyear_id: 1
   id: 2
   journal_id: 1
   number: "XYZ0002"
@@ -93,6 +101,8 @@ journal_records_002:
   status: "A"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  currency_id: 1
+  currency_rate: 1
 
 journal_records_003:
   company_id: 1
@@ -101,7 +111,6 @@ journal_records_003:
   creator_id: 1
   credit: 0
   debit: 0
-  financialyear_id: 1
   id: 3
   journal_id: 1
   number: "XYZ0003"
@@ -110,6 +119,8 @@ journal_records_003:
   status: "A"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  currency_id: 1
+  currency_rate: 1
 
 journal_records_004:
   company_id: 1
@@ -118,7 +129,6 @@ journal_records_004:
   creator_id: 1
   credit: 0
   debit: 0
-  financialyear_id: 1
   id: 4
   journal_id: 1
   number: "XYZ0004"
@@ -127,4 +137,6 @@ journal_records_004:
   status: "A"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  currency_id: 1
+  currency_rate: 1
 

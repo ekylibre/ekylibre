@@ -21,8 +21,8 @@
 # == Table: purchase_order_lines
 #
 #  account_id        :integer          not null
-#  amount            :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
+#  amount            :decimal(, )      default(0.0), not null
+#  amount_with_taxes :decimal(, )      default(0.0), not null
 #  annotation        :text             
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
@@ -34,7 +34,7 @@
 #  position          :integer          
 #  price_id          :integer          not null
 #  product_id        :integer          not null
-#  quantity          :decimal(16, 4)   default(1.0), not null
+#  quantity          :decimal(, )      default(1.0), not null
 #  tracking_id       :integer          
 #  tracking_serial   :string(255)      
 #  unit_id           :integer          not null
@@ -62,13 +62,13 @@ class PurchaseOrderLine < ActiveRecord::Base
     self.location_id = self.company.locations.first.id if self.company.locations.size == 1
     if self.price
       product = self.price.product
-      if product.charge_account.nil?
+      if product.purchases_account.nil?
         account_number = self.company.parameter("accountancy.major_accounts.charges").value
-        product.charge_account = self.company.accounts.find_by_number(account_number.to_s)
-        product.charge_account = self.company.accounts.create!(:number=>account_number.to_s, :name=>::I18n.t('parameters.accountancy.major_accounts.charges')) if product.charge_account.nil?
+        product.purchases_account = self.company.accounts.find_by_number(account_number.to_s)
+        product.purchases_account = self.company.accounts.create!(:number=>account_number.to_s, :name=>::I18n.t('parameters.accountancy.major_accounts.charges')) if product.purchases_account.nil?
         product.save!
       end
-      self.account_id = product.charge_account_id
+      self.account_id = product.purchases_account_id
       self.unit_id ||= self.price.product.unit_id
       self.product_id = self.price.product_id
       self.amount = (self.price.amount*self.quantity).round(2)

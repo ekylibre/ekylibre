@@ -26,12 +26,13 @@
 #  bank_code    :string(255)      
 #  bank_name    :string(50)       
 #  bic          :string(16)       
+#  by_default   :boolean          not null
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  currency_id  :integer          not null
-#  default      :boolean          not null
-#  deleted      :boolean          not null
+#  deleted_at   :datetime         
+#  deleter_id   :integer          
 #  entity_id    :integer          
 #  iban         :string(34)       not null
 #  iban_label   :string(48)       not null

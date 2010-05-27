@@ -20,12 +20,12 @@
 # 
 # == Table: entity_natures
 #
-#  abbreviation :string(255)      not null
 #  active       :boolean          default(TRUE), not null
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  description  :text             
+#  format       :string(255)      
 #  id           :integer          not null, primary key
 #  in_name      :boolean          default(TRUE), not null
 #  lock_version :integer          default(0), not null
@@ -46,9 +46,9 @@ class EntityNature < ActiveRecord::Base
   def before_validation
     self.in_name = false if self.physical
     if self.physical
-      self.title = self.abbreviation if self.title.blank?
+      self.format ||= '[title] [last_name] [first_name]'
     else
-      self.title = ''
+      self.format ||= '[last_name]'
     end
   end
 

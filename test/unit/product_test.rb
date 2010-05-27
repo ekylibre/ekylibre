@@ -20,44 +20,46 @@
 # 
 # == Table: products
 #
-#  active                 :boolean          default(TRUE), not null
-#  catalog_description    :text             
-#  catalog_name           :string(255)      not null
-#  charge_account_id      :integer          
-#  code                   :string(8)        
-#  code2                  :string(64)       
-#  comment                :text             
-#  company_id             :integer          not null
-#  created_at             :datetime         not null
-#  creator_id             :integer          
-#  critic_quantity_min    :decimal(16, 4)   default(1.0)
-#  description            :text             
-#  ean13                  :string(13)       
-#  id                     :integer          not null, primary key
-#  lock_version           :integer          default(0), not null
-#  manage_stocks          :boolean          not null
-#  name                   :string(255)      not null
-#  nature                 :string(8)        not null
-#  number                 :integer          not null
-#  price                  :decimal(16, 2)   default(0.0)
-#  product_account_id     :integer          
-#  quantity_max           :decimal(16, 4)   default(0.0)
-#  quantity_min           :decimal(16, 4)   default(0.0)
-#  reduction_submissive   :boolean          not null
-#  service_coeff          :decimal(16, 4)   
-#  shelf_id               :integer          not null
-#  subscription_nature_id :integer          
-#  subscription_period    :string(255)      
-#  subscription_quantity  :integer          
-#  to_produce             :boolean          not null
-#  to_purchase            :boolean          not null
-#  to_rent                :boolean          not null
-#  to_sale                :boolean          default(TRUE), not null
-#  unit_id                :integer          not null
-#  unquantifiable         :boolean          not null
-#  updated_at             :datetime         not null
-#  updater_id             :integer          
-#  weight                 :decimal(16, 3)   
+#  active                     :boolean          default(TRUE), not null
+#  catalog_description        :text             
+#  catalog_name               :string(255)      not null
+#  code                       :string(16)       
+#  code2                      :string(64)       
+#  comment                    :text             
+#  company_id                 :integer          not null
+#  created_at                 :datetime         not null
+#  creator_id                 :integer          
+#  critic_quantity_min        :decimal(, )      default(1.0)
+#  description                :text             
+#  ean13                      :string(13)       
+#  for_immobilizations        :boolean          not null
+#  for_productions            :boolean          not null
+#  for_purchases              :boolean          not null
+#  for_sales                  :boolean          default(TRUE), not null
+#  id                         :integer          not null, primary key
+#  immobilizations_account_id :integer          
+#  lock_version               :integer          default(0), not null
+#  manage_stocks              :boolean          not null
+#  name                       :string(255)      not null
+#  nature                     :string(8)        not null
+#  number                     :integer          not null
+#  price                      :decimal(, )      default(0.0)
+#  published                  :boolean          not null
+#  purchases_account_id       :integer          
+#  quantity_max               :decimal(, )      default(0.0)
+#  quantity_min               :decimal(, )      default(0.0)
+#  reduction_submissive       :boolean          not null
+#  sales_account_id           :integer          
+#  service_coeff              :decimal(, )      
+#  shelf_id                   :integer          not null
+#  subscription_nature_id     :integer          
+#  subscription_period        :string(255)      
+#  subscription_quantity      :integer          
+#  unit_id                    :integer          not null
+#  unquantifiable             :boolean          not null
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer          
+#  weight                     :decimal(, )      
 #
 
 require 'test_helper'

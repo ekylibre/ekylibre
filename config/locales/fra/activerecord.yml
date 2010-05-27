@@ -126,7 +126,6 @@ fra:
       journal: 'Journal'
       journal_entry: 'Écriture'
       journal_record: 'Pièce comptable'
-      language: 'Langue'
       listing: 'Extraction'
       listing_node: 'Noeud d''extraction'
       listing_node_item: 'Élément de noeud d''extraction'
@@ -141,7 +140,6 @@ fra:
       payment_mode: 'Mode de réglement'
       payment_part: 'Partie de réglement'
       price: 'Prix'
-      price_tax: 'Taxe de prix'
       product: 'Produit'
       product_component: 'Composant de produit'
       profession: 'Profession'
@@ -206,7 +204,6 @@ fra:
       journal: 'Journaux'
       journal_entry: 'Écritures'
       journal_record: 'Pièces comptables'
-      language: 'Langues'
       listing: 'Extractions'
       listing_node: 'Noeuds d''extraction'
       listing_node_item: 'Éléments de noeud d''extraction'
@@ -221,7 +218,6 @@ fra:
       payment_mode: 'Modes de réglement'
       payment_part: 'Parties de réglement'
       price: 'Prix'
-      price_tax: 'Taxes de prix'
       product: 'Produits'
       product_component: 'Composants de produit'
       profession: 'Professions'
@@ -256,42 +252,44 @@ fra:
       # Compte
       account:
         account_balances: 'Balances de compte'
-        alpha: 'Code alpha'
+        alpha: 'Code alpha' #?
         balances: 'Balances de compte'
         bank_accounts: 'Comptes bancaires'
-        children: 'Sous-comptes'
+        children: 'Sous-comptes' #?
         comment: 'Commentaire'
         company: 'Société'
         company_id: 'Société'
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        deleted: 'Effacé'
+        deleted: 'Effacé' #?
+        deleted_at: 'Supprimé le'
+        deleter_id: 'Supprimeur'
         entries: 'Écritures'
-        groupable: 'Groupable'
+        groupable: 'Groupable' #?
         id: 'ID'
         is_debit: 'Débit'
         journal_entries: 'Écritures'
         journals: 'Journaux'
-        keep_entries: 'Garder les ecritures'
+        keep_entries: 'Garder les ecritures' #?
         label: 'Label'
         last_letter: 'Dernière lettre'
-        letterable: 'Lettrable'
+        letterable: 'Lettrable' #?
         lock_version: 'Version'
         name: 'Nom'
         number: 'Numéro'
-        parent: 'Parent'
-        parent_id: 'Parent'
+        parent: 'Parent' #?
+        parent_id: 'Parent' #?
         payment_modes: 'Modes de réglement'
         payments: 'Réglements'
-        pointable: 'Pointable'
+        pointable: 'Pointable' #?
         products: 'Produits'
         purchase_order_lines: 'Lignes d''achat'
-        transferable: 'Transferable'
+        transferable: 'Transferable' #?
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-        usable: 'Utilisable'
+        usable: 'Utilisable' #?
 
       # Balance de compte
       account_balance:
@@ -352,6 +350,7 @@ fra:
         bban: 'RIB' #?
         bban_unvalid_key: 'La clé du BBAN n''est pas correcte.' #?
         bic: 'BIC'
+        by_default: 'Par défaut'
         company: 'Société'
         company_id: 'Société'
         country_code: 'Code pays' #?
@@ -360,8 +359,10 @@ fra:
         creator_id: 'Créateur'
         currency: 'Devise utilisée'
         currency_id: 'Devise utilisée'
-        default: 'Par défaut'
-        deleted: 'Effacé'
+        default: 'Par défaut' #?
+        deleted: 'Effacé' #?
+        deleted_at: 'Supprimé le'
+        deleter_id: 'Supprimeur'
         embankments: 'Encaissements'
         entity: 'Personne'
         entity_id: 'Personne'
@@ -391,10 +392,12 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         credit: 'Crédit'
+        currency_credit: (((CURRENCY_CREDIT)))
+        currency_debit: (((CURRENCY_DEBIT)))
         debit: 'Débit'
         entries: 'Écritures'
         id: 'ID'
-        intermediate: 'Intermédiaire'
+        intermediate: 'Intermédiaire' #?
         intermediate_entries: 'Écritures en tant que relevé intermédiaire'
         lock_version: 'Version'
         number: 'Numéro'
@@ -431,7 +434,9 @@ fra:
         current_financialyear: 'Exercice comptable en cours'
         default_currency: (((DEFAULT_CURRENCY)))
         delays: 'Délais'
-        deleted: 'Effacé'
+        deleted: 'Effacé' #?
+        deleted_at: 'Supprimé le'
+        deleter_id: 'Supprimeur'
         deliveries: 'Livraisons'
         delivery_lines: 'Lignes de livraison'
         delivery_modes: 'Modes de livraison'
@@ -461,7 +466,6 @@ fra:
         journal_entries: 'Écritures'
         journal_records: 'Pièces comptables'
         journals: 'Journaux'
-        languages: 'Langues'
         listing_node_items: 'Éléments de noeud d''extraction'
         listing_nodes: 'Noeuds d''extraction'
         listings: 'Extractions'
@@ -479,7 +483,6 @@ fra:
         payment_modes: 'Modes de réglement'
         payment_parts: 'Parties de réglement'
         payments: 'Réglements'
-        price_taxes: 'Taxes de prix'
         prices: 'Prix'
         product_components: 'Composants de produit'
         productable_products: 'Produits produisibles'
@@ -593,11 +596,12 @@ fra:
 
       # Contact
       contact:
-        active: 'Actif'
+        active: 'Actif' #?
         address: 'Adresse'
         area: 'Zone postale'
         area_id: 'Zone postale'
-        closed_on: 'Annulé le'
+        by_default: 'Par défaut'
+        closed_on: 'Annulé le' #?
         code: 'Code'
         company: 'Société'
         company_id: 'Société'
@@ -605,8 +609,10 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        default: 'Par défaut'
-        deleted: 'Effacé'
+        default: 'Par défaut' #?
+        deleted: 'Effacé' #?
+        deleted_at: 'Supprimé le'
+        deleter_id: 'Supprimeur'
         deliveries: 'Livraisons'
         email: 'Adresse e-mail'
         entity: 'Fiche'
@@ -628,8 +634,8 @@ fra:
         mobile: 'Portable'
         phone: 'Téléphone'
         purchase_orders: 'Achats'
-        started_at: 'Du'
-        stopped_at: 'Au'
+        started_at: 'Du' #?
+        stopped_at: 'Au' #?
         subscriptions: 'Abonnement'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
@@ -640,6 +646,7 @@ fra:
       currency:
         active: 'Actif'
         bank_accounts: 'Comptes bancaires'
+        by_default: 'Par défaut'
         code: 'Code'
         comment: 'Commentaire'
         company: 'Société'
@@ -831,6 +838,7 @@ fra:
       # Modèle de document
       document_template:
         active: 'Actif'
+        by_default: 'Par défaut'
         cache: 'Cache'
         code: 'Code'
         company: 'Société'
@@ -839,15 +847,16 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        default: 'Par défaut'
-        deleted: 'Supprimé'
+        default: 'Par défaut' #?
+        deleted: 'Supprimé' #?
+        deleted_at: 'Supprimé le'
+        deleter_id: 'Supprimeur'
         documents: 'Documents'
         family: 'Module'
         family_label: 'Module'
         filename: 'Nom de fichier'
         id: 'ID'
         language: 'Langue'
-        language_id: 'Langue'
         lock_version: 'Version'
         name: 'Nom'
         nature: 'Nature'
@@ -860,6 +869,7 @@ fra:
 
       # Encaissement
       embankment:
+        accounted_at: (((ACCOUNTED_AT)))
         amount: 'Montant'
         bank_account: 'Compte bancaire'
         bank_account_id: 'Compte bancaire'
@@ -920,13 +930,15 @@ fra:
         first_met_on: 'Date de la première rencontre'
         first_name: 'Prénom'
         full_name: 'Nom complet'
+        hashed_password: (((HASHED_PASSWORD)))
         id: 'ID'
         indirect_links: 'Liens indirects'
         invoices: 'Factures'
         invoices_count: 'Nombre de factures'
         language: 'Langue'
-        language_id: 'Langue'
+        last_name: (((LAST_NAME)))
         lock_version: 'Version'
+        locked: (((LOCKED)))
         mandates: 'Responsabilités'
         max_reduction_rate: 'Taux de réduction'
         name: 'Nom'
@@ -944,12 +956,14 @@ fra:
         prices: 'Prix'
         proposer: 'Parrain'
         proposer_id: 'Parrain'
+        prospect: (((PROSPECT)))
         purchase_orders: 'Achats'
         reduction_rate: 'Taux de réduction'
         reflation_submissive: 'Soumis à la relance'
         responsible: 'Responsable'
         responsible_id: 'Responsable'
         sale_orders: 'Ventes'
+        salt: (((SALT)))
         siren: 'Code SIREN'
         soundex: 'Soundex'
         subscriptions: 'Abonnements'
@@ -969,14 +983,17 @@ fra:
 
       # Catégorie de personne
       entity_category:
+        by_default: 'Par défaut'
         code: 'Code'
         company: 'Société'
         company_id: 'Société'
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        default: 'Par défaut'
-        deleted: 'Effacé'
+        default: 'Par défaut' #?
+        deleted: 'Effacé' #?
+        deleted_at: 'Supprimé le'
+        deleter_id: 'Supprimeur'
         description: 'Description'
         entities: 'Personnes'
         id: 'ID'
@@ -995,10 +1012,12 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        entity1: 'Fiche 1'
-        entity1_id: 'Fiche 1'
-        entity2: 'Fiche 2'
-        entity2_id: 'Fiche 2'
+        entity1: (((ENTITY1)))
+        entity2: (((ENTITY2)))
+        entity_1: 'Fiche 1' #?
+        entity_1_id: 'Fiche 1'
+        entity_2: 'Fiche 2' #?
+        entity_2_id: 'Fiche 2'
         id: 'ID'
         lock_version: 'Version'
         nature: 'Lien'
@@ -1031,7 +1050,7 @@ fra:
 
       # Type de personne
       entity_nature:
-        abbreviation: 'Abréviation'
+        abbreviation: 'Abréviation' #?
         active: 'Actif'
         company: 'Société'
         company_id: 'Société'
@@ -1040,6 +1059,7 @@ fra:
         creator_id: 'Créateur'
         description: 'Description'
         entities: 'Personnes'
+        format: (((FORMAT)))
         id: 'ID'
         in_name: 'Abréviation incluse dans le nom de la fiche'
         lock_version: 'Version'
@@ -1085,13 +1105,14 @@ fra:
         nature: 'Type'
         nature_id: 'Type'
         reason: 'Motif'
+        responsible_id: (((RESPONSIBLE_ID)))
         started_at: 'Date et heure'
         started_sec: 'Date et heure (en secondes)'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
         user: 'Intervenant'
-        user_id: 'Intervenant'
+        user_id: 'Intervenant' #?
 
       # Type d'évènement
       event_nature:
@@ -1134,18 +1155,21 @@ fra:
 
       # Inventaire
       inventory:
+        accounted_at: (((ACCOUNTED_AT)))
         changes_reflected: 'Refleter les changements'
         comment: 'Commentaire'
         company: 'Société'
         company_id: 'Société'
         created_at: 'Créé le'
+        created_on: (((CREATED_ON)))
         creator: 'Créateur'
         creator_id: 'Créateur'
-        date: 'Créé le'
+        date: 'Créé le' #?
         employee_id: 'Responsable' #?
         id: 'ID'
         lines: 'Lignes d''inventaire'
         lock_version: 'Version'
+        number: (((NUMBER)))
         responsible: 'Responsable'
         responsible_id: 'Responsable'
         updated_at: 'Mis à jour le'
@@ -1270,7 +1294,9 @@ fra:
         creator_id: 'Créateur'
         currency: 'Devise'
         currency_id: 'Devise'
-        deleted: 'Effacé'
+        deleted: 'Effacé' #?
+        deleted_at: 'Supprimé le'
+        deleter_id: 'Supprimeur'
         entries: 'Écritures'
         id: 'ID'
         lock_version: 'Version'
@@ -1286,6 +1312,7 @@ fra:
       journal_entry:
         account: 'Compte'
         account_id: 'Compte'
+        closed: (((CLOSED)))
         comment: 'Commentaire'
         company: 'Société'
         company_id: 'Société'
@@ -1293,14 +1320,14 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         credit: 'Crédit'
-        currency: 'Monnaie'
+        currency: 'Monnaie' #?
         currency_credit: 'Crédit'
         currency_debit: 'Débit'
-        currency_id: 'Monnaie'
-        currency_rate: 'Taux de change'
+        currency_id: 'Monnaie' #?
+        currency_rate: 'Taux de change' #?
         debit: 'Débit'
         draft: 'Brouillon'
-        editable: 'Éditable'
+        editable: 'Éditable' #?
         expired_on: 'Expire le'
         id: 'ID'
         intermediate: 'Relevé de compte intermédiaire'
@@ -1330,10 +1357,15 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         credit: 'Crédit'
+        currency: 'Devise'
+        currency_credit: (((CURRENCY_CREDIT)))
+        currency_debit: (((CURRENCY_DEBIT)))
+        currency_id: 'Devise'
+        currency_rate: (((CURRENCY_RATE)))
         debit: 'Débit'
         entries: 'Écritures'
         financialyear: 'Exercice'
-        financialyear_id: 'Exercice'
+        financialyear_id: 'Exercice' #?
         id: 'ID'
         journal: 'Journal'
         journal_id: 'Journal'
@@ -1348,26 +1380,6 @@ fra:
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-
-      # Langue
-      language:
-        company: 'Société'
-        company_id: 'Société'
-        created_at: 'Créé le'
-        creator: 'Créateur'
-        creator_id: 'Créateur'
-        document_templates: 'Modèles de document'
-        entities: 'Personnes'
-        id: 'ID'
-        iso2: 'Code ISO 2'
-        iso3: 'Code ISO 3'
-        lock_version: 'Version'
-        name: 'Nom'
-        native_name: 'Nom natif'
-        updated_at: 'Mis à jour le'
-        updater: 'Modificateur'
-        updater_id: 'Modificateur'
-        users: 'Utilisateurs'
 
       # Extraction
       listing:
@@ -1386,6 +1398,7 @@ fra:
         query: 'Requête'
         root_model: 'Racine'
         root_model_name: 'Racine'
+        source: (((SOURCE)))
         story: 'Historique'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
@@ -1634,7 +1647,7 @@ fra:
       # Réglement
       payment:
         account: 'Compte associé'
-        account_id: 'Compte associé'
+        account_id: 'Compte associé' #?
         account_number: 'Numéro de compte'
         accounted: 'Comptabilisé(e)' #?
         accounted_at: 'Comptabilisé(e) le'
@@ -1665,11 +1678,13 @@ fra:
         parts_amount: 'Montant utilisé'
         payer: (((PAYER)))
         purchase_orders: 'Achats'
+        receipt: (((RECEIPT)))
         received: 'Reçu'
         sale_orders: 'Ventes'
         scheduled: 'Encaissement programmé'
         to_bank_on: 'À encaisser le'
         transfers: 'Transferts'
+        type: (((TYPE)))
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
@@ -1689,10 +1704,11 @@ fra:
         entities: 'Personnes'
         id: 'ID'
         lock_version: 'Version'
-        mode: 'Mode'
+        mode: 'Mode' #?
         name: 'Nom'
         nature: 'Nature'
         payments: 'Réglements'
+        type: (((TYPE)))
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
@@ -1726,6 +1742,7 @@ fra:
         active: 'Actif'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
+        by_default: 'Par défaut'
         category: 'Catégorie de fiche associée'
         category_id: 'Catégorie de fiche associée'
         company: 'Société'
@@ -1735,7 +1752,7 @@ fra:
         creator_id: 'Créateur'
         currency: 'Devise'
         currency_id: 'Devise'
-        default: 'Par défaut'
+        default: 'Par défaut' #?
         delivery_lines: 'Lignes de livraison'
         entity: 'Fournisseur'
         entity_id: 'Fournisseur'
@@ -1761,32 +1778,14 @@ fra:
         updater_id: 'Modificateur'
         use_range: 'Utiliser un intervalle de quantité'
 
-      # Taxe de prix
-      price_tax:
-        amount: 'Montant'
-        company: 'Société'
-        company_id: 'Société'
-        created_at: 'Créé le'
-        creator: 'Créateur'
-        creator_id: 'Créateur'
-        id: 'ID'
-        lock_version: 'Version'
-        price: 'Prix'
-        price_id: 'Prix'
-        tax: 'Taxe'
-        tax_id: 'Taxe'
-        updated_at: 'Mis à jour le'
-        updater: 'Modificateur'
-        updater_id: 'Modificateur'
-
       # Produit
       product:
         active: 'Utilisable'
         actual_number: 'Numéro en cours' #?
         catalog_description: 'Description pour le catalogue'
         catalog_name: 'Nom pour le catalogue'
-        charge_account: 'Compte comptable de charges'
-        charge_account_id: 'Compte comptable de charges'
+        charge_account: 'Compte comptable de charges' #?
+        charge_account_id: 'Compte comptable de charges' #?
         code: 'Code'
         code2: 'Code secondaire'
         comment: 'Commentaire'
@@ -1801,7 +1800,12 @@ fra:
         description: 'Description'
         duration: 'Nombre de numéros OU période d''abonnement'
         ean13: 'Code EAN13'
+        for_immobilizations: (((FOR_IMMOBILIZATIONS)))
+        for_productions: (((FOR_PRODUCTIONS)))
+        for_purchases: (((FOR_PURCHASES)))
+        for_sales: (((FOR_SALES)))
         id: 'ID'
+        immobilizations_account_id: (((IMMOBILIZATIONS_ACCOUNT_ID)))
         invoice_lines: 'Lignes de facture'
         locations: 'Lieux de stockage'
         lock_version: 'Version'
@@ -1811,13 +1815,18 @@ fra:
         number: 'Numéro'
         price: 'Prix de revient'
         prices: 'Prix'
-        product_account: 'Compte comptable de produits'
-        product_account_id: 'Compte comptable de produits'
+        product_account: 'Compte comptable de produits' #?
+        product_account_id: 'Compte comptable de produits' #?
+        published: (((PUBLISHED)))
         purchase_order_lines: 'Lignes d''achat'
+        purchases_account: (((PURCHASES_ACCOUNT)))
+        purchases_account_id: (((PURCHASES_ACCOUNT_ID)))
         quantity_max: 'Quantité maximum'
         quantity_min: 'Quantité minimum'
         reduction_submissive: 'Soumis à réduction'
         sale_order_lines: 'Lignes de vente'
+        sales_account: (((SALES_ACCOUNT)))
+        sales_account_id: (((SALES_ACCOUNT_ID)))
         service_coeff: 'Coefficient (de quantité) de service'
         shelf: 'Catégorie'
         shelf_id: 'Catégorie'
@@ -1832,10 +1841,10 @@ fra:
         subscriptions: 'Abonnement'
         supply_method: 'Moyen d''approvisionnement' #?
         to: 'Pour'
-        to_produce: 'Produit fabriqué ou récolté'
-        to_purchase: 'Produit acheté'
-        to_rent: 'Produit loué'
-        to_sale: 'Produit vendu'
+        to_produce: 'Produit fabriqué ou récolté' #?
+        to_purchase: 'Produit acheté' #?
+        to_rent: 'Produit loué' #?
+        to_sale: 'Produit vendu' #?
         trackings: 'Lots traçables'
         unit: 'Unité de mesure'
         unit_id: 'Unité de mesure'
@@ -2180,6 +2189,7 @@ fra:
         parent: 'Parent'
         parent_id: 'Parent'
         products: 'Produits'
+        published: (((PUBLISHED)))
         shelves: 'Catégories de produit'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
@@ -2352,7 +2362,9 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        deleted: 'Effacé'
+        deleted: 'Effacé' #?
+        deleted_at: 'Supprimé le'
+        deleter_id: 'Supprimeur'
         description: 'Description'
         group_name: 'Groupe' #?
         id: 'ID'
@@ -2538,12 +2550,14 @@ fra:
         commercial: 'Activité commerciale'
         company: 'Société'
         company_id: 'Société'
+        connected_at: 'Connecté le'
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        credits: 'Création d''avoirs'
+        credits: 'Création d''avoirs' #?
         deleted: 'Effacé' #?
         deleted_at: 'Supprimé à'
+        deleter_id: 'Supprimeur'
         departed_on: 'Parti le'
         department: 'Département'
         department_id: 'Département'
@@ -2554,13 +2568,12 @@ fra:
         establishment_id: 'Établissement'
         events: 'Évènements'
         first_name: 'Prénom'
-        free_price: 'Prix libres'
+        free_price: 'Prix libres' #?
         full_name: 'Nom complet'
         future_events: 'Evènements futurs'
         hashed_password: 'Mot de passe crypté'
         id: 'ID'
         language: 'Langue'
-        language_id: 'Langue'
         last_name: 'Nom de famille'
         lock_version: 'Version'
         locked: 'Compte verrouillé'

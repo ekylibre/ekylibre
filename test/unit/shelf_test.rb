@@ -30,6 +30,7 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string(255)      not null
 #  parent_id           :integer          
+#  published           :boolean          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #

@@ -20,12 +20,13 @@
 # 
 # == Table: entity_categories
 #
+#  by_default   :boolean          not null
 #  code         :string(8)        
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  default      :boolean          not null
-#  deleted      :boolean          not null
+#  deleted_at   :datetime         
+#  deleter_id   :integer          
 #  description  :text             
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
@@ -43,15 +44,16 @@ class EntityCategory < ActiveRecord::Base
 
 
   def before_validation
+    EntityCategory.update_all({:by_default=>false}, ["company_id=? AND id!=?", self.company_id, self.id||0]) if self.by_default
     self.code = self.name.to_s.codeize if self.code.blank?
     self.code = self.code[0..7]
-
-    EntityCategory.update_all({:default=>false}, ["company_id=? AND id!=?", self.company_id, self.id||0]) if self.default
   end
  
 
   def before_destroy
-    EntityCategory.create!(self.attributes.merge({:deleted=>true, :code=>self.code.to_s+" ", :company_id=>self.company_id})) 
+    self.update_attributes(:deleted_at=>Time.now)
+    return false
+    # EntityCategory.create!(self.attributes.merge({:deleted_at=>true, :code=>self.code.to_s+" ", :company_id=>self.company_id})) 
   end
   
 end
