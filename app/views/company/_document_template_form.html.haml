@@ -5,9 +5,9 @@
   -f.field :document_template, :family, :choices=>DocumentTemplate.families
   -f.field :document_template, :nature, :choices=>DocumentTemplate.natures
   -f.field :document_template, :to_archive
-  -f.field :document_template, :default
+  -f.field :document_template, :by_default
   -f.field :document_template, :active
-  -f.field :document_template, :language_id, :choices=>{:reflection=>:languages}
+  -f.field :document_template, :language, :choices=>languages
   -f.field :document_template, :country, :choices=>countries
   -f.field :document_template, :filename
   -f.field :document_template, :source, :field=>:textarea, :options=>{:cols=>80, :rows=>30}, :class=>:code

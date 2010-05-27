@@ -219,16 +219,16 @@ class AccountancyController < ApplicationController
     t.column :credit
   end
 
-  dyta(:account_children, :model=>:accounts, :conditions=>["company_id = ? AND parent_id = ?", ['@current_company.id'], ['session[:account_id]']], :order=>"number ASC") do |t|
-    t.column :number, :url=>{:action=>:account}
-    t.column :name, :url=>{:action=>:account}
-    t.action :account_update
-    t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure
-  end
+#   dyta(:account_children, :model=>:accounts, :conditions=>["company_id = ? AND number LIKE ?", ['@current_company.id'], ['session[:current_account_number]+"%"']], :order=>"number ASC") do |t|
+#     t.column :number, :url=>{:action=>:account}
+#     t.column :name, :url=>{:action=>:account}
+#     t.action :account_update
+#     t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure
+#   end
 
   def account
     return unless @account = find_and_check(:account)
-    session[:account_id] = @account.id
+    session[:current_account_number] = @account.number
     t3e @account.attributes
   end
 
@@ -555,7 +555,7 @@ class AccountancyController < ApplicationController
 
   def financialyear
     return unless @financialyear = find_and_check(:financialyears)
-    @financialyear.compute_balances
+    @financialyear.compute_balances # TODELETE !!!
     t3e @financialyear.attributes
   end
   
@@ -619,7 +619,7 @@ class AccountancyController < ApplicationController
           redirect_to(:action=>:financialyears)
         end
       else
-        journal = @current_company.journals.find(:first, :conditions => {:nature => "renew", :deleted => false})
+        journal = @current_company.journals.find(:first, :conditions => {:nature => "forward", :deleted_at => nil})
         params[:journal_id] = (journal ? journal.id : 0)
       end    
     end
@@ -860,7 +860,7 @@ class AccountancyController < ApplicationController
 
 
   
-  dyta(:taxes, :conditions=>{:company_id=>['@current_company.id'], :deleted=>false}) do |t|
+  dyta(:taxes, :conditions=>{:company_id=>['@current_company.id'], :deleted_at=>nil}) do |t|
     t.column :name
     t.column :amount, :precision=>3
     t.column :nature_label

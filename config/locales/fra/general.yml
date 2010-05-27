@@ -193,7 +193,7 @@ fra:
               to_archive: true
               filename: 'Facture [number]'
             inventory:
-              filename: 'Inventaire du [date]'
+              filename: 'Inventaire du [created_on]'
             transport:
               filename: 'Transport du [created_on]'
             embankment:
@@ -439,7 +439,7 @@ fra:
         in: Intrant
         out: Sortant
     payment_mode:
-      modes:
+      natures:
         card: 'Carte Bleue'
         cash: 'Espèces'
         check: Chèque

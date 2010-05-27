@@ -36,16 +36,13 @@
 #
 
 class Inventory < ActiveRecord::Base
-
+  attr_readonly :company_id
   belongs_to :company
   belongs_to :responsible, :class_name=>User.name
   has_many :lines, :class_name=>InventoryLine.name, :dependent=>:destroy
 
-  attr_readonly :company_id
-
-
   def before_validation
-    self.date ||= Date.today
+    self.created_on ||= Date.today
   end
 
 

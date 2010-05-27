@@ -3,7 +3,7 @@
   -f.error :datum
   -f.title :title
   -f.field :entity, :nature_id, :choices=>{:reflection=>:entity_natures, :label=>:name, :order=>:name}, :new=>{:action=>:entity_nature_create}
-  -f.field :entity, :language_id, :choices=>{:reflection=>:languages}
+  -f.field :entity, :language, :choices=>languages
   -f.field :entity, :name
   -f.field :entity, :first_name
   -f.field :entity, :active
@@ -43,6 +43,8 @@
   -f.title :supplier
   -f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>tc(:account_supplier_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create}
 
+=render :partial=>"coordinates_form", :locals => {:company => @current_company}
+
 :javascript
   window.displayFields = function(){
     toggleElement('client_form', $('entity_client').checked);
@@ -50,4 +52,3 @@
   }
   displayFields();
   
-=render :partial=>"coordinates_form", :locals => {:company => @current_company}

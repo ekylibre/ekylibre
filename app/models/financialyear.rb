@@ -37,8 +37,8 @@ class Financialyear < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   has_many :account_balances, :class_name=>AccountBalance.name, :foreign_key=>:financialyear_id
-  has_many :records,  :class_name=>JournalRecord.name
-  has_many :journal_records
+  # has_many :records,  :class_name=>JournalRecord.name, :conditions=>'printed_on BETWEEN #{connection.quote(self.started_on)} AND #{connection.quote(self.stopped_on)}'
+  # has_many :journal_records, :conditions=>'printed_on BETWEEN #{connection.quote(self.started_on)} AND #{connection.quote(self.stopped_on)}'
   validates_presence_of :started_on, :stopped_on
   validates_uniqueness_of :code, :scope=>:company_id
 
@@ -71,6 +71,13 @@ class Financialyear < ActiveRecord::Base
       end
     end
   end
+
+  def journal_records(conditions=nil)
+    unless conditions.nil?
+      conditions = " AND ("+self.class.send(:sanitize_sql_for_conditions, conditions)+")"
+    end
+    JournalRecord.find(:all, :conditions=>["company_id=? AND printed_on BETWEEN ? AND ? #{conditions}", self.company_id, self.started_on, self.stopped_on])
+  end
   
 
   def default_code
@@ -85,7 +92,7 @@ class Financialyear < ActiveRecord::Base
     if previous=self.previous
       return false if self.previous.closable?
     end
-    return false if self.journal_records.find(:first, :conditions=>"debit != credit")
+    return false if self.journal_records("debit != credit")
     return (self.stopped_on < noticed_on)
   end
 
@@ -195,7 +202,7 @@ class Financialyear < ActiveRecord::Base
 
   def compute_balances
     ## journal_entries.all group_by account_id =>refresh account_balance corresponding
-    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(journal_entries.debit) as sum_debit, sum(journal_entries.credit) as sum_credit FROM journal_entries LEFT JOIN journal_records as jr ON jr.id = journal_entries.record_id AND jr.financialyear_id = #{self.id} WHERE journal_entries.company_id =  #{self.company_id} AND draft is false GROUP BY account_id")
+    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(journal_entries.debit) as sum_debit, sum(journal_entries.credit) as sum_credit FROM journal_entries JOIN journal_records as jr ON (jr.id = journal_entries.record_id AND jr.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE journal_entries.company_id =  #{self.company_id} AND draft is false GROUP BY account_id")
     results.each do |result|
       if account_balance = self.company.account_balances.find_by_financialyear_id_and_account_id(self.id, result["account_id"].to_i)
         account_balance.update_attributes!(:local_credit=>result["sum_credit"].to_d, :local_debit=>result["sum_debit"].to_d)

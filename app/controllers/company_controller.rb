@@ -272,7 +272,7 @@ class CompanyController < ApplicationController
     @sale_orders_count = SaleOrder.count_by_sql ["SELECT  count(*) FROM sale_orders WHERE company_id = ? AND state != 'P' AND responsible_id = ? AND created_on BETWEEN ? AND ? ", @current_company.id, @current_user.id, session[:statistics_start], session[:statistics_end] ]
     @sale_orders_amount = SaleOrder.count_by_sql ["SELECT sum(amount) FROM sale_orders WHERE company_id = ? AND state != 'P' AND responsible_id = ? AND created_on BETWEEN ? AND ? ", @current_company.id, @current_user.id, session[:statistics_start], session[:statistics_end] ]
     @invoiced_amount = Invoice.count_by_sql ["SELECT sum(invoices.amount) FROM invoices INNER JOIN sale_orders ON sale_orders.responsible_id = ? AND invoices.sale_order_id = sale_orders.id WHERE invoices.company_id = ? AND invoices.payment_on BETWEEN ? AND ? ", @current_user.id,  @current_company.id,session[:statistics_start], session[:statistics_end] ]
-    @event_natures = EventNature.find_by_sql ["SELECT en.*, ecount, esum FROM event_natures as en LEFT JOIN (SELECT nature_id , count(id) as ecount , sum(duration) as esum FROM events WHERE CAST(started_at AS date) BETWEEN ? AND ? AND user_id = ? GROUP BY nature_id) as stats ON id = nature_id  WHERE company_id = ? ORDER BY name ",session[:statistics_start], session[:statistics_end], @current_user.id, @current_company.id]
+    @event_natures = EventNature.find_by_sql ["SELECT en.*, ecount, esum FROM event_natures as en LEFT JOIN (SELECT nature_id , count(id) as ecount , sum(duration) as esum FROM events WHERE CAST(started_at AS date) BETWEEN ? AND ? AND responsible_id = ? GROUP BY nature_id) as stats ON id = nature_id  WHERE company_id = ? ORDER BY name ",session[:statistics_start], session[:statistics_end], @current_user.id, @current_company.id]
     if request.post?
       session[:statistics_start] = params[:start].to_date
       session[:statistics_end] = params[:end].to_date
@@ -386,7 +386,7 @@ class CompanyController < ApplicationController
   def document_templates
   end
 
-  manage :document_templates, :country=>"@current_company.entity.country", :language_id=>"@current_company.entity.language_id"
+  manage :document_templates, :country=>"@current_company.entity.country", :language=>"@current_company.entity.language"
 
   def document_templates_load
     @current_company.load_prints

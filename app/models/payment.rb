@@ -211,6 +211,16 @@ class Payment < ActiveRecord::Base
     end
   end
   
+  def self.abstract_class?
+  end
+  
+end
 
 
+
+class ReceivedPayment < Payment
+end
+
+
+class GivenPayment < Payment
 end

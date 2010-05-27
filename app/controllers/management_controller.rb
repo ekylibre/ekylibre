@@ -174,7 +174,7 @@ class ManagementController < ApplicationController
 
 
   dyta(:inventories, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :date
+    t.column :created_on
     t.column :changes_reflected, :label=>tc('changes_reflected')
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
     t.column :comment
@@ -424,7 +424,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:category, :label=>tc(:category), :url=>{:controller=>:relations, :action=>:entity_category}
     t.column :amount
     t.column :amount_with_taxes
-    t.column :default
+    t.column :by_default
     # t.column :range
     t.action :price_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
@@ -609,7 +609,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:category, :url=>{:controller=>:relations, :action=>:entity_category}
     t.column :amount
     t.column :amount_with_taxes
-    t.column :default
+    t.column :by_default
     # t.column :range
     t.action :price_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
@@ -893,7 +893,7 @@ class ManagementController < ApplicationController
       @product = @price.product if @price
     elsif params[:purchase_order_line_product_id]
       return unless @product = find_and_check(:product, params[:purchase_order_line_product_id])
-      @price = @product.prices.find_by_active_and_default_and_entity_id(true, true, params[:entity_id]||@current_company.entity_id) if @product
+      @price = @product.prices.find_by_active_and_by_default_and_entity_id(true, true, params[:entity_id]||@current_company.entity_id) if @product
     end
   end
   
@@ -1110,9 +1110,9 @@ class ManagementController < ApplicationController
       client_id = params[:client_id]||(params[:sale_order]||{})[:client_id]||session[:current_entity]
       client_id = 0 if client_id.blank?
     end
+    client = @current_company.entities.find_by_id(client_id)
     session[:current_entity] = client_id
-    contacts = Contact.find(:all, :conditions=>{:entity_id=> client_id, :company_id=>@current_company.id, :active=>true})  
-    @contacts = contacts.collect{|x| [x.address, x.id]}
+    @contacts = (client ? client.contacts.collect{|x| [x.address, x.id]} : [])
     render :text=>options_for_select(@contacts) if request.xhr?
   end
 
@@ -1484,11 +1484,11 @@ class ManagementController < ApplicationController
   end
   
   def delivery_update
-    return unless @delivery =  find_and_check(:delivery)
+    return unless @delivery = find_and_check(:delivery)
     @delivery_form = "delivery_form"
     session[:current_delivery] = @delivery.id
-    @contacts = Contact.find(:all, :conditions=>{:company_id=>@current_company.id, :entity_id=>@delivery.order.client_id})
-    return unless @sale_order = find_and_check(:sale_orders,session[:current_sale_order])
+    @contacts = @delivery.order.client.contacts
+    return unless @sale_order = find_and_check(:sale_orders, session[:current_sale_order])
     @sale_order_lines = SaleOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sale_order]})
     # @delivery_lines = DeliveryLine.find(:all,:conditions=>{:company_id=>@current_company.id, :delivery_id=>@delivery.id})
     @delivery_lines = @delivery.lines
@@ -1510,7 +1510,7 @@ class ManagementController < ApplicationController
  
 
   def delivery_delete
-    return unless @delivery = find_and_check(:deliveries)
+    return unless @delivery = find_and_check(:delivery)
     if request.post? or request.delete?
       @delivery.destroy
     end
@@ -1659,7 +1659,7 @@ class ManagementController < ApplicationController
   def payment_modes
   end
 
-  manage :payment_modes, :mode=>"'other'"
+  manage :payment_modes, :nature=>"'other'"
 
 
   dyta(:sale_order_payment_parts, :model=>:payment_parts, :conditions=>["company_id=? AND expense_id=? AND expense_type=?", ['@current_company.id'], ['session[:current_sale_order]'], SaleOrder.name]) do |t|

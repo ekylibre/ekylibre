@@ -127,7 +127,7 @@ class Company < ActiveRecord::Base
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
   has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.major_accounts.products\').value.to_s+\'%\')}'
   has_many :self_bank_accounts, :class_name=>BankAccount.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
-  has_many :self_contacts, :class_name=>Contact.name, :conditions=>'active = #{connection.quoted_true} AND entity_id = #{self.entity_id}', :order=>'active DESC, address'
+  has_many :self_contacts, :class_name=>Contact.name, :conditions=>'deleted_at IS NULL AND entity_id = #{self.entity_id}', :order=>'address'
   has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
   has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.third_accounts.suppliers\').value.to_s+\'%\')}'
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, name, first_name'
@@ -334,7 +334,7 @@ class Company < ActiveRecord::Base
 
   def checks_to_embank(mode_id=0)
     checks = []
-    finder = {:joins=>"INNER JOIN payment_modes p ON p.mode = 'check' AND p.id = payments.mode_id"}
+    finder = {:joins=>"INNER JOIN payment_modes p ON p.nature = 'check' AND p.id = payments.mode_id"}
     if mode_id == 0 
       checks = self.payments.find(:all, finder.merge(:conditions=>['embankment_id IS NULL'] ))
     elsif mode_id == -1
@@ -713,7 +713,7 @@ class Company < ActiveRecord::Base
           if doc = self.document_templates.find_by_code(code)
             doc.destroy
           end
-          self.document_templates.create({:active=>true, :language=>language, :country=>'fr', :source=>f.read, :family=>family.to_s, :code=>code, :by_default=>false}.merge(attributes))
+          self.document_templates.create!({:active=>true, :language=>language, :country=>'fr', :source=>f.read, :family=>family.to_s, :code=>code, :by_default=>false}.merge(attributes))
         end
         #rescue
         #end

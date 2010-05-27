@@ -23,9 +23,9 @@
 =formalize do |f|
   -f.field :product, :reduction_submissive
   -f.field :product, :active
-  -f.field :product, :to_sale
-  -f.field :product, :to_purchase
-  -f.field :product, :to_produce
+  -f.field :product, :for_sales
+  -f.field :product, :for_purchases
+  -f.field :product, :for_productions
   -f.field :product, :manage_stocks
 =formalize(:id=>:product_form_stocks) do |f|
   -f.title :stocks
@@ -38,8 +38,8 @@
 
 =formalize do |f|
   -f.title :accountancy
-  -f.field :product, :product_account_id, :choices=>{:reflection=>:products_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create}, :html_options=>{:id=>'product_account'}
-  -f.field :product, :charge_account_id, :choices=>{:reflection=>:charges_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create}, :html_options=>{:id=>'charge_account'}
+  -f.field :product, :sales_account_id, :choices=>{:reflection=>:products_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create}, :html_options=>{:id=>'sales_account'}
+  -f.field :product, :purchases_account_id, :choices=>{:reflection=>:charges_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create}, :html_options=>{:id=>'purchases_account'}
 
 :javascript
   window.toggleService = function() { toggleElement('service_coeff', $('product_nature_service').checked); }
@@ -48,18 +48,18 @@
   toggleSubscription();
   window.toggleStocks = function() { toggleElement('product_form_stocks', $('product_manage_stocks').checked); }
   toggleStocks();
-  window.toggleChargeAccount = function() { toggleElement('charge_account', $('product_to_purchase').checked); }
-  toggleChargeAccount();
-  window.toggleProductAccount = function() { 
-    toggleElement('product_account', $('product_to_sale').checked); 
-    /*toggleElement('price', $('product_to_sale').checked); */
+  window.togglePurchasesAccount = function() { toggleElement('purchases_account', $('product_for_purchases').checked); }
+  togglePurchasesAccount();
+  window.toggleSalesAccount = function() { 
+    toggleElement('sales_account', $('product_for_sales').checked); 
+    /*toggleElement('price', $('product_for_sales').checked); */
   }
-  toggleProductAccount();
+  toggleSalesAccount();
 
 =observe_field("product_nature_service", :frequency =>0.25, :function => "toggleService();")
 -if request.url.to_s.include? "update"
   =observe_field(location_id, :url=>{:action=>:change_quantities}, :frequency=>0.25, :with=>"location_id")
 =observe_field("product_manage_stocks", :frequency=>0.25, :function=> "toggleStocks();")
 =observe_field("product_nature_subscrip", :frequency=>0.25, :function=>"toggleSubscription();")
-=observe_field("product_to_purchase", :frequency=>0.25, :function=>"toggleChargeAccount();")
-=observe_field("product_to_sale", :frequency=>0.25, :function=>"toggleProductAccount();")
+=observe_field("product_for_purchases", :frequency=>0.25, :function=>"togglePurchasesAccount();")
+=observe_field("product_for_sales", :frequency=>0.25, :function=>"toggleSalesAccount();")

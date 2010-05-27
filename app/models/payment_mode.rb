@@ -42,17 +42,25 @@ class PaymentMode < ActiveRecord::Base
   has_many :entities
   has_many :payments, :foreign_key=>:mode_id
   # has_many :embankable_payments, :class_name=>Payment.name, :foreign_key=>:mode_id, :conditions=>["embankment_id IS NULL AND "]
-  inheritance_column = "no_column"
-  @@modes = [:card, :cash, :check, :other, :transfer] 
+  @@natures = [:card, :cash, :check, :other, :transfer] 
 
   # validates_presence_of :account_id
 
-  def self.modes
-    @@modes.collect{|x| [tc('modes.'+x.to_s), x]}
+  def self.natures
+    @@natures.collect{|x| [tc('natures.'+x.to_s), x]}
   end
   
   def embankable_payments
     self.payments.find(:all, :conditions=>["embankment_id IS NULL AND entity_id!=?", self.company.entity_id])
   end
 
+  def self.abstract_class?
+  end
+  
+end
+
+class ReceivedPaymentMode < PaymentMode
+end
+
+class GivenPaymentMode < PaymentMode
 end

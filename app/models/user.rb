@@ -63,8 +63,8 @@ class User < ActiveRecord::Base
   belongs_to :profession
   belongs_to :role
   has_many :clients, :class_name=>Entity.name, :foreign_key=>:responsible_id
-  has_many :events
-  has_many :future_events, :class_name=>Event.name, :conditions=>["started_at >= CURRENT_TIMESTAMP"]
+  has_many :events, :foreign_key=>:responsible_id
+  has_many :future_events, :class_name=>Event.name, :foreign_key=>:responsible_id, :conditions=>["started_at >= CURRENT_TIMESTAMP"]
   has_many :parameters
   has_many :sale_orders, :foreign_key=>:responsible_id
   has_many :operations, :foreign_key=>:responsible_id

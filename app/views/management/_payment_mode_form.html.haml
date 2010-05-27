@@ -1,5 +1,5 @@
 =formalize do |f|
   -f.error :payment_mode
   -f.field :payment_mode, :name
+  -f.field :payment_mode, :nature, :field=>:radio, :choices=>PaymentMode.natures
   -f.field :payment_mode, :account_id, :choices=>:account, :new=>{:controller=>:accountancy, :action=>:account_create}, :resize=>true
-  -f.field :payment_mode, :mode, :field=>:radio, :choices=>PaymentMode.modes

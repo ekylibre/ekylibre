@@ -56,7 +56,7 @@ class Tax < ActiveRecord::Base
   end
 
   def before_destroy
-    Tax.create!(self.attributes.merge({:deleted=>true, :name=>self.name+" ", :company_id=>self.company_id})) 
+    Tax.create!(self.attributes.merge({:deleted_at=>Time.now, :name=>self.name+" ", :company_id=>self.company_id})) 
   end
   
   def compute(amount, with_taxes=false)

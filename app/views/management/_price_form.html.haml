@@ -1,11 +1,11 @@
 =formalize do |f|
   -f.error 'price'
-  -f.error 'price_tax'
+  -#f.error 'price_tax'
   -f.title :general
   -f.field :price, :product_id, :choices=>{:reflection=>:products}, :new=>{:action=>:product_create} 
   -if @mode != :sales
     -f.field :price, :entity_id, :choices=>:entities, :new=>{:controller=>:relations, :action=>:entity_create} 
-  -f.field :price, :default
+  -f.field :price, :by_default
 =render :partial=>'price_amount_form'
 
 -#  -f.field :price, :use_range

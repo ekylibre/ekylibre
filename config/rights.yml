@@ -211,7 +211,7 @@ manage_accounts:
   controller: accountancy
   actions:
   - account
-  - account_children_dyta
+#  - account_children_dyta
   - account_create
   - account_delete
   - account_journal_entries_dyta
@@ -323,7 +323,7 @@ manage_entities:
   - contact_create
   - contact_delete
   - contact_update
-  - contacts_dyta
+  - entity_contacts_dyta
   - entity_create
   - entity_delete
   - entity_events_dyta

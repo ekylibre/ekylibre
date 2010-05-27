@@ -215,7 +215,11 @@ module ApplicationHelper
   end
   
   def countries
-    [[]]+t('countries').to_a.sort{|a,b| a[1].ascii.to_s<=>b[1].ascii.to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
+    [[]]+t('countries').to_a.sort{|a, b| a[1].ascii.to_s<=>b[1].ascii.to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
+  end
+
+  def languages
+    I18n.valid_locales.collect{|x| [t("languages.#{x}"), x]}.to_a.sort{|a, b| a[0].ascii.to_s<=>b[0].ascii.to_s}
   end
 
   def link_to_back(options={})
