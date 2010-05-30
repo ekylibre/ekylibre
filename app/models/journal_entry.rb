@@ -26,14 +26,13 @@
 #  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
-#  credit          :decimal(, )      default(0.0), not null
-#  currency_credit :decimal(, )      default(0.0), not null
-#  currency_debit  :decimal(, )      default(0.0), not null
-#  debit           :decimal(, )      default(0.0), not null
+#  credit          :decimal(16, 2)   default(0.0), not null
+#  currency_credit :decimal(16, 2)   default(0.0), not null
+#  currency_debit  :decimal(16, 2)   default(0.0), not null
+#  debit           :decimal(16, 2)   default(0.0), not null
 #  draft           :boolean          not null
 #  expired_on      :date             
 #  id              :integer          not null, primary key
-#  intermediate_id :integer          
 #  journal_id      :integer          
 #  letter          :string(8)        
 #  lock_version    :integer          default(0), not null
@@ -55,8 +54,7 @@ class JournalEntry < ActiveRecord::Base
   belongs_to :company
   belongs_to :journal
   belongs_to :record, :class_name=>JournalRecord.name
-  belongs_to :intermediate, :class_name=>BankAccountStatement.name
-  belongs_to :statement, :class_name=>BankAccountStatement.name
+  belongs_to :statement, :class_name=>BankStatement.name
   validates_presence_of :account_id
   # validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
   

@@ -21,7 +21,7 @@
 # == Table: units
 #
 #  base         :string(255)      
-#  coefficient  :decimal(, )      default(1.0), not null
+#  coefficient  :decimal(16, 4)   default(1.0), not null
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
@@ -29,7 +29,7 @@
 #  label        :string(255)      not null
 #  lock_version :integer          default(0), not null
 #  name         :string(8)        not null
-#  start        :decimal(, )      default(0.0), not null
+#  start        :decimal(16, 4)   default(0.0), not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #

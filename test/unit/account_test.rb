@@ -24,8 +24,6 @@
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  deleted_at   :datetime         
-#  deleter_id   :integer          
 #  id           :integer          not null, primary key
 #  is_debit     :boolean          not null
 #  label        :string(255)      not null

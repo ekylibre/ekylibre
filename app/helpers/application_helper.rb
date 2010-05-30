@@ -75,7 +75,7 @@ module ApplicationHelper
      {:name=>:accountancy, :list=>
        [ {:name=>:accountancy_tasks, :list=>
            [ {:name=>:journals},
-             {:name=>:bank_account_statements},
+             {:name=>:bank_statements},
              {:name=>:lettering},
              {:name=>:document_print},
              # {:name=>:tax_declarations},
@@ -85,7 +85,7 @@ module ApplicationHelper
          {:name=>:parameters, :list=>
            [ {:name=>:accounts},
              {:name=>:financialyears},
-             {:name=>:bank_accounts},
+             {:name=>:cashes},
              {:name=>:taxes} ] }
        ] },
      # ManagementController

@@ -24,8 +24,6 @@
 #  code             :string(16)       not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
-#  deleted_at       :datetime         
-#  deleter_id       :integer          
 #  entity_id        :integer          
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
@@ -40,8 +38,8 @@ class Company < ActiveRecord::Base
   has_many :accounts, :order=>:number
   has_many :account_balances
   has_many :areas
-  has_many :bank_accounts
-  has_many :bank_account_statements
+  has_many :cashes
+  has_many :bank_statements
   has_many :complements
   has_many :complement_choices
   has_many :complement_data
@@ -57,7 +55,7 @@ class Company < ActiveRecord::Base
   has_many :document_templates
   has_many :embankments
   has_many :entities
-  has_many :entity_categories, :conditions=>{:deleted_at=>nil}
+  has_many :entity_categories
   has_many :entity_link_natures
   has_many :entity_links
   has_many :entity_natures  
@@ -69,7 +67,7 @@ class Company < ActiveRecord::Base
   has_many :inventory_lines
   has_many :invoices
   has_many :invoice_lines
-  has_many :journals, :order=>:name, :conditions=>{:deleted_at=>nil}
+  has_many :journals, :order=>:name
   has_many :journal_entries
   has_many :journal_records
   has_many :listings
@@ -126,7 +124,7 @@ class Company < ActiveRecord::Base
   has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
   has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.major_accounts.products\').value.to_s+\'%\')}'
-  has_many :self_bank_accounts, :class_name=>BankAccount.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
+  has_many :self_cashes, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
   has_many :self_contacts, :class_name=>Contact.name, :conditions=>'deleted_at IS NULL AND entity_id = #{self.entity_id}', :order=>'address'
   has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
   has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.third_accounts.suppliers\').value.to_s+\'%\')}'

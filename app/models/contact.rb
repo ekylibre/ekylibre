@@ -29,7 +29,6 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  deleted_at   :datetime         
-#  deleter_id   :integer          
 #  email        :string(255)      
 #  entity_id    :integer          not null
 #  fax          :string(32)       
@@ -57,6 +56,7 @@ class Contact < ActiveRecord::Base
   has_many :invoices
   has_many :purchase_orders
   has_many :locations
+  has_many :sale_orders
   has_many :subscriptions
 
   # belongs_to :element, :polymorphic=> true
@@ -86,7 +86,7 @@ class Contact < ActiveRecord::Base
   def before_validation_on_create    
     unless self.code
       self.code = 'AAAA'
-      while Contact.count(:conditions=>["entity_id=? AND company_id=? AND code=?", self.entity_id, self.company_id, self.code])>0 do
+      while Contact.count(:conditions=>["entity_id=? AND company_id=? AND code=?", self.entity_id, self.company_id, self.code]) > 0 do
         self.code.succ!
       end
       # self.active = true
@@ -94,16 +94,29 @@ class Contact < ActiveRecord::Base
     end
   end
 
-  # A contact can not be modified.
-  # Therefore a contact is created for each update
-  def before_update
-    self.deleted_at = Time.now
-    #if self.active
-    Contact.create!(self.attributes.merge({:code=>self.code, :company_id=>self.company_id, :entity_id=>self.entity_id}))
-    #end
-    #self.active = false
-    true
-  end  
+#   # A contact can not be modified.
+#   # Therefore a contact is created for each update
+#   def before_update
+#     self.deleted_at = Time.now
+#     #if self.active
+#     Contact.create!(self.attributes.merge({:code=>self.code, :company_id=>self.company_id, :entity_id=>self.entity_id}))
+#     #end
+#     #self.active = false
+#     true
+#   end  
+
+  def update_without_callbacks
+    current_time = Time.now
+    stamper = self.class.stamper_class.stamper
+    self.class.create!(self.attributes.delete_if{|k,v| [:company_id].include?(k.to_sym)}.merge(:created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper.id, :updater_id=>stamper.id))
+    self.class.update_all({:deleted_at=>current_time}, {:id=>self.id})
+  end
+
+  def destroy_without_callbacks
+    unless new_record?
+      self.class.update_all({:deleted_at=>Time.now}, {:id=>self.id})
+    end
+  end
 
   def self.exportable_columns
     self.content_columns.delete_if{|c| [:active, :started_at, :stopped_at, :closed_on, :deleted, :latitude, :longitude, :lock_version, :code, :created_at, :updated_at].include?(c.name.to_sym)}

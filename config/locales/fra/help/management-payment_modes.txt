@@ -1,5 +1,22 @@
 ====== Modes de règlements ======
 
-Les types de règlement vous servent à définir un **moyen de paiement** et sont utilisés lors des règlements des ventes.
+Les modes de règlement vous servent à définir un **moyen de paiement** et sont utilisés lors des règlements des ventes ou des achats.
+Utiliser les modes de règlement vous permet de suivre précisément vos encaissements et décaissements.
+
+===== Comptabilité =====
+
+En paramétrant le compte associé à chaque mode de réglement, vous pourrez avoir une comptabilité en ordre automatiquement.
+
+==== Pour les ventes ====
+En général, les comptes associés sont différents pour chaque mode :
+  * Espèces : //53. Caisse//
+  * Virement : //512. Banques//
+  * Chèques : //5112. Chèques à encaisser//
+  * Carte bancaire : //5115. Cartes bancaires à encaisser//
+
+==== Pour les achats ====
+En général, les comptes associés sont :
+  * Espèces : //53. Caisse//
+  * Virement, chèques : //512. Banques//
 
 [[management-index|Retour à l'aide sur la Gestion Commerciale]]

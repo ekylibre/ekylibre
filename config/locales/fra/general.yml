@@ -1,576 +1,54 @@
 fra:
-  number:
-    # Used in number_with_delimiter()
-    # These are also the defaults for 'currency', 'percentage', 'precision', and 'human'
-    format:
-      # Sets the separator between the units, for more precision (e.g. 1.0 / 2.0 == 0.5)
-      separator: "," 
-      # Delimets thousands (e.g. 1,000,000 is a million) (always in groups of three)
-      delimiter: " " 
-      # Number of decimals, behind the separator (1 with a precision of 2 gives: 1.00)
-      precision: 3
-
-    # Used in number_to_currency()
-    currency:
-      format:
-        # Where is the currency sign? %u is the currency unit, %n the number (default: $5.00)
-        format: "%u%n" 
-        unit: "$" 
-        # These three are to override number.format and are optional
-        separator: "." 
-        delimiter: "," 
-        precision: 2
-
-    # Used in number_to_percentage()
-    percentage:
-      format:
-        # These three are to override number.format and are optional
-        # separator: 
-        delimiter: "" 
-        # precision: 
-
-    # Used in number_to_precision()
-    precision:
-      format:
-        # These three are to override number.format and are optional
-        # separator:
-        delimiter: "" 
-        # precision:
-
-    # Used in number_to_human_size()
-    human:
-      format:
-        # These three are to override number.format and are optional
-        # separator: 
-        delimiter: "" 
-        precision: 1
-
-#ActiveSupport
   date:
+    abbr_day_names: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
+    abbr_month_names: ['', 'janv', 'févr', 'mars', 'avr', 'mai', 'juin', 'juil', 'août', 'sept', 'oct', 'nov', 'déc']
+    day_names: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
     formats:
-      # Use the strftime parameters for formats.
-      # When no format has been given, it uses default.
-      # You can provide other formats here if you like!
+      db: '%d/%m/%Y'
       dbx: '%Y-%m-%d'
-      db: "%d/%m/%Y"
-      default: "%d/%m/%Y"
-      short: "%b %d" 
-      long: "%B %d, %Y" 
-      month_letter: "%d %B %Y"
-      legal: "%d %B %Y"
-
-    day_names: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
-    abbr_day_names: [Dim, Lun, Mar, Mer, Jeu, Ven, Sam]
-
-    # Don't forget the nil at the beginning; there's no such thing as a 0th month
-    month_names: [~, janvier, février, mars, avril, mai, juin, juillet, août, septembre, octobre, novembre, décembre]
-    abbr_month_names: [~, janv, févr, mars, avr, mai, juin, juil, août, sept, oct, nov, déc]
-    # Used in date_select and datime_select.
-    order: [ :day, :month, :year ]
-
-  time:
-    formats: 
-      default: "%d %b. %Y à %H:%M:%S"
-      default0: "%a, %d %b %Y %H:%M:%S %z"
-      short: "%d %b %H:%M" 
-      long: "%B %d, %Y %H:%M" 
-    am: "am" 
-    pm: "pm" 
-
-# Used in array.to_sentence.
-  support:
-    array:
-      sentence_connector: "et" 
-      two_words_connector: ', '
-      words_connector: ', '
-      last_word_connector: ' et '
-
-
-  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+      default: '%d/%m/%Y'
+      legal: '%d %B %Y'
+      long: '%B %d, %Y'
+      month_letter: '%d %B %Y'
+      short: '%b %d'
+    month_names: ['', 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+    order: [:day, :month, :year]
   datetime:
     distance_in_words:
-      half_a_minute: "half a minute" 
-      less_than_x_seconds:
-        one:  "moins d'une seconde" 
-        many: "moins de {{count}} secondes" 
-      x_seconds:
-        one:  "1 seconde" 
-        many: "{{count}} secondes" 
-      less_than_x_minutes:
-        one:  "less than a minute" 
-        many: "less than {{count}} minutes" 
-      x_minutes:
-        one:  "1 minute" 
-        many: "{{count}} minutes" 
       about_x_hours:
-        one:  "about 1 hour" 
-        many: "about {{count}} hours" 
-      x_days:
-        one:  "1 day" 
-        many: "{{count}} days" 
+        many: 'about {{count}} hours'
+        one: 'about 1 hour'
       about_x_months:
-        one:  "about 1 month" 
-        many: "about {{count}} months" 
-      x_months:
-        one:  "1 month" 
-        many: "{{count}} months" 
+        many: 'about {{count}} months'
+        one: 'about 1 month'
       about_x_years:
-        one:  "about 1 year" 
-        many: "about {{count}} years" 
+        many: 'about {{count}} years'
+        one: 'about 1 year'
+      half_a_minute: 'half a minute'
+      less_than_x_minutes:
+        many: 'less than {{count}} minutes'
+        one: 'less than a minute'
+      less_than_x_seconds:
+        many: 'moins de {{count}} secondes'
+        one: 'moins d''une seconde'
       over_x_years:
-        one:  "over 1 year" 
-        many: "over {{count}} years" 
-
-
-
-    # Used in the models
-    # Used in the models 
-    # Used in the models
-    # Used in the models
-    # Used in the models
-    # Used in the models
-  models:
-    account:
-      error_delete: Le compte ne peut être effacé car il contient des sous-comptes.        
-      default_account_name: 'Compte comptable {{number}}'
-      label: '{{number}} - {{name}}'
-    bank_account:
-      iban: 'IBAN'
-      bban: 'Relevé d''identité bancaire (RIB)'
-      iban_length: 'La longueur de l''IBAN n''est pas correcte.'
-      iban_unvalid_key: 'La clé de l''IBAN n''est pas correcte.'
-      bban_unvalid_key: 'Un ou plusieurs éléments du RIB sont incorrects.'
-    bank_account_statement:
-      error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
-      error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'                                
-      error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
-      error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'                                   
-    company:
-      cant_find_document_template: 'Impossible de trouver le modèle de document correspondant'
-      invoice_creation: 'Création d''une facture'
-      import:
-        dont_use: '-- Ne pas utiliser --'
-        generate_string_complement: '-- Créer un champ personnalisé (texte) --'
-      purchase_order_creation: 'Création d''un achat'
-      sale_order_creation: 'Création d''un devis'
-      sale_orders: Ventes
-      default:
-        admin: 'Administrateur'
-        bank_journal_nature_name: Banque
-        category: Par défaut
-        check: Chèque
-        delays:
-          name:
-            expiration: Expiration (1 M)
-            immediate: Immédiat
-            standard: Standard (30j FDM)
-          expression: 
-            expiration: 1 mois
-            immediate: 0 jour
-            standard: 30 jours, fin de mois
-        department_name: Gestion/Production
-        document_natures:
-          invoice: Facture
-          journal: Journal
-          journals: Journaux
-          sale_order: Vente
-        document_templates:
-          accountancy:
-            balance_sheet:
-              filename: 'Bilan de l''exercice [code]'
-            income_statement:
-              filename: 'Compte de résultat de l''exercice [code]'
-            journal:
-              filename: '[name] (Journal)'
-            general_journal:
-              filename: 'Journal général'
-            general_ledger:
-              filename: 'Grand livre'
-          management:
-            sale_order:
-              filename: 'Vente [number]'
-            invoice:
-              to_archive: true
-              filename: 'Facture [number]'
-            inventory:
-              filename: 'Inventaire du [created_on]'
-            transport:
-              filename: 'Transport du [created_on]'
-            embankment:
-              filename: 'Remise de chèques du [created_on]'
-            purchase_order:
-              filename: 'Achat [number]'
-            stocks: 
-              filename: 'État des stocks'
-          relations:
-            entity:
-              filename: 'Fiche de [full_name]'
-          # balance_sheet: 'Bilan'
-          # embankment: 'Remise de chèques'
-          # entity: 'Fiche personne'
-          # income_statement: 'Compte de résultat'
-          # inventory: 'Inventaire'
-          # invoice: Facture client
-          # journal: Journal
-          # journal_by_id: 'Journal'
-          # journals: Journaux
-          # order_preparation: 'Préparation de commande'
-          # other: 'Autres'
-          # purchase_order: 'Commande fournisseur'
-          # sale_order: 'Devis/Commande'
-          # transport: 'Transport'
-        document_templates_filenames:
-          balance_sheet: 'Bilan de l''exercice [code]'          
-          embankment: 'Remise de chèques du [created_on]'
-          entity: 'Fiche de [full_name]'
-          income_statement: 'Compte de résultat de l''exercice [code]'
-          inventory: 'Inventaire du [date]'
-          invoice: 'Facture [number]'
-          order_preparation: 'Préparation de commande du [created_on]'
-          other: 'Fichier'
-          purchase_order: 'Achat [number]'
-          sale_order: 'Vente [number]'
-          transport: 'Transport du [created_on]'
-        establishment_name: Établissement principal
-        financialyear_code: 1A2
-        journals:
-          bank: Journal de banque
-          sales: Journal des ventes
-          purchases: Journal des achats
-          various: Journal des opérations diverses
-        location: Réserve
-        paid_tax: 'TVA déductible'
-        price_list_name: Tarif normal
-        role:
-          name:
-            admin: Gérant
-            public: Public (sans droits)
-        sale_order_nature_name: Vente standard
-        sample_product_name: Produit Exemple
-        sequences:
-          relations:
-            entities: 
-              name: 'Numérotation des personnes'
-              format: '[number|8]'
-          management:
-            invoices:
-              name: 'Numérotation des factures'
-              format: 'F[year|4][number|6]'
-              period: 'year'
-            embankments:
-              name: 'Numérotation des remises de chèques'
-              format: 'B[year|4][number|4]'
-              period: 'year'
-            subscriptions:
-              name: 'Numérotation des abonnements'
-              format: 'ABO[number|8]'
-            payments:
-              name: 'Numérotation des réglements'
-              format: 'R[year|4][number|6]'
-              period: 'year'
-            sale_orders:
-              name: 'Numérotation des ventes'
-              format: 'V[year|4][month|2][number|6]'
-              period: 'month'
-            purchase_orders:
-              name: 'Numérotation des achats'
-              format: 'A[year|4][month|2][number|6]'
-              period: 'month'
-        shelf_name: Sans catégorie
-        taxes:
-          tva0000:
-            name: 'TVA 0,00%'
-            amount: 0.000
-            paid: 445660
-            collected: 445710
-          tva0210:
-            name: 'TVA 2,10%'
-            amount: 0.021
-            paid: 445661
-            collected: 445711
-          tva0550: 
-            name: 'TVA 5,50%'
-            amount: 0.055
-            paid: 445662
-            collected: 445712
-          tva1960: 
-            name: 'TVA 19,60%'
-            amount: 0.196
-            paid: 445663
-            collected: 445713
-        units:
-          u: Unité
-          kg: Kilogramme
-          t: Tonne
-          m: Mètre
-          km: Kilomètre
-          ha: Hectare
-          a: Are
-          ca: Centiare (m²)
-          l: Litre
-          hl: Hectolitre
-          m3: Mètre cube
-    complement:
-      natures:
-        boolean: Case à cocher
-        choice: Liste de choix
-        date: Date
-        datetime: Date et heure
-        decimal: Décimal
-        string: Texte
-    contact:
-      error_modify_contact: 'Impossible de modifier un contact'
-    delay:
-      error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
-    delivery:
-      label: '{{client}} à {{address}}'
-      natures:
-        exw: Remise en main propre
-        cpt: Livraison sans assurance
-        cip: Livraison avec assurance
-      sale: "Vente {{number}}"
-    delivery_line: 
-      sale: 'Vente {{number}}'
-    document_template:
-      error_attribute: 'Le champ {{value}} est incorrect. Les possibilités sont : {{possibilities}}'
-      unvalid_nature: 'Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller.'
-      families:
-        company: Société
-        relations: Relations
-        accountancy: Comptabilité
-        management: Commerce
-        resources: Ressources
-        production: Production
-      invalid_filename: 'Fichier'
-      nature_do_not_allow_to_use_attributes : 'La nature du modèle ne permet pas d''utiliser d''attributs'
-      natures:
-        balance: 'Balance'
-        balance_sheet: 'Bilan comptable'
-        embankment: 'Remise de chèques'
-        entity: 'Fiche personnes'
-        financialyear: 'Documents de synthèse'
-        general_ledger: 'Grand livre'
-        income_statement: 'Compte de résultat'
-        inventory: 'Inventaire'
-        invoice: 'Facture client'
-        journal: 'Journal'
-        general_journal: 'Journal général'
-        other: 'Autres'
-        purchase_order: 'Commande fournisseur'
-        sale_order: 'Devis/Commande'
-        stocks: 'État des stocks'
-        transport: 'Transport'
-    entity:
-      client: 'Client'
-      supplier: 'Fournisseur'
-    event_nature:
-      usages:
-        invoice: 'Création d''une facture'
-        mailing: 'Mailing'
-        manual: 'Manuelle'
-        purchase_order: 'Création d''un achat'
-        sale_order: 'Création d''un devis'
-    financialyear:
-      code:
-        single: 'EX{{first_year}}'
-        double: 'EX{{first_year}}/{{second_year}}'
-    inventory_line:
-      inventory: 'Inventaire '
-    invoice:
-      label:
-        normal: 'Facture N°{{number}}'
-        credit: 'Avoir N°{{number}}'
-      to_accountancy: '[{{number}}] {{detail}}'
-    invoice_line:
-      no_product: '[Pas de produit]'
-    journal:
-      natures:
-        bank: Banque
-        cash: Caisse
-        forward: Report à nouveaux
-        purchases: Achats
-        sales: Ventes
-        various: Opérations diverses
-    journal_entry:
-      error_amount_rate: 'Le taux de conversion n''existe pas.'        
-    listing_node: 
-      add_filter: ' Ajouter un filtre '
-      all_columns: '-- Toutes les colonnes --'
-      columns: Colonnes
-      reflections: Tables liées
-      comparison:
-        with_value: '{{comparator}} {{value}}'
-        without_value: '{{comparator}}'
-      comparators:
-        any: '-- Aucune condition --'
-        begins: 'Commence par'
-        begins_cs: 'Commence par (sensible à la casse)'
-        contains: 'Contient'
-        contains_cs: 'Contient (sensible à la casse)'
-        eq: '='
-        equal: 'Est égal à'
-        equal_cs: 'Est égal (sensible à la casse)'
-        finishes: 'Se termine par'
-        finishes_cs: 'Se termine par (sensible à la casse)'
-        ge: '≥'
-        gt: '>' 
-        in: 'Est égal à l''un des éléments suivants'
-        is_false: 'Est faux'
-        is_true: 'Est vrai'
-        le: '≤'
-        lt: '<' 
-        neq: 'Est différent de' 
-        not_begins: 'Ne commence pas par'
-        not_begins_cs: 'Ne commence pas par (sensible à la casse)'
-        not_contains: 'Ne contient pas'
-        not_contains_cs: 'Ne contient pas (sensible à la casse)'
-        not_equal: 'N''est pas égal à'
-        not_equal_cs: 'N''est pas égal à (sensible à la casse)'
-        not_finishes: 'Ne se termine pas par'
-        not_finishes_cs: 'Ne se termine pas par (sensible à la casse)'
-    observation:
-      importances:
-        important: Importante
-        normal: Normale
-        notice: Faible
-    operation_line:
-      density_label: "{{value}} {{product_unit}}/{{area_unit}}"
-      direction_label:
-        in: Intrant
-        out: Sortant
-    payment_mode:
-      natures:
-        card: 'Carte Bleue'
-        cash: 'Espèces'
-        check: Chèque
-        other: Autre
-        transfer: 'Transfert'
-    price:
-      range: 'De {{min}} à {{max}}'
-      no_range: 'Pas d''intervalle'
-      label: '{{product}} / {{amount}} {{currency}}'
-    product:
-      informations:
-        with_components: '{{product}} ({{unit}}) (produit transformé)'
-        without_components: '{{product}} ({{unit}}) (matière première)'
-      label: "{{product}} ({{unit}})"
-      natures:
-        product: Produit
-        service: Service
-        subscrip: Abonnement 
-        transfer: Transfert
-      supply_methods:
-        buy: Achat
-        produce: Production
-      to:
-        sale: Vente
-        produce: Production
-        purchase: Achat
-        rent: Location
-      unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
-      stock_move: '{{origin}} ({{code}})'
-    product_component:
-      of_product: 'du produit'
-    stock:
-      label: 'Lot {{tracking}} quantité disponible {{quantity}}'
-      no_tracking: 'Aucun lot'
-    purchase_order: 
-      label: '{{supplier}} à {{address}}' 
-      purchase: Achat
-    purchase_order_line: 
-      tracking: 'N°Lot : {{serial}}'
-    sale_order:
-      label:
-        estimate: 'Devis N°{{number}}'
-        order: 'Commande N°{{number}}'
-      natures:
-        estimate: Devis
-        order: Commande
-        invoice: Facture
-      states:
-        E: 'Devis'
-        A: 'En cours'
-        C: 'Terminée'
-      sale: 'Vente {{number}}'
-      sales_conditions:
-        downpayment: 'Un acompte de {{percent}}% (soit {{amount}}€) devra être versé à la signature du présent devis.'
-        validity: 'Ce devis et ses conditions générales sont valables jusqu''au {{expiration}}.'
-    sale_order_nature:
-      payment_types:
-        card: 'Carte bancaire'
-        cash: 'Espèce'
-        check: 'Chèque bancaire'
-        transfer: 'Virement' 
-        none: 'Aucun'
-    sale_order_line:
-      can_not_use_this_tracking: 'Vous ne  pouvez pas utiliser le lot {{name}}, la quantité commandée est supérieure à la quantité disponible '
-      currency_is_not_sale_order_currency: 'Le prix du produit ne correspond pas à la monnaie définie pour la vente'
-      error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
-      reduction_on: 'Remise de {{percent}}% sur : {{product}}'
-      location_can_not_transfer_product : 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}} '
-      tracking: 'N°Lot : {{serial}}'
-    sequence:
-      periods:
-        cweek: Semaine
-        number: '-- Aucune --'
-        month: Mois
-        year: Année
-    stock_transfer:
-      natures:
-        transfer: Transfert 
-        waste: Perte
-    subscription_nature: 
-      natures:
-        period: Abonnement par date
-        quantity: Abonnement par numéros  
-    tax:
-      amount_must_be_included_between_0_and_1: doit être comprise entre 0 et 1
-      natures:
-        amount: Montant
-        percent: Pourcentage
-    tax_declaration:
-      other: 'Personnalisée'
-      monthly: 'Mensuelle'
-      quarterly: 'Trimestrielle'
-      yearly: 'Annuelle'
-      normal: 'Réel normal'
-      simplified: 'Réel simplifié'
-      deferment: 'Reporté'
-      payback: 'Remboursement'
-    tool:
-      natures:
-        other: 'Autres'
-        towed: 'Attelage'
-        tractor: 'Tracteur'
-    user:
-      no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application : {{controller}}/{{action}}'
-      no_right_defined_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'
-
-  views:
-    shared:
-      _entities_search:
-        search: Rechercher une personne
-      _menu:
-        informations: 'Informations'
-        my_account: 'Mon compte'
-        parameters: 'Paramètres'
-        relations_tasks: Clients et fournisseurs
-        accountancy_tasks: Travaux comptables
-        accountize: 'Bascule comptable'
-        bank_account_statements: 'Relevés de compte'
-        sales: Ventes
-        purchases: Achats
-        stocks_tasks: 'Stocks'
-        stock_transfers: 'Transferts et pertes'
-        production: 'Production'
-        tools: Outils
-
-
-  
-  # General words and expression through the all app
+        many: 'over {{count}} years'
+        one: 'over 1 year'
+      x_days:
+        many: '{{count}} days'
+        one: '1 day'
+      x_minutes:
+        many: '{{count}} minutes'
+        one: '1 minute'
+      x_months:
+        many: '{{count}} months'
+        one: '1 month'
+      x_seconds:
+        many: '{{count}} secondes'
+        one: '1 seconde'
   general:
-    add: Ajouter
-    apply: Appliquer
+    add: 'Ajouter'
+    apply: 'Appliquer'
     are_you_sure: 'Êtes-vous sûr(e) de vouloir faire cela ?'
     are_you_sure_to_delete: 'Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?'
     are_you_sure_to_delete_delivery: 'Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?'
@@ -589,20 +67,20 @@ fra:
     duration: '{{hours}}h {{minutes}}min'
     dyta:
       export:
-        title: Export
-        csv: CSV
-        xcsv: CSV pour Excel
+        csv: 'CSV'
         false_value: 'FAUX'
+        title: 'Export'
         true_value: 'VRAI'
+        xcsv: 'CSV pour Excel'
     edit: 'Modifier'
-    export: 'Exporter'
     example: 'Exemple&nbsp;: {{value}}'
+    export: 'Exporter'
     extract: 'Extraire'
-    filter: Filtrer
-    finish: Terminer
+    filter: 'Filtrer'
+    finish: 'Terminer'
     format_date:
-      iso: "(AAAA-MM-JJ)"
-    from: "À partir du"
+      iso: '(AAAA-MM-JJ)'
+    from: 'À partir du'
     hint: 'Astuce&nbsp;: {{value}}'
     import: 'Importer'
     indicator: 'Tableau de bord'
@@ -613,34 +91,493 @@ fra:
     letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
     lock: 'Verrouiller'
     mail: 'Envoyer un courriel'
-    n: non
-    next: Suivant
-    new: Nouveau...
+    n: 'non'
+    new: 'Nouveau...'
+    next: 'Suivant'
     no_records: 'Pas d''enregistrements'
     notifications:
+      error: 'Erreur'
       information: 'Information'
       success: 'Opération réalisée avec succès'
       warning: 'Attention!'
-      error:  'Erreur'
-    previous: Précédent
-    print: Imprimer
+    previous: 'Précédent'
+    print: 'Imprimer'
     record_has_been_correctly_removed: 'L''enregistrement a été supprimé correctement.'
     record_has_not_been_removed: 'L''enregistrement n''a pu être supprimé.'
-    reopen: Déclôturer
     reflect: 'Refléter'
-    save: Enregistrer
-    search: Rechercher
-    search_go: Lancer la recherche
-    submit: Envoyer
-    to: "Au"
-    total: Total
+    reopen: 'Déclôturer'
+    save: 'Enregistrer'
+    search: 'Rechercher'
+    search_go: 'Lancer la recherche'
+    submit: 'Envoyer'
+    to: 'Au'
+    total: 'Total'
     unavailable:
       entity: 'La fiche demandée est indisponible'
-      journal: 'Le journal demandé est indisponible ({{value}})'
-      product: Le produit demandé est indisponible
       financialyear: 'L''exercice comptable est indisponible {{value}}'
+      journal: 'Le journal demandé est indisponible ({{value}})'
+      product: 'Le produit demandé est indisponible'
     unlock: 'Déverrouiller'
     up: 'Monter'
     update: 'Modifier'
     validate: 'Valider'
-    y: oui
+    y: 'oui'
+  models:
+    account:
+      default_account_name: 'Compte comptable {{number}}'
+      error_delete: 'Le compte ne peut être effacé car il contient des sous-comptes.'
+      label: '{{number}} - {{name}}'
+    bank_statement:
+      error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'
+      error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
+      error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'
+      error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
+    cash:
+      bban: 'Relevé d''identité bancaire (RIB)'
+      bban_unvalid_key: 'Un ou plusieurs éléments du RIB sont incorrects.'
+      iban: 'IBAN'
+      iban_length: 'La longueur de l''IBAN n''est pas correcte.'
+      iban_unvalid_key: 'La clé de l''IBAN n''est pas correcte.'
+    company:
+      cant_find_document_template: 'Impossible de trouver le modèle de document correspondant'
+      default:
+        admin: 'Administrateur'
+        bank_journal_nature_name: 'Banque'
+        category: 'Par défaut'
+        check: 'Chèque'
+        delays:
+          expression:
+            expiration: '1 mois'
+            immediate: '0 jour'
+            standard: '30 jours, fin de mois'
+          name:
+            expiration: 'Expiration (1 M)'
+            immediate: 'Immédiat'
+            standard: 'Standard (30j FDM)'
+        department_name: 'Gestion/Production'
+        document_natures:
+          invoice: 'Facture'
+          journal: 'Journal'
+          journals: 'Journaux'
+          sale_order: 'Vente'
+        document_templates:
+          accountancy:
+            balance_sheet:
+              filename: 'Bilan de l''exercice [code]'
+            general_journal:
+              filename: 'Journal général'
+            general_ledger:
+              filename: 'Grand livre'
+            income_statement:
+              filename: 'Compte de résultat de l''exercice [code]'
+            journal:
+              filename: '[name] (Journal)'
+          management:
+            embankment:
+              filename: 'Remise de chèques du [created_on]'
+            inventory:
+              filename: 'Inventaire du [created_on]'
+            invoice:
+              filename: 'Facture [number]'
+              to_archive: 'true'
+            purchase_order:
+              filename: 'Achat [number]'
+            sale_order:
+              filename: 'Vente [number]'
+            stocks:
+              filename: 'État des stocks'
+            transport:
+              filename: 'Transport du [created_on]'
+          relations:
+            entity:
+              filename: 'Fiche de [full_name]'
+        document_templates_filenames:
+          balance_sheet: 'Bilan de l''exercice [code]'
+          embankment: 'Remise de chèques du [created_on]'
+          entity: 'Fiche de [full_name]'
+          income_statement: 'Compte de résultat de l''exercice [code]'
+          inventory: 'Inventaire du [date]'
+          invoice: 'Facture [number]'
+          order_preparation: 'Préparation de commande du [created_on]'
+          other: 'Fichier'
+          purchase_order: 'Achat [number]'
+          sale_order: 'Vente [number]'
+          transport: 'Transport du [created_on]'
+        establishment_name: 'Établissement principal'
+        financialyear_code: '1A2'
+        journals:
+          bank: 'Journal de banque'
+          purchases: 'Journal des achats'
+          sales: 'Journal des ventes'
+          various: 'Journal des opérations diverses'
+        location: 'Réserve'
+        paid_tax: 'TVA déductible'
+        price_list_name: 'Tarif normal'
+        role:
+          name:
+            admin: 'Gérant'
+            public: 'Public (sans droits)'
+        sale_order_nature_name: 'Vente standard'
+        sample_product_name: 'Produit Exemple'
+        sequences:
+          management:
+            embankments:
+              format: 'B[year|4][number|4]'
+              name: 'Numérotation des remises de chèques'
+              period: 'year'
+            invoices:
+              format: 'F[year|4][number|6]'
+              name: 'Numérotation des factures'
+              period: 'year'
+            payments:
+              format: 'R[year|4][number|6]'
+              name: 'Numérotation des réglements'
+              period: 'year'
+            purchase_orders:
+              format: 'A[year|4][month|2][number|6]'
+              name: 'Numérotation des achats'
+              period: 'month'
+            sale_orders:
+              format: 'V[year|4][month|2][number|6]'
+              name: 'Numérotation des ventes'
+              period: 'month'
+            subscriptions:
+              format: 'ABO[number|8]'
+              name: 'Numérotation des abonnements'
+          relations:
+            entities:
+              format: '[number|8]'
+              name: 'Numérotation des personnes'
+        shelf_name: 'Sans catégorie'
+        taxes:
+          tva0000:
+            amount: '0.0'
+            collected: '445710'
+            name: 'TVA 0,00%'
+            paid: '445660'
+          tva0210:
+            amount: '0.021'
+            collected: '445711'
+            name: 'TVA 2,10%'
+            paid: '445661'
+          tva0550:
+            amount: '0.055'
+            collected: '445712'
+            name: 'TVA 5,50%'
+            paid: '445662'
+          tva1960:
+            amount: '0.196'
+            collected: '445713'
+            name: 'TVA 19,60%'
+            paid: '445663'
+        units:
+          a: 'Are'
+          ca: 'Centiare (m²)'
+          ha: 'Hectare'
+          hl: 'Hectolitre'
+          kg: 'Kilogramme'
+          km: 'Kilomètre'
+          l: 'Litre'
+          m: 'Mètre'
+          m3: 'Mètre cube'
+          t: 'Tonne'
+          u: 'Unité'
+      import:
+        dont_use: '-- Ne pas utiliser --'
+        generate_string_complement: '-- Créer un champ personnalisé (texte) --'
+      invoice_creation: 'Création d''une facture'
+      purchase_order_creation: 'Création d''un achat'
+      sale_order_creation: 'Création d''un devis'
+      sale_orders: 'Ventes'
+    complement:
+      natures:
+        boolean: 'Case à cocher'
+        choice: 'Liste de choix'
+        date: 'Date'
+        datetime: 'Date et heure'
+        decimal: 'Décimal'
+        string: 'Texte'
+    contact:
+      error_modify_contact: 'Impossible de modifier un contact'
+    delay:
+      error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
+    delivery:
+      label: '{{client}} à {{address}}'
+      natures:
+        cip: 'Livraison avec assurance'
+        cpt: 'Livraison sans assurance'
+        exw: 'Remise en main propre'
+      sale: 'Vente {{number}}'
+    delivery_line:
+      sale: 'Vente {{number}}'
+    document_template:
+      error_attribute: 'Le champ {{value}} est incorrect. Les possibilités sont : {{possibilities}}'
+      families:
+        accountancy: 'Comptabilité'
+        company: 'Société'
+        management: 'Commerce'
+        production: 'Production'
+        relations: 'Relations'
+        resources: 'Ressources'
+      invalid_filename: 'Fichier'
+      nature_do_not_allow_to_use_attributes: 'La nature du modèle ne permet pas d''utiliser d''attributs'
+      natures:
+        balance: 'Balance'
+        balance_sheet: 'Bilan comptable'
+        embankment: 'Remise de chèques'
+        entity: 'Fiche personnes'
+        financialyear: 'Documents de synthèse'
+        general_journal: 'Journal général'
+        general_ledger: 'Grand livre'
+        income_statement: 'Compte de résultat'
+        inventory: 'Inventaire'
+        invoice: 'Facture client'
+        journal: 'Journal'
+        other: 'Autres'
+        purchase_order: 'Commande fournisseur'
+        sale_order: 'Devis/Commande'
+        stocks: 'État des stocks'
+        transport: 'Transport'
+      unvalid_nature: 'Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller.'
+    entity:
+      client: 'Client'
+      supplier: 'Fournisseur'
+    event_nature:
+      usages:
+        invoice: 'Création d''une facture'
+        mailing: 'Mailing'
+        manual: 'Manuelle'
+        purchase_order: 'Création d''un achat'
+        sale_order: 'Création d''un devis'
+    financialyear:
+      code:
+        double: 'EX{{first_year}}/{{second_year}}'
+        single: 'EX{{first_year}}'
+    inventory_line:
+      inventory: 'Inventaire '
+    invoice:
+      label:
+        credit: 'Avoir N°{{number}}'
+        normal: 'Facture N°{{number}}'
+      to_accountancy: '[{{number}}] {{detail}}'
+    invoice_line:
+      no_product: '[Pas de produit]'
+    journal:
+      natures:
+        bank: 'Banque'
+        cash: 'Caisse'
+        forward: 'Report à nouveaux'
+        purchases: 'Achats'
+        sales: 'Ventes'
+        various: 'Opérations diverses'
+    journal_entry:
+      error_amount_rate: 'Le taux de conversion n''existe pas.'
+    listing_node:
+      add_filter: ' Ajouter un filtre '
+      all_columns: '-- Toutes les colonnes --'
+      columns: 'Colonnes'
+      comparators:
+        any: '-- Aucune condition --'
+        begins: 'Commence par'
+        begins_cs: 'Commence par (sensible à la casse)'
+        contains: 'Contient'
+        contains_cs: 'Contient (sensible à la casse)'
+        eq: '='
+        equal: 'Est égal à'
+        equal_cs: 'Est égal (sensible à la casse)'
+        finishes: 'Se termine par'
+        finishes_cs: 'Se termine par (sensible à la casse)'
+        ge: '≥'
+        gt: '>'
+        in: 'Est égal à l''un des éléments suivants'
+        is_false: 'Est faux'
+        is_true: 'Est vrai'
+        le: '≤'
+        lt: '<'
+        neq: 'Est différent de'
+        not_begins: 'Ne commence pas par'
+        not_begins_cs: 'Ne commence pas par (sensible à la casse)'
+        not_contains: 'Ne contient pas'
+        not_contains_cs: 'Ne contient pas (sensible à la casse)'
+        not_equal: 'N''est pas égal à'
+        not_equal_cs: 'N''est pas égal à (sensible à la casse)'
+        not_finishes: 'Ne se termine pas par'
+        not_finishes_cs: 'Ne se termine pas par (sensible à la casse)'
+      comparison:
+        with_value: '{{comparator}} {{value}}'
+        without_value: '{{comparator}}'
+      reflections: 'Tables liées'
+    observation:
+      importances:
+        important: 'Importante'
+        normal: 'Normale'
+        notice: 'Faible'
+    operation_line:
+      density_label: '{{value}} {{product_unit}}/{{area_unit}}'
+      direction_label:
+        in: 'Intrant'
+        out: 'Sortant'
+    payment_mode:
+      directions:
+        given: 'Pour les achats'
+        received: 'Pour les ventes'
+      natures:
+        card: 'Carte bancaire'
+        cash: 'Espèces'
+        check: 'Chèque'
+        other: 'Autre'
+        transfer: 'Virement'
+    price:
+      label: '{{product}} / {{amount}} {{currency}}'
+      no_range: 'Pas d''intervalle'
+      range: 'De {{min}} à {{max}}'
+    product:
+      informations:
+        with_components: '{{product}} ({{unit}}) (produit transformé)'
+        without_components: '{{product}} ({{unit}}) (matière première)'
+      label: '{{product}} ({{unit}})'
+      natures:
+        product: 'Produit'
+        service: 'Service'
+        subscrip: 'Abonnement'
+        transfer: 'Transfert'
+      stock_move: '{{origin}} ({{code}})'
+      supply_methods:
+        buy: 'Achat'
+        produce: 'Production'
+      to:
+        produce: 'Production'
+        purchase: 'Achat'
+        rent: 'Location'
+        sale: 'Vente'
+      unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
+    product_component:
+      of_product: 'du produit'
+    purchase_order:
+      label: '{{supplier}} à {{address}}'
+      purchase: 'Achat'
+    purchase_order_line:
+      tracking: 'N°Lot : {{serial}}'
+    sale_order:
+      label:
+        estimate: 'Devis N°{{number}}'
+        order: 'Commande N°{{number}}'
+      natures:
+        estimate: 'Devis'
+        invoice: 'Facture'
+        order: 'Commande'
+      sale: 'Vente {{number}}'
+      sales_conditions:
+        downpayment: 'Un acompte de {{percent}}% (soit {{amount}}€) devra être versé à la signature du présent devis.'
+        validity: 'Ce devis et ses conditions générales sont valables jusqu''au {{expiration}}.'
+      states:
+        A: 'En cours'
+        C: 'Terminée'
+        E: 'Devis'
+    sale_order_line:
+      can_not_use_this_tracking: 'Vous ne  pouvez pas utiliser le lot {{name}}, la quantité commandée est supérieure à la quantité disponible '
+      currency_is_not_sale_order_currency: 'Le prix du produit ne correspond pas à la monnaie définie pour la vente'
+      error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
+      location_can_not_transfer_product: 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}} '
+      reduction_on: 'Remise de {{percent}}% sur : {{product}}'
+      tracking: 'N°Lot : {{serial}}'
+    sale_order_nature:
+      payment_types:
+        card: 'Carte bancaire'
+        cash: 'Espèce'
+        check: 'Chèque bancaire'
+        none: 'Aucun'
+        transfer: 'Virement'
+    sequence:
+      periods:
+        cweek: 'Semaine'
+        month: 'Mois'
+        number: '-- Aucune --'
+        year: 'Année'
+    stock:
+      label: 'Lot {{tracking}} quantité disponible {{quantity}}'
+      no_tracking: 'Aucun lot'
+    stock_transfer:
+      natures:
+        transfer: 'Transfert'
+        waste: 'Perte'
+    subscription_nature:
+      natures:
+        period: 'Abonnement par date'
+        quantity: 'Abonnement par numéros'
+    tax:
+      amount_must_be_included_between_0_and_1: 'doit être comprise entre 0 et 1'
+      natures:
+        amount: 'Montant'
+        percent: 'Pourcentage'
+    tax_declaration:
+      deferment: 'Reporté'
+      monthly: 'Mensuelle'
+      normal: 'Réel normal'
+      other: 'Personnalisée'
+      payback: 'Remboursement'
+      quarterly: 'Trimestrielle'
+      simplified: 'Réel simplifié'
+      yearly: 'Annuelle'
+    tool:
+      natures:
+        other: 'Autres'
+        towed: 'Attelage'
+        tractor: 'Tracteur'
+    user:
+      no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application : {{controller}}/{{action}}'
+      no_right_defined_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'
+  number:
+    currency:
+      format:
+        delimiter: ','
+        format: '%u%n'
+        precision: '2'
+        separator: '.'
+        unit: '$'
+    format:
+      delimiter: ' '
+      precision: '3'
+      separator: ','
+    human:
+      format:
+        delimiter: ''
+        precision: '1'
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ' et '
+      sentence_connector: 'et'
+      two_words_connector: ', '
+      words_connector: ', '
+  time:
+    am: 'am'
+    formats:
+      default: '%d %b. %Y à %H:%M:%S'
+      default0: '%a, %d %b %Y %H:%M:%S %z'
+      long: '%B %d, %Y %H:%M'
+      short: '%d %b %H:%M'
+    pm: 'pm'
+  views:
+    shared:
+      _entities_search:
+        search: 'Rechercher une personne'
+      _menu:
+        accountancy_tasks: 'Travaux comptables'
+        accountize: 'Bascule comptable'
+        bank_statements: 'Relevés de compte'
+        informations: 'Informations'
+        my_account: 'Mon compte'
+        parameters: 'Paramètres'
+        production: 'Production'
+        purchases: 'Achats'
+        relations_tasks: 'Clients et fournisseurs'
+        sales: 'Ventes'
+        stock_transfers: 'Transferts et pertes'
+        stocks_tasks: 'Stocks'
+        tools: 'Outils'

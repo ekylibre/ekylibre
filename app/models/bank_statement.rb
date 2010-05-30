@@ -18,16 +18,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: bank_account_statements
+# == Table: bank_statements
 #
-#  bank_account_id :integer          not null
+#  cash_id         :integer          not null
 #  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
-#  credit          :decimal(, )      default(0.0), not null
+#  credit          :decimal(16, 2)   default(0.0), not null
 #  currency_credit :decimal(16, 2)   default(0.0), not null
 #  currency_debit  :decimal(16, 2)   default(0.0), not null
-#  debit           :decimal(, )      default(0.0), not null
+#  debit           :decimal(16, 2)   default(0.0), not null
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  number          :string(255)      not null
@@ -37,9 +37,9 @@
 #  updater_id      :integer          
 #
 
-class BankAccountStatement < ActiveRecord::Base
+class BankStatement < ActiveRecord::Base
   attr_readonly :company_id
-  belongs_to :bank_account
+  belongs_to :cash
   belongs_to :company
 
   has_many :intermediate_entries, :class_name=>JournalEntry.name, :foreign_key=>:intermediate_id
@@ -47,7 +47,7 @@ class BankAccountStatement < ActiveRecord::Base
 
 
   def before_validation
-    self.company_id = self.bank_account.company_id if self.bank_account
+    self.company_id = self.cash.company_id if self.cash
     self.debit  = self.entries.sum(:debit)
     self.credit = self.entries.sum(:credit)
   end
@@ -59,8 +59,8 @@ class BankAccountStatement < ActiveRecord::Base
 
   def eligible_entries
     self.company.journal_entries.find(:all, 
-                                      :conditions =>["statement_id = ? OR (account_id = ? AND (statement_id IS NULL OR journal_records.created_on BETWEEN ? AND ?))", self.id, self.bank_account.account_id, self.started_on, self.stopped_on], 
-                                      # :conditions =>["account_id = ? AND draft=? AND (statement_id IS NULL OR statement_id = ? OR journal_records.created_on BETWEEN ? AND ?)", self.bank_account.account_id, false, self.id, self.started_on, self.stopped_on], 
+                                      :conditions =>["statement_id = ? OR (account_id = ? AND (statement_id IS NULL OR journal_records.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on], 
+                                      # :conditions =>["account_id = ? AND draft=? AND (statement_id IS NULL OR statement_id = ? OR journal_records.created_on BETWEEN ? AND ?)", self.cash.account_id, false, self.id, self.started_on, self.stopped_on], 
                                       :joins => "INNER JOIN journal_records ON journal_records.id = journal_entries.record_id", 
                                       :order => "statement_id DESC, journal_entries.created_at DESC")
   end

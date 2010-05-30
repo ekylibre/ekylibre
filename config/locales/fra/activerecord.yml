@@ -26,7 +26,7 @@ fra:
         too_short: '{{attribute}} est trop court ({{count}} caractères minimum)'
         wrong_length: '{{attribute}} n''est pas d''une bon longueur ({{count}} caractères)'
       models:
-        bank_account:
+        cash:
           unvalid_bban: 'Un ou plusieurs éléments du RIB sont incorrects.'
         complement_datum:
           greater_than: '{{field}} est trop grand ({{maximum}} maximum)'
@@ -93,8 +93,8 @@ fra:
       account: 'Compte'
       account_balance: 'Balance de compte'
       area: 'Zone postale'
-      bank_account: 'Compte bancaire'
-      bank_account_statement: 'Relevé de compte bancaire'
+      bank_statement: 'Relevé de compte bancaire'
+      cash: 'Compte bancaire'
       company: 'Société'
       complement: 'Champ complémentaire'
       complement_choice: 'Choix de champ complémentaire'
@@ -171,8 +171,8 @@ fra:
       account: 'Comptes'
       account_balance: 'Balances de compte'
       area: 'Zones postales'
-      bank_account: 'Comptes bancaires'
-      bank_account_statement: 'Relevés de compte bancaire'
+      bank_statement: 'Relevés de compte bancaire'
+      cash: 'Comptes bancaires'
       company: 'Sociétés'
       complement: 'Champs complémentaires'
       complement_choice: 'Choix de champ complémentaire'
@@ -252,44 +252,33 @@ fra:
       # Compte
       account:
         account_balances: 'Balances de compte'
-        alpha: 'Code alpha' #?
         balances: 'Balances de compte'
-        bank_accounts: 'Comptes bancaires'
-        children: 'Sous-comptes' #?
+        cashes: 'Comptes bancaires'
         comment: 'Commentaire'
         company: 'Société'
         company_id: 'Société'
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        deleted: 'Effacé' #?
-        deleted_at: 'Supprimé le'
-        deleter_id: 'Supprimeur'
+        deleted_at: 'Supprimé le' #?
+        deleter_id: 'Supprimeur' #?
         entries: 'Écritures'
-        groupable: 'Groupable' #?
         id: 'ID'
         is_debit: 'Débit'
         journal_entries: 'Écritures'
         journals: 'Journaux'
-        keep_entries: 'Garder les ecritures' #?
         label: 'Label'
         last_letter: 'Dernière lettre'
-        letterable: 'Lettrable' #?
         lock_version: 'Version'
         name: 'Nom'
         number: 'Numéro'
-        parent: 'Parent' #?
-        parent_id: 'Parent' #?
         payment_modes: 'Modes de réglement'
         payments: 'Réglements'
-        pointable: 'Pointable' #?
         products: 'Produits'
         purchase_order_lines: 'Lignes d''achat'
-        transferable: 'Transferable' #?
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-        usable: 'Utilisable' #?
 
       # Balance de compte
       account_balance:
@@ -338,54 +327,10 @@ fra:
         updater: 'Modificateur'
         updater_id: 'Modificateur'
 
-      # Compte bancaire
-      bank_account:
-        account: 'Compte comptable référencé'
-        account_id: 'Compte comptable référencé'
-        address: 'Adresse'
-        agency_code: 'Code guichet'
-        bank_account_statements: 'Relevés de compte bancaire' #?
-        bank_code: 'Code banque'
-        bank_name: 'Nom de la banque'
-        bban: 'RIB' #?
-        bban_unvalid_key: 'La clé du BBAN n''est pas correcte.' #?
-        bic: 'BIC'
-        by_default: 'Par défaut'
-        company: 'Société'
-        company_id: 'Société'
-        country_code: 'Code pays' #?
-        created_at: 'Créé le'
-        creator: 'Créateur'
-        creator_id: 'Créateur'
-        currency: 'Devise utilisée'
-        currency_id: 'Devise utilisée'
-        default: 'Par défaut' #?
-        deleted: 'Effacé' #?
-        deleted_at: 'Supprimé le'
-        deleter_id: 'Supprimeur'
-        embankments: 'Encaissements'
-        entity: 'Personne'
-        entity_id: 'Personne'
-        iban: 'IBAN'
-        iban_label: 'IBAN'
-        iban_label2: 'IBAN' #?
-        id: 'ID'
-        journal: 'Journal utilisé'
-        journal_id: 'Journal utilisé'
-        key: 'Clé RIB'
-        lock_version: 'Version'
-        mode: 'Mode'
-        name: 'Nom'
-        number: 'Numéro de compte bancaire'
-        statements: 'Relevés de compte bancaire'
-        updated_at: 'Mis à jour le'
-        updater: 'Modificateur'
-        updater_id: 'Modificateur'
-
       # Relevé de compte bancaire
-      bank_account_statement:
-        bank_account: 'Compte bancaire utilisé'
-        bank_account_id: 'Compte bancaire utilisé'
+      bank_statement:
+        cash: 'Compte bancaire utilisé'
+        cash_id: 'Compte bancaire utilisé'
         company: 'Société'
         company_id: 'Société'
         created_at: 'Créé le'
@@ -407,6 +352,51 @@ fra:
         updater: 'Modificateur'
         updater_id: 'Modificateur'
 
+      # Compte bancaire
+      cash:
+        account: 'Compte comptable référencé'
+        account_id: 'Compte comptable référencé'
+        address: 'Adresse'
+        agency_code: 'Code guichet'
+        bank_code: 'Code banque'
+        bank_name: 'Nom de la banque'
+        bank_statements: 'Relevés de compte bancaire' #?
+        bban: 'RIB' #?
+        bban_unvalid_key: 'La clé du BBAN n''est pas correcte.' #?
+        bic: 'BIC'
+        by_default: 'Par défaut'
+        company: 'Société'
+        company_id: 'Société'
+        country_code: 'Code pays' #?
+        created_at: 'Créé le'
+        creator: 'Créateur'
+        creator_id: 'Créateur'
+        currency: 'Devise utilisée'
+        currency_id: 'Devise utilisée'
+        default: 'Par défaut' #?
+        deleted: 'Effacé' #?
+        deleted_at: 'Supprimé le' #?
+        deleter_id: 'Supprimeur' #?
+        embankments: 'Encaissements'
+        entity: 'Personne'
+        entity_id: 'Personne'
+        iban: 'IBAN'
+        iban_label: 'IBAN'
+        iban_label2: 'IBAN' #?
+        id: 'ID'
+        journal: 'Journal utilisé'
+        journal_id: 'Journal utilisé'
+        key: 'Clé RIB'
+        lock_version: 'Version'
+        mode: 'Mode'
+        name: 'Nom'
+        nature: (((NATURE)))
+        number: 'Numéro de compte bancaire'
+        statements: 'Relevés de compte bancaire'
+        updated_at: 'Mis à jour le'
+        updater: 'Modificateur'
+        updater_id: 'Modificateur'
+
       # Société
       company:
         account_balances: 'Balances de compte'
@@ -414,11 +404,11 @@ fra:
         areas: 'Zones postales'
         available_prices: 'Prix disponibles'
         available_products: 'Produits disponibles'
-        bank_account_statements: 'Relevés de compte bancaire'
-        bank_accounts: 'Comptes bancaires'
         bank_journal: 'Journal de banque' #?
+        bank_statements: 'Relevés de compte bancaire'
         banks_accounts: 'Comptes comptables de banque'
         born_on: 'Créée le'
+        cashes: 'Comptes bancaires'
         charges_accounts: 'Comptes de charge'
         choice_complements: 'Chmaps complémentaires "liste de choix"'
         client_accounts: 'Comptes clients'
@@ -435,8 +425,8 @@ fra:
         default_currency: (((DEFAULT_CURRENCY)))
         delays: 'Délais'
         deleted: 'Effacé' #?
-        deleted_at: 'Supprimé le'
-        deleter_id: 'Supprimeur'
+        deleted_at: 'Supprimé le' #?
+        deleter_id: 'Supprimeur' #?
         deliveries: 'Livraisons'
         delivery_lines: 'Lignes de livraison'
         delivery_modes: 'Modes de livraison'
@@ -498,7 +488,7 @@ fra:
         sale_orders: 'Ventes'
         sales_conditions: 'Conditions Générales de Vente'
         sales_journal: 'Journal de Ventes' #?
-        self_bank_accounts: 'Comptes bancaires en propre'
+        self_cashes: 'Comptes bancaires en propre'
         self_contacts: 'Contacts en propre'
         sequences: 'Séquences'
         shapes: 'Îlots'
@@ -612,7 +602,7 @@ fra:
         default: 'Par défaut' #?
         deleted: 'Effacé' #?
         deleted_at: 'Supprimé le'
-        deleter_id: 'Supprimeur'
+        deleter_id: 'Supprimeur' #?
         deliveries: 'Livraisons'
         email: 'Adresse e-mail'
         entity: 'Fiche'
@@ -634,6 +624,7 @@ fra:
         mobile: 'Portable'
         phone: 'Téléphone'
         purchase_orders: 'Achats'
+        sale_orders: 'Ventes'
         started_at: 'Du' #?
         stopped_at: 'Au' #?
         subscriptions: 'Abonnement'
@@ -645,8 +636,8 @@ fra:
       # Devise
       currency:
         active: 'Actif'
-        bank_accounts: 'Comptes bancaires'
         by_default: 'Par défaut'
+        cashes: 'Comptes bancaires' #?
         code: 'Code'
         comment: 'Commentaire'
         company: 'Société'
@@ -654,7 +645,7 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        entries: 'Écritures'
+        entries: 'Écritures' #?
         format: 'Format'
         id: 'ID'
         journals: 'Journaux'
@@ -849,8 +840,8 @@ fra:
         creator_id: 'Créateur'
         default: 'Par défaut' #?
         deleted: 'Supprimé' #?
-        deleted_at: 'Supprimé le'
-        deleter_id: 'Supprimeur'
+        deleted_at: 'Supprimé le' #?
+        deleter_id: 'Supprimeur' #?
         documents: 'Documents'
         family: 'Module'
         family_label: 'Module'
@@ -871,8 +862,8 @@ fra:
       embankment:
         accounted_at: (((ACCOUNTED_AT)))
         amount: 'Montant'
-        bank_account: 'Compte bancaire'
-        bank_account_id: 'Compte bancaire'
+        cash: 'Compte bancaire'
+        cash_id: 'Compte bancaire'
         comment: 'Commentaire'
         company: 'Société'
         company_id: 'Société'
@@ -900,8 +891,8 @@ fra:
         active: 'Actif'
         activity_code: 'Code d''activité'
         authorized_payments_count: 'Nombre de règlements autorisés'
-        bank_accounts: 'Comptes bancaires'
         born_on: 'Date de naissance'
+        cashes: 'Comptes bancaires'
         category: 'Catégorie'
         category_id: 'Catégorie'
         client: 'Client'
@@ -992,8 +983,8 @@ fra:
         creator_id: 'Créateur'
         default: 'Par défaut' #?
         deleted: 'Effacé' #?
-        deleted_at: 'Supprimé le'
-        deleter_id: 'Supprimeur'
+        deleted_at: 'Supprimé le' #?
+        deleter_id: 'Supprimeur' #?
         description: 'Description'
         entities: 'Personnes'
         id: 'ID'
@@ -1012,11 +1003,11 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        entity1: (((ENTITY1)))
-        entity2: (((ENTITY2)))
-        entity_1: 'Fiche 1' #?
+        entity1: '(((ENTITY1)))' #?
+        entity2: '(((ENTITY2)))' #?
+        entity_1: 'Fiche 1'
         entity_1_id: 'Fiche 1'
-        entity_2: 'Fiche 2' #?
+        entity_2: 'Fiche 2'
         entity_2_id: 'Fiche 2'
         id: 'ID'
         lock_version: 'Version'
@@ -1105,13 +1096,14 @@ fra:
         nature: 'Type'
         nature_id: 'Type'
         reason: 'Motif'
+        responsible: (((RESPONSIBLE)))
         responsible_id: (((RESPONSIBLE_ID)))
         started_at: 'Date et heure'
         started_sec: 'Date et heure (en secondes)'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-        user: 'Intervenant'
+        user: 'Intervenant' #?
         user_id: 'Intervenant' #?
 
       # Type d'évènement
@@ -1145,7 +1137,7 @@ fra:
         id: 'ID'
         journal_records: 'Pièces comptables'
         lock_version: 'Version'
-        records: 'Pièces comptables'
+        records: 'Pièces comptables' #?
         started_on: 'Commencé le'
         stopped_on: 'Date de clôture'
         updated_at: 'Mis à jour le'
@@ -1282,7 +1274,7 @@ fra:
 
       # Journal
       journal:
-        bank_accounts: 'Comptes bancaires'
+        cashes: 'Comptes bancaires'
         closed_on: 'Date de clôture'
         code: 'Code'
         company: 'Société'
@@ -1295,8 +1287,8 @@ fra:
         currency: 'Devise'
         currency_id: 'Devise'
         deleted: 'Effacé' #?
-        deleted_at: 'Supprimé le'
-        deleter_id: 'Supprimeur'
+        deleted_at: 'Supprimé le' #?
+        deleter_id: 'Supprimeur' #?
         entries: 'Écritures'
         id: 'ID'
         lock_version: 'Version'
@@ -1330,8 +1322,8 @@ fra:
         editable: 'Éditable' #?
         expired_on: 'Expire le'
         id: 'ID'
-        intermediate: 'Relevé de compte intermédiaire'
-        intermediate_id: 'Relevé de compte intermédiaire'
+        intermediate: 'Relevé de compte intermédiaire' #?
+        intermediate_id: 'Relevé de compte intermédiaire' #?
         journal: 'Journal'
         journal_id: 'Journal'
         letter: 'Lettre'
@@ -1646,7 +1638,7 @@ fra:
 
       # Réglement
       payment:
-        account: 'Compte associé'
+        account: 'Compte associé' #?
         account_id: 'Compte associé' #?
         account_number: 'Numéro de compte'
         accounted: 'Comptabilisé(e)' #?
@@ -1660,6 +1652,7 @@ fra:
         created_on: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
+        direction: (((DIRECTION)))
         downpayment: 'Acompte' #?
         embanker: 'Responsable'
         embanker_id: 'Responsable'
@@ -1684,7 +1677,6 @@ fra:
         scheduled: 'Encaissement programmé'
         to_bank_on: 'À encaisser le'
         transfers: 'Transferts'
-        type: (((TYPE)))
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
@@ -1693,25 +1685,30 @@ fra:
       payment_mode:
         account: 'Compte associé'
         account_id: 'Compte associé'
-        bank_account: 'Compte bancaire'
-        bank_account_id: 'Compte bancaire'
+        cash: 'Compte bancaire'
+        cash_id: 'Compte bancaire'
+        commission_account_id: (((COMMISSION_ACCOUNT_ID)))
+        commission_percent: (((COMMISSION_PERCENT)))
         company: 'Société'
         company_id: 'Société'
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        embankable_payments: 'Réglements encaissables'
+        direction: 'Type'
         entities: 'Personnes'
         id: 'ID'
         lock_version: 'Version'
-        mode: 'Mode' #?
         name: 'Nom'
         nature: 'Nature'
+        nature_label: 'Nature'
         payments: 'Réglements'
-        type: (((TYPE)))
+        published: (((PUBLISHED)))
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
+        with_accounting: (((WITH_ACCOUNTING)))
+        with_commission: (((WITH_COMMISSION)))
+        with_embankment: (((WITH_EMBANKMENT)))
 
       # Partie de réglement
       payment_part:
@@ -2363,8 +2360,8 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         deleted: 'Effacé' #?
-        deleted_at: 'Supprimé le'
-        deleter_id: 'Supprimeur'
+        deleted_at: 'Supprimé le' #?
+        deleter_id: 'Supprimeur' #?
         description: 'Description'
         group_name: 'Groupe' #?
         id: 'ID'
@@ -2375,6 +2372,7 @@ fra:
         nature_label: 'Type'
         prices: 'Prix'
         reductible: 'Réductible'
+        sale_order_lines: 'Lignes de vente'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
@@ -2556,8 +2554,8 @@ fra:
         creator_id: 'Créateur'
         credits: 'Création d''avoirs' #?
         deleted: 'Effacé' #?
-        deleted_at: 'Supprimé à'
-        deleter_id: 'Supprimeur'
+        deleted_at: 'Supprimé à' #?
+        deleter_id: 'Supprimeur' #?
         departed_on: 'Parti le'
         department: 'Département'
         department_id: 'Département'

@@ -115,7 +115,7 @@ consult_entities:
   - entities
   - entities_dyta
   - entity
-  - entity_bank_accounts_dyta
+  - entity_cashes_dyta
   - entity_invoices_dyta
   - entity_payments_dyta
   - entity_sale_orders_dyta
@@ -211,7 +211,6 @@ manage_accounts:
   controller: accountancy
   actions:
   - account
-#  - account_children_dyta
   - account_create
   - account_delete
   - account_journal_entries_dyta
@@ -225,12 +224,7 @@ manage_areas:
 # Gérer les comptes bancaires
 manage_bank_accounts:
   controller: accountancy
-  actions:
-  - bank_account_create
-  - bank_account_delete
-  - bank_account_update
-  - bank_accounts
-  - bank_accounts_dyta
+  actions: [cash_create, cash_delete, cash_update, cashes, cashes_dyta]
 # Gérer les informations de la société
 manage_company:
   controller: company
@@ -526,11 +520,22 @@ manage_orders:
 manage_payment_modes:
   controller: management
   actions:
+  - given_payment_mode_create # UNEXISTENT ACTION !!!
+  - given_payment_mode_delete # UNEXISTENT ACTION !!!
+  - given_payment_mode_update # UNEXISTENT ACTION !!!
+  - given_payment_modes # UNEXISTENT ACTION !!!
+  - given_payment_modes_dyta
   - payment_mode_create
   - payment_mode_delete
   - payment_mode_update
   - payment_modes
+  - payment_modes
   - payment_modes_dyta
+  - received_payment_mode_create # UNEXISTENT ACTION !!!
+  - received_payment_mode_delete # UNEXISTENT ACTION !!!
+  - received_payment_mode_update # UNEXISTENT ACTION !!!
+  - received_payment_modes # UNEXISTENT ACTION !!!
+  - received_payment_modes_dyta
 # Gérer les prix
 manage_prices:
   controller: management
@@ -590,14 +595,14 @@ manage_shelves:
 manage_statements:
   controller: accountancy
   actions:
-  - bank_account_statement
-  - bank_account_statement_create
-  - bank_account_statement_delete
-  - bank_account_statement_entries_dyta
-  - bank_account_statement_point
-  - bank_account_statement_update
-  - bank_account_statements
-  - bank_account_statements_dyta
+  - bank_statement
+  - bank_statement_create
+  - bank_statement_delete
+  - bank_statement_entries_dyta
+  - bank_statement_point
+  - bank_statement_update
+  - bank_statements
+  - bank_statements_dyta
 # Gérer les mouvements de stocks
 manage_stock_moves:
   controller: management

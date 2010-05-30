@@ -25,8 +25,6 @@
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  deleted_at   :datetime         
-#  deleter_id   :integer          
 #  description  :text             
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null

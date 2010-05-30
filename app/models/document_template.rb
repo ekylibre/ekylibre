@@ -28,12 +28,10 @@
 #  country      :string(2)        
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  deleted_at   :datetime         
-#  deleter_id   :integer          
 #  family       :string(32)       
 #  filename     :string(255)      
 #  id           :integer          not null, primary key
-#  language     :string(3)        
+#  language     :string(3)        default("???"), not null
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  nature       :string(20)       
@@ -55,8 +53,6 @@ class DocumentTemplate < ActiveRecord::Base
 
 
   @@families = [:company, :relations, :accountancy, :management, :production] # :resources, 
-
-
 
   # id is forbidden names for parameters
   @@document_natures = {
@@ -100,7 +96,7 @@ class DocumentTemplate < ActiveRecord::Base
   end
 
   def destroyable?
-    true
+    self.documents.size <= 0
   end
 
   def self.families

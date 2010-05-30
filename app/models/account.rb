@@ -24,8 +24,6 @@
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  deleted_at   :datetime         
-#  deleter_id   :integer          
 #  id           :integer          not null, primary key
 #  is_debit     :boolean          not null
 #  label        :string(255)      not null
@@ -43,7 +41,7 @@ class Account < ActiveRecord::Base
   belongs_to :company
   has_many :account_balances
   has_many :balances, :class_name=>AccountBalance.name
-  has_many :bank_accounts
+  has_many :cashes
   has_many :entries, :class_name=>JournalEntry.name
   has_many :journal_entries
   has_many :journals, :class_name=>Journal.name, :foreign_key=>:counterpart_id
@@ -68,6 +66,8 @@ class Account < ActiveRecord::Base
   def destroyable?
     self.journal_entries.size <= 0 and self.balances.size <= 0
   end
+
+
 
   def letterable_entries(started_on, stopped_on)
     self.journal_entries.find(:all, :joins=>"JOIN journal_records ON (record_id=journal_records.id)", :conditions=>["journal_records.created_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"letter DESC, journal_records.number DESC")

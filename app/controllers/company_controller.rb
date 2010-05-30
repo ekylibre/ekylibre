@@ -286,7 +286,7 @@ class CompanyController < ApplicationController
   def users
   end
 
-  dyta(:users, :conditions=>{:company_id=>['@current_company.id'], :deleted_at=>nil}, :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t| 
+  dyta(:users, :conditions=>{:company_id=>['@current_company.id']}, :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t| 
     t.column :name, :url=>{:action=>:user}
     t.column :first_name, :url=>{:action=>:user}
     t.column :last_name, :url=>{:action=>:user}
@@ -342,9 +342,8 @@ class CompanyController < ApplicationController
   
   def user_delete
     return unless @user = find_and_check(:user)
-    if request.post? or request.delete?
-      @user.deleted = true
-      @user.save 
+    if request.post? or request.delete? and @user.destroyable?
+      @user.destroy
     end
     redirect_to_back
   end

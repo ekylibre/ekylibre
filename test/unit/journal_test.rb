@@ -27,8 +27,6 @@
 #  created_at     :datetime         not null
 #  creator_id     :integer          
 #  currency_id    :integer          not null
-#  deleted_at     :datetime         
-#  deleter_id     :integer          
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
 #  name           :string(255)      not null

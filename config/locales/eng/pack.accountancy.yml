@@ -64,33 +64,37 @@ eng:
         #>account_number: 'Numéro de compte '
         #>no_accounts: 'Il n''existe pas de compte commençant par ce numéro.'
       accounts_letter_launch:
-      bank_account_create:
+      bank_account_statement:
+      bank_account_statement_point:
+      bank_account_statements:
+      bank_accounts:
+      bank_statement:
+        #>bank_statement_point: 'Pointer le relevé'
+        #>bank_statement_update: 'Modifier le relevé'
+        #>journal_entries: 'Écritures'
+        #>title: 'Relevé de compte N°{{number}}'
+      bank_statement_create:
+        #>title: 'Pointer un nouveau relevé de compte'
+      bank_statement_point:
+        #>bank_statement_update: 'Modifier le relevé'
+        #>entries_to_point: 'Écritures à pointer'
+        #>title: 'Pointer le relevé N°{{number}} du {{cash}}'
+      bank_statement_update:
+        #>title: 'Modifier le relevé N°{{number}}'
+      bank_statements:
+        #>title: 'Relevés de compte bancaire'
+      cash_create:
         #>title: 'Créer un nouveau compte bancaire'
-      _bank_account_form:
+      _cash_form:
         #>accountancy: 'Comptabilité'
         #>create_account: 'Vous devez d''abord créer un compte comptable.'
         #>create_journal: 'Vous devez d''abord créer un journal.'
         #>iban: 'Numéro de compte bancaire internationale (IBAN)'
         #>rib: 'Description générale'
-      bank_account_statement:
-        #>bank_account_statement_point: 'Pointer le relevé'
-        #>bank_account_statement_update: 'Modifier le relevé'
-        #>journal_entries: 'Écritures'
-        #>title: 'Relevé de compte N°{{number}}'
-      bank_account_statement_create:
-        #>title: 'Pointer un nouveau relevé de compte'
-      bank_account_statement_point:
-        #>bank_account_statement_update: 'Modifier le relevé'
-        #>entries_to_point: 'Écritures à pointer'
-        #>title: 'Pointer le relevé N°{{number}} du {{bank_account}}'
-      bank_account_statement_update:
-        #>title: 'Modifier le relevé N°{{number}}'
-      bank_account_statements:
-        #>title: 'Relevés de compte bancaire'
-      bank_account_update:
+      cash_update:
         #>title: 'Modifier le compte bancaire'
-      bank_accounts:
-        #>bank_account_create: 'Créer un nouveau compte bancaire'
+      cashes:
+        #>cash_create: 'Créer un nouveau compte bancaire'
         #>title: 'Comptes bancaires'
       _currencies_find:
         #>currency_code: 'Code de devise'
@@ -204,12 +208,12 @@ eng:
         #>dates: 'Saisissez les dates de début et de fin de la période'
         #>from: 'Période du'
         #>to: 'Au'
-      _print_balance_sheet:
-        #>balance_sheet: 'Sélectionnez l''exercice'
-        #>select_financialyear: 'Exercice'
       print_balance_sheet:
         #>period: 'Période'
         #>title: 'Impression du bilan'
+      _print_balance_sheet:
+        #>balance_sheet: 'Sélectionnez l''exercice'
+        #>select_financialyear: 'Exercice'
       print_by_financial_year:
         #>financial_id: 'Exercice comptable'
         #>financial_year_select: 'Sélectionnez l'' exercice comptable'

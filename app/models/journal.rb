@@ -27,8 +27,6 @@
 #  created_at     :datetime         not null
 #  creator_id     :integer          
 #  currency_id    :integer          not null
-#  deleted_at     :datetime         
-#  deleter_id     :integer          
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
 #  name           :string(255)      not null
@@ -44,7 +42,7 @@ class Journal < ActiveRecord::Base
   belongs_to :currency
   belongs_to :counterpart, :class_name=>Account.name  
   # cattr_accessor :natures
-  has_many :bank_accounts
+  has_many :cashes
   has_many :entries, :class_name=>JournalEntry.name
   has_many :records, :class_name=>JournalRecord.name
   validates_presence_of :closed_on
@@ -78,11 +76,9 @@ class Journal < ActiveRecord::Base
     end
   end
 
-
   def destroyable?
     @journal.records.size <= 0 and @journal.entries.size <= 0
   end
-
 
   # Provides a translation for the nature of the journal
   def nature_label(nature=nil)

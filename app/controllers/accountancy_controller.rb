@@ -106,7 +106,7 @@ class AccountancyController < ApplicationController
   #   t.column :debit
   #   t.column :credit
   #   t.action :entry_update, :if => '!RECORD.close?', :url=>{:action=>:entry_update, :accountize=>true}   
-  #   t.action :entry_delete, :method => :post, :confirm=>:are_you_sure, :if => '!RECORD.close? and !RECORD.letter?'
+  #   t.action :entry_delete, :method => :delete, :confirm=>:are_you_sure, :if => '!RECORD.close? and !RECORD.letter?'
   # end
   
 
@@ -116,31 +116,31 @@ class AccountancyController < ApplicationController
   
 
 
-  dyta(:bank_accounts, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
+  dyta(:cashes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name
     t.column :iban_label
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :name, :through=>:currency
     t.column :number, :through=>:account
-    t.action :bank_account_update
-    t.action :bank_account_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :cash_update
+    t.action :cash_delete, :method=>:delete, :confirm=>:are_you_sure
   end
   
 
 
-  # lists all the bank_accounts with the mainly characteristics. 
-  def bank_accounts
+  # lists all the cashes with the mainly characteristics. 
+  def cashes
   end
 
-  # this method creates a bank_account with a form.
-  def bank_account_create
+  # this method creates a cash with a form.
+  def cash_create
     if request.post? 
-      @bank_account = BankAccount.new(params[:bank_account])
-      @bank_account.company_id = @current_company.id
-      @bank_account.entity_id = session[:entity_id] 
-      return if save_and_redirect(@bank_account)
+      @cash = Cash.new(params[:cash])
+      @cash.company_id = @current_company.id
+      @cash.entity_id = session[:entity_id] 
+      return if save_and_redirect(@cash)
     else
-      @bank_account = BankAccount.new(:mode=>"bban")
+      @cash = Cash.new(:mode=>"bban")
       session[:entity_id] = params[:entity_id]||@current_company.entity_id
       @valid_account = @current_company.accounts.empty?
       @valid_journal = @current_company.journals.empty?  
@@ -148,27 +148,23 @@ class AccountancyController < ApplicationController
     render_form
   end
 
-  # this method updates a bank_account with a form.
-  def bank_account_update
-    return unless @bank_account = find_and_check(:bank_account)
+  # this method updates a cash with a form.
+  def cash_update
+    return unless @cash = find_and_check(:cash)
     if request.post? or request.put?
-      @bank_account.attributes = params[:bank_account]
-      return if save_and_redirect(@bank_account)
+      @cash.attributes = params[:cash]
+      return if save_and_redirect(@cash)
     end
     render_form
   end
   
-  # this method deletes a bank_account.
-  def bank_account_delete
-    return unless @bank_account = find_and_check(:bank_account)
-    if request.post? or request.delete?
-      if @bank_account.statements.size > 0
-        @bank_account.update_attribute(:deleted, true)
-      else
-        BankAccount.destroy @bank_account
-      end
+  # this method deletes a cash.
+  def cash_delete
+    return unless @cash = find_and_check(:cash)
+    if request.delete? and @cash.destroyable?
+      @cash.destroy
     end
-    redirect_to :action => :bank_accounts
+    redirect_to :action => :cashes
   end
 
 
@@ -546,10 +542,10 @@ class AccountancyController < ApplicationController
     t.column :stopped_on,:url=>{:action=>:financialyear}
     t.action :financialyear_close, :if => '!RECORD.closed and RECORD.closable?'
     t.action :financialyear_update, :if => '!RECORD.closed'  
-    t.action :financialyear_delete, :method => :post, :confirm=>:are_you_sure, :if => '!RECORD.closed'  
+    t.action :financialyear_delete, :method=>:delete, :confirm=>:are_you_sure, :if => '!RECORD.closed'  
   end
 
-  # lists all the bank_accounts with the mainly characteristics. 
+  # lists all the cashes with the mainly characteristics. 
   def financialyears
   end
 
@@ -619,7 +615,7 @@ class AccountancyController < ApplicationController
           redirect_to(:action=>:financialyears)
         end
       else
-        journal = @current_company.journals.find(:first, :conditions => {:nature => "forward", :deleted_at => nil})
+        journal = @current_company.journals.find(:first, :conditions => {:nature => "forward"})
         params[:journal_id] = (journal ? journal.id : 0)
       end    
     end
@@ -789,33 +785,33 @@ class AccountancyController < ApplicationController
 
 
   
-  dyta(:bank_account_statements, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on ASC") do |t|
-    t.column :name, :through=>:bank_account
-    t.column :number, :url=>{:action=>:bank_account_statement}
+  dyta(:bank_statements, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on ASC") do |t|
+    t.column :name, :through=>:cash
+    t.column :number, :url=>{:action=>:bank_statement}
     t.column :started_on
     t.column :stopped_on
     t.column :debit
     t.column :credit
-    t.action :bank_account_statement_point
-    t.action :bank_account_statement_update
-    t.action :bank_account_statement_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :bank_statement_point
+    t.action :bank_statement_update
+    t.action :bank_statement_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
   # lists all the statements in details for a precise account.
-  def bank_account_statements  
-    bank_accounts = @current_company.bank_accounts
-    unless bank_accounts.size>0
-      notify(:need_bank_account_to_record_statements)
-      redirect_to :action=>:bank_account_create
+  def bank_statements  
+    cashes = @current_company.cashes
+    unless cashes.size>0
+      notify(:need_cash_to_record_statements)
+      redirect_to :action=>:cash_create
       return
     end
-    notify(:x_unpointed_journal_entries, :now, :count=>@current_company.journal_entries.count(:conditions=>["statement_id IS NULL and account_id IN (?)", bank_accounts.collect{|ba| ba.account_id}]))
+    notify(:x_unpointed_journal_entries, :now, :count=>@current_company.journal_entries.count(:conditions=>["statement_id IS NULL and account_id IN (?)", cashes.collect{|ba| ba.account_id}]))
   end
 
 
 
 
-  dyta(:bank_account_statement_entries, :model =>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :statement_id=>['session[:current_bank_account_statement_id]']}, :order=>"record_id") do |t|
+  dyta(:bank_statement_entries, :model =>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :statement_id=>['session[:current_bank_statement_id]']}, :order=>"record_id") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:record, :url=>{:action=>:journal_record}
     t.column :created_on, :through=>:record, :datatype=>:date, :label=>JournalRecord.human_attribute_name("created_on")
@@ -826,41 +822,41 @@ class AccountancyController < ApplicationController
   end
 
   # displays in details the statement choosen with its mainly characteristics.
-  def bank_account_statement
-    return unless @bank_account_statement = find_and_check(:bank_account_statement)
-    session[:current_bank_account_statement_id] = @bank_account_statement.id
-    t3e @bank_account_statement.attributes
+  def bank_statement
+    return unless @bank_statement = find_and_check(:bank_statement)
+    session[:current_bank_statement_id] = @bank_statement.id
+    t3e @bank_statement.attributes
   end
   
-  manage :bank_account_statements, :started_on=>"Date.today-1.month-2.days", :stopped_on=>"Date.today-2.days", :redirect_to=>'{:action => :bank_account_statement_point, :id =>"id"}'
+  manage :bank_statements, :started_on=>"Date.today-1.month-2.days", :stopped_on=>"Date.today-2.days", :redirect_to=>'{:action => :bank_statement_point, :id =>"id"}'
 
 
   # This method displays the list of entries recording to the bank account for the given statement.
-  def bank_account_statement_point
+  def bank_statement_point
     session[:statement] = params[:id]  if request.get? 
-    return unless @bank_account_statement = find_and_check(:bank_account_statement)
+    return unless @bank_statement = find_and_check(:bank_statement)
     if request.post?
       # raise Exception.new(params[:journal_entry].inspect)
-      @bank_account_statement.entries.clear
-      @bank_account_statement.entry_ids = params[:journal_entry].select{|k, v| v[:checked]=="1" and @current_company.journal_entries.find_by_id(k)}.collect{|k, v| k.to_i}
-      if @bank_account_statement.save
-        redirect_to :action=>:bank_account_statements
+      @bank_statement.entries.clear
+      @bank_statement.entry_ids = params[:journal_entry].select{|k, v| v[:checked]=="1" and @current_company.journal_entries.find_by_id(k)}.collect{|k, v| k.to_i}
+      if @bank_statement.save
+        redirect_to :action=>:bank_statements
         return
       end
     end
-    @journal_entries = @bank_account_statement.eligible_entries
+    @journal_entries = @bank_statement.eligible_entries
     unless @journal_entries.size > 0
       notify(:need_entries_to_point, :warning)
-      redirect_to :action=>:bank_account_statements
+      redirect_to :action=>:bank_statements
     end    
-    t3e :number => @bank_account_statement.number, :bank_account => @bank_account_statement.bank_account.name
+    t3e :number => @bank_statement.number, :cash => @bank_statement.cash.name
   end
 
 
 
 
   
-  dyta(:taxes, :conditions=>{:company_id=>['@current_company.id'], :deleted_at=>nil}) do |t|
+  dyta(:taxes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :amount, :precision=>3
     t.column :nature_label
@@ -884,8 +880,8 @@ class AccountancyController < ApplicationController
   #   t.column :paid_on, :datatype=>:date
   #   t.column :amount
   #   t.action :tax_declaration, :image => :show
-  #   t.action :tax_declaration_update, :image => :update #:if => '!RECORD.submitted?'  
-  #   t.action :tax_declaration_delete, :image => :delete,  :method => :post, :confirm=>:are_you_sure #, :if => '!RECORD.submitted?'
+  #   t.action :tax_declaration_update, #, :if => '!RECORD.submitted?'  
+  #   t.action :tax_declaration_delete, :method=>:delete, :confirm=>:are_you_sure #, :if => '!RECORD.submitted?'
     
   # end
   

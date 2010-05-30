@@ -21,8 +21,8 @@
 # == Table: invoices
 #
 #  accounted_at       :datetime         
-#  amount             :decimal(, )      default(0.0), not null
-#  amount_with_taxes  :decimal(, )      default(0.0), not null
+#  amount             :decimal(16, 2)   default(0.0), not null
+#  amount_with_taxes  :decimal(16, 2)   default(0.0), not null
 #  annotation         :text             
 #  client_id          :integer          not null
 #  company_id         :integer          not null
@@ -32,7 +32,7 @@
 #  creator_id         :integer          
 #  credit             :boolean          not null
 #  currency_id        :integer          
-#  downpayment_amount :decimal(, )      default(0.0), not null
+#  downpayment_amount :decimal(16, 2)   default(0.0), not null
 #  has_downpayment    :boolean          not null
 #  id                 :integer          not null, primary key
 #  lock_version       :integer          default(0), not null

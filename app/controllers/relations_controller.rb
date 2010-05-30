@@ -19,21 +19,22 @@
 class RelationsController < ApplicationController
 
 
-  dyta(:user_future_events, :model=>:events, :conditions=>['company_id = ? AND started_at >= CURRENT_TIMESTAMP', ['@current_company.id']], :order=>"started_at ASC", :line_class=>"(RECORD.responsible_id=@user.id ? 'notice' : '')", :per_page=>10) do |t|
+  dyta(:user_future_events, :model=>:events, :conditions=>['company_id = ? AND started_at >= CURRENT_TIMESTAMP', ['@current_company.id']], :order=>"started_at ASC", :line_class=>"(RECORD.responsible_id=@current_user.id ? 'notice' : '')", :per_page=>10) do |t|
     t.column :started_at
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :name, :through=>:nature
     t.column :duration
     t.column :location
+    t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
   end 
 
-  dyta(:recent_events, :model=>:events, :conditions=>['company_id = ?',['@current_company.id']], :order=>"started_at DESC", :per_page=>10) do |t|
+  dyta(:recent_events, :model=>:events, :conditions=>['company_id = ? AND started_at < CURRENT_TIMESTAMP',['@current_company.id']], :order=>"started_at DESC", :per_page=>10) do |t|
     t.column :started_at
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :name, :through=>:nature
     t.column :duration
     t.column :location
-    t.column :label, :through=>:user, :url=>{:controller=>:company, :action=>:user}
+    t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
   end
 
 
@@ -125,7 +126,7 @@ class RelationsController < ApplicationController
     t.column :name, :through=>:district
     t.column :country    
     t.action :area_update
-    t.action :area_delete, :confirm=>:are_you_sure, :method=>:post
+    t.action :area_delete, :confirm=>:are_you_sure, :method=>:delete
   end
 
 
@@ -146,7 +147,7 @@ class RelationsController < ApplicationController
     t.column :code
     t.action :area_create, :url=>{:district_id=>"(RECORD.id)", :id=>'nil'}
     t.action :district_update
-    t.action :district_delete, :confirm=>:are_you_sure, :method=>:post
+    t.action :district_delete, :confirm=>:are_you_sure, :method=>:delete
   end
 
   dyli(:districts, [:name, :code], :conditions=>{:company_id=>['@current_company.id']})
@@ -314,7 +315,7 @@ class RelationsController < ApplicationController
     t.column :suspended
     t.column :code, :through=>:entity, :url=>{:action=>:entity}, :label=>tc(:entity_id)
     t.action :subscription_update, :controller=>:management
-    t.action :subscription_delete, :controller=>:management, :method=>:post, :confirm=>:are_you_sure
+    t.action :subscription_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure
   end
 
   dyta(:entity_sale_orders, :model=>:sale_orders, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity]']} ,  :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
@@ -333,7 +334,7 @@ class RelationsController < ApplicationController
   dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :order=>"created_at DESC") do |t|
     t.column :name, :through=>:nature
     t.column :reason
-    t.column :label, :through=>:user, :url=>{:controller=>:company, :action=>:user}
+    t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
     t.column :duration
     t.column :location
     t.column :started_at
@@ -341,12 +342,12 @@ class RelationsController < ApplicationController
     t.action :event_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
-  dyta(:entity_bank_accounts, :model => :bank_accounts, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+  dyta(:entity_cashes, :model => :cashes, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
     t.column :name
     t.column :number
     t.column :iban_label
-    t.action :bank_account_update, :controller => :accountancy
-    t.action :bank_account_delete, :controller => :accountancy, :method=>:post, :confirm=> :are_you_sure 
+    t.action :cash_update, :controller => :accountancy
+    t.action :cash_delete, :controller => :accountancy, :method=>:delete, :confirm=> :are_you_sure 
   end
   
   dyta(:entity_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity]']}, :line_class=>'RECORD.status', :per_page=>5, :children=>:lines, :order=>"created_on DESC") do |t|
@@ -370,7 +371,7 @@ class RelationsController < ApplicationController
     t.column :started_on, :datatype=>:date
     t.column :stopped_on, :datatype=>:date
     t.action :mandate_update, :image=>:update
-    t.action :mandate_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :mandate_delete, :image=>:delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
   dyta(:entity_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
@@ -409,7 +410,7 @@ class RelationsController < ApplicationController
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:purchase_order}
     t.action :purchase_order_lines, :controller=>:management, :image=>:update#, :if=>'RECORD.editable'
-    t.action :purchase_order_delete, :controller=>:management,:method=>:post, :confirm=>:are_you_sure, :if=>'RECORD.editable'
+    t.action :purchase_order_delete, :controller=>:management,:method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.editable'
   end
 
   def entity
@@ -425,7 +426,7 @@ class RelationsController < ApplicationController
     session[:my_entity] = params[:id]
     @contact = Contact.new
     @contacts_count = @entity.contacts.size
-    @bank_accounts_count = @entity.bank_accounts.size
+    @cashes_count = @entity.cashes.size
     @observations_count = @entity.observations.size
     @mandates_count = @entity.mandates.count(:conditions=>{:company_id=>@current_company.id})
     @entity_links = @current_company.entity_links.find(:all, :conditions=>["stopped_on IS NULL AND (entity_1_id = ? OR entity_2_id = ?)",@entity.id, @entity.id]).size
@@ -597,7 +598,7 @@ class RelationsController < ApplicationController
     end
   end
   
-  dyta(:entity_categories, :conditions=>{:company_id=>['@current_company.id'], :deleted_at=>nil}) do |t|
+  dyta(:entity_categories, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :code
     t.column :name
     t.column :description
@@ -614,7 +615,7 @@ class RelationsController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.column :name, :through=>:tax
-    t.action :price_delete, :controller=>:management, :method=>:post, :confirm=>:are_you_sure
+    t.action :price_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure
   end
     
   def entity_category
@@ -740,7 +741,7 @@ class RelationsController < ApplicationController
     t.column :started_on
     t.column :stopped_on
     t.action :mandate_update, :image=>:update
-    t.action :mandate_delete, :image=>:delete, :method=>:post, :confirm=>:are_you_sure
+    t.action :mandate_delete, :image=>:delete, :method=>:delete, :confirm=>:are_you_sure
   end
   
   #
@@ -806,7 +807,7 @@ class RelationsController < ApplicationController
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location
-    t.column :label, :through=>:user, :url=>{:controller=>:company, :action=>:user} 
+    t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user} 
     t.column :name, :through=>:nature
     t.column :started_at
     t.action :event_update

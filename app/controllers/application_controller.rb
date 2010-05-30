@@ -327,6 +327,8 @@ class ApplicationController < ActionController::Base
 
     t3e = defaults.delete(:t3e)
     url = defaults.delete(:redirect_to)
+    partial = defaults.delete(:partial)
+    partial =  ":partial=>'#{partial}'" if partial
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
     code = ''
@@ -342,7 +344,7 @@ class ApplicationController < ActionController::Base
       values = defaults.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")
       code += "    @#{record_name} = #{model.name}.new(#{values})\n"
       code += "  end\n"
-      code += "  render_form\n"
+      code += "  render_form #{partial}\n"
       code += "end\n"
     end
     
@@ -356,7 +358,7 @@ class ApplicationController < ActionController::Base
       code += "    return if save_and_redirect(@#{record_name}#{', :url=>('+url+')' if url})\n"
       code += "  end\n"
       code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
-      code += "  render_form\n"
+      code += "  render_form #{partial}\n"
       code += "end\n"
     end
 

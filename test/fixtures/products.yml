@@ -29,7 +29,7 @@
 #  company_id                 :integer          not null
 #  created_at                 :datetime         not null
 #  creator_id                 :integer          
-#  critic_quantity_min        :decimal(, )      default(1.0)
+#  critic_quantity_min        :decimal(16, 4)   default(1.0)
 #  description                :text             
 #  ean13                      :string(13)       
 #  for_immobilizations        :boolean          not null
@@ -43,14 +43,14 @@
 #  name                       :string(255)      not null
 #  nature                     :string(8)        not null
 #  number                     :integer          not null
-#  price                      :decimal(, )      default(0.0)
+#  price                      :decimal(16, 2)   default(0.0)
 #  published                  :boolean          not null
 #  purchases_account_id       :integer          
-#  quantity_max               :decimal(, )      default(0.0)
-#  quantity_min               :decimal(, )      default(0.0)
+#  quantity_max               :decimal(16, 4)   default(0.0)
+#  quantity_min               :decimal(16, 4)   default(0.0)
 #  reduction_submissive       :boolean          not null
 #  sales_account_id           :integer          
-#  service_coeff              :decimal(, )      
+#  service_coeff              :decimal(16, 4)   
 #  shelf_id                   :integer          not null
 #  subscription_nature_id     :integer          
 #  subscription_period        :string(255)      
@@ -59,7 +59,7 @@
 #  unquantifiable             :boolean          not null
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer          
-#  weight                     :decimal(, )      
+#  weight                     :decimal(16, 3)   
 #
 #
 # == Fixture: products

@@ -1,6 +1,0 @@
-=formalize do |f|
-  - f.error :bank_account_statement
-  - f.field :bank_account_statement, :bank_account_id, :choices=>{:reflection=>:self_bank_accounts}, :new=>{:action=>:bank_account_create}
-  - f.field :bank_account_statement, :number
-  - f.field :bank_account_statement, :started_on
-  - f.field :bank_account_statement, :stopped_on

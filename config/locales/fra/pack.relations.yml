@@ -155,8 +155,8 @@ fra:
       entity:
         amount: 'Montant HT' #!
         amount_with_taxes: 'Montant TTC' #!
-        bank_account_create: 'Ajouter un nouveau compte bancaire'
-        bank_accounts: 
+        cash_create: 'Ajouter un nouveau compte bancaire'
+        cashes: 
           one: '1 compte bancaire'
           other: '{{count}} comptes bancaires'
           zero: '0 compte bancaire'

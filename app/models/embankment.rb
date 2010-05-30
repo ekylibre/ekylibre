@@ -20,33 +20,33 @@
 # 
 # == Table: embankments
 #
-#  accounted_at    :datetime         
-#  amount          :decimal(, )      default(0.0), not null
-#  bank_account_id :integer          not null
-#  comment         :text             
-#  company_id      :integer          not null
-#  created_at      :datetime         not null
-#  created_on      :date             not null
-#  creator_id      :integer          
-#  embanker_id     :integer          
-#  id              :integer          not null, primary key
-#  lock_version    :integer          default(0), not null
-#  locked          :boolean          not null
-#  mode_id         :integer          not null
-#  number          :string(255)      
-#  payments_count  :integer          default(0), not null
-#  updated_at      :datetime         not null
-#  updater_id      :integer          
+#  accounted_at   :datetime         
+#  amount         :decimal(16, 4)   default(0.0), not null
+#  cash_id        :integer          not null
+#  comment        :text             
+#  company_id     :integer          not null
+#  created_at     :datetime         not null
+#  created_on     :date             not null
+#  creator_id     :integer          
+#  embanker_id    :integer          
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  locked         :boolean          not null
+#  mode_id        :integer          not null
+#  number         :string(255)      
+#  payments_count :integer          default(0), not null
+#  updated_at     :datetime         not null
+#  updater_id     :integer          
 #
 
 class Embankment < ActiveRecord::Base
-  belongs_to :bank_account
+  belongs_to :cash
   belongs_to :company
   belongs_to :embanker, :class_name=>User.name
   belongs_to :mode, :class_name=>PaymentMode.to_s
   has_many   :payments, :dependent=>:nullify, :order=>"created_at"
 
-  validates_presence_of :embanker_id, :number, :bank_account_id
+  validates_presence_of :embanker_id, :number, :cash_id
 
   attr_readonly :company_id
 

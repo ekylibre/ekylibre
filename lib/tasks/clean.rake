@@ -1,7 +1,8 @@
 def hash_to_yaml(hash, depth=0)
   code = ''
   for k, v in hash.to_a.sort{|a,b| a[0].to_s.gsub("_"," ").strip<=>b[0].to_s.gsub("_"," ").strip}
-    code += "  "*depth+k.to_s+":"+(v.is_a?(Hash) ? "\n"+hash_to_yaml(v,depth+1) : " '"+v.gsub("'", "''")+"'\n") if v
+    # code += "  "*depth+k.to_s+":"+(v.is_a?(Hash) ? "\n"+hash_to_yaml(v,depth+1) : " '"+v.gsub("'", "''")+"'\n") if v
+    code += "  "*depth+k.to_s+":"+(v.is_a?(Hash) ? "\n"+hash_to_yaml(v,depth+1) : " "+yaml_value(v)+"\n") if v
   end
   code
 end
@@ -281,6 +282,15 @@ namespace :clean do
     File.makedirs(locale_dir+"/help") unless File.exist?(locale_dir+"/help")
     log.write("Locale #{::I18n.locale_label}:\n")
 
+    # General
+    general = yaml_to_hash("#{RAILS_ROOT}/config/locales/#{locale}/general.yml")
+    translation  = locale.to_s+":"
+    translation += yaml_value(general[locale])
+    File.open("#{RAILS_ROOT}/config/locales/#{locale}/general.yml", "wb") do |file|
+      file.write translation
+    end
+    log.write "  - General\n"   
+
     # Activerecord
     models = Dir["#{RAILS_ROOT}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
     default_attributes = ::I18n.translate("activerecord.default_attributes")
@@ -465,7 +475,7 @@ namespace :clean do
       line = "    #{key}: "+(trans.blank? ? '((('+key.to_s.upper+')))' : yaml_value(trans, 2))
       line.gsub!(/$/, "# NOT USED !!!") if deleted_notifs.include?(key)
       translation += line+"\n"
-      end
+    end
     File.open("#{RAILS_ROOT}/config/locales/#{locale}/notifications.yml", "wb") do |file|
       file.write translation
     end
@@ -493,6 +503,7 @@ namespace :clean do
         end
       end
     end
+
     
     puts " - Locale: #{::I18n.locale_label} (Reference)"
 

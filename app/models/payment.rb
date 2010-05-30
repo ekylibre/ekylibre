@@ -22,13 +22,14 @@
 #
 #  account_number :string(255)      
 #  accounted_at   :datetime         
-#  amount         :decimal(, )      not null
+#  amount         :decimal(16, 2)   not null
 #  bank           :string(255)      
 #  check_number   :string(255)      
 #  company_id     :integer          not null
 #  created_at     :datetime         not null
 #  created_on     :date             
 #  creator_id     :integer          
+#  direction      :string(64)       default("received")
 #  embanker_id    :integer          
 #  embankment_id  :integer          
 #  entity_id      :integer          
@@ -37,18 +38,17 @@
 #  mode_id        :integer          not null
 #  number         :string(255)      
 #  paid_on        :date             
-#  parts_amount   :decimal(, )      
+#  parts_amount   :decimal(16, 2)   
 #  receipt        :text             
 #  received       :boolean          default(TRUE), not null
 #  scheduled      :boolean          not null
 #  to_bank_on     :date             default(CURRENT_DATE), not null
-#  type           :string(64)       default("ReceivedPayment")
 #  updated_at     :datetime         not null
 #  updater_id     :integer          
 #
 
 class Payment < ActiveRecord::Base
-  belongs_to :account  
+  # belongs_to :account  
   belongs_to :company
   belongs_to :embanker, :class_name=>User.name
   belongs_to :embankment
@@ -56,10 +56,10 @@ class Payment < ActiveRecord::Base
   belongs_to :payer, :class_name=>Entity.name, :foreign_key=>:entity_id
   belongs_to :mode, :class_name=>PaymentMode.name
   has_many :parts, :class_name=>PaymentPart.name
-  has_many :orders, :through=>:parts, :source=>:expense, :source_type=>'SaleOrder'
-  has_many :sale_orders, :through=>:parts, :source=>:expense, :source_type=>'SaleOrder'
-  has_many :purchase_orders, :through=>:parts, :source=>:expense, :source_type=>'PurchaseOrder'
-  has_many :transfers, :through=>:parts, :source=>:expense, :source_type=>'Transfer'
+  has_many :orders, :through=>:parts, :source=>:expense, :source_type=>SaleOrder.name
+  has_many :sale_orders, :through=>:parts, :source=>:expense, :source_type=>SaleOrder.name
+  has_many :purchase_orders, :through=>:parts, :source=>:expense, :source_type=>PurchaseOrder.name
+  has_many :transfers, :through=>:parts, :source=>:expense, :source_type=>Transfer.name
 
   attr_readonly :company_id, :entity_id
   attr_protected :parts_amount, :account_id
@@ -180,7 +180,7 @@ class Payment < ActiveRecord::Base
       mode_account = self.mode.account.name
       
       account_bank_id = self.company.accounts.find(:first, :conditions=>["number LIKE ?", '512%']).id
-      bank_name = (self.mode.bank_account_id ? (self.mode.bank_account.bank_name || 'Banque') : 'Banque')
+      bank_name = (self.mode.cash_id ? (self.mode.cash.bank_name || 'Banque') : 'Banque')
 
      
       self.parts.each do |part|
@@ -211,16 +211,4 @@ class Payment < ActiveRecord::Base
     end
   end
   
-  def self.abstract_class?
-  end
-  
-end
-
-
-
-class ReceivedPayment < Payment
-end
-
-
-class GivenPayment < Payment
 end

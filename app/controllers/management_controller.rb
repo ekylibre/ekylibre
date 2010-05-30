@@ -860,7 +860,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :purchase_order_line_update, :if=>'RECORD.order.moved_on.nil? '
-    t.action :purchase_order_line_delete,  :image=>:delete, :method=>:post, :confirm=>:are_you_sure_to_delete, :if=>'RECORD.order.moved_on.nil? '
+    t.action :purchase_order_line_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>'RECORD.order.moved_on.nil? '
   end
 
   def purchase_order_lines
@@ -996,7 +996,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sale_order}
-    t.action :sale_order_delete , :method=>:post, :if=>'RECORD.estimate? ', :confirm=>tc(:are_you_sure_to_delete)
+    t.action :sale_order_delete, :method=>:delete, :if=>'RECORD.estimate? ', :confirm=>tc(:are_you_sure_to_delete)
   end
   
   def sale_order_delete
@@ -1381,7 +1381,7 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     #t.action :delivery_update, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? '
     t.action :delivery_update, :if=>'!RECORD.order.invoiced'
-    #t.action :delivery_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:post, :confirm=>:are_you_sure_to_delete
+    #t.action :delivery_delete, :if=>'RECORD.invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:delete, :confirm=>:are_you_sure_to_delete
     t.action :delivery_delete, :if=>'!RECORD.order.invoiced', :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
@@ -1545,7 +1545,7 @@ class ManagementController < ApplicationController
     t.column :number, :url=>{:action=>:embankment}
     t.column :amount, :url=>{:action=>:embankment}
     t.column :payments_count
-    t.column :name, :through=>:bank_account
+    t.column :name, :through=>:cash
     t.column :label, :through=>:embanker
     t.column :created_on
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:embankment}
@@ -1553,7 +1553,7 @@ class ManagementController < ApplicationController
     t.action :embankment_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>'RECORD.locked == false'
   end
 
-#  dyli(:bank_account, :attributes => [:name], :conditions => {:company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
+#  dyli(:cash, :attributes => [:name], :conditions => {:company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
   dyta(:embankment_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :embankment_id=>['session[:embankment_id]']}, :per_page=>1000) do |t|
     t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
@@ -1647,11 +1647,30 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
   
+
   dyta(:payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :direction_label
     t.column :name
-    t.column :label, :through=>:account
+    t.column :nature_label
+    t.column :label, :through=>:account, :url=>{:controller=>:accountancy, :action=>:account}
     t.action :payment_mode_update
-    t.action :payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
+    t.action :payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
+  end
+  
+  dyta(:received_payment_modes, :model=>:payment_modes, :conditions=>{:company_id=>['@current_company.id'], :direction=>'received'}) do |t|
+    t.column :name
+    t.column :nature_label
+    t.column :label, :through=>:account, :url=>{:controller=>:accountancy, :action=>:account}
+    t.action :payment_mode_update
+    t.action :payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
+  end
+  
+  dyta(:given_payment_modes, :model=>:payment_modes, :conditions=>{:company_id=>['@current_company.id'], :direction=>'given'}) do |t|
+    t.column :name
+    t.column :nature_label
+    t.column :label, :through=>:account, :url=>{:controller=>:accountancy, :action=>:account}
+    t.action :payment_mode_update
+    t.action :payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
   
   dyli(:account, ["number:X%", :name], :conditions =>{:company_id=>['@current_company.id']})
@@ -1659,6 +1678,8 @@ class ManagementController < ApplicationController
   def payment_modes
   end
 
+  # manage :received_payment_modes, :nature=>"'other'", :partial=>'payment_mode_form'
+  # manage :given_payment_modes, :nature=>"'other'", :partial=>'payment_mode_form'
   manage :payment_modes, :nature=>"'other'"
 
 
@@ -2128,7 +2149,7 @@ class ManagementController < ApplicationController
     t.column :created_on
     t.column :amount
     t.column :payments_count
-    t.column :name, :through=>:bank_account
+    t.column :name, :through=>:cash
     t.check :validated, :value=>'RECORD.created_on<=Date.today-(15)'
   end
 

@@ -25,8 +25,6 @@
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  deleted_at   :datetime         
-#  deleter_id   :integer          
 #  description  :text             
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
@@ -42,18 +40,14 @@ class EntityCategory < ActiveRecord::Base
   has_many :prices, :foreign_key=>:category
   validates_uniqueness_of :code, :scope=>:company_id
 
-
   def before_validation
     EntityCategory.update_all({:by_default=>false}, ["company_id=? AND id!=?", self.company_id, self.id||0]) if self.by_default
     self.code = self.name.to_s.codeize if self.code.blank?
     self.code = self.code[0..7]
   end
- 
 
-  def before_destroy
-    self.update_attributes(:deleted_at=>Time.now)
-    return false
-    # EntityCategory.create!(self.attributes.merge({:deleted_at=>true, :code=>self.code.to_s+" ", :company_id=>self.company_id})) 
+  def destroyable?
+    self.entities.size <= 0 and self.prices.size <= 0
   end
   
 end

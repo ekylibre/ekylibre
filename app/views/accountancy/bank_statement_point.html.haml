@@ -1,7 +1,7 @@
 =toolbar do |t|
-  - t.link :bank_account_statement_update, :id=>@bank_account_statement.id
-=evalue(@bank_account_statement, :started_on)
-=evalue(@bank_account_statement, :stopped_on)
+  - t.link :bank_statement_update, :id=>@bank_statement.id
+=evalue(@bank_statement, :started_on)
+=evalue(@bank_statement, :stopped_on)
 %h2=tc(:entries_to_point)
 -form_tag do
   %table.dyta
@@ -13,14 +13,14 @@
       %th=JournalEntry.human_attribute_name("debit")
       %th=JournalEntry.human_attribute_name("credit")
     - for @journal_entry in @journal_entries
-      -checked = (@journal_entry.statement_id==@bank_account_statement.id)
+      -checked = (@journal_entry.statement_id==@bank_statement.id)
       -trid = "e#{@journal_entry.id}"
       %tr{:id=>trid, :class=>(checked ? "notice " : "")+cycle("even", "odd")}
         %td.chk
           -if @journal_entry.statement_id.nil? or checked
             =check_box_tag("journal_entry[#{@journal_entry.id}][checked]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t1();" ) 
           -else
-            =link_to(@journal_entry.statement.number, :action=>:bank_account_statement, :id=>@journal_entry.statement.id)
+            =link_to(@journal_entry.statement.number, :action=>:bank_statement, :id=>@journal_entry.statement.id)
         %td=link_to(@journal_entry.record.number, :action=>:journal_record, :id=>@journal_entry.record_id)
         %td=I18n.localize(@journal_entry.record.created_on)
         %td=@journal_entry.name
@@ -28,8 +28,8 @@
         %td.decimal.credit=@journal_entry.credit
     %tr.total
       %th{:colspan=>4}=tg(:total)
-      %td#total-debit=@bank_account_statement.debit || 0
-      %td#total-credit=@bank_account_statement.credit || 0
+      %td#total-debit=@bank_statement.debit || 0
+      %td#total-credit=@bank_statement.credit || 0
   .actions=submit_tag(tg(:save))
 :javascript
   window.t1 = function() {

@@ -1,7 +1,7 @@
 class NormalizeAccountizing < ActiveRecord::Migration
 
-  TABLES_DELETED = [:accounts, :bank_accounts, :companies, :contacts, :document_templates, :entity_categories, :journals, :taxes]
-  TABLES_DEFAULT = [:bank_accounts, :contacts, :document_templates, :entity_categories, :prices]
+  TABLES_DELETED = [:accounts, :cashes, :companies, :document_templates, :entity_categories, :journals, :taxes]
+  TABLES_DEFAULT = [:cashes, :contacts, :document_templates, :entity_categories, :prices]
   TABLES_LANGUAGE = [:document_templates, :users, :entities]
 
   def self.up
@@ -27,16 +27,17 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     drop_table :price_taxes
 
-    # Change "deleted" columns with "deleted_at" and "deleter_id"
+    rename_table :bank_accounts, :cashes
+
+    rename_table :bank_account_statements, :bank_statements
+
+    # Remove "deleted"
     # > accounts, bank_accounts, companies, contacts, document_templates, entity_categories, journals, taxes
-    # > users (add deleter_id only)
+    # > users 
     for table in TABLES_DELETED
-      add_column table, :deleted_at, :datetime
-      add_column table, :deleter_id, :integer, :references=>:users
-      execute "UPDATE #{table} SET deleted_at=updated_at WHERE deleted=#{quoted_true}"
       remove_column table, :deleted
     end
-    add_column :users, :deleter_id, :integer, :references=>:users
+    remove_column :users, :deleted_at
 
     # Rename "default" columns with "by_default" (Which is not a SQL word)
     # bank_accounts, contacts, document_templates, entity_categories, prices
@@ -54,17 +55,22 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :accounts, :transferable
     remove_column :accounts, :usable
 
-    remove_column :bank_account_statements, :intermediate
-    add_column :bank_account_statements, :currency_debit,  :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
-    add_column :bank_account_statements, :currency_credit, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
-    execute "UPDATE bank_account_statements SET currency_debit=debit, currency_credit=credit"
+    remove_column :bank_statements, :intermediate
+    rename_column :bank_statements, :bank_account_id, :cash_id
+    add_column :bank_statements, :currency_debit,  :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
+    add_column :bank_statements, :currency_credit, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
+    execute "UPDATE bank_statements SET currency_debit=debit, currency_credit=credit"
+
+    change_column_null :cashes, :iban, true
+    change_column_null :cashes, :iban_label, true
+    add_column :cashes, :nature, :string, :limit=>16, :null=>false, :default=>"BankAccount"
 
     change_column :companies, :code, :string, :limit=>16
 
+    rename_column :contacts, :stopped_at, :deleted_at
     remove_column :contacts, :started_at
-    remove_column :contacts, :stopped_at
     remove_column :contacts, :closed_on
-    execute "UPDATE contacts SET deleted_at=updated_at WHERE active=#{quoted_false}"
+    remove_column :contacts, :deleted
     remove_column :contacts, :active
 
     add_column :currencies, :by_default, :boolean, :null=>false, :default=>false
@@ -73,6 +79,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     change_column :delivery_modes, :code, :string, :limit=>8
 
     add_column :embankments, :accounted_at, :datetime
+    rename_column :embankments, :bank_account_id, :cash_id
 
     add_column :entities, :prospect, :boolean, :null=>false, :default=>false
     rename_column :entities, :name, :last_name
@@ -102,6 +109,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :journal_entries, :editable
     remove_column :journal_entries, :currency_rate
     remove_column :journal_entries, :currency_id
+    remove_column :journal_entries, :intermediate_id
     
     # > Interface don't permit to add currencies therefore there is only EURO which is the default and unique currency...
     remove_column :journal_records, :financialyear_id
@@ -112,25 +120,35 @@ class NormalizeAccountizing < ActiveRecord::Migration
     if (currencies=select_all("SELECT * FROM currencies")).size > 0
       execute "UPDATE journal_records SET currency_debit=debit, currency_credit=credit, currency_rate=1, currency_id=CASE "+currencies.collect{|l| "WHEN company_id=#{l['company_id']} THEN #{l['id']}"}.join(" ")+" ELSE 0 END"
     end
+
     add_column :listings, :source, :text
 
+    rename_column :payment_modes, :bank_account_id, :cash_id
     remove_column :payment_modes, :nature
     change_column :payment_modes, :mode, :string, :limit=>16
     rename_column :payment_modes, :mode, :nature
-    add_column :payment_modes, :type, :string, :limit=>64, :null=>false, :default=>'ReceivedPaymentMode' #  / GivenPaymentMode
+    add_column :payment_modes, :direction, :string, :limit=>64, :null=>false, :default=>'received' #  / given
+    add_column :payment_modes, :published, :boolean, :null=>true, :default=>false
+    add_column :payment_modes, :with_accounting, :boolean, :null=>false, :default=>false
+    add_column :payment_modes, :with_embankment, :boolean, :null=>false, :default=>false
+    add_column :payment_modes, :with_commission, :boolean, :null=>false, :default=>false
+    add_column :payment_modes, :commission_percent, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
+    add_column :payment_modes, :commission_account_id, :integer
+    execute "UPDATE payment_modes SET with_accounting=#{quoted_true}, with_embankment=(nature='check' OR nature='card')"
     execute "UPDATE payment_modes SET nature='check' WHERE LENGTH(TRIM(COALESCE(nature, ''))) <= 0"
-    execute "INSERT INTO payment_modes (nature, type, name, account_id, company_id, created_at, updated_at) SELECT nature, 'GivenPaymentMode', name, account_id, company_id, created_at, updated_at FROM payment_modes" # WHERE id IN (SELECT mode_id FROM payment_parts JOIN payments ON (payment_id=payments.id) WHERE expense_type='PurchaseOrder')"
+    execute "INSERT INTO payment_modes (nature, direction, name, account_id, company_id, created_at, updated_at) SELECT nature, 'given', name, account_id, company_id, created_at, updated_at FROM payment_modes" 
+    # WHERE id IN (SELECT mode_id FROM payment_parts JOIN payments ON (payment_id=payments.id) WHERE expense_type='PurchaseOrder')"
 
     remove_column :payments, :account_id
     add_column :payments, :receipt, :text
-    add_column :payments, :type, :string, :limit=>64, :null=>true, :default=>'ReceivedPayment' #  / GivenPayment
+    add_column :payments, :direction, :string, :limit=>64, :null=>true, :default=>'received' #  / given
     suppliers=select_all("SELECT payments.id, entity_id from payment_parts JOIN payments ON (payments.id=payment_id) where expense_type='PurchaseOrder'")
-    modes    =select_all("SELECT a.id AS g, b.id AS r FROM payment_modes AS a JOIN payment_modes AS b ON (a.type='GivenPaymentMode' AND b.type='ReceivedPaymentMode' AND a.nature=b.nature AND a.name=b.name AND a.company_id=b.company_id)")
+    modes    =select_all("SELECT a.id AS g, b.id AS r FROM payment_modes AS a JOIN payment_modes AS b ON (a.direction='given' AND b.direction='received' AND a.nature=b.nature AND a.name=b.name AND a.company_id=b.company_id)")
     if suppliers.size > 0 and modes.size > 0
       suppliers = "CASE "+suppliers.collect{|l| "WHEN id=#{l['id']} THEN #{l['entity_id']}"}.join(" ")+" ELSE 0 END"
       modes = "CASE "+modes.collect{|l| "WHEN mode_id=#{l['r']} THEN #{l['g']}"}.join(" ")+" ELSE 0 END"
       entities  = "CASE "+select_all("SELECT * FROM companies").collect{|l| "WHEN company_id=#{l['id']} THEN #{l['entity_id']}"}.join(" ")+" ELSE 0 END"
-      execute "UPDATE payments SET type='GivenPayment', entity_id=#{suppliers}, mode_id=#{modes} WHERE entity_id=#{entities}"
+      execute "UPDATE payments SET direction='given', entity_id=#{suppliers}, mode_id=#{modes} WHERE entity_id=#{entities}"
     end
 
     change_column :products, :code, :string, :limit=>16
@@ -154,27 +172,27 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     # Update some values in tables
     # > Parameters, journals, percent
-    execute("UPDATE document_templates SET source=REPLACE(source, 'employee', 'responsible'), cache=REPLACE(cache, 'employee', 'responsible')")
-    execute("UPDATE document_templates SET nature='balance_sheet' WHERE nature='financialyear' AND code LIKE 'BILAN%'")
-    execute("UPDATE document_templates SET nature='income_statement' WHERE nature='financialyear'")
-    execute("UPDATE journals SET nature='sales' WHERE nature='sale'")
-    execute("UPDATE journals SET nature='purchases' WHERE nature='purchase'")
-    execute("UPDATE journals SET nature='forward' WHERE nature='renew'")
-    execute("UPDATE parameters SET name='accountancy.journals.sales' WHERE name='accountancy.default_journals.sales'")
-    execute("UPDATE parameters SET name='accountancy.journals.purchases' WHERE name='accountancy.default_journals.purchase'")
-    execute("UPDATE parameters SET name='accountancy.journals.bank' WHERE name='accountancy.default_journals.bank'")
+    execute "UPDATE document_templates SET source=REPLACE(source, 'employee', 'responsible'), cache=REPLACE(cache, 'employee', 'responsible')"
+    execute "UPDATE document_templates SET nature='balance_sheet' WHERE nature='financialyear' AND code LIKE 'BILAN%'"
+    execute "UPDATE document_templates SET nature='income_statement' WHERE nature='financialyear'"
+    execute "UPDATE journals SET nature='sales' WHERE nature='sale'"
+    execute "UPDATE journals SET nature='purchases' WHERE nature='purchase'"
+    execute "UPDATE journals SET nature='forward' WHERE nature='renew'"
+    execute "UPDATE parameters SET name='accountancy.journals.sales' WHERE name='accountancy.default_journals.sales'"
+    execute "UPDATE parameters SET name='accountancy.journals.purchases' WHERE name='accountancy.default_journals.purchase'"
+    execute "UPDATE parameters SET name='accountancy.journals.bank' WHERE name='accountancy.default_journals.bank'"
     execute "UPDATE taxes SET amount=amount*100 WHERE nature='percent'"
   end
 
   def self.down
     # Update some values in tables
     execute "UPDATE taxes SET amount=amount/100 WHERE nature='percent'"
-    execute("UPDATE parameters SET name='accountancy.default_journals.bank' WHERE name='accountancy.journals.bank'")
-    execute("UPDATE parameters SET name='accountancy.default_journals.purchase' WHERE name='accountancy.journals.purchases'")
-    execute("UPDATE parameters SET name='accountancy.default_journals.sales' WHERE name='accountancy.journals.sales'")
-    execute("UPDATE journals SET nature='renew' WHERE nature='forward'")
-    execute("UPDATE journals SET nature='purchase' WHERE nature='purchases'")
-    execute("UPDATE journals SET nature='sale' WHERE nature='sales'")
+    execute "UPDATE parameters SET name='accountancy.default_journals.bank' WHERE name='accountancy.journals.bank'"
+    execute "UPDATE parameters SET name='accountancy.default_journals.purchase' WHERE name='accountancy.journals.purchases'"
+    execute "UPDATE parameters SET name='accountancy.default_journals.sales' WHERE name='accountancy.journals.sales'"
+    execute "UPDATE journals SET nature='renew' WHERE nature='forward'"
+    execute "UPDATE journals SET nature='purchase' WHERE nature='purchases'"
+    execute "UPDATE journals SET nature='sale' WHERE nature='sales'"
 
     # Add/remove columns
     add_column :users, :credits, :boolean, :null=>false, :default=>false
@@ -197,18 +215,25 @@ class NormalizeAccountizing < ActiveRecord::Migration
     if (suppliers=select_all("SELECT payments.id, entity_id from payment_parts JOIN payments ON (payments.id=payment_id) where expense_type='PurchaseOrder'")).size > 0
       suppliers = "CASE "+suppliers.collect{|l| "WHEN id=#{l['id']} THEN #{l['entity_id']}"}.join(" ")+" ELSE 0 END"
       entities  = "CASE "+select_all("SELECT * FROM companies").collect{|l| "WHEN company_id=#{l['id']} THEN #{l['entity_id']}"}.join(" ")+" ELSE 0 END"
-      modes = "CASE "+select_all("SELECT a.id AS g, b.id AS r FROM payment_modes AS a JOIN payment_modes AS b ON (a.type='GivenPaymentMode' AND b.type='ReceivedPaymentMode' AND a.nature=b.nature AND a.name=b.name AND a.company_id=b.company_id)").collect{|l| "WHEN mode_id=#{l['g']} THEN #{l['r']}"}.join(" ")+" ELSE 0 END"
+      modes = "CASE "+select_all("SELECT a.id AS g, b.id AS r FROM payment_modes AS a JOIN payment_modes AS b ON (a.direction='given' AND b.direction='received' AND a.nature=b.nature AND a.name=b.name AND a.company_id=b.company_id)").collect{|l| "WHEN mode_id=#{l['g']} THEN #{l['r']}"}.join(" ")+" ELSE 0 END"
       execute "UPDATE payments SET entity_id=#{entities}, mode_id=#{modes} WHERE entity_id=#{suppliers}"
     end
-    remove_column :payments, :type
+    remove_column :payments, :direction
     remove_column :payments, :receipt
     add_column :payments, :account_id, :integer
 
-    execute "DELETE FROM payment_modes WHERE type='GivenPaymentMode'"
-    remove_column :payment_modes, :type
+    execute "DELETE FROM payment_modes WHERE direction='given'"
+    remove_column :payment_modes, :commission_account_id
+    remove_column :payment_modes, :commission_percent
+    remove_column :payment_modes, :with_commission
+    remove_column :payment_modes, :with_embankment
+    remove_column :payment_modes, :with_accounting
+    remove_column :payment_modes, :published
+    remove_column :payment_modes, :direction
     rename_column :payment_modes, :nature, :mode
     # change_column :payment_modes, :mode, :string, :limit=>16
     add_column :payment_modes, :nature, :string, :limit=>1, :default=>"U"
+    rename_column :payment_modes, :cash_id, :bank_account_id
 
     remove_column :listings, :source
 
@@ -222,6 +247,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
       execute "UPDATE journal_records SET financialyear_id=CASE "+financialyears.collect{|l| "WHEN company_id=#{l['company_id']} AND printed_on BETWEEN #{quote(l['started_on'].to_date)} AND #{quote(l['stopped_on'].to_date)} THEN #{l['id']}"}.join(" ")+" ELSE 0 END"
     end
     
+    add_column :journal_entries, :intermediate_id, :integer
     add_column :journal_entries, :currency_id, :integer, :null=>false, :default=>0
     add_column :journal_entries, :currency_rate, :decimal, :null=>false, :precision=>16, :scale=>6, :default=>0.0
     add_column :journal_entries, :editable, :boolean, :null=>false, :default=>true
@@ -251,6 +277,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     rename_column :entities, :last_name, :name
     remove_column :entities, :prospect
 
+    rename_column :embankments, :cash_id, :bank_account_id
     remove_column :embankments, :accounted_at
 
     # change_column :delivery_modes, :code, :string, :limit=>8
@@ -258,16 +285,24 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :currencies, :by_default
 
     add_column :contacts, :active, :boolean, :null=>false, :default=>false
+    add_column :contacts, :deleted, :boolean, :null=>false, :default=>false
     add_column :contacts, :closed_on, :date
-    add_column :contacts, :stopped_at, :datetime
     add_column :contacts, :started_at, :datetime
-    execute "UPDATE contacts SET started_at=created_at, stopped_at=deleted_at, active=(stopped_at IS NULL)"
-    
+    rename_column :contacts, :deleted_at, :stopped_at
+    execute "UPDATE contacts SET started_at=created_at, active=(stopped_at IS NULL), deleted=(stopped_at IS NOT NULL)"
+
     # change_column :companies, :code, :string, :limit=>16
 
-    remove_column :bank_account_statements, :currency_credit
-    remove_column :bank_account_statements, :currency_debit
-    add_column :bank_account_statements, :intermediate, :boolean, :null=>false, :default=>false
+
+    remove_column :cashes, :nature
+    # change_column_null :cashes, :iban_label, true
+    # change_column_null :cashes, :iban, true
+
+
+    remove_column :bank_statements, :currency_credit
+    remove_column :bank_statements, :currency_debit
+    rename_column :bank_statements, :cash_id, :bank_account_id
+    add_column :bank_statements, :intermediate, :boolean, :null=>false, :default=>false
 
     add_column :accounts, :usable, :boolean, :null=>false, :default=>true
     add_column :accounts, :transferable, :boolean, :null=>false, :default=>false
@@ -284,13 +319,14 @@ class NormalizeAccountizing < ActiveRecord::Migration
     end
 
     # Remove deleted_at/deleter_id
-    remove_column :users, :deleter_id
+    add_column :users, :deleted_at, :datetime
     for table in TABLES_DELETED.reverse
       add_column table, :deleted, :boolean, :null=>false, :default=>false
-      execute "UPDATE #{table} SET deleted=#{quoted_true} WHERE deleted_at IS NOT NULL"
-      remove_column table, :deleter_id
-      remove_column table, :deleted_at
     end
+
+    rename_table :bank_statements, :bank_account_statements
+
+    rename_table :cashes, :bank_accounts
 
     # Create price_taxes
     create_table :price_taxes, :force => true do |t|
@@ -331,7 +367,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     end
 
     for table in TABLES_LANGUAGE.reverse
-      add_column table, :language_id, :integer, :integer, :null=>false, :default=>0
+      add_column table, :language_id, :integer, :null=>false, :default=>0
       execute "UPDATE #{table} SET language_id=#{languages}" if languages
       remove_column table, :language
     end

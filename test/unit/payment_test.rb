@@ -22,13 +22,14 @@
 #
 #  account_number :string(255)      
 #  accounted_at   :datetime         
-#  amount         :decimal(, )      not null
+#  amount         :decimal(16, 2)   not null
 #  bank           :string(255)      
 #  check_number   :string(255)      
 #  company_id     :integer          not null
 #  created_at     :datetime         not null
 #  created_on     :date             
 #  creator_id     :integer          
+#  direction      :string(64)       default("received")
 #  embanker_id    :integer          
 #  embankment_id  :integer          
 #  entity_id      :integer          
@@ -37,12 +38,11 @@
 #  mode_id        :integer          not null
 #  number         :string(255)      
 #  paid_on        :date             
-#  parts_amount   :decimal(, )      
+#  parts_amount   :decimal(16, 2)   
 #  receipt        :text             
 #  received       :boolean          default(TRUE), not null
 #  scheduled      :boolean          not null
 #  to_bank_on     :date             default(CURRENT_DATE), not null
-#  type           :string(64)       default("ReceivedPayment")
 #  updated_at     :datetime         not null
 #  updater_id     :integer          
 #

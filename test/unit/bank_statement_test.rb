@@ -18,16 +18,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: bank_account_statements
+# == Table: bank_statements
 #
-#  bank_account_id :integer          not null
+#  cash_id         :integer          not null
 #  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
-#  credit          :decimal(, )      default(0.0), not null
+#  credit          :decimal(16, 2)   default(0.0), not null
 #  currency_credit :decimal(16, 2)   default(0.0), not null
 #  currency_debit  :decimal(16, 2)   default(0.0), not null
-#  debit           :decimal(, )      default(0.0), not null
+#  debit           :decimal(16, 2)   default(0.0), not null
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  number          :string(255)      not null
@@ -36,51 +36,12 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer          
 #
-#
-# == Fixture: bank_account_statements
-#
-# bank_account_statements_001:
-#   bank_account_id: 1
-#   company_id: 1
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   credit: 0
-#   currency_credit: 0
-#   currency_debit: 0
-#   debit: 0
-#   id: 1
-#   number: "Lorem ipsum"
-#   started_on: 2009-07-19
-#   stopped_on: 2009-07-19
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-#
 
-bank_account_statements_001:
-  bank_account_id: 1
-  company_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  credit: 0
-  debit: 0
-  id: 1
-  number: "000000000001"
-  started_on: 2009-06-19
-  stopped_on: 2009-07-19
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+require 'test_helper'
 
-bank_account_statements_002:
-  bank_account_id: 1
-  company_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  credit: 0
-  debit: 0
-  id: 2
-  number: "000000000002"
-  started_on: 2009-07-19
-  stopped_on: 2009-07-19
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+class BankStatementTest < ActiveSupport::TestCase
+  # Replace this with your real tests.
+  def test_truth
+    assert true
+  end
+end

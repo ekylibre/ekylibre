@@ -20,18 +20,24 @@
 # 
 # == Table: payment_modes
 #
-#  account_id      :integer          
-#  bank_account_id :integer          
-#  company_id      :integer          not null
-#  created_at      :datetime         not null
-#  creator_id      :integer          
-#  id              :integer          not null, primary key
-#  lock_version    :integer          default(0), not null
-#  name            :string(50)       not null
-#  nature          :string(16)       
-#  type            :string(64)       default("ReceivedPaymentMode"), not null
-#  updated_at      :datetime         not null
-#  updater_id      :integer          
+#  account_id            :integer          
+#  cash_id               :integer          
+#  commission_account_id :integer          
+#  commission_percent    :decimal(16, 2)   default(0.0), not null
+#  company_id            :integer          not null
+#  created_at            :datetime         not null
+#  creator_id            :integer          
+#  direction             :string(64)       default("received"), not null
+#  id                    :integer          not null, primary key
+#  lock_version          :integer          default(0), not null
+#  name                  :string(50)       not null
+#  nature                :string(16)       
+#  published             :boolean          
+#  updated_at            :datetime         not null
+#  updater_id            :integer          
+#  with_accounting       :boolean          not null
+#  with_commission       :boolean          not null
+#  with_embankment       :boolean          not null
 #
 
 require 'test_helper'

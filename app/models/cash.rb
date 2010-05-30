@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: bank_accounts
+# == Table: cashes
 #
 #  account_id   :integer          not null
 #  address      :text             
@@ -31,23 +31,22 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  currency_id  :integer          not null
-#  deleted_at   :datetime         
-#  deleter_id   :integer          
 #  entity_id    :integer          
-#  iban         :string(34)       not null
-#  iban_label   :string(48)       not null
+#  iban         :string(34)       
+#  iban_label   :string(48)       
 #  id           :integer          not null, primary key
 #  journal_id   :integer          not null
 #  key          :string(255)      
 #  lock_version :integer          default(0), not null
 #  mode         :string(255)      default("IBAN"), not null
 #  name         :string(255)      not null
+#  nature       :string(16)       default("BankAccount"), not null
 #  number       :string(255)      
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
 
-class BankAccount < ActiveRecord::Base
+class Cash < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :account
   belongs_to :company
@@ -55,7 +54,7 @@ class BankAccount < ActiveRecord::Base
   belongs_to :entity
   belongs_to :journal
   has_many :embankments
-  has_many :statements, :class_name=>BankAccountStatement.name
+  has_many :statements, :class_name=>BankStatement.name
   validates_inclusion_of :mode, :in=>%w( bban iban )
   validates_uniqueness_of :account_id
 
@@ -82,6 +81,11 @@ class BankAccount < ActiveRecord::Base
     end
     errors.add(:iban, :invalid) unless self.class.valid_iban?(self.iban) 
   end
+
+  def destroyable?
+    self.embankments.size <= 0 and self.statements.size <= 0
+  end
+
 
   def use_mode?(value=:iban)
     self.mode.to_s.lower == value.to_s.lower

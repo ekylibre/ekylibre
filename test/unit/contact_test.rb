@@ -29,7 +29,6 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  deleted_at   :datetime         
-#  deleter_id   :integer          
 #  email        :string(255)      
 #  entity_id    :integer          not null
 #  fax          :string(32)       

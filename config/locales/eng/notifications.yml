@@ -27,6 +27,7 @@ eng:
     #>mails_are_sent: 'Les courriels ont été envoyés'
     #>need_balanced_journal_to_tax_declaration: 'Tous vos journaux doivent être clôturés et équilibrés à cette date.'
     #>need_bank_account_to_record_statements: 'Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte.'
+    #>need_cash_to_record_statements: '(((NEED_CASH_TO_RECORD_STATEMENTS)))'
     #>need_closed_financialyear_to_declaration: 'Vous devez avoir un exercice clôturé pour créer une déclaration de TVA.'
     #>need_company_code_to_login: 'Vous devez sélectionner votre société pour pouvoir vous connecter avec ce nom d''utilisateur'
     #>need_entries_to_point: 'Aucune écriture n''a été trouvé pour la période du relevé bancaire.'

@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: bank_accounts
+# == Table: cashes
 #
 #  account_id   :integer          not null
 #  address      :text             
@@ -31,17 +31,16 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  currency_id  :integer          not null
-#  deleted_at   :datetime         
-#  deleter_id   :integer          
 #  entity_id    :integer          
-#  iban         :string(34)       not null
-#  iban_label   :string(48)       not null
+#  iban         :string(34)       
+#  iban_label   :string(48)       
 #  id           :integer          not null, primary key
 #  journal_id   :integer          not null
 #  key          :string(255)      
 #  lock_version :integer          default(0), not null
 #  mode         :string(255)      default("IBAN"), not null
 #  name         :string(255)      not null
+#  nature       :string(16)       default("BankAccount"), not null
 #  number       :string(255)      
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
@@ -49,7 +48,7 @@
 
 require 'test_helper'
 
-class BankAccountTest < ActiveSupport::TestCase
+class CashTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   def test_truth
     assert true

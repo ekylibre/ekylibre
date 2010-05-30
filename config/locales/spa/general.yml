@@ -128,16 +128,18 @@ spa:
       #>error_delete: 'Le compte ne peut être effacé car il contient des sous-comptes.'
       #>label: '{{number}} - {{name}}'
     bank_account:
+    bank_account_statement:
+    bank_statement:
+      #>error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'
+      #>error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
+      #>error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'
+      #>error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
+    cash:
       #>bban: 'Relevé d''identité bancaire (RIB)'
       #>bban_unvalid_key: 'Un ou plusieurs éléments du RIB sont incorrects.'
       #>iban: 'IBAN'
       #>iban_length: 'La longueur de l''IBAN n''est pas correcte.'
       #>iban_unvalid_key: 'La clé de l''IBAN n''est pas correcte.'
-    bank_account_statement:
-      #>error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'
-      #>error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
-      #>error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'
-      #>error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
     company:
       #>cant_find_document_template: 'Impossible de trouver le modèle de document correspondant'
       default:
@@ -176,7 +178,7 @@ spa:
             embankment:
               #>filename: 'Remise de chèques du [created_on]'
             inventory:
-              #>filename: 'Inventaire du [date]'
+              #>filename: 'Inventaire du [created_on]'
             invoice:
               #>filename: 'Facture [number]'
               #>to_archive: 'true'
@@ -421,12 +423,16 @@ spa:
         #>in: 'Intrant'
         #>out: 'Sortant'
     payment_mode:
+      directions:
+        #>given: 'Pour les achats'
+        #>received: 'Pour les ventes'
       modes:
-        #>card: 'Carte Bleue'
+      natures:
+        #>card: 'Carte bancaire'
         #>cash: 'Espèces'
         #>check: 'Chèque'
         #>other: 'Autre'
-        #>transfer: 'Transfert'
+        #>transfer: 'Virement'
     price:
       #>label: '{{product}} / {{amount}} {{currency}}'
       #>no_range: 'Pas d''intervalle'
@@ -572,7 +578,7 @@ spa:
       _menu:
         #>accountancy_tasks: 'Travaux comptables'
         #>accountize: 'Bascule comptable'
-        #>bank_account_statements: 'Relevés de compte'
+        #>bank_statements: 'Relevés de compte'
         #>informations: 'Informations'
         #>my_account: 'Mon compte'
         #>parameters: 'Paramètres'

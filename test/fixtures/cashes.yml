@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: bank_accounts
+# == Table: cashes
 #
 #  account_id   :integer          not null
 #  address      :text             
@@ -31,42 +31,40 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  currency_id  :integer          not null
-#  deleted_at   :datetime         
-#  deleter_id   :integer          
 #  entity_id    :integer          
-#  iban         :string(34)       not null
-#  iban_label   :string(48)       not null
+#  iban         :string(34)       
+#  iban_label   :string(48)       
 #  id           :integer          not null, primary key
 #  journal_id   :integer          not null
 #  key          :string(255)      
 #  lock_version :integer          default(0), not null
 #  mode         :string(255)      default("IBAN"), not null
 #  name         :string(255)      not null
+#  nature       :string(16)       default("BankAccount"), not null
 #  number       :string(255)      
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
 #
-# == Fixture: bank_accounts
+# == Fixture: cashes
 #
-# bank_accounts_001:
+# cashes_001:
 #   account_id: 1
 #   by_default: true
 #   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   currency_id: 1
-#   iban: "Lorem ipsum"
-#   iban_label: "Lorem ipsum"
 #   id: 1
 #   journal_id: 1
 #   mode: "Lorem ipsum"
 #   name: "Lorem ipsum"
+#   nature: "Lorem ipsum"
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #
 
-bank_accounts_001:
+cashes_001:
   account_id: 1
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
@@ -82,7 +80,7 @@ bank_accounts_001:
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
-bank_accounts_002:
+cashes_002:
   account_id: 1
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00

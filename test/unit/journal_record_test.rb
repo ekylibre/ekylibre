@@ -25,12 +25,12 @@
 #  created_at      :datetime         not null
 #  created_on      :date             not null
 #  creator_id      :integer          
-#  credit          :decimal(, )      default(0.0), not null
+#  credit          :decimal(16, 2)   default(0.0), not null
 #  currency_credit :decimal(16, 2)   default(0.0), not null
 #  currency_debit  :decimal(16, 2)   default(0.0), not null
 #  currency_id     :integer          default(0), not null
 #  currency_rate   :decimal(16, 6)   default(0.0), not null
-#  debit           :decimal(, )      default(0.0), not null
+#  debit           :decimal(16, 2)   default(0.0), not null
 #  id              :integer          not null, primary key
 #  journal_id      :integer          not null
 #  lock_version    :integer          default(0), not null

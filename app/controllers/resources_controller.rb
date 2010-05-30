@@ -44,7 +44,7 @@ class ResourcesController < ApplicationController
     t.column :name, :through=>:nature
     t.column :started_at
     t.action :event_update, :controller=>:relations
-    t.action :event_delete, :controller=>:relations, :method=>:post, :confirm=>:are_you_sure
+    t.action :event_delete, :controller=>:relations, :method=>:delete, :confirm=>:are_you_sure
   end
 
   dyta(:employee_sale_orders, :model=>:sale_orders, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'created_on desc') do |t|
@@ -56,7 +56,7 @@ class ResourcesController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sale_order}
-    t.action :sale_order_delete ,:controller=>:management,  :method=>:post, :if=>'RECORD.estimate? ', :confirm=>:are_you_sure
+    t.action :sale_order_delete ,:controller=>:management,  :method=>:delete, :if=>'RECORD.estimate? ', :confirm=>:are_you_sure
   end
 
    dyta(:employee_shape_operations, :model=>:operations, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'planned_on desc, name asc') do |t|
@@ -67,7 +67,7 @@ class ResourcesController < ApplicationController
     t.column :tools_list
     t.column :duration
     t.action :operation_update, :image=>:update,:controller=>:production
-    t.action :operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure,:controller=>:production
+    t.action :operation_delete, :method=>:delete, :image=>:delete, :confirm=>:are_you_sure,:controller=>:production
   end
   
   def employee

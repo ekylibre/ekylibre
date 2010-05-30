@@ -21,15 +21,15 @@
 # == Table: operations
 #
 #  company_id     :integer          not null
-#  consumption    :decimal(, )      
+#  consumption    :decimal(16, 4)   
 #  created_at     :datetime         not null
 #  creator_id     :integer          
 #  description    :text             
-#  duration       :decimal(, )      
-#  hour_duration  :decimal(, )      
+#  duration       :decimal(16, 4)   
+#  hour_duration  :decimal(16, 4)   
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
-#  min_duration   :decimal(, )      
+#  min_duration   :decimal(16, 4)   
 #  moved_on       :date             
 #  name           :string(255)      not null
 #  nature_id      :integer          

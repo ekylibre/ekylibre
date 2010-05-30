@@ -73,7 +73,7 @@
     -c << toolbar do
       -link :mandate_create, {:entity_id=>@entity.id}
     -c << dyta(:entity_mandates)
-  -tb.tab(tc(:bank_accounts, :count=>@bank_accounts_count)) do |c|
+  -tb.tab(tc(:cashes, :count=>@cashes_count)) do |c|
     -c << toolbar do
-      -link :bank_account_create, {:controller =>:accountancy, :entity_id=>@entity.id}
-    -c << dyta(:entity_bank_accounts)
+      -link :cash_create, {:controller =>:accountancy, :entity_id=>@entity.id}
+    -c << dyta(:entity_cashes)

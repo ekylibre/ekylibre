@@ -24,8 +24,6 @@
 #  code             :string(16)       not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
-#  deleted_at       :datetime         
-#  deleter_id       :integer          
 #  entity_id        :integer          
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null

@@ -24,7 +24,7 @@
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer          
-#  decimal_value     :decimal(, )      
+#  decimal_value     :decimal(16, 4)   
 #  id                :integer          not null, primary key
 #  integer_value     :integer          
 #  lock_version      :integer          default(0), not null

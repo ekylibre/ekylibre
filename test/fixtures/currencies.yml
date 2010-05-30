@@ -31,7 +31,7 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  rate         :decimal(, )      default(1.0), not null
+#  rate         :decimal(16, 6)   default(1.0), not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #

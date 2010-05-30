@@ -22,12 +22,10 @@
 #
 #  account_collected_id :integer          
 #  account_paid_id      :integer          
-#  amount               :decimal(, )      default(0.0), not null
+#  amount               :decimal(16, 4)   default(0.0), not null
 #  company_id           :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer          
-#  deleted_at           :datetime         
-#  deleter_id           :integer          
 #  description          :text             
 #  id                   :integer          not null, primary key
 #  included             :boolean          not null
@@ -45,6 +43,7 @@ class Tax < ActiveRecord::Base
   belongs_to :account_collected, :class_name=>Account.name
   belongs_to :account_paid, :class_name=>Account.name
   has_many :prices
+  has_many :sale_order_lines
   validates_inclusion_of :nature, :in=>%w( amount percent )
   validates_presence_of :account_collected_id
   validates_presence_of :account_paid_id
@@ -55,8 +54,8 @@ class Tax < ActiveRecord::Base
     errors.add(:amount, :included_in, :minimum=>0.to_s, :maximum=>1.to_s) if (self.amount < 0 or self.amount > 1) and self.percent?
   end
 
-  def before_destroy
-    Tax.create!(self.attributes.merge({:deleted_at=>Time.now, :name=>self.name+" ", :company_id=>self.company_id})) 
+  def destroyable?
+    self.prices.size <= 0 and self.sale_order_lines.size <= 0
   end
   
   def compute(amount, with_taxes=false)

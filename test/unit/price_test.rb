@@ -21,8 +21,8 @@
 # == Table: prices
 #
 #  active            :boolean          default(TRUE), not null
-#  amount            :decimal(, )      not null
-#  amount_with_taxes :decimal(, )      not null
+#  amount            :decimal(16, 4)   not null
+#  amount_with_taxes :decimal(16, 4)   not null
 #  by_default        :boolean          default(TRUE)
 #  category_id       :integer          
 #  company_id        :integer          not null
@@ -33,8 +33,8 @@
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
 #  product_id        :integer          not null
-#  quantity_max      :decimal(, )      default(0.0), not null
-#  quantity_min      :decimal(, )      default(0.0), not null
+#  quantity_max      :decimal(16, 4)   default(0.0), not null
+#  quantity_min      :decimal(16, 4)   default(0.0), not null
 #  started_at        :datetime         
 #  stopped_at        :datetime         
 #  tax_id            :integer          not null

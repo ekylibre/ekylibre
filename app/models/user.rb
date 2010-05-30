@@ -28,8 +28,6 @@
 #  connected_at      :datetime         
 #  created_at        :datetime         not null
 #  creator_id        :integer          
-#  deleted_at        :datetime         
-#  deleter_id        :integer          
 #  departed_on       :date             
 #  department_id     :integer          
 #  email             :string(255)      
@@ -39,14 +37,14 @@
 #  first_name        :string(255)      not null
 #  hashed_password   :string(64)       
 #  id                :integer          not null, primary key
-#  language          :string(3)        
+#  language          :string(3)        default("???"), not null
 #  last_name         :string(255)      not null
 #  lock_version      :integer          default(0), not null
 #  locked            :boolean          not null
 #  name              :string(32)       not null
 #  office            :string(255)      
 #  profession_id     :integer          
-#  reduction_percent :decimal(, )      default(5.0), not null
+#  reduction_percent :decimal(16, 4)   default(5.0), not null
 #  rights            :text             
 #  role_id           :integer          not null
 #  salt              :string(64)       
@@ -62,10 +60,10 @@ class User < ActiveRecord::Base
   belongs_to :establishment
   belongs_to :profession
   belongs_to :role
-  has_many :clients, :class_name=>Entity.name, :foreign_key=>:responsible_id
+  has_many :clients, :class_name=>Entity.name, :foreign_key=>:responsible_id, :dependent=>:nullify
   has_many :events, :foreign_key=>:responsible_id
   has_many :future_events, :class_name=>Event.name, :foreign_key=>:responsible_id, :conditions=>["started_at >= CURRENT_TIMESTAMP"]
-  has_many :parameters
+  has_many :parameters, :dependent=>:destroy
   has_many :sale_orders, :foreign_key=>:responsible_id
   has_many :operations, :foreign_key=>:responsible_id
   has_many :transports, :foreign_key=>:responsible_id
@@ -76,7 +74,7 @@ class User < ActiveRecord::Base
 
   # cattr_accessor :current_user
   attr_accessor :password_confirmation, :old_password
-  attr_protected :hashed_password, :salt, :locked, :deleted_at, :rights
+  attr_protected :hashed_password, :salt, :locked, :rights
   attr_readonly :company_id
 
   # Needed to stamp all records
@@ -97,6 +95,10 @@ class User < ActiveRecord::Base
     end
     self.admin = true if self.rights.nil?
     self.rights_array=self.rights_array # Clean the rights
+  end
+
+  def destroyable?
+    self.events.size <= 0 and self.sale_orders.size <= 0 and self.operations.size <= 0 and self.transports.size <= 0
   end
 
   def label
@@ -158,7 +160,7 @@ class User < ActiveRecord::Base
       user = self.find_by_name_and_company_id(name.to_s.downcase, company.id)
     end
     if user
-      user = nil if user.locked or user.deleted_at or !user.authenticated?(password.to_s)
+      user = nil if user.locked or !user.authenticated?(password.to_s)
     end
     user
   end

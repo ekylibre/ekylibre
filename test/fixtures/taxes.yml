@@ -22,12 +22,10 @@
 #
 #  account_collected_id :integer          
 #  account_paid_id      :integer          
-#  amount               :decimal(, )      default(0.0), not null
+#  amount               :decimal(16, 4)   default(0.0), not null
 #  company_id           :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer          
-#  deleted_at           :datetime         
-#  deleter_id           :integer          
 #  description          :text             
 #  id                   :integer          not null, primary key
 #  included             :boolean          not null

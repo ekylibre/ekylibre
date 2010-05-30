@@ -117,13 +117,12 @@ eng:
         #>total_quantity: 'Quantité totale'
         #>unit: 'Unité'
       delivery_mode_create:
-        #>title: 'Ajout d''un nouveau type de livraison'
+        #>title: 'Ajout d''un nouveau mode de livraison'
       delivery_mode_update:
-        #>title: 'Modification du type de livraison : {{name}}'
+        #>title: 'Modification du mode de livraison : {{name}}'
       delivery_modes:
-        #>title: 'Types de livraison'
+        #>title: 'Modes de livraison'
       _delivery_update:
-        #>title: 'Modification de la livraison'
       delivery_update:
         #>title: 'Modification de la livraison'
       embankment:
@@ -259,12 +258,13 @@ eng:
         #>check: 'Pour les réglements de type chèque'
         #>title: 'Renseignez les conditions du réglement'
       payment_mode_create:
-        #>title: 'Créer un nouveau type de réglement'
+        #>title: 'Ajouter un nouveau mode de réglement'
       payment_mode_update:
-        #>title: 'Modifier le type de réglement : {{name}}'
+        #>title: 'Modifier le mode de réglement : {{name}}'
       payment_modes:
-        #>payment_mode_create: 'Créer un nouveau type de réglement'
-        #>title: 'Types de réglement'
+        #>given_payment_modes: 'Modes de paiement utilisés pour les achats'
+        #>received_payment_modes: 'Modes de paiement utilisés pour les ventes'
+        #>title: 'Modes de réglement'
       payment_part_create:
         #>title: 'Ajouter un nouveau réglement : {{type}} N°{{number}}'
       _payment_part_form:
@@ -631,13 +631,13 @@ eng:
         #>title: 'Transport du {{value}}'
       transport_create:
         #>title: 'Ajout d''un nouveau transport'
-      transport_deliveries:
-        #>title: 'Livraisons du transport'
       _transport_deliveries:
         #>add: 'Ajouter la livraison au transport'
         #>add_delivery: 'Ajouter une livraison'
         #>back: 'Valider et revenir à la liste des transports'
         #>delivery: 'Livraison'
+      transport_deliveries:
+        #>title: 'Livraisons du transport'
       _transport_form:
         #>info: 'Renseignez les informations du transport'
       transport_update:
@@ -684,7 +684,7 @@ eng:
         #>to: ' à l''adresse '
         #>validate: 'Valider'
       unvalidated_embankments:
-        #>bank_account: 'Compte bancaire'
+        #>cash: 'Compte bancaire'
         #>created_on: 'Créée le'
         #>management_index: 'Index de la gestion commerciale'
         #>no_embankments: 'Aucune remise de chèque à valider'

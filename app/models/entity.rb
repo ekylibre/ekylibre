@@ -35,7 +35,7 @@
 #  creator_id                :integer          
 #  dead_on                   :date             
 #  deliveries_conditions     :string(60)       
-#  discount_rate             :decimal(, )      
+#  discount_rate             :decimal(8, 2)    
 #  ean13                     :string(13)       
 #  excise                    :string(15)       
 #  first_met_on              :date             
@@ -44,7 +44,7 @@
 #  hashed_password           :string(64)       
 #  id                        :integer          not null, primary key
 #  invoices_count            :integer          
-#  language                  :string(3)        
+#  language                  :string(3)        default("???"), not null
 #  last_name                 :string(255)      not null
 #  lock_version              :integer          default(0), not null
 #  locked                    :boolean          not null
@@ -56,7 +56,7 @@
 #  photo                     :string(255)      
 #  proposer_id               :integer          
 #  prospect                  :boolean          not null
-#  reduction_rate            :decimal(, )      
+#  reduction_rate            :decimal(8, 2)    
 #  reflation_submissive      :boolean          not null
 #  responsible_id            :integer          
 #  salt                      :string(64)       
@@ -84,7 +84,7 @@ class Entity < ActiveRecord::Base
   belongs_to :proposer, :class_name=>Entity.to_s
   belongs_to :responsible, :class_name=>User.name
   belongs_to :supplier_account, :class_name=>Account.to_s
-  has_many :bank_accounts, :dependent=>:destroy
+  has_many :cashes, :dependent=>:destroy
   has_many :complement_data
   has_many :contacts, :conditions=>{:deleted_at=>nil}
   has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity1_id
@@ -146,13 +146,6 @@ class Entity < ActiveRecord::Base
     return false if self.id == self.company.entity.id
   end
   
-  #
-  def destroy_bank_account
-    self.bank_accounts.find(:all).each do |bank_account|
-      BankAccount.destroy bank_account
-    end
-  end
-
   def self.exportable_columns
     self.content_columns.delete_if{|c| [:active, :lock_version, :webpass, :soundex, :photo, :deliveries_conditions].include?(c.name.to_sym)}
   end
